@@ -1,0 +1,104 @@
+{
+  "altitude": "931",
+  "Beginn Q Ermittlung": "1951",
+  "Beobachtungsbeginn": "1920",
+  "Betreiber": "HD Tirol",
+  "CATCHMENT_NATURAL_SIZE": "785.5",
+  "easting": "193788.0",
+  "Foto": "1",
+  "GAUGE_DATUM": "931.1",
+  "latitude": "47.1631240011395",
+  "longitude": "10.9105170597965",
+  "name": "Tumpen",
+  "northing": "225073.0",
+  "number": "201434",
+  "Profilgrafik": "1",
+  "values": {
+    "Q": {
+      "Cmd.LTV.HMQ": {
+        "v": 6.993,
+        "dt": 1483225200000,
+        "unit": "m³/s"
+      },
+      "Cmd.LTV.MQ": {
+        "v": 4.894,
+        "dt": 1483225200000,
+        "unit": "m³/s"
+      },
+      "Cmd.LTV.NMQ": {
+        "v": 3.941,
+        "dt": 1483225200000,
+        "unit": "m³/s"
+      },
+      "Cmd.Statistik.HHQ": {
+        "v": 410,
+        "dt": 556844400000,
+        "unit": "m³/s"
+      },
+      "Cmd.Statistik.NNQ": {
+        "v": 1.8,
+        "dt": -215658000000,
+        "unit": "m³/s"
+      },
+      "Cmd.Statistik.NQT": {
+        "v": 2.28,
+        "dt": 37666800000,
+        "unit": "m³/s"
+      },
+      "Day.Mean": {
+        "v": 39.236,
+        "dt": 1473807600000,
+        "unit": "m³/s"
+      }
+    },
+    "SSTF": {
+      "15m.Cmd.P": {
+        "v": 112,
+        "dt": 1473947100000,
+        "unit": "mg/l"
+      }
+    },
+    "W": {
+      "15m.Cmd.HD": {
+        "v": 191.2,
+        "dt": 1473947100000,
+        "unit": "cm"
+      },
+      "Cmd.Schwellen.AU": {
+        "v": 440,
+        "dt": 32503680000000,
+        "unit": "cm"
+      },
+      "Cmd.Schwellen.HW1": {
+        "v": 315,
+        "dt": 32503680000000,
+        "unit": "cm"
+      },
+      "Cmd.Schwellen.HW30": {
+        "v": 412,
+        "dt": 32503680000000,
+        "unit": "cm"
+      },
+      "Cmd.Schwellen.HW5": {
+        "v": 363,
+        "dt": 32503680000000,
+        "unit": "cm"
+      },
+      "Cmd.Schwellen.MW": {
+        "v": 192,
+        "dt": 1470351600000,
+        "unit": "cm"
+      }
+    },
+    "WT": {
+      "15m.Cmd.HD": {
+        "v": 9.8,
+        "dt": 1473947100000,
+        "unit": "°C"
+      }
+    }
+  },
+  "web_list_order": "156",
+  "WTO_CATCHMENT": "Inn oberhalb Innsbruck",
+  "WTO_OBJECT": "Ötztaler Ache"
+}
