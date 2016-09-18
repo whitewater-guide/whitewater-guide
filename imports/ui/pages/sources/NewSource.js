@@ -1,14 +1,18 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import TextField from 'material-ui/TextField';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import {ValidationError} from 'meteor/mdg:validation-error';
-
 import {createSource} from '../../../api/sources';
+import {withRouter} from 'react-router';
 
-export default class NewSource extends Component {
+class NewSource extends Component {
+  static propTypes = {
+    router: PropTypes.object,
+  };
+
   state = {
     name: '',
     url: '',
@@ -56,12 +60,15 @@ export default class NewSource extends Component {
   handleChange = (event, index, harvestMode) => this.setState({harvestMode});
 
   onCreate = () => {
-    console.log('On create');
     createSource.callPromise(this.state)
-      .then(result => console.log('Suceess', result))
+      .then(result => this.props.router.push('/sources'))
       .catch(err => {
         if (ValidationError.is(err)){
-
+          const errors = {};
+          err.details.forEach((fieldError) => {
+            errors[fieldError.name] = fieldError.type;
+          });
+          this.setState({errors});
         }
       });
   };
@@ -73,4 +80,6 @@ const styles = {
     margin: '16px auto',
     padding: 16,
   },
-}
+};
+
+export default withRouter(NewSource);
