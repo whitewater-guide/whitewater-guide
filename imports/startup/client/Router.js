@@ -12,7 +12,6 @@ export default class AppRouter extends Component {
         <Route path="/" component={MainLayout}>
           <IndexRoute component={ListSources} />
           <Route path="/sources" component={ListSources}/>
-          <Route path="/sources/new" component={NewSource}/>
           <Route path="/gauges" component={ListGauges}/>
         </Route>
       </Router>

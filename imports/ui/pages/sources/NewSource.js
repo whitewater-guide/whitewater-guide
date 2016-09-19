@@ -2,15 +2,15 @@ import React, {Component, PropTypes} from 'react';
 import TextField from 'material-ui/TextField';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
-import Paper from 'material-ui/Paper';
-import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
+import Dialog from 'material-ui/Dialog';
 import {ValidationError} from 'meteor/mdg:validation-error';
 import {createSource} from '../../../api/sources';
-import {withRouter} from 'react-router';
 
-class NewSource extends Component {
+export default class NewSource extends Component {
   static propTypes = {
-    router: PropTypes.object,
+    onClose: PropTypes.func,
+    open: PropTypes.bool,
   };
 
   state = {
@@ -23,11 +23,12 @@ class NewSource extends Component {
   };
 
   render() {
+    const actions = [
+      <FlatButton label="Cancel" primary={true} fullWidth={true} onMouseUp={this.onCreate} onTouchEnd={this.props.onClose}/>,
+      <FlatButton label="Add" primary={true} fullWidth={true} onMouseUp={this.onCreate} onTouchEnd={this.onCreate}/>
+    ];
     return (
-      <Paper style={styles.paper} zDepth={2}>
-      
-        <h1>New Source</h1>
-        
+      <Dialog title="New Source" actions={actions} open={this.props.open} onRequestClose={this.props.onClose}>
         <TextField value={this.state.name} onChange={(e,name) => this.setState({name})} hintText="Name" floatingLabelText="Name"/>
         <br />
         
@@ -51,9 +52,7 @@ class NewSource extends Component {
                    type="number"/>
         <br />
         <br />
-
-        <RaisedButton label="Add" primary={true} fullWidth={true} onMouseUp={this.onCreate} onTouchEnd={this.onCreate}/>
-      </Paper>
+      </Dialog>
     );
   }
 
@@ -61,7 +60,7 @@ class NewSource extends Component {
 
   onCreate = () => {
     createSource.callPromise(this.state)
-      .then(result => this.props.router.push('/sources'))
+      .then(result => this.props.onClose())
       .catch(err => {
         if (ValidationError.is(err)){
           const errors = {};
@@ -72,14 +71,5 @@ class NewSource extends Component {
         }
       });
   };
+
 }
-
-const styles = {
-  paper: {
-    width: 600,
-    margin: '16px auto',
-    padding: 16,
-  },
-};
-
-export default withRouter(NewSource);
