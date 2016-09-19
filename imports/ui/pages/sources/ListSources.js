@@ -59,6 +59,7 @@ class ListSources extends Component {
   };
 
   removeSource = (sourceId) => {
+    //TODO: show dialog
     removeSource.callPromise({sourceId})
       .then( () => console.log('Sources deleted'))
       .catch( err => console.log('Error while deleting source', err));

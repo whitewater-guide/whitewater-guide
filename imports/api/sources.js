@@ -72,6 +72,7 @@ export const removeSource = new ValidatedMethod({
   },
   
   run({sourceId}) {
+    //TODO: hook gauges removal
     return Sources.remove({_id: sourceId});
   },
   
