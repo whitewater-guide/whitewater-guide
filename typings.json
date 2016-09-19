@@ -3,6 +3,7 @@
     "debug": "registry:npm/debug#2.0.0+20160723033700"
   },
   "globalDependencies": {
+    "material-ui": "registry:dt/material-ui#0.15.1+20160914124448",
     "moment": "registry:dt/moment#2.11.1+20160829143156"
   }
 }

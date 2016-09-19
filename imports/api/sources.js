@@ -56,4 +56,23 @@ export const createSource = new ValidatedMethod({
     //Later add auth check here
     return Sources.insert(data);
   }
-})
+});
+
+export const removeSource = new ValidatedMethod({
+  name: 'sources.remove',
+
+  mixins: [CallPromiseMixin],
+
+  validate: new SimpleSchema({
+    sourceId: { type: String }
+  }).validator(),
+
+  applyOptions: {
+    noRetry: true,
+  },
+  
+  run({sourceId}) {
+    return Sources.remove({_id: sourceId});
+  },
+  
+});

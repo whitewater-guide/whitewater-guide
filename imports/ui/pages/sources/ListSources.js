@@ -1,10 +1,12 @@
 import React, {Component, PropTypes} from 'react';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+import IconButton from 'material-ui/IconButton';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import {Link} from 'react-router';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Sources } from '../../../api/sources';
+import {removeSource} from '../../../api/sources';
 
 class ListSources extends Component {
 
@@ -23,6 +25,7 @@ class ListSources extends Component {
               <TableHeaderColumn>Script ID</TableHeaderColumn>
               <TableHeaderColumn>Harvest type</TableHeaderColumn>
               <TableHeaderColumn>Harvest interval</TableHeaderColumn>
+              <TableHeaderColumn>Controls</TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody displayRowCheckbox={false} stripedRows={true}>
@@ -46,8 +49,19 @@ class ListSources extends Component {
         <TableRowColumn>{src.code}</TableRowColumn>
         <TableRowColumn>{src.harvestMode}</TableRowColumn>
         <TableRowColumn>{src.interval}</TableRowColumn>
+        <TableRowColumn>
+          <IconButton iconClassName="material-icons">mode_edit</IconButton>
+          <IconButton iconClassName="material-icons">schedule</IconButton>
+          <IconButton iconClassName="material-icons" onTouchTap={() => this.removeSource(src._id)}>delete_forever</IconButton>
+        </TableRowColumn>
       </TableRow>
     );
+  };
+
+  removeSource = (sourceId) => {
+    removeSource.callPromise({sourceId})
+      .then( () => console.log('Sources deleted'))
+      .catch( err => console.log('Error while deleting source', err));
   };
 }
 
@@ -65,7 +79,6 @@ const styles = {
 export default createContainer(
   () => {
     const sources = Sources.find({}).fetch();
-    console.log('Found src', sources);
     return { sources };
   },
   ListSources
