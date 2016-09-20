@@ -5,15 +5,12 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Gauges, removeGauge } from '../../../api/gauges';
+import {Link} from 'react-router';
 
 class ListGauges extends Component {
 
   static propTypes = {
     source: PropTypes.object,
-  };
-
-  state = {
-    dialogOpen: false,
   };
 
   render() {
@@ -40,9 +37,11 @@ class ListGauges extends Component {
           </TableBody>
         </Table>
         
-        <FloatingActionButton style={styles.addButton} onTouchTap={() => this.setState({dialogOpen: true})}>
-          <ContentAdd />
-        </FloatingActionButton>
+        <Link to={`/sources/${this.props.source._id}/gauges/new`}> 
+          <FloatingActionButton style={styles.addButton}>
+            <ContentAdd />
+          </FloatingActionButton>
+        </Link>
       </div>
     );
   }

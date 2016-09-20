@@ -33,7 +33,7 @@ export default class NewSource extends Component {
 
   render() {
     const actions = [
-      <FlatButton label="Cancel" primary={true} onMouseUp={this.onCreate} onTouchEnd={this.props.onClose}/>,
+      <FlatButton label="Cancel" primary={true} onMouseUp={this.props.onClose} onTouchEnd={this.props.onClose}/>,
       <FlatButton label="Add" primary={true} onMouseUp={this.onCreate} onTouchEnd={this.onCreate}/>
     ];
     return (
