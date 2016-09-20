@@ -62,7 +62,6 @@ const styles = {
     maxWidth: 1000,
     maxHeight: 600,
     marginTop: 24,
-    paddingBottom: 24,
   },
 }
 

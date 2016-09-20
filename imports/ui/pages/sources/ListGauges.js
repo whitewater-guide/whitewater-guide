@@ -7,7 +7,6 @@ import { createContainer } from 'meteor/react-meteor-data';
 import {withRouter} from 'react-router';
 import { Sources } from '../../../api/sources';
 import {removeSource} from '../../../api/sources';
-import NewSource from './NewSource';
 
 class ListGauges extends Component {
 
@@ -42,8 +41,6 @@ class ListGauges extends Component {
         <FloatingActionButton style={styles.addButton} onTouchTap={() => this.setState({dialogOpen: true})}>
           <ContentAdd />
         </FloatingActionButton>
-
-        <NewSource onClose={() => this.setState({dialogOpen: false})} open={this.state.dialogOpen}/>
       </div>
     );
   }
@@ -77,6 +74,7 @@ class ListGauges extends Component {
 const styles = {
   container: {
     display: 'flex',
+    position: 'relative',
     flexDirection: 'column',
     flex: 1,
     alignItems: 'center',

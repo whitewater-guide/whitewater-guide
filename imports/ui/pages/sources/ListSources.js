@@ -40,7 +40,7 @@ class ListSources extends Component {
               { this.props.sources.map(this.renderRow) }
             </TableBody>
           </Table>
-          
+
           <FloatingActionButton style={styles.addButton} onTouchTap={() => this.setState({dialogOpen: true})}>
             <ContentAdd />
           </FloatingActionButton>
@@ -84,6 +84,7 @@ const styles = {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    position: 'relative',
   },
   paper: {
     flex: 1,
@@ -91,6 +92,7 @@ const styles = {
     marginTop: 80,
     marginBottom: 80,
     paddingBottom: 80,
+    position: 'relative',
   },
   addButton: {
     right: 20,
