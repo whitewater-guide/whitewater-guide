@@ -58,7 +58,7 @@ class ListSources extends Component {
       <TableRow key={src._id}>
         <TableRowColumn>{src.name}</TableRowColumn>
         <TableRowColumn><a href={src.url}>{src.url}</a></TableRowColumn>
-        <TableRowColumn>{src.code}</TableRowColumn>
+        <TableRowColumn>{src.script}</TableRowColumn>
         <TableRowColumn>{src.harvestMode}</TableRowColumn>
         <TableRowColumn>{src.interval}</TableRowColumn>
         <TableRowColumn>

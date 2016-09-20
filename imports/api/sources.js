@@ -1,5 +1,6 @@
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import {Mongo} from 'meteor/mongo';
+import {Meteor} from 'meteor/meteor';
 import {SimpleSchema} from 'meteor/aldeed:simple-schema';
 import {CallPromiseMixin} from 'meteor/didericis:callpromise-mixin';
 
@@ -12,7 +13,7 @@ const sourcesSchema = new SimpleSchema({
     min: 3,
     max: 100,
   },
-  code: {
+  script: {
     type: String,
     label: 'Script name',
     min: 3,
@@ -64,7 +65,7 @@ export const removeSource = new ValidatedMethod({
   mixins: [CallPromiseMixin],
 
   validate: new SimpleSchema({
-    sourceId: { type: String }
+    sourceId: { type: Meteor.ObjectID }
   }).validator(),
 
   applyOptions: {
@@ -73,7 +74,25 @@ export const removeSource = new ValidatedMethod({
   
   run({sourceId}) {
     //TODO: hook gauges removal
-    return Sources.remove({_id: sourceId});
+    return Sources.remove(sourceId);
   },
   
+});
+
+export const listScripts = new ValidatedMethod({
+  name: 'sources.listScripts',
+
+  mixins: [CallPromiseMixin],
+
+  validate: null,
+
+  applyOptions: {
+    returnStubValue: false,
+  },
+  
+  run() {
+    if (!this.isSimulation){
+      return ServerScripts.listScripts();
+    }
+  },
 });
