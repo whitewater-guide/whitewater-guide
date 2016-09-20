@@ -2,12 +2,15 @@ import React, {Component, PropTypes} from 'react';
 import Paper from 'material-ui/Paper';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import ListGauges from './ListGauges';
+import { createContainer } from 'meteor/react-meteor-data';
+import { Sources } from '../../../api/sources';
 
 class ViewSource extends Component {
   static propTypes = {
     params: PropTypes.shape({
       id: PropTypes.string,
     }),
+    source: PropTypes.object,
   };
 
   state = {
@@ -36,7 +39,7 @@ class ViewSource extends Component {
       case 'settings':
         return 'Settings';
       case 'gauges':
-        return (<ListGauges/>);
+        return (<ListGauges source={this.props.source}/>);
       case 'schedule':
         return 'schedule';
       default:
@@ -65,4 +68,9 @@ const styles = {
   },
 }
 
-export default ViewSource;
+export default createContainer(
+  ({params}) => {
+    return { source: Sources.findOne(params.id) };
+  },
+  ViewSource
+);

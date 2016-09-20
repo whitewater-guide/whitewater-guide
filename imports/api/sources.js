@@ -3,6 +3,7 @@ import {Mongo} from 'meteor/mongo';
 import {Meteor} from 'meteor/meteor';
 import {SimpleSchema} from 'meteor/aldeed:simple-schema';
 import {CallPromiseMixin} from 'meteor/didericis:callpromise-mixin';
+import {Gauges} from './gauges';
 
 export const Sources = new Mongo.Collection('sources');
 
@@ -96,3 +97,9 @@ export const listScripts = new ValidatedMethod({
     }
   },
 });
+
+Sources.helpers({
+  gauges(){
+    return Gauges.find({source: this._id});
+  },
+})

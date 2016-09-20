@@ -4,15 +4,12 @@ import IconButton from 'material-ui/IconButton';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import { createContainer } from 'meteor/react-meteor-data';
-import {withRouter} from 'react-router';
-import { Sources } from '../../../api/sources';
-import {removeSource} from '../../../api/sources';
+import { Gauges, removeGauge } from '../../../api/gauges';
 
 class ListGauges extends Component {
 
   static propTypes = {
-    sources: PropTypes.array,
-    router: PropTypes.object,
+    source: PropTypes.object,
   };
 
   state = {
@@ -20,21 +17,26 @@ class ListGauges extends Component {
   };
 
   render() {
+    const gauges = this.props.source.gauges();
     return (
       <div style={styles.container}>
         <Table selectable={false}>
           <TableHeader displaySelectAll={false} adjustForCheckbox={false} >
             <TableRow>
+              <TableHeaderColumn>Status</TableHeaderColumn>
               <TableHeaderColumn>Name</TableHeaderColumn>
+              <TableHeaderColumn>Code</TableHeaderColumn>
               <TableHeaderColumn>URL</TableHeaderColumn>
-              <TableHeaderColumn>Script ID</TableHeaderColumn>
-              <TableHeaderColumn>Harvest type</TableHeaderColumn>
-              <TableHeaderColumn>Harvest interval</TableHeaderColumn>
+              <TableHeaderColumn>Coordinate</TableHeaderColumn>
+              <TableHeaderColumn>Measures</TableHeaderColumn>
+              <TableHeaderColumn>Last value</TableHeaderColumn>
+              <TableHeaderColumn>Last timestamp</TableHeaderColumn>
+              <TableHeaderColumn>Request params</TableHeaderColumn>
               <TableHeaderColumn>Controls</TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody displayRowCheckbox={false} stripedRows={true}>
-            { this.props.sources.map(this.renderRow) }
+            { gauges.map(this.renderRow) }
           </TableBody>
         </Table>
         
@@ -46,15 +48,19 @@ class ListGauges extends Component {
   }
 
   renderRow = (src) => {
-    const viewHandler = () => this.props.router.push(`/sources/${src._id}`);
-    const deleteHandler = () => this.removeSource(src._id);
+    const viewHandler = () => this.props.router.push(`/gauges/${src._id}`);
+    const deleteHandler = () => this.removeGauge(src._id);
     return (
       <TableRow key={src._id}>
+        <TableRowColumn>{src.disabled}</TableRowColumn>
         <TableRowColumn>{src.name}</TableRowColumn>
-        <TableRowColumn><a href={src.url}>{src.url}</a></TableRowColumn>
         <TableRowColumn>{src.code}</TableRowColumn>
-        <TableRowColumn>{src.harvestMode}</TableRowColumn>
-        <TableRowColumn>{src.interval}</TableRowColumn>
+        <TableRowColumn><a href={src.url}>{src.url}</a></TableRowColumn>
+        <TableRowColumn>{`${src.latitude} ${src.logngitude} (${src.altitude})`}</TableRowColumn>
+        <TableRowColumn>{`${src.measurement} (${src.unit})`}</TableRowColumn>
+        <TableRowColumn>{src.lastValue}</TableRowColumn>
+        <TableRowColumn>{src.lastTimestamp}</TableRowColumn>
+        <TableRowColumn>{src.requestParams}</TableRowColumn>
         <TableRowColumn>
           <IconButton iconClassName="material-icons" onTouchTap={viewHandler}>mode_edit</IconButton>
           <IconButton iconClassName="material-icons" onTouchTap={deleteHandler}>delete_forever</IconButton>
@@ -63,9 +69,9 @@ class ListGauges extends Component {
     );
   };
 
-  removeSource = (sourceId) => {
+  removeGauge = (gaugeId) => {
     //TODO: show dialog
-    removeSource.callPromise({sourceId})
+    removeGauge.callPromise({gaugeId})
       .then( () => console.log('Sources deleted'))
       .catch( err => console.log('Error while deleting source', err));
   };
@@ -86,12 +92,4 @@ const styles = {
   },
 };
 
-const ListGaugesContainer = createContainer(
-  () => {
-    const sources = Sources.find({}).fetch();
-    return { sources };
-  },
-  ListGauges
-);
-
-export default withRouter(ListGaugesContainer);
+export default ListGauges;

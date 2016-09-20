@@ -1,9 +1,17 @@
 import {Mongo} from 'meteor/mongo';
+import {Meteor} from 'meteor/meteor';
 import {SimpleSchema} from 'meteor/aldeed:simple-schema';
+import {CallPromiseMixin} from 'meteor/didericis:callpromise-mixin';
+import {ValidatedMethod} from 'meteor/mdg:validated-method';
+import {Source} from './sources';
 
-const Gauges = new Mongo.Collection('sources');
+export const Gauges = new Mongo.Collection('gauges');
 
-Gauges.attachSchema(new SimpleSchema({
+const gaugesSchema = new SimpleSchema({
+  source: {
+    type: Meteor.ObjectID,
+    label: 'Gauge source',
+  },
   name: {
     type: String,
     label: 'Gauge name',
@@ -61,31 +69,59 @@ Gauges.attachSchema(new SimpleSchema({
     label: 'Last measured value',
     optional: true,
   },
-  interval: {
-    type: Number,
-    label: 'Harvesting interval in minutes',
-    optional: true,
-    min: 1,
-    max: 2880, //2 days
-    defaultValue: 60,
-  },
-  harvestMode: {
-    type: String,
-    label: 'Harvest mode',
-    allowedValues: ['allAtOnce', 'oneByOne'],
-    defaultValue: 'allAtOnce',
-  },
   url: {
     type: String,
     label: 'URL',
     optional: true,
     regEx: SimpleSchema.RegEx.Url,
   },
-  source: {
-    type: String,
-    label: 'Gauge source',
-    regEx: SimpleSchema.RegEx.Id,
+  disabled: {
+    type: Boolean,
+    label: 'Is disabled',
+    defaultValue: false,
   },
-}));
+});
 
-export default Gauges;
+Gauges.attachSchema(gaugesSchema);
+
+export const createGauge = new ValidatedMethod({
+  name: 'gauges.create',
+
+  mixins: [CallPromiseMixin],
+
+  validate: gaugesSchema.validator({clean: true}),
+
+  applyOptions: {
+    noRetry: true,
+  },
+
+  run(data) {
+    //Later add auth check here
+    return Gauges.insert(data);
+  }
+});
+
+export const removeGauge = new ValidatedMethod({
+  name: 'gauges.remove',
+
+  mixins: [CallPromiseMixin],
+
+  validate: new SimpleSchema({
+    gaugeId: { type: Meteor.ObjectID }
+  }).validator(),
+
+  applyOptions: {
+    noRetry: true,
+  },
+  
+  run({gaugeId}) {
+    return Gauges.remove(gaugeId);
+  },
+  
+});
+
+Gauges.helpers({
+  source(){
+    return Source.findOne(this.source);
+  },
+});

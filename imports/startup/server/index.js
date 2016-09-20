@@ -1,2 +1,3 @@
 import './scripts';
-import {Sources} from '../../api/sources';
+import '../../api/sources';
+import '../../api/gauges';

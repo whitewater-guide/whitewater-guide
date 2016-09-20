@@ -28,3 +28,4 @@ react-meteor-data
 mdg:validated-method
 didericis:callpromise-mixin
 mdg:validation-error
+dburles:collection-helpers
