@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
@@ -11,10 +12,10 @@ class ListGauges extends Component {
 
   static propTypes = {
     source: PropTypes.object,
+    gauges: PropTypes.array,
   };
 
   render() {
-    const gauges = this.props.source ? this.props.source.gauges() : [];
     const newGaugeLink = this.props.source ? `/sources/${this.props.source._id}/gauges/new` : '';
     return (
       <div style={styles.container}>
@@ -33,9 +34,11 @@ class ListGauges extends Component {
             </TableRow>
           </TableHeader>
           <TableBody displayRowCheckbox={false} stripedRows={true}>
-            { gauges.map(this.renderRow) }
+            { this.props.gauges.map(this.renderRow) }
           </TableBody>
         </Table>
+
+        { this.props.gauges.length === 0 && <RaisedButton label="Autofill" fullWidth={true} />}
         
         <Link to={newGaugeLink}> 
           <FloatingActionButton style={styles.addButton}>
@@ -111,4 +114,12 @@ const styles = {
   },
 };
 
-export default ListGauges;
+const ListGaugesContainer = createContainer(
+  (props) => {
+    const gauges = props.source ? props.source.gauges().fetch() : [];
+    return { gauges };
+  },
+  ListGauges
+);
+
+export default ListGaugesContainer;
