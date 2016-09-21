@@ -13,6 +13,8 @@ class ViewSource extends Component {
     source: PropTypes.object,
     router: PropTypes.object,
     location: PropTypes.object,
+    content: PropTypes.element,
+    leftPanel: PropTypes.element,
   };
 
   render() {
@@ -27,10 +29,15 @@ class ViewSource extends Component {
             <Tab label="Settings" value="settings"/>
           </Tabs>
         </Paper>
-        <div style={styles.contentHolder}>
-          <Paper style={styles.contentPaper}>
-            { this.props.children && React.cloneElement(this.props.children, {source: this.props.source}) }
+        <div style={styles.body}>
+          <Paper style={styles.leftPanelPaper}>
+              { this.props.leftPanel && React.cloneElement(this.props.leftPanel, {source: this.props.source}) }
           </Paper>
+          <div style={styles.contentHolder}>
+            <Paper style={styles.contentPaper}>
+              { this.props.content && React.cloneElement(this.props.content, {source: this.props.source}) }
+            </Paper>
+          </div>
         </div>
       </div>
     );
@@ -38,7 +45,7 @@ class ViewSource extends Component {
 
   onTabChange = (tab) => {
     this.props.router.push(`/sources/${this.props.params.id}/${tab}`);
-  }
+  };
 
 }
 
@@ -47,23 +54,31 @@ const styles = {
     display: 'flex',
     flex: 1,
     flexDirection: 'column',
-    alignItems: 'center',
+    alignItems: 'stretch',
+  },
+  body: {
+    display: 'flex',
+    flex: 1,
   },
   tabBarHolder: {
+    alignSelf: 'center',
     marginTop: 24,
     width: 450,
   },
+  leftPanelPaper: {
+    width: 200,
+    minHeight: 120,
+    margin: 24,
+  },
   contentHolder: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'stretch',
     flex: 1,
-    width: '100%',
-    maxWidth: 1000,
-    maxHeight: 800,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
     marginTop: 24,
   },
   contentPaper: {
+    maxWidth: 1200,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'stretch',

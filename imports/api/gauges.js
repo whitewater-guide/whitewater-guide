@@ -120,6 +120,45 @@ export const removeGauge = new ValidatedMethod({
   
 });
 
+
+export const removeAllGauges = new ValidatedMethod({
+  name: 'gauges.removeAll',
+
+  mixins: [CallPromiseMixin],
+
+  validate: new SimpleSchema({
+    sourceId: { type: Meteor.ObjectID }
+  }).validator(),
+
+  applyOptions: {
+    noRetry: true,
+  },
+  
+  run({sourceId}) {
+    return Gauges.remove({source: sourceId});
+  },
+  
+});
+
+export const removeDisabledGauges = new ValidatedMethod({
+  name: 'gauges.removeDisabled',
+
+  mixins: [CallPromiseMixin],
+
+  validate: new SimpleSchema({
+    sourceId: { type: Meteor.ObjectID }
+  }).validator(),
+
+  applyOptions: {
+    noRetry: true,
+  },
+  
+  run({sourceId}) {
+    return Gauges.remove({source: sourceId, disabled: true});
+  },
+  
+});
+
 Gauges.helpers({
   source(){
     return Source.findOne(this.source);
