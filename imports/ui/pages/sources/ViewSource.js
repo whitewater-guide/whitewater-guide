@@ -27,9 +27,11 @@ class ViewSource extends Component {
             <Tab label="Settings" value="settings"/>
           </Tabs>
         </Paper>
-        <Paper style={styles.contentHolder}>
-          { this.props.children && React.cloneElement(this.props.children, {source: this.props.source}) }
-        </Paper>
+        <div style={styles.contentHolder}>
+          <Paper style={styles.contentPaper}>
+            { this.props.children && React.cloneElement(this.props.children, {source: this.props.source}) }
+          </Paper>
+        </div>
       </div>
     );
   }
@@ -53,10 +55,19 @@ const styles = {
   },
   contentHolder: {
     display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'stretch',
     flex: 1,
+    width: '100%',
     maxWidth: 1000,
-    maxHeight: 600,
+    maxHeight: 800,
     marginTop: 24,
+  },
+  contentPaper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'stretch',
+    padding: 16,
   },
 }
 

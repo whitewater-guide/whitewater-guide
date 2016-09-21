@@ -2,11 +2,13 @@ import React, {Component, PropTypes} from 'react';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import {ValidationError} from 'meteor/mdg:validation-error';
+import {createGauge} from '../../../api/gauges';
+import {withRouter} from 'react-router';
 
-export default class NewGauge extends Component {
+class NewGauge extends Component {
   static propTypes = {
-    onClose: PropTypes.func,
-    onSubmit: PropTypes.func,
+    router: PropTypes.object,
+    source: PropTypes.object,
   };
 
   state = {
@@ -23,10 +25,8 @@ export default class NewGauge extends Component {
   };
 
   render() {
-    const actions = [
-    ];
     return (
-      <div>
+      <div style={styles.container}>
         <h3>New gauge</h3>
         <TextField value={this.state.name} onChange={(e,name) => this.setState({name})} hintText="Name" floatingLabelText="Name"/>
         <TextField value={this.state.code} onChange={(e,code) => this.setState({code})} hintText="Code" floatingLabelText="Code"/>
@@ -37,10 +37,30 @@ export default class NewGauge extends Component {
         <TextField value={this.state.measurement} onChange={(e,measurement) => this.setState({measurement})} hintText="Measurement" floatingLabelText="Measurement"/>
         <TextField value={this.state.unit} onChange={(e,unit) => this.setState({unit})} hintText="Unit" floatingLabelText="Unit"/>
         <div>
-          <FlatButton label="Cancel" primary={true} onMouseUp={this.props.onClose} onTouchEnd={this.props.onClose}/>
-          <FlatButton label="Add" primary={true} onMouseUp={this.props.onSubmit} onTouchEnd={this.props.onSubmit}/>
+          <FlatButton label="Cancel" primary={true} onMouseUp={this.onClose} onTouchEnd={this.onClose}/>
+          <FlatButton label="Add" primary={true} onMouseUp={this.onSubmit} onTouchEnd={this.onSubmit}/>
         </div>
       </div>
     );
   }
+
+  onClose = () => {
+    this.props.router.goBack();
+  };
+
+  onSubmit = () => {
+    createGauge.callPromise({...this.state, source: this.props.source._id})
+      .then( result => this.props.router.replace(`/sources/${this.props.source._id}/gauges`))
+      .catch( error => console.log('Create gauge error', error));
+  }
 }
+
+const styles = {
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  }
+}
+
+export default withRouter(NewGauge);
