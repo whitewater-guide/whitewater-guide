@@ -22,7 +22,7 @@ const gaugesSchema = new SimpleSchema({
     label: 'Unique code',
     max: 100,
   },
-  altitide: {
+  altitude: {
     type: Number,
     label: 'Altitude',
     decimal: true,

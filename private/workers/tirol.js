@@ -19,8 +19,9 @@ function harvest(){
           altitude: Number(gauge.altitude),
           latitude: Number(gauge.latitude),
           longitude: Number(gauge.longitude),
-          timestamp: _.get(gauge, ['values', 'W', '15m.Cmd.HD', 'dt']),
+          timestamp: Number(_.get(gauge, ['values', 'W', '15m.Cmd.HD', 'dt'])),//unix timestamp in ms
           value: value,
+          url: 'https://apps.tirol.gv.at/hydro/#/Wasserstand/?station=' + gauge.number,
           disabled: value === undefined
         });
       }
@@ -28,13 +29,13 @@ function harvest(){
     });
 }
 
-if (process.argv[1] === 'autofill'){
+if (process.argv[2] === 'autofill'){
   harvest()
     .then(function(gauges){
-      process.stdout.write(gauges);
+      process.send(gauges);
     })
     .catch(function(error){
-      process.stderr.write(error);
+      process.send({error});
       process.exit(1);
     });
 }

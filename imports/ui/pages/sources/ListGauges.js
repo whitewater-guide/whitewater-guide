@@ -6,6 +6,7 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Gauges, removeGauge } from '../../../api/gauges';
+import { autofill } from '../../../api/sources';
 import {Link} from 'react-router';
 
 class ListGauges extends Component {
@@ -27,9 +28,6 @@ class ListGauges extends Component {
               <TableHeaderColumn>Code</TableHeaderColumn>
               <TableHeaderColumn>URL</TableHeaderColumn>
               <TableHeaderColumn>Coordinate</TableHeaderColumn>
-              <TableHeaderColumn>Measures</TableHeaderColumn>
-              <TableHeaderColumn>Last value</TableHeaderColumn>
-              <TableHeaderColumn>Last timestamp</TableHeaderColumn>
               <TableHeaderColumn style={styles.columns.controls}>Controls</TableHeaderColumn>
             </TableRow>
           </TableHeader>
@@ -38,7 +36,7 @@ class ListGauges extends Component {
           </TableBody>
         </Table>
 
-        { this.props.gauges.length === 0 && <RaisedButton label="Autofill" fullWidth={true} />}
+        { this.props.gauges.length === 0 && <RaisedButton label="Autofill" fullWidth={true} onTouchTap={this.autofill} />}
         
         <Link to={newGaugeLink}> 
           <FloatingActionButton style={styles.addButton}>
@@ -52,18 +50,19 @@ class ListGauges extends Component {
   renderRow = (src) => {
     const viewHandler = () => this.props.router.push(`/gauges/${src._id}`);
     const deleteHandler = () => this.removeGauge(src._id);
+    const statusIconStyle = {...styles.statusIcon, color: src.disabled ? 'red' : 'green'};
+    const lat = src.latitude ? src.latitude.toFixed(4) : '?';
+    const lon = src.longitude ? src.longitude.toFixed(4) : '?';
+    const alt = src.altitude ? ` (${src.altitude.toFixed()})` : '';
     return (
       <TableRow key={src._id}>
         <TableRowColumn style={styles.columns.status}>
-          <IconButton iconClassName="material-icons" style={styles.iconWrapper} iconStyle={styles.statusIcon}>fiber_manual_record</IconButton>
+          <IconButton iconClassName="material-icons" style={styles.iconWrapper} iconStyle={statusIconStyle}>fiber_manual_record</IconButton>
         </TableRowColumn>
         <TableRowColumn>{src.name}</TableRowColumn>
         <TableRowColumn>{src.code}</TableRowColumn>
         <TableRowColumn><a href={src.url}>{src.url}</a></TableRowColumn>
-        <TableRowColumn>{`${src.latitude} ${src.logngitude} (${src.altitude})`}</TableRowColumn>
-        <TableRowColumn>{`${src.measurement} (${src.unit})`}</TableRowColumn>
-        <TableRowColumn>{src.lastValue}</TableRowColumn>
-        <TableRowColumn>{src.lastTimestamp}</TableRowColumn>
+        <TableRowColumn>{`${lat} ${lon}${alt}`}</TableRowColumn>
         <TableRowColumn style={styles.columns.controls}>
           <IconButton iconClassName="material-icons" style={styles.iconWrapper} onTouchTap={viewHandler}>mode_edit</IconButton>
           <IconButton iconClassName="material-icons" style={styles.iconWrapper} onTouchTap={deleteHandler}>delete_forever</IconButton>
@@ -77,6 +76,12 @@ class ListGauges extends Component {
     removeGauge.callPromise({gaugeId})
       .then( () => console.log('Sources deleted'))
       .catch( err => console.log('Error while deleting source', err));
+  };
+
+  autofill = () => {
+    autofill.callPromise({sourceId: this.props.source._id})
+      .then( result => console.log(`Autofill result: ${result}`))
+      .catch( error => console.log(`Autofill error: ${error}`));
   };
 }
 
@@ -110,6 +115,7 @@ const styles = {
     },
     controls: {
       paddingRight: 0,
+      width: 60,
     }
   },
 };

@@ -3,7 +3,7 @@ import {Mongo} from 'meteor/mongo';
 import {Meteor} from 'meteor/meteor';
 import {SimpleSchema} from 'meteor/aldeed:simple-schema';
 import {CallPromiseMixin} from 'meteor/didericis:callpromise-mixin';
-import {Gauges} from './gauges';
+import {Gauges, createGauge} from './gauges';
 
 export const Sources = new Mongo.Collection('sources');
 
@@ -94,6 +94,32 @@ export const listScripts = new ValidatedMethod({
   run() {
     if (!this.isSimulation){
       return ServerScripts.listScripts();
+    }
+  },
+});
+
+export const autofill = new ValidatedMethod({
+  name: 'sources.autofill',
+
+  mixins: [CallPromiseMixin],
+
+  validate: new SimpleSchema({
+    sourceId: { type: Meteor.ObjectID }
+  }).validator(),
+
+  applyOptions: {
+    returnStubValue: false,
+  },
+  
+  run({sourceId}) {
+    if (!this.isSimulation){
+      const scriptName = Sources.findOne(sourceId).script;
+      console.log(`Launching autofill with script ${scriptName}`);
+      const launchScriptFiber = Meteor.wrapAsync(ServerScripts.launchScript);
+      const gauges = launchScriptFiber(scriptName, 'autofill');
+      gauges.forEach(gauge => {
+        createGauge.call({source: sourceId, ...gauge});
+      });
     }
   },
 });
