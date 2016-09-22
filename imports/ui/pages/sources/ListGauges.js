@@ -1,13 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
-import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Gauges, removeGauge } from '../../../api/gauges';
-import { autofill } from '../../../api/sources';
-import {Link} from 'react-router';
 
 class ListGauges extends Component {
 
@@ -17,7 +12,7 @@ class ListGauges extends Component {
   };
 
   render() {
-    const newGaugeLink = this.props.source ? `/sources/${this.props.source._id}/gauges/new` : '';
+    
     return (
       <div style={styles.container}>
         <Table selectable={false}>
@@ -35,14 +30,6 @@ class ListGauges extends Component {
             { this.props.gauges.map(this.renderRow) }
           </TableBody>
         </Table>
-
-        { this.props.gauges.length === 0 && <RaisedButton label="Autofill" fullWidth={true} onTouchTap={this.autofill} />}
-        
-        <Link to={newGaugeLink}> 
-          <FloatingActionButton style={styles.addButton}>
-            <ContentAdd />
-          </FloatingActionButton>
-        </Link>
       </div>
     );
   }
@@ -78,11 +65,6 @@ class ListGauges extends Component {
       .catch( err => console.log('Error while deleting source', err));
   };
 
-  autofill = () => {
-    autofill.callPromise({sourceId: this.props.source._id})
-      .then( result => console.log(`Autofill result: ${result}`))
-      .catch( error => console.log(`Autofill error: ${error}`));
-  };
 }
 
 const styles = {
@@ -93,11 +75,6 @@ const styles = {
     flex: 1,
     alignItems: 'center',
     minHeight: 200,
-  },
-  addButton: {
-    right: 20,
-    bottom: 20,
-    position: 'absolute',
   },
   statusIcon: {
     fontSize: 16,

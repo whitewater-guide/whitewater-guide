@@ -90,7 +90,15 @@ function autofill(cb){
   });
 }
 
-autofill(function(err, gauges){
-  console.log('Autofull;');
-  console.table(gauges);
-});
+
+if (process.argv[2] === 'autofill'){
+  autofill(function(error, gauges){
+    if (error){
+      process.send({error});
+      process.exit(1);
+    }
+    else {
+      process.send(gauges);
+    }
+  });
+}
