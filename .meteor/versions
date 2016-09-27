@@ -48,6 +48,7 @@ launch-screen@1.0.12
 livedata@1.0.18
 localstorage@1.0.11
 logging@1.1.15
+matb33:collection-hooks@0.8.4
 mdg:validated-method@1.1.0
 mdg:validation-error@0.5.1
 meteor@1.2.17

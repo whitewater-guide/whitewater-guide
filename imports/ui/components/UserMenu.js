@@ -24,7 +24,7 @@ class UserMenu extends Component {
   getAvatar = () => {
     const avatarProps = {};
     if (this.props.user){
-      avatarProps.src = `//graph.facebook.com/${this.props.user.id}/picture`;
+      avatarProps.src = `//graph.facebook.com/${this.props.user.services.facebook.id}/picture`;
     }
     else {
       avatarProps.icon = (
