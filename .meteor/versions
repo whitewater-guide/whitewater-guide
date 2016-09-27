@@ -1,6 +1,7 @@
 accounts-base@1.2.11
 accounts-facebook@1.0.10
 accounts-oauth@1.1.13
+alanning:roles@1.2.15
 aldeed:collection2@2.10.0
 aldeed:collection2-core@1.2.0
 aldeed:schema-deny@1.1.0

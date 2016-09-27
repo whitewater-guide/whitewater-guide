@@ -24,7 +24,7 @@ class UserMenu extends Component {
   getAvatar = () => {
     const avatarProps = {};
     if (this.props.user){
-      avatarProps.src = 'http://ya.ru';
+      avatarProps.src = `//graph.facebook.com/${this.props.user.id}/picture`;
     }
     else {
       avatarProps.icon = (
@@ -49,6 +49,7 @@ class UserMenu extends Component {
 }
 
 export default createContainer(() => {
+  const subscription = Meteor.subscribe('userData');
   return {
     user: Meteor.user(),
   };
