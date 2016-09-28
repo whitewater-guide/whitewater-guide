@@ -3,7 +3,7 @@ import {Meteor} from 'meteor/meteor';
 import {SimpleSchema} from 'meteor/aldeed:simple-schema';
 import {CallPromiseMixin} from 'meteor/didericis:callpromise-mixin';
 import {ValidatedMethod} from 'meteor/mdg:validated-method';
-import {Source} from './sources';
+import {Source} from '../sources';
 import {Roles} from 'meteor/alanning:roles';
 
 export const Gauges = new Mongo.Collection('gauges');

@@ -4,6 +4,7 @@ import {Meteor} from 'meteor/meteor';
 import {SimpleSchema} from 'meteor/aldeed:simple-schema';
 import {CallPromiseMixin} from 'meteor/didericis:callpromise-mixin';
 import {Gauges, createGauge} from '../gauges';
+import {Roles} from 'meteor/alanning:roles';
 
 export const Sources = new Mongo.Collection('sources');
 
@@ -112,7 +113,7 @@ export const autofill = new ValidatedMethod({
   mixins: [CallPromiseMixin],
 
   validate: new SimpleSchema({
-    sourceId: { type: Meteor.ObjectID }
+    sourceId: { type: String }
   }).validator(),
 
   applyOptions: {

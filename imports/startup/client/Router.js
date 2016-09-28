@@ -3,7 +3,6 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import MainLayout from '../../ui/layouts/MainLayout';
 import ListSources from '../../ui/pages/sources/ListSources';
 import ListSourcesLeft from '../../ui/pages/sources/ListSourcesLeft';
-import ViewSource from '../../ui/pages/sources/ViewSource';
 import NewSource from '../../ui/pages/sources/NewSource';
 import ListGauges from '../../ui/pages/sources/ListGauges';
 import ListGaugesLeft from '../../ui/pages/sources/ListGaugesLeft';
@@ -20,8 +19,8 @@ export default class AppRouter extends Component {
           <IndexRoute components={{content: ListSources, left: ListSourcesLeft}}/>
           <Route path="sources" components={{content: ListSources, left: ListSourcesLeft}}/>
           <Route path="sources/new" components={{content: NewSource}}/>
-          <Route path="sources/:id" component={ViewSource}>
-            <IndexRoute components={{content: ListGauges, leftPanel: ListGaugesLeft}} />
+          <Route path="sources/:sourceId">
+            <IndexRoute components={{content: ListGauges, left: ListGaugesLeft}} />
             <Route path="schedule" components={{content: Schedule, leftPanel: SourceScheduleLeft}} />
             <Route path="settings" components={{content: SourceSettings}} />
             <Route path="gauges">

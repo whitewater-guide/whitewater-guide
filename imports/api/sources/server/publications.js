@@ -9,6 +9,6 @@ const publicFields = {
 };
 
 Meteor.publish('sources.list', function() {
-  const fields = Roles.userIsInRole(this.userId, 'admin') ? {} : publicFields;
-  return Sources.find(fields);
+  const fields = Roles.userIsInRole(this.userId, 'admin') ? undefined : publicFields;
+  return Sources.find({}, fields);
 });

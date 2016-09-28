@@ -1,13 +1,16 @@
 import React, {Component, PropTypes} from 'react';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import IconButton from 'material-ui/IconButton';
+import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Gauges, removeGauge } from '../../../api/gauges';
 
 class ListGauges extends Component {
 
   static propTypes = {
-    source: PropTypes.object,
+    params: PropTypes.shape({
+      sourceId: PropTypes.string,
+    }),
     gauges: PropTypes.array,
   };
 
@@ -99,7 +102,9 @@ const styles = {
 
 const ListGaugesContainer = createContainer(
   (props) => {
-    const gauges = props.source ? props.source.gauges().fetch() : [];
+    const source= props.params.sourceId;
+    const gaugesSubscription = Meteor.subscribe('gauges.inSource', source);
+    const gauges = Gauges.find({source}).fetch()
     return { gauges };
   },
   ListGauges
