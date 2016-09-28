@@ -4,6 +4,7 @@ import {Meteor} from 'meteor/meteor';
 import {SimpleSchema} from 'meteor/aldeed:simple-schema';
 import {CallPromiseMixin} from 'meteor/didericis:callpromise-mixin';
 import {Gauges, createGauge} from './gauges';
+import {Roles} from 'meteor/alanning:roles';
 
 export const Sources = new Mongo.Collection('sources');
 
@@ -55,7 +56,9 @@ export const createSource = new ValidatedMethod({
   },
 
   run(data) {
-    //Later add auth check here
+    if (!Roles.userIsInRole(this.userId, 'admin')){
+      throw new Meteor.Error('sources.create.unauthorized', 'You must be admin to create sources');
+    }
     return Sources.insert(data);
   }
 });
@@ -74,6 +77,9 @@ export const removeSource = new ValidatedMethod({
   },
   
   run({sourceId}) {
+    if (!Roles.userIsInRole(this.userId, 'admin')){
+      throw new Meteor.Error('sources.remove.unauthorized', 'You must be admin to remove sources');
+    }
     //TODO: hook gauges removal
     return Sources.remove(sourceId);
   },
@@ -92,6 +98,9 @@ export const listScripts = new ValidatedMethod({
   },
   
   run() {
+    if (!Roles.userIsInRole(this.userId, 'admin')){
+      throw new Meteor.Error('sources.listScripts.unauthorized', 'Only admins can see sources scripts');
+    }
     if (!this.isSimulation){
       return ServerScripts.listScripts();
     }
@@ -112,6 +121,9 @@ export const autofill = new ValidatedMethod({
   },
   
   run({sourceId}) {
+    if (!Roles.userIsInRole(this.userId, 'admin')){
+      throw new Meteor.Error('sources.autofill.unauthorized', 'Only admins can autofill sources');
+    }
     if (!this.isSimulation){
       const scriptName = Sources.findOne(sourceId).script;
       console.log(`Launching autofill with script ${scriptName}`);

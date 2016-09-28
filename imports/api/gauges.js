@@ -4,6 +4,7 @@ import {SimpleSchema} from 'meteor/aldeed:simple-schema';
 import {CallPromiseMixin} from 'meteor/didericis:callpromise-mixin';
 import {ValidatedMethod} from 'meteor/mdg:validated-method';
 import {Source} from './sources';
+import {Roles} from 'meteor/alanning:roles';
 
 export const Gauges = new Mongo.Collection('gauges');
 
@@ -96,7 +97,9 @@ export const createGauge = new ValidatedMethod({
   },
 
   run(data) {
-    //Later add auth check here
+    if (!Roles.userIsInRole(this.userId, 'admin')){
+      throw new Meteor.Error('gauges.create.unauthorized', 'You must be admin to create gauges');
+    }
     return Gauges.insert(data);
   }
 });
@@ -115,6 +118,9 @@ export const removeGauge = new ValidatedMethod({
   },
   
   run({gaugeId}) {
+    if (!Roles.userIsInRole(this.userId, 'admin')){
+      throw new Meteor.Error('gauges.remove.unauthorized', 'You must be admin to remove gauges');
+    }
     return Gauges.remove(gaugeId);
   },
   
@@ -135,6 +141,9 @@ export const removeAllGauges = new ValidatedMethod({
   },
   
   run({sourceId}) {
+    if (!Roles.userIsInRole(this.userId, 'admin')){
+      throw new Meteor.Error('gauges.removeAll.unauthorized', 'You must be admin to remove all gauges');
+    }
     return Gauges.remove({source: sourceId});
   },
   
@@ -154,6 +163,9 @@ export const removeDisabledGauges = new ValidatedMethod({
   },
   
   run({sourceId}) {
+    if (!Roles.userIsInRole(this.userId, 'admin')){
+      throw new Meteor.Error('gauges.removeDisabled.unauthorized', 'You must be admin to remove disabled gauges');
+    }
     return Gauges.remove({source: sourceId, disabled: true});
   },
   
