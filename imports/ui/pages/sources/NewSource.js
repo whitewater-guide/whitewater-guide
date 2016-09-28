@@ -7,8 +7,13 @@ import Paper from 'material-ui/Paper';
 import {ValidationError} from 'meteor/mdg:validation-error';
 import {createSource, listScripts} from '../../../api/sources';
 import adminOnly from '../../hoc/adminOnly';
+import {withRouter} from 'react-router';
 
 class NewSource extends Component {
+
+  static propTypes = {
+    router: PropTypes.object,
+  };
 
   state = {
     name: '',
@@ -17,9 +22,6 @@ class NewSource extends Component {
     interval: 60,
     harvestMode: null,
     errors: {},
-  };
-
-  state = {
     availableScripts: [],
   }
 
@@ -64,7 +66,7 @@ class NewSource extends Component {
 
   onCreate = () => {
     createSource.callPromise(this.state)
-      .then(result => this.props.onClose())
+      .then(result => this.props.router.goBack())
       .catch(err => {
         if (ValidationError.is(err)){
           const errors = {};
@@ -74,6 +76,10 @@ class NewSource extends Component {
           this.setState({errors});
         }
       });
+  };
+
+  onCancel = () => {
+    this.props.router.goBack();
   };
 
 }
@@ -102,4 +108,4 @@ const styles = {
   },
 };
 
-export default adminOnly(NewSource);
+export default adminOnly(withRouter(NewSource));
