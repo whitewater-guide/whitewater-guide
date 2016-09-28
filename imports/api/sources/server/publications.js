@@ -10,5 +10,6 @@ const publicFields = {
 
 Meteor.publish('sources.list', function() {
   const fields = Roles.userIsInRole(this.userId, 'admin') ? undefined : publicFields;
-  return Sources.find({}, fields);
+  console.log('Pub', fields);
+  return Sources.find({}, {fields});
 });
