@@ -18,7 +18,7 @@ export default class AppRouter extends Component {
       <Router history={browserHistory}>
         <Route path="/" component={MainLayout}>
           <IndexRoute components={{content: ListSources, left: ListSourcesLeft}}/>
-          <Route path="sources" components={{content: ListSources}}/>
+          <Route path="sources" components={{content: ListSources, left: ListSourcesLeft}}/>
           <Route path="sources/new" components={{content: NewSource}}/>
           <Route path="sources/:id" component={ViewSource}>
             <IndexRoute components={{content: ListGauges, leftPanel: ListGaugesLeft}} />

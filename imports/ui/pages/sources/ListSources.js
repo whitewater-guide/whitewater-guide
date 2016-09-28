@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import IconButton from 'material-ui/IconButton';
 import Paper from 'material-ui/Paper';
+import {Meteor} from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import {withRouter} from 'react-router';
 import { Sources } from '../../../api/sources';
@@ -11,6 +12,7 @@ class ListSources extends Component {
 
   static propTypes = {
     sources: PropTypes.array,
+    ready: PropTypes.bool,
     router: PropTypes.object,
   };
 
@@ -90,8 +92,12 @@ const styles = {
 
 const ListSourcesContainer = createContainer(
   () => {
-    const sources = Sources.find({}).fetch();
-    return { sources };
+    const sourcesSubscription = Meteor.subscribe('sources.list');
+    const sources = Sources.find().fetch();
+    return {
+      ready: sourcesSubscription.ready(), 
+      sources 
+    };
   },
   ListSources
 );
