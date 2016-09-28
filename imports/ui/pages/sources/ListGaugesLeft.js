@@ -25,7 +25,7 @@ class ListGaugesLeft extends Component {
         {admin && numGauges == 0 && <FlatButton secondary={true} onTouchTap={this.autofill} label="Autofill"/>}
         {admin && <FlatButton secondary={true} onTouchTap={this.addGauge} label="Add gauge"/>}
         {admin && numGauges > 0 && <FlatButton secondary={true} onTouchTap={this.removeAllGauges} label="Remove all"/>}
-        {admin && numGauges > 0 && <FlatButton secondary={true} onTouchTap={this.removeDisabledGauges} style={{marginTop: 16}} label="Remove disabled"/>}
+        {admin && numGauges > 0 && <FlatButton secondary={true} onTouchTap={this.removeDisabledGauges} label="Remove disabled"/>}
       </div>
     );
   }

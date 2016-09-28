@@ -10,6 +10,8 @@ import Schedule from '../../ui/pages/sources/Schedule';
 import SourceScheduleLeft from '../../ui/pages/sources/SourceScheduleLeft';
 import SourceSettings from '../../ui/pages/sources/SourceSettings';
 import NewGauge from '../../ui/pages/sources/NewGauge';
+import ViewSource from '../../ui/pages/sources/ViewSource';
+import ViewSourceLeft from '../../ui/pages/sources/ViewSourceLeft';
 
 export default class AppRouter extends Component {
   render() {
@@ -19,8 +21,8 @@ export default class AppRouter extends Component {
           <IndexRoute components={{content: ListSources, left: ListSourcesLeft}}/>
           <Route path="sources" components={{content: ListSources, left: ListSourcesLeft}}/>
           <Route path="sources/new" components={{content: NewSource}}/>
-          <Route path="sources/:sourceId">
-            <IndexRoute components={{content: ListGauges, left: ListGaugesLeft}} />
+          <Route path="sources/:sourceId" components={{content: ViewSource, left: ViewSourceLeft}}>
+            <IndexRoute components={{sourceContent: ListGauges, sourceLeft: ListGaugesLeft}} />
             <Route path="schedule" components={{content: Schedule, leftPanel: SourceScheduleLeft}} />
             <Route path="settings" components={{content: SourceSettings}} />
             <Route path="gauges">

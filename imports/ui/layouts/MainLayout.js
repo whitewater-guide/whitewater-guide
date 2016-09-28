@@ -22,7 +22,7 @@ export default class MainLayout extends Component {
           { this.props.left }
         </div>
         <div style={styles.rightCol}>
-          <Toolbar>
+          <Toolbar style={styles.toolbar}>
             { this.props.toolbar }
             <div style={{flex: 1}}></div>
             <UserMenu/>
@@ -58,5 +58,8 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     height: 56,
+  },
+  toolbar: {
+    minHeight: 56,
   },
 }
