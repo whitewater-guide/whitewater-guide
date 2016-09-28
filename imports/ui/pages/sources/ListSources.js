@@ -2,23 +2,16 @@ import React, {Component, PropTypes} from 'react';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import IconButton from 'material-ui/IconButton';
 import Paper from 'material-ui/Paper';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
 import { createContainer } from 'meteor/react-meteor-data';
 import {withRouter} from 'react-router';
 import { Sources } from '../../../api/sources';
 import {removeSource} from '../../../api/sources';
-import NewSource from './NewSource';
 
 class ListSources extends Component {
 
   static propTypes = {
     sources: PropTypes.array,
     router: PropTypes.object,
-  };
-
-  state = {
-    dialogOpen: false,
   };
 
   render() {
@@ -40,12 +33,6 @@ class ListSources extends Component {
               { this.props.sources.map(this.renderRow) }
             </TableBody>
           </Table>
-
-          <FloatingActionButton style={styles.addButton} onTouchTap={() => this.setState({dialogOpen: true})}>
-            <ContentAdd />
-          </FloatingActionButton>
-
-          <NewSource onClose={() => this.setState({dialogOpen: false})} open={this.state.dialogOpen}/>
         </Paper>
       </div>
     );

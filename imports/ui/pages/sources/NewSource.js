@@ -3,15 +3,12 @@ import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import FlatButton from 'material-ui/FlatButton';
-import Dialog from 'material-ui/Dialog';
+import Paper from 'material-ui/Paper';
 import {ValidationError} from 'meteor/mdg:validation-error';
 import {createSource, listScripts} from '../../../api/sources';
+import adminOnly from '../../hoc/adminOnly';
 
-export default class NewSource extends Component {
-  static propTypes = {
-    onClose: PropTypes.func,
-    open: PropTypes.bool,
-  };
+class NewSource extends Component {
 
   state = {
     name: '',
@@ -22,26 +19,25 @@ export default class NewSource extends Component {
     errors: {},
   };
 
-  availableScripts = [];
+  state = {
+    availableScripts: [],
+  }
 
   componentDidMount() {
-    console.log('List sources mounted');
     listScripts.callPromise()
-      .then( result => {this.availableScripts = result})
+      .then( availableScripts => this.setState({availableScripts}))
       .catch( err => console.log('List scripts error:', err));
   }
 
   render() {
-    const actions = [
-      <FlatButton label="Cancel" primary={true} onMouseUp={this.props.onClose} onTouchEnd={this.props.onClose}/>,
-      <FlatButton label="Add" primary={true} onMouseUp={this.onCreate} onTouchEnd={this.onCreate}/>
-    ];
     return (
-      <Dialog title="New Source" bodyStyle={styles.dialogBody} actions={actions} open={this.props.open} onRequestClose={this.props.onClose}>
+      <div style={styles.container}>
+      <Paper style={styles.paper}>
+        <h1>New source</h1>
         <TextField value={this.state.name} onChange={(e,name) => this.setState({name})} hintText="Name" floatingLabelText="Name"/>
         
         <SelectField value={this.state.script} onChange={this.onScriptChange} floatingLabelText="Script">
-          { this.availableScripts.map(item => (<MenuItem key={item} value={item} primaryText={item}/>))}
+          { this.state.availableScripts.map(item => (<MenuItem key={item} value={item} primaryText={item}/>))}
         </SelectField>
 
         <TextField value={this.state.url} onChange={(e,url) => this.setState({url})}  hintText="URL" floatingLabelText="URL"/>
@@ -54,7 +50,12 @@ export default class NewSource extends Component {
         <TextField value={this.state.interval} onChange={(e,interval) => this.setState({interval})} 
                    hintText="Interval" floatingLabelText="Interval"
                    type="number"/>
-      </Dialog>
+        <div style={styles.buttonsHolder}>
+          <FlatButton label="Cancel" primary={true} onTouchTap={this.onCancel}/>
+          <FlatButton label="Add" primary={true} onTouchTap={this.onCreate}/>
+        </div>
+      </Paper>
+      </div>
     );
   }
 
@@ -78,8 +79,27 @@ export default class NewSource extends Component {
 }
 
 const styles = {
-  dialogBody: {
+  container: {
     display: 'flex',
     flexDirection: 'column',
-  }
-}
+    flex: 1,
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  paper: {
+    display: 'flex',
+    flexDirection: 'column',
+    paddingTop: 16,
+    paddingBottom: 16,
+    paddingLeft: 32,
+    paddingRight: 32,
+  },
+  buttonsHolder: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    marginTop: 32,
+  },
+};
+
+export default adminOnly(NewSource);
