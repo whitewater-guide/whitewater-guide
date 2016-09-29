@@ -17,17 +17,17 @@ export default class AppRouter extends Component {
   render() {
     return (
       <Router history={browserHistory}>
-        <Route path="/" component={MainLayout}>
-          <IndexRoute components={{content: ListSources, left: ListSourcesLeft}}/>
-          <Route path="sources" components={{content: ListSources, left: ListSourcesLeft}}/>
-          <Route path="sources/new" components={{content: NewSource}}/>
-          <Route path="sources/:sourceId" components={{content: ViewSource, left: ViewSourceLeft}}>
-            <IndexRoute components={{sourceContent: ListGauges, sourceLeft: ListGaugesLeft}} />
-            <Route path="schedule" components={{content: Schedule, leftPanel: SourceScheduleLeft}} />
-            <Route path="settings" components={{content: SourceSettings}} />
-            <Route path="gauges">
-              <IndexRoute components={{content: ListGauges, leftPanel: ListGaugesLeft}} />
-              <Route path="new" components={{content: NewGauge}} />
+        <Route path="/" name="Whitewater" component={MainLayout}>
+          <IndexRoute name="Whitewater" components={{content: ListSources, left: ListSourcesLeft}}/>
+          <Route path="sources" name="Sources" components={{content: ListSources, left: ListSourcesLeft}}/>
+          <Route path="sources/new" name="New source" components={{content: NewSource}}/>
+          <Route path="sources/:sourceId" name="Src" breadcrumbName=":sourceId" components={{content: ViewSource, left: ViewSourceLeft}}>
+            <IndexRoute components={{sourceContent: ListGauges, sourceLeft: ListGaugesLeft}} name="List gauges" />
+            <Route path="schedule" name="Schedule" components={{content: Schedule, leftPanel: SourceScheduleLeft}} />
+            <Route path="settings" name="Settings" components={{content: SourceSettings}} />
+            <Route path="gauges" name="Gauges">
+              <IndexRoute name="List gauges" components={{content: ListGauges, leftPanel: ListGaugesLeft}} />
+              <Route path="new" name="New gauge" components={{content: NewGauge}} />
             </Route>
           </Route>
         </Route>

@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {Toolbar, ToolbarSeparator} from 'material-ui/Toolbar';
 import { indigo500 } from 'material-ui/styles/colors';
 import UserMenu from '../components/UserMenu';
+import Breadcrumbs from '../components/Breadcrumbs';
 import {Link} from 'react-router';
 
 export default class MainLayout extends Component {
@@ -10,6 +11,8 @@ export default class MainLayout extends Component {
     left: PropTypes.element,
     toolbar: PropTypes.element,
     content: PropTypes.element,
+    routes: PropTypes.array,
+    params: PropTypes.object,
   };
   
   render() {
@@ -23,6 +26,7 @@ export default class MainLayout extends Component {
         </div>
         <div style={styles.rightCol}>
           <Toolbar style={styles.toolbar}>
+            <Breadcrumbs routes={this.props.routes} params={this.props.params}/>
             { this.props.toolbar }
             <div style={{flex: 1}}></div>
             <UserMenu/>

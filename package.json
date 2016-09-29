@@ -18,6 +18,7 @@
     "react-addons-pure-render-mixin": "^15.3.1",
     "react-dom": "^15.3.1",
     "react-router": "^2.8.1",
+    "react-router-breadcrumbs": "^1.2.0",
     "react-tap-event-plugin": "^1.0.0",
     "tress": "^1.0.3"
   },
