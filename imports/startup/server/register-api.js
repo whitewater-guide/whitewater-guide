@@ -6,3 +6,4 @@ import '../../api/jobs';
 import '../../api/jobs/server';
 import '../../api/jobs/server/publications';
 import '../../api/users/server/publications';
+import '../../api/measurements';

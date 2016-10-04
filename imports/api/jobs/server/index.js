@@ -1,5 +1,7 @@
 import { JobCollection, Job } from 'meteor/vsivsi:job-collection';
 import { Sources } from '../../sources';
+import { Measurements, measurementsSchema } from '../../measurements';
+import { Gauges } from '../../gauges';
 import { Meteor } from 'meteor/meteor';
 import fs from 'fs';
 import path from 'path';
@@ -37,7 +39,15 @@ allJobs.processJobs('harvest', {}, (job, callback) => {
   const launchScriptFiber = Meteor.wrapAsync(worker);
   try {
     const measurements = launchScriptFiber(job.data.script);
-    console.log(`Job result: ${measurements}`);
+    measurements.forEach(measurement => {
+      const gauge = Gauges.findOne({ code: measurement.code })
+      console.log('Measurement:', JSON.stringify(measurement), JSON.stringify(gauge));
+      Measurements.insert({
+        gauge: gauge._id,
+        date: new Date(measurement.timestamp),
+        value: measurement.value,
+      });
+    });
     job.done();
   }
   catch (ex) {

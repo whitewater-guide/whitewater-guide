@@ -22,6 +22,7 @@ const gaugesSchema = new SimpleSchema({
     type: String,
     label: 'Unique code',
     max: 100,
+    index: true,
   },
   altitude: {
     type: Number,
