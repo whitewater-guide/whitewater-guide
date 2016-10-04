@@ -1,20 +1,34 @@
 import React, {Component, PropTypes} from 'react';
-import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
+import withAdmin from '../../hoc/withAdmin';
+import {generateSchedule} from '../../../api/sources';
 
 class SourceScheduleLeft extends Component {
   
   static propTypes = {
+    params: PropTypes.shape({
+      sourceId: PropTypes.string,
+    }),
     source: PropTypes.object,
+    admin: PropTypes.bool,
   };
 
   render() {
+    const {admin} = this.props;
+    //TODO: clean all jobs or prohibit if jobs exist
     return (
       <div style={styles.container}>
-        <RaisedButton primary onTouchTap={this.removeAllGauges} label="Remove all"/>
-        <RaisedButton primary onTouchTap={this.removeDisabledGauges} style={{marginTop: 16}} label="Remove disabled"/>
+        {admin && <FlatButton secondary={true} onTouchTap={this.generateSchedule} label="Generate"/>}
       </div>
     );
   }
+
+  generateSchedule = () => {
+    generateSchedule.callPromise({sourceId: this.props.params.sourceId})
+      .then(() => console.log('Generated'))
+      .catch(err => console.log(`Error while trying to generate schedule for source ${this.props.source._id}: ${err}`));
+
+  };
 }
 
 const styles = {
@@ -26,4 +40,4 @@ const styles = {
   },
 }
 
-export default SourceScheduleLeft;
+export default withAdmin(SourceScheduleLeft);

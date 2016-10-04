@@ -4,7 +4,7 @@ import {Gauges, removeAllGauges, removeDisabledGauges} from '../../../api/gauges
 import {autofill} from '../../../api/sources';
 import {withRouter} from 'react-router'
 import {createContainer} from 'meteor/react-meteor-data';
-import {Roles} from 'meteor/alanning:roles';
+import withAdmin from '../../hoc/withAdmin';
 import {Meteor} from 'meteor/meteor';
 
 class ListGaugesLeft extends Component {
@@ -67,10 +67,9 @@ const ListGaugesLeftContainer = createContainer((props) => {
   const gaugesSubscription = Meteor.subscribe('gauges.inSource', props.sourceId);
   const numGauges = Gauges.find({sourceId: props.sourceId}).count();
   return {
-    admin: Roles.userIsInRole(Meteor.userId(), 'admin'),
-    ready: gaugesSubscription.ready() && Roles.subscription.ready(),
+    ready: gaugesSubscription.ready(),
     numGauges
   };
 }, ListGaugesLeft);
 
-export default withRouter(ListGaugesLeftContainer);
+export default withAdmin(withRouter(ListGaugesLeftContainer));

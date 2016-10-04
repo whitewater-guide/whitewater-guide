@@ -4,7 +4,7 @@ import {Meteor} from 'meteor/meteor';
 import {SimpleSchema} from 'meteor/aldeed:simple-schema';
 import {CallPromiseMixin} from 'meteor/didericis:callpromise-mixin';
 import {Gauges, createGauge} from '../gauges';
-import {Roles} from 'meteor/alanning:roles';
+import { Roles } from 'meteor/alanning:roles';
 
 export const Sources = new Mongo.Collection('sources');
 
@@ -19,7 +19,7 @@ const sourcesSchema = new SimpleSchema({
     type: String,
     label: 'Script name',
     min: 3,
-    max: 10,
+    max: 20,
   },
   interval: {
     type: Number,
@@ -132,6 +132,30 @@ export const autofill = new ValidatedMethod({
       gauges.forEach(gauge => {
         createGauge.call({source: sourceId, ...gauge});
       });
+    }
+  },
+});
+
+export const generateSchedule = new ValidatedMethod({
+  name: 'sources.generateSchedule',
+
+  mixins: [CallPromiseMixin],
+
+  validate: new SimpleSchema({
+    sourceId: { type: String }
+  }).validator(),
+
+  applyOptions: {
+    returnStubValue: false,
+  },
+  
+  run({sourceId}) {
+    if (!Roles.userIsInRole(this.userId, 'admin')){
+      throw new Meteor.Error('sources.generateSchedule.unauthorized', 'Only admins can autofill sources');
+    }
+    if (!this.isSimulation) {
+      var serverSchedule = require('../jobs/server');
+      serverSchedule.generateSchedule(sourceId);
     }
   },
 });

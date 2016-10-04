@@ -1,18 +1,34 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
+import withAdmin from '../../hoc/withAdmin';
+import FlatLinkButton from '../../components/FlatLinkButton';
 
 class ViewSourceLeft extends Component {
 
   static propTypes = {
+    params: PropTypes.shape({
+      sourceId: PropTypes.string,
+    }),
     sourceLeft: PropTypes.element,
+    admin: PropTypes.bool,
   };
 
   render() {
     return (
-      <div>
+      <div style={styles.container}>
+        {this.props.admin && <FlatLinkButton secondary={true} to={`/sources/${this.props.params.sourceId}/schedule`} label="Schedule"/>}
         {this.props.sourceLeft}
       </div>
     );
   }
 }
 
-export default ViewSourceLeft;
+const styles = {
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'stretch',
+  },
+
+}
+
+export default withAdmin(ViewSourceLeft);
