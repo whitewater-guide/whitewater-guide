@@ -1,3 +1,3 @@
-import {Mongo} from 'meteor/mongo';
+import { JobCollection } from 'meteor/vsivsi:job-collection';
 
-export const Jobs = new Mongo.Collection('jobs');
+export const Jobs = JobCollection('sources');

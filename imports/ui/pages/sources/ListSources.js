@@ -95,11 +95,6 @@ const styles = {
     paddingBottom: 80,
     position: 'relative',
   },
-  addButton: {
-    right: 20,
-    bottom: 20,
-    position: 'absolute',
-  },
 };
 
 const ListSourcesContainer = createContainer(

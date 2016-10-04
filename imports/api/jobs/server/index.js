@@ -1,22 +1,20 @@
-import { JobCollection, Job } from 'meteor/vsivsi:job-collection';
+import { Job } from 'meteor/vsivsi:job-collection';
 import { Sources } from '../../sources';
-import { Measurements, measurementsSchema } from '../../measurements';
+import { Jobs } from '../index';
+import { Measurements } from '../../measurements';
 import { Gauges } from '../../gauges';
 import { Meteor } from 'meteor/meteor';
-import fs from 'fs';
 import path from 'path';
 import child_process from 'child_process';
 
-const allJobs = JobCollection('sources');
-
-const cleanupJob = new Job(allJobs, 'cleanup', {})
-  .repeat({ schedule: allJobs.later.parse.text("every 5 minutes") })
+const cleanupJob = new Job(Jobs, 'cleanup', {})
+  .repeat({ schedule: Jobs.later.parse.text("every 5 minutes") })
   .save({ cancelRepeats: true });
 
-const cleanupQueue = allJobs.processJobs('cleanup', { pollInterval: false, workTimeout: 60 * 1000 }, (job, callback) => {
+const cleanupQueue = Jobs.processJobs('cleanup', { pollInterval: false, workTimeout: 60 * 1000 }, (job, callback) => {
   const current = new Date();
   current.setMinutes(current.getMinutes() - 5);
-  const ids = allJobs.find(
+  const ids = Jobs.find(
     {
       status: { $in: Job.jobStatusRemovable },
       updated: { $lt: current },
@@ -25,17 +23,17 @@ const cleanupQueue = allJobs.processJobs('cleanup', { pollInterval: false, workT
   ).map(d => d._id);
 
   if (ids.length > 0) {
-    allJobs.removeJobs(ids);
+    Jobs.removeJobs(ids);
     console.log(`Removed ${ids.length} old jobs`);
   }
   job.done(`Removed ${ids.length} old jobs`);
   callback();
 });
 
-allJobs.find({status: 'ready'})
+Jobs.find({status: 'ready'})
   .observe({ added: function () { cleanupQueue.trigger(); } });
 
-allJobs.processJobs('harvest', {}, (job, callback) => {
+Jobs.processJobs('harvest', {}, (job, callback) => {
   const launchScriptFiber = Meteor.wrapAsync(worker);
   try {
     const measurements = launchScriptFiber(job.data.script);
@@ -57,8 +55,8 @@ allJobs.processJobs('harvest', {}, (job, callback) => {
   callback();
 });
 
-allJobs.startJobServer();
-allJobs.setLogStream(process.stdout);
+Jobs.startJobServer();
+Jobs.setLogStream(process.stdout);
 
 function worker(script, nodeCallback) {
   const file = path.resolve(process.cwd(), 'assets/app/workers', `${script}.js`);
@@ -85,8 +83,11 @@ export function generateSchedule(sourceId) {
   if (!source)
     return;
   if (source.harvestMode === 'allAtOnce') {
-    const job = new Job(allJobs, 'harvest', { script: source.script });
-    job.repeat({ schedule: allJobs.later.parse.text(`every ${source.interval} mins`) });
+    const job = new Job(Jobs, 'harvest', {
+      script: source.script,
+      source: source._id,
+    });
+    job.repeat({ schedule: Jobs.later.parse.text(`every ${source.interval} mins`) });
     job.save();
   }
 }
