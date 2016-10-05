@@ -5,6 +5,7 @@ import {Meteor} from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Jobs } from '../../../api/jobs';
 import withAdmin from '../../hoc/withAdmin';
+import moment from 'moment';
 
 class SourceSchedule extends Component {
   static propTypes = {
@@ -42,12 +43,13 @@ class SourceSchedule extends Component {
   }
 
   renderRow = (job) => {
+    console.log('Rendering row', job);
     return (
       <TableRow key={job._id}>
         <TableRowColumn>{job.status}</TableRowColumn>
         <TableRowColumn>{job.gauge}</TableRowColumn>
-        <TableRowColumn>{job.created}</TableRowColumn>
-        <TableRowColumn>{job.updated}</TableRowColumn>
+        <TableRowColumn>{moment(job.created).format('DD/MM/YYYY HH:mm')}</TableRowColumn>
+        <TableRowColumn>{moment(job.updated).format('DD/MM/YYYY HH:mm')}</TableRowColumn>
       </TableRow>
     );
   };
