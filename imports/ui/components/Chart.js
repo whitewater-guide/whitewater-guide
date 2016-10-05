@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import { VictoryAxis, VictoryChart, VictoryLine, VictoryScatter } from 'victory-chart';
+import { VictoryAxis, VictoryChart, VictoryLine } from 'victory-chart';
+import { VictoryTheme } from 'victory-core';
 import { extent } from 'd3-array';
 import moment from 'moment';
 
@@ -23,7 +24,8 @@ class Chart extends Component {
       y: extent(data, d => d.value)
     };
     return (
-      <VictoryChart domain={domain} scale={{ x: 'time', y: 'linear' }} padding={{ left: 80, right: 50, top: 20, bottom: 30 }} >
+      <VictoryChart domain={domain} scale={{ x: 'time', y: 'linear' }}
+                    theme={VictoryTheme.material}  >
         <VictoryAxis tickFormat={this.tickFormat} />
         <VictoryAxis dependentAxis/>
         <VictoryLine data={data} x="date" y="value"
