@@ -39,3 +39,20 @@ if (process.argv[2] === 'autofill'){
       process.exit(1);
     });
 }
+else if (process.argv[2] === 'harvest') {
+  harvest()
+    .then(function (gauges) {
+      var values = gauges.map(function (g) {
+        return {
+          code: g.code,
+          timestamp: new Date(g.timestamp),
+          value: g.value,
+        };
+      });
+      process.send(values)
+    })
+    .catch(function(error){
+      process.send({error});
+      process.exit(1);
+    });
+}

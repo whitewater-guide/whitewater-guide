@@ -24,7 +24,6 @@ const cleanupQueue = Jobs.processJobs('cleanup', { pollInterval: false, workTime
 
   if (ids.length > 0) {
     Jobs.removeJobs(ids);
-    console.log(`Removed ${ids.length} old jobs`);
   }
   job.done(`Removed ${ids.length} old jobs`);
   callback();
@@ -37,16 +36,18 @@ Jobs.processJobs('harvest', {}, (job, callback) => {
   const launchScriptFiber = Meteor.wrapAsync(worker);
   try {
     const measurements = launchScriptFiber(job.data.script);
+    let insertCount = 0;
     measurements.forEach(measurement => {
       const gauge = Gauges.findOne({ code: measurement.code })
-      console.log('Measurement:', JSON.stringify(measurement), JSON.stringify(gauge));
-      Measurements.insert({
-        gauge: gauge._id,
-        date: new Date(measurement.timestamp),
-        value: measurement.value,
-      });
+      if (gauge && measurement.value) {
+        Measurements.insert({
+          gauge: gauge._id,
+          date: new Date(measurement.timestamp),
+          value: measurement.value,
+        }, (err) => { if (!err) insertCount++ });
+      }
     });
-    job.done();
+    job.done(`Collected ${insertCount} from ${job.data.script} gauges`);
   }
   catch (ex) {
     console.log(`Harvest job exception for ${job.data.script}`);
@@ -78,7 +79,6 @@ function worker(script, nodeCallback) {
 }
 
 export function generateSchedule(sourceId) {
-  console.log(`Generating schedule for ${sourceId}`);
   const source = Sources.findOne(sourceId);
   if (!source)
     return;
