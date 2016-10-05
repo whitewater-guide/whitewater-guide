@@ -12,6 +12,8 @@ import SourceSettings from '../../ui/pages/sources/SourceSettings';
 import NewGauge from '../../ui/pages/sources/NewGauge';
 import ViewSource from '../../ui/pages/sources/ViewSource';
 import ViewSourceLeft from '../../ui/pages/sources/ViewSourceLeft';
+import ViewGauge from '../../ui/pages/gauges/ViewGauge';
+import ViewGaugeLeft from '../../ui/pages/gauges/ViewGaugeLeft';
 
 export default class AppRouter extends Component {
   render() {
@@ -30,6 +32,7 @@ export default class AppRouter extends Component {
               <Route path="new" name="New gauge" components={{content: NewGauge}} />
             </Route>
           </Route>
+          <Route path="gauges/:gaugeId" name="Gauge" breadcrumbName=":gaugeId" components={{content: ViewGauge, left: ViewGaugeLeft}}/>
         </Route>
       </Router>
     );

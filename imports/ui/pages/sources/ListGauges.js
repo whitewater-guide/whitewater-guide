@@ -3,7 +3,8 @@ import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColu
 import IconButton from 'material-ui/IconButton';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
-import {Roles} from 'meteor/alanning:roles';
+import { Roles } from 'meteor/alanning:roles'
+import { withRouter } from 'react-router';
 import { Gauges, removeGauge } from '../../../api/gauges';
 
 class ListGauges extends Component {
@@ -15,6 +16,7 @@ class ListGauges extends Component {
     admin: PropTypes.bool,
     ready: PropTypes.bool,
     gauges: PropTypes.array,
+    router: PropTypes.object,
   };
 
   render() {
@@ -24,7 +26,7 @@ class ListGauges extends Component {
     
     return (
       <div style={styles.container}>
-        <Table selectable={false}>
+        <Table selectable={false} onCellClick={this.onCellClick}>
           <TableHeader displaySelectAll={false} adjustForCheckbox={false} >
             <TableRow>
               {admin && <TableHeaderColumn style={styles.columns.status}></TableHeaderColumn>}
@@ -79,6 +81,11 @@ class ListGauges extends Component {
       .catch( err => console.log('Error while deleting source', err));
   };
 
+  onCellClick = (rowId) => {
+    const {router, gauges} = this.props;
+    router.push(`/gauges/${gauges[rowId]._id}`);
+  };
+
 }
 
 const styles = {
@@ -125,4 +132,4 @@ const ListGaugesContainer = createContainer(
   ListGauges
 );
 
-export default ListGaugesContainer;
+export default withRouter(ListGaugesContainer);

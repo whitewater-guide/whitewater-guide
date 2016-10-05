@@ -4,6 +4,7 @@ import {SimpleSchema} from 'meteor/aldeed:simple-schema';
 import {CallPromiseMixin} from 'meteor/didericis:callpromise-mixin';
 import {ValidatedMethod} from 'meteor/mdg:validated-method';
 import {Source} from '../sources';
+import {Measurements} from '../measurements';
 import {Roles} from 'meteor/alanning:roles';
 
 export const Gauges = new Mongo.Collection('gauges');
@@ -175,5 +176,8 @@ export const removeDisabledGauges = new ValidatedMethod({
 Gauges.helpers({
   source(){
     return Source.findOne(this.source);
+  },
+  measurements() {
+    return Measurements.find({ gauge: this._id });
   },
 });
