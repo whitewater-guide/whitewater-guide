@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Gauges } from '../../../api/gauges';
+import Chart from '../../components/Chart';
 import { Meteor } from 'meteor/meteor';
 import moment from 'moment';
 
@@ -10,6 +11,7 @@ class ViewGauge extends Component {
       gaugeId: PropTypes.string,
     }),
     gauge: PropTypes.object,
+    measurements: PropTypes.array,
   }
 
   render() {
@@ -17,7 +19,12 @@ class ViewGauge extends Component {
       return null;
     return (
       <div>
-        {this.props.gauge.measurements().map(this.renderMeasurement)}
+        <div>
+          <Chart data={this.props.measurements}/>
+        </div>
+        <div>
+          {this.props.measurements.map(this.renderMeasurement)}
+        </div>  
       </div>
     );
   }
@@ -39,7 +46,8 @@ const ViewGaugeContainer = createContainer(
     console.log('Found gauge', gauge);
     return {
       ready: gaugeSubscription.ready(),
-      gauge 
+      gauge,
+      measurements: gauge ? gauge.measurements().fetch() : [],
     };
   },
   ViewGauge
