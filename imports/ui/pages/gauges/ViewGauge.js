@@ -3,7 +3,6 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { Gauges } from '../../../api/gauges';
 import Chart from '../../components/Chart';
 import { Meteor } from 'meteor/meteor';
-import moment from 'moment';
 
 class ViewGauge extends Component {
   static propTypes = {
@@ -12,38 +11,54 @@ class ViewGauge extends Component {
     }),
     gauge: PropTypes.object,
     measurements: PropTypes.array,
-  }
+  };
 
   render() {
     if (!this.props.ready)
       return null;
     return (
-      <div>
-        <div>
-          <Chart data={this.props.measurements}/>
+      <div style={styles.container}>
+        <div style={styles.body}>
+          <h1>{this.props.gauge.name}</h1>
+          <div style={styles.chartHolder}>
+            <Chart data={this.props.measurements}/>
+          </div>
         </div>
-        <div>
-          {this.props.measurements.map(this.renderMeasurement)}
+        <div style={styles.rightColumn}>
+          List of rivers?
         </div>  
       </div>
     );
   }
 
-  renderMeasurement = (m) => {
-    return (
-      <div key={m._id}>
-        <span>{moment(m.timestamp).format('DD/MM/YYYY HH:mm')}</span>
-        <span>{m.value}</span>
-      </div>
-    )
-  };
+}
+
+const styles = {
+  container: {
+    display: 'flex',
+    flex: 1,
+  },
+  body: {
+    display: 'flex',
+    flex: 1,
+    flexDirection: 'column',
+  },
+  rightColumn: {
+    display: 'flex',
+    width: 200,
+    flexDirection: 'column',
+  },
+  chartHolder: {
+    display: 'flex',
+    flex: 1,
+    padding: 16,
+  },
 }
 
 const ViewGaugeContainer = createContainer(
   (props) => {
     const gaugeSubscription = Meteor.subscribe('gauges.details', props.params.gaugeId);
     const gauge = Gauges.findOne(props.params.gaugeId);
-    console.log('Found gauge', gauge);
     return {
       ready: gaugeSubscription.ready(),
       gauge,

@@ -7,6 +7,7 @@
   "dependencies": {
     "cheerio": "^0.22.0",
     "console.table": "^0.7.0",
+    "d3": "^4.2.6",
     "later": "^1.2.0",
     "lodash": "^4.15.0",
     "material-ui": "^0.15.4",
