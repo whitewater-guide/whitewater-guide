@@ -1,8 +1,10 @@
 //http://www2.nve.no/h/hd/plotreal/H/list.html
+var fetch = require('node-fetch');
 var needle = require('needle');
 var cheerio = require('cheerio');
 var queue = require('queue');
 var moment = require('moment');
+var _ = require('lodash');
 require('console.table');
 
 var URL_BASE = 'http://www2.nve.no/h/hd/plotreal/H/';
@@ -32,6 +34,8 @@ function parseGaugesListHTML(callback){
           result.push(row);
         }
       });
+      //This is limit for tests
+      result = _.take(result, 40);
       callback(undefined, result);
   });
 }
@@ -90,6 +94,36 @@ function autofill(cb){
   });
 }
 
+function harvestGauge(code, lastTimestamp) {
+  var keyRegex = /\/Date\(([0-9]*)\)\//g;
+  //Defaults to -1 day from now
+  var time = lastTimestamp === undefined ? '-1;0' : (
+    moment(lastTimestamp).format('YYYYMMDDTHHmm') + ';' + moment().format('YYYYMMDDTHHmm')
+  );
+  var paddedCode = code + '.0.1000.1';
+  var gaugeUrl =
+    'http://h-web01.nve.no/chartserver/ShowData.aspx?req=getchart&ver=1.0&vfmt=json&time=' +
+    time + '&lang=no&chd=ds=htsr,da=29,id=' + paddedCode + ',rt=0&nocache=' + Math.random();
+  
+  fetch(gaugeUrl)
+    .then(function (response) { return response.json() })
+    .then(function (json) {
+      var measurements = _.get(json, ['0', 'SeriesPoints']);
+      measurements = measurements.map(function (m) {
+        var r = keyRegex.exec(m.Key);
+        console.log(r[1]);
+        return {
+          code: code,
+          timestamp: new Date(m.Key),
+          value: m.value
+        };
+      });
+      console.log(JSON.stringify(measurements));
+    })
+    .catch(function (err) {
+      console.log('Error', err);
+    });
+}
 
 if (process.argv[2] === 'autofill') {
   autofill(function (error, gauges) {
@@ -103,5 +137,8 @@ if (process.argv[2] === 'autofill') {
   });
 }
 else if (process.argv[2] === 'harvest') {
-  //http://h-web01.nve.no/chartserver/ShowData.aspx?req=getchart&ver=1.0&vfmt=json&time=-1:0;0&lang=no&chd=ds=htsr,da=29,id=2.303.0.1000.1,rt=0&nocache=0.5432308182330388
+  //
 }
+
+// harvestGauge('6.9', moment().subtract(1, 'days').toDate());
+harvestGauge('2.303', moment().subtract(1, 'days').toDate());

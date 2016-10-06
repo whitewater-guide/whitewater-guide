@@ -35,13 +35,13 @@ Jobs.find({status: 'ready'})
 Jobs.processJobs('harvest', {}, (job, callback) => {
   const launchScriptFiber = Meteor.wrapAsync(worker);
   try {
-    const measurements = launchScriptFiber(job.data.script);
+    const measurements = launchScriptFiber(job.data);
     let insertCount = 0;
     measurements.forEach(measurement => {
-      const gauge = Gauges.findOne({ code: measurement.code })
-      if (gauge && measurement.value) {
+      const gaugeId = job.data.gauge ? job.data.gauge : Gauges.findOne({ source: job.data.source, code: measurement.code })._id;
+      if (measurement.value) {
         Measurements.insert({
-          gauge: gauge._id,
+          gauge: gaugeId,
           date: new Date(measurement.timestamp),
           value: measurement.value,
         }, (err) => { if (!err) insertCount++ });
@@ -59,9 +59,10 @@ Jobs.processJobs('harvest', {}, (job, callback) => {
 Jobs.startJobServer();
 Jobs.setLogStream(process.stdout);
 
-function worker(script, nodeCallback) {
+function worker({script, code}, nodeCallback) {
   const file = path.resolve(process.cwd(), 'assets/app/workers', `${script}.js`);
-  const child = child_process.fork(file, ['harvest']);
+  //It is possible to check gauge's last timestamp here and pass it to worker
+  const child = child_process.fork(file, ['harvest', code]);
   let response;
   
   child.on('close', (code) => {
@@ -89,5 +90,23 @@ export function generateSchedule(sourceId) {
     });
     job.repeat({ schedule: Jobs.later.parse.text(`every ${source.interval} mins`) });
     job.save();
+  }
+  else if (source.harvestMode === 'oneByOne') {
+    const gauges = source.gauges().fetch();
+    const numGauges = gauges.length;
+    if (numGauges === 0)
+      return;
+    const step = Math.floor(source.interval / numGauges);
+    for (let i = 0; i < numGauges; i++){
+      const gauge = gauges[i];
+      const job = new Job(Jobs, 'harvest', {
+        script: source.script,
+        source: source._id,
+        gauge: gauge._id, 
+        code: gauge.code,
+      });
+      job.repeat({ schedule: Jobs.later.parse.recur().on(i * step).minute() });
+      job.save();
+    }
   }
 }

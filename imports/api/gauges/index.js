@@ -13,6 +13,7 @@ const gaugesSchema = new SimpleSchema({
   source: {
     type: Meteor.ObjectID,
     label: 'Gauge source',
+    index: true,
   },
   name: {
     type: String,
