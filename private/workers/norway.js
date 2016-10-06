@@ -91,14 +91,17 @@ function autofill(cb){
 }
 
 
-if (process.argv[2] === 'autofill'){
-  autofill(function(error, gauges){
-    if (error){
-      process.send({error});
+if (process.argv[2] === 'autofill') {
+  autofill(function (error, gauges) {
+    if (error) {
+      process.send({ error });
       process.exit(1);
     }
     else {
       process.send(gauges);
     }
   });
+}
+else if (process.argv[2] === 'harvest') {
+  //http://h-web01.nve.no/chartserver/ShowData.aspx?req=getchart&ver=1.0&vfmt=json&time=-1:0;0&lang=no&chd=ds=htsr,da=29,id=2.303.0.1000.1,rt=0&nocache=0.5432308182330388
 }
