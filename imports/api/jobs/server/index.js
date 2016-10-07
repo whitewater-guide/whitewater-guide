@@ -38,7 +38,7 @@ Jobs.processJobs('harvest', {}, (job, callback) => {
     const measurements = launchScriptFiber(job.data);
     let insertCount = 0;
     measurements.forEach(measurement => {
-      const gaugeId = job.data.gauge ? job.data.gauge : Gauges.findOne({ source: job.data.source, code: measurement.code })._id;
+      const gaugeId = job.data.gaugeId ? job.data.gaugeId : Gauges.findOne({ source: job.data.source, code: measurement.code })._id;
       if (measurement.value) {
         Measurements.insert({
           gauge: gaugeId,
@@ -59,10 +59,15 @@ Jobs.processJobs('harvest', {}, (job, callback) => {
 Jobs.startJobServer();
 Jobs.setLogStream(process.stdout);
 
-function worker({script, code}, nodeCallback) {
+function worker({script, gaugeId}, nodeCallback) {
   const file = path.resolve(process.cwd(), 'assets/app/workers', `${script}.js`);
   //It is possible to check gauge's last timestamp here and pass it to worker
-  const child = child_process.fork(file, ['harvest', code]);
+  const gauge = gaugeId && Gauges.findOne(gaugeId);
+  const args = ['harvest'];
+  if (gauge) {
+    args.push(gauge.code, gauge.lastTimestamp);
+  }
+  const child = child_process.fork(file, args);
   let response;
   
   child.on('close', (code) => {
@@ -102,8 +107,7 @@ export function generateSchedule(sourceId) {
       const job = new Job(Jobs, 'harvest', {
         script: source.script,
         source: source._id,
-        gauge: gauge._id, 
-        code: gauge.code,
+        gaugeId: gauge._id, 
       });
       job.repeat({ schedule: Jobs.later.parse.recur().on(i * step).minute() });
       job.save();

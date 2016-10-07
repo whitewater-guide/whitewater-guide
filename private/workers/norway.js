@@ -95,7 +95,6 @@ function autofill(cb){
 }
 
 function harvestGauge(code, lastTimestamp) {
-  var keyRegex = /\/Date\(([0-9]*)\)\//g;
   //Defaults to -1 day from now
   var time = lastTimestamp === undefined ? '-1;0' : (
     moment(lastTimestamp).format('YYYYMMDDTHHmm') + ';' + moment().format('YYYYMMDDTHHmm')
@@ -105,24 +104,20 @@ function harvestGauge(code, lastTimestamp) {
     'http://h-web01.nve.no/chartserver/ShowData.aspx?req=getchart&ver=1.0&vfmt=json&time=' +
     time + '&lang=no&chd=ds=htsr,da=29,id=' + paddedCode + ',rt=0&nocache=' + Math.random();
   
-  fetch(gaugeUrl)
+  return fetch(gaugeUrl)
     .then(function (response) { return response.json() })
     .then(function (json) {
       var measurements = _.get(json, ['0', 'SeriesPoints']);
       measurements = measurements.map(function (m) {
-        var r = keyRegex.exec(m.Key);
-        console.log(r[1]);
+        var keyRegex = /\/Date\(([0-9]*)\)\//g;
         return {
           code: code,
-          timestamp: new Date(m.Key),
+          timestamp: new Date(Number(keyRegex.exec(m.Key)[1])),
           value: m.value
         };
       });
       console.log(JSON.stringify(measurements));
     })
-    .catch(function (err) {
-      console.log('Error', err);
-    });
 }
 
 if (process.argv[2] === 'autofill') {
@@ -137,8 +132,13 @@ if (process.argv[2] === 'autofill') {
   });
 }
 else if (process.argv[2] === 'harvest') {
-  //
+  harvestGauge(process.argv[3], process.argv[4])
+    .then(function (measurements) {
+      console.log(`Successfully harvested ${measurements.length} gauges`);
+      process.send(measurements);
+    })
+    .catch(function (error) {
+      process.send({ error });
+      process.exit(1);
+    });
 }
-
-// harvestGauge('6.9', moment().subtract(1, 'days').toDate());
-harvestGauge('2.303', moment().subtract(1, 'days').toDate());

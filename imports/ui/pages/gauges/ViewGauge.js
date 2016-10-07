@@ -36,7 +36,6 @@ class ViewGauge extends Component {
 const styles = {
   container: {
     display: 'flex',
-    flex: 1,
   },
   body: {
     display: 'flex',

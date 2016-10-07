@@ -1,8 +1,9 @@
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
-import {Mongo} from 'meteor/mongo';
-import {Meteor} from 'meteor/meteor';
-import {SimpleSchema} from 'meteor/aldeed:simple-schema';
+import { Mongo } from 'meteor/mongo';
+import { Meteor } from 'meteor/meteor';
+import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
+import { Gauges } from '../gauges';
 
 export const Measurements = new Mongo.Collection('measurements');
 
@@ -11,12 +12,10 @@ export const measurementsSchema = new SimpleSchema({
     type: String,
     regEx: SimpleSchema.RegEx.Id,
     label: 'Gauge id',
-    index: true,
   },
   date: {
     type: Date,
     label: 'Timestamp',
-    optional: true,
   },
   value: {
     type: Number,
@@ -27,3 +26,12 @@ export const measurementsSchema = new SimpleSchema({
 });
 
 Measurements.attachSchema(measurementsSchema);
+
+if (Meteor.isServer) {
+  Measurements._ensureIndex({ gauge: 1, date: -1 }, { unique: true });
+}  
+
+//denormalize gauges
+Measurements.after.insert(function (userId, doc) {
+  Gauges.update(doc.gauge, { $set: { lastTimestamp: doc.date, lastValue: doc.value } });
+});
