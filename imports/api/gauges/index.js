@@ -72,6 +72,7 @@ const gaugesSchema = new SimpleSchema({
     type: Number,
     label: 'Last measured value',
     optional: true,
+    decimal: true,
   },
   url: {
     type: String,

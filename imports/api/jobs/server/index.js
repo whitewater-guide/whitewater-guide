@@ -33,9 +33,11 @@ Jobs.find({status: 'ready'})
   .observe({ added: function () { cleanupQueue.trigger(); } });
 
 Jobs.processJobs('harvest', {}, (job, callback) => {
+  console.log(`Process job`);
   const launchScriptFiber = Meteor.wrapAsync(worker);
   try {
     const measurements = launchScriptFiber(job.data);
+    console.log(`Measurements: ${JSON.stringify(measurements)}`);
     let insertCount = 0;
     measurements.forEach(measurement => {
       const gaugeId = job.data.gaugeId ? job.data.gaugeId : Gauges.findOne({ source: job.data.source, code: measurement.code })._id;
@@ -44,20 +46,25 @@ Jobs.processJobs('harvest', {}, (job, callback) => {
           gauge: gaugeId,
           date: new Date(measurement.timestamp),
           value: measurement.value,
-        }, (err) => { if (!err) insertCount++ });
+        }, (err) => {
+          if (err)
+            console.log(`Error while inserting measurement into ${gaugeId}: ${err}`);
+          else
+            insertCount++;
+        });
       }
     });
     job.done(`Collected ${insertCount} from ${job.data.script} gauges`);
   }
   catch (ex) {
-    console.log(`Harvest job exception for ${job.data.script}`);
+    console.log(`Harvest job exception for ${job.data.script}: ${JSON.stringify(ex)}`);
     job.fail(ex);
   }
   callback();
 });
 
 Jobs.startJobServer();
-Jobs.setLogStream(process.stdout);
+// Jobs.setLogStream(process.stdout);
 
 function worker({script, gaugeId}, nodeCallback) {
   const file = path.resolve(process.cwd(), 'assets/app/workers', `${script}.js`);
@@ -65,8 +72,11 @@ function worker({script, gaugeId}, nodeCallback) {
   const gauge = gaugeId && Gauges.findOne(gaugeId);
   const args = ['harvest'];
   if (gauge) {
-    args.push(gauge.code, gauge.lastTimestamp);
+    args.push(gauge.code);
+    if (gauge.lastTimestamp)
+      args.push(gauge.lastTimestamp.getTime());
   }
+  console.log(`Launching worker ${script} with args ${args}`);
   const child = child_process.fork(file, args);
   let response;
   
@@ -101,7 +111,7 @@ export function generateSchedule(sourceId) {
     const numGauges = gauges.length;
     if (numGauges === 0)
       return;
-    const step = Math.floor(source.interval / numGauges);
+    const step = source.interval / numGauges;
     for (let i = 0; i < numGauges; i++){
       const gauge = gauges[i];
       const job = new Job(Jobs, 'harvest', {
@@ -109,7 +119,9 @@ export function generateSchedule(sourceId) {
         source: source._id,
         gaugeId: gauge._id, 
       });
-      job.repeat({ schedule: Jobs.later.parse.recur().on(i * step).minute() });
+      const minute = Math.floor(i * step);
+      console.log(`Add job for gauge ${gauge.name} at ${minute}`);
+      job.repeat({ schedule: Jobs.later.parse.recur().on(minute).minute() });
       job.save();
     }
   }
