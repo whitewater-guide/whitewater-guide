@@ -97,7 +97,7 @@ function autofill(cb){
 function harvestGauge(code, lastTimestamp) {
   //Defaults to -1 day from now
   var time = lastTimestamp === undefined ? '-1;0' : (
-    moment(lastTimestamp).format('YYYYMMDDTHHmm') + ';' + moment().format('YYYYMMDDTHHmm')
+    moment(Number(lastTimestamp)).format('YYYYMMDDTHHmm') + ';' + moment().format('YYYYMMDDTHHmm')
   );
   var paddedCode = code + '.0.1000.1';
   var gaugeUrl =
@@ -139,7 +139,7 @@ else if (process.argv[2] === 'harvest') {
       process.send(measurements);
     })
     .catch(function (error) {
-      process.send({ error });
+      process.send({error: error});
       process.exit(1);
     });
 }

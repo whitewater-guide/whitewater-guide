@@ -33,11 +33,9 @@ Jobs.find({status: 'ready'})
   .observe({ added: function () { cleanupQueue.trigger(); } });
 
 Jobs.processJobs('harvest', {}, (job, callback) => {
-  console.log(`Process job`);
   const launchScriptFiber = Meteor.wrapAsync(worker);
   try {
     const measurements = launchScriptFiber(job.data);
-    console.log(`Measurements: ${JSON.stringify(measurements)}`);
     let insertCount = 0;
     measurements.forEach(measurement => {
       const gaugeId = job.data.gaugeId ? job.data.gaugeId : Gauges.findOne({ source: job.data.source, code: measurement.code })._id;
