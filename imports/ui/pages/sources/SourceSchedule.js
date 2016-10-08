@@ -1,9 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
-import Paper from 'material-ui/Paper';
-import {Meteor} from 'meteor/meteor';
+import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Jobs } from '../../../api/jobs';
+import { Gauges } from '../../../api/gauges';
+import _ from 'lodash';
 import withAdmin from '../../hoc/withAdmin';
 import moment from 'moment';
 
@@ -15,41 +16,45 @@ class SourceSchedule extends Component {
     admin: PropTypes.bool,
     ready: PropTypes.bool,
     jobs: PropTypes.array,
+    gauges: PropTypes.array,
   };
-  
+
   render() {
     const {ready, admin} = this.props;
     if (!ready || !admin)
       return null;
     return (
       <div style={styles.container}>
-        <Paper style={styles.paper}>
-          <Table selectable={false}>
-            <TableHeader displaySelectAll={false} adjustForCheckbox={false} >
-              <TableRow>
-                <TableHeaderColumn>Status</TableHeaderColumn>
-                <TableHeaderColumn>Gauge</TableHeaderColumn>
-                <TableHeaderColumn>Created</TableHeaderColumn>
-                <TableHeaderColumn>Updated</TableHeaderColumn>
-              </TableRow>
-            </TableHeader>
-            <TableBody displayRowCheckbox={false} stripedRows={true}>
-              { this.props.jobs.map(this.renderRow) }
-            </TableBody>
-          </Table>
-        </Paper>
+        <Table selectable={false}>
+          <TableHeader displaySelectAll={false} adjustForCheckbox={false} >
+            <TableRow>
+              <TableHeaderColumn>Status</TableHeaderColumn>
+              <TableHeaderColumn>Source/Script</TableHeaderColumn>
+              <TableHeaderColumn>Gauge</TableHeaderColumn>
+              <TableHeaderColumn>Created</TableHeaderColumn>
+              <TableHeaderColumn>Updated</TableHeaderColumn>
+              <TableHeaderColumn>Measurements count</TableHeaderColumn>
+            </TableRow>
+          </TableHeader>
+          <TableBody displayRowCheckbox={false} stripedRows={true}>
+            {this.props.jobs.map(this.renderRow)}
+          </TableBody>
+        </Table>
       </div>
     );
   }
 
   renderRow = (job) => {
-    console.log('Rendering row', job);
+    const gauge = _.find(this.props.gauges, { _id: job.data.gaugeId });
+    const numMeasurements = job.result ? job.result.measurements : '--';
     return (
       <TableRow key={job._id}>
         <TableRowColumn>{job.status}</TableRowColumn>
-        <TableRowColumn>{job.gauge}</TableRowColumn>
+        <TableRowColumn>{job.data.script}</TableRowColumn>
+        <TableRowColumn>{gauge ? gauge.name : '--'}</TableRowColumn>
         <TableRowColumn>{moment(job.created).format('DD/MM/YYYY HH:mm')}</TableRowColumn>
         <TableRowColumn>{moment(job.updated).format('DD/MM/YYYY HH:mm')}</TableRowColumn>
+        <TableRowColumn>{numMeasurements}</TableRowColumn>
       </TableRow>
     );
   };
@@ -78,10 +83,13 @@ const SourceScheduleContainer = createContainer(
   (props) => {
     console.log('Subscribe', props.params.sourceId);
     const jobsSubscription = Meteor.subscribe('jobs.forSource', props.params.sourceId);
-    const jobs = Jobs.find({"data.source": props.params.sourceId}).fetch();
+    const gaugesSubscription = Meteor.subscribe('gauges.inSource', props.params.sourceId);
+    const jobs = Jobs.find({ "data.source": props.params.sourceId }).fetch();
+    const gauges = Gauges.find({ "source": props.params.sourceId }, {fields: {name: 1}}).fetch();
     return {
-      ready: jobsSubscription.ready(),
-      jobs 
+      ready: jobsSubscription.ready() && gaugesSubscription.ready(),
+      gauges,
+      jobs
     };
   },
   SourceSchedule

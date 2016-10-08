@@ -116,7 +116,7 @@ function harvestGauge(code, lastTimestamp) {
           timestamp: new Date(Number(keyRegex.exec(m.Key)[1]))
         };
       });
-      // console.log(`Fetched ${JSON.stringify(measurements)}`);
+      console.log(`Fetched ${measurements.length} measurements from ${gaugeUrl}`);
       return measurements;
     })
 }
@@ -135,10 +135,11 @@ if (process.argv[2] === 'autofill') {
 else if (process.argv[2] === 'harvest') {
   harvestGauge(process.argv[3], process.argv[4])
     .then(function (measurements) {
-      // console.log(`Successfully harvested ${JSON.stringify(measurements)}`);
+      //console.log(`Successfully harvested ${JSON.stringify(measurements)}`);
       process.send(measurements);
     })
     .catch(function (error) {
+      console.log(`Error while harvesting: ${error}`);
       process.send({error: error});
       process.exit(1);
     });

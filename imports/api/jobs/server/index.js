@@ -4,6 +4,7 @@ import { Jobs } from '../index';
 import { Measurements } from '../../measurements';
 import { Gauges } from '../../gauges';
 import { Meteor } from 'meteor/meteor';
+import moment from 'moment';
 import path from 'path';
 import child_process from 'child_process';
 
@@ -52,7 +53,9 @@ Jobs.processJobs('harvest', {}, (job, callback) => {
         });
       }
     });
-    job.done(`Collected ${insertCount} from ${job.data.script} gauges`);
+    job.done({
+      measurements: insertCount,
+    });
   }
   catch (ex) {
     console.log(`Harvest job exception for ${job.data.script}: ${JSON.stringify(ex)}`);
@@ -72,7 +75,7 @@ function worker({script, gaugeId}, nodeCallback) {
   if (gauge) {
     args.push(gauge.code);
     if (gauge.lastTimestamp)
-      args.push(gauge.lastTimestamp.getTime());
+      args.push(moment(gauge.lastTimestamp).subtract(1, 'minutes').valueOf());
   }
   console.log(`Launching worker ${script} with args ${args}`);
   const child = child_process.fork(file, args);
@@ -119,8 +122,10 @@ export function generateSchedule(sourceId) {
       });
       const minute = Math.floor(i * step);
       console.log(`Add job for gauge ${gauge.name} at ${minute}`);
-      job.repeat({ schedule: Jobs.later.parse.recur().on(minute).minute() });
-      job.save();
+      job
+        .repeat({ schedule: Jobs.later.parse.recur().on(minute).minute() })
+        .retry({ wait: source.interval * 1000 })
+        .save();
     }
   }
 }
