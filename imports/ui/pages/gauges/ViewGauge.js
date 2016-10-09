@@ -3,6 +3,9 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { Gauges } from '../../../api/gauges';
 import Chart from '../../components/Chart';
 import { Meteor } from 'meteor/meteor';
+import Paper from 'material-ui/Paper';
+import moment from 'moment';
+import _ from 'lodash';
 
 class ViewGauge extends Component {
   static propTypes = {
@@ -16,17 +19,18 @@ class ViewGauge extends Component {
   render() {
     if (!this.props.ready)
       return null;
+    const {lastValue, lastTimestamp} = this.props.gauge;
     return (
       <div style={styles.container}>
         <div style={styles.body}>
-          <h1>{this.props.gauge.name}</h1>
-          <div style={styles.chartHolder}>
+          <Paper style={styles.headerPaper}>
+            <h1>{this.props.gauge.name}</h1>
+            <span>{`Last value: ${_.round(lastValue,2 )} from ${moment(lastTimestamp).format('DD/MM/YYYY HH:mm')}`}</span>
+          </Paper>
+          <Paper style={styles.chartHolder}>
             <Chart data={this.props.measurements}/>
-          </div>
+          </Paper>
         </div>
-        <div style={styles.rightColumn}>
-          List of rivers?
-        </div>  
       </div>
     );
   }
@@ -36,21 +40,24 @@ class ViewGauge extends Component {
 const styles = {
   container: {
     display: 'flex',
+    flex: 1,
   },
   body: {
     display: 'flex',
     flex: 1,
     flexDirection: 'column',
   },
-  rightColumn: {
-    display: 'flex',
-    width: 200,
-    flexDirection: 'column',
+  headerPaper: {
+    margin: 16,
+    padding: 8,
   },
   chartHolder: {
     display: 'flex',
     flex: 1,
     padding: 16,
+    marginLeft: 16,
+    marginRight: 16,
+    marginBottom: 16,
   },
 }
 

@@ -3,6 +3,7 @@ import { VictoryAxis, VictoryChart, VictoryLine } from 'victory-chart';
 import { VictoryTheme } from 'victory-core';
 import { extent } from 'd3-array';
 import moment from 'moment';
+import Dimensions from 'react-dimensions'
 
 class Chart extends Component {
   static propTypes = {
@@ -11,6 +12,8 @@ class Chart extends Component {
     minValue: PropTypes.number,
     midValue: PropTypes.number,
     maxValue: PropTypes.number,
+    containerWidth: PropTypes.number,
+    containerHeight: PropTypes.number,
   };
 
   static defaultProps = {
@@ -25,7 +28,8 @@ class Chart extends Component {
     };
     return (
       <VictoryChart domain={domain} scale={{ x: 'time', y: 'linear' }}
-                    theme={VictoryTheme.material}  >
+                    width={this.props.containerWidth} height={this.props.containerHeight}
+                    theme={VictoryTheme.material} >
         <VictoryAxis tickFormat={this.tickFormat} />
         <VictoryAxis dependentAxis/>
         <VictoryLine data={data} x="date" y="value"
@@ -39,4 +43,4 @@ class Chart extends Component {
   };
 }
 
-export default Chart;
+export default Dimensions()(Chart);
