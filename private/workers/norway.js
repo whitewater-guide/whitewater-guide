@@ -35,7 +35,7 @@ function parseGaugesListHTML(callback){
         }
       });
       //This is limit for tests
-      result = _.take(result, 40);
+      result = _.take(result, 20);
       callback(undefined, result);
   });
 }

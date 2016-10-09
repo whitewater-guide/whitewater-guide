@@ -6,6 +6,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { Roles } from 'meteor/alanning:roles'
 import { withRouter } from 'react-router';
 import { Gauges, removeGauge } from '../../../api/gauges';
+import moment from 'moment';
 
 class ListGauges extends Component {
 
@@ -34,6 +35,8 @@ class ListGauges extends Component {
               {admin && <TableHeaderColumn>Code</TableHeaderColumn>}
               <TableHeaderColumn>URL</TableHeaderColumn>
               <TableHeaderColumn>Coordinate</TableHeaderColumn>
+              <TableHeaderColumn>Value</TableHeaderColumn>
+              <TableHeaderColumn>Date</TableHeaderColumn>
               {admin && <TableHeaderColumn style={styles.columns.controls}>Controls</TableHeaderColumn>}
             </TableRow>
           </TableHeader>
@@ -64,6 +67,8 @@ class ListGauges extends Component {
         {admin && <TableRowColumn>{src.code}</TableRowColumn>}
         <TableRowColumn><a href={src.url}>{src.url}</a></TableRowColumn>
         <TableRowColumn>{`${lat} ${lon}${alt}`}</TableRowColumn>
+        <TableRowColumn>{src.lastValue}</TableRowColumn>
+        <TableRowColumn>{moment(src.lastTimestamp).format('DD.MM.YYYY HH:mm')}</TableRowColumn>
         { admin &&
           <TableRowColumn style={styles.columns.controls}>
             <IconButton iconClassName="material-icons" style={styles.iconWrapper} onTouchTap={viewHandler}>mode_edit</IconButton>
