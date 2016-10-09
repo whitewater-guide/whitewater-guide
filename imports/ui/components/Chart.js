@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { VictoryAxis, VictoryChart, VictoryLine } from 'victory-chart';
+import { VictoryAxis, VictoryChart, VictoryLine, VictoryScatter } from 'victory-chart';
 import { VictoryTheme } from 'victory-core';
 import { extent } from 'd3-array';
 import moment from 'moment';
@@ -34,6 +34,7 @@ class Chart extends Component {
         <VictoryAxis dependentAxis/>
         <VictoryLine data={data} x="date" y="value"
           interpolation="monotoneX" style={{ data: { strokeWidth: 1 } }} />
+        <VictoryScatter data={data} x="date" y="value" />
       </VictoryChart>
     );
   }
