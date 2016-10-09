@@ -12,3 +12,8 @@ Meteor.publish('sources.list', function() {
   const fields = Roles.userIsInRole(this.userId, 'admin') ? undefined : publicFields;
   return Sources.find({}, {fields});
 });
+
+Meteor.publish('sources.details', function (sourceId) {
+    const fields = Roles.userIsInRole(this.userId, 'admin') ? undefined : publicFields;
+  return Sources.find(sourceId, {fields});
+});
