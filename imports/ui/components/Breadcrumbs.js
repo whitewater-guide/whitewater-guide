@@ -21,6 +21,9 @@ class Breadcrumbs extends Component {
   }
 
   breadcrumbResolver = (key, text, routePath, route) => {
+    if (!this.props.ready) {
+      return text;
+    }
     if (key === ':sourceId') {
       return this.props.source.name;
     }
