@@ -5,6 +5,7 @@ import {SimpleSchema} from 'meteor/aldeed:simple-schema';
 import {CallPromiseMixin} from 'meteor/didericis:callpromise-mixin';
 import {Gauges, createGauge} from '../gauges';
 import { Roles } from 'meteor/alanning:roles';
+import cronParser from 'cron-parser';
 
 export const Sources = new Mongo.Collection('sources');
 
@@ -21,12 +22,18 @@ const sourcesSchema = new SimpleSchema({
     min: 3,
     max: 20,
   },
-  interval: {
-    type: Number,
-    label: 'Harvesting interval in minutes',
-    min: 1,
-    max: 2880, //2 days
-    defaultValue: 60,
+  cron: {
+    type: String, 
+    label: 'Cron expression',
+    optional: true,
+    custom: function () {
+      try {
+        cronParser.parseExpression(this.value);
+      }
+      catch (e) {
+        return 'notAllowed';
+      }
+    },
   },
   harvestMode: {
     type: String,
@@ -56,6 +63,7 @@ export const createSource = new ValidatedMethod({
   },
 
   run(data) {
+    console.log('Creating source');
     if (!Roles.userIsInRole(this.userId, 'admin')){
       throw new Meteor.Error('sources.create.unauthorized', 'You must be admin to create sources');
     }
@@ -129,6 +137,7 @@ export const autofill = new ValidatedMethod({
       console.log(`Launching autofill with script ${scriptName}`);
       const launchScriptFiber = Meteor.wrapAsync(ServerScripts.launchScript);
       const gauges = launchScriptFiber(scriptName, 'autofill');
+      console.log(`Found ${gauges.length} gauges`);
       gauges.forEach(gauge => {
         createGauge.call({source: sourceId, ...gauge});
       });

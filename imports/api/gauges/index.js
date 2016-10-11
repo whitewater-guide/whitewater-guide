@@ -5,7 +5,8 @@ import {CallPromiseMixin} from 'meteor/didericis:callpromise-mixin';
 import {ValidatedMethod} from 'meteor/mdg:validated-method';
 import {Source} from '../sources';
 import {Measurements} from '../measurements';
-import {Roles} from 'meteor/alanning:roles';
+import { Roles } from 'meteor/alanning:roles';
+import cronParser from 'cron-parser';
 
 export const Gauges = new Mongo.Collection('gauges');
 
@@ -62,6 +63,21 @@ const gaugesSchema = new SimpleSchema({
     type: Object,
     label: 'Additional API request parameters',
     optional: true,
+  },
+  cron: {
+    type: String, 
+    label: 'Cron expression',
+    optional: true,
+    custom: function () {
+      if (this.value) {
+        try {
+          cronParser.parseExpression(this.value);
+        }
+        catch (e) {
+          return 'notAllowed';
+        }
+      }
+    },
   },
   lastTimestamp: {
     type: Date,

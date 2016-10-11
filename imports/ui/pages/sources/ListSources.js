@@ -32,7 +32,7 @@ class ListSources extends Component {
                 <TableHeaderColumn>URL</TableHeaderColumn>
                 {admin && <TableHeaderColumn>Script ID</TableHeaderColumn>}
                 {admin && <TableHeaderColumn>Harvest type</TableHeaderColumn>}
-                {admin && <TableHeaderColumn>Harvest interval</TableHeaderColumn>}
+                {admin && <TableHeaderColumn>Harvest cron</TableHeaderColumn>}
                 {admin && <TableHeaderColumn>Controls</TableHeaderColumn>}
               </TableRow>
             </TableHeader>
@@ -55,7 +55,7 @@ class ListSources extends Component {
         <TableRowColumn><a href={src.url}>{src.url}</a></TableRowColumn>
         {admin && <TableRowColumn>{src.script}</TableRowColumn>}
         {admin && <TableRowColumn>{src.harvestMode}</TableRowColumn>}
-        {admin && <TableRowColumn>{src.interval}</TableRowColumn>}
+        {admin && <TableRowColumn>{src.cron}</TableRowColumn>}
         {admin && <TableRowColumn>
           <IconButton iconClassName="material-icons" onTouchTap={viewHandler}>mode_edit</IconButton>
           <IconButton iconClassName="material-icons" onTouchTap={deleteHandler}>delete_forever</IconButton>

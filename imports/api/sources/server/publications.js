@@ -4,7 +4,7 @@ import {Sources} from '../index';
 
 const publicFields = {
   script: 0,
-  interval: 0,
+  cron: 0,
   harvestMode: 0,
 };
 

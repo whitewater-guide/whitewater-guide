@@ -37,6 +37,7 @@ class ListGauges extends Component {
               <TableHeaderColumn>Coordinate</TableHeaderColumn>
               <TableHeaderColumn>Value</TableHeaderColumn>
               <TableHeaderColumn>Date</TableHeaderColumn>
+              {admin && <TableHeaderColumn>Cron</TableHeaderColumn>}
               {admin && <TableHeaderColumn style={styles.columns.controls}>Controls</TableHeaderColumn>}
             </TableRow>
           </TableHeader>
@@ -69,6 +70,7 @@ class ListGauges extends Component {
         <TableRowColumn>{`${lat} ${lon}${alt}`}</TableRowColumn>
         <TableRowColumn>{src.lastValue}</TableRowColumn>
         <TableRowColumn>{moment(src.lastTimestamp).format('DD.MM.YYYY HH:mm')}</TableRowColumn>
+        {admin && <TableRowColumn>{src.cron}</TableRowColumn>}
         { admin &&
           <TableRowColumn style={styles.columns.controls}>
             <IconButton iconClassName="material-icons" style={styles.iconWrapper} onTouchTap={viewHandler}>mode_edit</IconButton>

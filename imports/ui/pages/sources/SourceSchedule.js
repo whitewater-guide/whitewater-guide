@@ -45,7 +45,7 @@ class SourceSchedule extends Component {
   }
 
   renderRow = (job) => {
-    const gauge = _.find(this.props.gauges, { _id: job.data.gaugeId });
+    const gauge = _.find(this.props.gauges, { _id: job.data.gauge });
     const numMeasurements = job.result ? job.result.measurements : '--';
     return (
       <TableRow key={job._id}>

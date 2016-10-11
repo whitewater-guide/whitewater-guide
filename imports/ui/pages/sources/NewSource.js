@@ -19,7 +19,7 @@ class NewSource extends Component {
     name: '',
     url: '',
     script: '',
-    interval: 60,
+    cron: '0 * * * *',//every hour at 0 minute
     harvestMode: null,
     errors: {},
     availableScripts: [],
@@ -48,10 +48,10 @@ class NewSource extends Component {
           <MenuItem value="allAtOnce" primaryText="All at once" />
           <MenuItem value="oneByOne" primaryText="One by one" />
         </SelectField>
-
-        <TextField value={this.state.interval} onChange={(e,interval) => this.setState({interval})} 
-                   hintText="Interval" floatingLabelText="Interval"
-                   type="number"/>
+          
+        <TextField value={this.state.cron}  onChange={(e,cron) => this.setState({cron})} 
+            hintText="Cron expression" floatingLabelText="Cron expression" />
+          
         <div style={styles.buttonsHolder}>
           <FlatButton label="Cancel" primary={true} onTouchTap={this.onCancel}/>
           <FlatButton label="Add" primary={true} onTouchTap={this.onCreate}/>

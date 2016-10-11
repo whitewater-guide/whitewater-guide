@@ -30,8 +30,15 @@ const cleanupQueue = Jobs.processJobs('cleanup', { pollInterval: false, workTime
   callback();
 });
 
-Jobs.find({status: 'ready'})
+Jobs.find({ status: 'ready' })
   .observe({ added: function () { cleanupQueue.trigger(); } });
+
+//Remove all jobs at startup.
+removeJobs();
+//Create new jobs
+Sources.find({}).forEach(sourceDoc => {
+  generateJobs(sourceDoc._id);
+})
 
 Jobs.processJobs('harvest', {}, (job, callback) => {
   const launchScriptFiber = Meteor.wrapAsync(worker);
@@ -67,27 +74,27 @@ Jobs.processJobs('harvest', {}, (job, callback) => {
 Jobs.startJobServer();
 // Jobs.setLogStream(process.stdout);
 
-function worker({script, gaugeId}, nodeCallback) {
+function worker({script, gauge}, nodeCallback) {
   const file = path.resolve(process.cwd(), 'assets/app/workers', `${script}.js`);
   //It is possible to check gauge's last timestamp here and pass it to worker
-  const gauge = gaugeId && Gauges.findOne(gaugeId);
+  const gaugeDoc = gauge && Gauges.findOne(gauge);
   const args = ['harvest'];
-  if (gauge) {
-    args.push(gauge.code);
-    if (gauge.lastTimestamp)
-      args.push(moment(gauge.lastTimestamp).subtract(1, 'minutes').valueOf());
+  if (gaugeDoc) {
+    args.push(gaugeDoc.code);
+    if (gaugeDoc.lastTimestamp)
+      args.push(moment(gaugeDoc.lastTimestamp).subtract(1, 'minutes').valueOf());
   }
   console.log(`Launching worker ${script} with args ${args}`);
   const child = child_process.fork(file, args);
   let response;
-  
+
   child.on('close', (code) => {
-      if (code === 0){
-        nodeCallback(undefined, response);
-      }
-      else {
-        nodeCallback(response);
-      }
+    if (code === 0) {
+      nodeCallback(undefined, response);
+    }
+    else {
+      nodeCallback(response);
+    }
   });
 
   child.on('message', (data) => {
@@ -95,37 +102,82 @@ function worker({script, gaugeId}, nodeCallback) {
   });
 }
 
-export function generateSchedule(sourceId) {
+function removeJobs(sourceId, gaugeId) {
+  let selector = { type: 'harvest' };
+  if (sourceId)
+    selector = {...selector, "data.source": sourceId };
+  if (gaugeId)
+    selector = {...selector, "data.gauge": gaugeId };
+  const cancellableJobs = Jobs.find({...selector, status: { $in: Job.jobStatusCancellable } })
+    .fetch().map(j => j._id);
+Jobs.cancelJobs(cancellableJobs);
+const removableJobs = Jobs.find({ ...selector, status: { $in: Job.jobStatusRemovable } })
+    .fetch().map(j => j._id);
+Jobs.removeJobs(removableJobs);  
+}
+
+/**
+ * Generate cron and save it to source/gauges
+ */
+export function generateSchedule(sourceId, addJobs = true) {
   const source = Sources.findOne(sourceId);
   if (!source)
     return;
+
   if (source.harvestMode === 'allAtOnce') {
-    const job = new Job(Jobs, 'harvest', {
-      script: source.script,
-      source: source._id,
-    });
-    job.repeat({ schedule: Jobs.later.parse.text(`every ${source.interval} mins`) });
-    job.save();
+    Sources.update(sourceId, { $set: { cron: '0 * * * *' } });
   }
   else if (source.harvestMode === 'oneByOne') {
     const gauges = source.gauges().fetch();
     const numGauges = gauges.length;
     if (numGauges === 0)
       return;
-    const step = source.interval / numGauges;
-    for (let i = 0; i < numGauges; i++){
+    const step = 60 / numGauges;
+    for (let i = 0; i < numGauges; i++) {
+      const minute = Math.ceil(i * step);
+      const cron = `${minute} * * * *`;
       const gauge = gauges[i];
-      const job = new Job(Jobs, 'harvest', {
-        script: source.script,
-        source: source._id,
-        gaugeId: gauge._id, 
-      });
-      const minute = Math.floor(i * step);
-      console.log(`Add job for gauge ${gauge.name} at ${minute}`);
-      job
-        .repeat({ schedule: Jobs.later.parse.recur().on(minute).minute() })
-        .retry({ wait: source.interval * 1000 })
-        .save();
+      Gauges.update(gauge._id, { $set: { cron } });
     }
+  }
+
+  if (addJobs)
+    generateJobs(sourceId);
+}
+
+/**
+ * Generate jobs for sources/gauges with proper cron values
+ */
+function generateJobs(sourceId) {
+  const source = Sources.findOne(sourceId);
+  if (!source)
+    return;
+
+  //Remove all running jobs
+  removeJobs(sourceId);
+
+  if (source.harvestMode === 'allAtOnce' && source.cron) {
+    const job = new Job(Jobs, 'harvest', {
+      script: source.script,
+      source: source._id,
+    });
+    job.repeat({ schedule: Jobs.later.parse.cron(source.cron) });
+    job.save();
+  }
+  else if (source.harvestMode === 'oneByOne') {
+    source.gauges().forEach(gauge => {
+      if (gauge.cron) {
+        const job = new Job(Jobs, 'harvest', {
+          script: source.script,
+          source: source._id,
+          gauge: gauge._id,
+        });
+        console.log(`Add job for gauge ${gauge.name} at ${gauge.cron}`);
+        job
+          .repeat({ schedule: Jobs.later.parse.cron(gauge.cron) })
+          .retry({ wait: 60 * 60 * 1000 })
+          .save();
+      }
+    });
   }
 }
