@@ -3,8 +3,9 @@ import {Meteor} from 'meteor/meteor';
 import {SimpleSchema} from 'meteor/aldeed:simple-schema';
 import {CallPromiseMixin} from 'meteor/didericis:callpromise-mixin';
 import {ValidatedMethod} from 'meteor/mdg:validated-method';
-import {Source} from '../sources';
-import {Measurements} from '../measurements';
+import { Sources } from '../sources';
+import { Measurements } from '../measurements';
+import { Jobs } from '../jobs';
 import { Roles } from 'meteor/alanning:roles';
 import cronParser from 'cron-parser';
 
@@ -95,12 +96,7 @@ const gaugesSchema = new SimpleSchema({
     label: 'URL',
     optional: true,
     regEx: SimpleSchema.RegEx.Url,
-  },
-  disabled: {
-    type: Boolean,
-    label: 'Is disabled',
-    defaultValue: false,
-  },
+  }
 });
 
 Gauges.attachSchema(gaugesSchema);
@@ -193,9 +189,16 @@ export const removeDisabledGauges = new ValidatedMethod({
 
 Gauges.helpers({
   source(){
-    return Source.findOne(this.source);
+    return Sources.findOne(this.source);
   },
   measurements() {
     return Measurements.find({ gauge: this._id });
+  },
+  isRunning() {
+    const source = Sources.findOne(this.source);
+    const jobSelector = { "data.source": source._id, status: { $in: ['running', 'ready', 'waiting'] } };
+    if (source.harvestMode === 'oneByOne')
+      jobSelector["data.gauge"] = this._id;
+    return Jobs.findOne(jobSelector) !== undefined;
   },
 });

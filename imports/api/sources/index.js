@@ -169,6 +169,55 @@ export const generateSchedule = new ValidatedMethod({
   },
 });
 
+
+export const startJobs = new ValidatedMethod({
+  name: 'sources.startJobs',
+
+  mixins: [CallPromiseMixin],
+
+  validate: new SimpleSchema({
+    sourceId: { type: String }
+  }).validator(),
+
+  applyOptions: {
+    returnStubValue: false,
+  },
+  
+  run({sourceId}) {
+    if (!Roles.userIsInRole(this.userId, 'admin')){
+      throw new Meteor.Error('sources.startJobs.unauthorized', 'Only admins can start jobs');
+    }
+    if (!this.isSimulation) {
+      var serverSchedule = require('../jobs/server');
+      serverSchedule.startJobs(sourceId);
+    }
+  },
+});
+
+export const removeJobs = new ValidatedMethod({
+  name: 'sources.removeJobs',
+
+  mixins: [CallPromiseMixin],
+
+  validate: new SimpleSchema({
+    sourceId: { type: String }
+  }).validator(),
+
+  applyOptions: {
+    returnStubValue: false,
+  },
+  
+  run({sourceId}) {
+    if (!Roles.userIsInRole(this.userId, 'admin')){
+      throw new Meteor.Error('sources.removeJobs.unauthorized', 'Only admins can remove jobs');
+    }
+    if (!this.isSimulation) {
+      var serverSchedule = require('../jobs/server');
+      serverSchedule.removeJobs(sourceId);
+    }
+  },
+});
+
 Sources.helpers({
   gauges() {
     return Gauges.find({ source: this._id });

@@ -37,8 +37,8 @@ Jobs.find({ status: 'ready' })
 removeJobs();
 //Create new jobs
 Sources.find({}).forEach(sourceDoc => {
-  generateJobs(sourceDoc._id);
-})
+  startJobs(sourceDoc._id);
+});
 
 Jobs.processJobs('harvest', {}, (job, callback) => {
   const launchScriptFiber = Meteor.wrapAsync(worker);
@@ -119,7 +119,7 @@ export function removeJobs(sourceId, gaugeId) {
 /**
  * Generate cron and save it to source/gauges
  */
-export function generateSchedule(sourceId, addJobs = true) {
+export function generateSchedule(sourceId) {
   const source = Sources.findOne(sourceId);
   if (!source)
     return;
@@ -140,15 +140,12 @@ export function generateSchedule(sourceId, addJobs = true) {
       Gauges.update(gauge._id, { $set: { cron } });
     }
   }
-
-  if (addJobs)
-    generateJobs(sourceId);
 }
 
 /**
  * Generate jobs for sources/gauges with proper cron values
  */
-export function generateJobs(sourceId) {
+export function startJobs(sourceId) {
   const source = Sources.findOne(sourceId);
   if (!source)
     return;

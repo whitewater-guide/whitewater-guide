@@ -57,7 +57,9 @@ class ListGauges extends Component {
       e.preventDefault();
       this.removeGauge(src._id);
     }
-    const statusIconStyle = {...styles.statusIcon, color: src.disabled ? 'red' : 'green'};
+    //const statusIconStyle = {...styles.statusIcon, color: (admin && src.isRunning()) ? 'green' : 'red'};
+    const statusIconStyle = {...styles.statusIcon, color: 'red' };
+    console.log('Is running:', src.isRunning());
     const lat = src.latitude ? src.latitude.toFixed(4) : '?';
     const lon = src.longitude ? src.longitude.toFixed(4) : '?';
     const alt = src.altitude ? ` (${src.altitude.toFixed()})` : '';
@@ -133,7 +135,7 @@ const ListGaugesContainer = createContainer(
   (props) => {
     const source= props.params.sourceId;
     const gaugesSubscription = Meteor.subscribe('gauges.inSource', source);
-    const gauges = Gauges.find({source}).fetch();
+    const gauges = Gauges.find({ source }).fetch();
     return {
       admin: Roles.userIsInRole(Meteor.userId(), 'admin'),
       ready: gaugesSubscription.ready() && Roles.subscription.ready(),

@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import withAdmin from '../../hoc/withAdmin';
-import {generateSchedule} from '../../../api/sources';
+import {generateSchedule, startJobs, removeJobs} from '../../../api/sources';
 
 class SourceScheduleLeft extends Component {
   
@@ -19,6 +19,8 @@ class SourceScheduleLeft extends Component {
     return (
       <div style={styles.container}>
         {admin && <FlatButton secondary={true} onTouchTap={this.generateSchedule} label="Generate"/>}
+        {admin && <FlatButton secondary={true} onTouchTap={this.startJobs} label="Start jobs"/>}
+        {admin && <FlatButton secondary={true} onTouchTap={this.removeJobs} label="Stop jobs"/>}
       </div>
     );
   }
@@ -27,8 +29,19 @@ class SourceScheduleLeft extends Component {
     generateSchedule.callPromise({sourceId: this.props.params.sourceId})
       .then(() => console.log('Generated'))
       .catch(err => console.log(`Error while trying to generate schedule for source ${this.props.source._id}: ${err}`));
-
   };
+
+  startJobs = () => {
+    startJobs.callPromise({sourceId: this.props.params.sourceId})
+      .then(() => console.log('Started'))
+      .catch(err => console.log(`Error while trying to start jobs for source ${this.props.source._id}: ${err}`));
+  }
+
+  removeJobs = () => {
+    removeJobs.callPromise({sourceId: this.props.params.sourceId})
+      .then(() => console.log('Removed'))
+      .catch(err => console.log(`Error while trying to remove jobs for source ${this.props.source._id}: ${err}`));
+  }
 }
 
 const styles = {
