@@ -148,7 +148,7 @@ export function generateSchedule(sourceId, addJobs = true) {
 /**
  * Generate jobs for sources/gauges with proper cron values
  */
-function generateJobs(sourceId) {
+export function generateJobs(sourceId) {
   const source = Sources.findOne(sourceId);
   if (!source)
     return;

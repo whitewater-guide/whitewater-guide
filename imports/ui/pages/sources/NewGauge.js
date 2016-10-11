@@ -21,6 +21,7 @@ class NewGauge extends Component {
     measurement: '',
     requestParams: '',
     url: '',
+    cron: '',
     disabled: false,
   };
 
@@ -36,6 +37,7 @@ class NewGauge extends Component {
         <TextField value={this.state.longitude} onChange={(e,longitude) => this.setState({longitude})} hintText="Longitude" floatingLabelText="Longitude"/>
         <TextField value={this.state.measurement} onChange={(e,measurement) => this.setState({measurement})} hintText="Measurement" floatingLabelText="Measurement"/>
         <TextField value={this.state.unit} onChange={(e,unit) => this.setState({unit})} hintText="Unit" floatingLabelText="Unit"/>
+        <TextField value={this.state.cron} onChange={(e,cron) => this.setState({cron})} hintText="Cron expression" floatingLabelText="Cron expression"/>
         <div>
           <FlatButton label="Cancel" primary={true} onMouseUp={this.onClose} onTouchEnd={this.onClose}/>
           <FlatButton label="Add" primary={true} onMouseUp={this.onSubmit} onTouchEnd={this.onSubmit}/>

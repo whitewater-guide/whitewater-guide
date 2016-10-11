@@ -7,7 +7,8 @@ import { createContainer } from 'meteor/react-meteor-data';
 import {withRouter} from 'react-router';
 import { Sources } from '../../../api/sources';
 import {removeSource} from '../../../api/sources';
-import {Roles} from 'meteor/alanning:roles';
+import { Roles } from 'meteor/alanning:roles';
+import TableRowColumnWrapper from '../../components/TableRowColumnWrapper';
 
 class ListSources extends Component {
 
@@ -56,10 +57,10 @@ class ListSources extends Component {
         {admin && <TableRowColumn>{src.script}</TableRowColumn>}
         {admin && <TableRowColumn>{src.harvestMode}</TableRowColumn>}
         {admin && <TableRowColumn>{src.cron}</TableRowColumn>}
-        {admin && <TableRowColumn>
+        {admin && <TableRowColumnWrapper>
           <IconButton iconClassName="material-icons" onTouchTap={viewHandler}>mode_edit</IconButton>
           <IconButton iconClassName="material-icons" onTouchTap={deleteHandler}>delete_forever</IconButton>
-        </TableRowColumn>
+        </TableRowColumnWrapper>
         }
       </TableRow>
     );

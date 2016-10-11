@@ -6,6 +6,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { Roles } from 'meteor/alanning:roles'
 import { withRouter } from 'react-router';
 import { Gauges, removeGauge } from '../../../api/gauges';
+import TableRowColumnWrapper from '../../components/TableRowColumnWrapper';
 import moment from 'moment';
 
 class ListGauges extends Component {
@@ -52,7 +53,10 @@ class ListGauges extends Component {
   renderRow = (src) => {
     const {admin} = this.props;
     const viewHandler = () => this.props.router.push(`/gauges/${src._id}`);
-    const deleteHandler = () => this.removeGauge(src._id);
+    const deleteHandler = (e) => {
+      e.preventDefault();
+      this.removeGauge(src._id);
+    }
     const statusIconStyle = {...styles.statusIcon, color: src.disabled ? 'red' : 'green'};
     const lat = src.latitude ? src.latitude.toFixed(4) : '?';
     const lon = src.longitude ? src.longitude.toFixed(4) : '?';
@@ -72,10 +76,10 @@ class ListGauges extends Component {
         <TableRowColumn>{moment(src.lastTimestamp).format('DD.MM.YYYY HH:mm')}</TableRowColumn>
         {admin && <TableRowColumn>{src.cron}</TableRowColumn>}
         { admin &&
-          <TableRowColumn style={styles.columns.controls}>
+          <TableRowColumnWrapper style={styles.columns.controls}>
             <IconButton iconClassName="material-icons" style={styles.iconWrapper} onTouchTap={viewHandler}>mode_edit</IconButton>
             <IconButton iconClassName="material-icons" style={styles.iconWrapper} onTouchTap={deleteHandler}>delete_forever</IconButton>
-          </TableRowColumn>
+          </TableRowColumnWrapper>
         }
       </TableRow>
     );
