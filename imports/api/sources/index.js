@@ -3,7 +3,8 @@ import {Mongo} from 'meteor/mongo';
 import {Meteor} from 'meteor/meteor';
 import {SimpleSchema} from 'meteor/aldeed:simple-schema';
 import {CallPromiseMixin} from 'meteor/didericis:callpromise-mixin';
-import {Gauges, createGauge} from '../gauges';
+import { Gauges, createGauge } from '../gauges';
+import { Jobs } from '../jobs';
 import { Roles } from 'meteor/alanning:roles';
 import cronParser from 'cron-parser';
 
@@ -88,7 +89,6 @@ export const removeSource = new ValidatedMethod({
     if (!Roles.userIsInRole(this.userId, 'admin')){
       throw new Meteor.Error('sources.remove.unauthorized', 'You must be admin to remove sources');
     }
-    //TODO: hook gauges removal
     return Sources.remove(sourceId);
   },
   
@@ -170,7 +170,16 @@ export const generateSchedule = new ValidatedMethod({
 });
 
 Sources.helpers({
-  gauges(){
-    return Gauges.find({source: this._id});
+  gauges() {
+    return Gauges.find({ source: this._id });
   },
-})
+});
+
+if (Meteor.isServer) {
+  Sources.after.remove(function (sourceId, sourceDoc) {
+    console.log(`Source ${sourceDoc.name} removed`);
+    Gauges.remove({ source: sourceDoc._id });
+    var serverSchedule = require('../jobs/server');
+    serverSchedule.removeJobs(sourceId);
+  });
+}

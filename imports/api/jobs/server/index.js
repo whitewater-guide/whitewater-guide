@@ -102,7 +102,7 @@ function worker({script, gauge}, nodeCallback) {
   });
 }
 
-function removeJobs(sourceId, gaugeId) {
+export function removeJobs(sourceId, gaugeId) {
   let selector = { type: 'harvest' };
   if (sourceId)
     selector = {...selector, "data.source": sourceId };
@@ -110,10 +110,10 @@ function removeJobs(sourceId, gaugeId) {
     selector = {...selector, "data.gauge": gaugeId };
   const cancellableJobs = Jobs.find({...selector, status: { $in: Job.jobStatusCancellable } })
     .fetch().map(j => j._id);
-Jobs.cancelJobs(cancellableJobs);
-const removableJobs = Jobs.find({ ...selector, status: { $in: Job.jobStatusRemovable } })
-    .fetch().map(j => j._id);
-Jobs.removeJobs(removableJobs);  
+  Jobs.cancelJobs(cancellableJobs);
+  const removableJobs = Jobs.find({ ...selector, status: { $in: Job.jobStatusRemovable } })
+      .fetch().map(j => j._id);
+  Jobs.removeJobs(removableJobs);  
 }
 
 /**
