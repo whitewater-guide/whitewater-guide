@@ -57,9 +57,8 @@ class ListGauges extends Component {
       e.preventDefault();
       this.removeGauge(src._id);
     }
-    //const statusIconStyle = {...styles.statusIcon, color: (admin && src.isRunning()) ? 'green' : 'red'};
-    const statusIconStyle = {...styles.statusIcon, color: 'red' };
-    console.log('Is running:', src.isRunning());
+    const statusIconStyle = {...styles.statusIcon, color: (admin && src.isRunning()) ? 'green' : 'red'};
+    // const statusIconStyle = {...styles.statusIcon, color: 'red' };
     const lat = src.latitude ? src.latitude.toFixed(4) : '?';
     const lon = src.longitude ? src.longitude.toFixed(4) : '?';
     const alt = src.altitude ? ` (${src.altitude.toFixed()})` : '';
