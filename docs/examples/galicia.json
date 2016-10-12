@@ -1,0 +1,30 @@
+{
+   "listaAforos":[
+      {
+         "concello":"Mondoñedo",
+         "dataLocal":"2016-10-12T15:30:00",
+         "dataUTC":"2016-10-12T13:30:00",
+         "ide":30431,
+         "latitude":"43.47774",
+         "listaMedidas":[
+            {
+               "codParametro":1,
+               "codValidacion":1,
+               "parametro":"Nivel Medio da Auga",
+               "unidade":"m",
+               "valor":0.594
+            },
+            {
+               "codParametro":4,
+               "codValidacion":1,
+               "parametro":"Caudal Medio da Auga",
+               "unidade":"m3\/s",
+               "valor":1.7273767
+            }
+         ],
+         "lonxitude":"-7.33423",
+         "nomeEstacion":"Masma",
+         "provincia":"Lugo"
+      }
+   ]
+}
