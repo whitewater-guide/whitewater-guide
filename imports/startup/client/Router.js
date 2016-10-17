@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute, IndexRedirect, browserHistory } from 'react-router';
 import MainLayout from '../../ui/layouts/MainLayout';
 import ListSources from '../../ui/pages/sources/ListSources';
 import ListSourcesLeft from '../../ui/pages/sources/ListSourcesLeft';
@@ -21,17 +21,17 @@ export default class AppRouter extends Component {
     return (
       <Router history={browserHistory}>
         <Route path="/" name="Whitewater" component={MainLayout}>
-          <IndexRoute name="Whitewater" components={{content: ListSources, left: ListSourcesLeft}}/>
+          <IndexRedirect to="/sources" />
           <Route path="sources" name="Sources" components={{content: ListSources, left: ListSourcesLeft}}/>
           <Route path="sources/new" name="New source" components={{content: NewSource}}/>
           <Route path="sources/:sourceId" name="Src" breadcrumbName=":sourceId" components={{content: ViewSource, left: ViewSourceLeft}}>
-            <IndexRoute components={{sourceContent: ListGauges, sourceLeft: ListGaugesLeft}} name="List gauges" />
+            <IndexRedirect to="gauges" />
             <Route path="settings" name="settings" components={{sourceContent: EditSource}} />
             <Route path="schedule" name="Schedule" components={{sourceContent: SourceSchedule, sourceLeft: SourceScheduleLeft}} />
             <Route path="settings" name="Settings" components={{content: SourceSettings}} />
-            <Route path="gauges" name="Gauges">
-              <IndexRoute name="List gauges" components={{content: ListGauges, leftPanel: ListGaugesLeft}} />
-              <Route path="new" name="New gauge" components={{content: NewGauge}} />
+            <Route path="gauges" name="Gauges" breadcrumbIgnore={true}>
+              <IndexRoute name="Gauges" components={{sourceContent: ListGauges, sourceLeft: ListGaugesLeft}} />
+              <Route path="new" name="New gauge" components={{sourceContent: NewGauge}} />
             </Route>
           </Route>
           <Route path="gauges/:gaugeId" name="Gauge" breadcrumbName=":gaugeId" components={{content: ViewGauge, left: ViewGaugeLeft}}/>

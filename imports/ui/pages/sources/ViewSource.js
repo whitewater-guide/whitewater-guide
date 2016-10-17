@@ -17,6 +17,8 @@ class ViewSource extends Component {
 const styles = {
   container: {
     display: 'flex',
+    flex: 1,
+    alignSelf: 'stretch',
   },
 }
 

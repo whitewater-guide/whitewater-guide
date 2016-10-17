@@ -8,6 +8,7 @@ import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import { createContainer } from 'meteor/react-meteor-data';
+import { get } from 'lodash';
 
 class UserMenu extends Component {
   static propTypes = {
@@ -57,7 +58,7 @@ class UserMenu extends Component {
       return null;
     }
     else if (this.props.user) {
-      avatarProps.src = `//graph.facebook.com/${this.props.user.services.facebook.id}/picture`;
+      avatarProps.src = `//graph.facebook.com/${get(this.props, 'user.services.facebook.id')}/picture`;
     }
     else {
       avatarProps.icon = (

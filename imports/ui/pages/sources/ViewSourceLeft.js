@@ -15,7 +15,9 @@ class ViewSourceLeft extends Component {
   render() {
     return (
       <div style={styles.container}>
-        {this.props.admin && <FlatLinkButton secondary={true} to={`/sources/${this.props.params.sourceId}/schedule`} label="Schedule"/>}
+        {this.props.admin && <FlatLinkButton secondary={true} to={`/sources/${this.props.params.sourceId}/schedule`} label="Schedule" />}
+        {this.props.admin && <FlatLinkButton secondary={true} to={`/sources/${this.props.params.sourceId}/settings`} label="Settings" />}
+        <FlatLinkButton secondary={true} to={`/sources/${this.props.params.sourceId}/gauges`} label="Gauges" />
         {this.props.sourceLeft}
       </div>
     );

@@ -19,15 +19,20 @@ class EditSource extends Component {
     source: PropTypes.object,
   };
 
-  state = {
-    form: {
-      name: '',
-      url: '',
-      script: '',
-      cron: '0 * * * *',//every hour at 0 minute
-      harvestMode: null,
-    },
-    errors: {},
+  constructor(props) {
+    super(props);
+    this.state = {
+      form: {
+        name: '',
+        url: '',
+        script: '',
+        cron: '0 * * * *',//every hour at 0 minute
+        harvestMode: null,
+      },
+      errors: {},
+    }
+    if (props.source)
+      this.state = {...this.state, form: { ...props.source } };
   }
 
   componentWillReceiveProps(nextProps) {
