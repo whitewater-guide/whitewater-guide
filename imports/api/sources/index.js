@@ -78,14 +78,13 @@ export const editSource = new ValidatedMethod({
 
   mixins: [CallPromiseMixin],
 
-  validate: null,
+  validate: new SimpleSchema([sourcesSchema, { _id: { type: String, regEx: SimpleSchema.RegEx.Id } }]).validator({ clean: true }),
 
   applyOptions: {
     noRetry: true,
   },
 
   run({_id, ...data}) {
-    console.log('Editing source', _id, data);
     if (!Roles.userIsInRole(this.userId, 'admin')){
       throw new Meteor.Error('sources.edit.unauthorized', 'You must be admin to edit sources');
     }
