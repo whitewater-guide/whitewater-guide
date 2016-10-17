@@ -65,10 +65,32 @@ export const createSource = new ValidatedMethod({
 
   run(data) {
     console.log('Creating source');
+    //TODO: use permissions mixin https://atmospherejs.com/didericis/permissions-mixin
     if (!Roles.userIsInRole(this.userId, 'admin')){
       throw new Meteor.Error('sources.create.unauthorized', 'You must be admin to create sources');
     }
     return Sources.insert(data);
+  }
+});
+
+export const editSource = new ValidatedMethod({
+  name: 'sources.edit',
+
+  mixins: [CallPromiseMixin],
+
+  validate: null,
+
+  applyOptions: {
+    noRetry: true,
+  },
+
+  run({_id, ...data}) {
+    console.log('Editing source', _id, data);
+    if (!Roles.userIsInRole(this.userId, 'admin')){
+      throw new Meteor.Error('sources.edit.unauthorized', 'You must be admin to edit sources');
+    }
+    //TODO: check for running jobs
+    return Sources.update(_id, { $set: {...data } } );
   }
 });
 

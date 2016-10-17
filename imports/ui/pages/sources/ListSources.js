@@ -48,7 +48,7 @@ class ListSources extends Component {
 
   renderRow = (src) => {
     const {admin} = this.props;
-    const viewHandler = () => this.props.router.push(`/sources/${src._id}`);
+    const editHandler = () => this.props.router.push(`/sources/${src._id}/settings`);
     const deleteHandler = () => this.removeSource(src._id);
     return (
       <TableRow key={src._id}>
@@ -58,7 +58,7 @@ class ListSources extends Component {
         {admin && <TableRowColumn>{src.harvestMode}</TableRowColumn>}
         {admin && <TableRowColumn>{src.cron}</TableRowColumn>}
         {admin && <TableRowColumnWrapper>
-          <IconButton iconClassName="material-icons" onTouchTap={viewHandler}>mode_edit</IconButton>
+          <IconButton iconClassName="material-icons" onTouchTap={editHandler}>mode_edit</IconButton>
           <IconButton iconClassName="material-icons" onTouchTap={deleteHandler}>delete_forever</IconButton>
         </TableRowColumnWrapper>
         }
