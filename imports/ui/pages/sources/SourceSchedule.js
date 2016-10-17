@@ -23,6 +23,7 @@ class SourceSchedule extends Component {
     const {ready, admin} = this.props;
     if (!ready || !admin)
       return null;
+    console.log('Jobs', this.props.jobs);
     return (
       <div style={styles.container}>
         <Table selectable={false}>
@@ -31,8 +32,8 @@ class SourceSchedule extends Component {
               <TableHeaderColumn>Status</TableHeaderColumn>
               <TableHeaderColumn>Source/Script</TableHeaderColumn>
               <TableHeaderColumn>Gauge</TableHeaderColumn>
-              <TableHeaderColumn>Created</TableHeaderColumn>
               <TableHeaderColumn>Updated</TableHeaderColumn>
+              <TableHeaderColumn>Next run</TableHeaderColumn>
               <TableHeaderColumn>Measurements count</TableHeaderColumn>
             </TableRow>
           </TableHeader>
@@ -52,8 +53,8 @@ class SourceSchedule extends Component {
         <TableRowColumn>{job.status}</TableRowColumn>
         <TableRowColumn>{job.data.script}</TableRowColumn>
         <TableRowColumn>{gauge ? gauge.name : '--'}</TableRowColumn>
-        <TableRowColumn>{moment(job.created).format('DD/MM/YYYY HH:mm')}</TableRowColumn>
         <TableRowColumn>{moment(job.updated).format('DD/MM/YYYY HH:mm')}</TableRowColumn>
+        <TableRowColumn>{moment(job.after).format('DD/MM/YYYY HH:mm')}</TableRowColumn>
         <TableRowColumn>{numMeasurements}</TableRowColumn>
       </TableRow>
     );
@@ -65,17 +66,6 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'relative',
-  },
-  paper: {
-    flex: 1,
-    maxWidth: 1000,
-    marginTop: 80,
-    marginBottom: 80,
-    paddingBottom: 80,
-    position: 'relative',
   },
 };
 
@@ -84,7 +74,10 @@ const SourceScheduleContainer = createContainer(
     console.log('Subscribe', props.params.sourceId);
     const jobsSubscription = Meteor.subscribe('jobs.forSource', props.params.sourceId);
     const gaugesSubscription = Meteor.subscribe('gauges.inSource', props.params.sourceId);
-    const jobs = Jobs.find({ "data.source": props.params.sourceId }).fetch();
+    const jobs = Jobs.find(
+      { "data.source": props.params.sourceId },
+      { fields: { data: 1, status: 1, updated: 1, after: 1, result: 1 } }
+    ).fetch();
     const gauges = Gauges.find({ "source": props.params.sourceId }, {fields: {name: 1}}).fetch();
     return {
       ready: jobsSubscription.ready() && gaugesSubscription.ready(),

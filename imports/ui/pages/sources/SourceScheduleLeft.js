@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import withAdmin from '../../hoc/withAdmin';
-import {startJobs, removeJobs} from '../../../api/sources';
+import { startJobs, removeJobs } from '../../../api/sources';
 
 class SourceScheduleLeft extends Component {
   

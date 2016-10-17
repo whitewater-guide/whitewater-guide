@@ -4,9 +4,11 @@ import { Jobs } from '../index';
 import { Measurements } from '../../measurements';
 import { Gauges } from '../../gauges';
 import { Meteor } from 'meteor/meteor';
+import { after } from 'lodash';
 import moment from 'moment';
 import path from 'path';
 import child_process from 'child_process';
+
 
 const cleanupJob = new Job(Jobs, 'cleanup', {})
   .repeat({ schedule: Jobs.later.parse.text("every 5 minutes") })
@@ -45,6 +47,7 @@ Jobs.processJobs('harvest', {}, (job, callback) => {
   try {
     const measurements = launchScriptFiber(job.data);
     let insertCount = 0;
+    const finishJob = after(measurements.length, () => job.done({measurements: insertCount}));
     measurements.forEach(measurement => {
       const gaugeId = job.data.gaugeId ? job.data.gaugeId : Gauges.findOne({ source: job.data.source, code: measurement.code })._id;
       if (measurement.value) {
@@ -57,11 +60,9 @@ Jobs.processJobs('harvest', {}, (job, callback) => {
             console.log(`Error while inserting measurement into ${gaugeId}: ${err}`);
           else
             insertCount++;
+          finishJob();
         });
       }
-    });
-    job.done({
-      measurements: insertCount,
     });
   }
   catch (ex) {
