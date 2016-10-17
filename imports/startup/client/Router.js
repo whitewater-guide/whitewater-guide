@@ -26,9 +26,8 @@ export default class AppRouter extends Component {
           <Route path="sources/new" name="New source" components={{content: NewSource}}/>
           <Route path="sources/:sourceId" name="Src" breadcrumbName=":sourceId" components={{content: ViewSource, left: ViewSourceLeft}}>
             <IndexRedirect to="gauges" />
-            <Route path="settings" name="settings" components={{sourceContent: EditSource}} />
+            <Route path="settings" name="Settings" components={{sourceContent: EditSource}} />
             <Route path="schedule" name="Schedule" components={{sourceContent: SourceSchedule, sourceLeft: SourceScheduleLeft}} />
-            <Route path="settings" name="Settings" components={{content: SourceSettings}} />
             <Route path="gauges" name="Gauges" breadcrumbIgnore={true}>
               <IndexRoute name="Gauges" components={{sourceContent: ListGauges, sourceLeft: ListGaugesLeft}} />
               <Route path="new" name="New gauge" components={{sourceContent: NewGauge}} />
