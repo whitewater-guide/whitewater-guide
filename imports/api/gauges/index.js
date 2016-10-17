@@ -120,6 +120,31 @@ export const createGauge = new ValidatedMethod({
   }
 });
 
+export const editGauge = new ValidatedMethod({
+  name: 'gauges.edit',
+
+  mixins: [CallPromiseMixin],
+
+  validate: new SimpleSchema([gaugesSchema, { _id: { type: String, regEx: SimpleSchema.RegEx.Id } }]).validator({ clean: true }),
+
+  applyOptions: {
+    noRetry: true,
+  },
+
+  run({_id, ...data}) {
+    if (!Roles.userIsInRole(this.userId, 'admin')){
+      throw new Meteor.Error('gauges.edit.unauthorized', 'You must be admin to edit gauges');
+    }
+    const current = Gauges.findOne(_id);
+    const hasJobs = Jobs.find({ "data.gauge": _id, status: { $in: ['running', 'ready', 'waiting', 'paused'] } }).count() > 0;
+    //Cannot change harvest settings for already running script
+    if (hasJobs && (data.cron !== current.cron)) {
+      throw new Meteor.Error('gauges.edit.jobsRunning', 'Cannot edit gauge which has running jobs');
+    }
+    return Gauges.update(_id, { $set: {...data } } );
+  }
+});
+
 export const removeGauge = new ValidatedMethod({
   name: 'gauges.remove',
 

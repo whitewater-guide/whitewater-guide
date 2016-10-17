@@ -52,7 +52,7 @@ class ListGauges extends Component {
 
   renderRow = (src) => {
     const {admin} = this.props;
-    const viewHandler = () => this.props.router.push(`/gauges/${src._id}`);
+    const editHandler = () => this.props.router.push(`/gauges/${src._id}/settings`);
     const deleteHandler = (e) => {
       e.preventDefault();
       this.removeGauge(src._id);
@@ -78,7 +78,7 @@ class ListGauges extends Component {
         {admin && <TableRowColumn>{src.cron}</TableRowColumn>}
         { admin &&
           <TableRowColumnWrapper style={styles.columns.controls}>
-            <IconButton iconClassName="material-icons" style={styles.iconWrapper} onTouchTap={viewHandler}>mode_edit</IconButton>
+            <IconButton iconClassName="material-icons" style={styles.iconWrapper} onTouchTap={editHandler}>mode_edit</IconButton>
             <IconButton iconClassName="material-icons" style={styles.iconWrapper} onTouchTap={deleteHandler}>delete_forever</IconButton>
           </TableRowColumnWrapper>
         }
