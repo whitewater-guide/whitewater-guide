@@ -28,11 +28,25 @@ class Form extends Component {
     initialData: {},
   };
 
+  static childContextTypes = {
+    formData: PropTypes.object,
+    formErrors: PropTypes.object,
+    formFieldChangeHandler: PropTypes.func,
+  };
+
   constructor(props) {
     super(props);
     this.state = {
       data: props.initialData,
       errors: {},
+    };
+  }
+
+  getChildContext() {
+    return {
+      formData: this.state.data,
+      formErrors: this.state.errors,
+      formFieldChangeHandler: this.onFieldChange,
     };
   }
 
@@ -47,7 +61,7 @@ class Form extends Component {
       <div style={styles.container}>
       <Paper style={styles.paper}>
         <h1>{this.props.title}</h1>
-        {this.renderFields()}
+        {this.props.children}
         <ErrorMessage error={this.state.errors.form}/>  
         <div style={styles.buttonsHolder}>
           <FlatButton label={this.props.cancelLabel} primary={true} onTouchTap={this.props.onCancel}/>
@@ -57,17 +71,6 @@ class Form extends Component {
       </div>
     );
   }
-
-  renderFields = () => {
-    return this.props.children.map(child => {
-      return cloneElement(child, {
-        key: child.props.name,
-        value: this.state.data[child.props.name],
-        error: this.state.errors[child.props.name],
-        onChange: (v) => this.onFieldChange(child.props.name, v),
-      });
-    });
-  };
 
   onFieldChange = (field, value) => {
     console.log('On field change', field, value);
