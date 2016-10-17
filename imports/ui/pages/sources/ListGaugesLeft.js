@@ -51,8 +51,7 @@ class ListGaugesLeft extends Component {
   };
 
   addGauge = () => {
-    const newGaugeLink = this.props.source ? `/sources/${this.props.params.sourceId}/gauges/new` : '';
-    this.props.router.push(newGaugeLink);
+    this.props.router.push(`/sources/${this.props.params.sourceId}/gauges/new`);
   };
 
   generateSchedule = () => {
