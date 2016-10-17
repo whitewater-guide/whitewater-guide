@@ -9,12 +9,13 @@ Sources.after.remove(function (sourceId, sourceDoc) {
 
 //Enabled/disabled hook adds/removes jobs
 Sources.after.update(function (userId, doc, fieldNames, modifier, options) {
-  if (fieldNames.includes['enabled']) {
+  console.log('Sources post update', doc, fieldNames);
+  if (fieldNames.includes('enabled')) {
     if (doc.harvestMode === 'allAtOnce') {
       if (doc.enabled)
-        startJobs(doc.source);
+        startJobs(doc._id);
       else
-        stopJobs(doc.source);
+        stopJobs(doc._id);
     }
     else {
       //For one-by-one sources, disbaling them disables all their gauges
