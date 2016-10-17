@@ -46,7 +46,7 @@ class EditSource extends Component {
       <div style={styles.container}>
       <Paper style={styles.paper}>
         <h1>Source settings</h1>
-        <SourceForm {...this.state.form} onChange={this.onFormChange}/>
+        <SourceForm {...this.state.form} onChange={this.onFormChange} errors={this.state.errors}/>
         <div style={styles.buttonsHolder}>
           <FlatButton label="Cancel" primary={true} onTouchTap={this.onCancel}/>
           <FlatButton label="Save" primary={true} onTouchTap={this.onEdit}/>

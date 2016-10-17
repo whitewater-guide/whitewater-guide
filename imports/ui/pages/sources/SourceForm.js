@@ -3,6 +3,7 @@ import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import { listScripts } from '../../../api/sources';
+import ErrorMessage from '../../components/ErrorMessage';
 
 class SourceForm extends Component {
 
@@ -13,6 +14,7 @@ class SourceForm extends Component {
     harvestMode: PropTypes.string,
     cron: PropTypes.string,
     onChange: PropTypes.func.isRequired,
+    errors: PropTypes.object,
   };
 
   state = {
@@ -28,21 +30,28 @@ class SourceForm extends Component {
   render() {
     return (
       <div style={styles.form}>
-        <TextField value={this.props.name} onChange={(e, name) => this.props.onChange({ name })} hintText="Name" floatingLabelText="Name" />
+        <TextField value={this.props.name} errorText={this.props.errors.name} 
+          onChange={(e, name) => this.props.onChange({ name })} hintText="Name" floatingLabelText="Name" />
 
-        <SelectField value={this.props.script} onChange={this.onScriptChange} floatingLabelText="Script">
+        <SelectField value={this.props.script} errorText={this.props.errors.script} 
+          onChange={this.onScriptChange} floatingLabelText="Script">
           {this.state.availableScripts.map(item => (<MenuItem key={item} value={item} primaryText={item} />))}
         </SelectField>
 
-        <TextField value={this.props.url} onChange={(e, url) => this.props.onChange({ url })} hintText="URL" floatingLabelText="URL" />
+        <TextField value={this.props.url} errorText={this.props.errors.url} 
+          onChange={(e, url) => this.props.onChange({ url })} hintText="URL" floatingLabelText="URL" />
 
-        <SelectField value={this.props.harvestMode} onChange={this.onHarvestModeChange} floatingLabelText="Harvest mode">
+        <SelectField value={this.props.harvestMode} errorText={this.props.errors.harvestMode}
+          onChange={this.onHarvestModeChange} floatingLabelText="Harvest mode">
           <MenuItem value="allAtOnce" primaryText="All at once" />
           <MenuItem value="oneByOne" primaryText="One by one" />
         </SelectField>
 
-        <TextField value={this.props.cron} onChange={(e, cron) => this.props.onChange({ cron })}
+        <TextField value={this.props.cron} errorText={this.props.errors.cron}
+          onChange={(e, cron) => this.props.onChange({ cron })}
           hintText="Cron expression" floatingLabelText="Cron expression" />
+        
+        <ErrorMessage error={this.props.errors.form}/>
       </div>
     );
   }
