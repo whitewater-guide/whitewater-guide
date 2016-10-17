@@ -7,7 +7,7 @@ import { Jobs } from '../../jobs';
 import { Sources } from '../../sources';
 
 const publicFields = {
-  disabled: 0,
+  enabled: 0,
 };
 
 Meteor.publish('gauges.inSource', function(source) {

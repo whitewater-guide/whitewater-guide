@@ -1,6 +1,8 @@
 import '../../api/sources';
+import '../../api/sources/server';
 import '../../api/sources/server/publications';
 import '../../api/gauges';
+import '../../api/gauges/server';
 import '../../api/gauges/server/publications';
 import '../../api/jobs';
 import '../../api/jobs/server';

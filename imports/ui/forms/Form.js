@@ -73,7 +73,6 @@ class Form extends Component {
   }
 
   onFieldChange = (field, value) => {
-    console.log('On field change', field, value);
     this.setState({ data: { ...this.state.data, [field]: value } });
   };
 

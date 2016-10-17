@@ -6,6 +6,7 @@ const publicFields = {
   script: 0,
   cron: 0,
   harvestMode: 0,
+  enabled: 0,
 };
 
 Meteor.publish('sources.list', function() {

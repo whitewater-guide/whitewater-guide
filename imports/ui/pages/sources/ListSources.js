@@ -5,7 +5,7 @@ import Paper from 'material-ui/Paper';
 import {Meteor} from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import {withRouter} from 'react-router';
-import { Sources } from '../../../api/sources';
+import { Sources, setEnabled } from '../../../api/sources';
 import {removeSource} from '../../../api/sources';
 import { Roles } from 'meteor/alanning:roles';
 import TableRowColumnWrapper from '../../components/TableRowColumnWrapper';
@@ -50,6 +50,7 @@ class ListSources extends Component {
     const {admin} = this.props;
     const editHandler = () => this.props.router.push(`/sources/${src._id}/settings`);
     const deleteHandler = () => this.removeSource(src._id);
+    const startStopHandler = () => this.setSourceEnabled(src._id, !src.enabled);
     return (
       <TableRow key={src._id}>
         <TableRowColumn>{src.name}</TableRowColumn>
@@ -58,6 +59,7 @@ class ListSources extends Component {
         {admin && <TableRowColumn>{src.harvestMode}</TableRowColumn>}
         {admin && <TableRowColumn>{src.cron}</TableRowColumn>}
         {admin && <TableRowColumnWrapper>
+          <IconButton iconClassName="material-icons" style={styles.iconWrapper} onTouchTap={startStopHandler}>{src.enabled ? 'stop' : 'play_arrow'}</IconButton>
           <IconButton iconClassName="material-icons" onTouchTap={editHandler}>mode_edit</IconButton>
           <IconButton iconClassName="material-icons" onTouchTap={deleteHandler}>delete_forever</IconButton>
         </TableRowColumnWrapper>
@@ -76,7 +78,13 @@ class ListSources extends Component {
   onCellClick = (rowId) => {
     const {router, sources} = this.props;
     router.push(`/sources/${sources[rowId]._id}`);
-  }
+  };
+
+  setSourceEnabled = (sourceId, enabled) => {
+    setEnabled.callPromise({sourceId, enabled})
+      .then( () => console.log('Sources enable toggled'))
+      .catch( err => console.log('Error while toggling source', err));
+  };
 }
 
 const styles = {

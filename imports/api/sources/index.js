@@ -50,7 +50,9 @@ const sourcesSchema = new SimpleSchema({
   },
 });
 
-Sources.attachSchema(sourcesSchema);
+const enabledSourcesSchema = new SimpleSchema([sourcesSchema, { enabled: { type: Boolean, label: 'Enabled', defaultValue: false } }]);
+
+Sources.attachSchema(enabledSourcesSchema);
 
 export const createSource = new ValidatedMethod({
   name: 'sources.create',
@@ -116,6 +118,7 @@ export const removeSource = new ValidatedMethod({
     if (!Roles.userIsInRole(this.userId, 'admin')){
       throw new Meteor.Error('sources.remove.unauthorized', 'You must be admin to remove sources');
     }
+    //Gauges and jobs are removed in server hook
     return Sources.remove(sourceId);
   },
   
@@ -196,52 +199,22 @@ export const generateSchedule = new ValidatedMethod({
   },
 });
 
-
-export const startJobs = new ValidatedMethod({
-  name: 'sources.startJobs',
-
-  mixins: [CallPromiseMixin],
-
-  validate: new SimpleSchema({
-    sourceId: { type: String }
-  }).validator(),
-
-  applyOptions: {
-    returnStubValue: false,
-  },
-  
-  run({sourceId}) {
-    if (!Roles.userIsInRole(this.userId, 'admin')){
-      throw new Meteor.Error('sources.startJobs.unauthorized', 'Only admins can start jobs');
-    }
-    if (!this.isSimulation) {
-      var serverSchedule = require('../jobs/server');
-      serverSchedule.startJobs(sourceId);
-    }
-  },
-});
-
-export const removeJobs = new ValidatedMethod({
-  name: 'sources.removeJobs',
+export const setEnabled = new ValidatedMethod({
+  name: 'sources.setEnabled',
 
   mixins: [CallPromiseMixin],
 
   validate: new SimpleSchema({
-    sourceId: { type: String }
+    sourceId: { type: String, regEx: SimpleSchema.RegEx.Id },
+    enabled: { type: Boolean },
   }).validator(),
 
-  applyOptions: {
-    returnStubValue: false,
-  },
-  
-  run({sourceId}) {
+  run({sourceId, enabled}) {
     if (!Roles.userIsInRole(this.userId, 'admin')){
-      throw new Meteor.Error('sources.removeJobs.unauthorized', 'Only admins can remove jobs');
+      throw new Meteor.Error('sources.setEnabled.unauthorized', 'Only admins can enable/disable sources');
     }
-    if (!this.isSimulation) {
-      var serverSchedule = require('../jobs/server');
-      serverSchedule.removeJobs(sourceId);
-    }
+    //Server hook is used to start/stop jobs
+    Sources.update(sourceId, { $set: { enabled } });
   },
 });
 
@@ -250,12 +223,3 @@ Sources.helpers({
     return Gauges.find({ source: this._id });
   },
 });
-
-if (Meteor.isServer) {
-  Sources.after.remove(function (sourceId, sourceDoc) {
-    console.log(`Source ${sourceDoc.name} removed`);
-    Gauges.remove({ source: sourceDoc._id });
-    var serverSchedule = require('../jobs/server');
-    serverSchedule.removeJobs(sourceId);
-  });
-}

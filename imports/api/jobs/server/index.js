@@ -36,7 +36,7 @@ Jobs.find({ status: 'ready' })
   .observe({ added: function () { cleanupQueue.trigger(); } });
 
 //Remove all jobs at startup.
-removeJobs();
+stopJobs();
 //Create new jobs
 Sources.find({}).forEach(sourceDoc => {
   startJobs(sourceDoc._id);
@@ -103,7 +103,8 @@ function worker({script, gauge}, nodeCallback) {
   });
 }
 
-export function removeJobs(sourceId, gaugeId) {
+export function stopJobs(sourceId, gaugeId) {
+  console.log('Stopping jobs', sourceId, gaugeId);
   let selector = { type: 'harvest' };
   if (sourceId)
     selector = {...selector, "data.source": sourceId };
@@ -146,13 +147,14 @@ export function generateSchedule(sourceId) {
 /**
  * Generate jobs for sources/gauges with proper cron values
  */
-export function startJobs(sourceId) {
+export function startJobs(sourceId, gaugeId) {
+  console.log('Starting jobs', sourceId, gaugeId);
   const source = Sources.findOne(sourceId);
-  if (!source)
+  if (!source || !source.enabled)
     return;
 
   //Remove all running jobs
-  removeJobs(sourceId);
+  stopJobs(sourceId, gaugeId);
 
   if (source.harvestMode === 'allAtOnce' && source.cron) {
     const job = new Job(Jobs, 'harvest', {
@@ -163,8 +165,9 @@ export function startJobs(sourceId) {
     job.save();
   }
   else if (source.harvestMode === 'oneByOne') {
-    source.gauges().forEach(gauge => {
-      if (gauge.cron) {
+    const gauges = gaugeId === undefined ? source.gauges() : [Gauges.findOne(gaugeId)];
+    gauges.forEach(gauge => {
+      if (gauge.enabled && gauge.cron) {
         const job = new Job(Jobs, 'harvest', {
           script: source.script,
           source: source._id,

@@ -5,7 +5,8 @@ import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Roles } from 'meteor/alanning:roles'
 import { withRouter } from 'react-router';
-import { Gauges, removeGauge } from '../../../api/gauges';
+import { Gauges, removeGauge, setEnabled } from '../../../api/gauges';
+import { Sources } from '../../../api/sources';
 import TableRowColumnWrapper from '../../components/TableRowColumnWrapper';
 import moment from 'moment';
 
@@ -17,6 +18,7 @@ class ListGauges extends Component {
     }),
     admin: PropTypes.bool,
     ready: PropTypes.bool,
+    source: PropTypes.object,
     gauges: PropTypes.array,
     router: PropTypes.object,
   };
@@ -53,10 +55,9 @@ class ListGauges extends Component {
   renderRow = (src) => {
     const {admin} = this.props;
     const editHandler = () => this.props.router.push(`/gauges/${src._id}/settings`);
-    const deleteHandler = (e) => {
-      e.preventDefault();
-      this.removeGauge(src._id);
-    }
+    const deleteHandler = () => this.removeGauge(src._id);
+    const startStopHandler = () => this.setGaugeEnabled(src._id, !src.enabled);
+    
     const statusIconStyle = {...styles.statusIcon, color: (admin && src.isRunning()) ? 'green' : 'red'};
     // const statusIconStyle = {...styles.statusIcon, color: 'red' };
     const lat = src.latitude ? src.latitude.toFixed(4) : '?';
@@ -78,6 +79,7 @@ class ListGauges extends Component {
         {admin && <TableRowColumn>{src.cron}</TableRowColumn>}
         { admin &&
           <TableRowColumnWrapper style={styles.columns.controls}>
+            {this.props.source.harvestMode === 'oneByOne' && <IconButton iconClassName="material-icons" style={styles.iconWrapper} onTouchTap={startStopHandler}>{src.enabled ? 'stop' : 'play_arrow'}</IconButton>}
             <IconButton iconClassName="material-icons" style={styles.iconWrapper} onTouchTap={editHandler}>mode_edit</IconButton>
             <IconButton iconClassName="material-icons" style={styles.iconWrapper} onTouchTap={deleteHandler}>delete_forever</IconButton>
           </TableRowColumnWrapper>
@@ -89,8 +91,14 @@ class ListGauges extends Component {
   removeGauge = (gaugeId) => {
     //TODO: show dialog
     removeGauge.callPromise({gaugeId})
-      .then( () => console.log('Sources deleted'))
-      .catch( err => console.log('Error while deleting source', err));
+      .then( () => console.log('Gauge deleted'))
+      .catch( err => console.log('Error while deleting gauge', err));
+  };
+    
+  setGaugeEnabled = (gaugeId, enabled) => {
+    setEnabled.callPromise({ gaugeId, enabled })
+      .then(() => console.log('Gauges enable toggled'))
+      .catch(err => console.log('Error while toggling gauge', err));
   };
 
   onCellClick = (rowId) => {
@@ -125,19 +133,20 @@ const styles = {
     },
     controls: {
       paddingRight: 0,
-      width: 60,
+      width: 90,
     }
   },
 };
 
 const ListGaugesContainer = createContainer(
   (props) => {
-    const source= props.params.sourceId;
-    const gaugesSubscription = Meteor.subscribe('gauges.inSource', source);
-    const gauges = Gauges.find({ source }).fetch();
+    const gaugesSubscription = Meteor.subscribe('gauges.inSource', props.params.sourceId);
+    const gauges = Gauges.find({ source: props.params.sourceId }).fetch();
+    const source = Sources.findOne(props.params.sourceId);
     return {
       admin: Roles.userIsInRole(Meteor.userId(), 'admin'),
       ready: gaugesSubscription.ready() && Roles.subscription.ready(),
+      source,
       gauges 
     };
   },

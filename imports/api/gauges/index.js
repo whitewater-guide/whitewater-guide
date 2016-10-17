@@ -1,8 +1,8 @@
-import {Mongo} from 'meteor/mongo';
-import {Meteor} from 'meteor/meteor';
-import {SimpleSchema} from 'meteor/aldeed:simple-schema';
-import {CallPromiseMixin} from 'meteor/didericis:callpromise-mixin';
-import {ValidatedMethod} from 'meteor/mdg:validated-method';
+import { Mongo } from 'meteor/mongo';
+import { Meteor } from 'meteor/meteor';
+import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
+import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { Sources } from '../sources';
 import { Measurements } from '../measurements';
 import { Jobs } from '../jobs';
@@ -96,17 +96,20 @@ const gaugesSchema = new SimpleSchema({
     label: 'URL',
     optional: true,
     regEx: SimpleSchema.RegEx.Url,
-  }
+  },
 });
 
-Gauges.attachSchema(gaugesSchema);
+//This prevents touching 'enabled' field in create/update methods
+const enabledGaugesSchema = new SimpleSchema([gaugesSchema, { enabled: { type: Boolean, label: 'Enabled', defaultValue: false } }]);
+
+Gauges.attachSchema(enabledGaugesSchema);
 
 export const createGauge = new ValidatedMethod({
   name: 'gauges.create',
 
   mixins: [CallPromiseMixin],
 
-  validate: gaugesSchema.validator({clean: true}),
+  validate: gaugesSchema.validator({ clean: true }),
 
   applyOptions: {
     noRetry: true,
@@ -142,6 +145,44 @@ export const editGauge = new ValidatedMethod({
       throw new Meteor.Error('gauges.edit.jobsRunning', 'Cannot edit gauge which has running jobs');
     }
     return Gauges.update(_id, { $set: {...data } } );
+  }
+});
+
+export const setEnabled = new ValidatedMethod({
+  name: 'gauges.setEnabled',
+
+  mixins: [CallPromiseMixin],
+
+  validate: new SimpleSchema({
+    gaugeId: { type: String, regEx: SimpleSchema.RegEx.Id },
+    enabled: { type: Boolean },
+  }).validator(),
+
+  run({gaugeId, enabled}) {
+    if (!Roles.userIsInRole(this.userId, 'admin')){
+      throw new Meteor.Error('gauges.setEnabled.unauthorized', 'You must be admin to enable or disable gauges');
+    }
+    //Server hook is used to start/stop jobs
+    return Gauges.update(gaugeId, { $set: { enabled } } );
+  }
+
+});
+
+export const enableAll = new ValidatedMethod({
+  name: 'gauges.enableAll',
+
+  mixins: [CallPromiseMixin],
+
+  validate: new SimpleSchema({
+    sourceId: { type: String, regEx: SimpleSchema.RegEx.Id },
+  }).validator(),
+
+  run({sourceId}) {
+    if (!Roles.userIsInRole(this.userId, 'admin')) {
+      throw new Meteor.Error('gauges.enableAll.unauthorized', 'You must be admin to enable or disable gauges');
+    }
+    //Server hook is used to start/stop jobs
+    return Gauges.update({ source: sourceId, enabled: false }, { $set: { enabled: true } }, { multi: true });
   }
 });
 
@@ -207,7 +248,7 @@ export const removeDisabledGauges = new ValidatedMethod({
     if (!Roles.userIsInRole(this.userId, 'admin')){
       throw new Meteor.Error('gauges.removeDisabled.unauthorized', 'You must be admin to remove disabled gauges');
     }
-    return Gauges.remove({source: sourceId, disabled: true});
+    return Gauges.remove({source: sourceId, enabled: false});
   },
   
 });
