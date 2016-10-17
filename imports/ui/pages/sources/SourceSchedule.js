@@ -23,7 +23,6 @@ class SourceSchedule extends Component {
     const {ready, admin} = this.props;
     if (!ready || !admin)
       return null;
-    console.log('Jobs', this.props.jobs);
     return (
       <div style={styles.container}>
         <Table selectable={false}>

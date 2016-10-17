@@ -88,7 +88,13 @@ export const editSource = new ValidatedMethod({
     if (!Roles.userIsInRole(this.userId, 'admin')){
       throw new Meteor.Error('sources.edit.unauthorized', 'You must be admin to edit sources');
     }
-    //TODO: check for running jobs
+    const current = Sources.findOne(_id);
+    const hasJobs = Jobs.find({ "data.source": _id, status: { $in: ['running', 'ready', 'waiting', 'paused'] } }).count() > 0;
+    console.log('Editing source', JSON.stringify(data), JSON.stringify(current));
+    //Cannot change harvest settings for already running script
+    if (hasJobs && (data.script !== current.script || data.harvestMode !== current.harvestMode || data.cron !== current.cron)) {
+      throw new Meteor.Error('sources.edit.jobsRunning', 'Cannot edit source which has running jobs');
+    }
     return Sources.update(_id, { $set: {...data } } );
   }
 });

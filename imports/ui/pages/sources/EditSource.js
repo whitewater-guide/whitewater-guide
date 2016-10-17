@@ -61,7 +61,6 @@ class EditSource extends Component {
   }
 
   onEdit = () => {
-    console.log('OnCreate', JSON.stringify(this.state.form));
     editSource.callPromise(this.state.form)
       .then(result => this.props.router.goBack())
       .catch(err => {
@@ -72,6 +71,9 @@ class EditSource extends Component {
             errors[fieldError.name] = fieldError.type;
           });
           this.setState({errors});
+        }
+        else if (err.errorType === 'Meteor.Error') {
+          this.setState({ errors: { form: err.error } });
         }
       });
   };
