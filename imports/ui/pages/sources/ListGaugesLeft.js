@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import FlatButton from 'material-ui/FlatButton';
-import {Gauges, removeAllGauges, removeDisabledGauges} from '../../../api/gauges';
+import { Gauges, removeAllGauges, removeDisabledGauges } from '../../../api/gauges';
+import { generateSchedule } from '../../../api/sources';
 import {autofill} from '../../../api/sources';
 import {withRouter} from 'react-router'
 import {createContainer} from 'meteor/react-meteor-data';
@@ -22,9 +23,10 @@ class ListGaugesLeft extends Component {
     const {admin, numGauges} = this.props; 
     return (
       <div style={styles.container}>
-        {admin && numGauges == 0 && <FlatButton secondary={true} onTouchTap={this.autofill} label="Autofill"/>}
+        {admin && numGauges == 0 && <FlatButton secondary={true} onTouchTap={this.autofill} label="Autofill" />}
         {admin && <FlatButton secondary={true} onTouchTap={this.addGauge} label="Add gauge"/>}
-        {admin && numGauges > 0 && <FlatButton secondary={true} onTouchTap={this.removeAllGauges} label="Remove all"/>}
+        {admin && numGauges > 0 && <FlatButton secondary={true} onTouchTap={this.generateSchedule} label="Generate crons"/>}
+        {admin && numGauges > 0 && <FlatButton secondary={true} onTouchTap={this.removeAllGauges} label="Remove all" />}
         {admin && numGauges > 0 && <FlatButton secondary={true} onTouchTap={this.removeDisabledGauges} label="Remove disabled"/>}
       </div>
     );
@@ -51,7 +53,13 @@ class ListGaugesLeft extends Component {
   addGauge = () => {
     const newGaugeLink = this.props.source ? `/sources/${this.props.params.sourceId}/gauges/new` : '';
     this.props.router.push(newGaugeLink);
-  }
+  };
+
+  generateSchedule = () => {
+    generateSchedule.callPromise({sourceId: this.props.params.sourceId})
+      .then(() => console.log('Generated'))
+      .catch(err => console.log(`Error while trying to generate schedule for source ${this.props.source._id}: ${err}`));
+  };
 }
 
 const styles = {

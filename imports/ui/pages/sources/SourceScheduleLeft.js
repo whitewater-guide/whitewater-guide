@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import withAdmin from '../../hoc/withAdmin';
-import {generateSchedule, startJobs, removeJobs} from '../../../api/sources';
+import {startJobs, removeJobs} from '../../../api/sources';
 
 class SourceScheduleLeft extends Component {
   
@@ -18,18 +18,11 @@ class SourceScheduleLeft extends Component {
     //TODO: clean all jobs or prohibit if jobs exist
     return (
       <div style={styles.container}>
-        {admin && <FlatButton secondary={true} onTouchTap={this.generateSchedule} label="Generate"/>}
         {admin && <FlatButton secondary={true} onTouchTap={this.startJobs} label="Start jobs"/>}
         {admin && <FlatButton secondary={true} onTouchTap={this.removeJobs} label="Stop jobs"/>}
       </div>
     );
   }
-
-  generateSchedule = () => {
-    generateSchedule.callPromise({sourceId: this.props.params.sourceId})
-      .then(() => console.log('Generated'))
-      .catch(err => console.log(`Error while trying to generate schedule for source ${this.props.source._id}: ${err}`));
-  };
 
   startJobs = () => {
     startJobs.callPromise({sourceId: this.props.params.sourceId})
