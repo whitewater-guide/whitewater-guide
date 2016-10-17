@@ -31,7 +31,7 @@ class NewGauge extends Component {
     return (
       <div style={styles.container}>
       <Paper style={styles.paper}>
-        <h3>New gauge</h3>
+        <h1>New gauge</h1>
         <TextField value={this.state.name} onChange={(e,name) => this.setState({name})} hintText="Name" floatingLabelText="Name"/>
         <TextField value={this.state.code} onChange={(e,code) => this.setState({code})} hintText="Code" floatingLabelText="Code"/>
         <TextField value={this.state.url} onChange={(e,url) => this.setState({url})} hintText="URL" floatingLabelText="URL"/>
