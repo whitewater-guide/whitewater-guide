@@ -6,6 +6,7 @@ import { createSource } from '../../../api/sources';
 import adminOnly from '../../hoc/adminOnly';
 import { withRouter } from 'react-router';
 import SourceForm from './SourceForm';
+import moment from 'moment';
 
 class NewSource extends Component {
 
@@ -14,11 +15,13 @@ class NewSource extends Component {
   };
 
   state = {
-    name: '',
-    url: '',
-    script: '',
-    cron: '0 * * * *',//every hour at 0 minute
-    harvestMode: null,
+    form: {
+      name: '',
+      url: '',
+      script: '',
+      cron: `${(moment().minute() + 2) % 60} * * * *`,//every hour
+      harvestMode: null,
+    },
     errors: {},
   }
 
@@ -27,7 +30,7 @@ class NewSource extends Component {
       <div style={styles.container}>
       <Paper style={styles.paper}>
         <h1>New source</h1>
-        <SourceForm {...this.state} onChange={v => this.setState(v)}/>
+        <SourceForm {...this.state.form} onChange={this.onFormChange} errors={this.state.errors} />
         <div style={styles.buttonsHolder}>
           <FlatButton label="Cancel" primary={true} onTouchTap={this.onCancel}/>
           <FlatButton label="Add" primary={true} onTouchTap={this.onCreate}/>
@@ -37,16 +40,24 @@ class NewSource extends Component {
     );
   }
 
+  onFormChange = (v) => {
+    this.setState({ form: {...this.state.form, ...v}});
+  }
+
   onCreate = () => {
-    createSource.callPromise(this.state)
+    createSource.callPromise(this.state.form)
       .then(result => this.props.router.goBack())
       .catch(err => {
+        console.log('Error:', err);
         if (ValidationError.is(err)){
           const errors = {};
           err.details.forEach((fieldError) => {
             errors[fieldError.name] = fieldError.type;
           });
           this.setState({errors});
+        }
+        else if (err.errorType === 'Meteor.Error') {
+          this.setState({ errors: { form: err.error } });
         }
       });
   };
