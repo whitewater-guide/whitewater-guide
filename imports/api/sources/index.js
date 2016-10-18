@@ -1,11 +1,9 @@
-import { ValidatedMethod } from 'meteor/mdg:validated-method';
-import {Mongo} from 'meteor/mongo';
-import {Meteor} from 'meteor/meteor';
-import {SimpleSchema} from 'meteor/aldeed:simple-schema';
-import {CallPromiseMixin} from 'meteor/didericis:callpromise-mixin';
+import { Mongo } from 'meteor/mongo';
+import { Meteor } from 'meteor/meteor';
+import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { Gauges, createGauge } from '../gauges';
 import { Jobs } from '../jobs';
-import { Roles } from 'meteor/alanning:roles';
+import AdminMethod from '../../utils/AdminMethod';
 import cronParser from 'cron-parser';
 
 export const Sources = new Mongo.Collection('sources');
@@ -54,10 +52,8 @@ const enabledSourcesSchema = new SimpleSchema([sourcesSchema, { enabled: { type:
 
 Sources.attachSchema(enabledSourcesSchema);
 
-export const createSource = new ValidatedMethod({
+export const createSource = new AdminMethod({
   name: 'sources.create',
-
-  mixins: [CallPromiseMixin],
 
   validate: sourcesSchema.validator({clean: true}),
 
@@ -66,19 +62,12 @@ export const createSource = new ValidatedMethod({
   },
 
   run(data) {
-    console.log('Creating source');
-    //TODO: use permissions mixin https://atmospherejs.com/didericis/permissions-mixin
-    if (!Roles.userIsInRole(this.userId, 'admin')){
-      throw new Meteor.Error('sources.create.unauthorized', 'You must be admin to create sources');
-    }
     return Sources.insert(data);
   }
 });
 
-export const editSource = new ValidatedMethod({
+export const editSource = new AdminMethod({
   name: 'sources.edit',
-
-  mixins: [CallPromiseMixin],
 
   validate: new SimpleSchema([sourcesSchema, { _id: { type: String, regEx: SimpleSchema.RegEx.Id } }]).validator({ clean: true }),
 
@@ -87,9 +76,6 @@ export const editSource = new ValidatedMethod({
   },
 
   run({_id, ...data}) {
-    if (!Roles.userIsInRole(this.userId, 'admin')){
-      throw new Meteor.Error('sources.edit.unauthorized', 'You must be admin to edit sources');
-    }
     const current = Sources.findOne(_id);
     const hasJobs = Jobs.find({ "data.source": _id, status: { $in: ['running', 'ready', 'waiting', 'paused'] } }).count() > 0;
     console.log('Editing source', JSON.stringify(data), JSON.stringify(current));
@@ -101,10 +87,8 @@ export const editSource = new ValidatedMethod({
   }
 });
 
-export const removeSource = new ValidatedMethod({
+export const removeSource = new AdminMethod({
   name: 'sources.remove',
-
-  mixins: [CallPromiseMixin],
 
   validate: new SimpleSchema({
     sourceId: { type: Meteor.ObjectID }
@@ -115,19 +99,14 @@ export const removeSource = new ValidatedMethod({
   },
   
   run({sourceId}) {
-    if (!Roles.userIsInRole(this.userId, 'admin')){
-      throw new Meteor.Error('sources.remove.unauthorized', 'You must be admin to remove sources');
-    }
     //Gauges and jobs are removed in server hook
     return Sources.remove(sourceId);
   },
   
 });
 
-export const listScripts = new ValidatedMethod({
+export const listScripts = new AdminMethod({
   name: 'sources.listScripts',
-
-  mixins: [CallPromiseMixin],
 
   validate: null,
 
@@ -136,19 +115,14 @@ export const listScripts = new ValidatedMethod({
   },
   
   run() {
-    if (!Roles.userIsInRole(this.userId, 'admin')){
-      throw new Meteor.Error('sources.listScripts.unauthorized', 'Only admins can see sources scripts');
-    }
     if (!this.isSimulation){
       return ServerScripts.listScripts();
     }
   },
 });
 
-export const autofill = new ValidatedMethod({
+export const autofill = new AdminMethod({
   name: 'sources.autofill',
-
-  mixins: [CallPromiseMixin],
 
   validate: new SimpleSchema({
     sourceId: { type: String }
@@ -159,9 +133,6 @@ export const autofill = new ValidatedMethod({
   },
   
   run({sourceId}) {
-    if (!Roles.userIsInRole(this.userId, 'admin')){
-      throw new Meteor.Error('sources.autofill.unauthorized', 'Only admins can autofill sources');
-    }
     if (!this.isSimulation){
       const scriptName = Sources.findOne(sourceId).script;
       console.log(`Launching autofill with script ${scriptName}`);
@@ -175,10 +146,8 @@ export const autofill = new ValidatedMethod({
   },
 });
 
-export const generateSchedule = new ValidatedMethod({
+export const generateSchedule = new AdminMethod({
   name: 'sources.generateSchedule',
-
-  mixins: [CallPromiseMixin],
 
   validate: new SimpleSchema({
     sourceId: { type: String }
@@ -189,9 +158,6 @@ export const generateSchedule = new ValidatedMethod({
   },
   
   run({sourceId}) {
-    if (!Roles.userIsInRole(this.userId, 'admin')){
-      throw new Meteor.Error('sources.generateSchedule.unauthorized', 'Only admins can autofill sources');
-    }
     if (!this.isSimulation) {
       var serverSchedule = require('../jobs/server');
       serverSchedule.generateSchedule(sourceId);
@@ -199,10 +165,8 @@ export const generateSchedule = new ValidatedMethod({
   },
 });
 
-export const setEnabled = new ValidatedMethod({
+export const setEnabled = new AdminMethod({
   name: 'sources.setEnabled',
-
-  mixins: [CallPromiseMixin],
 
   validate: new SimpleSchema({
     sourceId: { type: String, regEx: SimpleSchema.RegEx.Id },
@@ -210,9 +174,6 @@ export const setEnabled = new ValidatedMethod({
   }).validator(),
 
   run({sourceId, enabled}) {
-    if (!Roles.userIsInRole(this.userId, 'admin')){
-      throw new Meteor.Error('sources.setEnabled.unauthorized', 'Only admins can enable/disable sources');
-    }
     //Server hook is used to start/stop jobs
     Sources.update(sourceId, { $set: { enabled } });
   },

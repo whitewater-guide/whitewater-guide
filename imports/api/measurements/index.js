@@ -1,8 +1,6 @@
-import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { Mongo } from 'meteor/mongo';
 import { Meteor } from 'meteor/meteor';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
-import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
 import { Gauges } from '../gauges';
 
 export const Measurements = new Mongo.Collection('measurements');

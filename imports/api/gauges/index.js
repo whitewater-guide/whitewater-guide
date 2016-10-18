@@ -1,12 +1,10 @@
 import { Mongo } from 'meteor/mongo';
 import { Meteor } from 'meteor/meteor';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
-import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
-import { ValidatedMethod } from 'meteor/mdg:validated-method';
+import AdminMethod from '../../utils/AdminMethod';
 import { Sources } from '../sources';
 import { Measurements } from '../measurements';
 import { Jobs } from '../jobs';
-import { Roles } from 'meteor/alanning:roles';
 import cronParser from 'cron-parser';
 
 export const Gauges = new Mongo.Collection('gauges');
@@ -104,10 +102,8 @@ const enabledGaugesSchema = new SimpleSchema([gaugesSchema, { enabled: { type: B
 
 Gauges.attachSchema(enabledGaugesSchema);
 
-export const createGauge = new ValidatedMethod({
+export const createGauge = new AdminMethod({
   name: 'gauges.create',
-
-  mixins: [CallPromiseMixin],
 
   validate: gaugesSchema.validator({ clean: true }),
 
@@ -116,17 +112,12 @@ export const createGauge = new ValidatedMethod({
   },
 
   run(data) {
-    if (!Roles.userIsInRole(this.userId, 'admin')){
-      throw new Meteor.Error('gauges.create.unauthorized', 'You must be admin to create gauges');
-    }
     return Gauges.insert(data);
   }
 });
 
-export const editGauge = new ValidatedMethod({
+export const editGauge = new AdminMethod({
   name: 'gauges.edit',
-
-  mixins: [CallPromiseMixin],
 
   validate: new SimpleSchema([gaugesSchema, { _id: { type: String, regEx: SimpleSchema.RegEx.Id } }]).validator({ clean: true }),
 
@@ -135,9 +126,6 @@ export const editGauge = new ValidatedMethod({
   },
 
   run({_id, ...data}) {
-    if (!Roles.userIsInRole(this.userId, 'admin')){
-      throw new Meteor.Error('gauges.edit.unauthorized', 'You must be admin to edit gauges');
-    }
     const current = Gauges.findOne(_id);
     const hasJobs = Jobs.find({ "data.gauge": _id, status: { $in: ['running', 'ready', 'waiting', 'paused'] } }).count() > 0;
     //Cannot change harvest settings for already running script
@@ -148,10 +136,8 @@ export const editGauge = new ValidatedMethod({
   }
 });
 
-export const setEnabled = new ValidatedMethod({
+export const setEnabled = new AdminMethod({
   name: 'gauges.setEnabled',
-
-  mixins: [CallPromiseMixin],
 
   validate: new SimpleSchema({
     gaugeId: { type: String, regEx: SimpleSchema.RegEx.Id },
@@ -159,37 +145,27 @@ export const setEnabled = new ValidatedMethod({
   }).validator(),
 
   run({gaugeId, enabled}) {
-    if (!Roles.userIsInRole(this.userId, 'admin')){
-      throw new Meteor.Error('gauges.setEnabled.unauthorized', 'You must be admin to enable or disable gauges');
-    }
     //Server hook is used to start/stop jobs
     return Gauges.update(gaugeId, { $set: { enabled } } );
   }
 
 });
 
-export const enableAll = new ValidatedMethod({
+export const enableAll = new AdminMethod({
   name: 'gauges.enableAll',
-
-  mixins: [CallPromiseMixin],
 
   validate: new SimpleSchema({
     sourceId: { type: String, regEx: SimpleSchema.RegEx.Id },
   }).validator(),
 
   run({sourceId}) {
-    if (!Roles.userIsInRole(this.userId, 'admin')) {
-      throw new Meteor.Error('gauges.enableAll.unauthorized', 'You must be admin to enable or disable gauges');
-    }
     //Server hook is used to start/stop jobs
     return Gauges.update({ source: sourceId, enabled: false }, { $set: { enabled: true } }, { multi: true });
   }
 });
 
-export const removeGauge = new ValidatedMethod({
+export const removeGauge = new AdminMethod({
   name: 'gauges.remove',
-
-  mixins: [CallPromiseMixin],
 
   validate: new SimpleSchema({
     gaugeId: { type: Meteor.ObjectID }
@@ -200,19 +176,14 @@ export const removeGauge = new ValidatedMethod({
   },
   
   run({gaugeId}) {
-    if (!Roles.userIsInRole(this.userId, 'admin')){
-      throw new Meteor.Error('gauges.remove.unauthorized', 'You must be admin to remove gauges');
-    }
     return Gauges.remove(gaugeId);
   },
   
 });
 
 
-export const removeAllGauges = new ValidatedMethod({
+export const removeAllGauges = new AdminMethod({
   name: 'gauges.removeAll',
-
-  mixins: [CallPromiseMixin],
 
   validate: new SimpleSchema({
     sourceId: { type: Meteor.ObjectID }
@@ -223,18 +194,13 @@ export const removeAllGauges = new ValidatedMethod({
   },
   
   run({sourceId}) {
-    if (!Roles.userIsInRole(this.userId, 'admin')){
-      throw new Meteor.Error('gauges.removeAll.unauthorized', 'You must be admin to remove all gauges');
-    }
     return Gauges.remove({source: sourceId});
   },
   
 });
 
-export const removeDisabledGauges = new ValidatedMethod({
+export const removeDisabledGauges = new AdminMethod({
   name: 'gauges.removeDisabled',
-
-  mixins: [CallPromiseMixin],
 
   validate: new SimpleSchema({
     sourceId: { type: Meteor.ObjectID }
@@ -245,9 +211,6 @@ export const removeDisabledGauges = new ValidatedMethod({
   },
   
   run({sourceId}) {
-    if (!Roles.userIsInRole(this.userId, 'admin')){
-      throw new Meteor.Error('gauges.removeDisabled.unauthorized', 'You must be admin to remove disabled gauges');
-    }
     return Gauges.remove({source: sourceId, enabled: false});
   },
   

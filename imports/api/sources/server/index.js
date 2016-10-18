@@ -9,7 +9,6 @@ Sources.after.remove(function (sourceId, sourceDoc) {
 
 //Enabled/disabled hook adds/removes jobs
 Sources.after.update(function (userId, doc, fieldNames, modifier, options) {
-  console.log('Sources post update', doc, fieldNames);
   if (fieldNames.includes('enabled')) {
     if (doc.harvestMode === 'allAtOnce') {
       if (doc.enabled)
