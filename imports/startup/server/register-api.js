@@ -9,3 +9,7 @@ import '../../api/jobs/server';
 import '../../api/jobs/server/publications';
 import '../../api/users/server/publications';
 import '../../api/measurements';
+
+import '../../api/regions';
+// import '../../api/regions/server';
+import '../../api/regions/server/publications';

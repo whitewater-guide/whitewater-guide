@@ -14,6 +14,7 @@ import ViewSource from '../../ui/pages/sources/ViewSource';
 import ViewSourceLeft from '../../ui/pages/sources/ViewSourceLeft';
 import ViewGauge from '../../ui/pages/gauges/ViewGauge';
 import ViewGaugeLeft from '../../ui/pages/gauges/ViewGaugeLeft';
+import ListRegions from '../../ui/pages/regions/ListRegions';
 
 export default class AppRouter extends Component {
   render() {
@@ -36,6 +37,7 @@ export default class AppRouter extends Component {
             <IndexRoute breadcrumbIgnore={true} components={{ content: ViewGauge, left: ViewGaugeLeft }} />
             <Route path="settings" name="Settings" components={{content: EditGauge, left: ViewGaugeLeft }} />
           </Route>
+          <Route path="regions" name="Regions" components={{ content: ListRegions }}/>
         </Route>
       </Router>
     );
