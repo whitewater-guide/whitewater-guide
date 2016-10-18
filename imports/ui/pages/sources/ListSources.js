@@ -48,9 +48,6 @@ class ListSources extends Component {
 
   renderRow = (src) => {
     const {admin} = this.props;
-    const editHandler = () => this.props.router.push(`/sources/${src._id}/settings`);
-    const deleteHandler = () => this.removeSource(src._id);
-    const startStopHandler = () => this.setSourceEnabled(src._id, !src.enabled);
     const report = _.find(this.props.jobsReport, { _id: src._id });
     const jobCount = report ? report.count : 0;
     return (
@@ -61,13 +58,26 @@ class ListSources extends Component {
         {admin && <TableRowColumn>{src.harvestMode}</TableRowColumn>}
         {admin && <TableRowColumn>{src.cron}</TableRowColumn>}
         {admin && <TableRowColumn>{jobCount}</TableRowColumn>}
-        {admin && <TableRowColumn>
+        { this.renderAdminControls(src) }
+      </TableRow>
+    );
+  };
+
+  renderAdminControls = (src) => {
+    const {admin} = this.props;
+    if (!admin)
+      return null;
+    const editHandler = () => this.props.router.push(`/sources/${src._id}/settings`);
+    const deleteHandler = () => this.removeSource(src._id);
+    const startStopHandler = () => this.setSourceEnabled(src._id, !src.enabled);
+    return (
+      <TableRowColumn>
+        <div onClick={(e) => { e.preventDefault(); e.stopPropagation(); } }>
           <IconButton iconClassName="material-icons" style={styles.iconWrapper} onTouchTap={startStopHandler}>{src.enabled ? 'stop' : 'play_arrow'}</IconButton>
           <IconButton iconClassName="material-icons" onTouchTap={editHandler}>mode_edit</IconButton>
           <IconButton iconClassName="material-icons" onTouchTap={deleteHandler}>delete_forever</IconButton>
-        </TableRowColumn>
-        }
-      </TableRow>
+        </div>
+      </TableRowColumn>
     );
   };
 

@@ -56,9 +56,6 @@ class ListGauges extends Component {
 
   renderRow = (src) => {
     const {admin} = this.props;
-    const editHandler = () => this.props.router.push(`/gauges/${src._id}/settings`);
-    const deleteHandler = () => this.removeGauge(src._id);
-    const startStopHandler = () => this.setGaugeEnabled(src._id, !src.enabled);
     const lat = src.latitude ? src.latitude.toFixed(4) : '?';
     const lon = src.longitude ? src.longitude.toFixed(4) : '?';
     const alt = src.altitude ? ` (${src.altitude.toFixed()})` : '';
@@ -72,13 +69,7 @@ class ListGauges extends Component {
         <TableRowColumn>{src.lastValue}</TableRowColumn>
         <TableRowColumn>{moment(src.lastTimestamp).format('DD.MM.YYYY HH:mm')}</TableRowColumn>
         {admin && <TableRowColumn>{src.cron}</TableRowColumn>}
-        { admin &&
-          <TableRowColumn style={styles.columns.controls}>
-            {this.props.source.harvestMode === 'oneByOne' && <IconButton iconClassName="material-icons" style={styles.iconWrapper} onTouchTap={startStopHandler}>{src.enabled ? 'stop' : 'play_arrow'}</IconButton>}
-            <IconButton iconClassName="material-icons" style={styles.iconWrapper} onTouchTap={editHandler}>mode_edit</IconButton>
-            <IconButton iconClassName="material-icons" style={styles.iconWrapper} onTouchTap={deleteHandler}>delete_forever</IconButton>
-          </TableRowColumn>
-        }
+        { this.renderAdminControls(src) }
       </TableRow>
     );
   };
@@ -93,6 +84,24 @@ class ListGauges extends Component {
     return (
       <TableRowColumn style={styles.columns.status}>
         <IconButton iconClassName="material-icons" style={styles.iconWrapper} iconStyle={statusIconStyle}>fiber_manual_record</IconButton>
+      </TableRowColumn>
+    );
+  };
+
+  renderAdminControls = (gauge) => {
+    const {admin} = this.props;
+    if (!admin)
+      return null;
+    const editHandler = () => this.props.router.push(`/gauges/${gauge._id}/settings`);
+    const deleteHandler = () => this.removeGauge(gauge._id);
+    const startStopHandler = () => this.setGaugeEnabled(gauge._id, !gauge.enabled);
+    return (
+      <TableRowColumn style={styles.columns.controls}>
+        <div onClick={(e) => { e.preventDefault(); e.stopPropagation(); } }>
+          {this.props.source.harvestMode === 'oneByOne' && <IconButton iconClassName="material-icons" style={styles.iconWrapper} onTouchTap={startStopHandler}>{gauge.enabled ? 'stop' : 'play_arrow'}</IconButton>}
+          <IconButton iconClassName="material-icons" style={styles.iconWrapper} onTouchTap={editHandler}>mode_edit</IconButton>
+          <IconButton iconClassName="material-icons" style={styles.iconWrapper} onTouchTap={deleteHandler}>delete_forever</IconButton>
+        </div>
       </TableRowColumn>
     );
   };
