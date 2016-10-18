@@ -7,7 +7,6 @@ import { Roles } from 'meteor/alanning:roles'
 import { withRouter } from 'react-router';
 import { Gauges, removeGauge, setEnabled } from '../../../api/gauges';
 import { Sources } from '../../../api/sources';
-import TableRowColumnWrapper from '../../components/TableRowColumnWrapper';
 import moment from 'moment';
 
 class ListGauges extends Component {
@@ -78,11 +77,11 @@ class ListGauges extends Component {
         <TableRowColumn>{moment(src.lastTimestamp).format('DD.MM.YYYY HH:mm')}</TableRowColumn>
         {admin && <TableRowColumn>{src.cron}</TableRowColumn>}
         { admin &&
-          <TableRowColumnWrapper style={styles.columns.controls}>
+          <TableRowColumn style={styles.columns.controls}>
             {this.props.source.harvestMode === 'oneByOne' && <IconButton iconClassName="material-icons" style={styles.iconWrapper} onTouchTap={startStopHandler}>{src.enabled ? 'stop' : 'play_arrow'}</IconButton>}
             <IconButton iconClassName="material-icons" style={styles.iconWrapper} onTouchTap={editHandler}>mode_edit</IconButton>
             <IconButton iconClassName="material-icons" style={styles.iconWrapper} onTouchTap={deleteHandler}>delete_forever</IconButton>
-          </TableRowColumnWrapper>
+          </TableRowColumn>
         }
       </TableRow>
     );

@@ -8,7 +8,6 @@ import {withRouter} from 'react-router';
 import { Sources, setEnabled } from '../../../api/sources';
 import {removeSource} from '../../../api/sources';
 import { Roles } from 'meteor/alanning:roles';
-import TableRowColumnWrapper from '../../components/TableRowColumnWrapper';
 
 class ListSources extends Component {
 
@@ -58,11 +57,11 @@ class ListSources extends Component {
         {admin && <TableRowColumn>{src.script}</TableRowColumn>}
         {admin && <TableRowColumn>{src.harvestMode}</TableRowColumn>}
         {admin && <TableRowColumn>{src.cron}</TableRowColumn>}
-        {admin && <TableRowColumnWrapper>
+        {admin && <TableRowColumn>
           <IconButton iconClassName="material-icons" style={styles.iconWrapper} onTouchTap={startStopHandler}>{src.enabled ? 'stop' : 'play_arrow'}</IconButton>
           <IconButton iconClassName="material-icons" onTouchTap={editHandler}>mode_edit</IconButton>
           <IconButton iconClassName="material-icons" onTouchTap={deleteHandler}>delete_forever</IconButton>
-        </TableRowColumnWrapper>
+        </TableRowColumn>
         }
       </TableRow>
     );
