@@ -7,7 +7,9 @@ import { Roles } from 'meteor/alanning:roles'
 import { withRouter } from 'react-router';
 import { Gauges, removeGauge, setEnabled } from '../../../api/gauges';
 import { Sources } from '../../../api/sources';
+import { ActiveJobsReport } from '../../../api/jobs/client';
 import moment from 'moment';
+import _ from 'lodash';
 
 class ListGauges extends Component {
 
@@ -20,6 +22,7 @@ class ListGauges extends Component {
     source: PropTypes.object,
     gauges: PropTypes.array,
     router: PropTypes.object,
+    jobsReport: PropTypes.array,
   };
 
   render() {
@@ -56,19 +59,12 @@ class ListGauges extends Component {
     const editHandler = () => this.props.router.push(`/gauges/${src._id}/settings`);
     const deleteHandler = () => this.removeGauge(src._id);
     const startStopHandler = () => this.setGaugeEnabled(src._id, !src.enabled);
-    
-    const statusIconStyle = {...styles.statusIcon, color: (admin && src.isRunning()) ? 'green' : 'red'};
-    // const statusIconStyle = {...styles.statusIcon, color: 'red' };
     const lat = src.latitude ? src.latitude.toFixed(4) : '?';
     const lon = src.longitude ? src.longitude.toFixed(4) : '?';
     const alt = src.altitude ? ` (${src.altitude.toFixed()})` : '';
     return (
       <TableRow key={src._id}>
-        {admin &&
-          <TableRowColumn style={styles.columns.status}>
-            <IconButton iconClassName="material-icons" style={styles.iconWrapper} iconStyle={statusIconStyle}>fiber_manual_record</IconButton>
-          </TableRowColumn>
-        }
+        { this.renderStatusIndicator(src) }
         <TableRowColumn>{src.name}</TableRowColumn>
         {admin && <TableRowColumn>{src.code}</TableRowColumn>}
         <TableRowColumn><a href={src.url}>{src.url}</a></TableRowColumn>
@@ -84,6 +80,20 @@ class ListGauges extends Component {
           </TableRowColumn>
         }
       </TableRow>
+    );
+  };
+
+  renderStatusIndicator = (gauge) => {
+    const {admin, jobsReport} = this.props;
+    if (!admin)
+      return null;
+    const hasJobs = _.find(jobsReport, j => j._id === gauge._id && j.count > 0);
+    const statusIconStyle = {...styles.statusIcon, color: hasJobs ? 'green' : 'red'};
+    // const statusIconStyle = {...styles.statusIcon, color: 'red' };
+    return (
+      <TableRowColumn style={styles.columns.status}>
+        <IconButton iconClassName="material-icons" style={styles.iconWrapper} iconStyle={statusIconStyle}>fiber_manual_record</IconButton>
+      </TableRowColumn>
     );
   };
 
@@ -142,11 +152,14 @@ const ListGaugesContainer = createContainer(
     const gaugesSubscription = Meteor.subscribe('gauges.inSource', props.params.sourceId);
     const gauges = Gauges.find({ source: props.params.sourceId }).fetch();
     const source = Sources.findOne(props.params.sourceId);
+    const reportSub = Meteor.subscribe('jobs.activeReport', props.params.sourceId);
+    const jobsReport = ActiveJobsReport.find().fetch();
     return {
       admin: Roles.userIsInRole(Meteor.userId(), 'admin'),
-      ready: gaugesSubscription.ready() && Roles.subscription.ready(),
+      ready: gaugesSubscription.ready() && Roles.subscription.ready() && reportSub.ready(), 
       source,
-      gauges 
+      gauges,
+      jobsReport,
     };
   },
   ListGauges

@@ -259,12 +259,5 @@ Gauges.helpers({
   },
   measurements() {
     return Measurements.find({ gauge: this._id });
-  },
-  isRunning() {
-    const source = Sources.findOne(this.source);
-    const jobSelector = { "data.source": source._id, status: { $in: ['running', 'ready', 'waiting'] } };
-    if (source.harvestMode === 'oneByOne')
-      jobSelector["data.gauge"] = this._id;
-    return Jobs.findOne(jobSelector) !== undefined;
-  },
+  }
 });
