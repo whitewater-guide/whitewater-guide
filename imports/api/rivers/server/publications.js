@@ -1,6 +1,7 @@
 import {Meteor} from 'meteor/meteor';
 import {Rivers} from '../index';
 import {Regions} from '../../regions';
+import {SimpleSchema} from 'meteor/aldeed:simple-schema';
 
 Meteor.publishComposite('rivers.list', function() {
   return {
@@ -16,4 +17,12 @@ Meteor.publishComposite('rivers.list', function() {
       }
     ]
   }
+});
+
+Meteor.publish('rivers.details', function (riverId) {
+  new SimpleSchema({
+    riverId: {type: String}
+  }).validate({ riverId });
+
+  return Rivers.find(riverId);
 });

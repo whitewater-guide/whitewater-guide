@@ -17,6 +17,7 @@ import ViewGaugeLeft from '../../ui/pages/gauges/ViewGaugeLeft';
 import ListRegions from '../../ui/pages/regions/ListRegions';
 import NewRiver from "../../ui/pages/rivers/NewRiver";
 import ListRivers from "../../ui/pages/rivers/ListRivers";
+import EditRiver from "../../ui/pages/rivers/EditRiver";
 
 export default class AppRouter extends Component {
   render() {
@@ -43,6 +44,7 @@ export default class AppRouter extends Component {
           <Route path="rivers" name="Rivers">
             <IndexRoute name="Rivers" breadcrumbIgnore={true} components={{content: ListRivers}} />
             <Route path="new" name="Add river" components={{content: NewRiver}}/>
+            <Route path=":riverId/Settings" name="Settings" components={{content: EditRiver}}/>
           </Route>
         </Route>
       </Router>

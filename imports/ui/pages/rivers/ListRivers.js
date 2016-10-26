@@ -51,10 +51,12 @@ class ListRivers extends Component {
     const {admin} = this.props;
     if (!admin)
       return null;
+    const editHandler = () => this.props.router.push(`/rivers/${river._id}/settings`);
     const deleteHandler = () => removeRiver.call({ riverId: river._id });
     return (
       <TableRowColumn>
         <div onClick={(e) => { e.preventDefault(); e.stopPropagation(); } }>
+          <IconButton iconClassName="material-icons" onTouchTap={editHandler}>mode_edit</IconButton>
           <IconButton iconClassName="material-icons" onTouchTap={deleteHandler}>delete_forever</IconButton>
         </div>
       </TableRowColumn>
