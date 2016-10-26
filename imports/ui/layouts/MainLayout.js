@@ -1,11 +1,13 @@
 import React, {Component, PropTypes} from 'react';
-import {Toolbar, ToolbarSeparator} from 'material-ui/Toolbar';
+import {Toolbar} from 'material-ui/Toolbar';
 import { indigo500 } from 'material-ui/styles/colors';
 import UserMenu from '../components/UserMenu';
 import Breadcrumbs from '../components/Breadcrumbs';
+import FlatLinkButton from '../components/FlatLinkButton';
 import {Link} from 'react-router';
+import {withRouter} from 'react-router';
 
-export default class MainLayout extends Component {
+class MainLayout extends Component {
 
   static propTypes = {
     left: PropTypes.element,
@@ -22,6 +24,9 @@ export default class MainLayout extends Component {
           <div style={styles.logo}>
             <Link to="/">Logo goes here</Link>
           </div>
+          <FlatLinkButton to="/sources" label="Sources" secondary={true}/>
+          <FlatLinkButton to="/regions" label="Regions" secondary={true}/>
+          <FlatLinkButton to="/rivers" label="Rivers" secondary={true}/>
           { this.props.left }
         </div>
         <div style={styles.rightCol}>
@@ -66,4 +71,6 @@ const styles = {
   toolbar: {
     minHeight: 56,
   },
-}
+};
+
+export default withRouter(MainLayout);

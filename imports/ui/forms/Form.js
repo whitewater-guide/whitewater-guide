@@ -1,8 +1,5 @@
-import React, { cloneElement, Component, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import Paper from 'material-ui/Paper';
-import TextField from 'material-ui/TextField';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
 import FlatButton from 'material-ui/FlatButton';
 import ErrorMessage from '../components/ErrorMessage';
 import { ValidationError } from 'meteor/mdg:validation-error';

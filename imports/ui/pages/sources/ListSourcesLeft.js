@@ -25,7 +25,7 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'stretch',
   }
-}
+};
 
 export default createContainer(() => {
   return {

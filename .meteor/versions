@@ -83,6 +83,7 @@ react-meteor-data@0.2.9
 reactive-var@1.0.10
 reload@1.1.10
 retry@1.0.8
+reywood:publish-composite@1.4.2
 routepolicy@1.0.11
 service-configuration@1.0.10
 shell-server@0.2.1

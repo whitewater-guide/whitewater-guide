@@ -2,11 +2,12 @@ import { Mongo } from 'meteor/mongo';
 import { Meteor } from 'meteor/meteor';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import AdminMethod from '../../utils/AdminMethod';
+import { Regions } from '../regions';
 
 export const Rivers = new Mongo.Collection('rivers');
 
 const riversSchema = new SimpleSchema({
-  region: {
+  regionId: {
     type: Meteor.ObjectID,
     label: 'Region',
     index: true,
@@ -67,4 +68,10 @@ export const removeRiver = new AdminMethod({
     return Rivers.remove(riverId);
   },
   
+});
+
+Rivers.helpers({
+  region: function() {
+    return Regions.findOne(this.regionId);
+  }
 });

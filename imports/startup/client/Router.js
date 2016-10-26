@@ -15,6 +15,8 @@ import ViewSourceLeft from '../../ui/pages/sources/ViewSourceLeft';
 import ViewGauge from '../../ui/pages/gauges/ViewGauge';
 import ViewGaugeLeft from '../../ui/pages/gauges/ViewGaugeLeft';
 import ListRegions from '../../ui/pages/regions/ListRegions';
+import NewRiver from "../../ui/pages/rivers/NewRiver";
+import ListRivers from "../../ui/pages/rivers/ListRivers";
 
 export default class AppRouter extends Component {
   render() {
@@ -24,7 +26,7 @@ export default class AppRouter extends Component {
           <IndexRedirect to="/sources" />
           <Route path="sources" name="Sources" components={{content: ListSources, left: ListSourcesLeft}}/>
           <Route path="sources/new" name="New source" components={{content: NewSource}}/>
-          <Route path="sources/:sourceId" name="Src" breadcrumbName=":sourceId" components={{content: ViewSource, left: ViewSourceLeft}}>
+          <Route path="sources/:sourceId" breadcrumbName=":sourceId" components={{content: ViewSource, left: ViewSourceLeft}}>
             <IndexRedirect to="gauges" />
             <Route path="settings" name="Settings" components={{sourceContent: EditSource}} />
             <Route path="schedule" name="Schedule" components={{sourceContent: SourceSchedule}} />
@@ -38,6 +40,10 @@ export default class AppRouter extends Component {
             <Route path="settings" name="Settings" components={{content: EditGauge, left: ViewGaugeLeft }} />
           </Route>
           <Route path="regions" name="Regions" components={{ content: ListRegions }}/>
+          <Route path="rivers" name="Rivers">
+            <IndexRoute name="Rivers" breadcrumbIgnore={true} components={{content: ListRivers}} />
+            <Route path="new" name="Add river" components={{content: NewRiver}}/>
+          </Route>
         </Route>
       </Router>
     );
