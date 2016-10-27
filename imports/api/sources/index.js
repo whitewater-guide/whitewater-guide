@@ -46,6 +46,11 @@ const sourcesSchema = new SimpleSchema({
     optional: true,
     regEx: SimpleSchema.RegEx.Url,
   },
+  regions: {
+    type: [Meteor.ObjectID],
+    label: 'Regions',
+    defaultValue: [],
+  },
 });
 
 const enabledSourcesSchema = new SimpleSchema([sourcesSchema, { enabled: { type: Boolean, label: 'Enabled', defaultValue: false } }]);

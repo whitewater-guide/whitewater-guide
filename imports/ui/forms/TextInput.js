@@ -10,14 +10,20 @@ class TextInput extends Component {
       error: PropTypes.string,
       onChange: PropTypes.func,
     }),
+    type: PropTypes.string,
   };
 
   render() {
     const value = this.props.field.value === undefined ? '' : this.props.field.value;
     return (
-      <TextField value={value} errorText={this.props.field.error}
+      <TextField
+        type={this.props.type}
+        value={value}
+        errorText={this.props.field.error}
         onChange={(e, value) => this.props.field.onChange(value)}
-        hintText={this.props.title} floatingLabelText={this.props.title} />
+        hintText={this.props.title}
+        floatingLabelText={this.props.title}
+      />
     );
   }
 }

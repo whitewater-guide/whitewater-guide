@@ -3,10 +3,11 @@ import Paper from 'material-ui/Paper';
 import FlatButton from 'material-ui/FlatButton';
 import ErrorMessage from '../components/ErrorMessage';
 import { ValidationError } from 'meteor/mdg:validation-error';
+import { identity } from 'lodash';
 
 class Form extends Component {
   static propTypes = {
-    name: PropTypes.string.isRequired,
+    name: PropTypes.string,
     title: PropTypes.string,
     method: PropTypes.shape({
       call: PropTypes.func,
@@ -17,12 +18,14 @@ class Form extends Component {
     onSubmit: PropTypes.func,
     onCancel: PropTypes.func,
     initialData: PropTypes.object,
+    transformBeforeSubmit: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     cancelLabel: 'Cancel',
     submitLabel: 'Submit',
     initialData: {},
+    transformBeforeSubmit: identity,
   };
 
   static childContextTypes = {
@@ -74,7 +77,8 @@ class Form extends Component {
   };
 
   onSubmit = () => {
-    this.props.method.callPromise(this.state.data)
+    const data = this.props.transformBeforeSubmit(this.state.data);
+    this.props.method.callPromise(data)
       .then(() => this.props.onSubmit())
       .catch(err => {
         // console.log('Error:', err);
