@@ -63,6 +63,11 @@ class ListRivers extends Component {
     );
   };
 
+  onCellClick = (rowId) => {
+    const {router, rivers} = this.props;
+    router.push(`/rivers/${rivers[rowId]._id}`);
+  };
+
 }
 
 const styles = {
