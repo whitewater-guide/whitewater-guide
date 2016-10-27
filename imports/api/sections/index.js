@@ -2,8 +2,8 @@ import { Mongo } from 'meteor/mongo';
 import { Meteor } from 'meteor/meteor';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import AdminMethod from '../../utils/AdminMethod';
-import { Regions } from '../regions';
 import { Rivers } from '../rivers';
+import { Gauges } from '../gauges';
 
 export const Sections = new Mongo.Collection('sections');
 
@@ -48,7 +48,7 @@ const levelsSchema = new SimpleSchema({
   },
 });
 
-const riversSchema = new SimpleSchema({
+const sectionsSchema = new SimpleSchema({
   riverId: {
     type: Meteor.ObjectID,
     label: 'River',
@@ -69,102 +69,110 @@ const riversSchema = new SimpleSchema({
   },
   putIn: {
     type: coordinateSchema,
-    description: 'Put-in coordinate',
+    label: 'Put-in coordinate',
     optional: true,
   },
   takeOut: {
     type: coordinateSchema,
-    description: 'Take-out coordinate',//Some sections have multiple put-ins and take-outs
+    label: 'Take-out coordinate',//Some sections have multiple put-ins and take-outs
     optional: true,
   },
   length: {
     type: Number,
-    description: 'Length, km',
+    label: 'Length, km',
     decimal: true,
     optional: true,
   },
   levels: {
     type: levelsSchema,
-    description: 'Recommended water levels',
+    label: 'Recommended water levels',
     optional: true,
   },
-  grade: {
+  difficulty: {
     type: Number,
-    description: 'Section difficulty',//Might be level-dependant? How to describe IV+ (X)?
+    label: 'Section difficulty',//Might be level-dependant? How to describe IV+ (X)?
     decimal: true,
     min: 1,
     max: 6,
   },
   gradient: {
     type: Number,
-    description: 'Gradient',
+    label: 'Gradient',
     decimal: true,
     optional: true,
   },
   season: {
     type: String,
-    description: 'Season',//Makes sense to make this enum to enable filtering
+    label: 'Season',//Makes sense to make this enum to enable filtering
     optional: true,
   },
   tags: {
     type: [String],
-    description: 'Tags',
-    optional: true,
+    label: 'Tags',
+    defaultValue: [],
   },
+  //Points of interest
+  //Videos
+  //Images
+  //Blogs
   //Glacial-fed, etc
   //Creeking, boulder-garden-etc
   //Syphons, blockages, fishermen, etc?
 });
 
-Rivers.attachSchema(riversSchema);
+Sections.attachSchema(sectionsSchema);
 
-export const createRiver = new AdminMethod({
-  name: 'rivers.create',
+export const createSection = new AdminMethod({
+  name: 'sections.create',
 
-  validate: riversSchema.validator({ clean: true }),
+  validate: sectionsSchema.validator({ clean: true }),
 
   applyOptions: {
     noRetry: true,
   },
 
   run(data) {
-    return Rivers.insert(data);
+    return Sections.insert(data);
   }
 });
 
-export const editRiver = new AdminMethod({
-  name: 'rivers.edit',
+export const editSection = new AdminMethod({
+  name: 'sections.edit',
 
-  validate: new SimpleSchema([riversSchema, { _id: { type: String, regEx: SimpleSchema.RegEx.Id } }]).validator({ clean: true }),
+  validate: new SimpleSchema([sectionsSchema, { _id: { type: String, regEx: SimpleSchema.RegEx.Id } }]).validator({ clean: true }),
 
   applyOptions: {
     noRetry: true,
   },
 
   run({_id, ...data}) {
-    return Rivers.update(_id, { $set: {...data } } );
+    return Sections.update(_id, { $set: {...data } } );
   }
 });
 
-export const removeRiver = new AdminMethod({
-  name: 'rivers.remove',
+export const removeSection = new AdminMethod({
+  name: 'sections.remove',
 
   validate: new SimpleSchema({
-    riverId: { type: Meteor.ObjectID }
+    sectionId: { type: Meteor.ObjectID }
   }).validator(),
 
   applyOptions: {
     noRetry: true,
   },
 
-  run({riverId}) {
-    return Rivers.remove(riverId);
+  run({sectionId}) {
+    return Sections.remove(sectionId);
   },
 
 });
 
-Rivers.helpers({
-  region: function() {
-    return Regions.findOne(this.regionId);
-  }
+
+Sections.helpers({
+  river: function(){
+    return Rivers.findOne(this.riverId);
+  },
+  gauge: function () {
+    return Gauges.findOne(this.gaugeId);
+  },
 });

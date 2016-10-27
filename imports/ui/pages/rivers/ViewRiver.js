@@ -5,6 +5,7 @@ import { Meteor } from 'meteor/meteor';
 import Paper from 'material-ui/Paper';
 import withAdmin from "../../hoc/withAdmin";
 import {withRouter} from "react-router";
+import ListSections from './ListSections';
 
 class ViewRiver extends Component {
   static propTypes = {
@@ -26,6 +27,8 @@ class ViewRiver extends Component {
           <Paper style={styles.headerPaper}>
             <h1>{this.props.river.name}</h1>
             <p>{this.props.river.description}</p>
+            <h2>Sections</h2>
+            <ListSections sections={this.props.river.sections()}/>
           </Paper>
         </div>
       </div>
@@ -47,14 +50,6 @@ const styles = {
   headerPaper: {
     margin: 16,
     padding: 8,
-  },
-  chartHolder: {
-    display: 'flex',
-    flex: 1,
-    padding: 16,
-    marginLeft: 16,
-    marginRight: 16,
-    marginBottom: 16,
   },
 };
 

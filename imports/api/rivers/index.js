@@ -3,6 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import AdminMethod from '../../utils/AdminMethod';
 import { Regions } from '../regions';
+import { Sections } from '../sections';
 
 export const Rivers = new Mongo.Collection('rivers');
 
@@ -73,5 +74,10 @@ export const removeRiver = new AdminMethod({
 Rivers.helpers({
   region: function() {
     return Regions.findOne(this.regionId);
-  }
+  },
+  sections: function() {
+    Sections.find({riverId: this._id});
+  },
 });
+
+//TODO: cascade delete sections

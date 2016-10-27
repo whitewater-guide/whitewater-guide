@@ -19,6 +19,7 @@ import NewRiver from "../../ui/pages/rivers/NewRiver";
 import ListRivers from "../../ui/pages/rivers/ListRivers";
 import EditRiver from "../../ui/pages/rivers/EditRiver";
 import ViewRiver from "../../ui/pages/rivers/ViewRiver";
+import RiverLeft from "../../ui/pages/rivers/RiverLeft";
 
 export default class AppRouter extends Component {
   render() {
@@ -45,8 +46,10 @@ export default class AppRouter extends Component {
           <Route path="rivers" name="Rivers">
             <IndexRoute name="Rivers" breadcrumbIgnore={true} components={{content: ListRivers}} />
             <Route path="new" name="Add river" components={{content: NewRiver}}/>
-            <Route path=":riverId" name="River Info" components={{content: ViewRiver}}/>
-            <Route path=":riverId/settings" name="Settings" components={{content: EditRiver}}/>
+            <Route path=":riverId" breadcrumbName=":riverId" components={{left: RiverLeft}}>
+              <IndexRoute name="Info" breadcrumbIgnore={true} components={{content: ViewRiver}} />
+              <Route path="settings" name="Settings" components={{content: EditRiver}}/>
+            </Route>
           </Route>
         </Route>
       </Router>
