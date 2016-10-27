@@ -46,9 +46,9 @@ export default class AppRouter extends Component {
           <Route path="rivers" name="Rivers">
             <IndexRoute name="Rivers" breadcrumbIgnore={true} components={{content: ListRivers}} />
             <Route path="new" name="Add river" components={{content: NewRiver}}/>
-            <Route path=":riverId" breadcrumbName=":riverId" components={{left: RiverLeft}}>
-              <IndexRoute name="Info" breadcrumbIgnore={true} components={{content: ViewRiver}} />
-              <Route path="settings" name="Settings" components={{content: EditRiver}}/>
+            <Route path=":riverId" breadcrumbName=":riverId" >
+              <IndexRoute name="Info" breadcrumbIgnore={true} components={{content: ViewRiver, left: RiverLeft}} />
+              <Route path="settings" name="Settings" components={{content: EditRiver, left: RiverLeft}}/>
             </Route>
           </Route>
         </Route>
