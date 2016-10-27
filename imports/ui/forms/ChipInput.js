@@ -23,6 +23,7 @@ class ChipInput extends Component {
     const value = this.props.field.value === undefined ? [] : this.props.field.value;
     return (
       <MUIChipInput
+        style={style}
         value={value}
         dataSource={this.props.options}
         dataSourceConfig={{text: 'label', value: 'value'}}
@@ -44,5 +45,9 @@ class ChipInput extends Component {
     this.props.field.onChange(_.filter(this.props.field.value, (item) => item.value !== chip));
   };
 }
+
+const style = {
+  width: '100%',
+};
 
 export default ChipInput;

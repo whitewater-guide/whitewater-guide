@@ -19,6 +19,7 @@ class Form extends Component {
     onCancel: PropTypes.func,
     initialData: PropTypes.object,
     transformBeforeSubmit: PropTypes.func.isRequired,
+    style: PropTypes.object,
   };
 
   static defaultProps = {
@@ -59,7 +60,7 @@ class Form extends Component {
   render() {
     return (
       <div style={styles.container}>
-      <Paper style={styles.paper}>
+      <Paper style={{...styles.paper, ...this.props.style}}>
         <h1>{this.props.title}</h1>
         {this.props.children}
         <ErrorMessage error={this.state.errors.form}/>  

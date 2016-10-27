@@ -17,6 +17,7 @@ class TextInput extends Component {
     const value = this.props.field.value === undefined ? '' : this.props.field.value;
     return (
       <TextField
+        style={style}
         type={this.props.type}
         value={value}
         errorText={this.props.field.error}
@@ -27,5 +28,9 @@ class TextInput extends Component {
     );
   }
 }
+
+const style = {
+  width: '100%',
+};
 
 export default TextInput;

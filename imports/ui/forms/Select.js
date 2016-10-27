@@ -21,8 +21,13 @@ class Select extends Component {
 
   render() {
     return (
-      <SelectField value={this.props.field.value} errorText={this.props.field.error} 
-        onChange={this.onChange} floatingLabelText={this.props.title}>
+      <SelectField
+        style={style}
+        value={this.props.field.value}
+        onChange={this.onChange}
+        errorText={this.props.field.error}
+        floatingLabelText={this.props.title}
+      >
         {this.props.options.map(item => (<MenuItem key={item.value} value={item.value} primaryText={item.label} />))}
       </SelectField>
     );
@@ -32,5 +37,9 @@ class Select extends Component {
     this.props.field.onChange(value);
   };
 }
+
+const style = {
+  width: '100%',
+};
 
 export default Select;
