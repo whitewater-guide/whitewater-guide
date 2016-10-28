@@ -1,7 +1,12 @@
 var _ = require('lodash');
 
 
-if (process.argv[2] === 'autofill') {
+if (process.argv[2] === 'describe'){
+  process.stdout.write(JSON.stringify(
+    {harvestMode: 'oneByOne'}
+  ));
+}
+else if (process.argv[2] === 'autofill') {
   var gauges = _.times(60, function (i) {
     return {
       name: `Test gauge ${i}`,

@@ -6,6 +6,7 @@ class Select extends Component {
   static propTypes = {
     name: PropTypes.string,
     title: PropTypes.string,
+    disabled: PropTypes.bool,
     options: PropTypes.arrayOf(
       PropTypes.shape({
         value: PropTypes.any,
@@ -19,10 +20,15 @@ class Select extends Component {
     }),
   };
 
+  static defaultProps = {
+    disabled: false,
+  };
+
   render() {
     return (
       <SelectField
         style={style}
+        disabled={this.props.disabled}
         value={this.props.field.value}
         onChange={this.onChange}
         errorText={this.props.field.error}

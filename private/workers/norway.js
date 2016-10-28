@@ -122,7 +122,12 @@ function harvestGauge(code, lastTimestamp) {
     })
 }
 
-if (process.argv[2] === 'autofill') {
+if (process.argv[2] === 'describe'){
+  process.stdout.write(JSON.stringify(
+    {harvestMode: 'oneByOne'}
+  ));
+}
+else if (process.argv[2] === 'autofill') {
   autofill(function (error, gauges) {
     if (error) {
       process.send({ error });

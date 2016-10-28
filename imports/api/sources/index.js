@@ -121,7 +121,8 @@ export const listScripts = new AdminMethod({
   
   run() {
     if (!this.isSimulation){
-      return ServerScripts.listScripts();
+      const {listScripts} = require('../scripts');
+      return listScripts();
     }
   },
 });
@@ -141,7 +142,8 @@ export const autofill = new AdminMethod({
     if (!this.isSimulation){
       const scriptName = Sources.findOne(sourceId).script;
       console.log(`Launching autofill with script ${scriptName}`);
-      const launchScriptFiber = Meteor.wrapAsync(ServerScripts.launchScript);
+      const {launchScript} = require('../scripts');
+      const launchScriptFiber = Meteor.wrapAsync(launchScript);
       const gauges = launchScriptFiber(scriptName, 'autofill');
       console.log(`Found ${gauges.length} gauges`);
       gauges.forEach(gauge => {

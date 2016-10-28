@@ -32,7 +32,7 @@ class SourceForm extends Component {
     let {initialData, regions, ready, ...props} = this.props;
     if (!ready)
       return null;
-    const availableScripts = this.state.availableScripts.map(v => ({ value: v, label: v }));
+    const availableScripts = this.state.availableScripts.map(v => ({ value: v.script, label: v.script }));
     regions = regions.map(region => {
       return {
         value: region._id,
@@ -54,8 +54,7 @@ class SourceForm extends Component {
         <Field name="url" title="URL" component={TextInput}/>
         <Field name="regionIds" title="Regions" component={ChipInput} options={regions}/>
         <Field name="script" title="Script" component={Select} options={availableScripts}/>
-        <Field name="harvestMode" title="Harvest Mode" component={Select} options={harvestModes}/>
-        <Field name="cron" title="Cron expression" component={TextInput}/>      
+        <Field name="cron" title="Cron expression" component={TextInput}/>
       </Form>      
     );
   }
@@ -64,14 +63,10 @@ class SourceForm extends Component {
     return {
       ...data,
       regionIds: _.map(data.regionIds, 'value'),
+      harvestMode: _.find(this.state.availableScripts, {script: data.script}).harvestMode,
     };
   };
 }
-
-const harvestModes = [
-  { value: 'allAtOnce', label: 'All at once' },
-  { value: 'oneByOne', label: 'One by one' },
-];
 
 const SourceFormContainer = createContainer(
   () => {

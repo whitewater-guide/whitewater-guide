@@ -1,4 +1,9 @@
-if (process.argv[2] === 'autofill'){
+if (process.argv[2] === 'describe'){
+  process.stdout.write(JSON.stringify(
+    {harvestMode: 'allAtOnce'}
+  ));
+}
+else if (process.argv[2] === 'autofill'){
   process.send([
     {
       name: 'Test gauge 1',

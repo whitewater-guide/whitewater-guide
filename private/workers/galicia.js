@@ -33,7 +33,12 @@ function harvest(){
     });
 }
 
-if (process.argv[2] === 'autofill'){
+if (process.argv[2] === 'describe'){
+  process.stdout.write(JSON.stringify(
+    {harvestMode: 'allAtOnce'}
+  ));
+}
+else if (process.argv[2] === 'autofill'){
   harvest()
     .then(function(gauges){
       process.send(gauges);
