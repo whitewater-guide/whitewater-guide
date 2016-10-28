@@ -4,9 +4,9 @@ import {withRouter} from 'react-router';
 
 class FlatLinkButton extends Component {
   static propTypes = {
-    to: PropTypes.string,
+    to: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     router: PropTypes.object,
-  }
+  };
 
   render() {
     const {to, router, ...buttonProps} = this.props;

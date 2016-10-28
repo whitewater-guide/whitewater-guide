@@ -40,7 +40,7 @@ class ListRivers extends Component {
     return (
       <TableRow key={river._id}>
         <TableRowColumn>{river.name}</TableRowColumn>
-        <TableRowColumn>{river.region().name}</TableRowColumn>
+        <TableRowColumn>{river.region().fetch()[0].name}</TableRowColumn>
         <TableRowColumn>{river.description}</TableRowColumn>
         { this.renderAdminControls(river) }
       </TableRow>

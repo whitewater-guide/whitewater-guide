@@ -65,7 +65,7 @@ class ListGauges extends Component {
         { this.renderStatusIndicator(src) }
         <TableRowColumn>{src.name}</TableRowColumn>
         {admin && <TableRowColumn>{src.code}</TableRowColumn>}
-        <TableRowColumn><a href={src.url}>{src.url}</a></TableRowColumn>
+        <TableRowColumn><a href={src.url}>Link</a></TableRowColumn>
         <TableRowColumn>{`${lat} ${lon}${alt}`}</TableRowColumn>
         <TableRowColumn>{src.lastValue}</TableRowColumn>
         <TableRowColumn>{moment(src.lastTimestamp).format('DD.MM.YYYY HH:mm')}</TableRowColumn>

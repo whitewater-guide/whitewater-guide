@@ -20,6 +20,8 @@ import ListRivers from "../../ui/pages/rivers/ListRivers";
 import EditRiver from "../../ui/pages/rivers/EditRiver";
 import ViewRiver from "../../ui/pages/rivers/ViewRiver";
 import RiverLeft from "../../ui/pages/rivers/RiverLeft";
+import ListRiversLeft from "../../ui/pages/rivers/ListRiversLeft";
+import NewSection from "../../ui/pages/sections/NewSection";
 
 export default class AppRouter extends Component {
   render() {
@@ -44,13 +46,16 @@ export default class AppRouter extends Component {
           </Route>
           <Route path="regions" name="Regions" components={{ content: ListRegions }}/>
           <Route path="rivers" name="Rivers">
-            <IndexRoute name="Rivers" breadcrumbIgnore={true} components={{content: ListRivers}} />
+            <IndexRoute name="Rivers" breadcrumbIgnore={true} components={{content: ListRivers, left: ListRiversLeft}} />
             <Route path="new" name="Add river" components={{content: NewRiver}}/>
             <Route path=":riverId" breadcrumbName=":riverId" >
               <IndexRoute name="Info" breadcrumbIgnore={true} components={{content: ViewRiver, left: RiverLeft}} />
               <Route path="settings" name="Settings" components={{content: EditRiver, left: RiverLeft}}/>
             </Route>
           </Route>
+          <Route path="/sections/new" name="New Section" components={{content: NewSection}}/>
+          <Route path="/sections/:sectionId" breadcrumbName=":sectionId" components={{}}/>
+          <Route path="/sections/:sectionId/settings" breadcrumbName="Settings" components={{}}/>
         </Route>
       </Router>
     );

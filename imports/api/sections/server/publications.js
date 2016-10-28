@@ -3,6 +3,7 @@ import {Sections} from '../index';
 import {Rivers} from '../../rivers';
 import {Gauges} from '../../gauges';
 import {SimpleSchema} from 'meteor/aldeed:simple-schema';
+import { Roles } from 'meteor/alanning:roles';
 
 Meteor.publishComposite('sections.list', function(riverId) {
   return {
@@ -27,10 +28,47 @@ Meteor.publishComposite('sections.list', function(riverId) {
   }
 });
 
-Meteor.publish('section.details', function (sectionId) {
+Meteor.publish('sections.details', function (sectionId) {
   new SimpleSchema({
     sectionId: {type: String}
   }).validate({ sectionId });
 
   return Sections.find(sectionId);
+});
+
+/**
+ * Everything we need in 'New Section' form:
+ * - Name of the river where we add this section;
+ * - List of gauges, found by river->region->sources->gauges
+ */
+Meteor.publishComposite('sections.new', function (riverId) {
+  const isAdmin = Roles.userIsInRole(this.userId, 'admin');
+
+  new SimpleSchema({
+    riverId: {type: String}
+  }).validate({ riverId });
+
+  return {
+    find(){
+      if (!isAdmin)
+        return;
+      return Rivers.find(riverId, {limit: 1, fields: {name: 1, regionId: 1}});
+    },
+    children: [
+      {
+        find(riverDoc){//Finds river->region->sources
+          const region = riverDoc.region().fetch();
+          return region[0].sources();
+        },
+        children: [
+          {
+            find(sourceDoc){//Now find gauges
+              //TODO: limit fields
+              return sourceDoc.gauges();
+            }
+          }
+        ]
+      }
+    ]
+  };
 });

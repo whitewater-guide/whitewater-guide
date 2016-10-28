@@ -1,51 +1,68 @@
 import React, { Component, PropTypes } from 'react';
-import { Form, Field, TextInput, Select } from '../../forms';
+import { Form, Field, TextInput, Select, CoordinatesGroup } from '../../forms';
 import { createContainer } from 'meteor/react-meteor-data';
+import TextField from 'material-ui/TextField';
 import { Meteor} from 'meteor/meteor';
-import { Regions } from '../../../api/regions';
+import { Rivers } from '../../../api/rivers';
+import { Gauges } from '../../../api/gauges';
 
 class SectionForm extends Component {
 
   static propTypes = {
     ...Form.propTypes,
     regionId: PropTypes.string,
-    riverId: PropTypes.string,
-    rivers: PropTypes.array,
+    river: PropTypes.object,
     gauges: PropTypes.array,
     ready: PropTypes.bool,
   };
 
+  static defaultProps = {
+    ...Form.defaultProps,
+  };
+
   render() {
-    const regions = this.props.regions.map(region => {
-      return {
-        value: region._id,
-        label: region.name,
-    }
-    });
-    //PutIn
-    //TakeOut
-    //Levels
+    if (!this.props.ready)
+      return null;
+    //Levels missing
     return (
       <Form {...this.props} name="sources">
-        <Field name="riverId" title="River" component={Select} options={regions}/>
-        <Field name="gaugeId" title="Gauge" component={Select} options={regions}/>
+        <TextField value={this.props.river.name} disabled={true} hintText="River" floatingLabelText="River"
+                   style={styles.textInput}/>
         <Field name="name" title="Name" component={TextInput}/>
+        <Field name="gaugeId" title="Gauge" component={Select} options={this.props.gauges}/>
+        <Field name="putIn" title="Put-in location" component={CoordinatesGroup}/>
+        <Field name="takeOut" title="Take-out location" component={CoordinatesGroup}/>
         <Field name="description" title="Description" component={TextInput}/>
-        <Field name="length" title="Length, km" component={TextInput} type="number"/>
-        <Field name="difficulty" title="Difficulty" component={TextInput} type="number"/>
-        <Field name="gradient" title="Gradient" component={TextInput} type="number"/>
+        <div style={styles.row}>
+          <Field name="length" title="Length, km" component={TextInput} type="number"/>
+          <Field name="difficulty" title="Difficulty (I-VI)" component={TextInput} type="number"/>
+          <Field name="gradient" title="Gradient, m/km" component={TextInput} type="number"/>
+        </div>
         <Field name="season" title="Season" component={TextInput}/>
       </Form>
     );
   }
 }
 
+const styles = {
+  textInput: {
+    width: '100%',
+  },
+  row: {
+    display: 'flex',
+  },
+};
+
 const SectionFormContainer = createContainer(
-  () => {
-    const sub = Meteor.subscribe('regions.list');
-    const regions = Regions.find({}).fetch();
+  (props) => {
+    const sub = Meteor.subscribe('sections.new', props.initialData.riverId);
+    const river = Rivers.findOne(props.initialData.riverId);
+    //We must follow river->region->sources->gauges chain here
+    //It is already chained on server side, we hope that no more gauge subscriptions are active atm
+    const gauges = Gauges.find({}).fetch();
     return {
-      regions,
+      river,
+      gauges,
       ready: sub.ready(),
     }
   },

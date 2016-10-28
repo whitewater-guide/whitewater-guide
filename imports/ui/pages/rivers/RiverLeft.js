@@ -13,11 +13,17 @@ class RiverLeft extends Component {
 
   render() {
     const {admin, params: {riverId}} = this.props;
+    const toNewSection = {
+      pathname: '/sections/new',
+      query: {
+        riverId,
+      },
+    };
     return (
       <div style={styles.container}>
         <FlatLinkButton secondary={true} to={`/rivers/${riverId}`} label="Info" />
         {admin && <FlatLinkButton secondary={true} to={`/rivers/${riverId}/settings`} label="Settings" />}
-        {admin && <FlatLinkButton secondary={true} to={`/rivers/${riverId}/sections/new`} label="New Section" />}
+        {admin && <FlatLinkButton secondary={true} to={toNewSection} label="New Section" />}
       </div>
     );
   }

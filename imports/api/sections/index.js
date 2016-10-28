@@ -28,11 +28,11 @@ const levelsSchema = new SimpleSchema({
 
 const sectionsSchema = new SimpleSchema({
   riverId: {
-    type: Meteor.ObjectID,
+    type: String,
     label: 'River',
   },
   gaugeId: {
-    type: Meteor.ObjectID,
+    type: String,
     label: 'Gauge',
     optional: true,
   },
@@ -132,7 +132,7 @@ export const removeSection = new AdminMethod({
   name: 'sections.remove',
 
   validate: new SimpleSchema({
-    sectionId: { type: Meteor.ObjectID }
+    sectionId: { type: String }
   }).validator(),
 
   applyOptions: {

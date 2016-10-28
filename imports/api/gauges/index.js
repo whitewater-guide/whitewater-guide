@@ -12,7 +12,7 @@ export const Gauges = new Mongo.Collection('gauges');
 
 const gaugesSchema = new SimpleSchema({
   sourceId: {
-    type: Meteor.ObjectID,
+    type: String,
     label: 'Gauge source',
     index: true,
   },
@@ -152,7 +152,7 @@ export const removeGauge = new AdminMethod({
   name: 'gauges.remove',
 
   validate: new SimpleSchema({
-    gaugeId: { type: Meteor.ObjectID }
+    gaugeId: { type: String }
   }).validator(),
 
   applyOptions: {
@@ -170,7 +170,7 @@ export const removeAllGauges = new AdminMethod({
   name: 'gauges.removeAll',
 
   validate: new SimpleSchema({
-    sourceId: { type: Meteor.ObjectID }
+    sourceId: { type: String }
   }).validator(),
 
   applyOptions: {
@@ -187,7 +187,7 @@ export const removeDisabledGauges = new AdminMethod({
   name: 'gauges.removeDisabled',
 
   validate: new SimpleSchema({
-    sourceId: { type: Meteor.ObjectID }
+    sourceId: { type: String }
   }).validator(),
 
   applyOptions: {

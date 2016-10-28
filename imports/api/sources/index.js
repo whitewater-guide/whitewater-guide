@@ -47,7 +47,7 @@ const sourcesSchema = new SimpleSchema({
     regEx: SimpleSchema.RegEx.Url,
   },
   regionIds: {
-    type: [Meteor.ObjectID],
+    type: [String],
     label: 'Regions',
     defaultValue: [],
   },
@@ -96,7 +96,7 @@ export const removeSource = new AdminMethod({
   name: 'sources.remove',
 
   validate: new SimpleSchema({
-    sourceId: { type: Meteor.ObjectID }
+    sourceId: { type: String }
   }).validator(),
 
   applyOptions: {

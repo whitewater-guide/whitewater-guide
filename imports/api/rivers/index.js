@@ -9,7 +9,7 @@ export const Rivers = new Mongo.Collection('rivers');
 
 const riversSchema = new SimpleSchema({
   regionId: {
-    type: Meteor.ObjectID,
+    type: String,
     label: 'Region',
     index: true,
   },
@@ -58,7 +58,7 @@ export const removeRiver = new AdminMethod({
   name: 'rivers.remove',
 
   validate: new SimpleSchema({
-    riverId: { type: Meteor.ObjectID }
+    riverId: { type: String }
   }).validator(),
 
   applyOptions: {
@@ -73,7 +73,7 @@ export const removeRiver = new AdminMethod({
 
 Rivers.helpers({
   region() {
-    return Regions.findOne(this.regionId);
+    return Regions.find({_id: this.regionId}, {limit: 1});
   },
   sections() {
     Sections.find({riverId: this._id});

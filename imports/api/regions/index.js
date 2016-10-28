@@ -1,6 +1,7 @@
 import { Mongo } from 'meteor/mongo';
 import { Meteor } from 'meteor/meteor';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+import { Sources } from '../sources';
 import AdminMethod from '../../utils/AdminMethod';
 
 export const Regions = new Mongo.Collection('regions');
@@ -52,7 +53,7 @@ export const removeRegion = new AdminMethod({
   name: 'regions.remove',
 
   validate: new SimpleSchema({
-    regionId: { type: Meteor.ObjectID }
+    regionId: { type: String }
   }).validator(),
 
   applyOptions: {
@@ -63,4 +64,10 @@ export const removeRegion = new AdminMethod({
     return Regions.remove(regionId);
   },
   
+});
+
+Regions.helpers({
+  sources(){
+    return Sources.find({regionIds: this._id});
+  },
 });

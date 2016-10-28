@@ -32,14 +32,13 @@ class SourceForm extends Component {
     let {initialData, regions, ready, ...props} = this.props;
     if (!ready)
       return null;
-    const availableScripts = this.state.availableScripts.map(v => ({ value: v.script, label: v.script }));
     regions = regions.map(region => {
       return {
         value: region._id,
         label: region.name,
       };
     });
-    let selectedRegions = _.get(initialData, 'regions', []);//Array os ids
+    let selectedRegions = _.get(initialData, 'regions', []);//Array of ids
     selectedRegions = _.filter(regions, (region) => _.includes(selectedRegions, region.value));
     initialData = {...initialData, regionIds: selectedRegions};
 
@@ -53,7 +52,8 @@ class SourceForm extends Component {
         <Field name="name" title="Name" component={TextInput}/>      
         <Field name="url" title="URL" component={TextInput}/>
         <Field name="regionIds" title="Regions" component={ChipInput} options={regions}/>
-        <Field name="script" title="Script" component={Select} options={availableScripts}/>
+        <Field name="script" title="Script" component={Select} options={this.state.availableScripts}
+               extractKey={_.property('script')} extractValue={_.property('script')} extractLabel={_.property('script')}/>
         <Field name="cron" title="Cron expression" component={TextInput}/>
       </Form>      
     );

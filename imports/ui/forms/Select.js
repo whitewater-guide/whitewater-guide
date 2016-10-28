@@ -7,12 +7,10 @@ class Select extends Component {
     name: PropTypes.string,
     title: PropTypes.string,
     disabled: PropTypes.bool,
-    options: PropTypes.arrayOf(
-      PropTypes.shape({
-        value: PropTypes.any,
-        label: PropTypes.string,
-      }),
-    ),
+    options: PropTypes.array,
+    extractKey: PropTypes.func,
+    extractValue: PropTypes.func,
+    extractLabel: PropTypes.func,
     field: PropTypes.shape({
       value: PropTypes.any,
       error: PropTypes.string,
@@ -22,6 +20,9 @@ class Select extends Component {
 
   static defaultProps = {
     disabled: false,
+    extractKey: item => item._id,
+    extractValue: item => item._id,
+    extractLabel: item => item.name,
   };
 
   render() {
@@ -34,10 +35,17 @@ class Select extends Component {
         errorText={this.props.field.error}
         floatingLabelText={this.props.title}
       >
-        {this.props.options.map(item => (<MenuItem key={item.value} value={item.value} primaryText={item.label} />))}
+        {this.props.options.map(this.renderItem)}
       </SelectField>
     );
   }
+
+  renderItem = (item) => {
+    const {extractKey, extractValue, extractLabel} = this.props;
+    return (
+      <MenuItem key={extractKey(item)} value={extractValue(item)} primaryText={extractLabel(item)} />
+    );
+  };
 
   onChange = (event, index, value) => {
     this.props.field.onChange(value);
