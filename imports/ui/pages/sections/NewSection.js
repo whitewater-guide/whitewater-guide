@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import { createRiver } from '../../../api/rivers';
+import { createSection } from '../../../api/sections';
 import adminOnly from '../../hoc/adminOnly';
 import { withRouter } from 'react-router';
 import SectionForm from './SectionForm';
@@ -14,7 +14,7 @@ class NewSection extends Component {
   render() {
     const initialData = {riverId: this.props.location.query.riverId};
     return (
-      <SectionForm method={createRiver}
+      <SectionForm method={createSection}
                  title="New Section"
                  submitLabel="Create"
                  initialData={initialData}

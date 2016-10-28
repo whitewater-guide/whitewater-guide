@@ -1,5 +1,10 @@
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 
+const limits = [
+  {min: -90, max: 90, msg: 'lonOutOfRange'},
+  {min: -180, max: 180, msg: 'latOutOfRange'},
+];
+
 export const LocationSchema = new SimpleSchema({
   name: {
     type: String,
@@ -8,7 +13,7 @@ export const LocationSchema = new SimpleSchema({
   "type":{
     type: String,
     allowedValues: ["Point"],
-    defaultValue: "Point",
+    //defaultValue is not set, so coordinate field can be optional inside other scheme
   },
   coordinates: {
     type: [Number],
@@ -16,12 +21,16 @@ export const LocationSchema = new SimpleSchema({
     decimal: true,
     minCount: 2,
     maxCount: 2,
+  },
+  "coordinates.$": {
     custom: function(){
-      if (this.value[0] >= 90 || this.value[0] <= -90)
-        return "lonOutOfRange" ;
-      if (this.value[1] >= 180 || this.value[1] <= -180)
-        return "latOutOfRange" ;
-    }
+      const index = Number(this.key.match(/\d+/)[0]);
+      const limit = limits[index];
+      if (this.value === null || this.value === undefined)
+        return 'required';
+      if (this.value >= limit.max || this.value <= limit.min)
+        return limit.msg;
+    },
   },
   altitude: {
     type: Number,

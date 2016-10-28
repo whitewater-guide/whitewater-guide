@@ -3,7 +3,7 @@ import Paper from 'material-ui/Paper';
 import FlatButton from 'material-ui/FlatButton';
 import ErrorMessage from '../components/ErrorMessage';
 import { ValidationError } from 'meteor/mdg:validation-error';
-import { identity } from 'lodash';
+import _ from 'lodash';
 
 class Form extends Component {
   static propTypes = {
@@ -26,7 +26,7 @@ class Form extends Component {
     cancelLabel: 'Cancel',
     submitLabel: 'Submit',
     initialData: {},
-    transformBeforeSubmit: identity,
+    transformBeforeSubmit: _.identity,
   };
 
   static childContextTypes = {
@@ -44,9 +44,12 @@ class Form extends Component {
   }
 
   getChildContext() {
+    //Transform dot errors paths into nested objects
+    let formErrors = {};
+    _.forEach(this.state.errors, (value, path) => _.set(formErrors, path, value));
     return {
       formData: this.state.data,
-      formErrors: this.state.errors,
+      formErrors,
       formFieldChangeHandler: this.onFieldChange,
     };
   }
