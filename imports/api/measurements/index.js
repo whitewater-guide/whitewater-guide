@@ -6,10 +6,10 @@ import { Gauges } from '../gauges';
 export const Measurements = new Mongo.Collection('measurements');
 
 export const measurementsSchema = new SimpleSchema({
-  gauge: {
+  gaugeId: {
     type: String,
     regEx: SimpleSchema.RegEx.Id,
-    label: 'Gauge id',
+    label: 'Gauge',
   },
   date: {
     type: Date,
@@ -26,10 +26,10 @@ export const measurementsSchema = new SimpleSchema({
 Measurements.attachSchema(measurementsSchema);
 
 if (Meteor.isServer) {
-  Measurements._ensureIndex({ gauge: 1, date: -1 }, { unique: true });
+  Measurements._ensureIndex({ gaugeId: 1, date: -1 }, { unique: true });
 }  
 
 //denormalize gauges
 Measurements.after.insert(function (userId, doc) {
-  Gauges.update(doc.gauge, { $set: { lastTimestamp: doc.date, lastValue: doc.value } });
+  Gauges.update(doc.gaugeId, { $set: { lastTimestamp: doc.date, lastValue: doc.value } });
 });

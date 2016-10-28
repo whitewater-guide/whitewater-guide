@@ -10,7 +10,7 @@ import cronParser from 'cron-parser';
 export const Gauges = new Mongo.Collection('gauges');
 
 const gaugesSchema = new SimpleSchema({
-  source: {
+  sourceId: {
     type: Meteor.ObjectID,
     label: 'Gauge source',
     index: true,
@@ -26,7 +26,7 @@ const gaugesSchema = new SimpleSchema({
     max: 100,
     index: true,
   },
-  altitude: {
+  altitude: {//TODO: use coordinate scheme
     type: Number,
     label: 'Altitude',
     decimal: true,
@@ -160,7 +160,7 @@ export const enableAll = new AdminMethod({
 
   run({sourceId}) {
     //Server hook is used to start/stop jobs
-    return Gauges.update({ source: sourceId, enabled: false }, { $set: { enabled: true } }, { multi: true });
+    return Gauges.update({ sourceId, enabled: false }, { $set: { enabled: true } }, { multi: true });
   }
 });
 
@@ -194,7 +194,7 @@ export const removeAllGauges = new AdminMethod({
   },
   
   run({sourceId}) {
-    return Gauges.remove({source: sourceId});
+    return Gauges.remove({sourceId});
   },
   
 });
@@ -211,16 +211,16 @@ export const removeDisabledGauges = new AdminMethod({
   },
   
   run({sourceId}) {
-    return Gauges.remove({source: sourceId, enabled: false});
+    return Gauges.remove({sourceId, enabled: false});
   },
   
 });
 
 Gauges.helpers({
   source(){
-    return Sources.findOne(this.source);
+    return Sources.findOne(this.sourceId);
   },
   measurements() {
     return Measurements.find({ gauge: this._id });
-  }
+  },
 });

@@ -41,7 +41,7 @@ class SourceForm extends Component {
     });
     let selectedRegions = _.get(initialData, 'regions', []);//Array os ids
     selectedRegions = _.filter(regions, (region) => _.includes(selectedRegions, region.value));
-    initialData = {...initialData, regions: selectedRegions};
+    initialData = {...initialData, regionIds: selectedRegions};
 
     return (
       <Form {...props}
@@ -52,7 +52,7 @@ class SourceForm extends Component {
       >
         <Field name="name" title="Name" component={TextInput}/>      
         <Field name="url" title="URL" component={TextInput}/>
-        <Field name="regions" title="Regions" component={ChipInput} options={regions}/>
+        <Field name="regionIds" title="Regions" component={ChipInput} options={regions}/>
         <Field name="script" title="Script" component={Select} options={availableScripts}/>
         <Field name="harvestMode" title="Harvest Mode" component={Select} options={harvestModes}/>
         <Field name="cron" title="Cron expression" component={TextInput}/>      
@@ -63,7 +63,7 @@ class SourceForm extends Component {
   transformBeforeSubmit = (data) => {
     return {
       ...data,
-      regions: _.map(data.regions, 'value'),
+      regionIds: _.map(data.regionIds, 'value'),
     };
   };
 }
@@ -75,6 +75,7 @@ const harvestModes = [
 
 const SourceFormContainer = createContainer(
   () => {
+    //TODO: only need region names here
     const sub = Meteor.subscribe('regions.list');
     const regions = Regions.find({}).fetch();
     return {

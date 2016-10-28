@@ -49,10 +49,10 @@ Jobs.processJobs('harvest', {}, (job, callback) => {
     let insertCount = 0;
     const finishJob = after(measurements.length, () => job.done({measurements: insertCount}));
     measurements.forEach(measurement => {
-      const gaugeId = job.data.gaugeId ? job.data.gaugeId : Gauges.findOne({ source: job.data.source, code: measurement.code })._id;
+      const gaugeId = job.data.gaugeId ? job.data.gaugeId : Gauges.findOne({ sourceId: job.data.sourceId, code: measurement.code })._id;
       if (measurement.value) {
         Measurements.insert({
-          gauge: gaugeId,
+          gaugeId: gaugeId,
           date: new Date(measurement.timestamp),
           value: measurement.value,
         }, (err) => {
@@ -75,15 +75,15 @@ Jobs.processJobs('harvest', {}, (job, callback) => {
 Jobs.startJobServer();
 // Jobs.setLogStream(process.stdout);
 
-function worker({script, gauge}, nodeCallback) {
+function worker({script, gaugeId}, nodeCallback) {
   const file = path.resolve(process.cwd(), 'assets/app/workers', `${script}.js`);
   //It is possible to check gauge's last timestamp here and pass it to worker
-  const gaugeDoc = gauge && Gauges.findOne(gauge);
+  const gaugeDoc = gaugeId && Gauges.findOne(gaugeId);
   const args = ['harvest'];
   if (gaugeDoc) {
     args.push(gaugeDoc.code);
     if (gaugeDoc.lastTimestamp)
-      args.push(moment(gaugeDoc.lastTimestamp).subtract(1, 'minutes').valueOf());
+      args.push(gaugeDoc.lastTimestamp);
   }
   console.log(`Launching worker ${script} with args ${args}`);
   const child = child_process.fork(file, args);
@@ -107,9 +107,9 @@ export function stopJobs(sourceId, gaugeId) {
   console.log('Stopping jobs', sourceId, gaugeId);
   let selector = { type: 'harvest' };
   if (sourceId)
-    selector = {...selector, "data.source": sourceId };
+    selector = {...selector, "data.sourceId": sourceId };
   if (gaugeId)
-    selector = {...selector, "data.gauge": gaugeId };
+    selector = {...selector, "data.gaugeId": gaugeId };
   const cancellableJobs = Jobs.find({...selector, status: { $in: Job.jobStatusCancellable } })
     .fetch().map(j => j._id);
   Jobs.cancelJobs(cancellableJobs);
@@ -159,7 +159,7 @@ export function startJobs(sourceId, gaugeId) {
   if (source.harvestMode === 'allAtOnce' && source.cron) {
     const job = new Job(Jobs, 'harvest', {
       script: source.script,
-      source: source._id,
+      sourceId: source._id,
     });
     job.repeat({ schedule: Jobs.later.parse.cron(source.cron) });
     job.save();
@@ -170,8 +170,8 @@ export function startJobs(sourceId, gaugeId) {
       if (gauge.enabled && gauge.cron) {
         const job = new Job(Jobs, 'harvest', {
           script: source.script,
-          source: source._id,
-          gauge: gauge._id,
+          sourceId: source._id,
+          gaugeId: gauge._id,
         });
         console.log(`Add job for gauge ${gauge.name} at ${gauge.cron}`);
         job

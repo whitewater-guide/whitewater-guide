@@ -31,6 +31,6 @@ const styles = {
     alignItems: 'stretch',
   },
 
-}
+};
 
 export default withAdmin(ViewSourceLeft);

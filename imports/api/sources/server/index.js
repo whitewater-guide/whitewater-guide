@@ -3,7 +3,7 @@ import { Gauges } from '../../gauges';
 import { startJobs, stopJobs } from '../../jobs/server';  
 
 Sources.after.remove(function (sourceId, sourceDoc) {
-  Gauges.remove({ source: sourceDoc._id });
+  Gauges.remove({ sourceId: sourceDoc._id });
   stopJobs(sourceId);
 });
 
@@ -20,7 +20,7 @@ Sources.after.update(function (userId, doc, fieldNames, modifier, options) {
       //For one-by-one sources, disbaling them disables all their gauges
       //But enabling them does not affect gauges, use separate method for this
       if (!doc.enabled)
-        Gauges.update({ source: doc._id }, { $set: { enabled: false } }, { multi: true });
+        Gauges.update({ sourceId: doc._id }, { $set: { enabled: false } }, { multi: true });
     }
   }
 }, {fetchPrevious: false} );

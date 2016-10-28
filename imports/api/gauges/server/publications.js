@@ -10,28 +10,55 @@ const publicFields = {
   enabled: 0,
 };
 
-Meteor.publish('gauges.inSource', function(source) {
-  new SimpleSchema({
-    source: {type: String}
-  }).validate({ source });
-
+Meteor.publishComposite('gauges.inSource', function(sourceId){
   const isAdmin = Roles.userIsInRole(this.userId, 'admin');
   const fields = isAdmin ? undefined : publicFields;
-  const result = [Gauges.find({source}, fields)];
-  if (isAdmin) {
-    result.push(Sources.find(source));//Source itself
-    result.push(Jobs.find({ "data.source": source }, { fields: { status: 1, data: 1 } }));//Related jobs
+  let children = [];
+  if (isAdmin){
+    children = [
+      //Source itself
+      {
+        find(){
+          return Sources.find(sourceId);
+        }
+      },
+      //Jobs
+      {
+        find(){
+          return Jobs.find({ "data.sourceId": sourceId }, { fields: { status: 1, data: 1 } });
+        }
+      },
+    ];
   }
-  return result;
+
+  return {
+    find() {
+      new SimpleSchema({
+        sourceId: {type: String}
+      }).validate({ sourceId });
+
+      return Gauges.find({sourceId}, fields);
+    },
+    children
+  }
 });
 
-Meteor.publish('gauges.details', function (gauge) {
-  new SimpleSchema({
-    gauge: {type: String}
-  }).validate({ gauge });  
+Meteor.publishComposite('gauges.details', function(gaugeId){
 
-  return [
-    Gauges.find(gauge),
-    Measurements.find({gauge}),
-  ];
+  new SimpleSchema({
+    gaugeId: {type: String}
+  }).validate({ gaugeId });
+
+  return {
+    find(){
+      return Gauges.find(gaugeId);
+    },
+    children: [
+      {
+        find(){
+          return Measurements.find({gaugeId});
+        }
+      },
+    ]
+  }
 });

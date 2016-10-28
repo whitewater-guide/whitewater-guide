@@ -36,13 +36,13 @@ class ListGaugesLeft extends Component {
   removeAllGauges = () => {
     removeAllGauges.callPromise({sourceId: this.props.params.sourceId})
       .then(() => console.log('All gauges removed'))
-      .catch(err => console.log(`Error while trying to remove all gauges for source ${this.props.source._id}: ${err}`));
+      .catch(err => console.log(`Error while trying to remove all gauges for source ${this.props.params.sourceId}: ${err}`));
   };
 
   removeDisabledGauges = () => {
     removeDisabledGauges.callPromise({sourceId: this.props.params.sourceId})
       .then(() => console.log('All disabled gauges removed'))
-      .catch(err => console.log(`Error while trying to remove all disabled gauges for source ${this.props.source._id}: ${err}`));
+      .catch(err => console.log(`Error while trying to remove all disabled gauges for source ${this.props.params.sourceId}: ${err}`));
   };
 
   autofill = () => {
@@ -58,7 +58,7 @@ class ListGaugesLeft extends Component {
   generateSchedule = () => {
     generateSchedule.callPromise({sourceId: this.props.params.sourceId})
       .then(() => console.log('Generated'))
-      .catch(err => console.log(`Error while trying to generate schedule for source ${this.props.source._id}: ${err}`));
+      .catch(err => console.log(`Error while trying to generate schedule for source ${this.props.params.sourceId}: ${err}`));
   };
 
   enableAll = () => {
@@ -74,12 +74,11 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'stretch',
   },
-
-}
+};
 
 const ListGaugesLeftContainer = createContainer((props) => {
-  const gaugesSubscription = Meteor.subscribe('gauges.inSource', props.sourceId);
-  const numGauges = Gauges.find({sourceId: props.sourceId}).count();
+  const gaugesSubscription = Meteor.subscribe('gauges.inSource', props.params.sourceId);
+  const numGauges = Gauges.find({sourceId: props.params.sourceId}).count();
   return {
     ready: gaugesSubscription.ready(),
     numGauges

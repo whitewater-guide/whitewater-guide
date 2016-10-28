@@ -34,7 +34,7 @@ const sourcesSchema = new SimpleSchema({
       }
     },
   },
-  harvestMode: {
+  harvestMode: {//TODO: harvestMode is defined by script
     type: String,
     label: 'Harvest mode',
     allowedValues: ['allAtOnce', 'oneByOne'],
@@ -46,7 +46,7 @@ const sourcesSchema = new SimpleSchema({
     optional: true,
     regEx: SimpleSchema.RegEx.Url,
   },
-  regions: {
+  regionIds: {
     type: [Meteor.ObjectID],
     label: 'Regions',
     defaultValue: [],
@@ -145,7 +145,7 @@ export const autofill = new AdminMethod({
       const gauges = launchScriptFiber(scriptName, 'autofill');
       console.log(`Found ${gauges.length} gauges`);
       gauges.forEach(gauge => {
-        createGauge.call({source: sourceId, ...gauge});
+        createGauge.call({sourceId, ...gauge});
       });
     }
   },
@@ -186,6 +186,6 @@ export const setEnabled = new AdminMethod({
 
 Sources.helpers({
   gauges() {
-    return Gauges.find({ source: this._id });
+    return Gauges.find({ sourceId: this._id });
   },
 });

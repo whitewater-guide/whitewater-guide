@@ -45,7 +45,7 @@ class SourceSchedule extends Component {
   }
 
   renderRow = (job) => {
-    const gauge = _.find(this.props.gauges, { _id: job.data.gauge });
+    const gauge = _.find(this.props.gauges, { _id: job.data.gaugeId });
     const numMeasurements = job.result ? job.result.measurements : '--';
     return (
       <TableRow key={job._id}>
@@ -74,10 +74,10 @@ const SourceScheduleContainer = createContainer(
     const jobsSubscription = Meteor.subscribe('jobs.forSource', props.params.sourceId);
     const gaugesSubscription = Meteor.subscribe('gauges.inSource', props.params.sourceId);
     const jobs = Jobs.find(
-      { "data.source": props.params.sourceId },
+      { "data.sourceId": props.params.sourceId },
       { fields: { data: 1, status: 1, updated: 1, after: 1, result: 1 } }
     ).fetch();
-    const gauges = Gauges.find({ "source": props.params.sourceId }, {fields: {name: 1}}).fetch();
+    const gauges = Gauges.find({ "sourceId": props.params.sourceId }, {fields: {name: 1}}).fetch();
     return {
       ready: jobsSubscription.ready() && gaugesSubscription.ready(),
       gauges,

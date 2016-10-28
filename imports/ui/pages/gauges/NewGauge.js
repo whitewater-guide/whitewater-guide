@@ -13,7 +13,7 @@ class NewGauge extends Component {
   };
 
   render() {
-    const initialData = { source: this.props.params.sourceId };
+    const initialData = { sourceId: this.props.params.sourceId };
     return (
       <GaugeForm method={createGauge} title="New Gauge" submitLabel="Create"
         onSubmit={this.onSubmit} onCancel={this.onCancel}
