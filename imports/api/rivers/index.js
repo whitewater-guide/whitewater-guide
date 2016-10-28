@@ -79,5 +79,3 @@ Rivers.helpers({
     Sections.find({riverId: this._id});
   },
 });
-
-//TODO: cascade delete sections
