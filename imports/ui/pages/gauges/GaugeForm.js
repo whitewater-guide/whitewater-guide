@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Form, Field, TextInput } from '../../forms';
+import { Form, Field, TextInput, CoordinatesGroup } from '../../forms';
 
 class GaugeForm extends Component {
 
@@ -22,10 +22,8 @@ class GaugeForm extends Component {
         <Field name="name" title="Name" component={TextInput}/>      
         <Field name="code" title="Code" component={TextInput}/>      
         <Field name="url" title="URL" component={TextInput}/>      
-        <Field name="altitude" title="Altitude" component={TextInput}/>      
-        <Field name="latitude" title="Latitude" component={TextInput}/>      
-        <Field name="longitude" title="Longitude" component={TextInput}/>      
-        <Field name="measurement" title="Measured value" component={TextInput}/>      
+        <Field name="location" title="Location" component={CoordinatesGroup}/>
+        <Field name="measurement" title="Measured value" component={TextInput}/>
         <Field name="unit" title="Measurement unit" component={TextInput}/>      
         <Field name="cron" title="Cron expression" component={TextInput}/>      
       </Form>      

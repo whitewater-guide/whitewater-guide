@@ -28,7 +28,9 @@ function parseGaugesListHTML(callback){
             name: tds.eq(0).text(),
             code: tds.eq(1).text(),
             url: URL_BASE + tds.eq(0).find('a').first().attr('href'),
-            altitude: Number(tds.eq(2).text().replace('m','')),
+            location: {
+              altitude: Number(tds.eq(2).text().replace('m', ''))
+            },
             timestamp: moment(tds.eq(5).text(), 'DD.MM.YYYY HH:mm').valueOf()//unix timestamp in ms
           };
           result.push(row);
@@ -64,7 +66,7 @@ function scrapGaugePage(gaugeURL, callback){
         .next()
         .text();
 
-      callback(undefined, {latitude: latitude, longitude: longitude});
+      callback(undefined, [longitude, latitude]);
   });
 }
 
@@ -77,13 +79,12 @@ function autofill(cb){
     var q = new queue({concurrency: 5});
     gauges.forEach(function(gauge){
       q.push(function(qcb){
-        scrapGaugePage(gauge.url, function(err, latlon){
+        scrapGaugePage(gauge.url, function(err, coordinates){
           if (err){
             qcb();
             return;
           }
-          gauge.latitude = latlon.latitude;
-          gauge.longitude = latlon.longitude;
+          gauge.location.coordinates = coordinates;
           qcb();
         });
       })

@@ -18,8 +18,12 @@ function harvest(){
         result.push({
           name: gauge.nomeEstacion,
           code: gauge.ide,
-          latitude: Number(gauge.latitude),
-          longitude: Number(gauge.lonxitude),
+          location: {
+            coordinates: [
+              Number(gauge.lonxitude),
+              Number(gauge.latitude)
+            ]
+          },
           timestamp: moment(gauge.dataUTC).valueOf(),//unix timestamp in ms
           value: measurement ? measurement.valor : undefined,
           url: 'http://www2.meteogalicia.gal/servizos/AugasdeGalicia/estacionsinfo.asp?Nest=' + gauge.ide

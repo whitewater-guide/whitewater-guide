@@ -4,31 +4,9 @@ import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import AdminMethod from '../../utils/AdminMethod';
 import { Rivers } from '../rivers';
 import { Gauges } from '../gauges';
+import { LocationSchema } from "../Coordinates";
 
 export const Sections = new Mongo.Collection('sections');
-
-const coordinateSchema = new SimpleSchema({
-  altitude: {
-    type: Number,
-    label: 'Altitude',
-    decimal: true,
-    optional: true,
-  },
-  latitude: {
-    type: Number,
-    label: 'Latitude',
-    decimal: true,
-    min: -90,
-    max: 90,
-  },
-  longitude: {
-    type: Number,
-    label: 'Longitude',
-    decimal: true,
-    min: -180,
-    max: 180,
-  },
-});
 
 const levelsSchema = new SimpleSchema({
   minimum: {
@@ -68,13 +46,13 @@ const sectionsSchema = new SimpleSchema({
     optional: true,
   },
   putIn: {
-    type: coordinateSchema,
-    label: 'Put-in coordinate',
+    type: LocationSchema,
+    label: 'Put-in location',
     optional: true,
   },
   takeOut: {
-    type: coordinateSchema,
-    label: 'Take-out coordinate',//Some sections have multiple put-ins and take-outs
+    type: LocationSchema,
+    label: 'Take-out location',//Some sections have multiple put-ins and take-outs
     optional: true,
   },
   length: {

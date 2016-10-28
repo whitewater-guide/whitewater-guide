@@ -56,9 +56,10 @@ class ListGauges extends Component {
 
   renderRow = (src) => {
     const {admin} = this.props;
-    const lat = src.latitude ? src.latitude.toFixed(4) : '?';
-    const lon = src.longitude ? src.longitude.toFixed(4) : '?';
-    const alt = src.altitude ? ` (${src.altitude.toFixed()})` : '';
+    let {altitude, coordinates: [longitude, latitude]} = src.location;
+    const lat = latitude ? latitude.toFixed(4) : '?';
+    const lon = longitude ? longitude.toFixed(4) : '?';
+    const alt = altitude ? ` (${altitude.toFixed()})` : '(?)';
     return (
       <TableRow key={src._id}>
         { this.renderStatusIndicator(src) }

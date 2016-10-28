@@ -16,9 +16,13 @@ function harvest(){
         result.push({
           name: gauge.name + '/' + gauge.WTO_OBJECT,
           code: gauge.number,
-          altitude: Number(gauge.altitude),
-          latitude: Number(gauge.latitude),
-          longitude: Number(gauge.longitude),
+          location: {
+            altitude: Number(gauge.altitude),
+            coordinates: [
+              Number(gauge.longitude),
+              Number(gauge.latitude)
+            ]
+          },
           timestamp: Number(_.get(gauge, ['values', 'W', '15m.Cmd.HD', 'dt'])),//unix timestamp in ms
           value: value,
           url: 'https://apps.tirol.gv.at/hydro/#/Wasserstand/?station=' + gauge.number,

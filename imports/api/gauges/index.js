@@ -6,6 +6,7 @@ import { Sources } from '../sources';
 import { Measurements } from '../measurements';
 import { Jobs } from '../jobs';
 import cronParser from 'cron-parser';
+import {LocationSchema} from "../Coordinates";
 
 export const Gauges = new Mongo.Collection('gauges');
 
@@ -26,27 +27,10 @@ const gaugesSchema = new SimpleSchema({
     max: 100,
     index: true,
   },
-  altitude: {//TODO: use coordinate scheme
-    type: Number,
-    label: 'Altitude',
-    decimal: true,
+  location: {
+    type: LocationSchema,
+    label: 'Location',
     optional: true,
-  },
-  latitude: {
-    type: Number,
-    label: 'Latitude',
-    decimal: true,
-    optional: true,
-    min: -90,
-    max: 90,
-  },
-  longitude: {
-    type: Number,
-    label: 'Longitude',
-    decimal: true,
-    optional: true,
-    min: -180,
-    max: 180,
   },
   unit: {
     type: String,

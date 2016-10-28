@@ -19,7 +19,7 @@ import '../../api/regions';
 import '../../api/regions/server/publications';
 
 import '../../api/rivers';
-import '../../api/regions/server';
+import '../../api/rivers/server';
 import '../../api/rivers/server/publications';
 
 import '../../api/sections';

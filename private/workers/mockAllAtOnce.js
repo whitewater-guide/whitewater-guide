@@ -3,9 +3,12 @@ if (process.argv[2] === 'autofill'){
     {
       name: 'Test gauge 1',
       code: '001',
-      altitude: 100,
-      latitude: 43,
-      longitude: 10,
+      location: {
+        altitude: 100,
+        coordinates: [
+          43, 10
+        ]
+      },
       timestamp: Date.now(),//unix timestamp in ms
       value: Math.random() * 100,
       url: 'https://ya.ru',
@@ -14,9 +17,10 @@ if (process.argv[2] === 'autofill'){
     {
       name: 'Test gauge 2',
       code: '002',
-      altitude: 200,
-      latitude: 11,
-      longitude: 22,
+      location: {
+        altitude: 200,
+        coordinates: [11, 22]
+      },
       timestamp: Date.now(),//unix timestamp in ms
       value: 100+Math.random() * 100,
       url: 'https://ya.ru',
