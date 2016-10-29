@@ -108,10 +108,9 @@ const styles = {
     alignSelf: 'stretch',
     alignItems: 'center',
     justifyContent: 'center',
+    overflowY: 'scroll',
   },
   paper: {
-    display: 'flex',
-    flexDirection: 'column',
     paddingTop: 16,
     paddingBottom: 16,
     paddingLeft: 32,
