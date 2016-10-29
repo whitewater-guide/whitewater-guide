@@ -84,7 +84,22 @@ const sectionsSchema = new SimpleSchema({
     label: 'Season',//Makes sense to make this enum to enable filtering
     optional: true,
   },
-  tags: {
+  supplyTagIds: {//Misc tags
+    type: [String],
+    label: 'River supply types',
+    defaultValue: [],
+  },
+  kayakingTagIds: {//Misc tags
+    type: [String],
+    label: 'Kayaking types',
+    defaultValue: [],
+  },
+  hazardsTagIds: {//Misc tags
+    type: [String],
+    label: 'Hazards',
+    defaultValue: [],
+  },
+  miscTagIds: {//Misc tags
     type: [String],
     label: 'Tags',
     defaultValue: [],
@@ -93,9 +108,6 @@ const sectionsSchema = new SimpleSchema({
   //Videos
   //Images
   //Blogs
-  //Glacial-fed, etc
-  //Creeking, boulder-garden-etc
-  //Syphons, blockages, fishermen, etc?
 });
 
 Sections.attachSchema(sectionsSchema);

@@ -1,0 +1,8 @@
+{
+  "tags": [
+    {"slug": "brown", "name": "Brown"},
+    {"slug": "stout", "name": "Stout"},
+    {"slug": "gnarly", "name": "Gnarly"},
+    {"slug": "rowdy", "name": "Rowdy"}
+  ]
+}

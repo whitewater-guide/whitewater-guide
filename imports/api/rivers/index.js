@@ -22,6 +22,7 @@ const riversSchema = new SimpleSchema({
     label: 'Description',
     optional: true,
   },
+  //TODO: add url slugs
 });
 
 Rivers.attachSchema(riversSchema);

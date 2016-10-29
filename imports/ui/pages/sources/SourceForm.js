@@ -32,15 +32,6 @@ class SourceForm extends Component {
     let {initialData, regions, ready, ...props} = this.props;
     if (!ready)
       return null;
-    regions = regions.map(region => {
-      return {
-        value: region._id,
-        label: region.name,
-      };
-    });
-    let selectedRegions = _.get(initialData, 'regions', []);//Array of ids
-    selectedRegions = _.filter(regions, (region) => _.includes(selectedRegions, region.value));
-    initialData = {...initialData, regionIds: selectedRegions};
 
     return (
       <Form {...props}
@@ -62,7 +53,6 @@ class SourceForm extends Component {
   transformBeforeSubmit = (data) => {
     return {
       ...data,
-      regionIds: _.map(data.regionIds, 'value'),
       harvestMode: _.find(this.state.availableScripts, {script: data.script}).harvestMode,
     };
   };

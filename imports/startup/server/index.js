@@ -1,6 +1,3 @@
-import {Meteor} from 'meteor/meteor';
+import './fixtures';
 import './accounts';
 import './register-api';
-
-Meteor.startup(() => {
-});

@@ -1,10 +1,11 @@
 import React, { Component, PropTypes } from 'react';
-import { Form, Field, TextInput, Select, CoordinatesGroup } from '../../forms';
+import { Form, Field, TextInput, Select, CoordinatesGroup, ChipInput } from '../../forms';
 import { createContainer } from 'meteor/react-meteor-data';
 import TextField from 'material-ui/TextField';
 import { Meteor} from 'meteor/meteor';
 import { Rivers } from '../../../api/rivers';
 import { Gauges } from '../../../api/gauges';
+import { SupplyTags, KayakingTags, HazardTags, MiscTags} from '../../../api/tags';
 
 class SectionForm extends Component {
 
@@ -14,6 +15,10 @@ class SectionForm extends Component {
     river: PropTypes.object,
     gauges: PropTypes.array,
     ready: PropTypes.bool,
+    supplyTags: PropTypes.array,
+    kayakingTags: PropTypes.array,
+    hazardTags: PropTypes.array,
+    miscTags: PropTypes.array,
   };
 
   static defaultProps = {
@@ -21,7 +26,8 @@ class SectionForm extends Component {
   };
 
   render() {
-    if (!this.props.ready)
+    const {ready, supplyTags, kayakingTags, hazardTags, miscTags} = this.props;
+    if (!ready)
       return null;
     //Levels missing
     return (
@@ -39,6 +45,10 @@ class SectionForm extends Component {
           <Field name="gradient" title="Gradient, m/km" component={TextInput} type="number"/>
         </div>
         <Field name="season" title="Season" component={TextInput}/>
+        <Field name="supplyTagIds" title="River supply" component={ChipInput} options={supplyTags}/>
+        <Field name="kayakingTagIds" title="Kayaking types" component={ChipInput} options={kayakingTags}/>
+        <Field name="hazardsTagIds" title="Hazards" component={ChipInput} options={hazardTags}/>
+        <Field name="miscTagIds" title="Tags" component={ChipInput} options={miscTags}/>
       </Form>
     );
   }
@@ -63,6 +73,10 @@ const SectionFormContainer = createContainer(
     return {
       river,
       gauges,
+      supplyTags: SupplyTags.find().fetch(),
+      kayakingTags: KayakingTags.find().fetch(),
+      hazardTags: HazardTags.find().fetch(),
+      miscTags: MiscTags.find().fetch(),
       ready: sub.ready(),
     }
   },

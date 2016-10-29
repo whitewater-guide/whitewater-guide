@@ -3,6 +3,7 @@ import path from 'path';
 import child_process from 'child_process';
 
 export function listScripts(){
+  //TODO: use meteor assets api
   const dir = path.resolve(process.cwd(), 'assets/app/workers');
   const workerFiles = fs.readdirSync(dir);
   const scripts = [];

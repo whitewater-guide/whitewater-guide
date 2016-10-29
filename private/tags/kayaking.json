@@ -1,0 +1,14 @@
+{
+  "tags": [
+    {"slug": "creeking", "name": "Creeking"},
+    {"slug": "bigwolume", "name": "Big Volume"},
+    {"slug": "boulder_garden", "name": "Boulder Garden"},
+    {"slug": "bedrock", "name": "Bedrock"},
+    {"slug": "park_n_huck", "name": "Park and Huck"},
+    {"slug": "playboating", "name": "Playboating"},
+    {"slug": "steep_continuous", "name": "Steep continuous"},
+    {"slug": "slalom", "name": "Slalom"},
+    {"slug": "racecourse", "name": "Race course"},
+    {"slug": "multiday", "name": "Multiday"}
+  ]
+}

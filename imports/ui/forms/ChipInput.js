@@ -1,32 +1,42 @@
 import React, { Component, PropTypes } from 'react';
 import MUIChipInput from 'material-ui-chip-input';
+import Chip from 'material-ui/Chip';
+import {blue300} from 'material-ui/styles/colors';
 import _ from 'lodash';
 
 class ChipInput extends Component {
   static propTypes = {
     name: PropTypes.string,
     title: PropTypes.string,
-    options: PropTypes.arrayOf(
-      PropTypes.shape({
-        value: PropTypes.any,
-        label: PropTypes.string,
-      }),
-    ),
+    options: PropTypes.array,
     field: PropTypes.shape({
       value: PropTypes.array,
       error: PropTypes.string,
       onChange: PropTypes.func,
     }),
+    dataSourceConfig: PropTypes.object,
+  };
+
+  static defaultProps = {
+    options: [],
+    dataSourceConfig: {text: 'name', value: '_id'},
   };
 
   render() {
-    const value = this.props.field.value === undefined ? [] : this.props.field.value;
+    const {field, options, dataSourceConfig} = this.props;
+    //Value is array of strings, but must be array of objects from options
+    let value = field.value === undefined ? [] : field.value;
+    value = _.map(value, (chipValue) => {
+      return _.find(options, {[dataSourceConfig.value]: chipValue});
+    });
+    value = _.compact(value);
     return (
       <MUIChipInput
-        style={style}
+        fullWidth={true}
+        openOnFocus={true}
         value={value}
-        dataSource={this.props.options}
-        dataSourceConfig={{text: 'label', value: 'value'}}
+        dataSource={options}
+        dataSourceConfig={dataSourceConfig}
         errorText={this.props.field.error}
         onRequestAdd={this.onRequestAdd}
         onRequestDelete={this.onRequestDelete}
@@ -37,17 +47,22 @@ class ChipInput extends Component {
   }
 
   onRequestAdd = (chip) => {
-    const value = this.props.field.value || [];
-    this.props.field.onChange([...value, chip]);
+    let value = this.props.field.value || [];
+    // console.log('On chip add', value, chip);
+    const chipValue = chip[this.props.dataSourceConfig.value];
+    if (chipValue)
+      value = [...value, chipValue];
+    this.props.field.onChange(value);
   };
 
   onRequestDelete = (chip) => {
-    this.props.field.onChange(_.filter(this.props.field.value, (item) => item.value !== chip));
+    const {field: {value}} = this.props;
+    // console.log('On chip delete', value, chip);
+    this.props.field.onChange(
+      _.filter(value, (item) => item !== chip)
+    );
   };
-}
 
-const style = {
-  width: '100%',
-};
+}
 
 export default ChipInput;

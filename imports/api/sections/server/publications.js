@@ -4,6 +4,7 @@ import {Rivers} from '../../rivers';
 import {Gauges} from '../../gauges';
 import {SimpleSchema} from 'meteor/aldeed:simple-schema';
 import { Roles } from 'meteor/alanning:roles';
+import { SupplyTags, KayakingTags, HazardTags, MiscTags} from '../../tags';
 
 Meteor.publishComposite('sections.list', function(riverId) {
   return {
@@ -40,6 +41,7 @@ Meteor.publish('sections.details', function (sectionId) {
  * Everything we need in 'New Section' form:
  * - Name of the river where we add this section;
  * - List of gauges, found by river->region->sources->gauges
+ * - List of tags
  */
 Meteor.publishComposite('sections.new', function (riverId) {
   const isAdmin = Roles.userIsInRole(this.userId, 'admin');
@@ -67,7 +69,27 @@ Meteor.publishComposite('sections.new', function (riverId) {
             }
           }
         ]
-      }
+      },
+      {
+        find(){
+          return SupplyTags.find({});
+        }
+      },
+      {
+        find(){
+          return KayakingTags.find({});
+        }
+      },
+      {
+        find(){
+          return HazardTags.find({});
+        }
+      },
+      {
+        find(){
+          return MiscTags.find({});
+        }
+      },
     ]
   };
 });
