@@ -36,7 +36,9 @@ class MainLayout extends Component {
             <div style={{flex: 1}}></div>
             <UserMenu/>
           </Toolbar>
-          { this.props.content }
+          <div style={styles.content}>
+            { this.props.content }
+          </div>
         </div>
       </div>
     );
@@ -70,6 +72,11 @@ const styles = {
   },
   toolbar: {
     minHeight: 56,
+  },
+  content: {
+    display: 'flex',
+    flex: 1,
+    overflowY: 'auto',
   },
 };
 

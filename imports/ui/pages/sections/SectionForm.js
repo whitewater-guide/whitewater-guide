@@ -31,11 +31,16 @@ class SectionForm extends Component {
       return null;
     //Levels missing
     return (
-      <Form {...this.props} name="sources">
+      <Form {...this.props} name="sources" transformBeforeSubmit={this.transformBeforeSubmit}>
         <TextField value={this.props.river.name} disabled={true} hintText="River" floatingLabelText="River"
                    style={styles.textInput}/>
         <Field name="name" title="Name" component={TextInput}/>
         <Field name="gaugeId" title="Gauge" component={Select} options={this.props.gauges}/>
+        <div style={styles.row}>
+          <Field name="levels.minimum" title="Minimal level" component={TextInput} type="number"/>
+          <Field name="levels.optimum" title="Optimal level" component={TextInput} type="number"/>
+          <Field name="levels.maximum" title="Maximal level" component={TextInput} type="number"/>
+        </div>
         <Field name="putIn" title="Put-in location" component={CoordinatesGroup}/>
         <Field name="takeOut" title="Take-out location" component={CoordinatesGroup}/>
         <Field name="description" title="Description" component={TextInput}/>
@@ -52,6 +57,12 @@ class SectionForm extends Component {
       </Form>
     );
   }
+
+  transformBeforeSubmit = (data) => {
+    if (data.levels && !data.levels.minimum && !data.levels.maximum && !data.levels.optimum)
+      data = _.omit(data, 'levels');
+    return data;
+  };
 }
 
 const styles = {

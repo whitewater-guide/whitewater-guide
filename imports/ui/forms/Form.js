@@ -77,7 +77,10 @@ class Form extends Component {
   }
 
   onFieldChange = (field, value) => {
-    this.setState({ data: { ...this.state.data, [field]: value } });
+    //Use lodash to allow fields from embedded documents
+    let data = { ... this.state.data };
+    _.set(data, field, value);
+    this.setState({ data });
   };
 
   onSubmit = () => {
@@ -108,7 +111,7 @@ const styles = {
     alignSelf: 'stretch',
     alignItems: 'center',
     justifyContent: 'center',
-    overflowY: 'scroll',
+    minHeight: 'min-content',
   },
   paper: {
     paddingTop: 16,
