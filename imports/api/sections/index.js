@@ -5,6 +5,7 @@ import AdminMethod from '../../utils/AdminMethod';
 import { Rivers } from '../rivers';
 import { Gauges } from '../gauges';
 import { LocationSchema } from "../Coordinates";
+import { MediaSchema } from "../Media";
 
 export const Sections = new Mongo.Collection('sections');
 
@@ -104,10 +105,11 @@ const sectionsSchema = new SimpleSchema({
     label: 'Tags',
     defaultValue: [],
   },
-  //Points of interest
-  //Videos
-  //Images
-  //Blogs
+  media: {
+    type: [MediaSchema],
+    label: "Media",
+    defaultValue: [],
+  },
 });
 
 Sections.attachSchema(sectionsSchema);
