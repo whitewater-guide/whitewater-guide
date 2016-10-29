@@ -30,9 +30,8 @@ class RiverForm extends Component {
 
 const RiverFormContainer = createContainer(
   () => {
-    //TODO: we dont need subscriptions here
     const sub = Meteor.subscribe('regions.list');
-    const regions = Regions.find({}).fetch();
+    const regions = Regions.find({}, {fields: {name: 1}}).fetch();
     return {
       regions,
       ready: sub.ready(),

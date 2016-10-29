@@ -63,8 +63,7 @@ Meteor.publishComposite('sections.new', function (riverId) {
         children: [
           {
             find(sourceDoc){//Now find gauges
-              //TODO: limit fields
-              return sourceDoc.gauges();
+              return sourceDoc.gauges({name: 1});
             }
           }
         ]

@@ -34,7 +34,7 @@ const sourcesSchema = new SimpleSchema({
       }
     },
   },
-  harvestMode: {//TODO: harvestMode is defined by script
+  harvestMode: {
     type: String,
     label: 'Harvest mode',
     allowedValues: ['allAtOnce', 'oneByOne'],
@@ -187,7 +187,8 @@ export const setEnabled = new AdminMethod({
 });
 
 Sources.helpers({
-  gauges() {
-    return Gauges.find({ sourceId: this._id });
+  gauges(fields) {
+    console.log('Gauges helper:', fields);
+    return Gauges.find({ sourceId: this._id }, {fields});
   },
 });
