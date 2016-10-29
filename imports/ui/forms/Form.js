@@ -118,6 +118,8 @@ const styles = {
     paddingBottom: 16,
     paddingLeft: 32,
     paddingRight: 32,
+    marginTop: 16,
+    marginBottom: 16,
   },
   buttonsHolder: {
     display: 'flex',
