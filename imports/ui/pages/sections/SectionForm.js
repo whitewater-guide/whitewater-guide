@@ -2,10 +2,13 @@ import React, { Component, PropTypes } from 'react';
 import { Form, Field, TextInput, Select, CoordinatesGroup, ChipInput } from '../../forms';
 import { createContainer } from 'meteor/react-meteor-data';
 import TextField from 'material-ui/TextField';
+import MediaCollection from './MediaCollection';
+import {Tabs, Tab} from 'material-ui/Tabs';
 import { Meteor} from 'meteor/meteor';
 import { Rivers } from '../../../api/rivers';
 import { Gauges } from '../../../api/gauges';
 import { SupplyTags, KayakingTags, HazardTags, MiscTags} from '../../../api/tags';
+import _ from 'lodash';
 
 class SectionForm extends Component {
 
@@ -32,28 +35,39 @@ class SectionForm extends Component {
     //Levels missing
     return (
       <Form {...this.props} name="sources" transformBeforeSubmit={this.transformBeforeSubmit}>
-        <TextField value={this.props.river.name} disabled={true} hintText="River" floatingLabelText="River"
-                   style={styles.textInput}/>
-        <Field name="name" title="Name" component={TextInput}/>
-        <Field name="gaugeId" title="Gauge" component={Select} options={this.props.gauges}/>
-        <div style={styles.row}>
-          <Field name="levels.minimum" title="Minimal level" component={TextInput} type="number"/>
-          <Field name="levels.optimum" title="Optimal level" component={TextInput} type="number"/>
-          <Field name="levels.maximum" title="Maximal level" component={TextInput} type="number"/>
-        </div>
-        <Field name="putIn" title="Put-in location" component={CoordinatesGroup}/>
-        <Field name="takeOut" title="Take-out location" component={CoordinatesGroup}/>
-        <Field name="description" title="Description" component={TextInput}/>
-        <div style={styles.row}>
-          <Field name="length" title="Length, km" component={TextInput} type="number"/>
-          <Field name="difficulty" title="Difficulty (I-VI)" component={TextInput} type="number"/>
-          <Field name="gradient" title="Gradient, m/km" component={TextInput} type="number"/>
-        </div>
-        <Field name="season" title="Season" component={TextInput}/>
-        <Field name="supplyTagIds" title="River supply" component={ChipInput} options={supplyTags}/>
-        <Field name="kayakingTagIds" title="Kayaking types" component={ChipInput} options={kayakingTags}/>
-        <Field name="hazardsTagIds" title="Hazards" component={ChipInput} options={hazardTags}/>
-        <Field name="miscTagIds" title="Tags" component={ChipInput} options={miscTags}/>
+        <Tabs>
+          <Tab label="Main">
+            <TextField value={this.props.river.name} disabled={true} hintText="River" floatingLabelText="River"
+                       style={styles.textInput}/>
+            <Field name="name" title="Name" component={TextInput}/>
+            <Field name="gaugeId" title="Gauge" component={Select} options={this.props.gauges}/>
+            <div style={styles.row}>
+              <Field name="levels.minimum" title="Minimal level" component={TextInput} type="number"/>
+              <Field name="levels.optimum" title="Optimal level" component={TextInput} type="number"/>
+              <Field name="levels.maximum" title="Maximal level" component={TextInput} type="number"/>
+            </div>
+            <Field name="putIn" title="Put-in location" component={CoordinatesGroup}/>
+            <Field name="takeOut" title="Take-out location" component={CoordinatesGroup}/>
+          </Tab>
+          <Tab label="Properties">
+            <div style={styles.row}>
+              <Field name="length" title="Length, km" component={TextInput} type="number"/>
+              <Field name="difficulty" title="Difficulty (I-VI)" component={TextInput} type="number"/>
+              <Field name="gradient" title="Gradient, m/km" component={TextInput} type="number"/>
+            </div>
+            <Field name="season" title="Season" component={TextInput}/>
+            <Field name="supplyTagIds" title="River supply" component={ChipInput} options={supplyTags}/>
+            <Field name="kayakingTagIds" title="Kayaking types" component={ChipInput} options={kayakingTags}/>
+            <Field name="hazardsTagIds" title="Hazards" component={ChipInput} options={hazardTags}/>
+            <Field name="miscTagIds" title="Tags" component={ChipInput} options={miscTags}/>
+          </Tab>
+          <Tab label="Media">
+            <Field name="media" title="Media" component={MediaCollection}/>
+          </Tab>
+          <Tab label="Description">
+            <Field name="description" title="Description" component={TextInput}/>
+          </Tab>
+        </Tabs>
       </Form>
     );
   }
@@ -61,7 +75,8 @@ class SectionForm extends Component {
   transformBeforeSubmit = (data) => {
     if (data.levels && !data.levels.minimum && !data.levels.maximum && !data.levels.optimum)
       data = _.omit(data, 'levels');
-    return data;
+    const media = _.filter(data.media, {deleted: false});
+    return {...data, media};
   };
 }
 

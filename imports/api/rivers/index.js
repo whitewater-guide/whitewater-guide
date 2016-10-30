@@ -77,6 +77,6 @@ Rivers.helpers({
     return Regions.find({_id: this.regionId}, {limit: 1});
   },
   sections() {
-    Sections.find({riverId: this._id});
+    return Sections.find({riverId: this._id});
   },
 });
