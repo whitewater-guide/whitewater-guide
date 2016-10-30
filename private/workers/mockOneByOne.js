@@ -12,6 +12,7 @@ else if (process.argv[2] === 'autofill') {
       name: `Test gauge ${i}`,
       code: i.toString(),
       location: {
+        type: 'Point',
         altitude: _.random(0, 3000),
         coordinates: [
           _.random(-89.9, 89.9, true),

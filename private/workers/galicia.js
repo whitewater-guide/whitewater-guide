@@ -19,6 +19,7 @@ function harvest(){
           name: gauge.nomeEstacion,
           code: gauge.ide,
           location: {
+            type: 'Point',
             coordinates: [
               Number(gauge.lonxitude),
               Number(gauge.latitude)

@@ -17,6 +17,7 @@ function harvest(){
           name: gauge.name + '/' + gauge.WTO_OBJECT,
           code: gauge.number,
           location: {
+            type: 'Point',
             altitude: Number(gauge.altitude),
             coordinates: [
               Number(gauge.longitude),
