@@ -75,7 +75,7 @@ class SectionForm extends Component {
   transformBeforeSubmit = (data) => {
     if (data.levels && !data.levels.minimum && !data.levels.maximum && !data.levels.optimum)
       data = _.omit(data, 'levels');
-    const media = _.filter(data.media, {deleted: false});
+    const media = _.filter(data.media, (item) => item.deleted !== true);
     return {...data, media};
   };
 }
