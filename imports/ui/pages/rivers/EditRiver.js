@@ -21,7 +21,7 @@ class EditRiver extends Component {
     if (!this.props.ready)
       return null;
     return (
-      <RiverForm method={editRiver} title="Edit River" submitLabel="Edit"
+      <RiverForm method={editRiver} title="Edit River" submitLabel="Update"
                  onSubmit={this.onSubmit} onCancel={this.onCancel}
                  initialData={this.props.river}/>
     );
