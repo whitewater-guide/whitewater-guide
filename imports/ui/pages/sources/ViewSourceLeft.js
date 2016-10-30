@@ -13,11 +13,18 @@ class ViewSourceLeft extends Component {
   };
 
   render() {
+    const {admin, params: {sourceId}} = this.props;
+    const toGauges = {
+      pathname: '/gauges',
+      query: {
+        sourceId,
+      },
+    };
     return (
       <div style={styles.container}>
-        {this.props.admin && <FlatLinkButton secondary={true} to={`/sources/${this.props.params.sourceId}/schedule`} label="Schedule" />}
-        {this.props.admin && <FlatLinkButton secondary={true} to={`/sources/${this.props.params.sourceId}/settings`} label="Settings" />}
-        <FlatLinkButton secondary={true} to={`/sources/${this.props.params.sourceId}/gauges`} label="Gauges" />
+        {admin && <FlatLinkButton secondary={true} to={`/sources/${sourceId}/schedule`} label="Schedule" />}
+        {admin && <FlatLinkButton secondary={true} to={`/sources/${sourceId}/settings`} label="Settings" />}
+        <FlatLinkButton secondary={true} to={toGauges} label="Gauges" />
         {this.props.sourceLeft}
       </div>
     );

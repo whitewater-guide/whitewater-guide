@@ -7,13 +7,11 @@ import {withRouter} from 'react-router';
 class NewGauge extends Component {
   static propTypes = {
     router: PropTypes.object,
-    params: PropTypes.shape({
-      sourceId: PropTypes.string,
-    }),
+    location: PropTypes.object,
   };
 
   render() {
-    const initialData = { sourceId: this.props.params.sourceId };
+    const initialData = { sourceId: this.props.location.query.sourceId };
     return (
       <GaugeForm method={createGauge} title="New Gauge" submitLabel="Create"
         onSubmit={this.onSubmit} onCancel={this.onCancel}

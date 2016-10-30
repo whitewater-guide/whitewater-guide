@@ -3,33 +3,33 @@ import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColu
 import IconButton from 'material-ui/IconButton';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
-import { Roles } from 'meteor/alanning:roles'
 import { withRouter } from 'react-router';
 import { Gauges, removeGauge, setEnabled } from '../../../api/gauges';
 import { Sources } from '../../../api/sources';
 import { ActiveJobsReport } from '../../../api/jobs/client';
 import moment from 'moment';
 import _ from 'lodash';
+import withAdmin from "../../hoc/withAdmin";
 
 class ListGauges extends Component {
 
   static propTypes = {
-    params: PropTypes.shape({
-      sourceId: PropTypes.string,
-    }),
     admin: PropTypes.bool,
     ready: PropTypes.bool,
     source: PropTypes.object,
     gauges: PropTypes.array,
     router: PropTypes.object,
     jobsReport: PropTypes.array,
+    location: PropTypes.object,
   };
 
   render() {
     const {ready, admin, gauges} = this.props;
     if (!ready)
       return null;
-    
+    if (!this.props.location.query.sourceId)
+      return (<div>Please specify source</div>);
+
     return (
       <div style={styles.container}>
         <Table selectable={false} onCellClick={this.onCellClick}>
@@ -159,14 +159,14 @@ const styles = {
 
 const ListGaugesContainer = createContainer(
   (props) => {
-    const gaugesSubscription = Meteor.subscribe('gauges.inSource', props.params.sourceId);
-    const gauges = Gauges.find({ sourceId: props.params.sourceId }).fetch();
-    const source = Sources.findOne(props.params.sourceId);
-    const reportSub = Meteor.subscribe('jobs.activeReport', props.params.sourceId);
+    const sourceId = props.location.query.sourceId;
+    const gaugesSub = Meteor.subscribe('gauges.inSource', sourceId);
+    const gauges = Gauges.find({ sourceId }).fetch();
+    const source = Sources.findOne(sourceId);
+    const reportSub = Meteor.subscribe('jobs.activeReport', sourceId);
     const jobsReport = ActiveJobsReport.find().fetch();
     return {
-      admin: Roles.userIsInRole(Meteor.userId(), 'admin'),
-      ready: gaugesSubscription.ready() && Roles.subscription.ready() && reportSub.ready(), 
+      ready: gaugesSub.ready() && reportSub.ready(),
       source,
       gauges,
       jobsReport,
@@ -175,4 +175,4 @@ const ListGaugesContainer = createContainer(
   ListGauges
 );
 
-export default withRouter(ListGaugesContainer);
+export default withAdmin(withRouter(ListGaugesContainer));

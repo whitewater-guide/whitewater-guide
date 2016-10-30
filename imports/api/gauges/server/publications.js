@@ -31,6 +31,9 @@ Meteor.publishComposite('gauges.inSource', function(sourceId){
     ];
   }
 
+  if (!sourceId)
+    return {find: function(){}};
+
   return {
     find() {
       new SimpleSchema({

@@ -1,11 +1,11 @@
 import React, {Component, PropTypes} from 'react';
 
-class ViewSource extends Component {
+class ViewSection extends Component {
 
   render() {
     return (
       <div style={styles.container}>
-        <h1>Source details page stub</h1>
+        <h1>Section details page stub</h1>
       </div>
     );
   }
@@ -19,4 +19,4 @@ const styles = {
   },
 };
 
-export default ViewSource;
+export default ViewSection;

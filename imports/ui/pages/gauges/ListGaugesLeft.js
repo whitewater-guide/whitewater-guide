@@ -10,9 +10,7 @@ import {Meteor} from 'meteor/meteor';
 
 class ListGaugesLeft extends Component {
   static propTypes = {
-    params: PropTypes.shape({
-      sourceId: PropTypes.string,
-    }),
+    location: PropTypes.object,
     admin: PropTypes.bool,
     numGauges: PropTypes.number,
     router: PropTypes.object,
@@ -20,7 +18,9 @@ class ListGaugesLeft extends Component {
   };
 
   render() {
-    const {admin, numGauges} = this.props; 
+    const {admin, numGauges, location: {query}} = this.props;
+    if (!query.sourceId)
+      return null;
     return (
       <div style={styles.container}>
         {admin && numGauges == 0 && <FlatButton secondary={true} onTouchTap={this.autofill} label="Autofill" />}
@@ -34,37 +34,43 @@ class ListGaugesLeft extends Component {
   }
 
   removeAllGauges = () => {
-    removeAllGauges.callPromise({sourceId: this.props.params.sourceId})
+    removeAllGauges.callPromise({sourceId: this.props.location.query.sourceId})
       .then(() => console.log('All gauges removed'))
-      .catch(err => console.log(`Error while trying to remove all gauges for source ${this.props.params.sourceId}: ${err}`));
+      .catch(err => console.log(`Error while trying to remove all gauges for source ${this.props.location.query.sourceId}: ${err}`));
   };
 
   removeDisabledGauges = () => {
-    removeDisabledGauges.callPromise({sourceId: this.props.params.sourceId})
+    removeDisabledGauges.callPromise({sourceId: this.props.location.query.sourceId})
       .then(() => console.log('All disabled gauges removed'))
-      .catch(err => console.log(`Error while trying to remove all disabled gauges for source ${this.props.params.sourceId}: ${err}`));
+      .catch(err => console.log(`Error while trying to remove all disabled gauges for source ${this.props.location.query.sourceId}: ${err}`));
   };
 
   autofill = () => {
-    autofill.callPromise({sourceId: this.props.params.sourceId})
+    autofill.callPromise({sourceId: this.props.location.query.sourceId})
       .then( result => console.log(`Autofill result: ${result}`))
       .catch( error => console.log(`Autofill error: ${error}`));
   };
 
   addGauge = () => {
-    this.props.router.push(`/sources/${this.props.params.sourceId}/gauges/new`);
+    const location = {
+      pathname: '/gauges/new',
+      query: {
+        sourceId: this.props.location.query.sourceId,
+      },
+    };
+    this.props.router.push(location);
   };
 
   generateSchedule = () => {
-    generateSchedule.callPromise({sourceId: this.props.params.sourceId})
+    generateSchedule.callPromise({sourceId: this.props.location.query.sourceId})
       .then(() => console.log('Generated'))
-      .catch(err => console.log(`Error while trying to generate schedule for source ${this.props.params.sourceId}: ${err}`));
+      .catch(err => console.log(`Error while trying to generate schedule for source ${this.props.location.query.sourceId}: ${err}`));
   };
 
   enableAll = () => {
-    enableAll.callPromise({sourceId: this.props.params.sourceId})
+    enableAll.callPromise({sourceId: this.props.location.query.sourceId})
       .then(() => console.log('Enabled all gauges'))
-      .catch(err => console.log(`Error while trying to enable all disabled gauges for source ${this.props.source._id}: ${err}`));
+      .catch(err => console.log(`Error while trying to enable all disabled gauges for source ${this.props.location.query.sourceId}: ${err}`));
   };
 }
 
@@ -77,8 +83,9 @@ const styles = {
 };
 
 const ListGaugesLeftContainer = createContainer((props) => {
-  const gaugesSubscription = Meteor.subscribe('gauges.inSource', props.params.sourceId);
-  const numGauges = Gauges.find({sourceId: props.params.sourceId}).count();
+  const sourceId = props.location.query.sourceId;
+  const gaugesSubscription = Meteor.subscribe('gauges.inSource', sourceId);
+  const numGauges = Gauges.find({sourceId: sourceId}).count();
   return {
     ready: gaugesSubscription.ready(),
     numGauges
