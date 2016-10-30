@@ -22,6 +22,7 @@
     "react-addons-pure-render-mixin": "^15.3.1",
     "react-dimensions": "^1.3.0",
     "react-dom": "^15.3.1",
+    "react-quill": "zenoamaro/react-quill",
     "react-router": "^2.8.1",
     "react-router-breadcrumbs": "^1.2.0",
     "react-tap-event-plugin": "^1.0.0",

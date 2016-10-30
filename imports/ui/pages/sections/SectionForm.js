@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Form, Field, TextInput, Select, CoordinatesGroup, ChipInput } from '../../forms';
+import { Form, Field, TextInput, Select, CoordinatesGroup, ChipInput, RichTextInput } from '../../forms';
 import { createContainer } from 'meteor/react-meteor-data';
 import TextField from 'material-ui/TextField';
 import MediaCollection from './MediaCollection';
@@ -65,7 +65,9 @@ class SectionForm extends Component {
             <Field name="media" title="Media" component={MediaCollection}/>
           </Tab>
           <Tab label="Description">
-            <Field name="description" title="Description" component={TextInput}/>
+            <div style={styles.descriptionTab}>
+              <Field name="description" title="Description" component={RichTextInput}/>
+            </div>
           </Tab>
         </Tabs>
       </Form>
@@ -86,6 +88,9 @@ const styles = {
   },
   row: {
     display: 'flex',
+  },
+  descriptionTab: {
+    height: 600,
   },
 };
 
