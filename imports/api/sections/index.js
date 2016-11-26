@@ -9,22 +9,33 @@ import { MediaSchema } from "../Media";
 
 export const Sections = new Mongo.Collection('sections');
 
+export const Durations = ['laps', 'twice', 'day-run', 'overnighter', 'multi-day'];
+
 const levelsSchema = new SimpleSchema({
   minimum: {
     type: Number,
     label: 'Minimum',
     decimal: true,
+    optional: true,
   },
   maximum: {
     type: Number,
     label: 'Maximum',
     decimal: true,
+    optional: true,
   },
   optimum: {
     type: Number,
     label: 'Optimum',
     decimal: true,
+    optional: true,
   },
+  impossible: {
+    type: Number,
+    label: 'Absolute maximum',
+    decimal: true,
+    optional: true,
+  }
 });
 
 const sectionsSchema = new SimpleSchema({
@@ -49,18 +60,22 @@ const sectionsSchema = new SimpleSchema({
   putIn: {
     type: LocationSchema,
     label: 'Put-in location',
-    optional: true,
   },
   takeOut: {
     type: LocationSchema,
-    label: 'Take-out location',//Some sections have multiple put-ins and take-outs
-    optional: true,
+    label: 'Take-out location',
   },
   length: {
     type: Number,
     label: 'Length, km',
     decimal: true,
     optional: true,
+  },
+  duration: {
+    type: String,
+    label: 'Duration',
+    optional: true,
+    allowedValues: Durations,
   },
   levels: {
     type: levelsSchema,
@@ -69,7 +84,7 @@ const sectionsSchema = new SimpleSchema({
   },
   difficulty: {
     type: Number,
-    label: 'Section difficulty',//Might be level-dependant? How to describe IV+ (X)?
+    label: 'Section difficulty',
     decimal: true,
     min: 1,
     max: 6,
@@ -80,9 +95,17 @@ const sectionsSchema = new SimpleSchema({
     decimal: true,
     optional: true,
   },
+  seasonNumeric: {
+    type: [Number],
+    label: 'Season (half-month)',
+    min: 0,
+    max: 23,
+    optional: true,
+    maxCount: 24,
+  },
   season: {
     type: String,
-    label: 'Season',//Makes sense to make this enum to enable filtering
+    label: 'Season',
     optional: true,
   },
   supplyTagIds: {//Misc tags
@@ -110,6 +133,11 @@ const sectionsSchema = new SimpleSchema({
     label: "Media",
     defaultValue: [],
   },
+  pointsOfInterest: {
+    type: [LocationSchema],
+    label: 'Points of interest',
+    defaultValue: [],
+  }
 });
 
 Sections.attachSchema(sectionsSchema);

@@ -45,6 +45,7 @@ class SectionForm extends Component {
               <Field name="levels.minimum" title="Minimal level" component={TextInput} type="number"/>
               <Field name="levels.optimum" title="Optimal level" component={TextInput} type="number"/>
               <Field name="levels.maximum" title="Maximal level" component={TextInput} type="number"/>
+              <Field name="levels.impossible" title="Absolute maximum" component={TextInput} type="number"/>
             </div>
             <Field name="putIn" title="Put-in location" component={CoordinatesGroup}/>
             <Field name="takeOut" title="Take-out location" component={CoordinatesGroup}/>
@@ -75,7 +76,7 @@ class SectionForm extends Component {
   }
 
   transformBeforeSubmit = (data) => {
-    if (data.levels && !data.levels.minimum && !data.levels.maximum && !data.levels.optimum)
+    if (data.levels && !data.levels.minimum && !data.levels.maximum && !data.levels.optimum && !data.levels.impossible)
       data = _.omit(data, 'levels');
     const media = _.filter(data.media, (item) => item.deleted !== true);
     return {...data, media};

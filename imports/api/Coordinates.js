@@ -5,6 +5,21 @@ const limits = [
   {min: -180, max: 180, msg: 'latOutOfRange'},
 ];
 
+export const POITypes = [
+  'put-in',
+  'put-in-alt',
+  'take-out',
+  'take-out-alt',
+  'waterfall',
+  'rapid',
+  'portage',
+  'playspot',
+  'hazard',
+  'river-campsite',
+  'wild-camping',
+  'paid-camping'
+];
+
 export const LocationSchema = new SimpleSchema({
   name: {
     type: String,
@@ -37,6 +52,17 @@ export const LocationSchema = new SimpleSchema({
     label: 'Altitude',
     decimal: true,
     optional: true,
+  },
+  description: {
+    type: String,
+    label: 'Description',
+    optional: true,
+  },
+  kind: {
+    type: String,
+    label: 'Type of point',
+    optional: true,
+    allowedValues: POITypes
   },
 });
 
