@@ -5,6 +5,7 @@ import {Gauges} from '../../gauges';
 import {SimpleSchema} from 'meteor/aldeed:simple-schema';
 import { Roles } from 'meteor/alanning:roles';
 import { SupplyTags, KayakingTags, HazardTags, MiscTags} from '../../tags';
+import { TAPi18n } from 'meteor/tap:i18n';
 
 Meteor.publishComposite('sections.list', function(riverId) {
   return {
@@ -29,7 +30,10 @@ Meteor.publishComposite('sections.list', function(riverId) {
   }
 });
 
-Meteor.publish('sections.details', function (sectionId) {
+TAPi18n.publish('sections.details', function (sectionId) {
+  if (!sectionId)
+    return this.ready();
+
   new SimpleSchema({
     sectionId: {type: String}
   }).validate({ sectionId });
@@ -38,23 +42,29 @@ Meteor.publish('sections.details', function (sectionId) {
 });
 
 /**
- * Everything we need in 'New Section' form:
+ *
+ * Everything we need in 'New Section' and 'Edit Section` forms:
  * - Name of the river where we add this section;
  * - List of gauges, found by river->region->sources->gauges
  * - List of tags
+ * Takes two arguments
+ * - sectionId - if we need to edit existing section, undefined for new section
+ * - riverId - if we need to add new section to this river, undefined otherwise
  */
-Meteor.publishComposite('sections.new', function (riverId) {
+Meteor.publishComposite('sections.edit', function (sectionId, riverId, lang) {
   const isAdmin = Roles.userIsInRole(this.userId, 'admin');
 
-  new SimpleSchema({
-    riverId: {type: String}
-  }).validate({ riverId });
+  // new SimpleSchema({
+  //   riverId: {type: String}
+  // }).validate({ riverId });
 
-  return {
-    find(){
-      if (!isAdmin)
-        return;
-      return Rivers.find(riverId, {limit: 1, fields: {name: 1, regionId: 1}});
+  if (!isAdmin){
+    return {find(){return null;}};
+  }
+
+  const publishAuxiliaryData = {
+    find(sectionDoc){
+      return Rivers.find(sectionDoc ? sectionDoc.riverId : riverId, {limit: 1, fields: {name: 1, regionId: 1}, lang});
     },
     children: [
       {
@@ -92,4 +102,16 @@ Meteor.publishComposite('sections.new', function (riverId) {
       },
     ]
   };
+
+  if (sectionId){
+    return {
+      find(){
+        return Sections.find(sectionId, {limit: 1, lang});
+      },
+      children: [publishAuxiliaryData],
+    };
+  }
+  else {
+    return publishAuxiliaryData;
+  }
 });

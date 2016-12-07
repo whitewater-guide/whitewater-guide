@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import Paper from 'material-ui/Paper';
 import FlatButton from 'material-ui/FlatButton';
 import ErrorMessage from '../components/ErrorMessage';
+import LanguagePicker from '../components/LanguagePicker';
 import { ValidationError } from 'meteor/mdg:validation-error';
 import _ from 'lodash';
 
@@ -20,6 +21,9 @@ class Form extends Component {
     initialData: PropTypes.object,
     transformBeforeSubmit: PropTypes.func.isRequired,
     style: PropTypes.object,
+    multilang: PropTypes.bool,
+    language: PropTypes.string,
+    onLanguageChange: PropTypes.func,
   };
 
   static defaultProps = {
@@ -27,6 +31,8 @@ class Form extends Component {
     submitLabel: 'Submit',
     initialData: {},
     transformBeforeSubmit: _.identity,
+    multilang: true,
+    language: 'en',
   };
 
   static childContextTypes = {
@@ -64,7 +70,10 @@ class Form extends Component {
     return (
       <div style={styles.container}>
       <Paper style={{...styles.paper, ...this.props.style}}>
-        <h1>{this.props.title}</h1>
+        <div style={styles.titleWrapper}>
+          <h1>{this.props.title}</h1>
+          {this.props.multilang && <LanguagePicker value={this.props.language} onChange={this.props.onLanguageChange}/>}
+        </div>
         {this.props.children}
         <ErrorMessage error={this.state.errors.form}/>  
         <div style={styles.buttonsHolder}>
@@ -85,10 +94,14 @@ class Form extends Component {
 
   onSubmit = () => {
     const data = this.props.transformBeforeSubmit(this.state.data);
-    this.props.method.callPromise(data)
+    let args = {data};
+    if (this.props.multilang)
+      args.language = this.props.language;
+    console.log('Calling', args);
+    this.props.method.callPromise(args)
       .then(() => this.props.onSubmit())
       .catch(err => {
-        // console.log('Error:', err);
+        console.error(err);
         if (ValidationError.is(err)){
           const errors = {};
           err.details.forEach((fieldError) => {
@@ -125,6 +138,11 @@ const styles = {
     display: 'flex',
     justifyContent: 'flex-end',
     marginTop: 32,
+  },
+  titleWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 };
 

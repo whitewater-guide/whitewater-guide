@@ -1,19 +1,22 @@
 import React, { Component, PropTypes } from 'react';
 import { Form, Field, TextInput, Select, CoordinatesGroup, ChipInput, RichTextInput } from '../../forms';
-import { createContainer } from 'meteor/react-meteor-data';
+import createI18nContainer from '../../hoc/createI18nContainer';
 import TextField from 'material-ui/TextField';
 import MediaCollection from './MediaCollection';
 import {Tabs, Tab} from 'material-ui/Tabs';
-import { Meteor} from 'meteor/meteor';
 import { Rivers } from '../../../api/rivers';
 import { Gauges } from '../../../api/gauges';
+import { Sections } from '../../../api/sections';
 import { SupplyTags, KayakingTags, HazardTags, MiscTags} from '../../../api/tags';
+import { TAPi18n } from 'meteor/tap:i18n';
 import _ from 'lodash';
 
 class SectionForm extends Component {
 
   static propTypes = {
     ...Form.propTypes,
+    sectionId: PropTypes.string,//Edit existing section, undefined for new section
+    riverId: PropTypes.string,//River id for new section, undefined when editing existing section
     regionId: PropTypes.string,
     river: PropTypes.object,
     gauges: PropTypes.array,
@@ -95,10 +98,11 @@ const styles = {
   },
 };
 
-const SectionFormContainer = createContainer(
+const SectionFormContainer = createI18nContainer(
   (props) => {
-    const sub = Meteor.subscribe('sections.new', props.initialData.riverId);
-    const river = Rivers.findOne(props.initialData.riverId);
+    const sub = TAPi18n.subscribe('sections.edit', props.language, props.sectionId, props.riverId);
+    const section = props.sectionId ? Sections.findOne(props.sectionId) : {};
+    const river = props.riverId ? Rivers.findOne(props.riverId) : {};
     //We must follow river->region->sources->gauges chain here
     //It is already chained on server side, we hope that no more gauge subscriptions are active atm
     const gauges = Gauges.find({}).fetch();
@@ -110,6 +114,7 @@ const SectionFormContainer = createContainer(
       hazardTags: HazardTags.find().fetch(),
       miscTags: MiscTags.find().fetch(),
       ready: sub.ready(),
+      initialData: section,
     }
   },
   SectionForm

@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
-import { createSection } from '../../../api/sections';
+import {createSection} from '../../../api/sections';
 import adminOnly from '../../hoc/adminOnly';
-import { withRouter } from 'react-router';
+import {withRouter} from 'react-router';
 import SectionForm from './SectionForm';
 
 class NewSection extends Component {
@@ -12,14 +12,14 @@ class NewSection extends Component {
   };
 
   render() {
-    const initialData = {riverId: this.props.location.query.riverId};
     return (
       <SectionForm method={createSection}
-                 title="New Section"
-                 submitLabel="Create"
-                 initialData={initialData}
-                 onSubmit={this.onSubmit}
-                 onCancel={this.onCancel}
+                   multilang={false}
+                   title="New Section"
+                   submitLabel="Create"
+                   riverId={this.props.location.query.riverId}
+                   onSubmit={this.onSubmit}
+                   onCancel={this.onCancel}
       />
     );
   }
