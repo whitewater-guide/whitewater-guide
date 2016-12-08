@@ -147,6 +147,8 @@ const sectionsSchema = new SimpleSchema([
       optional: true,
       blackbox: true,
     },
+    // Not yet implemented
+    // Can be implemented manually or wait until this feature comes with simple-schema 2.0
     // "i18n.$": {
     //   type: sectionI18nSchema,
     // },

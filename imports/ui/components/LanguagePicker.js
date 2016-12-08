@@ -1,8 +1,8 @@
-import React, {PropTypes} from 'react';
-import MenuItem from 'material-ui/MenuItem';
-import DropDownMenu from 'material-ui/DropDownMenu';
-import { TAPi18n } from 'meteor/tap:i18n';
-import _ from 'lodash';
+import React, {PropTypes} from "react";
+import MenuItem from "material-ui/MenuItem";
+import IconMenu from "material-ui/IconMenu";
+import {TAPi18n} from "meteor/tap:i18n";
+import _ from "lodash";
 
 const LANGS_TO_FLAGS = {
   ru: 'ru',
@@ -17,32 +17,16 @@ export default class LanguagePicker extends React.Component {
     onChange: PropTypes.func,//Receives language code
   };
 
-  state = {
-    open: false,
-  };
-
-  handleTouchTap = (event) => {
-    // This prevents ghost click.
-    event.preventDefault();
-
-    this.setState({
-      open: true,
-      anchorEl: event.currentTarget,
-    });
-  };
-
-  handleRequestClose = () => {
-    this.setState({
-      open: false,
-    });
-  };
-
   render() {
     return (
       <div>
-        <DropDownMenu value={LANGS_TO_FLAGS[this.props.value]} onChange={(e,k,v) => this.props.onChange(v)}>
+        <IconMenu
+          iconButtonElement={this.renderMenuItem(this.props.value)}
+          onChange={(e,v) => this.props.onChange(v)}
+          value={LANGS_TO_FLAGS[this.props.value]}
+        >
           {_.map(TAPi18n.getLanguages(), (v, langName) => this.renderMenuItem(langName))}
-        </DropDownMenu>
+        </IconMenu>
       </div>
     );
   }
