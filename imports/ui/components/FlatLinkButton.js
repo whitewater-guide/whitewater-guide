@@ -9,7 +9,7 @@ class FlatLinkButton extends Component {
   };
 
   render() {
-    const {to, router, ...buttonProps} = this.props;
+    const {to, router, params, location, routes, ...buttonProps} = this.props;
     return (
       <FlatButton {...buttonProps} onTouchTap={() => router.push(to)}/>
     );

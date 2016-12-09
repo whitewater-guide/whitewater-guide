@@ -75,10 +75,10 @@ class Form extends Component {
           {this.props.multilang && <LanguagePicker value={this.props.language} onChange={this.props.onLanguageChange}/>}
         </div>
         {this.props.children}
-        <ErrorMessage error={this.state.errors.form}/>  
+        <ErrorMessage error={this.state.errors.form}/>
         <div style={styles.buttonsHolder}>
-          <FlatButton label={this.props.cancelLabel} primary={true} onTouchTap={this.onCancel}/>
-          <FlatButton label={this.props.submitLabel} primary={true} onTouchTap={this.onSubmit}/>
+          <FlatButton label={this.props.cancelLabel} primary={true} onTouchTap={this.onCancel} disableTouchRipple={true}/>
+          <FlatButton label={this.props.submitLabel} primary={true} onTouchTap={this.onSubmit} disableTouchRipple={true}/>
         </div>
       </Paper>
       </div>
