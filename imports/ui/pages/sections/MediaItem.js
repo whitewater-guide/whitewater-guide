@@ -11,7 +11,7 @@ class MediaItem extends Component {
   static propTypes = {
     value: PropTypes.shape({
       url: PropTypes.string,
-      type: PropTypes.oneOfType(['photo','video','blog']),
+      type: PropTypes.oneOf(['photo','video','blog']),
       description: PropTypes.string,
     }),
     error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
