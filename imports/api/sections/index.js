@@ -241,10 +241,10 @@ export const removeSection = new AdminMethod({
 
 Sections.helpers({
   river: function () {
-    return Rivers.findOne(this.riverId);
+    return Rivers.find(this.riverId, {limit: 1});
   },
   gauge: function () {
-    return Gauges.findOne(this.gaugeId);
+    return Gauges.find(this.gaugeId, {limit: 1});
   },
   media: function () {
     return Media.find({_id: {$in: this.mediaIds}});

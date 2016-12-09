@@ -42,11 +42,13 @@ class SectionForm extends Component {
     delete formData.mediaIds;
     formData.media = this.props.initialData.media().fetch();//Invoke helper
 
+    const river = this.props.river || this.props.initialData.river().fetch();
+
     return (
       <Form {...this.props} initialData={formData} name="sources" transformBeforeSubmit={this.transformBeforeSubmit}>
         <Tabs value={this.props.currentTab} onChange={this.onTabChange}>
           <Tab label="Main" value="#main">
-            <TextField value={this.props.river.name} disabled={true} hintText="River" floatingLabelText="River"
+            <TextField value={river.name} disabled={true} hintText="River" floatingLabelText="River"
                        style={styles.textInput}/>
             <Field name="name" title="Name" component={TextInput}/>
             <Field name="gaugeId" title="Gauge" component={Select} options={this.props.gauges}/>
@@ -111,7 +113,7 @@ const SectionFormContainer = createI18nContainer(
   (props) => {
     const sub = TAPi18n.subscribe('sections.edit', props.language, props.sectionId, props.riverId);
     const section = props.sectionId ? Sections.findOne(props.sectionId) : {};
-    const river = props.riverId ? Rivers.findOne(props.riverId) : {};
+    const river = props.riverId ? Rivers.findOne(props.riverId) : undefined;
     //We must follow river->region->sources->gauges chain here
     //It is already chained on server side, we hope that no more gauge subscriptions are active atm
     const gauges = Gauges.find({}).fetch();
