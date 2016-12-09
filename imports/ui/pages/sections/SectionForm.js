@@ -35,8 +35,13 @@ class SectionForm extends Component {
     const {ready, supplyTags, kayakingTags, hazardTags, miscTags} = this.props;
     if (!ready)
       return null;
+
+    let formData = {...this.props.initialData};
+    delete formData.mediaIds;
+    formData.media = this.props.initialData.media().fetch();//Invoke helper
+
     return (
-      <Form {...this.props} name="sources" transformBeforeSubmit={this.transformBeforeSubmit}>
+      <Form {...this.props} initialData={formData} name="sources" transformBeforeSubmit={this.transformBeforeSubmit}>
         <Tabs>
           <Tab label="Main">
             <TextField value={this.props.river.name} disabled={true} hintText="River" floatingLabelText="River"

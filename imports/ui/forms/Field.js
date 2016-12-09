@@ -17,11 +17,6 @@ class Field extends Component {
   render() {
     const {component, ...props} = this.props;
     let value = _.get(this.context.formData, this.props.name);
-    //In case of helpers
-    if (_.isFunction(value)) {
-      value = value.apply(this.context.formData);//return cursor
-      value = value.fetch();
-    }
     const error = _.get(this.context.formErrors, this.props.name);
     const onChange = (value) => this.context.formFieldChangeHandler(this.props.name, value);
     const field = { value, error, onChange };
