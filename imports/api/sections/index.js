@@ -3,7 +3,7 @@ import {SimpleSchema} from 'meteor/aldeed:simple-schema';
 import AdminMethod from '../../utils/AdminMethod';
 import {Rivers} from '../rivers';
 import {Gauges} from '../gauges';
-import {LocationSchema} from "../Coordinates";
+import {Points, PointSchema} from '../points';
 import {Media, MediaSchema} from '../media';
 import _ from 'lodash';
 
@@ -55,155 +55,162 @@ export const SectionI18nSchema = new SimpleSchema({
   },
 });
 
-const SectionsSchema = new SimpleSchema([
-  SectionI18nSchema,
-  {
-    riverId: {
-      type: String,
-      label: 'River',
-    },
-    gaugeId: {
-      type: String,
-      label: 'Gauge',
-      optional: true,
-    },
-    putIn: {
-      type: LocationSchema,
-      label: 'Put-in location',
-    },
-    takeOut: {
-      type: LocationSchema,
-      label: 'Take-out location',
-    },
-    length: {
-      type: Number,
-      label: 'Length, km',
-      decimal: true,
-      optional: true,
-    },
-    duration: {
-      type: String,
-      label: 'Duration',
-      optional: true,
-      allowedValues: Durations,
-    },
-    levels: {
-      type: LevelsSchema,
-      label: 'Recommended water levels',
-      optional: true,
-    },
-    difficulty: {
-      type: Number,
-      label: 'Section difficulty',
-      decimal: true,
-      min: 1,
-      max: 6,
-    },
-    gradient: {
-      type: Number,
-      label: 'Gradient',
-      decimal: true,
-      optional: true,
-    },
-    seasonNumeric: {
-      type: [Number],
-      label: 'Season (half-month)',
-      min: 0,
-      max: 23,
-      optional: true,
-      maxCount: 24,
-    },
-    supplyTagIds: {//Misc tags
-      type: [String],
-      label: 'River supply types',
-      defaultValue: [],
-    },
-    kayakingTagIds: {//Misc tags
-      type: [String],
-      label: 'Kayaking types',
-      defaultValue: [],
-    },
-    hazardsTagIds: {//Misc tags
-      type: [String],
-      label: 'Hazards',
-      defaultValue: [],
-    },
-    miscTagIds: {//Misc tags
-      type: [String],
-      label: 'Tags',
-      defaultValue: [],
-    },
-    mediaIds: {
-      type: [String],
-      label: "Media",
-      defaultValue: [],
-    },
-    pointsOfInterest: {
-      type: [LocationSchema],
-      label: 'Points of interest',
-      defaultValue: [],
-    },
-    i18n: {
-      type: Object,
-      optional: true,
-      blackbox: true,
-    },
-    // Not yet implemented
-    // Can be implemented manually or wait until this feature comes with simple-schema 2.0
-    // "i18n.$": {
-    //   type: SectionI18nSchema,
-    // },
-  }
-]);
-
-const SectionsSchemaWithId = new SimpleSchema([SectionsSchema, {_id: {type: String, regEx: SimpleSchema.RegEx.Id}}]);
-
-const MediaAttachmentSchema = new SimpleSchema({
-  media: {
-    type: [new SimpleSchema([MediaSchema, {_id: {type:String, optional: true}, deleted: {type: Boolean, optional: true}}])],
+const SectionBaseSchema = new SimpleSchema({
+  riverId: {
+    type: String,
+    label: 'River',
+  },
+  gaugeId: {
+    type: String,
+    label: 'Gauge',
+    optional: true,
+  },
+  length: {
+    type: Number,
+    label: 'Length, km',
+    decimal: true,
+    optional: true,
+  },
+  duration: {
+    type: String,
+    label: 'Duration',
+    optional: true,
+    allowedValues: Durations,
+  },
+  levels: {
+    type: LevelsSchema,
+    label: 'Recommended water levels',
+    optional: true,
+  },
+  difficulty: {
+    type: Number,
+    label: 'Section difficulty',
+    decimal: true,
+    min: 1,
+    max: 6,
+  },
+  gradient: {
+    type: Number,
+    label: 'Gradient',
+    decimal: true,
+    optional: true,
+  },
+  seasonNumeric: {
+    type: [Number],
+    label: 'Season (half-month)',
+    min: 0,
+    max: 23,
+    optional: true,
+    maxCount: 24,
+  },
+  supplyTagIds: {//Misc tags
+    type: [String],
+    label: 'River supply types',
     defaultValue: [],
   },
+  kayakingTagIds: {//Misc tags
+    type: [String],
+    label: 'Kayaking types',
+    defaultValue: [],
+  },
+  hazardsTagIds: {//Misc tags
+    type: [String],
+    label: 'Hazards',
+    defaultValue: [],
+  },
+  miscTagIds: {//Misc tags
+    type: [String],
+    label: 'Tags',
+    defaultValue: [],
+  },
+  pointsOfInterest: {
+    type: [String],
+    regEx: SimpleSchema.RegEx.Id,
+    label: 'Points of interest',
+    defaultValue: [],
+  },
+  i18n: {
+    type: Object,
+    optional: true,
+    blackbox: true,
+  },
+  // Not yet implemented
+  // Can be implemented manually or wait until this feature comes with simple-schema 2.0
+  // "i18n.$": {
+  //   type: SectionI18nSchema,
+  // },
+});
+
+const SectionRefsSchema = new SimpleSchema({
+  putInId: {
+    type: String,
+    regEx: SimpleSchema.RegEx.Id,
+    label: 'Put-in location',
+  },
+  takeOutId: {
+    type: String,
+    regEx: SimpleSchema.RegEx.Id,
+    label: 'Take-out location',
+  },
+  mediaIds: {
+    type: [String],
+    label: "Media",
+    defaultValue: [],
+  },
+});
+
+const SectionsSchema = new SimpleSchema([
+  SectionBaseSchema,
+  SectionI18nSchema,
+  SectionRefsSchema,
+]);
+
+const SectionsCrudSchema = new SimpleSchema({
+  data: {
+    type: new SimpleSchema([
+      SectionBaseSchema,
+      SectionI18nSchema,
+      {
+        _id: {
+          type: String,
+          regEx: SimpleSchema.RegEx.Id,
+          optional: true
+        },
+        media: {
+          type: [new SimpleSchema([MediaSchema, {_id: {type:String, optional: true}, deleted: {type: Boolean, optional: true}}])],
+          defaultValue: [],
+        },
+        putIn: {
+          type: PointSchema,
+          optional: true,
+        },
+        takeOut: {
+          type: PointSchema,
+          optional: true,
+        },
+      },
+    ]),
+  },
+  language: {
+    type: String,
+    optional: true,
+  }
 });
 
 Sections.attachSchema(SectionsSchema);
 Sections.attachI18Schema(SectionI18nSchema);
 
-/**
- * Creates section, takes 1 argument - raw data object for new section
- * @type {AdminMethod}
- */
-export const createSection = new AdminMethod({
-  name: 'sections.create',
+export const upsertSection = new AdminMethod({
+  name: 'sections.upsert',
 
-  validate: new SimpleSchema([SectionsSchema, MediaAttachmentSchema]).validator({clean: true}),
+  validate: SectionsCrudSchema.validator({clean: true}),
 
   applyOptions: {
     noRetry: true,
   },
 
-  run(data) {
-    return Sections.insertTranslations(data);
-  }
-});
-
-export const editSection = new AdminMethod({
-  name: 'sections.edit',
-
-  validate: new SimpleSchema({
-    data: {
-      type: new SimpleSchema([SectionsSchemaWithId, MediaAttachmentSchema]),
-    },
-    language: {
-      type: String,
-      optional: true,
-    }
-  }).validator({clean: true}),
-
-  applyOptions: {
-    noRetry: true,
-  },
-
-  run({data: {_id, media, ...updates}, language}) {
+  run({data: {_id, media, putIn, takeOut, ...updates}, language}) {
+    language = language || Sections._base_language;
     //First, handle media attachments
     const mediaIds = _.chain(media)
       .map(mediaItem => {
@@ -217,10 +224,19 @@ export const editSection = new AdminMethod({
       })
       .compact()
       .value();
-    updates = {...updates, mediaIds};
-    return Sections.updateTranslations(_id, {[language]: updates});
+    let {_id: putInId, ...putInData} = putIn;
+    let putInResult = Points.upsertTranslations(putInId, {[language]: {...putInData, kind: 'put-in'}});
+    putInId = putInId || putInResult.insertedId;
+    let {_id: takeOutId, ...takeOutData} = takeOut;
+    let takeOutResult = Points.upsertTranslations(takeOutId, {[language]: {...takeOutData, kind: 'take-out'}});
+    takeOutId = takeOutId || takeOutResult.insertedId;
+
+    updates = {...updates, mediaIds, putInId, takeOutId};
+    return Sections.upsertTranslations(_id, {[language]: updates});
   }
 });
+
+
 
 export const removeSection = new AdminMethod({
   name: 'sections.remove',
@@ -245,6 +261,12 @@ Sections.helpers({
   },
   gauge: function () {
     return Gauges.find(this.gaugeId, {limit: 1});
+  },
+  putIn: function () {
+    return Points.find(this.putInId, {limit: 1});
+  },
+  takeOut: function () {
+    return Points.find(this.takeOutId, {limit: 1});
   },
   media: function () {
     return Media.find({_id: {$in: this.mediaIds}});

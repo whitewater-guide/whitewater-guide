@@ -50,20 +50,11 @@ class Form extends Component {
   }
 
   getChildContext() {
-    //Transform dot errors paths into nested objects
-    let formErrors = {};
-    _.forEach(this.state.errors, (value, path) => _.set(formErrors, path, value));
     return {
       formData: this.state.data,
-      formErrors,
+      formErrors: this.state.errors,
       formFieldChangeHandler: this.onFieldChange,
     };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.initialData) {
-      this.setState({ data: { ...nextProps.initialData } });
-    }
   }
 
   render() {
@@ -107,10 +98,8 @@ class Form extends Component {
         console.error(err);
         if (ValidationError.is(err)){
           const errors = {};
-          err.details.forEach((fieldError) => {
-            errors[fieldError.name] = fieldError.type;
-          });
-          this.setState({errors});
+          err.details.forEach((fieldError) => _.set(errors, fieldError.name, fieldError.type));
+          this.setState({errors: errors.data});
         }
         else if (err.errorType === 'Meteor.Error') {
           this.setState({ errors: { form: err.error } });

@@ -34,18 +34,22 @@ class SectionForm extends Component {
   };
 
   render() {
-    const {ready, supplyTags, kayakingTags, hazardTags, miscTags} = this.props;
+    const {ready, supplyTags, kayakingTags, hazardTags, miscTags, initialData, ...formProps} = this.props;
     if (!ready)
       return null;
 
-    let formData = {...this.props.initialData};
-    delete formData.mediaIds;
-    formData.media = this.props.initialData.media().fetch();//Invoke helper
-
-    const river = this.props.river || this.props.initialData.river().fetch();
+    //Replace references with values
+    let formData = _.omit(initialData, ['mediaIds', 'putInId', 'takeOutId']);
+    formData.media = _.isEmpty(initialData) ? [] : initialData.media().fetch();
+    formData.putIn = _.isEmpty(initialData) ? undefined : initialData.putIn().fetch()[0];
+    formData.takeOut = _.isEmpty(initialData) ? undefined : initialData.takeOut().fetch()[0];
+    if (_.isEmpty(initialData))
+      formData.riverId = this.props.riverId;
+    //When creating new section, river is passed via query, otherwise it is in section doc
+    const river = this.props.river || initialData.river().fetch();
 
     return (
-      <Form {...this.props} initialData={formData} name="sources" transformBeforeSubmit={this.transformBeforeSubmit}>
+      <Form {...formProps} initialData={formData} name="sources" transformBeforeSubmit={this.transformBeforeSubmit}>
         <Tabs value={this.props.currentTab} onChange={this.onTabChange}>
           <Tab label="Main" value="#main">
             <TextField value={river.name} disabled={true} hintText="River" floatingLabelText="River"
@@ -87,7 +91,8 @@ class SectionForm extends Component {
   }
 
   onTabChange = (value) => {
-    this.props.router.replace({pathname: this.props.router.location.pathname, hash: value});
+    const location = this.props.router.location;
+    this.props.router.replace({...location, hash: value});
   };
 
   transformBeforeSubmit = (data) => {

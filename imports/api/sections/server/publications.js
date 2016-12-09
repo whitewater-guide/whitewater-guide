@@ -3,6 +3,7 @@ import {Sections} from '../index';
 import {Rivers} from '../../rivers';
 import {Gauges} from '../../gauges';
 import {Media} from '../../media';
+import {Points} from '../../points';
 import {SimpleSchema} from 'meteor/aldeed:simple-schema';
 import { Roles } from 'meteor/alanning:roles';
 import { SupplyTags, KayakingTags, HazardTags, MiscTags} from '../../tags';
@@ -115,7 +116,12 @@ Meteor.publishComposite('sections.edit', function (sectionId, riverId, lang) {
           find(sectionDoc){
             return Media.find({_id: {$in: sectionDoc.mediaIds}}, {lang});
           }
-        }
+        },
+        {
+          find(sectionDoc){
+            return Points.find({_id: {$in: [sectionDoc.putInId, sectionDoc.takeOutId]}}, {lang});
+          }
+        },
       ],
     };
   }
