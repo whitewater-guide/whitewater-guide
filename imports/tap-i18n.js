@@ -2,10 +2,13 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { TAPi18n } from 'meteor/tap:i18n';
 
-const transform = function(options) {
+const transform = function(options, collectionTransform) {
   return (doc) => {
     if (options.transform) {
       doc = options.transform(doc);
+    }
+    else if (collectionTransform){
+      doc = collectionTransform(doc);
     }
 
     if (!options.lang || !doc.i18n) {
@@ -132,7 +135,7 @@ class TAPi18nCollection extends Mongo.Collection {
       selector,
       {
         ...options,
-        transform: transform(options),
+        transform: transform(options, this._transform),
         fields: i18n_fields
       }
     );
