@@ -113,7 +113,7 @@ Meteor.publishComposite('sections.edit', function (sectionId, riverId, lang) {
         publishAuxiliaryData,
         {
           find(sectionDoc){
-            return Media.find({_id: {$in: sectionDoc.mediaIds}});
+            return Media.find({_id: {$in: sectionDoc.mediaIds}}, {lang});
           }
         }
       ],

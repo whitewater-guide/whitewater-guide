@@ -39,6 +39,8 @@ export const MediaSchema = new SimpleSchema([
 const MediaSchemaWithId = new SimpleSchema([MediaSchema, { _id: { type: String, regEx: SimpleSchema.RegEx.Id } }]);
 
 export const Media = new TAPi18n.Collection('media');
+Media.attachSchema(MediaSchema);
+Media.attachI18Schema(MediaI18nSchema);
 
 
 export const createMedia = new AdminMethod({
@@ -73,9 +75,6 @@ export const editMedia = new AdminMethod({
   },
 
   run({data: {_id, ...updates}, language}) {
-    if (language)
-      return Media.updateTranslations(_id, {[language]: updates});
-    else
-      return Media.updateTranslations(_id, updates);
+    return Media.updateTranslations(_id, {[language]: updates});
   }
 });
