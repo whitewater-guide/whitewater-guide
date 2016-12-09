@@ -14,6 +14,7 @@ class EditSection extends Component {
   };
 
   render() {
+    const currentTab = this.props.router.location.hash || '#main';
     return (
       <SectionForm method={editSection}
                    title="Section settings"
@@ -21,6 +22,8 @@ class EditSection extends Component {
                    sectionId={this.props.params.sectionId}
                    onSubmit={this.onSubmit}
                    onCancel={this.onCancel}
+                   currentTab={currentTab}
+                   router={this.props.router}
       />
     );
   }

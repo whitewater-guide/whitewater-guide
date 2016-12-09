@@ -25,6 +25,8 @@ class SectionForm extends Component {
     kayakingTags: PropTypes.array,
     hazardTags: PropTypes.array,
     miscTags: PropTypes.array,
+    router: PropTypes.object,
+    currentTab: PropTypes.string,
   };
 
   static defaultProps = {
@@ -42,8 +44,8 @@ class SectionForm extends Component {
 
     return (
       <Form {...this.props} initialData={formData} name="sources" transformBeforeSubmit={this.transformBeforeSubmit}>
-        <Tabs>
-          <Tab label="Main">
+        <Tabs value={this.props.currentTab} onChange={this.onTabChange}>
+          <Tab label="Main" value="#main">
             <TextField value={this.props.river.name} disabled={true} hintText="River" floatingLabelText="River"
                        style={styles.textInput}/>
             <Field name="name" title="Name" component={TextInput}/>
@@ -57,7 +59,7 @@ class SectionForm extends Component {
             <Field name="putIn" title="Put-in location" component={CoordinatesGroup}/>
             <Field name="takeOut" title="Take-out location" component={CoordinatesGroup}/>
           </Tab>
-          <Tab label="Properties">
+          <Tab label="Properties" value="#properties">
             <div style={styles.row}>
               <Field name="length" title="Length, km" component={TextInput} type="number"/>
               <Field name="difficulty" title="Difficulty (I-VI)" component={TextInput} type="number"/>
@@ -69,10 +71,10 @@ class SectionForm extends Component {
             <Field name="hazardsTagIds" title="Hazards" component={ChipInput} options={hazardTags}/>
             <Field name="miscTagIds" title="Tags" component={ChipInput} options={miscTags}/>
           </Tab>
-          <Tab label="Media">
+          <Tab label="Media" value="#media">
             <Field name="media" title="Media" component={MediaCollection}/>
           </Tab>
-          <Tab label="Description">
+          <Tab label="Description" value="#description">
             <div style={styles.descriptionTab}>
               <Field name="description" title="Description" component={RichTextInput}/>
             </div>
@@ -81,6 +83,10 @@ class SectionForm extends Component {
       </Form>
     );
   }
+
+  onTabChange = (value) => {
+    this.props.router.replace({pathname: this.props.router.location.pathname, hash: value});
+  };
 
   transformBeforeSubmit = (data) => {
     if (data.levels && !data.levels.minimum && !data.levels.maximum && !data.levels.optimum && !data.levels.impossible)

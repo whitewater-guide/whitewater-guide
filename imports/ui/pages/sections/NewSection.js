@@ -12,6 +12,7 @@ class NewSection extends Component {
   };
 
   render() {
+    const currentTab = this.props.router.location.hash || '#main';
     return (
       <SectionForm method={createSection}
                    multilang={false}
@@ -20,6 +21,8 @@ class NewSection extends Component {
                    riverId={this.props.location.query.riverId}
                    onSubmit={this.onSubmit}
                    onCancel={this.onCancel}
+                   currentTab={currentTab}
+                   router={this.props.router}
       />
     );
   }
