@@ -210,6 +210,7 @@ export const editSection = new AdminMethod({
         if (mediaItem.deleted)
           return null;
         delete mediaItem.deleted;//Do not need to store this in mongo
+        delete mediaItem._id;
         const {insertedId} = Media.upsertTranslations(mediaItem._id, {[language]: mediaItem});
         return mediaItem._id || insertedId;
       })
