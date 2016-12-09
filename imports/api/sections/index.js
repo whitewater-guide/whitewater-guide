@@ -1,16 +1,17 @@
-import { TAPi18n } from 'meteor/tap:i18n';
-import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+import {TAPi18n} from 'meteor/tap:i18n';
+import {SimpleSchema} from 'meteor/aldeed:simple-schema';
 import AdminMethod from '../../utils/AdminMethod';
-import { Rivers } from '../rivers';
-import { Gauges } from '../gauges';
-import { LocationSchema } from "../Coordinates";
-import { MediaSchema } from "../Media";
+import {Rivers} from '../rivers';
+import {Gauges} from '../gauges';
+import {LocationSchema} from "../Coordinates";
+import {Media, MediaSchema} from '../media';
+import _ from 'lodash';
 
 export const Sections = new TAPi18n.Collection('sections');
 
 export const Durations = ['laps', 'twice', 'day-run', 'overnighter', 'multi-day'];
 
-const levelsSchema = new SimpleSchema({
+const LevelsSchema = new SimpleSchema({
   minimum: {
     type: Number,
     label: 'Minimum',
@@ -37,7 +38,7 @@ const levelsSchema = new SimpleSchema({
   }
 });
 
-export const sectionI18nSchema = new SimpleSchema({
+export const SectionI18nSchema = new SimpleSchema({
   name: {
     type: String,
     label: 'Name',
@@ -54,8 +55,8 @@ export const sectionI18nSchema = new SimpleSchema({
   },
 });
 
-const sectionsSchema = new SimpleSchema([
-  sectionI18nSchema,
+const SectionsSchema = new SimpleSchema([
+  SectionI18nSchema,
   {
     riverId: {
       type: String,
@@ -87,7 +88,7 @@ const sectionsSchema = new SimpleSchema([
       allowedValues: Durations,
     },
     levels: {
-      type: levelsSchema,
+      type: LevelsSchema,
       label: 'Recommended water levels',
       optional: true,
     },
@@ -132,8 +133,8 @@ const sectionsSchema = new SimpleSchema([
       label: 'Tags',
       defaultValue: [],
     },
-    media: {
-      type: [MediaSchema],
+    mediaIds: {
+      type: [String],
       label: "Media",
       defaultValue: [],
     },
@@ -150,15 +151,22 @@ const sectionsSchema = new SimpleSchema([
     // Not yet implemented
     // Can be implemented manually or wait until this feature comes with simple-schema 2.0
     // "i18n.$": {
-    //   type: sectionI18nSchema,
+    //   type: SectionI18nSchema,
     // },
   }
 ]);
 
-const sectionsSchemaWithId = new SimpleSchema([sectionsSchema, { _id: { type: String, regEx: SimpleSchema.RegEx.Id } }]);
+const SectionsSchemaWithId = new SimpleSchema([SectionsSchema, {_id: {type: String, regEx: SimpleSchema.RegEx.Id}}]);
 
-Sections.attachSchema(sectionsSchema);
-Sections.attachI18Schema(sectionI18nSchema);
+const MediaAttachmentSchema = new SimpleSchema({
+  media: {
+    type: [new SimpleSchema([MediaSchema, {_id: {type:String, optional: true}, deleted: {type: Boolean, optional: true}}])],
+    defaultValue: [],
+  },
+});
+
+Sections.attachSchema(SectionsSchema);
+Sections.attachI18Schema(SectionI18nSchema);
 
 /**
  * Creates section, takes 1 argument - raw data object for new section
@@ -167,7 +175,7 @@ Sections.attachI18Schema(sectionI18nSchema);
 export const createSection = new AdminMethod({
   name: 'sections.create',
 
-  validate: sectionsSchema.validator({ clean: true }),
+  validate: new SimpleSchema([SectionsSchema, MediaAttachmentSchema]).validator({clean: true}),
 
   applyOptions: {
     noRetry: true,
@@ -183,24 +191,32 @@ export const editSection = new AdminMethod({
 
   validate: new SimpleSchema({
     data: {
-      type: sectionsSchemaWithId,
+      type: new SimpleSchema([SectionsSchemaWithId, MediaAttachmentSchema]),
     },
     language: {
       type: String,
       optional: true,
     }
-  }).validator({ clean: true }),
+  }).validator({clean: true}),
 
   applyOptions: {
     noRetry: true,
   },
 
-  run({data: {_id, ...updates}, language}) {
-    console.log('Edit section', _id, language, updates);
-    if (language)
-      return Sections.updateTranslations(_id, {[language]: updates});
-    else
-      return Sections.updateTranslations(_id, updates);
+  run({data: {_id, media, ...updates}, language}) {
+    //First, handle media attachments
+    const mediaIds = _.chain(media)
+      .map(mediaItem => {
+        if (mediaItem.deleted)
+          return null;
+        delete mediaItem.deleted;//Do not need to store this in mongo
+        const {insertedId} = Media.upsertTranslations(mediaItem._id, {[language]: mediaItem});
+        return mediaItem._id || insertedId;
+      })
+      .compact()
+      .value();
+    updates = {...updates, mediaIds};
+    return Sections.updateTranslations(_id, {[language]: updates});
   }
 });
 
@@ -208,7 +224,7 @@ export const removeSection = new AdminMethod({
   name: 'sections.remove',
 
   validate: new SimpleSchema({
-    sectionId: { type: String }
+    sectionId: {type: String}
   }).validator(),
 
   applyOptions: {
@@ -221,12 +237,14 @@ export const removeSection = new AdminMethod({
 
 });
 
-
 Sections.helpers({
-  river: function(){
+  river: function () {
     return Rivers.findOne(this.riverId);
   },
   gauge: function () {
     return Gauges.findOne(this.gaugeId);
   },
+  media: function () {
+    return Media.find({_id: {$in: this.mediaIds}});
+  }
 });

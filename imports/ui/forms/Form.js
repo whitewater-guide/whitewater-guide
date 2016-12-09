@@ -77,7 +77,7 @@ class Form extends Component {
         {this.props.children}
         <ErrorMessage error={this.state.errors.form}/>  
         <div style={styles.buttonsHolder}>
-          <FlatButton label={this.props.cancelLabel} primary={true} onTouchTap={this.props.onCancel}/>
+          <FlatButton label={this.props.cancelLabel} primary={true} onTouchTap={this.onCancel}/>
           <FlatButton label={this.props.submitLabel} primary={true} onTouchTap={this.onSubmit}/>
         </div>
       </Paper>
@@ -92,12 +92,15 @@ class Form extends Component {
     this.setState({ data });
   };
 
+  onCancel = () => {
+    this.props.onCancel();
+  };
+
   onSubmit = () => {
     const data = this.props.transformBeforeSubmit(this.state.data);
     let args = {data};
     if (this.props.multilang)
       args.language = this.props.language;
-    console.log('Calling', args);
     this.props.method.callPromise(args)
       .then(() => this.props.onSubmit())
       .catch(err => {

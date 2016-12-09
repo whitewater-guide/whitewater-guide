@@ -165,6 +165,20 @@ class TAPi18nCollection extends Mongo.Collection {
       callback = options;
       options = undefined;
     }
+    const updates = this.prepareUpdates(translations);
+    return super.update(selector, {$set: updates}, options, callback);
+  }
+
+  upsertTranslations(selector, translations, options, callback){
+    if (_.isFunction(options)) {
+      callback = options;
+      options = undefined;
+    }
+    const updates = this.prepareUpdates(translations);
+    return super.upsert(selector, {$set: updates}, options, callback);
+  }
+
+  prepareUpdates(translations){
     let updates = {};
     if (translations){
       for (let lang in translations){
@@ -190,9 +204,9 @@ class TAPi18nCollection extends Mongo.Collection {
         }
       }
     }
-    console.log('Updating', updates);
-    return super.update(selector, {$set: updates}, options, callback);
+    return updates;
   }
+
 }
 
 TAPi18n.Collection = TAPi18nCollection;

@@ -2,6 +2,7 @@ import {Meteor} from 'meteor/meteor';
 import {Sections} from '../index';
 import {Rivers} from '../../rivers';
 import {Gauges} from '../../gauges';
+import {Media} from '../../media';
 import {SimpleSchema} from 'meteor/aldeed:simple-schema';
 import { Roles } from 'meteor/alanning:roles';
 import { SupplyTags, KayakingTags, HazardTags, MiscTags} from '../../tags';
@@ -108,7 +109,14 @@ Meteor.publishComposite('sections.edit', function (sectionId, riverId, lang) {
       find(){
         return Sections.find(sectionId, {limit: 1, lang});
       },
-      children: [publishAuxiliaryData],
+      children: [
+        publishAuxiliaryData,
+        {
+          find(sectionDoc){
+            return Media.find({_id: {$in: sectionDoc.mediaIds}});
+          }
+        }
+      ],
     };
   }
   else {

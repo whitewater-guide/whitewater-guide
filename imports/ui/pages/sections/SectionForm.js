@@ -35,7 +35,6 @@ class SectionForm extends Component {
     const {ready, supplyTags, kayakingTags, hazardTags, miscTags} = this.props;
     if (!ready)
       return null;
-    //Levels missing
     return (
       <Form {...this.props} name="sources" transformBeforeSubmit={this.transformBeforeSubmit}>
         <Tabs>
@@ -81,8 +80,7 @@ class SectionForm extends Component {
   transformBeforeSubmit = (data) => {
     if (data.levels && !data.levels.minimum && !data.levels.maximum && !data.levels.optimum && !data.levels.impossible)
       data = _.omit(data, 'levels');
-    const media = _.filter(data.media, (item) => item.deleted !== true);
-    return {...data, media};
+    return data;
   };
 }
 
