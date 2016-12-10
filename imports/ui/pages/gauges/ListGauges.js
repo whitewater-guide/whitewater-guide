@@ -56,17 +56,21 @@ class ListGauges extends Component {
 
   renderRow = (src) => {
     const {admin} = this.props;
-    let {altitude, coordinates: [longitude, latitude]} = src.location;
-    const lat = latitude ? latitude.toFixed(4) : '?';
-    const lon = longitude ? longitude.toFixed(4) : '?';
-    const alt = altitude ? ` (${altitude.toFixed()})` : '(?)';
+    let location = '';
+    if (src.location) {
+      let {altitude, coordinates: [longitude, latitude]} = src.location;
+      const lat = latitude ? latitude.toFixed(4) : '?';
+      const lon = longitude ? longitude.toFixed(4) : '?';
+      const alt = altitude ? ` (${altitude.toFixed()})` : '(?)';
+      location = `${lat} ${lon}${alt}`;
+    }
     return (
       <TableRow key={src._id}>
         { this.renderStatusIndicator(src) }
         <TableRowColumn>{src.name}</TableRowColumn>
         {admin && <TableRowColumn>{src.code}</TableRowColumn>}
         <TableRowColumn><a href={src.url}>Link</a></TableRowColumn>
-        <TableRowColumn>{`${lat} ${lon}${alt}`}</TableRowColumn>
+        <TableRowColumn>{location}</TableRowColumn>
         <TableRowColumn>{src.lastValue}</TableRowColumn>
         <TableRowColumn>{moment(src.lastTimestamp).format('DD.MM.YYYY HH:mm')}</TableRowColumn>
         {admin && <TableRowColumn>{src.cron}</TableRowColumn>}

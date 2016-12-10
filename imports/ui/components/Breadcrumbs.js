@@ -24,10 +24,10 @@ class Breadcrumbs extends Component {
     if (!this.props.ready) {
       return text;
     }
-    if (key === ':sourceId') {
+    if (key === ':sourceId' && this.props.source) {
       return this.props.source.name;
     }
-    else if (key === ':gaugeId') {
+    else if (key === ':gaugeId' && this.props.gauge) {
       return this.props.gauge.name;
     }
     return key;
@@ -36,20 +36,17 @@ class Breadcrumbs extends Component {
 
 const BreadcrumbsContainer = createContainer(
   (props) => {
+    //Do not subscribe to Gauges/Sources here. The subscription is on main page
     let result = { ready: true };
     if (props.params.gaugeId) {
-      const gaugeSub = Meteor.subscribe('gauges.details', props.params.gaugeId);
       result = {
         ...result,
-        ready: result.ready && gaugeSub.ready(),
         gauge: Gauges.findOne(props.params.gaugeId, { fields: { name: 1 } })
       };
     }
     if (props.params.sourceId) {
-      const sourceSub = Meteor.subscribe('sources.details', props.params.sourceId);
       result = {
         ...result,
-        ready: result.ready && sourceSub.ready(),
         source: Sources.findOne(props.params.sourceId, { fields: { name: 1 } })
       };
     }

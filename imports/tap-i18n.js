@@ -222,8 +222,8 @@ TAPi18n.publish = function(name, handler, options) {
   let i18n_handler = function() {
     let args = [...arguments];
     let language = args.pop();
-    TAPi18n.setLanguage(language);
-    this.language = language;
+    // TAPi18n.setLanguage(language);
+    // this.language = language;
 
     // Call the user handler without the language_tag argument
     let cursors = handler.apply(this, args);

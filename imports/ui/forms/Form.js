@@ -57,6 +57,14 @@ class Form extends Component {
     };
   }
 
+  componentWillReceiveProps(nextProps){
+    if (nextProps.initialData){
+      this.setState({
+        data: {...this.state.data, ...nextProps.initialData}
+      });
+    }
+  }
+
   render() {
     return (
       <div style={styles.container}>
@@ -92,6 +100,7 @@ class Form extends Component {
     let args = {data};
     if (this.props.multilang)
       args.language = this.props.language;
+    console.log('Submit form', args);
     this.props.method.callPromise(args)
       .then(() => this.props.onSubmit())
       .catch(err => {

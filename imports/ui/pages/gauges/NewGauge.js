@@ -1,8 +1,8 @@
-import React, {Component, PropTypes} from 'react';
-import GaugeForm from './GaugeForm';
-import { createGauge } from '../../../api/gauges';
-import adminOnly from '../../hoc/adminOnly';
-import {withRouter} from 'react-router';
+import React, {Component, PropTypes} from "react";
+import GaugeForm from "./GaugeForm";
+import {createGauge} from "../../../api/gauges";
+import adminOnly from "../../hoc/adminOnly";
+import {withRouter} from "react-router";
 
 class NewGauge extends Component {
   static propTypes = {
@@ -11,11 +11,16 @@ class NewGauge extends Component {
   };
 
   render() {
-    const initialData = { sourceId: this.props.location.query.sourceId };
     return (
-      <GaugeForm method={createGauge} title="New Gauge" submitLabel="Create"
-        onSubmit={this.onSubmit} onCancel={this.onCancel}
-        initialData={initialData}/>
+      <GaugeForm
+        sourceId={this.props.location.query.sourceId}
+        method={createGauge}
+        title="New Gauge"
+        submitLabel="Create"
+        multilang={false}
+        onSubmit={this.onSubmit}
+        onCancel={this.onCancel}
+      />
     );
   }
 

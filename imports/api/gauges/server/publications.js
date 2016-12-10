@@ -46,7 +46,7 @@ Meteor.publishComposite('gauges.inSource', function(sourceId){
   }
 });
 
-Meteor.publishComposite('gauges.details', function(gaugeId){
+Meteor.publishComposite('gauges.details', function(gaugeId, lang){
 
   new SimpleSchema({
     gaugeId: {type: String}
@@ -54,7 +54,7 @@ Meteor.publishComposite('gauges.details', function(gaugeId){
 
   return {
     find(){
-      return Gauges.find(gaugeId);
+      return Gauges.find(gaugeId, {lang, limit: 1});
     },
     children: [
       {

@@ -35,6 +35,7 @@ class SourceForm extends Component {
 
     return (
       <Form {...props}
+            multilang={false}
             style={{minWidth: 400}}
             initialData={initialData}
             transformBeforeSubmit={this.transformBeforeSubmit}

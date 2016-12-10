@@ -49,7 +49,7 @@ class SectionForm extends Component {
     const river = this.props.river || initialData.river().fetch();
 
     return (
-      <Form {...formProps} initialData={formData} name="sources" transformBeforeSubmit={this.transformBeforeSubmit}>
+      <Form {...formProps} initialData={formData} name="sections" transformBeforeSubmit={this.transformBeforeSubmit}>
         <Tabs value={this.props.currentTab} onChange={this.onTabChange}>
           <Tab label="Main" value="#main">
             <TextField value={river.name} disabled={true} hintText="River" floatingLabelText="River"

@@ -1,6 +1,7 @@
 import { Mongo } from 'meteor/mongo';
 import { Meteor } from 'meteor/meteor';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+import { formSchema} from '../../utils/SimpleSchemaUtils';
 import { Gauges, createGauge } from '../gauges';
 import { Jobs } from '../jobs';
 import AdminMethod from '../../utils/AdminMethod';
@@ -8,7 +9,11 @@ import cronParser from 'cron-parser';
 
 export const Sources = new Mongo.Collection('sources');
 
-const sourcesSchema = new SimpleSchema({
+const SourcesSchema = new SimpleSchema({
+  _id: {
+    type: String,
+    regEx: SimpleSchema.RegEx.Id,
+  },
   name: {
     type: String,
     label: 'Data source',
@@ -51,44 +56,47 @@ const sourcesSchema = new SimpleSchema({
     label: 'Regions',
     defaultValue: [],
   },
+  enabled: {
+    type: Boolean,
+    label: 'Enabled',
+    defaultValue: false
+  },
 });
 
-const enabledSourcesSchema = new SimpleSchema([sourcesSchema, { enabled: { type: Boolean, label: 'Enabled', defaultValue: false } }]);
-
-Sources.attachSchema(enabledSourcesSchema);
+Sources.attachSchema(SourcesSchema);
 
 export const createSource = new AdminMethod({
   name: 'sources.create',
 
-  validate: sourcesSchema.validator({clean: true}),
+  validate: formSchema(SourcesSchema, '_id', 'enabled').validator({clean: true}),
 
   applyOptions: {
     noRetry: true,
   },
 
-  run(data) {
-    return Sources.insert(data);
+  run({data}) {
+    return Sources.insert({...data});
   }
 });
 
 export const editSource = new AdminMethod({
   name: 'sources.edit',
 
-  validate: new SimpleSchema([sourcesSchema, { _id: { type: String, regEx: SimpleSchema.RegEx.Id } }]).validator({ clean: true }),
+  validate: formSchema(SourcesSchema, 'enabled').validator({ clean: true }),
 
   applyOptions: {
     noRetry: true,
   },
 
-  run({_id, ...data}) {
+  run({data: {_id, ...data}}) {
     const current = Sources.findOne(_id);
     const hasJobs = Jobs.find({ "data.source": _id, status: { $in: ['running', 'ready', 'waiting', 'paused'] } }).count() > 0;
-    console.log('Editing source', JSON.stringify(data), JSON.stringify(current));
+    //console.log('Editing source', JSON.stringify(data), JSON.stringify(current));
     //Cannot change harvest settings for already running script
     if (hasJobs && (data.script !== current.script || data.harvestMode !== current.harvestMode || data.cron !== current.cron)) {
       throw new Meteor.Error('sources.edit.jobsRunning', 'Cannot edit source which has running jobs');
     }
-    return Sources.update(_id, { $set: {...data } } );
+    return Sources.update(_id, { $set: data } );
   }
 });
 
@@ -188,7 +196,6 @@ export const setEnabled = new AdminMethod({
 
 Sources.helpers({
   gauges(fields) {
-    console.log('Gauges helper:', fields);
     return Gauges.find({ sourceId: this._id }, {fields});
   },
 });

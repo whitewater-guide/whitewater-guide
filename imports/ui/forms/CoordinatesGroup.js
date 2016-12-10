@@ -2,8 +2,6 @@ import React, {Component, PropTypes} from 'react';
 import TextField from 'material-ui/TextField';
 import _ from 'lodash';
 
-const defaultValue = {type: 'Point', altitude: undefined, coordinates: [undefined, undefined]};
-
 class CoordinatesGroup extends Component {
   static propTypes = {
     name: PropTypes.string,
@@ -16,7 +14,7 @@ class CoordinatesGroup extends Component {
   };
 
   render() {
-    let value = this.props.field.value || defaultValue;
+    let value = _.get(this, 'props.field.value', {});
     let errorString = '';//Global field error (for example, coordinate field is required), not rendered for now
     let errors = {};
     if (_.isString(this.props.field.error))
@@ -32,7 +30,7 @@ class CoordinatesGroup extends Component {
               style={styles.textInput}
               type="number"
               errorText={_.get(errors, 'coordinates.1')}
-              value={value.coordinates[1]}
+              value={_.get(value, 'coordinates.1')}
               onChange={this.onLatitudeChange}
               hintText="Latitude"
               floatingLabelText="Latitude"
@@ -43,7 +41,7 @@ class CoordinatesGroup extends Component {
               style={styles.textInput}
               type="number"
               errorText={_.get(errors, 'coordinates.0')}
-              value={value.coordinates[0]}
+              value={_.get(value, 'coordinates.0')}
               onChange={this.onLongitudeChange}
               hintText="Longitude"
               floatingLabelText="Longitude"
@@ -67,27 +65,25 @@ class CoordinatesGroup extends Component {
 
   onAltitudeChange = (e, altitude) => {
     let {field: {value}} = this.props;
-    value = value || defaultValue;
     this.onChange({...value, altitude});
   };
 
   onLongitudeChange = (e, longitude) => {
     let {field: {value}} = this.props;
-    value = value || defaultValue;
-    this.onChange({ ...value, coordinates: [longitude, value.coordinates[1]] });
+    this.onChange({ ...value, coordinates: [longitude, _.get(value, 'coordinates.1')] });
   };
 
   onLatitudeChange = (e, latitude) => {
     let {field: {value}} = this.props;
-    value = value || defaultValue;
-    this.onChange({ ...value, coordinates: [value.coordinates[0], latitude] });
+    this.onChange({ ...value, coordinates: [_.get(value, 'coordinates.0'), latitude] });
   };
 
   onChange = (value) => {
+    const emptyInput = v => v === undefined || v === '';
     if (
-      (value.altitude === undefined || value.altitude === '') &&
-      (value.coordinates[0] === undefined || value.coordinates[0] === '') &&
-      (value.coordinates[1] === undefined || value.coordinates[1] === '')
+      emptyInput(value.altitude) &&
+      emptyInput(_.get(value, 'coordinates.0')) &&
+      emptyInput(_.get(value, 'coordinates.1'))
     ){
       this.props.field.onChange(undefined);
     }
