@@ -1,6 +1,6 @@
-import {Meteor} from 'meteor/meteor';
+import {TAPi18n} from 'meteor/tap:i18n';
 import {Regions} from '../index';
 
-Meteor.publish('regions.list', function() {
+TAPi18n.publish('regions.list', function() {
   return Regions.find({});
 });

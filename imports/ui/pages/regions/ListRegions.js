@@ -80,7 +80,7 @@ class ListRegions extends Component {
   };
 
   addNewRegion = () => {
-    createRegion.call({ name: this.state.newRegionName });
+    createRegion.call({ data: {name: this.state.newRegionName }});
     this.setState({ newRegionName: '' });
   };
 }

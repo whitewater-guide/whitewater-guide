@@ -1,12 +1,12 @@
-import { Mongo } from 'meteor/mongo';
-import { Meteor } from 'meteor/meteor';
-import { SimpleSchema } from 'meteor/aldeed:simple-schema';
-import { Sources } from '../sources';
-import AdminMethod from '../../utils/AdminMethod';
+import {TAPi18n} from 'meteor/tap:i18n';
+import {SimpleSchema} from "meteor/aldeed:simple-schema";
+import {Sources} from "../sources";
+import AdminMethod from "../../utils/AdminMethod";
+import {formSchema} from '../../utils/SimpleSchemaUtils';
 
-export const Regions = new Mongo.Collection('regions');
+export const Regions = new TAPi18n.Collection('regions');
 
-const regionsSchema = new SimpleSchema({
+const RegionsI18nSchema = new SimpleSchema({
   name: {
     type: String,
     label: 'Name',
@@ -19,18 +19,29 @@ const regionsSchema = new SimpleSchema({
   },
 });
 
-Regions.attachSchema(regionsSchema);
+const RegionsSchema = new SimpleSchema([
+  RegionsI18nSchema,
+  {
+    i18n: {
+      type: Object,
+      optional: true,
+      blackbox: true,
+    },
+  }
+]);
+
+Regions.attachSchema(RegionsSchema);
 
 export const createRegion = new AdminMethod({
   name: 'regions.create',
 
-  validate: regionsSchema.validator({ clean: true }),
+  validate: formSchema(RegionsSchema, '_id').validator({ clean: true }),
 
   applyOptions: {
     noRetry: true,
   },
 
-  run(data) {
+  run({data}) {
     return Regions.insert(data);
   }
 });
@@ -38,14 +49,14 @@ export const createRegion = new AdminMethod({
 export const editRegion = new AdminMethod({
   name: 'regions.edit',
 
-  validate: new SimpleSchema([regionsSchema, { _id: { type: String, regEx: SimpleSchema.RegEx.Id } }]).validator({ clean: true }),
+  validate: formSchema(RegionsSchema).validator({ clean: true }),
 
   applyOptions: {
     noRetry: true,
   },
 
-  run({_id, ...data}) {
-    return Regions.update(_id, { $set: {...data } } );
+  run({data: {_id, ...data}}) {
+    return Regions.update(_id, { $set: data } );
   }
 });
 
