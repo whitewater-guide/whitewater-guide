@@ -23,11 +23,6 @@ export const MediaSchema = new SimpleSchema([
       label: 'Type',
       allowedValues: ["photo","video","blog"],
     },
-    description: {
-      type: String,
-      label: 'Description',
-      optional: true,
-    },
     i18n: {
       type: Object,
       optional: true,
