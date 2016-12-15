@@ -49,7 +49,7 @@ Meteor.publishComposite('gauges.inSource', function(sourceId){
 Meteor.publishComposite('gauges.details', function(gaugeId, lang){
 
   new SimpleSchema({
-    gaugeId: {type: String}
+    gaugeId: {type: String, optional: true}
   }).validate({ gaugeId });
 
   return {

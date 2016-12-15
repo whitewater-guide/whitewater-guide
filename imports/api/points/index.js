@@ -61,6 +61,7 @@ export const PointSchema = new SimpleSchema([
       type: String,
       allowedValues: ['Point'],
       autoValue: getAutoValue('Point'),
+      optional: true,
     },
     coordinates: {
       type: [Number],
@@ -89,7 +90,8 @@ export const PointSchema = new SimpleSchema([
       type: String,
       label: 'Type of point',
       autoValue: getAutoValue('other'),
-      allowedValues: POITypes
+      allowedValues: POITypes,
+      optional: true,
     },
     i18n: {
       type: Object,
