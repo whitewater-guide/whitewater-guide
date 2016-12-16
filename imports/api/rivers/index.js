@@ -1,18 +1,12 @@
-import { Mongo } from 'meteor/mongo';
-import { Meteor } from 'meteor/meteor';
-import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+import {SimpleSchema} from 'meteor/aldeed:simple-schema';
 import AdminMethod from '../../utils/AdminMethod';
-import { Regions } from '../regions';
-import { Sections } from '../sections';
+import {formSchema} from '../../utils/SimpleSchemaUtils';
+import {Regions} from '../regions';
+import {Sections} from '../sections';
 
-export const Rivers = new Mongo.Collection('rivers');
+export const Rivers = new TAPi18n.Collection('rivers');
 
-const riversSchema = new SimpleSchema({
-  regionId: {
-    type: String,
-    label: 'Region',
-    index: true,
-  },
+const RiversI18nSchema = new SimpleSchema({
   name: {
     type: String,
     label: 'Name',
@@ -22,36 +16,57 @@ const riversSchema = new SimpleSchema({
     label: 'Description',
     optional: true,
   },
-  //TODO: add url slugs
 });
 
-Rivers.attachSchema(riversSchema);
+const RiversSchema = new SimpleSchema([
+  RiversI18nSchema,
+  {
+    _id: {
+      type: String,
+      regEx: SimpleSchema.RegEx.Id,
+      optional: true,
+    },
+    regionId: {
+      type: String,
+      label: 'Region',
+      index: true,
+    },
+    i18n: {
+      type: Object,
+      optional: true,
+      blackbox: true,
+    },
+  }
+]);
+
+Rivers.attachSchema(RiversSchema);
+Rivers.attachI18Schema(RiversI18nSchema);
 
 export const createRiver = new AdminMethod({
   name: 'rivers.create',
 
-  validate: riversSchema.validator({ clean: true }),
+  validate: formSchema(RiversSchema, '_id').validator({clean: true}),
 
   applyOptions: {
     noRetry: true,
   },
 
-  run(data) {
-    return Rivers.insert(data);
+  run({data}) {
+    return Rivers.insertTranslations(data);
   }
 });
 
 export const editRiver = new AdminMethod({
   name: 'rivers.edit',
 
-  validate: new SimpleSchema([riversSchema, { _id: { type: String, regEx: SimpleSchema.RegEx.Id } }]).validator({ clean: true }),
+  validate: formSchema(RiversSchema).validator({clean: true}),
 
   applyOptions: {
     noRetry: true,
   },
 
-  run({_id, ...data}) {
-    return Rivers.update(_id, { $set: {...data } } );
+  run({data: {_id, ...data}, language}) {
+    return Rivers.updateTranslations(_id, {[language]: data});
   }
 });
 
@@ -59,17 +74,16 @@ export const removeRiver = new AdminMethod({
   name: 'rivers.remove',
 
   validate: new SimpleSchema({
-    riverId: { type: String }
+    riverId: {type: String}
   }).validator(),
 
   applyOptions: {
     noRetry: true,
   },
-  
+
   run({riverId}) {
     return Rivers.remove(riverId);
   },
-  
 });
 
 Rivers.helpers({

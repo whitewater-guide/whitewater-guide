@@ -22,6 +22,11 @@ const RegionsI18nSchema = new SimpleSchema({
 const RegionsSchema = new SimpleSchema([
   RegionsI18nSchema,
   {
+    _id: {
+      type: String,
+      regEx: SimpleSchema.RegEx.Id,
+      optional: true,
+    },
     i18n: {
       type: Object,
       optional: true,
@@ -42,7 +47,7 @@ export const createRegion = new AdminMethod({
   },
 
   run({data}) {
-    return Regions.insert(data);
+    return Regions.insertTranslations(data);
   }
 });
 
@@ -55,8 +60,8 @@ export const editRegion = new AdminMethod({
     noRetry: true,
   },
 
-  run({data: {_id, ...data}}) {
-    return Regions.update(_id, { $set: data } );
+  run({data: {_id, ...data}, language}) {
+    return Regions.updateTranslations(_id, {[language]: data});
   }
 });
 

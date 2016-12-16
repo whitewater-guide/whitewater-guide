@@ -21,20 +21,20 @@ Meteor.publishComposite('rivers.list', function() {
   };
 });
 
-Meteor.publishComposite('rivers.details', function (riverId) {
+Meteor.publishComposite('rivers.details', function (riverId, lang) {
   return {
     find: function(){
       new SimpleSchema({
-        riverId: {type: String}
+        riverId: {type: String, optional: true}
       }).validate({ riverId });
 
-      return Rivers.find(riverId);
+      return Rivers.find(riverId, {lang, limit: 1});
     },
     children: [
       //Sections
       {
         find: function(){
-          return Sections.find({riverId});
+          return Sections.find({riverId}, {lang});
         }
       },
     ]

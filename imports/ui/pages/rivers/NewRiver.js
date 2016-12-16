@@ -12,8 +12,14 @@ class NewRiver extends Component {
 
   render() {
     return (
-      <RiverForm method={createRiver} title="New River" submitLabel="Create"
-                  onSubmit={this.onSubmit} onCancel={this.onCancel}/>
+      <RiverForm
+        method={createRiver}
+        title="New River"
+        submitLabel="Create"
+        multilang={false}
+        onSubmit={this.onSubmit}
+        onCancel={this.onCancel}
+      />
     );
   }
 
