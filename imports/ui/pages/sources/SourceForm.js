@@ -33,6 +33,7 @@ class SourceForm extends Component {
     if (!ready)
       return null;
 
+    let scripts = _.filter(this.state.availableScripts, s => !_.has(s, 'error'));
     return (
       <Form {...props}
             multilang={false}
@@ -44,7 +45,7 @@ class SourceForm extends Component {
         <Field name="name" title="Name" component={TextInput}/>      
         <Field name="url" title="URL" component={TextInput}/>
         <Field name="regionIds" title="Regions" component={ChipInput} options={regions}/>
-        <Field name="script" title="Script" component={Select} options={this.state.availableScripts}
+        <Field name="script" title="Script" component={Select} options={scripts}
                extractKey={_.property('script')} extractValue={_.property('script')} extractLabel={_.property('script')}/>
         <Field name="cron" title="Cron expression" component={TextInput}/>
       </Form>      

@@ -17,8 +17,15 @@ export function listScripts(){
         scripts.push({script: filename, ...result});
       }
       catch (error){
-        console.warn(`Script ${filename} could not describe itself`);
+        let descr = `Script ${filename} could not describe itself: ${error}`;
+        console.error(descr);
+        scripts.push({script: filename, error: descr});
       }
+    }
+    else {
+      let descr = `Script ${filename} failed with status ${response.status} and error: ${response.stderr}`;
+      console.error(descr);
+      scripts.push({script: filename, error: descr});
     }
   });
   return scripts;
