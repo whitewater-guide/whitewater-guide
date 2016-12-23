@@ -33,7 +33,7 @@ export function listScripts(){
 
 export function launchScript(script, mode, cb){
   const file = path.resolve(process.cwd(), 'assets/app/workers', `${script}.js`);
-  const child = child_process.fork(file, [mode]);
+  const child = child_process.fork(file, [mode], {execArgv: []});
   let response = [];
 
   child.on('close', (code) => {

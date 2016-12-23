@@ -155,7 +155,7 @@ export const autofill = new AdminMethod({
       const gauges = launchScriptFiber(scriptName, 'autofill');
       console.log(`Found ${gauges.length} gauges`);
       gauges.forEach(gauge => {
-        createGauge.call({sourceId, ...gauge});
+        createGauge.call({data: {sourceId, ...gauge}});
       });
     }
   },

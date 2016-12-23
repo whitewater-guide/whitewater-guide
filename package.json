@@ -35,9 +35,16 @@
     "babel-preset-es2015": "^6.14.0",
     "babel-preset-react": "^6.11.1",
     "babel-preset-stage-2": "^6.13.0",
+    "babelify": "^7.3.0",
+    "browserify": "^13.1.1",
     "console.table": "^0.7.0",
     "eslint": "^3.5.0",
     "eslint-plugin-react": "^6.4.1",
+    "gulp": "^3.9.1",
+    "gulp-buffer": "0.0.2",
+    "gulp-tap": "^0.1.3",
+    "gulp-uglify": "^2.0.0",
+    "gulp-util": "^3.0.7",
     "react-addons-perf": "^15.4.1"
   }
 }

@@ -6,3 +6,4 @@ settings.development.json
 settings.production.json
 whitewater.iml
 package.tar.gz
+private/workers/
