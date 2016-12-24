@@ -30,6 +30,8 @@ function parseGaugesListHTML(callback){
             },
             timestamp: moment(tds.eq(5).text(), 'DD.MM.YYYY HH:mm').valueOf()//unix timestamp in ms
           };
+          if (row.location.altitude === null)
+            delete row.location.altitude;
           result.push(row);
         }
       });
@@ -85,6 +87,8 @@ function autofill(cb){
             return;
           }
           gauge.location.coordinates = coordinates;
+          if (coordinates[0] === "" || coordinates[1] === "")
+            delete gauge.location;
           qcb();
         });
       })
@@ -134,7 +138,11 @@ else if (process.argv[2] === 'autofill') {
       process.exit(1);
     }
     else {
-      process.send(gauges);
+      //process.send(gauges);
+      console.log(gauges.length);
+      gauges.forEach(function(g){
+        console.log(g.name + '\t----\t' + JSON.stringify(g));
+      })
     }
   });
 }
