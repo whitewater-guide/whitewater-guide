@@ -138,11 +138,11 @@ else if (process.argv[2] === 'autofill') {
       process.exit(1);
     }
     else {
-      //process.send(gauges);
-      console.log(gauges.length);
-      gauges.forEach(function(g){
-        console.log(g.name + '\t----\t' + JSON.stringify(g));
-      })
+      process.send(gauges);
+      // console.log(gauges.length);
+      // gauges.forEach(function(g){
+      //   console.log(g.name + '\t----\t' + JSON.stringify(g));
+      // })
     }
   });
 }
