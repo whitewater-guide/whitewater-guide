@@ -49,7 +49,7 @@ Jobs.processJobs('harvest', {}, (job, callback) => {
     let insertCount = 0;
     const finishJob = after(measurements.length, () => job.done({measurements: insertCount}));
     measurements.forEach(measurement => {
-      const gaugeId = job.data.gaugeId ? job.data.gaugeId : Gauges.findOne({ sourceId: job.data.sourceId, code: measurement.code })._id;
+      const gaugeId = job.data.gaugeId ? job.data.gaugeId : Gauges.findOne({ sourceId: job.data.sourceId, code: String(measurement.code)})._id;
       if (measurement.value) {
         Measurements.insert({
           gaugeId: gaugeId,
@@ -67,7 +67,7 @@ Jobs.processJobs('harvest', {}, (job, callback) => {
   }
   catch (ex) {
     console.log(`Harvest job exception for ${job.data.script}: ${JSON.stringify(ex)}`);
-    job.fail(ex);
+    job.fail({reason: `Harvest job exception for ${job.data.script}`});
   }
   callback();
 });
@@ -86,7 +86,7 @@ function worker({script, gaugeId}, nodeCallback) {
       args.push(gaugeDoc.lastTimestamp);
   }
   console.log(`Launching worker ${script} with args ${args}`);
-  const child = child_process.fork(file, args);
+  const child = child_process.fork(file, args, {execArgv: []});
   let response;
 
   child.on('close', (code) => {

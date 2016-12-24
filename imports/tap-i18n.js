@@ -59,7 +59,7 @@ class TAPi18nCollection extends Mongo.Collection {
     }
 
     // Allow for null language to return the full document.
-    if (options.lang === null) {
+    if (!options.lang) {
       return super.find(selector, options);
     }
 
