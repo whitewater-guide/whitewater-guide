@@ -41,10 +41,13 @@ class SectionForm extends Component {
     //Replace references with values
     let formData = _.omit(initialData, ['mediaIds', 'putInId', 'takeOutId']);
     formData.media = _.isEmpty(initialData) ? [] : initialData.media().fetch();
-    formData.putIn = _.isEmpty(initialData) ? undefined : initialData.putIn().fetch()[0];
-    formData.takeOut = _.isEmpty(initialData) ? undefined : initialData.takeOut().fetch()[0];
-    if (_.isEmpty(initialData))
+    if (_.isEmpty(initialData)) {
       formData.riverId = this.props.riverId;
+    }
+    else {
+      formData.putIn = initialData.putIn().fetch()[0];
+      formData.takeOut = initialData.takeOut().fetch()[0];
+    }
     //When creating new section, river is passed via query, otherwise it is in section doc
     const river = this.props.river || initialData.river().fetch();
 
