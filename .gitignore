@@ -7,3 +7,4 @@ settings.production.json
 whitewater.iml
 package.tar.gz
 private/workers/
+/.meteor/dump

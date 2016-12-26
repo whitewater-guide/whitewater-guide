@@ -31,6 +31,32 @@ const RiversSchema = new SimpleSchema([
       label: 'Region',
       index: true,
     },
+    createdAt: {
+      type: Date,
+      optional: true,
+      autoValue: function() {
+        if (this.isInsert) {
+          return new Date();
+        } else if (this.isUpsert) {
+          return {$setOnInsert: new Date()};
+        } else {
+          this.unset();  // Prevent user from supplying their own value
+        }
+      }
+    },
+    createdBy: {
+      type: String,
+      optional: true,
+      autoValue: function() {
+        if (this.isInsert) {
+          return this.userId;
+        } else if (this.isUpsert) {
+          return {$setOnInsert: this.userId};
+        } else {
+          this.unset();  // Prevent user from supplying their own value
+        }
+      }
+    },
     i18n: {
       type: Object,
       optional: true,
