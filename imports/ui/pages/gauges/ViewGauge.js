@@ -59,7 +59,7 @@ const styles = {
     marginRight: 16,
     marginBottom: 16,
   },
-}
+};
 
 const ViewGaugeContainer = createContainer(
   (props) => {

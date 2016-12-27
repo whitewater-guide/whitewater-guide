@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { VictoryAxis, VictoryChart, VictoryLine, VictoryScatter, VictoryTooltip } from 'victory-chart';
-import { VictoryTheme } from 'victory-core';
+import { VictoryAxis, VictoryChart, VictoryLine, VictoryScatter, VictoryTooltip, VictoryTheme } from 'victory';
 import { extent } from 'd3-array';
 import moment from 'moment';
 import Dimensions from 'react-dimensions'

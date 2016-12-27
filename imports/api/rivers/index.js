@@ -35,26 +35,14 @@ const RiversSchema = new SimpleSchema([
       type: Date,
       optional: true,
       autoValue: function() {
-        if (this.isInsert) {
-          return new Date();
-        } else if (this.isUpsert) {
-          return {$setOnInsert: new Date()};
-        } else {
-          this.unset();  // Prevent user from supplying their own value
-        }
+        return this.isSet ? undefined : new Date();
       }
     },
     createdBy: {
       type: String,
       optional: true,
       autoValue: function() {
-        if (this.isInsert) {
-          return this.userId;
-        } else if (this.isUpsert) {
-          return {$setOnInsert: this.userId};
-        } else {
-          this.unset();  // Prevent user from supplying their own value
-        }
+        return this.isSet ? undefined : this.userId;
       }
     },
     i18n: {

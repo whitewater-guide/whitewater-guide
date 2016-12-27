@@ -238,6 +238,6 @@ Gauges.helpers({
     return Sources.findOne(this.sourceId);
   },
   measurements() {
-    return Measurements.find({gauge: this._id});
+    return Measurements.find({gaugeId: this._id});
   },
 });
