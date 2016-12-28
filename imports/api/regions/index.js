@@ -36,6 +36,7 @@ const RegionsSchema = new SimpleSchema([
 ]);
 
 Regions.attachSchema(RegionsSchema);
+Regions.attachI18Schema(RegionsI18nSchema);
 
 export const createRegion = new AdminMethod({
   name: 'regions.create',

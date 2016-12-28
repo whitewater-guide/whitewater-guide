@@ -4,17 +4,17 @@ import {Regions} from '../../regions';
 import {Sections} from '../../sections';
 import {SimpleSchema} from 'meteor/aldeed:simple-schema';
 
-Meteor.publishComposite('rivers.list', function() {
+Meteor.publishComposite('rivers.list', function(lang) {
   return {
     find: function () {
-      return Rivers.find({});
+      return Rivers.find({}, {lang});
     },
 
     children: [
       //Region
       {
         find: function (river) {
-          return Regions.find(river.regionId, {limit: 1, fields: {name: 1}});
+          return Regions.find(river.regionId, {lang, limit: 1, fields: {name: 1}});
         }
       },
     ]
@@ -33,8 +33,8 @@ Meteor.publishComposite('rivers.details', function (riverId, lang) {
     children: [
       //Sections
       {
-        find: function(){
-          return Sections.find({riverId}, {lang});
+        find: function(riverDoc){
+          return Sections.find({riverId: riverDoc._id}, {lang});
         }
       },
     ]

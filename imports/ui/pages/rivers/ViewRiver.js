@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Rivers } from '../../../api/rivers';
-import { Sections } from '../../../api/sections';
-import { Meteor } from 'meteor/meteor';
+import { TAPi18n } from 'meteor/tap:i18n';
 import Paper from 'material-ui/Paper';
 import withAdmin from "../../hoc/withAdmin";
 import {withRouter} from "react-router";
@@ -56,7 +55,7 @@ const styles = {
 
 const ViewRiverContainer = createContainer(
   (props) => {
-    const sub = Meteor.subscribe('rivers.details', props.params.riverId);
+    const sub = TAPi18n.subscribe('rivers.details', null, props.params.riverId);
     const river = Rivers.findOne(props.params.riverId);
     return {
       ready: sub.ready(),

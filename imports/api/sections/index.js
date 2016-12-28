@@ -65,7 +65,7 @@ const SectionBaseSchema = new SimpleSchema({
     label: 'Gauge',
     optional: true,
   },
-  length: {
+  distance: {
     type: Number,
     label: 'Length, km',
     decimal: true,

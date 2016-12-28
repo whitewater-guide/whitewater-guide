@@ -49,7 +49,7 @@ class SectionForm extends Component {
       formData.takeOut = initialData.takeOut().fetch()[0];
     }
     //When creating new section, river is passed via query, otherwise it is in section doc
-    const river = this.props.river || initialData.river().fetch();
+    const river = this.props.river || initialData.river().fetch()[0];
 
     return (
       <Form {...formProps} initialData={formData} name="sections" transformBeforeSubmit={this.transformBeforeSubmit}>
@@ -70,7 +70,7 @@ class SectionForm extends Component {
           </Tab>
           <Tab label="Properties" value="#properties">
             <div style={styles.row}>
-              <Field name="length" title="Length, km" component={TextInput} type="number"/>
+              <Field name="distance" title="Length, km" component={TextInput} type="number"/>
               <Field name="difficulty" title="Difficulty (I-VI)" component={TextInput} type="number"/>
               <Field name="gradient" title="Gradient, m/km" component={TextInput} type="number"/>
             </div>
