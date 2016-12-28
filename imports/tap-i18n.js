@@ -169,7 +169,8 @@ class TAPi18nCollection extends Mongo.Collection {
       options = undefined;
     }
     const updates = this.prepareUpdates(translations);
-    return super.update(selector, {$set: updates}, options, callback);
+    //Skip validation because it should be already done in method
+    return super.update(selector, {$set: updates}, {...options, validate: false}, callback);
   }
 
   upsertTranslations(selector, translations, options, callback){
@@ -178,7 +179,8 @@ class TAPi18nCollection extends Mongo.Collection {
       options = undefined;
     }
     const updates = this.prepareUpdates(translations);
-    return super.upsert(selector, {$set: updates}, options, callback);
+    //Skip validation because it should be already done in method
+    return super.upsert(selector, {$set: updates}, {...options, validate: false}, callback);
   }
 
   prepareUpdates(translations){
