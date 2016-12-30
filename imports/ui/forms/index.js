@@ -5,3 +5,4 @@ export { default as Select } from './Select';
 export { default as ChipInput } from './ChipInput';
 export { default as CoordinatesGroup } from './CoordinatesGroup';
 export { default as RichTextInput } from './RichTextInput';
+export { default as SeasonPickerField } from './SeasonPickerField';

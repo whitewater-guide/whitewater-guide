@@ -102,6 +102,7 @@ const SectionBaseSchema = new SimpleSchema({
     max: 23,
     optional: true,
     maxCount: 24,
+    defaultValue: [],
   },
   supplyTagIds: {//Misc tags
     type: [String],

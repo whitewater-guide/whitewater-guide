@@ -1,14 +1,14 @@
-import React, { Component, PropTypes } from 'react';
-import { Form, Field, TextInput, Select, CoordinatesGroup, ChipInput, RichTextInput } from '../../forms';
+import React, {Component, PropTypes} from 'react';
+import {Form, Field, TextInput, Select, CoordinatesGroup, ChipInput, RichTextInput, SeasonPickerField} from '../../forms';
 import createI18nContainer from '../../hoc/createI18nContainer';
 import TextField from 'material-ui/TextField';
 import MediaCollection from './MediaCollection';
 import {Tabs, Tab} from 'material-ui/Tabs';
-import { Rivers } from '../../../api/rivers';
-import { Gauges } from '../../../api/gauges';
-import { Sections } from '../../../api/sections';
-import { SupplyTags, KayakingTags, HazardTags, MiscTags} from '../../../api/tags';
-import { TAPi18n } from 'meteor/tap:i18n';
+import {Rivers} from '../../../api/rivers';
+import {Gauges} from '../../../api/gauges';
+import {Sections} from '../../../api/sections';
+import {SupplyTags, KayakingTags, HazardTags, MiscTags} from '../../../api/tags';
+import {TAPi18n} from 'meteor/tap:i18n';
 import _ from 'lodash';
 
 class SectionForm extends Component {
@@ -75,6 +75,7 @@ class SectionForm extends Component {
               <Field name="gradient" title="Gradient, m/km" component={TextInput} type="number"/>
             </div>
             <Field name="season" title="Season" component={TextInput}/>
+            <Field name="seasonNumeric" component={SeasonPickerField}/>
             <Field name="supplyTagIds" title="River supply" component={ChipInput} options={supplyTags}/>
             <Field name="kayakingTagIds" title="Kayaking types" component={ChipInput} options={kayakingTags}/>
             <Field name="hazardsTagIds" title="Hazards" component={ChipInput} options={hazardTags}/>
