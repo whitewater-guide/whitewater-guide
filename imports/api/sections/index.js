@@ -89,6 +89,14 @@ const SectionBaseSchema = new SimpleSchema({
     min: 1,
     max: 6,
   },
+  rating: {
+    type: Number,
+    label: 'Rating',
+    decimal: true,
+    min: 0,
+    max: 5,
+    defaultValue: 0,
+  },
   difficultyXtra: {
     type: String,
     label: 'Additional difficulty',

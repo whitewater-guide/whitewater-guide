@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import {Form, Field, TextInput, Select, CoordinatesGroup, ChipInput, RichTextInput, SeasonPickerField} from '../../forms';
+import {Form, Field, TextInput, Select, CoordinatesGroup, ChipInput, RichTextInput, SeasonPickerField, Rating} from '../../forms';
 import createI18nContainer from '../../hoc/createI18nContainer';
 import TextField from 'material-ui/TextField';
 import MediaCollection from './MediaCollection';
@@ -59,7 +59,10 @@ class SectionForm extends Component {
           <Tab label="Main" value="#main">
             <TextField value={river.name} disabled={true} hintText="River" floatingLabelText="River"
                        style={styles.textInput}/>
-            <Field name="name" title="Name" component={TextInput}/>
+            <div style={styles.row}>
+              <Field name="name" title="Name" component={TextInput}/>
+              <Field name="rating" title="Rating" component={Rating}/>
+            </div>
             <Field name="gaugeId" title="Gauge" component={Select} options={this.props.gauges}/>
             <div style={styles.row}>
               <Field name="levels.minimum" title="Minimal level" component={TextInput} type="number"/>
