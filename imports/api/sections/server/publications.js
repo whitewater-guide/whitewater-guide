@@ -119,7 +119,8 @@ Meteor.publishComposite('sections.edit', function (sectionId, riverId, lang) {
         },
         {
           find(sectionDoc){
-            return Points.find({_id: {$in: [sectionDoc.putInId, sectionDoc.takeOutId]}}, {lang});
+            const pois = sectionDoc.poiIds || [];
+            return Points.find({_id: {$in: [...pois, sectionDoc.putInId, sectionDoc.takeOutId]}}, {lang});
           }
         },
       ],

@@ -44,7 +44,7 @@ export const PointI18nSchema = new SimpleSchema({
 function getAutoValue(value){
   return function autoValue(){
     let isSet = ['coordinate', 'altitude', 'kind', 'type'].some(sibling => this.siblingField(sibling).isSet);
-    if (this.operator === null && isSet)
+    if (this.operator === null && isSet && !this.isSet)
       return value;
   }
 }

@@ -7,7 +7,6 @@ import _ from 'lodash';
 
 class CoordinatesGroup extends Component {
   static propTypes = {
-    name: PropTypes.string,
     title: PropTypes.string,
     detailed: PropTypes.bool,
     field: PropTypes.shape({
@@ -59,7 +58,7 @@ class CoordinatesGroup extends Component {
           value={_.get(value, 'description')}
           onChange={this.onDescriptionChange}
           hintText="Description"
-          multiline={true}
+          multiLine={true}
           floatingLabelText="Description"
         />
         }
@@ -142,6 +141,7 @@ class CoordinatesGroup extends Component {
   onChange = (value) => {
     const emptyInput = v => v === undefined || v === '';
     if (
+      !this.props.detailed &&
       emptyInput(value.altitude) &&
       emptyInput(_.get(value, 'coordinates.0')) &&
       emptyInput(_.get(value, 'coordinates.1'))

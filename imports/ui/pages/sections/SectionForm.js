@@ -3,6 +3,7 @@ import {Form, Field, TextInput, Select, CoordinatesGroup, ChipInput, RichTextInp
 import createI18nContainer from '../../hoc/createI18nContainer';
 import TextField from 'material-ui/TextField';
 import MediaCollection from './MediaCollection';
+import POICollection from './POICollection';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import {Rivers} from '../../../api/rivers';
 import {Gauges} from '../../../api/gauges';
@@ -39,8 +40,9 @@ class SectionForm extends Component {
       return null;
 
     //Replace references with values
-    let formData = _.omit(initialData, ['mediaIds', 'putInId', 'takeOutId']);
+    let formData = _.omit(initialData, ['mediaIds', 'poiIds', 'putInId', 'takeOutId']);
     formData.media = _.isEmpty(initialData) ? [] : initialData.media().fetch();
+    formData.pois = _.isEmpty(initialData) ? [] : initialData.pois().fetch();
     if (_.isEmpty(initialData)) {
       formData.riverId = this.props.riverId;
     }
@@ -87,6 +89,9 @@ class SectionForm extends Component {
           </Tab>
           <Tab label="Media" value="#media">
             <Field name="media" title="Media" component={MediaCollection}/>
+          </Tab>
+          <Tab label="POIs" value="#pois">
+            <Field name="pois" title="Points of interest" component={POICollection}/>
           </Tab>
           <Tab label="Description" value="#description">
             <div style={styles.descriptionTab}>

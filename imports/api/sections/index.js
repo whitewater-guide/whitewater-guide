@@ -130,12 +130,6 @@ const SectionBaseSchema = new SimpleSchema({
     label: 'Tags',
     defaultValue: [],
   },
-  pointsOfInterest: {
-    type: [String],
-    regEx: SimpleSchema.RegEx.Id,
-    label: 'Points of interest',
-    defaultValue: [],
-  },
   createdAt: {
     type: Date,
     optional: true,
@@ -175,7 +169,14 @@ const SectionRefsSchema = new SimpleSchema({
   },
   mediaIds: {
     type: [String],
+    regEx: SimpleSchema.RegEx.Id,
     label: "Media",
+    defaultValue: [],
+  },
+  poiIds: {
+    type: [String],
+    regEx: SimpleSchema.RegEx.Id,
+    label: 'Points of interest',
     defaultValue: [],
   },
 });
@@ -199,6 +200,10 @@ const SectionsCrudSchema = new SimpleSchema({
         },
         media: {
           type: [new SimpleSchema([MediaSchema, {_id: {type:String, optional: true}, deleted: {type: Boolean, optional: true}}])],
+          defaultValue: [],
+        },
+        pois: {
+          type: [new SimpleSchema([PointSchema, {_id: {type:String, optional: true}, deleted: {type: Boolean, optional: true}}])],
           defaultValue: [],
         },
         putIn: {
@@ -230,7 +235,7 @@ export const upsertSection = new AdminMethod({
     noRetry: true,
   },
 
-  run({data: {_id, media, putIn, takeOut, ...updates}, language}) {
+  run({data: {_id, media, pois, putIn, takeOut, ...updates}, language}) {
     language = language || Sections._base_language;
     //First, handle media attachments
     const mediaIds = _.chain(media)
@@ -245,6 +250,18 @@ export const upsertSection = new AdminMethod({
       })
       .compact()
       .value();
+    const poiIds = _.chain(pois)
+      .map(poiItem => {
+        if (poiItem.deleted)
+          return null;
+        delete poiItem.deleted;//Do not need to store this in mongo
+        const poiItemId = poiItem._id;
+        delete poiItem._id;
+        const {insertedId} = Points.upsertTranslations(poiItemId, {[language]: poiItem});
+        return poiItemId || insertedId;
+      })
+      .compact()
+      .value();
     let {_id: putInId, ...putInData} = putIn;
     let putInResult = Points.upsertTranslations(putInId, {[language]: {...putInData, kind: 'put-in'}});
     putInId = putInId || putInResult.insertedId;
@@ -252,7 +269,7 @@ export const upsertSection = new AdminMethod({
     let takeOutResult = Points.upsertTranslations(takeOutId, {[language]: {...takeOutData, kind: 'take-out'}});
     takeOutId = takeOutId || takeOutResult.insertedId;
 
-    updates = {...updates, mediaIds, putInId, takeOutId};
+    updates = {...updates, mediaIds, poiIds, putInId, takeOutId};
     return Sections.upsertTranslations(_id, {[language]: updates});
   }
 });
@@ -291,5 +308,8 @@ Sections.helpers({
   },
   media: function () {
     return Media.find({_id: {$in: this.mediaIds}});
-  }
+  },
+  pois: function () {
+    return Points.find({_id: {$in: this.poiIds}});
+  },
 });
