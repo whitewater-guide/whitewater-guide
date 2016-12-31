@@ -89,6 +89,12 @@ const SectionBaseSchema = new SimpleSchema({
     min: 1,
     max: 6,
   },
+  difficultyXtra: {
+    type: String,
+    label: 'Additional difficulty',
+    optional: true,
+    max: 6,
+  },
   drop: {
     type: Number,
     label: 'Drop, in meters',

@@ -71,6 +71,7 @@ class SectionForm extends Component {
           <Tab label="Properties" value="#properties">
             <div style={styles.row}>
               <Field name="difficulty" title="Difficulty (I-VI)" component={TextInput} type="number"/>
+              <Field name="difficultyXtra" title="X's" component={TextInput}/>
               <Field name="drop" title="Drop, m" component={TextInput} type="number"/>
               <Field name="distance" title="Length, km" component={TextInput} type="number"/>
               <Field name="duration" title="Duration" component={Select} options={Durations}
