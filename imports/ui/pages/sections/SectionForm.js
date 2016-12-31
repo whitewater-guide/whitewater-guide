@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import {Form, Field, TextInput, Select, CoordinatesGroup, ChipInput, RichTextInput, SeasonPickerField, Rating} from '../../forms';
+import {Form, Field, TextInput, Select, CoordinatesGroup, ChipInput, RichTextInput, SeasonPickerField, Rating, Checkbox} from '../../forms';
 import createI18nContainer from '../../hoc/createI18nContainer';
 import TextField from 'material-ui/TextField';
 import MediaCollection from './MediaCollection';
@@ -69,6 +69,7 @@ class SectionForm extends Component {
               <Field name="levels.optimum" title="Optimal level" component={TextInput} type="number"/>
               <Field name="levels.maximum" title="Maximal level" component={TextInput} type="number"/>
               <Field name="levels.impossible" title="Absolute maximum" component={TextInput} type="number"/>
+              <Field name="levels.approximate" title="Is approximate" component={Checkbox}/>
             </div>
             <Field name="putIn" title="Put-in location" component={CoordinatesGroup}/>
             <Field name="takeOut" title="Take-out location" component={CoordinatesGroup}/>
@@ -124,6 +125,7 @@ const styles = {
   },
   row: {
     display: 'flex',
+    alignItems: 'center',
   },
   descriptionTab: {
     height: 600,

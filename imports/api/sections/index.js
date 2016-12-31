@@ -35,7 +35,12 @@ const LevelsSchema = new SimpleSchema({
     label: 'Absolute maximum',
     decimal: true,
     optional: true,
-  }
+  },
+  approximate: {
+    type: Boolean,
+    label: 'Is approximate',
+    optional: true,
+  },
 });
 
 export const SectionI18nSchema = new SimpleSchema({
