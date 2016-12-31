@@ -1,16 +1,24 @@
 import React, {Component, PropTypes} from 'react';
 import TextField from 'material-ui/TextField';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+import {POITypes} from '../../api/points';
 import _ from 'lodash';
 
 class CoordinatesGroup extends Component {
   static propTypes = {
     name: PropTypes.string,
     title: PropTypes.string,
+    detailed: PropTypes.bool,
     field: PropTypes.shape({
       value: PropTypes.any,
       error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
       onChange: PropTypes.func,
     }),
+  };
+
+  static defaultProps = {
+    detailed: false,
   };
 
   render() {
@@ -24,6 +32,38 @@ class CoordinatesGroup extends Component {
     return (
       <div style={styles.container}>
         {this.props.title && <h3>{this.props.title}</h3>}
+        { this.props.detailed &&
+        <div style={styles.row}>
+          <TextField
+            fullWidth={true}
+            errorText={_.get(errors, 'name')}
+            value={_.get(value, 'name')}
+            onChange={this.onNameChange}
+            hintText="Name"
+            floatingLabelText="Name"
+          />
+          <SelectField
+            value={_.get(value, 'kind')}
+            onChange={this.onKindChange}
+            errorText={_.get(errors, 'kind')}
+            floatingLabelText="Type"
+          >
+            {POITypes.map(this.renderPointKind)}
+          </SelectField>
+        </div>
+        }
+        { this.props.detailed &&
+        <TextField
+          fullWidth={true}
+          errorText={_.get(errors, 'description')}
+          value={_.get(value, 'description')}
+          onChange={this.onDescriptionChange}
+          hintText="Description"
+          multiline={true}
+          floatingLabelText="Description"
+        />
+        }
+
         <div style={styles.row}>
           <div style={styles.col}>
             <TextField
@@ -63,6 +103,27 @@ class CoordinatesGroup extends Component {
     );
   }
 
+  renderPointKind = (item) => {
+    return (
+      <MenuItem key={item} value={item} primaryText={item} />
+    );
+  };
+
+  onKindChange = (event, index, kind) => {
+    let {field: {value}} = this.props;
+    this.onChange({...value, kind});
+  };
+
+  onNameChange = (e, name) => {
+    let {field: {value}} = this.props;
+    this.onChange({...value, name});
+  };
+
+  onDescriptionChange = (e, description) => {
+    let {field: {value}} = this.props;
+    this.onChange({...value, description});
+  };
+
   onAltitudeChange = (e, altitude) => {
     let {field: {value}} = this.props;
     this.onChange({...value, altitude});
@@ -70,12 +131,12 @@ class CoordinatesGroup extends Component {
 
   onLongitudeChange = (e, longitude) => {
     let {field: {value}} = this.props;
-    this.onChange({ ...value, coordinates: [longitude, _.get(value, 'coordinates.1')] });
+    this.onChange({...value, coordinates: [longitude, _.get(value, 'coordinates.1')]});
   };
 
   onLatitudeChange = (e, latitude) => {
     let {field: {value}} = this.props;
-    this.onChange({ ...value, coordinates: [_.get(value, 'coordinates.0'), latitude] });
+    this.onChange({...value, coordinates: [_.get(value, 'coordinates.0'), latitude]});
   };
 
   onChange = (value) => {
@@ -84,7 +145,7 @@ class CoordinatesGroup extends Component {
       emptyInput(value.altitude) &&
       emptyInput(_.get(value, 'coordinates.0')) &&
       emptyInput(_.get(value, 'coordinates.1'))
-    ){
+    ) {
       this.props.field.onChange(undefined);
     }
     else {
