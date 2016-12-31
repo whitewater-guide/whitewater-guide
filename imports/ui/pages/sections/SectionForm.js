@@ -6,7 +6,7 @@ import MediaCollection from './MediaCollection';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import {Rivers} from '../../../api/rivers';
 import {Gauges} from '../../../api/gauges';
-import {Sections} from '../../../api/sections';
+import {Sections, Durations} from '../../../api/sections';
 import {SupplyTags, KayakingTags, HazardTags, MiscTags} from '../../../api/tags';
 import {TAPi18n} from 'meteor/tap:i18n';
 import _ from 'lodash';
@@ -70,9 +70,12 @@ class SectionForm extends Component {
           </Tab>
           <Tab label="Properties" value="#properties">
             <div style={styles.row}>
-              <Field name="distance" title="Length, km" component={TextInput} type="number"/>
               <Field name="difficulty" title="Difficulty (I-VI)" component={TextInput} type="number"/>
-              <Field name="gradient" title="Gradient, m/km" component={TextInput} type="number"/>
+              <Field name="drop" title="Drop, m" component={TextInput} type="number"/>
+              <Field name="distance" title="Length, km" component={TextInput} type="number"/>
+              <Field name="duration" title="Duration" component={Select} options={Durations}
+                     extractKey={_.identity} extractValue={_.identity} extractLabel={_.identity}/>
+
             </div>
             <Field name="season" title="Season" component={TextInput}/>
             <Field name="seasonNumeric" component={SeasonPickerField}/>

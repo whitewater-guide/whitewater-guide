@@ -89,9 +89,9 @@ const SectionBaseSchema = new SimpleSchema({
     min: 1,
     max: 6,
   },
-  gradient: {
+  drop: {
     type: Number,
-    label: 'Gradient',
+    label: 'Drop, in meters',
     decimal: true,
     optional: true,
   },
