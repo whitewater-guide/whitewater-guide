@@ -1,4 +1,5 @@
 import {FilesCollection} from 'meteor/ostrio:files';
+import {Meteor} from 'meteor/meteor';
 import {Roles} from 'meteor/alanning:roles';
 import {SimpleSchema} from 'meteor/aldeed:simple-schema';
 import AdminMethod from "../../utils/AdminMethod";
@@ -27,7 +28,8 @@ export const Images = new FilesCollection({
       return 'Must be admin to remove photos';
     }
   },
-  //public: true,
+  public: true,
+  ...Meteor.settings.public.imageUploads,
 });
 
 Images.collection.attachSchema(new SimpleSchema(Images.schema));
@@ -36,7 +38,7 @@ export const deleteImage = new AdminMethod({
   name: 'images.delete',
 
   validate: new SimpleSchema({
-    imageId: { type: String }
+    imageId: {type: String}
   }).validator(),
 
   applyOptions: {
