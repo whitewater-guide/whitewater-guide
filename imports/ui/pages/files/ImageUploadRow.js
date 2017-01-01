@@ -49,6 +49,7 @@ const styles = {
   },
   uploadButton: {
     margin: 8,
+    minWidth: 120,
   },
   imageInput: {
     cursor: 'pointer',
