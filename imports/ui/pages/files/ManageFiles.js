@@ -2,11 +2,13 @@ import React, {Component, PropTypes} from 'react';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import ImageUploadRow from './ImageUploadRow';
 import IconButton from 'material-ui/IconButton';
+import FontIcon from 'material-ui/FontIcon';
 import {Meteor} from 'meteor/meteor';
 import {createContainer} from 'meteor/react-meteor-data';
 import {Images, deleteImage} from '../../../api/files';
 import Lightbox from 'react-image-lightbox';
 import adminOnly from "../../hoc/adminOnly";
+import CopyToClipboard from 'react-copy-to-clipboard';
 import _ from 'lodash';
 
 class ManageFiles extends Component {
@@ -61,13 +63,17 @@ class ManageFiles extends Component {
 
   renderControls = (file) => {
     const deleteHandler = () => deleteImage.call({imageId: file._id});
+    const link = Images.findOne(file._id).link();
     return (
       <TableRowColumn>
         <div onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
         } }>
-          <IconButton iconClassName="material-icons" style={styles.iconWrapper} onTouchTap={deleteHandler}>delete_forever</IconButton>
+          <CopyToClipboard text={link}>
+            <IconButton iconClassName="material-icons">content_copy</IconButton>
+          </CopyToClipboard>
+          <IconButton iconClassName="material-icons" onTouchTap={deleteHandler}>delete_forever</IconButton>
         </div>
       </TableRowColumn>
     );
