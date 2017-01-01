@@ -5,14 +5,20 @@ import IconButton from 'material-ui/IconButton';
 import {Meteor} from 'meteor/meteor';
 import {createContainer} from 'meteor/react-meteor-data';
 import {Images, deleteImage} from '../../../api/files';
-import _ from 'lodash';
+import Lightbox from 'react-image-lightbox';
 import adminOnly from "../../hoc/adminOnly";
+import _ from 'lodash';
 
 class ManageFiles extends Component {
 
   static propTypes = {
     ready: PropTypes.bool,
     images: PropTypes.array,
+  };
+
+  state = {
+    photoIndex: 0,
+    lightboxOpen: false,
   };
 
   render() {
@@ -22,7 +28,7 @@ class ManageFiles extends Component {
 
     return (
       <div style={styles.container}>
-        <Table selectable={false}>
+        <Table selectable={false} onCellClick={this.onCellClick}>
           <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
             <TableRow>
               <TableHeaderColumn>Name</TableHeaderColumn>
@@ -36,18 +42,16 @@ class ManageFiles extends Component {
           </TableBody>
         </Table>
         <ImageUploadRow onFileSelected={this.onFileSelected}/>
+        { this.state.lightboxOpen && this.renderLightbox()}
       </div>
     );
   }
 
-  renderRow = (file) => {
+  renderRow = (file, index) => {
+    //Images.findOne(file._id).link()
     return (
       <TableRow key={file._id}>
-        <TableRowColumn>
-          <a href={Images.findOne(file._id).link()}>
-            {file.name}
-          </a>
-        </TableRowColumn>
+        <TableRowColumn>{file.name}</TableRowColumn>
         <TableRowColumn>{file.meta.description}</TableRowColumn>
         <TableRowColumn>{file.updatedAt}</TableRowColumn>
         { this.renderControls(file) }
@@ -69,8 +73,50 @@ class ManageFiles extends Component {
     );
   };
 
+  onCellClick = (rowId) => {
+    this.setState({
+      photoIndex: rowId,
+      lightboxOpen: true,
+    });
+  };
+
+  renderLightbox = () => {
+    const {images} = this.props;
+    const {photoIndex} = this.state;
+    //Images.findOne(file._id).link()
+    let sources = {
+      mainSrc: _.get(images, [photoIndex, '_id']),
+      nextSrc: _.get(images, [(photoIndex + 1) % images.length, '_id']),
+      prevSrc: _.get(images, [(photoIndex + images.length - 1) % images.length, '_id']),
+    };
+    sources = _.mapValues(sources, id => id && Images.findOne(id).link());
+    let title = (
+      <span>{_.get(images, [photoIndex, 'name'])}</span>
+    );
+    let description = (
+      <span>{_.get(images, [photoIndex, 'meta', 'description'])}</span>
+    );
+    return (
+      <Lightbox
+        {...sources}
+        onCloseRequest={() => this.setState({ lightboxOpen: false })}
+        onMovePrevRequest={() => this.setState({
+          photoIndex: (photoIndex + images.length - 1) % images.length,
+        })}
+        onMoveNextRequest={() => this.setState({
+          photoIndex: (photoIndex + 1) % images.length,
+        })}
+        imageTitle={title}
+        imageCaption={description}
+      />
+    );
+  };
+
   onFileSelected = (file, description) => {
-    let settings = {file};
+    let settings = {
+      file,
+      onError: (error, fileData) => console.error(`Error ${error} while uploading ${JSON.stringify(fileData)}`),
+    };
     if (description)
       settings.meta = {description};
     Images.insert(settings);
