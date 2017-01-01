@@ -26,6 +26,7 @@ import ViewSection from "../../ui/pages/sections/ViewSection";
 import SectionsLeft from "../../ui/pages/sections/SectionsLeft";
 import EditSection from "../../ui/pages/sections/EditSection";
 import ListSections from "../../ui/pages/sections/ListSections";
+import ManageFiles from "../../ui/pages/files/ManageFiles";
 
 export default class AppRouter extends Component {
   render() {
@@ -33,6 +34,8 @@ export default class AppRouter extends Component {
       <Router history={browserHistory}>
         <Route path="/" name="Whitewater" component={MainLayout}>
           <IndexRedirect to="/sources" />
+
+          <Route path="files" name="Files" components={{ content: ManageFiles }}/>
 
           <Route path="sources" name="Sources">
             <IndexRoute breadcrumbIgnore={true} components={{content: ListSources, left: ListSourcesLeft}} />
