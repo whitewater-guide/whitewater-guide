@@ -2,7 +2,6 @@ import React, {Component, PropTypes} from 'react';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import FontIcon from 'material-ui/FontIcon';
-import {TableRow, TableRowColumn} from 'material-ui/Table';
 
 export default class ImageUploadRow extends Component {
   static propTypes = {
@@ -11,21 +10,17 @@ export default class ImageUploadRow extends Component {
 
   render(){
     return (
-      <TableRow>
-        <TableRowColumn>
-          <div style={styles.container}>
-            <TextField hintText="Image description" fullWidth={true}/>
-            <RaisedButton
-              label="Upload"
-              primary={true}
-              icon={<FontIcon className="material-icons">file_upload</FontIcon>}
-              style={styles.uploadButton}
-            >
-              <input type="file" style={styles.imageInput} onChange={this.onFileChange}/>
-            </RaisedButton>
-          </div>
-        </TableRowColumn>
-      </TableRow>
+      <div style={styles.container}>
+        <TextField hintText="Image description" fullWidth={true}/>
+        <RaisedButton
+          label="Upload"
+          primary={true}
+          icon={<FontIcon className="material-icons">file_upload</FontIcon>}
+          style={styles.uploadButton}
+        >
+          <input type="file" style={styles.imageInput} onChange={this.onFileChange}/>
+        </RaisedButton>
+      </div>
     );
   }
 
@@ -39,6 +34,8 @@ const styles = {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    alignSelf: 'stretch',
+    paddingLeft: 16,
   },
   uploadButton: {
     margin: 8,

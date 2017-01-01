@@ -33,9 +33,9 @@ class ManageFiles extends Component {
           </TableHeader>
           <TableBody displayRowCheckbox={false} stripedRows={true}>
             { images.map(this.renderRow) }
-            <ImageUploadRow key="newImage" onFileSelected={this.onFileSelected}/>
           </TableBody>
         </Table>
+        <ImageUploadRow onFileSelected={this.onFileSelected}/>
       </div>
     );
   }
@@ -43,7 +43,11 @@ class ManageFiles extends Component {
   renderRow = (file) => {
     return (
       <TableRow key={file._id}>
-        <TableRowColumn>{file.name}</TableRowColumn>
+        <TableRowColumn>
+          <a href={Images.findOne(file._id).link()}>
+            {file.name}
+          </a>
+        </TableRowColumn>
         <TableRowColumn>{file.meta.description}</TableRowColumn>
         <TableRowColumn>{file.updatedAt}</TableRowColumn>
         { this.renderControls(file) }
