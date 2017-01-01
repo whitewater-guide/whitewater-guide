@@ -24,6 +24,7 @@ export default class ImageUploadRow extends Component {
         <RaisedButton
           label="Upload"
           primary={true}
+          containerElement="label"
           icon={<FontIcon className="material-icons">file_upload</FontIcon>}
           style={styles.uploadButton}
         >
