@@ -69,8 +69,11 @@ class ManageFiles extends Component {
     );
   };
 
-  onFileSelected = (file) => {
-    Images.insert({file});
+  onFileSelected = (file, description) => {
+    let settings = {file};
+    if (description)
+      settings.meta = {description};
+    Images.insert(settings);
   };
 
 }

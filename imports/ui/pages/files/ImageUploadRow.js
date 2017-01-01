@@ -8,10 +8,19 @@ export default class ImageUploadRow extends Component {
     onFileSelected: PropTypes.func,
   };
 
+  state = {
+    description: ''
+  };
+
   render(){
     return (
       <div style={styles.container}>
-        <TextField hintText="Image description" fullWidth={true}/>
+        <TextField
+          value={this.state.description}
+          onChange={(e, description) => this.setState({description})}
+          hintText="Image description"
+          fullWidth={true}
+        />
         <RaisedButton
           label="Upload"
           primary={true}
@@ -25,7 +34,8 @@ export default class ImageUploadRow extends Component {
   }
 
   onFileChange = ({nativeEvent}) => {
-    this.props.onFileSelected(nativeEvent.target.files[0]);
+    this.props.onFileSelected(nativeEvent.target.files[0], this.state.description);
+    this.setState({description: ''});
   };
 }
 
