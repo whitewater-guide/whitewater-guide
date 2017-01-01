@@ -2,14 +2,12 @@ import React, { Component, PropTypes } from 'react';
 import Quill from 'react-quill';
 import '../../../node_modules/quill/dist/quill.snow.css';
 
-const quillModules = {
-  toolbar: [
-    [{ 'header': [1, 2, false] }],
-    ['bold', 'italic'],
-    [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
-    ['link', 'image', 'video'],
-  ],
-};
+const quillToolbar = [
+  [{ 'header': [1, 2, false] }],
+  ['bold', 'italic'],
+  [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+  ['link', 'image', 'video'],
+];
 
 const quillFormats = [
   "header",
@@ -29,15 +27,19 @@ class RichTextInput extends Component {
     }),
   };
 
-
+  constructor(props){
+    super(props);
+    this.quillModules = {toolbar: {container: quillToolbar, handlers: {image: this.imageHandler}}};
+  }
 
   render() {
     const value = this.props.field.value === undefined ? '' : this.props.field.value;
     return (
       <Quill
+        ref="quill"
         theme="snow"
         value={value}
-        modules={quillModules}
+        modules={this.quillModules}
         formats={quillFormats}
         toolbar={false}
         style={styles.quill}
@@ -45,6 +47,13 @@ class RichTextInput extends Component {
       />
     );
   }
+
+  imageHandler = () => {
+    const quill = this.refs["quill"].getEditor();
+    const range = quill.getSelection();
+    const value = prompt('Enter image URL');
+    quill.insertEmbed(range.index, 'image', value, 'user');
+  };
 }
 
 const styles = {
