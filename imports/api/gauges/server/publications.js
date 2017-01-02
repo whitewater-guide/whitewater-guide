@@ -1,6 +1,7 @@
 import {Meteor} from 'meteor/meteor';
 import {Roles} from 'meteor/alanning:roles';
 import {SimpleSchema} from 'meteor/aldeed:simple-schema';
+import {Counts} from 'meteor/tmeasday:publish-counts';
 import {Gauges} from '../index';
 import {Measurements} from '../../measurements';
 import { Jobs } from '../../jobs';
@@ -10,7 +11,7 @@ const publicFields = {
   enabled: 0,
 };
 
-Meteor.publishComposite('gauges.inSource', function(sourceId){
+Meteor.publishComposite('gauges.inSource', function(sourceId, limit = 10){
   const isAdmin = Roles.userIsInRole(this.userId, 'admin');
   const fields = isAdmin ? undefined : publicFields;
   let children = [];
@@ -37,10 +38,12 @@ Meteor.publishComposite('gauges.inSource', function(sourceId){
   return {
     find() {
       new SimpleSchema({
-        sourceId: {type: String}
-      }).validate({ sourceId });
+        sourceId: {type: String},
+        limit: {type: Number}
+      }).validate({ sourceId, limit });
 
-      return Gauges.find({sourceId}, fields);
+      Counts.publish(this, `counter.gauges.${sourceId}`, Gauges.find({sourceId}), { noReady: true });
+      return Gauges.find({sourceId}, {fields, limit, sort: {name: 1}});
     },
     children
   }
