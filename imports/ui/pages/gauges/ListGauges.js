@@ -192,4 +192,4 @@ const ListGaugesContainer = createContainer(
   ListGauges
 );
 
-export default _.flow(withAdmin, withRouter, withPagination())(ListGaugesContainer);
+export default _.flow(withAdmin, withRouter, withPagination(25, 25))(ListGaugesContainer);

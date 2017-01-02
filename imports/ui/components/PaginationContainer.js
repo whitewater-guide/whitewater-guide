@@ -21,7 +21,7 @@ class PaginationContainer extends Component {
   render() {
     return (
       <div style={this.props.style}>
-        <div style={styles.scrollContainer}>
+        <div>
           {this.props.children}
           {this.renderLoading()}
           {this.renderButton()}
@@ -43,7 +43,9 @@ class PaginationContainer extends Component {
     if (!this.props.loading)
       return;
     return (
-      <CircularProgress/>
+      <div style={styles.progressContainer}>
+        <CircularProgress/>
+      </div>
     );
   };
 
@@ -58,11 +60,14 @@ class PaginationContainer extends Component {
 }
 
 styles = {
-  scrollConainer: {
+  progressContainer: {
+    paddingTop: 16,
+    paddingBottom: 16,
     display: 'flex',
-    flex: 1,
-    overflowY: 'auto',
-  },
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    justifyContent: 'center',
+  }
 };
 
 export default PaginationContainer;
