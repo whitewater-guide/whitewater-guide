@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import CircularProgress from 'material-ui/CircularProgress';
 import RaisedButton from 'material-ui/RaisedButton';
+import Waypoint from 'react-waypoint';
 
 class PaginationContainer extends Component {
 
@@ -10,17 +11,33 @@ class PaginationContainer extends Component {
     total: PropTypes.number.isRequired,
     loadMore: PropTypes.func.isRequired,
     style: PropTypes.any,
+    scrollable: PropTypes.bool,
+  };
+
+  static defaultProps = {
+    scrollable: true,
   };
 
   render() {
     return (
       <div style={this.props.style}>
-        {this.props.children}
-        {this.renderLoading()}
-        {this.renderButton()}
+        <div style={styles.scrollContainer}>
+          {this.props.children}
+          {this.renderLoading()}
+          {this.renderButton()}
+          {this.renderWaypoint()}
+        </div>
       </div>
     );
   }
+
+  renderWaypoint = () => {
+    if (this.props.loading || !this.props.scrollable)
+      return;
+    return (
+      <Waypoint onEnter={this.props.loadMore}/>
+    );
+  };
 
   renderLoading = () => {
     if (!this.props.loading)
@@ -39,5 +56,13 @@ class PaginationContainer extends Component {
   };
 
 }
+
+styles = {
+  scrollConainer: {
+    display: 'flex',
+    flex: 1,
+    overflowY: 'auto',
+  },
+};
 
 export default PaginationContainer;
