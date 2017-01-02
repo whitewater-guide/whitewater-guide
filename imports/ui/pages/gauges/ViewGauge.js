@@ -1,11 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Gauges } from '../../../api/gauges';
-import Chart from '../../components/Chart';
-import { Meteor } from 'meteor/meteor';
+import InteractiveChart from '../../components/InteractiveChart';
 import Paper from 'material-ui/Paper';
 import moment from 'moment';
 import _ from 'lodash';
+import { TAPi18n } from 'meteor/tap:i18n';
 
 class ViewGauge extends Component {
   static propTypes = {
@@ -28,7 +28,7 @@ class ViewGauge extends Component {
             <span>{`Last value: ${_.round(lastValue,2 )} from ${moment(lastTimestamp).format('DD/MM/YYYY HH:mm')}`}</span>
           </Paper>
           <Paper style={styles.chartHolder}>
-            <Chart data={this.props.measurements}/>
+            <InteractiveChart gaugeId={this.props.params.gaugeId}/>
           </Paper>
         </div>
       </div>
@@ -63,12 +63,11 @@ const styles = {
 
 const ViewGaugeContainer = createContainer(
   (props) => {
-    const gaugeSubscription = Meteor.subscribe('gauges.details', props.params.gaugeId);
+    const gaugeSubscription = TAPi18n.subscribe('gauges.details', null, props.params.gaugeId);
     const gauge = Gauges.findOne(props.params.gaugeId);
     return {
       ready: gaugeSubscription.ready(),
       gauge,
-      measurements: gauge ? gauge.measurements().fetch() : [],
     };
   },
   ViewGauge
