@@ -16,6 +16,7 @@
     "material-ui-chip-input": "^0.11.1",
     "meteor-node-stubs": "~0.2.0",
     "moment": "^2.15.0",
+    "moment-range": "^2.2.0",
     "needle": "^1.4.2",
     "node-fetch": "^1.6.1",
     "queue": "^4.0.0",

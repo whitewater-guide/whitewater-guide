@@ -1,13 +1,21 @@
-import React, { Component, PropTypes } from 'react';
-import { VictoryAxis, VictoryChart, VictoryLine, VictoryScatter, VictoryTooltip, VictoryTheme } from 'victory';
-import { extent } from 'd3-array';
+import React, {Component, PropTypes} from 'react';
+import {
+  VictoryAxis,
+  VictoryChart,
+  VictoryLine,
+  VictoryScatter,
+  VictoryTooltip,
+  VictoryTheme,
+  VictoryZoom
+} from 'victory';
+import Dimensions from 'react-dimensions';
 import moment from 'moment';
-import Dimensions from 'react-dimensions'
 
 class Chart extends Component {
   static propTypes = {
     data: PropTypes.array.isRequired,
-    days: PropTypes.number,
+    domain: PropTypes.array.isRequired,
+    onDomainChange: PropTypes.func.isRequired,
     minValue: PropTypes.number,
     midValue: PropTypes.number,
     maxValue: PropTypes.number,
@@ -15,27 +23,21 @@ class Chart extends Component {
     containerHeight: PropTypes.number,
   };
 
-  static defaultProps = {
-    days: 1,
-  };
-
   render() {
-    const {data, days, minValue, midValue, maxValue} = this.props;
-    const domain = {
-      x: [moment().subtract(days, 'days').toDate(), new Date()],
-      y: extent(data, d => d.value)
-    };
+    const {data, domain} = this.props;
     return (
-      <VictoryChart domain={domain} scale={{ x: 'time', y: 'linear' }}
-                    width={this.props.containerWidth} height={this.props.containerHeight}
-                    theme={VictoryTheme.material} >
-        <VictoryAxis tickFormat={this.tickFormat} />
-        <VictoryAxis dependentAxis/>
-        <VictoryLine data={data} x="date" y="value"
-          interpolation="monotoneX" style={{ data: { strokeWidth: 1 } }} />
-        <VictoryScatter data={data} x="date" y="value"
-          labelComponent={<VictoryTooltip labels={d => d.value}/>}  />
-      </VictoryChart>
+      <VictoryZoom zoomDomain={{x: domain}} onDomainChange={this.props.onDomainChange}>
+        <VictoryChart scale={{x: 'time', y: 'linear'}}
+                      width={this.props.containerWidth} height={this.props.containerHeight}
+                      theme={VictoryTheme.material}>
+          <VictoryAxis tickFormat={this.tickFormat}/>
+          <VictoryAxis dependentAxis/>
+          <VictoryLine data={data} x="date" y="value"
+                       interpolation="monotoneX" style={{data: {strokeWidth: 1}}}/>
+          <VictoryScatter data={data} x="date" y="value"
+                          labelComponent={<VictoryTooltip labels={d => d.value}/>}/>
+        </VictoryChart>
+      </VictoryZoom>
     );
   }
 

@@ -7,20 +7,18 @@ import {Measurements} from '../../api/measurements';
 class ChartContainer extends Component {
 
   static propTypes = {
-    days: PropTypes.number,
+    subDomain: PropTypes.array.isRequired,
+    chartDomain: PropTypes.array.isRequired,
+    onDomainChange: PropTypes.func.isRequired,
     gaugeId: PropTypes.string.isRequired,
     measurements: PropTypes.array,
     ready: PropTypes.bool,
   };
 
-  static defaultProps = {
-    days: 1,
-  };
-
   render() {
-    const {days, measurements} = this.props;
+    const {chartDomain, measurements, onDomainChange} = this.props;
     return (
-      <Chart data={measurements} days={days}/>
+      <Chart data={measurements} domain={chartDomain} onDomainChange={onDomainChange}/>
     );
   }
 
@@ -28,7 +26,7 @@ class ChartContainer extends Component {
 
 export default createContainer(
   (props) => {
-    const sub = Meteor.subscribe('measurements.forGauge', props.gaugeId, props.days);
+    const sub = Meteor.subscribe('measurements.forGauge', props.gaugeId, props.subDomain);
     const measurements = Measurements.find({gaugeId: props.gaugeId}).fetch();
     return {
       ready: sub.ready(),

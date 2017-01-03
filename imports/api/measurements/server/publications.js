@@ -1,15 +1,12 @@
 import {Meteor} from 'meteor/meteor';
 import {Measurements} from '../index';
 import {SimpleSchema} from 'meteor/aldeed:simple-schema';
-import moment from 'moment';
 
-Meteor.publish('measurements.forGauge', function (gaugeId, days) {
+Meteor.publish('measurements.forGauge', function (gaugeId, domain) {
   new SimpleSchema({
     gaugeId: {type: String},
-    days: {type: Number, min: 1, max: 31}
-  }).validate({gaugeId, days});
+    domain: {type: [Date]}
+  }).validate({gaugeId, domain});
 
-  const startDate = moment().subtract(days, 'days').toDate();
-
-  return Measurements.find({gaugeId, date: {$gte: startDate}});
+  return Measurements.find({gaugeId, date: {$gte: domain[0], $lt: domain[1]}});
 });
