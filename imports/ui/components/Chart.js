@@ -25,19 +25,18 @@ class Chart extends Component {
 
   render() {
     const {data, domain} = this.props;
+    //<VictoryZoom zoomDomain={{x: domain}} onDomainChange={this.props.onDomainChange}>
     return (
-      <VictoryZoom zoomDomain={{x: domain}} onDomainChange={this.props.onDomainChange}>
-        <VictoryChart scale={{x: 'time', y: 'linear'}}
-                      width={this.props.containerWidth} height={this.props.containerHeight}
-                      theme={VictoryTheme.material}>
-          <VictoryAxis tickFormat={this.tickFormat}/>
-          <VictoryAxis dependentAxis/>
-          <VictoryLine data={data} x="date" y="value"
-                       interpolation="monotoneX" style={{data: {strokeWidth: 1}}}/>
-          <VictoryScatter data={data} x="date" y="value"
-                          labelComponent={<VictoryTooltip labels={d => d.value}/>}/>
-        </VictoryChart>
-      </VictoryZoom>
+      <VictoryChart scale={{x: 'time', y: 'linear'}} domain={{x: domain}}
+                    width={this.props.containerWidth} height={this.props.containerHeight}
+                    theme={VictoryTheme.material}>
+        <VictoryAxis tickFormat={this.tickFormat}/>
+        <VictoryAxis dependentAxis/>
+        <VictoryLine data={data} x="date" y="value"
+                     interpolation="monotoneX" style={{data: {strokeWidth: 1}}}/>
+        <VictoryScatter data={data} x="date" y="value"
+                        labelComponent={<VictoryTooltip labels={d => d.value}/>}/>
+      </VictoryChart>
     );
   }
 
