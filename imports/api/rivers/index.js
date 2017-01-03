@@ -45,6 +45,13 @@ const RiversSchema = new SimpleSchema([
         return this.isSet ? undefined : this.userId;
       }
     },
+    updatedAt: {
+      type: Date,
+      autoValue: function() {
+        return new Date();
+      },
+      optional: true
+    },
     i18n: {
       type: Object,
       optional: true,
