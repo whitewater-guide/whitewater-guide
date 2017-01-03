@@ -65,6 +65,11 @@ const SectionBaseSchema = new SimpleSchema({
     type: String,
     label: 'River',
   },
+  regionId: {//Denormalized on create/update
+    type: String,
+    label: 'Region',
+    optional: true,
+  },
   gaugeId: {
     type: String,
     label: 'Gauge',
@@ -283,6 +288,11 @@ export const upsertSection = new AdminMethod({
     takeOutId = takeOutId || takeOutResult.insertedId;
 
     updates = {...updates, mediaIds, poiIds, putInId, takeOutId};
+
+    const river = Rivers.findOne({_id: updates.riverId}, {fields: {regionId: 1}});
+    if (river)
+      updates.regionId = river.regionId;
+
     return Sections.upsertTranslations(_id, {[language]: updates});
   }
 });
