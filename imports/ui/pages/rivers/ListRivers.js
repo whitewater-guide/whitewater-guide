@@ -1,11 +1,14 @@
 import React, {Component, PropTypes} from 'react';
 import IconButton from 'material-ui/IconButton';
 import {Meteor} from 'meteor/meteor';
+import {Counts} from 'meteor/tmeasday:publish-counts';
 import {Rivers, removeRiver} from '../../../api/rivers';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import {createContainer} from 'meteor/react-meteor-data';
 import {withRouter} from 'react-router';
 import withAdmin from '../../hoc/withAdmin';
+import withPagination from "../../hoc/withPagination";
+import PaginationContainer from '../../components/PaginationContainer';
 import _ from 'lodash';
 
 class ListRivers extends Component {
@@ -16,25 +19,30 @@ class ListRivers extends Component {
     ready: PropTypes.bool,
     router: PropTypes.object,
     location: PropTypes.object,
+    limit: PropTypes.number,
+    loadMore: PropTypes.func,
+    numRivers: PropTypes.number,
   };
 
   render() {
+    const {admin, rivers, limit, loadMore, ready, numRivers} = this.props;
+
     return (
-      <div style={styles.container}>
+      <PaginationContainer style={styles.container} limit={limit} loading={!ready} loadMore={loadMore} total={numRivers}>
         <Table selectable={false} onCellClick={this.onCellClick}>
           <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
             <TableRow>
               <TableHeaderColumn>Name</TableHeaderColumn>
               <TableHeaderColumn>Region</TableHeaderColumn>
               <TableHeaderColumn>Description</TableHeaderColumn>
-              {this.props.admin && <TableHeaderColumn>Controls</TableHeaderColumn>}
+              {admin && <TableHeaderColumn>Controls</TableHeaderColumn>}
             </TableRow>
           </TableHeader>
           <TableBody displayRowCheckbox={false} stripedRows={true}>
-            { this.props.ready && this.props.rivers.map(this.renderRow) }
+            { rivers.map(this.renderRow) }
           </TableBody>
         </Table>
-      </div>
+      </PaginationContainer>
     );
   }
 
@@ -96,14 +104,16 @@ const styles = {
 const ListRiversContainer = createContainer(
   (props) => {
     const regionId = _.get(props, 'location.query.regionId');
-    const sub = Meteor.subscribe('rivers.list', regionId);
+    const sub = Meteor.subscribe('rivers.list', regionId, props.limit);
     const rivers = Rivers.find().fetch();
+    const numRivers = Counts.get(`counter.gauges.${regionId}`);
     return {
       ready: sub.ready(),
-      rivers,
+      rivers: rivers || [],
+      numRivers,
     };
   },
   ListRivers
 );
 
-export default withRouter(withAdmin(ListRiversContainer));
+export default _.flow(withAdmin, withRouter, withPagination(25, 25))(ListRiversContainer);
