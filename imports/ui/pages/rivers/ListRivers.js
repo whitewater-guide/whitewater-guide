@@ -1,11 +1,12 @@
-import React, { Component, PropTypes } from 'react';
+import React, {Component, PropTypes} from 'react';
 import IconButton from 'material-ui/IconButton';
-import { Meteor } from 'meteor/meteor';
-import { Rivers, removeRiver } from '../../../api/rivers';
-import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
-import { createContainer } from 'meteor/react-meteor-data';
-import { withRouter } from 'react-router';
+import {Meteor} from 'meteor/meteor';
+import {Rivers, removeRiver} from '../../../api/rivers';
+import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+import {createContainer} from 'meteor/react-meteor-data';
+import {withRouter} from 'react-router';
 import withAdmin from '../../hoc/withAdmin';
+import _ from 'lodash';
 
 class ListRivers extends Component {
 
@@ -14,13 +15,14 @@ class ListRivers extends Component {
     admin: PropTypes.bool,
     ready: PropTypes.bool,
     router: PropTypes.object,
+    location: PropTypes.object,
   };
 
   render() {
     return (
       <div style={styles.container}>
         <Table selectable={false} onCellClick={this.onCellClick}>
-          <TableHeader displaySelectAll={false} adjustForCheckbox={false} >
+          <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
             <TableRow>
               <TableHeaderColumn>Name</TableHeaderColumn>
               <TableHeaderColumn>Region</TableHeaderColumn>
@@ -52,10 +54,13 @@ class ListRivers extends Component {
     if (!admin)
       return null;
     const editHandler = () => this.props.router.push(`/rivers/${river._id}/settings`);
-    const deleteHandler = () => removeRiver.call({ riverId: river._id });
+    const deleteHandler = () => removeRiver.call({riverId: river._id});
     return (
       <TableRowColumn>
-        <div onClick={(e) => { e.preventDefault(); e.stopPropagation(); } }>
+        <div onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+        } }>
           <IconButton iconClassName="material-icons" onTouchTap={editHandler}>mode_edit</IconButton>
           <IconButton iconClassName="material-icons" onTouchTap={deleteHandler}>delete_forever</IconButton>
         </div>
@@ -89,8 +94,9 @@ const styles = {
 };
 
 const ListRiversContainer = createContainer(
-  () => {
-    const sub = Meteor.subscribe('rivers.list');
+  (props) => {
+    const regionId = _.get(props, 'location.query.regionId');
+    const sub = Meteor.subscribe('rivers.list', regionId);
     const rivers = Rivers.find().fetch();
     return {
       ready: sub.ready(),

@@ -67,6 +67,17 @@ class ListRegions extends Component {
     );
   };
 
+  onCellClick = (rowId) => {
+    const {router, regions} = this.props;
+    const location = {
+      pathname: '/rivers',
+      query: {
+        regionId: regions[rowId]._id,
+      },
+    };
+    router.push(location);
+  };
+
   renderCreateForm = () => {
     if (!this.props.admin)
       return;

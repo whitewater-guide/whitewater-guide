@@ -4,10 +4,13 @@ import {Regions} from '../../regions';
 import {Sections} from '../../sections';
 import {SimpleSchema} from 'meteor/aldeed:simple-schema';
 
-Meteor.publishComposite('rivers.list', function(lang) {
+Meteor.publishComposite('rivers.list', function(regionId, lang) {
   return {
     find: function () {
-      return Rivers.find({}, {lang});
+      const query = {};
+      if (regionId)
+        query.regionId = regionId;
+      return Rivers.find(query, {lang});
     },
 
     children: [
