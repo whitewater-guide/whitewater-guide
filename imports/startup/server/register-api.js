@@ -24,7 +24,7 @@ import '../../api/rivers/server';
 import '../../api/rivers/server/publications';
 
 import '../../api/sections';
-// import '../../api/regions/server';
+import '../../api/sections/server';
 import '../../api/sections/server/publications';
 
 import '../../api/files';
