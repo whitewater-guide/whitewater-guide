@@ -265,8 +265,10 @@ export const upsertSection = new AdminMethod({
     //First, handle media attachments
     const mediaIds = _.chain(media)
       .map(mediaItem => {
-        if (mediaItem.deleted)
+        if (mediaItem.deleted) {
+          Media.remove({_id: mediaItem._id});
           return null;
+        }
         delete mediaItem.deleted;//Do not need to store this in mongo
         const mediaItemId = mediaItem._id;
         delete mediaItem._id;
@@ -277,8 +279,10 @@ export const upsertSection = new AdminMethod({
       .value();
     const poiIds = _.chain(pois)
       .map(poiItem => {
-        if (poiItem.deleted)
+        if (poiItem.deleted) {
+          Points.remove({_id: poiItem._id});
           return null;
+        }
         delete poiItem.deleted;//Do not need to store this in mongo
         const poiItemId = poiItem._id;
         delete poiItem._id;
