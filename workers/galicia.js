@@ -20,6 +20,7 @@ function harvest(){
           code: gauge.ide,
           location: {
             type: 'Point',
+            kind: 'gauge',
             coordinates: [
               Number(gauge.lonxitude),
               Number(gauge.latitude)

@@ -26,6 +26,7 @@ function parseGaugesListHTML(callback){
             url: URL_BASE + tds.eq(0).find('a').first().attr('href'),
             location: {
               type: 'Point',
+              kind: 'gauge',
               altitude: Number(tds.eq(2).text().replace('m', ''))
             },
             timestamp: moment(tds.eq(5).text(), 'DD.MM.YYYY HH:mm').valueOf()//unix timestamp in ms

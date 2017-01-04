@@ -6,6 +6,10 @@ var uglify = require('gulp-uglify');
 var buffer = require('gulp-buffer');
 var babelify    = require('babelify');
 
+/**
+ * Workers must be transpiled and bundled in order to
+ * be executed on server independently
+ */
 gulp.task('bundle-workers', function () {
   return gulp.src([
     'workers/*.js',

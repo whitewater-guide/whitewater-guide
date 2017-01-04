@@ -18,6 +18,7 @@ function harvest(){
           code: gauge.number,
           location: {
             type: 'Point',
+            kind: 'gauge',
             altitude: Number(gauge.altitude),
             coordinates: [
               Number(gauge.longitude),
