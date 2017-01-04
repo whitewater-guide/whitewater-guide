@@ -3,6 +3,7 @@ import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import {POITypes} from '../../api/points';
+import IconButton from 'material-ui/IconButton';
 import _ from 'lodash';
 
 class CoordinatesGroup extends Component {
@@ -49,6 +50,9 @@ class CoordinatesGroup extends Component {
           >
             {POITypes.map(this.renderPointKind)}
           </SelectField>
+          <IconButton iconClassName="material-icons" onTouchTap={this.onDelete}>
+            {value.deleted ? 'undo' : 'clear'}
+          </IconButton>
         </div>
         }
         { this.props.detailed &&
@@ -136,6 +140,11 @@ class CoordinatesGroup extends Component {
   onLatitudeChange = (e, latitude) => {
     let {field: {value}} = this.props;
     this.onChange({...value, coordinates: [_.get(value, 'coordinates.0'), latitude]});
+  };
+
+  onDelete = () => {
+    const value = this.props.field.value;
+    this.props.field.onChange({...value, deleted: !value.deleted});
   };
 
   onChange = (value) => {
