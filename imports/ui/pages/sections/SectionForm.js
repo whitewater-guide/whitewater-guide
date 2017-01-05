@@ -59,8 +59,10 @@ class SectionForm extends Component {
           <Tab label="Main" value="#main">
             <TextField value={river.name} disabled={true} hintText="River" floatingLabelText="River"
                        style={styles.textInput}/>
+            <Field name="name" title="Name" component={TextInput}/>
             <div style={styles.row}>
-              <Field name="name" title="Name" component={TextInput}/>
+              <Field name="difficulty" title="Difficulty (I-VI)" component={TextInput} type="number"/>
+              <Field name="difficultyXtra" title="Difficulty (extra)" component={TextInput}/>
               <Field name="rating" title="Rating" component={Rating}/>
             </div>
             <Field name="gaugeId" title="Gauge" component={Select} options={this.props.gauges}/>
@@ -76,8 +78,6 @@ class SectionForm extends Component {
           </Tab>
           <Tab label="Properties" value="#properties">
             <div style={styles.row}>
-              <Field name="difficulty" title="Difficulty (I-VI)" component={TextInput} type="number"/>
-              <Field name="difficultyXtra" title="X's" component={TextInput}/>
               <Field name="drop" title="Drop, m" component={TextInput} type="number"/>
               <Field name="distance" title="Length, km" component={TextInput} type="number"/>
               <Field name="duration" title="Duration" component={Select} options={Durations}
