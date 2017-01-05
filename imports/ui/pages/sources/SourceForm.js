@@ -1,9 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { listScripts } from '../../../api/sources';
-import { Form, Field, TextInput, Select, ChipInput } from '../../forms';
+import { Form, Field, TextInput, Select, ChipInput, RichTextInput } from '../../forms';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Meteor} from 'meteor/meteor';
 import { Regions } from '../../../api/regions';
+import {Tabs, Tab} from 'material-ui/Tabs';
 import _ from 'lodash';
 
 class SourceForm extends Component {
@@ -42,12 +43,19 @@ class SourceForm extends Component {
             transformBeforeSubmit={this.transformBeforeSubmit}
             name="sources"
       >
-        <Field name="name" title="Name" component={TextInput}/>      
-        <Field name="url" title="URL" component={TextInput}/>
-        <Field name="regionIds" title="Regions" component={ChipInput} options={regions}/>
-        <Field name="script" title="Script" component={Select} options={scripts}
-               extractKey={_.property('script')} extractValue={_.property('script')} extractLabel={_.property('script')}/>
-        <Field name="cron" title="Cron expression" component={TextInput}/>
+        <Tabs>
+          <Tab label="Main" value="#main">
+            <Field name="name" title="Name" component={TextInput}/>
+            <Field name="url" title="URL" component={TextInput}/>
+            <Field name="regionIds" title="Regions" component={ChipInput} options={regions}/>
+            <Field name="script" title="Script" component={Select} options={scripts}
+                   extractKey={_.property('script')} extractValue={_.property('script')} extractLabel={_.property('script')}/>
+            <Field name="cron" title="Cron expression" component={TextInput}/>
+          </Tab>
+          <Tab label="Terms of use" value="#terms">
+            <Field name="termsOfUse" title="Terms of use" component={RichTextInput}/>
+          </Tab>
+        </Tabs>
       </Form>      
     );
   }

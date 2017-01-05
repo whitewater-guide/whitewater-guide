@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import FlatButton from 'material-ui/FlatButton';
+import FlatLinkButton from '../../components/FlatLinkButton';
 import { Gauges, removeAllGauges, removeDisabledGauges, enableAll } from '../../../api/gauges';
 import { generateSchedule } from '../../../api/sources';
 import {autofill} from '../../../api/sources';
@@ -29,6 +30,7 @@ class ListGaugesLeft extends Component {
         {admin && numGauges > 0 && <FlatButton secondary={true} onTouchTap={this.enableAll} label="Enable all"/>}
         {admin && numGauges > 0 && <FlatButton secondary={true} onTouchTap={this.removeAllGauges} label="Remove all" />}
         {admin && numGauges > 0 && <FlatButton secondary={true} onTouchTap={this.removeDisabledGauges} label="Remove disabled"/>}
+        <FlatLinkButton secondary={true} to={`/sources/${this.props.location.query.sourceId}/terms_of_use`} label="Terms of use" />
       </div>
     );
   }

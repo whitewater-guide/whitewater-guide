@@ -24,6 +24,7 @@ class ViewSourceLeft extends Component {
       <div style={styles.container}>
         {admin && <FlatLinkButton secondary={true} to={`/sources/${sourceId}/schedule`} label="Schedule" />}
         {admin && <FlatLinkButton secondary={true} to={`/sources/${sourceId}/settings`} label="Settings" />}
+        <FlatLinkButton secondary={true} to={`/sources/${sourceId}/terms_of_use`} label="Terms of use" />
         <FlatLinkButton secondary={true} to={toGauges} label="Gauges" />
         {this.props.sourceLeft}
       </div>

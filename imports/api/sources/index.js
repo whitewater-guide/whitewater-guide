@@ -20,6 +20,11 @@ const SourcesSchema = new SimpleSchema({
     min: 3,
     max: 100,
   },
+  termsOfUse: {
+    type: String,
+    label: 'Terms of use',
+    optional: true,
+  },
   script: {
     type: String,
     label: 'Script name',
