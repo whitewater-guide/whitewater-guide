@@ -28,7 +28,7 @@ class ViewRiver extends Component {
             <h1>{this.props.river.name}</h1>
             <p>{this.props.river.description}</p>
             <h2>Sections</h2>
-            <ListSections sections={this.props.river.sections().fetch()}/>
+            <ListSections river={this.props.river}/>
           </Paper>
         </div>
       </div>

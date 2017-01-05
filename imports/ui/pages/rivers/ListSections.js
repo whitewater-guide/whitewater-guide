@@ -8,11 +8,24 @@ import {withRouter} from "react-router";
 class ListSections extends Component {
 
   static propTypes = {
-    sections: PropTypes.array,
+    river: PropTypes.object,//Document
     admin: PropTypes.bool,
     style: PropTypes.object,
     router: PropTypes.object,
   };
+
+  constructor(props){
+    super(props);
+    this.state = {
+      sections: props.river.sections().fetch()
+    };
+  }
+
+  componentWillReceiveProps(nextProps){
+    if (this.props.river !== nextProps.river){
+      this.refreshSections();
+    }
+  }
 
   render() {
     return (
@@ -26,7 +39,7 @@ class ListSections extends Component {
           </TableRow>
         </TableHeader>
         <TableBody displayRowCheckbox={false} stripedRows={true}>
-          { this.props.sections && this.props.sections.map(this.renderRow) }
+          { this.state.sections && this.state.sections.map(this.renderRow) }
         </TableBody>
       </Table>
     );
@@ -48,7 +61,7 @@ class ListSections extends Component {
     if (!admin)
       return null;
     const editHandler = () => router.push(`/sections/${section._id}/settings`);
-    const deleteHandler = () => removeSection.call({ sectionId: section._id });
+    const deleteHandler = () => this.deleteSection(section._id);
     return (
       <TableRowColumn>
         <div onClick={(e) => { e.preventDefault(); e.stopPropagation(); } }>
@@ -57,6 +70,16 @@ class ListSections extends Component {
         </div>
       </TableRowColumn>
     );
+  };
+
+  refreshSections = () => {
+    this.setState({sections: this.props.river.sections().fetch()});
+  };
+
+  deleteSection = (sectionId) => {
+    removeSection.callPromise({sectionId})
+      .then(() => this.refreshSections())
+      .catch(error => console.error(`Unable to delete section: ${error}`));
   };
 
   onCellClick = (rowId) => {
