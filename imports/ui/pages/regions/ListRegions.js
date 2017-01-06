@@ -58,9 +58,11 @@ class ListRegions extends Component {
     if (!admin)
       return null;
     const deleteHandler = () => removeRegion.call({ regionId: region._id });
+    const editHandler = () => this.props.router.push(`/regions/${region._id}/settings`);
     return (
       <TableRowColumn>
         <div onClick={(e) => { e.preventDefault(); e.stopPropagation(); } }>
+          <IconButton iconClassName="material-icons" onTouchTap={editHandler}>mode_edit</IconButton>
           <IconButton iconClassName="material-icons" onTouchTap={deleteHandler}>delete_forever</IconButton>
         </div>
       </TableRowColumn>

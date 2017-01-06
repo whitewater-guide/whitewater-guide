@@ -28,6 +28,8 @@ import SectionsLeft from "../../ui/pages/sections/SectionsLeft";
 import EditSection from "../../ui/pages/sections/EditSection";
 import ListSections from "../../ui/pages/sections/ListSections";
 import ManageFiles from "../../ui/pages/files/ManageFiles";
+import EditRegion from "../../ui/pages/regions/EditRegion";
+import ViewRegion from "../../ui/pages/regions/ViewRegion";
 
 export default class AppRouter extends Component {
   render() {
@@ -58,7 +60,13 @@ export default class AppRouter extends Component {
             </Route>
           </Route>
 
-          <Route path="regions" name="Regions" components={{ content: ListRegions }}/>
+          <Route path="regions" name="Regions">
+            <IndexRoute breadcrumbIgnore={true} components={{content: ListRegions}} />
+            <Route path=":regionId" breadcrumbName=":regionId" >
+              <IndexRoute breadcrumbIgnore={true} components={{content: ViewRegion}} />
+              <Route path="settings" name="Settings" components={{content: EditRegion}}/>
+            </Route>
+          </Route>
 
           <Route path="rivers" name="Rivers">
             <IndexRoute breadcrumbIgnore={true} components={{content: ListRivers, left: ListRiversLeft}} />
