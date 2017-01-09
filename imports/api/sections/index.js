@@ -3,6 +3,7 @@ import {SimpleSchema} from 'meteor/aldeed:simple-schema';
 import AdminMethod from '../../utils/AdminMethod';
 import {Rivers} from '../rivers';
 import {Gauges} from '../gauges';
+import {Measurements} from '../measurements';
 import {Points, PointSchema} from '../points';
 import {Media, MediaSchema} from '../media';
 import _ from 'lodash';
@@ -39,6 +40,17 @@ const LevelsSchema = new SimpleSchema({
   approximate: {
     type: Boolean,
     label: 'Is approximate',
+    optional: true,
+  },
+  lastTimestamp: {//Hooked to measurements insert
+    type: Date,
+    label: 'Last measurement date',
+    optional: true,
+  },
+  lastValue: {//Hooked to measurements insert
+    type: Number,
+    label: 'Last measured value',
+    decimal: true,
     optional: true,
   },
 });
