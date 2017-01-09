@@ -9,17 +9,49 @@ import { Roles } from 'meteor/alanning:roles';
 import { SupplyTags, KayakingTags, HazardTags, MiscTags} from '../../tags';
 import { TAPi18n } from 'meteor/tap:i18n';
 
-Meteor.publishComposite('sections.list', function(riverId) {
+const querySchema = new SimpleSchema({
+  sectionId: {
+    type: String,
+    optional: true,
+    regEx: SimpleSchema.RegEx.Id,
+  },
+  regionId: {
+    type: String,
+    optional: true,
+    regEx: SimpleSchema.RegEx.Id,
+  },
+  name: {
+    type: String,
+    optional: true,
+  },
+  difficulty: {
+    type: Number,
+    optional: true,
+    decimal: true,
+    min: 1,
+    max: 6,
+  },
+  rating: {
+    type: Number,
+    optional: true,
+    decimal: true,
+    min: 0,
+    max: 5,
+  },
+});
+
+Meteor.publishComposite('sections.list', function(query) {
   return {
     find: function () {
-      return Sections.find({riverId});
+      querySchema.validate(query);
+      return Sections.find(query);
     },
 
     children: [
       //River
       {
-        find: function (section) {
-          return Rivers.find(section.riverId, {limit: 1, fields: {name: 1}});
+        find: function (sectionDoc) {
+          return Rivers.find(sectionDoc.riverId, {limit: 1, fields: {name: 1}});
         }
       },
       //Gauge

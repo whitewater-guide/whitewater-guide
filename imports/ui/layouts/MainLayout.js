@@ -27,6 +27,7 @@ class MainLayout extends Component {
           <FlatLinkButton to="/sources" label="Sources" secondary={true}/>
           <FlatLinkButton to="/regions" label="Regions" secondary={true}/>
           <FlatLinkButton to="/rivers" label="Rivers" secondary={true}/>
+          <FlatLinkButton to="/sections" label="Sections" secondary={true}/>
           <FlatLinkButton to="/files" label="Images" secondary={true}/>
           { this.props.left }
         </div>

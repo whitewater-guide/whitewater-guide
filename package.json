@@ -32,6 +32,7 @@
     "react-router": "^3.0.0",
     "react-router-breadcrumbs": "^1.2.0",
     "react-tap-event-plugin": "^2.0.1",
+    "react-virtualized": "^8.8.1",
     "react-waypoint": "^4.1.0",
     "tress": "^1.0.3",
     "victory": "^0.14.0"
