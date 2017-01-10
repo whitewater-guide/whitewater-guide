@@ -32,7 +32,7 @@ class PaginationContainer extends Component {
   }
 
   renderWaypoint = () => {
-    if (this.props.loading || !this.props.scrollable)
+    if (this.props.loading || !this.props.scrollable || this.props.limit >= this.props.total)
       return;
     return (
       <Waypoint onEnter={this.props.loadMore}/>

@@ -5,9 +5,10 @@ import {Gauges} from '../../gauges';
 import {Media} from '../../media';
 import {Points} from '../../points';
 import {SimpleSchema} from 'meteor/aldeed:simple-schema';
-import { Roles } from 'meteor/alanning:roles';
-import { SupplyTags, KayakingTags, HazardTags, MiscTags} from '../../tags';
-import { TAPi18n } from 'meteor/tap:i18n';
+import {Roles} from 'meteor/alanning:roles';
+import {SupplyTags, KayakingTags, HazardTags, MiscTags} from '../../tags';
+import {TAPi18n} from 'meteor/tap:i18n';
+import {Counts} from 'meteor/tmeasday:publish-counts';
 
 const querySchema = new SimpleSchema({
   sectionId: {
@@ -40,24 +41,25 @@ const querySchema = new SimpleSchema({
   },
 });
 
-Meteor.publishComposite('sections.list', function(query) {
+Meteor.publishComposite('sections.list', function (query, limit = 25, lang = 'en') {
   return {
     find: function () {
       querySchema.validate(query);
-      return Sections.find(query);
+      Counts.publish(this, `counter.sections.current`, Sections.find(query), {noReady: true});
+      return Sections.find(query, {limit, lang, sort: {name: 1}});
     },
 
     children: [
       //River
       {
         find: function (sectionDoc) {
-          return Rivers.find(sectionDoc.riverId, {limit: 1, fields: {name: 1}});
+          return Rivers.find(sectionDoc.riverId, {limit: 1, lang, fields: {name: 1}});
         }
       },
       //Gauge
       {
         find: function (section) {
-          return Gauges.find(section.gaugeId, {limit: 1, fields: {name: 1}});
+          return Gauges.find(section.gaugeId, {limit: 1, lang, fields: {name: 1}});
         }
       }
     ]
@@ -70,7 +72,7 @@ TAPi18n.publish('sections.details', function (sectionId) {
 
   new SimpleSchema({
     sectionId: {type: String}
-  }).validate({ sectionId });
+  }).validate({sectionId});
 
   return Sections.find(sectionId);
 });
@@ -92,8 +94,12 @@ Meteor.publishComposite('sections.edit', function (sectionId, riverId, lang) {
   //   riverId: {type: String}
   // }).validate({ riverId });
 
-  if (!isAdmin){
-    return {find(){return null;}};
+  if (!isAdmin) {
+    return {
+      find(){
+        return null;
+      }
+    };
   }
 
   const publishAuxiliaryData = {
@@ -137,7 +143,7 @@ Meteor.publishComposite('sections.edit', function (sectionId, riverId, lang) {
     ]
   };
 
-  if (sectionId){
+  if (sectionId) {
     return {
       find(){
         return Sections.find(sectionId, {limit: 1, lang});
