@@ -123,7 +123,6 @@ const SectionBaseSchema = new SimpleSchema({
     type: String,
     label: 'Additional difficulty',
     optional: true,
-    max: 6,
   },
   drop: {
     type: Number,
