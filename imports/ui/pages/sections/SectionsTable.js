@@ -32,7 +32,7 @@ class SectionsTable extends Component {
             height={height}
             headerHeight={20}
             rowHeight={30}
-            rowCount={numSections}
+            rowCount={sortedSections.length}
             rowGetter={({index}) => sortedSections[index]}
             sortBy={this.state.sortBy}
             sortDirection={this.state.sortDirection}
