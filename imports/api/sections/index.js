@@ -70,6 +70,11 @@ export const SectionI18nSchema = new SimpleSchema({
     label: 'Season',
     optional: true,
   },
+  riverName: {//Denormalized
+    type: String,
+    label: 'River name',
+    optional: true,
+  },
 });
 
 const SectionBaseSchema = new SimpleSchema({
@@ -312,8 +317,10 @@ export const upsertSection = new AdminMethod({
     updates = {...updates, mediaIds, poiIds, putInId, takeOutId};
 
     const river = Rivers.findOne({_id: updates.riverId}, {fields: {regionId: 1}});
-    if (river)
+    if (river) {
       updates.regionId = river.regionId;
+      updates.riverName = river.name;
+    }
 
     return Sections.upsertTranslations(_id, {[language]: updates});
   }
