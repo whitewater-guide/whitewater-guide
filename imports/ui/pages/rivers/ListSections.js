@@ -50,7 +50,7 @@ class ListSections extends Component {
       <TableRow key={section._id}>
         <TableRowColumn>{section.name}</TableRowColumn>
         <TableRowColumn>{section.difficulty}</TableRowColumn>
-        <TableRowColumn>{section.length}</TableRowColumn>
+        <TableRowColumn>{section.distance}</TableRowColumn>
         { this.renderAdminControls(section) }
       </TableRow>
     );
