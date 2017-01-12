@@ -1,9 +1,11 @@
-import React, { Component, PropTypes } from 'react';
+import React, {Component, PropTypes} from 'react';
 import IconButton from 'material-ui/IconButton';
-import { removeSection } from '../../../api/sections';
-import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
+import {removeSection} from '../../../api/sections';
+import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import withAdmin from '../../hoc/withAdmin';
 import {withRouter} from "react-router";
+import {toRomanDifficulty} from '../../../utils/TextUtils';
+import Rating from '../../forms/Rating';
 
 class ListSections extends Component {
 
@@ -14,15 +16,15 @@ class ListSections extends Component {
     router: PropTypes.object,
   };
 
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       sections: props.river.sections().fetch()
     };
   }
 
-  componentWillReceiveProps(nextProps){
-    if (this.props.river !== nextProps.river){
+  componentWillReceiveProps(nextProps) {
+    if (this.props.river !== nextProps.river) {
       this.refreshSections();
     }
   }
@@ -30,10 +32,11 @@ class ListSections extends Component {
   render() {
     return (
       <Table style={this.props.style} selectable={false} onCellClick={this.onCellClick}>
-        <TableHeader displaySelectAll={false} adjustForCheckbox={false} >
+        <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
           <TableRow>
             <TableHeaderColumn>Name</TableHeaderColumn>
             <TableHeaderColumn>Difficulty</TableHeaderColumn>
+            <TableHeaderColumn>Rating</TableHeaderColumn>
             <TableHeaderColumn>Length</TableHeaderColumn>
             {this.props.admin && <TableHeaderColumn>Controls</TableHeaderColumn>}
           </TableRow>
@@ -46,10 +49,15 @@ class ListSections extends Component {
   }
 
   renderRow = (section) => {
+    let difficulty = section.difficulty;
+    if (section.difficultyXtra)
+      difficulty = toRomanDifficulty(difficulty) + ' (' + section.difficultyXtra + ')';
+    const ratingField = {value: section.rating};
     return (
       <TableRow key={section._id}>
         <TableRowColumn>{section.name}</TableRowColumn>
-        <TableRowColumn>{section.difficulty}</TableRowColumn>
+        <TableRowColumn>{difficulty}</TableRowColumn>
+        <TableRowColumn><Rating field={ratingField} style={styles.rating}/></TableRowColumn>
         <TableRowColumn>{section.distance}</TableRowColumn>
         { this.renderAdminControls(section) }
       </TableRow>
@@ -64,7 +72,10 @@ class ListSections extends Component {
     const deleteHandler = () => this.deleteSection(section._id);
     return (
       <TableRowColumn>
-        <div onClick={(e) => { e.preventDefault(); e.stopPropagation(); } }>
+        <div onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+        } }>
           <IconButton iconClassName="material-icons" onTouchTap={editHandler}>mode_edit</IconButton>
           <IconButton iconClassName="material-icons" onTouchTap={deleteHandler}>delete_forever</IconButton>
         </div>
@@ -88,5 +99,11 @@ class ListSections extends Component {
   };
 
 }
+
+const styles = {
+  rating: {
+    alignItems: 'flex-start',
+  },
+};
 
 export default withRouter(withAdmin(ListSections));
