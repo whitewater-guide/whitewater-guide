@@ -47,10 +47,14 @@ class ListRivers extends Component {
   }
 
   renderRow = (river) => {
+    let region = '';
+    try {
+      region = river.region().fetch()[0].name;
+    } catch (ex){}
     return (
       <TableRow key={river._id}>
         <TableRowColumn>{river.name}</TableRowColumn>
-        <TableRowColumn>{river.region().fetch()[0].name}</TableRowColumn>
+        <TableRowColumn>{region}</TableRowColumn>
         <TableRowColumn>{river.description}</TableRowColumn>
         { this.renderAdminControls(river) }
       </TableRow>
