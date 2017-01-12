@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { TAPi18n } from 'meteor/tap:i18n';
+import create from 'lodash/create';
 
 const transform = function(options, collectionTransform) {
   return (doc) => {
@@ -16,12 +17,15 @@ const transform = function(options, collectionTransform) {
       return doc
     }
 
+    const originalDoc = doc;
     doc = {...doc}; // protect original object.
     if (doc.i18n[options.lang]) {
       doc = {...doc, ...doc.i18n[options.lang]};
     }
 
     delete doc.i18n;
+
+    doc = create(Object.getPrototypeOf(originalDoc), doc);
 
     return doc;
   }
