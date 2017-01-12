@@ -35,16 +35,18 @@ class RichTextInput extends Component {
   render() {
     const value = this.props.field.value === undefined ? '' : this.props.field.value;
     return (
-      <Quill
-        ref="quill"
-        theme="snow"
-        value={value}
-        modules={this.quillModules}
-        formats={quillFormats}
-        toolbar={false}
-        style={styles.quill}
-        onChange={this.props.field.onChange}
-      />
+      <div spellCheck={true}>
+        <Quill
+          ref="quill"
+          theme="snow"
+          value={value}
+          modules={this.quillModules}
+          formats={quillFormats}
+          toolbar={false}
+          style={styles.quill}
+          onChange={this.props.field.onChange}
+        />
+      </div>
     );
   }
 
