@@ -49,9 +49,9 @@ class ListSections extends Component {
   }
 
   renderRow = (section) => {
-    let difficulty = section.difficulty;
+    let difficulty = toRomanDifficulty(section.difficulty);
     if (section.difficultyXtra)
-      difficulty = toRomanDifficulty(difficulty) + ' (' + section.difficultyXtra + ')';
+      difficulty = difficulty + ' (' + section.difficultyXtra + ')';
     const ratingField = {value: section.rating};
     return (
       <TableRow key={section._id}>
