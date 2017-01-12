@@ -47,10 +47,19 @@ Jobs.processJobs('harvest', {}, (job, callback) => {
   try {
     const measurements = launchScriptFiber(job.data);
     let insertCount = 0;
-    const finishJob = after(measurements.length, () => job.done({measurements: insertCount}));
+    const finishJob = after(measurements.length, () => {
+      job.done({measurements: insertCount});
+      console.info(`Harvested ${insertCount} measurements for task ${JSON.stringify(job.data)}`);
+      callback();
+    });
     measurements.forEach(measurement => {
-      const gaugeId = job.data.gaugeId ? job.data.gaugeId : Gauges.findOne({ sourceId: job.data.sourceId, code: String(measurement.code)})._id;
-      if (measurement.value) {
+      let gaugeId = job.data.gaugeId;//For one by one sources
+      if (!gaugeId) {//For allAtOnce sources
+        let gauge = Gauges.findOne({sourceId: job.data.sourceId, code: String(measurement.code)});
+        if (gauge)//Gauge might be deleted
+          gaugeId = gauge._id;
+      }
+      if (gaugeId && measurement.value) {
         Measurements.insert({
           gaugeId: gaugeId,
           date: new Date(measurement.timestamp),
@@ -63,13 +72,16 @@ Jobs.processJobs('harvest', {}, (job, callback) => {
           finishJob();
         });
       }
+      else {
+        finishJob();
+      }
     });
   }
   catch (ex) {
-    console.log(`Harvest job exception for ${job.data.script}: ${JSON.stringify(ex)}`);
+    console.error(`Harvest job exception for ${job.data.script}: ${ex}`);
     job.fail({reason: `Harvest job exception for ${job.data.script}`});
+    callback();
   }
-  callback();
 });
 
 Jobs.startJobServer();
@@ -176,7 +188,7 @@ export function startJobs(sourceId, gaugeId) {
         console.log(`Add job for gauge ${gauge.name} at ${gauge.cron}`);
         job
           .repeat({ schedule: Jobs.later.parse.cron(gauge.cron) })
-          .retry({ wait: 60 * 60 * 1000 })
+          .retry({ retries: Job.forever, wait: 60 * 60 * 1000 })
           .save();
       }
     });
