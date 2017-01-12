@@ -57,7 +57,7 @@ Jobs.processJobs('harvest', {}, (job, callback) => {
           value: measurement.value,
         }, (err) => {
           if (err)
-            console.log(`Error while inserting measurement into ${gaugeId}: ${err}`);
+            console.warn(`Error while inserting measurement into ${gaugeId}: ${err}`);
           else
             insertCount++;
           finishJob();
