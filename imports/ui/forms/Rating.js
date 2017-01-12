@@ -18,7 +18,7 @@ class Rating extends Component {
     const empty = <FontIcon className="material-icons" style={styles.icon}>star_border</FontIcon>;
     const full = <FontIcon className="material-icons" style={styles.icon}>star</FontIcon>;
     //If onChange is not defined, component is read-only
-    let props = {readonly: !!this.props.field.onChange};
+    let props = {readonly: !this.props.field.onChange};
     if (!props.readonly)
       props.onChange = this.props.field.onChange;
     return (
