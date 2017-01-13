@@ -110,7 +110,7 @@ class ListGauges extends Component {
           e.preventDefault();
           e.stopPropagation();
         } }>
-          {this.props.source.harvestMode === 'oneByOne' &&
+          {this.props.source && this.props.source.harvestMode === 'oneByOne' &&
           <IconButton iconClassName="material-icons" style={styles.iconWrapper}
                       onTouchTap={startStopHandler}>{gauge.enabled ? 'stop' : 'play_arrow'}</IconButton>}
           <IconButton iconClassName="material-icons" style={styles.iconWrapper}
