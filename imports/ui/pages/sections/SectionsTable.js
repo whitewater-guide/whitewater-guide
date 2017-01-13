@@ -1,5 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {Column, Table, AutoSizer, SortDirection} from 'react-virtualized';
+import Rating from '../../forms/Rating';
+import {renderDifficulty} from '../../../utils/TextUtils';
 import _ from 'lodash';
 
 class SectionsTable extends Component {
@@ -38,18 +40,43 @@ class SectionsTable extends Component {
             sortDirection={this.state.sortDirection}
             sort={this.sort}
           >
-            <Column label='Name' dataKey='name' width={100}/>
-            <Column width={200} label='Difficulty' dataKey='difficulty'/>
+            <Column label='Name' dataKey="name" width={300} cellDataGetter={this.renderName}/>
+            <Column width={110} label='Difficulty' dataKey="difficulty" cellDataGetter={this.renderDifficulty}/>
+            <Column width={130} label='Rating' dataKey="rating" cellRenderer={this.renderRating}/>
+            <Column width={80} label='Drop (m)' dataKey="drop"/>
+            <Column width={80} label='Length' dataKey="distance"/>
+            <Column width={80} label='Duration' dataKey="duration"/>
           </Table>
         )}
       </AutoSizer>
     );
   }
 
+  renderName = ({cellData, dataKey, rowData}) => {
+    return `${rowData.riverName} - ${rowData.name}`;
+  };
+
+  renderDifficulty = ({cellData, dataKey, rowData}) => {
+    return renderDifficulty(rowData);
+  };
+
+  renderRating = ({cellData, dataKey, rowData}) => {
+    const field = {value: rowData.rating};
+    return (
+      <Rating field={field} style={styles.rating}/>
+    );
+  };
+
   sort = ({sortBy, sortDirection}) => {
     this.setState({sortBy, sortDirection});
   };
 
 }
+
+const styles = {
+  rating: {
+    minWidth: 10,
+  },
+};
 
 export default SectionsTable;

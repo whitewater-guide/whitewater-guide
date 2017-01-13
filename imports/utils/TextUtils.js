@@ -9,3 +9,10 @@ export function toRomanDifficulty(decimalDifficulty) {
     return ROMAN_NUMBERS[floor] + '-' + ROMAN_NUMBERS[floor + 1];
   }
 }
+
+export function renderDifficulty({difficulty, difficultyXtra}) {
+  let result = toRomanDifficulty(difficulty);
+  if (difficultyXtra)
+    result = result + ' (' + difficultyXtra + ')';
+  return result;
+}

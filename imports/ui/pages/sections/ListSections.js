@@ -38,6 +38,10 @@ const styles = {
     alignItems: 'center',
     minHeight: 200,
   },
+  wrapper: {
+    width: '100%',
+    height: '100%',
+  },
 };
 
 const ListGaugesContainer = createContainer(

@@ -4,7 +4,7 @@ import {removeSection} from '../../../api/sections';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import withAdmin from '../../hoc/withAdmin';
 import {withRouter} from "react-router";
-import {toRomanDifficulty} from '../../../utils/TextUtils';
+import {renderDifficulty} from '../../../utils/TextUtils';
 import Rating from '../../forms/Rating';
 
 class ListSections extends Component {
@@ -49,14 +49,12 @@ class ListSections extends Component {
   }
 
   renderRow = (section) => {
-    let difficulty = toRomanDifficulty(section.difficulty);
-    if (section.difficultyXtra)
-      difficulty = difficulty + ' (' + section.difficultyXtra + ')';
+
     const ratingField = {value: section.rating};
     return (
       <TableRow key={section._id}>
         <TableRowColumn>{section.name}</TableRowColumn>
-        <TableRowColumn>{difficulty}</TableRowColumn>
+        <TableRowColumn>{renderDifficulty(section)}</TableRowColumn>
         <TableRowColumn><Rating field={ratingField} style={styles.rating}/></TableRowColumn>
         <TableRowColumn>{section.distance}</TableRowColumn>
         { this.renderAdminControls(section) }

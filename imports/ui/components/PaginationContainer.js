@@ -21,7 +21,7 @@ class PaginationContainer extends Component {
   render() {
     return (
       <div style={this.props.style}>
-        <div>
+        <div style={styles.wrapper}>
           {this.props.children}
           {this.renderLoading()}
           {this.renderButton()}
@@ -67,7 +67,11 @@ styles = {
     alignSelf: 'stretch',
     alignItems: 'center',
     justifyContent: 'center',
-  }
+  },
+  wrapper: {
+    width: '100%',
+    height: '100%',
+  },
 };
 
 export default PaginationContainer;
