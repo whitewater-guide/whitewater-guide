@@ -52,21 +52,6 @@ Migrations.add({
       measurementsBatchSucceed = executeMeasurementsBatch();
     }
 
-    const sectionsBatch = Sections.rawCollection().initializeUnorderedBulkOp();
-    let hasSectionsUpdates = false;
-    let sectionsBatchSucceed = true;
-    Sections.find({}).forEach(section => {
-      hasSectionsUpdates = true;
-      sectionsBatch
-        .find({_id: section._id})
-        .updateOne({$rename: {'levels.lastValue': 'levels.lastLevel'}, $set: {'levels.lastFlow': 0, 'levels.measuresFlow': false}});
-    });
-
-    if (hasSectionsUpdates) {
-      const executeSectionsBatch = Meteor.wrapAsync(sectionsBatch.execute, sectionsBatch);
-      sectionsBatchSucceed = executeSectionsBatch();
-    }
-
     const gaugesBatch = Gauges.rawCollection().initializeUnorderedBulkOp();
     let hasGaugesUpdates = false;
     let gaugesBatchSucceed = true;
@@ -74,7 +59,7 @@ Migrations.add({
       hasGaugesUpdates = true;
       gaugesBatch
         .find({_id: gauge._id})
-        .updateOne({$rename: {'lastValue': 'lastLevel'}, $set: {'lastFlow': 0}});
+        .updateOne({$rename: {'lastValue': 'lastLevel', 'unit': 'levelUnit'}, $set: {'lastFlow': 0, 'flowUnit': ''}, $unset: {'measurement': ''}});
     });
 
     if (hasGaugesUpdates) {
@@ -82,7 +67,7 @@ Migrations.add({
       gaugesBatchSucceed = executeGaugesBatch();
     }
 
-    return measurementsBatchSucceed && sectionsBatchSucceed && gaugesBatchSucceed;
+    return measurementsBatchSucceed && gaugesBatchSucceed;
   }
 });
 

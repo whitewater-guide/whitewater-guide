@@ -14,8 +14,9 @@ Measurements.after.insert(function (userId, doc) {
     {gaugeId: doc.gaugeId},
     {$set: {
       "levels.lastTimestamp": doc.date,
-      "levels.lastLevel": doc.level,
-      "levels.lastFlow": doc.flow,
+      "levels.lastValue": doc.level,
+      "flows.lastTimestamp": doc.date,
+      "flows.lastValue": doc.flow,
     }},
     {multi: true}
   );

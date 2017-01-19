@@ -12,7 +12,7 @@ export const Sections = new TAPi18n.Collection('sections');
 
 export const Durations = ['laps', 'twice', 'day-run', 'overnighter', 'multi-day'];
 
-const LevelsSchema = new SimpleSchema({
+const GaugeBindingSchema = new SimpleSchema({
   minimum: {
     type: Number,
     label: 'Minimum',
@@ -47,23 +47,11 @@ const LevelsSchema = new SimpleSchema({
     label: 'Last measurement date',
     optional: true,
   },
-  lastLevel: {//Hooked to measurements insert
+  lastValue: {//Hooked to measurements insert
     type: Number,
     label: 'Last measured value',
     decimal: true,
     optional: true,
-  },
-  lastFlow: {//Hooked to measurements insert
-    type: Number,
-    label: 'Last measured value',
-    decimal: true,
-    optional: true,
-  },
-  measuresFlow: {
-    type: Boolean,
-    label: 'Measures flow instead of water level',
-    optional: true,
-    defaultValue: false,
   },
 });
 
@@ -117,8 +105,13 @@ const SectionBaseSchema = new SimpleSchema({
     allowedValues: Durations,
   },
   levels: {
-    type: LevelsSchema,
+    type: GaugeBindingSchema,
     label: 'Recommended water levels',
+    optional: true,
+  },
+  flows: {
+    type: GaugeBindingSchema,
+    label: 'Recommended water flows',
     optional: true,
   },
   difficulty: {

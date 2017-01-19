@@ -26,8 +26,8 @@ class GaugeForm extends Component {
         <Field name="code" title="Code" component={TextInput}/>      
         <Field name="url" title="URL" component={TextInput}/>      
         <Field name="location" title="Location" component={CoordinatesGroup}/>
-        <Field name="measurement" title="Measured value" component={TextInput}/>
-        <Field name="unit" title="Measurement unit" component={TextInput}/>      
+        <Field name="levelUnit" title="Level measurement unit (leave blank if not harvested)" component={TextInput}/>
+        <Field name="flowUnit" title="Flow measurement unit (leave blank if not harvested)" component={TextInput}/>
         <Field name="cron" title="Cron expression" component={TextInput}/>      
       </Form>      
     );

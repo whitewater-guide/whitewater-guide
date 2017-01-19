@@ -43,15 +43,15 @@ const GaugesSchema = new SimpleSchema([
       type: PointSchema,
       optional: true,
     },
-    unit: {
+    levelUnit: {
       type: String,
+      label: 'Level measurement unit',//Leave empty if gauge does not harvest levels
       defaultValue: 'cm',
-      label: 'Measurement unit'
     },
-    measurement: {
+    flowUnit: {
       type: String,
-      defaultValue: 'Water level',
-      label: 'Type of measurement',
+      label: 'Flow measurement unit',//Leave empty if gauge does not harvest flows
+      defaultValue: 'm3/s',
     },
     requestParams: {
       type: Object,

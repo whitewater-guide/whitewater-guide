@@ -73,6 +73,13 @@ class SectionForm extends Component {
               <Field name="levels.impossible" title="Absolute maximum" component={TextInput} type="number"/>
               <Field name="levels.approximate" title="Is approximate" component={Checkbox}/>
             </div>
+            <div style={styles.row}>
+              <Field name="flows.minimum" title="Minimal flow" component={TextInput} type="number"/>
+              <Field name="flows.optimum" title="Optimal flow" component={TextInput} type="number"/>
+              <Field name="flows.maximum" title="Maximal flow" component={TextInput} type="number"/>
+              <Field name="flows.impossible" title="Absolute maximum" component={TextInput} type="number"/>
+              <Field name="flows.approximate" title="Is approximate" component={Checkbox}/>
+            </div>
             <Field name="putIn" title="Put-in location" component={CoordinatesGroup}/>
             <Field name="takeOut" title="Take-out location" component={CoordinatesGroup}/>
           </Tab>
