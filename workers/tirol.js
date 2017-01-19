@@ -12,7 +12,8 @@ function harvest(){
       var result = [];
       for (var i = 0; i < numGauges; i++){
         var gauge = json[i];
-        var value = _.get(gauge, ['values', 'W', '15m.Cmd.HD', 'v']);
+        var levelValue = _.get(gauge, ['values', 'W', '15m.Cmd.HD', 'v'], 0);
+        var flowValue = _.get(gauge, ['values', 'Q', '15m.Cmd.HD', 'v'], 0);
         result.push({
           name: gauge.name + '/' + gauge.WTO_OBJECT,
           code: gauge.number,
@@ -26,9 +27,9 @@ function harvest(){
             ]
           },
           timestamp: Number(_.get(gauge, ['values', 'W', '15m.Cmd.HD', 'dt'])),//unix timestamp in ms
-          value: value,
+          level: levelValue,
+          flow: flowValue,
           url: 'https://apps.tirol.gv.at/hydro/#/Wasserstand/?station=' + gauge.number,
-          disabled: value === undefined
         });
       }
       return result;
@@ -57,7 +58,8 @@ else if (process.argv[2] === 'harvest') {
         return {
           code: g.code,
           timestamp: new Date(g.timestamp),
-          value: g.value,
+          level: g.level,
+          flow: g.flow,
         };
       });
       process.send(values)

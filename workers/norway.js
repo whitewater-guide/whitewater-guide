@@ -34,7 +34,7 @@ var moment = require('moment');
 var _ = require('lodash');
 require('console.table');
 
-var URL_BASE = 'http://www2.nve.no/h/hd/plotreal/H/';
+var URL_BASE = 'http://www2.nve.no/h/hd/plotreal/Q/';
 var URL = URL_BASE + 'list.html';
 
 function parseGaugesListHTML(callback){
@@ -133,12 +133,12 @@ function harvestGauge(code, lastTimestamp) {
   var time = lastTimestamp === undefined ? '-1;0' : (
     moment(Number(lastTimestamp)).format('YYYYMMDDTHHmm') + ';' + moment().format('YYYYMMDDTHHmm')
   );
-  var paddedCode = code + '.0.1000.1';
+  var paddedCode = code + '.0.1001.1';
   var gaugeUrl =
     'http://h-web01.nve.no/chartserver/ShowData.aspx?req=getchart&ver=1.0&vfmt=json&time=' +
     time + '&lang=no&chd=ds=htsr,da=29,id=' + paddedCode + ',rt=0&nocache=' + Math.random();
   //Example (no cache parameter)
-  // http://h-web01.nve.no/chartserver/ShowData.aspx?req=getchart&ver=1.0&vfmt=json&time=-1;0&lang=no&chd=ds=htsr,da=29,id=2.32.0.1000.1,rt=0&nocache=1234
+  // http://h-web01.nve.no/chartserver/ShowData.aspx?req=getchart&ver=1.0&vfmt=json&time=-1;0&lang=no&chd=ds=htsr,da=29,id=2.32.0.1001.1,rt=0&nocache=1234
   
   return fetch(gaugeUrl)
     .then(function (response) { return response.json() })
@@ -148,7 +148,8 @@ function harvestGauge(code, lastTimestamp) {
         var keyRegex = /\/Date\(([0-9]*)\)\//g;
         return {
           code: code,
-          value: m.Value,
+          flow: m.Value,
+          level: 0,
           timestamp: new Date(Number(keyRegex.exec(m.Key)[1]))
         };
       });
@@ -169,7 +170,12 @@ else if (process.argv[2] === 'autofill') {
       process.exit(1);
     }
     else {
-      process.send(gauges);
+      if (process.argv[3] === 'list'){
+        console.table(gauges);
+      }
+      else {
+        process.send(gauges);
+      }
       // console.log(gauges.length);
       // gauges.forEach(function(g){
       //   console.log(g.name + '\t----\t' + JSON.stringify(g));
@@ -184,7 +190,7 @@ else if (process.argv[2] === 'harvest') {
       process.send(measurements);
     })
     .catch(function (error) {
-      console.log(`Error while harvesting: ${error}`);
+      console.error(`Error while harvesting: ${error}`);
       process.send({error: error});
       process.exit(1);
     });

@@ -19,13 +19,13 @@ class ViewGauge extends Component {
   render() {
     if (!this.props.ready)
       return null;
-    const {lastValue, lastTimestamp} = this.props.gauge;
+    const {lastLevel, lastFlow, lastTimestamp} = this.props.gauge;
     return (
       <div style={styles.container}>
         <div style={styles.body}>
           <Paper style={styles.headerPaper}>
             <h1>{this.props.gauge.name}</h1>
-            <span>{`Last value: ${_.round(lastValue,2 )} from ${moment(lastTimestamp).format('DD/MM/YYYY HH:mm')}`}</span>
+            <span>{`Last value: ${_.round(lastLevel,2 )} from ${moment(lastTimestamp).format('DD/MM/YYYY HH:mm')}`}</span>
           </Paper>
           <Paper style={styles.chartHolder}>
             <InteractiveChart gaugeId={this.props.params.gaugeId}/>

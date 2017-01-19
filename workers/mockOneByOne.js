@@ -20,7 +20,8 @@ else if (process.argv[2] === 'autofill') {
         ]
       },
       timestamp: Date.now(),//unix timestamp in ms
-      value: Math.random() * 100,
+      level: Math.random() * 100,
+      flow: Math.random() * 100,
       url: 'https://ya.ru',
       disabled: false
     }
@@ -32,7 +33,8 @@ else if (process.argv[2] === 'harvest') {
     {
       code: process.argv[3],
       timestamp: Date.now(),//unix timestamp in ms
-      value: Math.random() * 100
+      level: Math.random() * 100,
+      flow: Math.random() * 100
     }
   ];
   setTimeout(function(){

@@ -47,11 +47,23 @@ const LevelsSchema = new SimpleSchema({
     label: 'Last measurement date',
     optional: true,
   },
-  lastValue: {//Hooked to measurements insert
+  lastLevel: {//Hooked to measurements insert
     type: Number,
     label: 'Last measured value',
     decimal: true,
     optional: true,
+  },
+  lastFlow: {//Hooked to measurements insert
+    type: Number,
+    label: 'Last measured value',
+    decimal: true,
+    optional: true,
+  },
+  measuresFlow: {
+    type: Boolean,
+    label: 'Measures flow instead of water level',
+    optional: true,
+    defaultValue: false,
   },
 });
 

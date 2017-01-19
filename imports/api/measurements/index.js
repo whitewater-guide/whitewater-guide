@@ -13,9 +13,15 @@ export const measurementsSchema = new SimpleSchema({
     type: Date,
     label: 'Timestamp',
   },
-  value: {
+  level: {
     type: Number,
-    label: 'Value',
+    label: 'Level',
+    optional: true,
+    decimal: true,
+  },
+  flow: {
+    type: Number,
+    label: 'Flow',
     optional: true,
     decimal: true,
   },

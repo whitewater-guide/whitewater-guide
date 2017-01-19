@@ -79,9 +79,15 @@ const GaugesSchema = new SimpleSchema([
       label: 'Last measurement timestamp',
       optional: true,
     },
-    lastValue: {
+    lastLevel: {
       type: Number,
-      label: 'Last measured value',
+      label: 'Last measured water level',
+      optional: true,
+      decimal: true,
+    },
+    lastFlow: {
+      type: Number,
+      label: 'Last measured water flow',
       optional: true,
       decimal: true,
     },

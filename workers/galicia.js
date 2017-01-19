@@ -14,7 +14,8 @@ function harvest(){
       var result = [];
       for (var i = 0; i < numGauges; i++){
         var gauge = gauges[i];
-        var measurement = _.find(gauge.listaMedidas, { codParametro: 1 });
+        var levelValue = _.find(gauge.listaMedidas, { codParametro: 1 });
+        var flowValue = _.find(gauge.listaMedidas, { codParametro: 4 });
         result.push({
           name: gauge.nomeEstacion,
           code: gauge.ide,
@@ -27,7 +28,8 @@ function harvest(){
             ]
           },
           timestamp: moment(gauge.dataUTC).valueOf(),//unix timestamp in ms
-          value: measurement ? measurement.valor : undefined,
+          level: levelValue ? levelValue.valor : 0,
+          flow: flowValue ? flowValue.valor : 0,
           url: 'http://www2.meteogalicia.gal/servizos/AugasdeGalicia/estacionsinfo.asp?Nest=' + gauge.ide
         });
       }
@@ -57,7 +59,8 @@ else if (process.argv[2] === 'harvest') {
         return {
           code: g.code,
           timestamp: new Date(g.timestamp),
-          value: g.value,
+          level: g.level,
+          flow: g.flow,
         };
       });
       process.send(values)

@@ -59,11 +59,12 @@ Jobs.processJobs('harvest', {}, (job, callback) => {
         if (gauge)//Gauge might be deleted
           gaugeId = gauge._id;
       }
-      if (gaugeId && measurement.value) {
+      if (gaugeId && (measurement.level || measurement.flow)) {
         Measurements.insert({
           gaugeId: gaugeId,
           date: new Date(measurement.timestamp),
-          value: measurement.value,
+          level: measurement.level,
+          flow: measurement.flow,
         }, (err) => {
           if (err)
             console.warn(`Error while inserting measurement into ${gaugeId}: ${err}`);

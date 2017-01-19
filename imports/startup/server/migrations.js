@@ -2,6 +2,8 @@ import {Meteor} from 'meteor/meteor';
 import {Migrations} from 'meteor/percolate:migrations';
 import {Gauges} from '../../api/gauges';
 import {Points} from '../../api/points';
+import {Measurements} from '../../api/measurements';
+import {Sections} from '../../api/sections';
 
 Migrations.add({
   version: 1,
@@ -25,6 +27,62 @@ Migrations.add({
     }
 
     return true;
+  }
+});
+
+/**
+ * Measurement now include 'level' and 'flow' instead of value.
+ * All the denormalized values (Gauge and Section) are updated as well
+ */
+Migrations.add({
+  version: 2,
+  up: function migration2Up() {
+    const measurementsBatch = Measurements.rawCollection().initializeUnorderedBulkOp();
+    let hasMeasurementUpdates = false;
+    let measurementsBatchSucceed = true;
+    Measurements.find({}).forEach(measurement => {
+      hasMeasurementUpdates = true;
+      measurementsBatch
+        .find({_id: measurement._id})
+        .updateOne({$rename: {value: 'level'}, $set: {flow: 0}});
+    });
+
+    if (hasMeasurementUpdates) {
+      const executeMeasurementsBatch = Meteor.wrapAsync(measurementsBatch.execute, measurementsBatch);
+      measurementsBatchSucceed = executeMeasurementsBatch();
+    }
+
+    const sectionsBatch = Sections.rawCollection().initializeUnorderedBulkOp();
+    let hasSectionsUpdates = false;
+    let sectionsBatchSucceed = true;
+    Sections.find({}).forEach(section => {
+      hasSectionsUpdates = true;
+      sectionsBatch
+        .find({_id: section._id})
+        .updateOne({$rename: {'levels.lastValue': 'levels.lastLevel'}, $set: {'levels.lastFlow': 0, 'levels.measuresFlow': false}});
+    });
+
+    if (hasSectionsUpdates) {
+      const executeSectionsBatch = Meteor.wrapAsync(sectionsBatch.execute, sectionsBatch);
+      sectionsBatchSucceed = executeSectionsBatch();
+    }
+
+    const gaugesBatch = Gauges.rawCollection().initializeUnorderedBulkOp();
+    let hasGaugesUpdates = false;
+    let gaugesBatchSucceed = true;
+    Gauges.find({}).forEach(gauge => {
+      hasGaugesUpdates = true;
+      gaugesBatch
+        .find({_id: gauge._id})
+        .updateOne({$rename: {'lastValue': 'lastLevel'}, $set: {'lastFlow': 0}});
+    });
+
+    if (hasGaugesUpdates) {
+      const executeGaugesBatch = Meteor.wrapAsync(gaugesBatch.execute, gaugesBatch);
+      gaugesBatchSucceed = executeGaugesBatch();
+    }
+
+    return measurementsBatchSucceed && sectionsBatchSucceed && gaugesBatchSucceed;
   }
 });
 

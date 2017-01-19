@@ -32,9 +32,9 @@ class Chart extends Component {
                     theme={VictoryTheme.material}>
         <VictoryAxis tickFormat={this.tickFormat}/>
         <VictoryAxis dependentAxis/>
-        <VictoryLine data={data} x="date" y="value"
+        <VictoryLine data={data} x="date" y="level"
                      interpolation="monotoneX" style={{data: {strokeWidth: 1}}}/>
-        <VictoryScatter data={data} x="date" y="value"
+        <VictoryScatter data={data} x="date" y="level"
                         labelComponent={<VictoryTooltip labels={d => d.value}/>}/>
       </VictoryChart>
     );

@@ -75,7 +75,7 @@ class ListGauges extends Component {
         {admin && <TableRowColumn>{src.code}</TableRowColumn>}
         <TableRowColumn><a href={src.url}>Link</a></TableRowColumn>
         <TableRowColumn>{location}</TableRowColumn>
-        <TableRowColumn>{src.lastValue}</TableRowColumn>
+        <TableRowColumn>{src.lastLevel}</TableRowColumn>
         <TableRowColumn>{moment(src.lastTimestamp).format('DD.MM.YYYY HH:mm')}</TableRowColumn>
         {admin && <TableRowColumn>{src.cron}</TableRowColumn>}
         { this.renderAdminControls(src) }
