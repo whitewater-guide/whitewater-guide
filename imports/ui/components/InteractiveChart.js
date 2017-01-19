@@ -1,5 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 import ChartContainer from './ChartContainer';
 import moment from 'moment';
 
@@ -12,6 +14,7 @@ class InteractiveChart extends Component {
   state = {
     chartDomain: [moment().subtract(1, 'days').toDate(), new Date()],
     subDomain: [moment().subtract(1, 'days').toDate(), new Date()],
+    unit: 'level',
   };
 
   render() {
@@ -21,8 +24,17 @@ class InteractiveChart extends Component {
           <RaisedButton label="One day" onTouchTap={() => this.setDomainInDays(1)}/>
           <RaisedButton label="One week" onTouchTap={() => this.setDomainInDays(7)}/>
           <RaisedButton label="One month" onTouchTap={() => this.setDomainInDays(31)}/>
+          <SelectField
+            floatingLabelText="Measurement"
+            value={this.state.unit}
+            onChange={(event, index, unit) => this.setState({unit})}
+          >
+            <MenuItem value={"level"} primaryText="Level" />
+            <MenuItem value={"floe"} primaryText="Flow" />
+          </SelectField>
         </div>
         <ChartContainer
+          unit={this.state.unit}
           gaugeId={this.props.gaugeId}
           chartDomain={this.state.chartDomain}
           subDomain={this.state.subDomain}

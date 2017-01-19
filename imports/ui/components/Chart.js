@@ -14,6 +14,7 @@ import moment from 'moment';
 class Chart extends Component {
   static propTypes = {
     data: PropTypes.array.isRequired,
+    unit: PropTypes.oneOf(['level', 'flow']),
     domain: PropTypes.array.isRequired,
     onDomainChange: PropTypes.func.isRequired,
     minValue: PropTypes.number,
@@ -32,9 +33,9 @@ class Chart extends Component {
                     theme={VictoryTheme.material}>
         <VictoryAxis tickFormat={this.tickFormat}/>
         <VictoryAxis dependentAxis/>
-        <VictoryLine data={data} x="date" y="level"
+        <VictoryLine data={data} x="date" y={this.props.unit}
                      interpolation="monotoneX" style={{data: {strokeWidth: 1}}}/>
-        <VictoryScatter data={data} x="date" y="level"
+        <VictoryScatter data={data} x="date" y={this.props.unit}
                         labelComponent={<VictoryTooltip labels={d => d.value}/>}/>
       </VictoryChart>
     );

@@ -12,13 +12,14 @@ class ChartContainer extends Component {
     onDomainChange: PropTypes.func.isRequired,
     gaugeId: PropTypes.string.isRequired,
     measurements: PropTypes.array,
+    unit: PropTypes.oneOf(['level', 'flow']),
     ready: PropTypes.bool,
   };
 
   render() {
-    const {chartDomain, measurements, onDomainChange} = this.props;
+    const {chartDomain, measurements, onDomainChange, unit} = this.props;
     return (
-      <Chart data={measurements} domain={chartDomain} onDomainChange={onDomainChange}/>
+      <Chart data={measurements} domain={chartDomain} onDomainChange={onDomainChange} unit={unit}/>
     );
   }
 

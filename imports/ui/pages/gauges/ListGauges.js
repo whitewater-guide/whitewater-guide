@@ -44,7 +44,8 @@ class ListGauges extends Component {
               {admin && <TableHeaderColumn>Code</TableHeaderColumn>}
               <TableHeaderColumn>URL</TableHeaderColumn>
               <TableHeaderColumn>Coordinate</TableHeaderColumn>
-              <TableHeaderColumn>Value</TableHeaderColumn>
+              <TableHeaderColumn>Level</TableHeaderColumn>
+              <TableHeaderColumn>Flow</TableHeaderColumn>
               <TableHeaderColumn>Date</TableHeaderColumn>
               {admin && <TableHeaderColumn>Cron</TableHeaderColumn>}
               {admin && <TableHeaderColumn style={styles.columns.controls}>Controls</TableHeaderColumn>}
@@ -76,6 +77,7 @@ class ListGauges extends Component {
         <TableRowColumn><a href={src.url}>Link</a></TableRowColumn>
         <TableRowColumn>{location}</TableRowColumn>
         <TableRowColumn>{src.lastLevel}</TableRowColumn>
+        <TableRowColumn>{src.lastFlow}</TableRowColumn>
         <TableRowColumn>{moment(src.lastTimestamp).format('DD.MM.YYYY HH:mm')}</TableRowColumn>
         {admin && <TableRowColumn>{src.cron}</TableRowColumn>}
         { this.renderAdminControls(src) }
