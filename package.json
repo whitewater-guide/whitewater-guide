@@ -10,6 +10,7 @@
     "console.table": "^0.7.0",
     "cron-parser": "^2.1.1",
     "d3": "^4.2.6",
+    "iconv-lite": "^0.4.15",
     "later": "^1.2.0",
     "lodash": "^4.15.0",
     "material-ui": "^0.16.0",

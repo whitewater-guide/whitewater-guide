@@ -31,6 +31,7 @@ var fetch = require('node-fetch');
 var cheerio = require('cheerio');
 var queue = require('queue');
 var moment = require('moment');
+var iconv = require('iconv-lite');
 var _ = require('lodash');
 require('console.table');
 
@@ -39,9 +40,12 @@ var URL = URL_BASE + 'list.html';
 
 function parseGaugesListHTML(callback){
   fetch(URL)
-    .then(function(res) {return res.text()})
-    .then(function (res){
-      var $ = cheerio.load(res);
+    .then(function(res) {return res.buffer()})
+    .then(function (buf) {
+      return iconv.decode(buf, 'latin1');
+    })
+    .then(function (body){
+      var $ = cheerio.load(body);
 
       var rows = $('table').first().find('tr');
       var result = [];
