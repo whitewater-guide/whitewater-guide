@@ -46,12 +46,12 @@ const GaugesSchema = new SimpleSchema([
     levelUnit: {
       type: String,
       label: 'Level measurement unit',//Leave empty if gauge does not harvest levels
-      defaultValue: 'cm',
+      defaultValue: '',
     },
     flowUnit: {
       type: String,
       label: 'Flow measurement unit',//Leave empty if gauge does not harvest flows
-      defaultValue: 'm3/s',
+      defaultValue: '',
     },
     requestParams: {
       type: Object,

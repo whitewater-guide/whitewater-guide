@@ -29,6 +29,8 @@ function harvest(){
           timestamp: Number(_.get(gauge, ['values', 'W', '15m.Cmd.HD', 'dt'])),//unix timestamp in ms
           level: levelValue,
           flow: flowValue,
+          levelUnit: _.get(gauge, ['values', 'W', '15m.Cmd.HD', 'unit'], 'cm'),
+          flowUnit: _.get(gauge, ['values', 'Q', '15m.Cmd.HD', 'unit'], 'm3/s'),
           url: 'https://apps.tirol.gv.at/hydro/#/Wasserstand/?station=' + gauge.number,
         });
       }

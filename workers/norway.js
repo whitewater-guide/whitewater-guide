@@ -56,6 +56,8 @@ function parseGaugesListHTML(callback){
             name: tds.eq(0).text(),
             code: tds.eq(1).text(),
             url: URL_BASE + tds.eq(0).find('a').first().attr('href'),
+            levelUnit: '',
+            flowUnit: 'm3/s',
             location: {
               type: 'Point',
               kind: 'gauge',

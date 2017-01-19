@@ -27,6 +27,8 @@ function harvest(){
               Number(gauge.latitude)
             ]
           },
+          levelUnit: levelValue ? levelValue.unidade : 'm',
+          flowUnit: flowValue ? flowValue.unidade : 'm3/s',
           timestamp: moment(gauge.dataUTC).valueOf(),//unix timestamp in ms
           level: levelValue ? levelValue.valor : 0,
           flow: flowValue ? flowValue.valor : 0,
