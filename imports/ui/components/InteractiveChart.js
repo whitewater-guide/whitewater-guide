@@ -30,7 +30,7 @@ class InteractiveChart extends Component {
             onChange={(event, index, unit) => this.setState({unit})}
           >
             <MenuItem value={"level"} primaryText="Level" />
-            <MenuItem value={"floe"} primaryText="Flow" />
+            <MenuItem value={"flow"} primaryText="Flow" />
           </SelectField>
         </div>
         <ChartContainer
