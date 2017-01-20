@@ -22,6 +22,7 @@ export const POITypes = [
   'wild-camping',
   'paid-camping',
   'gauge',
+  'bridge',
   'other',
 ];
 

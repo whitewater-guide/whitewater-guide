@@ -4,6 +4,6 @@
     {"slug": "glacier", "name": "Glacier"},
     {"slug": "rain", "name": "Rains"},
     {"slug": "groundwater", "name": "Groundwater"},
-    {"slug": "artificial", "name": "Human-controlled"}
+    {"slug": "artificial", "name": "Dam release"}
   ]
 }

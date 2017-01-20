@@ -1,7 +1,7 @@
 {
   "tags": [
     {"slug": "creeking", "name": "Creeking"},
-    {"slug": "bigwolume", "name": "Big Volume"},
+    {"slug": "bigvolume", "name": "Big Volume"},
     {"slug": "boulder_garden", "name": "Boulder Garden"},
     {"slug": "bedrock", "name": "Bedrock"},
     {"slug": "park_n_huck", "name": "Park and Huck"},
@@ -9,6 +9,9 @@
     {"slug": "steep_continuous", "name": "Steep continuous"},
     {"slug": "slalom", "name": "Slalom"},
     {"slug": "racecourse", "name": "Race course"},
-    {"slug": "multiday", "name": "Multiday"}
+    {"slug": "multiday", "name": "Multiday"},
+    {"slug": "waterfalls", "name": "Waterfalls"},
+    {"slug": "pool_drop", "name": "Pool-drop"},
+    {"slug": "canyon", "name": "Canyon"}
   ]
 }

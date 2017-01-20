@@ -3,6 +3,16 @@
     {"slug": "brown", "name": "Brown"},
     {"slug": "stout", "name": "Stout"},
     {"slug": "gnarly", "name": "Gnarly"},
-    {"slug": "rowdy", "name": "Rowdy"}
+    {"slug": "rowdy", "name": "Rowdy"},
+    {"slug": "4x4", "name": "4x4"},
+    {"slug": "hike_in", "name": "Hike-in"},
+    {"slug": "hike_out", "name": "Hike-out"},
+    {"slug": "restricted_access", "name": "Restricted access"},
+    {"slug": "gyro", "name": "Gyro"},
+    {"slug": "ropes_needed", "name": "Ropes needed"},
+    {"slug": "race", "name": "Race"},
+    {"slug": "changing_rapids", "name": "Changing rapids"},
+    {"slug": "dam_soon", "name": "Dam soon"},
+    {"slug": "roadside", "name": "Roadside"}
   ]
 }
