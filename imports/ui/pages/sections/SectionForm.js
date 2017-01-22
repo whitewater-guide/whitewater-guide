@@ -80,8 +80,8 @@ class SectionForm extends Component {
               <Field name="flows.impossible" title="Absolute maximum" component={TextInput} type="number"/>
               <Field name="flows.approximate" title="Is approximate" component={Checkbox}/>
             </div>
-            <Field name="putIn" title="Put-in location" component={CoordinatesGroup}/>
-            <Field name="takeOut" title="Take-out location" component={CoordinatesGroup}/>
+            <Field name="putIn" title="Put-in location (this must be point on the river!)" component={CoordinatesGroup}/>
+            <Field name="takeOut" title="Take-out location (this must be point on the river!)" component={CoordinatesGroup}/>
           </Tab>
           <Tab label="Properties" value="#properties">
             <div style={styles.row}>
