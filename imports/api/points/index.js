@@ -11,8 +11,10 @@ const limits = [
 export const POITypes = [
   'put-in',
   'put-in-alt',
+  'put-in-road',
   'take-out',
   'take-out-alt',
+  'take-out-road',
   'waterfall',
   'rapid',
   'portage',
@@ -22,6 +24,7 @@ export const POITypes = [
   'wild-camping',
   'paid-camping',
   'gauge',
+  'hike-waypoint',
   'bridge',
   'other',
 ];
