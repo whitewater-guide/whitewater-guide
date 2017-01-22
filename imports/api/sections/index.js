@@ -3,14 +3,19 @@ import {SimpleSchema} from 'meteor/aldeed:simple-schema';
 import AdminMethod from '../../utils/AdminMethod';
 import {Rivers} from '../rivers';
 import {Gauges} from '../gauges';
-import {Measurements} from '../measurements';
 import {Points, PointSchema} from '../points';
 import {Media, MediaSchema} from '../media';
 import _ from 'lodash';
 
 export const Sections = new TAPi18n.Collection('sections');
 
-export const Durations = ['laps', 'twice', 'day-run', 'overnighter', 'multi-day'];
+export const Durations = [
+  {value: 0, slug: 'laps'},
+  {value: 10, slug: 'twice'},
+  {value: 20, slug: 'day-run'},
+  {value: 30, slug: 'overnighter'},
+  {value: 40, slug: 'multi-day'},
+];
 
 const GaugeBindingSchema = new SimpleSchema({
   minimum: {
@@ -99,10 +104,10 @@ const SectionBaseSchema = new SimpleSchema({
     optional: true,
   },
   duration: {
-    type: String,
+    type: Number,
     label: 'Duration',
     optional: true,
-    allowedValues: Durations,
+    allowedValues: _.map(Durations, 'value'),
   },
   levels: {
     type: GaugeBindingSchema,

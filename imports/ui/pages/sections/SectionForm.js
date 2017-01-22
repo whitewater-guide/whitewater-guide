@@ -88,7 +88,7 @@ class SectionForm extends Component {
               <Field name="drop" title="Drop, m" component={TextInput} type="number"/>
               <Field name="distance" title="Length, km" component={TextInput} type="number"/>
               <Field name="duration" title="Duration" component={Select} options={Durations}
-                     extractKey={_.identity} extractValue={_.identity} extractLabel={_.identity}/>
+                     extractKey={d => d.slug} extractValue={d => d.value} extractLabel={d => d.slug}/>
 
             </div>
             <Field name="season" title="Season" component={TextInput}/>

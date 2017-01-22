@@ -3,7 +3,8 @@ import {Migrations} from 'meteor/percolate:migrations';
 import {Gauges} from '../../api/gauges';
 import {Points} from '../../api/points';
 import {Measurements} from '../../api/measurements';
-import {Sections} from '../../api/sections';
+import {Sections, Durations} from '../../api/sections';
+import _ from 'lodash';
 
 Migrations.add({
   version: 1,
@@ -68,6 +69,36 @@ Migrations.add({
     }
 
     return measurementsBatchSucceed && gaugesBatchSucceed;
+  }
+});
+
+/**
+ * Convert section duration from string enum to number, for better sorting
+ */
+Migrations.add({
+  version: 3,
+  up: function migration3up() {
+    const sectionsBatch = Sections.rawCollection().initializeUnorderedBulkOp();
+    let hasUpdates = false;
+    const durationsMap = _.reduce(
+      Durations,
+      (result, value) => ( {...result, [value.slug]: value.value}),
+      {}
+    );
+    Sections.find({}).forEach(section => {
+        if (_.isString(section.duration)) {
+          hasUpdates = true;
+          sectionsBatch.find({_id: section._id}).updateOne({$set: {"duration": durationsMap[section.duration]}});
+        }
+    });
+
+    if (hasUpdates) {
+      // We need to wrap the async function to get a synchronous API that migrations expects
+      const executeSectionsBatch = Meteor.wrapAsync(sectionsBatch.execute, sectionsBatch);
+      return executeSectionsBatch();
+    }
+
+    return true;
   }
 });
 
