@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import IconButton from 'material-ui/IconButton';
+import FontIcon from 'material-ui/FontIcon';
 import {Meteor} from 'meteor/meteor';
 import {createContainer} from 'meteor/react-meteor-data';
 import {withRouter} from 'react-router';
@@ -42,11 +43,11 @@ class ListGauges extends Component {
               {admin && <TableHeaderColumn style={styles.columns.status}></TableHeaderColumn>}
               <TableHeaderColumn>Name</TableHeaderColumn>
               {admin && <TableHeaderColumn>Code</TableHeaderColumn>}
-              <TableHeaderColumn>URL</TableHeaderColumn>
+              <TableHeaderColumn style={styles.columns.link}>URL</TableHeaderColumn>
               <TableHeaderColumn>Coordinate</TableHeaderColumn>
               <TableHeaderColumn>Level</TableHeaderColumn>
               <TableHeaderColumn>Flow</TableHeaderColumn>
-              <TableHeaderColumn>Date</TableHeaderColumn>
+              <TableHeaderColumn style={styles.columns.link}>Date</TableHeaderColumn>
               {admin && <TableHeaderColumn>Cron</TableHeaderColumn>}
               {admin && <TableHeaderColumn>Params</TableHeaderColumn>}
               {admin && <TableHeaderColumn style={styles.columns.controls}>Controls</TableHeaderColumn>}
@@ -70,16 +71,20 @@ class ListGauges extends Component {
       const alt = altitude ? ` (${altitude.toFixed()})` : '(?)';
       location = `${lat} ${lon}${alt}`;
     }
+    const freshness = moment().diff(moment(src.lastTimestamp), 'days', true);
     return (
       <TableRow key={src._id}>
         { this.renderStatusIndicator(src) }
         <TableRowColumn>{src.name}</TableRowColumn>
         {admin && <TableRowColumn>{src.code}</TableRowColumn>}
-        <TableRowColumn><a href={src.url}>Link</a></TableRowColumn>
+        <TableRowColumn style={styles.columns.link}><a href={src.url}>Link</a></TableRowColumn>
         <TableRowColumn>{location}</TableRowColumn>
         <TableRowColumn>{src.lastLevel}</TableRowColumn>
         <TableRowColumn>{src.lastFlow}</TableRowColumn>
-        <TableRowColumn>{moment(src.lastTimestamp).format('DD.MM.YYYY HH:mm')}</TableRowColumn>
+        <TableRowColumn style={styles.columns.lastTime}>
+          {moment(src.lastTimestamp).format('DD.MM.YYYY HH:mm')}
+          {freshness > 1 && <FontIcon className="material-icons" color="red" style={styles.warnIcon}>warning</FontIcon>}
+        </TableRowColumn>
         {admin && <TableRowColumn>{src.cron}</TableRowColumn>}
         {admin && <TableRowColumn>{src.requestParams && JSON.stringify(src.requestParams)}</TableRowColumn>}
         { this.renderAdminControls(src) }
@@ -162,6 +167,9 @@ const styles = {
     paddingRight: 2,
     width: 'auto',
   },
+  warnIcon: {
+    fontSize: 16,
+  },
   columns: {
     status: {
       width: 20,
@@ -171,7 +179,14 @@ const styles = {
     controls: {
       paddingRight: 0,
       width: 90,
-    }
+    },
+    link: {
+      width: 50,
+    },
+    lastTime: {
+      display: 'flex',
+      alignItems: 'center',
+    },
   },
 };
 
