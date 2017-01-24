@@ -50,6 +50,9 @@ Jobs.processJobs('harvest', {}, (job, callback) => {
       console.info(`Harvested ${insertCount} measurements for task ${JSON.stringify(job.data)}`);
       callback();
     });
+    if (measurements.length === 0){
+      finishJob();
+    }
     measurements.forEach(measurement => {
       let gaugeId = job.data.gaugeId;//For one by one sources
       if (!gaugeId) {//For allAtOnce sources

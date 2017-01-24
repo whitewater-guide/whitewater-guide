@@ -26,15 +26,15 @@ function launchWorker(harvestMode, autofillHandler, harvestHandler) {
   else if (options.mode === 'autofill'){
     autofillHandler(function onAutofillComplete(error, gauges) {
       if (error){
-        process.send({error});
+        process.send({error}, () => process.exit(1));
       }
       else if (options.verbose) {
         console.table(gauges);
+        process.exit(0);
       }
       else {
-        process.send(gauges);
+        process.send(gauges, () => process.exit(0));
       }
-      process.exit(error ? 1 : 0);
     });
   }
   else if (options.mode === 'harvest') {
@@ -43,15 +43,15 @@ function launchWorker(harvestMode, autofillHandler, harvestHandler) {
         message,
         function onHarvestComplete(error, measurements) {
           if (error) {
-            process.send({error});
+            process.send({error}, () => process.exit(1));
           }
           else if (options.verbose) {
             console.table(measurements);
+            process.exit(0);
           }
           else {
-            process.send(measurements);
+            process.send(measurements, () => process.exit(0));
           }
-          process.exit(error ? 1 : 0);
         }
       );
     };
