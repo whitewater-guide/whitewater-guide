@@ -82,7 +82,7 @@ class ListGauges extends Component {
         <TableRowColumn>{src.lastLevel}</TableRowColumn>
         <TableRowColumn>{src.lastFlow}</TableRowColumn>
         <TableRowColumn style={styles.columns.lastTime}>
-          {moment(src.lastTimestamp).format('DD.MM.YYYY HH:mm')}
+          {src.lastTimestamp && moment(src.lastTimestamp).format('DD.MM.YYYY HH:mm')}
           {freshness > 1 && <FontIcon className="material-icons" color="red" style={styles.warnIcon}>warning</FontIcon>}
         </TableRowColumn>
         {admin && <TableRowColumn>{src.cron}</TableRowColumn>}
