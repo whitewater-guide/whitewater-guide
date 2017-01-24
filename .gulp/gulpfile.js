@@ -4,16 +4,17 @@ var gutil = require('gulp-util');
 var tap = require('gulp-tap');
 var uglify = require('gulp-uglify');
 var buffer = require('gulp-buffer');
-var babelify    = require('babelify');
+var babelify = require('babelify');
+var rollup = require('gulp-rollup');
 
 /**
  * Workers must be transpiled and bundled in order to
  * be executed on server independently
+ *
  */
 gulp.task('bundle-workers', function () {
   return gulp.src([
-    'workers/*.js',
-    '!workers/*.min.js',
+    '.workers/*.js',
   ], {read: false})
     // transform file objects using gulp-tap plugin
     .pipe(tap(function (file) {
@@ -31,7 +32,11 @@ gulp.task('bundle-workers', function () {
         }
       };
       file.contents = browserify(file.path, browserifyOpts)
-        .transform("babelify", { presets: ["es2015"] })
+        .transform("babelify", {
+          presets: ["latest"],
+          global: true,
+          ignore: ["node_modules/moment/*"]
+        })
         .bundle();
     }))
     .pipe(buffer())

@@ -1,7 +1,8 @@
 //http://servizos.meteogalicia.es/rss/observacion/jsonAforos.action
 var fetch = require('node-fetch');
-var _ = require('lodash');
+var find = require('lodash/find');
 var moment = require('moment');
+var launchWorker = require('./core/worker');
 
 function harvest(){
   return fetch('http://servizos.meteogalicia.es/rss/observacion/jsonAforos.action')
@@ -14,8 +15,8 @@ function harvest(){
       var result = [];
       for (var i = 0; i < numGauges; i++){
         var gauge = gauges[i];
-        var levelValue = _.find(gauge.listaMedidas, { codParametro: 1 });
-        var flowValue = _.find(gauge.listaMedidas, { codParametro: 4 });
+        var levelValue = find(gauge.listaMedidas, { codParametro: 1 });
+        var flowValue = find(gauge.listaMedidas, { codParametro: 4 });
         result.push({
           name: gauge.nomeEstacion,
           code: gauge.ide,
@@ -39,36 +40,24 @@ function harvest(){
     });
 }
 
-if (process.argv[2] === 'describe'){
-  process.stdout.write(JSON.stringify(
-    {harvestMode: 'allAtOnce'}
-  ));
-}
-else if (process.argv[2] === 'autofill'){
-  harvest()
-    .then(function(gauges){
-      process.send(gauges);
-    })
-    .catch(function(error){
-      process.send({error});
-      process.exit(1);
-    });
-}
-else if (process.argv[2] === 'harvest') {
-  harvest()
-    .then(function (gauges) {
-      var values = gauges.map(function (g) {
-        return {
+launchWorker(
+  'allAtOnce',
+  function autofillHandler(callback) {
+    harvest()
+      .then(gauges => callback(null, gauges))
+      .catch(error => callback(error, null));
+  },
+  function harvestHandler(options, callback) {
+    harvest()
+      .then(gauges => {
+        var measurements = gauges.map(g => ({
           code: g.code,
           timestamp: new Date(g.timestamp),
           level: g.level,
           flow: g.flow,
-        };
-      });
-      process.send(values)
-    })
-    .catch(function(error){
-      process.send({error});
-      process.exit(1);
-    });
-}
+        }));
+        callback(null, measurements);
+      })
+      .catch(error => callback(error, null));
+  }
+);

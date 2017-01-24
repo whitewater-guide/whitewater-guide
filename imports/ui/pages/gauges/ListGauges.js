@@ -48,6 +48,7 @@ class ListGauges extends Component {
               <TableHeaderColumn>Flow</TableHeaderColumn>
               <TableHeaderColumn>Date</TableHeaderColumn>
               {admin && <TableHeaderColumn>Cron</TableHeaderColumn>}
+              {admin && <TableHeaderColumn>Params</TableHeaderColumn>}
               {admin && <TableHeaderColumn style={styles.columns.controls}>Controls</TableHeaderColumn>}
             </TableRow>
           </TableHeader>
@@ -80,6 +81,7 @@ class ListGauges extends Component {
         <TableRowColumn>{src.lastFlow}</TableRowColumn>
         <TableRowColumn>{moment(src.lastTimestamp).format('DD.MM.YYYY HH:mm')}</TableRowColumn>
         {admin && <TableRowColumn>{src.cron}</TableRowColumn>}
+        {admin && <TableRowColumn>{src.requestParams && JSON.stringify(src.requestParams)}</TableRowColumn>}
         { this.renderAdminControls(src) }
       </TableRow>
     );

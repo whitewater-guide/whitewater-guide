@@ -5,10 +5,8 @@ import { Measurements } from '../../measurements';
 import { Gauges } from '../../gauges';
 import { Meteor } from 'meteor/meteor';
 import { after } from 'lodash';
-import moment from 'moment';
 import path from 'path';
 import child_process from 'child_process';
-
 
 const cleanupJob = new Job(Jobs, 'cleanup', {})
   .repeat({ schedule: Jobs.later.parse.text("every 5 minutes") })
@@ -92,14 +90,16 @@ function worker({script, gaugeId}, nodeCallback) {
   const file = path.resolve(process.cwd(), 'assets/app/workers', `${script}.js`);
   //It is possible to check gauge's last timestamp here and pass it to worker
   const gaugeDoc = gaugeId && Gauges.findOne(gaugeId);
-  const args = ['harvest'];
+  let options = {};
   if (gaugeDoc) {
-    args.push(gaugeDoc.code);
+    options.code = gaugeDoc.code;
     if (gaugeDoc.lastTimestamp)
-      args.push(gaugeDoc.lastTimestamp);
+      options.lastTimestamp = gaugeDoc.lastTimestamp;
+    if (gaugeDoc.requestParams)
+      options = {...options, ...gaugeDoc.requestParams};
   }
-  console.log(`Launching worker ${script} with args ${args}`);
-  const child = child_process.fork(file, args, {execArgv: []});
+  console.log(`Launching worker ${script} harvest with options ${JSON.stringify(options)}`);
+  const child = child_process.fork(file, ['harvest'], {execArgv: []});
   let response;
 
   child.on('close', (code) => {
@@ -114,6 +114,9 @@ function worker({script, gaugeId}, nodeCallback) {
   child.on('message', (data) => {
     response = data;
   });
+
+  //This will actually start the worker script
+  child.send(options);
 }
 
 export function stopJobs(sourceId, gaugeId) {

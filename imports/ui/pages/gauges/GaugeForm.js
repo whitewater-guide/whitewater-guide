@@ -20,8 +20,16 @@ class GaugeForm extends Component {
     if (!this.props.ready)
       return null;
 
+    let {initialData: formData, ...props} = this.props;
+    try {
+      formData.requestParams = JSON.stringify(formData.requestParams);
+    }
+    catch (err){
+      console.warn(`Bad requestParams ${formData.requestParams}: ${err}`);
+    }
+
     return (
-      <Form {...this.props} name="gauges">
+      <Form {...props} initialData={formData} name="gauges" transformBeforeSubmit={this.transformBeforeSubmit}>
         <Field name="name" title="Name" component={TextInput}/>      
         <Field name="code" title="Code" component={TextInput}/>      
         <Field name="url" title="URL" component={TextInput}/>      
@@ -29,9 +37,22 @@ class GaugeForm extends Component {
         <Field name="levelUnit" title="Level measurement unit (leave blank if not harvested)" component={TextInput}/>
         <Field name="flowUnit" title="Flow measurement unit (leave blank if not harvested)" component={TextInput}/>
         <Field name="cron" title="Cron expression" component={TextInput}/>      
-      </Form>      
+        <Field name="requestParams" title="Additional request params" component={TextInput}/>
+      </Form>
     );
   }
+
+  transformBeforeSubmit = (data) => {
+    let requestParams;
+    try {
+      requestParams = JSON.parse(data.requestParams);
+    }
+    catch (err){
+      console.warn(`Bad requestParams ${data.requestParams}: ${err}`);
+      requestParams = null;
+    }
+    return {...data, requestParams};
+  };
 }
 
 const GaugeFormContainer = createI18nContainer(

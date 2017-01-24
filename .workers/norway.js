@@ -25,6 +25,19 @@
  * You better use http://www2.nve.no/h/hd/plotreal/H/list.html to get a list of available stations. (by level)
  * http://www2.nve.no/h/hd/plotreal/Q/list.html (by flow)
  * In order to use the time series data, the origin of the data (NVE) must be visible in the app.
+ *
+ * Our stations has identity the first three digits, like 62.10,0.
+ * Digit number four is the parameter; 1000 for stage, 1001 for discharge
+ * Digit number 5 is a version number. Once in a while something changes at station requiring us to upgrade the version number to distinguish to various series.
+ * That what’s happened here.
+ *
+ * The id=62.10.0.1000.1 must be id=62.0.1000.2.
+ * The plotreal is based on version 2.
+ *
+ * So how can you figure out what version is being used?
+ * It is not mentioned in plotreal because the version id confuse people.
+ * If you go to xgeo.no, search for 62.10.0 you will find the station. Enable viewing vannstand (stage) and click on the point to show the graph,
+ * On the left side of the graph you are able to see the versjon (version).
  **/
 
 var fetch = require('node-fetch');
@@ -32,8 +45,8 @@ var cheerio = require('cheerio');
 var queue = require('queue');
 var moment = require('moment');
 var iconv = require('iconv-lite');
-var _ = require('lodash');
-require('console.table');
+var launchWorker = require('./core/worker');
+var get = require('lodash/get');
 
 var URL_BASE = 'http://www2.nve.no/h/hd/plotreal/Q/';
 var URL = URL_BASE + 'list.html';
@@ -134,22 +147,21 @@ function autofill(cb){
   });
 }
 
-function harvestGauge(code, lastTimestamp) {
+function harvestGauge(code, lastTimestamp, version = 1) {
   //Defaults to -1 day from now
   var time = lastTimestamp === undefined ? '-1;0' : (
-    moment(Number(lastTimestamp)).format('YYYYMMDDTHHmm') + ';' + moment().format('YYYYMMDDTHHmm')
+    moment(lastTimestamp).format('YYYYMMDDTHHmm') + ';' + moment().format('YYYYMMDDTHHmm')
   );
-  var paddedCode = code + '.0.1001.1';
+  var paddedCode = code + '.0.1001.' + version;
   var gaugeUrl =
     'http://h-web01.nve.no/chartserver/ShowData.aspx?req=getchart&ver=1.0&vfmt=json&time=' +
     time + '&lang=no&chd=ds=htsr,da=29,id=' + paddedCode + ',rt=0&nocache=' + Math.random();
   //Example (no cache parameter)
   // http://h-web01.nve.no/chartserver/ShowData.aspx?req=getchart&ver=1.0&vfmt=json&time=-1;0&lang=no&chd=ds=htsr,da=29,id=2.32.0.1001.1,rt=0&nocache=1234
-  
   return fetch(gaugeUrl)
     .then(function (response) { return response.json() })
     .then(function (json) {
-      var measurements = _.get(json, ['0', 'SeriesPoints']);
+      var measurements = get(json, ['0', 'SeriesPoints']);
       measurements = measurements.map(function (m) {
         var keyRegex = /\/Date\(([0-9]*)\)\//g;
         return {
@@ -164,40 +176,16 @@ function harvestGauge(code, lastTimestamp) {
     })
 }
 
-if (process.argv[2] === 'describe'){
-  process.stdout.write(JSON.stringify(
-    {harvestMode: 'oneByOne'}
-  ));
-}
-else if (process.argv[2] === 'autofill') {
-  autofill(function (error, gauges) {
-    if (error) {
-      process.send({ error });
-      process.exit(1);
-    }
-    else {
-      if (process.argv[3] === 'list'){
-        console.table(gauges);
-      }
-      else {
-        process.send(gauges);
-      }
-      // console.log(gauges.length);
-      // gauges.forEach(function(g){
-      //   console.log(g.name + '\t----\t' + JSON.stringify(g));
-      // })
-    }
-  });
-}
-else if (process.argv[2] === 'harvest') {
-  harvestGauge(process.argv[3], process.argv[4])
-    .then(function (measurements) {
-      //console.log(`Successfully harvested ${JSON.stringify(measurements)}`);
-      process.send(measurements);
-    })
-    .catch(function (error) {
-      console.error(`Error while harvesting: ${error}`);
-      process.send({error: error});
-      process.exit(1);
-    });
-}
+launchWorker(
+  'oneByOne',
+  autofill,
+  function harvestHandler(options, callback) {
+    harvestGauge(options.code, options.lastTimestamp, options.version)
+      .then(measurements => {
+        callback(null, measurements);
+      })
+      .catch(error => {
+        callback(error, null);
+      });
+  }
+);

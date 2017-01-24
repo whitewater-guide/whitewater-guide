@@ -1,0 +1,37 @@
+const random = require('lodash/random');
+const padStart = require('lodash/padStart');
+
+
+function generateRandomGauge(index) {
+  return {
+    name: `Test gauge ${index}`,
+    code: padStart(index.toString(), 3, '0'),
+    location: {
+      type: 'Point',
+      altitude: random(0, 3000),
+      coordinates: [
+        random(-89.9, 89.9, true),
+        random(-179.9, 179.9, true)
+      ]
+    },
+    timestamp: Date.now(),//unix timestamp in ms
+    level: Math.random() * 100,
+    flow: Math.random() * 100,
+    url: 'https://ya.ru',
+    disabled: false
+  };
+}
+
+function generateRandomMeasurement(code) {
+  return {
+    code: code,
+    timestamp: Date.now(),//unix timestamp in ms
+    level: Math.random() * 100,
+    flow: Math.random() * 100
+  };
+}
+
+module.exports = {
+  generateRandomGauge,
+  generateRandomMeasurement,
+};
