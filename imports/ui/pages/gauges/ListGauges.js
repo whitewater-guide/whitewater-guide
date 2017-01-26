@@ -2,7 +2,6 @@ import React, {Component, PropTypes} from 'react';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
-import {Meteor} from 'meteor/meteor';
 import {createContainer} from 'meteor/react-meteor-data';
 import {withRouter} from 'react-router';
 import {Gauges, removeGauge, setEnabled} from '../../../api/gauges';
@@ -14,6 +13,7 @@ import withAdmin from "../../hoc/withAdmin";
 import withPagination from "../../hoc/withPagination";
 import {Counts} from 'meteor/tmeasday:publish-counts';
 import PaginationContainer from '../../components/PaginationContainer';
+import {subsCache} from '../../../utils/SubsCache';
 
 class ListGauges extends Component {
 
@@ -193,10 +193,10 @@ const styles = {
 const ListGaugesContainer = createContainer(
   (props) => {
     const sourceId = props.location.query.sourceId;
-    const gaugesSub = Meteor.subscribe('gauges.inSource', sourceId, props.limit);
+    const gaugesSub = subsCache.subscribe('gauges.inSource', sourceId, props.limit);
     const gauges = Gauges.find({sourceId}, {sort: {name: 1}}).fetch();
     const source = Sources.findOne(sourceId);
-    const reportSub = Meteor.subscribe('jobs.activeReport', sourceId);
+    const reportSub = subsCache.subscribe('jobs.activeReport', sourceId);
     const jobsReport = ActiveJobsReport.find().fetch();
     const numGauges = Counts.get(`counter.gauges.${sourceId}`);
     const ready = gaugesSub.ready() && reportSub.ready();
