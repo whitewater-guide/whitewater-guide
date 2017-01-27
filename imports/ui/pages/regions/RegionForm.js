@@ -1,8 +1,12 @@
-import React, { Component, PropTypes } from 'react';
-import { Form, Field, TextInput, RichTextInput } from '../../forms';
+import React, {Component, PropTypes} from 'react';
+import {Form, Field, TextInput, RichTextInput} from '../../forms';
 import createI18nContainer from '../../hoc/createI18nContainer';
-import { Regions } from '../../../api/regions';
-import { TAPi18n } from 'meteor/tap:i18n';
+import SeasonPickerField from '/imports/ui/forms/SeasonPickerField';
+import {Regions} from '../../../api/regions';
+import {TAPi18n} from 'meteor/tap:i18n';
+import {Tabs, Tab} from 'material-ui/Tabs';
+import _ from 'lodash';
+import POICollection from "../sections/POICollection";
 
 class RegionForm extends Component {
 
@@ -17,13 +21,28 @@ class RegionForm extends Component {
   };
 
   render() {
-    if (!this.props.ready)
+    let {ready, initialData, ...props} = this.props;
+    if (!ready)
       return null;
 
+    let data = _.omit(initialData, ['poiIds']);
+    data.pois = _.isEmpty(initialData) ? [] : initialData.pois().fetch();
+
     return (
-      <Form {...this.props} style={styles.form} name="regions">
-        <Field name="name" title="Name" component={TextInput}/>
-        <Field name="description" title="description" component={RichTextInput}/>
+      <Form {...props} initialData={data} style={styles.form} name="regions">
+        <Tabs>
+          <Tab label="Main" value="#main">
+            <Field name="name" title="Name" component={TextInput}/>
+            <Field name="season" title="Season" component={TextInput}/>
+            <Field name="seasonNumeric" component={SeasonPickerField}/>
+          </Tab>
+          <Tab label="Description" value="#description">
+            <Field name="description" title="description" component={RichTextInput}/>
+          </Tab>
+          <Tab label="POIS" value="#pois">
+            <Field name="pois" title="Points of interest" component={POICollection}/>
+          </Tab>
+        </Tabs>
       </Form>
     );
   }

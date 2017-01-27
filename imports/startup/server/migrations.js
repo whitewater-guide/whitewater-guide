@@ -2,6 +2,7 @@ import {Meteor} from 'meteor/meteor';
 import {Migrations} from 'meteor/percolate:migrations';
 import {Gauges} from '../../api/gauges';
 import {Points} from '../../api/points';
+import {Regions} from '../../api/regions';
 import {Measurements} from '../../api/measurements';
 import {Sections, Durations} from '../../api/sections';
 import _ from 'lodash';
@@ -96,6 +97,26 @@ Migrations.add({
       // We need to wrap the async function to get a synchronous API that migrations expects
       const executeSectionsBatch = Meteor.wrapAsync(sectionsBatch.execute, sectionsBatch);
       return executeSectionsBatch();
+    }
+
+    return true;
+  }
+});
+
+Migrations.add({
+  version: 4,
+  up: function migration4up() {
+    const regionsBatch = Regions.rawCollection().initializeUnorderedBulkOp();
+    let hasUpdates = false;
+    Regions.find({poiIds: {$exists: false}}).forEach(region => {
+      hasUpdates = true;
+      regionsBatch.find({_id: region._id}).updateOne({$set: {"poiIds": []}});
+    });
+
+    if (hasUpdates) {
+      // We need to wrap the async function to get a synchronous API that migrations expects
+      const executeRegionsBatch = Meteor.wrapAsync(regionsBatch.execute, regionsBatch);
+      return executeRegionsBatch();
     }
 
     return true;
