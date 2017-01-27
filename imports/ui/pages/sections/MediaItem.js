@@ -5,7 +5,7 @@ import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import _ from 'lodash';
 
-export const DEFAULT_MEDIA_ITEM = {url: '', type: 'photo', description: '', deleted: false};
+export const DEFAULT_MEDIA_ITEM = {url: '', type: 'photo', description: '', copyright: '', deleted: false};
 
 class MediaItem extends Component {
   static propTypes = {
@@ -13,6 +13,7 @@ class MediaItem extends Component {
       url: PropTypes.string,
       type: PropTypes.oneOf(['photo','video','blog']),
       description: PropTypes.string,
+      copyright: PropTypes.string,
     }),
     error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     onChange: PropTypes.func,
@@ -67,6 +68,14 @@ class MediaItem extends Component {
             rows={2}
             rowsMax={4}
           />
+          <TextField
+            style={styles.textInput}
+            errorText={_.get(error, 'copyright')}
+            value={value.copyright}
+            onChange={this.onCopyrightChange}
+            hintText="Copyright"
+            floatingLabelText="Copyright"
+          />
         </div>
       </div>
     )
@@ -82,6 +91,10 @@ class MediaItem extends Component {
 
   onDescriptionChange = (event, value) => {
     this.props.onChange({...DEFAULT_MEDIA_ITEM, ...this.props.value, description: value});
+  };
+
+  onCopyrightChange = (event, value) => {
+    this.props.onChange({...DEFAULT_MEDIA_ITEM, ...this.props.value, copyright: value});
   };
 
   onDelete = () => {

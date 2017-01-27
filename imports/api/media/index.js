@@ -8,6 +8,11 @@ export const MediaI18nSchema = new SimpleSchema({
     label: 'Description',
     optional: true,
   },
+  copyright: {
+    type: String,
+    label: 'Copyright',
+    optional: true,
+  },
 });
 
 export const MediaSchema = new SimpleSchema([
