@@ -1,41 +1,27 @@
-import {Meteor} from 'meteor/meteor';
-import {Sections} from '../index';
-import {Rivers} from '../../rivers';
-import {Gauges} from '../../gauges';
-import {Media} from '../../media';
-import {Points} from '../../points';
-import {SimpleSchema} from 'meteor/aldeed:simple-schema';
-import {Roles} from 'meteor/alanning:roles';
-import {SupplyTags, KayakingTags, HazardTags, MiscTags} from '../../tags';
-import {TAPi18n} from 'meteor/tap:i18n';
-import {Counts} from 'meteor/tmeasday:publish-counts';
-import {listQuery} from '../query';
+import {Meteor} from "meteor/meteor";
+import {Sections} from "../index";
+import {Rivers} from "../../rivers";
+import {Media} from "../../media";
+import {Points} from "../../points";
+import {SimpleSchema} from "meteor/aldeed:simple-schema";
+import {Roles} from "meteor/alanning:roles";
+import {SupplyTags, KayakingTags, HazardTags, MiscTags} from "../../tags";
+import {TAPi18n} from "meteor/tap:i18n";
+import {Counts} from "meteor/tmeasday:publish-counts";
+import {listQuery, mapQuery} from "../query";
 
-Meteor.publishComposite('sections.list', function (terms, lang) {
+TAPi18n.publish('sections.list', function (terms, lang) {
   const query = listQuery(terms, lang);
-
-  return {
-    find: function () {
-      Counts.publish(this, `counter.sections.current`, Sections.find(query.selector), {noReady: true});
-      return Sections.find(query.selector, query.options);
-    },
-
-    children: [
-      //River
-      {
-        find: function (sectionDoc) {
-          return Rivers.find(sectionDoc.riverId, {limit: 1, lang, fields: {name: 1}});
-        }
-      },
-      //Gauge
-      {
-        find: function (section) {
-          return Gauges.find(section.gaugeId, {limit: 1, lang, fields: {name: 1}});
-        }
-      }
-    ]
-  }
+  Counts.publish(this, `counter.sections.current`, Sections.find(query.selector), {noReady: true});
+  return Sections.find(query.selector, query.options);
 });
+
+TAPi18n.publish('sections.map', function (terms, lang) {
+  const query = mapQuery(terms, lang);
+  return Sections.find(query.selector, query.options);
+});
+
+
 
 TAPi18n.publish('sections.details', function (sectionId) {
   if (!sectionId)

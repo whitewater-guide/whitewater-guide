@@ -28,3 +28,23 @@ export function listQuery(terms, lang = null){
     }
   };
 }
+
+const mapFields = {
+  name: 1,
+  riverName: 1,
+  putIn: 1,
+  takeOut: 1,
+  difficulty: 1,
+  difficultyXtra: 1,
+  rating: 1,
+};
+
+export function mapQuery(terms, lang = null){
+  return {
+    selector: _.pick(terms, ['regionId', 'riverId']),
+    options: {
+      fields: mapFields,
+      lang,
+    }
+  };
+}
