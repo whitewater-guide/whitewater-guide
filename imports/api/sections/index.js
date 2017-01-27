@@ -97,6 +97,14 @@ const SectionBaseSchema = new SimpleSchema({
     label: 'Gauge',
     optional: true,
   },
+  putIn: {//Denormalized
+    type: PointSchema,
+    label: 'Put-in point',
+  },
+  takeOut: {
+    type: PointSchema,
+    label: 'Take-out point',
+  },
   distance: {
     type: Number,
     label: 'Length, km',
@@ -208,16 +216,6 @@ const SectionBaseSchema = new SimpleSchema({
 });
 
 const SectionRefsSchema = new SimpleSchema({
-  putInId: {
-    type: String,
-    regEx: SimpleSchema.RegEx.Id,
-    label: 'Put-in location',
-  },
-  takeOutId: {
-    type: String,
-    regEx: SimpleSchema.RegEx.Id,
-    label: 'Take-out location',
-  },
   mediaIds: {
     type: [String],
     regEx: SimpleSchema.RegEx.Id,
@@ -257,14 +255,6 @@ const SectionsCrudSchema = new SimpleSchema({
           type: [new SimpleSchema([PointSchema, {_id: {type:String, optional: true}, deleted: {type: Boolean, optional: true}}])],
           defaultValue: [],
         },
-        putIn: {
-          type: PointSchema,
-          optional: true,
-        },
-        takeOut: {
-          type: PointSchema,
-          optional: true,
-        },
       },
     ]),
   },
@@ -286,7 +276,7 @@ export const upsertSection = new AdminMethod({
     noRetry: true,
   },
 
-  run({data: {_id, media, pois, putIn, takeOut, ...updates}, language}) {
+  run({data: {_id, media, pois, ...updates}, language}) {
     language = language || Sections._base_language;
     //First, handle media attachments
     const mediaIds = _.chain(media)
@@ -317,14 +307,14 @@ export const upsertSection = new AdminMethod({
       })
       .compact()
       .value();
-    let {_id: putInId, ...putInData} = putIn;
+    let {_id: putInId, ...putInData} = updates.putIn;
     let putInResult = Points.upsertTranslations(putInId, {[language]: {...putInData, kind: 'put-in'}});
     putInId = putInId || putInResult.insertedId;
-    let {_id: takeOutId, ...takeOutData} = takeOut;
+    let {_id: takeOutId, ...takeOutData} = updates.takeOut;
     let takeOutResult = Points.upsertTranslations(takeOutId, {[language]: {...takeOutData, kind: 'take-out'}});
     takeOutId = takeOutId || takeOutResult.insertedId;
 
-    updates = {...updates, mediaIds, poiIds, putInId, takeOutId};
+    updates = {...updates, mediaIds, poiIds, putIn: {_id: putInId, ...putInData}, takeOut: {_id: takeOutId, ...takeOutData}};
 
     const river = Rivers.findOne({_id: updates.riverId}, {fields: {regionId: 1, name: 1}});
     if (river) {
@@ -361,12 +351,6 @@ Sections.helpers({
   },
   gauge: function () {
     return Gauges.find(this.gaugeId, {limit: 1});
-  },
-  putIn: function () {
-    return Points.find(this.putInId, {limit: 1});
-  },
-  takeOut: function () {
-    return Points.find(this.takeOutId, {limit: 1});
   },
   media: function () {
     return Media.find({_id: {$in: this.mediaIds}});
