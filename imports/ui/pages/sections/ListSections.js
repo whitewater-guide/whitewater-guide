@@ -1,17 +1,22 @@
 import React, {Component, PropTypes} from 'react';
 import withPagination from "../../hoc/withPagination";
+import {SortDirection} from 'react-virtualized';
 import {Counts} from 'meteor/tmeasday:publish-counts';
 import PaginationContainer from '../../components/PaginationContainer';
 import SectionsTable from './SectionsTable';
 import {createContainer} from 'meteor/react-meteor-data';
 import {Sections} from '../../../api/sections';
 import {TAPi18n} from 'meteor/tap:i18n';
+import {listQuery} from '../../../api/sections/query';
 
 class ListSections extends Component {
 
   static propTypes = {
     limit: PropTypes.number,
     loadMore: PropTypes.func,
+    sortBy: PropTypes.string,
+    sortDirection: PropTypes.oneOf([SortDirection.ASC, SortDirection.DESC]),
+    onSort: PropTypes.func,
     ready: PropTypes.bool,
     sections: PropTypes.array,
     numSections: PropTypes.number,
@@ -23,10 +28,11 @@ class ListSections extends Component {
       <PaginationContainer style={styles.container} limit={limit} loading={!ready} loadMore={loadMore}
                            total={numSections}>
         <h1>List sections page stub</h1>
-        <SectionsTable sections={sections} numSections={numSections}/>
+        <SectionsTable sections={sections} onSort={this.props.onSort} sortBy={this.props.sortBy} sortDirection={this.props.sortDirection}/>
       </PaginationContainer>
     );
   }
+
 }
 
 const styles = {
@@ -46,8 +52,9 @@ const styles = {
 
 const ListGaugesContainer = createContainer(
   (props) => {
-    const sub = TAPi18n.subscribe('sections.list', null, {}, props.limit);
-    const sections = Sections.find({}, {sort: {name: 1}}).fetch();
+    const query = listQuery(props);
+    const sub = TAPi18n.subscribe('sections.list', null, props);
+    const sections = Sections.find(query.selector, query.options).fetch();
     const numSections = Counts.get(`counter.sections.current`);
     return {
       ready: sub.ready(),

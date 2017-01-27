@@ -9,44 +9,15 @@ import {Roles} from 'meteor/alanning:roles';
 import {SupplyTags, KayakingTags, HazardTags, MiscTags} from '../../tags';
 import {TAPi18n} from 'meteor/tap:i18n';
 import {Counts} from 'meteor/tmeasday:publish-counts';
+import {listQuery} from '../query';
 
-const querySchema = new SimpleSchema({
-  sectionId: {
-    type: String,
-    optional: true,
-    regEx: SimpleSchema.RegEx.Id,
-  },
-  regionId: {
-    type: String,
-    optional: true,
-    regEx: SimpleSchema.RegEx.Id,
-  },
-  name: {
-    type: String,
-    optional: true,
-  },
-  difficulty: {
-    type: Number,
-    optional: true,
-    decimal: true,
-    min: 1,
-    max: 6,
-  },
-  rating: {
-    type: Number,
-    optional: true,
-    decimal: true,
-    min: 0,
-    max: 5,
-  },
-});
+Meteor.publishComposite('sections.list', function (terms, lang) {
+  const query = listQuery(terms, lang);
 
-Meteor.publishComposite('sections.list', function (query, limit = 25, lang = 'en') {
   return {
     find: function () {
-      querySchema.validate(query);
-      Counts.publish(this, `counter.sections.current`, Sections.find(query), {noReady: true});
-      return Sections.find(query, {limit, lang, sort: {name: 1}});
+      Counts.publish(this, `counter.sections.current`, Sections.find(query.selector), {noReady: true});
+      return Sections.find(query.selector, query.options);
     },
 
     children: [
