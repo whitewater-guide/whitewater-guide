@@ -5,6 +5,7 @@ import {Points} from '../../api/points';
 import {Regions} from '../../api/regions';
 import {Measurements} from '../../api/measurements';
 import {Sections, Durations} from '../../api/sections';
+import v6 from './migrations/v6';
 import _ from 'lodash';
 
 Migrations.add({
@@ -61,7 +62,11 @@ Migrations.add({
       hasGaugesUpdates = true;
       gaugesBatch
         .find({_id: gauge._id})
-        .updateOne({$rename: {'lastValue': 'lastLevel', 'unit': 'levelUnit'}, $set: {'lastFlow': 0, 'flowUnit': ''}, $unset: {'measurement': ''}});
+        .updateOne({
+          $rename: {'lastValue': 'lastLevel', 'unit': 'levelUnit'},
+          $set: {'lastFlow': 0, 'flowUnit': ''},
+          $unset: {'measurement': ''}
+        });
     });
 
     if (hasGaugesUpdates) {
@@ -87,10 +92,10 @@ Migrations.add({
       {}
     );
     Sections.find({}).forEach(section => {
-        if (_.isString(section.duration)) {
-          hasUpdates = true;
-          sectionsBatch.find({_id: section._id}).updateOne({$set: {"duration": durationsMap[section.duration]}});
-        }
+      if (_.isString(section.duration)) {
+        hasUpdates = true;
+        sectionsBatch.find({_id: section._id}).updateOne({$set: {"duration": durationsMap[section.duration]}});
+      }
     });
 
     if (hasUpdates) {
@@ -133,7 +138,10 @@ Migrations.add({
       hasUpdates = true;
       const putIn = Points.findOne({_id: section.putInId});
       const takeOut = Points.findOne({_id: section.takeOutId});
-      sectionsBatch.find({_id: section._id}).updateOne({$set: {putIn, takeOut}, $unset: {'putInId': '', 'takeOutId': ''}});
+      sectionsBatch.find({_id: section._id}).updateOne({
+        $set: {putIn, takeOut},
+        $unset: {'putInId': '', 'takeOutId': ''}
+      });
     });
 
     if (hasUpdates) {
@@ -145,6 +153,9 @@ Migrations.add({
     return true;
   }
 });
+
+
+Migrations.add(v6);
 
 Meteor.startup(() => {
   Migrations.migrateTo('latest');

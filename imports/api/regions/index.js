@@ -26,6 +26,55 @@ const RegionsI18nSchema = new SimpleSchema({
   },
 });
 
+const limits = [
+  {min: -90, max: 90, msg: 'lonOutOfRange'},
+  {min: -180, max: 180, msg: 'latOutOfRange'},
+];
+
+const BoundingBoxSchema = new SimpleSchema({
+  sw: {
+    type: [Number],
+    label: 'South-west corner Longitude & Latitude',
+    decimal: true,
+    minCount: 2,
+    maxCount: 2,
+    optional: true,
+  },
+  "sw.$": {
+    custom: function () {
+      const index = Number(this.key.match(/\d+/)[0]);
+      const limit = limits[index];
+      if (this.value === null || this.value === undefined)
+        return 'required';
+      if (this.value >= limit.max || this.value <= limit.min)
+        return limit.msg;
+    },
+  },
+  ne: {
+    type: [Number],
+    label: 'North-east corner Longitude & Latitude',
+    decimal: true,
+    minCount: 2,
+    maxCount: 2,
+    optional: true,
+  },
+  "ne.$": {
+    custom: function () {
+      const index = Number(this.key.match(/\d+/)[0]);
+      const limit = limits[index];
+      if (this.value === null || this.value === undefined)
+        return 'required';
+      if (this.value >= limit.max || this.value <= limit.min)
+        return limit.msg;
+    },
+  },
+  autocompute: {
+    type: Boolean,
+    label: 'Compute bounding box automatically',
+    defaultValue: true,
+  },
+});
+
 const RegionsSchema = new SimpleSchema([
   RegionsI18nSchema,
   {
@@ -42,6 +91,10 @@ const RegionsSchema = new SimpleSchema([
       optional: true,
       maxCount: 24,
       defaultValue: [],
+    },
+    bounds: {
+      type: BoundingBoxSchema,
+      label: 'Bounding box',
     },
     poiIds: {
       type: [String],
