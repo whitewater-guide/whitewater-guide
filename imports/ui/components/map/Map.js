@@ -17,7 +17,6 @@ export default class Map extends React.Component {
   }
 
   onLoaded = ({map, maps}) => {
-    this.setState({map, maps, mapLoaded: true});
     if (this.props.bounds) {
       var bounds = new maps.LatLngBounds(this.props.bounds.sw, this.props.bounds.ne);
       map.setCenter(bounds.getCenter());
