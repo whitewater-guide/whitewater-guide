@@ -1,6 +1,7 @@
 import {Meteor} from "meteor/meteor";
 import {Sections} from "../index";
 import {Rivers} from "../../rivers";
+import {Regions} from "../../regions";
 import {Media} from "../../media";
 import {Points} from "../../points";
 import {SimpleSchema} from "meteor/aldeed:simple-schema";
@@ -18,7 +19,11 @@ TAPi18n.publish('sections.list', function (terms, lang) {
 
 TAPi18n.publish('sections.map', function (terms, lang) {
   const query = mapQuery(terms, lang);
-  return Sections.find(query.selector, query.options);
+  const result = [Sections.find(query.selector, query.options)];
+  if (query.selector.regionId){
+    result.push(Regions.find({_id: query.selector.regionId}, {fields: {name: 1, bounds: 1}, limit: 1}));
+  }
+  return result;
 });
 
 
