@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import { upsertSection } from '../../../api/sections';
+import { editSection } from '../../../api/sections';
 import adminOnly from '../../hoc/adminOnly';
 import { withRouter } from 'react-router';
 import SectionForm from './SectionForm';
@@ -16,7 +16,7 @@ class EditSection extends Component {
   render() {
     const currentTab = this.props.router.location.hash || '#main';
     return (
-      <SectionForm method={upsertSection}
+      <SectionForm method={editSection}
                    title="Section settings"
                    submitLabel="Update"
                    sectionId={this.props.params.sectionId}

@@ -267,8 +267,8 @@ const SectionsCrudSchema = new SimpleSchema({
 Sections.attachSchema(SectionsSchema);
 Sections.attachI18Schema(SectionI18nSchema);
 
-export const upsertSection = new AdminMethod({
-  name: 'sections.upsert',
+export const createSection = new AdminMethod({
+  name: 'sections.create',
 
   validate: SectionsCrudSchema.validator({clean: true}),
 
@@ -276,57 +276,74 @@ export const upsertSection = new AdminMethod({
     noRetry: true,
   },
 
-  run({data: {_id, media, pois, ...updates}, language}) {
-    language = language || Sections._base_language;
-    //First, handle media attachments
-    const mediaIds = _.chain(media)
-      .map(mediaItem => {
-        if (mediaItem.deleted) {
-          Media.remove({_id: mediaItem._id});
-          return null;
-        }
-        delete mediaItem.deleted;//Do not need to store this in mongo
-        const mediaItemId = mediaItem._id;
-        delete mediaItem._id;
-        const {insertedId} = Media.upsertTranslations(mediaItemId, {[language]: mediaItem});
-        return mediaItemId || insertedId;
-      })
-      .compact()
-      .value();
-    const poiIds = _.chain(pois)
-      .map(poiItem => {
-        if (poiItem.deleted) {
-          Points.remove({_id: poiItem._id});
-          return null;
-        }
-        delete poiItem.deleted;//Do not need to store this in mongo
-        const poiItemId = poiItem._id;
-        delete poiItem._id;
-        const {insertedId} = Points.upsertTranslations(poiItemId, {[language]: poiItem});
-        return poiItemId || insertedId;
-      })
-      .compact()
-      .value();
-    let {_id: putInId, ...putInData} = updates.putIn;
-    let putInResult = Points.upsertTranslations(putInId, {[language]: {...putInData, kind: 'put-in'}});
-    putInId = putInId || putInResult.insertedId;
-    let {_id: takeOutId, ...takeOutData} = updates.takeOut;
-    let takeOutResult = Points.upsertTranslations(takeOutId, {[language]: {...takeOutData, kind: 'take-out'}});
-    takeOutId = takeOutId || takeOutResult.insertedId;
-
-    updates = {...updates, mediaIds, poiIds, putIn: {_id: putInId, ...putInData}, takeOut: {_id: takeOutId, ...takeOutData}};
-
-    const river = Rivers.findOne({_id: updates.riverId}, {fields: {regionId: 1, name: 1}});
-    if (river) {
-      updates.regionId = river.regionId;
-      updates.riverName = river.name;
-    }
-
-    return Sections.upsertTranslations(_id, {[language]: updates});
+  run({data, language}) {
+    const updates = prepareUpdates(data, language);
+    return Sections.insertTranslations(updates);
   }
 });
 
+export const editSection = new AdminMethod({
+  name: 'sections.edit',
 
+  validate: SectionsCrudSchema.validator({ clean: true }),
+
+  applyOptions: {
+    noRetry: true,
+  },
+
+  run({data: {_id, ...data}, language}) {
+    const updates = prepareUpdates(data, language);
+    return Sections.updateTranslations(_id, {[language]: updates});
+  }
+});
+
+function prepareUpdates({media, pois, ...data}, language){
+  language = language || Sections._base_language;
+  const mediaIds = _.chain(media)
+    .map(mediaItem => {
+      if (mediaItem.deleted) {
+        Media.remove({_id: mediaItem._id});
+        return null;
+      }
+      delete mediaItem.deleted;//Do not need to store this in mongo
+      const mediaItemId = mediaItem._id;
+      delete mediaItem._id;
+      const {insertedId} = Media.upsertTranslations(mediaItemId, {[language]: mediaItem});
+      return mediaItemId || insertedId;
+    })
+    .compact()
+    .value();
+  const poiIds = _.chain(pois)
+    .map(poiItem => {
+      if (poiItem.deleted) {
+        Points.remove({_id: poiItem._id});
+        return null;
+      }
+      delete poiItem.deleted;//Do not need to store this in mongo
+      const poiItemId = poiItem._id;
+      delete poiItem._id;
+      const {insertedId} = Points.upsertTranslations(poiItemId, {[language]: poiItem});
+      return poiItemId || insertedId;
+    })
+    .compact()
+    .value();
+  let {_id: putInId, ...putInData} = data.putIn;
+  let putInResult = Points.upsertTranslations(putInId, {[language]: {...putInData, kind: 'put-in'}});
+  putInId = putInId || putInResult.insertedId;
+  let {_id: takeOutId, ...takeOutData} = data.takeOut;
+  let takeOutResult = Points.upsertTranslations(takeOutId, {[language]: {...takeOutData, kind: 'take-out'}});
+  takeOutId = takeOutId || takeOutResult.insertedId;
+
+  let updates = {...data, mediaIds, poiIds, putIn: {_id: putInId, ...putInData}, takeOut: {_id: takeOutId, ...takeOutData}};
+
+  const river = Rivers.findOne({_id: data.riverId}, {fields: {regionId: 1, name: 1}});
+  if (river) {
+    updates.regionId = river.regionId;
+    updates.riverName = river.name;
+  }
+
+  return updates;
+}
 
 export const removeSection = new AdminMethod({
   name: 'sections.remove',

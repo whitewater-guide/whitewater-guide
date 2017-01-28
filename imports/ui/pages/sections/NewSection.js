@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import {upsertSection} from '../../../api/sections';
+import {createSection} from '../../../api/sections';
 import adminOnly from '../../hoc/adminOnly';
 import {withRouter} from 'react-router';
 import SectionForm from './SectionForm';
@@ -14,7 +14,7 @@ class NewSection extends Component {
   render() {
     const currentTab = this.props.router.location.hash || '#main';
     return (
-      <SectionForm method={upsertSection}
+      <SectionForm method={createSection}
                    multilang={false}
                    title="New Section"
                    submitLabel="Create"
