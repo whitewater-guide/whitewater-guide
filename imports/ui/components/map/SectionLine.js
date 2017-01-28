@@ -9,6 +9,21 @@ export default class SectionLine extends Polyline {
     onClick: PropTypes.func,
   };
 
+  componentDidMount() {
+    super.componentDidMount();
+    this.setupListeners(this.props);
+  }
+
+  componentDidUpdate(prevProps, prevState){
+    super.componentDidUpdate(prevProps, prevState);
+    this.setupListeners(this.props);
+  }
+
+  componentWillUnmount(){
+    super.componentWillUnmount();
+    this.setupListeners({});
+  }
+
   getPaths() {
     const { origin, destination } = this.props;
     return [
@@ -29,4 +44,18 @@ export default class SectionLine extends Polyline {
       }]
     }
   }
+  
+  setupListeners = ({onClick}) => {
+    if (onClick){
+      this.line.addListener('click', this.onClick);
+    }
+    else {
+      this.props.maps.event.clearListeners(this.line, 'click');
+    }
+  };
+
+  onClick = () => {
+    if (this.props.sectionId && this.props.onClick)
+      this.props.onClick(this.props.sectionId);
+  };
 }

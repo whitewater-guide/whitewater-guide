@@ -6,6 +6,8 @@ export default class Map extends React.Component {
   static propTypes = {
     sections: PropTypes.array,
     bounds: PropTypes.object,
+    selectedSectionId: PropTypes.string,
+    onSectionSelected: PropTypes.func
   };
 
   render() {
@@ -30,11 +32,17 @@ export default class Map extends React.Component {
   renderSection = (section) => {
     return (
       <SectionLine
+        sectionId={section._id}
+        onClick={this.onSectionClick}
         key={section._id}
         origin={section.putIn}
         destination={section.takeOut}
       />
     );
+  };
+
+  onSectionClick = (sectionId) => {
+    this.props.onSectionSelected(sectionId);
   };
 
 }
