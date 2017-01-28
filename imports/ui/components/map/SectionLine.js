@@ -1,6 +1,13 @@
+import React, {PropTypes} from 'react';
 import Polyline from './Polyline';
 
 export default class SectionLine extends Polyline {
+
+  static propTypes = {
+    ...Polyline.propTypes,
+    sectionId: PropTypes.string,
+    onClick: PropTypes.func,
+  };
 
   getPaths() {
     const { origin, destination } = this.props;
@@ -10,7 +17,7 @@ export default class SectionLine extends Polyline {
     ];
   }
 
-  renderPolyline() {
+  getStyle() {
     return {
       geodesic: true,
       strokeColor: this.props.color || '#ff0000',

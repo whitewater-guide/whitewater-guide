@@ -9,37 +9,38 @@ export default class Polyline extends PureComponent {
     map: PropTypes.object,
   };
 
-  componentWillUpdate() {
-    this.line.setMap(null);
+  line = null;
+
+  componentDidMount(){
+    const {maps, map} = this.props;
+    this.line = new maps.Polyline({path: this.getPaths(), map, ...this.getStyle()});
   }
 
-  componentWillUnmount() {
+  componentDidUpdate(prevProps){
+    const {origin, destination} = this.props;
+    if (prevProps.origin !== origin || prevProps.desctination !== destination) {
+      this.line.setPath(this.getPaths());
+    }
+  }
+
+  componentWillUnmount(){
     this.line.setMap(null);
   }
 
   getPaths() {
     const { origin, destination } = this.props;
     return [
-      { lat: Number(origin.lat), lng: Number(origin.long) },
-      { lat: Number(destination.lat), lng: Number(destination.long) }
+      { lat: Number(origin.lat), lng: Number(origin.lng) },
+      { lat: Number(destination.lat), lng: Number(destination.lng) }
     ];
   }
 
   render() {
-    const Polyline = this.props.maps.Polyline;
-
-    const renderedPolyline = this.renderPolyline();
-    const paths = { path: this.getPaths() };
-
-    this.line = new Polyline(Object.assign({}, renderedPolyline, paths));
-
-    this.line.setMap(this.props.map);
-
     return null;
   }
 
-  renderPolyline() {
-    throw new Error('Implement renderPolyline method')
+  getStyle() {
+    throw new Error('Implement getStyle method')
   }
 
 }
