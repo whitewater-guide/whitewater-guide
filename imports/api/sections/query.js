@@ -18,12 +18,13 @@ export function listQuery(terms, lang = null){
   sortBy = (!sortBy || sortBy === 'name') ?
     [['riverName', sortDirection], ['name', sortDirection]] :
     [[sortBy, sortDirection]];
+  const selector = _.pick(terms, ['regionId', 'riverId']);
   return {
-    selector: _.pick(terms, ['regionId', 'riverId']),
+    selector,
     options: {
       limit,
       sort: sortBy,
-      fields: listFields,
+      fields: {...listFields, ..._.mapValues(selector, () => 1)},//Fields must include selector for client-side filtering
       lang,
     }
   };
@@ -40,10 +41,11 @@ const mapFields = {
 };
 
 export function mapQuery(terms, lang = null){
+  const selector = _.pick(terms, ['regionId', 'riverId']);
   return {
-    selector: _.pick(terms, ['regionId', 'riverId']),
+    selector,
     options: {
-      fields: mapFields,
+      fields: {...mapFields, ..._.mapValues(selector, () => 1)},//Fields must include selector for client-side filtering
       lang,
     }
   };

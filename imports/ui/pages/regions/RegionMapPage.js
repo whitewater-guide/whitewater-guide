@@ -61,6 +61,6 @@ const DataContainer = createContainer(
 );
 
 export default compose(
-  withProps(props => ({regionId: props.params.regonId})),
   withRouter,
+  withProps(props => ({regionId: props.params.regionId})),
 )(DataContainer)
