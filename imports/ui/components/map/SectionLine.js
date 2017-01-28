@@ -15,7 +15,11 @@ export default class SectionLine extends Polyline {
       geodesic: true,
       strokeColor: this.props.color || '#ff0000',
       strokeOpacity: 1,
-      strokeWeight: 4
+      strokeWeight: 4,
+      icons: [{
+        icon: {path: this.props.maps.SymbolPath.FORWARD_CLOSED_ARROW},
+        offset: '100%'
+      }]
     }
   }
 }
