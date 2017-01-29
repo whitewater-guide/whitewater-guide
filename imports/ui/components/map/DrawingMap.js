@@ -93,11 +93,13 @@ export default class DrawingMap extends React.Component {
     //Set bounds
     if (this.props.bounds || this.state.points.length > 1) {
       let bounds = new maps.LatLngBounds();
-      if (this.props.bounds){
+      if (this.state.points.length > 1){
+        this.state.points.forEach(point => bounds.extend(arrayToGmaps(point)));
+      }
+      else {
         bounds.extend(arrayToGmaps(this.props.bounds.sw));
         bounds.extend(arrayToGmaps(this.props.bounds.ne));
       }
-      this.state.points.forEach(point => bounds.extend(arrayToGmaps(point)));
       map.setCenter(bounds.getCenter());
       map.fitBounds(bounds);
 
