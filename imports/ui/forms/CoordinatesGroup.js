@@ -16,10 +16,12 @@ class CoordinatesGroup extends Component {
       error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
       onChange: PropTypes.func,
     }),
+    mapDialog: PropTypes.bool,
   };
 
   static defaultProps = {
     detailed: false,
+    mapDialog: true,
   };
 
   state = {
@@ -107,9 +109,12 @@ class CoordinatesGroup extends Component {
             />
           </div>
           <div>
-            <IconButton iconClassName="material-icons" onTouchTap={this.onAddLocation}>
-              add_location
-            </IconButton>
+            {
+              this.props.mapDialog &&
+              <IconButton iconClassName="material-icons" onTouchTap={this.onAddLocation}>
+                add_location
+              </IconButton>
+            }
             {
               this.state.dialogOpen &&
               <SelectPointsDialog
