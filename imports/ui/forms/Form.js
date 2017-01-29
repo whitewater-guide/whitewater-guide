@@ -58,10 +58,11 @@ class Form extends Component {
   }
 
   componentWillReceiveProps(nextProps){
+    //Use arrow function in setState to avoid conflicts with other pending updates
     if (nextProps.initialData){
-      this.setState({
-        data: {...this.state.data, ...nextProps.initialData}
-      });
+      this.setState((prevState) => ({
+        data: {...prevState.data, ...nextProps.initialData}
+      }));
     }
   }
 
@@ -84,10 +85,22 @@ class Form extends Component {
     );
   }
 
+  /**
+   *
+   * @param field Flat map of multiple (might be deeply nested) fields and their values. Or string name of single field
+   * @param value In case of single field, its value
+   */
   onFieldChange = (field, value) => {
-    //Use lodash to allow fields from embedded documents
+    let fieldsDict = field;
+    if (_.isString(field))
+      fieldsDict = {[field]: value};
+
     let data = { ... this.state.data };
-    _.set(data, field, value);
+
+    _.forEach(fieldsDict, (fieldValue, fieldName) => {
+      //Use lodash to allow fields from embedded documents
+      _.set(data, fieldName, fieldValue);
+    });
     this.setState({ data });
   };
 

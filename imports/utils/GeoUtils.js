@@ -17,3 +17,11 @@ export function arrayToGmaps(array){
   const [lng, lat] = array;
   return {lat, lng}
 }
+
+export function isValidLat(lat){
+  return _.isNumber(lat) && lat >= -90 && lat <= 90;
+}
+
+export function isValidLng(lng){
+  return _.isNumber(lng) && lng >= -180 && lng <= 180;
+}

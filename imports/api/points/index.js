@@ -4,8 +4,8 @@ import AdminMethod from '../../utils/AdminMethod';
 import {formSchema} from "../../utils/SimpleSchemaUtils";
 
 const limits = [
-  {min: -90, max: 90, msg: 'lonOutOfRange'},
-  {min: -180, max: 180, msg: 'latOutOfRange'},
+  {min: -180, max: 180, msg: 'lonOutOfRange'},
+  {min: -90, max: 90, msg: 'latOutOfRange'},
 ];
 
 export const POITypes = [

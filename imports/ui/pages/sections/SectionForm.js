@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {Form, Field, TextInput, Select, CoordinatesGroup, ChipInput, RichTextInput, SeasonPickerField, Rating, Checkbox} from '../../forms';
 import createI18nContainer from '../../hoc/createI18nContainer';
 import TextField from 'material-ui/TextField';
+import PutInMapDialog from './PutInMapDialog';
 import MediaCollection from './MediaCollection';
 import POICollection from './POICollection';
 import {Tabs, Tab} from 'material-ui/Tabs';
@@ -32,6 +33,10 @@ class SectionForm extends Component {
 
   static defaultProps = {
     ...Form.defaultProps,
+  };
+
+  state = {
+    mapOpen: false,
   };
 
   render() {
@@ -76,8 +81,8 @@ class SectionForm extends Component {
               <Field name="flows.impossible" title="Absolute maximum" component={TextInput} type="number"/>
               <Field name="flows.approximate" title="Is approximate" component={Checkbox}/>
             </div>
-            <Field name="putIn" title="Put-in location (this must be point on the river!)" component={CoordinatesGroup} mapDialog={false}/>
-            <Field name="takeOut" title="Take-out location (this must be point on the river!)" component={CoordinatesGroup} mapDialog={false}/>
+            <Field name="putIn" title="Put-in location (this must be point on the river!)" component={CoordinatesGroup} mapButtonHandler={this.showMap}/>
+            <Field name="takeOut" title="Take-out location (this must be point on the river!)" component={CoordinatesGroup} mapButtonHandler={this.showMap}/>
           </Tab>
           <Tab label="Properties" value="#properties">
             <div style={styles.row}>
@@ -106,6 +111,10 @@ class SectionForm extends Component {
             </div>
           </Tab>
         </Tabs>
+        {
+          this.state.mapOpen &&
+          <PutInMapDialog numPoints={2} onClose={this.onCloseMap} onSubmit={this.onSubmitMap}/>
+        }
       </Form>
     );
   }
@@ -119,6 +128,18 @@ class SectionForm extends Component {
     if (data.levels && !data.levels.minimum && !data.levels.maximum && !data.levels.optimum && !data.levels.impossible)
       data = _.omit(data, 'levels');
     return data;
+  };
+
+  showMap = () => {
+    this.setState({mapOpen: true});
+  };
+
+  onCloseMap = () => {
+    this.setState({mapOpen: false});
+  };
+
+  onSubmitMap = () => {
+    this.setState({mapOpen: false});
   };
 }
 

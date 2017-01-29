@@ -17,6 +17,7 @@ class CoordinatesGroup extends Component {
       onChange: PropTypes.func,
     }),
     mapDialog: PropTypes.bool,
+    mapButtonHandler: PropTypes.func,
   };
 
   static defaultProps = {
@@ -111,7 +112,7 @@ class CoordinatesGroup extends Component {
           <div>
             {
               this.props.mapDialog &&
-              <IconButton iconClassName="material-icons" onTouchTap={this.onAddLocation}>
+              <IconButton iconClassName="material-icons" onTouchTap={this.mapButtonHandler}>
                 add_location
               </IconButton>
             }
@@ -185,8 +186,13 @@ class CoordinatesGroup extends Component {
     }
   };
 
-  onAddLocation = () => {
-    this.setState({dialogOpen: true});
+  mapButtonHandler = () => {
+    if (this.props.mapButtonHandler){
+      this.props.mapButtonHandler();
+    }
+    else {
+      this.setState({dialogOpen: true});
+    }
   };
 
   onCloseDialog = () => {
