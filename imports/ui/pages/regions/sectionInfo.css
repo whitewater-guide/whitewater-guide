@@ -1,0 +1,16 @@
+div.description img {
+    /* Responsive images (ensure images don't scale beyond their parents) */
+
+    /* Part 1: Set a maxium relative to the parent */
+    max-width: 100%;
+
+    /* IE7-8 need help adjusting responsive images */
+    width: auto\9;
+
+    /* Part 2: Scale the height according to the width, otherwise you get stretching */
+    height: auto;
+
+    vertical-align: middle;
+    border: 0;
+    -ms-interpolation-mode: bicubic;
+}

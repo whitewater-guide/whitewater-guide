@@ -7,6 +7,7 @@ import IconButton from 'material-ui/IconButton';
 import {Durations} from '/imports/api/sections';
 import renderHTML from 'react-render-html';
 import _ from 'lodash';
+import './sectionInfo.css';
 
 class SectionInfo extends React.Component {
   static propTypes = {
@@ -106,7 +107,7 @@ class SectionInfo extends React.Component {
           </div>
         </div>
 
-        <div style={styles.description}>
+        <div style={styles.description} className="description">
           {section.description && renderHTML(section.description)}
         </div>
 
