@@ -65,7 +65,7 @@ export default class AppRouter extends Component {
           <Route path="regions" name="Regions">
             <IndexRoute breadcrumbIgnore={true} components={{content: ListRegions}} />
             <Route path=":regionId" breadcrumbName=":regionId" >
-              <IndexRoute breadcrumbIgnore={true} components={{content: ViewRegion, left: ViewRegionLeft}} />
+              <IndexRedirect to="/regions/:regionId/map" />
               <Route path="settings" name="Settings" components={{content: EditRegion, left: ViewRegionLeft}}/>
               <Route path="map" name="Map" components={{content: RegionMapPage, left: ViewRegionLeft}}/>
             </Route>
