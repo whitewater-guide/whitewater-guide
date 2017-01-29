@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import GMap from './GMap';
+import GoogleMap from './GoogleMap';
 import _ from 'lodash';
 import {arrayToGmaps, isValidLat, isValidLng} from '../../../utils/GeoUtils';
 
@@ -34,6 +34,8 @@ export default class DrawingMap extends React.Component {
   markers = [];
 
   componentWillUnmount(){
+    if (!this.map || !this.maps)
+      return;
     if (this.line) {
       this.line.setMap(null);
       this.maps.event.clearInstanceListeners(this.line);
@@ -47,7 +49,7 @@ export default class DrawingMap extends React.Component {
 
   render() {
     return (
-      <GMap onClick={this.onClick} onLoaded={this.onLoaded}/>
+      <GoogleMap onClick={this.onClick} onLoaded={this.onLoaded}/>
     );
   }
 

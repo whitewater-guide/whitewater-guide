@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import SectionLine from './SectionLine';
-import GMap from './GMap';
+import GoogleMap from './GoogleMap';
 
 export default class Map extends React.Component {
   static propTypes = {
@@ -12,9 +12,9 @@ export default class Map extends React.Component {
 
   render() {
     return (
-      <GMap onLoaded={this.onLoaded}>
+      <GoogleMap onLoaded={this.onLoaded}>
         {this.props.sections.map(this.renderSection)}
-      </GMap>
+      </GoogleMap>
     );
   }
 

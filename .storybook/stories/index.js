@@ -2,6 +2,7 @@ import React from 'react';
 import {storiesOf, action, addDecorator} from '@kadira/storybook';
 import {muiTheme} from 'storybook-addon-material-ui';
 import SeasonPicker from '../../imports/ui/components/SeasonPicker';
+import GoogleMap from '../../imports/ui/components/map/GoogleMap';
 import DrawingMap from '../../imports/ui/components/map/DrawingMap';
 
 storiesOf('SeasonPicker', module)
@@ -12,6 +13,13 @@ storiesOf('SeasonPicker', module)
   .add('with some selections', () => (
     <SeasonPicker value={[2, 13]} onChange={action('change')}/>
   ));
+
+storiesOf('GoogleMap', module)
+  .addDecorator(muiTheme())
+  .add('basic', () => (
+    <GoogleMap/>
+  ));
+
 
 storiesOf('DrawingMap', module)
   .addDecorator(muiTheme())
