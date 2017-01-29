@@ -92,8 +92,7 @@ class ListSections extends Component {
   };
 
   onCellClick = (rowId) => {
-    const {router, sections} = this.props;
-    router.push(`/sections/${sections[rowId]._id}`);
+    this.props.router.push(`/sections/${this.state.sections[rowId]._id}`);
   };
 
 }
