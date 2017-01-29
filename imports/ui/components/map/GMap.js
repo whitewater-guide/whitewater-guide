@@ -15,8 +15,13 @@ class GMap extends React.Component {
     onLoaded: PropTypes.func,
   };
 
+  state = {
+    zoom: DEFAULT_ZOOM
+  };
+
   render() {
     const {map, maps, children, loaded, ...props} = this.props;
+    const {zoom} = this.state;
     return (
       <GoogleMap
         {...props}
@@ -24,11 +29,16 @@ class GMap extends React.Component {
         defaultCenter={DEFAULT_CENTER}
         defaultZoom={DEFAULT_ZOOM}
         yesIWantToUseGoogleMapApiInternals={true}
+        onChange={this.onChange}
       >
-        {loaded && Children.map(children, (child => cloneElement(child, { map, maps })))}
+        {loaded && Children.map(children, (child => cloneElement(child, { map, maps, zoom })))}
       </GoogleMap>
     );
   }
+
+  onChange = ({zoom}) =>{
+    this.setState({zoom});
+  };
 }
 
 export default compose(

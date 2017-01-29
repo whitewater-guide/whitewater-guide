@@ -7,6 +7,7 @@ export default class Polyline extends PureComponent {
     destination: PropTypes.object,
     maps: PropTypes.object,
     map: PropTypes.object,
+    zoom: PropTypes.number,
   };
 
   line = null;

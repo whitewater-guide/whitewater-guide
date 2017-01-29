@@ -17,6 +17,9 @@ export default class SectionLine extends Polyline {
   componentDidUpdate(prevProps, prevState){
     super.componentDidUpdate(prevProps, prevState);
     this.setupListeners(this.props);
+    if (this.props.zoom != prevProps.zoom){
+      this.line.setOptions(this.getStyle())
+    }
   }
 
   componentWillUnmount(){
@@ -39,8 +42,11 @@ export default class SectionLine extends Polyline {
       strokeOpacity: 1,
       strokeWeight: 4,
       icons: [{
-        icon: {path: this.props.maps.SymbolPath.FORWARD_CLOSED_ARROW},
-        offset: '100%'
+        icon: {
+          path: this.props.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+          scale: Math.min(3, this.props.zoom / 3),
+        },
+        offset: '100%',
       }]
     }
   }
