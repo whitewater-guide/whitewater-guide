@@ -12,6 +12,7 @@ class POICollection extends Component {
       error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
       onChange: PropTypes.func,
     }),
+    bounds: PropTypes.object,
   };
 
   render() {
@@ -37,6 +38,7 @@ class POICollection extends Component {
     };
     return (
       <CoordinatesGroup
+        mapBounds={this.props.bounds}
         key={`item${index}`}
         detailed={true}
         field={innerField}

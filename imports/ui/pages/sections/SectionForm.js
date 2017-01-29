@@ -8,6 +8,7 @@ import POICollection from './POICollection';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import {Rivers} from '../../../api/rivers';
 import {Gauges} from '../../../api/gauges';
+import {Regions} from '../../../api/regions';
 import {Sections, Durations} from '../../../api/sections';
 import {SupplyTags, KayakingTags, HazardTags, MiscTags} from '../../../api/tags';
 import {TAPi18n} from 'meteor/tap:i18n';
@@ -53,6 +54,7 @@ class SectionForm extends Component {
     }
     //When creating new section, river is passed via query, otherwise it is in section doc
     const river = this.props.river || initialData.river().fetch()[0];
+    const region = river.region().fetch()[0];
 
     return (
       <Form {...formProps} initialData={formData} name="sections" transformBeforeSubmit={this.transformBeforeSubmit}>
@@ -103,7 +105,7 @@ class SectionForm extends Component {
             <Field name="media" title="Media" component={MediaCollection}/>
           </Tab>
           <Tab label="POIs" value="#pois">
-            <Field name="pois" title="Points of interest" component={POICollection}/>
+            <Field name="pois" title="Points of interest" component={POICollection} bounds={region.bounds}/>
           </Tab>
           <Tab label="Description" value="#description">
             <div style={styles.descriptionTab}>
@@ -113,7 +115,7 @@ class SectionForm extends Component {
         </Tabs>
         {
           this.state.mapOpen &&
-          <PutInMapDialog numPoints={2} onClose={this.onCloseMap} onSubmit={this.onSubmitMap}/>
+          <PutInMapDialog numPoints={2} onClose={this.onCloseMap} onSubmit={this.onSubmitMap} bounds={region.bounds}/>
         }
       </Form>
     );

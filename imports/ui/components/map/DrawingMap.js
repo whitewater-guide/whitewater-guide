@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import GMap from './GMap';
 import _ from 'lodash';
-import {arrayToGmaps, gmapsToArray} from '../../../utils/GeoUtils';
+import {arrayToGmaps, isValidLat, isValidLng} from '../../../utils/GeoUtils';
 
 export default class DrawingMap extends React.Component {
   static propTypes = {
@@ -18,8 +18,13 @@ export default class DrawingMap extends React.Component {
 
   constructor(props){
     super(props);
+    const points = [];
+    props.initialPoints.forEach(pt => {
+      if (pt && isValidLng(pt[0]) && isValidLat(pt[1]))
+        points.push([pt[0], pt[1]]);
+    });
     this.state = {
-      points: _.cloneDeep(props.initialPoints),
+      points,
     };
   }
 
@@ -87,8 +92,8 @@ export default class DrawingMap extends React.Component {
     if (this.props.bounds || this.state.points.length > 1) {
       let bounds = new maps.LatLngBounds();
       if (this.props.bounds){
-        bounds.extend(this.props.bounds.sw);
-        bounds.extend(this.props.bounds.ne);
+        bounds.extend(arrayToGmaps(this.props.bounds.sw));
+        bounds.extend(arrayToGmaps(this.props.bounds.ne));
       }
       this.state.points.forEach(point => bounds.extend(arrayToGmaps(point)));
       map.setCenter(bounds.getCenter());

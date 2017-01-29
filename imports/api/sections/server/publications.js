@@ -71,14 +71,20 @@ Meteor.publishComposite('sections.edit', function (sectionId, riverId, lang) {
     children: [
       {
         find(riverDoc){//Finds river->region->sources
-          const region = riverDoc.region().fetch();
-          return region[0].sources();
+          return riverDoc.region({name: 1, bounds: 1});
         },
         children: [
           {
-            find(sourceDoc){//Now find gauges
-              return sourceDoc.gauges({name: 1});
-            }
+            find(regionDoc){
+              return regionDoc.sources();
+            },
+            children: [
+              {
+                find(sourceDoc){
+                  return sourceDoc.gauges({name: 1});
+                }
+              }
+            ]
           }
         ]
       },

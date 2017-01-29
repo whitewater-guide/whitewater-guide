@@ -18,6 +18,7 @@ class CoordinatesGroup extends Component {
     }),
     mapDialog: PropTypes.bool,
     mapButtonHandler: PropTypes.func,
+    mapBounds: PropTypes.object,
   };
 
   static defaultProps = {
@@ -119,6 +120,7 @@ class CoordinatesGroup extends Component {
             {
               this.state.dialogOpen &&
               <SelectPointsDialog
+                bounds={this.props.mapBounds}
                 onClose={this.onCloseDialog}
                 onSubmit={this.onSubmitDialog}
                 initialPoints={[value.coordinates]}

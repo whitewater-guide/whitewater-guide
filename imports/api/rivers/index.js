@@ -108,8 +108,8 @@ export const removeRiver = new AdminMethod({
 });
 
 Rivers.helpers({
-  region() {
-    return Regions.find({_id: this.regionId}, {limit: 1});
+  region(fields) {
+    return Regions.find({_id: this.regionId}, {limit: 1, fields});
   },
   sections() {
     return Sections.find({riverId: this._id});
