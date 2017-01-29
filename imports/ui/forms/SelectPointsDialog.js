@@ -1,31 +1,31 @@
 import React, {PropTypes} from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import GMap from '../components/map/GMap';
-import Marker from '../components/map/Marker';
+import DrawingMap from '../components/map/DrawingMap';
+import _ from 'lodash';
 
-export default class SinglePointDialog extends React.Component {
+export default class SelectPointsDialog extends React.Component {
   static propTypes = {
+    numPoints: PropTypes.oneOf([1,2]),
+    initialPoints: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
+    bounds: PropTypes.object,
     onClose: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
-    coordinates: PropTypes.array,
+  };
+
+  static defaultProps = {
+    numPoints: 1,
+    initialPoints: [],
   };
 
   constructor(props){
     super(props);
     this.state = {
-      coordinates: props.coordinates,
-      map: null,
-      maps: null,
+      points: _.cloneDeep(props.initialPoints),
     };
   }
 
-  componentWillUnmount(){
-    this.state.maps.event.clearInstanceListeners(this.state.map);
-  }
-
   render() {
-    const {coordinates} = this.state;
     const actions = [
       <FlatButton
         label="Cancel"
@@ -52,33 +52,19 @@ export default class SinglePointDialog extends React.Component {
         repositionOnUpdate={false}
       >
         <div style={styles.mapHolder}>
-          <GMap onLoaded={this.onLoaded}>
-            {coordinates && <Marker coordinates={coordinates} draggable={true} onDragEnd={this.onDrag}/>}
-          </GMap>
+          <DrawingMap
+            numPoints={this.props.numPoints}
+            initialPoints={this.props.initialPoints}
+            bounds={this.props.bounds}
+            onChange={this.onChange}
+          />
         </div>
       </Dialog>
     );
   }
 
-  onLoaded = ({map, maps}) => {
-    const {coordinates} = this.props;
-    if (coordinates) {
-      map.setCenter({lat: coordinates[1], lng: coordinates[0]});
-      map.setZoom(13);
-    }
-    else {
-      map.addListener('click', this.addMarker);
-    }
-    this.setState({map, maps});
-  };
-
-  addMarker = ({latLng}) => {
-    this.setState({coordinates: [latLng.lng(), latLng.lat()]});
-    this.state.maps.event.clearInstanceListeners(this.state.map);
-  };
-
-  onDrag = (coordinates) => {
-    this.setState({coordinates});
+  onChange = (points) => {
+    this.setState({points})
   };
 
   handleClose = () => {
@@ -86,7 +72,7 @@ export default class SinglePointDialog extends React.Component {
   };
 
   handleSubmit = () => {
-    this.props.onSubmit(this.state.coordinates);
+    this.props.onSubmit(this.state.points);
   };
 
 }

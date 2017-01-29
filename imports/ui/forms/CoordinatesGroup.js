@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import TextField from '../components/TextField';
-import SinglePointDialog from '../forms/SinglePointDialog';
+import SelectPointsDialog from '../forms/SelectPointsDialog';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import {POITypes} from '../../api/points';
@@ -112,10 +112,10 @@ class CoordinatesGroup extends Component {
             </IconButton>
             {
               this.state.dialogOpen &&
-              <SinglePointDialog
+              <SelectPointsDialog
                 onClose={this.onCloseDialog}
                 onSubmit={this.onSubmitDialog}
-                coordinates={value.coordinates}
+                initialPoints={[value.coordinates]}
               />
             }
           </div>
@@ -188,7 +188,7 @@ class CoordinatesGroup extends Component {
     this.setState({dialogOpen: false});
   };
 
-  onSubmitDialog = (coordinates) => {
+  onSubmitDialog = ([coordinates]) => {
     this.setState({dialogOpen: false});
     let {field: {value}} = this.props;
     this.onChange({...value, coordinates});
