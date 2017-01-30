@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import withAdmin from '../../hoc/withAdmin';
 import FlatLinkButton from '../../components/FlatLinkButton';
 
-class ViewSourceLeft extends Component {
+class ViewRegionLeft extends Component {
 
   static propTypes = {
     params: PropTypes.shape({
@@ -44,4 +44,4 @@ const styles = {
 
 };
 
-export default withAdmin(ViewSourceLeft);
+export default withAdmin(ViewRegionLeft);
