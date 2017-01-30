@@ -19,6 +19,7 @@ class NewSection extends Component {
                    title="New Section"
                    submitLabel="Create"
                    riverId={this.props.location.query.riverId}
+                   regionId={this.props.location.query.regionId}
                    onSubmit={this.onSubmit}
                    onCancel={this.onCancel}
                    currentTab={currentTab}

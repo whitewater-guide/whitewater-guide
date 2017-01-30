@@ -160,7 +160,8 @@ const styles = {
 
 const SectionFormContainer = createI18nContainer(
   (props) => {
-    const sub = TAPi18n.subscribe('sections.edit', props.language, props.sectionId, props.riverId);
+    const {sectionId, riverId, regionId} = props;
+    const sub = TAPi18n.subscribe('sections.edit', props.language, {sectionId, riverId, regionId});
     const section = props.sectionId ? Sections.findOne(props.sectionId) : {};
     const river = props.riverId ? Rivers.findOne(props.riverId) : undefined;
     //We must follow river->region->sources->gauges chain here

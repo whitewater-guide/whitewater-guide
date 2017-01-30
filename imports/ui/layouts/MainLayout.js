@@ -1,12 +1,14 @@
 import React, {Component, PropTypes} from 'react';
 import {Toolbar} from 'material-ui/Toolbar';
-import { indigo500 } from 'material-ui/styles/colors';
+import {indigo500} from 'material-ui/styles/colors';
 import UserMenu from '../components/UserMenu';
 import Breadcrumbs from '../components/Breadcrumbs';
 import FlatLinkButton from '../components/FlatLinkButton';
 import LeftMenuSeparator from '../components/LeftMenuSeparator';
+import {createContainer} from 'meteor/react-meteor-data';
 import {Link} from 'react-router';
 import {withRouter} from 'react-router';
+import {Meteor} from 'meteor/meteor';
 
 class MainLayout extends Component {
 
@@ -17,7 +19,7 @@ class MainLayout extends Component {
     routes: PropTypes.array,
     params: PropTypes.object,
   };
-  
+
   render() {
     return (
       <div style={styles.root}>
@@ -86,4 +88,12 @@ const styles = {
   },
 };
 
-export default withRouter(MainLayout);
+const MainLayoutContainer = createContainer(
+  () => {
+    Meteor.subscribe('tags.all');
+    return {};
+  },
+  MainLayout
+);
+
+export default withRouter(MainLayoutContainer);

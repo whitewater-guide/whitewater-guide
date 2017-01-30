@@ -30,3 +30,6 @@ import '../../api/sections/server/publications';
 
 import '../../api/files';
 import '../../api/files/server/publications';
+
+import '../../api/tags';
+import '../../api/tags/server/publications';
