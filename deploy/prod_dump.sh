@@ -14,7 +14,9 @@ function run()
   "$@"
 }
 
+TODAY=`date +%Y-%m-%d`
+
 echo
 echo "---- Running deployment script on remote server ----"
 run cat mongodump.sh | ssh $SERVER
-run scp $SERVER:$APP_DIR/wwdb.tar ../.meteor/dump/wwdb.tar
+run scp $SERVER:$APP_DIR/wwdb.tar ../.meteor/dump/wwdb_$TODAY.tar

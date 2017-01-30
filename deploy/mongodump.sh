@@ -18,5 +18,6 @@ set -x
 cd $APP_DIR
 
 mongodump --db wwdb
-tar -cvf wwdb.tar dump/wwdb
-rm -rf dump/wwdb
+cd dump
+tar -cvf ../wwdb.tar wwdb
+rm -rf wwdb
