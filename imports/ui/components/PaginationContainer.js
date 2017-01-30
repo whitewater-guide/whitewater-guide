@@ -33,7 +33,7 @@ class PaginationContainer extends Component {
 
   renderWaypoint = () => {
     if (this.props.loading || !this.props.scrollable || this.props.limit >= this.props.total)
-      return;
+      return null;
     return (
       <Waypoint onEnter={this.props.loadMore}/>
     );
@@ -41,7 +41,7 @@ class PaginationContainer extends Component {
 
   renderLoading = () => {
     if (!this.props.loading)
-      return;
+      return null;
     return (
       <div style={styles.progressContainer}>
         <CircularProgress/>
@@ -51,7 +51,7 @@ class PaginationContainer extends Component {
 
   renderButton = () => {
     if (this.props.loading || this.props.limit >= this.props.total)
-      return;
+      return null;
     return (
       <RaisedButton label="Load more" fullWidth={true} onTouchTap={this.props.loadMore}/>
     );
@@ -59,7 +59,7 @@ class PaginationContainer extends Component {
 
 }
 
-styles = {
+const styles = {
   progressContainer: {
     paddingTop: 16,
     paddingBottom: 16,
@@ -71,6 +71,7 @@ styles = {
   wrapper: {
     width: '100%',
     height: '100%',
+    overflow: 'hidden',
   },
 };
 

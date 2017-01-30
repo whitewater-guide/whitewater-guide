@@ -27,7 +27,6 @@ class ListSections extends Component {
     return (
       <PaginationContainer style={styles.container} limit={limit} loading={!ready} loadMore={loadMore}
                            total={numSections}>
-        <h1>List sections page stub</h1>
         <SectionsTable sections={sections} onSort={this.props.onSort} sortBy={this.props.sortBy} sortDirection={this.props.sortDirection}/>
       </PaginationContainer>
     );
