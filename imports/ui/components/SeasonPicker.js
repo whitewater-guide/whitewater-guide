@@ -91,9 +91,11 @@ const styles = {
   month: {
     display: 'flex',
     flex: 1,
+    flexShrink: 0,
     alignItems: 'center',
     justifyContent: 'center',
     height: 48,
+    overflow: 'hidden',
   },
   title: {
     fontSize: 24,
@@ -104,6 +106,7 @@ const styles = {
   },
   halfButton: {
     flex: 1,
+    flexShrink: 0,
     height: 48,
   },
 };
