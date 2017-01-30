@@ -115,7 +115,7 @@ class Form extends Component {
       args.language = this.props.language;
     console.log('Submit form', args);
     this.props.method.callPromise(args)
-      .then(() => this.props.onSubmit())
+      .then((result) => this.props.onSubmit(result))
       .catch(err => {
         console.error(err);
         if (ValidationError.is(err)){

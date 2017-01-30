@@ -8,6 +8,7 @@ class NewRiver extends Component {
 
   static propTypes = {
     router: PropTypes.object,
+    location: PropTypes.object,
   };
 
   render() {
@@ -17,14 +18,15 @@ class NewRiver extends Component {
         title="New River"
         submitLabel="Create"
         multilang={false}
+        regionId={this.props.location.query.regionId}
         onSubmit={this.onSubmit}
         onCancel={this.onCancel}
       />
     );
   }
 
-  onSubmit = () => {
-    this.props.router.goBack();
+  onSubmit = (riverId) => {
+    this.props.router.replace(`/rivers/${riverId}`);
   };
 
   onCancel = () => {

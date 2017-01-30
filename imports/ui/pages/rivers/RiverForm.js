@@ -37,7 +37,7 @@ const RiverFormContainer = createI18nContainer(
     const sub = TAPi18n.subscribe('rivers.details', props.language, props.riverId);
     const regionsSub = TAPi18n.subscribe('regions.list', props.language);
     const regions = Regions.find({}, {fields: {name: 1}}).fetch();
-    const river = props.riverId ? Rivers.findOne(props.riverId) : {};
+    const river = props.riverId ? Rivers.findOne(props.riverId) : {regionId: props.regionId};
     return {
       regions,
       initialData: river,
