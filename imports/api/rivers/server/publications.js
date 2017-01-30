@@ -11,7 +11,7 @@ Meteor.publishComposite('rivers.list', function(regionId, limit = 10, lang) {
       const query = {};
       if (regionId)
         query.regionId = regionId;
-      Counts.publish(this, `counter.rivers.${regionId}`, Rivers.find(query), {noReady: true});
+      Counts.publish(this, `counter.rivers.${regionId ? regionId : '_all'}`, Rivers.find(query), {noReady: true});
       return Rivers.find(query, {lang, limit, sort: {name: 1}});
     },
 

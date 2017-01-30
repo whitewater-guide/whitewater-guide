@@ -110,7 +110,7 @@ const ListRiversContainer = createContainer(
     const regionId = _.get(props, 'location.query.regionId');
     const sub = Meteor.subscribe('rivers.list', regionId, props.limit);
     const rivers = Rivers.find().fetch();
-    const numRivers = Counts.get(`counter.gauges.${regionId}`);
+    const numRivers = Counts.get(`counter.rivers.${regionId ? regionId : '_all'}`);
     return {
       ready: sub.ready(),
       rivers: rivers || [],
