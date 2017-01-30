@@ -4,6 +4,7 @@ import { indigo500 } from 'material-ui/styles/colors';
 import UserMenu from '../components/UserMenu';
 import Breadcrumbs from '../components/Breadcrumbs';
 import FlatLinkButton from '../components/FlatLinkButton';
+import LeftMenuSeparator from '../components/LeftMenuSeparator';
 import {Link} from 'react-router';
 import {withRouter} from 'react-router';
 
@@ -24,11 +25,14 @@ class MainLayout extends Component {
           <div style={styles.logo}>
             <Link to="/">Logo goes here</Link>
           </div>
-          <FlatLinkButton to="/sources" label="Sources" secondary={true}/>
           <FlatLinkButton to="/regions" label="Regions" secondary={true}/>
-          <FlatLinkButton to="/rivers" label="Rivers" secondary={true}/>
-          <FlatLinkButton to="/sections" label="Sections" secondary={true}/>
+          <LeftMenuSeparator/>
+          <FlatLinkButton to="/rivers" label="All rivers" secondary={true}/>
+          <FlatLinkButton to="/sections" label="All sections" secondary={true}/>
+          <LeftMenuSeparator/>
+          <FlatLinkButton to="/sources" label="Sources" secondary={true}/>
           <FlatLinkButton to="/files" label="Images" secondary={true}/>
+          { this.props.left && <LeftMenuSeparator/>}
           { this.props.left }
         </div>
         <div style={styles.rightCol}>
