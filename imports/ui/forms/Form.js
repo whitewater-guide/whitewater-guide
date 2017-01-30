@@ -59,7 +59,7 @@ class Form extends Component {
 
   componentWillReceiveProps(nextProps){
     //Use arrow function in setState to avoid conflicts with other pending updates
-    if (nextProps.initialData){
+    if (nextProps.initialData && !_.isEqual(nextProps.initialData, this.props.initialData)){
       this.setState((prevState) => ({
         data: {...prevState.data, ...nextProps.initialData}
       }));

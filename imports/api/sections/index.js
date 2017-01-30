@@ -1,7 +1,8 @@
 import {TAPi18n} from 'meteor/tap:i18n';
 import {SimpleSchema} from 'meteor/aldeed:simple-schema';
 import AdminMethod from '../../utils/AdminMethod';
-import {Rivers} from '../rivers';
+import {formSchema} from '../../utils/SimpleSchemaUtils';
+import {Rivers, createRiver} from '../rivers';
 import {Gauges} from '../gauges';
 import {Points, PointSchema} from '../points';
 import {Media, MediaSchema} from '../media';
@@ -83,9 +84,10 @@ export const SectionI18nSchema = new SimpleSchema({
 });
 
 const SectionBaseSchema = new SimpleSchema({
-  riverId: {
+  _id: {
     type: String,
-    label: 'River',
+    regEx: SimpleSchema.RegEx.Id,
+    optional: true,
   },
   regionId: {//Denormalized on create/update
     type: String,
@@ -216,6 +218,10 @@ const SectionBaseSchema = new SimpleSchema({
 });
 
 const SectionRefsSchema = new SimpleSchema({
+  riverId: {
+    type: String,
+    label: 'River',
+  },
   mediaIds: {
     type: [String],
     regEx: SimpleSchema.RegEx.Id,
@@ -236,33 +242,23 @@ const SectionsSchema = new SimpleSchema([
   SectionRefsSchema,
 ]);
 
-const SectionsCrudSchema = new SimpleSchema({
-  data: {
-    type: new SimpleSchema([
-      SectionBaseSchema,
-      SectionI18nSchema,
-      {
-        _id: {
-          type: String,
-          regEx: SimpleSchema.RegEx.Id,
-          optional: true
-        },
-        media: {
-          type: [new SimpleSchema([MediaSchema, {_id: {type:String, optional: true}, deleted: {type: Boolean, optional: true}}])],
-          defaultValue: [],
-        },
-        pois: {
-          type: [new SimpleSchema([PointSchema, {_id: {type:String, optional: true}, deleted: {type: Boolean, optional: true}}])],
-          defaultValue: [],
-        },
-      },
-    ]),
+const SectionsCrudSchema = new SimpleSchema([
+  SectionBaseSchema,
+  SectionI18nSchema,
+  {
+    river: {
+      type: new SimpleSchema({ _id: {type: String}, name: {type: String, min: 1}, regionId: {type:String, optional: true}}),
+    },
+    media: {
+      type: [new SimpleSchema([MediaSchema, { _id: {type: String, optional: true}, deleted: {type: Boolean, optional: true}}])],
+      defaultValue: [],
+    },
+    pois: {
+      type: [new SimpleSchema([PointSchema, { _id: {type: String, optional: true}, deleted: {type: Boolean, optional: true}}])],
+      defaultValue: [],
+    },
   },
-  language: {
-    type: String,
-    optional: true,
-  }
-});
+]);
 
 Sections.attachSchema(SectionsSchema);
 Sections.attachI18Schema(SectionI18nSchema);
@@ -270,7 +266,7 @@ Sections.attachI18Schema(SectionI18nSchema);
 export const createSection = new AdminMethod({
   name: 'sections.create',
 
-  validate: SectionsCrudSchema.validator({clean: true}),
+  validate: formSchema(SectionsCrudSchema, '_id').validator({clean: true}),
 
   applyOptions: {
     noRetry: true,
@@ -285,7 +281,7 @@ export const createSection = new AdminMethod({
 export const editSection = new AdminMethod({
   name: 'sections.edit',
 
-  validate: SectionsCrudSchema.validator({ clean: true }),
+  validate: formSchema(SectionsCrudSchema).validator({ clean: true }),
 
   applyOptions: {
     noRetry: true,
@@ -297,8 +293,23 @@ export const editSection = new AdminMethod({
   }
 });
 
-function prepareUpdates({media, pois, ...data}, language){
+function prepareUpdates({river, media, pois, ...data}, language){
   language = language || Sections._base_language;
+  let updates = {...data};
+  let {_id: riverId, name: riverName, regionId} = river;
+  if (riverId === '@@new'){
+    riverId = createRiver.call({data: {name: riverName, regionId}, language});
+    updates = {...updates, riverId, riverName, regionId};
+  }
+  else {
+    const riverDoc = Rivers.findOne({_id: riverId}, {fields: {regionId: 1, name: 1}});
+    if (riverDoc) {
+      updates.regionId = riverDoc.regionId;
+      updates.riverName = riverDoc.name;
+      updates.riverId = riverDoc._id;
+    }
+  }
+
   const mediaIds = _.chain(media)
     .map(mediaItem => {
       if (mediaItem.deleted) {
@@ -334,13 +345,7 @@ function prepareUpdates({media, pois, ...data}, language){
   let takeOutResult = Points.upsertTranslations(takeOutId, {[language]: {...takeOutData, kind: 'take-out'}});
   takeOutId = takeOutId || takeOutResult.insertedId;
 
-  let updates = {...data, mediaIds, poiIds, putIn: {_id: putInId, ...putInData}, takeOut: {_id: takeOutId, ...takeOutData}};
-
-  const river = Rivers.findOne({_id: data.riverId}, {fields: {regionId: 1, name: 1}});
-  if (river) {
-    updates.regionId = river.regionId;
-    updates.riverName = river.name;
-  }
+  updates = {...updates, mediaIds, poiIds, putIn: {_id: putInId, ...putInData}, takeOut: {_id: takeOutId, ...takeOutData}};
 
   return updates;
 }

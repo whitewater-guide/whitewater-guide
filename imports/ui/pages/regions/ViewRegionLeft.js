@@ -32,6 +32,12 @@ class ViewRegionLeft extends Component {
         regionId,
       },
     };
+    const toNewSection = {
+      pathname: '/sections/new',
+      query: {
+        regionId,
+      },
+    };
     return (
       <div style={styles.container}>
         <FlatLinkButton secondary={true} to={`/regions/${regionId}/map`} label="Region map" />
@@ -39,6 +45,7 @@ class ViewRegionLeft extends Component {
         <FlatLinkButton secondary={true} to={toSections} label="Region sections" />
         <LeftMenuSeparator/>
         <FlatLinkButton secondary={true} to={toNewRiver} label="New river" />
+        <FlatLinkButton secondary={true} to={toNewSection} label="New section" />
       </div>
     );
   }

@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {Form, Field, TextInput, Select, CoordinatesGroup, ChipInput, RichTextInput, SeasonPickerField, Rating, Checkbox} from '../../forms';
+import AutoComplete, {NEW_ITEM} from '../../forms/AutoComplete';
 import createI18nContainer from '../../hoc/createI18nContainer';
-import TextField from 'material-ui/TextField';
 import PutInMapDialog from './PutInMapDialog';
 import MediaCollection from './MediaCollection';
 import POICollection from './POICollection';
@@ -21,8 +21,9 @@ class SectionForm extends Component {
     sectionId: PropTypes.string,//Edit existing section, undefined for new section
     riverId: PropTypes.string,//River id for new section, undefined when editing existing section
     regionId: PropTypes.string,
-    river: PropTypes.object,
+    rivers: PropTypes.array,
     gauges: PropTypes.array,
+    region: PropTypes.object,
     ready: PropTypes.bool,
     supplyTags: PropTypes.array,
     kayakingTags: PropTypes.array,
@@ -41,7 +42,7 @@ class SectionForm extends Component {
   };
 
   render() {
-    const {ready, supplyTags, kayakingTags, hazardTags, miscTags, initialData, ...formProps} = this.props;
+    const {ready, supplyTags, kayakingTags, hazardTags, miscTags, initialData, rivers, region, sectionId, riverId, ...formProps} = this.props;
     if (!ready)
       return null;
 
@@ -49,19 +50,17 @@ class SectionForm extends Component {
     let formData = _.omit(initialData, ['mediaIds', 'poiIds']);
     formData.media = _.isEmpty(initialData) ? [] : initialData.media().fetch();
     formData.pois = _.isEmpty(initialData) ? [] : initialData.pois().fetch();
-    if (_.isEmpty(initialData)) {
-      formData.riverId = this.props.riverId;
-    }
-    //When creating new section, river is passed via query, otherwise it is in section doc
-    const river = this.props.river || initialData.river().fetch()[0];
-    const region = river.region().fetch()[0];
+    //When editing existing section, or creating section on known river, the river autocomplete is unnecessary
+    //Therefore we fill it with only one value and disable
+    //When creating section (plus, optionally, a river) in a region - we allow to select river from the list or create one
+    formData.river = (sectionId || riverId) ? _.pick(rivers[0], ['_id', 'name']) : {_id: NEW_ITEM, name: ''};
 
     return (
       <Form {...formProps} initialData={formData} name="sections" transformBeforeSubmit={this.transformBeforeSubmit}>
         <Tabs value={this.props.currentTab} onChange={this.onTabChange}>
           <Tab label="Main" value="#main">
-            <TextField value={river.name} disabled={true} hintText="River" floatingLabelText="River"
-                       style={styles.textInput}/>
+            <Field name="river" title="River" component={AutoComplete} openOnFocus={true} dataSource={rivers}
+                   disabled={!!sectionId || !!riverId} />
             <Field name="name" title="Name" component={TextInput}/>
             <div style={styles.row}>
               <Field name="difficulty" title="Difficulty (I-VI)" component={TextInput} type="number"/>
@@ -129,6 +128,8 @@ class SectionForm extends Component {
   transformBeforeSubmit = (data) => {
     if (data.levels && !data.levels.minimum && !data.levels.maximum && !data.levels.optimum && !data.levels.impossible)
       data = _.omit(data, 'levels');
+    if (this.props.regionId)
+      data = {...data, river: {...data.river, regionId: this.props.regionId}};
     return data;
   };
 
@@ -163,13 +164,15 @@ const SectionFormContainer = createI18nContainer(
     const {sectionId, riverId, regionId} = props;
     const sub = TAPi18n.subscribe('sections.edit', props.language, {sectionId, riverId, regionId});
     const section = props.sectionId ? Sections.findOne(props.sectionId) : {};
-    const river = props.riverId ? Rivers.findOne(props.riverId) : undefined;
-    //We must follow river->region->sources->gauges chain here
-    //It is already chained on server side, we hope that no more gauge subscriptions are active atm
+    const rivers = sectionId ?
+                    (section && section.river().fetch()) :
+                    riverId ? Rivers.find(riverId).fetch() : Rivers.find({regionId}).fetch();
     const gauges = Gauges.find({}).fetch();
+    const region = regionId ? Regions.findOne(regionId) : (rivers && rivers[0] && rivers[0].region().fetch()[0]);
     return {
-      river,
+      rivers,
       gauges,
+      region,
       supplyTags: SupplyTags.find().fetch(),
       kayakingTags: KayakingTags.find().fetch(),
       hazardTags: HazardTags.find().fetch(),
