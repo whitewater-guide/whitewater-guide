@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "start": "meteor run --port 3333 --settings settings.development.json",
-    "storybook": "start-storybook -p 9001 -c .storybook"
+    "storybook": "start-storybook -p 9001 -c .storybook",
+    "mongorestore": "mongorestore -d meteor -h 127.0.0.1:3334 .meteor/dump/wwdb"
   },
   "dependencies": {
     "cheerio": "^0.22.0",
