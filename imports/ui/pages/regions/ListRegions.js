@@ -1,14 +1,12 @@
-import React, { Component, PropTypes } from 'react';
-import Paper from 'material-ui/Paper';
-import IconButton from 'material-ui/IconButton';
-import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
-import { Meteor } from 'meteor/meteor';
-import { Regions, createRegion, removeRegion } from '../../../api/regions';
-import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
-import { createContainer } from 'meteor/react-meteor-data';
-import { withRouter } from 'react-router';
-import withAdmin from '../../hoc/withAdmin';
+import React, {Component, PropTypes} from "react";
+import IconButton from "material-ui/IconButton";
+import TextField from "material-ui/TextField";
+import {Meteor} from "meteor/meteor";
+import {Regions, createRegion, removeRegion} from "../../../api/regions";
+import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn, TableFooter} from "material-ui/Table";
+import {createContainer} from "meteor/react-meteor-data";
+import {withRouter} from "react-router";
+import withAdmin from "../../hoc/withAdmin";
 
 class ListRegions extends Component {
 
@@ -19,6 +17,10 @@ class ListRegions extends Component {
     router: PropTypes.object,
   };
 
+  static contextTypes = {
+    muiTheme: PropTypes.object.isRequired,
+  };
+
   state = {
     newRegionName: '',
   };
@@ -26,20 +28,23 @@ class ListRegions extends Component {
   render() {
     return (
       <div style={styles.container}>
-        <Paper style={styles.listPaper}>
-          <Table selectable={false} onCellClick={this.onCellClick}>
-            <TableHeader displaySelectAll={false} adjustForCheckbox={false} >
-              <TableRow>
-                <TableHeaderColumn>Name</TableHeaderColumn>
-                {this.props.admin && <TableHeaderColumn>Controls</TableHeaderColumn>}
-              </TableRow>
-            </TableHeader>
-            <TableBody displayRowCheckbox={false} stripedRows={true}>
-              { this.props.regions.map(this.renderRow) }
-            </TableBody>
-          </Table>
-        </Paper>
-        { this.renderCreateForm() }
+        <Table selectable={false} onCellClick={this.onCellClick}>
+          <TableHeader displaySelectAll={false} adjustForCheckbox={false} >
+            <TableRow>
+              <TableHeaderColumn>Name</TableHeaderColumn>
+              {this.props.admin && <TableHeaderColumn>Controls</TableHeaderColumn>}
+            </TableRow>
+          </TableHeader>
+          <TableBody displayRowCheckbox={false} stripedRows={true} showRowHover={true}>
+            { this.props.regions.map(this.renderRow) }
+          </TableBody>
+          {
+            this.props.admin &&
+            <TableFooter adjustForCheckbox={false}>
+              { this.renderNewRegionRow() }
+            </TableFooter>
+          }
+        </Table>
       </div>
     );
   }
@@ -71,24 +76,34 @@ class ListRegions extends Component {
 
   onCellClick = (rowId) => {
     const {router, regions} = this.props;
+    if (rowId >= regions.length)
+      return;
     router.push(`/regions/${regions[rowId]._id}`);
   };
 
-  renderCreateForm = () => {
-    if (!this.props.admin)
-      return;
+  renderNewRegionRow = () => {
+    const {baseTheme} = this.context.muiTheme;
+    const footerStyle = {...styles.footer, borderBottomColor: baseTheme.palette.borderColor};
     return (
-      <Paper style={styles.createPaper}>
-        <TextField hintText="New Region Name" floatingLabelText="New Region Name"
-          value={this.state.newRegionName} onChange={(e, v) => this.setState({ newRegionName: v })} />
-        <RaisedButton label="Add" primary={true} style={styles.newRegionName} onTouchTap={this.addNewRegion}/>
-      </Paper>
+      <TableRow key="_new_region" style={footerStyle}>
+        <TableRowColumn>
+          <TextField
+            fullWidth={true}
+            hintText="New Region Name"
+            value={this.state.newRegionName}
+            onChange={(e, v) => this.setState({ newRegionName: v })}
+          />
+        </TableRowColumn>
+        <TableRowColumn>
+          <IconButton iconClassName="material-icons" onTouchTap={this.addNewRegion}>add_circle</IconButton>
+        </TableRowColumn>
+      </TableRow>
     );
   };
 
   addNewRegion = () => {
-    createRegion.call({ data: {name: this.state.newRegionName }});
-    this.setState({ newRegionName: '' });
+    const regionId = createRegion.call({ data: {name: this.state.newRegionName }});
+    this.props.router.push(`/regions/${regionId}`);
   };
 }
 
@@ -98,7 +113,7 @@ const styles = {
     flexDirection: 'column',
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
   },
   listPaper: {
     marginTop: 16,
@@ -113,12 +128,16 @@ const styles = {
   createButton: {
     marginLeft: 16,
   },
+  footer: {
+    borderBottomWidth: 1,
+    borderBottomStyle: 'solid',
+  },
 };
 
 const ListRegionsContainer = createContainer(
   () => {
     const sub = Meteor.subscribe('regions.list');
-    const regions = Regions.find().fetch();
+    const regions = Regions.find({}, {sort: {name: 1}}).fetch();
     return {
       ready: sub.ready(), 
       regions,

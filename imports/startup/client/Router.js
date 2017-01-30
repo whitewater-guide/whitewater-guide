@@ -38,7 +38,7 @@ export default class AppRouter extends Component {
     return (
       <Router history={browserHistory}>
         <Route path="/" name="Whitewater" component={MainLayout}>
-          <IndexRedirect to="/sources" />
+          <IndexRedirect to="/regions" />
 
           <Route path="files" name="Files" components={{ content: ManageFiles }}/>
 
