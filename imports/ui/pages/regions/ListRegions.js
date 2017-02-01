@@ -1,19 +1,17 @@
 import React, {Component, PropTypes} from "react";
 import IconButton from "material-ui/IconButton";
 import TextField from "material-ui/TextField";
-import {Meteor} from "meteor/meteor";
-import {Regions, createRegion, removeRegion} from "../../../api/regions";
+import {createRegion, removeRegion} from "../../../api/regions";
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn, TableFooter} from "material-ui/Table";
-import {createContainer} from "meteor/react-meteor-data";
 import {withRouter} from "react-router";
 import withAdmin from "../../hoc/withAdmin";
+import listRegionsContainer from './ListRegionsContainer';
 
 class ListRegions extends Component {
 
   static propTypes = {
     regions: PropTypes.array,
     admin: PropTypes.bool,
-    ready: PropTypes.bool,
     router: PropTypes.object,
   };
 
@@ -134,16 +132,4 @@ const styles = {
   },
 };
 
-const ListRegionsContainer = createContainer(
-  () => {
-    const sub = Meteor.subscribe('regions.list');
-    const regions = Regions.find({}, {sort: {name: 1}}).fetch();
-    return {
-      ready: sub.ready(), 
-      regions,
-    };
-  },
-  ListRegions
-);
-
-export default withRouter(withAdmin(ListRegionsContainer));
+export default listRegionsContainer(withRouter(withAdmin(ListRegions)));
