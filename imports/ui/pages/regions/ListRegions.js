@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from "react";
 import IconButton from "material-ui/IconButton";
 import TextField from "material-ui/TextField";
-import {createRegion, removeRegion} from "../../../api/regions";
+import {createRegion} from "../../../api/regions";
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn, TableFooter} from "material-ui/Table";
 import {withRouter} from "react-router";
 import withAdmin from "../../hoc/withAdmin";
@@ -13,6 +13,7 @@ class ListRegions extends Component {
     regions: PropTypes.array,
     admin: PropTypes.bool,
     router: PropTypes.object,
+    removeRegion: PropTypes.func,
   };
 
   static contextTypes = {
@@ -57,10 +58,10 @@ class ListRegions extends Component {
   };
 
   renderAdminControls = (region) => {
-    const {admin} = this.props;
+    const {admin, removeRegion} = this.props;
     if (!admin)
       return null;
-    const deleteHandler = () => removeRegion.call({ regionId: region._id });
+    const deleteHandler = () => removeRegion(region._id);
     const editHandler = () => this.props.router.push(`/regions/${region._id}/settings`);
     return (
       <TableRowColumn>

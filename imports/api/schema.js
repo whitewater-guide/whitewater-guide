@@ -1,5 +1,5 @@
 import {HarvestMode, Source, sourceQueries} from '../api/sources/server/schema';
-import {Region, Bounds, regionQueries} from '../api/regions/server/schema';
+import {Region, Bounds, regionQueries, regionMutations} from '../api/regions/server/schema';
 import {Point} from '../api/points/server/schema';
 
 const Query = `
@@ -9,15 +9,23 @@ const Query = `
   }
 `;
 
+const Mutation = `
+  type Mutation {
+    ${regionMutations}
+  }
+`;
+
 const SchemaDefinition = `
   schema {
-    query: Query
+    query: Query,
+    mutation: Mutation,
   }
 `;
 
 
 export const typeDefs = [
   Query,
+  Mutation,
   Point,
   SchemaDefinition,
   HarvestMode, Source,

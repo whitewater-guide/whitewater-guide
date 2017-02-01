@@ -75,7 +75,7 @@ const BoundingBoxSchema = new SimpleSchema({
   },
 });
 
-const RegionsSchema = new SimpleSchema([
+export const RegionsSchema = new SimpleSchema([
   RegionsI18nSchema,
   {
     _id: {
