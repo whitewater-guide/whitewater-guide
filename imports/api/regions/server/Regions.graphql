@@ -29,12 +29,12 @@ input EditRegionInput {
 }
 
 type Query {
-  regions: [Region]!,
-  region(_id: ID!):Region,
+  regions(language:String): [Region]!,
+  region(_id: ID!, language:String):Region,
 }
 
 type Mutation {
   createRegion(region:CreateRegionInput!):Region,
-  editRegion(region:EditRegionInput!):Region,
+  editRegion(region:EditRegionInput!, language:String):Region,
   removeRegion(regionId:ID!):Boolean,
 }

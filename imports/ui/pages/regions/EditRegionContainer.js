@@ -23,12 +23,40 @@ const regionDetails = gql`
   }
 `;
 
+const editRegion = gql`
+  mutation editRegion($region: EditRegionInput!){
+    editRegion(region: $region){
+      _id,
+      name,
+      description,
+      season,
+      seasonNumeric,
+      pois {
+        _id
+        name
+        description
+        coordinates
+        altitude
+        kind
+      }
+    }
+  }
+`;
+
 export default compose(
   graphql(
     regionDetails,
     {
       options: ({regionId}) => ({variables: {_id: regionId}}),
       props: ({data: {region, loading}}) => ({region, loading}),
+    }
+  ),
+  graphql(
+    editRegion, {
+      props: ({mutate}) => ({method: ({data}) => {
+        return mutate({ variables: {region: data}}).catch(err => console.error(err))
+      }
+      }),
     }
   ),
   withState('language', 'setLanguage', 'en'),

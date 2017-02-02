@@ -1,9 +1,7 @@
 import React, {Component, PropTypes} from "react";
-import {editRegion} from "../../../api/regions";
 import adminOnly from "../../hoc/adminOnly";
 import {withRouter} from "react-router";
 import RegionForm from "./RegionForm";
-import {createContainer} from "meteor/react-meteor-data";
 
 class EditRegion extends Component {
 
@@ -17,7 +15,6 @@ class EditRegion extends Component {
   render() {
     return (
       <RegionForm
-        method={editRegion}
         regionId={this.props.params.regionId}
         title="Edit Region"
         submitLabel="Update"

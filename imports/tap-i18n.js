@@ -152,6 +152,10 @@ class TAPi18nCollection extends Mongo.Collection {
   insertTranslations(doc, translations, callback){
     let data = {...doc};
     if (translations){
+      if (translations.hasOwnProperty('undefined')) {
+        translations[this._base_language] = translations['undefined'];
+        delete translations['undefined'];
+      }
       for (let lang in translations){
         const supported_languages = TAPi18n.conf.supported_languages || Object.keys(TAPi18n.languages_names);
         if (supported_languages.indexOf(lang) == -1)
@@ -190,6 +194,10 @@ class TAPi18nCollection extends Mongo.Collection {
   prepareUpdates(translations){
     let updates = {};
     if (translations){
+      if (translations.hasOwnProperty('undefined')) {
+        translations[this._base_language] = translations['undefined'];
+        delete translations['undefined'];
+      }
       for (let lang in translations){
         const supported_languages = TAPi18n.conf.supported_languages || Object.keys(TAPi18n.languages_names);
         if (supported_languages.indexOf(lang) == -1)

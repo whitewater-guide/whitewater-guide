@@ -8,6 +8,7 @@ type Point {
 }
 
 input PointInput {
+  _id: ID,
   name: String,
   description: String,
   coordinates: [Float!]!,

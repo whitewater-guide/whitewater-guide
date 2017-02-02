@@ -12,7 +12,7 @@ const ListRegionsQuery = gql`
 `;
 
 const RemoveRegionMutation = gql`
-  mutation removeRegion($regionId: String!){
+  mutation removeRegion($regionId: ID!){
     removeRegion(regionId: $regionId)
   }
 `;

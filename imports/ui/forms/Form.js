@@ -10,10 +10,15 @@ class Form extends Component {
   static propTypes = {
     name: PropTypes.string,
     title: PropTypes.string,
-    method: PropTypes.shape({
-      call: PropTypes.func,
-      callPromise: PropTypes.func,
-    }).isRequired,
+    method: PropTypes.oneOfType([
+      //Old ValidatedMethod form
+      PropTypes.shape({
+        call: PropTypes.func,
+        callPromise: PropTypes.func,
+      }),
+      //new apollo form
+      PropTypes.func,
+    ]).isRequired,
     cancelLabel: PropTypes.string,
     submitLabel: PropTypes.string,
     onSubmit: PropTypes.func,
@@ -109,13 +114,19 @@ class Form extends Component {
   };
 
   onSubmit = () => {
-    const data = this.props.transformBeforeSubmit(this.state.data);
-    let args = {data};
-    if (this.props.multilang)
-      args.language = this.props.language;
+    let {method, transformBeforeSubmit, multilang, language, onSubmit} = this.props;
+    //Support both ValidatedMethod and Apollo containers
+    if (!_.isFunction(method))
+      method = method.callPromise;
+
+    const data = transformBeforeSubmit(this.state.data);
+    let args = {data: _.omit(data, ['__typename'])};
+    if (multilang)
+      args.language = language;
     console.log('Submit form', args);
-    this.props.method.callPromise(args)
-      .then((result) => this.props.onSubmit(result))
+
+    method(args)
+      .then((result) => onSubmit(result))
       .catch(err => {
         console.error(err);
         if (ValidationError.is(err)){

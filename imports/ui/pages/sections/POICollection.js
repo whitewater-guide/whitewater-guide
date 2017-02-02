@@ -55,7 +55,7 @@ class POICollection extends Component {
 
   onChange = (newItem, atIndex) => {
     let {field: {value, onChange}} = this.props;
-    value = value.map((item, index) => index === atIndex ? newItem : item);
+    value = value.map((item, index) => _.omit(index === atIndex ? newItem : item, ['__typename']));
     onChange(value);
   }
 }
