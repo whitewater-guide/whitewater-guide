@@ -114,19 +114,6 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
-  listPaper: {
-    marginTop: 16,
-    marginBottom: 16,
-  },
-  createPaper: {
-    marginBottom: 16,
-    padding: 16,
-    display: 'flex',
-    alignItems: 'center',
-  },
-  createButton: {
-    marginLeft: 16,
-  },
   footer: {
     borderBottomWidth: 1,
     borderBottomStyle: 'solid',

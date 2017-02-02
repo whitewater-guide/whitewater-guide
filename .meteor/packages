@@ -43,3 +43,5 @@ ostrio:files
 tmeasday:publish-counts
 percolate:migrations
 apollo
+orionsoft:graphql-compiler
+nicolaslopezj:apollo-accounts

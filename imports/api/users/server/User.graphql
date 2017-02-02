@@ -1,0 +1,20 @@
+type User {
+  _id: ID!,
+  email: String!,
+  profile: UserProfile,
+  roles: [String]!,
+}
+
+type UserProfile {
+  name: String,
+  link: String,
+}
+
+type Query {
+  me: User,
+  listUsers: [User]!,
+}
+
+type Mutation {
+  toggleAdmin(_id: ID!, isAdmin: Boolean!):User,
+}

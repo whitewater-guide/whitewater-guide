@@ -23,6 +23,6 @@ ServiceConfiguration.configurations.upsert(
 Meteor.users.after.insert(function (userId, user) {
   const { email } = user.services.facebook;
   if (Meteor.settings.private.admins.includes(email.toLowerCase())){
-    Roles.addUsersToRoles(user._id, ['admin'], Roles.GLOBAL_GROUP);
+    Roles.addUsersToRoles(user._id, ['admin', 'super-admin'], Roles.GLOBAL_GROUP);
   }
 });

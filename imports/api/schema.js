@@ -1,5 +1,6 @@
 import {HarvestMode, Source, sourceQueries} from '../api/sources/server/schema';
 import {Region, Bounds, regionQueries, regionMutations} from '../api/regions/server/schema';
+import User from '../api/users/server/User.graphql';
 import {Point} from '../api/points/server/schema';
 
 const Query = `
@@ -27,6 +28,7 @@ export const typeDefs = [
   Query,
   Mutation,
   Point,
+  User,
   SchemaDefinition,
   HarvestMode, Source,
   Region, Bounds,

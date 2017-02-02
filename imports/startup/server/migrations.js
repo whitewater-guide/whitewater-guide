@@ -6,6 +6,7 @@ import {Regions} from '../../api/regions';
 import {Measurements} from '../../api/measurements';
 import {Sections, Durations} from '../../api/sections';
 import v6 from './migrations/v6';
+import v7 from './migrations/v7';
 import _ from 'lodash';
 
 Migrations.add({
@@ -156,6 +157,7 @@ Migrations.add({
 
 
 Migrations.add(v6);
+Migrations.add(v7);
 
 Meteor.startup(() => {
   Migrations.migrateTo('latest');

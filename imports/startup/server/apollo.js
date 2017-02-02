@@ -1,16 +1,31 @@
 import {Meteor} from 'meteor/meteor';
 import {createApolloServer} from 'meteor/apollo';
 import {makeExecutableSchema} from 'graphql-tools';
+import {loadSchema, getSchema} from 'graphql-loader'
+import {initAccounts} from 'meteor/nicolaslopezj:apollo-accounts'
 
 import {typeDefs} from '/imports/api/schema';
 import {resolvers} from '/imports/api/resolvers';
+import cors from 'cors';
 
-const schema = makeExecutableSchema({
+// Load all accounts related resolvers and type definitions into graphql-loader
+initAccounts({});
+
+loadSchema({
   typeDefs,
   resolvers,
   allowUndefinedInResolve: Meteor.isProduction,
 });
 
-createApolloServer({
-  schema,
-});
+// Gets all the resolvers and type definitions loaded in graphql-loader
+const schema = getSchema();
+const executableSchema = makeExecutableSchema(schema);
+
+createApolloServer(
+  {
+    schema: executableSchema,
+  },
+  {
+    configServer: expressServer => expressServer.use(cors()),
+  }
+);
