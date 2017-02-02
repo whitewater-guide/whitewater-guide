@@ -41,6 +41,7 @@ class ViewRegionLeft extends Component {
     return (
       <div style={styles.container}>
         <FlatLinkButton secondary={true} to={`/regions/${regionId}/map`} label="Region map" />
+        <FlatLinkButton secondary={true} to={`/regions/${regionId}/settings`} label="Region settings" />
         <FlatLinkButton secondary={true} to={toRivers} label="Region rivers" />
         <FlatLinkButton secondary={true} to={toSections} label="Region sections" />
         <LeftMenuSeparator/>
