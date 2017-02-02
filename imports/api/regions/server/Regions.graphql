@@ -1,0 +1,40 @@
+type Bounds {
+  sw: [Float],
+  ne: [Float],
+  autocomplete: Boolean,
+}
+
+type Region {
+  _id: ID!,
+  name: String,
+  description: String,
+  season: String,
+  seasonNumeric: [Int]!,
+  bounds: Bounds,
+  pois: [Point]!,
+  sources: [Source]!,
+}
+
+input CreateRegionInput {
+  name: String!,
+}
+
+input EditRegionInput {
+  _id: ID!,
+  name: String,
+  description: String,
+  season: String,
+  seasonNumeric: [Int],
+  pois: [PointInput],
+}
+
+type Query {
+  regions: [Region]!,
+  region(_id: ID!):Region,
+}
+
+type Mutation {
+  createRegion(region:CreateRegionInput!):Region,
+  editRegion(region:EditRegionInput!):Region,
+  removeRegion(regionId:ID!):Boolean,
+}

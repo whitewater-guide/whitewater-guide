@@ -1,0 +1,17 @@
+type Point {
+  _id: ID!,
+  name: String,
+  description: String,
+  coordinates: [Float!]!,
+  altitude: Float,
+  kind: String!,
+}
+
+input PointInput {
+  name: String,
+  description: String,
+  coordinates: [Float!]!,
+  altitude: Float,
+  deleted: Boolean,
+  kind: String!,
+}

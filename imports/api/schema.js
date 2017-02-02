@@ -1,18 +1,11 @@
 import {HarvestMode, Source, sourceQueries} from '../api/sources/server/schema';
-import {Region, Bounds, regionQueries, regionMutations} from '../api/regions/server/schema';
+import Regions from '../api/regions/server/Regions.graphql';
 import User from '../api/users/server/User.graphql';
-import {Point} from '../api/points/server/schema';
+import Points from '../api/points/server/Points.graphql';
 
 const Query = `
   type Query {
     ${sourceQueries}
-    ${regionQueries}
-  }
-`;
-
-const Mutation = `
-  type Mutation {
-    ${regionMutations}
   }
 `;
 
@@ -25,11 +18,10 @@ const SchemaDefinition = `
 
 
 export const typeDefs = [
-  Query,
-  Mutation,
-  Point,
-  User,
   SchemaDefinition,
+  Query,
+  User,
+  Regions,
+  Points,
   HarvestMode, Source,
-  Region, Bounds,
 ];

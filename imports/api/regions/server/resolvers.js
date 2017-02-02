@@ -5,7 +5,7 @@ import {Regions, createRegion, editRegion, removeRegion} from '../index';
 export default {
   Query: {
     regions: () => Regions.find({}, {sort: {name: 1}}).fetch(),
-    region: (root, _id) => Regions.findOne({_id}),
+    region: (root, {_id}) => Regions.findOne({_id}),
   },
   Mutation: {
     createRegion: (root, {region}, context) => {
@@ -14,7 +14,7 @@ export default {
       return Regions.findOne(_id);
     },
     editRegion: (root, {region}, context, info) => {
-      const _id = editRegion.call({data: region});
+      const _id = editRegion._execute(context, {data: {...region}});
       return Regions.findOne(_id);
     },
     removeRegion: (root, data, context) => {
@@ -23,6 +23,7 @@ export default {
     }
   },
   Region: {
+    seasonNumeric: region => region.seasonNumeric || [],
     sources(region){
       return Sources.find({regionIds: region._id}).fetch();
     },

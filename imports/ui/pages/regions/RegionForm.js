@@ -1,12 +1,9 @@
 import React, {Component, PropTypes} from 'react';
 import {Form, Field, TextInput, RichTextInput} from '../../forms';
-import createI18nContainer from '../../hoc/createI18nContainer';
 import SeasonPickerField from '/imports/ui/forms/SeasonPickerField';
-import {Regions} from '../../../api/regions';
-import {TAPi18n} from 'meteor/tap:i18n';
 import {Tabs, Tab} from 'material-ui/Tabs';
-import _ from 'lodash';
 import POICollection from "../sections/POICollection";
+import container from './EditRegionContainer';
 
 class RegionForm extends Component {
 
@@ -21,15 +18,12 @@ class RegionForm extends Component {
   };
 
   render() {
-    let {ready, initialData, ...props} = this.props;
+    let {ready, ...props} = this.props;
     if (!ready)
       return null;
 
-    let data = _.omit(initialData, ['poiIds']);
-    data.pois = _.isEmpty(initialData) ? [] : initialData.pois().fetch();
-
     return (
-      <Form {...props} initialData={data} style={styles.form} name="regions">
+      <Form {...props} style={styles.form} name="regions">
         <Tabs>
           <Tab label="Main" value="#main">
             <Field name="name" title="Name" component={TextInput}/>
@@ -56,16 +50,4 @@ const styles = {
   },
 };
 
-const RegionFormContainer = createI18nContainer(
-  (props) => {
-    const sub = TAPi18n.subscribe('regions.details', props.language, props.regionId);
-    const region = Regions.findOne(props.regionId);
-    return {
-      ready: sub.ready(),
-      initialData: region,
-    }
-  },
-  RegionForm
-);
-
-export default RegionFormContainer;
+export default container(RegionForm);
