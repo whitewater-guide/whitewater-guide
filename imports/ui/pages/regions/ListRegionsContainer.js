@@ -17,6 +17,15 @@ const RemoveRegionMutation = gql`
   }
 `;
 
+const CreateRegionMutation = gql`
+  mutation createRegion($region: CreateRegionInput!){
+    createRegion(region: $region){
+      _id,
+      name,
+    }
+  }
+`;
+
 export default compose(
   graphql(
     ListRegionsQuery, {
@@ -34,5 +43,19 @@ export default compose(
         },
       })}),
     }
-  )
+  ),
+  graphql(
+    CreateRegionMutation, {
+      props: ({mutate}) => ({createRegion: (name) => mutate({
+        variables: {region: {name}},
+        updateQueries: {
+          listRegions: (prev, {mutationResult}) => {
+            const newRegion = mutationResult.data.createRegion;
+            return {...prev, regions: [...prev.regions, newRegion]};
+          }
+        },
+      }).then(mutationResult => mutationResult.data.createRegion)
+      }),
+    }
+  ),
 );

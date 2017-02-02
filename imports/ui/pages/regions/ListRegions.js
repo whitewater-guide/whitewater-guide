@@ -1,7 +1,6 @@
 import React, {Component, PropTypes} from "react";
 import IconButton from "material-ui/IconButton";
 import TextField from "material-ui/TextField";
-import {createRegion} from "../../../api/regions";
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn, TableFooter} from "material-ui/Table";
 import {withRouter} from "react-router";
 import withAdmin from "../../hoc/withAdmin";
@@ -14,6 +13,7 @@ class ListRegions extends Component {
     admin: PropTypes.bool,
     router: PropTypes.object,
     removeRegion: PropTypes.func,
+    createRegion: PropTypes.func,
   };
 
   static contextTypes = {
@@ -101,8 +101,11 @@ class ListRegions extends Component {
   };
 
   addNewRegion = () => {
-    const regionId = createRegion.call({ data: {name: this.state.newRegionName }});
-    this.props.router.push(`/regions/${regionId}`);
+    const {router, createRegion} = this.props;
+    createRegion(this.state.newRegionName)
+      .then(newRegion => {
+        router.push(`/regions/${newRegion._id}`)
+      });
   };
 }
 
