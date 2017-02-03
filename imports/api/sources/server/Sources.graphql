@@ -1,0 +1,22 @@
+enum HarvestMode {
+  ALL_AT_ONCE,
+  ONE_BY_ONE,
+}
+
+type Source {
+  _id: ID!,
+  name: String!,
+  termsOfUse: String,
+  script: String!,
+  cron: String,
+  harvestMode: HarvestMode!,
+  url: String,
+  enabled: Boolean,
+  regions: [Region]!,
+  gauges: [Gauge]!,
+}
+
+type Query {
+  sources(language:String): [Source]!,
+  source(_id: ID!, language: String): Source,
+}

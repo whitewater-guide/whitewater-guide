@@ -1,27 +1,24 @@
-import {HarvestMode, Source, sourceQueries} from '../api/sources/server/schema';
+import Sources from '../api/sources/server/Sources.graphql';
 import Regions from '../api/regions/server/Regions.graphql';
 import User from '../api/users/server/User.graphql';
 import Points from '../api/points/server/Points.graphql';
-
-const Query = `
-  type Query {
-    ${sourceQueries}
-  }
-`;
+import Gauges from '../api/gauges/server/Gauges.graphql';
 
 const SchemaDefinition = `
+  scalar JSON
+  scalar Date
+  
   schema {
     query: Query,
     mutation: Mutation,
   }
 `;
 
-
 export const typeDefs = [
   SchemaDefinition,
-  Query,
   User,
   Regions,
   Points,
-  HarvestMode, Source,
+  Sources,
+  Gauges,
 ];

@@ -163,28 +163,16 @@ export const setEnabled = new AdminMethod({
   name: 'gauges.setEnabled',
 
   validate: new SimpleSchema({
-    gaugeId: {type: String, regEx: SimpleSchema.RegEx.Id},
+    gaugeId: {type: String, regEx: SimpleSchema.RegEx.Id, optional: true},
+    sourceId: {type: String, regEx: SimpleSchema.RegEx.Id, optional: true},
     enabled: {type: Boolean},
   }).validator(),
 
-  run({gaugeId, enabled}) {
+  run({gaugeId, sourceId, enabled}) {
     //Server hook is used to start/stop jobs
-    return Gauges.update(gaugeId, {$set: {enabled}});
+    return Gauges.update({sourceId, gaugeId}, {$set: {enabled}}, {multi: true});
   }
 
-});
-
-export const enableAll = new AdminMethod({
-  name: 'gauges.enableAll',
-
-  validate: new SimpleSchema({
-    sourceId: {type: String, regEx: SimpleSchema.RegEx.Id},
-  }).validator(),
-
-  run({sourceId}) {
-    //Server hook is used to start/stop jobs
-    return Gauges.update({sourceId, enabled: false}, {$set: {enabled: true}}, {multi: true});
-  }
 });
 
 export const removeGauge = new AdminMethod({
