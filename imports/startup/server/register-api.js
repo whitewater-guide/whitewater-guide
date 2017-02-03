@@ -18,7 +18,6 @@ import '../../api/measurements/server/publications';
 
 import '../../api/regions';
 // import '../../api/regions/server';
-import '../../api/regions/server/publications';
 
 import '../../api/rivers';
 import '../../api/rivers/server';
