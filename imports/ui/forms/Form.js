@@ -119,8 +119,7 @@ class Form extends Component {
     if (!_.isFunction(method))
       method = method.callPromise;
 
-    const data = transformBeforeSubmit(this.state.data);
-    let args = {data: _.omit(data, ['__typename'])};
+    let args = {data: transformBeforeSubmit(this.state.data)};
     if (multilang)
       args.language = language;
     console.log('Submit form', args);

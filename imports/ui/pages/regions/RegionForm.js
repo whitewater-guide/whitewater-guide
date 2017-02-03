@@ -4,7 +4,6 @@ import SeasonPickerField from '/imports/ui/forms/SeasonPickerField';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import POICollection from "../sections/POICollection";
 import container from './EditRegionContainer';
-import _ from 'lodash';
 
 class RegionForm extends Component {
 
@@ -24,7 +23,7 @@ class RegionForm extends Component {
       return null;
 
     return (
-      <Form {...props} style={styles.form} transformBeforeSubmit={this.transformBeforeSubmit} name="regions">
+      <Form {...props} style={styles.form} name="regions">
         <Tabs>
           <Tab label="Main" value="#main">
             <Field name="name" title="Name" component={TextInput}/>
@@ -42,9 +41,6 @@ class RegionForm extends Component {
     );
   }
 
-  transformBeforeSubmit = (data) => {
-    return {...data, pois: data.pois.map(poi => _.omit(poi, ['__typename']))}
-  };
 }
 
 const styles = {

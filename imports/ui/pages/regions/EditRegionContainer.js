@@ -1,46 +1,42 @@
 import {graphql} from 'react-apollo';
-import {withState, withHandlers, withProps, compose} from 'recompose';
+import {withState, withHandlers, compose} from 'recompose';
 import gql from 'graphql-tag';
-import _ from 'lodash';
+import {filter} from 'graphql-anywhere';
+
+const regionDetailsFragment = gql`
+  fragment RegionDetails on Region {
+    _id,
+    name,
+    description,
+    season,
+    seasonNumeric,
+    pois {
+      _id
+      name
+      description
+      coordinates
+      altitude
+      kind
+    }
+  }
+`;
 
 const regionDetails = gql`
   query regionDetails($_id: ID!, $language:String) {
     region(_id: $_id, language: $language) {
-      _id,
-      name,
-      description,
-      season,
-      seasonNumeric,
-      pois {
-        _id
-        name
-        description
-        coordinates
-        altitude
-        kind
-      }
+      ...RegionDetails
     }
   }
+  ${regionDetailsFragment}
 `;
 
 const editRegion = gql`
   mutation editRegion($region: EditRegionInput!, $language:String){
     editRegion(region: $region, language: $language){
-      _id,
-      name,
-      description,
-      season,
-      seasonNumeric,
-      pois {
-        _id
-        name
-        description
-        coordinates
-        altitude
-        kind
-      }
+      ...RegionDetails
     }
   }
+  ${regionDetailsFragment}
 `;
 
 export default compose(
@@ -51,16 +47,23 @@ export default compose(
   graphql(
     regionDetails,
     {
-      options: ({regionId, language}) => ({variables: {_id: regionId, language}, forceFetch: true}),
-      props: ({data: {region, loading}}) => ({initialData: region, ready: !loading}),
+      options: ({regionId, language}) => ({
+        forceFetch: true,//i18n's problem with caching
+        variables: {_id: regionId, language},
+      }),
+      props: ({data: {region, loading}}) => {
+        return {initialData: region && filter(regionDetailsFragment, region), ready: !loading}
+      },
       shouldResubscribe: (props, nextProps) => props.language !== nextProps.language,
     }
   ),
   graphql(
-    editRegion, {
-      props: ({mutate}) => ({method: ({data, language}) => {
-        return mutate({ variables: {region: data, language}});
-      }
+    editRegion,
+    {
+      props: ({mutate}) => ({
+        method: ({data, language}) => {
+          return mutate({variables: {region: data, language}});
+        }
       }),
     }
   ),
