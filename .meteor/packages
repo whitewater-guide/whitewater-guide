@@ -45,3 +45,4 @@ percolate:migrations
 apollo
 orionsoft:graphql-compiler
 nicolaslopezj:apollo-accounts
+meteorhacks:aggregate

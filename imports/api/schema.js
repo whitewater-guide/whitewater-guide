@@ -3,6 +3,7 @@ import Regions from '../api/regions/server/Regions.graphql';
 import User from '../api/users/server/User.graphql';
 import Points from '../api/points/server/Points.graphql';
 import Gauges from '../api/gauges/server/Gauges.graphql';
+import Jobs from '../api/jobs/server/Jobs.graphql';
 
 const SchemaDefinition = `
   scalar JSON
@@ -21,4 +22,5 @@ export const typeDefs = [
   Points,
   Sources,
   Gauges,
+  Jobs,
 ];

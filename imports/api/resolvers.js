@@ -2,6 +2,7 @@ import sourcesResolvers from '../api/sources/server/resolvers';
 import regionsResolvers from '../api/regions/server/resolvers';
 import userResolvers from '../api/users/server/resolvers';
 import gaugesResolvers from '../api/gauges/server/resolvers';
+import jobsResolvers from '../api/jobs/server/resolvers';
 import {meteorResolver} from '../utils/ApolloUtils';
 import GraphQLJSON from 'graphql-type-json';
 import GraphQLDate from 'graphql-date';
@@ -12,6 +13,7 @@ let resolvers = _.merge(
   sourcesResolvers,
   regionsResolvers,
   gaugesResolvers,
+  jobsResolvers,
 );
 
 //Decorate resolvers to make them more meteor-friendly

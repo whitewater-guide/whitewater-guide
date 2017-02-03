@@ -1,17 +1,30 @@
 import {Regions} from '../../regions';
 import {Gauges} from '../../gauges';
 import {Sources} from '../index';
+import {Roles} from 'meteor/alanning:roles';
 
 const HarvestModes = {
   allAtOnce: 'ALL_AT_ONCE',
-  oneByObe: 'ONE_BY_ONE',
+  oneByOne: 'ONE_BY_ONE',
 };
 
+const publicFields = {
+  script: 0,
+  cron: 0,
+  harvestMode: 0,
+  enabled: 0,
+};
 
 export default {
   Query: {
-    sources: () => Sources.find({}, {sort: {name: 1}}),
-    source: (root, {_id}) => Sources.findOne({_id}),
+    sources: (root, args, context) => {
+      const fields = Roles.userIsInRole(context.userId, 'admin') ? undefined : publicFields;
+      return Sources.find({}, {sort: {name: 1}, fields})
+    },
+    source: (root, {_id}, context) => {
+      const fields = Roles.userIsInRole(context.userId, 'admin') ? undefined : publicFields;
+      return Sources.findOne({_id}, {fields});
+    }
   },
   Source: {
     regions: (source) => Regions.find({_id: {$in: source.regionIds}}),

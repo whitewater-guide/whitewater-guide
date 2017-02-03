@@ -1,0 +1,18 @@
+type Job {
+  _id: ID!,
+  data: JSON,
+  status: String,
+  updated: Date,
+  after: Date,
+  result: Int,
+}
+
+type JobsReport {
+  _id: ID!,
+  count: Int!,
+}
+
+type Query {
+  jobs(sourceId:ID!):[Job]!,
+  jobsReport(sourceId:ID):[JobsReport]!,
+}

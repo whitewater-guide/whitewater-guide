@@ -6,7 +6,6 @@ import {createContainer} from 'meteor/react-meteor-data';
 import {withRouter} from 'react-router';
 import {Gauges, removeGauge, setEnabled} from '../../../api/gauges';
 import {Sources} from '../../../api/sources';
-import {ActiveJobsReport} from '../../../api/jobs/client';
 import moment from 'moment';
 import _ from 'lodash';
 import withAdmin from "../../hoc/withAdmin";
@@ -197,7 +196,8 @@ const ListGaugesContainer = createContainer(
     const gauges = Gauges.find({sourceId}, {sort: {name: 1}}).fetch();
     const source = Sources.findOne(sourceId);
     const reportSub = subsCache.subscribe('jobs.activeReport', sourceId);
-    const jobsReport = ActiveJobsReport.find().fetch();
+    // const jobsReport = ActiveJobsReport.find().fetch();
+    const jobsReport = [];
     const numGauges = Counts.get(`counter.gauges.${sourceId}`);
     const ready = gaugesSub.ready() && reportSub.ready();
     return {

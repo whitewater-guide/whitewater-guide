@@ -19,7 +19,7 @@ loadSchema({
 const schema = getSchema();
 const executableSchema = makeExecutableSchema({
   ...schema,
-  allowUndefinedInResolve: false,
+  allowUndefinedInResolve: true,
 });
 
 
