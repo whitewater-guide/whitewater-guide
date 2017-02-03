@@ -11,6 +11,10 @@ export function meteorResolver(resolver){
     }
     let result = resolver.apply(this, arguments);
     //Problem #2
+    //If meteor's find returns undefined, but apollo wants nulls
+    if (_.isUndefined(result))
+      return null;
+    //Problem #3
     //Sometimes I forget to call fetch()
     if (_.isFunction(result.fetch)) {
       return result.fetch();

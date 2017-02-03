@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { TAPi18n } from 'meteor/tap:i18n';
 import create from 'lodash/create';
+import mapKeys from 'lodash/mapKeys';
 
 const transform = function(options, collectionTransform) {
   return (doc) => {
@@ -68,12 +69,9 @@ class TAPi18nCollection extends Mongo.Collection {
     }
 
     if (options.lang !== this._base_language) {
-      let strSelector = JSON.stringify(selector);
-
-      for (let field in this.i18nFields) {
-        strSelector = strSelector.replace(new RegExp(field, 'g'), `i18n.${options.lang}.${field}`);
-      }
-      selector = JSON.parse(strSelector);
+      selector = mapKeys(selector, (val, key) => {
+        return this.i18nFields.includes(key) ? `i18n.${options.lang}.${key}` : key;
+      });
     }
 
     const dialect_of = dialectOf(options.lang);
