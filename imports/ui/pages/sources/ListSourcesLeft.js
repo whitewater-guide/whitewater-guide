@@ -1,8 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import FlatLinkButton from '../../components/FlatLinkButton';
-import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
-import {Roles} from 'meteor/alanning:roles';
+import withAdmin from '../../hoc/withAdmin';
 
 class ListSourcesLeft extends Component {
   static propTypes = {
@@ -27,8 +25,4 @@ const styles = {
   }
 };
 
-export default createContainer(() => {
-  return {
-    admin: Roles.userIsInRole(Meteor.userId(), 'admin'),
-  };
-}, ListSourcesLeft);
+export default withAdmin(ListSourcesLeft);
