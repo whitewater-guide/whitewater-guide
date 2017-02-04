@@ -123,23 +123,6 @@ export const removeSource = new AdminMethod({
   
 });
 
-export const listScripts = new AdminMethod({
-  name: 'sources.listScripts',
-
-  validate: null,
-
-  applyOptions: {
-    returnStubValue: false,
-  },
-  
-  run() {
-    if (!this.isSimulation){
-      const {listScripts} = require('../scripts');
-      return listScripts();
-    }
-  },
-});
-
 export const autofill = new AdminMethod({
   name: 'sources.autofill',
 

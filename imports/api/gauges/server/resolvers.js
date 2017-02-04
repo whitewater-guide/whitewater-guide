@@ -22,14 +22,14 @@ export default {
       removeGauge._execute(context, data);
       return true;
     },
-    setEnabled: (root, {gaugeId, sourceId, enabled}, context) => {
+    setGaugesEnabled: (root, {gaugeId, sourceId, enabled}, context) => {
       setEnabled._execute(context, {gaugeId, sourceId, enabled});
       return Gauges.find({gaugeId, sourceId});
     },
-    removeAll: (root, data, context) => {
+    removeAllGauges: (root, data, context) => {
       return removeAllGauges._execute(context, data);
     },
-    removeDisabled: (root, data, context) => {
+    removeDisabledGauges: (root, data, context) => {
       return removeDisabledGauges._execute(context, data);
     },
   },

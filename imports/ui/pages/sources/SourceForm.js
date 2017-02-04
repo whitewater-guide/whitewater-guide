@@ -1,10 +1,7 @@
-import React, { Component, PropTypes } from 'react';
-import { listScripts } from '../../../api/sources';
-import { Form, Field, TextInput, Select, ChipInput, RichTextInput } from '../../forms';
-import { createContainer } from 'meteor/react-meteor-data';
-import { Meteor} from 'meteor/meteor';
-import { Regions } from '../../../api/regions';
+import React, {Component, PropTypes} from 'react';
+import {Form, Field, TextInput, Select, ChipInput, RichTextInput} from '../../forms';
 import {Tabs, Tab} from 'material-ui/Tabs';
+import container from './SourceFormContainer';
 import _ from 'lodash';
 
 class SourceForm extends Component {
@@ -13,71 +10,45 @@ class SourceForm extends Component {
     ...Form.propTypes,
     ready: PropTypes.bool,
     regions: PropTypes.array,
+    scripts: PropTypes.array,
   };
 
   static defaultProps = {
     ...Form.defaultProps,
   };
 
-  state = {
-    availableScripts: [],
-  };
-
-  componentDidMount() {
-    listScripts.callPromise()
-      .then( availableScripts => this.setState({availableScripts}))
-      .catch( err => console.log('List scripts error:', err));
-  }
-
   render() {
-    let {initialData, regions, ready, ...props} = this.props;
+    let {regions, ready, scripts, ...props} = this.props;
     if (!ready)
       return null;
 
-    let scripts = _.filter(this.state.availableScripts, s => !_.has(s, 'error'));
     return (
-      <Form {...props}
-            multilang={false}
-            style={{minWidth: 400}}
-            initialData={initialData}
-            transformBeforeSubmit={this.transformBeforeSubmit}
-            name="sources"
-      >
+      <Form {...props} style={{minWidth: 400}} transformBeforeSubmit={this.transformBeforeSubmit} name="sources">
         <Tabs>
           <Tab label="Main" value="#main">
             <Field name="name" title="Name" component={TextInput}/>
             <Field name="url" title="URL" component={TextInput}/>
-            <Field name="regionIds" title="Regions" component={ChipInput} options={regions}/>
+            <Field name="regions" title="Regions" component={ChipInput} options={regions}/>
             <Field name="script" title="Script" component={Select} options={scripts}
-                   extractKey={_.property('script')} extractValue={_.property('script')} extractLabel={_.property('script')}/>
+                   extractKey={_.property('script')} extractValue={_.property('script')}
+                   extractLabel={_.property('script')}/>
             <Field name="cron" title="Cron expression" component={TextInput}/>
           </Tab>
           <Tab label="Terms of use" value="#terms">
             <Field name="termsOfUse" title="Terms of use" component={RichTextInput}/>
           </Tab>
         </Tabs>
-      </Form>      
+      </Form>
     );
   }
 
   transformBeforeSubmit = (data) => {
     return {
       ...data,
-      harvestMode: _.find(this.state.availableScripts, {script: data.script}).harvestMode,
+      harvestMode: _.find(this.props.scripts, {script: data.script}).harvestMode,
+      regions: data.regions.map(_id => ({ _id })),
     };
   };
 }
 
-const SourceFormContainer = createContainer(
-  () => {
-    const sub = Meteor.subscribe('regions.list');
-    const regions = Regions.find({}, {fields: {name: 1}}).fetch();
-    return {
-      regions,
-      ready: sub.ready(),
-    }
-  },
-  SourceForm
-);
-
-export default SourceFormContainer;
+export default container(SourceForm);

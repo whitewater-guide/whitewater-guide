@@ -37,8 +37,8 @@ type Mutation {
   createGauge(gauge:GaugeInput!):Gauge,
   editGauge(gauge:GaugeInput!, language:String):Gauge,
   removeGauge(gaugeId:ID!):Boolean,
-  setEnabled(gaugeId:ID, sourceId:ID, enabled:Boolean!):[Gauge]!,
-  removeAll(sourceId:ID!):Int,
-  removeDisabled(sourceId:ID!):Int,
+  setGaugesEnabled(gaugeId:ID, sourceId:ID, enabled:Boolean!):[Gauge]!,
+  removeAllGauges(sourceId:ID!):Int,
+  removeDisabledGauges(sourceId:ID!):Int,
 }
 

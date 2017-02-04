@@ -16,7 +16,33 @@ type Source {
   gauges: [Gauge]!,
 }
 
+input SourceInput {
+  _id: ID,
+  name: String!,
+  termsOfUse: String,
+  script: String!,
+  cron: String,
+  harvestMode: HarvestMode!,
+  regions: [EditRegionInput]!,
+  url: String,
+}
+
+type WorkerScript {
+  script: String!,
+  harvestMode: HarvestMode!,
+  error: String,
+}
+
 type Query {
   sources(language:String): [Source]!,
-  source(_id: ID!, language: String): Source,
+  source(_id: ID, language: String): Source,
+  listScripts:[WorkerScript]!,
+}
+
+type Mutation {
+  upsertSource(source:SourceInput!, language: String):Source,
+  removeSource(sourceId:ID!):Boolean,
+  autofillSource(sourceId:ID!):Boolean,
+  generateSourceSchedule(sourceId:ID!):Boolean,
+  setSourceEnabled(sourceId:ID!, enabled:Boolean!): Source,
 }

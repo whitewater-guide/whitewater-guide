@@ -1,7 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import IconButton from 'material-ui/IconButton';
-import {setEnabled, removeSource} from '../../../api/sources';
 import container from './ListSourcesContainer';
 import _ from 'lodash';
 
@@ -13,6 +12,8 @@ class ListSources extends Component {
     ready: PropTypes.bool,
     router: PropTypes.object,
     jobsReport: PropTypes.array,
+    removeSource: PropTypes.func,
+    setEnabled: PropTypes.func,
   };
 
   render() {
@@ -63,15 +64,12 @@ class ListSources extends Component {
     if (!admin)
       return null;
     const editHandler = () => this.props.router.push(`/sources/${src._id}/settings`);
-    const deleteHandler = () => this.removeSource(src._id);
-    const startStopHandler = () => this.setSourceEnabled(src._id, !src.enabled);
+    const deleteHandler = () => this.props.removeSource(src._id);
+    const startStopHandler = () => this.props.setEnabled(src._id, !src.enabled);
     return (
       <TableRowColumn>
-        <div onClick={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-        } }>
-          <IconButton iconClassName="material-icons" style={styles.iconWrapper}
+        <div onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}>
+        <IconButton iconClassName="material-icons" style={styles.iconWrapper}
                       onTouchTap={startStopHandler}>{src.enabled ? 'stop' : 'play_arrow'}</IconButton>
           <IconButton iconClassName="material-icons" onTouchTap={editHandler}>mode_edit</IconButton>
           <IconButton iconClassName="material-icons" onTouchTap={deleteHandler}>delete_forever</IconButton>
@@ -80,22 +78,11 @@ class ListSources extends Component {
     );
   };
 
-  removeSource = (sourceId) => {
-    removeSource.callPromise({sourceId})
-      .then(() => console.log('Sources deleted'))
-      .catch(err => console.log('Error while deleting source', err));
-  };
-
   onCellClick = (rowId) => {
     const {router, sources} = this.props;
     router.push(`/sources/${sources[rowId]._id}`);
   };
 
-  setSourceEnabled = (sourceId, enabled) => {
-    setEnabled.callPromise({sourceId, enabled})
-      .then(() => console.log('Sources enable toggled'))
-      .catch(err => console.log('Error while toggling source', err));
-  };
 }
 
 const styles = {

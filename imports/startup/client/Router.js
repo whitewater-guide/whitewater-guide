@@ -3,14 +3,13 @@ import { Router, Route, IndexRoute, IndexRedirect, browserHistory } from 'react-
 import MainLayout from '../../ui/layouts/MainLayout';
 import ListSources from '../../ui/pages/sources/ListSources';
 import ListSourcesLeft from '../../ui/pages/sources/ListSourcesLeft';
-import NewSource from '../../ui/pages/sources/NewSource';
+import SourceForm from '../../ui/pages/sources/SourceForm';
 import ListGauges from '../../ui/pages/gauges/ListGauges';
 import ListGaugesLeft from '../../ui/pages/gauges/ListGaugesLeft';
 import SourceSchedule from '../../ui/pages/sources/SourceSchedule';
 import TermsOfUse from '../../ui/pages/sources/TermsOfUse';
 import NewGauge from '../../ui/pages/gauges/NewGauge';
 import EditGauge from '../../ui/pages/gauges/EditGauge';
-import EditSource from '../../ui/pages/sources/EditSource';
 import ViewSource from '../../ui/pages/sources/ViewSource';
 import ViewSourceLeft from '../../ui/pages/sources/ViewSourceLeft';
 import ViewGauge from '../../ui/pages/gauges/ViewGauge';
@@ -29,7 +28,6 @@ import EditSection from "../../ui/pages/sections/EditSection";
 import ListSections from "../../ui/pages/sections/ListSections";
 import ManageFiles from "../../ui/pages/files/ManageFiles";
 import EditRegion from "../../ui/pages/regions/EditRegion";
-import ViewRegion from "../../ui/pages/regions/ViewRegion";
 import ViewRegionLeft from "../../ui/pages/regions/ViewRegionLeft";
 import RegionMapPage from "../../ui/pages/regions/RegionMapPage";
 import ListUsers from "../../ui/pages/ListUsers";
@@ -46,10 +44,10 @@ export default class AppRouter extends Component {
 
           <Route path="sources" name="Sources">
             <IndexRoute breadcrumbIgnore={true} components={{content: ListSources, left: ListSourcesLeft}} />
-            <Route path="new" name="New source" components={{content: NewSource}}/>
+            <Route path="new" name="New source" components={{content: SourceForm}}/>
             <Route path=":sourceId" breadcrumbName=":sourceId">
               <IndexRoute breadcrumbIgnore={true} components={{content: ViewSource, left: ViewSourceLeft}} />
-              <Route path="settings" name="Settings" components={{content: EditSource, left: ViewSourceLeft}} />
+              <Route path="settings" name="Settings" components={{content: SourceForm, left: ViewSourceLeft}} />
               <Route path="schedule" name="Schedule" components={{content: SourceSchedule, left: ViewSourceLeft}} />
               <Route path="terms_of_use" name="Terms of use" components={{content: TermsOfUse, left: ViewSourceLeft}} />
             </Route>

@@ -19,6 +19,7 @@ class Select extends Component {
   };
 
   static defaultProps = {
+    options: [],
     disabled: false,
     extractKey: item => item._id,
     extractValue: item => item._id,
