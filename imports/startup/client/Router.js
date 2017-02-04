@@ -31,6 +31,7 @@ import EditRegion from "../../ui/pages/regions/EditRegion";
 import ViewRegionLeft from "../../ui/pages/regions/ViewRegionLeft";
 import RegionMapPage from "../../ui/pages/regions/RegionMapPage";
 import ListUsers from "../../ui/pages/ListUsers";
+import GaugesTable from "../../ui/pages/gauges/GaugesTable";
 
 export default class AppRouter extends Component {
   render() {
@@ -54,7 +55,7 @@ export default class AppRouter extends Component {
           </Route>
 
           <Route path="gauges" name="Gauges">
-            <IndexRoute breadcrumbIgnore={true} components={{content: ListGauges, left: ListGaugesLeft}} />
+            <IndexRoute breadcrumbIgnore={true} components={{content: GaugesTable, left: ListGaugesLeft}} />
             <Route path="new" name="New gauge" components={{content: NewGauge}} />
             <Route path=":gaugeId" breadcrumbName=":gaugeId">
               <IndexRoute breadcrumbIgnore={true} components={{ content: ViewGauge, left: ViewGaugeLeft }} />

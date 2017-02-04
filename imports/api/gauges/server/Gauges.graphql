@@ -29,8 +29,9 @@ input GaugeInput {
 }
 
 type Query {
-  gauges(sourceId:ID, language:String): [Gauge]!,
+  gauges(sourceId:ID, language:String, skip:Int, limit:Int):[Gauge]!,
   gauge(_id: ID!, language:String):Gauge,
+  countGauges(sourceId:ID):Int!,
 }
 
 type Mutation {

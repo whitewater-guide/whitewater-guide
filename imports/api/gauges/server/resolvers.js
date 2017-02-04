@@ -1,13 +1,16 @@
 import {Sources} from '../../sources';
 import {Gauges, createGauge, editGauge, removeGauge, setEnabled, removeAllGauges, removeDisabledGauges} from '../index';
+import _ from 'lodash';
 
 export default {
   Query: {
-    gauges: (root, {sourceId, language}) => {
+    gauges: (root, {sourceId, language, skip = 0, limit = 10}) => {
       const query = sourceId ? {sourceId} : {};
-      return Gauges.find(query, {sort: {name: 1}, lang: language})
+      limit = _.clamp(limit, 10, 100);
+      return Gauges.find(query, {sort: {name: 1}, lang: language, skip, limit});
     },
     gauge: (root, {_id, language}) => Gauges.findOne({_id}, {lang: language}),
+    countGauges: (root, {sourceId}) => Gauges.find({sourceId}).count(),
   },
   Mutation: {
     createGauge: (root, {gauge}, context) => {
