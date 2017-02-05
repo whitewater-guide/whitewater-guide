@@ -1,6 +1,6 @@
 import {graphql, compose} from 'react-apollo';
 import gql from 'graphql-tag';
-import adminOnly from '../hoc/adminOnly';
+import adminOnly from '../../hoc/adminOnly';
 
 const ListUsersQuery = gql`
   query listUsers {

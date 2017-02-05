@@ -29,7 +29,7 @@ import ManageFiles from "../../ui/pages/files/ManageFiles";
 import EditRegion from "../../ui/pages/regions/EditRegion";
 import ViewRegionLeft from "../../ui/pages/regions/ViewRegionLeft";
 import RegionMapPage from "../../ui/pages/regions/RegionMapPage";
-import ListUsers from "../../ui/pages/ListUsers";
+import ListUsers from "../../ui/pages/users/ListUsers";
 import ListGauges from "../../ui/pages/gauges/ListGauges";
 
 export default class AppRouter extends Component {
