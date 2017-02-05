@@ -13,7 +13,6 @@ import '../../api/users/server/publications';
 
 import '../../api/measurements';
 import '../../api/measurements/server';
-import '../../api/measurements/server/publications';
 
 import '../../api/regions';
 

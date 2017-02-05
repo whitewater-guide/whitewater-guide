@@ -1,4 +1,5 @@
 import {Sources} from '../../sources';
+import {Measurements} from '../../measurements';
 import {Gauges, createGauge, editGauge, removeGauges, setEnabled} from '../index';
 import {Roles} from 'meteor/alanning:roles';
 import _ from 'lodash';
@@ -45,5 +46,8 @@ export default {
   },
   Gauge: {
     source: (gauge) => Sources.findOne(gauge.sourceId),
+    measurements: (gauge, {startDate, endDate}) => {
+      return Measurements.find({gaugeId: gauge._id, date: {$gte: startDate, $lt: endDate}})
+    },
   },
 }

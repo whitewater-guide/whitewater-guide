@@ -1,25 +1,21 @@
-import React, {Component, PropTypes} from 'react';
-import withAdmin from '../../hoc/withAdmin';
+import React, {PureComponent, PropTypes} from 'react';
 import FlatLinkButton from '../../components/FlatLinkButton';
-import {createContainer} from 'meteor/react-meteor-data';
-import {Gauges} from '../../../api/gauges';
+import container from './ViewGaugeLeftContainer';
 
-class ViewGaugeLeft extends Component {
+class ViewGaugeLeft extends PureComponent {
 
   static propTypes = {
-    params: PropTypes.shape({
-      gaugeId: PropTypes.string,
-    }),
-    gauge: PropTypes.object,
+    _id: PropTypes.string,
+    sourceId: PropTypes.string,
     admin: PropTypes.bool,
   };
 
   render() {
-    const sourceId = this.props.gauge ? this.props.gauge.source()._id : null;
+    const {_id, sourceId, admin} = this.props;
     return (
       <div style={styles.container}>
-        {this.props.admin && <FlatLinkButton secondary={true} to={`/gauges/${this.props.params.gaugeId}/settings`} label="Settings" />}
-        <FlatLinkButton secondary={true} to={`/gauges/${this.props.params.gaugeId}`} label="Measurements" />
+        {admin && <FlatLinkButton secondary={true} to={`/gauges/${_id}/settings`} label="Settings" />}
+        <FlatLinkButton secondary={true} to={`/gauges/${_id}`} label="Measurements" />
         <FlatLinkButton secondary={true} to={`/sources/${sourceId}/terms_of_use`} label="Terms of use" />
       </div>
     );
@@ -34,14 +30,4 @@ const styles = {
   },
 };
 
-const ViewGaugeLeftContainer = createContainer(
-  (props) => {
-    const gauge = Gauges.findOne(props.params.gaugeId);
-    return {
-      gauge,
-    };
-  },
-  ViewGaugeLeft
-);
-
-export default withAdmin(ViewGaugeLeftContainer);
+export default container(ViewGaugeLeft);

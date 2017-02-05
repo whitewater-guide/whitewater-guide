@@ -14,9 +14,9 @@ import moment from 'moment';
 class Chart extends Component {
   static propTypes = {
     data: PropTypes.array.isRequired,
-    unit: PropTypes.oneOf(['level', 'flow']),
+    unit: PropTypes.oneOf(['level', 'flow']).isRequired,
     domain: PropTypes.array.isRequired,
-    onDomainChange: PropTypes.func.isRequired,
+    onDomainChanged: PropTypes.func.isRequired,
     minValue: PropTypes.number,
     midValue: PropTypes.number,
     maxValue: PropTypes.number,
@@ -26,7 +26,7 @@ class Chart extends Component {
 
   render() {
     const {data, domain} = this.props;
-    //<VictoryZoom zoomDomain={{x: domain}} onDomainChange={this.props.onDomainChange}>
+    //<VictoryZoom zoomDomain={{x: domain}} onDomainChange={this.props.onDomainChanged}>
     return (
       <VictoryChart scale={{x: 'time', y: 'linear'}} domain={{x: domain}}
                     width={this.props.containerWidth} height={this.props.containerHeight}

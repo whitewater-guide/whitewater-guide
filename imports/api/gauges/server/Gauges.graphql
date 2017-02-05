@@ -13,7 +13,7 @@ type Gauge {
   lastFlow: Float,
   url: String,
   enabled: Boolean,
-  #measurements: [Measurement],
+  measurements(startDate:Date!, endDate:Date!): [Measurement]!,
 }
 
 input GaugeInput {
@@ -27,6 +27,14 @@ input GaugeInput {
   requestParams: JSON,
   cron: String,
   url: String,
+}
+
+type Measurement {
+  _id: ID!,
+  gaugeId: ID!,
+  date: Date!,
+  level: Float,
+  flow: Float,
 }
 
 type Query {

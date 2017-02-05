@@ -46,6 +46,7 @@ class ListGauges extends React.Component {
                   rowHeight={32}
                   rowCount={gauges.length}
                   rowGetter={({index}) => gauges[index]}
+                  onRowClick={this.onRowClick}
                 >
                   {admin && <Column width={12} flexGrow={0} dataKey="status" cellRenderer={this.renderStatus}/>}
                   <Column width={150} flexGrow={5} dataKey="name" label="Name"/>
@@ -108,6 +109,8 @@ class ListGauges extends React.Component {
       </div>
     );
   };
+
+  onRowClick = ({index}) => this.props.router.push(`/gauges/${this.props.gauges[index]._id}`);
 }
 
 const styles = {
