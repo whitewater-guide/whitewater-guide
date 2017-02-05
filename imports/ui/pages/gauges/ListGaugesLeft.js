@@ -18,9 +18,15 @@ class ListGaugesLeft extends Component {
   render() {
     const {admin, count, sourceId} = this.props;
     const hasGauges = admin && count > 0;
+    const toNewGauge = {
+      pathname: '/gauges/new',
+      query: {
+        sourceId,
+      },
+    };
     return (
       <div style={styles.container}>
-        {admin && <FlatButton secondary={true} onTouchTap={this.addGauge} label="Add gauge"/>}
+        {admin && <FlatLinkButton secondary={true} to={toNewGauge} label="Add gauge"/>}
         {admin && !count && <FlatButton secondary={true} onTouchTap={this.autofill} label="Autofill" />}
         {hasGauges && <FlatButton secondary={true} onTouchTap={this.generateSchedule} label="Generate crons"/>}
         {hasGauges && <FlatButton secondary={true} onTouchTap={this.enableAll} label="Enable all"/>}

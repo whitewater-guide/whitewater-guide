@@ -25,13 +25,15 @@ export default {
     countGauges: (root, {sourceId}) => Gauges.find({sourceId}).count(),
   },
   Mutation: {
-    createGauge: (root, {gauge}, context) => {
-      const _id = createGauge._execute(context, {data: gauge});
+    upsertGauge: (root, {gauge, language}, context) => {
+      let _id = gauge._id;
+      if (gauge.requestParams)
+        gauge.requestParams = JSON.parse(gauge.requestParams);
+      if (_id)
+        editGauge._execute(context, {data: gauge, language});
+      else
+        _id = createGauge._execute(context, {data: gauge, language});
       return Gauges.findOne(_id);
-    },
-    editGauge: (root, {gauge, language}, context) => {
-      editGauge._execute(context, {data: gauge, language});
-      return Gauges.findOne(gauge._id);
     },
     removeGauges: (root, args, context) => {
       return removeGauges._execute(context, args);
@@ -42,6 +44,6 @@ export default {
     },
   },
   Gauge: {
-    source: (gauge) => Sources.findOne(gauge._id),
+    source: (gauge) => Sources.findOne(gauge.sourceId),
   },
 }

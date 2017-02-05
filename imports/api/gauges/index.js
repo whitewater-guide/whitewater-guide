@@ -46,12 +46,12 @@ const GaugesSchema = new SimpleSchema([
     levelUnit: {
       type: String,
       label: 'Level measurement unit',//Leave empty if gauge does not harvest levels
-      defaultValue: '',
+      optional: true,
     },
     flowUnit: {
       type: String,
       label: 'Flow measurement unit',//Leave empty if gauge does not harvest flows
-      defaultValue: '',
+      optional: true,
     },
     requestParams: {
       type: Object,
@@ -131,7 +131,7 @@ export const createGauge = new AdminMethod({
 export const editGauge = new AdminMethod({
   name: 'gauges.edit',
 
-  validate: formSchema(GaugesSchema, 'enabled').validator({clean: true}),
+  validate: formSchema(GaugesSchema, 'enabled', 'sourceId').validator({clean: true}),
 
   applyOptions: {
     noRetry: true,

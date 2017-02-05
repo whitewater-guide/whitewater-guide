@@ -14,5 +14,5 @@ input PointInput {
   coordinates: [Float!]!,
   altitude: Float,
   deleted: Boolean,
-  kind: String!,
+  kind: String,
 }

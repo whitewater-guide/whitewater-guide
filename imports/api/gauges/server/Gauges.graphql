@@ -18,6 +18,7 @@ type Gauge {
 
 input GaugeInput {
   _id: ID,
+  sourceId: ID!,
   name: String!,
   code: String!,
   location: PointInput,
@@ -30,13 +31,13 @@ input GaugeInput {
 
 type Query {
   gauges(sourceId:ID!, language:String, skip:Int, limit:Int):[Gauge]!,
-  gauge(_id: ID!, language:String):Gauge,
+  gauge(_id: ID, language:String):Gauge,
   countGauges(sourceId:ID):Int!,
 }
 
 type Mutation {
   createGauge(gauge:GaugeInput!):Gauge,
-  editGauge(gauge:GaugeInput!, language:String):Gauge,
+  upsertGauge(gauge:GaugeInput!, language:String):Gauge,
   removeGauges(_id:ID, sourceId: ID, disabledOnly:Boolean):Int,
   setGaugesEnabled(_id:ID, sourceId:ID, enabled:Boolean!):[Gauge]!,
 }

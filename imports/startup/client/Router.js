@@ -7,8 +7,7 @@ import SourceForm from '../../ui/pages/sources/SourceForm';
 import ListGaugesLeft from '../../ui/pages/gauges/ListGaugesLeft';
 import SourceSchedule from '../../ui/pages/sources/SourceSchedule';
 import TermsOfUse from '../../ui/pages/sources/TermsOfUse';
-import NewGauge from '../../ui/pages/gauges/NewGauge';
-import EditGauge from '../../ui/pages/gauges/EditGauge';
+import GaugeForm from '../../ui/pages/gauges/GaugeForm';
 import ViewSource from '../../ui/pages/sources/ViewSource';
 import ViewSourceLeft from '../../ui/pages/sources/ViewSourceLeft';
 import ViewGauge from '../../ui/pages/gauges/ViewGauge';
@@ -55,10 +54,10 @@ export default class AppRouter extends Component {
 
           <Route path="gauges" name="Gauges">
             <IndexRoute breadcrumbIgnore={true} components={{content: ListGauges, left: ListGaugesLeft}} />
-            <Route path="new" name="New gauge" components={{content: NewGauge}} />
+            <Route path="new" name="New gauge" components={{content: GaugeForm}} />
             <Route path=":gaugeId" breadcrumbName=":gaugeId">
               <IndexRoute breadcrumbIgnore={true} components={{ content: ViewGauge, left: ViewGaugeLeft }} />
-              <Route path="settings" name="Settings" components={{content: EditGauge, left: ViewGaugeLeft }} />
+              <Route path="settings" name="Settings" components={{content: GaugeForm, left: ViewGaugeLeft }} />
             </Route>
           </Route>
 

@@ -38,6 +38,7 @@ class CoordinatesGroup extends Component {
       errorString = this.props.field.error;
     else
       errors = this.props.field.error;
+    const dialogPoints = _.compact([_.get(value, 'coordinates')]);
     return (
       <div style={styles.container}>
         {this.props.title && <h3>{this.props.title}</h3>}
@@ -104,7 +105,7 @@ class CoordinatesGroup extends Component {
               style={styles.textInput}
               type="number"
               errorText={_.get(errors, 'altitude')}
-              value={value.altitude}
+              value={_.get(value, 'altitude')}
               onChange={this.onAltitudeChange}
               hintText="Altitude"
               floatingLabelText="Altitude"
@@ -123,7 +124,7 @@ class CoordinatesGroup extends Component {
                 bounds={this.props.mapBounds}
                 onClose={this.onCloseDialog}
                 onSubmit={this.onSubmitDialog}
-                initialPoints={[value.coordinates]}
+                initialPoints={dialogPoints}
               />
             }
           </div>
