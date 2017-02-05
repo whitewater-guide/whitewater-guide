@@ -1,165 +1,123 @@
-import React, {Component, PropTypes} from 'react';
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+import React, {PropTypes} from 'react';
+import {Column, Table, AutoSizer, InfiniteLoader} from 'react-virtualized';
 import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
-import {createContainer} from 'meteor/react-meteor-data';
-import {withRouter} from 'react-router';
-import {Gauges, removeGauge, setEnabled} from '../../../api/gauges';
-import {Sources} from '../../../api/sources';
-import moment from 'moment';
+import container from './ListGaugesContainer';
 import _ from 'lodash';
-import withAdmin from "../../hoc/withAdmin";
-import withPagination from "../../hoc/withPagination";
-import {Counts} from 'meteor/tmeasday:publish-counts';
-import PaginationContainer from '../../components/PaginationContainer';
-import {subsCache} from '../../../utils/SubsCache';
+import moment from 'moment';
 
-class ListGauges extends Component {
-
+class ListGauges extends React.Component {
   static propTypes = {
-    limit: PropTypes.number,
-    loadMore: PropTypes.func,
-    admin: PropTypes.bool,
-    ready: PropTypes.bool,
-    source: PropTypes.object,
-    gauges: PropTypes.array,
-    router: PropTypes.object,
+    gauges: PropTypes.array.isRequired,
     jobsReport: PropTypes.array,
-    location: PropTypes.object,
-    numGauges: PropTypes.number,
+    count: PropTypes.number.isRequired,
+    admin: PropTypes.bool.isRequired,
+    loadMore: PropTypes.func.isRequired,
+    removeGauge: PropTypes.func,
+    setEnabled: PropTypes.func,
+    router: PropTypes.object,
+    source: PropTypes.object,
+  };
+
+  static defaultProps = {
+    gauges: [],
+    count: 0,
+    admin: false,
   };
 
   render() {
-    if (!this.props.location.query.sourceId)
-      return (<div>Please specify source</div>);
-    const {admin, gauges, limit, loadMore, ready, numGauges} = this.props;
-
+    const {gauges, admin, count, loadMore} = this.props;
     return (
-      <PaginationContainer style={styles.container} limit={limit} loading={!ready} loadMore={loadMore} total={numGauges}>
-        <Table selectable={false} onCellClick={this.onCellClick}>
-          <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-            <TableRow>
-              {admin && <TableHeaderColumn style={styles.columns.status}></TableHeaderColumn>}
-              <TableHeaderColumn>Name</TableHeaderColumn>
-              {admin && <TableHeaderColumn>Code</TableHeaderColumn>}
-              <TableHeaderColumn style={styles.columns.link}>URL</TableHeaderColumn>
-              <TableHeaderColumn>Coordinate</TableHeaderColumn>
-              <TableHeaderColumn>Level</TableHeaderColumn>
-              <TableHeaderColumn>Flow</TableHeaderColumn>
-              <TableHeaderColumn style={styles.columns.link}>Date</TableHeaderColumn>
-              {admin && <TableHeaderColumn>Cron</TableHeaderColumn>}
-              {admin && <TableHeaderColumn>Params</TableHeaderColumn>}
-              {admin && <TableHeaderColumn style={styles.columns.controls}>Controls</TableHeaderColumn>}
-            </TableRow>
-          </TableHeader>
-          <TableBody displayRowCheckbox={false} stripedRows={true}>
-            { gauges.map(this.renderRow) }
-          </TableBody>
-        </Table>
-      </PaginationContainer>
+      <div style={styles.wrapper}>
+        <AutoSizer>
+          {({width, height}) => (
+            <InfiniteLoader
+              isRowLoaded={this.isRowLoaded}
+              loadMoreRows={loadMore}
+              rowCount={count}
+            >
+              {({onRowsRendered, registerChild}) => (
+                <Table
+                  onRowsRendered={onRowsRendered}
+                  ref={registerChild}
+                  width={width}
+                  height={height}
+                  headerHeight={24}
+                  rowHeight={32}
+                  rowCount={gauges.length}
+                  rowGetter={({index}) => gauges[index]}
+                >
+                  {admin && <Column width={12} flexGrow={0} dataKey="status" cellRenderer={this.renderStatus}/>}
+                  <Column width={150} flexGrow={5} dataKey="name" label="Name"/>
+                  {admin && <Column width={10} flexGrow={1} dataKey="code" label="Code"/>}
+                  <Column width={40} flexGrow={0} dataKey="url" label="URL" cellRenderer={this.renderUrl}/>
+                  <Column width={10} flexGrow={2} dataKey="lastFlow" label="Flow" cellDataGetter={this.getFlow}/>
+                  <Column width={10} flexGrow={2} dataKey="lastLevel" label="Level" cellDataGetter={this.getLevel}/>
+                  <Column width={150} flexGrow={0} dataKey="lastTimestamp" label="Date" cellRenderer={this.renderDate}/>
+                  {admin && <Column width={90} flexGrow={2} dataKey="cron" label="Cron"/>}
+                  {admin && <Column width={100} flexGrow={1} dataKey="requestParams" label="Params" cellDataGetter={this.getParams}/>}
+                  {admin && <Column width={90} flexGrow={0} dataKey="controls" label="Controls" cellRenderer={this.renderControls}/>}
+                </Table>
+              )}
+            </InfiniteLoader>
+          )}
+        </AutoSizer>
+      </div>
     );
   }
 
-  renderRow = (src) => {
-    const {admin} = this.props;
-    let location = '';
-    if (src.location) {
-      let {altitude, coordinates: [longitude, latitude]} = src.location;
-      const lat = latitude ? latitude.toFixed(4) : '?';
-      const lon = longitude ? longitude.toFixed(4) : '?';
-      const alt = altitude ? ` (${altitude.toFixed()})` : '(?)';
-      location = `${lat} ${lon}${alt}`;
-    }
-    const freshness = moment().diff(moment(src.lastTimestamp), 'days', true);
+  isRowLoaded = ({ index }) => {
+    return !!this.props.gauges[index];
+  };
+
+  getFlow = ({rowData}) => rowData.lastFlow ? (_.round(rowData.lastFlow, 4) + ' ' + rowData.flowUnit) : '';
+  getLevel = ({rowData}) => rowData.lastLevel ? (_.round(rowData.lastLevel, 4) + ' ' + rowData.levelUnit) : '';
+  getParams = ({rowData}) => rowData.requestParams && JSON.stringify(rowData.requestParams);
+  renderUrl = ({cellData}) => (<a href={cellData}>Link</a>);
+
+  renderDate = ({rowData}) => {
+    const freshness = moment().diff(moment(rowData.lastTimestamp), 'days', true);
     return (
-      <TableRow key={src._id}>
-        { this.renderStatusIndicator(src) }
-        <TableRowColumn>{src.name}</TableRowColumn>
-        {admin && <TableRowColumn>{src.code}</TableRowColumn>}
-        <TableRowColumn style={styles.columns.link}><a href={src.url}>Link</a></TableRowColumn>
-        <TableRowColumn>{location}</TableRowColumn>
-        <TableRowColumn>{src.lastLevel}</TableRowColumn>
-        <TableRowColumn>{src.lastFlow}</TableRowColumn>
-        <TableRowColumn style={styles.columns.lastTime}>
-          {src.lastTimestamp && moment(src.lastTimestamp).format('DD.MM.YYYY HH:mm')}
-          {freshness > 1 && <FontIcon className="material-icons" color="red" style={styles.warnIcon}>warning</FontIcon>}
-        </TableRowColumn>
-        {admin && <TableRowColumn>{src.cron}</TableRowColumn>}
-        {admin && <TableRowColumn>{src.requestParams && JSON.stringify(src.requestParams)}</TableRowColumn>}
-        { this.renderAdminControls(src) }
-      </TableRow>
+      <div>
+        {rowData.lastTimestamp && moment(rowData.lastTimestamp).format('DD.MM.YYYY HH:mm')}
+        {freshness > 1 && <FontIcon className="material-icons" color="red" style={styles.warnIcon}>warning</FontIcon>}
+      </div>
     );
   };
 
-  renderStatusIndicator = (gauge) => {
-    const {admin, jobsReport} = this.props;
-    if (!admin)
-      return null;
-    const hasJobs = _.find(jobsReport, j => j._id === gauge._id && j.count > 0);
+  renderStatus = ({rowData: gauge}) => {
+    const hasJobs = _.find(this.props.jobsReport, j => j._id === gauge._id && j.count > 0);
     const statusIconStyle = {...styles.statusIcon, color: hasJobs ? 'green' : 'red'};
-    // const statusIconStyle = {...styles.statusIcon, color: 'red' };
     return (
-      <TableRowColumn style={styles.columns.status}>
-        <IconButton iconClassName="material-icons" style={styles.iconWrapper} iconStyle={statusIconStyle}>fiber_manual_record</IconButton>
-      </TableRowColumn>
+      <FontIcon className="material-icons" style={statusIconStyle}>fiber_manual_record</FontIcon>
     );
   };
 
-  renderAdminControls = (gauge) => {
-    const {admin} = this.props;
-    if (!admin)
-      return null;
+  renderControls = ({rowData: gauge}) => {
     const editHandler = () => this.props.router.push(`/gauges/${gauge._id}/settings`);
-    const deleteHandler = () => this.removeGauge(gauge._id);
-    const startStopHandler = () => this.setGaugeEnabled(gauge._id, !gauge.enabled);
+    const deleteHandler = () => this.props.removeGauge(gauge._id);
+    const startStopHandler = () => this.props.setEnabled(gauge._id, !gauge.enabled);
+    const stoppable = this.props.source && this.props.source.harvestMode === 'ONE_BY_ONE';
     return (
-      <TableRowColumn style={styles.columns.controls}>
-        <div onClick={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-        } }>
-          {this.props.source && this.props.source.harvestMode === 'oneByOne' &&
-          <IconButton iconClassName="material-icons" style={styles.iconWrapper}
-                      onTouchTap={startStopHandler}>{gauge.enabled ? 'stop' : 'play_arrow'}</IconButton>}
-          <IconButton iconClassName="material-icons" style={styles.iconWrapper}
-                      onTouchTap={editHandler}>mode_edit</IconButton>
-          <IconButton iconClassName="material-icons" style={styles.iconWrapper} onTouchTap={deleteHandler}>delete_forever</IconButton>
-        </div>
-      </TableRowColumn>
+      <div>
+        {stoppable && <IconButton iconClassName="material-icons" style={styles.iconWrapper}
+                    onTouchTap={startStopHandler}>{gauge.enabled ? 'stop' : 'play_arrow'}</IconButton>}
+        <IconButton iconClassName="material-icons" style={styles.iconWrapper}
+                    onTouchTap={editHandler}>mode_edit</IconButton>
+        <IconButton iconClassName="material-icons" style={styles.iconWrapper} onTouchTap={deleteHandler}>delete_forever</IconButton>
+      </div>
     );
   };
-
-  removeGauge = (gaugeId) => {
-    //TODO: show dialog
-    removeGauge.callPromise({gaugeId})
-      .then(() => console.log('Gauge deleted'))
-      .catch(err => console.log('Error while deleting gauge', err));
-  };
-
-  setGaugeEnabled = (gaugeId, enabled) => {
-    setEnabled.callPromise({gaugeId, enabled})
-      .then(() => console.log('Gauges enable toggled'))
-      .catch(err => console.log('Error while toggling gauge', err));
-  };
-
-  onCellClick = (rowId) => {
-    const {router, gauges} = this.props;
-    router.push(`/gauges/${gauges[rowId]._id}`);
-  };
-
 }
 
 const styles = {
-  container: {
-    display: 'flex',
-    position: 'relative',
-    flexDirection: 'column',
-    flex: 1,
-    alignItems: 'center',
-    minHeight: 200,
+  wrapper: {
+    width: '100%',
+    height: '100%',
+    overflow: 'hidden',
   },
   statusIcon: {
-    fontSize: 16,
+    fontSize: 14,
   },
   iconWrapper: {
     paddingLeft: 2,
@@ -169,46 +127,6 @@ const styles = {
   warnIcon: {
     fontSize: 16,
   },
-  columns: {
-    status: {
-      width: 20,
-      paddingLeft: 0,
-      paddingRight: 0,
-    },
-    controls: {
-      paddingRight: 0,
-      width: 90,
-    },
-    link: {
-      width: 50,
-    },
-    lastTime: {
-      display: 'flex',
-      alignItems: 'center',
-    },
-  },
 };
 
-const ListGaugesContainer = createContainer(
-  (props) => {
-    const sourceId = props.location.query.sourceId;
-    const gaugesSub = subsCache.subscribe('gauges.inSource', sourceId, props.limit);
-    const gauges = Gauges.find({sourceId}, {sort: {name: 1}}).fetch();
-    const source = Sources.findOne(sourceId);
-    const reportSub = subsCache.subscribe('jobs.activeReport', sourceId);
-    // const jobsReport = ActiveJobsReport.find().fetch();
-    const jobsReport = [];
-    const numGauges = Counts.get(`counter.gauges.${sourceId}`);
-    const ready = gaugesSub.ready() && reportSub.ready();
-    return {
-      ready: ready,
-      source,
-      gauges: gauges || [],
-      jobsReport: jobsReport || [],
-      numGauges,
-    };
-  },
-  ListGauges
-);
-
-export default _.flow(withAdmin, withRouter, withPagination(25, 25))(ListGaugesContainer);
+export default container(ListGauges);

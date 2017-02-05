@@ -4,7 +4,6 @@ import MainLayout from '../../ui/layouts/MainLayout';
 import ListSources from '../../ui/pages/sources/ListSources';
 import ListSourcesLeft from '../../ui/pages/sources/ListSourcesLeft';
 import SourceForm from '../../ui/pages/sources/SourceForm';
-import ListGauges from '../../ui/pages/gauges/ListGauges';
 import ListGaugesLeft from '../../ui/pages/gauges/ListGaugesLeft';
 import SourceSchedule from '../../ui/pages/sources/SourceSchedule';
 import TermsOfUse from '../../ui/pages/sources/TermsOfUse';
@@ -31,7 +30,7 @@ import EditRegion from "../../ui/pages/regions/EditRegion";
 import ViewRegionLeft from "../../ui/pages/regions/ViewRegionLeft";
 import RegionMapPage from "../../ui/pages/regions/RegionMapPage";
 import ListUsers from "../../ui/pages/ListUsers";
-import GaugesTable from "../../ui/pages/gauges/GaugesTable";
+import ListGauges from "../../ui/pages/gauges/ListGauges";
 
 export default class AppRouter extends Component {
   render() {
@@ -55,7 +54,7 @@ export default class AppRouter extends Component {
           </Route>
 
           <Route path="gauges" name="Gauges">
-            <IndexRoute breadcrumbIgnore={true} components={{content: GaugesTable, left: ListGaugesLeft}} />
+            <IndexRoute breadcrumbIgnore={true} components={{content: ListGauges, left: ListGaugesLeft}} />
             <Route path="new" name="New gauge" components={{content: NewGauge}} />
             <Route path=":gaugeId" breadcrumbName=":gaugeId">
               <IndexRoute breadcrumbIgnore={true} components={{ content: ViewGauge, left: ViewGaugeLeft }} />
