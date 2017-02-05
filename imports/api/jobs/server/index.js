@@ -153,7 +153,7 @@ export function generateSchedule(sourceId) {
     const numGauges = gauges.length;
     if (numGauges === 0)
       return;
-    const step = 60 / numGauges;
+    const step = 59 / numGauges;
     for (let i = 0; i < numGauges; i++) {
       const minute = Math.ceil(i * step);
       const cron = `${minute} * * * *`;

@@ -1,79 +1,44 @@
 import React, {Component, PropTypes} from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import FlatLinkButton from '../../components/FlatLinkButton';
-import { Gauges, removeAllGauges, removeDisabledGauges, enableAll } from '../../../api/gauges';
-import { generateSchedule } from '../../../api/sources';
-import {autofill} from '../../../api/sources';
-import {withRouter} from 'react-router'
-import {createContainer} from 'meteor/react-meteor-data';
-import withAdmin from '../../hoc/withAdmin';
-import {Meteor} from 'meteor/meteor';
+import container from './ListGaugesLeftContainer';
 
 class ListGaugesLeft extends Component {
   static propTypes = {
-    location: PropTypes.object,
-    admin: PropTypes.bool,
-    numGauges: PropTypes.number,
-    router: PropTypes.object,
-    ready: PropTypes.bool,
+    sourceId: PropTypes.string.isRequired,
+    admin: PropTypes.bool.isRequired,
+    count: PropTypes.number,
+    router: PropTypes.object.isRequired,
+    removeGauges: PropTypes.func,
+    setEnabled: PropTypes.func,
+    autofill: PropTypes.func,
+    generateSchedule: PropTypes.func,
   };
 
   render() {
-    const {admin, numGauges, location: {query}} = this.props;
-    if (!query.sourceId)
-      return null;
+    const {admin, count, sourceId} = this.props;
+    const hasGauges = admin && count > 0;
     return (
       <div style={styles.container}>
-        {admin && numGauges == 0 && <FlatButton secondary={true} onTouchTap={this.autofill} label="Autofill" />}
         {admin && <FlatButton secondary={true} onTouchTap={this.addGauge} label="Add gauge"/>}
-        {admin && numGauges > 0 && <FlatButton secondary={true} onTouchTap={this.generateSchedule} label="Generate crons"/>}
-        {admin && numGauges > 0 && <FlatButton secondary={true} onTouchTap={this.enableAll} label="Enable all"/>}
-        {admin && numGauges > 0 && <FlatButton secondary={true} onTouchTap={this.removeAllGauges} label="Remove all" />}
-        {admin && numGauges > 0 && <FlatButton secondary={true} onTouchTap={this.removeDisabledGauges} label="Remove disabled"/>}
-        <FlatLinkButton secondary={true} to={`/sources/${this.props.location.query.sourceId}/terms_of_use`} label="Terms of use" />
+        {admin && !count && <FlatButton secondary={true} onTouchTap={this.autofill} label="Autofill" />}
+        {hasGauges && <FlatButton secondary={true} onTouchTap={this.generateSchedule} label="Generate crons"/>}
+        {hasGauges && <FlatButton secondary={true} onTouchTap={this.enableAll} label="Enable all"/>}
+        {hasGauges && <FlatButton secondary={true} onTouchTap={this.disableAll} label="Disable all"/>}
+        {hasGauges && <FlatButton secondary={true} onTouchTap={this.removeAllGauges} label="Remove all" />}
+        {hasGauges && <FlatButton secondary={true} onTouchTap={this.removeDisabledGauges} label="Remove disabled"/>}
+        <FlatLinkButton secondary={true} to={`/sources/${sourceId}/terms_of_use`} label="Terms of use" />
       </div>
     );
   }
 
-  removeAllGauges = () => {
-    removeAllGauges.callPromise({sourceId: this.props.location.query.sourceId})
-      .then(() => console.log('All gauges removed'))
-      .catch(err => console.log(`Error while trying to remove all gauges for source ${this.props.location.query.sourceId}: ${err}`));
-  };
+  removeAllGauges = () => this.props.removeGauges(this.props.sourceId, false);
+  removeDisabledGauges = () => this.props.removeGauges(this.props.sourceId, true);
+  enableAll = () => this.props.setEnabled(this.props.sourceId, true);
+  disableAll = () => this.props.setEnabled(this.props.sourceId, false);
+  autofill = () => this.props.autofill(this.props.sourceId);
+  generateSchedule = () => this.props.generateSchedule(this.props.sourceId);
 
-  removeDisabledGauges = () => {
-    removeDisabledGauges.callPromise({sourceId: this.props.location.query.sourceId})
-      .then(() => console.log('All disabled gauges removed'))
-      .catch(err => console.log(`Error while trying to remove all disabled gauges for source ${this.props.location.query.sourceId}: ${err}`));
-  };
-
-  autofill = () => {
-    autofill.callPromise({sourceId: this.props.location.query.sourceId})
-      .then( result => console.log(`Autofill result: ${result}`))
-      .catch( error => console.log(`Autofill error: ${error}`));
-  };
-
-  addGauge = () => {
-    const location = {
-      pathname: '/gauges/new',
-      query: {
-        sourceId: this.props.location.query.sourceId,
-      },
-    };
-    this.props.router.push(location);
-  };
-
-  generateSchedule = () => {
-    generateSchedule.callPromise({sourceId: this.props.location.query.sourceId})
-      .then(() => console.log('Generated'))
-      .catch(err => console.log(`Error while trying to generate schedule for source ${this.props.location.query.sourceId}: ${err}`));
-  };
-
-  enableAll = () => {
-    enableAll.callPromise({sourceId: this.props.location.query.sourceId})
-      .then(() => console.log('Enabled all gauges'))
-      .catch(err => console.log(`Error while trying to enable all disabled gauges for source ${this.props.location.query.sourceId}: ${err}`));
-  };
 }
 
 const styles = {
@@ -84,14 +49,4 @@ const styles = {
   },
 };
 
-const ListGaugesLeftContainer = createContainer((props) => {
-  const sourceId = props.location.query.sourceId;
-  const gaugesSubscription = Meteor.subscribe('gauges.inSource', sourceId);
-  const numGauges = Gauges.find({sourceId: sourceId}).count();
-  return {
-    ready: gaugesSubscription.ready(),
-    numGauges
-  };
-}, ListGaugesLeft);
-
-export default withAdmin(withRouter(ListGaugesLeftContainer));
+export default container(ListGaugesLeft);

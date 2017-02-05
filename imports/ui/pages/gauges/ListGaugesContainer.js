@@ -46,8 +46,8 @@ const RemoveGaugeMutation = gql`
 `;
 
 const EnableGaugeMutation = gql`
-  mutation enableGauge($_id: ID, $enabled:Boolean!){
-    setGaugesEnabled(_id:$_id, enabled: $enabled){
+  mutation setGaugesEnabled($_id: ID, $enabled:Boolean!){
+    gauges: setGaugesEnabled(_id:$_id, enabled: $enabled){
       _id,
       enabled
     }
@@ -63,7 +63,7 @@ export default compose(
     ListGaugesQuery, {
       options: ({sourceId, language}) => ({
         forceFetch: true,
-        variables: {sourceId, language, isLoadMore: false}
+        variables: {sourceId, language, isLoadMore: false},
       }),
       props: ({data: {gauges, count, source, jobsReport, loading, fetchMore}}) => {
         return {

@@ -123,7 +123,7 @@ export const createGauge = new AdminMethod({
   },
 
   run({data}) {
-    const updates = prepareUpdates(data, 'en');
+    const updates = prepareUpdates(this, data, 'en');
     return Gauges.insertTranslations(updates);
   }
 });
@@ -147,15 +147,15 @@ export const editGauge = new AdminMethod({
     if (hasJobs && (data.cron !== current.cron)) {
       throw new Meteor.Error('gauges.edit.jobsRunning', 'Cannot edit gauge which has running jobs');
     }
-    const updates = prepareUpdates(data, language);
+    const updates = prepareUpdates(this, data, language);
     return Gauges.updateTranslations(_id, {[language]: updates});
   }
 });
 
-function prepareUpdates({location, ...updates}, language) {
+function prepareUpdates(context, {location, ...updates}, language) {
   if (!location)
     return updates;
-  location = upsertPoint.call({data: {...location, kind: 'gauge'}, language});
+  location = upsertPoint._execute(context, {data: {...location, kind: 'gauge'}, language});
   return {...updates, location: _.omit(location, 'i18n', 'name', 'description')};
 }
 
