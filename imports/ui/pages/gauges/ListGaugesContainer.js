@@ -3,9 +3,10 @@ import gql from 'graphql-tag';
 import withAdmin from '../../hoc/withAdmin';
 import {withRouter} from 'react-router';
 import {withProps, withState} from 'recompose';
+import _ from 'lodash';
 
 const ListGaugesQuery = gql`
-  query listGauges($sourceId:ID, $language:String, $skip:Int, $limit:Int, $isLoadMore:Boolean!) {
+  query listGauges($sourceId:ID!, $language:String, $skip:Int, $limit:Int, $isLoadMore:Boolean!) {
     gauges(sourceId:$sourceId, language:$language, skip:$skip, limit:$limit) {
       _id
       name
@@ -25,10 +26,30 @@ const ListGaugesQuery = gql`
     }
     
     count: countGauges(sourceId:$sourceId) @skip(if: $isLoadMore)
+    
+    source(_id:$sourceId) @skip(if: $isLoadMore) {
+      _id
+      harvestMode
+    }
 
     jobsReport(sourceId:$sourceId) @skip(if: $isLoadMore) {
       _id,
       count,
+    }
+  }
+`;
+
+const RemoveGaugeMutation = gql`
+  mutation removeGauges($_id: ID){
+    removeGauges(_id: $_id)
+  }
+`;
+
+const EnableGaugeMutation = gql`
+  mutation enableGauge($_id: ID, $enabled:Boolean!){
+    setGaugesEnabled(_id:$_id, enabled: $enabled){
+      _id,
+      enabled
     }
   }
 `;
@@ -44,11 +65,12 @@ export default compose(
         forceFetch: true,
         variables: {sourceId, language, isLoadMore: false}
       }),
-      props: ({data: {gauges, count, jobsReport, loading, fetchMore}}) => {
+      props: ({data: {gauges, count, source, jobsReport, loading, fetchMore}}) => {
         return {
           gauges,
           count,
           jobsReport,
+          source,
           loading,
           loadMore: ({startIndex: skip, stopIndex}) => {
             return fetchMore({
@@ -62,6 +84,25 @@ export default compose(
           }
         };
       }
+    }
+  ),
+  graphql(
+    RemoveGaugeMutation, {
+      props: ({mutate}) => ({removeGauge: _id => mutate({
+        variables: {_id},
+        updateQueries: {
+          listGauges: (prev) => {
+            return {...prev, gauges: _.reject(prev.gauges, {_id}), jobsReport: _.reject(prev.jobsReport, {_id})};
+          }
+        },
+      })}),
+    }
+  ),
+  graphql(
+    EnableGaugeMutation, {
+      props: ({mutate}) => ({setEnabled: (_id, enabled) => mutate({
+        variables: {_id, enabled},
+      })}),
     }
   ),
 );

@@ -1,15 +1,27 @@
 import {Sources} from '../../sources';
-import {Gauges, createGauge, editGauge, removeGauge, setEnabled, removeAllGauges, removeDisabledGauges} from '../index';
+import {Gauges, createGauge, editGauge, removeGauges, setEnabled} from '../index';
+import {Roles} from 'meteor/alanning:roles';
 import _ from 'lodash';
+
+const publicFields = {
+  code: 0,
+  requestParams: 0,
+  cron: 0,
+  enabled: 0,
+};
 
 export default {
   Query: {
-    gauges: (root, {sourceId, language, skip = 0, limit = 10}) => {
+    gauges: (root, {sourceId, language, skip = 0, limit = 10}, context) => {
       const query = sourceId ? {sourceId} : {};
+      const fields = Roles.userIsInRole(context.userId, 'admin') ? undefined : publicFields;
       limit = _.clamp(limit, 10, 100);
-      return Gauges.find(query, {sort: {name: 1}, lang: language, skip, limit});
+      return Gauges.find(query, {fields, sort: {name: 1}, lang: language, skip, limit});
     },
-    gauge: (root, {_id, language}) => Gauges.findOne({_id}, {lang: language}),
+    gauge: (root, {_id, language}, context) => {
+      const fields = Roles.userIsInRole(context.userId, 'admin') ? undefined : publicFields;
+      return Gauges.findOne({_id}, {fields, lang: language})
+    },
     countGauges: (root, {sourceId}) => Gauges.find({sourceId}).count(),
   },
   Mutation: {
@@ -21,19 +33,12 @@ export default {
       editGauge._execute(context, {data: gauge, language});
       return Gauges.findOne(gauge._id);
     },
-    removeGauge: (root, data, context) => {
-      removeGauge._execute(context, data);
-      return true;
+    removeGauges: (root, args, context) => {
+      return removeGauges._execute(context, args);
     },
-    setGaugesEnabled: (root, {gaugeId, sourceId, enabled}, context) => {
-      setEnabled._execute(context, {gaugeId, sourceId, enabled});
-      return Gauges.find({gaugeId, sourceId});
-    },
-    removeAllGauges: (root, data, context) => {
-      return removeAllGauges._execute(context, data);
-    },
-    removeDisabledGauges: (root, data, context) => {
-      return removeDisabledGauges._execute(context, data);
+    setGaugesEnabled: (root, args, context) => {
+      setEnabled._execute(context, args);
+      return Gauges.find(args, {fields: {enabled: 1}});
     },
   },
   Gauge: {

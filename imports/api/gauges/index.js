@@ -163,66 +163,35 @@ export const setEnabled = new AdminMethod({
   name: 'gauges.setEnabled',
 
   validate: new SimpleSchema({
-    gaugeId: {type: String, regEx: SimpleSchema.RegEx.Id, optional: true},
+    _id: {type: String, regEx: SimpleSchema.RegEx.Id, optional: true},
     sourceId: {type: String, regEx: SimpleSchema.RegEx.Id, optional: true},
     enabled: {type: Boolean},
   }).validator(),
 
-  run({gaugeId, sourceId, enabled}) {
+  run({enabled, ...query}) {
     //Server hook is used to start/stop jobs
-    return Gauges.update({sourceId, gaugeId}, {$set: {enabled}}, {multi: true});
+    return Gauges.update(query, {$set: {enabled}}, {multi: true});
   }
 
 });
 
-export const removeGauge = new AdminMethod({
+export const removeGauges = new AdminMethod({
   name: 'gauges.remove',
 
   validate: new SimpleSchema({
-    gaugeId: {type: String}
+    _id: {type: String, optional: true},
+    sourceId: {type: String, optional: true},
+    disabledOnly: {type: Boolean, optional: true},
   }).validator(),
 
   applyOptions: {
     noRetry: true,
   },
 
-  run({gaugeId}) {
-    return Gauges.remove(gaugeId);
-  },
-
-});
-
-
-export const removeAllGauges = new AdminMethod({
-  name: 'gauges.removeAll',
-
-  validate: new SimpleSchema({
-    sourceId: {type: String}
-  }).validator(),
-
-  applyOptions: {
-    noRetry: true,
-  },
-
-  run({sourceId}) {
-    return Gauges.remove({sourceId});
-  },
-
-});
-
-export const removeDisabledGauges = new AdminMethod({
-  name: 'gauges.removeDisabled',
-
-  validate: new SimpleSchema({
-    sourceId: {type: String}
-  }).validator(),
-
-  applyOptions: {
-    noRetry: true,
-  },
-
-  run({sourceId}) {
-    return Gauges.remove({sourceId, enabled: false});
+  run({disabledOnly, ...query}) {
+    if (disabledOnly)
+      query.enabled = false;
+    return Gauges.remove(query);
   },
 
 });
