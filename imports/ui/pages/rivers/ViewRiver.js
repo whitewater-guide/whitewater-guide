@@ -1,34 +1,26 @@
 import React, { Component, PropTypes } from 'react';
-import { createContainer } from 'meteor/react-meteor-data';
-import { Rivers } from '../../../api/rivers';
-import { TAPi18n } from 'meteor/tap:i18n';
 import Paper from 'material-ui/Paper';
-import withAdmin from "../../hoc/withAdmin";
-import {withRouter} from "react-router";
-import ListSections from './ListSections';
+import ListSections from '../sections/ListSections';
+import container from './ViewRiverContainer';
 
 class ViewRiver extends Component {
   static propTypes = {
-    params: PropTypes.shape({
-      riverId: PropTypes.string,
-    }),
     river: PropTypes.object,
-    ready: PropTypes.bool,
-    admin: PropTypes.bool,
-    router: PropTypes.object,
+    loading: PropTypes.bool,
   };
 
   render() {
-    if (!this.props.ready)
+    const {river, loading} = this.props;
+    if (!river && loading)
       return null;
     return (
       <div style={styles.container}>
         <div style={styles.body}>
           <Paper style={styles.headerPaper}>
-            <h1>{this.props.river.name}</h1>
-            <p>{this.props.river.description}</p>
-            <h2>Sections</h2>
-            <ListSections river={this.props.river}/>
+            <h2>{river.name}</h2>
+            <p>{river.description}</p>
+            <h3>Sections</h3>
+            <ListSections sections={river.sections}/>
           </Paper>
         </div>
       </div>
@@ -48,21 +40,10 @@ const styles = {
     flexDirection: 'column',
   },
   headerPaper: {
+    flex: 1,
     margin: 16,
     padding: 8,
   },
 };
 
-const ViewRiverContainer = createContainer(
-  (props) => {
-    const sub = TAPi18n.subscribe('rivers.details', null, props.params.riverId);
-    const river = Rivers.findOne(props.params.riverId);
-    return {
-      ready: sub.ready(),
-      river,
-    };
-  },
-  ViewRiver
-);
-
-export default withRouter(withAdmin(ViewRiverContainer));
+export default container(ViewRiver);

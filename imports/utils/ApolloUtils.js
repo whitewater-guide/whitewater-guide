@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import graphqlFields from 'graphql-fields';
 
 export function meteorResolver(resolver){
   return function() {
@@ -23,4 +24,19 @@ export function meteorResolver(resolver){
       return result;
     }
   }
+}
+
+export function pickFromSelf(self, context, info, fieldsMap) {
+  const result = {};
+  const fields = _.keys(graphqlFields(info));
+  for (let i = fields.length - 1; i >= 0; i--){
+    const field = fields[i];
+    if (field === '__typename')
+      continue;
+    const selfField = fieldsMap[field];
+    if (!selfField)
+      return null;
+    result[field] = self[selfField];
+  }
+  return result;
 }

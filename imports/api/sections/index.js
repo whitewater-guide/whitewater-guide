@@ -354,15 +354,15 @@ export const removeSection = new AdminMethod({
   name: 'sections.remove',
 
   validate: new SimpleSchema({
-    sectionId: {type: String}
+    _id: {type: String}
   }).validator(),
 
   applyOptions: {
     noRetry: true,
   },
 
-  run({sectionId}) {
-    return Sections.remove(sectionId);
+  run({_id}) {
+    return Sections.remove(_id);
   },
 
 });

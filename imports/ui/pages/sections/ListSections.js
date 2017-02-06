@@ -1,67 +1,116 @@
 import React, {Component, PropTypes} from 'react';
-import withPagination from "../../hoc/withPagination";
-import {SortDirection} from 'react-virtualized';
-import {Counts} from 'meteor/tmeasday:publish-counts';
-import PaginationContainer from '../../components/PaginationContainer';
-import SectionsTable from './SectionsTable';
-import {createContainer} from 'meteor/react-meteor-data';
-import {Sections} from '../../../api/sections';
-import {TAPi18n} from 'meteor/tap:i18n';
-import {listQuery} from '../../../api/sections/query';
+import {Column, Table, AutoSizer, SortDirection, InfiniteLoader} from 'react-virtualized';
+import Rating from '../../forms/Rating';
+import {Durations} from '/imports/api/sections';
+import AdminControls from '../../components/AdminControls';
+import {renderDifficulty} from '../../../utils/TextUtils';
+import _ from 'lodash';
+import container from './ListSectionsContainer';
 
 class ListSections extends Component {
 
   static propTypes = {
-    limit: PropTypes.number,
-    loadMore: PropTypes.func,
+    sections: PropTypes.array,
+    count: PropTypes.number.isRequired,
+    admin: PropTypes.bool.isRequired,
     sortBy: PropTypes.string,
     sortDirection: PropTypes.oneOf([SortDirection.ASC, SortDirection.DESC]),
     onSort: PropTypes.func,
-    ready: PropTypes.bool,
-    sections: PropTypes.array,
-    numSections: PropTypes.number,
+    removeSection: PropTypes.func,
+    loadMore: PropTypes.func.isRequired,
+    router: PropTypes.object,
   };
 
+  static defaultProps = {
+    sections: [],
+    sortBy: 'name',
+    sortDirection: SortDirection.ASC,
+  };
+
+  durationsMap = _.keyBy(Durations, 'value');
+
   render() {
-    const {sections, limit, loadMore, ready, numSections} = this.props;
+    const {admin, sections, count, loadMore} = this.props;
     return (
-      <PaginationContainer style={styles.container} limit={limit} loading={!ready} loadMore={loadMore}
-                           total={numSections}>
-        <SectionsTable sections={sections} onSort={this.props.onSort} sortBy={this.props.sortBy} sortDirection={this.props.sortDirection}/>
-      </PaginationContainer>
+      <div style={styles.wrapper}>
+        <AutoSizer>
+          {({width, height}) => (
+            <InfiniteLoader
+              isRowLoaded={this.isRowLoaded}
+              loadMoreRows={loadMore}
+              rowCount={count}
+            >
+              {({onRowsRendered, registerChild}) => (
+                <Table
+                  onRowsRendered={onRowsRendered}
+                  ref={registerChild}
+                  width={width}
+                  height={height}
+                  headerHeight={20}
+                  rowHeight={30}
+                  rowCount={sections.length}
+                  rowGetter={({index}) => sections[index]}
+                  sortBy={this.props.sortBy}
+                  sortDirection={this.props.sortDirection}
+                  sort={this.props.onSort}
+                  onRowClick={this.onRowClick}
+                >
+                  <Column width={200} flexGrow={1} label='Name' dataKey="name" cellDataGetter={this.renderName}/>
+                  <Column width={110} label='Difficulty' dataKey="difficulty" cellDataGetter={this.renderDifficulty}/>
+                  <Column width={130} label='Rating' dataKey="rating" cellRenderer={this.renderRating}/>
+                  <Column width={80} label='Drop (m)' dataKey="drop"/>
+                  <Column width={80} label='Length' dataKey="distance"/>
+                  <Column width={80} label='Duration' dataKey="duration" cellDataGetter={({rowData}) => _.get(this.durationsMap, [rowData.duration, 'slug'])}/>
+                  {admin && <Column width={90} dataKey="controls" label="Controls" cellRenderer={this.renderControls}/>}
+                </Table>
+              )}
+            </InfiniteLoader>
+          )}
+        </AutoSizer>
+      </div>
     );
   }
+
+  isRowLoaded = ({ index }) => {
+    return !!this.props.sections[index];
+  };
+
+  renderName = ({rowData}) => {
+    return `${rowData.river.name} - ${rowData.name}`;
+  };
+
+  renderDifficulty = ({rowData}) => {
+    return renderDifficulty(rowData);
+  };
+
+  renderRating = ({rowData}) => {
+    const field = {value: rowData.rating};
+    return (
+      <Rating field={field} style={styles.rating}/>
+    );
+  };
+
+  renderControls = ({rowData}) => {
+    const editHandler = () => this.props.router.push(`/sections/${rowData._id}/settings`);
+    const deleteHandler = () => this.props.removeSection(rowData._id);
+    return (
+      <AdminControls onEdit={editHandler} onDelete={deleteHandler}/>
+    );
+  };
+
+  onRowClick = ({index}) => this.props.router.push(`/sections/${this.props.sections[index]._id}`);
 
 }
 
 const styles = {
-  container: {
-    display: 'flex',
-    position: 'relative',
-    flexDirection: 'column',
-    flex: 1,
-    alignItems: 'center',
-    minHeight: 200,
-  },
   wrapper: {
     width: '100%',
     height: '100%',
+    overflow: 'hidden',
+  },
+  rating: {
+    minWidth: 10,
   },
 };
 
-const ListGaugesContainer = createContainer(
-  (props) => {
-    const query = listQuery(props);
-    const sub = TAPi18n.subscribe('sections.list', null, props);
-    const sections = Sections.find(query.selector, query.options).fetch();
-    const numSections = Counts.get(`counter.sections.current`);
-    return {
-      ready: sub.ready(),
-      sections,
-      numSections,
-    };
-  },
-  ListSections
-);
-
-export default withPagination(25, 25)(ListGaugesContainer);
+export default container(ListSections);

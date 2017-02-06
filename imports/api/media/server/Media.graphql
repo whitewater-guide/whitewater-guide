@@ -1,0 +1,13 @@
+enum MediaType {
+  photo
+  video
+  blog
+}
+
+type Media {
+  _id: ID,
+  description: String,
+  copyright: String,
+  url: String!,
+  type: MediaType!,
+}

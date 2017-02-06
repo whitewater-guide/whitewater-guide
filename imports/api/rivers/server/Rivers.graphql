@@ -7,7 +7,7 @@ type River {
   createdBy: String,
   updatedAt: Date,
   region: Region!,
-  #sections: [Section]!,
+  sections: [Section]!,
 }
 
 input RiverInput {

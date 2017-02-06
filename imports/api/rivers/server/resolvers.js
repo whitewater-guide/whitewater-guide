@@ -1,6 +1,7 @@
 import {Rivers, createRiver, editRiver, removeRiver} from '../index';
 import getFieldNames from '../../../graphql-list-fields';
 import {Regions} from '../../regions';
+import {Sections} from '../../sections';
 import _ from 'lodash';
 
 export default {
@@ -35,5 +36,6 @@ export default {
       else
         return Regions.findOne({_id: river.regionId});
     },
+    sections: (river) => Sections.find({riverId: river._id}),
   }
 };
