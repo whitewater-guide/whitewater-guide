@@ -13,9 +13,8 @@ import ViewSourceLeft from '../../ui/pages/sources/ViewSourceLeft';
 import ViewGauge from '../../ui/pages/gauges/ViewGauge';
 import ViewGaugeLeft from '../../ui/pages/gauges/ViewGaugeLeft';
 import ListRegions from '../../ui/pages/regions/ListRegions';
-import NewRiver from "../../ui/pages/rivers/NewRiver";
+import RiverForm from "../../ui/pages/rivers/RiverForm";
 import ListRivers from "../../ui/pages/rivers/ListRivers";
-import EditRiver from "../../ui/pages/rivers/EditRiver";
 import ViewRiver from "../../ui/pages/rivers/ViewRiver";
 import RiverLeft from "../../ui/pages/rivers/RiverLeft";
 import ListRiversLeft from "../../ui/pages/rivers/ListRiversLeft";
@@ -72,10 +71,10 @@ export default class AppRouter extends Component {
 
           <Route path="rivers" name="Rivers">
             <IndexRoute breadcrumbIgnore={true} components={{content: ListRivers, left: ListRiversLeft}} />
-            <Route path="new" name="Add river" components={{content: NewRiver}}/>
+            <Route path="new" name="Add river" components={{content: RiverForm}}/>
             <Route path=":riverId" breadcrumbName=":riverId" >
               <IndexRoute breadcrumbIgnore={true} components={{content: ViewRiver, left: RiverLeft}} />
-              <Route path="settings" name="Settings" components={{content: EditRiver, left: RiverLeft}}/>
+              <Route path="settings" name="Settings" components={{content: RiverForm, left: RiverLeft}}/>
             </Route>
           </Route>
 

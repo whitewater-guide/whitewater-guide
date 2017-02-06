@@ -19,7 +19,7 @@ input RiverInput {
 
 type Query {
   rivers(regionId:ID, language:String, skip:Int, limit:Int): [River]!,
-  river(_id: ID!, language:String):River,
+  river(_id: ID, language:String):River,
   countRivers(regionId: ID):Int,
 }
 

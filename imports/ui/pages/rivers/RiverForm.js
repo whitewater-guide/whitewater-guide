@@ -1,17 +1,13 @@
-import React, { Component, PropTypes } from 'react';
-import { Form, Field, TextInput, Select } from '../../forms';
-import createI18nContainer from '../../hoc/createI18nContainer';
-import { Regions } from '../../../api/regions';
-import { Rivers } from '../../../api/rivers';
-import { TAPi18n } from 'meteor/tap:i18n';
+import React, {Component, PropTypes} from "react";
+import {Form, Field, TextInput, Select} from "../../forms";
+import container from './RiverFormContainer';
 
 class RiverForm extends Component {
 
   static propTypes = {
     ...Form.propTypes,
-    riverId: PropTypes.string,
+    loading: PropTypes.bool,
     regions: PropTypes.array,
-    ready: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -19,12 +15,13 @@ class RiverForm extends Component {
   };
 
   render() {
-    if (!this.props.ready)
+    const {loading, regions, ...props} = this.props;
+    if (loading)
       return null;
 
     return (
-      <Form {...this.props} name="rivers">
-        <Field name="regionId" title="Region" component={Select} options={this.props.regions}/>
+      <Form {...props} name="rivers">
+        <Field name="regionId" title="Region" component={Select} options={regions}/>
         <Field name="name" title="Name" component={TextInput}/>
         <Field name="description" title="description" component={TextInput}/>
       </Form>
@@ -32,19 +29,4 @@ class RiverForm extends Component {
   }
 }
 
-const RiverFormContainer = createI18nContainer(
-  (props) => {
-    const sub = TAPi18n.subscribe('rivers.details', props.language, props.riverId);
-    const regionsSub = TAPi18n.subscribe('regions.list', props.language);
-    const regions = Regions.find({}, {fields: {name: 1}}).fetch();
-    const river = props.riverId ? Rivers.findOne(props.riverId) : {regionId: props.regionId};
-    return {
-      regions,
-      initialData: river,
-      ready: sub.ready() && regionsSub.ready(),
-    }
-  },
-  RiverForm
-);
-
-export default RiverFormContainer;
+export default container(RiverForm);
