@@ -1,5 +1,6 @@
 import sourcesResolvers from '../api/sources/server/resolvers';
 import regionsResolvers from '../api/regions/server/resolvers';
+import riversResolvers from '../api/rivers/server/resolvers';
 import userResolvers from '../api/users/server/resolvers';
 import gaugesResolvers from '../api/gauges/server/resolvers';
 import jobsResolvers from '../api/jobs/server/resolvers';
@@ -12,6 +13,7 @@ let resolvers = _.merge(
   userResolvers,
   sourcesResolvers,
   regionsResolvers,
+  riversResolvers,
   gaugesResolvers,
   jobsResolvers,
 );

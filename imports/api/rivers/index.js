@@ -95,15 +95,15 @@ export const removeRiver = new AdminMethod({
   name: 'rivers.remove',
 
   validate: new SimpleSchema({
-    riverId: {type: String}
+    _id: {type: String}
   }).validator(),
 
   applyOptions: {
     noRetry: true,
   },
 
-  run({riverId}) {
-    return Rivers.remove(riverId);
+  run({_id}) {
+    return Rivers.remove(_id);
   },
 });
 

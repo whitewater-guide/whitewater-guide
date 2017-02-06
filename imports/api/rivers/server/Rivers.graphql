@@ -1,0 +1,29 @@
+type River {
+  _id: ID!,
+  name: String!,
+  description: String,
+  createdAt: Date,
+  #This is user id, but leave it as string for now
+  createdBy: String,
+  updatedAt: Date,
+  region: Region!,
+  #sections: [Section]!,
+}
+
+input RiverInput {
+  _id: ID,
+  name: String!,
+  description: String,
+  regionId: ID!,
+}
+
+type Query {
+  rivers(regionId:ID, language:String, skip:Int, limit:Int): [River]!,
+  river(_id: ID!, language:String):River,
+  countRivers(regionId: ID):Int,
+}
+
+type Mutation {
+  upsertRiver(river:RiverInput!, language:String):River,
+  removeRiver(_id:ID!):Boolean,
+}

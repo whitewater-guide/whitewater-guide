@@ -100,13 +100,13 @@ class ListGauges extends React.Component {
     const startStopHandler = () => this.props.setEnabled(gauge._id, !gauge.enabled);
     const stoppable = this.props.source && this.props.source.harvestMode === 'ONE_BY_ONE';
     return (
-      <div>
+      <span onClick={(event) => event.stopPropagation()}>
         {stoppable && <IconButton iconClassName="material-icons" style={styles.iconWrapper}
                     onTouchTap={startStopHandler}>{gauge.enabled ? 'stop' : 'play_arrow'}</IconButton>}
         <IconButton iconClassName="material-icons" style={styles.iconWrapper}
                     onTouchTap={editHandler}>mode_edit</IconButton>
         <IconButton iconClassName="material-icons" style={styles.iconWrapper} onTouchTap={deleteHandler}>delete_forever</IconButton>
-      </div>
+      </span>
     );
   };
 

@@ -1,123 +1,92 @@
-import React, {Component, PropTypes} from 'react';
+import React, {PropTypes} from 'react';
+import {Column, Table, AutoSizer, InfiniteLoader} from 'react-virtualized';
 import IconButton from 'material-ui/IconButton';
-import {Meteor} from 'meteor/meteor';
-import {Counts} from 'meteor/tmeasday:publish-counts';
-import {Rivers, removeRiver} from '../../../api/rivers';
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
-import {createContainer} from 'meteor/react-meteor-data';
-import {withRouter} from 'react-router';
-import withAdmin from '../../hoc/withAdmin';
-import withPagination from "../../hoc/withPagination";
-import PaginationContainer from '../../components/PaginationContainer';
-import _ from 'lodash';
+import container from './ListRiversContainer';
 
-class ListRivers extends Component {
-
+class ListRivers extends React.Component {
   static propTypes = {
-    rivers: PropTypes.array,
-    admin: PropTypes.bool,
-    ready: PropTypes.bool,
-    router: PropTypes.object,
-    location: PropTypes.object,
-    limit: PropTypes.number,
-    loadMore: PropTypes.func,
-    numRivers: PropTypes.number,
+    rivers: PropTypes.array.isRequired,
+    admin: PropTypes.bool.isRequired,
+    loading: PropTypes.bool.isRequired,
+    router: PropTypes.object.isRequired,
+    loadMore: PropTypes.func.isRequired,
+    count: PropTypes.number.isRequired,
+    removeRiver: PropTypes.func,
+  };
+
+  static defaultProps = {
+    rivers: [],
+    count: 0,
+    admin: false,
   };
 
   render() {
-    const {admin, rivers, limit, loadMore, ready, numRivers} = this.props;
-
+    const {rivers, admin, count, loadMore} = this.props;
     return (
-      <PaginationContainer style={styles.container} limit={limit} loading={!ready} loadMore={loadMore} total={numRivers}>
-        <Table selectable={false} onCellClick={this.onCellClick}>
-          <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-            <TableRow>
-              <TableHeaderColumn>Name</TableHeaderColumn>
-              <TableHeaderColumn>Region</TableHeaderColumn>
-              <TableHeaderColumn>Description</TableHeaderColumn>
-              {admin && <TableHeaderColumn>Controls</TableHeaderColumn>}
-            </TableRow>
-          </TableHeader>
-          <TableBody displayRowCheckbox={false} stripedRows={true}>
-            { rivers.map(this.renderRow) }
-          </TableBody>
-        </Table>
-      </PaginationContainer>
+      <div style={styles.wrapper}>
+        <AutoSizer>
+          {({width, height}) => (
+            <InfiniteLoader
+              isRowLoaded={this.isRowLoaded}
+              loadMoreRows={loadMore}
+              rowCount={count}
+            >
+              {({onRowsRendered, registerChild}) => (
+                <Table
+                  onRowsRendered={onRowsRendered}
+                  ref={registerChild}
+                  width={width}
+                  height={height}
+                  headerHeight={24}
+                  rowHeight={32}
+                  rowCount={rivers.length}
+                  rowGetter={({index}) => rivers[index]}
+                  onRowClick={this.onRowClick}
+                >
+                  <Column width={10} flexGrow={2} dataKey="name" label="Name"/>
+                  <Column width={10} flexGrow={1} dataKey="region" label="Region" cellDataGetter={this.getRegion}/>
+                  <Column width={10} flexGrow={3} dataKey="description" label="Description"/>
+                  {admin && <Column width={75} flexGrow={0} dataKey="controls" label="Controls" cellRenderer={this.renderControls}/>}
+                </Table>
+              )}
+            </InfiniteLoader>
+          )}
+        </AutoSizer>
+      </div>
     );
   }
 
-  renderRow = (river) => {
-    let region = '';
-    try {
-      region = river.region().fetch()[0].name;
-    } catch (ex){}
+  isRowLoaded = ({ index }) => {
+    return !!this.props.rivers[index];
+  };
+
+  getRegion = ({rowData}) => rowData.region.name;
+
+  renderControls = ({rowData}) => {
+    const editHandler = () => this.props.router.push(`/rivers/${rowData._id}/settings`);
+    const deleteHandler = () => this.props.removeRiver(rowData._id);
     return (
-      <TableRow key={river._id}>
-        <TableRowColumn>{river.name}</TableRowColumn>
-        <TableRowColumn>{region}</TableRowColumn>
-        <TableRowColumn>{river.description}</TableRowColumn>
-        { this.renderAdminControls(river) }
-      </TableRow>
+      <span onClick={(event) => event.stopPropagation()}>
+        <IconButton iconClassName="material-icons" style={styles.iconWrapper} onTouchTap={editHandler}>mode_edit</IconButton>
+        <IconButton iconClassName="material-icons" style={styles.iconWrapper} onTouchTap={deleteHandler}>delete_forever</IconButton>
+      </span>
     );
   };
 
-  renderAdminControls = (river) => {
-    const {admin} = this.props;
-    if (!admin)
-      return null;
-    const editHandler = () => this.props.router.push(`/rivers/${river._id}/settings`);
-    const deleteHandler = () => removeRiver.call({riverId: river._id});
-    return (
-      <TableRowColumn>
-        <div onClick={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-        } }>
-          <IconButton iconClassName="material-icons" onTouchTap={editHandler}>mode_edit</IconButton>
-          <IconButton iconClassName="material-icons" onTouchTap={deleteHandler}>delete_forever</IconButton>
-        </div>
-      </TableRowColumn>
-    );
-  };
-
-  onCellClick = (rowId) => {
-    const {router, rivers} = this.props;
-    router.push(`/rivers/${rivers[rowId]._id}`);
-  };
-
+  onRowClick = ({index}) => this.props.router.push(`/rivers/${this.props.rivers[index]._id}`);
 }
 
 const styles = {
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    flex: 1,
-    alignItems: 'center',
+  wrapper: {
+    width: '100%',
+    height: '100%',
+    overflow: 'hidden',
   },
-  createPaper: {
-    marginBottom: 16,
-    padding: 16,
-    display: 'flex',
-    alignItems: 'center',
-  },
-  createButton: {
-    marginLeft: 16,
+  iconWrapper: {
+    paddingLeft: 2,
+    paddingRight: 2,
+    width: 'auto',
   },
 };
 
-const ListRiversContainer = createContainer(
-  (props) => {
-    const regionId = _.get(props, 'location.query.regionId');
-    const sub = Meteor.subscribe('rivers.list', regionId, props.limit);
-    const rivers = Rivers.find().fetch();
-    const numRivers = Counts.get(`counter.rivers.${regionId ? regionId : '_all'}`);
-    return {
-      ready: sub.ready(),
-      rivers: rivers || [],
-      numRivers,
-    };
-  },
-  ListRivers
-);
-
-export default _.flow(withAdmin, withRouter, withPagination(25, 25))(ListRiversContainer);
+export default container(ListRivers);
