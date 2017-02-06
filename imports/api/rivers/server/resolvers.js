@@ -1,4 +1,5 @@
 import {Rivers, createRiver, editRiver, removeRiver} from '../index';
+import getFieldNames from '../../../graphql-list-fields';
 import {Regions} from '../../regions';
 import _ from 'lodash';
 
@@ -26,6 +27,13 @@ export default {
     }
   },
   River: {
-    region: (river) => Regions.findOne({_id: river.regionId}),
+    region: (river, data, context, info) => {
+      const fields = getFieldNames(info);
+      //Only region ids are requested
+      if (_.every(fields, f => f === '_id' || f === '__typename'))
+        return {_id: river.regionId};
+      else
+        return Regions.findOne({_id: river.regionId});
+    },
   }
 };
