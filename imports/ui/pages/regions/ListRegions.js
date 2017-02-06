@@ -2,9 +2,7 @@ import React, {Component, PropTypes} from "react";
 import IconButton from "material-ui/IconButton";
 import TextField from "material-ui/TextField";
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn, TableFooter} from "material-ui/Table";
-import {withRouter} from "react-router";
-import withAdmin from "../../hoc/withAdmin";
-import listRegionsContainer from './ListRegionsContainer';
+import container from './ListRegionsContainer';
 
 class ListRegions extends Component {
 
@@ -123,4 +121,4 @@ const styles = {
   },
 };
 
-export default listRegionsContainer(withRouter(withAdmin(ListRegions)));
+export default container(ListRegions);

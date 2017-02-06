@@ -1,4 +1,6 @@
 import {graphql, compose} from 'react-apollo';
+import {withRouter} from "react-router";
+import withAdmin from "../../hoc/withAdmin";
 import gql from 'graphql-tag';
 import _ from 'lodash';
 
@@ -27,6 +29,8 @@ const CreateRegionMutation = gql`
 `;
 
 export default compose(
+  withAdmin,
+  withRouter,
   graphql(
     ListRegionsQuery, {
       props: ({data: {regions}}) => ({regions: regions || []})
