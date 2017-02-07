@@ -1,4 +1,4 @@
-import {Sections, removeSection} from '../index';
+import {Sections, removeSection, createSection, editSection} from '../index';
 import {Gauges} from '../../gauges';
 import {Rivers} from '../../rivers';
 import {Regions} from '../../regions';
@@ -31,21 +31,33 @@ export default {
 
       return result;
     },
+    section: (root, {_id, language}) => Sections.findOne({_id}, {lang: language}),
   },
   Section: {
-    gauge: section => Gauges.findOne(section.gaugeId),
-    region: section => Regions.findOne(section.regionId),
+    gauge: (section, args, context, info) => {
+      const simpleResult = pickFromSelf(section, context, info, {_id: 'gaugeId'});
+      return simpleResult || Gauges.findOne(section.gaugeId);
+    },
+    region: (section, args, context, info) => {
+      const simpleResult = pickFromSelf(section, context, info, {_id: 'regionId'});
+      return simpleResult || Regions.findOne(section.regionId);
+    },
     river: (section, args, context, info) => {
-      const simpleResult = pickFromSelf(section, context, info, {_id: '_id', name: 'riverName'});
-      if (simpleResult)
-        return simpleResult;
-      else
-        return Rivers.findOne(section.riverId);
+      const simpleResult = pickFromSelf(section, context, info, {_id: 'riverId', name: 'riverName'});
+      return simpleResult || Rivers.findOne(section.riverId);
     },
     media: section => Media.find({_id: {$in: section.mediaIds}}),
     pois: section => Points.find({_id: {$in: section.poiIds}}),
   },
   Mutation: {
+    upsertSection: (root, {section, language}, context) => {
+      let _id = section._id;
+      if (_id)
+        editSection._execute(context, {data: section, language});
+      else
+        _id = createSection._execute(context, {data: section, language});
+      return Sections.findOne(_id);
+    },
     removeSection: (root, data, context) => {
       return removeSection._execute(context, data) > 0;
     },

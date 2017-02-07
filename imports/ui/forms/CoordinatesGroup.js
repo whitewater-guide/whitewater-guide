@@ -227,6 +227,7 @@ const styles = {
   },
   textInput: {
     width: '100%',
+    minWidth: 100,
   },
 };
 

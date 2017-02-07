@@ -1,7 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import MediaItem, {DEFAULT_MEDIA_ITEM} from './MediaItem';
+import MediaItem from './MediaItem';
 import IconButton from 'material-ui/IconButton';
 import _ from 'lodash';
+
+const DEFAULT_MEDIA_ITEM = {url: '', type: 'photo', description: '', copyright: '', deleted: false};
 
 class MediaCollection extends Component {
   static propTypes = {
@@ -18,7 +20,7 @@ class MediaCollection extends Component {
     let {field: {value}} = this.props;
     value = value || [];
     return (
-      <div style={styles.container}>
+      <div>
         {_.map(value, this.renderItem)}
         <div style={styles.buttonHolder}>
           <IconButton iconClassName="material-icons" onTouchTap={this.onAdd}>
@@ -30,10 +32,11 @@ class MediaCollection extends Component {
   }
 
   renderItem = (item, index) => {
+    const value = _.assignWith({}, item, DEFAULT_MEDIA_ITEM, (itemValue, defValue, key) => itemValue || defValue);
     return (
       <MediaItem
         key={`item${index}`}
-        value={item}
+        value={value}
         error={_.get(this, `props.field.error.${index}`)}
         onChange={(value) => this.onChange(value, index)}
       />
@@ -48,18 +51,12 @@ class MediaCollection extends Component {
 
   onChange = (newItem, atIndex) => {
     let {field: {value, onChange}} = this.props;
-    value = value.map((item, index) => index === atIndex ? newItem : item);
+    value = value.map((item, index) => index === atIndex ? {...item, ...newItem} : item);
     onChange(value);
   }
 }
 
 const styles = {
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    maxHeight: 600,
-    overflowY: 'auto',
-  },
   buttonHolder: {
     display: 'flex',
     justifyContent: 'flex-end',

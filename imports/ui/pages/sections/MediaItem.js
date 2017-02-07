@@ -5,8 +5,6 @@ import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import _ from 'lodash';
 
-export const DEFAULT_MEDIA_ITEM = {url: '', type: 'photo', description: '', copyright: '', deleted: false};
-
 class MediaItem extends Component {
   static propTypes = {
     value: PropTypes.shape({
@@ -21,14 +19,13 @@ class MediaItem extends Component {
 
   render() {
     let {error, value} = this.props;
-    value = value || DEFAULT_MEDIA_ITEM;
     const delStyle = value.deleted ? styles.deleted : {};
     return (
       <div style={styles.container}>
         <div style={styles.row}>
           <div style={{...styles.url, ...delStyle}}>
             <TextField
-              style={styles.textInput}
+              fullWidth={true}
               errorText={_.get(error, 'url')}
               value={value.url}
               onChange={this.onUrlChange}
@@ -38,7 +35,7 @@ class MediaItem extends Component {
           </div>
           <div style={{...styles.type, ...delStyle}}>
             <SelectField
-              style={styles.textInput}
+              fullWidth={true}
               value={value.type}
               onChange={this.onTypeChange}
               errorText={_.get(error, 'type')}
@@ -58,7 +55,7 @@ class MediaItem extends Component {
         </div>
         <div style={delStyle}>
           <TextField
-            style={styles.textInput}
+            fullWidth={true}
             errorText={_.get(error, 'description')}
             value={value.description}
             onChange={this.onDescriptionChange}
@@ -69,7 +66,7 @@ class MediaItem extends Component {
             rowsMax={4}
           />
           <TextField
-            style={styles.textInput}
+            fullWidth={true}
             errorText={_.get(error, 'copyright')}
             value={value.copyright}
             onChange={this.onCopyrightChange}
@@ -82,24 +79,23 @@ class MediaItem extends Component {
   }
 
   onUrlChange = (event, value) => {
-    this.props.onChange({...DEFAULT_MEDIA_ITEM, ...this.props.value, url: value});
+    this.props.onChange({url: value});
   };
 
   onTypeChange = (event, index, value) => {
-    this.props.onChange({...DEFAULT_MEDIA_ITEM, ...this.props.value, type: value});
+    this.props.onChange({type: value});
   };
 
   onDescriptionChange = (event, value) => {
-    this.props.onChange({...DEFAULT_MEDIA_ITEM, ...this.props.value, description: value});
+    this.props.onChange({description: value});
   };
 
   onCopyrightChange = (event, value) => {
-    this.props.onChange({...DEFAULT_MEDIA_ITEM, ...this.props.value, copyright: value});
+    this.props.onChange({copyright: value});
   };
 
   onDelete = () => {
-    const value = {...DEFAULT_MEDIA_ITEM, ...this.props.value};
-    this.props.onChange({...value, deleted: !value.deleted});
+    this.props.onChange({deleted: !this.props.value.deleted});
   };
 }
 
@@ -107,9 +103,6 @@ const styles = {
   container: {
     display: 'flex',
     flexDirection: 'column',
-  },
-  textInput: {
-    width: '100%',
   },
   row: {
     display: 'flex',

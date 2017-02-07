@@ -8,6 +8,14 @@ type GaugeBinding {
   lastValue: Float,
 }
 
+input GaugeBindingInput {
+  minimum: Float,
+  maximum: Float,
+  optimum: Float,
+  impossible: Float,
+  approximate: Float,
+}
+
 type Section {
   _id: ID!,
   name: String!,
@@ -27,8 +35,8 @@ type Section {
   distance: Float,
   drop: Float,
   duration: Int,
-  difficulty: Float,
-  difficultyXtra: Float,
+  difficulty: Float!,
+  difficultyXtra: String,
   rating: Float,
   #Supply tags
   supply: [String]!,
@@ -46,6 +54,46 @@ type Section {
   pois: [Point],
 }
 
+input SectionRiverInput {
+  _id: ID!,
+  name: String,
+  regionId: ID
+}
+
+input SectionGaugeInput {
+  _id: ID!,
+  name: String,
+}
+
+input SectionInput {
+  _id: ID,
+  name: String!,
+  description: String,
+  season: String,
+  seasonNumeric: [Int],
+
+  regionId: ID,
+  river: SectionRiverInput,
+  gauge: SectionGaugeInput,
+  levels: GaugeBindingInput,
+  flows: GaugeBindingInput,
+
+  putIn: PointInput!,
+  takeOut: PointInput!,
+  distance: Float,
+  drop: Float,
+  duration: Int,
+  difficulty: Float!,
+  difficultyXtra: String,
+  rating: Float,
+  supply: [String],
+  kayaking: [String],
+  hazards: [String],
+  tags: [String],
+  media: [MediaInput],
+  pois: [PointInput],
+}
+
 input SectionSearchTerms {
   sortBy: String,
   sortDirection: SortDirection,
@@ -57,6 +105,7 @@ input SectionSearchTerms {
 
 type Query {
   sections(terms:SectionSearchTerms!, language: String):SectionsSearchResult!
+  section(_id:ID, language: String):Section
 }
 
 type SectionsSearchResult {
@@ -65,6 +114,6 @@ type SectionsSearchResult {
 }
 
 type Mutation {
-  #upsertSection(section:SectionInput!, language:String):River,
+  upsertSection(section:SectionInput!, language:String):Section,
   removeSection(_id:ID!):Boolean,
 }

@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import MUIAutoComplete from 'material-ui/AutoComplete';
+import _ from 'lodash';
 
 export class AutoComplete extends Component {
   static propTypes = {
@@ -29,7 +30,7 @@ export class AutoComplete extends Component {
         errorText={this.props.field.error}
         floatingLabelText={this.props.title}
         hintText={this.props.title}
-        searchText={this.props.field.value.name}
+        searchText={_.get(this.props, 'field.value.name', '')}
         onNewRequest={this.onNewRequest}
         onUpdateInput={this.onUpdateInput}
         openOnFocus={this.props.openOnFocus}

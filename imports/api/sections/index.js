@@ -273,7 +273,7 @@ export const createSection = new AdminMethod({
   },
 
   run({data, language}) {
-    const updates = prepareUpdates(data, language);
+    const updates = prepareUpdates(this, data, language);
     return Sections.insertTranslations(updates);
   }
 });
@@ -288,17 +288,17 @@ export const editSection = new AdminMethod({
   },
 
   run({data: {_id, ...data}, language}) {
-    const updates = prepareUpdates(data, language);
+    const updates = prepareUpdates(this, data, language);
     return Sections.updateTranslations(_id, {[language]: updates});
   }
 });
 
-function prepareUpdates({river, media, pois, ...data}, language){
+function prepareUpdates(context, {river, media, pois, ...data}, language){
   language = language || Sections._base_language;
   let updates = {...data};
   let {_id: riverId, name: riverName, regionId} = river;
   if (riverId === '@@new'){
-    riverId = createRiver.call({data: {name: riverName, regionId}, language});
+    riverId = createRiver._execute(context, {data: {name: riverName, regionId}, language});
     updates = {...updates, riverId, riverName, regionId};
   }
   else {
@@ -316,11 +316,8 @@ function prepareUpdates({river, media, pois, ...data}, language){
         Media.remove({_id: mediaItem._id});
         return null;
       }
-      delete mediaItem.deleted;//Do not need to store this in mongo
-      const mediaItemId = mediaItem._id;
-      delete mediaItem._id;
-      const {insertedId} = Media.upsertTranslations(mediaItemId, {[language]: mediaItem});
-      return mediaItemId || insertedId;
+      const {insertedId} = Media.upsertTranslations(mediaItem._id, {[language]: mediaItem});
+      return mediaItem._id || insertedId;
     })
     .compact()
     .value();
@@ -330,11 +327,8 @@ function prepareUpdates({river, media, pois, ...data}, language){
         Points.remove({_id: poiItem._id});
         return null;
       }
-      delete poiItem.deleted;//Do not need to store this in mongo
-      const poiItemId = poiItem._id;
-      delete poiItem._id;
-      const {insertedId} = Points.upsertTranslations(poiItemId, {[language]: poiItem});
-      return poiItemId || insertedId;
+      const {insertedId} = Points.upsertTranslations(poiItem._id, {[language]: poiItem});
+      return poiItem._id || insertedId;
     })
     .compact()
     .value();

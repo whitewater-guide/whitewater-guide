@@ -17,6 +17,7 @@ class TextInput extends Component {
     const value = this.props.field.value === undefined ? '' : this.props.field.value;
     return (
       <TextField
+        style={styles.textInput}
         fullWidth={true}
         value={value}
         errorText={this.props.field.error}
@@ -33,4 +34,11 @@ class TextInput extends Component {
   }
 }
 
+const styles = {
+  textInput: {
+    minWidth: 20,
+  },
+};
+
 export default TextInput;
+

@@ -13,6 +13,7 @@ type Region {
   bounds: Bounds,
   pois: [Point]!,
   sources: [Source]!,
+  rivers: [River]!,
 }
 
 input CreateRegionInput {
@@ -30,7 +31,7 @@ input EditRegionInput {
 
 type Query {
   regions(language:String): [Region]!,
-  region(_id: ID!, language:String):Region,
+  region(_id: ID, language:String):Region,
 }
 
 type Mutation {

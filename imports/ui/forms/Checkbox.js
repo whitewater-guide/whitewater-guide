@@ -15,12 +15,19 @@ class Checkbox extends Component {
   render() {
     return (
       <MUICheckbox
+        style={styles.checkbox}
         label={this.props.title}
-        checked={this.props.field.value}
+        checked={!!this.props.field.value}
         onCheck={(e, v) => this.props.field.onChange(v)}
       />
     );
   }
 }
+
+const styles = {
+  checkbox: {
+    maxWidth: 200,
+  },
+};
 
 export default Checkbox;

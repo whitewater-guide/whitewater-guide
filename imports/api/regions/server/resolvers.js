@@ -1,5 +1,6 @@
 import {Sources} from '../../sources';
 import {Points} from '../../points';
+import {Rivers} from '../../rivers';
 import {Regions, createRegion, editRegion, removeRegion} from '../index';
 
 export default {
@@ -24,11 +25,8 @@ export default {
   },
   Region: {
     seasonNumeric: region => region.seasonNumeric || [],
-    sources(region){
-      return Sources.find({regionIds: region._id});
-    },
-    pois(region){
-      return Points.find({_id: {$in: region.poiIds}});
-    }
+    sources: region => Sources.find({regionIds: region._id}),
+    pois: region => Points.find({_id: {$in: region.poiIds}}),
+    rivers: region => Rivers.find({regionId: region._id}),
   }
 };

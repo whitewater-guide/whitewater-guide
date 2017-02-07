@@ -11,3 +11,12 @@ type Media {
   url: String!,
   type: MediaType!,
 }
+
+input MediaInput {
+  _id: ID,
+  description: String,
+  copyright: String,
+  url: String!,
+  type: MediaType!,
+  deleted: Boolean,
+}

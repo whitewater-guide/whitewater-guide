@@ -42,7 +42,6 @@ class RichTextInput extends Component {
           value={value}
           modules={this.quillModules}
           formats={quillFormats}
-          toolbar={false}
           style={styles.quill}
           onChange={this.props.field.onChange}
         />
