@@ -1,6 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import {Form, Field, TextInput, Select, CoordinatesGroup, ChipInput, RichTextInput, SeasonPickerField, Rating, Checkbox} from '../../forms';
-import AutoComplete, {NEW_ITEM} from '../../forms/AutoComplete';
+import {Form, Field, TextInput, Select, CoordinatesGroup, ChipInput, RichTextInput, SeasonPickerField, Rating, Checkbox, AutoComplete} from '../../forms';
 import createI18nContainer from '../../hoc/createI18nContainer';
 import PutInMapDialog from './PutInMapDialog';
 import MediaCollection from './MediaCollection';
@@ -53,7 +52,7 @@ class SectionForm extends Component {
     //When editing existing section, or creating section on known river, the river autocomplete is unnecessary
     //Therefore we fill it with only one value and disable
     //When creating section (plus, optionally, a river) in a region - we allow to select river from the list or create one
-    formData.river = (sectionId || riverId) ? _.pick(rivers[0], ['_id', 'name']) : {_id: NEW_ITEM, name: ''};
+    formData.river = (sectionId || riverId) ? _.pick(rivers[0], ['_id', 'name']) : {_id: AutoComplete.NEW_ITEM, name: ''};
 
     return (
       <Form {...formProps} initialData={formData} name="sections" transformBeforeSubmit={this.transformBeforeSubmit}>

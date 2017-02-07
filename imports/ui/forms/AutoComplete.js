@@ -1,9 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import MUIAutoComplete from 'material-ui/AutoComplete';
 
-export const NEW_ITEM = '@@new';
-
-class AutoComplete extends Component {
+export class AutoComplete extends Component {
   static propTypes = {
     name: PropTypes.string,
     title: PropTypes.string,
@@ -50,13 +48,13 @@ class AutoComplete extends Component {
       this.props.field.onChange({_id: item._id, name: item.name});
     }
     else {
-      this.props.field.onChange({_id: NEW_ITEM, name: value});
+      this.props.field.onChange({_id: AutoComplete.NEW_ITEM, name: value});
     }
   };
 
   onUpdateInput = (input) => {
-    this.props.field.onChange({_id: NEW_ITEM, name: input});
+    this.props.field.onChange({_id: AutoComplete.NEW_ITEM, name: input});
   };
 }
 
-export default AutoComplete;
+AutoComplete.NEW_ITEM = '@@new';
