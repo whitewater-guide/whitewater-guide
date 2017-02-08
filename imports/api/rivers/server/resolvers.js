@@ -1,7 +1,7 @@
 import {Rivers, createRiver, editRiver, removeRiver} from '../index';
-import getFieldNames from '../../../graphql-list-fields';
 import {Regions} from '../../regions';
 import {Sections} from '../../sections';
+import {pickFromSelf} from '../../../utils/ApolloUtils';
 import _ from 'lodash';
 
 export default {
@@ -29,12 +29,8 @@ export default {
   },
   River: {
     region: (river, data, context, info) => {
-      const fields = getFieldNames(info);
-      //Only region ids are requested
-      if (_.every(fields, f => f === '_id' || f === '__typename'))
-        return {_id: river.regionId};
-      else
-        return Regions.findOne({_id: river.regionId});
+      const simpleResult = pickFromSelf(river, context, info, {_id: 'regionId'});
+      return simpleResult || Regions.findOne(river.regionId);
     },
     sections: (river) => Sections.find({riverId: river._id}),
   }
