@@ -20,8 +20,8 @@ const RemoveRegionMutation = gql`
 `;
 
 const CreateRegionMutation = gql`
-  mutation createRegion($region: CreateRegionInput!){
-    createRegion(region: $region){
+  mutation createRegion($region: RegionInput!, $language: String){
+    region: upsertRegion(region: $region, language: $language){
       _id,
       name,
     }
@@ -54,12 +54,11 @@ export default compose(
         variables: {region: {name}},
         updateQueries: {
           listRegions: (prev, {mutationResult}) => {
-            const newRegion = mutationResult.data.createRegion;
+            const newRegion = mutationResult.data.region;
             return {...prev, regions: [...prev.regions, newRegion]};
           }
         },
-      }).then(mutationResult => mutationResult.data.createRegion)
-      }),
+      })}),
     }
   ),
 );

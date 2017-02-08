@@ -31,8 +31,8 @@ const regionDetails = gql`
 `;
 
 const editRegion = gql`
-  mutation editRegion($region: EditRegionInput!, $language:String){
-    editRegion(region: $region, language: $language){
+  mutation editRegion($region: RegionInput!, $language:String){
+    upsertRegion(region: $region, language: $language){
       ...RegionDetails
     }
   }

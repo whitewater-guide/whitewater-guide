@@ -9,14 +9,13 @@ export default {
     region: (root, {_id, language}) => Regions.findOne({_id}, {lang: language}),
   },
   Mutation: {
-    createRegion: (root, {region}, context) => {
-      //validator(region);
-      const _id = createRegion._execute(context, {data: region});
+    upsertRegion: (root, {region, language}, context) => {
+      let _id = region._id;
+      if (_id)
+        editRegion._execute(context, {data: region, language});
+      else
+        _id = createRegion._execute(context, {data: region, language});
       return Regions.findOne(_id);
-    },
-    editRegion: (root, {region, language}, context) => {
-      editRegion._execute(context, {data: region, language});
-      return Regions.findOne(region._id);
     },
     removeRegion: (root, data, context) => {
       removeRegion._execute(context, data);

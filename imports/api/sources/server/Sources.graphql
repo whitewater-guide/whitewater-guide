@@ -23,7 +23,7 @@ input SourceInput {
   script: String!,
   cron: String,
   harvestMode: HarvestMode!,
-  regions: [EditRegionInput]!,
+  regions: [RegionInput]!,
   url: String,
 }
 

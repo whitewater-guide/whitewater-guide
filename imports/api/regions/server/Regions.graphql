@@ -16,13 +16,9 @@ type Region {
   rivers: [River]!,
 }
 
-input CreateRegionInput {
+input RegionInput {
+  _id: ID,
   name: String!,
-}
-
-input EditRegionInput {
-  _id: ID!,
-  name: String,
   description: String,
   season: String,
   seasonNumeric: [Int],
@@ -35,7 +31,6 @@ type Query {
 }
 
 type Mutation {
-  createRegion(region:CreateRegionInput!):Region,
-  editRegion(region:EditRegionInput!, language:String):Region,
+  upsertRegion(region:RegionInput!, language:String):Region,
   removeRegion(regionId:ID!):Boolean,
 }
