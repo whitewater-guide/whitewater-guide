@@ -5,7 +5,9 @@ import {Durations} from '/imports/api/sections';
 import AdminControls from '../../components/AdminControls';
 import {renderDifficulty} from '../../../utils/TextUtils';
 import _ from 'lodash';
-import container from './ListSectionsContainer';
+import {withRouter} from 'react-router';
+import withAdmin from '../../hoc/withAdmin';
+import {withSections} from './containers/withSections';
 
 class ListSections extends Component {
 
@@ -113,4 +115,8 @@ const styles = {
   },
 };
 
-export default container(ListSections);
+export default _.flowRight(
+  withAdmin,
+  withRouter,
+  withSections({withRemove: true}),
+)(ListSections);

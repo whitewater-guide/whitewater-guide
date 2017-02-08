@@ -3,14 +3,13 @@ import {Form, Field, TextInput, RichTextInput} from '../../forms';
 import SeasonPickerField from '/imports/ui/forms/SeasonPickerField';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import POICollection from "../sections/POICollection";
-import container from './EditRegionContainer';
+import container from './RegionFormContainer';
 
 class RegionForm extends Component {
 
   static propTypes = {
     ...Form.propTypes,
-    regionId: PropTypes.string,
-    ready: PropTypes.bool,
+    regionLoading: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -18,8 +17,8 @@ class RegionForm extends Component {
   };
 
   render() {
-    let {ready, ...props} = this.props;
-    if (!ready)
+    let {regionLoading, ...props} = this.props;
+    if (regionLoading)
       return null;
 
     return (
