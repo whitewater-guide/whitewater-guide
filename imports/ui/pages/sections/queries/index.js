@@ -1,0 +1,119 @@
+import gql from 'graphql-tag';
+
+const Core = gql`
+  fragment SectionCore on Section {
+    _id
+    name
+    season
+    seasonNumeric
+    
+    river {
+      _id
+      name
+    }
+    
+    region {
+      _id
+    }
+
+    distance
+    drop
+    duration
+    difficulty
+    difficultyXtra
+    rating
+  }
+`;
+
+const Geo = gql`
+  fragment SectionGeo on Section {
+    putIn {
+      _id
+      coordinates
+      altitude
+    }
+    takeOut {
+      _id
+      coordinates
+      altitude
+    }
+  }
+`;
+
+const Description = gql`
+  fragment SectionDescription on Section {
+    description
+  }
+`;
+
+const GaugeBinding = {All: gql`
+  fragment GaugeBindingAll on GaugeBinding {
+    minimum
+    maximum
+    optimum
+    impossible
+    approximate
+    lastTimestamp
+    lastValue
+  }
+`};
+
+const Measurements = gql`
+  fragment SectionMeasurements on Section {
+    gauge {
+      _id
+    }
+    levels {
+      ...GaugeBindingAll
+    }
+    flows {
+      ...GaugeBindingAll
+    }
+  }
+  ${GaugeBinding.All}
+`;
+
+const Meta = gql`
+  fragment SectionMeta on Section {
+    createdAt
+    createdBy
+    updatedAt
+  }
+`;
+
+const Media = gql`
+  fragment SectionMedia on Section {
+    media {
+      _id
+      description
+      copyright
+      url
+      type
+    }
+  }
+`;
+
+const POIs = gql`
+  fragment SectionPOIs on Section {
+    pois {
+      _id
+      name
+      description
+      coordinates
+      altitude
+      kind
+    }
+  }
+`;
+
+export const Fragments = {
+  Core,
+  Description,
+  GaugeBinding,
+  Geo,
+  Measurements,
+  Media,
+  Meta,
+  POIs,
+  //Tags
+};

@@ -3,32 +3,20 @@ import gql from 'graphql-tag';
 import {withProps, withState, withHandlers, flattenProp, mapProps, branch} from 'recompose';
 import _ from 'lodash';
 import update from 'immutability-helper';
+import {Fragments} from '../queries';
 
 const ListSectionsQuery = gql`
   query listSections($terms:SectionSearchTerms!, $language: String, $withGeo: Boolean!, $isLoadMore:Boolean!) {
     sections(terms:$terms, language:$language) {
       sections {
-        _id
-        name
-        difficulty
-        rating
-        drop
-        distance
-        duration
-        river {
-          _id
-          name
-        }
-        putIn @include(if: $withGeo) {
-          coordinates
-        }
-        takeOut @include(if: $withGeo) {
-          coordinates
-        }
+        ...SectionCore
+        ...SectionGeo @include(if: $withGeo)
       }
       count @skip(if: $isLoadMore)
     }
   }
+  ${Fragments.Core}
+  ${Fragments.Geo}
 `;
 
 const RemoveSectionMutation = gql`

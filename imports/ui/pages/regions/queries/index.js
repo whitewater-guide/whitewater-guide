@@ -4,7 +4,6 @@ const Core = gql`
   fragment RegionCore on Region {
     _id
     name
-    description
     season
     seasonNumeric
   }
@@ -39,6 +38,7 @@ const All = gql`
     ...RegionCore
     ...RegionBounds
     ...RegionPOIs
+    description
   }
   ${Core}
   ${Bounds}
@@ -46,8 +46,8 @@ const All = gql`
 `;
 
 export const Fragments = {
+  All,
+  Bounds,
   Core,
   POIs,
-  Bounds,
-  All,
 };

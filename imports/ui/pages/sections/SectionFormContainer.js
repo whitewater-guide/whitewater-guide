@@ -4,10 +4,11 @@ import gql from 'graphql-tag';
 import {filter} from 'graphql-anywhere';
 import adminOnly from '../../hoc/adminOnly';
 import {withRouter} from 'react-router';
+import {Fragments} from './queries';
 import _ from 'lodash';
 
 const regionFragment = gql`
-  fragment SectionRegionDetails on Region {
+  fragment EditSectionRegionDetails on Region {
     _id
     name
     bounds {
@@ -23,114 +24,62 @@ const regionFragment = gql`
   }
 `;
 
-const regionWithRiversFragment = gql`
-  fragment SectionRegionWithRiverDetails on Region {
-    rivers {
-      _id
-      name
-    }
-    ...SectionRegionDetails
-  }
-`;
-
-const sectionDetailsFragment = gql`
-  fragment SectionDetails on Section {
-    _id
-    name
+const sectionFragment = gql`
+  fragment EditSectionSectionDetails on Section {
+    ...SectionCore
+    ...SectionGeo
     description
-    season
-    seasonNumeric
     region {
-      ...SectionRegionDetails
+      ...EditSectionRegionDetails
     }
-    river {
-      _id
-      name
-    }
+    ...SectionMeasurements
     gauge {
-      _id
       name
     }
-    levels {
-      minimum
-      maximum
-      optimum
-      impossible
-      approximate
-    }
-    flows {
-      minimum
-      maximum
-      optimum
-      impossible
-      approximate
-    }
-    putIn {
-      _id
-      coordinates
-      altitude
-    }
-    takeOut {
-      _id
-      coordinates
-      altitude
-    }
-    distance
-    drop
-    duration
-    difficulty
-    difficultyXtra
-    rating
-    media {
-      _id
-      description
-      copyright
-      url
-      type
-    }
-    pois {
-      _id
-      name
-      description
-      coordinates
-      altitude
-      kind
-    }
+    ...SectionMedia
+    ...SectionPOIs
   }
+  ${Fragments.Core}
+  ${Fragments.Geo}
+  ${Fragments.Media}
+  ${Fragments.Measurements}
+  ${Fragments.POIs}
   ${regionFragment}
 `;
 
 const sectionDetails = gql`
   query sectionDetails($_id: ID, $regionId:ID, $riverId:ID, $language:String) {
     section(_id: $_id, language: $language) {
-      ...SectionDetails
+      ...EditSectionSectionDetails
     }
 
     region(_id: $regionId, language:$language) {
-      ...SectionRegionWithRiverDetails
+      rivers {
+        _id
+        name
+      }
+      ...EditSectionRegionDetails
     }
     
     river(_id: $riverId, language: $language) {
       _id
       name
       region {
-        ...SectionRegionDetails
+        ...EditSectionRegionDetails
       }
     } 
-
   }
-  ${sectionDetailsFragment}
-  ${regionWithRiversFragment}
+  ${sectionFragment}
 `;
 
 
 const upsertSection = gql`
   mutation upsertSection($section: SectionInput!, $language:String){
     upsertSection(section: $section, language: $language){
-      ...SectionDetails
+      ...EditSectionSectionDetails
     }
   }
-  ${sectionDetailsFragment}
+  ${sectionFragment}
 `;
 
 export default compose(
@@ -168,7 +117,7 @@ export default compose(
         section = section || {};
         if (river)
           section.river = river;
-        section = filter(sectionDetailsFragment, section);
+        section = filter(sectionFragment, section);
         delete section.region;//Do not need this in form data
         return {initialData: section, region, rivers, gauges, loading};
       },
