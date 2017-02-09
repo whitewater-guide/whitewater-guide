@@ -76,7 +76,6 @@ export default compose(
         const initialData = source ? filter(sourceDetailsFragment, source) : {cron: `${(moment().minute() + 2) % 60} * * * *`};
         return {initialData, regions, scripts, ready: !loading}
       },
-      shouldResubscribe: (props, nextProps) => props.language !== nextProps.language,
     }
   ),
   graphql(

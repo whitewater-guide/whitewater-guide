@@ -1,8 +1,6 @@
 import React, {Component, PropTypes} from 'react';
-import {Meteor} from 'meteor/meteor';
 import renderHTML from 'react-render-html';
-import {createContainer} from 'meteor/react-meteor-data';
-import {Sources} from '../../../api/sources';
+import container from './TermsOfUseContainer';
 
 class TermsOfUse extends Component {
 
@@ -36,16 +34,4 @@ const styles = {
   }
 };
 
-const TermsOfUseContainer = createContainer(
-  (props) => {
-    const sub = Meteor.subscribe('sources.details', props.params.sourceId);
-    const source = Sources.findOne(props.params.sourceId);
-    return {
-      ready: sub.ready(),
-      source,
-    };
-  },
-  TermsOfUse
-);
-
-export default TermsOfUseContainer;
+export default container(TermsOfUse);
