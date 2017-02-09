@@ -1,32 +1,23 @@
-import React, { Component, PropTypes } from 'react';
-import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
-import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
-import { Jobs } from '../../../api/jobs';
-import { Gauges } from '../../../api/gauges';
+import React, {Component, PropTypes} from 'react';
+import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import _ from 'lodash';
-import withAdmin from '../../hoc/withAdmin';
 import moment from 'moment';
+import container from './SourceScheduleContainer';
 
 class SourceSchedule extends Component {
   static propTypes = {
-    params: PropTypes.shape({
-      sourceId: PropTypes.string,
-    }),
-    admin: PropTypes.bool,
-    ready: PropTypes.bool,
+    loading: PropTypes.bool,
     jobs: PropTypes.array,
     gauges: PropTypes.array,
   };
 
   render() {
-    const {ready, admin} = this.props;
-    if (!ready || !admin)
+    if (this.props.loading)
       return null;
     return (
       <div style={styles.container}>
         <Table selectable={false}>
-          <TableHeader displaySelectAll={false} adjustForCheckbox={false} >
+          <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
             <TableRow>
               <TableHeaderColumn>Status</TableHeaderColumn>
               <TableHeaderColumn>Source/Script</TableHeaderColumn>
@@ -45,7 +36,7 @@ class SourceSchedule extends Component {
   }
 
   renderRow = (job) => {
-    const gauge = _.find(this.props.gauges, { _id: job.data.gaugeId });
+    const gauge = _.find(this.props.gauges, {_id: job.data.gaugeId});
     const numMeasurements = job.result ? job.result.measurements : '--';
     return (
       <TableRow key={job._id}>
@@ -68,23 +59,4 @@ const styles = {
   },
 };
 
-const SourceScheduleContainer = createContainer(
-  (props) => {
-    console.log('Subscribe', props.params.sourceId);
-    const jobsSubscription = Meteor.subscribe('jobs.forSource', props.params.sourceId);
-    const gaugesSubscription = Meteor.subscribe('gauges.inSource', props.params.sourceId);
-    const jobs = Jobs.find(
-      { "data.sourceId": props.params.sourceId },
-      { fields: { data: 1, status: 1, updated: 1, after: 1, result: 1 } }
-    ).fetch();
-    const gauges = Gauges.find({ "sourceId": props.params.sourceId }, {fields: {name: 1}}).fetch();
-    return {
-      ready: jobsSubscription.ready() && gaugesSubscription.ready(),
-      gauges,
-      jobs
-    };
-  },
-  SourceSchedule
-);
-
-export default withAdmin(SourceScheduleContainer);
+export default container(SourceSchedule);
