@@ -17,14 +17,11 @@ import ListRivers from "../../ui/pages/rivers/ListRivers";
 import ViewRiver from "../../ui/pages/rivers/ViewRiver";
 import RiverLeft from "../../ui/pages/rivers/RiverLeft";
 import ListRiversLeft from "../../ui/pages/rivers/ListRiversLeft";
-import ViewSection from "../../ui/pages/sections/ViewSection";
-import SectionsLeft from "../../ui/pages/sections/SectionsLeft";
-import ListSections from "../../ui/pages/sections/ListSections";
 import ManageFiles from "../../ui/pages/files/ManageFiles";
 import ListUsers from "../../ui/pages/users/ListUsers";
 import ListGauges from "../../ui/pages/gauges/ListGauges";
-import SectionForm from '../../ui/pages/sections/SectionForm';
 import {regionsRoutes} from '../../ui/pages/regions';
+import {sectionRoutes} from '../../ui/pages/sections';
 
 export default class AppRouter extends Component {
   render() {
@@ -57,6 +54,7 @@ export default class AppRouter extends Component {
           </Route>
 
           {regionsRoutes}
+          {sectionRoutes}
 
           <Route path="rivers" name="Rivers">
             <IndexRoute breadcrumbIgnore={true} components={{content: ListRivers, left: ListRiversLeft}}/>
@@ -67,14 +65,6 @@ export default class AppRouter extends Component {
             </Route>
           </Route>
 
-          <Route path="sections" name="Sections">
-            <IndexRoute breadcrumbIgnore={true} components={{content: ListSections, left: SectionsLeft}}/>
-            <Route path="new" name="New Section" components={{content: SectionForm, left: SectionsLeft}}/>
-            <Route path=":sectionId" breadcrumbName=":sectionId">
-              <IndexRoute breadcrumbIgnore={true} components={{content: ViewSection, left: SectionsLeft}}/>
-              <Route path="settings" breadcrumbName="Settings" components={{content: SectionForm, left: SectionsLeft}}/>
-            </Route>
-          </Route>
         </Route>
       </Router>
     );

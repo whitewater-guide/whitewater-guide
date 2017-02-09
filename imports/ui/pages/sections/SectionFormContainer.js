@@ -32,10 +32,10 @@ const sectionFragment = gql`
     region {
       ...EditSectionRegionDetails
     }
-    ...SectionMeasurements
     gauge {
       name
     }
+    ...SectionMeasurements
     ...SectionMedia
     ...SectionPOIs
   }
@@ -95,7 +95,6 @@ export default compose(
     title: params.sectionId ? "Section settings" : "New section",
     submitLabel: params.sectionId ? "Update" : "Create",
     currentTab: location.hash || '#main',
-    method: () => {},
   })),
   withHandlers({
     onLanguageChange: props => language => props.setLanguage(language),

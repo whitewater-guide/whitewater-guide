@@ -1,10 +1,9 @@
 import React, {Component, PropTypes} from 'react';
 import {withRouter} from 'react-router';
-import SectionInfo from './SectionInfo';
 import Map from '/imports/ui/components/map/Map';
 import _ from 'lodash';
-import {compose, withState} from 'recompose';
-import {withSections} from '../sections';
+import {compose} from 'recompose';
+import {withSections, ViewSection} from '../sections';
 import {withRegion} from '../regions';
 
 class RegionMapPage extends Component {
@@ -12,9 +11,10 @@ class RegionMapPage extends Component {
   static propTypes = {
     region: PropTypes.object,
     sections: PropTypes.array,
-    selectedSectionId: PropTypes.string,
-    setSelectedSectionId: PropTypes.func,
-    selectedSection: PropTypes.object,
+  };
+
+  state = {
+    selectedSectionId: null,
   };
 
   render() {
@@ -37,17 +37,19 @@ class RegionMapPage extends Component {
             <Map
               {...bounds}
               sections={sections}
-              selectedSectionId={this.props.selectedSectionId}
-              onSectionSelected={this.props.setSelectedSectionId}
+              selectedSectionId={this.state.selectedSectionId}
+              onSectionSelected={this.onSectionSelected}
             />
           }
         </div>
         <div style={styles.rightColumn}>
-          <SectionInfo section={this.props.selectedSection}/>
+          <ViewSection sectionId={this.state.selectedSectionId} />
         </div>
       </div>
     );
   }
+
+  onSectionSelected = selectedSectionId => this.setState({selectedSectionId});
 
 }
 
@@ -73,5 +75,4 @@ export default compose(
   withRouter,
   withRegion({withBounds: true, withPOIs: false}),
   withSections({withGeo: true, sort: null}),
-  withState('selectedSectionId', 'setSelectedSectionId', null),
 )(RegionMapPage)

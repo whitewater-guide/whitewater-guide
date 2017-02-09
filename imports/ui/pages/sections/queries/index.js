@@ -106,7 +106,30 @@ const POIs = gql`
   }
 `;
 
+//TODO: remove when https://github.com/apollographql/graphql-anywhere/issues/38 is resolved
+const All = gql`
+  fragment SectionAll on Section {
+    ...SectionCore
+    ...SectionDescription
+    ...SectionGeo
+    ...SectionMeasurements
+    ...SectionMedia
+    ...SectionMeta
+    ...SectionPOIs
+    description
+  }
+  ${GaugeBinding.All}
+  ${Core}
+  ${Description}
+  ${Geo}
+  ${Measurements}
+  ${Media}
+  ${Meta}
+  ${POIs}
+`;
+
 export const Fragments = {
+  All,
   Core,
   Description,
   GaugeBinding,

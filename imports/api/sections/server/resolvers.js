@@ -36,15 +36,15 @@ export default {
   Section: {
     gauge: (section, args, context, info) => {
       const simpleResult = pickFromSelf(section, context, info, {_id: 'gaugeId'});
-      return simpleResult || Gauges.findOne(section.gaugeId);
+      return simpleResult || section.gaugeId && Gauges.findOne(section.gaugeId);
     },
     region: (section, args, context, info) => {
       const simpleResult = pickFromSelf(section, context, info, {_id: 'regionId'});
-      return simpleResult || Regions.findOne(section.regionId);
+      return simpleResult || section.regionId && Regions.findOne(section.regionId);
     },
     river: (section, args, context, info) => {
       const simpleResult = pickFromSelf(section, context, info, {_id: 'riverId', name: 'riverName'});
-      return simpleResult || Rivers.findOne(section.riverId);
+      return simpleResult || section.riverId && Rivers.findOne(section.riverId);
     },
     media: section => Media.find({_id: {$in: section.mediaIds}}),
     pois: section => Points.find({_id: {$in: section.poiIds}}),

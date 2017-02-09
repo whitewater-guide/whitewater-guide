@@ -1,19 +1,39 @@
 import {graphql} from 'react-apollo';
-import {withState, withHandlers, mapProps, compose} from 'recompose';
+import {withProps, compose} from 'recompose';
 import gql from 'graphql-tag';
 import {filter} from 'graphql-anywhere';
-import adminOnly from '../../hoc/adminOnly';
-import {withRouter} from 'react-router';
-import _ from 'lodash';
 import {Fragments} from '../queries';
 
 const sectionDetails = gql`
-  query sectionDetails($_id: ID, $language:String) {
+  query sectionDetails($_id: ID, $language:String, $withGeo:Boolean!, $withDescription:Boolean!) {
     section(_id: $_id, language: $language) {
-      ...SectionDetails
+      ...SectionCore
+      ...SectionGeo @include(if: $withGeo)
+      description @include(if: $withDescription)
     }
 
   }
-  ${sectionDetailsFragment}
-  ${regionWithRiversFragment}
+  ${Fragments.Core}
+  ${Fragments.Geo}
 `;
+
+export function withSection(options) {
+  const {withGeo = false, withDescription = false, propName = 'section'} = options;
+  return compose(
+    withProps(({sectionId, params, location}) => ({
+      sectionId: sectionId || params.sectionId || location.query.sectionId,
+    })),
+    graphql(
+      sectionDetails,
+      {
+        options: ({sectionId, language}) => ({
+          forceFetch: true,//i18n's problem with caching
+          variables: {_id: sectionId, language, withGeo, withDescription},
+        }),
+        props: ({data: {section, loading}}) => {
+          return {[propName]: section && filter(Fragments.All, section), sectionLoading: loading};
+        },
+      }
+    ),
+  );
+}

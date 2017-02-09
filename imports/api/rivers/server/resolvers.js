@@ -30,7 +30,7 @@ export default {
   River: {
     region: (river, data, context, info) => {
       const simpleResult = pickFromSelf(river, context, info, {_id: 'regionId'});
-      return simpleResult || Regions.findOne(river.regionId);
+      return simpleResult || river.regionId && Regions.findOne(river.regionId);
     },
     sections: (river) => Sections.find({riverId: river._id}),
   }
