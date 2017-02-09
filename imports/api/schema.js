@@ -7,6 +7,7 @@ import Gauges from '../api/gauges/server/Gauges.graphql';
 import Media from '../api/media/server/Media.graphql';
 import Sections from '../api/sections/server/Sections.graphql';
 import Jobs from '../api/jobs/server/Jobs.graphql';
+import Tags from '../api/tags/server/Tags.graphql';
 
 const SchemaDefinition = `
   scalar JSON
@@ -32,6 +33,7 @@ export const typeDefs = [
   Sources,
   Gauges,
   Jobs,
+  Tags,
   Media,
   Sections,
 ];

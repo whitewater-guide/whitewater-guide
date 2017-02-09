@@ -39,13 +39,13 @@ type Section {
   difficultyXtra: String,
   rating: Float,
   #Supply tags
-  supply: [String]!,
+  supplyTagIds: [ID]!,
   #Kayaking description tags
-  kayaking: [String]!,
+  kayakingTagIds: [ID]!,
   #Hazards tags
-  hazards: [String]!,
+  hazardsTagIds: [ID]!,
   #Misc tags
-  tags: [String]!,
+  miscTagIds: [ID]!,
   createdAt: Date,
   #This is user id, but for now it is string
   createdBy: String,
@@ -92,6 +92,11 @@ input SectionInput {
   tags: [String],
   media: [MediaInput],
   pois: [PointInput],
+
+  supplyTagIds: [ID]!
+  kayakingTagIds: [ID]!
+  hazardsTagIds: [ID]!
+  miscTagIds: [ID]!
 }
 
 input SectionSearchTerms {

@@ -81,6 +81,10 @@ class SectionForm extends Component {
             </div>
             <Field name="season" title="Season" component={TextInput}/>
             <Field name="seasonNumeric" component={SeasonPickerField}/>
+            <Field name="supplyTagIds" title="River supply" component={ChipInput} options={this.props.supplyTags} />
+            <Field name="kayakingTagIds" title="Kayaking types" component={ChipInput} options={this.props.kayakingTags} />
+            <Field name="hazardsTagIds" title="Hazards" component={ChipInput} options={this.props.hazardTags} />
+            <Field name="miscTagIds" title="Tags" component={ChipInput} options={this.props.miscTags}/>
           </Tab>
           <Tab label="Media" value="#media">
             <Field name="media" title="Media" component={MediaCollection}/>

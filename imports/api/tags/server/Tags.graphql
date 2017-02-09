@@ -1,0 +1,12 @@
+type Tag {
+  _id: ID!,
+  name: String!
+  slug: String!
+}
+
+type Query {
+  supplyTags: [Tag]!
+  kayakingTags: [Tag]!
+  hazardTags: [Tag]!
+  miscTags: [Tag]!
+}

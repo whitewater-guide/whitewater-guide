@@ -106,6 +106,15 @@ const POIs = gql`
   }
 `;
 
+const Tags = gql`
+  fragment SectionTags on Section {
+    supplyTagIds
+    kayakingTagIds
+    hazardsTagIds
+    miscTagIds
+  }
+`;
+
 //TODO: remove when https://github.com/apollographql/graphql-anywhere/issues/38 is resolved
 const All = gql`
   fragment SectionAll on Section {
@@ -116,6 +125,7 @@ const All = gql`
     ...SectionMedia
     ...SectionMeta
     ...SectionPOIs
+    ...SectionTags
     description
   }
   ${GaugeBinding.All}
@@ -126,6 +136,7 @@ const All = gql`
   ${Media}
   ${Meta}
   ${POIs}
+  ${Tags}
 `;
 
 export const Fragments = {
@@ -138,5 +149,5 @@ export const Fragments = {
   Media,
   Meta,
   POIs,
-  //Tags
+  Tags,
 };

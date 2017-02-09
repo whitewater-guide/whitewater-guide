@@ -3,6 +3,7 @@ import {withState, withHandlers, mapProps, compose} from 'recompose';
 import gql from 'graphql-tag';
 import {filter} from 'graphql-anywhere';
 import adminOnly from '../../hoc/adminOnly';
+import {withTags} from '../tags';
 import {withRouter} from 'react-router';
 import {Fragments} from './queries';
 import _ from 'lodash';
@@ -38,12 +39,14 @@ const sectionFragment = gql`
     ...SectionMeasurements
     ...SectionMedia
     ...SectionPOIs
+    ...SectionTags
   }
   ${Fragments.Core}
   ${Fragments.Geo}
   ${Fragments.Media}
   ${Fragments.Measurements}
   ${Fragments.POIs}
+  ${Fragments.Tags}
   ${regionFragment}
 `;
 
@@ -71,7 +74,6 @@ const sectionDetails = gql`
   }
   ${sectionFragment}
 `;
-
 
 const upsertSection = gql`
   mutation upsertSection($section: SectionInput!, $language:String){
@@ -101,10 +103,11 @@ export default compose(
     onSubmit: props => () => props.router.goBack(),
     onCancel: props => () => props.router.goBack(),
   }),
+  withTags,
   graphql(
     sectionDetails,
     {
-      options: props => ({forceFetch: true}),
+      options: () => ({forceFetch: true}),
       props: ({data: {section, region, river, loading}}) => {
         //For region form we need
         //1) Region with bounds
