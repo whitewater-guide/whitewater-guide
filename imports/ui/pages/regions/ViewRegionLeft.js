@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import withAdmin from '../../hoc/withAdmin';
+import {withAdmin} from '../users';
 import FlatLinkButton from '../../components/FlatLinkButton';
 import LeftMenuSeparator from '../../components/LeftMenuSeparator';
 
@@ -61,4 +61,4 @@ const styles = {
 
 };
 
-export default withAdmin(ViewRegionLeft);
+export default withAdmin()(ViewRegionLeft);

@@ -17,7 +17,7 @@ export function meteorResolver(resolver){
       return null;
     //Problem #3
     //Sometimes I forget to call fetch()
-    if (_.isFunction(result.fetch)) {
+    if (result && _.isFunction(result.fetch)) {
       return result.fetch();
     }
     else {

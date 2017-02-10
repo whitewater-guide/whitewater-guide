@@ -1,14 +1,13 @@
 import React, {Component, PropTypes} from 'react';
 import {Toolbar} from 'material-ui/Toolbar';
 import {indigo500} from 'material-ui/styles/colors';
-import UserMenu from '../components/UserMenu';
+import UserMenu from '../pages/users/UserMenu';
 import Breadcrumbs from '../components/Breadcrumbs';
 import FlatLinkButton from '../components/FlatLinkButton';
 import LeftMenuSeparator from '../components/LeftMenuSeparator';
 import {createContainer} from 'meteor/react-meteor-data';
 import {Link} from 'react-router';
 import {withRouter} from 'react-router';
-import {Meteor} from 'meteor/meteor';
 
 class MainLayout extends Component {
 
@@ -80,6 +79,7 @@ const styles = {
   },
   toolbar: {
     minHeight: 56,
+    alignItems: 'center',
   },
   content: {
     display: 'flex',
@@ -88,12 +88,4 @@ const styles = {
   },
 };
 
-const MainLayoutContainer = createContainer(
-  () => {
-    Meteor.subscribe('tags.all');
-    return {};
-  },
-  MainLayout
-);
-
-export default withRouter(MainLayoutContainer);
+export default withRouter(MainLayout);
