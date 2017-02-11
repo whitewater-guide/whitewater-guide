@@ -1,0 +1,23 @@
+{
+  "parser": "babel-eslint",
+  "plugins": [
+    "react"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
+  "env": {
+    "node": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 8,
+    "sourceType": "module",
+    "impliedStrict": true,
+    "jsx": true,
+    "experimentalObjectRestSpread": true
+  },
+  "rules": {
+    "no-console": 0
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "presets": [
+    "react",
+    ["latest", {
+      "es2015": {
+        "modules": false
+      }
+    }],
+    "stage-2"
+  ],
+  "env": {
+    "development": {
+      "plugins": [
+        "import-asserts",
+        "transform-runtime",
+        "react-hot-loader/babel"
+      ]
+    }
+  }
+}

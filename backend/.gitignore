@@ -1,0 +1,10 @@
+.idea/
+node_modules/
+typings/
+.vscode/
+settings.development.json
+settings.production.json
+whitewater.iml
+package.tar.gz
+private/workers/
+/.meteor/dump

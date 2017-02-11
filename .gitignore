@@ -4,7 +4,10 @@ typings/
 .vscode/
 settings.development.json
 settings.production.json
-whitewater.iml
 package.tar.gz
 private/workers/
 /.meteor/dump
+*.iml
+/web-client/build/
+/web-client/build-config/env.development.json
+/web-client/build-config/env.production.json
