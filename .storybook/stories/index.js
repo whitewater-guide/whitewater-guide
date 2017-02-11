@@ -1,9 +1,9 @@
 import React from 'react';
 import {storiesOf, action, addDecorator} from '@kadira/storybook';
 import {muiTheme} from 'storybook-addon-material-ui';
-import SeasonPicker from '../../imports/ui/components/SeasonPicker';
-import GoogleMap from '../../imports/ui/components/map/GoogleMap';
-import DrawingMap from '../../imports/ui/components/map/DrawingMap';
+import SeasonPicker from '../../client/core/components/SeasonPicker';
+import GoogleMap from '../../client/core/components/maps/GoogleMap';
+import DrawingMap from '../../client/core/components/maps/DrawingMap';
 
 storiesOf('SeasonPicker', module)
   .addDecorator(muiTheme())
