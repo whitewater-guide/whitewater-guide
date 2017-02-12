@@ -11,3 +11,5 @@ private/workers/
 /web-client/build/
 /web-client/build-config/env.development.json
 /web-client/build-config/env.production.json
+/web-client/npm-debug.log
+/web-client/webpack-stats.json
