@@ -8,7 +8,6 @@ import AdminMethod from '../../utils/AdminMethod';
 import cronParser from 'cron-parser';
 
 export const Sources = new Mongo.Collection('sources');
-console.log('Created sources', Sources);
 
 const SourcesSchema = new SimpleSchema({
   _id: {
