@@ -9,6 +9,14 @@ export const config = {
     path: PATHS.build,
     filename: '[name].js',
   },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+    ]
+  },
   devServer: {
     compress: true,
     contentBase: PATHS.public,

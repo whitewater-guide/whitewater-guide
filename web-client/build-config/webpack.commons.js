@@ -29,10 +29,6 @@ export const commons = function(env) {
           },
         },
         {
-          test: /\.css$/,
-          use: ['style-loader', 'css-loader'],
-        },
-        {
           test: /\.json$/,
           loader: 'json-loader',
         },
@@ -60,28 +56,6 @@ export const commons = function(env) {
         title: 'Whitewater guide',
       }),
       new webpack.EnvironmentPlugin(environment),
-    ],
-  };
-};
-
-export function extractBundles({ bundles, options }) {
-  const entry = {};
-  const names = [];
-
-  // Set up entries and names.
-  bundles.forEach(({ name, entries }) => {
-    if (entries) {
-      entry[name] = entries;
-    }
-
-    names.push(name);
-  });
-
-  return {
-    // Define an entry point needed for splitting.
-    entry,
-    plugins: [
-      new webpack.optimize.CommonsChunkPlugin({...options, names}),
     ],
   };
 };
