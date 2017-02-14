@@ -1,7 +1,7 @@
 import {FilesCollection} from 'meteor/ostrio:files';
 import {Meteor} from 'meteor/meteor';
 import {Roles} from 'meteor/alanning:roles';
-import {SimpleSchema} from 'meteor/aldeed:simple-schema';
+import SimpleSchema from 'simpl-schema';
 import AdminMethod from "../../utils/AdminMethod";
 
 export const Images = new FilesCollection({

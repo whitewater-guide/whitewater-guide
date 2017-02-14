@@ -4,45 +4,38 @@ enum HarvestMode {
 }
 
 type Source {
-  _id: ID!,
-  name: String!,
-  termsOfUse: String,
-  script: String,
-  cron: String,
-  harvestMode: HarvestMode,
-  url: String,
-  enabled: Boolean,
-  regions: [Region]!,
-  gauges: [Gauge]!,
+  _id: ID!
+  name: String!
+  termsOfUse: String
+  script: String!
+  cron: String
+  harvestMode: HarvestMode!
+  url: String
+  enabled: Boolean!
+  regions: [Region]!
+  gauges: [Gauge]!
 }
 
 input SourceInput {
-  _id: ID,
-  name: String!,
-  termsOfUse: String,
-  script: String!,
-  cron: String,
-  harvestMode: HarvestMode!,
-  regions: [RegionInput]!,
-  url: String,
-}
-
-type WorkerScript {
-  script: String!,
-  harvestMode: HarvestMode!,
-  error: String,
+  _id: ID
+  name: String!
+  termsOfUse: String
+  script: String!
+  cron: String
+  harvestMode: HarvestMode!
+  regions: [RefInput]!
+  url: String
 }
 
 type Query {
-  sources(language:String): [Source]!,
-  source(_id: ID, language: String): Source,
-  listScripts:[WorkerScript]!,
+  sources(language:String): [Source]!
+  source(_id: ID, language: String): Source
 }
 
 type Mutation {
-  upsertSource(source:SourceInput!, language: String):Source,
-  removeSource(sourceId:ID!):Boolean,
-  autofillSource(sourceId:ID!):Boolean,
-  generateSourceSchedule(sourceId:ID!):Boolean,
-  setSourceEnabled(sourceId:ID!, enabled:Boolean!): Source,
+  upsertSource(source:SourceInput!, language: String):Source
+  removeSource(sourceId:ID!):Boolean
+  autofillSource(sourceId:ID!):Boolean
+  generateSourceSchedule(sourceId:ID!):Boolean
+  setSourceEnabled(sourceId:ID!, enabled:Boolean!): Source
 }

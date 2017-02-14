@@ -1,13 +1,14 @@
-import Sources from './sources/Sources.graphql';
-import Regions from './regions/Regions.graphql';
-import Rivers from './rivers/Rivers.graphql';
-import User from './users/User.graphql';
-import Points from './points/Points.graphql';
-import Gauges from './gauges/Gauges.graphql';
-import Media from './media/Media.graphql';
-import Sections from './sections/Sections.graphql';
-import Jobs from './jobs/Jobs.graphql';
-import Tags from './tags/Tags.graphql';
+import {SourcesGraphqlSchema} from './sources';
+import {RegionsGraphqlSchema} from './regions';
+import {RiversGraphqlSchema} from './rivers';
+import {UserGraphqlSchema} from './users';
+import {PointsGraphqlSchema} from './points';
+import {GaugesGraphqlSchema} from './gauges';
+import {MediaGraphqlSchema} from './media';
+import {SectionsGraphqlSchema} from './sections';
+import {JobsGraphqlSchema} from './jobs';
+import {TagsGraphqlSchema} from './tags';
+import {ScriptsGraphqlSchema} from './scripts';
 
 const SchemaDefinition = `
   scalar JSON
@@ -18,6 +19,11 @@ const SchemaDefinition = `
     desc
   }
   
+  input RefInput {
+    _id: ID!
+    name: String
+  }
+  
   schema {
     query: Query,
     mutation: Mutation,
@@ -26,14 +32,15 @@ const SchemaDefinition = `
 
 export const typeDefs = [
   SchemaDefinition,
-  User,
-  Regions,
-  Rivers,
-  Points,
-  Sources,
-  Gauges,
-  Jobs,
-  Tags,
-  Media,
-  Sections,
+  SourcesGraphqlSchema,
+  RegionsGraphqlSchema,
+  RiversGraphqlSchema,
+  UserGraphqlSchema,
+  PointsGraphqlSchema,
+  GaugesGraphqlSchema,
+  MediaGraphqlSchema,
+  SectionsGraphqlSchema,
+  JobsGraphqlSchema,
+  TagsGraphqlSchema,
+  ScriptsGraphqlSchema,
 ];

@@ -1,26 +1,31 @@
 import {Sources} from '../sources';
 import {Points} from '../points';
 import {Rivers} from '../rivers';
-import {Regions, createRegion, editRegion, removeRegion} from './index';
+import {Regions} from './collection';
+import {upsertChildren} from '../../utils/CollectionUtils';
 
-export default {
+function upsertRegion(root, data) {
+  let {region: {_id, pois, ...region}, language} = data;
+  const poiIds = upsertChildren(Points, pois, language);
+  if (_id)
+    Regions.updateTranslations(_id, {[language]: {poiIds, ...region}});
+  else
+    _id = Regions.insertTranslations({poiIds, ...region});
+  return Regions.findOne(_id);
+}
+
+function removeRegion(root, {_id}) {
+  return Regions.remove(_id) > 0;
+}
+
+export const regionsResolvers = {
   Query: {
     regions: (root, {language}) => Regions.find({}, {sort: {name: 1}, lang: language}),
     region: (root, {_id, language}) => Regions.findOne({_id}, {lang: language}),
   },
   Mutation: {
-    upsertRegion: (root, {region, language}, context) => {
-      let _id = region._id;
-      if (_id)
-        editRegion._execute(context, {data: region, language});
-      else
-        _id = createRegion._execute(context, {data: region, language});
-      return Regions.findOne(_id);
-    },
-    removeRegion: (root, data, context) => {
-      removeRegion._execute(context, data);
-      return true;
-    }
+    upsertRegion,
+    removeRegion,
   },
   Region: {
     seasonNumeric: region => region.seasonNumeric || [],

@@ -1,4 +1,5 @@
 import {Measurements} from "../api/measurements";
+import {Gauges} from "../api/gauges";
 import {Meteor} from "meteor/meteor";
 
 /**

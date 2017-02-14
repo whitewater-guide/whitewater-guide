@@ -1,4 +1,3 @@
-import '../api/files';
 import '../api/gauges';
 import '../api/jobs';
 import '../api/measurements';

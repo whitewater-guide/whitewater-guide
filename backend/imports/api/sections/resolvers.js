@@ -1,4 +1,4 @@
-import {Sections, removeSection, createSection, editSection} from './index';
+import {Sections} from './collection';
 import {Gauges} from '../gauges';
 import {Rivers} from '../rivers';
 import {Regions} from '../regions';
@@ -6,9 +6,55 @@ import {Media} from '../media';
 import {Points} from '../points';
 import graphqlFields from 'graphql-fields';
 import {pickFromSelf} from '../../utils/ApolloUtils';
+import {upsertChildren} from '../../utils/CollectionUtils';
 import _ from 'lodash';
 
-export default {
+function removeSection(root, {_id}) {
+  return Sections.remove(_id) > 0;
+}
+
+function upsertSection(root, data) {
+  let {section: {_id, river, media, pois, ...section}, language} = data;
+  let {_id: riverId, name: riverName, regionId} = river;
+  if (riverId === '@@new') {
+    riverId = Rivers.insertTranslations({[language]: {name: riverName, regionId}});
+    section = {...section, riverId, riverName, regionId};
+  }
+  else {
+    const riverDoc = Rivers.findOne({_id: riverId}, {fields: {regionId: 1, name: 1}});
+    if (riverDoc) {
+      section.regionId = riverDoc.regionId;
+      section.riverName = riverDoc.name;
+      section.riverId = riverDoc._id;
+    }
+  }
+
+  const mediaIds = upsertChildren(Media, media, language);
+  const poiIds = upsertChildren(Points, pois, language);
+
+  let {_id: putInId, ...putInData} = data.putIn;
+  let putInResult = Points.upsertTranslations(putInId, {[language]: {...putInData, kind: 'put-in'}});
+  putInId = putInId || putInResult.insertedId;
+  let {_id: takeOutId, ...takeOutData} = data.takeOut;
+  let takeOutResult = Points.upsertTranslations(takeOutId, {[language]: {...takeOutData, kind: 'take-out'}});
+  takeOutId = takeOutId || takeOutResult.insertedId;
+
+  section = {
+    ...section,
+    mediaIds,
+    poiIds,
+    putIn: {_id: putInId, ...putInData},
+    takeOut: {_id: takeOutId, ...takeOutData}
+  };
+
+  if (_id)
+    Sections.updateTranslations(_id, {[language]: section});
+  else
+    _id = Sections.insertTranslations(section);
+  return Sections.findOne(_id);
+}
+
+export const sectionsResolvers = {
   Query: {
     sections: (root, {terms, language}, context, info) => {
       //TODO: this can be refactored into graphql schema interface
@@ -50,16 +96,7 @@ export default {
     pois: section => Points.find({_id: {$in: section.poiIds}}),
   },
   Mutation: {
-    upsertSection: (root, {section, language}, context) => {
-      let _id = section._id;
-      if (_id)
-        editSection._execute(context, {data: section, language});
-      else
-        _id = createSection._execute(context, {data: section, language});
-      return Sections.findOne(_id);
-    },
-    removeSection: (root, data, context) => {
-      return removeSection._execute(context, data) > 0;
-    },
-  }
-}
+    upsertSection,
+    removeSection,
+  },
+};

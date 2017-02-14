@@ -31,4 +31,3 @@ createApolloServer(
     configServer: expressServer => expressServer.use(cors()),
   }
 );
-

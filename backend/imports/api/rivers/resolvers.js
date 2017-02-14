@@ -1,10 +1,23 @@
-import {Rivers, createRiver, editRiver, removeRiver} from './index';
+import {Rivers} from './collection';
 import {Regions} from '../regions';
 import {Sections} from '../sections';
 import {pickFromSelf} from '../../utils/ApolloUtils';
 import _ from 'lodash';
 
-export default {
+function upsertRiver(root, data){
+  let {river: {_id, ...river}, language} = data;
+  if (_id)
+    Rivers.updateTranslations(_id, {[language]: river});
+  else
+    _id = Rivers.insertTranslations(data);
+  return Rivers.findOne(_id);
+}
+
+function removeRiver(root, {_id}){
+  return Rivers.remove(_id) > 0;
+}
+
+export const riversResolvers = {
   Query: {
     rivers: (root, {regionId, language, skip = 0, limit = 10}) => {
       limit = _.clamp(limit, 10, 100);
@@ -15,17 +28,8 @@ export default {
     countRivers: (root, query) => Rivers.find(query).count(),
   },
   Mutation: {
-    upsertRiver: (root, {river, language}, context) => {
-      let _id = river._id;
-      if (_id)
-        editRiver._execute(context, {data: river, language});
-      else
-        _id = createRiver._execute(context, {data: river, language});
-      return Rivers.findOne(_id);
-    },
-    removeRiver: (root, data, context) => {
-      return removeRiver._execute(context, data) > 0;
-    }
+    upsertRiver,
+    removeRiver,
   },
   River: {
     region: (river, data, context, info) => {

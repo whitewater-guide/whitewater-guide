@@ -1,11 +1,12 @@
-import sourcesResolvers from './sources/resolvers';
-import regionsResolvers from './regions/resolvers';
-import riversResolvers from './rivers/resolvers';
-import sectionsResolvers from './sections/resolvers';
-import userResolvers from './users/resolvers';
-import gaugesResolvers from './gauges/resolvers';
-import jobsResolvers from './jobs/resolvers';
-import tagsResolvers from './tags/resolvers';
+import {sourcesResolvers} from './sources';
+import {regionsResolvers} from './regions';
+import {riversResolvers} from './rivers';
+import {sectionsResolvers} from './sections';
+import {userResolvers} from './users';
+import {gaugesResolvers} from './gauges';
+import {jobsResolvers} from './jobs';
+import {scriptsResolvers} from './scripts';
+import {tagsResolvers} from './tags';
 import {meteorResolver} from '../utils/ApolloUtils';
 import GraphQLJSON from 'graphql-type-json';
 import GraphQLDate from 'graphql-date';
@@ -19,7 +20,8 @@ let resolvers = _.merge(
   sectionsResolvers,
   gaugesResolvers,
   jobsResolvers,
-  tagsResolvers
+  tagsResolvers,
+  scriptsResolvers,
 );
 
 //Decorate resolvers to make them more meteor-friendly

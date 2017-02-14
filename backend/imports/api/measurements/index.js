@@ -1,5 +1,5 @@
 import {Mongo} from 'meteor/mongo';
-import {SimpleSchema} from 'meteor/aldeed:simple-schema';
+import SimpleSchema from 'simpl-schema';
 import {Gauges} from '../gauges';
 import {Sections} from '../sections';
 
@@ -20,13 +20,11 @@ export const measurementsSchema = new SimpleSchema({
     type: Number,
     label: 'Level',
     optional: true,
-    decimal: true,
   },
   flow: {
     type: Number,
     label: 'Flow',
     optional: true,
-    decimal: true,
   },
 });
 

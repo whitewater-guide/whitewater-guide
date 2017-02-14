@@ -2,7 +2,7 @@ import {Meteor} from 'meteor/meteor';
 import {Roles} from 'meteor/alanning:roles';
 import _ from 'lodash';
 
-export default {
+export const userResolvers = {
   Query: {
     me: (root, args, context) => {
       if (!context.userId)

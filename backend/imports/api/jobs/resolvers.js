@@ -1,7 +1,7 @@
 import {Roles} from 'meteor/alanning:roles';
 import {Jobs} from './index';
 
-export default {
+export const jobsResolvers = {
   Query: {
     jobs: (root, {sourceId}, context) => {
       if (Roles.userIsInRole(context.userId, 'admin'))
@@ -20,4 +20,4 @@ export default {
       return Jobs.aggregate(pipeline);
     },
   }
-}
+};

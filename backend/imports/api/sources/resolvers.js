@@ -1,8 +1,9 @@
 import {Regions} from '../regions';
 import {Gauges} from '../gauges';
-import {Sources, createSource, editSource, removeSource, setEnabled, autofill, generateSchedule} from './index';
+import {Sources} from './collection';
 import {Roles} from 'meteor/alanning:roles';
-import {listScripts} from '../scripts';
+import {launchScript} from '../scripts';
+import {Jobs, generateSchedule} from '../jobs';
 import _ from 'lodash';
 
 const HarvestModes = {
@@ -19,7 +20,62 @@ const publicFields = {
   enabled: 0,
 };
 
-export default {
+function generateSourceSchedule(root, {_id}) {
+  generateSchedule(_id);
+  return true;
+}
+
+function setSourceEnabled(root, {_id, enabled}) {
+  Sources.update({_id}, {$set: {enabled}});
+  return Sources.findOne({_id});
+}
+
+function removeSource(root, {_id}) {
+  return Sources.remove({_id}) > 0;
+}
+
+function autofillSource(root, {_id}) {
+  const scriptName = Sources.findOne({_id}).script;
+  console.log(`Launching autofill with script ${scriptName}`);
+  return new Promise(
+    (resolve, reject) => {
+      launchScript(scriptName, 'autofill', (error, result) => {
+        if (error)
+          reject(error);
+        else
+          resolve(result);
+      });
+    }
+  )
+  .then(gauges => {
+    console.log(`Found ${gauges.length} gauges`);
+    gauges.forEach(gauge => Gauges.insertTranslations({sourceId: _id, ...gauge}));
+    return true;
+  })
+}
+
+function upsertSource(root, {source: {_id, ...source}, language}) {
+  const hasJobs = !!_id && Jobs.find({
+      "data.source": _id,
+      status: {$in: ['running', 'ready', 'waiting', 'paused']}
+    }).count() > 0;
+  if (hasJobs)
+    throw new Error('Cannot edit source which has running jobs');
+
+  const data = {
+    ...source,
+    harvestMode: HarvestModesValues[source.harvestMode],
+    regionIds: source.regions.map(region => region._id),
+  };
+
+  if (_id)
+    Sources.updateTranslations(_id, {[language]: data});
+  else
+    _id = Sources.insertTranslations(data);
+  return Sources.findOne(_id);
+}
+
+export const sourcesResolvers = {
   Query: {
     sources: (root, args, context) => {
       const fields = Roles.userIsInRole(context.userId, 'admin') ? undefined : publicFields;
@@ -29,38 +85,13 @@ export default {
       const fields = Roles.userIsInRole(context.userId, 'admin') ? undefined : publicFields;
       return Sources.findOne({_id}, {fields});
     },
-    listScripts: () => listScripts(),
   },
   Mutation: {
-    upsertSource: (root, {source, language}, context) => {
-      const data = {
-        ...source,
-        harvestMode: HarvestModesValues[source.harvestMode],
-        regionIds: source.regions.map(region => region._id),
-      };
-      let _id = source._id;
-      if (_id)
-        editSource._execute(context, {data, language});
-      else
-        _id = createSource._execute(context, {data, language});
-      return Sources.findOne(_id);
-    },
-    removeSource: (root, data, context) => {
-      removeSource._execute(context, data);
-      return true;
-    },
-    setSourceEnabled: (root, data, context) => {
-      setEnabled._execute(context, data);
-      return Sources.findOne(data.sourceId);
-    },
-    autofillSource: (root, data, context) => {
-      autofill._execute(context, data);
-      return true;
-    },
-    generateSourceSchedule: (root, data, context) => {
-      generateSchedule._execute(context, data);
-      return true;
-    },
+    upsertSource,
+    removeSource,
+    setSourceEnabled,
+    autofillSource,
+    generateSourceSchedule,
   },
   Source: {
     regions: (source) => Regions.find({_id: {$in: source.regionIds}}),

@@ -1,16 +1,37 @@
-import {SimpleSchema} from 'meteor/aldeed:simple-schema';
+import SimpleSchema from 'simpl-schema';
 
-export function formSchema(schema, ...omit) {
-  if (omit && omit.length > 0) {
-    schema = SimpleSchema.prototype.omit.apply(schema, omit);
-  }
-  return new SimpleSchema({
-    data: {
-      type: schema,
+export function metaSchema() {
+  return {
+    createdAt: {
+      type: Date,
+      autoValue: function() {
+        if (this.isInsert)
+          return new Date();
+      },
+      denyUpdate: true,
     },
-    language: {
+    updatedAt: {
+      type: Date,
+      autoValue: function() {
+        if (this.isUpdate) {
+          return new Date();
+        }
+      },
+      denyInsert: true,
+    },
+    createdBy: {
       type: String,
-      optional: true,
+      regEx: SimpleSchema.RegEx.Id,
+      autoValue: function() {
+        if (this.isInsert)
+          return this.userId;
+      },
+      denyUpdate: true,
     },
-  });
+    i18n: {
+      type: Object,
+      optional: true,
+      blackbox: true,
+    },
+  };
 }

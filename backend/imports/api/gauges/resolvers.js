@@ -1,7 +1,9 @@
 import {Sources} from '../sources';
 import {Measurements} from '../measurements';
-import {Gauges, createGauge, editGauge, removeGauges, setEnabled} from './index';
+import {Gauges} from './collection';
 import {Roles} from 'meteor/alanning:roles';
+import {Points} from "../points";
+import {Jobs} from "../jobs";
 import _ from 'lodash';
 
 const publicFields = {
@@ -11,7 +13,51 @@ const publicFields = {
   enabled: 0,
 };
 
-export default {
+//TODO: Admin method!!
+function upsertGauge(root, {gauge: {_id, location, requestParams, ...gauge}, language}, context) {
+  const hasJobs = !!_id && Jobs.find({
+      "data.gauge": _id,
+      status: {$in: ['running', 'ready', 'waiting', 'paused']}
+    }).count() > 0;
+  if (hasJobs)
+    throw new Error('Cannot edit gauge which has running jobs');
+
+  if (requestParams)
+    gauge.requestParams = JSON.parse(requestParams);
+  if (location) {
+    gauge.location = Points.upsertTranslations(location._id, {
+      [language]: {
+        ...location,
+        kind: 'gauge',
+        name: 'Gauge: ' + gauge.name
+      }
+    });
+  }
+
+  if (_id)
+    Gauges.updateTranslations(_id, {[language]: gauge});
+  else
+    _id = Gauges.insertTranslations(gauge);
+  return Gauges.findOne(_id);
+}
+
+function setGaugesEnabled(root, {enabled, ...query}) {
+  if (!query._id && !query.sourceId)
+    throw new Error('Either gauge or source id must be provided');
+  //Server hook is used to start/stop jobs
+  Gauges.update(query, {$set: {enabled}}, {multi: true});
+  return Gauges.find(query, {fields: {enabled: 1}});
+}
+
+function removeGauges(root, {disabledOnly, ...query}){
+  if (!query._id && !query.sourceId)
+    throw new Error('Either gauge or source id must be provided');
+  if (disabledOnly)
+    query.enabled = false;
+  return Gauges.remove(query);
+}
+
+export const gaugesResolvers = {
   Query: {
     gauges: (root, {sourceId, language, skip = 0, limit = 10}, context) => {
       const query = sourceId ? {sourceId} : {};
@@ -26,23 +72,11 @@ export default {
     countGauges: (root, {sourceId}) => Gauges.find({sourceId}).count(),
   },
   Mutation: {
-    upsertGauge: (root, {gauge, language}, context) => {
-      let _id = gauge._id;
-      if (gauge.requestParams)
-        gauge.requestParams = JSON.parse(gauge.requestParams);
-      if (_id)
-        editGauge._execute(context, {data: gauge, language});
-      else
-        _id = createGauge._execute(context, {data: gauge, language});
-      return Gauges.findOne(_id);
-    },
+    upsertGauge,
     removeGauges: (root, args, context) => {
       return removeGauges._execute(context, args);
     },
-    setGaugesEnabled: (root, args, context) => {
-      setEnabled._execute(context, args);
-      return Gauges.find(args, {fields: {enabled: 1}});
-    },
+    setGaugesEnabled,
   },
   Gauge: {
     source: (gauge) => Sources.findOne(gauge.sourceId),
