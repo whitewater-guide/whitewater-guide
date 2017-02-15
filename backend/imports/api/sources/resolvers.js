@@ -65,7 +65,7 @@ function upsertSource(root, {source: {_id, ...source}, language}) {
   const data = {
     ...source,
     harvestMode: HarvestModesValues[source.harvestMode],
-    regionIds: source.regions.map(region => region._id),
+    regionIds: _.map(source.regions, '_id'),
   };
 
   if (_id)

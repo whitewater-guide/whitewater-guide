@@ -4,9 +4,9 @@ type Bounds {
   autocomplete: Boolean,
 }
 
-type Region {
+type Region implements INamed {
   _id: ID!,
-  name: String,
+  name: String!,
   description: String,
   season: String,
   seasonNumeric: [Int]!,
@@ -32,5 +32,5 @@ type Query {
 
 type Mutation {
   upsertRegion(region:RegionInput!, language:String):Region,
-  removeRegion(regionId:ID!):Boolean,
+  removeRegion(_id:ID!):Boolean,
 }

@@ -16,12 +16,10 @@ class ChipInput extends Component {
       error: PropTypes.string,
       onChange: PropTypes.func,
     }),
-    dataSourceConfig: PropTypes.object,
   };
 
   static defaultProps = {
     options: [],
-    dataSourceConfig: {text: 'name', value: '_id'},
   };
 
   state = {
@@ -33,11 +31,12 @@ class ChipInput extends Component {
   };
 
   render() {
-    const {field, options, dataSourceConfig} = this.props;
+    const {field, options} = this.props;
+    const dataSourceConfig = {text: 'name', value: '_id'};
     //Value is array of strings, but must be array of objects from options
-    let value = field.value === undefined ? [] : field.value;
+    let value = field.value || [];
     value = _.map(value, (chipValue) => {
-      return _.find(options, {[dataSourceConfig.value]: chipValue});
+      return _.find(options, {_id: chipValue._id});
     });
     value = _.compact(value);
     return (
@@ -72,19 +71,13 @@ class ChipInput extends Component {
 
   onRequestAdd = (chip) => {
     let value = this.props.field.value || [];
-    // console.log('On chip add', value, chip);
-    const chipValue = chip[this.props.dataSourceConfig.value];
-    if (chipValue)
-      value = [...value, chipValue];
-    this.props.field.onChange(value);
+    this.props.field.onChange([...value, chip]);
   };
 
-  onRequestDelete = (chip) => {
+  onRequestDelete = (_id) => {
     const {field: {value}} = this.props;
     // console.log('On chip delete', value, chip);
-    this.props.field.onChange(
-      _.filter(value, (item) => item !== chip)
-    );
+    this.props.field.onChange(_.reject(value, {_id}));
   };
 
   updateDirection = () => {

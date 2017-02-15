@@ -19,6 +19,7 @@ class Form extends Component {
     multilang: PropTypes.bool,
     language: PropTypes.string,
     onLanguageChange: PropTypes.func,
+    transformBeforeSubmit: PropTypes.func,
   };
 
   static defaultProps = {
@@ -27,6 +28,7 @@ class Form extends Component {
     initialData: {},
     multilang: true,
     language: 'en',
+    transformBeforeSubmit: _.identity,
   };
 
   static childContextTypes = {
@@ -103,7 +105,7 @@ class Form extends Component {
   onSubmit = async () => {
     let {method, multilang, language, onSubmit} = this.props;
 
-    let data = {data: this.state.data};
+    let data = {data: this.props.transformBeforeSubmit(this.state.data)};
     if (multilang)
       data.language = language;
 

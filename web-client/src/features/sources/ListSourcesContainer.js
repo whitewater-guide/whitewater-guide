@@ -24,8 +24,8 @@ const ListSourcesQuery = gql`
 `;
 
 const RemoveSourceMutation = gql`
-  mutation removeSource($sourceId: ID!){
-    removeSource(sourceId: $sourceId)
+  mutation removeSource($_id: ID!){
+    removeSource(_id: $_id)
   }
 `;
 
@@ -43,16 +43,16 @@ export default compose(
   withRouter,
   graphql(
     ListSourcesQuery, {
-      props: ({data: {sources, jobsReport, loading}}) => ({sources, jobsReport, ready: !loading})
+      props: ({data: {sources = [], jobsReport, loading}}) => ({sources, jobsReport, ready: !loading})
     }
   ),
   graphql(
     RemoveSourceMutation, {
-      props: ({mutate}) => ({removeSource: sourceId => mutate({
-        variables: {sourceId},
+      props: ({mutate}) => ({removeSource: _id => mutate({
+        variables: {_id},
         updateQueries: {
           listSources: (prev) => {
-            return {...prev, sources: _.filter(prev.sources, v => v._id != sourceId), jobsReport: _.filter(prev.jobsReport, v => v._id != sourceId)};
+            return {...prev, sources: _.filter(prev.sources, v => v._id !== _id), jobsReport: _.filter(prev.jobsReport, v => v._id !== _id)};
           }
         },
       })}),

@@ -5,6 +5,7 @@ import {filter} from 'graphql-anywhere';
 import moment from 'moment';
 import {withAdmin} from '../users';
 import {withRouter} from 'react-router';
+import {Fragments as CoreFragments} from '../../core/queries';
 
 const sourceDetailsFragment = gql`
   fragment SourceDetails on Source {
@@ -28,17 +29,17 @@ const sourceDetails = gql`
     }
     
     regions(language: $language) {
-      _id,
-      name
+      ...NamedFragment
     }
   
-    scripts: listScripts {
+    scripts {
       script
       harvestMode
       error
     }
   }
   ${sourceDetailsFragment}
+  ${CoreFragments.Named}
 `;
 
 const upsertSource = gql`
@@ -72,9 +73,14 @@ export default compose(
         forceFetch: true,//i18n's problem with caching
         variables: {_id: sourceId, language},
       }),
-      props: ({data: {source, regions, scripts, loading}}) => {
-        const initialData = source ? filter(sourceDetailsFragment, source) : {cron: `${(moment().minute() + 2) % 60} * * * *`};
-        return {initialData, regions, scripts, ready: !loading}
+//      props: ({data: {source, regions, scripts, loading}}) => {
+//        const initialData = source ? filter(sourceDetailsFragment, source) : {cron: `${(moment().minute() + 2) % 60} * * * *`};
+      props: ({data: {loading, ...data}}) => {
+        if (!loading)
+          data = filter(sourceDetails, data);
+        let  {source, regions, scripts} = data;
+        const initialData = source || {cron: `${(moment().minute() + 2) % 60} * * * *`};
+        return {initialData, regions, scripts, loading}
       },
     }
   ),

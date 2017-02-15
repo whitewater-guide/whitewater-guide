@@ -3,7 +3,7 @@ enum HarvestMode {
   ONE_BY_ONE,
 }
 
-type Source {
+type Source implements INamed {
   _id: ID!
   name: String!
   termsOfUse: String
@@ -11,7 +11,7 @@ type Source {
   cron: String
   harvestMode: HarvestMode!
   url: String
-  enabled: Boolean!
+  enabled: Boolean
   regions: [Region]!
   gauges: [Gauge]!
 }
@@ -23,7 +23,7 @@ input SourceInput {
   script: String!
   cron: String
   harvestMode: HarvestMode!
-  regions: [RefInput]!
+  regions: [RefInput]
   url: String
 }
 
@@ -34,7 +34,7 @@ type Query {
 
 type Mutation {
   upsertSource(source:SourceInput!, language: String):Source
-  removeSource(sourceId:ID!):Boolean
+  removeSource(_id:ID!):Boolean
   autofillSource(sourceId:ID!):Boolean
   generateSourceSchedule(sourceId:ID!):Boolean
   setSourceEnabled(sourceId:ID!, enabled:Boolean!): Source

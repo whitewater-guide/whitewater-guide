@@ -14,8 +14,8 @@ const ListRegionsQuery = gql`
 `;
 
 const RemoveRegionMutation = gql`
-  mutation removeRegion($regionId: ID!){
-    removeRegion(regionId: $regionId)
+  mutation removeRegion($_id: ID!){
+    removeRegion(_id: $_id)
   }
 `;
 
@@ -38,11 +38,11 @@ export default compose(
   ),
   graphql(
     RemoveRegionMutation, {
-      props: ({mutate}) => ({removeRegion: regionId => mutate({
-        variables: {regionId},
+      props: ({mutate}) => ({removeRegion: _id => mutate({
+        variables: {_id},
         updateQueries: {
           listRegions: (prev) => {
-            return {...prev, regions: _.filter(prev.regions, v => v._id != regionId)};
+            return {...prev, regions: _.filter(prev.regions, v => v._id !== _id)};
           }
         },
       })}),

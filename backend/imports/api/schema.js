@@ -24,6 +24,11 @@ const SchemaDefinition = `
     name: String
   }
   
+  interface INamed {
+    _id: ID!,
+    name: String!
+  }
+  
   schema {
     query: Query,
     mutation: Mutation,

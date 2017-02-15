@@ -8,7 +8,7 @@ class SourceForm extends Component {
 
   static propTypes = {
     ...Form.propTypes,
-    ready: PropTypes.bool,
+    loading: PropTypes.bool,
     regions: PropTypes.array,
     scripts: PropTypes.array,
   };
@@ -18,8 +18,8 @@ class SourceForm extends Component {
   };
 
   render() {
-    let {regions, ready, scripts, ...props} = this.props;
-    if (!ready)
+    let {regions, loading, scripts, ...props} = this.props;
+    if (loading)
       return null;
 
     return (
@@ -46,7 +46,6 @@ class SourceForm extends Component {
     return {
       ...data,
       harvestMode: _.find(this.props.scripts, {script: data.script}).harvestMode,
-      regions: data.regions.map(_id => ({ _id })),
     };
   };
 }
