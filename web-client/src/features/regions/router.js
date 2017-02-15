@@ -1,17 +1,30 @@
-import React from 'react';
-import {Route, IndexRoute, IndexRedirect} from 'react-router';
 import ListRegions from "./ListRegions";
 import ViewRegionLeft from "./ViewRegionLeft";
 import RegionMapPage from "./RegionMapPage";
 import RegionForm from "./RegionForm";
 
-export const regionsRoutes = (
-  <Route path="regions" name="Regions">
-    <IndexRoute breadcrumbIgnore={true} components={{content: ListRegions}}/>
-    <Route path=":regionId" breadcrumbName=":regionId">
-      <IndexRedirect to="/regions/:regionId/map"/>
-      <Route path="settings" name="Settings" components={{content: RegionForm, left: ViewRegionLeft}}/>
-      <Route path="map" name="Map" components={{content: RegionMapPage, left: ViewRegionLeft}}/>
-    </Route>
-  </Route>
-);
+export const regionsRoutes = [
+  {
+    path: '/regions',
+    exact: true,
+    content: ListRegions,
+  },
+  {
+    path: '/regions/:regionId',
+    exact: true,
+    content: RegionMapPage,
+    left: ViewRegionLeft,
+  },
+  {
+    path: '/regions/:regionId/map',
+    content: RegionMapPage,
+    left: ViewRegionLeft,
+  },
+  {
+    path: '/regions/:regionId/settings',
+    exact: true,
+    content: RegionForm,
+    left: ViewRegionLeft,
+  },
+];
+

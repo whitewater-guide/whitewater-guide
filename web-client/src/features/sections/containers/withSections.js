@@ -59,9 +59,9 @@ export function withSections(options) {
   };
 
   const hocs = _.compact([
-    withProps(({riverId, regionId, location, params}) => ({
-      regionId: regionId || params.regionId || location.query.regionId,
-      riverId: riverId || params.riverId || location.query.riverId,
+    withProps(({riverId, regionId, match}) => ({
+      regionId: regionId || match.params.regionId,
+      riverId: riverId || match.params.riverId,
     })),
     !!sort && withState('sortOptions','setSortOptions', {sortBy: sort, sortDirection: 'ASC'}),
     !!sort && withHandlers({

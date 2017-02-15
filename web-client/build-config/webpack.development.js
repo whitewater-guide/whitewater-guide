@@ -5,9 +5,15 @@ import {PATHS} from './webpack.commons';
 const PORT = 4000;
 
 export const config = {
+  entry: [
+    'react-hot-loader/patch',
+    `webpack-dev-server/client?http://localhost:${PORT}`,
+    'webpack/hot/only-dev-server',
+  ],
   output: {
     path: PATHS.build,
     filename: '[name].js',
+    publicPath: '/',
   },
   module: {
     rules: [
@@ -20,6 +26,7 @@ export const config = {
   devServer: {
     compress: true,
     contentBase: PATHS.public,
+    publicPath: '/',
     historyApiFallback: true,
     hot: true,
     port: PORT,

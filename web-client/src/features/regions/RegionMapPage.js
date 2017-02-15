@@ -1,5 +1,4 @@
 import React, {Component, PropTypes} from 'react';
-import {withRouter} from 'react-router';
 import {Map} from '../../core/components';
 import _ from 'lodash';
 import {compose} from 'recompose';
@@ -72,7 +71,6 @@ const styles = {
 };
 
 export default compose(
-  withRouter,
   withRegion({withBounds: true, withPOIs: false}),
   withSections({withGeo: true, sort: null}),
 )(RegionMapPage);

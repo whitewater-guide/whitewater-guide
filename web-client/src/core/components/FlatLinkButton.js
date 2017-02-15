@@ -1,26 +1,24 @@
 import React, {Component, PropTypes} from 'react';
 import FlatButton from 'material-ui/FlatButton';
-import {withRouter} from 'react-router';
-import omit from 'lodash/omit';
+import {Route} from 'react-router-dom';
 
-class FlatLinkButton extends Component {
+export default class FlatLinkButton extends Component {
   static propTypes = {
     to: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-    router: PropTypes.object,
   };
 
   render() {
-    const buttonProps = omit(this.props, ['to', 'router', 'params', 'location', 'routes']);
     return (
-      <FlatButton {...buttonProps} onTouchTap={this.onTouchTap}/>
+      <Route children={this.renderChildren}/>
     );
   }
 
-  onTouchTap = () => {
-    const {to, router} = this.props;
-    router.push(to);
+  renderChildren = ({push}) => {
+    const {to, ...buttonProps} = this.props;
+    const onTouchTap = () => push(to);
+    return (
+      <FlatButton {...buttonProps} onTouchTap={onTouchTap}/>
+    );
   };
 
 }
-
-export default withRouter(FlatLinkButton);

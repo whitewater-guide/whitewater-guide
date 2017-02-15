@@ -20,8 +20,8 @@ const sectionDetails = gql`
 export function withSection(options) {
   const {withGeo = false, withDescription = false, propName = 'section'} = options;
   return compose(
-    withProps(({sectionId, params, location}) => ({
-      sectionId: sectionId || params.sectionId || location.query.sectionId,
+    withProps(({sectionId, match}) => ({
+      sectionId: sectionId || match.params.sectionId,
     })),
     graphql(
       sectionDetails,

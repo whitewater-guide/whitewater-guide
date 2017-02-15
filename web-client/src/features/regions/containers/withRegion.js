@@ -27,8 +27,8 @@ const regionDetails = gql`
 export function withRegion(options) {
   const {withBounds = false, withPOIs = true, propName = 'region'} = options;
   return compose(
-    withProps(props => ({
-      regionId: props.regionId || props.params.regionId || props.location.query.regionId
+    withProps(({regionId, match, location}) => ({
+      regionId: regionId || match.params.regionId || location.query.regionId
     })),
     graphql(
       regionDetails,

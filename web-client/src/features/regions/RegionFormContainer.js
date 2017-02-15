@@ -19,18 +19,17 @@ const editRegion = gql`
 
 export default compose(
   withAdmin(true),
-  withRouter,
-  withProps(props => ({
-    _id: props.params.regionId,
-    multilang: !!props.params.regionId,
-    title: props.params.regionId ? "Region settings" : "New region",
-    submitLabel: props.params.regionId ? "Update" : "Create",
+  withProps(({match: {regionId}}) => ({
+    _id: regionId,
+    multilang: !!regionId,
+    title: regionId ? "Region settings" : "New region",
+    submitLabel: regionId ? "Update" : "Create",
   })),
   withState('language', 'setLanguage', 'en'),
   withHandlers({
     onLanguageChange: props => language => props.setLanguage(language),
-    onSubmit: props => () => props.router.goBack(),
-    onCancel: props => () => props.router.goBack(),
+    onSubmit: props => () => props.goBack(),
+    onCancel: props => () => props.goBack(),
   }),
   withRegion({propName: 'initialData'}),
   graphql(

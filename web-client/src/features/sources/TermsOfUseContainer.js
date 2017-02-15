@@ -14,8 +14,8 @@ const sourceTermOfUse = gql`
 export default graphql(
   sourceTermOfUse,
   {
-    options: ({params, language}) => ({
-      variables: {_id: params.sourceId, language},
+    options: ({match: {params: {sourceId}}, language}) => ({
+      variables: {_id: sourceId, language},
     }),
     props: ({data: {source}}) => {
       return {source};

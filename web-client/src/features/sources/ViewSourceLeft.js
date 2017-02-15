@@ -5,15 +5,13 @@ import {FlatLinkButton} from '../../core/components';
 class ViewSourceLeft extends Component {
 
   static propTypes = {
-    params: PropTypes.shape({
-      sourceId: PropTypes.string,
-    }),
     sourceLeft: PropTypes.element,
     admin: PropTypes.bool,
+    match: PropTypes.object,
   };
 
   render() {
-    const {admin, params: {sourceId}} = this.props;
+    const {admin, match: {params: {sourceId}}} = this.props;
     const toGauges = {
       pathname: '/gauges',
       query: {

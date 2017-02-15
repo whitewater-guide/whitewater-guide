@@ -12,7 +12,8 @@
     "development": {
       "plugins": [
         "import-asserts",
-        "transform-runtime"
+        "transform-runtime",
+        "react-hot-loader/babel"
       ]
     }
   }

@@ -55,11 +55,11 @@ export default compose(
   withAdmin(true),
   withRouter,
   withState('language', 'setLanguage', 'en'),
-  withProps(props => ({
-    sourceId: props.params.sourceId,
-    multilang: !!props.params.sourceId,
-    title: props.params.sourceId ? "Source settings" : "New source",
-    submitLabel: props.params.sourceId ? "Update" : "Create",
+  withProps(({match: {params: {sourceId}}}) => ({
+    sourceId: sourceId,
+    multilang: !!sourceId,
+    title: sourceId ? "Source settings" : "New source",
+    submitLabel: sourceId ? "Update" : "Create",
   })),
   withHandlers({
     onLanguageChange: props => language => props.setLanguage(language),
@@ -73,8 +73,6 @@ export default compose(
         forceFetch: true,//i18n's problem with caching
         variables: {_id: sourceId, language},
       }),
-//      props: ({data: {source, regions, scripts, loading}}) => {
-//        const initialData = source ? filter(sourceDetailsFragment, source) : {cron: `${(moment().minute() + 2) % 60} * * * *`};
       props: ({data: {loading, ...data}}) => {
         if (!loading)
           data = filter(sourceDetails, data);

@@ -9,7 +9,6 @@ class ListRegions extends Component {
   static propTypes = {
     regions: PropTypes.array,
     admin: PropTypes.bool,
-    router: PropTypes.object,
     removeRegion: PropTypes.func,
     createRegion: PropTypes.func,
   };
@@ -60,7 +59,7 @@ class ListRegions extends Component {
     if (!admin)
       return null;
     const deleteHandler = () => removeRegion(region._id);
-    const editHandler = () => this.props.router.push(`/regions/${region._id}/settings`);
+    const editHandler = () => this.props.push(`/regions/${region._id}/settings`);
     return (
       <TableRowColumn>
         <div onClick={(e) => { e.preventDefault(); e.stopPropagation(); } }>
@@ -72,10 +71,10 @@ class ListRegions extends Component {
   };
 
   onCellClick = (rowId) => {
-    const {router, regions} = this.props;
+    const {push, regions} = this.props;
     if (rowId >= regions.length)
       return;
-    router.push(`/regions/${regions[rowId]._id}`);
+    push(`/regions/${regions[rowId]._id}`);
   };
 
   renderNewRegionRow = () => {
@@ -99,10 +98,10 @@ class ListRegions extends Component {
   };
 
   addNewRegion = () => {
-    const {router, createRegion} = this.props;
+    const {push, createRegion} = this.props;
     createRegion(this.state.newRegionName)
       .then(newRegion => {
-        router.push(`/regions/${newRegion._id}`)
+        push(`/regions/${newRegion._id}`)
       });
   };
 }

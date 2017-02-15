@@ -1,7 +1,6 @@
 import {graphql, compose} from 'react-apollo';
 import gql from 'graphql-tag';
 import {withAdmin} from '../users';
-import {withRouter} from 'react-router';
 import _ from 'lodash';
 
 const ListSourcesQuery = gql`
@@ -40,7 +39,6 @@ const SetSourceEnabledMutation = gql`
 
 export default compose(
   withAdmin(),
-  withRouter,
   graphql(
     ListSourcesQuery, {
       props: ({data: {sources = [], jobsReport, loading}}) => ({sources, jobsReport, ready: !loading})

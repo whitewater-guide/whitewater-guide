@@ -5,14 +5,12 @@ import {FlatLinkButton, LeftMenuSeparator} from '../../core/components';
 class ViewRegionLeft extends Component {
 
   static propTypes = {
-    params: PropTypes.shape({
-      regionId: PropTypes.string,
-    }),
     admin: PropTypes.bool,
+    match: PropTypes.object,
   };
 
   render() {
-    const {params: {regionId}} = this.props;
+    const {match: {params: {regionId}}} = this.props;
     const toSections = {
       pathname: '/sections',
       query: {

@@ -6,7 +6,6 @@ class TermsOfUse extends Component {
 
   static propTypes = {
     source: PropTypes.object,
-    params: PropTypes.object,
   };
 
   render() {

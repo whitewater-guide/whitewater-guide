@@ -1,11 +1,12 @@
 import React, {Component} from "react";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import theme from "./styles/theme";
-import Router from "./Router";
 import ApolloClient from 'apollo-client';
 import {ApolloProvider} from 'react-apollo';
 import FacebookProvider from './FacebookProvider';
 import {meteorClientConfig} from './config/apollo-client';
+import {BrowserRouter} from 'react-router-dom';
+import {RootLayout} from "./layouts";
 
 const client = new ApolloClient(meteorClientConfig());
 
@@ -15,7 +16,9 @@ export default class App extends Component {
       <MuiThemeProvider muiTheme={theme}>
         <FacebookProvider appId={process.env.facebook.appId}>
           <ApolloProvider client={client}>
-            <Router/>
+            <BrowserRouter>
+              <RootLayout/>
+            </BrowserRouter>
           </ApolloProvider>
         </FacebookProvider>
       </MuiThemeProvider>

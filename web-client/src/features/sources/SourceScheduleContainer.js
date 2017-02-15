@@ -31,9 +31,9 @@ export default compose(
   graphql(
     sourceSchedule,
     {
-      options: ({params}) => ({
+      options: ({match: {params: sourceId}}) => ({
         forceFetch: true,
-        variables: {_id: params.sourceId},
+        variables: {_id: sourceId},
       }),
       props: ({data: {source, jobs, loading}}) => {
         const gauges = source ? source.gauges : [];
