@@ -1,7 +1,6 @@
 import {Regions} from '../regions';
 import {Gauges, upsertGauge} from '../gauges';
 import {Sources} from './collection';
-import {Roles} from 'meteor/alanning:roles';
 import {launchScript} from '../scripts';
 import {Jobs, generateSchedule} from '../jobs';
 import _ from 'lodash';
@@ -78,11 +77,11 @@ function upsertSource(root, {source: {_id, ...source}, language}) {
 export const sourcesResolvers = {
   Query: {
     sources: (root, args, context) => {
-      const fields = Roles.userIsInRole(context.userId, 'admin') ? undefined : publicFields;
+      const fields = context.isAdmin ? undefined : publicFields;
       return Sources.find({}, {sort: {name: 1}, fields})
     },
     source: (root, {_id}, context) => {
-      const fields = Roles.userIsInRole(context.userId, 'admin') ? undefined : publicFields;
+      const fields = context.isAdmin ? undefined : publicFields;
       return Sources.findOne({_id}, {fields});
     },
   },

@@ -1,7 +1,6 @@
 import {Sources} from '../sources';
 import {Measurements} from '../measurements';
 import {Gauges} from './collection';
-import {Roles} from 'meteor/alanning:roles';
 import * as methods from './methods';
 import _ from 'lodash';
 
@@ -13,7 +12,7 @@ const publicFields = {
 };
 
 //TODO: Admin method!!
-function upsertGauge(root, data, context) {
+function upsertGauge(root, data) {
   return methods.upsertGauge(data);
 }
 
@@ -37,12 +36,12 @@ export const gaugesResolvers = {
   Query: {
     gauges: (root, {sourceId, language, skip = 0, limit = 10}, context) => {
       const query = sourceId ? {sourceId} : {};
-      const fields = Roles.userIsInRole(context.userId, 'admin') ? undefined : publicFields;
+      const fields = context.isAdmin ? undefined : publicFields;
       limit = _.clamp(limit, 10, 100);
       return Gauges.find(query, {fields, sort: {name: 1}, lang: language, skip, limit});
     },
     gauge: (root, {_id, language}, context) => {
-      const fields = Roles.userIsInRole(context.userId, 'admin') ? undefined : publicFields;
+      const fields = context.isAdmin ? undefined : publicFields;
       let result = Gauges.findOne({_id}, {fields, lang: language});
       return result;
     },

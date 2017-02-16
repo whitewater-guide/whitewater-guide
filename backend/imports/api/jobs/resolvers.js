@@ -1,15 +1,14 @@
-import {Roles} from 'meteor/alanning:roles';
 import {Jobs} from './index';
 
 export const jobsResolvers = {
   Query: {
     jobs: (root, {sourceId}, context) => {
-      if (Roles.userIsInRole(context.userId, 'admin'))
+      if (!context.isAdmin)
         return [];
       return Jobs.find({"data.sourceId": sourceId}, {fields: {data: 1, status: 1, updated: 1, after: 1, result: 1}});
     },
     jobsReport: (root, {sourceId}, context) => {
-      if (!Roles.userIsInRole(context.userId, 'admin'))
+      if (!context.isAdmin)
         return [];
       let match = { type: 'harvest', status: { $in: ['running', 'ready', 'waiting'] } };
       if (sourceId)
