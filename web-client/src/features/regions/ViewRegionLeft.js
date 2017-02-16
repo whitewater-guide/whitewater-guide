@@ -1,16 +1,18 @@
 import React, {Component, PropTypes} from 'react';
 import {withAdmin} from '../users';
+import {withFeatureIds} from '../../core/hoc';
+import {compose} from 'recompose';
 import {FlatLinkButton, LeftMenuSeparator} from '../../core/components';
 
 class ViewRegionLeft extends Component {
 
   static propTypes = {
     admin: PropTypes.bool,
-    match: PropTypes.object,
+    regionId: PropTypes.string,
   };
 
   render() {
-    const {match: {params: {regionId}}} = this.props;
+    const {regionId, admin} = this.props;
     const toSections = {pathname: '/sections', search: `?regionId=${regionId}`};
     const toRivers = {pathname: '/rivers', search: `?regionId=${regionId}`};
     const toNewRiver = {pathname: '/rivers/new', search: `?regionId=${regionId}`};
@@ -21,9 +23,9 @@ class ViewRegionLeft extends Component {
         <FlatLinkButton secondary={true} to={`/regions/${regionId}/settings`} label="Region settings"/>
         <FlatLinkButton secondary={true} to={toRivers} label="Region rivers"/>
         <FlatLinkButton secondary={true} to={toSections} label="Region sections"/>
-        <LeftMenuSeparator/>
-        <FlatLinkButton secondary={true} to={toNewRiver} label="New river"/>
-        <FlatLinkButton secondary={true} to={toNewSection} label="New section"/>
+        {admin && <LeftMenuSeparator/> }
+        {admin && <FlatLinkButton secondary={true} to={toNewRiver} label="New river"/>}
+        {admin && <FlatLinkButton secondary={true} to={toNewSection} label="New section"/>}
       </div>
     );
   }
@@ -38,4 +40,7 @@ const styles = {
 
 };
 
-export default withAdmin()(ViewRegionLeft);
+export default compose(
+  withAdmin(),
+  withFeatureIds(),
+)(ViewRegionLeft);
