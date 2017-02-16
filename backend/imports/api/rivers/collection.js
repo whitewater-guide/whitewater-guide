@@ -5,7 +5,7 @@ import _ from 'lodash';
 import {registerHooks} from "./hooks";
 
 const i18Schema = {
-  name: String,
+  name: {type: String, required: true},
   description: String,
 };
 
@@ -18,7 +18,7 @@ const baseSchema = {
 const dbSchema = _.merge(
   baseSchema,
   {
-    name: {required: true, index: true},
+    name: {index: true},
     regionId: {required: true, index: true},
   },
   metaSchema(),

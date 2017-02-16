@@ -2,21 +2,12 @@ import React from 'react';
 import {FlatLinkButton, LeftMenuSeparator} from '../components';
 import {Route, Switch, Link} from 'react-router-dom';
 import {indigo500} from 'material-ui/styles/colors';
-import {regionsRoutes} from '../../features/regions';
-import {sourcesRoutes} from '../../features/sources';
-import {sectionsRoutes} from '../../features/sections';
-import {gaugeRoutes} from '../../features/gauges';
+import {allRoutes} from './routes';
 
 export class LeftMenu extends React.Component {
   static propTypes = {};
 
   render() {
-    const allRoutes = [
-      ...sourcesRoutes,
-      ...regionsRoutes,
-      ...sectionsRoutes,
-      ...gaugeRoutes,
-    ];
     return (
       <div style={styles.leftCol}>
         <div style={styles.logo}>

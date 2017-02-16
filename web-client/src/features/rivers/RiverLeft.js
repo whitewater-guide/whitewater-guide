@@ -5,19 +5,15 @@ import {FlatLinkButton} from '../../core/components';
 class RiverLeft extends Component {
 
   static propTypes = {
-    params: PropTypes.shape({
-      riverId: PropTypes.string,
-    }),
+    riverId: PropTypes.string,
     admin: PropTypes.bool,
   };
 
   render() {
-    const {admin, params: {riverId}} = this.props;
+    const {admin, riverId} = this.props;
     const toNewSection = {
       pathname: '/sections/new',
-      query: {
-        riverId,
-      },
+      search: '?riverId=${riverId}',
     };
     return (
       <div style={styles.container}>

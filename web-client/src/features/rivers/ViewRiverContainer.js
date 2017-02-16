@@ -1,11 +1,10 @@
 import {graphql, compose} from 'react-apollo';
 import gql from 'graphql-tag';
-import {mapProps} from 'recompose';
+import {withFeatureIds} from '../../core/hoc';
 
-//TODO: include section in query, so that sections list doesn't have to make own request
 const ViewRiverQuery = gql`
-  query viewRiver($_id:ID!, $language: String) {
-    river(_id:$_id, language:$language) {
+  query viewRiver($riverId:ID!, $language: String) {
+    river(_id:$riverId, language:$language) {
       _id
       name
       description,
@@ -27,10 +26,7 @@ const ViewRiverQuery = gql`
 `;
 
 export default compose(
-  mapProps(({params, ...props}) => ({
-    ...props,
-    _id: params.riverId,
-  })),
+  withFeatureIds('river'),
   graphql(
     ViewRiverQuery, {
       props: ({data: {river, loading}}) => ({river, loading}),

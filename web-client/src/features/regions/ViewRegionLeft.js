@@ -11,30 +11,10 @@ class ViewRegionLeft extends Component {
 
   render() {
     const {match: {params: {regionId}}} = this.props;
-    const toSections = {
-      pathname: '/sections',
-      query: {
-        regionId,
-      },
-    };
-    const toRivers = {
-      pathname: '/rivers',
-      query: {
-        regionId,
-      },
-    };
-    const toNewRiver = {
-      pathname: '/rivers/new',
-      query: {
-        regionId,
-      },
-    };
-    const toNewSection = {
-      pathname: '/sections/new',
-      query: {
-        regionId,
-      },
-    };
+    const toSections = {pathname: '/sections', search: `?regionId=${regionId}`};
+    const toRivers = {pathname: '/rivers', search: `?regionId=${regionId}`};
+    const toNewRiver = {pathname: '/rivers/new', search: `?regionId=${regionId}`};
+    const toNewSection = {pathname: '/sections/new', search: `?regionId=${regionId}`};
     return (
       <div style={styles.container}>
         <FlatLinkButton secondary={true} to={`/regions/${regionId}/map`} label="Region map"/>

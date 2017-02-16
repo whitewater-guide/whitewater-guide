@@ -3,7 +3,7 @@ import {withState, withHandlers, withProps, compose} from 'recompose';
 import gql from 'graphql-tag';
 import {filter} from 'graphql-anywhere';
 import {withAdmin} from '../users';
-import {withRouter} from 'react-router';
+import {withFeatureIds} from '../../core/hoc';
 
 const riverDetailsFragment = gql`
   fragment RiverDetails on River {
@@ -42,34 +42,34 @@ const upsertRiver = gql`
 
 export default compose(
   withAdmin(true),
-  withRouter,
+  withFeatureIds(),
   withState('language', 'setLanguage', 'en'),
-  withProps(props => ({
-    _id: props.params.riverId,
-    multilang: !!props.params.riverId,
-    title: props.params.riverId ? "River settings" : "New river",
-    submitLabel: props.params.riverId ? "Update" : "Create",
+  withProps(({riverId}) => ({
+    _id: riverId,
+    multilang: !!riverId,
+    title: riverId ? "River settings" : "New river",
+    submitLabel: riverId ? "Update" : "Create",
   })),
   withHandlers({
     onLanguageChange: props => language => props.setLanguage(language),
-    onSubmit: props => result => (!props._id && result && result._id) ? props.router.replace(`/rivers/${result._id}`) : props.router.goBack(),
-    onCancel: props => () => props.router.goBack(),
+    onSubmit: props => result => (!props._id && result && result._id) ? props.replace(`/rivers/${result._id}`) : props.goBack(),
+    onCancel: props => () => props.goBack(),
   }),
   graphql(
     riverDetails,
     {
-      options: ({_id, language}) => ({
+      options: ({riverId, language}) => ({
         forceFetch: true,
-        variables: {_id, language}
+        variables: {_id: riverId, language}
       }),
       props: ({data: {river, regions, loading}, ownProps}) => {
         let initialData = {};
-        if (river){//Edit existing river - need to flatten region id
+        if (river) {//Edit existing river - need to flatten region id
           const {region, ...rest} = filter(riverDetailsFragment, river);
           initialData = {...rest, regionId: region._id};
         }
         else {//New river - region might be preselected
-          initialData = {regionId: ownProps.location.query.regionId};
+          initialData = {regionId: ownProps.regionId};
         }
         return {initialData, regions, loading};
       },

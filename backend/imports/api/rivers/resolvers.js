@@ -9,7 +9,7 @@ function upsertRiver(root, data){
   if (_id)
     Rivers.updateTranslations(_id, {[language]: river});
   else
-    _id = Rivers.insertTranslations(data);
+    _id = Rivers.insertTranslations(river);
   return Rivers.findOne(_id);
 }
 

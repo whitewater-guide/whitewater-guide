@@ -1,24 +1,22 @@
 import React, {Component, PropTypes} from "react";
-import {withAdmin} from "../users";
 import {FlatLinkButton} from "../../core/components";
 import _ from 'lodash';
+import container from './ListRIversLeftContainer';
 
 class ListRiversLeft extends Component {
 
   static propTypes = {
     admin: PropTypes.bool,
-    router: PropTypes.object,
-    location: PropTypes.object,
+    regionId: PropTypes.string,
   };
 
   render() {
-    const {admin, location} = this.props;
+    const {admin, regionId} = this.props;
     const toNewRiver = {
       pathname: '/rivers/new',
     };
-    const regionId = _.get(location, 'query.regionId');
     if (regionId)
-      toNewRiver.query = {regionId};
+      toNewRiver.search = `?regionId=${regionId}`;
     return (
       <div style={styles.container}>
         {admin && <FlatLinkButton secondary={true} to={toNewRiver} label="New River" />}
@@ -35,4 +33,4 @@ const styles = {
   },
 };
 
-export default withAdmin()(ListRiversLeft);
+export default container(ListRiversLeft);

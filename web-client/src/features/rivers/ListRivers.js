@@ -8,7 +8,7 @@ class ListRivers extends React.Component {
     rivers: PropTypes.array.isRequired,
     admin: PropTypes.bool.isRequired,
     loading: PropTypes.bool.isRequired,
-    router: PropTypes.object.isRequired,
+    push: PropTypes.func.isRequired,
     loadMore: PropTypes.func.isRequired,
     count: PropTypes.number.isRequired,
     removeRiver: PropTypes.func,
@@ -63,7 +63,7 @@ class ListRivers extends React.Component {
   getRegion = ({rowData}) => rowData.region.name;
 
   renderControls = ({rowData}) => {
-    const editHandler = () => this.props.router.push(`/rivers/${rowData._id}/settings`);
+    const editHandler = () => this.props.push(`/rivers/${rowData._id}/settings`);
     const deleteHandler = () => this.props.removeRiver(rowData._id);
     return (
       <span onClick={(event) => event.stopPropagation()}>
@@ -73,7 +73,7 @@ class ListRivers extends React.Component {
     );
   };
 
-  onRowClick = ({index}) => this.props.router.push(`/rivers/${this.props.rivers[index]._id}`);
+  onRowClick = ({index}) => this.props.push(`/rivers/${this.props.rivers[index]._id}`);
 }
 
 const styles = {

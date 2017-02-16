@@ -4,7 +4,7 @@ import GaugeForm from "./GaugeForm";
 import ViewGauge from "./ViewGauge";
 import ViewGaugeLeft from "./ViewGaugeLeft";
 
-export const gaugeRoutes = [
+export const gaugesRoutes = [
   {
     path: '/gauges',
     exact: true,

@@ -2,6 +2,7 @@ import {graphql, compose} from 'react-apollo';
 import gql from 'graphql-tag';
 import {withAdmin} from '../users';
 import {withRouter} from 'react-router';
+import {withFeatureIds} from '../../core/hoc';
 import {withProps, withState, branch} from 'recompose';
 import _ from 'lodash';
 
@@ -30,7 +31,7 @@ const RemoveRiverMutation = gql`
 
 export default compose(
   withState('language', 'setLanguage', 'en'),
-  withProps(props => ({regionId: props.location.query.regionId})),
+  withFeatureIds(),
   withAdmin(),
   withRouter,
   graphql(

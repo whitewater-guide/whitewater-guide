@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Router, Route, IndexRedirect, browserHistory} from "react-router";
 import {MainLayout, Page403Unauthorized} from "./layouts";
-import {gaugeRoutes} from "../features/gauges";
+import {gaugesRoutes} from "../features/gauges";
 import {sourcesRoutes} from "../features/sources";
 import {regionsRoutes} from "../features/regions";
 import {riversRoutes} from "../features/rivers";
@@ -16,7 +16,7 @@ export default class AppRouter extends Component {
         <Route path="/" name="Whitewater" component={MainLayout}>
           <IndexRedirect to="/regions"/>
           {regionsRoutes}
-          {gaugeRoutes}
+          {gaugesRoutes}
           {riversRoutes}
           {sectionsRoutes}
           {sourcesRoutes}
