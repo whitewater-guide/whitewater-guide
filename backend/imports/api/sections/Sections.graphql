@@ -21,7 +21,7 @@ type Section {
   name: String!,
   description: String,
   season: String,
-  seasonNumeric: [Int]!,
+  seasonNumeric: [Int],
 
   region: Region,
   river: River,
@@ -39,13 +39,13 @@ type Section {
   difficultyXtra: String,
   rating: Float,
   #Supply tags
-  supplyTagIds: [ID]!,
+  supplyTags: [Tag],
   #Kayaking description tags
-  kayakingTagIds: [ID]!,
+  kayakingTags: [Tag],
   #Hazards tags
-  hazardsTagIds: [ID]!,
+  hazardsTags: [Tag],
   #Misc tags
-  miscTagIds: [ID]!,
+  miscTags: [Tag],
   createdAt: Date,
   #This is user id, but for now it is string
   createdBy: String,
@@ -93,10 +93,10 @@ input SectionInput {
   media: [MediaInput],
   pois: [PointInput],
 
-  supplyTagIds: [ID]!
-  kayakingTagIds: [ID]!
-  hazardsTagIds: [ID]!
-  miscTagIds: [ID]!
+  supplyTags: [RefInput]
+  kayakingTags: [RefInput]
+  hazardsTags: [RefInput]
+  miscTags: [RefInput]
 }
 
 input SectionSearchTerms {

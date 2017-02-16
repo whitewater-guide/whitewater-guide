@@ -8,6 +8,7 @@ export const sectionsRoutes = [
     path: '/sections',
     exact: true,
     content: ListSections,
+    left: SectionsLeft,
   },
   {
     path: '/sections/new',

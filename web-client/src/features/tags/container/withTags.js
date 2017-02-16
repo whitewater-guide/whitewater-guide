@@ -1,27 +1,24 @@
 import {graphql} from 'react-apollo';
 import gql from 'graphql-tag';
+import {filter} from 'graphql-anywhere';
 
 const allTags = gql`
   query allTags {
     supplyTags {
       _id
       name
-      slug
     }
     kayakingTags {
       _id
       name
-      slug
     }
     hazardTags {
       _id
       name
-      slug
     }
     miscTags {
       _id
       name
-      slug
     }
   }
 `;
@@ -29,8 +26,8 @@ const allTags = gql`
 export const withTags = graphql(
   allTags,
   {
-    props: ({data: {hazardTags, kayakingTags, miscTags, supplyTags, loading}}) => ({
-      hazardTags, kayakingTags, miscTags, supplyTags, tagsLoading: loading
-    }),
+    props: ({data: {loading, ...data}}) => {
+      return {...filter(allTags, data), tagsLoading: loading};
+    },
   },
 );

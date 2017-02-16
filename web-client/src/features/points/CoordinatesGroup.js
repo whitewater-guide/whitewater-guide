@@ -47,7 +47,7 @@ export class CoordinatesGroup extends Component {
           <TextField
             fullWidth={true}
             errorText={_.get(errors, 'name')}
-            value={_.get(value, 'name')}
+            value={_.get(value, 'name', '')}
             onChange={this.onNameChange}
             hintText="Name"
             floatingLabelText="Name"
@@ -69,7 +69,7 @@ export class CoordinatesGroup extends Component {
         <TextField
           fullWidth={true}
           errorText={_.get(errors, 'description')}
-          value={_.get(value, 'description')}
+          value={_.get(value, 'description', '')}
           onChange={this.onDescriptionChange}
           hintText="Description"
           multiLine={true}
@@ -83,7 +83,7 @@ export class CoordinatesGroup extends Component {
               style={styles.textInput}
               type="number"
               errorText={_.get(errors, 'coordinates.1')}
-              value={_.get(value, 'coordinates.1')}
+              value={_.get(value, 'coordinates.1', '')}
               onChange={this.onLatitudeChange}
               hintText="Latitude"
               floatingLabelText="Latitude"
@@ -94,7 +94,7 @@ export class CoordinatesGroup extends Component {
               style={styles.textInput}
               type="number"
               errorText={_.get(errors, 'coordinates.0')}
-              value={_.get(value, 'coordinates.0')}
+              value={_.get(value, 'coordinates.0', '')}
               onChange={this.onLongitudeChange}
               hintText="Longitude"
               floatingLabelText="Longitude"
@@ -105,7 +105,7 @@ export class CoordinatesGroup extends Component {
               style={styles.textInput}
               type="number"
               errorText={_.get(errors, 'altitude')}
-              value={_.get(value, 'altitude')}
+              value={_.get(value, 'altitude', '')}
               onChange={this.onAltitudeChange}
               hintText="Altitude"
               floatingLabelText="Altitude"

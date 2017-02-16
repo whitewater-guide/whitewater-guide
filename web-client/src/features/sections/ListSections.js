@@ -5,9 +5,7 @@ import {Durations} from './Durations';
 import {AdminControls} from '../../core/components';
 import {renderDifficulty} from '../../utils/TextUtils';
 import _ from 'lodash';
-import {withRouter} from 'react-router';
-import {withAdmin} from '../users';
-import {withSections} from './containers/withSections';
+import container from './ListSectionsContainer';
 
 class ListSections extends Component {
 
@@ -20,7 +18,7 @@ class ListSections extends Component {
     onSort: PropTypes.func,
     removeSection: PropTypes.func,
     loadMore: PropTypes.func.isRequired,
-    router: PropTypes.object,
+    push: PropTypes.func,
   };
 
   static defaultProps = {
@@ -58,7 +56,7 @@ class ListSections extends Component {
                   onRowClick={this.onRowClick}
                 >
                   <Column width={200} flexGrow={1} label='Name' dataKey="name" cellDataGetter={this.renderName}/>
-                  <Column width={110} label='Difficulty' dataKey="difficulty" cellDataGetter={this.renderDifficulty}/>
+                  <Column width={110} label='Difficulty' dataKey="difficulty" cellDataGetter={this.difficultyRenderer}/>
                   <Column width={130} label='Rating' dataKey="rating" cellRenderer={this.renderRating}/>
                   <Column width={80} label='Drop (m)' dataKey="drop"/>
                   <Column width={80} label='Length' dataKey="distance"/>
@@ -81,7 +79,7 @@ class ListSections extends Component {
     return `${rowData.river.name} - ${rowData.name}`;
   };
 
-  renderDifficulty = ({rowData}) => {
+  difficultyRenderer = ({rowData}) => {
     return renderDifficulty(rowData);
   };
 
@@ -93,14 +91,14 @@ class ListSections extends Component {
   };
 
   renderControls = ({rowData}) => {
-    const editHandler = () => this.props.router.push(`/sections/${rowData._id}/settings`);
+    const editHandler = () => this.props.push(`/sections/${rowData._id}/settings`);
     const deleteHandler = () => this.props.removeSection(rowData._id);
     return (
       <AdminControls onEdit={editHandler} onDelete={deleteHandler}/>
     );
   };
 
-  onRowClick = ({index}) => this.props.router.push(`/sections/${this.props.sections[index]._id}`);
+  onRowClick = ({index}) => this.props.push(`/sections/${this.props.sections[index]._id}`);
 
 }
 
@@ -115,8 +113,4 @@ const styles = {
   },
 };
 
-export default _.flowRight(
-  withAdmin(),
-  withRouter,
-  withSections({withRemove: true}),
-)(ListSections);
+export default container(ListSections);

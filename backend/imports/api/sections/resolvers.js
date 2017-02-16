@@ -4,6 +4,7 @@ import {Rivers} from '../rivers';
 import {Regions} from '../regions';
 import {Media} from '../media';
 import {Points} from '../points';
+import {HazardTags, KayakingTags, MiscTags, SupplyTags} from '../tags';
 import graphqlFields from 'graphql-fields';
 import {pickFromSelf} from '../../utils/ApolloUtils';
 import {upsertChildren} from '../../utils/CollectionUtils';
@@ -14,7 +15,20 @@ function removeSection(root, {_id}) {
 }
 
 function upsertSection(root, data) {
-  let {section: {_id, river, media, pois, ...section}, language} = data;
+  let {
+    language,
+    section: {
+      _id,
+      river,
+      media = [],
+      pois = [],
+      supplyTags = [],
+      kayakingTags = [],
+      hazardsTags = [],
+      miscTags = [],
+    ...section
+    }
+  } = data;
   let {_id: riverId, name: riverName, regionId} = river;
   if (riverId === '@@new') {
     riverId = Rivers.insertTranslations({[language]: {name: riverName, regionId}});
@@ -31,11 +45,15 @@ function upsertSection(root, data) {
 
   const mediaIds = upsertChildren(Media, media, language);
   const poiIds = upsertChildren(Points, pois, language);
+  const supplyTagIds = _.map(supplyTags, '_id');
+  const kayakingTagIds = _.map(kayakingTags, '_id');
+  const hazardsTagIds = _.map(hazardsTags, '_id');
+  const miscTagIds = _.map(miscTags, '_id');
 
-  let {_id: putInId, ...putInData} = data.putIn;
+  let {_id: putInId, ...putInData} = section.putIn;
   let putInResult = Points.upsertTranslations(putInId, {[language]: {...putInData, kind: 'put-in'}});
   putInId = putInId || putInResult.insertedId;
-  let {_id: takeOutId, ...takeOutData} = data.takeOut;
+  let {_id: takeOutId, ...takeOutData} = section.takeOut;
   let takeOutResult = Points.upsertTranslations(takeOutId, {[language]: {...takeOutData, kind: 'take-out'}});
   takeOutId = takeOutId || takeOutResult.insertedId;
 
@@ -43,8 +61,12 @@ function upsertSection(root, data) {
     ...section,
     mediaIds,
     poiIds,
-    putIn: {_id: putInId, ...putInData},
-    takeOut: {_id: takeOutId, ...takeOutData}
+    supplyTagIds,
+    kayakingTagIds,
+    hazardsTagIds,
+    miscTagIds,
+    putIn: {_id: putInId, ...putInData, kind: 'put-in'},
+    takeOut: {_id: takeOutId, ...takeOutData, kind: 'take-out'},
   };
 
   if (_id)
@@ -94,6 +116,10 @@ export const sectionsResolvers = {
     },
     media: section => Media.find({_id: {$in: section.mediaIds}}),
     pois: section => Points.find({_id: {$in: section.poiIds}}),
+    supplyTags:   section => section.supplyTagIds   ? SupplyTags.find({_id: {$in: section.supplyTagIds}})     : [],
+    kayakingTags: section => section.kayakingTagIds ? KayakingTags.find({_id: {$in: section.kayakingTagIds}}) : [],
+    hazardsTags:  section => section.hazardTagIds   ? HazardTags.find({_id: {$in: section.hazardTagIds}})     : [],
+    miscTags:     section => section.miscTagIds     ? MiscTags.find({_id: {$in: section.miscTagIds}})         : [],
   },
   Mutation: {
     upsertSection,

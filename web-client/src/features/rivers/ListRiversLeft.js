@@ -1,7 +1,6 @@
 import React, {Component, PropTypes} from "react";
 import {FlatLinkButton} from "../../core/components";
-import _ from 'lodash';
-import container from './ListRIversLeftContainer';
+import container from './ListRiversLeftContainer';
 
 class ListRiversLeft extends Component {
 

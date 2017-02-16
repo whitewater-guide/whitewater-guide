@@ -48,7 +48,7 @@ export function withAdmin(redirectUnauthorized = false) {
       static displayName = `withAdmin(${getDisplayName(Component)})`;
 
       render() {
-        const {adminLoading, replace, ...props} = this.props;
+        const {adminLoading, ...props} = this.props;
         if (adminLoading) {
           return null;
         }
@@ -56,7 +56,7 @@ export function withAdmin(redirectUnauthorized = false) {
           return (<Wrapped {...props}/>);
         }
         else {
-          replace('/403');
+          this.props.replace('/403');
           return null;
         }
       }

@@ -108,10 +108,22 @@ const POIs = gql`
 
 const Tags = gql`
   fragment SectionTags on Section {
-    supplyTagIds
-    kayakingTagIds
-    hazardsTagIds
-    miscTagIds
+    supplyTags {
+      _id
+      name
+    }
+    kayakingTags {
+      _id
+      name
+    }
+    hazardsTags {
+      _id
+      name
+    }
+    miscTags {
+      _id
+      name
+    }
   }
 `;
 

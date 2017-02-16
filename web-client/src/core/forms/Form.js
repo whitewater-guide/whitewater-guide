@@ -63,7 +63,7 @@ class Form extends Component {
       <div style={styles.container}>
         <Paper style={{...styles.paper, ...this.props.style}}>
           <div style={styles.titleWrapper}>
-            <h1>{this.props.title}</h1>
+            <h2>{this.props.title}</h2>
             {this.props.multilang && <LanguagePicker value={this.props.language} onChange={this.props.onLanguageChange}/>}
           </div>
           {this.props.children}

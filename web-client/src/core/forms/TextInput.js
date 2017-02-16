@@ -14,7 +14,7 @@ class TextInput extends Component {
   };
 
   render() {
-    const value = this.props.field.value === undefined ? '' : this.props.field.value;
+    const value = this.props.field.value || '';
     return (
       <TextField
         style={styles.textInput}

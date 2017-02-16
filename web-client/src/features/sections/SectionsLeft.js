@@ -1,17 +1,27 @@
 import React, { Component, PropTypes } from 'react';
-import {withAdmin} from '../users';
 import {FlatLinkButton} from '../../core/components';
+import {withFeatureIds} from '../../core/hoc';
+import {withAdmin} from '../users';
+import {compose} from 'recompose';
+
 
 class SectionsLeft extends Component {
 
   static propTypes = {
     admin: PropTypes.bool,
+    regionId: PropTypes.string,
   };
 
   render() {
+    const {admin, regionId} = this.props;
+    const toNewSection = {
+      pathname: '/sections/new',
+    };
+    if (regionId)
+      toNewSection.search = `?regionId=${regionId}`;
     return (
       <div style={styles.container}>
-        Sections left panel
+        {admin && regionId && <FlatLinkButton secondary={true} to={toNewSection} label="New Section" />}
       </div>
     );
   }
@@ -26,4 +36,7 @@ const styles = {
 
 };
 
-export default withAdmin()(SectionsLeft);
+export default compose(
+  withAdmin(),
+  withFeatureIds(),
+)(SectionsLeft);

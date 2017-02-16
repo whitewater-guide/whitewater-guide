@@ -23,7 +23,8 @@ class SectionForm extends Component {
     kayakingTags: PropTypes.array,
     hazardTags: PropTypes.array,
     miscTags: PropTypes.array,
-    router: PropTypes.object,
+    replace: PropTypes.func,
+    location: PropTypes.object,
     currentTab: PropTypes.string,
   };
 
@@ -81,10 +82,10 @@ class SectionForm extends Component {
             </div>
             <Field name="season" title="Season" component={TextInput}/>
             <Field name="seasonNumeric" component={SeasonPickerField}/>
-            <Field name="supplyTagIds" title="River supply" component={ChipInput} options={this.props.supplyTags} />
-            <Field name="kayakingTagIds" title="Kayaking types" component={ChipInput} options={this.props.kayakingTags} />
-            <Field name="hazardsTagIds" title="Hazards" component={ChipInput} options={this.props.hazardTags} />
-            <Field name="miscTagIds" title="Tags" component={ChipInput} options={this.props.miscTags}/>
+            <Field name="supplyTags" title="River supply" component={ChipInput} options={this.props.supplyTags} />
+            <Field name="kayakingTags" title="Kayaking types" component={ChipInput} options={this.props.kayakingTags} />
+            <Field name="hazardsTags" title="Hazards" component={ChipInput} options={this.props.hazardTags} />
+            <Field name="miscTags" title="Tags" component={ChipInput} options={this.props.miscTags}/>
           </Tab>
           <Tab label="Media" value="#media">
             <Field name="media" title="Media" component={MediaCollection}/>
@@ -105,8 +106,8 @@ class SectionForm extends Component {
   }
 
   onTabChange = (value) => {
-    const location = this.props.router.location;
-    this.props.router.replace({...location, hash: value});
+    const {location, replace} = this.props;
+    replace({...location, hash: value});
   };
 
   showMap = () => {
