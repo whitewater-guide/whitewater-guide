@@ -36,6 +36,6 @@ type Mutation {
   upsertSource(source:SourceInput!, language: String):Source
   removeSource(_id:ID!):Boolean
   autofillSource(_id:ID!):Boolean
-  generateSourceSchedule(sourceId:ID!):Boolean
-  setSourceEnabled(sourceId:ID!, enabled:Boolean!): Source
+  generateSourceSchedule(_id:ID!):Boolean
+  setSourceEnabled(_id:ID!, enabled:Boolean!): Source
 }

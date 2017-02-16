@@ -30,7 +30,7 @@ export function generateSchedule(sourceId) {
     Sources.update(sourceId, {$set: {cron: '0 * * * *'}});
   }
   else if (source.harvestMode === 'oneByOne') {
-    const gauges = source.gauges().fetch();
+    const gauges = Gauges.find({sourceId}).fetch();
     const numGauges = gauges.length;
     if (numGauges === 0)
       return;
@@ -65,7 +65,7 @@ export function startJobs(sourceId, gaugeId) {
     job.save();
   }
   else if (source.harvestMode === 'oneByOne') {
-    const gauges = gaugeId === undefined ? source.gauges() : [Gauges.findOne(gaugeId)];
+    const gauges = gaugeId === undefined ? Gauges.find({sourceId}).fetch() : [Gauges.findOne(gaugeId)];
     gauges.forEach(gauge => {
       if (gauge.enabled && gauge.cron) {
         const job = new Job(Jobs, 'harvest', {

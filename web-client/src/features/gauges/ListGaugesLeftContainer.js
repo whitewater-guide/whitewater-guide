@@ -33,7 +33,7 @@ const AutofillSourceMutation = gql`
 
 const GenerateScheduleMutation = gql`
   mutation generateSourceSchedule($sourceId: ID!){
-    generateSourceSchedule(sourceId: $sourceId)
+    generateSourceSchedule(_id: $sourceId)
   }
 `;
 

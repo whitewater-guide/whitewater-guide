@@ -5,7 +5,6 @@ import {FlatLinkButton} from '../../core/components';
 class ViewSourceLeft extends Component {
 
   static propTypes = {
-    sourceLeft: PropTypes.element,
     admin: PropTypes.bool,
     match: PropTypes.object,
   };
@@ -22,7 +21,6 @@ class ViewSourceLeft extends Component {
         {admin && <FlatLinkButton secondary={true} to={`/sources/${sourceId}/settings`} label="Settings"/>}
         <FlatLinkButton secondary={true} to={`/sources/${sourceId}/terms_of_use`} label="Terms of use"/>
         <FlatLinkButton secondary={true} to={toGauges} label="Gauges"/>
-        {this.props.sourceLeft}
       </div>
     );
   }

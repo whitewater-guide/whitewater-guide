@@ -30,7 +30,7 @@ const RemoveSourceMutation = gql`
 
 const SetSourceEnabledMutation = gql`
   mutation setSourceEnabled($sourceId: ID!, $enabled: Boolean!){
-    setSourceEnabled(sourceId: $sourceId, enabled: $enabled){
+    setSourceEnabled(_id: $sourceId, enabled: $enabled){
       _id,
       enabled,
     }

@@ -9,7 +9,7 @@ export const jobsResolvers = {
       return Jobs.find({"data.sourceId": sourceId}, {fields: {data: 1, status: 1, updated: 1, after: 1, result: 1}});
     },
     jobsReport: (root, {sourceId}, context) => {
-      if (Roles.userIsInRole(context.userId, 'admin'))
+      if (!Roles.userIsInRole(context.userId, 'admin'))
         return [];
       let match = { type: 'harvest', status: { $in: ['running', 'ready', 'waiting'] } };
       if (sourceId)
