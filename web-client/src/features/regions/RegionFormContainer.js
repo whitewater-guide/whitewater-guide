@@ -1,7 +1,7 @@
 import {graphql} from 'react-apollo';
 import {withState, withProps, withHandlers, compose} from 'recompose';
 import {withAdmin} from '../users';
-import {withRouter} from 'react-router';
+import {withFeatureIds} from '../../core/hoc';
 import gql from 'graphql-tag';
 import {withRegion} from './containers/withRegion';
 import {Fragments} from './queries';
@@ -19,7 +19,8 @@ const editRegion = gql`
 
 export default compose(
   withAdmin(true),
-  withProps(({match: {regionId}}) => ({
+  withFeatureIds('region'),
+  withProps(({regionId}) => ({
     _id: regionId,
     multilang: !!regionId,
     title: regionId ? "Region settings" : "New region",
