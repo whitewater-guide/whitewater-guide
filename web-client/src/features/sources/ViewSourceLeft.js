@@ -14,9 +14,7 @@ class ViewSourceLeft extends Component {
     const {admin, match: {params: {sourceId}}} = this.props;
     const toGauges = {
       pathname: '/gauges',
-      query: {
-        sourceId,
-      },
+      search: `?sourceId=${sourceId}`,
     };
     return (
       <div style={styles.container}>

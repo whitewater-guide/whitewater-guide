@@ -5,7 +5,6 @@ var tap = require('gulp-tap');
 var uglify = require('gulp-uglify');
 var buffer = require('gulp-buffer');
 var babelify = require('babelify');
-var rollup = require('gulp-rollup');
 
 /**
  * Workers must be transpiled and bundled in order to

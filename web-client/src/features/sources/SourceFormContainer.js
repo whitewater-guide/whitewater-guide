@@ -4,7 +4,7 @@ import gql from 'graphql-tag';
 import {filter} from 'graphql-anywhere';
 import moment from 'moment';
 import {withAdmin} from '../users';
-import {withRouter} from 'react-router';
+import {withFeatureIds} from '../../core/hoc';
 import {Fragments as CoreFragments} from '../../core/queries';
 
 const sourceDetailsFragment = gql`
@@ -27,11 +27,11 @@ const sourceDetails = gql`
     source(_id: $_id, language: $language) {
       ...SourceDetails
     }
-    
+
     regions(language: $language) {
       ...NamedFragment
     }
-  
+
     scripts {
       script
       harvestMode
@@ -53,18 +53,17 @@ const upsertSource = gql`
 
 export default compose(
   withAdmin(true),
-  withRouter,
+  withFeatureIds('source'),
   withState('language', 'setLanguage', 'en'),
-  withProps(({match: {params: {sourceId}}}) => ({
-    sourceId: sourceId,
+  withProps(({sourceId}) => ({
     multilang: !!sourceId,
     title: sourceId ? "Source settings" : "New source",
     submitLabel: sourceId ? "Update" : "Create",
   })),
   withHandlers({
     onLanguageChange: props => language => props.setLanguage(language),
-    onSubmit: props => () => props.router.goBack(),
-    onCancel: props => () => props.router.goBack(),
+    onSubmit: props => () => props.goBack(),
+    onCancel: props => () => props.goBack(),
   }),
   graphql(
     sourceDetails,
@@ -76,7 +75,7 @@ export default compose(
       props: ({data: {loading, ...data}}) => {
         if (!loading)
           data = filter(sourceDetails, data);
-        let  {source, regions, scripts} = data;
+        let {source, regions, scripts} = data;
         const initialData = source || {cron: `${(moment().minute() + 2) % 60} * * * *`};
         return {initialData, regions, scripts, loading}
       },

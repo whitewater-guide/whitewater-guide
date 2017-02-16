@@ -169,7 +169,7 @@ export class I18nCollection extends Mongo.Collection {
     }
     const updates = this.prepareUpdates(translations);
     //Skip validation because it should be already done in method
-    return super.update(selector, {$set: updates}, {...options, validate: false}, callback);
+    return super.update(selector, {$set: updates}, {...options}, callback);
   }
 
   upsertTranslations(selector, translations, options, callback) {
@@ -179,7 +179,7 @@ export class I18nCollection extends Mongo.Collection {
     }
     const updates = this.prepareUpdates(translations);
     //Skip validation because it should be already done in method
-    return super.upsert(selector, {$set: updates}, {...options, validate: false}, callback);
+    return super.upsert(selector, {$set: updates}, {...options}, callback);
   }
 
   prepareUpdates(translations) {

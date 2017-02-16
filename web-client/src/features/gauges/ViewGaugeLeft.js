@@ -5,17 +5,17 @@ import container from './ViewGaugeLeftContainer';
 class ViewGaugeLeft extends PureComponent {
 
   static propTypes = {
-    _id: PropTypes.string,
+    gaugeId: PropTypes.string,
     sourceId: PropTypes.string,
     admin: PropTypes.bool,
   };
 
   render() {
-    const {_id, sourceId, admin} = this.props;
+    const {gaugeId, sourceId, admin} = this.props;
     return (
       <div style={styles.container}>
-        {admin && <FlatLinkButton secondary={true} to={`/gauges/${_id}/settings`} label="Settings" />}
-        <FlatLinkButton secondary={true} to={`/gauges/${_id}`} label="Measurements" />
+        {admin && <FlatLinkButton secondary={true} to={`/gauges/${gaugeId}/settings`} label="Settings" />}
+        <FlatLinkButton secondary={true} to={`/gauges/${gaugeId}`} label="Measurements" />
         <FlatLinkButton secondary={true} to={`/sources/${sourceId}/terms_of_use`} label="Terms of use" />
       </div>
     );

@@ -27,6 +27,10 @@ const container = compose(
   ),
 );
 
+function getDisplayName(WrappedComponent) {
+  return WrappedComponent.displayName || WrappedComponent.name || 'Component';
+}
+
 /**
  * Provide admin boolean prop to wrapped component. Or renders 403 page if non-admins are not allowed.
  * @param redirectUnauthorized If true, non-admins will see 403 page instead of wrapped component
@@ -38,11 +42,13 @@ export function withAdmin(redirectUnauthorized = false) {
       static propTypes = {
         admin: PropTypes.bool,
         adminLoading: PropTypes.bool,
-        rouer: PropTypes.object,
+        replace: PropTypes.func,
       };
 
+      static displayName = `withAdmin(${getDisplayName(Component)})`;
+
       render() {
-        const {adminLoading, router, ...props} = this.props;
+        const {adminLoading, replace, ...props} = this.props;
         if (adminLoading) {
           return null;
         }
@@ -50,7 +56,7 @@ export function withAdmin(redirectUnauthorized = false) {
           return (<Wrapped {...props}/>);
         }
         else {
-          router.replace('/403');
+          replace('/403');
           return null;
         }
       }

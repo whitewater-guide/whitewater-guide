@@ -10,15 +10,16 @@ function generateRandomGauge(index) {
       type: 'Point',
       altitude: random(0, 3000),
       coordinates: [
-        random(-89.9, 89.9, true),
-        random(-179.9, 179.9, true)
-      ]
+        random(-179.9, 179.9, true),
+        random(-89.9, 89.9, true)
+      ],
+      kind: 'gauge'
     },
     timestamp: Date.now(),//unix timestamp in ms
     level: Math.random() * 100,
     flow: Math.random() * 100,
     url: 'https://ya.ru',
-    disabled: false
+    enabled: false
   };
 }
 

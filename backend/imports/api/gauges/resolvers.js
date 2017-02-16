@@ -2,8 +2,7 @@ import {Sources} from '../sources';
 import {Measurements} from '../measurements';
 import {Gauges} from './collection';
 import {Roles} from 'meteor/alanning:roles';
-import {Points} from "../points";
-import {Jobs} from "../jobs";
+import * as methods from './methods';
 import _ from 'lodash';
 
 const publicFields = {
@@ -14,31 +13,8 @@ const publicFields = {
 };
 
 //TODO: Admin method!!
-function upsertGauge(root, {gauge: {_id, location, requestParams, ...gauge}, language}, context) {
-  const hasJobs = !!_id && Jobs.find({
-      "data.gauge": _id,
-      status: {$in: ['running', 'ready', 'waiting', 'paused']}
-    }).count() > 0;
-  if (hasJobs)
-    throw new Error('Cannot edit gauge which has running jobs');
-
-  if (requestParams)
-    gauge.requestParams = JSON.parse(requestParams);
-  if (location) {
-    gauge.location = Points.upsertTranslations(location._id, {
-      [language]: {
-        ...location,
-        kind: 'gauge',
-        name: 'Gauge: ' + gauge.name
-      }
-    });
-  }
-
-  if (_id)
-    Gauges.updateTranslations(_id, {[language]: gauge});
-  else
-    _id = Gauges.insertTranslations(gauge);
-  return Gauges.findOne(_id);
+function upsertGauge(root, data, context) {
+  return methods.upsertGauge(data);
 }
 
 function setGaugesEnabled(root, {enabled, ...query}) {
@@ -67,15 +43,14 @@ export const gaugesResolvers = {
     },
     gauge: (root, {_id, language}, context) => {
       const fields = Roles.userIsInRole(context.userId, 'admin') ? undefined : publicFields;
-      return Gauges.findOne({_id}, {fields, lang: language})
+      let result = Gauges.findOne({_id}, {fields, lang: language});
+      return result;
     },
     countGauges: (root, {sourceId}) => Gauges.find({sourceId}).count(),
   },
   Mutation: {
     upsertGauge,
-    removeGauges: (root, args, context) => {
-      return removeGauges._execute(context, args);
-    },
+    removeGauges,
     setGaugesEnabled,
   },
   Gauge: {
@@ -84,4 +59,4 @@ export const gaugesResolvers = {
       return Measurements.find({gaugeId: gauge._id, date: {$gte: startDate, $lt: endDate}})
     },
   },
-}
+};

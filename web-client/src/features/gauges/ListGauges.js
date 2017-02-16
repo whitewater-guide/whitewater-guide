@@ -15,7 +15,7 @@ class ListGauges extends React.Component {
     loadMore: PropTypes.func.isRequired,
     removeGauge: PropTypes.func,
     setEnabled: PropTypes.func,
-    router: PropTypes.object,
+    push: PropTypes.func,
     source: PropTypes.object,
   };
 
@@ -95,7 +95,7 @@ class ListGauges extends React.Component {
   };
 
   renderControls = ({rowData: gauge}) => {
-    const editHandler = () => this.props.router.push(`/gauges/${gauge._id}/settings`);
+    const editHandler = () => this.props.push(`/gauges/${gauge._id}/settings`);
     const deleteHandler = () => this.props.removeGauge(gauge._id);
     const startStopHandler = () => this.props.setEnabled(gauge._id, !gauge.enabled);
     const stoppable = this.props.source && this.props.source.harvestMode === 'ONE_BY_ONE';
@@ -105,7 +105,7 @@ class ListGauges extends React.Component {
     );
   };
 
-  onRowClick = ({index}) => this.props.router.push(`/gauges/${this.props.gauges[index]._id}`);
+  onRowClick = ({index}) => this.props.push(`/gauges/${this.props.gauges[index]._id}`);
 }
 
 const styles = {

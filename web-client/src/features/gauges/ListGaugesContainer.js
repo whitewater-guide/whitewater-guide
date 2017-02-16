@@ -1,8 +1,8 @@
 import {graphql, compose} from 'react-apollo';
 import gql from 'graphql-tag';
 import {withAdmin} from '../users';
-import {withRouter} from 'react-router';
-import {withProps, withState} from 'recompose';
+import {withFeatureIds} from '../../core/hoc';
+import {withState} from 'recompose';
 import _ from 'lodash';
 
 const ListGaugesQuery = gql`
@@ -56,9 +56,8 @@ const EnableGaugeMutation = gql`
 
 export default compose(
   withState('language','setLanguage','en'),
-  withProps(props => ({sourceId: props.location.query.sourceId})),
+  withFeatureIds(),
   withAdmin(),
-  withRouter,
   graphql(
     ListGaugesQuery, {
       options: ({sourceId, language}) => ({

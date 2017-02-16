@@ -2,7 +2,7 @@ import SimpleSchema from 'simpl-schema';
 import {metaSchema} from '../../utils/SimpleSchemaUtils';
 import {I18nCollection} from '../../i18n';
 import {registerHooks} from './hooks';
-import {PointInputSchema} from '../points';
+import {PointInputSchema, PointSchema} from '../points';
 import cronParser from "cron-parser";
 import _ from 'lodash';
 
@@ -16,7 +16,7 @@ const baseSchema = {
   sourceId: {type: String, regEx: SimpleSchema.RegEx.Id},
   code: {type: String},
   url: {type: String, regEx: SimpleSchema.RegEx.Url},
-  location: PointInputSchema,
+  location: {type: PointInputSchema, defaultValue: null},
   lastTimestamp: Date,
   levelUnit: String,
   flowUnit: String,
@@ -45,6 +45,7 @@ const dbSchema = _.merge(
     name: {required: true, index: true},
     sourceId: {required: true, index: true},
     code: {type: String, index: true},
+    location: {type: PointSchema}
   },
   metaSchema(),
 );

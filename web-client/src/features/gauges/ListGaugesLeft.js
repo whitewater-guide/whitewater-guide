@@ -8,7 +8,6 @@ class ListGaugesLeft extends Component {
     sourceId: PropTypes.string.isRequired,
     admin: PropTypes.bool.isRequired,
     count: PropTypes.number,
-    router: PropTypes.object.isRequired,
     removeGauges: PropTypes.func,
     setEnabled: PropTypes.func,
     autofill: PropTypes.func,
@@ -20,9 +19,7 @@ class ListGaugesLeft extends Component {
     const hasGauges = admin && count > 0;
     const toNewGauge = {
       pathname: '/gauges/new',
-      query: {
-        sourceId,
-      },
+      search: `?sourceId=${sourceId}`,
     };
     return (
       <div style={styles.container}>

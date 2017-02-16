@@ -5,7 +5,7 @@ import {indigo500} from 'material-ui/styles/colors';
 import {regionsRoutes} from '../../features/regions';
 import {sourcesRoutes} from '../../features/sources';
 import {sectionsRoutes} from '../../features/sections';
-
+import {gaugeRoutes} from '../../features/gauges';
 
 export class LeftMenu extends React.Component {
   static propTypes = {};
@@ -15,6 +15,7 @@ export class LeftMenu extends React.Component {
       ...sourcesRoutes,
       ...regionsRoutes,
       ...sectionsRoutes,
+      ...gaugeRoutes,
     ];
     return (
       <div style={styles.leftCol}>

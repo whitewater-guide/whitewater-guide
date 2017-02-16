@@ -14,12 +14,6 @@ export const sourcesRoutes = [
     left: ListSourcesLeft,
   },
   {
-    path: '/sources/:sourceId',
-    exact: true,
-    content: ViewSource,
-    left: ViewSourceLeft,
-  },
-  {
     path: '/sources/new',
     content: SourceForm,
   },
@@ -36,6 +30,12 @@ export const sourcesRoutes = [
   {
     path: '/sources/:sourceId/terms_of_use',
     content: TermsOfUse,
+    left: ViewSourceLeft,
+  },
+  {
+    path: '/sources/:sourceId',
+    exact: true,
+    content: ViewSource,
     left: ViewSourceLeft,
   },
 ];

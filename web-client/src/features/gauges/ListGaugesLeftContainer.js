@@ -1,7 +1,7 @@
 import {graphql, compose} from 'react-apollo';
 import gql from 'graphql-tag';
 import {withAdmin} from '../users';
-import {withRouter} from 'react-router';
+import {withFeatureIds} from '../../core/hoc';
 import {withProps} from 'recompose';
 
 const CountGaugesQuery = gql`
@@ -26,8 +26,8 @@ const EnableGaugesMutation = gql`
 `;
 
 const AutofillSourceMutation = gql`
-  mutation autofillSource($sourceId: ID!){
-    autofillSource(sourceId: $sourceId)
+  mutation autofillSource($_id: ID!){
+    autofillSource(_id: $_id)
   }
 `;
 
@@ -38,9 +38,8 @@ const GenerateScheduleMutation = gql`
 `;
 
 export default compose(
-  withProps(props => ({sourceId: props.location.query.sourceId})),
+  withFeatureIds(),
   withAdmin(),
-  withRouter,
   graphql(
     CountGaugesQuery, {
       props: ({data: {count}}) => ({count})
@@ -64,8 +63,8 @@ export default compose(
   ),
   graphql(
     AutofillSourceMutation, {
-      props: ({mutate}) => ({autofill: sourceId => mutate({
-        variables: {sourceId},
+      props: ({mutate}) => ({autofill: _id => mutate({
+        variables: {_id},
         refetchQueries: ['listGauges'],
       })}),
     }

@@ -14,6 +14,7 @@ export const config = {
     path: PATHS.build,
     filename: '[name].js',
     publicPath: '/',
+    devtoolModuleFilenameTemplate: 'webpack:///[absolute-resource-path]',
   },
   module: {
     rules: [
@@ -35,7 +36,7 @@ export const config = {
     },
     quiet: true,
   },
-  devtool: 'eval-source-map',
+  devtool: 'source-map',
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new FriendlyErrorsWebpackPlugin(),

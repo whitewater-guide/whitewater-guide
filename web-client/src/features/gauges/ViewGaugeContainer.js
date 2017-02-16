@@ -1,6 +1,7 @@
 import gql from 'graphql-tag';
 import {graphql} from 'react-apollo';
-import {withState, withHandlers, withProps, mapProps, compose} from 'recompose';
+import {withState, withHandlers, mapProps, compose} from 'recompose';
+import {withFeatureIds} from '../../core/hoc';
 import moment from 'moment';
 
 const ViewGaugeQuery = gql`
@@ -23,7 +24,7 @@ const ViewGaugeQuery = gql`
 `;
 
 export default compose(
-  withProps(props => ({_id: props.params.gaugeId})),
+  withFeatureIds('gauge'),
   withState('timeDomain', 'setTimeDomain', [moment().subtract(1, 'days').toDate(), new Date()]),
   withHandlers({
     onDomainChanged: props => ([startDate, endDate]) => {
@@ -37,8 +38,8 @@ export default compose(
   graphql(
     ViewGaugeQuery,
     {
-      options: ({_id, startDate, endDate}) => ({
-        variables: {_id, startDate: startDate.toString(), endDate: endDate.toString()}
+      options: ({gaugeId, startDate, endDate}) => ({
+        variables: {_id: gaugeId, startDate: startDate.toString(), endDate: endDate.toString()}
       }),
       props: ({data: {gauge, loading}}) => {
         if (!gauge)

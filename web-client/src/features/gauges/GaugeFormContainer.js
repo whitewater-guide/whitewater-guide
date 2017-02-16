@@ -3,7 +3,7 @@ import {withState, withHandlers, withProps, compose} from 'recompose';
 import gql from 'graphql-tag';
 import {filter} from 'graphql-anywhere';
 import {withAdmin} from '../users';
-import {withRouter} from 'react-router';
+import {withFeatureIds} from '../../core/hoc';
 
 const gaugeDetailsFragment = gql`
   fragment GaugeDetails on Gauge {
@@ -27,8 +27,8 @@ const gaugeDetailsFragment = gql`
 `;
 
 const gaugeDetails = gql`
-  query gaugeDetails($_id: ID, $language:String) {
-    gauge(_id: $_id, language: $language) {
+  query gaugeDetails($gaugeId: ID, $language:String) {
+    gauge(_id: $gaugeId, language: $language) {
       ...GaugeDetails
     }
   }
@@ -46,19 +46,17 @@ const upsertGauge = gql`
 
 export default compose(
   withAdmin(true),
-  withRouter,
   withState('language', 'setLanguage', 'en'),
+  withFeatureIds(),
   withProps(props => ({
-    _id: props.params.gaugeId,
-    sourceId: props.location.query.sourceId,
-    multilang: !!props.params.gaugeId,
-    title: props.params.gaugeId ? "Gauge settings" : "New gauge",
-    submitLabel: props.params.gaugeId ? "Update" : "Create",
+    multilang: !!props.gaugeId,
+    title: props.gaugeId ? "Gauge settings" : "New gauge",
+    submitLabel: props.gaugeId ? "Update" : "Create",
   })),
   withHandlers({
     onLanguageChange: props => language => props.setLanguage(language),
-    onSubmit: props => () => props.router.goBack(),
-    onCancel: props => () => props.router.goBack(),
+    onSubmit: props => () => props.goBack(),
+    onCancel: props => () => props.goBack(),
   }),
   graphql(
     gaugeDetails,

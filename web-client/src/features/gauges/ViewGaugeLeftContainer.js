@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 import {graphql} from 'react-apollo';
-import {withProps, compose} from 'recompose';
+import {compose} from 'recompose';
 import {withAdmin} from '../users';
-import {withRouter} from 'react-router';
+import {withFeatureIds} from '../../core/hoc';
 
 const ViewGaugeLeftQuery = gql`
   query viewGaugeLeftQuery($_id: ID) {
@@ -17,12 +17,11 @@ const ViewGaugeLeftQuery = gql`
 
 export default compose(
   withAdmin(),
-  withRouter,
-  withProps(props => ({_id: props.params.gaugeId})),
+  withFeatureIds('gauge'),
   graphql(
     ViewGaugeLeftQuery,
     {
-      props: ({data: {gauge}}) => ({ sourceId: gauge && gauge.source._id}),
+      props: ({data: {gauge}}) => ({sourceId: gauge && gauge.source._id}),
     }
   ),
 );

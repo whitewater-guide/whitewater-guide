@@ -1,5 +1,5 @@
 import {Regions} from '../regions';
-import {Gauges} from '../gauges';
+import {Gauges, upsertGauge} from '../gauges';
 import {Sources} from './collection';
 import {Roles} from 'meteor/alanning:roles';
 import {launchScript} from '../scripts';
@@ -49,7 +49,7 @@ function autofillSource(root, {_id}) {
   )
   .then(gauges => {
     console.log(`Found ${gauges.length} gauges`);
-    gauges.forEach(gauge => Gauges.insertTranslations({sourceId: _id, ...gauge}));
+    gauges.forEach(gauge => upsertGauge({gauge: {sourceId: _id, ...gauge}}));
     return true;
   })
 }

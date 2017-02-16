@@ -4,6 +4,7 @@ import {Page403Unauthorized} from './Page403Unauthorized';
 import {regionsRoutes} from '../../features/regions';
 import {sourcesRoutes} from '../../features/sources';
 import {sectionsRoutes} from '../../features/sections';
+import {gaugeRoutes} from '../../features/gauges';
 
 export class ContentLayout extends React.Component {
   static propTypes = {};
@@ -13,6 +14,7 @@ export class ContentLayout extends React.Component {
       ...sourcesRoutes,
       ...regionsRoutes,
       ...sectionsRoutes,
+      ...gaugeRoutes,
     ];
     return (
       <Switch>

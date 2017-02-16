@@ -47,6 +47,7 @@ class Form extends Component {
         message: '',
       },
     };
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   getChildContext() {
@@ -102,7 +103,10 @@ class Form extends Component {
 
   onCancel = () => this.props.onCancel();
 
-  onSubmit = async () => {
+  //Do not use arrow function here
+  //As a workaround for babel / react-hot-loader bug
+  //https://github.com/babel/babel/issues/4550
+  async onSubmit() {
     let {method, multilang, language, onSubmit} = this.props;
 
     let data = {data: this.props.transformBeforeSubmit(this.state.data)};
@@ -122,9 +126,10 @@ class Form extends Component {
         const err = await error.networkError.response.json();
         message = JSON.stringify(err.errors);
       }
+      console.error(message);
       this.setState({error: {open: true, message}});
     }
-  };
+  }
 }
 
 const styles = {

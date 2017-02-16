@@ -4,7 +4,7 @@ import theme from "./styles/theme";
 import ApolloClient from 'apollo-client';
 import {ApolloProvider} from 'react-apollo';
 import FacebookProvider from './FacebookProvider';
-import {meteorClientConfig} from './config/apollo-client';
+import {meteorClientConfig} from './config/ApolloClientConfig';
 import {BrowserRouter} from 'react-router-dom';
 import {RootLayout} from "./layouts";
 
