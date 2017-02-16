@@ -1,8 +1,8 @@
 import {createApolloServer} from 'meteor/apollo';
-import {makeExecutableSchema} from 'graphql-tools';
+import {makeExecutableSchema, addSchemaLevelResolveFunction} from 'graphql-tools';
 import {loadSchema, getSchema} from 'graphql-loader'
 import {initAccounts} from 'meteor/nicolaslopezj:apollo-accounts'
-
+import {Roles} from 'meteor/alanning:roles';
 import {typeDefs} from '../api/schema';
 import {resolvers} from '../api/resolvers';
 import cors from 'cors';
@@ -22,6 +22,11 @@ const executableSchema = makeExecutableSchema({
   allowUndefinedInResolve: true,
 });
 
+addSchemaLevelResolveFunction(executableSchema, (root, args, context, info) => {
+  context.isAdmin = Roles.userIsInRole(context.user, ['admin']);
+  context.isSuperAdmin = Roles.userIsInRole(context.user, ['super-admin']);
+  return root;
+});
 
 createApolloServer(
   {

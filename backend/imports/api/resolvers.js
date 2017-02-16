@@ -7,7 +7,7 @@ import {gaugesResolvers} from './gauges';
 import {jobsResolvers} from './jobs';
 import {scriptsResolvers} from './scripts';
 import {tagsResolvers} from './tags';
-import {meteorResolver} from '../utils/ApolloUtils';
+import {meteorResolver, adminResolver} from '../utils/ApolloUtils';
 import GraphQLJSON from 'graphql-type-json';
 import GraphQLDate from 'graphql-date';
 import _ from 'lodash';
@@ -24,6 +24,9 @@ let resolvers = _.merge(
   scriptsResolvers,
 );
 
+resolvers.Mutation = _.mapValues(resolvers.Mutation, adminResolver);
+
+
 //Decorate resolvers to make them more meteor-friendly
 resolvers = _.mapValues(resolvers, graphqlType => _.mapValues(graphqlType, meteorResolver));
 resolvers = _.merge(
@@ -37,3 +40,4 @@ resolvers = _.merge(
 export {
   resolvers
 };
+

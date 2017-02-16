@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-export function upsertChildren(Collection, children, language) {
+export function upsertChildren(Collection, children = [], language) {
   let result = children.map(({_id, deleted, ...item}) => {
     if (deleted) {
       Collection.remove({_id});

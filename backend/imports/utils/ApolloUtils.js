@@ -1,8 +1,9 @@
 import _ from 'lodash';
 import graphqlFields from 'graphql-fields';
+import {Meteor} from 'meteor/meteor';
 
-export function meteorResolver(resolver){
-  return function() {
+export function meteorResolver(resolver) {
+  return function () {
     //Problem #1
     //Arguments of queries and mutations do not have prototypes
     //It causes errors in meteor's validated methods and collections and SimpleSchema, etc.
@@ -26,10 +27,18 @@ export function meteorResolver(resolver){
   }
 }
 
+export function adminResolver(resolver) {
+  return function (root, args, context, info) {
+    if (!context.isAdmin)
+      throw new Meteor.Error('unauthorized', 'Access denied');
+    return resolver(root, args, context, info);
+  }
+}
+
 export function pickFromSelf(self, context, info, fieldsMap) {
   const result = {};
   const fields = _.keys(graphqlFields(info));
-  for (let i = fields.length - 1; i >= 0; i--){
+  for (let i = fields.length - 1; i >= 0; i--) {
     const field = fields[i];
     if (field === '__typename')
       continue;
