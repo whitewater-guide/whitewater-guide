@@ -14,7 +14,6 @@ export const commons = function(env) {
   const environment = require(`./env.${env}.json`);
   return {
     bail: true,
-    entry: [PATHS.app],
     module: {
       rules: [
         {

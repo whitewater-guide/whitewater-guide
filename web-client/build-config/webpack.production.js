@@ -11,6 +11,7 @@ import {PATHS} from './webpack.commons';
 export const config = mergeWebpack([
   {
     entry: {
+      app: PATHS.app,
       vendor: Object.keys(packageJSON.dependencies),
     },
     output: {

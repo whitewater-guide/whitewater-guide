@@ -9,6 +9,7 @@ export const config = {
     'react-hot-loader/patch',
     `webpack-dev-server/client?http://localhost:${PORT}`,
     'webpack/hot/only-dev-server',
+    PATHS.app,
   ],
   output: {
     path: PATHS.build,
