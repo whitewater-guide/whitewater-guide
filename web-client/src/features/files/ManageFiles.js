@@ -1,22 +1,24 @@
 import React, {Component, PropTypes} from 'react';
-/**
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
-import ImageUploadRow from './ImageUploadRow';
 import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
-import {Meteor} from 'meteor/meteor';
-import {createContainer} from 'meteor/react-meteor-data';
-import {Images, deleteImage} from '../../../api/files';
 import Lightbox from 'react-image-lightbox';
-import adminOnly from "../../hoc/adminOnly";
+import {withAdmin} from "../users";
+import Dropzone from 'react-dropzone';
 import CopyToClipboard from 'react-copy-to-clipboard';
+
 import _ from 'lodash';
 
 class ManageFiles extends Component {
 
   static propTypes = {
-    ready: PropTypes.bool,
+    loading: PropTypes.bool,
     images: PropTypes.array,
+  };
+
+  static defaultProps = {
+    loading: false,
+    images: [],
   };
 
   state = {
@@ -25,12 +27,18 @@ class ManageFiles extends Component {
   };
 
   render() {
-    const {ready, images} = this.props;
-    if (!ready)
+    const {loading, images} = this.props;
+
+    if (loading)
       return null;
 
     return (
       <div style={styles.container}>
+
+        <Dropzone onDrop={this.onDrop}>
+          <div>Try dropping some files here, or click to select files to upload.</div>
+        </Dropzone>
+
         <Table selectable={false} onCellClick={this.onCellClick}>
           <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
             <TableRow>
@@ -44,13 +52,12 @@ class ManageFiles extends Component {
             { images.map(this.renderRow) }
           </TableBody>
         </Table>
-        <ImageUploadRow onFileSelected={this.onFileSelected}/>
-        { this.state.lightboxOpen && this.renderLightbox()}
+        { this.state.lightboxOpen && this.renderLightbox() }
       </div>
     );
   }
 
-  renderRow = (file, index) => {
+  renderRow = (file) => {
     //Images.findOne(file._id).link()
     return (
       <TableRow key={file._id}>
@@ -62,19 +69,19 @@ class ManageFiles extends Component {
     );
   };
 
-  renderControls = (file) => {
-    const deleteHandler = () => deleteImage.call({imageId: file._id});
-    const link = Images.findOne(file._id).link();
+  renderControls = () => {
+    //const deleteHandler = () => deleteImage.call({imageId: file._id});
+    //const link = Images.findOne(file._id).link();
     return (
       <TableRowColumn>
         <div onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
         } }>
-          <CopyToClipboard text={link}>
+          <CopyToClipboard text={'aaaa'}>
             <IconButton iconClassName="material-icons">content_copy</IconButton>
           </CopyToClipboard>
-          <IconButton iconClassName="material-icons" onTouchTap={deleteHandler}>delete_forever</IconButton>
+          <IconButton iconClassName="material-icons">delete_forever</IconButton>
         </div>
       </TableRowColumn>
     );
@@ -96,7 +103,7 @@ class ManageFiles extends Component {
       nextSrc: _.get(images, [(photoIndex + 1) % images.length, '_id']),
       prevSrc: _.get(images, [(photoIndex + images.length - 1) % images.length, '_id']),
     };
-    sources = _.mapValues(sources, id => id && Images.findOne(id).link());
+    sources =[];// _.mapValues(sources, id => id && Images.findOne(id).link());
     let title = (
       <span>{_.get(images, [photoIndex, 'name'])}</span>
     );
@@ -106,7 +113,7 @@ class ManageFiles extends Component {
     return (
       <Lightbox
         {...sources}
-        onCloseRequest={() => this.setState({ lightboxOpen: false })}
+        onCloseRequest={() => this.setState({lightboxOpen: false})}
         onMovePrevRequest={() => this.setState({
           photoIndex: (photoIndex + images.length - 1) % images.length,
         })}
@@ -119,14 +126,8 @@ class ManageFiles extends Component {
     );
   };
 
-  onFileSelected = (file, description) => {
-    let settings = {
-      file,
-      onError: (error, fileData) => console.error(`Error ${error} while uploading ${JSON.stringify(fileData)}`),
-    };
-    if (description)
-      settings.meta = {description};
-    Images.insert(settings);
+  onDrop = (files) => {
+    console.log('Received files: ', files);
   };
 
 }
@@ -142,25 +143,4 @@ const styles = {
   },
 };
 
-const ManageFilesContainer = createContainer(
-  () => {
-    const sub = Meteor.subscribe('images.all');
-    const images = Images.find().fetch();
-    return {
-      ready: sub.ready(),
-      images,
-    };
-  },
-  ManageFiles
-);
-
-export default adminOnly(ManageFilesContainer);
-**/
-
-export class ManageFiles extends Component {
-  render(){
-    return (
-      <span>Breadcrumbs...</span>
-    )
-  }
-}
+export default withAdmin()(ManageFiles);
