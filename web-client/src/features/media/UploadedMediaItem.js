@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import TextField from 'material-ui/TextField';
 import IconButton from 'material-ui/IconButton';
+import MediaPreviewButton from './MediaPreviewButton';
 import _ from 'lodash';
 
 export default class UploadedMediaItem extends React.Component {
@@ -37,15 +38,7 @@ export default class UploadedMediaItem extends React.Component {
               hintText="Copyright"
             />
           </div>
-          <div style={styles.previewHolder}>
-            { value.file && <img src={value.file.preview} style={styles.img}/> }
-            {
-              value.url &&
-              <IconButton iconClassName="material-icons" onTouchTap={this.onPreview}>
-                remove_red_eye
-              </IconButton>
-            }
-          </div>
+          <MediaPreviewButton value={value}/>
         </div>
         <div style={styles.icon}>
           <IconButton iconClassName="material-icons" onTouchTap={this.onDelete}>
@@ -90,12 +83,6 @@ const styles = {
   icon: {
     display: 'flex',
     alignSelf: 'stretch',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  previewHolder: {
-    width: 64,
-    display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
   },

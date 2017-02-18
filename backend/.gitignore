@@ -8,3 +8,4 @@ whitewater.iml
 package.tar.gz
 private/workers/
 /.meteor/dump
+/public/images/
