@@ -30,7 +30,6 @@ class MediaItem extends Component {
               value={value.url}
               onChange={this.onUrlChange}
               hintText="URL"
-              floatingLabelText="URL"
             />
           </div>
           <div style={{...styles.type, ...delStyle}}>

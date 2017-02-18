@@ -4,8 +4,9 @@
  * https://github.com/orionsoft/meteor-apollo-accounts/blob/master/client/src/store.js
  */
 
-import {createBatchingNetworkInterface} from 'apollo-client';
 import {getLoginToken} from 'meteor-apollo-accounts';
+//TODO: when apollo supports file uploads - replace this with official stuff
+import {BatchedUploadHTTPFetchNetworkInterface} from '../apollo/BatchedUploadHTTPFetchNetworkInterface';
 
 const authMiddleware = {
   applyMiddleware: async (request, next) => {
@@ -25,11 +26,7 @@ const authMiddleware = {
 };
 
 const createMeteorNetworkInterface = () => {
-  const networkInterface = createBatchingNetworkInterface({
-    uri: '/graphql',
-    batchInterval: 10,
-  });
-
+  const networkInterface = new BatchedUploadHTTPFetchNetworkInterface('/graphql', 10);
   networkInterface.use([authMiddleware]);
 
   return networkInterface;

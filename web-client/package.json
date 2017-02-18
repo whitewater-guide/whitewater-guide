@@ -64,6 +64,7 @@
     "react-tap-event-plugin": "^2.0.1",
     "react-virtualized": "^8.11.4",
     "recompose": "^0.22.0",
+    "recursive-iterator": "^2.0.3",
     "victory": "^0.17.0"
   }
 }
