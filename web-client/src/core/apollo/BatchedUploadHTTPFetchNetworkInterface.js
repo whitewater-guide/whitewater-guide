@@ -63,8 +63,7 @@ export class BatchedUploadHTTPFetchNetworkInterface extends HTTPBatchedNetworkIn
     formData.append('operationName', request.operationName);
     formData.append('query', printAST(request.query));
     formData.append('variables', JSON.stringify(request.variables || {}));
-
-    return fetch(this._opts.uri, {
+    return fetch(this._uri, {
       ...options,
       body: formData,
       method: 'POST',

@@ -40,9 +40,9 @@ class MediaItem extends Component {
               errorText={_.get(error, 'type')}
               hintText="Type"
             >
-              <MenuItem value="photo" primaryText="Photo" />
-              <MenuItem value="video" primaryText="Video" />
-              <MenuItem value="blog" primaryText="Blog" />
+              <MenuItem value="photo" primaryText="External photo" />
+              <MenuItem value="video" primaryText="External video" />
+              <MenuItem value="blog" primaryText="External blog" />
             </SelectField>
           </div>
           <div style={styles.icon}>
