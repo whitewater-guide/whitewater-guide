@@ -6,9 +6,7 @@ import {Roles} from 'meteor/alanning:roles';
 import {typeDefs} from '../api/schema';
 import {resolvers} from '../api/resolvers';
 import cors from 'cors';
-import graphqlExpressUpload from 'graphql-server-express-upload'
-import multer from 'multer';
-import path from 'path';
+import {graphqlServerExpressUpload, multerUploads} from './uploads'
 
 // Load all accounts related resolvers and type definitions into graphql-loader
 initAccounts({});
@@ -33,13 +31,6 @@ addSchemaLevelResolveFunction(executableSchema, (root, args, context, info) => {
 
 
 
-const UPLOADS_DIR = process.env['METEOR_SHELL_DIR'] + '/../../../public/images';
-console.log('PWD', process.cwd());
-console.log('UPLOADS', path.resolve(UPLOADS_DIR));
-
-const upload = multer({
-  dest: UPLOADS_DIR,
-});
 
 createApolloServer(
   {
@@ -48,8 +39,8 @@ createApolloServer(
   {
     configServer: expressServer => expressServer.use(
       cors(),
-      upload.any(),
-      graphqlExpressUpload({endpointURL: 'graphql'}), // after multer and before graphqlExpress
+      multerUploads(),
+      graphqlServerExpressUpload(), // after multer and before graphqlExpress
     ),
   }
 );

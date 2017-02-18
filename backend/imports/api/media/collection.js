@@ -11,8 +11,8 @@ const i18Schema = {
 const baseSchema = {
   ...i18Schema,
   _id: {type: String, regEx: SimpleSchema.RegEx.Id},
-  url: {type: String, regEx: SimpleSchema.RegEx.Url},
-  type: {type: String, allowedValues: ["photo", "video", "blog"]},
+  url: {type: String},
+  type: {type: String, allowedValues: ["photo", "video", "blog", "uploaded_image"]},
 };
 
 const dbSchema = _.merge(

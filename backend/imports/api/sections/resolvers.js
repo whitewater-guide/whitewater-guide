@@ -2,7 +2,7 @@ import {Sections} from './collection';
 import {Gauges} from '../gauges';
 import {Rivers} from '../rivers';
 import {Regions} from '../regions';
-import {Media} from '../media';
+import {Media, upsertMedia, moveTempFiles} from '../media';
 import {Points} from '../points';
 import {HazardTags, KayakingTags, MiscTags, SupplyTags} from '../tags';
 import graphqlFields from 'graphql-fields';
@@ -43,7 +43,7 @@ function upsertSection(root, data) {
     }
   }
 
-  const mediaIds = upsertChildren(Media, media, language);
+  const mediaIds = upsertMedia(media, language);
   const poiIds = upsertChildren(Points, pois, language);
   const supplyTagIds = _.map(supplyTags, '_id');
   const kayakingTagIds = _.map(kayakingTags, '_id');
@@ -73,6 +73,15 @@ function upsertSection(root, data) {
     Sections.updateTranslations(_id, {[language]: section});
   else
     _id = Sections.insertTranslations(section);
+
+  //If no error has been thrown to this point, move uploaded images to permanent location
+  try {
+    moveTempFiles(media);
+  }
+  catch (err){
+    console.error('Some files failed to move from temp dir: ', err);
+  }
+
   return Sections.findOne(_id);
 }
 
