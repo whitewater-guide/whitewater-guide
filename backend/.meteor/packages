@@ -23,10 +23,10 @@ vsivsi:job-collection
 meteorhacks:kadira
 ostrio:files
 percolate:migrations
-apollo
 orionsoft:graphql-compiler
 nicolaslopezj:apollo-accounts
 meteorhacks:aggregate
 aldeed:collection2-core
 aldeed:schema-index
 aldeed:schema-deny
+apollo

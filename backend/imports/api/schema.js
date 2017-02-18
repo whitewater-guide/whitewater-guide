@@ -13,6 +13,7 @@ import {ScriptsGraphqlSchema} from './scripts';
 const SchemaDefinition = `
   scalar JSON
   scalar Date
+  scalar UploadedFile
   
   enum SortDirection {
     asc

@@ -34,6 +34,7 @@ resolvers = _.merge(
   {
     "JSON": GraphQLJSON,
     "Date": GraphQLDate,
+    "UploadedFile": GraphQLJSON,
   },
 );
 
