@@ -37,7 +37,7 @@ class SeasonPicker extends Component {
   }
 
   renderMonth = (monthNumber) => {
-    let borderStyle = monthNumber == 11 ?
+    let borderStyle = monthNumber === 11 ?
       {} :
       {
         borderRightWidth: 1,
@@ -53,9 +53,10 @@ class SeasonPicker extends Component {
   };
 
   renderHalfMonth = (index) => {
-    const selected = this.props.value.includes(index);
+    const value = this.props.value || [];
+    const selected = value.includes(index);
     let style = selected ? {...styles.month, backgroundColor: this.props.muiTheme.palette.primary1Color} : styles.month;
-    let borderStyle = (index == 23 || index % 2 == 0) ?
+    let borderStyle = (index === 23 || index % 2 === 0) ?
       {} :
       {
         borderRightWidth: 1,
@@ -73,8 +74,9 @@ class SeasonPicker extends Component {
   };
 
   onToggle = (index) => {
-    if (this.props.onChange)
-      this.props.onChange(_.xor(this.props.value, [index]).sort((a,b) => a - b));
+    const {onChange, value = []} = this.props;
+    if (onChange)
+      onChange(_.xor(value, [index]).sort((a,b) => a - b));
   };
 }
 

@@ -31,7 +31,7 @@ function upsertSection(root, data) {
   } = data;
   let {_id: riverId, name: riverName, regionId} = river;
   if (riverId === '@@new') {
-    riverId = Rivers.insertTranslations({[language]: {name: riverName, regionId}});
+    riverId = Rivers.insertTranslations({name: riverName, regionId}, {[language]: {name: riverName}});
     section = {...section, riverId, riverName, regionId};
   }
   else {
