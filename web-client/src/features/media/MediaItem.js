@@ -39,7 +39,6 @@ class MediaItem extends Component {
               onChange={this.onTypeChange}
               errorText={_.get(error, 'type')}
               hintText="Type"
-              floatingLabelText="Type"
             >
               <MenuItem value="photo" primaryText="Photo" />
               <MenuItem value="video" primaryText="Video" />
@@ -59,10 +58,6 @@ class MediaItem extends Component {
             value={value.description}
             onChange={this.onDescriptionChange}
             hintText="Description"
-            floatingLabelText="Description"
-            multiLine={true}
-            rows={2}
-            rowsMax={4}
           />
           <TextField
             fullWidth={true}
@@ -70,7 +65,6 @@ class MediaItem extends Component {
             value={value.copyright}
             onChange={this.onCopyrightChange}
             hintText="Copyright"
-            floatingLabelText="Copyright"
           />
         </div>
       </div>
@@ -102,6 +96,14 @@ const styles = {
   container: {
     display: 'flex',
     flexDirection: 'column',
+    backgroundColor: '#FFFFFF',
+    marginTop: 8,
+    marginBottom: 8,
+    marginLeft: 12,
+    marginRight: 12,
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: '#e8e8e8',
   },
   row: {
     display: 'flex',

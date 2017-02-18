@@ -20,7 +20,7 @@ export class MediaCollection extends Component {
     let {field: {value}} = this.props;
     value = value || [];
     return (
-      <div>
+      <div style={styles.container}>
         {_.map(value, this.renderItem)}
         <div style={styles.buttonHolder}>
           <IconButton iconClassName="material-icons" onTouchTap={this.onAdd}>
@@ -57,6 +57,9 @@ export class MediaCollection extends Component {
 }
 
 const styles = {
+  container: {
+    backgroundColor: '#FAFAFA',
+  },
   buttonHolder: {
     display: 'flex',
     justifyContent: 'flex-end',
