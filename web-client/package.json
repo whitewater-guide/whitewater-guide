@@ -56,6 +56,7 @@
     "react-dom": "^15.4.2",
     "react-dropzone": "^3.10.0",
     "react-event-listener": "^0.4.1",
+    "react-flags": "^0.1.12",
     "react-image-lightbox": "^3.4.2",
     "react-quill": "beta",
     "react-rating": "^0.6.5",

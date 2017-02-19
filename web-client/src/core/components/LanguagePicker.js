@@ -5,6 +5,7 @@ import Popover from 'material-ui/Popover';
 import DropDownArrow from 'material-ui/svg-icons/navigation/arrow-drop-down';
 import FlatButton from 'material-ui/FlatButton';
 import {LANGUAGES, LANGS_TO_FLAGS} from '../../i18n';
+import Flag from "react-flags";
 import _ from "lodash";
 
 export class LanguagePicker extends React.Component {
@@ -22,7 +23,7 @@ export class LanguagePicker extends React.Component {
     return (
       <div>
         <FlatButton style={styles.button} onTouchTap={this.handleTouchTap} disableTouchRipple={true}>
-          <span className={`flag-icon flag-icon-${LANGS_TO_FLAGS[this.props.value]}`}/>
+          <Flag name={LANGS_TO_FLAGS[this.props.value]} format="png" pngSize={24} basePath="/static/media/flags"/>
           <DropDownArrow/>
         </FlatButton>
         <Popover open={this.state.open} anchorEl={this.state.anchorEl} onRequestClose={this.handleRequestClose}>
@@ -36,11 +37,10 @@ export class LanguagePicker extends React.Component {
 
   renderMenuItem = (langCode, langName) => {
     const countryCode = LANGS_TO_FLAGS[langCode];
-    const className = `flag-icon flag-icon-${countryCode}`;
     return (
       <MenuItem key={langCode} value={langCode} onTouchTap={() => this.props.onChange(langCode)}
                 disableTouchRipple={true} style={styles.menuItem}>
-        <span className={className}/>
+        <Flag name={countryCode} format="png" pngSize={24} basePath="/static/media/flags"/>
         <span style={styles.langName}>{langName}</span>
       </MenuItem>
     );

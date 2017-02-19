@@ -18,3 +18,8 @@ export const LANGS_TO_FLAGS = {
   en: 'us',
   es: 'es',
 };
+
+
+require('react-flags/vendor/flags/flags-iso/flat/24/RU.png');
+require('react-flags/vendor/flags/flags-iso/flat/24/US.png');
+require('react-flags/vendor/flags/flags-iso/flat/24/ES.png');

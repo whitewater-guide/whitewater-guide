@@ -3801,6 +3801,10 @@ react-event-listener@^0.4.0, react-event-listener@^0.4.1:
     react-addons-shallow-compare "^15.4.2"
     warning "^3.0.0"
 
+react-flags@^0.1.12:
+  version "0.1.12"
+  resolved "https://registry.yarnpkg.com/react-flags/-/react-flags-0.1.12.tgz#1ef52048ea57bad3cd40d8e3a193f4cbc963165c"
+
 react-hot-loader@next:
   version "3.0.0-beta.6"
   resolved "https://registry.yarnpkg.com/react-hot-loader/-/react-hot-loader-3.0.0-beta.6.tgz#463fac0bfc8b63a8385258af20c91636abce75f4"

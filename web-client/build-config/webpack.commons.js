@@ -7,6 +7,7 @@ export const PATHS = {
   app: path.resolve(__dirname, '../src'),
   build: path.resolve(__dirname, '../build'),
   public: path.resolve(__dirname, '../public'),
+  node_modules: path.resolve(__dirname, '../node_modules'),
 };
 
 export const commons = function(env) {
@@ -35,6 +36,23 @@ export const commons = function(env) {
           loader: 'file-loader',
           query: {
             name: 'static/media/[name].[md5:hash:8].[ext]',
+          },
+        },
+        {
+          test: /\.(png)$/,
+          loader: 'file-loader',
+          include: path.resolve(PATHS.node_modules, 'react-flags/vendor'),
+          query: {
+            name: 'static/media/flags/[path][name].[ext]',
+            context: path.resolve(PATHS.node_modules, 'react-flags/vendor/flags'),
+          },
+        },
+        {
+          test: /\.(jpg|png)$/,
+          loader: 'url-loader',
+          include: PATHS.app,
+          options: {
+            limit: 10000,
           },
         },
       ]
