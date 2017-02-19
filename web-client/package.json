@@ -57,7 +57,7 @@
     "react-dropzone": "^3.10.0",
     "react-event-listener": "^0.4.1",
     "react-image-lightbox": "^3.4.2",
-    "react-quill": "https://github.com/zenoamaro/react-quill",
+    "react-quill": "beta",
     "react-rating": "^0.6.5",
     "react-render-html": "^0.1.6",
     "react-router-dom": "^4.0.0-beta.6",

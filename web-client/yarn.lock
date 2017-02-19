@@ -3832,9 +3832,9 @@ react-proxy@^3.0.0-alpha.0:
   dependencies:
     lodash "^4.6.1"
 
-"react-quill@https://github.com/zenoamaro/react-quill":
-  version "1.0.0"
-  resolved "https://github.com/zenoamaro/react-quill#a5d57cf88fd084be7b5f40a6a78939d89bd2a505"
+react-quill@beta:
+  version "1.0.0-beta-1"
+  resolved "https://registry.yarnpkg.com/react-quill/-/react-quill-1.0.0-beta-1.tgz#4f95547afb9e6388b6fef0703ee4d4c0ff94b041"
   dependencies:
     lodash "^4.17.4"
     quill "^1.2.0"
