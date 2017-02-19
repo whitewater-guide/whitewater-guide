@@ -11,7 +11,6 @@ const publicFields = {
   enabled: 0,
 };
 
-//TODO: Admin method!!
 function upsertGauge(root, data) {
   return methods.upsertGauge(data);
 }

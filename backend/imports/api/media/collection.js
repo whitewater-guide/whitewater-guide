@@ -2,6 +2,7 @@ import SimpleSchema from 'simpl-schema';
 import {I18nCollection} from '../../i18n';
 import {metaSchema} from '../../utils/SimpleSchemaUtils';
 import _ from 'lodash';
+import {registerHooks} from "./hooks";
 
 const i18Schema = {
   description: String,
@@ -27,3 +28,5 @@ const dbSchema = _.merge(
 export const Media = new I18nCollection('media');
 Media.attachSchema(new SimpleSchema(dbSchema, {requiredByDefault: false}));
 Media.attachI18Schema(i18Schema);
+
+registerHooks(Media);

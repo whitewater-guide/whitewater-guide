@@ -6,7 +6,7 @@ import mv from 'mv';
 import path from 'path';
 
 export function upsertMedia(items, language) {
-  //TODO: deleted files
+  //When media is deleted, hook will delete its file
   const newItems = items.map(({file, url, ...item}) => {
     if (item.type === 'uploaded_image' && file)
       url = file.filename + path.extname(file.originalname).toLowerCase();
@@ -22,7 +22,8 @@ export function moveTempFiles(items) {
       const src = file.path;
       const dest = path.resolve(IMAGES_DIR, filename);
       mv(src, dest, Meteor.bindEnvironment((err) => {
-        console.log('Moved file', src, dest, err);
+        if (err)
+          console.error('Failed to move temp file', src, dest, err);
       }));
     }
   });
