@@ -68,8 +68,6 @@ oauth2@1.1.11
 observe-sequence@1.0.14
 ordered-dict@1.0.9
 orionsoft:graphql-compiler@0.0.1
-ostrio:cookies@2.1.2
-ostrio:files@1.7.8
 percolate:migrations@0.9.8
 promise@0.8.8
 raix:eventemitter@0.1.3
