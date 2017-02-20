@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {Toolbar} from 'material-ui/Toolbar';
 import {UserMenu} from '../../features/users';
-import {Breadcrumbs} from '../components';
+import {Breadcrumbs} from './Breadcrumbs';
 import {ContentLayout} from './ContentLayout';
 import {LeftMenu} from "./LeftMenu";
 

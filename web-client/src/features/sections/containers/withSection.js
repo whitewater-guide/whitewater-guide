@@ -1,5 +1,6 @@
 import {graphql} from 'react-apollo';
-import {withProps, compose} from 'recompose';
+import {compose} from 'recompose';
+import {withFeatureIds} from '../../../core/hoc'
 import gql from 'graphql-tag';
 import {filter} from 'graphql-anywhere';
 import {Fragments} from '../queries';
@@ -20,9 +21,7 @@ const sectionDetails = gql`
 export function withSection(options) {
   const {withGeo = false, withDescription = false, propName = 'section'} = options;
   return compose(
-    withProps(({sectionId, match}) => ({
-      sectionId: sectionId || match.params.sectionId,
-    })),
+    withFeatureIds('section'),
     graphql(
       sectionDetails,
       {
