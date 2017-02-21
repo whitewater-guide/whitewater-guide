@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  meteor:
+    build:
+      dockerfile: meteor.dev.docker
+      context: .docker
+    ports:
+      - "3333:3000"
+    volumes:
+      - ./backend:/var/www/whitewater
+    networks:
+      - whitewater_network
+    depends_on:
+      - "mongo"
+  mongo:
+    image: mongo:3.2
+    networks:
+      - whitewater_network
+    ports:
+      - "3334:27017"
+networks:
+  whitewater_network:
+    driver: bridge
