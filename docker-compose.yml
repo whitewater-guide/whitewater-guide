@@ -24,6 +24,19 @@ services:
       - whitewater_network
     ports:
       - "3334:27017"
+  client:
+    build:
+      dockerfile: client.docker
+      context: .docker
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./web-client:/var/www/whitewater
+    networks:
+      - whitewater_network
+    depends_on:
+      - "meteor"
+    command: ["sh", "development-client.sh"]
 networks:
   whitewater_network:
     driver: bridge

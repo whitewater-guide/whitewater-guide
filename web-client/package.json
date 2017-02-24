@@ -24,6 +24,7 @@
     "clean-webpack-plugin": "^0.1.15",
     "css-loader": "^0.26.1",
     "cssnano": "^3.10.0",
+    "eslint": "^3.16.1",
     "extract-text-webpack-plugin": "2.0.0-rc.3",
     "file-loader": "^0.10.0",
     "friendly-errors-webpack-plugin": "^1.1.3",

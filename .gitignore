@@ -13,3 +13,4 @@ private/workers/
 /web-client/build-config/env.production.json
 /web-client/npm-debug.log
 /web-client/webpack-stats.json
+/web-client/yarn-error.log

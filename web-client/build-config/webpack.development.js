@@ -31,9 +31,10 @@ export const config = {
     publicPath: '/',
     historyApiFallback: true,
     hot: true,
+    host: '0.0.0.0',
     port: PORT,
     proxy: {
-      "/graphql": "http://localhost:3333",
+      "/graphql": "http://meteor:3000",
     },
     quiet: true,
   },

@@ -1,0 +1,9 @@
+/settings.production.json
+!/settings.json
+/backend.iml
+!/public/images/
+!/public/temp/
+/node_modules/
+/deploy/
+/.meteor/dump/
+/.meteor/local/

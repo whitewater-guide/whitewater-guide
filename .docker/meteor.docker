@@ -1,6 +1,6 @@
 FROM node:4.6.2
 
-LABEL description="whitewater dev"
+LABEL description="whitewater dev - meteor backend"
 LABEL version="1.0"
 
 # build arguments
@@ -12,11 +12,16 @@ ENV DOCKERIZE_VERSION=v0.3.0
 
 EXPOSE 3000
 
+# add Yarn
+RUN curl -sS http://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
+ && echo "deb http://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+
 # add packages for building NPM modules (required by Meteor)
 RUN DEBIAN_FRONTEND=noninteractive apt-get update \
-                                && apt-get install -y curl python build-essential wget \
+                                && apt-get install -y yarn \
                                 && apt-get autoremove \
                                 && apt-get clean
+
 
 RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
     && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
@@ -32,6 +37,6 @@ USER ${APP_USER}
 
 # install Meteor
 RUN curl https://install.meteor.com/ | sh
-ENV PATH="/usr/local/bin:${PATH}"
+ENV PATH="/usr/local/bin:$(yarn global bin):${PATH}"
 
 WORKDIR /var/www/${APP_NAME}
