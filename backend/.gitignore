@@ -4,6 +4,7 @@ typings/
 .vscode/
 settings.development.json
 settings.production.json
+settings.staging.json
 whitewater.iml
 package.tar.gz
 private/workers/

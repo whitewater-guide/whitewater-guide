@@ -1,0 +1,46 @@
+FROM phusion/passenger-nodejs:0.9.20
+
+# This build passenger and bakes in backend and frontend code
+
+# Set correct environment variables.
+ENV HOME /root
+
+ARG NODE_ENV
+
+# Use baseimage-docker's init process.
+CMD ["/sbin/my_init"]
+
+# I just hate vi
+RUN apt-get update \
+ && apt-get install -y nano
+
+# Nginx and Passenger are disabled by default. Enable them
+RUN rm -f /etc/service/nginx/down \
+ && rm /etc/nginx/sites-enabled/default \
+ && mkdir /home/app/webapp
+
+# Download and install mustache template engine for config
+# https://github.com/tests-always-included/mo
+RUN curl -sSO https://raw.githubusercontent.com/tests-always-included/mo/master/mo \
+ && chmod +x mo \
+ && mv mo /usr/local/bin/
+
+# Generate nginx and passenger config
+# This substitutes vars from .env file and backend settings.json
+ADD .docker/config .docker/env backend/settings.${NODE_ENV}.json /tmp/
+RUN METEOR_SETTINGS=$(echo $(cat /tmp/settings.${NODE_ENV}.json)) \
+    env $(cat /tmp/${NODE_ENV}.env | xargs) \
+    mo /tmp/webapp.mustache >> /etc/nginx/sites-enabled/webapp.config
+
+# Deploy meteor backend (must be built beforehand)
+ADD backend/build/*.tar.gz /home/app/webapp
+RUN cd /home/app/webapp/bundle/programs/server/ \
+ && npm install --production
+# Deploy client-side code
+ADD web-client/build /home/app/webapp/bundle/public/
+RUN chown -R app /home/app/webapp
+
+# RUN chown -R app /home/app/webapp/bundle/
+
+# Clean up APT when done.
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

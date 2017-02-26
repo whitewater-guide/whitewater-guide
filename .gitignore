@@ -14,3 +14,6 @@ private/workers/
 /web-client/npm-debug.log
 /web-client/webpack-stats.json
 /web-client/yarn-error.log
+/backend/build/
+/.docker/env/production.env
+/.docker/env/staging.env

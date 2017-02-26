@@ -1,11 +1,23 @@
 {
-  "public": {},
-  "private": {
-    "admins": [],
+  "public": {
+    "googleMaps": {
+      "apiKey": "_______"
+    },
     "oAuth": {
       "facebook": {
-        "appId": "",
-        "secret": ""
+        "appId": "_______"
+      }
+    }
+  },
+  "private": {
+    "admins": [
+      "_____@____.ru",
+      "_____@____.ru"
+    ],
+    "oAuth": {
+      "facebook": {
+        "appId": "____________",
+        "secret": "_____________"
       }
     }
   }
