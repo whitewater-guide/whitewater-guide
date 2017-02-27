@@ -14,7 +14,7 @@ class ViewSection extends React.PureComponent {
   static propTypes = {
     section: PropTypes.object,
     admin: PropTypes.bool,
-    router: PropTypes.object,
+    push: PropTypes.func,
   };
 
   durationsMap = _.keyBy(Durations, 'value');
@@ -117,8 +117,8 @@ class ViewSection extends React.PureComponent {
   };
 
   editHandler = () => {
-    const {router, section} = this.props;
-    router.push(`/sections/${section._id}/settings`);
+    const {push, section} = this.props;
+    push(`/sections/${section._id}/settings`);
   };
 
   renderEmpty = () => {

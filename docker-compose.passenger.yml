@@ -12,6 +12,8 @@ services:
       - "443:443"
     networks:
       - whitewater_network
+    volumes:
+      - uploads:/uploads/
     depends_on:
       - "mongo"
   mongo:
@@ -25,4 +27,6 @@ networks:
     driver: bridge
 volumes:
   mongodata:
+    driver: local
+  uploads:
     driver: local

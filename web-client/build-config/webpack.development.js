@@ -34,7 +34,7 @@ export const config = {
     host: '0.0.0.0',
     port: PORT,
     proxy: {
-      "/graphql": "http://meteor:3000",
+      "/graphql": "http://localhost:3333",
     },
     quiet: true,
   },

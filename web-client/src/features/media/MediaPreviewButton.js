@@ -15,7 +15,7 @@ export default class MediaPreviewButton extends React.Component {
     const {value} = this.props;
     let src = value.url;
     if (src && src.indexOf('http') !== 0)
-      src = (process.env.NODE_ENV === 'development' ? 'http://localhost:3333/images/' : 'images/') + src;
+      src = (process.env.NODE_ENV === 'development' ? 'http://localhost:3333/images/' : '/images/') + src;
     if (!src)
       src = value.file.preview;
     return (

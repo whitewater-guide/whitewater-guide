@@ -4,6 +4,7 @@
  */
 
 import RecursiveIterator from 'recursive-iterator';
+import {Meteor} from 'meteor/meteor';
 import {compose} from 'compose-middleware';
 import multer from 'multer';
 import multerAutoreap from 'multer-autoreap';
@@ -12,6 +13,7 @@ import path from 'path';
 
 function isUpload(req) {
   return Boolean(
+    req.url === '/graphql' &&
     req.method === 'POST' &&
     req.is('multipart/form-data')
   );
@@ -41,9 +43,9 @@ export function graphqlServerExpressUpload() {
   }
 }
 
-
-export const TEMP_DIR = process.env['METEOR_SHELL_DIR'] + '/../../../public/temp';
-export const IMAGES_DIR = process.env['METEOR_SHELL_DIR'] + '/../../../public/images';
+const UPLOADS_DIR = Meteor.isDevelopment ? process.env['METEOR_SHELL_DIR'] + '/../../../public': '/uploads';
+export const TEMP_DIR   = UPLOADS_DIR + '/temp';
+export const IMAGES_DIR = UPLOADS_DIR + '/images';
 
 const upload = multer({
   dest: TEMP_DIR,
@@ -58,7 +60,18 @@ const upload = multer({
     }
     cb("Error: File upload only supports the following filetypes - " + filetypes);
   }
-});
+}).any();
+
+const uploadHandler = function(req, res, next){
+  if (!isUpload(req))
+    return next();
+
+  upload(req, res, function(err){
+    if (err)
+      return next(err);
+    return next();
+  });
+};
 
 /**
  * Set up multer middleware for file uploads
@@ -66,7 +79,7 @@ const upload = multer({
  */
 export function multerUploads() {
   return compose([
-    upload.any(),
+    uploadHandler,
     multerAutoreap,
   ]);
 }

@@ -26,7 +26,7 @@ export class MediaCollection extends Component {
       <div style={styles.container}>
         {_.map(value, this.renderItem)}
         <div style={styles.footer}>
-          <Dropzone style={styles.dropzone} onDrop={this.onDrop} accept="image/*" maxSize={1024 * 1024}>
+          <Dropzone style={styles.dropzone} onDrop={this.onDrop} accept="image/*" multiple={true} maxSize={1024 * 1024}>
             <FlatButton
               primary={true}
               style={styles.button}
