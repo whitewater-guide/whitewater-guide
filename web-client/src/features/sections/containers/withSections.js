@@ -30,6 +30,7 @@ const RemoveSectionMutation = gql`
  * @param options.withGeo (false) - should sections include put-in and take-out coordinates?
  * @param options.sort ('name') - default sort key. If falsey - sort functionality is not provided
  * @param options.withRemove (false) - If true, provides remove handler;
+ * @param options.pageSize (25) - Number of sections per page;
  *
  * @returns High order component with following props:
  *          sortBy:String
@@ -45,7 +46,7 @@ const RemoveSectionMutation = gql`
  *
  */
 export function withSections(options) {
-  let {withGeo = false, sort = 'name', withRemove = false} = options;
+  let {withGeo = false, sort = 'name', withRemove = false, pageSize = 25} = options;
 
   const termsFromProps = props => {
     let result = _.pick(props, ['sortBy', 'sortDirection', 'riverId', 'regionId']);
@@ -76,7 +77,7 @@ export function withSections(options) {
         ListSectionsQuery, {
           options: ({language, ...props}) => ({
             forceFetch: true,
-            variables: {terms: termsFromProps(props), withGeo, language, isLoadMore: false},
+            variables: {terms: {...termsFromProps(props), limit: pageSize}, withGeo, language, isLoadMore: false},
           }),
           props: ({data: {sections: sectionsSearchResult, loading, fetchMore}, ownProps}) => {
             const {sections = [], count = 0} = sectionsSearchResult || {};

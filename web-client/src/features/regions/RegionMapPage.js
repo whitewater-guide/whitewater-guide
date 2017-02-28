@@ -10,11 +10,20 @@ class RegionMapPage extends Component {
   static propTypes = {
     region: PropTypes.object,
     sections: PropTypes.array,
+    count: PropTypes.number,//Number of sections
+    loadMore: PropTypes.func, //Load more sections
   };
 
   state = {
     selectedSectionId: null,
   };
+
+  componentDidUpdate(prevPros){
+    const {loadMore, sections, count} = this.props;
+    if (prevPros.sections.length < sections.length && sections.length < count){
+      loadMore({startIndex: sections.length, stopIndex: sections.length + 25});
+    }
+  }
 
   render() {
     const {region, sections} = this.props;
