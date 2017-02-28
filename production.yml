@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  passenger:
+    build:
+      dockerfile: .docker/passenger.docker
+      args:
+        - NODE_ENV=production
+      context: .
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - whitewater_network
+    volumes:
+      - uploads:/uploads/
+    depends_on:
+      - "mongo"
+  mongo:
+    image: mongo:3.2
+    networks:
+      - whitewater_network
+    volumes:
+      - mongodata:/data/db
+networks:
+  whitewater_network:
+    driver: bridge
+volumes:
+  mongodata:
+    driver: local
+  # This volume must be created manually
+  # because DigitalOcean does not allow _ in volume name
+  # and docker-compose will autoprefix volume name with 'whitewater_'
+  uploads:
+    external:
+      name: wwguide-uploads
