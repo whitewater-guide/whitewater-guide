@@ -73,7 +73,7 @@ export class MediaCollection extends Component {
   };
 
   onDrop = (acceptedFiles) => {
-    const newMedia = acceptedFiles.map(file => ({...DEFAULT_MEDIA_ITEM, type: 'uploaded_image', description: file.name,  file}));
+    const newMedia = acceptedFiles.map(file => ({...DEFAULT_MEDIA_ITEM, type: 'uploaded_image', file}));
     let {field: {value = [], onChange}} = this.props;
     onChange([...value, ...newMedia]);
   };

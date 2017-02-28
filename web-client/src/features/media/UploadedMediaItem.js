@@ -23,6 +23,7 @@ export default class UploadedMediaItem extends React.Component {
       <div style={styles.container}>
         <div style={{...delStyle, ...styles.col}}>
           <div style={styles.row}>
+            {value.file && <span>{`Original file: ${value.file.name}`}</span>}
             <TextField
               fullWidth={true}
               errorText={_.get(error, 'description')}
