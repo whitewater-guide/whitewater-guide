@@ -1,5 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import React, {Component, PropTypes} from 'react';
 import {withAdmin} from '../users';
+import {withFeatureIds} from '../../core/hoc';
+import {compose} from 'recompose';
 import {FlatLinkButton} from '../../core/components';
 
 class RiverLeft extends Component {
@@ -13,13 +15,13 @@ class RiverLeft extends Component {
     const {admin, riverId} = this.props;
     const toNewSection = {
       pathname: '/sections/new',
-      search: '?riverId=${riverId}',
+      search: `?riverId=${riverId}`,
     };
     return (
       <div style={styles.container}>
-        <FlatLinkButton secondary={true} to={`/rivers/${riverId}`} label="Info" />
-        {admin && <FlatLinkButton secondary={true} to={`/rivers/${riverId}/settings`} label="Settings" />}
-        {admin && <FlatLinkButton secondary={true} to={toNewSection} label="New Section" />}
+        <FlatLinkButton secondary={true} to={`/rivers/${riverId}`} label="Info"/>
+        {admin && <FlatLinkButton secondary={true} to={`/rivers/${riverId}/settings`} label="Settings"/>}
+        {admin && <FlatLinkButton secondary={true} to={toNewSection} label="New Section"/>}
       </div>
     );
   }
@@ -33,4 +35,7 @@ const styles = {
   },
 };
 
-export default withAdmin()(RiverLeft);
+export default compose(
+  withAdmin(),
+  withFeatureIds('river')
+)(RiverLeft);
