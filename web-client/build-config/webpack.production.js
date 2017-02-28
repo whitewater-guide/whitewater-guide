@@ -17,6 +17,7 @@ export const config = mergeWebpack([
     output: {
       path: PATHS.build,
       filename: '[name].[chunkhash].js',
+      publicPath: '/',
     },
     module: {
       rules: [
