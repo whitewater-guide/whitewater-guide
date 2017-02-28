@@ -32,21 +32,17 @@ RUN METEOR_SETTINGS=$(echo $(cat /tmp/settings.${NODE_ENV}.json)) \
     env $(cat /tmp/${NODE_ENV}.env | xargs) \
     mo /tmp/webapp.mustache >> /etc/nginx/sites-enabled/webapp.config
 
-# Deploy meteor backend (must be built beforehand)
-COPY backend/build/backend.tar.gz /home/app/webapp/
+# Deploy code (must be built beforehand)
+COPY build/bundle.tar.gz /home/app/webapp/
 
-RUN chown app /home/app/webapp/backend.tar.gz \
- && tar xzf /home/app/webapp/backend.tar.gz -C /home/app/webapp/ \
- && rm /home/app/webapp/backend.tar.gz
+RUN chown app /home/app/webapp/bundle.tar.gz \
+ && tar xzf /home/app/webapp/bundle.tar.gz -C /home/app/webapp/ \
+ && rm /home/app/webapp/bundle.tar.gz
 
 RUN cd /home/app/webapp/bundle/programs/server/ \
  && npm install --production
 
-# Deploy client-side code
-ADD web-client/build /home/app/webapp/bundle/public/
-RUN chown -R app /home/app/webapp/bundle/public/
-
-# Create uploads dir
+# Create uploads dir (too lazy to dig into details of passenger to avoid chmod 777)
 RUN mkdir -p /uploads/images \
  && mkdir -p /uploads/temp \
  && ln -s /uploads/images /home/app/webapp/bundle/public/images \

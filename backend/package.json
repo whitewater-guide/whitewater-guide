@@ -4,7 +4,7 @@
   "scripts": {
     "start": "meteor run --port 3333 --settings settings.development.json",
     "mongorestore": "mongorestore -d meteor -h 127.0.0.1:3334 .meteor/dump/wwdb",
-    "build": "meteor build --server-only build"
+    "build": "meteor build --server-only --directory ../build"
   },
   "dependencies": {
     "apollo-client": "^0.8.7",
