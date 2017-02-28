@@ -17,3 +17,4 @@ private/workers/
 /backend/build/
 /.docker/env/production.env
 /.docker/env/staging.env
+/build/
