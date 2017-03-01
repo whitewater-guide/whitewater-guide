@@ -125,10 +125,13 @@ export default compose(
     upsertSection,
     {
       props: ({mutate, ownProps}) => ({
-        method: ({data, language}) => {
-          if (_.get(data, 'river._id') === '@@new')
-            _.set(data, 'river.regionId', ownProps.regionId);
-          return mutate({variables: {section: data, language}});
+        method: ({data: {river, ...section}, language}) => {
+          let {_id, name, regionId, region} = river;
+          if (_id === '@@new')
+            regionId = ownProps.regionId;
+          if (region)
+            regionId = region._id;
+          return mutate({variables: {section: {...section, river: {_id, name, regionId}}, language}});
         }
       }),
     }

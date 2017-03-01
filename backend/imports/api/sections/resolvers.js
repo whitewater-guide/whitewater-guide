@@ -129,6 +129,7 @@ export const sectionsResolvers = {
     kayakingTags: section => section.kayakingTagIds ? KayakingTags.find({_id: {$in: section.kayakingTagIds}}) : [],
     hazardsTags:  section => section.hazardTagIds   ? HazardTags.find({_id: {$in: section.hazardTagIds}})     : [],
     miscTags:     section => section.miscTagIds     ? MiscTags.find({_id: {$in: section.miscTagIds}})         : [],
+    seasonNumeric: section => section.seasonNumeric || [],
   },
   Mutation: {
     upsertSection,
