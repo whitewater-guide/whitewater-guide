@@ -5,7 +5,7 @@ services:
     build:
       dockerfile: .docker/passenger.docker
       args:
-        - NODE_ENV=staging
+        - NODE_ENV
       context: .
     ports:
       - "80:80"
