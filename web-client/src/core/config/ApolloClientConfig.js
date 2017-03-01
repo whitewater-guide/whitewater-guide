@@ -8,21 +8,24 @@ import {getLoginToken} from 'meteor-apollo-accounts';
 //TODO: when apollo supports file uploads - replace this with official stuff
 import {BatchedUploadHTTPFetchNetworkInterface} from '../apollo/BatchedUploadHTTPFetchNetworkInterface';
 
-const authMiddleware = {
-  applyMiddleware: async (request, next) => {
-    const userToken = await getLoginToken();
-    if (!userToken) {
-      next();
-      return;
-    }
-
-    if (!request.options.headers)
-      request.options.headers = new Headers();
-
-    request.options.headers.Authorization = userToken;
-
+async function applyAuth(request, next){
+  const userToken = await getLoginToken();
+  if (!userToken) {
     next();
-  },
+    return;
+  }
+
+  if (!request.options.headers)
+    request.options.headers = {};
+
+  request.options.headers['meteor-login-token'] = userToken;
+
+  next();
+}
+
+const authMiddleware = {
+  applyMiddleware: applyAuth,
+  applyBatchMiddleware: applyAuth,
 };
 
 const createMeteorNetworkInterface = () => {

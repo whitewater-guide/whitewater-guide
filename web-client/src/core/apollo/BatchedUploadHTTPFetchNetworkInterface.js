@@ -1,17 +1,22 @@
 import {printAST} from 'apollo-client';
 import {HTTPBatchedNetworkInterface} from 'apollo-client/transport/batchedNetworkInterface';
+import {HTTPFetchNetworkInterface, BaseNetworkInterface} from 'apollo-client/transport/networkInterface';
 import RecursiveIterator from 'recursive-iterator';
 import _ from 'lodash';
 
 //Batch Uploader modified
 //As described here: https://github.com/HriBB/apollo-upload-network-interface/issues/5
-export class BatchedUploadHTTPFetchNetworkInterface extends HTTPBatchedNetworkInterface {
+export class BatchedUploadHTTPFetchNetworkInterface extends BaseNetworkInterface{
+
   constructor(uri, pollInterval, fetchOpts) {
-    super(uri, pollInterval, fetchOpts);
+    super(uri, fetchOpts);
+    this.batchedInterface = new HTTPBatchedNetworkInterface(uri, pollInterval, fetchOpts);
+    this.uploadInterface = new HTTPFetchNetworkInterface(uri, fetchOpts);
+    this.uploadInterface.fetchFromRemoteEndpoint = this.uploadQuery;
   }
 
   query(request) {
-    const formData = new FormData();
+    this.uploadInterface.formData = new FormData();
 
     // search for File objects on the request and set it as formData
     let hasFile = false;
@@ -19,47 +24,22 @@ export class BatchedUploadHTTPFetchNetworkInterface extends HTTPBatchedNetworkIn
       if (node instanceof File) {
         hasFile = true;
         const id = Math.random().toString(36);
-        formData.append(id, node);
+        this.uploadInterface.formData.append(id, node);
         _.set(request.variables, path.join('.'), id);
       }
     }
 
     if (hasFile){
-      //This is query method from original network interface
-      const options = { ...this._opts };
-
-      return this
-        .applyMiddlewares({request, options})
-        .then((rao) => this.uploadQuery.call(this, rao, formData))
-        .then(response => this.applyAfterwares({response, options}))
-        .then(({ response }) => {
-          const httpResponse = response;
-
-          if (!httpResponse.ok) {
-            const httpError = new Error(`Network request failed with status ${response.status} - "${response.statusText}"`);
-            httpError.response = httpResponse;
-            throw httpError;
-          }
-
-          return httpResponse.json();
-        })
-        .then((payload) => {
-          if (!payload.hasOwnProperty('data') && !payload.hasOwnProperty('errors')) {
-            throw new Error(
-              `Server response was missing for query '${request.debugName}'.`,
-            );
-          } else {
-            return payload;
-          }
-        });
+      return this.uploadInterface.query(request);
     }
     else {
-      // we just pass it through to the batcher.
-      return this.batcher.enqueueRequest(request);
+      return this.batchedInterface.query(request);
     }
   }
 
-  uploadQuery({request, options}, formData) {
+  uploadQuery({request, options}) {
+    const formData = this.formData;
+    this.formData = null;
     formData.append('operationName', request.operationName);
     formData.append('query', printAST(request.query));
     formData.append('variables', JSON.stringify(request.variables || {}));
@@ -72,6 +52,16 @@ export class BatchedUploadHTTPFetchNetworkInterface extends HTTPBatchedNetworkIn
         ...options.headers
       }
     });
+  }
+
+  use(middlewares) {
+    this.batchedInterface.use(middlewares);
+    this.uploadInterface.use(middlewares);
+  }
+
+  useAfter(afterwares){
+    this.batchedInterface.useAfter(afterwares);
+    this.uploadInterface.useAfter(afterwares);
   }
 }
 

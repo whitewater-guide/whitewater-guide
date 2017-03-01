@@ -29,6 +29,7 @@
     "graphql-tools": "^0.10.0",
     "graphql-type-json": "^0.1.4",
     "iconv-lite": "^0.4.15",
+    "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.15.0",
     "moment": "^2.15.0",
     "multer": "^1.3.0",
