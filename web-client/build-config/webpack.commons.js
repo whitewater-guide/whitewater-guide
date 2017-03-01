@@ -1,5 +1,6 @@
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
 import webpack from 'webpack';
 
 export const PATHS = {
@@ -58,6 +59,9 @@ export const commons = function(env) {
       ]
     },
     plugins: [
+      new CopyWebpackPlugin([
+        {from: PATHS.public},
+      ]),
       new HtmlWebpackPlugin({
         inject: false,
         template: require('html-webpack-template'),
