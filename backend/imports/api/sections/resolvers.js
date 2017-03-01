@@ -127,7 +127,7 @@ export const sectionsResolvers = {
     pois: section => Points.find({_id: {$in: section.poiIds}}),
     supplyTags:   section => section.supplyTagIds   ? SupplyTags.find({_id: {$in: section.supplyTagIds}})     : [],
     kayakingTags: section => section.kayakingTagIds ? KayakingTags.find({_id: {$in: section.kayakingTagIds}}) : [],
-    hazardsTags:  section => section.hazardTagIds   ? HazardTags.find({_id: {$in: section.hazardTagIds}})     : [],
+    hazardsTags:  section => section.hazardsTagIds   ? HazardTags.find({_id: {$in: section.hazardsTagIds}})     : [],
     miscTags:     section => section.miscTagIds     ? MiscTags.find({_id: {$in: section.miscTagIds}})         : [],
     seasonNumeric: section => section.seasonNumeric || [],
   },
