@@ -12,6 +12,7 @@ const ViewRiverQuery = gql`
         _id
         name
         difficulty
+        difficultyXtra
         rating
         drop
         distance
