@@ -4,9 +4,11 @@ import UploadedMediaItem from './UploadedMediaItem';
 import FontIcon from 'material-ui/FontIcon';
 import FlatButton from 'material-ui/FlatButton';
 import Dropzone from 'react-dropzone';
+import Snackbar from 'material-ui/Snackbar';
 import _ from 'lodash';
 
 const DEFAULT_MEDIA_ITEM = {url: '', type: 'photo', description: '', copyright: '', deleted: false, file: null};
+const MAX_FILE_SIZE = 1024 * 1024;
 
 export class MediaCollection extends Component {
   static propTypes = {
@@ -19,6 +21,11 @@ export class MediaCollection extends Component {
     }),
   };
 
+  state = {
+    snackbarOpen: false,
+    snackbarMessage: '',
+  };
+
   render() {
     let {field: {value}} = this.props;
     value = value || [];
@@ -26,7 +33,7 @@ export class MediaCollection extends Component {
       <div style={styles.container}>
         {_.map(value, this.renderItem)}
         <div style={styles.footer}>
-          <Dropzone style={styles.dropzone} onDrop={this.onDrop} accept="image/*" multiple={true} maxSize={1024 * 1024}>
+          <Dropzone style={styles.dropzone} onDrop={this.onDrop} accept="image/*" multiple={true} maxSize={MAX_FILE_SIZE}>
             <FlatButton
               primary={true}
               style={styles.button}
@@ -43,6 +50,12 @@ export class MediaCollection extends Component {
             icon={<FontIcon className="material-icons">add</FontIcon>}
           />
         </div>
+        <Snackbar
+          open={this.state.snackbarOpen}
+          message={this.state.snackbarMessage}
+          autoHideDuration={4000}
+          onRequestClose={this.closeSnackbar}
+        />
       </div>
     );
   }
@@ -72,10 +85,18 @@ export class MediaCollection extends Component {
     onChange(value);
   };
 
-  onDrop = (acceptedFiles) => {
+  onDrop = (acceptedFiles, rejectedFiles) => {
     const newMedia = acceptedFiles.map(file => ({...DEFAULT_MEDIA_ITEM, type: 'uploaded_image', file}));
     let {field: {value = [], onChange}} = this.props;
     onChange([...value, ...newMedia]);
+    const rejectedNames = rejectedFiles.map(f => f.name).join(', ');
+    if (rejectedFiles.length > 0){
+      this.setState({snackbarOpen: true, snackbarMessage: `Files ${rejectedNames} are larger than 1 Mb`});
+    }
+  };
+
+  closeSnackbar = () => {
+      this.setState({snackbarOpen: false, snackbarMessage: ''});
   };
 }
 
