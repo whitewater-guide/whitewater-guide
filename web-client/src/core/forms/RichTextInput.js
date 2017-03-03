@@ -6,14 +6,14 @@ const quillToolbar = [
   [{'header': [1, 2, false]}],
   ['bold', 'italic'],
   [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
-  //['link', 'image', 'video'],
+  ['link', /*'image', 'video'*/],
 ];
 
 const quillFormats = [
   "header",
   "bold", "italic", "underline", "strike", "blockquote",
   "list", "bullet", "indent",
-  //"link", "image", 'video',
+  "link",// "image", 'video',
 ];
 
 class RichTextInput extends Component {
