@@ -8,8 +8,10 @@ type Job {
 }
 
 type JobsReport {
-  _id: ID!,
-  count: Int!,
+  # This is id of gauge or source
+  # or null if we request per-gauge breakdown of all-at-once source
+  _id: ID
+  count: Int
 }
 
 type Query {
