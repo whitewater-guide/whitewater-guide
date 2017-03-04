@@ -38,7 +38,7 @@ export const config = {
     },
     quiet: true,
   },
-  devtool: 'source-map',
+  devtool: 'eval',
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new FriendlyErrorsWebpackPlugin(),
