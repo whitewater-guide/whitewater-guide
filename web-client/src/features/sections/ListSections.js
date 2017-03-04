@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {Column, Table, AutoSizer, SortDirection, InfiniteLoader} from 'react-virtualized';
 import {Rating} from '../../core/forms';
 import {Durations} from './Durations';
-import {AdminControls} from '../../core/components';
+import {AdminControls, rowRenderer} from '../../core/components';
 import {renderDifficulty} from '../../utils/TextUtils';
 import _ from 'lodash';
 import container from './ListSectionsContainer';
@@ -54,6 +54,8 @@ class ListSections extends Component {
                   sortDirection={this.props.sortDirection}
                   sort={this.props.onSort}
                   onRowClick={this.onRowClick}
+                  rowStyle={this.styleRow}
+                  rowRenderer={rowRenderer}
                 >
                   <Column width={200} flexGrow={1} label='Name' dataKey="name" cellDataGetter={this.renderName}/>
                   <Column width={110} label='Difficulty' dataKey="difficulty" cellDataGetter={this.difficultyRenderer}/>
@@ -99,6 +101,12 @@ class ListSections extends Component {
   };
 
   onRowClick = ({index}) => this.props.push(`/sections/${this.props.sections[index]._id}`);
+
+  styleRow = ({index}) => {
+    return {
+
+    }
+  };
 
 }
 

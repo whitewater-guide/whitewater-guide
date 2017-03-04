@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 import {Column, Table, AutoSizer, InfiniteLoader} from 'react-virtualized';
+import {rowRenderer} from '../../core/components';
 import IconButton from 'material-ui/IconButton';
 import container from './ListRiversContainer';
 
@@ -42,6 +43,7 @@ class ListRivers extends React.Component {
                   rowCount={rivers.length}
                   rowGetter={({index}) => rivers[index]}
                   onRowClick={this.onRowClick}
+                  rowRenderer={rowRenderer}
                 >
                   <Column width={10} flexGrow={2} dataKey="name" label="Name"/>
                   <Column width={10} flexGrow={1} dataKey="region" label="Region" cellDataGetter={this.getRegion}/>

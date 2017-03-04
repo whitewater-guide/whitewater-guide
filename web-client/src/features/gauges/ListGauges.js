@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import {Column, Table, AutoSizer, InfiniteLoader} from 'react-virtualized';
 import FontIcon from 'material-ui/FontIcon';
 import container from './ListGaugesContainer';
-import {AdminControls} from '../../core/components';
+import {AdminControls, rowRenderer} from '../../core/components';
 import _ from 'lodash';
 import moment from 'moment';
 
@@ -47,6 +47,7 @@ class ListGauges extends React.Component {
                   rowCount={gauges.length}
                   rowGetter={({index}) => gauges[index]}
                   onRowClick={this.onRowClick}
+                  rowRenderer={rowRenderer}
                 >
                   {admin && <Column width={12} flexGrow={0} dataKey="status" cellRenderer={this.renderStatus}/>}
                   <Column width={150} flexGrow={5} dataKey="name" label="Name"/>

@@ -11,3 +11,4 @@ export * from './TabTemplate';
 export * from './TextField';
 export * from './Breadcrumb';
 export * from './BreadcrumbSeparator';
+export * from './rowRenderer';
