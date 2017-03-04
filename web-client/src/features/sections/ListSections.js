@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {AutoSizer, SortDirection, InfiniteLoader} from 'react-virtualized';
 import container from './ListSectionsContainer';
 import SectionsTable from './SectionsTable';
+import SectionsFilter from './SectionsFilter';
 
 class ListSections extends Component {
 
@@ -12,21 +13,26 @@ class ListSections extends Component {
     sortBy: PropTypes.string,
     sortDirection: PropTypes.oneOf([SortDirection.ASC, SortDirection.DESC]),
     onSort: PropTypes.func,
+    onSearch: PropTypes.func,
+    searchString: PropTypes.string,
     removeSection: PropTypes.func,
     loadMore: PropTypes.func.isRequired,
     push: PropTypes.func,
+    showFilters: PropTypes.bool,
   };
 
   static defaultProps = {
     sections: [],
     sortBy: 'name',
     sortDirection: SortDirection.ASC,
+    showFilters: true,
   };
 
   render() {
-    const {admin, sections, count, loadMore, sortBy, sortDirection, onSort} = this.props;
+    const {admin, sections, count, loadMore, sortBy, sortDirection, onSort, onSearch, searchString} = this.props;
     return (
       <div style={styles.wrapper}>
+        {this.props.showFilters && <SectionsFilter searchString={searchString} onSearch={onSearch}/>}
         <AutoSizer>
           {({width, height}) => (
             <InfiniteLoader

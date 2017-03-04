@@ -106,6 +106,7 @@ input SectionSearchTerms {
   limit: Int,
   riverId: ID,
   regionId: ID,
+  searchString: String,
 }
 
 type Query {

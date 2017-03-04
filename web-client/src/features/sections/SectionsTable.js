@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import {Column, Table, SortDirection} from 'react-virtualized';
+import {Column, Table} from 'react-virtualized';
 import {AdminControls, rowRenderer} from '../../core/components';
 import {Rating} from '../../core/forms';
 import {renderDifficulty} from '../../utils/TextUtils';

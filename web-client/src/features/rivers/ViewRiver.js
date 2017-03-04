@@ -20,7 +20,7 @@ class ViewRiver extends Component {
             <h2>{river.name}</h2>
             <p>{river.description}</p>
             <h3>Sections</h3>
-            <ListSections sections={river.sections}/>
+            <ListSections sections={river.sections} showFilters={false}/>
           </Paper>
         </div>
       </div>

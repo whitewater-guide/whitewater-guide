@@ -49,7 +49,7 @@ export function withSections(options) {
   let {withGeo = false, sort = 'name', withRemove = false, pageSize = 25} = options;
 
   const termsFromProps = props => {
-    let result = _.pick(props, ['sortBy', 'sortDirection', 'riverId', 'regionId']);
+    let result = _.pick(props, ['sortBy', 'sortDirection', 'riverId', 'regionId', 'searchString']);
     if (result.sortDirection)
       result.sortDirection = result.sortDirection.toLowerCase();
     //When sort functionality is not required, set sortBy to '_id',
@@ -69,6 +69,7 @@ export function withSections(options) {
       onSort: props => sortOptions => props.setSortOptions(sortOptions),
     }),
     !!sort && flattenProp('sortOptions'),
+    withState('searchString', 'onSearch', ''),
     branch(
       //If sections aren't provided from outside, fetch them
       //If they are provided by parent, sort them here
@@ -108,9 +109,16 @@ export function withSections(options) {
       //When sections are provided from outside:
       //If sort is enabled - sort manually on client
       //If sort is disabled = just pass through (_.identity)
-      sort ? mapProps(({sortBy = sort, sortDirection = 'asc', sections, ...props}) => {
+      sort ? mapProps(({sortBy = sort, sortDirection = 'asc', searchString, sections, ...props}) => {
         const sort = sortBy === 'name' ? [sec => sec.river.name, 'name'] : [sortBy];
-        let sortedSections = _.sortBy(sections, sort);
+        let sortedSections = sections;
+        if (searchString){
+          const regex = new RegExp(searchString, 'i');
+          sortedSections = _.filter(sortedSections, section => {
+            return regex.test(section.name) || regex.test(section.river.name);
+          });
+        }
+        sortedSections = _.sortBy(sortedSections, sort);
         if (sortDirection.toLowerCase() === 'desc')
           sortedSections = _.reverse(sortedSections);
         return {

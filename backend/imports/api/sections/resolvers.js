@@ -99,7 +99,11 @@ export const sectionsResolvers = {
       const sort = (!sortBy || sortBy === 'name') ?
         [['riverName', sortDirection], ['name', sortDirection]] :
         [[sortBy, sortDirection]];
-      const selector = _.pick(terms, ['regionId', 'riverId']);
+      let selector = _.pick(terms, ['regionId', 'riverId']);
+      if (terms.searchString) {
+        const regex = new RegExp(terms.searchString, 'i');
+        selector = {...selector, $or: [{name: regex}, {riverName: regex}]};
+      }
       let result = {
         sections: Sections.find(selector, {fields, sort, skip, limit, lang: language}).fetch()
       };
