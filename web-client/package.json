@@ -25,6 +25,7 @@
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.26.1",
     "cssnano": "^3.10.0",
+    "deep-diff": "^0.3.4",
     "eslint": "^3.16.1",
     "extract-text-webpack-plugin": "2.0.0-rc.3",
     "file-loader": "^0.10.0",

@@ -2,7 +2,7 @@ import {printAST} from 'apollo-client';
 import {HTTPBatchedNetworkInterface} from 'apollo-client/transport/batchedNetworkInterface';
 import {HTTPFetchNetworkInterface, BaseNetworkInterface} from 'apollo-client/transport/networkInterface';
 import RecursiveIterator from 'recursive-iterator';
-import _ from 'lodash';
+import set from 'lodash/fp/set';
 
 //Batch Uploader modified
 //As described here: https://github.com/HriBB/apollo-upload-network-interface/issues/5
@@ -25,7 +25,7 @@ export class BatchedUploadHTTPFetchNetworkInterface extends BaseNetworkInterface
         hasFile = true;
         const id = Math.random().toString(36);
         this.uploadInterface.formData.append(id, node);
-        _.set(request.variables, path.join('.'), id);
+        set(path.join('.'), id)(request.variables);
       }
     }
 
