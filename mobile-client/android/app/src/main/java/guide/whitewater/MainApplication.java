@@ -1,4 +1,4 @@
-package com.whitewater;
+package guide.whitewater;
 
 import android.app.Application;
 
