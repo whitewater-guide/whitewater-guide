@@ -1,12 +1,12 @@
-import {printAST} from 'apollo-client';
-import {HTTPBatchedNetworkInterface} from 'apollo-client/transport/batchedNetworkInterface';
-import {HTTPFetchNetworkInterface, BaseNetworkInterface} from 'apollo-client/transport/networkInterface';
+import { printAST } from 'apollo-client';
+import { HTTPBatchedNetworkInterface } from 'apollo-client/transport/batchedNetworkInterface';
+import { HTTPFetchNetworkInterface, BaseNetworkInterface } from 'apollo-client/transport/networkInterface';
 import RecursiveIterator from 'recursive-iterator';
 import set from 'lodash/fp/set';
 
-//Batch Uploader modified
-//As described here: https://github.com/HriBB/apollo-upload-network-interface/issues/5
-export class BatchedUploadHTTPFetchNetworkInterface extends BaseNetworkInterface{
+// Batch Uploader modified
+// As described here: https://github.com/HriBB/apollo-upload-network-interface/issues/5
+export class BatchedUploadHTTPFetchNetworkInterface extends BaseNetworkInterface {
 
   constructor(uri, pollInterval, fetchOpts) {
     super(uri, fetchOpts);
@@ -20,7 +20,7 @@ export class BatchedUploadHTTPFetchNetworkInterface extends BaseNetworkInterface
 
     // search for File objects on the request and set it as formData
     let hasFile = false;
-    for (let {node, path} of new RecursiveIterator(request.variables)) {
+    for (let { node, path } of new RecursiveIterator(request.variables)) {
       if (node instanceof File) {
         hasFile = true;
         const id = Math.random().toString(36);
@@ -29,15 +29,13 @@ export class BatchedUploadHTTPFetchNetworkInterface extends BaseNetworkInterface
       }
     }
 
-    if (hasFile){
+    if (hasFile) {
       return this.uploadInterface.query(request);
     }
-    else {
-      return this.batchedInterface.query(request);
-    }
+    return this.batchedInterface.query(request);
   }
 
-  uploadQuery({request, options}) {
+  uploadQuery({ request, options }) {
     const formData = this.formData;
     this.formData = null;
     formData.append('operationName', request.operationName);
@@ -49,8 +47,8 @@ export class BatchedUploadHTTPFetchNetworkInterface extends BaseNetworkInterface
       method: 'POST',
       headers: {
         Accept: '*/*',
-        ...options.headers
-      }
+        ...options.headers,
+      },
     });
   }
 
@@ -59,9 +57,8 @@ export class BatchedUploadHTTPFetchNetworkInterface extends BaseNetworkInterface
     this.uploadInterface.use(middlewares);
   }
 
-  useAfter(afterwares){
+  useAfter(afterwares) {
     this.batchedInterface.useAfter(afterwares);
     this.uploadInterface.useAfter(afterwares);
   }
 }
-

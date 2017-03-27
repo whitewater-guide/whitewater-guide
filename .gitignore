@@ -8,13 +8,8 @@ package.tar.gz
 private/workers/
 /.meteor/dump
 *.iml
-/web-client/build/
-/web-client/build-config/env.development.json
-/web-client/build-config/env.production.json
-/web-client/npm-debug.log
-/web-client/webpack-stats.json
-/web-client/yarn-error.log
 /backend/build/
 /.docker/env/production.env
 /.docker/env/staging.env
 /build/
+/.tmp/

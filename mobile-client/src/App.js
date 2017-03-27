@@ -1,15 +1,15 @@
 import React from 'react';
-import { Provider } from 'react-redux';
+import { ApolloProvider } from 'react-apollo';
 import RootView from './core/RootView';
 import configureStore from './core/config/configureStore';
+import { apolloClient } from './core/config/configureApollo';
 
-// create our store
 const store = configureStore();
 
 export default function App() {
   return (
-    <Provider store={store}>
+    <ApolloProvider store={store} client={apolloClient}>
       <RootView />
-    </Provider>
+    </ApolloProvider>
   );
 }

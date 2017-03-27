@@ -13,7 +13,7 @@ export default class FlatLinkButton extends Component {
     );
   }
 
-  renderChildren = ({push}) => {
+  renderChildren = ({history: {push}}) => {
     const {to, ...buttonProps} = this.props;
     const onTouchTap = () => push(to);
     return (

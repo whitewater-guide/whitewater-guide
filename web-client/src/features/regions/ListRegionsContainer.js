@@ -1,17 +1,7 @@
-import {graphql, compose} from 'react-apollo';
-import {withRouter} from "react-router-dom";
-import {withAdmin} from "../users";
-import gql from 'graphql-tag';
+import { gql, graphql, compose } from 'react-apollo';
 import _ from 'lodash';
-
-const ListRegionsQuery = gql`
-  query listRegions {
-    regions {
-      _id,
-      name,
-    }
-  }
-`;
+import { withRegionsList } from '../../commons/features/regions';
+import { withAdmin } from "../users";
 
 const RemoveRegionMutation = gql`
   mutation removeRegion($_id: ID!){
@@ -30,34 +20,34 @@ const CreateRegionMutation = gql`
 
 export default compose(
   withAdmin(),
-  graphql(
-    ListRegionsQuery, {
-      props: ({data: {regions}}) => ({regions: regions || []})
-    }
-  ),
+  withRegionsList,
   graphql(
     RemoveRegionMutation, {
-      props: ({mutate}) => ({removeRegion: _id => mutate({
-        variables: {_id},
-        updateQueries: {
-          listRegions: (prev) => {
-            return {...prev, regions: _.filter(prev.regions, v => v._id !== _id)};
-          }
-        },
-      })}),
+      props: ({ mutate }) => ({
+        removeRegion: _id => mutate({
+          variables: { _id },
+          updateQueries: {
+            listRegions: (prev) => {
+              return { ...prev, regions: _.filter(prev.regions, v => v._id !== _id) };
+            }
+          },
+        })
+      }),
     }
   ),
   graphql(
     CreateRegionMutation, {
-      props: ({mutate}) => ({createRegion: (name) => mutate({
-        variables: {region: {name}},
-        updateQueries: {
-          listRegions: (prev, {mutationResult}) => {
-            const newRegion = mutationResult.data.region;
-            return {...prev, regions: [...prev.regions, newRegion]};
-          }
-        },
-      })}),
+      props: ({ mutate }) => ({
+        createRegion: (name) => mutate({
+          variables: { region: { name } },
+          updateQueries: {
+            listRegions: (prev, { mutationResult }) => {
+              const newRegion = mutationResult.data.region;
+              return { ...prev, regions: [...prev.regions, newRegion] };
+            }
+          },
+        })
+      }),
     }
   ),
 );

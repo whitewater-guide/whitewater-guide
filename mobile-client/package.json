@@ -7,9 +7,12 @@
 		"test": "jest"
 	},
 	"dependencies": {
+		"apollo-client": "1.0.0-rc.7",
 		"lodash": "^4.17.4",
+		"meteor-apollo-accounts": "^2.0.1",
 		"moment": "^2.18.1",
 		"react": "~15.4.1",
+		"react-apollo": "^1.0.0-rc.3",
 		"react-native": "0.42.3",
 		"react-native-config": "^0.3.1",
 		"react-native-splash-screen": "^2.0.0",
@@ -20,6 +23,7 @@
 		"reactotron-react-native": "^1.9.1",
 		"reactotron-redux": "^1.9.1",
 		"reactotron-redux-saga": "^1.9.1",
+		"recursive-iterator": "^2.0.3",
 		"redux": "^3.6.0",
 		"redux-persist": "^4.5.0",
 		"redux-saga": "^0.14.3"
