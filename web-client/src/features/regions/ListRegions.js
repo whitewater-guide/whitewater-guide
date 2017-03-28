@@ -11,6 +11,7 @@ class ListRegions extends Component {
     admin: PropTypes.bool,
     removeRegion: PropTypes.func,
     createRegion: PropTypes.func,
+    history: PropTypes.object,
   };
 
   static contextTypes = {
@@ -59,7 +60,7 @@ class ListRegions extends Component {
     if (!admin)
       return null;
     const deleteHandler = () => removeRegion(region._id);
-    const editHandler = () => this.props.push(`/regions/${region._id}/settings`);
+    const editHandler = () => this.props.history.push(`/regions/${region._id}/settings`);
     return (
       <TableRowColumn>
         <div onClick={(e) => { e.preventDefault(); e.stopPropagation(); } }>
@@ -71,10 +72,10 @@ class ListRegions extends Component {
   };
 
   onCellClick = (rowId) => {
-    const {push, regions} = this.props;
+    const {history, regions} = this.props;
     if (rowId >= regions.length)
       return;
-    push(`/regions/${regions[rowId]._id}`);
+    history.push(`/regions/${regions[rowId]._id}`);
   };
 
   renderNewRegionRow = () => {
@@ -98,10 +99,10 @@ class ListRegions extends Component {
   };
 
   addNewRegion = () => {
-    const {push, createRegion} = this.props;
+    const {history, createRegion} = this.props;
     createRegion(this.state.newRegionName)
       .then(newRegion => {
-        push(`/regions/${newRegion._id}`)
+        history.push(`/regions/${newRegion._id}`)
       });
   };
 }

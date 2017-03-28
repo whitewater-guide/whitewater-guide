@@ -106,8 +106,8 @@ class SectionForm extends Component {
   }
 
   onTabChange = (value) => {
-    const {location, replace} = this.props;
-    replace({...location, hash: value});
+    const {location, history} = this.props;
+    history.replace({...location, hash: value});
   };
 
   showMap = () => {

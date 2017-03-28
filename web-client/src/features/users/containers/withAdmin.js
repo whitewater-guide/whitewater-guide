@@ -42,7 +42,7 @@ export function withAdmin(redirectUnauthorized = false) {
       static propTypes = {
         admin: PropTypes.bool,
         adminLoading: PropTypes.bool,
-        replace: PropTypes.func,
+        history: PropTypes.object,
       };
 
       static displayName = `withAdmin(${getDisplayName(Component)})`;
@@ -56,7 +56,7 @@ export function withAdmin(redirectUnauthorized = false) {
           return (<Wrapped {...props}/>);
         }
         else {
-          this.props.replace('/403');
+          this.props.history.replace('/403');
           return null;
         }
       }

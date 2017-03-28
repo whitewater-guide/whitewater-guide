@@ -62,14 +62,14 @@ export default compose(
   })),
   withHandlers({
     onLanguageChange: props => language => props.setLanguage(language),
-    onSubmit: props => () => props.goBack(),
-    onCancel: props => () => props.goBack(),
+    onSubmit: props => () => props.history.goBack(),
+    onCancel: props => () => props.history.goBack(),
   }),
   graphql(
     sourceDetails,
     {
       options: ({sourceId, language}) => ({
-        forceFetch: true,//i18n's problem with caching
+        fetchPolicy: 'network-only',//i18n's problem with caching
         variables: {_id: sourceId, language},
       }),
       props: ({data: {loading, ...data}}) => {

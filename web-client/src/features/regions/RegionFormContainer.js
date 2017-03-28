@@ -29,8 +29,8 @@ export default compose(
   withState('language', 'setLanguage', 'en'),
   withHandlers({
     onLanguageChange: props => language => props.setLanguage(language),
-    onSubmit: props => () => props.goBack(),
-    onCancel: props => () => props.goBack(),
+    onSubmit: props => () => props.history.goBack(),
+    onCancel: props => () => props.history.goBack(),
   }),
   withRegion({propName: 'initialData'}),
   graphql(

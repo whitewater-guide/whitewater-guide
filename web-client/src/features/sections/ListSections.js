@@ -17,7 +17,7 @@ class ListSections extends Component {
     searchString: PropTypes.string,
     removeSection: PropTypes.func,
     loadMore: PropTypes.func.isRequired,
-    push: PropTypes.func,
+    history: PropTypes.object,
     showFilters: PropTypes.bool,
   };
 
@@ -65,9 +65,9 @@ class ListSections extends Component {
 
   isRowLoaded = ({index}) => !!this.props.sections[index];
 
-  onSectionClick = (sectionId) => this.props.push(`/sections/${sectionId}`);
+  onSectionClick = (sectionId) => this.props.history.push(`/sections/${sectionId}`);
 
-  onEditSection = (sectionId) => this.props.push(`/sections/${sectionId}/settings`);
+  onEditSection = (sectionId) => this.props.history.push(`/sections/${sectionId}/settings`);
 
   onDeleteSection = (sectionId) => this.props.removeSection(sectionId);
 

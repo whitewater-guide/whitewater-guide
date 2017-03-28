@@ -32,7 +32,7 @@ export default compose(
     sourceSchedule,
     {
       options: ({match: {params: sourceId}}) => ({
-        forceFetch: true,
+        fetchPolicy: 'network-only',
         variables: {_id: sourceId},
       }),
       props: ({data: {source, jobs, loading}}) => {

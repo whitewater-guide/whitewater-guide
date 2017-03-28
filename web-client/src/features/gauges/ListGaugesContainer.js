@@ -61,7 +61,7 @@ export default compose(
   graphql(
     ListGaugesQuery, {
       options: ({sourceId, language}) => ({
-        forceFetch: true,
+        fetchPolicy: 'network-only',
         variables: {sourceId, language, isLoadMore: false},
       }),
       props: ({data: {gauges, count, source, jobsReport, loading, fetchMore}}) => {

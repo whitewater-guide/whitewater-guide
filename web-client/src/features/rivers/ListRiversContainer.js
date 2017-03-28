@@ -37,7 +37,7 @@ export default compose(
   graphql(
     ListRiversQuery, {
       options: ({regionId, language}) => ({
-        forceFetch: true,
+        fetchPolicy: 'network-only',
         variables: {regionId, language, isLoadMore: false},
       }),
       props: ({data: {rivers, count, loading, fetchMore}}) => {

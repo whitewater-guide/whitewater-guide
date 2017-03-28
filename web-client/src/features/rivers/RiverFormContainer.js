@@ -52,14 +52,14 @@ export default compose(
   })),
   withHandlers({
     onLanguageChange: props => language => props.setLanguage(language),
-    onSubmit: props => result => (!props._id && result && result._id) ? props.replace(`/rivers/${result._id}`) : props.goBack(),
-    onCancel: props => () => props.goBack(),
+    onSubmit: props => result => (!props._id && result && result._id) ? props.history.replace(`/rivers/${result._id}`) : props.history.goBack(),
+    onCancel: props => () => props.history.goBack(),
   }),
   graphql(
     riverDetails,
     {
       options: ({riverId, language}) => ({
-        forceFetch: true,
+        fetchPolicy: 'network-only',
         variables: {_id: riverId, language}
       }),
       props: ({data: {river, regions, loading}, ownProps}) => {

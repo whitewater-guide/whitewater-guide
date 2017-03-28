@@ -55,13 +55,13 @@ export default compose(
   })),
   withHandlers({
     onLanguageChange: props => language => props.setLanguage(language),
-    onSubmit: props => () => props.goBack(),
-    onCancel: props => () => props.goBack(),
+    onSubmit: props => () => props.history.goBack(),
+    onCancel: props => () => props.history.goBack(),
   }),
   graphql(
     gaugeDetails,
     {
-      options: () => ({forceFetch: true}),//i18n's problem with caching
+      options: () => ({fetchPolicy: 'network-only'}),//i18n's problem with caching
       props: ({ownProps, data: {gauge, loading}}) => {
         let initialData = gauge ? filter(gaugeDetailsFragment, gauge) : {sourceId: ownProps.sourceId};
         if (initialData.hasOwnProperty('source')) {

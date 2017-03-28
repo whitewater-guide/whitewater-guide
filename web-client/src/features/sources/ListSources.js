@@ -10,7 +10,7 @@ class ListSources extends Component {
     sources: PropTypes.array,
     admin: PropTypes.bool,
     ready: PropTypes.bool,
-    push: PropTypes.func,
+    history: PropTypes.object,
     jobsReport: PropTypes.array,
     removeSource: PropTypes.func,
     setEnabled: PropTypes.func,
@@ -63,7 +63,7 @@ class ListSources extends Component {
     const {admin} = this.props;
     if (!admin)
       return null;
-    const editHandler = () => this.props.push(`/sources/${src._id}/settings`);
+    const editHandler = () => this.props.history.push(`/sources/${src._id}/settings`);
     const deleteHandler = () => this.props.removeSource(src._id);
     const startStopHandler = () => this.props.setEnabled(src._id, !src.enabled);
     return (
@@ -79,8 +79,8 @@ class ListSources extends Component {
   };
 
   onCellClick = (rowId) => {
-    const {push, sources} = this.props;
-    push(`/sources/${sources[rowId]._id}`);
+    const {history, sources} = this.props;
+    history.push(`/sources/${sources[rowId]._id}`);
   };
 
 }

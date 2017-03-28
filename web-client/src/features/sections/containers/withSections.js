@@ -77,7 +77,7 @@ export function withSections(options) {
       graphql(
         ListSectionsQuery, {
           options: ({language, ...props}) => ({
-            forceFetch: true,
+            fetchPolicy: 'network-only',
             variables: {terms: {...termsFromProps(props), limit: pageSize}, withGeo, language, isLoadMore: false},
           }),
           props: ({data: {sections: sectionsSearchResult, loading, fetchMore}, ownProps}) => {

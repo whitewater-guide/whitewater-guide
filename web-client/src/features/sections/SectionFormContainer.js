@@ -96,14 +96,14 @@ export default compose(
   })),
   withHandlers({
     onLanguageChange: props => language => props.setLanguage(language),
-    onSubmit: props => () => props.goBack(),
-    onCancel: props => () => props.goBack(),
+    onSubmit: props => () => props.history.goBack(),
+    onCancel: props => () => props.history.goBack(),
   }),
   withTags,
   graphql(
     sectionDetails,
     {
-      options: () => ({forceFetch: true}),
+      options: () => ({fetchPolicy: 'network-only'}),
       props: ({data: {loading, ...data}}) => {
         let {section, region, river} = filter(sectionDetails, data);
         //For region form we need

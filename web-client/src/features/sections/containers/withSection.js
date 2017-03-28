@@ -26,7 +26,7 @@ export function withSection(options) {
       sectionDetails,
       {
         options: ({sectionId, language}) => ({
-          forceFetch: true,//i18n's problem with caching
+          fetchPolicy: 'network-only',//i18n's problem with caching
           variables: {_id: sectionId, language, withGeo, withDescription},
         }),
         props: ({data: {section, loading}}) => {
