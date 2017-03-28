@@ -30,8 +30,8 @@ const authMiddleware = {
   applyBatchMiddleware: applyAuth,
 };
 
-const createMeteorNetworkInterface = () => {
-  const networkInterface = new BatchedUploadHTTPFetchNetworkInterface('/graphql', 10);
+const createMeteorNetworkInterface = ({uri = '/graphql'}) => {
+  const networkInterface = new BatchedUploadHTTPFetchNetworkInterface(uri, 10);
   networkInterface.use([authMiddleware]);
 
   return networkInterface;
@@ -52,5 +52,5 @@ const meteorClientConfig = networkInterfaceConfig => ({
 });
 
 export default function configureApolloClient(options = {}) {
-  return new ApolloClient({ ...meteorClientConfig(), ...options });
+  return new ApolloClient({ ...meteorClientConfig(options), ...options });
 }

@@ -1,1 +1,1 @@
-export { default as FirstScreenStack } from './FirstScreenStack';
+export { default as ListRegionsStack } from './ListRegionsStack';
