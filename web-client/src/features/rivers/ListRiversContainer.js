@@ -2,7 +2,7 @@ import {graphql, compose} from 'react-apollo';
 import gql from 'graphql-tag';
 import {withAdmin} from '../users';
 import {withRouter} from 'react-router';
-import {withFeatureIds} from '../../core/hoc';
+import {withFeatureIds} from '../../commons/core';
 import {withProps, withState, branch} from 'recompose';
 import _ from 'lodash';
 

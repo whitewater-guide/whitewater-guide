@@ -1,17 +1,17 @@
 import { DrawerNavigator } from 'react-navigation';
-import { ListRegionsStack, SecondScreenStack, ThirdScreenTabs } from '../screens';
+import { ListRegionsStack, SecondScreenStack, RegionTabs } from '../screens';
 
 const Routes = {
   ListRegions: {
     screen: ListRegionsStack,
     navigationOptions: { title: 'Regions' },
   },
+  Region: {
+    screen: RegionTabs,
+    navigationOptions: { title: 'Region' },
+  },
   SecondScreen: {
     screen: SecondScreenStack,
-    navigationOptions: { title: 'Screen 2' },
-  },
-  ThirdScreen: {
-    screen: ThirdScreenTabs,
     navigationOptions: { title: 'Screen 3' },
   },
 };

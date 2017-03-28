@@ -4,7 +4,7 @@ import gql from 'graphql-tag';
 import {filter} from 'graphql-anywhere';
 import moment from 'moment';
 import {withAdmin} from '../users';
-import {withFeatureIds} from '../../core/hoc';
+import {withFeatureIds} from '../../commons/core';
 import {Fragments as CoreFragments} from '../../core/queries';
 
 const sourceDetailsFragment = gql`

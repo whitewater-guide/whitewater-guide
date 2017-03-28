@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import {FlatLinkButton} from '../../core/components';
-import {withFeatureIds} from '../../core/hoc';
+import {withFeatureIds} from '../../commons/core';
 import {withAdmin} from '../users';
 import {compose} from 'recompose';
 

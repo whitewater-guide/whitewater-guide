@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 import {graphql} from 'react-apollo';
 import {withState, withHandlers, mapProps, compose} from 'recompose';
-import {withFeatureIds} from '../../core/hoc';
+import {withFeatureIds} from '../../commons/core';
 import moment from 'moment';
 
 const ViewGaugeQuery = gql`

@@ -4,7 +4,7 @@ import gql from 'graphql-tag';
 import {filter} from 'graphql-anywhere';
 import {withAdmin} from '../users';
 import {withTags} from '../tags';
-import {withFeatureIds} from '../../core/hoc';
+import {withFeatureIds} from '../../commons/core';
 import {Fragments} from './queries';
 import _ from 'lodash';
 

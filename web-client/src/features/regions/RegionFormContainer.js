@@ -1,10 +1,8 @@
-import {graphql} from 'react-apollo';
+import {gql, graphql} from 'react-apollo';
 import {withState, withProps, withHandlers, compose} from 'recompose';
 import {withAdmin} from '../users';
-import {withFeatureIds} from '../../core/hoc';
-import gql from 'graphql-tag';
-import {withRegion} from './containers/withRegion';
-import {Fragments} from './queries';
+import {withFeatureIds} from '../../commons/core';
+import {withRegion, RegionFragments} from '../../commons/features/regions';
 
 const editRegion = gql`
   mutation editRegion($region: RegionInput!, $language:String){
@@ -13,8 +11,8 @@ const editRegion = gql`
       ...RegionPOIs
     }
   }
-  ${Fragments.Core}
-  ${Fragments.POIs}
+  ${RegionFragments.Core}
+  ${RegionFragments.POIs}
 `;
 
 export default compose(
@@ -36,9 +34,6 @@ export default compose(
   graphql(
     editRegion,
     {
-      options: {
-        fragments: [Fragments.Core, Fragments.POIs]
-      },
       props: ({mutate}) => ({
         method: ({data, language}) => {
           return mutate({variables: {region: data, language}});

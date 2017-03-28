@@ -1,6 +1,6 @@
 import {graphql, compose} from 'react-apollo';
 import gql from 'graphql-tag';
-import {withFeatureIds} from '../../core/hoc';
+import {withFeatureIds} from '../../commons/core';
 
 const ViewRiverQuery = gql`
   query viewRiver($riverId:ID!, $language: String) {

@@ -4,7 +4,7 @@ import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { Screen } from '../../components';
 
-class PageTwo extends React.PureComponent {
+class PageThree extends React.PureComponent {
 
   static propTypes = {
     back: PropTypes.func.isRequired,
@@ -12,7 +12,7 @@ class PageTwo extends React.PureComponent {
   };
 
   static navigationOptions = {
-    title: 'Page 2',
+    title: 'Sections',
   };
 
   goBack = () => {
@@ -23,23 +23,23 @@ class PageTwo extends React.PureComponent {
     this.props.navigate({ routeName: 'PageOne' });
   };
 
-  goToPageThree = () => {
-    this.props.navigate({ routeName: 'PageThree' });
+  goToPageTwo = () => {
+    this.props.navigate({ routeName: 'PageTwo' });
   };
 
   render() {
     return (
       <Screen>
         <Text>
-          Third Screen / Page 2
+          Third Screen / Page 3
         </Text>
         <Button title="Go back" onPress={this.goBack} />
         <Button title="Go to page 1" onPress={this.goToPageOne} />
-        <Button title="Go to page 3" onPress={this.goToPageThree} />
+        <Button title="Go to page 2" onPress={this.goToPageTwo} />
       </Screen>
     );
   }
 
 }
 
-export default connect(undefined, NavigationActions)(PageTwo);
+export default connect(undefined, NavigationActions)(PageThree);

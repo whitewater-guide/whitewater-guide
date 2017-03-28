@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import { gql } from 'react-apollo';
 
 const Core = gql`
   fragment RegionCore on Region {
@@ -32,7 +32,7 @@ const Bounds = gql`
   }
 `;
 
-//TODO: remove when https://github.com/apollographql/graphql-anywhere/issues/38 is resolved
+// TODO: remove when https://github.com/apollographql/graphql-anywhere/issues/38 is resolved
 const All = gql`
   fragment RegionAll on Region {
     ...RegionCore
@@ -45,7 +45,7 @@ const All = gql`
   ${POIs}
 `;
 
-export const Fragments = {
+export const RegionFragments = {
   All,
   Bounds,
   Core,

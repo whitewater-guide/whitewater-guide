@@ -2,9 +2,9 @@ import React, { PropTypes } from 'react';
 import { Text, Button } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
-import { Screen } from '../../components';
+import { Screen } from '../../../components';
 
-class PageThree extends React.PureComponent {
+class RegionDescriptionScreen extends React.PureComponent {
 
   static propTypes = {
     back: PropTypes.func.isRequired,
@@ -12,7 +12,7 @@ class PageThree extends React.PureComponent {
   };
 
   static navigationOptions = {
-    title: 'Page 3',
+    title: 'Description',
   };
 
   goBack = () => {
@@ -23,23 +23,23 @@ class PageThree extends React.PureComponent {
     this.props.navigate({ routeName: 'PageOne' });
   };
 
-  goToPageTwo = () => {
-    this.props.navigate({ routeName: 'PageTwo' });
+  goToPageThree = () => {
+    this.props.navigate({ routeName: 'PageThree' });
   };
 
   render() {
     return (
       <Screen>
         <Text>
-          Third Screen / Page 3
+          Third Screen / Page 2
         </Text>
         <Button title="Go back" onPress={this.goBack} />
         <Button title="Go to page 1" onPress={this.goToPageOne} />
-        <Button title="Go to page 2" onPress={this.goToPageTwo} />
+        <Button title="Go to page 3" onPress={this.goToPageThree} />
       </Screen>
     );
   }
 
 }
 
-export default connect(undefined, NavigationActions)(PageThree);
+export default connect(undefined, NavigationActions)(RegionDescriptionScreen);

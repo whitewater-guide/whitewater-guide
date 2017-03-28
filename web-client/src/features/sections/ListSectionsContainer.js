@@ -1,6 +1,6 @@
 import {withAdmin} from '../users';
 import {withSections} from './containers/withSections';
-import {withFeatureIds} from '../../core/hoc';
+import {withFeatureIds} from '../../commons/core';
 import {compose} from 'recompose';
 
 export default compose(

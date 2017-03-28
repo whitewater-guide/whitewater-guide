@@ -1,6 +1,6 @@
 import {graphql} from 'react-apollo';
 import {compose} from 'recompose';
-import {withFeatureIds} from '../../../core/hoc'
+import {withFeatureIds} from '../../../commons/core'
 import gql from 'graphql-tag';
 import {filter} from 'graphql-anywhere';
 import {Fragments} from '../queries';

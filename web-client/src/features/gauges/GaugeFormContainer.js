@@ -3,7 +3,7 @@ import {withState, withHandlers, withProps, compose} from 'recompose';
 import gql from 'graphql-tag';
 import {filter} from 'graphql-anywhere';
 import {withAdmin} from '../users';
-import {withFeatureIds} from '../../core/hoc';
+import {withFeatureIds} from '../../commons/core';
 
 const gaugeDetailsFragment = gql`
   fragment GaugeDetails on Gauge {

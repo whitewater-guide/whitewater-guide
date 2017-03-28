@@ -1,7 +1,7 @@
 import {graphql, compose} from 'react-apollo';
 import gql from 'graphql-tag';
 import {withAdmin} from '../users';
-import {withFeatureIds} from '../../core/hoc';
+import {withFeatureIds} from '../../commons/core';
 import {withState} from 'recompose';
 import _ from 'lodash';
 

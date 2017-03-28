@@ -1,4 +1,4 @@
-import {withFeatureIds} from '../../core/hoc';
+import {withFeatureIds} from '../../commons/core';
 import {withAdmin} from '../users';
 import {compose} from 'recompose';
 

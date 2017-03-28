@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 import {graphql} from 'react-apollo';
 import {compose} from 'recompose';
 import {withAdmin} from '../users';
-import {withFeatureIds} from '../../core/hoc';
+import {withFeatureIds} from '../../commons/core';
 
 const ViewGaugeLeftQuery = gql`
   query viewGaugeLeftQuery($_id: ID) {

@@ -3,7 +3,7 @@ import {Map} from '../../core/components';
 import _ from 'lodash';
 import {compose} from 'recompose';
 import {withSections, ViewSection} from '../sections';
-import {withRegion} from './containers/withRegion';
+import {withRegion} from '../../commons/features/regions';
 
 class RegionMapPage extends Component {
 
