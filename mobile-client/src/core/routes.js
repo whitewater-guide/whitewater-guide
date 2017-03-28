@@ -16,10 +16,17 @@ const Routes = {
   },
 };
 
+if (__DEV__) {
+  /* eslint global-require: 0 */
+  const StorybookUI = require('../../storybook').default;
+  Routes.Storybook = {
+    screen: StorybookUI,
+  };
+}
+
 const Config = {
   initialRouteName: 'FirstScreen',
 };
 
 export const RootNavigator = DrawerNavigator(Routes, Config);
 export const RootRouter = RootNavigator.router;
-
