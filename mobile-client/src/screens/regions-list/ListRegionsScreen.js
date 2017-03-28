@@ -1,5 +1,5 @@
 import React, { PureComponent, PropTypes } from 'react';
-import { Container, Content, List, ListItem, Text } from 'native-base';
+import { Container, Content, List, ListItem, Text, Body, Right, Icon } from 'native-base';
 import { withRegionsList } from '../../commons/features/regions';
 
 class ListRegionsScreen extends PureComponent {
@@ -11,9 +11,18 @@ class ListRegionsScreen extends PureComponent {
     title: 'List Regions',
   };
 
+  onRegionSelected = (region) => {
+    console.log('Region selected', region);
+  };
+
   renderRow = region => (
-    <ListItem>
-      <Text>{region.name}</Text>
+    <ListItem button onPress={() => this.onRegionSelected(region)}>
+      <Body>
+        <Text>{region.name}</Text>
+      </Body>
+      <Right>
+        <Icon name="arrow-forward" />
+      </Right>
     </ListItem>
   );
 
