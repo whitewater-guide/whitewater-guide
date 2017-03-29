@@ -20,9 +20,8 @@ const RegionTabs = TabNavigator(
 export default compose(
   setStatic('router', RegionTabs.router),
   withRegion({ withBounds: true }),
-  // It is important to override screenProps, they must be after ...props
-  mapProps(({ region, regionLoading, ...props }) => ({ ...props, screenProps: { region, regionLoading } })),
+  mapProps(({ region, regionLoading, navigation, ...props }) => {
+    const screenProps = { region, regionLoading };
+    return { ...props, navigation: { ...navigation, state: { ...navigation.state, screenProps } }, screenProps };
+  }),
 )(RegionTabs);
-
-
-// export default withRegion({ withBounds: true })(RegionTabs);
