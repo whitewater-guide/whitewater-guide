@@ -15,18 +15,6 @@ class RegionMapScreen extends React.PureComponent {
     title: 'Map',
   };
 
-  goBack = () => {
-    this.props.back();
-  };
-
-  goToPageTwo = () => {
-    this.props.navigate({ routeName: 'PageTwo' });
-  };
-
-  goToPageThree = () => {
-    this.props.navigate({ routeName: 'PageThree' });
-  };
-
   render() {
     // Problem: screen props not updating:
     // https://github.com/react-community/react-navigation/issues/577
