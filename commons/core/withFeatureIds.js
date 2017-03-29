@@ -1,6 +1,7 @@
 import { withProps } from 'recompose';
 import _ from 'lodash';
 import qs from 'qs';
+import isNative from './isNative';
 
 const ALL_FEATURE_IDS = [
   'fileId',
@@ -22,7 +23,7 @@ export const withFeatureIds = function withFeatureIds(feature) {
       const result = {};
       featureIds.forEach((featureId) => {
         let value = props[featureId];
-        value = value || navigator.product === 'ReactNative' ?
+        value = value || isNative() ?
           _.get(props, `navigation.state.params.${featureId}`) :
           _.get(props, `match.params.${featureId}`);
         if (!value) {
