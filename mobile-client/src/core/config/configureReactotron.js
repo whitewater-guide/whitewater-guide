@@ -14,4 +14,13 @@ if (__DEV__) {
     .connect(); // let's connect!
 
   Reactotron.clear();
+  console.tron = Reactotron;
+} else {
+  console.tron = {
+    log: () => false,
+    warn: () => false,
+    error: () => false,
+    display: () => false,
+    image: () => false,
+  };
 }

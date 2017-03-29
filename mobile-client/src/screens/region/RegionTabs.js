@@ -21,7 +21,12 @@ export default compose(
   setStatic('router', RegionTabs.router),
   withRegion({ withBounds: true }),
   mapProps(({ region, regionLoading, navigation, ...props }) => {
+    // console.tron.log({message: 'props', regionLoading, region});
     const screenProps = { region, regionLoading };
-    return { ...props, navigation: { ...navigation, state: { ...navigation.state, screenProps } }, screenProps };
+    return {
+      ...props,
+      navigation: { ...navigation, state: { ...navigation.state, screenProps } },
+      screenProps,
+    };
   }),
 )(RegionTabs);

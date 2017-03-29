@@ -1,11 +1,18 @@
 import { AsyncStorage } from 'react-native';
-import { persistStore } from 'redux-persist';
+import { persistStore, createTransform } from 'redux-persist';
+
+// Only apollo data should be persisted
+const apolloDataFilter = createTransform(
+  ({ apollo, ...inboundState }) => ({ ...inboundState, apollo: { data: apollo.data } }),
+  outboundState => outboundState,
+);
 
 const STORE_CONFIG = {
   version: '1',
   config: {
     storage: AsyncStorage,
     blacklist: ['transient'],
+    transforms: [apolloDataFilter],
   },
 };
 
