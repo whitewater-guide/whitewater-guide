@@ -3,7 +3,8 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"start": "adb reverse tcp:7007 tcp:7007 && storybook start -p 7007 && node node_modules/react-native/local-cli/cli.js start",
+		"start": "node node_modules/react-native/local-cli/cli.js start",
+		"storybook": "adb reverse tcp:7007 tcp:7007 && storybook start -p 7007",
 		"test": "jest"
 	},
 	"dependencies": {
@@ -37,6 +38,7 @@
 		"babel-eslint": "^7.2.1",
 		"babel-jest": "19.0.0",
 		"babel-preset-react-native": "1.9.1",
+		"deep-diff": "^0.3.4",
 		"eslint": "^3.18.0",
 		"eslint-config-airbnb": "^14.1.0",
 		"eslint-plugin-import": "^2.2.0",
