@@ -1,28 +1,38 @@
 import React, { PropTypes } from 'react';
-import { View, StyleSheet, Platform } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { Container, Content, Spinner } from 'native-base';
 
 const styles = StyleSheet.create({
-  screen: {
+  loadingContent: {
     flex: 1,
-    marginTop: Platform.OS === 'ios' ? 20 : 0,
     alignItems: 'center',
     justifyContent: 'center',
   },
 });
 
-export function Screen({ children }) {
+export function Screen({ children, loading, style }) {
+  const contentStyle = loading ? styles.loadingContent : style;
   return (
-    <View style={styles.screen}>
-      {children}
-    </View>
+    <Container>
+      <Content contentContainerStyle={contentStyle}>
+        {
+          loading ?
+            <Spinner /> :
+            children
+        }
+      </Content>
+    </Container>
   );
 }
 
 Screen.propTypes = {
   children: PropTypes.node,
+  loading: PropTypes.bool,
+  style: PropTypes.any,
 };
 
 Screen.defaultProps = {
   children: null,
+  loading: false,
+  style: null,
 };
-

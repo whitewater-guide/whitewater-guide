@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
-import { Container, Content, Spinner, Text } from 'native-base';
+import { Text } from 'native-base';
+import { Screen } from '../../../components';
 
 class RegionMapScreen extends React.PureComponent {
 
@@ -16,18 +17,11 @@ class RegionMapScreen extends React.PureComponent {
   };
 
   render() {
-    // Problem: screen props not updating:
-    // https://github.com/react-community/react-navigation/issues/577
-    // https://github.com/react-community/react-navigation/issues/849
     const { screenProps: { region, regionLoading } } = this.props;
     return (
-      <Container>
-        <Content>
-          {
-            (!region || regionLoading) ? (<Spinner />) : (<Text>{`Region ${region.name}`}</Text>)
-          }
-        </Content>
-      </Container>
+      <Screen loading={regionLoading}>
+        {region && <Text>{`Region ${region.name}`}</Text>}
+      </Screen>
     );
   }
 
