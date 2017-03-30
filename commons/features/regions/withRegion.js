@@ -10,6 +10,7 @@ const regionDetails = gql`
       ...RegionCore
       ...RegionPOIs @include(if: $withPOIs)
       ...RegionBounds @include(if: $withBounds)
+      description
     }
   }
   ${RegionFragments.Core}
