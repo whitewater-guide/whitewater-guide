@@ -1,5 +1,5 @@
 import { gql, graphql } from 'react-apollo';
-import { compose } from 'recompose';
+import { branch, compose, withProps } from 'recompose';
 import { filter } from 'graphql-anywhere';
 import { RegionFragments } from './regionQueries';
 import { withFeatureIds } from '../../core/withFeatureIds';
@@ -29,17 +29,26 @@ export function withRegion(options) {
   const { withBounds = false, withPOIs = true, propName = 'region' } = options;
   return compose(
     withFeatureIds('region'),
-    graphql(
-      regionDetails,
-      {
-        options: ({ regionId, language }) => ({
-          fetchPolicy: 'network-only', // i18n's problem with caching
-          variables: { _id: regionId, language, withBounds, withPOIs },
-        }),
-        props: ({ data: { region, loading } }) => (
-          { [propName]: region && filter(RegionFragments.All, region), regionLoading: loading }
-        ),
-      },
+    // If no region was found, branch provides dummy region with error
+    branch(
+      ({ regionId }) => !!regionId,
+      graphql(
+        regionDetails,
+        {
+          options: ({ regionId, language }) => ({
+            fetchPolicy: 'network-only', // i18n's problem with caching
+            variables: { _id: regionId, language, withBounds, withPOIs },
+          }),
+          props: ({ data: { region, loading } }) => (
+            { [propName]: region && filter(RegionFragments.All, region), regionLoading: loading }
+          ),
+        },
+      ),
+      withProps(({ regionId }) => ({
+        region: {},
+        regionLoading: false,
+        error: `No region with id ${regionId} was found`,
+      })),
     ),
   );
 }

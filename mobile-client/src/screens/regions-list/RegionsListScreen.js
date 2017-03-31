@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { withRegionsList } from '../../commons/features/regions';
 
-class ListRegionsScreen extends PureComponent {
+class RegionsListScreen extends PureComponent {
   static propTypes = {
     regions: PropTypes.array,
     dispatch: PropTypes.func,
@@ -16,14 +16,8 @@ class ListRegionsScreen extends PureComponent {
   };
 
   onRegionSelected = (region) => {
-    // TODO: until this https://github.com/react-community/react-navigation/issues/80 is resolved
-    // we need to dispatch two actions
-    this.props.dispatch(NavigationActions.setParams({
-      key: 'Region',
-      params: { regionId: region._id },
-    }));
     this.props.dispatch(NavigationActions.navigate({
-      routeName: 'Region',
+      routeName: 'RegionDetails',
       params: { regionId: region._id },
     }));
   };
@@ -53,5 +47,5 @@ class ListRegionsScreen extends PureComponent {
 export default compose(
   withRegionsList,
   connect(),
-)(ListRegionsScreen);
+)(RegionsListScreen);
 

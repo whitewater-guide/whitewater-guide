@@ -1,1 +1,1 @@
-export { default as ListRegionsStack } from './ListRegionsStack';
+export { default as RegionsListScreen } from './RegionsListScreen';

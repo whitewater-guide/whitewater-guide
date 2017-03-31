@@ -14,19 +14,15 @@ const RegionTabs = TabNavigator(
   {
     initialRouteName: 'Map',
     tabBarPosition: 'bottom',
+    backBehavior: 'none',
   },
 );
 
 export default compose(
   setStatic('router', RegionTabs.router),
   withRegion({ withBounds: true }),
-  mapProps(({ region, regionLoading, navigation, ...props }) => {
-    // console.tron.log({message: 'props', regionLoading, region});
-    const screenProps = { region, regionLoading };
-    return {
-      ...props,
-      navigation: { ...navigation, state: { ...navigation.state, screenProps } },
-      screenProps,
-    };
-  }),
+  mapProps(({ region, regionLoading, regionId, screenProps, ...props }) => ({
+    ...props,
+    screenProps: { ...screenProps, region, regionLoading },
+  })),
 )(RegionTabs);

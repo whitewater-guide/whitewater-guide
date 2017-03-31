@@ -1,14 +1,24 @@
-import { DrawerNavigator } from 'react-navigation';
-import { ListRegionsStack, SecondScreenStack, RegionTabs } from '../screens';
+import { DrawerNavigator, StackNavigator } from 'react-navigation';
+import { RegionsListScreen, SecondScreenStack, RegionTabs } from '../screens';
+
+const RegionsStack = StackNavigator(
+  {
+    RegionsList: {
+      screen: RegionsListScreen,
+    },
+    RegionDetails: {
+      screen: RegionTabs,
+    },
+  },
+  {
+    initialRouteName: 'RegionsList',
+  },
+);
 
 const Routes = {
-  ListRegions: {
-    screen: ListRegionsStack,
+  RegionsRoot: {
+    screen: RegionsStack,
     navigationOptions: { title: 'Regions' },
-  },
-  Region: {
-    screen: RegionTabs,
-    navigationOptions: { title: 'Region' },
   },
   SecondScreen: {
     screen: SecondScreenStack,
@@ -25,7 +35,7 @@ if (__DEV__) {
 }
 
 const Config = {
-  initialRouteName: 'ListRegions',
+  initialRouteName: 'RegionsRoot',
 };
 
 export const RootNavigator = DrawerNavigator(Routes, Config);
