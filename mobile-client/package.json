@@ -10,6 +10,7 @@
 	"dependencies": {
 		"apollo-client": "1.0.0-rc.7",
 		"graphql-anywhere": "^3.0.1",
+		"immutability-helper": "^2.1.2",
 		"lodash": "^4.17.4",
 		"meteor-apollo-accounts": "^2.0.1",
 		"moment": "^2.18.1",

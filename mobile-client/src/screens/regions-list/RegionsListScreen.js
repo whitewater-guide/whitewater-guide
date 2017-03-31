@@ -12,7 +12,7 @@ class RegionsListScreen extends PureComponent {
   };
 
   static navigationOptions = {
-    title: 'List Regions',
+    title: 'Regions',
   };
 
   onRegionSelected = (region) => {

@@ -1,8 +1,10 @@
+import React from 'react';
 import { TabNavigator } from 'react-navigation';
 import { compose, mapProps, setStatic } from 'recompose';
 import { RegionMapScreen } from './map';
 import { RegionDescriptionScreen } from './description';
 import { withRegion } from '../../commons/features/regions';
+import RegionHeader from './RegionHeader';
 import PageThree from './PageThree';
 
 const RegionTabs = TabNavigator(
@@ -15,8 +17,14 @@ const RegionTabs = TabNavigator(
     initialRouteName: 'Map',
     tabBarPosition: 'bottom',
     backBehavior: 'none',
+    navigationOptions: {
+      header: navigation => ({
+        title: (<RegionHeader regionId={navigation.state.params.regionId} />),
+      }),
+    },
   },
 );
+
 
 export default compose(
   setStatic('router', RegionTabs.router),

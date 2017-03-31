@@ -18,11 +18,9 @@ const RegionsStack = StackNavigator(
 const Routes = {
   RegionsRoot: {
     screen: RegionsStack,
-    navigationOptions: { title: 'Regions' },
   },
   SecondScreen: {
     screen: SecondScreenStack,
-    navigationOptions: { title: 'Screen 3' },
   },
 };
 

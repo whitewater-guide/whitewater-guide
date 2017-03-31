@@ -13,7 +13,9 @@ class RegionMapScreen extends React.PureComponent {
   };
 
   static navigationOptions = {
-    title: 'Map',
+    tabBar: {
+      label: 'Map',
+    },
   };
 
   render() {
