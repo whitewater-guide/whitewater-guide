@@ -12,6 +12,8 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import "SplashScreen.h"
+#import "ReactNativeConfig.h"
+@import GoogleMaps;
 
 @implementation AppDelegate
 
@@ -33,6 +35,9 @@
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
 
+  NSString *googelApiKey = [ReactNativeConfig envFor:@"GOOGLE_API_KEY"];
+  [GMSServices provideAPIKey:googelApiKey]
+  
   [SplashScreen show];
 
   return YES;

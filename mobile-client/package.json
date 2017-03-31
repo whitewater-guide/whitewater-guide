@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"start": "node node_modules/react-native/local-cli/cli.js start",
+		"start": "adb reverse tcp:3333 tcp:3333 && node node_modules/react-native/local-cli/cli.js start",
 		"storybook": "adb reverse tcp:7007 tcp:7007 && storybook start -p 7007",
 		"test": "jest"
 	},
@@ -20,6 +20,7 @@
 		"react-native": "0.42.3",
 		"react-native-config": "^0.3.1",
 		"react-native-htmlview": "^0.8.0",
+		"react-native-maps": "^0.13.1",
 		"react-native-splash-screen": "^2.0.0",
 		"react-native-vector-icons": "^4.0.0",
 		"react-navigation": "https://github.com/react-community/react-navigation.git",

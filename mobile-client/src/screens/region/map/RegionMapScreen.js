@@ -1,8 +1,14 @@
 import React, { PropTypes } from 'react';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
-import { Text } from 'native-base';
-import { Screen } from '../../../components';
+import { StyleSheet } from 'react-native';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+
+const styles = StyleSheet.create({
+  map: {
+    ...StyleSheet.absoluteFillObject,
+  },
+});
 
 class RegionMapScreen extends React.PureComponent {
 
@@ -21,9 +27,16 @@ class RegionMapScreen extends React.PureComponent {
   render() {
     const { screenProps: { region, regionLoading } } = this.props;
     return (
-      <Screen loading={regionLoading}>
-        {region && <Text>{`Region ${region.name}`}</Text>}
-      </Screen>
+      <MapView
+        style={styles.map}
+        provider={PROVIDER_GOOGLE}
+        initialRegion={{
+          latitude: 37.78825,
+          longitude: -122.4324,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
+      />
     );
   }
 
