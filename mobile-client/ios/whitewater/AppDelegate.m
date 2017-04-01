@@ -36,7 +36,7 @@
   [self.window makeKeyAndVisible];
 
   NSString *googelApiKey = [ReactNativeConfig envFor:@"GOOGLE_API_KEY"];
-  [GMSServices provideAPIKey:googelApiKey]
+  [GMSServices provideAPIKey:googelApiKey];
   
   [SplashScreen show];
 
