@@ -1,10 +1,10 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import _ from 'lodash';
 import { compose } from 'recompose';
 import { Map } from '../../core/components';
 import { ViewSection } from '../sections';
-import { withRegion } from '../../commons/features/regions';
-import { withSections } from '../../commons/features/sections';
+import { withRegion, RegionPropType } from '../../commons/features/regions';
+import { withSections, SectionsPropType } from '../../commons/features/sections';
 
 const styles = {
   container: {
@@ -27,10 +27,12 @@ const styles = {
 class RegionMapPage extends Component {
 
   static propTypes = {
-    region: PropTypes.object,
-    sections: PropTypes.array,
-    count: PropTypes.number,//Number of sections
-    loadMore: PropTypes.func, //Load more sections
+    region: RegionPropType,
+    sections: SectionsPropType.isRequired,
+  };
+
+  static defaultProps = {
+    region: null,
   };
 
   state = {
@@ -38,9 +40,11 @@ class RegionMapPage extends Component {
   };
 
   componentDidUpdate(prevPros) {
-    const { loadMore, sections, count } = this.props;
-    if (prevPros.sections.length < sections.length && sections.length < count) {
-      loadMore({ startIndex: sections.length, stopIndex: sections.length + 25 });
+    const { loadMore, list, count } = this.props.sections;
+    const numSections = list.length;
+    const prevNumSections = prevPros.sections.list.length;
+    if (prevNumSections < numSections && numSections < count) {
+      loadMore({ startIndex: numSections, stopIndex: numSections + 25 });
     }
   }
 
@@ -65,7 +69,7 @@ class RegionMapPage extends Component {
             region &&
             <Map
               {...bounds}
-              sections={sections}
+              sections={sections.list}
               selectedSectionId={this.state.selectedSectionId}
               onSectionSelected={this.onSectionSelected}
             />
@@ -82,5 +86,5 @@ class RegionMapPage extends Component {
 
 export default compose(
   withRegion({ withBounds: true, withPOIs: false }),
-  withSections({ withGeo: true, sort: null }),
+  withSections({ withGeo: true }),
 )(RegionMapPage);

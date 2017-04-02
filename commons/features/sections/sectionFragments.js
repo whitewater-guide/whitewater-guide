@@ -138,7 +138,6 @@ const All = gql`
     ...SectionMeta
     ...SectionPOIs
     ...SectionTags
-    description
   }
   ${GaugeBinding.All}
   ${Core}

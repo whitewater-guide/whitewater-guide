@@ -1,7 +1,7 @@
 import { gql, graphql } from 'react-apollo';
 import { branch, compose, withProps } from 'recompose';
 import { filter } from 'graphql-anywhere';
-import { RegionFragments } from './regionQueries';
+import { RegionFragments } from './regionFraments';
 import { withFeatureIds } from '../../core/withFeatureIds';
 
 const regionDetails = gql`
@@ -45,7 +45,7 @@ export function withRegion(options) {
         },
       ),
       withProps(({ regionId }) => ({
-        region: {},
+        [propName]: {},
         regionLoading: false,
         error: `No region with id ${regionId} was found`,
       })),

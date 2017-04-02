@@ -1,3 +1,4 @@
 export { default as withRegionsList } from './withRegionsList';
-export { withRegion } from './withRegion';
-export * from './regionQueries';
+export * from './withRegion';
+export * from './regionFraments';
+export * from './propTypes';

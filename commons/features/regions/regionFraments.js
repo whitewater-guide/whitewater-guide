@@ -9,6 +9,12 @@ const Core = gql`
   }
 `;
 
+const Description = gql`
+  fragment RegionDescription on Region {
+    description
+  }
+`;
+
 const POIs = gql`
   fragment RegionPOIs on Region {
     pois {
@@ -38,9 +44,10 @@ const All = gql`
     ...RegionCore
     ...RegionBounds
     ...RegionPOIs
-    description
+    ...RegionDescription
   }
   ${Core}
+  ${Description}
   ${Bounds}
   ${POIs}
 `;

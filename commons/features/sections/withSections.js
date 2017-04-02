@@ -3,7 +3,7 @@ import { withState, withHandlers, flattenProp, mapProps, branch } from 'recompos
 import _ from 'lodash';
 import update from 'immutability-helper';
 
-import { SectionFragments } from './sectionQueries';
+import { SectionFragments } from './sectionFragments';
 import { withFeatureIds } from '../../core/withFeatureIds';
 import sectionsListReducer from './sectionsListReducer';
 
