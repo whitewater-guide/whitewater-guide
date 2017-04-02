@@ -1,10 +1,11 @@
-import {withAdmin} from '../users';
-import {withSections} from './containers/withSections';
-import {withFeatureIds} from '../../commons/core';
-import {compose} from 'recompose';
+import { compose, setDisplayName } from 'recompose';
+import { withAdmin } from '../users';
+import { withSectionsAdmin } from './containers/withSectionsAdmin';
+import { withSections } from '../../commons/features/sections/withSections';
 
 export default compose(
+  setDisplayName('ListSectionsContainer'),
   withAdmin(),
-  withFeatureIds(),
-  withSections({withRemove: true}),
+  withSections(),
+  withSectionsAdmin,
 );

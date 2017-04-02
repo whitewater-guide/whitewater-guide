@@ -1,11 +1,10 @@
-import {graphql} from 'react-apollo';
-import {withState, withHandlers, withProps, compose} from 'recompose';
-import gql from 'graphql-tag';
-import {filter} from 'graphql-anywhere';
-import {withAdmin} from '../users';
-import {withTags} from '../tags';
-import {withFeatureIds} from '../../commons/core';
-import {Fragments} from './queries';
+import { graphql, gql } from 'react-apollo';
+import { withState, withHandlers, withProps, compose } from 'recompose';
+import { filter } from 'graphql-anywhere';
+import { withAdmin } from '../users';
+import { withTags } from '../tags';
+import { withFeatureIds } from '../../commons/core';
+import { SectionFragments } from '../../commons/features/sections';
 import _ from 'lodash';
 
 const regionFragment = gql`
@@ -41,12 +40,12 @@ const sectionFragment = gql`
     ...SectionPOIs
     ...SectionTags
   }
-  ${Fragments.Core}
-  ${Fragments.Geo}
-  ${Fragments.Media}
-  ${Fragments.Measurements}
-  ${Fragments.POIs}
-  ${Fragments.Tags}
+  ${SectionFragments.Core}
+  ${SectionFragments.Geo}
+  ${SectionFragments.Media}
+  ${SectionFragments.Measurements}
+  ${SectionFragments.POIs}
+  ${SectionFragments.Tags}
   ${regionFragment}
 `;
 
@@ -88,7 +87,7 @@ export default compose(
   withAdmin(true),
   withFeatureIds(),
   withState('language', 'setLanguage', 'en'),
-  withProps(({sectionId, location}) => ({
+  withProps(({ sectionId, location }) => ({
     multilang: !!sectionId,
     title: sectionId ? "Section settings" : "New section",
     submitLabel: sectionId ? "Update" : "Create",
@@ -103,9 +102,9 @@ export default compose(
   graphql(
     sectionDetails,
     {
-      options: () => ({fetchPolicy: 'network-only'}),
-      props: ({data: {loading, ...data}}) => {
-        let {section, region, river} = filter(sectionDetails, data);
+      options: () => ({ fetchPolicy: 'network-only' }),
+      props: ({ data: { loading, ...data } }) => {
+        let { section, region, river } = filter(sectionDetails, data);
         //For region form we need
         //1) Region with bounds
         //2) List of rivers in case when we create section in region
@@ -117,21 +116,21 @@ export default compose(
         if (river)
           section.river = river;
         delete section.region;//Do not need this in form data
-        return {initialData: section, region, rivers, gauges, loading};
+        return { initialData: section, region, rivers, gauges, loading };
       },
     }
   ),
   graphql(
     upsertSection,
     {
-      props: ({mutate, ownProps}) => ({
-        method: ({data: {river, ...section}, language}) => {
-          let {_id, name, regionId, region} = river;
+      props: ({ mutate, ownProps }) => ({
+        method: ({ data: { river, ...section }, language }) => {
+          let { _id, name, regionId, region } = river;
           if (_id === '@@new')
             regionId = ownProps.regionId;
           if (region)
             regionId = region._id;
-          return mutate({variables: {section: {...section, river: {_id, name, regionId}}, language}});
+          return mutate({ variables: { section: { ...section, river: { _id, name, regionId } }, language } });
         }
       }),
     }

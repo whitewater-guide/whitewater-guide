@@ -1,24 +1,35 @@
-import React, {Component, PropTypes} from 'react';
-import {AutoSizer, SortDirection, InfiniteLoader} from 'react-virtualized';
+import React, { Component, PropTypes } from 'react';
+import { AutoSizer, SortDirection, InfiniteLoader } from 'react-virtualized';
 import container from './ListSectionsContainer';
 import SectionsTable from './SectionsTable';
 import SectionsFilter from './SectionsFilter';
 
+const styles = {
+  wrapper: {
+    width: '100%',
+    height: '100%',
+    overflow: 'hidden',
+  },
+};
+
 class ListSections extends Component {
 
   static propTypes = {
-    sections: PropTypes.array,
-    count: PropTypes.number.isRequired,
     admin: PropTypes.bool.isRequired,
     sortBy: PropTypes.string,
     sortDirection: PropTypes.oneOf([SortDirection.ASC, SortDirection.DESC]),
-    onSort: PropTypes.func,
-    onSearch: PropTypes.func,
+    onSort: PropTypes.func.isRequired,
+    onSearch: PropTypes.func.isRequired,
     searchString: PropTypes.string,
     removeSection: PropTypes.func,
-    loadMore: PropTypes.func.isRequired,
     history: PropTypes.object,
     showFilters: PropTypes.bool,
+    sections: PropTypes.shape({
+      list: PropTypes.array,
+      count: PropTypes.number,
+      loading: PropTypes.bool,
+      loadMore: PropTypes.func,
+    }),
   };
 
   static defaultProps = {
@@ -26,24 +37,39 @@ class ListSections extends Component {
     sortBy: 'name',
     sortDirection: SortDirection.ASC,
     showFilters: true,
+    searchString: '',
+  };
+
+  onDeleteSection = sectionId => this.props.removeSection(sectionId);
+
+  onEditSection = sectionId => this.props.history.push(`/sections/${sectionId}/settings`);
+
+  onSectionClick = sectionId => this.props.history.push(`/sections/${sectionId}`);
+
+  isRowLoaded = ({ index }) => !!this.props.sections.list[index];
+
+  loadMoreRows = (params) => {
+    const { loading, loadMore } = this.props.sections;
+    return loading ? Promise.resolve() : loadMore(params);
   };
 
   render() {
-    const {admin, sections, count, loadMore, sortBy, sortDirection, onSort, onSearch, searchString} = this.props;
+    const { admin, sections, sortBy, sortDirection, onSort, onSearch, searchString } = this.props;
+    const { list, count } = sections;
     return (
       <div style={styles.wrapper}>
-        {this.props.showFilters && <SectionsFilter searchString={searchString} onSearch={onSearch}/>}
+        {this.props.showFilters && <SectionsFilter searchString={searchString} onSearch={onSearch} />}
         <AutoSizer>
-          {({width, height}) => (
+          {({ width, height }) => (
             <InfiniteLoader
               isRowLoaded={this.isRowLoaded}
-              loadMoreRows={loadMore}
+              loadMoreRows={this.loadMoreRows}
               rowCount={count}
             >
-              {({onRowsRendered, registerChild}) => (
+              {({ onRowsRendered, registerChild }) => (
                 <SectionsTable
                   admin={admin}
-                  sections={sections}
+                  sections={list}
                   onRowsRendered={onRowsRendered}
                   registerChild={registerChild}
                   width={width}
@@ -62,23 +88,6 @@ class ListSections extends Component {
       </div>
     );
   }
-
-  isRowLoaded = ({index}) => !!this.props.sections[index];
-
-  onSectionClick = (sectionId) => this.props.history.push(`/sections/${sectionId}`);
-
-  onEditSection = (sectionId) => this.props.history.push(`/sections/${sectionId}/settings`);
-
-  onDeleteSection = (sectionId) => this.props.removeSection(sectionId);
-
 }
-
-const styles = {
-  wrapper: {
-    width: '100%',
-    height: '100%',
-    overflow: 'hidden',
-  },
-};
 
 export default container(ListSections);

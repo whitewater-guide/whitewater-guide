@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import { gql } from 'react-apollo';
 
 const Core = gql`
   fragment SectionCore on Section {
@@ -6,12 +6,12 @@ const Core = gql`
     name
     season
     seasonNumeric
-    
+
     river {
       _id
       name
     }
-    
+
     region {
       _id
     }
@@ -151,7 +151,7 @@ const All = gql`
   ${Tags}
 `;
 
-export const Fragments = {
+export const SectionFragments = {
   All,
   Core,
   Description,

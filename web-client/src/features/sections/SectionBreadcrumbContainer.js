@@ -1,8 +1,7 @@
-import {graphql} from 'react-apollo';
-import {compose} from 'recompose';
-import {withFeatureIds} from '../../commons/core'
-import gql from 'graphql-tag';
-import {Fragments} from './queries';
+import { graphql, gql } from 'react-apollo';
+import { compose } from 'recompose';
+import { withFeatureIds } from '../../commons/core'
+import { SectionFragments } from '../../commons/features/sections';
 
 const sectionDetails = gql`
   query sectionDetails($_id: ID, $language:String) {
@@ -15,7 +14,7 @@ const sectionDetails = gql`
     }
 
   }
-  ${Fragments.Core}
+  ${SectionFragments.Core}
 `;
 
 export default compose(
@@ -23,12 +22,10 @@ export default compose(
   graphql(
     sectionDetails,
     {
-      options: ({sectionId, language}) => ({
-        variables: {_id: sectionId, language},
+      options: ({ sectionId, language }) => ({
+        variables: { _id: sectionId, language },
       }),
-      props: ({data: {section, loading}}) => {
-        return {section, loading};
-      },
-    }
+      props: ({ data: { section, loading } }) => ({ section, loading }),
+    },
   ),
 );

@@ -16,10 +16,10 @@ const ALL_FEATURE_IDS = [
   'userId',
 ];
 
-export const withFeatureIds = function withFeatureIds(feature) {
+export const withFeatureIds = function withFeatureIds(features) {
   return withProps(
     (props) => {
-      const featureIds = feature ? [`${feature}Id`] : ALL_FEATURE_IDS;
+      const featureIds = features ? _.castArray(features).map(feature => `${feature}Id`) : ALL_FEATURE_IDS;
       const result = {};
       featureIds.forEach((featureId) => {
         let value = props[featureId];
