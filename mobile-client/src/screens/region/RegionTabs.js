@@ -4,6 +4,7 @@ import { compose, mapProps, setStatic } from 'recompose';
 import { RegionMapScreen } from './map';
 import { RegionDescriptionScreen } from './description';
 import { withRegion } from '../../commons/features/regions';
+import { withSections } from '../../commons/features/sections';
 import RegionHeader from './RegionHeader';
 import PageThree from './PageThree';
 
@@ -29,8 +30,9 @@ const RegionTabs = TabNavigator(
 export default compose(
   setStatic('router', RegionTabs.router),
   withRegion({ withBounds: true }),
-  mapProps(({ region, regionLoading, regionId, screenProps, ...props }) => ({
+  withSections({ withGeo: true }),
+  mapProps(({ region, regionLoading, regionId, sections, screenProps, ...props }) => ({
     ...props,
-    screenProps: { ...screenProps, region, regionLoading },
+    screenProps: { ...screenProps, region, regionLoading, sections },
   })),
 )(RegionTabs);
