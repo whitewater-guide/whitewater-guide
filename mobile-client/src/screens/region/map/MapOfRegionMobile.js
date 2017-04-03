@@ -14,7 +14,7 @@ function renderSection(section, isSelected, selectSection) {
   ];
   return (
     <MapView.Polyline
-      strokeWidth={2}
+      strokeWidth={3}
       strokeColor="red"
       onPress={selectSection}
       key={section._id}
@@ -32,22 +32,31 @@ class Map extends React.PureComponent {
     initialBounds: null,
   };
 
-  render() {
+  onMapLayout = () => {
     const { initialBounds } = this.props;
-    let initialRegion;
-    if (initialBounds) {
-      initialRegion = {
-        latitude: (initialBounds.sw.lat + initialBounds.ne.lat) / 2,
-        longitude: (initialBounds.sw.lng + initialBounds.ne.lng) / 2,
-        latitudeDelta: Math.abs(initialBounds.sw.lat - initialBounds.ne.lat) / 2,
-        longitudeDelta: Math.abs(initialBounds.sw.lng - initialBounds.ne.lng) / 2,
-      };
+    if (initialBounds && this.mapView) {
+      this.mapView.fitToCoordinates(
+        [
+          { latitude: initialBounds.sw.lat, longitude: initialBounds.sw.lng },
+          { latitude: initialBounds.ne.lat, longitude: initialBounds.ne.lng },
+        ],
+        {
+          edgePanning: { top: 10, bottom: 10, left: 10, right: 10 },
+          animated: true,
+        },
+      );
     }
+  };
+
+  setMapView = (mapView) => { this.mapView = mapView; };
+
+  render() {
     return (
       <MapView
+        ref={this.setMapView}
         style={StyleSheet.absoluteFill}
         provider={PROVIDER_GOOGLE}
-        initialRegion={initialRegion}
+        onLayout={this.onMapLayout}
       >
         { this.props.children }
       </MapView>
