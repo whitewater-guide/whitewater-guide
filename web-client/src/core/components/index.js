@@ -12,3 +12,4 @@ export * from './TextField';
 export * from './Breadcrumb';
 export * from './BreadcrumbSeparator';
 export * from './rowRenderer';
+export * from './LoadingPlug';

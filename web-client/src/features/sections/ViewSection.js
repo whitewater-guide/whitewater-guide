@@ -176,5 +176,5 @@ const styles = {
 export default _.flowRight(
   withAdmin(),
   withRouter,
-  withSection({withGeo: true, withDescription: true})
+  //withSection({withGeo: true, withDescription: true})
 )(ViewSection);
