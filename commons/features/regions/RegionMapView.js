@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { compose, setDisplayName, withState } from 'recompose';
+import { branch, compose, renderComponent, setDisplayName, withState } from 'recompose';
 
 import { RegionPropType } from './propTypes';
 import { SectionPropType, SectionsPropType } from '../sections';
@@ -8,7 +8,6 @@ const getRegionMapView = (Layout, Map, SelectedSection) => (
   class RegionMapView extends React.PureComponent {
     static propTypes = {
       region: RegionPropType,
-      regionLoading: PropTypes.bool.isRequired,
       sections: SectionsPropType.isRequired,
       selectedSection: SectionPropType,
       onSectionSelected: PropTypes.func.isRequired,
@@ -20,14 +19,22 @@ const getRegionMapView = (Layout, Map, SelectedSection) => (
       selectedSection: null,
     };
 
+    componentDidMount() {
+      this.loadMoreSections({ sections: { list: [] } });
+    }
+
     componentDidUpdate(prevPros) {
-      const { loadMore, list, count } = this.props.sections;
+      this.loadMoreSections(prevPros);
+    }
+
+    loadMoreSections = (prevPros) => {
+      const { loadMore, list, count, loading } = this.props.sections;
       const numSections = list.length;
       const prevNumSections = prevPros.sections.list.length;
-      if (prevNumSections < numSections && numSections < count) {
+      if (prevNumSections < numSections && numSections < count && !loading) {
         loadMore({ startIndex: numSections, stopIndex: numSections + 25 });
       }
-    }
+    };
 
     renderMapView = () => {
       const { region, sections, selectedSection, onSectionSelected } = this.props;
@@ -59,7 +66,11 @@ const getRegionMapView = (Layout, Map, SelectedSection) => (
   }
 );
 
-export default (Layout, Map, SelectedSection) => compose(
+export default (Layout, Map, SelectedSection, LoadingIndicator) => compose(
   setDisplayName('RegionMapView'),
+  branch(
+    props => props.regionLoading,
+    renderComponent(LoadingIndicator),
+  ),
   withState('selectedSection', 'onSectionSelected', null),
 )(getRegionMapView(Layout, Map, SelectedSection));

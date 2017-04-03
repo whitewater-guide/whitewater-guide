@@ -105,7 +105,7 @@ const localFilter = mapProps(({ sortBy, sortDirection, searchString, sections, .
  *            list
  *            count
  *            loading
- *            loadMore function({startIndex, stopIndex})
+ *            loadMore function({ startIndex, stopIndex })
  *          }
  *
  */
