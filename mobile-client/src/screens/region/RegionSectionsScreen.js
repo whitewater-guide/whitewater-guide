@@ -1,14 +1,15 @@
 import React, { PropTypes } from 'react';
-import { Text, Button } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { Screen } from '../../components';
+import { SectionsList } from '../sections-list';
 
-class PageThree extends React.PureComponent {
+class RegionSectionsScreen extends React.PureComponent {
 
   static propTypes = {
     back: PropTypes.func.isRequired,
     navigate: PropTypes.func.isRequired,
+    screenProps: PropTypes.object,
   };
 
   static navigationOptions = {
@@ -28,18 +29,14 @@ class PageThree extends React.PureComponent {
   };
 
   render() {
+    const { screenProps: { sections, regionLoading } } = this.props;
     return (
-      <Screen>
-        <Text>
-          Third Screen / Page 3
-        </Text>
-        <Button title="Go back" onPress={this.goBack} />
-        <Button title="Go to page 1" onPress={this.goToPageOne} />
-        <Button title="Go to page 2" onPress={this.goToPageTwo} />
+      <Screen loading={regionLoading}>
+        <SectionsList sections={sections} />
       </Screen>
     );
   }
 
 }
 
-export default connect(undefined, NavigationActions)(PageThree);
+export default connect(undefined, NavigationActions)(RegionSectionsScreen);

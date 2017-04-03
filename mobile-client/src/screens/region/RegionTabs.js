@@ -6,13 +6,13 @@ import { RegionDescriptionScreen } from './description';
 import { withRegion } from '../../commons/features/regions';
 import { withSections } from '../../commons/features/sections';
 import RegionHeader from './RegionHeader';
-import PageThree from './PageThree';
+import RegionSectionsScreen from './RegionSectionsScreen';
 
 const RegionTabs = TabNavigator(
   {
     Map: { screen: RegionMapScreen },
     Description: { screen: RegionDescriptionScreen },
-    PageThree: { screen: PageThree },
+    Sections: { screen: RegionSectionsScreen },
   },
   {
     initialRouteName: 'Map',
