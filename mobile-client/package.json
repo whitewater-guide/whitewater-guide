@@ -3,7 +3,13 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"start": "adb reverse tcp:3333 tcp:3333 && node node_modules/react-native/local-cli/cli.js start",
+		"start": "node node_modules/react-native/local-cli/cli.js start",
+		"rc-start": "yarn run start -- --reset-cache",
+		"clean": "rm -rf $TMPDIR/react-* && watchman watch-del-all && yarn cache clean",
+		"clean-start": "yarn run clean && yarn run rc-start",
+		"fresh-install": "rm -rf $TMPDIR/react-* && watchman watch-del-all && rm -rf ios/build/ModuleCache/* && rm -rf node_modules/ && yarn cache clean && yarn",
+		"fresh-start": "yarn run fresh-install && yarn run rc-start",
+		"installRelease": "adb install android/app/build/outputs/apk/app-release.apk",
 		"storybook": "adb reverse tcp:7007 tcp:7007 && storybook start -p 7007",
 		"test": "jest"
 	},
