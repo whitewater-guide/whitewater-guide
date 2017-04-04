@@ -1,16 +1,26 @@
-import React, { PureComponent } from 'react';
+import React, { PropTypes, PureComponent } from 'react';
 import { List, ListItem, Text, Body, Right, Icon } from 'native-base';
+import { connect } from 'react-redux';
+import { NavigationActions } from 'react-navigation';
 import { SectionsPropType } from '../../../commons/features/sections';
 
 class SectionsList extends PureComponent {
   static propTypes = {
     sections: SectionsPropType.isRequired,
+    dispatch: PropTypes.func,
+  };
+
+  onSectionSelected = (section) => {
+    this.props.dispatch(NavigationActions.navigate({
+      routeName: 'SectionDetails',
+      params: { sectionId: section._id },
+    }));
   };
 
   renderRow = (section) => {
     const { name, river } = section;
     return (
-      <ListItem button>
+      <ListItem button onPress={() => this.onSectionSelected(section)}>
         <Body>
           <Text>{`${river.name} - ${name}`}</Text>
         </Body>
@@ -29,4 +39,5 @@ class SectionsList extends PureComponent {
   }
 }
 
-export default SectionsList;
+export default connect()(SectionsList);
+
