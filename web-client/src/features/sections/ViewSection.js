@@ -6,7 +6,7 @@ import {Durations} from './Durations';
 import renderHTML from 'react-render-html';
 import {withAdmin} from '../users';
 import {withRouter} from 'react-router';
-import {withSection} from './containers/withSection';
+import {withSection} from '../../commons/features/sections';
 import _ from 'lodash';
 import './sectionInfo.css';
 
@@ -176,5 +176,5 @@ const styles = {
 export default _.flowRight(
   withAdmin(),
   withRouter,
-  //withSection({withGeo: true, withDescription: true})
+  withSection({ withGeo: true, withDescription: true }),
 )(ViewSection);

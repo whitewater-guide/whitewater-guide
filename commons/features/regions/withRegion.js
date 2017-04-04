@@ -36,7 +36,7 @@ export function withRegion(options) {
         regionDetails,
         {
           options: ({ regionId, language }) => ({
-            fetchPolicy: 'network-only', // i18n's problem with caching
+            fetchPolicy: 'cache-first', // i18n's problem with caching
             variables: { _id: regionId, language, withBounds, withPOIs },
           }),
           props: ({ data: { region, loading } }) => (

@@ -1,11 +1,11 @@
 import { compose, setDisplayName } from 'recompose';
 import { withAdmin } from '../users';
 import { withSectionsAdmin } from './containers/withSectionsAdmin';
-import { withSections } from '../../commons/features/sections/withSections';
+import { withSectionsList } from '../../commons/features/sections';
 
 export default compose(
   setDisplayName('ListSectionsContainer'),
   withAdmin(),
-  withSections(),
+  withSectionsList(),
   withSectionsAdmin,
 );

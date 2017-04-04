@@ -109,7 +109,7 @@ const localFilter = mapProps(({ sortBy, sortDirection, searchString, sections, .
  *          }
  *
  */
-export function withSections(options = {}) {
+export function withSectionsList(options = {}) {
   const { withGeo = false, pageSize = 25 } = options;
   return compose(
     withFeatureIds(['region', 'river']),

@@ -20,7 +20,7 @@ class SectionMapScreen extends React.PureComponent {
     const { screenProps: { section = { river: {} }, sectionLoading } } = this.props;
     return (
       <Screen loading={sectionLoading}>
-        <Text>{`Section Map ${section.river.name} - ${section.name}`}</Text>
+        <Text>{`Section Map ${section.river.name} - ${this.props.screenProps.sectionId}`}</Text>
       </Screen>
     );
   }

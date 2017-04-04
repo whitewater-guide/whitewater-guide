@@ -33,8 +33,8 @@ export default compose(
   setStatic('router', SectionTabs.router),
   // withRegion({ withBounds: true }),
   // withSections({ withGeo: true }),
-  mapProps(({ screenProps, ...props }) => ({
+  mapProps(({ screenProps, sectionId, ...props }) => ({
     ...props,
-    screenProps: { ...screenProps },
+    screenProps: { ...screenProps, sectionId },
   })),
 )(SectionTabs);

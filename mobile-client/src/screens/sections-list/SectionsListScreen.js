@@ -3,7 +3,7 @@ import { Container, Content, List, ListItem, Text, Body, Right, Icon } from 'nat
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import SectionsList from './list/SectionsList';
-import { withSections, SectionsPropType } from '../../commons/features/sections';
+import { withSectionsList, SectionsPropType } from '../../commons/features/sections';
 
 class SectionsListScreen extends PureComponent {
   static propTypes = {
@@ -27,7 +27,7 @@ class SectionsListScreen extends PureComponent {
 }
 
 export default compose(
-  withSections({ withGeo: true }),
+  withSectionsList({ withGeo: true }),
   connect(),
 )(SectionsListScreen);
 
