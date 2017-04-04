@@ -20,7 +20,7 @@ class SectionInfoScreen extends React.PureComponent {
     const { screenProps: { section = { river: {} }, sectionLoading } } = this.props;
     return (
       <Screen loading={sectionLoading}>
-        <Text>{`Section Info ${section.river.name} - ${section.name}`}</Text>
+        <Text>{JSON.stringify(section)}</Text>
       </Screen>
     );
   }

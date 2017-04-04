@@ -6,6 +6,7 @@ import { SectionChartScreen } from './chart';
 import { SectionGuideScreen } from './guide';
 import { SectionInfoScreen } from './info';
 import { SectionMediaScreen } from './media';
+import { withSection } from '../../commons/features/sections';
 
 const SectionTabs = TabNavigator(
   {
@@ -31,10 +32,9 @@ const SectionTabs = TabNavigator(
 
 export default compose(
   setStatic('router', SectionTabs.router),
-  // withRegion({ withBounds: true }),
-  // withSections({ withGeo: true }),
-  mapProps(({ screenProps, sectionId, ...props }) => ({
+  withSection({ withGeo: true, withDescription: true }),
+  mapProps(({ section, sectionLoading, screenProps, sectionId, ...props }) => ({
     ...props,
-    screenProps: { ...screenProps, sectionId },
+    screenProps: { ...screenProps, section, sectionLoading },
   })),
 )(SectionTabs);
