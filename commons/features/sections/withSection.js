@@ -8,15 +8,24 @@ const sectionDetails = gql`
   query sectionDetails($_id: ID, $language:String, $withGeo:Boolean!, $withDescription:Boolean!) {
     section(_id: $_id, language: $language) {
       ...SectionCore
+      ...SectionMeasurements
+      ...SectionMedia
+      ...SectionTags
       ...SectionDescription @include(if: $withDescription)
       ...SectionGeo @include(if: $withGeo)
+      ...SectionPOIs @include(if: $withGeo)
     }
 
   }
   ${SectionFragments.Core}
+  ${SectionFragments.Measurements}
+  ${SectionFragments.Media}
+  ${SectionFragments.Tags}
   ${SectionFragments.Description}
   ${SectionFragments.Geo}
+  ${SectionFragments.POIs}
 `;
+
 
 export function withSection(options) {
   const { withGeo = false, withDescription = false, propName = 'section' } = options;

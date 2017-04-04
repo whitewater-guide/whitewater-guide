@@ -20,7 +20,7 @@ class SectionMediaScreen extends React.PureComponent {
     const { screenProps: { section = { river: {} }, sectionLoading } } = this.props;
     return (
       <Screen loading={sectionLoading}>
-        <Text>{`Section Media ${section.river.name} - ${section.name}`}</Text>
+        <Text>{JSON.stringify(section.media)}</Text>
       </Screen>
     );
   }

@@ -116,8 +116,11 @@ export const sectionsResolvers = {
   },
   Section: {
     gauge: (section, args, context, info) => {
-      const simpleResult = pickFromSelf(section, context, info, {_id: 'gaugeId'});
-      return simpleResult || section.gaugeId && Gauges.findOne(section.gaugeId);
+      if (section.gaugeId) {
+        const simpleResult = pickFromSelf(section, context, info, { _id: 'gaugeId' });
+        return simpleResult || Gauges.findOne(section.gaugeId);
+      }
+      return null;
     },
     region: (section, args, context, info) => {
       const simpleResult = pickFromSelf(section, context, info, {_id: 'regionId'});
