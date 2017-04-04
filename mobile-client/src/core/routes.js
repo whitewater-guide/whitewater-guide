@@ -1,5 +1,5 @@
 import { DrawerNavigator, StackNavigator } from 'react-navigation';
-import { RegionsListScreen, SecondScreenStack, RegionTabs } from '../screens';
+import { RegionsListScreen, SectionsListScreen, RegionTabs } from '../screens';
 
 const RegionsStack = StackNavigator(
   {
@@ -15,12 +15,29 @@ const RegionsStack = StackNavigator(
   },
 );
 
+const AllSectionsStack = StackNavigator(
+  {
+    AllSections: {
+      screen: SectionsListScreen,
+    },
+  },
+  {
+    initialRouteName: 'AllSections',
+  },
+);
+
 const Routes = {
   RegionsRoot: {
     screen: RegionsStack,
+    navigationOptions: {
+      title: 'Regions',
+    },
   },
-  SecondScreen: {
-    screen: SecondScreenStack,
+  AllSectionsRoot: {
+    screen: AllSectionsStack,
+    navigationOptions: {
+      title: 'All Sections',
+    },
   },
 };
 

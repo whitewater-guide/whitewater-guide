@@ -16,18 +16,6 @@ class RegionSectionsScreen extends React.PureComponent {
     title: 'Sections',
   };
 
-  goBack = () => {
-    this.props.back();
-  };
-
-  goToPageOne = () => {
-    this.props.navigate({ routeName: 'PageOne' });
-  };
-
-  goToPageTwo = () => {
-    this.props.navigate({ routeName: 'PageTwo' });
-  };
-
   render() {
     const { screenProps: { sections, regionLoading } } = this.props;
     return (

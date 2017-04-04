@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { List, ListItem, Text, Body, Right, Icon } from 'native-base';
-import { SectionsPropType } from '../../commons/features/sections';
+import { SectionsPropType } from '../../../commons/features/sections';
 
 class SectionsList extends PureComponent {
   static propTypes = {
