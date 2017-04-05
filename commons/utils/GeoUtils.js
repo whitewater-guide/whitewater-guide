@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import DmsCoordinates from 'dms-conversion';
 
 export function gmapsToArray(latLng) {
   if (!latLng) {
@@ -28,4 +29,15 @@ export function isValidLat(lat) {
 
 export function isValidLng(lng) {
   return _.isNumber(lng) && lng >= -180 && lng <= 180;
+}
+
+export function arrayToPrettyDMS([lon, lat]) {
+  const { latitude, longitude } = new DmsCoordinates(lat, lon).getDmsArrays();
+  if (latitude[2]) {
+    latitude[2] = Math.round(latitude[2]);
+  }
+  if (longitude[2]) {
+    longitude[2] = Math.round(longitude[2]);
+  }
+  return `${latitude[0]}°${latitude[1]}′${latitude[2]}″ ${latitude[3]}, ${longitude[0]}°${longitude[1]}′${longitude[2]}″ ${longitude[3]}`;
 }
