@@ -1,12 +1,12 @@
-import React, {PropTypes} from 'react';
-import {renderDifficulty} from '../../utils/TextUtils';
-import {Rating} from '../../core/forms';
+import React, { PropTypes } from 'react';
+import { renderDifficulty } from '../../commons/utils/TextUtils';
+import { Rating } from '../../core/forms';
 import IconButton from 'material-ui/IconButton';
-import {Durations} from './Durations';
+import { Durations } from './Durations';
 import renderHTML from 'react-render-html';
-import {withAdmin} from '../users';
-import {withRouter} from 'react-router';
-import {withSection} from '../../commons/features/sections';
+import { withAdmin } from '../users';
+import { withRouter } from 'react-router';
+import { withSection } from '../../commons/features/sections';
 import _ from 'lodash';
 import './sectionInfo.css';
 
@@ -24,7 +24,7 @@ class ViewSection extends React.PureComponent {
   }
 
   renderInfo = () => {
-    const {section, admin} = this.props;
+    const { section, admin } = this.props;
     return (
       <div style={styles.table}>
 
@@ -49,7 +49,7 @@ class ViewSection extends React.PureComponent {
             Rating
           </div>
           <div style={styles.valueCol}>
-            <Rating field={{value: section.rating}} style={styles.rating}/>
+            <Rating field={{ value: section.rating }} style={styles.rating}/>
           </div>
         </div>
 
@@ -117,7 +117,7 @@ class ViewSection extends React.PureComponent {
   };
 
   editHandler = () => {
-    const {history, section} = this.props;
+    const { history, section } = this.props;
     history.push(`/sections/${section._id}/settings`);
   };
 

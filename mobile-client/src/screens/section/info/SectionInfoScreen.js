@@ -1,10 +1,9 @@
 import React, { PropTypes } from 'react';
-import { View } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
-import { Text } from 'native-base';
-import { Col, Grid, Row } from 'react-native-easy-grid';
+import { List, ListItem, Left, Body, Right, Text } from 'native-base';
 import StarRating from 'react-native-star-rating';
+import { renderDifficulty } from '../../../commons/utils/TextUtils';
 import { Screen } from '../../../components';
 
 class SectionInfoScreen extends React.PureComponent {
@@ -23,43 +22,41 @@ class SectionInfoScreen extends React.PureComponent {
     const { screenProps: { section = { river: {} }, sectionLoading } } = this.props;
     return (
       <Screen loading={sectionLoading}>
-        <Grid>
+        <List>
 
-          <Row>
-            <Col><Text>Difficulty</Text></Col>
-            <Col><Text>{section.difficulty}</Text></Col>
-          </Row>
+          <ListItem>
+            <Left><Text>Difficulty</Text></Left>
+            <Right><Text note>{renderDifficulty(section)}</Text></Right>
+          </ListItem>
 
-          <Row>
-            <Col><Text>Rating</Text></Col>
-            <Col>
-              <View style={{ width: 80 }}>
-                <StarRating disabled rating={section.rating} starSize={14} />
-              </View>
-            </Col>
-          </Row>
+          <ListItem>
+            <Left><Text>Rating</Text></Left>
+            <Right>
+              <StarRating disabled rating={section.rating} starSize={14} starColor={'#a7a7a7'} />
+            </Right>
+          </ListItem>
 
-          <Row>
-            <Col><Text>Drop</Text></Col>
-            <Col><Text>{section.drop}</Text></Col>
-          </Row>
+          <ListItem>
+            <Left><Text>Drop</Text></Left>
+            <Right><Text note>{section.drop}</Text></Right>
+          </ListItem>
 
-          <Row>
-            <Col><Text>Length, km</Text></Col>
-            <Col><Text>{section.distance}</Text></Col>
-          </Row>
+          <ListItem>
+            <Left><Text>Length, km</Text></Left>
+            <Right><Text note>{section.distance}</Text></Right>
+          </ListItem>
 
-          <Row>
-            <Col><Text>Duration</Text></Col>
-            <Col><Text>{section.duration}</Text></Col>
-          </Row>
+          <ListItem>
+            <Left><Text>Duration</Text></Left>
+            <Right><Text note>{section.duration}</Text></Right>
+          </ListItem>
 
-          <Row>
-            <Col><Text>Season</Text></Col>
-            <Col><Text>{section.season}</Text></Col>
-          </Row>
+          <ListItem>
+            <Left><Text>Season</Text></Left>
+            <Body><Text note>{section.season}</Text></Body>
+          </ListItem>
 
-        </Grid>
+        </List>
       </Screen>
     );
   }

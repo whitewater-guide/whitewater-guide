@@ -1,9 +1,9 @@
-import React, {PropTypes} from 'react';
-import {Column, Table} from 'react-virtualized';
-import {AdminControls, rowRenderer} from '../../core/components';
-import {Rating} from '../../core/forms';
-import {renderDifficulty} from '../../utils/TextUtils';
-import {Durations} from './Durations';
+import React, { PropTypes } from 'react';
+import { Column, Table } from 'react-virtualized';
+import { AdminControls, rowRenderer } from '../../core/components';
+import { Rating } from '../../core/forms';
+import { renderDifficulty } from '../../commons/utils/TextUtils';
+import { Durations } from './Durations';
 import _ from 'lodash';
 
 const durationsMap = _.keyBy(Durations, 'value');
@@ -19,13 +19,13 @@ export default class SectionsTable extends React.Component {
   };
 
   render() {
-    const {admin, sections = [], ...props} = this.props;
+    const { admin, sections = [], ...props } = this.props;
     return (
       <Table
         headerHeight={20}
         rowHeight={30}
         rowCount={sections.length}
-        rowGetter={({index}) => sections[index]}
+        rowGetter={({ index }) => sections[index]}
         onRowClick={this.onRowClick}
         rowRenderer={rowRenderer}
         ref={this.props.registerChild}
@@ -36,28 +36,29 @@ export default class SectionsTable extends React.Component {
         <Column width={130} label='Rating' dataKey="rating" cellRenderer={this.renderRating}/>
         <Column width={80} label='Drop (m)' dataKey="drop"/>
         <Column width={80} label='Length' dataKey="distance"/>
-        <Column width={80} label='Duration' dataKey="duration" cellDataGetter={({rowData}) => _.get(durationsMap, [rowData.duration, 'slug'])}/>
+        <Column width={80} label='Duration' dataKey="duration"
+                cellDataGetter={({ rowData }) => _.get(durationsMap, [rowData.duration, 'slug'])}/>
         {admin && <Column width={90} dataKey="controls" label="Controls" cellRenderer={this.renderControls}/>}
       </Table>
     );
   }
 
-  renderName = ({rowData}) => {
+  renderName = ({ rowData }) => {
     return `${rowData.river.name} - ${rowData.name}`;
   };
 
-  difficultyRenderer = ({rowData}) => {
+  difficultyRenderer = ({ rowData }) => {
     return renderDifficulty(rowData);
   };
 
-  renderRating = ({rowData}) => {
-    const field = {value: rowData.rating};
+  renderRating = ({ rowData }) => {
+    const field = { value: rowData.rating };
     return (
       <Rating field={field} style={styles.rating}/>
     );
   };
 
-  renderControls = ({rowData}) => {
+  renderControls = ({ rowData }) => {
     const editHandler = () => this.props.onEditSection(rowData._id);
     const deleteHandler = () => this.props.onDeleteSection(rowData._id);
     return (
@@ -65,7 +66,7 @@ export default class SectionsTable extends React.Component {
     );
   };
 
-  onRowClick = ({index}) => this.props.onSectionClick(this.props.sections[index]._id);
+  onRowClick = ({ index }) => this.props.onSectionClick(this.props.sections[index]._id);
 }
 
 const styles = {

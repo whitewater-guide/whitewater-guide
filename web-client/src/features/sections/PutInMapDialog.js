@@ -1,6 +1,6 @@
-import React, {PropTypes} from 'react';
-import {SelectPointsDialog} from '../../core/forms';
-import {isValidLat, isValidLng} from '../../utils/GeoUtils';
+import React, { PropTypes } from 'react';
+import { SelectPointsDialog } from '../../core/forms';
+import { isValidLat, isValidLng } from '../../commons/utils/GeoUtils';
 import _ from 'lodash';
 
 export default class PutInMapDialog extends React.Component {
@@ -38,12 +38,12 @@ export default class PutInMapDialog extends React.Component {
 
   onSubmit = (points) => {
     //Not very efficient, because causes 4 state changes instead of one
-    if (points.length > 0){
+    if (points.length > 0) {
       let fields = {
         "putIn.coordinates.0": points[0][0],
         "putIn.coordinates.1": points[0][1],
       };
-      if (points.length > 1){
+      if (points.length > 1) {
         fields["takeOut.coordinates.0"] = points[1][0];
         fields["takeOut.coordinates.1"] = points[1][1];
       }

@@ -1,6 +1,6 @@
 import React from 'react';
 import MUITextField from 'material-ui/TextField';
-import {strToFloat} from '../../utils/TextUtils';
+import {strToFloat} from '../../commons/utils/TextUtils';
 
 /**
  * Wrapper around Material-UI TextInput that makes

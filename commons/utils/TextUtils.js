@@ -1,63 +1,65 @@
 const ROMAN_NUMBERS = ['0', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'];
 
-const DECIMAL_POINT = (1.1).toLocaleString().substr(1,1);
-let K_SEPARATOR = (5000).toLocaleString().substr(1,1);
-if (K_SEPARATOR === '0')
+const DECIMAL_POINT = (1.1).toLocaleString().substr(1, 1);
+let K_SEPARATOR = (5000).toLocaleString().substr(1, 1);
+if (K_SEPARATOR === '0') {
   K_SEPARATOR = (DECIMAL_POINT === '.' ? ',' : '.');
-
-export function toRomanDifficulty(decimalDifficulty) {
-  if (Number.isInteger(decimalDifficulty)){
-    return ROMAN_NUMBERS[decimalDifficulty];
-  }
-  else {
-    const floor = Math.floor(decimalDifficulty);
-    return ROMAN_NUMBERS[floor] + '-' + ROMAN_NUMBERS[floor + 1];
-  }
 }
 
-export function renderDifficulty({difficulty, difficultyXtra}) {
+export function toRomanDifficulty(decimalDifficulty) {
+  if (Number.isInteger(decimalDifficulty)) {
+    return ROMAN_NUMBERS[decimalDifficulty];
+  }
+  const floor = Math.floor(decimalDifficulty);
+  return `${ROMAN_NUMBERS[floor]} - ${ROMAN_NUMBERS[floor + 1]}`;
+}
+
+export function renderDifficulty({ difficulty, difficultyXtra }) {
   let result = toRomanDifficulty(difficulty);
-  if (difficultyXtra)
-    result = result + ' (' + difficultyXtra + ')';
+  if (difficultyXtra) {
+    result = `${result} (${difficultyXtra})`;
+  }
   return result;
 }
 
 /**
  * locale semi-agnostic string to float conversion
  * https://gist.github.com/GerHobbelt/2037124
- * @param String with either "," or "." as decimal separator
+ * @param str String with either "," or "." as decimal separator
  * @returns Number
  */
 export function strToFloat(str) {
-  switch (typeof(str)) {
+  switch (typeof (result)) {
     case 'float':
     case 'integer':
       return str;
-
-    default:
-      str = '' + str; // force str to be string type
-      str = str.match(/[0-9.,eE-]+/);
-      if (str)
-        str = str[0];
-      else
+    default: {
+      let result = '' + str; // force str to be string type
+      result = result.match(/[0-9.,eE-]+/);
+      if (result) {
+        result = result[0];
+      } else {
         return Number.NaN; // VERY illegal number format
+      }
 
-      var kp = str.indexOf(',');
-      var dp = str.indexOf('.');
-      var kpl = str.lastIndexOf(',');
-      var dpl = str.lastIndexOf('.');
+      const kp = result.indexOf(',');
+      const dp = result.indexOf('.');
+      const kpl = result.lastIndexOf(',');
+      const dpl = result.lastIndexOf('.');
       // can we be 'locale agnostic'? We can if both markers are in the input:
       if (kp > 0 && dp > 0) {
         if (kp < dp) {
           // e.g.: 1,000.00
-          if (kpl > dpl || dpl > dp)
+          if (kpl > dpl || dpl > dp) {
             return Number.NaN; // VERY illegal number format
-          str = str.replace(/,/g, '');
+          }
+          result = result.replace(/,/g, '');
         } else {
           // e.g.: 1.000,00
-          if (kpl < dpl || kpl > kp)
+          if (kpl < dpl || kpl > kp) {
             return Number.NaN; // VERY illegal number format
-          str = str.replace(/\./g, '').replace(',', '.');
+          }
+          result = result.replace(/\./g, '').replace(',', '.');
         }
       } else {
         // only one of 'em in there: must we use the detected 'current' locale
@@ -78,14 +80,16 @@ export function strToFloat(str) {
         // examples: 1.000 : 5,00 : 2,999.95 : 2,998 : 7.50 : 0,1791634 : 0.1791634 : .45 : ,32
         if (dp >= 0 && kp < 0) {
           // .45, ....
-          if (dp !== 0 && (dpl > dp || str.substr(dp + 1).match(/^[0-9]{3}\b/)))
-            str = str.replace(/\./g, '');
+          if (dp !== 0 && (dpl > dp || result.substr(dp + 1).match(/^[0-9]{3}\b/))) {
+            result = result.replace(/\./g, '');
+          }
         } else if (kp >= 0 && dp < 0) {
           // ,32; ....
-          if (kp !== 0 && (kpl > kp || str.substr(kp + 1).match(/^[0-9]{3}\b/)))
-            str = str.replace(/,/g, '');
-          else
-            str = str.replace(',', '.');
+          if (kp !== 0 && (kpl > kp || result.substr(kp + 1).match(/^[0-9]{3}\b/))) {
+            result = result.replace(/,/g, '');
+          } else {
+            result = result.replace(',', '.');
+          }
         } else if (kp < 0 && dp < 0) {
           // integer value
         } else {
@@ -95,6 +99,7 @@ export function strToFloat(str) {
       }
       // now str has parseFloat() compliant format with US decimal point
       // only (iff it has a decimal fraction at all).
-      return parseFloat(str);
+      return parseFloat(result);
+    }
   }
 }
