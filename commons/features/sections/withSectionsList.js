@@ -12,11 +12,13 @@ const ListSectionsQuery = gql`
     sections(terms:$terms, language:$language) {
       sections {
         ...SectionCore
+        ...SectionMeasurements
         ...SectionGeo @include(if: $withGeo)
       }
       count @skip(if: $isLoadMore)
     }
   }
+  ${SectionFragments.Measurements}
   ${SectionFragments.Core}
   ${SectionFragments.Geo}
 `;
