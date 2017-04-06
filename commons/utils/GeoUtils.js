@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import DmsCoordinates from 'dms-conversion';
 
 export function gmapsToArray(latLng) {
   if (!latLng) {
@@ -31,13 +30,19 @@ export function isValidLng(lng) {
   return _.isNumber(lng) && lng >= -180 && lng <= 180;
 }
 
-export function arrayToPrettyDMS([lon, lat]) {
-  const { latitude, longitude } = new DmsCoordinates(lat, lon).getDmsArrays();
-  if (latitude[2]) {
-    latitude[2] = Math.round(latitude[2]);
-  }
-  if (longitude[2]) {
-    longitude[2] = Math.round(longitude[2]);
-  }
-  return `${latitude[0]}°${latitude[1]}′${latitude[2]}″ ${latitude[3]}, ${longitude[0]}°${longitude[1]}′${longitude[2]}″ ${longitude[3]}`;
+export function arrayToDMSString(coordinates, pretty = true) {
+  const truncate = n => (n > 0 ? Math.floor(n) : Math.ceil(n));
+  const latHemisphere = coordinates[1] < 0 ? 'S' : 'N';
+  const lonHemisphere = coordinates[0] < 0 ? 'W' : 'E';
+  const hemispheres = [lonHemisphere, latHemisphere];
+  return coordinates.map((dd, i) => {
+    const absDD = Math.abs(dd);
+    const degrees = truncate(absDD);
+    const minutes = truncate((absDD - degrees) * 60);
+    let seconds = (absDD - degrees - (minutes / 60)) * 3600;
+    if (pretty) {
+      seconds = truncate(seconds);
+    }
+    return `${degrees}°${minutes}′${seconds}″ ${hemispheres[i]}`;
+  }).reverse().join(', ');
 }

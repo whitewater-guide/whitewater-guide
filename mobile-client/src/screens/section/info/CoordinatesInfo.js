@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react';
 import { Clipboard, Linking, View } from 'react-native';
 import { Button, Icon, Left, ListItem, Text } from 'native-base';
-import { arrayToPrettyDMS } from '../../../commons/utils/GeoUtils';
+import { arrayToDMSString } from '../../../commons/utils/GeoUtils';
 
 const CoordinatesInfo = ({ label, coordinates }) => {
-  const prettyCoord = arrayToPrettyDMS(coordinates);
+  const prettyCoord = arrayToDMSString(coordinates);
   const copyHandler = () => Clipboard.setString(prettyCoord);
   const direcionsURL = `https://www.google.com/maps/dir/Current+Location/${coordinates[1]},${coordinates[0]}`;
   const directionsHandler = () => Linking.openURL(direcionsURL).catch(() => {});
