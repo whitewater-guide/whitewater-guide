@@ -57,3 +57,4 @@ fastlane/screenshots
 /src/commons/
 /ios/Podfile.lock
 /ios/Pods/
+/storybook/storyLoader.js

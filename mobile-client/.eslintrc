@@ -24,6 +24,7 @@
     "no-underscore-dangle": 0,
     "max-len": ["warn", 120],
     "import/prefer-default-export": 0,
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.js", "**/*.stories.js"]}],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/prefer-stateless-function": [2, { "ignorePureComponents": true }],
     "generator-star-spacing": ["error", {"before": true, "after": false}]

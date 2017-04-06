@@ -7,7 +7,7 @@ import StarRating from 'react-native-star-rating';
 import { capitalize, trim } from 'lodash';
 import { renderDifficulty } from '../../../commons/utils/TextUtils';
 import stringifySeason from '../../../commons/utils/stringifySeason';
-import { Screen } from '../../../components';
+import { Chips, Screen } from '../../../components';
 import CoordinatesInfo from './CoordinatesInfo';
 
 class SectionInfoScreen extends React.PureComponent {
@@ -67,6 +67,34 @@ class SectionInfoScreen extends React.PureComponent {
           <CoordinatesInfo label="Put-in" coordinates={section.putIn.coordinates} />
 
           <CoordinatesInfo label="Take-out" coordinates={section.takeOut.coordinates} />
+
+          <ListItem>
+            <Left><Text>Supply</Text></Left>
+            <View style={{ flex: 3 }}>
+              <Chips values={section.supplyTags.map(t => t.name)} color="blue" />
+            </View>
+          </ListItem>
+
+          <ListItem>
+            <Left><Text>Hazards</Text></Left>
+            <View style={{ flex: 3 }}>
+              <Chips values={section.hazardsTags.map(t => t.name)} color="red" />
+            </View>
+          </ListItem>
+
+          <ListItem>
+            <Left><Text>Kayaking types</Text></Left>
+            <View style={{ flex: 3 }}>
+              <Chips values={section.kayakingTags.map(t => t.name)} color="green" />
+            </View>
+          </ListItem>
+
+          <ListItem>
+            <Left><Text>Tags</Text></Left>
+            <View style={{ flex: 3 }}>
+              <Chips values={section.miscTags.map(t => t.name)} color="#444444" />
+            </View>
+          </ListItem>
 
         </List>
       </Screen>
