@@ -12,7 +12,8 @@
 		"fresh-start": "yarn run fresh-install && yarn run rc-start",
 		"installRelease": "adb install android/app/build/outputs/apk/app-release.apk",
 		"storybook": "adb reverse tcp:7007 tcp:7007 && storybook start -p 7007",
-		"test": "jest"
+		"test": "jest",
+		"test:watch": "jest --watch"
 	},
 	"dependencies": {
 		"apollo-client": "^1.0.2",

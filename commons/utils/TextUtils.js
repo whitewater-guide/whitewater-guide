@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 const ROMAN_NUMBERS = ['0', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'];
 
 const DECIMAL_POINT = (1.1).toLocaleString().substr(1, 1);
@@ -102,4 +104,8 @@ export function strToFloat(str) {
       return parseFloat(result);
     }
   }
+}
+
+export function stringifySeason(seasonNumeric) {
+  
 }

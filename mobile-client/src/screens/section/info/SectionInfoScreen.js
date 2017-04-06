@@ -1,9 +1,12 @@
 import React, { PropTypes } from 'react';
+import { View } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
-import { List, ListItem, Left, Body, Right, Text } from 'native-base';
+import { List, ListItem, Left, Right, Text } from 'native-base';
 import StarRating from 'react-native-star-rating';
+import { capitalize, trim } from 'lodash';
 import { renderDifficulty } from '../../../commons/utils/TextUtils';
+import stringifySeason from '../../../commons/utils/stringifySeason';
 import { Screen } from '../../../components';
 import CoordinatesInfo from './CoordinatesInfo';
 
@@ -20,7 +23,11 @@ class SectionInfoScreen extends React.PureComponent {
   };
 
   render() {
-    const { screenProps: { section = { river: {} }, sectionLoading } } = this.props;
+    const { screenProps: { section, sectionLoading } } = this.props;
+    if (!section) {
+      return null;
+    }
+    const season = capitalize(trim(`${stringifySeason(section.seasonNumeric)}\n${section.season}`));
     return (
       <Screen loading={sectionLoading}>
         <List>
@@ -54,7 +61,7 @@ class SectionInfoScreen extends React.PureComponent {
 
           <ListItem>
             <Left><Text>Season</Text></Left>
-            <Body><Text note>{section.season}</Text></Body>
+            <View><Text note>{season}</Text></View>
           </ListItem>
 
           <CoordinatesInfo label="Put-in" coordinates={section.putIn.coordinates} />
