@@ -1,42 +1,10 @@
-import React, {Component, PropTypes} from 'react';
-import {InteractiveChart} from '../../core/components';
+import React, { Component, PropTypes } from 'react';
 import Paper from 'material-ui/Paper';
 import moment from 'moment';
+import { compose } from 'recompose';
 import _ from 'lodash';
-import container from './ViewGaugeContainer';
-
-class ViewGauge extends Component {
-  static propTypes = {
-    gauge: PropTypes.object,
-    loading: PropTypes.bool,
-    onDomainChanged: PropTypes.func,
-    startDate: PropTypes.instanceOf(Date),//initial value
-    endDate: PropTypes.instanceOf(Date),//initial value
-  };
-
-  render() {
-    const {loading, gauge, onDomainChanged, startDate, endDate} = this.props;
-    if (loading && !gauge)
-      return null;
-    const {name, measurements, lastLevel, lastFlow, levelUnit, flowUnit, lastTimestamp} = gauge;
-    return (
-      <div style={styles.container}>
-        <div style={styles.body}>
-          <Paper style={styles.headerPaper}>
-            <h1>{name}</h1>
-            <p>{`Last measured level: ${_.round(lastLevel, 4)} ${levelUnit} from ${moment(lastTimestamp).format('DD/MM/YYYY HH:mm')}`}</p>
-            <p>{`Last measured flow: ${_.round(lastFlow, 4)} ${flowUnit} from ${moment(lastTimestamp).format('DD/MM/YYYY HH:mm')}`}</p>
-          </Paper>
-          <Paper style={styles.chartHolder}>
-            <InteractiveChart data={measurements} onDomainChanged={onDomainChanged} startDate={startDate}
-                              endDate={endDate}/>
-          </Paper>
-        </div>
-      </div>
-    );
-  }
-
-}
+import { InteractiveChart, spinnerWhileLoading } from '../../core/components';
+import { withGauge } from '../../commons/features/gauges';
 
 const styles = {
   container: {
@@ -62,4 +30,44 @@ const styles = {
   },
 };
 
-export default container(ViewGauge);
+class ViewGauge extends Component {
+  static propTypes = {
+    gauge: PropTypes.object.isRequired,
+    onDomainChanged: PropTypes.func,
+    startDate: PropTypes.instanceOf(Date).isRequired, // initial value
+    endDate: PropTypes.instanceOf(Date).isRequired, // initial value
+  };
+
+  renderLastMeasurement = (name, value, unit, timestamp) =>
+    `Last measured ${name}: ${_.round(value, 4)} ${unit} from ${moment(timestamp).format('DD/MM/YYYY HH:mm')}`;
+
+  render() {
+    const { gauge, onDomainChanged, startDate, endDate } = this.props;
+    const { name, measurements, lastLevel, lastFlow, levelUnit, flowUnit, lastTimestamp } = gauge;
+    return (
+      <div style={styles.container}>
+        <div style={styles.body}>
+          <Paper style={styles.headerPaper}>
+            <h1>{name}</h1>
+            <p>{this.renderLastMeasurement('level', lastLevel, levelUnit, lastTimestamp)}</p>
+            <p>{this.renderLastMeasurement('flow', lastFlow, flowUnit, lastTimestamp)}</p>
+          </Paper>
+          <Paper style={styles.chartHolder}>
+            <InteractiveChart
+              data={measurements}
+              onDomainChanged={onDomainChanged}
+              startDate={startDate}
+              endDate={endDate}
+            />
+          </Paper>
+        </div>
+      </div>
+    );
+  }
+
+}
+
+export default compose(
+  withGauge({ withMeasurements: true }),
+  spinnerWhileLoading(props => props.gaugeLoading),
+)(ViewGauge);

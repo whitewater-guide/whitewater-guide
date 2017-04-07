@@ -6,7 +6,7 @@ import container from './ListGaugesLeftContainer';
 class ListGaugesLeft extends Component {
   static propTypes = {
     sourceId: PropTypes.string.isRequired,
-    admin: PropTypes.bool.isRequired,
+    admin: PropTypes.bool,
     count: PropTypes.number,
     removeGauges: PropTypes.func,
     setEnabled: PropTypes.func,

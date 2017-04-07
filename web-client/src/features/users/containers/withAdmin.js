@@ -1,8 +1,7 @@
-import React, {Component, PropTypes} from 'react';
-import gql from 'graphql-tag';
-import {graphql} from 'react-apollo';
-import {compose} from 'recompose';
-import {withRouter} from 'react-router';
+import React, { Component, PropTypes } from 'react';
+import { gql, graphql } from 'react-apollo';
+import { compose } from 'recompose';
+import { withRouter } from 'react-router';
 
 const myProfile = gql`
   query myProfile {
@@ -18,12 +17,12 @@ const container = compose(
   graphql(
     myProfile,
     {
-      options: () => ({notifyOnNetworkStatusChange: true}),
-      props: ({data: {me, loading}}) => {
+      options: () => ({ notifyOnNetworkStatusChange: true }),
+      props: ({ data: { me, loading } }) => {
         const admin = me && me.roles.includes('admin');
-        return {admin, adminLoading: loading};
+        return { admin, adminLoading: loading };
       },
-    }
+    },
   ),
 );
 
@@ -41,27 +40,24 @@ export function withAdmin(redirectUnauthorized = false) {
     class AdminWrapper extends Component {
       static propTypes = {
         admin: PropTypes.bool,
-        adminLoading: PropTypes.bool,
-        history: PropTypes.object,
+        adminLoading: PropTypes.bool.isRequired,
+        history: PropTypes.object.isRequired,
       };
 
       static displayName = `withAdmin(${getDisplayName(Component)})`;
 
       render() {
-        const {adminLoading, ...props} = this.props;
+        const { adminLoading, ...props } = this.props;
         if (adminLoading) {
           return null;
+        } else if (this.props.admin || !redirectUnauthorized) {
+          return (<Wrapped {...props} />);
         }
-        else if (this.props.admin || !redirectUnauthorized) {
-          return (<Wrapped {...props}/>);
-        }
-        else {
-          this.props.history.replace('/403');
-          return null;
-        }
+        this.props.history.replace('/403');
+        return null;
       }
     }
 
     return container(AdminWrapper);
-  }
+  };
 }

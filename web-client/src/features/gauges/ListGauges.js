@@ -15,7 +15,7 @@ class ListGauges extends React.Component {
     loadMore: PropTypes.func.isRequired,
     removeGauge: PropTypes.func,
     setEnabled: PropTypes.func,
-    history: PropTypes.func,
+    history: PropTypes.object,
     source: PropTypes.object,
   };
 
