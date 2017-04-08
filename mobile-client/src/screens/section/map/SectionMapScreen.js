@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Text } from 'native-base';
-import { flattenProp } from 'recompose';
+import { flattenProp, hoistStatics } from 'recompose';
 import { Screen } from '../../../components';
 
 class SectionMapScreen extends React.PureComponent {
@@ -26,4 +26,5 @@ class SectionMapScreen extends React.PureComponent {
 
 }
 
-export default flattenProp('screenProps')(SectionMapScreen);
+const container = flattenProp('screenProps');
+export default hoistStatics(container)(SectionMapScreen);

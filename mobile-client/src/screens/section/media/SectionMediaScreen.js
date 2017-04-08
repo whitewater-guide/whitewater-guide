@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Text } from 'native-base';
-import { flattenProp } from 'recompose';
+import { flattenProp, hoistStatics } from 'recompose';
 import { Screen } from '../../../components';
 
 class SectionMediaScreen extends React.PureComponent {
@@ -26,4 +26,5 @@ class SectionMediaScreen extends React.PureComponent {
 
 }
 
-export default flattenProp('screenProps')(SectionMediaScreen);
+const container = flattenProp('screenProps');
+export default hoistStatics(container)(SectionMediaScreen);

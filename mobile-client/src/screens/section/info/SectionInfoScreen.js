@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { View } from 'react-native';
 import { List, ListItem, Left, Right, Text } from 'native-base';
 import StarRating from 'react-native-star-rating';
-import { flattenProp } from 'recompose';
+import { flattenProp, hoistStatics } from 'recompose';
 import { capitalize, trim } from 'lodash';
 import { renderDifficulty } from '../../../commons/utils/TextUtils';
 import stringifySeason from '../../../commons/utils/stringifySeason';
@@ -99,4 +99,5 @@ class SectionInfoScreen extends React.PureComponent {
 
 }
 
-export default flattenProp('screenProps')(SectionInfoScreen);
+const container = flattenProp('screenProps');
+export default hoistStatics(container)(SectionInfoScreen);

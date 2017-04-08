@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import HTMLView from 'react-native-htmlview';
-import { flattenProp } from 'recompose';
+import { flattenProp, hoistStatics } from 'recompose';
 import { Screen } from '../../../components';
 
 class SectionGuideScreen extends React.PureComponent {
@@ -25,4 +25,6 @@ class SectionGuideScreen extends React.PureComponent {
 
 }
 
-export default flattenProp('screenProps')(SectionGuideScreen);
+const container = flattenProp('screenProps');
+
+export default hoistStatics(container)(SectionGuideScreen);

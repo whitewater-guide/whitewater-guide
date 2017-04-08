@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Container } from 'native-base';
-import { branch, compose, flattenProp, renderComponent, withProps } from 'recompose';
+import { branch, compose, flattenProp, hoistStatics, renderComponent, withProps } from 'recompose';
 import { Screen, spinnerWhileLoading } from '../../../components';
 import { InteractiveChart, NoChart } from '../../../components/chart';
 import { withGauge } from '../../../commons/features/gauges';
@@ -39,7 +39,7 @@ class SectionChartScreen extends React.PureComponent {
 
 }
 
-export default compose(
+const container = compose(
   flattenProp('screenProps'),
   branch(
     ({ section }) => !!section && !!section.gauge,
@@ -50,4 +50,6 @@ export default compose(
     ),
     renderComponent(NoChart),
   ),
-)(SectionChartScreen);
+);
+
+export default hoistStatics(container)(SectionChartScreen);
