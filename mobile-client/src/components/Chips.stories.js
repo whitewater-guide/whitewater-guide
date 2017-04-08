@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { storiesOf } from '@kadira/react-native-storybook';
 import Chips from './Chips';
 
-storiesOf('Chip')
+storiesOf('Chips')
   .add('default', () => (
     <View>
       <Chips
