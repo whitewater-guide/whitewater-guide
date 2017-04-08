@@ -9,6 +9,7 @@ import { StyleSheet, Dimensions, View } from 'react-native';
 import moment from 'moment';
 import capitalize from 'lodash/capitalize';
 import NoChart from './NoChart';
+import TimeLabel from './TimeLabel';
 
 const { width } = Dimensions.get('window');
 
@@ -82,7 +83,7 @@ class Chart extends PureComponent {
         <VictoryChart
           width={width}
           height={width}
-          padding={{ top: 16, bottom: 32, left: 48, right: 16 }}
+          padding={{ top: 16, bottom: 48, left: 48, right: 16 }}
           scale={{ x: 'time', y: 'linear' }}
           domain={{ x: domain }}
           theme={VictoryTheme.material}
@@ -90,6 +91,7 @@ class Chart extends PureComponent {
           <VictoryAxis
             tickFormat={this.tickFormat}
             tickCount={this.tickCount}
+            tickLabelComponent={<TimeLabel angle={90} />}
           />
           <VictoryAxis
             dependentAxis
