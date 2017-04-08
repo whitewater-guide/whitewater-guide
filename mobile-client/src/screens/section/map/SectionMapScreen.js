@@ -1,13 +1,12 @@
 import React, { PropTypes } from 'react';
-import { NavigationActions } from 'react-navigation';
-import { connect } from 'react-redux';
 import { Text } from 'native-base';
+import { flattenProp } from 'recompose';
 import { Screen } from '../../../components';
 
 class SectionMapScreen extends React.PureComponent {
 
   static propTypes = {
-    screenProps: PropTypes.object,
+    section: PropTypes.object,
   };
 
   static navigationOptions = {
@@ -17,9 +16,9 @@ class SectionMapScreen extends React.PureComponent {
   };
 
   render() {
-    const { screenProps: { section = { river: {} }, sectionLoading } } = this.props;
+    const { section } = this.props;
     return (
-      <Screen loading={sectionLoading}>
+      <Screen >
         <Text>{`Section Map ${section.river.name} - ${section.name}`}</Text>
       </Screen>
     );
@@ -27,4 +26,4 @@ class SectionMapScreen extends React.PureComponent {
 
 }
 
-export default connect(undefined, NavigationActions)(SectionMapScreen);
+export default flattenProp('screenProps')(SectionMapScreen);

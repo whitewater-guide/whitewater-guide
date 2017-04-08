@@ -1,9 +1,8 @@
 import React, { PropTypes } from 'react';
 import { View } from 'react-native';
-import { NavigationActions } from 'react-navigation';
-import { connect } from 'react-redux';
 import { List, ListItem, Left, Right, Text } from 'native-base';
 import StarRating from 'react-native-star-rating';
+import { flattenProp } from 'recompose';
 import { capitalize, trim } from 'lodash';
 import { renderDifficulty } from '../../../commons/utils/TextUtils';
 import stringifySeason from '../../../commons/utils/stringifySeason';
@@ -13,7 +12,7 @@ import CoordinatesInfo from './CoordinatesInfo';
 class SectionInfoScreen extends React.PureComponent {
 
   static propTypes = {
-    screenProps: PropTypes.object,
+    section: PropTypes.object,
   };
 
   static navigationOptions = {
@@ -23,13 +22,10 @@ class SectionInfoScreen extends React.PureComponent {
   };
 
   render() {
-    const { screenProps: { section, sectionLoading } } = this.props;
-    if (!section) {
-      return null;
-    }
+    const { section } = this.props;
     const season = capitalize(trim(`${stringifySeason(section.seasonNumeric)}\n${section.season}`));
     return (
-      <Screen loading={sectionLoading}>
+      <Screen>
         <List>
 
           <ListItem>
@@ -103,4 +99,4 @@ class SectionInfoScreen extends React.PureComponent {
 
 }
 
-export default connect(undefined, NavigationActions)(SectionInfoScreen);
+export default flattenProp('screenProps')(SectionInfoScreen);

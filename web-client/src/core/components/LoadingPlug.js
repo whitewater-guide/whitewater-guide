@@ -1,6 +1,6 @@
 import React from 'react';
-import { branch, renderComponent } from 'recompose';
 import CircularProgress from 'material-ui/CircularProgress';
+import { default as spinnerHOC } from '../../commons/utils/spinnerWhileLoading';
 
 const styles = {
   container: {
@@ -18,7 +18,4 @@ export const LoadingPlug = () => (
   </div>
 );
 
-export const spinnerWhileLoading = isLoading => branch(
-  isLoading,
-  renderComponent(LoadingPlug),
-);
+export const spinnerWhileLoading = isLoading => spinnerHOC(isLoading, LoadingPlug);

@@ -33,6 +33,7 @@
 		"react-native-maps": "^0.14.0",
 		"react-native-splash-screen": "^2.0.0",
 		"react-native-star-rating": "^1.0.7",
+		"react-native-svg": "^5.1.7",
 		"react-native-vector-icons": "^4.0.1",
 		"react-navigation": "https://github.com/react-community/react-navigation.git",
 		"react-redux": "^5.0.3",
@@ -44,7 +45,8 @@
 		"recursive-iterator": "^2.0.3",
 		"redux": "^3.6.0",
 		"redux-persist": "^4.6.0",
-		"redux-saga": "^0.14.4"
+		"redux-saga": "^0.14.4",
+		"victory-native": "^0.7.2"
 	},
 	"devDependencies": {
 		"@kadira/react-native-storybook": "^2.3.0",
@@ -66,11 +68,13 @@
 	"jest": {
 		"preset": "react-native"
 	},
-    "config": {
-        "react-native-storybook-loader": {
-            "searchDir": ["./src"],
-            "pattern": "**/*.stories.js",
-            "outputFile": "./storybook/storyLoader.js"
-        }
-    }
+	"config": {
+		"react-native-storybook-loader": {
+			"searchDir": [
+				"./src"
+			],
+			"pattern": "**/*.stories.js",
+			"outputFile": "./storybook/storyLoader.js"
+		}
+	}
 }

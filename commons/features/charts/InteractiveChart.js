@@ -35,7 +35,7 @@ export default (Layout, Chart, FlowToggle, PeriodToggle) => {
       this.props.onDomainChanged(chartDomain);
     };
 
-    onUnitChanged = unit => this.setState(unit);
+    onUnitChanged = unit => this.setState({ unit });
 
     setDomainInDays = (days) => {
       const chartDomain = [moment().subtract(days, 'days').toDate(), new Date()];

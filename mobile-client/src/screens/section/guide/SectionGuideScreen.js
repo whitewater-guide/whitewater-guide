@@ -1,13 +1,12 @@
 import React, { PropTypes } from 'react';
-import { NavigationActions } from 'react-navigation';
-import { connect } from 'react-redux';
 import HTMLView from 'react-native-htmlview';
+import { flattenProp } from 'recompose';
 import { Screen } from '../../../components';
 
 class SectionGuideScreen extends React.PureComponent {
 
   static propTypes = {
-    screenProps: PropTypes.object,
+    section: PropTypes.object,
   };
 
   static navigationOptions = {
@@ -17,14 +16,13 @@ class SectionGuideScreen extends React.PureComponent {
   };
 
   render() {
-    const { screenProps: { section = { river: {} }, sectionLoading } } = this.props;
     return (
-      <Screen loading={sectionLoading}>
-        <HTMLView value={section.description} />
+      <Screen>
+        <HTMLView value={this.props.section.description} />
       </Screen>
     );
   }
 
 }
 
-export default connect(undefined, NavigationActions)(SectionGuideScreen);
+export default flattenProp('screenProps')(SectionGuideScreen);
