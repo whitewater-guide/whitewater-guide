@@ -10,6 +10,7 @@ import moment from 'moment';
 import capitalize from 'lodash/capitalize';
 import NoChart from './NoChart';
 import TimeLabel from './TimeLabel';
+import TimeGridLine from './TimeGridLine';
 
 const { width } = Dimensions.get('window');
 
@@ -29,7 +30,7 @@ const ChartSettings = {
     tickCount: 7,
   },
   monthly: {
-    tickFormat: 'D/MM',
+    tickFormat: 'D MMM',
     tickCount: 31,
   },
 };
@@ -69,6 +70,7 @@ class Chart extends PureComponent {
       period = 'weekly';
     }
     const settings = ChartSettings[period];
+    this.period = period;
     this.tickFormat = date => moment(date).format(settings.tickFormat);
     this.tickCount = settings.tickCount;
   };
@@ -92,7 +94,8 @@ class Chart extends PureComponent {
           <VictoryAxis
             tickFormat={this.tickFormat}
             tickCount={this.tickCount}
-            tickLabelComponent={<TimeLabel angle={90} />}
+            tickLabelComponent={<TimeLabel angle={90} period={this.period} />}
+            gridComponent={<TimeGridLine period={this.period} />}
           />
           <VictoryAxis
             dependentAxis

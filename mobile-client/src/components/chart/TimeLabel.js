@@ -1,17 +1,30 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { Text, G } from 'react-native-svg';
 import { VictoryLabel } from 'victory-core/src';
 import { NativeHelpers } from 'victory-native';
+import moment from 'moment';
 
 export default class extends VictoryLabel {
   static defaultProps = {
     ...VictoryLabel.defaultProps,
     capHeight: 0.71,
-    lineHeight: 1
+    lineHeight: 1,
+    period: PropTypes.oneOf(['daily', 'weekly', 'monthly']),
+  };
+
+  shouldRender = () => {
+    const { period, datum } = this.props;
+    if (period === 'monthly') {
+      return moment(datum).day() === 0; // Only render sundays
+    }
+    return true;
   };
 
   // Overrides method in victory-core
   renderElements(props) {
+    if (!this.shouldRender()){
+      return null;
+    }
     const { x, y, dx, className, events } = props;
     const transform = NativeHelpers.getTransform(this.transform);
     return (
