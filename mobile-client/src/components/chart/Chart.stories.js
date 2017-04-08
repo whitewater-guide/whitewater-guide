@@ -25,11 +25,11 @@ storiesOf('Chart')
     <Chart data={[]} domain={daily.domain} />
   ))
   .add('With daily data', () => (
-    <Chart {...daily} />
+    <Chart {...daily} unit={'level'} />
   ))
   .add('With weekly data', () => (
-    <Chart {...weekly} />
+    <Chart {...weekly} unit={'level'} />
   ))
   .add('With monthly data', () => (
-    <Chart {...monthly} />
+    <Chart {...monthly} unit={'level'} />
   ));

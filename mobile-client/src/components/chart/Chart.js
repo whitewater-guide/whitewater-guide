@@ -86,6 +86,7 @@ class Chart extends PureComponent {
           padding={{ top: 16, bottom: 48, left: 48, right: 16 }}
           scale={{ x: 'time', y: 'linear' }}
           domain={{ x: domain }}
+          domainPadding={20}
           theme={VictoryTheme.material}
         >
           <VictoryAxis
