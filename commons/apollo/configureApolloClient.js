@@ -44,16 +44,6 @@ const createMeteorNetworkInterface = ({ uri = '/graphql' }) => {
 
 const meteorClientConfig = networkInterfaceConfig => ({
   networkInterface: createMeteorNetworkInterface(networkInterfaceConfig),
-
-  // Default to using Mongo _id, must use _id for queries.
-  dataIdFromObject: (result) => {
-    if (result._id && result.__typename) {
-      const dataId = result.__typename + result._id;
-      return dataId;
-    }
-
-    return null;
-  },
 });
 
 export default function configureApolloClient(options = {}) {
