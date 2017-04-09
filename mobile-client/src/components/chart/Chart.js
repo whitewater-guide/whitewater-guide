@@ -40,13 +40,18 @@ class Chart extends PureComponent {
     data: PropTypes.array.isRequired,
     unit: PropTypes.oneOf(['level', 'flow']),
     domain: PropTypes.arrayOf(PropTypes.instanceOf(Date)).isRequired,
-    minValue: PropTypes.number,
-    midValue: PropTypes.number,
-    maxValue: PropTypes.number,
+    binding: PropTypes.shape({
+      minimum: PropTypes.number,
+      maximum: PropTypes.number,
+      optimum: PropTypes.number,
+      impossible: PropTypes.number,
+      approximate: PropTypes.bool,
+    }),
   };
 
   static defaultProps = {
     unit: 'flow',
+    binding: {},
   };
 
   constructor(props) {
@@ -75,6 +80,43 @@ class Chart extends PureComponent {
     this.tickCount = settings.tickCount;
   };
 
+  rednderBindingLine = (color, value, key) => {
+    const { domain } = this.props;
+    const data = [
+      { x: domain[0], y: value },
+      { x: domain[1], y: value },
+    ];
+    return (
+      <VictoryLine
+        key={`binding_${key}`}
+        data={data}
+        style={{ data: { strokeWidth: 1, stroke: color } }}
+      />
+    );
+  };
+
+  renderBindings = () => {
+    const { binding } = this.props;
+    if (!binding) {
+      return null;
+    }
+    const { minimum, maximum, optimum, impossible } = binding;
+    const result = [];
+    if (minimum) {
+      result.push(this.rednderBindingLine('blue', minimum, 'minimum'));
+    }
+    if (maximum) {
+      result.push(this.rednderBindingLine('red', maximum, 'maximum'));
+    }
+    if (optimum) {
+      result.push(this.rednderBindingLine('green', optimum, 'optimum'));
+    }
+    if (impossible) {
+      result.push(this.rednderBindingLine('maroon', impossible, 'impossible'));
+    }
+    return result;
+  };
+
   render() {
     const { data, domain, unit } = this.props;
     if (data.length === 0) {
@@ -88,7 +130,7 @@ class Chart extends PureComponent {
           padding={{ top: 16, bottom: 48, left: 48, right: 16 }}
           scale={{ x: 'time', y: 'linear' }}
           domain={{ x: domain }}
-          domainPadding={20}
+          domainPadding={{ y: 20 }}
           theme={VictoryTheme.material}
         >
           <VictoryAxis
@@ -101,6 +143,7 @@ class Chart extends PureComponent {
             dependentAxis
             label={capitalize(unit)}
           />
+          { this.renderBindings() }
           <VictoryLine
             data={data}
             x="date"

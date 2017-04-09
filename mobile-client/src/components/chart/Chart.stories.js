@@ -16,6 +16,20 @@ function generateData(days, step) {
   };
 }
 
+const closeBindings = {
+  minimum: 10,
+  maximum: 120,
+  optimum: 80,
+  impossible: 155,
+};
+
+const distantBindings = {
+  minimum: 1,
+  maximum: 800,
+  optimum: 300,
+  impossible: 2000,
+};
+
 const daily = generateData(1, 1);
 const weekly = generateData(7, 4);
 const monthly = generateData(31, 12);
@@ -32,4 +46,10 @@ storiesOf('Chart')
   ))
   .add('With monthly data', () => (
     <Chart {...monthly} unit={'level'} />
+  ))
+  .add('With close bindings', () => (
+    <Chart {...monthly} binding={closeBindings} />
+  ))
+  .add('With distant bindings', () => (
+    <Chart {...monthly} binding={distantBindings} />
   ));
