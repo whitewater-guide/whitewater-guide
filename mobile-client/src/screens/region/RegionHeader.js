@@ -1,21 +1,24 @@
-import React, { PropTypes } from 'react';
-import { gql, graphql } from 'react-apollo';
+import React from 'react';
 import HeaderTitle from 'react-navigation/src/views/HeaderTitle';
-import _ from 'lodash';
+import { gql } from 'react-apollo';
+import { propType } from 'graphql-anywhere';
+import { withFragment } from '../../commons/core';
 
-const RegionHeader = ({data}) => {
-  return (<HeaderTitle>{_.get(data, 'region.name')}</HeaderTitle>);
-};
-
-const regionName = gql`
-  query regionName($regionId: ID!) {
-    region(_id: $regionId) {
-      name
-    }
+const nameFragment = gql`
+  fragment RegionName on Region {
+    _id
+    name
   }
 `;
 
-export default graphql(
-  regionName,
-  { options: { fetchPolicy: 'cache-only' } },
-)(RegionHeader);
+const RegionHeader = ({ region: { name } }) => <HeaderTitle>{name}</HeaderTitle>;
+
+RegionHeader.propTypes = {
+  region: propType(nameFragment).isRequired,
+};
+
+export default withFragment({
+  fragment: nameFragment,
+  idFromProps: ({ regionId }) => `Region:${regionId}`,
+  propName: 'region',
+})(RegionHeader);

@@ -1,5 +1,14 @@
 import { gql } from 'react-apollo';
 
+const Name = gql`
+  fragment SectionName on Section {
+    name
+    river {
+      name
+    }
+  }
+`;
+
 const Core = gql`
   fragment SectionCore on Section {
     _id
@@ -152,6 +161,7 @@ const All = gql`
 
 export const SectionFragments = {
   All,
+  Name,
   Core,
   Description,
   GaugeBinding,

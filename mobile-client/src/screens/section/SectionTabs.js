@@ -8,6 +8,7 @@ import { SectionInfoScreen } from './info';
 import { SectionMediaScreen } from './media';
 import { withSection } from '../../commons/features/sections';
 import { spinnerWhileLoading } from '../../components';
+import SectionHeader from './SectionHeader';
 
 const SectionTabs = TabNavigator(
   {
@@ -22,9 +23,9 @@ const SectionTabs = TabNavigator(
     tabBarPosition: 'bottom',
     backBehavior: 'none',
     navigationOptions: {
-      // header: navigation => ({
-      //   title: (<RegionHeader regionId={navigation.state.params.regionId} />),
-      // }),
+      header: navigation => ({
+        title: (<SectionHeader sectionId={navigation.state.params.sectionId} />),
+      }),
       title: 'Section Tabs',
     },
   },
