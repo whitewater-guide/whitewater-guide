@@ -120,7 +120,7 @@ class Chart extends PureComponent {
   render() {
     const { data, domain, unit } = this.props;
     if (data.length === 0) {
-      return (<NoChart />);
+      return (<NoChart noData />);
     }
     return (
       <View style={styles.container}>
