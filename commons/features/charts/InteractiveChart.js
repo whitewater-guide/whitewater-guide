@@ -13,11 +13,25 @@ export default (Layout, Chart, FlowToggle, PeriodToggle) => {
       startDate: PropTypes.instanceOf(Date).isRequired,
       endDate: PropTypes.instanceOf(Date).isRequired,
       onDomainChanged: PropTypes.func,
+      levels: PropTypes.shape({
+        minimum: PropTypes.number,
+        maximum: PropTypes.number,
+        optimum: PropTypes.number,
+        impossible: PropTypes.number,
+        approximate: PropTypes.bool,
+      }),
+      flows: PropTypes.shape({
+        minimum: PropTypes.number,
+        maximum: PropTypes.number,
+        optimum: PropTypes.number,
+        impossible: PropTypes.number,
+        approximate: PropTypes.bool,
+      }),
     };
 
     static defaultProps = {
-      onDomainChanged: () => {
-      },
+      onDomainChanged: () => {},
+      binding: {},
     };
 
     constructor(props) {
@@ -50,8 +64,15 @@ export default (Layout, Chart, FlowToggle, PeriodToggle) => {
       const end = moment(chartDomain[1]);
       // Filter data so chart doesn't draw anything beyond selection
       const data = _.filter(this.props.data, ({ date }) => start.isBefore(date) && end.isAfter(date));
+      const binding = unit === 'flow' ? this.props.flows : this.props.levels;
 
-      const chart = <Chart data={data} unit={unit} domain={chartDomain} onDomainChanged={this.onDomainChanged} />;
+      const chart = (<Chart
+        binding={binding}
+        data={data}
+        unit={unit}
+        domain={chartDomain}
+        onDomainChanged={this.onDomainChanged}
+      />);
       const flowToggle = <FlowToggle value={unit} onChange={this.onUnitChanged} />;
       const periodToggle = <PeriodToggle onChange={this.setDomainInDays} />;
 

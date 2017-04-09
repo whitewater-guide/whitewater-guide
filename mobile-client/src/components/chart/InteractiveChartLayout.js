@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
 });
 
 const InteractiveChart = ({ chart, flowToggle, periodToggle }) => (
-  <View style={StyleSheet.absoluteFill}>
+  <View >
     <View style={styles.buttonContainer}>
       { periodToggle }
       { flowToggle }

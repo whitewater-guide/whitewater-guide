@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
-import { Container } from 'native-base';
 import { branch, compose, flattenProp, hoistStatics, renderComponent, withProps } from 'recompose';
 import { Screen, spinnerWhileLoading } from '../../../components';
 import { InteractiveChart, NoChart } from '../../../components/chart';
 import { withGauge } from '../../../commons/features/gauges';
+import GaugeInfo from './GaugeInfo';
 
 class SectionChartScreen extends React.PureComponent {
 
@@ -24,16 +24,19 @@ class SectionChartScreen extends React.PureComponent {
 
   render() {
     const { startDate, endDate, onDomainChanged } = this.props;
-    const { measurements } = this.props.gauge;
+    const { flows, levels, measurements } = this.props.gauge;
     return (
-      <Container>
+      <Screen>
         <InteractiveChart
           data={measurements}
+          flows={flows}
+          levels={levels}
           startDate={startDate}
           endDate={endDate}
           onDomainChanged={onDomainChanged}
         />
-      </Container>
+        <GaugeInfo gauge={this.props.gauge} />
+      </Screen>
     );
   }
 
