@@ -148,7 +148,7 @@ class Chart extends PureComponent {
             data={data}
             x="date"
             y={this.props.unit}
-            interpolation="monotoneX"
+            interpolation="linear"
             style={{ data: { strokeWidth: 1 } }}
           />
         </VictoryChart>
