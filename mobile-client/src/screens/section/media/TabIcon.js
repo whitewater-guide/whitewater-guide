@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose, mapProps } from 'recompose';
+import _ from 'lodash';
 import { TabIcon } from '../../../components';
 import { withFragment } from '../../../commons/core';
 import { SectionFragments } from '../../../commons/features/sections';
@@ -10,7 +11,7 @@ export default compose(
   connect(currentScreenSelector),
   withFragment({
     fragment: SectionFragments.Media,
-    idFromProps: props => `Section:${props.params.sectionId}`,
+    idFromProps: props => `Section:${_.get(props, 'params.sectionId')}`,
     propName: 'section',
   }),
   mapProps(({ section, tintColor, icon }) => ({ counter: section ? section.media.length : 0, tintColor, icon })),

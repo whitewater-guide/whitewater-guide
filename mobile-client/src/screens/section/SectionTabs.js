@@ -22,6 +22,11 @@ const SectionTabs = TabNavigator(
     initialRouteName: 'Map',
     tabBarPosition: 'bottom',
     backBehavior: 'none',
+    tabBarOptions: {
+      showIcon: true,
+      showLabel: false,
+      iconStyle: { width: 36, height: 36 },
+    },
     navigationOptions: {
       header: navigation => ({
         title: (<SectionHeader sectionId={navigation.state.params.sectionId} />),

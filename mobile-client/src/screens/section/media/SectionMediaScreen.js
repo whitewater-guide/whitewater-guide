@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { Text } from 'native-base';
 import { flattenProp, hoistStatics } from 'recompose';
 import { Screen } from '../../../components';
+import TabIcon from './TabIcon';
 
 class SectionMediaScreen extends React.PureComponent {
 
@@ -12,6 +13,7 @@ class SectionMediaScreen extends React.PureComponent {
   static navigationOptions = {
     tabBar: {
       label: 'Media',
+      icon: () => <TabIcon icon="photos" />,
     },
   };
 

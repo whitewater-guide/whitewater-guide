@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Text } from 'native-base';
 import { flattenProp, hoistStatics } from 'recompose';
-import { Screen } from '../../../components';
+import { Screen, TabIcon } from '../../../components';
 
 class SectionMapScreen extends React.PureComponent {
 
@@ -12,6 +12,7 @@ class SectionMapScreen extends React.PureComponent {
   static navigationOptions = {
     tabBar: {
       label: 'Map',
+      icon: () => <TabIcon icon="map" />,
     },
   };
 

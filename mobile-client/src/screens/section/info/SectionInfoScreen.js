@@ -6,7 +6,7 @@ import { flattenProp, hoistStatics } from 'recompose';
 import { capitalize, trim } from 'lodash';
 import { renderDifficulty } from '../../../commons/utils/TextUtils';
 import stringifySeason from '../../../commons/utils/stringifySeason';
-import { Chips, Screen } from '../../../components';
+import { Chips, Screen, TabIcon } from '../../../components';
 import CoordinatesInfo from './CoordinatesInfo';
 
 class SectionInfoScreen extends React.PureComponent {
@@ -18,6 +18,7 @@ class SectionInfoScreen extends React.PureComponent {
   static navigationOptions = {
     tabBar: {
       label: 'Info',
+      icon: () => <TabIcon icon="information-circle" />,
     },
   };
 

@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { branch, compose, flattenProp, hoistStatics, renderComponent, withProps } from 'recompose';
-import { Screen, spinnerWhileLoading } from '../../../components';
+import { Screen, spinnerWhileLoading, TabIcon } from '../../../components';
 import { InteractiveChart, NoChart } from '../../../components/chart';
 import { withGauge } from '../../../commons/features/gauges';
 import GaugeInfo from './GaugeInfo';
@@ -19,6 +19,7 @@ class SectionChartScreen extends React.PureComponent {
   static navigationOptions = {
     tabBar: {
       label: 'Flow',
+      icon: () => <TabIcon icon="analytics" />,
     },
   };
 
