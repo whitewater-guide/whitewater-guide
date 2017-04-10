@@ -9,7 +9,6 @@ import { SectionMediaScreen } from './media';
 import { withSection } from '../../commons/features/sections';
 import { spinnerWhileLoading } from '../../components';
 import SectionHeader from './SectionHeader';
-import SectionTabBar from './SectionTabBar';
 
 const SectionTabs = TabNavigator(
   {
@@ -22,7 +21,6 @@ const SectionTabs = TabNavigator(
   {
     initialRouteName: 'Map',
     tabBarPosition: 'bottom',
-    tabBarComponent: SectionTabBar,
     backBehavior: 'none',
     tabBarOptions: {
       showIcon: true,
