@@ -11,6 +11,7 @@ export default compose(
   connect(currentScreenSelector),
   withFragment({
     fragment: SectionFragments.Media,
+    fragmentName: 'SectionMedia',
     idFromProps: props => `Section:${_.get(props, 'params.sectionId')}`,
     propName: 'section',
   }),

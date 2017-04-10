@@ -1,8 +1,9 @@
 import React, { PropTypes } from 'react';
-import { Text } from 'native-base';
 import { flattenProp, hoistStatics } from 'recompose';
+import { List } from 'native-base';
 import { Screen } from '../../../components';
 import TabIcon from './TabIcon';
+import MediaItem from './MediaItem';
 
 class SectionMediaScreen extends React.PureComponent {
 
@@ -17,11 +18,13 @@ class SectionMediaScreen extends React.PureComponent {
     },
   };
 
+  renderRow = item => <MediaItem data={item} />;
+
   render() {
     const { section } = this.props;
     return (
       <Screen>
-        <Text>{JSON.stringify(section.media)}</Text>
+        <List dataArray={section.media} renderRow={this.renderRow} />
       </Screen>
     );
   }

@@ -90,16 +90,23 @@ const Meta = gql`
   }
 `;
 
+const MediaCore = gql`
+  fragment MediaCore on Media {
+    _id
+    description
+    copyright
+    url
+    type
+  }
+`;
+
 const Media = gql`
   fragment SectionMedia on Section {
     media {
-      _id
-      description
-      copyright
-      url
-      type
+      ...MediaCore
     }
   }
+  ${MediaCore}
 `;
 
 const POIs = gql`
@@ -136,7 +143,7 @@ const Tags = gql`
   }
 `;
 
-//TODO: remove when https://github.com/apollographql/graphql-anywhere/issues/38 is resolved
+// TODO: remove when https://github.com/apollographql/graphql-anywhere/issues/38 is resolved
 const All = gql`
   fragment SectionAll on Section {
     ...SectionCore
@@ -171,4 +178,8 @@ export const SectionFragments = {
   Meta,
   POIs,
   Tags,
+};
+
+export const MediaFragments = {
+  Core: MediaCore,
 };
