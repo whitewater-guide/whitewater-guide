@@ -14,7 +14,8 @@
 		"prestorybook": "node ./node_modules/.bin/rnstl",
 		"storybook": "adb reverse tcp:7007 tcp:7007 && storybook start -p 7007",
 		"test": "jest",
-		"test:watch": "jest --watch"
+		"test:watch": "jest --watch",
+		"postinstall": "cp -R ../commons ./src/commons"
 	},
 	"dependencies": {
 		"apollo-client": "^1.0.2",
