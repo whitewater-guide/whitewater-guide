@@ -13,12 +13,12 @@ export default class Polyline extends PureComponent {
   line = null;
 
   componentDidMount(){
-    const {maps, map} = this.props;
-    this.line = new maps.Polyline({path: this.getPaths(), map, ...this.getStyle()});
+    const { maps, map } = this.props;
+    this.line = new maps.Polyline({ path: this.getPaths(), map, ...this.getStyle() });
   }
 
-  componentDidUpdate(prevProps){
-    const {origin, destination} = this.props;
+  componentDidUpdate(prevProps) {
+    const { origin, destination } = this.props;
     if (prevProps.origin !== origin || prevProps.desctination !== destination) {
       this.line.setPath(this.getPaths());
     }
@@ -32,16 +32,15 @@ export default class Polyline extends PureComponent {
     const { origin, destination } = this.props;
     return [
       { lat: Number(origin.lat), lng: Number(origin.lng) },
-      { lat: Number(destination.lat), lng: Number(destination.lng) }
+      { lat: Number(destination.lat), lng: Number(destination.lng) },
     ];
+  }
+  getStyle() {
+    throw new Error('Implement getStyle method');
   }
 
   render() {
     return null;
-  }
-
-  getStyle() {
-    throw new Error('Implement getStyle method')
   }
 
 }

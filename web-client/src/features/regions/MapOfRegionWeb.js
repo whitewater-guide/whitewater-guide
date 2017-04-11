@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapOfRegion } from '../../commons/features/regions';
+import { MapBase } from '../../commons/features/maps';
 import { Map, SectionLine } from '../../core/components/maps';
 
 function renderSection(section, isSelected, selectSection) {
@@ -9,8 +9,9 @@ function renderSection(section, isSelected, selectSection) {
       key={section._id}
       origin={section.putIn}
       destination={section.takeOut}
+      color={isSelected ? 'red' : undefined}
     />
   );
 }
 
-export default MapOfRegion(Map, renderSection, () => {});
+export default MapBase(Map, renderSection, () => null);

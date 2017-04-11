@@ -1,27 +1,6 @@
 import React, { PropTypes } from 'react';
-import { StyleSheet } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
-import { MapOfRegion } from '../../../commons/features/regions';
-
-function renderSection(section, isSelected, selectSection) {
-  const {
-    putIn: { coordinates: [putInLng, putInLat] },
-    takeOut: { coordinates: [takeOutLng, takeOutLat] },
-  } = section;
-  const coordinates = [
-    { latitude: putInLat, longitude: putInLng },
-    { latitude: takeOutLat, longitude: takeOutLng },
-  ];
-  return (
-    <MapView.Polyline
-      strokeWidth={3}
-      strokeColor="red"
-      onPress={selectSection}
-      key={section._id}
-      coordinates={coordinates}
-    />
-  );
-}
+import { StyleSheet } from 'react-native';
 
 class Map extends React.PureComponent {
   static propTypes = {
@@ -64,4 +43,5 @@ class Map extends React.PureComponent {
   }
 }
 
-export default MapOfRegion(Map, renderSection, () => {});
+export default Map;
+

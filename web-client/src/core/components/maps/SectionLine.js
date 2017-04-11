@@ -6,6 +6,11 @@ export class SectionLine extends Polyline {
   static propTypes = {
     ...Polyline.propTypes,
     onClick: PropTypes.func,
+    color: PropTypes.string,
+  };
+
+  static defaultProps = {
+    color: '#000000',
   };
 
   componentDidMount() {
@@ -16,7 +21,7 @@ export class SectionLine extends Polyline {
   componentDidUpdate(prevProps, prevState) {
     super.componentDidUpdate(prevProps, prevState);
     this.setupListeners(this.props);
-    if (this.props.zoom !== prevProps.zoom) {
+    if (this.props.zoom !== prevProps.zoom || this.props.color !== prevProps.color) {
       this.line.setOptions(this.getStyle());
     }
   }
@@ -35,15 +40,16 @@ export class SectionLine extends Polyline {
   }
 
   getStyle() {
+    const { color, maps, zoom } = this.props;
     return {
       geodesic: true,
-      strokeColor: this.props.color || '#ff0000',
+      strokeColor: color,
       strokeOpacity: 1,
       strokeWeight: 4,
       icons: [{
         icon: {
-          path: this.props.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-          scale: Math.min(3, this.props.zoom / 3),
+          path: maps.SymbolPath.FORWARD_CLOSED_ARROW,
+          scale: Math.min(3, zoom / 3),
         },
         offset: '100%',
       }],

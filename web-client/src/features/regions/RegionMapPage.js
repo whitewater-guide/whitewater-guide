@@ -1,3 +1,4 @@
+import React from 'react';
 import { compose } from 'recompose';
 import { LoadingPlug } from '../../core/components';
 import { ViewSection } from '../sections';
@@ -9,4 +10,4 @@ import MapOfRegionWeb from './MapOfRegionWeb';
 export default compose(
   withRegion({ withBounds: true, withPOIs: false }),
   withSectionsList({ withGeo: true }),
-)(RegionMapView(RegionMapLayout, MapOfRegionWeb, ViewSection, LoadingPlug));
+)(RegionMapView(RegionMapLayout, MapOfRegionWeb, ViewSection, () => <div />, LoadingPlug));
