@@ -20,7 +20,7 @@ export default (Layout, Map, SelectedSection, SelectedPOI, LoadingIndicator) => 
       };
       return {
         bounds,
-        sections: [],
+        sections: [section],
         selectedSection: section,
         pois,
       };
