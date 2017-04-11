@@ -58,3 +58,5 @@ fastlane/screenshots
 /ios/Podfile.lock
 /ios/Pods/
 /storybook/storyLoader.js
+/ios/whitewater/MobileCenter-Config.plist
+/android/app/src/main/assets/mobile-center-config.json

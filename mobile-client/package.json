@@ -24,6 +24,8 @@
 		"immutability-helper": "^2.1.2",
 		"lodash": "^4.17.4",
 		"meteor-apollo-accounts": "^2.0.1",
+		"mobile-center-analytics": "^0.4.0",
+		"mobile-center-crashes": "^0.4.0",
 		"moment": "^2.18.1",
 		"native-base": "^2.1.1",
 		"react": "next",

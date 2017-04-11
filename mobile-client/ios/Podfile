@@ -9,5 +9,7 @@ target ‘whitewater’ do
   pod "React", :path => react_native_path
 
   pod 'GoogleMaps'  # <~~ remove this line if you do not want to support GoogleMaps on iOS
-
+  # Pods for Mobile Center
+  pod 'RNMobileCenter', '~> 0.4.0'
+  pod 'MobileCenter', '~> 0.6.0'
 end
