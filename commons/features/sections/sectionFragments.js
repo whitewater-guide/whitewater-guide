@@ -40,11 +40,15 @@ const Geo = gql`
       _id
       coordinates
       altitude
+      description
+      kind
     }
     takeOut {
       _id
       coordinates
       altitude
+      description
+      kind
     }
   }
 `;

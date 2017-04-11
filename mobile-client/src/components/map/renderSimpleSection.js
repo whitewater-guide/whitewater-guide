@@ -1,8 +1,7 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import MapView from 'react-native-maps';
-import { SectionPropType } from '../../commons/features/sections';
 
-const SimpleSection = (section, isSelected, selectSection) => {
+const renderSimpleSection = (section, isSelected, selectSection) => {
   const {
     putIn: { coordinates: [putInLng, putInLat] },
     takeOut: { coordinates: [takeOutLng, takeOutLat] },
@@ -22,10 +21,4 @@ const SimpleSection = (section, isSelected, selectSection) => {
   );
 };
 
-SimpleSection.propTypes = {
-  section: SectionPropType.isRequired,
-  isSelected: PropTypes.bool.isRequired,
-  selectSection: PropTypes.func.isRequired,
-};
-
-export default SimpleSection;
+export default renderSimpleSection;
