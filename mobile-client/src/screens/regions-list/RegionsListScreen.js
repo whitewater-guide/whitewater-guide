@@ -4,11 +4,14 @@ import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { withRegionsList } from '../../commons/features/regions';
+import withErrorsView from '../../commons/utils/withErrorsView';
+import { ErrorRefetchScreen, spinnerWhileLoading } from '../../components';
 
 class RegionsListScreen extends PureComponent {
   static propTypes = {
     regions: PropTypes.array,
     dispatch: PropTypes.func,
+    errors: PropTypes.object,
   };
 
   static navigationOptions = {
@@ -46,6 +49,8 @@ class RegionsListScreen extends PureComponent {
 
 export default compose(
   withRegionsList,
+  spinnerWhileLoading(props => props.regionsListLoading),
+  withErrorsView(ErrorRefetchScreen),
   connect(),
 )(RegionsListScreen);
 

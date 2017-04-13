@@ -1,4 +1,5 @@
 import { gql, graphql } from 'react-apollo';
+import { wrapErrors } from '../../apollo';
 
 const ListRegionsQuery = gql`
   query listRegions {
@@ -12,7 +13,13 @@ const ListRegionsQuery = gql`
 const withRegionsList = graphql(
   ListRegionsQuery,
   {
-    props: ({ data: { regions } }) => ({ regions: regions || [] }),
+    options: {
+      notifyOnNetworkStatusChange: true,
+    },
+    props: wrapErrors(
+      'regions',
+      ({ data: { regions, loading } }) => ({ regions: regions || [], regionsListLoading: loading }),
+    ),
   },
 );
 
