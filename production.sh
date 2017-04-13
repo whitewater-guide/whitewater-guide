@@ -2,6 +2,7 @@
 
 export NODE_ENV=production
 
+# Pass build `./production.sh build' to build backend and client from anew
 if [ "$1" = "build" ]
 then
     sh build.sh
