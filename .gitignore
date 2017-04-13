@@ -13,3 +13,4 @@ private/workers/
 /.docker/env/staging.env
 /build/
 /.tmp/
+/.docker/env/mongodbbackup.prod.env
