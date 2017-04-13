@@ -2,6 +2,7 @@ const commandLineArgs = require('command-line-args');
 require('console.table');
 
 //Options that are passed to harvestHandler must be have same names as in JSON message
+//Worker can be esecuted from console like this: `node galicia.js harvest --verbose`
 const optionDefinitions = [
   { name: 'verbose', type: Boolean },
   { name: 'version', alias: 'v', type: Number },
@@ -43,7 +44,13 @@ function launchWorker(harvestMode, autofillHandler, harvestHandler) {
         message,
         function onHarvestComplete(error, measurements) {
           if (error) {
-            process.send({error}, () => process.exit(1));
+            if (options.verbose) {
+              console.error(error);
+              process.exit(1)
+            }
+            else {
+              process.send({ error }, () => process.exit(1));
+            }
           }
           else if (options.verbose) {
             console.table(measurements);

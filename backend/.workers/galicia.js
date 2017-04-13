@@ -6,10 +6,11 @@ var launchWorker = require('./core/worker');
 
 function harvest(){
   return fetch('http://servizos.meteogalicia.es/rss/observacion/jsonAforos.action')
-    .then(function(response){ 
+    .then(function(response){
       return response.json();
     })
     .then(function (json) {
+      console.log(json);
       var gauges = json.listaAforos;
       var numGauges = gauges.length;
       var result = [];
