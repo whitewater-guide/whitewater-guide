@@ -51,9 +51,9 @@ buck-out/
 fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots
-/.env.production
-/.env
-/.env.development
+# /.env.production
+# /.env
+# /.env.development
 /src/commons/
 /ios/Podfile.lock
 /ios/Pods/
