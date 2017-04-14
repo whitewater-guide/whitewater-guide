@@ -1,17 +1,16 @@
 import React, { PureComponent, PropTypes } from 'react';
-import { Container, Content, List, ListItem, Text, Body, Right, Icon } from 'native-base';
+import { List, ListItem, Text, Body, Right, Icon } from 'native-base';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { compose, hoistStatics } from 'recompose';
 import { withRegionsList } from '../../commons/features/regions';
 import withErrorsView from '../../commons/utils/withErrorsView';
-import { ErrorRefetchScreen, spinnerWhileLoading } from '../../components';
+import { Screen, ErrorRefetchScreen, spinnerWhileLoading } from '../../components';
 
 class RegionsListScreen extends PureComponent {
   static propTypes = {
     regions: PropTypes.array,
     dispatch: PropTypes.func,
-    errors: PropTypes.object,
   };
 
   static navigationOptions = {
@@ -38,11 +37,9 @@ class RegionsListScreen extends PureComponent {
 
   render() {
     return (
-      <Container>
-        <Content>
-          <List dataArray={this.props.regions} renderRow={this.renderRow} />
-        </Content>
-      </Container>
+      <Screen noScroll>
+        <List dataArray={this.props.regions} renderRow={this.renderRow} />
+      </Screen>
     );
   }
 }
