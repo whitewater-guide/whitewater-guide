@@ -32,9 +32,10 @@ class SectionsList extends PureComponent {
   };
 
   render() {
-    const { list } = this.props.sections;
+    const { sections, dispatch, ...props } = this.props;
+    const { list } = sections;
     return (
-      <List dataArray={list} renderRow={this.renderRow} />
+      <List {...props} dataArray={list} renderRow={this.renderRow} />
     );
   }
 }

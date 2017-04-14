@@ -1,25 +1,19 @@
 import React, { PropTypes } from 'react';
-import { StyleSheet } from 'react-native';
-import { Container, Content, Spinner } from 'native-base';
+import { StyleSheet, View } from 'react-native';
+import { Container, Content } from 'native-base';
 
-const styles = StyleSheet.create({
-  loadingContent: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
-
-export function Screen({ children, loading, style }) {
-  const contentStyle = loading ? styles.loadingContent : style;
+export function Screen({ children, style, noScroll }) {
+  if (noScroll) {
+    return (
+      <View style={[StyleSheet.absoluteFill, style]}>
+        { children }
+      </View>
+    );
+  }
   return (
     <Container>
-      <Content contentContainerStyle={contentStyle}>
-        {
-          loading ?
-            <Spinner /> :
-            children
-        }
+      <Content contentContainerStyle={style}>
+        { children }
       </Content>
     </Container>
   );
@@ -27,12 +21,12 @@ export function Screen({ children, loading, style }) {
 
 Screen.propTypes = {
   children: PropTypes.node,
-  loading: PropTypes.bool,
+  noScroll: PropTypes.bool,
   style: PropTypes.any,
 };
 
 Screen.defaultProps = {
   children: null,
-  loading: false,
+  noScroll: false,
   style: null,
 };

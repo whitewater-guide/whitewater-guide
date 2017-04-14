@@ -1,11 +1,10 @@
 import React, { PureComponent } from 'react';
-import { Container, Content } from 'native-base';
 import { connect } from 'react-redux';
 import { compose, hoistStatics } from 'recompose';
 import SectionsList from './list/SectionsList';
 import { withSectionsList, SectionsPropType } from '../../commons/features/sections';
 import withErrorsView from '../../commons/utils/withErrorsView';
-import { ErrorRefetchScreen } from '../../components';
+import { ErrorRefetchScreen, Screen } from '../../components';
 
 class SectionsListScreen extends PureComponent {
   static propTypes = {
@@ -16,13 +15,19 @@ class SectionsListScreen extends PureComponent {
     title: 'All Sections',
   };
 
+  onEndReached = () => {
+    const { list, count, loadMore, loading } = this.props.sections;
+    const numSections = list.length;
+    if (numSections < count && !loading) {
+      loadMore({ startIndex: numSections, stopIndex: numSections + 25 });
+    }
+  };
+
   render() {
     return (
-      <Container>
-        <Content>
-          <SectionsList sections={this.props.sections} />
-        </Content>
-      </Container>
+      <Screen noScroll>
+        <SectionsList sections={this.props.sections} onEndReached={this.onEndReached} />
+      </Screen>
     );
   }
 }

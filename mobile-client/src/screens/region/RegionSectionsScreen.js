@@ -17,9 +17,9 @@ class RegionSectionsScreen extends React.PureComponent {
   };
 
   render() {
-    const { screenProps: { sections, regionLoading } } = this.props;
+    const { screenProps: { sections } } = this.props;
     return (
-      <Screen loading={regionLoading}>
+      <Screen noScroll>
         <SectionsList sections={sections} />
       </Screen>
     );
