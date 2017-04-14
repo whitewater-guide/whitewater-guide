@@ -2,7 +2,7 @@ import React, { PureComponent, PropTypes } from 'react';
 import { Container, Content, List, ListItem, Text, Body, Right, Icon } from 'native-base';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
-import { compose } from 'recompose';
+import { compose, hoistStatics } from 'recompose';
 import { withRegionsList } from '../../commons/features/regions';
 import withErrorsView from '../../commons/utils/withErrorsView';
 import { ErrorRefetchScreen, spinnerWhileLoading } from '../../components';
@@ -47,10 +47,12 @@ class RegionsListScreen extends PureComponent {
   }
 }
 
-export default compose(
+const container = compose(
   withRegionsList,
   spinnerWhileLoading(props => props.regionsListLoading),
   withErrorsView(ErrorRefetchScreen),
   connect(),
-)(RegionsListScreen);
+);
+
+export default hoistStatics(container)(RegionsListScreen);
 

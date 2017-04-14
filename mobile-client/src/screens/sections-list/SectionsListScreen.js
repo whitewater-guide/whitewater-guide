@@ -1,14 +1,13 @@
-import React, { PureComponent, PropTypes } from 'react';
-import { Container, Content, List, ListItem, Text, Body, Right, Icon } from 'native-base';
+import React, { PureComponent } from 'react';
+import { Container, Content } from 'native-base';
 import { connect } from 'react-redux';
-import { compose } from 'recompose';
+import { compose, hoistStatics } from 'recompose';
 import SectionsList from './list/SectionsList';
 import { withSectionsList, SectionsPropType } from '../../commons/features/sections';
 
 class SectionsListScreen extends PureComponent {
   static propTypes = {
     sections: SectionsPropType.isRequired,
-    dispatch: PropTypes.func,
   };
 
   static navigationOptions = {
@@ -26,8 +25,9 @@ class SectionsListScreen extends PureComponent {
   }
 }
 
-export default compose(
+const container = compose(
   withSectionsList({ withGeo: true }),
   connect(),
-)(SectionsListScreen);
+);
+export default hoistStatics(container)(SectionsListScreen);
 
