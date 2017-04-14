@@ -5,6 +5,7 @@ import { RegionMapScreen } from './map';
 import { RegionDescriptionScreen } from './description';
 import { withRegion } from '../../commons/features/regions';
 import { withSectionsList } from '../../commons/features/sections';
+import { spinnerWhileLoading } from '../../components';
 import RegionHeader from './RegionHeader';
 import RegionSectionsScreen from './RegionSectionsScreen';
 
@@ -30,9 +31,10 @@ const RegionTabs = TabNavigator(
 export default compose(
   setStatic('router', RegionTabs.router),
   withRegion({ withBounds: true }),
+  spinnerWhileLoading(props => props.regionLoading),
   withSectionsList({ withGeo: true }),
-  mapProps(({ region, regionLoading, regionId, sections, screenProps, ...props }) => ({
+  mapProps(({ region, regionId, sections, screenProps, ...props }) => ({
     ...props,
-    screenProps: { ...screenProps, region, regionLoading, sections },
+    screenProps: { ...screenProps, region, sections },
   })),
 )(RegionTabs);

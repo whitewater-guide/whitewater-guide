@@ -17,9 +17,9 @@ class RegionDescriptionScreen extends React.PureComponent {
   };
 
   render() {
-    const { screenProps: { region = {}, regionLoading } } = this.props;
+    const { screenProps: { region = {} } } = this.props;
     return (
-      <Screen loading={regionLoading}>
+      <Screen>
         <HTMLView value={region.description} />
       </Screen>
     );
