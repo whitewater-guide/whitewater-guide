@@ -5,7 +5,8 @@ import { RegionMapScreen } from './map';
 import { RegionDescriptionScreen } from './description';
 import { withRegion } from '../../commons/features/regions';
 import { withSectionsList } from '../../commons/features/sections';
-import { spinnerWhileLoading } from '../../components';
+
+import { withErrorsView, spinnerWhileLoading } from '../../components';
 import RegionHeader from './RegionHeader';
 import RegionSectionsScreen from './RegionSectionsScreen';
 
@@ -33,6 +34,7 @@ export default compose(
   withRegion({ withBounds: true }),
   spinnerWhileLoading(props => props.regionLoading),
   withSectionsList({ withGeo: true }),
+  withErrorsView,
   mapProps(({ region, regionId, sections, screenProps, ...props }) => ({
     ...props,
     screenProps: { ...screenProps, region, sections },

@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Button, Icon, Text } from 'native-base';
+import { default as withErrorsViewBase } from '../commons/utils/withErrorsView';
 
 const styles = StyleSheet.create({
   container: {
@@ -10,7 +11,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const ErrorRefetchScreen = ({ errors, errorMessage }) => {
+export const ErrorRefetchScreen = ({ errors, errorMessage }) => {
   const doRefetch = () => Object.values(errors).forEach(v => v.refetch().catch(() => {}));
   return (
     <View style={styles.container}>
@@ -30,5 +31,4 @@ ErrorRefetchScreen.propTypes = {
   errorMessage: PropTypes.string.isRequired,
 };
 
-export default ErrorRefetchScreen;
-
+export const withErrorsView = withErrorsViewBase(ErrorRefetchScreen);

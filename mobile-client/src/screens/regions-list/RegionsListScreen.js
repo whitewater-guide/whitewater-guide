@@ -4,8 +4,7 @@ import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { compose, hoistStatics } from 'recompose';
 import { withRegionsList } from '../../commons/features/regions';
-import withErrorsView from '../../commons/utils/withErrorsView';
-import { Screen, ErrorRefetchScreen, spinnerWhileLoading } from '../../components';
+import { Screen, withErrorsView, spinnerWhileLoading } from '../../components';
 
 class RegionsListScreen extends PureComponent {
   static propTypes = {
@@ -47,7 +46,7 @@ class RegionsListScreen extends PureComponent {
 const container = compose(
   withRegionsList,
   spinnerWhileLoading(props => props.regionsListLoading),
-  withErrorsView(ErrorRefetchScreen),
+  withErrorsView,
   connect(),
 );
 

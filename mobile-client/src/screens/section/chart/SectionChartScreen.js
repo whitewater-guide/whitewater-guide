@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { branch, compose, flattenProp, hoistStatics, renderComponent, withProps } from 'recompose';
-import { Screen, spinnerWhileLoading, TabIcon } from '../../../components';
+import { Screen, spinnerWhileLoading, TabIcon, withErrorsView } from '../../../components';
 import { InteractiveChart, NoChart } from '../../../components/chart';
 import { withGauge } from '../../../commons/features/gauges';
 import GaugeInfo from './GaugeInfo';
@@ -51,6 +51,7 @@ const container = compose(
       withProps(({ section }) => ({ gaugeId: section.gauge._id })),
       withGauge({ withMeasurements: true }),
       spinnerWhileLoading(props => props.gaugeLoading),
+      withErrorsView,
     ),
     renderComponent(NoChart),
   ),

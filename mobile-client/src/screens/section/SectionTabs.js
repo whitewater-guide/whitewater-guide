@@ -7,7 +7,7 @@ import { SectionGuideScreen } from './guide';
 import { SectionInfoScreen } from './info';
 import { SectionMediaScreen } from './media';
 import { withSection } from '../../commons/features/sections';
-import { spinnerWhileLoading } from '../../components';
+import { spinnerWhileLoading, withErrorsView } from '../../components';
 import SectionHeader from './SectionHeader';
 
 const SectionTabs = TabNavigator(
@@ -41,6 +41,7 @@ export default compose(
   setStatic('router', SectionTabs.router),
   withSection({ withGeo: true, withDescription: true }),
   spinnerWhileLoading(props => props.sectionLoading),
+  withErrorsView,
   mapProps(({ section, screenProps, sectionId, ...props }) => ({
     ...props,
     screenProps: { ...screenProps, section },

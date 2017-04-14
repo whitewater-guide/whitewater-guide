@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import { compose, hoistStatics } from 'recompose';
 import SectionsList from './list/SectionsList';
 import { withSectionsList, SectionsPropType } from '../../commons/features/sections';
-import withErrorsView from '../../commons/utils/withErrorsView';
-import { ErrorRefetchScreen, Screen } from '../../components';
+import { ErrorRefetchScreen, Screen, withErrorsView } from '../../components';
 
 class SectionsListScreen extends PureComponent {
   static propTypes = {
@@ -34,7 +33,7 @@ class SectionsListScreen extends PureComponent {
 
 const container = compose(
   withSectionsList({ withGeo: true }),
-  withErrorsView(ErrorRefetchScreen),
+  withErrorsView,
   connect(),
 );
 export default hoistStatics(container)(SectionsListScreen);

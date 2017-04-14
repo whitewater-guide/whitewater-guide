@@ -2,4 +2,4 @@ export * from './Screen';
 export * from './LoadingPlug';
 export { default as Chips } from './Chips';
 export { default as TabIcon } from './TabIcon';
-export { default as ErrorRefetchScreen } from './ErrorRefetchScreen';
+export * from './ErrorRefetchScreen';
