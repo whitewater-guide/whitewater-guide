@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { SelectPointsDialog } from '../../core/forms';
 import { isValidLat, isValidLng } from '../../commons/utils/GeoUtils';
 import _ from 'lodash';

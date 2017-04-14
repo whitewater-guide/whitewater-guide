@@ -18,7 +18,7 @@
 		"postinstall": "./scripts/postinstall.sh"
 	},
 	"dependencies": {
-		"apollo-client": "^1.0.2",
+		"apollo-client": "^1.0.3",
 		"geocoordinate": "^1.0.1",
 		"graphql-anywhere": "^3.0.1",
 		"immutability-helper": "^2.1.2",
@@ -28,6 +28,7 @@
 		"mobile-center-crashes": "^0.4.0",
 		"moment": "^2.18.1",
 		"native-base": "^2.1.1",
+		"prop-types": "^15.5.8",
 		"react": "next",
 		"react-apollo": "^1.0.1",
 		"react-native": "^0.43.3",
@@ -45,7 +46,7 @@
 		"reactotron-react-native": "^1.9.1",
 		"reactotron-redux": "^1.9.1",
 		"reactotron-redux-saga": "^1.9.1",
-		"recompose": "^0.23.0",
+		"recompose": "^0.23.1",
 		"recursive-iterator": "^2.0.3",
 		"redux": "^3.6.0",
 		"redux-persist": "^4.6.0",
@@ -54,7 +55,7 @@
 	},
 	"devDependencies": {
 		"@kadira/react-native-storybook": "^2.3.0",
-		"babel-eslint": "^7.2.1",
+		"babel-eslint": "^7.2.2",
 		"babel-jest": "19.0.0",
 		"babel-preset-react-native": "1.9.1",
 		"deep-diff": "^0.3.4",

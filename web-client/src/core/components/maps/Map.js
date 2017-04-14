@@ -1,4 +1,5 @@
-import React, {PropTypes} from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import GoogleMap from './GoogleMap';
 
 export class Map extends React.Component {

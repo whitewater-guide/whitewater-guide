@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { renderDifficulty } from '../../commons/utils/TextUtils';
 import { Rating } from '../../core/forms';
 import IconButton from 'material-ui/IconButton';

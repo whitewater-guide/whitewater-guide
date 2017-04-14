@@ -1,5 +1,5 @@
 import { propType } from 'graphql-anywhere';
-import { PropTypes } from 'react';
+import PropTypes from 'prop-types';
 import { SectionFragments } from './sectionFragments';
 
 export const SectionPropType = propType(SectionFragments.All);

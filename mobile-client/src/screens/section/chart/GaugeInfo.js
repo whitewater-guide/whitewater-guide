@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { List, ListItem, Left, Right, Body, Text, Icon } from 'native-base';
 import { capitalize } from 'lodash';

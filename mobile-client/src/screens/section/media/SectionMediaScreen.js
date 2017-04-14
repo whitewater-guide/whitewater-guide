@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { flattenProp, hoistStatics } from 'recompose';
 import { List } from 'native-base';
 import { Screen } from '../../../components';
@@ -12,10 +13,8 @@ class SectionMediaScreen extends React.PureComponent {
   };
 
   static navigationOptions = {
-    tabBar: {
-      label: 'Media',
-      icon: () => <TabIcon icon="photos" />,
-    },
+    tabBarLabel: 'Media',
+    tabBarIcon: () => <TabIcon icon="photos" />,
   };
 
   renderRow = item => <MediaItem data={item} />;

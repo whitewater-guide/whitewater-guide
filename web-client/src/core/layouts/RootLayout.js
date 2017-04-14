@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import {Toolbar} from 'material-ui/Toolbar';
 import {UserMenu} from '../../features/users';
 import {Breadcrumbs} from './Breadcrumbs';

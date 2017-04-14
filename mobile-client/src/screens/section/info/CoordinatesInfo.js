@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { Clipboard, Linking, View } from 'react-native';
 import { Button, Icon, Left, ListItem, Text } from 'native-base';
 import { arrayToDMSString } from '../../../commons/utils/GeoUtils';

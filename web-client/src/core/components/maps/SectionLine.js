@@ -1,4 +1,4 @@
-import { PropTypes } from 'react';
+import PropTypes from 'prop-types';
 import Polyline from './Polyline';
 
 export class SectionLine extends Polyline {

@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import HTMLView from 'react-native-htmlview';
 import { flattenProp, hoistStatics } from 'recompose';
 import { Screen, TabIcon } from '../../../components';
@@ -10,10 +11,8 @@ class SectionGuideScreen extends React.PureComponent {
   };
 
   static navigationOptions = {
-    tabBar: {
-      label: 'Guide',
-      icon: () => <TabIcon icon="book" />,
-    },
+    tabBarLabel: 'Guide',
+    tabBarIcon: () => <TabIcon icon="book" />,
   };
 
   render() {

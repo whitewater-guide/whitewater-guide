@@ -1,4 +1,5 @@
-import React, { PropTypes as PT} from 'react';
+import PT from 'prop-types';
+import React from 'react';
 import _ from 'lodash';
 import { SectionPropType } from '../sections';
 
@@ -25,7 +26,7 @@ export const DefaultProps = {
 export default (MapComponent, renderSection, renderPOI) => {
   class MapBase extends React.PureComponent {
     static propTypes = {
-      ...PropTypes
+      ...PropTypes,
     };
 
     static defaultProps = {

@@ -1,4 +1,5 @@
-import React, { PureComponent, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { PureComponent } from 'react';
 import { List, ListItem, Text, Body, Right, Icon } from 'native-base';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';

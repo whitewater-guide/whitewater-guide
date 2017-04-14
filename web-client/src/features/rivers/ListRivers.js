@@ -1,4 +1,5 @@
-import React, {PropTypes} from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import {Column, Table, AutoSizer, InfiniteLoader} from 'react-virtualized';
 import {rowRenderer} from '../../core/components';
 import IconButton from 'material-ui/IconButton';

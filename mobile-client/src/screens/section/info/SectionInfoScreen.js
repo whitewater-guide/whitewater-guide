@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { View } from 'react-native';
 import { List, ListItem, Left, Right, Text } from 'native-base';
 import StarRating from 'react-native-star-rating';
@@ -16,10 +17,8 @@ class SectionInfoScreen extends React.PureComponent {
   };
 
   static navigationOptions = {
-    tabBar: {
-      label: 'Info',
-      icon: () => <TabIcon icon="information-circle" />,
-    },
+    tabBarLabel: 'Info',
+    tabBarIcon: () => <TabIcon icon="information-circle" />,
   };
 
   render() {

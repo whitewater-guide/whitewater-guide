@@ -9,10 +9,8 @@ export default compose(
   setStatic(
     'navigationOptions',
     {
-      tabBar: {
-        label: 'Map',
-        icon: () => <TabIcon icon="map" />,
-      },
+      tabBarLabel: 'Map',
+      tabBarIcon: () => <TabIcon icon="map" />,
     },
   ),
   flattenProp('screenProps'),

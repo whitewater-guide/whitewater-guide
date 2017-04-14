@@ -1,12 +1,13 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addNavigationHelpers, PropTypes as NavPropTypes } from 'react-navigation';
+import { addNavigationHelpers } from 'react-navigation';
 import { RootNavigator } from './routes';
 import { Screen } from '../components';
 
 class RootView extends Component {
   static propTypes = {
-    nav: NavPropTypes.navigationState.isRequired,
+    nav: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
     initialized: PropTypes.bool.isRequired,
   };

@@ -27,12 +27,9 @@ const SectionTabs = TabNavigator(
       showLabel: false,
       iconStyle: { width: 36, height: 36 },
     },
-    navigationOptions: {
-      header: navigation => ({
-        title: (<SectionHeader sectionId={navigation.state.params.sectionId} />),
-      }),
-      title: 'Section Tabs',
-    },
+    navigationOptions: ({ navigation }) => ({
+      headerTitle: <SectionHeader sectionId={navigation.state.params.sectionId} />,
+    }),
   },
 );
 

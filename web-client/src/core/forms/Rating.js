@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import RatingInternal from 'react-rating';
 import FontIcon from 'material-ui/FontIcon';
 

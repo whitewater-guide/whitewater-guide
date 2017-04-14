@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from "react";
+import PropTypes from 'prop-types';
+import React, { Component } from "react";
 import IconButton from "material-ui/IconButton";
 import TextField from "material-ui/TextField";
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn, TableFooter} from "material-ui/Table";

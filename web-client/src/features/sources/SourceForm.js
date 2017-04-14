@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import {Form, Field, TextInput, Select, ChipInput, RichTextInput} from '../../core/forms';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import container from './SourceFormContainer';

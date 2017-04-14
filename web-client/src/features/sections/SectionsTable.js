@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { Column, Table } from 'react-virtualized';
 import { AdminControls, rowRenderer } from '../../core/components';
 import { Rating } from '../../core/forms';

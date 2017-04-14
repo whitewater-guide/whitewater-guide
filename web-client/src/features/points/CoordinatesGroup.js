@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import {TextField} from '../../core/components';
 import {SelectPointsDialog} from '../../core/forms';
 import SelectField from 'material-ui/SelectField';

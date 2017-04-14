@@ -1,4 +1,5 @@
-import React, {cloneElement, Children, PropTypes} from 'react';
+import PropTypes from 'prop-types';
+import React, { cloneElement, Children } from 'react';
 import {findDOMNode} from 'react-dom';
 import withGoogleMapsApi from './withGoogleMapsApi';
 

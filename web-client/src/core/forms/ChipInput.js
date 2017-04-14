@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import MUIChipInput from 'material-ui-chip-input';
 import _ from 'lodash';
 import {findDOMNode} from 'react-dom';

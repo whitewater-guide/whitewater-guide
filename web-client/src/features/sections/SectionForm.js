@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import {Form, Field, TextInput, Select, ChipInput, RichTextInput, SeasonPickerField, Rating, Checkbox, AutoComplete} from '../../core/forms';
 import PutInMapDialog from './PutInMapDialog';
 import {MediaCollection} from '../media';

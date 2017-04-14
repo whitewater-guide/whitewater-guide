@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { Screen } from '../../components';
@@ -13,7 +14,7 @@ class RegionSectionsScreen extends React.PureComponent {
   };
 
   static navigationOptions = {
-    title: 'Sections',
+    tabBarLabel: 'Sections',
   };
 
   render() {

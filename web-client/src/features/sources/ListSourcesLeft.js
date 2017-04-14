@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import {FlatLinkButton} from '../../core/components';
 import {withAdmin} from '../users';
 

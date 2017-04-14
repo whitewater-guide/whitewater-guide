@@ -1,4 +1,5 @@
-import React, { PropTypes, PureComponent } from 'react';
+import PropTypes from 'prop-types';
+import React, { PureComponent } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 export default class RegionMapLayout extends PureComponent {
