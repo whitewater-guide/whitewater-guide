@@ -1,6 +1,7 @@
 import { call, take, put } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 import Crashes from 'mobile-center-crashes';
+import Analytics from 'mobile-center-analytics';
 import { REHYDRATE } from 'redux-persist/constants';
 import SplashScreen from 'react-native-splash-screen';
 import * as ActionTypes from '../actions/ActionTypes';
@@ -11,6 +12,7 @@ export default function *appSaga() {
     sendCallback(true);
   }).catch(() => {});
   Crashes.setEnabled(!__DEV__);
+  Analytics.setEnabled(!__DEV__);
   // Wait till redux-persist rehydrates
   yield take(REHYDRATE);
 
