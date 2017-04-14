@@ -1,4 +1,5 @@
-import { gql, graphql } from 'react-apollo';
+import { gql } from 'react-apollo';
+import { enhancedQuery } from '../../apollo';
 import { branch, compose, withProps } from 'recompose';
 import { filter } from 'graphql-anywhere';
 import { RegionFragments } from './regionFraments';
@@ -32,7 +33,7 @@ export function withRegion(options) {
     // If no region was found, branch provides dummy region with error
     branch(
       ({ regionId }) => !!regionId,
-      graphql(
+      enhancedQuery(
         regionDetails,
         {
           options: ({ regionId, language }) => ({

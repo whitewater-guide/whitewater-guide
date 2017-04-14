@@ -1,8 +1,9 @@
-import { graphql, gql } from 'react-apollo';
+import { gql } from 'react-apollo';
 import { branch, compose } from 'recompose';
 import { filter } from 'graphql-anywhere';
 import { withFeatureIds } from '../../core';
 import { SectionFragments } from './sectionFragments';
+import { enhancedQuery } from '../../apollo';
 
 const sectionDetails = gql`
   query sectionDetails($_id: ID, $language:String, $withGeo:Boolean!, $withDescription:Boolean!) {
@@ -26,7 +27,6 @@ const sectionDetails = gql`
   ${SectionFragments.POIs}
 `;
 
-
 export function withSection(options) {
   const { withGeo = false, withDescription = false, propName = 'section' } = options;
   return compose(
@@ -35,7 +35,7 @@ export function withSection(options) {
     // This is probably temporary until ViewSection on web is refined
     branch(
       props => !props.section,
-      graphql(
+      enhancedQuery(
         sectionDetails,
         {
           options: ({ sectionId, language }) => ({

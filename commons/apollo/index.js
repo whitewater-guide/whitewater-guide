@@ -1,2 +1,2 @@
 export { default as configureApolloClient } from './configureApolloClient';
-export * from './wrapErrors';
+export { default as enhancedQuery } from './enhancedQuery';
