@@ -23,17 +23,11 @@ services:
     volumes:
       - mongodata:/data/db
   mongodbbackup:
-    image: 'halvves/mongodb-backup-s3:latest'
+    image: 'doomsower/mongo-to-s3'
     env_file: ./.docker/env/mongodbbackup.prod.env
     environment:
-      - BUCKET=mongodbbackup.whitewater.guide
-      - INIT_BACKUP=true
-      - MONGODB_HOST=mongo
-      - MONGODB_PORT=27017
+      - S3_BUCKET=mongodbbackup.whitewater.guide
       - MONGODB_DB=wwdb
-      - TZ=Europe/Moscow
-      - CRON_TX=Europe/Moscow
-      - CRON_TIME=0 0 * * *
     networks:
       - whitewater_network
     depends_on:
