@@ -1,16 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Dimensions, Linking, StyleSheet, View } from 'react-native';
+import { Linking, StyleSheet, View } from 'react-native';
 import { Text, Button, Icon } from 'native-base';
 import StarRating from 'react-native-star-rating';
-import { SectionPropType } from '../../commons/features/sections';
-import { renderDifficulty } from '../../commons/utils/TextUtils';
-
-const dimensions = Dimensions.get('window');
+import { SectionPropType } from '../../../commons/features/sections';
+import { renderDifficulty } from '../../../commons/utils/TextUtils';
 
 const styles = StyleSheet.create({
   container: {
-    maxWidth: Math.round(dimensions.width * 0.66),
   },
   titleWrapper: {
     marginTop: 8,
@@ -37,24 +34,28 @@ const styles = StyleSheet.create({
   },
 });
 
-const SectionCallout = ({ section, onClose, onDetails }) => {
-  const { putIn: { coordinates: [pLng, pLat] }, takeOut: { coordinates: [tLng, tLat] } } = section;
+const SelectedSectionView = ({ selectedSection, onSectionSelected }) => {
+  if (!selectedSection) {
+    return null;
+  }
+  const { putIn: { coordinates: [pLng, pLat] }, takeOut: { coordinates: [tLng, tLat] } } = selectedSection;
   const putInHandler = () => Linking.openURL(`https://www.google.com/maps/dir/Current+Location/${pLat},${pLng}`)
     .catch(() => {
     });
   const takeOutHandler = () => Linking.openURL(`https://www.google.com/maps/dir/Current+Location/${tLat},${tLng}`)
     .catch(() => {
     });
+  const deselect = () => onSectionSelected(null);
   return (
     <View style={styles.container}>
       <View style={styles.titleWrapper}>
-        <Text>{`${section.river.name} - ${section.name}`}</Text>
+        <Text>{`${selectedSection.river.name} - ${selectedSection.name}`}</Text>
       </View>
       <View style={styles.attributesRow}>
         <Text note>Class</Text>
-        <Text note>{renderDifficulty(section)}</Text>
+        <Text note>{renderDifficulty(selectedSection)}</Text>
         <Text note>Rating</Text>
-        <StarRating disabled rating={section.rating} starSize={14} starColor={'#a7a7a7'} />
+        <StarRating disabled rating={selectedSection.rating} starSize={14} starColor={'#a7a7a7'} />
       </View>
       <View style={styles.buttonsRow}>
         <Button small primary onPress={putInHandler}>
@@ -66,11 +67,11 @@ const SectionCallout = ({ section, onClose, onDetails }) => {
           <Text>Take-out</Text>
         </Button>
       </View>
-      <Button full onPress={onDetails}>
+      <Button full>
         <Text>Details</Text>
       </Button>
       <View style={styles.closeButtonWrapper}>
-        <Button transparent style={{ padding: 0, margin: 0 }} onPress={onClose}>
+        <Button transparent style={{ padding: 0, margin: 0 }} onPress={deselect}>
           <Icon primary name="close" style={{ fontSize: 24 }} />
         </Button>
       </View>
@@ -78,10 +79,13 @@ const SectionCallout = ({ section, onClose, onDetails }) => {
   );
 };
 
-SectionCallout.propTypes = {
-  section: SectionPropType.isRequired,
-  onClose: PropTypes.func.isRequired,
-  onDetails: PropTypes.func.isRequired,
+SelectedSectionView.propTypes = {
+  selectedSection: SectionPropType,
+  onSectionSelected: PropTypes.func.isRequired,
 };
 
-export default SectionCallout;
+SelectedSectionView.defaultProps = {
+  selectedSection: null,
+};
+
+export default SelectedSectionView;

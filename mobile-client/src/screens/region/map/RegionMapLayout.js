@@ -7,6 +7,7 @@ export default class RegionMapLayout extends PureComponent {
   static propTypes = {
     mapView: PropTypes.element.isRequired,
     selectedSectionView: PropTypes.element.isRequired,
+    selectedPOIView: PropTypes.element.isRequired,
   };
 
   render() {

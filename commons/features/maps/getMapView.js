@@ -14,8 +14,8 @@ export const getMapView = (Layout, Map, SelectedSection, SelectedPOI) => {
 
     render() {
       const mapView = <Map {...this.props} />;
-      const selectedSectionView = <SelectedSection section={this.props.selectedSection} />;
-      const selectedPOIView = <SelectedPOI poi={this.props.selectedPOI} />;
+      const selectedSectionView = <SelectedSection {...this.props} />;
+      const selectedPOIView = <SelectedPOI {...this.props} />;
       return (
         <Layout
           {...this.props}

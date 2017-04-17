@@ -4,7 +4,6 @@ import { Dimensions, StyleSheet, View } from 'react-native';
 import { Svg, Polygon } from 'react-native-svg';
 import MapView from 'react-native-maps';
 import { SectionPropType } from '../../commons/features/sections';
-import SectionCallout from './SectionCallout';
 
 const Anchor = { x: 0.5, y: 0.5 };
 const dimensions = Dimensions.get('window');
@@ -32,26 +31,14 @@ class SimpleSection extends React.PureComponent {
     selected: false,
   };
 
-  componentWillDidUpdate(prevProps) {
-    if (this.props.selected && !prevProps.selected) {
-      console.log('Show callout', this.props.section._id);
-      this.calloutMarker.showCallout();
-    } else if (!this.props.selected && prevProps.selected) {
-      console.log('Hide callout', this.props.section._id);
-      this.calloutMarker.hideCallout();
-    }
-  }
-
   selectSection = () => {
     const { section, onSectionSelected } = this.props;
     console.log('Select section', section.river.name, section.name );
     onSectionSelected(section);
-    this.calloutMarker.showCallout();
   };
 
   deselectSection = () => {
     this.props.onSectionSelected(null);
-    this.calloutMarker.hideCallout();
   };
 
   renderArrow = () => {
@@ -110,9 +97,6 @@ class SimpleSection extends React.PureComponent {
           coordinate={{ longitude: (putInLng + takeOutLng) / 2, latitude: (putInLat + takeOutLat) / 2 }}
         >
           <View style={styles.calloutMarker} pointerEvents="none" />
-          <MapView.Callout style={styles.callout} pointerEvents="box-none">
-            <SectionCallout section={section} onClose={this.deselectSection} onDetails={() => {}} />
-          </MapView.Callout>
         </MapView.Marker>
         { this.renderArrow() }
       </View>

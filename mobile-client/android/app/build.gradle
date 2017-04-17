@@ -132,6 +132,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-interactable')
     compile project(':mobile-center-crashes')
     compile project(':mobile-center-analytics')
     compile project(':react-native-svg')
