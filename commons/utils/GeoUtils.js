@@ -46,3 +46,54 @@ export function arrayToDMSString(coordinates, pretty = true) {
     return `${degrees}°${minutes}′${seconds}″ ${hemispheres[i]}`;
   }).reverse().join(', ');
 }
+
+/**
+ * Compute distance between two points in kms using https://en.wikipedia.org/wiki/Haversine_formula
+ * @param a Point in [lng, lat] format
+ * @param b Point in [lng, lat] format
+ * @returns Distance in km
+ */
+export function computeDistanceBetween(a, b) {
+  const [aLng, aLat] = a.map(coord => coord * Math.PI / 180);
+  const [bLng, bLat] = b.map(coord => coord * Math.PI / 180);
+  const dLat2 = (aLat - bLat) / 2;
+  const dLng2 = (aLng - bLng) / 2;
+  const hav = Math.sin(dLat2) ** 2 + Math.cos(aLat) * Math.cos(bLat) * (Math.sin(dLng2) ** 2);
+  return 2 * 6378.137 * Math.asin(
+    Math.sqrt(hav),
+  );
+}
+
+function latRad(lat) {
+  const sin = Math.sin(lat * Math.PI / 180);
+  const radX2 = Math.log((1 + sin) / (1 - sin)) / 2;
+  return Math.max(Math.min(radX2, Math.PI), -Math.PI) / 2;
+}
+
+function zoom(mapPx, worldPx, fraction) {
+  return Math.floor(Math.log(mapPx / worldPx / fraction) / Math.LN2);
+}
+
+/**
+ * Computes google map zoom level, given bounds and map size
+ * http://stackoverflow.com/a/13274361/6212547
+ * @param bounds in shape {sw: [lng, lat], ne: [lng, lat]}
+ * @param mapDim {width, height} of map in pixels
+ * @returns {number} Integer zoom level
+ */
+export function getBoundsZoomLevel(bounds, mapDim) {
+  const WORLD_DIM = { height: 256, width: 256 };
+  const ZOOM_MAX = 21;
+
+  const { sw: [swLng, swLat], ne: [neLng, neLat] } = bounds;
+
+  const latFraction = (latRad(neLat) - latRad(swLat)) / Math.PI;
+
+  const lngDiff = neLng - swLng;
+  const lngFraction = ((lngDiff < 0) ? (lngDiff + 360) : lngDiff) / 360;
+
+  const latZoom = zoom(mapDim.height, WORLD_DIM.height, latFraction);
+  const lngZoom = zoom(mapDim.width, WORLD_DIM.width, lngFraction);
+
+  return Math.min(latZoom, lngZoom, ZOOM_MAX);
+}
