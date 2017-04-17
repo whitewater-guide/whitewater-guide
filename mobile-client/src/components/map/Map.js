@@ -17,8 +17,8 @@ class Map extends React.PureComponent {
     if (initialBounds && this.mapView) {
       this.mapView.fitToCoordinates(
         [
-          { latitude: initialBounds.sw.lat, longitude: initialBounds.sw.lng },
-          { latitude: initialBounds.ne.lat, longitude: initialBounds.ne.lng },
+          { latitude: initialBounds.sw[1], longitude: initialBounds.sw[0] },
+          { latitude: initialBounds.ne[1], longitude: initialBounds.ne[0] },
         ],
         {
           edgePanning: { top: 10, bottom: 10, left: 10, right: 10 },

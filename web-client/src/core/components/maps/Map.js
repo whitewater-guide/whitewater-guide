@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import GoogleMap from './GoogleMap';
+import { arrayBoundsToLatLngBounds } from '../../../commons/utils/GeoUtils';
 
 export class Map extends React.Component {
   static propTypes = {
@@ -12,8 +13,10 @@ export class Map extends React.Component {
   };
 
   onLoaded = ({ map, maps }) => {
+    const { initialBounds } = this.props;
     if (this.props.initialBounds) {
-      const bounds = new maps.LatLngBounds(this.props.initialBounds.sw, this.props.initialBounds.ne);
+      const { sw, ne } = arrayBoundsToLatLngBounds(initialBounds);
+      const bounds = new maps.LatLngBounds(sw, ne);
       map.setCenter(bounds.getCenter());
       map.fitBounds(bounds);
 

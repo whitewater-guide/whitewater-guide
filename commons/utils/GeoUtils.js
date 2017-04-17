@@ -22,6 +22,48 @@ export function arrayToGmaps(array) {
   return { lat, lng };
 }
 
+export function arrayBoundsToLatLngBounds(bounds) {
+  if (!bounds) {
+    return null;
+  }
+  return {
+    sw: { lat: bounds.sw[1], lng: bounds.sw[0] },
+    ne: { lat: bounds.ne[1], lng: bounds.ne[0] },
+  };
+}
+
+export function latLngBoundsToArrayBounds(latLng) {
+  if (!latLng) {
+    return null;
+  }
+  return {
+    sw: [latLng.sw.lng, latLng.sw.lat],
+    ne: [latLng.ne.lng, latLng.ne.lat],
+  };
+}
+
+export function arrayBoundsToDeltaRegion(bounds) {
+  if (!bounds) {
+    return null;
+  }
+  return {
+    latitude: (bounds.sw[1] + bounds.ne[1]) / 2,
+    longitude: (bounds.sw[0] + bounds.ne[0]) / 2,
+    latitudeDelta: (bounds.ne[1] - bounds.sw[1]) / 2,
+    longitudeDelta: (bounds.ne[0] - bounds.sw[0]) / 2,
+  };
+}
+
+export function deltaRegionToArrayBounds(region) {
+  if (!region) {
+    return null;
+  }
+  return {
+    sw: [region.longitude - region.longitudeDelta, region.latitude - region.latitudeDelta],
+    ne: [region.longitude + region.longitudeDelta, region.latitude + region.latitudeDelta],
+  };
+}
+
 export function isValidLat(lat) {
   return _.isNumber(lat) && lat >= -90 && lat <= 90;
 }
@@ -58,7 +100,7 @@ export function computeDistanceBetween(a, b) {
   const [bLng, bLat] = b.map(coord => coord * Math.PI / 180);
   const dLat2 = (aLat - bLat) / 2;
   const dLng2 = (aLng - bLng) / 2;
-  const hav = Math.sin(dLat2) ** 2 + Math.cos(aLat) * Math.cos(bLat) * (Math.sin(dLng2) ** 2);
+  const hav = Math.pow(Math.sin(dLat2), 2) + Math.cos(aLat) * Math.cos(bLat) * (Math.pow(Math.sin(dLng2), 2));
   return 2 * 6378.137 * Math.asin(
     Math.sqrt(hav),
   );

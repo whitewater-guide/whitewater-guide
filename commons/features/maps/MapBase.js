@@ -47,15 +47,8 @@ export default (MapComponent, renderSection, renderPOI) => {
 
     render() {
       const { bounds, sections, pois, ...props } = this.props;
-      const initialBounds =
-        bounds && bounds.sw ?
-        {
-          sw: { lat: _.get(bounds, 'sw.1'), lng: _.get(bounds, 'sw.0') },
-          ne: { lat: _.get(bounds, 'ne.1'), lng: _.get(bounds, 'ne.0') },
-        } :
-        null;
       return (
-        <MapComponent initialBounds={initialBounds} {...props}>
+        <MapComponent initialBounds={bounds} {...props}>
           { sections.map(this.sectionRenderer) }
           { pois.map(this.poiRenderer) }
         </MapComponent>
