@@ -8,6 +8,8 @@ class Map extends React.PureComponent {
   static propTypes = {
     initialBounds: PropTypes.object,
     onZoom: PropTypes.func.isRequired,
+    onSectionSelected: PropTypes.func.isRequired,
+    onPOISelected: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -36,6 +38,18 @@ class Map extends React.PureComponent {
     }
   };
 
+  onMarkerDeselect = () => {
+    console.log('Deselect all');
+    this.props.onSectionSelected(null);
+    this.props.onPOISelected(null);
+  };
+
+  onPress = () => {
+    console.log('On Map press');
+    this.props.onSectionSelected(null);
+    this.props.onPOISelected(null);
+  };
+
   onRegionChange = (region) => {
     const bounds = deltaRegionToArrayBounds(region);
     const zoomLevel = getBoundsZoomLevel(bounds, this.dimensions);
@@ -50,8 +64,10 @@ class Map extends React.PureComponent {
         ref={this.setMapView}
         style={StyleSheet.absoluteFill}
         provider={PROVIDER_GOOGLE}
+        onPress={this.onPress}
         onLayout={this.onMapLayout}
         onRegionChange={this.onRegionChange}
+        onMarkerDeselect={this.onMarkerDeselect}
       >
         { this.props.children }
       </MapView>

@@ -1,11 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Svg, Polygon } from 'react-native-svg';
 import MapView from 'react-native-maps';
 import { SectionPropType } from '../../commons/features/sections';
 
 const Anchor = { x: 0.5, y: 0.5 };
+
+const styles = StyleSheet.create({
+  calloutMarker: {
+    width: 1,
+    height: 1,
+    backgroundColor: 'transparent',
+  },
+});
 
 class SimpleSection extends React.PureComponent {
   static propTypes = {
@@ -17,6 +25,23 @@ class SimpleSection extends React.PureComponent {
 
   static defaultProps = {
     selected: false,
+  };
+
+  componentWillDidUpdate(prevProps) {
+    if (this.props.selected && !prevProps.selected) {
+      console.log('Show callout', this.props.section._id);
+      this.calloutMarker.showCallout();
+    } else if (!this.props.selected && prevProps.selected) {
+      console.log('Hide callout', this.props.section._id);
+      this.calloutMarker.hideCallout();
+    }
+  }
+
+  selectSection = () => {
+    const { section, onSectionSelected } = this.props;
+    console.log('Select section', section.river.name, section.name );
+    onSectionSelected(section);
+    this.calloutMarker.showCallout();
   };
 
   renderArrow = () => {
@@ -33,6 +58,8 @@ class SimpleSection extends React.PureComponent {
     return (
       <MapView.Marker
         anchor={Anchor}
+        flat={false}
+        onPress={this.selectSection}
         coordinate={{ longitude: takeOutLng, latitude: takeOutLat }}
       >
         <Svg width={24} height={24}>
@@ -50,7 +77,7 @@ class SimpleSection extends React.PureComponent {
   };
 
   render() {
-    const { section, selected, onSectionSelected, zoom } = this.props;
+    const { section, selected } = this.props;
     const {
       putIn: { coordinates: [putInLng, putInLat] },
       takeOut: { coordinates: [takeOutLng, takeOutLat] },
@@ -64,9 +91,18 @@ class SimpleSection extends React.PureComponent {
         <MapView.Polyline
           strokeWidth={3}
           strokeColor={selected ? 'red' : 'black'}
-          onPress={() => onSectionSelected(section)}
+          onPress={this.selectSection}
           coordinates={coordinates}
         />
+        <MapView.Marker
+          ref={(el) => { this.calloutMarker = el; }}
+          onPress={this.selectSection}
+          title={section.river.name}
+          description={section.name}
+          coordinate={{ longitude: (putInLng + takeOutLng) / 2, latitude: (putInLat + takeOutLat) / 2 }}
+        >
+          <View style={styles.calloutMarker} pointerEvents="none" />
+        </MapView.Marker>
         { this.renderArrow() }
       </View>
     );
