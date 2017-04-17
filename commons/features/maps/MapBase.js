@@ -1,6 +1,5 @@
 import PT from 'prop-types';
 import React from 'react';
-import _ from 'lodash';
 import { SectionPropType } from '../sections';
 
 export const PropTypes = {
@@ -23,7 +22,7 @@ export const DefaultProps = {
   onPOISelected: () => {},
 };
 
-export default (MapComponent, renderSection, renderPOI) => {
+export default (MapComponent, SectionComponent, POIComponent) => {
   class MapBase extends React.PureComponent {
     static propTypes = {
       ...PropTypes,
@@ -33,24 +32,46 @@ export default (MapComponent, renderSection, renderPOI) => {
       ...DefaultProps,
     };
 
-    sectionRenderer = (section) => {
-      const { onSectionSelected, selectedSection } = this.props;
-      const selectSection = () => onSectionSelected(section);
-      return renderSection(section, !!selectedSection && section._id === selectedSection._id, selectSection);
+    state = {
+      zoom: 1,
     };
 
-    poiRenderer = (poi) => {
+    onZoom = zoom => this.setState({ zoom });
+
+    renderSection = (section) => {
+      const { onSectionSelected, selectedSection } = this.props;
+      const { zoom } = this.state;
+      return (
+        <SectionComponent
+          key={section._id}
+          section={section}
+          selected={selectedSection && selectedSection._id === section._id}
+          onSectionSelected={onSectionSelected}
+          zoom={zoom}
+        />
+      );
+    };
+
+    renderPOI = (poi) => {
       const { onPOISelected, selectedPOI } = this.props;
-      const selectPOI = () => onPOISelected(poi);
-      return renderPOI(poi, !!selectedPOI && poi._id === selectedPOI._id, selectPOI);
+      const { zoom } = this.state;
+      return (
+        <POIComponent
+          key={poi._id}
+          poi={poi}
+          selected={selectedPOI && selectedPOI._id === poi._id}
+          onPOISelected={onPOISelected}
+          zoom={zoom}
+        />
+      );
     };
 
     render() {
       const { bounds, sections, pois, ...props } = this.props;
       return (
-        <MapComponent initialBounds={bounds} {...props}>
-          { sections.map(this.sectionRenderer) }
-          { pois.map(this.poiRenderer) }
+        <MapComponent initialBounds={bounds} onZoom={this.onZoom} {...props}>
+          { sections.map(this.renderSection) }
+          { pois.map(this.renderPOI) }
         </MapComponent>
       );
     }

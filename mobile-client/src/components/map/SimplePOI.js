@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons'
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import { Svg, Circle } from 'react-native-svg';
 import MapView from 'react-native-maps';
 
 const styles = StyleSheet.create({
@@ -46,27 +47,49 @@ const renderCustomMarkerView = (kind) => {
   );
 };
 
-const renderSimplePOI = (poi, isSelected, selectPOI) => {
+const renderCircle = (zoom, selected) => {
+  const radius = zoom / 2;
+  return (
+    <Svg width={radius * 2} height={radius * 2}>
+      <Circle
+        cx={radius}
+        cy={radius}
+        r={radius}
+        fill={selected ? 'red' : 'black'}
+      />
+    </Svg>
+  );
+};
+
+const SimplePOI = ({ poi, selected, onPOISelected, zoom }) => {
+  if (zoom < 3) {
+    return null;
+  }
   const {
     coordinates: [longitude, latitude],
     name,
     description,
     kind,
-    _id,
   } = poi;
+
+  let inner = null;
+  if (zoom < 12) {
+    inner = renderCircle(zoom);
+  } else {
+    inner = renderCustomMarkerView(kind);
+  }
   // console.tron.log(poi);
   return (
     <MapView.Marker
       anchor={Anchor}
       title={name || kind}
       description={description}
-      onPress={selectPOI}
-      key={_id}
+      onPress={() => onPOISelected(poi)}
       coordinate={{ longitude, latitude }}
     >
-      { renderCustomMarkerView(kind) }
+      { inner }
     </MapView.Marker>
   );
 };
 
-export default renderSimplePOI;
+export default SimplePOI;

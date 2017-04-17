@@ -1,6 +1,6 @@
 import { MapBase } from '../../commons/features/maps';
-import renderSimpleSection from './renderSimpleSection';
-import renderSimplePOI from './renderSimplePOI';
+import SimpleSection from './SimpleSection';
+import SimplePOI from './SimplePOI';
 import Map from './Map';
 
-export default MapBase(Map, renderSimpleSection, renderSimplePOI);
+export default MapBase(Map, SimpleSection, SimplePOI);
