@@ -19,9 +19,9 @@ export default function *appSaga() {
 
   yield put({ type: ActionTypes.APP_STARTED });
 
-  if (!__DEV__) {
-    yield call(delay, 3000);
-  }
+  // if (!__DEV__) {
+  //   yield call(delay, 3000);
+  // }
 
   SplashScreen.hide();
 }
