@@ -6,7 +6,7 @@ import MenuItem from 'material-ui/MenuItem';
 const ChartFlowToggle = ({ value, onChange }) => (
   <SelectField
     value={value}
-    onChange={(event, index, unit) => onChange({ unit })}
+    onChange={(event, index, unit) => onChange(unit)}
   >
     <MenuItem value={'level'} primaryText="Level" />
     <MenuItem value={'flow'} primaryText="Flow" />
