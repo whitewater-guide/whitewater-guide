@@ -7,8 +7,6 @@ import { SectionPropType } from '../../../commons/features/sections';
 import { renderDifficulty } from '../../../commons/utils/TextUtils';
 
 const styles = StyleSheet.create({
-  container: {
-  },
   titleWrapper: {
     marginTop: 8,
     marginHorizontal: 8,
@@ -47,7 +45,7 @@ const SelectedSectionView = ({ selectedSection, onSectionSelected }) => {
     });
   const deselect = () => onSectionSelected(null);
   return (
-    <View style={styles.container}>
+    <View>
       <View style={styles.titleWrapper}>
         <Text>{`${selectedSection.river.name} - ${selectedSection.name}`}</Text>
       </View>

@@ -12,10 +12,9 @@ const styles = StyleSheet.create({
   panel: {
     height: 200,
     width: Screen.width,
-    padding: 20,
-    backgroundColor: '#f7f5eee8',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    paddingHorizontal: 16,
+    paddingBottom: 8,
+    backgroundColor: '#ffffffe8',
     borderWidth: 0,
   },
 });
@@ -24,6 +23,8 @@ export default class MapLayout extends Component {
   static propTypes = {
     selectedSection: PropTypes.object,
     selectedPOI: PropTypes.object,
+    onSectionSelected: PropTypes.func.isRequired,
+    onPOISelected: PropTypes.func.isRequired,
     mapView: PropTypes.element.isRequired,
     selectedSectionView: PropTypes.element.isRequired,
     selectedPOIView: PropTypes.element.isRequired,
@@ -41,6 +42,13 @@ export default class MapLayout extends Component {
       this.interactable.snapTo({ index: 0 });
     }
   }
+
+  onSnap = ({ nativeEvent: { index } }) => {
+    if (index === 0) {
+      this.props.onSectionSelected(null);
+      this.props.onPOISelected(null);
+    }
+  };
 
   hasSelection = props => props.selectedSection || props.selectedPOI;
 
@@ -69,6 +77,7 @@ export default class MapLayout extends Component {
             ref={(interactable) => { this.interactable = interactable; }}
             verticalOnly
             snapPoints={[{ y: Screen.height }, { y: Screen.height - 80 }, { y: Screen.height - 200 }]}
+            onSnap={this.onSnap}
             initialPosition={{ y: Screen.height }}
             animatedValueY={this._deltaY}
           >
