@@ -46,6 +46,7 @@ const SelectedSectionView = ({ selectedSection, onSectionSelected, dispatch }) =
     .catch(() => {
     });
   const deselect = () => onSectionSelected(null);
+  // TODO: this causes overlapping maps until https://github.com/airbnb/react-native-maps/issues/1161 gets fixed
   const detailsHandler = () => {
     dispatch(NavigationActions.navigate({
       routeName: 'SectionDetails',
