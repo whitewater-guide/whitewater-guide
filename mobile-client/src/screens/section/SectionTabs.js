@@ -12,14 +12,14 @@ import SectionHeader from './SectionHeader';
 
 const SectionTabs = TabNavigator(
   {
-    Map: { screen: SectionMapScreen },
-    Chart: { screen: SectionChartScreen },
-    Guide: { screen: SectionGuideScreen },
-    Info: { screen: SectionInfoScreen },
-    Media: { screen: SectionMediaScreen },
+    SectionMap: { screen: SectionMapScreen },
+    SectionChart: { screen: SectionChartScreen },
+    SectionGuide: { screen: SectionGuideScreen },
+    SectionInfo: { screen: SectionInfoScreen },
+    SectionMedia: { screen: SectionMediaScreen },
   },
   {
-    initialRouteName: 'Map',
+    initialRouteName: 'SectionMap',
     tabBarPosition: 'bottom',
     backBehavior: 'none',
     tabBarOptions: {

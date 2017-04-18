@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Linking, StyleSheet, View } from 'react-native';
 import { Text, Button, Icon } from 'native-base';
+import { connect } from 'react-redux';
+import { NavigationActions } from 'react-navigation';
 import StarRating from 'react-native-star-rating';
 import { SectionPropType } from '../../../commons/features/sections';
 import { renderDifficulty } from '../../../commons/utils/TextUtils';
@@ -32,7 +34,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const SelectedSectionView = ({ selectedSection, onSectionSelected }) => {
+const SelectedSectionView = ({ selectedSection, onSectionSelected, dispatch }) => {
   if (!selectedSection) {
     return null;
   }
@@ -44,6 +46,12 @@ const SelectedSectionView = ({ selectedSection, onSectionSelected }) => {
     .catch(() => {
     });
   const deselect = () => onSectionSelected(null);
+  const detailsHandler = () => {
+    dispatch(NavigationActions.navigate({
+      routeName: 'SectionDetails',
+      params: { sectionId: selectedSection._id },
+    }));
+  };
   return (
     <View>
       <View style={styles.titleWrapper}>
@@ -65,7 +73,7 @@ const SelectedSectionView = ({ selectedSection, onSectionSelected }) => {
           <Text>Take-out</Text>
         </Button>
       </View>
-      <Button full>
+      <Button full onPress={detailsHandler}>
         <Text>Details</Text>
       </Button>
       <View style={styles.closeButtonWrapper}>
@@ -80,10 +88,11 @@ const SelectedSectionView = ({ selectedSection, onSectionSelected }) => {
 SelectedSectionView.propTypes = {
   selectedSection: SectionPropType,
   onSectionSelected: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 SelectedSectionView.defaultProps = {
   selectedSection: null,
 };
 
-export default SelectedSectionView;
+export default connect()(SelectedSectionView);

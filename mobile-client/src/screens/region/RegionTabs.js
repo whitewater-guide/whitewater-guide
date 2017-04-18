@@ -12,12 +12,12 @@ import RegionSectionsScreen from './RegionSectionsScreen';
 
 const RegionTabs = TabNavigator(
   {
-    Map: { screen: RegionMapScreen },
-    Description: { screen: RegionDescriptionScreen },
-    Sections: { screen: RegionSectionsScreen },
+    RegionMap: { screen: RegionMapScreen },
+    RegionDescription: { screen: RegionDescriptionScreen },
+    RegionSections: { screen: RegionSectionsScreen },
   },
   {
-    initialRouteName: 'Map',
+    initialRouteName: 'RegionMap',
     tabBarPosition: 'bottom',
     backBehavior: 'none',
     navigationOptions: ({ navigation }) => ({
