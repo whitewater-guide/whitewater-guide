@@ -32,7 +32,7 @@ class Map extends React.PureComponent {
         ],
         {
           edgePanning: { top: 10, bottom: 10, left: 10, right: 10 },
-          animated: true,
+          animated: false,
         },
       );
     }
