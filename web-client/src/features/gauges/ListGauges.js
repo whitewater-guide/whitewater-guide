@@ -31,11 +31,11 @@ class ListGauges extends React.Component {
 
   onDeleteGauge = gaugeId => this.props.removeGauge(gaugeId);
 
-  onEditGauge = gaugeId => this.props.history.push(`/sections/${gaugeId}/settings`);
+  onEditGauge = gaugeId => this.props.history.push(`/gauges/${gaugeId}/settings`);
 
   onToggleGauge = (gaugeId, enabled) => this.props.setEnabled(gaugeId, enabled);
 
-  onGaugeClick = gaugeId => this.props.history.push(`/sections/${gaugeId}`);
+  onGaugeClick = gaugeId => this.props.history.push(`/gauges/${gaugeId}`);
 
   isRowLoaded = ({ index }) => !!this.props.gauges.list[index];
 
