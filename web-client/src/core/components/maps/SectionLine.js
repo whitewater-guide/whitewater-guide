@@ -5,12 +5,13 @@ export class SectionLine extends Polyline {
 
   static propTypes = {
     ...Polyline.propTypes,
-    onClick: PropTypes.func,
-    color: PropTypes.string,
+    section: PropTypes.object.isRequired,
+    selected: PropTypes.bool,
+    onSectionSelected: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
-    color: '#000000',
+    selected: false,
   };
 
   componentDidMount() {
@@ -32,15 +33,16 @@ export class SectionLine extends Polyline {
   }
 
   getPaths() {
-    const { origin, destination } = this.props;
+    const { putIn, takeOut } = this.props.section;
     return [
-      { lat: origin.coordinates[1], lng: origin.coordinates[0] },
-      { lat: destination.coordinates[1], lng: destination.coordinates[0] },
+      { lat: putIn.coordinates[1], lng: putIn.coordinates[0] },
+      { lat: takeOut.coordinates[1], lng: takeOut.coordinates[0] },
     ];
   }
 
   getStyle() {
-    const { color, maps, zoom } = this.props;
+    const { selected, maps, zoom } = this.props;
+    const color = selected ? 'red' : 'black';
     return {
       geodesic: true,
       strokeColor: color,
