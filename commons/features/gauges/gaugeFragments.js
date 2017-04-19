@@ -27,15 +27,21 @@ const Location = gql`
 const HarvestInfo = gql`
   fragment GaugeHarvestInfo on Gauge {
     requestParams
+    enabled
     cron
+  }
+`;
+
+const LastMeasurements = gql`
+  fragment GaugeLastMeasurements on Gauge {
+    lastTimestamp
+    lastLevel
+    lastFlow
   }
 `;
 
 const Measurements = gql`
   fragment GaugeMeasurements on Gauge {
-    lastTimestamp
-    lastLevel
-    lastFlow
     measurements {
       date
       level
@@ -50,11 +56,13 @@ const All = gql`
     ...GaugeCore
     ...GaugeLocation
     ...GaugeHarvestInfo
+    ...GaugeLastMeasurements
     ...GaugeMeasurements
   }
   ${Core}
   ${Location}
   ${HarvestInfo}
+  ${LastMeasurements}
   ${Measurements}
 `;
 
@@ -63,5 +71,6 @@ export const GaugeFragments = {
   Core,
   Location,
   HarvestInfo,
+  LastMeasurements,
   Measurements,
 };

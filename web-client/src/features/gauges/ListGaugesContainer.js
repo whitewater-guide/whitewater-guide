@@ -1,43 +1,9 @@
-import {graphql, compose} from 'react-apollo';
-import gql from 'graphql-tag';
-import {withAdmin} from '../users';
-import {withFeatureIds} from '../../commons/core';
-import {withState} from 'recompose';
+import { gql, graphql } from 'react-apollo';
+import { compose, withState } from 'recompose';
 import _ from 'lodash';
-
-const ListGaugesQuery = gql`
-  query listGauges($sourceId:ID!, $language:String, $skip:Int, $limit:Int, $isLoadMore:Boolean!) {
-    gauges(sourceId:$sourceId, language:$language, skip:$skip, limit:$limit) {
-      _id
-      name
-      code
-      location {
-        coordinates
-      }
-      levelUnit
-      flowUnit
-      requestParams
-      cron
-      lastTimestamp
-      lastLevel
-      lastFlow
-      url
-      enabled
-    }
-    
-    count: countGauges(sourceId:$sourceId) @skip(if: $isLoadMore)
-    
-    source(_id:$sourceId) @skip(if: $isLoadMore) {
-      _id
-      harvestMode
-    }
-
-    jobsReport(sourceId:$sourceId) @skip(if: $isLoadMore) {
-      _id,
-      count,
-    }
-  }
-`;
+import { withAdmin } from '../users';
+import { withFeatureIds } from '../../commons/core';
+import { withGaugesList } from '../../commons/features/gauges';
 
 const RemoveGaugeMutation = gql`
   mutation removeGauges($_id: ID){
@@ -55,53 +21,33 @@ const EnableGaugeMutation = gql`
 `;
 
 export default compose(
-  withState('language','setLanguage','en'),
+  withState('language', 'setLanguage', 'en'),
   withFeatureIds(),
   withAdmin(),
-  graphql(
-    ListGaugesQuery, {
-      options: ({sourceId, language}) => ({
-        fetchPolicy: 'network-only',
-        variables: {sourceId, language, isLoadMore: false},
-      }),
-      props: ({data: {gauges, count, source, jobsReport, loading, fetchMore}}) => {
-        return {
-          gauges,
-          count,
-          jobsReport,
-          source,
-          loading,
-          loadMore: ({startIndex: skip, stopIndex}) => {
-            return fetchMore({
-              variables: {skip, limit: stopIndex - skip, isLoadMore: true},
-              updateQuery: (prevResult, {fetchMoreResult}) => {
-                if (!fetchMoreResult.data)
-                  return prevResult;
-                return {...prevResult, gauges: [...prevResult.gauges, ...fetchMoreResult.data.gauges]};
-              }
-            });
-          }
-        };
-      }
-    }
-  ),
+  withGaugesList,
   graphql(
     RemoveGaugeMutation, {
-      props: ({mutate}) => ({removeGauge: _id => mutate({
-        variables: {_id},
-        updateQueries: {
-          listGauges: (prev) => {
-            return {...prev, gauges: _.reject(prev.gauges, {_id}), jobsReport: _.reject(prev.jobsReport, {_id})};
-          }
-        },
-      })}),
-    }
+      props: ({ mutate }) => ({
+        removeGauge: _id => mutate({
+          variables: { _id },
+          updateQueries: {
+            listGauges: prev => ({
+              ...prev,
+              gauges: _.reject(prev.gauges, { _id }),
+              jobsReport: _.reject(prev.jobsReport, { _id }),
+            }),
+          },
+        }),
+      }),
+    },
   ),
   graphql(
     EnableGaugeMutation, {
-      props: ({mutate}) => ({setEnabled: (_id, enabled) => mutate({
-        variables: {_id, enabled},
-      })}),
-    }
+      props: ({ mutate }) => ({
+        setEnabled: (_id, enabled) => mutate({
+          variables: { _id, enabled },
+        }),
+      }),
+    },
   ),
 );

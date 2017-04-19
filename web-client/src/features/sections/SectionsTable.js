@@ -9,7 +9,7 @@ import _ from 'lodash';
 
 const durationsMap = _.keyBy(Durations, 'value');
 
-export default class SectionsTable extends React.Component {
+export default class SectionsTable extends React.PureComponent {
   static propTypes = {
     sections: PropTypes.array,
     admin: PropTypes.bool,
