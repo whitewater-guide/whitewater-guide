@@ -25,7 +25,8 @@ function harvest(lastTimestamp){
         //console.log($(parent).find('.date2').html())
         const name = $('b', parent).text().trim();
         const level = $('.date2', parent).text();
-        const code = crypto.createHash('md5').update(name).digest("hex");
+        const cleanName = name.replace(/\W/g, '').toLowerCase();// Removes all non-alphanumeric chars
+        const code = crypto.createHash('md5').update(cleanName).digest("hex");
         const data = {
           name,
           code,
