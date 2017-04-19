@@ -2,7 +2,8 @@
 import color from 'color';
 import isFunction from 'lodash/isFunction';
 
-// https://docs.google.com/spreadsheets/d/1DTg8aQM_MpZ6eaVg7vAg97K9Yv18Un8F291AonBSuEY/edit#gid=1353104215
+// Color scheme described here:
+// https://docs.google.com/spreadsheets/d/1DTg8aQM_MpZ6eaVg7vAg97K9Yv18Un8F291AonBSuEY/edit?usp=sharing
 
 export const Colors = {
   none: color.rgb(100, 100, 100),
