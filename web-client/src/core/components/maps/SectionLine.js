@@ -16,7 +16,7 @@ export class SectionLine extends Polyline {
 
   componentDidMount() {
     super.componentDidMount();
-    this.setupListeners(this.props);
+    this.setupListeners(true);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -29,7 +29,7 @@ export class SectionLine extends Polyline {
 
   componentWillUnmount() {
     super.componentWillUnmount();
-    this.setupListeners({});
+    this.setupListeners(false);
   }
 
   getPaths() {
@@ -58,9 +58,9 @@ export class SectionLine extends Polyline {
     };
   }
 
-  setupListeners = ({ onClick }) => {
-    if (onClick) {
-      this.line.addListener('click', onClick);
+  setupListeners = (on) => {
+    if (on) {
+      this.line.addListener('click', () => this.props.onSectionSelected(this.props.section));
     } else {
       this.props.maps.event.clearListeners(this.line, 'click');
     }

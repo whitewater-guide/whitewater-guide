@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { compose, mapProps } from 'recompose';
 import { renderDifficulty } from '../../commons/utils/TextUtils';
 import { Rating } from '../../core/forms';
 import IconButton from 'material-ui/IconButton';
@@ -174,8 +175,9 @@ const styles = {
   },
 };
 
-export default _.flowRight(
+export default compose(
   withAdmin(),
   withRouter,
   withSection({ withGeo: true, withDescription: true }),
+  mapProps(({ section, selectedSection, ...props }) => ({ ...props, section: section || selectedSection })),
 )(ViewSection);
