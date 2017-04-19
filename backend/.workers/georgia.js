@@ -35,7 +35,7 @@ function harvest(lastTimestamp){
           flowUnit: '',
           level,
           flow: 0,
-          timestamp: moment(lastTimestamp).startOf('day'),
+          timestamp: lastTimestamp,
         };
         results.push(data);
       });
