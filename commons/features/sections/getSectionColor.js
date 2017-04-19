@@ -123,6 +123,57 @@ const colorTable = {
     3: Colors.none,
     4: Colors.none,
   },
+  9: {
+    0: Colors.minimum,
+    1: Colors.none,
+    2: Colors.none,
+    3: Colors.none,
+    4: Colors.impossible,
+  },
+  10: {
+    0: Colors.minimum,
+    1: Colors.none,
+    2: Colors.none,
+    3: Colors.maximum,
+    4: Colors.maximum,
+  },
+  11: {
+    0: Colors.minimum,
+    1: Colors.none,
+    2: Colors.none,
+    3: null,
+    4: Colors.impossible,
+  },
+  12: {
+    0: Colors.minimum,
+    1: null,
+    2: Colors.none,
+    3: Colors.none,
+    4: Colors.none,
+  },
+  13: {
+    0: Colors.minimum,
+    1: null,
+    2: ({ optimum, impossible, lastValue }) =>
+      Colors.optimum.mix(Colors.impossible, (impossible - lastValue) / (impossible - optimum)),
+    3: ({ optimum, impossible, lastValue }) =>
+      Colors.optimum.mix(Colors.impossible, (impossible - lastValue) / (impossible - optimum)),
+    4: Colors.impossible,
+  },
+  14: {
+    0: Colors.minimum,
+    1: null,
+    2: null,
+    3: Colors.maximum,
+    4: Colors.maximum,
+  },
+  15: {
+    0: Colors.minimum,
+    1: null,
+    2: null,
+    3: null,
+    4: Colors.impossible,
+  },
 };
 
 export default function getSectionColor(data) {
