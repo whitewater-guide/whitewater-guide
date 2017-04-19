@@ -5,7 +5,7 @@ import isFunction from 'lodash/isFunction';
 // https://docs.google.com/spreadsheets/d/1DTg8aQM_MpZ6eaVg7vAg97K9Yv18Un8F291AonBSuEY/edit#gid=1353104215
 
 export const Colors = {
-  none: color.rgb(156, 156, 156),
+  none: color.rgb(100, 100, 100),
   minimum: color.rgb(74, 134, 232),
   optimum: color.rgb(74,240, 28),
   maximum: color.rgb(254, 0, 0),

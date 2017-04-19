@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Dimensions, StyleSheet, View } from 'react-native';
 import { Svg, Polygon } from 'react-native-svg';
 import MapView from 'react-native-maps';
-import { SectionPropType } from '../../commons/features/sections';
+import { SectionPropType, getSectionColor } from '../../commons/features/sections';
 
 const Anchor = { x: 0.5, y: 0.5 };
 const dimensions = Dimensions.get('window');
@@ -41,8 +41,8 @@ class SimpleSection extends React.PureComponent {
     this.props.onSectionSelected(null);
   };
 
-  renderArrow = () => {
-    const { section, selected, zoom } = this.props;
+  renderArrow = (color) => {
+    const { section, zoom } = this.props;
     const {
       putIn: { coordinates: [putInLng, putInLat] },
       takeOut: { coordinates: [takeOutLng, takeOutLat] },
@@ -63,10 +63,10 @@ class SimpleSection extends React.PureComponent {
           <Polygon
             originX="12"
             originY="12"
-            points="7,7 22,12 7,17"
+            points="7,6 22,12 7,18"
             rotate={rotate}
             scale={scale}
-            fill={selected ? 'red' : 'black'}
+            fill={color}
           />
         </Svg>
       </MapView.Marker>
@@ -83,11 +83,15 @@ class SimpleSection extends React.PureComponent {
       { latitude: putInLat, longitude: putInLng },
       { latitude: takeOutLat, longitude: takeOutLng },
     ];
+    const flows = section.flows || {};
+    const levels = section.levels || {};
+    const bindings = flows.lastValue ? flows : levels;
+    const color = getSectionColor(bindings);
     return (
       <View>
         <MapView.Polyline
-          strokeWidth={3}
-          strokeColor={selected ? 'red' : 'black'}
+          strokeWidth={selected ? 5 : 3}
+          strokeColor={color}
           onPress={this.selectSection}
           coordinates={coordinates}
         />
@@ -98,7 +102,7 @@ class SimpleSection extends React.PureComponent {
         >
           <View style={styles.calloutMarker} pointerEvents="none" />
         </MapView.Marker>
-        { this.renderArrow() }
+        { this.renderArrow(color) }
       </View>
     );
   }
