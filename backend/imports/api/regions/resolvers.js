@@ -1,6 +1,7 @@
 import {Sources} from '../sources';
 import {Points} from '../points';
 import {Rivers} from '../rivers';
+import {Sections} from '../sections';
 import {Regions} from './collection';
 import {upsertChildren} from '../../utils/CollectionUtils';
 
@@ -32,5 +33,7 @@ export const regionsResolvers = {
     sources: region => Sources.find({regionIds: region._id}),
     pois: region => Points.find({_id: {$in: region.poiIds}}),
     rivers: region => Rivers.find({regionId: region._id}),
+    riversCount: region => Rivers.find({regionId: region._id}).count(),
+    sectionsCount: region => Sections.find({regionId: region._id}).count(),
   }
 };

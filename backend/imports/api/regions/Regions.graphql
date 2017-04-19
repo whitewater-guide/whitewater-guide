@@ -14,6 +14,8 @@ type Region implements INamed {
   pois: [Point]!,
   sources: [Source]!,
   rivers: [River]!,
+  riversCount: Int,
+  sectionsCount: Int,
 }
 
 input RegionInput {

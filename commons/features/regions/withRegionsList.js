@@ -6,6 +6,8 @@ const ListRegionsQuery = gql`
     regions {
       _id,
       name,
+      riversCount,
+      sectionsCount,
     }
   }
 `;

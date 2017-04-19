@@ -38,6 +38,13 @@ const Bounds = gql`
   }
 `;
 
+const Stats = gql`
+  fragment RegionStats on Region {
+    riversCount
+    sectionsCount
+  }
+`;
+
 // TODO: remove when https://github.com/apollographql/graphql-anywhere/issues/38 is resolved
 const All = gql`
   fragment RegionAll on Region {
@@ -45,11 +52,13 @@ const All = gql`
     ...RegionBounds
     ...RegionPOIs
     ...RegionDescription
+    ...RegionStats
   }
   ${Core}
   ${Description}
   ${Bounds}
   ${POIs}
+  ${Stats}
 `;
 
 export const RegionFragments = {
@@ -57,4 +66,5 @@ export const RegionFragments = {
   Bounds,
   Core,
   POIs,
+  Stats,
 };
