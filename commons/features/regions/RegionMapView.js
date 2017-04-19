@@ -7,12 +7,14 @@ export default (Layout, Map, SelectedSection, SelectedPOI, LoadingIndicator) => 
   branch(
     props => props.regionLoading,
     renderComponent(LoadingIndicator),
+    compose(
+      sectionsBatchLoader,
+      mapProps(({ region, sections, ...props }) => ({
+        ...props,
+        bounds: region.bounds,
+        sections: sections.list,
+        pois: region.pois,
+      })),
+    ),
   ),
-  sectionsBatchLoader,
-  mapProps(({ region, sections, ...props }) => ({
-    ...props,
-    bounds: region.bounds,
-    sections: sections.list,
-    pois: region.pois,
-  })),
 )(getMapView(Layout, Map, SelectedSection, SelectedPOI));

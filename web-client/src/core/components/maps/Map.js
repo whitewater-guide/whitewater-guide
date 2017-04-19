@@ -14,7 +14,7 @@ export class Map extends React.Component {
 
   onLoaded = ({ map, maps }) => {
     const { initialBounds } = this.props;
-    if (this.props.initialBounds) {
+    if (initialBounds && initialBounds.sw) {
       const { sw, ne } = arrayBoundsToLatLngBounds(initialBounds);
       const bounds = new maps.LatLngBounds(sw, ne);
       map.setCenter(bounds.getCenter());
