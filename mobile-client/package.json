@@ -19,6 +19,7 @@
 	},
 	"dependencies": {
 		"apollo-client": "^1.0.3",
+		"color": "^1.0.3",
 		"geocoordinate": "^1.0.1",
 		"graphql-anywhere": "^3.0.1",
 		"immutability-helper": "^2.1.2",
