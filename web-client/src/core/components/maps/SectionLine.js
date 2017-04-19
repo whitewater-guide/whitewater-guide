@@ -22,7 +22,7 @@ export class SectionLine extends Polyline {
   componentDidUpdate(prevProps, prevState) {
     super.componentDidUpdate(prevProps, prevState);
     this.setupListeners(this.props);
-    if (this.props.zoom !== prevProps.zoom || this.props.color !== prevProps.color) {
+    if (this.props.zoom !== prevProps.zoom || this.props.selected !== prevProps.selected) {
       this.line.setOptions(this.getStyle());
     }
   }
