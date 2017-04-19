@@ -26,7 +26,8 @@ function upsertSection(root, data) {
       kayakingTags = [],
       hazardsTags = [],
       miscTags = [],
-    ...section
+      gauge = {},
+      ...section
     }
   } = data;
   let {_id: riverId, name: riverName, regionId} = river;
@@ -59,6 +60,7 @@ function upsertSection(root, data) {
 
   section = {
     ...section,
+    gaugeId: gauge._id,
     mediaIds,
     poiIds,
     supplyTagIds,
