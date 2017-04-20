@@ -30,13 +30,14 @@ const FlowsThumb = ({ flows, levels }) => {
   if ((!flows || !flows.lastValue) && (!levels || !levels.lastValue)) {
     return null;
   }
+
   const data = (flows && flows.lastValue) ?
-    { unit: 'Flow', value: flows.lastValue, color: getSectionColor(flows) } :
-    { unit: 'Level', value: levels.lastValue, color: getSectionColor(levels) };
+    { ...flows, unit: 'Flow', color: getSectionColor(flows) } :
+    { ...levels, unit: 'Level', color: getSectionColor(levels) };
   return (
     <View style={styles.container}>
       <Text style={styles.unitLine}>{data.unit}</Text>
-      <Text style={[styles.mainLine, { color: data.color }]}>{data.value.toFixed(2)}</Text>
+      <Text style={[styles.mainLine, { color: data.color }]}>{data.lastValue.toFixed(2)}</Text>
       <Text style={styles.timeLine}>{moment(data.lastTimestamp).fromNow()}</Text>
     </View>
   );
