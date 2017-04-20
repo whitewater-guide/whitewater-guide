@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, Text, View } from 'react-native';
-import { toRomanDifficulty } from '../../../../commons/utils/TextUtils';
+import { toRomanDifficulty } from '../../../commons/utils/TextUtils';
 
 const styles = StyleSheet.create({
   container: {

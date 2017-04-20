@@ -2,16 +2,18 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import StarRating from 'react-native-star-rating';
 import { StyleSheet, Text, View } from 'react-native';
-import { ListItem } from '../../../../components';
-import { SectionPropType } from '../../../../commons/features/sections';
+import { ListItem } from '../../../components';
+import { SectionPropType } from '../../../commons/features/sections';
 import DifficultyThumb from './DifficultyThumb';
 import FlowsThumb from './FlowsThumb';
+
+export const ITEM_HEIGHT = 72;
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    height: 72,
+    height: ITEM_HEIGHT,
   },
   body: {
     flex: 1,

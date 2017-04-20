@@ -2,7 +2,7 @@ import React from 'react';
 import { propType } from 'graphql-anywhere';
 import { StyleSheet, Text, View } from 'react-native';
 import moment from 'moment';
-import { SectionFragments, getSectionColor } from '../../../../commons/features/sections';
+import { SectionFragments, getSectionColor } from '../../../commons/features/sections';
 
 const styles = StyleSheet.create({
   container: {
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
 });
 
 const FlowsThumb = ({ flows, levels }) => {
-  if ((!flows || !flows.lastValue) && (!levels || levels.lastValue)) {
+  if ((!flows || !flows.lastValue) && (!levels || !levels.lastValue)) {
     return null;
   }
   const data = (flows && flows.lastValue) ?
