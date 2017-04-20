@@ -120,4 +120,9 @@ storiesOf('SectionListItem')
     <View>
       <SectionListItem section={section} onPress={action('press')} />
     </View>
+  ))
+  .add('open', () => (
+    <View>
+      <SectionListItem section={section} onPress={action('press')} initialOffset={-136} />
+    </View>
   ));
