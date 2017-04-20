@@ -33,11 +33,17 @@ Measurements.attachSchema(measurementsSchema);
 //denormalize gauges and sections
 Measurements.after.insert(function (userId, doc) {
   Gauges.update(
-    doc.gaugeId,
+    {_id: doc.gaugeId, lastTimestamp: { $lt: doc.date }},
     {$set: {lastTimestamp: doc.date, lastLevel: doc.level, lastFlow: doc.flow}}
   );
   Sections.update(
-    {gaugeId: doc.gaugeId},
+    {$and: [
+      {gaugeId: doc.gaugeId},
+      {$or: [
+        {"levels.lastTimestamp": { $lt: doc.date }},
+        {"flows.lastTimestamp": { $lt: doc.date }},
+      ]}
+    ]},
     {$set: {
       "levels.lastTimestamp": doc.date,
       "levels.lastValue": doc.level,
