@@ -26,7 +26,7 @@ function upsertSection(root, data) {
       kayakingTags = [],
       hazardsTags = [],
       miscTags = [],
-      gauge = {},
+      gauge,
       ...section
     }
   } = data;
@@ -60,7 +60,6 @@ function upsertSection(root, data) {
 
   section = {
     ...section,
-    gaugeId: gauge._id,
     mediaIds,
     poiIds,
     supplyTagIds,
@@ -70,6 +69,9 @@ function upsertSection(root, data) {
     putIn: {_id: putInId, ...putInData, kind: 'put-in'},
     takeOut: {_id: takeOutId, ...takeOutData, kind: 'take-out'},
   };
+  if (gauge) {
+    section.gaugeId = gauge._id;
+  }
 
   if (_id)
     Sections.updateTranslations(_id, {[language]: section});
