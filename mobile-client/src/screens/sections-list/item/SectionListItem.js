@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Animated, StyleSheet, View } from 'react-native';
+import { Animated, InteractionManager, StyleSheet, View } from 'react-native';
 import Interactable from 'react-native-interactable';
 import { SectionPropType } from '../../../commons/features/sections';
 import NavigateButton from './NavigateButton';
@@ -25,16 +25,30 @@ export default class SectionListItem extends React.PureComponent {
     section: SectionPropType.isRequired,
     onPress: PropTypes.func,
     initialOffset: PropTypes.number,
+    initialVelocity: PropTypes.number,
   };
 
   static defaultProps = {
     onPress: () => {},
     initialOffset: 0,
+    initialVelocity: 0,
   };
 
   constructor(props) {
     super(props);
     this._deltaX = new Animated.Value(props.initialOffset);
+  }
+
+  onInteractableMounted = (ref) => {
+    if (ref && this.props.initialVelocity !== 0) {
+      this._openAnimationHandle = InteractionManager.runAfterInteractions(
+        () => ref.setVelocity({ x: this.props.initialVelocity }),
+      );
+    }
+  };
+
+  componenWillUnmount() {
+    InteractionManager.clearInteractionHandle(this._openAnimationHandle);
   }
 
   render() {
@@ -55,6 +69,7 @@ export default class SectionListItem extends React.PureComponent {
           />
         </View>
         <Interactable.View
+          ref={this.onInteractableMounted}
           horizontalOnly
           snapPoints={[
             { x: 0, damping: 0.6, tension: 300 },

@@ -125,4 +125,14 @@ storiesOf('SectionListItem')
     <View>
       <SectionListItem section={section} onPress={action('press')} initialOffset={-136} />
     </View>
+  ))
+  .add('with initial velocity', () => (
+    <View>
+      <SectionListItem
+        section={section}
+        onPress={action('press')}
+        initialOffset={-136}
+        initialVelocity={700}
+      />
+    </View>
   ));

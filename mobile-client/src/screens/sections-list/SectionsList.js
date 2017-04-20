@@ -32,8 +32,13 @@ export default class SectionsList extends PureComponent {
 
   getItemLayout=(data, index) => ({ length: ITEM_HEIGHT, offset: ITEM_HEIGHT * index, index });
 
-  renderItem = ({ item: section }) => (
-    <SectionListItem section={section} onPress={() => this.onSectionSelected(section)} />
+  renderItem = ({ item: section, index }) => (
+    <SectionListItem
+      section={section}
+      onPress={() => this.onSectionSelected(section)}
+      initialOffset={index === 0 ? -200 : 0}
+      initialVelocity={index === 0 ? 1400 : 0}
+    />
   );
 
   render() {
