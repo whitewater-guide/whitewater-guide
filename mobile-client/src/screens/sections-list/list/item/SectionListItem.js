@@ -1,32 +1,59 @@
-import React, { PropTypes, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
+import StarRating from 'react-native-star-rating';
 import { StyleSheet, Text, View } from 'react-native';
-import { SectionPropType } from '../../../commons/features/sections';
+import { ListItem } from '../../../../components';
+import { SectionPropType } from '../../../../commons/features/sections';
+import DifficultyThumb from './DifficultyThumb';
+import FlowsThumb from './FlowsThumb';
 
 const styles = StyleSheet.create({
   container: {
-    height: 64,
+    flexDirection: 'row',
+    alignItems: 'center',
+    height: 72,
+  },
+  body: {
+    flex: 1,
+  },
+  riverName: {
+    fontSize: 14,
+    fontWeight: '500',
+  },
+  sectionName: {
+    fontSize: 14,
+  },
+  starsContainer: {
+    width: 80,
+    paddingTop: 2,
   },
 });
 
-class SectionListItem extends PureComponent {
+export default class SectionListItem extends PureComponent {
   static propTypes = {
     section: SectionPropType.isRequired,
-    selected: PropTypes.bool
+    onPress: PropTypes.func,
   };
 
   static defaultProps = {
     selected: false,
+    onPress: () => {},
   };
 
   render() {
-    // TODO custom-designed items to replace native-base
+    const { onPress, section } = this.props;
     return (
-      <View>
-
-      </View>
+      <ListItem style={styles.container} onPress={onPress}>
+        <DifficultyThumb difficulty={section.difficulty} difficultyXtra={section.difficultyXtra} />
+        <View style={styles.body}>
+          <Text style={styles.riverName}>{section.river.name}</Text>
+          <Text style={styles.sectionName}>{section.name}</Text>
+          <View style={styles.starsContainer}>
+            <StarRating disabled rating={section.rating} starSize={14} starColor={'#a7a7a7'} />
+          </View>
+        </View>
+        <FlowsThumb flows={section.flows} levels={section.levels} />
+      </ListItem>
     );
-  };
-
+  }
 }
-
-export SectionListItem;
