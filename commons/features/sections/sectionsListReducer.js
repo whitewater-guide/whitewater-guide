@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import { isMutationResult } from '../../core/apolloUtils';
+import update from 'immutability-helper';
 
 function removeSection(previousResult, _id) {
   const { sections: { sections, count } } = previousResult;
@@ -14,11 +15,14 @@ function removeSection(previousResult, _id) {
 
 function upsertSection(previousResult, newSection) {
   const { sections: { sections, count } } = previousResult;
+  const index = _.findIndex(sections, { _id: newSection._id });
+  const delCount = index === -1 ? 0 : 1;
+  const spliceAt = index === -1 ? sections.length : index;
   return {
     ...previousResult,
     sections: {
-      sections: [...sections, newSection],
-      count: count + 1,
+      sections: update(sections, { $splice: [[spliceAt, delCount, newSection]] }),
+      count: count + (index === -1 ? 1 : 0),
     },
   };
 }
