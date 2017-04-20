@@ -9,6 +9,7 @@ const ListGaugesQuery = gql`
       ...GaugeLocation
       ...GaugeLastMeasurements
       ...GaugeHarvestInfo
+      enabled
     }
 
     count: countGauges(sourceId:$sourceId) @skip(if: $isLoadMore)

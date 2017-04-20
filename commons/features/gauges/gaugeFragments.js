@@ -27,7 +27,6 @@ const Location = gql`
 const HarvestInfo = gql`
   fragment GaugeHarvestInfo on Gauge {
     requestParams
-    enabled
     cron
   }
 `;
@@ -58,6 +57,7 @@ const All = gql`
     ...GaugeHarvestInfo
     ...GaugeLastMeasurements
     ...GaugeMeasurements
+    enabled
   }
   ${Core}
   ${Location}
