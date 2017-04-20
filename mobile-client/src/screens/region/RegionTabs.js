@@ -20,6 +20,7 @@ const RegionTabs = TabNavigator(
     initialRouteName: 'RegionMap',
     tabBarPosition: 'bottom',
     backBehavior: 'none',
+    swipeEnabled: false,
     navigationOptions: ({ navigation }) => ({
       headerTitle: (<RegionHeader regionId={navigation.state.params.regionId} />),
     }),
