@@ -1,36 +1,4 @@
-FROM phusion/passenger-nodejs:0.9.20
-
-# This build passenger and bakes in backend and frontend code
-
-# Set correct environment variables.
-ENV HOME /root
-
-ARG NODE_ENV
-
-# Use baseimage-docker's init process.
-CMD ["/sbin/my_init"]
-
-# I just hate vi
-RUN apt-get update \
- && apt-get install -y nano
-
-# Nginx and Passenger are disabled by default. Enable them
-RUN rm -f /etc/service/nginx/down \
- && rm /etc/nginx/sites-enabled/default \
- && mkdir /home/app/webapp
-
-# Download and install mustache template engine for config
-# https://github.com/tests-always-included/mo
-RUN curl -sSO https://raw.githubusercontent.com/tests-always-included/mo/master/mo \
- && chmod +x mo \
- && mv mo /usr/local/bin/
-
-# Generate nginx and passenger config
-# This substitutes vars from .env file and backend settings.json
-ADD .docker/config .docker/env backend/settings.${NODE_ENV}.json /tmp/
-RUN METEOR_SETTINGS=$(echo $(cat /tmp/settings.${NODE_ENV}.json)) \
-    env $(cat /tmp/${NODE_ENV}.env | xargs) \
-    mo /tmp/webapp.mustache >> /etc/nginx/sites-enabled/webapp.config
+FROM doomsower/whitewater_passenger_base:1.0
 
 # Deploy code (must be built beforehand)
 COPY build/bundle.tar.gz /home/app/webapp/
@@ -38,17 +6,3 @@ COPY build/bundle.tar.gz /home/app/webapp/
 RUN chown app /home/app/webapp/bundle.tar.gz \
  && tar xzf /home/app/webapp/bundle.tar.gz -C /home/app/webapp/ \
  && rm /home/app/webapp/bundle.tar.gz
-
-RUN cd /home/app/webapp/bundle/programs/server/ \
- && npm install --production
-
-# Create uploads dir (too lazy to dig into details of passenger to avoid chmod 777)
-RUN mkdir -p /uploads/images \
- && mkdir -p /uploads/temp \
- && ln -s /uploads/images /home/app/webapp/bundle/public/images \
- && ln -s /uploads/temp /home/app/webapp/bundle/public/temp \
- && chown -R app:app /uploads \
- && chmod -R 777 /uploads
-
-# Clean up APT when done.
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

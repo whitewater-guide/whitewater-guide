@@ -1,0 +1,9 @@
+.idea/
+.tmp/
+backend/
+!backend/settings*.json
+commons/
+docs/
+mobile-client/
+typings/
+web-client/
