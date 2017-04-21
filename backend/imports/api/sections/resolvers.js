@@ -60,6 +60,12 @@ function upsertSection(root, data) {
     hazardsTagIds,
     miscTagIds,
   };
+  if (section.flows){
+    section.flows.approximate = !!section.flows.approximate;// Force from null to false
+  }
+  if (section.levels){
+    section.levels.approximate = !!section.levels.approximate;// Force from null to false
+  }
   if (gauge) {
     section.gaugeId = gauge._id;
   }

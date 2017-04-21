@@ -35,7 +35,23 @@ const sectionFragment = gql`
     gauge {
       name
     }
-    ...SectionMeasurements
+    gauge {
+      _id
+    }
+    levels {
+      minimum
+      maximum
+      optimum
+      impossible
+      approximate
+    }
+    flows {
+      minimum
+      maximum
+      optimum
+      impossible
+      approximate
+    }
     ...SectionMedia
     ...SectionPOIs
     ...SectionTags
@@ -43,7 +59,6 @@ const sectionFragment = gql`
   ${SectionFragments.Core}
   ${SectionFragments.Shape}
   ${SectionFragments.Media}
-  ${SectionFragments.Measurements}
   ${SectionFragments.POIs}
   ${SectionFragments.Tags}
   ${regionFragment}
