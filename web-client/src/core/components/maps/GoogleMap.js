@@ -114,4 +114,4 @@ class GoogleMap extends React.Component {
   }
 }
 
-export default withGoogleMapsApi()(GoogleMap);
+export default withGoogleMapsApi({ libraries: ['drawing'] })(GoogleMap);
