@@ -16,13 +16,28 @@ storiesOf('PolyDrawingMap', module)
       <PolyDrawingMap drawingMode="marker" onChange={action('change')} />
     </MapContainer>
   ))
+  .add('existing marker', () => (
+    <MapContainer>
+      <PolyDrawingMap drawingMode="marker" initialPoints={[[0, 20]]} onChange={action('change')} />
+    </MapContainer>
+  ))
   .add('empty polyline', () => (
     <MapContainer>
       <PolyDrawingMap drawingMode="polyline" onChange={action('change')} />
     </MapContainer>
   ))
+  .add('existing polyline', () => (
+    <MapContainer>
+      <PolyDrawingMap drawingMode="polyline" initialPoints={[[0, 20], [10, 20], [20, 0]]} onChange={action('change')} />
+    </MapContainer>
+  ))
   .add('empty polygon', () => (
     <MapContainer>
       <PolyDrawingMap drawingMode="polygon" onChange={action('change')} />
+    </MapContainer>
+  ))
+  .add('existing polygon', () => (
+    <MapContainer>
+      <PolyDrawingMap drawingMode="polygon" initialPoints={[[0, 20], [10, 20], [20, 0]]} onChange={action('change')} />
     </MapContainer>
   ));

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import GoogleMap from './GoogleMap';
-import { gmapsToArray } from '../../../commons/utils/GeoUtils';
+import { arrayToGmaps, gmapsToArray } from '../../../commons/utils/GeoUtils';
 
 const DrawingOptions = {
   markerOptions: {
@@ -34,13 +34,13 @@ const DrawingOptions = {
 
 export default class PolyDrawingMap extends React.Component {
   static propTypes = {
-    points: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
+    initialPoints: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
     drawingMode: PropTypes.oneOf(['polyline', 'polygon', 'marker']),
     onChange: PropTypes.func,
   };
 
   static defaultProps = {
-    points: [],
+    initialPoints: [],
     drawingMode: 'polyline',
     onChange: () => {},
   };
@@ -60,14 +60,27 @@ export default class PolyDrawingMap extends React.Component {
   }
 
   init = ({ map, maps }) => {
-    const { drawingMode } = this.props;
+    const { drawingMode, initialPoints } = this.props;
     this.map = map;
     this.maps = maps;
     this.drawingManager = new maps.drawing.DrawingManager({ map, drawingMode, ...DrawingOptions });
     this.listeners.push(maps.event.addListener(this.drawingManager, 'overlaycomplete', this.handleOverlayComplete));
+    if (initialPoints && initialPoints.length > 0) {
+      let overlay = null;
+      if (drawingMode === 'marker') {
+        overlay = new maps.Marker({ map, position: arrayToGmaps(initialPoints[0]), ...DrawingOptions.markerOptions });
+      } else if (drawingMode === 'polyline') {
+        overlay = new maps.Polyline({ ...DrawingOptions.polylineOptions, map, path: initialPoints.map(arrayToGmaps) });
+      } else if (drawingMode === 'polygon') {
+        overlay = new maps.Polygon({ ...DrawingOptions.polygonOptions, map, paths: [initialPoints.map(arrayToGmaps)] });
+      }
+      if (overlay) {
+        maps.event.trigger(this.drawingManager, 'overlaycomplete', { type: drawingMode, overlay, initial: true });
+      }
+    }
   };
 
-  handleOverlayComplete = ({ type, overlay }) => {
+  handleOverlayComplete = ({ type, overlay, initial }) => {
     this.drawingManager.setDrawingMode(null);// One shape max
     this.overlay = overlay;
     if (type === 'marker') {
@@ -79,7 +92,9 @@ export default class PolyDrawingMap extends React.Component {
       this.listeners.push(this.maps.event.addListener(path, 'insert_at', this.handleChange));
       this.listeners.push(this.maps.event.addListener(path, 'remove_at', this.handleChange));
     }
-    this.handleChange();
+    if (!initial) {
+      this.handleChange();
+    }
   };
 
   handleVertexRemoval = ({ vertex }) => {
