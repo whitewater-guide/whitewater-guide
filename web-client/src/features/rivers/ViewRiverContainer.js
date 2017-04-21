@@ -1,6 +1,6 @@
-import {graphql, compose} from 'react-apollo';
-import gql from 'graphql-tag';
-import {withFeatureIds} from '../../commons/core';
+import { gql, graphql, compose } from 'react-apollo';
+import { withFeatureIds } from '../../commons/core';
+import { withAdmin } from '../users';
 
 const ViewRiverQuery = gql`
   query viewRiver($riverId:ID!, $language: String) {
@@ -27,10 +27,11 @@ const ViewRiverQuery = gql`
 `;
 
 export default compose(
+  withAdmin(),
   withFeatureIds('river'),
   graphql(
     ViewRiverQuery, {
-      props: ({data: {river, loading}}) => ({river, loading}),
-    }
+      props: ({ data: { river, loading } }) => ({ river, loading }),
+    },
   ),
 );

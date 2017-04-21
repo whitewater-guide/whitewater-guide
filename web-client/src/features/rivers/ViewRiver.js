@@ -1,34 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Paper from 'material-ui/Paper';
-import {ListSections} from '../sections';
+import { AutoSizer} from 'react-virtualized';
+import { SectionsTable } from '../sections';
 import container from './ViewRiverContainer';
-
-class ViewRiver extends Component {
-  static propTypes = {
-    river: PropTypes.object,
-    loading: PropTypes.bool,
-  };
-
-  render() {
-    const {river, loading} = this.props;
-    if (!river && loading)
-      return null;
-    return (
-      <div style={styles.container}>
-        <div style={styles.body}>
-          <Paper style={styles.headerPaper}>
-            <h2>{river.name}</h2>
-            <p>{river.description}</p>
-            <h3>Sections</h3>
-            <ListSections sections={river.sections} showFilters={false}/>
-          </Paper>
-        </div>
-      </div>
-    );
-  }
-
-}
 
 const styles = {
   container: {
@@ -46,5 +21,49 @@ const styles = {
     padding: 8,
   },
 };
+
+class ViewRiver extends Component {
+  static propTypes = {
+    river: PropTypes.object,
+    loading: PropTypes.bool,
+    admin: PropTypes.bool,
+    history: PropTypes.object,
+  };
+
+
+  onEditSection = sectionId => this.props.history.push(`/sections/${sectionId}/settings`);
+  onSectionClick = sectionId => this.props.history.push(`/sections/${sectionId}`);
+
+  render() {
+    const { river, loading, admin } = this.props;
+    if (!river && loading)
+      return null;
+    return (
+      <div style={styles.container}>
+        <div style={styles.body}>
+          <Paper style={styles.headerPaper}>
+            <h2>{river.name}</h2>
+            <p>{river.description}</p>
+            <h3>Sections</h3>
+            <AutoSizer>
+              {({ width, height }) => (
+                <SectionsTable
+                  admin={admin}
+                  sections={river.sections}
+                  width={width}
+                  height={height}
+                  onEditSection={this.onEditSection}
+                  onSectionClick={this.onSectionClick}
+                />
+              )}
+            </AutoSizer>
+
+          </Paper>
+        </div>
+      </div>
+    );
+  }
+
+}
 
 export default container(ViewRiver);
