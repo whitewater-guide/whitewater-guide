@@ -1,14 +1,38 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import Paper from 'material-ui/Paper';
-import FlatButton from 'material-ui/FlatButton';
-import {LanguagePicker} from '../components';
+import RaisedButton from 'material-ui/RaisedButton';
 import Snackbar from 'material-ui/Snackbar';
 import _ from 'lodash';
 
+const styles = {
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    flex: 1,
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
+  },
+  body: {
+    display: 'flex',
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
+  },
+  buttonsRow: {
+    display: 'flex',
+    alignSelf: 'stretch',
+    justifyContent: 'center',
+    paddingTop: 4,
+    paddingBottom: 4,
+  },
+};
+
 class Form extends Component {
   static propTypes = {
-    name: PropTypes.string,
     title: PropTypes.string,
     method: PropTypes.func,
     cancelLabel: PropTypes.string,
@@ -17,19 +41,19 @@ class Form extends Component {
     onCancel: PropTypes.func,
     initialData: PropTypes.object,
     style: PropTypes.object,
-    multilang: PropTypes.bool,
-    language: PropTypes.string,
-    onLanguageChange: PropTypes.func,
     transformBeforeSubmit: PropTypes.func,
+    children: PropTypes.any,
+    narrow: PropTypes.bool,
+    fullWidth: PropTypes.bool,
   };
 
   static defaultProps = {
     cancelLabel: 'Cancel',
     submitLabel: 'Submit',
     initialData: {},
-    multilang: true,
-    language: 'en',
     transformBeforeSubmit: _.identity,
+    narrow: false,
+    fullWidth: false,
   };
 
   static childContextTypes = {
@@ -39,7 +63,7 @@ class Form extends Component {
   };
 
   constructor(props) {
-    //Use clone deep at first, apollo returns frozen objects
+    // Use clone deep at first, apollo returns frozen objects
     super(props);
     this.state = {
       data: _.cloneDeep(props.initialData),
@@ -54,32 +78,8 @@ class Form extends Component {
   getChildContext() {
     return {
       formData: this.state.data,
-      //formErrors: this.state.errors,
       formFieldChangeHandler: this.onFieldChange,
     };
-  }
-
-  render() {
-    return (
-      <div style={styles.container}>
-        <Paper style={{...styles.paper, ...this.props.style}}>
-          <div style={styles.titleWrapper}>
-            <h2>{this.props.title}</h2>
-            {this.props.multilang && <LanguagePicker value={this.props.language} onChange={this.props.onLanguageChange}/>}
-          </div>
-          {this.props.children}
-          <div style={styles.buttonsHolder}>
-            <FlatButton label={this.props.cancelLabel} primary={true} onTouchTap={this.onCancel} disableTouchRipple={true}/>
-            <FlatButton label={this.props.submitLabel} primary={true} onTouchTap={this.onSubmit} disableTouchRipple={true}/>
-          </div>
-        </Paper>
-        <Snackbar
-          open={this.state.error.open}
-          message={this.state.error.message}
-          autoHideDuration={10000}
-        />
-      </div>
-    );
   }
 
   /**
@@ -89,14 +89,15 @@ class Form extends Component {
    */
   onFieldChange = (field, value) => {
     let fieldsDict = field;
-    if (_.isString(field))
-      fieldsDict = {[field]: value};
+    if (_.isString(field)) {
+      fieldsDict = { [field]: value };
+    }
 
-    //This is expensive, but code is simple
-    let data = _.cloneDeep(this.state.data);
+    // This is expensive, but code is simple
+    const data = _.cloneDeep(this.state.data);
 
     _.forEach(fieldsDict, (fieldValue, fieldName) => {
-      //Use lodash to allow fields from embedded documents
+      // Use lodash to allow fields from embedded documents
       _.set(data, fieldName, fieldValue);
     });
     this.setState({ data });
@@ -104,67 +105,58 @@ class Form extends Component {
 
   onCancel = () => this.props.onCancel();
 
-  //Do not use arrow function here
-  //As a workaround for babel / react-hot-loader bug
-  //https://github.com/babel/babel/issues/4550
+  // Do not use arrow function here
+  // As a workaround for babel / react-hot-loader bug
+  // https://github.com/babel/babel/issues/4550
   async onSubmit() {
-    let {method, multilang, language, onSubmit} = this.props;
-
-    let data = {data: this.props.transformBeforeSubmit(this.state.data)};
-    if (multilang)
-      data.language = language;
-
+    const { method, onSubmit } = this.props;
+    const data = { data: this.props.transformBeforeSubmit(this.state.data) };
     console.log('Submit form', data);
-
     try {
       const result = await method(data);
-      this.setState({error: {open: false, message: ''}});
+      this.setState({ error: { open: false, message: '' } });
       onSubmit(result);
-    }
-    catch (error){
+    } catch (error) {
       let message = error.message;
       if (error.networkError) {
         const err = await error.networkError.response.json();
         message = JSON.stringify(err.errors);
       }
       console.error(message);
-      this.setState({error: {open: true, message}});
+      this.setState({ error: { open: true, message } });
     }
   }
-}
 
-const styles = {
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    flex: 1,
-    alignSelf: 'stretch',
-    alignItems: 'center',
-    justifyContent: 'center',
-    //minHeight: 'min-content',
-    overflow: 'hidden',
-  },
-  paper: {
-    display: 'flex',
-    flexDirection: 'column',
-    paddingTop: 16,
-    paddingBottom: 16,
-    paddingLeft: 32,
-    paddingRight: 32,
-    marginTop: 16,
-    marginBottom: 16,
-    overflow: 'hidden',
-  },
-  buttonsHolder: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    marginTop: 32,
-  },
-  titleWrapper: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-};
+  render() {
+    const { narrow, fullWidth } = this.props;
+    let widthStyle;
+    if (narrow) {
+      widthStyle = { width: 400 };
+    } else if (fullWidth) {
+      widthStyle = { alignSelf: 'stretch' };
+    } else {
+      widthStyle = { width: 800 };
+    }
+    const bodyStyle = { ...styles.body, ...widthStyle, ...this.props.style };
+    return (
+      <div style={styles.container}>
+        <div style={bodyStyle}>
+          {this.props.children}
+        </div>
+        <div style={styles.buttonsRow}>
+          <RaisedButton label={this.props.cancelLabel} onTouchTap={this.onCancel} />
+          <div style={{ width: 8 }} />
+          <RaisedButton primary label={this.props.submitLabel} onTouchTap={this.onSubmit} />
+        </div>
+        <Snackbar
+          open={this.state.error.open}
+          message={this.state.error.message}
+          autoHideDuration={10000}
+        />
+      </div>
+    );
+  }
+
+}
 
 export default Form;

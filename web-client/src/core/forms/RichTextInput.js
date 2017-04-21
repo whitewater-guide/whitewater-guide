@@ -36,7 +36,7 @@ class RichTextInput extends Component {
   render() {
     const value = this.props.field.value === undefined ? '' : this.props.field.value;
     return (
-      <div spellCheck={true}>
+      <div spellCheck={true} style={styles.spellcheck}>
         <Quill
           ref="quill"
           theme="snow"
@@ -59,9 +59,15 @@ class RichTextInput extends Component {
 }
 
 const styles = {
+  spellcheck: {
+    flex: 1,
+    alignSelf: 'stretch',
+    display: 'flex',
+  },
   quill: {
-    height: 600,
-    marginBottom: 24,
+    flex: 1,
+    alignSelf: 'stretch',
+    marginBottom: 48,
   },
 };
 

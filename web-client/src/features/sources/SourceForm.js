@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import {Form, Field, TextInput, Select, ChipInput, RichTextInput} from '../../core/forms';
-import {Tabs, Tab} from 'material-ui/Tabs';
-import container from './SourceFormContainer';
+import { Tab } from 'material-ui/Tabs';
 import _ from 'lodash';
+import { Form, Field, TextInput, Select, ChipInput, RichTextInput } from '../../core/forms';
+import { Tabs } from '../../core/components';
+import container from './SourceFormContainer';
 
 class SourceForm extends Component {
 
@@ -18,37 +19,36 @@ class SourceForm extends Component {
     ...Form.defaultProps,
   };
 
+  transformBeforeSubmit = data => ({
+    ...data,
+    harvestMode: _.find(this.props.scripts, { script: data.script }).harvestMode,
+  });
+
   render() {
-    let {regions, loading, scripts, ...props} = this.props;
+    const { regions, loading, scripts, ...props } = this.props;
     if (loading)
       return null;
 
     return (
-      <Form {...props} style={{minWidth: 400}} transformBeforeSubmit={this.transformBeforeSubmit} name="sources">
+      <Form {...props} fullWidth transformBeforeSubmit={this.transformBeforeSubmit} name="sources">
         <Tabs>
           <Tab label="Main" value="#main">
-            <Field name="name" title="Name" component={TextInput}/>
-            <Field name="url" title="URL" component={TextInput}/>
-            <Field name="regions" title="Regions" component={ChipInput} options={regions}/>
+            <Field name="name" title="Name" component={TextInput} />
+            <Field name="url" title="URL" component={TextInput} />
+            <Field name="regions" title="Regions" component={ChipInput} options={regions} />
             <Field name="script" title="Script" component={Select} options={scripts}
                    extractKey={_.property('script')} extractValue={_.property('script')}
-                   extractLabel={_.property('script')}/>
-            <Field name="cron" title="Cron expression" component={TextInput}/>
+                   extractLabel={_.property('script')} />
+            <Field name="cron" title="Cron expression" component={TextInput} />
           </Tab>
           <Tab label="Terms of use" value="#terms">
-            <Field name="termsOfUse" title="Terms of use" component={RichTextInput}/>
+            <Field name="termsOfUse" title="Terms of use" component={RichTextInput} />
           </Tab>
         </Tabs>
       </Form>
     );
   }
 
-  transformBeforeSubmit = (data) => {
-    return {
-      ...data,
-      harvestMode: _.find(this.props.scripts, {script: data.script}).harvestMode,
-    };
-  };
 }
 
 export default container(SourceForm);

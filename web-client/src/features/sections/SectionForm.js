@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Tabs, Tab } from 'material-ui/Tabs';
+import { Tab } from 'material-ui/Tabs';
 import {
   Form,
   Field,
@@ -16,7 +16,7 @@ import {
 } from '../../core/forms';
 import { MediaCollection } from '../media';
 import { POICollection } from '../points';
-import { TabTemplate } from '../../core/components';
+import { Tabs } from '../../core/components';
 import { Durations } from './Durations';
 import container from './SectionFormContainer';
 
@@ -54,9 +54,8 @@ class SectionForm extends Component {
     }
 
     return (
-      <Form {...props} name="sections" transformBeforeSubmit={this.transformBeforeSubmit}>
-        <Tabs value={this.props.currentTab} onChange={this.onTabChange} tabTemplate={TabTemplate}
-              style={styles.tabsStyle} contentContainerStyle={styles.contentContainerStyle}>
+      <Form {...props} fullWidth name="sections" transformBeforeSubmit={this.transformBeforeSubmit}>
+        <Tabs value={this.props.currentTab} onChange={this.onTabChange}>
           <Tab label="Main" value="#main">
             <Field name="river" title="River" component={AutoComplete} openOnFocus={true}
                    dataSource={rivers} disabled={!!props.initialData._id || !!riverId} />

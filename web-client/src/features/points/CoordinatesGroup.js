@@ -215,7 +215,6 @@ export class CoordinatesGroup extends Component {
 const styles = {
   container: {
     display: 'flex',
-    flex: 1,
     flexDirection: 'column',
     minWidth: 360,
   },

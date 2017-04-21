@@ -63,9 +63,7 @@ export class POICollection extends Component {
 
 const styles = {
   container: {
-    display: 'flex',
-    flexDirection: 'column',
-    maxHeight: 600,
+    flex: 1,
     overflowY: 'auto',
   },
   buttonHolder: {

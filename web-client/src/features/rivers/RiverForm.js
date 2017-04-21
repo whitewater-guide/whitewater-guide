@@ -21,7 +21,7 @@ class RiverForm extends Component {
       return null;
 
     return (
-      <Form {...props} name="rivers">
+      <Form {...props} narrow name="rivers">
         <Field name="regionId" title="Region" component={Select} options={regions}/>
         <Field name="name" title="Name" component={TextInput}/>
         <Field name="description" title="description" component={TextInput}/>

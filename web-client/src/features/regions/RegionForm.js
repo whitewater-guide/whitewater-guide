@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import {Form, Field, TextInput, RichTextInput, SeasonPickerField} from '../../core/forms';
-import {Tabs, Tab} from 'material-ui/Tabs';
-import {POICollection} from "../points";
+import { Tab } from 'material-ui/Tabs';
+import { Form, Field, TextInput, RichTextInput, SeasonPickerField } from '../../core/forms';
+import { Tabs } from '../../core/components';
+import { POICollection } from '../points';
 import container from './RegionFormContainer';
 
 class RegionForm extends Component {
@@ -17,23 +18,24 @@ class RegionForm extends Component {
   };
 
   render() {
-    let {regionLoading, ...props} = this.props;
-    if (regionLoading)
+    let { regionLoading, ...props } = this.props;
+    if (regionLoading) {
       return null;
+    }
 
     return (
-      <Form {...props} style={styles.form} name="regions">
-        <Tabs>
+      <Form {...props} fullWidth name="regions">
+        <Tabs >
           <Tab label="Main" value="#main">
-            <Field name="name" title="Name" component={TextInput}/>
-            <Field name="season" title="Season" component={TextInput}/>
-            <Field name="seasonNumeric" component={SeasonPickerField}/>
+            <Field name="name" title="Name" component={TextInput} />
+            <Field name="season" title="Season" component={TextInput} />
+            <Field name="seasonNumeric" component={SeasonPickerField} />
           </Tab>
           <Tab label="Description" value="#description">
-            <Field name="description" title="description" component={RichTextInput}/>
+            <Field name="description" title="description" component={RichTextInput} />
           </Tab>
           <Tab label="POIS" value="#pois">
-            <Field name="pois" title="Points of interest" component={POICollection}/>
+            <Field name="pois" title="Points of interest" component={POICollection} />
           </Tab>
         </Tabs>
       </Form>
@@ -41,13 +43,5 @@ class RegionForm extends Component {
   }
 
 }
-
-const styles = {
-  form: {
-    width: '100%',
-    marginLeft: 24,
-    marginRight: 24,
-  },
-};
 
 export default container(RegionForm);

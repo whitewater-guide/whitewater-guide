@@ -97,12 +97,14 @@ export class MediaCollection extends Component {
   };
 
   closeSnackbar = () => {
-      this.setState({snackbarOpen: false, snackbarMessage: ''});
+    this.setState({snackbarOpen: false, snackbarMessage: ''});
   };
 }
 
 const styles = {
   container: {
+    flex: 1,
+    overflowY: 'auto',
     backgroundColor: '#FAFAFA',
   },
   footer: {

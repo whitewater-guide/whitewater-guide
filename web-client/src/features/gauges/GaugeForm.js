@@ -22,7 +22,7 @@ class GaugeForm extends Component {
     }
 
     return (
-      <Form {...props} name="gauges">
+      <Form {...props} narrow name="gauges">
         <Field name="name" title="Name" component={TextInput} />
         <Field name="code" title="Code" component={TextInput} />
         <Field name="url" title="URL" component={TextInput} />
