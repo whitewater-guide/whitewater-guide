@@ -122,8 +122,10 @@ class GoogleMap extends React.Component {
   };
 
   mountRoot = (root) => {
-    const rootNode = findDOMNode(root);
-    this.resizeObserver.observe(rootNode);
+    if (root) {
+      const rootNode = findDOMNode(root);
+      this.resizeObserver.observe(rootNode);
+    }
   };
 
   render() {
