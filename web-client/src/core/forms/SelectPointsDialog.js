@@ -5,9 +5,15 @@ import FlatButton from 'material-ui/FlatButton';
 import { DrawingMap } from '../components';
 
 const styles = {
+  contentStyle: {
+    width: '90vw',
+    height: '100%',
+    maxWidth: 'none',
+    transform: undefined,
+  },
   mapHolder: {
     width: '100%',
-    height: 600,
+    height: 'calc(100vh - 240px)',
     maxWidth: 'none',
   },
 };
@@ -63,7 +69,7 @@ export class SelectPointsDialog extends React.Component {
         autoScrollBodyContent={false}
         modal={false}
         onRequestClose={this.handleClose}
-        contentStyle={styles.mapHolder}
+        contentStyle={styles.contentStyle}
         repositionOnUpdate={false}
       >
         <div style={styles.mapHolder}>
