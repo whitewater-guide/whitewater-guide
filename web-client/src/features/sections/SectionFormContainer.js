@@ -91,7 +91,6 @@ export default compose(
     multilang: !!sectionId,
     title: sectionId ? "Section settings" : "New section",
     submitLabel: sectionId ? "Update" : "Create",
-    currentTab: location.hash || '#main',
   })),
   withHandlers({
     onLanguageChange: props => language => props.setLanguage(language),

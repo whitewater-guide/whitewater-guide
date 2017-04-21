@@ -33,18 +33,10 @@ class SectionForm extends Component {
     kayakingTags: PropTypes.array,
     hazardTags: PropTypes.array,
     miscTags: PropTypes.array,
-    replace: PropTypes.func,
-    location: PropTypes.object,
-    currentTab: PropTypes.string,
   };
 
   static defaultProps = {
     ...Form.defaultProps,
-  };
-
-  onTabChange = (value) => {
-    const { location, history } = this.props;
-    history.replace({ ...location, hash: value });
   };
 
   render() {
@@ -52,10 +44,9 @@ class SectionForm extends Component {
     if (loading || !region) {
       return null;
     }
-
     return (
       <Form {...props} fullWidth name="sections" transformBeforeSubmit={this.transformBeforeSubmit}>
-        <Tabs value={this.props.currentTab} onChange={this.onTabChange}>
+        <Tabs>
           <Tab label="Main" value="#main">
             <Field name="river" title="River" component={AutoComplete} openOnFocus={true}
                    dataSource={rivers} disabled={!!props.initialData._id || !!riverId} />

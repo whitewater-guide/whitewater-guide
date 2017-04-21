@@ -1,5 +1,6 @@
 import React from 'react';
 import { Tabs as MUITabs } from 'material-ui/Tabs';
+import { withRouter } from 'react-router';
 import { TabTemplate } from './TabTemplate';
 
 const styles = {
@@ -18,10 +19,28 @@ const styles = {
   },
 };
 
-const Tabs = ({ children, ...props }) => (
-  <MUITabs style={styles.tabs} contentContainerStyle={styles.tabsContent} tabTemplate={TabTemplate}>
-    { children }
-  </MUITabs>
-);
+class Tabs extends React.Component {
 
-export default Tabs;
+  onTabChange = (value) => {
+    const { location, history } = this.props;
+    history.replace({ ...location, hash: value });
+  };
+
+  render() {
+    const { children, match, history, staticContext, location, ...props } = this.props;
+    return (
+      <MUITabs
+        style={styles.tabs}
+        contentContainerStyle={styles.tabsContent}
+        tabTemplate={TabTemplate}
+        {...props}
+        value={location.hash || '#main'}
+        onChange={this.onTabChange}
+      >
+        { children }
+      </MUITabs>
+    );
+  }
+}
+
+export default withRouter(Tabs);

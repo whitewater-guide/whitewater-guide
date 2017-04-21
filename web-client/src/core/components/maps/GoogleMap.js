@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { cloneElement, Children } from 'react';
 import { findDOMNode } from 'react-dom';
+import ResizeObserver from 'resize-observer-polyfill';
 import withGoogleMapsApi from './withGoogleMapsApi';
 
 const styles = {
@@ -45,6 +46,13 @@ class GoogleMap extends React.Component {
     this.map = null;
     this.maps = null;
     this.mapRef = null;
+    this.width = 0;
+    this.height = 0;
+    this.resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        this.onResize(entry);
+      }
+    });
   }
 
   componentDidMount() {
@@ -61,6 +69,7 @@ class GoogleMap extends React.Component {
     if (this.map && this.maps) {
       this.maps.event.clearInstanceListeners(this.map);
     }
+    this.resizeObserver.disconnect();
   }
 
   onZoom = () => {
@@ -77,8 +86,18 @@ class GoogleMap extends React.Component {
     }
   };
 
+  onResize = (entry) => {
+    const { width, height } = entry.contentRect;
+    this.width = width;
+    this.height = height;
+    if (this.maps && width > 0 && height > 0) {
+      this.maps.event.trigger(this.map, 'resize');
+      this.callOnLoaded();
+    }
+  };
+
   loadMap() {
-    const { google, loaded, onLoaded } = this.props;
+    const { google, loaded } = this.props;
     if (loaded && google) {
       this.maps = google.maps;
       this.map = new this.maps.Map(
@@ -88,13 +107,24 @@ class GoogleMap extends React.Component {
 
       this.map.addListener('zoom_changed', this.onZoom);
       this.map.addListener('click', this.onClick);
-
-      if (onLoaded) {
-        onLoaded({ map: this.map, maps: this.maps });
-      }
-      this.setState({ mapCreated: true });
+      this.callOnLoaded();
     }
   }
+
+  callOnLoaded = () => {
+    // Sometimes map is created inside 0-height div (for example, inactive tabe)
+    // In this case do not call onLoaded until it is resized
+    if (!this.state.mapCreated && this.width > 0 && this.height > 0 && this.maps) {
+      console.log('On map loaded');
+      this.props.onLoaded({ map: this.map, maps: this.maps });
+      this.setState({ mapCreated: true });
+    }
+  };
+
+  mountRoot = (root) => {
+    const rootNode = findDOMNode(root);
+    this.resizeObserver.observe(rootNode);
+  };
 
   render() {
     const { loaded, children } = this.props;
@@ -102,7 +132,7 @@ class GoogleMap extends React.Component {
       return null;
     }
     return (
-      <div style={styles.container}>
+      <div style={styles.container} ref={this.mountRoot}>
         <div style={styles.map} ref={(r) => { this.mapRef = r; }} />
         {this.state.mapCreated && Children.map(children, (child => cloneElement(child, {
           map: this.map,

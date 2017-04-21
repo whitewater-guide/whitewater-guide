@@ -12,7 +12,7 @@ const DrawingOptions = {
     strokeOpacity: 1,
     strokeWeight: 2,
     editable: true,
-    draggable: true,
+    draggable: false,
     icons: [{
       icon: {
         path: 1, // maps.SymbolPath.FORWARD_CLOSED_ARROW
@@ -27,7 +27,7 @@ const DrawingOptions = {
     strokeOpacity: 1,
     strokeWeight: 2,
     editable: true,
-    draggable: true,
+    draggable: false,
   },
   drawingControl: false,
 };
