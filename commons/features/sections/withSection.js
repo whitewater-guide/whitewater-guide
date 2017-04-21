@@ -14,6 +14,7 @@ const sectionDetails = gql`
       ...SectionTags
       ...SectionDescription @include(if: $withDescription)
       ...SectionShape @include(if: $withGeo)
+      ...SectionEnds @include(if: $withGeo)
       ...SectionPOIs @include(if: $withGeo)
     }
 
@@ -24,6 +25,7 @@ const sectionDetails = gql`
   ${SectionFragments.Tags}
   ${SectionFragments.Description}
   ${SectionFragments.Shape}
+  ${SectionFragments.Ends}
   ${SectionFragments.POIs}
 `;
 
