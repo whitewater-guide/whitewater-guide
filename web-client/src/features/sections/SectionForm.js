@@ -14,9 +14,8 @@ import {
   AutoComplete,
   DrawingMapField,
 } from '../../core/forms';
-import PutInMapDialog from './PutInMapDialog';
 import { MediaCollection } from '../media';
-import { POICollection, CoordinatesGroup } from '../points';
+import { POICollection } from '../points';
 import { TabTemplate } from '../../core/components';
 import { Durations } from './Durations';
 import container from './SectionFormContainer';
@@ -25,9 +24,7 @@ class SectionForm extends Component {
 
   static propTypes = {
     ...Form.propTypes,
-    sectionId: PropTypes.string,//Edit existing section, undefined for new section
-    riverId: PropTypes.string,//River id for new section, undefined when editing existing section
-    regionId: PropTypes.string,
+    riverId: PropTypes.string,// River id for new section, undefined when editing existing section
     rivers: PropTypes.array,
     gauges: PropTypes.array,
     region: PropTypes.object,
@@ -45,14 +42,16 @@ class SectionForm extends Component {
     ...Form.defaultProps,
   };
 
-  state = {
-    mapOpen: false,
+  onTabChange = (value) => {
+    const { location, history } = this.props;
+    history.replace({ ...location, hash: value });
   };
 
   render() {
     const { loading, rivers, region, gauges, riverId, ...props } = this.props;
-    if (loading || !region)
+    if (loading || !region) {
       return null;
+    }
 
     return (
       <Form {...props} name="sections" transformBeforeSubmit={this.transformBeforeSubmit}>
@@ -82,10 +81,6 @@ class SectionForm extends Component {
               <Field name="flows.impossible" title="Absolute maximum" component={TextInput} type="number" />
               <Field name="flows.approximate" title="Is approximate" component={Checkbox} />
             </div>
-            <Field name="putIn" title="Put-in location (this must be point on the river!)" component={CoordinatesGroup}
-                   mapButtonHandler={this.showMap} />
-            <Field name="takeOut" title="Take-out location (this must be point on the river!)"
-                   component={CoordinatesGroup} mapButtonHandler={this.showMap} />
           </Tab>
           <Tab label="Shape" value="#shape">
             <Field name="shape" drawingMode="polyline" bounds={region.bounds} component={DrawingMapField} />
@@ -115,30 +110,10 @@ class SectionForm extends Component {
             <Field name="description" title="Description" component={RichTextInput} />
           </Tab>
         </Tabs>
-        {
-          this.state.mapOpen &&
-          <PutInMapDialog numPoints={2} onClose={this.onCloseMap} onSubmit={this.onSubmitMap} bounds={region.bounds} />
-        }
       </Form>
     );
   }
 
-  onTabChange = (value) => {
-    const { location, history } = this.props;
-    history.replace({ ...location, hash: value });
-  };
-
-  showMap = () => {
-    this.setState({ mapOpen: true });
-  };
-
-  onCloseMap = () => {
-    this.setState({ mapOpen: false });
-  };
-
-  onSubmitMap = () => {
-    this.setState({ mapOpen: false });
-  };
 }
 
 const styles = {

@@ -51,13 +51,6 @@ function upsertSection(root, data) {
   const hazardsTagIds = _.map(hazardsTags, '_id');
   const miscTagIds = _.map(miscTags, '_id');
 
-  let {_id: putInId, ...putInData} = section.putIn;
-  let putInResult = Points.upsertTranslations(putInId, {[language]: {...putInData, kind: 'put-in'}});
-  putInId = putInId || putInResult.insertedId;
-  let {_id: takeOutId, ...takeOutData} = section.takeOut;
-  let takeOutResult = Points.upsertTranslations(takeOutId, {[language]: {...takeOutData, kind: 'take-out'}});
-  takeOutId = takeOutId || takeOutResult.insertedId;
-
   section = {
     ...section,
     mediaIds,
@@ -66,8 +59,6 @@ function upsertSection(root, data) {
     kayakingTagIds,
     hazardsTagIds,
     miscTagIds,
-    putIn: {_id: putInId, ...putInData, kind: 'put-in'},
-    takeOut: {_id: takeOutId, ...takeOutData, kind: 'take-out'},
   };
   if (gauge) {
     section.gaugeId = gauge._id;
@@ -134,6 +125,8 @@ export const sectionsResolvers = {
       const simpleResult = pickFromSelf(section, context, info, {_id: 'riverId', name: 'riverName'});
       return simpleResult || section.riverId && Rivers.findOne(section.riverId);
     },
+    putIn: ({_id, shape}) => ({_id: `${_id}_putIn`, kind: 'put-in', coordinates: shape[0]}),
+    takeOut: ({_id, shape}) => ({_id: `${_id}_takeOut`, kind: 'take-out', coordinates: shape[shape.length - 1]}),
     media: section => Media.find({_id: {$in: section.mediaIds}}),
     pois: section => Points.find({_id: {$in: section.poiIds}}),
     supplyTags:   section => section.supplyTagIds   ? SupplyTags.find({_id: {$in: section.supplyTagIds}})     : [],

@@ -2,7 +2,6 @@ import SimpleSchema from 'simpl-schema';
 import {I18nCollection} from '../../i18n';
 import {metaSchema} from '../../utils/SimpleSchemaUtils';
 import {registerHooks} from './hooks';
-import {PointInputSchema} from '../points';
 import _ from 'lodash';
 import {GaugeBindingSchema} from './gaugebinding';
 import {Durations} from './durations';
@@ -25,8 +24,6 @@ const baseSchema = {
   riverId: {type: String, regEx: SimpleSchema.RegEx.Id},
   regionId: {type: String, regEx: SimpleSchema.RegEx.Id},
   gaugeId: {type: String, regEx: SimpleSchema.RegEx.Id},
-  putIn: PointInputSchema,
-  takeOut: PointInputSchema,
   shape: Array,
   "shape.$": {type: Array},
   "shape.$.$": {
@@ -68,8 +65,6 @@ const dbSchema = _.merge(
     "kayakingTagIds.$": {type: String, regEx: SimpleSchema.RegEx.Id},
     "hazardsTagIds.$": {type: String, regEx: SimpleSchema.RegEx.Id},
     "miscTagIds.$": {type: String, regEx: SimpleSchema.RegEx.Id},
-    putIn: {required: String},
-    takeOut: {required: String},
     difficulty: {required: true, index: true},
   },
   metaSchema(),
