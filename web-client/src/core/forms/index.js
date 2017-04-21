@@ -4,6 +4,7 @@ export { default as TextInput } from './TextInput';
 export { default as Select } from './Select';
 export { default as ChipInput } from './ChipInput';
 export { default as RichTextInput } from './RichTextInput';
+export { default as DrawingMapField } from './DrawingMapField';
 export * from './SeasonPickerField';
 export { default as Checkbox } from './Checkbox';
 export * from './AutoComplete';
