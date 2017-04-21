@@ -8,6 +8,7 @@ import v5 from './v5';
 import v6 from './v6';
 import v7 from './v7';
 import v8 from './v8';
+import v9 from './v9';
 
 Migrations.add(v1);
 
@@ -45,6 +46,10 @@ Migrations.add(v7);
  * Fix missing kind for put-ins and take-outs
  */
 Migrations.add(v8);
+/**
+ * Add shapes to sections
+ */
+Migrations.add(v9);
 
 Meteor.startup(() => {
   Migrations.migrateTo('latest');
