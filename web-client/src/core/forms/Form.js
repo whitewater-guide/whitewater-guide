@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import Snackbar from 'material-ui/Snackbar';
+import CopyToClipboard from 'react-copy-to-clipboard';
 import _ from 'lodash';
 
 const styles = {
@@ -127,6 +128,23 @@ class Form extends Component {
     }
   }
 
+  renderSnackbar = () => {
+    const action = (
+      <CopyToClipboard text={this.state.error.message}>
+        <span>copy</span>
+      </CopyToClipboard>
+    );
+    return (
+      <Snackbar
+        action={action}
+        onActionTouchTap={this.onCopyError}
+        open={this.state.error.open}
+        message="Something bad happened"
+        autoHideDuration={10000}
+      />
+    );
+  };
+
   render() {
     const { narrow, fullWidth } = this.props;
     let widthStyle;
@@ -148,11 +166,7 @@ class Form extends Component {
           <div style={{ width: 8 }} />
           <RaisedButton primary label={this.props.submitLabel} onTouchTap={this.onSubmit} />
         </div>
-        <Snackbar
-          open={this.state.error.open}
-          message={this.state.error.message}
-          autoHideDuration={10000}
-        />
+        { this.renderSnackbar() }
       </div>
     );
   }
