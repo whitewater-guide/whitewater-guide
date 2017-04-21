@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import _ from 'lodash';
 import { SelectPointsDialog } from '../../core/forms';
 import { isValidLat, isValidLng } from '../../commons/utils/GeoUtils';
-import _ from 'lodash';
 
 export default class PutInMapDialog extends React.Component {
   static propTypes = {
@@ -13,6 +13,24 @@ export default class PutInMapDialog extends React.Component {
     formData: PropTypes.object,
     formErrors: PropTypes.object,
     formFieldChangeHandler: PropTypes.func,
+  };
+
+  onSubmit = (points) => {
+    // Not very efficient, because causes 4 state changes instead of one
+    if (points.length > 0) {
+      const fields = {
+        'putIn.coordinates.0': points[0][0],
+        'putIn.coordinates.1': points[0][1],
+      };
+      if (points.length > 1) {
+        fields['takeOut.coordinates.0'] = points[1][0];
+        fields['takeOut.coordinates.1'] = points[1][1];
+      }
+      this.context.formFieldChangeHandler(fields);
+    }
+    if (this.props.onSubmit) {
+      this.props.onSubmit(points);
+    }
   };
 
   render() {
@@ -31,27 +49,11 @@ export default class PutInMapDialog extends React.Component {
     return (
       <SelectPointsDialog
         {...this.props}
+        drawingMode="polyline"
         initialPoints={initialPoints}
         onSubmit={this.onSubmit}
       />
     );
   }
-
-  onSubmit = (points) => {
-    //Not very efficient, because causes 4 state changes instead of one
-    if (points.length > 0) {
-      let fields = {
-        "putIn.coordinates.0": points[0][0],
-        "putIn.coordinates.1": points[0][1],
-      };
-      if (points.length > 1) {
-        fields["takeOut.coordinates.0"] = points[1][0];
-        fields["takeOut.coordinates.1"] = points[1][1];
-      }
-      this.context.formFieldChangeHandler(fields);
-    }
-    if (this.props.onSubmit)
-      this.props.onSubmit(points);
-  };
 
 }

@@ -11,28 +11,33 @@ const MapContainer = ({ children }) => (
 
 storiesOf('DrawingMap', module)
   .addDecorator(muiTheme())
-  .add('single point, empty', () => (
+  .add('empty marker', () => (
     <MapContainer>
-      <DrawingMap onChange={action('change')} />
+      <DrawingMap drawingMode="marker" onChange={action('change')} />
     </MapContainer>
   ))
-  .add('single point, one point', () => (
+  .add('existing marker', () => (
     <MapContainer>
-      <DrawingMap initialPoints={[[11, 11]]} onChange={action('change')} />
+      <DrawingMap drawingMode="marker" initialPoints={[[0, 20]]} onChange={action('change')} />
     </MapContainer>
   ))
-  .add('two point, empty', () => (
+  .add('empty polyline', () => (
     <MapContainer>
-      <DrawingMap numPoints={2} onChange={action('change')} />
+      <DrawingMap drawingMode="polyline" onChange={action('change')} />
     </MapContainer>
   ))
-  .add('two point, one', () => (
+  .add('existing polyline', () => (
     <MapContainer>
-      <DrawingMap numPoints={2} initialPoints={[[11, 22]]} onChange={action('change')} />
+      <DrawingMap drawingMode="polyline" initialPoints={[[0, 20], [10, 20], [20, 0]]} onChange={action('change')} />
     </MapContainer>
   ))
-  .add('two point, two', () => (
+  .add('empty polygon', () => (
     <MapContainer>
-      <DrawingMap numPoints={2} initialPoints={[[11, 11], [22, 22]]} onChange={action('change')} />
+      <DrawingMap drawingMode="polygon" onChange={action('change')} />
+    </MapContainer>
+  ))
+  .add('existing polygon', () => (
+    <MapContainer>
+      <DrawingMap drawingMode="polygon" initialPoints={[[0, 20], [10, 20], [20, 0]]} onChange={action('change')} />
     </MapContainer>
   ));

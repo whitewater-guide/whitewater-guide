@@ -1,13 +1,26 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import {DrawingMap} from '../components';
-import _ from 'lodash';
+import { DrawingMap } from '../components';
+
+const styles = {
+  mapHolder: {
+    width: '100%',
+    height: 600,
+    maxWidth: 'none',
+  },
+};
+
+const minPoints = {
+  marker: 1,
+  polyline: 2,
+  polygon: 3,
+};
 
 export class SelectPointsDialog extends React.Component {
   static propTypes = {
-    numPoints: PropTypes.oneOf([1,2]),
+    drawingMode: PropTypes.oneOf(['polyline', 'polygon', 'marker']).isRequired,
     initialPoints: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
     bounds: PropTypes.object,
     onClose: PropTypes.func.isRequired,
@@ -15,46 +28,47 @@ export class SelectPointsDialog extends React.Component {
   };
 
   static defaultProps = {
-    numPoints: 1,
     initialPoints: [],
   };
 
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state = {
-      points: _.cloneDeep(props.initialPoints),
-    };
+    this.state = { points: [...props.initialPoints] };
   }
 
+  onChange = (points) => {
+    this.setState({ points });
+  };
+
+  onClose = () => {
+    this.props.onClose();
+  };
+
+  onSubmit = () => {
+    this.props.onSubmit(this.state.points);
+  };
+
   render() {
+    const disabled = this.state.points.length < minPoints[this.props.drawingMode];
     const actions = [
-      <FlatButton
-        label="Cancel"
-        primary={true}
-        onTouchTap={this.handleClose}
-      />,
-      <FlatButton
-        label="Submit"
-        primary={true}
-        keyboardFocused={true}
-        onTouchTap={this.handleSubmit}
-      />,
+      <FlatButton primary label="Cancel" onTouchTap={this.onClose} />,
+      <FlatButton primary disabled={disabled} label="Submit" onTouchTap={this.onSubmit} />,
     ];
     return (
       <Dialog
+        open
         title="Choose point"
         actions={actions}
         autoDetectWindowHeight={false}
         autoScrollBodyContent={false}
         modal={false}
-        open={true}
         onRequestClose={this.handleClose}
         contentStyle={styles.mapHolder}
         repositionOnUpdate={false}
       >
         <div style={styles.mapHolder}>
           <DrawingMap
-            numPoints={this.props.numPoints}
+            drawingMode={this.props.drawingMode}
             initialPoints={this.props.initialPoints}
             bounds={this.props.bounds}
             onChange={this.onChange}
@@ -64,24 +78,4 @@ export class SelectPointsDialog extends React.Component {
     );
   }
 
-  onChange = (points) => {
-    this.setState({points})
-  };
-
-  handleClose = () => {
-    this.props.onClose();
-  };
-
-  handleSubmit = () => {
-    this.props.onSubmit(this.state.points);
-  };
-
 }
-
-const styles = {
-  mapHolder: {
-    width: "100%",
-    height: 600,
-    maxWidth: 'none',
-  }
-};

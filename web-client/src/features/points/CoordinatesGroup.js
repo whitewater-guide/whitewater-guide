@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import {TextField} from '../../core/components';
-import {SelectPointsDialog} from '../../core/forms';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import {POITypes} from './POITypes';
 import IconButton from 'material-ui/IconButton';
 import _ from 'lodash';
+import { SelectPointsDialog } from '../../core/forms';
+import { TextField } from '../../core/components';
+import { POITypes } from './POITypes';
 
 export class CoordinatesGroup extends Component {
   static propTypes = {
@@ -122,6 +122,7 @@ export class CoordinatesGroup extends Component {
             {
               this.state.dialogOpen &&
               <SelectPointsDialog
+                drawingMode="marker"
                 bounds={this.props.mapBounds}
                 onClose={this.onCloseDialog}
                 onSubmit={this.onSubmitDialog}
@@ -141,38 +142,38 @@ export class CoordinatesGroup extends Component {
   };
 
   onKindChange = (event, index, kind) => {
-    let {field: {value}} = this.props;
-    this.onChange({...value, kind});
+    let { field: { value } } = this.props;
+    this.onChange({ ...value, kind });
   };
 
   onNameChange = (e, name) => {
-    let {field: {value}} = this.props;
-    this.onChange({...value, name});
+    let { field: { value } } = this.props;
+    this.onChange({ ...value, name });
   };
 
   onDescriptionChange = (e, description) => {
-    let {field: {value}} = this.props;
-    this.onChange({...value, description});
+    let { field: { value } } = this.props;
+    this.onChange({ ...value, description });
   };
 
   onAltitudeChange = (e, altitude) => {
-    let {field: {value}} = this.props;
-    this.onChange({...value, altitude});
+    let { field: { value } } = this.props;
+    this.onChange({ ...value, altitude });
   };
 
   onLongitudeChange = (e, longitude) => {
-    let {field: {value}} = this.props;
-    this.onChange({...value, coordinates: [longitude, _.get(value, 'coordinates.1')]});
+    let { field: { value } } = this.props;
+    this.onChange({ ...value, coordinates: [longitude, _.get(value, 'coordinates.1')] });
   };
 
   onLatitudeChange = (e, latitude) => {
-    let {field: {value}} = this.props;
-    this.onChange({...value, coordinates: [_.get(value, 'coordinates.0'), latitude]});
+    let { field: { value } } = this.props;
+    this.onChange({ ...value, coordinates: [_.get(value, 'coordinates.0'), latitude] });
   };
 
   onDelete = () => {
     const value = this.props.field.value;
-    this.props.field.onChange({...value, deleted: !value.deleted});
+    this.props.field.onChange({ ...value, deleted: !value.deleted });
   };
 
   onChange = (value) => {
@@ -191,22 +192,22 @@ export class CoordinatesGroup extends Component {
   };
 
   mapButtonHandler = () => {
-    if (this.props.mapButtonHandler){
+    if (this.props.mapButtonHandler) {
       this.props.mapButtonHandler();
     }
     else {
-      this.setState({dialogOpen: true});
+      this.setState({ dialogOpen: true });
     }
   };
 
   onCloseDialog = () => {
-    this.setState({dialogOpen: false});
+    this.setState({ dialogOpen: false });
   };
 
   onSubmitDialog = ([coordinates]) => {
-    this.setState({dialogOpen: false});
-    let {field: {value}} = this.props;
-    this.onChange({...value, coordinates});
+    this.setState({ dialogOpen: false });
+    let { field: { value } } = this.props;
+    this.onChange({ ...value, coordinates });
   };
 
 }
