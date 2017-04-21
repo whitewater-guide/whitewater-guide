@@ -20,6 +20,32 @@ import { Tabs } from '../../core/components';
 import { Durations } from './Durations';
 import container from './SectionFormContainer';
 
+const styles = {
+  textInput: {
+    width: '100%',
+  },
+  row: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  tabsStyle: {
+    display: 'flex',
+    flexDirection: 'column',
+    flex: 1,
+    overflow: 'hidden',
+  },
+  contentContainerStyle: {
+    display: 'flex',
+    flexDirection: 'column',
+    overflow: 'hidden',
+    flex: 1,
+  },
+  propertiesTab: {
+    flex: 1,
+    overflowY: 'auto',
+  },
+};
+
 class SectionForm extends Component {
 
   static propTypes = {
@@ -76,19 +102,21 @@ class SectionForm extends Component {
             <Field name="shape" drawingMode="polyline" bounds={region.bounds} component={DrawingMapField} />
           </Tab>
           <Tab label="Properties" value="#properties">
-            <div style={styles.row}>
-              <Field name="drop" title="Drop, m" component={TextInput} type="number" />
-              <Field name="distance" title="Length, km" component={TextInput} type="number" />
-              <Field name="duration" title="Duration" component={Select} options={Durations}
-                     extractKey={d => d.slug} extractValue={d => d.value} extractLabel={d => d.slug} />
+            <div style={styles.propertiesTab}>
+              <div style={styles.row}>
+                <Field name="drop" title="Drop, m" component={TextInput} type="number" />
+                <Field name="distance" title="Length, km" component={TextInput} type="number" />
+                <Field name="duration" title="Duration" component={Select} options={Durations}
+                       extractKey={d => d.slug} extractValue={d => d.value} extractLabel={d => d.slug} />
 
+              </div>
+              <Field name="season" title="Season" component={TextInput} />
+              <Field name="seasonNumeric" component={SeasonPickerField} />
+              <Field name="supplyTags" title="River supply" component={ChipInput} options={this.props.supplyTags} />
+              <Field name="kayakingTags" title="Kayaking types" component={ChipInput} options={this.props.kayakingTags} />
+              <Field name="hazardsTags" title="Hazards" component={ChipInput} options={this.props.hazardTags} />
+              <Field name="miscTags" title="Tags" component={ChipInput} options={this.props.miscTags} />
             </div>
-            <Field name="season" title="Season" component={TextInput} />
-            <Field name="seasonNumeric" component={SeasonPickerField} />
-            <Field name="supplyTags" title="River supply" component={ChipInput} options={this.props.supplyTags} />
-            <Field name="kayakingTags" title="Kayaking types" component={ChipInput} options={this.props.kayakingTags} />
-            <Field name="hazardsTags" title="Hazards" component={ChipInput} options={this.props.hazardTags} />
-            <Field name="miscTags" title="Tags" component={ChipInput} options={this.props.miscTags} />
           </Tab>
           <Tab label="Media" value="#media">
             <Field name="media" title="Media" component={MediaCollection} />
@@ -105,27 +133,5 @@ class SectionForm extends Component {
   }
 
 }
-
-const styles = {
-  textInput: {
-    width: '100%',
-  },
-  row: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  tabsStyle: {
-    display: 'flex',
-    flexDirection: 'column',
-    flex: 1,
-    overflow: 'hidden',
-  },
-  contentContainerStyle: {
-    display: 'flex',
-    flexDirection: 'column',
-    overflow: 'hidden',
-    flex: 1,
-  },
-};
 
 export default container(SectionForm);
