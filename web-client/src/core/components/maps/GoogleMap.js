@@ -115,7 +115,6 @@ class GoogleMap extends React.Component {
     // Sometimes map is created inside 0-height div (for example, inactive tabe)
     // In this case do not call onLoaded until it is resized
     if (!this.state.mapCreated && this.width > 0 && this.height > 0 && this.maps) {
-      console.log('On map loaded');
       this.props.onLoaded({ map: this.map, maps: this.maps });
       this.setState({ mapCreated: true });
     }
