@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import { DrawingMap } from '../components';
 
 const styles = {
@@ -57,8 +57,8 @@ export class SelectPointsDialog extends React.Component {
   render() {
     const disabled = this.state.points.length < minPoints[this.props.drawingMode];
     const actions = [
-      <FlatButton primary label="Cancel" onTouchTap={this.onClose} />,
-      <FlatButton primary disabled={disabled} label="Submit" onTouchTap={this.onSubmit} />,
+      <RaisedButton label="Cancel" onTouchTap={this.onClose} />,
+      <RaisedButton primary disabled={disabled} label="Submit" onTouchTap={this.onSubmit} />,
     ];
     return (
       <Dialog

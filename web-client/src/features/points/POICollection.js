@@ -51,7 +51,7 @@ export class POICollection extends Component {
     let {field: {value, onChange}} = this.props;
     value = value || [];
     // onChange([...value, {...DEFAULT_MEDIA_ITEM}]);
-    onChange([...value, {coordinates: [undefined, undefined], altitude: undefined, kind: 'other', name: '', description: '' }]);
+    onChange([...value, {coordinates: null, altitude: undefined, kind: 'other', name: '', description: '' }]);
   };
 
   onChange = (newItem, atIndex) => {
