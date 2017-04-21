@@ -32,6 +32,7 @@ type Section {
 
   putIn: Point!,
   takeOut: Point!,
+  shape: [[Float!]],
   distance: Float,
   drop: Float,
   duration: Int,
@@ -80,6 +81,7 @@ input SectionInput {
 
   putIn: PointInput!,
   takeOut: PointInput!,
+  shape: [[Float!]],
   distance: Float,
   drop: Float,
   duration: Int,

@@ -7,6 +7,11 @@ import _ from 'lodash';
 import {GaugeBindingSchema} from './gaugebinding';
 import {Durations} from './durations';
 
+const limits = [
+  {min: -180, max: 180, msg: 'lonOutOfRange'},
+  {min: -90, max: 90, msg: 'latOutOfRange'},
+];
+
 const i18Schema = {
   name: String,
   description: String,
@@ -22,6 +27,19 @@ const baseSchema = {
   gaugeId: {type: String, regEx: SimpleSchema.RegEx.Id},
   putIn: PointInputSchema,
   takeOut: PointInputSchema,
+  shape: Array,
+  "shape.$": {type: Array},
+  "shape.$.$": {
+    type: Number,
+    custom: function () {
+      const index = Number(this.key.match(/\d+$/)[0]);
+      const limit = limits[index];
+      if (this.value === null || this.value === undefined)
+        return 'required';
+      if (this.value >= limit.max || this.value <= limit.min)
+        return limit.msg;
+    },
+  },
   distance: Number,
   duration: {type: SimpleSchema.Integer, allowedValues: _.map(Durations, 'value')},
   drop: Number,

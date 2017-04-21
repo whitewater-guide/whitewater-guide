@@ -50,6 +50,7 @@ const Geo = gql`
       description
       kind
     }
+    shape
   }
 `;
 

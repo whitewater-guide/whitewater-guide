@@ -69,7 +69,7 @@ export default class DrawingMap extends React.Component {
     // Set bounds
     if (bounds || (initialPoints && initialPoints.length > 1)) {
       const latLngBounds = new maps.LatLngBounds();
-      if (initialPoints.length > 1) {
+      if (initialPoints && initialPoints.length > 1) {
         initialPoints.forEach(point => latLngBounds.extend(arrayToGmaps(point)));
       } else {
         latLngBounds.extend(arrayToGmaps(bounds.sw));
