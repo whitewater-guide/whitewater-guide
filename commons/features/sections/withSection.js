@@ -13,7 +13,7 @@ const sectionDetails = gql`
       ...SectionMedia
       ...SectionTags
       ...SectionDescription @include(if: $withDescription)
-      ...SectionGeo @include(if: $withGeo)
+      ...SectionShape @include(if: $withGeo)
       ...SectionPOIs @include(if: $withGeo)
     }
 
@@ -23,7 +23,7 @@ const sectionDetails = gql`
   ${SectionFragments.Media}
   ${SectionFragments.Tags}
   ${SectionFragments.Description}
-  ${SectionFragments.Geo}
+  ${SectionFragments.Shape}
   ${SectionFragments.POIs}
 `;
 

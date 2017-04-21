@@ -34,22 +34,25 @@ const Core = gql`
   }
 `;
 
-const Geo = gql`
-  fragment SectionGeo on Section {
+const Ends = gql`
+  fragment SectionEnds on Section {
     putIn {
       _id
       coordinates
       altitude
-      description
       kind
     }
     takeOut {
       _id
       coordinates
       altitude
-      description
       kind
     }
+  }
+`;
+
+const Shape = gql`
+  fragment SectionShape on Section {
     shape
   }
 `;
@@ -153,7 +156,8 @@ const All = gql`
   fragment SectionAll on Section {
     ...SectionCore
     ...SectionDescription
-    ...SectionGeo
+    ...SectionEnds
+    ...SectionShape
     ...SectionMeasurements
     ...SectionMedia
     ...SectionMeta
@@ -163,7 +167,8 @@ const All = gql`
   ${GaugeBinding.All}
   ${Core}
   ${Description}
-  ${Geo}
+  ${Ends}
+  ${Shape}
   ${Measurements}
   ${Media}
   ${Meta}
@@ -177,7 +182,8 @@ export const SectionFragments = {
   Core,
   Description,
   GaugeBinding,
-  Geo,
+  Ends,
+  Shape,
   Measurements,
   Media,
   Meta,

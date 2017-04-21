@@ -13,14 +13,14 @@ const ListSectionsQuery = gql`
       sections {
         ...SectionCore
         ...SectionMeasurements
-        ...SectionGeo @include(if: $withGeo)
+        ...SectionEnds @include(if: $withGeo)
       }
       count @skip(if: $isLoadMore)
     }
   }
   ${SectionFragments.Measurements}
   ${SectionFragments.Core}
-  ${SectionFragments.Geo}
+  ${SectionFragments.Ends}
 `;
 
 const termsFromProps = (props) => {

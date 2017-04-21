@@ -27,7 +27,7 @@ const regionFragment = gql`
 const sectionFragment = gql`
   fragment EditSectionSectionDetails on Section {
     ...SectionCore
-    ...SectionGeo
+    ...SectionShape
     description
     region {
       ...EditSectionRegionDetails
@@ -41,7 +41,7 @@ const sectionFragment = gql`
     ...SectionTags
   }
   ${SectionFragments.Core}
-  ${SectionFragments.Geo}
+  ${SectionFragments.Shape}
   ${SectionFragments.Media}
   ${SectionFragments.Measurements}
   ${SectionFragments.POIs}

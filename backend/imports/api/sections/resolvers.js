@@ -88,7 +88,7 @@ export const sectionsResolvers = {
       const query = graphqlFields(info);
       let fields = _.mapValues(query.sections, _.constant(1));
       //Add this for simple field resolvers
-      fields = {...fields, riverId: 1, riverName: 1, regionId: 1, gaugeId: 1};
+      fields = {...fields, riverId: 1, riverName: 1, regionId: 1, gaugeId: 1, shape: 1};
       let {sortBy, sortDirection = 'asc', skip = 0, limit = 10} = terms;
       limit = _.clamp(limit, 10, 100);
       const sort = (!sortBy || sortBy === 'name') ?
