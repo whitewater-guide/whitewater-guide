@@ -1,6 +1,6 @@
 import React from 'react';
 import MUITextField from 'material-ui/TextField';
-import {strToFloat} from '../../commons/utils/TextUtils';
+import { strToFloat } from '../../commons/utils/TextUtils';
 
 /**
  * Wrapper around Material-UI TextInput that makes
@@ -11,24 +11,33 @@ export class TextField extends React.Component {
     ...MUITextField.propTypes,
   };
 
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       value: String(props.value || ''),
     };
   }
 
-  componentWillReceiveProps(nextProps){
+  componentWillReceiveProps(nextProps) {
     const nextVal = nextProps.value;
-    if (nextProps.type === 'number' && strToFloat(nextVal) !== strToFloat(this.state.value)){
+    if (nextProps.type === 'number' && strToFloat(nextVal) !== strToFloat(this.state.value)) {
       const value = isNaN(nextVal) ? '' : String(nextVal);
-      this.setState({value});
+      this.setState({ value });
     }
   }
 
+  onChange = (e, value) => {
+    const { type, onChange } = this.props;
+    this.setState({ value });
+    const castValue = type === 'number' ? strToFloat(value) : value;
+    if (onChange) {
+      onChange(e, castValue);
+    }
+  };
+
   render() {
-    const {type, value, onChange, ...rest} = this.props;
-    const numericProps = type === 'number' ? {pattern: '(\-)?[0-9]+([\,|\.][0-9]+)?'} : {type};
+    const { type, value, onChange, ...rest } = this.props;
+    const numericProps = type === 'number' ? { pattern: '(\-)?[0-9]+([\,|\.][0-9]+)?' } : { type };
     return (
       <MUITextField
         {...rest}
@@ -38,13 +47,5 @@ export class TextField extends React.Component {
       />
     );
   }
-
-  onChange = (e, value) => {
-    const {type, onChange} = this.props;
-    this.setState({value});
-    const castValue = type === 'number' ? strToFloat(value) : value;
-    if (onChange)
-      onChange(e, castValue);
-  };
 
 }

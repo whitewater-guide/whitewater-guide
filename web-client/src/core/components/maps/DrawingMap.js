@@ -53,16 +53,13 @@ export default class DrawingMap extends React.Component {
     this.maps = null;
     this.drawingManager = null;
     this.overlay = null;
-    this.listeners = [];
+    this.overlayListeners = [];
   }
 
-  componentWillUnmount() {
-    this.listeners.forEach(listener => this.maps.event.removeListener(listener));
-    this.listeners = [];
-  }
-
-  componenDidUpdate() {
-    console.log('CDU');
+  componentDidUpdate() {
+    if (!this.drawingManager) {
+      return;
+    }
     const { points, drawingMode } = this.props;
     const path = points.map(arrayToGmaps);
     if (drawingMode === 'marker') {
@@ -70,6 +67,17 @@ export default class DrawingMap extends React.Component {
     } else {
       this.overlay.setPath(path);
     }
+    // Reattaching listeners because the path was just replaced with new one
+    // TODO: Possible optimization is to use deep-diff to find difference between arrays of points
+    // and the call setAt()/removeAt() on existing path
+    this.overlayListeners.forEach(listener => this.maps.event.removeListener(listener));
+    this.attachListeners();
+  }
+
+  componentWillUnmount() {
+    this.overlayListeners.forEach(listener => this.maps.event.removeListener(listener));
+    this.overlayListeners = [];
+    this.maps.event.clearInstanceListeners(this.drawingManager);
   }
 
   init = ({ map, maps }) => {
@@ -95,7 +103,7 @@ export default class DrawingMap extends React.Component {
     }
 
     this.drawingManager = new maps.drawing.DrawingManager({ map, drawingMode, ...DrawingOptions });
-    this.listeners.push(maps.event.addListener(this.drawingManager, 'overlaycomplete', this.handleOverlayComplete));
+    maps.event.addListener(this.drawingManager, 'overlaycomplete', this.handleOverlayComplete);
     if (points && points.length > 0) {
       let overlay = null;
       if (drawingMode === 'marker') {
@@ -111,20 +119,24 @@ export default class DrawingMap extends React.Component {
     }
   };
 
-  handleOverlayComplete = ({ type, overlay, initial }) => {
+  handleOverlayComplete = ({ overlay, initial }) => {
     this.drawingManager.setDrawingMode(null);// One shape max
     this.overlay = overlay;
-    if (type === 'marker') {
-      this.listeners.push(this.maps.event.addListener(overlay, 'dragend', this.handleChange));
-    } else {
-      this.listeners.push(this.maps.event.addListener(overlay, 'dblclick', this.handleVertexRemoval));
-      const path = type === 'polygon' ? overlay.getPaths().getAt(0) : overlay.getPath();
-      this.listeners.push(this.maps.event.addListener(path, 'set_at', this.handleChange));
-      this.listeners.push(this.maps.event.addListener(path, 'insert_at', this.handleChange));
-      this.listeners.push(this.maps.event.addListener(path, 'remove_at', this.handleChange));
-    }
+    this.attachListeners();
     if (!initial) {
       this.handleChange();
+    }
+  };
+
+  attachListeners = () => {
+    if (this.props.drawingMode === 'marker') {
+      this.overlayListeners.push(this.maps.event.addListener(this.overlay, 'dragend', this.handleChange));
+    } else {
+      this.overlayListeners.push(this.maps.event.addListener(this.overlay, 'dblclick', this.handleVertexRemoval));
+      const path = this.overlay.getPath();
+      this.overlayListeners.push(this.maps.event.addListener(path, 'set_at', this.handleChange));
+      this.overlayListeners.push(this.maps.event.addListener(path, 'insert_at', this.handleChange));
+      this.overlayListeners.push(this.maps.event.addListener(path, 'remove_at', this.handleChange));
     }
   };
 
