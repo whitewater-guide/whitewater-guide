@@ -126,7 +126,7 @@ export class CoordinatesGroup extends Component {
                 bounds={this.props.mapBounds}
                 onClose={this.onCloseDialog}
                 onSubmit={this.onSubmitDialog}
-                initialPoints={dialogPoints}
+                points={dialogPoints}
               />
             }
           </div>

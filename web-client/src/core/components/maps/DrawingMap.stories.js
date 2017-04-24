@@ -1,6 +1,7 @@
 import React from 'react';
 import { storiesOf, action } from '@kadira/storybook';
 import { muiTheme } from 'storybook-addon-material-ui';
+import { withState } from 'recompose';
 import DrawingMap from './DrawingMap';
 
 const MapContainer = ({ children }) => (
@@ -8,6 +9,8 @@ const MapContainer = ({ children }) => (
     { children }
   </div>
 );
+
+const ControlledMap = (initialPoints) => withState('points', 'onChange', initialPoints)(DrawingMap);
 
 storiesOf('DrawingMap', module)
   .addDecorator(muiTheme())
@@ -18,9 +21,17 @@ storiesOf('DrawingMap', module)
   ))
   .add('existing marker', () => (
     <MapContainer>
-      <DrawingMap drawingMode="marker" initialPoints={[[0, 20]]} onChange={action('change')} />
+      <DrawingMap drawingMode="marker" points={[[0, 20]]} onChange={action('change')} />
     </MapContainer>
   ))
+  .add('controlled marker', () => {
+    const Map = ControlledMap([[0, 20]]);
+    return (
+      <MapContainer >
+        <Map drawingMode="marker" />
+      </MapContainer>
+    );
+  })
   .add('empty polyline', () => (
     <MapContainer>
       <DrawingMap drawingMode="polyline" onChange={action('change')} />
@@ -28,9 +39,17 @@ storiesOf('DrawingMap', module)
   ))
   .add('existing polyline', () => (
     <MapContainer>
-      <DrawingMap drawingMode="polyline" initialPoints={[[0, 20], [10, 20], [20, 0]]} onChange={action('change')} />
+      <DrawingMap drawingMode="polyline" points={[[0, 20], [10, 20], [20, 0]]} onChange={action('change')} />
     </MapContainer>
   ))
+  .add('controlled polyline', () => {
+    const Map = ControlledMap([[0, 20], [10, 20], [20, 0]]);
+    return (
+      <MapContainer >
+        <Map drawingMode="polyline" />
+      </MapContainer>
+    );
+  })
   .add('empty polygon', () => (
     <MapContainer>
       <DrawingMap drawingMode="polygon" onChange={action('change')} />
@@ -38,6 +57,14 @@ storiesOf('DrawingMap', module)
   ))
   .add('existing polygon', () => (
     <MapContainer>
-      <DrawingMap drawingMode="polygon" initialPoints={[[0, 20], [10, 20], [20, 0]]} onChange={action('change')} />
+      <DrawingMap drawingMode="polygon" points={[[0, 20], [10, 20], [20, 0]]} onChange={action('change')} />
     </MapContainer>
-  ));
+  ))
+  .add('controlled polygon', () => {
+    const Map = ControlledMap([[0, 20], [10, 20], [20, 0]]);
+    return (
+      <MapContainer >
+        <Map drawingMode="polygon" />
+      </MapContainer>
+    );
+  })

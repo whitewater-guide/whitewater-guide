@@ -34,14 +34,14 @@ const DrawingOptions = {
 
 export default class DrawingMap extends React.Component {
   static propTypes = {
-    initialPoints: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
+    points: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
     drawingMode: PropTypes.oneOf(['polyline', 'polygon', 'marker']),
     bounds: PropTypes.object,
     onChange: PropTypes.func,
   };
 
   static defaultProps = {
-    initialPoints: [],
+    points: [],
     drawingMode: 'polyline',
     onChange: () => {},
     bounds: null,
@@ -61,16 +61,27 @@ export default class DrawingMap extends React.Component {
     this.listeners = [];
   }
 
+  componenDidUpdate() {
+    console.log('CDU');
+    const { points, drawingMode } = this.props;
+    const path = points.map(arrayToGmaps);
+    if (drawingMode === 'marker') {
+      this.overlay.setPosition(path[0]);
+    } else {
+      this.overlay.setPath(path);
+    }
+  }
+
   init = ({ map, maps }) => {
-    const { drawingMode, initialPoints, bounds } = this.props;
+    const { drawingMode, points, bounds } = this.props;
     this.map = map;
     this.maps = maps;
 
     // Set bounds
-    if (bounds || (initialPoints && initialPoints.length > 1)) {
+    if (bounds || (points && points.length > 1)) {
       const latLngBounds = new maps.LatLngBounds();
-      if (initialPoints && initialPoints.length > 1) {
-        initialPoints.forEach(point => latLngBounds.extend(arrayToGmaps(point)));
+      if (points && points.length > 1) {
+        points.forEach(point => latLngBounds.extend(arrayToGmaps(point)));
       } else {
         latLngBounds.extend(arrayToGmaps(bounds.sw));
         latLngBounds.extend(arrayToGmaps(bounds.ne));
@@ -78,21 +89,21 @@ export default class DrawingMap extends React.Component {
       map.setCenter(latLngBounds.getCenter());
       map.fitBounds(latLngBounds);
       map.setZoom(map.getZoom() - 1);
-    } else if (initialPoints.length === 1) {
-      map.setCenter(arrayToGmaps(initialPoints[0]));
+    } else if (points.length === 1) {
+      map.setCenter(arrayToGmaps(points[0]));
       map.setZoom(14);
     }
 
     this.drawingManager = new maps.drawing.DrawingManager({ map, drawingMode, ...DrawingOptions });
     this.listeners.push(maps.event.addListener(this.drawingManager, 'overlaycomplete', this.handleOverlayComplete));
-    if (initialPoints && initialPoints.length > 0) {
+    if (points && points.length > 0) {
       let overlay = null;
       if (drawingMode === 'marker') {
-        overlay = new maps.Marker({ map, position: arrayToGmaps(initialPoints[0]), ...DrawingOptions.markerOptions });
+        overlay = new maps.Marker({ map, position: arrayToGmaps(points[0]), ...DrawingOptions.markerOptions });
       } else if (drawingMode === 'polyline') {
-        overlay = new maps.Polyline({ ...DrawingOptions.polylineOptions, map, path: initialPoints.map(arrayToGmaps) });
+        overlay = new maps.Polyline({ ...DrawingOptions.polylineOptions, map, path: points.map(arrayToGmaps) });
       } else if (drawingMode === 'polygon') {
-        overlay = new maps.Polygon({ ...DrawingOptions.polygonOptions, map, paths: [initialPoints.map(arrayToGmaps)] });
+        overlay = new maps.Polygon({ ...DrawingOptions.polygonOptions, map, paths: [points.map(arrayToGmaps)] });
       }
       if (overlay) {
         maps.event.trigger(this.drawingManager, 'overlaycomplete', { type: drawingMode, overlay, initial: true });
@@ -133,7 +144,7 @@ export default class DrawingMap extends React.Component {
   handleChange = () => {
     const { drawingMode, onChange } = this.props;
     let latLngs = null;
-    if (drawingMode === 'marker'){
+    if (drawingMode === 'marker') {
       latLngs = [this.overlay.getPosition()];
     } else {
       latLngs = this.overlay.getPath().getArray();

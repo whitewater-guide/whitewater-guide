@@ -22,7 +22,7 @@ export default class DrawingMapField extends React.Component {
         <DrawingMap
           drawingMode={drawingMode}
           bounds={bounds}
-          initialPoints={this.props.field.value}
+          points={this.props.field.value}
           onChange={this.onChange}
         />
       </div>

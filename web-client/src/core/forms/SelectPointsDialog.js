@@ -27,7 +27,7 @@ const minPoints = {
 export class SelectPointsDialog extends React.Component {
   static propTypes = {
     drawingMode: PropTypes.oneOf(['polyline', 'polygon', 'marker']).isRequired,
-    initialPoints: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
+    points: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
     bounds: PropTypes.object,
     onClose: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
@@ -39,7 +39,7 @@ export class SelectPointsDialog extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { points: [...props.initialPoints] };
+    this.state = { points: [...(props.points || [])] };
   }
 
   onChange = (points) => {
@@ -75,7 +75,7 @@ export class SelectPointsDialog extends React.Component {
         <div style={styles.mapHolder}>
           <DrawingMap
             drawingMode={this.props.drawingMode}
-            initialPoints={this.props.initialPoints}
+            points={this.state.points}
             bounds={this.props.bounds}
             onChange={this.onChange}
           />
