@@ -1,7 +1,6 @@
-import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Tab } from 'material-ui/Tabs';
-import { Form, Field, TextInput, RichTextInput, SeasonPickerField } from '../../core/forms';
+import { Form, Field, TextInput, RichTextInput, SeasonPickerField, DrawingMapField } from '../../core/forms';
 import { Tabs } from '../../core/components';
 import { POICollection } from '../points';
 import container from './RegionFormContainer';
@@ -10,7 +9,6 @@ class RegionForm extends Component {
 
   static propTypes = {
     ...Form.propTypes,
-    regionLoading: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -18,13 +16,8 @@ class RegionForm extends Component {
   };
 
   render() {
-    let { regionLoading, ...props } = this.props;
-    if (regionLoading) {
-      return null;
-    }
-
     return (
-      <Form {...props} fullWidth name="regions">
+      <Form {...this.props} fullWidth name="regions">
         <Tabs >
           <Tab label="Main" value="#main">
             <Field name="name" title="Name" component={TextInput} />
@@ -33,6 +26,9 @@ class RegionForm extends Component {
           </Tab>
           <Tab label="Description" value="#description">
             <Field name="description" title="description" component={RichTextInput} />
+          </Tab>
+          <Tab label="Shape" value="#shape">
+            <Field name="bounds" drawingMode="polygon" component={DrawingMapField} />
           </Tab>
           <Tab label="POIS" value="#pois">
             <Field name="pois" title="Points of interest" component={POICollection} />

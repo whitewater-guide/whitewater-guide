@@ -1,8 +1,9 @@
-import {gql, graphql} from 'react-apollo';
-import {withState, withProps, withHandlers, compose} from 'recompose';
-import {withAdmin} from '../users';
-import {withFeatureIds} from '../../commons/core';
-import {withRegion, RegionFragments} from '../../commons/features/regions';
+import { gql, graphql } from 'react-apollo';
+import { withState, withProps, withHandlers, compose } from 'recompose';
+import { withAdmin } from '../users';
+import { withFeatureIds } from '../../commons/core';
+import { withRegion, RegionFragments } from '../../commons/features/regions';
+import { spinnerWhileLoading } from '../../core/components';
 
 const editRegion = gql`
   mutation editRegion($region: RegionInput!, $language:String){
@@ -18,11 +19,11 @@ const editRegion = gql`
 export default compose(
   withAdmin(true),
   withFeatureIds('region'),
-  withProps(({regionId}) => ({
+  withProps(({ regionId }) => ({
     _id: regionId,
     multilang: !!regionId,
-    title: regionId ? "Region settings" : "New region",
-    submitLabel: regionId ? "Update" : "Create",
+    title: regionId ? 'Region settings' : 'New region',
+    submitLabel: regionId ? 'Update' : 'Create',
   })),
   withState('language', 'setLanguage', 'en'),
   withHandlers({
@@ -30,15 +31,14 @@ export default compose(
     onSubmit: props => () => props.history.goBack(),
     onCancel: props => () => props.history.goBack(),
   }),
-  withRegion({propName: 'initialData'}),
+  withRegion({ propName: 'initialData', withBounds: true }),
+  spinnerWhileLoading(props => props.regionLoading),
   graphql(
     editRegion,
     {
-      props: ({mutate}) => ({
-        method: ({data, language}) => {
-          return mutate({variables: {region: data, language}});
-        }
+      props: ({ mutate }) => ({
+        method: ({ data, language }) => mutate({ variables: { region: data, language } }),
       }),
-    }
+    },
   ),
 );

@@ -1,7 +1,6 @@
 import { gql, graphql, compose } from 'react-apollo';
-import _ from 'lodash';
 import { withRegionsList } from '../../commons/features/regions';
-import { withAdmin } from "../users";
+import { withAdmin } from '../users';
 
 const RemoveRegionMutation = gql`
   mutation removeRegion($_id: ID!){
@@ -26,28 +25,17 @@ export default compose(
       props: ({ mutate }) => ({
         removeRegion: _id => mutate({
           variables: { _id },
-          updateQueries: {
-            listRegions: (prev) => {
-              return { ...prev, regions: _.filter(prev.regions, v => v._id !== _id) };
-            }
-          },
-        })
+        }),
       }),
-    }
+    },
   ),
   graphql(
     CreateRegionMutation, {
       props: ({ mutate }) => ({
-        createRegion: (name) => mutate({
+        createRegion: name => mutate({
           variables: { region: { name } },
-          updateQueries: {
-            listRegions: (prev, { mutationResult }) => {
-              const newRegion = mutationResult.data.region;
-              return { ...prev, regions: [...prev.regions, newRegion] };
-            }
-          },
-        })
+        }),
       }),
-    }
+    },
   ),
 );
