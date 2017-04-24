@@ -3,7 +3,7 @@ import React from 'react';
 import { SectionPropType } from '../sections';
 
 export const PropTypes = {
-  bounds: PT.object,
+  bounds: PT.arrayOf(PT.arrayOf(PT.number)),
   sections: PT.arrayOf(SectionPropType),
   selectedSection: SectionPropType,
   onSectionSelected: PT.func,

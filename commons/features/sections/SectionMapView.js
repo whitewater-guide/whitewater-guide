@@ -14,10 +14,10 @@ export default (Layout, Map, SelectedSection, SelectedPOI, LoadingIndicator) => 
       const bbox = new BoundingBox();
       const pois = [...section.pois, section.putIn, section.takeOut];
       pois.forEach(poi => bbox.pushCoordinate(poi.coordinates[1], poi.coordinates[0]));
-      const bounds = {
-        sw: [bbox.longitude.min, bbox.latitude.min],
-        ne: [bbox.longitude.max, bbox.latitude.max],
-      };
+      const bounds = [
+        [bbox.longitude.min, bbox.latitude.min],
+        [bbox.longitude.max, bbox.latitude.max],
+      ];
       return {
         bounds,
         sections: [section],

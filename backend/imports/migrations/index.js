@@ -9,6 +9,7 @@ import v6 from './v6';
 import v7 from './v7';
 import v8 from './v8';
 import v9 from './v9';
+import v10 from './v10';
 
 Migrations.add(v1);
 
@@ -50,6 +51,10 @@ Migrations.add(v8);
  * Add shapes to sections
  */
 Migrations.add(v9);
+/**
+ * Add polygonal bounds to regions
+ */
+Migrations.add(v10);
 
 Meteor.startup(() => {
   Migrations.migrateTo('latest');

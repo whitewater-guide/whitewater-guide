@@ -2,13 +2,17 @@ import {I18nCollection} from '../../i18n';
 import SimpleSchema from 'simpl-schema';
 import {metaSchema} from "../../utils/SimpleSchemaUtils";
 import _ from "lodash";
-import {BoundingBoxSchema} from "./boundingbox";
 
 const i18Schema = {
   name: String,
   description: String,
   season: String,
 };
+
+const limits = [
+  {min: -180, max: 180, msg: 'lonOutOfRange'},
+  {min: -90, max: 90, msg: 'latOutOfRange'},
+];
 
 const baseSchema = {
   ...i18Schema,
@@ -20,8 +24,19 @@ const baseSchema = {
     max: 23,
     maxCount: 24,
   },
-  bounds: BoundingBoxSchema,
-
+  bounds: Array,
+  "bounds.$": {type: Array},
+  "bounds.$.$": {
+    type: Number,
+    custom: function () {
+      const index = Number(this.key.match(/\d+$/)[0]);
+      const limit = limits[index];
+      if (this.value === null || this.value === undefined)
+        return 'required';
+      if (this.value >= limit.max || this.value <= limit.min)
+        return limit.msg;
+    },
+  },
 };
 
 const dbSchema = _.merge(

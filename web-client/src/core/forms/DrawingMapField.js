@@ -36,7 +36,7 @@ export default class DrawingMapField extends React.Component {
       onChange: PropTypes.func,
     }),
     drawingMode: PropTypes.oneOf(['marker', 'polyline', 'polygon']).isRequired,
-    bounds: PropTypes.object,
+    bounds: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
   };
 
   onChange = points => this.props.field.onChange(points);
@@ -66,7 +66,7 @@ export default class DrawingMapField extends React.Component {
 
   render() {
     const { drawingMode, bounds } = this.props;
-    const points = this.props.field.value;
+    const points = this.props.field.value || [];
     return (
       <div style={styles.container}>
         <div style={styles.mapContainer}>

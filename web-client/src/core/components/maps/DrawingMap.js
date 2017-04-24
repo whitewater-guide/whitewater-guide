@@ -36,7 +36,7 @@ export default class DrawingMap extends React.Component {
   static propTypes = {
     points: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
     drawingMode: PropTypes.oneOf(['polyline', 'polygon', 'marker']),
-    bounds: PropTypes.object,
+    bounds: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
     onChange: PropTypes.func,
   };
 
@@ -77,7 +77,9 @@ export default class DrawingMap extends React.Component {
   componentWillUnmount() {
     this.overlayListeners.forEach(listener => this.maps.event.removeListener(listener));
     this.overlayListeners = [];
-    this.maps.event.clearInstanceListeners(this.drawingManager);
+    if (this.maps && this.maps.event) {
+      this.maps.event.clearInstanceListeners(this.drawingManager);
+    }
   }
 
   init = ({ map, maps }) => {
@@ -88,11 +90,11 @@ export default class DrawingMap extends React.Component {
     // Set bounds
     if (bounds || (points && points.length > 1)) {
       const latLngBounds = new maps.LatLngBounds();
-      if (points && points.length > 1) {
+      if (points) {
         points.forEach(point => latLngBounds.extend(arrayToGmaps(point)));
-      } else {
-        latLngBounds.extend(arrayToGmaps(bounds.sw));
-        latLngBounds.extend(arrayToGmaps(bounds.ne));
+      }
+      if (bounds) {
+        bounds.forEach(point => latLngBounds.extend(arrayToGmaps(point)));
       }
       map.setCenter(latLngBounds.getCenter());
       map.fitBounds(latLngBounds);

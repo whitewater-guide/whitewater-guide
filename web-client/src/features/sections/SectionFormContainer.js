@@ -11,10 +11,7 @@ const regionFragment = gql`
   fragment EditSectionRegionDetails on Region {
     _id
     name
-    bounds {
-      sw
-      ne
-    }
+    bounds
     sources {
       gauges {
         _id

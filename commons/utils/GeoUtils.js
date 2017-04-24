@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { BoundingBox } from 'geocoordinate';
 
 export function gmapsToArray(latLng) {
   if (!latLng) {
@@ -20,48 +21,6 @@ export function arrayToGmaps(array) {
   }
   const [lng, lat] = array;
   return { lat, lng };
-}
-
-export function arrayBoundsToLatLngBounds(bounds) {
-  if (!bounds) {
-    return null;
-  }
-  return {
-    sw: { lat: bounds.sw[1], lng: bounds.sw[0] },
-    ne: { lat: bounds.ne[1], lng: bounds.ne[0] },
-  };
-}
-
-export function latLngBoundsToArrayBounds(latLng) {
-  if (!latLng) {
-    return null;
-  }
-  return {
-    sw: [latLng.sw.lng, latLng.sw.lat],
-    ne: [latLng.ne.lng, latLng.ne.lat],
-  };
-}
-
-export function arrayBoundsToDeltaRegion(bounds) {
-  if (!bounds) {
-    return null;
-  }
-  return {
-    latitude: (bounds.sw[1] + bounds.ne[1]) / 2,
-    longitude: (bounds.sw[0] + bounds.ne[0]) / 2,
-    latitudeDelta: (bounds.ne[1] - bounds.sw[1]) / 2,
-    longitudeDelta: (bounds.ne[0] - bounds.sw[0]) / 2,
-  };
-}
-
-export function deltaRegionToArrayBounds(region) {
-  if (!region) {
-    return null;
-  }
-  return {
-    sw: [region.longitude - region.longitudeDelta, region.latitude - region.latitudeDelta],
-    ne: [region.longitude + region.longitudeDelta, region.latitude + region.latitudeDelta],
-  };
 }
 
 export function isValidLat(lat) {
@@ -119,19 +78,20 @@ function zoom(mapPx, worldPx, fraction) {
 /**
  * Computes google map zoom level, given bounds and map size
  * http://stackoverflow.com/a/13274361/6212547
- * @param bounds in shape {sw: [lng, lat], ne: [lng, lat]}
+ * @param bounds - array of [lng, lat] arrays
  * @param mapDim {width, height} of map in pixels
  * @returns {number} Integer zoom level
  */
-export function getBoundsZoomLevel(bounds, mapDim) {
+export function getBoundsZoomLevel(bounds = [], mapDim) {
   const WORLD_DIM = { height: 256, width: 256 };
   const ZOOM_MAX = 21;
 
-  const { sw: [swLng, swLat], ne: [neLng, neLat] } = bounds;
+  const bbox = new BoundingBox();
+  bounds.forEach(point => bbox.pushCoordinate(point[1], point[0]));
 
-  const latFraction = (latRad(neLat) - latRad(swLat)) / Math.PI;
+  const latFraction = (latRad(bbox.latitude.max) - latRad(bbox.latitude.min)) / Math.PI;
 
-  const lngDiff = neLng - swLng;
+  const lngDiff = bbox.longitude.max - bbox.longitude.min;
   const lngFraction = ((lngDiff < 0) ? (lngDiff + 360) : lngDiff) / 360;
 
   const latZoom = zoom(mapDim.height, WORLD_DIM.height, latFraction);

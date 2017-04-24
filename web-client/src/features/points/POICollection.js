@@ -13,7 +13,7 @@ export class POICollection extends Component {
       error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
       onChange: PropTypes.func,
     }),
-    bounds: PropTypes.object,
+    bounds: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
   };
 
   render() {

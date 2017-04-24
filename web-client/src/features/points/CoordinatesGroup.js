@@ -19,7 +19,7 @@ export class CoordinatesGroup extends Component {
     }),
     mapDialog: PropTypes.bool,
     mapButtonHandler: PropTypes.func,
-    mapBounds: PropTypes.object,
+    mapBounds: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
   };
 
   static defaultProps = {

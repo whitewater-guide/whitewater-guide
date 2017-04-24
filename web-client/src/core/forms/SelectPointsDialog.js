@@ -28,7 +28,7 @@ export class SelectPointsDialog extends React.Component {
   static propTypes = {
     drawingMode: PropTypes.oneOf(['polyline', 'polygon', 'marker']).isRequired,
     points: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
-    bounds: PropTypes.object,
+    bounds: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
     onClose: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
   };

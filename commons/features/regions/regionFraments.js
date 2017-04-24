@@ -30,11 +30,7 @@ const POIs = gql`
 
 const Bounds = gql`
   fragment RegionBounds on Region {
-    bounds {
-      sw
-      ne
-      autocomplete
-    }
+    bounds
   }
 `;
 
