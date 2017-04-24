@@ -19,14 +19,14 @@ const styles = {
 };
 
 const minPoints = {
-  marker: 1,
-  polyline: 2,
-  polygon: 3,
+  Point: 1,
+  Polyline: 2,
+  Polygon: 3,
 };
 
 export class SelectPointsDialog extends React.Component {
   static propTypes = {
-    drawingMode: PropTypes.oneOf(['polyline', 'polygon', 'marker']).isRequired,
+    drawingMode: PropTypes.oneOf(['Polyline', 'Polygon', 'Point']).isRequired,
     points: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
     bounds: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
     onClose: PropTypes.func.isRequired,

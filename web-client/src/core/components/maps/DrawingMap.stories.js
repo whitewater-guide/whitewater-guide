@@ -14,57 +14,57 @@ const ControlledMap = (initialPoints) => withState('points', 'onChange', initial
 
 storiesOf('DrawingMap', module)
   .addDecorator(muiTheme())
-  .add('empty marker', () => (
+  .add('empty point', () => (
     <MapContainer>
-      <DrawingMap drawingMode="marker" onChange={action('change')} />
+      <DrawingMap drawingMode="Point" onChange={action('change')} />
     </MapContainer>
   ))
-  .add('existing marker', () => (
+  .add('existing point', () => (
     <MapContainer>
-      <DrawingMap drawingMode="marker" points={[[0, 20]]} onChange={action('change')} />
+      <DrawingMap drawingMode="Point" points={[[0, 20]]} onChange={action('change')} />
     </MapContainer>
   ))
-  .add('controlled marker', () => {
+  .add('controlled point', () => {
     const Map = ControlledMap([[0, 20]]);
     return (
       <MapContainer >
-        <Map drawingMode="marker" />
+        <Map drawingMode="Point" />
       </MapContainer>
     );
   })
   .add('empty polyline', () => (
     <MapContainer>
-      <DrawingMap drawingMode="polyline" onChange={action('change')} />
+      <DrawingMap drawingMode="Polyline" onChange={action('change')} />
     </MapContainer>
   ))
   .add('existing polyline', () => (
     <MapContainer>
-      <DrawingMap drawingMode="polyline" points={[[0, 20], [10, 20], [20, 0]]} onChange={action('change')} />
+      <DrawingMap drawingMode="Polyline" points={[[0, 20], [10, 20], [20, 0]]} onChange={action('change')} />
     </MapContainer>
   ))
   .add('controlled polyline', () => {
     const Map = ControlledMap([[0, 20], [10, 20], [20, 0]]);
     return (
       <MapContainer >
-        <Map drawingMode="polyline" />
+        <Map drawingMode="Polyline" />
       </MapContainer>
     );
   })
   .add('empty polygon', () => (
     <MapContainer>
-      <DrawingMap drawingMode="polygon" onChange={action('change')} />
+      <DrawingMap drawingMode="Polygon" onChange={action('change')} />
     </MapContainer>
   ))
   .add('existing polygon', () => (
     <MapContainer>
-      <DrawingMap drawingMode="polygon" points={[[0, 20], [10, 20], [20, 0]]} onChange={action('change')} />
+      <DrawingMap drawingMode="Polygon" points={[[0, 20], [10, 20], [20, 0]]} onChange={action('change')} />
     </MapContainer>
   ))
   .add('controlled polygon', () => {
     const Map = ControlledMap([[0, 20], [10, 20], [20, 0]]);
     return (
       <MapContainer >
-        <Map drawingMode="polygon" />
+        <Map drawingMode="Polygon" />
       </MapContainer>
     );
   })

@@ -122,7 +122,7 @@ export class CoordinatesGroup extends Component {
             {
               this.state.dialogOpen &&
               <SelectPointsDialog
-                drawingMode="marker"
+                drawingMode="Point"
                 bounds={this.props.mapBounds}
                 onClose={this.onCloseDialog}
                 onSubmit={this.onSubmitDialog}

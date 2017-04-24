@@ -23,9 +23,9 @@ const styles = {
 };
 
 const minPoints = {
-  marker: 1,
-  polyline: 2,
-  polygon: 3,
+  Point: 1,
+  Polyline: 2,
+  Polygon: 3,
 };
 
 export default class DrawingMapField extends React.Component {
@@ -35,7 +35,7 @@ export default class DrawingMapField extends React.Component {
       error: PropTypes.string,
       onChange: PropTypes.func,
     }),
-    drawingMode: PropTypes.oneOf(['marker', 'polyline', 'polygon']).isRequired,
+    drawingMode: PropTypes.oneOf(['Point', 'Polyline', 'Polygon']).isRequired,
     bounds: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
   };
 
@@ -43,11 +43,12 @@ export default class DrawingMapField extends React.Component {
 
   onInput = (index, point) => {
     const { value, onChange } = this.props.field;
-    const splice = [index, point ? 0 : 1];
+    const splice = [index, 1];
     if (point) {
       splice.push(point);
     }
-    onChange(update(value, { $splice: [splice] }));
+    const newValue = update(value, { $splice: [splice] });
+    onChange(newValue);
   };
 
   renderPointInputs = (point, index) => {

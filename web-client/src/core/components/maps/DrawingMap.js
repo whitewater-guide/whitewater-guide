@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import GoogleMap from './GoogleMap';
 import { arrayToGmaps, gmapsToArray } from '../../../commons/utils/GeoUtils';
 
-const DrawingOptions = {
-  markerOptions: {
+const DrawingStyles = {
+  Point: {
     draggable: true,
   },
-  polylineOptions: {
+  Polyline: {
     strokeColor: 'black',
     strokeOpacity: 1,
     strokeWeight: 2,
@@ -21,7 +21,7 @@ const DrawingOptions = {
       repeat: '80px',
     }],
   },
-  polygonOptions: {
+  Polygon: {
     strokeColor: 'black',
     fillOpacity: 0.45,
     strokeOpacity: 1,
@@ -29,20 +29,19 @@ const DrawingOptions = {
     editable: true,
     draggable: false,
   },
-  drawingControl: false,
 };
 
 export default class DrawingMap extends React.Component {
   static propTypes = {
     points: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
-    drawingMode: PropTypes.oneOf(['polyline', 'polygon', 'marker']),
+    drawingMode: PropTypes.oneOf(['Polyline', 'Polygon', 'Point']),
     bounds: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
     onChange: PropTypes.func,
   };
 
   static defaultProps = {
     points: [],
-    drawingMode: 'polyline',
+    drawingMode: 'Polyline',
     onChange: () => {},
     bounds: null,
   };
@@ -51,34 +50,30 @@ export default class DrawingMap extends React.Component {
     super(props);
     this.map = null;
     this.maps = null;
-    this.drawingManager = null;
-    this.overlay = null;
-    this.overlayListeners = [];
+    this.feature = null;
+    this.ignoreSetGeometryEvent = false;
   }
 
   componentDidUpdate() {
-    if (!this.drawingManager) {
+    if (!this.feature) {
       return;
     }
     const { points, drawingMode } = this.props;
-    const path = points.map(arrayToGmaps);
-    if (drawingMode === 'marker') {
-      this.overlay.setPosition(path[0]);
-    } else {
-      this.overlay.setPath(path);
+    const latLngs = points.map(arrayToGmaps);
+    this.ignoreSetGeometryEvent = true;
+    if (drawingMode === 'Point') {
+      this.feature.setGeometry(new this.maps.Data.Point(latLngs[0]));
+    } else if (drawingMode === 'Polyline') {
+      this.feature.setGeometry(new this.maps.Data.LineString(latLngs));
+    } else if (drawingMode === 'Polygon') {
+      this.feature.setGeometry(new this.maps.Data.Polygon([latLngs]));
     }
-    // Reattaching listeners because the path was just replaced with new one
-    // TODO: Possible optimization is to use deep-diff to find difference between arrays of points
-    // and the call setAt()/removeAt() on existing path
-    this.overlayListeners.forEach(listener => this.maps.event.removeListener(listener));
-    this.attachListeners();
+    this.ignoreSetGeometryEvent = false;
   }
 
   componentWillUnmount() {
-    this.overlayListeners.forEach(listener => this.maps.event.removeListener(listener));
-    this.overlayListeners = [];
-    if (this.maps && this.maps.event) {
-      this.maps.event.clearInstanceListeners(this.drawingManager);
+    if (this.maps) {
+      this.maps.event.clearInstanceListeners(this.map.data);
     }
   }
 
@@ -103,65 +98,71 @@ export default class DrawingMap extends React.Component {
       map.setCenter(arrayToGmaps(points[0]));
       map.setZoom(14);
     }
-
-    this.drawingManager = new maps.drawing.DrawingManager({ map, drawingMode, ...DrawingOptions });
-    maps.event.addListener(this.drawingManager, 'overlaycomplete', this.handleOverlayComplete);
+    this.map.data.setStyle(DrawingStyles[drawingMode]);
     if (points && points.length > 0) {
-      let overlay = null;
-      if (drawingMode === 'marker') {
-        overlay = new maps.Marker({ map, position: arrayToGmaps(points[0]), ...DrawingOptions.markerOptions });
-      } else if (drawingMode === 'polyline') {
-        overlay = new maps.Polyline({ ...DrawingOptions.polylineOptions, map, path: points.map(arrayToGmaps) });
-      } else if (drawingMode === 'polygon') {
-        overlay = new maps.Polygon({ ...DrawingOptions.polygonOptions, map, paths: [points.map(arrayToGmaps)] });
+      this.map.data.setDrawingMode(null);
+      let geometry = null;
+      const latLngs = points.map(arrayToGmaps);
+      if (drawingMode === 'Point') {
+        geometry = new maps.Data.Point(latLngs[0]);
+      } else if (drawingMode === 'Polyline') {
+        geometry = new maps.Data.LineString(latLngs);
+      } else if (drawingMode === 'Polygon') {
+        geometry = new maps.Data.Polygon([latLngs]);
       }
-      if (overlay) {
-        maps.event.trigger(this.drawingManager, 'overlaycomplete', { type: drawingMode, overlay, initial: true });
+      if (geometry) {
+        this.feature = new maps.Data.Feature({ geometry });
+        map.data.add(this.feature);
       }
-    }
-  };
-
-  handleOverlayComplete = ({ overlay, initial }) => {
-    this.drawingManager.setDrawingMode(null);// One shape max
-    this.overlay = overlay;
-    this.attachListeners();
-    if (!initial) {
-      this.handleChange();
-    }
-  };
-
-  attachListeners = () => {
-    if (this.props.drawingMode === 'marker') {
-      this.overlayListeners.push(this.maps.event.addListener(this.overlay, 'dragend', this.handleChange));
     } else {
-      this.overlayListeners.push(this.maps.event.addListener(this.overlay, 'dblclick', this.handleVertexRemoval));
-      const path = this.overlay.getPath();
-      this.overlayListeners.push(this.maps.event.addListener(path, 'set_at', this.handleChange));
-      this.overlayListeners.push(this.maps.event.addListener(path, 'insert_at', this.handleChange));
-      this.overlayListeners.push(this.maps.event.addListener(path, 'remove_at', this.handleChange));
+      map.data.setDrawingMode(drawingMode);
     }
+    maps.event.addListener(map.data, 'addfeature', this.handleAddFeature);
+    maps.event.addListener(map.data, 'setgeometry', this.handleChange);
+    maps.event.addListener(map.data, 'dblclick', this.handleVertexRemoval);
   };
 
-  handleVertexRemoval = ({ vertex }) => {
-    if (vertex === undefined) {
-      return;
-    }
-    const path = this.overlay.getPath();
-    if (
-      (this.props.drawingMode === 'polygon' && path.length > 3) ||
-      (this.props.drawingMode === 'polyline' && path.length > 2)
-    ) {
-      path.removeAt(vertex);
+  handleAddFeature = ({ feature }) => {
+    this.feature = feature;
+    this.map.data.setDrawingMode(null);
+    this.handleChange();
+  };
+
+  handleVertexRemoval = ({ feature, latLng }) => {
+    const lat = latLng.lat();
+    const lng = latLng.lng();
+    if (this.props.drawingMode === 'Polygon') {
+      let latLngs = feature.getGeometry().getAt(0).getArray();
+      if (latLngs.length > 3) {
+        latLngs = latLngs.filter(ll => ll.lat() !== lat && ll.lng() !== lng);
+        if (latLngs.length >= 3) {
+          feature.setGeometry(new this.maps.Data.Polygon([latLngs]));
+        }
+      }
+    } else if (this.props.drawingMode === 'Polyline') {
+      let latLngs = feature.getGeometry().getArray();
+      if (latLngs.length > 2) {
+        latLngs = latLngs.filter(ll => ll.lat() !== lat && ll.lng() !== lng);
+        if (latLngs.length >= 2) {
+          feature.setGeometry(new this.maps.Data.LineString(latLngs));
+        }
+      }
     }
   };
 
   handleChange = () => {
+    if (this.ignoreSetGeometryEvent) {
+      return;
+    }
     const { drawingMode, onChange } = this.props;
+    const geometry = this.feature.getGeometry();
     let latLngs = null;
-    if (drawingMode === 'marker') {
-      latLngs = [this.overlay.getPosition()];
+    if (drawingMode === 'Point') {
+      latLngs = [geometry.get()];
+    } else if (drawingMode === 'Polyline') {
+      latLngs = geometry.getArray();
     } else {
-      latLngs = this.overlay.getPath().getArray();
+      latLngs = geometry.getAt(0).getArray();
     }
     if (latLngs) {
       onChange(latLngs.map(gmapsToArray));

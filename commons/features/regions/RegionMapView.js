@@ -11,9 +11,9 @@ export default (Layout, Map, SelectedSection, SelectedPOI, LoadingIndicator) => 
       sectionsBatchLoader,
       mapProps(({ region, sections, ...props }) => ({
         ...props,
-        bounds: region.bounds,
+        bounds: region ? region.bounds : [],
         sections: sections.list,
-        pois: region.pois,
+        pois: region ? region.pois : [],
       })),
     ),
   ),

@@ -3,6 +3,7 @@ import React, { cloneElement, Children } from 'react';
 import { findDOMNode } from 'react-dom';
 import ResizeObserver from 'resize-observer-polyfill';
 import withGoogleMapsApi from './withGoogleMapsApi';
+import ZoomToFitControl from './ZoomToFitControl';
 
 const styles = {
   container: {
@@ -107,6 +108,14 @@ class GoogleMap extends React.Component {
 
       this.map.addListener('zoom_changed', this.onZoom);
       this.map.addListener('click', this.onClick);
+
+      // Create custom zoom to fit control
+      const controlDiv = document.createElement('div');
+      const zoomToFitControl = new ZoomToFitControl(controlDiv, this.map, this.onZoomToFit);
+
+      controlDiv.index = 1;
+      this.map.controls[this.maps.ControlPosition.RIGHT_BOTTOM].push(controlDiv);
+
       this.callOnLoaded();
     }
   }
@@ -125,6 +134,16 @@ class GoogleMap extends React.Component {
       const rootNode = findDOMNode(root);
       this.resizeObserver.observe(rootNode);
     }
+  };
+
+  onZoomToFit = () => {
+    const latLngBounds = new this.maps.LatLngBounds();
+    this.map.data.forEach((feature) => {
+      const geometry = feature.getGeometry();
+      geometry.forEachLatLng(latLng => latLngBounds.extend(latLng));
+    });
+    this.map.setCenter(latLngBounds.getCenter());
+    this.map.fitBounds(latLngBounds);
   };
 
   render() {

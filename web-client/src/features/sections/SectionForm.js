@@ -99,7 +99,7 @@ class SectionForm extends Component {
             </div>
           </Tab>
           <Tab label="Shape" value="#shape">
-            <Field name="shape" drawingMode="polyline" bounds={region.bounds} component={DrawingMapField} />
+            <Field name="shape" drawingMode="Polyline" bounds={region.bounds} component={DrawingMapField} />
           </Tab>
           <Tab label="Properties" value="#properties">
             <div style={styles.propertiesTab}>

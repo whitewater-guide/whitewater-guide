@@ -28,7 +28,7 @@ class RegionForm extends Component {
             <Field name="description" title="description" component={RichTextInput} />
           </Tab>
           <Tab label="Shape" value="#shape">
-            <Field name="bounds" drawingMode="polygon" component={DrawingMapField} />
+            <Field name="bounds" drawingMode="Polygon" component={DrawingMapField} />
           </Tab>
           <Tab label="POIS" value="#pois">
             <Field name="pois" title="Points of interest" component={POICollection} />

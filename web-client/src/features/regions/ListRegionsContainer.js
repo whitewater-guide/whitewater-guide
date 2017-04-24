@@ -9,8 +9,8 @@ const RemoveRegionMutation = gql`
 `;
 
 const CreateRegionMutation = gql`
-  mutation createRegion($region: RegionInput!, $language: String){
-    region: upsertRegion(region: $region, language: $language){
+  mutation upsertRegion($region: RegionInput!, $language: String){
+    upsertRegion(region: $region, language: $language){
       _id,
       name,
     }
