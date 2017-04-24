@@ -10,10 +10,12 @@ const editRegion = gql`
     upsertRegion(region: $region, language: $language){
       ...RegionCore
       ...RegionPOIs
+      ...RegionBounds
     }
   }
   ${RegionFragments.Core}
   ${RegionFragments.POIs}
+  ${RegionFragments.Bounds}
 `;
 
 export default compose(

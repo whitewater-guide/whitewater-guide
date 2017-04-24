@@ -12,7 +12,8 @@ function upsertRegion(root, data) {
     Regions.updateTranslations(_id, {[language]: {poiIds, ...region}});
   else
     _id = Regions.insertTranslations({poiIds, ...region});
-  return Regions.findOne(_id);
+  const result = Regions.findOne(_id);
+  return result;
 }
 
 function removeRegion(root, {_id}) {
