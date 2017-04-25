@@ -32,6 +32,10 @@ test('arrayToDMSString should work', () => {
   expect(arrayToDMSString([-122.902336, 46.9845854])).toBe('46°59′4″ N, 122°54′8″ W');
 });
 
+test('arrayToDMSString should ignore altitude', () => {
+  expect(arrayToDMSString([-122.902336, 46.9845854, 100])).toBe('46°59′4″ N, 122°54′8″ W');
+});
+
 test('computeDistanceBetween should roughly match google maps', () => {
   let distance = computeDistanceBetween([-8.6568724, 41.1628634], [-7.9092951, 39.9203725]);
   distance = Math.round(distance * 100) / 100;
