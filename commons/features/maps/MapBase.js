@@ -10,6 +10,7 @@ export const PropTypes = {
   pois: PT.array,
   selectedPOI: PT.object,
   onPOISelected: PT.func,
+  useSectionShapes: PT.bool,
 };
 
 export const DefaultProps = {
@@ -20,6 +21,7 @@ export const DefaultProps = {
   selectedPOI: null,
   onSectionSelected: () => {},
   onPOISelected: () => {},
+  useSectionShapes: false,
 };
 
 export default (MapComponent, SectionComponent, POIComponent) => {
@@ -39,10 +41,11 @@ export default (MapComponent, SectionComponent, POIComponent) => {
     onZoom = zoom => this.setState({ zoom });
 
     renderSection = (section) => {
-      const { onSectionSelected, selectedSection } = this.props;
+      const { onSectionSelected, selectedSection, useSectionShapes } = this.props;
       const { zoom } = this.state;
       return (
         <SectionComponent
+          useSectionShapes={useSectionShapes}
           key={section._id}
           section={section}
           selected={selectedSection && selectedSection._id === section._id}

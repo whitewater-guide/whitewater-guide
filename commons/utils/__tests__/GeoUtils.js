@@ -5,6 +5,7 @@ import {
   gmapsToArray,
   arrayToGmaps,
   getCoordinatesPatch,
+  getBBox,
 } from '../GeoUtils';
 
 test('Gmaps to array should handle nulls', () => {
@@ -91,4 +92,8 @@ test('getCoordinatesPatch should handle deletions', () => {
   const prev2 = [[2, 4], [3, 9], [4, 16], [1, 1]];
   const next2 = [[2, 4], [3, 9], [4, 16]];
   expect(getCoordinatesPatch(prev2, next2)).toEqual([3, 1]);
+});
+
+test('getBBOx should work', () => {
+  expect(getBBox([[0,0], [-10, 5], [-11, -21], [4, -23]])).toEqual([-11, 4, -23, 5]);
 });

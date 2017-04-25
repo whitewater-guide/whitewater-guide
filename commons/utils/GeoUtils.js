@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import { BoundingBox } from 'geocoordinate';
 
 export function gmapsToArray(latLng) {
   if (!latLng) {
@@ -65,6 +64,23 @@ export function computeDistanceBetween(a, b) {
   );
 }
 
+/**
+ * Get bounding box for array of [lng, lat] pairs
+ * @param bounds
+ * @returns [minLng, maxLng, minLat, maxLat]
+ */
+export function getBBox(bounds) {
+  return bounds.reduce(
+    ([mnLng, mxLng, mnLat, mxLat], [lng, lat]) => [
+      Math.min(mnLng, lng),
+      Math.max(mxLng, lng),
+      Math.min(mnLat, lat),
+      Math.max(mxLat, lat),
+    ],
+    [bounds[0][0], bounds[0][0], bounds[0][1], bounds[0][1]],
+  );
+}
+
 function latRad(lat) {
   const sin = Math.sin(lat * Math.PI / 180);
   const radX2 = Math.log((1 + sin) / (1 - sin)) / 2;
@@ -86,12 +102,11 @@ export function getBoundsZoomLevel(bounds = [], mapDim) {
   const WORLD_DIM = { height: 256, width: 256 };
   const ZOOM_MAX = 21;
 
-  const bbox = new BoundingBox();
-  bounds.forEach(point => bbox.pushCoordinate(point[1], point[0]));
+  const [minLng, maxLng, minLat, maxLat] = getBBox(bounds);
 
-  const latFraction = (latRad(bbox.latitude.max) - latRad(bbox.latitude.min)) / Math.PI;
+  const latFraction = (latRad(maxLat) - latRad(minLat)) / Math.PI;
 
-  const lngDiff = bbox.longitude.max - bbox.longitude.min;
+  const lngDiff = maxLng - minLng;
   const lngFraction = ((lngDiff < 0) ? (lngDiff + 360) : lngDiff) / 360;
 
   const latZoom = zoom(mapDim.height, WORLD_DIM.height, latFraction);

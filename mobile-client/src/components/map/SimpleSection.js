@@ -1,23 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Dimensions, StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import { Svg, Polygon } from 'react-native-svg';
 import MapView from 'react-native-maps';
 import { SectionPropType, getSectionColor } from '../../commons/features/sections';
 
 const Anchor = { x: 0.5, y: 0.5 };
-const dimensions = Dimensions.get('window');
-
-const styles = StyleSheet.create({
-  callout: {
-    width: Math.round(0.66 * dimensions.width),
-  },
-  calloutMarker: {
-    width: 1,
-    height: 1,
-    backgroundColor: 'transparent',
-  },
-});
 
 class SimpleSection extends React.PureComponent {
   static propTypes = {
@@ -25,20 +13,17 @@ class SimpleSection extends React.PureComponent {
     selected: PropTypes.bool,
     onSectionSelected: PropTypes.func.isRequired,
     zoom: PropTypes.number.isRequired,
+    useSectionShapes: PropTypes.bool,
   };
 
   static defaultProps = {
     selected: false,
+    useSectionShapes: false,
   };
 
   selectSection = () => {
     const { section, onSectionSelected } = this.props;
-    console.log('Select section', section.river.name, section.name );
     onSectionSelected(section);
-  };
-
-  deselectSection = () => {
-    this.props.onSectionSelected(null);
   };
 
   renderArrow = (color) => {
@@ -74,15 +59,15 @@ class SimpleSection extends React.PureComponent {
   };
 
   render() {
-    const { section, selected } = this.props;
+    const { section, selected, useSectionShapes } = this.props;
     const {
       putIn: { coordinates: [putInLng, putInLat] },
       takeOut: { coordinates: [takeOutLng, takeOutLat] },
+      shape,
     } = section;
-    const coordinates = [
-      { latitude: putInLat, longitude: putInLng },
-      { latitude: takeOutLat, longitude: takeOutLng },
-    ];
+    const coordinates = (useSectionShapes && shape) ?
+      shape.map(pt => ({ latitude: pt[1], longitude: pt[0] })) :
+      [{ latitude: putInLat, longitude: putInLng }, { latitude: takeOutLat, longitude: takeOutLng }];
     const flows = section.flows || {};
     const levels = section.levels || {};
     const bindings = flows.lastValue ? flows : levels;
@@ -95,13 +80,6 @@ class SimpleSection extends React.PureComponent {
           onPress={this.selectSection}
           coordinates={coordinates}
         />
-        <MapView.Marker
-          ref={(el) => { this.calloutMarker = el; }}
-          onPress={this.selectSection}
-          coordinate={{ longitude: (putInLng + takeOutLng) / 2, latitude: (putInLat + takeOutLat) / 2 }}
-        >
-          <View style={styles.calloutMarker} pointerEvents="none" />
-        </MapView.Marker>
         { this.renderArrow(color) }
       </View>
     );

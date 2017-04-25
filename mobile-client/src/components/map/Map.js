@@ -2,11 +2,11 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { Dimensions, StyleSheet } from 'react-native';
-import { getBoundsZoomLevel, deltaRegionToArrayBounds } from '../../commons/utils/GeoUtils';
+import { getBoundsZoomLevel, getBBox } from '../../commons/utils/GeoUtils';
 
 class Map extends React.PureComponent {
   static propTypes = {
-    initialBounds: PropTypes.object,
+    initialBounds: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
     onZoom: PropTypes.func.isRequired,
     onSectionSelected: PropTypes.func.isRequired,
     onPOISelected: PropTypes.func.isRequired,
@@ -14,6 +14,7 @@ class Map extends React.PureComponent {
 
   static defaultProps = {
     initialBounds: null,
+    useSectionShapes: false,
   };
 
   constructor(props) {
@@ -25,10 +26,11 @@ class Map extends React.PureComponent {
     this.dimensions = { width, height };
     const { initialBounds } = this.props;
     if (initialBounds && this.mapView) {
+      const [minLng, maxLng, minLat, maxLat] = getBBox(initialBounds);
       this.mapView.fitToCoordinates(
         [
-          { latitude: initialBounds.sw[1], longitude: initialBounds.sw[0] },
-          { latitude: initialBounds.ne[1], longitude: initialBounds.ne[0] },
+          { latitude: minLat, longitude: minLng },
+          { latitude: maxLat, longitude: maxLng },
         ],
         {
           edgePanning: { top: 10, bottom: 10, left: 10, right: 10 },
@@ -39,19 +41,20 @@ class Map extends React.PureComponent {
   };
 
   onMarkerDeselect = () => {
-    console.log('Deselect all');
     this.props.onSectionSelected(null);
     this.props.onPOISelected(null);
   };
 
   onPress = () => {
-    console.log('On Map press');
     this.props.onSectionSelected(null);
     this.props.onPOISelected(null);
   };
 
   onRegionChange = (region) => {
-    const bounds = deltaRegionToArrayBounds(region);
+    const bounds = [
+      [region.longitude - region.longitudeDelta, region.latitude - region.latitudeDelta],
+      [region.longitude + region.longitudeDelta, region.latitude + region.latitudeDelta],
+    ];
     const zoomLevel = getBoundsZoomLevel(bounds, this.dimensions);
     this.props.onZoom(zoomLevel);
   };

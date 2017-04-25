@@ -20,7 +20,11 @@ const withRegionsList = enhancedQuery(
       reducer: regionsListReducer,
       notifyOnNetworkStatusChange: true,
     },
-    props: ({ data: { regions, loading } }) => ({ regions: regions || [], regionsListLoading: loading }),
+    props: ({ data: { regions, loading, refetch } }) => ({
+      regions: regions || [],
+      regionsListLoading: loading,
+      refetchRegionsList: refetch,
+    }),
   },
 );
 
