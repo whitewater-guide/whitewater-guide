@@ -30,6 +30,9 @@ export class TextField extends React.Component {
     const { type, onChange } = this.props;
     this.setState({ value });
     const castValue = type === 'number' ? strToFloat(value) : value;
+    if (type === 'number' && value === '-') {
+      return;
+    }
     if (onChange) {
       onChange(e, castValue);
     }
