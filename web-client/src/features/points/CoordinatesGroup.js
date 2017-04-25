@@ -105,8 +105,8 @@ export class CoordinatesGroup extends Component {
             <TextField
               style={styles.textInput}
               type="number"
-              errorText={_.get(errors, 'altitude')}
-              value={_.get(value, 'altitude', '')}
+              errorText={_.get(errors, 'coordinates.2')}
+              value={_.get(value, 'coordinates.2', '')}
               onChange={this.onAltitudeChange}
               hintText="Altitude"
               floatingLabelText="Altitude"
@@ -158,17 +158,17 @@ export class CoordinatesGroup extends Component {
 
   onAltitudeChange = (e, altitude) => {
     let { field: { value } } = this.props;
-    this.onChange({ ...value, altitude });
+    this.onChange({ ...value, coordinates: [_.get(value, 'coordinates.0'), _.get(value, 'coordinates.1'), altitude] });
   };
 
   onLongitudeChange = (e, longitude) => {
     let { field: { value } } = this.props;
-    this.onChange({ ...value, coordinates: [longitude, _.get(value, 'coordinates.1')] });
+    this.onChange({ ...value, coordinates: [longitude, _.get(value, 'coordinates.1'), _.get(value, 'coordinates.2')] });
   };
 
   onLatitudeChange = (e, latitude) => {
     let { field: { value } } = this.props;
-    this.onChange({ ...value, coordinates: [_.get(value, 'coordinates.0'), latitude] });
+    this.onChange({ ...value, coordinates: [_.get(value, 'coordinates.0'), latitude, _.get(value, 'coordinates.2')] });
   };
 
   onDelete = () => {
@@ -180,9 +180,9 @@ export class CoordinatesGroup extends Component {
     const emptyInput = v => v === undefined || v === '';
     if (
       !this.props.detailed &&
-      emptyInput(value.altitude) &&
       emptyInput(_.get(value, 'coordinates.0')) &&
-      emptyInput(_.get(value, 'coordinates.1'))
+      emptyInput(_.get(value, 'coordinates.1')) &&
+      emptyInput(_.get(value, 'coordinates.2'))
     ) {
       this.props.field.onChange(undefined);
     }

@@ -12,7 +12,10 @@ const styles = {
     justifyContent: 'space-between',
   },
   input: {
-    width: 95,
+    width: 85,
+  },
+  altitude: {
+    width: 40,
   },
   button: {
     paddingLeft: 4,
@@ -39,11 +42,12 @@ export default class DrawingMapSidebarPoint extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      point: props.point ? [...props.point] : ['', ''],
+      point: props.point ? [...props.point] : ['', '', ''],
       valid: true,
     };
     this.onLngChange = this.onChange(0);
     this.onLatChange = this.onChange(1);
+    this.onAltChange = this.onChange(2);
     this.debounceChange = _.debounce(this.props.onChange, 200);
   }
 
@@ -52,7 +56,7 @@ export default class DrawingMapSidebarPoint extends React.Component {
       const valid = isValidLat(point[1]) && isValidLng(point[0]);
       this.setState({ valid, point: [...point] });
     } else {
-      this.setState({ valid: true, point: ['', ''] });
+      this.setState({ valid: true, point: ['', '', ''] });
     }
   }
 
@@ -61,6 +65,7 @@ export default class DrawingMapSidebarPoint extends React.Component {
     const newPoint = [
       coordIndex === 0 ? v : this.state.point[0] || '',
       coordIndex === 1 ? v : this.state.point[1] || '',
+      coordIndex === 2 ? v : this.state.point[2] || '',
     ];
     const valid = isValidLat(newPoint[1]) && isValidLng(newPoint[0]);
     this.setState({ point: newPoint, valid });
@@ -83,11 +88,13 @@ export default class DrawingMapSidebarPoint extends React.Component {
     const { disableRemove } = this.props;
     const lat = point ? point[1] : '';
     const lng = point ? point[0] : '';
+    const alt = point ? point[2] : '';
     const style = valid ? styles.container : { ...styles.container, border: '1px solid red' };
     return (
       <div style={style}>
         <TextField style={styles.input} type="number" hintText="Latitude" value={lat} onChange={this.onLatChange} />
         <TextField style={styles.input} type="number" hintText="Longitude" value={lng} onChange={this.onLngChange} />
+        <TextField style={styles.altitude} type="number" hintText="Altitude" value={alt} onChange={this.onAltChange} />
         <IconButton
           iconStyle={styles.icon}
           style={styles.button}

@@ -6,6 +6,7 @@ import _ from 'lodash';
 const limits = [
   {min: -180, max: 180, msg: 'lonOutOfRange'},
   {min: -90, max: 90, msg: 'latOutOfRange'},
+  {min: Number.NEGATIVE_INFINITY, max: Number.POSITIVE_INFINITY, msg: 'altOutOfRange'},
 ];
 
 export const POITypes = [
@@ -39,9 +40,9 @@ const baseSchema = {
   _id: {type: String, regEx: SimpleSchema.RegEx.Id},
   coordinates: {
     type: Array,
-    label: 'Longitude & Latitude',
+    label: 'Longitude / Latitude / Altitude',
     minCount: 2,
-    maxCount: 2,
+    maxCount: 3,
   },
   "coordinates.$": {
     type: Number,
@@ -54,7 +55,6 @@ const baseSchema = {
         return limit.msg;
     },
   },
-  altitude: Number,
   kind: {type: String},
 };
 

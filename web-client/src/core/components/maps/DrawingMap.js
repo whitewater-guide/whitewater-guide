@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import update from 'immutability-helper';
 import GoogleMap from './GoogleMap';
-import { arrayToGmaps, gmapsToArray } from '../../../commons/utils/GeoUtils';
+import { arrayToGmaps, gmapsToArray, getCoordinatesPatch } from '../../../commons/utils/GeoUtils';
 
 const DrawingStyles = {
   Point: {
@@ -29,6 +30,21 @@ const DrawingStyles = {
     editable: true,
     draggable: false,
   },
+};
+
+const geometryToLatLngs = (geometry) => {
+  if (!geometry) {
+    return null;
+  }
+  const type = geometry.getType();
+  if (type === 'Point') {
+    return [geometry.get()];
+  } else if (type === 'LineString') {
+    return geometry.getArray();
+  } else if (type === 'Polygon') {
+    return geometry.getAt(0).getArray();
+  }
+  return null;
 };
 
 export default class DrawingMap extends React.Component {
@@ -87,13 +103,11 @@ export default class DrawingMap extends React.Component {
       const latLngBounds = new maps.LatLngBounds();
       if (points) {
         points.forEach(point => latLngBounds.extend(arrayToGmaps(point)));
-      }
-      if (bounds) {
+      } else {
         bounds.forEach(point => latLngBounds.extend(arrayToGmaps(point)));
       }
       map.setCenter(latLngBounds.getCenter());
       map.fitBounds(latLngBounds);
-      map.setZoom(map.getZoom() - 1);
     } else if (points.length === 1) {
       map.setCenter(arrayToGmaps(points[0]));
       map.setZoom(14);
@@ -125,7 +139,7 @@ export default class DrawingMap extends React.Component {
   handleAddFeature = ({ feature }) => {
     this.feature = feature;
     this.map.data.setDrawingMode(null);
-    this.handleChange();
+    this.handleChange({ newGeometry: feature.getGeometry() });
   };
 
   handleVertexRemoval = ({ feature, latLng }) => {
@@ -150,22 +164,31 @@ export default class DrawingMap extends React.Component {
     }
   };
 
-  handleChange = () => {
+  handleChange = ({ newGeometry, oldGeometry }) => {
     if (this.ignoreSetGeometryEvent) {
       return;
     }
-    const { drawingMode, onChange } = this.props;
-    const geometry = this.feature.getGeometry();
-    let latLngs = null;
-    if (drawingMode === 'Point') {
-      latLngs = [geometry.get()];
-    } else if (drawingMode === 'Polyline') {
-      latLngs = geometry.getArray();
+    // Google maps geometry has only lat and lng, but our geometry has also altitude
+    // So if we just send google geometry, all the alts will vanish from our points
+    // We have to figure out which point was changed, and if it was updated, keep it's altitude
+    // It has positive side-effect of limiting google-maps screwing of rounding to only changed points
+    const { points, onChange } = this.props;
+
+    const newLatLngs = geometryToLatLngs(newGeometry);
+    const newPoints = newLatLngs.map(gmapsToArray);
+    if (oldGeometry) {
+      // Need to patch points
+      const oldLatLngs = geometryToLatLngs(oldGeometry);
+      const oldPoints = oldLatLngs.map(gmapsToArray);
+      const patch = getCoordinatesPatch(oldPoints, newPoints);
+      if (patch.length === 3 && patch[1] === 1 && points[patch[0]].length > 2) {
+        // Some point with altitude was updated, need to keep the altitude
+        patch[2][2] = points[patch[0]][2];
+      }
+      onChange(update(points, { $splice: [patch] }));
     } else {
-      latLngs = geometry.getAt(0).getArray();
-    }
-    if (latLngs) {
-      onChange(latLngs.map(gmapsToArray));
+      // New geometry was created, altitudes are nulls anyway
+      onChange(newPoints);
     }
   };
 

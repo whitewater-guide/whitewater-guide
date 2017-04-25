@@ -39,13 +39,11 @@ const Ends = gql`
     putIn {
       _id
       coordinates
-      altitude
       kind
     }
     takeOut {
       _id
       coordinates
-      altitude
       kind
     }
   }
@@ -124,7 +122,6 @@ const POIs = gql`
       name
       description
       coordinates
-      altitude
       kind
     }
   }

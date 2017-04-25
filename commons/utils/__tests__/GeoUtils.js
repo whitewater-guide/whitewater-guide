@@ -4,6 +4,7 @@ import {
   getBoundsZoomLevel,
   gmapsToArray,
   arrayToGmaps,
+  getCoordinatesPatch,
 } from '../GeoUtils';
 
 test('Gmaps to array should handle nulls', () => {
@@ -47,4 +48,47 @@ test('Get zoom should match google maps', () => {
     [-6.584231, 42.847559],
   ];
   expect(getBoundsZoomLevel(bounds, { width: 600, height: 800 })).toBe(7);
+});
+
+test('getCoordinatesPatch should return null for equal arrays', () => {
+  const prev = [[0, 0], [1, 1]];
+  const next = [[0, 0], [1, 1]];
+  expect(getCoordinatesPatch(prev, next)).toBeNull();
+});
+
+test('getCoordinatesPatch should handle updates', () => {
+  const prev0 = [[2, 4], [3, 9], [4, 16]];
+  const next0 = [[1, 1], [3, 9], [4, 16]];
+  expect(getCoordinatesPatch(prev0, next0)).toEqual([0, 1, [1, 1]]);
+  const prev1 = [[2, 4], [3, 9], [4, 16]];
+  const next1 = [[2, 4], [1, 1], [4, 16]];
+  expect(getCoordinatesPatch(prev1, next1)).toEqual([1, 1, [1, 1]]);
+  const prev2 = [[2, 4], [3, 9], [4, 16]];
+  const next2 = [[2, 4], [3, 9], [1, 1]];
+  expect(getCoordinatesPatch(prev2, next2)).toEqual([2, 1, [1, 1]]);
+});
+
+test('getCoordinatesPatch should handle insertions', () => {
+  const prev0 = [[2, 4], [3, 9], [4, 16]];
+  const next0 = [[1, 1], [2, 4], [3, 9], [4, 16]];
+  expect(getCoordinatesPatch(prev0, next0)).toEqual([0, 0, [1, 1]]);
+  const prev1 = [[2, 4], [3, 9], [4, 16]];
+  const next1 = [[2, 4], [1, 1], [3, 9], [4, 16]];
+  expect(getCoordinatesPatch(prev1, next1)).toEqual([1, 0, [1, 1]]);
+  const prev2 = [[2, 4], [3, 9], [4, 16]];
+  const next2 = [[2, 4], [3, 9], [4, 16], [1, 1]];
+  expect(getCoordinatesPatch(prev2, next2)).toEqual([3, 0, [1, 1]]);
+});
+
+
+test('getCoordinatesPatch should handle deletions', () => {
+  const prev0 = [[1, 1], [2, 4], [3, 9], [4, 16]];
+  const next0 = [[2, 4], [3, 9], [4, 16]];
+  expect(getCoordinatesPatch(prev0, next0)).toEqual([0, 1]);
+  const prev1 = [[2, 4], [1, 1], [3, 9], [4, 16]];
+  const next1 = [[2, 4], [3, 9], [4, 16]];
+  expect(getCoordinatesPatch(prev1, next1)).toEqual([1, 1]);
+  const prev2 = [[2, 4], [3, 9], [4, 16], [1, 1]];
+  const next2 = [[2, 4], [3, 9], [4, 16]];
+  expect(getCoordinatesPatch(prev2, next2)).toEqual([3, 1]);
 });

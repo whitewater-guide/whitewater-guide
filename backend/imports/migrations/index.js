@@ -10,6 +10,7 @@ import v7 from './v7';
 import v8 from './v8';
 import v9 from './v9';
 import v10 from './v10';
+import v11 from './v11';
 
 Migrations.add(v1);
 
@@ -55,6 +56,10 @@ Migrations.add(v9);
  * Add polygonal bounds to regions
  */
 Migrations.add(v10);
+/**
+ * Altitude -> coordinates[2]
+ */
+Migrations.add(v11);
 
 Meteor.startup(() => {
   Migrations.migrateTo('latest');

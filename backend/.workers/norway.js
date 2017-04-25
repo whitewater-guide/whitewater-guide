@@ -135,8 +135,13 @@ function autofill(cb){
             return;
           }
           gauge.location.coordinates = coordinates;
-          if (coordinates[0] === "" || coordinates[1] === "")
+          if (coordinates[0] === "" || coordinates[1] === "") {
             delete gauge.location;
+          }
+          else if (gauge.location.altitude) {
+            gauge.location.coordinates[2] = gauge.location.altitude;
+            delete gauge.location.altitude;
+          }
           qcb();
         });
       })

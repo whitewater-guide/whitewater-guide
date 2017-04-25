@@ -27,8 +27,8 @@ const section = {
     coordinates: [
       -8.183466,
       41.951795,
+      550,
     ],
-    altitude: 550,
     description: null,
     kind: 'put-in',
   },
@@ -37,8 +37,8 @@ const section = {
     coordinates: [
       -8.20933,
       41.923466,
+      340,
     ],
-    altitude: 340,
     description: null,
     kind: 'take-out',
   },
@@ -86,7 +86,6 @@ const section = {
         -8.201206,
         41.932372,
       ],
-      altitude: null,
       kind: 'other',
     },
   ],

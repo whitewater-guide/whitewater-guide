@@ -22,7 +22,6 @@ const POIs = gql`
       name
       description
       coordinates
-      altitude
       kind
     }
   }

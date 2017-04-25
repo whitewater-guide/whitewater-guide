@@ -5,7 +5,7 @@ var launchWorker = require('./core/worker');
 //https://apps.tirol.gv.at/hydro/#/Wasserstand/?station=201475
 function harvest(){
   return fetch('https://apps.tirol.gv.at/hydro/stationdata/data.json')
-    .then(function(response){ 
+    .then(function(response){
       return response.json();
     })
     .then(function(json) {
@@ -21,10 +21,10 @@ function harvest(){
           location: {
             type: 'Point',
             kind: 'gauge',
-            altitude: Number(gauge.altitude),
             coordinates: [
               Number(gauge.longitude),
-              Number(gauge.latitude)
+              Number(gauge.latitude),
+              Number(gauge.altitude),
             ]
           },
           timestamp: Number(get(gauge, ['values', 'W', '15m.Cmd.HD', 'dt'])),//unix timestamp in ms

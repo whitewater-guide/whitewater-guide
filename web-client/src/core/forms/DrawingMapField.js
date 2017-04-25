@@ -16,7 +16,7 @@ const styles = {
     flex: 1,
   },
   sidebar: {
-    width: 240,
+    width: 270,
     padding: 8,
     overflowY: 'auto',
   },

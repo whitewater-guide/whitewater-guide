@@ -9,6 +9,7 @@ import {Durations} from './durations';
 const limits = [
   {min: -180, max: 180, msg: 'lonOutOfRange'},
   {min: -90, max: 90, msg: 'latOutOfRange'},
+  {min: Number.NEGATIVE_INFINITY, max: Number.POSITIVE_INFINITY, msg: 'altOutOfRange'},
 ];
 
 const i18Schema = {

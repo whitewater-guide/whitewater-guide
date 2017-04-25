@@ -19,7 +19,6 @@ const Location = gql`
     location {
       _id
       coordinates
-      altitude
     }
   }
 `;

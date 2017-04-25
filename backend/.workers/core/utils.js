@@ -8,10 +8,10 @@ function generateRandomGauge(index) {
     code: padStart(index.toString(), 3, '0'),
     location: {
       type: 'Point',
-      altitude: random(0, 3000),
       coordinates: [
         random(-179.9, 179.9, true),
-        random(-89.9, 89.9, true)
+        random(-89.9, 89.9, true),
+        random(0, 3000),
       ],
       kind: 'gauge'
     },
