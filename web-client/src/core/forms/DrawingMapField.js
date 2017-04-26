@@ -35,7 +35,7 @@ export default class DrawingMapField extends React.Component {
       error: PropTypes.string,
       onChange: PropTypes.func,
     }),
-    drawingMode: PropTypes.oneOf(['Point', 'Polyline', 'Polygon']).isRequired,
+    drawingMode: PropTypes.oneOf(['Point', 'LineString', 'Polygon']).isRequired,
     bounds: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
   };
 

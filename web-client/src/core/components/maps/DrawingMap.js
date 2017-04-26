@@ -8,7 +8,7 @@ const DrawingStyles = {
   Point: {
     draggable: true,
   },
-  Polyline: {
+  LineString: {
     strokeColor: 'black',
     strokeOpacity: 1,
     strokeWeight: 2,
@@ -50,14 +50,14 @@ const geometryToLatLngs = (geometry) => {
 export default class DrawingMap extends React.Component {
   static propTypes = {
     points: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
-    drawingMode: PropTypes.oneOf(['Polyline', 'Polygon', 'Point']),
+    drawingMode: PropTypes.oneOf(['LineString', 'Polygon', 'Point']),
     bounds: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
     onChange: PropTypes.func,
   };
 
   static defaultProps = {
     points: [],
-    drawingMode: 'Polyline',
+    drawingMode: 'LineString',
     onChange: () => {},
     bounds: null,
   };
@@ -79,7 +79,7 @@ export default class DrawingMap extends React.Component {
     this.ignoreSetGeometryEvent = true;
     if (drawingMode === 'Point') {
       this.feature.setGeometry(new this.maps.Data.Point(latLngs[0]));
-    } else if (drawingMode === 'Polyline') {
+    } else if (drawingMode === 'LineString') {
       this.feature.setGeometry(new this.maps.Data.LineString(latLngs));
     } else if (drawingMode === 'Polygon') {
       this.feature.setGeometry(new this.maps.Data.Polygon([latLngs]));
@@ -99,18 +99,18 @@ export default class DrawingMap extends React.Component {
     this.maps = maps;
 
     // Set bounds
-    if (bounds || (points && points.length > 1)) {
-      const latLngBounds = new maps.LatLngBounds();
-      if (points) {
-        points.forEach(point => latLngBounds.extend(arrayToGmaps(point)));
-      } else {
-        bounds.forEach(point => latLngBounds.extend(arrayToGmaps(point)));
-      }
-      map.setCenter(latLngBounds.getCenter());
-      map.fitBounds(latLngBounds);
-    } else if (points.length === 1) {
+    const latLngBounds = new maps.LatLngBounds();
+    if (points && points.length === 1) {
       map.setCenter(arrayToGmaps(points[0]));
       map.setZoom(14);
+    } else if (points && points.length > 1) {
+      points.forEach(point => latLngBounds.extend(arrayToGmaps(point)));
+      map.setCenter(latLngBounds.getCenter());
+      map.fitBounds(latLngBounds);
+    } else if (bounds) {
+      bounds.forEach(point => latLngBounds.extend(arrayToGmaps(point)));
+      map.setCenter(latLngBounds.getCenter());
+      map.fitBounds(latLngBounds);
     }
     this.map.data.setStyle(DrawingStyles[drawingMode]);
     if (points && points.length > 0) {
@@ -119,7 +119,7 @@ export default class DrawingMap extends React.Component {
       const latLngs = points.map(arrayToGmaps);
       if (drawingMode === 'Point') {
         geometry = new maps.Data.Point(latLngs[0]);
-      } else if (drawingMode === 'Polyline') {
+      } else if (drawingMode === 'LineString') {
         geometry = new maps.Data.LineString(latLngs);
       } else if (drawingMode === 'Polygon') {
         geometry = new maps.Data.Polygon([latLngs]);
@@ -153,7 +153,7 @@ export default class DrawingMap extends React.Component {
           feature.setGeometry(new this.maps.Data.Polygon([latLngs]));
         }
       }
-    } else if (this.props.drawingMode === 'Polyline') {
+    } else if (this.props.drawingMode === 'LineString') {
       let latLngs = feature.getGeometry().getArray();
       if (latLngs.length > 2) {
         latLngs = latLngs.filter(ll => ll.lat() !== lat && ll.lng() !== lng);

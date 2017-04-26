@@ -26,7 +26,7 @@ const minPoints = {
 
 export class SelectPointsDialog extends React.Component {
   static propTypes = {
-    drawingMode: PropTypes.oneOf(['Polyline', 'Polygon', 'Point']).isRequired,
+    drawingMode: PropTypes.oneOf(['LineString', 'Polygon', 'Point']).isRequired,
     points: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
     bounds: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
     onClose: PropTypes.func.isRequired,

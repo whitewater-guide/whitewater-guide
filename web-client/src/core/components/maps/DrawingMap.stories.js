@@ -34,19 +34,19 @@ storiesOf('DrawingMap', module)
   })
   .add('empty polyline', () => (
     <MapContainer>
-      <DrawingMap drawingMode="Polyline" onChange={action('change')} />
+      <DrawingMap drawingMode="LineString" onChange={action('change')} />
     </MapContainer>
   ))
   .add('existing polyline', () => (
     <MapContainer>
-      <DrawingMap drawingMode="Polyline" points={[[0, 20], [10, 20], [20, 0]]} onChange={action('change')} />
+      <DrawingMap drawingMode="LineString" points={[[0, 20], [10, 20], [20, 0]]} onChange={action('change')} />
     </MapContainer>
   ))
   .add('controlled polyline', () => {
     const Map = ControlledMap([[0, 20], [10, 20], [20, 0]]);
     return (
       <MapContainer >
-        <Map drawingMode="Polyline" />
+        <Map drawingMode="LineString" />
       </MapContainer>
     );
   })
