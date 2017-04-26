@@ -41,6 +41,7 @@ const withGaugesList = enhancedQuery(
   ListGaugesQuery,
   {
     options: ({ sourceId, language }) => ({
+      fetchPolicy: 'cache-and-network',
       variables: { sourceId, language, isLoadMore: false },
       notifyOnNetworkStatusChange: true,
     }),

@@ -37,6 +37,7 @@ export function withRegion(options) {
         regionDetails,
         {
           options: ({ regionId, language }) => ({
+            fetchPolicy: 'cache-and-network',
             variables: { _id: regionId, language, withBounds, withPOIs },
           }),
           props: ({ data: { region, loading } }) => (

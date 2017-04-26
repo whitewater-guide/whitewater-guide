@@ -41,7 +41,7 @@ export function withSection(options) {
         sectionDetails,
         {
           options: ({ sectionId, language }) => ({
-            fetchPolicy: 'cache-first',
+            fetchPolicy: 'cache-and-network',
             variables: { _id: sectionId, language, withGeo, withDescription },
           }),
           props: ({ data: { section, loading } }) => ({

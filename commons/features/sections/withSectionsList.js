@@ -45,6 +45,7 @@ const sectionsGraphql = (withGeo, pageSize) => enhancedQuery(
   ListSectionsQuery,
   {
     options: ({ language, ...props }) => ({
+      fetchPolicy: 'cache-and-network',
       variables: { terms: { ...termsFromProps(props), limit: pageSize }, withGeo, language, isLoadMore: false },
       reducer: sectionsListReducer,
       notifyOnNetworkStatusChange: true,

@@ -17,6 +17,7 @@ const withRegionsList = enhancedQuery(
   ListRegionsQuery,
   {
     options: {
+      fetchPolicy: 'cache-and-network',
       reducer: regionsListReducer,
       notifyOnNetworkStatusChange: true,
     },
