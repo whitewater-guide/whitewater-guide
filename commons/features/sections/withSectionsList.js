@@ -1,4 +1,4 @@
-import { gql, compose } from 'react-apollo';
+import { gql, compose, withApollo } from 'react-apollo';
 import { withState, withHandlers, flattenProp, mapProps, branch } from 'recompose';
 import _ from 'lodash';
 import update from 'immutability-helper';
@@ -21,6 +21,22 @@ const ListSectionsQuery = gql`
   ${SectionFragments.Measurements}
   ${SectionFragments.Core}
   ${SectionFragments.Ends}
+`;
+
+const UpdatesSubscription = gql`
+  subscription measurementsUpdated($regionId: ID!){
+    measurementsUpdated(regionId: $regionId){
+      _id
+      levels {
+        lastTimestamp
+        lastValue
+      }
+      flows {
+        lastTimestamp
+        lastValue
+      }
+    }
+  }
 `;
 
 const termsFromProps = (props) => {
@@ -50,7 +66,7 @@ const sectionsGraphql = (withGeo, pageSize) => enhancedQuery(
       reducer: sectionsListReducer,
       notifyOnNetworkStatusChange: true,
     }),
-    props: ({ data: { sections: sectionsSearchResult, loading, fetchMore }, ownProps }) => {
+    props: ({ data: { sections: sectionsSearchResult, loading, fetchMore, subscribeToMore }, ownProps }) => {
       const { sections = [], count = 0 } = sectionsSearchResult || {};
       return {
         sections: {
@@ -66,6 +82,10 @@ const sectionsGraphql = (withGeo, pageSize) => enhancedQuery(
               updateQuery: mergeNextPage,
             });
           },
+          subscribeToUpdates: ({ regionId }) => subscribeToMore({
+            document: UpdatesSubscription,
+            variables: { regionId },
+          }),
         },
       };
     },

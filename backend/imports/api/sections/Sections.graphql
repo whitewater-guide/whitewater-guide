@@ -109,17 +109,21 @@ input SectionSearchTerms {
   searchString: String,
 }
 
-type Query {
-  sections(terms:SectionSearchTerms!, language: String):SectionsSearchResult!
-  section(_id:ID, language: String):Section
-}
-
 type SectionsSearchResult {
   sections: [Section]!,
   count: Int,
 }
 
+type Query {
+  sections(terms:SectionSearchTerms!, language: String):SectionsSearchResult!
+  section(_id:ID, language: String):Section
+}
+
 type Mutation {
   upsertSection(section:SectionInput!, language:String):Section,
   removeSection(_id:ID!):Boolean,
+}
+
+type Subscription {
+  measurementsUpdated(regionId: ID!, sectionId: ID): [Section]!
 }

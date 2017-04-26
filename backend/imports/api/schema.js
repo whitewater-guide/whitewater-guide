@@ -33,6 +33,7 @@ const SchemaDefinition = `
   schema {
     query: Query,
     mutation: Mutation,
+    subscription: Subscription,
   }
 `;
 

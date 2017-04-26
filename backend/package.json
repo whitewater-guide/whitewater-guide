@@ -26,6 +26,7 @@
     "graphql-fields": "^1.0.2",
     "graphql-loader": "^1.0.1",
     "graphql-server-express": "^0.6.0",
+    "graphql-subscriptions": "^0.3.1",
     "graphql-tools": "^0.10.0",
     "graphql-type-json": "^0.1.4",
     "iconv-lite": "^0.4.15",
@@ -37,7 +38,8 @@
     "node-fetch": "^1.6.1",
     "queue": "^4.0.0",
     "recursive-iterator": "^2.0.3",
-    "simpl-schema": "^0.2.2"
+    "simpl-schema": "^0.2.2",
+    "subscriptions-transport-ws": "^0.5.5"
   },
   "devDependencies": {
     "babel-cli": "^6.24.0",

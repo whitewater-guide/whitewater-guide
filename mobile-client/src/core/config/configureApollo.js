@@ -21,5 +21,6 @@ setTokenStore({
 
 export const apolloClient = configureApolloClient({
   uri: Config.GRAPHQL_ENDPOINT,
+  subs: Config.SUBS_ENDPOINT,
   reduxRootSelector: state => state.persistent.apollo,
 });

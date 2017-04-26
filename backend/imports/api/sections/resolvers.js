@@ -145,4 +145,7 @@ export const sectionsResolvers = {
     upsertSection,
     removeSection,
   },
+  Subscription: {
+    measurementsUpdated: sections => sections,
+  },
 };

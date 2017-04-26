@@ -7,6 +7,7 @@ import {typeDefs} from '../api/schema';
 import {resolvers} from '../api/resolvers';
 import cors from 'cors';
 import {graphqlServerExpressUpload, multerUploads} from './uploads'
+import { initSubscriptions } from '../subscriptions';
 
 // Load all accounts related resolvers and type definitions into graphql-loader
 initAccounts({});
@@ -29,9 +30,6 @@ addSchemaLevelResolveFunction(executableSchema, (root, args, context, info) => {
   return root;
 });
 
-
-
-
 createApolloServer(
   {
     schema: executableSchema,
@@ -44,3 +42,5 @@ createApolloServer(
     ),
   }
 );
+
+initSubscriptions(executableSchema);

@@ -15,6 +15,13 @@ class RegionSectionsScreen extends React.PureComponent {
     tabBarLabel: 'Sections',
   };
 
+  componentWillMount() {
+    const { region, sections } = this.props.screenProps;
+    sections.subscribeToUpdates({
+      regionId: region._id,
+    });
+  }
+
   render() {
     const { screenProps: { sections } } = this.props;
     return (

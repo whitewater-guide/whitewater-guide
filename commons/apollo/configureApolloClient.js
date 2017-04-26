@@ -7,6 +7,7 @@
 import ApolloClient from 'apollo-client';
 import { getLoginToken } from 'meteor-apollo-accounts';
 import { HTTPBatchedNetworkInterface } from 'apollo-client/transport/batchedNetworkInterface';
+import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws';
 // TODO: when apollo supports file uploads - replace this with official stuff
 import { BatchedUploadHTTPFetchNetworkInterface } from './BatchedUploadHTTPFetchNetworkInterface';
 import isNative from '../core/isNative';
@@ -32,13 +33,19 @@ const authMiddleware = {
   applyBatchMiddleware: applyAuth,
 };
 
-const createMeteorNetworkInterface = ({ uri = '/graphql' }) => {
+const createMeteorNetworkInterface = ({ uri = '/graphql', subs }) => {
   // React-native doesn't support uploads (File class in particular breaks it)
   const networkInterface = isNative() ?
     new HTTPBatchedNetworkInterface(uri, 10) :
     new BatchedUploadHTTPFetchNetworkInterface(uri, 10);
   networkInterface.use([authMiddleware]);
 
+  if (subs) {
+    return addGraphQLSubscriptions(
+      networkInterface,
+      new SubscriptionClient(subs, { reconnect: true }),
+    );
+  }
   return networkInterface;
 };
 

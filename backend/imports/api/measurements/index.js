@@ -2,6 +2,7 @@ import {Mongo} from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
 import {Gauges} from '../gauges';
 import {Sections} from '../sections';
+import { pubsub } from '../../subscriptions';
 
 export const Measurements = new Mongo.Collection('measurements');
 Measurements._ensureIndex({gaugeId: 1, date: -1}, {unique: true});
@@ -39,12 +40,12 @@ Measurements.after.insert(function (userId, doc) {
     ]},
     {$set: {lastTimestamp: doc.date, lastLevel: doc.level, lastFlow: doc.flow}}
   );
-  Sections.update(
+  let numSectionsUpdated = Sections.update(
     {$and: [
       {gaugeId: doc.gaugeId},
       {$or: [
-        {"levels.lastTimestamp": { $lt: doc.date }},
-        {"flows.lastTimestamp": { $lt: doc.date }},
+        {$and: [{levels: {$exists: true}}, {levels: {$ne: null}}, {"levels.lastTimestamp": { $lt: doc.date }}]},
+        {$and: [{flows: {$exists: true}}, {flows: {$ne: null}}, {"flows.lastTimestamp": { $lt: doc.date }}]},
       ]}
     ]},
     {$set: {
@@ -55,4 +56,19 @@ Measurements.after.insert(function (userId, doc) {
     }},
     {multi: true}
   );
+  numSectionsUpdated += Sections.update(
+    {$and: [
+      {gaugeId: doc.gaugeId},
+      {$or: [{ levels: null}, { flows: null},] }
+    ]},
+    {$set: {
+      levels: {lastTimestamp: doc.date, lastValue: doc.level},
+      flows: {lastTimestamp: doc.date, lastValue: doc.flow},
+    }},
+    {multi: true}
+  );
+  if (numSectionsUpdated > 0) {
+    const updates = Sections.find({ gaugeId: doc.gaugeId }, { fields: { levels: 1, flows: 1, regionId: 1 } }).fetch();
+    pubsub.publish('measurementsUpdated', updates);
+  }
 });
