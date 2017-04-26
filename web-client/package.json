@@ -81,6 +81,7 @@
     "recompose": "^0.23.1",
     "recursive-iterator": "^2.0.3",
     "resize-observer-polyfill": "^1.4.2",
+    "subscriptions-transport-ws": "^0.5.5",
     "victory": "^0.18.4"
   }
 }

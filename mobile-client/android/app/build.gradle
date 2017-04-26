@@ -96,8 +96,8 @@ android {
         applicationId "guide.whitewater"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 7
-        versionName "1.0.6"
+        versionCode 8
+        versionName "1.0.7"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
