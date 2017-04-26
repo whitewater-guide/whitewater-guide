@@ -41,15 +41,9 @@ export default class SectionListItem extends React.PureComponent {
 
   onInteractableMounted = (ref) => {
     if (ref && this.props.initialVelocity !== 0) {
-      this._openAnimationHandle = InteractionManager.runAfterInteractions(
-        () => ref.setVelocity({ x: this.props.initialVelocity }),
-      );
+      ref.setVelocity({ x: this.props.initialVelocity });
     }
   };
-
-  componenWillUnmount() {
-    InteractionManager.clearInteractionHandle(this._openAnimationHandle);
-  }
 
   render() {
     return (
