@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import update from 'immutability-helper';
 import { DrawingMap } from '../components';
+import { computeDistanceBetween } from '../../commons/utils/GeoUtils';
 import DrawingMapSidebarPoint from './DrawingMapSidebarPoint';
 
 const styles = {
@@ -38,9 +39,9 @@ export default class DrawingMapField extends React.Component {
     drawingMode: PropTypes.oneOf(['Point', 'LineString', 'Polygon']).isRequired,
     bounds: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
   };
-
+  
   onChange = points => this.props.field.onChange(points);
-
+  
   onInput = (index, point) => {
     const { value, onChange } = this.props.field;
     const splice = [index, 1];
@@ -50,7 +51,7 @@ export default class DrawingMapField extends React.Component {
     const newValue = update(value, { $splice: [splice] });
     onChange(newValue);
   };
-
+  
   renderPointInputs = (point, index) => {
     const points = this.props.field.value;
     const disableRemove = points.length <= minPoints[this.props.drawingMode];
@@ -64,7 +65,24 @@ export default class DrawingMapField extends React.Component {
       />
     );
   };
-
+  
+  renderLineLength = () => {
+    const { drawingMode } = this.props;
+    const points = this.props.field.value;
+    if (drawingMode !== 'LineString' || !points || points.length < 2) {
+      return null;
+    }
+    let distance = 0;
+    for (let i = 1; i < points.length; i += 1) {
+      distance += computeDistanceBetween(points[i-1], points[i]);
+    }
+    return (
+      <div>
+        <strong>Distance:</strong> {`${distance.toFixed(3)} km`}
+      </div>
+    )
+  };
+  
   render() {
     const { drawingMode, bounds } = this.props;
     const points = this.props.field.value || [];
@@ -81,6 +99,7 @@ export default class DrawingMapField extends React.Component {
           </div>
         </div>
         <div style={styles.sidebar}>
+          { this.renderLineLength() }
           { points.map(this.renderPointInputs) }
           <DrawingMapSidebarPoint
             key={`point_${points.length}`}
