@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Animated, Linking, Platform, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { ITEM_HEIGHT } from './SectionListBody';
+import { ITEM_HEIGHT } from '../screens/sections-list/item/SectionListBody';
+import variables from '../theme/variables/platform';
 
 const styles = StyleSheet.create({
   button: {
@@ -10,7 +11,7 @@ const styles = StyleSheet.create({
     height: ITEM_HEIGHT,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'transparent',
+    backgroundColor: variables.btnPrimaryBg,
   },
   label: {
     fontSize: 14,
@@ -22,6 +23,9 @@ const styles = StyleSheet.create({
 const NavigateButton = ({ driver, label, inputRange, coordinates }) => {
   const direcionsURL = `https://www.google.com/maps/dir/Current+Location/${coordinates[1]},${coordinates[0]}`;
   const directionsHandler = () => Linking.openURL(direcionsURL).catch(() => {});
+  let opacityOutput = inputRange[0] <= inputRange[1] ? [1, 0] : [0, 1];
+  let scaleOutput = inputRange[0] <= inputRange[1] ? [1, 0.7] : [0.7, 1];
+  let inpRange = inputRange[0] <= inputRange[1] ? inputRange : inputRange.reverse();
   return (
     <TouchableOpacity onPress={directionsHandler}>
       <Animated.View
@@ -29,17 +33,15 @@ const NavigateButton = ({ driver, label, inputRange, coordinates }) => {
           styles.button,
           {
             opacity: driver.interpolate({
-              inputRange,
-              outputRange: [1, 0],
-              extrapolateLeft: 'clamp',
-              extrapolateRight: 'clamp',
+              inputRange: inpRange,
+              outputRange: opacityOutput,
+              extrapolate: 'clamp',
             }),
             transform: [{
               scale: driver.interpolate({
-                inputRange,
-                outputRange: [1, 0.7],
-                extrapolateLeft: 'clamp',
-                extrapolateRight: 'clamp',
+                inputRange: inpRange,
+                outputRange: scaleOutput,
+                extrapolate: 'clamp',
               }),
             }],
           },

@@ -34,8 +34,8 @@ export default compose(
   spinnerWhileLoading(props => props.regionLoading),
   withSectionsList({ withGeo: true }),
   withErrorsView,
-  mapProps(({ region, regionId, sections, screenProps, ...props }) => ({
-    ...props,
+  mapProps(({ region, sections, navigation, screenProps, ...props }) => ({
+    navigation,
     screenProps: { ...screenProps, region, sections },
   })),
 )(RegionTabs);

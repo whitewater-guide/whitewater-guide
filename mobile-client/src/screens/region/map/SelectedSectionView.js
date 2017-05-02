@@ -1,99 +1,107 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Linking, StyleSheet, View } from 'react-native';
-import { Text, Button, Icon } from 'native-base';
+import { Animated, StyleSheet, View, Button } from 'react-native';
+import { List, ListItem, Left, Right, Text } from 'native-base';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 import StarRating from 'react-native-star-rating';
+import { get, capitalize, trim } from 'lodash';
 import { SectionPropType } from '../../../commons/features/sections';
-import { renderDifficulty } from '../../../commons/utils/TextUtils';
+import stringifySeason from '../../../commons/utils/stringifySeason';
+import { DifficultyThumb, NavigateButton } from '../../../components';
 
 const styles = StyleSheet.create({
-  titleWrapper: {
-    marginTop: 8,
-    marginHorizontal: 8,
-  },
-  attributesRow: {
-    marginHorizontal: 8,
+  header: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    borderBottomWidth: 1,
-    borderBottomColor: '#a7a7a7',
+    paddingLeft: 16,
   },
-  buttonsRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginTop: 8,
-    marginBottom: 16,
+  body: {
+    flex: 1,
   },
-  closeButtonWrapper: {
-    position: 'absolute',
-    top: -8,
-    right: -16,
+  starsContainer: {
+    width: 80,
+    paddingTop: 2,
   },
 });
 
-const SelectedSectionView = ({ selectedSection, onSectionSelected, dispatch }) => {
-  if (!selectedSection) {
-    return null;
-  }
-  const { putIn: { coordinates: [pLng, pLat] }, takeOut: { coordinates: [tLng, tLat] } } = selectedSection;
-  const putInHandler = () => Linking.openURL(`https://www.google.com/maps/dir/Current+Location/${pLat},${pLng}`)
-    .catch(() => {
-    });
-  const takeOutHandler = () => Linking.openURL(`https://www.google.com/maps/dir/Current+Location/${tLat},${tLng}`)
-    .catch(() => {
-    });
-  const deselect = () => onSectionSelected(null);
+class SelectedSectionView extends React.PureComponent {
+  
   // TODO: this causes overlapping maps until https://github.com/airbnb/react-native-maps/issues/1161 gets fixed
-  const detailsHandler = () => {
-    dispatch(NavigationActions.navigate({
+  detailsHandler = () => {
+    this.props.dispatch(NavigationActions.navigate({
       routeName: 'SectionDetails',
-      params: { sectionId: selectedSection._id },
+      params: { sectionId: this.props.selectedSection._id },
     }));
   };
-  return (
-    <View>
-      <View style={styles.titleWrapper}>
-        <Text>{`${selectedSection.river.name} - ${selectedSection.name}`}</Text>
+  
+  render() {
+    const { selectedSection: section, slideAnimated } = this.props;
+    const season = section ? capitalize(trim(`${stringifySeason(section.seasonNumeric)}\n${section.season}`)) : ' ';
+    return (
+      <View>
+        <View style={styles.header}>
+          <View style={styles.body}>
+            <Text>{get(section, 'river.name', '_')}</Text>
+            <Text>{get(section, 'name', '_')}</Text>
+            <View style={styles.starsContainer}>
+              <StarRating disabled rating={get(section, 'rating', 0)} starSize={14} starColor={'#a7a7a7'}/>
+            </View>
+          </View>
+          <DifficultyThumb
+            difficulty={get(section, 'difficulty', 1)}
+            difficultyXtra={get(section, 'difficultyXtra', '_')}
+            noBorder
+          />
+          <NavigateButton
+            label="Put-in"
+            driver={slideAnimated}
+            inputRange={[96, 66]}
+            coordinates={get(section, 'putIn.coordinates', [0,0])}
+          />
+          <NavigateButton
+            label="Take-out"
+            driver={slideAnimated}
+            inputRange={[66, 33]}
+            coordinates={get(section, 'takeOut.coordinates', [0,0])}
+          />
+        </View>
+        <List>
+          <ListItem>
+            <Left><Text>Drop</Text></Left>
+            <Right><Text note>{get(section, 'drop', ' ')}</Text></Right>
+          </ListItem>
+    
+          <ListItem>
+            <Left><Text>Length, km</Text></Left>
+            <Right><Text note>{get(section, 'distance', 0)}</Text></Right>
+          </ListItem>
+    
+          <ListItem>
+            <Left><Text>Duration</Text></Left>
+            <Right><Text note>{get(section, 'duration', ' ')}</Text></Right>
+          </ListItem>
+    
+          <ListItem>
+            <Left><Text>Season</Text></Left>
+            <View><Text note>{season}</Text></View>
+          </ListItem>
+        </List>
+        <Button onPress={this.detailsHandler} title="Details"/>
       </View>
-      <View style={styles.attributesRow}>
-        <Text note>Class</Text>
-        <Text note>{renderDifficulty(selectedSection)}</Text>
-        <Text note>Rating</Text>
-        <StarRating disabled rating={selectedSection.rating} starSize={14} starColor={'#a7a7a7'} />
-      </View>
-      <View style={styles.buttonsRow}>
-        <Button small primary onPress={putInHandler}>
-          <Icon name="car" style={{ fontSize: 24, color: 'white' }} />
-          <Text>Put-in</Text>
-        </Button>
-        <Button small primary onPress={takeOutHandler}>
-          <Icon name="car" style={{ fontSize: 24, color: 'white' }} />
-          <Text>Take-out</Text>
-        </Button>
-      </View>
-      <Button full onPress={detailsHandler}>
-        <Text>Details</Text>
-      </Button>
-      <View style={styles.closeButtonWrapper}>
-        <Button transparent style={{ padding: 0, margin: 0 }} onPress={deselect}>
-          <Icon primary name="close" style={{ fontSize: 24 }} />
-        </Button>
-      </View>
-    </View>
-  );
-};
+    );
+  };
+}
 
 SelectedSectionView.propTypes = {
   selectedSection: SectionPropType,
-  onSectionSelected: PropTypes.func.isRequired,
   dispatch: PropTypes.func.isRequired,
+  slideAnimated: PropTypes.any,
 };
 
 SelectedSectionView.defaultProps = {
   selectedSection: null,
+  slideAnimated: new Animated.Value(0),
 };
 
 export default connect()(SelectedSectionView);

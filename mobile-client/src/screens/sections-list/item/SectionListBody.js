@@ -2,9 +2,8 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import StarRating from 'react-native-star-rating';
 import { StyleSheet, Text, View } from 'react-native';
-import { ListItem } from '../../../components';
+import { ListItem, DifficultyThumb } from '../../../components';
 import { SectionPropType } from '../../../commons/features/sections';
-import DifficultyThumb from './DifficultyThumb';
 import FlowsThumb from './FlowsThumb';
 
 export const ITEM_HEIGHT = 72;

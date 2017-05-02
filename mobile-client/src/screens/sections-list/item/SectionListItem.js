@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { Animated, InteractionManager, StyleSheet, View } from 'react-native';
 import Interactable from 'react-native-interactable';
 import { SectionPropType } from '../../../commons/features/sections';
-import NavigateButton from './NavigateButton';
+import { NavigateButton } from '../../../components';
 import SectionListBody, { ITEM_HEIGHT } from './SectionListBody';
+import variables from '../../../theme/variables/platform';
 
 const styles = StyleSheet.create({
   buttonsWrapper: {
@@ -16,7 +17,7 @@ const styles = StyleSheet.create({
     paddingRight: 8,
   },
   background: {
-    backgroundColor: '#c9c9c9',
+    backgroundColor: variables.btnPrimaryBg,
   },
 });
 
@@ -56,7 +57,7 @@ export default class SectionListItem extends React.PureComponent {
             coordinates={this.props.section.putIn.coordinates}
           />
           <NavigateButton
-            label="Take out"
+            label="Take-out"
             driver={this._deltaX}
             inputRange={[-72, -8]}
             coordinates={this.props.section.takeOut.coordinates}

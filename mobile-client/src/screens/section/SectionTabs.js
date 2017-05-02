@@ -39,8 +39,8 @@ export default compose(
   withSection({ withGeo: true, withDescription: true }),
   spinnerWhileLoading(props => props.sectionLoading),
   withErrorsView,
-  mapProps(({ section, screenProps, sectionId, ...props }) => ({
-    ...props,
+  mapProps(({ section, screenProps, navigation, ...props }) => ({
+    navigation,
     screenProps: { ...screenProps, section },
   })),
 )(SectionTabs);

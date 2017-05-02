@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, Platform, View, Dimensions, Animated } from 'react-native';
 import Interactable from 'react-native-interactable';
@@ -8,11 +8,12 @@ const Screen = {
   height: Dimensions.get('window').height - (Platform.OS === 'ios' ? 114 : 106),
 };
 
+const PANEL_HEIGHT = 320;
+
 const styles = StyleSheet.create({
   panel: {
-    height: 200,
+    height: PANEL_HEIGHT,
     width: Screen.width,
-    paddingHorizontal: 16,
     paddingBottom: 8,
     backgroundColor: '#ffffffe8',
     borderWidth: 0,
@@ -33,6 +34,8 @@ export default class MapLayout extends Component {
   constructor(props) {
     super(props);
     this._deltaY = new Animated.Value(Screen.height);
+    let slideAnimated = Animated.add(this._deltaY, -Screen.height);
+    this._slideAnimated = Animated.multiply(slideAnimated, -1);
   }
 
   componentDidUpdate(prevProps) {
@@ -53,6 +56,7 @@ export default class MapLayout extends Component {
   hasSelection = props => props.selectedSection || props.selectedPOI;
 
   render() {
+
     return (
       <View style={StyleSheet.absoluteFill}>
 
@@ -66,7 +70,7 @@ export default class MapLayout extends Component {
               {
                 backgroundColor: 'black',
                 opacity: this._deltaY.interpolate({
-                  inputRange: [Screen.height - 200, Screen.height],
+                  inputRange: [Screen.height - PANEL_HEIGHT, Screen.height],
                   outputRange: [0.5, 0.0],
                   extrapolateRight: 'clamp',
                 }),
@@ -76,13 +80,13 @@ export default class MapLayout extends Component {
           <Interactable.View
             ref={(interactable) => { this.interactable = interactable; }}
             verticalOnly
-            snapPoints={[{ y: Screen.height }, { y: Screen.height - 80 }, { y: Screen.height - 200 }]}
+            snapPoints={[{ y: Screen.height }, { y: Screen.height - 96 }, { y: Screen.height - PANEL_HEIGHT }]}
             onSnap={this.onSnap}
             initialPosition={{ y: Screen.height }}
             animatedValueY={this._deltaY}
           >
             <View style={styles.panel}>
-              { this.props.selectedSectionView }
+              { cloneElement(this.props.selectedSectionView, { slideAnimated: this._slideAnimated }) }
               { this.props.selectedPOIView }
             </View>
           </Interactable.View>
