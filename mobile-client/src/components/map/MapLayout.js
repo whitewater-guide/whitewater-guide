@@ -86,8 +86,8 @@ export default class MapLayout extends Component {
             animatedValueY={this._deltaY}
           >
             <View style={styles.panel}>
-              { cloneElement(this.props.selectedSectionView, { slideAnimated: this._slideAnimated }) }
-              { this.props.selectedPOIView }
+              { this.props.selectedSection && cloneElement(this.props.selectedSectionView, { slideAnimated: this._slideAnimated }) }
+              { this.props.selectedPOI && cloneElement(this.props.selectedPOIView, { slideAnimated: this._slideAnimated }) }
             </View>
           </Interactable.View>
         </View>

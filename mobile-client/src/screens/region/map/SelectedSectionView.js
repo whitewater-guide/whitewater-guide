@@ -27,6 +27,17 @@ const styles = StyleSheet.create({
 
 class SelectedSectionView extends React.PureComponent {
   
+  static propTypes = {
+    selectedSection: SectionPropType,
+    dispatch: PropTypes.func.isRequired,
+    slideAnimated: PropTypes.any,
+  };
+  
+  static defaultProps = {
+    selectedSection: null,
+    slideAnimated: new Animated.Value(0),
+  };
+  
   // TODO: this causes overlapping maps until https://github.com/airbnb/react-native-maps/issues/1161 gets fixed
   detailsHandler = () => {
     this.props.dispatch(NavigationActions.navigate({
@@ -92,16 +103,5 @@ class SelectedSectionView extends React.PureComponent {
     );
   };
 }
-
-SelectedSectionView.propTypes = {
-  selectedSection: SectionPropType,
-  dispatch: PropTypes.func.isRequired,
-  slideAnimated: PropTypes.any,
-};
-
-SelectedSectionView.defaultProps = {
-  selectedSection: null,
-  slideAnimated: new Animated.Value(0),
-};
 
 export default connect()(SelectedSectionView);
