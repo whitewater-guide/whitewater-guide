@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import HTMLView from 'react-native-htmlview';
 import { flattenProp, hoistStatics } from 'recompose';
-import { Screen, TabIcon } from '../../../components';
+import { HTMLView, Screen, TabIcon } from '../../../components';
 
 class SectionGuideScreen extends React.PureComponent {
 

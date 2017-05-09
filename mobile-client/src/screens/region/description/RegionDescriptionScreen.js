@@ -2,8 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
-import HTMLView from 'react-native-htmlview';
-import { Screen } from '../../../components';
+import { HTMLView, Screen } from '../../../components';
 
 class RegionDescriptionScreen extends React.PureComponent {
 
