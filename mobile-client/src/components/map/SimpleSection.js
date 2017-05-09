@@ -23,6 +23,7 @@ class SimpleSection extends React.PureComponent {
 
   selectSection = () => {
     const { section, onSectionSelected } = this.props;
+    console.log('Select', section._id);
     onSectionSelected(section);
   };
 

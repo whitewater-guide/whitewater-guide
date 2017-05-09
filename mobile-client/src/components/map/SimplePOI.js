@@ -65,12 +65,7 @@ const SimplePOI = ({ poi, selected, onPOISelected, zoom }) => {
   if (zoom < 3) {
     return null;
   }
-  const {
-    coordinates: [longitude, latitude],
-    name,
-    description,
-    kind,
-  } = poi;
+  const { coordinates: [longitude, latitude], kind } = poi;
 
   let inner = null;
   if (zoom < 12) {
@@ -82,8 +77,6 @@ const SimplePOI = ({ poi, selected, onPOISelected, zoom }) => {
   return (
     <MapView.Marker
       anchor={Anchor}
-      title={name || kind}
-      description={description}
       onPress={() => onPOISelected(poi)}
       coordinate={{ longitude, latitude }}
     >

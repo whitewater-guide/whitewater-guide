@@ -1,14 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Animated, StyleSheet, View, Button } from 'react-native';
-import { List, ListItem, Left, Right, Text } from 'native-base';
+import { StyleSheet, View } from 'react-native';
+import { List, ListItem, Left, Right, Text, Button } from 'native-base';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 import StarRating from 'react-native-star-rating';
 import { get, capitalize, trim } from 'lodash';
 import { SectionPropType } from '../../../commons/features/sections';
 import stringifySeason from '../../../commons/utils/stringifySeason';
-import { DifficultyThumb, NavigateButton } from '../../../components';
+import { DifficultyThumb } from '../../../components';
+import SelectedElementView from '../../../components/map/SelectedElementView';
 
 const styles = StyleSheet.create({
   header: {
@@ -26,18 +27,19 @@ const styles = StyleSheet.create({
 });
 
 class SelectedSectionView extends React.PureComponent {
-  
+
   static propTypes = {
     selectedSection: SectionPropType,
+    driver: PropTypes.object,
+    onLayout: PropTypes.func,
     dispatch: PropTypes.func.isRequired,
-    slideAnimated: PropTypes.any,
+    measured: PropTypes.bool,
   };
-  
+
   static defaultProps = {
-    selectedSection: null,
-    slideAnimated: new Animated.Value(0),
+    measured: false,
   };
-  
+
   // TODO: this causes overlapping maps until https://github.com/airbnb/react-native-maps/issues/1161 gets fixed
   detailsHandler = () => {
     this.props.dispatch(NavigationActions.navigate({
@@ -45,63 +47,67 @@ class SelectedSectionView extends React.PureComponent {
       params: { sectionId: this.props.selectedSection._id },
     }));
   };
-  
-  render() {
-    const { selectedSection: section, slideAnimated } = this.props;
-    const season = section ? capitalize(trim(`${stringifySeason(section.seasonNumeric)}\n${section.season}`)) : ' ';
+
+  renderHeader = () => {
+    const { selectedSection: section } = this.props;
     return (
-      <View>
-        <View style={styles.header}>
-          <View style={styles.body}>
-            <Text>{get(section, 'river.name', '_')}</Text>
-            <Text>{get(section, 'name', '_')}</Text>
-            <View style={styles.starsContainer}>
-              <StarRating disabled rating={get(section, 'rating', 0)} starSize={14} starColor={'#a7a7a7'}/>
-            </View>
+      <View style={styles.header}>
+        <View style={styles.body}>
+          <Text>{get(section, 'river.name', '_')}</Text>
+          <Text>{get(section, 'name', '_')}</Text>
+          <View style={styles.starsContainer}>
+            <StarRating disabled rating={get(section, 'rating', 0)} starSize={14} starColor={'#a7a7a7'}/>
           </View>
-          <DifficultyThumb
-            difficulty={get(section, 'difficulty', 1)}
-            difficultyXtra={get(section, 'difficultyXtra', '_')}
-            noBorder
-          />
-          <NavigateButton
-            label="Put-in"
-            driver={slideAnimated}
-            inputRange={[96, 66]}
-            coordinates={get(section, 'putIn.coordinates', [0,0])}
-          />
-          <NavigateButton
-            label="Take-out"
-            driver={slideAnimated}
-            inputRange={[66, 33]}
-            coordinates={get(section, 'takeOut.coordinates', [0,0])}
-          />
         </View>
+        <DifficultyThumb
+          difficulty={get(section, 'difficulty', 1)}
+          difficultyXtra={get(section, 'difficultyXtra', '_')}
+          noBorder
+        />
+      </View>
+    );
+  };
+
+  render() {
+    const { selectedSection: section } = this.props;
+    const buttons = [
+      { label: 'Put-in', coordinates: get(section, 'putIn.coordinates', [0, 0]) },
+      { label: 'Take-out', coordinates: get(section, 'takeOut.coordinates', [0, 0]) },
+    ];
+    const season = section ? capitalize(trim(`${stringifySeason(section.seasonNumeric)}\n${section.season}`)) : ' \n ';
+    return (
+      <SelectedElementView
+        header={this.renderHeader()}
+        buttons={buttons}
+        selected={!!section}
+        panelHeight={340}
+        {...this.props}
+      >
         <List>
           <ListItem>
             <Left><Text>Drop</Text></Left>
             <Right><Text note>{get(section, 'drop', ' ')}</Text></Right>
           </ListItem>
-    
           <ListItem>
             <Left><Text>Length, km</Text></Left>
             <Right><Text note>{get(section, 'distance', 0)}</Text></Right>
           </ListItem>
-    
           <ListItem>
             <Left><Text>Duration</Text></Left>
             <Right><Text note>{get(section, 'duration', ' ')}</Text></Right>
           </ListItem>
-    
           <ListItem>
             <Left><Text>Season</Text></Left>
             <View><Text note>{season}</Text></View>
           </ListItem>
         </List>
-        <Button onPress={this.detailsHandler} title="Details"/>
-      </View>
+        <Button block onPress={this.detailsHandler}>
+          <Text>Details</Text>
+        </Button>
+      </SelectedElementView>
     );
-  };
+  }
+
 }
 
 export default connect()(SelectedSectionView);

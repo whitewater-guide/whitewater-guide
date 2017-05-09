@@ -1,5 +1,5 @@
 import React from 'react';
-import { compose, withState } from 'recompose';
+import { compose, withHandlers, withState } from 'recompose';
 import { DefaultProps, PropTypes } from './MapBase';
 
 export const getMapView = (Layout, Map, SelectedSection, SelectedPOI) => {
@@ -30,7 +30,17 @@ export const getMapView = (Layout, Map, SelectedSection, SelectedPOI) => {
   // Do not use the state, because selected section/poi can be passed from outside,
   // For example, we want to show region map with some section already selected
   return compose(
-    withState('selectedSection', 'onSectionSelected', null),
-    withState('selectedPOI', 'onPOISelected', null),
+    withState('selectedSection', 'setSelectedSection', null),
+    withState('selectedPOI', 'setSelectedPOI', null),
+    withHandlers({
+      onSectionSelected: ({ setSelectedPOI, setSelectedSection }) => section => {
+        setSelectedSection(section);
+        setSelectedPOI(null);
+      },
+      onPOISelected: ({ setSelectedPOI, setSelectedSection }) => poi => {
+        setSelectedPOI(poi);
+        setSelectedSection(null);
+      }
+    })
   )(MapViewBase);
 };

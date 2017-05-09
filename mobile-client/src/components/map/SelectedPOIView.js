@@ -1,57 +1,48 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Animated, StyleSheet, View } from "react-native";
-import { Text } from "native-base";
-import { connect } from "react-redux";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { StyleSheet, View } from 'react-native';
+import { Text } from 'native-base';
 import { get } from 'lodash';
-import { NavigateButton } from "../../components";
+import SelectedElementView from './SelectedElementView';
 
 const styles = StyleSheet.create({
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingLeft: 16,
+    padding: 8,
   },
   body: {
-    flex: 1,
-  },
-  starsContainer: {
-    width: 80,
-    paddingTop: 2,
+    padding: 8,
   },
 });
 
 class SelectedPOIView extends React.PureComponent {
-  
+
   static propTypes = {
     selectedPOI: PropTypes.object,
-    dispatch: PropTypes.func.isRequired,
-    slideAnimated: PropTypes.any,
   };
-  
-  static defaultProps = {
-    selectedPOI: null,
-    slideAnimated: new Animated.Value(0),
-  };
-  
+
+  renderHeader = () => (
+    <View style={styles.header}>
+      <Text>{get(this.props.selectedPOI, 'name', '_')}</Text>
+      <Text note>{get(this.props.selectedPOI, 'kind', '_')}</Text>
+    </View>
+  );
+
   render() {
-    const { selectedPOI: poi, slideAnimated } = this.props;
+    const buttons = [{ label: 'Navigate', coordinates: get(this.props.selectedPOI, 'coordinates', [0, 0]) }];
     return (
-      <View>
-        <View style={styles.header}>
-          <View style={styles.body}>
-            <Text>{get(poi, 'name', '_')}</Text>
-          </View>
-          <NavigateButton
-            label="Navigate"
-            driver={slideAnimated}
-            inputRange={[100, 66]}
-            coordinates={get(poi, 'coordinates', [0,0])}
-          />
+      <SelectedElementView
+        header={this.renderHeader()}
+        buttons={buttons}
+        panelHeight={160}
+        selected={!!this.props.selectedPOI}
+        {...this.props}
+      >
+        <View style={styles.body}>
+          <Text>{ get(this.props.selectedPOI, 'description', ' ') }</Text>
         </View>
-      </View>
+      </SelectedElementView>
     );
-  };
+  }
 }
 
-export default connect()(SelectedPOIView);
+export default SelectedPOIView;
