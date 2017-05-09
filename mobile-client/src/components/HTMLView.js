@@ -13,7 +13,6 @@ const styles = StyleSheet.create({
 
 const renderNode = (node, index, siblings, parent, defaultRenderer) => {
   if (node.name === 'p') {
-    console.log('node', node.children);
     return (
       <View style={styles.p}>
         { defaultRenderer(node.children, node) }
