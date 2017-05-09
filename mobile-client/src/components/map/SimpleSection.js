@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import { Svg, Polygon } from 'react-native-svg';
 import MapView from 'react-native-maps';
+import PurePolyline from './PurePolyline';
 import { SectionPropType, getSectionColor } from '../../commons/features/sections';
 
 const Anchor = { x: 0.5, y: 0.5 };
 
-class SimpleSection extends React.PureComponent {
+class SimpleSection extends React.Component {
   static propTypes = {
     section: SectionPropType.isRequired,
     selected: PropTypes.bool,
@@ -23,7 +24,6 @@ class SimpleSection extends React.PureComponent {
 
   selectSection = () => {
     const { section, onSectionSelected } = this.props;
-    console.log('Select', section._id);
     onSectionSelected(section);
   };
 
@@ -75,7 +75,7 @@ class SimpleSection extends React.PureComponent {
     const color = getSectionColor(bindings);
     return (
       <View>
-        <MapView.Polyline
+        <PurePolyline
           strokeWidth={selected ? 5 : 3}
           strokeColor={color}
           onPress={this.selectSection}

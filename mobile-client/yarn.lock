@@ -4490,6 +4490,10 @@ lodash.words@^3.0.0:
   dependencies:
     lodash._root "^3.0.0"
 
+lodash@4.12.0:
+  version "4.12.0"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.12.0.tgz#2bd6dc46a040f59e686c972ed21d93dc59053258"
+
 lodash@^3.10.1, lodash@^3.5.0:
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
@@ -7350,13 +7354,13 @@ whatwg-encoding@^1.0.1:
   dependencies:
     iconv-lite "0.4.13"
 
-whatwg-fetch@>=0.10.0, whatwg-fetch@^1.0.0:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/whatwg-fetch/-/whatwg-fetch-1.1.1.tgz#ac3c9d39f320c6dce5339969d054ef43dd333319"
-
-whatwg-fetch@^2.0.0:
+whatwg-fetch@>=0.10.0, whatwg-fetch@^2.0.0:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/whatwg-fetch/-/whatwg-fetch-2.0.3.tgz#9c84ec2dcf68187ff00bc64e1274b442176e1c84"
+
+whatwg-fetch@^1.0.0:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/whatwg-fetch/-/whatwg-fetch-1.1.1.tgz#ac3c9d39f320c6dce5339969d054ef43dd333319"
 
 whatwg-url@^4.3.0:
   version "4.6.0"
@@ -7378,6 +7382,12 @@ which@^1.2.11, which@^1.2.12, which@^1.2.9:
   resolved "https://registry.yarnpkg.com/which/-/which-1.2.14.tgz#9a87c4378f03e827cecaf1acdf56c736c01c14e5"
   dependencies:
     isexe "^2.0.0"
+
+why-did-you-update@^0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/why-did-you-update/-/why-did-you-update-0.0.8.tgz#389d97dd6c147e1edbc9f5d5470d44d985c8ae38"
+  dependencies:
+    lodash "4.12.0"
 
 wide-align@^1.1.0:
   version "1.1.0"
@@ -7444,14 +7454,7 @@ ws@1.1.2, ws@^1.1.0:
     options ">=0.0.5"
     ultron "1.0.x"
 
-ws@^2.0.3:
-  version "2.2.3"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-2.2.3.tgz#f36c9719a56dff813f455af912a2078145bbd940"
-  dependencies:
-    safe-buffer "~5.0.1"
-    ultron "~1.1.0"
-
-ws@^2.3.1:
+ws@^2.0.3, ws@^2.3.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/ws/-/ws-2.3.1.tgz#6b94b3e447cb6a363f785eaf94af6359e8e81c80"
   dependencies:

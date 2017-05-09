@@ -6,6 +6,7 @@ import configureStore from './core/config/configureStore';
 import { apolloClient } from './core/config/configureApollo';
 import getTheme from './theme/components';
 import platform from './theme/variables/platform';
+import './core/config/configureOthers';
 
 const store = configureStore();
 
