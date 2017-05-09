@@ -46,7 +46,7 @@ class Chart extends PureComponent {
       maximum: PropTypes.number,
       optimum: PropTypes.number,
       impossible: PropTypes.number,
-      approximate: PropTypes.bool,
+      approximate: PropTypes.number,
     }),
   };
 

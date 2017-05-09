@@ -19,14 +19,14 @@ export default (Layout, Chart, FlowToggle, PeriodToggle) => {
         maximum: PropTypes.number,
         optimum: PropTypes.number,
         impossible: PropTypes.number,
-        approximate: PropTypes.bool,
+        approximate: PropTypes.number,
       }),
       flows: PropTypes.shape({
         minimum: PropTypes.number,
         maximum: PropTypes.number,
         optimum: PropTypes.number,
         impossible: PropTypes.number,
-        approximate: PropTypes.bool,
+        approximate: PropTypes.number,
       }),
     };
 
