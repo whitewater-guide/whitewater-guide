@@ -8,7 +8,7 @@ import { SectionPropType, getSectionColor } from '../../commons/features/section
 
 const Anchor = { x: 0.5, y: 0.5 };
 
-class SimpleSection extends React.Component {
+class SimpleSection extends React.PureComponent {
   static propTypes = {
     section: SectionPropType.isRequired,
     selected: PropTypes.bool,
