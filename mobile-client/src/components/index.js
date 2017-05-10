@@ -6,5 +6,6 @@ export { default as ListItem } from './ListItem';
 export { default as BurgerButton } from './BurgerButton';
 export { default as DifficultyThumb } from './DifficultyThumb';
 export { default as HTMLView } from './HTMLView';
+export { default as SearchBar } from './SearchBar';
 export * from './NavigateButton';
 export * from './ErrorRefetchScreen';
