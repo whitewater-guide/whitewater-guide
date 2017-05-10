@@ -23,8 +23,8 @@ server {
         try_files $uri /index.html;
     }
 
-    # Of all meteor backend, we only need graphql endpoint
-    location /graphql {
+    # Of all meteor backend, we only need graphql endpoint and websocket subscriptions endpoint
+    location ~ ^/(graphql|subscriptions|subscriptions/) {
         passenger_base_uri /;
         passenger_app_root /home/app/webapp/bundle;
         passenger_document_root /home/app/webapp/bundle/public;

@@ -34,7 +34,12 @@ Here is the build sequence:
     ```bash
     docker build --build-arg NODE_ENV=production -f ./.docker/base.docker -t whitewater_passenger .
     ```
-    Tag and publish new veriosn of this image in `doomsower/whitewater_passenger_base`
+    Tag and publish new version of this image in `doomsower/whitewater_passenger_base` like this:
+    ```bash
+    docker login
+    docker tag whitewater_passenger doomsower/whitewater_passenger_base:1.2
+    docker push doomsower/whitewater_passenger_base
+    ```
     Update `passenger.docker` to use latest version of this image
 ## Deploy
 - Login into remote docker-machine
