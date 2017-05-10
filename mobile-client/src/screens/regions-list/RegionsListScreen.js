@@ -6,7 +6,7 @@ import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { compose, hoistStatics } from 'recompose';
 import { withRegionsList } from '../../commons/features/regions';
-import { Screen, withErrorsView, spinnerWhileLoading } from '../../components';
+import { Screen, BurgerButton, withErrorsView, spinnerWhileLoading } from '../../components';
 
 class RegionsListScreen extends PureComponent {
   static propTypes = {
@@ -16,9 +16,10 @@ class RegionsListScreen extends PureComponent {
     dispatch: PropTypes.func,
   };
 
-  static navigationOptions = {
+  static navigationOptions = ({ navigation }) => ({
     title: 'Regions',
-  };
+    headerLeft: (<BurgerButton navigation={navigation} />),
+  });
 
   onRegionSelected = (region) => {
     this.props.dispatch(NavigationActions.navigate({

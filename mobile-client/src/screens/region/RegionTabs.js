@@ -9,7 +9,7 @@ import { withSectionsList } from '../../commons/features/sections';
 import { withErrorsView, spinnerWhileLoading } from '../../components';
 import RegionHeader from './RegionHeader';
 import RegionSectionsScreen from './RegionSectionsScreen';
-import RegionTabsRight from './RegionTabsRight';
+import FilterButton from './FilterButton';
 
 const RegionTabs = TabNavigator(
   {
@@ -22,9 +22,10 @@ const RegionTabs = TabNavigator(
     tabBarPosition: 'bottom',
     backBehavior: 'none',
     swipeEnabled: false,
-    navigationOptions: ({ navigation }) => ({
+    navigationOptions: ({ navigation, navigationOptions }) => ({
       headerTitle: (<RegionHeader regionId={navigation.state.params.regionId} />),
-      headerRight: (<RegionTabsRight navigation={navigation} />),
+      headerRight: (<FilterButton />),
+      ...navigationOptions,
     }),
   },
 );

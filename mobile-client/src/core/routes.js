@@ -17,10 +17,6 @@ const RegionsStack = StackNavigator(
   },
   {
     initialRouteName: 'RegionsList',
-    navigationOptions: ({ navigation, navigationOptions }) => ({
-      headerRight: <BurgerButton navigation={navigation} />,
-      ...navigationOptions,
-    }),
   },
 );
 
@@ -28,6 +24,9 @@ const AllSectionsStack = StackNavigator(
   {
     AllSections: {
       screen: SectionsListScreen,
+      navigationOptions: ({ navigation }) => ({
+        headerLeft: <BurgerButton navigation={navigation} />,
+      }),
     },
     SectionDetails: {
       screen: SectionTabs,
@@ -35,9 +34,6 @@ const AllSectionsStack = StackNavigator(
   },
   {
     initialRouteName: 'AllSections',
-    navigationOptions: ({ navigation }) => ({
-      headerRight: <BurgerButton navigation={navigation} />,
-    }),
   },
 );
 
