@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import { Screen } from '../../components';
-import { SectionsList } from '../sections-list';
+import { Screen } from '../../../components';
+import { SectionsList } from '../../sections-list';
 
 class RegionSectionsScreen extends React.PureComponent {
 

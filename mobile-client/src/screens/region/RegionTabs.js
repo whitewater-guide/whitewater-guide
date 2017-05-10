@@ -4,13 +4,13 @@ import { compose, mapProps, setStatic } from 'recompose';
 import { RegionMapScreen } from './map';
 import { RegionDescriptionScreen } from './description';
 import { RegionFilterScreen } from './filter';
+import { RegionSectionsScreen } from './sections';
 import { withRegion } from '../../commons/features/regions';
 import { withSectionsList } from '../../commons/features/sections';
 
 import { withErrorsView, spinnerWhileLoading } from '../../components';
-import RegionHeader from './RegionHeader';
-import RegionSectionsScreen from './RegionSectionsScreen';
-import FilterButton from './FilterButton';
+import RegionHeader from './components/RegionHeader';
+import FilterButton from './components/FilterButton';
 
 const RegionTabs = TabNavigator(
   {

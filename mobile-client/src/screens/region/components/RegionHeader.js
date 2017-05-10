@@ -2,7 +2,7 @@ import React from 'react';
 import HeaderTitle from 'react-navigation/src/views/HeaderTitle';
 import { gql } from 'react-apollo';
 import { propType } from 'graphql-anywhere';
-import { withFragment } from '../../commons/core';
+import { withFragment } from '../../../commons/core';
 
 const nameFragment = gql`
   fragment RegionName on Region {
