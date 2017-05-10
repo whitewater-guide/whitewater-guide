@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { Platform, StyleSheet, TouchableOpacity } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
-import variables from '../../theme/variables/platform';
+import variables from '../../../theme/variables/platform';
 
 const styles = StyleSheet.create({
   button: {
@@ -14,22 +14,22 @@ const styles = StyleSheet.create({
   },
 });
 
-class FilterButton extends React.PureComponent {
+class ApplyFilterButton extends React.PureComponent {
   static propTypes = {
-    navigate: PropTypes.func.isRequired,
+    back: PropTypes.func.isRequired,
   };
 
   onPress = () => {
-    this.props.navigate({ routeName: 'RegionStackFilter' });
+    this.props.back();
   }
 
   render() {
     return (
       <TouchableOpacity style={styles.button} onPress={this.onPress}>
-        <Icon name="ios-funnel-outline" size={20} color={variables.btnPrimaryBg} />
+        <Icon name={Platform.OS === 'ios' ? 'ios-checkmark' : 'md-checkmark'} size={20} color={variables.btnPrimaryBg} />
       </TouchableOpacity>
     );
   }
 }
 
-export default connect(undefined, NavigationActions)(FilterButton);
+export default connect(undefined, NavigationActions)(ApplyFilterButton);

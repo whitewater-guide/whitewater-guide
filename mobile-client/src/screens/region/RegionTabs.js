@@ -1,8 +1,9 @@
 import React from 'react';
-import { TabNavigator } from 'react-navigation';
+import { StackNavigator, TabNavigator } from 'react-navigation';
 import { compose, mapProps, setStatic } from 'recompose';
 import { RegionMapScreen } from './map';
 import { RegionDescriptionScreen } from './description';
+import { RegionFilterScreen } from './filter';
 import { withRegion } from '../../commons/features/regions';
 import { withSectionsList } from '../../commons/features/sections';
 
@@ -30,8 +31,7 @@ const RegionTabs = TabNavigator(
   },
 );
 
-
-export default compose(
+const RegionTabsEnhanced = compose(
   setStatic('router', RegionTabs.router),
   withRegion({ withBounds: true }),
   spinnerWhileLoading(props => props.regionLoading),
@@ -42,3 +42,22 @@ export default compose(
     screenProps: { ...screenProps, region, sections },
   })),
 )(RegionTabs);
+
+const RegionModalStack = StackNavigator(
+  {
+    RegionStackMain: {
+      screen: RegionTabsEnhanced,
+    },
+    RegionStackFilter: {
+      screen: RegionFilterScreen,
+    },
+  },
+  {
+    initialRouteName: 'RegionStackMain',
+    mode: 'modal',
+    headerMode: 'none',
+  },
+);
+
+export default RegionModalStack;
+
