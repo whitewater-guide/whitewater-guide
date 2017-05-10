@@ -1,8 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
+import { compose } from 'recompose';
 import HeaderTitle from 'react-navigation/src/views/HeaderTitle';
 import { gql } from 'react-apollo';
 import { propType } from 'graphql-anywhere';
+import { setFilter } from '../../../core/actions';
 import { SearchBar } from '../../../components';
 import { withFragment } from '../../../commons/core';
 
@@ -19,18 +23,26 @@ const styles = StyleSheet.create({
   },
 });
 
-const RegionHeader = ({ region }) => (
-  <SearchBar>
+const RegionHeader = ({ region, searchString, onSearch }) => (
+  <SearchBar searchString={searchString} onChange={onSearch} >
     <HeaderTitle style={styles.title}>{region.name}</HeaderTitle>
   </SearchBar>
 );
 
 RegionHeader.propTypes = {
   region: propType(nameFragment).isRequired,
+  searchString: PropTypes.string.isRequired,
+  onSearch: PropTypes.func.isRequired,
 };
 
-export default withFragment({
-  fragment: nameFragment,
-  idFromProps: ({ regionId }) => `Region:${regionId}`,
-  propName: 'region',
-})(RegionHeader);
+export default compose(
+  connect(
+    state => ({ searchString: state.persistent.filter.searchString }),
+    { onSearch: searchString => setFilter({ searchString }) },
+  ),
+  withFragment({
+    fragment: nameFragment,
+    idFromProps: ({ regionId }) => `Region:${regionId}`,
+    propName: 'region',
+  }),
+)(RegionHeader);

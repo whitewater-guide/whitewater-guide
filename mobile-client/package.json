@@ -52,6 +52,7 @@
 		"recompose": "^0.23.1",
 		"recursive-iterator": "^2.0.3",
 		"redux": "^3.6.0",
+		"redux-actions": "^2.0.3",
 		"redux-persist": "^4.8.0",
 		"redux-saga": "^0.15.3",
 		"subscriptions-transport-ws": "^0.6.0",

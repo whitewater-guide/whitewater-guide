@@ -1,6 +1,7 @@
 import React from 'react';
 import { StackNavigator, TabNavigator } from 'react-navigation';
 import { compose, mapProps, setStatic } from 'recompose';
+import { connect } from 'react-redux';
 import { RegionMapScreen } from './map';
 import { RegionDescriptionScreen } from './description';
 import { RegionFilterScreen } from './filter';
@@ -33,6 +34,7 @@ const RegionTabs = TabNavigator(
 
 const RegionTabsEnhanced = compose(
   setStatic('router', RegionTabs.router),
+  connect(state => ({ searchString: state.persistent.filter.searchString })),
   withRegion({ withBounds: true }),
   spinnerWhileLoading(props => props.regionLoading),
   withSectionsList({ withGeo: true }),
