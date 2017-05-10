@@ -17,8 +17,9 @@ const RegionsStack = StackNavigator(
   },
   {
     initialRouteName: 'RegionsList',
-    navigationOptions: ({ navigation }) => ({
+    navigationOptions: ({ navigation, navigationOptions }) => ({
       headerRight: <BurgerButton navigation={navigation} />,
+      ...navigationOptions,
     }),
   },
 );

@@ -9,6 +9,7 @@ import { withSectionsList } from '../../commons/features/sections';
 import { withErrorsView, spinnerWhileLoading } from '../../components';
 import RegionHeader from './RegionHeader';
 import RegionSectionsScreen from './RegionSectionsScreen';
+import RegionTabsRight from './RegionTabsRight';
 
 const RegionTabs = TabNavigator(
   {
@@ -23,6 +24,7 @@ const RegionTabs = TabNavigator(
     swipeEnabled: false,
     navigationOptions: ({ navigation }) => ({
       headerTitle: (<RegionHeader regionId={navigation.state.params.regionId} />),
+      headerRight: (<RegionTabsRight navigation={navigation} />),
     }),
   },
 );
