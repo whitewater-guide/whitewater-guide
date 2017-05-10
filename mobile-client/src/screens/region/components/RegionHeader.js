@@ -37,7 +37,7 @@ RegionHeader.propTypes = {
 
 export default compose(
   connect(
-    state => ({ searchString: state.persistent.filter.searchString }),
+    state => ({ searchString: state.transient.filter.searchString }),
     { onSearch: searchString => setFilter({ searchString }) },
   ),
   withFragment({

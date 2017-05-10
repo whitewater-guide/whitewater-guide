@@ -34,7 +34,7 @@ const RegionTabs = TabNavigator(
 
 const RegionTabsEnhanced = compose(
   setStatic('router', RegionTabs.router),
-  connect(state => ({ searchString: state.persistent.filter.searchString })),
+  connect(state => ({ searchString: state.transient.filter.searchString })),
   withRegion({ withBounds: true }),
   spinnerWhileLoading(props => props.regionLoading),
   withSectionsList({ withGeo: true }),

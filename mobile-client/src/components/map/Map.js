@@ -20,9 +20,14 @@ class Map extends React.PureComponent {
   constructor(props) {
     super(props);
     this.dimensions = Dimensions.get('window');
+    this._mapLaidOut = false; // Prevents map from resetting after keyboard was popped by search bar
   }
 
   onMapLayout = ({ nativeEvent: { layout: { width, height } } }) => {
+    if (this._mapLaidOut) {
+      return;
+    }
+    this._mapLaidOut = true;
     this.dimensions = { width, height };
     const { initialBounds } = this.props;
     if (initialBounds && this.mapView) {

@@ -141,7 +141,6 @@ export function withSectionsList(options = {}) {
       onSort: props => sortOptions => props.setSortOptions(sortOptions),
     }),
     flattenProp('sortOptions'),
-    withState('searchString', 'onSearch', ''),
     branch(
       // If sections aren't provided from outside, fetch them
       props => !props.sections,

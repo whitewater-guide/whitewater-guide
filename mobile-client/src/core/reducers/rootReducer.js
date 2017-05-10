@@ -5,13 +5,13 @@ import filter from './filterReducer';
 import { apolloClient } from '../config/configureApollo';
 
 const persistent = combineReducers({
-  filter,
   nav,
   apollo: apolloClient.reducer(),
 });
 
 const transient = combineReducers({
   app,
+  filter,
 });
 
 export default combineReducers({
