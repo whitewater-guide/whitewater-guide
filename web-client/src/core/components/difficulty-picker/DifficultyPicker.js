@@ -23,11 +23,11 @@ const styles = {
     left: 0,
     right: 0,
     display: 'flex',
-    minHeight: 24,
+    minHeight: 32,
     alignItems: 'stretch',
   },
   half: {
-    flex: 1,
+    flex: 0.5,
   },
 };
 
@@ -36,6 +36,8 @@ class DifficultyPicker extends React.PureComponent {
     value: PropTypes.arrayOf(PropTypes.number),
     onChange: PropTypes.func,
     style: PropTypes.object,
+    headerStyle: PropTypes.object,
+    selectablesStyle: PropTypes.object,
     muiTheme: PropTypes.object,
   };
 
@@ -111,7 +113,7 @@ class DifficultyPicker extends React.PureComponent {
   );
 
   render() {
-    const { value, muiTheme, style } = this.props;
+    const { value, muiTheme, style, headerStyle, selectablesStyle } = this.props;
     let rangeStr = 'not selected';
     if (value.length === 2 && value[0] >= 0) {
       if (value[0] === value[1]) {
@@ -124,10 +126,10 @@ class DifficultyPicker extends React.PureComponent {
     const componentStyle = { ...styles.container, ...style };
     return (
       <div style={componentStyle}>
-        <div style={styles.header}>
+        <div style={{ ...styles.header, ...headerStyle }}>
           <span>{ `Difficulty: ${rangeStr}` }</span>
         </div>
-        <div style={styles.selectablesContainer} >
+        <div style={{ ...styles.selectablesContainer, ...selectablesStyle }} >
           <div style={styles.halvesContainer}>
             <div style={endStyle} onMouseDown={this.onDummyDown} />
             { times(11, this.renderHalf) }

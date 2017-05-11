@@ -41,8 +41,6 @@ class ListSections extends Component {
 
   onSectionClick = sectionId => this.props.history.push(`/sections/${sectionId}`);
 
-  onSearch = searchString => this.props.updateSectionSearchTerms({ searchString });
-
   onSort = sortSettings => this.props.updateSectionSearchTerms(sortSettings);
 
   isRowLoaded = ({ index }) => !!this.props.sections.list[index];
@@ -53,12 +51,15 @@ class ListSections extends Component {
   };
 
   render() {
-    const { admin, sections, sectionSearchTerms } = this.props;
-    const { sortBy, sortDirection, searchString } = sectionSearchTerms;
+    const { admin, sections, sectionSearchTerms, updateSectionSearchTerms } = this.props;
+    const { sortBy, sortDirection } = sectionSearchTerms;
     const { list, count } = sections;
     return (
       <div style={styles.wrapper}>
-        {this.props.showFilters && <SectionsFilter searchString={searchString} onSearch={this.onSearch} />}
+        {
+          this.props.showFilters &&
+          <SectionsFilter terms={sectionSearchTerms} onChange={updateSectionSearchTerms} />
+        }
         <AutoSizer>
           {({ width, height }) => (
             <InfiniteLoader
