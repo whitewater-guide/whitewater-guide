@@ -105,6 +105,9 @@ export const sectionsResolvers = {
         const regex = new RegExp(terms.searchString, 'i');
         selector = {...selector, $or: [{name: regex}, {riverName: regex}]};
       }
+      if (terms.difficulty && terms.difficulty.length === 2) {
+        selector = {...selector, difficulty: {$gte: terms.difficulty[0], $lte: terms.difficulty[1]}}
+      }
       let result = {
         sections: Sections.find(selector, {fields, sort, skip, limit, lang: language}).fetch()
       };
