@@ -1,5 +1,5 @@
 import { gql, compose } from 'react-apollo';
-import { withState, withHandlers, flattenProp, mapProps, branch } from 'recompose';
+import { withState, withHandlers, mapProps, branch } from 'recompose';
 import _ from 'lodash';
 import update from 'immutability-helper';
 import { enhancedQuery } from '../../apollo';
@@ -39,13 +39,18 @@ const UpdatesSubscription = gql`
   }
 `;
 
-const termsFromProps = (props) => {
-  const result = _.pick(props, ['sortBy', 'sortDirection', 'riverId', 'regionId', 'searchString']);
-  if (result.sortDirection) {
-    result.sortDirection = result.sortDirection.toLowerCase();
-  }
-  return result;
-};
+/**
+ * Transforms client-side search terms to search terms that will be send in graphql query
+ */
+function serializeSearchTerms(terms, offlineSearch) {
+  const termsToSend = offlineSearch ?
+    _.pick(terms, ['sortBy', 'sortDirection', 'riverId', 'regionId', 'searchString']) :
+    terms;
+  return {
+    ...termsToSend,
+    sortDirection: terms.sortDirection.toLowerCase(),
+  };
+}
 
 const mergeNextPage = (prevResult, { fetchMoreResult }) => {
   if (!fetchMoreResult.sections) {
@@ -57,12 +62,19 @@ const mergeNextPage = (prevResult, { fetchMoreResult }) => {
   });
 };
 
-const sectionsGraphql = (withGeo, pageSize) => enhancedQuery(
+const sectionsGraphql = ({ withGeo, pageSize, offlineSearch }) => enhancedQuery(
   ListSectionsQuery,
   {
-    options: ({ language, ...props }) => ({
+    options: ({ language, sectionSearchTerms }) => ({
       fetchPolicy: 'cache-and-network',
-      variables: { terms: { ...termsFromProps(props) }, limit: pageSize, skip: 0, withGeo, language, isLoadMore: false },
+      variables: {
+        terms: serializeSearchTerms(sectionSearchTerms, offlineSearch),
+        limit: pageSize,
+        skip: 0,
+        withGeo,
+        language,
+        isLoadMore: false,
+      },
       reducer: sectionsListReducer,
       notifyOnNetworkStatusChange: true,
     }),
@@ -73,12 +85,10 @@ const sectionsGraphql = (withGeo, pageSize) => enhancedQuery(
           list: sections,
           count,
           loading,
-          loadMore: ({ startIndex: skip, stopIndex }) => {
-            return fetchMore({
-              variables: { skip, limit: stopIndex - skip, isLoadMore: true },
-              updateQuery: mergeNextPage,
-            });
-          },
+          loadMore: ({ startIndex: skip, stopIndex }) => fetchMore({
+            variables: { skip, limit: stopIndex - skip, isLoadMore: true },
+            updateQuery: mergeNextPage,
+          }),
           subscribeToUpdates: ({ regionId }) => subscribeToMore({
             document: UpdatesSubscription,
             variables: { regionId },
@@ -114,11 +124,17 @@ const localFilter = mapProps(({ sortBy, sortDirection, searchString, sections, .
  * High-order component that provides list of sections with optional sort and remove capabilities
  * @param options.withGeo (false) - should sections include put-in and take-out coordinates?
  * @param options.pageSize (25) - Number of sections per page;
+ * @param options.offlineSearch - If true, search options will not be sent in graphql request
  *
  * @returns High order component with following props:
- *          sortBy:String
- *          sortDirection:String
- *          onSort: function({sortBy, sortDirection})
+ *          sectionSearchTerms: {
+ *            sortBy
+ *            sortDirection
+ *            riverId
+ *            regionId
+ *            searchString
+ *          }
+ *          updateSectionSearchTerms
  *          riverId
  *          regionId
  *          sections: {
@@ -129,19 +145,29 @@ const localFilter = mapProps(({ sortBy, sortDirection, searchString, sections, .
  *          }
  *
  */
-export function withSectionsList(options = {}) {
-  const { withGeo = false, pageSize = 25 } = options;
+export function withSectionsList(options) {
+  const opts = _.defaults({}, options, { withGeo: false, pageSize: 25, offlineSearch: false });
   return compose(
     withFeatureIds(['region', 'river']),
-    withState('sortOptions', 'setSortOptions', { sortBy: 'name', sortDirection: 'ASC' }),
+    withState(
+      'sectionSearchTerms',
+      'setSectionSearchTerms',
+      props => ({
+        sortBy: 'name',
+        sortDirection: 'ASC',
+        riverId: props.riverId,
+        regionId: props.regionId,
+        searchString: '',
+      }),
+    ),
     withHandlers({
-      onSort: props => sortOptions => props.setSortOptions(sortOptions),
+      updateSectionSearchTerms: ({ sectionSearchTerms, setSectionSearchTerms }) =>
+        terms => setSectionSearchTerms({ ...sectionSearchTerms, ...terms }),
     }),
-    flattenProp('sortOptions'),
     branch(
       // If sections aren't provided from outside, fetch them
       props => !props.sections,
-      sectionsGraphql(withGeo, pageSize),
+      sectionsGraphql(opts),
       // If sections are provided from outside - sort manually on client
       localFilter,
     ),

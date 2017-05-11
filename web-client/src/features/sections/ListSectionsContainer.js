@@ -6,7 +6,6 @@ import { withSectionsList } from '../../commons/features/sections';
 export default compose(
   setDisplayName('ListSectionsContainer'),
   withAdmin(),
-  withState('searchString', 'onSearch', ''),
   withSectionsList(),
   withSectionsAdmin,
 );

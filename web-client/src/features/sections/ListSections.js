@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { AutoSizer, SortDirection, InfiniteLoader } from 'react-virtualized';
+import { AutoSizer, InfiniteLoader } from 'react-virtualized';
 import container from './ListSectionsContainer';
 import SectionsTable from './SectionsTable';
 import SectionsFilter from './SectionsFilter';
@@ -17,11 +17,8 @@ class ListSections extends Component {
 
   static propTypes = {
     admin: PropTypes.bool.isRequired,
-    sortBy: PropTypes.string,
-    sortDirection: PropTypes.oneOf([SortDirection.ASC, SortDirection.DESC]),
-    onSort: PropTypes.func.isRequired,
-    onSearch: PropTypes.func.isRequired,
-    searchString: PropTypes.string,
+    sectionSearchTerms: PropTypes.object.isRequired,
+    updateSectionSearchTerms: PropTypes.func.isRequired,
     removeSection: PropTypes.func,
     history: PropTypes.object,
     showFilters: PropTypes.bool,
@@ -35,10 +32,7 @@ class ListSections extends Component {
 
   static defaultProps = {
     sections: [],
-    sortBy: 'name',
-    sortDirection: SortDirection.ASC,
     showFilters: true,
-    searchString: '',
   };
 
   onDeleteSection = sectionId => this.props.removeSection(sectionId);
@@ -46,6 +40,10 @@ class ListSections extends Component {
   onEditSection = sectionId => this.props.history.push(`/sections/${sectionId}/settings`);
 
   onSectionClick = sectionId => this.props.history.push(`/sections/${sectionId}`);
+
+  onSearch = searchString => this.props.updateSectionSearchTerms({ searchString });
+
+  onSort = sortSettings => this.props.updateSectionSearchTerms(sortSettings);
 
   isRowLoaded = ({ index }) => !!this.props.sections.list[index];
 
@@ -55,11 +53,12 @@ class ListSections extends Component {
   };
 
   render() {
-    const { admin, sections, sortBy, sortDirection, onSort, onSearch, searchString } = this.props;
+    const { admin, sections, sectionSearchTerms } = this.props;
+    const { sortBy, sortDirection, searchString } = sectionSearchTerms;
     const { list, count } = sections;
     return (
       <div style={styles.wrapper}>
-        {this.props.showFilters && <SectionsFilter searchString={searchString} onSearch={onSearch} />}
+        {this.props.showFilters && <SectionsFilter searchString={searchString} onSearch={this.onSearch} />}
         <AutoSizer>
           {({ width, height }) => (
             <InfiniteLoader
@@ -77,7 +76,7 @@ class ListSections extends Component {
                   height={height}
                   sortBy={sortBy}
                   sortDirection={sortDirection}
-                  sort={onSort}
+                  sort={this.onSort}
                   onEditSection={this.onEditSection}
                   onDeleteSection={this.onDeleteSection}
                   onSectionClick={this.onSectionClick}
