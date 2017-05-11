@@ -1,7 +1,6 @@
 .idea/
 node_modules/
 typings/
-.vscode/
 settings.development.json
 settings.production.json
 package.tar.gz
