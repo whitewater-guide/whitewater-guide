@@ -1,5 +1,7 @@
 import {Mongo} from 'meteor/mongo';
+import {Meteor} from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
+import { get } from 'lodash';
 import {Gauges} from '../gauges';
 import {Sections} from '../sections';
 import { pubsub } from '../../subscriptions';
@@ -33,42 +35,44 @@ Measurements.attachSchema(measurementsSchema);
 
 //denormalize gauges and sections
 Measurements.after.insert(function (userId, doc) {
-  Gauges.update(
-    {$and: [
-      {_id: doc.gaugeId},
-      {$or: [ {lastTimestamp: {$exists: false}}, {lastTimestamp: {$lt: doc.date}} ] }
-    ]},
-    {$set: {lastTimestamp: doc.date, lastLevel: doc.level, lastFlow: doc.flow}}
-  );
-  let numSectionsUpdated = Sections.update(
-    {$and: [
-      {gaugeId: doc.gaugeId},
-      {$or: [
-        {$and: [{levels: {$exists: true}}, {levels: {$ne: null}}, {"levels.lastTimestamp": { $lt: doc.date }}]},
-        {$and: [{flows: {$exists: true}}, {flows: {$ne: null}}, {"flows.lastTimestamp": { $lt: doc.date }}]},
-      ]}
-    ]},
-    {$set: {
-      "levels.lastTimestamp": doc.date,
-      "levels.lastValue": doc.level,
-      "flows.lastTimestamp": doc.date,
-      "flows.lastValue": doc.flow,
-    }},
-    {multi: true}
-  );
-  numSectionsUpdated += Sections.update(
-    {$and: [
-      {gaugeId: doc.gaugeId},
-      {$or: [{ levels: null}, { flows: null},] }
-    ]},
-    {$set: {
-      levels: {lastTimestamp: doc.date, lastValue: doc.level},
-      flows: {lastTimestamp: doc.date, lastValue: doc.flow},
-    }},
-    {multi: true}
-  );
-  if (numSectionsUpdated > 0) {
-    const updates = Sections.find({ gaugeId: doc.gaugeId }, { fields: { levels: 1, flows: 1, regionId: 1 } }).fetch();
-    pubsub.publish('measurementsUpdated', updates);
+
+  const gaugesBatch = Gauges.rawCollection().initializeUnorderedBulkOp();
+  let hasGaugesUpdates = false;
+
+  Gauges.find({_id: doc.gaugeId}).forEach(gauge => {
+    if (gauge.lastTimestamp < doc.date) {
+      hasGaugesUpdates = true;
+      gaugesBatch.find({_id: gauge._id}).updateOne({
+        $set: {lastTimestamp: doc.date, lastLevel: doc.level, lastFlow: doc.flow}
+      });
+    }
+  });
+
+  if (hasGaugesUpdates) {
+    const executeGaugesBatch = Meteor.wrapAsync(gaugesBatch.execute, gaugesBatch);
+    executeGaugesBatch();
+  }
+
+  const sectionsBatch = Sections.rawCollection().initializeUnorderedBulkOp();
+  let hasSectionsUpdates = false;
+  const sectionsUpdates = [];
+
+  Sections.find({gaugeId: doc.gaugeId}).forEach(section => {
+    const lastTimestamp = get(section, 'levels.lastTimestamp') || get(section, 'flows.lastTimestamp') || new Date(0);
+    if (lastTimestamp < doc.date) {
+      hasSectionsUpdates = true;
+      const levels = Object.assign({}, section.levels, {lastTimestamp: doc.date, lastValue: doc.level});
+      const flows = Object.assign({}, section.flows, {lastTimestamp: doc.date, lastValue: doc.flow});
+      sectionsBatch.find({_id: section._id}).updateOne({
+        $set: {levels, flows}
+      });
+      sectionsUpdates.push({_id: section._id, levels, flows, regionId: section.regionId});
+    }
+  });
+
+  if (hasSectionsUpdates) {
+    const executeSectionsBatch = Meteor.wrapAsync(sectionsBatch.execute, sectionsBatch);
+    executeSectionsBatch();
+    pubsub.publish('measurementsUpdated', sectionsUpdates);
   }
 });

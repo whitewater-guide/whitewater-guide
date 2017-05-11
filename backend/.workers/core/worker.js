@@ -57,6 +57,11 @@ function launchWorker(harvestMode, autofillHandler, harvestHandler) {
             process.exit(0);
           }
           else {
+            // Sort by timestamp ASC
+            let result = measurements.sort((a, b) => a.timestamp - b.timestamp);
+            if (options.lastTimestamp) { // If lastTimestamp is set, filter only most recent values
+              result = result.filter(m => m.timestamp > options.lastTimestamp);
+            }
             process.send(measurements, () => process.exit(0));
           }
         }
