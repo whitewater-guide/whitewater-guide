@@ -102,8 +102,6 @@ input SectionInput {
 input SectionSearchTerms {
   sortBy: String,
   sortDirection: SortDirection,
-  skip: Int,
-  limit: Int,
   riverId: ID,
   regionId: ID,
   searchString: String,
@@ -115,7 +113,7 @@ type SectionsSearchResult {
 }
 
 type Query {
-  sections(terms:SectionSearchTerms!, language: String):SectionsSearchResult!
+  sections(terms:SectionSearchTerms!, skip: Int, limit: Int, language: String):SectionsSearchResult!
   section(_id:ID, language: String):Section
 }
 

@@ -1,4 +1,4 @@
-import { gql, compose, withApollo } from 'react-apollo';
+import { gql, compose } from 'react-apollo';
 import { withState, withHandlers, flattenProp, mapProps, branch } from 'recompose';
 import _ from 'lodash';
 import update from 'immutability-helper';
@@ -8,8 +8,8 @@ import { withFeatureIds } from '../../core/withFeatureIds';
 import sectionsListReducer from './sectionsListReducer';
 
 const ListSectionsQuery = gql`
-  query listSections($terms:SectionSearchTerms!, $language: String, $withGeo: Boolean!, $isLoadMore:Boolean!) {
-    sections(terms:$terms, language:$language) {
+  query listSections($terms:SectionSearchTerms!, $language: String, $skip: Int, $limit: Int, $withGeo: Boolean!, $isLoadMore:Boolean!) {
+    sections(terms:$terms, language:$language, skip: $skip, limit: $limit) {
       sections {
         ...SectionCore
         ...SectionMeasurements
@@ -62,11 +62,11 @@ const sectionsGraphql = (withGeo, pageSize) => enhancedQuery(
   {
     options: ({ language, ...props }) => ({
       fetchPolicy: 'cache-and-network',
-      variables: { terms: { ...termsFromProps(props), limit: pageSize }, withGeo, language, isLoadMore: false },
+      variables: { terms: { ...termsFromProps(props) }, limit: pageSize, skip: 0, withGeo, language, isLoadMore: false },
       reducer: sectionsListReducer,
       notifyOnNetworkStatusChange: true,
     }),
-    props: ({ data: { sections: sectionsSearchResult, loading, fetchMore, subscribeToMore }, ownProps }) => {
+    props: ({ data: { sections: sectionsSearchResult, loading, fetchMore, subscribeToMore } }) => {
       const { sections = [], count = 0 } = sectionsSearchResult || {};
       return {
         sections: {
@@ -74,11 +74,8 @@ const sectionsGraphql = (withGeo, pageSize) => enhancedQuery(
           count,
           loading,
           loadMore: ({ startIndex: skip, stopIndex }) => {
-            // Variables are shallowly merged, but skip and limit should be merge into terms
-            // Maybe they shouldn't be part of terms?
-            const terms = termsFromProps(ownProps);
             return fetchMore({
-              variables: { terms: { ...terms, skip, limit: stopIndex - skip }, isLoadMore: true },
+              variables: { skip, limit: stopIndex - skip, isLoadMore: true },
               updateQuery: mergeNextPage,
             });
           },
