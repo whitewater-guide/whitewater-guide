@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Animated, InteractionManager, StyleSheet, View } from 'react-native';
+import { Animated, StyleSheet, View } from 'react-native';
 import Interactable from 'react-native-interactable';
 import { SectionPropType } from '../../../commons/features/sections';
 import { NavigateButton } from '../../../components';
@@ -21,28 +21,52 @@ const styles = StyleSheet.create({
   },
 });
 
+const BOUNDS = { left: -136, right: 30, bounce: 0.5 };
+
 export default class SectionListItem extends React.PureComponent {
   static propTypes = {
     section: SectionPropType.isRequired,
     onPress: PropTypes.func,
-    initialOffset: PropTypes.number,
-    initialVelocity: PropTypes.number,
+    shouldBounceOnMount: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
     onPress: () => {},
-    initialOffset: 0,
-    initialVelocity: 0,
   };
 
   constructor(props) {
     super(props);
-    this._deltaX = new Animated.Value(props.initialOffset);
+    this._deltaX = new Animated.Value(0);
+    this._interactable = null;
+    this._animatedBounce = false;
+  }
+
+  componentDidMount() {
+    this.animateInitialBounce();
   }
 
   onInteractableMounted = (ref) => {
-    if (ref && this.props.initialVelocity !== 0) {
-      ref.setVelocity({ x: this.props.initialVelocity });
+    this._interactable = ref;
+    this.animateInitialBounce();
+  };
+
+  animateInitialBounce = () => {
+    if (this._interactable && !this._animatedBounce && this.props.shouldBounceOnMount) {
+      this._animatedBounce = true;
+      // setTimeout(() => this._interactable && this._interactable.snapTo({ index: 0 }), 400);
+      setTimeout(
+        () => {
+          if (this._interactable) {
+            this._interactable.snapTo({ index: 1 });
+          }
+          setTimeout(() => {
+            if (this._interactable) {
+              this._interactable.snapTo({ index: 0 });
+            }
+          }, 1000);
+        },
+        400,
+      );
     }
   };
 
@@ -71,8 +95,8 @@ export default class SectionListItem extends React.PureComponent {
             { x: -136, damping: 0.6, tension: 300 },
           ]}
           dragToss={0.01}
+          boundaries={BOUNDS}
           animatedValueX={this._deltaX}
-          initialPosition={{ x: this.props.initialOffset }}
         >
           <View style={{ left: 0, right: 0, height: ITEM_HEIGHT, backgroundColor: 'white' }}>
             <SectionListBody section={this.props.section} onPress={this.props.onPress} />

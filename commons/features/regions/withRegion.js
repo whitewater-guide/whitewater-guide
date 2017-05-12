@@ -41,7 +41,7 @@ export function withRegion(options) {
             variables: { _id: regionId, language, withBounds, withPOIs },
           }),
           props: ({ data: { region, loading } }) => (
-            { [propName]: region && filter(RegionFragments.All, region), regionLoading: loading }
+            { [propName]: region && filter(RegionFragments.All, region), regionLoading: loading && !region }
           ),
         },
       ),

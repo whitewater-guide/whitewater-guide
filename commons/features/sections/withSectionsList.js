@@ -84,7 +84,7 @@ const sectionsGraphql = ({ withGeo, pageSize, offlineSearch }) => enhancedQuery(
         sections: {
           list: sections,
           count,
-          loading,
+          loading: loading && !sections,
           loadMore: ({ startIndex: skip, stopIndex }) => fetchMore({
             variables: { skip, limit: stopIndex - skip, isLoadMore: true },
             updateQuery: mergeNextPage,

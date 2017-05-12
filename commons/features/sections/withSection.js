@@ -46,7 +46,7 @@ export function withSection(options) {
           }),
           props: ({ data: { section, loading } }) => ({
             [propName]: section && filter(SectionFragments.All, section),
-            sectionLoading: loading,
+            sectionLoading: loading && !section,
           }),
         },
       ),

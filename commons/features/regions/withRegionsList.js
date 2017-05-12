@@ -23,7 +23,7 @@ const withRegionsList = enhancedQuery(
     },
     props: ({ data: { regions, loading, refetch } }) => ({
       regions: regions || [],
-      regionsListLoading: loading,
+      regionsListLoading: loading && !regions,
       refetchRegionsList: refetch,
     }),
   },

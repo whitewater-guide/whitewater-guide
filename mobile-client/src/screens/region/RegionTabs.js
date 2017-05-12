@@ -24,6 +24,7 @@ const RegionTabs = TabNavigator(
     tabBarPosition: 'bottom',
     backBehavior: 'none',
     swipeEnabled: false,
+    lazy: true,
     navigationOptions: ({ navigation, navigationOptions }) => ({
       headerTitle: (<RegionHeader regionId={navigation.state.params.regionId} />),
       headerRight: (<FilterButton />),

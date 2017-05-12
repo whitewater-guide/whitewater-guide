@@ -3,10 +3,10 @@ import { SectionsPropType } from './propTypes';
 
 /**
  * High order component that automatically loads all available sections in batches
- * @param Component
+ * @param batchSize - number of sections to load at once
  * @returns {SectionsBatchLoader}
  */
-export function sectionsBatchLoader(Component) {
+export const sectionsBatchLoader = (batchSize = 25) => (Component) => {
   class SectionsBatchLoader extends React.PureComponent {
     static propTypes = {
       sections: SectionsPropType.isRequired,
@@ -25,7 +25,7 @@ export function sectionsBatchLoader(Component) {
       const numSections = list.length;
       const prevNumSections = prevPros.sections.list.length;
       if (prevNumSections < numSections && numSections < count && !loading) {
-        loadMore({ startIndex: numSections, stopIndex: numSections + 25 });
+        loadMore({ startIndex: numSections, stopIndex: numSections + batchSize });
       }
     };
 

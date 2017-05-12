@@ -8,7 +8,7 @@ export default (Layout, Map, SelectedSection, SelectedPOI, LoadingIndicator) => 
     props => props.regionLoading,
     renderComponent(LoadingIndicator),
     compose(
-      sectionsBatchLoader,
+      sectionsBatchLoader(),
       mapProps(({ region, sections, ...props }) => ({
         ...props,
         bounds: region ? region.bounds : [],
