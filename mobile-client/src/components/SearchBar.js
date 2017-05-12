@@ -44,11 +44,14 @@ class SearchBar extends React.Component {
     onChange: () => {},
   };
 
-  state = {
-    searchOn: false,
-    width: 0,
-    position: new Animated.Value(0),
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchOn: !!props.searchString,
+      width: 0,
+      position: new Animated.Value(props.searchString ? 1 : 0),
+    };
+  }
 
   onHeaderLayout = ({ nativeEvent: { layout: { width } } }) => this.setState({ width });
 

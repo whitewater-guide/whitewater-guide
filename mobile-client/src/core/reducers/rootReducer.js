@@ -1,17 +1,17 @@
 import { combineReducers } from 'redux';
 import app from './appReducer';
 import nav from './navReducer';
-import filter from './filterReducer';
+import sectionSearchTerms from './sectionSearchTermsReducer';
 import { apolloClient } from '../config/configureApollo';
 
 const persistent = combineReducers({
   nav,
+  sectionSearchTerms,
   apollo: apolloClient.reducer(),
 });
 
 const transient = combineReducers({
   app,
-  filter,
 });
 
 export default combineReducers({

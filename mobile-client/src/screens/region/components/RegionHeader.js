@@ -6,7 +6,7 @@ import { compose } from 'recompose';
 import HeaderTitle from 'react-navigation/src/views/HeaderTitle';
 import { gql } from 'react-apollo';
 import { propType } from 'graphql-anywhere';
-import { setFilter } from '../../../core/actions';
+import { updatesectionSearchTerms } from '../../../core/actions';
 import { SearchBar } from '../../../components';
 import { withFragment } from '../../../commons/core';
 
@@ -36,13 +36,16 @@ RegionHeader.propTypes = {
 };
 
 export default compose(
-  connect(
-    state => ({ searchString: state.transient.filter.searchString }),
-    { onSearch: searchString => setFilter({ searchString }) },
-  ),
   withFragment({
     fragment: nameFragment,
     idFromProps: ({ regionId }) => `Region:${regionId}`,
     propName: 'region',
   }),
+  connect(
+    (state) => {
+      const allSearchTerms = state.persistent.sectionSearchTerms;
+      return { searchString: allSearchTerms[allSearchTerms.currentRegion].searchString };
+    },
+    { onSearch: searchString => updatesectionSearchTerms({ searchString }) },
+  ),
 )(RegionHeader);

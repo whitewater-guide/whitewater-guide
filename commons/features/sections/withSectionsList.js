@@ -121,34 +121,12 @@ const localFilter = mapProps(({ sortBy, sortDirection, searchString, sections, .
 });
 
 /**
- * High-order component that provides list of sections with optional sort and remove capabilities
- * @param options.withGeo (false) - should sections include put-in and take-out coordinates?
- * @param options.pageSize (25) - Number of sections per page;
- * @param options.offlineSearch - If true, search options will not be sent in graphql request
- *
- * @returns High order component with following props:
- *          sectionSearchTerms: {
- *            sortBy
- *            sortDirection
- *            riverId
- *            regionId
- *            searchString
- *          }
- *          updateSectionSearchTerms
- *          riverId
- *          regionId
- *          sections: {
- *            list
- *            count
- *            loading
- *            loadMore function({ startIndex, stopIndex })
- *          }
- *
+ * If sectionSearchTerms are not provided by upper-level components (e.g. connect),
+ * then provides seacrh terms as props and also provides handlers to update seacrh terms
  */
-export function withSectionsList(options) {
-  const opts = _.defaults({}, options, { withGeo: false, pageSize: 25, offlineSearch: false });
-  return compose(
-    withFeatureIds(['region', 'river']),
+const withSectionSearchProps = branch(
+  ({ sectionSearchTerms }) => !sectionSearchTerms,
+  compose(
     withState(
       'sectionSearchTerms',
       'setSectionSearchTerms',
@@ -164,6 +142,39 @@ export function withSectionsList(options) {
       updateSectionSearchTerms: ({ sectionSearchTerms, setSectionSearchTerms }) =>
         terms => setSectionSearchTerms({ ...sectionSearchTerms, ...terms }),
     }),
+  ),
+);
+
+/**
+ * High-order component that provides list of sections with optional sort and remove capabilities
+ * @param options.withGeo (false) - should sections include put-in and take-out coordinates?
+ * @param options.pageSize (25) - Number of sections per page;
+ * @param options.offlineSearch - If true, search options will not be sent in graphql request
+ *
+ * @returns High order component with following props:
+ *          sectionSearchTerms: {
+ *            sortBy
+ *            sortDirection
+ *            riverId
+ *            regionId
+ *            searchString
+ *          }
+ *          updateSectionSearchTerms (optional)
+ *          riverId
+ *          regionId
+ *          sections: {
+ *            list
+ *            count
+ *            loading
+ *            loadMore function({ startIndex, stopIndex })
+ *          }
+ *
+ */
+export function withSectionsList(options) {
+  const opts = _.defaults({}, options, { withGeo: false, pageSize: 25, offlineSearch: false });
+  return compose(
+    withFeatureIds(['region', 'river']),
+    withSectionSearchProps,
     branch(
       // If sections aren't provided from outside, fetch them
       props => !props.sections,
