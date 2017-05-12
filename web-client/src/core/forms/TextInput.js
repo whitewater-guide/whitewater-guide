@@ -1,6 +1,13 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import {TextField} from '../components';
+import { isNil } from 'lodash';
+import { TextField } from '../components';
+
+const styles = {
+  textInput: {
+    minWidth: 20,
+  },
+};
 
 class TextInput extends Component {
   static propTypes = {
@@ -15,11 +22,11 @@ class TextInput extends Component {
   };
 
   render() {
-    const value = this.props.field.value || '';
+    const value = isNil(this.props.field.value) ? '' : this.props.field.value;
     return (
       <TextField
+        fullWidth
         style={styles.textInput}
-        fullWidth={true}
         value={value}
         errorText={this.props.field.error}
         onChange={this.onChange}
@@ -34,12 +41,6 @@ class TextInput extends Component {
     this.props.field.onChange(value);
   }
 }
-
-const styles = {
-  textInput: {
-    minWidth: 20,
-  },
-};
 
 export default TextInput;
 
