@@ -106,12 +106,15 @@ export const sectionsResolvers = {
         const regex = new RegExp(terms.searchString, 'i');
         selector = {...selector, $or: [{name: regex}, {riverName: regex}]};
       }
-      const { difficulty, duration } = terms;
+      const { difficulty, duration, rating } = terms;
       if (difficulty && difficulty.length === 2 && !(difficulty[0] === 1 && difficulty[1] === 6)) {
-        selector = {...selector, difficulty: {$gte: difficulty[0], $lte: difficulty[1]}}
+        selector = {...selector, difficulty: {$gte: difficulty[0], $lte: difficulty[1]}};
       }
       if (duration && duration.length === 2 && !(duration[0] === Durations[0].value && difficulty[1] === Durations[Durations.length-1].value)) {
-        selector = {...selector, duration: {$gte: duration[0], $lte: duration[1]}}
+        selector = {...selector, duration: {$gte: duration[0], $lte: duration[1]}};
+      }
+      if (rating && rating !== 0) {
+        selector = {...selector, rating: {$gte: rating}};
       }
       let result = {
         sections: Sections.find(selector, {fields, sort, skip, limit, lang: language}).fetch()

@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Button, Text } from 'native-base';
 import { NavigationActions } from 'react-navigation';
+import StarRating from 'react-native-star-rating';
 import { connect } from 'react-redux';
 import { MultiSlider, Screen } from '../../../components';
 import { defaultSectionSearchTerms, Durations } from '../../../commons/domain';
@@ -15,6 +16,9 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 16,
     paddingTop: 32,
+    paddingBottom: 16,
+  },
+  starWrapper: {
     paddingBottom: 16,
   },
 });
@@ -49,6 +53,8 @@ class RegionFilterScreen extends React.Component {
 
   onChangeDuration = duration => this.setState({ duration });
 
+  onChangeRating = rating => this.setState({ rating });
+
   onReset = () => this.setState({ ...defaultSectionSearchTerms });
 
   render() {
@@ -74,6 +80,15 @@ class RegionFilterScreen extends React.Component {
           values={this.state.duration}
           onValuesChange={this.onChangeDuration}
         />
+        <View style={styles.starWrapper}>
+          <Text note>Rating</Text>
+          <StarRating
+            rating={this.state.rating}
+            starSize={20}
+            starColor={'#a7a7a7'}
+            selectedStar={this.onChangeRating}
+          />
+        </View>
         <Button
           full
           onPress={this.onReset}

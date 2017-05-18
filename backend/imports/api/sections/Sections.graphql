@@ -107,6 +107,7 @@ input SectionSearchTerms {
   searchString: String,
   difficulty: [Float],
   duration: [Int],
+  rating: Float,
 }
 
 type SectionsSearchResult {
