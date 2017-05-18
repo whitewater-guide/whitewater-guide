@@ -8,6 +8,7 @@ import {HazardTags, KayakingTags, MiscTags, SupplyTags} from '../tags';
 import graphqlFields from 'graphql-fields';
 import {pickFromSelf} from '../../utils/ApolloUtils';
 import {upsertChildren} from '../../utils/CollectionUtils';
+import { Durations } from '../../commons/domain';
 import _ from 'lodash';
 
 function removeSection(root, {_id}) {
@@ -105,8 +106,12 @@ export const sectionsResolvers = {
         const regex = new RegExp(terms.searchString, 'i');
         selector = {...selector, $or: [{name: regex}, {riverName: regex}]};
       }
-      if (terms.difficulty && terms.difficulty.length === 2) {
-        selector = {...selector, difficulty: {$gte: terms.difficulty[0], $lte: terms.difficulty[1]}}
+      const { difficulty, duration } = terms;
+      if (difficulty && difficulty.length === 2 && !(difficulty[0] === 1 && difficulty[1] === 6)) {
+        selector = {...selector, difficulty: {$gte: difficulty[0], $lte: difficulty[1]}}
+      }
+      if (duration && duration.length === 2 && !(duration[0] === Durations[0].value && difficulty[1] === Durations[Durations.length-1].value)) {
+        selector = {...selector, duration: {$gte: duration[0], $lte: duration[1]}}
       }
       let result = {
         sections: Sections.find(selector, {fields, sort, skip, limit, lang: language}).fetch()

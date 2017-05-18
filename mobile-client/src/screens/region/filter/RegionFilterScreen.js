@@ -5,7 +5,7 @@ import { Button, Text } from 'native-base';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { MultiSlider, Screen } from '../../../components';
-import { defaultSectionSearchTerms } from '../../../commons/domain';
+import { defaultSectionSearchTerms, Durations } from '../../../commons/domain';
 import { toRomanDifficulty } from '../../../commons/utils/TextUtils';
 import { updatesectionSearchTerms } from '../../../core/actions';
 import { currentSectionSearchTerms } from '../../../core/selectors';
@@ -47,11 +47,15 @@ class RegionFilterScreen extends React.Component {
 
   onChangeDifficulty = difficulty => this.setState({ difficulty });
 
+  onChangeDuration = duration => this.setState({ duration });
+
   onReset = () => this.setState({ ...defaultSectionSearchTerms });
 
   render() {
     const minDiff = toRomanDifficulty(this.state.difficulty[0]);
     const maxDiff = toRomanDifficulty(this.state.difficulty[1]);
+    const minDuration = Durations.find(({ value }) => value === this.state.duration[0]).slug;
+    const maxDuration = Durations.find(({ value }) => value === this.state.duration[1]).slug;
     return (
       <Screen style={styles.container}>
         <MultiSlider
@@ -61,6 +65,14 @@ class RegionFilterScreen extends React.Component {
           step={0.5}
           values={this.state.difficulty}
           onValuesChange={this.onChangeDifficulty}
+        />
+        <MultiSlider
+          label={`Duration: from ${minDuration} to ${maxDuration}`}
+          min={Durations[0].value}
+          max={Durations[Durations.length - 1].value}
+          step={10}
+          values={this.state.duration}
+          onValuesChange={this.onChangeDuration}
         />
         <Button
           full
