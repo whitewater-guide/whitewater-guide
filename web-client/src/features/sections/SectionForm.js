@@ -17,7 +17,7 @@ import {
 import { MediaCollection } from '../media';
 import { POICollection } from '../points';
 import { Tabs } from '../../core/components';
-import { Durations } from './Durations';
+import { Durations } from '../../commons/domain';
 import container from './SectionFormContainer';
 
 const styles = {

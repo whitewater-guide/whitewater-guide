@@ -11,3 +11,4 @@ private/workers/
 /.meteor/dump
 /public/images/
 /public/temp/
+/imports/commons/

@@ -4,7 +4,7 @@ import { compose, mapProps } from 'recompose';
 import { renderDifficulty } from '../../commons/utils/TextUtils';
 import { Rating } from '../../core/forms';
 import IconButton from 'material-ui/IconButton';
-import { Durations } from './Durations';
+import { Durations } from '../../commons/domain';
 import renderHTML from 'react-render-html';
 import { withAdmin } from '../users';
 import { withRouter } from 'react-router';

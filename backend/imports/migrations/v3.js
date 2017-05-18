@@ -1,4 +1,5 @@
-import {Sections, Durations} from '../api/sections';
+import {Sections} from '../api/sections';
+import {Durations} from '../commons/domain';
 import {Meteor} from "meteor/meteor";
 
 /**

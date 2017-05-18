@@ -4,7 +4,7 @@ import { Column, Table } from 'react-virtualized';
 import { AdminControls, rowRenderer } from '../../core/components';
 import { Rating } from '../../core/forms';
 import { renderDifficulty } from '../../commons/utils/TextUtils';
-import { Durations } from './Durations';
+import { Durations } from '../../commons/domain';
 import _ from 'lodash';
 
 const durationsMap = _.keyBy(Durations, 'value');

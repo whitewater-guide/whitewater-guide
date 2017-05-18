@@ -4,7 +4,7 @@ import {metaSchema} from '../../utils/SimpleSchemaUtils';
 import {registerHooks} from './hooks';
 import _ from 'lodash';
 import {GaugeBindingSchema} from './gaugebinding';
-import {Durations} from './durations';
+import {Durations} from '../../commons/domain';
 
 const limits = [
   {min: -180, max: 180, msg: 'lonOutOfRange'},
