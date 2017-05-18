@@ -17,6 +17,7 @@ export default class SectionsList extends PureComponent {
      * on component mount.
      */
     bounceFirstRowOnMount: PropTypes.bool,
+    extraData: PropTypes.any,
   };
 
   static defaultProps = {
@@ -66,6 +67,7 @@ export default class SectionsList extends PureComponent {
         getItemLayout={this.getItemLayout}
         renderItem={this.renderItem}
         onEndReached={this.props.onEndReached}
+        extraData={this.props.extraData}
       />
     );
   }

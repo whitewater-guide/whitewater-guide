@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Screen } from '../../../components';
+import { currentSectionSearchTerms } from '../../../core/selectors';
+
 import { SectionsList } from '../../sections-list';
 
 class RegionSectionsScreen extends React.PureComponent {
@@ -9,6 +11,7 @@ class RegionSectionsScreen extends React.PureComponent {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
     screenProps: PropTypes.object,
+    searchTerms: PropTypes.object,
   };
 
   static navigationOptions = {
@@ -26,11 +29,17 @@ class RegionSectionsScreen extends React.PureComponent {
     const { screenProps: { sections } } = this.props;
     return (
       <Screen noScroll>
-        <SectionsList sections={sections.list} dispatch={this.props.dispatch} />
+        <SectionsList
+          sections={sections.list}
+          dispatch={this.props.dispatch}
+          extraData={this.props.searchTerms}
+        />
       </Screen>
     );
   }
 
 }
 
-export default connect()(RegionSectionsScreen);
+export default connect(
+  state => ({ searchTerms: currentSectionSearchTerms(state) }),
+)(RegionSectionsScreen);

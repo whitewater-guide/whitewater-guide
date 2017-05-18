@@ -1,12 +1,8 @@
 import { NavigationActions } from 'react-navigation';
+import { isNull } from 'lodash';
 import update from 'immutability-helper';
+import { defaultSectionSearchTerms } from '../../commons/domain';
 import { UPDATE_SECTION_SEARCH_TERMS } from '../actions/ActionTypes';
-
-const defaultSearchTerms = {
-  sortBy: 'name',
-  sortDirection: 'ASC',
-  searchString: '',
-};
 
 const initialState = {
   currentRegion: 'all',
@@ -22,8 +18,12 @@ export default (state = initialState, action) => {
         // Set default search terms when navigating for the first time
         const regionId = params && params.regionId;
         const currentRegion = regionId || 'all';
-        const currentSearchTerms = state[currentRegion] || { ...defaultSearchTerms, regionId };
-        return { ...state, currentRegion, [currentRegion]: currentSearchTerms };
+        const currentSearchTerms = state[currentRegion] || { ...defaultSectionSearchTerms, regionId };
+        return {
+          ...state,
+          currentRegion,
+          [currentRegion]: { ...currentSearchTerms },
+        };
       }
       return state;
     }

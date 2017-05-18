@@ -7,6 +7,7 @@ import HeaderTitle from 'react-navigation/src/views/HeaderTitle';
 import { gql } from 'react-apollo';
 import { propType } from 'graphql-anywhere';
 import { updatesectionSearchTerms } from '../../../core/actions';
+import { currentSectionSearchTerms } from '../../../core/selectors';
 import { SearchBar } from '../../../components';
 import { withFragment } from '../../../commons/core';
 
@@ -42,10 +43,7 @@ export default compose(
     propName: 'region',
   }),
   connect(
-    (state) => {
-      const allSearchTerms = state.persistent.sectionSearchTerms;
-      return { searchString: allSearchTerms[allSearchTerms.currentRegion].searchString };
-    },
+    state => ({ searchString: currentSectionSearchTerms(state).searchString }),
     { onSearch: searchString => updatesectionSearchTerms({ searchString }) },
   ),
 )(RegionHeader);

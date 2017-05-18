@@ -19,6 +19,7 @@
 		"devtools": "react-devtools"
 	},
 	"dependencies": {
+		"@ptomasroos/react-native-multi-slider": "^0.0.8",
 		"apollo-client": "^1.2.2",
 		"color": "^1.0.3",
 		"geocoordinate": "^1.0.1",
@@ -39,7 +40,6 @@
 		"react-native-htmlview": "^0.9.0",
 		"react-native-interactable": "^0.0.9",
 		"react-native-maps": "^0.15.0",
-		"react-native-multi-slider": "^0.3.5",
 		"react-native-splash-screen": "^2.0.0",
 		"react-native-star-rating": "^1.0.7",
 		"react-native-svg": "^5.1.8",

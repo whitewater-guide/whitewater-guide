@@ -7,5 +7,6 @@ export { default as BurgerButton } from './BurgerButton';
 export { default as DifficultyThumb } from './DifficultyThumb';
 export { default as HTMLView } from './HTMLView';
 export { default as SearchBar } from './SearchBar';
+export { default as MultiSlider } from './MultiSlider';
 export * from './NavigateButton';
 export * from './ErrorRefetchScreen';
