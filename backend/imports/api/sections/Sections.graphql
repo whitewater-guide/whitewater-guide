@@ -107,6 +107,7 @@ input SectionSearchTerms {
   searchString: String,
   difficulty: [Float],
   duration: [Int],
+  seasonNumeric: [Int],
   rating: Float,
 }
 

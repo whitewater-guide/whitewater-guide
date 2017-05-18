@@ -87,6 +87,29 @@ function upsertSection(root, data) {
   return Sections.findOne(_id);
 }
 
+function applyFilters(selector, searchTerms) {
+  const { difficulty, duration, searchString, seasonNumeric, rating } = searchTerms;
+  let result = selector;
+  if (searchString && searchString !== '') {
+    const regex = new RegExp(searchString, 'i');
+    selector = {...selector, $or: [{name: regex}, {riverName: regex}]};
+  }
+  if (difficulty && difficulty.length === 2 && !(difficulty[0] === 1 && difficulty[1] === 6)) {
+    result = {...result, difficulty: {$gte: difficulty[0], $lte: difficulty[1]}};
+  }
+  //TODO: fix - has some half-months that fall inside this range
+  if (seasonNumeric && seasonNumeric.length === 2 && !(seasonNumeric[0] === 0 && seasonNumeric[1] === 23)) {
+    result = {...result, seasonNumeric: {$gte: seasonNumeric[0], $lte: seasonNumeric[1]}};
+  }
+  if (duration && duration.length === 2 && !(duration[0] === Durations[0].value && difficulty[1] === Durations[Durations.length-1].value)) {
+    result = {...result, duration: {$gte: duration[0], $lte: duration[1]}};
+  }
+  if (rating && rating !== 0) {
+    result = {...result, rating: {$gte: rating}};
+  }
+  return result;
+}
+
 export const sectionsResolvers = {
   Query: {
     sections: (root, {terms, language, skip = 0, limit = 10}, context, info) => {
@@ -102,20 +125,7 @@ export const sectionsResolvers = {
         [['riverName', sortDirection], ['name', sortDirection]] :
         [[sortBy, sortDirection]];
       let selector = _.pick(terms, ['regionId', 'riverId']);
-      if (terms.searchString) {
-        const regex = new RegExp(terms.searchString, 'i');
-        selector = {...selector, $or: [{name: regex}, {riverName: regex}]};
-      }
-      const { difficulty, duration, rating } = terms;
-      if (difficulty && difficulty.length === 2 && !(difficulty[0] === 1 && difficulty[1] === 6)) {
-        selector = {...selector, difficulty: {$gte: difficulty[0], $lte: difficulty[1]}};
-      }
-      if (duration && duration.length === 2 && !(duration[0] === Durations[0].value && difficulty[1] === Durations[Durations.length-1].value)) {
-        selector = {...selector, duration: {$gte: duration[0], $lte: duration[1]}};
-      }
-      if (rating && rating !== 0) {
-        selector = {...selector, rating: {$gte: rating}};
-      }
+      selector = applyFilters(selector, terms);
       let result = {
         sections: Sections.find(selector, {fields, sort, skip, limit, lang: language}).fetch()
       };

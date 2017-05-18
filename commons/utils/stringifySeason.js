@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { times } from 'lodash';
 
 function halfMonth(n) {
   const name = moment().month(Math.floor(n / 2)).format('MMMM');
@@ -22,13 +23,22 @@ function rangeToStr(range) {
   return `${halfMonth(start)} - ${halfMonth(end)}`;
 }
 
-export default function stringifySeason(seasonNumeric) {
+/**
+ * Stringifies season
+ * @seasonNumeric - array of numeric half-months
+ * @range - If true, seasonNumeric is considered to be a range, otherwise - just set of half-months
+ */
+export default function stringifySeason(seasonNumeric, range = false) {
   if (!seasonNumeric || seasonNumeric.length === 0) {
     return '';
-  } else if (seasonNumeric.length === 24) {
+  } 
+  let seasons = [...seasonNumeric];
+  if (range && seasonNumeric.length === 2) {
+    seasons = times(seasonNumeric[1] - seasonNumeric[0] + 1, i => seasonNumeric[0] + i );
+  }
+  if (seasons.length === 24) {
     return 'all year around';
   }
-  let seasons = [...seasonNumeric];
   // Loop around new year
   let shift = 0;
   if (seasonNumeric.indexOf(0) === 0 && seasonNumeric.indexOf(23) >= 0) {

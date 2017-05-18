@@ -38,3 +38,8 @@ test('should return all year around', () => {
   }
   expect(stringifySeason(year)).toBe('all year around');
 });
+
+test('should handle ranges', () => {
+  expect(stringifySeason([0, 23], true)).toBe('all year around');
+  expect(stringifySeason([0, 5], true)).toBe('jan - mar');
+});

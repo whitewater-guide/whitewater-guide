@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { MultiSlider, Screen } from '../../../components';
 import { defaultSectionSearchTerms, Durations } from '../../../commons/domain';
 import { toRomanDifficulty } from '../../../commons/utils/TextUtils';
+import stringifySeason from '../../../commons/utils/stringifySeason';
 import { updatesectionSearchTerms } from '../../../core/actions';
 import { currentSectionSearchTerms } from '../../../core/selectors';
 import ApplyFilterButton from './ApplyFilterButton';
@@ -55,6 +56,8 @@ class RegionFilterScreen extends React.Component {
 
   onChangeRating = rating => this.setState({ rating });
 
+  onChangeSeasonNumeric = seasonNumeric => this.setState({ seasonNumeric });
+
   onReset = () => this.setState({ ...defaultSectionSearchTerms });
 
   render() {
@@ -79,6 +82,14 @@ class RegionFilterScreen extends React.Component {
           step={10}
           values={this.state.duration}
           onValuesChange={this.onChangeDuration}
+        />
+        <MultiSlider
+          label={`Season: ${stringifySeason(this.state.seasonNumeric, true)}`}
+          min={0}
+          max={23}
+          step={1}
+          values={this.state.seasonNumeric}
+          onValuesChange={this.onChangeSeasonNumeric}
         />
         <View style={styles.starWrapper}>
           <Text note>Rating</Text>
