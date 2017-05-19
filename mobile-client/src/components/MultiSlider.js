@@ -10,6 +10,7 @@ const styles = StyleSheet.create({
   sliderWrapper: {
     backgroundColor: 'transparent',
     marginBottom: -32,
+    paddingHorizontal: 8,
   },
   selectedTrack: {
     backgroundColor: theme.btnPrimaryBg,
@@ -25,7 +26,7 @@ const MultiSlider = ({ label, ...props }) => (
     <Slider
       selectedStyle={styles.selectedTrack}
       markerStyle={styles.marker}
-      sliderLength={width - 32}
+      sliderLength={width - 48}
       containerStyle={styles.sliderContent}
       {...props}
     />
