@@ -25,7 +25,9 @@ const styles = StyleSheet.create({
   button: {
     alignSelf: 'stretch',
     justifyContent: 'center',
+    alignItems: 'center',
     paddingHorizontal: 8,
+    width: 40,
   },
   input: {
     flex: 1,
@@ -113,7 +115,7 @@ class SearchBar extends React.Component {
             <TouchableOpacity style={styles.button} onPress={this.onCancelSearch}>
               <AnimatedIcon
                 name={Platform.OS === 'ios' ? 'ios-close' : 'md-close'}
-                size={20}
+                size={24}
                 color={variables.btnPrimaryBg}
               />
             </TouchableOpacity>

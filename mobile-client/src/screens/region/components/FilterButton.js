@@ -11,9 +11,10 @@ import { defaultSectionSearchTerms } from '../../../commons/domain';
 
 const styles = StyleSheet.create({
   button: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 12,
+    width: 40,
   },
 });
 
@@ -31,21 +32,18 @@ class FilterButton extends React.PureComponent {
     const iconName = this.props.hasFilters ? 'ios-funnel' : 'ios-funnel-outline';
     return (
       <TouchableOpacity style={styles.button} onPress={this.onPress}>
-        <Icon name={iconName} size={20} color={variables.btnPrimaryBg} />
+        <Icon name={iconName} size={24} color={variables.btnPrimaryBg} />
       </TouchableOpacity>
     );
   }
 }
 
 export default connect(
-  state => {
-    console.log('default',       omit(defaultSectionSearchTerms, ['searchString']));
-    console.log('state',       omit(currentSectionSearchTerms(state), ['regionId', 'searchString']));
-    return {
+  state => ({
     hasFilters: !isEqual(
       omit(defaultSectionSearchTerms, ['searchString']),
       omit(currentSectionSearchTerms(state), ['regionId', 'searchString']),
     ),
-  }},
+  }),
   NavigationActions,
 )(FilterButton);
