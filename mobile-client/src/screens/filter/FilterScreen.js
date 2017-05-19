@@ -5,7 +5,7 @@ import { Button, Text } from 'native-base';
 import { NavigationActions } from 'react-navigation';
 import StarRating from 'react-native-star-rating';
 import { connect } from 'react-redux';
-import { MultiSlider, Screen } from '../../components';
+import { MultiSlider, Screen, TernaryChips } from '../../components';
 import { defaultSectionSearchTerms, Durations } from '../../commons/domain';
 import { toRomanDifficulty } from '../../commons/utils/TextUtils';
 import stringifySeason from '../../commons/utils/stringifySeason';
@@ -41,7 +41,10 @@ class FilterScreen extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { ...props.searchTerms };
+    this.state = {
+      ...props.searchTerms,
+      ternaryTest: { aaaa: undefined, bbb: undefined },
+    };
   }
 
   componentWillUnmount() {
@@ -57,6 +60,8 @@ class FilterScreen extends React.Component {
   onChangeRating = rating => this.setState({ rating });
 
   onChangeSeasonNumeric = seasonNumeric => this.setState({ seasonNumeric });
+
+  onChangeTernaryTest = ternaryTest => this.setState({ ternaryTest });
 
   onReset = () => this.setState({ ...defaultSectionSearchTerms });
 
@@ -100,6 +105,7 @@ class FilterScreen extends React.Component {
             selectedStar={this.onChangeRating}
           />
         </View>
+        <TernaryChips values={this.state.ternaryTest} onChange={this.onChangeTernaryTest} />
         <Button
           full
           onPress={this.onReset}
