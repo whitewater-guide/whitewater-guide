@@ -5,12 +5,12 @@ import { Button, Text } from 'native-base';
 import { NavigationActions } from 'react-navigation';
 import StarRating from 'react-native-star-rating';
 import { connect } from 'react-redux';
-import { MultiSlider, Screen } from '../../../components';
-import { defaultSectionSearchTerms, Durations } from '../../../commons/domain';
-import { toRomanDifficulty } from '../../../commons/utils/TextUtils';
-import stringifySeason from '../../../commons/utils/stringifySeason';
-import { updatesectionSearchTerms } from '../../../core/actions';
-import { currentSectionSearchTerms } from '../../../core/selectors';
+import { MultiSlider, Screen } from '../../components';
+import { defaultSectionSearchTerms, Durations } from '../../commons/domain';
+import { toRomanDifficulty } from '../../commons/utils/TextUtils';
+import stringifySeason from '../../commons/utils/stringifySeason';
+import { updatesectionSearchTerms } from '../../core/actions';
+import { currentSectionSearchTerms } from '../../core/selectors';
 import ApplyFilterButton from './ApplyFilterButton';
 
 const styles = StyleSheet.create({
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class RegionFilterScreen extends React.Component {
+class FilterScreen extends React.Component {
 
   static propTypes = {
     screenProps: PropTypes.object,
@@ -115,4 +115,4 @@ class RegionFilterScreen extends React.Component {
 export default connect(
   state => ({ searchTerms: currentSectionSearchTerms(state) }),
   { ...NavigationActions, updatesectionSearchTerms },
-)(RegionFilterScreen);
+)(FilterScreen);

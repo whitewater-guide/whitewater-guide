@@ -4,7 +4,7 @@ import { Platform, StyleSheet, TouchableOpacity } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
-import variables from '../../../theme/variables/platform';
+import variables from '../../theme/variables/platform';
 
 const styles = StyleSheet.create({
   button: {

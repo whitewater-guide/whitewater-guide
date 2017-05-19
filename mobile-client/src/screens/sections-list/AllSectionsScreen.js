@@ -5,15 +5,19 @@ import { compose, hoistStatics } from 'recompose';
 import SectionsList from './SectionsList';
 import { withSectionsList, SectionsPropType } from '../../commons/features/sections';
 import { Screen, withErrorsView } from '../../components';
+import { currentSectionSearchTerms } from '../../core/selectors';
+import SectionSearchHeader from './header/SectionSearchHeader';
+import FilterButton from './header/FilterButton';
 
-class SectionsListScreen extends PureComponent {
+class AllSectionsScreen extends PureComponent {
   static propTypes = {
     sections: SectionsPropType.isRequired,
     dispatch: PropTypes.func.isRequired,
   };
 
   static navigationOptions = {
-    title: 'All Sections',
+    headerTitle: (<SectionSearchHeader />),
+    headerRight: (<FilterButton filterRouteName="AllSectionsFilter" />),
   };
 
   onEndReached = () => {
@@ -38,9 +42,10 @@ class SectionsListScreen extends PureComponent {
 }
 
 const container = compose(
+  connect(state => ({ sectionSearchTerms: currentSectionSearchTerms(state) })),
   withSectionsList({ withGeo: true }),
   withErrorsView,
   connect(),
 );
-export default hoistStatics(container)(SectionsListScreen);
+export default hoistStatics(container)(AllSectionsScreen);
 

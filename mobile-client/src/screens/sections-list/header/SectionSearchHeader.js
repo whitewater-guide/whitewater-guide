@@ -31,7 +31,7 @@ const SectionSearchHeader = ({ region, searchString, onSearch }) => (
 );
 
 SectionSearchHeader.propTypes = {
-  region: propType(nameFragment).isRequired,
+  region: propType(nameFragment),
   searchString: PropTypes.string.isRequired,
   onSearch: PropTypes.func.isRequired,
 };

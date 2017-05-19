@@ -4,8 +4,9 @@ import { compose, mapProps, setStatic } from 'recompose';
 import { connect } from 'react-redux';
 import { RegionMapScreen } from './map';
 import { RegionDescriptionScreen } from './description';
-import { RegionFilterScreen } from './filter';
+import { FilterScreen } from '../filter';
 import { RegionSectionsScreen } from './sections';
+import { currentSectionSearchTerms } from '../../core/selectors';
 import { withRegion } from '../../commons/features/regions';
 import { withSectionsList } from '../../commons/features/sections';
 import { withErrorsView, spinnerWhileLoading } from '../../components';
@@ -25,7 +26,7 @@ const RegionTabs = TabNavigator(
     lazy: true,
     navigationOptions: ({ navigation, navigationOptions }) => ({
       headerTitle: (<SectionSearchHeader regionId={navigation.state.params.regionId} />),
-      headerRight: (<FilterButton />),
+      headerRight: (<FilterButton filterRouteName="RegionStackFilter" />),
       ...navigationOptions,
     }),
   },
@@ -33,10 +34,7 @@ const RegionTabs = TabNavigator(
 
 const RegionTabsEnhanced = compose(
   setStatic('router', RegionTabs.router),
-  connect((state) => {
-    const allSearchTerms = state.persistent.sectionSearchTerms;
-    return { sectionSearchTerms: allSearchTerms[allSearchTerms.currentRegion] };
-  }),
+  connect(state => ({ sectionSearchTerms: currentSectionSearchTerms(state) })),
   withRegion({ withBounds: true }),
   spinnerWhileLoading(props => props.regionLoading),
   withSectionsList({ withGeo: true }),
@@ -53,7 +51,7 @@ const RegionModalStack = StackNavigator(
       screen: RegionTabsEnhanced,
     },
     RegionStackFilter: {
-      screen: RegionFilterScreen,
+      screen: FilterScreen,
     },
   },
   {

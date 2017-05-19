@@ -1,6 +1,6 @@
 import React from 'react';
 import { DrawerNavigator, StackNavigator } from 'react-navigation';
-import { RegionsListScreen, SectionsListScreen, RegionTabs, SectionTabs } from '../screens';
+import { RegionsListScreen, AllSectionsModalStack, RegionTabs, SectionTabs } from '../screens';
 import { BurgerButton } from '../components';
 
 const RegionsStack = StackNavigator(
@@ -23,7 +23,7 @@ const RegionsStack = StackNavigator(
 const AllSectionsStack = StackNavigator(
   {
     AllSections: {
-      screen: SectionsListScreen,
+      screen: AllSectionsModalStack,
       navigationOptions: ({ navigation }) => ({
         headerLeft: <BurgerButton navigation={navigation} />,
       }),

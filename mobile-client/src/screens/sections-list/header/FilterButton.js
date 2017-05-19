@@ -22,10 +22,11 @@ class FilterButton extends React.PureComponent {
   static propTypes = {
     navigate: PropTypes.func.isRequired,
     hasFilters: PropTypes.bool.isRequired,
+    filterRouteName: PropTypes.string.isRequired,
   };
 
   onPress = () => {
-    this.props.navigate({ routeName: 'RegionStackFilter' });
+    this.props.navigate({ routeName: this.props.filterRouteName });
   }
 
   render() {
