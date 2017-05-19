@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Animated, StyleSheet, View } from 'react-native';
+import { Animated, InteractionManager, StyleSheet, View } from 'react-native';
 import Interactable from 'react-native-interactable';
 import { SectionPropType } from '../../../commons/features/sections';
 import { NavigateButton } from '../../../components';
@@ -52,21 +52,22 @@ export default class SectionListItem extends React.PureComponent {
 
   animateInitialBounce = () => {
     if (this._interactable && !this._animatedBounce && this.props.shouldBounceOnMount) {
-      this._animatedBounce = true;
-      // setTimeout(() => this._interactable && this._interactable.snapTo({ index: 0 }), 400);
-      setTimeout(
-        () => {
-          if (this._interactable) {
-            this._interactable.snapTo({ index: 1 });
-          }
-          setTimeout(() => {
+      InteractionManager.runAfterInteractions(() => {
+        this._animatedBounce = true;
+        setTimeout(
+          () => {
             if (this._interactable) {
-              this._interactable.snapTo({ index: 0 });
+              this._interactable.snapTo({ index: 1 });
             }
-          }, 1000);
-        },
-        400,
-      );
+            setTimeout(() => {
+              if (this._interactable) {
+                this._interactable.snapTo({ index: 0 });
+              }
+            }, 100);
+          },
+          100,
+        );
+      });
     }
   };
 
