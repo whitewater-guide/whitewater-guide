@@ -38,11 +38,14 @@ class FilterButton extends React.PureComponent {
 }
 
 export default connect(
-  state => ({
+  state => {
+    console.log('default',       omit(defaultSectionSearchTerms, ['searchString']));
+    console.log('state',       omit(currentSectionSearchTerms(state), ['regionId', 'searchString']));
+    return {
     hasFilters: !isEqual(
       omit(defaultSectionSearchTerms, ['searchString']),
       omit(currentSectionSearchTerms(state), ['regionId', 'searchString']),
     ),
-  }),
+  }},
   NavigationActions,
 )(FilterButton);
