@@ -92,6 +92,7 @@ const sectionsGraphql = ({ withGeo, pageSize, offlineSearch }) => enhancedQuery(
           subscribeToUpdates: ({ regionId }) => subscribeToMore({
             document: UpdatesSubscription,
             variables: { regionId },
+            onError: error => console.log(`Subscription error ${error}`), // TODO: probably something like toast should be shown
           }),
         },
       };
