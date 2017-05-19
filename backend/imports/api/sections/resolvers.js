@@ -92,7 +92,7 @@ function applyFilters(selector, searchTerms) {
   let result = selector;
   if (searchString && searchString !== '') {
     const regex = new RegExp(searchString, 'i');
-    selector = {...selector, $or: [{name: regex}, {riverName: regex}]};
+    result = {...result, $or: [{name: regex}, {riverName: regex}]};
   }
   if (difficulty && difficulty.length === 2 && !(difficulty[0] === 1 && difficulty[1] === 6)) {
     result = {...result, difficulty: {$gte: difficulty[0], $lte: difficulty[1]}};
@@ -107,6 +107,7 @@ function applyFilters(selector, searchTerms) {
   if (rating && rating !== 0) {
     result = {...result, rating: {$gte: rating}};
   }
+  console.log('Search', result);
   return result;
 }
 
