@@ -8,10 +8,8 @@ import { RegionFilterScreen } from './filter';
 import { RegionSectionsScreen } from './sections';
 import { withRegion } from '../../commons/features/regions';
 import { withSectionsList } from '../../commons/features/sections';
-
 import { withErrorsView, spinnerWhileLoading } from '../../components';
-import RegionHeader from './components/RegionHeader';
-import FilterButton from './components/FilterButton';
+import { SectionSearchHeader, FilterButton } from '../sections-list';
 
 const RegionTabs = TabNavigator(
   {
@@ -26,7 +24,7 @@ const RegionTabs = TabNavigator(
     swipeEnabled: false,
     lazy: true,
     navigationOptions: ({ navigation, navigationOptions }) => ({
-      headerTitle: (<RegionHeader regionId={navigation.state.params.regionId} />),
+      headerTitle: (<SectionSearchHeader regionId={navigation.state.params.regionId} />),
       headerRight: (<FilterButton />),
       ...navigationOptions,
     }),

@@ -24,13 +24,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const RegionHeader = ({ region, searchString, onSearch }) => (
+const SectionSearchHeader = ({ region, searchString, onSearch }) => (
   <SearchBar searchString={searchString} onChange={onSearch} >
-    <HeaderTitle style={styles.title}>{region.name}</HeaderTitle>
+    <HeaderTitle style={styles.title}>{region ? region.name : 'All sections'}</HeaderTitle>
   </SearchBar>
 );
 
-RegionHeader.propTypes = {
+SectionSearchHeader.propTypes = {
   region: propType(nameFragment).isRequired,
   searchString: PropTypes.string.isRequired,
   onSearch: PropTypes.func.isRequired,
@@ -46,4 +46,4 @@ export default compose(
     state => ({ searchString: currentSectionSearchTerms(state).searchString }),
     { onSearch: searchString => updatesectionSearchTerms({ searchString }) },
   ),
-)(RegionHeader);
+)(SectionSearchHeader);
