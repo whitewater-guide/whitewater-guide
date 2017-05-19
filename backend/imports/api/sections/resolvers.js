@@ -107,7 +107,6 @@ function applyFilters(selector, searchTerms) {
   if (rating && rating !== 0) {
     result = {...result, rating: {$gte: rating}};
   }
-  console.log('Search', result);
   return result;
 }
 
