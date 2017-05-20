@@ -5,19 +5,21 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 const styles = StyleSheet.create({
   chip: {
-    height: 24,
+    height: 32,
     flexDirection: 'row',
     borderWidth: 1,
-    borderRadius: 12,
+    borderRadius: 16,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'transparent',
     paddingHorizontal: 12,
-    margin: 2,
+    marginHorizontal: 2,
+    marginVertical: 4,
   },
   iconWrapper: {
     width: 24,
-    height: 24,
+    height: 32,
+    justifyContent: 'center',
   },
   chipText: {
     fontSize: 12,
