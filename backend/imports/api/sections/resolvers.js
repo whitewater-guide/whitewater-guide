@@ -97,7 +97,6 @@ function applyFilters(selector, searchTerms) {
   if (difficulty && difficulty.length === 2 && !(difficulty[0] === 1 && difficulty[1] === 6)) {
     result = {...result, difficulty: {$gte: difficulty[0], $lte: difficulty[1]}};
   }
-  //TODO: fix - has some half-months that fall inside this range
   if (seasonNumeric && seasonNumeric.length === 2 && !(seasonNumeric[0] === 0 && seasonNumeric[1] === 23)) {
     result = {...result, seasonNumeric: {$elemMatch: {$gte: seasonNumeric[0], $lte: seasonNumeric[1]}}};
   }
