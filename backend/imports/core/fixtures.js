@@ -1,4 +1,4 @@
-import {SupplyTags, HazardTags, KayakingTags, MiscTags} from '../api/tags';
+import {SupplyTags, hazardsTags, KayakingTags, MiscTags} from '../api/tags';
 import {Meteor} from 'meteor/meteor';
 
 //Currently, it is not possible to import Assets as an ES6 module.
@@ -15,7 +15,7 @@ Meteor.startup(() => {
   });
 
   hazards.tags.forEach((tag) => {
-    HazardTags.upsert({slug: tag.slug}, {$set: tag});
+    hazardsTags.upsert({slug: tag.slug}, {$set: tag});
   });
 
   kayaking.tags.forEach((tag) => {

@@ -99,6 +99,11 @@ input SectionInput {
   miscTags: [RefInput]
 }
 
+input TagsSearch {
+  _id: ID,
+  selection: Int,
+}
+
 input SectionSearchTerms {
   sortBy: String,
   sortDirection: SortDirection,
@@ -109,6 +114,10 @@ input SectionSearchTerms {
   duration: [Int],
   seasonNumeric: [Int],
   rating: Float,
+  kayakingTags: [TagsSearch],
+  hazardsTags: [TagsSearch],
+  miscTags: [TagsSearch],
+  supplyTags: [TagsSearch],
 }
 
 type SectionsSearchResult {

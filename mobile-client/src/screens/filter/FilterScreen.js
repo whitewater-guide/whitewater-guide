@@ -2,11 +2,15 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button, Text } from 'native-base';
+import { compose, hoistStatics } from 'recompose';
 import { NavigationActions } from 'react-navigation';
 import StarRating from 'react-native-star-rating';
 import { connect } from 'react-redux';
-import { MultiSlider, Screen, TernaryChips } from '../../components';
+import { mapValues, pick, memoize } from 'lodash';
+import { map } from 'lodash/fp';
+import { MultiSlider, Screen, TernaryChips, spinnerWhileLoading } from '../../components';
 import { defaultSectionSearchTerms, Durations } from '../../commons/domain';
+import { withTags } from '../../commons/features/tags';
 import { toRomanDifficulty } from '../../commons/utils/TextUtils';
 import stringifySeason from '../../commons/utils/stringifySeason';
 import { updatesectionSearchTerms } from '../../core/actions';
@@ -31,6 +35,10 @@ class FilterScreen extends React.Component {
     back: PropTypes.func.isRequired,
     searchTerms: PropTypes.object,
     updatesectionSearchTerms: PropTypes.func,
+    kayakingTags: PropTypes.array.isRequired,
+    hazardsTags: PropTypes.array.isRequired,
+    miscTags: PropTypes.array.isRequired,
+    supplyTags: PropTypes.array.isRequired,
   };
 
   static navigationOptions = {
@@ -42,8 +50,8 @@ class FilterScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      ...this.mapTags(),
       ...props.searchTerms,
-      ternaryTest: { aaaa: undefined, bbb: undefined },
     };
   }
 
@@ -53,17 +61,14 @@ class FilterScreen extends React.Component {
 
   onGoBack = () => this.props.back();
 
-  onChangeDifficulty = difficulty => this.setState({ difficulty });
+  onChange = memoize(key => value => this.setState({ [key]: value }));
 
-  onChangeDuration = duration => this.setState({ duration });
+  onReset = () => this.setState({ ...this.mapTags(), ...defaultSectionSearchTerms });
 
-  onChangeRating = rating => this.setState({ rating });
-
-  onChangeSeasonNumeric = seasonNumeric => this.setState({ seasonNumeric });
-
-  onChangeTernaryTest = ternaryTest => this.setState({ ternaryTest });
-
-  onReset = () => this.setState({ ...defaultSectionSearchTerms });
+  mapTags = () => mapValues(
+    pick(this.props, ['kayakingTags', 'hazardsTags', 'miscTags', 'supplyTags']),
+    map(tag => ({ ...tag, selection: 'none' })),
+  );
 
   render() {
     const minDiff = toRomanDifficulty(this.state.difficulty[0]);
@@ -78,7 +83,7 @@ class FilterScreen extends React.Component {
           max={6}
           step={0.5}
           values={this.state.difficulty}
-          onValuesChange={this.onChangeDifficulty}
+          onValuesChange={this.onChange('difficulty')}
         />
         <MultiSlider
           label={`Duration: from ${minDuration} to ${maxDuration}`}
@@ -86,7 +91,7 @@ class FilterScreen extends React.Component {
           max={Durations[Durations.length - 1].value}
           step={10}
           values={this.state.duration}
-          onValuesChange={this.onChangeDuration}
+          onValuesChange={this.onChange('duration')}
         />
         <MultiSlider
           label={`Season: ${stringifySeason(this.state.seasonNumeric, true)}`}
@@ -94,22 +99,26 @@ class FilterScreen extends React.Component {
           max={23}
           step={1}
           values={this.state.seasonNumeric}
-          onValuesChange={this.onChangeSeasonNumeric}
+          onValuesChange={this.onChange('seasonNumeric')}
         />
         <View style={styles.starWrapper}>
-          <Text note>Rating</Text>
+          <Text>Rating</Text>
           <StarRating
             rating={this.state.rating}
             starSize={20}
             starColor={'#a7a7a7'}
-            selectedStar={this.onChangeRating}
+            selectedStar={this.onChange('rating')}
           />
         </View>
-        <TernaryChips values={this.state.ternaryTest} onChange={this.onChangeTernaryTest} />
-        <Button
-          full
-          onPress={this.onReset}
-        >
+        <Text>Kayaking types</Text>
+        <TernaryChips values={this.state.kayakingTags} onChange={this.onChange('kayakingTags')} />
+        <Text>Hazards</Text>
+        <TernaryChips values={this.state.hazardsTags} onChange={this.onChange('hazardsTags')} />
+        <Text>Supply types</Text>
+        <TernaryChips values={this.state.supplyTags} onChange={this.onChange('supplyTags')} />
+        <Text>Misc tags</Text>
+        <TernaryChips values={this.state.miscTags} onChange={this.onChange('miscTags')} />
+        <Button full onPress={this.onReset} >
           <Text>Reset</Text>
         </Button>
       </Screen>
@@ -118,7 +127,14 @@ class FilterScreen extends React.Component {
 
 }
 
-export default connect(
-  state => ({ searchTerms: currentSectionSearchTerms(state) }),
-  { ...NavigationActions, updatesectionSearchTerms },
-)(FilterScreen);
+const container = compose(
+  withTags,
+  spinnerWhileLoading(props => props.tagsLoading),
+  connect(
+    state => ({ searchTerms: currentSectionSearchTerms(state) }),
+    { ...NavigationActions, updatesectionSearchTerms },
+  ),
+);
+
+export default hoistStatics(container)(FilterScreen);
+

@@ -11,7 +11,7 @@ const allTags = gql`
       _id
       name
     }
-    hazardTags {
+    hazardsTags {
       _id
       name
     }

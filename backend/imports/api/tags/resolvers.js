@@ -1,9 +1,9 @@
-import {KayakingTags, HazardTags, MiscTags, SupplyTags} from './index';
+import {KayakingTags, hazardsTags, MiscTags, SupplyTags} from './index';
 export const tagsResolvers = {
   Query: {
     supplyTags: () => SupplyTags.find({}),
     kayakingTags: () => KayakingTags.find({}),
-    hazardTags: () => HazardTags.find({}),
+    hazardsTags: () => hazardsTags.find({}),
     miscTags: () => MiscTags.find({}),
   }
 };

@@ -57,7 +57,7 @@ class SectionForm extends Component {
     loading: PropTypes.bool,
     supplyTags: PropTypes.array,
     kayakingTags: PropTypes.array,
-    hazardTags: PropTypes.array,
+    hazardsTags: PropTypes.array,
     miscTags: PropTypes.array,
   };
 
@@ -114,7 +114,7 @@ class SectionForm extends Component {
               <Field name="seasonNumeric" component={SeasonPickerField} />
               <Field name="supplyTags" title="River supply" component={ChipInput} options={this.props.supplyTags} />
               <Field name="kayakingTags" title="Kayaking types" component={ChipInput} options={this.props.kayakingTags} />
-              <Field name="hazardsTags" title="Hazards" component={ChipInput} options={this.props.hazardTags} />
+              <Field name="hazardsTags" title="Hazards" component={ChipInput} options={this.props.hazardsTags} />
               <Field name="miscTags" title="Tags" component={ChipInput} options={this.props.miscTags} />
             </div>
           </Tab>

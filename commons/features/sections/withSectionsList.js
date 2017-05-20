@@ -1,6 +1,7 @@
 import { gql, compose } from 'react-apollo';
 import { withState, withHandlers, mapProps, branch } from 'recompose';
 import _ from 'lodash';
+import { map, reject } from 'lodash/fp';
 import update from 'immutability-helper';
 import { enhancedQuery } from '../../apollo';
 import { SectionFragments } from './sectionFragments';
@@ -121,29 +122,48 @@ const localFilter = mapProps(({ sortBy, sortDirection, searchString, sections, .
   };
 });
 
+const selectionToInt = { selected: 1, deselected: -1};
+
+const serializeTags = compose(
+  reject({ selection: 'none' } ),
+  map(({_id, selection}) => ({ _id, selection: selectionToInt[selection] })),
+);
+
 /**
  * If sectionSearchTerms are not provided by upper-level components (e.g. connect),
  * then provides seacrh terms as props and also provides handlers to update seacrh terms
  */
-const withSectionSearchProps = branch(
-  ({ sectionSearchTerms }) => !sectionSearchTerms,
-  compose(
-    withState(
-      'sectionSearchTerms',
-      'setSectionSearchTerms',
-      props => ({
-        sortBy: 'name',
-        sortDirection: 'ASC',
-        riverId: props.riverId,
-        regionId: props.regionId,
-        searchString: '',
+const withSectionSearchProps = compose(
+  branch(
+    ({ sectionSearchTerms }) => !sectionSearchTerms,
+    compose(
+      withState(
+        'sectionSearchTerms',
+        'setSectionSearchTerms',
+        props => ({
+          sortBy: 'name',
+          sortDirection: 'ASC',
+          riverId: props.riverId,
+          regionId: props.regionId,
+          searchString: '',
+        }),
+      ),
+      withHandlers({
+        updateSectionSearchTerms: ({ sectionSearchTerms, setSectionSearchTerms }) =>
+          terms => setSectionSearchTerms({ ...sectionSearchTerms, ...terms }),
       }),
     ),
-    withHandlers({
-      updateSectionSearchTerms: ({ sectionSearchTerms, setSectionSearchTerms }) =>
-        terms => setSectionSearchTerms({ ...sectionSearchTerms, ...terms }),
-    }),
   ),
+  mapProps(({ sectionSearchTerms: { kayakingTags, hazardsTags, miscTags, supplyTags, ...terms }, ...props}) => ({
+    ...props,
+    sectionSearchTerms: {
+      ...terms,
+      kayakingTags: serializeTags(kayakingTags), 
+      hazardsTags: serializeTags(hazardsTags), 
+      miscTags: serializeTags(miscTags), 
+      supplyTags: serializeTags(supplyTags),
+    },
+  })),
 );
 
 /**

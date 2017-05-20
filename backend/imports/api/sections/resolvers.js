@@ -4,7 +4,7 @@ import {Rivers} from '../rivers';
 import {Regions} from '../regions';
 import {Media, upsertMedia, moveTempFiles} from '../media';
 import {Points} from '../points';
-import {HazardTags, KayakingTags, MiscTags, SupplyTags} from '../tags';
+import {hazardsTags, KayakingTags, MiscTags, SupplyTags} from '../tags';
 import graphqlFields from 'graphql-fields';
 import {pickFromSelf} from '../../utils/ApolloUtils';
 import {upsertChildren} from '../../utils/CollectionUtils';
@@ -87,8 +87,23 @@ function upsertSection(root, data) {
   return Sections.findOne(_id);
 }
 
+function appendTagSelector(selector, name, tags) {
+  const grouped = _.groupBy(tags, 'selection');
+  let result = {};
+  if (grouped['1']) {
+    result = { $all: _.map(grouped['1'], '_id') };
+  }
+  if (grouped['-1']) {
+    result = { ...result, $nin: _.map(grouped['-1'], '_id') };
+  }
+  if (!_.isEmpty(result)) {
+    return { ...selector, [name]: result };
+  }
+  return selector;
+}
+
 function applyFilters(selector, searchTerms) {
-  const { difficulty, duration, searchString, seasonNumeric, rating } = searchTerms;
+  const { difficulty, duration, searchString, seasonNumeric, rating, kayakingTags, hazardsTags, miscTags, supplyTags } = searchTerms;
   let result = selector;
   if (searchString && searchString !== '') {
     const regex = new RegExp(searchString, 'i');
@@ -100,12 +115,17 @@ function applyFilters(selector, searchTerms) {
   if (seasonNumeric && seasonNumeric.length === 2 && !(seasonNumeric[0] === 0 && seasonNumeric[1] === 23)) {
     result = {...result, seasonNumeric: {$elemMatch: {$gte: seasonNumeric[0], $lte: seasonNumeric[1]}}};
   }
-  if (duration && duration.length === 2 && !(duration[0] === Durations[0].value && difficulty[1] === Durations[Durations.length-1].value)) {
+  if (duration && duration.length === 2 && !(duration[0] === Durations[0].value && duration[1] === Durations[Durations.length-1].value)) {
     result = {...result, duration: {$gte: duration[0], $lte: duration[1]}};
   }
   if (rating && rating !== 0) {
     result = {...result, rating: {$gte: rating}};
   }
+  result = appendTagSelector(result, 'kayakingTagIds', kayakingTags );
+  result = appendTagSelector(result, 'hazardsTagIds',   hazardsTags );
+  result = appendTagSelector(result, 'miscTagIds',     miscTags );
+  result = appendTagSelector(result, 'supplyTagIds',   supplyTags );
+  console.log(JSON.stringify(result));
   return result;
 }
 
@@ -157,7 +177,7 @@ export const sectionsResolvers = {
     pois: section => Points.find({_id: {$in: section.poiIds}}),
     supplyTags:   section => section.supplyTagIds   ? SupplyTags.find({_id: {$in: section.supplyTagIds}})     : [],
     kayakingTags: section => section.kayakingTagIds ? KayakingTags.find({_id: {$in: section.kayakingTagIds}}) : [],
-    hazardsTags:  section => section.hazardsTagIds   ? HazardTags.find({_id: {$in: section.hazardsTagIds}})     : [],
+    hazardsTags:  section => section.hazardsTagIds   ? hazardsTags.find({_id: {$in: section.hazardsTagIds}})     : [],
     miscTags:     section => section.miscTagIds     ? MiscTags.find({_id: {$in: section.miscTagIds}})         : [],
     seasonNumeric: section => section.seasonNumeric || [],
   },
