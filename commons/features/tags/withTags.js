@@ -1,6 +1,5 @@
-import {graphql} from 'react-apollo';
-import gql from 'graphql-tag';
-import {filter} from 'graphql-anywhere';
+import { gql, graphql } from 'react-apollo';
+import { filter } from 'graphql-anywhere';
 
 const allTags = gql`
   query allTags {
@@ -26,8 +25,8 @@ const allTags = gql`
 export const withTags = graphql(
   allTags,
   {
-    props: ({data: {loading, ...data}}) => {
-      return {...filter(allTags, data), tagsLoading: loading};
+    props: ({ data: { loading, ...data } }) => {
+      return { ...filter(allTags, data), tagsLoading: loading };
     },
   },
 );

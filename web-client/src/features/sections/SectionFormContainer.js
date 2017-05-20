@@ -2,7 +2,7 @@ import { graphql, gql } from 'react-apollo';
 import { withState, withHandlers, withProps, compose } from 'recompose';
 import { filter } from 'graphql-anywhere';
 import { withAdmin } from '../users';
-import { withTags } from '../tags';
+import { withTags } from '../../commons/features/tags';
 import { withFeatureIds } from '../../commons/core';
 import { SectionFragments } from '../../commons/features/sections';
 import _ from 'lodash';
