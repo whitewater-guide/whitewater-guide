@@ -99,7 +99,7 @@ function applyFilters(selector, searchTerms) {
   }
   //TODO: fix - has some half-months that fall inside this range
   if (seasonNumeric && seasonNumeric.length === 2 && !(seasonNumeric[0] === 0 && seasonNumeric[1] === 23)) {
-    result = {...result, seasonNumeric: {$gte: seasonNumeric[0], $lte: seasonNumeric[1]}};
+    result = {...result, seasonNumeric: {$elemMatch: {$gte: seasonNumeric[0], $lte: seasonNumeric[1]}}};
   }
   if (duration && duration.length === 2 && !(duration[0] === Durations[0].value && difficulty[1] === Durations[Durations.length-1].value)) {
     result = {...result, duration: {$gte: duration[0], $lte: duration[1]}};
