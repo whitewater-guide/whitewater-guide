@@ -6,11 +6,10 @@ import { compose, hoistStatics } from 'recompose';
 import { NavigationActions } from 'react-navigation';
 import StarRating from 'react-native-star-rating';
 import { connect } from 'react-redux';
-import { mapValues, pick, memoize } from 'lodash';
-import { map } from 'lodash/fp';
+import { memoize } from 'lodash';
 import { MultiSlider, Screen, TernaryChips, spinnerWhileLoading } from '../../components';
 import { defaultSectionSearchTerms, Durations } from '../../commons/domain';
-import { withTags } from '../../commons/features/tags';
+import { tagsToSelections, withTags } from '../../commons/features/tags';
 import { toRomanDifficulty } from '../../commons/utils/TextUtils';
 import stringifySeason from '../../commons/utils/stringifySeason';
 import { updatesectionSearchTerms } from '../../core/actions';
@@ -50,7 +49,7 @@ class FilterScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      ...this.mapTags(),
+      ...tagsToSelections(props),
       ...props.searchTerms,
     };
   }
@@ -63,12 +62,7 @@ class FilterScreen extends React.Component {
 
   onChange = memoize(key => value => this.setState({ [key]: value }));
 
-  onReset = () => this.setState({ ...this.mapTags(), ...defaultSectionSearchTerms });
-
-  mapTags = () => mapValues(
-    pick(this.props, ['kayakingTags', 'hazardsTags', 'miscTags', 'supplyTags']),
-    map(tag => ({ ...tag, selection: 'none' })),
-  );
+  onReset = () => this.setState({ ...tagsToSelections(this.props), ...defaultSectionSearchTerms });
 
   render() {
     const minDiff = toRomanDifficulty(this.state.difficulty[0]);

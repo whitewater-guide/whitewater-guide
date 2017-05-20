@@ -4,10 +4,12 @@ import { StyleSheet, TouchableOpacity } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { isEqual, omit } from 'lodash';
+import { compose } from 'recompose';
 import Icon from 'react-native-vector-icons/Ionicons';
 import variables from '../../../theme/variables/platform';
 import { currentSectionSearchTerms } from '../../../core/selectors';
 import { defaultSectionSearchTerms } from '../../../commons/domain';
+import { tagsToSelections, withTags } from '../../../commons/features/tags';
 
 const styles = StyleSheet.create({
   button: {
@@ -39,12 +41,15 @@ class FilterButton extends React.PureComponent {
   }
 }
 
-export default connect(
-  state => ({
-    hasFilters: !isEqual(
-      omit(defaultSectionSearchTerms, ['searchString']),
-      omit(currentSectionSearchTerms(state), ['regionId', 'searchString']),
-    ),
-  }),
-  NavigationActions,
+export default compose(
+  withTags,
+  connect(
+    (state, props) => ({
+      hasFilters: !isEqual(
+        omit({ ...tagsToSelections(props), ...defaultSectionSearchTerms }, ['searchString']),
+        omit(currentSectionSearchTerms(state), ['regionId', 'searchString']),
+      ),
+    }),
+    NavigationActions,
+  ),
 )(FilterButton);
