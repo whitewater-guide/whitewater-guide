@@ -77,6 +77,8 @@ const Measurements = gql`
   fragment SectionMeasurements on Section {
     gauge {
       _id
+      levelUnit
+      flowUnit
     }
     levels {
       ...GaugeBindingAll

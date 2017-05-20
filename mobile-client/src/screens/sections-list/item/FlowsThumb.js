@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { propType } from 'graphql-anywhere';
 import { StyleSheet, Text, View } from 'react-native';
 import moment from 'moment';
@@ -26,18 +27,23 @@ const styles = StyleSheet.create({
   },
 });
 
-const FlowsThumb = ({ flows, levels }) => {
+const FlowsThumb = ({ flows, levels, flowUnit, levelUnit }) => {
   if ((!flows || !flows.lastValue) && (!levels || !levels.lastValue)) {
     return null;
   }
 
   const data = (flows && flows.lastValue) ?
-    { ...flows, unit: 'Flow', color: getSectionColor(flows) } :
-    { ...levels, unit: 'Level', color: getSectionColor(levels) };
+    { ...flows, label: 'Flow', color: getSectionColor(flows), unit: flowUnit } :
+    { ...levels, label: 'Level', color: getSectionColor(levels), unit: levelUnit };
   return (
     <View style={styles.container}>
-      <Text style={styles.unitLine}>{data.unit}</Text>
-      <Text style={[styles.mainLine, { color: data.color }]}>{data.lastValue.toFixed(2)}</Text>
+      <Text style={styles.unitLine}>{data.label}</Text>
+      <Text style={[styles.mainLine, { color: data.color }]}>
+        {data.lastValue.toFixed(2)}
+        <Text style={[styles.unitLine, { color: data.color }]}>
+          { ` ${data.unit}` }
+        </Text>
+      </Text>
       <Text style={styles.timeLine}>{moment(data.lastTimestamp).fromNow()}</Text>
     </View>
   );
@@ -46,11 +52,15 @@ const FlowsThumb = ({ flows, levels }) => {
 FlowsThumb.propTypes = {
   flows: propType(SectionFragments.GaugeBinding.All),
   levels: propType(SectionFragments.GaugeBinding.All),
+  flowUnit: PropTypes.string,
+  levelUnit: PropTypes.string,
 };
 
 FlowsThumb.defaultProps = {
   flows: null,
   levels: null,
+  levelUnit: '',
+  flowUnit: '',
 };
 
 export default FlowsThumb;

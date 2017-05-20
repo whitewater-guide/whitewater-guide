@@ -22,7 +22,7 @@ export default class GaugeInfo extends React.PureComponent {
 
   render() {
     const { gauge } = this.props;
-    const { name, lastTimestamp, lastLevel, lastFlow } = gauge;
+    const { name, lastTimestamp, lastLevel, lastFlow, levelUnit, flowUnit } = gauge;
     const isOutdated = moment().diff(lastTimestamp, 'days') > 1;
     return (
       <List>
@@ -40,15 +40,21 @@ export default class GaugeInfo extends React.PureComponent {
           </View>
         </ListItem>
 
-        <ListItem>
-          <Left><Text>Last recorded flow</Text></Left>
-          <Right><Text note>{lastFlow}</Text></Right>
-        </ListItem>
+        {
+          !!flowUnit &&
+          <ListItem>
+            <Left><Text>Last recorded flow</Text></Left>
+            <Right><Text note>{ `${lastFlow.toFixed(2)} ${flowUnit}`}</Text></Right>
+          </ListItem>
+        }
 
-        <ListItem>
-          <Left><Text>Last recorded level</Text></Left>
-          <Right><Text note>{lastLevel}</Text></Right>
-        </ListItem>
+        {
+          !!levelUnit &&
+          <ListItem>
+            <Left><Text>Last recorded level</Text></Left>
+            <Right><Text note>{`${lastLevel.toFixed(2)} ${levelUnit}`}</Text></Right>
+          </ListItem>
+        }
 
       </List>
     );

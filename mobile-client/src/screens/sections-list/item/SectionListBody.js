@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import StarRating from 'react-native-star-rating';
 import { StyleSheet, Text, View } from 'react-native';
+import { get } from 'lodash';
 import { ListItem, DifficultyThumb } from '../../../components';
 import { SectionPropType } from '../../../commons/features/sections';
 import FlowsThumb from './FlowsThumb';
@@ -53,7 +54,12 @@ export default class SectionListBody extends PureComponent {
             <StarRating disabled rating={section.rating} starSize={14} starColor={'#a7a7a7'} />
           </View>
         </View>
-        <FlowsThumb flows={section.flows} levels={section.levels} />
+        <FlowsThumb
+          flows={section.flows}
+          flowUnit={get(section, 'gauge.flowUnit', '')}
+          levels={section.levels}
+          levelUnit={get(section, 'gauge.levelUnit', '')}
+        />
       </ListItem>
     );
   }
