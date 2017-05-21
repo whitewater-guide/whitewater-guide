@@ -4,6 +4,7 @@ import { FlatList } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import SectionListItem, { ITEM_HEIGHT } from './item/SectionListItem';
 import { SectionPropType } from '../../commons/features/sections';
+import NoSectionsMessage from './NoSectionsMessage';
 
 const keyExtractor = item => item._id;
 
@@ -60,6 +61,9 @@ export default class SectionsList extends PureComponent {
   };
 
   render() {
+    if (this.props.sections.length === 0) {
+      return <NoSectionsMessage />;
+    }
     return (
       <FlatList
         data={this.props.sections}
