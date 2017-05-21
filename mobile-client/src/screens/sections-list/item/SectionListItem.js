@@ -7,6 +7,8 @@ import { NavigateButton } from '../../../components';
 import SectionListBody, { ITEM_HEIGHT } from './SectionListBody';
 import variables from '../../../theme/variables/platform';
 
+export { ITEM_HEIGHT } from './SectionListBody';
+
 const styles = StyleSheet.create({
   buttonsWrapper: {
     position: 'absolute',
@@ -45,6 +47,12 @@ export default class SectionListItem extends React.PureComponent {
     this.animateInitialBounce();
   }
 
+  componentDidUpdate() {
+    if (this.props.shouldBounceOnMount) {
+      this.animateInitialBounce();
+    }
+  }
+
   onInteractableMounted = (ref) => {
     this._interactable = ref;
     this.animateInitialBounce();
@@ -63,7 +71,7 @@ export default class SectionListItem extends React.PureComponent {
               if (this._interactable) {
                 this._interactable.snapTo({ index: 0 });
               }
-            }, 100);
+            }, 700);
           },
           100,
         );
