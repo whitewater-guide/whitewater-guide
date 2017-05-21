@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { compose, mapProps, withPropsOnChange, withState } from 'recompose';
+import { debounce } from 'lodash';
 import { Animated, Easing, Platform, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import variables from '../theme/variables/platform';
@@ -126,4 +128,17 @@ class SearchBar extends React.Component {
   }
 }
 
-export default SearchBar;
+// Debounce search
+export default compose(
+  withPropsOnChange(['onChange'], ({ onChange }) => ({ onChangeDeb: debounce(onChange, 200) })),
+  withState('searchStringDeb', 'setSearchStringDeb', ({ searchString }) => searchString),
+  mapProps(({ searchString, onChange, searchStringDeb, onChangeDeb, setSearchStringDeb, ...props }) => ({
+    searchString: searchStringDeb,
+    onChange: (text) => {
+      setSearchStringDeb(text);
+      onChangeDeb(text);
+    },
+    ...props,
+  })),
+)(SearchBar);
+
