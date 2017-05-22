@@ -6,18 +6,22 @@ const allTags = gql`
     supplyTags {
       _id
       name
+      slug
     }
     kayakingTags {
       _id
       name
+      slug
     }
     hazardsTags {
       _id
       name
+      slug
     }
     miscTags {
       _id
       name
+      slug
     }
   }
 `;

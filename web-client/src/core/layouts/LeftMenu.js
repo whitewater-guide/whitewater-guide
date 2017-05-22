@@ -20,6 +20,7 @@ export class LeftMenu extends React.Component {
         <LeftMenuSeparator/>
         <FlatLinkButton to="/sources" label="Sources" secondary={true}/>
         <FlatLinkButton to="/users" label="Users" secondary={true}/>
+        <FlatLinkButton to="/tags" label="Tags" secondary={true}/>
         <LeftMenuSeparator/>
         <Switch>
           {allRoutes.map(({path, exact, left}) =>

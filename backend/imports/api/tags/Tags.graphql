@@ -10,3 +10,15 @@ type Query {
   hazardsTags: [Tag]!
   miscTags: [Tag]!
 }
+
+input TagInput {
+  _id: ID,
+  category: String!,
+  name: String!,
+  slug: String!,
+}
+
+type Mutation {
+  upsertTag(tag:TagInput!, language:String):Tag,
+  removeTag(category:String!, _id:ID!):Boolean,
+}

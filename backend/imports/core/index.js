@@ -1,4 +1,3 @@
-import './fixtures';
 import './accounts';
 import './register-api';
 import './apollo';

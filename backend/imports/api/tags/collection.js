@@ -20,8 +20,15 @@ SupplyTags.attachSchema(tagsSchema);
 export const KayakingTags = new Mongo.Collection('kayaking_tags');
 KayakingTags.attachSchema(tagsSchema);
 
-export const hazardsTags = new Mongo.Collection('hazard_tags');
-hazardsTags.attachSchema(tagsSchema);
+export const HazardsTags = new Mongo.Collection('hazard_tags');
+HazardsTags.attachSchema(tagsSchema);
 
 export const MiscTags = new Mongo.Collection('misc_tags');
 MiscTags.attachSchema(tagsSchema);
+
+export const CollectionByCategory = {
+  KayakingTags,
+  HazardsTags,
+  MiscTags,
+  SupplyTags,
+};
