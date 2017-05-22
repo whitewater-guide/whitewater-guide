@@ -1,5 +1,6 @@
 import { gql, graphql } from 'react-apollo';
 import { filter } from 'graphql-anywhere';
+import reducer from './tagsListReducer';
 
 const allTags = gql`
   query allTags {
@@ -29,6 +30,9 @@ const allTags = gql`
 export const withTags = graphql(
   allTags,
   {
+    options: {
+      reducer,
+    },
     props: ({ data: { loading, ...data } }) => {
       return { ...filter(allTags, data), tagsLoading: loading };
     },

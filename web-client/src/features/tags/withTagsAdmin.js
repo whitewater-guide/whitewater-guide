@@ -2,7 +2,7 @@ import { gql, graphql, compose } from 'react-apollo';
 
 const RemoveTagMutation = gql`
   mutation removeTag($category: String!, $_id: ID!){
-    removeRegion(category: $category, _id: $_id)
+    removeTag(category: $category, _id: $_id)
   }
 `;
 

@@ -2,12 +2,12 @@ import { CollectionByCategory, KayakingTags, HazardsTags, MiscTags, SupplyTags }
 
 function upsertTag(root, data) {
   const { tag, language } = data;
-  let { _id, category } = tag;
+  let { _id, category, ...tagData } = tag;
   const Collection = CollectionByCategory[category];
   if (_id)
-    Collection.update(_id, tag);
+    Collection.update(_id, { $set: tagData });
   else
-    _id = Collection.insert(tag);
+    _id = Collection.insert(tagData);
   return Collection.findOne(_id);
 }
 

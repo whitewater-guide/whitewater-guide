@@ -5,6 +5,7 @@ import TagControl from './TagControl';
 import { withTags } from '../../commons/features/tags';
 import { spinnerWhileLoading } from '../../core/components';
 import { withAdmin } from '../users';
+import withTagsAdmin from './withTagsAdmin';
 
 const styles = {
   container: {
@@ -22,28 +23,33 @@ class ListTags extends React.PureComponent {
     hazardsTags: PropTypes.array,
     miscTags: PropTypes.array,
     supplyTags: PropTypes.array,
+    removeTag: PropTypes.func,
+    upsertTag: PropTypes.func,
   };
 
   renderTag = category => tag => (
-    <TagControl key={tag._id} tag={{ ...tag, category }} />
+    <TagControl key={tag._id} tag={{ ...tag, category }} onRemove={this.props.removeTag} onEdit={this.props.upsertTag} />
   );
 
   renderNewTag = category => (
-    <TagControl key={`new_${category}`} tag={{ name: '', slug: '', category }} />
+    <TagControl key={`new_${category}`} tag={{ name: '', slug: '', category }} onEdit={this.props.upsertTag} />
   );
 
   render() {
     return (
       <div style={styles.container}>
-        <h1>Kayaking Types</h1>
-        { this.props.kayakingTags.map(this.renderTag('kayakingTags')) }
-        { this.renderNewTag('kayakingTags')}
-        <h1>Hazard Types</h1>
-        { this.props.hazardsTags.map(this.renderTag('hazardsTags')) }
-        <h1>Supply Types</h1>
-        { this.props.supplyTags.map(this.renderTag('supplyTags')) }
-        <h1>Misc Tags</h1>
-        { this.props.miscTags.map(this.renderTag('miscTags')) }
+        <h3>Kayaking Types</h3>
+        { this.props.kayakingTags.map(this.renderTag('KayakingTags')) }
+        { this.renderNewTag('KayakingTags')}
+        <h3>Hazard Types</h3>
+        { this.props.hazardsTags.map(this.renderTag('HazardsTags')) }
+        { this.renderNewTag('HazardsTags')}
+        <h3>Supply Types</h3>
+        { this.props.supplyTags.map(this.renderTag('SupplyTags')) }
+        { this.renderNewTag('SupplyTags')}
+        <h3>Misc Tags</h3>
+        { this.props.miscTags.map(this.renderTag('MiscTags')) }
+        { this.renderNewTag('MiscTags')}
       </div>
     );
   }
@@ -52,5 +58,6 @@ class ListTags extends React.PureComponent {
 export default compose(
   withAdmin(true),
   withTags,
+  withTagsAdmin,
   spinnerWhileLoading(props => props.tagsLoading),
 )(ListTags);

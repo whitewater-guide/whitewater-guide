@@ -37,10 +37,13 @@ export default class TagControl extends React.Component {
   }
 
   onToggleEditing = () => {
-    const { editing } = this.state;
+    const { editing, tag } = this.state;
     this.setState({ editing: !editing });
     if (editing) {
       this.props.onEdit(this.state.tag);
+      if (!tag._id) {
+        this.setState({ tag: { ...tag, name: '', slug: '' } });
+      }
     }
   }
 
