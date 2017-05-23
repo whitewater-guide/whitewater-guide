@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import { List, ListItem, Left, Right, Text } from 'native-base';
 import StarRating from 'react-native-star-rating';
 import { flattenProp, hoistStatics } from 'recompose';
-import { capitalize, trim } from 'lodash';
+import { capitalize, trim, isNil } from 'lodash';
 import { renderDifficulty } from '../../../commons/utils/TextUtils';
 import stringifySeason from '../../../commons/utils/stringifySeason';
 import { Durations } from '../../../commons/domain';
@@ -25,6 +25,7 @@ class SectionInfoScreen extends React.PureComponent {
   render() {
     const { section } = this.props;
     const season = capitalize(trim(`${stringifySeason(section.seasonNumeric)}\n${section.season}`));
+    console.log('Duration', section.duration);
     return (
       <Screen>
         <List>
@@ -42,7 +43,7 @@ class SectionInfoScreen extends React.PureComponent {
           </ListItem>
 
           <ListItem>
-            <Left><Text>Drop</Text></Left>
+            <Left><Text>Drop, m</Text></Left>
             <Right><Text note>{section.drop}</Text></Right>
           </ListItem>
 
@@ -51,10 +52,13 @@ class SectionInfoScreen extends React.PureComponent {
             <Right><Text note>{section.distance}</Text></Right>
           </ListItem>
 
-          <ListItem>
-            <Left><Text>Duration</Text></Left>
-            <Right><Text note>{Durations.find(({ value }) => value === section.duration).slug}</Text></Right>
-          </ListItem>
+          {
+            !isNil(section.duration) &&
+            <ListItem>
+              <Left><Text>Duration</Text></Left>
+              <Right><Text note>{Durations.find(({ value }) => value === section.duration).slug}</Text></Right>
+            </ListItem>
+          }
 
           <ListItem>
             <Left><Text>Season</Text></Left>
