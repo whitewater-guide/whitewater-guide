@@ -122,7 +122,7 @@ class FilterScreen extends React.Component {
 }
 
 const container = compose(
-  withTags,
+  withTags(),
   spinnerWhileLoading(props => props.tagsLoading),
   connect(
     state => ({ searchTerms: currentSectionSearchTerms(state) }),

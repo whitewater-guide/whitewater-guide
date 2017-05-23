@@ -57,7 +57,7 @@ class ListTags extends React.PureComponent {
 
 export default compose(
   withAdmin(true),
-  withTags,
+  withTags(true),
   withTagsAdmin,
   spinnerWhileLoading(props => props.tagsLoading),
 )(ListTags);

@@ -42,7 +42,7 @@ class FilterButton extends React.PureComponent {
 }
 
 export default compose(
-  withTags,
+  withTags(),
   connect(
     (state, props) => ({
       hasFilters: !isEqual(

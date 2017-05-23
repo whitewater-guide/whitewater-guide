@@ -109,7 +109,7 @@ export default compose(
     onSubmit: props => () => props.history.goBack(),
     onCancel: props => () => props.history.goBack(),
   }),
-  withTags,
+  withTags(),
   graphql(
     sectionDetails,
     {

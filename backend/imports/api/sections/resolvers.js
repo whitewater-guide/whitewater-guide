@@ -4,7 +4,7 @@ import {Rivers} from '../rivers';
 import {Regions} from '../regions';
 import {Media, upsertMedia, moveTempFiles} from '../media';
 import {Points} from '../points';
-import {hazardsTags, KayakingTags, MiscTags, SupplyTags} from '../tags';
+import {HazardsTags, KayakingTags, MiscTags, SupplyTags} from '../tags';
 import graphqlFields from 'graphql-fields';
 import {pickFromSelf} from '../../utils/ApolloUtils';
 import {upsertChildren} from '../../utils/CollectionUtils';
@@ -177,7 +177,7 @@ export const sectionsResolvers = {
     pois: section => Points.find({_id: {$in: section.poiIds}}),
     supplyTags:   section => section.supplyTagIds   ? SupplyTags.find({_id: {$in: section.supplyTagIds}})     : [],
     kayakingTags: section => section.kayakingTagIds ? KayakingTags.find({_id: {$in: section.kayakingTagIds}}) : [],
-    hazardsTags:  section => section.hazardsTagIds   ? hazardsTags.find({_id: {$in: section.hazardsTagIds}})     : [],
+    hazardsTags:  section => section.hazardsTagIds   ? HazardsTags.find({_id: {$in: section.hazardsTagIds}})     : [],
     miscTags:     section => section.miscTagIds     ? MiscTags.find({_id: {$in: section.miscTagIds}})         : [],
     seasonNumeric: section => section.seasonNumeric || [],
   },
