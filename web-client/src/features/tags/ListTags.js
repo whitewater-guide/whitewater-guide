@@ -9,10 +9,8 @@ import withTagsAdmin from './withTagsAdmin';
 
 const styles = {
   container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    overflowY: 'scroll',
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
 };
 
@@ -38,18 +36,21 @@ class ListTags extends React.PureComponent {
   render() {
     return (
       <div style={styles.container}>
-        <h3>Kayaking Types</h3>
-        { this.props.kayakingTags.map(this.renderTag('KayakingTags')) }
-        { this.renderNewTag('KayakingTags')}
-        <h3>Hazard Types</h3>
-        { this.props.hazardsTags.map(this.renderTag('HazardsTags')) }
-        { this.renderNewTag('HazardsTags')}
-        <h3>Supply Types</h3>
-        { this.props.supplyTags.map(this.renderTag('SupplyTags')) }
-        { this.renderNewTag('SupplyTags')}
-        <h3>Misc Tags</h3>
-        { this.props.miscTags.map(this.renderTag('MiscTags')) }
-        { this.renderNewTag('MiscTags')}
+        <h2>Tags</h2>
+        <div>
+          <h3>Kayaking Types</h3>
+          { this.props.kayakingTags.map(this.renderTag('KayakingTags')) }
+          { this.renderNewTag('KayakingTags')}
+          <h3>Hazard Types</h3>
+          { this.props.hazardsTags.map(this.renderTag('HazardsTags')) }
+          { this.renderNewTag('HazardsTags')}
+          <h3>Supply Types</h3>
+          { this.props.supplyTags.map(this.renderTag('SupplyTags')) }
+          { this.renderNewTag('SupplyTags')}
+          <h3>Misc Tags</h3>
+          { this.props.miscTags.map(this.renderTag('MiscTags')) }
+          { this.renderNewTag('MiscTags')}
+        </div>
       </div>
     );
   }

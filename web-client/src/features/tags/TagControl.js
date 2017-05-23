@@ -9,6 +9,10 @@ const styles = {
     flexDirection: 'row',
     alignItems: 'center',
   },
+  icon: {
+    width: 24,
+    height: 24,
+  },
 };
 
 export default class TagControl extends React.Component {
@@ -59,14 +63,16 @@ export default class TagControl extends React.Component {
       <div style={styles.container}>
         <TextField hintText="Name" value={tag.name} onChange={this.onEditName} disabled={!editing} />
         <TextField hintText="URL Slug" value={tag.slug} onChange={this.onEditSlug} disabled={!editing} />
-        <IconButton iconClassName="material-icons" onTouchTap={this.onToggleEditing}>
-          { this.state.editing ? (tag._id ? 'checkmark' : 'mode_add') : 'mode_edit' }
+        <IconButton iconClassName="material-icons" onTouchTap={this.onToggleEditing} iconStyle={styles.icon}>
+          { this.state.editing ? (tag._id ? 'checkmark' : 'add') : 'mode_edit' }
         </IconButton>
         {
           this.props.tag._id &&
-          <IconButton iconClassName="material-icons" onTouchTap={this.onRemove}>delete_forever</IconButton>
+          <IconButton iconClassName="material-icons" onTouchTap={this.onRemove} iconStyle={styles.icon}>
+            delete_forever
+          </IconButton>
         }
       </div>
-    );
+  );
   }
 }
