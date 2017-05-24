@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { List, ListItem, Left, Right, Body, Text, Icon } from 'native-base';
+import { List, ListItem, Left, Right, Text, Icon } from 'native-base';
 import { capitalize } from 'lodash';
 import moment from 'moment';
+import { Link } from '../../../components';
 
 const styles = StyleSheet.create({
   timestampRow: {
@@ -29,7 +30,9 @@ export default class GaugeInfo extends React.PureComponent {
 
         <ListItem>
           <Left><Text>Gauge</Text></Left>
-          <Right><Text note>{capitalize(name)}</Text></Right>
+          <Right>
+            <Link label={capitalize(name)} url={gauge.url} />
+          </Right>
         </ListItem>
 
         <ListItem>
