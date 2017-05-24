@@ -8,6 +8,7 @@ import { compose } from 'recompose';
 import Icon from 'react-native-vector-icons/Ionicons';
 import variables from '../../../theme/variables/platform';
 import { currentSectionSearchTerms } from '../../../core/selectors';
+import { updatesectionSearchTerms } from '../../../core/actions';
 import { defaultSectionSearchTerms } from '../../../commons/domain';
 import { tagsToSelections, withTags } from '../../../commons/features/tags';
 
@@ -24,17 +25,23 @@ class FilterButton extends React.PureComponent {
   static propTypes = {
     navigate: PropTypes.func.isRequired,
     hasFilters: PropTypes.bool.isRequired,
+    defaultTerms: PropTypes.object.isRequired,
     filterRouteName: PropTypes.string.isRequired,
+    updatesectionSearchTerms: PropTypes.func.isRequired,
   };
 
   onPress = () => {
     this.props.navigate({ routeName: this.props.filterRouteName });
   }
 
+  onLongPress = () => {
+    this.props.updatesectionSearchTerms(this.props.defaultTerms);
+  }
+
   render() {
     const iconName = this.props.hasFilters ? 'ios-funnel' : 'ios-funnel-outline';
     return (
-      <TouchableOpacity style={styles.button} onPress={this.onPress}>
+      <TouchableOpacity style={styles.button} onPress={this.onPress} onLongPress={this.onLongPress} >
         <Icon name={iconName} size={24} color={variables.btnPrimaryBg} />
       </TouchableOpacity>
     );
@@ -44,12 +51,16 @@ class FilterButton extends React.PureComponent {
 export default compose(
   withTags(),
   connect(
-    (state, props) => ({
-      hasFilters: !isEqual(
-        omit({ ...tagsToSelections(props), ...defaultSectionSearchTerms }, ['searchString']),
-        omit(currentSectionSearchTerms(state), ['regionId', 'searchString']),
-      ),
-    }),
-    NavigationActions,
+    (state, props) => {
+      const defaultTerms = { ...tagsToSelections(props), ...defaultSectionSearchTerms };
+      return {
+        hasFilters: !isEqual(
+          omit(defaultTerms, ['searchString']),
+          omit(currentSectionSearchTerms(state), ['regionId', 'searchString']),
+        ),
+        defaultTerms,
+      };
+    },
+    { ...NavigationActions, updatesectionSearchTerms },
   ),
 )(FilterButton);
