@@ -40,7 +40,6 @@ class SelectedSectionView extends React.PureComponent {
     measured: false,
   };
 
-  // TODO: this causes overlapping maps until https://github.com/airbnb/react-native-maps/issues/1161 gets fixed
   detailsHandler = () => {
     this.props.dispatch(NavigationActions.navigate({
       routeName: 'SectionDetails',
