@@ -20,6 +20,7 @@ const SectionTabs = TabNavigator(
   },
   {
     initialRouteName: 'SectionMap',
+    order: ['SectionMap', 'SectionChart', 'SectionInfo', 'SectionGuide', 'SectionMedia'],
     tabBarPosition: 'bottom',
     backBehavior: 'none',
     tabBarOptions: {
