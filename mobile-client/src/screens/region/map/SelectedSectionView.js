@@ -56,7 +56,7 @@ class SelectedSectionView extends React.PureComponent {
           <Text>{get(section, 'river.name', '_')}</Text>
           <Text>{get(section, 'name', '_')}</Text>
           <View style={styles.starsContainer}>
-            <StarRating disabled rating={get(section, 'rating', 0)} starSize={14} starColor={'#a7a7a7'}/>
+            <StarRating disabled rating={get(section, 'rating', 0)} starSize={14} starColor={'#a7a7a7'} />
           </View>
         </View>
         <DifficultyThumb

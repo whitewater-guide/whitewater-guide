@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, View, Dimensions, Animated } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, Dimensions, Animated } from 'react-native';
 import Interactable from 'react-native-interactable';
 import { NavigateButton, NAVIGATE_BUTTON_HEIGHT, NAVIGATE_BUTTON_WIDTH } from '../../components';
 
@@ -79,6 +79,10 @@ export default class MapLayout extends Component {
     this._muteSnapEvent = false;
   };
 
+  onHeaderPressed = () => {
+    this._interactable.snapTo({ index: 2 });
+  };
+
   renderButton = ({ label, coordinates }, index) => {
     const numButtons = this.props.buttons.length;
     const step = 66 / numButtons;
@@ -131,12 +135,14 @@ export default class MapLayout extends Component {
             animatedValueY={this._deltaY}
           >
             <View style={[styles.panel, { height: this.props.panelHeight }]}>
-              <View style={styles.header}>
-                <View style={{ width: width - this.props.buttons.length * NAVIGATE_BUTTON_WIDTH }}>
-                  { this.props.header }
+              <TouchableOpacity onPress={this.onHeaderPressed}>
+                <View style={styles.header}>
+                  <View style={{ width: width - this.props.buttons.length * NAVIGATE_BUTTON_WIDTH }}>
+                    { this.props.header }
+                  </View>
+                  { this.props.buttons.map(this.renderButton) }
                 </View>
-                { this.props.buttons.map(this.renderButton) }
-              </View>
+              </TouchableOpacity>
               { this.props.children }
             </View>
           </Interactable.View>
