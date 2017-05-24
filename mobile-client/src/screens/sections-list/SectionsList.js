@@ -87,7 +87,6 @@ export default class SectionsList extends React.Component {
         onEndReached={this.props.onEndReached}
         extraData={extraData}
         initialNumToRender={initialNumToRender}
-        windowSize={5}
         onViewableItemsChanged={this.onViewableItemsChanged}
       />
     );
