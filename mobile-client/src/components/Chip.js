@@ -52,13 +52,14 @@ const Chip = ({ color, label, icon, onPress }) => {
 Chip.propTypes = {
   color: PropTypes.string,
   label: PropTypes.string.isRequired,
-  icon: PropTypes.string.isRequired,
+  icon: PropTypes.string,
   onPress: PropTypes.func,
 };
 
 Chip.defaultProps = {
   color: 'black',
   onPress: null,
+  icon: null,
 };
 
 export default Chip;
