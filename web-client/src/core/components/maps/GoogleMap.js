@@ -23,6 +23,7 @@ class GoogleMap extends React.Component {
   static propTypes = {
     onLoaded: PropTypes.func,
     onZoom: PropTypes.func,
+    onBoundsChanged: PropTypes.func,
     onClick: PropTypes.func,
     loaded: PropTypes.bool,
     google: PropTypes.object,
@@ -43,6 +44,7 @@ class GoogleMap extends React.Component {
     this.state = {
       zoom: DEFAULT_ZOOM,
       mapCreated: false,
+      bounds: null,
     };
     this.map = null;
     this.maps = null;
@@ -81,6 +83,14 @@ class GoogleMap extends React.Component {
     }
   };
 
+  onBoundsChanged = () => {
+    const bounds = this.map.getBounds();
+    this.setState({ bounds });
+    if (this.props.onBoundsChanged) {
+      this.props.onBoundsChanged(bounds);
+    }
+  };
+
   onClick = ({ latLng }) => {
     if (this.props.onClick) {
       this.props.onClick(latLng.toJSON());
@@ -107,6 +117,7 @@ class GoogleMap extends React.Component {
       );
 
       this.map.addListener('zoom_changed', this.onZoom);
+      this.map.addListener('bounds_changed', this.onBoundsChanged);
       this.map.addListener('click', this.onClick);
 
       // Create custom zoom to fit control
@@ -158,10 +169,11 @@ class GoogleMap extends React.Component {
           map: this.map,
           maps: this.maps,
           zoom: this.state.zoom,
+          bounds: this.state.bounds,
         })))}
       </div>
     );
   }
 }
 
-export default withGoogleMapsApi({ libraries: ['drawing'] })(GoogleMap);
+export default withGoogleMapsApi({ libraries: ['drawing', 'places'] })(GoogleMap);

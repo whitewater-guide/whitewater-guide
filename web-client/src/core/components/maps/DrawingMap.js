@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import update from 'immutability-helper';
 import GoogleMap from './GoogleMap';
+import PlacesAutocomplete from './PlacesAutocomplete';
 import { arrayToGmaps, gmapsToArray, getCoordinatesPatch } from '../../../commons/utils/GeoUtils';
 
 const DrawingStyles = {
@@ -196,7 +197,9 @@ export default class DrawingMap extends React.Component {
 
   render() {
     return (
-      <GoogleMap onLoaded={this.init} />
+      <GoogleMap onLoaded={this.init}>
+        <PlacesAutocomplete />
+      </GoogleMap>
     );
   }
 
