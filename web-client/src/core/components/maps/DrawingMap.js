@@ -129,7 +129,8 @@ export default class DrawingMap extends React.Component {
         map.data.add(this.feature);
       }
     } else {
-      map.data.setDrawingMode(drawingMode);
+      map.data.setControls([drawingMode]);
+      map.data.setControlPosition(maps.ControlPosition.LEFT_TOP);
     }
     maps.event.addListener(map.data, 'addfeature', this.handleAddFeature);
     maps.event.addListener(map.data, 'setgeometry', this.handleChange);
@@ -139,6 +140,7 @@ export default class DrawingMap extends React.Component {
   handleAddFeature = ({ feature }) => {
     this.feature = feature;
     this.map.data.setDrawingMode(null);
+    this.map.data.setControls(null);
     this.handleChange({ newGeometry: feature.getGeometry() });
   };
 
