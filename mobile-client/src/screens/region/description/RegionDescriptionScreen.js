@@ -17,7 +17,6 @@ class RegionDescriptionScreen extends React.PureComponent {
 
   render() {
     const { screenProps: { region = {} } } = this.props;
-    console.log('Region description', region.description ? 'a' : 'b');
     return (
       <Screen noScroll={!region.description}>
         {

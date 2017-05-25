@@ -91,7 +91,7 @@ class Chart extends PureComponent {
       <VictoryLine
         key={`binding_${key}`}
         data={data}
-        style={{ data: { strokeWidth: 1, stroke: color } }}
+        style={{ data: { strokeWidth: 1, strokeDasharray: '5,5', stroke: color } }}
       />
     );
   };
@@ -150,7 +150,7 @@ class Chart extends PureComponent {
             x="date"
             y={this.props.unit}
             interpolation="linear"
-            style={{ data: { strokeWidth: 1 } }}
+            style={{ data: { strokeWidth: 2 } }}
           />
         </VictoryChart>
       </View>
