@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { flattenProp, hoistStatics } from 'recompose';
 import { HTMLView, Screen, TabIcon } from '../../../components';
+import NoGuide from './NoGuide';
 
 class SectionGuideScreen extends React.PureComponent {
 
@@ -15,9 +16,14 @@ class SectionGuideScreen extends React.PureComponent {
   };
 
   render() {
+    const { description } = this.props.section;
     return (
-      <Screen>
-        <HTMLView value={this.props.section.description} />
+      <Screen noScroll={!description}>
+        {
+          description ?
+            <HTMLView value={description} /> :
+            <NoGuide />
+        }
       </Screen>
     );
   }
