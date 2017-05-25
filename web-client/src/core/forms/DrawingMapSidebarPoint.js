@@ -65,8 +65,11 @@ export default class DrawingMapSidebarPoint extends React.Component {
     const newPoint = [
       coordIndex === 0 ? v : this.state.point[0] || '',
       coordIndex === 1 ? v : this.state.point[1] || '',
-      coordIndex === 2 ? v : this.state.point[2] || '',
     ];
+    const altitude = coordIndex === 2 ? v : this.state.point[2] || '';
+    if (altitude !== '') {
+      newPoint.push(altitude);
+    }
     const valid = isValidLat(newPoint[1]) && isValidLng(newPoint[0]);
     this.setState({ point: newPoint, valid });
     if (point && valid) {

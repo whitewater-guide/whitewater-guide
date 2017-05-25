@@ -39,19 +39,27 @@ export default class DrawingMapField extends React.Component {
     drawingMode: PropTypes.oneOf(['Point', 'LineString', 'Polygon']).isRequired,
     bounds: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
   };
-  
+
   onChange = points => this.props.field.onChange(points);
-  
+
+  onMapLoaded = ({ map, maps }) => {
+    this.map = map;
+    this.maps = maps;
+  }
+
   onInput = (index, point) => {
-    const { value, onChange } = this.props.field;
+    const { value = [], onChange } = this.props.field;
     const splice = [index, 1];
     if (point) {
       splice.push(point);
     }
     const newValue = update(value, { $splice: [splice] });
     onChange(newValue);
+    if (this.map && point && value.length === 0) {
+      this.map.panTo({ lat: point[1], lng: point[0] });
+    }
   };
-  
+
   renderPointInputs = (point, index) => {
     const points = this.props.field.value;
     const disableRemove = points.length <= minPoints[this.props.drawingMode];
@@ -65,7 +73,7 @@ export default class DrawingMapField extends React.Component {
       />
     );
   };
-  
+
   renderLineLength = () => {
     const { drawingMode } = this.props;
     const points = this.props.field.value;
@@ -80,9 +88,9 @@ export default class DrawingMapField extends React.Component {
       <div>
         <strong>Distance:</strong> {`${distance.toFixed(3)} km`}
       </div>
-    )
+    );
   };
-  
+
   render() {
     const { drawingMode, bounds } = this.props;
     const points = this.props.field.value || [];
@@ -95,6 +103,7 @@ export default class DrawingMapField extends React.Component {
               bounds={bounds}
               points={points}
               onChange={this.onChange}
+              onLoaded={this.onMapLoaded}
             />
           </div>
         </div>
