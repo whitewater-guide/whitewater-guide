@@ -21,6 +21,7 @@ const RegionTabs = TabNavigator(
   {
     initialRouteName: 'RegionMap',
     tabBarPosition: 'bottom',
+    order: ['RegionMap', 'RegionSections', 'RegionDescription'],
     backBehavior: 'none',
     swipeEnabled: false,
     lazy: true,

@@ -12,7 +12,7 @@ class RegionDescriptionScreen extends React.PureComponent {
   };
 
   static navigationOptions = {
-    tabBarLabel: 'Description',
+    tabBarLabel: 'About region',
   };
 
   render() {
