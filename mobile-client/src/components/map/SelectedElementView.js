@@ -1,22 +1,29 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, TouchableOpacity, View, Dimensions, Animated } from 'react-native';
+import { StyleSheet, StatusBar, TouchableOpacity, View, Dimensions, Animated } from 'react-native';
 import Interactable from 'react-native-interactable';
 import { NavigateButton, NAVIGATE_BUTTON_HEIGHT, NAVIGATE_BUTTON_WIDTH } from '../../components';
 
-const { width } = Dimensions.get('window');
+const window = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   panel: {
-    width,
+    width: window.width,
     paddingBottom: 8,
     backgroundColor: '#ffffffe8',
     borderWidth: 0,
   },
   header: {
-    width,
+    width: window.width,
     height: NAVIGATE_BUTTON_HEIGHT,
     flexDirection: 'row',
+  },
+  container: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    height: window.height - 56 - StatusBar.currentHeight, // 56 is top bar height android
   },
 });
 
@@ -48,6 +55,7 @@ export default class SelectedElementView extends Component {
     this._deltaY = null;
     this._slideAnimated = null;
     this._height = 0;
+    this._snapPoints = [];
     this._interactable = null;
     this._muteSnapEvent = false;
   }
@@ -65,8 +73,13 @@ export default class SelectedElementView extends Component {
   onLayout = ({ nativeEvent: { layout: { height } } }) => {
     if (!this.state.laidOut) {
       this._height = height;
-      this._deltaY = new Animated.Value(height);
-      this._slideAnimated = Animated.multiply(Animated.add(this._deltaY, -height), -1);
+      this._snapPoints = [
+        { y: this._height },
+        { y: this._height - NAVIGATE_BUTTON_HEIGHT },
+        { y: this._height - this.props.panelHeight },
+      ];
+      this._deltaY = new Animated.Value(this._height);
+      this._slideAnimated = Animated.multiply(Animated.add(this._deltaY, -this._height), -1);
       this.setState({ laidOut: true });
     }
   };
@@ -110,7 +123,7 @@ export default class SelectedElementView extends Component {
 
   render() {
     return (
-      <View style={StyleSheet.absoluteFill} onLayout={this.onLayout} pointerEvents="box-none">
+      <View style={styles.container} onLayout={this.onLayout} pointerEvents="box-none">
         {
           this.state.laidOut &&
           <Animated.View
@@ -120,7 +133,7 @@ export default class SelectedElementView extends Component {
               {
                 backgroundColor: 'black',
                 opacity: this._deltaY.interpolate({
-                  inputRange: [this._height - this.props.panelHeight, this._height - NAVIGATE_BUTTON_HEIGHT],
+                  inputRange: [this._snapPoints[2].y, this._snapPoints[1].y],
                   outputRange: [0.5, 0.0],
                   extrapolate: 'clamp',
                 }),
@@ -133,19 +146,15 @@ export default class SelectedElementView extends Component {
           <Interactable.View
             ref={this.setInteractable}
             verticalOnly
-            snapPoints={[
-              { y: this._height },
-              { y: this._height - NAVIGATE_BUTTON_HEIGHT },
-              { y: this._height - this.props.panelHeight },
-            ]}
+            snapPoints={this._snapPoints}
             onSnap={this.onSnap}
-            initialPosition={{ y: this._height }}
+            initialPosition={this._snapPoints[this.props.selected ? 1 : 0]}
             animatedValueY={this._deltaY}
           >
             <View style={[styles.panel, { height: this.props.panelHeight }]}>
               <TouchableOpacity onPress={this.onHeaderPressed}>
                 <View style={styles.header}>
-                  <View style={{ width: width - this.props.buttons.length * NAVIGATE_BUTTON_WIDTH }}>
+                  <View style={{ width: window.width - this.props.buttons.length * NAVIGATE_BUTTON_WIDTH }}>
                     { this.props.header }
                   </View>
                   { this.props.buttons.map(this.renderButton) }

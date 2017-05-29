@@ -1,8 +1,17 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
-import { Dimensions, StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet, StatusBar } from 'react-native';
 import { getBoundsZoomLevel, getBBox } from '../../commons/utils/GeoUtils';
+import { NAVIGATE_BUTTON_HEIGHT } from '../NavigateButton';
+
+const window = Dimensions.get('window');
+
+const styles = StyleSheet.create({
+  container: {
+    height: window.height - NAVIGATE_BUTTON_HEIGHT - 56 - StatusBar.currentHeight, // 56 is top bar height android
+  },
+});
 
 class Map extends React.PureComponent {
   static propTypes = {
@@ -20,7 +29,7 @@ class Map extends React.PureComponent {
 
   constructor(props) {
     super(props);
-    this.dimensions = Dimensions.get('window');
+    this.dimensions = { ...window };
     this._mapLaidOut = false; // Prevents map from resetting after keyboard was popped by search bar
     this._bounds = undefined;
   }
@@ -76,7 +85,7 @@ class Map extends React.PureComponent {
     return (
       <MapView
         ref={this.setMapView}
-        style={StyleSheet.absoluteFill}
+        style={styles.container}
         provider={PROVIDER_GOOGLE}
         onPress={this.onPress}
         onLayout={this.onMapLayout}

@@ -10,6 +10,7 @@ import { withRegion, searchTermsSelector } from '../../commons/features/regions'
 import { withSectionsList } from '../../commons/features/sections';
 import { withErrorsView, spinnerWhileLoading } from '../../components';
 import { SectionSearchHeader, FilterButton } from '../sections-list';
+import RegionTabBar from './RegionTabBar';
 
 const RegionTabs = TabNavigator(
   {
@@ -20,6 +21,7 @@ const RegionTabs = TabNavigator(
   {
     initialRouteName: 'RegionMap',
     tabBarPosition: 'bottom',
+    tabBarComponent: RegionTabBar,
     order: ['RegionMap', 'RegionSections', 'RegionDescription'],
     backBehavior: 'none',
     swipeEnabled: false,
