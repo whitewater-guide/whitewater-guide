@@ -1,7 +1,9 @@
 import { defaultSectionSearchTerms } from '../../../domain';
+import regionSettingsSelector from './regionSettingsSelector';
 
-export default (state, { regionId }) => {
-  const region = state.persistent.regions[regionId || 'all'];
+export default (state, props) => {
+  const { regionId } = props;
+  const region = regionSettingsSelector(state, props);
   let searchTerms = region && region.searchTerms;
   if (!searchTerms) {
     searchTerms = { ...defaultSectionSearchTerms, regionId };
