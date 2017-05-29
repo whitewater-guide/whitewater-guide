@@ -12,7 +12,7 @@ class SimpleSection extends React.PureComponent {
   static propTypes = {
     section: SectionPropType.isRequired,
     selected: PropTypes.bool,
-    onSectionSelected: PropTypes.func.isRequired,
+    onSectionSelected: PropTypes.func,
     zoom: PropTypes.number.isRequired,
     useSectionShapes: PropTypes.bool,
   };
@@ -24,7 +24,9 @@ class SimpleSection extends React.PureComponent {
 
   selectSection = () => {
     const { section, onSectionSelected } = this.props;
-    onSectionSelected(section);
+    if (onSectionSelected) {
+      onSectionSelected(section);
+    }
   };
 
   renderArrow = (color) => {

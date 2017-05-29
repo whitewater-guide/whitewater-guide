@@ -17,9 +17,9 @@ class Map extends React.PureComponent {
   static propTypes = {
     initialBounds: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
     onZoom: PropTypes.func.isRequired,
-    onSectionSelected: PropTypes.func.isRequired,
-    onPOISelected: PropTypes.func.isRequired,
-    onBoundsSelected: PropTypes.func.isRequired,
+    onSectionSelected: PropTypes.func,
+    onPOISelected: PropTypes.func,
+    onBoundsSelected: PropTypes.func,
   };
 
   static defaultProps = {
@@ -35,7 +35,9 @@ class Map extends React.PureComponent {
   }
 
   componentWillUnmount() {
-    this.props.onBoundsSelected(this._bounds);
+    if (this.props.onBoundsSelected) {
+      this.props.onBoundsSelected(this._bounds);
+    }
   }
 
   onMapLayout = ({ nativeEvent: { layout: { width, height } } }) => {
@@ -60,14 +62,12 @@ class Map extends React.PureComponent {
     }
   };
 
-  onMarkerDeselect = () => {
-    this.props.onSectionSelected(null);
-    this.props.onPOISelected(null);
-  };
-
-  onPress = () => {
-    this.props.onSectionSelected(null);
-    this.props.onPOISelected(null);
+  onDeselect = () => {
+    const { onSectionSelected, onPOISelected } = this.props;
+    if (onSectionSelected && onPOISelected) {
+      this.props.onSectionSelected(null);
+      this.props.onPOISelected(null);
+    }
   };
 
   onRegionChange = (region) => {
@@ -89,8 +89,8 @@ class Map extends React.PureComponent {
         provider={PROVIDER_GOOGLE}
         onPress={this.onPress}
         onLayout={this.onMapLayout}
-        onRegionChange={this.onRegionChange}
-        onMarkerDeselect={this.onMarkerDeselect}
+        onRegionChange={this.onDeselect}
+        onMarkerDeselect={this.onDeselect}
       >
         { this.props.children }
       </MapView>
