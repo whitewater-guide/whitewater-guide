@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { compose, hoistStatics } from 'recompose';
 import SectionsList from './SectionsList';
 import { withSectionsList, SectionsPropType } from '../../commons/features/sections';
+import { searchTermsSelector } from '../../commons/features/regions';
 import { Screen, withErrorsView } from '../../components';
-import { currentSectionSearchTerms } from '../../core/selectors';
 import SectionSearchHeader from './header/SectionSearchHeader';
 import FilterButton from './header/FilterButton';
 
@@ -42,7 +42,7 @@ class AllSectionsScreen extends PureComponent {
 }
 
 const container = compose(
-  connect(state => ({ sectionSearchTerms: currentSectionSearchTerms(state) })),
+  connect(searchTermsSelector),
   withSectionsList({ withGeo: true }),
   withErrorsView,
   connect(),

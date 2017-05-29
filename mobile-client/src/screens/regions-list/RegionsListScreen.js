@@ -2,10 +2,9 @@ import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import { List, ListItem, Text, Body, Right, Icon } from 'native-base';
 import { RefreshControl, View } from 'react-native';
-import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { compose, hoistStatics } from 'recompose';
-import { withRegionsList } from '../../commons/features/regions';
+import { withRegionsList, selectRegion } from '../../commons/features/regions';
 import { Screen, BurgerButton, withErrorsView, spinnerWhileLoading } from '../../components';
 
 class RegionsListScreen extends PureComponent {
@@ -13,7 +12,7 @@ class RegionsListScreen extends PureComponent {
     regions: PropTypes.array,
     regionsListLoading: PropTypes.bool.isRequired,
     refetchRegionsList: PropTypes.func.isRequired,
-    dispatch: PropTypes.func,
+    selectRegion: PropTypes.func.isRequired,
   };
 
   static navigationOptions = ({ navigation }) => ({
@@ -22,10 +21,7 @@ class RegionsListScreen extends PureComponent {
   });
 
   onRegionSelected = (region) => {
-    this.props.dispatch(NavigationActions.navigate({
-      routeName: 'RegionDetails',
-      params: { regionId: region._id },
-    }));
+    this.props.selectRegion(region._id);
   };
 
   renderRow = region => (
@@ -62,7 +58,7 @@ const container = compose(
   withRegionsList,
   spinnerWhileLoading(props => props.regionsListLoading),
   withErrorsView,
-  connect(),
+  connect(undefined, { selectRegion }),
 );
 
 export default hoistStatics(container)(RegionsListScreen);

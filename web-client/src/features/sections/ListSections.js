@@ -17,8 +17,9 @@ class ListSections extends Component {
 
   static propTypes = {
     admin: PropTypes.bool.isRequired,
-    sectionSearchTerms: PropTypes.object.isRequired,
-    updateSectionSearchTerms: PropTypes.func.isRequired,
+    searchTerms: PropTypes.object.isRequired,
+    updateSearchTerms: PropTypes.func.isRequired,
+    selectRegion: PropTypes.func.isRequired,
     removeSection: PropTypes.func,
     history: PropTypes.object,
     showFilters: PropTypes.bool,
@@ -28,6 +29,7 @@ class ListSections extends Component {
       loading: PropTypes.bool,
       loadMore: PropTypes.func,
     }),
+    regionId: PropTypes.string,
   };
 
   static defaultProps = {
@@ -35,13 +37,19 @@ class ListSections extends Component {
     showFilters: true,
   };
 
+  componentDidMount() {
+    this.props.selectRegion(this.props.selectRegion);
+  }
+
   onDeleteSection = sectionId => this.props.removeSection(sectionId);
 
   onEditSection = sectionId => this.props.history.push(`/sections/${sectionId}/settings`);
 
   onSectionClick = sectionId => this.props.history.push(`/sections/${sectionId}`);
 
-  onSort = sortSettings => this.props.updateSectionSearchTerms(sortSettings);
+  onSort = sortSettings => this.props.updateSearchTerms(this.props.regionId, sortSettings);
+
+  onFilter = searchTerms => this.props.updateSearchTerms(this.props.regionId, searchTerms);
 
   isRowLoaded = ({ index }) => !!this.props.sections.list[index];
 
@@ -51,14 +59,14 @@ class ListSections extends Component {
   };
 
   render() {
-    const { admin, sections, sectionSearchTerms, updateSectionSearchTerms } = this.props;
-    const { sortBy, sortDirection } = sectionSearchTerms;
+    const { admin, sections, searchTerms } = this.props;
+    const { sortBy, sortDirection } = searchTerms;
     const { list, count } = sections;
     return (
       <div style={styles.wrapper}>
         {
           this.props.showFilters &&
-          <SectionsFilter terms={sectionSearchTerms} onChange={updateSectionSearchTerms} />
+          <SectionsFilter terms={searchTerms} onChange={this.onFilter} />
         }
         <AutoSizer>
           {({ width, height }) => (

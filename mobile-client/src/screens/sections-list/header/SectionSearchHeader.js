@@ -6,9 +6,8 @@ import { compose } from 'recompose';
 import HeaderTitle from 'react-navigation/src/views/HeaderTitle';
 import { gql } from 'react-apollo';
 import { propType } from 'graphql-anywhere';
-import { updatesectionSearchTerms } from '../../../core/actions';
-import { currentSectionSearchTerms } from '../../../core/selectors';
 import { SearchBar } from '../../../components';
+import { updateSearchTerms, searchTermsSelector } from '../../../commons/features/regions';
 import { withFragment } from '../../../commons/core';
 
 const nameFragment = gql`
@@ -43,7 +42,9 @@ export default compose(
     propName: 'region',
   }),
   connect(
-    state => ({ searchString: currentSectionSearchTerms(state).searchString }),
-    { onSearch: searchString => updatesectionSearchTerms({ searchString }) },
+    (state, props) => ({ searchString: searchTermsSelector(state, props).searchTerms.searchString }),
+    (dispatch, props) => ({
+      onSearch: searchString => dispatch(updateSearchTerms(props.region._id, { searchString })),
+    }),
   ),
 )(SectionSearchHeader);

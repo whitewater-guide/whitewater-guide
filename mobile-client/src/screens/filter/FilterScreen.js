@@ -2,18 +2,17 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button, Text } from 'native-base';
-import { compose, hoistStatics } from 'recompose';
+import { compose, hoistStatics, withProps } from 'recompose';
 import { NavigationActions } from 'react-navigation';
 import StarRating from 'react-native-star-rating';
 import { connect } from 'react-redux';
-import { memoize } from 'lodash';
+import { get, memoize } from 'lodash';
 import { MultiSlider, Screen, TernaryChips, spinnerWhileLoading } from '../../components';
 import { defaultSectionSearchTerms, Durations } from '../../commons/domain';
 import { tagsToSelections, withTags } from '../../commons/features/tags';
+import { updateSearchTerms, searchTermsSelector } from '../../commons/features/regions';
 import { toRomanDifficulty } from '../../commons/utils/TextUtils';
 import stringifySeason from '../../commons/utils/stringifySeason';
-import { updatesectionSearchTerms } from '../../core/actions';
-import { currentSectionSearchTerms } from '../../core/selectors';
 import ApplyFilterButton from './ApplyFilterButton';
 
 const styles = StyleSheet.create({
@@ -30,14 +29,13 @@ const styles = StyleSheet.create({
 class FilterScreen extends React.Component {
 
   static propTypes = {
-    screenProps: PropTypes.object,
-    back: PropTypes.func.isRequired,
     searchTerms: PropTypes.object,
-    updatesectionSearchTerms: PropTypes.func,
+    updateSearchTerms: PropTypes.func.isRequired,
     kayakingTags: PropTypes.array.isRequired,
     hazardsTags: PropTypes.array.isRequired,
     miscTags: PropTypes.array.isRequired,
     supplyTags: PropTypes.array.isRequired,
+    regionId: PropTypes.string,
   };
 
   static navigationOptions = {
@@ -55,10 +53,8 @@ class FilterScreen extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.updatesectionSearchTerms(this.state);
+    this.props.updateSearchTerms(this.props.regionId, this.state);
   }
-
-  onGoBack = () => this.props.back();
 
   onChange = memoize(key => value => this.setState({ [key]: value }));
 
@@ -124,9 +120,10 @@ class FilterScreen extends React.Component {
 const container = compose(
   withTags(),
   spinnerWhileLoading(props => props.tagsLoading),
+  withProps(props => ({ regionId: get(props, 'navigation.state.params.regionId') })),
   connect(
-    state => ({ searchTerms: currentSectionSearchTerms(state) }),
-    { ...NavigationActions, updatesectionSearchTerms },
+    searchTermsSelector,
+    { ...NavigationActions, updateSearchTerms },
   ),
 );
 

@@ -5,10 +5,10 @@ import { SectionPropType } from '../sections';
 export const PropTypes = {
   bounds: PT.arrayOf(PT.arrayOf(PT.number)),
   sections: PT.arrayOf(SectionPropType),
-  selectedSection: SectionPropType,
+  selectedSectionId: PT.string,
   onSectionSelected: PT.func,
   pois: PT.array,
-  selectedPOI: PT.object,
+  selectedPOIId: PT.string,
   onPOISelected: PT.func,
   useSectionShapes: PT.bool,
 };
@@ -17,10 +17,8 @@ export const DefaultProps = {
   bounds: null,
   pois: [],
   sections: [],
-  selectedSection: null,
-  selectedPOI: null,
-  onSectionSelected: () => {},
-  onPOISelected: () => {},
+  selectedSectionId: null,
+  selectedPOIId: null,
   useSectionShapes: false,
 };
 
@@ -41,14 +39,14 @@ export default (MapComponent, SectionComponent, POIComponent) => {
     onZoom = zoom => this.setState({ zoom });
 
     renderSection = (section) => {
-      const { onSectionSelected, selectedSection, useSectionShapes } = this.props;
+      const { onSectionSelected, selectedSectionId, useSectionShapes } = this.props;
       const { zoom } = this.state;
       return (
         <SectionComponent
           useSectionShapes={useSectionShapes}
           key={section._id}
           section={section}
-          selected={selectedSection && selectedSection._id === section._id}
+          selected={selectedSectionId === section._id}
           onSectionSelected={onSectionSelected}
           zoom={zoom}
         />
@@ -56,13 +54,13 @@ export default (MapComponent, SectionComponent, POIComponent) => {
     };
 
     renderPOI = (poi) => {
-      const { onPOISelected, selectedPOI } = this.props;
+      const { onPOISelected, selectedPOIId } = this.props;
       const { zoom } = this.state;
       return (
         <POIComponent
           key={poi._id}
           poi={poi}
-          selected={selectedPOI && selectedPOI._id === poi._id}
+          selected={selectedPOIId === poi._id}
           onPOISelected={onPOISelected}
           zoom={zoom}
         />

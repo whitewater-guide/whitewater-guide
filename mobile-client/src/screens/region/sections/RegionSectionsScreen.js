@@ -2,8 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Screen } from '../../../components';
-import { currentSectionSearchTerms } from '../../../core/selectors';
-
+import { searchTermsSelector } from '../../../commons/features/regions';
 import { SectionsList } from '../../sections-list';
 
 class RegionSectionsScreen extends React.PureComponent {
@@ -40,6 +39,4 @@ class RegionSectionsScreen extends React.PureComponent {
 
 }
 
-export default connect(
-  state => ({ searchTerms: currentSectionSearchTerms(state) }),
-)(RegionSectionsScreen);
+export default connect(searchTermsSelector)(RegionSectionsScreen);

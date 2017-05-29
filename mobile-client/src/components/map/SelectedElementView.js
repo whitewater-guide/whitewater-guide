@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class MapLayout extends Component {
+export default class SelectedElementView extends Component {
   static propTypes = {
     buttons: PropTypes.arrayOf(PropTypes.shape({
       label: PropTypes.string,
@@ -83,6 +83,14 @@ export default class MapLayout extends Component {
     this._interactable.snapTo({ index: 2 });
   };
 
+  setInteractable = (interactable) => {
+    this._interactable = interactable;
+    if (interactable && this.props.selected) {
+      this._interactable.snapTo({ index: 1 });
+      this._muteSnapEvent = true;
+    }
+  };
+
   renderButton = ({ label, coordinates }, index) => {
     const numButtons = this.props.buttons.length;
     const step = 66 / numButtons;
@@ -123,7 +131,7 @@ export default class MapLayout extends Component {
         {
           this.state.laidOut &&
           <Interactable.View
-            ref={(interactable) => { this._interactable = interactable; }}
+            ref={this.setInteractable}
             verticalOnly
             snapPoints={[
               { y: this._height },

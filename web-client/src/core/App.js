@@ -1,26 +1,23 @@
-import React, { Component } from "react";
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import React from 'react';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { BrowserRouter } from 'react-router-dom';
 import { ApolloProvider } from 'react-apollo';
-import { configureApolloClient } from '../commons/apollo';
-import theme from "./styles/theme";
+import theme from './styles/theme';
 import FacebookProvider from './FacebookProvider';
-import { RootLayout } from "./layouts";
+import { RootLayout } from './layouts';
+import { apolloClient } from '../core/config/configureApollo';
+import configureStore from '../core/config/configureStore';
 
-const client = configureApolloClient();
+const store = configureStore();
 
-export default class App extends Component {
-  render() {
-    return (
-      <MuiThemeProvider muiTheme={theme}>
-        <FacebookProvider appId={process.env.facebook.appId}>
-          <ApolloProvider client={client}>
-            <BrowserRouter>
-              <RootLayout/>
-            </BrowserRouter>
-          </ApolloProvider>
-        </FacebookProvider>
-      </MuiThemeProvider>
-    );
-  }
-}
+export default () => (
+  <MuiThemeProvider muiTheme={theme}>
+    <FacebookProvider appId={process.env.facebook.appId}>
+      <ApolloProvider store={store} client={apolloClient}>
+        <BrowserRouter>
+          <RootLayout />
+        </BrowserRouter>
+      </ApolloProvider>
+    </FacebookProvider>
+  </MuiThemeProvider>
+);

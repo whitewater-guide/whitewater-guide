@@ -1,5 +1,6 @@
 import { gql, compose } from 'react-apollo';
-import { withState, withHandlers, mapProps, branch } from 'recompose';
+import { mapProps, branch } from 'recompose';
+import { connect } from 'react-redux';
 import _ from 'lodash';
 import { map, reject } from 'lodash/fp';
 import update from 'immutability-helper';
@@ -7,6 +8,7 @@ import { enhancedQuery } from '../../apollo';
 import { SectionFragments } from './sectionFragments';
 import { withFeatureIds } from '../../core/withFeatureIds';
 import sectionsListReducer from './sectionsListReducer';
+import { searchTermsSelector } from '../regions';
 
 const ListSectionsQuery = gql`
   query listSections($terms:SectionSearchTerms!, $language: String, $skip: Int, $limit: Int, $withGeo: Boolean!, $isLoadMore:Boolean!) {
@@ -66,10 +68,10 @@ const mergeNextPage = (prevResult, { fetchMoreResult }) => {
 const sectionsGraphql = ({ withGeo, pageSize, offlineSearch }) => enhancedQuery(
   ListSectionsQuery,
   {
-    options: ({ language, sectionSearchTerms }) => ({
+    options: ({ language, searchTerms }) => ({
       fetchPolicy: 'cache-and-network',
       variables: {
-        terms: serializeSearchTerms(sectionSearchTerms, offlineSearch),
+        terms: serializeSearchTerms(searchTerms, offlineSearch),
         limit: pageSize,
         skip: 0,
         withGeo,
@@ -93,7 +95,7 @@ const sectionsGraphql = ({ withGeo, pageSize, offlineSearch }) => enhancedQuery(
           subscribeToUpdates: ({ regionId }) => subscribeToMore({
             document: UpdatesSubscription,
             variables: { regionId },
-            onError: error => console.log(`Subscription error ${error}`), // TODO: probably something like toast should be shown
+            onError: error => console.log(`Subscription error ${error}`),
           }),
         },
       };
@@ -122,48 +124,11 @@ const localFilter = mapProps(({ sortBy, sortDirection, searchString, sections, .
   };
 });
 
-const selectionToInt = { selected: 1, deselected: -1};
+const selectionToInt = { selected: 1, deselected: -1 };
 
 const serializeTags = compose(
-  reject({ selection: 'none' } ),
-  map(({_id, selection}) => ({ _id, selection: selectionToInt[selection] })),
-);
-
-/**
- * If sectionSearchTerms are not provided by upper-level components (e.g. connect),
- * then provides seacrh terms as props and also provides handlers to update seacrh terms
- */
-const withSectionSearchProps = compose(
-  branch(
-    ({ sectionSearchTerms }) => !sectionSearchTerms,
-    compose(
-      withState(
-        'sectionSearchTerms',
-        'setSectionSearchTerms',
-        props => ({
-          sortBy: 'name',
-          sortDirection: 'ASC',
-          riverId: props.riverId,
-          regionId: props.regionId,
-          searchString: '',
-        }),
-      ),
-      withHandlers({
-        updateSectionSearchTerms: ({ sectionSearchTerms, setSectionSearchTerms }) =>
-          terms => setSectionSearchTerms({ ...sectionSearchTerms, ...terms }),
-      }),
-    ),
-  ),
-  mapProps(({ sectionSearchTerms: { kayakingTags, hazardsTags, miscTags, supplyTags, ...terms }, ...props}) => ({
-    ...props,
-    sectionSearchTerms: {
-      ...terms,
-      kayakingTags: serializeTags(kayakingTags), 
-      hazardsTags: serializeTags(hazardsTags), 
-      miscTags: serializeTags(miscTags), 
-      supplyTags: serializeTags(supplyTags),
-    },
-  })),
+  reject({ selection: 'none' }),
+  map(({ _id, selection }) => ({ _id, selection: selectionToInt[selection] })),
 );
 
 /**
@@ -173,14 +138,7 @@ const withSectionSearchProps = compose(
  * @param options.offlineSearch - If true, search options will not be sent in graphql request
  *
  * @returns High order component with following props:
- *          sectionSearchTerms: {
- *            sortBy
- *            sortDirection
- *            riverId
- *            regionId
- *            searchString
- *          }
- *          updateSectionSearchTerms (optional)
+ *          searchTerms
  *          riverId
  *          regionId
  *          sections: {
@@ -195,7 +153,17 @@ export function withSectionsList(options) {
   const opts = _.defaults({}, options, { withGeo: false, pageSize: 25, offlineSearch: false });
   return compose(
     withFeatureIds(['region', 'river']),
-    withSectionSearchProps,
+    connect(searchTermsSelector),
+    mapProps(({ searchTerms, ...props }) => ({
+      ...props,
+      searchTerms: {
+        ...searchTerms,
+        kayakingTags: serializeTags(searchTerms.kayakingTags),
+        hazardsTags: serializeTags(searchTerms.hazardsTags),
+        miscTags: serializeTags(searchTerms.miscTags),
+        supplyTags: serializeTags(searchTerms.supplyTags),
+      },
+    })),
     branch(
       // If sections aren't provided from outside, fetch them
       props => !props.sections,

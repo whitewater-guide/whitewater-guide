@@ -21,12 +21,16 @@ class ApplyFilterButton extends React.PureComponent {
 
   onPress = () => {
     this.props.back();
-  }
+  };
 
   render() {
     return (
       <TouchableOpacity style={styles.button} onPress={this.onPress}>
-        <Icon name={Platform.OS === 'ios' ? 'ios-checkmark' : 'md-checkmark'} size={20} color={variables.btnPrimaryBg} />
+        <Icon
+          name={Platform.OS === 'ios' ? 'ios-checkmark' : 'md-checkmark'}
+          size={20}
+          color={variables.btnPrimaryBg}
+        />
       </TouchableOpacity>
     );
   }

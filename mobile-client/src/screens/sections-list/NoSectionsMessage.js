@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
 export default () => (
   <View style={styles.container}>
     <Text style={styles.t1}>Oops!</Text>
-    <Text style={styles.t2}>Could not find andy sections</Text>
+    <Text style={styles.t2}>Could not find any sections</Text>
     <Text style={styles.t3}>Please check your search criteria</Text>
   </View>
 );

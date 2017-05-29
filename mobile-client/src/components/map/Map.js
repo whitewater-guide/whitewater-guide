@@ -10,6 +10,7 @@ class Map extends React.PureComponent {
     onZoom: PropTypes.func.isRequired,
     onSectionSelected: PropTypes.func.isRequired,
     onPOISelected: PropTypes.func.isRequired,
+    onBoundsSelected: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -21,6 +22,11 @@ class Map extends React.PureComponent {
     super(props);
     this.dimensions = Dimensions.get('window');
     this._mapLaidOut = false; // Prevents map from resetting after keyboard was popped by search bar
+    this._bounds = undefined;
+  }
+
+  componentWillUnmount() {
+    this.props.onBoundsSelected(this._bounds);
   }
 
   onMapLayout = ({ nativeEvent: { layout: { width, height } } }) => {
@@ -56,11 +62,11 @@ class Map extends React.PureComponent {
   };
 
   onRegionChange = (region) => {
-    const bounds = [
+    this._bounds = [
       [region.longitude - region.longitudeDelta, region.latitude - region.latitudeDelta],
       [region.longitude + region.longitudeDelta, region.latitude + region.latitudeDelta],
     ];
-    const zoomLevel = getBoundsZoomLevel(bounds, this.dimensions);
+    const zoomLevel = getBoundsZoomLevel(this._bounds, this.dimensions);
     this.props.onZoom(zoomLevel);
   };
 

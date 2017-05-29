@@ -1,0 +1,2 @@
+export const SELECT_REGION = 'SELECT_REGION';
+export const UPDATE_REGION = 'UPDATE_REGION';
