@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
-import { SELECT_REGION, UPDATE_REGION } from './ActionTypes';
+import { SELECT_REGION, UPDATE_REGION, RESET_SEARCH_TERMS } from './ActionTypes';
 
 export const selectRegion = createAction(SELECT_REGION, regionId => ({ regionId }));
 
@@ -18,3 +18,5 @@ export const selectPOI = (regionId, poi) => updateRegion(
 );
 
 export const selectBounds = (regionId, bounds) => updateRegion(regionId, { selectedBounds: bounds });
+
+export const resetSearchTerms = createAction(RESET_SEARCH_TERMS, regionId => ({ regionId }));

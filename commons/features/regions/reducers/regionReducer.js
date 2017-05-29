@@ -1,5 +1,5 @@
 import { merge } from 'lodash';
-import { UPDATE_REGION } from '../actions';
+import { UPDATE_REGION, RESET_SEARCH_TERMS } from '../actions';
 import { defaultSectionSearchTerms } from '../../../domain';
 
 export default (regionId) => {
@@ -14,6 +14,9 @@ export default (regionId) => {
     switch (type) {
       case UPDATE_REGION:
         return merge({}, state, payload.data);
+      case RESET_SEARCH_TERMS:
+        console.tron.log('fffffffffff');
+        return { ...state, searchTerms: { ...defaultSectionSearchTerms, regionId } };
       default:
         return state;
     }

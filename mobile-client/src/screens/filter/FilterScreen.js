@@ -13,7 +13,7 @@ import { tagsToSelections, withTags } from '../../commons/features/tags';
 import { updateSearchTerms, searchTermsSelector } from '../../commons/features/regions';
 import { toRomanDifficulty } from '../../commons/utils/TextUtils';
 import stringifySeason from '../../commons/utils/stringifySeason';
-import ApplyFilterButton from './ApplyFilterButton';
+import ResetFilterButton from './ResetFilterButton';
 
 const styles = StyleSheet.create({
   container: {
@@ -31,6 +31,7 @@ class FilterScreen extends React.Component {
   static propTypes = {
     searchTerms: PropTypes.object,
     updateSearchTerms: PropTypes.func.isRequired,
+    back: PropTypes.func.isRequired,
     kayakingTags: PropTypes.array.isRequired,
     hazardsTags: PropTypes.array.isRequired,
     miscTags: PropTypes.array.isRequired,
@@ -38,11 +39,10 @@ class FilterScreen extends React.Component {
     regionId: PropTypes.string,
   };
 
-  static navigationOptions = {
+  static navigationOptions = ({ navigation }) => ({
     title: 'Filters',
-    headerLeft: null,
-    headerRight: (<ApplyFilterButton />),
-  };
+    headerRight: (<ResetFilterButton regionId={navigation.state.params.regionId} />),
+  });
 
   constructor(props) {
     super(props);
@@ -52,13 +52,24 @@ class FilterScreen extends React.Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.searchTerms !== nextProps.searchTerms) {
+      this.setState({
+        ...tagsToSelections(nextProps),
+        ...nextProps.searchTerms,
+      });
+    }
+  }
+
   componentWillUnmount() {
     this.props.updateSearchTerms(this.props.regionId, this.state);
   }
 
   onChange = memoize(key => value => this.setState({ [key]: value }));
 
-  onReset = () => this.setState({ ...tagsToSelections(this.props), ...defaultSectionSearchTerms });
+  onApply = () => {
+    this.props.back();
+  };
 
   render() {
     const minDiff = toRomanDifficulty(this.state.difficulty[0]);
@@ -108,8 +119,8 @@ class FilterScreen extends React.Component {
         <TernaryChips values={this.state.supplyTags} onChange={this.onChange('supplyTags')} />
         <Text>Misc tags</Text>
         <TernaryChips values={this.state.miscTags} onChange={this.onChange('miscTags')} />
-        <Button full onPress={this.onReset} >
-          <Text>Reset</Text>
+        <Button full onPress={this.onApply} >
+          <Text>Search</Text>
         </Button>
       </Screen>
     );
