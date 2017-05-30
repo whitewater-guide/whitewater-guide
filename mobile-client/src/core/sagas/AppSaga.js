@@ -1,6 +1,7 @@
 import { all, take, put, spawn } from 'redux-saga/effects';
 import { REHYDRATE } from 'redux-persist/constants';
 import SplashScreen from 'react-native-splash-screen';
+import Crashes from "mobile-center-crashes";
 import * as ActionTypes from '../actions/ActionTypes';
 import AndroidBackButtonSaga from './AndroidBackButtonSaga';
 
@@ -19,5 +20,6 @@ export default function *appSaga() {
   // }
 
   SplashScreen.hide();
+  Crashes.generateTestCrash();
 }
 
