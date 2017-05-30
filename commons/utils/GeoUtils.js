@@ -1,5 +1,7 @@
 import _ from 'lodash';
 
+const EARTH_RADIUS_KM = 6378.137;
+
 export function gmapsToArray(latLng) {
   if (!latLng) {
     return null;
@@ -59,7 +61,7 @@ export function computeDistanceBetween(a, b) {
   const dLat2 = (aLat - bLat) / 2;
   const dLng2 = (aLng - bLng) / 2;
   const hav = Math.pow(Math.sin(dLat2), 2) + Math.cos(aLat) * Math.cos(bLat) * (Math.pow(Math.sin(dLng2), 2));
-  return 2 * 6378.137 * Math.asin(
+  return 2 * EARTH_RADIUS_KM * Math.asin(
     Math.sqrt(hav),
   );
 }
@@ -140,4 +142,21 @@ export function getCoordinatesPatch(prev, next) {
     return [next.length, 1];
   }
   return null;
+}
+
+export function computeOffset({ latitude, longitude }, distance, heading) {
+  const distanceNorm = distance / EARTH_RADIUS_KM;
+  const headingRad = Math.PI * heading / 180;
+  const fromLat = Math.PI * latitude / 180;
+  const fromLng = Math.PI * longitude / 180;
+  const cosDistance = Math.cos(distanceNorm);
+  const sinDistance = Math.sin(distanceNorm);
+  const sinFromLat = Math.sin(fromLat);
+  const cosFromLat = Math.cos(fromLat);
+  const sinLat = cosDistance * sinFromLat + sinDistance * cosFromLat * Math.cos(headingRad);
+  const dLng = Math.atan2(
+    sinDistance * cosFromLat * Math.sin(headingRad),
+    cosDistance - sinFromLat * sinLat,
+  );
+  return { latitude: 180 * Math.asin(sinLat) / Math.PI, longitude: 180 * (fromLng + dLng) / Math.PI };
 }

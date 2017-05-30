@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { Dimensions, StyleSheet, StatusBar } from 'react-native';
-import { getBoundsZoomLevel, getBBox } from '../../commons/utils/GeoUtils';
+import { getBoundsZoomLevel, computeDistanceBetween, computeOffset, getBBox } from '../../commons/utils/GeoUtils';
 import { NAVIGATE_BUTTON_HEIGHT } from '../NavigateButton';
 
 const window = Dimensions.get('window');
@@ -13,13 +13,14 @@ const styles = StyleSheet.create({
   },
 });
 
-class Map extends React.PureComponent {
+class Map extends React.Component {
   static propTypes = {
     initialBounds: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
     onZoom: PropTypes.func.isRequired,
     onSectionSelected: PropTypes.func,
     onPOISelected: PropTypes.func,
     onBoundsSelected: PropTypes.func,
+    requestGeolocation: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -32,6 +33,16 @@ class Map extends React.PureComponent {
     this.dimensions = { ...window };
     this._mapLaidOut = false; // Prevents map from resetting after keyboard was popped by search bar
     this._bounds = undefined;
+    this._requestedGeolocation = !props.requestGeolocation;
+    const [minLng, maxLng, minLat, maxLat] = getBBox(props.initialBounds);
+    this.state = {
+      region: {
+        latitude: (maxLat + minLat) / 2,
+        longitude: (maxLng + minLng) / 2,
+        latitudeDelta: (maxLat - minLat) / 2,
+        longitudeDelta: (maxLng - minLng) / 2,
+      },
+    };
   }
 
   componentWillUnmount() {
@@ -48,17 +59,36 @@ class Map extends React.PureComponent {
     this.dimensions = { width, height };
     const { initialBounds } = this.props;
     if (initialBounds && this.mapView) {
-      const [minLng, maxLng, minLat, maxLat] = getBBox(initialBounds);
-      this.mapView.fitToCoordinates(
-        [
-          { latitude: minLat, longitude: minLng },
-          { latitude: maxLat, longitude: maxLng },
-        ],
-        {
-          edgePanning: { top: 10, bottom: 10, left: 10, right: 10 },
-          animated: false,
-        },
-      );
+      if (!this._requestedGeolocation) {
+        this._requestedGeolocation = true;
+        navigator.geolocation.getCurrentPosition(
+          this.onGeolocationSuccess,
+          () => {},
+          { enableHighAccuracy: true, timeout: 5000, maximumAge: 60000 },
+        );
+      }
+    }
+  };
+
+  onGeolocationSuccess = ({ coords: { latitude, longitude } }) => {
+    // If the user is inside region, center map on user
+    // If region is quite wide, zoom to 100 km radius
+    const [minLng, maxLng, minLat, maxLat] = getBBox(this.props.initialBounds);
+    if (this.mapView && latitude >= minLat && latitude <= maxLat && longitude >= minLng && longitude <= maxLng) {
+      if (computeDistanceBetween([minLng, minLat], [maxLng, maxLat]) < 150) {
+        this.mapView.animateToCoordinate({ latitude, longitude }, 300);
+      } else {
+        const corner = computeOffset({ latitude, longitude }, 100, -45);
+        this.mapView.animateToRegion(
+          {
+            latitude,
+            longitude,
+            latitudeDelta: Math.abs(latitude - corner.latitude),
+            longitudeDelta: Math.abs(longitude - corner.longitude),
+          },
+          300,
+        );
+      }
     }
   };
 
@@ -77,6 +107,7 @@ class Map extends React.PureComponent {
     ];
     const zoomLevel = getBoundsZoomLevel(this._bounds, this.dimensions);
     this.props.onZoom(zoomLevel);
+    this.setState({ region });
   };
 
   setMapView = (mapView) => { this.mapView = mapView; };
@@ -84,6 +115,9 @@ class Map extends React.PureComponent {
   render() {
     return (
       <MapView
+        showsUserLocation
+        showsMyLocationButton
+        region={this.state.region}
         ref={this.setMapView}
         style={styles.container}
         provider={PROVIDER_GOOGLE}

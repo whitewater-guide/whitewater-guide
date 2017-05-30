@@ -8,5 +8,5 @@ export default compose(
   setStatic('navigationOptions', { tabBarLabel: 'Map' }),
   flattenProp('screenProps'),
 )(
-  RegionMapView(MapLayout('RegionMap'), MapMobile, SelectedSectionView, SelectedPOIView, LoadingPlug),
+  RegionMapView(MapLayout('RegionMap', true), MapMobile, SelectedSectionView, SelectedPOIView, LoadingPlug),
 );
