@@ -1,21 +1,16 @@
-import { call, take, put } from 'redux-saga/effects';
-import { delay } from 'redux-saga';
+import { all, take, put, spawn } from 'redux-saga/effects';
 import { REHYDRATE } from 'redux-persist/constants';
 import SplashScreen from 'react-native-splash-screen';
 import * as ActionTypes from '../actions/ActionTypes';
+import AndroidBackButtonSaga from './AndroidBackButtonSaga';
 
 export default function *appSaga() {
   // Wait till redux-persist rehydrates
   yield take(REHYDRATE);
 
-/*  yield [
-    fork(newsSaga),
-    fork(citiesSaga),
-    fork(olympicsSaga),
-    fork(GASaga),
-    fork(fcmSaga),
-    fork(codePushSaga),
-  ];*/
+  yield all([
+    spawn(AndroidBackButtonSaga),
+  ]);
 
   yield put({ type: ActionTypes.APP_STARTED });
 
