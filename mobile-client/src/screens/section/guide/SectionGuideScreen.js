@@ -15,6 +15,10 @@ class SectionGuideScreen extends React.PureComponent {
     tabBarIcon: () => <TabIcon icon="book" />,
   };
 
+  componentDidMount() {
+    throw new Error('This is a test javascript crash for mobile center!');
+  }
+
   render() {
     const { description } = this.props.section;
     return (
