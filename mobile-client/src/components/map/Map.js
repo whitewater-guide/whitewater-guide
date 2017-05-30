@@ -87,9 +87,9 @@ class Map extends React.PureComponent {
         ref={this.setMapView}
         style={styles.container}
         provider={PROVIDER_GOOGLE}
-        onPress={this.onPress}
+        onPress={this.onDeselect}
         onLayout={this.onMapLayout}
-        onRegionChange={this.onDeselect}
+        onRegionChange={this.onRegionChange}
         onMarkerDeselect={this.onDeselect}
       >
         { this.props.children }
