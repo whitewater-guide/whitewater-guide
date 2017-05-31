@@ -75,6 +75,9 @@ export default class DrawingMap extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
+    if (!this.map) {
+      return;
+    }
     const { points, drawingMode } = this.props;
     const latLngs = points.map(arrayToGmaps);
 
