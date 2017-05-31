@@ -10,6 +10,7 @@ type Region implements INamed {
   rivers: [River]!,
   riversCount: Int,
   sectionsCount: Int,
+  hidden: Boolean,
 }
 
 input RegionInput {
@@ -20,6 +21,7 @@ input RegionInput {
   seasonNumeric: [Int],
   pois: [PointInput],
   bounds: [[Float!]],
+  hidden: Boolean,
 }
 
 type Query {

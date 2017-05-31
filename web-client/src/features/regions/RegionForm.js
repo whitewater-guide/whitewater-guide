@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Tab } from 'material-ui/Tabs';
-import { Form, Field, TextInput, RichTextInput, SeasonPickerField, DrawingMapField } from '../../core/forms';
+import { Form, Field, TextInput, RichTextInput, SeasonPickerField, DrawingMapField, Checkbox } from '../../core/forms';
 import { Tabs } from '../../core/components';
 import { POICollection } from '../points';
 import container from './RegionFormContainer';
@@ -23,6 +23,7 @@ class RegionForm extends Component {
             <Field name="name" title="Name" component={TextInput} />
             <Field name="season" title="Season" component={TextInput} />
             <Field name="seasonNumeric" component={SeasonPickerField} />
+            <Field name="hidden" title="Hide from users" component={Checkbox} />
           </Tab>
           <Tab label="Description" value="#description">
             <Field name="description" title="description" component={RichTextInput} />

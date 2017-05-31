@@ -19,6 +19,7 @@ const baseSchema = {
   ...i18Schema,
   _id: {type: String, regEx: SimpleSchema.RegEx.Id},
   seasonNumeric: Array,
+  hidden: Boolean,
   "seasonNumeric.$": {
     type: SimpleSchema.Integer,
     min: 0,

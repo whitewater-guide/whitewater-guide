@@ -22,7 +22,10 @@ function removeRegion(root, {_id}) {
 
 export const regionsResolvers = {
   Query: {
-    regions: (root, {language}) => Regions.find({}, {sort: {name: 1}, lang: language}),
+    regions: (root, {language}, context) => {
+      const query = context.isAdmin ? {} : {hidden: {$ne: true}};
+      return Regions.find(query, {sort: {name: 1}, lang: language});
+    },
     region: (root, {_id, language}) => Regions.findOne({_id}, {lang: language}),
   },
   Mutation: {

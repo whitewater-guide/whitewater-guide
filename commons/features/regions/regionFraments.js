@@ -6,6 +6,7 @@ const Core = gql`
     name
     season
     seasonNumeric
+    hidden
   }
 `;
 
@@ -59,6 +60,7 @@ const All = gql`
 export const RegionFragments = {
   All,
   Bounds,
+  Description,
   Core,
   POIs,
   Stats,

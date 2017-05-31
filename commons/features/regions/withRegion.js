@@ -9,12 +9,13 @@ const regionDetails = gql`
   query regionDetails($_id: ID!, $language:String, $withBounds: Boolean!, $withPOIs: Boolean!) {
     region(_id: $_id, language: $language) {
       ...RegionCore
+      ...RegionDescription
       ...RegionPOIs @include(if: $withPOIs)
       ...RegionBounds @include(if: $withBounds)
-      description
     }
   }
   ${RegionFragments.Core}
+  ${RegionFragments.Description}
   ${RegionFragments.POIs}
   ${RegionFragments.Bounds}
 `;

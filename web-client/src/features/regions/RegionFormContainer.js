@@ -11,11 +11,13 @@ const editRegion = gql`
       ...RegionCore
       ...RegionPOIs
       ...RegionBounds
+      ...RegionDescription
     }
   }
   ${RegionFragments.Core}
   ${RegionFragments.POIs}
   ${RegionFragments.Bounds}
+  ${RegionFragments.Description}
 `;
 
 export default compose(
