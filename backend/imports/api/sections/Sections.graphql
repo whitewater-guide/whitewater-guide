@@ -29,6 +29,7 @@ type Section {
   gauge: Gauge,
   levels: GaugeBinding,
   flows: GaugeBinding,
+  flowsText: String,
 
   putIn: Point!,
   takeOut: Point!,
@@ -78,6 +79,7 @@ input SectionInput {
   gauge: SectionGaugeInput,
   levels: GaugeBindingInput,
   flows: GaugeBindingInput,
+  flowsText: String,
 
   shape: [[Float!]]!,
   distance: Float,

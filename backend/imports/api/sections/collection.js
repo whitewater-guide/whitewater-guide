@@ -17,6 +17,7 @@ const i18Schema = {
   description: String,
   season: String,
   riverName: String,
+  flowsText: String,
 };
 
 const baseSchema = {

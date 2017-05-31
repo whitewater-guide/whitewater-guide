@@ -86,6 +86,7 @@ const Measurements = gql`
     flows {
       ...GaugeBindingAll
     }
+    flowsText
   }
   ${GaugeBinding.All}
 `;

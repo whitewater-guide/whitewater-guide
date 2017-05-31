@@ -49,6 +49,7 @@ const sectionFragment = gql`
       impossible
       approximate
     }
+    flowsText
     ...SectionMedia
     ...SectionPOIs
     ...SectionTags

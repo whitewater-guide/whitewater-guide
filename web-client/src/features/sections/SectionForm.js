@@ -97,6 +97,7 @@ class SectionForm extends Component {
               <Field name="flows.impossible" title="Absolute maximum" component={TextInput} type="number" />
               <Field name="flows.approximate" title="Is approximate" component={Checkbox} />
             </div>
+            <Field name="flowsText" title="Flows description" component={TextInput} />
           </Tab>
           <Tab label="Shape" value="#shape">
             <Field name="shape" drawingMode="LineString" bounds={region.bounds} component={DrawingMapField} />
