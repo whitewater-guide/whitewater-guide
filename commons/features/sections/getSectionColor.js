@@ -1,6 +1,6 @@
 /* eslint no-bitwise: 0 */
 import color from 'color';
-import isFunction from 'lodash/isFunction';
+import { isFunction, mapValues } from 'lodash';
 
 // Color scheme described here:
 // https://docs.google.com/spreadsheets/d/1DTg8aQM_MpZ6eaVg7vAg97K9Yv18Un8F291AonBSuEY/edit?usp=sharing
@@ -11,6 +11,25 @@ export const Colors = {
   optimum: color.rgb(74,240, 28),
   maximum: color.rgb(254, 0, 0),
   impossible: color.rgb(92, 16, 0),
+};
+
+export const ColorStrings = mapValues(Colors, clr => clr.string());
+
+export const getColorForValue = (value, binding, defaultColor) => {
+  if (!binding) {
+    return defaultColor;
+  }
+  const { minimum, maximum, optimum, impossible } = binding;
+  if (value === minimum) {
+    return ColorStrings.minimum;
+  } else if (value === optimum) {
+    return ColorStrings.optimum;
+  } else if (value === maximum) {
+    return ColorStrings.maximum;
+  } else if (value === impossible) {
+    return ColorStrings.impossible;
+  }
+  return defaultColor;
 };
 
 function getRow({ minimum, maximum, optimum, impossible }) {

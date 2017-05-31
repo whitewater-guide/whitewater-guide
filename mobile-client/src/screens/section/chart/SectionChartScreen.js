@@ -25,13 +25,15 @@ class SectionChartScreen extends React.PureComponent {
   render() {
     const { section, gauge, startDate, endDate, onDomainChanged } = this.props;
     const { flows, levels } = section;
-    const { measurements } = gauge;
+    const { measurements, levelUnit, flowUnit } = gauge;
     return (
       <Screen>
         <InteractiveChart
           data={measurements}
           flows={flows}
           levels={levels}
+          levelUnit={levelUnit}
+          flowUnit={flowUnit}
           startDate={startDate}
           endDate={endDate}
           onDomainChanged={onDomainChanged}

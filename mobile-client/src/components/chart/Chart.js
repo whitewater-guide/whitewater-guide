@@ -1,11 +1,16 @@
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
-import { VictoryAxis, VictoryChart, VictoryLine, VictoryTheme } from 'victory-native';
+import { VictoryAxis, VictoryChart, VictoryLine, VictoryLabel, VictoryTheme } from 'victory-native';
 import { StyleSheet, Dimensions, View } from 'react-native';
+import { scaleLinear } from 'd3-scale';
 import moment from 'moment';
 import { capitalize, compact } from 'lodash';
 import NoChart from './NoChart';
 import TimeLabel from './TimeLabel';
+import HorizontalGridLine from './HorizontalGridLine';
+import YLabel from './YLabel';
+import YTick from './YTick';
+import YAxis from './YAxis';
 import TimeGridLine from './TimeGridLine';
 
 const { width } = Dimensions.get('window');
@@ -43,6 +48,8 @@ class Chart extends PureComponent {
       impossible: PropTypes.number,
       approximate: PropTypes.number,
     }),
+    flowUnit: PropTypes.string,
+    levelUnit: PropTypes.string,
   };
 
   static defaultProps = {
@@ -55,8 +62,9 @@ class Chart extends PureComponent {
     this._period = '';
     this._tickFormat = '';
     this._tickCount = 0;
+    this._yTickValues = [];
     this.computeChartSettings(props.domain);
-    this._domain = this.computeDomain(props);
+    this.computeDomain(props);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -64,7 +72,7 @@ class Chart extends PureComponent {
       this.computeChartSettings(nextProps.domain);
     }
     if (nextProps.data !== this.props.data) {
-      this._domain = this.computeDomain(nextProps);
+      this.computeDomain(nextProps);
     }
   }
 
@@ -76,16 +84,20 @@ class Chart extends PureComponent {
       ([min, max], { [unit]: value }) => [Math.min(value, min), Math.max(value, max)],
       [Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY],
     );
+    let ticks = [];
     if (binding) {
-      const { minimum, maximum, optimum } = binding;
+      const { minimum, maximum, optimum, impossible } = binding;
       result = [
         Math.min.apply(null, compact([result[0], minimum, maximum, optimum])),
         Math.max.apply(null, compact([result[1], minimum, maximum, optimum])),
       ];
+      ticks = compact([minimum, maximum, optimum, impossible]);
     }
     // Manually apply padding. Chart is square (height === screen width)
     const delta = (result[1] - result[0]) * (8 / width);
-    return [result[0] - delta, result[1] + delta];
+    this._domain = [result[0] - delta, result[1] + delta];
+
+    this._yTickValues = ticks.concat(scaleLinear().domain(this._domain).ticks(5));
   };
 
   computeChartSettings = (domain) => {
@@ -103,45 +115,8 @@ class Chart extends PureComponent {
     this._tickCount = settings.tickCount;
   };
 
-  renderBindingLine = (color, value, key) => {
-    const { domain } = this.props;
-    const data = [
-      { x: domain[0], y: value },
-      { x: domain[1], y: value },
-    ];
-    return (
-      <VictoryLine
-        key={`binding_${key}`}
-        data={data}
-        style={{ data: { strokeWidth: 1, strokeDasharray: '5,5', stroke: color } }}
-      />
-    );
-  };
-
-  renderBindings = () => {
-    const { binding } = this.props;
-    if (!binding) {
-      return null;
-    }
-    const { minimum, maximum, optimum, impossible } = binding;
-    const result = [];
-    if (minimum) {
-      result.push(this.renderBindingLine('blue', minimum, 'minimum'));
-    }
-    if (maximum) {
-      result.push(this.renderBindingLine('red', maximum, 'maximum'));
-    }
-    if (optimum) {
-      result.push(this.renderBindingLine('green', optimum, 'optimum'));
-    }
-    if (impossible && impossible <= this._domain[1]) {
-      result.push(this.renderBindingLine('maroon', impossible, 'impossible'));
-    }
-    return result;
-  };
-
   render() {
-    const { data, domain, unit } = this.props;
+    const { binding, data, domain, unit } = this.props;
     if (data.length === 0) {
       return (<NoChart noData />);
     }
@@ -150,7 +125,7 @@ class Chart extends PureComponent {
         <VictoryChart
           width={width}
           height={width}
-          padding={{ top: 16, bottom: 48, left: 48, right: 16 }}
+          padding={{ top: 20, bottom: 48, left: 48, right: 16 }}
           scale={{ x: 'time', y: 'linear' }}
           domain={{ x: domain, y: this._domain }}
           theme={VictoryTheme.material}
@@ -163,9 +138,12 @@ class Chart extends PureComponent {
           />
           <VictoryAxis
             dependentAxis
-            label={capitalize(unit)}
+            tickValues={this._yTickValues}
+            tickComponent={<YTick binding={binding} />}
+            tickLabelComponent={<YLabel binding={binding} />}
+            gridComponent={<HorizontalGridLine binding={binding} />}
+            axisComponent={<YAxis unit={this.props[`${unit}Unit`]} />}
           />
-          { this.renderBindings() }
           <VictoryLine
             data={data}
             x="date"

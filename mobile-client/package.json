@@ -22,6 +22,7 @@
 		"@ptomasroos/react-native-multi-slider": "^0.0.8",
 		"apollo-client": "^1.3.0",
 		"color": "^1.0.3",
+		"d3-scale": "^1.0.6",
 		"geocoordinate": "^1.0.1",
 		"graphql-anywhere": "^3.0.1",
 		"immutability-helper": "^2.2.2",

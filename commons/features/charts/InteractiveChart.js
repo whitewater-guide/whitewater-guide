@@ -28,6 +28,8 @@ export default (Layout, Chart, FlowToggle, PeriodToggle) => {
         impossible: PropTypes.number,
         approximate: PropTypes.number,
       }),
+      levelUnit: PropTypes.string,
+      flowUnit: PropTypes.string,
     };
 
     static defaultProps = {
@@ -72,6 +74,8 @@ export default (Layout, Chart, FlowToggle, PeriodToggle) => {
         data={data}
         unit={unit}
         domain={chartDomain}
+        levelUnit={this.props.levelUnit}
+        flowUnit={this.props.flowUnit}
         onDomainChanged={this.onDomainChanged}
       />);
       const flowToggle = <FlowToggle value={unit} onChange={this.onUnitChanged} />;
