@@ -1,14 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
-import {
-  VictoryAxis,
-  VictoryChart,
-  VictoryLine,
-  VictoryTheme,
-} from 'victory-native';
+import { VictoryAxis, VictoryChart, VictoryLine, VictoryTheme } from 'victory-native';
 import { StyleSheet, Dimensions, View } from 'react-native';
 import moment from 'moment';
-import capitalize from 'lodash/capitalize';
+import { capitalize, compact } from 'lodash';
 import NoChart from './NoChart';
 import TimeLabel from './TimeLabel';
 import TimeGridLine from './TimeGridLine';
@@ -57,14 +52,41 @@ class Chart extends PureComponent {
 
   constructor(props) {
     super(props);
+    this._period = '';
+    this._tickFormat = '';
+    this._tickCount = 0;
     this.computeChartSettings(props.domain);
+    this._domain = this.computeDomain(props);
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.domain !== this.props.domain) {
       this.computeChartSettings(nextProps.domain);
     }
+    if (nextProps.data !== this.props.data) {
+      this._domain = this.computeDomain(nextProps);
+    }
   }
+
+  computeDomain = ({ data, unit, binding }) => {
+    if (!data) {
+      return [0, 0];
+    }
+    let result = data.reduce(
+      ([min, max], { [unit]: value }) => [Math.min(value, min), Math.max(value, max)],
+      [Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY],
+    );
+    if (binding) {
+      const { minimum, maximum, optimum } = binding;
+      result = [
+        Math.min.apply(null, compact([result[0], minimum, maximum, optimum])),
+        Math.max.apply(null, compact([result[1], minimum, maximum, optimum])),
+      ];
+    }
+    // Manually apply padding. Chart is square (height === screen width)
+    const delta = (result[1] - result[0]) * (8 / width);
+    return [result[0] - delta, result[1] + delta];
+  };
 
   computeChartSettings = (domain) => {
     const [start, end] = domain;
@@ -76,12 +98,12 @@ class Chart extends PureComponent {
       period = 'weekly';
     }
     const settings = ChartSettings[period];
-    this.period = period;
-    this.tickFormat = date => moment(date).format(settings.tickFormat);
-    this.tickCount = settings.tickCount;
+    this._period = period;
+    this._tickFormat = date => moment(date).format(settings.tickFormat);
+    this._tickCount = settings.tickCount;
   };
 
-  rednderBindingLine = (color, value, key) => {
+  renderBindingLine = (color, value, key) => {
     const { domain } = this.props;
     const data = [
       { x: domain[0], y: value },
@@ -104,16 +126,16 @@ class Chart extends PureComponent {
     const { minimum, maximum, optimum, impossible } = binding;
     const result = [];
     if (minimum) {
-      result.push(this.rednderBindingLine('blue', minimum, 'minimum'));
+      result.push(this.renderBindingLine('blue', minimum, 'minimum'));
     }
     if (maximum) {
-      result.push(this.rednderBindingLine('red', maximum, 'maximum'));
+      result.push(this.renderBindingLine('red', maximum, 'maximum'));
     }
     if (optimum) {
-      result.push(this.rednderBindingLine('green', optimum, 'optimum'));
+      result.push(this.renderBindingLine('green', optimum, 'optimum'));
     }
-    if (impossible) {
-      result.push(this.rednderBindingLine('maroon', impossible, 'impossible'));
+    if (impossible && impossible <= this._domain[1]) {
+      result.push(this.renderBindingLine('maroon', impossible, 'impossible'));
     }
     return result;
   };
@@ -130,15 +152,14 @@ class Chart extends PureComponent {
           height={width}
           padding={{ top: 16, bottom: 48, left: 48, right: 16 }}
           scale={{ x: 'time', y: 'linear' }}
-          domain={{ x: domain }}
-          domainPadding={{ y: 20 }}
+          domain={{ x: domain, y: this._domain }}
           theme={VictoryTheme.material}
         >
           <VictoryAxis
-            tickFormat={this.tickFormat}
-            tickCount={this.tickCount}
-            tickLabelComponent={<TimeLabel angle={90} period={this.period} />}
-            gridComponent={<TimeGridLine period={this.period} />}
+            tickFormat={this._tickFormat}
+            tickCount={this._tickCount}
+            tickLabelComponent={<TimeLabel angle={90} period={this._period} />}
+            gridComponent={<TimeGridLine period={this._period} />}
           />
           <VictoryAxis
             dependentAxis
