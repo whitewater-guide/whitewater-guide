@@ -2,7 +2,6 @@ enum MediaType {
   photo
   video
   blog
-  uploaded_image
 }
 
 type Media {

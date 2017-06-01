@@ -11,6 +11,7 @@ import v8 from './v8';
 import v9 from './v9';
 import v10 from './v10';
 import v11 from './v11';
+import v12 from './v12';
 
 Migrations.add(v1);
 
@@ -60,6 +61,11 @@ Migrations.add(v10);
  * Altitude -> coordinates[2]
  */
 Migrations.add(v11);
+/**
+ * Remove bad media
+ * Rename media type: 'uploaded_image' to 'photo'
+ */
+Migrations.add(v12);
 
 Meteor.startup(() => {
   Migrations.migrateTo('latest');

@@ -63,7 +63,7 @@ export class MediaCollection extends Component {
 
   renderItem = (item, index) => {
     const value = _.assignWith({}, item, DEFAULT_MEDIA_ITEM, (itemValue, defValue, key) => itemValue || defValue);
-    const Item = value.type === 'uploaded_image' ? UploadedMediaItem : MediaItem;
+    const Item = value.type === 'photo' ? UploadedMediaItem : MediaItem;
     return (
       <Item
         key={`item${index}`}
@@ -87,7 +87,7 @@ export class MediaCollection extends Component {
   };
 
   onDrop = (acceptedFiles, rejectedFiles) => {
-    const newMedia = acceptedFiles.map(file => ({...DEFAULT_MEDIA_ITEM, type: 'uploaded_image', file}));
+    const newMedia = acceptedFiles.map(file => ({...DEFAULT_MEDIA_ITEM, type: 'photo', file}));
     let {field: {value = [], onChange}} = this.props;
     onChange([...value, ...newMedia]);
     const rejectedNames = rejectedFiles.map(f => f.name).join(', ');

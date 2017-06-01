@@ -8,7 +8,7 @@ import path from 'path';
 export function upsertMedia(items, language) {
   //When media is deleted, hook will delete its file
   const newItems = items.map(({file, url, ...item}) => {
-    if (item.type === 'uploaded_image' && file)
+    if (item.type === 'photo' && file)
       url = file.filename + path.extname(file.originalname).toLowerCase();
     return {...item, url};
   });
