@@ -10,7 +10,7 @@ class MediaItem extends Component {
   static propTypes = {
     value: PropTypes.shape({
       url: PropTypes.string,
-      type: PropTypes.oneOf(['photo','video','blog']),
+      type: PropTypes.oneOf(['video','blog']),
       description: PropTypes.string,
       copyright: PropTypes.string,
     }),
@@ -41,7 +41,6 @@ class MediaItem extends Component {
               errorText={_.get(error, 'type')}
               hintText="Type"
             >
-              <MenuItem value="photo" primaryText="External photo" />
               <MenuItem value="video" primaryText="External video" />
               <MenuItem value="blog" primaryText="External blog" />
             </SelectField>

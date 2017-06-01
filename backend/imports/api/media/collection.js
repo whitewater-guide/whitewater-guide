@@ -14,6 +14,8 @@ const baseSchema = {
   _id: {type: String, regEx: SimpleSchema.RegEx.Id},
   url: {type: String},
   type: {type: String, allowedValues: ["photo", "video", "blog"]},
+  width: Number,
+  height: Number,
 };
 
 const dbSchema = _.merge(

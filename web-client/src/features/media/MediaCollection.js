@@ -8,7 +8,7 @@ import Dropzone from 'react-dropzone';
 import Snackbar from 'material-ui/Snackbar';
 import _ from 'lodash';
 
-const DEFAULT_MEDIA_ITEM = {url: '', type: 'photo', description: '', copyright: '', deleted: false, file: null};
+const DEFAULT_MEDIA_ITEM = {url: '', type: 'video', description: '', copyright: '', deleted: false, file: null};
 const MAX_FILE_SIZE = 1024 * 1024;
 
 export class MediaCollection extends Component {

@@ -12,6 +12,7 @@ import v9 from './v9';
 import v10 from './v10';
 import v11 from './v11';
 import v12 from './v12';
+import v13 from './v13';
 
 Migrations.add(v1);
 
@@ -66,6 +67,10 @@ Migrations.add(v11);
  * Rename media type: 'uploaded_image' to 'photo'
  */
 Migrations.add(v12);
+/**
+ * Add width and height to uploaded photos
+ */
+Migrations.add(v13);
 
 Meteor.startup(() => {
   Migrations.migrateTo('latest');
