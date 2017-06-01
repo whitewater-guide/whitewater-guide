@@ -25,7 +25,7 @@ export class BatchedUploadHTTPFetchNetworkInterface extends BaseNetworkInterface
         hasFile = true;
         const id = Math.random().toString(36);
         this.uploadInterface.formData.append(id, node);
-        set(path.join('.'), id)(request.variables);
+        request.variables = set(path.join('.'), id)(request.variables);
       }
     }
 
