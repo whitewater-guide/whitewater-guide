@@ -35,6 +35,7 @@ export const config = {
     port: PORT,
     proxy: {
       "/graphql": "http://localhost:3333",
+      "/thumbs": "http://localhost:3333",
     },
     quiet: true,
   },

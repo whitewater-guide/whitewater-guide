@@ -24,7 +24,7 @@ server {
     }
 
     # Of all meteor backend, we only need graphql endpoint and websocket subscriptions endpoint
-    location ~ ^/(graphql|subscriptions|subscriptions/) {
+    location ~ ^/(graphql|thumbs|subscriptions|subscriptions/) {
         passenger_base_uri /;
         passenger_app_root /home/app/webapp/bundle;
         passenger_document_root /home/app/webapp/bundle/public;

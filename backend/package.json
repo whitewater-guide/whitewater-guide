@@ -39,6 +39,7 @@
     "node-fetch": "^1.6.1",
     "queue": "^4.0.0",
     "recursive-iterator": "^2.0.3",
+    "sharp": "^0.18.1",
     "simpl-schema": "^0.2.2",
     "subscriptions-transport-ws": "^0.5.5"
   },

@@ -1,5 +1,6 @@
 import './accounts';
 import './register-api';
+import './thumbnails';
 import './apollo';
 
 import '../migrations';
