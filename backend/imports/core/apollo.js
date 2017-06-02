@@ -10,7 +10,10 @@ import {graphqlServerExpressUpload, multerUploads} from './uploads'
 import { initSubscriptions } from '../subscriptions';
 
 // Load all accounts related resolvers and type definitions into graphql-loader
-initAccounts({});
+initAccounts({
+  loginWithFacebook: true,
+  loginWithPassword: false,
+});
 
 loadSchema({
   typeDefs,

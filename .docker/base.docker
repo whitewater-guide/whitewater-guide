@@ -50,7 +50,7 @@ RUN mkdir -p /uploads/images \
  && chmod -R 777 /uploads
 
 # Create meteor's package.json and install dependencies
-ADD https://raw.githubusercontent.com/meteor/meteor/release-1.4.2.6/scripts/dev-bundle-server-package.js /home/app/webapp/bundle/programs/server/
+ADD https://raw.githubusercontent.com/meteor/meteor/release-1.5/scripts/dev-bundle-server-package.js /home/app/webapp/bundle/programs/server/
 RUN cd /home/app/webapp/bundle/programs/server/ \
  && node dev-bundle-server-package.js >> package.json \
  && npm install --production \

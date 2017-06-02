@@ -8,6 +8,7 @@ const ListUsersQuery = gql`
       _id,
       email,
       profile {
+        id
         name,
         link,
       },
