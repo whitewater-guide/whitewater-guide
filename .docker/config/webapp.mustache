@@ -16,8 +16,6 @@ server {
     # Tell your app what its root URL is
     passenger_env_var ROOT_URL http://{{SERVER_NAME}};
     passenger_env_var METEOR_SETTINGS '{{METEOR_SETTINGS}}';
-    passenger_env_var KADIRA_APP_ID {{KADIRA_APP_ID}};
-    passenger_env_var KADIRA_APP_SECRET {{KADIRA_APP_SECRET}};
 
     location / {
         try_files $uri /index.html;
