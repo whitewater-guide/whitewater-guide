@@ -2,68 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import TextField from 'material-ui/TextField';
 import IconButton from 'material-ui/IconButton';
+import { get } from 'lodash';
 import MediaPreviewButton from './MediaPreviewButton';
-import _ from 'lodash';
-
-export default class UploadedMediaItem extends React.Component {
-  static propTypes = {
-    value: PropTypes.shape({
-      url: PropTypes.string,
-      description: PropTypes.string,
-      copyright: PropTypes.string,
-    }),
-    error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-    onChange: PropTypes.func,
-  };
-
-
-  render() {
-    let {error, value} = this.props;
-    const delStyle = value.deleted ? styles.deleted : {};
-    return (
-      <div style={styles.container}>
-        <div style={{...delStyle, ...styles.col}}>
-          <div style={styles.row}>
-            {value.file && <span>{`Original file: ${value.file.name}`}</span>}
-            <TextField
-              fullWidth={true}
-              errorText={_.get(error, 'description')}
-              value={value.description}
-              onChange={this.onDescriptionChange}
-              hintText="Description"
-            />
-            <TextField
-              fullWidth={true}
-              errorText={_.get(error, 'copyright')}
-              value={value.copyright}
-              onChange={this.onCopyrightChange}
-              hintText="Copyright"
-            />
-          </div>
-          <MediaPreviewButton value={value}/>
-        </div>
-        <div style={styles.icon}>
-          <IconButton iconClassName="material-icons" onTouchTap={this.onDelete}>
-            {value.deleted ? 'undo' : 'clear'}
-          </IconButton>
-        </div>
-      </div>
-
-    );
-  }
-
-  onDescriptionChange = (event, value) => {
-    this.props.onChange({description: value});
-  };
-
-  onCopyrightChange = (event, value) => {
-    this.props.onChange({copyright: value});
-  };
-
-  onDelete = () => {
-    this.props.onChange({deleted: !this.props.value.deleted});
-  };
-}
 
 const styles = {
   container: {
@@ -97,7 +37,67 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
   },
-  img: {
-    width: 64,
-  }
 };
+
+export default class UploadedMediaItem extends React.Component {
+  static propTypes = {
+    value: PropTypes.shape({
+      url: PropTypes.string,
+      description: PropTypes.string,
+      copyright: PropTypes.string,
+      deleted: PropTypes.boolean,
+    }).isRequired,
+    error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+    onChange: PropTypes.func.isRequired,
+  };
+
+  static defaultProps = {
+    error: null,
+  };
+
+  onDescriptionChange = (event, description) => {
+    this.props.onChange({ description });
+  };
+
+  onCopyrightChange = (event, copyright) => {
+    this.props.onChange({ copyright });
+  };
+
+  onDelete = () => {
+    this.props.onChange({ deleted: !this.props.value.deleted });
+  };
+
+  render() {
+    const { error, value } = this.props;
+    const delStyle = value.deleted ? styles.deleted : {};
+    return (
+      <div style={styles.container}>
+        <div style={{ ...delStyle, ...styles.col }}>
+          <div style={styles.row}>
+            {value.file && <span>{`Original file: ${value.file.name}`}</span>}
+            <TextField
+              fullWidth
+              errorText={get(error, 'description')}
+              value={value.description}
+              onChange={this.onDescriptionChange}
+              hintText="Description"
+            />
+            <TextField
+              fullWidth
+              errorText={get(error, 'copyright')}
+              value={value.copyright}
+              onChange={this.onCopyrightChange}
+              hintText="Copyright"
+            />
+          </div>
+          <MediaPreviewButton value={value} />
+        </div>
+        <div style={styles.icon}>
+          <IconButton iconClassName="material-icons" onTouchTap={this.onDelete}>
+            {value.deleted ? 'undo' : 'clear'}
+          </IconButton>
+        </div>
+      </div>
+    );
+  }
+}
