@@ -11,11 +11,14 @@ const styles = {
     marginLeft: 8,
   },
   previewHolder: {
+    position: 'relative',
     width: 64,
     height: 64,
   },
   icon: {
     position: 'absolute',
+    top: 0,
+    left: 0,
     width: 64,
     height: 64,
     backgroundColor: 'rgba(0,0,0,0.3)',
@@ -24,7 +27,9 @@ const styles = {
     color: 'white',
   },
   img: {
-    position: 'absolute',
+    position: 'relative',
+    top: 0,
+    left: 0,
     width: 64,
     height: 64,
   },
