@@ -1,11 +1,21 @@
-FROM phusion/passenger-nodejs:0.9.20
+FROM phusion/passenger-customizable:0.9.20
 
-LABEL version="1.4"
+LABEL version="1.5"
 
 # This build passenger and bakes in backend and frontend code
 
 # Set correct environment variables.
 ENV HOME /root
+
+# Do not use nodejs.sh from phusion, because it insalls bad node version
+COPY .docker/pd_build/*.* /pd_build/
+RUN chown app:app /pd_build/nodejs.sh \
+  && chmod a+x /pd_build/nodejs.sh
+
+# This will install node with version pinned to match meteor's node version
+RUN apt-get update
+RUN /pd_build/python.sh
+RUN /pd_build/nodejs.sh
 
 ARG NODE_ENV
 
