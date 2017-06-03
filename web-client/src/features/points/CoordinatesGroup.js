@@ -3,10 +3,35 @@ import React, { Component } from 'react';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
-import _ from 'lodash';
+import { get, isString, isNil, memoize, compact } from 'lodash';
+import { set } from 'lodash/fp';
 import { SelectPointsDialog } from '../../core/forms';
 import { TextField } from '../../core/components';
 import { POITypes } from './POITypes';
+
+const styles = {
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    minWidth: 360,
+  },
+  row: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  col: {
+    display: 'flex',
+    flex: 1,
+  },
+  textInput: {
+    width: '100%',
+    minWidth: 100,
+  },
+  deleted: {
+    pointerEvents: 'none',
+    opacity: 0.4,
+  },
+};
 
 export class CoordinatesGroup extends Component {
   static propTypes = {
@@ -27,65 +52,115 @@ export class CoordinatesGroup extends Component {
     mapDialog: true,
   };
 
-  state = {
-    dialogOpen: false,
+  constructor(props) {
+    super(props);
+    this.state = {
+      dialogOpen: false,
+    };
+  }
+
+  onChange = memoize(attribute => (e, value) => {
+    const fieldValue = this.props.field.value;
+    const newFieldValue = set(attribute, value, fieldValue);
+    const emptyInput = v => isNil(v) || v === '';
+    if (
+      !this.props.detailed &&
+      emptyInput(get(newFieldValue, 'coordinates.0')) &&
+      emptyInput(get(newFieldValue, 'coordinates.1')) &&
+      emptyInput(get(newFieldValue, 'coordinates.2'))
+    ) {
+      this.props.field.onChange(undefined);
+    } else {
+      this.props.field.onChange(newFieldValue);
+    }
+  });
+
+  onKindChange = (e, i, kind) => this.onChange('kind')(e, kind);
+
+  onDelete = () => {
+    const value = this.props.field.value;
+    this.props.field.onChange({ ...value, deleted: !value.deleted });
   };
 
+  onCloseDialog = () => this.setState({ dialogOpen: false });
+
+  onSubmitDialog = ([coordinates]) => {
+    this.setState({ dialogOpen: false });
+    const { field: { value } } = this.props;
+    this.onChange({ ...value, coordinates });
+  };
+
+  mapButtonHandler = () => {
+    if (this.props.mapButtonHandler) {
+      this.props.mapButtonHandler();
+    } else {
+      this.setState({ dialogOpen: true });
+    }
+  };
+
+  renderPointKind = item => <MenuItem key={item} value={item} primaryText={item} />;
+
   render() {
-    let value = _.get(this, 'props.field.value', {});
-    let errorString = '';//Global field error (for example, coordinate field is required), not rendered for now
+    const value = get(this, 'props.field.value', {});
+    let errorString = '';// Global field error (for example, coordinate field is required), not rendered for now
     let errors = {};
-    if (_.isString(this.props.field.error))
+    if (isString(this.props.field.error)) {
       errorString = this.props.field.error;
-    else
+    } else {
       errors = this.props.field.error;
-    const dialogPoints = _.compact([_.get(value, 'coordinates')]);
+    }
+    const dialogPoints = compact([get(value, 'coordinates')]);
+    const delStyle = value.deleted ? { ...styles.deleted } : {};
     return (
       <div style={styles.container}>
         {this.props.title && <h3>{this.props.title}</h3>}
         { this.props.detailed &&
         <div style={styles.row}>
-          <TextField
-            fullWidth={true}
-            errorText={_.get(errors, 'name')}
-            value={_.get(value, 'name', '')}
-            onChange={this.onNameChange}
-            hintText="Name"
-            floatingLabelText="Name"
-          />
-          <SelectField
-            value={_.get(value, 'kind')}
-            onChange={this.onKindChange}
-            errorText={_.get(errors, 'kind')}
-            floatingLabelText="Type"
-          >
-            {POITypes.map(this.renderPointKind)}
-          </SelectField>
+          <div style={{ ...styles.row, flex: 1, ...delStyle }}>
+            <TextField
+              fullWidth
+              errorText={get(errors, 'name')}
+              value={get(value, 'name', '')}
+              onChange={this.onChange('name')}
+              hintText="Name"
+              floatingLabelText="Name"
+            />
+            <SelectField
+              value={get(value, 'kind')}
+              onChange={this.onKindChange}
+              errorText={get(errors, 'kind')}
+              floatingLabelText="Type"
+            >
+              {POITypes.map(this.renderPointKind)}
+            </SelectField>
+          </div>
           <IconButton iconClassName="material-icons" onTouchTap={this.onDelete}>
             {value.deleted ? 'undo' : 'clear'}
           </IconButton>
         </div>
         }
         { this.props.detailed &&
-        <TextField
-          fullWidth={true}
-          errorText={_.get(errors, 'description')}
-          value={_.get(value, 'description', '')}
-          onChange={this.onDescriptionChange}
-          hintText="Description"
-          multiLine={true}
-          floatingLabelText="Description"
-        />
+        <div style={{ ...styles.row, flex: 1, ...delStyle }}>
+          <TextField
+            fullWidth
+            multiLine
+            errorText={get(errors, 'description')}
+            value={get(value, 'description', '')}
+            onChange={this.onChange('description')}
+            hintText="Description"
+            floatingLabelText="Description"
+          />
+        </div>
         }
 
-        <div style={styles.row}>
+        <div style={{ ...styles.row, flex: 1, ...delStyle }}>
           <div style={styles.col}>
             <TextField
               style={styles.textInput}
               type="number"
-              errorText={_.get(errors, 'coordinates.1')}
-              value={_.get(value, 'coordinates.1', '')}
-              onChange={this.onLatitudeChange}
+              errorText={get(errors, 'coordinates.1')}
+              value={get(value, 'coordinates.1', '')}
+              onChange={this.onChange('coordinates.1')}
               hintText="Latitude"
               floatingLabelText="Latitude"
             />
@@ -94,9 +169,9 @@ export class CoordinatesGroup extends Component {
             <TextField
               style={styles.textInput}
               type="number"
-              errorText={_.get(errors, 'coordinates.0')}
-              value={_.get(value, 'coordinates.0', '')}
-              onChange={this.onLongitudeChange}
+              errorText={get(errors, 'coordinates.0')}
+              value={get(value, 'coordinates.0', '')}
+              onChange={this.onChange('coordinates.0')}
               hintText="Longitude"
               floatingLabelText="Longitude"
             />
@@ -105,9 +180,9 @@ export class CoordinatesGroup extends Component {
             <TextField
               style={styles.textInput}
               type="number"
-              errorText={_.get(errors, 'coordinates.2')}
-              value={_.get(value, 'coordinates.2', '')}
-              onChange={this.onAltitudeChange}
+              errorText={get(errors, 'coordinates.2')}
+              value={get(value, 'coordinates.2', '')}
+              onChange={this.onChange('coordinates.2')}
               hintText="Altitude"
               floatingLabelText="Altitude"
             />
@@ -135,99 +210,4 @@ export class CoordinatesGroup extends Component {
     );
   }
 
-  renderPointKind = (item) => {
-    return (
-      <MenuItem key={item} value={item} primaryText={item} />
-    );
-  };
-
-  onKindChange = (event, index, kind) => {
-    let { field: { value } } = this.props;
-    this.onChange({ ...value, kind });
-  };
-
-  onNameChange = (e, name) => {
-    let { field: { value } } = this.props;
-    this.onChange({ ...value, name });
-  };
-
-  onDescriptionChange = (e, description) => {
-    let { field: { value } } = this.props;
-    this.onChange({ ...value, description });
-  };
-
-  onAltitudeChange = (e, altitude) => {
-    let { field: { value } } = this.props;
-    this.onChange({ ...value, coordinates: [_.get(value, 'coordinates.0'), _.get(value, 'coordinates.1'), altitude] });
-  };
-
-  onLongitudeChange = (e, longitude) => {
-    let { field: { value } } = this.props;
-    this.onChange({ ...value, coordinates: [longitude, _.get(value, 'coordinates.1'), _.get(value, 'coordinates.2')] });
-  };
-
-  onLatitudeChange = (e, latitude) => {
-    let { field: { value } } = this.props;
-    this.onChange({ ...value, coordinates: [_.get(value, 'coordinates.0'), latitude, _.get(value, 'coordinates.2')] });
-  };
-
-  onDelete = () => {
-    const value = this.props.field.value;
-    this.props.field.onChange({ ...value, deleted: !value.deleted });
-  };
-
-  onChange = (value) => {
-    const emptyInput = v => v === undefined || v === '';
-    if (
-      !this.props.detailed &&
-      emptyInput(_.get(value, 'coordinates.0')) &&
-      emptyInput(_.get(value, 'coordinates.1')) &&
-      emptyInput(_.get(value, 'coordinates.2'))
-    ) {
-      this.props.field.onChange(undefined);
-    }
-    else {
-      this.props.field.onChange(value);
-    }
-  };
-
-  mapButtonHandler = () => {
-    if (this.props.mapButtonHandler) {
-      this.props.mapButtonHandler();
-    }
-    else {
-      this.setState({ dialogOpen: true });
-    }
-  };
-
-  onCloseDialog = () => {
-    this.setState({ dialogOpen: false });
-  };
-
-  onSubmitDialog = ([coordinates]) => {
-    this.setState({ dialogOpen: false });
-    let { field: { value } } = this.props;
-    this.onChange({ ...value, coordinates });
-  };
-
 }
-
-const styles = {
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    minWidth: 360,
-  },
-  row: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  col: {
-    display: 'flex',
-    flex: 1,
-  },
-  textInput: {
-    width: '100%',
-    minWidth: 100,
-  },
-};
