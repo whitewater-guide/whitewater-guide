@@ -10,7 +10,6 @@ function harvest(){
       return response.json();
     })
     .then(function (json) {
-      console.log(json);
       var gauges = json.listaAforos;
       var numGauges = gauges.length;
       var result = [];

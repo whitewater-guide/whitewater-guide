@@ -39,10 +39,11 @@ function autofillSource(root, {_id}) {
   return new Promise(
     (resolve, reject) => {
       launchScript(scriptName, 'autofill', (error, result) => {
-        if (error)
+        if (error) {
           reject(error);
-        else
+        } else {
           resolve(result);
+        }
       });
     }
   )
@@ -51,6 +52,7 @@ function autofillSource(root, {_id}) {
     gauges.forEach(gauge => upsertGauge({gauge: {sourceId: _id, ...gauge}}));
     return true;
   })
+  .catch(error => console.error('Autofill error', error));
 }
 
 function upsertSource(root, {source: {_id, ...source}, language}) {

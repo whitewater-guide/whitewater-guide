@@ -32,7 +32,7 @@ gulp.task('bundle-workers', function () {
       };
       file.contents = browserify(file.path, browserifyOpts)
         .transform("babelify", {
-          presets: ["latest"],
+          presets: ["es2015"],
           global: true,
           ignore: ["node_modules/moment/*"]
         })
