@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React from 'react';
 import Paper from 'material-ui/Paper';
-import { AutoSizer} from 'react-virtualized';
+import { AutoSizer } from 'react-virtualized';
 import { SectionsTable } from '../sections';
 import container from './ViewRiverContainer';
 
@@ -22,22 +22,20 @@ const styles = {
   },
 };
 
-class ViewRiver extends Component {
+class ViewRiver extends React.PureComponent {
   static propTypes = {
     river: PropTypes.object,
-    loading: PropTypes.bool,
     admin: PropTypes.bool,
     history: PropTypes.object,
+    removeSection: PropTypes.func,
   };
-
 
   onEditSection = sectionId => this.props.history.push(`/sections/${sectionId}/settings`);
   onSectionClick = sectionId => this.props.history.push(`/sections/${sectionId}`);
+  onDeleteSection = sectionId => this.props.removeSection(sectionId);
 
   render() {
-    const { river, loading, admin } = this.props;
-    if (!river && loading)
-      return null;
+    const { river, admin } = this.props;
     return (
       <div style={styles.container}>
         <div style={styles.body}>
@@ -52,12 +50,12 @@ class ViewRiver extends Component {
                   sections={river.sections}
                   width={width}
                   height={height}
+                  onDeleteSection={this.onDeleteSection}
                   onEditSection={this.onEditSection}
                   onSectionClick={this.onSectionClick}
                 />
               )}
             </AutoSizer>
-
           </Paper>
         </div>
       </div>
