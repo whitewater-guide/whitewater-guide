@@ -25,7 +25,8 @@ Backend is currently one-piece meteor app.
 
 Here is the build sequence:
 - Bundle web-client using webpack
-- Bundle backend using meteor's own build system
+- Bundle backend using meteor's own build system. This step is done inside dedicated docker container, 
+so binary dependencies like `sharp` are built in same environment as production. 
 - Merge them into one archive, as it is easier to upload and chown later
 - This three steps are automated in `build.sh` script
 - Check if meteor version was changed, or some changes were made to `backend/settings.production.json`. 
