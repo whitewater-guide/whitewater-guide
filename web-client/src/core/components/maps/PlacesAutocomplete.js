@@ -61,7 +61,7 @@ export default class PlacesAutocomplete extends React.Component {
     const dataSource = [...this.state.autocompleteResult, ...this.state.placesResult];
     const place = dataSource[index].value;
     if (place.geometry) {
-      this.props.map.panTo(place.geometry.location);
+      this.panZoomTo(place);
     } else {
       this.placesService.getDetails({ placeId: place.place_id }, this.onDetailsReceived);
     }
@@ -69,8 +69,13 @@ export default class PlacesAutocomplete extends React.Component {
 
   onDetailsReceived = (place, status) => {
     if (status === this.props.maps.places.PlacesServiceStatus.OK) {
-      this.props.map.panTo(place.geometry.location);
+      this.panZoomTo(place);
     }
+  };
+
+  panZoomTo = (place) => {
+    this.props.map.panTo(place.geometry.location);
+    this.props.map.setZoom(11);
   };
 
   render() {

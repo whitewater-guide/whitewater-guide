@@ -103,14 +103,17 @@ export default class DrawingMap extends React.Component {
         anchor: new this.maps.Point(0, 0),
         scale: 1,
       };
+      const latLng = { lat: points[0][1], lng: points[0][0] };
       const marker = new this.maps.Marker({
-        position: { lat: points[0][1], lng: points[0][0] },
+        position: latLng,
         map: this.map,
         draggable: false,
         clickable: false,
         icon,
         zIndex: -20,
       });
+      this.map.panTo(latLng);
+      this.map.setZoom(11);
     }
   }
 
