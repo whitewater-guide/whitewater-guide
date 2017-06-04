@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class Map extends React.Component {
+class Map extends React.PureComponent {
   static propTypes = {
     initialBounds: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
     onZoom: PropTypes.func.isRequired,
@@ -35,20 +35,12 @@ class Map extends React.Component {
     this._bounds = undefined;
     this._requestedGeolocation = !props.requestGeolocation;
     const [minLng, maxLng, minLat, maxLat] = getBBox(props.initialBounds);
-    this.state = {
-      region: {
-        latitude: (maxLat + minLat) / 2,
-        longitude: (maxLng + minLng) / 2,
-        latitudeDelta: (maxLat - minLat) / 2,
-        longitudeDelta: (maxLng - minLng) / 2,
-      },
+    this._initialRegion = {
+      latitude: (maxLat + minLat) / 2,
+      longitude: (maxLng + minLng) / 2,
+      latitudeDelta: (maxLat - minLat) / 2,
+      longitudeDelta: (maxLng - minLng) / 2,
     };
-  }
-
-  componentWillUnmount() {
-    if (this.props.onBoundsSelected) {
-      this.props.onBoundsSelected(this._bounds);
-    }
   }
 
   onMapLayout = ({ nativeEvent: { layout: { width, height } } }) => {
@@ -107,7 +99,7 @@ class Map extends React.Component {
     ];
     const zoomLevel = getBoundsZoomLevel(this._bounds, this.dimensions);
     this.props.onZoom(zoomLevel);
-    this.setState({ region });
+    this.props.onBoundsSelected(this._bounds);
   };
 
   setMapView = (mapView) => { this.mapView = mapView; };
@@ -116,8 +108,8 @@ class Map extends React.Component {
     return (
       <MapView
         showsUserLocation
-        showsMyLocationButton
-        region={this.state.region}
+        showsMyLocationButton={false}
+        initialRegion={this._initialRegion}
         ref={this.setMapView}
         style={styles.container}
         provider={PROVIDER_GOOGLE}
