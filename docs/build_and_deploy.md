@@ -26,7 +26,17 @@ Backend is currently one-piece meteor app.
 Here is the build sequence:
 - Bundle web-client using webpack
 - Bundle backend using meteor's own build system. This step must be done inside dedicated docker container, 
-so binary dependencies like `sharp` are built in same environment as production. 
+so binary dependencies like `sharp` are built in same environment as production. Base image of this bundler can be built like this:
+    ```bash
+    docker build -f ./.docker/meteor_bundler_base.docker -t wwguide_meteor_bundler .
+    ```
+    Then tag and publish it:
+    ```bash
+    docker login
+    docker tag wwguide_meteor_bundler doomsower/wwguide_meteor_bundler:1.0
+    docker push doomsower/wwguide_meteor_bundler
+    ```
+    Update `meteor_bundler.docker` to use latest version of this image
 - Merge them into one archive, as it is easier to upload and chown later
 - Check if meteor version was changed, or some changes were made to `backend/settings.production.json`. 
   In this case, passenger base image `doomsower/whitewater_passenger_base` must be rebuilt, see next step.
