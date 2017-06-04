@@ -49,10 +49,16 @@ function autofillSource(root, {_id}) {
   )
   .then(gauges => {
     console.log(`Found ${gauges.length} gauges`);
-    gauges.forEach(gauge => upsertGauge({gauge: {sourceId: _id, ...gauge}}));
+    gauges.forEach(gauge => {
+      try {
+        upsertGauge({ gauge: { sourceId: _id, ...gauge } })
+      } catch (err) {
+        console.error('Failed to upsert gauge while autofilling source:', gauge);
+      }
+    });
     return true;
   })
-  .catch(error => console.error('Autofill error', error));
+  .catch(error => console.error(`Script ${scriptName} autofill error:`, error));
 }
 
 function upsertSource(root, {source: {_id, ...source}, language}) {

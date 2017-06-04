@@ -42,44 +42,48 @@ done
 exec > >(tee -i build/production.log)
 exec 2>&1
 
-if [ "$BUILD_SERVER" = true ]
-then
-    echo "----------- BUILDING METEOR BUNDLER IMAGE -------------"
-    docker build --force-rm -f ./.docker/meteor_bundler.docker --tag docker_bundler_image .
-    echo "----------- BUNDLING METEOR INSIDE DOCKER CONTAINER -------------"
-    docker run --rm --volume `pwd`/backend/build:/build docker_bundler_image
-    echo "----------- BUNDLING COMPLETE ------------"
-    docker rmi docker_bundler_image
-fi
+TIMEFORMAT="Completed in %R seconds..."
+time {
 
-if [ "$BUILD_CLIENT" = true ]
-then
-    echo "----------- BUNDLING CLIENT CODE ------------"
-    cd web-client
-    yarn run build
-    cd ../
-    echo "----------- CLIENT CODE BUNDLED ------------"
-fi
+    if [ "$BUILD_SERVER" = true ]
+    then
+        echo "----------- BUILDING METEOR BUNDLER IMAGE -------------"
+        docker build --force-rm -f ./.docker/meteor_bundler.docker --tag docker_bundler_image .
+        echo "----------- BUNDLING METEOR INSIDE DOCKER CONTAINER -------------"
+        docker run --rm --volume `pwd`/backend/build:/build docker_bundler_image
+        echo "----------- BUNDLING COMPLETE ------------"
+        docker rmi docker_bundler_image
+    fi
 
-if [ "$DEPLOY" = true ]
-then
-    echo "----------- REMOVING OLD BUNDLE ------------"
-    rm build/bundle.tar.gz
-    echo "----------- COMPRESSING CLIENT AND SERVER BUNDLE ------------"
-    tar -czf build/bundle.tar.gz \
-        -C backend/build . \
-        --transform 's,^build,bundle/public,' -C ../../web-client build
-    echo "----------- DOCKER ENV WWGUIDE ------------"
-    eval $(docker-machine env wwguide)
+    if [ "$BUILD_CLIENT" = true ]
+    then
+        echo "----------- BUNDLING CLIENT CODE ------------"
+        cd web-client
+        yarn run build
+        cd ../
+        echo "----------- CLIENT CODE BUNDLED ------------"
+    fi
 
-    # In production, we have to down everything, otherwise we will run out of memory
-    # while building new images
-    echo "----------- STOP OLD CONTAINERS ------------"
-    docker-compose -f ${NODE_ENV}.yml down
-    docker rm $(docker ps -a -q)
-    docker rmi $(docker images --quiet --filter "dangling=true")
-    echo "----------- RUN DOCKER COMPOSE ------------"
-    docker-compose -f ${NODE_ENV}.yml up -d --build
-fi
+    if [ "$DEPLOY" = true ]
+    then
+        echo "----------- REMOVING OLD BUNDLE ------------"
+        rm build/bundle.tar.gz
+        echo "----------- COMPRESSING CLIENT AND SERVER BUNDLE ------------"
+        tar -czf build/bundle.tar.gz \
+            -C backend/build . \
+            --transform 's,^build,bundle/public,' -C ../../web-client build
+        echo "----------- DOCKER ENV WWGUIDE ------------"
+        eval $(docker-machine env wwguide)
 
-echo "DONE"
+        # In production, we have to down everything, otherwise we will run out of memory
+        # while building new images
+        echo "----------- STOP OLD CONTAINERS ------------"
+        docker-compose -f ${NODE_ENV}.yml down
+        docker rm $(docker ps -a -q)
+        docker rmi $(docker images --quiet --filter "dangling=true")
+        echo "----------- RUN DOCKER COMPOSE ------------"
+        docker-compose -f ${NODE_ENV}.yml up -d --build
+    fi
+
+    echo "DONE"
+}

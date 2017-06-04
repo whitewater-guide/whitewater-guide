@@ -13,6 +13,9 @@ axiosCookieJarSupport(axios);
 const cookieJar = new tough.CookieJar();
 const URL_BASE = 'http://saih.chminosil.es/';
 
+const DELIM_1 = '<!----------------------------------------------------------------------------- LINEA 1 ------------------------------------------------------------------>';
+const DELIM_2 = '<!----------------------------------------------------------------------------- LINEA 2 ------------------------------------------------------------------>';
+
 // Because axios loses baseURL on relative redirects
 axios.interceptors.request.use(function(config) {
   if ( !/^(?:\w+:)\/\//.test(config.url) ) {
@@ -40,7 +43,7 @@ function harvest() {
     const rows = $('tr').nextAll().map((i, el) => {
       const cols = $(el).find('td');
       const station = cols.eq(1).text();
-      const level = cols.eq(5).text();
+      const level = parseFloat(cols.eq(5).text().replace(',', '.'));
       const date = cols.eq(6).text();
       let [full, code, name] = stationRegexp.exec(station);
       name = words(name)
@@ -51,7 +54,8 @@ function harvest() {
       return {
         code,
         name,
-        level,
+        level: isNaN(level) ? 0 : level,
+        flow: 0,
         timestamp,
         url,
         levelUnit: 'm',
@@ -71,9 +75,21 @@ function parseGaugePage(url) {
     jar: cookieJar,
     withCredentials: true,
   }).then(response => {
-    const $ = cheerio.load(response.data);
-    const locEl = $('td')
-      .filter((i, el) => {
+    const html = response.data;
+    let startIndex = html.indexOf(DELIM_1) + DELIM_1.length;
+    let endIndex = html.indexOf(DELIM_2);
+    if (startIndex === -1 || endIndex === -1) {
+      return {};
+    }
+    let fragment = html.substring(startIndex, endIndex).trim();
+    startIndex = fragment.indexOf('<tr>', 5);
+    endIndex = fragment.indexOf('</tr>', startIndex) + 5;
+    if (startIndex === -1 || endIndex === -1) {
+      return {};
+    }
+    fragment = fragment.substring(startIndex, endIndex).trim();
+    const $ = cheerio.load(fragment, { xmlMode: true });
+    const locEl = $('td').filter((i, el) => {
         const td = $(el);
         return td.attr('class') === 'celdac' && td.attr('colspan') === '2';
       })
@@ -100,15 +116,15 @@ function parseGaugePage(url) {
 function autofill(autofillCallback) {
   harvest()
     .then(gauges => {
-      const q = new queue({ concurrency: 3 });
+      const q = new queue({ concurrency: 1 });
       gauges.forEach(gauge => q.push(function(qcb){
         parseGaugePage(gauge.url)
           .then(({ location }) => {
             gauge.location = location;
+            global.gc();
             qcb();
           })
           .catch(error => {
-            console.error(error);
             qcb();
           })
       }));
@@ -116,7 +132,10 @@ function autofill(autofillCallback) {
         autofillCallback(e, gauges);
       });
     })
-    .catch(error => autofillCallback(error));
+    .catch(error => {
+      console.error('Galicia autofill error', error);
+      autofillCallback(error);
+    });
 }
 
 launchWorker(
@@ -125,7 +144,7 @@ launchWorker(
   function harvestHandler(options, callback) {
     harvest()
       .then(gauges => {
-        var measurements = gauges.map(g => ({
+        const measurements = gauges.map(g => ({
           code: g.code,
           timestamp: new Date(g.timestamp),
           level: g.level,
@@ -136,3 +155,16 @@ launchWorker(
       .catch(error => callback(error, null));
   }
 );
+
+// axios.get('http://saih.chminosil.es', {
+//   headers: {
+//     'Cache-Control': 'no-cache',
+//     'Pragma': 'no-cache',
+//   },
+//   maxRedirects: 10,
+//   jar: cookieJar,
+//   withCredentials: true,
+// }).then(() => {
+//   parseGaugePage('http://saih.chminosil.es/index.php?url=/datos/ficha/estacion:N030')
+//     .then(result => console.log(result));
+// });

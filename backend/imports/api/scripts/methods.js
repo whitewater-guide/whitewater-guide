@@ -32,14 +32,15 @@ export function listScripts(){
 
 export function launchScript(script, mode, cb){
   const file = path.resolve(process.cwd(), 'assets/app/workers', `${script}.js`);
-  const child = child_process.fork(file, [mode], {execArgv: []});
+  const child = child_process.fork(file, [mode], {execArgv: ['--expose-gc']});
   let response = [];
 
-  child.on('close', (code) => {
+  child.on('exit', (code, signal) => {
     if (code === 0){
       cb(undefined, response);
     }
     else {
+      console.error(`Script ${script}/${mode} failed with error code ${code} and signal ${signal}. Response was ${response}`);
       cb(response);
     }
   });

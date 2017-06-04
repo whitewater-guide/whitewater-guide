@@ -40,7 +40,7 @@ Measurements.after.insert(function (userId, doc) {
   let hasGaugesUpdates = false;
 
   Gauges.find({_id: doc.gaugeId}).forEach(gauge => {
-    if (gauge.lastTimestamp < doc.date) {
+    if (!gauge.lastTimestamp || gauge.lastTimestamp < doc.date) {
       hasGaugesUpdates = true;
       gaugesBatch.find({_id: gauge._id}).updateOne({
         $set: {lastTimestamp: doc.date, lastLevel: doc.level, lastFlow: doc.flow}
