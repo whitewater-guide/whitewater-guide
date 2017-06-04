@@ -109,6 +109,7 @@ class Map extends React.PureComponent {
       <MapView
         showsUserLocation
         showsMyLocationButton={false}
+        toolbarEnabled={false}
         initialRegion={this._initialRegion}
         ref={this.setMapView}
         style={styles.container}
