@@ -6,6 +6,7 @@ mobile-client/
 typings/
 web-client/
 # Docker can have only one top-level dockerignore file
+backend/build
 backend/backend.iml
 backend/public
 backend/node_modules

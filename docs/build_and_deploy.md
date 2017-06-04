@@ -25,10 +25,9 @@ Backend is currently one-piece meteor app.
 
 Here is the build sequence:
 - Bundle web-client using webpack
-- Bundle backend using meteor's own build system. This step is done inside dedicated docker container, 
+- Bundle backend using meteor's own build system. This step must be done inside dedicated docker container, 
 so binary dependencies like `sharp` are built in same environment as production. 
 - Merge them into one archive, as it is easier to upload and chown later
-- This three steps are automated in `build.sh` script
 - Check if meteor version was changed, or some changes were made to `backend/settings.production.json`. 
   In this case, passenger base image `doomsower/whitewater_passenger_base` must be rebuilt, see next step.
 - Use this command to build passenger base image:
@@ -44,5 +43,25 @@ so binary dependencies like `sharp` are built in same environment as production.
     Update `passenger.docker` to use latest version of this image
 ## Deploy
 - Login into remote docker-machine
+- Stop all running containers, remove all containers and images (otherwise droplet will run out of memory)
 - Build and run services as described in `production.yml` docker-compose file
-- These steps are automated, just run `production.sh`
+
+## Automation
+`production.sh` file is used to automate build and deploy steps.
+
+Run `production.sh --client` to build web-client bundle
+
+Run `production.sh --server` to build server bundle
+
+Run `production.sh --deploy` to merge server and web-client and deploy them (must be built in advance)
+
+Or run `production.sh -csd` to do everything at once
+
+### Prerequisites
+On MacOS some command are old BSD-style commands, to run `production.sh` we need to install GNU-versions:
+```$bash
+brew install gnu-getopt
+brew link --force gnu-getopt
+brew install gnu-tar
+ln -s /usr/local/bin/gtar /usr/local/bin/gnutar
+```
