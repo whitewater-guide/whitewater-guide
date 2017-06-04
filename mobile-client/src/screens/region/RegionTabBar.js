@@ -8,12 +8,6 @@ import { settingsSelector } from '../../commons/features/regions';
 import { withFeatureIds } from '../../commons/core';
 import { NAVIGATE_BUTTON_HEIGHT } from '../../components';
 
-const styles = StyleSheet.create({
-  tabBarHeightStyle: {
-    height: NAVIGATE_BUTTON_HEIGHT,
-  },
-});
-
 class RegionTabBar extends React.PureComponent {
   static propTypes = {
     hidden: PropTypes.bool.isRequired,
@@ -38,13 +32,13 @@ class RegionTabBar extends React.PureComponent {
   animateToPosition = (hidden) => {
     Animated.timing(
       this._hideAnimated,
-      { toValue: hidden ? -NAVIGATE_BUTTON_HEIGHT : 0, useNativeDriver: false },
+      { duration: 200, toValue: hidden ? -NAVIGATE_BUTTON_HEIGHT : 0, useNativeDriver: false },
     ).start();
   };
 
   render() {
     const { style, ...props } = this.props;
-    const barStyles = [style, styles.tabBarHeightStyle, { marginBottom: this._hideAnimated }];
+    const barStyles = [style, { marginBottom: this._hideAnimated }];
     return (
       <TabBarTop {...props} style={barStyles} />
     );

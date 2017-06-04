@@ -16,7 +16,16 @@ class MapLayout extends React.Component {
   constructor(props) {
     super(props);
     this._requestGeolocation = props.requestGeolocation;
+    this.state = {
+      laidOut: false,
+      height: 0,
+    };
   }
+
+  onLayout = ({ nativeEvent: { layout: { height } } }) => {
+    const { laidOut, height: oldHeight } = this.state;
+    this.setState({ laidOut: true, height: laidOut ? oldHeight : height });
+  };
 
   shouldRequestGeolocation = () => {
     // Map gets mounted and unmounted while navigation changes, but should request geolocation only once
@@ -27,9 +36,14 @@ class MapLayout extends React.Component {
 
   render() {
     const { displayMap } = this.props;
+    const { laidOut, height } = this.state;
     return (
-      <View style={StyleSheet.absoluteFill}>
-        { displayMap && cloneElement(this.props.mapView, { requestGeolocation: this.shouldRequestGeolocation() }) }
+      <View style={StyleSheet.absoluteFill} onLayout={this.onLayout}>
+        {
+          displayMap &&
+          laidOut &&
+          cloneElement(this.props.mapView, { height, requestGeolocation: this.shouldRequestGeolocation() })
+        }
         { this.props.selectedSectionView }
         { this.props.selectedPOIView }
       </View>

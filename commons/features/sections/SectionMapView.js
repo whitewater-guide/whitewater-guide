@@ -1,4 +1,4 @@
-import { branch, compose, withPropsOnChange, renderComponent, setDisplayName, withProps } from 'recompose';
+import { branch, compose, withPropsOnChange, renderComponent, setDisplayName, withProps, withState, withHandlers } from 'recompose';
 import { getMapView } from '../maps';
 
 export default (Layout, Map, SelectedSection, SelectedPOI, LoadingIndicator) => compose(
@@ -20,5 +20,9 @@ export default (Layout, Map, SelectedSection, SelectedPOI, LoadingIndicator) => 
       };
     },
   ),
+  withState('selectedPOIId', 'setSelectedPOIId'),
+  withHandlers({
+    onPOISelected: props => poi => props.setSelectedPOIId(poi && poi._id),
+  }),
   withProps({ useSectionShapes: true }),
 )(getMapView(Layout, Map, SelectedSection, SelectedPOI));

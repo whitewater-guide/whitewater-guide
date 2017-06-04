@@ -7,12 +7,6 @@ import { NAVIGATE_BUTTON_HEIGHT } from '../NavigateButton';
 
 const window = Dimensions.get('window');
 
-const styles = StyleSheet.create({
-  container: {
-    height: window.height - NAVIGATE_BUTTON_HEIGHT - 56 - StatusBar.currentHeight, // 56 is top bar height android
-  },
-});
-
 class Map extends React.PureComponent {
   static propTypes = {
     initialBounds: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
@@ -21,11 +15,13 @@ class Map extends React.PureComponent {
     onPOISelected: PropTypes.func,
     onBoundsSelected: PropTypes.func,
     requestGeolocation: PropTypes.bool.isRequired,
+    height: PropTypes.number.isRequired,
   };
 
   static defaultProps = {
     initialBounds: null,
     useSectionShapes: false,
+    onBoundsSelected: () => {},
   };
 
   constructor(props) {
@@ -112,7 +108,7 @@ class Map extends React.PureComponent {
         toolbarEnabled={false}
         initialRegion={this._initialRegion}
         ref={this.setMapView}
-        style={styles.container}
+        style={{ height: this.props.height }}
         provider={PROVIDER_GOOGLE}
         onPress={this.onDeselect}
         onLayout={this.onMapLayout}
