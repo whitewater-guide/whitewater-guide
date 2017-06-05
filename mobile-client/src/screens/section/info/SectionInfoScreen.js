@@ -25,7 +25,6 @@ class SectionInfoScreen extends React.PureComponent {
   render() {
     const { section } = this.props;
     const season = capitalize(trim(`${stringifySeason(section.seasonNumeric)}\n${section.season}`));
-    console.log('Duration', section.duration);
     return (
       <Screen>
         <List>
