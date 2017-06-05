@@ -24,7 +24,9 @@ export const sectionsBatchLoader = (batchSize = 25) => (Component) => {
       const { loadMore, list, count, loading } = this.props.sections;
       const numSections = list.length;
       const prevNumSections = prevPros.sections.list.length;
-      if (prevNumSections < numSections && numSections < count && !loading) {
+      // Do not compare count like this: `prevNumSections < numSections`
+      // Because when cache is starting to refresh, it is prevNumSections > numSections
+      if (prevNumSections !== numSections && numSections < count && !loading) {
         loadMore({ startIndex: numSections, stopIndex: numSections + batchSize });
       }
     };
@@ -35,4 +37,4 @@ export const sectionsBatchLoader = (batchSize = 25) => (Component) => {
   }
 
   return SectionsBatchLoader;
-}
+};
