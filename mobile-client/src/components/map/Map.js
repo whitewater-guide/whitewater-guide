@@ -58,6 +58,7 @@ class Map extends React.PureComponent {
       }
     } else if (contentBounds) {
       const ir = this._initialRegion;
+      console.log('fitToCoordinates');
       this._mapView.fitToCoordinates(
         [
           { latitude: ir.latitude - ir.latitudeDelta, longitude: ir.longitude - ir.longitudeDelta },
@@ -126,6 +127,7 @@ class Map extends React.PureComponent {
         onPress={this.onDeselect}
         onLayout={this.onMapLayout}
         onRegionChange={this.onRegionChange}
+        onRegionChangeComplete={this.onRegionChange}
         onMarkerDeselect={this.onDeselect}
       >
         { this.props.children }

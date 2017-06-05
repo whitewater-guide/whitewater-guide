@@ -73,7 +73,6 @@ const SimplePOI = ({ poi, selected, onPOISelected, zoom }) => {
   } else {
     inner = renderCustomMarkerView(kind);
   }
-  // console.tron.log(poi);
   return (
     <MapView.Marker
       anchor={Anchor}
