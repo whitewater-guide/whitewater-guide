@@ -3,7 +3,14 @@ import React from 'react';
 import { SectionPropType } from '../sections';
 
 export const PropTypes = {
-  bounds: PT.arrayOf(PT.arrayOf(PT.number)),
+  /**
+   * Initial bounds set by user
+   */
+  initialBounds: PT.arrayOf(PT.arrayOf(PT.number)),
+  /**
+   * Bounds of region or section
+   */
+  contentBounds: PT.arrayOf(PT.arrayOf(PT.number)),
   sections: PT.arrayOf(SectionPropType),
   selectedSectionId: PT.string,
   onSectionSelected: PT.func,
@@ -14,7 +21,8 @@ export const PropTypes = {
 };
 
 export const DefaultProps = {
-  bounds: null,
+  initialBounds: null,
+  contentBounds: null,
   pois: [],
   sections: [],
   selectedSectionId: null,
@@ -68,9 +76,9 @@ export default (MapComponent, SectionComponent, POIComponent) => {
     };
 
     render() {
-      const { bounds, sections, pois, ...props } = this.props;
+      const { initialBounds, contentBounds, sections, pois, ...props } = this.props;
       return (
-        <MapComponent initialBounds={bounds} onZoom={this.onZoom} {...props}>
+        <MapComponent initialBounds={initialBounds} contentBounds={contentBounds} onZoom={this.onZoom} {...props}>
           { sections.map(this.renderSection) }
           { pois.map(this.renderPOI) }
         </MapComponent>

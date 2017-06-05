@@ -21,7 +21,8 @@ export default (Layout, Map, SelectedSection, SelectedPOI, LoadingIndicator) => 
       ),
       mapProps(({ region, sections, selectedBounds, ...props }) => ({
         ...props,
-        bounds: selectedBounds || (region ? region.bounds : []),
+        initialBounds: selectedBounds || (region ? region.bounds : null),
+        contentBounds: region ? region.bounds : null,
         sections: sections.list,
         pois: region ? region.pois : [],
       })),

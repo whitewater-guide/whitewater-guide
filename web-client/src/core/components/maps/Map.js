@@ -6,6 +6,7 @@ import { arrayToGmaps } from '../../../commons/utils/GeoUtils';
 export class Map extends React.Component {
   static propTypes = {
     initialBounds: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
+    contentBounds: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
   };
 
   static defaultProps = {
@@ -13,10 +14,11 @@ export class Map extends React.Component {
   };
 
   onLoaded = ({ map, maps }) => {
-    const { initialBounds } = this.props;
-    if (initialBounds) {
+    const { initialBounds, contentBounds } = this.props;
+    const startingBounds = initialBounds || contentBounds;
+    if (startingBounds) {
       const bounds = new maps.LatLngBounds();
-      initialBounds.forEach(point => bounds.extend(arrayToGmaps(point)));
+      startingBounds.forEach(point => bounds.extend(arrayToGmaps(point)));
       map.setCenter(bounds.getCenter());
       map.fitBounds(bounds);
 

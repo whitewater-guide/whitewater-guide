@@ -11,9 +11,9 @@ export default (Layout, Map, SelectedSection, SelectedPOI, LoadingIndicator) => 
     ['section'],
     ({ section }) => {
       const pois = [...section.pois];
-      const bounds = section.shape;
       return {
-        bounds,
+        initialBounds: null, // Currently state is not saved anywhere
+        contentBounds: section.shape,
         sections: [section],
         selectedSection: section,
         pois,
