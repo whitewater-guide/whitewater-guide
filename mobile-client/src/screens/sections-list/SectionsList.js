@@ -67,7 +67,7 @@ export default class SectionsList extends React.Component {
       <SectionListItem
         shouldBounceOnMount={shouldBounceOnMount}
         section={section}
-        onPress={() => this.onSectionSelected(section)}
+        onPress={this.onSectionSelected}
       />
     );
   };

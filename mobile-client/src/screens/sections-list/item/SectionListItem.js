@@ -58,6 +58,8 @@ export default class SectionListItem extends React.PureComponent {
     this.animateInitialBounce();
   };
 
+  onPress = () => this.props.onPress(this.props.section);
+
   animateInitialBounce = () => {
     if (this._interactable && !this._animatedBounce && this.props.shouldBounceOnMount) {
       InteractionManager.runAfterInteractions(() => {
@@ -108,7 +110,7 @@ export default class SectionListItem extends React.PureComponent {
           animatedValueX={this._deltaX}
         >
           <View style={{ left: 0, right: 0, height: ITEM_HEIGHT, backgroundColor: 'white' }}>
-            <SectionListBody section={this.props.section} onPress={this.props.onPress} />
+            <SectionListBody section={this.props.section} onPress={this.onPress} />
           </View>
         </Interactable.View>
 
