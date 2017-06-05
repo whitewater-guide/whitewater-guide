@@ -1,1 +1,1 @@
-export { default as RegionTabs } from './RegionTabs';
+export { default as RegionScreen } from './RegionScreen';

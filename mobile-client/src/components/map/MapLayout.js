@@ -2,6 +2,7 @@ import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { StyleSheet, View } from 'react-native';
+import { BlackPortal } from 'react-native-portal';
 import { currentScreenSelector } from '../../utils';
 
 class MapLayout extends React.Component {
@@ -11,21 +12,17 @@ class MapLayout extends React.Component {
     selectedPOIView: PropTypes.element.isRequired,
     displayMap: PropTypes.bool.isRequired,
     requestGeolocation: PropTypes.bool.isRequired,
+    portalName: PropTypes.string,
+  };
+
+  static defaultProps = {
+    portalName: null,
   };
 
   constructor(props) {
     super(props);
     this._requestGeolocation = props.requestGeolocation;
-    this.state = {
-      laidOut: false,
-      height: 0,
-    };
   }
-
-  onLayout = ({ nativeEvent: { layout: { height } } }) => {
-    const { laidOut, height: oldHeight } = this.state;
-    this.setState({ laidOut: true, height: laidOut ? oldHeight : height });
-  };
 
   shouldRequestGeolocation = () => {
     // Map gets mounted and unmounted while navigation changes, but should request geolocation only once
@@ -34,18 +31,30 @@ class MapLayout extends React.Component {
     return result;
   };
 
+  renderSelectedElements = () => {
+    const { portalName, selectedSectionView, selectedPOIView } = this.props;
+    if (!portalName) {
+      return selectedSectionView;
+    }
+    return (
+      <BlackPortal name={portalName}>
+        <View style={StyleSheet.absoluteFill} pointerEvents="box-none">
+          { selectedSectionView }
+          { selectedPOIView }
+        </View>
+      </BlackPortal>
+    );
+  };
+
   render() {
     const { displayMap } = this.props;
-    const { laidOut, height } = this.state;
     return (
-      <View style={StyleSheet.absoluteFill} onLayout={this.onLayout}>
+      <View style={StyleSheet.absoluteFill}>
         {
           displayMap &&
-          laidOut &&
-          cloneElement(this.props.mapView, { height, requestGeolocation: this.shouldRequestGeolocation() })
+          cloneElement(this.props.mapView, { requestGeolocation: this.shouldRequestGeolocation() })
         }
-        { this.props.selectedSectionView }
-        { this.props.selectedPOIView }
+        { this.renderSelectedElements() }
       </View>
     );
   }
@@ -54,6 +63,10 @@ class MapLayout extends React.Component {
 // TODO: this causes overlapping maps until https://github.com/airbnb/react-native-maps/issues/1161 gets fixed
 // https://github.com/airbnb/react-native-maps/pull/1311 didn't fix it for me
 // So the workaround is to render map on it's own screen
-export default (displayOnScreen, requestGeolocation = false) => connect(
-  state => ({ displayMap: currentScreenSelector(state).routeName === displayOnScreen, requestGeolocation }),
+export default (displayOnScreen, portalName = null, requestGeolocation = false) => connect(
+  state => ({
+    displayMap: currentScreenSelector(state).routeName === displayOnScreen,
+    requestGeolocation,
+    portalName,
+  }),
 )(MapLayout);

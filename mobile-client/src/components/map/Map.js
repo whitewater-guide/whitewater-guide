@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
-import { Dimensions, StyleSheet, StatusBar } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 import { getBoundsZoomLevel, computeDistanceBetween, computeOffset, getBBox } from '../../commons/utils/GeoUtils';
-import { NAVIGATE_BUTTON_HEIGHT } from '../NavigateButton';
 
 const window = Dimensions.get('window');
 
@@ -15,7 +14,6 @@ class Map extends React.PureComponent {
     onPOISelected: PropTypes.func,
     onBoundsSelected: PropTypes.func,
     requestGeolocation: PropTypes.bool.isRequired,
-    height: PropTypes.number.isRequired,
   };
 
   static defaultProps = {
@@ -108,7 +106,7 @@ class Map extends React.PureComponent {
         toolbarEnabled={false}
         initialRegion={this._initialRegion}
         ref={this.setMapView}
-        style={{ height: this.props.height }}
+        style={StyleSheet.absoluteFill}
         provider={PROVIDER_GOOGLE}
         onPress={this.onDeselect}
         onLayout={this.onMapLayout}

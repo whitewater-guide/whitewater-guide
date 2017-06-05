@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingLeft: 16,
+    flex: 1,
   },
   body: {
     flex: 1,

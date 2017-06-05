@@ -10,20 +10,14 @@ const styles = StyleSheet.create({
   panel: {
     width: window.width,
     paddingBottom: 8,
-    backgroundColor: '#ffffffe8',
+    backgroundColor: '#ffffff',
     borderWidth: 0,
   },
   header: {
     width: window.width,
     height: NAVIGATE_BUTTON_HEIGHT,
     flexDirection: 'row',
-  },
-  container: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    height: window.height - 56 - StatusBar.currentHeight, // 56 is top bar height android
+    backgroundColor: '#ffffff',
   },
 });
 
@@ -123,7 +117,7 @@ export default class SelectedElementView extends Component {
 
   render() {
     return (
-      <View style={styles.container} onLayout={this.onLayout} pointerEvents="box-none">
+      <View style={StyleSheet.absoluteFill} onLayout={this.onLayout} pointerEvents="box-none">
         {
           this.state.laidOut &&
           <Animated.View
@@ -148,7 +142,7 @@ export default class SelectedElementView extends Component {
             verticalOnly
             snapPoints={this._snapPoints}
             onSnap={this.onSnap}
-            initialPosition={this._snapPoints[this.props.selected ? 1 : 0]}
+            initialPosition={this._snapPoints[0]}
             animatedValueY={this._deltaY}
           >
             <View style={[styles.panel, { height: this.props.panelHeight }]}>

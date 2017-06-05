@@ -1,16 +1,14 @@
 import React from 'react';
-import { StackNavigator, TabNavigator } from 'react-navigation';
+import { TabNavigator } from 'react-navigation';
 import { compose, mapProps, setStatic } from 'recompose';
 import { connect } from 'react-redux';
 import { RegionMapScreen } from './map';
 import { RegionDescriptionScreen } from './description';
-import { FilterScreen } from '../filter';
 import { RegionSectionsScreen } from './sections';
 import { withRegion, searchTermsSelector } from '../../commons/features/regions';
 import { withSectionsList } from '../../commons/features/sections';
 import { withErrorsView, spinnerWhileLoading } from '../../components';
 import { SectionSearchHeader, FilterButton } from '../sections-list';
-import RegionTabBar from './RegionTabBar';
 
 const RegionTabs = TabNavigator(
   {
@@ -21,7 +19,6 @@ const RegionTabs = TabNavigator(
   {
     initialRouteName: 'RegionMap',
     tabBarPosition: 'bottom',
-    tabBarComponent: RegionTabBar,
     order: ['RegionMap', 'RegionSections', 'RegionDescription'],
     backBehavior: 'none',
     swipeEnabled: false,
@@ -49,23 +46,5 @@ const RegionTabsEnhanced = compose(
 
 RegionTabsEnhanced.displayName = 'RegionTabs';
 
-const RegionModalStack = StackNavigator(
-  {
-    RegionStackMain: {
-      screen: RegionTabsEnhanced,
-    },
-    RegionStackFilter: {
-      screen: FilterScreen,
-    },
-  },
-  {
-    initialRouteName: 'RegionStackMain',
-    mode: 'modal',
-    headerMode: 'none',
-  },
-);
-
-RegionModalStack.displayName = 'RegionModalStack';
-
-export default RegionModalStack;
+export default RegionTabsEnhanced;
 
