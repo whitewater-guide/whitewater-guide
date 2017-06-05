@@ -23,6 +23,7 @@ export default (Layout, Map, SelectedSection, SelectedPOI, LoadingIndicator) => 
   withState('selectedPOIId', 'setSelectedPOIId'),
   withHandlers({
     onPOISelected: props => poi => props.setSelectedPOIId(poi && poi._id),
+    onSectionSelected: () => () => {}, // Blank handler so deselect will work
   }),
   withProps({ useSectionShapes: true }),
 )(getMapView(Layout, Map, SelectedSection, SelectedPOI));

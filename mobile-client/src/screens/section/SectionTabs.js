@@ -34,7 +34,6 @@ const SectionTabs = TabNavigator(
   },
 );
 
-
 export default compose(
   setStatic('router', SectionTabs.router),
   withSection({ withGeo: true, withDescription: true }),

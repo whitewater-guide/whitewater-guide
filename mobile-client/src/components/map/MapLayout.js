@@ -54,7 +54,7 @@ class MapLayout extends React.Component {
           displayMap &&
           cloneElement(this.props.mapView, { requestGeolocation: this.shouldRequestGeolocation() })
         }
-        { this.renderSelectedElements() }
+        { displayMap && this.renderSelectedElements() }
       </View>
     );
   }

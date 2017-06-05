@@ -14,5 +14,5 @@ export default compose(
   ),
   flattenProp('screenProps'),
 )(
-  SectionMapView(MapLayout('SectionMap'), MapMobile, () => null, SelectedPOIView, LoadingPlug),
+  SectionMapView(MapLayout('SectionMap', 'sectionScreen'), MapMobile, () => null, SelectedPOIView, LoadingPlug),
 );

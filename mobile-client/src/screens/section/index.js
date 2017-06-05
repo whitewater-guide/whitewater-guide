@@ -1,1 +1,1 @@
-export { default as SectionTabs } from './SectionTabs';
+export { default as SectionScreen } from './SectionScreen';

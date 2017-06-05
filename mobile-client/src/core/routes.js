@@ -1,6 +1,6 @@
 import React from 'react';
 import { DrawerNavigator, StackNavigator } from 'react-navigation';
-import { RegionsListScreen, AllSectionsModalStack, RegionScreen, SectionTabs } from '../screens';
+import { RegionsListScreen, AllSectionsModalStack, RegionScreen, SectionScreen } from '../screens';
 import { BurgerButton } from '../components';
 
 const RegionsStack = StackNavigator(
@@ -12,7 +12,7 @@ const RegionsStack = StackNavigator(
       screen: RegionScreen,
     },
     SectionDetails: {
-      screen: SectionTabs,
+      screen: SectionScreen,
     },
   },
   {
@@ -29,7 +29,7 @@ const AllSectionsStack = StackNavigator(
       }),
     },
     SectionDetails: {
-      screen: SectionTabs,
+      screen: SectionScreen,
     },
   },
   {
