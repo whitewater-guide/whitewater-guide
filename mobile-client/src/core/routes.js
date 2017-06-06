@@ -1,5 +1,5 @@
 import React from 'react';
-import { DrawerNavigator, StackNavigator } from 'react-navigation';
+import { StackNavigator, TabNavigator } from 'react-navigation';
 import { RegionsListScreen, AllSectionsModalStack, RegionScreen, SectionScreen } from '../screens';
 import { BurgerButton } from '../components';
 
@@ -42,12 +42,14 @@ const Routes = {
     screen: RegionsStack,
     navigationOptions: {
       title: 'Regions',
+      tabBarVisible: false,
     },
   },
   AllSectionsRoot: {
     screen: AllSectionsStack,
     navigationOptions: {
       title: 'All Sections',
+      tabBarVisible: false,
     },
   },
 };
@@ -57,12 +59,20 @@ if (__DEV__) {
   const StorybookUI = require('../../storybook').default;
   Routes.Storybook = {
     screen: StorybookUI,
+    navigationOptions: {
+      title: 'Storybook',
+      tabBarVisible: false,
+    },
   };
 }
 
 const Config = {
+  swipeEnabled: false,
+  animationEnabled: false,
+  lazy: true,
+  backBehavior: 'none',
   initialRouteName: 'RegionsRoot',
 };
 
-export const RootNavigator = DrawerNavigator(Routes, Config);
+export const RootNavigator = TabNavigator(Routes, Config);
 export const RootRouter = RootNavigator.router;

@@ -1,1 +1,2 @@
 export const APP_STARTED = 'APP_STARTED';
+export const TOGGLE_DRAWER = 'TOGGLE_DRAWER';
