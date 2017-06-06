@@ -33,7 +33,7 @@
     "moment": "^2.18.1",
     "native-base": "^2.1.4",
     "prop-types": "^15.5.10",
-    "react": "^16.0.0-alpha.6",
+    "react": "16.0.0-alpha.6",
     "react-apollo": "^1.4.2",
     "react-native": "^0.44.2",
     "react-native-config": "^0.4.2",
