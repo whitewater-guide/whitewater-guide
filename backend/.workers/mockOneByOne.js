@@ -1,6 +1,6 @@
 var times = require('lodash/times');
 var launchWorker = require('./core/worker');
-var {generateRandomMeasurement, generateRandomGauge} = require('./core/utils');
+var {generateMeasurement, generateRandomGauge} = require('./core/utils');
 
 
 /**
@@ -18,7 +18,7 @@ launchWorker(
     setTimeout(() => callback(null, gauges), 300);
   },
   function harvestHandler(options, callback) {
-    const measurements = [generateRandomMeasurement(options.code)];
+    const measurements = [generateMeasurement(options.code, options.fixedValue)];
     setTimeout(() => callback(null, measurements), 300);
   }
 );

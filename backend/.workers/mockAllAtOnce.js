@@ -1,7 +1,7 @@
 var times = require('lodash/times');
 var padStart = require('lodash/padStart');
 var launchWorker = require('./core/worker');
-var {generateRandomMeasurement, generateRandomGauge} = require('./core/utils');
+var {generateMeasurement, generateRandomGauge} = require('./core/utils');
 
 /**
  * This is mock worker that imitates work with source that provides
@@ -18,7 +18,7 @@ launchWorker(
     setTimeout(() => callback(null, gauges), 300);
   },
   function harvestHandler(options, callback) {
-    const measurements = times(10, i => generateRandomMeasurement(padStart(i.toString(), 3, '0')));
+    const measurements = times(10, i => generateMeasurement(padStart(i.toString(), 3, '0')));
     setTimeout(() => callback(null, measurements), 300);
   }
 );
