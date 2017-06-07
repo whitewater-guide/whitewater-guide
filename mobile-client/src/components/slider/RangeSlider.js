@@ -30,7 +30,7 @@ export default class RangeSlider extends React.PureComponent {
     range: [0, 100],
     values: [0, 100],
     step: 1,
-    backgroundTrackColor: theme.colors.borderColor,
+    backgroundTrackColor: theme.colors.componentBorder,
     selectedTrackColor: theme.colors.primary,
     behavior: 'continue',
     onChange: null,

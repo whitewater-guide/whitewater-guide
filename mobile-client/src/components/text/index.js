@@ -6,7 +6,7 @@ export const Text = glamorous.text(
     fontFamily: theme.font.family,
     color: note ? theme.colors.textNote : (primary ? theme.colors.primary : theme.colors.textMain),
     fontSize: note ? theme.font.size.note : theme.font.size.regular,
-    alignSelf: right ? 'flex-end' : 'flex-start',
+    alignSelf: right ? 'flex-end' : undefined,
     flex: fullWidth ? 1 : undefined,
     textDecorationLine: link ? 'underline' : null,
     paddingHorizontal,

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Button } from 'native-base';
 import { compose, hoistStatics, withProps } from 'recompose';
 import { NavigationActions } from 'react-navigation';
@@ -22,9 +22,6 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 16,
     paddingTop: 16,
-    paddingBottom: 16,
-  },
-  starWrapper: {
     paddingBottom: 16,
   },
 });
@@ -109,10 +106,8 @@ class FilterScreen extends React.Component {
           values={this.state.seasonNumeric}
           onChange={this.onChange('seasonNumeric')}
         />
-        <View style={styles.starWrapper}>
-          <Text>Rating</Text>
-          <StarRating value={this.state.rating} onChange={this.onChange('rating')} />
-        </View>
+        <Text>Minimal rating</Text>
+        <StarRating value={this.state.rating} onChange={this.onChange('rating')} />
         <Text>Kayaking types</Text>
         <TernaryChips values={this.state.kayakingTags} onChange={this.onChange('kayakingTags')} />
         <Text>Hazards</Text>

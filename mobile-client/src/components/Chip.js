@@ -1,18 +1,19 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { Text } from './text';
 
 const styles = StyleSheet.create({
   chip: {
     height: 32,
     flexDirection: 'row',
     borderWidth: 1,
-    borderRadius: 16,
+    borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'transparent',
-    paddingHorizontal: 12,
+    paddingHorizontal: 8,
     marginHorizontal: 2,
     marginVertical: 4,
   },
@@ -20,6 +21,7 @@ const styles = StyleSheet.create({
     width: 24,
     height: 32,
     justifyContent: 'center',
+    alignItems: 'center',
   },
   chipText: {
     fontSize: 12,
@@ -27,9 +29,10 @@ const styles = StyleSheet.create({
 });
 
 const Chip = ({ color, label, icon, onPress }) => {
-  const iconView = icon && icon !== 'none' && <Icon name={icon} size={24} color={color} />;
+  const iconView = icon && <Icon name={icon} size={24} color={color} />;
+  const paddingLeft = icon ? 4 : 8;
   const body = (
-    <View style={[{ borderColor: color }, styles.chip]}>
+    <View style={[{ paddingLeft, borderColor: color }, styles.chip]}>
       {
         icon &&
         <View style={styles.iconWrapper}>

@@ -27,8 +27,8 @@ const StarRating = ({ value, onChange, ...props }) => (
       halfStar={Platform.OS === 'ios' ? 'ios-star-half' : 'md-star-half'}
       rating={value}
       starSize={onChange ? 30 : 14}
-      starColor={onChange ? theme.colors.primary : theme.colors.borderColor}
-      emptyStarColor={onChange ? theme.colors.primary : theme.colors.borderColor}
+      starColor={onChange ? theme.colors.primary : theme.colors.componentBorder}
+      emptyStarColor={onChange ? theme.colors.primary : theme.colors.componentBorder}
       selectedStar={onChange}
     />
     { !onChange && <View style={styles.compressor} /> }
