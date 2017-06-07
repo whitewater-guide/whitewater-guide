@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, View } from 'react-native';
-import { List, ListItem, Left, Right, Text, Button } from 'native-base';
+import { List, ListItem, Left, Right, Text } from 'native-base';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 import { get, capitalize, trim } from 'lodash';
 import { SectionPropType } from '../../../commons/features/sections';
 import stringifySeason from '../../../commons/utils/stringifySeason';
-import { DifficultyThumb, StarRating } from '../../../components';
+import { Button, DifficultyThumb, StarRating } from '../../../components';
 import SelectedElementView from '../../../components/map/SelectedElementView';
 
 const styles = StyleSheet.create({
@@ -100,9 +100,7 @@ class SelectedSectionView extends React.PureComponent {
             <View><Text note>{season}</Text></View>
           </ListItem>
         </List>
-        <Button block onPress={this.detailsHandler}>
-          <Text>Details</Text>
-        </Button>
+        <Button fullWidth label="Details" onPress={this.detailsHandler} />
       </SelectedElementView>
     );
   }

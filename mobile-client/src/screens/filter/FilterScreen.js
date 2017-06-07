@@ -1,12 +1,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import { Button } from 'native-base';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { compose, hoistStatics, withProps } from 'recompose';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { get, memoize } from 'lodash';
-import { MultiSlider, Screen, StarRating, TernaryChips, Text, spinnerWhileLoading } from '../../components';
+import { Button, MultiSlider, StarRating, TernaryChips, Text, spinnerWhileLoading } from '../../components';
 import { Durations } from '../../commons/domain';
 import { tagsToSelections, withTags } from '../../commons/features/tags';
 import { updateSearchTerms, searchTermsSelector } from '../../commons/features/regions';
@@ -83,43 +82,43 @@ class FilterScreen extends React.Component {
       `Duration: ${minDuration}` :
       `Duration: from ${minDuration} to ${maxDuration}`;
     return (
-      <Screen style={styles.container}>
-        <MultiSlider
-          label={difficultyLabel}
-          range={DIFFICULTY_RANGE}
-          step={0.5}
-          values={this.state.difficulty}
-          onChange={this.onChange('difficulty')}
-        />
-        <MultiSlider
-          label={durationLabel}
-          range={DURATION_RANGE}
-          step={10}
-          values={this.state.duration}
-          onChange={this.onChange('duration')}
-        />
-        <MultiSlider
-          label={`Season: ${stringifySeason(this.state.seasonNumeric, true)}`}
-          range={SEASON_RANGE}
-          step={1}
-          behavior="invert"
-          values={this.state.seasonNumeric}
-          onChange={this.onChange('seasonNumeric')}
-        />
-        <Text>Minimal rating</Text>
-        <StarRating value={this.state.rating} onChange={this.onChange('rating')} />
-        <Text>Kayaking types</Text>
-        <TernaryChips values={this.state.kayakingTags} onChange={this.onChange('kayakingTags')} />
-        <Text>Hazards</Text>
-        <TernaryChips values={this.state.hazardsTags} onChange={this.onChange('hazardsTags')} />
-        <Text>Supply types</Text>
-        <TernaryChips values={this.state.supplyTags} onChange={this.onChange('supplyTags')} />
-        <Text>Misc tags</Text>
-        <TernaryChips values={this.state.miscTags} onChange={this.onChange('miscTags')} />
-        <Button full onPress={this.onApply} >
-          <Text>Search</Text>
-        </Button>
-      </Screen>
+      <View style={StyleSheet.absoluteFill}>
+        <ScrollView contentContainerStyle={styles.container}>
+          <MultiSlider
+            label={difficultyLabel}
+            range={DIFFICULTY_RANGE}
+            step={0.5}
+            values={this.state.difficulty}
+            onChange={this.onChange('difficulty')}
+          />
+          <MultiSlider
+            label={durationLabel}
+            range={DURATION_RANGE}
+            step={10}
+            values={this.state.duration}
+            onChange={this.onChange('duration')}
+          />
+          <MultiSlider
+            label={`Season: ${stringifySeason(this.state.seasonNumeric, true)}`}
+            range={SEASON_RANGE}
+            step={1}
+            behavior="invert"
+            values={this.state.seasonNumeric}
+            onChange={this.onChange('seasonNumeric')}
+          />
+          <Text>Minimal rating</Text>
+          <StarRating value={this.state.rating} onChange={this.onChange('rating')} />
+          <Text>Kayaking types</Text>
+          <TernaryChips values={this.state.kayakingTags} onChange={this.onChange('kayakingTags')} />
+          <Text>Hazards</Text>
+          <TernaryChips values={this.state.hazardsTags} onChange={this.onChange('hazardsTags')} />
+          <Text>Supply types</Text>
+          <TernaryChips values={this.state.supplyTags} onChange={this.onChange('supplyTags')} />
+          <Text>Misc tags</Text>
+          <TernaryChips values={this.state.miscTags} onChange={this.onChange('miscTags')} />
+        </ScrollView>
+        <Button fullWidth onPress={this.onApply} label="Search" />
+      </View>
     );
   }
 

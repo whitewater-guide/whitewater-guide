@@ -1,12 +1,3 @@
-/**
- * TouchableItem renders a touchable that looks native on both iOS and Android.
- *
- * It provides an abstraction on top of TouchableNativeFeedback and
- * TouchableOpacity.
- *
- * On iOS you can pass the props of TouchableOpacity, on Android pass the props
- * of TouchableNativeFeedback.
- */
 import React, { Children } from 'react';
 import PropTypes from 'prop-types';
 import { Platform, TouchableNativeFeedback, TouchableOpacity, View } from 'react-native';
@@ -28,36 +19,23 @@ export default class TouchableItem extends React.PureComponent {
   };
 
   render() {
-    /*
-     * TouchableNativeFeedback.Ripple causes a crash on old Android versions,
-     * therefore only enable it on Android Lollipop and above.
-     *
-     * All touchables on Android should have the ripple effect according to
-     * platform design guidelines.
-     * We need to pass the background prop to specify a borderless ripple effect.
-     */
-    if (
-      Platform.OS === 'android' &&
-      Platform.Version >= ANDROID_VERSION_LOLLIPOP
-    ) {
-      const { style, ...rest } = this.props; // eslint-disable-line no-unused-vars
-
+    const { style, borderless, pressColor, children, ...rest } = this.props;
+    if (Platform.OS === 'android' && Platform.Version >= ANDROID_VERSION_LOLLIPOP) {
       return (
         <TouchableNativeFeedback
           {...rest}
-          style={null}
-          background={TouchableNativeFeedback.Ripple(this.props.pressColor, this.props.borderless)}
+          background={TouchableNativeFeedback.Ripple(pressColor, borderless)}
         >
-          <View style={this.props.style}>
-            {Children.only(this.props.children)}
+          <View style={style}>
+            {Children.only(children)}
           </View>
         </TouchableNativeFeedback>
       );
     }
 
     return (
-      <TouchableOpacity {...this.props}>
-        {this.props.children}
+      <TouchableOpacity style={style} {...rest}>
+        { children }
       </TouchableOpacity>
     );
   }

@@ -5,6 +5,7 @@ export default {
     componentBorder: '#9E9E9E', // Grey 500
     textMain: '#000000',
     textNote: '#757575', // Grey 600
+    textLight: '#FFFFFF',
     disabled: '#f44336', // Red 500
     enabled: '#4CAF50', // Green 500
   },
