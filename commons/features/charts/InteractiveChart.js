@@ -42,7 +42,7 @@ export default (Layout, Chart, FlowToggle, PeriodToggle) => {
       this.state = {
         // This is what is selected on chart, available data can contain more measurements
         chartDomain: [props.startDate, props.endDate],
-        unit: 'flow',
+        unit: props.flowUnit ? 'flow' : 'level',
       };
     }
 

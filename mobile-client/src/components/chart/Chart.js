@@ -78,7 +78,8 @@ class Chart extends PureComponent {
 
   computeDomain = ({ data, unit, binding }) => {
     if (!data) {
-      return [0, 0];
+      this._domain = [0, 0];
+      return;
     }
     let result = data.reduce(
       ([min, max], { [unit]: value }) => [Math.min(value, min), Math.max(value, max)],
