@@ -29,6 +29,7 @@ test('should return two ranges', () => {
 
 test('should loop around new year', () => {
   expect(stringifySeason([0, 1, 4, 5, 20, 21, 22, 23])).toBe('mar, nov - jan');
+  expect(stringifySeason([0, 1, 22, 23])).toBe('dec - jan');
 });
 
 test('should return all year around', () => {
@@ -42,4 +43,5 @@ test('should return all year around', () => {
 test('should handle ranges', () => {
   expect(stringifySeason([0, 23], true)).toBe('all year around');
   expect(stringifySeason([0, 5], true)).toBe('jan - mar');
+  expect(stringifySeason([22, 1], true)).toBe('dec - jan');
 });
