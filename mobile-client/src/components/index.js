@@ -12,6 +12,7 @@ export { default as RangeSlider } from './slider/RangeSlider';
 export { default as DrawerItem } from './DrawerItem';
 export { default as Link } from './Link';
 export { default as TernaryChips } from './TernaryChips';
+export { default as StarRating } from './StarRating';
 export * from './text';
 export * from './NavigateButton';
 export * from './ErrorRefetchScreen';

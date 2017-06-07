@@ -1,13 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Button, Text } from 'native-base';
+import { Button } from 'native-base';
 import { compose, hoistStatics, withProps } from 'recompose';
 import { NavigationActions } from 'react-navigation';
-import StarRating from 'react-native-star-rating';
 import { connect } from 'react-redux';
 import { get, memoize } from 'lodash';
-import { MultiSlider, Screen, TernaryChips, spinnerWhileLoading } from '../../components';
+import { MultiSlider, Screen, StarRating, TernaryChips, Text, spinnerWhileLoading } from '../../components';
 import { Durations } from '../../commons/domain';
 import { tagsToSelections, withTags } from '../../commons/features/tags';
 import { updateSearchTerms, searchTermsSelector } from '../../commons/features/regions';
@@ -16,7 +15,7 @@ import stringifySeason from '../../commons/utils/stringifySeason';
 import ResetFilterButton from './ResetFilterButton';
 
 const DIFFICULTY_RANGE = [1,6];
-const SEASON_RANGE=[0,23];
+const SEASON_RANGE = [0,23];
 const DURATION_RANGE = [Durations[0].value, Durations[Durations.length - 1].value];
 
 const styles = StyleSheet.create({
@@ -112,12 +111,7 @@ class FilterScreen extends React.Component {
         />
         <View style={styles.starWrapper}>
           <Text>Rating</Text>
-          <StarRating
-            rating={this.state.rating}
-            starSize={20}
-            starColor={'#a7a7a7'}
-            selectedStar={this.onChange('rating')}
-          />
+          <StarRating value={this.state.rating} onChange={this.onChange('rating')} />
         </View>
         <Text>Kayaking types</Text>
         <TernaryChips values={this.state.kayakingTags} onChange={this.onChange('kayakingTags')} />

@@ -1,9 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import StarRating from 'react-native-star-rating';
 import { StyleSheet, Text, View } from 'react-native';
 import { get } from 'lodash';
-import { ListItem, DifficultyThumb } from '../../../components';
+import { ListItem, DifficultyThumb, StarRating } from '../../../components';
 import { SectionPropType } from '../../../commons/features/sections';
 import FlowsThumb from './FlowsThumb';
 
@@ -51,7 +50,7 @@ export default class SectionListBody extends PureComponent {
           <Text style={styles.riverName}>{section.river.name}</Text>
           <Text style={styles.sectionName}>{section.name}</Text>
           <View style={styles.starsContainer}>
-            <StarRating disabled rating={section.rating} starSize={14} starColor={'#a7a7a7'} />
+            <StarRating value={section.rating} />
           </View>
         </View>
         <FlowsThumb

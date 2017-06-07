@@ -2,13 +2,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { View } from 'react-native';
 import { List, ListItem, Left, Right, Text } from 'native-base';
-import StarRating from 'react-native-star-rating';
 import { flattenProp, hoistStatics } from 'recompose';
 import { capitalize, trim, isNil } from 'lodash';
 import { renderDifficulty } from '../../../commons/utils/TextUtils';
 import stringifySeason from '../../../commons/utils/stringifySeason';
 import { Durations } from '../../../commons/domain';
-import { Chips, Screen, TabIcon } from '../../../components';
+import { Chips, Screen, StarRating, TabIcon } from '../../../components';
 import CoordinatesInfo from './CoordinatesInfo';
 
 class SectionInfoScreen extends React.PureComponent {
@@ -37,7 +36,7 @@ class SectionInfoScreen extends React.PureComponent {
           <ListItem>
             <Left><Text>Rating</Text></Left>
             <Right>
-              <StarRating disabled rating={section.rating} starSize={14} starColor={'#a7a7a7'} />
+              <StarRating value={section.rating} />
             </Right>
           </ListItem>
 

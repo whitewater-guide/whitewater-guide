@@ -4,11 +4,10 @@ import { StyleSheet, View } from 'react-native';
 import { List, ListItem, Left, Right, Text, Button } from 'native-base';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
-import StarRating from 'react-native-star-rating';
 import { get, capitalize, trim } from 'lodash';
 import { SectionPropType } from '../../../commons/features/sections';
 import stringifySeason from '../../../commons/utils/stringifySeason';
-import { DifficultyThumb } from '../../../components';
+import { DifficultyThumb, StarRating } from '../../../components';
 import SelectedElementView from '../../../components/map/SelectedElementView';
 
 const styles = StyleSheet.create({
@@ -56,7 +55,7 @@ class SelectedSectionView extends React.PureComponent {
           <Text>{get(section, 'river.name', '_')}</Text>
           <Text>{get(section, 'name', '_')}</Text>
           <View style={styles.starsContainer}>
-            <StarRating disabled rating={get(section, 'rating', 0)} starSize={14} starColor={'#a7a7a7'} />
+            <StarRating value={get(section, 'rating', 0)} />
           </View>
         </View>
         <DifficultyThumb
