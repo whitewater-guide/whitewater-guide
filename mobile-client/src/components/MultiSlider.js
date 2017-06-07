@@ -1,40 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Dimensions, Platform, StyleSheet, Text, View } from 'react-native';
-import Slider from '@ptomasroos/react-native-multi-slider';
-import theme from '../theme/variables/platform';
-
-const { width } = Dimensions.get('window');
+import { StyleSheet, Text, View } from 'react-native';
+import RangeSlider from './slider/RangeSlider';
 
 const styles = StyleSheet.create({
   sliderWrapper: {
     backgroundColor: 'transparent',
-    marginBottom: -32,
-    paddingHorizontal: 8,
+    marginHorizontal: -10,
   },
-  selectedTrack: {
-    backgroundColor: theme.btnPrimaryBg,
-  },
-  marker: {
-    backgroundColor: theme.btnPrimaryBg,
-  },
+  labelStyle: {
+    paddingHorizontal: 10,
+  }
 });
 
 const MultiSlider = ({ label, ...props }) => (
   <View style={styles.sliderWrapper}>
-    <Text style={{ paddingBottom: 8 }}>{label}</Text>
-    <Slider
-      selectedStyle={styles.selectedTrack}
-      markerStyle={styles.marker}
-      sliderLength={width - 48}
-      containerStyle={styles.sliderContent}
-      {...props}
-    />
+    <Text style={styles.labelStyle}>{label}</Text>
+    <RangeSlider {...props} />
   </View>
 );
 
 MultiSlider.propTypes = {
-  ...Slider.propTypes,
+  ...RangeSlider.propTypes,
   label: PropTypes.string.isRequired,
 };
 

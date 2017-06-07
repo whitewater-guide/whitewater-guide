@@ -8,17 +8,21 @@ import StarRating from 'react-native-star-rating';
 import { connect } from 'react-redux';
 import { get, memoize } from 'lodash';
 import { MultiSlider, Screen, TernaryChips, spinnerWhileLoading } from '../../components';
-import { defaultSectionSearchTerms, Durations } from '../../commons/domain';
+import { Durations } from '../../commons/domain';
 import { tagsToSelections, withTags } from '../../commons/features/tags';
 import { updateSearchTerms, searchTermsSelector } from '../../commons/features/regions';
 import { toRomanDifficulty } from '../../commons/utils/TextUtils';
 import stringifySeason from '../../commons/utils/stringifySeason';
 import ResetFilterButton from './ResetFilterButton';
 
+const DIFFICULTY_RANGE = [1,6];
+const SEASON_RANGE=[0,23];
+const DURATION_RANGE = [Durations[0].value, Durations[Durations.length - 1].value];
+
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 16,
-    paddingTop: 32,
+    paddingTop: 16,
     paddingBottom: 16,
   },
   starWrapper: {
@@ -76,31 +80,35 @@ class FilterScreen extends React.Component {
     const maxDiff = toRomanDifficulty(this.state.difficulty[1]);
     const minDuration = Durations.find(({ value }) => value === this.state.duration[0]).slug;
     const maxDuration = Durations.find(({ value }) => value === this.state.duration[1]).slug;
+    const difficultyLabel = minDiff === maxDiff ?
+      `Difficulty: ${minDiff}` :
+      `Difficulty: from ${minDiff} to ${maxDiff}`;
+    const durationLabel = minDuration === maxDuration ?
+      `Duration: ${minDuration}` :
+      `Duration: from ${minDuration} to ${maxDuration}`;
     return (
       <Screen style={styles.container}>
         <MultiSlider
-          label={`Difficulty: from ${minDiff} to ${maxDiff}`}
-          min={1}
-          max={6}
+          label={difficultyLabel}
+          range={DIFFICULTY_RANGE}
           step={0.5}
           values={this.state.difficulty}
-          onValuesChange={this.onChange('difficulty')}
+          onChange={this.onChange('difficulty')}
         />
         <MultiSlider
-          label={`Duration: from ${minDuration} to ${maxDuration}`}
-          min={Durations[0].value}
-          max={Durations[Durations.length - 1].value}
+          label={durationLabel}
+          range={DURATION_RANGE}
           step={10}
           values={this.state.duration}
-          onValuesChange={this.onChange('duration')}
+          onChange={this.onChange('duration')}
         />
         <MultiSlider
           label={`Season: ${stringifySeason(this.state.seasonNumeric, true)}`}
-          min={0}
-          max={23}
+          range={SEASON_RANGE}
           step={1}
+          behavior="invert"
           values={this.state.seasonNumeric}
-          onValuesChange={this.onChange('seasonNumeric')}
+          onChange={this.onChange('seasonNumeric')}
         />
         <View style={styles.starWrapper}>
           <Text>Rating</Text>

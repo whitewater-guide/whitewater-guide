@@ -8,6 +8,7 @@ export { default as DifficultyThumb } from './DifficultyThumb';
 export { default as HTMLView } from './HTMLView';
 export { default as SearchBar } from './SearchBar';
 export { default as MultiSlider } from './MultiSlider';
+export { default as RangeSlider } from './slider/RangeSlider';
 export { default as DrawerItem } from './DrawerItem';
 export { default as Link } from './Link';
 export { default as TernaryChips } from './TernaryChips';

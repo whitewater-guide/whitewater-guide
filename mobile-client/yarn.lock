@@ -97,10 +97,6 @@
     react-modal "^1.2.1"
     redux "^3.5.2"
 
-"@ptomasroos/react-native-multi-slider@^0.0.8":
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/@ptomasroos/react-native-multi-slider/-/react-native-multi-slider-0.0.8.tgz#86eb8a1617cfe069aaa7d138136619fae434b04f"
-
 "@shoutem/animation@^0.8.9":
   version "0.8.10"
   resolved "https://registry.yarnpkg.com/@shoutem/animation/-/animation-0.8.10.tgz#2246709c88ab8c39c3e7ab7f4c212268fb63e52e"
@@ -1496,6 +1492,10 @@ braces@^1.8.2:
     expand-range "^1.8.1"
     preserve "^0.2.0"
     repeat-element "^1.1.2"
+
+brcast@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/brcast/-/brcast-2.0.0.tgz#9e627ab82209895664c1d6c1f45cd8c43422e3f6"
 
 browser-resolve@^1.11.2:
   version "1.11.2"
@@ -3277,6 +3277,12 @@ getpass@^0.1.1:
   dependencies:
     assert-plus "^1.0.0"
 
+glamorous-native@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/glamorous-native/-/glamorous-native-1.1.0.tgz#fd66355817c0a4961576ee103b4c7e5f8cb6f495"
+  dependencies:
+    brcast "^2.0.0"
+
 glob-base@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/glob-base/-/glob-base-0.3.0.tgz#dbb164f6221b1c0b1ccf82aea328b497df0ea3c4"
@@ -3363,9 +3369,9 @@ graceful-fs@^4.1.11, graceful-fs@^4.1.2, graceful-fs@^4.1.3, graceful-fs@^4.1.6,
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/graceful-readlink/-/graceful-readlink-1.0.1.tgz#4cafad76bc62f02fa039b2f94e9a3dd3a391a725"
 
-graphql-anywhere@^3.0.0, graphql-anywhere@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/graphql-anywhere/-/graphql-anywhere-3.0.1.tgz#73531db861174c8f212eafb9f8e84944b38b4e5a"
+graphql-anywhere@^3.0.0, graphql-anywhere@^3.0.1, graphql-anywhere@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/graphql-anywhere/-/graphql-anywhere-3.1.0.tgz#3ea0d8e8646b5cee68035016a9a7557c15c21e96"
 
 graphql-subscriptions@^0.4.1:
   version "0.4.2"
@@ -5841,22 +5847,29 @@ react-deep-force-update@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/react-deep-force-update/-/react-deep-force-update-1.0.1.tgz#f911b5be1d2a6fe387507dd6e9a767aa2924b4c7"
 
-react-devtools-core@^2.0.8, react-devtools-core@^2.3.0:
+react-devtools-core@^2.0.8:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/react-devtools-core/-/react-devtools-core-2.3.0.tgz#412b73bcb33cca758d82af2f1ba7178bce57b51d"
   dependencies:
     shell-quote "^1.6.1"
     ws "^2.0.3"
 
-react-devtools@^2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/react-devtools/-/react-devtools-2.3.0.tgz#36d91e76a96f62099dfb94e3c3b73f2b8f59c625"
+react-devtools-core@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/react-devtools-core/-/react-devtools-core-2.3.1.tgz#dc83aba85735effe5e1dc386a1614cb5e8d0047d"
+  dependencies:
+    shell-quote "^1.6.1"
+    ws "^2.0.3"
+
+react-devtools@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/react-devtools/-/react-devtools-2.3.1.tgz#799e89648a9cc5dd3e0c3ea62c44efc9054f5039"
   dependencies:
     cross-spawn "^5.0.1"
     electron "^1.4.15"
     ip "^1.1.4"
     minimist "^1.2.0"
-    react-devtools-core "^2.3.0"
+    react-devtools-core "^2.3.1"
     update-notifier "^2.1.0"
 
 "react-dom@0.14.x || 15.* || ^15.0.0 || ^16.0.0-alpha":
