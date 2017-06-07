@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { Text } from './text';
 import RangeSlider from './slider/RangeSlider';
 
 const styles = StyleSheet.create({
@@ -8,14 +9,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     marginHorizontal: -10,
   },
-  labelStyle: {
-    paddingHorizontal: 10,
-  }
 });
 
 const MultiSlider = ({ label, ...props }) => (
   <View style={styles.sliderWrapper}>
-    <Text style={styles.labelStyle}>{label}</Text>
+    <Text paddingHorizontal={10}>{label}</Text>
     <RangeSlider {...props} />
   </View>
 );

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Animated, StyleSheet, View } from 'react-native';
 import clamp from 'lodash/clamp';
 import Thumb, { THUMB_SCALE_RATIO } from './Thumb';
+import theme from '../../theme';
 
 // extra spacing enlarging the touchable area
 const TRACK_EXTRA_MARGIN_V = 5;
@@ -29,8 +30,8 @@ export default class RangeSlider extends React.PureComponent {
     range: [0, 100],
     values: [0, 100],
     step: 1,
-    backgroundTrackColor: '#ff0000',
-    selectedTrackColor: '#00FF00',
+    backgroundTrackColor: theme.colors.borderColor,
+    selectedTrackColor: theme.colors.primary,
     behavior: 'continue',
     onChange: null,
     onChangeEnd: null,
@@ -63,14 +64,14 @@ export default class RangeSlider extends React.PureComponent {
     this.updateThumbs();
   }
 
-  onTrackLayout = () => {
-    this._track.measure((x, y, width, height, pageX) => {
+  onTrackLayout = ({ nativeEvent: { layout: { width } } }) => {
+    if (this._trackWidthPx !== width) {
+      this._trackWidthPx = width;
+      this.setValuesPx(this.props);
+      this.updateThumbs(true);
+    }
+    this._track.measure((x, y, w, height, pageX) => {
       this._trackPageX = pageX;
-      if (this._trackWidthPx !== width) {
-        this._trackWidthPx = width;
-        this.setValuesPx(this.props);
-        this.updateThumbs();
-      }
     });
   };
 
@@ -116,11 +117,11 @@ export default class RangeSlider extends React.PureComponent {
     }
   };
 
-  updateThumbs = () => {
-    this.moveThumb(this._minThumb, this._valuesPx[0]);
+  updateThumbs = (immediately) => {
+    this.moveThumb(this._minThumb, this._valuesPx[0], immediately);
     this._minThumb.release(this._valuesPx[0]);
 
-    this.moveThumb(this._maxThumb, this._valuesPx[1]);
+    this.moveThumb(this._maxThumb, this._valuesPx[1], immediately);
     this._maxThumb.release(this._valuesPx[1]);
   };
 
@@ -153,16 +154,22 @@ export default class RangeSlider extends React.PureComponent {
     return this.snap(constrainedX);
   };
 
-  moveThumb = (thumb, x) => {
+  moveThumb = (thumb, x, immediately) => {
     thumb.moveTo(x);
     const left = Math.min(...this._valuesPx);
     const width = Math.abs(this._valuesPx[1] - this._valuesPx[0]);
     const inverted = this._valuesPx[1] < this._valuesPx[0] ? 1 : 0;
-    Animated.parallel([
-      Animated.timing(this._selectedTrackLeftPx, { toValue: left, duration: 0 }),
-      Animated.timing(this._selectedTrackWidthPx, { toValue: width, duration: 0 }),
-      Animated.timing(this._inverted, { toValue: inverted, duration: 0 }),
-    ]).start();
+    if (immediately) {
+      this._selectedTrackLeftPx.setValue(left);
+      this._selectedTrackWidthPx.setValue(width);
+      this._inverted.setValue(inverted);
+    } else {
+      Animated.parallel([
+        Animated.timing(this._selectedTrackLeftPx, { toValue: left, duration: 0 }),
+        Animated.timing(this._selectedTrackWidthPx, { toValue: width, duration: 0 }),
+        Animated.timing(this._inverted, { toValue: inverted, duration: 0 }),
+      ]).start();
+    }
   };
 
   setTrack = (track) => { this._track = track; };
