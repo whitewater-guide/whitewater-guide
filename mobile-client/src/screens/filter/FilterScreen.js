@@ -19,7 +19,7 @@ const DURATION_RANGE = [Durations[0].value, Durations[Durations.length - 1].valu
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 16,
+    paddingHorizontal: 12,
     paddingTop: 16,
     paddingBottom: 16,
   },
