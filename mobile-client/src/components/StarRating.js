@@ -28,7 +28,7 @@ const StarRating = ({ value, onChange, ...props }) => (
       rating={value}
       starSize={onChange ? 30 : 14}
       starColor={onChange ? theme.colors.primary : theme.colors.componentBorder}
-      emptyStarColor={onChange ? theme.colors.primary : theme.colors.componentBorder}
+      emptyStarColor={theme.colors.componentBorder}
       selectedStar={onChange}
     />
     { !onChange && <View style={styles.compressor} /> }

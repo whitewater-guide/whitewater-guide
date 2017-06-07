@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Container, Content } from 'native-base';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
+const TOP_LEFT = { x: 0, y: 0 };
 
 export function Screen({ children, style, noScroll }) {
   if (noScroll) {
@@ -12,11 +14,13 @@ export function Screen({ children, style, noScroll }) {
     );
   }
   return (
-    <Container>
-      <Content contentContainerStyle={style}>
-        { children }
-      </Content>
-    </Container>
+    <KeyboardAwareScrollView
+      contentContainerStyle={style}
+      automaticallyAdjustContentInsets={false}
+      resetScrollToCoords={TOP_LEFT}
+    >
+      { children }
+    </KeyboardAwareScrollView>
   );
 }
 
