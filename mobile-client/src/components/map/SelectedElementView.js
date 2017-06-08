@@ -55,19 +55,21 @@ export default class SelectedElementView extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    // const keys = Object.keys(this.props);
-    // console.log('-----------------');
-    // keys.forEach((key) => {
-    //   if (prevProps[key] !== this.props[key]) {
-    //     console.log(key);
-    //   }
-    // });
+    if (!this._interactable) {
+      return;
+    }
     if (this.props.selected && !prevProps.selected) {
       this._interactable.snapTo({ index: 1 });
       this._muteSnapEvent = true;
     } else if (!this.props.selected && prevProps.selected) {
       this._interactable.snapTo({ index: 0 });
       this._muteSnapEvent = true;
+    }
+  }
+
+  componentWillUnmount() {
+    if (this._interactable) {
+      this._interactable.snapTo({ index: 0 });
     }
   }
 
