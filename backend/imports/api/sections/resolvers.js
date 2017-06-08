@@ -113,7 +113,14 @@ function applyFilters(selector, searchTerms) {
     result = {...result, difficulty: {$gte: difficulty[0], $lte: difficulty[1]}};
   }
   if (seasonNumeric && seasonNumeric.length === 2 && !(seasonNumeric[0] === 0 && seasonNumeric[1] === 23)) {
-    result = {...result, seasonNumeric: {$elemMatch: {$gte: seasonNumeric[0], $lte: seasonNumeric[1]}}};
+    let elemMatch;
+    // Looping around new year, e.g. nov-feb
+    if (seasonNumeric[0] > seasonNumeric[1]) {
+      elemMatch = { $elemMatch: {$not: { $gt: seasonNumeric[1], $lt: seasonNumeric[0] }} };
+    } else {
+      elemMatch = {$elemMatch: { $gte: seasonNumeric[0], $lte: seasonNumeric[1] }};
+    }
+    result = {...result, seasonNumeric: elemMatch };
   }
   if (duration && duration.length === 2 && !(duration[0] === Durations[0].value && duration[1] === Durations[Durations.length-1].value)) {
     result = {...result, duration: {$gte: duration[0], $lte: duration[1]}};
