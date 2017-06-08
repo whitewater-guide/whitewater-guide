@@ -19,7 +19,7 @@ const SectionTabs = TabNavigator(
     SectionMedia: { screen: SectionMediaScreen },
   },
   {
-    initialRouteName: 'SectionMap',
+    initialRouteName: 'SectionInfo',
     order: ['SectionMap', 'SectionChart', 'SectionInfo', 'SectionGuide', 'SectionMedia'],
     tabBarPosition: 'bottom',
     backBehavior: 'none',
