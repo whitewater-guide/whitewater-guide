@@ -9,7 +9,7 @@ export default (state = {}, action) => {
     case SELECT_REGION:
     case RESET_SEARCH_TERMS:
     case UPDATE_REGION:
-      return { ...state, [key]: regionReducer(regionId)(state[key], action) };
+      return { ...state, [key]: regionReducer(state[key], action) };
     default:
       return state;
   }

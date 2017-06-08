@@ -8,7 +8,7 @@ import { get, memoize } from 'lodash';
 import { Button, MultiSlider, StarRating, TernaryChips, Text, spinnerWhileLoading } from '../../components';
 import { Durations } from '../../commons/domain';
 import { tagsToSelections, withTags } from '../../commons/features/tags';
-import { updateSearchTerms, searchTermsSelector } from '../../commons/features/regions';
+import { updateSearchTerms, searchTermsSelector, selectSection } from '../../commons/features/regions';
 import { toRomanDifficulty } from '../../commons/utils/TextUtils';
 import stringifySeason from '../../commons/utils/stringifySeason';
 import ResetFilterButton from './ResetFilterButton';
@@ -30,6 +30,7 @@ class FilterScreen extends React.Component {
   static propTypes = {
     searchTerms: PropTypes.object,
     updateSearchTerms: PropTypes.func.isRequired,
+    selectSection: PropTypes.func.isRequired,
     back: PropTypes.func.isRequired,
     kayakingTags: PropTypes.array.isRequired,
     hazardsTags: PropTypes.array.isRequired,
@@ -49,6 +50,11 @@ class FilterScreen extends React.Component {
       ...tagsToSelections(props),
       ...props.searchTerms,
     };
+  }
+
+  componentWillMount() {
+    // Hide selected element view
+    this.props.selectSection(this.props.regionId, null);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -130,7 +136,7 @@ const container = compose(
   withProps(props => ({ regionId: get(props, 'navigation.state.params.regionId') })),
   connect(
     searchTermsSelector,
-    { ...NavigationActions, updateSearchTerms },
+    { ...NavigationActions, updateSearchTerms, selectSection },
   ),
 );
 

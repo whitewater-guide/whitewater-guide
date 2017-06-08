@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, StatusBar, TouchableOpacity, View, Dimensions, Animated } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, Dimensions, Animated } from 'react-native';
 import Interactable from 'react-native-interactable';
 import { NavigateButton, NAVIGATE_BUTTON_HEIGHT, NAVIGATE_BUTTON_WIDTH } from '../../components';
 
@@ -55,6 +55,13 @@ export default class SelectedElementView extends Component {
   }
 
   componentDidUpdate(prevProps) {
+    // const keys = Object.keys(this.props);
+    // console.log('-----------------');
+    // keys.forEach((key) => {
+    //   if (prevProps[key] !== this.props[key]) {
+    //     console.log(key);
+    //   }
+    // });
     if (this.props.selected && !prevProps.selected) {
       this._interactable.snapTo({ index: 1 });
       this._muteSnapEvent = true;

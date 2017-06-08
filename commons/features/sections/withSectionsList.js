@@ -45,12 +45,13 @@ const UpdatesSubscription = gql`
 /**
  * Transforms client-side search terms to search terms that will be send in graphql query
  */
-function serializeSearchTerms(terms, offlineSearch) {
+function serializeSearchTerms(terms, regionId, offlineSearch) {
   const termsToSend = offlineSearch ?
-    _.pick(terms, ['sortBy', 'sortDirection', 'riverId', 'regionId', 'searchString']) :
+    _.pick(terms, ['sortBy', 'sortDirection', 'riverId', 'searchString']) :
     terms;
   return {
     ...termsToSend,
+    regionId,
     sortDirection: terms.sortDirection.toLowerCase(),
   };
 }
@@ -68,10 +69,10 @@ const mergeNextPage = (prevResult, { fetchMoreResult }) => {
 const sectionsGraphql = ({ withGeo, pageSize, offlineSearch }) => enhancedQuery(
   ListSectionsQuery,
   {
-    options: ({ language, searchTerms }) => ({
+    options: ({ language, regionId, searchTerms }) => ({
       fetchPolicy: 'cache-and-network',
       variables: {
-        terms: serializeSearchTerms(searchTerms, offlineSearch),
+        terms: serializeSearchTerms(searchTerms, regionId, offlineSearch),
         limit: pageSize,
         skip: 0,
         withGeo,

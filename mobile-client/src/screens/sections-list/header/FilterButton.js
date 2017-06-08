@@ -63,7 +63,7 @@ export default compose(
       return {
         hasFilters: !isEqual(
           omit(defaultTerms, ['searchString']),
-          omit(currentSearchTerms, ['regionId', 'searchString']),
+          omit(currentSearchTerms, ['searchString']),
         ),
         defaultTerms,
       };
