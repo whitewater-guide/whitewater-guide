@@ -2,8 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { flattenProp, hoistStatics } from 'recompose';
 import { List } from 'native-base';
-import { Screen } from '../../../components';
-import TabIcon from './TabIcon';
+import { Screen, TabIcon } from '../../../components';
 import MediaItem from './MediaItem';
 
 class SectionMediaScreen extends React.PureComponent {
