@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Spinner } from 'native-base';
-import { default as spinnerHOC } from '../commons/utils/spinnerWhileLoading';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import spinnerHOC from '../commons/utils/spinnerWhileLoading';
+import theme from '../theme';
 
 const styles = StyleSheet.create({
   spinnerContainer: {
@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
 
 export const LoadingPlug = () => (
   <View style={styles.spinnerContainer}>
-    <Spinner color="blue" />
+    <ActivityIndicator color={theme.colors.primary} size="large" />
   </View>
 );
 
