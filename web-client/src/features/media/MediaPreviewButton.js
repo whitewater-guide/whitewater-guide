@@ -55,7 +55,7 @@ export default class MediaPreviewButton extends React.Component {
   onClosePreview = () => this.setState({ open: false });
 
   render() {
-    const { value: { url } } = this.props;
+    const { url, file } = this.props.value;
     let src = url;
     let thumb = url;
     if (src && src.indexOf('http') !== 0) {
@@ -63,8 +63,8 @@ export default class MediaPreviewButton extends React.Component {
       thumb = `${BASE_URL}/thumbs/64/${url}`;
     }
     if (!src) {
-      src = value.file.preview;
-      thumb = value.file.preview;
+      src = file.preview;
+      thumb = file.preview;
     }
     return (
       <div style={styles.container}>
