@@ -17,4 +17,9 @@ export default {
       note: 14,
     },
   },
+  icons: {
+    regular: {
+      size: 24,
+    },
+  },
 };

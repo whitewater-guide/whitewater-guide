@@ -1,13 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, Icon } from 'native-base';
 import { connect } from 'react-redux';
+import glamorous from 'glamorous-native';
+import theme from '../theme';
+import IonIcon from './IonIcon';
 import { toggleDrawer } from '../core/actions';
 
 const BurgerButton = ({ onPress }) => (
-  <Button transparent onPress={onPress} >
-    <Icon name="menu" />
-  </Button>
+  <glamorous.View width={64} height={45} alignItems="center" justifyContent="center">
+    <IonIcon
+      icon="menu"
+      size={theme.icons.regular.size}
+      color={theme.colors.primary}
+      onPress={onPress}
+    />
+  </glamorous.View>
 );
 
 BurgerButton.propTypes = {
