@@ -3,6 +3,7 @@ import React from 'react';
 import { Platform } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import TouchableItem from './TouchableItem';
+import theme from '../theme';
 
 const prefix = Platform.OS === 'ios' ? 'ios' : 'md';
 
@@ -27,9 +28,9 @@ IonIcon.propTypes = {
 };
 
 IonIcon.defaultProps = {
-  color: '#FFF',
+  color: theme.colors.textMain,
   onPress: null,
-  size: 32,
+  size: theme.icons.regular.size,
 };
 
 export default IonIcon;

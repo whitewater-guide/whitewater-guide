@@ -49,7 +49,12 @@ class PhotoGallery extends React.PureComponent {
 
   renderHeader = () => (
     <View style={styles.header}>
-      <IonIcon icon="close" onPress={this.props.onClose} />
+      <IonIcon
+        icon="close"
+        size={theme.icons.large.size}
+        onPress={this.props.onClose}
+        color={theme.colors.textLight}
+      />
     </View>
   );
 

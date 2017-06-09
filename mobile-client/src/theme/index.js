@@ -21,5 +21,8 @@ export default {
     regular: {
       size: 24,
     },
+    large: {
+      size: 32,
+    },
   },
 };

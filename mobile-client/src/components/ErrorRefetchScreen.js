@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Button, Icon, Text } from 'native-base';
-import { default as withErrorsViewBase } from '../commons/utils/withErrorsView';
+import { Text } from './text';
+import Icon from './IonIcon';
+import withErrorsViewBase from '../commons/utils/withErrorsView';
 
 const styles = StyleSheet.create({
   container: {
@@ -16,13 +17,9 @@ export const ErrorRefetchScreen = ({ errors, errorMessage }) => {
   const doRefetch = () => Object.values(errors).forEach(v => v.refetch().catch(() => {}));
   return (
     <View style={styles.container}>
-      <Icon name="warning" style={{ fontSize: 20 }} />
+      <Icon icon="warning" size={16} />
       <Text>{errorMessage}</Text>
-      <View>
-        <Button transparent onPress={doRefetch} >
-          <Icon name="refresh" style={{ color: 'black', fontSize: 30 }} />
-        </Button>
-      </View>
+      <Icon icon="refresh" onPress={doRefetch} />
     </View>
   );
 };
