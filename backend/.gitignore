@@ -12,3 +12,4 @@ private/workers/
 /public/images/
 /public/temp/
 /imports/commons/
+.build

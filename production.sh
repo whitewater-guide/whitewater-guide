@@ -50,7 +50,7 @@ time {
         echo "----------- BUILDING METEOR BUNDLER IMAGE -------------"
         docker build --force-rm -f ./.docker/meteor_bundler.docker --tag docker_bundler_image .
         echo "----------- BUNDLING METEOR INSIDE DOCKER CONTAINER -------------"
-        docker run --rm --volume `pwd`/backend/build:/build docker_bundler_image
+        docker run --rm --volume `pwd`/backend/.build:/build docker_bundler_image
         echo "----------- BUNDLING COMPLETE ------------"
         docker rmi docker_bundler_image
     fi
@@ -70,7 +70,7 @@ time {
         rm build/bundle.tar.gz
         echo "----------- COMPRESSING CLIENT AND SERVER BUNDLE ------------"
         tar -czf build/bundle.tar.gz \
-            -C backend/build . \
+            -C backend/.build . \
             --transform 's,^build,bundle/public,' -C ../../web-client build
         echo "----------- DOCKER ENV WWGUIDE ------------"
         eval $(docker-machine env wwguide)
