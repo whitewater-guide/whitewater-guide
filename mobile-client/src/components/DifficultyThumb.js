@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   withBorder: {
     justifyContent: 'center',
     borderColor: '#c9c9c9',
-    borderRightWidth: 1,
+    borderRightWidth: StyleSheet.hairlineWidth,
     paddingRight: 4,
     marginRight: 4,
   },
@@ -37,6 +37,8 @@ const DifficultyThumb = ({ difficulty, difficultyXtra, noBorder }) => {
     </View>
   );
 };
+
+DifficultyThumb.displayName = 'DifficultyThumb';
 
 DifficultyThumb.propTypes = {
   difficulty: PropTypes.number.isRequired,

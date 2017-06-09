@@ -1,44 +1,33 @@
 import React from 'react';
-import { TouchableHighlight, Platform, StyleSheet, TouchableNativeFeedback, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import TouchableItem from './TouchableItem';
+import theme from '../theme';
 
 const styles = StyleSheet.create({
   listItem: {
     padding: 8,
-    borderBottomWidth: 1,
-    borderBottomColor: '#c9c9c9',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: theme.colors.border,
   },
 });
 
 const ListItem = (props) => {
-  const style = props.style;
-  if (Platform.OS === 'ios' || !props.onPress) {
+  if (!props.onPress) {
     return (
-      <TouchableHighlight
-        onPress={props.onPress}
-        underlayColor="#DDDDDD"
-      >
-        <View {...props} style={[styles.listItem, style]}>
-          {props.children}
-        </View>
-      </TouchableHighlight>
+      <View {...props} style={[styles.listItem, props.style]}>
+        {props.children}
+      </View>
     );
   }
   return (
-    <TouchableNativeFeedback
-      onPress={props.onPress}
-      background={TouchableNativeFeedback.Ripple('rgba(0, 0, 0, 0.15)')}
-    >
-      <View style={{ marginLeft: -17, paddingLeft: 17 }}>
-        <View {...props} style={[styles.listItem, style]}>
-          {props.children}
-        </View>
-      </View>
-    </TouchableNativeFeedback>
+    <TouchableItem {...props} style={[styles.listItem, props.style]}>
+      {props.children}
+    </TouchableItem>
   );
 };
 
 ListItem.propTypes = {
-  ...TouchableHighlight.propTypes,
+  ...TouchableItem.propTypes,
 };
 
 export default ListItem;

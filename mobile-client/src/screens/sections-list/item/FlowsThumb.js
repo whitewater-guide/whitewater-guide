@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderColor: '#c9c9c9',
-    borderLeftWidth: 1,
+    borderLeftWidth: StyleSheet.hairlineWidth,
   },
   mainLine: {
     fontSize: 18,
