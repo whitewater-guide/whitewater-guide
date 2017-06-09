@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
-import { VictoryAxis, VictoryChart, VictoryLine, VictoryLabel, VictoryTheme } from 'victory-native';
+import { VictoryAxis, VictoryChart, VictoryLine, VictoryTheme } from 'victory-native';
 import { StyleSheet, Dimensions, View } from 'react-native';
 import { scaleLinear } from 'd3-scale';
 import moment from 'moment';
-import { capitalize, compact } from 'lodash';
+import { compact } from 'lodash';
 import NoChart from './NoChart';
 import TimeLabel from './TimeLabel';
 import HorizontalGridLine from './HorizontalGridLine';
