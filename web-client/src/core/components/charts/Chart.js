@@ -7,7 +7,6 @@ import {
   VictoryScatter,
   VictoryTooltip,
   VictoryTheme,
-  VictoryZoom
 } from 'victory';
 import Dimensions from 'react-dimensions';
 import moment from 'moment';
