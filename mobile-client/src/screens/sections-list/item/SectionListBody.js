@@ -10,8 +10,6 @@ export const ITEM_HEIGHT = 72;
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    alignItems: 'center',
     height: ITEM_HEIGHT,
   },
   body: {

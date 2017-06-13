@@ -1,4 +1,5 @@
 import React from 'react';
+import glamorous from 'glamorous-native';
 import { StyleSheet, View } from 'react-native';
 import TouchableItem from './TouchableItem';
 import theme from '../theme';
@@ -8,10 +9,14 @@ const styles = StyleSheet.create({
     padding: 8,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: theme.colors.border,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    minHeight: 48,
   },
 });
 
-const ListItem = (props) => {
+export const ListItem = (props) => {
   if (!props.onPress) {
     return (
       <View {...props} style={[styles.listItem, props.style]}>
@@ -30,4 +35,16 @@ ListItem.propTypes = {
   ...TouchableItem.propTypes,
 };
 
-export default ListItem;
+export const Left = glamorous(glamorous.View)({
+  alignItems: 'center',
+  justifyContent: 'center',
+});
+
+export const Right = glamorous(glamorous.View)({
+  alignItems: 'center',
+  justifyContent: 'center',
+});
+
+export const Body = glamorous(glamorous.View)({
+  flex: 1,
+});

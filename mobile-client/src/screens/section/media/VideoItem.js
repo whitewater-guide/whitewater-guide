@@ -10,8 +10,6 @@ import { PHOTO_PADDING, PHOTO_SIZE } from './MediaConstants';
 const styles = StyleSheet.create({
   container: {
     padding: PHOTO_PADDING / 2,
-    flexDirection: 'row',
-    alignItems: 'center',
     height: PHOTO_SIZE + 2 * PHOTO_PADDING,
   },
   body: {
