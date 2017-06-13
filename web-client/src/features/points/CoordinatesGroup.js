@@ -86,8 +86,7 @@ export class CoordinatesGroup extends Component {
 
   onSubmitDialog = ([coordinates]) => {
     this.setState({ dialogOpen: false });
-    const { field: { value } } = this.props;
-    this.onChange({ ...value, coordinates });
+    this.onChange('coordinates')(null, coordinates);
   };
 
   mapButtonHandler = () => {
