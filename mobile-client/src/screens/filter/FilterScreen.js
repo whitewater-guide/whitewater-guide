@@ -123,7 +123,7 @@ class FilterScreen extends React.Component {
           <Text>Misc tags</Text>
           <TernaryChips values={this.state.miscTags} onChange={this.onChange('miscTags')} />
         </ScrollView>
-        <Button fullWidth onPress={this.onApply} label="Search" />
+        <Button primary fullWidth onPress={this.onApply} label="Search" />
       </View>
     );
   }

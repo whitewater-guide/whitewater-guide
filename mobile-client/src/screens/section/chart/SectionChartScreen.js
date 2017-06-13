@@ -19,7 +19,7 @@ class SectionChartScreen extends React.PureComponent {
 
   static navigationOptions = {
     tabBarLabel: 'Flow',
-    tabBarIcon: () => <TabIcon icon="analytics" />,
+    tabBarIcon: () => <TabIcon icon="stats" />,
   };
 
   render() {

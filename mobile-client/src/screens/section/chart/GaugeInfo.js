@@ -3,7 +3,9 @@ import React from 'react';
 import { View } from 'react-native';
 import { capitalize } from 'lodash';
 import moment from 'moment';
+import { WhitePortal } from 'react-native-portal';
 import { Link, ListItem, Left, Right, Text, IonIcon } from '../../../components';
+
 
 export default class GaugeInfo extends React.PureComponent {
 
@@ -13,7 +15,7 @@ export default class GaugeInfo extends React.PureComponent {
 
   render() {
     const { gauge } = this.props;
-    const { name, lastTimestamp, lastLevel, lastFlow, levelUnit, flowUnit } = gauge;
+    const { name, lastTimestamp } = gauge;
     const isOutdated = moment().diff(lastTimestamp, 'days') > 1;
     return (
       <View>
@@ -33,21 +35,7 @@ export default class GaugeInfo extends React.PureComponent {
           </Right>
         </ListItem>
 
-        {
-          !!flowUnit &&
-          <ListItem>
-            <Left><Text>Last recorded flow</Text></Left>
-            <Right><Text note>{ `${lastFlow.toFixed(2)} ${flowUnit}`}</Text></Right>
-          </ListItem>
-        }
-
-        {
-          !!levelUnit &&
-          <ListItem>
-            <Left><Text>Last recorded level</Text></Left>
-            <Right><Text note>{`${lastLevel.toFixed(2)} ${levelUnit}`}</Text></Right>
-          </ListItem>
-        }
+        <WhitePortal name="chartPortal" />
 
       </View>
     );

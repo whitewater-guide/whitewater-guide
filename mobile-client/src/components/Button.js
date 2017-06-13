@@ -9,42 +9,71 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+    height: 45,
+  },
+  buttonPrimary: {
     backgroundColor: theme.colors.primary,
   },
+  buttonSmall: {
+    height: 32,
+  },
   buttonFullWidth: {
-    height: 45,
     alignSelf: 'stretch',
   },
   label: {
     fontFamily: theme.font.family,
-    fontSize: theme.font.size.regular,
     color: theme.colors.textMain,
   },
-  labelFullWidth: {
+  labelPrimary: {
     color: theme.colors.textLight,
-    fontSize: 16,
+    fontSize: theme.font.size.regular,
+  },
+  labelSmall: {
+    fontSize: theme.font.size.note,
   },
 });
 
-const Button = ({ fullWidth, label, ...props }) => {
-  const text = fullWidth ? (label || '').toUpperCase() : label;
-  const buttonStyle = fullWidth ? styles.buttonFullWidth : null;
-  const textStyle = fullWidth ? styles.labelFullWidth : null;
+const Button = (props) => {
+  const { primary, fullWidth, small, style, labelStyle, label, ...rest } = props;
+  const text = primary ? (label || '').toUpperCase() : label;
+  let buttonStyle = [styles.button];
+  let textStyle = [styles.label];
+  if (primary) {
+    buttonStyle = [...buttonStyle, styles.buttonPrimary];
+    textStyle = [...textStyle, styles.labelPrimary];
+  }
+  if (small) {
+    buttonStyle = [...buttonStyle, styles.buttonSmall];
+    textStyle = [...textStyle, styles.labelSmall];
+  }
+  if (fullWidth) {
+    buttonStyle = [...buttonStyle, styles.buttonFullWidth];
+  }
+  buttonStyle = [...buttonStyle, style];
+  textStyle = [...textStyle, labelStyle];
   return (
-    <TouchableItem style={[styles.button, buttonStyle]} {...props}>
-      <Text style={[styles.label, textStyle]}>{text}</Text>
+    <TouchableItem style={buttonStyle} {...rest}>
+      <Text style={textStyle}>{text}</Text>
     </TouchableItem>
   );
 };
 
 Button.propTypes = {
   fullWidth: PropTypes.bool,
+  primary: PropTypes.bool,
+  small: PropTypes.bool,
   label: PropTypes.string,
+  style: PropTypes.any,
+  labelStyle: PropTypes.any,
 };
 
 Button.defaultProps = {
   fullWidth: false,
+  primary: false,
+  small: false,
   label: '',
+  style: null,
+  labelStyle: null,
 };
 
 export default Button;

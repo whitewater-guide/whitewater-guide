@@ -100,7 +100,7 @@ class SelectedSectionView extends React.PureComponent {
             <View><Text note>{season}</Text></View>
           </ListItem>
         </List>
-        <Button fullWidth label="Details" onPress={this.detailsHandler} />
+        <Button primary fullWidth label="Details" onPress={this.detailsHandler} />
       </SelectedElementView>
     );
   }

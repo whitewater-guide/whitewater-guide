@@ -63,22 +63,29 @@ export default (Layout, Chart, FlowToggle, PeriodToggle) => {
 
     render() {
       const { chartDomain, unit } = this.state;
+      const { flowUnit, flows, levelUnit, levels } = this.props;
       const start = moment(chartDomain[0]);
       const end = moment(chartDomain[1]);
       // Filter data so chart doesn't draw anything beyond selection
       const data = _.filter(this.props.data, ({ date }) => start.isBefore(date) && end.isAfter(date));
-      const binding = unit === 'flow' ? this.props.flows : this.props.levels;
+      const binding = unit === 'flow' ? flows : levels;
 
       const chart = (<Chart
         binding={binding}
         data={data}
         unit={unit}
         domain={chartDomain}
-        levelUnit={this.props.levelUnit}
-        flowUnit={this.props.flowUnit}
+        levelUnit={levelUnit}
+        flowUnit={flowUnit}
         onDomainChanged={this.onDomainChanged}
       />);
-      const flowToggle = <FlowToggle value={unit} onChange={this.onUnitChanged} />;
+      const flowToggle = levelUnit && flowUnit &&
+        (<FlowToggle
+          measurement={unit}
+          unit={unit === 'flow' ? flowUnit : levelUnit}
+          value={binding.lastValue}
+          onChange={this.onUnitChanged}
+        />);
       const periodToggle = <PeriodToggle onChange={this.setDomainInDays} />;
 
       return (

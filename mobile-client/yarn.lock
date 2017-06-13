@@ -5946,6 +5946,14 @@ react-modal@^1.2.1:
     lodash.assign "^4.2.0"
     prop-types "^15.5.7"
 
+react-native-actionsheet@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-actionsheet/-/react-native-actionsheet-2.1.0.tgz#e1b58bd951f4fcc1c5ebbb769fff5c693f12e23a"
+
+react-native-animatable@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/react-native-animatable/-/react-native-animatable-1.2.2.tgz#a873550e6f7cb95f90baf46b9eb15b1ab56425cb"
+
 react-native-button@^1.6.0:
   version "1.8.2"
   resolved "https://registry.yarnpkg.com/react-native-button/-/react-native-button-1.8.2.tgz#49e5cadd22ee443adea52a85539d288aa2117ade"
