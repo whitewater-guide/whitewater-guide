@@ -79,13 +79,15 @@ export default (Layout, Chart, FlowToggle, PeriodToggle) => {
         flowUnit={flowUnit}
         onDomainChanged={this.onDomainChanged}
       />);
-      const flowToggle = levelUnit && flowUnit &&
-        (<FlowToggle
+      const flowToggle = (
+        <FlowToggle
+          enabled={!!flowUnit && !!levelUnit}
           measurement={unit}
           unit={unit === 'flow' ? flowUnit : levelUnit}
           value={binding.lastValue}
           onChange={this.onUnitChanged}
-        />);
+        />
+      );
       const periodToggle = <PeriodToggle onChange={this.setDomainInDays} />;
 
       return (

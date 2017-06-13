@@ -74,7 +74,7 @@ const measurementsGraphql = propName => graphql(
         ...restGauge,
         measurements: measurements.map(({ date, ...rest }) => ({ date: new Date(date), ...rest })),
       };
-      return { [propName]: mergedGauge, gaugeLoading: loading && ownProps.gaugeLoading };
+      return { [propName]: mergedGauge, gaugeLoading: loading || ownProps.gaugeLoading };
     },
   },
 );

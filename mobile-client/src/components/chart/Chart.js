@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
-import { VictoryAxis, VictoryChart, VictoryLine, VictoryTheme } from 'victory-native';
-import { StyleSheet, Dimensions, View } from 'react-native';
+import { VictoryAxis, VictoryChart, VictoryLine } from 'victory-native';
+import { Dimensions, StyleSheet, View } from 'react-native';
 import { scaleLinear } from 'd3-scale';
 import moment from 'moment';
-import { compact } from 'lodash';
+import { compact, filter, isFinite } from 'lodash';
 import NoChart from './NoChart';
 import TimeLabel from './TimeLabel';
 import HorizontalGridLine from './HorizontalGridLine';
@@ -12,12 +12,15 @@ import YLabel from './YLabel';
 import YTick from './YTick';
 import YAxis from './YAxis';
 import TimeGridLine from './TimeGridLine';
+import ChartTheme from './ChartTheme';
 
 const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'white',
+    backgroundColor: 'transparent',
+    flex: 1,
+    alignSelf: 'stretch',
   },
 });
 
@@ -65,6 +68,9 @@ class Chart extends PureComponent {
     this._yTickValues = [];
     this.computeChartSettings(props.domain);
     this.computeDomain(props);
+    this.state = {
+      height: 0,
+    };
   }
 
   componentWillReceiveProps(nextProps) {
@@ -76,8 +82,10 @@ class Chart extends PureComponent {
     }
   }
 
+  onLayout = ({ nativeEvent: { layout: { height } } }) => this.setState({ height });
+
   computeDomain = ({ data, unit, binding }) => {
-    if (!data) {
+    if (!data || data.length === 0) {
       this._domain = [0, 0];
       return;
     }
@@ -89,8 +97,8 @@ class Chart extends PureComponent {
     if (binding) {
       const { minimum, maximum, optimum, impossible } = binding;
       result = [
-        Math.min.apply(null, compact([result[0], minimum, maximum, optimum])),
-        Math.max.apply(null, compact([result[1], minimum, maximum, optimum])),
+        Math.min.apply(null, filter([result[0], minimum, maximum, optimum], isFinite)),
+        Math.max.apply(null, filter([result[1], minimum, maximum, optimum], isFinite)),
       ];
       ticks = compact([minimum, maximum, optimum, impossible]);
     }
@@ -122,37 +130,40 @@ class Chart extends PureComponent {
       return (<NoChart noData />);
     }
     return (
-      <View style={styles.container}>
-        <VictoryChart
-          width={width}
-          height={width}
-          padding={{ top: 20, bottom: 48, left: 48, right: 16 }}
-          scale={{ x: 'time', y: 'linear' }}
-          domain={{ x: domain, y: this._domain }}
-          theme={VictoryTheme.material}
-        >
-          <VictoryAxis
-            tickFormat={this._tickFormat}
-            tickCount={this._tickCount}
-            tickLabelComponent={<TimeLabel angle={90} period={this._period} />}
-            gridComponent={<TimeGridLine period={this._period} />}
-          />
-          <VictoryAxis
-            dependentAxis
-            tickValues={this._yTickValues}
-            tickComponent={<YTick binding={binding} />}
-            tickLabelComponent={<YLabel binding={binding} />}
-            gridComponent={<HorizontalGridLine binding={binding} />}
-            axisComponent={<YAxis unit={this.props[`${unit}Unit`]} />}
-          />
-          <VictoryLine
-            data={data}
-            x="date"
-            y={this.props.unit}
-            interpolation="linear"
-            style={{ data: { strokeWidth: 2 } }}
-          />
-        </VictoryChart>
+      <View style={styles.container} onLayout={this.onLayout}>
+        {
+          this.state.height > 0 &&
+          <VictoryChart
+            width={width}
+            height={this.state.height}
+            padding={{ top: 20, bottom: 48, left: 48, right: 16 }}
+            scale={{ x: 'time', y: 'linear' }}
+            domain={{ x: domain, y: this._domain }}
+            theme={ChartTheme}
+          >
+            <VictoryAxis
+              tickFormat={this._tickFormat}
+              tickCount={this._tickCount}
+              tickLabelComponent={<TimeLabel angle={90} period={this._period} />}
+              gridComponent={<TimeGridLine period={this._period} />}
+            />
+            <VictoryAxis
+              dependentAxis
+              tickValues={this._yTickValues}
+              tickComponent={<YTick binding={binding} />}
+              tickLabelComponent={<YLabel binding={binding} />}
+              gridComponent={<HorizontalGridLine binding={binding} />}
+              axisComponent={<YAxis unit={this.props[`${unit}Unit`]} />}
+            />
+            <VictoryLine
+              data={data}
+              x="date"
+              y={this.props.unit}
+              interpolation="linear"
+              style={{ data: { strokeWidth: 2 } }}
+            />
+          </VictoryChart>
+        }
       </View>
     );
   }

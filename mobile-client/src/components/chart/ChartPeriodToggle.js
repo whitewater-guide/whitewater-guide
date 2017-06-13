@@ -6,6 +6,7 @@ import { Button, ListItem } from '../index';
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
+    borderTopWidth: StyleSheet.hairlineWidth,
   },
   button: {
     flex: 1,

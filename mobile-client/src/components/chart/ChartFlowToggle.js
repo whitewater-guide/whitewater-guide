@@ -22,6 +22,7 @@ class ChartFlowToggle extends React.PureComponent {
   static propTypes = {
     measurement: PropTypes.oneOf(['flow', 'level']).isRequired,
     unit: PropTypes.string.isRequired,
+    enabled: PropTypes.bool.isRequired,
     value: PropTypes.number.isRequired,
     onChange: PropTypes.func.isRequired,
   };
@@ -53,7 +54,7 @@ class ChartFlowToggle extends React.PureComponent {
   setActionSheet = (ref) => { this._actionSheet = ref; };
 
   render() {
-    const { measurement, value, unit  } = this.props;
+    const { measurement, value, unit, enabled } = this.props;
     return (
       <BlackPortal name="chartPortal">
         <ListItem>
@@ -70,19 +71,25 @@ class ChartFlowToggle extends React.PureComponent {
           </Left>
           <Right flexDirection="row">
             <Text note>{`${value.toFixed(2)} ${unit}`}</Text>
-            <IonIcon
-              icon="more"
-              color={theme.colors.primary}
-              style={styles.button}
-              onPress={this.onShowActionSheet}
-            />
-            <ActionSheet
-              ref={this.setActionSheet}
-              title="Select measured value"
-              options={OPTIONS}
-              cancelButtonIndex={2}
-              onPress={this.onSelect}
-            />
+            {
+              enabled &&
+              <IonIcon
+                icon="more"
+                color={theme.colors.primary}
+                style={styles.button}
+                onPress={this.onShowActionSheet}
+              />
+            }
+            {
+              enabled &&
+              <ActionSheet
+                ref={this.setActionSheet}
+                title="Select measured value"
+                options={OPTIONS}
+                cancelButtonIndex={2}
+                onPress={this.onSelect}
+              />
+            }
           </Right>
         </ListItem>
       </BlackPortal>

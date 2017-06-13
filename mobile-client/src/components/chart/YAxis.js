@@ -7,7 +7,7 @@ const YAxis = (props) => {
   return (
     <G x={x1} y={y1}>
       <Line {...style} x1={0} y1={0} x2={0} y2={y2 - y1} />
-      <Text x={0} y={-16} textAnchor="middle">
+      <Text x={-12} y={-16} textAnchor="end">
         { unit }
       </Text>
     </G>

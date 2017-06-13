@@ -27,6 +27,8 @@ export default class GaugeInfo extends React.PureComponent {
           </Right>
         </ListItem>
 
+        <WhitePortal name="chartPortal" />
+
         <ListItem>
           <Left><Text>Last updated</Text></Left>
           <Right flexDirection="row">
@@ -34,8 +36,6 @@ export default class GaugeInfo extends React.PureComponent {
             { isOutdated && <IonIcon name="warning" size={16} /> }
           </Right>
         </ListItem>
-
-        <WhitePortal name="chartPortal" />
 
       </View>
     );

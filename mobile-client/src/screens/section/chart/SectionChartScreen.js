@@ -27,7 +27,7 @@ class SectionChartScreen extends React.PureComponent {
     const { flows, levels } = section;
     const { measurements, levelUnit, flowUnit } = gauge;
     return (
-      <Screen>
+      <Screen noScroll>
         <InteractiveChart
           data={measurements}
           flows={flows}
@@ -52,8 +52,8 @@ const container = compose(
     compose(
       withProps(({ section }) => ({ gaugeId: section.gauge._id })),
       withGauge({ withMeasurements: true }),
-      spinnerWhileLoading(props => props.gaugeLoading),
       withErrorsView,
+      spinnerWhileLoading(props => props.gaugeLoading),
     ),
     renderComponent(NoChart),
   ),

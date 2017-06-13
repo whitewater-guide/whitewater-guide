@@ -1,9 +1,16 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignSelf: 'stretch',
+  },
+});
 
 const InteractiveChart = ({ chart, flowToggle, periodToggle }) => (
-  <View >
+  <View style={styles.container}>
     { flowToggle }
     { chart }
     { periodToggle }
@@ -12,8 +19,8 @@ const InteractiveChart = ({ chart, flowToggle, periodToggle }) => (
 
 InteractiveChart.propTypes = {
   chart: PropTypes.element.isRequired,
-  flowToggle: PropTypes.element,
-  periodToggle: PropTypes.element,
+  flowToggle: PropTypes.element.isRequired,
+  periodToggle: PropTypes.element.isRequired,
 };
 
 export default InteractiveChart;
