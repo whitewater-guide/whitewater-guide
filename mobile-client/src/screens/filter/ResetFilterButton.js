@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { resetSearchTerms } from '../../commons/features/regions';
-import variables from '../../theme/variables/platform';
+import theme from '../../theme';
 
 const styles = StyleSheet.create({
   button: {
@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
   },
   label: {
-    color: variables.btnPrimaryBg,
+    color: theme.colors.primary,
     fontSize: 14,
   },
 });

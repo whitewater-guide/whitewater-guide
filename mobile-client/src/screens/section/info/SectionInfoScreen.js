@@ -1,13 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { View } from 'react-native';
-import { List, ListItem, Left, Right, Text } from 'native-base';
 import { flattenProp, hoistStatics } from 'recompose';
 import { capitalize, trim, isNil } from 'lodash';
 import { renderDifficulty } from '../../../commons/utils/TextUtils';
 import stringifySeason from '../../../commons/utils/stringifySeason';
 import { Durations } from '../../../commons/domain';
-import { Chips, Screen, StarRating, TabIcon } from '../../../components';
+import { Chips, Screen, StarRating, TabIcon, ListItem, Left, Right, Text } from '../../../components';
 import CoordinatesInfo from './CoordinatesInfo';
 
 class SectionInfoScreen extends React.PureComponent {
@@ -26,7 +25,7 @@ class SectionInfoScreen extends React.PureComponent {
     const season = capitalize(trim(`${stringifySeason(section.seasonNumeric)}\n${section.season}`));
     return (
       <Screen>
-        <List>
+        <View>
 
           <ListItem>
             <Left><Text>Difficulty</Text></Left>
@@ -95,7 +94,7 @@ class SectionInfoScreen extends React.PureComponent {
             </View>
           </ListItem>
 
-        </List>
+        </View>
       </Screen>
     );
   }

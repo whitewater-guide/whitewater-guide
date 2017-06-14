@@ -4,7 +4,7 @@ import { compose, mapProps, withPropsOnChange, withState } from 'recompose';
 import { debounce } from 'lodash';
 import { Animated, Easing, Platform, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import variables from '../theme/variables/platform';
+import theme from '../theme';
 
 const AnimatedIcon = Animated.createAnimatedComponent(Icon);
 
@@ -101,7 +101,7 @@ class SearchBar extends React.Component {
               style={rotate}
               name={Platform.OS === 'ios' ? 'ios-search' : 'md-search'}
               size={20}
-              color={variables.btnPrimaryBg}
+              color={theme.colors.primary}
             />
           </TouchableOpacity>
         </Animated.View >
@@ -118,7 +118,7 @@ class SearchBar extends React.Component {
               <AnimatedIcon
                 name={Platform.OS === 'ios' ? 'ios-close' : 'md-close'}
                 size={24}
-                color={variables.btnPrimaryBg}
+                color={theme.colors.primary}
               />
             </TouchableOpacity>
           </Animated.View>

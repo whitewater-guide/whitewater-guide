@@ -31,7 +31,6 @@
     "mobile-center-analytics": "^0.5.0",
     "mobile-center-crashes": "^0.5.0",
     "moment": "^2.18.1",
-    "native-base": "^2.1.4",
     "prop-types": "^15.5.10",
     "react": "16.0.0-alpha.12",
     "react-apollo": "^1.4.2",

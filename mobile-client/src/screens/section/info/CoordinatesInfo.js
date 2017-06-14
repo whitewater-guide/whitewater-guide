@@ -1,8 +1,15 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Clipboard, Linking, View } from 'react-native';
-import { Button, Icon, Left, ListItem, Text } from 'native-base';
+import { Clipboard, Linking, StyleSheet } from 'react-native';
+import { IonIcon, Left, Right, ListItem, Text  } from '../../../components';
 import { arrayToDMSString } from '../../../commons/utils/GeoUtils';
+
+const styles = StyleSheet.create({
+  icon: {
+    width: 32,
+    height: 32,
+  },
+});
 
 const CoordinatesInfo = ({ label, coordinates }) => {
   const prettyCoord = arrayToDMSString(coordinates);
@@ -11,18 +18,14 @@ const CoordinatesInfo = ({ label, coordinates }) => {
   const directionsHandler = () => Linking.openURL(direcionsURL).catch(() => {});
   return (
     <ListItem>
-      <Left><Text>{label}</Text></Left>
-      <View style={{ paddingRight: 12 }}>
+      <Left>
+        <Text>{label}</Text>
+      </Left>
+      <Right flexDirection="row">
         <Text note>{prettyCoord}</Text>
-      </View>
-      <View style={{ flexDirection: 'row' }}>
-        <Button transparent style={{ paddingLeft: 0, paddingRight: 4 }} onPress={copyHandler}>
-          <Icon name="copy" style={{ color: 'black', fontSize: 21 }} />
-        </Button>
-        <Button transparent style={{ paddingLeft: 4, paddingRight: 0 }} onPress={directionsHandler}>
-          <Icon name="navigate" style={{ color: 'black', fontSize: 21 }} />
-        </Button>
-      </View>
+        <IonIcon icon="copy" onPress={copyHandler} size={21} style={styles.icon} />
+        <IonIcon icon="car" onPress={directionsHandler} size={21} style={styles.icon} />
+      </Right>
     </ListItem>
   );
 };

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Animated, Linking, Platform, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import variables from '../theme/variables/platform';
+import theme from '../theme';
 
 export const NAVIGATE_BUTTON_HEIGHT = 72;
 export const NAVIGATE_BUTTON_WIDTH = 64;
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     height: NAVIGATE_BUTTON_HEIGHT,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: variables.btnPrimaryBg,
+    backgroundColor: theme.colors.primary,
   },
   label: {
     fontSize: 14,

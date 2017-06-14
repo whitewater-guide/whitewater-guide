@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { isEqual, merge, omit } from 'lodash';
 import { compose } from 'recompose';
 import Icon from 'react-native-vector-icons/Ionicons';
-import variables from '../../../theme/variables/platform';
+import theme from '../../../theme';
 import { defaultSectionSearchTerms } from '../../../commons/domain';
 import { tagsToSelections, withTags } from '../../../commons/features/tags';
 import { updateSearchTerms, searchTermsSelector } from '../../../commons/features/regions';
@@ -47,7 +47,7 @@ class FilterButton extends React.PureComponent {
     const iconName = this.props.hasFilters ? 'ios-funnel' : 'ios-funnel-outline';
     return (
       <TouchableOpacity style={styles.button} onPress={this.onPress} onLongPress={this.onLongPress} >
-        <Icon name={iconName} size={24} color={variables.btnPrimaryBg} />
+        <Icon name={iconName} size={24} color={theme.colors.primary} />
       </TouchableOpacity>
     );
   }

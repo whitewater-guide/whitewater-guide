@@ -5,7 +5,7 @@ import Interactable from 'react-native-interactable';
 import { SectionPropType } from '../../../commons/features/sections';
 import { NavigateButton } from '../../../components';
 import SectionListBody, { ITEM_HEIGHT } from './SectionListBody';
-import variables from '../../../theme/variables/platform';
+import theme from '../../../theme';
 
 export { ITEM_HEIGHT } from './SectionListBody';
 
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     paddingRight: 8,
   },
   background: {
-    backgroundColor: variables.btnPrimaryBg,
+    backgroundColor: theme.colors.primary,
   },
 });
 
