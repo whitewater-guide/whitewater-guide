@@ -1,11 +1,19 @@
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
-import { List, ListItem, Text, Body, Right, Icon } from 'native-base';
-import { RefreshControl, View } from 'react-native';
+import { FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import { compose, hoistStatics } from 'recompose';
 import { withRegionsList, selectRegion } from '../../commons/features/regions';
 import { Screen, BurgerButton, withErrorsView, spinnerWhileLoading } from '../../components';
+import { RegionListItem, REGION_ITEM_HEIGHT } from './RegionListItem';
+
+const keyExtractor = region => region._id;
+
+const getItemLayout = (data, index) => ({
+  length: REGION_ITEM_HEIGHT,
+  offset: index * REGION_ITEM_HEIGHT,
+  index,
+});
 
 class RegionsListScreen extends PureComponent {
   static propTypes = {
@@ -24,30 +32,19 @@ class RegionsListScreen extends PureComponent {
     this.props.selectRegion(region._id);
   };
 
-  renderRow = region => (
-    <ListItem button onPress={() => this.onRegionSelected(region)}>
-      <Body>
-        <Text>{region.name}</Text>
-        <View style={{ flexDirection: 'row' }}>
-          <Text note style={{ minWidth: 60 }}>{`Rivers: ${region.riversCount}`}</Text>
-          <Text note>{`Sections: ${region.sectionsCount}`}</Text>
-        </View>
-      </Body>
-      <Right>
-        <Icon name="arrow-forward" />
-      </Right>
-    </ListItem>
-  );
+  renderItem = ({ item }) => (<RegionListItem region={item} onPress={this.onRegionSelected} />);
 
   render() {
     const { regionsListLoading, refetchRegionsList } = this.props;
-    const refreshControl = <RefreshControl refreshing={regionsListLoading} onRefresh={refetchRegionsList} />;
     return (
       <Screen noScroll>
-        <List
-          dataArray={this.props.regions}
-          refreshControl={refreshControl}
-          renderRow={this.renderRow}
+        <FlatList
+          data={this.props.regions}
+          renderItem={this.renderItem}
+          keyExtractor={keyExtractor}
+          getItemLayout={getItemLayout}
+          onRefresh={refetchRegionsList}
+          refreshing={regionsListLoading}
         />
       </Screen>
     );
