@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, View } from 'react-native';
-import { Text } from 'native-base';
 import { get } from 'lodash';
 import SelectedElementView from './SelectedElementView';
+import { Text } from '../index';
 
 const styles = StyleSheet.create({
   header: {
