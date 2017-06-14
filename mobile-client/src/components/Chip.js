@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
-import { Text } from './text';
+import { Icon, Text } from './index';
 
 const styles = StyleSheet.create({
   chip: {
@@ -17,28 +16,17 @@ const styles = StyleSheet.create({
     marginHorizontal: 2,
     marginVertical: 4,
   },
-  iconWrapper: {
-    width: 24,
-    height: 32,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   chipText: {
     fontSize: 12,
   },
 });
 
 const Chip = ({ color, label, icon, onPress }) => {
-  const iconView = icon && <Icon name={icon} size={24} color={color} />;
+  const iconView = icon && <Icon width={24} height={32} icon={icon} color={color} />;
   const paddingLeft = icon ? 4 : 8;
   const body = (
     <View style={[{ paddingLeft, borderColor: color }, styles.chip]}>
-      {
-        icon &&
-        <View style={styles.iconWrapper}>
-          { iconView }
-        </View>
-      }
+      { iconView }
       <Text style={[{ color }, styles.chipText]}>{label}</Text>
     </View>
   );

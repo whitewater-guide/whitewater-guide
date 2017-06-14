@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Modal, StyleSheet, View } from 'react-native';
 import ImageViewer from 'react-native-image-zoom-viewer';
 import { getUrl } from './MediaConstants';
-import { IonIcon, Text } from '../../../components';
+import { Icon, Text } from '../../../components';
 import theme from '../../../theme';
 
 const styles = StyleSheet.create({
@@ -49,9 +49,9 @@ class PhotoGallery extends React.PureComponent {
 
   renderHeader = () => (
     <View style={styles.header}>
-      <IonIcon
+      <Icon
+        large
         icon="close"
-        size={theme.icons.large.size}
         onPress={this.props.onClose}
         color={theme.colors.textLight}
       />

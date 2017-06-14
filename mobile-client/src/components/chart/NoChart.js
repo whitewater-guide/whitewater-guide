@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native';
-import { Text, IonIcon } from '../index';
+import { Text, Icon } from '../index';
 
 const { width } = Dimensions.get('window');
 
@@ -18,7 +18,7 @@ const NoChart = ({ noData }) => {
   const message = noData ? 'There is no data for this period' : 'There is no gauge for this section';
   return (
     <View style={styles.container}>
-      <IonIcon icon="warning" />
+      <Icon narrow icon="warning" />
       <Text>{message}</Text>
     </View>
   );

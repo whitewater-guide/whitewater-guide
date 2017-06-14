@@ -1,15 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Clipboard, Linking, StyleSheet } from 'react-native';
-import { IonIcon, Left, Right, ListItem, Text  } from '../../../components';
+import { Clipboard, Linking } from 'react-native';
+import { Icon, Left, Right, ListItem, Text  } from '../../../components';
 import { arrayToDMSString } from '../../../commons/utils/GeoUtils';
-
-const styles = StyleSheet.create({
-  icon: {
-    width: 32,
-    height: 32,
-  },
-});
 
 const CoordinatesInfo = ({ label, coordinates }) => {
   const prettyCoord = arrayToDMSString(coordinates);
@@ -23,8 +16,8 @@ const CoordinatesInfo = ({ label, coordinates }) => {
       </Left>
       <Right flexDirection="row">
         <Text note>{prettyCoord}</Text>
-        <IonIcon icon="copy" onPress={copyHandler} size={21} style={styles.icon} />
-        <IonIcon icon="car" onPress={directionsHandler} size={21} style={styles.icon} />
+        <Icon icon="copy" onPress={copyHandler} />
+        <Icon icon="car" onPress={directionsHandler} />
       </Right>
     </ListItem>
   );

@@ -2,9 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { compose, mapProps, withPropsOnChange, withState } from 'recompose';
 import { debounce } from 'lodash';
-import { Animated, Easing, Platform, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
-import theme from '../theme';
+import { Animated, Easing, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
+import { Icon } from './index';
 
 const AnimatedIcon = Animated.createAnimatedComponent(Icon);
 
@@ -98,10 +97,9 @@ class SearchBar extends React.Component {
           { this.props.children }
           <TouchableOpacity style={styles.button} onPress={this.onPressSearch} disabled={searchOn}>
             <AnimatedIcon
+              primary
               style={rotate}
-              name={Platform.OS === 'ios' ? 'ios-search' : 'md-search'}
-              size={20}
-              color={theme.colors.primary}
+              icon="search"
             />
           </TouchableOpacity>
         </Animated.View >
@@ -115,11 +113,7 @@ class SearchBar extends React.Component {
               onChangeText={this.props.onChange}
             />
             <TouchableOpacity style={styles.button} onPress={this.onCancelSearch}>
-              <AnimatedIcon
-                name={Platform.OS === 'ios' ? 'ios-close' : 'md-close'}
-                size={24}
-                color={theme.colors.primary}
-              />
+              <AnimatedIcon primary icon="close" />
             </TouchableOpacity>
           </Animated.View>
         }

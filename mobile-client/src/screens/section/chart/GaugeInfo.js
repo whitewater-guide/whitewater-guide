@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import { capitalize } from 'lodash';
 import moment from 'moment';
 import { WhitePortal } from 'react-native-portal';
-import { Link, ListItem, Left, Right, Text, IonIcon } from '../../../components';
+import { Link, ListItem, Left, Right, Text, Icon } from '../../../components';
 
 
 export default class GaugeInfo extends React.PureComponent {
@@ -33,7 +33,7 @@ export default class GaugeInfo extends React.PureComponent {
           <Left><Text>Last updated</Text></Left>
           <Right flexDirection="row">
             <Text note>{moment(lastTimestamp).format('HH:mm DD MMMM YYYY')}</Text>
-            { isOutdated && <IonIcon name="warning" size={16} /> }
+            { isOutdated && <Icon narrow icon="warning" size={16} /> }
           </Right>
         </ListItem>
 

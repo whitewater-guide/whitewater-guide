@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Platform, StyleSheet, View } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
-import { Text } from './text';
+import { StyleSheet, View } from 'react-native';
+import { Icon, Text } from './index';
 
 const styles = StyleSheet.create({
   container: {
@@ -27,11 +26,10 @@ const styles = StyleSheet.create({
 });
 
 const TabIcon = ({ counter, icon, tintColor }) => {
-  const prefix = Platform.OS === 'ios' ? 'ios' : 'md';
   const countStr = counter > 9 ? '9+' : counter.toString();
   return (
     <View style={styles.container}>
-      <Icon name={`${prefix}-${icon}`} size={32} color={tintColor} />
+      <Icon large icon={icon} color={tintColor} />
       {
         counter > 0 &&
         <View style={styles.badge}>

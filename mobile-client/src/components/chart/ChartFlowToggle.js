@@ -1,22 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { StyleSheet } from 'react-native';
 import { BlackPortal } from 'react-native-portal';
 import ActionSheet from 'react-native-actionsheet';
 import { createAnimatableComponent } from 'react-native-animatable';
-import { IonIcon, ListItem, Left, Right, Text } from '../index';
-import theme from '../../theme';
+import { Icon, ListItem, Left, Right, Text } from '../index';
 
 const AnimatableText = createAnimatableComponent(Text);
 
 const OPTIONS = ['Flow', 'Level', 'Cancel'];
-
-const styles = StyleSheet.create({
-  button: {
-    width: 32,
-    height: 32,
-  },
-});
 
 class ChartFlowToggle extends React.PureComponent {
   static propTypes = {
@@ -73,12 +64,7 @@ class ChartFlowToggle extends React.PureComponent {
             <Text note>{`${value.toFixed(2)} ${unit}`}</Text>
             {
               enabled &&
-              <IonIcon
-                icon="more"
-                color={theme.colors.primary}
-                style={styles.button}
-                onPress={this.onShowActionSheet}
-              />
+              <Icon primary icon="more" onPress={this.onShowActionSheet} />
             }
             {
               enabled &&

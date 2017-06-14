@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Icon from 'react-native-vector-icons/Ionicons';
-import { Animated, Linking, Platform, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { Animated, Linking, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { Icon } from './index';
 import theme from '../theme';
 
 export const NAVIGATE_BUTTON_HEIGHT = 72;
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 14,
     fontWeight: '500',
-    color: '#333',
+    color: theme.colors.textMain,
   },
 });
 
@@ -64,7 +64,7 @@ export const NavigateButton = ({ driver, label, inputRange, coordinates, animati
   return (
     <Animated.View style={[styles.buttonAnimatable, animatedStyle, style]}>
       <TouchableOpacity onPress={directionsHandler} style={styles.button}>
-        <Icon name={Platform.OS === 'ios' ? 'ios-car' : 'md-car'} size={28} color="#333" />
+        <Icon icon="car" size={28} />
         <Text style={styles.label}>{label}</Text>
       </TouchableOpacity>
     </Animated.View>

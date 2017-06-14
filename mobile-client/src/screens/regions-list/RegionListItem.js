@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { ListItem, Text, Body, Right, IonIcon } from '../../components';
+import { ListItem, Text, Body, Right, Icon } from '../../components';
 import theme from '../../theme';
 
 export const REGION_ITEM_HEIGHT = 72;
@@ -29,7 +29,7 @@ export const RegionListItem = ({ region, onPress }) => {
         </View>
       </Body>
       <Right>
-        <IonIcon color={theme.colors.componentBorder} icon="arrow-forward" />
+        <Icon color={theme.colors.componentBorder} icon="arrow-forward" />
       </Right>
     </ListItem>
   );
