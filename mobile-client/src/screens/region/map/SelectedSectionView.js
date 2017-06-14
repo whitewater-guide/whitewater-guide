@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, View } from 'react-native';
-import { List, ListItem, Left, Right, Text } from 'native-base';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 import { get, capitalize, trim } from 'lodash';
 import { SectionPropType } from '../../../commons/features/sections';
 import stringifySeason from '../../../commons/utils/stringifySeason';
-import { Button, DifficultyThumb, StarRating } from '../../../components';
+import { Button, DifficultyThumb, StarRating, ListItem, Left, Right, Text } from '../../../components';
 import SelectedElementView from '../../../components/map/SelectedElementView';
 
 const styles = StyleSheet.create({
@@ -73,16 +72,22 @@ class SelectedSectionView extends React.PureComponent {
       { label: 'Put-in', coordinates: get(section, 'putIn.coordinates', [0, 0]) },
       { label: 'Take-out', coordinates: get(section, 'takeOut.coordinates', [0, 0]) },
     ];
-    const season = section ? capitalize(trim(`${stringifySeason(section.seasonNumeric)}\n${section.season}`)) : ' \n ';
+    let season = ' \n ';
+    if (section) {
+      season = capitalize(trim(`${stringifySeason(section.seasonNumeric)}`));
+      if (section.season) {
+        season = `${season}\n${trim(section.season)}`;
+      }
+    }
     return (
       <SelectedElementView
         header={this.renderHeader()}
         buttons={buttons}
         selected={!!section}
-        panelHeight={340}
+        panelHeight={315}
         {...this.props}
       >
-        <List>
+        <View>
           <ListItem>
             <Left><Text>Drop</Text></Left>
             <Right><Text note>{get(section, 'drop', ' ')}</Text></Right>
@@ -97,9 +102,9 @@ class SelectedSectionView extends React.PureComponent {
           </ListItem>
           <ListItem>
             <Left><Text>Season</Text></Left>
-            <View><Text note>{season}</Text></View>
+            <View><Text note textAlign="right">{season}</Text></View>
           </ListItem>
-        </List>
+        </View>
         <Button primary fullWidth label="Details" onPress={this.detailsHandler} />
       </SelectedElementView>
     );

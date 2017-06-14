@@ -9,7 +9,7 @@ const window = Dimensions.get('window');
 const styles = StyleSheet.create({
   panel: {
     width: window.width,
-    paddingBottom: 8,
+    paddingBottom: 0,
     backgroundColor: '#ffffff',
     borderWidth: 0,
   },
