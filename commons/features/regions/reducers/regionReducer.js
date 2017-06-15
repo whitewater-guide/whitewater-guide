@@ -10,8 +10,13 @@ const initialState = {
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
-    case UPDATE_REGION:
-      return { ...state, ...payload.data };// Shallow merge
+    case UPDATE_REGION: {
+      // Merge search terms shallowly, then the rest state shallowly
+      const searchTerms = payload.data.searchTerms ?
+        { ...state.searchTerms, ...payload.data.searchTerms } :
+        state.searchTerms;
+      return { ...state, ...payload.data, searchTerms };
+    }
     case RESET_SEARCH_TERMS:
       return { ...state, searchTerms: { ...defaultSectionSearchTerms } };
     default:
