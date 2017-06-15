@@ -1,68 +1,104 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, Text } from 'react-native';
+import glamorous from 'glamorous-native';
+import { Text, TouchableOpacity } from 'react-native';
 import TouchableItem from './TouchableItem';
 import theme from '../theme';
 
-const styles = StyleSheet.create({
-  button: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 45,
+const styles = {
+  regular: {
+    button: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      minHeight: 45,
+      height: 45,
+    },
+    label: {
+      ...theme.font.regular,
+    },
   },
-  buttonPrimary: {
-    backgroundColor: theme.colors.primary,
+  fullWidth: {
+    button: {
+      flex: 1,
+    },
   },
-  buttonSmall: {
-    height: 32,
+  primary: {
+    button: {
+      backgroundColor: theme.colors.primary,
+    },
+    label: {
+      color: theme.colors.textLight,
+    },
   },
-  buttonFullWidth: {
-    alignSelf: 'stretch',
+  small: {
+    button: {
+      minHeight: 32,
+      height: 32,
+    },
+    label: {
+      fontSize: theme.font.note.fontSize,
+    },
   },
-  label: {
-    fontFamily: theme.font.family,
-    color: theme.colors.textMain,
+  outlined: {
+    button: {
+      borderColor: theme.colors.primary,
+      borderWidth: 1,
+      backgroundColor: 'transparent',
+    },
+    label: {
+      color: theme.colors.primary,
+    },
   },
-  labelPrimary: {
-    color: theme.colors.textLight,
-    fontSize: theme.font.size.regular,
+  link: {
+    button: {
+      backgroundColor: 'transparent',
+    },
+    label: {
+      color: theme.colors.primary,
+    },
   },
-  labelSmall: {
-    fontSize: theme.font.size.note,
-  },
-});
+};
+
+const Label = glamorous(Text)(
+  styles.regular.label,
+  props => ['fullWidth', 'primary', 'small', 'outlined', 'link'].reduce(
+    (style, attribute) => (props[attribute] ? { ...style, ...styles[attribute].label } : style),
+    { },
+  ),
+);
+
+const ButtonInternal = glamorous(TouchableItem, { rootEl: TouchableOpacity })(
+  styles.regular.button,
+  props => ['fullWidth', 'primary', 'small', 'outlined', 'link'].reduce(
+    (style, attribute) => (props[attribute] ? { ...style, ...styles[attribute].button } : style),
+    { paddingHorizontal: props.padding },
+  ),
+);
 
 const Button = (props) => {
-  const { primary, fullWidth, small, style, labelStyle, label, ...rest } = props;
+  const { primary, fullWidth, small, outlined, link, style, labelStyle, label, padding, ...rest } = props;
+  const attributes = { primary, fullWidth, small, outlined, link, padding };
   const text = primary ? (label || '').toUpperCase() : label;
-  let buttonStyle = [styles.button];
-  let textStyle = [styles.label];
-  if (primary) {
-    buttonStyle = [...buttonStyle, styles.buttonPrimary];
-    textStyle = [...textStyle, styles.labelPrimary];
-  }
-  if (small) {
-    buttonStyle = [...buttonStyle, styles.buttonSmall];
-    textStyle = [...textStyle, styles.labelSmall];
-  }
-  if (fullWidth) {
-    buttonStyle = [...buttonStyle, styles.buttonFullWidth];
-  }
-  buttonStyle = [...buttonStyle, style];
-  textStyle = [...textStyle, labelStyle];
   return (
-    <TouchableItem style={buttonStyle} {...rest}>
-      <Text style={textStyle}>{text}</Text>
-    </TouchableItem>
+    <ButtonInternal {...attributes} style={style} {...rest}>
+      <Label {...attributes} style={labelStyle}>{text}</Label>
+    </ButtonInternal>
   );
 };
 
 Button.propTypes = {
+  ...TouchableItem.propTypes,
+  /** Style variations  **/
   fullWidth: PropTypes.bool,
   primary: PropTypes.bool,
   small: PropTypes.bool,
+  outlined: PropTypes.bool,
+  link: PropTypes.bool,
+  /** Props **/
   label: PropTypes.string,
+  padding: PropTypes.number,
+  /** Styles **/
   style: PropTypes.any,
   labelStyle: PropTypes.any,
 };
@@ -71,6 +107,9 @@ Button.defaultProps = {
   fullWidth: false,
   primary: false,
   small: false,
+  outlined: false,
+  link: false,
+  padding: 0,
   label: '',
   style: null,
   labelStyle: null,

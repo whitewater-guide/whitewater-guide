@@ -13,10 +13,6 @@ const colors = {
 export default {
   colors,
   font: {
-    size: {
-      regular: 16,
-      note: 14,
-    },
     regular: {
       fontFamily: 'Roboto',
       fontSize: 16,

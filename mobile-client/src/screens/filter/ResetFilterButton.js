@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
+import { Button } from '../../components';
 import { resetSearchTerms } from '../../commons/features/regions';
 import theme from '../../theme';
 
@@ -29,9 +30,7 @@ class ResetFilterButton extends React.PureComponent {
 
   render() {
     return (
-      <TouchableOpacity style={styles.button} onPress={this.onPress}>
-        <Text style={styles.label}>Reset</Text>
-      </TouchableOpacity>
+      <Button link small padding={12} label="reset" onPress={this.onPress} />
     );
   }
 }
