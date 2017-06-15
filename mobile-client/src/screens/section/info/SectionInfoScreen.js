@@ -6,7 +6,7 @@ import { capitalize, trim, isNil } from 'lodash';
 import { renderDifficulty } from '../../../commons/utils/TextUtils';
 import stringifySeason from '../../../commons/utils/stringifySeason';
 import { durationToString } from '../../../commons/domain';
-import { Chips, Screen, StarRating, TabIcon, ListItem, Left, Right, Text } from '../../../components';
+import { Chips, Screen, StarRating, TabIcon, ListItem, Left, Body, Right, Text } from '../../../components';
 import CoordinatesInfo from './CoordinatesInfo';
 
 class SectionInfoScreen extends React.PureComponent {
@@ -59,7 +59,9 @@ class SectionInfoScreen extends React.PureComponent {
 
           <ListItem>
             <Left><Text>Season</Text></Left>
-            <View><Text note>{season}</Text></View>
+            <Body>
+              <Text note right>{season}</Text>
+            </Body>
           </ListItem>
 
           <CoordinatesInfo label="Put-in" coordinates={section.putIn.coordinates} />
