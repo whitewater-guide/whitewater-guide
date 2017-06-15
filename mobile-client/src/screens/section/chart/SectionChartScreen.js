@@ -53,7 +53,7 @@ const container = compose(
       withProps(({ section }) => ({ gaugeId: section.gauge._id })),
       withGauge({ withMeasurements: true }),
       withErrorsView,
-      spinnerWhileLoading(props => props.gaugeLoading),
+      spinnerWhileLoading(props => (props.gaugeLoading && !props.gauge)),
     ),
     renderComponent(NoChart),
   ),
