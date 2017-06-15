@@ -197,6 +197,9 @@ const colorTable = {
 };
 
 export default function getSectionColor(data) {
+  if (!data.lastValue) {
+    return Colors.none.string();
+  }
   const row = getRow(data);
   const col = getCol(data);
   const result = colorTable[row][col];

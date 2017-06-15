@@ -212,3 +212,15 @@ test('Should handle all values known', () => {
   expect(getSectionColor({ ...binding, lastValue: 70 })).toBe(Mixes.MaxImp);
   expect(getSectionColor({ ...binding, lastValue: 90 })).toBe(Colors.impossible.string());
 });
+
+test('Should handle sections without value', () => {
+  const binding = {
+    minimum: 20,
+    optimum: 40,
+    maximum: 60,
+    impossible: 80,
+  };
+  expect(getSectionColor({ ...binding })).toBe(Colors.none.string());
+  expect(getSectionColor({ ...binding, lastValue: null })).toBe(Colors.none.string());
+  expect(getSectionColor({ ...binding, lastValue: 0 })).toBe(Colors.none.string());
+});
