@@ -7,7 +7,7 @@ test('should return empty string for empty input', () => {
   expect(stringifySeason([])).toBe('');
 });
 
-test('should return single month half-month', () => {
+test('should return single half-month', () => {
   expect(stringifySeason([0])).toBe('early jan');
   expect(stringifySeason([1])).toBe('late jan');
 });
@@ -18,9 +18,9 @@ test('should return single month', () => {
 
 test('should return one range', () => {
   expect(stringifySeason([1, 2, 3, 4])).toBe('late jan - early mar');
-  expect(stringifySeason([1, 2, 3, 4, 5])).toBe('late jan - late mar');
+  expect(stringifySeason([1, 2, 3, 4, 5])).toBe('late jan - mar');
   expect(stringifySeason([2, 3, 4, 5])).toBe('feb - mar');
-  expect(stringifySeason([0, 1, 2])).toBe('early jan - early feb');
+  expect(stringifySeason([0, 1, 2])).toBe('jan - early feb');
 });
 
 test('should return two ranges', () => {

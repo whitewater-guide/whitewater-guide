@@ -15,12 +15,15 @@ function rangeToStr(range) {
   } else if (start % 2 === 0 && end === start + 1) {
     return moment().month(start / 2).format('MMMM');
   }
-  const startName = moment().month(Math.floor(start / 2)).format('MMMM');
-  const endName = moment().month(Math.floor(end / 2)).format('MMMM');
-  if (start % 2 === 0 && end % 2 === 1) {
-    return `${startName} - ${endName}`;
+  let startName = moment().month(Math.floor(start / 2)).format('MMMM');
+  let endName = moment().month(Math.floor(end / 2)).format('MMMM');
+  if (start % 2 !== 0) {
+    startName = halfMonth(start);
   }
-  return `${halfMonth(start)} - ${halfMonth(end)}`;
+  if (end % 2 !== 1) {
+    endName = halfMonth(end);
+  }
+  return `${startName} - ${endName}`;
 }
 
 function loopAroundNewYear(seasons) {
