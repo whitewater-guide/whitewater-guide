@@ -31,7 +31,9 @@ class Map extends React.PureComponent {
     this._mapLaidOut = false; // Prevents map from resetting after keyboard was popped by search bar
     this._bounds = undefined;
     this._requestedGeolocation = !props.requestGeolocation;
-    const [minLng, maxLng, minLat, maxLat] = getBBox(props.initialBounds || props.contentBounds);
+    const [minLng, maxLng, minLat, maxLat] = getBBox(
+      props.initialBounds || props.contentBounds || [[-180, -90], [180, 90]]
+    );
     this._initialRegion = {
       latitude: (maxLat + minLat) / 2,
       longitude: (maxLng + minLng) / 2,
