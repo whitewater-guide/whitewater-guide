@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, View } from 'react-native';
-import { Text } from './text';
+import Text from './Text';
 import RangeSlider from './slider/RangeSlider';
 
 const styles = StyleSheet.create({

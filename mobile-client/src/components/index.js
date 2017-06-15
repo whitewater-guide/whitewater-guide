@@ -15,6 +15,6 @@ export { default as Link } from './Link';
 export { default as TernaryChips } from './TernaryChips';
 export { default as StarRating } from './StarRating';
 export { default as Button } from './Button';
-export * from './text';
+export { default as Text } from './Text';
 export * from './NavigateButton';
 export * from './ErrorRefetchScreen';

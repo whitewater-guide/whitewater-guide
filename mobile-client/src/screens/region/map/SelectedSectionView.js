@@ -5,8 +5,9 @@ import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 import { get, capitalize, trim } from 'lodash';
 import { SectionPropType } from '../../../commons/features/sections';
+import { durationToString } from '../../../commons/domain';
 import stringifySeason from '../../../commons/utils/stringifySeason';
-import { Button, DifficultyThumb, StarRating, ListItem, Left, Right, Text } from '../../../components';
+import { Button, DifficultyThumb, StarRating, ListItem, Left, Body, Right, Text } from '../../../components';
 import SelectedElementView from '../../../components/map/SelectedElementView';
 
 const styles = StyleSheet.create({
@@ -74,11 +75,12 @@ class SelectedSectionView extends React.PureComponent {
     ];
     let season = ' \n ';
     if (section) {
-      season = capitalize(trim(`${stringifySeason(section.seasonNumeric)}`));
-      if (section.season) {
-        season = `${season}\n${trim(section.season)}`;
-      }
+      season = [
+        capitalize(trim(stringifySeason(section.seasonNumeric))),
+        trim(section.season),
+      ].join('\n');
     }
+    const duration = section ? durationToString(section.duration) : ' ';
     return (
       <SelectedElementView
         header={this.renderHeader()}
@@ -90,19 +92,23 @@ class SelectedSectionView extends React.PureComponent {
         <View>
           <ListItem>
             <Left><Text>Drop</Text></Left>
-            <Right><Text note>{get(section, 'drop', ' ')}</Text></Right>
+            <Right><Text note right>{get(section, 'drop', ' ')}</Text></Right>
           </ListItem>
           <ListItem>
             <Left><Text>Length, km</Text></Left>
-            <Right><Text note>{get(section, 'distance', 0)}</Text></Right>
+            <Right><Text note right>{get(section, 'distance', 0)}</Text></Right>
           </ListItem>
           <ListItem>
             <Left><Text>Duration</Text></Left>
-            <Right><Text note>{get(section, 'duration', ' ')}</Text></Right>
+            <Right><Text note right>{duration}</Text></Right>
           </ListItem>
           <ListItem>
             <Left><Text>Season</Text></Left>
-            <View><Text note textAlign="right">{season}</Text></View>
+            <Body>
+              <Text note right numberOfLines={2}>
+                {season}
+              </Text>
+            </Body>
           </ListItem>
         </View>
         <Button primary fullWidth label="Details" onPress={this.detailsHandler} />

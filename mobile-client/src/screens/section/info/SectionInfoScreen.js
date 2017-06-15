@@ -5,7 +5,7 @@ import { flattenProp, hoistStatics } from 'recompose';
 import { capitalize, trim, isNil } from 'lodash';
 import { renderDifficulty } from '../../../commons/utils/TextUtils';
 import stringifySeason from '../../../commons/utils/stringifySeason';
-import { Durations } from '../../../commons/domain';
+import { durationToString } from '../../../commons/domain';
 import { Chips, Screen, StarRating, TabIcon, ListItem, Left, Right, Text } from '../../../components';
 import CoordinatesInfo from './CoordinatesInfo';
 
@@ -53,7 +53,7 @@ class SectionInfoScreen extends React.PureComponent {
             !isNil(section.duration) &&
             <ListItem>
               <Left><Text>Duration</Text></Left>
-              <Right><Text note>{Durations.find(({ value }) => value === section.duration).slug}</Text></Right>
+              <Right><Text note>{durationToString(section.duration)}</Text></Right>
             </ListItem>
           }
 

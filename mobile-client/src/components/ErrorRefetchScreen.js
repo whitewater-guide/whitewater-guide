@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Text } from './text';
-import { Icon } from './index';
+import { Icon, Text } from './index';
 import withErrorsViewBase from '../commons/utils/withErrorsView';
 
 const styles = StyleSheet.create({

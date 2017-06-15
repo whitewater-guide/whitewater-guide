@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Linking } from 'react-native';
-import { Text } from './text';
+import Text from './Text';
 
 const Link = ({ label, url }) => {
   const onPress = () => Linking.openURL(url).catch(() => {});

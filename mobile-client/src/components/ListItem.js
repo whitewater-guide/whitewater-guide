@@ -38,6 +38,7 @@ ListItem.propTypes = {
 export const Left = glamorous(glamorous.View)({
   alignItems: 'center',
   justifyContent: 'center',
+  flexShrink: 0,
 });
 
 export const Right = glamorous(glamorous.View)({

@@ -5,3 +5,8 @@ export const Durations = [
   { value: 30, slug: 'overnighter' },
   { value: 40, slug: 'multi-day' },
 ];
+
+export const durationToString = (durationNumeric) => {
+  const duration = Durations.find(({ value }) => value === durationNumeric);
+  return duration ? duration.slug : '';
+};
