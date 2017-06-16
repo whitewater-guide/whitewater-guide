@@ -11,6 +11,7 @@ export default (Layout, Chart, FlowToggle, PeriodToggle) => {
         flow: PropTypes.number,
         timestamp: PropTypes.instanceOf(Date),
       })).isRequired, // This is all data available to the chart
+      loading: PropTypes.bool.isRequired,
       startDate: PropTypes.instanceOf(Date).isRequired,
       endDate: PropTypes.instanceOf(Date).isRequired,
       onDomainChanged: PropTypes.func,
@@ -88,7 +89,7 @@ export default (Layout, Chart, FlowToggle, PeriodToggle) => {
           onChange={this.onUnitChanged}
         />
       );
-      const periodToggle = <PeriodToggle onChange={this.setDomainInDays} />;
+      const periodToggle = <PeriodToggle onChange={this.setDomainInDays} loading={this.props.loading} />;
 
       return (
         <Layout

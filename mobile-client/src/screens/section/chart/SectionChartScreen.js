@@ -12,6 +12,7 @@ class SectionChartScreen extends React.PureComponent {
     section: PropTypes.object,
     sectionLoading: PropTypes.bool,
     gauge: PropTypes.object.isRequired,
+    gaugeLoading: PropTypes.bool.isRequired,
     onDomainChanged: PropTypes.func,
     startDate: PropTypes.instanceOf(Date).isRequired, // initial value
     endDate: PropTypes.instanceOf(Date).isRequired, // initial value
@@ -23,13 +24,14 @@ class SectionChartScreen extends React.PureComponent {
   };
 
   render() {
-    const { section, gauge, startDate, endDate, onDomainChanged } = this.props;
+    const { section, gauge, startDate, endDate, onDomainChanged, gaugeLoading } = this.props;
     const { flows, levels } = section;
     const { measurements, levelUnit, flowUnit } = gauge;
     return (
       <Screen noScroll>
         <InteractiveChart
           data={measurements}
+          loading={gaugeLoading}
           flows={flows}
           levels={levels}
           levelUnit={levelUnit}
