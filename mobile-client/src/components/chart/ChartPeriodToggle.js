@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { ActivityIndicator, StyleSheet } from 'react-native';
+import moment from 'moment';
 import { Button, Body, ListItem } from '../index';
 import theme from '../../theme';
 
@@ -17,26 +18,32 @@ const styles = StyleSheet.create({
   },
 });
 
-const ChartPeriodToggle = ({ onChange, loading }) => (
-  <ListItem style={styles.container}>
-    {
-      loading ?
-        <Body>
-          <ActivityIndicator color={theme.colors.primary} />
-        </Body>
+const ChartPeriodToggle = ({ onChange, loading, startDate, endDate }) => {
+  const days = moment(endDate).diff(startDate, 'days');
+  const index = days > 10 ? 2 : (days > 2 ? 1 : 0);
+  return (
+    <ListItem style={styles.container}>
+      {
+        loading ?
+          <Body>
+            <ActivityIndicator color={theme.colors.primary} />
+          </Body>
           :
-        <Body flexDirection="row">
-          <Button small primary style={styles.button} label="Daily" onPress={() => onChange(1)} />
-          <Button small primary style={styles.button} label="Weekly" onPress={() => onChange(7)} />
-          <Button small primary style={styles.button} label="Monthly" onPress={() => onChange(31)} />
-        </Body>
-    }
-  </ListItem>
-);
+          <Body flexDirection="row">
+            <Button small primary={index === 0} outlined={index !== 0} style={styles.button} label="Day" onPress={() => onChange(1)} />
+            <Button small primary={index === 1} outlined={index !== 1} style={styles.button} label="Week" onPress={() => onChange(7)} />
+            <Button small primary={index === 2} outlined={index !== 2} style={styles.button} label="Month" onPress={() => onChange(31)} />
+          </Body>
+      }
+    </ListItem>
+  );
+};
 
 ChartPeriodToggle.propTypes = {
   onChange: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
+  startDate: PropTypes.instanceOf(Date).isRequired,
+  endDate: PropTypes.instanceOf(Date).isRequired,
 };
 
 export default ChartPeriodToggle;

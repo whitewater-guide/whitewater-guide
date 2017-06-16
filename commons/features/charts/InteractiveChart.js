@@ -89,7 +89,12 @@ export default (Layout, Chart, FlowToggle, PeriodToggle) => {
           onChange={this.onUnitChanged}
         />
       );
-      const periodToggle = <PeriodToggle onChange={this.setDomainInDays} loading={this.props.loading} />;
+      const periodToggle = (<PeriodToggle
+        onChange={this.setDomainInDays}
+        loading={this.props.loading}
+        startDate={chartDomain[0]}
+        endDate={chartDomain[1]}
+      />);
 
       return (
         <Layout
