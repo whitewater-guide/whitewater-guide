@@ -1,33 +1,13 @@
 import SimpleSchema from 'simpl-schema';
 import {I18nCollection} from '../../i18n';
 import {metaSchema} from "../../utils/SimpleSchemaUtils";
+import { POITypes } from '../../commons/features/points'
 import _ from 'lodash';
 
 const limits = [
   {min: -180, max: 180, msg: 'lonOutOfRange'},
   {min: -90, max: 90, msg: 'latOutOfRange'},
   {min: Number.NEGATIVE_INFINITY, max: Number.POSITIVE_INFINITY, msg: 'altOutOfRange'},
-];
-
-export const POITypes = [
-  'put-in',
-  'put-in-alt',
-  'put-in-road',
-  'take-out',
-  'take-out-alt',
-  'take-out-road',
-  'waterfall',
-  'rapid',
-  'portage',
-  'playspot',
-  'hazard',
-  'river-campsite',
-  'wild-camping',
-  'paid-camping',
-  'gauge',
-  'hike-waypoint',
-  'bridge',
-  'other',
 ];
 
 const i18Schema = {

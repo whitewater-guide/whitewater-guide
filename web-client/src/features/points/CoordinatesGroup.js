@@ -3,11 +3,11 @@ import React, { Component } from 'react';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
-import { get, isString, isNil, memoize, compact } from 'lodash';
+import { get, isString, isNil, memoize, compact, map } from 'lodash';
 import { set } from 'lodash/fp';
 import { SelectPointsDialog } from '../../core/forms';
 import { TextField } from '../../core/components';
-import { POITypes } from './POITypes';
+import { POINames } from '../../commons/features/points';
 
 const styles = {
   container: {
@@ -97,7 +97,7 @@ export class CoordinatesGroup extends Component {
     }
   };
 
-  renderPointKind = item => <MenuItem key={item} value={item} primaryText={item} />;
+  renderPointKind = (label, item) => <MenuItem key={item} value={item} primaryText={label} />;
 
   render() {
     const value = get(this, 'props.field.value', {});
@@ -130,7 +130,7 @@ export class CoordinatesGroup extends Component {
               errorText={get(errors, 'kind')}
               floatingLabelText="Type"
             >
-              {POITypes.map(this.renderPointKind)}
+              {map(POINames, this.renderPointKind)}
             </SelectField>
           </div>
           <IconButton iconClassName="material-icons" onTouchTap={this.onDelete}>

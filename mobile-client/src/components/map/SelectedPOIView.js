@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { StyleSheet, View } from 'react-native';
 import { get } from 'lodash';
 import SelectedElementView from './SelectedElementView';
+import { POINames } from '../../commons/features/points';
 import { Text } from '../index';
 
 const styles = StyleSheet.create({
@@ -23,7 +24,7 @@ class SelectedPOIView extends React.PureComponent {
   renderHeader = () => (
     <View style={styles.header}>
       <Text>{get(this.props.selectedPOI, 'name', '_')}</Text>
-      <Text note>{get(this.props.selectedPOI, 'kind', '_')}</Text>
+      <Text note>{POINames[get(this.props.selectedPOI, 'kind', 'other')]}</Text>
     </View>
   );
 
