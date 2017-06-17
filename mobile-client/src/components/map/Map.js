@@ -59,17 +59,21 @@ class Map extends React.PureComponent {
         );
       }
     } else if (contentBounds) {
-      const ir = this._initialRegion;
-      this._mapView.fitToCoordinates(
-        [
-          { latitude: ir.latitude - ir.latitudeDelta, longitude: ir.longitude - ir.longitudeDelta },
-          { latitude: ir.latitude + ir.latitudeDelta, longitude: ir.longitude + ir.longitudeDelta },
-        ],
-        {
-          edgePadding: { left: 16, right: 16, top: 16, bottom: 16 },
-          animated: false,
-        },
-      );
+      // Without this timeout, fitToCoordinates sometimes does nothing
+      // Maybe this PR can solve things: https://github.com/airbnb/react-native-maps/pull/1369
+      setTimeout(() => {
+        const ir = this._initialRegion;
+        this._mapView.fitToCoordinates(
+          [
+            { latitude: ir.latitude - ir.latitudeDelta, longitude: ir.longitude - ir.longitudeDelta },
+            { latitude: ir.latitude + ir.latitudeDelta, longitude: ir.longitude + ir.longitudeDelta },
+          ],
+          {
+            edgePadding: { left: 16, right: 16, top: 16, bottom: 16 },
+            animated: false,
+          },
+        );
+      }, 200);
     }
   };
 

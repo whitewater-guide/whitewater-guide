@@ -23,6 +23,7 @@ const SectionTabs = TabNavigator(
     order: ['SectionMap', 'SectionChart', 'SectionInfo', 'SectionGuide', 'SectionMedia'],
     tabBarPosition: 'bottom',
     backBehavior: 'none',
+    lazy: true,
     tabBarOptions: {
       showIcon: true,
       showLabel: false,
