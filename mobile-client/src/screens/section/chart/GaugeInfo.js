@@ -1,10 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Linking, StyleSheet, View } from 'react-native';
 import { upperFirst } from 'lodash';
 import moment from 'moment';
+import { connect } from 'react-redux';
+import { NavigationActions } from 'react-navigation';
 import { WhitePortal } from 'react-native-portal';
-import { Link, ListItem, Left, Right, Text, Icon, Popover } from '../../../components';
+import ActionSheet from 'react-native-actionsheet';
+import { ListItem, Left, Right, Text, Icon, Popover } from '../../../components';
 import theme from '../../../theme';
 
 const styles = StyleSheet.create({
@@ -14,11 +17,14 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class GaugeInfo extends React.PureComponent {
+const OPTIONS = ['About data source', 'Open gauge web page', 'Cancel'];
+
+class GaugeInfo extends React.PureComponent {
 
   static propTypes = {
     gauge: PropTypes.object,
     approximate: PropTypes.bool,
+    navigate: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -30,10 +36,29 @@ export default class GaugeInfo extends React.PureComponent {
     };
     this._approximateIcon = null;
     this._outdatedIcon = null;
+    this._actionSheet = null;
   }
+
+  onGaugeAction = (index) => {
+    if (index === 1) {
+      Linking.openURL(this.props.gauge.url).catch(() => {});
+    } else if (index === 0) {
+      this.props.navigate({
+        routeName: 'Plain',
+        params: { data: 'source', source: this.props.gauge.source },
+      });
+    }
+  };
+
+  onShowActionSheet = () => {
+    if (this._actionSheet) {
+      this._actionSheet.show();
+    }
+  };
 
   setApproximateIcon = (ref) => { this._approximateIcon = ref ? ref.root : null; };
   setOutdatedIcon = (ref) => { this._outdatedIcon = ref ? ref.root : null; };
+  setActionSheet = (ref) => { this._actionSheet = ref; };
 
   showApproximatePopover = () => {
     this._approximateIcon.measure((ox, oy, width, height, x, y) => {
@@ -71,7 +96,7 @@ export default class GaugeInfo extends React.PureComponent {
               approximate &&
               <Icon iconRef={this.setApproximateIcon} icon="warning" size={16} onPress={this.showApproximatePopover} />
             }
-            <Link label={upperFirst(name)} url={gauge.url} />
+            <Text link onPress={this.onShowActionSheet}>{upperFirst(name)}</Text>
           </Right>
         </ListItem>
 
@@ -97,8 +122,21 @@ export default class GaugeInfo extends React.PureComponent {
           <Text note>{this.state.popoverMessage}</Text>
         </Popover>
 
+        <ActionSheet
+          ref={this.setActionSheet}
+          title="Gauge information"
+          options={OPTIONS}
+          cancelButtonIndex={2}
+          onPress={this.onGaugeAction}
+        />
+
       </View>
     );
   }
 
 }
+
+export default connect(
+  undefined,
+  { navigate: NavigationActions.navigate },
+)(GaugeInfo);

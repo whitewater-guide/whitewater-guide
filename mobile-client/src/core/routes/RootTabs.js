@@ -1,7 +1,7 @@
 import React from 'react';
 import { StackNavigator, TabNavigator } from 'react-navigation';
-import { RegionsListScreen, AllSectionsModalStack, RegionScreen, SectionScreen } from '../screens';
-import { BurgerButton } from '../components';
+import { RegionsListScreen, AllSectionsModalStack, RegionScreen, SectionScreen } from '../../screens';
+import { BurgerButton } from '../../components';
 
 const RegionsStack = StackNavigator(
   {
@@ -56,7 +56,7 @@ const Routes = {
 
 if (__DEV__) {
   /* eslint global-require: 0 */
-  const StorybookUI = require('../../storybook').default;
+  const StorybookUI = require('../../../storybook').default;
   Routes.Storybook = {
     screen: StorybookUI,
     navigationOptions: {
@@ -72,7 +72,11 @@ const Config = {
   lazy: true,
   backBehavior: 'none',
   initialRouteName: 'RegionsRoot',
+  navigationOptions: {
+    header: null,
+  },
 };
 
-export const RootNavigator = TabNavigator(Routes, Config);
-export const RootRouter = RootNavigator.router;
+const RootTabs = TabNavigator(Routes, Config);
+
+export default RootTabs;
