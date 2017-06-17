@@ -32,8 +32,8 @@ export default class GaugeInfo extends React.PureComponent {
     this._outdatedIcon = null;
   }
 
-  setApproximateIcon = (ref) => { this._approximateIcon = ref.root; };
-  setOutdatedIcon = (ref) => { this._outdatedIcon = ref.root; };
+  setApproximateIcon = (ref) => { this._approximateIcon = ref ? ref.root : null; };
+  setOutdatedIcon = (ref) => { this._outdatedIcon = ref ? ref.root : null; };
 
   showApproximatePopover = () => {
     this._approximateIcon.measure((ox, oy, width, height, x, y) => {
