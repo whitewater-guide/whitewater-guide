@@ -109,7 +109,7 @@ export class CoordinatesGroup extends Component {
       errors = this.props.field.error;
     }
     const dialogPoints = compact([get(value, 'coordinates')]);
-    const delStyle = value.deleted ? { ...styles.deleted } : {};
+    const delStyle = (value && value.deleted) ? { ...styles.deleted } : {};
     return (
       <div style={styles.container}>
         {this.props.title && <h3>{this.props.title}</h3>}
