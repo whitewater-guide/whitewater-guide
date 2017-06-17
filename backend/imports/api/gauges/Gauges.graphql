@@ -5,7 +5,7 @@ type Gauge {
   source: Source!,
   location: Point,
   levelUnit: String,
-  flowUnit:String,
+  flowUnit: String,
   requestParams: JSON,
   cron: String,
   lastTimestamp: Date,

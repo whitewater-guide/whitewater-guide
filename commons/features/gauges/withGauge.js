@@ -25,6 +25,8 @@ const ViewMeasurementsQuery = gql`
       lastTimestamp
       lastLevel
       lastFlow
+      levelUnit
+      flowUnit
       measurements(startDate: $startDate, endDate:$endDate) {
         date
         level
