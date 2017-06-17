@@ -61,6 +61,6 @@ export default compose(
         defaultTerms,
       };
     },
-    { ...NavigationActions, updateSearchTerms },
+    { navigate: NavigationActions.navigate, updateSearchTerms },
   ),
 )(FilterButton);

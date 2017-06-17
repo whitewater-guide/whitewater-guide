@@ -136,7 +136,7 @@ const container = compose(
   withProps(props => ({ regionId: get(props, 'navigation.state.params.regionId') })),
   connect(
     searchTermsSelector,
-    { ...NavigationActions, updateSearchTerms, selectSection },
+    { back: NavigationActions.back, updateSearchTerms, selectSection },
   ),
 );
 

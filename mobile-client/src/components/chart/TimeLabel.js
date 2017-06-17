@@ -28,6 +28,8 @@ export default class extends VictoryLabel {
     }
     const { x, y, dx, className, events } = props;
     const transform = NativeHelpers.getTransform(this.transform);
+    // Since 0.11.1 victory-native temporarily disabled rotation, but we need it
+    transform.rotation = 90;
     return (
       <G {...transform} {...events} originX={x} originY={y} className={className}>
         {this.content.map((line, i) => {
