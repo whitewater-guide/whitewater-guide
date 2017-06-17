@@ -27,6 +27,7 @@ class SectionChartScreen extends React.PureComponent {
     const { section, gauge, startDate, endDate, onDomainChanged, gaugeLoading } = this.props;
     const { flows, levels } = section;
     const { measurements, levelUnit, flowUnit } = gauge;
+    const isGaugeApproximate = !!(flows.approximate || levels.approximate);
     return (
       <Screen noScroll>
         <InteractiveChart
@@ -40,7 +41,7 @@ class SectionChartScreen extends React.PureComponent {
           endDate={endDate}
           onDomainChanged={onDomainChanged}
         />
-        <GaugeInfo gauge={this.props.gauge} />
+        <GaugeInfo gauge={this.props.gauge} approximate={isGaugeApproximate} />
       </Screen>
     );
   }

@@ -17,26 +17,27 @@ const styles = StyleSheet.create({
   },
 });
 
-const Icon = ({ icon, color, primary, onPress, onLongPress, size, large, style }) => {
+const Icon = ({ icon, iconRef, color, primary, onPress, onLongPress, size, large, style }) => {
   const clr = primary ? theme.colors.primary : color;
   const sz = large ? theme.icons.large.size : size;
   const name = (icon.indexOf('md-') === 0 || icon.indexOf('ios-') === 0) ? icon : `${prefix}-${icon}`;
   if (onPress || onLongPress) {
     return (
       <TouchableItem onPress={onPress} onLongPress={onLongPress} style={style}>
-        <IonIcon name={name} size={sz} color={clr} />
+        <IonIcon ref={iconRef} name={name} size={sz} color={clr} />
       </TouchableItem>
     );
   }
   return (
     <View style={style}>
-      <IonIcon name={name} size={sz} color={clr} />
+      <IonIcon ref={iconRef} name={name} size={sz} color={clr} />
     </View>
   );
 };
 
 Icon.propTypes = {
   icon: PropTypes.string.isRequired,
+  iconRef: PropTypes.any,
   primary: PropTypes.bool,
   color: PropTypes.string,
   onPress: PropTypes.func,
