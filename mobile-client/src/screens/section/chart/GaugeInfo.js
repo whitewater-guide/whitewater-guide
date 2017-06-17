@@ -32,7 +32,7 @@ export default class GaugeInfo extends React.PureComponent {
         <ListItem>
           <Left><Text>Last updated</Text></Left>
           <Right flexDirection="row">
-            <Text note>{moment(lastTimestamp).format('HH:mm DD MMMM YYYY')}</Text>
+            <Text note>{moment(lastTimestamp).fromNow()}</Text>
             { isOutdated && <Icon narrow icon="warning" size={16} /> }
           </Right>
         </ListItem>
