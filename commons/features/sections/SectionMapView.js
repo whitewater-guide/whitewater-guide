@@ -1,4 +1,5 @@
 import { branch, compose, withPropsOnChange, renderComponent, setDisplayName, withProps, withState, withHandlers } from 'recompose';
+import { get } from 'lodash';
 import { getMapView } from '../maps';
 
 export default (Layout, Map, SelectedSection, SelectedPOI, LoadingIndicator) => compose(
@@ -11,9 +12,14 @@ export default (Layout, Map, SelectedSection, SelectedPOI, LoadingIndicator) => 
     ['section'],
     ({ section }) => {
       const pois = [...section.pois];
+      const gaugePOI = get(section, 'gauge.location');
+      if (gaugePOI) {
+        pois.push({ ...gaugePOI, name: `Gauge ${section.gauge.name}` });
+      }
+      const contentBounds = section.shape.concat(pois.map(poi => poi.coordinates));
       return {
         initialBounds: null, // Currently state is not saved anywhere
-        contentBounds: section.shape,
+        contentBounds,
         sections: [section],
         selectedSection: section,
         pois,

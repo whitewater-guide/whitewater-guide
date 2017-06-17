@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { View } from 'react-native';
-import { capitalize } from 'lodash';
+import { upperFirst } from 'lodash';
 import moment from 'moment';
 import { WhitePortal } from 'react-native-portal';
 import { Link, ListItem, Left, Right, Text, Icon } from '../../../components';
@@ -23,7 +23,7 @@ export default class GaugeInfo extends React.PureComponent {
         <ListItem>
           <Left><Text>Gauge</Text></Left>
           <Right>
-            <Link label={capitalize(name)} url={gauge.url} />
+            <Link label={upperFirst(name)} url={gauge.url} />
           </Right>
         </ListItem>
 
