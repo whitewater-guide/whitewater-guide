@@ -48,7 +48,7 @@ export default class SectionListBody extends PureComponent {
           <Text style={styles.riverName}>{section.river.name}</Text>
           <Text style={styles.sectionName}>{section.name}</Text>
           <View style={styles.starsContainer}>
-            <StarRating value={section.rating} />
+            <StarRating disabled value={section.rating} />
           </View>
         </View>
         <FlowsThumb
