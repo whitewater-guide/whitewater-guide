@@ -7,10 +7,10 @@ import { isFunction, mapValues } from 'lodash';
 
 export const Colors = {
   none: color.rgb(100, 100, 100),
-  minimum: color.rgb(74, 134, 232),
-  optimum: color.rgb(74,240, 28),
-  maximum: color.rgb(254, 0, 0),
-  impossible: color.rgb(92, 16, 0),
+  minimum: color.rgb(0, 0, 255),
+  optimum: color.rgb(0, 255, 0),
+  maximum: color.rgb(255, 0, 0),
+  impossible: color.rgb(153, 0, 0),
 };
 
 export const ColorStrings = mapValues(Colors, clr => clr.string());
