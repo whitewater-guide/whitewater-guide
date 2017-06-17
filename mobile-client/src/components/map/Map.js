@@ -1,8 +1,24 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
-import { Dimensions, StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet, View } from 'react-native';
+import { connect } from 'react-redux';
+import { toggleMapType } from '../../core/actions';
 import { getBoundsZoomLevel, computeDistanceBetween, computeOffset, getBBox } from '../../commons/utils/GeoUtils';
+import theme from '../../theme';
+import Icon from '../Icon';
+
+const styles = StyleSheet.create({
+  mapButton: {
+    position: 'absolute',
+    top: 8,
+    left: 8,
+    backgroundColor: theme.colors.mainBackground,
+    borderRadius: 4,
+    borderColor: theme.colors.border,
+    borderWidth: StyleSheet.hairlineWidth,
+  },
+});
 
 const window = Dimensions.get('window');
 
@@ -15,6 +31,8 @@ class Map extends React.PureComponent {
     onPOISelected: PropTypes.func,
     onBoundsSelected: PropTypes.func,
     requestGeolocation: PropTypes.bool.isRequired,
+    mapType: PropTypes.string.isRequired,
+    toggleMapType: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -119,27 +137,38 @@ class Map extends React.PureComponent {
 
   setMapView = (mapView) => { this._mapView = mapView; };
 
+  toggleMapType = () => this.props.toggleMapType();
+
   render() {
     return (
-      <MapView
-        showsUserLocation
-        showsMyLocationButton={false}
-        toolbarEnabled={false}
-        initialRegion={this._initialRegion}
-        ref={this.setMapView}
-        style={StyleSheet.absoluteFill}
-        provider={PROVIDER_GOOGLE}
-        onPress={this.onDeselect}
-        onLayout={this.onMapLayout}
-        onRegionChange={this.onRegionChange}
-        onRegionChangeComplete={this.onRegionChange}
-        onMarkerDeselect={this.onDeselect}
-      >
-        { this.props.children }
-      </MapView>
+      <View style={StyleSheet.absoluteFill} pointerEvents="box-none">
+        <MapView
+          showsUserLocation
+          showsMyLocationButton={false}
+          toolbarEnabled={false}
+          mapType={this.props.mapType}
+          initialRegion={this._initialRegion}
+          ref={this.setMapView}
+          style={StyleSheet.absoluteFill}
+          provider={PROVIDER_GOOGLE}
+          onPress={this.onDeselect}
+          onLayout={this.onMapLayout}
+          onRegionChange={this.onRegionChange}
+          onRegionChangeComplete={this.onRegionChange}
+          onMarkerDeselect={this.onDeselect}
+        >
+          { this.props.children }
+        </MapView>
+        <View style={styles.mapButton}>
+          <Icon icon="globe" onPress={this.toggleMapType} />
+        </View>
+      </View>
     );
   }
 }
 
-export default Map;
+export default connect(
+  state => ({ mapType: state.persistent.settings.mapType }),
+  { toggleMapType },
+)(Map);
 
