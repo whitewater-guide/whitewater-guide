@@ -47,6 +47,7 @@
     "react-native-interactable": "^0.0.9",
     "react-native-keyboard-aware-scroll-view": "^0.2.9",
     "react-native-maps": "^0.15.2",
+    "react-native-modal-popover": "^0.0.1",
     "react-native-portal": "^1.0.2",
     "react-native-splash-screen": "^2.1.0",
     "react-native-star-rating": "^1.0.7",

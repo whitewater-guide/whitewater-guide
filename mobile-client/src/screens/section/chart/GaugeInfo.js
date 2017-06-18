@@ -7,7 +7,8 @@ import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 import { WhitePortal } from 'react-native-portal';
 import ActionSheet from 'react-native-actionsheet';
-import { ListItem, Left, Right, Text, Icon, Popover } from '../../../components';
+import Popover, { PopoverTouchable } from 'react-native-modal-popover';
+import { ListItem, Left, Right, Text, Icon } from '../../../components';
 import theme from '../../../theme';
 
 const styles = StyleSheet.create({
@@ -29,13 +30,6 @@ class GaugeInfo extends React.PureComponent {
 
   constructor(props) {
     super(props);
-    this.state = {
-      showPopover: false,
-      popoverMessage: '',
-      popoverAnchor: { x: 0, y: 0, width: 1, height: 1 },
-    };
-    this._approximateIcon = null;
-    this._outdatedIcon = null;
     this._actionSheet = null;
   }
 
@@ -56,31 +50,7 @@ class GaugeInfo extends React.PureComponent {
     }
   };
 
-  setApproximateIcon = (ref) => { this._approximateIcon = ref ? ref.root : null; };
-  setOutdatedIcon = (ref) => { this._outdatedIcon = ref ? ref.root : null; };
   setActionSheet = (ref) => { this._actionSheet = ref; };
-
-  showApproximatePopover = () => {
-    this._approximateIcon.measure((ox, oy, width, height, x, y) => {
-      this.setState({
-        showPopover: true,
-        popoverMessage: 'This gauge gives very approximate\ndata for this river!',
-        popoverAnchor: { x, y, width, height },
-      });
-    });
-  };
-
-  showOutdatedPopover = () => {
-    this._outdatedIcon.measure((ox, oy, width, height, x, y) => {
-      this.setState({
-        showPopover: true,
-        popoverMessage: 'This data is probably outdated :(',
-        popoverAnchor: { x, y, width, height },
-      });
-    });
-  };
-
-  hidePopover = () => this.setState({ showPopover: false });
 
   render() {
     const { gauge, approximate } = this.props;
@@ -94,7 +64,12 @@ class GaugeInfo extends React.PureComponent {
           <Right flexDirection="row">
             {
               approximate &&
-              <Icon iconRef={this.setApproximateIcon} icon="warning" size={16} onPress={this.showApproximatePopover} />
+              <PopoverTouchable>
+                <Icon icon="warning" size={16} />
+                <Popover contentStyle={styles.popoverContent}>
+                  <Text note>{'This gauge gives very approximate\ndata for this river!'}</Text>
+                </Popover>
+              </PopoverTouchable>
             }
             <Text link onPress={this.onShowActionSheet}>{upperFirst(name)}</Text>
           </Right>
@@ -108,19 +83,15 @@ class GaugeInfo extends React.PureComponent {
             <Text note>{moment(lastTimestamp).fromNow()}</Text>
             {
               isOutdated &&
-              <Icon iconRef={this.setOutdatedIcon} icon="warning" size={16} onPress={this.showOutdatedPopover} />
+              <PopoverTouchable>
+                <Icon icon="warning" size={16} />
+                <Popover contentStyle={styles.popoverContent}>
+                  <Text note>{'This data is probably outdated :('}</Text>
+                </Popover>
+              </PopoverTouchable>
             }
           </Right>
         </ListItem>
-
-        <Popover
-          isVisible={this.state.showPopover}
-          onClose={this.hidePopover}
-          fromRect={this.state.popoverAnchor}
-          contentStyle={styles.popoverContent}
-        >
-          <Text note>{this.state.popoverMessage}</Text>
-        </Popover>
 
         <ActionSheet
           ref={this.setActionSheet}
