@@ -1,216 +1,416 @@
-import getSectionColor, { Colors } from '../getSectionColor';
+import getSectionColor, { Colors, hslMix } from '../getSectionColor';
+import mapValues from 'lodash/mapValues';
+import color from 'color';
+
+const ColorStrings = mapValues(Colors, c => c.hsl().string());
 
 const Mixes = {
-  MaxImp: Colors.maximum.mix(Colors.impossible).string(),
-  OptImp: Colors.optimum.mix(Colors.impossible).string(),
-  OptMax: Colors.optimum.mix(Colors.maximum).string(),
-  MinOpt: Colors.minimum.mix(Colors.optimum).string(),
+  MaxImp: hslMix(Colors.maximum, Colors.impossible).hsl().string(),
+  OptImp: hslMix(Colors.optimum, Colors.impossible).hsl().string(),
+  OptMax: hslMix(Colors.optimum, Colors.maximum).hsl().string(),
+  MinOpt: hslMix(Colors.minimum, Colors.optimum).hsl().string(),
 };
 
-test('Should return grey when no gauge binding provided', () => {
+describe('Sanity test', () => {
+  const color1 = color.hsl(50, 50, 50);
+  const color2 = color.hsl(100, 50, 50);
+  test('HSL creation works', () => {
+    expect(color1.string()).toBe('hsl(50, 50%, 50%)');
+    expect(color2.string()).toBe('hsl(100, 50%, 50%)');
+  });
+  test('HSL to rgb works', () => {
+    expect(color1.rgb().string()).toBe('rgb(191, 170, 64)');
+    expect(color2.rgb().string()).toBe('rgb(106, 191, 64)');
+  });
+  test('HSL mix works', () => {
+    const mixed = hslMix(color1, color2, 0.5);
+    expect(mixed.rgb().string()).toBe('rgb(159, 191, 64)');
+    expect(mixed.hsl().string()).toBe('hsl(75, 50%, 50%)');
+  });
+});
+
+test('00 - When no gauge binding provided', () => {
   expect(getSectionColor({
     minimum: undefined,
     optimum: undefined,
     maximum: undefined,
     impossible: undefined,
     lastValue: 13,
-  })).toBe(Colors.none.string());
+  })).toBe(ColorStrings.none);
 });
 
-test('Should handle only impossible mark', () => {
+describe('01 - When only IMP is provided, it should ', () => {
   const binding = {
     minimum: undefined,
     optimum: undefined,
     maximum: undefined,
     impossible: 20,
   };
-  expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(Colors.none.string());
-  expect(getSectionColor({ ...binding, lastValue: 20 })).toBe(Colors.impossible.string());
-  expect(getSectionColor({ ...binding, lastValue: 30 })).toBe(Colors.impossible.string());
+  test('handle VAL < IMP', () => {
+    expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(ColorStrings.none);
+  });
+  test('handle VAL == IMP', () => {
+    expect(getSectionColor({ ...binding, lastValue: 20 })).toBe(ColorStrings.impossible);
+  });
+  test('handle VAL > IMP', () => {
+    expect(getSectionColor({ ...binding, lastValue: 30 })).toBe(ColorStrings.impossible);
+  });
 });
 
-test('Should handle only maximum mark', () => {
+describe('02 - When only MAX is provided, it should ', () => {
   const binding = {
     minimum: undefined,
     optimum: undefined,
     maximum: 20,
     impossible: undefined,
   };
-  expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(Colors.none.string());
-  expect(getSectionColor({ ...binding, lastValue: 20 })).toBe(Colors.maximum.string());
-  expect(getSectionColor({ ...binding, lastValue: 21 })).toBe(Colors.maximum.string());
+  test('handle VAL < MAX', () => {
+    expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(ColorStrings.none);
+  });
+  test('handle VAL == MAX', () => {
+    expect(getSectionColor({ ...binding, lastValue: 20 })).toBe(ColorStrings.maximum);
+  });
+  test('handle VAL < MAX', () => {
+    expect(getSectionColor({ ...binding, lastValue: 30 })).toBe(ColorStrings.maximum);
+  });
 });
 
-test('Should handle maximum + impossible marks', () => {
+describe('03 - When only MAX and ABS_MAX is provided, it should ', () => {
   const binding = {
     minimum: undefined,
     optimum: undefined,
     maximum: 20,
     impossible: 40,
   };
-  expect(getSectionColor({ ...binding, lastValue: 19 })).toBe(Colors.none.string());
-  expect(getSectionColor({ ...binding, lastValue: 20 })).toBe(Colors.maximum.string());
-  expect(getSectionColor({ ...binding, lastValue: 30 })).toBe(Mixes.MaxImp);
-  expect(getSectionColor({ ...binding, lastValue: 40 })).toBe(Colors.impossible.string());
-  expect(getSectionColor({ ...binding, lastValue: 60 })).toBe(Colors.impossible.string());
+  test('handle VAL < MAX', () => {
+    expect(getSectionColor({ ...binding, lastValue: 19 })).toBe(ColorStrings.none);
+  });
+  test('handle MAX == VAL', () => {
+    expect(getSectionColor({ ...binding, lastValue: 20 })).toBe(ColorStrings.maximum);
+  });
+  test('handle MAX < VAL < IMPOSSIBLE', () => {
+    expect(getSectionColor({ ...binding, lastValue: 30 })).toBe(Mixes.MaxImp);
+  });
+  test('handle VAL == IMPOSSIBLE', () => {
+    expect(getSectionColor({ ...binding, lastValue: 40 })).toBe(ColorStrings.impossible);
+  });
+  test('handle VAL > IMPOSSIBLE', () => {
+    expect(getSectionColor({ ...binding, lastValue: 60 })).toBe(ColorStrings.impossible);
+  });
 });
 
-test('Should handle only optimum mark', () => {
+describe('04 - When only OPT is provided, it should ', () => {
   const binding = {
     minimum: undefined,
     optimum: 20,
     maximum: undefined,
     impossible: undefined,
   };
-  expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(Colors.none.string());
-  expect(getSectionColor({ ...binding, lastValue: 20 })).toBe(Colors.none.string());
-  expect(getSectionColor({ ...binding, lastValue: 30 })).toBe(Colors.none.string());
+
+  test('handle VAL < OPT', () => {
+    expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(ColorStrings.none);
+  });
+  test('handle VAL == OPT', () => {
+    expect(getSectionColor({ ...binding, lastValue: 20 })).toBe(ColorStrings.none);
+  });
+  test('handle VAL > OPT', () => {
+    expect(getSectionColor({ ...binding, lastValue: 30 })).toBe(ColorStrings.none);
+  });
 });
 
-test('Should handle optimum and impossible marks', () => {
+describe('05 - When OPT and IMP is provided, it should ', () => {
   const binding = {
     minimum: undefined,
     optimum: 20,
     maximum: undefined,
     impossible: 40,
   };
-  expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(Colors.none.string());
-  expect(getSectionColor({ ...binding, lastValue: 20 })).toBe(Colors.optimum.string());
-  expect(getSectionColor({ ...binding, lastValue: 30 })).toBe(Mixes.OptImp);
-  expect(getSectionColor({ ...binding, lastValue: 50 })).toBe(Colors.impossible.string());
+
+  test('handle V < OPT', () => {
+    expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(ColorStrings.none);
+  });
+  test('handle V == OPT', () => {
+    expect(getSectionColor({ ...binding, lastValue: 20 })).toBe(ColorStrings.optimum);
+  });
+  test('handle OPT < V < IMP', () => {
+    expect(getSectionColor({ ...binding, lastValue: 30 })).toBe(Mixes.OptImp);
+  });
+  test('handle V == IMP', () => {
+    expect(getSectionColor({ ...binding, lastValue: 40 })).toBe(ColorStrings.impossible);
+  });
+  test('handle V > IMP', () => {
+    expect(getSectionColor({ ...binding, lastValue: 50 })).toBe(ColorStrings.impossible);
+  });
 });
 
-test('Should handle optimum and maximum marks', () => {
+describe('06 - When OPT and MAX is provided, it should ', () => {
   const binding = {
     minimum: undefined,
     optimum: 20,
     maximum: 40,
     impossible: undefined,
   };
-  expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(Colors.none.string());
-  expect(getSectionColor({ ...binding, lastValue: 20 })).toBe(Colors.optimum.string());
-  expect(getSectionColor({ ...binding, lastValue: 30 })).toBe(Mixes.OptMax);
-  expect(getSectionColor({ ...binding, lastValue: 40 })).toBe(Colors.maximum.string());
-  expect(getSectionColor({ ...binding, lastValue: 50 })).toBe(Colors.maximum.string());
+  test('handle VAL < OPT', () => {
+    expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(ColorStrings.none);
+  });
+  test('handle VAL == OPT', () => {
+    expect(getSectionColor({ ...binding, lastValue: 20 })).toBe(ColorStrings.optimum);
+  });
+  test('handle OPT < VAL < MAX', () => {
+    expect(getSectionColor({ ...binding, lastValue: 30 })).toBe(Mixes.OptMax);
+  });
+  test('handle VAL == MAX', () => {
+    expect(getSectionColor({ ...binding, lastValue: 40 })).toBe(ColorStrings.maximum);
+  });
+  test('handle VAL > MAX', () => {
+    expect(getSectionColor({ ...binding, lastValue: 50 })).toBe(ColorStrings.maximum);
+  });
 });
 
-test('Should handle unknown minimum', () => {
+describe('07 - When OPT, MAX and IMP are provided, it should ', () => {
   const binding = {
     minimum: undefined,
     optimum: 20,
     maximum: 40,
     impossible: 60,
   };
-  expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(Colors.none.string());
-  expect(getSectionColor({ ...binding, lastValue: 20 })).toBe(Colors.optimum.string());
-  expect(getSectionColor({ ...binding, lastValue: 30 })).toBe(Mixes.OptMax);
-  expect(getSectionColor({ ...binding, lastValue: 40 })).toBe(Colors.maximum.string());
-  expect(getSectionColor({ ...binding, lastValue: 50 })).toBe(Mixes.MaxImp);
-  expect(getSectionColor({ ...binding, lastValue: 60 })).toBe(Colors.impossible.string());
-  expect(getSectionColor({ ...binding, lastValue: 70 })).toBe(Colors.impossible.string());
+  test('handle VAL < OPT', () => {
+    expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(ColorStrings.none);
+  });
+  test('handle VAL == OPT', () => {
+    expect(getSectionColor({ ...binding, lastValue: 20 })).toBe(ColorStrings.optimum);
+  });
+  test('handle OPT < VAL < MAX', () => {
+    expect(getSectionColor({ ...binding, lastValue: 30 })).toBe(Mixes.OptMax);
+  });
+  test('handle VAL == MAX', () => {
+    expect(getSectionColor({ ...binding, lastValue: 40 })).toBe(ColorStrings.maximum);
+  });
+  test('handle MAX < VAL < IMP', () => {
+    expect(getSectionColor({ ...binding, lastValue: 50 })).toBe(Mixes.MaxImp);
+  });
+  test('handle VAL == IMP', () => {
+    expect(getSectionColor({ ...binding, lastValue: 60 })).toBe(ColorStrings.impossible);
+  });
+  test('handle VAL > IMP', () => {
+    expect(getSectionColor({ ...binding, lastValue: 70 })).toBe(ColorStrings.impossible);
+  });
 });
 
-test('Should handle only minimum', () => {
+describe('08 - When only MIN is provided, it should ', () => {
   const binding = {
     minimum: 20,
     optimum: undefined,
     maximum: undefined,
     impossible: undefined,
   };
-  expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(Colors.minimum.string());
-  expect(getSectionColor({ ...binding, lastValue: 20 })).toBe(Colors.none.string());
-  expect(getSectionColor({ ...binding, lastValue: 30 })).toBe(Colors.none.string());
+  test('handle VAL < MIN', () => {
+    expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(ColorStrings.minimum);
+  });
+  test('handle VAL == MIN', () => {
+    expect(getSectionColor({ ...binding, lastValue: 20 })).toBe(ColorStrings.none);
+  });
+  test('handle VAL > MIN', () => {
+    expect(getSectionColor({ ...binding, lastValue: 30 })).toBe(ColorStrings.none);
+  });
 });
 
-test('Should handle minimum and impossible', () => {
+describe('09 - When MIN and IMP are provided, it should ', () => {
   const binding = {
     minimum: 20,
     optimum: undefined,
     maximum: undefined,
     impossible: 40,
   };
-  expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(Colors.minimum.string());
-  expect(getSectionColor({ ...binding, lastValue: 30 })).toBe(Colors.none.string());
-  expect(getSectionColor({ ...binding, lastValue: 40 })).toBe(Colors.impossible.string());
-  expect(getSectionColor({ ...binding, lastValue: 50 })).toBe(Colors.impossible.string());
+  test('handle VAL < MIN', () => {
+    expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(ColorStrings.minimum);
+  });
+  test('handle VAL == MIN', () => {
+    expect(getSectionColor({ ...binding, lastValue: 20 })).toBe(ColorStrings.none);
+  });
+  test('handle MIN < VAL < IMP', () => {
+    expect(getSectionColor({ ...binding, lastValue: 30 })).toBe(ColorStrings.none);
+  });
+  test('handle VAL == IMP', () => {
+    expect(getSectionColor({ ...binding, lastValue: 40 })).toBe(ColorStrings.impossible);
+  });
+  test('handle VAL > IMP', () => {
+    expect(getSectionColor({ ...binding, lastValue: 50 })).toBe(ColorStrings.impossible);
+  });
 });
 
-test('Should handle minimum and maximum', () => {
+describe('10 - When MIN and MAX are provided, it should ', () => {
   const binding = {
     minimum: 20,
     optimum: undefined,
     maximum: 40,
     impossible: undefined,
   };
-  expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(Colors.minimum.string());
-  expect(getSectionColor({ ...binding, lastValue: 30 })).toBe(Colors.none.string());
-  expect(getSectionColor({ ...binding, lastValue: 40 })).toBe(Colors.maximum.string());
-  expect(getSectionColor({ ...binding, lastValue: 50 })).toBe(Colors.maximum.string());
+  test('handle VAL < MIN', () => {
+    expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(ColorStrings.minimum);
+  });
+  test('handle VAL == MIN', () => {
+    expect(getSectionColor({ ...binding, lastValue: 20 })).toBe(ColorStrings.none);
+  });
+  test('handle MIN < VAL < MAX', () => {
+    expect(getSectionColor({ ...binding, lastValue: 30 })).toBe(ColorStrings.none);
+  });
+  test('handle VAL == MAX', () => {
+    expect(getSectionColor({ ...binding, lastValue: 40 })).toBe(ColorStrings.maximum);
+  });
+  test('handle VAL > MIN', () => {
+    expect(getSectionColor({ ...binding, lastValue: 50 })).toBe(ColorStrings.maximum);
+  });
 });
 
-test('Should handle unknown optimum', () => {
+describe('11 - When MIN, MAX and IMP are provided, it should ', () => {
   const binding = {
     minimum: 20,
     optimum: undefined,
     maximum: 40,
     impossible: 60,
   };
-  expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(Colors.minimum.string());
-  expect(getSectionColor({ ...binding, lastValue: 30 })).toBe(Colors.none.string());
-  expect(getSectionColor({ ...binding, lastValue: 50 })).toBe(Mixes.MaxImp);
-  expect(getSectionColor({ ...binding, lastValue: 70 })).toBe(Colors.impossible.string());
+  test('handle VAL < MIN', () => {
+    expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(ColorStrings.minimum);
+  });
+  test('handle VAL == MIN', () => {
+    expect(getSectionColor({ ...binding, lastValue: 20 })).toBe(ColorStrings.none);
+  });
+  test('handle MIN < VAL < MAX', () => {
+    expect(getSectionColor({ ...binding, lastValue: 30 })).toBe(ColorStrings.none);
+  });
+  test('handle VAL == MAX', () => {
+    expect(getSectionColor({ ...binding, lastValue: 40 })).toBe(ColorStrings.maximum);
+  });
+  test('handle MAX < MAX < IMP', () => {
+    expect(getSectionColor({ ...binding, lastValue: 50 })).toBe(Mixes.MaxImp);
+  });
+  test('handle VAL == IMP', () => {
+    expect(getSectionColor({ ...binding, lastValue: 70 })).toBe(ColorStrings.impossible);
+  });
+  test('handle VAL > IMP', () => {
+    expect(getSectionColor({ ...binding, lastValue: 70 })).toBe(ColorStrings.impossible);
+  });
 });
 
-test('Should handle minimum and optimum', () => {
+describe('12 - When MIN and OPT are provided, it should ', () => {
   const binding = {
     minimum: 20,
     optimum: 40,
     maximum: undefined,
     impossible: undefined,
   };
-  expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(Colors.minimum.string());
-  expect(getSectionColor({ ...binding, lastValue: 30 })).toBe(Mixes.MinOpt);
-  expect(getSectionColor({ ...binding, lastValue: 50 })).toBe(Colors.none.string());
+  test('handle VAL < MIN', () => {
+    expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(ColorStrings.minimum);
+  });
+  test('handle VAL == MIN', () => {
+    expect(getSectionColor({ ...binding, lastValue: 20 })).toBe(ColorStrings.minimum);
+  });
+  test('handle MIN < VAL < OPT', () => {
+    expect(getSectionColor({ ...binding, lastValue: 30 })).toBe(Mixes.MinOpt);
+  });
+  test('handle VAL == OPT', () => {
+    expect(getSectionColor({ ...binding, lastValue: 40 })).toBe(ColorStrings.none);
+  });
+  test('handle VAL > OPT', () => {
+    expect(getSectionColor({ ...binding, lastValue: 50 })).toBe(ColorStrings.none);
+  });
 });
 
-test('Should handle unknown maximum', () => {
+describe('13 - When MIN, OPT and IMP are provided, it should ', () => {
   const binding = {
     minimum: 20,
     optimum: 40,
     maximum: undefined,
     impossible: 60,
   };
-  expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(Colors.minimum.string());
-  expect(getSectionColor({ ...binding, lastValue: 30 })).toBe(Mixes.MinOpt);
-  expect(getSectionColor({ ...binding, lastValue: 50 })).toBe(Mixes.OptImp);
-  expect(getSectionColor({ ...binding, lastValue: 70 })).toBe(Colors.impossible.string());
+  test('handle VAL < MIN', () => {
+    expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(ColorStrings.minimum);
+  });
+  test('handle VAL == MIN', () => {
+    expect(getSectionColor({ ...binding, lastValue: 20 })).toBe(ColorStrings.minimum);
+  });
+  test('handle MIN < VAL < OPT', () => {
+    expect(getSectionColor({ ...binding, lastValue: 30 })).toBe(Mixes.MinOpt);
+  });
+  test('handle VAL == OPT', () => {
+    expect(getSectionColor({ ...binding, lastValue: 40 })).toBe(ColorStrings.optimum);
+  });
+  test('handle OPT < VAL < IMP', () => {
+    expect(getSectionColor({ ...binding, lastValue: 50 })).toBe(Mixes.OptImp);
+  });
+  test('handle VAL == IMP', () => {
+    expect(getSectionColor({ ...binding, lastValue: 60 })).toBe(ColorStrings.impossible);
+  });
+  test('handle VAL > IMP', () => {
+    expect(getSectionColor({ ...binding, lastValue: 70 })).toBe(ColorStrings.impossible);
+  });
 });
 
-test('Should handle unknown impossible', () => {
+describe('14 - When MIN, OPT and MAX are provided, it should ', () => {
   const binding = {
     minimum: 20,
     optimum: 40,
     maximum: 60,
     impossible: undefined,
   };
-  expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(Colors.minimum.string());
-  expect(getSectionColor({ ...binding, lastValue: 30 })).toBe(Mixes.MinOpt);
-  expect(getSectionColor({ ...binding, lastValue: 50 })).toBe(Mixes.OptMax);
-  expect(getSectionColor({ ...binding, lastValue: 70 })).toBe(Colors.maximum.string());
+  test('handle VAL < MIN', () => {
+    expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(ColorStrings.minimum);
+  });
+  test('handle VAL == MIN', () => {
+    expect(getSectionColor({ ...binding, lastValue: 20 })).toBe(ColorStrings.minimum);
+  });
+  test('handle MIN < VAL < OPT', () => {
+    expect(getSectionColor({ ...binding, lastValue: 30 })).toBe(Mixes.MinOpt);
+  });
+  test('handle VAL == OPT', () => {
+    expect(getSectionColor({ ...binding, lastValue: 40 })).toBe(ColorStrings.optimum);
+  });
+  test('handle OPT < VAL < MAX', () => {
+    expect(getSectionColor({ ...binding, lastValue: 50 })).toBe(Mixes.OptMax);
+  });
+  test('handle VAL == MAX', () => {
+    expect(getSectionColor({ ...binding, lastValue: 60 })).toBe(ColorStrings.maximum);
+  });
+  test('handle VAL > MAX', () => {
+    expect(getSectionColor({ ...binding, lastValue: 70 })).toBe(ColorStrings.maximum);
+  });
 });
 
-test('Should handle all values known', () => {
+describe('15 - When MIN, OPT, MAX and IMP are provided, it should ', () => {
   const binding = {
     minimum: 20,
     optimum: 40,
     maximum: 60,
     impossible: 80,
   };
-  expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(Colors.minimum.string());
-  expect(getSectionColor({ ...binding, lastValue: 30 })).toBe(Mixes.MinOpt);
-  expect(getSectionColor({ ...binding, lastValue: 50 })).toBe(Mixes.OptMax);
-  expect(getSectionColor({ ...binding, lastValue: 70 })).toBe(Mixes.MaxImp);
-  expect(getSectionColor({ ...binding, lastValue: 90 })).toBe(Colors.impossible.string());
+  test('handle VAL < MIN', () => {
+    expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(ColorStrings.minimum);
+  });
+  test('handle VAL == MIN', () => {
+    expect(getSectionColor({ ...binding, lastValue: 20 })).toBe(ColorStrings.minimum);
+  });
+  test('handle MIN < VAL < OPT', () => {
+    expect(getSectionColor({ ...binding, lastValue: 30 })).toBe(Mixes.MinOpt);
+  });
+  test('handle VAL == OPT', () => {
+    expect(getSectionColor({ ...binding, lastValue: 40 })).toBe(ColorStrings.optimum);
+  });
+  test('handle OPT < VAL < MAX', () => {
+    expect(getSectionColor({ ...binding, lastValue: 50 })).toBe(Mixes.OptMax);
+  });
+  test('handle VAL == MAX', () => {
+    expect(getSectionColor({ ...binding, lastValue: 60 })).toBe(ColorStrings.maximum);
+  });
+  test('handle MAX < VAL < IMP', () => {
+    expect(getSectionColor({ ...binding, lastValue: 70 })).toBe(Mixes.MaxImp);
+  });
+  test('handle VAL == IMP', () => {
+    expect(getSectionColor({ ...binding, lastValue: 80 })).toBe(ColorStrings.impossible);
+  });
+  test('handle VAL > IMP', () => {
+    expect(getSectionColor({ ...binding, lastValue: 90 })).toBe(ColorStrings.impossible);
+  });
 });
 
 test('Should handle sections without value', () => {
@@ -220,7 +420,7 @@ test('Should handle sections without value', () => {
     maximum: 60,
     impossible: 80,
   };
-  expect(getSectionColor({ ...binding })).toBe(Colors.none.string());
-  expect(getSectionColor({ ...binding, lastValue: null })).toBe(Colors.none.string());
-  expect(getSectionColor({ ...binding, lastValue: 0 })).toBe(Colors.none.string());
+  expect(getSectionColor({ ...binding })).toBe(ColorStrings.none);
+  expect(getSectionColor({ ...binding, lastValue: null })).toBe(ColorStrings.none);
+  expect(getSectionColor({ ...binding, lastValue: 0 })).toBe(ColorStrings.none);
 });

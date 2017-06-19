@@ -6,14 +6,14 @@ import { isFunction, mapValues } from 'lodash';
 // https://docs.google.com/spreadsheets/d/1DTg8aQM_MpZ6eaVg7vAg97K9Yv18Un8F291AonBSuEY/edit?usp=sharing
 
 export const Colors = {
-  none: color.rgb(100, 100, 100),
-  minimum: color.rgb(0, 0, 255),
-  optimum: color.rgb(0, 255, 0),
-  maximum: color.rgb(255, 0, 0),
-  impossible: color.rgb(153, 0, 0),
+  none: color.hsl(0, 0, 40),
+  minimum: color.hsl(240, 100, 50),
+  optimum: color.hsl(120, 100, 50),
+  maximum: color.hsl(0, 100, 50),
+  impossible: color.hsl(0, 100, 30),
 };
 
-export const ColorStrings = mapValues(Colors, clr => clr.string());
+export const ColorStrings = mapValues(Colors, clr => clr.hsl().string());
 
 export const getColorForValue = (value, binding, defaultColor) => {
   if (!binding) {
@@ -62,16 +62,25 @@ function getCol({ minimum, maximum, optimum, impossible, lastValue }) {
   return 4;
 }
 
+export function hslMix(color1, color2, ratio = 0.5) {
+  const [h1, s1, l1] = color1.hsl().array();
+  const [h2, s2, l2] = color2.hsl().array();
+  const dh = h2 - h1;
+  const ds = s2 - s1;
+  const dl = l2 - l1;
+  return color.hsl([h1 + dh * ratio, s1 + ds * ratio, l1 + dl * ratio]);
+}
+
 function mix(col, { minimum, maximum, optimum, impossible, lastValue }) {
   switch (col) {
     case 0:
       return Colors.minimum;
     case 1:
-      return Colors.minimum.mix(Colors.optimum, (optimum - lastValue) / (optimum - minimum));
+      return hslMix(Colors.minimum, Colors.optimum, (lastValue - minimum) / (optimum - minimum));
     case 2:
-      return Colors.optimum.mix(Colors.maximum, (maximum - lastValue) / (maximum - optimum));
+      return hslMix(Colors.optimum, Colors.maximum, (lastValue - optimum) / (maximum - optimum));
     case 3:
-      return Colors.maximum.mix(Colors.impossible, (impossible - lastValue) / (impossible - maximum));
+      return hslMix(Colors.maximum, Colors.impossible, (lastValue - maximum) / (impossible - maximum));
     default:
       return Colors.impossible;
   }
@@ -117,9 +126,9 @@ const colorTable = {
     0: Colors.none,
     1: Colors.none,
     2: ({ optimum, impossible, lastValue }) =>
-      Colors.optimum.mix(Colors.impossible, (impossible - lastValue) / (impossible - optimum)),
+      hslMix(Colors.optimum, Colors.impossible, (lastValue - optimum) / (impossible - optimum)),
     3: ({ optimum, impossible, lastValue }) =>
-      Colors.optimum.mix(Colors.impossible, (impossible - lastValue) / (impossible - optimum)),
+      hslMix(Colors.optimum, Colors.impossible, (lastValue - optimum) / (impossible - optimum)),
     4: Colors.impossible,
   },
   6: {
@@ -175,9 +184,9 @@ const colorTable = {
     0: Colors.minimum,
     1: null,
     2: ({ optimum, impossible, lastValue }) =>
-      Colors.optimum.mix(Colors.impossible, (impossible - lastValue) / (impossible - optimum)),
+      hslMix(Colors.optimum, Colors.impossible, (lastValue - optimum) / (impossible - optimum)),
     3: ({ optimum, impossible, lastValue }) =>
-      Colors.optimum.mix(Colors.impossible, (impossible - lastValue) / (impossible - optimum)),
+      hslMix(Colors.optimum, Colors.impossible, (lastValue - optimum) / (impossible - optimum)),
     4: Colors.impossible,
   },
   14: {
