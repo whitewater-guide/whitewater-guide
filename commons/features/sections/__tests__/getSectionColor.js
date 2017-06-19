@@ -1,4 +1,4 @@
-import getSectionColor, { Colors, hslMix } from '../getSectionColor';
+import getSectionColor, { Colors, hslMix, getDryLevel } from '../getSectionColor';
 import mapValues from 'lodash/mapValues';
 import color from 'color';
 
@@ -9,6 +9,7 @@ const Mixes = {
   OptImp: hslMix(Colors.optimum, Colors.impossible).hsl().string(),
   OptMax: hslMix(Colors.optimum, Colors.maximum).hsl().string(),
   MinOpt: hslMix(Colors.minimum, Colors.optimum).hsl().string(),
+  DryMin: hslMix(Colors.dry, Colors.minimum).hsl().string(),
 };
 
 describe('Sanity test', () => {
@@ -29,14 +30,20 @@ describe('Sanity test', () => {
   });
 });
 
-test('00 - When no gauge binding provided', () => {
-  expect(getSectionColor({
+describe('00 - When no gauge binding provided, it should ', () => {
+  const binding = {
     minimum: undefined,
     optimum: undefined,
     maximum: undefined,
     impossible: undefined,
     lastValue: 13,
-  })).toBe(ColorStrings.none);
+  };
+  test('paint section grey', () => {
+    expect(getSectionColor(binding)).toBe(ColorStrings.none);
+  });
+  test('correctly compute dry level', () => {
+    expect(getDryLevel(binding)).toBe(0);
+  });
 });
 
 describe('01 - When only IMP is provided, it should ', () => {
@@ -46,6 +53,9 @@ describe('01 - When only IMP is provided, it should ', () => {
     maximum: undefined,
     impossible: 20,
   };
+  test('correctly compute dry level', () => {
+    expect(getDryLevel(binding)).toBe(0);
+  });
   test('handle VAL < IMP', () => {
     expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(ColorStrings.none);
   });
@@ -64,6 +74,9 @@ describe('02 - When only MAX is provided, it should ', () => {
     maximum: 20,
     impossible: undefined,
   };
+  test('correctly compute dry level', () => {
+    expect(getDryLevel(binding)).toBe(0);
+  });
   test('handle VAL < MAX', () => {
     expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(ColorStrings.none);
   });
@@ -82,6 +95,9 @@ describe('03 - When only MAX and ABS_MAX is provided, it should ', () => {
     maximum: 20,
     impossible: 40,
   };
+  test('correctly compute dry level', () => {
+    expect(getDryLevel(binding)).toBe(0);
+  });
   test('handle VAL < MAX', () => {
     expect(getSectionColor({ ...binding, lastValue: 19 })).toBe(ColorStrings.none);
   });
@@ -106,7 +122,9 @@ describe('04 - When only OPT is provided, it should ', () => {
     maximum: undefined,
     impossible: undefined,
   };
-
+  test('correctly compute dry level', () => {
+    expect(getDryLevel(binding)).toBe(0);
+  });
   test('handle VAL < OPT', () => {
     expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(ColorStrings.none);
   });
@@ -125,7 +143,9 @@ describe('05 - When OPT and IMP is provided, it should ', () => {
     maximum: undefined,
     impossible: 40,
   };
-
+  test('correctly compute dry level', () => {
+    expect(getDryLevel(binding)).toBe(0);
+  });
   test('handle V < OPT', () => {
     expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(ColorStrings.none);
   });
@@ -150,6 +170,9 @@ describe('06 - When OPT and MAX is provided, it should ', () => {
     maximum: 40,
     impossible: undefined,
   };
+  test('correctly compute dry level', () => {
+    expect(getDryLevel(binding)).toBe(0);
+  });
   test('handle VAL < OPT', () => {
     expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(ColorStrings.none);
   });
@@ -174,6 +197,9 @@ describe('07 - When OPT, MAX and IMP are provided, it should ', () => {
     maximum: 40,
     impossible: 60,
   };
+  test('correctly compute dry level', () => {
+    expect(getDryLevel(binding)).toBe(0);
+  });
   test('handle VAL < OPT', () => {
     expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(ColorStrings.none);
   });
@@ -204,8 +230,17 @@ describe('08 - When only MIN is provided, it should ', () => {
     maximum: undefined,
     impossible: undefined,
   };
-  test('handle VAL < MIN', () => {
-    expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(ColorStrings.minimum);
+  test('correctly compute dry level', () => {
+    expect(getDryLevel(binding)).toBe(14);
+  });
+  test('handle VAL < DRY', () => {
+    expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(ColorStrings.dry);
+  });
+  test('handle VAL == DRY', () => {
+    expect(getSectionColor({ ...binding, lastValue: 14 })).toBe(ColorStrings.dry);
+  });
+  test('handle DRY < VAL < MIN', () => {
+    expect(getSectionColor({ ...binding, lastValue: 17 })).toBe(ColorStrings.minimum);
   });
   test('handle VAL == MIN', () => {
     expect(getSectionColor({ ...binding, lastValue: 20 })).toBe(ColorStrings.none);
@@ -222,8 +257,17 @@ describe('09 - When MIN and IMP are provided, it should ', () => {
     maximum: undefined,
     impossible: 40,
   };
-  test('handle VAL < MIN', () => {
-    expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(ColorStrings.minimum);
+  test('correctly compute dry level', () => {
+    expect(getDryLevel(binding)).toBe(19);
+  });
+  test('handle VAL < DRY', () => {
+    expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(ColorStrings.dry);
+  });
+  test('handle VAL == DRY', () => {
+    expect(getSectionColor({ ...binding, lastValue: 19 })).toBe(ColorStrings.dry);
+  });
+  test('handle DRY < VAL < MIN', () => {
+    expect(getSectionColor({ ...binding, lastValue: 19.5 })).toBe(Mixes.DryMin);
   });
   test('handle VAL == MIN', () => {
     expect(getSectionColor({ ...binding, lastValue: 20 })).toBe(ColorStrings.none);
@@ -246,8 +290,17 @@ describe('10 - When MIN and MAX are provided, it should ', () => {
     maximum: 40,
     impossible: undefined,
   };
-  test('handle VAL < MIN', () => {
-    expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(ColorStrings.minimum);
+  test('correctly compute dry level', () => {
+    expect(getDryLevel(binding)).toBe(18);
+  });
+  test('handle VAL < DRY', () => {
+    expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(ColorStrings.dry);
+  });
+  test('handle VAL == DRY', () => {
+    expect(getSectionColor({ ...binding, lastValue: 18 })).toBe(ColorStrings.dry);
+  });
+  test('handle DRY < VAL < MIN', () => {
+    expect(getSectionColor({ ...binding, lastValue: 19 })).toBe(Mixes.DryMin);
   });
   test('handle VAL == MIN', () => {
     expect(getSectionColor({ ...binding, lastValue: 20 })).toBe(ColorStrings.none);
@@ -270,8 +323,17 @@ describe('11 - When MIN, MAX and IMP are provided, it should ', () => {
     maximum: 40,
     impossible: 60,
   };
-  test('handle VAL < MIN', () => {
-    expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(ColorStrings.minimum);
+  test('correctly compute dry level', () => {
+    expect(getDryLevel(binding)).toBe(18);
+  });
+  test('handle VAL < DRY', () => {
+    expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(ColorStrings.dry);
+  });
+  test('handle VAL == DRY', () => {
+    expect(getSectionColor({ ...binding, lastValue: 18 })).toBe(ColorStrings.dry);
+  });
+  test('handle DRY < VAL < MIN', () => {
+    expect(getSectionColor({ ...binding, lastValue: 19 })).toBe(Mixes.DryMin);
   });
   test('handle VAL == MIN', () => {
     expect(getSectionColor({ ...binding, lastValue: 20 })).toBe(ColorStrings.none);
@@ -300,8 +362,17 @@ describe('12 - When MIN and OPT are provided, it should ', () => {
     maximum: undefined,
     impossible: undefined,
   };
-  test('handle VAL < MIN', () => {
-    expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(ColorStrings.minimum);
+  test('correctly compute dry level', () => {
+    expect(getDryLevel(binding)).toBe(16);
+  });
+  test('handle VAL < DRY', () => {
+    expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(ColorStrings.dry);
+  });
+  test('handle VAL == DRY', () => {
+    expect(getSectionColor({ ...binding, lastValue: 16 })).toBe(ColorStrings.dry);
+  });
+  test('handle DRY < VAL < MIN', () => {
+    expect(getSectionColor({ ...binding, lastValue: 18 })).toBe(Mixes.DryMin);
   });
   test('handle VAL == MIN', () => {
     expect(getSectionColor({ ...binding, lastValue: 20 })).toBe(ColorStrings.minimum);
@@ -324,8 +395,17 @@ describe('13 - When MIN, OPT and IMP are provided, it should ', () => {
     maximum: undefined,
     impossible: 60,
   };
-  test('handle VAL < MIN', () => {
-    expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(ColorStrings.minimum);
+  test('correctly compute dry level', () => {
+    expect(getDryLevel(binding)).toBe(16);
+  });
+  test('handle VAL < DRY', () => {
+    expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(ColorStrings.dry);
+  });
+  test('handle VAL == DRY', () => {
+    expect(getSectionColor({ ...binding, lastValue: 16 })).toBe(ColorStrings.dry);
+  });
+  test('handle DRY < VAL < MIN', () => {
+    expect(getSectionColor({ ...binding, lastValue: 18 })).toBe(Mixes.DryMin);
   });
   test('handle VAL == MIN', () => {
     expect(getSectionColor({ ...binding, lastValue: 20 })).toBe(ColorStrings.minimum);
@@ -354,8 +434,17 @@ describe('14 - When MIN, OPT and MAX are provided, it should ', () => {
     maximum: 60,
     impossible: undefined,
   };
-  test('handle VAL < MIN', () => {
-    expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(ColorStrings.minimum);
+  test('correctly compute dry level', () => {
+    expect(getDryLevel(binding)).toBe(16);
+  });
+  test('handle VAL < DRY', () => {
+    expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(ColorStrings.dry);
+  });
+  test('handle VAL == DRY', () => {
+    expect(getSectionColor({ ...binding, lastValue: 16 })).toBe(ColorStrings.dry);
+  });
+  test('handle DRY < VAL < MIN', () => {
+    expect(getSectionColor({ ...binding, lastValue: 18 })).toBe(Mixes.DryMin);
   });
   test('handle VAL == MIN', () => {
     expect(getSectionColor({ ...binding, lastValue: 20 })).toBe(ColorStrings.minimum);
@@ -384,8 +473,17 @@ describe('15 - When MIN, OPT, MAX and IMP are provided, it should ', () => {
     maximum: 60,
     impossible: 80,
   };
-  test('handle VAL < MIN', () => {
-    expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(ColorStrings.minimum);
+  test('correctly compute dry level', () => {
+    expect(getDryLevel(binding)).toBe(16);
+  });
+  test('handle VAL < DRY', () => {
+    expect(getSectionColor({ ...binding, lastValue: 10 })).toBe(ColorStrings.dry);
+  });
+  test('handle VAL == DRY', () => {
+    expect(getSectionColor({ ...binding, lastValue: 16 })).toBe(ColorStrings.dry);
+  });
+  test('handle DRY < VAL < MIN', () => {
+    expect(getSectionColor({ ...binding, lastValue: 18 })).toBe(Mixes.DryMin);
   });
   test('handle VAL == MIN', () => {
     expect(getSectionColor({ ...binding, lastValue: 20 })).toBe(ColorStrings.minimum);
