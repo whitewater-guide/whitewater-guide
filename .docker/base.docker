@@ -1,6 +1,6 @@
 FROM phusion/passenger-customizable:0.9.20
 
-LABEL version="1.5"
+LABEL version="1.6"
 
 # This build passenger and bakes in backend and frontend code
 
@@ -11,20 +11,23 @@ ENV HOME /root
 COPY .docker/pd_build/*.* /pd_build/
 RUN chown app:app /pd_build/nodejs.sh \
   && chmod a+x /pd_build/nodejs.sh
-
-# This will install node with version pinned to match meteor's node version
-RUN apt-get update
+# Install certbot as described https://certbot.eff.org/#ubuntuxenial-nginx
+RUN apt-get update \
+ && apt-get install -y software-properties-common \
+ && add-apt-repository ppa:certbot/certbot \
+ && apt-get update \
+ && apt-get install -y python-certbot-nginx \
+ # And install nano (i hate vim)
+ && apt-get install -y nano
+# Python is required for node to work
 RUN /pd_build/python.sh
+# This will install node with version pinned to match meteor's node version
 RUN /pd_build/nodejs.sh
 
 ARG NODE_ENV
 
 # Use baseimage-docker's init process.
 CMD ["/sbin/my_init"]
-
-# I just hate vi
-RUN apt-get update \
- && apt-get install -y nano
 
 # Nginx and Passenger are disabled by default. Enable them
 RUN rm -f /etc/service/nginx/down \
@@ -43,6 +46,11 @@ ADD .docker/config .docker/env backend/settings.${NODE_ENV}.json /tmp/
 RUN METEOR_SETTINGS=$(echo $(cat /tmp/settings.${NODE_ENV}.json)) \
     env $(cat /tmp/${NODE_ENV}.env | xargs) \
     mo /tmp/webapp.mustache >> /etc/nginx/sites-enabled/webapp.config
+
+# Certbot will get SSL certificate and edit nginx config to serve it
+RUN env $(cat /tmp/${NODE_ENV}.env | xargs) echo ${SERVER_NAME}
+RUN (export $(cat /tmp/${NODE_ENV}.env | xargs) \
+ && certbot --nginx --verbose --noninteractive --agree-tos --email $CERTBOT_EMAIL -d $SERVER_NAME)
 
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
