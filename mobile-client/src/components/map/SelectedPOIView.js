@@ -38,7 +38,6 @@ class SelectedPOIView extends React.PureComponent {
       <SelectedElementView
         header={this.renderHeader()}
         buttons={buttons}
-        panelHeight={160}
         selected={!!this.props.selectedPOI}
         {...this.props}
       >

@@ -28,7 +28,6 @@ export default class SelectedElementView extends Component {
       coordinates: PropTypes.arrayOf(PropTypes.number),
     })),
     header: PropTypes.element,
-    panelHeight: PropTypes.number.isRequired,
     selected: PropTypes.bool.isRequired,
     onSectionSelected: PropTypes.func,
     onPOISelected: PropTypes.func,
@@ -45,21 +44,24 @@ export default class SelectedElementView extends Component {
     super(props);
     this.state = {
       laidOut: false,
+      height: 0,
+      panelHeight: NAVIGATE_BUTTON_HEIGHT + 10,
+      snapPoints: [],
     };
     this._deltaY = null;
     this._slideAnimated = null;
-    this._height = 0;
-    this._snapPoints = [];
     this._interactable = null;
     this._muteSnapEvent = false;
+    this._snapIndex = 0;
   }
 
   componentDidUpdate(prevProps) {
     if (!this._interactable) {
       return;
     }
-    if (this.props.selected && !prevProps.selected) {
-      this._interactable.snapTo({ index: 1 });
+    if (this.props.selected) {
+      // If it is open wide, keep it open wide
+      this._interactable.snapTo({ index: Math.max(1, this._snapIndex) });
       this._muteSnapEvent = true;
     } else if (!this.props.selected && prevProps.selected) {
       this._interactable.snapTo({ index: 0 });
@@ -75,19 +77,33 @@ export default class SelectedElementView extends Component {
 
   onLayout = ({ nativeEvent: { layout: { height } } }) => {
     if (!this.state.laidOut) {
-      this._height = height;
-      this._snapPoints = [
-        { y: this._height },
-        { y: this._height - NAVIGATE_BUTTON_HEIGHT },
-        { y: this._height - this.props.panelHeight },
-      ];
-      this._deltaY = new Animated.Value(this._height);
-      this._slideAnimated = Animated.multiply(Animated.add(this._deltaY, -this._height), -1);
-      this.setState({ laidOut: true });
+      this._deltaY = new Animated.Value(height);
+      this._slideAnimated = Animated.multiply(Animated.add(this._deltaY, -height), -1);
+      this.setState(prevState => ({
+        laidOut: true,
+        height,
+        snapPoints: [
+          { y: height },
+          { y: height - NAVIGATE_BUTTON_HEIGHT },
+          { y: height - prevState.panelHeight },
+        ],
+      }));
     }
   };
 
+  onPanelLayout = ({ nativeEvent: { layout: { height: panelHeight } } }) => {
+    this.setState(prevState => ({
+      panelHeight,
+      snapPoints: [
+        { y: prevState.height },
+        { y: prevState.height - NAVIGATE_BUTTON_HEIGHT },
+        { y: prevState.height - panelHeight },
+      ],
+    }));
+  };
+
   onSnap = ({ nativeEvent: { index } }) => {
+    this._snapIndex = index;
     if (!this._muteSnapEvent && index === 0) {
       this.props.onSectionSelected(null);
       this.props.onPOISelected(null);
@@ -136,7 +152,7 @@ export default class SelectedElementView extends Component {
               {
                 backgroundColor: 'black',
                 opacity: this._deltaY.interpolate({
-                  inputRange: [this._snapPoints[2].y, this._snapPoints[1].y],
+                  inputRange: [this.state.snapPoints[2].y, this.state.snapPoints[1].y],
                   outputRange: [0.5, 0.0],
                   extrapolate: 'clamp',
                 }),
@@ -149,12 +165,12 @@ export default class SelectedElementView extends Component {
           <Interactable.View
             ref={this.setInteractable}
             verticalOnly
-            snapPoints={this._snapPoints}
+            snapPoints={this.state.snapPoints}
             onSnap={this.onSnap}
-            initialPosition={this._snapPoints[0]}
+            initialPosition={this.state.snapPoints[0]}
             animatedValueY={this._deltaY}
           >
-            <View style={[styles.panel, { height: this.props.panelHeight }]}>
+            <View style={styles.panel} onLayout={this.onPanelLayout}>
               <TouchableOpacity onPress={this.onHeaderPressed}>
                 <View style={styles.header}>
                   <View style={{ width: window.width - this.props.buttons.length * NAVIGATE_BUTTON_WIDTH }}>

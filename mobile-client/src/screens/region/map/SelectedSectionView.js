@@ -89,7 +89,6 @@ class SelectedSectionView extends React.PureComponent {
         header={this.renderHeader()}
         buttons={buttons}
         selected={!!section}
-        panelHeight={315}
         {...this.props}
       >
         <View>
@@ -114,7 +113,7 @@ class SelectedSectionView extends React.PureComponent {
             </Body>
           </ListItem>
         </View>
-        <Button primary fullWidth label="Details" onPress={this.detailsHandler} />
+        <Button primary label="Details" onPress={this.detailsHandler} />
       </SelectedElementView>
     );
   }
