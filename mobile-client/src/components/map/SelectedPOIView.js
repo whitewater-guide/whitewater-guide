@@ -5,10 +5,14 @@ import { get } from 'lodash';
 import SelectedElementView from './SelectedElementView';
 import { POINames } from '../../commons/features/points';
 import { Text } from '../index';
+import theme from '../../theme';
 
 const styles = StyleSheet.create({
   header: {
+    flex: 1,
     padding: 8,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: theme.colors.border,
   },
   body: {
     padding: 8,

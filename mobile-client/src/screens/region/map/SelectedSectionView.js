@@ -9,12 +9,15 @@ import { durationToString } from '../../../commons/domain';
 import stringifySeason from '../../../commons/utils/stringifySeason';
 import { Button, DifficultyThumb, StarRating, ListItem, Left, Body, Right, Text } from '../../../components';
 import SelectedElementView from '../../../components/map/SelectedElementView';
+import theme from '../../../theme';
 
 const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingLeft: 16,
+    paddingLeft: 8,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: theme.colors.border,
     flex: 1,
   },
   body: {
@@ -52,8 +55,8 @@ class SelectedSectionView extends React.PureComponent {
     return (
       <View style={styles.header}>
         <View style={styles.body}>
-          <Text>{get(section, 'river.name', '_')}</Text>
-          <Text>{get(section, 'name', '_')}</Text>
+          <Text numberOfLines={1}>{get(section, 'river.name', '_')}</Text>
+          <Text numberOfLines={1}>{get(section, 'name', '_')}</Text>
           <View style={styles.starsContainer}>
             <StarRating value={get(section, 'rating', 0)} />
           </View>
