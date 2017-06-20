@@ -21,6 +21,12 @@ server {
         try_files $uri /index.html;
     }
 
+    # Make nginx compatible with certbot process
+    location ^~ /.well-known {
+        allow all;
+        root  /data/letsencrypt/;
+    }
+
     # Of all meteor backend, we only need graphql endpoint and websocket subscriptions endpoint
     location ~ ^/(graphql|thumbs|subscriptions|subscriptions/) {
         passenger_base_uri /;
@@ -31,4 +37,11 @@ server {
         passenger_app_type node;
         passenger_startup_file main.js;
     }
+
+    # managed by Certbot
+    listen 443 ssl;
+    ssl_certificate /etc/letsencrypt/live/{{SERVER_NAME}}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/{{SERVER_NAME}}/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+
 }

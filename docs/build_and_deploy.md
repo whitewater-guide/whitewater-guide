@@ -56,6 +56,22 @@ so binary dependencies like `sharp` are built in same environment as production.
 - Stop all running containers, remove all containers and images (otherwise droplet will run out of memory)
 - Build and run services as described in `production.yml` docker-compose file
 
+## SSL 
+
+Certificated were deployed using certbot. This is how it was done:
+1) Certbot is baked into passenger service base
+2) Two named volumes, `certs` and `certs-data` were added into compose file. They are mapped to the dirs that certbot uses
+3) `certbot --nginx` was launched inside passenger container. It was regisered to `K.Kuznetcov@gmail.com` email. 
+It generated certificates in named volume `certs` and modified nginx config for whitewater.guide. 
+4) This modified config (besides included `/etc/letsencrypt/options-ssl-nginx.conf;`) was modified and
+baked back into passenger base image
+5) Backup of volumes was made with 
+    ```bash
+    docker-machine scp -r wwguide:/var/lib/docker/volumes/whitewater_certs/_data ./whitewater_certs
+    docker-machine scp -r wwguide:/var/lib/docker/volumes/whitewater_certs-data/_data ./whitewater_certs-data
+    ```
+6) Current certificates should expire in mid september 2017
+
 ## Automation
 `production.sh` file is used to automate build and deploy steps.
 
