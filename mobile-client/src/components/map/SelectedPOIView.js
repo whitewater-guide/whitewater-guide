@@ -19,11 +19,19 @@ const styles = StyleSheet.create({
   },
 });
 
-class SelectedPOIView extends React.PureComponent {
+class SelectedPOIView extends React.Component {
 
   static propTypes = {
     selectedPOI: PropTypes.object,
+    onSectionSelected: PropTypes.func,
+    onPOISelected: PropTypes.func,
   };
+
+  shouldComponentUpdate(nextProps) {
+    const oldId = this.props.selectedPOI && this.props.selectedPOI._id;
+    const newId = nextProps.selectedPOI && nextProps.selectedPOI._id;
+    return oldId !== newId;
+  }
 
   renderHeader = () => (
     <View style={styles.header}>

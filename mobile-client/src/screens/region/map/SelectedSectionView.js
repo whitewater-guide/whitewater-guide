@@ -56,19 +56,20 @@ const styles = StyleSheet.create({
   },
 });
 
-class SelectedSectionView extends React.PureComponent {
+class SelectedSectionView extends React.Component {
 
   static propTypes = {
     selectedSection: SectionPropType,
-    driver: PropTypes.object,
-    onLayout: PropTypes.func,
     dispatch: PropTypes.func.isRequired,
-    measured: PropTypes.bool,
+    onSectionSelected: PropTypes.func,
+    onPOISelected: PropTypes.func,
   };
 
-  static defaultProps = {
-    measured: false,
-  };
+  shouldComponentUpdate(nextProps) {
+    const oldId = this.props.selectedSection && this.props.selectedSection._id;
+    const newId = nextProps.selectedSection && nextProps.selectedSection._id;
+    return oldId !== newId;
+  }
 
   detailsHandler = () => {
     this.props.dispatch(NavigationActions.navigate({
