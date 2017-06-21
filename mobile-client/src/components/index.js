@@ -6,6 +6,7 @@ export { default as Icon } from './Icon';
 export * from './ListItem';
 export { default as BurgerButton } from './BurgerButton';
 export { default as DifficultyThumb } from './DifficultyThumb';
+export { default as FlowsThumb } from './FlowsThumb';
 export { default as HTMLView } from './HTMLView';
 export { default as SearchBar } from './SearchBar';
 export { default as MultiSlider } from './MultiSlider';

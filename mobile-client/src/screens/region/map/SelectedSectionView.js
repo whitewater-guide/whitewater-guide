@@ -3,13 +3,23 @@ import PropTypes from 'prop-types';
 import { StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
-import { get, capitalize, trim } from 'lodash';
+import { get, capitalize, compact, trim } from 'lodash';
 import { SectionPropType } from '../../../commons/features/sections';
 import { durationToString } from '../../../commons/domain';
 import stringifySeason from '../../../commons/utils/stringifySeason';
-import { Button, DifficultyThumb, StarRating, ListItem, Left, Body, Right, Text } from '../../../components';
+import {
+  Button,
+  DifficultyThumb,
+  StarRating,
+  ListItem,
+  Left,
+  Body,
+  Text,
+  NAVIGATE_BUTTON_WIDTH,
+} from '../../../components';
 import SelectedElementView from '../../../components/map/SelectedElementView';
 import theme from '../../../theme';
+import SectionFlowsRow from './SectionFlowsRow';
 
 const styles = StyleSheet.create({
   header: {
@@ -26,6 +36,23 @@ const styles = StyleSheet.create({
   starsContainer: {
     width: 80,
     paddingTop: 2,
+  },
+  distance: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingRight: 8,
+    flex: 1,
+  },
+  drop: {
+    flexDirection: 'row',
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingLeft: 8,
+    width: 2 * NAVIGATE_BUTTON_WIDTH - 8,
+    borderLeftWidth: StyleSheet.hairlineWidth,
+    borderLeftColor: theme.colors.border,
   },
 });
 
@@ -83,7 +110,10 @@ class SelectedSectionView extends React.PureComponent {
         trim(section.season),
       ].join('\n');
     }
-    const duration = section ? durationToString(section.duration) : ' ';
+    const duration = section && durationToString(section.duration);
+    const drop = section && section.drop;
+    const distance = section && section.distance;
+    const distanceStr = compact([distance ? `${distance} km` : '', duration]).join(' / ');
     return (
       <SelectedElementView
         header={this.renderHeader()}
@@ -93,17 +123,18 @@ class SelectedSectionView extends React.PureComponent {
       >
         <View>
           <ListItem>
-            <Left><Text>Drop</Text></Left>
-            <Right><Text note right>{get(section, 'drop', ' ')}</Text></Right>
+            <View style={styles.distance}>
+              <Text>Length</Text>
+              <Text note right>{distanceStr}</Text>
+            </View>
+            <View style={styles.drop}>
+              <Text>Drop</Text>
+              <Text note right>{drop ? `${drop} m` : 'unknown'}</Text>
+            </View>
           </ListItem>
-          <ListItem>
-            <Left><Text>Length, km</Text></Left>
-            <Right><Text note right>{get(section, 'distance', 0)}</Text></Right>
-          </ListItem>
-          <ListItem>
-            <Left><Text>Duration</Text></Left>
-            <Right><Text note right>{duration}</Text></Right>
-          </ListItem>
+
+          <SectionFlowsRow section={section} />
+
           <ListItem>
             <Left><Text>Season</Text></Left>
             <Body>

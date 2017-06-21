@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { propType } from 'graphql-anywhere';
 import { StyleSheet, Text, View } from 'react-native';
 import moment from 'moment';
-import { SectionFragments, getSectionColor } from '../../../commons/features/sections';
+import { SectionFragments, getSectionColor, prettyNumber } from '../commons/features/sections';
 
 const styles = StyleSheet.create({
   container: {
@@ -35,12 +35,11 @@ const FlowsThumb = ({ flows, levels, flowUnit, levelUnit }) => {
   const data = (flows && flows.lastValue) ?
     { ...flows, label: 'Flow', color: getSectionColor(flows), unit: flowUnit } :
     { ...levels, label: 'Level', color: getSectionColor(levels), unit: levelUnit };
-  const prettyValue = data.lastValue >= 1000 ? `${(data.lastValue / 1000).toFixed(2)}k` : data.lastValue.toFixed(2);
   return (
     <View style={styles.container}>
       <Text style={styles.unitLine}>{data.label}</Text>
       <Text style={[styles.mainLine, { color: data.color }]}>
-        {prettyValue}
+        {prettyNumber(data.lastValue)}
         <Text style={[styles.unitLine, { color: data.color }]}>
           { ` ${data.unit}` }
         </Text>

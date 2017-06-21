@@ -4,4 +4,5 @@ export * from './sectionFragments';
 export * from './propTypes';
 export * from './sectionsBatchLoader';
 export { default as SectionMapView } from './SectionMapView';
-export { default as getSectionColor, getColorForValue } from './getSectionColor';
+export { default as getSectionColor, getColorForValue, ColorStrings } from './getSectionColor';
+export * from './prettyNumber';

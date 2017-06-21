@@ -57,6 +57,16 @@ class SectionInfoScreen extends React.PureComponent {
             </ListItem>
           }
 
+          {
+            section.flowsText &&
+            <ListItem>
+              <Left><Text>Flows</Text></Left>
+              <Body>
+                <Text note right>{section.flowsText}</Text>
+              </Body>
+            </ListItem>
+          }
+
           <ListItem>
             <Left><Text>Season</Text></Left>
             <Body>
