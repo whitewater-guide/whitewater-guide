@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import { Svg, Polygon } from 'react-native-svg';
-import MapView from 'react-native-maps';
+import MapView, { Circle } from 'react-native-maps';
 import PurePolyline from './PurePolyline';
 import { SectionPropType, getSectionColor } from '../../commons/features/sections';
+import { computeDistanceBetween } from '../../commons/utils/GeoUtils';
 
 const Anchor = { x: 0.5, y: 0.5 };
 
@@ -20,7 +21,18 @@ class SimpleSection extends React.PureComponent {
   static defaultProps = {
     selected: false,
     useSectionShapes: false,
+    onSectionSelected: null,
   };
+
+  constructor(props) {
+    super(props);
+    const {
+      putIn: { coordinates: putIn },
+      takeOut: { coordinates: takeOut },
+    } = props.section;
+    this._radius = computeDistanceBetween(putIn, takeOut) * 500;
+    this._center = { latitude: (putIn[1] + takeOut[1]) / 2, longitude: (putIn[0] + takeOut[0]) / 2 };
+  }
 
   selectSection = () => {
     const { section, onSectionSelected } = this.props;
@@ -75,8 +87,13 @@ class SimpleSection extends React.PureComponent {
     const levels = section.levels || {};
     const bindings = flows.lastValue ? flows : levels;
     const color = getSectionColor(bindings);
+    const fill = color.replace('hsl', 'hsla').replace(')', ',0.3)');
     return (
       <View>
+        {
+          selected &&
+          <Circle center={this._center} radius={this._radius} fillColor={fill} strokeWidth={0} />
+        }
         <PurePolyline
           strokeWidth={selected ? 5 : 3}
           strokeColor={color}
