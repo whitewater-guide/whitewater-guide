@@ -92,7 +92,11 @@ export function hslMix(color1, color2, ratio = 0.5) {
   const dh = h2 - h1;
   const ds = s2 - s1;
   const dl = l2 - l1;
-  return color.hsl([h1 + dh * ratio, s1 + ds * ratio, l1 + dl * ratio]);
+  return color.hsl([
+    Math.round(h1 + dh * ratio), 
+    Math.round(s1 + ds * ratio),
+    Math.round(l1 + dl * ratio),
+  ]);
 }
 
 function mix(col, { dry, minimum, maximum, optimum, impossible, lastValue }) {
