@@ -1,3 +1,7 @@
 export const APP_STARTED = 'APP_STARTED';
 export const TOGGLE_DRAWER = 'TOGGLE_DRAWER';
 export const TOGGLE_MAP_TYPE = 'TOGGLE_MAP_TYPE';
+
+export const GUIDE_STEP_SHOW = 'GUIDE_STEP_SHOW';
+export const GUIDE_STEP_HIDE = 'GUIDE_STEP_HIDE';
+export const GUIDE_STEP_COMPLETE = 'GUIDE_STEP_COMPLETE';
