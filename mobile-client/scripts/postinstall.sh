@@ -2,4 +2,4 @@
 
 printenv
 yarn run rm:babelrc
-cp -R ../commons ./src/commons
+cp -R ../commons/ ./src/commons
