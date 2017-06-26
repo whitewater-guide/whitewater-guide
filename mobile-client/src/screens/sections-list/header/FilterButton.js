@@ -4,7 +4,7 @@ import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { isEqual, merge, omit } from 'lodash';
 import { compose } from 'recompose';
-import { Icon } from '../../../components';
+import { GuideStep, Icon } from '../../../components';
 import { defaultSectionSearchTerms } from '../../../commons/domain';
 import { tagsToSelections, withTags } from '../../../commons/features/tags';
 import { updateSearchTerms, searchTermsSelector } from '../../../commons/features/regions';
@@ -35,13 +35,15 @@ class FilterButton extends React.PureComponent {
   render() {
     const icon = this.props.hasFilters ? 'ios-funnel' : 'ios-funnel-outline';
     return (
-      <Icon
-        primary
-        wide
-        icon={icon}
-        onPress={this.onPress}
-        onLongPress={this.onLongPress}
-      />
+      <GuideStep step={0}>
+        <Icon
+          primary
+          wide
+          icon={icon}
+          onPress={this.onPress}
+          onLongPress={this.onLongPress}
+        />
+      </GuideStep>
     );
   }
 }

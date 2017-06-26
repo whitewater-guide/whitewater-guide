@@ -1,3 +1,4 @@
+import { REHYDRATE } from 'redux-persist/constants';
 import { set } from 'lodash/fp';
 import { GUIDE_STEP_COMPLETE, GUIDE_STEP_SHOW, GUIDE_STEP_HIDE } from '../actions';
 
@@ -10,6 +11,11 @@ const getCurrentStep = steps => steps.findIndex(step => step.visible && !step.co
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
+    case REHYDRATE: {
+      const incoming = payload.persistent && payload.persistent.guide;
+      const steps = (incoming && incoming.steps || []).map(({ complete }) => ({ complete }));
+      return { currentStep: -1, steps };
+    }
     case GUIDE_STEP_SHOW: {
       const steps = set(`${payload.stepId}.visible`, true, state.steps);
       return { currentStep: getCurrentStep(steps), steps };

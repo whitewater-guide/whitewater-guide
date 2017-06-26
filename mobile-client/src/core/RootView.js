@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { StyleSheet, View } from 'react-native';
 import DrawerLayout from 'react-native-drawer-layout';
 import { addNavigationHelpers } from 'react-navigation';
 import { RootNavigator } from './routes';
-import { Screen } from '../components';
+import { GuideModal, Screen } from '../components';
 import { toggleDrawer } from '../core/actions';
 import Drawer from './Drawer';
 
@@ -63,7 +64,10 @@ class RootView extends Component {
         statusBarBackgroundColor="white"
         renderNavigationView={this.renderDrawer}
       >
-        <RootNavigator navigation={navigation} />
+        <View style={StyleSheet.absoluteFill}>
+          <RootNavigator navigation={navigation} />
+          <GuideModal />
+        </View>
       </DrawerLayout>
     );
   }
