@@ -36,7 +36,7 @@ const authMiddleware = {
 const createMeteorNetworkInterface = ({ uri = '/graphql', subs }) => {
   // React-native doesn't support uploads (File class in particular breaks it)
   const networkInterface = isNative() ?
-    new HTTPBatchedNetworkInterface(uri, 10) :
+    new HTTPBatchedNetworkInterface({ uri, batchInterval: 10 }) :
     new BatchedUploadHTTPFetchNetworkInterface(uri, 10);
   networkInterface.use([authMiddleware]);
 

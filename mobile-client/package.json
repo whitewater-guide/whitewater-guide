@@ -19,7 +19,7 @@
     "devtools": "react-devtools"
   },
   "dependencies": {
-    "apollo-client": "^1.4.2",
+    "apollo-client": "^1.5.0",
     "color": "^1.0.3",
     "d3-scale": "^1.0.6",
     "geocoordinate": "^1.0.1",
@@ -61,10 +61,10 @@
     "reactotron-redux-saga": "^1.11.1",
     "recompose": "^0.23.5",
     "recursive-iterator": "^2.0.3",
-    "redux": "^3.7.0",
+    "redux": "^3.7.1",
     "redux-actions": "^2.0.3",
     "redux-persist": "^4.8.1",
-    "redux-saga": "^0.15.3",
+    "redux-saga": "^0.15.4",
     "reselect": "^3.0.1",
     "shallowequal": "^1.0.1",
     "subscriptions-transport-ws": "^0.7.3",

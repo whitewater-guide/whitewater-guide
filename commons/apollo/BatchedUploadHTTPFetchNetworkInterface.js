@@ -8,9 +8,9 @@ import set from 'lodash/fp/set';
 // As described here: https://github.com/HriBB/apollo-upload-network-interface/issues/5
 export class BatchedUploadHTTPFetchNetworkInterface extends BaseNetworkInterface {
 
-  constructor(uri, pollInterval, fetchOpts) {
+  constructor(uri, batchInterval, fetchOpts) {
     super(uri, fetchOpts);
-    this.batchedInterface = new HTTPBatchedNetworkInterface(uri, pollInterval, fetchOpts);
+    this.batchedInterface = new HTTPBatchedNetworkInterface({ uri, batchInterval, fetchOpts });
     this.uploadInterface = new HTTPFetchNetworkInterface(uri, fetchOpts);
     this.uploadInterface.fetchFromRemoteEndpoint = this.uploadQuery;
   }
