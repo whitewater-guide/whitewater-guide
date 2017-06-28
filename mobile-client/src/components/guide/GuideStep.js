@@ -29,7 +29,7 @@ class GuideStep extends React.PureComponent {
   };
 
   static defaultProps = {
-    trigger: 'onPress',
+    trigger: 'completeStep',
     renderBackground: null,
     shouldBeDisplayed: true,
   };
@@ -84,23 +84,31 @@ class GuideStep extends React.PureComponent {
 
   completeStep = () => this.props.completeGuideStep(this.props.step);
 
+  injectIntoChild = () => {
+    const { children, trigger } = this.props;
+    const layout = this.state.layout;
+    const child = Children.only(children);
+    return cloneElement(child, {
+      [trigger]: () => {
+        const ownProp = child.props[trigger];
+        this.completeStep();
+        if (ownProp) {
+          ownProp();
+        }
+      },
+      style: [child.props.style, { position: 'absolute', left: layout.x, top: layout.y }],
+    });
+  };
+
   render() {
-    const { active, children, trigger, renderBackground, shouldBeDisplayed } = this.props;
+    const { active, children, renderBackground, shouldBeDisplayed } = this.props;
     const { measured, layout } = this.state;
     if (shouldBeDisplayed && active && measured) {
       return (
         <BlackPortal name="guidePortal">
           <View removeClippedSubviews style={styles.portal} pointerEvents="box-none" >
             { renderBackground(layout, this.completeStep) }
-            {
-              Children.map(children, child => cloneElement(
-                child,
-                {
-                  [trigger]: () => { this.completeStep(); child.props[trigger](); },
-                  style: [child.props.style, { position: 'absolute', left: layout.x, top: layout.y }],
-                },
-              ))
-            }
+            { this.injectIntoChild() }
           </View>
         </BlackPortal>
       );

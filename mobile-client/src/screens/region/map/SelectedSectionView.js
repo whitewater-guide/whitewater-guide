@@ -68,6 +68,7 @@ class SelectedSectionView extends React.Component {
     dispatch: PropTypes.func.isRequired,
     onSectionSelected: PropTypes.func,
     onPOISelected: PropTypes.func,
+    onMaximize: PropTypes.func,
   };
 
   shouldComponentUpdate(nextProps) {
@@ -86,6 +87,7 @@ class SelectedSectionView extends React.Component {
   renderGuideBackground = (layout, completeGuideStep) => (
     <CircularGuideBackground
       offset={GuideStepOffset}
+      color="red"
       layout={layout}
       completeGuideStep={completeGuideStep}
     />
@@ -129,7 +131,7 @@ class SelectedSectionView extends React.Component {
     const distance = section && section.distance;
     const distanceStr = compact([distance ? `${distance} km` : '', duration]).join(' / ');
     return (
-      <GuideStep step={1} renderBackground={this.renderGuideBackground} shouldBeDisplayed={!!section}>
+      <GuideStep step={1} trigger="onMaximize" renderBackground={this.renderGuideBackground} shouldBeDisplayed={!!section}>
         <SelectedElementView
           header={this.renderHeader()}
           buttons={buttons}

@@ -39,7 +39,7 @@ class FilterButton extends React.PureComponent {
   render() {
     const icon = this.props.hasFilters ? 'ios-funnel' : 'ios-funnel-outline';
     return (
-      <GuideStep step={0} renderBackground={this.renderGuideBackground}>
+      <GuideStep step={0} trigger="onPress" renderBackground={this.renderGuideBackground}>
         <Icon
           primary
           wide
