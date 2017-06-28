@@ -1,6 +1,7 @@
 import React, { Children, cloneElement } from 'react';
 import PropTypes from 'prop-types';
-import { Animated, NativeModules, StyleSheet, View, findNodeHandle } from 'react-native';
+import debounce from 'lodash/debounce';
+import { Animated, InteractionManager, NativeModules, StyleSheet, View, findNodeHandle } from 'react-native';
 import { connect } from 'react-redux';
 import { BlackPortal } from 'react-native-portal';
 import { completeGuideStep, showGuideStep } from '../../core/actions';
@@ -39,11 +40,12 @@ class GuideStep extends React.PureComponent {
       },
       animated: new Animated.Value(0),
     };
+    this._childWrapper = null;
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!this.props.active && nextProps.active) {
-      const handle = findNodeHandle(this);
+    if (!this.props.active && nextProps.active && this._childWrapper) {
+      const handle = findNodeHandle(this._childWrapper);
       if (handle) {
         NativeModules.UIManager.measure(handle, this.onChildMeasured);
       }
@@ -55,17 +57,29 @@ class GuideStep extends React.PureComponent {
     this.state.animated.setValue(0);
     this.setState(
       () => ({ measured: true, layout: { x, y, width, height } }),
-      () => Animated.timing(this.state.animated, { duration: 200, toValue: 1, useNativeDriver: true }).start(),
+      this.onMeasuredStateSet,
     );
   };
 
-  onLayout = () => {
-    setTimeout(() => this.props.showGuideStep(this.props.step), 100);
+  onMeasuredStateSet = () => {
+    InteractionManager.runAfterInteractions(() => {
+      Animated.timing(this.state.animated, { duration: 200, toValue: 1, useNativeDriver: true }).start();
+    });
   };
+
+  onLayout = () => {
+    this.showStep();
+  };
+
+  setChildWrapperRef = (ref) => { this._childWrapper = ref; };
+
+  showStep = debounce(() => {
+    InteractionManager.runAfterInteractions(() => this.props.showGuideStep(this.props.step));
+  }, 100);
 
   completeStep = () => this.props.completeGuideStep(this.props.step);
 
-  renderDefaultBackground = (animated, layout) => {
+  renderDefaultBackground = (animated, layout, completeGuideStep) => {
     const dynamicStyle = {
       opacity: animated.interpolate({ inputRange: [0, 1], outputRange: [0, 0.5], extrapolate: 'clamp' }),
     };
@@ -75,14 +89,14 @@ class GuideStep extends React.PureComponent {
   };
 
   render() {
-    const { active, children, trigger, renderBackground } = this.props;
+    const { active, children, trigger, renderBackground, completeGuideStep } = this.props;
     const { animated, measured, layout } = this.state;
     const renderer = renderBackground || this.renderDefaultBackground;
-    const background = renderer(animated, layout);
+    const background = renderer(animated, layout, completeGuideStep);
     if (active && measured) {
       return (
         <BlackPortal name="guidePortal">
-          <View style={StyleSheet.absoluteFill}>
+          <View style={StyleSheet.absoluteFill} pointerEvents="box-none">
             { background }
             {
               Children.map(children, child => cloneElement(
@@ -98,7 +112,7 @@ class GuideStep extends React.PureComponent {
       );
     }
     return (
-      <View onLayout={this.onLayout}>
+      <View onLayout={this.onLayout} ref={this.setChildWrapperRef} pointerEvents="box-none">
         { Children.only(children) }
       </View>
     );

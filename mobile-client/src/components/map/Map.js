@@ -144,8 +144,14 @@ class Map extends React.PureComponent {
       <View style={StyleSheet.absoluteFill} pointerEvents="box-none">
         <MapView
           showsUserLocation
+          loadingEnabled
           showsMyLocationButton={false}
           toolbarEnabled={false}
+          showsCompass={false}
+          showsScale={false}
+          showsBuildings={false}
+          showsTraffic={false}
+          showsIndoors={false}
           mapType={this.props.mapType}
           initialRegion={this._initialRegion}
           ref={this.setMapView}

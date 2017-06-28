@@ -250,9 +250,24 @@ apisauce@^0.13.0:
     axios "^0.16.1"
     ramda "^0.23.0"
 
-apollo-client@^1.4.0, apollo-client@^1.5.0:
+apollo-client@^1.4.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/apollo-client/-/apollo-client-1.5.0.tgz#c0ce752f2fe1945dca2eaaa62c7907fdde384563"
+  dependencies:
+    graphql "^0.10.0"
+    graphql-anywhere "^3.0.1"
+    graphql-tag "^2.0.0"
+    redux "^3.4.0"
+    symbol-observable "^1.0.2"
+    whatwg-fetch "^2.0.0"
+  optionalDependencies:
+    "@types/async" "^2.0.31"
+    "@types/graphql" "^0.9.0"
+    "@types/isomorphic-fetch" "0.0.34"
+
+apollo-client@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/apollo-client/-/apollo-client-1.6.0.tgz#d2b831fd8e6e6c045ce91dc8b86a920d44fd77a9"
   dependencies:
     graphql "^0.10.0"
     graphql-anywhere "^3.0.1"
@@ -4861,21 +4876,21 @@ mkdirp@0.5.0:
   dependencies:
     minimist "0.0.8"
 
-mobile-center-analytics@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/mobile-center-analytics/-/mobile-center-analytics-0.5.0.tgz#cc04b6671dd3f375db271b99c1c01ec452a01c6d"
+mobile-center-analytics@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/mobile-center-analytics/-/mobile-center-analytics-0.6.0.tgz#28693fed1e4e996b077b15183e76b3327a41b9a5"
   dependencies:
-    mobile-center-link-scripts "0.1.6"
+    mobile-center-link-scripts "0.6.0"
 
-mobile-center-crashes@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/mobile-center-crashes/-/mobile-center-crashes-0.5.0.tgz#5f4ed8d562bd5b607fe431575cd1b3af6793770b"
+mobile-center-crashes@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/mobile-center-crashes/-/mobile-center-crashes-0.6.0.tgz#f184f302a3c9fa47389de6030a805662c853cde9"
   dependencies:
-    mobile-center-link-scripts "0.1.6"
+    mobile-center-link-scripts "0.6.0"
 
-mobile-center-link-scripts@0.1.6:
-  version "0.1.6"
-  resolved "https://registry.yarnpkg.com/mobile-center-link-scripts/-/mobile-center-link-scripts-0.1.6.tgz#b84d670945a99ebe42a0b9c99ba0c81ea38e8549"
+mobile-center-link-scripts@0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/mobile-center-link-scripts/-/mobile-center-link-scripts-0.6.0.tgz#2ab886b12f9652305aa91a16915f9cb41d1667df"
   dependencies:
     debug "^2.2.0"
     glob "^5.0.15"
@@ -5990,9 +6005,9 @@ react-native-fetch-blob@0.10.4:
     base-64 "0.1.0"
     glob "^7.0.6"
 
-react-native-fetch-blob@^0.10.5:
-  version "0.10.5"
-  resolved "https://registry.yarnpkg.com/react-native-fetch-blob/-/react-native-fetch-blob-0.10.5.tgz#498e5437ad604db126b46e4a06cd9cbf33d1ea42"
+react-native-fetch-blob@^0.10.6:
+  version "0.10.6"
+  resolved "https://registry.yarnpkg.com/react-native-fetch-blob/-/react-native-fetch-blob-0.10.6.tgz#a009c99bbf4f3681ecc991d25398688dc38f93fc"
   dependencies:
     base-64 "0.1.0"
     glob "^7.0.6"
@@ -6029,9 +6044,9 @@ react-native-maps@^0.15.2:
   version "0.15.2"
   resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.15.2.tgz#4f63b9501b25d124f0ef1839529e54a6461c2c49"
 
-react-native-modal-popover@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/react-native-modal-popover/-/react-native-modal-popover-0.0.1.tgz#42bedd38e8a1baad6fbaaf5a30919f7d62f27750"
+react-native-modal-popover@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-modal-popover/-/react-native-modal-popover-0.0.2.tgz#4efab735947b9e1a03afcc534fb716877349d3be"
   dependencies:
     "@types/prop-types" "^15.5.1"
     lodash.debounce "^4.0.8"
@@ -7669,13 +7684,13 @@ whatwg-encoding@^1.0.1:
   dependencies:
     iconv-lite "0.4.13"
 
-whatwg-fetch@>=0.10.0, whatwg-fetch@^2.0.0:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/whatwg-fetch/-/whatwg-fetch-2.0.3.tgz#9c84ec2dcf68187ff00bc64e1274b442176e1c84"
-
-whatwg-fetch@^1.0.0:
+whatwg-fetch@>=0.10.0, whatwg-fetch@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/whatwg-fetch/-/whatwg-fetch-1.1.1.tgz#ac3c9d39f320c6dce5339969d054ef43dd333319"
+
+whatwg-fetch@^2.0.0:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/whatwg-fetch/-/whatwg-fetch-2.0.3.tgz#9c84ec2dcf68187ff00bc64e1274b442176e1c84"
 
 whatwg-url@^4.3.0:
   version "4.8.0"

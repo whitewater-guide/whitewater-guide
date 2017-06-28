@@ -15,7 +15,7 @@ class GuideModal extends React.PureComponent {
 
   render() {
     return (
-      <Modal transparent visible={this.props.step >= 0} onRequestClose={this.onRequestClose}>
+      <Modal transparent hardwareAccelerated visible={this.props.step >= 0} onRequestClose={this.onRequestClose}>
         <WhitePortal name="guidePortal" />
       </Modal>
     );

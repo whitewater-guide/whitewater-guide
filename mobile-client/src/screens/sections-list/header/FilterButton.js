@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Animated, Dimensions } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { isEqual, merge, omit } from 'lodash';
@@ -8,6 +9,9 @@ import { GuideStep, Icon } from '../../../components';
 import { defaultSectionSearchTerms } from '../../../commons/domain';
 import { tagsToSelections, withTags } from '../../../commons/features/tags';
 import { updateSearchTerms, searchTermsSelector } from '../../../commons/features/regions';
+
+const window = Dimensions.get('window');
+const radius = Math.sqrt(window.width * window.width + window.height * window.height);
 
 class FilterButton extends React.PureComponent {
   static propTypes = {
@@ -32,10 +36,30 @@ class FilterButton extends React.PureComponent {
     this.props.updateSearchTerms(this.props.regionId, this.props.defaultTerms);
   };
 
+  renderGuideBackground = (animated, layout, completeGuideStep) => {
+    const center = { x: layout.x + layout.width / 2, y: layout.y + layout.height / 2 };
+    const circle = {
+      position: 'absolute',
+      top: center.y - radius,
+      left: center.x - radius,
+      width: 2 * radius,
+      height: 2 * radius,
+      borderRadius: radius,
+      backgroundColor: '#000',
+      transform: [{
+        scale: animated.interpolate({ inputRange: [0, 1], outputRange: [0, 1], extrapolate: 'clamp' }),
+      }],
+      opacity: animated.interpolate({ inputRange: [0, 1], outputRange: [0, 0.3], extrapolate: 'clamp' })
+    };
+    return (
+      <Animated.View style={circle} />
+    );
+  };
+
   render() {
     const icon = this.props.hasFilters ? 'ios-funnel' : 'ios-funnel-outline';
     return (
-      <GuideStep step={0}>
+      <GuideStep step={0} renderBackground={this.renderGuideBackground}>
         <Icon
           primary
           wide
