@@ -11,9 +11,9 @@ const store = configureStore();
 export default function App() {
   return (
     <ApolloProvider store={store} client={apolloClient}>
-      <PortalProvider>
+    <PortalProvider>
         <RootView />
       </PortalProvider>
-    </ApolloProvider>
+      </ApolloProvider>
   );
 }

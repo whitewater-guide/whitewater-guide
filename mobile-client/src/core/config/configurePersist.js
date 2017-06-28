@@ -8,7 +8,7 @@ const apolloDataFilter = createTransform(
 );
 
 const STORE_CONFIG = {
-  version: '2',
+  version: '1',
   config: {
     storage: AsyncStorage,
     blacklist: ['transient'],
