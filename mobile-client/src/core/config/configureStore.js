@@ -17,6 +17,8 @@ export default function configureStore() {
   middleware.push(apolloClient.middleware());
 
   enhancers.push(applyMiddleware(...middleware));
+  // TODO: consider writing custom reconciler, because default redux-persist is shallow
+  // Any custom rehydration logic in any of 'persistent' child reducers will invalidate whole 'persistent' reducer
   enhancers.push(autoRehydrate());
   // Apollo + redux tutorial says us to do so
   if (typeof window.__REDUX_DEVTOOLS_EXTENSION__ !== 'undefined') {
