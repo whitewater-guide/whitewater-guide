@@ -180,7 +180,7 @@ export default class RangeSlider extends React.PureComponent {
     const { selectedTrackColor, backgroundTrackColor, thumbRadius } = this.props;
     return (
       <View>
-        <View ref={this.setTrack} onLayout={this.onTrackLayout} collapsible={false} style={this._trackStyle.track}>
+        <View ref={this.setTrack} onLayout={this.onTrackLayout} collapsable={false} style={this._trackStyle.track}>
           <Animated.View
             style={{
               position: 'absolute',
