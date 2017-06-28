@@ -11,7 +11,8 @@ import { tagsToSelections, withTags } from '../../../commons/features/tags';
 import { updateSearchTerms, searchTermsSelector } from '../../../commons/features/regions';
 
 const window = Dimensions.get('window');
-const radius = Math.sqrt(window.width * window.width + window.height * window.height);
+// It has to fit in the window
+const radius = Math.min(window.width, window.height) / 2 - 1;
 
 class FilterButton extends React.PureComponent {
   static propTypes = {
@@ -47,12 +48,12 @@ class FilterButton extends React.PureComponent {
       borderRadius: radius,
       backgroundColor: '#000',
       transform: [{
-        scale: animated.interpolate({ inputRange: [0, 1], outputRange: [0, 1], extrapolate: 'clamp' }),
+        scale: animated.interpolate({ inputRange: [0, 1], outputRange: [0, 4], extrapolate: 'clamp' }),
       }],
-      opacity: animated.interpolate({ inputRange: [0, 1], outputRange: [0, 0.3], extrapolate: 'clamp' })
+      opacity: animated.interpolate({ inputRange: [0, 1], outputRange: [0, 0.3], extrapolate: 'clamp' }),
     };
     return (
-      <Animated.View style={circle} />
+      <Animated.View style={circle} pointerEvents="box-none" collapsable={false} />
     );
   };
 

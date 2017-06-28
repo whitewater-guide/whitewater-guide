@@ -11,6 +11,10 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     backgroundColor: '#000',
   },
+  portal: {
+    ...StyleSheet.absoluteFillObject,
+    overflow: 'hidden',
+  },
 });
 
 class GuideStep extends React.PureComponent {
@@ -68,7 +72,9 @@ class GuideStep extends React.PureComponent {
   };
 
   onLayout = () => {
-    this.showStep();
+    if (!this.props.active) {
+      this.showStep();
+    }
   };
 
   setChildWrapperRef = (ref) => { this._childWrapper = ref; };
@@ -96,7 +102,7 @@ class GuideStep extends React.PureComponent {
     if (active && measured) {
       return (
         <BlackPortal name="guidePortal">
-          <View style={StyleSheet.absoluteFill} pointerEvents="box-none">
+          <View removeClippedSubviews style={styles.portal} pointerEvents="box-none" >
             { background }
             {
               Children.map(children, child => cloneElement(
