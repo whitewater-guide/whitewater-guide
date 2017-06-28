@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, View } from 'react-native';
+import { Dimensions, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 import { get, capitalize, compact, trim } from 'lodash';
@@ -16,6 +16,7 @@ import {
   Body,
   Text,
   NAVIGATE_BUTTON_WIDTH,
+  NAVIGATE_BUTTON_HEIGHT,
   GuideStep,
   CircularGuideBackground,
 } from '../../../components';
@@ -58,6 +59,8 @@ const styles = StyleSheet.create({
   },
 });
 
+const GuideStepOffset = { x: 0, y: -Dimensions.get('window').height / 2 + NAVIGATE_BUTTON_HEIGHT };
+
 class SelectedSectionView extends React.Component {
 
   static propTypes = {
@@ -81,7 +84,11 @@ class SelectedSectionView extends React.Component {
   };
 
   renderGuideBackground = (layout, completeGuideStep) => (
-    <CircularGuideBackground layout={layout} completeGuideStep={completeGuideStep} />
+    <CircularGuideBackground
+      offset={GuideStepOffset}
+      layout={layout}
+      completeGuideStep={completeGuideStep}
+    />
   );
 
   renderHeader = () => {

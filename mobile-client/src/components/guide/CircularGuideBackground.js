@@ -14,6 +14,19 @@ export class CircularGuideBackground extends React.PureComponent {
       height: PropTypes.number,
     }).isRequired,
     completeGuideStep: PropTypes.func.isRequired,
+    color: PropTypes.string,
+    offset: PropTypes.shape({
+      x: PropTypes.number,
+      y: PropTypes.number,
+    }),
+  };
+
+  static defaultProps = {
+    color: '#000',
+    offset: {
+      x: 0,
+      y: 0,
+    },
   };
 
   constructor(props) {
@@ -26,8 +39,8 @@ export class CircularGuideBackground extends React.PureComponent {
   }
 
   render() {
-    const { layout } = this.props;
-    const center = { x: layout.x + layout.width / 2, y: layout.y + layout.height / 2 };
+    const { layout, color, offset } = this.props;
+    const center = { x: layout.x + layout.width / 2 - offset.x, y: layout.y + layout.height / 2 - offset.y };
     const circle = {
       position: 'absolute',
       top: center.y - radius,
@@ -35,7 +48,7 @@ export class CircularGuideBackground extends React.PureComponent {
       width: 2 * radius,
       height: 2 * radius,
       borderRadius: radius,
-      backgroundColor: '#000',
+      backgroundColor: color,
       transform: [{
         // Circle should be less than window in size, but scale can be bigger than 1
         scale: this.animated.interpolate({ inputRange: [0, 1], outputRange: [0, 4], extrapolate: 'clamp' }),
