@@ -1,7 +1,7 @@
 import React, { Children, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
-import { Animated, InteractionManager, NativeModules, StyleSheet, View, findNodeHandle } from 'react-native';
+import { InteractionManager, NativeModules, StyleSheet, View, findNodeHandle } from 'react-native';
 import { connect } from 'react-redux';
 import { BlackPortal } from 'react-native-portal';
 import { completeGuideStep, showGuideStep } from '../../core/actions';
@@ -21,6 +21,7 @@ class GuideStep extends React.PureComponent {
   static propTypes = {
     step: PropTypes.number.isRequired,
     active: PropTypes.bool.isRequired,
+    shouldBeDisplayed: PropTypes.bool,
     showGuideStep: PropTypes.func.isRequired,
     completeGuideStep: PropTypes.func.isRequired,
     renderBackground: PropTypes.func,
@@ -30,6 +31,7 @@ class GuideStep extends React.PureComponent {
   static defaultProps = {
     trigger: 'onPress',
     renderBackground: null,
+    shouldBeDisplayed: true,
   };
 
   constructor(props) {
@@ -42,12 +44,14 @@ class GuideStep extends React.PureComponent {
         width: 0,
         height: 0,
       },
-      animated: new Animated.Value(0),
     };
     this._childWrapper = null;
   }
 
   componentWillReceiveProps(nextProps) {
+    if (!this.props.shouldBeDisplayed && nextProps.shouldBeDisplayed) {
+      this.showStep();
+    }
     if (!this.props.active && nextProps.active && this._childWrapper) {
       const handle = findNodeHandle(this._childWrapper);
       if (handle) {
@@ -58,21 +62,11 @@ class GuideStep extends React.PureComponent {
 
   onChildMeasured = (_x, _y, width, height, x, y) => {
     // console.log('Child measured', width, height, x, y);
-    this.state.animated.setValue(0);
-    this.setState(
-      () => ({ measured: true, layout: { x, y, width, height } }),
-      this.onMeasuredStateSet,
-    );
-  };
-
-  onMeasuredStateSet = () => {
-    InteractionManager.runAfterInteractions(() => {
-      Animated.timing(this.state.animated, { duration: 200, toValue: 1, useNativeDriver: true }).start();
-    });
+    this.setState({ measured: true, layout: { x, y, width, height } });
   };
 
   onLayout = () => {
-    if (!this.props.active) {
+    if (!this.props.active && this.props.shouldBeDisplayed) {
       this.showStep();
     }
   };
@@ -85,25 +79,14 @@ class GuideStep extends React.PureComponent {
 
   completeStep = () => this.props.completeGuideStep(this.props.step);
 
-  renderDefaultBackground = (animated, layout, completeGuideStep) => {
-    const dynamicStyle = {
-      opacity: animated.interpolate({ inputRange: [0, 1], outputRange: [0, 0.5], extrapolate: 'clamp' }),
-    };
-    return (
-      <Animated.View style={[styles.background, dynamicStyle]} />
-    );
-  };
-
   render() {
-    const { active, children, trigger, renderBackground, completeGuideStep } = this.props;
-    const { animated, measured, layout } = this.state;
-    const renderer = renderBackground || this.renderDefaultBackground;
-    const background = renderer(animated, layout, completeGuideStep);
+    const { active, children, trigger, renderBackground } = this.props;
+    const { measured, layout } = this.state;
     if (active && measured) {
       return (
         <BlackPortal name="guidePortal">
           <View removeClippedSubviews style={styles.portal} pointerEvents="box-none" >
-            { background }
+            { renderBackground(layout, this.completeStep) }
             {
               Children.map(children, child => cloneElement(
                 child,

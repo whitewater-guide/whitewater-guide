@@ -1,18 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Animated, Dimensions } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { isEqual, merge, omit } from 'lodash';
 import { compose } from 'recompose';
-import { GuideStep, Icon } from '../../../components';
+import { CircularGuideBackground, GuideStep, Icon } from '../../../components';
 import { defaultSectionSearchTerms } from '../../../commons/domain';
 import { tagsToSelections, withTags } from '../../../commons/features/tags';
-import { updateSearchTerms, searchTermsSelector } from '../../../commons/features/regions';
-
-const window = Dimensions.get('window');
-// It has to fit in the window
-const radius = Math.min(window.width, window.height) / 2 - 1;
+import { searchTermsSelector, updateSearchTerms } from '../../../commons/features/regions';
 
 class FilterButton extends React.PureComponent {
   static propTypes = {
@@ -37,25 +32,9 @@ class FilterButton extends React.PureComponent {
     this.props.updateSearchTerms(this.props.regionId, this.props.defaultTerms);
   };
 
-  renderGuideBackground = (animated, layout, completeGuideStep) => {
-    const center = { x: layout.x + layout.width / 2, y: layout.y + layout.height / 2 };
-    const circle = {
-      position: 'absolute',
-      top: center.y - radius,
-      left: center.x - radius,
-      width: 2 * radius,
-      height: 2 * radius,
-      borderRadius: radius,
-      backgroundColor: '#000',
-      transform: [{
-        scale: animated.interpolate({ inputRange: [0, 1], outputRange: [0, 4], extrapolate: 'clamp' }),
-      }],
-      opacity: animated.interpolate({ inputRange: [0, 1], outputRange: [0, 0.3], extrapolate: 'clamp' }),
-    };
-    return (
-      <Animated.View style={circle} pointerEvents="box-none" collapsable={false} />
-    );
-  };
+  renderGuideBackground = (layout, completeGuideStep) => (
+    <CircularGuideBackground layout={layout} completeGuideStep={completeGuideStep} />
+  );
 
   render() {
     const icon = this.props.hasFilters ? 'ios-funnel' : 'ios-funnel-outline';
