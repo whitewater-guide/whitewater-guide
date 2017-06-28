@@ -71,7 +71,12 @@ class GuideStep extends React.PureComponent {
     }
   };
 
-  setChildWrapperRef = (ref) => { this._childWrapper = ref; };
+  setChildWrapperRef = (ref) => {
+    this._childWrapper = ref;
+    // Sometimes onLayout is not provided. It's okay, we just need to know when child was mounted
+    // On layout is needed for components that resize on mount
+    this.onLayout();
+  };
 
   showStep = debounce(() => {
     InteractionManager.runAfterInteractions(() => this.props.showGuideStep(this.props.step));
@@ -80,9 +85,9 @@ class GuideStep extends React.PureComponent {
   completeStep = () => this.props.completeGuideStep(this.props.step);
 
   render() {
-    const { active, children, trigger, renderBackground } = this.props;
+    const { active, children, trigger, renderBackground, shouldBeDisplayed } = this.props;
     const { measured, layout } = this.state;
-    if (active && measured) {
+    if (shouldBeDisplayed && active && measured) {
       return (
         <BlackPortal name="guidePortal">
           <View removeClippedSubviews style={styles.portal} pointerEvents="box-none" >
@@ -100,10 +105,12 @@ class GuideStep extends React.PureComponent {
         </BlackPortal>
       );
     }
-    return (
-      <View onLayout={this.onLayout} ref={this.setChildWrapperRef} pointerEvents="box-none">
-        { Children.only(children) }
-      </View>
+    return cloneElement(
+      Children.only(children),
+      {
+        onLayout: this.onLayout,
+        ref: this.setChildWrapperRef,
+      },
     );
   }
 }

@@ -16,6 +16,8 @@ import {
   Body,
   Text,
   NAVIGATE_BUTTON_WIDTH,
+  GuideStep,
+  CircularGuideBackground,
 } from '../../../components';
 import SelectedElementView from '../../../components/map/SelectedElementView';
 import theme from '../../../theme';
@@ -78,6 +80,10 @@ class SelectedSectionView extends React.Component {
     }));
   };
 
+  renderGuideBackground = (layout, completeGuideStep) => (
+    <CircularGuideBackground layout={layout} completeGuideStep={completeGuideStep} />
+  );
+
   renderHeader = () => {
     const { selectedSection: section } = this.props;
     return (
@@ -116,37 +122,39 @@ class SelectedSectionView extends React.Component {
     const distance = section && section.distance;
     const distanceStr = compact([distance ? `${distance} km` : '', duration]).join(' / ');
     return (
-      <SelectedElementView
-        header={this.renderHeader()}
-        buttons={buttons}
-        selected={!!section}
-        {...this.props}
-      >
-        <View>
-          <ListItem>
-            <View style={styles.distance}>
-              <Text>Length</Text>
-              <Text note right>{distanceStr}</Text>
-            </View>
-            <View style={styles.drop}>
-              <Text>Drop</Text>
-              <Text note right>{drop ? `${drop} m` : 'unknown'}</Text>
-            </View>
-          </ListItem>
+      <GuideStep step={1} renderBackground={this.renderGuideBackground} shouldBeDisplayed={!!section}>
+        <SelectedElementView
+          header={this.renderHeader()}
+          buttons={buttons}
+          selected={!!section}
+          {...this.props}
+        >
+          <View>
+            <ListItem>
+              <View style={styles.distance}>
+                <Text>Length</Text>
+                <Text note right>{distanceStr}</Text>
+              </View>
+              <View style={styles.drop}>
+                <Text>Drop</Text>
+                <Text note right>{drop ? `${drop} m` : 'unknown'}</Text>
+              </View>
+            </ListItem>
 
-          <SectionFlowsRow section={section} />
+            <SectionFlowsRow section={section} />
 
-          <ListItem>
-            <Left><Text>Season</Text></Left>
-            <Body>
-              <Text note right numberOfLines={2}>
-                {season}
-              </Text>
-            </Body>
-          </ListItem>
-        </View>
-        <Button primary label="Details" onPress={this.detailsHandler} />
-      </SelectedElementView>
+            <ListItem>
+              <Left><Text>Season</Text></Left>
+              <Body>
+                <Text note right numberOfLines={2}>
+                  {season}
+                </Text>
+              </Body>
+            </ListItem>
+          </View>
+          <Button primary label="Details" onPress={this.detailsHandler} />
+        </SelectedElementView>
+      </GuideStep>
     );
   }
 

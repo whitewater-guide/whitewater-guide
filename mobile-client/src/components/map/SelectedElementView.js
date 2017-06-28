@@ -29,6 +29,7 @@ export default class SelectedElementView extends Component {
     })),
     header: PropTypes.element,
     selected: PropTypes.bool.isRequired,
+    onLayout: PropTypes.func,
     onSectionSelected: PropTypes.func,
     onPOISelected: PropTypes.func,
   };
@@ -75,7 +76,11 @@ export default class SelectedElementView extends Component {
     }
   }
 
-  onLayout = ({ nativeEvent: { layout: { height } } }) => {
+  onLayout = (e) => {
+    if (this.props.onLayout) {
+      this.props.onLayout(e);
+    }
+    const { nativeEvent: { layout: { height } } } = e;
     if (!this.state.laidOut) {
       this._deltaY = new Animated.Value(height);
       this._slideAnimated = Animated.multiply(Animated.add(this._deltaY, -height), -1);
