@@ -1,24 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Dimensions, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
+import { compose } from 'recompose';
 import { NavigationActions } from 'react-navigation';
-import { get, capitalize, compact, trim } from 'lodash';
+import { capitalize, compact, get, trim } from 'lodash';
 import { SectionPropType } from '../../../commons/features/sections';
 import { durationToString } from '../../../commons/domain';
 import stringifySeason from '../../../commons/utils/stringifySeason';
 import {
+  Body,
   Button,
   DifficultyThumb,
-  StarRating,
-  ListItem,
   Left,
-  Body,
-  Text,
+  ListItem,
   NAVIGATE_BUTTON_WIDTH,
   NAVIGATE_BUTTON_HEIGHT,
-  GuideStep,
-  CircularGuideBackground,
+  StarRating,
+  Text,
+  withGuidedStep,
 } from '../../../components';
 import SelectedElementView from '../../../components/map/SelectedElementView';
 import theme from '../../../theme';
@@ -57,41 +57,53 @@ const styles = StyleSheet.create({
     borderLeftWidth: StyleSheet.hairlineWidth,
     borderLeftColor: theme.colors.border,
   },
+  guide: {
+    ...StyleSheet.absoluteFillObject,
+    bottom: NAVIGATE_BUTTON_HEIGHT,
+    padding: 8,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
 });
-
-const GuideStepOffset = { x: 0, y: -Dimensions.get('window').height / 2 + NAVIGATE_BUTTON_HEIGHT };
 
 class SelectedSectionView extends React.Component {
 
   static propTypes = {
     selectedSection: SectionPropType,
-    dispatch: PropTypes.func.isRequired,
+    navigate: PropTypes.func.isRequired,
     onSectionSelected: PropTypes.func,
     onPOISelected: PropTypes.func,
-    onMaximize: PropTypes.func,
+    guideStep: PropTypes.object,
   };
 
   shouldComponentUpdate(nextProps) {
     const oldId = this.props.selectedSection && this.props.selectedSection._id;
     const newId = nextProps.selectedSection && nextProps.selectedSection._id;
-    return oldId !== newId;
+    const gaugeStatusChanged = nextProps.guideStep.active !== this.props.guideStep.active;
+    return oldId !== newId || gaugeStatusChanged;
   }
 
-  detailsHandler = () => {
-    this.props.dispatch(NavigationActions.navigate({
+  onDetails = () => {
+    this.props.navigate({
       routeName: 'SectionDetails',
       params: { sectionId: this.props.selectedSection._id },
-    }));
+    });
   };
 
-  renderGuideBackground = (layout, completeGuideStep) => (
-    <CircularGuideBackground
-      offset={GuideStepOffset}
-      color="red"
-      layout={layout}
-      completeGuideStep={completeGuideStep}
-    />
-  );
+  onMaximize = () => {
+    this.props.guideStep.complete();
+  };
+
+  renderBackground = () => {
+    if (!this.props.selectedSection || this.props.guideStep.completed) {
+      return null;
+    }
+    return (
+      <View style={styles.guide} pointerEvents="none">
+        <Text>Swipe me up</Text>
+      </View>
+    );
+  };
 
   renderHeader = () => {
     const { selectedSection: section } = this.props;
@@ -131,42 +143,45 @@ class SelectedSectionView extends React.Component {
     const distance = section && section.distance;
     const distanceStr = compact([distance ? `${distance} km` : '', duration]).join(' / ');
     return (
-      <GuideStep step={1} trigger="onMaximize" renderBackground={this.renderGuideBackground} shouldBeDisplayed={!!section}>
-        <SelectedElementView
-          header={this.renderHeader()}
-          buttons={buttons}
-          selected={!!section}
-          {...this.props}
-        >
-          <View>
-            <ListItem>
-              <View style={styles.distance}>
-                <Text>Length</Text>
-                <Text note right>{distanceStr}</Text>
-              </View>
-              <View style={styles.drop}>
-                <Text>Drop</Text>
-                <Text note right>{drop ? `${drop} m` : 'unknown'}</Text>
-              </View>
-            </ListItem>
+      <SelectedElementView
+        header={this.renderHeader()}
+        background={this.renderBackground()}
+        buttons={buttons}
+        selected={!!section}
+        onMaximize={this.onMaximize}
+        {...this.props}
+      >
+        <View>
+          <ListItem>
+            <View style={styles.distance}>
+              <Text>Length</Text>
+              <Text note right>{distanceStr}</Text>
+            </View>
+            <View style={styles.drop}>
+              <Text>Drop</Text>
+              <Text note right>{drop ? `${drop} m` : 'unknown'}</Text>
+            </View>
+          </ListItem>
 
-            <SectionFlowsRow section={section} />
+          <SectionFlowsRow section={section} />
 
-            <ListItem>
-              <Left><Text>Season</Text></Left>
-              <Body>
-                <Text note right numberOfLines={2}>
-                  {season}
-                </Text>
-              </Body>
-            </ListItem>
-          </View>
-          <Button primary label="Details" onPress={this.detailsHandler} />
-        </SelectedElementView>
-      </GuideStep>
+          <ListItem>
+            <Left><Text>Season</Text></Left>
+            <Body>
+              <Text note right numberOfLines={2}>
+                {season}
+              </Text>
+            </Body>
+          </ListItem>
+        </View>
+        <Button primary label="Details" onPress={this.onDetails} />
+      </SelectedElementView>
     );
   }
 
 }
 
-export default connect()(SelectedSectionView);
+export default compose(
+  connect(undefined, { navigate: NavigationActions.navigate }),
+  withGuidedStep(1),
+)(SelectedSectionView);

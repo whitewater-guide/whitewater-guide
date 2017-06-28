@@ -6,7 +6,7 @@ const initialState = {
   steps: [],
 };
 
-const getCurrentStep = steps => steps.findIndex(step => step.visible && !step.complete);
+const getCurrentStep = steps => steps.findIndex(step => step.visible && !step.completed);
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
@@ -19,7 +19,7 @@ export default (state = initialState, { type, payload }) => {
       return { currentStep: getCurrentStep(steps), steps };
     }
     case GUIDE_STEP_COMPLETE: {
-      const steps = set(`${payload.stepId}.complete`, true, state.steps);
+      const steps = set(`${payload.stepId}.completed`, true, state.steps);
       return { currentStep: getCurrentStep(steps), steps };
     }
     default:

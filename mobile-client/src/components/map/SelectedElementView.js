@@ -28,10 +28,13 @@ export default class SelectedElementView extends Component {
       coordinates: PropTypes.arrayOf(PropTypes.number),
     })),
     header: PropTypes.element,
+    background: PropTypes.element,
     selected: PropTypes.bool.isRequired,
     onLayout: PropTypes.func,
     onSectionSelected: PropTypes.func,
     onPOISelected: PropTypes.func,
+    onMaximize: PropTypes.func,
+    onMinimize: PropTypes.func,
   };
 
   static defaultProps = {
@@ -114,6 +117,11 @@ export default class SelectedElementView extends Component {
       this.props.onPOISelected(null);
     }
     this._muteSnapEvent = false;
+    if (this._snapIndex === 2 && this.props.onMaximize) {
+      this.props.onMaximize();
+    } else if (this._snapIndex === 0 && this.props.onMinimize) {
+      this.props.onMinimize();
+    }
   };
 
   onHeaderPressed = () => {
@@ -155,15 +163,16 @@ export default class SelectedElementView extends Component {
             style={[
               StyleSheet.absoluteFill,
               {
-                backgroundColor: 'black',
-                opacity: this._deltaY.interpolate({
+                backgroundColor: this._deltaY.interpolate({
                   inputRange: [this.state.snapPoints[2].y, this.state.snapPoints[1].y],
-                  outputRange: [0.5, 0.0],
+                  outputRange: ['rgba(0,0,0,0.5)', 'rgba(0,0,0,0)'],
                   extrapolate: 'clamp',
                 }),
               },
             ]}
-          />
+          >
+            { this.props.background }
+          </Animated.View>
         }
         {
           this.state.laidOut &&
