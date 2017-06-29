@@ -4,28 +4,24 @@ import { FlatList } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import SectionListItem, { ITEM_HEIGHT } from './item/SectionListItem';
 import { SectionPropType } from '../../commons/features/sections';
+import { withGuidedStep } from '../../components';
 import NoSectionsMessage from './NoSectionsMessage';
 
 const keyExtractor = item => item._id;
 
-export default class SectionsList extends React.Component {
+class SectionsList extends React.PureComponent {
   static propTypes = {
     sections: PropTypes.arrayOf(SectionPropType),
     onEndReached: PropTypes.func,
     loadUpdates: PropTypes.func,
     dispatch: PropTypes.func.isRequired,
-    /**
-     * To alert the user that swiping is possible, the first row can bounce
-     * on component mount.
-     */
-    bounceFirstRowOnMount: PropTypes.bool,
     extraData: PropTypes.any,
+    guideStep: PropTypes.object,
   };
 
   static defaultProps = {
     sections: [],
     onEndReached: () => {},
-    bounceFirstRowOnMount: true,
   };
 
   static navigationOptions = {
@@ -34,7 +30,7 @@ export default class SectionsList extends React.Component {
 
   constructor(props) {
     super(props);
-    this._shouldBounceFirstRowOnMount = props.bounceFirstRowOnMount;
+    this._shouldBounceFirstRowOnMount = !props.guideStep.completed;
     this.state = { renderedFirstBatch: false, initialNumToRender: 10 };
   }
 
@@ -60,7 +56,6 @@ export default class SectionsList extends React.Component {
   };
 
   onRefresh = () => {
-    console.log('Refresh pulled');
     this.props.loadUpdates();
   };
 
@@ -77,6 +72,7 @@ export default class SectionsList extends React.Component {
         shouldBounceOnMount={shouldBounceOnMount}
         section={section}
         onPress={this.onSectionSelected}
+        onMaximize={this.props.guideStep.complete}
       />
     );
   };
@@ -103,3 +99,5 @@ export default class SectionsList extends React.Component {
     );
   }
 }
+
+export default withGuidedStep(2)(SectionsList);

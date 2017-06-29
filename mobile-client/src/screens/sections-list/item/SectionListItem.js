@@ -29,6 +29,7 @@ export default class SectionListItem extends React.PureComponent {
   static propTypes = {
     section: SectionPropType.isRequired,
     onPress: PropTypes.func,
+    onMaximize: PropTypes.func,
     shouldBounceOnMount: PropTypes.bool.isRequired,
   };
 
@@ -60,10 +61,16 @@ export default class SectionListItem extends React.PureComponent {
 
   onPress = () => this.props.onPress(this.props.section);
 
+  onSnap = ({ nativeEvent: { index } }) => {
+    const { shouldBounceOnMount, onMaximize } = this.props;
+    if (index === 1 && onMaximize && (this._animatedBounce || !shouldBounceOnMount)) {
+      onMaximize();
+    }
+  };
+
   animateInitialBounce = () => {
     if (this._interactable && !this._animatedBounce && this.props.shouldBounceOnMount) {
       InteractionManager.runAfterInteractions(() => {
-        this._animatedBounce = true;
         setTimeout(
           () => {
             if (this._interactable) {
@@ -72,6 +79,7 @@ export default class SectionListItem extends React.PureComponent {
             setTimeout(() => {
               if (this._interactable) {
                 this._interactable.snapTo({ index: 0 });
+                this._animatedBounce = true;
               }
             }, 700);
           },
@@ -108,6 +116,7 @@ export default class SectionListItem extends React.PureComponent {
           dragToss={0.01}
           boundaries={BOUNDS}
           animatedValueX={this._deltaX}
+          onSnap={this.onSnap}
         >
           <View style={{ left: 0, right: 0, height: ITEM_HEIGHT, backgroundColor: 'white' }}>
             <SectionListBody section={this.props.section} onPress={this.onPress} />

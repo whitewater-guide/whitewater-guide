@@ -3,7 +3,11 @@ import { GUIDE_STEP_COMPLETE, GUIDE_STEP_SHOW, GUIDE_STEP_HIDE } from '../action
 
 const initialState = {
   currentStep: -1,
-  steps: [],
+  steps: [
+    { visible: false, completed: false },
+    { visible: false, completed: false },
+    { visible: false, completed: false },
+  ],
 };
 
 const getCurrentStep = steps => steps.findIndex(step => step.visible && !step.completed);
