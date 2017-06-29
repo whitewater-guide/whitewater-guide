@@ -1,4 +1,16 @@
 import React from 'react';
+import { initializeRegistryWithDefinitions } from 'react-native-animatable';
+
+initializeRegistryWithDefinitions({
+  weakSlideInDown: {
+    from: {
+      translateY: -16,
+    },
+    to: {
+      translateY: 0,
+    },
+  },
+});
 
 console.ignoredYellowBox = [
   'Warning: Stateless function components cannot be given refs',

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, View } from 'react-native';
+import * as Animatable from 'react-native-animatable';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { NavigationActions } from 'react-navigation';
@@ -12,6 +13,7 @@ import {
   Body,
   Button,
   DifficultyThumb,
+  Icon,
   Left,
   ListItem,
   NAVIGATE_BUTTON_WIDTH,
@@ -63,6 +65,17 @@ const styles = StyleSheet.create({
     padding: 8,
     alignItems: 'center',
     justifyContent: 'flex-end',
+    backgroundColor: 'rgba(0,0,0,0.3)',
+  },
+  guideBox: {
+    alignItems: 'center',
+    backgroundColor: 'transparent',
+    elevation: 4,
+  },
+  guideText: {
+    color: theme.colors.textLight,
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
 
@@ -100,7 +113,16 @@ class SelectedSectionView extends React.Component {
     }
     return (
       <View style={styles.guide} pointerEvents="none">
-        <Text>Swipe me up</Text>
+        <Animatable.View
+          useNativeDriver
+          style={styles.guideBox}
+          animation="weakSlideInDown"
+          iterationCount="infinite"
+          direction="alternate"
+        >
+          <Icon narrow icon="arrow-up" color={theme.colors.textLight} />
+          <Text style={styles.guideText}>Swipe up to see more</Text>
+        </Animatable.View>
       </View>
     );
   };
