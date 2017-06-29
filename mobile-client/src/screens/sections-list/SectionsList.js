@@ -1,14 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Dimensions, FlatList } from 'react-native';
+import { FlatList } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import SectionListItem, { ITEM_HEIGHT } from './item/SectionListItem';
 import { SectionPropType } from '../../commons/features/sections';
 import NoSectionsMessage from './NoSectionsMessage';
 
 const keyExtractor = item => item._id;
-
-const initialNumToRender = Math.ceil((Dimensions.get('window').height - 110) / ITEM_HEIGHT);
 
 export default class SectionsList extends React.Component {
   static propTypes = {
@@ -36,8 +34,13 @@ export default class SectionsList extends React.Component {
   constructor(props) {
     super(props);
     this._shouldBounceFirstRowOnMount = props.bounceFirstRowOnMount;
-    this.state = { renderedFirstBatch: false };
+    this.state = { renderedFirstBatch: false, initialNumToRender: 10 };
   }
+
+  onListLayout = ({ nativeEvent: { layout: { height } } }) => {
+    const initialNumToRender = Math.ceil(height / ITEM_HEIGHT);
+    this.setState({ initialNumToRender });
+  };
 
   onSectionSelected = (section) => {
     this.props.dispatch(NavigationActions.navigate({
@@ -48,7 +51,7 @@ export default class SectionsList extends React.Component {
 
   onViewableItemsChanged = ({ viewableItems }) => {
     const { sections } = this.props;
-    const { renderedFirstBatch } = this.state;
+    const { renderedFirstBatch, initialNumToRender } = this.state;
     const threshold = Math.min(sections.length, initialNumToRender);
     if (!renderedFirstBatch && viewableItems.length >= threshold) {
       this.setState({ renderedFirstBatch: true });
@@ -79,6 +82,7 @@ export default class SectionsList extends React.Component {
     const extraData = { ...this.state, ...this.props.extraData };
     return (
       <FlatList
+        onLayout={this.onListLayout}
         ref={(r) => { this._list = r; }}
         data={this.props.sections}
         keyExtractor={keyExtractor}
@@ -86,7 +90,7 @@ export default class SectionsList extends React.Component {
         renderItem={this.renderItem}
         onEndReached={this.props.onEndReached}
         extraData={extraData}
-        initialNumToRender={initialNumToRender}
+        initialNumToRender={this.state.initialNumToRender}
         onViewableItemsChanged={this.onViewableItemsChanged}
       />
     );

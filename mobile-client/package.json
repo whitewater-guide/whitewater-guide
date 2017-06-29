@@ -19,8 +19,8 @@
     "devtools": "react-devtools"
   },
   "dependencies": {
-    "apollo-client": "^1.6.0",
-    "color": "^1.0.3",
+    "apollo-client": "^1.6.1",
+    "color": "^2.0.0",
     "d3-scale": "^1.0.6",
     "geocoordinate": "^1.0.1",
     "glamorous-native": "^1.1.0",
@@ -44,9 +44,9 @@
     "react-native-fetch-blob": "^0.10.6",
     "react-native-htmlview": "^0.9.0",
     "react-native-image-zoom-viewer": "^2.0.6",
-    "react-native-interactable": "^0.0.9",
+    "react-native-interactable": "https://github.com/wix/react-native-interactable",
     "react-native-keyboard-aware-scroll-view": "^0.2.9",
-    "react-native-maps": "^0.15.2",
+    "react-native-maps": "^0.15.3",
     "react-native-modal-popover": "^0.0.2",
     "react-native-portal": "^1.0.2",
     "react-native-splash-screen": "^2.1.0",
