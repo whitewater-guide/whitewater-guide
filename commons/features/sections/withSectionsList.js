@@ -17,6 +17,7 @@ const ListSectionsQuery = gql`
         ...SectionCore
         ...SectionMeasurements
         ...SectionEnds @include(if: $withGeo)
+        updatedAt
       }
       count @skip(if: $isLoadMore)
     }
@@ -66,11 +67,16 @@ const mergeNextPage = (prevResult, { fetchMoreResult }) => {
   });
 };
 
+const mergeListUpdates = (prevResult, { fetchMoreResult }) => {
+  console.log('Updates are', fetchMoreResult);
+  return prevResult;
+};
+
 const sectionsGraphql = ({ withGeo, pageSize, offlineSearch }) => enhancedQuery(
   ListSectionsQuery,
   {
     options: ({ language, regionId, searchTerms }) => ({
-      fetchPolicy: 'cache-and-network',
+      fetchPolicy: 'cache-first',
       variables: {
         terms: serializeSearchTerms(searchTerms, regionId, offlineSearch),
         limit: pageSize,
@@ -82,7 +88,7 @@ const sectionsGraphql = ({ withGeo, pageSize, offlineSearch }) => enhancedQuery(
       reducer: sectionsListReducer,
       notifyOnNetworkStatusChange: true,
     }),
-    props: ({ data: { sections: sectionsSearchResult, loading, fetchMore, subscribeToMore } }) => {
+    props: ({ data: { sections: sectionsSearchResult, loading, variables, fetchMore, subscribeToMore } }) => {
       const { sections = [], count = 0 } = sectionsSearchResult || {};
       return {
         sections: {
@@ -93,6 +99,17 @@ const sectionsGraphql = ({ withGeo, pageSize, offlineSearch }) => enhancedQuery(
             variables: { skip, limit: stopIndex - skip, isLoadMore: true },
             updateQuery: mergeNextPage,
           }),
+          loadUpdates: () => {
+            const updatedAt = new Date(_.maxBy(sections, 'updatedAt').updatedAt).valueOf();
+            const vars = { ...variables, isLoadMore: false, terms: { ...variables.terms, updatedAt } };
+            console.log('Newest item', updatedAt);
+            console.log('Old vars', variables);
+            console.log('New vars', vars);
+            fetchMore({
+              variables: vars,
+              updateQuery: mergeListUpdates,
+            });
+          },
           subscribeToUpdates: ({ regionId }) => subscribeToMore({
             document: UpdatesSubscription,
             variables: { regionId },

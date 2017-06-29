@@ -120,6 +120,7 @@ input SectionSearchTerms {
   hazardsTags: [TagsSearch],
   miscTags: [TagsSearch],
   supplyTags: [TagsSearch],
+  updatedAt: Date,
 }
 
 type SectionsSearchResult {

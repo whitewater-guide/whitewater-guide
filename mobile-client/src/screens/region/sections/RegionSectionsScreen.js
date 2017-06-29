@@ -29,6 +29,7 @@ class RegionSectionsScreen extends React.PureComponent {
     return (
       <Screen noScroll>
         <SectionsList
+          loadUpdates={sections.loadUpdates}
           sections={sections.list}
           dispatch={this.props.dispatch}
           extraData={this.props.searchTerms}

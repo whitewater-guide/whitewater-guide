@@ -12,6 +12,7 @@ export default class SectionsList extends React.Component {
   static propTypes = {
     sections: PropTypes.arrayOf(SectionPropType),
     onEndReached: PropTypes.func,
+    loadUpdates: PropTypes.func,
     dispatch: PropTypes.func.isRequired,
     /**
      * To alert the user that swiping is possible, the first row can bounce
@@ -58,7 +59,12 @@ export default class SectionsList extends React.Component {
     }
   };
 
-  getItemLayout=(data, index) => ({ length: ITEM_HEIGHT, offset: ITEM_HEIGHT * index, index });
+  onRefresh = () => {
+    console.log('Refresh pulled');
+    this.props.loadUpdates();
+  };
+
+  getItemLayout = (data, index) => ({ length: ITEM_HEIGHT, offset: ITEM_HEIGHT * index, index });
 
   renderItem = ({ item: section, index }) => {
     let shouldBounceOnMount = false;
@@ -83,12 +89,13 @@ export default class SectionsList extends React.Component {
     return (
       <FlatList
         onLayout={this.onListLayout}
-        ref={(r) => { this._list = r; }}
         data={this.props.sections}
         keyExtractor={keyExtractor}
         getItemLayout={this.getItemLayout}
         renderItem={this.renderItem}
         onEndReached={this.props.onEndReached}
+        refreshing={false}
+        onRefresh={this.onRefresh}
         extraData={extraData}
         initialNumToRender={this.state.initialNumToRender}
         onViewableItemsChanged={this.onViewableItemsChanged}

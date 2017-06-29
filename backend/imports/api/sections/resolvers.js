@@ -103,7 +103,7 @@ function appendTagSelector(selector, name, tags) {
 }
 
 function applyFilters(selector, searchTerms) {
-  const { difficulty, duration, searchString, seasonNumeric, rating, kayakingTags, hazardsTags, miscTags, supplyTags } = searchTerms;
+  const { difficulty, duration, searchString, seasonNumeric, rating, kayakingTags, hazardsTags, miscTags, supplyTags, updatedAt } = searchTerms;
   let result = selector;
   if (searchString && searchString !== '') {
     const regex = new RegExp(searchString, 'i');
@@ -128,6 +128,9 @@ function applyFilters(selector, searchTerms) {
   if (rating && rating !== 0) {
     result = {...result, rating: {$gte: rating}};
   }
+  if (updatedAt) {
+    result = { ...result, updatedAt: { $gt: new Date(updatedAt) } };
+  }
   result = appendTagSelector(result, 'kayakingTagIds', kayakingTags );
   result = appendTagSelector(result, 'hazardsTagIds',   hazardsTags );
   result = appendTagSelector(result, 'miscTagIds',     miscTags );
@@ -147,6 +150,11 @@ export const sectionsResolvers = {
       fields = {...fields, riverId: 1, riverName: 1, regionId: 1, gaugeId: 1, shape: 1};
       let {sortBy, sortDirection = 'asc'} = terms;
       limit = _.clamp(limit, 10, 100);
+      // Do not limit when looking for updates
+      if (terms.updatedAt) {
+        limit = 10000;
+        skip = 0;
+      }
       const sort = (!sortBy || sortBy === 'name') ?
         [['riverName', sortDirection], ['name', sortDirection]] :
         [[sortBy, sortDirection]];
