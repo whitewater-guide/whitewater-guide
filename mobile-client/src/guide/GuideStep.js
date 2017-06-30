@@ -1,10 +1,9 @@
 import React, { Children, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
-import { InteractionManager, NativeModules, StyleSheet, View, findNodeHandle } from 'react-native';
-import { connect } from 'react-redux';
-import { BlackPortal } from 'react-native-portal';
-import { completeGuideStep, showGuideStep } from '../../core/actions';
+import { InteractionManager, Modal, NativeModules, StyleSheet, View, findNodeHandle } from 'react-native';
+import { withGuideStep } from './withGuideStep';
+import { GuideStepPropType } from './PropTypes';
 
 const styles = StyleSheet.create({
   background: {
@@ -20,10 +19,9 @@ const styles = StyleSheet.create({
 class GuideStep extends React.PureComponent {
   static propTypes = {
     step: PropTypes.number.isRequired,
-    active: PropTypes.bool.isRequired,
+    stateRoot: PropTypes.func,
+    guideStep: GuideStepPropType.isRequired,
     shouldBeDisplayed: PropTypes.bool,
-    showGuideStep: PropTypes.func.isRequired,
-    completeGuideStep: PropTypes.func.isRequired,
     renderBackground: PropTypes.func,
     trigger: PropTypes.string,
   };
@@ -32,6 +30,7 @@ class GuideStep extends React.PureComponent {
     trigger: 'completeStep',
     renderBackground: null,
     shouldBeDisplayed: true,
+    stateRoot: undefined,
   };
 
   constructor(props) {
@@ -52,7 +51,7 @@ class GuideStep extends React.PureComponent {
     if (!this.props.shouldBeDisplayed && nextProps.shouldBeDisplayed) {
       this.showStep();
     }
-    if (!this.props.active && nextProps.active && this._childWrapper) {
+    if (!this.props.guideStep.active && nextProps.guideStep.active && this._childWrapper) {
       const handle = findNodeHandle(this._childWrapper);
       if (handle) {
         NativeModules.UIManager.measure(handle, this.onChildMeasured);
@@ -66,7 +65,7 @@ class GuideStep extends React.PureComponent {
   };
 
   onLayout = () => {
-    if (!this.props.active && this.props.shouldBeDisplayed) {
+    if (!this.props.guideStep.active && this.props.shouldBeDisplayed) {
       this.showStep();
     }
   };
@@ -79,10 +78,9 @@ class GuideStep extends React.PureComponent {
   };
 
   showStep = debounce(() => {
-    InteractionManager.runAfterInteractions(() => this.props.showGuideStep(this.props.step));
+    InteractionManager.runAfterInteractions(() => this.props.guideStep.show());
   }, 100);
 
-  completeStep = () => this.props.completeGuideStep(this.props.step);
 
   injectIntoChild = () => {
     const { children, trigger } = this.props;
@@ -91,7 +89,7 @@ class GuideStep extends React.PureComponent {
     return cloneElement(child, {
       [trigger]: () => {
         const ownProp = child.props[trigger];
-        this.completeStep();
+        this.props.guideStep.complete();
         if (ownProp) {
           ownProp();
         }
@@ -101,16 +99,16 @@ class GuideStep extends React.PureComponent {
   };
 
   render() {
-    const { active, children, renderBackground, shouldBeDisplayed } = this.props;
+    const { children, guideStep, renderBackground, shouldBeDisplayed } = this.props;
     const { measured, layout } = this.state;
-    if (shouldBeDisplayed && active && measured) {
+    if (shouldBeDisplayed && guideStep.active && measured) {
       return (
-        <BlackPortal name="guidePortal">
+        <Modal visible transparent hardwareAccelerated onRequestClose={guideStep.complete} >
           <View removeClippedSubviews style={styles.portal} pointerEvents="box-none" >
-            { renderBackground(layout, this.completeStep) }
+            { renderBackground(layout, guideStep.complete) }
             { this.injectIntoChild() }
           </View>
-        </BlackPortal>
+        </Modal>
       );
     }
     return cloneElement(
@@ -123,7 +121,4 @@ class GuideStep extends React.PureComponent {
   }
 }
 
-export default connect(
-  (state, { step }) => ({ active: state.persistent.guide.currentStep === step }),
-  { completeGuideStep, showGuideStep },
-)(GuideStep);
+export default withGuideStep()(GuideStep);

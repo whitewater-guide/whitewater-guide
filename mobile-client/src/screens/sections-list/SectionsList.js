@@ -4,7 +4,7 @@ import { FlatList } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import SectionListItem, { ITEM_HEIGHT } from './item/SectionListItem';
 import { SectionPropType } from '../../commons/features/sections';
-import { withGuidedStep } from '../../components';
+import { withGuideStep } from '../../guide';
 import NoSectionsMessage from './NoSectionsMessage';
 
 const keyExtractor = item => item._id;
@@ -100,4 +100,4 @@ class SectionsList extends React.PureComponent {
   }
 }
 
-export default withGuidedStep(1)(SectionsList);
+export default withGuideStep(1, state => state.persistent.guidedTour)(SectionsList);

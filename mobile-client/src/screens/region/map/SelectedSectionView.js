@@ -20,8 +20,8 @@ import {
   NAVIGATE_BUTTON_HEIGHT,
   StarRating,
   Text,
-  withGuidedStep,
 } from '../../../components';
+import { withGuideStep } from '../../../guide';
 import SelectedElementView from '../../../components/map/SelectedElementView';
 import theme from '../../../theme';
 import SectionFlowsRow from './SectionFlowsRow';
@@ -205,5 +205,5 @@ class SelectedSectionView extends React.Component {
 
 export default compose(
   connect(undefined, { navigate: NavigationActions.navigate }),
-  withGuidedStep(0),
+  withGuideStep(0, state => state.persistent.guidedTour),
 )(SelectedSectionView);

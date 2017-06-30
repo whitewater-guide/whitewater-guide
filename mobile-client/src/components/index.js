@@ -4,7 +4,6 @@ export { default as Chips } from './Chips';
 export { default as TabIcon } from './TabIcon';
 export { default as Icon } from './Icon';
 export * from './ListItem';
-export * from './guide';
 export { default as BurgerButton } from './BurgerButton';
 export { default as DifficultyThumb } from './DifficultyThumb';
 export { default as FlowsThumb } from './FlowsThumb';

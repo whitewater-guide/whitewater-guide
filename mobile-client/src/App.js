@@ -8,12 +8,10 @@ import './core/config/configureOthers';
 
 const store = configureStore();
 
-export default function App() {
-  return (
-    <ApolloProvider store={store} client={apolloClient}>
+export default () => (
+  <ApolloProvider store={store} client={apolloClient}>
     <PortalProvider>
-        <RootView />
-      </PortalProvider>
-      </ApolloProvider>
-  );
-}
+      <RootView />
+    </PortalProvider>
+  </ApolloProvider>
+);
