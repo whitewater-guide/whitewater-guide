@@ -11,7 +11,7 @@ const persistent = combineReducers({
   settings,
   regions: regionsReducer,
   apollo: apolloClient.reducer(),
-  guidedTour: guideReducer({ numberOfSteps: 2 }),
+  guidedTour: guideReducer({ numberOfSteps: 3 }),
 });
 
 const transient = combineReducers({
