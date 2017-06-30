@@ -205,5 +205,5 @@ class SelectedSectionView extends React.Component {
 
 export default compose(
   connect(undefined, { navigate: NavigationActions.navigate }),
-  withGuidedStep(1),
+  withGuidedStep(0),
 )(SelectedSectionView);

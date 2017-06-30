@@ -100,4 +100,4 @@ class SectionsList extends React.PureComponent {
   }
 }
 
-export default withGuidedStep(2)(SectionsList);
+export default withGuidedStep(1)(SectionsList);
