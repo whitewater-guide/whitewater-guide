@@ -250,9 +250,9 @@ apisauce@^0.13.0:
     axios "^0.16.1"
     ramda "^0.23.0"
 
-apollo-client@^1.4.0, apollo-client@^1.6.1:
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/apollo-client/-/apollo-client-1.6.1.tgz#1b82e02ae5082c5e43b09daffdeced5a56e7128f"
+apollo-client@^1.4.0, apollo-client@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/apollo-client/-/apollo-client-1.7.0.tgz#3d6fdf6ead0a07d3e02d32d9191f26cbcfb6e4f6"
   dependencies:
     graphql "^0.10.0"
     graphql-anywhere "^3.0.1"
@@ -1202,9 +1202,9 @@ babel-preset-jest@^20.0.3:
   dependencies:
     babel-plugin-jest-hoist "^20.0.3"
 
-babel-preset-react-native@^1.9.1:
-  version "1.9.2"
-  resolved "https://registry.yarnpkg.com/babel-preset-react-native/-/babel-preset-react-native-1.9.2.tgz#b22addd2e355ff3b39671b79be807e52dfa145f2"
+babel-preset-react-native@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/babel-preset-react-native/-/babel-preset-react-native-2.0.0.tgz#c26c7066c7399df30926fa03c012ef87f2cce5b7"
   dependencies:
     babel-plugin-check-es2015-constants "^6.5.0"
     babel-plugin-react-transform "2.0.2"
@@ -1236,9 +1236,9 @@ babel-preset-react-native@^1.9.1:
     babel-plugin-transform-regenerator "^6.5.0"
     react-transform-hmr "^1.0.4"
 
-babel-preset-react-native@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/babel-preset-react-native/-/babel-preset-react-native-2.0.0.tgz#c26c7066c7399df30926fa03c012ef87f2cce5b7"
+babel-preset-react-native@^1.9.1:
+  version "1.9.2"
+  resolved "https://registry.yarnpkg.com/babel-preset-react-native/-/babel-preset-react-native-1.9.2.tgz#b22addd2e355ff3b39671b79be807e52dfa145f2"
   dependencies:
     babel-plugin-check-es2015-constants "^6.5.0"
     babel-plugin-react-transform "2.0.2"
@@ -3629,9 +3629,9 @@ image-size@^0.3.5:
   version "0.3.5"
   resolved "https://registry.yarnpkg.com/image-size/-/image-size-0.3.5.tgz#83240eab2fb5b00b04aab8c74b0471e9cba7ad8c"
 
-immutability-helper@^2.2.2:
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/immutability-helper/-/immutability-helper-2.2.2.tgz#e7e9da728b3de2fad34a216f4157b326dbccc892"
+immutability-helper@^2.2.3:
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/immutability-helper/-/immutability-helper-2.2.3.tgz#681a0ec9ba2a243b9898564e39623c83d9ce1985"
   dependencies:
     invariant "^2.2.0"
 
@@ -4861,21 +4861,21 @@ mkdirp@0.5.0:
   dependencies:
     minimist "0.0.8"
 
-mobile-center-analytics@^0.6.0:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/mobile-center-analytics/-/mobile-center-analytics-0.6.0.tgz#28693fed1e4e996b077b15183e76b3327a41b9a5"
+mobile-center-analytics@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/mobile-center-analytics/-/mobile-center-analytics-0.7.0.tgz#2d8986569fea31b6e7bb2983c5421a17e810a8ee"
   dependencies:
-    mobile-center-link-scripts "0.6.0"
+    mobile-center-link-scripts "0.7.0"
 
-mobile-center-crashes@^0.6.0:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/mobile-center-crashes/-/mobile-center-crashes-0.6.0.tgz#f184f302a3c9fa47389de6030a805662c853cde9"
+mobile-center-crashes@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/mobile-center-crashes/-/mobile-center-crashes-0.7.0.tgz#003fe6ea2c020b44af265fcd748317a578aefdb3"
   dependencies:
-    mobile-center-link-scripts "0.6.0"
+    mobile-center-link-scripts "0.7.0"
 
-mobile-center-link-scripts@0.6.0:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/mobile-center-link-scripts/-/mobile-center-link-scripts-0.6.0.tgz#2ab886b12f9652305aa91a16915f9cb41d1667df"
+mobile-center-link-scripts@0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/mobile-center-link-scripts/-/mobile-center-link-scripts-0.7.0.tgz#d232ae4569715b21d3213a55b54a4c0149ad83cc"
   dependencies:
     debug "^2.2.0"
     glob "^5.0.15"
@@ -5997,9 +5997,9 @@ react-native-fetch-blob@^0.10.6:
     base-64 "0.1.0"
     glob "^7.0.6"
 
-react-native-htmlview@^0.9.0:
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/react-native-htmlview/-/react-native-htmlview-0.9.0.tgz#2e146877a0e5d5ddde2dbfb2364ee8a3265f74b0"
+react-native-htmlview@^0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/react-native-htmlview/-/react-native-htmlview-0.10.0.tgz#bfe3208e1db937e24e9cf4706009d94c18be1f0e"
   dependencies:
     entities "^1.1.1"
     htmlparser2-without-node-native "^3.9.0"
@@ -6014,10 +6014,6 @@ react-native-image-zoom-viewer@^2.0.6:
   dependencies:
     nt-transmit-transparently "^1.0.7"
     react-native-image-pan-zoom "^2.0.1"
-
-react-native-interactable@^0.0.9:
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/react-native-interactable/-/react-native-interactable-0.0.9.tgz#d1d6fcb3e608688d14316d816f032dc9fd5c06e0"
 
 "react-native-interactable@https://github.com/wix/react-native-interactable":
   version "0.0.9"
@@ -6421,18 +6417,18 @@ reduce-reducers@^0.1.0:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/reduce-reducers/-/reduce-reducers-0.1.2.tgz#fa1b4718bc5292a71ddd1e5d839c9bea9770f14b"
 
-redux-actions@^2.0.3:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/redux-actions/-/redux-actions-2.0.3.tgz#1550aba9def179166ccd234d07672104a736d889"
+redux-actions@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/redux-actions/-/redux-actions-2.2.1.tgz#d64186b25649a13c05478547d7cd7537b892410d"
   dependencies:
     invariant "^2.2.1"
     lodash "^4.13.1"
     lodash-es "^4.17.4"
     reduce-reducers "^0.1.0"
 
-redux-persist@^4.8.1:
-  version "4.8.1"
-  resolved "https://registry.yarnpkg.com/redux-persist/-/redux-persist-4.8.1.tgz#5ea786437eb94870da7fd6ac2d8e3aed6be80e73"
+redux-persist@^4.8.2:
+  version "4.8.2"
+  resolved "https://registry.yarnpkg.com/redux-persist/-/redux-persist-4.8.2.tgz#7941202e0ce0a9fcc0263d66965f5263d34f43b9"
   dependencies:
     json-stringify-safe "^5.0.1"
     lodash "^4.17.4"

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native';
+import { Svg, Defs, G, Circle, ClipPath, Rect } from 'react-native-svg';
 
 const { width, height } = Dimensions.get('window');
 
@@ -46,14 +47,23 @@ export class DefaultOverlay extends React.PureComponent {
 
   render() {
     return (
-      <View
-        style={styles.overlay}
-        onMoveShouldSetResponder={this.onMoveShouldSetResponder}
-        onStartShouldSetResponder={this.onStartShouldSetResponder}
-        onMoveShouldSetResponderCapture={this.onMoveShouldSetResponderCapture}
-        onStartShouldSetResponderCapture={this.onStartShouldSetResponderCapture}
-      >
-        <View style={styles.hole} pointerEvents="none" />
+      <View style={StyleSheet.absoluteFill} pointerEvents="box-none">
+        <Svg width={width} height={height} pointerEvents="box-only">
+          <Defs>
+            <ClipPath id="clip">
+              <G>
+                <Rect width={width} height={height}/>
+                <Circle cx="30" cy="30" r="20"/>
+              </G>
+            </ClipPath>
+          </Defs>
+          <Rect
+            width={width} height={height}
+            fill="rgba(255, 0, 0, 0.5)"
+            clipPath="url(#clip)"
+            clipRule="evenodd"
+          />
+        </Svg>
       </View>
     );
   }
