@@ -20,6 +20,8 @@ import com.facebook.soloader.SoLoader;
 import java.util.Arrays;
 import java.util.List;
 
+import guide.whitewater.tour.GuideOverlayPackage;
+
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
@@ -40,7 +42,8 @@ public class MainApplication extends Application implements ReactApplication {
             new MapsPackage(),
             new VectorIconsPackage(),
             new SplashScreenReactPackage(),
-            new ReactNativeConfigPackage()
+            new ReactNativeConfigPackage(),
+            new GuideOverlayPackage()
       );
     }
   };

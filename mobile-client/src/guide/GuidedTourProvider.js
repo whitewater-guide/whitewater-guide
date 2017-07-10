@@ -5,7 +5,7 @@ import { StyleSheet, View } from 'react-native';
 
 export const GuidedTourProvider = ({ children }, context) => {
   const portalView = (
-    <View style={StyleSheet.absoluteFill}>
+    <View style={StyleSheet.absoluteFill} pointerEvents="box-none">
       {children}
       <WhitePortal name="guidedTourPortal" />
     </View>
