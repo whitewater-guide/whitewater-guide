@@ -16,6 +16,9 @@ export const POINames = {
   gauge: 'Gauge',
   'hike-waypoint': 'Hiking trail waypoint',
   bridge: 'Bridge',
+  dam: 'dam',
+  'power-plant': 'Power plant (water release)',
+  'kayak-shop': 'kayak-shop',
   other: 'Other',
 };
 
