@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { isEqual, merge, omit } from 'lodash';
 import { compose } from 'recompose';
 import { Icon } from '../../../components';
-import { GuideOverlay, DefaultOverlay } from '../../../guide';
 import { defaultSectionSearchTerms } from '../../../commons/domain';
 import { tagsToSelections, withTags } from '../../../commons/features/tags';
 import { searchTermsSelector, updateSearchTerms } from '../../../commons/features/regions';
@@ -35,17 +34,14 @@ class FilterButton extends React.PureComponent {
 
   render() {
     const icon = this.props.hasFilters ? 'ios-funnel' : 'ios-funnel-outline';
-    const overlay = <DefaultOverlay />;
     return (
-      <GuideOverlay step={2} background={overlay}>
-        <Icon
-          primary
-          wide
-          icon={icon}
-          onPress={this.onPress}
-          onLongPress={this.onLongPress}
-        />
-      </GuideOverlay>
+      <Icon
+        primary
+        wide
+        icon={icon}
+        onPress={this.onPress}
+        onLongPress={this.onLongPress}
+      />
     );
   }
 }

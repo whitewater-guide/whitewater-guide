@@ -1,10 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Dimensions, StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet, View } from 'react-native';
 import { Svg, Defs, G, Circle, ClipPath, Rect } from 'react-native-svg';
 import HoleView from './HoleView';
 
 const { width, height } = Dimensions.get('window');
+
+const styles = StyleSheet.create({
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    zIndex: 100,
+  },
+});
 
 export class DefaultOverlay extends React.PureComponent {
   static propTypes = {
@@ -36,6 +43,10 @@ export class DefaultOverlay extends React.PureComponent {
     this._radius = 0.707106781 * Math.max(layout.width, layout.height) + padding;
   };
 
+  onRectPress = () => {
+    console.log('Press');
+  }
+
   render() {
     const hole = {
       type: 'circle',
@@ -44,8 +55,8 @@ export class DefaultOverlay extends React.PureComponent {
       radius: this._radius,
     };
     return (
-      <HoleView style={StyleSheet.absoluteFill} hole={hole} pointerEvents="none">
-        <Svg width={width} height={height} pointerEvents="none">
+      <HoleView style={StyleSheet.absoluteFill} hole={hole} pointerEvents="box-none">
+        <Svg width={width} height={height} pointerEvents="box-none">
           <Defs>
             <ClipPath id="clip">
               <G>
