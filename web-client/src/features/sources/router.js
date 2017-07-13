@@ -3,7 +3,6 @@ import ListSourcesLeft from "./ListSourcesLeft";
 import SourceForm from "./SourceForm";
 import ViewSource from "./ViewSource";
 import ViewSourceLeft from "./ViewSourceLeft";
-import SourceSchedule from "./SourceSchedule";
 import TermsOfUse from "./TermsOfUse";
 
 export const sourcesRoutes = [
@@ -20,11 +19,6 @@ export const sourcesRoutes = [
   {
     path: '/sources/:sourceId/settings',
     content: SourceForm,
-    left: ViewSourceLeft,
-  },
-  {
-    path: '/sources/:sourceId/schedule',
-    content: SourceSchedule,
     left: ViewSourceLeft,
   },
   {

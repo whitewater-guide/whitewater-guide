@@ -21,7 +21,6 @@ export default class GaugesTable extends React.PureComponent {
     gauges: PropTypes.arrayOf(GaugePropType),
     admin: PropTypes.bool.isRequired,
     source: PropTypes.object,
-    jobsReport: PropTypes.array,
     registerChild: PropTypes.func.isRequired,
     onEditGauge: PropTypes.func.isRequired,
     onDeleteGauge: PropTypes.func.isRequired,
@@ -31,7 +30,6 @@ export default class GaugesTable extends React.PureComponent {
 
   static defaultProps = {
     gauges: [],
-    jobsReport: [],
     source: {},
   };
 
@@ -49,14 +47,6 @@ export default class GaugesTable extends React.PureComponent {
         {rowData.lastTimestamp && moment(rowData.lastTimestamp).format('DD.MM.YYYY HH:mm')}
         {freshness > 1 && <FontIcon className="material-icons" color="red" style={styles.warnIcon}>warning</FontIcon>}
       </div>
-    );
-  };
-
-  renderStatus = ({ rowData: gauge }) => {
-    const hasJobs = _.find(this.props.jobsReport, j => j._id === gauge._id && j.count > 0);
-    const statusIconStyle = { ...styles.statusIcon, color: hasJobs ? 'green' : 'red' };
-    return (
-      <FontIcon className="material-icons" style={statusIconStyle}>fiber_manual_record</FontIcon>
     );
   };
 
@@ -89,10 +79,6 @@ export default class GaugesTable extends React.PureComponent {
         ref={this.props.registerChild}
         {...props}
       >
-        {
-          admin &&
-          <Column width={12} flexGrow={0} dataKey="status" cellRenderer={this.renderStatus} />
-        }
         <Column width={150} flexGrow={5} dataKey="name" label="Name" />
         {
           admin &&

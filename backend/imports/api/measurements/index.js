@@ -58,8 +58,8 @@ Measurements.after.insert(function (userId, doc) {
   const sectionsUpdates = [];
 
   Sections.find({gaugeId: doc.gaugeId}).forEach(section => {
-    const lastTimestamp = get(section, 'levels.lastTimestamp') || get(section, 'flows.lastTimestamp') || new Date(0);
-    if (lastTimestamp < doc.date) {
+    const lastTimestamp = get(section, 'levels.lastTimestamp') || get(section, 'flows.lastTimestamp');
+    if (!lastTimestamp || lastTimestamp < doc.date) {
       hasSectionsUpdates = true;
       const levels = Object.assign({}, section.levels, {lastTimestamp: doc.date, lastValue: doc.level});
       const flows = Object.assign({}, section.flows, {lastTimestamp: doc.date, lastValue: doc.flow});

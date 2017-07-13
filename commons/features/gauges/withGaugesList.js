@@ -19,11 +19,7 @@ const ListGaugesQuery = gql`
       harvestMode
     }
 
-    jobsReport(sourceId:$sourceId) @skip(if: $isLoadMore) {
-      _id,
-      count,
-    }
-  }
+  }#
   ${GaugeFragments.Core}
   ${GaugeFragments.Location}
   ${GaugeFragments.LastMeasurements}
@@ -45,9 +41,8 @@ const withGaugesList = enhancedQuery(
       variables: { sourceId, language, isLoadMore: false },
       notifyOnNetworkStatusChange: true,
     }),
-    props: ({ data: { gauges, count, source, jobsReport, loading, fetchMore } }) => ({
+    props: ({ data: { gauges, count, source, loading, fetchMore } }) => ({
       source,
-      jobsReport,
       gauges: {
         list: gauges,
         count,

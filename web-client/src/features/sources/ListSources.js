@@ -12,7 +12,6 @@ class ListSources extends Component {
     admin: PropTypes.bool,
     ready: PropTypes.bool,
     history: PropTypes.object,
-    jobsReport: PropTypes.array,
     removeSource: PropTypes.func,
     setEnabled: PropTypes.func,
   };
@@ -31,7 +30,6 @@ class ListSources extends Component {
               {admin && <TableHeaderColumn>Script ID</TableHeaderColumn>}
               {admin && <TableHeaderColumn>Harvest type</TableHeaderColumn>}
               {admin && <TableHeaderColumn>Harvest cron</TableHeaderColumn>}
-              {admin && <TableHeaderColumn>Jobs running</TableHeaderColumn>}
               {admin && <TableHeaderColumn>Controls</TableHeaderColumn>}
             </TableRow>
           </TableHeader>
@@ -45,8 +43,6 @@ class ListSources extends Component {
 
   renderRow = (src) => {
     const {admin} = this.props;
-    const report = _.find(this.props.jobsReport, {_id: src._id});
-    const jobCount = report ? report.count : 0;
     return (
       <TableRow key={src._id}>
         <TableRowColumn>{src.name}</TableRowColumn>
@@ -54,7 +50,6 @@ class ListSources extends Component {
         {admin && <TableRowColumn>{src.script}</TableRowColumn>}
         {admin && <TableRowColumn>{src.harvestMode}</TableRowColumn>}
         {admin && <TableRowColumn>{src.cron}</TableRowColumn>}
-        {admin && <TableRowColumn>{jobCount}</TableRowColumn>}
         { this.renderAdminControls(src) }
       </TableRow>
     );

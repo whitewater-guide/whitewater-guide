@@ -16,7 +16,6 @@ const styles = {
 class ListGauges extends React.Component {
   static propTypes = {
     gauges: GaugesPropType.isRequired,
-    jobsReport: PropTypes.array,
     admin: PropTypes.bool.isRequired,
     removeGauge: PropTypes.func,
     setEnabled: PropTypes.func,
@@ -25,7 +24,6 @@ class ListGauges extends React.Component {
   };
 
   static defaultProps = {
-    jobsReport: [],
     source: {},
   };
 
@@ -45,7 +43,7 @@ class ListGauges extends React.Component {
   };
 
   render() {
-    const { gauges, admin, source, jobsReport } = this.props;
+    const { gauges, admin, source } = this.props;
     const { count, list } = gauges;
     return (
       <div style={styles.wrapper}>
@@ -64,7 +62,6 @@ class ListGauges extends React.Component {
                   height={height}
                   admin={admin}
                   gauges={list}
-                  jobsReport={jobsReport}
                   source={source}
                   onDeleteGauge={this.onDeleteGauge}
                   onEditGauge={this.onEditGauge}

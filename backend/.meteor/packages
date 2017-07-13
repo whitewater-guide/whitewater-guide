@@ -19,7 +19,6 @@ accounts-facebook@1.2.0
 service-configuration@1.0.11
 alanning:roles
 matb33:collection-hooks
-vsivsi:job-collection
 percolate:migrations
 orionsoft:graphql-compiler
 nicolaslopezj:apollo-accounts

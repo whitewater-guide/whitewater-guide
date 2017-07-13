@@ -4,7 +4,6 @@ import {riversResolvers} from './rivers';
 import {sectionsResolvers} from './sections';
 import {userResolvers} from './users';
 import {gaugesResolvers} from './gauges';
-import {jobsResolvers} from './jobs';
 import {scriptsResolvers} from './scripts';
 import {tagsResolvers} from './tags';
 import {meteorResolver, adminResolver} from '../utils/ApolloUtils';
@@ -19,7 +18,6 @@ let resolvers = _.merge(
   riversResolvers,
   sectionsResolvers,
   gaugesResolvers,
-  jobsResolvers,
   tagsResolvers,
   scriptsResolvers,
 );

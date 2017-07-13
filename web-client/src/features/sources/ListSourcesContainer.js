@@ -14,11 +14,6 @@ const ListSourcesQuery = gql`
       cron,
       enabled,
     }
-
-    jobsReport {
-      _id,
-      count,
-    }
   }
 `;
 
@@ -41,7 +36,7 @@ export default compose(
   withAdmin(),
   graphql(
     ListSourcesQuery, {
-      props: ({data: {sources = [], jobsReport, loading}}) => ({sources, jobsReport, ready: !loading})
+      props: ({data: {sources = [], loading}}) => ({sources, ready: !loading})
     }
   ),
   graphql(
@@ -50,7 +45,7 @@ export default compose(
         variables: {_id},
         updateQueries: {
           listSources: (prev) => {
-            return {...prev, sources: _.filter(prev.sources, v => v._id !== _id), jobsReport: _.filter(prev.jobsReport, v => v._id !== _id)};
+            return {...prev, sources: _.filter(prev.sources, v => v._id !== _id)};
           }
         },
       })}),

@@ -8,20 +8,21 @@ export function registerHooks(Sources) {
   });
 
   //Enabled/disabled hook adds/removes jobs
-  Sources.after.update(function (userId, doc, fieldNames) {
-    if (fieldNames.includes('enabled')) {
+  Sources.after.update(function (userId, doc) {
+    const enable = doc.enabled && !this.previous.enabled;
+    const disable = !doc.enabled && this.previous.enabled;
+    if (enable) {
       if (doc.harvestMode === 'allAtOnce') {
-        if (doc.enabled)
-          startJobs(doc._id);
-        else
-          stopJobs(doc._id);
+        startJobs(doc);
+      } else {
+        Gauges.update({ sourceId: doc._id }, { $set: { enabled: true } }, { multi: true });
       }
-      else {
-        //For one-by-one sources, disabling them disables all their gauges
-        //But enabling them does not affect gauges, use separate method for this
-        if (!doc.enabled)
-          Gauges.update({sourceId: doc._id}, {$set: {enabled: false}}, {multi: true});
+    } else if (disable) {
+      if (doc.harvestMode === 'allAtOnce') {
+        stopJobs(doc._id);
+      } else {
+        Gauges.update({sourceId: doc._id}, {$set: {enabled: false}}, {multi: true});
       }
     }
-  }, {fetchPrevious: false});
+  });
 }

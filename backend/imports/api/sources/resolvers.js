@@ -2,7 +2,7 @@ import {Regions} from '../regions';
 import {Gauges, upsertGauge} from '../gauges';
 import {Sources} from './collection';
 import {launchScript} from '../scripts';
-import {Jobs, generateSchedule} from '../jobs';
+import {generateSchedule} from '../jobs';
 import _ from 'lodash';
 
 const HarvestModes = {
@@ -62,12 +62,6 @@ function autofillSource(root, {_id}) {
 }
 
 function upsertSource(root, {source: {_id, ...source}, language}) {
-  const hasJobs = !!_id && Jobs.find({
-      "data.source": _id,
-      status: {$in: ['running', 'ready', 'waiting', 'paused']}
-    }).count() > 0;
-  if (hasJobs)
-    throw new Error('Cannot edit source which has running jobs');
 
   const data = {
     ...source,

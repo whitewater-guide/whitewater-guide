@@ -5,6 +5,6 @@ import './apollo';
 
 import '../migrations';
 
-import {startJobServer} from '../api/jobs';
+import { startJobsOnStartup } from '../api/jobs';
 
-startJobServer();
+startJobsOnStartup();

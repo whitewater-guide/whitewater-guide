@@ -3,22 +3,20 @@ import {Points} from "../points";
 
 export function registerHooks(Gauges) {
   //Enabled/disabled hook adds/removes jobs
-  Gauges.after.update(function (userId, doc, fieldNames) {
-    if (fieldNames.includes('enabled')) {
-      if (doc.enabled) {
-        startJobs(doc.sourceId, doc._id);
-      }
-      else {
-        stopJobs(doc.sourceId, doc._id);
-      }
+  Gauges.after.update(function (userId, nextGaugeDoc) {
+    const prevGaugeDoc = this.previous;
+    if (prevGaugeDoc.enabled && !nextGaugeDoc.enabled) {
+      stopJobs(nextGaugeDoc.sourceId, nextGaugeDoc._id);
+    } else if (!prevGaugeDoc.enabled && nextGaugeDoc.enabled) {
+      startJobs(null, nextGaugeDoc);
     }
-  }, {fetchPrevious: false});
+  });
 
   //Remove jobs on gauge removal
-  Gauges.after.remove(function (gaugeId, doc) {
-    stopJobs(doc.sourceId, doc._id);
-    if (doc.location && doc.location._id) {
-      Points.remove({_id: doc.location._id});
+  Gauges.after.remove(function (gaugeId, gaugeDoc) {
+    stopJobs(gaugeDoc.sourceId, gaugeDoc._id);
+    if (gaugeDoc.location && gaugeDoc.location._id) {
+      Points.remove({_id: gaugeDoc.location._id});
     }
   });
 }

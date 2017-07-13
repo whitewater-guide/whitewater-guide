@@ -34,7 +34,6 @@ export default compose(
             listGauges: prev => ({
               ...prev,
               gauges: _.reject(prev.gauges, { _id }),
-              jobsReport: _.reject(prev.jobsReport, { _id }),
             }),
           },
         }),

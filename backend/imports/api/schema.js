@@ -6,7 +6,6 @@ import {PointsGraphqlSchema} from './points';
 import {GaugesGraphqlSchema} from './gauges';
 import {MediaGraphqlSchema} from './media';
 import {SectionsGraphqlSchema} from './sections';
-import {JobsGraphqlSchema} from './jobs';
 import {TagsGraphqlSchema} from './tags';
 import {ScriptsGraphqlSchema} from './scripts';
 
@@ -47,7 +46,6 @@ export const typeDefs = [
   GaugesGraphqlSchema,
   MediaGraphqlSchema,
   SectionsGraphqlSchema,
-  JobsGraphqlSchema,
   TagsGraphqlSchema,
   ScriptsGraphqlSchema,
 ];

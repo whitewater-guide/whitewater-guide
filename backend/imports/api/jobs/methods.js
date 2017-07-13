@@ -1,22 +1,88 @@
-import {Jobs} from './collection';
-import {Sources} from '../sources';
-import {Gauges} from '../gauges';
-import {Job} from 'meteor/vsivsi:job-collection';
+import child_process from 'child_process';
+import { cancelJob, scheduleJob } from 'node-schedule';
+import path from 'path';
+import { Meteor } from 'meteor/meteor';
+import { Gauges } from '../gauges';
+import { Sources } from '../sources';
+import { Measurements } from '../measurements';
+
+export function startJobs(source, gauge = null) {
+  if (!source && gauge) {
+    source = Sources.findOne(gauge.sourceId);
+  }
+  const { _id: sourceId, harvestMode, script } = source;
+  if (gauge) {
+    scheduleJob(`${sourceId}_${gauge._id}`, gauge.cron, createGaugeJob(script, gauge._id, gauge.requestParams));
+  } else if (harvestMode === 'allAtOnce') {
+    scheduleJob(sourceId, source.cron, createSourceJob(sourceId, script));
+  } else {
+    Gauges.find({ sourceId, enabled: true }).forEach(gauge => startJobs(source, gauge));
+  }
+}
 
 export function stopJobs(sourceId, gaugeId) {
-  console.log('Stopping jobs', sourceId, gaugeId);
-  let selector = {type: 'harvest'};
-  if (sourceId)
-    selector = {...selector, "data.sourceId": sourceId};
-  if (gaugeId)
-    selector = {...selector, "data.gaugeId": gaugeId};
-  const cancellableJobs = Jobs.find({...selector, status: {$in: Job.jobStatusCancellable}})
-    .fetch().map(j => j._id);
-  Jobs.cancelJobs(cancellableJobs);
-  const removableJobs = Jobs.find({...selector, status: {$in: Job.jobStatusRemovable}})
-    .fetch().map(j => j._id);
-  Jobs.removeJobs(removableJobs);
+  const jobId = gaugeId ? `${sourceId}_${gaugeId}`: sourceId;
+  cancelJob(jobId);
 }
+
+function createSourceJob(sourceId, script) {
+  return Meteor.bindEnvironment(() => {
+    const launchScriptFiber = Meteor.wrapAsync(sourceWorker);
+    const measurements = launchScriptFiber({ script });
+    measurements.forEach(({ code, timestamp, level, flow }) => {
+      const { lastTimestamp, _id: gaugeId } = Gauges.findOne({ sourceId, code: String(code) }) || {};
+      const date = new Date(timestamp);
+      if (gaugeId && (level || flow) && (!lastTimestamp || date > lastTimestamp)) {
+        Measurements.insert({ gaugeId, date, level, flow }, () => {});
+      }
+    });
+  });
+}
+
+function createGaugeJob(script, gaugeId, requestParams) {
+  return Meteor.bindEnvironment(() => {
+    const { code, lastTimestamp } = Gauges.findOne(gaugeId);
+    const launchScriptFiber = Meteor.wrapAsync(gaugeWorker);
+    const measurements = launchScriptFiber({ script, code, lastTimestamp, requestParams });
+    measurements.forEach(({ timestamp, level, flow }) => {
+      const date = new Date(timestamp);
+      if (gaugeId && (level || flow) && (!lastTimestamp || date > lastTimestamp)) {
+        Measurements.insert({ gaugeId, date, level, flow }, () => {});
+      }
+    });
+  });
+}
+
+function sourceWorker({ script }, meteorCallback) {
+  worker({}, script, meteorCallback);
+}
+
+function gaugeWorker({ script, code, lastTimestamp, requestParams }, meteorCallback) {
+  worker({ code, lastTimestamp, requestParams }, script, meteorCallback);
+}
+
+function worker(options, script, meteorCallback) {
+  const file = path.resolve(process.cwd(), 'assets/app/workers', `${script}.js`);
+  const child = child_process.fork(file, ['harvest'], { execArgv: [] });
+  let response;
+
+  child.on('close', (code) => {
+    if (code === 0) {
+      meteorCallback(undefined, response);
+    }
+    else {
+      meteorCallback(response);
+    }
+  });
+
+  child.on('message', (data) => {
+    response = data;
+  });
+
+  //This will actually start the worker script
+  child.send(options);
+}
+
 
 /**
  * Generate cron and save it to source/gauges
@@ -41,44 +107,5 @@ export function generateSchedule(sourceId) {
       const gauge = gauges[i];
       Gauges.update(gauge._id, {$set: {cron}});
     }
-  }
-}
-
-/**
- * Generate jobs for sources/gauges with proper cron values
- */
-export function startJobs(sourceId, gaugeId) {
-  console.log('Starting jobs', sourceId, gaugeId);
-  const source = Sources.findOne(sourceId);
-  if (!source || !source.enabled)
-    return;
-
-  //Remove all running jobs
-  stopJobs(sourceId, gaugeId);
-
-  if (source.harvestMode === 'allAtOnce' && source.cron) {
-    const job = new Job(Jobs, 'harvest', {
-      script: source.script,
-      sourceId: source._id,
-    });
-    job.repeat({schedule: Jobs.later.parse.cron(source.cron)});
-    job.save();
-  }
-  else if (source.harvestMode === 'oneByOne') {
-    const gauges = gaugeId === undefined ? Gauges.find({sourceId}).fetch() : [Gauges.findOne(gaugeId)];
-    gauges.forEach(gauge => {
-      if (gauge.enabled && gauge.cron) {
-        const job = new Job(Jobs, 'harvest', {
-          script: source.script,
-          sourceId: source._id,
-          gaugeId: gauge._id,
-        });
-        console.log(`Add job for gauge ${gauge.name} at ${gauge.cron}`);
-        job
-          .repeat({schedule: Jobs.later.parse.cron(gauge.cron)})
-          .retry({retries: Job.forever, wait: 60 * 60 * 1000})
-          .save();
-      }
-    });
   }
 }
