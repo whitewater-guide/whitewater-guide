@@ -73,6 +73,20 @@ baked back into passenger base image
 6) Current certificates should expire in mid september 2017
 
 ## Automation
+
+### Prerequisites
+
+On MacOS some command are old BSD-style commands, to run `production.sh` we need to install GNU-versions:
+```$bash
+brew install gnu-getopt
+brew link --force gnu-getopt
+brew install gnu-tar
+sudo unlink `which tar`
+sudo ln -s `which gtar` /usr/bin/tar
+```
+
+### Script
+
 `production.sh` file is used to automate build and deploy steps.
 
 Run `production.sh --client` to build web-client bundle
@@ -83,11 +97,3 @@ Run `production.sh --deploy` to merge server and web-client and deploy them (mus
 
 Or run `production.sh -csd` to do everything at once
 
-### Prerequisites
-On MacOS some command are old BSD-style commands, to run `production.sh` we need to install GNU-versions:
-```$bash
-brew install gnu-getopt
-brew link --force gnu-getopt
-brew install gnu-tar
-ln -s /usr/local/bin/gtar /usr/local/bin/gnutar
-```
