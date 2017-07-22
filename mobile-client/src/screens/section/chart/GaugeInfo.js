@@ -39,7 +39,7 @@ class GaugeInfo extends React.PureComponent {
     } else if (index === 0) {
       this.props.navigate({
         routeName: 'Plain',
-        params: { data: 'source', source: this.props.gauge.source },
+        params: { data: 'source', title: 'About data source', source: this.props.gauge.source },
       });
     }
   };

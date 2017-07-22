@@ -13,8 +13,20 @@ const styles = StyleSheet.create({
 
 const Drawer = () => (
   <View style={styles.container}>
-    <DrawerItem label="Regions" routeName="RegionsRoot" />
-    <DrawerItem label="All Sections" routeName="AllSectionsRoot" />
+    <DrawerItem
+      label="Regions"
+      routeName="RegionsRoot"
+    />
+    <DrawerItem
+      label="FAQ"
+      routeName="Plain"
+      params={{ data: 'fixture', title: 'FAQ', textId: 'faq', format: 'md' }}
+    />
+    <DrawerItem
+      label="Terms and conditions"
+      routeName="Plain"
+      params={{ data: 'fixture', title: 'Terms and conditions', textId: 'legal', format: 'md' }}
+    />
   </View>
 );
 

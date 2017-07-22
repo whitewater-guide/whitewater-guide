@@ -45,10 +45,10 @@ DrawerItem.propTypes = {
 
 export default connect(
   (state, props) => ({ focused: props.routeName === currentScreenSelector(state).routeName }),
-  (dispatch, { routeName }) => ({
+  (dispatch, { routeName, params }) => ({
     onPress: () => {
       dispatch(toggleDrawer(false));
-      dispatch(NavigationActions.navigate({ routeName }));
+      dispatch(NavigationActions.navigate({ routeName, params }));
     },
   }),
 )(DrawerItem);

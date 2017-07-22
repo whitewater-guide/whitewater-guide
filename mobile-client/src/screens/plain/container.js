@@ -1,9 +1,10 @@
-import { compose, hoistStatics } from 'recompose';
+import { compose, hoistStatics, withProps } from 'recompose';
 import { gql } from 'react-apollo';
 import get from 'lodash/get';
 import choose from '../../commons/utils/choose';
 import { spinnerWhileLoading } from '../../components';
 import { enhancedQuery } from '../../commons/apollo';
+import fixtures from '../../fixtures';
 
 const sourceDetails = gql`
   query sourceDetails($_id: ID, $language:String) {
@@ -34,6 +35,12 @@ const sourceContainer = enhancedQuery(
   },
 );
 
+const fixtureContainer = withProps(props => ({
+  htmlText: fixtures[get(props, 'navigation.state.params.textId')],
+  format: get(props, 'navigation.state.params.format', 'html'),
+  loading: false,
+}));
+
 // Choose data provider based on navigation params
 const chooser = props => get(props, 'navigation.state.params.data');
 
@@ -42,6 +49,7 @@ const container = compose(
     chooser,
     {
       source: sourceContainer,
+      fixture: fixtureContainer,
     },
   ),
   spinnerWhileLoading(props => props.loading),

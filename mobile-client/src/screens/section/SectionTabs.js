@@ -9,6 +9,7 @@ import { SectionMediaScreen } from './media';
 import { withSection } from '../../commons/features/sections';
 import { spinnerWhileLoading, withErrorsView } from '../../components';
 import SectionHeader from './SectionHeader';
+import SectionHelpButton from './SectionHelpButton';
 
 const SectionTabs = TabNavigator(
   {
@@ -31,6 +32,7 @@ const SectionTabs = TabNavigator(
     },
     navigationOptions: ({ navigation }) => ({
       headerTitle: <SectionHeader sectionId={navigation.state.params.sectionId} />,
+      headerRight: <SectionHelpButton navigation={navigation} />
     }),
   },
 );

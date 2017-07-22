@@ -17,5 +17,6 @@ export { default as TernaryChips } from './TernaryChips';
 export { default as StarRating } from './StarRating';
 export { default as Button } from './Button';
 export { default as Text } from './Text';
+export * from './Markdown';
 export * from './NavigateButton';
 export * from './ErrorRefetchScreen';

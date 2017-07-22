@@ -1,28 +1,25 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import get from 'lodash/get';
-import { HTMLView, Screen } from '../../components';
+import { HTMLView, Markdown, Screen } from '../../components';
 
-const PlainTextScreen = ({ htmlText }) => (
+const PlainTextScreen = ({ htmlText, format }) => (
   <Screen>
-    <HTMLView value={htmlText} />
+    {
+      format === 'html' ?
+        <HTMLView value={htmlText} /> :
+        <Markdown>{htmlText}</Markdown>
+    }
   </Screen>
 );
 
 PlainTextScreen.propTypes = {
   htmlText: PropTypes.string.isRequired,
+  format: PropTypes.oneOf(['html', 'md']).isRequired,
 };
 
 PlainTextScreen.navigationOptions = ({ navigation }) => {
-  const data = get(navigation, 'state.params.data');
-  let title = ' ';
-  switch (data) {
-    case 'source':
-      title = 'About data source';
-      break;
-    default:
-      title = ' ';
-  }
+  const title = get(navigation, 'state.params.title', ' ');
   return { title };
 };
 
