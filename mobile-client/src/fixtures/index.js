@@ -1,7 +1,9 @@
-import legal from './legal';
+import termsAndConditions from './terms_and_conditions';
+import privacyPolicy from './privacy_policy';
 import faq from './faq';
 
 export default {
-  legal,
+  termsAndConditions,
+  privacyPolicy,
   faq,
 };

@@ -25,7 +25,12 @@ const Drawer = () => (
     <DrawerItem
       label="Terms and conditions"
       routeName="Plain"
-      params={{ data: 'fixture', title: 'Terms and conditions', textId: 'legal', format: 'md' }}
+      params={{ data: 'fixture', title: 'Terms and conditions', textId: 'termsAndConditions', format: 'md' }}
+    />
+    <DrawerItem
+      label="Privacy policy"
+      routeName="Plain"
+      params={{ data: 'fixture', title: 'Privacy policy', textId: 'privacyPolicy', format: 'md' }}
     />
   </View>
 );
