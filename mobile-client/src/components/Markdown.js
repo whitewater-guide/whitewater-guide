@@ -32,18 +32,21 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   level0: {
-    color: ColorStrings.dry,
+    color: ColorStrings.none,
   },
   level1: {
-    color: ColorStrings.minimum,
+    color: ColorStrings.dry,
   },
   level2: {
-    color: ColorStrings.optimum,
+    color: ColorStrings.minimum,
   },
   level3: {
-    color: ColorStrings.maximum,
+    color: ColorStrings.optimum,
   },
   level4: {
+    color: ColorStrings.maximum,
+  },
+  level5: {
     color: ColorStrings.impossible,
   },
 });

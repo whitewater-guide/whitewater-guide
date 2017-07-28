@@ -17,7 +17,7 @@ Examples of class **IV**:
 - Deza classic in Galicia
 
 Examples of class **V**:
-- Wellebrucke section on Oetz at medium flow
+- Wellebrucke section on Oetz at medium-high flow (180-190 cm)
 - Lower Rauma in Norway
 - Passer gorge in Italy
 - Upper Vez in Portugal.
@@ -25,12 +25,16 @@ Examples of class **V**:
 Important note: rapids tend to change more often than many paddlers believe. Descriptions and grades suggested are always not ideally up to date!
 
 # Water levels
-We try to give references for water levels for each section. We use simple terms like **“Low water”**, **“Optimal water”**, **“High water”** and **“Maximum”**. Normally a section losses it’s attractivity and it’s not fun anymore or even impossible to paddle it below Low water. Optimal water level is often not just an average between Low and High. It’s the level when you enjoy this section the most if you have a team that is confident with the difficulty of the run. High water level is the limit for the grade provided. Often you can paddle a section even beyond the High water mark but then the difficulty rises significantly. Maximum is the level when a section becomes unpaddleable. Both Low and Maximum are not historical marks!
+We try to give references for water levels for each section. We use simple terms like **“Low water”**, **“Optimal water”**, **“High water”** and **“Maximum”**. Normally a section looses it’s attractivity and it’s not fun anymore or even impossible to paddle it below Low water. Optimal water level is often not just an average between Low and High. It’s the level when you enjoy this section the most if you have a team that is confident with the difficulty of the run. High water level is the limit for the grade provided. Often you can paddle a section even beyond the High water mark but then the difficulty rises significantly. Maximum is the level when a section becomes unpaddleable. Both Low and Maximum are not historical marks!
 
 The grade we give to a section makes sense only within the limits of low and high water levels provided. If a river is still paddleable outside of these limits but the grade changes we will mention it in the description.
 
+Please contact us at info@whitewater.guide if you want to correct low/optimal/high marks.
+
 # Gauges
 If available we obtain data from hydro meteo stations (electronic gauges). They are very different from area to area and in many places they don’t exist or their data is unavailable for public. Some of them are updated every 15 minutes and some of them only once a day. Quite often they break and provide no data or false data.
+
+Please contact us at info@whitewater.guide if there is no data or false data from a gauge.
 
 By **“Flow”** we mean amount of cubic meters of water per second (cumecs)  
 By **“Level”** we mean height of water at certain location (cm, m)
@@ -39,16 +43,25 @@ We prefer to use flow instead of level. The reason for that is that if a gauge b
 
 # Colors
 We use colors as a common way to visualize water levels in the rivers. 
-- **Below minimum**{color=0}
-- **Minimum**{color=1}
-- **Optimal**{color=2}
-- **High water**{color=3} level, maximum for the grade suggested
-- **Absolute maximum**{color=4}, unpaddleable above it
+- **Unknown**{color=0} - there is no gauge for this section
+- **Below minimum**{color=1}
+- **Minimum**{color=2}
+- **Optimal**{color=3}
+- **High water**{color=4} level, maximum for the grade suggested
+- **Absolute maximum**{color=5}, unpaddleable above it
 
 All colors have gradients so it changes slowly from green to red passing through yellow if water level is rising from optimal to high.
 
+# Map of a region
+
+All sections on the map of a region are shown as colored arrows. Colors mean current water levels as described. An arrow starts at the beginning of a run and ends at the end of a run. If parkings for a put-in or a take out are not very close to a river we put additional points on the map. They are called "End of road to put-in" and "End of road to take-out" and they are visiable only on the map of a section. If there is a long hike to a river we put hiking waypoints. You can see these additional points only on the screen of the map of a section.
+
+# Map of a section
+
+On this screen there is only one section shown. There are additional points refering to the section on this screen like alternative put-in's/take out's, portages, hazards, camp-sites and others
+
 # Rating
-It’s probably the most subjective part in the App. Yes, different people have different tastes. On the other side nobody wants to paddle a river with dirty rapids and nasty portages and miss a classic nice clean run nearby just because they didn’t know it’s nice. So we put stars from 0 to 5. Portages, artificial features, long flats, dirty and dangerous (for the grade) rapids decrease rating. As for now scenery doesn’t influence on rating. Examples of 5 stars runs
+It’s probably the most subjective part in the App. Yes, different people have different tastes. On the other side nobody wants to paddle a river with dirty rapids and nasty portages and miss a classic nice clean run nearby just because they didn’t know it’s nice. So we put stars from 0 to 5. Portages, artificial features, long flats, dirty and dangerous (for the grade) rapids decrease rating. Longer sections with a lot of rapids are better rated than short ones. As for now scenery doesn’t influence on rating. All the ratings are given considering optimal water level. Examples of 5 stars runs
 - Upper Rauma in Norway
 - Lower Vent in Austria
 - Egua in Italy
@@ -67,4 +80,4 @@ We believe there is no need to provide long detailed descriptions of every obsta
 
 Please note that all descriptions of class IV sections are made for class IV paddlers and class V sections for class V paddlers. It means that if you are not confident on class V our description won’t be enough to attempt a class V run. We expect that a person reading a description of a class IV-V run is able to perform certain high-skilled moves and make fast decisions without knowing what is coming further in advance.
 It’s also very important to know that in many rivers (in some areas in ALL rivers) rapids might change significantly. A new portage can appear or an old portage can become paddleable.
-`
+`;
