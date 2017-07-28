@@ -86,8 +86,11 @@ class SimpleSection extends React.PureComponent {
     const flows = section.flows || {};
     const levels = section.levels || {};
     const bindings = flows.lastValue ? flows : levels;
-    const color = getSectionColor(bindings);
+    let color = getSectionColor(bindings);
     const fill = color.replace('hsl', 'hsla').replace(')', ',0.3)');
+    if (bindings.approximate) {
+      color = color.replace('hsl', 'hsla').replace(')', ',0.66)');
+    }
     return (
       <View>
         {
