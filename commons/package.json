@@ -1,0 +1,45 @@
+{
+  "name": "whitewater-commons",
+  "version": "0.0.1",
+  "description": "shared code for whitewater.guide",
+  "main": "src/index.js",
+  "author": "Konstantin Kuznetsov",
+  "scripts": {
+    "tsc": "tsc"
+  },
+  "dependencies": {
+    "apollo-client": "^1.9.0",
+    "color": "^2.0.0",
+    "graphql-anywhere": "^3.1.0",
+    "immutability-helper": "^2.3.0",
+    "lodash": "^4.17.4",
+    "meteor-apollo-accounts": "^2.0.1",
+    "moment": "^2.18.1",
+    "react-apollo": "^1.4.10",
+    "react-redux": "^5.0.5",
+    "recompose": "^0.24.0",
+    "recursive-iterator": "^2.0.3",
+    "redux-actions": "^2.2.1",
+    "reselect": "^3.0.1",
+    "shallowequal": "^1.0.2",
+    "subscriptions-transport-ws": "^0.8.2",
+    "url": "^0.11.0"
+  },
+  "peerDependencies": {
+    "react": "^15.6.1"
+  },
+  "devDependencies": {
+    "@types/color": "^2.0.0",
+    "@types/immutability-helper": "^2.0.15",
+    "@types/lodash": "^4.14.71",
+    "@types/react-redux": "^4.4.47",
+    "@types/recompose": "^0.23.3",
+    "@types/redux-actions": "^1.2.7",
+    "@types/shallowequal": "^0.2.1",
+    "tslib": "^1.7.1",
+    "tslint": "^5.5.0",
+    "tslint-eslint-rules": "^4.1.1",
+    "tslint-react": "^3.2.0",
+    "typescript": "^2.4.2"
+  }
+}
