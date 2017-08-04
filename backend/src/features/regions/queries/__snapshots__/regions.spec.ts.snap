@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should return regions 1`] = `
+Array [
+  Object {
+    "bounds": null,
+    "description": null,
+    "hidden": false,
+    "id": "2caf75ca-7625-11e7-b5a5-be2e44b06b34",
+    "name": "Empty region",
+    "season": null,
+    "seasonNumeric": Array [],
+  },
+  Object {
+    "bounds": Array [
+      Array [
+        -114,
+        46,
+        0,
+      ],
+      Array [
+        -115,
+        46,
+        0,
+      ],
+      Array [
+        -115,
+        47,
+        0,
+      ],
+      Array [
+        -114,
+        47,
+        0,
+      ],
+    ],
+    "description": "Description of Galicia",
+    "hidden": false,
+    "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
+    "name": "Galicia",
+    "season": "Late autumn - early spring",
+    "seasonNumeric": Array [
+      20,
+      21,
+    ],
+  },
+  Object {
+    "bounds": null,
+    "description": null,
+    "hidden": true,
+    "id": "b968e2b2-76c5-11e7-b5a5-be2e44b06b34",
+    "name": "Hidden region",
+    "season": null,
+    "seasonNumeric": Array [],
+  },
+]
+`;

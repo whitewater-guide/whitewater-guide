@@ -1,0 +1,43 @@
+enum HarvestMode {
+  allAtOnce,
+  oneByOne,
+}
+
+type Source {
+  id: ID!
+  name: String!
+  termsOfUse: String
+  script: String!
+  cron: String
+  harvestMode: HarvestMode!
+  url: String
+  enabled: Boolean
+  # regions: [Region]!
+  # gauges: [Gauge]!
+  createdAt: Date
+  updatedAt: Date
+}
+
+input SourceInput {
+  id: ID
+  name: String!
+  termsOfUse: String
+  script: String!
+  cron: String
+  harvestMode: HarvestMode!
+  # regions: [RefInput]
+  url: String
+}
+
+type Query {
+  sources(language:String): [Source]!
+  source(id: ID, language: String): Source
+}
+
+type Mutation {
+  upsertSource(source:SourceInput!, language: String):Source
+  # removeSource(id:ID!):Boolean
+  # autofillSource(id:ID!):Boolean
+  # generateSourceSchedule(id:ID!):Boolean
+  # setSourceEnabled(id:ID!, enabled:Boolean!): Source
+}

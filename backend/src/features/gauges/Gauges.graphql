@@ -1,0 +1,44 @@
+type Gauge {
+  id: ID!
+  name: String!
+  code: String!
+  source: Source!
+  # location: Point
+  levelUnit: String
+  flowUnit: String
+  requestParams: JSON
+  cron: String
+  lastTimestamp: Date
+  lastLevel: Float
+  lastFlow: Float
+  url: String
+  enabled: Boolean
+  # measurements(startDate:Date!, endDate:Date!): [Measurement]!
+}
+
+input GaugeInput {
+  id: ID
+  sourceId: ID!
+  name: String!
+  code: String!
+  # location: PointInput
+  levelUnit: String
+  flowUnit:String
+  requestParams: JSON
+  cron: String
+  url: String
+}
+
+type Query {
+  gauges(sourceId:ID!, language:String, skip:Int, limit:Int):[Gauge]!,
+  gauge(id: ID, language:String):Gauge,
+  countGauges(sourceId:ID):Int!,
+}
+
+type Mutation {
+  # createGauge(gauge:GaugeInput!):Gauge,
+  # upsertGauge(gauge:GaugeInput!, language:String):Gauge,
+  # removeGauges(id:ID, sourceId: ID, disabledOnly:Boolean):Int,
+  # setGaugesEnabled(id:ID, sourceId:ID, enabled:Boolean!):[Gauge]!,
+}
+

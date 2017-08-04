@@ -1,0 +1,65 @@
+version: '3'
+
+services:
+
+  # Nginx web server acting as a reverse proxy for "web" and "api" services
+  # nginx:
+  #   image: nginx:1.13.1-alpine
+  #   read_only: true
+  #   tmpfs:
+  #     - /var/cache/nginx
+  #     - /var/log/nginx
+  #     - /var/run
+  #   depends_on:
+  #     - api
+  #   ports:
+  #     - "8080:80"
+  #     - "8443:443"
+  #   volumes:
+  #     - ./config/nginx-snippets:/etc/nginx/snippets:ro
+  #     - ./config/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+
+  api:
+    build: ./backend
+    depends_on:
+      - db
+    env_file: .env
+#    expose:
+#      - "3333"
+    ports:
+      - "127.0.0.1:9229:9229" # V8 inspector (when NODE_DEBUG=true)
+      - "3333:3333"
+    volumes:
+      - yarn:/root/.cache/yarn
+      - backend-sync:/opt/app:nocopy
+    # TODO: do not run as root - wait until https://github.com/keymetrics/docker-pm2/issues/21
+    # user: node
+  db:
+    image: timescale/timescaledb-postgis:latest
+    env_file: .env
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /var/run/postgresql
+    # TODO: remove in production
+    ports:
+      - "5432:5432"
+    volumes:
+      - db:/var/lib/postgresql/data
+      - ./backend/config/postgres-initdb.sh:/docker-entrypoint-initdb.d/initdb.sh
+
+  # Distributed in-memory cache
+  # redis:
+  #   image: redis:3.2.9-alpine
+  #   read_only: true
+  #   volumes:
+  #     - redis:/data
+  #   user: redis
+
+volumes:
+  db:
+  redis:
+  yarn:
+  backend-sync:
+    # TODO: dev only
+    external: true

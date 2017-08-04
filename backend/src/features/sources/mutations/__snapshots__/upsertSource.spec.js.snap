@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`insert should match snapshot 1`] = `
+Object {
+  "cron": null,
+  "harvestMode": "allAtOnce",
+  "name": "New Source",
+  "script": "newScript",
+  "termsOfUse": null,
+  "url": null,
+}
+`;
+
+exports[`update should match snapshot 1`] = `
+Object {
+  "id": "b28f728a-6efa-11e7-96fe-47a2910087ec",
+  "cron": "1 1 * * *",
+  "harvestMode": "oneByOne",
+  "name": "Updated source",
+  "script": "updatedScript",
+  "termsOfUse": "New terms of use",
+  "url": "http://google.com",
+}
+`;

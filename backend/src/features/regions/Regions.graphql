@@ -1,0 +1,37 @@
+type Region {
+  id: ID!
+  name: String!
+  description: String
+  season: String
+  seasonNumeric: [Int]!
+  bounds: [[Float!]]
+  # pois: [Point]!
+  # sources: [Source]!
+  # rivers: [River]!
+  # riversCount: Int
+  # sectionsCount: Int
+  hidden: Boolean
+  createdAt: Date
+  updatedAt: Date
+}
+
+input RegionInput {
+  id: ID
+  name: String!
+  description: String
+  season: String
+  seasonNumeric: [Int]
+  # pois: [PointInput]
+  bounds: [[Float!]]
+  hidden: Boolean
+}
+
+type Query {
+  regions(language:String): [Region]!,
+  region(id: ID, language:String):Region,
+}
+
+#type Mutation {
+#  upsertRegion(region:RegionInput!, language:String):Region,
+#  removeRegion(id:ID!):Boolean,
+#}

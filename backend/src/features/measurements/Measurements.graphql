@@ -1,0 +1,7 @@
+type Measurement {
+  id: ID!
+  gaugeId: ID!
+  date: Date!
+  level: Float
+  flow: Float
+}

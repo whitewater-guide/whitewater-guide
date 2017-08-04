@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`admin should list sources 1`] = `
+Array [
+  Object {
+    "cron": "0 * * * *",
+    "enabled": false,
+    "harvestMode": "allAtOnce",
+    "id": "b28f6394-6efa-11e7-8661-c72f46e0289f",
+    "name": "Galicia",
+    "script": "galicia",
+    "url": "http://ya.ru",
+  },
+  Object {
+    "cron": null,
+    "enabled": true,
+    "harvestMode": "allAtOnce",
+    "id": "b28f728a-6efa-11e7-96fe-47a2910087ec",
+    "name": "Norway",
+    "script": "norway",
+    "url": null,
+  },
+]
+`;
+
+exports[`anonymous shall not pass 1`] = `
+Object {
+  "data": null,
+  "errors": Array [
+    [GraphQLError: You must be logged in to do this],
+  ],
+}
+`;
+
+exports[`super admin should list sources 1`] = `
+Array [
+  Object {
+    "cron": "0 * * * *",
+    "enabled": false,
+    "harvestMode": "allAtOnce",
+    "id": "b28f6394-6efa-11e7-8661-c72f46e0289f",
+    "name": "Galicia",
+    "script": "galicia",
+    "url": "http://ya.ru",
+  },
+  Object {
+    "cron": null,
+    "enabled": true,
+    "harvestMode": "allAtOnce",
+    "id": "b28f728a-6efa-11e7-96fe-47a2910087ec",
+    "name": "Norway",
+    "script": "norway",
+    "url": null,
+  },
+]
+`;
+
+exports[`user shall not pass 1`] = `
+Object {
+  "data": null,
+  "errors": Array [
+    [GraphQLError: You are not allowed to do this],
+  ],
+}
+`;

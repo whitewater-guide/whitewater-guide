@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should return region 1`] = `
+Object {
+  "bounds": Array [
+    Array [
+      -114,
+      46,
+      0,
+    ],
+    Array [
+      -115,
+      46,
+      0,
+    ],
+    Array [
+      -115,
+      47,
+      0,
+    ],
+    Array [
+      -114,
+      47,
+      0,
+    ],
+  ],
+  "description": "Description of Galicia",
+  "hidden": false,
+  "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
+  "name": "Galicia",
+  "season": "Late autumn - early spring",
+  "seasonNumeric": Array [
+    20,
+    21,
+  ],
+}
+`;
+
+exports[`users should not see hidden region 1`] = `
+Object {
+  "data": Object {
+    "region": null,
+  },
+  "errors": Array [
+    [GraphQLError: This region is not yet available for public],
+  ],
+}
+`;

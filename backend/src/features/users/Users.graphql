@@ -1,0 +1,18 @@
+type User {
+  id: ID!
+  name: String!
+  avatar: String
+  email: String
+  role: Int!
+  createdAt: Date!
+  updatedAt: Date!
+}
+
+type Query {
+  me: User,
+  listUsers: [User]!,
+}
+
+type Mutation {
+  toggleAdmin(id: ID!, isAdmin: Boolean!):User,
+}

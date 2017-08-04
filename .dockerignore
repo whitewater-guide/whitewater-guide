@@ -6,14 +6,9 @@ mobile-client/
 typings/
 web-client/
 # Docker can have only one top-level dockerignore file
-backend/build
-backend/.build/
-backend/backend.iml
-backend/public
-backend/node_modules
-backend/deploy
-backend/.meteor/dump
-backend/.meteor/local
-backend/.workers
-# Use `meteor npm`, not yarn
-backend/yarn.lock
+backend/node_modules/
+backend/tsconfig.json
+backend/tslint.json
+backend/Dockerfile
+*.iml
+*.yml
