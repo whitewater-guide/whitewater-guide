@@ -2,7 +2,7 @@ import { gql } from 'react-apollo';
 import { compose } from 'recompose';
 import { enhancedQuery } from '../../apollo';
 import { withFeatureIds } from '../../core/withFeatureIds';
-import riverReducer from './riverReducer';
+import { River } from './types';
 
 const riverDetails = gql`
   query riverDetails($riverId:ID!, $language: String) {
@@ -28,26 +28,41 @@ const riverDetails = gql`
   }
 `;
 
+interface Result {
+  river: River | null;
+}
+
+interface ChildProps {
+  river: River | null;
+  riverLoading: boolean;
+}
+
+interface Props {
+  riverId?: string;
+  language?: string;
+}
+
 /**
  *
  * @param options.withSections (true) = Should include all sections
  * @returns High-order component
  */
 export function withRiver() {
-  return compose(
+  return compose<ChildProps, any>(
     withFeatureIds('river'),
-    enhancedQuery(
+    enhancedQuery<Result, Props, ChildProps>(
       riverDetails,
       {
         options: ({ riverId, language }) => ({
           fetchPolicy: 'cache-and-network',
           variables: { riverId, language },
-          reducer: riverReducer,
+          // reducer: riverReducer,
           notifyOnNetworkStatusChange: true,
         }),
-        props: ({ data: { river, loading } }) => (
-          { river, riverLoading: loading && !river }
-        ),
+        props: ({ data }) => {
+          const { river, loading } = data!;
+          return { river, riverLoading: loading && !river };
+        },
       },
     ),
   );

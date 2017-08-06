@@ -1,6 +1,5 @@
 import { gql, graphql } from 'react-apollo';
-import { filter } from 'graphql-anywhere';
-import reducer from './tagsListReducer';
+import { WithTags } from './types';
 
 const allTags = gql`
   query allTags($withSlugs:Boolean!) {
@@ -27,41 +26,21 @@ const allTags = gql`
   }
 `;
 
-// Filter cannot handle directives - workaround
-const filterTags = gql`
-  query allTags {
-    supplyTags {
-      _id
-      name
-      slug
-    }
-    kayakingTags {
-      _id
-      name
-      slug
-    }
-    hazardsTags {
-      _id
-      name
-      slug
-    }
-    miscTags {
-      _id
-      name
-      slug
-    }
-  }
-`;
+interface ChildProps extends WithTags {
+  tagsLoading: boolean;
+}
 
-export const withTags = (withSlugs = false) => graphql(
+export const withTags = (withSlugs = false) => graphql<WithTags, any, ChildProps>(
   allTags,
   {
     options: {
-      reducer,
+      // TODO: replace reducer with update
+      // reducer,
       variables: { withSlugs },
     },
-    props: ({ data: { loading, ...data } }) => {
-      return { ...filter(filterTags, data), tagsLoading: loading };
+    props: ({ data }) => {
+      const { loading, ...tags } = data!;
+      return { ...tags, tagsLoading: loading };
     },
   },
 );

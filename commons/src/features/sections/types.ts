@@ -3,6 +3,7 @@ import { Gauge } from '../gauges';
 import { Media } from '../media';
 import { Point } from '../points';
 import { Region } from '../regions';
+import { River } from '../rivers';
 import { Tag } from '../tags';
 
 export enum Duration {
@@ -44,7 +45,7 @@ export interface Section extends NamedResource, Timestamped {
   seasonNumeric: number[];
 
   region: Region;
-  // river: River;
+  river: River;
 
   gauge: Gauge | null;
   levels: Binding | null;
