@@ -13,8 +13,8 @@
       "es2017",
       "dom"
     ],
-    "target": "es2016",
-    "module": "es6",
+    "target": "esnext",
+    "module": "commonjs",
     "moduleResolution": "node",
     "noEmitOnError": true,
     "noFallthroughCasesInSwitch": true,
@@ -27,7 +27,7 @@
     "sourceMap": true
   },
   "include": [
-    "src/**/*"
+    "src/**/*.ts"
   ],
   "compileOnSave": true
 }

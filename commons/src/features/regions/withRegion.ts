@@ -1,9 +1,9 @@
 import { gql } from 'react-apollo';
-import { enhancedQuery } from '../../apollo';
 import { branch, compose, withProps } from 'recompose';
-import { filter } from 'graphql-anywhere';
+import { enhancedQuery } from '../../apollo';
+import { withFeatureIds } from '../../core';
 import { RegionFragments } from './regionFraments';
-import { withFeatureIds } from '../../core/withFeatureIds';
+import { Region } from './types';
 
 const regionDetails = gql`
   query regionDetails($_id: ID!, $language:String, $withBounds: Boolean!, $withPOIs: Boolean!) {
@@ -20,6 +20,26 @@ const regionDetails = gql`
   ${RegionFragments.Bounds}
 `;
 
+interface Options {
+  withBounds?: boolean;
+  withPOIs?: boolean;
+  propName?: string;
+}
+
+interface TInner {
+  regionLoading: boolean;
+  error?: any;
+}
+
+interface Result {
+  region: Region | null;
+}
+
+interface Props {
+  regionId?: string;
+  language?: string;
+}
+
 /**
  *
  * @param options.withBounds (false) = Should include bounds
@@ -27,30 +47,35 @@ const regionDetails = gql`
  * @param options.propName ('region') = Name of prop which will contain region
  * @returns High-order component
  */
-export function withRegion(options) {
+export function withRegion<RegionProp = {region: Region | null}>(options: Options) {
   const { withBounds = false, withPOIs = true, propName = 'region' } = options;
-  return compose(
+  type ChildProps = TInner & RegionProp;
+  return compose<TInner & ChildProps, any>(
     withFeatureIds('region'),
     // If no region was found, branch provides dummy region with error
-    branch(
+    branch<Props>(
       ({ regionId }) => !!regionId,
-      enhancedQuery(
+      enhancedQuery<Result, Props, ChildProps>(
         regionDetails,
         {
           options: ({ regionId, language }) => ({
             fetchPolicy: 'cache-and-network',
             variables: { _id: regionId, language, withBounds, withPOIs },
           }),
-          props: ({ data: { region, loading } }) => (
-            { [propName]: region && filter(RegionFragments.All, region), regionLoading: loading && !region }
-          ),
+          props: ({ data }) => {
+            const { region, loading } = data!;
+            return { [propName]: region, regionLoading: loading && !region };
+          },
         },
       ),
-      withProps(({ regionId }) => ({
-        [propName]: {},
+      withProps<ChildProps, Props>(({ regionId }) => ({
+        [propName]: null,
         regionLoading: false,
         error: `No region with id ${regionId} was found`,
-      })),
+      } as any as ChildProps)),
     ),
   );
 }
+
+export type WithRegion<RegionProp = {region: Region | null}> =
+  Props & TInner & RegionProp;

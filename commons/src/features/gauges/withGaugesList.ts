@@ -1,6 +1,8 @@
-import { gql, graphql } from 'react-apollo';
+import { gql } from 'react-apollo';
+import { enhancedQuery, FetchMoreResult } from '../../apollo';
+import { Source } from '../sources';
 import { GaugeFragments } from './gaugeFragments';
-import { enhancedQuery } from '../../apollo';
+import { Gauge } from './types';
 
 const ListGaugesQuery = gql`
   query listGauges($sourceId:ID!, $language:String, $skip:Int, $limit:Int, $isLoadMore:Boolean!) {
@@ -26,14 +28,42 @@ const ListGaugesQuery = gql`
   ${GaugeFragments.HarvestInfo}
 `;
 
-const updateQuery = (prevResult, { fetchMoreResult }) => {
+interface Result {
+  gauges?: Gauge[];
+  source: Source;
+  count: number;
+}
+
+interface Props {
+  sourceId?: string;
+  language?: string;
+}
+
+interface GaugesList {
+  list: Gauge[];
+  count: number;
+  loading: boolean;
+  loadMore: (params: LoadMoreParams) => void;
+}
+
+interface LoadMoreParams {
+  startIndex: number;
+  stopIndex: number;
+}
+
+interface ChildProps {
+  source: Source;
+  gauges: GaugesList;
+}
+
+const updateQuery = (prevResult: Result, { fetchMoreResult }: FetchMoreResult<Result> ) => {
   if (!fetchMoreResult.gauges) {
     return prevResult;
   }
-  return { ...prevResult, gauges: [...prevResult.gauges, ...fetchMoreResult.gauges] };
+  return { ...prevResult, gauges: [...prevResult.gauges!, ...fetchMoreResult.gauges] };
 };
 
-const withGaugesList = enhancedQuery(
+export const withGaugesList = enhancedQuery<Result, Props, ChildProps>(
   ListGaugesQuery,
   {
     options: ({ sourceId, language }) => ({
@@ -41,19 +71,20 @@ const withGaugesList = enhancedQuery(
       variables: { sourceId, language, isLoadMore: false },
       notifyOnNetworkStatusChange: true,
     }),
-    props: ({ data: { gauges, count, source, loading, fetchMore } }) => ({
-      source,
-      gauges: {
-        list: gauges,
-        count,
-        loading,
-        loadMore: ({ startIndex: skip, stopIndex }) => fetchMore({
-          variables: { skip, limit: stopIndex - skip, isLoadMore: true },
-          updateQuery,
-        }),
-      },
-    }),
+    props: ({ data }) => {
+      const { gauges, count, source, loading, fetchMore } = data!;
+      return {
+        source,
+        gauges: {
+          list: gauges,
+          count,
+          loading,
+          loadMore: ({ startIndex: skip, stopIndex }: LoadMoreParams) => fetchMore({
+            variables: { skip, limit: stopIndex - skip, isLoadMore: true },
+            updateQuery,
+          }),
+        },
+      };
+    },
   },
 );
-
-export default withGaugesList;

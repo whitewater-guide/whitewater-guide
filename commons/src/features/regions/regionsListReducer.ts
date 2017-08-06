@@ -1,6 +1,6 @@
 import _ from 'lodash';
-import { isMutationResult } from '../../core/apolloUtils';
-import update from 'immutability-helper';
+import { isMutationResult } from '../../core';
+import * as update from 'immutability-helper';
 
 function removeRegion(previousResult, _id) {
   const { regions } = previousResult;

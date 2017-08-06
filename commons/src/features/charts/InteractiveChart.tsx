@@ -1,65 +1,61 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import moment from 'moment';
-import _ from 'lodash';
+import * as moment from 'moment';
+import * as React from 'react';
+import { ComponentType } from 'react';
+import { GaugeMeasurement, Unit } from '../measurements';
+import { Binding } from '../sections';
+import { ChartComponentProps, ChartLayoutProps, FlowToggleProps, PeriodToggleProps } from './types';
 
-export default (Layout, Chart, FlowToggle, PeriodToggle) => {
-  class InteractiveChart extends React.Component {
-    static propTypes = {
-      data: PropTypes.arrayOf(PropTypes.shape({
-        level: PropTypes.number,
-        flow: PropTypes.number,
-        timestamp: PropTypes.instanceOf(Date),
-      })).isRequired, // This is all data available to the chart
-      loading: PropTypes.bool.isRequired,
-      startDate: PropTypes.instanceOf(Date).isRequired,
-      endDate: PropTypes.instanceOf(Date).isRequired,
-      onDomainChanged: PropTypes.func,
-      levels: PropTypes.shape({
-        minimum: PropTypes.number,
-        maximum: PropTypes.number,
-        optimum: PropTypes.number,
-        impossible: PropTypes.number,
-        approximate: PropTypes.number,
-      }),
-      flows: PropTypes.shape({
-        minimum: PropTypes.number,
-        maximum: PropTypes.number,
-        optimum: PropTypes.number,
-        impossible: PropTypes.number,
-        approximate: PropTypes.number,
-      }),
-      levelUnit: PropTypes.string,
-      flowUnit: PropTypes.string,
-    };
+export interface Props {
+  data: GaugeMeasurement[];
+  loading: boolean;
+  startDate: Date;
+  endDate: Date;
+  onDomainChanged?: (domain: [Date, Date]) => void;
+  levels: Binding;
+  flows: Binding;
+  levelUnit: string | null;
+  flowUnit: string | null;
+}
 
-    static defaultProps = {
-      onDomainChanged: () => {},
-      binding: {},
-    };
+interface State {
+  chartDomain: [Date, Date];
+  unit: Unit;
+}
 
-    constructor(props) {
+export default (
+  Layout: ComponentType<ChartLayoutProps>,
+  Chart: ComponentType<ChartComponentProps>,
+  FlowToggle: ComponentType<FlowToggleProps>,
+  PeriodToggle: ComponentType<PeriodToggleProps>,
+) => {
+  class InteractiveChart extends React.Component<Props, State> {
+
+    constructor(props: Props) {
       super(props);
       this.state = {
         // This is what is selected on chart, available data can contain more measurements
         chartDomain: [props.startDate, props.endDate],
-        unit: props.flowUnit ? 'flow' : 'level',
+        unit: props.flowUnit ? Unit.FLOW : Unit.LEVEL,
       };
     }
 
-    onDomainChanged = ({ x: chartDomain }) => {
+    onDomainChanged = ({ x: chartDomain }: {x: [Date, Date]}) => {
       this.setState({ chartDomain });
       // Ask parent to give us new data (or maybe same, if new domain is more narrow than existing data)
-      this.props.onDomainChanged(chartDomain);
+      if (this.props.onDomainChanged) {
+        this.props.onDomainChanged(chartDomain);
+      }
     };
 
-    onUnitChanged = unit => this.setState({ unit });
+    onUnitChanged = (unit: Unit) => this.setState({ unit });
 
-    setDomainInDays = (days) => {
-      const chartDomain = [moment().subtract(days, 'days').toDate(), new Date()];
+    setDomainInDays = (days: number) => {
+      const chartDomain: [Date, Date] = [moment().subtract(days, 'days').toDate(), new Date()];
       this.setState({ chartDomain });
       // Ask parent to give us new data (or maybe same, if new domain is more narrow than existing data)
-      this.props.onDomainChanged(chartDomain);
+      if (this.props.onDomainChanged) {
+        this.props.onDomainChanged(chartDomain);
+      }
     };
 
     render() {
@@ -68,18 +64,20 @@ export default (Layout, Chart, FlowToggle, PeriodToggle) => {
       const start = moment(chartDomain[0]);
       const end = moment(chartDomain[1]);
       // Filter data so chart doesn't draw anything beyond selection
-      const data = _.filter(this.props.data, ({ date }) => start.isBefore(date) && end.isAfter(date));
+      const data = this.props.data.filter(({ date }) => start.isBefore(date) && end.isAfter(date));
       const binding = unit === 'flow' ? flows : levels;
 
-      const chart = (<Chart
-        binding={binding}
-        data={data}
-        unit={unit}
-        domain={chartDomain}
-        levelUnit={levelUnit}
-        flowUnit={flowUnit}
-        onDomainChanged={this.onDomainChanged}
-      />);
+      const chart = (
+        <Chart
+          binding={binding}
+          data={data}
+          unit={unit}
+          domain={chartDomain}
+          levelUnit={levelUnit}
+          flowUnit={flowUnit}
+          onDomainChanged={this.onDomainChanged}
+        />
+      );
       const flowToggle = (
         <FlowToggle
           enabled={!!flowUnit && !!levelUnit}
@@ -89,12 +87,14 @@ export default (Layout, Chart, FlowToggle, PeriodToggle) => {
           onChange={this.onUnitChanged}
         />
       );
-      const periodToggle = (<PeriodToggle
-        onChange={this.setDomainInDays}
-        loading={this.props.loading}
-        startDate={chartDomain[0]}
-        endDate={chartDomain[1]}
-      />);
+      const periodToggle = (
+        <PeriodToggle
+          onChange={this.setDomainInDays}
+          loading={this.props.loading}
+          startDate={chartDomain[0]}
+          endDate={chartDomain[1]}
+        />
+      );
 
       return (
         <Layout

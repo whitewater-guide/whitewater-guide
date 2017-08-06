@@ -1,15 +1,14 @@
 import { createSelector } from 'reselect';
-import { defaultSectionSearchTerms } from '../../../domain';
+import { DefaultSectionSearchTerms } from '../../sections/types';
 
-const regionIdFromProps = (_, props) => props.regionId;
-const regionsSelector = state => state.persistent.regions;
+const regionIdFromProps = (_: any, props: any) => props.regionId;
+const regionsSelector = (state: any) => state.persistent.regions;
 
 export const searchTermsSelector = createSelector(
   regionsSelector,
   regionIdFromProps,
   (regions, regionId) => {
     const region = regions[regionId || 'all'];
-    return { searchTerms: (region && region.searchTerms) || defaultSectionSearchTerms };
+    return { searchTerms: (region && region.searchTerms) || DefaultSectionSearchTerms };
   },
 );
-

@@ -1,6 +1,5 @@
 import { gql } from 'react-apollo';
 import { compose } from 'recompose';
-import { filter } from 'graphql-anywhere';
 import { enhancedQuery } from '../../apollo';
 import { withFeatureIds } from '../../core/withFeatureIds';
 import riverReducer from './riverReducer';

@@ -93,7 +93,7 @@ export function hslMix(color1, color2, ratio = 0.5) {
   const ds = s2 - s1;
   const dl = l2 - l1;
   return color.hsl([
-    Math.round(h1 + dh * ratio), 
+    Math.round(h1 + dh * ratio),
     Math.round(s1 + ds * ratio),
     Math.round(l1 + dl * ratio),
   ]);
@@ -251,7 +251,7 @@ const colorTable = {
   },
 };
 
-export default function getSectionColor(data) {
+export function getSectionColor(data) {
   if (!data.lastValue) {
     return Colors.none.string();
   }

@@ -1,22 +1,42 @@
-import { branch, compose, mapProps, renderComponent, setDisplayName } from 'recompose';
+import { ComponentType } from 'react';
 import { connect } from 'react-redux';
-import { selectSection, selectPOI, selectBounds } from './actions';
-import { getMapView } from '../maps';
-import { sectionsBatchLoader } from '../sections';
+import { branch, compose, mapProps, renderComponent, setDisplayName } from 'recompose';
+import { getMapView, MapLayoutProps, MapProps, SelectedPOIViewProps, SelectedSectionViewProps } from '../maps';
+import { Point } from '../points';
+import { Section, sectionsBatchLoader } from '../sections';
+import { selectBounds, selectPOI, selectSection } from './actions';
+import { RegionState } from './reducers';
+import { WithRegion } from './withRegion';
 
-export default (Layout, Map, SelectedSection, SelectedPOI, LoadingIndicator) => compose(
+interface DispatchProps {
+  onSectionSelected: (section: Section) => void;
+  onPOISelected: (poi: Point) => void;
+  onBoundsSelected: (bounds: number[][]) => void;
+}
+
+interface RegionMapProps extends MapProps {
+  onBoundsSelected: (bounds: number[][]) => void;
+}
+
+export default (
+  Layout: ComponentType<MapLayoutProps>,
+  Map: ComponentType<RegionMapProps>,
+  SelectedSection: ComponentType<SelectedSectionViewProps>,
+  SelectedPOI: ComponentType<SelectedPOIViewProps>,
+  LoadingIndicator: ComponentType<any>,
+) => compose<RegionMapProps, WithRegion>(
   setDisplayName('RegionMapView'),
-  branch(
+  branch<WithRegion>(
     props => props.regionLoading,
     renderComponent(LoadingIndicator),
     compose(
       sectionsBatchLoader(),
-      connect(
-        (state, { region }) => state.persistent.regions[region._id],
-        (dispatch, { region }) => ({
-          onSectionSelected: section => dispatch(selectSection(region._id, section)),
-          onPOISelected: poi => dispatch(selectPOI(region._id, poi)),
-          onBoundsSelected: bounds => dispatch(selectBounds(region._id, bounds)),
+      connect<RegionState, DispatchProps, WithRegion>(
+        (state, { region }: WithRegion) => state.persistent.regions[region!.id],
+        (dispatch, { region }: WithRegion) => ({
+          onSectionSelected: section => dispatch(selectSection({ regionId: region!.id, section })),
+          onPOISelected: poi => dispatch(selectPOI({ regionId: region!.id, poi })),
+          onBoundsSelected: bounds => dispatch(selectBounds({ regionId: region!.id, bounds })),
         }),
       ),
       mapProps(({ region, sections, selectedBounds, ...props }) => ({

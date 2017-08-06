@@ -1,25 +1,32 @@
-import { UPDATE_REGION, RESET_SEARCH_TERMS } from '../actions';
-import { defaultSectionSearchTerms } from '../../../domain';
+import { Action, isType } from 'typescript-fsa';
+import { DefaultSectionSearchTerms } from '../../sections/types';
+import { resetSearchTerms, selectBounds, selectPOI, selectSection, updateSearchTerms } from '../actions';
+import { RegionState } from './types';
 
-const initialState = {
+const initialState: RegionState = {
   selectedBounds: null,
   selectedSectionId: null,
   selectedPOIId: null,
-  searchTerms: { ...defaultSectionSearchTerms },
+  searchTerms: { ...DefaultSectionSearchTerms },
 };
 
-export default (state = initialState, { type, payload }) => {
-  switch (type) {
-    case UPDATE_REGION: {
-      // Merge search terms shallowly, then the rest state shallowly
-      const searchTerms = payload.data.searchTerms ?
-        { ...state.searchTerms, ...payload.data.searchTerms } :
-        state.searchTerms;
-      return { ...state, ...payload.data, searchTerms };
-    }
-    case RESET_SEARCH_TERMS:
-      return { ...state, searchTerms: { ...defaultSectionSearchTerms } };
-    default:
-      return state;
+export default (state = initialState, action: Action<any>) => {
+  if (isType(action, updateSearchTerms)) {
+    return { ...state, searchTerms: { ...state.searchTerms, ...action.payload.searchTerms } };
   }
+  if (isType(action, resetSearchTerms)) {
+    return { ...state, searchTerms: { ...DefaultSectionSearchTerms } };
+  }
+  if (isType(action, selectSection)) {
+    const section = action.payload.section;
+    return { ...state, selectedSectionId: section ? section.id : null };
+  }
+  if (isType(action, selectPOI)) {
+    const poi = action.payload.poi;
+    return { ...state, selectedPOIId: poi ? poi.id : null };
+  }
+  if (isType(action, selectBounds)) {
+    return { ...state, selectedBounds: action.payload.bounds };
+  }
+  return state;
 };

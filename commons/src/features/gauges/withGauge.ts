@@ -1,9 +1,9 @@
+import * as moment from 'moment';
 import { gql, graphql } from 'react-apollo';
-import { withState, withHandlers, mapProps, compose } from 'recompose';
-import { filter } from 'graphql-anywhere';
-import moment from 'moment';
+import { compose, mapProps, renameProp, withHandlers, withState } from 'recompose';
 import { withFeatureIds } from '../../core/withFeatureIds';
 import { GaugeFragments } from './gaugeFragments';
+import { Gauge } from './types';
 
 const ViewGaugeQuery = gql`
   query viewGaugeQuery( $gaugeId: ID, $language:String ) {
@@ -36,62 +36,84 @@ const ViewMeasurementsQuery = gql`
   }
 `;
 
-const coreGraphql = propName => graphql(
+interface WithGaugeInput {
+  gaugeId: string;
+  language?: string;
+  startDate?: Date;
+  endDate?: Date;
+}
+
+interface WithGaugeResult {
+  gauge: Gauge;
+}
+
+interface WithGaugeProps {
+  gaugeLoading: boolean;
+  gauge: Gauge;
+}
+
+const coreGraphql = graphql<WithGaugeResult, WithGaugeInput, WithGaugeProps>(
   ViewGaugeQuery,
   {
-    options: ({ gaugeId, admin, language }) => ({
+    options: ({ gaugeId, language }) => ({
       fetchPolicy: 'cache-and-network',
-      variables: { gaugeId, language, withHarvestInfo: admin },
+      variables: { gaugeId, language },
     }),
-    props: ({ data: { gauge, loading } }) => {
-      // Convert custom scalar, clean __typenames so they don't mess with forms
-      let result = null;
+    props: ({ data }) => {
+      const { gauge, loading } = data!;
+      let result: Gauge | null = null;
       if (gauge) {
         result = {
-          ...filter(GaugeFragments.All, gauge),
+          ...gauge,
           requestParams: JSON.stringify(gauge.requestParams),
         };
       }
-      return { [propName]: result, gaugeLoading: loading };
+      return { gauge: result, gaugeLoading: loading };
     },
   },
 );
 
-const measurementsGraphql = propName => graphql(
+const measurementsGraphql = graphql<WithGaugeResult, WithGaugeInput & WithGaugeProps, WithGaugeProps>(
   ViewMeasurementsQuery,
   {
     options: ({ gaugeId, startDate, endDate }) => ({
       fetchPolicy: 'cache-and-network',
-      variables: { gaugeId, startDate: startDate.toString(), endDate: endDate.toString() },
+      variables: { gaugeId, startDate: startDate!.toString(), endDate: endDate!.toString() },
     }),
-    props: ({ data: { gauge, loading }, ownProps }) => {
+    props: ({ data, ownProps }) => {
+      const { gauge, loading } = data!;
       if (!gauge) {
-        return { [propName]: null, gaugeLoading: true };
+        return { gauge: ownProps.gauge, gaugeLoading: true };
       }
       const { measurements, ...restGauge } = gauge;
       // This measurements query is never used alone, only together with coreGraphql query (see above)
       // Therefore some gauge fields are coming from parent and should be merged, as well as loading status
-      const mergedGauge = {
+      const mergedGauge: Gauge = {
         ...ownProps.gauge,
         ...restGauge,
-        measurements: measurements.map(({ date, ...rest }) => ({ date: new Date(date), ...rest })),
+        measurements: measurements!.map(({ date, ...rest }) => ({ date: new Date(date), ...rest })),
       };
-      return { [propName]: mergedGauge, gaugeLoading: loading || ownProps.gaugeLoading };
+      return { gauge: mergedGauge, gaugeLoading: loading || ownProps.gaugeLoading };
     },
   },
 );
 
-export default function withGauge({ withMeasurements = false, propName = 'gauge' }) {
+interface WithGaugeOptions {
+  withMeasurements?: boolean;
+  propName?: string;
+}
+
+export function withGauge({ withMeasurements = false, propName = 'gauge' }: WithGaugeOptions) {
   let hocs = [
     withFeatureIds('gauge'),
-    coreGraphql(propName),
+    coreGraphql,
   ];
   if (withMeasurements) {
     hocs = [
       ...hocs,
       withState('timeDomain', 'setTimeDomain', [moment().subtract(1, 'days').toDate(), new Date()]),
       withHandlers({
-        onDomainChanged: props => ([startDate, endDate]) => {
+        onDomainChanged: props => ([startDate, endDate]: [Date, Date]) => {
           const [oldStart, oldEnd] = props.timeDomain;
           const newStart = moment(startDate).isBefore(oldStart) ? startDate : oldStart;
           const newEnd = moment(endDate).isAfter(oldEnd) ? endDate : oldEnd;
@@ -99,8 +121,11 @@ export default function withGauge({ withMeasurements = false, propName = 'gauge'
         },
       }),
       mapProps(({ timeDomain: [startDate, endDate], ...props }) => ({ ...props, startDate, endDate })),
-      measurementsGraphql(propName),
+      measurementsGraphql,
     ];
+  }
+  if (propName !== 'gauge') {
+    hocs = [...hocs, renameProp('gauge', propName)];
   }
   return compose(...hocs);
 }

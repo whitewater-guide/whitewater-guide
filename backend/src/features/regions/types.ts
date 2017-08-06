@@ -1,9 +1,8 @@
-import { ArrayMaxSize, IsDefined, IsInt, IsUUID, Length, Max, Min } from 'class-validator';
 import { Geometry, Point, Polygon } from 'wkx';
-import { NamedResource } from '../../apollo';
+import { NamedResource } from 'ww-commons/core';
+import { RegionInput } from 'ww-commons/features/regions';
 import { loadGraphqlFile } from '../../apollo/loadGraphqlFile';
 import { RawTimestamped } from '../../db';
-import { Timestamped } from '../../db/types';
 
 export const RegionsSchema = loadGraphqlFile('regions');
 
@@ -16,42 +15,6 @@ export interface RegionRaw extends NamedResource, RawTimestamped {
   season_numeric: number[];
   bounds: string | null;
   hidden: boolean | null;
-}
-
-/**
- * This is graphql type
- */
-export interface Region extends NamedResource, Timestamped {
-  description: string | null;
-  season: string | null;
-  seasonNumeric: number[];
-  bounds: Array<[number, number, number]> | null;
-  hidden: boolean | null;
-}
-
-export class RegionInput {
-  @IsUUID()
-  id?: string;
-
-  @IsDefined()
-  @Length(3, 128)
-  name: string;
-
-  description?: string;
-
-  season?: string;
-
-  @IsDefined()
-  @IsInt({ each: true })
-  @Min(0, { each: true })
-  @Max(23, { each: true })
-  @ArrayMaxSize(24)
-  seasonNumeric?: number[];
-
-  // TODO: add validation
-  bounds?: Array<[number, number, number]>;
-
-  hidden?: boolean;
 }
 
 export function toRaw(input: RegionInput): Partial<RegionRaw> {

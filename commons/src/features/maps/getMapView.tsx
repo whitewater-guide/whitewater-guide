@@ -1,21 +1,21 @@
-import React from 'react';
 import { find } from 'lodash';
-import shallowequal from 'shallowequal';
-import { DefaultProps, PropTypes } from './MapBase';
+import * as React from 'react';
+import { ComponentType } from 'react';
+import { Point } from '../points';
+import { Section } from '../sections';
+import { MapLayoutProps, MapProps, SelectedPOIViewProps, SelectedSectionViewProps } from './types';
+import shallowequal = require('shallowequal');
 
-const customizer = (val, other, key) => (key === 'initialBounds' ? true : undefined);
+const customizer = (val: any, other: any, key: string) => (key === 'initialBounds' ? true : undefined);
 
-export const getMapView = (Layout, Map, SelectedSection, SelectedPOI) => {
-  class MapViewBase extends React.Component {
-    static propTypes = {
-      ...PropTypes,
-    };
-
-    static defaultProps = {
-      ...DefaultProps,
-    };
-
-    shouldComponentUpdate(nextProps) {
+export const getMapView = <M extends MapProps>(
+  Layout: ComponentType<MapLayoutProps>,
+  Map: ComponentType<M>,
+  SelectedSection: ComponentType<SelectedSectionViewProps>,
+  SelectedPOI: ComponentType<SelectedPOIViewProps>,
+) => {
+  class MapViewBase extends React.Component<M> {
+    shouldComponentUpdate(nextProps: M) {
       // Initial bounds are initial and should not cause re-rendering
       return !shallowequal(nextProps, this.props, customizer);
     }
@@ -23,7 +23,7 @@ export const getMapView = (Layout, Map, SelectedSection, SelectedPOI) => {
     render() {
       const { selectedSectionId, sections, onSectionSelected, selectedPOIId, pois, onPOISelected } = this.props;
       const mapView = <Map {...this.props} />;
-      const selectedSection = find(sections, { _id: selectedSectionId });
+      const selectedSection = find(sections, ({ id }: Section) => id === selectedSectionId) || null;
       const selectedSectionView = (
         <SelectedSection
           onSectionSelected={onSectionSelected}
@@ -31,7 +31,7 @@ export const getMapView = (Layout, Map, SelectedSection, SelectedPOI) => {
           selectedSection={selectedSection}
         />
       );
-      const selectedPOI = find(pois, { _id: selectedPOIId });
+      const selectedPOI = find(pois, ({ id }: Point) => id === selectedPOIId) || null;
       const selectedPOIView = (
         <SelectedPOI
           selectedPOI={selectedPOI}
@@ -41,7 +41,6 @@ export const getMapView = (Layout, Map, SelectedSection, SelectedPOI) => {
       );
       return (
         <Layout
-          {...this.props}
           mapView={mapView}
           selectedSectionView={selectedSectionView}
           selectedPOIView={selectedPOIView}

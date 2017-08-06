@@ -24,40 +24,6 @@ export interface SourceRaw extends NamedResource, RawTimestamped {
   enabled: boolean | null;
 }
 
-/**
- * This is graphql type
- */
-export interface Source extends NamedResource, Timestamped {
-  termsOfUse: string | null;
-  script: string;
-  cron: string | null;
-  harvestMode: HarvestMode;
-  url: string | null;
-  enabled: boolean | null;
-}
-
-export class SourceInput {
-  @IsUUID()
-  id?: string;
-
-  @Length(3, 128)
-  name: string;
-
-  termsOfUse?: string;
-
-  @IsDefined()
-  script: string;
-
-  @isCron()
-  cron?: string;
-
-  @IsEnum(HarvestMode)
-  harvestMode: HarvestMode;
-
-  @IsUrl()
-  url?: string;
-}
-
 export function inputToRaw(input: SourceInput): Partial<SourceRaw> {
   return {
     id: input.id,

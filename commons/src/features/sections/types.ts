@@ -1,0 +1,91 @@
+import { NamedResource, Timestamped } from '../../core';
+import { Gauge } from '../gauges';
+import { Media } from '../media';
+import { Point } from '../points';
+import { Region } from '../regions';
+import { Tag } from '../tags';
+
+export enum Duration {
+  LAPS = 0,
+  TWICE = 10,
+  DAYRUN = 20,
+  OVERNIGHTER = 30,
+  MULTIDAY = 40,
+}
+
+export const Durations = new Map<number, string>();
+Durations.set(Duration.LAPS, 'laps');
+Durations.set(Duration.TWICE, 'twice');
+Durations.set(Duration.DAYRUN, 'full day');
+Durations.set(Duration.OVERNIGHTER, 'overnighter');
+Durations.set(Duration.MULTIDAY, 'multiday');
+
+export interface Binding {
+  minimum: number | null;
+  optimum: number | null;
+  maximum: number | null;
+  impossible: number | null;
+  approximate: boolean;
+  lastValue: number | null;
+  lastTimestamp: Date | null;
+}
+
+export interface BindingInput {
+  minimum?: number;
+  optimum?: number;
+  maximum?: number;
+  impossible?: number;
+  approximate?: boolean;
+}
+
+export interface Section extends NamedResource, Timestamped {
+  description: string | null;
+  season: string | null;
+  seasonNumeric: number[];
+
+  region: Region;
+  // river: River;
+
+  gauge: Gauge | null;
+  levels: Binding | null;
+  flows: Binding | null;
+  flowsText: string;
+
+  putIn: Point;
+  takeOut: Point;
+  shape: number[][];
+  distance: number | null;
+  drop: number | null;
+  duration: Duration | null;
+  difficulty: number;
+  difficultyXtra: string | null;
+  rating: number | null;
+
+  supplyTags: Tag[];
+  kayakingTags: Tag[];
+  hazardsTags: Tag[];
+  miscTags: Tag[];
+
+  media: Media[];
+  pois: Point[];
+}
+
+export interface SectionSearchTerms {
+  sortBy: 'name' | 'difficulty' | 'duration' | 'rating';
+  sortDirection: 'ASC' | 'DESC';
+  searchString: '';
+  difficulty: [number, number];
+  duration: [Duration, Duration];
+  rating: number;
+  seasonNumeric: [number, number];
+}
+
+export const DefaultSectionSearchTerms: SectionSearchTerms = {
+  sortBy: 'name',
+  sortDirection: 'ASC',
+  searchString: '',
+  difficulty: [1, 6],
+  duration: [Duration.LAPS, Duration.MULTIDAY],
+  rating: 0,
+  seasonNumeric: [0, 23],
+};

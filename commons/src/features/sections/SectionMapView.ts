@@ -2,7 +2,7 @@ import { branch, compose, withPropsOnChange, renderComponent, setDisplayName, wi
 import { get } from 'lodash';
 import { getMapView } from '../maps';
 
-export default (Layout, Map, SelectedSection, SelectedPOI, LoadingIndicator) => compose(
+export const SectionMapView = (Layout, Map, SelectedSection, SelectedPOI, LoadingIndicator) => compose(
   setDisplayName('SectionMapView'),
   branch(
     props => props.sectionLoading,

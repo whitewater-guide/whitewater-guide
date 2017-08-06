@@ -1,32 +1,44 @@
 import { gql } from 'react-apollo';
 import { enhancedQuery } from '../../apollo';
-import regionsListReducer from './regionsListReducer';
+import { Region } from './types';
 
 const ListRegionsQuery = gql`
   query listRegions {
     regions {
-      _id,
-      name,
-      riversCount,
-      sectionsCount,
+      id
+      name
+      riversCount
+      sectionsCount
     }
   }
 `;
 
-const withRegionsList = enhancedQuery(
+interface Result {
+  regions: Region[];
+}
+
+interface ChildProps {
+  regions: Region[];
+  regionsListLoading: boolean;
+  refetchRegionsList: () => void;
+}
+
+export const withRegionsList = enhancedQuery<Result, any, ChildProps>(
   ListRegionsQuery,
   {
     options: {
       fetchPolicy: 'cache-and-network',
-      reducer: regionsListReducer,
+      // TODO: use update instead of reducer, as reducer is deprecated
+      // reducer: regionsListReducer,
       notifyOnNetworkStatusChange: true,
+    } as any, // TODO: https://github.com/apollographql/react-apollo/issues/896 should be fixed
+    props: ({ data }) => {
+      const { regions, loading, refetch } = data!;
+      return {
+        regions: regions || [],
+        regionsListLoading: loading && !regions,
+        refetchRegionsList: refetch,
+      };
     },
-    props: ({ data: { regions, loading, refetch } }) => ({
-      regions: regions || [],
-      regionsListLoading: loading && !regions,
-      refetchRegionsList: refetch,
-    }),
   },
 );
-
-export default withRegionsList;
