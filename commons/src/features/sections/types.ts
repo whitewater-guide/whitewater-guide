@@ -5,6 +5,7 @@ import { Point } from '../points';
 import { Region } from '../regions';
 import { River } from '../rivers';
 import { Tag } from '../tags';
+import { SelectableTagInput } from '../tags/types';
 
 export enum Duration {
   LAPS = 0,
@@ -79,6 +80,15 @@ export interface SectionSearchTerms {
   duration: [Duration, Duration];
   rating: number;
   seasonNumeric: [number, number];
+}
+
+export interface SectionSearchTermInput extends SectionSearchTerms {
+  regionId?: string;
+
+  supplyTags?: SelectableTagInput[];
+  kayakingTags?: SelectableTagInput[];
+  hazardsTags?: SelectableTagInput[];
+  miscTags?: SelectableTagInput[];
 }
 
 export const DefaultSectionSearchTerms: SectionSearchTerms = {

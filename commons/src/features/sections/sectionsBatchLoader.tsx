@@ -1,29 +1,27 @@
-import React from 'react';
-import { SectionsPropType } from './propTypes';
+import * as React from 'react';
+import { ComponentType } from 'react';
+import { WithSections } from './withSectionsList';
 
 /**
  * High order component that automatically loads all available sections in batches
  * @param batchSize - number of sections to load at once
  * @returns {SectionsBatchLoader}
  */
-export const sectionsBatchLoader = (batchSize = 25) => (Component) => {
-  class SectionsBatchLoader extends React.PureComponent {
-    static propTypes = {
-      sections: SectionsPropType.isRequired,
-    };
+export const sectionsBatchLoader = (batchSize = 25) => (Wrapped: ComponentType<any>) => {
+  class SectionsBatchLoader extends React.PureComponent<WithSections> {
 
     componentDidMount() {
-      this.loadMoreSections({ sections: { list: [] } });
+      this.loadMoreSections(null);
     }
 
-    componentDidUpdate(prevPros) {
+    componentDidUpdate(prevPros: WithSections) {
       this.loadMoreSections(prevPros);
     }
 
-    loadMoreSections = (prevPros) => {
+    loadMoreSections = (prevPros: WithSections | null) => {
       const { loadMore, list, count, loading } = this.props.sections;
       const numSections = list.length;
-      const prevNumSections = prevPros.sections.list.length;
+      const prevNumSections = prevPros ? prevPros.sections.list.length : 0;
       // Do not compare count like this: `prevNumSections < numSections`
       // Because when cache is starting to refresh, it is prevNumSections > numSections
       if (prevNumSections !== numSections && numSections < count && !loading) {
@@ -32,7 +30,9 @@ export const sectionsBatchLoader = (batchSize = 25) => (Component) => {
     };
 
     render() {
-      return <Component {...this.props} />;
+      return (
+        <Wrapped {...this.props} />
+      );
     }
   }
 

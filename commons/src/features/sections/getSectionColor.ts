@@ -1,6 +1,11 @@
-/* eslint no-bitwise: 0 */
-import color from 'color';
+/* tslint:disable:no-bitwise */
+import * as color from 'color';
 import { isFunction, mapValues } from 'lodash';
+import { Binding } from './types';
+
+interface DryBinding extends Partial<Binding> {
+  dry: number;
+}
 
 // Color scheme is discussed here: https://github.com/doomsower/whitewater/issues/45
 // Basically, we process every possible combination of present/absent minimum,optimum, maximum and impossible levels
@@ -23,7 +28,7 @@ export const Colors = {
 
 export const ColorStrings = mapValues(Colors, clr => clr.hsl().string());
 
-export const getColorForValue = (value, binding, defaultColor) => {
+export const getColorForValue = (value: number, binding: Binding, defaultColor: string) => {
   if (!binding) {
     return defaultColor;
   }
@@ -41,7 +46,7 @@ export const getColorForValue = (value, binding, defaultColor) => {
 };
 
 // a.k.a. "absolute minimum"
-export function getDryLevel({ minimum, maximum, optimum, impossible }) {
+export function getDryLevel({ minimum, maximum, optimum, impossible }: Partial<Binding>) {
   if (!minimum) {
     return 0;
   } else if (optimum) {
@@ -54,7 +59,7 @@ export function getDryLevel({ minimum, maximum, optimum, impossible }) {
   return 0.7 * minimum;
 }
 
-function getRow({ minimum, maximum, optimum, impossible }) {
+function getRow({ minimum, maximum, optimum, impossible }: Partial<Binding>) {
   let result = 0;
   if (minimum) {
     result |= 8;
@@ -71,22 +76,22 @@ function getRow({ minimum, maximum, optimum, impossible }) {
   return result;
 }
 
-function getCol({ dry, minimum, maximum, optimum, impossible, lastValue }) {
-  if (lastValue <= dry) {
+function getCol({ dry, minimum, maximum, optimum, impossible, lastValue }: DryBinding) {
+  if (dry >= lastValue!) {
     return 0;
-  } else if (minimum && lastValue < minimum) {
+  } else if (minimum && lastValue! < minimum) {
     return 1;
-  } else if (optimum && lastValue < optimum) {
+  } else if (optimum && lastValue! < optimum) {
     return 2;
-  } else if (maximum && lastValue < maximum) {
+  } else if (maximum && lastValue! < maximum) {
     return 3;
-  } else if (impossible && lastValue < impossible) {
+  } else if (impossible && lastValue! < impossible) {
     return 4;
   }
   return 5;
 }
 
-export function hslMix(color1, color2, ratio = 0.5) {
+export function hslMix(color1: color, color2: color, ratio = 0.5) {
   const [h1, s1, l1] = color1.hsl().array();
   const [h2, s2, l2] = color2.hsl().array();
   const dh = h2 - h1;
@@ -99,24 +104,30 @@ export function hslMix(color1, color2, ratio = 0.5) {
   ]);
 }
 
-function mix(col, { dry, minimum, maximum, optimum, impossible, lastValue }) {
+function mix(col: number, { dry, minimum, maximum, optimum, impossible, lastValue }: DryBinding) {
   switch (col) {
     case 0:
       return Colors.dry;
     case 1:
-      return hslMix(Colors.dry, Colors.minimum, (lastValue - dry) / (minimum - dry));
+      return hslMix(Colors.dry, Colors.minimum, (lastValue! - dry) / (minimum! - dry));
     case 2:
-      return hslMix(Colors.minimum, Colors.optimum, (lastValue - minimum) / (optimum - minimum));
+      return hslMix(Colors.minimum, Colors.optimum, (lastValue! - minimum!) / (optimum! - minimum!));
     case 3:
-      return hslMix(Colors.optimum, Colors.maximum, (lastValue - optimum) / (maximum - optimum));
+      return hslMix(Colors.optimum, Colors.maximum, (lastValue! - optimum!) / (maximum! - optimum!));
     case 4:
-      return hslMix(Colors.maximum, Colors.impossible, (lastValue - maximum) / (impossible - maximum));
+      return hslMix(Colors.maximum, Colors.impossible, (lastValue! - maximum!) / (impossible! - maximum!));
     default:
       return Colors.impossible;
   }
 }
 
-const colorTable = {
+interface ColorTable {
+  [row: number]: {
+    [col: number]: color | ((b: Partial<Binding>) => color) | null;
+  };
+}
+
+const colorTable: ColorTable = {
   0: {
     0: Colors.none,
     1: Colors.none,
@@ -161,10 +172,10 @@ const colorTable = {
     0: Colors.none,
     1: Colors.none,
     2: Colors.none,
-    3: ({ optimum, impossible, lastValue }) =>
-      hslMix(Colors.optimum, Colors.impossible, (lastValue - optimum) / (impossible - optimum)),
-    4: ({ optimum, impossible, lastValue }) =>
-      hslMix(Colors.optimum, Colors.impossible, (lastValue - optimum) / (impossible - optimum)),
+    3: ({ optimum, impossible, lastValue }: Binding) =>
+      hslMix(Colors.optimum, Colors.impossible, (lastValue! - optimum!) / (impossible! - optimum!)),
+    4: ({ optimum, impossible, lastValue }: Binding) =>
+      hslMix(Colors.optimum, Colors.impossible, (lastValue! - optimum!) / (impossible! - optimum!)),
     5: Colors.impossible,
   },
   6: {
@@ -227,10 +238,10 @@ const colorTable = {
     0: Colors.dry,
     1: null,
     2: null,
-    3: ({ optimum, impossible, lastValue }) =>
-      hslMix(Colors.optimum, Colors.impossible, (lastValue - optimum) / (impossible - optimum)),
-    4: ({ optimum, impossible, lastValue }) =>
-      hslMix(Colors.optimum, Colors.impossible, (lastValue - optimum) / (impossible - optimum)),
+    3: ({ optimum, impossible, lastValue }: Binding) =>
+      hslMix(Colors.optimum, Colors.impossible, (lastValue! - optimum!) / (impossible! - optimum!)),
+    4: ({ optimum, impossible, lastValue }: Binding) =>
+      hslMix(Colors.optimum, Colors.impossible, (lastValue! - optimum!) / (impossible! - optimum!)),
     5: Colors.impossible,
   },
   14: {
@@ -251,7 +262,7 @@ const colorTable = {
   },
 };
 
-export function getSectionColor(data) {
+export function getSectionColor(data: Partial<Binding>) {
   if (!data.lastValue) {
     return Colors.none.string();
   }

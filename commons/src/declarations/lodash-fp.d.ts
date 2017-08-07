@@ -436,6 +436,11 @@ declare namespace fp {
     filter(predicate: string): (collection: string) => string[];
     filter<W extends {}, T>(predicate: W): (collection: List<T>) => T[];
 
+    reject<T>(fn: (value:T) => boolean): (list:T[]) => T[];
+    reject<T>(fn: (value:T) => boolean, list:T[]): T[];
+    reject(predicate: string): (collection: string) => string[];
+    reject<W extends {}, T>(predicate: W): (collection: List<T>) => T[];
+
     /**
      * A special placeholder value used to specify "gaps" within curried functions, allowing partial
      * application of any combination of arguments, regardless of their positions.

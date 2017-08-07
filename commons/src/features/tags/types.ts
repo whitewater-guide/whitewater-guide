@@ -21,6 +21,11 @@ export interface SelectableTag extends Tag {
   selection: TagSelection;
 }
 
+export interface SelectableTagInput {
+  id: string;
+  selection: -1 | 1;
+}
+
 export interface WithSelectableTags {
   supplyTags: SelectableTag[];
   kayakingTags: SelectableTag[];

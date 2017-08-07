@@ -16,7 +16,7 @@ export interface FlowToggleProps {
   enabled: boolean;
   measurement: Unit;
   unit: string | null;
-  value: number;
+  value: number | null;
   onChange: (unit: Unit) => void;
 }
 

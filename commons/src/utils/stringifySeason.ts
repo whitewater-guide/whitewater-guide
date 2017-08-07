@@ -45,7 +45,7 @@ function loopAroundNewYear(seasons: number[]): number[] {
  * @range - If true, seasonNumeric is considered to be a range (possibly, looping around new year, like (e.g. [22, 3])
  * otherwise - just set of half-months
  */
-export default function stringifySeason(seasonNumeric: number[], range: boolean = false): string {
+export default function stringifySeason(seasonNumeric?: number[], range: boolean = false): string {
   if (!seasonNumeric || seasonNumeric.length === 0) {
     return '';
   }

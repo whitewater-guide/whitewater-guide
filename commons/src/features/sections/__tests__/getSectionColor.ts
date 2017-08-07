@@ -1,6 +1,6 @@
-import getSectionColor, { Colors, hslMix, getDryLevel } from '../getSectionColor';
-import mapValues from 'lodash/mapValues';
-import color from 'color';
+import * as color from 'color';
+import { mapValues } from 'lodash';
+import { Colors, getDryLevel, getSectionColor, hslMix } from '../getSectionColor';
 
 const ColorStrings = mapValues(Colors, c => c.hsl().string());
 

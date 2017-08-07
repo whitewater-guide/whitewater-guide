@@ -1,11 +1,11 @@
 import {
   arrayToDMSString,
-  computeDistanceBetween,
-  getBoundsZoomLevel,
-  gmapsToArray,
   arrayToGmaps,
-  getCoordinatesPatch,
+  computeDistanceBetween,
   getBBox,
+  getBoundsZoomLevel,
+  getCoordinatesPatch,
+  gmapsToArray, LonLatTuple,
 } from '../GeoUtils';
 
 test('Gmaps to array should handle nulls', () => {
@@ -48,7 +48,7 @@ test('computeDistanceBetween should roughly match google maps', () => {
 
 test('Get zoom should match google maps', () => {
   // Google maps: https://jsfiddle.net/doomsower/vxLhnrxL/4/
-  const bounds = [
+  const bounds: LonLatTuple[] = [
     [-10.628008, 40.8984],
     [-6.584231, 42.847559],
   ];
@@ -56,48 +56,48 @@ test('Get zoom should match google maps', () => {
 });
 
 test('getCoordinatesPatch should return null for equal arrays', () => {
-  const prev = [[0, 0], [1, 1]];
-  const next = [[0, 0], [1, 1]];
+  const prev: LonLatTuple[] = [[0, 0], [1, 1]];
+  const next: LonLatTuple[] = [[0, 0], [1, 1]];
   expect(getCoordinatesPatch(prev, next)).toBeNull();
 });
 
 test('getCoordinatesPatch should handle updates', () => {
-  const prev0 = [[2, 4], [3, 9], [4, 16]];
-  const next0 = [[1, 1], [3, 9], [4, 16]];
+  const prev0: LonLatTuple[] = [[2, 4], [3, 9], [4, 16]];
+  const next0: LonLatTuple[] = [[1, 1], [3, 9], [4, 16]];
   expect(getCoordinatesPatch(prev0, next0)).toEqual([0, 1, [1, 1]]);
-  const prev1 = [[2, 4], [3, 9], [4, 16]];
-  const next1 = [[2, 4], [1, 1], [4, 16]];
+  const prev1: LonLatTuple[] = [[2, 4], [3, 9], [4, 16]];
+  const next1: LonLatTuple[] = [[2, 4], [1, 1], [4, 16]];
   expect(getCoordinatesPatch(prev1, next1)).toEqual([1, 1, [1, 1]]);
-  const prev2 = [[2, 4], [3, 9], [4, 16]];
-  const next2 = [[2, 4], [3, 9], [1, 1]];
+  const prev2: LonLatTuple[] = [[2, 4], [3, 9], [4, 16]];
+  const next2: LonLatTuple[] = [[2, 4], [3, 9], [1, 1]];
   expect(getCoordinatesPatch(prev2, next2)).toEqual([2, 1, [1, 1]]);
 });
 
 test('getCoordinatesPatch should handle insertions', () => {
-  const prev0 = [[2, 4], [3, 9], [4, 16]];
-  const next0 = [[1, 1], [2, 4], [3, 9], [4, 16]];
+  const prev0: LonLatTuple[] = [[2, 4], [3, 9], [4, 16]];
+  const next0: LonLatTuple[] = [[1, 1], [2, 4], [3, 9], [4, 16]];
   expect(getCoordinatesPatch(prev0, next0)).toEqual([0, 0, [1, 1]]);
-  const prev1 = [[2, 4], [3, 9], [4, 16]];
-  const next1 = [[2, 4], [1, 1], [3, 9], [4, 16]];
+  const prev1: LonLatTuple[] = [[2, 4], [3, 9], [4, 16]];
+  const next1: LonLatTuple[] = [[2, 4], [1, 1], [3, 9], [4, 16]];
   expect(getCoordinatesPatch(prev1, next1)).toEqual([1, 0, [1, 1]]);
-  const prev2 = [[2, 4], [3, 9], [4, 16]];
-  const next2 = [[2, 4], [3, 9], [4, 16], [1, 1]];
+  const prev2: LonLatTuple[] = [[2, 4], [3, 9], [4, 16]];
+  const next2: LonLatTuple[] = [[2, 4], [3, 9], [4, 16], [1, 1]];
   expect(getCoordinatesPatch(prev2, next2)).toEqual([3, 0, [1, 1]]);
 });
 
-
 test('getCoordinatesPatch should handle deletions', () => {
-  const prev0 = [[1, 1], [2, 4], [3, 9], [4, 16]];
-  const next0 = [[2, 4], [3, 9], [4, 16]];
+  const prev0: LonLatTuple[] = [[1, 1], [2, 4], [3, 9], [4, 16]];
+  const next0: LonLatTuple[] = [[2, 4], [3, 9], [4, 16]];
   expect(getCoordinatesPatch(prev0, next0)).toEqual([0, 1]);
-  const prev1 = [[2, 4], [1, 1], [3, 9], [4, 16]];
-  const next1 = [[2, 4], [3, 9], [4, 16]];
+  const prev1: LonLatTuple[] = [[2, 4], [1, 1], [3, 9], [4, 16]];
+  const next1: LonLatTuple[] = [[2, 4], [3, 9], [4, 16]];
   expect(getCoordinatesPatch(prev1, next1)).toEqual([1, 1]);
-  const prev2 = [[2, 4], [3, 9], [4, 16], [1, 1]];
-  const next2 = [[2, 4], [3, 9], [4, 16]];
+  const prev2: LonLatTuple[] = [[2, 4], [3, 9], [4, 16], [1, 1]];
+  const next2: LonLatTuple[] = [[2, 4], [3, 9], [4, 16]];
   expect(getCoordinatesPatch(prev2, next2)).toEqual([3, 1]);
 });
 
 test('getBBOx should work', () => {
-  expect(getBBox([[0,0], [-10, 5], [-11, -21], [4, -23]])).toEqual([-11, 4, -23, 5]);
+  const box: LonLatTuple[] = [[0, 0], [-10, 5], [-11, -21], [4, -23]];
+  expect(getBBox(box)).toEqual([-11, 4, -23, 5]);
 });

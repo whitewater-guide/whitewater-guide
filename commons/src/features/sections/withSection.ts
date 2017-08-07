@@ -1,9 +1,9 @@
 import { gql } from 'react-apollo';
-import { branch, compose } from 'recompose';
-import { filter } from 'graphql-anywhere';
+import { compose } from 'recompose';
+import { enhancedQuery } from '../../apollo';
 import { withFeatureIds } from '../../core';
 import { SectionFragments } from './sectionFragments';
-import { enhancedQuery } from '../../apollo';
+import { Section } from './types';
 
 const sectionDetails = gql`
   query sectionDetails($_id: ID, $language:String, $withGeo:Boolean!, $withDescription:Boolean!) {
@@ -29,27 +29,48 @@ const sectionDetails = gql`
   ${SectionFragments.POIs}
 `;
 
-export function withSection(options) {
+interface Options {
+  withGeo?: boolean;
+  withDescription?: boolean;
+  propName?: string;
+}
+
+interface Result {
+  section: Section | null;
+}
+
+interface Props {
+  sectionId?: string;
+  language?: string;
+}
+
+interface TInner {
+  sectionLoading: boolean;
+  error?: any;
+}
+
+export function withSection<SectionProp = {section: Section | null}>(options: Options) {
   const { withGeo = false, withDescription = false, propName = 'section' } = options;
-  return compose(
+  type ChildProps = TInner & SectionProp;
+  return compose<TInner & ChildProps, any>(
     withFeatureIds('section'),
-    // Do not fetch section if info is provided from outside
-    // This is probably temporary until ViewSection on web is refined
-    branch(
-      props => !props.section,
-      enhancedQuery(
-        sectionDetails,
-        {
-          options: ({ sectionId, language }) => ({
-            fetchPolicy: 'cache-and-network',
-            variables: { _id: sectionId, language, withGeo, withDescription },
-          }),
-          props: ({ data: { section, loading } }) => ({
-            [propName]: section && filter(SectionFragments.All, section),
+    enhancedQuery<Result, Props, ChildProps>(
+      sectionDetails,
+      {
+        options: ({ sectionId, language }) => ({
+          fetchPolicy: 'cache-and-network',
+          variables: { _id: sectionId, language, withGeo, withDescription },
+        }),
+        props: ({ data }) => {
+          const { section, loading } = data!;
+          return {
+            [propName]: section,
             sectionLoading: loading && !section,
-          }),
+          };
         },
-      ),
+      },
     ),
   );
 }
+
+export type WithSection<SectionProp = {section: Section | null}> = Props & TInner & SectionProp;

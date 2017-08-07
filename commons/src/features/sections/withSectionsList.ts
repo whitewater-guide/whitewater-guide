@@ -1,14 +1,16 @@
-import { gql, compose } from 'react-apollo';
-import { mapProps, branch } from 'recompose';
-import { connect } from 'react-redux';
-import _ from 'lodash';
+import * as update from 'immutability-helper';
+import { defaults, flow, maxBy, noop, pick } from 'lodash';
 import { map, reject } from 'lodash/fp';
-import update from 'immutability-helper';
+import { gql } from 'react-apollo';
+import { connect } from 'react-redux';
+import { branch, compose, mapProps } from 'recompose';
 import { enhancedQuery } from '../../apollo';
-import { SectionFragments } from './sectionFragments';
+import { FetchMoreResult } from '../../apollo/types';
 import { withFeatureIds } from '../../core/withFeatureIds';
-import sectionsListReducer from './sectionsListReducer';
 import { searchTermsSelector } from '../regions';
+import { SelectableTag, SelectableTagInput, TagSelection } from '../tags';
+import { SectionFragments } from './sectionFragments';
+import { Section, SectionSearchTermInput, SectionSearchTerms } from './types';
 
 const ListSectionsQuery = gql`
   query listSections($terms:SectionSearchTerms!, $language: String, $skip: Int, $limit: Int, $withGeo: Boolean!, $isLoadMore:Boolean!) {
@@ -43,21 +45,48 @@ const UpdatesSubscription = gql`
   }
 `;
 
+interface Result {
+  sections: {
+    sections: Section[];
+    count?: number;
+  };
+}
+
+interface Props {
+  language?: string;
+  regionId?: string;
+  searchTerms: SectionSearchTerms;
+}
+
+export interface WithSections {
+  sections: {
+    list: Section[];
+    count: number;
+    loading: boolean;
+    loadMore: (args: { startIndex: number, stopIndex: number }) => void;
+    loadUpdates: () => void;
+    subscribeToUpdates: (sub: { regionId?: string }) => void;
+  };
+}
+
 /**
  * Transforms client-side search terms to search terms that will be send in graphql query
  */
-function serializeSearchTerms(terms, regionId, offlineSearch) {
-  const termsToSend = offlineSearch ?
-    _.pick(terms, ['sortBy', 'sortDirection', 'riverId', 'searchString']) :
+function serializeSearchTerms(
+  terms: SectionSearchTerms,
+  regionId?: string,
+  offlineSearch?: boolean,
+): SectionSearchTermInput {
+  const termsToSend: SectionSearchTerms = offlineSearch ?
+    pick(terms, ['sortBy', 'sortDirection', 'riverId', 'searchString']) :
     terms;
   return {
     ...termsToSend,
     regionId,
-    sortDirection: terms.sortDirection.toLowerCase(),
   };
 }
 
-const mergeNextPage = (prevResult, { fetchMoreResult }) => {
+const mergeNextPage = (prevResult: Result, { fetchMoreResult }: FetchMoreResult<Result>) => {
   if (!fetchMoreResult.sections) {
     return prevResult;
   }
@@ -67,12 +96,18 @@ const mergeNextPage = (prevResult, { fetchMoreResult }) => {
   });
 };
 
-const mergeListUpdates = (prevResult, { fetchMoreResult }) => {
-  console.log('Updates are', fetchMoreResult);
+const mergeListUpdates = (prevResult: Result) => {
+  // TODO: what if new sections were added - should do proper merge
   return prevResult;
 };
 
-const sectionsGraphql = ({ withGeo, pageSize, offlineSearch }) => enhancedQuery(
+interface Options {
+  withGeo?: boolean;
+  pageSize?: number;
+  offlineSearch?: boolean;
+}
+
+const sectionsGraphql = ({ withGeo, pageSize, offlineSearch }: Options) => enhancedQuery<Result, Props, WithSections>(
   ListSectionsQuery,
   {
     options: ({ language, regionId, searchTerms }) => ({
@@ -85,12 +120,14 @@ const sectionsGraphql = ({ withGeo, pageSize, offlineSearch }) => enhancedQuery(
         language,
         isLoadMore: false,
       },
-      reducer: sectionsListReducer,
+      // TODO: replace reducer with update
+      // reducer: sectionsListReducer,
       notifyOnNetworkStatusChange: true,
     }),
-    props: ({ data: { sections: sectionsSearchResult, loading, variables, fetchMore, subscribeToMore } }) => {
+    props: ({ data }) => {
+      const { sections: sectionsSearchResult, loading, variables, fetchMore, subscribeToMore } = data!;
       const { sections = [], count = 0 } = sectionsSearchResult || {};
-      return {
+      const result: WithSections = {
         sections: {
           list: sections,
           count,
@@ -100,11 +137,14 @@ const sectionsGraphql = ({ withGeo, pageSize, offlineSearch }) => enhancedQuery(
             updateQuery: mergeNextPage,
           }),
           loadUpdates: () => {
-            const updatedAt = new Date(_.maxBy(sections, 'updatedAt').updatedAt).valueOf();
-            const vars = { ...variables, isLoadMore: false, terms: { ...variables.terms, updatedAt } };
-            console.log('Newest item', updatedAt);
-            console.log('Old vars', variables);
-            console.log('New vars', vars);
+            const latest = maxBy(sections, 'updatedAt');
+            let vars;
+            if (latest) {
+              const updatedAt = new Date(latest.updatedAt).valueOf();
+              vars = { ...variables, isLoadMore: false, terms: { ...variables.terms, updatedAt } };
+            } else  {
+              vars = { ...variables, isLoadMore: false };
+            }
             fetchMore({
               variables: vars,
               updateQuery: mergeListUpdates,
@@ -117,36 +157,39 @@ const sectionsGraphql = ({ withGeo, pageSize, offlineSearch }) => enhancedQuery(
           }),
         },
       };
+      return result;
     },
   },
 );
 
 const localFilter = mapProps(({ sortBy, sortDirection, searchString, sections, ...props }) => {
-  const sort = sortBy === 'name' ? [sec => sec.river.name, 'name'] : [sortBy];
+  const sort = sortBy === 'name' ? [(sec: Section) => sec.river.name, 'name'] : [sortBy];
   let sortedSections = sections;
   if (searchString) {
     const regex = new RegExp(searchString, 'i');
-    sortedSections = _.filter(sortedSections, s => regex.test(s.name) || regex.test(s.river.name));
+    sortedSections = sortedSections.filter((s: Section) => regex.test(s.name) || regex.test(s.river.name));
   }
-  sortedSections = _.sortBy(sortedSections, sort);
+  sortedSections = sortBy(sortedSections, sort);
   if (sortDirection.toLowerCase() === 'desc') {
-    sortedSections = _.reverse(sortedSections);
+    sortedSections = sortedSections.reverse();
   }
   return {
     sortBy,
     sortDirection,
     sections: sortedSections,
     sectionsCount: sections.length,
-    loadMore: _.noop,
+    loadMore: noop,
     ...props,
   };
 });
 
-const selectionToInt = { selected: 1, deselected: -1 };
+type TagSerializer = (tags: SelectableTag[]) => SelectableTagInput[];
 
-const serializeTags = compose(
-  reject({ selection: 'none' }),
-  map(({ _id, selection }) => ({ _id, selection: selectionToInt[selection] })),
+const serializeTags: TagSerializer = flow(
+  reject<Partial<SelectableTag>, SelectableTag>({ selection: TagSelection.NONE }),
+  map<SelectableTag, SelectableTagInput>(
+    ({ id, selection }: SelectableTag) => ({ id, selection: selection === TagSelection.SELECTED ? 1 : -1 }),
+  ),
 );
 
 /**
@@ -167,9 +210,9 @@ const serializeTags = compose(
  *          }
  *
  */
-export function withSectionsList(options) {
-  const opts = _.defaults({}, options, { withGeo: false, pageSize: 25, offlineSearch: false });
-  return compose(
+export function withSectionsList(options: Options) {
+  const opts = defaults({}, options, { withGeo: false, pageSize: 25, offlineSearch: false });
+  return compose<WithSections, any>(
     withFeatureIds(['region', 'river']),
     connect(searchTermsSelector),
     mapProps(({ searchTerms, ...props }) => ({
@@ -182,7 +225,7 @@ export function withSectionsList(options) {
         supplyTags: serializeTags(searchTerms.supplyTags),
       },
     })),
-    branch(
+    branch<{sections: any}>(
       // If sections aren't provided from outside, fetch them
       props => !props.sections,
       sectionsGraphql(opts),

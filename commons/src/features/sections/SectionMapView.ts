@@ -1,10 +1,29 @@
-import { branch, compose, withPropsOnChange, renderComponent, setDisplayName, withProps, withState, withHandlers } from 'recompose';
 import { get } from 'lodash';
+import { ComponentType } from 'react';
+import {
+  branch,
+  compose,
+  renderComponent,
+  setDisplayName,
+  withHandlers,
+  withProps,
+  withPropsOnChange,
+  withState
+} from 'recompose';
 import { getMapView } from '../maps';
+import { MapLayoutProps, MapProps, SelectedPOIViewProps, SelectedSectionViewProps } from '../maps';
+import { Point } from '../points';
+import { WithSection } from './withSection';
 
-export const SectionMapView = (Layout, Map, SelectedSection, SelectedPOI, LoadingIndicator) => compose(
+export const SectionMapView = (
+  Layout: ComponentType<MapLayoutProps>,
+  Map: ComponentType<MapProps>,
+  SelectedSection: ComponentType<SelectedSectionViewProps>,
+  SelectedPOI: ComponentType<SelectedPOIViewProps>,
+  LoadingIndicator: ComponentType<any>,
+) => compose<MapProps, WithSection>(
   setDisplayName('SectionMapView'),
-  branch(
+  branch<WithSection>(
     props => props.sectionLoading,
     renderComponent(LoadingIndicator),
   ),
@@ -26,9 +45,9 @@ export const SectionMapView = (Layout, Map, SelectedSection, SelectedPOI, Loadin
       };
     },
   ),
-  withState('selectedPOIId', 'setSelectedPOIId'),
+  withState('selectedPOIId', 'setSelectedPOIId', null),
   withHandlers({
-    onPOISelected: props => poi => props.setSelectedPOIId(poi && poi._id),
+    onPOISelected: (props: any) => (poi: Point) => props.setSelectedPOIId(poi && poi.id),
     onSectionSelected: () => () => {}, // Blank handler so deselect will work
   }),
   withProps({ useSectionShapes: true }),

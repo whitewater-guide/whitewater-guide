@@ -1,4 +1,4 @@
-import { strToFloat, toRomanDifficulty, renderDifficulty } from '../TextUtils';
+import { renderDifficulty, strToFloat, toRomanDifficulty } from '../TextUtils';
 
 test('strToFloat handles zeros', () => {
   expect(strToFloat('0')).toBe(0);
@@ -50,6 +50,7 @@ test('toRomanDifficulty should floats', () => {
 test('renderDifficulty without extra', () => {
   expect(renderDifficulty({ difficulty: 3.5 })).toBe('III - IV');
 });
+
 test('renderDifficulty with extra', () => {
   expect(renderDifficulty({ difficulty: 3.5, difficultyXtra: 'X' })).toBe('III - IV (X)');
 });

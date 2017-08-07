@@ -32,7 +32,7 @@ export function renderDifficulty({ difficulty, difficultyXtra }: DifficultyFragm
  * @param value String with either "," or "." as decimal separator
  * @returns Number
  */
-export function strToFloat(value: string): number {
+export function strToFloat(value?: any): number {
   if (typeof value === 'number') {
     return value;
   }

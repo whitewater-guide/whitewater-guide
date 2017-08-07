@@ -77,5 +77,4 @@ export function withRegion<RegionProp = {region: Region | null}>(options: Option
   );
 }
 
-export type WithRegion<RegionProp = {region: Region | null}> =
-  Props & TInner & RegionProp;
+export type WithRegion<RegionProp = {region: Region | null}> = Props & TInner & RegionProp;
