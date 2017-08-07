@@ -6,7 +6,8 @@
   "author": "Konstantin Kuznetsov",
   "scripts": {
     "tsc": "tsc",
-    "lint": "tslint"
+    "lint": "tslint",
+    "test": "jest"
   },
   "dependencies": {
     "apollo-client": "^1.9.0",
@@ -42,10 +43,23 @@
     "@types/react-redux": "^4.4.47",
     "@types/recompose": "^0.23.3",
     "jest": "^20.0.4",
+    "ts-jest": "^20.0.10",
     "tslib": "^1.7.1",
     "tslint": "^5.5.0",
     "tslint-eslint-rules": "^4.1.1",
     "tslint-react": "^3.2.0",
     "typescript": "^2.4.2"
+  },
+  "jest": {
+    "transform": {
+      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "json"
+    ]
   }
 }

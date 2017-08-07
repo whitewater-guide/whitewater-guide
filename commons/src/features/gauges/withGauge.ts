@@ -103,8 +103,14 @@ interface WithGaugeOptions {
   propName?: string;
 }
 
-export function withGauge({ withMeasurements = false, propName = 'gauge' }: WithGaugeOptions) {
-  let hocs = [
+interface WithTimeDomain {
+  timeDomain: [Date, Date];
+  setTimeDomain: (domain: [Date, Date]) => void;
+}
+
+export function withGauge<GaugeProp = {gauge: Gauge | null}>(options: WithGaugeOptions) {
+  const { withMeasurements = false, propName = 'gauge' } = options;
+  let hocs: any[] = [
     withFeatureIds('gauge'),
     coreGraphql,
   ];
@@ -112,7 +118,7 @@ export function withGauge({ withMeasurements = false, propName = 'gauge' }: With
     hocs = [
       ...hocs,
       withState('timeDomain', 'setTimeDomain', [moment().subtract(1, 'days').toDate(), new Date()]),
-      withHandlers({
+      withHandlers<WithTimeDomain, any>({
         onDomainChanged: props => ([startDate, endDate]: [Date, Date]) => {
           const [oldStart, oldEnd] = props.timeDomain;
           const newStart = moment(startDate).isBefore(oldStart) ? startDate : oldStart;

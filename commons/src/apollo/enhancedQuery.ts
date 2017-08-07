@@ -3,7 +3,7 @@ import { isFunction } from 'lodash';
 import { graphql, OperationOption } from 'react-apollo';
 import { ComponentDecorator } from 'react-apollo/types';
 
-interface ErrorItem {
+export interface ErrorItem {
   error: any;
   refetch: () => void;
 }

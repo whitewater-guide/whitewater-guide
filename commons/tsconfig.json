@@ -13,7 +13,7 @@
       "es2017",
       "dom"
     ],
-    "target": "esnext",
+    "target": "es5",
     "module": "commonjs",
     "moduleResolution": "node",
     "noEmitOnError": true,
@@ -27,7 +27,8 @@
     "sourceMap": true
   },
   "include": [
-    "src/**/*.ts"
+    "src/**/*.ts",
+    "__mocks__/**/*.ts"
   ],
   "compileOnSave": true
 }

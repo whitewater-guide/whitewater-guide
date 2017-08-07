@@ -29,7 +29,7 @@ const sectionDetails = gql`
   ${SectionFragments.POIs}
 `;
 
-interface Options {
+export interface WithGaugeOptions {
   withGeo?: boolean;
   withDescription?: boolean;
   propName?: string;
@@ -49,7 +49,7 @@ interface TInner {
   error?: any;
 }
 
-export function withSection<SectionProp = {section: Section | null}>(options: Options) {
+export function withSection<SectionProp = {section: Section | null}>(options: WithGaugeOptions) {
   const { withGeo = false, withDescription = false, propName = 'section' } = options;
   type ChildProps = TInner & SectionProp;
   return compose<TInner & ChildProps, any>(

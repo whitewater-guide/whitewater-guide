@@ -1,6 +1,6 @@
-import { withProps } from 'recompose';
 import { castArray, get } from 'lodash';
 import * as qs from 'qs';
+import { withProps } from 'recompose';
 import isNative from './isNative';
 
 const ALL_FEATURE_IDS = [
