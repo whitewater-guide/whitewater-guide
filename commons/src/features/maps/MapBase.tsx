@@ -61,5 +61,6 @@ export default (
     }
   }
 
-  return MapBase;
+  // Workaround to make TS emit declarations, see https://github.com/Microsoft/TypeScript/issues/9944
+  return MapBase as ComponentType<MapProps>;
 };

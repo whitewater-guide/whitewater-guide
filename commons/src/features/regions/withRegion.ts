@@ -1,5 +1,5 @@
 import { gql } from 'react-apollo';
-import { branch, compose, withProps } from 'recompose';
+import { branch, ComponentEnhancer, compose, withProps } from 'recompose';
 import { enhancedQuery } from '../../apollo';
 import { withFeatureIds } from '../../core';
 import { RegionFragments } from './regionFraments';
@@ -20,22 +20,22 @@ const regionDetails = gql`
   ${RegionFragments.Bounds}
 `;
 
-interface Options {
+export interface WithRegionOptions {
   withBounds?: boolean;
   withPOIs?: boolean;
   propName?: string;
 }
 
-interface TInner {
+export interface WithRegionChildProps {
   regionLoading: boolean;
   error?: any;
 }
 
-interface Result {
+export interface WithRegionResult {
   region: Region | null;
 }
 
-interface Props {
+export interface WithRegionProps {
   regionId?: string;
   language?: string;
 }
@@ -47,20 +47,20 @@ interface Props {
  * @param options.propName ('region') = Name of prop which will contain region
  * @returns High-order component
  */
-export function withRegion<RegionProp = {region: Region | null}>(options: Options) {
+export function withRegion<RegionProp = {region: Region | null}>(options: WithRegionOptions) {
   const { withBounds = false, withPOIs = true, propName = 'region' } = options;
-  type ChildProps = TInner & RegionProp;
-  return compose<TInner & ChildProps, any>(
+  type ChildProps = WithRegionChildProps & RegionProp;
+  return compose<WithRegionChildProps & ChildProps, any>(
     withFeatureIds('region'),
     // If no region was found, branch provides dummy region with error
-    branch<Props>(
+    branch<WithRegionProps>(
       ({ regionId }) => !!regionId,
-      enhancedQuery<Result, Props, ChildProps>(
+      enhancedQuery<WithRegionResult, WithRegionProps, ChildProps>(
         regionDetails,
         {
           options: ({ regionId, language }) => ({
             fetchPolicy: 'cache-and-network',
-            variables: { _id: regionId, language, withBounds, withPOIs },
+            variables: { id: regionId, language, withBounds, withPOIs },
           }),
           props: ({ data }) => {
             const { region, loading } = data!;
@@ -68,7 +68,7 @@ export function withRegion<RegionProp = {region: Region | null}>(options: Option
           },
         },
       ),
-      withProps<ChildProps, Props>(({ regionId }) => ({
+      withProps<ChildProps, WithRegionProps>(({ regionId }) => ({
         [propName]: null,
         regionLoading: false,
         error: `No region with id ${regionId} was found`,
@@ -77,4 +77,7 @@ export function withRegion<RegionProp = {region: Region | null}>(options: Option
   );
 }
 
-export type WithRegion<RegionProp = {region: Region | null}> = Props & TInner & RegionProp;
+export type WithRegion<RegionProp = {region: Region | null}> = WithRegionProps & WithRegionChildProps & RegionProp;
+
+// Workaround to make TS emit declarations, see https://github.com/Microsoft/TypeScript/issues/9944
+let a: ComponentEnhancer<any, any>;

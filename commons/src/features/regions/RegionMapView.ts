@@ -1,11 +1,12 @@
 import { ComponentType } from 'react';
 import { connect } from 'react-redux';
-import { branch, compose, mapProps, renderComponent, setDisplayName } from 'recompose';
+import { branch, ComponentEnhancer, compose, mapProps, renderComponent, setDisplayName } from 'recompose';
 import { getMapView, MapLayoutProps, MapProps, SelectedPOIViewProps, SelectedSectionViewProps } from '../maps';
 import { Point } from '../points';
 import { Section, sectionsBatchLoader } from '../sections';
 import { selectBounds, selectPOI, selectSection } from './actions';
 import { RegionState } from './reducers';
+import { Region } from './types';
 import { WithRegion } from './withRegion';
 
 interface DispatchProps {
@@ -14,7 +15,7 @@ interface DispatchProps {
   onBoundsSelected: (bounds: number[][]) => void;
 }
 
-interface RegionMapProps extends MapProps {
+export interface RegionMapProps extends MapProps {
   onBoundsSelected: (bounds: number[][]) => void;
 }
 
@@ -49,3 +50,7 @@ export default (
     ),
   ),
 )(getMapView(Layout, Map, SelectedSection, SelectedPOI));
+
+// Workaround to make TS emit declarations, see https://github.com/Microsoft/TypeScript/issues/9944
+let a: ComponentEnhancer<any, any>;
+let r: Region;

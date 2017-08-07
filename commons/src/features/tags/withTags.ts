@@ -1,4 +1,5 @@
 import { gql, graphql } from 'react-apollo';
+import { ComponentDecorator } from 'react-apollo/types';
 import { WithTags } from './types';
 
 const allTags = gql`
@@ -26,11 +27,11 @@ const allTags = gql`
   }
 `;
 
-interface ChildProps extends WithTags {
+export interface WithTagsChildProps extends WithTags {
   tagsLoading: boolean;
 }
 
-export const withTags = (withSlugs = false) => graphql<WithTags, any, ChildProps>(
+export const withTags = (withSlugs = false) => graphql<WithTags, any, WithTagsChildProps>(
   allTags,
   {
     options: {
@@ -44,3 +45,6 @@ export const withTags = (withSlugs = false) => graphql<WithTags, any, ChildProps
     },
   },
 );
+
+// Workaround to make TS emit declarations, see https://github.com/Microsoft/TypeScript/issues/9944
+let a: ComponentDecorator<any, any>;

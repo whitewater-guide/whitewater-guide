@@ -1,6 +1,6 @@
 import * as moment from 'moment';
 import { gql, graphql } from 'react-apollo';
-import { compose, mapProps, renameProp, withHandlers, withState } from 'recompose';
+import { ComponentEnhancer, compose, mapProps, renameProp, withHandlers, withState } from 'recompose';
 import { withFeatureIds } from '../../core/withFeatureIds';
 import { GaugeFragments } from './gaugeFragments';
 import { Gauge } from './types';
@@ -98,7 +98,7 @@ const measurementsGraphql = graphql<WithGaugeResult, WithGaugeInput & WithGaugeP
   },
 );
 
-interface WithGaugeOptions {
+export interface WithGaugeOptions {
   withMeasurements?: boolean;
   propName?: string;
 }
@@ -135,3 +135,6 @@ export function withGauge<GaugeProp = {gauge: Gauge | null}>(options: WithGaugeO
   }
   return compose(...hocs);
 }
+
+// Workaround to make TS emit declarations, see https://github.com/Microsoft/TypeScript/issues/9944
+let a: ComponentEnhancer<any, any>;

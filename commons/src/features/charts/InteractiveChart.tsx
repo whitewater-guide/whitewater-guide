@@ -107,5 +107,6 @@ export default (
 
   }
 
-  return InteractiveChart;
+  // Workaround to make TS emit declarations, see https://github.com/Microsoft/TypeScript/issues/9944
+  return InteractiveChart as ComponentType;
 };

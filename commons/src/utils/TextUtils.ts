@@ -14,7 +14,7 @@ export function toRomanDifficulty(decimalDifficulty: number): string {
   return `${ROMAN_NUMBERS[floor]} - ${ROMAN_NUMBERS[floor + 1]}`;
 }
 
-interface DifficultyFragment {
+export interface DifficultyFragment {
   difficulty: number;
   difficultyXtra?: string | null;
 }

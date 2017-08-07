@@ -1,6 +1,6 @@
 import { castArray, get } from 'lodash';
 import * as qs from 'qs';
-import { withProps } from 'recompose';
+import { InferableComponentEnhancerWithProps, withProps } from 'recompose';
 import isNative from './isNative';
 
 const ALL_FEATURE_IDS = [
@@ -39,3 +39,6 @@ export const withFeatureIds = (features?: string | string[]) => {
     },
   );
 };
+
+// Workaround to make TS emit declarations, see https://github.com/Microsoft/TypeScript/issues/9944
+let a: InferableComponentEnhancerWithProps<any, any>;

@@ -2,7 +2,7 @@
   "compilerOptions": {
     "outDir": "build/",
     "allowSyntheticDefaultImports": false,
-    "declaration": false,
+    "declaration": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
@@ -27,8 +27,12 @@
     "sourceMap": true
   },
   "include": [
-    "src/**/*.ts",
-    "__mocks__/**/*.ts"
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "src/**/*.spec.ts",
+    "src/**/*.test.ts",
+    "src/**/__tests__/*.ts"
   ],
   "compileOnSave": true
 }

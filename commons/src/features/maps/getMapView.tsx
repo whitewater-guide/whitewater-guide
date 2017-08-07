@@ -49,5 +49,6 @@ export const getMapView = <M extends MapProps>(
     }
   }
 
-  return MapViewBase;
+  // Workaround to make TS emit declarations, see https://github.com/Microsoft/TypeScript/issues/9944
+  return MapViewBase as ComponentType<M>;
 };

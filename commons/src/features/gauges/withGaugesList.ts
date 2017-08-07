@@ -1,8 +1,9 @@
 import { gql } from 'react-apollo';
+import { ComponentDecorator } from 'react-apollo/types';
 import { enhancedQuery, FetchMoreResult } from '../../apollo';
 import { Source } from '../sources';
 import { GaugeFragments } from './gaugeFragments';
-import { Gauge } from './types';
+import { Gauge } from './types'; import { ErrorItem } from '../../apollo/enhancedQuery';
 
 const ListGaugesQuery = gql`
   query listGauges($sourceId:ID!, $language:String, $skip:Int, $limit:Int, $isLoadMore:Boolean!) {
@@ -28,30 +29,30 @@ const ListGaugesQuery = gql`
   ${GaugeFragments.HarvestInfo}
 `;
 
-interface Result {
+export interface Result {
   gauges?: Gauge[];
   source: Source;
   count: number;
 }
 
-interface Props {
+export interface Props {
   sourceId?: string;
   language?: string;
 }
 
-interface GaugesList {
+export interface GaugesList {
   list: Gauge[];
   count: number;
   loading: boolean;
   loadMore: (params: LoadMoreParams) => void;
 }
 
-interface LoadMoreParams {
+export interface LoadMoreParams {
   startIndex: number;
   stopIndex: number;
 }
 
-interface ChildProps {
+export interface ChildProps {
   source: Source;
   gauges: GaugesList;
 }
@@ -88,3 +89,7 @@ export const withGaugesList = enhancedQuery<Result, Props, ChildProps>(
     },
   },
 );
+
+// Workaround to make TS emit declarations, see https://github.com/Microsoft/TypeScript/issues/9944
+let a: ComponentDecorator<any, any>;
+let e: ErrorItem;

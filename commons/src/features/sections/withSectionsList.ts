@@ -3,7 +3,7 @@ import { defaults, flow, maxBy, noop, pick } from 'lodash';
 import { map, reject } from 'lodash/fp';
 import { gql } from 'react-apollo';
 import { connect } from 'react-redux';
-import { branch, compose, mapProps } from 'recompose';
+import { branch, ComponentEnhancer, compose, mapProps } from 'recompose';
 import { enhancedQuery } from '../../apollo';
 import { FetchMoreResult } from '../../apollo/types';
 import { withFeatureIds } from '../../core/withFeatureIds';
@@ -45,20 +45,20 @@ const UpdatesSubscription = gql`
   }
 `;
 
-interface Result {
+interface WithSectionsListResult {
   sections: {
     sections: Section[];
     count?: number;
   };
 }
 
-interface Props {
+interface WithSectionsListProps {
   language?: string;
   regionId?: string;
   searchTerms: SectionSearchTerms;
 }
 
-export interface WithSections {
+export interface WithSectionsListChildProps {
   sections: {
     list: Section[];
     count: number;
@@ -86,7 +86,7 @@ function serializeSearchTerms(
   };
 }
 
-const mergeNextPage = (prevResult: Result, { fetchMoreResult }: FetchMoreResult<Result>) => {
+const mergeNextPage = (prevResult: WithSectionsListResult, { fetchMoreResult }: FetchMoreResult<WithSectionsListResult>) => {
   if (!fetchMoreResult.sections) {
     return prevResult;
   }
@@ -96,18 +96,19 @@ const mergeNextPage = (prevResult: Result, { fetchMoreResult }: FetchMoreResult<
   });
 };
 
-const mergeListUpdates = (prevResult: Result) => {
+const mergeListUpdates = (prevResult: WithSectionsListResult) => {
   // TODO: what if new sections were added - should do proper merge
   return prevResult;
 };
 
-interface Options {
+export interface WithSectionsListOptions {
   withGeo?: boolean;
   pageSize?: number;
   offlineSearch?: boolean;
 }
 
-const sectionsGraphql = ({ withGeo, pageSize, offlineSearch }: Options) => enhancedQuery<Result, Props, WithSections>(
+const sectionsGraphql = ({ withGeo, pageSize, offlineSearch }: WithSectionsListOptions) =>
+  enhancedQuery<WithSectionsListResult, WithSectionsListProps, WithSectionsListChildProps>(
   ListSectionsQuery,
   {
     options: ({ language, regionId, searchTerms }) => ({
@@ -127,7 +128,7 @@ const sectionsGraphql = ({ withGeo, pageSize, offlineSearch }: Options) => enhan
     props: ({ data }) => {
       const { sections: sectionsSearchResult, loading, variables, fetchMore, subscribeToMore } = data!;
       const { sections = [], count = 0 } = sectionsSearchResult || {};
-      const result: WithSections = {
+      const result: WithSectionsListChildProps = {
         sections: {
           list: sections,
           count,
@@ -210,9 +211,9 @@ const serializeTags: TagSerializer = flow(
  *          }
  *
  */
-export function withSectionsList(options: Options) {
+export function withSectionsList(options: WithSectionsListOptions) {
   const opts = defaults({}, options, { withGeo: false, pageSize: 25, offlineSearch: false });
-  return compose<WithSections, any>(
+  return compose<WithSectionsListChildProps, any>(
     withFeatureIds(['region', 'river']),
     connect(searchTermsSelector),
     mapProps(({ searchTerms, ...props }) => ({
@@ -234,3 +235,6 @@ export function withSectionsList(options: Options) {
     ),
   );
 }
+
+// Workaround to make TS emit declarations, see https://github.com/Microsoft/TypeScript/issues/9944
+let a: ComponentEnhancer<any, any>;

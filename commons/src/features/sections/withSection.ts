@@ -1,5 +1,5 @@
 import { gql } from 'react-apollo';
-import { compose } from 'recompose';
+import { ComponentEnhancer, compose } from 'recompose';
 import { enhancedQuery } from '../../apollo';
 import { withFeatureIds } from '../../core';
 import { SectionFragments } from './sectionFragments';
@@ -29,32 +29,32 @@ const sectionDetails = gql`
   ${SectionFragments.POIs}
 `;
 
-export interface WithGaugeOptions {
+export interface WithSectionOptions {
   withGeo?: boolean;
   withDescription?: boolean;
   propName?: string;
 }
 
-interface Result {
+export interface WithSectionResult {
   section: Section | null;
 }
 
-interface Props {
+export interface WithSectionProps {
   sectionId?: string;
   language?: string;
 }
 
-interface TInner {
+export interface WithSectionChildProps {
   sectionLoading: boolean;
   error?: any;
 }
 
-export function withSection<SectionProp = {section: Section | null}>(options: WithGaugeOptions) {
+export function withSection<SectionProp = {section: Section | null}>(options: WithSectionOptions) {
   const { withGeo = false, withDescription = false, propName = 'section' } = options;
-  type ChildProps = TInner & SectionProp;
-  return compose<TInner & ChildProps, any>(
+  type ChildProps = WithSectionChildProps & SectionProp;
+  return compose<WithSectionChildProps & ChildProps, any>(
     withFeatureIds('section'),
-    enhancedQuery<Result, Props, ChildProps>(
+    enhancedQuery<WithSectionResult, WithSectionProps, ChildProps>(
       sectionDetails,
       {
         options: ({ sectionId, language }) => ({
@@ -73,4 +73,8 @@ export function withSection<SectionProp = {section: Section | null}>(options: Wi
   );
 }
 
-export type WithSection<SectionProp = {section: Section | null}> = Props & TInner & SectionProp;
+export type WithSection<SectionProp = {section: Section | null}> =
+  WithSectionProps & WithSectionChildProps & SectionProp;
+
+// Workaround to make TS emit declarations, see https://github.com/Microsoft/TypeScript/issues/9944
+let a: ComponentEnhancer<any, any>;

@@ -1,14 +1,14 @@
 import { isEmpty } from 'lodash';
 import { ComponentType } from 'react';
-import { branch, renderComponent, withProps } from 'recompose';
+import { branch, ComponentEnhancer, renderComponent, withProps } from 'recompose';
 
 const defaultErrorMessage = 'Cannot load data';
 
-interface WithErrors {
+export interface WithErrors {
   errors?: any;
 }
 
-interface WithErrorMessage {
+export interface WithErrorMessage {
   errorMessage: string;
 }
 
@@ -25,3 +25,6 @@ export default <TOuter extends WithErrors>(
   props => !isEmpty(props.errors),
   renderComponent(withProps({ errorMessage })(errorComponent)),
 );
+
+// Workaround to make TS emit declarations, see https://github.com/Microsoft/TypeScript/issues/9944
+let a: ComponentEnhancer<any, any>;

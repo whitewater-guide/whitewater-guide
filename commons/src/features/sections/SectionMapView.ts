@@ -8,11 +8,11 @@ import {
   withHandlers,
   withProps,
   withPropsOnChange,
-  withState
+  withState,
 } from 'recompose';
-import { getMapView } from '../maps';
-import { MapLayoutProps, MapProps, SelectedPOIViewProps, SelectedSectionViewProps } from '../maps';
+import { getMapView, MapLayoutProps, MapProps, SelectedPOIViewProps, SelectedSectionViewProps } from '../maps';
 import { Point } from '../points';
+import { Section } from './types';
 import { WithSection } from './withSection';
 
 export const SectionMapView = (
@@ -52,3 +52,6 @@ export const SectionMapView = (
   }),
   withProps({ useSectionShapes: true }),
 )(getMapView(Layout, Map, SelectedSection, SelectedPOI));
+
+// Workaround to make TS emit declarations, see https://github.com/Microsoft/TypeScript/issues/9944
+let s: Section;

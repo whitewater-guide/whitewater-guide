@@ -1,5 +1,7 @@
 import { gql } from 'react-apollo';
+import { ComponentDecorator } from 'react-apollo/types';
 import { enhancedQuery } from '../../apollo';
+import { ErrorItem } from '../../apollo/enhancedQuery';
 import { Region } from './types';
 
 const ListRegionsQuery = gql`
@@ -13,17 +15,17 @@ const ListRegionsQuery = gql`
   }
 `;
 
-interface Result {
+export interface WithRegionsResult {
   regions: Region[];
 }
 
-interface ChildProps {
+export interface WithRegionsChildProps {
   regions: Region[];
   regionsListLoading: boolean;
   refetchRegionsList: () => void;
 }
 
-export const withRegionsList = enhancedQuery<Result, any, ChildProps>(
+export const withRegionsList = enhancedQuery<WithRegionsResult, any, WithRegionsChildProps>(
   ListRegionsQuery,
   {
     options: {
@@ -42,3 +44,7 @@ export const withRegionsList = enhancedQuery<Result, any, ChildProps>(
     },
   },
 );
+
+// Workaround to make TS emit declarations, see https://github.com/Microsoft/TypeScript/issues/9944
+let a: ComponentDecorator<any, any>;
+let e: ErrorItem;

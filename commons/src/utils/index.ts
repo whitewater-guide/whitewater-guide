@@ -1,4 +1,4 @@
-export { default as choose } from './choose';
+export * from './choose';
 export * from './GeoUtils';
 export { default as getVideoThumb } from './getVideoThumb';
 export { default as spinnerWhileLoading } from './spinnerWhileLoading';

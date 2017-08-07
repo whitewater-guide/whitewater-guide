@@ -1,16 +1,19 @@
 import { ComponentType } from 'react';
-import { createEagerFactory, mapper } from 'recompose';
+import { ComponentEnhancer, createEagerFactory, mapper } from 'recompose';
 
 const identity = <P>(component: ComponentType<P>): ComponentType<P> => component;
 
-type Chooser<T> = mapper<T, string>;
-type Enhancer<P> = (component: ComponentType<P>) => ComponentType<P>;
-interface EnhancerMap<P> {
-  [option: string]: Enhancer<P>;
+export type Chooser<T> = mapper<T, string>;
+export type ChooserEnhancer<P> = (component: ComponentType<P>) => ComponentType<P>;
+export interface EnhancerMap<P> {
+  [option: string]: ChooserEnhancer<P>;
 }
 
-const choose =
-  <TOuter>(test: Chooser<TOuter>, hocs: EnhancerMap<TOuter>): Enhancer<TOuter> =>
+/**
+ * Choose is like branch from recompose, but with multiple options
+ */
+export const choose =
+  <TOuter>(test: Chooser<TOuter>, hocs: EnhancerMap<TOuter>): ChooserEnhancer<TOuter> =>
     (BaseComponent: ComponentType<any>): ComponentType<TOuter> => {
       const Choose = (props: TOuter) => {
         const option = test(props);
@@ -30,7 +33,5 @@ const choose =
       return Choose;
 };
 
-/**
- * Choose is like branch from recompose, but with multiple options
- */
-export default choose;
+// Workaround to make TS emit declarations, see https://github.com/Microsoft/TypeScript/issues/9944
+let b: ComponentEnhancer<any, any>;

@@ -1,5 +1,5 @@
 import { gql } from 'react-apollo';
-import { compose } from 'recompose';
+import { ComponentEnhancer, compose } from 'recompose';
 import { enhancedQuery } from '../../apollo';
 import { withFeatureIds } from '../../core/withFeatureIds';
 import { River } from './types';
@@ -7,11 +7,11 @@ import { River } from './types';
 const riverDetails = gql`
   query riverDetails($riverId:ID!, $language: String) {
     river(_id:$riverId, language:$language) {
-      _id
+      id
       name
       description,
       sections {
-        _id
+        id
         name
         difficulty
         difficultyXtra
@@ -20,7 +20,7 @@ const riverDetails = gql`
         distance
         duration
         river {
-          _id
+          id
           name
         }
       }
@@ -28,16 +28,16 @@ const riverDetails = gql`
   }
 `;
 
-interface Result {
+export interface WithRiverResult {
   river: River | null;
 }
 
-interface ChildProps {
+export interface WithRiverChildProps {
   river: River | null;
   riverLoading: boolean;
 }
 
-interface Props {
+export interface WithRiverProps {
   riverId?: string;
   language?: string;
 }
@@ -48,9 +48,9 @@ interface Props {
  * @returns High-order component
  */
 export function withRiver() {
-  return compose<ChildProps, any>(
+  return compose<WithRiverChildProps, any>(
     withFeatureIds('river'),
-    enhancedQuery<Result, Props, ChildProps>(
+    enhancedQuery<WithRiverResult, WithRiverProps, WithRiverChildProps>(
       riverDetails,
       {
         options: ({ riverId, language }) => ({
@@ -67,3 +67,6 @@ export function withRiver() {
     ),
   );
 }
+
+// Workaround to make TS emit declarations, see https://github.com/Microsoft/TypeScript/issues/9944
+let a: ComponentEnhancer<any, any>;
