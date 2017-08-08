@@ -1,7 +1,5 @@
 {
   "ignore_dirs": [
-    "node_modules",
-    "src",
-    "__mocks__"
+    "node_modules"
   ]
 }

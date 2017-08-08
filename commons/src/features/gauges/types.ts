@@ -1,4 +1,4 @@
-import { NamedResource, Timestamped } from '../../core';
+import { NamedResource, Timestamped } from '../../core/types';
 import { Measurement } from '../measurements';
 
 export interface Gauge extends NamedResource, Timestamped {

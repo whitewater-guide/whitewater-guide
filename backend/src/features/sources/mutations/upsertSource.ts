@@ -1,7 +1,8 @@
 import { GraphQLFieldResolver } from 'graphql';
 import { isAdminResolver, isInputValidResolver } from '../../../apollo';
 import db from '../../../db';
-import { inputToRaw, SourceInput } from '../types';
+import { SourceInput } from '../../../ww-commons';
+import { inputToRaw } from '../types';
 
 interface UpsertVariables {
   source: SourceInput;

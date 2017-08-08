@@ -1,7 +1,8 @@
 import db, { holdTransaction, rollbackTransaction } from '../../../db';
 import { adminContext, anonContext, userContext } from '../../../test/context';
 import { isTimestamp, isUUID, noTimestamps, noUnstable, runQuery, } from '../../../test/db-helpers';
-import { HarvestMode, SourceInput, SourceRaw } from '../types';
+import { SourceInput } from '../../../ww-commons';
+import { HarvestMode, SourceRaw } from '../types';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);

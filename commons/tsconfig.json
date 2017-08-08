@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "outDir": "build/",
+    "noEmit": true,
     "allowSyntheticDefaultImports": false,
-    "declaration": true,
+    "declaration": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
@@ -16,7 +16,6 @@
     "target": "es5",
     "module": "commonjs",
     "moduleResolution": "node",
-    "noEmitOnError": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
@@ -28,11 +27,6 @@
   },
   "include": [
     "src/**/*.ts"
-  ],
-  "exclude": [
-    "src/**/*.spec.ts",
-    "src/**/*.test.ts",
-    "src/**/__tests__/*.ts"
   ],
   "compileOnSave": true
 }

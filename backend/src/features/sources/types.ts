@@ -1,7 +1,6 @@
-import { NamedResource, Timestamped } from 'ww-commons/src/core';
 import { loadGraphqlFile } from '../../apollo/loadGraphqlFile';
 import { RawTimestamped } from '../../db';
-import { isCron } from '../../util/isCron';
+import { NamedResource, SourceInput } from '../../ww-commons';
 
 export const SourcesSchema = loadGraphqlFile('sources');
 

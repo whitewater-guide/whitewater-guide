@@ -1,7 +1,7 @@
 import { GraphQLResolveInfo } from 'graphql';
 import { Context } from '../../apollo';
 import db from '../../db';
-import { Region } from './types';
+import { Region } from '../../ww-commons';
 import graphqlFields = require('graphql-fields');
 
 export type ResponseFields = keyof Region;
@@ -19,5 +19,5 @@ const map: FieldMap = {
 
 export const getColumns = (info: GraphQLResolveInfo, context: Context): any[] => {
   const fields: ResponseFields[] = Object.keys(graphqlFields(info)) as any;
-  return fields.map(field => map[field] ? map[field]!(context) : field );
+  return fields.map(field => map[field] ? map[field]!(context) : field);
 };

@@ -1,6 +1,6 @@
 import { IsDefined, IsEnum, IsUrl, IsUUID, Length } from 'class-validator';
 import { NamedResource, Timestamped } from '../../core';
-import { isCron } from '../../utils/isCron';
+import { isCron } from '../../utils';
 
 export enum HarvestMode {
   ALL_AT_ONCE = 'allAtOnce',

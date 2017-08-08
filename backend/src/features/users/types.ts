@@ -1,7 +1,7 @@
 import * as passport from 'passport';
-import { NamedResource } from '../../apollo';
 import { loadGraphqlFile } from '../../apollo/loadGraphqlFile';
-import { RawTimestamped, Timestamped } from '../../db';
+import { RawTimestamped } from '../../db';
+import { NamedResource, Timestamped } from '../../ww-commons';
 
 export const UsersSchema = loadGraphqlFile('users');
 
