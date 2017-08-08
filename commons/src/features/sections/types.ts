@@ -4,8 +4,7 @@ import { Media } from '../media';
 import { Point } from '../points';
 import { Region } from '../regions';
 import { River } from '../rivers';
-import { Tag } from '../tags';
-import { SelectableTagInput } from '../tags/types';
+import { SelectableTagInput, Tag } from '../tags';
 
 export enum Duration {
   LAPS = 0,

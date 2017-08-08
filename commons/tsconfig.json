@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "build/",
+    "noEmit": true,
     "allowSyntheticDefaultImports": false,
     "declaration": false,
     "emitDecoratorMetadata": true,
@@ -16,7 +16,6 @@
     "target": "es5",
     "module": "commonjs",
     "moduleResolution": "node",
-    "noEmitOnError": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
@@ -27,8 +26,7 @@
     "sourceMap": true
   },
   "include": [
-    "src/**/*.ts",
-    "__mocks__/**/*.ts"
+    "src/**/*.ts"
   ],
   "compileOnSave": true
 }

@@ -1,4 +1,4 @@
-import { NamedResource, Timestamped } from '../../core';
+import { NamedResource, Timestamped } from '../../core/types';
 import { Region, RegionInput } from '../regions';
 import { Section } from '../sections';
 
