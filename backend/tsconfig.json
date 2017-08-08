@@ -22,10 +22,5 @@
   "include": [
     "src/**/*"
   ],
-  "exclude": [
-    "**/__tests__/*.ts",
-    "**/*.spec.ts",
-    "**/*.test.ts"
-  ],
   "compileOnSave": true
 }

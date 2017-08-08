@@ -1,7 +1,7 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
 import { adminContext, anonContext, superAdminContext, userContext } from '../../../test/context';
 import { noTimestamps, runQuery } from '../../../test/db-helpers';
-import { Source } from '../types';
+import { Source } from '../../../ww-commons';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
