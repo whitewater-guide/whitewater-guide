@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ComponentType } from 'react';
-import { Point, Section } from '../../ww-commons';
+import { Point, Section } from '../../../ww-commons';
 import { MapComponentProps, MapProps, POIComponentProps, SectionComponentProps } from './types';
 
 interface State {

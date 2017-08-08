@@ -2,7 +2,7 @@ import { gql } from 'react-apollo';
 import { compose } from 'recompose';
 import { enhancedQuery } from '../../apollo';
 import { withFeatureIds } from '../../core';
-import { Section } from '../../ww-commons';
+import { Section } from '../../../ww-commons';
 import { SectionFragments } from './sectionFragments';
 
 const sectionDetails = gql`

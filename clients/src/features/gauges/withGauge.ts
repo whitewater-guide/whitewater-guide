@@ -2,7 +2,7 @@ import * as moment from 'moment';
 import { gql, graphql } from 'react-apollo';
 import { compose, mapProps, renameProp, withHandlers, withState } from 'recompose';
 import { withFeatureIds } from '../../core/withFeatureIds';
-import { Gauge } from '../../ww-commons';
+import { Gauge } from '../../../ww-commons';
 import { GaugeFragments } from './gaugeFragments';
 
 const ViewGaugeQuery = gql`

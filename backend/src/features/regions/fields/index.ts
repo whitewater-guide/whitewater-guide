@@ -1,8 +1,9 @@
 import { Geometry, Point, Polygon } from 'wkx';
 import { FieldResolvers } from '../../../apollo';
 import { timestampResolvers } from '../../../db';
+import { Region } from '../../../ww-commons';
 import { isAdmin } from '../../users';
-import { Region, RegionRaw } from '../types';
+import { RegionRaw } from '../types';
 
 const resolvers: FieldResolvers<RegionRaw, Region> = {
   seasonNumeric: region => region.season_numeric,

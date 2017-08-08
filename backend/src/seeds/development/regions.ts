@@ -1,4 +1,5 @@
-import { RegionInput, toRaw } from '../../features/regions';
+import { toRaw } from '../../features/regions';
+import { RegionInput } from '../../ww-commons';
 import Knex = require('knex');
 
 const regions: RegionInput[] = [

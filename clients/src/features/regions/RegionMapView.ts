@@ -2,7 +2,7 @@ import { ComponentType } from 'react';
 import { connect } from 'react-redux';
 import { branch, compose, mapProps, renderComponent, setDisplayName } from 'recompose';
 import { getMapView, MapLayoutProps, MapProps, SelectedPOIViewProps, SelectedSectionViewProps } from '../maps';
-import { Point, Section } from '../../ww-commons';
+import { Point, Section } from '../../../ww-commons';
 import { sectionsBatchLoader } from '../sections';
 import { selectBounds, selectPOI, selectSection } from './actions';
 import { RegionState } from './reducers';

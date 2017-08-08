@@ -1,9 +1,6 @@
-import { IsDefined, IsEnum, IsUrl, IsUUID, Length } from 'class-validator';
-import { NamedResource } from '../../apollo';
 import { loadGraphqlFile } from '../../apollo/loadGraphqlFile';
 import { RawTimestamped } from '../../db';
-import { Timestamped } from '../../db/types';
-import { isCron } from '../../util/isCron';
+import { NamedResource, SourceInput } from '../../ww-commons';
 
 export const SourcesSchema = loadGraphqlFile('sources');
 

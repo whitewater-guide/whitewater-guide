@@ -2,7 +2,7 @@ import { gql } from 'react-apollo';
 import { compose } from 'recompose';
 import { enhancedQuery } from '../../apollo';
 import { withFeatureIds } from '../../core';
-import { River } from '../../ww-commons';
+import { River } from '../../../ww-commons';
 
 const riverDetails = gql`
   query riverDetails($riverId:ID!, $language: String) {

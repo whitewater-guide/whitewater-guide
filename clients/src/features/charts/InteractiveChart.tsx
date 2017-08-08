@@ -1,7 +1,7 @@
 import * as moment from 'moment';
 import * as React from 'react';
 import { ComponentType } from 'react';
-import { Binding, GaugeMeasurement, Unit } from '../../ww-commons';
+import { Binding, GaugeMeasurement, Unit } from '../../../ww-commons';
 import { ChartComponentProps, ChartLayoutProps, FlowToggleProps, PeriodToggleProps } from './types';
 
 export interface Props {

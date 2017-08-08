@@ -1,5 +1,5 @@
 import { gql, graphql } from 'react-apollo';
-import { WithTags } from '../../ww-commons';
+import { WithTags } from '../../../ww-commons';
 
 const allTags = gql`
   query allTags($withSlugs:Boolean!) {

@@ -1,6 +1,6 @@
 import { mapValues, pick } from 'lodash';
 import { map } from 'lodash/fp';
-import { Tag, WithSelectableTags, WithTags } from '../../ww-commons';
+import { Tag, WithSelectableTags, WithTags } from '../../../ww-commons';
 
 export const tagsToSelections = <Props extends WithTags>(tags: Props): WithSelectableTags =>
   mapValues(

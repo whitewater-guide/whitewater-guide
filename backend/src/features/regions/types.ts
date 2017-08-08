@@ -1,8 +1,7 @@
 import { Geometry, Point, Polygon } from 'wkx';
-import { NamedResource } from 'ww-commons/core';
-import { RegionInput } from 'ww-commons/features/regions';
 import { loadGraphqlFile } from '../../apollo/loadGraphqlFile';
 import { RawTimestamped } from '../../db';
+import { NamedResource, RegionInput } from '../../ww-commons/';
 
 export const RegionsSchema = loadGraphqlFile('regions');
 

@@ -1,7 +1,7 @@
 import { find } from 'lodash';
 import * as React from 'react';
 import { ComponentType } from 'react';
-import { Point, Section } from '../../ww-commons';
+import { Point, Section } from '../../../ww-commons';
 import { MapLayoutProps, MapProps, SelectedPOIViewProps, SelectedSectionViewProps } from './types';
 import shallowequal = require('shallowequal');
 

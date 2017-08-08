@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { Binding, GaugeMeasurement, Unit } from '../../ww-commons';
+import { Binding, GaugeMeasurement, Unit } from '../../../ww-commons';
 
 export interface ChartComponentProps {
   binding: Binding;

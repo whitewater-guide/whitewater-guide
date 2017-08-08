@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { Point, Section } from '../../ww-commons';
+import { Point, Section } from '../../../ww-commons';
 
 export interface SectionComponentProps {
   useSectionShapes: boolean;

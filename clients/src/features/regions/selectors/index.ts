@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { DefaultSectionSearchTerms } from '../../../ww-commons';
+import { DefaultSectionSearchTerms } from '../../../../ww-commons';
 
 const regionIdFromProps = (_: any, props: any) => props.regionId;
 const regionsSelector = (state: any) => state.persistent.regions;

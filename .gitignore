@@ -14,4 +14,3 @@ private/workers/
 /.tmp/
 /.docker/env/mongodbbackup.prod.env
 /commons/build/
-/clients/src/ww-commons/

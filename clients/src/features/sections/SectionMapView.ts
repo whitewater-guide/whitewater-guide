@@ -10,7 +10,7 @@ import {
   withPropsOnChange,
   withState,
 } from 'recompose';
-import { Point } from '../../ww-commons';
+import { Point } from '../../../ww-commons';
 import { getMapView, MapLayoutProps, MapProps, SelectedPOIViewProps, SelectedSectionViewProps } from '../maps';
 import { WithSection } from './withSection';
 

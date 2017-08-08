@@ -1,5 +1,5 @@
 import { Action, isType } from 'typescript-fsa';
-import { DefaultSectionSearchTerms } from '../../../ww-commons';
+import { DefaultSectionSearchTerms } from '../../../../ww-commons';
 import { resetSearchTerms, selectBounds, selectPOI, selectSection, updateSearchTerms } from '../actions';
 import { RegionState } from './types';
 

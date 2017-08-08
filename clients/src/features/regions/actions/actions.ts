@@ -1,5 +1,5 @@
 import { actionCreatorFactory } from 'typescript-fsa';
-import { Point, Section, SectionSearchTerms } from '../../../ww-commons';
+import { Point, Section, SectionSearchTerms } from '../../../../ww-commons';
 
 const factory = actionCreatorFactory('REGION');
 

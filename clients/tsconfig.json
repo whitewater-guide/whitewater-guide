@@ -27,7 +27,8 @@
     "sourceMap": true
   },
   "include": [
-    "src/**/*.ts"
+    "src/**/*.ts",
+    "ww-commons/**/*.ts"
   ],
   "exclude": [
     "**/*.spec.ts",

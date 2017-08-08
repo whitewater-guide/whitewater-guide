@@ -2,7 +2,7 @@ import { gql } from 'react-apollo';
 import { branch, compose, withProps } from 'recompose';
 import { enhancedQuery } from '../../apollo';
 import { withFeatureIds } from '../../core';
-import { Region } from '../../ww-commons';
+import { Region } from '../../../ww-commons';
 import { RegionFragments } from './regionFraments';
 
 const regionDetails = gql`

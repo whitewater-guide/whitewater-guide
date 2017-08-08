@@ -1,7 +1,7 @@
 /* tslint:disable:no-bitwise */
 import * as color from 'color';
 import { isFunction, mapValues } from 'lodash';
-import { Binding } from '../../ww-commons';
+import { Binding } from '../../../ww-commons';
 
 interface DryBinding extends Partial<Binding> {
   dry: number;

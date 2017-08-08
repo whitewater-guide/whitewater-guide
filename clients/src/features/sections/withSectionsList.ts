@@ -13,7 +13,7 @@ import {
   SelectableTag,
   SelectableTagInput,
   TagSelection,
-} from '../../ww-commons';
+} from '../../../ww-commons';
 import { searchTermsSelector } from '../regions';
 import { SectionFragments } from './sectionFragments';
 

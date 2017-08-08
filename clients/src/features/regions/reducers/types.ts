@@ -1,4 +1,4 @@
-import { SectionSearchTerms } from '../../../ww-commons';
+import { SectionSearchTerms } from '../../../../ww-commons';
 
 export interface RegionState {
   selectedBounds: number[][] | null;

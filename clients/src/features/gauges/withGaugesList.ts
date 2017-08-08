@@ -1,7 +1,7 @@
 import { gql } from 'react-apollo';
 import { enhancedQuery } from '../../apollo/enhancedQuery';
 import { FetchMoreResult } from '../../apollo/types';
-import { Gauge, Source } from '../../ww-commons';
+import { Gauge, Source } from '../../../ww-commons';
 import { GaugeFragments } from './gaugeFragments';
 
 const ListGaugesQuery = gql`
