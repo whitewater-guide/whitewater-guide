@@ -5,12 +5,6 @@ server {
     # Tell Nginx and Passenger where your app's 'public' directory is
     root /home/app/webapp/bundle/public;
 
-    # Turn on Passenger
-    #passenger_enabled on;
-    # Tell Passenger that your app is a Meteor app
-    #passenger_app_type node;
-    #passenger_startup_file main.js;
-
     # Tell your app where MongoDB is
     passenger_env_var MONGO_URL mongodb://mongo:27017/wwdb;
     # Tell your app what its root URL is
