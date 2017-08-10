@@ -4042,37 +4042,23 @@ div.mc-image {
   }
 }
 
-/****************** FEATURE CONTENT SLIDER **********************/
-.bx-wrapper .bx-loading {
-  background-image: url('../img/bx_loader.gif?1377966586');
-  background-color: #fff;
-  background-position: center center;
-  background-repeat: no-repeat;
-}
-
-.features .bx-wrapper {
-  margin-top: 50px;
-  margin-bottom: 0;
-}
-.features .bx-wrapper .bx-viewport {
-  -moz-box-shadow: none;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  background: none;
-  border: none;
-}
-@media screen and (max-width: 768px) {
-  .features .bx-wrapper .bx-viewport {
-    left: 0;
-  }
-}
-.features .bx-wrapper .bx-pager {
-  position: initial;
-  padding-top: 30px;
-}
+/****************** FEATURES **********************/
 .features .left {
   float: left;
   width: 70%;
+}
+.features .feature-row {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.features-slick {
+    width: 236px;
+    height: 435px;
+}
+
+.features .features-slick img {
+    position: relative;
 }
 @media screen and (max-width: 992px) {
   .features .left {
@@ -4082,28 +4068,12 @@ div.mc-image {
 }
 .features .right {
   float: right;
-  width: 235px;
-  height: 475px;
-  background-image: url('../img/iphone-placeholder-black.png?1417061398');
-  background-repeat: no-repeat;
 }
 @media screen and (max-width: 992px) {
   .features .right {
     float: none;
     margin: 0 auto;
   }
-}
-.features .right img {
-  position: relative;
-  top: 75px;
-  left: 17px;
-}
-.features .right.nexus-placeholder {
-  background-image: url('../img/nexus5-placeholder.png?1417062630');
-}
-.features .right.nexus-placeholder img {
-  top: 60px;
-  left: 12px;
 }
 
 ul.feature-list {
@@ -4153,113 +4123,6 @@ ul.feature-list li i {
   }
 }
 
-.bx-wrapper .bx-pager.bx-default-pager a {
-  -moz-border-radius: 50%;
-  -webkit-border-radius: 50%;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  border: 2px solid #b8b8b8;
-  background: none;
-}
-.bx-wrapper .bx-pager.bx-default-pager a:hover {
-  background: none;
-}
-.bx-wrapper .bx-pager.bx-default-pager a.active {
-  background: #ccc;
-}
-
-/****************** INFINITE SCREENSHOT SLIDER **********************/
-.screenshots {
-  margin-bottom: 90px;
-  /* compensate slick-dots being absolute position */
-}
-
-.app-screenshots {
-  margin-bottom: 0;
-}
-
-.slick-slide {
-  border-top: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
-}
-.slick-slide img {
-  max-width: 250px;
-}
-@media screen and (max-width: 480px) {
-  .slick-slide img {
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
-.slick-prev,
-.slick-next {
-  -moz-border-radius: 50%;
-  -webkit-border-radius: 50%;
-  border-radius: 50%;
-  -moz-transition: opacity 0.2s ease-out;
-  -o-transition: opacity 0.2s ease-out;
-  -webkit-transition: opacity 0.2s ease-out;
-  transition: opacity 0.2s ease-out;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=30);
-  opacity: 0.3;
-  width: 50px;
-  height: 50px;
-  margin-top: -25px;
-  background-color: #1f1f1f;
-}
-.slick-prev:hover, .slick-prev:focus,
-.slick-next:hover,
-.slick-next:focus {
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
-  opacity: 0.5;
-  background-color: #1f1f1f;
-}
-.slick-prev:before,
-.slick-next:before {
-  font-family: "fontawesome";
-  font-size: 36px;
-  color: #fff;
-}
-@media screen and (max-width: 768px) {
-  .slick-prev,
-  .slick-next {
-    display: none !important;
-  }
-}
-
-.slick-prev {
-  left: 10px;
-}
-.slick-prev:before {
-  content: "\f104";
-}
-
-.slick-next {
-  right: 10px;
-}
-.slick-next:before {
-  content: "\f105";
-}
-
-.slick-dots {
-  bottom: -60px;
-}
-.slick-dots li button {
-  -moz-border-radius: 50%;
-  -webkit-border-radius: 50%;
-  border-radius: 50%;
-  border: 2px solid #b8b8b8;
-}
-.slick-dots li button:before {
-  font-family: initial;
-  font-size: 0;
-}
-.slick-dots li.slick-active button {
-  background-color: #ccc;
-}
-
 /****************** CALL TO ACTION **********************/
 .call-to-action .store-buttons {
   margin-bottom: 0;
@@ -4283,46 +4146,6 @@ ul.feature-list li i {
   .call-to-action .store-buttons a:last-child {
     margin-bottom: 10px;
   }
-}
-
-/****************** REVIEWS **********************/
-#reviews {
-  padding-bottom: 0;
-  margin-bottom: 0;
-}
-#reviews .section-heading {
-  margin-bottom: 100px;
-}
-
-.review-item {
-  text-align: left;
-  margin-bottom: 80px;
-}
-.review-item .avatar {
-  width: 65px;
-}
-.review-item .review-content {
-  padding-left: 85px;
-}
-.review-item .name {
-  font-size: 18px;
-  margin-bottom: 5px;
-}
-.review-item .rating-stars {
-  color: #F5A623;
-}
-.review-item .rating-stars i {
-  font-size: 22px;
-}
-.review-item .review-title {
-  font-family: "Open Sans";
-  font-size: 18px;
-  font-weight: 700;
-  color: #848484;
-}
-.review-item .review-text {
-  font-style: italic;
-  font-size: 14px;
 }
 
 /****************** BOTTOM AND FOOTER AREA **********************/

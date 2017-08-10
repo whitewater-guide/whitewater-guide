@@ -36,25 +36,19 @@ $(document).ready( function() {
 	/* FEATURE CONTENT SLIDER
 	/*---------------------------*/
 
-	$('.feature-slides').bxSlider({
-		mode: 'fade',
-		auto: true,
-		speed: 500,
-		controls: false,
-		adaptiveHeight: true
-	});
-
-
-	/*-----------------------------/
-	/* INFINITE SCREENSHOT SLIDER
-	/*---------------------------*/
-
-	$('.app-screenshots').slick({
-		dots: true,
-		centerMode: true,
-		cssEase: 'ease-in',
-		variableWidth: true,
-	});
+  $('.features-slick').slick({
+    lazyLoad: 'progressive',
+    dots: false,
+		arrows: false,
+    infinite: true,
+    autoplay: true,
+    autoplaySpeed: 4000,
+    fade: true,
+    cssEase: 'linear',
+    draggable: false,
+    swipe: false,
+    touchMove: false,
+  });
 
 
 	/*----------------------/
@@ -81,24 +75,6 @@ $(document).ready( function() {
 		$('.learn-more').localScroll({
 			duration: 1000,
 			easing: 'easeInOutExpo'
-		});
-	}
-
-
-	/*----------------------/
-	/* Fullscreen slider
-	/*---------------------*/
-
-	if($('.fullscreen-slider .slides').length > 0) {
-		$('.fullscreen-slider .slides').maximage({
-			cycleOptions: {
-				fx: 'fade',
-				prev: '#fullslider-arrow_left',
-				next: '#fullslider-arrow_right',
-				pager: '#fullslider-pager',
-				// autostop: 1, // uncomment to disable autoplay
-				// autostopCount: 1 // uncomment to disable autoplay
-			}
 		});
 	}
 
