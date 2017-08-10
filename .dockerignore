@@ -17,3 +17,4 @@ backend/.meteor/local
 backend/.workers
 # Use `meteor npm`, not yarn
 backend/yarn.lock
+/landing/node_modules/
