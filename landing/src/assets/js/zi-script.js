@@ -1,15 +1,6 @@
 $(document).ready( function() {
 
 	/*----------------------/
-	/* PAGE LOADER
-	/*---------------------*/
-
-	$(window).on('load', function() {
-		$('#preloader .loader-wrapper').fadeOut('slow');
-		$('#preloader').delay(350).fadeOut('slow');
-	});
-
-	/*----------------------/
 	/* NAVIGATION
 	/*---------------------*/
 
@@ -91,17 +82,6 @@ $(document).ready( function() {
 			duration: 1000,
 			easing: 'easeInOutExpo'
 		});
-	}
-
-
-	/*----------------------/
-	/* FULLSCREEN VIDEO
-	/*---------------------*/
-
-	if($(".fullscreen-video-bg").length > 0) {
-		if($.browser.mobile) {
-			$(".fullscreen-video-bg").addClass('no-video-bg');
-		}
 	}
 
 

@@ -28,3 +28,10 @@ footer .newsletter-form .input-group-lg > .input-group-btn > .btn {
 footer .newsletter-form .input-group-lg > .input-group-btn > .btn:hover, footer .newsletter-form .input-group-lg > .input-group-btn > .btn:focus {
   background-color: #1c447a;
 }
+
+.hero-prelaunch .newsletter-form .btn {
+  background-color: #3a7bd1;
+}
+.hero-prelaunch .newsletter-form .btn:hover {
+  background-color: #1c447a;
+}
