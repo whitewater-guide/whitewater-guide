@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /*
 *	############################################################################
-*	
+*
 *	Zi - Simple Landing Page
 *	---------------------------------------------------------------------
 *
@@ -3640,12 +3640,12 @@ footer .footer-links + .footer-links {
 /*	----------------------------------------------------------------
 	MaxCycle (Fullscreen Slideshow for use with jQuery Cycle Plugin)
 	----------------------------------------------------------------
-	
+
 	Demo at: http://www.aaronvanderzwan.com/maxcycle/
 	Download and Info at: http://github.com/akv2/MaxCycle---jQuery-Plugin/
 	Copyright (c) 2007-2011 Aaron Vanderzwan
 	Dual licensed under the MIT and GPL licenses.
-	
+
 */
 /*! Version: 2.0.73 (12-Oct-2012) */
 .mc-hide-scrolls {
@@ -3670,9 +3670,9 @@ div.mc-image {
   -o-transition: opacity 1s ease-in-out;
   transition: opacity 1s ease-in-out;
   /*If you are using horizontal slide transitions, use the following CSS:
-  -webkit-transition: left 1s ease-in-out; 
-  -moz-transition: left 1s ease-in-out; 
-  -o-transition: left 1s ease-in-out; 
+  -webkit-transition: left 1s ease-in-out;
+  -moz-transition: left 1s ease-in-out;
+  -o-transition: left 1s ease-in-out;
   transition: left 1s ease-in-out;*/
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -3728,7 +3728,7 @@ div.mc-image {
   display: block;
 }
 .hero-unit.fullscreen-image-bg {
-  background-image: url('../img/zi-fullscreen-bg.png?1416625832');
+  background-image: url('../img/background.jpg');
   background-repeat: no-repeat;
   background-position: center -7em;
 }
@@ -3975,9 +3975,9 @@ div.mc-image {
   -o-transition: opacity 1s ease-in-out;
   transition: opacity 1s ease-in-out;
   /* If you are using horizontal slide transitions, use the following CSS:
-  -webkit-transition: left 1s ease-in-out; 
-  -moz-transition: left 1s ease-in-out; 
-  -o-transition: left 1s ease-in-out; 
+  -webkit-transition: left 1s ease-in-out;
+  -moz-transition: left 1s ease-in-out;
+  -o-transition: left 1s ease-in-out;
   transition: left 1s ease-in-out; */
   -webkit-background-size: cover;
   -moz-background-size: cover;
