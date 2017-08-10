@@ -4047,6 +4047,10 @@ div.mc-image {
   float: left;
   width: 70%;
 }
+.features .right-even {
+  float: right;
+  width: 70%;
+}
 .features .feature-row {
     margin-top: 25px;
     margin-bottom: 25px;
@@ -4065,12 +4069,23 @@ div.mc-image {
     float: none;
     width: 100%;
   }
+  .features .right-even {
+      float: none;
+      width: 100%;
+  }
 }
 .features .right {
   float: right;
 }
+.features .left-even {
+  float: left;
+}
 @media screen and (max-width: 992px) {
   .features .right {
+    float: none;
+    margin: 0 auto;
+  }
+  .features .left-even {
     float: none;
     margin: 0 auto;
   }
