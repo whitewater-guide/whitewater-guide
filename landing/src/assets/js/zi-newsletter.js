@@ -15,18 +15,16 @@ $(document).ready( function() {
 		$btn = newsletter.find('.btn');
 
 		$.ajax({
-
 			url: 'graphql',
+      contentType: "application/json",
 			type: 'POST',
-			dataType: 'json',
 			cache: false,
-			data: {
+			data: JSON.stringify({
 				query: "mutation subscribe($mail: String!) {\n  mailSubscribe(mail: $mail)\n}",
 				variables: {
 					mail: newsletter.find('input[name="email"]').val()
-				},
-				operationName: "subscribe"
-			},
+				}
+			}),
 			beforeSend: function(){
 				$btn.addClass('loading');
 				$btn.attr('disabled', 'disabled');
@@ -35,7 +33,7 @@ $(document).ready( function() {
 
 				var className = '';
 
-				if( data.result == true ){
+				if( data && data.data && data.data.mailSubscribe === true ){
 					className = 'alert-success';
 				}else {
 					className = 'alert-danger';

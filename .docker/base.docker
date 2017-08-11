@@ -1,6 +1,6 @@
 FROM phusion/passenger-customizable:0.9.20
 
-LABEL version="1.12"
+LABEL version="1.14"
 
 # This build passenger and bakes in backend and frontend code
 
@@ -16,7 +16,7 @@ RUN apt-get update \
  && apt-get install -y software-properties-common \
  && add-apt-repository ppa:certbot/certbot \
  && apt-get update \
- && apt-get install -y python-certbot-nginx rlwrap \
+ && apt-get install -y python-certbot-nginx \
  # And install nano (i hate vim)
  && apt-get install -y nano
 # Python is required for node to work
