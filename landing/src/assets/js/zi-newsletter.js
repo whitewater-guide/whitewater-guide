@@ -16,19 +16,23 @@ $(document).ready( function() {
 
 		$.ajax({
 
-			url: 'mailchimp.php',
+			url: 'graphql',
 			type: 'POST',
 			dataType: 'json',
 			cache: false,
 			data: {
-				email: newsletter.find('input[name="email"]').val(),
+				query: "mutation subscribe($mail: String!) {\n  mailSubscribe(mail: $mail)\n}",
+				variables: {
+					mail: newsletter.find('input[name="email"]').val()
+				},
+				operationName: "subscribe"
 			},
 			beforeSend: function(){
 				$btn.addClass('loading');
 				$btn.attr('disabled', 'disabled');
 			},
 			success: function( data, textStatus, XMLHttpRequest ){
-				
+
 				var className = '';
 
 				if( data.result == true ){
@@ -48,7 +52,7 @@ $(document).ready( function() {
 			error: function( XMLHttpRequest, textStatus, errorThrown ){
 				console.log("AJAX ERROR: \n" + XMLHttpRequest.responseText + "\n" + textStatus);
 			}
-			
+
 		});
 	}
 

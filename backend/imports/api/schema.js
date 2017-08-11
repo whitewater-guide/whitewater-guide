@@ -8,6 +8,7 @@ import {MediaGraphqlSchema} from './media';
 import {SectionsGraphqlSchema} from './sections';
 import {TagsGraphqlSchema} from './tags';
 import {ScriptsGraphqlSchema} from './scripts';
+import {EmailGraphqlSchema} from './emails';
 
 const SchemaDefinition = `
   scalar JSON
@@ -48,4 +49,5 @@ export const typeDefs = [
   SectionsGraphqlSchema,
   TagsGraphqlSchema,
   ScriptsGraphqlSchema,
+  EmailGraphqlSchema,
 ];

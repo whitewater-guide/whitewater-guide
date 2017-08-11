@@ -6,6 +6,7 @@ import {userResolvers} from './users';
 import {gaugesResolvers} from './gauges';
 import {scriptsResolvers} from './scripts';
 import {tagsResolvers} from './tags';
+import { emailResolvers } from './emails';
 import {meteorResolver, adminResolver} from '../utils/ApolloUtils';
 import GraphQLJSON from 'graphql-type-json';
 import GraphQLDate from 'graphql-date';
@@ -20,10 +21,13 @@ let resolvers = _.merge(
   gaugesResolvers,
   tagsResolvers,
   scriptsResolvers,
+  emailResolvers,
 );
 
-resolvers.Mutation = _.mapValues(resolvers.Mutation, adminResolver);
-
+resolvers.Mutation = _.mapValues(
+  resolvers.Mutation,
+  (value, key) => key === 'mailSubscribe' ? value : adminResolver(value)
+);
 
 //Decorate resolvers to make them more meteor-friendly
 resolvers = _.mapValues(resolvers, graphqlType => _.mapValues(graphqlType, meteorResolver));
