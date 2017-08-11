@@ -1,4 +1,4 @@
-FROM doomsower/whitewater_passenger_base:1.8
+FROM doomsower/whitewater_passenger_base:1.12
 
 # Deploy code (must be built beforehand)
 COPY build/bundle.tar.gz /home/app/webapp/

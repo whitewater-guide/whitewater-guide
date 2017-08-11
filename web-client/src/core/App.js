@@ -14,7 +14,7 @@ export default () => (
   <MuiThemeProvider muiTheme={theme}>
     <FacebookProvider appId={process.env.facebook.appId}>
       <ApolloProvider store={store} client={apolloClient}>
-        <BrowserRouter>
+        <BrowserRouter basename="/admin">
           <RootLayout />
         </BrowserRouter>
       </ApolloProvider>

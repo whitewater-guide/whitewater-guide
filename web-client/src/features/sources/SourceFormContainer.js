@@ -2,7 +2,7 @@ import {graphql} from 'react-apollo';
 import {withState, withHandlers, withProps, compose} from 'recompose';
 import gql from 'graphql-tag';
 import {filter} from 'graphql-anywhere';
-import moment from 'moment';
+import * as moment from 'moment';
 import {withAdmin} from '../users';
 import {withFeatureIds} from '../../commons/core';
 import {Fragments as CoreFragments} from '../../core/queries';

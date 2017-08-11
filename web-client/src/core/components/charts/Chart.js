@@ -9,7 +9,7 @@ import {
   VictoryTheme,
 } from 'victory';
 import Dimensions from 'react-dimensions';
-import moment from 'moment';
+import * as moment from 'moment';
 
 class Chart extends Component {
   static propTypes = {

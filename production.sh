@@ -8,7 +8,9 @@ Does any or all of following steps: builds web-client and backend for production
 
     -c, --client        Should build web-client
     -s, --server        Should build backend
+    -b, --bundle        Should bundle client, server and landing page
     -d, --deploy        Should deploy everything
+    --all               Does everything
     --help          Display this help and exit.
 EOF
 }
@@ -20,11 +22,12 @@ EOF
 #ln -s /usr/local/bin/gtar /usr/local/bin/gnutar
 
 
-OPTS="$(getopt -o csd --long client,server,deploy,help -n "$0" -- "$@")"
+OPTS="$(getopt -o cbsd --long all,bundle,client,server,deploy,help -n "$0" -- "$@")"
 eval set -- "$OPTS"
 
 BUILD_CLIENT=false
 BUILD_SERVER=false
+BUNDLE=false
 DEPLOY=false
 NODE_ENV=production
 
@@ -33,7 +36,9 @@ while true ; do
         --help) show_help; exit 0 ;;
         -c|--client) BUILD_CLIENT=true; shift ;;
         -s|--server) BUILD_SERVER=true; shift ;;
+        -b|--bundle) BUNDLE=true; shift ;;
         -d|--deploy) DEPLOY=true; shift ;;
+        --all) BUILD_CLIENT=true; BUILD_SERVER=true; BUNDLE=true; DEPLOY=true; shift ;;
         --) shift ; break ;;
         *) echo "Internal error!" ; exit 1 ;;
     esac
@@ -64,14 +69,21 @@ time {
         echo "----------- CLIENT CODE BUNDLED ------------"
     fi
 
-    if [ "$DEPLOY" = true ]
+    if [ "$BUNDLE" = true ]
     then
         echo "----------- REMOVING OLD BUNDLE ------------"
         rm build/bundle.tar.gz
         echo "----------- COMPRESSING CLIENT AND SERVER BUNDLE ------------"
         tar -czf build/bundle.tar.gz \
             -C backend/.build . \
-            --transform 's,^build,bundle/public,' -C ../../web-client build
+            --transform 's,^build,bundle/public,' -C ../../web-client build \
+            --transform 's,^src,bundle/public,' -C ../landing src
+
+        echo "----------- BUNDLING DONE ------------"
+    fi
+
+    if [ "$DEPLOY" = true ]
+    then
         echo "----------- DOCKER ENV WWGUIDE ------------"
         eval $(docker-machine env wwguide)
 

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import moment from 'moment';
+import * as moment from 'moment';
 import FontIcon from 'material-ui/FontIcon';
 import _ from 'lodash';
 import { Column, Table } from 'react-virtualized';

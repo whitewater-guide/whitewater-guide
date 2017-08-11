@@ -12,7 +12,11 @@ server {
     passenger_env_var METEOR_SETTINGS '{{METEOR_SETTINGS}}';
 
     location / {
-        try_files $uri /index.html;
+        try_files $uri /landing.html;
+    }
+
+    location /admin {
+        try_files /index.html /index.html;
     }
 
     # Make nginx compatible with certbot process

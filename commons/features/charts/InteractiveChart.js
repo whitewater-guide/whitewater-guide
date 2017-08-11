@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import moment from 'moment';
+import * as moment from 'moment';
 import _ from 'lodash';
 
 export default (Layout, Chart, FlowToggle, PeriodToggle) => {
