@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+watchman watch-del-all .
+
 wml add commons/src clients/ww-commons
 wml add commons/src backend/src/ww-commons
 wml add commons/src web/src/ww-commons
