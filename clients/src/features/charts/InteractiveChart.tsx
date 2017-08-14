@@ -1,6 +1,5 @@
 import * as moment from 'moment';
 import * as React from 'react';
-import { ComponentType } from 'react';
 import { Binding, GaugeMeasurement, Unit } from '../../../ww-commons';
 import { ChartComponentProps, ChartLayoutProps, FlowToggleProps, PeriodToggleProps } from './types';
 
@@ -22,10 +21,10 @@ interface State {
 }
 
 export default (
-  Layout: ComponentType<ChartLayoutProps>,
-  Chart: ComponentType<ChartComponentProps>,
-  FlowToggle: ComponentType<FlowToggleProps>,
-  PeriodToggle: ComponentType<PeriodToggleProps>,
+  Layout: React.ComponentType<ChartLayoutProps>,
+  Chart: React.ComponentType<ChartComponentProps>,
+  FlowToggle: React.ComponentType<FlowToggleProps>,
+  PeriodToggle: React.ComponentType<PeriodToggleProps>,
 ) => {
   class InteractiveChart extends React.Component<Props, State> {
 
@@ -106,6 +105,5 @@ export default (
 
   }
 
-  // Workaround to make TS emit declarations, see https://github.com/Microsoft/TypeScript/issues/9944
-  return InteractiveChart as ComponentType;
+  return InteractiveChart;
 };

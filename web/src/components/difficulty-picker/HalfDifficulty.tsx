@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import muiThemeable from 'material-ui/styles/muiThemeable';
+import * as React from 'react';
+import { Styles, Themeable } from '../../styles';
 
-const styles = {
+const styles: Styles = {
   wrapper: {
     display: 'flex',
     flexShrink: 0,
@@ -13,27 +13,27 @@ const styles = {
   },
 };
 
-class HalfDifficulty extends React.PureComponent {
-  static propTypes = {
-    value: PropTypes.number.isRequired,
-    selected: PropTypes.bool.isRequired,
-    onStartSelect: PropTypes.func.isRequired,
-    onEndSelect: PropTypes.func.isRequired,
-    onSelect: PropTypes.func.isRequired,
-    muiTheme: PropTypes.object,
-  };
+interface Props extends Themeable {
+  value: number;
+  selected: boolean;
+  onStartSelect: (val: number) => void;
+  onEndSelect: (val: number) => void;
+  onSelect: (val: number) => void;
+}
 
-  onMouseDown = (event) => {
+class HalfDifficulty extends React.PureComponent<Props> {
+
+  onMouseDown = (event: any) => {
     event.preventDefault();
     this.props.onStartSelect(this.props.value);
   };
 
-  onMouseUp = (event) => {
+  onMouseUp = (event: any) => {
     event.preventDefault();
     this.props.onEndSelect(this.props.value);
   };
 
-  onMouseOver = (event) => {
+  onMouseOver = (event: any) => {
     event.preventDefault();
     this.props.onSelect(this.props.value);
   };
@@ -41,8 +41,8 @@ class HalfDifficulty extends React.PureComponent {
   render() {
     const { selected, muiTheme } = this.props;
     const style = selected ?
-      { ...styles.wrapper, backgroundColor: muiTheme.palette.primary1Color } :
-      { ...styles.wrapper, backgroundColor: muiTheme.palette.borderColor };
+      { ...styles.wrapper, backgroundColor: muiTheme.palette!.primary1Color } :
+      { ...styles.wrapper, backgroundColor: muiTheme.palette!.borderColor };
     return (
       <div
         style={style}

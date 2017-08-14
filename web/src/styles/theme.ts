@@ -1,16 +1,22 @@
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {
-  blueGrey500, blueGrey700,
+  blueGrey500,
+  blueGrey700,
+  darkBlack,
+  fullBlack,
+  grey100,
+  grey300,
+  grey400,
+  grey500,
   lightBlue600,
   pinkA200,
-  grey100, grey300, grey400, grey500,
-  white, darkBlack, fullBlack,
+  white,
 } from 'material-ui/styles/colors';
-import {fade} from 'material-ui/utils/colorManipulator';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import spacing from 'material-ui/styles/spacing';
+import { fade } from 'material-ui/utils/colorManipulator';
 
-export default getMuiTheme({
-  spacing: spacing,
+export const theme = getMuiTheme({
+  spacing,
   fontFamily: 'Roboto, sans-serif',
   palette: {
     primary1Color: blueGrey500,

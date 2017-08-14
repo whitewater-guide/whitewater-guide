@@ -4,7 +4,7 @@ import { ApolloProvider } from 'react-apollo';
 import { BrowserRouter } from 'react-router-dom';
 import { apolloClient } from '../core/config/configureApollo';
 import configureStore from '../core/config/configureStore';
-import { RootLayout } from './layouts';
+import { RootLayout } from '../layouts';
 import theme from './styles/theme';
 
 const store = configureStore();
