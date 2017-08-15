@@ -1,6 +1,6 @@
 import './zoomToFit.css';
 
-export default function ZoomToFitControl(controlDiv, map, onClick) {
+export default function ZoomToFitControl(controlDiv: HTMLDivElement, map: google.maps.Map, onClick: (() => void)) {
   const controlUI = document.createElement('div');
   controlUI.className = 'zoomToFit';
   controlDiv.appendChild(controlUI);

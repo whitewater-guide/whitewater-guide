@@ -1,44 +1,47 @@
-import React from 'react';
-import Radium from 'radium';
+import * as Radium from 'radium';
+import * as React from 'react';
+import { TableRowProps } from 'react-virtualized';
+import { Styles } from '../styles/types';
 
-const RadiumDiv = Radium(({children, ...props}) => (<div {...props}>{children}</div>));
+const RadiumDiv = Radium(({ children, ...props }) => (<div {...props}>{children}</div>));
 
-export function rowRenderer({
-                              className,
-                              columns,
-                              index,
-                              isScrolling,
-                              key,
-                              onRowClick,
-                              onRowDoubleClick,
-                              onRowMouseOver,
-                              onRowMouseOut,
-                              rowData,
-                              style
-                            }) {
-  const a11yProps = {};
+interface Props extends TableRowProps {
+  key?: string;
+}
 
-  if (
-    onRowClick ||
-    onRowDoubleClick ||
-    onRowMouseOver ||
-    onRowMouseOut
-  ) {
+type RowMouseEvent = React.SyntheticEvent<React.MouseEvent<any>>;
+
+export function rowRenderer(props: Props) {
+  const {
+    className,
+    columns,
+    index,
+    key,
+    onRowClick,
+    onRowDoubleClick,
+    onRowMouseOver,
+    onRowMouseOut,
+    rowData,
+    style,
+  } = props;
+  const a11yProps: any = {};
+
+  if (onRowClick || onRowDoubleClick || onRowMouseOver || onRowMouseOut) {
     a11yProps['aria-label'] = 'row';
     a11yProps.role = 'row';
     a11yProps.tabIndex = 0;
 
     if (onRowClick) {
-      a11yProps.onClick = () => onRowClick({index, rowData})
+      a11yProps.onClick = (event: RowMouseEvent) => onRowClick({ index, rowData, event });
     }
     if (onRowDoubleClick) {
-      a11yProps.onDoubleClick = () => onRowDoubleClick({index, rowData})
+      a11yProps.onDoubleClick = (event: RowMouseEvent) => onRowDoubleClick({ index, rowData, event });
     }
     if (onRowMouseOut) {
-      a11yProps.onMouseOut = () => onRowMouseOut({index, rowData})
+      a11yProps.onMouseOut = (event: RowMouseEvent) => onRowMouseOut({ index, rowData, event });
     }
     if (onRowMouseOver) {
-      a11yProps.onMouseOver = () => onRowMouseOver({index, rowData})
+      a11yProps.onMouseOver = (event: RowMouseEvent) => onRowMouseOver({ index, rowData, event });
     }
   }
 
@@ -53,10 +56,10 @@ export function rowRenderer({
     >
       {columns}
     </RadiumDiv>
-  )
+  );
 }
 
-const styles  = {
+const styles: Styles  = {
   row: {
     cursor: 'default',
     ':hover': {

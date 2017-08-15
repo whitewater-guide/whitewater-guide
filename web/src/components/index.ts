@@ -4,8 +4,7 @@ export * from './maps';
 
 export * from './AdminControls';
 export { default as FlatLinkButton } from './FlatLinkButton';
-export * from './LanguagePicker';
-export * from './LeftMenuSeparator';
+export { default as LeftMenuSeparator } from './LeftMenuSeparator';
 export { default as SeasonPicker } from './SeasonPicker';
 export { default as Tabs } from './Tabs';
 export * from './difficulty-picker';

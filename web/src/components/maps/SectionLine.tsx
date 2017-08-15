@@ -1,34 +1,33 @@
-import PropTypes from 'prop-types';
-import Polyline from './Polyline';
-import { getSectionColor } from '../../../commons/features/sections';
+import * as React from 'react';
+import { getSectionColor } from '../../ww-clients/features/sections';
+import { Section } from '../../ww-commons';
+import Line = google.maps.Polyline;
 
-export class SectionLine extends Polyline {
+interface Props {
+  section: Section;
+  selected?: boolean;
+  onSectionSelected: (section: Section | null) => void;
+  map: google.maps.Map;
+  zoom: number;
+}
 
-  static propTypes = {
-    ...Polyline.propTypes,
-    section: PropTypes.object.isRequired,
-    selected: PropTypes.bool,
-    onSectionSelected: PropTypes.func.isRequired,
-  };
-
-  static defaultProps = {
-    selected: false,
-  };
+export class SectionLine extends React.PureComponent<Props> {
+  line: Line;
 
   componentDidMount() {
-    super.componentDidMount();
+    const { map } = this.props;
+    this.line = new Line({ path: this.getPaths(), map, ...this.getStyle() });
     this.setupListeners(true);
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    super.componentDidUpdate(prevProps, prevState);
+  componentDidUpdate(prevProps: Props) {
     if (this.props.zoom !== prevProps.zoom || this.props.selected !== prevProps.selected) {
       this.line.setOptions(this.getStyle());
     }
   }
 
   componentWillUnmount() {
-    super.componentWillUnmount();
+    this.line.setMap(null);
     this.setupListeners(false);
   }
 
@@ -41,11 +40,11 @@ export class SectionLine extends Polyline {
   }
 
   getStyle() {
-    const { selected, maps, zoom, section } = this.props;
-    const flows = section.flows || {};
-    const levels = section.levels || {};
-    const bindings = flows.lastValue ? flows : levels;
-    const color = getSectionColor(bindings);
+    const { selected, zoom, section } = this.props;
+    const flows = section.flows;
+    const levels = section.levels;
+    const bindings = (flows && flows.lastValue) ? flows : levels;
+    const color = getSectionColor(bindings || {});
     return {
       geodesic: true,
       strokeColor: color,
@@ -53,7 +52,7 @@ export class SectionLine extends Polyline {
       strokeWeight: selected ? 6 : 4,
       icons: [{
         icon: {
-          path: maps.SymbolPath.FORWARD_CLOSED_ARROW,
+          path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
           scale: Math.min(3, zoom / 3),
         },
         offset: '100%',
@@ -61,12 +60,16 @@ export class SectionLine extends Polyline {
     };
   }
 
-  setupListeners = (on) => {
+  setupListeners = (on: boolean) => {
     if (on) {
       this.line.addListener('click', () => this.props.onSectionSelected(this.props.section));
     } else {
-      this.props.maps.event.clearListeners(this.line, 'click');
+      google.maps.event.clearListeners(this.line, 'click');
     }
   };
+
+  render() {
+    return null;
+  }
 
 }

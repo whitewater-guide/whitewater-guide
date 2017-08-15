@@ -1,8 +1,9 @@
-import React from 'react';
 import CircularProgress from 'material-ui/CircularProgress';
-import { default as spinnerHOC } from '../../commons/utils/spinnerWhileLoading';
+import * as React from 'react';
+import { Styles } from '../styles';
+import spinnerHOC from '../ww-clients/utils/spinnerWhileLoading';
 
-const styles = {
+const styles: Styles = {
   container: {
     display: 'flex',
     width: '100%',

@@ -1,9 +1,10 @@
-import React from 'react';
 import { Tabs as MUITabs } from 'material-ui/Tabs';
-import { withRouter } from 'react-router';
+import * as React from 'react';
+import { RouteComponentProps, withRouter } from 'react-router';
+import { Styles } from '../styles';
 import { TabTemplate } from './TabTemplate';
 
-const styles = {
+const styles: Styles = {
   tabs: {
     flex: 1,
     alignSelf: 'stretch',
@@ -19,9 +20,9 @@ const styles = {
   },
 };
 
-class Tabs extends React.Component {
+class Tabs extends React.PureComponent<RouteComponentProps<any>> {
 
-  onTabChange = (value) => {
+  onTabChange = (value: string) => {
     const { location, history } = this.props;
     history.replace({ ...location, hash: value });
   };
@@ -37,7 +38,7 @@ class Tabs extends React.Component {
         value={location.hash || '#main'}
         onChange={this.onTabChange}
       >
-        { children }
+        {children}
       </MUITabs>
     );
   }

@@ -12,7 +12,7 @@ export default class FlatLinkButton extends React.PureComponent<Props> {
 
   renderChildren = ({ history: { push } }: RouteComponentProps<any>) => {
     const { to, ...buttonProps } = this.props;
-    const onTouchTap = () => push(to);
+    const onTouchTap = () => push(to as any);
     return (
       <FlatButton {...buttonProps} onTouchTap={onTouchTap}/>
     );

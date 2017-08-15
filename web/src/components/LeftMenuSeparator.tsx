@@ -1,19 +1,6 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-
-export class LeftMenuSeparator extends React.PureComponent {
-  static contextTypes = {
-    muiTheme: PropTypes.object.isRequired,
-  };
-
-  render() {
-    const {baseTheme} = this.context.muiTheme;
-    const style = {...styles.separator, backgroundColor: baseTheme.palette.primary3Color};
-    return (
-      <hr style={style} />
-    );
-  }
-}
+import muiThemeable from 'material-ui/styles/muiThemeable';
+import * as React from 'react';
+import { Themeable } from '../styles';
 
 const styles = {
   separator: {
@@ -25,3 +12,16 @@ const styles = {
     border: 'none',
   },
 };
+
+class LeftMenuSeparator extends React.PureComponent<Themeable> {
+
+  render() {
+    const { baseTheme } = this.props.muiTheme;
+    const style = { ...styles.separator, backgroundColor: baseTheme!.palette!.primary3Color };
+    return (
+      <hr style={style} />
+    );
+  }
+}
+
+export default muiThemeable()(LeftMenuSeparator);
