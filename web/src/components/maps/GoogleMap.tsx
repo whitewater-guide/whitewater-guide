@@ -1,11 +1,10 @@
-import PropTypes from 'prop-types';
-import React, { cloneElement, Children } from 'react';
+import * as React from 'react';
 import { findDOMNode } from 'react-dom';
 import ResizeObserver from 'resize-observer-polyfill';
-import withGoogleMapsApi from './withGoogleMapsApi';
+import { Styles } from '../../styles/types';
 import ZoomToFitControl from './ZoomToFitControl';
 
-const styles = {
+const styles: Styles = {
   container: {
     width: '100%',
     height: '100%',
@@ -19,64 +18,66 @@ const styles = {
 const DEFAULT_CENTER = { lat: 0, lng: 0 };
 const DEFAULT_ZOOM = 3;
 
-class GoogleMap extends React.Component {
-  static propTypes = {
-    onLoaded: PropTypes.func,
-    onZoom: PropTypes.func,
-    onBoundsChanged: PropTypes.func,
-    onClick: PropTypes.func,
-    loaded: PropTypes.bool,
-    google: PropTypes.object,
-    children: PropTypes.any,
+interface Props {
+  onLoaded: (map: google.maps.Map) => void;
+  onZoom?: (zoom: number) => void;
+  onBoundsChanged?: (bounds: google.maps.LatLngBounds) => void;
+  onClick?: (point: google.maps.LatLngLiteral) => void;
+}
+
+interface State {
+  zoom: number;
+  bounds: google.maps.LatLngBounds | null;
+}
+
+export default class GoogleMap extends React.Component<Props, State> {
+  state: State = {
+    zoom: DEFAULT_ZOOM,
+    bounds: null,
   };
 
-  static defaultProps = {
-    onLoaded: () => {},
-    onZoom: () => {},
-    onClick: () => {},
-    loaded: false,
-    google: null,
-    children: null,
-  };
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      zoom: DEFAULT_ZOOM,
-      mapCreated: false,
-      bounds: null,
-    };
-    this.map = null;
-    this.maps = null;
-    this.mapRef = null;
-    this.width = 0;
-    this.height = 0;
-    this.resizeObserver = new ResizeObserver((entries) => {
-      for (const entry of entries) {
-        this.onResize(entry);
-      }
-    });
-  }
-
-  componentDidMount() {
-    this.loadMap();
-  }
-
-  componentDidUpdate(prevProps) {
-    if (!prevProps.loaded && this.props.loaded) {
-      this.loadMap();
+  map: google.maps.Map | null = null;
+  width: number = 0;
+  height: number = 0;
+  mapRef: React.ReactInstance | null = null;
+  resizeObserver: ResizeObserver = new ResizeObserver((entries) => {
+    for (const entry of entries) {
+      this.onResize(entry);
     }
-  }
+  });
+
+  setMapRef = (ref: HTMLDivElement | null) => {
+    if (ref) {
+      return;
+    }
+    this.map = new google.maps.Map(
+      findDOMNode(ref!),
+      { center: DEFAULT_CENTER, zoom: this.state.zoom },
+    );
+
+    this.map.addListener('zoom_changed', this.onZoom);
+    this.map.addListener('bounds_changed', this.onBoundsChanged);
+    this.map.addListener('click', this.onClick);
+
+    // Create custom zoom to fit control
+    const controlDiv = document.createElement('div');
+    new ZoomToFitControl(controlDiv, this.map, this.onZoomToFit);
+
+    // controlDiv.index = 1;
+    this.map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(controlDiv);
+
+    this.props.onLoaded(this.map);
+  };
 
   componentWillUnmount() {
-    if (this.map && this.maps) {
-      this.maps.event.clearInstanceListeners(this.map);
+    if (this.map) {
+      google.maps.event.clearInstanceListeners(this.map);
     }
     this.resizeObserver.disconnect();
   }
 
   onZoom = () => {
-    const zoom = this.map.getZoom();
+    const zoom = this.map!.getZoom();
     this.setState({ zoom });
     if (this.props.onZoom) {
       this.props.onZoom(zoom);
@@ -84,63 +85,29 @@ class GoogleMap extends React.Component {
   };
 
   onBoundsChanged = () => {
-    const bounds = this.map.getBounds();
-    this.setState({ bounds });
+    const bounds = this.map!.getBounds();
+    this.setState({ bounds: bounds! });
     if (this.props.onBoundsChanged) {
-      this.props.onBoundsChanged(bounds);
+      this.props.onBoundsChanged(bounds!);
     }
   };
 
-  onClick = ({ latLng }) => {
+  onClick = ({ latLng }: google.maps.MouseEvent) => {
     if (this.props.onClick) {
       this.props.onClick(latLng.toJSON());
     }
   };
 
-  onResize = (entry) => {
+  onResize = (entry: ResizeObserverEntry) => {
     const { width, height } = entry.contentRect;
     this.width = width;
     this.height = height;
-    if (this.maps && width > 0 && height > 0) {
-      this.maps.event.trigger(this.map, 'resize');
-      this.callOnLoaded();
+    if (this.map && width > 0 && height > 0) {
+      google.maps.event.trigger(this.map, 'resize');
     }
   };
 
-  loadMap() {
-    const { google, loaded } = this.props;
-    if (loaded && google) {
-      this.maps = google.maps;
-      this.map = new this.maps.Map(
-        findDOMNode(this.mapRef),
-        { center: DEFAULT_CENTER, zoom: this.state.zoom },
-      );
-
-      this.map.addListener('zoom_changed', this.onZoom);
-      this.map.addListener('bounds_changed', this.onBoundsChanged);
-      this.map.addListener('click', this.onClick);
-
-      // Create custom zoom to fit control
-      const controlDiv = document.createElement('div');
-      const zoomToFitControl = new ZoomToFitControl(controlDiv, this.map, this.onZoomToFit);
-
-      controlDiv.index = 1;
-      this.map.controls[this.maps.ControlPosition.RIGHT_BOTTOM].push(controlDiv);
-
-      this.callOnLoaded();
-    }
-  }
-
-  callOnLoaded = () => {
-    // Sometimes map is created inside 0-height div (for example, inactive tabe)
-    // In this case do not call onLoaded until it is resized
-    if (!this.state.mapCreated && this.width > 0 && this.height > 0 && this.maps) {
-      this.props.onLoaded({ map: this.map, maps: this.maps });
-      this.setState({ mapCreated: true });
-    }
-  };
-
-  mountRoot = (root) => {
+  mountRoot = (root: HTMLDivElement | null) => {
     if (root) {
       const rootNode = findDOMNode(root);
       this.resizeObserver.observe(rootNode);
@@ -148,26 +115,21 @@ class GoogleMap extends React.Component {
   };
 
   onZoomToFit = () => {
-    const latLngBounds = new this.maps.LatLngBounds();
-    this.map.data.forEach((feature) => {
-      const geometry = feature.getGeometry();
-      geometry.forEachLatLng(latLng => latLngBounds.extend(latLng));
+    const latLngBounds = new google.maps.LatLngBounds();
+    this.map!.data.forEach((feature) => {
+      const geometry: google.maps.Data.Geometry = feature.getGeometry();
+      (geometry as any).forEachLatLng(latLng => latLngBounds.extend(latLng));
     });
-    this.map.setCenter(latLngBounds.getCenter());
-    this.map.fitBounds(latLngBounds);
+    this.map!.setCenter(latLngBounds.getCenter());
+    this.map!.fitBounds(latLngBounds);
   };
 
   render() {
-    const { loaded, children } = this.props;
-    if (!loaded) {
-      return null;
-    }
     return (
       <div style={styles.container} ref={this.mountRoot}>
-        <div style={styles.map} ref={(r) => { this.mapRef = r; }} />
-        {this.state.mapCreated && Children.map(children, (child => cloneElement(child, {
+        <div style={styles.map} ref={this.setMapRef} />
+        {React.Children.map(this.props.children, (child => React.cloneElement(child as React.ReactElement<any>, {
           map: this.map,
-          maps: this.maps,
           zoom: this.state.zoom,
           bounds: this.state.bounds,
         })))}
@@ -175,5 +137,3 @@ class GoogleMap extends React.Component {
     );
   }
 }
-
-export default withGoogleMapsApi({ libraries: ['drawing', 'places'] })(GoogleMap);

@@ -1,42 +1,40 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { Coordinate, Coordinate2d } from '../../ww-commons/features/points/types';
 
-export class Marker extends React.PureComponent {
+interface Props {
+  coordinates: Coordinate;
+  map: google.maps.Map;
+  draggable?: boolean;
+  clickable?: boolean;
+  onDragEnd?: (point: Coordinate2d) => void;
+  icon?: string | google.maps.Icon | google.maps.Symbol;
+}
 
-  static propTypes = {
-    coordinates: PropTypes.array,
-    maps: PropTypes.object,
-    map: PropTypes.object,
-    draggable: PropTypes.bool,
-    clickable: PropTypes.bool,
-    onDragEnd: PropTypes.func,
-    icon: PropTypes.any,
-  };
+export class Marker extends React.PureComponent<Props> {
 
-  constructor(props) {
-    super(props);
-    this.point = null;
-  }
+  point: google.maps.Marker | null = null;
 
   componentDidMount() {
-    const { maps, map, coordinates, draggable, clickable, icon } = this.props;
-    this.point = new maps.Marker({ position: { lat: coordinates[1], lng: coordinates[0] }, map, draggable, clickable, icon });
+    const { map, coordinates: [lng, lat], draggable, clickable, icon } = this.props;
+    this.point = new google.maps.Marker({ position: { lat, lng }, map, draggable, clickable, icon });
     this.point.addListener('dragend', this.onDragEnd);
   }
 
-  componentDidUpdate(prevProps) {
-    const { coordinates } = this.props;
-    if (prevProps.coordinates[0] !== coordinates[0] || prevProps.coordinates[1] !== coordinates[1]) {
-      this.point.setPosition({ lat: coordinates[1], lng: coordinates[0] });
+  componentDidUpdate(prevProps: Props) {
+    const { coordinates: [lng, lat] } = this.props;
+    if (this.point && (prevProps.coordinates[0] !== lng || prevProps.coordinates[1] !== lat)) {
+      this.point.setPosition({ lat, lng });
     }
   }
 
   componentWillUnmount() {
-    this.props.maps.event.clearListeners(this.point, 'dragend');
-    this.point.setMap(null);
+    if (this.point) {
+      google.maps.event.clearListeners(this.point, 'dragend');
+      this.point.setMap(null);
+    }
   }
 
-  onDragEnd = ({ latLng }) => {
+  onDragEnd = ({ latLng }: google.maps.MouseEvent) => {
     if (this.props.onDragEnd) {
       this.props.onDragEnd([latLng.lng(), latLng.lat()]);
     }

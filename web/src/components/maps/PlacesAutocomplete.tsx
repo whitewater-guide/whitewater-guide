@@ -1,9 +1,12 @@
-import React from 'react';
-import { findDOMNode } from 'react-dom';
-import PropTypes from 'prop-types';
 import AutoComplete from 'material-ui/AutoComplete';
+import * as React from 'react';
+import { findDOMNode } from 'react-dom';
+import { Styles } from '../../styles';
+import AutocompletePrediction = google.maps.places.AutocompletePrediction;
+import PlacesServiceStatus = google.maps.places.PlacesServiceStatus;
+import PlaceResult = google.maps.places.PlaceResult;
 
-const styles = {
+const styles: Styles = {
   container: {
     backgroundColor: 'white',
     width: 300,
@@ -12,68 +15,84 @@ const styles = {
 
 const alwaysTrue = () => true;
 
-export default class PlacesAutocomplete extends React.Component {
-  static propTypes = {
-    map: PropTypes.any,
-    maps: PropTypes.any,
-    bounds: PropTypes.any,
-  };
+interface SearchResult {
+  text: string;
+  value: PlaceResult | AutocompletePrediction;
+}
 
-  constructor(props) {
+interface Props {
+  map: google.maps.Map;
+  bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral;
+}
+
+interface State {
+  searchText: string;
+  autocompleteResult: SearchResult[];
+  placesResult: SearchResult[];
+}
+
+export default class PlacesAutocomplete extends React.Component<Props, State> {
+  autocompleteService: google.maps.places.AutocompleteService;
+  placesService: google.maps.places.PlacesService;
+  state: State;
+
+  constructor(props: Props) {
     super(props);
+    this.autocompleteService = new google.maps.places.AutocompleteService();
+    this.placesService = new google.maps.places.PlacesService(props.map);
     this.state = {
       searchText: '',
       autocompleteResult: [],
       placesResult: [], // Use both to search by coordinates
     };
-    this.autocompleteService = new props.maps.places.AutocompleteService(props.map);
-    this.placesService = new props.maps.places.PlacesService(props.map);
   }
 
   componentDidMount() {
-    const { map, maps } = this.props;
-    map.controls[maps.ControlPosition.TOP_LEFT].push(findDOMNode(this));
+    this.props.map.controls[google.maps.ControlPosition.TOP_LEFT].push(findDOMNode(this));
   }
 
-  onUpdateInput = (searchText) => {
+  onUpdateInput = (searchText: string) => {
     this.setState({ searchText });
-    this.autocompleteService.getPlacePredictions({ input: searchText, bounds: this.props.bounds }, this.onAutocompleteComplete);
+    this.autocompleteService.getPlacePredictions(
+      { input: searchText, bounds: this.props.bounds },
+      this.onAutocompleteComplete,
+    );
     this.placesService.textSearch({ query: searchText, bounds: this.props.bounds }, this.onPlacesComplete);
   };
 
-  onPlacesComplete = (result, status) => {
-    if (status === this.props.maps.places.PlacesServiceStatus.OK) {
+  onPlacesComplete = (result: PlaceResult[], status: PlacesServiceStatus) => {
+    if (status === PlacesServiceStatus.OK) {
       this.setState({
         placesResult: result.map(place => ({ text: place.formatted_address, value: place })),
       });
     }
-  }
+  };
 
-  onAutocompleteComplete = (result, status) => {
-    if (status === this.props.maps.places.PlacesServiceStatus.OK) {
+  onAutocompleteComplete = (result: AutocompletePrediction[], status: PlacesServiceStatus) => {
+    if (status === PlacesServiceStatus.OK) {
       this.setState({
         autocompleteResult: result.map(place => ({ text: place.description, value: place })),
       });
     }
   };
 
-  onSelect = (e, index) => {
+  onSelect = (e: any, index: number) => {
     const dataSource = [...this.state.autocompleteResult, ...this.state.placesResult];
     const place = dataSource[index].value;
-    if (place.geometry) {
-      this.panZoomTo(place);
+    if (place.hasOwnProperty('geometry')) {
+      this.panZoomTo(place as PlaceResult);
     } else {
       this.placesService.getDetails({ placeId: place.place_id }, this.onDetailsReceived);
     }
   };
 
-  onDetailsReceived = (place, status) => {
-    if (status === this.props.maps.places.PlacesServiceStatus.OK) {
+  onDetailsReceived = (place: PlaceResult, status: PlacesServiceStatus) => {
+    if (status === PlacesServiceStatus.OK) {
       this.panZoomTo(place);
     }
   };
 
-  panZoomTo = (place) => {
+  panZoomTo = (place: PlaceResult) => {
     this.props.map.panTo(place.geometry.location);
     this.props.map.setZoom(11);
   };

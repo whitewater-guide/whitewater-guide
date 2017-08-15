@@ -1,15 +1,11 @@
 import { isNumber, take } from 'lodash';
+import { Coordinate, Coordinate2d, Coordinate3d } from '../../ww-commons/features/points';
+import LatLng = google.maps.LatLng;
+import LatLngLiteral = google.maps.LatLngLiteral;
 
 const EARTH_RADIUS_KM = 6378.137;
 
-export interface LatLngObj {
-  lat: number | (() => number);
-  lng: number | (() => number);
-}
-
-export type LonLatTuple = [number, number];
-
-export function gmapsToArray(latLng?: LatLngObj | null): LonLatTuple | null {
+export function gmapsToArray(latLng?: LatLng | LatLngLiteral | null): Coordinate2d | null {
   if (!latLng) {
     return null;
   }
@@ -19,7 +15,7 @@ export function gmapsToArray(latLng?: LatLngObj | null): LonLatTuple | null {
   return [longitude, latitude];
 }
 
-export function arrayToGmaps(array?: LonLatTuple | null): LatLngObj | null {
+export function arrayToGmaps(array?: Coordinate | null): LatLngLiteral | null {
   if (!array) {
     return null;
   }
@@ -35,7 +31,7 @@ export function isValidLng(lng: any): boolean {
   return isNumber(lng) && lng >= -180 && lng <= 180;
 }
 
-export function arrayToDMSString(coordinates: LonLatTuple, pretty: boolean = true): string {
+export function arrayToDMSString(coordinates: Coordinate, pretty: boolean = true): string {
   const truncate = (n: number) => (n > 0 ? Math.floor(n) : Math.ceil(n));
   const latHemisphere = coordinates[1] < 0 ? 'S' : 'N';
   const lonHemisphere = coordinates[0] < 0 ? 'W' : 'E';
@@ -58,7 +54,7 @@ export function arrayToDMSString(coordinates: LonLatTuple, pretty: boolean = tru
  * @param b Point in [lng, lat] format
  * @returns Distance in km
  */
-export function computeDistanceBetween(a: LonLatTuple, b: LonLatTuple): number {
+export function computeDistanceBetween(a: Coordinate, b: Coordinate): number {
   const [aLng, aLat] = a.map(coord => coord * Math.PI / 180);
   const [bLng, bLat] = b.map(coord => coord * Math.PI / 180);
   const dLat2 = (aLat - bLat) / 2;
@@ -76,7 +72,7 @@ export type BBox = [number, number, number, number];
  * @param bounds
  * @returns [minLng, maxLng, minLat, maxLat]
  */
-export function getBBox(bounds: LonLatTuple[]): BBox {
+export function getBBox(bounds: Coordinate[]): BBox {
   return bounds.reduce<BBox>(
     ([mnLng, mxLng, mnLat, mxLat], [lng, lat]) => [
       Math.min(mnLng, lng),
@@ -105,7 +101,7 @@ function zoom(mapPx: number, worldPx: number, fraction: number) {
  * @param mapDim {width, height} of map in pixels
  * @returns {number} Integer zoom level
  */
-export function getBoundsZoomLevel(bounds: LonLatTuple[] = [], mapDim: { width: number, height: number }) {
+export function getBoundsZoomLevel(bounds: Coordinate[] = [], mapDim: { width: number, height: number }) {
   const WORLD_DIM = { height: 256, width: 256 };
   const ZOOM_MAX = 21;
 
@@ -128,7 +124,7 @@ export function getBoundsZoomLevel(bounds: LonLatTuple[] = [], mapDim: { width: 
  * @param next New value
  * @returns {*}
  */
-export function getCoordinatesPatch(prev: LonLatTuple[], next: LonLatTuple[]): any[] | null {
+export function getCoordinatesPatch(prev: Coordinate2d[], next: Coordinate2d[]): any[] | null {
   const delta = next.length - prev.length;
   const delCount = delta > 0 ? 0 : 1;
   const min = Math.min(prev.length, next.length);
