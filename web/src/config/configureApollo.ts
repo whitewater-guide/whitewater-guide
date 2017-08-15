@@ -1,6 +1,5 @@
-import { configureApolloClient } from '../../commons/apollo';
+import { configureApolloClient } from '../ww-clients/apollo';
 
 export const apolloClient = configureApolloClient({
   reduxRootSelector: state => state.transient.apollo,
 });
-

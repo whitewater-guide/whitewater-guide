@@ -4,7 +4,7 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Route } from 'react-router-dom';
 
-interface Props {
+interface Props extends FlatButtonProps {
   to: LocationDescriptorObject | Path;
 }
 

@@ -1,20 +1,22 @@
-import { createStore, applyMiddleware, compose } from 'redux';
+import { applyMiddleware, compose, createStore, Middleware, StoreEnhancer } from 'redux';
 import { autoRehydrate } from 'redux-persist';
-import configurePersist from './configurePersist';
-import { apolloClient } from './configureApollo';
 import rootReducer from '../reducers/rootReducer';
+import { apolloClient } from './configureApollo';
+import configurePersist from './configurePersist';
+
+type Enhancer = StoreEnhancer<any>;
 
 export default function configureStore() {
-  const middleware = [];
-  const enhancers = [];
+  const middleware: Middleware[] = [];
+  const enhancers: Enhancer[] = [];
 
   middleware.push(apolloClient.middleware());
 
   enhancers.push(applyMiddleware(...middleware));
   enhancers.push(autoRehydrate());
   // Apollo + redux tutorial says us to do so
-  if (typeof window.__REDUX_DEVTOOLS_EXTENSION__ !== 'undefined') {
-    enhancers.push(window.__REDUX_DEVTOOLS_EXTENSION__());
+  if (typeof (window as any).__REDUX_DEVTOOLS_EXTENSION__ !== 'undefined') {
+    enhancers.push((window as any).__REDUX_DEVTOOLS_EXTENSION__());
   }
 
   const store = createStore(rootReducer, compose(...enhancers));

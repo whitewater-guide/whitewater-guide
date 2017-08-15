@@ -1,39 +1,11 @@
-import React from 'react';
-import {FlatLinkButton, LeftMenuSeparator} from '../components';
-import {Route, Switch, Link} from 'react-router-dom';
-import {indigo500} from 'material-ui/styles/colors';
-import {allRoutes} from './routes';
+import { indigo500 } from 'material-ui/styles/colors';
+import * as React from 'react';
+import { Link, Route, Switch } from 'react-router-dom';
+import { FlatLinkButton, LeftMenuSeparator } from '../components';
+import { Styles } from '../styles';
+import { allRoutes } from './routes';
 
-export class LeftMenu extends React.Component {
-  static propTypes = {};
-
-  render() {
-    return (
-      <div style={styles.leftCol}>
-        <div style={styles.logo}>
-          <Link to="/">Logo goes here</Link>
-        </div>
-        <FlatLinkButton to="/regions" label="Regions" secondary={true}/>
-        <LeftMenuSeparator/>
-        <FlatLinkButton to="/rivers" label="All rivers" secondary={true}/>
-        <FlatLinkButton to="/sections" label="All sections" secondary={true}/>
-        <LeftMenuSeparator/>
-        <FlatLinkButton to="/sources" label="Sources" secondary={true}/>
-        <FlatLinkButton to="/users" label="Users" secondary={true}/>
-        <FlatLinkButton to="/tags" label="Tags" secondary={true}/>
-        <LeftMenuSeparator/>
-        <Switch>
-          {allRoutes.map(({path, exact, left}) =>
-            (<Route key={path} path={path} exact={exact} component={left}/>)
-          )}
-        </Switch>
-      </div>
-
-    );
-  }
-}
-
-const styles = {
+const styles: Styles = {
   leftCol: {
     width: 240,
     display: 'flex',
@@ -48,3 +20,25 @@ const styles = {
     height: 56,
   },
 };
+
+export const LeftMenu: React.StatelessComponent = () => (
+  <div style={styles.leftCol}>
+    <div style={styles.logo}>
+      <Link to="/">Logo goes here</Link>
+    </div>
+    <FlatLinkButton to="/regions" label="Regions" secondary={true}/>
+    <LeftMenuSeparator/>
+    <FlatLinkButton to="/rivers" label="All rivers" secondary={true}/>
+    <FlatLinkButton to="/sections" label="All sections" secondary={true}/>
+    <LeftMenuSeparator/>
+    <FlatLinkButton to="/sources" label="Sources" secondary={true}/>
+    <FlatLinkButton to="/users" label="Users" secondary={true}/>
+    <FlatLinkButton to="/tags" label="Tags" secondary={true}/>
+    <LeftMenuSeparator/>
+    <Switch>
+      {allRoutes.map(({path, exact, left}) =>
+        (<Route key={path} path={path} exact={exact} component={left}/>)
+      )}
+    </Switch>
+  </div>
+);
