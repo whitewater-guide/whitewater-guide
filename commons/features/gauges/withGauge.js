@@ -1,7 +1,7 @@
 import { gql, graphql } from 'react-apollo';
 import { withState, withHandlers, mapProps, compose } from 'recompose';
 import { filter } from 'graphql-anywhere';
-import { moment } from 'moment';
+import moment from 'moment';
 import { withFeatureIds } from '../../core/withFeatureIds';
 import { GaugeFragments } from './gaugeFragments';
 
