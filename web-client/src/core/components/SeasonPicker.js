@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import _ from 'lodash';
-import * as moment from 'moment';
+import moment from 'moment';
 import EnhancedButton from 'material-ui/internal/EnhancedButton';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 

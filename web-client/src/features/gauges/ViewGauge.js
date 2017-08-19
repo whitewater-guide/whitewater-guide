@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Paper from 'material-ui/Paper';
-import * as moment from 'moment';
+import moment from 'moment';
 import { compose } from 'recompose';
 import _ from 'lodash';
 import { InteractiveChart, spinnerWhileLoading } from '../../core/components';
