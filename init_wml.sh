@@ -2,6 +2,11 @@
 
 watchman watch-del-all .
 
+wml rm 3
+wml rm 2
+wml rm 1
+wml rm 0
+
 wml add commons/src clients/ww-commons
 wml add commons/src backend/src/ww-commons
 wml add commons/src web/src/ww-commons

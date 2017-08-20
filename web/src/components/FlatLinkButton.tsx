@@ -1,4 +1,5 @@
 import { LocationDescriptorObject, Path } from 'history';
+import { FlatButtonProps } from 'material-ui';
 import FlatButton from 'material-ui/FlatButton';
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';

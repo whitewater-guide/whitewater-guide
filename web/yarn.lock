@@ -60,9 +60,9 @@
   dependencies:
     "@types/color-convert" "*"
 
-"@types/googlemaps@^3.26.17":
-  version "3.26.17"
-  resolved "https://registry.yarnpkg.com/@types/googlemaps/-/googlemaps-3.26.17.tgz#539921ff45999367c51202436bf11ac995662ef5"
+"@types/googlemaps@^3.26.20":
+  version "3.26.20"
+  resolved "https://registry.yarnpkg.com/@types/googlemaps/-/googlemaps-3.26.20.tgz#b8e06aeaad861eb6ed9dd30534cc04f328b1ad87"
 
 "@types/graphql@0.9.4", "@types/graphql@^0.9.1", "@types/graphql@~0.9.0":
   version "0.9.4"
@@ -76,9 +76,9 @@
   version "2.0.15"
   resolved "https://registry.yarnpkg.com/@types/immutability-helper/-/immutability-helper-2.0.15.tgz#1bd2d11e850791267a6302ab86107c0b0ad01bfa"
 
-"@types/jest@^20.0.6":
-  version "20.0.6"
-  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-20.0.6.tgz#7e0ba76ddfacb42ee9bb0d8833e5208cf0680431"
+"@types/jest@^20.0.7":
+  version "20.0.7"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-20.0.7.tgz#39cd215db8bda03928dceb933a1e63eb2cbd210e"
 
 "@types/localforage@^0.0.34":
   version "0.0.34"
@@ -86,24 +86,24 @@
   dependencies:
     localforage "*"
 
-"@types/lodash@^4.14.72":
-  version "4.14.72"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.72.tgz#f090cf6eb1fee1647a0efa1ebe18b0b78ed551c6"
+"@types/lodash@^4.14.73":
+  version "4.14.73"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.73.tgz#9837e47db8643ba5bcef2c7921f37d90f9c24213"
 
-"@types/material-ui@^0.17.21":
-  version "0.17.21"
-  resolved "https://registry.yarnpkg.com/@types/material-ui/-/material-ui-0.17.21.tgz#86e73996021eec12bd8379a11aa3e013f371e589"
+"@types/material-ui@^0.18.0":
+  version "0.18.0"
+  resolved "https://registry.yarnpkg.com/@types/material-ui/-/material-ui-0.18.0.tgz#f3abc5431df8faa4592233c6c5377f2843eb807f"
   dependencies:
     "@types/react" "*"
     "@types/react-addons-linked-state-mixin" "*"
 
-"@types/node@*", "@types/node@^8.0.19":
-  version "8.0.19"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.19.tgz#e46e2b0243de7d03f15b26b45c59ebb84f657a4e"
-
 "@types/node@^6.0.46":
   version "6.0.85"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-6.0.85.tgz#ec02bfe54a61044f2be44f13b389c6a0e8ee05ae"
+
+"@types/node@^8.0.24":
+  version "8.0.24"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.24.tgz#06c580084d9add1fb40c1510ef0b448961246fb1"
 
 "@types/prop-types@^15.5.1":
   version "15.5.1"
@@ -131,11 +131,10 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-dom@^15.5.2":
-  version "15.5.2"
-  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-15.5.2.tgz#f7203c75a1728812355f037ea112611d082555e6"
+"@types/react-dom@^15.5.3":
+  version "15.5.3"
+  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-15.5.3.tgz#4f26d09c5a92bc76728051ab5ee7116617d72f39"
   dependencies:
-    "@types/node" "*"
     "@types/react" "*"
 
 "@types/react-dropzone@^3.13.1":
@@ -150,9 +149,9 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-redux@^5.0.1":
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/@types/react-redux/-/react-redux-5.0.1.tgz#7fb482e44645b650e335afa633d0f1349e124002"
+"@types/react-redux@^5.0.4":
+  version "5.0.4"
+  resolved "https://registry.yarnpkg.com/@types/react-redux/-/react-redux-5.0.4.tgz#7b52b6b6bd5be77e8b7ed58a9e6ff00a9a933138"
   dependencies:
     "@types/react" "*"
     redux "^3.6.0"
@@ -165,9 +164,16 @@
     "@types/react" "*"
     "@types/react-router" "*"
 
-"@types/react-router@*", "@types/react-router@^4.0.14":
+"@types/react-router@*":
   version "4.0.14"
   resolved "https://registry.yarnpkg.com/@types/react-router/-/react-router-4.0.14.tgz#dd650f40bbb20ad1fec26471707665908efa9e9f"
+  dependencies:
+    "@types/history" "*"
+    "@types/react" "*"
+
+"@types/react-router@^4.0.15":
+  version "4.0.15"
+  resolved "https://registry.yarnpkg.com/@types/react-router/-/react-router-4.0.15.tgz#be8aaefc20afd968a5dbcffcf09060e6c2e8746e"
   dependencies:
     "@types/history" "*"
     "@types/react" "*"
@@ -182,19 +188,23 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@^16.0.0":
+"@types/react@*":
   version "16.0.0"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.0.0.tgz#fec7e6302e11c1cd307129d8ce1e6d5dca4a0283"
 
-"@types/recompose@^0.23.3":
-  version "0.23.3"
-  resolved "https://registry.yarnpkg.com/@types/recompose/-/recompose-0.23.3.tgz#63134a58cc51526b850fe995debdf28cc5166808"
+"@types/react@^16.0.2":
+  version "16.0.2"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.0.2.tgz#0b31a73cdde6272b719e5b05a7df6d1e2654a804"
+
+"@types/recompose@^0.24.0":
+  version "0.24.0"
+  resolved "https://registry.yarnpkg.com/@types/recompose/-/recompose-0.24.0.tgz#c6243dfdda16fb13b687c910ceadacb459558671"
   dependencies:
     "@types/react" "*"
 
-"@types/redux-actions@^1.2.7":
-  version "1.2.7"
-  resolved "https://registry.yarnpkg.com/@types/redux-actions/-/redux-actions-1.2.7.tgz#72c6fa373353058371eba363713d796e5b85b03e"
+"@types/redux-actions@^1.2.8":
+  version "1.2.8"
+  resolved "https://registry.yarnpkg.com/@types/redux-actions/-/redux-actions-1.2.8.tgz#ef8c3dd346cc5d10c30e9f23c9b2bf56a719b969"
 
 "@types/redux-devtools-extension@^2.13.2":
   version "2.13.2"

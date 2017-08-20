@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import { regionsReducer } from '../../commons/features/regions';
 import { apolloClient } from '../config/configureApollo';
+import { regionsReducer } from '../ww-clients/features/regions';
 
 const persistent = combineReducers({
   regions: regionsReducer,

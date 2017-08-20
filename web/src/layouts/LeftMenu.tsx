@@ -26,18 +26,18 @@ export const LeftMenu: React.StatelessComponent = () => (
     <div style={styles.logo}>
       <Link to="/">Logo goes here</Link>
     </div>
-    <FlatLinkButton to="/regions" label="Regions" secondary={true}/>
+    <FlatLinkButton to="/regions" label="Regions" secondary />
     <LeftMenuSeparator/>
-    <FlatLinkButton to="/rivers" label="All rivers" secondary={true}/>
-    <FlatLinkButton to="/sections" label="All sections" secondary={true}/>
+    <FlatLinkButton to="/rivers" label="All rivers" secondary />
+    <FlatLinkButton to="/sections" label="All sections" secondary />
     <LeftMenuSeparator/>
-    <FlatLinkButton to="/sources" label="Sources" secondary={true}/>
-    <FlatLinkButton to="/users" label="Users" secondary={true}/>
-    <FlatLinkButton to="/tags" label="Tags" secondary={true}/>
+    <FlatLinkButton to="/sources" label="Sources" secondary />
+    <FlatLinkButton to="/users" label="Users" secondary />
+    <FlatLinkButton to="/tags" label="Tags" secondary />
     <LeftMenuSeparator/>
     <Switch>
-      {allRoutes.map(({path, exact, left}) =>
-        (<Route key={path} path={path} exact={exact} component={left}/>)
+      {allRoutes.map(({ path, exact, left }) =>
+        (<Route key={path} path={path} exact={exact} component={left}/>),
       )}
     </Switch>
   </div>

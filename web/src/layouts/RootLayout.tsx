@@ -1,31 +1,10 @@
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import {Toolbar} from 'material-ui/Toolbar';
-import {UserMenu} from '../../features/users';
-import {Breadcrumbs} from './Breadcrumbs';
-import {ContentLayout} from './ContentLayout';
-import {LeftMenu} from "./LeftMenu";
-
-export class RootLayout extends Component {
-
-  render() {
-    return (
-      <div style={styles.root}>
-        <LeftMenu/>
-        <div style={styles.rightCol}>
-          <Toolbar style={styles.toolbar}>
-            <Breadcrumbs />
-            <div style={{flex: 1}}></div>
-            <UserMenu/>
-          </Toolbar>
-          <div style={styles.content}>
-            <ContentLayout/>
-          </div>
-        </div>
-      </div>
-    );
-  }
-}
+import { Toolbar } from 'material-ui/Toolbar';
+import * as React from 'react';
+import { UserMenu } from '../../features/users';
+import { UserMenu } from '../features/users';
+import { Breadcrumbs } from './Breadcrumbs';
+import { ContentLayout } from './ContentLayout';
+import { LeftMenu } from './LeftMenu';
 
 const styles = {
   root: {
@@ -48,4 +27,23 @@ const styles = {
     flex: 1,
     overflowY: 'auto',
   },
+  spacer: {
+    flex: 1,
+  },
 };
+
+export const RootLayout: React.StatelessComponent = () => (
+  <div style={styles.root}>
+    <LeftMenu/>
+    <div style={styles.rightCol}>
+      <Toolbar style={styles.toolbar}>
+        <Breadcrumbs />
+        <div style={styles.spacer}/>
+        <UserMenu/>
+      </Toolbar>
+      <div style={styles.content}>
+        <ContentLayout/>
+      </div>
+    </div>
+  </div>
+);

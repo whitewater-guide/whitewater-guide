@@ -24,4 +24,6 @@ class LeftMenuSeparator extends React.PureComponent<Themeable> {
   }
 }
 
-export default muiThemeable()(LeftMenuSeparator);
+const ThemeableLeftMenuSeparator: React.ComponentType = muiThemeable()(LeftMenuSeparator);
+
+export default ThemeableLeftMenuSeparator;
