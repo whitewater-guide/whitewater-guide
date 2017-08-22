@@ -1,11 +1,12 @@
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import { cloneDeep, forEach, set } from 'lodash';
 import RaisedButton from 'material-ui/RaisedButton';
 import Snackbar from 'material-ui/Snackbar';
-import CopyToClipboard from 'react-copy-to-clipboard';
-import _ from 'lodash';
+import * as PropTypes from 'prop-types';
+import * as React from 'react';
+import * as CopyToClipboard from 'react-copy-to-clipboard';
+import { Styles } from '../styles';
 
-const styles = {
+const styles: Styles = {
   container: {
     display: 'flex',
     flexDirection: 'column',
@@ -32,42 +33,41 @@ const styles = {
   },
 };
 
-class Form extends Component {
-  static propTypes = {
-    title: PropTypes.string,
-    method: PropTypes.func,
-    cancelLabel: PropTypes.string,
-    submitLabel: PropTypes.string,
-    onSubmit: PropTypes.func,
-    onCancel: PropTypes.func,
-    initialData: PropTypes.object,
-    style: PropTypes.object,
-    transformBeforeSubmit: PropTypes.func,
-    children: PropTypes.any,
-    narrow: PropTypes.bool,
-    fullWidth: PropTypes.bool,
-  };
+interface Props {
+  title: string;
+  method: (data: any) => Promise<any>;
+  cancelLabel?: string;
+  submitLabel?: string;
+  onCancel: () => void;
+  onSubmit: (data: any) => void;
+  initialData: any;
+  style: any;
+  transformBeforeSubmit: any;
+  narrow?: boolean;
+  fullWidth?: boolean;
+}
 
-  static defaultProps = {
-    cancelLabel: 'Cancel',
-    submitLabel: 'Submit',
-    initialData: {},
-    transformBeforeSubmit: _.identity,
-    narrow: false,
-    fullWidth: false,
+interface State {
+  data: any;
+  error: {
+    open: boolean;
+    message: string;
   };
+}
 
-  static childContextTypes = {
+class Form extends React.PureComponent<Props, State> {
+
+  static childContextTypes: any = {
     formData: PropTypes.object,
     formErrors: PropTypes.object,
     formFieldChangeHandler: PropTypes.func,
   };
 
-  constructor(props) {
+  constructor(props: Props) {
     // Use clone deep at first, apollo returns frozen objects
     super(props);
     this.state = {
-      data: _.cloneDeep(props.initialData),
+      data: cloneDeep(props.initialData),
       error: {
         open: false,
         message: '',
@@ -88,28 +88,25 @@ class Form extends Component {
    * @param field Flat map of multiple (might be deeply nested) fields and their values. Or string name of single field
    * @param value In case of single field, its value
    */
-  onFieldChange = (field, value) => {
-    let fieldsDict = field;
-    if (_.isString(field)) {
-      fieldsDict = { [field]: value };
-    }
+  onFieldChange = (field: string, value: any) => {
+    const fieldsDict = { [field]: value };
+    // if (isString(field)) {
+    //   fieldsDict = { [field]: value };
+    // }
 
     // This is expensive, but code is simple
-    const data = _.cloneDeep(this.state.data);
+    const data = cloneDeep(this.state.data);
 
-    _.forEach(fieldsDict, (fieldValue, fieldName) => {
+    forEach(fieldsDict, (fieldValue, fieldName) => {
       // Use lodash to allow fields from embedded documents
-      _.set(data, fieldName, fieldValue);
+      set(data, fieldName, fieldValue);
     });
     this.setState({ data });
   };
 
   onCancel = () => this.props.onCancel();
 
-  // Do not use arrow function here
-  // As a workaround for babel / react-hot-loader bug
-  // https://github.com/babel/babel/issues/4550
-  async onSubmit() {
+  onSubmit = async () => {
     const { method, onSubmit } = this.props;
     const data = { data: this.props.transformBeforeSubmit(this.state.data) };
     console.log('Submit form', data);
@@ -126,7 +123,7 @@ class Form extends Component {
       console.error(message);
       this.setState({ error: { open: true, message } });
     }
-  }
+  };
 
   renderSnackbar = () => {
     const action = (
@@ -137,7 +134,6 @@ class Form extends Component {
     return (
       <Snackbar
         action={action}
-        onActionTouchTap={this.onCopyError}
         open={this.state.error.open}
         message="Something bad happened"
         autoHideDuration={10000}
@@ -166,7 +162,7 @@ class Form extends Component {
           <div style={{ width: 8 }} />
           <RaisedButton primary label={this.props.submitLabel} onTouchTap={this.onSubmit} />
         </div>
-        { this.renderSnackbar() }
+        {this.renderSnackbar()}
       </div>
     );
   }

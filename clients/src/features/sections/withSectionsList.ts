@@ -4,8 +4,6 @@ import { map, reject } from 'lodash/fp';
 import { gql } from 'react-apollo';
 import { connect } from 'react-redux';
 import { branch, compose, mapProps } from 'recompose';
-import { enhancedQuery, FetchMoreResult } from '../../apollo';
-import { withFeatureIds } from '../../core';
 import {
   Section,
   SectionSearchTermInput,
@@ -14,6 +12,8 @@ import {
   SelectableTagInput,
   TagSelection,
 } from '../../../ww-commons';
+import { enhancedQuery, FetchMoreResult } from '../../apollo';
+import { withFeatureIds } from '../../core';
 import { searchTermsSelector } from '../regions';
 import { SectionFragments } from './sectionFragments';
 
@@ -63,7 +63,7 @@ interface Props {
   searchTerms: SectionSearchTerms;
 }
 
-export interface WithSections {
+export interface WithSectionsList {
   sections: {
     list: Section[];
     count: number;
@@ -112,7 +112,7 @@ interface Options {
   offlineSearch?: boolean;
 }
 
-const sectionsGraphql = ({ withGeo, pageSize, offlineSearch }: Options) => enhancedQuery<Result, Props, WithSections>(
+const sectionsGraphql = ({ withGeo, pageSize, offlineSearch }: Options) => enhancedQuery<Result, Props, WithSectionsList>(
   ListSectionsQuery,
   {
     options: ({ language, regionId, searchTerms }) => ({
@@ -132,7 +132,7 @@ const sectionsGraphql = ({ withGeo, pageSize, offlineSearch }: Options) => enhan
     props: ({ data }) => {
       const { sections: sectionsSearchResult, loading, variables, fetchMore, subscribeToMore } = data!;
       const { sections = [], count = 0 } = sectionsSearchResult || {};
-      const result: WithSections = {
+      const result: WithSectionsList = {
         sections: {
           list: sections,
           count,
@@ -217,7 +217,7 @@ const serializeTags: TagSerializer = flow(
  */
 export function withSectionsList(options: Options) {
   const opts = defaults({}, options, { withGeo: false, pageSize: 25, offlineSearch: false });
-  return compose<WithSections, any>(
+  return compose<WithSectionsList, any>(
     withFeatureIds(['region', 'river']),
     connect(searchTermsSelector),
     mapProps(({ searchTerms, ...props }) => ({

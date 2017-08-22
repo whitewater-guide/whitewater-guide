@@ -1,7 +1,7 @@
 import { DocumentNode, FieldNode, OperationDefinitionNode } from 'graphql';
 import { isFunction } from 'lodash';
 import { graphql, OperationOption } from 'react-apollo';
-import { ComponentDecorator } from 'react-apollo/lib/types';
+import { ComponentDecorator } from 'react-apollo/types';
 
 export interface ErrorItem {
   error: any;

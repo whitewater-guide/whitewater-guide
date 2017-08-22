@@ -2,11 +2,12 @@ import { Toolbar } from 'material-ui/Toolbar';
 import * as React from 'react';
 import { UserMenu } from '../../features/users';
 import { UserMenu } from '../features/users';
+import { Styles } from '../styles';
 import { Breadcrumbs } from './Breadcrumbs';
 import { ContentLayout } from './ContentLayout';
 import { LeftMenu } from './LeftMenu';
 
-const styles = {
+const styles: Styles = {
   root: {
     width: '100%',
     height: '100%',

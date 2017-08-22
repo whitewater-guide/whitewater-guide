@@ -1,5 +1,5 @@
 import { isNumber, take } from 'lodash';
-import { Coordinate, Coordinate2d, Coordinate3d } from '../../ww-commons/features/points';
+import { Coordinate, Coordinate2d } from '../../ww-commons/features/points';
 import LatLng = google.maps.LatLng;
 import LatLngLiteral = google.maps.LatLngLiteral;
 

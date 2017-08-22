@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ComponentType } from 'react';
-import { WithSectionsListChildProps } from './withSectionsList';
+import { WithSectionsList } from './withSectionsList';
 
 /**
  * High order component that automatically loads all available sections in batches
@@ -8,17 +8,17 @@ import { WithSectionsListChildProps } from './withSectionsList';
  * @returns {SectionsBatchLoader}
  */
 export const sectionsBatchLoader = (batchSize = 25) => (Wrapped: ComponentType<any>) => {
-  class SectionsBatchLoader extends React.PureComponent<WithSectionsListChildProps> {
+  return class SectionsBatchLoader extends React.PureComponent<WithSectionsList> {
 
     componentDidMount() {
       this.loadMoreSections(null);
     }
 
-    componentDidUpdate(prevPros: WithSectionsListChildProps) {
+    componentDidUpdate(prevPros: WithSectionsList) {
       this.loadMoreSections(prevPros);
     }
 
-    loadMoreSections = (prevPros: WithSectionsListChildProps | null) => {
+    loadMoreSections = (prevPros: WithSectionsList | null) => {
       const { loadMore, list, count, loading } = this.props.sections;
       const numSections = list.length;
       const prevNumSections = prevPros ? prevPros.sections.list.length : 0;
@@ -34,8 +34,5 @@ export const sectionsBatchLoader = (batchSize = 25) => (Wrapped: ComponentType<a
         <Wrapped {...this.props} />
       );
     }
-  }
-
-  // Workaround to make TS emit declarations, see https://github.com/Microsoft/TypeScript/issues/9944
-  return SectionsBatchLoader as ComponentType<WithSectionsListChildProps>;
+  };
 };

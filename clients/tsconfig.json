@@ -11,7 +11,8 @@
     "jsx": "react",
     "lib": [
       "es2017",
-      "dom"
+      "dom",
+      "esnext.asynciterable"
     ],
     "target": "es5",
     "module": "commonjs",
@@ -29,11 +30,6 @@
   "include": [
     "src/**/*.ts",
     "ww-commons/**/*.ts"
-  ],
-  "exclude": [
-    "**/*.spec.ts",
-    "**/*.test.ts",
-    "**/__tests__/*.ts"
   ],
   "compileOnSave": true
 }
