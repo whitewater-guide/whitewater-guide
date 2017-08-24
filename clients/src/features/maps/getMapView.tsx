@@ -1,17 +1,16 @@
 import { find } from 'lodash';
 import * as React from 'react';
-import { ComponentType } from 'react';
+import shallowequal = require('shallowequal');
 import { Point, Section } from '../../../ww-commons';
 import { MapLayoutProps, MapProps, SelectedPOIViewProps, SelectedSectionViewProps } from './types';
-import shallowequal = require('shallowequal');
 
 const customizer = (val: any, other: any, key: string) => (key === 'initialBounds' ? true : undefined);
 
 export const getMapView = <M extends MapProps>(
-  Layout: ComponentType<MapLayoutProps>,
-  Map: ComponentType<M>,
-  SelectedSection: ComponentType<SelectedSectionViewProps>,
-  SelectedPOI: ComponentType<SelectedPOIViewProps>,
+  Layout: React.ComponentType<MapLayoutProps>,
+  Map: React.ComponentType<M>,
+  SelectedSection: React.ComponentType<SelectedSectionViewProps>,
+  SelectedPOI: React.ComponentType<SelectedPOIViewProps>,
 ) => {
   class MapViewBase extends React.Component<M> {
     shouldComponentUpdate(nextProps: M) {
@@ -48,6 +47,5 @@ export const getMapView = <M extends MapProps>(
     }
   }
 
-  // Workaround to make TS emit declarations, see https://github.com/Microsoft/TypeScript/issues/9944
-  return MapViewBase as ComponentType<M>;
+  return MapViewBase;
 };

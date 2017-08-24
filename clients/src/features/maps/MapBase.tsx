@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { ComponentType } from 'react';
 import { Point, Section } from '../../../ww-commons';
 import { MapComponentProps, MapProps, POIComponentProps, SectionComponentProps } from './types';
 
@@ -8,9 +7,9 @@ interface State {
 }
 
 export default (
-  MapComponent: ComponentType<MapComponentProps>,
-  SectionComponent: ComponentType<SectionComponentProps>,
-  POIComponent: ComponentType<POIComponentProps>,
+  MapComponent: React.ComponentType<MapComponentProps>,
+  SectionComponent: React.ComponentType<SectionComponentProps>,
+  POIComponent: React.ComponentType<POIComponentProps>,
 ) => {
   class MapBase extends React.PureComponent<MapProps, State> {
 
@@ -60,6 +59,5 @@ export default (
     }
   }
 
-  // Workaround to make TS emit declarations, see https://github.com/Microsoft/TypeScript/issues/9944
-  return MapBase as ComponentType<MapProps>;
+  return MapBase;
 };

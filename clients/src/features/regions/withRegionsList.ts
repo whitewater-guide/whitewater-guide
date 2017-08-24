@@ -1,6 +1,6 @@
 import { gql } from 'react-apollo';
-import { enhancedQuery } from '../../apollo';
 import { Region } from '../../../ww-commons';
+import { enhancedQuery } from '../../apollo';
 
 const ListRegionsQuery = gql`
   query listRegions {

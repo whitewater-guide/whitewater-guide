@@ -47,6 +47,7 @@ export const SectionMapView = (
   withState('selectedPOIId', 'setSelectedPOIId', null),
   withHandlers({
     onPOISelected: (props: any) => (poi: Point) => props.setSelectedPOIId(poi && poi.id),
+    /* tslint:disable-next-line:no-empty */
     onSectionSelected: () => () => {}, // Blank handler so deselect will work
   }),
   withProps({ useSectionShapes: true }),

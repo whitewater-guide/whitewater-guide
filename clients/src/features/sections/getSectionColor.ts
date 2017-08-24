@@ -91,7 +91,8 @@ function getCol({ dry, minimum, maximum, optimum, impossible, lastValue }: DryBi
   return 5;
 }
 
-export function hslMix(color1: color, color2: color, ratio = 0.5) {
+/* tslint:disable-next-line:no-inferrable-types */
+export function hslMix(color1: color, color2: color, ratio: number = 0.5) {
   const [h1, s1, l1] = color1.hsl().array();
   const [h2, s2, l2] = color2.hsl().array();
   const dh = h2 - h1;

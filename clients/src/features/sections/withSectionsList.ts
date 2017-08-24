@@ -18,7 +18,14 @@ import { searchTermsSelector } from '../regions';
 import { SectionFragments } from './sectionFragments';
 
 const ListSectionsQuery = gql`
-  query listSections($terms:SectionSearchTerms!, $language: String, $skip: Int, $limit: Int, $withGeo: Boolean!, $isLoadMore:Boolean!) {
+  query listSections(
+    $terms: SectionSearchTerms!,
+    $language: String,
+    $skip: Int,
+    $limit: Int,
+    $withGeo: Boolean!,
+    $isLoadMore:Boolean!
+  ) {
     sections(terms:$terms, language:$language, skip: $skip, limit: $limit) {
       sections {
         ...SectionCore
@@ -112,7 +119,8 @@ interface Options {
   offlineSearch?: boolean;
 }
 
-const sectionsGraphql = ({ withGeo, pageSize, offlineSearch }: Options) => enhancedQuery<Result, Props, WithSectionsList>(
+const sectionsGraphql = ({ withGeo, pageSize, offlineSearch }: Options) =>
+  enhancedQuery<Result, Props, WithSectionsList>(
   ListSectionsQuery,
   {
     options: ({ language, regionId, searchTerms }) => ({

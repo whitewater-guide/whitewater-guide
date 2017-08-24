@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { ComponentType } from 'react';
 import { WithSectionsList } from './withSectionsList';
 
 /**
@@ -7,7 +6,7 @@ import { WithSectionsList } from './withSectionsList';
  * @param batchSize - number of sections to load at once
  * @returns {SectionsBatchLoader}
  */
-export const sectionsBatchLoader = (batchSize = 25) => (Wrapped: ComponentType<any>) => {
+export const sectionsBatchLoader = (batchSize = 25) => (Wrapped: React.ComponentType<any>) => {
   return class SectionsBatchLoader extends React.PureComponent<WithSectionsList> {
 
     componentDidMount() {

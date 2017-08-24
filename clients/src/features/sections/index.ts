@@ -5,4 +5,3 @@ export * from './SectionMapView';
 export * from './sectionsBatchLoader';
 export * from './withSection';
 export * from './withSectionsList';
-

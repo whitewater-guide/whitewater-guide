@@ -1,6 +1,6 @@
 import { DocumentNode } from 'graphql';
 import { withApollo } from 'react-apollo';
-import { ComponentEnhancer, compose, mapProps } from 'recompose';
+import { compose, mapProps } from 'recompose';
 
 export interface Options {
   fragment: DocumentNode;
@@ -24,6 +24,3 @@ export const withFragment = ({ fragment, fragmentName, idFromProps, propName }: 
     [propName]: client.readFragment({ id: idFromProps(props), fragment, fragmentName }),
   })),
 );
-
-// Workaround to make TS emit declarations, see https://github.com/Microsoft/TypeScript/issues/9944
-let a: ComponentEnhancer<any, any>;

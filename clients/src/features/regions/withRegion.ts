@@ -1,8 +1,8 @@
 import { gql } from 'react-apollo';
-import { branch, ComponentEnhancer, compose, withProps } from 'recompose';
+import { branch, compose, withProps } from 'recompose';
+import { Region } from '../../../ww-commons';
 import { enhancedQuery } from '../../apollo';
 import { withFeatureIds } from '../../core';
-import { Region } from '../../../ww-commons';
 import { RegionFragments } from './regionFraments';
 
 const regionDetails = gql`
@@ -78,6 +78,3 @@ export function withRegion<RegionProp = {region: Region | null}>(options: WithRe
 }
 
 export type WithRegion<RegionProp = {region: Region | null}> = WithRegionProps & WithRegionChildProps & RegionProp;
-
-// Workaround to make TS emit declarations, see https://github.com/Microsoft/TypeScript/issues/9944
-let a: ComponentEnhancer<any, any>;

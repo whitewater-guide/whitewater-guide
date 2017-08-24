@@ -1,8 +1,8 @@
 import { gql } from 'react-apollo';
-import { ComponentEnhancer, compose } from 'recompose';
+import { compose } from 'recompose';
+import { Section } from '../../../ww-commons';
 import { enhancedQuery } from '../../apollo';
 import { withFeatureIds } from '../../core';
-import { Section } from '../../../ww-commons';
 import { SectionFragments } from './sectionFragments';
 
 const sectionDetails = gql`
@@ -75,6 +75,3 @@ export function withSection<SectionProp = {section: Section | null}>(options: Wi
 
 export type WithSection<SectionProp = {section: Section | null}> =
   WithSectionProps & WithSectionChildProps & SectionProp;
-
-// Workaround to make TS emit declarations, see https://github.com/Microsoft/TypeScript/issues/9944
-let a: ComponentEnhancer<any, any>;
