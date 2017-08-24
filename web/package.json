@@ -54,5 +54,6 @@
     "@types/redux": "^3.6.0",
     "tslint-eslint-rules": "^4.1.1",
     "tslint-react": "^3.2.0"
-  }
+  },
+  "proxy": "http://localhost:3333"
 }

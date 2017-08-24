@@ -24,6 +24,7 @@
     "@types/node": "^8.0.17",
     "@types/passport": "^0.3.3",
     "@types/passport-facebook": "^2.1.5",
+    "@types/valid-url": "^1.0.2",
     "jest": "^20.0.4",
     "ts-jest": "^20.0.7",
     "tslib": "^1.7.1",
@@ -59,6 +60,7 @@
     "passport-facebook": "^2.1.1",
     "pg": "^6.4.1",
     "pretty-error": "^2.1.1",
+    "valid-url": "^1.0.9",
     "wkx": "^0.4.1"
   },
   "jest": {

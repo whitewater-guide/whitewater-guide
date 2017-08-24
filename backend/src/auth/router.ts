@@ -1,10 +1,12 @@
 import { Request, Response, Router } from 'express';
 import * as passport from 'passport';
+import successRedirect from './succesRedirect';
 
 const router = Router();
 
 router.get(
   '/auth/facebook',
+  successRedirect,
   passport.authenticate('facebook', { scope: 'email' }),
 );
 

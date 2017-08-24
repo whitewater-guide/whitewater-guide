@@ -8,7 +8,12 @@ import session = require('express-session');
 
 const app = express();
 
-app.use(cors({ credentials: true }));
+const CORS_WHITELIST = process.env.CORS_WHITELIST ? process.env.CORS_WHITELIST!.split(',') : [];
+
+app.use(cors({
+  origin: (origin, cb) => cb(null, CORS_WHITELIST.includes(origin)),
+  credentials: true,
+}));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(session({

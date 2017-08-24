@@ -1,5 +1,6 @@
 import { Toolbar } from 'material-ui/Toolbar';
 import * as React from 'react';
+import { UserMenu } from '../features/users';
 import { Styles } from '../styles';
 import { ContentLayout } from './ContentLayout';
 import { LeftMenu } from './LeftMenu';
@@ -36,6 +37,7 @@ export const RootLayout: React.StatelessComponent = () => (
     <div style={styles.rightCol}>
       <Toolbar style={styles.toolbar}>
         <div style={styles.spacer}/>
+        <UserMenu />
       </Toolbar>
       <div style={styles.content}>
         <ContentLayout/>
