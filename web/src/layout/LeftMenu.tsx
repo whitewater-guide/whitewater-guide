@@ -1,7 +1,9 @@
+/* tslint:disable:no-var-requires*/
 import { indigo500 } from 'material-ui/styles/colors';
 import * as React from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
 import { Styles } from '../styles';
+const logo = require('./logo.png');
 
 const styles: Styles = {
   leftCol: {
@@ -22,7 +24,7 @@ const styles: Styles = {
 export const LeftMenu: React.StatelessComponent = () => (
   <div style={styles.leftCol}>
     <div style={styles.logo}>
-      <Link to="/">Logo goes here</Link>
+      <Link to="/"><img src={logo} alt="Logo" /></Link>
     </div>
   </div>
 );
