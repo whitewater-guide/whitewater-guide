@@ -1,12 +1,13 @@
 /* tslint:disable:no-var-requires*/
+import IconButton from 'material-ui/IconButton';
 import { grey100 } from 'material-ui/styles/colors';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { UserMenu } from '../features/users';
 import { Styles } from '../styles';
-import { ContentLayout } from './ContentLayout';
-import LeftMenu from './LeftMenu';
+import ContentLayout from './ContentLayout';
+import { Drawer } from './drawer';
 
 const logo = require('./logo.png');
 
@@ -25,26 +26,41 @@ const styles: Styles = {
     backgroundColor: grey100,
   },
   toolbar: {
-    minHeight: 56,
+    height: 56,
     alignItems: 'center',
     boxShadow: 'rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px',
-    zIndex: 1100,
+    zIndex: 1500,
   },
+
 };
 
-export const RootLayout: React.StatelessComponent = () => (
-  <div style={styles.root}>
-    <Toolbar style={styles.toolbar}>
-      <ToolbarGroup firstChild>
-        <Link to="/"><img src={logo} alt="Logo" /></Link>
-      </ToolbarGroup>
-      <ToolbarGroup lastChild>
-        <UserMenu />
-      </ToolbarGroup>
-    </Toolbar>
-    <div style={styles.main}>
-      <LeftMenu/>
-      <ContentLayout/>
-    </div>
-  </div>
-);
+interface State {
+  drawerOpen: boolean;
+}
+
+export class RootLayout extends React.PureComponent<{}, State> {
+  state: State = { drawerOpen: false };
+
+  toggleDrawer = () => this.setState({ drawerOpen: !this.state.drawerOpen });
+  onDrawerToggle = (drawerOpen: boolean) => this.setState({ drawerOpen });
+
+  render() {
+    return (
+      <div style={styles.root}>
+        <Toolbar style={styles.toolbar}>
+          <ToolbarGroup firstChild>
+            <IconButton iconClassName="material-icons" onClick={this.toggleDrawer}>menu</IconButton>
+            <Link to="/"><img src={logo} alt="Logo" /></Link>
+          </ToolbarGroup>
+          <ToolbarGroup lastChild>
+            <UserMenu />
+          </ToolbarGroup>
+        </Toolbar>
+        <div style={styles.main}>
+          <ContentLayout/>
+        </div>
+        <Drawer isOpen={this.state.drawerOpen} onChange={this.onDrawerToggle} />
+      </div>
+    );
+  }
+}

@@ -1,13 +1,13 @@
 import { ApolloClient } from 'apollo-client';
 import * as React from 'react';
 import { withApollo } from 'react-apollo';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Route } from 'react-router-dom';
 
 interface Props {
   client: ApolloClient;
 }
 
-class Logout extends React.PureComponent<Props> {
+class LogoutRoute extends React.PureComponent<Props> {
   componentWillMount() {
     this.props.client.resetStore();
   }
@@ -19,4 +19,4 @@ class Logout extends React.PureComponent<Props> {
   }
 }
 
-export default withApollo(Logout);
+export default withApollo(LogoutRoute);

@@ -1,14 +1,27 @@
 import * as React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import Logout from './Logout';
-import { Page403Unauthorized } from './Page403Unauthorized';
+import { RegionsList } from '../features/regions';
+import { SourcesList } from '../features/sources';
+import LogoutRoute from './LogoutRoute';
+import UnauthorizedRoute from './UnauthorizedRoute';
 
-export const ContentLayout: React.StatelessComponent = () => (
+const ContentLayout: React.StatelessComponent = () => (
   <Switch>
-    <Route path="/">
-      <Redirect to="/regions"/>
+    <Route exact path="/">
+      <Redirect from="/" to="/regions"/>
     </Route>
-    <Route path="/logout" component={Logout} />
-    <Route path="/403" component={Page403Unauthorized}/>
+
+    <Route exact path="/regions" component={RegionsList} />
+    <Route exact path="/sources" component={SourcesList} />
+
+    <Route path="/logout">
+      <LogoutRoute />
+    </Route>
+
+    <Route path="/403">
+      <UnauthorizedRoute />
+    </Route>
   </Switch>
 );
+
+export default ContentLayout;
