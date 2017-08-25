@@ -1,12 +1,13 @@
 import { Request, Response, Router } from 'express';
 import * as passport from 'passport';
-import successRedirect from './succesRedirect';
+import getLogoutRedirect from './getLogoutRedirect';
+import setReturnTo from './setReturnTo';
 
 const router = Router();
 
 router.get(
   '/auth/facebook',
-  successRedirect,
+  setReturnTo,
   passport.authenticate('facebook', { scope: 'email' }),
 );
 
@@ -15,11 +16,14 @@ router.get(
   passport.authenticate('facebook', { successReturnToOrRedirect: '/', failureRedirect: '/login' }),
 );
 
-router.post(
+router.get(
   '/auth/logout',
   (req, res) => {
-    req.logout();
-    res.status(200).send('OK');
+    req.session.destroy(() => {
+      req.logout();
+      res.clearCookie('sid');
+      res.redirect(getLogoutRedirect(req));
+    });
   },
 );
 

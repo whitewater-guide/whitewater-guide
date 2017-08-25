@@ -1,4 +1,4 @@
-import { compose, mapProps } from 'recompose';
+import { compose, mapProps, withHandlers } from 'recompose';
 import { withMe } from '../../../ww-clients/features/users';
 import { User } from '../../../ww-commons';
 

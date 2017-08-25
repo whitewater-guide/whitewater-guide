@@ -33,10 +33,6 @@ export default class UserMenu extends React.PureComponent<InnerProps, State> {
     });
   };
 
-  onLogout = () => {
-    console.log('Logout');
-  };
-
   onPopoverClose = () => {
     this.setState({
       menuOpen: false,
@@ -72,7 +68,7 @@ export default class UserMenu extends React.PureComponent<InnerProps, State> {
         onRequestClose={this.onPopoverClose}
       >
         <Menu>
-          <MenuItem primaryText="Sign out" onClick={this.onLogout}/>
+          <MenuItem primaryText="Sign out" href={`${process.env.REACT_APP_API_HOST}auth/logout`} />
         </Menu>
       </Popover>
     );
