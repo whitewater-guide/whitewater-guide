@@ -18,15 +18,11 @@ const styles: Styles = {
     display: 'flex',
     alignItems: 'stretch',
     flexDirection: 'column',
-  },
-  main: {
-    flex: 1,
-    display: 'flex',
-    overflowY: 'auto',
     backgroundColor: grey100,
   },
   toolbar: {
     height: 56,
+    paddingRight: 32,
     alignItems: 'center',
     boxShadow: 'rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px',
     zIndex: 1500,
@@ -56,9 +52,7 @@ export class RootLayout extends React.PureComponent<{}, State> {
             <UserMenu />
           </ToolbarGroup>
         </Toolbar>
-        <div style={styles.main}>
-          <ContentLayout/>
-        </div>
+        <ContentLayout/>
         <Drawer isOpen={this.state.drawerOpen} onChange={this.onDrawerToggle} />
       </div>
     );
