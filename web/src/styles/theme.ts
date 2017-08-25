@@ -19,7 +19,7 @@ export const theme = getMuiTheme({
   spacing,
   fontFamily: 'Roboto, sans-serif',
   palette: {
-    primary1Color: blueGrey500,
+    primary1Color: '#0078b4',
     primary2Color: blueGrey700,
     primary3Color: grey400,
     accent1Color: pinkA200,

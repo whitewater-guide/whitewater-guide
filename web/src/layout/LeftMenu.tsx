@@ -1,16 +1,14 @@
-/* tslint:disable:no-var-requires*/
-import { indigo500 } from 'material-ui/styles/colors';
+import Paper from 'material-ui/Paper';
 import * as React from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
 import { Styles } from '../styles';
-const logo = require('./logo.png');
 
 const styles: Styles = {
   leftCol: {
     width: 240,
     display: 'flex',
     flexDirection: 'column',
-    backgroundColor: indigo500,
+    backgroundColor: '#FFFFFF',
   },
   logo: {
     alignSelf: 'stretch',
@@ -21,20 +19,9 @@ const styles: Styles = {
   },
 };
 
-export const LeftMenu: React.StatelessComponent = () => (
-  <div style={styles.leftCol}>
-    <div style={styles.logo}>
-      <Link to="/"><img src={logo} alt="Logo" /></Link>
-    </div>
-  </div>
+const LeftMenu: React.StatelessComponent = () => (
+  <Paper style={styles.leftCol}>
+  </Paper>
 );
 
-// <FlatLinkButton to="/regions" label="Regions" secondary />
-// <LeftMenuSeparator/>
-// <FlatLinkButton to="/rivers" label="All rivers" secondary />
-// <FlatLinkButton to="/sections" label="All sections" secondary />
-// <LeftMenuSeparator/>
-// <FlatLinkButton to="/sources" label="Sources" secondary />
-// <FlatLinkButton to="/users" label="Users" secondary />
-// <FlatLinkButton to="/tags" label="Tags" secondary />
-// <LeftMenuSeparator/>
+export default LeftMenu;
