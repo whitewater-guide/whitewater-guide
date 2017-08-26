@@ -17,13 +17,17 @@ interface Result {
   regions: Region[];
 }
 
-interface ChildProps {
-  regions: Region[];
-  regionsListLoading: boolean;
-  refetchRegionsList: () => void;
+export interface RegionsList {
+  list: Region[];
+  loading: boolean;
+  refetch: () => void;
 }
 
-export const withRegionsList = enhancedQuery<Result, any, ChildProps>(
+export interface WithRegionsList {
+  regions: RegionsList;
+}
+
+export const withRegionsList = enhancedQuery<Result, any, WithRegionsList>(
   ListRegionsQuery,
   {
     options: {
@@ -34,11 +38,7 @@ export const withRegionsList = enhancedQuery<Result, any, ChildProps>(
     } as any, // TODO: https://github.com/apollographql/react-apollo/issues/896 should be fixed
     props: ({ data }) => {
       const { regions, loading, refetch } = data!;
-      return {
-        regions: regions || [],
-        regionsListLoading: loading && !regions,
-        refetchRegionsList: refetch,
-      };
+      return { regions: { list: regions || [], loading, refetch } };
     },
   },
 );

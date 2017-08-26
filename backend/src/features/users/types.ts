@@ -20,4 +20,4 @@ export interface LoginRaw extends RawTimestamped {
   profile: passport.Profile;
 }
 
-export { Role, User } from '../../ww-commons';
+export { Role, User, isAdmin, isSuperAdmin } from '../../ww-commons';

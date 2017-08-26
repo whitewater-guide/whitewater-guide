@@ -8,8 +8,8 @@ type Region {
   # pois: [Point]!
   # sources: [Source]!
   # rivers: [River]!
-  # riversCount: Int
-  # sectionsCount: Int
+  riversCount: Int
+  sectionsCount: Int
   hidden: Boolean
   createdAt: Date
   updatedAt: Date

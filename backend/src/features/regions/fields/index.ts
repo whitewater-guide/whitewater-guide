@@ -18,6 +18,8 @@ const resolvers: FieldResolvers<RegionRaw, Region> = {
     return points.map(({ x, y, z }) => [x, y, z]);
   },
   hidden: ({ hidden }, args, { user }) => isAdmin(user) ? hidden : null,
+  riversCount: () => 11,
+  sectionsCount: () => 111,
   ...timestampResolvers,
 };
 

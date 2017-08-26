@@ -10,6 +10,8 @@ export interface Region extends NamedResource, Timestamped {
   seasonNumeric: number[];
   bounds: Array<[number, number, number]> | null;
   hidden: boolean | null;
+  riversCount?: number;
+  sectionsCount?: number;
 }
 
 export class RegionInput {

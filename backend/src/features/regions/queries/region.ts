@@ -1,7 +1,7 @@
 import { GraphQLResolveInfo } from 'graphql';
 import { baseResolver, Context, ForbiddenError } from '../../../apollo';
 import db from '../../../db';
-import { isAdmin } from '../../users/isAdmin';
+import { isAdmin } from '../../users';
 import { getColumns } from '../columns';
 import { RegionRaw } from '../types';
 
