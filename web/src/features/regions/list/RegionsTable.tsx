@@ -19,8 +19,8 @@ class RegionsTable extends React.PureComponent<RegionsTableProps> {
     return (
       <Table
         {...props as any}
-        headerHeight={20}
-        rowHeight={30}
+        headerHeight={52}
+        rowHeight={48}
         rowCount={regions.length}
         rowGetter={this.rowGetter}
         onRowClick={this.onRowClick}

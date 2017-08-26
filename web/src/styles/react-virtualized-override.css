@@ -1,0 +1,28 @@
+.ReactVirtualized__Table__headerRow {
+    border-bottom: 1px solid #d0d0d0;
+    text-transform: none;
+}
+.ReactVirtualized__Table__row {
+    -webkit-transition: background-color .25s ease;
+    transition: background-color .25s ease;
+}
+.ReactVirtualized__Table__row:focus {
+    outline: none;
+}
+
+.ReactVirtualized__Table__row:nth-child(odd) {
+    background-color: #F5F5F5;
+}
+
+.ReactVirtualized__Table__row:hover {
+    background-color: #EEEEEE;
+}
+
+.ReactVirtualized__Table__headerColumn,
+.ReactVirtualized__Table__rowColumn {
+    padding: 15px 5px;
+    display: table-cell;
+    text-align: left;
+    vertical-align: middle;
+    border-radius: 2px;
+}
