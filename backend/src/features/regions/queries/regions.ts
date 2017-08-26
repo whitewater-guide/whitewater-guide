@@ -1,14 +1,13 @@
 import { baseResolver } from '../../../apollo';
 import db from '../../../db';
-import { getColumns } from '../columns';
 import { isAdmin } from '../../users';
+import { getColumns } from '../columns';
 
 const sources = baseResolver.createResolver(
   (root, args, context, info) => {
     const { user } = context;
-    // TODO: proper mapping betwwen column tyoes and graphql type fields
     const columns = getColumns(info, context);
-    const query = db().table('regions').select('*').orderBy('name');
+    const query = db().table('regions').select(columns).orderBy('name');
     if (!isAdmin(user)) {
       query.where({ hidden: false });
     }

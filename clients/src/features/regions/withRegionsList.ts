@@ -1,17 +1,6 @@
-import { gql } from 'react-apollo';
 import { Region } from '../../../ww-commons';
 import { enhancedQuery } from '../../apollo';
-
-const ListRegionsQuery = gql`
-  query listRegions {
-    regions {
-      id
-      name
-      riversCount
-      sectionsCount
-    }
-  }
-`;
+import listRegions from './listRegions.query';
 
 interface Result {
   regions: Region[];
@@ -28,7 +17,7 @@ export interface WithRegionsList {
 }
 
 export const withRegionsList = enhancedQuery<Result, any, WithRegionsList>(
-  ListRegionsQuery,
+  listRegions,
   {
     options: {
       fetchPolicy: 'cache-and-network',

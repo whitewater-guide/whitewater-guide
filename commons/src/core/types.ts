@@ -6,6 +6,10 @@ export interface NamedResource extends Resource {
   name: string;
 }
 
+export interface GrapqhlResource extends NamedResource {
+  __typename?: string;
+}
+
 /**
  * This is result of graphql query
  * It will convert Dates to strings

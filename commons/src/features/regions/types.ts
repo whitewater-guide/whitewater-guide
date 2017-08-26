@@ -2,9 +2,9 @@ import { ArrayMaxSize, IsDefined, IsInt, IsUUID, Length, Max, Min } from 'class-
 /**
  * This is graphql type
  */
-import { NamedResource, Timestamped } from '../../core/types';
+import { GrapqhlResource, Timestamped } from '../../core/types';
 
-export interface Region extends NamedResource, Timestamped {
+export interface Region extends GrapqhlResource, Timestamped {
   description: string | null;
   season: string | null;
   seasonNumeric: number[];
