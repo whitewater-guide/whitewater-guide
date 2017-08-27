@@ -8,7 +8,9 @@ export interface ErrorItem {
   refetch: () => void;
 }
 
-type WithErrors = Record<string, ErrorItem>;
+export interface WithErrors {
+  errors?: Record<string, ErrorItem>;
+}
 
 /**
  * Helper function to wrap error and refetch handlers of graphql containers and pass them down

@@ -3,6 +3,7 @@ import * as React from 'react';
 import { AutoSizer, Dimensions, Index } from 'react-virtualized';
 import { Content } from '../../../layout';
 import { WithRegionsList } from '../../../ww-clients/features/regions';
+import RegionsListAdminFooter from './RegionsListAdminFooter';
 import RegionsTable from './RegionsTable';
 
 export class RegionsList extends React.PureComponent<WithRegionsList> {
@@ -33,7 +34,7 @@ export class RegionsList extends React.PureComponent<WithRegionsList> {
             {this.table}
           </AutoSizer>
         </CardMedia>
-        <CardActions/>
+        <RegionsListAdminFooter />
       </Content>
     );
   }
