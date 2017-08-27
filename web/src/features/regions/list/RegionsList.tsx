@@ -1,4 +1,4 @@
-import Paper from 'material-ui/Paper';
+import { CardActions, CardHeader, CardMedia, CardText, CardTitle } from 'material-ui/Card';
 import * as React from 'react';
 import { AutoSizer, Dimensions, Index } from 'react-virtualized';
 import { Content } from '../../../layout';
@@ -26,12 +26,14 @@ export class RegionsList extends React.PureComponent<WithRegionsList> {
   render() {
     const list = this.props.regions.list;
     return (
-      <Content>
-        <Paper style={{ flex: 1 }}>
+      <Content card>
+        <CardHeader title="Regions list" />
+        <CardMedia style={{ height: '100%' }} mediaStyle={{ height: '100%' }}>
           <AutoSizer rowCount={list ? list.length : 0}>
             {this.table}
           </AutoSizer>
-        </Paper>
+        </CardMedia>
+        <CardActions/>
       </Content>
     );
   }
