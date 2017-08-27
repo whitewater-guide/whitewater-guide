@@ -2,6 +2,7 @@ import * as React from 'react';
 
 const styles = {
   tabTemplate: {
+    minHeight: 0,
     flex: 1,
     overflow: 'hidden',
     display: 'flex',

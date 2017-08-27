@@ -6,7 +6,7 @@ const STORE_CONFIG = {
   version: '1',
   config: {
     storage: localForage,
-    blacklist: ['transient'],
+    blacklist: ['transient', 'form'],
   },
 };
 

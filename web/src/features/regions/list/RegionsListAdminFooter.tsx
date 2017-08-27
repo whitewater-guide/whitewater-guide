@@ -5,7 +5,7 @@ import { adminOnly } from '../../../components';
 
 const Footer: React.StatelessComponent = () => (
   <CardActions>
-    <FlatButton label="Add new"/>
+    <FlatButton label="Add new" href="/regions/new" />
   </CardActions>
 );
 

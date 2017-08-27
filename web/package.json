@@ -30,6 +30,7 @@
     "react-virtualized": "^9.9.0",
     "recompose": "^0.25.0",
     "redux": "^3.7.2",
+    "redux-form": "^7.0.3",
     "redux-persist": "^4.9.1",
     "reselect": "^3.0.1",
     "typescript-fsa": "^2.4.0"
@@ -56,6 +57,7 @@
     "@types/react-virtualized": "^9.7.3",
     "@types/recompose": "^0.24.0",
     "@types/redux": "^3.6.0",
+    "@types/redux-form": "^7.0.3",
     "tslint-eslint-rules": "^4.1.1",
     "tslint-react": "^3.2.0"
   },

@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { reducer as form } from 'redux-form';
 import { apolloClient } from '../apollo/configureApollo';
 import { regionsReducer } from '../ww-clients/features/regions';
 import { RootState } from './types';
@@ -14,4 +15,5 @@ const transient = combineReducers({
 export default combineReducers<RootState>({
   persistent,
   transient,
+  form,
 });

@@ -1,1 +1,1 @@
-export * from './omit';
+export * from './mapped-types';

@@ -1,4 +1,4 @@
-import { CardActions, CardHeader, CardMedia, CardText, CardTitle } from 'material-ui/Card';
+import { CardHeader, CardMedia } from 'material-ui/Card';
 import * as React from 'react';
 import { AutoSizer, Dimensions, Index } from 'react-virtualized';
 import { Content } from '../../../layout';

@@ -1,4 +1,5 @@
 import { RegionsList as List } from './RegionsList';
 import container from './RegionsListContainer';
 
-export const RegionsList = container(List);
+const RegionsList = container(List);
+export default RegionsList;

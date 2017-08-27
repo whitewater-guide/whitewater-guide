@@ -23,3 +23,5 @@ export type Omit<T extends object, K extends keyof T> = Pick<T, StringDiff<keyof
  */
 export type Diff<T extends object, U extends object> = Omit<T, keyof U & keyof T> &
   {[K in (keyof U & keyof T)]?: T[K]};
+
+export type Overwrite<T, U> = { [P in StringDiff<keyof T, keyof U>]: T[P] } & U;

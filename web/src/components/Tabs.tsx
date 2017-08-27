@@ -1,3 +1,4 @@
+import { TabsProps } from 'material-ui';
 import { Tabs as MUITabs } from 'material-ui/Tabs';
 import * as React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router';
@@ -20,7 +21,7 @@ const styles: Styles = {
   },
 };
 
-class Tabs extends React.PureComponent<RouteComponentProps<any>> {
+class TabsInternal extends React.PureComponent<TabsProps & RouteComponentProps<any>> {
 
   onTabChange = (value: string) => {
     const { location, history } = this.props;
@@ -44,4 +45,4 @@ class Tabs extends React.PureComponent<RouteComponentProps<any>> {
   }
 }
 
-export default withRouter(Tabs);
+export const Tabs = withRouter<TabsProps>(TabsInternal);

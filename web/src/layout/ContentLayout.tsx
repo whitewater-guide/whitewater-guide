@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import { RegionsList } from '../features/regions';
+import { RegionsRoute } from '../features/regions';
 import { SourcesList } from '../features/sources';
 import LogoutRoute from './LogoutRoute';
 import UnauthorizedRoute from './UnauthorizedRoute';
@@ -11,7 +11,7 @@ const ContentLayout: React.StatelessComponent = () => (
       <Redirect from="/" to="/regions"/>
     </Route>
 
-    <Route exact path="/regions" component={RegionsList} />
+    <Route path="/regions" component={RegionsRoute} />
     <Route exact path="/sources" component={SourcesList} />
 
     <Route path="/logout">

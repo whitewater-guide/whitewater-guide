@@ -1,1 +1,1 @@
-export * from './list';
+export { default as RegionsRoute } from './Regions';
