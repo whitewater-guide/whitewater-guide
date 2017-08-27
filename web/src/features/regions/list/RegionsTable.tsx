@@ -1,5 +1,6 @@
+import FontIcon from 'material-ui/FontIcon';
 import * as React from 'react';
-import { Column, Index, TableProps } from 'react-virtualized';
+import { Column, Index, TableCellProps, TableProps } from 'react-virtualized';
 import { AdminColumn, Table } from '../../../components';
 import { Region } from '../../../ww-commons/features/regions';
 
@@ -14,6 +15,11 @@ class RegionsTable extends React.PureComponent<RegionsTableProps> {
 
   onRowClick = ({ index }: Index) => this.props.onRegionClick(this.props.regions[index].id);
 
+  renderVisibility = (props: TableCellProps) => {
+    const hidden = props.cellData;
+    return hidden ? null : <FontIcon className="material-icons">visibility</FontIcon>;
+  };
+
   render() {
     const { regions, ...props } = this.props;
     return (
@@ -25,10 +31,10 @@ class RegionsTable extends React.PureComponent<RegionsTableProps> {
         rowGetter={this.rowGetter}
         onRowClick={this.onRowClick}
       >
-        <Column width={200} label="Name" dataKey="name"/>
-        <Column width={100} label="Rivers" dataKey="riversCount"/>
-        <Column width={100} label="Sections" dataKey="sectionsCount"/>
-        <AdminColumn width={100} label="Hidden" dataKey="hidden"/>
+        <Column width={200} label="Name" dataKey="name" />
+        <Column width={100} label="Rivers" dataKey="riversCount" />
+        <Column width={100} label="Sections" dataKey="sectionsCount" />
+        <AdminColumn width={100} label="Visible" dataKey="hidden" cellRenderer={this.renderVisibility} />
       </Table>
     );
   }
