@@ -1,12 +1,12 @@
 import { CardHeader, CardMedia } from 'material-ui/Card';
+import Visibility from 'material-ui/svg-icons/action/visibility';
+import VisibilityOff from 'material-ui/svg-icons/action/visibility-off';
 import { Tab } from 'material-ui/Tabs';
 import * as React from 'react';
 import { InjectedFormProps } from 'redux-form';
 import { Tabs } from '../../../components';
-import { Checkbox, SeasonPicker, TextInput } from '../../../components/forms';
+import { Checkbox, DraftEditor, SeasonPicker, TextInput } from '../../../components/forms';
 import { Content } from '../../../layout/Content';
-import Visibility from 'material-ui/svg-icons/action/visibility';
-import VisibilityOff from 'material-ui/svg-icons/action/visibility-off';
 
 export default class RegionForm extends React.PureComponent<InjectedFormProps> {
 
@@ -31,7 +31,7 @@ export default class RegionForm extends React.PureComponent<InjectedFormProps> {
                 />
               </Tab>
               <Tab label="Description" value="#description">
-                <TextInput name="description" title="Description" />
+                <DraftEditor name="description" />
               </Tab>
               <Tab label="Shape" value="#shape">
                 <TextInput name="bounds" title="Bounds" />
