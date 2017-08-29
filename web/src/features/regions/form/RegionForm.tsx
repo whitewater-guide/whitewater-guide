@@ -3,25 +3,32 @@ import { Tab } from 'material-ui/Tabs';
 import * as React from 'react';
 import { InjectedFormProps } from 'redux-form';
 import { Tabs } from '../../../components';
-import { TextInput } from '../../../components/forms';
+import { Checkbox, SeasonPicker, TextInput } from '../../../components/forms';
 import { Content } from '../../../layout/Content';
+import Visibility from 'material-ui/svg-icons/action/visibility';
+import VisibilityOff from 'material-ui/svg-icons/action/visibility-off';
 
 export default class RegionForm extends React.PureComponent<InjectedFormProps> {
 
   render() {
-    // <Field name="seasonNumeric" component={SeasonPickerField} />
-    // <Field name="hidden" title="Hide from users" component={Checkbox} />
     // <Field name="bounds" drawingMode="Polygon" component={DrawingMapField} />
     // <Field name="pois" title="Points of interest" component={POICollection} />
     return (
       <Content card>
         <CardHeader title="Regions list" />
         <CardMedia style={{ height: '100%' }} mediaStyle={{ height: '100%' }}>
-          <div style={{ width: '100%', height: '100%' }} >
+          <div style={{ width: '100%', height: '100%' }}>
             <Tabs>
               <Tab label="Main" value="#main">
-                <TextInput name="name" title="Name" />
-                <TextInput name="season" title="Season" />
+                <TextInput fullWidth name="name" title="Name" />
+                <TextInput fullWidth name="season" title="Season" />
+                <SeasonPicker name="seasonNumeric" />
+                <Checkbox
+                  name="hidden"
+                  label="Visible to users"
+                  checkedIcon={<VisibilityOff />}
+                  uncheckedIcon={<Visibility />}
+                />
               </Tab>
               <Tab label="Description" value="#description">
                 <TextInput name="description" title="Description" />
