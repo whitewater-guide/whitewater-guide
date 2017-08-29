@@ -7,8 +7,7 @@ import { TabTemplate } from './TabTemplate';
 
 const styles: Styles = {
   tabs: {
-    flex: 1,
-    alignSelf: 'stretch',
+    height: '100%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'stretch',

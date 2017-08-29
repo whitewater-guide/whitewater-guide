@@ -34,7 +34,8 @@ interface State {
   drawerOpen: boolean;
 }
 
-export class RootLayout extends React.PureComponent<{}, State> {
+// Cannot be pure because of react-router update-blocking
+export class RootLayout extends React.Component<{}, State> {
   state: State = { drawerOpen: false };
 
   toggleDrawer = () => this.setState({ drawerOpen: !this.state.drawerOpen });

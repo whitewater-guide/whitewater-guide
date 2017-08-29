@@ -15,15 +15,12 @@ interface Props {
   selected?: boolean;
 }
 
-export class TabTemplate extends React.PureComponent<Props> {
+export class TabTemplate extends React.Component<Props> {
   render() {
     const { children, selected, style } = this.props;
-    const templateStyle: React.CSSProperties = { ...styles.tabTemplate, style } as any;
-    if (!selected) {
-      templateStyle.flex = 0;
-      templateStyle.overflow = 'hidden';
-    }
-
+    const templateStyle: React.CSSProperties = { ...styles.tabTemplate, ...style } as any;
+    templateStyle.display = selected ? 'flex' : 'none';
+    templateStyle.overflow = selected ? 'auto' : 'hidden';
     return (
       <div style={templateStyle}>
         {children}
