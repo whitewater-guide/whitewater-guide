@@ -15,7 +15,7 @@ type Props = WrappedFieldProps & OwnProps;
 
 const CheckboxComponent: React.StatelessComponent<Props> = ({ input, meta, ...own }) => {
   return (
-    <MUICheckbox{...own}checked={input.value}onCheck={input.onChange} style={styles.container} />
+    <MUICheckbox{...own} checked={input.value || false} onCheck={input.onChange} style={styles.container} />
   );
 };
 

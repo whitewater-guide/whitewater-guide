@@ -1,12 +1,31 @@
-import { CardHeader, CardMedia } from 'material-ui/Card';
+import { CardActions, CardHeader, CardMedia } from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton';
 import Visibility from 'material-ui/svg-icons/action/visibility';
 import VisibilityOff from 'material-ui/svg-icons/action/visibility-off';
 import { Tab } from 'material-ui/Tabs';
 import * as React from 'react';
+import { GatewayDest } from 'react-gateway';
 import { InjectedFormProps } from 'redux-form';
 import { Tabs } from '../../../components';
-import { Checkbox, DraftEditor, SeasonPicker, TextInput } from '../../../components/forms';
-import { Content } from '../../../layout/Content';
+import { Checkbox, DraftEditor, POICollection, SeasonPicker, TextInput } from '../../../components/forms';
+import { Content } from '../../../layout';
+import { Styles } from '../../../styles';
+
+const styles: Styles = {
+  actions: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  gateway: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-end',
+  },
+};
 
 export default class RegionForm extends React.PureComponent<InjectedFormProps> {
 
@@ -37,11 +56,17 @@ export default class RegionForm extends React.PureComponent<InjectedFormProps> {
                 <TextInput name="bounds" title="Bounds" />
               </Tab>
               <Tab label="POIS" value="#pois">
-                <TextInput name="pois" title="POIS" />
+                <POICollection name="pois" component={POICollection} />
               </Tab>
             </Tabs>
           </div>
         </CardMedia>
+        <CardActions style={styles.actions}>
+          <FlatButton label="Create" />
+          <div style={styles.gateway}>
+            <GatewayDest name="footer" />
+          </div>
+        </CardActions>
       </Content>
     );
   }
