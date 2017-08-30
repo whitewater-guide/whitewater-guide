@@ -38,6 +38,7 @@
     "redux-form": "^7.0.3",
     "redux-persist": "^4.9.1",
     "reselect": "^3.0.1",
+    "resize-observer-polyfill": "^1.4.2",
     "typescript-fsa": "^2.4.0"
   },
   "scripts": {
