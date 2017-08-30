@@ -73,9 +73,9 @@ export class PointInput extends React.PureComponent<Props, State> {
         }
 
         <div style={styles.row}>
-          <TextInput fullWidth type="number" name={`${name}.coordinates.1`} title={`${prefix}Latitude`} />
-          <TextInput fullWidth type="number" name={`${name}.coordinates.0`} title={`${prefix}Longitude`} />
-          <TextInput fullWidth type="number" name={`${name}.coordinates.2`} title={`${prefix}Altitude`} />
+          <TextInput fullWidth type="number" name={`${name}.coordinates[1]`} title={`${prefix}Latitude`} />
+          <TextInput fullWidth type="number" name={`${name}.coordinates[0]`} title={`${prefix}Longitude`} />
+          <TextInput fullWidth type="number" name={`${name}.coordinates[2]`} title={`${prefix}Altitude`} />
           {mapDialog && <IconButton iconClassName="material-icons" onClick={this.openMap}>add_location</IconButton>}
         </div>
         {
