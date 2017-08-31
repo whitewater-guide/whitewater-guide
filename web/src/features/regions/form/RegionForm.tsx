@@ -10,7 +10,7 @@ import { Tabs } from '../../../components';
 import { Checkbox, DraftEditor, POICollection, SeasonPicker, TextInput } from '../../../components/forms';
 import { Content } from '../../../layout';
 import { Styles } from '../../../styles';
-import GoogleMap from '../../../components/maps/GoogleMap';
+import { DrawingMap } from '../../../components/maps/DrawingMap';
 
 const styles: Styles = {
   actions: {
@@ -54,7 +54,7 @@ export default class RegionForm extends React.PureComponent<InjectedFormProps> {
                 <DraftEditor name="description" />
               </Tab>
               <Tab label="Shape" value="#shape">
-                <GoogleMap onLoaded={() => {}} />
+                <DrawingMap drawingMode="Polygon" onChange={() => {}} bounds={null}/>
               </Tab>
               <Tab label="POIS" value="#pois">
                 <POICollection name="pois" component={POICollection} />

@@ -26,12 +26,14 @@ interface Props {
 }
 
 interface State {
+  loaded: boolean;
   zoom: number;
   bounds: google.maps.LatLngBounds | null;
 }
 
 export default class GoogleMap extends React.Component<Props, State> {
   state: State = {
+    loaded: false,
     zoom: DEFAULT_ZOOM,
     bounds: null,
   };
@@ -53,7 +55,7 @@ export default class GoogleMap extends React.Component<Props, State> {
       return;
     }
     this.map = new google.maps.Map(
-      findDOMNode(ref!),
+      findDOMNode(ref),
       { center: DEFAULT_CENTER, zoom: this.state.zoom },
     );
 
@@ -69,6 +71,7 @@ export default class GoogleMap extends React.Component<Props, State> {
     this.map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(controlDiv);
 
     this.props.onLoaded(this.map);
+    this.setState({ loaded: true });
   };
 
   componentWillUnmount() {
@@ -130,11 +133,14 @@ export default class GoogleMap extends React.Component<Props, State> {
     return (
       <div style={styles.container} ref={this.mountRoot}>
         <div style={styles.map} ref={this.setMapRef} />
-        {React.Children.map(this.props.children, (child => React.cloneElement(child as React.ReactElement<any>, {
-          map: this.map,
-          zoom: this.state.zoom,
-          bounds: this.state.bounds,
-        })))}
+        {
+          this.state.loaded &&
+          React.Children.map(this.props.children, (child => React.cloneElement(child as any, {
+            map: this.map,
+            zoom: this.state.zoom,
+            bounds: this.state.bounds,
+          })))
+        }
       </div>
     );
   }
