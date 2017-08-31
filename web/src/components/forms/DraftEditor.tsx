@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Editor } from 'react-draft-wysiwyg';
-import { BaseFieldProps, Field, GenericField, WrappedFieldProps } from 'redux-form';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import { BaseFieldProps, Field, GenericField, WrappedFieldProps } from 'redux-form';
 
 const TOOLBAR = {
   options: ['blockType', 'inline', 'list', 'link'],

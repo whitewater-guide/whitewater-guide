@@ -31,6 +31,7 @@ export function isValidLng(lng: any): boolean {
   return isNumber(lng) && lng >= -180 && lng <= 180;
 }
 
+// tslint:disable-next-line:no-inferrable-types
 export function arrayToDMSString(coordinates: Coordinate, pretty: boolean = true): string {
   const truncate = (n: number) => (n > 0 ? Math.floor(n) : Math.ceil(n));
   const latHemisphere = coordinates[1] < 0 ? 'S' : 'N';

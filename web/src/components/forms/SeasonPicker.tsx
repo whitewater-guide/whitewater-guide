@@ -76,9 +76,10 @@ class SeasonPickerComponent extends React.PureComponent<Props & Themeable> {
         borderRightColor: this.props.muiTheme.palette!.borderColor,
       };
     style = { ...style, ...borderStyle };
+    const onClick = () => this.onToggle(index);
     return (
       <div key={`half${index}`} style={style}>
-        <EnhancedButton style={styles.halfButton} onClick={() => this.onToggle(index)}>
+        <EnhancedButton style={styles.halfButton} onClick={onClick}>
           {selected ? 'X' : 'O'}
         </EnhancedButton>
       </div>

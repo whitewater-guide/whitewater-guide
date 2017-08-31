@@ -1,6 +1,5 @@
 import FontIcon from 'material-ui/FontIcon';
 import RaisedButton from 'material-ui/RaisedButton';
-import Paper from 'material-ui/Paper';
 import * as React from 'react';
 import { BaseFieldArrayProps, FieldArray, GenericFieldArray, WrappedFieldArrayProps } from 'redux-form';
 import { Styles } from '../../styles';
