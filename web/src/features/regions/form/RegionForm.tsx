@@ -6,16 +6,19 @@ import { Tab } from 'material-ui/Tabs';
 import * as React from 'react';
 import { InjectedFormProps } from 'redux-form';
 import { Tabs } from '../../../components';
-import { Checkbox, DraftEditor, POICollection, SeasonPicker, TextInput } from '../../../components/forms';
+import {
+  Checkbox,
+  DraftEditor,
+  DrawingMapField,
+  POICollection,
+  SeasonPicker,
+  TextInput,
+} from '../../../components/forms';
 import { Content } from '../../../layout';
-import { Styles } from '../../../styles';
-import { DrawingMap } from '../../../components/maps/DrawingMap';
 
 export default class RegionForm extends React.PureComponent<InjectedFormProps> {
 
   render() {
-    // <Field name="bounds" drawingMode="Polygon" component={DrawingMapField} />
-    // <Field name="pois" title="Points of interest" component={POICollection} />
     return (
       <Content card>
         <CardHeader title="Regions list" />
@@ -37,7 +40,7 @@ export default class RegionForm extends React.PureComponent<InjectedFormProps> {
                 <DraftEditor name="description" />
               </Tab>
               <Tab label="Shape" value="#shape">
-                <DrawingMap drawingMode="Polygon" onChange={() => {}} bounds={null} />
+                <DrawingMapField name="shape" drawingMode="Polygon" bounds={null} />
               </Tab>
               <Tab label="POIS" value="#pois">
                 <POICollection name="pois" component={POICollection} mapBounds={null} />
