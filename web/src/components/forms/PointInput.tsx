@@ -5,9 +5,9 @@ import { grey100 } from 'material-ui/styles/colors';
 import * as React from 'react';
 import { FieldsProps } from 'redux-form';
 import { Styles } from '../../styles';
-import { Coordinate, POINames, Point } from '../../ww-commons';
-import { NamedResource } from '../../ww-commons/core/types';
+import { Coordinate, NamedResource, POINames, Point } from '../../ww-commons';
 import { Select } from './Select';
+import SelectPointDialog from './SelectPointDialog';
 import { TextInput } from './TextInput';
 
 const POI_OPTIONS: NamedResource[] = map(POINames, (name, id) => ({ name, id }));
@@ -37,7 +37,7 @@ interface Props {
   title?: string;
   detailed?: boolean;
   mapDialog?: boolean;
-  mapBounds?: Coordinate[];
+  mapBounds: Coordinate[] | null;
 }
 
 interface State {
@@ -53,8 +53,10 @@ export class PointInput extends React.PureComponent<Props, State> {
 
   onRemove = () => this.props.fields!.remove(this.props.index!);
 
+  onCloseDialog = () => this.setState({ dialogOpen: false });
+
   render() {
-    const { name, title, detailed = true, mapDialog } = this.props;
+    const { name, title, detailed = true, mapDialog = true } = this.props;
     const prefix = title ? `${title} ` : '';
     // TODO: material-ui v1 should support dense fields
     return (
@@ -76,19 +78,24 @@ export class PointInput extends React.PureComponent<Props, State> {
           <TextInput fullWidth type="number" name={`${name}.coordinates[1]`} title={`${prefix}Latitude`} />
           <TextInput fullWidth type="number" name={`${name}.coordinates[0]`} title={`${prefix}Longitude`} />
           <TextInput fullWidth type="number" name={`${name}.coordinates[2]`} title={`${prefix}Altitude`} />
-          {mapDialog && <IconButton iconClassName="material-icons" onClick={this.openMap}>add_location</IconButton>}
+          {
+            mapDialog &&
+            <IconButton
+              iconClassName="material-icons"
+              onClick={this.openMap}
+              style={styles.icon}
+            >
+              add_location
+            </IconButton>
+          }
         </div>
         {
-          /*
           this.state.dialogOpen &&
-          <SelectPointsDialog
-            drawingMode="Point"
-            bounds={this.props.mapBounds}
-            onClose={this.onCloseDialog}
-            onSubmit={this.onSubmitDialog}
-            points={dialogPoints}
-          />
-          */
+            <SelectPointDialog
+              name={`${name}.coordinates`}
+              onClose={this.onCloseDialog}
+              bounds={this.props.mapBounds}
+            />
         }
       </Paper>
     );

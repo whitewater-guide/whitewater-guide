@@ -21,8 +21,8 @@ const styles: Styles = {
 
 export interface POICollectionProps {
   mapDialog?: boolean;
-  mapBounds?: Coordinate[];
-  addButtonGateway?: string;
+  mapBounds: Coordinate[] | null;
+  addButtonGateway: string;
 }
 
 type Props = POICollectionProps & WrappedFieldArrayProps<Partial<Point>>;
@@ -38,7 +38,7 @@ class POICollectionComponent extends React.PureComponent<Props> {
   };
 
   render() {
-    const { fields, meta, mapDialog, mapBounds, addButtonGateway = 'footer' } = this.props;
+    const { fields, meta, mapDialog, mapBounds, addButtonGateway } = this.props;
     return (
       <div style={styles.container}>
         {

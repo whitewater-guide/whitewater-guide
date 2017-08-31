@@ -57,7 +57,7 @@ export default class RegionForm extends React.PureComponent<InjectedFormProps> {
                 <DrawingMap drawingMode="Polygon" onChange={() => {}} bounds={null}/>
               </Tab>
               <Tab label="POIS" value="#pois">
-                <POICollection name="pois" component={POICollection} />
+                <POICollection name="pois" component={POICollection} mapBounds={null} addButtonGateway="#pois"/>
               </Tab>
             </Tabs>
           </div>
@@ -65,7 +65,7 @@ export default class RegionForm extends React.PureComponent<InjectedFormProps> {
         <CardActions style={styles.actions}>
           <FlatButton label="Create" />
           <div style={styles.gateway}>
-            <GatewayDest name="footer" />
+            <GatewayDest name="#pois" />
           </div>
         </CardActions>
       </Content>
