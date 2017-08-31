@@ -988,6 +988,10 @@ clap@^1.0.9:
   dependencies:
     chalk "^1.1.3"
 
+class-transformer@^0.1.7:
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/class-transformer/-/class-transformer-0.1.7.tgz#d577a7ce6fe83b766a447b2ba8c880eb5c9cd681"
+
 class-validator@^0.7.2:
   version "0.7.2"
   resolved "https://registry.yarnpkg.com/class-validator/-/class-validator-0.7.2.tgz#35ed86f0590bbb60161a8c8ef9c813cb38572ffe"
@@ -4929,6 +4933,10 @@ redux@*, redux@^3.4.0, redux@^3.6.0, redux@^3.7.2:
     lodash-es "^4.2.1"
     loose-envify "^1.1.0"
     symbol-observable "^1.0.3"
+
+reflect-metadata@^0.1.10:
+  version "0.1.10"
+  resolved "https://registry.yarnpkg.com/reflect-metadata/-/reflect-metadata-0.1.10.tgz#b4f83704416acad89988c9b15635d47e03b9344a"
 
 regenerate@^1.2.1:
   version "1.3.2"

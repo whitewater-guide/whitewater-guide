@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { Point, Section } from '../../../ww-commons';
+import { Coordinate, Point, Section } from '../../../ww-commons';
 
 export interface SectionComponentProps {
   useSectionShapes: boolean;
@@ -25,8 +25,8 @@ export interface MapPropsBase {
 }
 
 export interface MapProps extends MapPropsBase {
-  initialBounds: number[][] | null;
-  contentBounds: number[][] | null;
+  initialBounds: Coordinate[] | null;
+  contentBounds: Coordinate[] | null;
   sections: Section[];
   pois: Point[];
 }

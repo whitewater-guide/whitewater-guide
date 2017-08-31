@@ -2,6 +2,7 @@ import * as React from 'react';
 import { MapProps } from '../../ww-clients/features/maps';
 import { arrayToGmaps } from '../../ww-clients/utils/GeoUtils';
 import GoogleMap from './GoogleMap';
+import { Coordinate } from '../../ww-commons';
 
 export class Map extends React.Component<MapProps> {
 
@@ -10,7 +11,7 @@ export class Map extends React.Component<MapProps> {
     const startingBounds = initialBounds || contentBounds;
     if (startingBounds) {
       const bounds = new google.maps.LatLngBounds();
-      startingBounds.forEach(point => bounds.extend(arrayToGmaps(point)!));
+      startingBounds.forEach((point: Coordinate) => bounds.extend(arrayToGmaps(point)!));
       map.setCenter(bounds.getCenter());
       map.fitBounds(bounds);
 

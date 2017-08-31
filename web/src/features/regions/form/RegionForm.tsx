@@ -40,7 +40,7 @@ export default class RegionForm extends React.PureComponent<InjectedFormProps> {
                 <DraftEditor name="description" />
               </Tab>
               <Tab label="Shape" value="#shape">
-                <DrawingMapField name="shape" drawingMode="Polygon" bounds={null} />
+                <DrawingMapField name="bounds" drawingMode="Polygon" bounds={null} />
               </Tab>
               <Tab label="POIS" value="#pois">
                 <POICollection name="pois" component={POICollection} mapBounds={null} />
@@ -49,7 +49,7 @@ export default class RegionForm extends React.PureComponent<InjectedFormProps> {
           </div>
         </CardMedia>
         <CardActions>
-          <FlatButton label="Create" />
+          <FlatButton label="Create" onClick={this.props.handleSubmit} />
         </CardActions>
       </Content>
     );

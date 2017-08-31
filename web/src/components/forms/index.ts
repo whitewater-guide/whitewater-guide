@@ -5,3 +5,4 @@ export * from './PointInput';
 export * from './POICollection';
 export * from './SeasonPicker';
 export * from './TextInput';
+export * from './validateInput';
