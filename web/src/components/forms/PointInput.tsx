@@ -17,6 +17,8 @@ const styles: Styles = {
     display: 'flex',
     flexDirection: 'column',
     margin: 4,
+    marginTop: 8,
+    marginBottom: 8,
     padding: 4,
     minWidth: 360,
   },

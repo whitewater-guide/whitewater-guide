@@ -4,29 +4,12 @@ import Visibility from 'material-ui/svg-icons/action/visibility';
 import VisibilityOff from 'material-ui/svg-icons/action/visibility-off';
 import { Tab } from 'material-ui/Tabs';
 import * as React from 'react';
-import { GatewayDest } from 'react-gateway';
 import { InjectedFormProps } from 'redux-form';
 import { Tabs } from '../../../components';
 import { Checkbox, DraftEditor, POICollection, SeasonPicker, TextInput } from '../../../components/forms';
 import { Content } from '../../../layout';
 import { Styles } from '../../../styles';
 import { DrawingMap } from '../../../components/maps/DrawingMap';
-
-const styles: Styles = {
-  actions: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  gateway: {
-    flex: 1,
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    justifyContent: 'flex-end',
-  },
-};
 
 export default class RegionForm extends React.PureComponent<InjectedFormProps> {
 
@@ -54,19 +37,16 @@ export default class RegionForm extends React.PureComponent<InjectedFormProps> {
                 <DraftEditor name="description" />
               </Tab>
               <Tab label="Shape" value="#shape">
-                <DrawingMap drawingMode="Polygon" onChange={() => {}} bounds={null}/>
+                <DrawingMap drawingMode="Polygon" onChange={() => {}} bounds={null} />
               </Tab>
               <Tab label="POIS" value="#pois">
-                <POICollection name="pois" component={POICollection} mapBounds={null} addButtonGateway="#pois"/>
+                <POICollection name="pois" component={POICollection} mapBounds={null} />
               </Tab>
             </Tabs>
           </div>
         </CardMedia>
-        <CardActions style={styles.actions}>
+        <CardActions>
           <FlatButton label="Create" />
-          <div style={styles.gateway}>
-            <GatewayDest name="#pois" />
-          </div>
         </CardActions>
       </Content>
     );

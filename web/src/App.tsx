@@ -1,7 +1,6 @@
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import * as React from 'react';
 import { ApolloProvider } from 'react-apollo';
-import { GatewayProvider } from 'react-gateway';
 import { BrowserRouter } from 'react-router-dom';
 import { apolloClient } from './apollo';
 import { RootLayout } from './layout';
@@ -14,9 +13,7 @@ export default () => (
   <MuiThemeProvider muiTheme={theme}>
     <ApolloProvider store={store} client={apolloClient}>
       <BrowserRouter>
-        <GatewayProvider>
-          <RootLayout />
-        </GatewayProvider>
+        <RootLayout />
       </BrowserRouter>
     </ApolloProvider>
   </MuiThemeProvider>

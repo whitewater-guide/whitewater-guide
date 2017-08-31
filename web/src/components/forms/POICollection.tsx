@@ -1,7 +1,7 @@
-import FlatButton from 'material-ui/FlatButton';
 import FontIcon from 'material-ui/FontIcon';
+import RaisedButton from 'material-ui/RaisedButton';
+import Paper from 'material-ui/Paper';
 import * as React from 'react';
-import { Gateway } from 'react-gateway';
 import { BaseFieldArrayProps, FieldArray, GenericFieldArray, WrappedFieldArrayProps } from 'redux-form';
 import { Styles } from '../../styles';
 import { Coordinate, Point } from '../../ww-commons';
@@ -17,12 +17,19 @@ const styles: Styles = {
     height: 'auto',
     width: 'auto',
   },
+  addButton: {
+    display: 'flex',
+    flexDirection: 'column',
+    margin: 4,
+    marginTop: 8,
+    marginBottom: 8,
+    minWidth: 360,
+  },
 };
 
 export interface POICollectionProps {
   mapDialog?: boolean;
   mapBounds: Coordinate[] | null;
-  addButtonGateway: string;
 }
 
 type Props = POICollectionProps & WrappedFieldArrayProps<Partial<Point>>;
@@ -38,20 +45,20 @@ class POICollectionComponent extends React.PureComponent<Props> {
   };
 
   render() {
-    const { fields, meta, mapDialog, mapBounds, addButtonGateway } = this.props;
+    const { fields, meta, mapDialog, mapBounds } = this.props;
     return (
       <div style={styles.container}>
         {
           fields.map((name, index) => (
             <PointInput key={index} name={name} index={index} mapDialog={mapDialog} mapBounds={mapBounds} />
           ))}
-        <Gateway into={addButtonGateway}>
-          <FlatButton
-            label="Add"
-            onClick={this.onAdd}
-            icon={<FontIcon className="material-icons" style={styles.icon}>add</FontIcon>}
-          />
-        </Gateway>
+            <RaisedButton
+              style={styles.addButton}
+              fullWidth
+              label="Add"
+              onClick={this.onAdd}
+              icon={<FontIcon className="material-icons" style={styles.icon}>add</FontIcon>}
+            />
       </div>
     );
   }
