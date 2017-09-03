@@ -1,7 +1,6 @@
 import { createError, isInstance } from 'apollo-errors';
 import { createResolver } from 'apollo-resolvers';
-import { ClassType, transformAndValidate } from 'class-transformer-validator';
-import { ValidationError as ClassValidationError } from 'class-validator';
+import * as Joi from 'joi';
 import { Role } from '../features/users/types';
 import { Context } from './types';
 
@@ -57,24 +56,21 @@ export const isAdminResolver = isAuthenticatedResolver.createResolver(
   },
 );
 
-export const isInputValidResolver = (clazz: ClassType<any>) => baseResolver.createResolver(
-  async (root, obj) => {
-    const withConstructor = { ...obj };
-    try {
-      await transformAndValidate(
-        clazz,
-        withConstructor,
-        {
-          // If required property is missing, graphql will handle this
-          validator: { skipMissingProperties: true, validationError: { target: false } },
-        },
-      );
-    } catch (err) {
-      const data = err.map((e: ClassValidationError) => ({
-        field: e.property,
-        error: Object.values(e.constraints).join(' '),
-      }));
-      throw new ValidationError({ data });
+export const isInputValidResolver = (schema: Joi.Schema) => baseResolver.createResolver(
+  (root, value) => {
+    const { error } = Joi.validate(
+      value,
+      schema,
+      {
+        noDefaults: true,
+        stripUnknown: { objects: true, arrays: false },
+        presence: 'required',
+        abortEarly: false,
+        convert: false,
+      },
+    );
+    if (error) {
+      throw new ValidationError({ data: error.details });
     }
   },
 );

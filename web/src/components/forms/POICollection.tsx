@@ -3,7 +3,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import * as React from 'react';
 import { BaseFieldArrayProps, FieldArray, GenericFieldArray, WrappedFieldArrayProps } from 'redux-form';
 import { Styles } from '../../styles';
-import { Coordinate, Point } from '../../ww-commons';
+import { Coordinate, Point, PointInput as PointInputType } from '../../ww-commons';
 import { PointInput } from './PointInput';
 
 const styles: Styles = {
@@ -31,15 +31,17 @@ export interface POICollectionProps {
   mapBounds: Coordinate[] | null;
 }
 
-type Props = POICollectionProps & WrappedFieldArrayProps<Partial<Point>>;
+type Props = POICollectionProps & WrappedFieldArrayProps<PointInputType>;
 
 class POICollectionComponent extends React.PureComponent<Props> {
   onAdd = () => {
     const { fields } = this.props;
     fields.push({
-      name: '',
-      description: '',
+      id: null,
+      name: null,
+      description: null,
       kind: 'other',
+      coordinates: [0, 0, 0],
     });
   };
 
@@ -49,7 +51,14 @@ class POICollectionComponent extends React.PureComponent<Props> {
       <div style={styles.container}>
         {
           fields.map((name, index) => (
-            <PointInput key={index} name={name} index={index} mapDialog={mapDialog} mapBounds={mapBounds} />
+            <PointInput
+              key={index}
+              name={name}
+              index={index}
+              mapDialog={mapDialog}
+              mapBounds={mapBounds}
+              fields={fields}
+            />
           ))}
             <RaisedButton
               style={styles.addButton}

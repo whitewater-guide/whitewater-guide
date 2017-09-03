@@ -8,9 +8,13 @@ beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
 const requiredSource: SourceInput = {
+  id: null,
   name: 'New Source',
   harvestMode: HarvestMode.ALL_AT_ONCE,
   script: 'newScript',
+  url: null,
+  termsOfUse: null,
+  cron: null,
 };
 
 const optionalSource: SourceInput = {
@@ -57,7 +61,7 @@ describe('resolvers chain', () => {
   });
 
   test('should throw on invalid input', async () => {
-    const input = {
+    const input: SourceInput = {
       id: 'invalid-input',
       name: 'Invalid source',
       script: 'updatedScript',

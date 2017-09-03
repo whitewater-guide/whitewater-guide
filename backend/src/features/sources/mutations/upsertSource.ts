@@ -1,7 +1,7 @@
 import { GraphQLFieldResolver } from 'graphql';
 import { isAdminResolver, isInputValidResolver } from '../../../apollo';
 import db from '../../../db';
-import { SourceInput } from '../../../ww-commons';
+import { SourceInput, SourceInputSchema } from '../../../ww-commons';
 import { inputToRaw } from '../types';
 
 interface UpsertVariables {
@@ -22,7 +22,7 @@ const resolver: GraphQLFieldResolver<any, any> = async (root, source: SourceInpu
 
 const queryResolver: GraphQLFieldResolver<any, any> = (root, args: UpsertVariables, context, info) => {
   const { source } = args;
-  return isInputValidResolver(SourceInput).createResolver(resolver)(root, source, context, info);
+  return isInputValidResolver(SourceInputSchema).createResolver(resolver)(root, source, context, info);
 };
 
 const upsertSource = isAdminResolver.createResolver(

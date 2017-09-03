@@ -23,7 +23,7 @@ export interface SourceRaw extends NamedResource, RawTimestamped {
 
 export function inputToRaw(input: SourceInput): Partial<SourceRaw> {
   return {
-    id: input.id,
+    id: input.id || undefined,
     name: input.name,
     terms_of_use: input.termsOfUse,
     script: input.script,

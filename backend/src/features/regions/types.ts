@@ -17,9 +17,9 @@ export interface RegionRaw extends NamedResource, RawTimestamped {
 }
 
 export function toRaw(input: RegionInput): Partial<RegionRaw> {
-  const { seasonNumeric, bounds, ...rest } = input;
+  const { seasonNumeric, bounds, pois, ...rest } = input;
   let rawBounds = null;
-  if (bounds) {
+  if (bounds && bounds.length > 0) {
     const polygon: Polygon = new Polygon(bounds.map(p => new Point(...p)));
     // Close the ring
     polygon.exteriorRing.push(new Point(...bounds[0]));
@@ -28,7 +28,8 @@ export function toRaw(input: RegionInput): Partial<RegionRaw> {
   }
   return {
     ...rest,
-    season_numeric: seasonNumeric ? seasonNumeric : [],
+    id: rest.id || undefined,
+    season_numeric: seasonNumeric,
     bounds: rawBounds,
   };
 }

@@ -11,15 +11,27 @@ const regions: RegionInput[] = [
     season: 'Late autumn - early spring',
     seasonNumeric: [20, 21],
     bounds: [[-114, 46, 0], [-115, 46, 0], [-115, 47, 0], [-114, 47, 0]],
+    pois: [],
   },
   {
     id: '2caf75ca-7625-11e7-b5a5-be2e44b06b34',
     name: 'Empty region',
+    description: null,
+    hidden: false,
+    season: null,
+    seasonNumeric: [],
+    bounds: [],
+    pois: [],
   },
   {
     id: 'b968e2b2-76c5-11e7-b5a5-be2e44b06b34',
     name: 'Hidden region',
+    description: null,
     hidden: true,
+    season: null,
+    seasonNumeric: [],
+    bounds: [],
+    pois: [],
   },
 ];
 

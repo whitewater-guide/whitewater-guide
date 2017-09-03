@@ -1,13 +1,22 @@
-import { plainToClass } from 'class-transformer';
-import { validateSync } from 'class-validator';
+import * as Joi from 'joi';
+import { set } from 'lodash';
 
-interface ClassType {
-  new (...args: any[]): any;
-}
-
-export const validateInput = (clazz: ClassType) => (object: any) => {
-  const instance = plainToClass(clazz, object, { excludePrefixes: ['__'] });
-  const result = validateSync(instance, { skipMissingProperties: true });
-  console.log('Validation', result);
-  return result;
+export const validateInput = (schema: Joi.Schema) => (input: any) => {
+  const { error } = Joi.validate(
+    input,
+    schema,
+    {
+      noDefaults: true,
+      stripUnknown: { objects: true, arrays: false },
+      presence: 'required',
+      abortEarly: false,
+      convert: false,
+    },
+  );
+  const errors = {};
+  if (error) {
+    error.details.forEach((err: Joi.ValidationErrorItem) => set(errors, err.path, err.message));
+  }
+  console.log(errors);
+  return errors;
 };

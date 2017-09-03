@@ -1,6 +1,4 @@
-import { IsDefined, IsEnum, IsUrl, IsUUID, Length } from 'class-validator';
 import { NamedResource, Timestamped } from '../../core';
-import { isCron } from '../../utils';
 
 export enum HarvestMode {
   ALL_AT_ONCE = 'allAtOnce',
@@ -17,23 +15,11 @@ export interface Source extends NamedResource, Timestamped {
 }
 
 export class SourceInput {
-  @IsUUID()
-  id?: string;
-
-  @Length(3, 128)
+  id?: string | null;
   name: string;
-
-  termsOfUse?: string;
-
-  @IsDefined()
+  termsOfUse: string | null;
   script: string;
-
-  @isCron()
-  cron?: string;
-
-  @IsEnum(HarvestMode)
+  cron: string | null;
   harvestMode: HarvestMode;
-
-  @IsUrl()
-  url?: string;
+  url: string | null;
 }

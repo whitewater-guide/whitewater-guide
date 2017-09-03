@@ -5,7 +5,7 @@ import { grey100 } from 'material-ui/styles/colors';
 import * as React from 'react';
 import { FieldsProps } from 'redux-form';
 import { Styles } from '../../styles';
-import { Coordinate, NamedResource, POINames, Point } from '../../ww-commons';
+import { Coordinate, NamedResource, POINames, Point, PointInput as PointInputType } from '../../ww-commons';
 import { Select } from './Select';
 import SelectPointDialog from './SelectPointDialog';
 import { TextInput } from './TextInput';
@@ -35,7 +35,7 @@ const styles: Styles = {
 interface Props {
   name: string;
   index?: number;
-  fields?: FieldsProps<Point>;
+  fields?: FieldsProps<PointInputType>;
   title?: string;
   detailed?: boolean;
   mapDialog?: boolean;

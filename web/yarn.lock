@@ -45,6 +45,10 @@
   version "20.0.7"
   resolved "https://registry.yarnpkg.com/@types/jest/-/jest-20.0.7.tgz#39cd215db8bda03928dceb933a1e63eb2cbd210e"
 
+"@types/joi@^10.4.1":
+  version "10.4.1"
+  resolved "https://registry.yarnpkg.com/@types/joi/-/joi-10.4.1.tgz#30e987649cede8d2a78829489857e969a81e1e99"
+
 "@types/lodash@^4.14.74":
   version "4.14.74"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.74.tgz#ac3bd8db988e7f7038e5d22bd76a7ba13f876168"
@@ -987,16 +991,6 @@ clap@^1.0.9:
   resolved "https://registry.yarnpkg.com/clap/-/clap-1.2.0.tgz#59c90fe3e137104746ff19469a27a634ff68c857"
   dependencies:
     chalk "^1.1.3"
-
-class-transformer@^0.1.7:
-  version "0.1.7"
-  resolved "https://registry.yarnpkg.com/class-transformer/-/class-transformer-0.1.7.tgz#d577a7ce6fe83b766a447b2ba8c880eb5c9cd681"
-
-class-validator@^0.7.2:
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/class-validator/-/class-validator-0.7.2.tgz#35ed86f0590bbb60161a8c8ef9c813cb38572ffe"
-  dependencies:
-    validator "^7.0.0"
 
 classnames@^2.2.3, classnames@^2.2.5:
   version "2.2.5"
@@ -3167,6 +3161,10 @@ jest@20.0.3:
   resolved "https://registry.yarnpkg.com/jest/-/jest-20.0.3.tgz#e4fd054c4f1170a116a00761da4cfdb73f1cdc33"
   dependencies:
     jest-cli "^20.0.3"
+
+"joi@npm:joi-browser":
+  version "10.6.1"
+  resolved "https://registry.yarnpkg.com/joi-browser/-/joi-browser-10.6.1.tgz#1cfc1a244c9242327842c24354d8ead1c2fe3571"
 
 js-base64@^2.1.9:
   version "2.1.9"
@@ -6010,10 +6008,6 @@ validate-npm-package-license@^3.0.1:
   dependencies:
     spdx-correct "~1.0.0"
     spdx-expression-parse "~1.0.0"
-
-validator@^7.0.0:
-  version "7.2.0"
-  resolved "https://registry.yarnpkg.com/validator/-/validator-7.2.0.tgz#a63dcbaba51d4350bf8df20988e0d5a54d711791"
 
 value-equal@^0.4.0:
   version "0.4.0"

@@ -1,6 +1,6 @@
 import { reduxForm } from 'redux-form';
 import { validateInput } from '../../../components/forms';
-import { RegionInput } from '../../../ww-commons';
+import { RegionInput, RegionInputSchema } from '../../../ww-commons';
 
 const NEW_REGION: RegionInput = {
   id: null,
@@ -15,7 +15,7 @@ const NEW_REGION: RegionInput = {
 
 export default reduxForm({
   form: 'region',
-  validate: validateInput(RegionInput),
+  validate: validateInput(RegionInputSchema),
   initialValues: NEW_REGION,
   onSubmit: (values => console.log(values)),
 });

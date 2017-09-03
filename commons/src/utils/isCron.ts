@@ -1,30 +1,24 @@
-import { registerDecorator, ValidationArguments, ValidationOptions } from 'class-validator';
 import * as cronParser from 'cron-parser';
+import * as Joi from 'joi';
 
-export function isCron(validationOptions?: ValidationOptions) {
-  // tslint:disable-next-line:ban-types
-  return (object: Object, propertyName: string) => {
-    registerDecorator({
+export const JoiWithCron = Joi.extend({
+  base: Joi.string(),
+  name: 'string',
+  language: {
+    isCron: 'must be valid crontab expression',
+  },
+  rules: [
+    {
       name: 'isCron',
-      target: object.constructor,
-      propertyName,
-      options: validationOptions,
-      validator: {
-        validate(value: any) {
-          if (typeof value !== 'string') {
-            return false;
-          }
-          try {
-            cronParser.parseExpression(value);
-            return true;
-          } catch (e) {
-            return false;
-          }
-        },
-        defaultMessage(args: ValidationArguments) {
-          return `${args.property} must be valid crontab expression`;
-        },
+      validate(params: any, value: string, state: any, options: any) {
+        try {
+          cronParser.parseExpression(value);
+          return value;
+        } catch (e) {
+          // tslint:disable-next-line:no-invalid-this
+          return this.createError('string.isCron', { v: value }, state, options);
+        }
       },
-    });
-  };
-}
+    },
+  ],
+});

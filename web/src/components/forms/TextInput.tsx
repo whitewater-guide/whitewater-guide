@@ -12,7 +12,12 @@ type CustomFieldProps = { title?: string } & Partial<TextFieldProps>;
 type Props = WrappedFieldProps & CustomFieldProps;
 
 const TextInputComponent: React.StatelessComponent<Props> = ({ input, meta, ...own }) => (
-  <TextField {...input} floatingLabelText={own.title} {...own} />
+  <TextField
+    {...input}
+    floatingLabelText={own.title}
+    {...own}
+    errorText={meta.touched && meta.error}
+  />
 );
 
 type FieldProps = BaseFieldProps<CustomFieldProps> & CustomFieldProps;
