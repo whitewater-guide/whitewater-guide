@@ -15,10 +15,13 @@ import {
   TextInput,
 } from '../../../components/forms';
 import { Content } from '../../../layout';
+import { RegionInput } from '../../../ww-commons/features/regions';
 
-export default class RegionForm extends React.PureComponent<InjectedFormProps> {
+export default class RegionForm extends React.PureComponent<InjectedFormProps<RegionInput>> {
 
   render() {
+    const { initialValues } = this.props;
+    const submitLabel = (initialValues && initialValues.id) ? 'Update' : 'Create';
     return (
       <Content card>
         <CardHeader title="Regions list" />
@@ -49,7 +52,7 @@ export default class RegionForm extends React.PureComponent<InjectedFormProps> {
           </div>
         </CardMedia>
         <CardActions>
-          <FlatButton label="Create" onClick={this.props.handleSubmit} />
+          <FlatButton label={submitLabel} onClick={this.props.handleSubmit} />
         </CardActions>
       </Content>
     );

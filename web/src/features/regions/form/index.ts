@@ -1,4 +1,4 @@
+import container from './container';
 import RegionForm from './RegionForm';
-import container from './RegionFormContainer';
 
 export default container(RegionForm);

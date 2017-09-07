@@ -1,6 +1,6 @@
 import { gql } from 'react-apollo';
 import { branch, compose, withProps } from 'recompose';
-import { Region } from '../../../ww-commons';
+import { Region, RegionInput } from '../../../ww-commons';
 import { enhancedQuery } from '../../apollo';
 import { withFeatureIds } from '../../core';
 import { RegionFragments } from './regionFraments';
@@ -20,10 +20,22 @@ const regionDetails = gql`
   ${RegionFragments.Bounds}
 `;
 
+const NEW_REGION: RegionInput = {
+  id: null,
+  hidden: false,
+  description: null,
+  bounds: [],
+  seasonNumeric: [],
+  season: null,
+  name: '',
+  pois: [],
+};
+
 export interface WithRegionOptions {
   withBounds?: boolean;
   withPOIs?: boolean;
   propName?: string;
+  errorOnMissingId?: boolean;
 }
 
 export interface WithRegionChildProps {
@@ -45,10 +57,11 @@ export interface WithRegionProps {
  * @param options.withBounds (false) = Should include bounds
  * @param options.withPOIs (true) = Should include POIs
  * @param options.propName ('region') = Name of prop which will contain region
+ * @param options.errorOnMissingId (true) = Should error be added if regionId is not found?
  * @returns High-order component
  */
 export function withRegion<RegionProp = {region: Region | null}>(options: WithRegionOptions) {
-  const { withBounds = false, withPOIs = true, propName = 'region' } = options;
+  const { withBounds = false, withPOIs = true, propName = 'region', errorOnMissingId = true } = options;
   type ChildProps = WithRegionChildProps & RegionProp;
   return compose<WithRegionChildProps & ChildProps, any>(
     withFeatureIds('region'),
@@ -66,12 +79,13 @@ export function withRegion<RegionProp = {region: Region | null}>(options: WithRe
             const { region, loading } = data!;
             return { [propName]: region, regionLoading: loading && !region };
           },
+          alias: 'withRegion',
         },
       ),
       withProps<ChildProps, WithRegionProps>(({ regionId }) => ({
-        [propName]: null,
+        [propName]: NEW_REGION,
         regionLoading: false,
-        error: `No region with id ${regionId} was found`,
+        error: errorOnMissingId ? `No region with id ${regionId} was found` : undefined,
       } as any as ChildProps)),
     ),
   );

@@ -3,25 +3,25 @@ import * as qs from 'qs';
 import { withProps } from 'recompose';
 import { isNative } from '../utils/isNative';
 
-const ALL_FEATURE_IDS = [
-  'fileId',
+type FeatureType = 'gauge' | 'region' | 'source' | 'river' | 'section';
+type FeatureIdType = 'gaugeId' | 'regionId' | 'sourceId' | 'riverId' | 'sectionId';
+
+const ALL_FEATURE_IDS: FeatureIdType[] = [
   'gaugeId',
-  'mediaId',
-  'pointId',
   'regionId',
   'riverId',
   'sectionId',
   'sourceId',
-  'tagId',
-  'userId',
 ];
 
-export const withFeatureIds = (features?: string | string[]) => {
-  return withProps(
+export type WithFeatureIds = {[is in FeatureIdType]?: string};
+
+export const withFeatureIds = <TOuter>(features?: FeatureType | FeatureType[]) => {
+  return withProps<WithFeatureIds, TOuter>(
     (props: any) => {
       const featureIds = features ? castArray(features).map(feature => `${feature}Id`) : ALL_FEATURE_IDS;
-      const result: Map<string, string> = new Map();
-      featureIds.forEach((featureId) => {
+      const result: WithFeatureIds = {};
+      featureIds.forEach((featureId: FeatureIdType) => {
         let value = props[featureId];
         value = value || isNative() ?
           get(props, `navigation.state.params.${featureId}`) :
@@ -32,7 +32,7 @@ export const withFeatureIds = (features?: string | string[]) => {
           value = query[featureId];
         }
         if (value) {
-          result.set(featureId, value);
+          result[featureId] = value;
         }
       });
       return result;

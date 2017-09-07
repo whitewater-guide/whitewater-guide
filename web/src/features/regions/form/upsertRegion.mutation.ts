@@ -1,7 +1,7 @@
 import { gql } from 'react-apollo';
 import { RegionFragments } from '../../../ww-clients/features/regions';
 
-const upsertRegion = gql`
+const UPSERT_REGION = gql`
   mutation upsertRegion($region: RegionInput!, $language:String){
     upsertRegion(region: $region, language: $language){
       ...RegionCore
@@ -16,4 +16,4 @@ const upsertRegion = gql`
   ${RegionFragments.Description}
 `;
 
-export default upsertRegion;
+export default UPSERT_REGION;

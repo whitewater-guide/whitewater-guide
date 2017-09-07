@@ -8,6 +8,7 @@ const Regions: React.StatelessComponent = () => (
   <Switch>
     <Route exact path="/regions" component={RegionsList} />
     <PrivateRoute exact path="/regions/new" component={RegionForm} />
+    <PrivateRoute exact path="/regions/:regionId/settings" component={RegionForm} />
   </Switch>
 );
 
