@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Editor } from 'react-draft-wysiwyg';
+// tslint:disable-next-line:no-submodule-imports
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { BaseFieldProps, Field, GenericField, WrappedFieldProps } from 'redux-form';
 
@@ -58,6 +59,9 @@ type FieldProps = BaseFieldProps<{}>;
 export const DraftEditor: React.StatelessComponent<FieldProps> = props => {
   const CustomField = Field as new () => GenericField<{}>;
   return (
-    <CustomField {...props} component={DraftEditorComponent} />
+    <CustomField
+      {...props}
+      component={DraftEditorComponent}
+    />
   );
 };

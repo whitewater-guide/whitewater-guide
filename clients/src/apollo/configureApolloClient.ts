@@ -1,3 +1,4 @@
+// tslint:disable:no-submodule-imports
 import ApolloClient, { FragmentMatcherInterface } from 'apollo-client';
 import { ApolloStateSelector } from 'apollo-client/ApolloClient';
 import { IdGetter } from 'apollo-client/core/types';

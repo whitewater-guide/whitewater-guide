@@ -1,6 +1,7 @@
 import { DocumentNode, FieldNode, OperationDefinitionNode } from 'graphql';
 import { isFunction } from 'lodash';
 import { graphql, OperationOption } from 'react-apollo';
+// tslint:disable-next-line:no-submodule-imports
 import { ComponentDecorator } from 'react-apollo/types';
 
 export interface ErrorItem {

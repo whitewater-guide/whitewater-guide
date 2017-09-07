@@ -11,3 +11,8 @@ export const RegionInputSchema = Joi.object().keys({
   hidden: Joi.boolean(),
   pois: Joi.array().items(PointInputSchema),
 });
+
+// description is draft.js EditorState
+export const RegionFormSchema = RegionInputSchema.keys({
+  description: Joi.any(),
+});

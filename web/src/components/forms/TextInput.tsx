@@ -28,8 +28,8 @@ export const TextInput: React.StatelessComponent<FieldProps> = ({ ...props }) =>
     pattern: '(\-)?[0-9]+([\,|\.][0-9]+)?',
     format: (value?: number) => (value ? value.toString() : ''),
     parse: (value?: string) => (value ? value.replace(OTHER_SEPARATOR, SEPARATOR) : value),
-    normalize: (value?: string) => (value ? strToFloat(value) : value),
-  } : {};
+    normalize: (value?: string) => (value ? strToFloat(value) : null),
+  } : { normalize: (value?: string) => value || null };
   return (
     <CustomField {...props} {...numericProps} component={TextInputComponent} />
   );

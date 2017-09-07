@@ -24,7 +24,7 @@ export const withMe = (cached: boolean = true) => graphql<WithMe>(
   query,
   {
     options: {
-      fetchPolicy: cached ? 'cache-only' : 'network-only',
+      fetchPolicy: cached ? 'cache-first' : 'network-only',
     },
     props: ({ data }) => {
       const { me, loading } = data!;
