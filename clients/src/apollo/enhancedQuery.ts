@@ -1,8 +1,6 @@
 import { DocumentNode, FieldNode, OperationDefinitionNode } from 'graphql';
 import { isFunction } from 'lodash';
 import { graphql, OperationOption } from 'react-apollo';
-// tslint:disable-next-line:no-submodule-imports
-import { ComponentDecorator } from 'react-apollo/types';
 
 export interface ErrorItem {
   error: any;
@@ -21,7 +19,8 @@ export interface WithErrors {
  * (e.g. cached data), then swallow error
  * @param mapProps Function to map props when no error is found
  */
-const wrapErrors = (errorPropName: string, dataPropName: string, mapProps: any) => (props: any) => {
+export const wrapErrors = (errorPropName: string, dataPropName: string, mapProps: any) => (props: any) => {
+  // console.log(props);
   const { data, ownProps } = props;
   const { error, refetch } = data;
   let errors = ownProps.errors || {};
@@ -42,9 +41,7 @@ const wrapErrors = (errorPropName: string, dataPropName: string, mapProps: any) 
  * @returns {*}
  */
 export const enhancedQuery = <TResult, TProps, TChildProps>(
-  query: DocumentNode,
-  config: OperationOption<TProps, TResult>,
-): ComponentDecorator<TProps, TChildProps & WithErrors> => {
+  query: DocumentNode, config: OperationOption<TProps, TResult>) => {
   const queryDef: OperationDefinitionNode = query.definitions.find(
     ({ operation }: OperationDefinitionNode) => operation === 'query',
   ) as OperationDefinitionNode;
