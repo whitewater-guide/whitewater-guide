@@ -1,24 +1,8 @@
-import { gql } from 'react-apollo';
 import { branch, compose, withProps } from 'recompose';
 import { Region, RegionInput } from '../../../ww-commons';
 import { enhancedQuery } from '../../apollo';
 import { withFeatureIds } from '../../core';
-import { RegionFragments } from './regionFraments';
-
-const regionDetails = gql`
-  query regionDetails($_id: ID!, $language:String, $withBounds: Boolean!, $withPOIs: Boolean!) {
-    region(_id: $_id, language: $language) {
-      ...RegionCore
-      ...RegionDescription
-      ...RegionPOIs @include(if: $withPOIs)
-      ...RegionBounds @include(if: $withBounds)
-    }
-  }
-  ${RegionFragments.Core}
-  ${RegionFragments.Description}
-  ${RegionFragments.POIs}
-  ${RegionFragments.Bounds}
-`;
+import REGION_DETAILS from './regionDetails.query';
 
 const NEW_REGION: RegionInput = {
   id: null,
@@ -69,7 +53,7 @@ export function withRegion<RegionProp = {region: Region | null}>(options: WithRe
     branch<WithRegionProps>(
       ({ regionId }) => !!regionId,
       enhancedQuery<WithRegionResult, WithRegionProps, ChildProps>(
-        regionDetails,
+        REGION_DETAILS,
         {
           options: ({ regionId, language }) => ({
             fetchPolicy: 'cache-and-network',

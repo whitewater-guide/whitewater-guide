@@ -1,8 +1,8 @@
-import { gql } from 'react-apollo';
+import gql from 'graphql-tag';
 
 const Core = gql`
   fragment RegionCore on Region {
-    _id
+    id
     name
     season
     seasonNumeric
@@ -19,7 +19,7 @@ const Description = gql`
 const POIs = gql`
   fragment RegionPOIs on Region {
     pois {
-      _id
+      id
       name
       description
       coordinates

@@ -28,8 +28,8 @@
     "sourceMap": true
   },
   "include": [
-    "src/**/*.ts",
-    "ww-commons/**/*.ts"
+    "src/**/*.*",
+    "ww-commons/**/*.*"
   ],
   "compileOnSave": true
 }

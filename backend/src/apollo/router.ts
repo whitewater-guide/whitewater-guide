@@ -1,7 +1,7 @@
 import { formatError as apolloFormatError } from 'apollo-errors';
 import { graphiqlExpress, graphqlExpress } from 'apollo-server-express';
 import { Router } from 'express';
-import { GraphQLError } from 'graphql';
+import { graphql, GraphQLError, introspectionQuery } from 'graphql';
 import { UnknownError } from './enhancedResolvers';
 import { schema } from './schema';
 
@@ -24,7 +24,7 @@ const formatError = (error: any) => {
 
 graphqlRouter.use(
   '/graphql',
-  graphqlExpress( (req) => ({
+  graphqlExpress((req) => ({
     schema,
     debug: process.env.NODE_ENV !== 'production',
     context: { user: req!.user },
@@ -37,4 +37,10 @@ if (process.env.NODE_ENV !== 'production') {
     '/graphiql',
     graphiqlExpress({ endpointURL: '/graphql' }),
   );
+}
+
+if (process.env.NODE_ENV !== 'production') {
+  graphqlRouter.use('/schema.json', (req, res) => {
+    graphql(schema, introspectionQuery).then(result => res.json(result));
+  });
 }
