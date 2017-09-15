@@ -38,14 +38,12 @@ export interface WithRegionProps {
 
 /**
  *
- * @param options.withBounds (false) = Should include bounds
- * @param options.withPOIs (true) = Should include POIs
  * @param options.propName ('region') = Name of prop which will contain region
  * @param options.errorOnMissingId (true) = Should error be added if regionId is not found?
  * @returns High-order component
  */
 export function withRegion<RegionProp = {region: Region | null}>(options: WithRegionOptions) {
-  const { withBounds = false, withPOIs = true, propName = 'region', errorOnMissingId = true } = options;
+  const { propName = 'region', errorOnMissingId = true } = options || {};
   type ChildProps = WithRegionChildProps & RegionProp;
   return compose<WithRegionChildProps & ChildProps, any>(
     withFeatureIds('region'),
@@ -57,7 +55,7 @@ export function withRegion<RegionProp = {region: Region | null}>(options: WithRe
         {
           options: ({ regionId, language }) => ({
             fetchPolicy: 'cache-and-network',
-            variables: { id: regionId, language, withBounds, withPOIs },
+            variables: { id: regionId, language },
           }),
           props: ({ data }) => {
             const { region, loading } = data!;

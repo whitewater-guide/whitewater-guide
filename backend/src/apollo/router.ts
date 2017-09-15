@@ -3,7 +3,7 @@ import { graphiqlExpress, graphqlExpress } from 'apollo-server-express';
 import { Router } from 'express';
 import { graphql, GraphQLError, introspectionQuery } from 'graphql';
 import { UnknownError } from './enhancedResolvers';
-import { schema } from './schema';
+import { mergedTypedefs, schema } from './schema';
 
 export const graphqlRouter = Router();
 
@@ -42,5 +42,8 @@ if (process.env.NODE_ENV !== 'production') {
 if (process.env.NODE_ENV !== 'production') {
   graphqlRouter.use('/schema.json', (req, res) => {
     graphql(schema, introspectionQuery).then(result => res.json(result));
+  });
+  graphqlRouter.use('/typedefs.txt', (req, res) => {
+    graphql(schema, introspectionQuery).then(result => res.send(mergedTypedefs));
   });
 }

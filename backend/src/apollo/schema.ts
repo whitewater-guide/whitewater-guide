@@ -5,7 +5,10 @@ import { typeDefs } from './typeDefs';
 
 loadSchema({ typeDefs, resolvers });
 
+const loadedSchema = getSchema();
+export const mergedTypedefs = loadedSchema.typeDefs;
+
 export const schema = makeExecutableSchema({
-  ...getSchema(),
+  ...loadedSchema,
   allowUndefinedInResolve: false,
 });

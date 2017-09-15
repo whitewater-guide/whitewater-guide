@@ -72,31 +72,7 @@ Object {
                   },
                 },
                 Object {
-                  "directives": Array [
-                    Object {
-                      "arguments": Array [
-                        Object {
-                          "kind": "Argument",
-                          "name": Object {
-                            "kind": "Name",
-                            "value": "if",
-                          },
-                          "value": Object {
-                            "kind": "Variable",
-                            "name": Object {
-                              "kind": "Name",
-                              "value": "withPOIs",
-                            },
-                          },
-                        },
-                      ],
-                      "kind": "Directive",
-                      "name": Object {
-                        "kind": "Name",
-                        "value": "include",
-                      },
-                    },
-                  ],
+                  "directives": Array [],
                   "kind": "FragmentSpread",
                   "name": Object {
                     "kind": "Name",
@@ -104,31 +80,7 @@ Object {
                   },
                 },
                 Object {
-                  "directives": Array [
-                    Object {
-                      "arguments": Array [
-                        Object {
-                          "kind": "Argument",
-                          "name": Object {
-                            "kind": "Name",
-                            "value": "if",
-                          },
-                          "value": Object {
-                            "kind": "Variable",
-                            "name": Object {
-                              "kind": "Name",
-                              "value": "withBounds",
-                            },
-                          },
-                        },
-                      ],
-                      "kind": "Directive",
-                      "name": Object {
-                        "kind": "Name",
-                        "value": "include",
-                      },
-                    },
-                  ],
+                  "directives": Array [],
                   "kind": "FragmentSpread",
                   "name": Object {
                     "kind": "Name",
@@ -177,48 +129,6 @@ Object {
             "name": Object {
               "kind": "Name",
               "value": "language",
-            },
-          },
-        },
-        Object {
-          "defaultValue": null,
-          "kind": "VariableDefinition",
-          "type": Object {
-            "kind": "NonNullType",
-            "type": Object {
-              "kind": "NamedType",
-              "name": Object {
-                "kind": "Name",
-                "value": "Boolean",
-              },
-            },
-          },
-          "variable": Object {
-            "kind": "Variable",
-            "name": Object {
-              "kind": "Name",
-              "value": "withBounds",
-            },
-          },
-        },
-        Object {
-          "defaultValue": null,
-          "kind": "VariableDefinition",
-          "type": Object {
-            "kind": "NonNullType",
-            "type": Object {
-              "kind": "NamedType",
-              "name": Object {
-                "kind": "Name",
-                "value": "Boolean",
-              },
-            },
-          },
-          "variable": Object {
-            "kind": "Variable",
-            "name": Object {
-              "kind": "Name",
-              "value": "withPOIs",
             },
           },
         },
@@ -454,7 +364,7 @@ Object {
   ],
   "kind": "Document",
   "loc": Object {
-    "end": 633,
+    "end": 539,
     "start": 0,
   },
 }

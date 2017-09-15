@@ -16,6 +16,13 @@ describe('default', () => {
     expect(div.prop('regionId')).toBe('fff');
   });
 
+  test('should not touch outer props', () => {
+    const Wrapped: React.ComponentType<any> = withFeatureIds('region')('div' as any);
+    const div = shallow(<Wrapped regionId="fff" foo="bar" />);
+    expect(div.prop('regionId')).toBe('fff');
+    expect(div.prop('foo')).toBe('bar');
+  });
+
   test('should support multiple props', () => {
     const Wrapped: React.ComponentType<any> = withFeatureIds(['region', 'section'])('div' as any);
     const div = shallow(<Wrapped regionId="fff" sectionId="sss" />);
