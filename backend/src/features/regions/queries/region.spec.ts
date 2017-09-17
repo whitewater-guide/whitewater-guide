@@ -17,6 +17,13 @@ const query = `
       hidden
       createdAt
       updatedAt
+      pois {
+        id
+        name
+        description
+        kind
+        coordinates
+      }
     }
   }
 `;

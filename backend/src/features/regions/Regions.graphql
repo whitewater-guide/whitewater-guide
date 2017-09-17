@@ -5,7 +5,7 @@ type Region {
   season: String
   seasonNumeric: [Int]!
   bounds: [[Float!]]
-  # pois: [Point]!
+  pois: [Point]!
   # sources: [Source]!
   # rivers: [River]!
   riversCount: Int

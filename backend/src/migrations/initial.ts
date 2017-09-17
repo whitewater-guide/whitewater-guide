@@ -2,6 +2,7 @@ import Knex = require('knex');
 import { addUpdatedAtFunction, addUpdatedAtTrigger, removeUpdatedAtFunction } from '../db/updatedAtTrigger';
 import { HarvestMode } from '../features/sources';
 import { Role } from '../features/users/types';
+import { POITypes } from '../ww-commons/features/points/POITypes';
 
 export const up = async (db: Knex) => {
   await addUpdatedAtFunction(db);
@@ -77,21 +78,65 @@ export const up = async (db: Knex) => {
   });
   await addUpdatedAtTrigger(db, 'regions');
 
+  // Points
+  await db.schema.createTableIfNotExists('points', (table) => {
+    table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
+    table.string('name');
+    table.text('description');
+    table.enu('kind', POITypes).notNullable();
+    table.specificType('coordinates', 'geography(POINTZ,4326)').notNullable();
+  });
+
+  // Points <-> regions many-to-many
+  await db.schema.createTableIfNotExists('points_regions', (table) => {
+    table.uuid('point_id').notNullable().references('id').inTable('points').onDelete('CASCADE');
+    table.uuid('region_id').notNullable().references('id').inTable('regions').onDelete('CASCADE');
+    table.primary(['point_id', 'region_id']);
+  });
+
   // Sources <-> regions many-to-many
   await db.schema.createTableIfNotExists('sources_regions', (table) => {
     table.uuid('source_id').notNullable().references('id').inTable('sources');
     table.uuid('region_id').notNullable().references('id').inTable('regions');
     table.primary(['source_id', 'region_id']);
   });
+
+  // Views
+  await db.schema.raw(`
+    CREATE OR REPLACE VIEW regions_view AS
+    SELECT
+      regions.id,
+      regions.name,
+      regions.description,
+      regions.season,
+      regions.season_numeric,
+      regions.hidden,
+      regions.created_at,
+      regions.updated_at,
+      ST_AsText(regions.bounds) AS bounds,
+      json_agg(json_build_object(
+                   'id', points.id,
+                   'name', points.name,
+                   'description', points.description,
+                   'kind', points.kind,
+                   'coordinates', ST_AsText(points.coordinates)
+               )) FILTER (WHERE points.id NOTNULL) AS pois
+    FROM regions
+      LEFT OUTER JOIN points_regions ON regions.id = points_regions.region_id
+      LEFT OUTER JOIN points ON points_regions.point_id = points.id
+    GROUP BY regions.id
+  `);
 };
 
 export const down = async (db: Knex) => {
-  await db.schema.dropTableIfExists('sources_regions');
-  await db.schema.dropTableIfExists('logins');
-  await db.schema.dropTableIfExists('users');
-  await db.schema.dropTableIfExists('gauges');
-  await db.schema.dropTableIfExists('sources');
-  await db.schema.dropTableIfExists('regions');
+  await db.schema.raw('DROP TABLE IF EXISTS sources_regions CASCADE');
+  await db.schema.raw('DROP TABLE IF EXISTS logins CASCADE');
+  await db.schema.raw('DROP TABLE IF EXISTS users CASCADE');
+  await db.schema.raw('DROP TABLE IF EXISTS gauges CASCADE');
+  await db.schema.raw('DROP TABLE IF EXISTS sources CASCADE');
+  await db.schema.raw('DROP TABLE IF EXISTS regions CASCADE');
+  await db.schema.raw('DROP TABLE IF EXISTS points CASCADE');
+  await db.schema.raw('DROP TABLE IF EXISTS points_regions CASCADE');
   await removeUpdatedAtFunction(db);
 };
 

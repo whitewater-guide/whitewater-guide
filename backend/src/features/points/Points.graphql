@@ -1,0 +1,15 @@
+type Point {
+  id: ID!
+  name: String
+  description: String
+  coordinates: [Float!]!
+  kind: String!
+}
+
+input PointInput {
+  id: ID
+  name: String
+  description: String
+  coordinates: [Float!]!
+  kind: String
+}

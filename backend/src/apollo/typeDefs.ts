@@ -1,4 +1,5 @@
 import { GaugesSchema } from '../features/gauges';
+import { PointsSchema } from '../features/points';
 import { RegionsSchema } from '../features/regions';
 import { SourcesSchema } from '../features/sources';
 import { UsersSchema } from '../features/users';
@@ -37,4 +38,5 @@ export const typeDefs = [
   RegionsSchema,
   SourcesSchema,
   UsersSchema,
+  PointsSchema,
 ];

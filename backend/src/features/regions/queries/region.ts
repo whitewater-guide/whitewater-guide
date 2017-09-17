@@ -13,7 +13,7 @@ const region = baseResolver.createResolver(
   async (root, { id }: RegionQuery, context: Context, info: GraphQLResolveInfo) => {
     const { user } = context;
     const columns = getColumns(info, context);
-    const result: RegionRaw | null = await db().column(columns).select().from('regions').where({ id }).first();
+    const result: RegionRaw | null = await db().column(columns).select().from('regions_view').where({ id }).first();
     if (result && result.hidden && !isAdmin(user)) {
       throw new ForbiddenError({ message: 'This region is not yet available for public' });
     }

@@ -2,6 +2,7 @@ import { Geometry, Point, Polygon } from 'wkx';
 import { loadGraphqlFile } from '../../apollo/loadGraphqlFile';
 import { RawTimestamped } from '../../db';
 import { NamedResource, RegionInput } from '../../ww-commons/';
+import { PointRaw } from '../points';
 
 export const RegionsSchema = loadGraphqlFile('regions');
 
@@ -14,6 +15,7 @@ export interface RegionRaw extends NamedResource, RawTimestamped {
   season_numeric: number[];
   bounds: string | null;
   hidden: boolean | null;
+  pois: PointRaw[] | null;
 }
 
 export function toRaw(input: RegionInput): Partial<RegionRaw> {

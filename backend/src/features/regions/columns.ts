@@ -1,7 +1,6 @@
 import { GraphQLResolveInfo } from 'graphql';
 import { compact } from 'lodash';
 import { Context } from '../../apollo';
-import db from '../../db';
 import { Region } from '../../ww-commons';
 import graphqlFields = require('graphql-fields');
 
@@ -14,7 +13,6 @@ type FieldMap = {
 const map: FieldMap = {
   // fields with double underscore work only in ts 2.5+
   __typename: () => null,
-  bounds: () => db().raw('ST_AsText(bounds) AS bounds'),
   createdAt: () => 'created_at',
   updatedAt: () => 'updated_at',
   seasonNumeric: () => 'season_numeric',

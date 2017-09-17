@@ -14,7 +14,9 @@ function getLoginRedirect(req: Request) {
 }
 
 const setReturnTo: RequestHandler = (req, res, next) => {
-  req.session.returnTo = getLoginRedirect(req);
+  if (req.session) {
+    req.session.returnTo = getLoginRedirect(req);
+  }
   next();
 };
 

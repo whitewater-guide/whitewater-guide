@@ -1,6 +1,5 @@
 import { GrapqhlResource, Timestamped } from '../../core';
-import { PointInput } from '../points';
-import { Coordinate } from '../points/types';
+import { Coordinate, Point, PointInput } from '../points';
 
 export interface Region extends GrapqhlResource, Timestamped {
   description: string | null;
@@ -8,8 +7,9 @@ export interface Region extends GrapqhlResource, Timestamped {
   seasonNumeric: number[];
   bounds: Array<[number, number, number]> | null;
   hidden: boolean | null;
-  riversCount?: number;
-  sectionsCount?: number;
+  riversCount: number;
+  sectionsCount: number;
+  pois: Point[];
 }
 
 export class RegionInput {

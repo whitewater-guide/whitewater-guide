@@ -19,17 +19,20 @@ router.get(
 router.get(
   '/auth/logout',
   (req, res) => {
-    req.session.destroy(() => {
-      req.logout();
-      res.clearCookie('sid');
-      res.redirect(getLogoutRedirect(req));
-    });
+    if (req.session) {
+      req.session.destroy(() => {
+        req.logout();
+        res.clearCookie('sid');
+        res.redirect(getLogoutRedirect(req));
+      });
+    }
   },
 );
 
 if (process.env.NODE_ENV !== 'production') {
   router.get('/', (req: Request, res: Response) => {
     if (req.user) {
+      // tslint:disable-next-line:max-line-length
       res.send(`<p>Welcome, ${req.user.name} (<a href="javascript:fetch('/auth/logout', { method: 'POST', credentials: 'include' }).then(() => window.location = '/')">log out</a>)</p>`);
     } else {
       res.send(`<p>Welcome, guest! (<a href="/auth/facebook">log in</a>)</p>`);
