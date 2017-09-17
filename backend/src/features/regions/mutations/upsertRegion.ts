@@ -14,22 +14,23 @@ const resolver: GraphQLFieldResolver<any, any> = async (root, region: RegionInpu
   const raw = toRaw(region);
   const { id, ...rest } = raw;
   let result = null;
-  db().transaction(async (trx) => {
+  await db().transaction(async (trx) => {
     let region_id = id;
     if (id) {
       await trx.table('regions').where({ id }).update(rest);
-      // Delete and create all points again, CASCADE should delete regions_points rows
+      // Delete and create all points again, CASCADE should delete points_regions rows
       await trx.table('points')
-        .crossJoin('regions_points', 'points.id', 'regions_points.point_id')
-        .where('regions_points.region_id', id)
+        .crossJoin('points_regions', 'points.id', 'points_regions.point_id')
+        .where('points_regions.region_id', id)
         .del();
     } else {
-      region_id = (await trx.table('regions').insert(raw).returning('id'))[0];
+      const inserted = await trx.table('regions').insert(raw).returning('id');
+      region_id = inserted[0];
     }
     if (region.pois.length > 0) {
       const poiIds = await trx.table('points').insert(region.pois.map(toRawPoint)).returning('id');
       const poisRegions = poiIds.map((point_id: string) => ({ point_id, region_id }));
-      await trx.table('regions_points').insert(poisRegions);
+      await trx.table('points_regions').insert(poisRegions);
     }
     result = await trx.select('*').from('regions_view').where({ id: region_id }).first();
   });
