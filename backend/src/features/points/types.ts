@@ -7,20 +7,32 @@ export const PointsSchema = loadGraphqlFile('points');
 /**
  * Raw row from database `points` table
  */
-export interface PointRaw extends NamedResource {
+export interface PointRaw {
+  id: string;
+  name: string | null;
   description: string | null;
   kind: string;
   coordinates: string;
 }
 
-export function toRaw(input: PointInput): Partial<PointRaw> {
+/**
+ * What is give to inserts/updates
+ */
+export interface PointRawInput {
+  id?: string;
+  name: string | null;
+  description: string | null;
+  kind: string;
+  coordinates: string;
+}
+
+export function toRaw(input: PointInput): PointRawInput {
   const { coordinates, ...rest } = input;
   const wkxPoint = new WKXPoint(...coordinates);
   wkxPoint.srid = 4326;
   return {
     ...rest,
     id: rest.id || undefined,
-    name: rest.name || undefined,
     coordinates: wkxPoint.toEwkt(),
   };
 }

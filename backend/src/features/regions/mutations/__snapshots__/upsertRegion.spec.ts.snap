@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`resolvers chain anon should not pass 1`] = `
+Object {
+  "data": Object {
+    "upsertRegion": null,
+  },
+  "errors": Array [
+    [GraphQLError: You must be logged in to do this],
+  ],
+}
+`;
+
+exports[`resolvers chain should throw on invalid input 1`] = `
+Object {
+  "data": Object {
+    "upsertRegion": null,
+  },
+  "errors": Array [
+    [GraphQLError: Invalid input],
+  ],
+}
+`;
+
+exports[`resolvers chain user should not pass 1`] = `
+Object {
+  "data": Object {
+    "upsertRegion": null,
+  },
+  "errors": Array [
+    [GraphQLError: You are not allowed to do this],
+  ],
+}
+`;

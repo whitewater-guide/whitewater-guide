@@ -18,7 +18,20 @@ export interface RegionRaw extends NamedResource, RawTimestamped {
   pois: PointRaw[] | null;
 }
 
-export function toRaw(input: RegionInput): Partial<RegionRaw> {
+/**
+ * What is given to insert/update statement
+ */
+export interface RegionRawInput {
+  id?: string;
+  name: string;
+  description: string | null;
+  season: string | null;
+  season_numeric: number[];
+  bounds: string | null;
+  hidden: boolean | null;
+}
+
+export function toRaw(input: RegionInput): RegionRawInput {
   const { seasonNumeric, bounds, pois, ...rest } = input;
   let rawBounds = null;
   if (bounds && bounds.length > 0) {

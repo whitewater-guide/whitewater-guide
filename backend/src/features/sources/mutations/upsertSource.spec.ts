@@ -1,6 +1,6 @@
 import db, { holdTransaction, rollbackTransaction } from '../../../db';
 import { adminContext, anonContext, userContext } from '../../../test/context';
-import { isTimestamp, isUUID, noTimestamps, noUnstable, runQuery, } from '../../../test/db-helpers';
+import { isTimestamp, isUUID, noTimestamps, noUnstable, runQuery } from '../../../test/db-helpers';
 import { SourceInput } from '../../../ww-commons';
 import { HarvestMode, SourceRaw } from '../types';
 

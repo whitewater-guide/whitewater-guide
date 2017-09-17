@@ -21,7 +21,7 @@ input RegionInput {
   description: String
   season: String
   seasonNumeric: [Int]
-  # pois: [PointInput]
+  pois: [PointInput]
   bounds: [[Float!]]
   hidden: Boolean
 }
@@ -31,7 +31,7 @@ type Query {
   region(id: ID, language:String):Region,
 }
 
-#type Mutation {
-#  upsertRegion(region:RegionInput!, language:String):Region,
+type Mutation {
+  upsertRegion(region:RegionInput!, language:String):Region,
 #  removeRegion(id:ID!):Boolean,
-#}
+}
