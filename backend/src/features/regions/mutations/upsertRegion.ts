@@ -1,4 +1,5 @@
 // tslint:disable:variable-name
+import * as Knex from 'knex';
 import { GraphQLFieldResolver } from 'graphql';
 import { isAdminResolver, isInputValidResolver } from '../../../apollo';
 import db from '../../../db';
@@ -20,8 +21,13 @@ const resolver: GraphQLFieldResolver<any, any> = async (root, region: RegionInpu
       await trx.table('regions').where({ id }).update(rest);
       // Delete and create all points again, CASCADE should delete points_regions rows
       await trx.table('points')
-        .crossJoin('points_regions', 'points.id', 'points_regions.point_id')
-        .where('points_regions.region_id', id)
+        .whereExists(function(this: Knex) {
+          // tslint:disable-next-line:no-invalid-this
+          this.select('*').from('points_regions').whereRaw(
+            'region_id = ? AND point_id = points.id',
+            [id],
+          );
+        })
         .del();
     } else {
       const inserted = await trx.table('regions').insert(raw).returning('id');
