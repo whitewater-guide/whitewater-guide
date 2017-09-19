@@ -4,7 +4,7 @@ import { enhancedQuery } from '../../apollo';
 import { withFeatureIds } from '../../core';
 import REGION_DETAILS from './regionDetails.query';
 
-const NEW_REGION: RegionInput = {
+export const NEW_REGION: RegionInput = {
   id: null,
   hidden: false,
   description: null,
@@ -16,8 +16,6 @@ const NEW_REGION: RegionInput = {
 };
 
 export interface WithRegionOptions {
-  withBounds?: boolean;
-  withPOIs?: boolean;
   propName?: string;
   errorOnMissingId?: boolean;
 }
@@ -42,7 +40,7 @@ export interface WithRegionProps {
  * @param options.errorOnMissingId (true) = Should error be added if regionId is not found?
  * @returns High-order component
  */
-export function withRegion<RegionProp = {region: Region | null}>(options: WithRegionOptions) {
+export function withRegion<RegionProp = {region: Region | null}>(options: WithRegionOptions = {}) {
   const { propName = 'region', errorOnMissingId = true } = options || {};
   type ChildProps = WithRegionChildProps & RegionProp;
   return compose<WithRegionChildProps & ChildProps, any>(
