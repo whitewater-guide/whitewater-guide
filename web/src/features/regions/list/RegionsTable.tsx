@@ -3,6 +3,7 @@ import * as React from 'react';
 import { Column, Index, TableCellProps, TableProps } from 'react-virtualized';
 import { AdminColumn, Table } from '../../../components';
 import { Region } from '../../../ww-commons/features/regions';
+import { Link } from 'react-router-dom';
 
 export type RegionsTableProps = Partial<TableProps> & {
   regions: Region[];
@@ -20,6 +21,15 @@ class RegionsTable extends React.PureComponent<RegionsTableProps> {
     return hidden ? null : <FontIcon className="material-icons">visibility</FontIcon>;
   };
 
+  renderAdminActions = (props: TableCellProps) => (
+    <span>
+      <Link to={`/regions/${props.rowData.id}/settings`}>
+        <FontIcon className="material-icons">mode_edit</FontIcon>
+      </Link>
+        <FontIcon className="material-icons">delete_forever</FontIcon>
+    </span>
+  );
+
   render() {
     const { regions, ...props } = this.props;
     return (
@@ -35,6 +45,7 @@ class RegionsTable extends React.PureComponent<RegionsTableProps> {
         <Column width={100} label="Rivers" dataKey="riversCount" />
         <Column width={100} label="Sections" dataKey="sectionsCount" />
         <AdminColumn width={100} label="Visible" dataKey="hidden" cellRenderer={this.renderVisibility} />
+        <AdminColumn width={100} label="Actions" dataKey="actions" cellRenderer={this.renderAdminActions} />
       </Table>
     );
   }

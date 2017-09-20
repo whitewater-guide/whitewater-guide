@@ -1,10 +1,11 @@
 import { graphql } from 'react-apollo';
-import { compose } from 'recompose';
+import { compose, mapProps } from 'recompose';
 import { reduxForm } from 'redux-form';
 import { withLoading } from '../../../components';
 import { validateInput } from '../../../components/forms';
 import { withRegion, WithRegion } from '../../../ww-clients/features/regions';
-import { Region, RegionFormSchema, RegionInput } from '../../../ww-commons';
+import { Region, RegionFormSchema } from '../../../ww-commons';
+import { RegionFormInput } from './types';
 import UPSERT_REGION from './upsertRegion.mutation';
 
 interface Result {
@@ -12,12 +13,12 @@ interface Result {
 }
 
 const regionForm = compose(
-  withRegion({ propName: 'initialValues', withBounds: true, errorOnMissingId: false }),
+  withRegion({ propName: 'initialValues', errorOnMissingId: false }),
   graphql<Result, WithRegion>(
     UPSERT_REGION,
     {
       props: ({ mutate, data, ownProps }) => ({
-        onSubmit: (region: RegionInput) => mutate!({ variables: { region } }),
+        onSubmit: (region: RegionFormInput) => mutate!({ variables: { region } }),
         regionLoading: ownProps.regionLoading || (data && data.loading),
       }),
       alias: 'withUpsertRegion',
