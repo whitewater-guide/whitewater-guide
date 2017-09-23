@@ -13,6 +13,24 @@ const container = compose(
   ),
 );
 
-export const PrivateRoute: React.StatelessComponent<RouteProps> = ({ component, ...rest }) => (
-  <Route {...rest} component={container(component!)} />
-);
+export class PrivateRoute extends React.PureComponent<RouteProps> {
+  wrappedComponent: React.ComponentType;
+
+  constructor(props: RouteProps) {
+    super(props);
+    this.wrappedComponent = container(props.component!);
+  }
+
+  componentWillReceiveProps(next: RouteProps) {
+    if (this.props.component !== next.component) {
+      this.wrappedComponent = container(next.component!);
+    }
+  }
+
+  render() {
+    const { component, ...rest } = this.props;
+    return (
+      <Route {...rest} component={this.wrappedComponent} />
+    );
+  }
+}
