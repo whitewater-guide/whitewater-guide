@@ -31,7 +31,7 @@
     "recompose": "^0.25.0",
     "redux": "^3.7.2",
     "redux-form": "^7.0.3",
-    "redux-persist": "^4.10.0",
+    "redux-persist": "4.9.1",
     "reflect-metadata": "^0.1.10",
     "reselect": "^3.0.1",
     "resize-observer-polyfill": "^1.4.2",

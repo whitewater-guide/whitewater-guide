@@ -17,6 +17,5 @@ export const validateInput = (schema: Joi.Schema) => (input: any) => {
   if (error) {
     error.details.forEach((err: Joi.ValidationErrorItem) => set(errors, err.path, err.message));
   }
-  console.log(errors);
   return errors;
 };
