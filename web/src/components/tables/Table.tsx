@@ -6,7 +6,7 @@ import { withMe } from '../../ww-clients/features/users/withMe';
 import { AdminColumn } from './AdminColumn';
 
 const adminColumnMapper = (column: React.ReactElement<TableProps>) => {
-  return column.type === AdminColumn as React.ComponentClass<any> ?
+  return (column.type === AdminColumn as React.ComponentClass<any>) ?
     null :
     React.createElement(Column as React.ComponentClass<any>, column.props);
 };

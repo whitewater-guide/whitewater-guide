@@ -1,17 +1,24 @@
 import { EditorState } from 'draft-js';
-import markdownToDraft from 'draft-js-import-markdown';
-import { RegionInput } from '../../../ww-commons';
+import { stateFromMarkdown } from 'draft-js-import-markdown';
+import { RegionDetails } from '../../../ww-commons/features/regions/types';
 import { RegionFormInput } from './types';
 
-export default function deserializeForm(formData?: RegionInput): RegionFormInput | null {
-  if (!formData) {
-    return null;
+export default function deserializeForm(withRegion?: RegionDetails | null): RegionFormInput | undefined {
+  if (!withRegion) {
+    return undefined;
   }
-  const { description } = formData;
-  const draftDescription = description ?
-    EditorState.createWithContent(markdownToDraft(description)) : null;
+  const {
+    __typename,
+    description,
+    hidden,
+    createdAt,
+    updatedAt,
+    ...regionInput,
+  } = withRegion;
+  const draftDescription = description ? EditorState.createWithContent(stateFromMarkdown(description)) : null;
   return {
-    ...formData,
+    ...regionInput,
+    hidden: hidden as boolean,
     description: draftDescription,
   };
 }

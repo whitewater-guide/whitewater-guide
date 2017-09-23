@@ -1,9 +1,9 @@
 import FontIcon from 'material-ui/FontIcon';
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import { Column, Index, TableCellProps, TableProps } from 'react-virtualized';
 import { AdminColumn, Table } from '../../../components';
 import { Region } from '../../../ww-commons/features/regions';
-import { Link } from 'react-router-dom';
 
 export type RegionsTableProps = Partial<TableProps> & {
   regions: Region[];

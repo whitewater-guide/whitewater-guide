@@ -27,16 +27,16 @@ export default (
 ) => compose<RegionMapProps, WithRegion>(
   setDisplayName('RegionMapView'),
   branch<WithRegion>(
-    props => props.regionLoading,
+    props => props.region.loading,
     renderComponent(LoadingIndicator),
     compose(
       sectionsBatchLoader(),
       connect<RegionState, DispatchProps, WithRegion>(
-        (state, { region }: WithRegion) => state.persistent.regions[region!.id],
+        (state, { region }: WithRegion) => state.persistent.regions[region.data!.id],
         (dispatch, { region }: WithRegion) => ({
-          onSectionSelected: section => dispatch(selectSection({ regionId: region!.id, section })),
-          onPOISelected: poi => dispatch(selectPOI({ regionId: region!.id, poi })),
-          onBoundsSelected: bounds => dispatch(selectBounds({ regionId: region!.id, bounds })),
+          onSectionSelected: section => dispatch(selectSection({ regionId: region.data!.id, section })),
+          onPOISelected: poi => dispatch(selectPOI({ regionId: region.data!.id, poi })),
+          onBoundsSelected: bounds => dispatch(selectBounds({ regionId: region.data!.id, bounds })),
         }),
       ),
       mapProps(({ region, sections, selectedBounds, ...props }) => ({

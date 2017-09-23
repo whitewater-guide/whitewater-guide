@@ -10,14 +10,14 @@
   },
   "dependencies": {
     "cron-parser": "^2.4.1",
-    "joi": "^10.6.0"
+    "joi": "^11.0.3"
   },
   "devDependencies": {
-    "@types/joi": "^10.4.1",
+    "@types/joi": "^10.4.3",
     "tslib": "^1.7.1",
-    "tslint": "^5.5.0",
+    "tslint": "^5.7.0",
     "tslint-eslint-rules": "^4.1.1",
     "tslint-react": "^3.2.0",
-    "typescript": "^2.4.2"
+    "typescript": "^2.5.2"
   }
 }

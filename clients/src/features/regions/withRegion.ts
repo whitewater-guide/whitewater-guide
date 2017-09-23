@@ -1,5 +1,5 @@
 import { branch, compose, withProps } from 'recompose';
-import { Region, RegionInput } from '../../../ww-commons';
+import { RegionDetails, RegionInput } from '../../../ww-commons';
 import { enhancedQuery } from '../../apollo';
 import { withFeatureIds } from '../../core';
 import REGION_DETAILS from './regionDetails.query';
@@ -8,7 +8,7 @@ export const NEW_REGION: RegionInput = {
   id: null,
   hidden: false,
   description: null,
-  bounds: [],
+  bounds: null,
   seasonNumeric: [],
   season: null,
   name: '',
@@ -16,17 +16,21 @@ export const NEW_REGION: RegionInput = {
 };
 
 export interface WithRegionOptions {
-  propName?: string;
   errorOnMissingId?: boolean;
 }
 
 export interface WithRegionChildProps {
-  regionLoading: boolean;
-  error?: any;
+  region: {
+    data: RegionDetails | null;
+    loading: boolean;
+  };
+  errors: {
+    [key: string]: {[key: string]: any};
+  };
 }
 
 export interface WithRegionResult {
-  region: Region | null;
+  region: RegionDetails | null;
 }
 
 export interface WithRegionProps {
@@ -36,19 +40,17 @@ export interface WithRegionProps {
 
 /**
  *
- * @param options.propName ('region') = Name of prop which will contain region
  * @param options.errorOnMissingId (true) = Should error be added if regionId is not found?
  * @returns High-order component
  */
-export function withRegion<RegionProp = {region: Region | null}>(options: WithRegionOptions = {}) {
-  const { propName = 'region', errorOnMissingId = true } = options || {};
-  type ChildProps = WithRegionChildProps & RegionProp;
-  return compose<WithRegionChildProps & ChildProps, any>(
+export function withRegion(options: WithRegionOptions = {}) {
+  const { errorOnMissingId = true } = options;
+  return compose<WithRegionChildProps, any>(
     withFeatureIds('region'),
     // If no region was found, branch provides dummy region with error
     branch<WithRegionProps>(
       ({ regionId }) => !!regionId,
-      enhancedQuery<WithRegionResult, WithRegionProps, ChildProps>(
+      enhancedQuery<WithRegionResult, WithRegionProps, WithRegionChildProps>(
         REGION_DETAILS,
         {
           options: ({ regionId, language }) => ({
@@ -57,18 +59,29 @@ export function withRegion<RegionProp = {region: Region | null}>(options: WithRe
           }),
           props: ({ data }) => {
             const { region, loading } = data!;
-            return { [propName]: region, regionLoading: loading && !region };
+            return {
+              region: {
+                data: region,
+                loading: loading && !region,
+              },
+            };
           },
           alias: 'withRegion',
         },
       ),
-      withProps<ChildProps, WithRegionProps>(({ regionId }) => ({
-        [propName]: NEW_REGION,
-        regionLoading: false,
-        error: errorOnMissingId ? `No region with id ${regionId} was found` : undefined,
-      } as any as ChildProps)),
+      withProps<WithRegionChildProps, WithRegionProps>(({ regionId }) => (
+        {
+          region: {
+            data: NEW_REGION as any, // it is not valid from TS point of view
+            loading: false,
+          },
+          errors: errorOnMissingId ? {
+            regionDetails: { message: `No region with id ${regionId} was found` },
+          } : {},
+        }
+      )),
     ),
   );
 }
 
-export type WithRegion<RegionProp = {region: Region | null}> = WithRegionProps & WithRegionChildProps & RegionProp;
+export type WithRegion = WithRegionProps & WithRegionChildProps;

@@ -10,7 +10,7 @@ export const JoiWithCron = Joi.extend({
   rules: [
     {
       name: 'isCron',
-      validate(params: any, value: string, state: any, options: any) {
+      validate(this: Joi.ExtensionBoundSchema, params: any, value: any, state: any, options: any) {
         try {
           cronParser.parseExpression(value);
           return value;
