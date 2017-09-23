@@ -1,5 +1,6 @@
-import { ChildProps, graphql } from 'react-apollo';
-import { compose, mapProps } from 'recompose';
+import { ApolloError, ChildProps, graphql } from 'react-apollo';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { compose, lifecycle, mapProps, withState } from 'recompose';
 import { ConfigProps, reduxForm } from 'redux-form';
 import { withLoading } from '../../../components';
 import { validateInput } from '../../../components/forms';
@@ -14,9 +15,21 @@ interface Result {
   upsertRegion: RegionDetails;
 }
 
-type FormProps = Partial<ConfigProps<RegionFormInput>>;
 type WithUpsertRegion = ChildProps<WithRegion, Result>;
-interface FormLoading { formLoading: boolean; }
+
+interface FormMutationState {
+  loading: boolean;
+  error?: ApolloError;
+}
+
+interface FormMeta {
+  mutationState: FormMutationState;
+  setMutationState: (value: FormMutationState) => void;
+}
+
+type FormProps = Partial<ConfigProps<RegionFormInput>>;
+
+type MappedProps = WithUpsertRegion & FormMeta & RouteComponentProps<any>;
 
 const regionForm = compose(
   withRegion({ errorOnMissingId: false }),
@@ -26,14 +39,24 @@ const regionForm = compose(
       alias: 'withUpsertRegion',
     },
   ),
-  mapProps<FormProps, WithUpsertRegion>(({ region, mutate, data, ...props }) => ({
+  withRouter,
+  withState('mutationState', 'setMutationState', { loading: false }),
+  mapProps<FormProps, MappedProps>(({ region, history, mutate, data, setMutationState, ...props }) => ({
     region,
     initialValues: deserializeForm(region.data!),
-    onSubmit: (input: RegionFormInput) => mutate!({ variables: { region: serializeForm(input) } }),
-    formLoading: data && data.loading,
+    onSubmit: async (input: RegionFormInput) => {
+      try {
+        setMutationState({ loading: true, error: undefined });
+        await mutate!({ variables: { region: serializeForm(input) } });
+        setMutationState({ loading: false, error: undefined });
+        history.replace('/regions');
+      } catch (error) {
+        setMutationState({ loading: false, error });
+      }
+    },
     ...props,
   })),
-  withLoading<WithRegion & FormLoading>(({ region, formLoading }) => (region.loading || formLoading)),
+  withLoading<WithRegion & FormMeta>(({ region, mutationState }) => (region.loading || mutationState.loading)),
   reduxForm({
     form: 'region',
     validate: validateInput(RegionFormSchema),
