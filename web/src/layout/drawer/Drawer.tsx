@@ -29,7 +29,7 @@ const Drawer: React.StatelessComponent<InnerProps> = ({ onChange, isOpen, locati
     <MuiDrawer docked={false} open={isOpen} containerStyle={styles.drawerContainer} onRequestChange={onChange}>
       <Menu value={value}>
         {ITEMS.map(({ path, title }) => {
-          const clickable = !matchPath(location.pathname, { path });
+          const clickable = !matchPath(location.pathname, { path, exact: true });
           const onClick = () => {
             onChange(false);
             if (clickable) {
