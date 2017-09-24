@@ -1,4 +1,4 @@
-import draftToMarkdown from 'draft-js-export-markdown';
+import { stateToMarkdown } from 'draft-js-export-markdown';
 import { RegionInput } from '../../../ww-commons';
 import { RegionFormInput } from './types';
 
@@ -8,7 +8,7 @@ export default function serializeForm(formData?: RegionFormInput): RegionInput |
   }
   const { description } = formData;
   const stringDescription = description ?
-    draftToMarkdown(description.getCurrentContent()) : null;
+    stateToMarkdown(description.getCurrentContent()).trim() : null;
   return {
     ...formData,
     description: stringDescription,
