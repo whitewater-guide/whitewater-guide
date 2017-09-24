@@ -12,7 +12,7 @@ const regionForm = formContainer({
   formName: 'region',
   propName: 'region',
   backPath: '/regions',
-  detailsContainer: withRegion({ errorOnMissingId: false }),
+  queryContainer: withRegion({ errorOnMissingId: false }),
   mutationContainer: graphql(UPSERT_REGION, { alias: 'withUpsertRegion' }),
   serializeForm,
   deserializeForm,

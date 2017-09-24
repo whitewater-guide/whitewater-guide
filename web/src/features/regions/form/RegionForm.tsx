@@ -15,9 +15,9 @@ import {
   TextInput,
 } from '../../../components/forms';
 import { Content } from '../../../layout';
-import { RegionInput } from '../../../ww-commons/features/regions';
+import { RegionFormInput } from './types';
 
-export default class RegionForm extends React.PureComponent<InjectedFormProps<RegionInput>> {
+export default class RegionForm extends React.PureComponent<InjectedFormProps<RegionFormInput>> {
 
   render() {
     const { initialValues } = this.props;

@@ -1,13 +1,13 @@
 import { Schema } from 'joi';
-import { ChildProps } from 'react-apollo';
+import { ApolloError, ChildProps } from 'react-apollo';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { ComponentEnhancer, compose, mapProps, withState } from 'recompose';
-import { ConfigProps, InjectedFormProps, reduxForm } from 'redux-form';
+import { ComponentEnhancer, compose, mapProps } from 'recompose';
+import { ConfigProps, InjectedFormProps, reduxForm, SubmissionError } from 'redux-form';
 import { withLoading } from '../withLoading';
 import { validateInput } from './validateInput';
 
-interface FormContainerOptions<QueryResult, MutationResult, FormInput> {
-  detailsContainer: ComponentEnhancer<QueryResult, any>;
+export interface FormContainerOptions<QueryResult, MutationResult, FormInput> {
+  queryContainer: ComponentEnhancer<QueryResult, any>;
   mutationContainer: ComponentEnhancer<MutationResult, any>;
   formName: string;
   propName: string;
@@ -21,7 +21,7 @@ export const formContainer = <QueryResult, MutationResult, FormInput>(
   options: FormContainerOptions<QueryResult, MutationResult, FormInput>,
 ) => {
   const {
-    detailsContainer,
+    queryContainer,
     mutationContainer,
     propName,
     backPath,
@@ -36,15 +36,19 @@ export const formContainer = <QueryResult, MutationResult, FormInput>(
   type MappedProps = ChildProps<QueryResult, MutationResult> & RouteComponentProps<any>;
 
   return compose(
-    detailsContainer,
+    queryContainer,
     mutationContainer,
     withRouter,
-    withState('mutationState', 'setMutationState', { loading: false }),
     mapProps<FormProps, MappedProps>(({ [propName]: details, history, mutate }) => ({
       [propName]: details,
       initialValues: deserializeForm(details.data!),
       onSubmit: (input: FormInput) => {
-        return mutate!({ variables: { [propName]: serializeForm(input) } }).then(() => history.replace(backPath));
+        // Make it clear that we return promise
+        return mutate!({ variables: { [propName]: serializeForm(input) } })
+          .then(() => history.replace(backPath))
+          .catch((e: ApolloError) => {
+            throw new SubmissionError({ _error: e.message });
+          });
       },
     })),
     withLoading<QueryResult>(({ [propName]: details }) => details.loading),
