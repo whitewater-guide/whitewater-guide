@@ -7,11 +7,11 @@ import { ComponentEnhancer, withProps } from 'recompose';
 import { combineReducers, createStore } from 'redux';
 import { InjectedFormProps, reducer as formReducer } from 'redux-form';
 import { mountWithMuiContext } from '../../test';
+import { flushPromises } from '../../test/flushPromises';
 import { Omit } from '../../ww-commons/ts';
 import Loading from '../Loading';
 import { formContainer, FormContainerOptions } from './formContainer';
 import { validateInput } from './validateInput';
-import { flushPromises } from '../../test/flushPromises';
 
 jest.mock('./validateInput', () => ({
   validateInput: jest.fn(),
