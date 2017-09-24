@@ -4,8 +4,10 @@ import { grey100 } from 'material-ui/styles/colors';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import { Breadcrumbs } from '../components';
 import { UserMenu } from '../features/users';
 import { Styles } from '../styles';
+import breadcrumbRoutes from './breadcrumbRoutes';
 import ContentLayout from './ContentLayout';
 import { Drawer } from './drawer';
 
@@ -48,6 +50,7 @@ export class RootLayout extends React.Component<{}, State> {
           <ToolbarGroup firstChild>
             <IconButton iconClassName="material-icons" onClick={this.toggleDrawer}>menu</IconButton>
             <Link to="/"><img src={logo} alt="Logo" /></Link>
+            <Breadcrumbs routes={breadcrumbRoutes} />
           </ToolbarGroup>
           <ToolbarGroup lastChild>
             <UserMenu />

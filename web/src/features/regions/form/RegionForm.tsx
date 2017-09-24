@@ -22,9 +22,10 @@ export default class RegionForm extends React.PureComponent<InjectedFormProps<Re
   render() {
     const { initialValues } = this.props;
     const submitLabel = (initialValues && initialValues.id) ? 'Update' : 'Create';
+    const headerLabel = (initialValues && initialValues.name) ? `${initialValues.name} settings` : 'New region';
     return (
       <Content card>
-        <CardHeader title="Regions list" />
+        <CardHeader title={headerLabel} />
         <CardMedia style={{ height: '100%' }} mediaStyle={{ height: '100%' }}>
           <div style={{ width: '100%', height: '100%' }}>
             <Tabs>

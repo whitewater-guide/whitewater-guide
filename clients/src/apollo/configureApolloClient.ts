@@ -1,5 +1,5 @@
 // tslint:disable:no-submodule-imports
-import ApolloClient, { FragmentMatcherInterface } from 'apollo-client';
+import ApolloClient, { FragmentMatcherInterface, toIdValue } from 'apollo-client';
 import { ApolloStateSelector } from 'apollo-client/ApolloClient';
 import { IdGetter } from 'apollo-client/core/types';
 import { CustomResolverMap } from 'apollo-client/data/readFromStore';
@@ -22,9 +22,24 @@ interface ConstructorOptions {
 
 type Options = ConstructorOptions & NetworkInterfaceOptions;
 
+function dataIdFromObject(result: any) {
+  if (result.__typename) {
+    if (result.id !== undefined) {
+      return `${result.__typename}:${result.id}`;
+    }
+  }
+  return null;
+}
+
 export function configureApolloClient(options: Options) {
   return new ApolloClient({
     networkInterface: createNetworkInterface(options),
+    customResolvers: {
+      Query: {
+        region: (_, args) => toIdValue(dataIdFromObject({ __typename: 'Region', id: args.id })!),
+      },
+    },
+    dataIdFromObject,
     ...options as any,
   });
 }
