@@ -3,6 +3,8 @@ import { addUpdatedAtFunction, addUpdatedAtTrigger, removeUpdatedAtFunction } fr
 import { HarvestMode } from '../features/sources';
 import { Role } from '../features/users/types';
 import { POITypes } from '../ww-commons/features/points/POITypes';
+import { runSqlFile } from '../db/runSqlFile';
+
 
 export const up = async (db: Knex) => {
   await addUpdatedAtFunction(db);
@@ -101,31 +103,13 @@ export const up = async (db: Knex) => {
     table.primary(['source_id', 'region_id']);
   });
 
-  // Views
-  await db.schema.raw(`
-    CREATE OR REPLACE VIEW regions_view AS
-    SELECT
-      regions.id,
-      regions.name,
-      regions.description,
-      regions.season,
-      regions.season_numeric,
-      regions.hidden,
-      regions.created_at,
-      regions.updated_at,
-      ST_AsText(regions.bounds) AS bounds,
-      json_agg(json_build_object(
-                   'id', points.id,
-                   'name', points.name,
-                   'description', points.description,
-                   'kind', points.kind,
-                   'coordinates', ST_AsText(points.coordinates)
-               )) FILTER (WHERE points.id NOTNULL) AS pois
-    FROM regions
-      LEFT OUTER JOIN points_regions ON regions.id = points_regions.region_id
-      LEFT OUTER JOIN points ON points_regions.point_id = points.id
-    GROUP BY regions.id
-  `);
+  await runSqlFile(db, './src/migrations/initial/array_json_to_int.sql');
+  await runSqlFile(db, './src/migrations/initial/point_from_json.sql');
+  await runSqlFile(db, './src/migrations/initial/polygon_from_json.sql');
+  await runSqlFile(db, './src/migrations/initial/point_input.sql');
+  await runSqlFile(db, './src/migrations/initial/region_input.sql');
+  await runSqlFile(db, './src/migrations/initial/regions_view.sql');
+  await runSqlFile(db, './src/migrations/initial/upsert_region.sql');
 };
 
 export const down = async (db: Knex) => {
@@ -137,6 +121,8 @@ export const down = async (db: Knex) => {
   await db.schema.raw('DROP TABLE IF EXISTS regions CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS points CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS points_regions CASCADE');
+  await db.schema.raw('DROP TYPE IF EXISTS point_input CASCADE');
+  await db.schema.raw('DROP TYPE IF EXISTS region_input CASCADE');
   await removeUpdatedAtFunction(db);
 };
 

@@ -179,7 +179,7 @@ describe('update', () => {
   let updatedRegion: any;
 
   beforeEach(async () => {
-    oldRegion = await db().table('regions').where({ id: fullRegionUpdate.id }).first();
+    oldRegion = await db().table('regions_view').where({ id: fullRegionUpdate.id }).first();
     updateResult = await runQuery(upsertQuery, { region: fullRegionUpdate }, adminContext);
     updatedRegion = updateResult && updateResult.data && updateResult.data.upsertRegion;
   });

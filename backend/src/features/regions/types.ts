@@ -22,7 +22,7 @@ export interface RegionRaw extends NamedResource, RawTimestamped {
  * What is given to insert/update statement
  */
 export interface RegionRawInput {
-  id?: string;
+  id: string | null;
   name: string;
   description: string | null;
   season: string | null;
@@ -43,7 +43,6 @@ export function toRaw(input: RegionInput): RegionRawInput {
   }
   return {
     ...rest,
-    id: rest.id || undefined,
     season_numeric: seasonNumeric,
     bounds: rawBounds,
   };

@@ -4,6 +4,6 @@ export interface RawTimestamped {
 }
 
 export const timestampResolvers = {
-  createdAt: (resource: RawTimestamped) => resource.created_at.toISOString(),
-  updatedAt: (resource: RawTimestamped) => resource.updated_at.toISOString(),
+  createdAt: (resource: RawTimestamped) => new Date(resource.created_at).toISOString(),
+  updatedAt: (resource: RawTimestamped) => new Date(resource.updated_at).toISOString(),
 };
