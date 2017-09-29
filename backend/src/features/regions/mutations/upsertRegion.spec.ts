@@ -158,9 +158,9 @@ describe('insert', () => {
   });
 
   test('should insert POIs', async () => {
-    const regionsPoints = await db().table('points_regions').count();
+    const regionsPoints = await db().table('regions_points').count();
     const points = await db().table('points').count();
-    const regionsPointsByRegion = await db().table('points_regions').where('region_id', insertedRegion.id).count();
+    const regionsPointsByRegion = await db().table('regions_points').where('region_id', insertedRegion.id).count();
     expect(regionsPoints[0].count).toBe('4');
     expect(points[0].count).toBe('4');
     expect(regionsPointsByRegion[0].count).toBe('2');
@@ -212,9 +212,9 @@ describe('update', () => {
   test('should change the number of pois', async () => {
     expect(updatedRegion.pois).toBeDefined();
     expect(updatedRegion.pois.length).toBe(3);
-    const regionsPoints = await db().table('points_regions').count();
+    const regionsPoints = await db().table('regions_points').count();
     const points = await db().table('points').count();
-    const regionsPointsByRegion = await db().table('points_regions').where('region_id', updatedRegion.id).count();
+    const regionsPointsByRegion = await db().table('regions_points').where('region_id', updatedRegion.id).count();
     expect(regionsPoints[0].count).toBe('3');
     expect(points[0].count).toBe('3');
     expect(regionsPointsByRegion[0].count).toBe('3');
@@ -223,7 +223,7 @@ describe('update', () => {
   test('should delete POI', async () => {
     expect(updatedRegion.pois.map((p: PointRaw) => p.id)).not.toContain('573f995a-d55f-4faf-8f11-5a6016ab562f');
     const points = await db().table('points').where({ id: '573f995a-d55f-4faf-8f11-5a6016ab562f' }).count();
-    const regionsPointsByRegion = await db().table('points_regions')
+    const regionsPointsByRegion = await db().table('regions_points')
       .where({ point_id: '573f995a-d55f-4faf-8f11-5a6016ab562f' }).count();
     expect(points[0].count).toBe('0');
     expect(regionsPointsByRegion[0].count).toBe('0');
@@ -231,8 +231,8 @@ describe('update', () => {
 
   test('should insert pois', async () => {
     const points = await db().table('points').select('points.name')
-      .innerJoin('points_regions', 'points.id', 'points_regions.point_id')
-      .where('points_regions.region_id', updatedRegion.id);
+      .innerJoin('regions_points', 'points.id', 'regions_points.point_id')
+      .where('regions_points.region_id', updatedRegion.id);
     expect(points.map((p: PointRaw) => p.name)).toEqual(expect.arrayContaining(['pt 1 u', 'pt 2 u']));
   });
 

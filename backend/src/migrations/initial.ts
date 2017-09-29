@@ -1,13 +1,14 @@
 import Knex = require('knex');
+import { runSqlFile } from '../db/runSqlFile';
 import { addUpdatedAtFunction, addUpdatedAtTrigger, removeUpdatedAtFunction } from '../db/updatedAtTrigger';
 import { HarvestMode } from '../features/sources';
 import { Role } from '../features/users/types';
 import { POITypes } from '../ww-commons/features/points/POITypes';
-import { runSqlFile } from '../db/runSqlFile';
-
 
 export const up = async (db: Knex) => {
+  await runSqlFile(db, './src/migrations/initial/language_code.sql');
   await addUpdatedAtFunction(db);
+
   // USERS
   await db.schema.createTable('users', (table) => {
     table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
@@ -70,27 +71,49 @@ export const up = async (db: Knex) => {
   // Regions
   await db.schema.createTableIfNotExists('regions', (table) => {
     table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
-    table.string('name').notNullable();
-    table.text('description');
-    table.string('season');
     table.boolean('hidden').defaultTo(false);
     table.specificType('season_numeric', 'integer[]').notNullable().defaultTo('{}');
     table.specificType('bounds', 'geography(POLYGONZ,4326)');
     table.timestamps(false, true);
   });
+  await db.schema.createTableIfNotExists('regions_translations', (table) => {
+    table
+      .uuid('region_id')
+      .notNullable()
+      .references('id')
+      .inTable('regions')
+      .onDelete('CASCADE');
+    table.specificType('language', 'language_code').notNullable().defaultTo('en');
+    table.string('name').notNullable();
+    table.text('description');
+    table.string('season');
+    table.primary(['region_id', 'language']);
+    table.timestamps(false, true);
+  });
   await addUpdatedAtTrigger(db, 'regions');
+  await addUpdatedAtTrigger(db, 'regions_translations');
 
   // Points
   await db.schema.createTableIfNotExists('points', (table) => {
     table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
-    table.string('name');
-    table.text('description');
     table.enu('kind', POITypes).notNullable();
     table.specificType('coordinates', 'geography(POINTZ,4326)').notNullable();
   });
+  await db.schema.createTableIfNotExists('points_translations', (table) => {
+    table
+      .uuid('point_id')
+      .notNullable()
+      .references('id')
+      .inTable('points')
+      .onDelete('CASCADE');
+    table.specificType('language', 'language_code').notNullable().defaultTo('en');
+    table.string('name');
+    table.text('description');
+    table.primary(['point_id', 'language']);
+  });
 
   // Points <-> regions many-to-many
-  await db.schema.createTableIfNotExists('points_regions', (table) => {
+  await db.schema.createTableIfNotExists('regions_points', (table) => {
     table.uuid('point_id').notNullable().references('id').inTable('points').onDelete('CASCADE');
     table.uuid('region_id').notNullable().references('id').inTable('regions').onDelete('CASCADE');
     table.primary(['point_id', 'region_id']);
@@ -106,9 +129,9 @@ export const up = async (db: Knex) => {
   await runSqlFile(db, './src/migrations/initial/array_json_to_int.sql');
   await runSqlFile(db, './src/migrations/initial/point_from_json.sql');
   await runSqlFile(db, './src/migrations/initial/polygon_from_json.sql');
-  await runSqlFile(db, './src/migrations/initial/point_input.sql');
-  await runSqlFile(db, './src/migrations/initial/region_input.sql');
+  await runSqlFile(db, './src/migrations/initial/points_view.sql');
   await runSqlFile(db, './src/migrations/initial/regions_view.sql');
+  await runSqlFile(db, './src/migrations/initial/upsert_points.sql');
   await runSqlFile(db, './src/migrations/initial/upsert_region.sql');
 };
 
@@ -119,10 +142,18 @@ export const down = async (db: Knex) => {
   await db.schema.raw('DROP TABLE IF EXISTS gauges CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS sources CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS regions CASCADE');
+  await db.schema.raw('DROP TABLE IF EXISTS regions_translations CASCADE');
+  await db.schema.raw('DROP TABLE IF EXISTS regions_points CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS points CASCADE');
-  await db.schema.raw('DROP TABLE IF EXISTS points_regions CASCADE');
-  await db.schema.raw('DROP TYPE IF EXISTS point_input CASCADE');
-  await db.schema.raw('DROP TYPE IF EXISTS region_input CASCADE');
+  await db.schema.raw('DROP TABLE IF EXISTS points_translations CASCADE');
+  await db.schema.raw('DROP FUNCTION IF EXISTS array_json_to_int(p_input json) CASCADE');
+  await db.schema.raw('DROP FUNCTION IF EXISTS point_from_json(point JSON) CASCADE');
+  await db.schema.raw('DROP FUNCTION IF EXISTS polygon_from_json(polygon JSON) CASCADE');
+  await db.schema.raw('DROP VIEW IF EXISTS regions_view');
+  await db.schema.raw('DROP VIEW IF EXISTS points_view');
+  await db.schema.raw('DROP TYPE IF EXISTS language_code CASCADE');
+  await db.schema.raw('DROP FUNCTION IF EXISTS upsert_region(r JSON, lang language_code) CASCADE');
+  await db.schema.raw('DROP FUNCTION IF EXISTS upsert_points(points_array JSON[], lang language_code) CASCADE');
   await removeUpdatedAtFunction(db);
 };
 

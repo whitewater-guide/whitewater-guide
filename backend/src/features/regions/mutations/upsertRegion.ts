@@ -2,16 +2,15 @@ import { GraphQLFieldResolver } from 'graphql';
 // tslint:disable:variable-name
 import { isAdminResolver, isInputValidResolver } from '../../../apollo';
 import db from '../../../db';
-import { RegionInput, RegionInputSchema } from '../../../ww-commons';
-import upsertRegionSql from './upsertRegionSql';
 import { rawUpsert } from '../../../db/rawUpsert';
+import { RegionInput, RegionInputSchema } from '../../../ww-commons';
 
 interface UpsertVariables {
   region: RegionInput;
 }
 
 const resolver: GraphQLFieldResolver<any, any> = async (root, region: RegionInput) => {
-  const result = await rawUpsert(db(), `SELECT upsert_region('${JSON.stringify(region)}')`);
+  const result = await rawUpsert(db(), `SELECT upsert_region('${JSON.stringify(region)}', 'en')`);
   // console.log(result);
   return result;
 };
