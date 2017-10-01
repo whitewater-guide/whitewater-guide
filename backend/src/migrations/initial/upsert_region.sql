@@ -52,7 +52,10 @@ BEGIN
           new_pois.id,
           upserted_region_id
         FROM new_pois
-      ON CONFLICT DO NOTHING
+      ON CONFLICT (point_id, region_id)
+        DO UPDATE SET
+          point_id = EXCLUDED.point_id,
+          region_id = EXCLUDED.region_id
       RETURNING point_id
     )
     SELECT array_agg ( point_id )
