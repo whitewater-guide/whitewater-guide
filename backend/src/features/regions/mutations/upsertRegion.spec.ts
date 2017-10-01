@@ -230,15 +230,16 @@ describe('update', () => {
   });
 
   test('should insert pois', async () => {
-    const points = await db().table('points').select('points.name')
-      .innerJoin('regions_points', 'points.id', 'regions_points.point_id')
-      .where('regions_points.region_id', updatedRegion.id);
+    const points = await db().table('points_view').select('points_view.name')
+      .innerJoin('regions_points', 'points_view.id', 'regions_points.point_id')
+      .where('regions_points.region_id', updatedRegion.id)
+      .where('language', 'en');
     expect(points.map((p: PointRaw) => p.name)).toEqual(expect.arrayContaining(['pt 1 u', 'pt 2 u']));
   });
 
   test('should update poi', async () => {
-    const point = await db().table('points').select('name')
-      .where('id', 'd7530317-efac-44a7-92ff-8d045b2ac893').first();
+    const point = await db().table('points_view').select('name')
+      .where({ id: 'd7530317-efac-44a7-92ff-8d045b2ac893', language: 'en' }).first();
     expect(point.name).toBe('r 1 p 2');
   });
 

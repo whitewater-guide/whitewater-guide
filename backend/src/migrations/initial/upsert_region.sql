@@ -4,7 +4,7 @@ DECLARE
   upserted_region_id UUID;
   result             JSON;
   pois               JSON;
-  point_ids          UUID;
+  point_ids          UUID[] := '{}'::UUID[];
 BEGIN
   pois := r -> 'pois';
 
@@ -46,14 +46,18 @@ BEGIN
     -- now insert all points once again
     WITH new_pois AS (
         SELECT upsert_points(pois, lang) as id
+    ), inserted_points AS (
+      INSERT INTO regions_points (point_id, region_id)
+        SELECT
+          new_pois.id,
+          upserted_region_id
+        FROM new_pois
+      ON CONFLICT DO NOTHING
+      RETURNING point_id
     )
-    INSERT INTO regions_points (point_id, region_id)
-      SELECT
-        new_pois.id,
-        upserted_region_id
-      FROM new_pois
-    RETURNING point_id
-      INTO point_ids;
+    SELECT array_agg ( point_id )
+    FROM inserted_points
+    INTO point_ids;
   END IF;
 
   -- delete all existing points for this region
@@ -64,7 +68,7 @@ BEGIN
                FROM regions_points
                WHERE regions_points.region_id = upserted_region_id AND
                      regions_points.point_id = points.id AND
-                     regions_points.point_id NOT IN (point_ids)
+                     NOT(regions_points.point_id = ANY(point_ids))
   );
 
   -- return the result
