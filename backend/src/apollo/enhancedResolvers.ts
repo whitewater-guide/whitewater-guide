@@ -3,6 +3,7 @@ import { createResolver } from 'apollo-resolvers';
 import * as Joi from 'joi';
 import { Role } from '../features/users/types';
 import { Context } from './types';
+import { GraphQLFieldResolver } from 'graphql';
 
 export const UnknownError = createError('UnknownError', {
   message: 'An unknown error has occurred!  Please try again later',
@@ -75,3 +76,9 @@ export const isInputValidResolver = (schema: Joi.Schema) => baseResolver.createR
     }
   },
 );
+
+export const upsertI18nResolver = <TSource, TContext>(resolver: GraphQLFieldResolver<TSource, TContext>) =>
+  (source: TSource, args: any, context: TContext, info: any) => {
+    const { language = 'en', ...rest } = args;
+    return resolver(source, { language, ...rest }, context, info);
+  };

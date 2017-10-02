@@ -249,3 +249,17 @@ describe('update', () => {
     expect(snapshot).toMatchSnapshot();
   });
 });
+
+describe('i18n', () => {
+  test('should add translation', () => {
+
+  });
+
+  test('should modify translation', () => {
+
+  });
+
+  test('should update poi translation', () => {
+
+  });
+});

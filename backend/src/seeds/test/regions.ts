@@ -1,4 +1,4 @@
-import { Geometry, Point, Polygon } from 'wkx';
+import { Point, Polygon } from 'wkx';
 import { Coordinate3d } from '../../ww-commons';
 import Knex = require('knex');
 
@@ -59,6 +59,16 @@ const regionsEn = [
   },
 ];
 
+const regionsRu = [
+  {
+    region_id: 'bd3e10b6-7624-11e7-b5a5-be2e44b06b34',
+    language: 'ru',
+    name: 'Галисия',
+    description: 'описание Галисии',
+    season: 'осень весна',
+  },
+];
+
 const regionsPoints = [
   { region_id: 'bd3e10b6-7624-11e7-b5a5-be2e44b06b34', point_id: '573f995a-d55f-4faf-8f11-5a6016ab562f' },
   { region_id: 'bd3e10b6-7624-11e7-b5a5-be2e44b06b34', point_id: 'd7530317-efac-44a7-92ff-8d045b2ac893' },
@@ -69,6 +79,7 @@ export async function seed(db: Knex) {
   await db.table('regions_translations').del();
   await db.table('regions').insert(regions);
   await db.table('regions_translations').insert(regionsEn);
+  await db.table('regions_translations').insert(regionsRu);
   await db.table('regions_points').del();
   await db.table('regions_points').insert(regionsPoints);
 }

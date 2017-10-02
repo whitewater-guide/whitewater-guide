@@ -36,9 +36,19 @@ const pointsEn = [
   },
 ];
 
+const pointsRu = [
+  {
+    point_id: '573f995a-d55f-4faf-8f11-5a6016ab562f',
+    language: 'ru',
+    name: 'Регион 1 точка 1',
+    description: 'р1т1 описание',
+  },
+];
+
 export async function seed(db: Knex) {
   await db.table('points').del();
   await db.table('points_translations').del();
   await db.table('points').insert(points);
   await db.table('points_translations').insert(pointsEn);
+  await db.table('points_translations').insert(pointsRu);
 }

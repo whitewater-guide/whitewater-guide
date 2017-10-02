@@ -20,7 +20,7 @@ CREATE OR REPLACE VIEW regions_view AS
                       ))
       FROM points_view
         INNER JOIN regions_points ON points_view.id = regions_points.point_id
-      WHERE regions_points.region_id = regions.id
+      WHERE regions_points.region_id = regions.id AND points_view.language = regions_translations.language
     ) AS pois
   FROM regions
     INNER JOIN regions_translations ON regions.id = regions_translations.region_id
