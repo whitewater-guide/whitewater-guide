@@ -12,7 +12,7 @@ const minimalRegion: RegionInput = {
   id: null,
   name: 'Minimal region',
   description: null,
-  bounds: null,
+  bounds: [[10, 20, 0], [10, 10, 0], [20, 20, 0]],
   season: null,
   seasonNumeric: [],
   hidden: false,
@@ -55,8 +55,8 @@ const fullRegionWithPOIs: RegionInput = {
 };
 
 const upsertQuery = `
-  mutation upsertRegion($region: RegionInput!){
-    upsertRegion(region: $region){
+  mutation upsertRegion($region: RegionInput!, $language: String){
+    upsertRegion(region: $region, language: $language){
       id
       name
       description
@@ -251,7 +251,26 @@ describe('update', () => {
 });
 
 describe('i18n', () => {
-  test('should add translation', () => {
+  const emptyRegionRu = {
+    id: '2caf75ca-7625-11e7-b5a5-be2e44b06b34',
+    name: 'Пустой регион',
+    description: null,
+    bounds: [[10, 20, 0], [10, 10, 0], [20, 20, 0]],
+    season: null,
+    seasonNumeric: [],
+    hidden: false,
+    pois: [],
+  };
+
+  test('should add translation', async () => {
+    const upsertResult = await runQuery(upsertQuery, { region: emptyRegionRu, language: 'ru' }, adminContext);
+    expect(upsertResult.errors).toBeUndefined();
+    const translation = await db().table('regions_translations').select()
+      .where({ region_id: '2caf75ca-7625-11e7-b5a5-be2e44b06b34', language: 'ru' }).first();
+    expect(translation.name).toBe('Пустой регион');
+  });
+
+  test('should modify common props when translation is added', () => {
 
   });
 

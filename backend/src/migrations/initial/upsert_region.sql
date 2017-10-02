@@ -14,7 +14,7 @@ BEGIN
     VALUES (
       COALESCE((r ->> 'id') :: UUID, uuid_generate_v1mc()),
       (r ->> 'hidden') :: BOOLEAN,
-      array_json_to_int(r -> 'seasonNumeric'),
+      COALESCE(array_json_to_int(r -> 'seasonNumeric'), '{}'::INTEGER[]),
       polygon_from_json(r -> 'bounds')
     )
     ON CONFLICT (id)
