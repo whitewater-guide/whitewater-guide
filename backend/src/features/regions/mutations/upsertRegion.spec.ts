@@ -2,7 +2,7 @@ import db, { holdTransaction, rollbackTransaction } from '../../../db';
 import { adminContext, anonContext, userContext } from '../../../test/context';
 import { isTimestamp, isUUID, noTimestamps, noUnstable, runQuery } from '../../../test/db-helpers';
 import { RegionInput } from '../../../ww-commons';
-import { PointRaw } from '../../points/types';
+import { PointRaw } from '../../points';
 import { RegionRaw } from '../types';
 
 beforeEach(holdTransaction);
@@ -270,15 +270,61 @@ describe('i18n', () => {
     expect(translation.name).toBe('Пустой регион');
   });
 
-  test('should modify common props when translation is added', () => {
-
+  test('should modify common props when translation is added', async () => {
+    const upsertResult = await runQuery(
+      upsertQuery,
+      { region: { ...emptyRegionRu, seasonNumeric: [10] }, language: 'ru' },
+      adminContext,
+    );
+    expect(upsertResult.errors).toBeUndefined();
+    const reg = await db().table('regions').select()
+      .where({ id: '2caf75ca-7625-11e7-b5a5-be2e44b06b34' }).first();
+    expect(reg.season_numeric).toEqual([10]);
   });
 
-  test('should modify translation', () => {
-
+  test('should modify translation', async () => {
+    const region = {
+      id: 'bd3e10b6-7624-11e7-b5a5-be2e44b06b34',
+      hidden: false,
+      seasonNumeric: [20, 21],
+      bounds: [[-114, 46, 0], [-115, 46, 0], [-115, 47, 0], [-114, 47, 0]],
+      name: 'Сменил имя',
+      description: 'Сменил описание',
+      season: 'осень осень',
+      pois: [],
+    };
+    const upsertResult = await runQuery(upsertQuery, { region, language: 'ru' }, adminContext);
+    expect(upsertResult.errors).toBeUndefined();
+    const translation = await db().table('regions_translations').select()
+      .where({ region_id: 'bd3e10b6-7624-11e7-b5a5-be2e44b06b34', language: 'ru' }).first();
+    expect(translation).toEqual(expect.objectContaining({
+      name: 'Сменил имя',
+      description: 'Сменил описание',
+      season: 'осень осень',
+    }));
   });
 
-  test('should update poi translation', () => {
-
+  test('should update poi translation', async () => {
+    const region = {
+      ...fullRegion,
+      id: 'bd3e10b6-7624-11e7-b5a5-be2e44b06b34',
+      pois: [
+        { id: null, name: 'Тчка 1', description: 'тчк 1 описание', kind: 'other', coordinates: [10, 12, 0] },
+      ],
+    };
+    const upsertResult = await runQuery(upsertQuery, { region, language: 'ru' }, adminContext);
+    expect(upsertResult.errors).toBeUndefined();
+    const translation = await db().table('points_translations').select()
+      .where({ language: 'ru' }).first();
+    expect(translation).toEqual(expect.objectContaining({
+      name: 'Тчка 1',
+      description: 'тчк 1 описание',
+    }));
+    // Pois are shared between translations
+    // changing number of pois in russian translations will affect number of pois in english translation
+    const poiCount = await db().table('regions_points').select()
+      .where({ region_id: 'bd3e10b6-7624-11e7-b5a5-be2e44b06b34' })
+      .count();
+    expect(poiCount[0].count).toBe('1');
   });
 });
