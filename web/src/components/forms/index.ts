@@ -7,3 +7,4 @@ export * from './SeasonPicker';
 export * from './TextInput';
 export * from './validateInput';
 export * from './formContainer';
+export * from './Form';

@@ -1,6 +1,4 @@
 import { graphql } from 'react-apollo';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { compose, lifecycle, mapProps, withState } from 'recompose';
 import { formContainer } from '../../../components/forms';
 import { withRegion } from '../../../ww-clients/features/regions';
 import { RegionFormSchema } from '../../../ww-commons';

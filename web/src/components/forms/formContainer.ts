@@ -1,7 +1,7 @@
 import { Schema } from 'joi';
 import { ApolloError, ChildProps } from 'react-apollo';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { ComponentEnhancer, compose, mapProps } from 'recompose';
+import { ComponentEnhancer, compose, mapProps, withProps } from 'recompose';
 import { ConfigProps, InjectedFormProps, reduxForm, SubmissionError } from 'redux-form';
 import { withLoading } from '../withLoading';
 import { validateInput } from './validateInput';
@@ -41,6 +41,11 @@ export interface FormContainerOptions<QueryResult, MutationResult, FormInput> {
   validationSchema: Schema;
 }
 
+export interface WithLanguage {
+  language: string;
+  onLanguageChange: (language: string) => void;
+}
+
 export const formContainer = <QueryResult, MutationResult, FormInput>(
   options: FormContainerOptions<QueryResult, MutationResult, FormInput>,
 ) => {
@@ -57,28 +62,45 @@ export const formContainer = <QueryResult, MutationResult, FormInput>(
 
   type FormProps = Partial<ConfigProps<FormInput>>;
 
-  type MappedProps = ChildProps<QueryResult, MutationResult> & RouteComponentProps<any>;
+  type MappedProps = ChildProps<QueryResult, MutationResult> & RouteComponentProps<any> & WithLanguage;
 
   return compose(
-    queryContainer,
-    mutationContainer,
     withRouter,
-    mapProps<FormProps, MappedProps>(({ [propName]: details, history, mutate }) => ({
-      [propName]: details,
-      initialValues: deserializeForm(details.data!),
-      onSubmit: (input: FormInput) => {
-        // Make it clear that we return promise
-        return mutate!({ variables: { [propName]: serializeForm(input) } })
-          .then(() => history.replace(backPath))
-          .catch((e: ApolloError) => {
-            throw new SubmissionError({ _error: e.message });
-          });
+    withProps<WithLanguage, RouteComponentProps<any>>(({ history }) => ({
+      language: (new URLSearchParams(history.location.search)).get('language') || 'en',
+      onLanguageChange: (language: string) => {
+        const search = new URLSearchParams(history.location.search);
+        search.set('language', language);
+        history.replace({
+          ...history.location,
+          search: search.toString(),
+        });
       },
     })),
+    queryContainer,
+    mutationContainer,
+    mapProps<FormProps, MappedProps>((props) => {
+      const { [propName]: details, history, mutate, language, onLanguageChange } = props;
+      return {
+        language,
+        onLanguageChange,
+        [propName]: details,
+        initialValues: deserializeForm(details.data!),
+        onSubmit: (input: FormInput) => {
+          // Make it clear that we return promise
+          return mutate!({ variables: { [propName]: serializeForm(input) } })
+            .then(() => history.replace(backPath))
+            .catch((e: ApolloError) => {
+              throw new SubmissionError({ _error: e.message });
+            });
+        },
+      };
+    }),
     withLoading<QueryResult>(({ [propName]: details }) => details.loading),
     reduxForm({
       form: formName,
       validate: validateInput(validationSchema),
+      enableReinitialize: true,
     }),
     withLoading<InjectedFormProps>(props => props.submitting),
   );
