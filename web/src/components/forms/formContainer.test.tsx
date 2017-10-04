@@ -38,8 +38,8 @@ const ValidationSchema = Joi.object().keys({ foo: Joi.string() });
 
 type Opts = FormContainerOptions<QueryResult, MutationResult, FormInput>;
 
-const serializeForm = jest.fn((o: any) => ({ foo: 'bar_s' }));
-const deserializeForm = jest.fn((o: any) => ({ foo: 'bar_d' }));
+const serializeForm = jest.fn((o: any) => ({ foo: `${o.foo}_s` }));
+const deserializeForm = jest.fn((o: any) => ({ foo: `${o.foo}_d` }));
 const mutateError = jest.fn((data: any) => Promise.reject({ message: 'Some mutation error' }));
 const mutateSuccess = jest.fn((data: any) => Promise.resolve(data));
 
@@ -52,12 +52,12 @@ const options: Omit<Opts, 'queryContainer' | 'mutationContainer'> = {
   deserializeForm,
 };
 
-const detailsContainer = (loading: boolean) => withProps({
+const detailsContainer = (loading: boolean) => withProps(({ language }) => ({
   entity: {
-    data: { foo: 'bar' },
+    data: { foo: `bar_${language}` },
     loading,
   },
-}) as ComponentEnhancer<QueryResult, any>;
+})) as ComponentEnhancer<QueryResult, any>;
 
 const mutationContainer = (error: boolean) => withProps({
   mutate: error ? mutateError : mutateSuccess,
@@ -107,7 +107,7 @@ it('should deserialize query to form initialValues', () => {
   const receivers = wrapped.find(Receiver);
   expect(receivers.length).toBe(1);
   const receiver = receivers.at(0);
-  expect(receiver.prop('initialValues')).toEqual({ foo: 'bar_d' });
+  expect(receiver.prop('initialValues')).toEqual({ foo: 'bar_en_d' });
 });
 
 it('should use validation schema', () => {
@@ -119,7 +119,7 @@ it('should send serialized values', () => {
   const wrapped = mountThings(false, false);
   const receiver = wrapped.find(Receiver).at(0) as any;
   receiver.find('form').simulate('submit');
-  expect(serializeForm).toBeCalledWith({ foo: 'bar_d' });
+  expect(serializeForm).toBeCalledWith({ foo: 'bar_en_d' });
 });
 
 it('should call mutate on submit', () => {
@@ -152,4 +152,23 @@ it('should pass form error on mutation error', async () => {
   await flushPromises();
   const receiver2 = wrapped.find(Receiver).at(0);
   expect(receiver2.prop('error')).toBe('Some mutation error');
+});
+
+it('should receive language from query string', () => {
+  const history = createMemoryHistory({ initialEntries: ['/smth?language=es'] });
+  const wrapped = mountThings(false, false, history);
+  const receiver = wrapped.find(Receiver).at(0);
+  expect(receiver.prop('language')).toBe('es');
+});
+
+it('should reinitialize form when language changes', () => {
+  const history = createMemoryHistory();
+  const wrapped = mountThings(false, false, history);
+  const receiver = wrapped.find(Receiver).at(0);
+  expect(receiver.prop('initialValues')).toEqual({ foo: 'bar_en_d' });
+  history.replace({ pathname: '/smth', search: '?language=es' });
+  receiver.find('form').simulate('submit');
+  expect(mutateSuccess).toBeCalledWith({
+    variables: { entity: { foo: 'bar_es_d_s' }, language: 'es' },
+  });
 });
