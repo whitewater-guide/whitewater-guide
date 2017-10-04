@@ -30,10 +30,12 @@ export interface FormContainerOptions<QueryResult, MutationResult, FormInput> {
   backPath: string;
   /**
    * Convert graphql query result into something that can be feed to form (i.e. markdown -> draft.js)
+   * Remove __typename here
    */
   deserializeForm: (data: any) => FormInput;
   /**
    * Convert form data into graphql mutation input (i.e. draft.js -> markdown string)
+   * Remove __typename here
    */
   serializeForm: (input: FormInput) => any;
   /**

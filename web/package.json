@@ -54,7 +54,7 @@
     "@types/googlemaps": "^3.26.20",
     "@types/history": "^4.6.0",
     "@types/immutability-helper": "^2.0.15",
-    "@types/jest": "^21.1.0",
+    "@types/jest": "^21.1.2",
     "@types/joi": "^10.4.1",
     "@types/lodash": "^4.14.74",
     "@types/material-ui": "^0.18.0",
@@ -81,7 +81,8 @@
     "ts-jest": "^21.0.1",
     "tslint": "^5.7.0",
     "tslint-eslint-rules": "^4.1.1",
-    "tslint-react": "^3.2.0"
+    "tslint-react": "^3.2.0",
+    "url-search-params-polyfill": "^2.0.1"
   },
   "proxy": "http://localhost:3333"
 }
