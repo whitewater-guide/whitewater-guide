@@ -14,12 +14,16 @@ interface SelectComponentProps extends Partial<SelectFieldProps> {
 type Props = WrappedFieldProps & SelectComponentProps;
 
 class SelectComponent extends React.PureComponent<Props> {
+  static defaultProps: Partial<Props> = {
+    simple: true,
+  };
+
   getValue = () => {
     const { input, options, simple } = this.props;
     const { value } = input;
     const findId = simple ? value : value.id;
     const option = options.find(({ id }) => id === findId) || options[0];
-    return simple ? option.id : option;
+    return option;
   };
 
   onChange = (event: any, index: number, value: string | NamedResource) => {

@@ -1,10 +1,15 @@
 CREATE OR REPLACE VIEW points_view AS
+  WITH langs AS (
+      SELECT unnest(enum_range(NULL::language_code)) AS language
+  )
   SELECT
     points.id,
-    points_translations.language,
+    langs.language,
     points_translations.name,
     points_translations.description,
     points.kind,
     ST_AsText(points.coordinates) AS coordinates
-  FROM points
-    INNER JOIN points_translations on points.id = points_translations.point_id
+  FROM langs
+    CROSS JOIN points
+    LEFT OUTER JOIN points_translations
+      ON points.id = points_translations.point_id AND points_translations.language = langs.language
