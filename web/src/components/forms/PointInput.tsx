@@ -60,7 +60,6 @@ export class PointInput extends React.PureComponent<Props, State> {
   render() {
     const { name, title, detailed = true, mapDialog = true } = this.props;
     const prefix = title ? `${title} ` : '';
-    // TODO: material-ui v1 should support dense fields
     return (
       <Paper style={styles.container}>
         {

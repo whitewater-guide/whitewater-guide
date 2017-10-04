@@ -52,14 +52,17 @@ BEGIN
           new_pois.id,
           upserted_region_id
         FROM new_pois
-      ON CONFLICT (point_id, region_id)
-        DO UPDATE SET
-          point_id = EXCLUDED.point_id,
-          region_id = EXCLUDED.region_id
+      ON CONFLICT (point_id, region_id) DO NOTHING
       RETURNING point_id
+    ), all_points AS (
+      SELECT point_id FROM inserted_points -- inserted
+      UNION  ALL
+      SELECT new_pois.id AS point_id -- not inserted
+      FROM new_pois
+      INNER JOIN points ON points.id = new_pois.id
     )
-    SELECT array_agg ( point_id )
-    FROM inserted_points
+    SELECT array_agg(point_id)
+    FROM all_points
     INTO point_ids;
   END IF;
 

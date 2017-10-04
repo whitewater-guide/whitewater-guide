@@ -1,4 +1,5 @@
 import { Schema } from 'joi';
+import { memoize } from 'lodash';
 import { ApolloError, ChildProps } from 'react-apollo';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { ComponentEnhancer, compose, mapProps, withProps } from 'recompose';
@@ -64,6 +65,8 @@ export const formContainer = <QueryResult, MutationResult, FormInput>(
 
   type MappedProps = ChildProps<QueryResult, MutationResult> & RouteComponentProps<any> & WithLanguage;
 
+  const deserialize = memoize(deserializeForm);
+
   return compose(
     withRouter,
     withProps<WithLanguage, RouteComponentProps<any>>(({ history }) => ({
@@ -85,10 +88,10 @@ export const formContainer = <QueryResult, MutationResult, FormInput>(
         language,
         onLanguageChange,
         [propName]: details,
-        initialValues: deserializeForm(details.data!),
+        initialValues: deserialize(details.data!),
         onSubmit: (input: FormInput) => {
           // Make it clear that we return promise
-          return mutate!({ variables: { [propName]: serializeForm(input) } })
+          return mutate!({ variables: { [propName]: serializeForm(input), language } })
             .then(() => history.replace(backPath))
             .catch((e: ApolloError) => {
               throw new SubmissionError({ _error: e.message });

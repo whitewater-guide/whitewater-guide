@@ -128,6 +128,8 @@ declare namespace fp {
      */
     pick<TResult extends {}, T extends {}>(predicate: string[], object: T): TResult;
     pick<TResult extends {}, T extends {}>(predicate: string[]): (object: T) => TResult;
+    omit<TResult extends {}, T extends {}>(predicate: string[], object: T): TResult;
+    omit<TResult extends {}, T extends {}>(predicate: string[]): (object: T) => TResult;
 
     /**
      * Checks if `value` is `null` or `undefined`.
