@@ -17,6 +17,7 @@
     "strictNullChecks": true
   },
   "exclude": [
+    "__mocks__",
     "node_modules",
     "build",
     "scripts",
