@@ -34,5 +34,5 @@ type Query {
 
 type Mutation {
   upsertRegion(region:RegionInput!, language:String):Region,
-#  removeRegion(id:ID!):Boolean,
+  removeRegion(id:ID!):ID,
 }
