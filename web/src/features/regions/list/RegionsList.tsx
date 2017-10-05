@@ -5,19 +5,21 @@ import { Content } from '../../../layout';
 import { WithRegionsList } from '../../../ww-clients/features/regions';
 import RegionsListAdminFooter from './RegionsListAdminFooter';
 import RegionsTable from './RegionsTable';
+import { WithRemoveRegion } from './withRemoveRegion';
 
-export class RegionsList extends React.PureComponent<WithRegionsList> {
+export class RegionsList extends React.PureComponent<WithRegionsList & WithRemoveRegion> {
   isRowLoaded = ({ index }: Index) => !!this.props.regions.list[index];
 
   onRegionClick = (id: string) => console.log(id);
 
   table = ({ width, height }: Dimensions) => {
-    const { regions } = this.props;
+    const { regions, removeRegion } = this.props;
     const list = regions.list || [];
     return (
       <RegionsTable
         regions={list}
         onRegionClick={this.onRegionClick}
+        removeRegion={removeRegion}
         width={width}
         height={height}
       />

@@ -2,10 +2,11 @@ import FontIcon from 'material-ui/FontIcon';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { Column, Index, TableCellProps, TableProps } from 'react-virtualized';
-import { AdminColumn, Table } from '../../../components';
+import { AdminColumn, DeleteButton, Table } from '../../../components';
 import { Region } from '../../../ww-commons/features/regions';
+import { WithRemoveRegion } from './withRemoveRegion';
 
-export type RegionsTableProps = Partial<TableProps> & {
+export type RegionsTableProps = WithRemoveRegion & Partial<TableProps> & {
   regions: Region[];
   onRegionClick: (id: string) => void;
 };
@@ -26,7 +27,7 @@ class RegionsTable extends React.PureComponent<RegionsTableProps> {
       <Link to={`/regions/${props.rowData.id}/settings`}>
         <FontIcon className="material-icons">mode_edit</FontIcon>
       </Link>
-        <FontIcon className="material-icons">delete_forever</FontIcon>
+      <DeleteButton id={props.rowData.id} deleteHandler={this.props.removeRegion} />
     </span>
   );
 
