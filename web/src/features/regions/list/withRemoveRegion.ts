@@ -21,7 +21,10 @@ export default compose<WithRemoveRegion, any>(
     props: ({ mutate, ownProps }) => ({
       removeRegion: (id: string) => {
         ownProps.setRemovingRegion(true);
-        return mutate!({ variables: { id } })
+        return mutate!({
+          variables: { id },
+          refetchQueries: ['listRegions'],
+        })
           .then(() => ownProps.setRemovingRegion(false))
           .catch(() => ownProps.setRemovingRegion(false));
       },
