@@ -4,6 +4,7 @@ export interface Resource {
 
 export interface NamedResource extends Resource {
   name: string;
+  language: string;
 }
 
 export interface GrapqhlResource extends NamedResource {

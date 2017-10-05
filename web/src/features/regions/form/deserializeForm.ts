@@ -10,6 +10,7 @@ export default function deserializeForm(withRegion?: RegionDetails | null): Regi
   }
   const {
     __typename,
+    language,
     description,
     hidden,
     createdAt,
@@ -20,7 +21,7 @@ export default function deserializeForm(withRegion?: RegionDetails | null): Regi
   return {
     ...regionInput,
     hidden: hidden as boolean,
-    pois: regionInput.pois.map(omit(['__typename'])),
+    pois: regionInput.pois.map(omit(['__typename', 'language'])),
     description: draftDescription,
   };
 }

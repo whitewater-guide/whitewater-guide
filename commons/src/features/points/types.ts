@@ -7,7 +7,9 @@ export function withZeroAlt(coordinates: Coordinate2d[]): Coordinate3d[] {
 }
 
 export interface Point {
+  __typename: 'Point';
   id: string;
+  language: string;
   name: string | null;
   description: string | null;
   coordinates: Coordinate3d;

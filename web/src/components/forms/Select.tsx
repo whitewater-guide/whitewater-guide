@@ -38,7 +38,7 @@ class SelectComponent extends React.PureComponent<Props> {
   };
 
   render() {
-    const { input, meta, title, options, ...props } = this.props;
+    const { input, meta, simple, title, options, ...props } = this.props;
     const value = this.getValue();
     return (
       <SelectField

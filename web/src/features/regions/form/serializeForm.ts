@@ -12,7 +12,7 @@ export default function serializeForm(formData?: RegionFormInput): RegionInput |
     stateToMarkdown(description.getCurrentContent()).trim() : null;
   return {
     ...formData,
-    pois: formData.pois.map(omit(['__typename'])),
+    pois: formData.pois.map(omit(['__typename', 'language'])),
     description: stringDescription,
   };
 }

@@ -1,8 +1,14 @@
 CREATE OR REPLACE VIEW regions_view AS
+  WITH langs AS (
+      SELECT unnest(enum_range(NULL::language_code)) AS language
+  )
   SELECT
     regions.id,
-    regions_translations.language,
-    regions_translations.name,
+    langs.language,
+    -- graphql cannot return null for non-nullable field
+    -- but if the name hasn't been translated into some language
+    -- it will return null
+    COALESCE(regions_translations.name, 'Not translated') as name,
     regions_translations.description,
     regions_translations.season,
     regions.season_numeric,
@@ -13,6 +19,7 @@ CREATE OR REPLACE VIEW regions_view AS
     (
       SELECT json_agg(json_build_object(
                           'id', points_view.id,
+                          'language', points_view.language,
                           'name', points_view.name,
                           'description', points_view.description,
                           'kind', points_view.kind,
@@ -22,5 +29,8 @@ CREATE OR REPLACE VIEW regions_view AS
         INNER JOIN regions_points ON points_view.id = regions_points.point_id
       WHERE regions_points.region_id = regions.id AND points_view.language = regions_translations.language
     ) AS pois
-  FROM regions
-    INNER JOIN regions_translations ON regions.id = regions_translations.region_id
+  FROM langs
+    CROSS JOIN regions
+    LEFT OUTER JOIN regions_translations
+      ON regions.id = regions_translations.region_id
+         AND regions_translations.language = langs.language

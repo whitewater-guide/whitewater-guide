@@ -25,7 +25,8 @@ type Options = ConstructorOptions & NetworkInterfaceOptions;
 function dataIdFromObject(result: any) {
   if (result.__typename) {
     if (result.id !== undefined) {
-      return `${result.__typename}:${result.id}`;
+      const lang = result.language ? `:${result.language}` : '';
+      return `${result.__typename}:${result.id}${lang}`;
     }
   }
   return null;

@@ -19,12 +19,13 @@ export interface WithRegionsList {
 export const withRegionsList = enhancedQuery<Result, any, WithRegionsList>(
   listRegions,
   {
-    options: {
+    options: ({ language }) => ({
       fetchPolicy: 'cache-and-network',
       // TODO: use update instead of reducer, as reducer is deprecated
       // reducer: regionsListReducer,
       notifyOnNetworkStatusChange: true,
-    } as any, // TODO: https://github.com/apollographql/react-apollo/issues/896 should be fixed
+      variables: { language },
+    }),
     props: ({ data }) => {
       const { regions, loading, refetch } = data!;
       return { regions: { list: regions || [], loading, refetch } };

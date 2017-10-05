@@ -1,5 +1,6 @@
 type Point {
   id: ID!
+  language: String!
   name: String
   description: String
   coordinates: [Float!]!

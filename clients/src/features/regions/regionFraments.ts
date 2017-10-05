@@ -3,6 +3,7 @@ import gql from 'graphql-tag';
 const Core = gql`
   fragment RegionCore on Region {
     id
+    language
     name
     season
     seasonNumeric
@@ -20,6 +21,7 @@ const POIs = gql`
   fragment RegionPOIs on Region {
     pois {
       id
+      language
       name
       description
       coordinates

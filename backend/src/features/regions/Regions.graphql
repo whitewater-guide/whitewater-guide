@@ -1,5 +1,6 @@
 type Region {
   id: ID!
+  language: String!
   name: String!
   description: String
   season: String

@@ -1,16 +1,15 @@
 import { map } from 'lodash';
 import IconButton from 'material-ui/IconButton';
 import Paper from 'material-ui/Paper';
-import { grey100 } from 'material-ui/styles/colors';
 import * as React from 'react';
 import { FieldsProps } from 'redux-form';
 import { Styles } from '../../styles';
-import { Coordinate, NamedResource, POINames, Point, PointInput as PointInputType } from '../../ww-commons';
+import { Coordinate, NamedResource, POINames, PointInput as PointInputType } from '../../ww-commons';
 import { Select } from './Select';
 import SelectPointDialog from './SelectPointDialog';
 import { TextInput } from './TextInput';
 
-const POI_OPTIONS: NamedResource[] = map(POINames, (name, id) => ({ name, id }));
+const POI_OPTIONS: NamedResource[] = map(POINames, (name, id) => ({ name, id, language: 'en' }));
 
 const styles: Styles = {
   container: {
