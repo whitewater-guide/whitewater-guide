@@ -26,7 +26,7 @@ export const wrapErrors = (errorPropName: string, dataPropName: string, mapProps
   let errors = ownProps.errors || {};
   if (error) {
     if (error.networkError && data.hasOwnProperty(dataPropName)) {
-      console.log(`$Error ${error.errorMessage}`);
+      // console.log(`$Error ${error.errorMessage}`);
     } else {
       errors = { ...errors, [errorPropName]: { error, refetch } };
     }
