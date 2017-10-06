@@ -2,11 +2,10 @@ import { ReactWrapper } from 'enzyme';
 import * as React from 'react';
 import { gql, graphql } from 'react-apollo';
 import { compose } from 'recompose';
-import { createMockedProvider } from '../../../clients/src/test';
-import { flushPromises, mountWithMuiContext } from '../test';
-import { withDeleteMutation, WithDeleteMutation } from './withDeleteMutation';
 import Loading from '../components/Loading';
-import { flushPromises } from '../test/index';
+import { flushPromises, mountWithMuiContext } from '../test';
+import { createMockedProvider } from '../ww-clients/test';
+import { withDeleteMutation, WithDeleteMutation } from './withDeleteMutation';
 
 const removeRegion = jest.fn(() => 'deleted');
 const regions = jest.fn(() => []);
