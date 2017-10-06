@@ -3,9 +3,10 @@ import * as casual from 'casual';
 import { shallow } from 'enzyme';
 import * as React from 'react';
 import * as renderer from 'react-test-renderer';
-import { MockingProvider } from '../../test/MockingProvider';
-import { shallowRecursively } from '../../test/shallowRecursively';
+import { createMockedProvider, shallowRecursively } from '../../test';
 import { NEW_REGION, withRegion, WithRegion } from './withRegion';
+
+const MockedProvider = createMockedProvider();
 
 beforeEach(() => casual.seed(1));
 
@@ -32,9 +33,9 @@ it('has a loading state', done => {
 
   const ContainerWithData = withRegion()(Container);
   renderer.create(
-    <MockingProvider>
+    <MockedProvider>
       <ContainerWithData regionId="7fbe024f-3316-4265-a6e8-c65a837e308a" />
-    </MockingProvider>);
+    </MockedProvider>);
 });
 
 it('should match snapshot', done => {
@@ -57,9 +58,9 @@ it('should match snapshot', done => {
 
   const ContainerWithData = withRegion()(Container);
   renderer.create(
-    <MockingProvider>
+    <MockedProvider>
       <ContainerWithData regionId="7fbe024f-3316-4265-a6e8-c65a837e308a" />
-    </MockingProvider>);
+    </MockedProvider>);
 });
 
 test('should pass new region when regionId not found', () => {

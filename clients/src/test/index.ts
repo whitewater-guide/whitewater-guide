@@ -1,2 +1,2 @@
-export * from './MockingProvider';
+export * from './createMockedProvider';
 export * from './shallowRecursively';
