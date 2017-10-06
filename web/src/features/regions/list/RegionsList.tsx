@@ -1,13 +1,15 @@
 import { CardHeader, CardMedia } from 'material-ui/Card';
 import * as React from 'react';
 import { AutoSizer, Dimensions, Index } from 'react-virtualized';
+import { WithDeleteMutation } from '../../../apollo';
 import { Content } from '../../../layout';
 import { WithRegionsList } from '../../../ww-clients/features/regions';
 import RegionsListAdminFooter from './RegionsListAdminFooter';
 import RegionsTable from './RegionsTable';
-import { WithRemoveRegion } from './withRemoveRegion';
 
-export class RegionsList extends React.PureComponent<WithRegionsList & WithRemoveRegion> {
+type Props = WithRegionsList & WithDeleteMutation<'removeRegion'>;
+
+export class RegionsList extends React.PureComponent<Props> {
   isRowLoaded = ({ index }: Index) => !!this.props.regions.list[index];
 
   onRegionClick = (id: string) => console.log(id);

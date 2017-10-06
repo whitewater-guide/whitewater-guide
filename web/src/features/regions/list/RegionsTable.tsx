@@ -2,11 +2,11 @@ import FontIcon from 'material-ui/FontIcon';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { Column, Index, TableCellProps, TableProps } from 'react-virtualized';
+import { WithDeleteMutation } from '../../../apollo';
 import { AdminColumn, DeleteButton, Table } from '../../../components';
 import { Region } from '../../../ww-commons/features/regions';
-import { WithRemoveRegion } from './withRemoveRegion';
 
-export type RegionsTableProps = WithRemoveRegion & Partial<TableProps> & {
+export type RegionsTableProps = WithDeleteMutation<'removeRegion'> & Partial<TableProps> & {
   regions: Region[];
   onRegionClick: (id: string) => void;
 };
