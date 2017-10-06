@@ -28,9 +28,10 @@ const optionalSource: SourceInput = {
 };
 
 const upsertQuery = `
-  mutation upsertSource($source: SourceInput!){
-    upsertSource(source: $source){
+  mutation upsertSource($source: SourceInput!, $language: String){
+    upsertSource(source: $source, language: $language){
       id
+      language
       name
       termsOfUse
       script

@@ -1,6 +1,6 @@
 import { loadGraphqlFile } from '../../apollo/loadGraphqlFile';
 import { RawTimestamped } from '../../db';
-import { NamedResource, SourceInput } from '../../ww-commons';
+import { NamedResource } from '../../ww-commons';
 
 export const SourcesSchema = loadGraphqlFile('sources');
 
@@ -19,16 +19,4 @@ export interface SourceRaw extends NamedResource, RawTimestamped {
   harvest_mode: HarvestMode;
   url: string | null;
   enabled: boolean | null;
-}
-
-export function inputToRaw(input: SourceInput): Partial<SourceRaw> {
-  return {
-    id: input.id || undefined,
-    name: input.name,
-    terms_of_use: input.termsOfUse,
-    script: input.script,
-    cron: input.cron,
-    harvest_mode: input.harvestMode,
-    url: input.url,
-  };
 }

@@ -6,6 +6,7 @@ enum HarvestMode {
 type Source {
   id: ID!
   name: String!
+  language: String!
   termsOfUse: String
   script: String!
   cron: String

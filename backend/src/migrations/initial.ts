@@ -145,8 +145,8 @@ export const up = async (db: Knex) => {
 
   // Sources <-> regions many-to-many
   await db.schema.createTableIfNotExists('sources_regions', (table) => {
-    table.uuid('source_id').notNullable().references('id').inTable('sources');
-    table.uuid('region_id').notNullable().references('id').inTable('regions');
+    table.uuid('source_id').notNullable().references('id').inTable('sources').onDelete('CASCADE');
+    table.uuid('region_id').notNullable().references('id').inTable('regions').onDelete('CASCADE');
     table.primary(['source_id', 'region_id']);
   });
 
@@ -160,6 +160,7 @@ export const up = async (db: Knex) => {
   await runSqlFile(db, './src/migrations/initial/regions_points_trigger.sql');
   await runSqlFile(db, './src/migrations/initial/gauges_view.sql');
   await runSqlFile(db, './src/migrations/initial/sources_view.sql');
+  await runSqlFile(db, './src/migrations/initial/upsert_source.sql');
 };
 
 export const down = async (db: Knex) => {
@@ -167,6 +168,7 @@ export const down = async (db: Knex) => {
   await db.schema.raw('DROP TABLE IF EXISTS logins CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS users CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS gauges CASCADE');
+  await db.schema.raw('DROP TABLE IF EXISTS gauges_translations CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS sources CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS sources_translations CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS regions CASCADE');
@@ -184,6 +186,7 @@ export const down = async (db: Knex) => {
   await db.schema.raw('DROP TYPE IF EXISTS language_code CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS upsert_region(r JSON, lang language_code) CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS upsert_points(points_array JSON[], lang language_code) CASCADE');
+  await db.schema.raw('DROP FUNCTION IF EXISTS upsert_source(src JSON, lang language_code) CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS trigger_delete_orphan_regions_points() CASCADE');
   await removeUpdatedAtFunction(db);
 };
