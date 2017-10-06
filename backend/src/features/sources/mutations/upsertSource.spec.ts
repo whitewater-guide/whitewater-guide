@@ -15,16 +15,18 @@ const requiredSource: SourceInput = {
   url: null,
   termsOfUse: null,
   cron: null,
+  enabled: null,
 };
 
 const optionalSource: SourceInput = {
-  id: 'b28f728a-6efa-11e7-96fe-47a2910087ec',
+  id: '6d0d717e-aa9d-11e7-abc4-cec278b6b50a',
   name: 'Updated source',
   script: 'updatedScript',
   cron: '1 1 * * *',
   harvestMode: HarvestMode.ONE_BY_ONE,
   url: 'http://google.com',
   termsOfUse: 'New terms of use',
+  enabled: null,
 };
 
 const upsertQuery = `
@@ -38,6 +40,7 @@ const upsertQuery = `
       cron
       harvestMode
       url
+      enabled
       createdAt
       updatedAt
     }
@@ -70,6 +73,7 @@ describe('resolvers chain', () => {
       harvestMode: HarvestMode.ONE_BY_ONE,
       url: 'not url',
       termsOfUse: 'New terms of use',
+      enabled: null,
     };
     const result = await runQuery(upsertQuery, { source: input }, adminContext);
     expect(result.errors).toBeDefined();

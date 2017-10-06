@@ -28,6 +28,7 @@ input SourceInput {
   harvestMode: HarvestMode!
   # regions: [RefInput]
   url: String
+  enabled: Boolean
 }
 
 type Query {

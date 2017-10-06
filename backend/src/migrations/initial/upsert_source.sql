@@ -12,7 +12,7 @@ BEGIN
       src ->> 'cron',
       src ->> 'harvestMode',
       src ->> 'url',
-      (src ->> 'enabled') :: BOOLEAN
+      COALESCE((src ->> 'enabled') :: BOOLEAN, FALSE)
     )
     ON CONFLICT (id)
       DO UPDATE SET
