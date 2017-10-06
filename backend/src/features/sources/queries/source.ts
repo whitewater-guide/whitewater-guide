@@ -6,7 +6,7 @@ interface SourceQuery {
 }
 
 const source = isAdminResolver.createResolver(
-  (root, { id }: SourceQuery, context) => db().table('sources').select().where({ id }).first('*'),
+  (root, { id }: SourceQuery, context) => db().table('sources_view').select().where({ id }).first('*'),
 );
 
 export default source;

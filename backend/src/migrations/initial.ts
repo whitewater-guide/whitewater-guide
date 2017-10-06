@@ -40,33 +40,57 @@ export const up = async (db: Knex) => {
   // SOURCES
   await db.schema.createTableIfNotExists('sources', (table) => {
     table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
-    table.string('name').notNullable();
     table.string('script', 20).notNullable();
     table.string('cron', 50);
     table.enu('harvest_mode', [HarvestMode.ALL_AT_ONCE, HarvestMode.ONE_BY_ONE]).notNullable();
     table.string('url', 500);
     table.boolean('enabled').notNullable().defaultTo(false);
+    table.timestamps(false, true);
+  });
+  await db.schema.createTableIfNotExists('sources_translations', (table) => {
+    table
+      .uuid('source_id')
+      .notNullable()
+      .references('id')
+      .inTable('sources')
+      .onDelete('CASCADE');
+    table.specificType('language', 'language_code').notNullable().defaultTo('en');
+    table.string('name').notNullable();
     table.text('terms_of_use');
+    table.primary(['source_id', 'language']);
     table.timestamps(false, true);
   });
   await addUpdatedAtTrigger(db, 'sources');
+  await addUpdatedAtTrigger(db, 'sources_translations');
 
   // GAUGES
   await db.schema.createTableIfNotExists('gauges', (table) => {
     table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
     table.uuid('source_id').notNullable().references('id').inTable('sources').onDelete('CASCADE');
-    table.string('name').notNullable();
-    table.string('code').notNullable().unique();
+    table.string('code').notNullable();
+    table.unique(['source_id', 'code']);
     table.string('level_unit');
     table.string('flow_unit');
     table.string('cron');
     table.string('request_params');
-    table.dateTime('last_timestamp');
     table.string('url');
     table.boolean('enabled').notNullable().defaultTo(false);
     table.timestamps(false, true);
   });
+  await db.schema.createTableIfNotExists('gauges_translations', (table) => {
+    table
+      .uuid('gauge_id')
+      .notNullable()
+      .references('id')
+      .inTable('gauges')
+      .onDelete('CASCADE');
+    table.specificType('language', 'language_code').notNullable().defaultTo('en');
+    table.primary(['gauge_id', 'language']);
+    table.string('name').notNullable();
+    table.timestamps(false, true);
+  });
   await addUpdatedAtTrigger(db, 'gauges');
+  await addUpdatedAtTrigger(db, 'gauges_translations');
 
   // Regions
   await db.schema.createTableIfNotExists('regions', (table) => {
@@ -134,6 +158,8 @@ export const up = async (db: Knex) => {
   await runSqlFile(db, './src/migrations/initial/upsert_points.sql');
   await runSqlFile(db, './src/migrations/initial/upsert_region.sql');
   await runSqlFile(db, './src/migrations/initial/regions_points_trigger.sql');
+  await runSqlFile(db, './src/migrations/initial/gauges_view.sql');
+  await runSqlFile(db, './src/migrations/initial/sources_view.sql');
 };
 
 export const down = async (db: Knex) => {
@@ -142,6 +168,7 @@ export const down = async (db: Knex) => {
   await db.schema.raw('DROP TABLE IF EXISTS users CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS gauges CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS sources CASCADE');
+  await db.schema.raw('DROP TABLE IF EXISTS sources_translations CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS regions CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS regions_translations CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS regions_points CASCADE');
@@ -152,6 +179,8 @@ export const down = async (db: Knex) => {
   await db.schema.raw('DROP FUNCTION IF EXISTS polygon_from_json(polygon JSON) CASCADE');
   await db.schema.raw('DROP VIEW IF EXISTS regions_view');
   await db.schema.raw('DROP VIEW IF EXISTS points_view');
+  await db.schema.raw('DROP VIEW IF EXISTS gauges_view');
+  await db.schema.raw('DROP VIEW IF EXISTS sources_view');
   await db.schema.raw('DROP TYPE IF EXISTS language_code CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS upsert_region(r JSON, lang language_code) CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS upsert_points(points_array JSON[], lang language_code) CASCADE');

@@ -5,8 +5,8 @@ CREATE OR REPLACE VIEW points_view AS
   SELECT
     points.id,
     langs.language,
-    points_translations.name,
-    points_translations.description,
+    COALESCE(points_translations.name, 'Not translated') as name,
+    COALESCE(points_translations.description, 'Not translated') as description,
     points.kind,
     ST_AsText(points.coordinates) AS coordinates
   FROM langs

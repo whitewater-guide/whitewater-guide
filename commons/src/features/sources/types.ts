@@ -1,11 +1,11 @@
-import { NamedResource, Timestamped } from '../../core';
+import { GrapqhlResource, Timestamped } from '../../core';
 
 export enum HarvestMode {
   ALL_AT_ONCE = 'allAtOnce',
   ONE_BY_ONE = 'oneByOne',
 }
 
-export interface Source extends NamedResource, Timestamped {
+export interface Source extends GrapqhlResource, Timestamped {
   termsOfUse: string | null;
   script: string;
   cron: string | null;
@@ -15,7 +15,7 @@ export interface Source extends NamedResource, Timestamped {
 }
 
 export class SourceInput {
-  id?: string | null;
+  id: string | null;
   name: string;
   termsOfUse: string | null;
   script: string;

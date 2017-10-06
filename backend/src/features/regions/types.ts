@@ -1,4 +1,3 @@
-import { Geometry, Point, Polygon } from 'wkx';
 import { loadGraphqlFile } from '../../apollo/loadGraphqlFile';
 import { RawTimestamped } from '../../db';
 import { NamedResource } from '../../ww-commons/';
