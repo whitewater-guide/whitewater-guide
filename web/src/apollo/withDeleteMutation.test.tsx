@@ -1,14 +1,16 @@
 import { ReactWrapper } from 'enzyme';
 import * as React from 'react';
-import { gql } from 'react-apollo';
+import { gql, graphql } from 'react-apollo';
+import { compose } from 'recompose';
 import { createMockedProvider } from '../../../clients/src/test';
 import { flushPromises, mountWithMuiContext } from '../test';
 import { withDeleteMutation, WithDeleteMutation } from './withDeleteMutation';
+import Loading from '../components/Loading';
+import { flushPromises } from '../test/index';
 
 const removeRegion = jest.fn(() => 'deleted');
-const refetchQuery = jest.fn();
-const MockedProvider = createMockedProvider({ refetchQuery }, { removeRegion });
-const client = MockedProvider.client;
+const regions = jest.fn(() => []);
+const MockedProvider = createMockedProvider({ regions }, { removeRegion });
 
 class Receiver extends React.PureComponent<WithDeleteMutation<'removeRegion'>> {
   render() {
@@ -16,21 +18,33 @@ class Receiver extends React.PureComponent<WithDeleteMutation<'removeRegion'>> {
   }
 }
 
-const container = withDeleteMutation({
-  mutation: gql`
-    mutation removeRegion($id: ID!){
-      removeRegion(id: $id)
+const MUTATION = gql`
+  mutation removeRegion($id: ID!){
+    removeRegion(id: $id)
+  }
+`;
+
+const QUERY = gql`query listRegions {
+    regions {
+      id
     }
-  `,
-  propName: 'removeRegion',
-  refetchQueries: ['refetchQuery'],
-});
+  }
+`;
+
+const container = compose(
+  graphql(QUERY),
+  withDeleteMutation({
+    mutation: MUTATION,
+    propName: 'removeRegion',
+    refetchQueries: ['listRegions'],
+  }),
+);
 
 let wrapped: ReactWrapper;
 
 beforeEach(() => {
   removeRegion.mockClear();
-  refetchQuery.mockClear();
+  regions.mockClear();
   const WithMutation = container(Receiver);
   wrapped = mountWithMuiContext(
     <MockedProvider>
@@ -46,28 +60,37 @@ it('should pass delete handle as props', () => {
 
 it('should call mutation', async () => {
   const receiver = wrapped.find(Receiver).first();
-  const spy = jest.spyOn(client!, 'mutate');
   receiver.prop('removeRegion')('foo');
-  expect(spy).toBeCalled();
-
-  await flushPromises();
-  await flushPromises();
   await flushPromises();
   expect(removeRegion).toBeCalled();
 });
 
-it('should refetch queries', () => {
-
+it('should refetch queries', async () => {
+  const receiver = wrapped.find(Receiver).first();
+  receiver.prop('removeRegion')('foo');
+  await flushPromises();
+  expect(regions).toBeCalled();
 });
 
 it('should render loading while mutation is in progress', () => {
-
+  const receiver = wrapped.find(Receiver).first();
+  expect(wrapped.containsMatchingElement(<Loading />)).toBe(false);
+  receiver.prop('removeRegion')('foo');
+  expect(wrapped.containsMatchingElement(<Loading />)).toBe(true);
 });
 
-it('should not render loading after mutation succeeds', () => {
-
+it('should not render loading after mutation succeeds', async () => {
+  const receiver = wrapped.find(Receiver).first();
+  receiver.prop('removeRegion')('foo');
+  await flushPromises();
+  expect(wrapped.containsMatchingElement(<Loading />)).toBe(false);
 });
 
-it('should not render loading after mutation failed', () => {
-
+it('should not render loading after mutation failed', async () => {
+  removeRegion.mockImplementation(() => { throw new Error('oops'); });
+  const receiver = wrapped.find(Receiver).first();
+  receiver.prop('removeRegion')('foo');
+  await flushPromises();
+  expect(wrapped.containsMatchingElement(<Loading />)).toBe(false);
 });
+

@@ -34,8 +34,13 @@ export const withDeleteMutation = <PropName extends string>(options: Options<Pro
             variables: { id },
             refetchQueries,
           })
-            .then(() => ownProps.setMutating(false))
-            .catch(() => ownProps.setMutating(false));
+            .then((result) => {
+              ownProps.setMutating(false);
+              return result;
+            })
+            .catch((err) => {
+              ownProps.setMutating(false);
+            });
         },
       }),
     }),

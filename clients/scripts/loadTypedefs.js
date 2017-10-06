@@ -1,6 +1,6 @@
 const fs = require('fs')
 const http = require('http');
-const path = require('path')
+const path = require('path');
 
 const writer = fs.createWriteStream(path.resolve('src', 'test', 'typedefs.ts'));
 

@@ -42,6 +42,7 @@
     "start": "react-scripts-ts start",
     "build": "react-scripts-ts build",
     "tsc": "tsc",
+    "pretest": "cd ../clients && npm run pretest",
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject",
     "postinstall": "rm -rf node_modules/@types/async"
