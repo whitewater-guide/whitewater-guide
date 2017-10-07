@@ -21,6 +21,7 @@ Object {
   ],
   "description": "Full region description",
   "hidden": false,
+  "language": "en",
   "name": "Full region",
   "pois": Array [
     Object {
@@ -31,6 +32,7 @@ Object {
       ],
       "description": "pt 1 d",
       "kind": "other",
+      "language": "en",
       "name": "pt 1",
     },
     Object {
@@ -41,6 +43,7 @@ Object {
       ],
       "description": "pt 2 d",
       "kind": "take-out",
+      "language": "en",
       "name": "pt 2",
     },
   ],
@@ -110,6 +113,7 @@ Object {
   "description": "Full region description",
   "hidden": false,
   "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
+  "language": "en",
   "name": "Full region",
   "pois": Array [
     Object {
@@ -120,6 +124,7 @@ Object {
       ],
       "description": "pt 1 upd",
       "kind": "other",
+      "language": "en",
       "name": "pt 1 u",
     },
     Object {
@@ -130,6 +135,7 @@ Object {
       ],
       "description": "pt 2 upd",
       "kind": "take-out",
+      "language": "en",
       "name": "pt 2 u",
     },
     Object {
@@ -140,6 +146,7 @@ Object {
       ],
       "description": "r1p2 d",
       "kind": "put-in",
+      "language": "en",
       "name": "r 1 p 2",
     },
   ],

@@ -58,6 +58,7 @@ const upsertQuery = `
   mutation upsertRegion($region: RegionInput!, $language: String){
     upsertRegion(region: $region, language: $language){
       id
+      language
       name
       description
       season
@@ -70,6 +71,7 @@ const upsertQuery = `
       updatedAt
       pois {
         id
+        language
         name
         description
         coordinates

@@ -149,7 +149,7 @@ describe('update', () => {
     expect(updateResult.data!.upsertSource).toBeDefined();
   });
 
-  test('should not change total number of source', async () => {
+  test('should not change total number of sources', async () => {
     const result = await db().table('sources').count();
     expect(result[0].count).toBe('2');
   });
