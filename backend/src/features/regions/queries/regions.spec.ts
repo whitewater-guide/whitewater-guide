@@ -9,6 +9,7 @@ const query = `
   query listRegions($language: String){
     regions(language: $language) {
       id
+      language
       name
       description
       season
@@ -19,6 +20,7 @@ const query = `
       updatedAt
       pois {
         id
+        language
         name
         description
         kind

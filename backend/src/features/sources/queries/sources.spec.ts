@@ -7,9 +7,10 @@ beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
 const query = `
-{
-  sources {
+query listSources($language: String){
+  sources(language: $language) {
     id
+    language
     name
     url
     script
@@ -74,5 +75,17 @@ describe('super admin', () => {
     expect(sources[0].id).toBeDefined();
     const snapshot = sources.map(noTimestamps);
     expect(snapshot).toMatchSnapshot();
+  });
+
+  test('should be able to specify language', async () => {
+    const result = await runQuery(query, { language: 'ru' }, superAdminContext);
+    expect(result.data!.sources).toBeDefined();
+    const sources = result.data!.sources;
+    expect(sources.length).toBe(2);
+    // Check name
+    expect(sources[1].name).toBe('Галисия');
+    // Check name & common attribute for non-translated region
+    expect(sources[0].name).toBe('Not translated');
+    expect(sources[0].script).toBe('norway');
   });
 });

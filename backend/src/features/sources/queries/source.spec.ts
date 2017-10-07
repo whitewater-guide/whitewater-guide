@@ -66,4 +66,15 @@ describe('superadmin', () => {
     expect(source.id).toBe(galiciaId);
     expect(noTimestamps(source)).toMatchSnapshot();
   });
+
+  test('should be able to specify language', async () => {
+    const result = await runQuery(query, { id: galiciaId, language: 'ru' }, superAdminContext);
+    expect(result.data!.source.name).toBe('Галисия');
+  });
+
+  test('should be able to get basic attributes without translation', async () => {
+    const result = await runQuery(query, { id: galiciaId, language: 'pt' }, superAdminContext);
+    expect(result.data!.source.cron).toBe('0 * * * *');
+    expect(result.data!.source.name).toBe('Not translated');
+  });
 });
