@@ -21,14 +21,13 @@ export const withRegionsList = enhancedQuery<Result, any, WithRegionsList>(
   {
     options: ({ language }) => ({
       fetchPolicy: 'cache-and-network',
-      // TODO: use update instead of reducer, as reducer is deprecated
-      // reducer: regionsListReducer,
-      notifyOnNetworkStatusChange: true,
+      // notifyOnNetworkStatusChange: true,
       variables: { language },
     }),
     props: ({ data }) => {
       const { regions, loading, refetch } = data!;
       return { regions: { list: regions || [], loading, refetch } };
     },
+    alias: 'withRegionsList',
   },
 );
