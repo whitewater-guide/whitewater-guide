@@ -3,6 +3,7 @@ import { adminContext, anonContext, userContext } from '../../../test/context';
 import { isTimestamp, isUUID, noTimestamps, noUnstable, runQuery } from '../../../test/db-helpers';
 import { SourceInput } from '../../../ww-commons';
 import { HarvestMode, SourceRaw } from '../types';
+import { HarvestMode } from '../index';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
@@ -29,7 +30,7 @@ const optionalSource: SourceInput = {
   enabled: null,
 };
 
-const upsertQuery = `
+const mutation = `
   mutation upsertSource($source: SourceInput!, $language: String){
     upsertSource(source: $source, language: $language){
       id
@@ -49,7 +50,7 @@ const upsertQuery = `
 
 describe('resolvers chain', () => {
   test('anon should not pass', async () => {
-    const result = await runQuery(upsertQuery, { source: requiredSource }, anonContext);
+    const result = await runQuery(mutation, { source: requiredSource }, anonContext);
     expect(result.errors).toBeDefined();
     expect(result.data).toBeDefined();
     expect(result.data!.upsertSource).toBeNull();
@@ -57,7 +58,7 @@ describe('resolvers chain', () => {
   });
 
   test('user should not pass', async () => {
-    const result = await runQuery(upsertQuery, { source: requiredSource }, userContext);
+    const result = await runQuery(mutation, { source: requiredSource }, userContext);
     expect(result.errors).toBeDefined();
     expect(result.data).toBeDefined();
     expect(result.data!.upsertSource).toBeNull();
@@ -75,7 +76,7 @@ describe('resolvers chain', () => {
       termsOfUse: 'New terms of use',
       enabled: null,
     };
-    const result = await runQuery(upsertQuery, { source: input }, adminContext);
+    const result = await runQuery(mutation, { source: input }, adminContext);
     expect(result.errors).toBeDefined();
     expect(result.data).toBeDefined();
     expect(result.data!.upsertSource).toBeNull();
@@ -88,7 +89,7 @@ describe('insert', () => {
   let insertedSource: any;
 
   beforeEach(async () => {
-    insertResult = await runQuery(upsertQuery, { source: requiredSource }, adminContext);
+    insertResult = await runQuery(mutation, { source: requiredSource }, adminContext);
     insertedSource = insertResult && insertResult.data && insertResult.data.upsertSource;
   });
 
@@ -133,7 +134,7 @@ describe('update', () => {
 
   beforeEach(async () => {
     oldSource = await db().table('sources').where({ id: optionalSource.id }).first();
-    updateResult = await runQuery(upsertQuery, { source: optionalSource }, adminContext);
+    updateResult = await runQuery(mutation, { source: optionalSource }, adminContext);
     updatedSource = updateResult && updateResult.data && updateResult.data.upsertSource;
   });
 
@@ -167,4 +168,68 @@ describe('update', () => {
     expect(noTimestamps(updatedSource)).toMatchSnapshot();
   });
 
+});
+
+describe('i18n', () => {
+  const norwayRu = {
+    id: '786251d4-aa9d-11e7-abc4-cec278b6b50a',
+    script: 'norway',
+    name: 'Норвегия',
+    termsOfUse: 'Правила пользования Норвегией',
+    cron: '0 * * * *',
+    harvestMode: HarvestMode.ONE_BY_ONE,
+    url: 'http://nve.no',
+    enabled: false,
+  };
+
+  const galiciaRu = {
+    id: '6d0d717e-aa9d-11e7-abc4-cec278b6b50a',
+    script: 'galicia',
+    cron: '0 * * * *',
+    harvestMode: HarvestMode.ALL_AT_ONCE,
+    url: 'http://ya.ru',
+    enabled: false,
+    name: 'Новая Галисия',
+    termsOfUse: 'Правила пользования новой галисией',
+  };
+
+  it('should add new translation', async () => {
+    const result = await runQuery(mutation, { source: norwayRu, language: 'ru' }, adminContext);
+    expect(result.data!.upsertSource).toMatchObject({
+      id: '786251d4-aa9d-11e7-abc4-cec278b6b50a',
+      name: 'Норвегия',
+      language: 'ru',
+    });
+    const translation = await db().table('sources_translations').select()
+      .where({ source_id: '786251d4-aa9d-11e7-abc4-cec278b6b50a', language: 'ru' })
+      .first();
+    expect(translation.name).toBe('Норвегия');
+  });
+
+  it('should modify common props in other language', async () => {
+    await runQuery(mutation, { source: norwayRu, language: 'ru' }, adminContext);
+    const commons = await db().table('sources').select('harvest_mode')
+      .where({ id: '786251d4-aa9d-11e7-abc4-cec278b6b50a' }).first();
+    expect(commons.harvest_mode).toBe(HarvestMode.ONE_BY_ONE);
+  });
+
+  it('should modify translation', async () => {
+    const result = await runQuery(mutation, { source: galiciaRu, language: 'ru' }, adminContext);
+    expect(result.errors).toBeUndefined();
+    expect(result.data!.upsertSource).toMatchObject({
+      id: '6d0d717e-aa9d-11e7-abc4-cec278b6b50a',
+      language: 'ru',
+      name: 'Новая Галисия',
+      termsOfUse: 'Правила пользования новой галисией',
+    });
+    const translation = await db().table('sources_translations').select()
+      .where({ source_id: '6d0d717e-aa9d-11e7-abc4-cec278b6b50a', language: 'ru' })
+      .first();
+    expect(translation).toMatchObject({
+      source_id: '6d0d717e-aa9d-11e7-abc4-cec278b6b50a',
+      language: 'ru',
+      name: 'Новая Галисия',
+      terms_of_use: 'Правила пользования новой галисией',
+    });
+  });
 });
