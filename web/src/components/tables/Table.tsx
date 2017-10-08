@@ -1,25 +1,54 @@
-import * as PropTypes from 'prop-types';
+import FontIcon from 'material-ui/FontIcon';
 import * as React from 'react';
-import { Column, Table as RVTable, TableProps } from 'react-virtualized';
-import { compose, hoistStatics, mapProps } from 'recompose';
-import { withMe } from '../../ww-clients/features/users/withMe';
+import { Link } from 'react-router-dom';
+import { Index, TableCellProps, TableProps as VTableProps } from 'react-virtualized';
+import { WithDeleteMutation } from '../../apollo';
+import { EntityName, NamedResource } from '../../ww-commons';
+import { DeleteButton } from '../DeleteButton';
 import { AdminColumn } from './AdminColumn';
+import { RawTable } from './RawTable';
 
-const adminColumnMapper = (column: React.ReactElement<TableProps>) => {
-  return (column.type === AdminColumn as React.ComponentClass<any>) ?
-    null :
-    React.createElement(Column as React.ComponentClass<any>, column.props);
-};
+export type TableProps<DeleteHandle extends string, Entity extends NamedResource> =
+  WithDeleteMutation<DeleteHandle> &
+  Partial<VTableProps> &
+  {
+    list: Entity[];
+    onRowClick: (id: string) => void;
+    entityName: EntityName;
+    deleteHandle: DeleteHandle;
+  };
 
-const enhancer = compose<{}, TableProps>(
-  withMe(),
-  mapProps(({ isAdmin, me, meLoading, children, ...props }) => ({
-    children: isAdmin ? children : React.Children.map(children, adminColumnMapper),
-    ...props,
-  })),
-);
+export class Table<DeleteHandle extends string, Entity extends NamedResource>
+  extends React.PureComponent<TableProps<DeleteHandle, Entity>> {
 
-export const Table: React.ComponentClass<TableProps> = enhancer(RVTable);
-RVTable.propTypes = { ...RVTable.propTypes, children: PropTypes.any } as any;
-Table.propTypes = RVTable.propTypes as any;
-Table.defaultProps = RVTable.defaultProps as any;
+  rowGetter = ({ index }: Index) => this.props.list[index];
+
+  onRowClick = ({ index }: Index) => this.props.onRowClick(this.props.list[index].id);
+
+  renderAdminActions = (props: TableCellProps) => (
+    <span>
+      <Link to={`/${this.props.entityName}s/${props.rowData.id}/settings`}>
+        <FontIcon className="material-icons">mode_edit</FontIcon>
+      </Link>
+      <DeleteButton id={props.rowData.id} deleteHandler={this.props[this.props.deleteHandle]} />
+    </span>
+  );
+
+  render() {
+    const { list, children, ...props } = this.props;
+    return (
+      <RawTable
+        {...props as any}
+        headerHeight={52}
+        rowHeight={48}
+        rowCount={list.length}
+        rowGetter={this.rowGetter}
+        onRowClick={this.onRowClick}
+      >
+        {children}
+        <AdminColumn width={100} label="Actions" dataKey="actions" cellRenderer={this.renderAdminActions} />
+      </RawTable>
+    );
+  }
+
+}
