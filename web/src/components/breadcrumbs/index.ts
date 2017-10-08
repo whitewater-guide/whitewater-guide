@@ -8,3 +8,4 @@ interface Props {
 }
 
 export const Breadcrumbs: ComponentType<Props> = withRouter(BC);
+export * from './createBreadcrumb';
