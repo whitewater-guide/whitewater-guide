@@ -3,8 +3,8 @@ import * as React from 'react';
 import { ColumnProps, TableCellProps } from 'react-virtualized';
 
 interface BooleanColumnProps extends ColumnProps {
-  iconTrue: string;
-  iconFalse: string;
+  iconTrue?: string;
+  iconFalse?: string;
 }
 
 export class BooleanColumn extends React.Component<BooleanColumnProps> {
