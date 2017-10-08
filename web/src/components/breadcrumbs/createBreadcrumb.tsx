@@ -1,9 +1,10 @@
 import { DocumentNode } from 'graphql';
 import * as React from 'react';
 import { ChildProps, graphql } from 'react-apollo';
+import { ResourceType } from '../../ww-commons';
 
-export const createBreadcrumb = <TParam extends string, TEntityName extends string>(
-  query: DocumentNode, entityName: TEntityName, paramName: TParam,
+export const createBreadcrumb = <TParam extends string>(
+  query: DocumentNode, resourceType: ResourceType, paramName: TParam,
 ) => {
   interface Props {
     params: {
@@ -12,7 +13,7 @@ export const createBreadcrumb = <TParam extends string, TEntityName extends stri
   }
 
   type Result = {
-    [key in TEntityName]: {
+    [key in ResourceType]: {
       name: string;
     }
   };
@@ -23,7 +24,7 @@ export const createBreadcrumb = <TParam extends string, TEntityName extends stri
     const result = data as Result;
     return (
       <span>
-        {result && result[entityName] && result[entityName].name}
+        {result && result[resourceType] && result[resourceType].name}
       </span>
     );
   };

@@ -29,7 +29,7 @@ const styles: Styles = {
 };
 
 interface FormProps {
-  entityName: string;
+  resourceType: string;
 }
 
 type Props = FormProps & InjectedFormProps<any>;
@@ -41,9 +41,10 @@ class FormBase extends React.PureComponent<InnerProps> {
     this.props.onLanguageChange(value);
 
   render() {
-    const { initialValues, entityName, muiTheme, language } = this.props;
+    const { initialValues, resourceType, muiTheme, language } = this.props;
     const submitLabel = (initialValues && initialValues.id) ? 'Update' : 'Create';
-    const headerLabel = (initialValues && initialValues.name) ? `${initialValues.name} settings` : `New ${entityName}`;
+    const headerLabel = (initialValues && initialValues.name) ?
+      `${initialValues.name} settings` : `New ${resourceType}`;
     const backgroundColor = muiTheme.palette!.primary1Color;
     return (
       <Content card>

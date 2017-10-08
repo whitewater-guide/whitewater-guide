@@ -1,45 +1,27 @@
-import { CardHeader, CardMedia } from 'material-ui/Card';
 import * as React from 'react';
-import { AutoSizer, Dimensions, Index } from 'react-virtualized';
+import { Column } from 'react-virtualized';
 import { WithDeleteMutation } from '../../../apollo';
-import { Content } from '../../../layout';
+import { BooleanColumn } from '../../../components';
+import { ResourcesList } from '../../../layout';
 import { WithSourcesList } from '../../../ww-clients/features/sources';
-import SourcesListAdminFooter from './SourcesListAdminFooter';
-import SourcesTable from './SourcesTable';
 
 type Props = WithSourcesList & WithDeleteMutation<'removeSource'>;
 
-export class SourcesList extends React.PureComponent<Props> {
-  isRowLoaded = ({ index }: Index) => !!this.props.sources.list[index];
-
+export default class SourcesList extends React.PureComponent<Props> {
   onSourceClick = (id: string) => console.log(id);
 
-  table = ({ width, height }: Dimensions) => {
-    const { sources, removeSource } = this.props;
-    const list = sources.list || [];
-    return (
-      <SourcesTable
-        sources={list}
-        onSourceClick={this.onSourceClick}
-        removeSource={removeSource}
-        width={width}
-        height={height}
-      />
-    );
-  };
-
   render() {
-    const list = this.props.sources.list;
     return (
-      <Content card>
-        <CardHeader title="Sources list" />
-        <CardMedia style={{ height: '100%' }} mediaStyle={{ height: '100%' }}>
-          <AutoSizer rowCount={list ? list.length : 0}>
-            {this.table}
-          </AutoSizer>
-        </CardMedia>
-        <SourcesListAdminFooter />
-      </Content>
+      <ResourcesList
+        list={this.props.sources.list}
+        onResourceClick={this.onSourceClick}
+        resourceType="source"
+        deleteHandle={this.props.removeSource}
+      >
+        <Column width={200} label="Name" dataKey="name" />
+        <Column width={100} label="Harvest mode" dataKey="harvestMode" />
+        <BooleanColumn width={50} label="Enabled" dataKey="enabled" iconFalse="remove" iconTrue="checkmark" />
+      </ResourcesList>
     );
   }
 }

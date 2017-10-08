@@ -3,31 +3,31 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { Index, TableCellProps, TableProps as VTableProps } from 'react-virtualized';
 import { WithDeleteMutation } from '../../apollo';
-import { EntityName, NamedResource } from '../../ww-commons';
+import { ResourceType, NamedResource } from '../../ww-commons';
 import { DeleteButton } from '../DeleteButton';
 import { AdminColumn } from './AdminColumn';
 import { RawTable } from './RawTable';
 
-export type TableProps<DeleteHandle extends string, Entity extends NamedResource> =
+export type TableProps<DeleteHandle extends string, TResource extends NamedResource> =
   WithDeleteMutation<DeleteHandle> &
   Partial<VTableProps> &
   {
-    list: Entity[];
-    onRowClick: (id: string) => void;
-    entityName: EntityName;
+    list: TResource[];
+    onResourceClick: (id: string) => void;
+    resourceType: ResourceType;
     deleteHandle: DeleteHandle;
   };
 
-export class Table<DeleteHandle extends string, Entity extends NamedResource>
-  extends React.PureComponent<TableProps<DeleteHandle, Entity>> {
+export class Table<DeleteHandle extends string, TResource extends NamedResource>
+  extends React.PureComponent<TableProps<DeleteHandle, TResource>> {
 
   rowGetter = ({ index }: Index) => this.props.list[index];
 
-  onRowClick = ({ index }: Index) => this.props.onRowClick(this.props.list[index].id);
+  onRowClick = ({ index }: Index) => this.props.onResourceClick(this.props.list[index].id);
 
   renderAdminActions = (props: TableCellProps) => (
     <span>
-      <Link to={`/${this.props.entityName}s/${props.rowData.id}/settings`}>
+      <Link to={`/${this.props.resourceType}s/${props.rowData.id}/settings`}>
         <FontIcon className="material-icons">mode_edit</FontIcon>
       </Link>
       <DeleteButton id={props.rowData.id} deleteHandler={this.props[this.props.deleteHandle]} />

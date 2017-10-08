@@ -1,45 +1,28 @@
-import { CardHeader, CardMedia } from 'material-ui/Card';
 import * as React from 'react';
-import { AutoSizer, Dimensions, Index } from 'react-virtualized';
+import { Column } from 'react-virtualized';
 import { WithDeleteMutation } from '../../../apollo';
-import { Content } from '../../../layout';
+import { BooleanColumn } from '../../../components';
+import { ResourcesList } from '../../../layout';
 import { WithRegionsList } from '../../../ww-clients/features/regions';
-import RegionsListAdminFooter from './RegionsListAdminFooter';
-import RegionsTable from './RegionsTable';
 
 type Props = WithRegionsList & WithDeleteMutation<'removeRegion'>;
 
 export class RegionsList extends React.PureComponent<Props> {
-  isRowLoaded = ({ index }: Index) => !!this.props.regions.list[index];
-
   onRegionClick = (id: string) => console.log(id);
 
-  table = ({ width, height }: Dimensions) => {
-    const { regions, removeRegion } = this.props;
-    const list = regions.list || [];
-    return (
-      <RegionsTable
-        regions={list}
-        onRegionClick={this.onRegionClick}
-        removeRegion={removeRegion}
-        width={width}
-        height={height}
-      />
-    );
-  };
-
   render() {
-    const list = this.props.regions.list;
     return (
-      <Content card>
-        <CardHeader title="Regions list" />
-        <CardMedia style={{ height: '100%' }} mediaStyle={{ height: '100%' }}>
-          <AutoSizer rowCount={list ? list.length : 0}>
-            {this.table}
-          </AutoSizer>
-        </CardMedia>
-        <RegionsListAdminFooter />
-      </Content>
+      <ResourcesList
+        list={this.props.regions.list}
+        onResourceClick={this.onRegionClick}
+        resourceType="region"
+        deleteHandle={this.props.removeRegion}
+      >
+        <Column width={200} label="Name" dataKey="name" />
+        <Column width={100} label="Rivers" dataKey="riversCount" />
+        <Column width={100} label="Sections" dataKey="sectionsCount" />
+        <BooleanColumn width={50} label="Visible" dataKey="hidden" iconFalse="visibility" />
+      </ResourcesList>
     );
   }
 }

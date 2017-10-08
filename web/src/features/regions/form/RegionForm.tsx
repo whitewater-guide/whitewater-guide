@@ -18,7 +18,7 @@ import { RegionFormInput } from './types';
 export default class RegionForm extends React.PureComponent<InjectedFormProps<RegionFormInput>> {
   render() {
     return (
-      <Form {...this.props} entityName="region">
+      <Form {...this.props} resourceType="region">
         <Tabs>
           <Tab label="Main" value="#main">
             <TextInput fullWidth name="name" title="Name" />
