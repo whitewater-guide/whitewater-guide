@@ -3,25 +3,25 @@ import * as React from 'react';
 import { AutoSizer, Dimensions, Index } from 'react-virtualized';
 import { WithDeleteMutation } from '../../../apollo';
 import { Content } from '../../../layout';
-import { WithRegionsList } from '../../../ww-clients/features/regions';
-import RegionsListAdminFooter from './RegionsListAdminFooter';
-import RegionsTable from './RegionsTable';
+import { WithSourcesList } from '../../../ww-clients/features/sources';
+import SourcesListAdminFooter from './SourcesListAdminFooter';
+import SourcesTable from './SourcesTable';
 
-type Props = WithRegionsList & WithDeleteMutation<'removeRegion'>;
+type Props = WithSourcesList & WithDeleteMutation<'removeSource'>;
 
-export class RegionsList extends React.PureComponent<Props> {
-  isRowLoaded = ({ index }: Index) => !!this.props.regions.list[index];
+export class SourcesList extends React.PureComponent<Props> {
+  isRowLoaded = ({ index }: Index) => !!this.props.sources.list[index];
 
-  onRegionClick = (id: string) => console.log(id);
+  onSourceClick = (id: string) => console.log(id);
 
   table = ({ width, height }: Dimensions) => {
-    const { regions, removeRegion } = this.props;
-    const list = regions.list || [];
+    const { sources, removeSource } = this.props;
+    const list = sources.list || [];
     return (
-      <RegionsTable
-        regions={list}
-        onRegionClick={this.onRegionClick}
-        removeRegion={removeRegion}
+      <SourcesTable
+        sources={list}
+        onSourceClick={this.onSourceClick}
+        removeSource={removeSource}
         width={width}
         height={height}
       />
@@ -29,16 +29,16 @@ export class RegionsList extends React.PureComponent<Props> {
   };
 
   render() {
-    const list = this.props.regions.list;
+    const list = this.props.sources.list;
     return (
       <Content card>
-        <CardHeader title="Regions list" />
+        <CardHeader title="Sources list" />
         <CardMedia style={{ height: '100%' }} mediaStyle={{ height: '100%' }}>
           <AutoSizer rowCount={list ? list.length : 0}>
             {this.table}
           </AutoSizer>
         </CardMedia>
-        <RegionsListAdminFooter />
+        <SourcesListAdminFooter />
       </Content>
     );
   }
