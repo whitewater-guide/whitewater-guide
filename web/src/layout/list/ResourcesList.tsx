@@ -1,3 +1,4 @@
+import { upperFirst } from 'lodash';
 import { CardHeader, CardMedia } from 'material-ui/Card';
 import * as React from 'react';
 import { AutoSizer, Dimensions } from 'react-virtualized';
@@ -27,7 +28,7 @@ export class ResourcesList<DeleteHandle extends string, TResource extends NamedR
     const { resourceType, list } = this.props as TableProps<DeleteHandle, TResource>;
     return (
       <Content card>
-        <CardHeader title={`${resourceType}s list`} />
+        <CardHeader title={`${upperFirst(resourceType)}s list`} />
         <CardMedia style={{ height: '100%' }} mediaStyle={{ height: '100%' }}>
           <AutoSizer rowCount={list ? list.length : 0}>
             {this.table}

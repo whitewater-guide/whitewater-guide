@@ -20,7 +20,7 @@ export default class SourcesList extends React.PureComponent<Props> {
       >
         <Column width={200} label="Name" dataKey="name" />
         <Column width={100} label="Harvest mode" dataKey="harvestMode" />
-        <BooleanColumn width={50} label="Enabled" dataKey="enabled" iconFalse="remove" iconTrue="checkmark" />
+        <BooleanColumn width={50} label="Enabled" dataKey="enabled" iconTrue="done" />
       </ResourcesList>
     );
   }
