@@ -37,7 +37,7 @@ export function configureApolloClient(options: Options) {
     networkInterface: createNetworkInterface(options),
     customResolvers: {
       Query: {
-        region: (_, args) => toIdValue(dataIdFromObject({ __typename: 'Region', id: args.id })!),
+        region: (_, { id, language = 'en' }) => toIdValue(dataIdFromObject({ __typename: 'Region', id,  language })!),
       },
     },
     dataIdFromObject,

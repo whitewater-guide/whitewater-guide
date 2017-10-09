@@ -1,5 +1,5 @@
 import Knex = require('knex');
-import { HarvestMode } from '../../features/sources/index';
+import { HarvestMode } from '../../ww-commons';
 
 const sources = [
   {
@@ -39,7 +39,7 @@ const sourcesRu = [
   },
 ];
 
-// connect both sources to regiion 'Hidden region'
+// connect both sources to region 'Hidden region'
 const sourcesRegions = [
   { source_id: '6d0d717e-aa9d-11e7-abc4-cec278b6b50a', region_id: 'b968e2b2-76c5-11e7-b5a5-be2e44b06b34' },
   { source_id: '786251d4-aa9d-11e7-abc4-cec278b6b50a', region_id: 'b968e2b2-76c5-11e7-b5a5-be2e44b06b34' },

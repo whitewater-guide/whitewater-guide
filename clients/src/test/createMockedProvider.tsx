@@ -3,6 +3,7 @@ import * as casual from 'casual';
 import { addMockFunctionsToSchema, makeExecutableSchema } from 'graphql-tools';
 import * as React from 'react';
 import { ApolloClient, ApolloProvider } from 'react-apollo';
+import { HarvestMode } from '../../ww-commons';
 import typeDefs from './typedefs';
 
 interface QueryMap {
@@ -20,6 +21,7 @@ export const createMockedProvider = (queries: QueryMap = {}, mutations: QueryMap
       Float: () => casual.random,
       String: () => casual.title,
       Boolean: () => casual.coin_flip,
+      HarvestMode: () => [HarvestMode.ONE_BY_ONE, HarvestMode.ALL_AT_ONCE][casual.integer(0, 1)],
       Query: () => queries,
       Mutation: () => mutations,
     },

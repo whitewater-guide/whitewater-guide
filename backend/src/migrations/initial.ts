@@ -1,9 +1,8 @@
 import Knex = require('knex');
 import { runSqlFile } from '../db/runSqlFile';
 import { addUpdatedAtFunction, addUpdatedAtTrigger, removeUpdatedAtFunction } from '../db/updatedAtTrigger';
-import { HarvestMode } from '../features/sources';
 import { Role } from '../features/users/types';
-import { POITypes } from '../ww-commons/features/points/POITypes';
+import { HarvestMode, POITypes } from '../ww-commons';
 
 export const up = async (db: Knex) => {
   await runSqlFile(db, './src/migrations/initial/language_code.sql');

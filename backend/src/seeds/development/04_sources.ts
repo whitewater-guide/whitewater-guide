@@ -1,5 +1,5 @@
 import Knex = require('knex');
-import { HarvestMode } from '../../features/sources/index';
+import { HarvestMode } from '../../ww-commons';
 
 const sources = [
   {
