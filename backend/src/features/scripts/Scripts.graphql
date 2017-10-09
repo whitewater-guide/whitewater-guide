@@ -1,0 +1,9 @@
+type WorkerScript {
+  script: String!
+  harvestMode: HarvestMode!
+  error: String
+}
+
+type Query {
+  scripts: [WorkerScript]!
+}
