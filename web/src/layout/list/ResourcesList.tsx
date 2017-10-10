@@ -2,9 +2,8 @@ import { upperFirst } from 'lodash';
 import { CardHeader, CardMedia } from 'material-ui/Card';
 import * as React from 'react';
 import { AutoSizer, Dimensions } from 'react-virtualized';
-import { Table, TableProps } from '../../components';
+import { Content, Table, TableProps } from '../../components';
 import { NamedResource } from '../../ww-commons';
-import { Content } from '../Content';
 import ListAdminFooter from './ListAdminFooter';
 
 export class ResourcesList<DeleteHandle extends string, TResource extends NamedResource> extends

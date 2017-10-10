@@ -4,3 +4,4 @@ export * from './DeleteButton';
 export * from './tables';
 export * from './Tabs';
 export * from './withLoading';
+export * from './Content';

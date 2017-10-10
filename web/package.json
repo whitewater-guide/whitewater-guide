@@ -35,6 +35,7 @@
     "reflect-metadata": "^0.1.10",
     "reselect": "^3.0.1",
     "resize-observer-polyfill": "^1.4.2",
+    "shallowequal": "^1.0.2",
     "typescript": "^2.5.2",
     "typescript-fsa": "^2.5.0"
   },

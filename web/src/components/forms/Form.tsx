@@ -5,8 +5,8 @@ import SelectField from 'material-ui/SelectField';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 import * as React from 'react';
 import { InjectedFormProps } from 'redux-form';
-import { Content } from '../../layout';
 import { Styles, Themeable } from '../../styles';
+import { Content } from '../Content';
 import { WithLanguage } from './formContainer';
 
 const styles: Styles = {

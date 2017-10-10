@@ -1,5 +1,6 @@
 type Script {
-  script: String!
+  id: String!
+  name: String!
   harvestMode: HarvestMode!
   error: String
 }

@@ -1,2 +1,2 @@
-export * from './flushPromises';
+export * from './mountForm';
 export * from './muiTestUtils';

@@ -12,3 +12,8 @@ export const SourceInputSchema = Joi.object().keys({
   harvestMode: Joi.any().allow([HarvestMode.ONE_BY_ONE, HarvestMode.ALL_AT_ONCE]),
   url: Joi.string().uri().allow(null),
 });
+
+// description is draft.js EditorState
+export const SourceFormSchema = SourceInputSchema.keys({
+  termsOfUse: Joi.any(),
+});

@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { Index, TableCellProps, TableProps as VTableProps } from 'react-virtualized';
 import { WithDeleteMutation } from '../../apollo';
-import { ResourceType, NamedResource } from '../../ww-commons';
+import { NamedResource, ResourceType } from '../../ww-commons';
 import { DeleteButton } from '../DeleteButton';
 import { AdminColumn } from './AdminColumn';
 import { RawTable } from './RawTable';

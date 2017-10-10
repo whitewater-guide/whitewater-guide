@@ -3,8 +3,8 @@ import * as React from 'react';
 import { gql, graphql } from 'react-apollo';
 import { compose } from 'recompose';
 import Loading from '../components/Loading';
-import { flushPromises, mountWithMuiContext } from '../test';
-import { createMockedProvider } from '../ww-clients/test';
+import { mountWithMuiContext } from '../test';
+import { createMockedProvider, flushPromises } from '../ww-clients/test';
 import { withDeleteMutation, WithDeleteMutation } from './withDeleteMutation';
 
 const removeRegion = jest.fn(() => 'deleted');
@@ -92,4 +92,3 @@ it('should not render loading after mutation failed', async () => {
   await flushPromises();
   expect(wrapped.containsMatchingElement(<Loading />)).toBe(false);
 });
-

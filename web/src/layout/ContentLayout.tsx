@@ -12,7 +12,7 @@ const ContentLayout: React.StatelessComponent = () => (
     </Route>
 
     <Route path="/regions" component={RegionsRoute} />
-    <Route exact path="/sources" component={SourcesRoute} />
+    <Route path="/sources" component={SourcesRoute} />
 
     <Route path="/logout">
       <LogoutRoute />

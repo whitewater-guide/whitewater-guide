@@ -1,1 +1,1 @@
-export * from './withScripts';
+export * from './withScriptsList';

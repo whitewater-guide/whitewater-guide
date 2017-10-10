@@ -1,0 +1,140 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should match snapshot for existing source 1`] = `
+Object {
+  "cron": "Eligendi occaecati",
+  "enabled": false,
+  "harvestMode": "allAtOnce",
+  "id": "7fbe024f-3316-4265-a6e8-c65a837e308a",
+  "name": "Esse blanditiis natus",
+  "script": "Delectus et ipsam",
+  "termsOfUse": EditorState {
+    "_immutable": Object {
+      "allowUndo": true,
+      "currentContent": Object {
+        "blockMap": Object {
+          "random_key": Object {
+            "characterList": Array [
+              Object {
+                "entity": null,
+                "style": Array [],
+              },
+              Object {
+                "entity": null,
+                "style": Array [],
+              },
+              Object {
+                "entity": null,
+                "style": Array [],
+              },
+              Object {
+                "entity": null,
+                "style": Array [],
+              },
+              Object {
+                "entity": null,
+                "style": Array [],
+              },
+              Object {
+                "entity": null,
+                "style": Array [],
+              },
+              Object {
+                "entity": null,
+                "style": Array [],
+              },
+              Object {
+                "entity": null,
+                "style": Array [],
+              },
+            ],
+            "data": Object {},
+            "depth": 0,
+            "key": "random_key",
+            "text": "Omnis et",
+            "type": "unstyled",
+          },
+        },
+        "entityMap": Object {
+          "__add": [Function],
+          "__create": [Function],
+          "__get": [Function],
+          "__getLastCreatedEntityKey": [Function],
+          "__mergeData": [Function],
+          "__replaceData": [Function],
+          "add": [Function],
+          "create": [Function],
+          "get": [Function],
+          "getLastCreatedEntityKey": [Function],
+          "mergeData": [Function],
+          "replaceData": [Function],
+        },
+        "selectionAfter": Object {
+          "anchorKey": "random_key",
+          "anchorOffset": 0,
+          "focusKey": "random_key",
+          "focusOffset": 0,
+          "hasFocus": false,
+          "isBackward": false,
+        },
+        "selectionBefore": Object {
+          "anchorKey": "random_key",
+          "anchorOffset": 0,
+          "focusKey": "random_key",
+          "focusOffset": 0,
+          "hasFocus": false,
+          "isBackward": false,
+        },
+      },
+      "decorator": null,
+      "directionMap": Object {
+        "random_key": "LTR",
+      },
+      "forceSelection": false,
+      "inCompositionMode": false,
+      "inlineStyleOverride": null,
+      "lastChangeType": null,
+      "nativelyRenderedContent": null,
+      "redoStack": Array [],
+      "selection": Object {
+        "anchorKey": "random_key",
+        "anchorOffset": 0,
+        "focusKey": "random_key",
+        "focusOffset": 0,
+        "hasFocus": false,
+        "isBackward": false,
+      },
+      "treeMap": Object {
+        "random_key": Array [
+          Object {
+            "decoratorKey": null,
+            "end": 8,
+            "leaves": Array [
+              Object {
+                "end": 8,
+                "start": 0,
+              },
+            ],
+            "start": 0,
+          },
+        ],
+      },
+      "undoStack": Array [],
+    },
+  },
+  "url": "Saepe eum dicta",
+}
+`;
+
+exports[`should match snapshot for new source 1`] = `
+Object {
+  "cron": null,
+  "enabled": false,
+  "harvestMode": "oneByOne",
+  "id": null,
+  "name": "",
+  "script": "",
+  "termsOfUse": null,
+  "url": null,
+}
+`;

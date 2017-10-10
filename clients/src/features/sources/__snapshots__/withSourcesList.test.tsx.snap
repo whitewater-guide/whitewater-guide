@@ -5,7 +5,7 @@ Object {
   "list": Array [
     Object {
       "__typename": "Source",
-      "enabled": true,
+      "enabled": false,
       "harvestMode": "oneByOne",
       "id": "7fbe024f-3316-4265-a6e8-c65a837e308a",
       "language": "Esse blanditiis natus",
@@ -14,12 +14,12 @@ Object {
     },
     Object {
       "__typename": "Source",
-      "enabled": true,
-      "harvestMode": "oneByOne",
-      "id": "dcbfc51b-9ede-4d1d-8420-fa196af683b4",
-      "language": "Qui nobis",
-      "name": "Fugiat velit voluptatem",
-      Symbol(id): "Source:dcbfc51b-9ede-4d1d-8420-fa196af683b4",
+      "enabled": false,
+      "harvestMode": "allAtOnce",
+      "id": "dbfc51b8-fded-41d0-920e-b196af683b45",
+      "language": "Nobis dolor",
+      "name": "Velit voluptatem aperiam",
+      Symbol(id): "Source:dbfc51b8-fded-41d0-920e-b196af683b45",
     },
   ],
   "loading": false,

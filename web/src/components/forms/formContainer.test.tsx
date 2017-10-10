@@ -1,13 +1,9 @@
 import { createMemoryHistory, History } from 'history';
 import * as Joi from 'joi';
 import * as React from 'react';
-import { Provider } from 'react-redux';
-import { MemoryRouter, Router } from 'react-router';
 import { ComponentEnhancer, withProps } from 'recompose';
-import { combineReducers, createStore } from 'redux';
-import { InjectedFormProps, reducer as formReducer } from 'redux-form';
-import { mountWithMuiContext } from '../../test';
-import { flushPromises } from '../../test/flushPromises';
+import { FormReceiver, mountForm } from '../../test';
+import { flushPromises } from '../../ww-clients/test';
 import { Omit } from '../../ww-commons/ts';
 import Loading from '../Loading';
 import { formContainer, FormContainerOptions } from './formContainer';
@@ -63,31 +59,13 @@ const mutationContainer = (error: boolean) => withProps({
   mutate: error ? mutateError : mutateSuccess,
 }) as ComponentEnhancer<MutationResult, any>;
 
-class Receiver extends React.PureComponent<InjectedFormProps<any>> {
-
-  render() {
-    return (
-      <form onSubmit={this.props.handleSubmit} />
-    );
-  }
-}
-
 const mountThings = (detailsLoading: boolean, mutationError: boolean, history?: History) => {
-  const wrapper = formContainer({
+  const form = formContainer({
     ...options,
     queryContainer: detailsContainer(detailsLoading),
     mutationContainer: mutationContainer(mutationError),
   });
-  const store = createStore(combineReducers({ form: formReducer }));
-  const Wrapped: React.ComponentType<any> = wrapper(Receiver);
-  const router = !!history ?
-    (<Router history={history}><Wrapped /></Router>) :
-    (<MemoryRouter><Wrapped /></MemoryRouter>);
-  return mountWithMuiContext((
-    <Provider store={store}>
-      {router}
-    </Provider>),
-  );
+  return mountForm({ form, history });
 };
 
 beforeEach(() => {
@@ -104,7 +82,7 @@ it('should render loading when query is loading', () => {
 
 it('should deserialize query to form initialValues', () => {
   const wrapped = mountThings(false, false);
-  const receivers = wrapped.find(Receiver);
+  const receivers = wrapped.find(FormReceiver);
   expect(receivers.length).toBe(1);
   const receiver = receivers.at(0);
   expect(receiver.prop('initialValues')).toEqual({ foo: 'bar_en_d' });
@@ -117,21 +95,21 @@ it('should use validation schema', () => {
 
 it('should send serialized values', () => {
   const wrapped = mountThings(false, false);
-  const receiver = wrapped.find(Receiver).at(0) as any;
+  const receiver = wrapped.find(FormReceiver).at(0) as any;
   receiver.find('form').simulate('submit');
   expect(serializeForm).toBeCalledWith({ foo: 'bar_en_d' });
 });
 
 it('should call mutate on submit', () => {
   const wrapped = mountThings(false, false);
-  const receiver = wrapped.find(Receiver).at(0) as any;
+  const receiver = wrapped.find(FormReceiver).at(0) as any;
   receiver.find('form').simulate('submit');
   expect(mutateSuccess).toBeCalled();
 });
 
 it('should render loading while submitting', () => {
   const wrapped = mountThings(false, false);
-  const receiver = wrapped.find(Receiver).at(0) as any;
+  const receiver = wrapped.find(FormReceiver).at(0) as any;
   receiver.find('form').simulate('submit');
   expect(wrapped.containsMatchingElement(<Loading />)).toBe(true);
 });
@@ -140,31 +118,31 @@ it('should navigate on successful mutation', async () => {
   const history = createMemoryHistory();
   history.replace = jest.fn();
   const wrapped = mountThings(false, false, history);
-  const receiver = wrapped.find(Receiver).at(0) as any;
+  const receiver = wrapped.find(FormReceiver).at(0) as any;
   await receiver.find('form').simulate('submit');
   expect(history.replace).toBeCalledWith('/entities');
 });
 
 it('should pass form error on mutation error', async () => {
   const wrapped = mountThings(false, true);
-  const receiver = wrapped.find(Receiver).at(0);
+  const receiver = wrapped.find(FormReceiver).at(0);
   await receiver.find('form').simulate('submit');
   await flushPromises();
-  const receiver2 = wrapped.find(Receiver).at(0);
+  const receiver2 = wrapped.find(FormReceiver).at(0);
   expect(receiver2.prop('error')).toBe('Some mutation error');
 });
 
 it('should receive language from query string', () => {
   const history = createMemoryHistory({ initialEntries: ['/smth?language=es'] });
   const wrapped = mountThings(false, false, history);
-  const receiver = wrapped.find(Receiver).at(0);
+  const receiver = wrapped.find(FormReceiver).at(0);
   expect(receiver.prop('language')).toBe('es');
 });
 
 it('should reinitialize form when language changes', () => {
   const history = createMemoryHistory();
   const wrapped = mountThings(false, false, history);
-  const receiver = wrapped.find(Receiver).at(0);
+  const receiver = wrapped.find(FormReceiver).at(0);
   expect(receiver.prop('initialValues')).toEqual({ foo: 'bar_en_d' });
   history.replace({ pathname: '/smth', search: '?language=es' });
   receiver.find('form').simulate('submit');

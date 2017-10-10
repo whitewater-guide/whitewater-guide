@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should match snapshot 1`] = `
+Object {
+  "list": Array [
+    Object {
+      "__typename": "Script",
+      "error": "Labore explicabo",
+      "harvestMode": "allAtOnce",
+      "id": "Asperiores quisquam",
+      "name": "Alias magni corporis",
+      Symbol(id): "Script:Asperiores quisquam",
+    },
+    Object {
+      "__typename": "Script",
+      "error": "Nulla quam ipsam",
+      "harvestMode": "allAtOnce",
+      "id": "Amet iure",
+      "name": "Libero qui",
+      Symbol(id): "Script:Amet iure",
+    },
+  ],
+  "loading": false,
+  "refetch": [Function],
+}
+`;

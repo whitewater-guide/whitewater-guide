@@ -1,7 +1,7 @@
+import { NamedResource } from '../../core';
 import { HarvestMode } from '../sources';
 
-export interface Script {
-  script: string;
+export interface Script extends NamedResource {
   harvestMode: HarvestMode;
   error: string | null;
 }
