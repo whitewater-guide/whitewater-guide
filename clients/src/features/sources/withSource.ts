@@ -2,7 +2,6 @@ import { branch, compose, withProps } from 'recompose';
 import { HarvestMode, Source, SourceInput } from '../../../ww-commons';
 import { enhancedQuery } from '../../apollo';
 import { withFeatureIds } from '../../core';
-import { ScriptsList, withScriptsList } from '../scripts';
 import REGION_DETAILS from './sourceDetails.query';
 
 export const NEW_SOURCE: SourceInput = {
@@ -18,11 +17,9 @@ export const NEW_SOURCE: SourceInput = {
 
 export interface WithSourceOptions {
   errorOnMissingId?: boolean;
-  includeScripts?: boolean;
 }
 
 export interface WithSourceChildProps {
-  scripts?: ScriptsList;
   source: {
     data: Source | null;
     loading: boolean;
@@ -44,14 +41,12 @@ export interface WithSourceProps {
 /**
  *
  * @param options.errorOnMissingId (true) = Should error be added if sourceId is not found?
- * @param options.includeScripts (false) = Should also request scripts?
  * @returns High-order component
  */
 export function withSource(options: WithSourceOptions = {}) {
-  const { errorOnMissingId = true, includeScripts } = options;
+  const { errorOnMissingId = true } = options;
   return compose<WithSourceChildProps, any>(
     withFeatureIds('source'),
-    includeScripts ? withScriptsList : ((i: any) => i),
     // If no source was found, branch provides dummy source with error
     branch<WithSourceProps>(
       ({ sourceId }) => !!sourceId,

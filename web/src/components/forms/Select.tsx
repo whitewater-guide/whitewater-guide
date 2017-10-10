@@ -48,6 +48,7 @@ class SelectComponent extends React.PureComponent<Props> {
         onChange={this.onChange}
         floatingLabelText={title}
         hintText={title}
+        errorText={meta.touched && meta.error}
       >
         {options.map(this.renderItem)}
       </SelectField>

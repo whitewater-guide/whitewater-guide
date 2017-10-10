@@ -46,14 +46,8 @@ it('should pass new source when no sourceId is not found', async () => {
   expect(receiver.prop('source').data).toEqual(NEW_SOURCE);
 });
 
-it('should provide scripts list when includeScripts is set', async () => {
-  mountWithOptions({ includeScripts: true }, casualSourceId);
-  await flushPromises();
-  expect(receiver.prop('scripts')!.list.length).toBeGreaterThan(0);
-});
-
 it('should match snapshot', async () => {
-  mountWithOptions({ includeScripts: true }, casualSourceId);
+  mountWithOptions({}, casualSourceId);
   await flushPromises();
   expect(receiver.props()).toMatchSnapshot();
 });

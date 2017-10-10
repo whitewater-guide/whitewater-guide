@@ -6,7 +6,7 @@ export const SourceInputSchema = Joi.object().keys({
   id: Joi.string().guid().allow(null),
   name: Joi.string().min(3).max(100),
   termsOfUse: Joi.string().allow(null),
-  script: Joi.string(),
+  script: Joi.string().min(1),
   cron: JoiWithCron.string().isCron().allow(null),
   enabled: Joi.boolean().allow(null),
   harvestMode: Joi.any().allow([HarvestMode.ONE_BY_ONE, HarvestMode.ALL_AT_ONCE]),

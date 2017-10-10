@@ -3,28 +3,6 @@
 exports[`should match snapshot 1`] = `
 Object {
   "errors": Object {},
-  "scripts": Object {
-    "list": Array [
-      Object {
-        "__typename": "Script",
-        "error": "Quam tempore a",
-        "harvestMode": "oneByOne",
-        "id": "Ad ipsum",
-        "name": "Debitis libero",
-        Symbol(id): "Script:Ad ipsum",
-      },
-      Object {
-        "__typename": "Script",
-        "error": "Fugiat velit voluptatem",
-        "harvestMode": "allAtOnce",
-        "id": "Provident velit",
-        "name": "Nostrum ipsam qui",
-        Symbol(id): "Script:Provident velit",
-      },
-    ],
-    "loading": false,
-    "refetch": [Function],
-  },
   "source": Object {
     "data": Object {
       "__typename": "Source",
