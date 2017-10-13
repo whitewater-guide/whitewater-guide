@@ -12,6 +12,13 @@ export default gql`
       harvestMode
       url
       enabled
+      regions {
+        nodes {
+          id
+          language
+          name
+        }
+      }
     }
   }
 `;

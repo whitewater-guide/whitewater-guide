@@ -2,11 +2,12 @@ import { Tab } from 'material-ui/Tabs';
 import * as React from 'react';
 import { InjectedFormProps } from 'redux-form';
 import { Tabs } from '../../../components';
-import { DraftEditor, Form, Select, TextInput } from '../../../components/forms';
+import { ChipInput, DraftEditor, Form, Select, TextInput } from '../../../components/forms';
+import { WithRegionsList } from '../../../ww-clients/features/regions';
 import { WithScriptsList } from '../../../ww-clients/features/scripts';
 import { SourceFormInput } from './types';
 
-type Props = WithScriptsList & InjectedFormProps<SourceFormInput>;
+type Props = WithScriptsList & WithRegionsList & InjectedFormProps<SourceFormInput>;
 
 export default class SourceForm extends React.PureComponent<Props> {
   render() {
@@ -15,6 +16,7 @@ export default class SourceForm extends React.PureComponent<Props> {
         <Tabs>
           <Tab label="Main" value="#main">
             <TextInput fullWidth name="name" title="Name" />
+            <ChipInput name="regions" title="Regions" options={this.props.regions.list} />
             <Select name="script" title="Script" options={this.props.scripts.list} />
             <TextInput fullWidth name="url" title="URL" />
             <TextInput fullWidth name="cron" title="URL" />

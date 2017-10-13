@@ -10,5 +10,10 @@ Object {
   "pois": Array [],
   "season": null,
   "seasonNumeric": Array [],
+  "sources": Array [
+    Object {
+      "id": "source_id",
+    },
+  ],
 }
 `;

@@ -1,4 +1,8 @@
 import { GrapqhlResource, Timestamped } from '../../core';
+import { Resource } from '../../core/types';
+import { Gauge } from '../gauges/types';
+import { Region } from '../regions/types';
+import { Connection } from '../types';
 
 export enum HarvestMode {
   ALL_AT_ONCE = 'allAtOnce',
@@ -12,6 +16,9 @@ export interface Source extends GrapqhlResource, Timestamped {
   harvestMode: HarvestMode;
   url: string | null;
   enabled: boolean | null;
+  // --- connetions
+  regions?: Connection<Region>;
+  gauges?: Connection<Gauge>;
 }
 
 export class SourceInput {
@@ -23,4 +30,5 @@ export class SourceInput {
   harvestMode: HarvestMode;
   enabled: boolean | null;
   url: string | null;
+  regions: Resource[];
 }

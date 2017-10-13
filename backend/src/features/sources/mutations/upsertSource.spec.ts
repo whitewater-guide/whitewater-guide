@@ -16,6 +16,7 @@ const requiredSource: SourceInput = {
   termsOfUse: null,
   cron: null,
   enabled: null,
+  regions: [{ id: '2caf75ca-7625-11e7-b5a5-be2e44b06b34' }],
 };
 
 const optionalSource: SourceInput = {
@@ -27,6 +28,7 @@ const optionalSource: SourceInput = {
   url: 'http://google.com',
   termsOfUse: 'New terms of use',
   enabled: null,
+  regions: [{ id: '2caf75ca-7625-11e7-b5a5-be2e44b06b34' }], // replace two regions with one different
 };
 
 const mutation = `
@@ -74,6 +76,7 @@ describe('resolvers chain', () => {
       url: 'not url',
       termsOfUse: 'New terms of use',
       enabled: null,
+      regions: [],
     };
     const result = await runQuery(mutation, { source: input }, adminContext);
     expect(result.errors).toBeDefined();
@@ -120,6 +123,11 @@ describe('insert', () => {
     expect(isTimestamp(insertedSource.updatedAt)).toBe(true);
   });
 
+  test('should connect region', async () => {
+    const result = await db().table('sources_regions').where({ source_id: insertedSource.id }).count();
+    expect(result[0].count).toBe('1');
+  });
+
   test('should match snapshot', () => {
     expect(noUnstable(insertedSource)).toMatchSnapshot();
   });
@@ -161,6 +169,11 @@ describe('update', () => {
   test('should update updated_at timestamp', () => {
     expect(updatedSource.createdAt).toBe(oldSource!.created_at.toISOString());
     expect(new Date(updatedSource.updatedAt).valueOf()).toBeGreaterThan(oldSource!.updated_at.valueOf());
+  });
+
+  test('should update connected regions', async () => {
+    const result = await db().table('sources_regions').where({ source_id: optionalSource.id }).select('*');
+    expect(result).toEqual([{ source_id: optionalSource.id, region_id: '2caf75ca-7625-11e7-b5a5-be2e44b06b34' }]);
   });
 
   test('should match snapshot', () => {

@@ -13,10 +13,15 @@ type Source {
   harvestMode: HarvestMode!
   url: String
   enabled: Boolean
-  # regions: [Region]!
+  regions: SourceRegionConnection!
   # gauges: [Gauge]!
   createdAt: Date
   updatedAt: Date
+}
+
+type SourceRegionConnection {
+  nodes: [Region]!
+  count: Int
 }
 
 input SourceInput {
@@ -26,7 +31,7 @@ input SourceInput {
   script: String!
   cron: String
   harvestMode: HarvestMode!
-  # regions: [RefInput]
+  regions: [RefInput]
   url: String
   enabled: Boolean
 }

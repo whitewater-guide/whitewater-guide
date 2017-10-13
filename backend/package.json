@@ -61,6 +61,7 @@
     "pg": "^6.4.1",
     "pretty-error": "^2.1.1",
     "sqlstring": "^2.2.0",
+    "treeize": "^2.1.2",
     "valid-url": "^1.0.9",
     "wkx": "^0.4.2"
   },

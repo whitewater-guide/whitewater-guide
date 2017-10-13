@@ -13,6 +13,7 @@ export const NEW_SOURCE: SourceInput = {
   harvestMode: HarvestMode.ONE_BY_ONE,
   enabled: false,
   url: null,
+  regions: [],
 };
 
 export interface WithSourceOptions {

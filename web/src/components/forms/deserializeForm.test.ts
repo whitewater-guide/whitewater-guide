@@ -28,11 +28,22 @@ const region = {
       createdAt: '2017-10-10T10:16:34.629Z',
     },
   ],
+  sources: {
+    count: 1,
+    nodes: [
+      {
+        __typename: 'Source',
+        id: 'source_id',
+        language: 'en',
+        name: 'source_name',
+      },
+    ],
+  },
 };
 
 let result: any;
 
-const deserializer = deserializeForm(['description'], ['pois']);
+const deserializer = deserializeForm(['description'], ['pois'], ['sources']);
 
 beforeEach(() => {
   result = deserializer(region);
@@ -74,6 +85,17 @@ it('should omit language from nested object', () => {
 it('should omit timestamps from nested object', () => {
   expect(result!.pois[0]).not.toHaveProperty('createdAt');
   expect(result!.pois[0]).not.toHaveProperty('updatedAt');
+});
+
+it('should transform connections', () => {
+  expect(result.sources).toEqual([{ id: 'source_id', name: 'source_name' }]);
+});
+
+it('should transform connections without nodes', () => {
+  const { sources, ...rest } = region;
+  const input = { ...rest, sources: [] };
+  const output: any = deserializer(input);
+  expect(output.sources).toEqual([]);
 });
 
 it('should match snapshot', () => {

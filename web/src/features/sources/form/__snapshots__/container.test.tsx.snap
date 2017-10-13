@@ -1,23 +1,52 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`should have regions list 1`] = `
+Object {
+  "list": Array [
+    Object {
+      "__typename": "Region",
+      "hidden": true,
+      "id": "7fbe024f-3316-4265-a6e8-c65a837e308a",
+      "language": "Esse blanditiis natus",
+      "name": "Qui itaque",
+      "riversCount": 557,
+      "sectionsCount": 601,
+      Symbol(id): "Region:7fbe024f-3316-4265-a6e8-c65a837e308a",
+    },
+    Object {
+      "__typename": "Region",
+      "hidden": false,
+      "id": "afc51b8e-ced1-4d04-80ea-096af683b452",
+      "language": "Dolor fugiat velit",
+      "name": "Aperiam placeat",
+      "riversCount": 978,
+      "sectionsCount": 321,
+      Symbol(id): "Region:afc51b8e-ced1-4d04-80ea-096af683b452",
+    },
+  ],
+  "loading": false,
+  "refetch": [Function],
+}
+`;
+
 exports[`should have scripts list 1`] = `
 Object {
   "list": Array [
     Object {
       "__typename": "Script",
-      "error": "Labore explicabo",
-      "harvestMode": "allAtOnce",
-      "id": "Asperiores quisquam",
-      "name": "Alias magni corporis",
-      Symbol(id): "Script:Asperiores quisquam",
+      "error": "Et aspernatur",
+      "harvestMode": "oneByOne",
+      "id": "Ullam veniam ducimus",
+      "name": "Modi odit architecto",
+      Symbol(id): "Script:Ullam veniam ducimus",
     },
     Object {
       "__typename": "Script",
-      "error": "Nulla quam ipsam",
-      "harvestMode": "allAtOnce",
-      "id": "Amet iure",
-      "name": "Libero qui",
-      Symbol(id): "Script:Amet iure",
+      "error": "Cum repudiandae",
+      "harvestMode": "oneByOne",
+      "id": "Ut quis",
+      "name": "Magni cupiditate",
+      Symbol(id): "Script:Ut quis",
     },
   ],
   "loading": false,
@@ -32,6 +61,16 @@ Object {
   "harvestMode": "allAtOnce",
   "id": "7fbe024f-3316-4265-a6e8-c65a837e308a",
   "name": "Esse blanditiis natus",
+  "regions": Array [
+    Object {
+      "id": "1420ea19-7af6-483b-952a-dd600c9fab44",
+      "name": "Architecto ducimus",
+    },
+    Object {
+      "id": "6e14e412-901a-4e3e-9479-19992f94b318",
+      "name": "Esse ut",
+    },
+  ],
   "script": "Delectus et ipsam",
   "termsOfUse": EditorState {
     "_immutable": Object {
@@ -158,6 +197,7 @@ Object {
   "harvestMode": "oneByOne",
   "id": null,
   "name": "",
+  "regions": Array [],
   "script": "",
   "termsOfUse": null,
   "url": null,

@@ -1,4 +1,5 @@
 export * from './Checkbox';
+export * from './ChipInput';
 export * from './DraftEditor';
 export * from './DrawingMapField';
 export * from './PointInput';

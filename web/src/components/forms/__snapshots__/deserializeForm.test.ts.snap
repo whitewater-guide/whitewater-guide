@@ -134,5 +134,11 @@ Object {
     1,
     2,
   ],
+  "sources": Array [
+    Object {
+      "id": "source_id",
+      "name": "source_name",
+    },
+  ],
 }
 `;

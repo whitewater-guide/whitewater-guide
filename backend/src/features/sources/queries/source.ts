@@ -1,5 +1,7 @@
 import { isAdminResolver } from '../../../apollo';
 import db from '../../../db';
+import foldResult from '../foldResult';
+import { buildQuery } from '../queryBuilder';
 
 interface SourceQuery {
   id: string;
@@ -7,8 +9,11 @@ interface SourceQuery {
 }
 
 const source = isAdminResolver.createResolver(
-  (root, { id, language = 'en' }: SourceQuery, context) =>
-    db().table('sources_view').select().where({ id, language }).first('*'),
+  async (root, { id, language }: SourceQuery, context, info) => {
+    const query = buildQuery(db(), info, context, id, language);
+    const result = await query.first();
+    return foldResult(result);
+  },
 );
 
 export default source;

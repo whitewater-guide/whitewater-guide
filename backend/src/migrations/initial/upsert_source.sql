@@ -38,6 +38,13 @@ BEGIN
   RETURNING source_id
     INTO upserted_source_id;
 
+  -- delete all existing source -> regions connection for this source
+  DELETE FROM sources_regions WHERE source_id = upserted_source_id;
+  -- insert regions connections
+  INSERT INTO sources_regions(source_id, region_id)
+  SELECT upserted_source_id, regions_json.id :: UUID
+  FROM json_to_recordset(src -> 'regions') as regions_json(id text);
+
   -- return the result
   SELECT json_agg(sources_view)
   FROM sources_view

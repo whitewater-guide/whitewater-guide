@@ -17,7 +17,17 @@ const inputWithDraft = {
   description: EditorState.createWithContent(ContentState.createFromText('foo')),
 };
 
-const serializer = serializeForm(['description']);
+const inputWithConnections = {
+  ...inputWithDraft,
+  sources: [{
+    __typename: 'Source',
+    id: 'source_id',
+    name: 'Source name',
+    language: 'en',
+  }],
+};
+
+const serializer = serializeForm(['description'], ['sources']);
 
 it('should handle undefined input', () => {
   expect(serializer(undefined)).toBeNull();
@@ -31,6 +41,10 @@ it('should transform draft.js into markdown string', () => {
   expect(serializer(inputWithDraft)!.description).toBe('foo');
 });
 
+it('should strip connections to ids only', () => {
+  expect(serializer(inputWithConnections)!.sources).toEqual([{ id: 'source_id' }]);
+});
+
 it('should match snapshot', () => {
-  expect(serializer(inputWithDraft)).toMatchSnapshot();
+  expect(serializer(inputWithConnections)).toMatchSnapshot();
 });

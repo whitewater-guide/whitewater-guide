@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getPrimitives should match snapshot 1`] = `
+Array [
+  "tablename.camel_case",
+  "tablename.snake_case",
+  "tablename.regular",
+  "tablename.everyone",
+]
+`;

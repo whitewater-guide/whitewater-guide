@@ -66,7 +66,9 @@ describe('superadmin', () => {
     expect(source.id).toBe(galiciaId);
     expect(noTimestamps(source)).toMatchSnapshot();
   });
+});
 
+describe('i18n', () => {
   test('should be able to specify language', async () => {
     const result = await runQuery(query, { id: galiciaId, language: 'ru' }, superAdminContext);
     expect(result.data!.source.name).toBe('Галисия');
@@ -76,5 +78,42 @@ describe('superadmin', () => {
     const result = await runQuery(query, { id: galiciaId, language: 'pt' }, superAdminContext);
     expect(result.data!.source.cron).toBe('0 * * * *');
     expect(result.data!.source.name).toBe('Not translated');
+  });
+});
+
+describe('connections', () => {
+  test('should return regions', async () => {
+    const q = `
+      query sourceDetails($id: ID){
+        source(id: $id) {
+          id
+          language
+          name
+          regions {
+            count
+            nodes {
+              id
+              language
+              name
+            }
+          }
+        }
+      }
+    `;
+    const result = await runQuery(q, { id: galiciaId }, superAdminContext);
+    expect(result.errors).toBeUndefined();
+    const source = result.data!.source;
+    expect(source).toEqual(expect.objectContaining({
+      id: '6d0d717e-aa9d-11e7-abc4-cec278b6b50a',
+      name: 'Galicia',
+      language: 'en',
+      regions: {
+        count: 2,
+        nodes: [
+          { id: 'b968e2b2-76c5-11e7-b5a5-be2e44b06b34', language: 'en', name: 'Hidden region' },
+          { id: 'bd3e10b6-7624-11e7-b5a5-be2e44b06b34', language: 'en', name: 'Galicia' },
+        ],
+      },
+    }));
   });
 });
