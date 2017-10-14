@@ -8,18 +8,17 @@ import { DeleteButton } from '../DeleteButton';
 import { AdminColumn } from './AdminColumn';
 import { RawTable } from './RawTable';
 
-export type TableProps<DeleteHandle extends string, TResource extends NamedResource> =
-  WithDeleteMutation<DeleteHandle> &
+export type TableProps<TResource extends NamedResource> =
   Partial<VTableProps> &
   {
     list: TResource[];
     onResourceClick: (id: string) => void;
     resourceType: ResourceType;
-    deleteHandle: DeleteHandle;
+    deleteHandle: (id: string) => void;
   };
 
 export class Table<DeleteHandle extends string, TResource extends NamedResource>
-  extends React.PureComponent<TableProps<DeleteHandle, TResource>> {
+  extends React.PureComponent<TableProps<TResource>> {
 
   rowGetter = ({ index }: Index) => this.props.list[index];
 
@@ -30,7 +29,7 @@ export class Table<DeleteHandle extends string, TResource extends NamedResource>
       <Link to={`/${this.props.resourceType}s/${props.rowData.id}/settings`}>
         <FontIcon className="material-icons">mode_edit</FontIcon>
       </Link>
-      <DeleteButton id={props.rowData.id} deleteHandler={this.props[this.props.deleteHandle]} />
+      <DeleteButton id={props.rowData.id} deleteHandler={this.props.deleteHandle} />
     </span>
   );
 

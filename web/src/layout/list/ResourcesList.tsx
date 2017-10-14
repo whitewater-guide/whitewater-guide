@@ -7,14 +7,13 @@ import { NamedResource } from '../../ww-commons';
 import ListAdminFooter from './ListAdminFooter';
 
 export class ResourcesList<DeleteHandle extends string, TResource extends NamedResource> extends
-  React.PureComponent<TableProps<DeleteHandle, TResource>> {
+  React.PureComponent<TableProps<TResource>> {
 
   table = ({ width, height }: Dimensions) => {
     const CustomTable = Table as new () => Table<DeleteHandle, TResource>;
-    const props = this.props as TableProps<DeleteHandle, TResource>;
     return (
       <CustomTable
-        {...props}
+        {...this.props}
         width={width}
         height={height}
       >
@@ -24,7 +23,7 @@ export class ResourcesList<DeleteHandle extends string, TResource extends NamedR
   };
 
   render() {
-    const { resourceType, list } = this.props as TableProps<DeleteHandle, TResource>;
+    const { resourceType, list } = this.props;
     return (
       <Content card>
         <CardHeader title={`${upperFirst(resourceType)}s list`} />
