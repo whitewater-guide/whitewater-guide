@@ -1,20 +1,14 @@
 import { GraphQLResolveInfo } from 'graphql';
-import { baseResolver, Context, ForbiddenError } from '../../../apollo';
-import db from '../../../db';
+import { baseResolver, Context, ForbiddenError, NodeQuery } from '../../../apollo';
 import { isAdmin } from '../../users';
 import { buildQuery } from '../queryBuilder';
 import { RegionRaw } from '../types';
 
-interface RegionQuery {
-  id: string;
-  language?: string;
-}
-
 const region = baseResolver.createResolver(
-  async (root, { id, language = 'en' }: RegionQuery, context: Context, info: GraphQLResolveInfo) => {
+  async (root, args: NodeQuery, context: Context, info: GraphQLResolveInfo) => {
     const { user } = context;
-    const query = buildQuery(db(), info, context);
-    const result: RegionRaw | null = await query.where({ id, language }).first();
+    const query = buildQuery({ info, context, ...args });
+    const result: RegionRaw | null = await query.first();
     if (result && result.hidden && !isAdmin(user)) {
       throw new ForbiddenError({ message: 'This region is not yet available for public' });
     }

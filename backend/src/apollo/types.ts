@@ -8,3 +8,11 @@ export type FieldResolvers<TRaw, TOut> = {
 export interface Context {
   user?: UserRaw;
 }
+
+export interface QueryWithLanguage {
+  language?: string;
+}
+
+export interface NodeQuery extends QueryWithLanguage {
+  id: string;
+}

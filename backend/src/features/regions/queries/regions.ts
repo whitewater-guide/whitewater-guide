@@ -1,16 +1,13 @@
-import { baseResolver } from '../../../apollo';
-import db from '../../../db';
+import { baseResolver, QueryWithLanguage } from '../../../apollo';
 import { isAdmin } from '../../users';
 import { buildQuery } from '../queryBuilder';
 
 const sources = baseResolver.createResolver(
-  (root, args, context, info) => {
+  (root, args: QueryWithLanguage, context, info) => {
     const { user } = context;
-    const { language = 'en' } = args;
-    let query = buildQuery(db(), info, context);
-    query = query.orderBy('regions_view.name').where({ language });
+    let query = buildQuery({ info, context, ...args });
     if (!isAdmin(user)) {
-      query = query.where({ hidden: false });
+      query = query.where('regions_view.hidden', false);
     }
     return query;
   },

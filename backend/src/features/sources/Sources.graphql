@@ -24,6 +24,11 @@ type SourceRegionConnection {
   count: Int
 }
 
+type SourceGaugeConnection {
+  nodes: [Gauge]!
+  count: Int
+}
+
 input SourceInput {
   id: ID
   name: String!

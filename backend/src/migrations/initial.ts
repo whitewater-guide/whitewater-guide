@@ -53,8 +53,8 @@ export const up = async (db: Knex) => {
       .references('id')
       .inTable('sources')
       .onDelete('CASCADE');
-    table.specificType('language', 'language_code').notNullable().defaultTo('en');
-    table.string('name').notNullable();
+    table.specificType('language', 'language_code').notNullable().defaultTo('en').index();
+    table.string('name').notNullable().index();
     table.text('terms_of_use');
     table.primary(['source_id', 'language']);
     table.timestamps(false, true);
@@ -77,8 +77,8 @@ export const up = async (db: Knex) => {
       .references('id')
       .inTable('regions')
       .onDelete('CASCADE');
-    table.specificType('language', 'language_code').notNullable().defaultTo('en');
-    table.string('name').notNullable();
+    table.specificType('language', 'language_code').notNullable().defaultTo('en').index();
+    table.string('name').notNullable().index();
     table.text('description');
     table.string('season');
     table.primary(['region_id', 'language']);
@@ -100,8 +100,8 @@ export const up = async (db: Knex) => {
       .references('id')
       .inTable('points')
       .onDelete('CASCADE');
-    table.specificType('language', 'language_code').notNullable().defaultTo('en');
-    table.string('name');
+    table.specificType('language', 'language_code').notNullable().defaultTo('en').index();
+    table.string('name').index();
     table.text('description');
     table.primary(['point_id', 'language']);
   });
@@ -109,9 +109,9 @@ export const up = async (db: Knex) => {
   // GAUGES
   await db.schema.createTableIfNotExists('gauges', (table) => {
     table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
-    table.uuid('source_id').notNullable().references('id').inTable('sources').onDelete('CASCADE');
+    table.uuid('source_id').notNullable().references('id').inTable('sources').onDelete('CASCADE').index();
     table.uuid('location_id').references('id').inTable('points').onDelete('CASCADE');
-    table.string('code').notNullable();
+    table.string('code').notNullable().index();
     table.unique(['source_id', 'code']);
     table.string('level_unit');
     table.string('flow_unit');
@@ -128,9 +128,9 @@ export const up = async (db: Knex) => {
       .references('id')
       .inTable('gauges')
       .onDelete('CASCADE');
-    table.specificType('language', 'language_code').notNullable().defaultTo('en');
+    table.specificType('language', 'language_code').notNullable().defaultTo('en').index();
     table.primary(['gauge_id', 'language']);
-    table.string('name').notNullable();
+    table.string('name').notNullable().index();
     table.timestamps(false, true);
   });
   await addUpdatedAtTrigger(db, 'gauges');
