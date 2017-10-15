@@ -1,21 +1,9 @@
-import { GraphQLFieldResolver } from 'graphql';
-
-const gauges: GraphQLFieldResolver<any, any> = (root, args, context) => {
-  return [];
-};
-
-const gauge: GraphQLFieldResolver<any, any> = (root, args, context) => {
-  return null;
-};
-
-const countGauges: GraphQLFieldResolver<any, any> = (root, args, context) => {
-  return 0;
-};
+import Gauge from './fields';
+// import Mutation from './mutations';
+import Query from './queries';
 
 export const gaugesResolvers = {
-  Query: {
-    gauges,
-    gauge,
-    countGauges,
-  },
+  Gauge,
+  Query,
+  // Mutation,
 };

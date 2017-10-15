@@ -1,10 +1,9 @@
 import { NamedResource, Timestamped } from '../../core/types';
-import { Measurement } from '../measurements';
+import { Point, PointInput } from '../points';
+import { Source } from '../sources';
 
 export interface Gauge extends NamedResource, Timestamped {
   code: string;
-  // source: Source!
-  // location: Point
   levelUnit: string | null;
   flowUnit: string | null;
   requestParams: any;
@@ -14,12 +13,15 @@ export interface Gauge extends NamedResource, Timestamped {
   lastFlow: number | null;
   url: string | null;
   enabled: boolean;
-  measurements?: Measurement[];
+  location: Point;
+  source: Source;
+  // measurements?: Measurement[];
 }
 
 export interface GaugeInput {
   id: string;
   sourceId: string;
+  location: PointInput | null;
   name: string;
   code: string;
   levelUnit?: string | null;

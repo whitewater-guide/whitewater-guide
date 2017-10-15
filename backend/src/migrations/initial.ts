@@ -62,35 +62,6 @@ export const up = async (db: Knex) => {
   await addUpdatedAtTrigger(db, 'sources');
   await addUpdatedAtTrigger(db, 'sources_translations');
 
-  // GAUGES
-  await db.schema.createTableIfNotExists('gauges', (table) => {
-    table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
-    table.uuid('source_id').notNullable().references('id').inTable('sources').onDelete('CASCADE');
-    table.string('code').notNullable();
-    table.unique(['source_id', 'code']);
-    table.string('level_unit');
-    table.string('flow_unit');
-    table.string('cron');
-    table.string('request_params');
-    table.string('url');
-    table.boolean('enabled').notNullable().defaultTo(false);
-    table.timestamps(false, true);
-  });
-  await db.schema.createTableIfNotExists('gauges_translations', (table) => {
-    table
-      .uuid('gauge_id')
-      .notNullable()
-      .references('id')
-      .inTable('gauges')
-      .onDelete('CASCADE');
-    table.specificType('language', 'language_code').notNullable().defaultTo('en');
-    table.primary(['gauge_id', 'language']);
-    table.string('name').notNullable();
-    table.timestamps(false, true);
-  });
-  await addUpdatedAtTrigger(db, 'gauges');
-  await addUpdatedAtTrigger(db, 'gauges_translations');
-
   // Regions
   await db.schema.createTableIfNotExists('regions', (table) => {
     table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
@@ -135,6 +106,36 @@ export const up = async (db: Knex) => {
     table.primary(['point_id', 'language']);
   });
 
+  // GAUGES
+  await db.schema.createTableIfNotExists('gauges', (table) => {
+    table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
+    table.uuid('source_id').notNullable().references('id').inTable('sources').onDelete('CASCADE');
+    table.uuid('location_id').references('id').inTable('points').onDelete('CASCADE');
+    table.string('code').notNullable();
+    table.unique(['source_id', 'code']);
+    table.string('level_unit');
+    table.string('flow_unit');
+    table.string('cron');
+    table.specificType('request_params', 'json');
+    table.string('url');
+    table.boolean('enabled').notNullable().defaultTo(false);
+    table.timestamps(false, true);
+  });
+  await db.schema.createTableIfNotExists('gauges_translations', (table) => {
+    table
+      .uuid('gauge_id')
+      .notNullable()
+      .references('id')
+      .inTable('gauges')
+      .onDelete('CASCADE');
+    table.specificType('language', 'language_code').notNullable().defaultTo('en');
+    table.primary(['gauge_id', 'language']);
+    table.string('name').notNullable();
+    table.timestamps(false, true);
+  });
+  await addUpdatedAtTrigger(db, 'gauges');
+  await addUpdatedAtTrigger(db, 'gauges_translations');
+
   // Points <-> regions many-to-many
   await db.schema.createTableIfNotExists('regions_points', (table) => {
     table.uuid('point_id').notNullable().references('id').inTable('points').onDelete('CASCADE');
@@ -157,8 +158,8 @@ export const up = async (db: Knex) => {
   await runSqlFile(db, './src/migrations/initial/upsert_points.sql');
   await runSqlFile(db, './src/migrations/initial/upsert_region.sql');
   await runSqlFile(db, './src/migrations/initial/regions_points_trigger.sql');
-  await runSqlFile(db, './src/migrations/initial/gauges_view.sql');
   await runSqlFile(db, './src/migrations/initial/sources_view.sql');
+  await runSqlFile(db, './src/migrations/initial/gauges_view.sql');
   await runSqlFile(db, './src/migrations/initial/upsert_source.sql');
 };
 

@@ -43,7 +43,6 @@ describe('effects', () => {
   });
 
   test('should return deleted source id', () => {
-    console.log(result.data);
     expect(result.data.removeSource).toBe(galicia.id);
   });
 
