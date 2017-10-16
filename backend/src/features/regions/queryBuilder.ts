@@ -12,7 +12,6 @@ export const getRegionColumns = (topLevelFields: Array<keyof Region>, context: C
 
 export const buildQuery = (options: Partial<QueryBuilderOptions<Region>>) =>
   buildRootQuery({
-    info: options.info!,
     context: options.context!,
     table: 'regions_view',
     customFieldMap,

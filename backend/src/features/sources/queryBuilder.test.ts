@@ -5,18 +5,7 @@ import { buildQuery } from './queryBuilder';
 import gqf = require('graphql-fields');
 
 const graphqlFields: jest.Mock<any> = gqf as any;
-
-const connections = {
-  regions: {
-    nodes: {
-      __typename: {},
-      id: {},
-      language: {},
-      name: {},
-    },
-    count: {},
-  },
-};
+jest.mock('graphql-fields', () => jest.fn());
 
 const primitives = {
   __typename: {},
@@ -32,18 +21,32 @@ const primitives = {
   updatedAt: {},
 };
 
-jest.mock('graphql-fields', () => jest.fn());
+const connections = {
+  regions: {
+    nodes: {
+      __typename: {},
+      id: {},
+      language: {},
+      name: {},
+    },
+    count: {},
+  },
+};
+
+const info: GraphQLResolveInfo = {} as any;
+
+const options = { info, context: adminContext, knex: db(true) };
 
 it('should build correct query without connections', () => {
   graphqlFields.mockReturnValueOnce(primitives);
-  const query = buildQuery(db(true), {} as GraphQLResolveInfo, adminContext);
+  const query = buildQuery(options);
   const sql = query.toQuery();
   expect(sql).toMatchSnapshot();
 });
 
 it('should build correct query with connections', () => {
   graphqlFields.mockReturnValueOnce({ ...primitives, ...connections });
-  const query = buildQuery(db(true), {} as GraphQLResolveInfo, adminContext);
+  const query = buildQuery(options);
   const sql = query.toQuery();
   expect(sql).toMatchSnapshot();
 });

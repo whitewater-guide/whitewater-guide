@@ -110,8 +110,8 @@ describe('connections', () => {
       regions: {
         count: 2,
         nodes: [
-          { id: 'b968e2b2-76c5-11e7-b5a5-be2e44b06b34', language: 'en', name: 'Hidden region' },
           { id: 'bd3e10b6-7624-11e7-b5a5-be2e44b06b34', language: 'en', name: 'Galicia' },
+          { id: 'b968e2b2-76c5-11e7-b5a5-be2e44b06b34', language: 'en', name: 'Hidden region' },
         ],
       },
     }));

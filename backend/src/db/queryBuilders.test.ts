@@ -2,7 +2,14 @@ import { Context } from '../apollo';
 import { adminContext, anonContext } from '../test/context';
 import { isAdmin } from '../ww-commons';
 import db from './db';
-import { buildRootQuery, getPrimitives, QueryBuilderOptions } from './queryBuilders';
+import {
+  buildConnectionField,
+  buildConnectionSubquery,
+  buildRootQuery,
+  ConnectionBuilderOptions,
+  getPrimitives,
+  QueryBuilderOptions,
+} from './queryBuilders';
 import gqf = require('graphql-fields');
 
 jest.mock('graphql-fields', () => jest.fn());
@@ -64,6 +71,15 @@ describe('buildRootQuery', () => {
     expect(query.toQuery()).toEqual('select "tbl"."b_c" from "tbl"');
   });
 
+  it('should use fields tree if provided', () => {
+    const query = buildRootQuery({ ...commonOptions, info: undefined, fieldsTree: { bC: {} } });
+    expect(query.toQuery()).toEqual('select "tbl"."b_c" from "tbl"');
+  });
+
+  it('should throw if no info or fieldsTree provided', () => {
+    expect(() => buildRootQuery({ ...commonOptions, info: undefined })).toThrow();
+  });
+
   it('should use english by default', () => {
     graphqlFields.mockReturnValueOnce({ name: {} });
     const query = buildRootQuery({ ...commonOptions, language: undefined });
@@ -108,8 +124,41 @@ describe('buildRootQuery', () => {
 
   it('should exclude connections', () => {
     graphqlFields.mockReturnValueOnce({ b: {}, connection: {}, c: {} });
-    const connections = { connection: () => null };
+    const connections = { connection: null };
     const query = buildRootQuery({ ...commonOptions, connections });
     expect(query.toQuery()).toEqual('select "tbl"."b", "tbl"."c" from "tbl"');
   });
+});
+
+describe('buildConnectionSubquery', () => {
+  it('should build correct sql without nodes', () => {
+    const result = buildConnectionSubquery('regions_connection_internal', false, db(true));
+    expect(result.toQuery()).toMatchSnapshot();
+  });
+
+  it('should build correct sql with nodes', () => {
+    const result = buildConnectionSubquery('regions_connection_internal', true, db(true));
+    expect(result.toQuery()).toMatchSnapshot();
+  });
+});
+
+describe('buildConnectionField', () => {
+  const options: ConnectionBuilderOptions = {
+    knex: db(true),
+    table: 'tbl',
+    join: (table, query) => {
+      return query.where(`${table}.fk`, '=', db(true).raw('??', ['src.id']));
+    },
+  };
+
+  it('should build simple connection field select', () => {
+    const result = buildConnectionField(options).toQuery();
+    expect(result).toMatchSnapshot();
+  });
+
+  it('should include limit and offset', () => {
+    const result = buildConnectionField({ ...options, limit: 10, offset: 20 }).toQuery();
+    expect(result).toMatchSnapshot();
+  });
+
 });
