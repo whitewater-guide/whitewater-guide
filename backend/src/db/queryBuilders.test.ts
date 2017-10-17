@@ -1,10 +1,12 @@
 import { Context } from '../apollo';
 import { adminContext, anonContext } from '../test/context';
 import { isAdmin } from '../ww-commons';
+import * as Knex from 'knex';
 import db from './db';
 import {
-  buildConnectionField,
-  buildConnectionSubquery,
+  attachConnection,
+  buildConnectionColumn,
+  buildConnectionJSONQuery,
   buildRootQuery,
   ConnectionBuilderOptions,
   getPrimitives,
@@ -128,21 +130,31 @@ describe('buildRootQuery', () => {
     const query = buildRootQuery({ ...commonOptions, connections });
     expect(query.toQuery()).toEqual('select "tbl"."b", "tbl"."c" from "tbl"');
   });
+
+  it('should attach connections', () => {
+    graphqlFields.mockReturnValueOnce({ b: {}, c: { id: {}, fk: {} } });
+    const connections = { c: {
+      build: () => db(true).select('*').from('k'),
+      join: (t: any, q: any) => q.where(`${t}.fk`, '=', db(true).raw('??', ['tbl.id'])),
+    }};
+    const query = buildRootQuery({ ...commonOptions, connections });
+    expect(query.toQuery()).toMatchSnapshot();
+  });
 });
 
-describe('buildConnectionSubquery', () => {
+describe('buildConnectionJSONQuery', () => {
   it('should build correct sql without nodes', () => {
-    const result = buildConnectionSubquery('regions_connection_internal', false, db(true));
+    const result = buildConnectionJSONQuery('regions_connection_internal', false, db(true));
     expect(result.toQuery()).toMatchSnapshot();
   });
 
   it('should build correct sql with nodes', () => {
-    const result = buildConnectionSubquery('regions_connection_internal', true, db(true));
+    const result = buildConnectionJSONQuery('regions_connection_internal', true, db(true));
     expect(result.toQuery()).toMatchSnapshot();
   });
 });
 
-describe('buildConnectionField', () => {
+describe('buildConnectionColumn', () => {
   const options: ConnectionBuilderOptions = {
     knex: db(true),
     table: 'tbl',
@@ -152,13 +164,50 @@ describe('buildConnectionField', () => {
   };
 
   it('should build simple connection field select', () => {
-    const result = buildConnectionField(options).toQuery();
+    const result = buildConnectionColumn(options).toQuery();
     expect(result).toMatchSnapshot();
   });
 
   it('should include limit and offset', () => {
-    const result = buildConnectionField({ ...options, limit: 10, offset: 20 }).toQuery();
+    const result = buildConnectionColumn({ ...options, limit: 10, offset: 20 }).toQuery();
     expect(result).toMatchSnapshot();
   });
 
+});
+
+describe('attachConnection', () => {
+  const rootQuery = db(true).select(['source.id', 'sources.name']).from('sources');
+  const builder = (opts: QueryBuilderOptions<any>) => buildRootQuery({
+    ...opts,
+    table: 'regions',
+    language: '', // shorten query
+    orderBy: '', // shorten query
+  });
+  // one-to-many relation, for shorter query
+  const joiner = (table: string, query: Knex.QueryBuilder) =>
+    query.where(`${table}.source_id`, '=', db(true).raw('??', ['source.id']));
+
+  let options: any;
+  beforeEach(() => {
+    options = {
+      query: rootQuery.clone(),
+      language: '', // for shorter query
+      fieldsTree: { nodes: { id: {}, name: {} }, count: {} },
+      context: adminContext,
+      name: 'regions',
+      knex: db(true),
+      join: joiner,
+      build: builder,
+    };
+  });
+
+  it('should modify root query', () => {
+    const result = attachConnection(options);
+    expect(result.toQuery()).toMatchSnapshot();
+  });
+
+  it('should query ids if nodes are not required', () => {
+    const result = attachConnection({ ...options, fieldsTree: { count: {} } });
+    expect(result.toQuery()).toMatchSnapshot();
+  });
 });

@@ -115,7 +115,7 @@ export const buildRootQuery = <T>(options: QueryBuilderOptions<T>): Knex.QueryBu
  * @param {Knex.Transaction | Knex} knex
  * @returns {Knex.QueryBuilder}
  */
-export const buildConnectionSubquery = (table: string, includeNodes = true, knex = db()) => {
+export const buildConnectionJSONQuery = (table: string, includeNodes = true, knex = db()) => {
   // Assumption: we can request count without nodes, but if we request nodes we also must request count
   const nodes = includeNodes ? knex.select(knex.raw(`json_agg(${table}.*)`)).from(table) : null;
   const count = includeNodes ?
@@ -129,15 +129,31 @@ export const buildConnectionSubquery = (table: string, includeNodes = true, knex
 };
 
 export interface ConnectionBuilderOptions {
+  /**
+   * Table from where connected nodes come, this is cte in the root query
+   */
   table: string;
+  /**
+   * Query modifier, that attaches join and where clauses to connected table to connect it to main table
+   */
   join: Joiner;
+  /**
+   * Include connected nodes list or just count
+   */
   includeNodes?: boolean;
   knex?: Knex;
   limit?: number;
   offset?: number;
 }
 
-export const buildConnectionField = (options: ConnectionBuilderOptions) => {
+/**
+ * This will build query, which can later be used as a select subquery for this connection in a main query
+ * For example, if you are querying source and need source name and regions connection
+ * In this case, the select clause will contain one column - source name, and another column - this subquery for regions
+ * @param {ConnectionBuilderOptions} options
+ * @returns {Knex.QueryBuilder}
+ */
+export const buildConnectionColumn = (options: ConnectionBuilderOptions) => {
   const {
     table,
     join,
@@ -146,7 +162,7 @@ export const buildConnectionField = (options: ConnectionBuilderOptions) => {
     limit,
     offset,
   } = options;
-  const result = buildConnectionSubquery(`${table}_internal`, includeNodes, knex);
+  const result = buildConnectionJSONQuery(`${table}_internal`, includeNodes, knex);
   return result.with(`${table}_internal`, (db2) => {
     let cte = db2.select(`${table}.*`, knex.raw(`count(${table}.*) OVER()`)).from(table);
     cte = join(table, cte);
@@ -161,16 +177,37 @@ export const buildConnectionField = (options: ConnectionBuilderOptions) => {
 };
 
 interface AttachConnectionOptions {
+  /**
+   * Root query
+   */
   query: Knex.QueryBuilder;
   context: Context;
   name: string;
+  /**
+   * Builder to build connected nodes query
+   */
   build: Builder;
+  /**
+   * Joiner to join connection query with root query
+   */
   join: Joiner;
   language: string;
+  /**
+   * This is fragment of root query graphql fields tree related to connection (nodes and count)
+   */
   fieldsTree: {[key: string]: any};
   knex?: Knex;
 }
 
+/**
+ * This function takes root query and connection.
+ * Connection is described with name, fieldsTree (originating from graphq-fields),
+ * build - function to build query for connected nodes (usually wrapper around buildQuery for other table)
+ * and join - function to join main query with connection subquery (as one-to-many or many-to-many relation)
+ * It returns modified orifinal one
+ * @param {AttachConnectionOptions} options
+ * @returns {Knex.QueryBuilder}
+ */
 export const attachConnection = (options: AttachConnectionOptions) => {
   const {
     query,
@@ -182,13 +219,16 @@ export const attachConnection = (options: AttachConnectionOptions) => {
     fieldsTree,
     knex,
   } = options;
-  const connection = buildConnectionField({
+  const connection = buildConnectionColumn({
     knex,
     table: `${name}_connection`,
     join,
     includeNodes: !!fieldsTree.nodes,
   });
   return query.with(`${name}_connection`, knex!.raw(build({
+      // If we need only count (nodes === undefined) then we don't need this CTE all together,
+      // but this requires extra code and logic, so just query ids
+      // TODO: in case of one-to many id is not enough, we need foreign key
       fieldsTree: fieldsTree.nodes || { id: {} },
       context,
       language,
