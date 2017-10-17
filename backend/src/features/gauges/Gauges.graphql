@@ -1,6 +1,7 @@
 type Gauge {
   id: ID!
   name: String!
+  language: String!
   code: String!
   location: Point
   levelUnit: String

@@ -1,10 +1,10 @@
 import { GraphQLResolveInfo } from 'graphql';
 import { baseResolver, Context, NodeQuery } from '../../../apollo';
-import { buildQuery } from '../queryBuilder';
+import { buildGaugeQuery } from '../queryBuilder';
 
 const gauge = baseResolver.createResolver(
   (root, args: NodeQuery, context: Context, info: GraphQLResolveInfo) =>
-    buildQuery({ info, context, ...args }).first(),
+    buildGaugeQuery({ info, context, ...args }).first(),
 );
 
 export default gauge;

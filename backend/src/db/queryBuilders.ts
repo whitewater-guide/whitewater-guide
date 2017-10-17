@@ -9,8 +9,14 @@ type ColumnMap<T> = {
   [field in keyof T]?: (context?: Context) => any;
 };
 
+interface ConnectionDescriptor {
+  build: Builder;
+  join: Joiner;
+  foreignKey?: string;
+}
+
 type ConnectionsMap<T> = {
-  [field in keyof T]?: { build: Builder, join: Joiner } | null;
+  [field in keyof T]?: ConnectionDescriptor | null;
 };
 
 type Builder = (options: Partial<QueryBuilderOptions<any>>) => Knex.QueryBuilder;
@@ -82,7 +88,7 @@ export const buildRootQuery = <T>(options: QueryBuilderOptions<T>): Knex.QueryBu
   result = result.select(primitiveColumns);
   Object.entries(connections).forEach(([connectionName, value]) => {
     if (value && rootFieldsTree[connectionName]) {
-      const { build, join } = value;
+      const { build, join, foreignKey } = value;
       attachConnection({
         knex,
         query: result,
@@ -92,6 +98,7 @@ export const buildRootQuery = <T>(options: QueryBuilderOptions<T>): Knex.QueryBu
         language,
         name: connectionName,
         fieldsTree: rootFieldsTree[connectionName],
+        foreignKey,
       });
     }
   });
@@ -188,6 +195,11 @@ interface AttachConnectionOptions {
    */
   build: Builder;
   /**
+   * In case of many-to-many connection this is not required, as join will happen through ids and junction table
+   * In case of one-to-many connection this is foreign key that references root query table from connected nodes table
+   */
+  foreignKey?: string;
+  /**
    * Joiner to join connection query with root query
    */
   join: Joiner;
@@ -217,6 +229,7 @@ export const attachConnection = (options: AttachConnectionOptions) => {
     build,
     join,
     fieldsTree,
+    foreignKey,
     knex,
   } = options;
   const connection = buildConnectionColumn({
@@ -225,11 +238,12 @@ export const attachConnection = (options: AttachConnectionOptions) => {
     join,
     includeNodes: !!fieldsTree.nodes,
   });
+  const fk = foreignKey ? { [foreignKey]: {} } : undefined;
+  // If we need only count (nodes === undefined) then we don't need this CTE all together,
+  // but this requires extra code and logic, so we always ask at least for id
+  const tree = { id: {}, ...fieldsTree.nodes, ...fk };
   return query.with(`${name}_connection`, knex!.raw(build({
-      // If we need only count (nodes === undefined) then we don't need this CTE all together,
-      // but this requires extra code and logic, so just query ids
-      // TODO: in case of one-to many id is not enough, we need foreign key
-      fieldsTree: fieldsTree.nodes || { id: {} },
+      fieldsTree: tree,
       context,
       language,
       knex,

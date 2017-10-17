@@ -131,6 +131,16 @@ describe('buildRootQuery', () => {
     expect(query.toQuery()).toEqual('select "tbl"."b", "tbl"."c" from "tbl"');
   });
 
+  it('should not include connection when not asked by graphql', () => {
+    graphqlFields.mockReturnValueOnce({ b: {}, c: {} });
+    const connections = { connection: {
+      build: () => db(true).select('*').from('k'),
+      join: (t: any, q: any) => q.where(`${t}.fk`, '=', db(true).raw('??', ['tbl.id'])),
+    }};
+    const query = buildRootQuery({ ...commonOptions, connections });
+    expect(query.toQuery()).toEqual('select "tbl"."b", "tbl"."c" from "tbl"');
+  });
+
   it('should attach connections', () => {
     graphqlFields.mockReturnValueOnce({ b: {}, c: { id: {}, fk: {} } });
     const connections = { c: {
@@ -183,9 +193,6 @@ describe('attachConnection', () => {
     language: '', // shorten query
     orderBy: '', // shorten query
   });
-  // one-to-many relation, for shorter query
-  const joiner = (table: string, query: Knex.QueryBuilder) =>
-    query.where(`${table}.source_id`, '=', db(true).raw('??', ['source.id']));
 
   let options: any;
   beforeEach(() => {
@@ -196,18 +203,30 @@ describe('attachConnection', () => {
       context: adminContext,
       name: 'regions',
       knex: db(true),
-      join: joiner,
       build: builder,
     };
   });
 
-  it('should modify root query', () => {
-    const result = attachConnection(options);
+  it('should modify root query for many-to-may connections', () => {
+    const joiner = (table: string, query: Knex.QueryBuilder) =>
+      query
+        .innerJoin('sources_regions', `${table}.id`, 'sources_regions.region_id')
+        .where('sources_regions.source_id', '=', db(true).raw('??', ['source.id']));
+    const result = attachConnection({ ...options, join: joiner });
+    expect(result.toQuery()).toMatchSnapshot();
+  });
+
+  it('should modify root query for one-to-many connections', () => {
+    const joiner = (table: string, query: Knex.QueryBuilder) =>
+      query.where(`${table}.source_id`, '=', db(true).raw('??', ['source.id']));
+    const result = attachConnection({ ...options, join: joiner, foreignKey: 'source_id' });
     expect(result.toQuery()).toMatchSnapshot();
   });
 
   it('should query ids if nodes are not required', () => {
-    const result = attachConnection({ ...options, fieldsTree: { count: {} } });
+    // this joiner is OK, since we don't need nodes, just count in this test
+    const joiner = (table: string, query: Knex.QueryBuilder) => query;
+    const result = attachConnection({ ...options, join: joiner, fieldsTree: { count: {} } });
     expect(result.toQuery()).toMatchSnapshot();
   });
 });

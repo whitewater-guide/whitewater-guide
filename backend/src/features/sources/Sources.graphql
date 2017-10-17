@@ -14,7 +14,7 @@ type Source {
   url: String
   enabled: Boolean
   regions: SourceRegionConnection!
-  # gauges: [Gauge]!
+  gauges: SourceGaugeConnection!
   createdAt: Date
   updatedAt: Date
 }

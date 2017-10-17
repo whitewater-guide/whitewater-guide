@@ -116,4 +116,33 @@ describe('connections', () => {
       },
     }));
   });
+
+  test('should return gauges', async () => {
+    const q = `
+      query sourceDetails($id: ID){
+        source(id: $id) {
+          id
+          language
+          name
+          gauges {
+            count
+            nodes {
+              id
+              language
+              name
+              code
+            }
+          }
+        }
+      }
+    `;
+    const result = await runQuery(q, { id: galiciaId }, superAdminContext);
+    expect(result.errors).toBeUndefined();
+    const source = result.data!.source;
+    expect(source.gauges.count).toBe(2);
+    expect(source.gauges.nodes).toEqual([
+      { id: 'aba8c106-aaa0-11e7-abc4-cec278b6b50a', name: 'Galicia gauge 1', code: 'gal1', language: 'en' },
+      { id: 'b77ef1b2-aaa0-11e7-abc4-cec278b6b50a', name: 'Galicia gauge 2', code: 'gal2', language: 'en' },
+    ]);
+  });
 });
