@@ -4,7 +4,7 @@ import { graphql, OperationOption } from 'react-apollo';
 
 export interface ErrorItem {
   error: any;
-  refetch: () => void;
+  refetch?: () => void;
 }
 
 export interface WithErrors {

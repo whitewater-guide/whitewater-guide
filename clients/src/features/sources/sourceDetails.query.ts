@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export default gql`
-  query sourceDetails($id: ID!, $language:String) {
-    source(id: $id, language: $language) {
+  query sourceDetails($sourceId: ID!, $language:String) {
+    source(id: $sourceId, language: $language) {
       id
       name
       language

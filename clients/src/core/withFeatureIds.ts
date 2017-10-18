@@ -3,8 +3,8 @@ import * as qs from 'qs';
 import { withProps } from 'recompose';
 import { isNative } from '../utils/isNative';
 
-type FeatureType = 'gauge' | 'region' | 'source' | 'river' | 'section';
-type FeatureIdType = 'gaugeId' | 'regionId' | 'sourceId' | 'riverId' | 'sectionId';
+export type FeatureType = 'gauge' | 'region' | 'source' | 'river' | 'section';
+export type FeatureIdType = 'gaugeId' | 'regionId' | 'sourceId' | 'riverId' | 'sectionId';
 
 const ALL_FEATURE_IDS: FeatureIdType[] = [
   'gaugeId',

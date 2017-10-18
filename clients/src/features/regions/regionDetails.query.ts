@@ -2,8 +2,8 @@ import gql from 'graphql-tag';
 import { RegionFragments } from './regionFraments';
 
 const REGION_DETAILS = gql`
-  query regionDetails($id: ID!, $language:String) {
-    region(id: $id, language: $language) {
+  query regionDetails($regionId: ID!, $language:String) {
+    region(id: $regionId, language: $language) {
       ...RegionCore
       ...RegionDescription
       ...RegionPOIs

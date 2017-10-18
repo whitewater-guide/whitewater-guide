@@ -1,8 +1,7 @@
 import { branch, compose, withProps } from 'recompose';
 import { HarvestMode, Source, SourceInput } from '../../../ww-commons';
-import { enhancedQuery } from '../../apollo';
-import { withFeatureIds } from '../../core';
-import REGION_DETAILS from './sourceDetails.query';
+import { WithNode, withSingleNode } from '../../apollo/withSingleNode';
+import SOURCE_DETAILS from './sourceDetails.query';
 
 export const NEW_SOURCE: SourceInput = {
   id: null,
@@ -20,69 +19,12 @@ export interface WithSourceOptions {
   errorOnMissingId?: boolean;
 }
 
-export interface WithSourceChildProps {
-  source: {
-    data: Source | null;
-    loading: boolean;
-  };
-  errors: {
-    [key: string]: {[key: string]: any};
-  };
-}
+export const withSource = (options: WithSourceOptions) => withSingleNode<'source', Source>({
+  resourceType: 'source',
+  alias: 'withSource',
+  query: SOURCE_DETAILS,
+  newResource: NEW_SOURCE,
+  ...options,
+});
 
-export interface WithSourceResult {
-  source: Source | null;
-}
-
-export interface WithSourceProps {
-  sourceId?: string;
-  language?: string;
-}
-
-/**
- *
- * @param options.errorOnMissingId (true) = Should error be added if sourceId is not found?
- * @returns High-order component
- */
-export function withSource(options: WithSourceOptions = {}) {
-  const { errorOnMissingId = true } = options;
-  return compose<WithSourceChildProps, any>(
-    withFeatureIds('source'),
-    // If no source was found, branch provides dummy source with error
-    branch<WithSourceProps>(
-      ({ sourceId }) => !!sourceId,
-      enhancedQuery<WithSourceResult, WithSourceProps, WithSourceChildProps>(
-        REGION_DETAILS,
-        {
-          options: ({ sourceId, language }) => ({
-            fetchPolicy: 'cache-and-network',
-            variables: { id: sourceId, language },
-          }),
-          props: ({ data }) => {
-            const { source, loading } = data!;
-            return {
-              source: {
-                data: source,
-                loading: loading && !source,
-              },
-            };
-          },
-          alias: 'withSource',
-        },
-      ),
-      withProps<WithSourceChildProps, WithSourceProps>(({ sourceId }) => (
-        {
-          source: {
-            data: NEW_SOURCE as any,
-            loading: false,
-          },
-          errors: errorOnMissingId ? {
-            sourceDetails: { message: `No source with id ${sourceId} was found` },
-          } : {},
-        }
-      )),
-    ),
-  );
-}
-
-export type WithSource = WithSourceProps & WithSourceChildProps;
+export type WithSource = WithNode<'source', Source>;

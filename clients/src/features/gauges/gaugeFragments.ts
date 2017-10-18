@@ -2,12 +2,10 @@ import { gql } from 'react-apollo';
 
 const Core = gql`
   fragment GaugeCore on Gauge {
-    _id
+    id
+    language
     name
     code
-    source {
-      _id
-    }
     levelUnit
     flowUnit
     url
@@ -17,7 +15,7 @@ const Core = gql`
 const Location = gql`
   fragment GaugeLocation on Gauge {
     location {
-      _id
+      id
       coordinates
     }
   }
@@ -25,6 +23,7 @@ const Location = gql`
 
 const HarvestInfo = gql`
   fragment GaugeHarvestInfo on Gauge {
+    enabled
     requestParams
     cron
   }
@@ -48,25 +47,17 @@ const Measurements = gql`
   }
 `;
 
-// TODO: remove when https://github.com/apollographql/graphql-anywhere/issues/38 is resolved
-const All = gql`
-  fragment GaugeAll on Gauge {
-    ...GaugeCore
-    ...GaugeLocation
-    ...GaugeHarvestInfo
-    ...GaugeLastMeasurements
-    ...GaugeMeasurements
-    enabled
+const Source = gql`
+  fragment GaugeSource on Gauge {
+    source {
+      id
+      language
+      name
+    }
   }
-  ${Core}
-  ${Location}
-  ${HarvestInfo}
-  ${LastMeasurements}
-  ${Measurements}
 `;
 
 export const GaugeFragments = {
-  All,
   Core,
   Location,
   HarvestInfo,
