@@ -16,7 +16,7 @@ export interface Source extends GrapqhlResource, Timestamped {
   harvestMode: HarvestMode;
   url: string | null;
   enabled: boolean | null;
-  // --- connetions
+  // --- connections
   regions?: Connection<Region>;
   gauges?: Connection<Gauge>;
 }

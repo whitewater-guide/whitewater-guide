@@ -1,6 +1,6 @@
 import { branch, compose, withProps } from 'recompose';
 import { HarvestMode, Source, SourceInput } from '../../../ww-commons';
-import { WithNode, withSingleNode } from '../../apollo/withSingleNode';
+import { WithNode, withSingleNode } from '../../apollo';
 import SOURCE_DETAILS from './sourceDetails.query';
 
 export const NEW_SOURCE: SourceInput = {
