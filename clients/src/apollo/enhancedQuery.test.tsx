@@ -66,6 +66,9 @@ describe('enhancedQuery', () => {
         details {
           field
         }
+        other {
+          otherField
+        }
       }
     `;
     const refetch = jest.fn();
