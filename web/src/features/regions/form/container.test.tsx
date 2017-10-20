@@ -19,19 +19,23 @@ afterEach(() => {
 });
 
 const mountWithOptions = (regionId?: string) => {
-  wrapped = mountForm({ form: regionForm, props: { regionId }, mockApollo: true });
+  const queries = regionId ? undefined : { region: () => null };
+  wrapped = mountForm({ form: regionForm, props: { regionId }, mockApollo: true, queries });
   receiver = wrapped.find(FormReceiver).first();
 };
 
 it('should match snapshot for new region', async () => {
   mountWithOptions();
   await flushPromises();
+  wrapped.update();
+  receiver = wrapped.find(FormReceiver).first();
   expect(receiver.prop('initialValues')).toMatchSnapshot();
 });
 
 it('should match snapshot for existing region', async () => {
   mountWithOptions('foo');
   await flushPromises();
+  wrapped.update();
   receiver = wrapped.find(FormReceiver).first();
   expect(receiver.prop('initialValues')).toMatchSnapshot();
 });

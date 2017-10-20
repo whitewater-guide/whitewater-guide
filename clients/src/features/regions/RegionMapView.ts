@@ -32,11 +32,11 @@ export default (
     compose(
       sectionsBatchLoader(),
       connect<RegionState, DispatchProps, WithRegion>(
-        (state, { region }: WithRegion) => state.persistent.regions[region.data!.id],
-        (dispatch, { region }: WithRegion) => ({
-          onSectionSelected: section => dispatch(selectSection({ regionId: region.data!.id, section })),
-          onPOISelected: poi => dispatch(selectPOI({ regionId: region.data!.id, poi })),
-          onBoundsSelected: bounds => dispatch(selectBounds({ regionId: region.data!.id, bounds })),
+        (state, { region }: WithRegion) => state.persistent.regions[region.node.id],
+        (dispatch, { regionId }: WithRegion) => ({
+          onSectionSelected: section => dispatch(selectSection({ regionId, section })),
+          onPOISelected: poi => dispatch(selectPOI({ regionId, poi })),
+          onBoundsSelected: bounds => dispatch(selectBounds({ regionId, bounds })),
         }),
       ),
       mapProps(({ region, sections, selectedBounds, ...props }) => ({

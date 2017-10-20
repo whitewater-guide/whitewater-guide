@@ -33,9 +33,14 @@ input GaugeInput {
   url: String
 }
 
+type GaugesList {
+  nodes: [Gauge]!
+  count: Int!
+}
+
 type Query {
-#  gauges(sourceId:ID!, language:String):[Gauge]!,
-  gauge(id: ID, language:String):Gauge,
+  gauges(sourceId: ID, language: String, page: Page): GaugesList!
+  gauge(id: ID, language:String): Gauge
 }
 
 type Mutation {

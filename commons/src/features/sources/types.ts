@@ -1,5 +1,5 @@
-import { GrapqhlResource, Timestamped } from '../../core';
-import { Resource } from '../../core/types';
+import { NamedNode, Timestamped } from '../../core';
+import { Node } from '../../core/types';
 import { Gauge } from '../gauges/types';
 import { Region } from '../regions/types';
 import { Connection } from '../types';
@@ -9,7 +9,7 @@ export enum HarvestMode {
   ONE_BY_ONE = 'oneByOne',
 }
 
-export interface Source extends GrapqhlResource, Timestamped {
+export interface Source extends NamedNode, Timestamped {
   termsOfUse: string | null;
   script: string;
   cron: string | null;
@@ -30,5 +30,5 @@ export class SourceInput {
   harvestMode: HarvestMode;
   enabled: boolean | null;
   url: string | null;
-  regions: Resource[];
+  regions: Node[];
 }

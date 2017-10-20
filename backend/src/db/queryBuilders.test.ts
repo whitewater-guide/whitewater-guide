@@ -6,10 +6,10 @@ import db from './db';
 import {
   attachConnection,
   buildConnectionColumn,
-  buildConnectionJSONQuery,
+  buildConnectionJSONQuery, buildListQuery,
   buildRootQuery,
   ConnectionBuilderOptions,
-  getPrimitives,
+  getPrimitives, ListQueryBuilderOptions,
   QueryBuilderOptions,
 } from './queryBuilders';
 import gqf = require('graphql-fields');
@@ -63,19 +63,17 @@ describe('buildRootQuery', () => {
     context: anonContext,
     knex: db(true),
     table: 'tbl',
-    language: '', // empty string to avoid default language
-    orderBy: '', // empty string to avoid sort
   };
 
   it('should construct basic query', () => {
     graphqlFields.mockReturnValueOnce({ bC: {} });
     const query = buildRootQuery(commonOptions);
-    expect(query.toQuery()).toEqual('select "tbl"."b_c" from "tbl"');
+    expect(query).toMatchSnapshot();
   });
 
   it('should use fields tree if provided', () => {
     const query = buildRootQuery({ ...commonOptions, info: undefined, fieldsTree: { bC: {} } });
-    expect(query.toQuery()).toEqual('select "tbl"."b_c" from "tbl"');
+    expect(query).toMatchSnapshot();
   });
 
   it('should throw if no info or fieldsTree provided', () => {
@@ -85,33 +83,19 @@ describe('buildRootQuery', () => {
   it('should use english by default', () => {
     graphqlFields.mockReturnValueOnce({ name: {} });
     const query = buildRootQuery({ ...commonOptions, language: undefined });
-    expect(query.toQuery()).toEqual('select "tbl"."name" from "tbl" where "tbl"."language" = \'en\'');
-  });
-
-  it('should order by name by default', () => {
-    graphqlFields.mockReturnValueOnce({ name: {} });
-    const query = buildRootQuery({ ...commonOptions, orderBy: undefined });
-    expect(query.toQuery()).toEqual('select "tbl"."name" from "tbl" order by "tbl"."name" asc');
-  });
-
-  it('should specify sort order', () => {
-    graphqlFields.mockReturnValueOnce({ a: {}, b: {} });
-    const query = buildRootQuery({ ...commonOptions, orderBy: 'b' });
-    expect(query.toQuery()).toEqual('select "tbl"."a", "tbl"."b" from "tbl" order by "tbl"."b" asc');
+    expect(query).toMatchSnapshot();
   });
 
   it('should alias table', () => {
     graphqlFields.mockReturnValueOnce({ b: {} });
     const query = buildRootQuery({ ...commonOptions, tableAlias: 'als' });
-    expect(query.toQuery()).toEqual('select "als"."b" from "tbl" as "als"');
+    expect(query).toMatchSnapshot();
   });
 
-  it('should filter by id and language', () => {
+  it('should specify language, id, sort order', () => {
     graphqlFields.mockReturnValueOnce({ b: {}, id: {}, language: {} });
-    const query = buildRootQuery({ ...commonOptions, id: 'foo', language: 'en' });
-    // tslint:disable-next-line:max-line-length
-    const qstring = 'select "tbl"."b", "tbl"."id", "tbl"."language" from "tbl" where "tbl"."id" = \'foo\' and "tbl"."language" = \'en\'';
-    expect(query.toQuery()).toEqual(qstring);
+    const query = buildRootQuery({ ...commonOptions, id: 'foo', language: 'en', orderBy: 'b'  });
+    expect(query).toMatchSnapshot();
   });
 
   it('should respect custom fields map', () => {
@@ -121,14 +105,14 @@ describe('buildRootQuery', () => {
       c: (c: Context) => isAdmin(c.user) ? 'c' : null,
     };
     const query = buildRootQuery({ ...commonOptions, customFieldMap });
-    expect(query.toQuery()).toEqual('select "tbl"."b", "tbl"."snake_case" from "tbl"');
+    expect(query).toMatchSnapshot();
   });
 
   it('should exclude connections', () => {
     graphqlFields.mockReturnValueOnce({ b: {}, connection: {}, c: {} });
     const connections = { connection: null };
     const query = buildRootQuery({ ...commonOptions, connections });
-    expect(query.toQuery()).toEqual('select "tbl"."b", "tbl"."c" from "tbl"');
+    expect(query).toMatchSnapshot();
   });
 
   it('should not include connection when not asked by graphql', () => {
@@ -138,7 +122,7 @@ describe('buildRootQuery', () => {
       join: (t: any, q: any) => q.where(`${t}.fk`, '=', db(true).raw('??', ['tbl.id'])),
     }};
     const query = buildRootQuery({ ...commonOptions, connections });
-    expect(query.toQuery()).toEqual('select "tbl"."b", "tbl"."c" from "tbl"');
+    expect(query).toMatchSnapshot();
   });
 
   it('should attach connections', () => {
@@ -148,19 +132,38 @@ describe('buildRootQuery', () => {
       join: (t: any, q: any) => q.where(`${t}.fk`, '=', db(true).raw('??', ['tbl.id'])),
     }};
     const query = buildRootQuery({ ...commonOptions, connections });
-    expect(query.toQuery()).toMatchSnapshot();
+    expect(query).toMatchSnapshot();
+  });
+});
+
+describe('build list query', () => {
+  const commonOptions: ListQueryBuilderOptions<any> = {
+    info: {} as any,
+    context: anonContext,
+    knex: db(true),
+    table: 'regions_view',
+  };
+
+  it('should query count only', () => {
+    graphqlFields.mockReturnValueOnce({ count: {} });
+    expect(buildListQuery(commonOptions)).toMatchSnapshot();
+  });
+
+  it('should apply offset and limit', () => {
+    graphqlFields.mockReturnValueOnce({ count: {}, nodes: { id: {}, name: {} } });
+    expect(buildListQuery({ ...commonOptions, page: { limit: 10, offset: 20  } })).toMatchSnapshot();
   });
 });
 
 describe('buildConnectionJSONQuery', () => {
   it('should build correct sql without nodes', () => {
     const result = buildConnectionJSONQuery('regions_connection_internal', false, db(true));
-    expect(result.toQuery()).toMatchSnapshot();
+    expect(result).toMatchSnapshot();
   });
 
   it('should build correct sql with nodes', () => {
     const result = buildConnectionJSONQuery('regions_connection_internal', true, db(true));
-    expect(result.toQuery()).toMatchSnapshot();
+    expect(result).toMatchSnapshot();
   });
 });
 
@@ -174,12 +177,12 @@ describe('buildConnectionColumn', () => {
   };
 
   it('should build simple connection field select', () => {
-    const result = buildConnectionColumn(options).toQuery();
+    const result = buildConnectionColumn(options);
     expect(result).toMatchSnapshot();
   });
 
   it('should include limit and offset', () => {
-    const result = buildConnectionColumn({ ...options, limit: 10, offset: 20 }).toQuery();
+    const result = buildConnectionColumn({ ...options, limit: 10, offset: 20 });
     expect(result).toMatchSnapshot();
   });
 
@@ -190,15 +193,12 @@ describe('attachConnection', () => {
   const builder = (opts: QueryBuilderOptions<any>) => buildRootQuery({
     ...opts,
     table: 'regions',
-    language: '', // shorten query
-    orderBy: '', // shorten query
   });
 
   let options: any;
   beforeEach(() => {
     options = {
       query: rootQuery.clone(),
-      language: '', // for shorter query
       fieldsTree: { nodes: { id: {}, name: {} }, count: {} },
       context: adminContext,
       name: 'regions',
@@ -213,20 +213,20 @@ describe('attachConnection', () => {
         .innerJoin('sources_regions', `${table}.id`, 'sources_regions.region_id')
         .where('sources_regions.source_id', '=', db(true).raw('??', ['source.id']));
     const result = attachConnection({ ...options, join: joiner });
-    expect(result.toQuery()).toMatchSnapshot();
+    expect(result).toMatchSnapshot();
   });
 
   it('should modify root query for one-to-many connections', () => {
     const joiner = (table: string, query: Knex.QueryBuilder) =>
       query.where(`${table}.source_id`, '=', db(true).raw('??', ['source.id']));
     const result = attachConnection({ ...options, join: joiner, foreignKey: 'source_id' });
-    expect(result.toQuery()).toMatchSnapshot();
+    expect(result).toMatchSnapshot();
   });
 
   it('should query ids if nodes are not required', () => {
     // this joiner is OK, since we don't need nodes, just count in this test
     const joiner = (table: string, query: Knex.QueryBuilder) => query;
     const result = attachConnection({ ...options, join: joiner, fieldsTree: { count: {} } });
-    expect(result.toQuery()).toMatchSnapshot();
+    expect(result).toMatchSnapshot();
   });
 });

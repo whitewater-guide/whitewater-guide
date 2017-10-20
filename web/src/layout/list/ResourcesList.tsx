@@ -3,10 +3,10 @@ import { CardHeader, CardMedia } from 'material-ui/Card';
 import * as React from 'react';
 import { AutoSizer, Dimensions } from 'react-virtualized';
 import { Content, Table, TableProps } from '../../components';
-import { NamedResource } from '../../ww-commons';
+import { NamedNode } from '../../ww-commons';
 import ListAdminFooter from './ListAdminFooter';
 
-export class ResourcesList<DeleteHandle extends string, TResource extends NamedResource> extends
+export class ResourcesList<DeleteHandle extends string, TResource extends NamedNode> extends
   React.PureComponent<TableProps<TResource>> {
 
   table = ({ width, height }: Dimensions) => {

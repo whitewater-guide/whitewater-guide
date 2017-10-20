@@ -6,26 +6,29 @@ beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
 const query = `
-  query listRegions($language: String){
-    regions(language: $language) {
-      id
-      language
-      name
-      description
-      season
-      seasonNumeric
-      bounds
-      hidden
-      createdAt
-      updatedAt
-      pois {
+  query listRegions($language: String, $page: Page){
+    regions(language: $language, page: $page) {
+      nodes {
         id
         language
         name
         description
-        kind
-        coordinates
+        season
+        seasonNumeric
+        bounds
+        hidden
+        createdAt
+        updatedAt
+        pois {
+          id
+          language
+          name
+          description
+          kind
+          coordinates
+        }
       }
+      count
     }
   }
 `;
@@ -36,8 +39,9 @@ test('should return regions', async () => {
   expect(result.data).toBeDefined();
   expect(result.data!.regions).toBeDefined();
   const regions = result.data!.regions;
-  expect(regions.length).toBe(3);
-  expect(regions.map(noTimestamps)).toMatchSnapshot();
+  expect(regions.count).toBe(3);
+  expect(regions.nodes.length).toBe(3);
+  expect(regions.nodes.map(noTimestamps)).toMatchSnapshot();
 });
 
 test('users should not see hidden regions', async () => {
@@ -46,18 +50,18 @@ test('users should not see hidden regions', async () => {
   expect(result.data).toBeDefined();
   expect(result.data!.regions).toBeDefined();
   const regions = result.data!.regions;
-  expect(regions.length).toBe(2);
-  expect(regions[0].hidden).toBe(null);
+  expect(regions.count).toBe(2);
+  expect(regions.nodes[0].hidden).toBe(null);
 });
 
 test('should be able to specify language', async () => {
   const result = await runQuery(query, { language: 'ru' }, superAdminContext);
   expect(result.data!.regions).toBeDefined();
   const regions = result.data!.regions;
-  expect(regions.length).toBe(3);
+  expect(regions.count).toBe(3);
   // Check name
-  expect(regions[2].name).toBe('Галисия');
+  expect(regions.nodes[2].name).toBe('Галисия');
   // Check name & common attribute for non-translated region
-  expect(regions[1].name).toBe('Not translated');
-  expect(regions[1].hidden).toBe(true);
+  expect(regions.nodes[1].name).toBe('Not translated');
+  expect(regions.nodes[1].hidden).toBe(true);
 });

@@ -56,7 +56,7 @@ interface ChildProps {
   gauges: GaugesList;
 }
 
-const updateQuery = (prevResult: Result, { fetchMoreResult }: FetchMoreResult<Result> ) => {
+const updateQuery = (prevResult: Result, { fetchMoreResult }: FetchMoreResult<Result>) => {
   if (!fetchMoreResult.gauges) {
     return prevResult;
   }

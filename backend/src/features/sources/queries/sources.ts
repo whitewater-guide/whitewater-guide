@@ -1,13 +1,9 @@
-import { isAdminResolver } from '../../../apollo';
-import db from '../../../db';
-
-interface SourcesQuery {
-  language?: string;
-}
+import { isAdminResolver, ListQuery } from '../../../apollo';
+import { buildSourcesListQuery } from '../queryBuilder';
 
 const sources = isAdminResolver.createResolver(
-  (root, { language = 'en' }: SourcesQuery) =>
-    db().table('sources_view').select().where({ language }).orderBy('name'),
+  (root, args: ListQuery, context, info) =>
+    buildSourcesListQuery({ info, context, ...args }),
 );
 
 export default sources;

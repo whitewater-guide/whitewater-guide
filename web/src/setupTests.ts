@@ -1,4 +1,8 @@
 import 'url-search-params-polyfill';
+import 'raf/polyfill';
+
+import * as Enzyme from 'enzyme';
+import * as Adapter from 'enzyme-adapter-react-16';
 
 window.google = {
   maps: {
@@ -16,3 +20,5 @@ window.google = {
     },
   },
 };
+
+Enzyme.configure({ adapter: new Adapter() });

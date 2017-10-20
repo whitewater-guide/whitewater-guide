@@ -13,7 +13,7 @@ export class RegionsList extends React.PureComponent<Props> {
   render() {
     return (
       <ResourcesList
-        list={this.props.regions.list}
+        list={this.props.regions.nodes}
         onResourceClick={this.onRegionClick}
         resourceType="region"
         deleteHandle={this.props.removeRegion}

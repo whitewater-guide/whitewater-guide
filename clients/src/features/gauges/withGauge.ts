@@ -1,39 +1,42 @@
+import { ApolloQueryResult, FetchPolicy, graphql } from 'react-apollo';
 import { compose } from 'recompose';
-import { Gauge, GaugeInput } from '../../../ww-commons';
-import { WithNode, withSingleNode } from '../../apollo';
+import { Gauge } from '../../../ww-commons';
 import { withFeatureIds } from '../../core';
 import GAUGE_DETAILS from './gaugeDetails.query';
 
-export const NEW_GAUGE: Partial<GaugeInput> = {
-  id: null,
-  name: '',
-  location: null,
-  code: '',
-  levelUnit: '',
-  flowUnit: '',
-  requestParams: null,
-  cron: null,
-  url: null,
-};
-
-export interface WithGaugeOptions {
-  errorOnMissingId?: boolean;
+interface WithGaugeOptions {
+  fetchPolicy?: FetchPolicy;
 }
 
-export const withGauge = (options: WithGaugeOptions) => compose(
-  withFeatureIds('source'),
-  withSingleNode<'gauge', Gauge>({
-    resourceType: 'gauge',
-    alias: 'withGauge',
-    query: GAUGE_DETAILS,
-    newResource: (props: any) => ({
-      ...NEW_GAUGE,
-      source: {
-        id: props.sourceId,
-      },
-    }),
-    ...options,
-  }),
-);
+interface WithGaugeResult {
+  gauge: Gauge;
+}
 
-export type WithGauge = WithNode<'gauge', Gauge>;
+interface WithGaugeProps {
+  gaugeId: string;
+}
+
+export interface WithGauge {
+  gaugeId: string;
+  gauge: Gauge;
+  gaugeLoading: boolean;
+  gaugeRefetch: (variables?: WithGaugeProps) => Promise<ApolloQueryResult<WithGaugeResult>>;
+}
+
+export const withGauge = ({ fetchPolicy = 'cache-and-network' }: WithGaugeOptions) =>
+  compose<WithGauge, any>(
+    withFeatureIds('gauge'),
+    graphql<WithGaugeResult, WithGaugeProps, WithGauge>(
+      GAUGE_DETAILS,
+      {
+        alias: 'withGauge',
+        options: { fetchPolicy },
+        props: ({ data, ownProps }) => ({
+          gaugeId: ownProps.gaugeId,
+          gauge: data!.gauge,
+          gaugeLoading: data!.loading,
+          gaugeRefetch: data!.refetch,
+        }),
+      },
+    ),
+  );

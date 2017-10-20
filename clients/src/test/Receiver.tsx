@@ -1,27 +1,20 @@
 import * as React from 'react';
-import Mock = jest.Mock;
 
-export class Receiver extends React.PureComponent<any> {
-  static cwm: Mock<any> = jest.fn();
-  static cdm: Mock<any> = jest.fn();
-  static cwrp: Mock<any> = jest.fn();
+export interface WithCalls<P> {
+  cwrp: P[];
+  cdm: P;
+}
 
-  static clearMocks = () => {
-    Receiver.cwm.mockClear();
-    Receiver.cdm.mockClear();
-    Receiver.cwrp.mockClear();
-  };
-
-  componentWillMount() {
-    Receiver.cwm(this.props);
-  }
+export class Receiver<P> extends React.PureComponent<P> implements WithCalls<P> {
+  public cwrp: P[] = [];
+  public cdm: P;
 
   componentDidMount() {
-    Receiver.cdm(this.props);
+    this.cdm = this.props;
   }
 
-  componentWillReceiveProps(next: any) {
-    Receiver.cwrp(next);
+  componentWillReceiveProps(next: P) {
+    this.cwrp = [...this.cwrp, next];
   }
 
   render() {

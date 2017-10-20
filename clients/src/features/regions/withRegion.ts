@@ -1,29 +1,37 @@
-import { branch, compose, withProps } from 'recompose';
-import { RegionDetails, RegionInput } from '../../../ww-commons';
-import { WithNode, withSingleNode } from '../../apollo/withSingleNode';
+import { FetchPolicy, graphql } from 'react-apollo';
+import { compose } from 'recompose';
+import { Region } from '../../../ww-commons';
+import { queryResultToNode, WithNode } from '../../apollo';
+import { withFeatureIds } from '../../core';
 import REGION_DETAILS from './regionDetails.query';
 
-export const NEW_REGION: RegionInput = {
-  id: null,
-  hidden: false,
-  description: null,
-  bounds: null,
-  seasonNumeric: [],
-  season: null,
-  name: '',
-  pois: [],
-};
-
-export interface WithRegionOptions {
-  errorOnMissingId?: boolean;
+interface WithRegionOptions {
+  fetchPolicy?: FetchPolicy;
 }
 
-export const withRegion = (options: WithRegionOptions = {}) => withSingleNode<'region', RegionDetails>({
-  resourceType: 'region',
-  alias: 'withRegion',
-  query: REGION_DETAILS,
-  newResource: NEW_REGION,
-  ...options,
-});
+interface WithRegionResult {
+  region: Region;
+  regionId: string;
+}
 
-export type WithRegion = WithNode<'region', RegionDetails>;
+interface WithRegionProps {
+  regionId: string;
+}
+
+export interface WithRegion {
+  region: WithNode<Region>;
+  regionId: string;
+}
+
+export const withRegion = ({ fetchPolicy = 'cache-and-network' }: WithRegionOptions = {}) =>
+  compose<WithRegion, any>(
+    withFeatureIds('region'),
+    graphql<WithRegionResult, WithRegionProps, WithRegion>(
+      REGION_DETAILS,
+      {
+        alias: 'withRegion',
+        options: { fetchPolicy },
+        props: props => queryResultToNode(props, 'region'),
+      },
+    ),
+  );

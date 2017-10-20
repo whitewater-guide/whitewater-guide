@@ -76,7 +76,7 @@ describe('resolvers chain', () => {
       url: 'not url',
       termsOfUse: 'New terms of use',
       enabled: null,
-      regions: [],
+      regions: [{ id: 'aaaa' }],
     };
     const result = await runQuery(mutation, { source: input }, adminContext);
     expect(result.errors).toBeDefined();
@@ -192,6 +192,7 @@ describe('i18n', () => {
     harvestMode: HarvestMode.ONE_BY_ONE,
     url: 'http://nve.no',
     enabled: false,
+    regions: [],
   };
 
   const galiciaRu = {
@@ -203,6 +204,7 @@ describe('i18n', () => {
     enabled: false,
     name: 'Новая Галисия',
     termsOfUse: 'Правила пользования новой галисией',
+    regions: [],
   };
 
   it('should add new translation', async () => {

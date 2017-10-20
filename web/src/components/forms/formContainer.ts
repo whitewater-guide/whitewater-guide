@@ -1,6 +1,7 @@
+import { DocumentNode } from 'graphql';
 import { Schema } from 'joi';
 import { memoize } from 'lodash';
-import { ApolloError, ChildProps } from 'react-apollo';
+import { ApolloError, ChildProps, graphql } from 'react-apollo';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { ComponentEnhancer, compose, mapProps, withProps } from 'recompose';
 import { ConfigProps, InjectedFormProps, reduxForm, SubmissionError } from 'redux-form';
@@ -9,21 +10,28 @@ import { validateInput } from './validateInput';
 
 export interface FormContainerOptions<QueryResult, MutationResult, FormInput> {
   /**
-   * Graphql query enhancer
+   * Graphql query
    */
-  queryContainer: ComponentEnhancer<QueryResult, any>;
+  query: DocumentNode;
   /**
-   * Graphql mutation enhancer
+   * Graphql mutation
    */
-  mutationContainer: ComponentEnhancer<MutationResult, any>;
+  mutation: DocumentNode;
   /**
    * redux-form form name
    */
   formName: string;
   /**
-   * Name of the prop where queryContainer puts the result
+   * The graphq queryContainer return data props
+   * data[propName] contains initial data for the form
    */
   propName: string;
+  /**
+   * Default value in (new blank item) in case when id is not found and query returns null
+   * Or function to construct this value from props.
+   * It will be deserialized as if it came from the backend
+   */
+  defaultValue: object | ((props: any) => object);
   /**
    * react-router will navigate to this path on successful form submission
    */
@@ -53,9 +61,10 @@ export const formContainer = <QueryResult, MutationResult, FormInput>(
   options: FormContainerOptions<QueryResult, MutationResult, FormInput>,
 ) => {
   const {
-    queryContainer,
-    mutationContainer,
+    query,
+    mutation,
     propName,
+    defaultValue,
     backPath,
     deserializeForm,
     serializeForm,
@@ -82,15 +91,18 @@ export const formContainer = <QueryResult, MutationResult, FormInput>(
         });
       },
     })),
-    queryContainer,
-    mutationContainer,
+    graphql(query, { options: { fetchPolicy: 'network-only' }, alias: `${formName}FormQuery` }),
+    withLoading<ChildProps<any, any>>(({ data }) => data!.loading),
+    graphql(mutation, { alias: `${formName}FormMutation` }),
     mapProps<FormProps, MappedProps>((props) => {
-      const { [propName]: details, history, mutate, language, onLanguageChange } = props;
+      const { data, history, mutate, language, onLanguageChange } = props;
+      const value = (data as any)[propName] ||
+        (typeof defaultValue === 'function' ? defaultValue(props) : defaultValue);
       return {
         language,
         onLanguageChange,
-        [propName]: details,
-        initialValues: deserialize(details.data!),
+        data,
+        initialValues: deserialize(value),
         onSubmit: (input: FormInput) => {
           // Make it clear that we return promise
           return mutate!({ variables: { [propName]: serializeForm(input), language } })
@@ -101,7 +113,6 @@ export const formContainer = <QueryResult, MutationResult, FormInput>(
         },
       };
     }),
-    withLoading<QueryResult>(({ [propName]: details }) => details.loading),
     reduxForm({
       form: formName,
       validate: validateInput(validationSchema),

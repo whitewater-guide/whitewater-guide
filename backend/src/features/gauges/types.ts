@@ -1,11 +1,11 @@
 import { loadGraphqlFile } from '../../apollo/loadGraphqlFile';
 import { RawTimestamped } from '../../db/types';
-import { NamedResource } from '../../ww-commons';
+import { NamedNode } from '../../ww-commons';
 import { PointRaw } from '../points';
 
 export const GaugesSchema = loadGraphqlFile('gauges');
 
-export interface GaugeRaw extends NamedResource, RawTimestamped {
+export interface GaugeRaw extends NamedNode, RawTimestamped {
   code: string;
   source_id: string;
   location: PointRaw;

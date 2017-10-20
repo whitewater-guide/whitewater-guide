@@ -2,9 +2,10 @@
 
 exports[`should match snapshot 1`] = `
 Object {
-  "errors": Object {},
   "region": Object {
-    "data": Object {
+    "error": undefined,
+    "loading": false,
+    "node": Object {
       "__typename": "Region",
       "bounds": Array [
         Array [
@@ -56,7 +57,7 @@ Object {
       ],
       Symbol(id): "Region:7fbe024f-3316-4265-a6e8-c65a837e308a",
     },
-    "loading": false,
+    "refetch": [Function],
   },
   "regionId": "7fbe024f-3316-4265-a6e8-c65a837e308a",
 }

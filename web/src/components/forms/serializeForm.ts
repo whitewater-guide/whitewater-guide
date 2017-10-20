@@ -12,5 +12,5 @@ export const serializeForm = (markdownFields: string[], connections: string[] = 
       return value.map((item: any) => ({ id: item.id }));
     }
     return value;
-  });
+  }) as {[key: string]: any};
 };

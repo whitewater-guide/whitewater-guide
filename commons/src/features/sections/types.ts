@@ -1,4 +1,4 @@
-import { NamedResource, Timestamped } from '../../core';
+import { NamedNode, Timestamped } from '../../core';
 import { Gauge } from '../gauges';
 import { Media } from '../media';
 import { Point } from '../points';
@@ -39,7 +39,7 @@ export interface BindingInput {
   approximate?: boolean;
 }
 
-export interface Section extends NamedResource, Timestamped {
+export interface Section extends NamedNode, Timestamped {
   description: string | null;
   season: string | null;
   seasonNumeric: number[];

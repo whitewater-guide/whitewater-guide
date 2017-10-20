@@ -2,7 +2,10 @@
 
 exports[`should match snapshot 1`] = `
 Object {
-  "list": Array [
+  "count": 978,
+  "error": undefined,
+  "loading": false,
+  "nodes": Array [
     Object {
       "__typename": "Source",
       "enabled": false,
@@ -22,7 +25,6 @@ Object {
       Symbol(id): "Source:dbfc51b8-fded-41d0-920e-b196af683b45",
     },
   ],
-  "loading": false,
   "refetch": [Function],
 }
 `;

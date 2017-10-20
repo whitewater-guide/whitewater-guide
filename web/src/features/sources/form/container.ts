@@ -1,27 +1,40 @@
-import { graphql } from 'react-apollo';
-import { compose } from 'recompose';
-import { withLoading } from '../../../components';
+import { compose, mapProps } from 'recompose';
 import { deserializeForm, formContainer, serializeForm } from '../../../components/forms';
-import { withRegionsList, WithRegionsList } from '../../../ww-clients/features/regions';
-import { withScriptsList, WithScriptsList } from '../../../ww-clients/features/scripts';
-import { withSource } from '../../../ww-clients/features/sources';
-import { SourceFormSchema } from '../../../ww-commons';
+import { withFeatureIds } from '../../../ww-clients/core';
+import { HarvestMode, SourceFormSchema, SourceInput } from '../../../ww-commons';
+import SOURCE_FORM_QUERY from './sourceForm.query';
 import UPSERT_SOURCE from './upsertSource.mutation';
+
+const NEW_SOURCE: SourceInput = {
+  id: null,
+  name: '',
+  termsOfUse: null,
+  script: '',
+  cron: null,
+  harvestMode: HarvestMode.ONE_BY_ONE,
+  enabled: false,
+  url: null,
+  regions: [],
+};
 
 const sourceForm = formContainer({
   formName: 'source',
   propName: 'source',
   backPath: '/sources',
-  queryContainer: withSource({ errorOnMissingId: false }),
-  mutationContainer: graphql(UPSERT_SOURCE, { alias: 'withUpsertSource' }),
+  defaultValue: NEW_SOURCE,
+  query: SOURCE_FORM_QUERY,
+  mutation: UPSERT_SOURCE,
   serializeForm: serializeForm(['termsOfUse'], ['regions']),
   deserializeForm: deserializeForm(['termsOfUse'], [], ['regions']),
   validationSchema: SourceFormSchema,
 });
 
 export default compose(
+  withFeatureIds('source'),
   sourceForm,
-  withScriptsList,
-  withRegionsList,
-  withLoading<WithScriptsList & WithRegionsList>(props => props.scripts.loading || props.regions.loading),
+  mapProps(({ data, ...props }) => ({
+    regions: data.regions.nodes,
+    scripts: data.scripts,
+    ...props,
+  })),
 );

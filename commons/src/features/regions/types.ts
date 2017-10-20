@@ -1,20 +1,16 @@
-import { GrapqhlResource, Timestamped } from '../../core';
+import { NamedNode, Timestamped } from '../../core';
 import { Omit } from '../../ts';
 import { Point, PointInput } from '../points';
 import { Coordinate3d } from '../points/types';
 
-export interface Region extends GrapqhlResource, Timestamped {
+export interface Region extends NamedNode, Timestamped {
   description: string | null;
   season: string | null;
   seasonNumeric: number[];
   bounds: Array<[number, number, number]> | null;
   hidden: boolean | null;
-  riversCount: number;
-  sectionsCount: number;
   pois: Point[];
 }
-
-export type RegionDetails = Omit<Region, 'riversCount' | 'sectionsCount'>;
 
 export class RegionInput {
   id: string | null;

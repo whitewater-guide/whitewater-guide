@@ -1,4 +1,4 @@
-import { NamedResource, Timestamped } from '../../core';
+import { NamedNode, Timestamped } from '../../core';
 
 export enum Role {
   USER = 1,
@@ -9,7 +9,7 @@ export enum Role {
 /**
  * This is graphql type
  */
-export interface User extends NamedResource, Timestamped {
+export interface User extends NamedNode, Timestamped {
   avatar: string | null;
   email: string | null;
   role: Role;

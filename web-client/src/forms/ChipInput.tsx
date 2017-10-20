@@ -3,7 +3,7 @@ import MUIChipInput from 'material-ui-chip-input';
 import * as React from 'react';
 import { findDOMNode } from 'react-dom';
 import EventListener, { withOptions } from 'react-event-listener';
-import { NamedResource } from '../ww-commons';
+import { NamedNode } from '../ww-commons';
 import { FieldProps } from './types';
 
 const MAX_HEIGHT = 250;
@@ -17,8 +17,8 @@ const styles = {
 interface Props {
   name: string;
   title: string;
-  options: NamedResource[];
-  field: FieldProps<NamedResource[]>;
+  options: NamedNode[];
+  field: FieldProps<NamedNode[]>;
 }
 
 interface Origin {
@@ -55,7 +55,7 @@ export class ChipInput extends React.PureComponent<Props, State> {
     }
   };
 
-  onRequestAdd = (chip: NamedResource) => {
+  onRequestAdd = (chip: NamedNode) => {
     const value = this.props.field.value || [];
     this.props.field.onChange([...value, chip]);
   };

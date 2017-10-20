@@ -90,7 +90,7 @@ function serializeSearchTerms(
   offlineSearch?: boolean,
 ): SectionSearchTermInput {
   const termsToSend: SectionSearchTerms = offlineSearch ?
-    pick(terms, ['sortBy', 'sortDirection', 'riverId', 'searchString']) :
+    pick(terms, ['sortBy', 'sortDirection', 'riverId', 'searchString']) as any :
     terms;
   return {
     ...termsToSend,

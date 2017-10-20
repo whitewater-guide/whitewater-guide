@@ -13,7 +13,7 @@ export default class SourcesList extends React.PureComponent<Props> {
   render() {
     return (
       <ResourcesList
-        list={this.props.sources.list}
+        list={this.props.sources.nodes}
         onResourceClick={this.onSourceClick}
         resourceType="source"
         deleteHandle={this.props.removeSource}

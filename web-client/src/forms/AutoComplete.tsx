@@ -1,7 +1,7 @@
 import { get } from 'lodash';
 import MUIAutoComplete from 'material-ui/AutoComplete';
 import * as React from 'react';
-import { NamedResource } from '../ww-commons';
+import { NamedNode } from '../ww-commons';
 import { FieldProps } from './types';
 
 const DATA_SOURCE_CONFIG = { text: 'name', value: 'id' };
@@ -11,7 +11,7 @@ interface Props {
   title: string;
   disabled?: boolean;
   dataSource: any[];
-  field: FieldProps<NamedResource>;
+  field: FieldProps<NamedNode>;
   openOnFocus: boolean;
 }
 

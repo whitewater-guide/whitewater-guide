@@ -34,31 +34,6 @@ Object {
 }
 `;
 
-exports[`super admin should list sources 1`] = `
-Array [
-  Object {
-    "cron": "0 * * * *",
-    "enabled": false,
-    "harvestMode": "allAtOnce",
-    "id": "6d0d717e-aa9d-11e7-abc4-cec278b6b50a",
-    "language": "en",
-    "name": "Galicia",
-    "script": "galicia",
-    "url": "http://ya.ru",
-  },
-  Object {
-    "cron": null,
-    "enabled": true,
-    "harvestMode": "allAtOnce",
-    "id": "786251d4-aa9d-11e7-abc4-cec278b6b50a",
-    "language": "en",
-    "name": "Norway",
-    "script": "norway",
-    "url": null,
-  },
-]
-`;
-
 exports[`user shall not pass 1`] = `
 Object {
   "data": null,

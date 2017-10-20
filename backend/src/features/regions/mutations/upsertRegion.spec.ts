@@ -65,8 +65,6 @@ const upsertQuery = `
       seasonNumeric
       bounds
       hidden
-      riversCount
-      sectionsCount
       createdAt
       updatedAt
       pois {

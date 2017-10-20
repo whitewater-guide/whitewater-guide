@@ -21,9 +21,9 @@ const SchemaDefinition = `
     name: String
   }
   
-  interface INamed {
-    id: ID!
-    name: String!
+  input Page {
+    limit: Int
+    offset: Int
   }
   
   schema {

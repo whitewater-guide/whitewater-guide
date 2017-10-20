@@ -1,23 +1,18 @@
 import { Tab } from 'material-ui/Tabs';
 import * as React from 'react';
-import { InjectedFormProps } from 'redux-form';
 import { Tabs } from '../../../components';
 import { ChipInput, DraftEditor, Form, Select, TextInput } from '../../../components/forms';
-import { WithRegionsList } from '../../../ww-clients/features/regions';
-import { WithScriptsList } from '../../../ww-clients/features/scripts';
-import { SourceFormInput } from './types';
+import { SourceFormProps } from './types';
 
-type Props = WithScriptsList & WithRegionsList & InjectedFormProps<SourceFormInput>;
-
-export default class SourceForm extends React.PureComponent<Props> {
+export default class SourceForm extends React.PureComponent<SourceFormProps> {
   render() {
     return (
       <Form {...this.props} resourceType="source">
         <Tabs>
           <Tab label="Main" value="#main">
             <TextInput fullWidth name="name" title="Name" />
-            <ChipInput name="regions" title="Regions" options={this.props.regions.list} />
-            <Select name="script" title="Script" options={this.props.scripts.list} />
+            <ChipInput name="regions" title="Regions" options={this.props.regions} />
+            <Select name="script" title="Script" options={this.props.scripts} />
             <TextInput fullWidth name="url" title="URL" />
             <TextInput fullWidth name="cron" title="URL" />
           </Tab>

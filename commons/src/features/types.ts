@@ -1,5 +1,5 @@
-export type ResourceType = 'gauge' | 'measurement' | 'media' | 'point' | 'region' | 'river' | 'script'
-  | 'section' | 'source' | 'tag' | 'user';
+export type ResourceType = 'gauge' | 'region' | 'river'  | 'section' | 'source' | 'user';
+export type ListType = 'gauges' | 'regions' | 'rivers'  | 'sections' | 'sources' | 'users';
 
 export interface Connection<T> {
   count?: number;

@@ -6,7 +6,7 @@ import { ApolloClient, ApolloProvider } from 'react-apollo';
 import { HarvestMode } from '../../ww-commons';
 import typeDefs from './typedefs';
 
-interface QueryMap {
+export interface QueryMap {
   [name: string]: (variables: any) => any;
 }
 

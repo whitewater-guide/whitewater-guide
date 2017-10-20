@@ -47,14 +47,12 @@ Object {
       "name": "pt 2",
     },
   ],
-  "riversCount": 11,
   "season": "season description",
   "seasonNumeric": Array [
     1,
     2,
     3,
   ],
-  "sectionsCount": 111,
 }
 `;
 
@@ -150,13 +148,11 @@ Object {
       "name": "r 1 p 2",
     },
   ],
-  "riversCount": 11,
   "season": "season description",
   "seasonNumeric": Array [
     1,
     2,
     3,
   ],
-  "sectionsCount": 111,
 }
 `;

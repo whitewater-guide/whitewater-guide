@@ -1,9 +1,9 @@
 import { GraphQLResolveInfo } from 'graphql';
 import * as Knex from 'knex';
 import { snakeCase } from 'lodash';
-import { Context } from '../apollo';
-import graphqlFields = require('graphql-fields');
+import { Context, Page } from '../apollo';
 import db from './db';
+import graphqlFields = require('graphql-fields');
 
 type ColumnMap<T> = {
   [field in keyof T]?: (context?: Context) => any;
@@ -46,7 +46,7 @@ export const getPrimitives = <T>(
 export interface QueryBuilderOptions<T> {
   info?: GraphQLResolveInfo;
   fieldsTree?: {[key: string]: any};
-  context: Context,
+  context: Context;
   table: string;
   tableAlias?: string;
   customFieldMap?: ColumnMap<T>;
@@ -112,6 +112,40 @@ export const buildRootQuery = <T>(options: QueryBuilderOptions<T>): Knex.QueryBu
     result = result.orderBy(`${alias}.${orderBy}`);
   }
   return result;
+};
+
+export interface ListQueryBuilderOptions<T> extends QueryBuilderOptions<T> {
+  page?: Page;
+}
+
+export const buildListQuery = <T>(options: ListQueryBuilderOptions<T>) => {
+  const {
+    info,
+    fieldsTree, // ignored
+    page = {},
+    knex = db(),
+    language = 'en',
+    id, // ignored
+    ...rest,
+  } = options;
+  const  { limit, offset } = page;
+  if (!info) {
+    throw new Error('List query must be provided with resolvers info, because it is a root query');
+  }
+  const alias = options.tableAlias || options.table;
+  const rootFieldsTree = graphqlFields(info);
+  if (rootFieldsTree.nodes) {
+    const query = buildRootQuery({ ...rest, knex, language, fieldsTree: rootFieldsTree.nodes });
+    if (limit) {
+      query.limit(limit);
+      if (offset) {
+        query.offset(offset);
+      }
+    }
+    query.select(knex.raw(`count(${alias}.*) OVER()`));
+    return query;
+  }
+  return knex.count().from(alias).where(`${alias}.language`, language);
 };
 
 /**

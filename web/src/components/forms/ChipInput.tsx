@@ -4,7 +4,7 @@ import * as React from 'react';
 import { findDOMNode } from 'react-dom';
 import EventListener, { withOptions } from 'react-event-listener';
 import { BaseFieldProps, Field, GenericField, WrappedFieldProps } from 'redux-form';
-import { NamedResource } from '../../ww-commons';
+import { NamedNode } from '../../ww-commons';
 
 const MAX_HEIGHT = 250;
 
@@ -15,7 +15,7 @@ const styles = {
 };
 
 interface ChipInputProps {
-  options: NamedResource[];
+  options: NamedNode[];
   title: string;
 }
 
@@ -55,7 +55,7 @@ class ChipInputComponent extends React.PureComponent<Props, State> {
     }
   };
 
-  onRequestAdd = (chip: NamedResource) => {
+  onRequestAdd = (chip: NamedNode) => {
     const value = this.props.input.value || [];
     this.props.input.onChange([...value, chip]);
   };

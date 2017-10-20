@@ -68,6 +68,15 @@ describe('superadmin', () => {
   });
 });
 
+describe('data', () => {
+  test('should return null when id not specified', async () => {
+    const result = await runQuery(query, {}, adminContext);
+    expect(result.errors).toBeUndefined();
+    expect(result.data).toBeDefined();
+    expect(result.data!.source).toBeNull();
+  });
+});
+
 describe('i18n', () => {
   test('should be able to specify language', async () => {
     const result = await runQuery(query, { id: galiciaId, language: 'ru' }, superAdminContext);

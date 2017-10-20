@@ -27,7 +27,7 @@ Object {
                   "kind": "Variable",
                   "name": Object {
                     "kind": "Name",
-                    "value": "id",
+                    "value": "regionId",
                   },
                 },
               },
@@ -110,7 +110,7 @@ Object {
             "kind": "Variable",
             "name": Object {
               "kind": "Name",
-              "value": "id",
+              "value": "regionId",
             },
           },
         },
@@ -386,7 +386,7 @@ Object {
   ],
   "kind": "Document",
   "loc": Object {
-    "end": 567,
+    "end": 579,
     "start": 0,
   },
 }

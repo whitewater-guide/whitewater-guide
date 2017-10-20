@@ -36,6 +36,12 @@ test('should return gauge', async () => {
   expect(noTimestamps(result.data!.gauge)).toMatchSnapshot();
 });
 
+test('should return null when id not specified', async () => {
+  const result = await runQuery(query, { }, userContext);
+  expect(result.errors).toBeUndefined();
+  expect(result.data!.gauge).toBeNull();
+});
+
 test('should be able to specify language', async () => {
   const result = await runQuery(query, { id: 'aba8c106-aaa0-11e7-abc4-cec278b6b50a', language: 'ru' }, userContext);
   expect(result.errors).toBeUndefined();
@@ -49,10 +55,8 @@ test('should be able to get basic attributes without translation', async () => {
   expect(result.data!.gauge.url).toBe('http://ya.ru');
 });
 
-test('it should return location', () => {
-  // TODO
+test.skip('it should return location', () => {
 });
 
-test('it should return last level/flow/timestamp', () => {
-  // TODO
+test.skip('it should return last level/flow/timestamp', () => {
 });

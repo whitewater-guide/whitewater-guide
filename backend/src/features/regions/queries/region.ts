@@ -6,6 +6,9 @@ import { RegionRaw } from '../types';
 
 const region = baseResolver.createResolver(
   async (root, args: NodeQuery, context: Context, info: GraphQLResolveInfo) => {
+    if (!args.id) {
+      return null;
+    }
     const { user } = context;
     const query = buildRegionQuery({ info, context, ...args });
     const result: RegionRaw | null = await query.first();

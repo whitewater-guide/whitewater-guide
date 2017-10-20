@@ -1,15 +1,16 @@
-import { buildRootQuery, QueryBuilderOptions } from '../../db/queryBuilders';
+import { buildListQuery, buildRootQuery, ListQueryBuilderOptions, QueryBuilderOptions } from '../../db';
 import { Region } from '../../ww-commons';
-
-const customFieldMap = {
-  riversCount: () => null,
-  sectionsCount: () => null,
-};
 
 export const buildRegionQuery = (options: Partial<QueryBuilderOptions<Region>>) =>
   buildRootQuery({
     context: options.context!,
     table: 'regions_view',
-    customFieldMap,
+    ...options,
+  });
+
+export const buildRegionsListQuery = (options: Partial<ListQueryBuilderOptions<Region>>) =>
+  buildListQuery({
+    context: options.context!,
+    table: 'regions_view',
     ...options,
   });

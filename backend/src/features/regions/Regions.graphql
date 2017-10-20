@@ -9,8 +9,6 @@ type Region {
   pois: [Point]!
   # sources: [Source]!
   # rivers: [River]!
-  riversCount: Int
-  sectionsCount: Int
   hidden: Boolean
   createdAt: Date
   updatedAt: Date
@@ -27,12 +25,17 @@ input RegionInput {
   hidden: Boolean
 }
 
+type RegionsList {
+  nodes: [Region]!
+  count: Int!
+}
+
 type Query {
-  regions(language:String): [Region]!,
-  region(id: ID, language:String):Region,
+  regions(language: String, page: Page): RegionsList!
+  region(id: ID, language: String): Region
 }
 
 type Mutation {
-  upsertRegion(region:RegionInput!, language:String):Region,
-  removeRegion(id:ID!):ID,
+  upsertRegion(region: RegionInput!, language: String): Region
+  removeRegion(id: ID!): ID
 }

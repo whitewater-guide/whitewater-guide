@@ -1,8 +1,8 @@
-import { NamedResource, Resource, Timestamped } from '../../core';
+import { NamedNode, Node, Timestamped } from '../../core';
 import { Point, PointInput } from '../points';
 import { Source } from '../sources';
 
-export interface Gauge extends NamedResource, Timestamped {
+export interface Gauge extends NamedNode, Timestamped {
   code: string;
   levelUnit: string | null;
   flowUnit: string | null;
@@ -21,7 +21,7 @@ export interface Gauge extends NamedResource, Timestamped {
 export interface GaugeInput {
   id: string | null;
   name: string;
-  source: Resource;
+  source: Node;
   location: PointInput | null;
   code: string;
   levelUnit?: string | null;

@@ -3,11 +3,11 @@ import MenuItem from 'material-ui/MenuItem';
 import SelectField from 'material-ui/SelectField';
 import * as React from 'react';
 import { BaseFieldProps, Field, GenericField, WrappedFieldProps } from 'redux-form';
-import { NamedResource } from '../../ww-commons';
+import { NamedNode } from '../../ww-commons';
 
 interface SelectComponentProps extends Partial<SelectFieldProps> {
-  options: NamedResource[];
-  simple?: boolean; // value is id string and not NamedResource
+  options: NamedNode[];
+  simple?: boolean; // value is id string and not NamedNode
   title: string;
 }
 
@@ -26,12 +26,12 @@ class SelectComponent extends React.PureComponent<Props> {
     return option;
   };
 
-  onChange = (event: any, index: number, value: string | NamedResource) => {
+  onChange = (event: any, index: number, value: string | NamedNode) => {
     const { input, simple } = this.props;
-    input.onChange(simple ? (value as NamedResource).id : value);
+    input.onChange(simple ? (value as NamedNode).id : value);
   };
 
-  renderItem = (item: NamedResource) => {
+  renderItem = (item: NamedNode) => {
     return (
       <MenuItem key={item.id} value={item} primaryText={item.name} />
     );

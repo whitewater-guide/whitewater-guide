@@ -1,13 +1,23 @@
 import { createMemoryHistory, History } from 'history';
 import * as Joi from 'joi';
 import * as React from 'react';
+import { ChildProps, gql, graphql } from 'react-apollo';
 import { ComponentEnhancer, withProps } from 'recompose';
 import { FormReceiver, mountForm } from '../../test';
 import { flushPromises } from '../../ww-clients/test';
-import { Omit } from '../../ww-commons/ts';
 import Loading from '../Loading';
 import { formContainer, FormContainerOptions } from './formContainer';
 import { validateInput } from './validateInput';
+
+function mockReactApollo() {
+  const original = require.requireActual('react-apollo');
+  return {
+    ...original,
+    graphql: jest.fn(),
+  };
+}
+
+jest.mock('react-apollo', () => mockReactApollo());
 
 jest.mock('./validateInput', () => ({
   validateInput: jest.fn(),
@@ -15,8 +25,7 @@ jest.mock('./validateInput', () => ({
 
 interface QueryResult {
   entity: {
-    data: { foo: string },
-    loading: boolean,
+    foo: string;
   };
 }
 
@@ -39,36 +48,53 @@ const deserializeForm = jest.fn((o: any) => ({ foo: `${o.foo}_d` }));
 const mutateError = jest.fn((data: any) => Promise.reject({ message: 'Some mutation error' }));
 const mutateSuccess = jest.fn((data: any) => Promise.resolve(data));
 
-const options: Omit<Opts, 'queryContainer' | 'mutationContainer'> = {
+const options: Opts = {
   formName: 'entity',
   propName: 'entity',
+  query: gql`
+    query getEntity {
+      entity {
+        foo
+      }
+    }
+  `,
+  mutation: gql`
+    mutation upsertEntity($value: EntityInput) {
+      upsertEntity(value: $value) {
+        foo
+      }
+    }
+  `,
+  defaultValue: {
+    foo: 'default_foo',
+  },
   backPath: '/entities',
   validationSchema: ValidationSchema,
   serializeForm,
   deserializeForm,
 };
 
-const detailsContainer = (loading: boolean) => withProps(({ language }) => ({
-  entity: {
-    data: { foo: `bar_${language}` },
+const detailsContainer = (loading: boolean, nullResult = false) => withProps(({ language }) => ({
+  data: {
+    entity: nullResult ? null : { foo: `bar_${language}` },
     loading,
   },
-})) as ComponentEnhancer<QueryResult, any>;
+})) as ComponentEnhancer<ChildProps<QueryResult, any>, any>;
 
 const mutationContainer = (error: boolean) => withProps({
   mutate: error ? mutateError : mutateSuccess,
 }) as ComponentEnhancer<MutationResult, any>;
 
-const mountThings = (detailsLoading: boolean, mutationError: boolean, history?: History) => {
-  const form = formContainer({
-    ...options,
-    queryContainer: detailsContainer(detailsLoading),
-    mutationContainer: mutationContainer(mutationError),
-  });
+const mountThings = (detailsLoading: boolean, mutationError: boolean, nullResult: boolean, history?: History) => {
+  graphql
+    .mockReturnValueOnce(detailsContainer(detailsLoading, nullResult))
+    .mockReturnValueOnce(mutationContainer(mutationError));
+  const form = formContainer(options);
   return mountForm({ form, history });
 };
 
 beforeEach(() => {
+  graphql.mockClear();
   serializeForm.mockClear();
   deserializeForm.mockClear();
   mutateError.mockClear();
@@ -76,39 +102,45 @@ beforeEach(() => {
 });
 
 it('should render loading when query is loading', () => {
-  const wrapped = mountThings(true, false);
+  const wrapped = mountThings(true, false, false);
   expect(wrapped.containsMatchingElement(<Loading />)).toBe(true);
 });
 
 it('should deserialize query to form initialValues', () => {
-  const wrapped = mountThings(false, false);
+  const wrapped = mountThings(false, false, false);
   const receivers = wrapped.find(FormReceiver);
   expect(receivers.length).toBe(1);
   const receiver = receivers.at(0);
   expect(receiver.prop('initialValues')).toEqual({ foo: 'bar_en_d' });
 });
 
+it('should use default value when query returns null', () => {
+  const wrapped = mountThings(false, false, true);
+  const receiver = wrapped.find(FormReceiver).first();
+  expect(receiver.prop('initialValues')).toEqual({ foo: 'default_foo_d' });
+});
+
 it('should use validation schema', () => {
-  mountThings(false, false);
+  mountThings(false, false, false);
   expect(validateInput).toBeCalledWith(ValidationSchema);
 });
 
 it('should send serialized values', () => {
-  const wrapped = mountThings(false, false);
+  const wrapped = mountThings(false, false, false);
   const receiver = wrapped.find(FormReceiver).at(0) as any;
   receiver.find('form').simulate('submit');
   expect(serializeForm).toBeCalledWith({ foo: 'bar_en_d' });
 });
 
 it('should call mutate on submit', () => {
-  const wrapped = mountThings(false, false);
+  const wrapped = mountThings(false, false, false);
   const receiver = wrapped.find(FormReceiver).at(0) as any;
   receiver.find('form').simulate('submit');
   expect(mutateSuccess).toBeCalled();
 });
 
 it('should render loading while submitting', () => {
-  const wrapped = mountThings(false, false);
+  const wrapped = mountThings(false, false, false);
   const receiver = wrapped.find(FormReceiver).at(0) as any;
   receiver.find('form').simulate('submit');
   expect(wrapped.containsMatchingElement(<Loading />)).toBe(true);
@@ -117,31 +149,32 @@ it('should render loading while submitting', () => {
 it('should navigate on successful mutation', async () => {
   const history = createMemoryHistory();
   history.replace = jest.fn();
-  const wrapped = mountThings(false, false, history);
+  const wrapped = mountThings(false, false, false, history);
   const receiver = wrapped.find(FormReceiver).at(0) as any;
   await receiver.find('form').simulate('submit');
   expect(history.replace).toBeCalledWith('/entities');
 });
 
 it('should pass form error on mutation error', async () => {
-  const wrapped = mountThings(false, true);
+  const wrapped = mountThings(false, true, false);
   const receiver = wrapped.find(FormReceiver).at(0);
   await receiver.find('form').simulate('submit');
   await flushPromises();
-  const receiver2 = wrapped.find(FormReceiver).at(0);
+  wrapped.update();
+  const receiver2 = wrapped.find(FormReceiver).first();
   expect(receiver2.prop('error')).toBe('Some mutation error');
 });
 
 it('should receive language from query string', () => {
   const history = createMemoryHistory({ initialEntries: ['/smth?language=es'] });
-  const wrapped = mountThings(false, false, history);
+  const wrapped = mountThings(false, false, false, history);
   const receiver = wrapped.find(FormReceiver).at(0);
   expect(receiver.prop('language')).toBe('es');
 });
 
 it('should reinitialize form when language changes', () => {
   const history = createMemoryHistory();
-  const wrapped = mountThings(false, false, history);
+  const wrapped = mountThings(false, false, false, history);
   const receiver = wrapped.find(FormReceiver).at(0);
   expect(receiver.prop('initialValues')).toEqual({ foo: 'bar_en_d' });
   history.replace({ pathname: '/smth', search: '?language=es' });

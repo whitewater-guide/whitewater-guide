@@ -21,12 +21,12 @@ type Source {
 
 type SourceRegionConnection {
   nodes: [Region]!
-  count: Int
+  count: Int!
 }
 
 type SourceGaugeConnection {
   nodes: [Gauge]!
-  count: Int
+  count: Int!
 }
 
 input SourceInput {
@@ -41,14 +41,19 @@ input SourceInput {
   enabled: Boolean
 }
 
+type SourcesList {
+  nodes: [Source]!
+  count: Int!
+}
+
 type Query {
-  sources(language:String): [Source]!
+  sources(language: String, page: Page): SourcesList!
   source(id: ID, language: String): Source
 }
 
 type Mutation {
-  upsertSource(source:SourceInput!, language: String):Source
-  removeSource(id:ID!):ID
+  upsertSource(source: SourceInput!, language: String): Source
+  removeSource(id: ID!): ID
   # autofillSource(id:ID!):Boolean
   # generateSourceSchedule(id:ID!):Boolean
   # setSourceEnabled(id:ID!, enabled:Boolean!): Source

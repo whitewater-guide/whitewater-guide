@@ -4,12 +4,12 @@ import Paper from 'material-ui/Paper';
 import * as React from 'react';
 import { FieldsProps } from 'redux-form';
 import { Styles } from '../../styles';
-import { Coordinate, NamedResource, POINames, PointInput as PointInputType } from '../../ww-commons';
+import { Coordinate, NamedNode, POINames, PointInput as PointInputType } from '../../ww-commons';
 import { Select } from './Select';
 import SelectPointDialog from './SelectPointDialog';
 import { TextInput } from './TextInput';
 
-const POI_OPTIONS: NamedResource[] = map(POINames, (name, id) => ({ name, id, language: 'en' }));
+const POI_OPTIONS: NamedNode[] = map(POINames, (name, id) => ({ name, id, language: 'en' }));
 
 const styles: Styles = {
   container: {

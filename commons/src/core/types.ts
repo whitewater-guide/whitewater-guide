@@ -1,14 +1,11 @@
-export interface Resource {
+export interface Node {
+  __typename?: string;
   id: string;
 }
 
-export interface NamedResource extends Resource {
+export interface NamedNode extends Node {
   name: string;
   language: string;
-}
-
-export interface GrapqhlResource extends NamedResource {
-  __typename?: string;
 }
 
 /**

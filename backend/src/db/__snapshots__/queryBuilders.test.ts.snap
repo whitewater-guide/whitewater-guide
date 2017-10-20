@@ -1,20 +1,347 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`attachConnection should modify root query for many-to-may connections 1`] = `"with \\"regions_connection\\" as (select \\"regions\\".\\"id\\", \\"regions\\".\\"name\\" from \\"regions\\") select \\"source\\".\\"id\\", \\"sources\\".\\"name\\", (with \\"regions_connection_internal\\" as (select \\"regions_connection\\".*, count(regions_connection.*) OVER() from \\"regions_connection\\" inner join \\"sources_regions\\" on \\"regions_connection\\".\\"id\\" = \\"sources_regions\\".\\"region_id\\" where \\"sources_regions\\".\\"source_id\\" = \\"source\\".\\"id\\") select json_build_object('count', (select \\"regions_connection_internal\\".\\"count\\" from \\"regions_connection_internal\\" limit 1), 'nodes', (select json_agg(regions_connection_internal.*) from \\"regions_connection_internal\\"))) as regions from \\"sources\\""`;
+exports[`attachConnection should modify root query for many-to-may connections 1`] = `
+with regions_connection as (
+    select
+        regions.id,
+        regions.name
+    from
+        regions
+    where
+        regions.language = 'en'
+    order by
+        regions.name asc
+)
+select
+    source.id,
+    sources.name, (with regions_connection_internal as (
+            select
+                regions_connection.*,
+                count(regions_connection.*)
+                OVER ()
+            from
+                regions_connection
+            inner join sources_regions on regions_connection.id = sources_regions.region_id
+            where
+                sources_regions.source_id = source.id
+)
+        select
+            json_build_object('count', (
+                    select
+                        regions_connection_internal.count from regions_connection_internal
+                    limit 1),
+                'nodes', (
+                    select
+                        json_agg (regions_connection_internal.*)
+                    from
+                        regions_connection_internal))) as regions
+from
+    sources
 
-exports[`attachConnection should modify root query for one-to-many connections 1`] = `"with \\"regions_connection\\" as (select \\"regions\\".\\"id\\", \\"regions\\".\\"name\\", \\"regions\\".\\"source_id\\" from \\"regions\\") select \\"source\\".\\"id\\", \\"sources\\".\\"name\\", (with \\"regions_connection_internal\\" as (select \\"regions_connection\\".*, count(regions_connection.*) OVER() from \\"regions_connection\\" where \\"regions_connection\\".\\"source_id\\" = \\"source\\".\\"id\\") select json_build_object('count', (select \\"regions_connection_internal\\".\\"count\\" from \\"regions_connection_internal\\" limit 1), 'nodes', (select json_agg(regions_connection_internal.*) from \\"regions_connection_internal\\"))) as regions from \\"sources\\""`;
+`;
 
-exports[`attachConnection should query ids if nodes are not required 1`] = `"with \\"regions_connection\\" as (select \\"regions\\".\\"id\\" from \\"regions\\") select \\"source\\".\\"id\\", \\"sources\\".\\"name\\", (with \\"regions_connection_internal\\" as (select \\"regions_connection\\".*, count(regions_connection.*) OVER() from \\"regions_connection\\") select json_build_object('count', (select count(\\"regions_connection_internal\\".*) from \\"regions_connection_internal\\"))) as regions from \\"sources\\""`;
+exports[`attachConnection should modify root query for one-to-many connections 1`] = `
+with regions_connection as (
+    select
+        regions.id,
+        regions.name,
+        regions.source_id
+    from
+        regions
+    where
+        regions.language = 'en'
+    order by
+        regions.name asc
+)
+select
+    source.id,
+    sources.name, (with regions_connection_internal as (
+            select
+                regions_connection.*,
+                count(regions_connection.*)
+                OVER ()
+            from
+                regions_connection
+            where
+                regions_connection.source_id = source.id
+)
+        select
+            json_build_object('count', (
+                    select
+                        regions_connection_internal.count from regions_connection_internal
+                    limit 1),
+                'nodes', (
+                    select
+                        json_agg (regions_connection_internal.*)
+                    from
+                        regions_connection_internal))) as regions
+from
+    sources
 
-exports[`buildConnectionColumn should build simple connection field select 1`] = `"with \\"tbl_internal\\" as (select \\"tbl\\".*, count(tbl.*) OVER() from \\"tbl\\" where \\"tbl\\".\\"fk\\" = \\"src\\".\\"id\\") select json_build_object('count', (select \\"tbl_internal\\".\\"count\\" from \\"tbl_internal\\" limit 1), 'nodes', (select json_agg(tbl_internal.*) from \\"tbl_internal\\"))"`;
+`;
 
-exports[`buildConnectionColumn should include limit and offset 1`] = `"with \\"tbl_internal\\" as (select \\"tbl\\".*, count(tbl.*) OVER() from \\"tbl\\" where \\"tbl\\".\\"fk\\" = \\"src\\".\\"id\\" limit 10 offset 20) select json_build_object('count', (select \\"tbl_internal\\".\\"count\\" from \\"tbl_internal\\" limit 1), 'nodes', (select json_agg(tbl_internal.*) from \\"tbl_internal\\"))"`;
+exports[`attachConnection should query ids if nodes are not required 1`] = `
+with regions_connection as (
+    select
+        regions.id
+    from
+        regions
+    where
+        regions.language = 'en'
+    order by
+        regions.name asc
+)
+select
+    source.id,
+    sources.name, (with regions_connection_internal as (
+            select
+                regions_connection.*,
+                count(regions_connection.*)
+                OVER ()
+            from
+                regions_connection
+)
+        select
+            json_build_object('count', (
+                    select
+                        count(regions_connection_internal.*)
+                        from regions_connection_internal))) as regions
+from
+    sources
 
-exports[`buildConnectionJSONQuery should build correct sql with nodes 1`] = `"select json_build_object('count', (select \\"regions_connection_internal\\".\\"count\\" from \\"regions_connection_internal\\" limit 1), 'nodes', (select json_agg(regions_connection_internal.*) from \\"regions_connection_internal\\"))"`;
+`;
 
-exports[`buildConnectionJSONQuery should build correct sql without nodes 1`] = `"select json_build_object('count', (select count(\\"regions_connection_internal\\".*) from \\"regions_connection_internal\\"))"`;
+exports[`build list query should apply offset and limit 1`] = `
+select
+    regions_view.id,
+    regions_view.name,
+    count(regions_view.*)
+    OVER ()
+from
+    regions_view
+where
+    regions_view.language = 'en'
+order by
+    regions_view.name asc
+limit 10 offset 20
 
-exports[`buildRootQuery should attach connections 1`] = `"with \\"c_connection\\" as (select * from \\"k\\") select \\"tbl\\".\\"b\\", (with \\"c_connection_internal\\" as (select \\"c_connection\\".*, count(c_connection.*) OVER() from \\"c_connection\\" where \\"c_connection\\".\\"fk\\" = \\"tbl\\".\\"id\\") select json_build_object('count', (select count(\\"c_connection_internal\\".*) from \\"c_connection_internal\\"))) as c from \\"tbl\\""`;
+`;
+
+exports[`build list query should query count only 1`] = `
+select
+    count(*)
+from
+    regions_view
+where
+    regions_view.language = 'en'
+
+`;
+
+exports[`buildConnectionColumn should build simple connection field select 1`] = `
+with tbl_internal as (
+    select
+        tbl.*,
+        count(tbl.*)
+        OVER ()
+    from
+        tbl
+    where
+        tbl.fk = src.id
+)
+select
+    json_build_object('count', (
+            select
+                tbl_internal.count from tbl_internal
+            limit 1),
+        'nodes', (
+            select
+                json_agg (tbl_internal.*)
+            from
+                tbl_internal))
+
+`;
+
+exports[`buildConnectionColumn should include limit and offset 1`] = `
+with tbl_internal as (
+    select
+        tbl.*,
+        count(tbl.*)
+        OVER ()
+    from
+        tbl
+    where
+        tbl.fk = src.id
+    limit 10 offset 20
+)
+select
+    json_build_object('count', (
+            select
+                tbl_internal.count from tbl_internal
+            limit 1),
+        'nodes', (
+            select
+                json_agg (tbl_internal.*)
+            from
+                tbl_internal))
+
+`;
+
+exports[`buildConnectionJSONQuery should build correct sql with nodes 1`] = `
+select
+    json_build_object('count', (
+            select
+                regions_connection_internal.count from regions_connection_internal
+            limit 1),
+        'nodes', (
+            select
+                json_agg (regions_connection_internal.*)
+            from
+                regions_connection_internal))
+
+`;
+
+exports[`buildConnectionJSONQuery should build correct sql without nodes 1`] = `
+select
+    json_build_object('count', (
+            select
+                count(regions_connection_internal.*)
+                from regions_connection_internal))
+
+`;
+
+exports[`buildRootQuery should alias table 1`] = `
+select
+    als.b
+from
+    tbl as als
+where
+    als.language = 'en'
+order by
+    als.name asc
+
+`;
+
+exports[`buildRootQuery should attach connections 1`] = `
+with c_connection as (
+    select
+        *
+    from
+        k
+)
+select
+    tbl.b, (with c_connection_internal as (
+            select
+                c_connection.*,
+                count(c_connection.*)
+                OVER ()
+            from
+                c_connection
+            where
+                c_connection.fk = tbl.id
+)
+        select
+            json_build_object('count', (
+                    select
+                        count(c_connection_internal.*)
+                        from c_connection_internal))) as c
+from
+    tbl
+where
+    tbl.language = 'en'
+order by
+    tbl.name asc
+
+`;
+
+exports[`buildRootQuery should construct basic query 1`] = `
+select
+    tbl.b_c
+from
+    tbl
+where
+    tbl.language = 'en'
+order by
+    tbl.name asc
+
+`;
+
+exports[`buildRootQuery should exclude connections 1`] = `
+select
+    tbl.b,
+    tbl.c
+from
+    tbl
+where
+    tbl.language = 'en'
+order by
+    tbl.name asc
+
+`;
+
+exports[`buildRootQuery should not include connection when not asked by graphql 1`] = `
+select
+    tbl.b,
+    tbl.c
+from
+    tbl
+where
+    tbl.language = 'en'
+order by
+    tbl.name asc
+
+`;
+
+exports[`buildRootQuery should respect custom fields map 1`] = `
+select
+    tbl.b,
+    tbl.snake_case
+from
+    tbl
+where
+    tbl.language = 'en'
+order by
+    tbl.name asc
+
+`;
+
+exports[`buildRootQuery should specify language, id, sort order 1`] = `
+select
+    tbl.b,
+    tbl.id,
+    tbl.language
+from
+    tbl
+where
+    tbl.id = 'foo'
+    and tbl.language = 'en'
+order by
+    tbl.b asc
+
+`;
+
+exports[`buildRootQuery should use english by default 1`] = `
+select
+    tbl.name
+from
+    tbl
+where
+    tbl.language = 'en'
+order by
+    tbl.name asc
+
+`;
+
+exports[`buildRootQuery should use fields tree if provided 1`] = `
+select
+    tbl.b_c
+from
+    tbl
+where
+    tbl.language = 'en'
+order by
+    tbl.name asc
+
+`;
 
 exports[`getPrimitives should match snapshot 1`] = `
 Array [

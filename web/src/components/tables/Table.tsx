@@ -3,12 +3,12 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { Index, TableCellProps, TableProps as VTableProps } from 'react-virtualized';
 import { WithDeleteMutation } from '../../apollo';
-import { NamedResource, ResourceType } from '../../ww-commons';
+import { NamedNode, ResourceType } from '../../ww-commons';
 import { DeleteButton } from '../DeleteButton';
 import { AdminColumn } from './AdminColumn';
 import { RawTable } from './RawTable';
 
-export type TableProps<TResource extends NamedResource> =
+export type TableProps<TResource extends NamedNode> =
   Partial<VTableProps> &
   {
     list: TResource[];
@@ -17,7 +17,7 @@ export type TableProps<TResource extends NamedResource> =
     deleteHandle: (id: string) => void;
   };
 
-export class Table<DeleteHandle extends string, TResource extends NamedResource>
+export class Table<DeleteHandle extends string, TResource extends NamedNode>
   extends React.PureComponent<TableProps<TResource>> {
 
   rowGetter = ({ index }: Index) => this.props.list[index];

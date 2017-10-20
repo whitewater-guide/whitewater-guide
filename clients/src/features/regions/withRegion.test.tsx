@@ -1,10 +1,9 @@
 // tslint:disable:max-classes-per-file
 import * as casual from 'casual';
-import { shallow } from 'enzyme';
 import * as React from 'react';
 import * as renderer from 'react-test-renderer';
-import { createMockedProvider, shallowRecursively } from '../../test';
-import { NEW_REGION, withRegion, WithRegion } from './withRegion';
+import { createMockedProvider } from '../../test';
+import { withRegion, WithRegion } from './withRegion';
 
 const MockedProvider = createMockedProvider();
 
@@ -61,11 +60,4 @@ it('should match snapshot', done => {
     <MockedProvider>
       <ContainerWithData regionId="7fbe024f-3316-4265-a6e8-c65a837e308a" />
     </MockedProvider>);
-});
-
-test('should pass new region when regionId not found', () => {
-  const Wrapped: React.ComponentType<any> = withRegion()('div' as any);
-  const wrapped = shallow(<Wrapped />);
-  const deep = shallowRecursively(wrapped, 'div');
-  expect(deep.prop('region').data).toEqual(NEW_REGION);
 });

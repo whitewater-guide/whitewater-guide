@@ -7,6 +7,7 @@ import { combineReducers, createStore } from 'redux';
 import { InjectedFormProps, reducer as formReducer } from 'redux-form';
 import { createMockedProvider } from '../ww-clients/test';
 import { mountWithMuiContext } from './muiTestUtils';
+import { QueryMap } from '../ww-clients/test/createMockedProvider';
 
 export class FormReceiver extends React.PureComponent<InjectedFormProps<any>> {
 
@@ -17,15 +18,17 @@ export class FormReceiver extends React.PureComponent<InjectedFormProps<any>> {
   }
 }
 
-interface Options {
+export interface MountFormOptions {
   form: ComponentEnhancer<any, any>;
   mockApollo?: boolean;
   props?: {[ key: string]: any};
   history?: History;
+  queries?: QueryMap;
+  mutations?: QueryMap;
 }
 
-export const mountForm = (options: Options) => {
-  const { form, mockApollo, props = {}, history } = options;
+export const mountForm = (options: MountFormOptions) => {
+  const { form, mockApollo, props = {}, history, queries, mutations } = options;
   const store = createStore(combineReducers({ form: formReducer }));
   const Wrapped: React.ComponentType<any> = form(FormReceiver);
   let router = !!history ?
@@ -40,7 +43,7 @@ export const mountForm = (options: Options) => {
       </MemoryRouter>
     );
   if (mockApollo) {
-    const MockedProvider = createMockedProvider();
+    const MockedProvider = createMockedProvider(queries, mutations);
     router = (
       <MockedProvider>
         {router}

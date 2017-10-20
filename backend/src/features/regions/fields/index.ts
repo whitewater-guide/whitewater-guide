@@ -5,7 +5,7 @@ import { Region } from '../../../ww-commons';
 import { isAdmin } from '../../users';
 import { RegionRaw } from '../types';
 
-const resolvers: FieldResolvers<RegionRaw, Region> = {
+const regionFieldResolvers: FieldResolvers<RegionRaw, Region> = {
   seasonNumeric: region => region.season_numeric,
   bounds: ({ bounds }) => {
     if (!bounds) {
@@ -19,9 +19,7 @@ const resolvers: FieldResolvers<RegionRaw, Region> = {
   },
   hidden: ({ hidden }, args, { user }) => isAdmin(user) ? hidden : null,
   pois: region => region.pois || [],
-  riversCount: () => 11,
-  sectionsCount: () => 111,
   ...timestampResolvers,
 };
 
-export default resolvers;
+export default regionFieldResolvers;

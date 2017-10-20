@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should return gauges 1`] = `
+Array [
+  Object {
+    "code": "gal1",
+    "cron": null,
+    "enabled": false,
+    "flowUnit": "m3/s",
+    "id": "aba8c106-aaa0-11e7-abc4-cec278b6b50a",
+    "language": "en",
+    "levelUnit": "cm",
+    "location": null,
+    "name": "Galicia gauge 1",
+    "requestParams": Object {
+      "foo": "bar",
+    },
+    "source": Object {
+      "harvestMode": "allAtOnce",
+      "id": "6d0d717e-aa9d-11e7-abc4-cec278b6b50a",
+      "language": "en",
+      "name": "Galicia",
+    },
+    "url": "http://ya.ru",
+  },
+  Object {
+    "code": "gal2",
+    "cron": null,
+    "enabled": false,
+    "flowUnit": null,
+    "id": "b77ef1b2-aaa0-11e7-abc4-cec278b6b50a",
+    "language": "en",
+    "levelUnit": null,
+    "location": null,
+    "name": "Galicia gauge 2",
+    "requestParams": null,
+    "source": Object {
+      "harvestMode": "allAtOnce",
+      "id": "6d0d717e-aa9d-11e7-abc4-cec278b6b50a",
+      "language": "en",
+      "name": "Galicia",
+    },
+    "url": null,
+  },
+  Object {
+    "code": "nor1",
+    "cron": null,
+    "enabled": true,
+    "flowUnit": "m3/s",
+    "id": "c03184b4-aaa0-11e7-abc4-cec278b6b50a",
+    "language": "en",
+    "levelUnit": "cm",
+    "location": null,
+    "name": "Norway gauge 1",
+    "requestParams": Object {
+      "nor": "way",
+    },
+    "source": Object {
+      "harvestMode": "allAtOnce",
+      "id": "786251d4-aa9d-11e7-abc4-cec278b6b50a",
+      "language": "en",
+      "name": "Norway",
+    },
+    "url": "http://yarr.ru",
+  },
+  Object {
+    "code": "nor2",
+    "cron": null,
+    "enabled": true,
+    "flowUnit": null,
+    "id": "cc55b1c0-aaa0-11e7-abc4-cec278b6b50a",
+    "language": "en",
+    "levelUnit": null,
+    "location": null,
+    "name": "Norway gauge 2",
+    "requestParams": null,
+    "source": Object {
+      "harvestMode": "allAtOnce",
+      "id": "786251d4-aa9d-11e7-abc4-cec278b6b50a",
+      "language": "en",
+      "name": "Norway",
+    },
+    "url": null,
+  },
+]
+`;
