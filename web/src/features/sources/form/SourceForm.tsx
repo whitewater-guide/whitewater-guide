@@ -14,7 +14,7 @@ export default class SourceForm extends React.PureComponent<SourceFormProps> {
             <ChipInput name="regions" title="Regions" options={this.props.regions} />
             <Select name="script" title="Script" options={this.props.scripts} />
             <TextInput fullWidth name="url" title="URL" />
-            <TextInput fullWidth name="cron" title="URL" />
+            <TextInput fullWidth name="cron" title="Cron" />
           </Tab>
           <Tab label="Terms Of Use" value="#terms">
             <DraftEditor name="description" />

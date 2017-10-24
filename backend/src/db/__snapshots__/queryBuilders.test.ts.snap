@@ -104,8 +104,8 @@ select
         select
             json_build_object('count', (
                     select
-                        count(regions_connection_internal.*)
-                        from regions_connection_internal))) as regions
+                        regions_connection_internal.count from regions_connection_internal
+                    limit 1))) as regions
 from
     sources
 
@@ -204,8 +204,8 @@ exports[`buildConnectionJSONQuery should build correct sql without nodes 1`] = `
 select
     json_build_object('count', (
             select
-                count(regions_connection_internal.*)
-                from regions_connection_internal))
+                regions_connection_internal.count from regions_connection_internal
+            limit 1))
 
 `;
 
@@ -242,8 +242,8 @@ select
         select
             json_build_object('count', (
                     select
-                        count(c_connection_internal.*)
-                        from c_connection_internal))) as c
+                        c_connection_internal.count from c_connection_internal
+                    limit 1))) as c
 from
     tbl
 where

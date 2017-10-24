@@ -1,0 +1,208 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`details should build correct query with connections 1`] = `
+with regions_connection as (
+    select
+        regions_view.id,
+        regions_view.language,
+        regions_view.name
+    from
+        regions_view
+    where
+        regions_view.language = 'en'
+    order by
+        regions_view.name asc),
+gauges_connection as (
+    select
+        gauges_view.id,
+        gauges_view.language,
+        gauges_view.name,
+        gauges_view.source_id
+    from
+        gauges_view
+    where
+        gauges_view.language = 'en'
+    order by
+        gauges_view.name asc
+)
+select
+    sources_view.id,
+    sources_view.language,
+    sources_view.name,
+    sources_view.url,
+    sources_view.script,
+    sources_view.harvest_mode,
+    sources_view.cron,
+    sources_view.enabled,
+    sources_view.created_at,
+    sources_view.updated_at, (with regions_connection_internal as (
+            select
+                regions_connection.*,
+                count(regions_connection.*)
+                OVER ()
+            from
+                regions_connection
+            inner join sources_regions on regions_connection.id = sources_regions.region_id
+            where
+                sources_regions.source_id = sources_view.id
+)
+        select
+            json_build_object('count', (
+                    select
+                        regions_connection_internal.count from regions_connection_internal
+                    limit 1),
+                'nodes', (
+                    select
+                        json_agg (regions_connection_internal.*)
+                    from
+                        regions_connection_internal))) as regions, (with gauges_connection_internal as (
+        select
+            gauges_connection.*,
+            count(gauges_connection.*)
+            OVER ()
+        from
+            gauges_connection
+        where
+            gauges_connection.source_id = sources_view.id
+)
+    select
+        json_build_object('count', (
+                select
+                    gauges_connection_internal.count from gauges_connection_internal
+                limit 1),
+            'nodes', (
+                select
+                    json_agg (gauges_connection_internal.*)
+                from
+                    gauges_connection_internal))) as gauges
+from
+    sources_view
+where
+    sources_view.language = 'en'
+order by
+    sources_view.name asc
+
+`;
+
+exports[`details should build correct query without connections 1`] = `
+select
+    sources_view.id,
+    sources_view.language,
+    sources_view.name,
+    sources_view.url,
+    sources_view.script,
+    sources_view.harvest_mode,
+    sources_view.cron,
+    sources_view.enabled,
+    sources_view.created_at,
+    sources_view.updated_at
+from
+    sources_view
+where
+    sources_view.language = 'en'
+order by
+    sources_view.name asc
+
+`;
+
+exports[`list should build correct query with connections 1`] = `
+with regions_connection as (
+    select
+        regions_view.id,
+        regions_view.language,
+        regions_view.name
+    from
+        regions_view
+    where
+        regions_view.language = 'en'
+    order by
+        regions_view.name asc),
+gauges_connection as (
+    select
+        gauges_view.id,
+        gauges_view.source_id
+    from
+        gauges_view
+    where
+        gauges_view.language = 'en'
+    order by
+        gauges_view.name asc
+)
+select
+    sources_view.id,
+    sources_view.language,
+    sources_view.name,
+    sources_view.url,
+    sources_view.script,
+    sources_view.harvest_mode,
+    sources_view.cron,
+    sources_view.enabled,
+    sources_view.created_at,
+    sources_view.updated_at, (with regions_connection_internal as (
+            select
+                regions_connection.*,
+                count(regions_connection.*)
+                OVER ()
+            from
+                regions_connection
+            inner join sources_regions on regions_connection.id = sources_regions.region_id
+            where
+                sources_regions.source_id = sources_view.id
+)
+        select
+            json_build_object('count', (
+                    select
+                        regions_connection_internal.count from regions_connection_internal
+                    limit 1),
+                'nodes', (
+                    select
+                        json_agg (regions_connection_internal.*)
+                    from
+                        regions_connection_internal))) as regions, (with gauges_connection_internal as (
+        select
+            gauges_connection.*,
+            count(gauges_connection.*)
+            OVER ()
+        from
+            gauges_connection
+        where
+            gauges_connection.source_id = sources_view.id
+)
+    select
+        json_build_object('count', (
+                select
+                    gauges_connection_internal.count from gauges_connection_internal
+                limit 1))) as gauges,
+count(sources_view.*)
+OVER ()
+from
+    sources_view
+where
+    sources_view.language = 'en'
+order by
+    sources_view.name asc
+
+`;
+
+exports[`list should build correct query without connections 1`] = `
+select
+    sources_view.id,
+    sources_view.language,
+    sources_view.name,
+    sources_view.url,
+    sources_view.script,
+    sources_view.harvest_mode,
+    sources_view.cron,
+    sources_view.enabled,
+    sources_view.created_at,
+    sources_view.updated_at,
+    count(sources_view.*)
+    OVER ()
+from
+    sources_view
+where
+    sources_view.language = 'en'
+order by
+    sources_view.name asc
+
+`;

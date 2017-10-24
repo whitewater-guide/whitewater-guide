@@ -28,7 +28,7 @@ services:
 #      - "3333"
     ports:
       # TODO: remove in production
-      - "127.0.0.1:9229:9229"
+      - "5775:5775"
       - "3333:3333"
     volumes:
       - yarn:/root/.cache/yarn

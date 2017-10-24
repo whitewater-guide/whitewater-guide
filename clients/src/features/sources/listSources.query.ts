@@ -9,6 +9,9 @@ export default gql`
         name
         harvestMode
         enabled
+        gauges {
+          count
+        }
       }
       count
     }
