@@ -7,7 +7,7 @@ export default function getBreadcrumbs({ routes, location }: BreadcrumbsProps) {
   const pathTokens = getPathTokens(location.pathname);
   return pathTokens.map((path) => {
     const routeMatch = getRouteMatch(routes, path);
-    const RouteValue = routes[routeMatch.key];
+    const RouteValue = routeMatch ? routes[routeMatch.key] : 'unknown';
     const element = typeof RouteValue === 'string' ? RouteValue : (<RouteValue {...routeMatch.params} />);
     return { element, path };
   });

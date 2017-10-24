@@ -1,90 +1,29 @@
-import { gql } from 'react-apollo';
-import { enhancedQuery } from '../../apollo/enhancedQuery';
-import { FetchMoreResult } from '../../apollo/types';
-import { Gauge, Source } from '../../../ww-commons';
-import { GaugeFragments } from './gaugeFragments';
+import { graphql } from 'react-apollo';
+import { compose } from 'recompose';
+import { Connection, Gauge } from '../../../ww-commons';
+import { queryResultToList, WithList } from '../../apollo';
+import { withFeatureIds } from '../../core';
+import LIST_GAUGES from './listGauges.query';
 
-const ListGaugesQuery = gql`
-  query listGauges($sourceId:ID!, $language:String, $skip:Int, $limit:Int, $isLoadMore:Boolean!) {
-    gauges(sourceId:$sourceId, language:$language, skip:$skip, limit:$limit) {
-      ...GaugeCore
-      ...GaugeLocation
-      ...GaugeLastMeasurements
-      ...GaugeHarvestInfo
-      enabled
-    }
-
-    count: countGauges(sourceId:$sourceId) @skip(if: $isLoadMore)
-
-    source(_id:$sourceId) @skip(if: $isLoadMore) {
-      _id
-      harvestMode
-    }
-
-  }#
-  ${GaugeFragments.Core}
-  ${GaugeFragments.Location}
-  ${GaugeFragments.LastMeasurements}
-  ${GaugeFragments.HarvestInfo}
-`;
-
-interface Result {
-  gauges?: Gauge[];
-  source: Source;
-  count: number;
+export interface WithGaugesListResult {
+  gauges: Connection<Gauge>;
 }
 
-interface Props {
-  sourceId?: string;
-  language?: string;
+export interface WithGaugesList {
+  gauges: WithList<Gauge>;
 }
 
-interface GaugesList {
-  list: Gauge[];
-  count: number;
-  loading: boolean;
-  loadMore: (params: LoadMoreParams) => void;
-}
-
-interface LoadMoreParams {
-  startIndex: number;
-  stopIndex: number;
-}
-
-interface ChildProps {
-  source: Source;
-  gauges: GaugesList;
-}
-
-const updateQuery = (prevResult: Result, { fetchMoreResult }: FetchMoreResult<Result>) => {
-  if (!fetchMoreResult.gauges) {
-    return prevResult;
-  }
-  return { ...prevResult, gauges: [...prevResult.gauges!, ...fetchMoreResult.gauges] };
-};
-
-export const withGaugesList = enhancedQuery<Result, Props, ChildProps>(
-  ListGaugesQuery,
-  {
-    options: ({ sourceId, language }) => ({
-      fetchPolicy: 'cache-and-network',
-      variables: { sourceId, language, isLoadMore: false },
-      notifyOnNetworkStatusChange: true,
-    }),
-    props: ({ data }) => {
-      const { gauges, count, source, loading, fetchMore } = data!;
-      return {
-        source,
-        gauges: {
-          list: gauges,
-          count,
-          loading,
-          loadMore: ({ startIndex: skip, stopIndex }: LoadMoreParams) => fetchMore({
-            variables: { skip, limit: stopIndex - skip, isLoadMore: true },
-            updateQuery,
-          }),
-        },
-      };
+export const withGaugesList = compose(
+  withFeatureIds('source'),
+  graphql<WithGaugesListResult, any, WithGaugesList>(
+    LIST_GAUGES,
+    {
+      alias: 'withGaugesList',
+      options: {
+        fetchPolicy: 'cache-and-network',
+        notifyOnNetworkStatusChange: true,
+      },
+      props: props => queryResultToList(props, 'gauges'),
     },
-  },
+  ),
 );

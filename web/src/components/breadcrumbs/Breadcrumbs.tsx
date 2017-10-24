@@ -5,7 +5,6 @@ import { BreadcrumbsProps } from './types';
 
 export const Breadcrumbs: React.StatelessComponent<BreadcrumbsProps> = ({ routes, match, location }) => {
   const breadcrumbs = getBreadcrumbs({ routes, match, location });
-
   return (
     <div>
       {breadcrumbs.map((breadcrumb, i) =>

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Column } from 'react-virtualized';
 import { WithDeleteMutation } from '../../../apollo';
 import { BooleanColumn } from '../../../components';
-import { ResourcesList } from '../../../layout';
+import { ResourcesListCard } from '../../../layout';
 import { WithRegionsList } from '../../../ww-clients/features/regions';
 
 type Props = WithRegionsList & WithDeleteMutation<'removeRegion'>;
@@ -12,7 +12,7 @@ export class RegionsList extends React.PureComponent<Props> {
 
   render() {
     return (
-      <ResourcesList
+      <ResourcesListCard
         list={this.props.regions.nodes}
         onResourceClick={this.onRegionClick}
         resourceType="region"
@@ -22,7 +22,7 @@ export class RegionsList extends React.PureComponent<Props> {
         <Column width={100} label="Rivers" dataKey="riversCount" />
         <Column width={100} label="Sections" dataKey="sectionsCount" />
         <BooleanColumn width={50} label="Visible" dataKey="hidden" iconFalse="visibility" />
-      </ResourcesList>
+      </ResourcesListCard>
     );
   }
 }

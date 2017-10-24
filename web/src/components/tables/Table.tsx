@@ -2,7 +2,6 @@ import FontIcon from 'material-ui/FontIcon';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { Index, TableCellProps, TableProps as VTableProps } from 'react-virtualized';
-import { WithDeleteMutation } from '../../apollo';
 import { NamedNode, ResourceType } from '../../ww-commons';
 import { DeleteButton } from '../DeleteButton';
 import { AdminColumn } from './AdminColumn';
@@ -25,7 +24,7 @@ export class Table<DeleteHandle extends string, TResource extends NamedNode>
   onRowClick = ({ index }: Index) => this.props.onResourceClick(this.props.list[index].id);
 
   renderAdminActions = (props: TableCellProps) => (
-    <span>
+    <span onClick={(event) => event.stopPropagation()}>
       <Link to={`/${this.props.resourceType}s/${props.rowData.id}/settings`}>
         <FontIcon className="material-icons">mode_edit</FontIcon>
       </Link>

@@ -20,22 +20,29 @@ const styles: Styles = {
   },
 };
 
-class TabsInternal extends React.PureComponent<TabsProps & RouteComponentProps<any>> {
+type Props = TabsProps & {
+  fullPathMode?: boolean;
+};
+
+type InternalProps = Props & RouteComponentProps<any>;
+
+class TabsInternal extends React.PureComponent<InternalProps> {
 
   onTabChange = (value: string) => {
-    const { location, history } = this.props;
-    history.replace({ ...location, hash: value });
+    const { location, history, fullPathMode } = this.props;
+    history.replace(fullPathMode ? { pathname: value } : { ...location, hash: value });
   };
 
   render() {
-    const { children, match, history, staticContext, location, ...props } = this.props;
+    const { children, match, history, fullPathMode, staticContext, location, ...props } = this.props;
+    const value = fullPathMode ? location.pathname : (location.hash || '#main');
     return (
       <MUITabs
         style={styles.tabs}
         contentContainerStyle={styles.tabsContent}
         tabTemplate={TabTemplate}
         {...props}
-        value={location.hash || '#main'}
+        value={value}
         onChange={this.onTabChange}
       >
         {children}
@@ -44,4 +51,4 @@ class TabsInternal extends React.PureComponent<TabsProps & RouteComponentProps<a
   }
 }
 
-export const Tabs = withRouter<TabsProps>(TabsInternal);
+export const Tabs = withRouter<Props>(TabsInternal);

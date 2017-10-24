@@ -1,11 +1,12 @@
+import { upperFirst } from 'lodash';
 import { CardHeader, CardMedia } from 'material-ui/Card';
 import * as React from 'react';
 import { AutoSizer, Dimensions } from 'react-virtualized';
-import { Table, TableProps } from '../../components';
+import { Content, Table, TableProps } from '../../components';
 import { NamedNode } from '../../ww-commons';
 import ListAdminFooter from './ListAdminFooter';
 
-export class ResourcesList<DeleteHandle extends string, TResource extends NamedNode> extends
+export class ResourcesListCard<DeleteHandle extends string, TResource extends NamedNode> extends
   React.PureComponent<TableProps<TResource>> {
 
   table = ({ width, height }: Dimensions) => {
@@ -23,13 +24,16 @@ export class ResourcesList<DeleteHandle extends string, TResource extends NamedN
 
   render() {
     const { resourceType, list } = this.props;
-    return [
-      (
-        <AutoSizer key="tableBody" rowCount={list ? list.length : 0}>
-          {this.table}
-        </AutoSizer>
-      ),
-      <ListAdminFooter key="tableFooter" resourceType={resourceType} />,
-    ];
+    return (
+      <Content card>
+        <CardHeader title={`${upperFirst(resourceType)}s list`} />
+        <CardMedia style={{ height: '100%' }} mediaStyle={{ height: '100%' }}>
+          <AutoSizer rowCount={list ? list.length : 0}>
+            {this.table}
+          </AutoSizer>
+        </CardMedia>
+        <ListAdminFooter resourceType={resourceType} />
+      </Content>
+    );
   }
 }
