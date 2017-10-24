@@ -27,7 +27,8 @@ services:
 #    expose:
 #      - "3333"
     ports:
-      - "127.0.0.1:9229:9229" # V8 inspector (when NODE_DEBUG=true)
+      # TODO: remove in production
+      - "127.0.0.1:9229:9229"
       - "3333:3333"
     volumes:
       - yarn:/root/.cache/yarn
@@ -41,8 +42,8 @@ services:
     tmpfs:
       - /tmp
       - /var/run/postgresql
-    # TODO: remove in production
     ports:
+      # TODO: remove in production
       - "5432:5432"
     volumes:
       - db:/var/lib/postgresql/data

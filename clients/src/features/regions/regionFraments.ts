@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import { gql } from 'react-apollo';
 
 const Core = gql`
   fragment RegionCore on Region {

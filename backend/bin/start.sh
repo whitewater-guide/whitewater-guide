@@ -10,4 +10,4 @@ fi
 SHELL=/bin/sh chokidar package.json -p --poll-interval 300 -c yarn &
 
 # TODO: dev or production
-pm2-dev start "$PROJECT_ROOT/src/index.js"
+pm2-dev start "$PROJECT_ROOT/src/index.js" --node-args="--inspect"

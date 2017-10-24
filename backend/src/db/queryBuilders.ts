@@ -67,11 +67,13 @@ export const buildRootQuery = <T>(options: QueryBuilderOptions<T>): Knex.QueryBu
     customFieldMap = {},
     connections = {},
     knex = db(),
-    language = 'en',
-    orderBy = 'name',
+    language: lang,
+    orderBy: ordBy,
     id,
   } = options;
   const alias = tableAlias || table;
+  const language = lang || 'en';
+  const orderBy = ordBy || 'name';
   let result = knex.from(tableAlias ? `${table} AS ${tableAlias}` : table);
   if (!fieldsTree && !info) {
     throw new Error('Provide either resolver info or parsed fields tree from resolver info');
@@ -122,13 +124,14 @@ export const buildListQuery = <T>(options: ListQueryBuilderOptions<T>) => {
   const {
     info,
     fieldsTree, // ignored
-    page = {},
+    page,
     knex = db(),
-    language = 'en',
+    language: lang,
     id, // ignored
     ...rest,
   } = options;
-  const  { limit, offset } = page;
+  const { limit, offset } = page || { limit: null, offset: null };
+  const language = lang || 'en';
   if (!info) {
     throw new Error('List query must be provided with resolvers info, because it is a root query');
   }

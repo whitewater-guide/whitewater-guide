@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import { gql } from 'react-apollo';
 
 export const SOURCE_NAME = gql`
   query sourceName($id: ID!, $language:String) {

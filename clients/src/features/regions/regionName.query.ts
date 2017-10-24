@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import { gql } from 'react-apollo';
 
 export const REGION_NAME = gql`
   query regionName($id: ID!, $language:String) {

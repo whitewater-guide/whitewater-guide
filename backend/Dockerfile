@@ -1,4 +1,4 @@
-FROM keymetrics/pm2-docker-alpine:8
+FROM keymetrics/pm2:8
 
 ENV PROJECT_ROOT /opt/app
 
