@@ -1,3 +1,3 @@
-import { GaugeForm } from './GaugeForm';
+import Form from './GaugeForm';
 
-export default GaugeForm;
+export const GaugeForm = Form;

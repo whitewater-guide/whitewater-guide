@@ -6,4 +6,5 @@ export const sourceBreadcrumbs = {
   '/sources/:sourceId': SourceBreadcrumb,
   '/sources/:sourceId/settings': 'Settings',
   '/sources/:sourceId/gauges': 'Gauges',
+  '/sources/:sourceId/gauges/new': 'New',
 };

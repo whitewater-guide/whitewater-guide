@@ -1,2 +1,2 @@
-export * from './GaugesRoute';
-export { default as GaugesList } from './list';
+export * from './form';
+export * from './list';

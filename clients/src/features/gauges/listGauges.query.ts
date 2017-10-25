@@ -8,6 +8,9 @@ export default gql`
         ...GaugeCore
         ...GaugeLocation
         ...GaugeHarvestInfo
+        source {
+          id
+        }
         enabled
       }
       count

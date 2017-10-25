@@ -30,15 +30,22 @@ class TabsInternal extends React.PureComponent<InternalProps> {
 
   onTabChange = (value: string) => {
     const { location, history, fullPathMode } = this.props;
-    history.replace(fullPathMode ? { pathname: value } : { ...location, hash: value });
+    if (fullPathMode) {
+      const [pathname, hash] = value.split('#');
+      history.replace({ pathname, hash });
+    } else {
+      history.replace({ ...location, hash: value });
+    }
   };
 
   render() {
     const { children, match, history, fullPathMode, staticContext, location, ...props } = this.props;
-    let value = location.hash || '#main';
+    const { pathname, hash } = location;
+    let value = hash || '#main';
     if (fullPathMode) {
       const values = React.Children.map(children, (child: any) => child.props.value);
-      value = values.includes(location.pathname) ? location.pathname : values[0];
+      const path = pathname + hash;
+      value = values.includes(path) ? path : values[0];
     }
     return (
       <MUITabs

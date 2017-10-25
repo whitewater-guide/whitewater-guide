@@ -14,6 +14,7 @@ export type TableProps<TResource extends NamedNode> =
     onResourceClick: (id: string) => void;
     resourceType: ResourceType;
     deleteHandle: (id: string) => void;
+    customSettingsLink?: (row: TResource) => string;
   };
 
 export class Table<DeleteHandle extends string, TResource extends NamedNode>
@@ -23,14 +24,19 @@ export class Table<DeleteHandle extends string, TResource extends NamedNode>
 
   onRowClick = ({ index }: Index) => this.props.onResourceClick(this.props.list[index].id);
 
-  renderAdminActions = (props: TableCellProps) => (
-    <span onClick={(event) => event.stopPropagation()}>
-      <Link to={`/${this.props.resourceType}s/${props.rowData.id}/settings`}>
-        <FontIcon className="material-icons">mode_edit</FontIcon>
-      </Link>
-      <DeleteButton id={props.rowData.id} deleteHandler={this.props.deleteHandle} />
-    </span>
-  );
+  renderAdminActions = (props: TableCellProps) => {
+    const { customSettingsLink, resourceType } = this.props;
+    const id = props.rowData.id;
+    const settings = customSettingsLink ? customSettingsLink(props.rowData) : `/${resourceType}s/${id}/settings`;
+    return (
+      <span onClick={(event) => event.stopPropagation()}>
+        <Link to={settings}>
+          <FontIcon className="material-icons">mode_edit</FontIcon>
+        </Link>
+        <DeleteButton id={id} deleteHandler={this.props.deleteHandle} />
+      </span>
+    );
+  };
 
   render() {
     const { list, children, ...props } = this.props;

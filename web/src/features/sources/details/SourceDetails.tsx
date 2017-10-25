@@ -15,14 +15,14 @@ export class SourceDetails extends React.PureComponent<WithSource> {
         <CardMedia style={{ height: '100%' }} mediaStyle={{ height: '100%' }}>
           <div style={{ width: '100%', height: '100%' }} >
             <Tabs fullPathMode>
-              <Tab label="Details" value={`/sources/${sourceId}/#main`}>
+              <Tab label="Details" value={`/sources/${sourceId}#main`}>
                 <SourceDetailsMain source={source.node} />
               </Tab>
-              <Tab label="Terms of use" value={`/sources/${sourceId}/#terms`}>
+              <Tab label="Terms of use" value={`/sources/${sourceId}#terms`}>
                 <ReactMarkdown source={source.node.termsOfUse || ''} />
               </Tab>
               <Tab label="Gauges" value={`/sources/${sourceId}/gauges`}>
-                <div style={{ display: 'flex', flex: 1, flexDirection: 'column', alignSelf: 'stretch' }} >
+                <div style={{ height: '100%', width: '100%', overflow: 'hidden' }}>
                   <GaugesList />
                 </div>
               </Tab>

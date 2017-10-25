@@ -1,4 +1,4 @@
 import container from './container';
-import { GaugesList } from './GaugesList';
+import List from './GaugesList';
 
-export default container(GaugesList);
+export const GaugesList = container(List);

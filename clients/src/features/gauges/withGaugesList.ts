@@ -11,6 +11,7 @@ export interface WithGaugesListResult {
 
 export interface WithGaugesList {
   gauges: WithList<Gauge>;
+  sourceId?: string;
 }
 
 export const withGaugesList = compose(
