@@ -97,13 +97,10 @@ Object {
           "defaultValue": null,
           "kind": "VariableDefinition",
           "type": Object {
-            "kind": "NonNullType",
-            "type": Object {
-              "kind": "NamedType",
-              "name": Object {
-                "kind": "Name",
-                "value": "ID",
-              },
+            "kind": "NamedType",
+            "name": Object {
+              "kind": "Name",
+              "value": "ID",
             },
           },
           "variable": Object {
@@ -386,7 +383,7 @@ Object {
   ],
   "kind": "Document",
   "loc": Object {
-    "end": 579,
+    "end": 578,
     "start": 0,
   },
 }
