@@ -24,9 +24,9 @@ export interface GaugeInput {
   source: Node;
   location: PointInput | null;
   code: string;
-  levelUnit?: string | null;
-  flowUnit?: string | null;
+  levelUnit: string | null;
+  flowUnit: string | null;
   requestParams: any;
-  cron?: string | null;
-  url?: string | null;
+  cron: string | null;
+  url: string | null;
 }

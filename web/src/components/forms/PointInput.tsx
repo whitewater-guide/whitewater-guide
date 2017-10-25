@@ -39,11 +39,14 @@ interface Props {
   detailed?: boolean;
   mapDialog?: boolean;
   mapBounds: Coordinate[] | null;
+  paper?: boolean;
 }
 
 interface State {
   dialogOpen: boolean;
 }
+
+const Blank: React.StatelessComponent = (({ children }: any) => children) as any;
 
 export class PointInput extends React.PureComponent<Props, State> {
   state: State = {
@@ -57,10 +60,11 @@ export class PointInput extends React.PureComponent<Props, State> {
   onCloseDialog = () => this.setState({ dialogOpen: false });
 
   render() {
-    const { name, title, detailed = true, mapDialog = true } = this.props;
+    const { name, title, detailed = true, mapDialog = true, paper = true } = this.props;
     const prefix = title ? `${title} ` : '';
+    const Wrapper: React.ComponentType<any> = paper ? Paper : Blank;
     return (
-      <Paper style={styles.container}>
+      <Wrapper style={styles.container}>
         {
           detailed &&
           <div style={styles.row}>
@@ -97,7 +101,7 @@ export class PointInput extends React.PureComponent<Props, State> {
               bounds={this.props.mapBounds}
             />
         }
-      </Paper>
+      </Wrapper>
     );
   }
 }

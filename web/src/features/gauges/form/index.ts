@@ -1,3 +1,4 @@
+import container from './container';
 import Form from './GaugeForm';
 
-export const GaugeForm = Form;
+export const GaugeForm = container(Form);
