@@ -32,7 +32,7 @@ export class ResourcesListCard<DeleteHandle extends string, TResource extends Na
             {this.table}
           </AutoSizer>
         </CardMedia>
-        <ListAdminFooter resourceType={resourceType} />
+        <ListAdminFooter />
       </Content>
     );
   }

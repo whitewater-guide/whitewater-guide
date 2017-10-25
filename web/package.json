@@ -28,6 +28,7 @@
     "react-draft-wysiwyg": "^1.10.12",
     "react-event-listener": "^0.5.1",
     "react-gateway": "^2.7.0",
+    "react-markdown": "^2.5.0",
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",

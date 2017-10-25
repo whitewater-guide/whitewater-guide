@@ -22,14 +22,16 @@ export class ResourcesList<DeleteHandle extends string, TResource extends NamedN
   };
 
   render() {
-    const { resourceType, list } = this.props;
+    const { list } = this.props;
     return [
       (
-        <AutoSizer key="tableBody" rowCount={list ? list.length : 0}>
-          {this.table}
-        </AutoSizer>
+        <div key="tableBody" style={{ width: '100%', height: '100%' }} >
+          <AutoSizer rowCount={list ? list.length : 0}>
+            {this.table}
+          </AutoSizer>
+        </div>
       ),
-      <ListAdminFooter key="tableFooter" resourceType={resourceType} />,
+      <ListAdminFooter key="tableFooter" />,
     ];
   }
 }

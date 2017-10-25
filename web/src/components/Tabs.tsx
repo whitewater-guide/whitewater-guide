@@ -35,7 +35,11 @@ class TabsInternal extends React.PureComponent<InternalProps> {
 
   render() {
     const { children, match, history, fullPathMode, staticContext, location, ...props } = this.props;
-    const value = fullPathMode ? location.pathname : (location.hash || '#main');
+    let value = location.hash || '#main';
+    if (fullPathMode) {
+      const values = React.Children.map(children, (child: any) => child.props.value);
+      value = values.includes(location.pathname) ? location.pathname : values[0];
+    }
     return (
       <MUITabs
         style={styles.tabs}
