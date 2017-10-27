@@ -2,7 +2,7 @@ import { ReactWrapper } from 'enzyme';
 import * as React from 'react';
 import { gql, graphql } from 'react-apollo';
 import { compose } from 'recompose';
-import Loading from '../components/Loading';
+import { Loading } from '../components';
 import { mountWithMuiContext } from '../test';
 import { createMockedProvider, flushPromises } from '../ww-clients/test';
 import { withDeleteMutation, WithDeleteMutation } from './withDeleteMutation';
@@ -25,7 +25,11 @@ const MUTATION = gql`
 
 const QUERY = gql`query listRegions {
     regions {
-      id
+      nodes {
+        id
+        name
+      }
+      count
     }
   }
 `;
@@ -68,6 +72,7 @@ it('should refetch queries', async () => {
   const receiver = wrapped.find(Receiver).first();
   receiver.prop('removeRegion')('foo');
   await flushPromises();
+  wrapped.update();
   expect(regions).toBeCalled();
 });
 
@@ -75,6 +80,7 @@ it('should render loading while mutation is in progress', () => {
   const receiver = wrapped.find(Receiver).first();
   expect(wrapped.containsMatchingElement(<Loading />)).toBe(false);
   receiver.prop('removeRegion')('foo');
+  wrapped.update();
   expect(wrapped.containsMatchingElement(<Loading />)).toBe(true);
 });
 

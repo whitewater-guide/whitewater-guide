@@ -12,10 +12,8 @@ const styles: Styles = {
   },
 };
 
-const Loading: React.StatelessComponent = () => (
+export const Loading: React.StatelessComponent = () => (
   <div style={styles.container}>
     <CircularProgress />
   </div>
 );
-
-export default Loading;

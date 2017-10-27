@@ -1,14 +1,10 @@
 import * as React from 'react';
-import { RouteComponentProps } from 'react-router-dom';
 import { Column } from 'react-virtualized';
-import { WithDeleteMutation } from '../../../apollo';
 import { BooleanColumn } from '../../../components';
 import { ResourcesListCard } from '../../../layout';
-import { WithSourcesList } from '../../../ww-clients/features/sources';
+import { SourceListProps } from './types';
 
-type Props = WithSourcesList & WithDeleteMutation<'removeSource'> & RouteComponentProps<any>;
-
-export default class SourcesList extends React.PureComponent<Props> {
+export default class SourcesList extends React.PureComponent<SourceListProps> {
   onSourceClick = (id: string) => this.props.history.push(`/sources/${id}`);
 
   render() {

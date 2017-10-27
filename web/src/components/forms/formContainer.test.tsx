@@ -5,7 +5,7 @@ import { ChildProps, gql, graphql } from 'react-apollo';
 import { ComponentEnhancer, withProps } from 'recompose';
 import { FormReceiver, mountForm } from '../../test';
 import { flushPromises } from '../../ww-clients/test';
-import Loading from '../Loading';
+import { Loading } from '../Loading';
 import { formContainer, FormContainerOptions } from './formContainer';
 import { validateInput } from './validateInput';
 
