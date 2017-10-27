@@ -19,6 +19,11 @@ const points = [
     coordinates: getCoordinates([11, 22, 33]),
     kind: 'other',
   },
+  {
+    id: '0c86ff2c-bbdd-11e7-abc4-cec278b6b50a', // gauge gal1
+    coordinates: getCoordinates([1.1, 2.2, 3.3]),
+    kind: 'gauge',
+  },
 ];
 
 const pointsEn = [

@@ -162,7 +162,7 @@ describe('insert', () => {
     const points = await db().table('points').count();
     const regionsPointsByRegion = await db().table('regions_points').where('region_id', insertedRegion.id).count();
     expect(regionsPoints[0].count).toBe('4');
-    expect(points[0].count).toBe('4');
+    expect(points[0].count).toBe('5');
     expect(regionsPointsByRegion[0].count).toBe('2');
   });
 
@@ -216,7 +216,7 @@ describe('update', () => {
     const points = await db().table('points').count();
     const regionsPointsByRegion = await db().table('regions_points').where('region_id', updatedRegion.id).count();
     expect(regionsPoints[0].count).toBe('3');
-    expect(points[0].count).toBe('3');
+    expect(points[0].count).toBe('4');
     expect(regionsPointsByRegion[0].count).toBe('3');
   });
 

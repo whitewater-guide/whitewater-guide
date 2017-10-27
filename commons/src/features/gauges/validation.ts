@@ -8,7 +8,7 @@ export const GaugeInputSchema = Joi.object().keys({
   code: Joi.string().min(3).max(100),
   levelUnit: Joi.string().min(1).allow(null),
   flowUnit: Joi.string().min(1).allow(null),
-  location: PointInputSchema,
+  location: PointInputSchema.allow(null),
   requestParams: JoiWithJSONString.string().isJSONString().allow(null),
   cron: JoiWithCron.string().isCron().allow(null),
   url: Joi.string().uri().allow(null),

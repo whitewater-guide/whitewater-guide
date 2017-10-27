@@ -6,10 +6,8 @@ interface RemoveVariables {
   id: string;
 }
 
-const resolver: GraphQLFieldResolver<any, any> = async (root, { id }: RemoveVariables) => {
-  const result = await db().table('regions').del().where({ id }).returning('id');
-  return result;
-};
+const resolver: GraphQLFieldResolver<any, any> = (root, { id }: RemoveVariables) =>
+  db().table('regions').del().where({ id }).returning('id');
 
 const removeRegion = isAdminResolver.createResolver(
   resolver,

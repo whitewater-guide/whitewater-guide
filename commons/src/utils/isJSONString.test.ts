@@ -24,6 +24,10 @@ it('should handle JSON', () => {
   expect(isJSONString('{"foo": "bar"}')).toBe(true);
 });
 
+it('should handle malformed JSON', () => {
+  expect(isJSONString(`{ foo: 'bar' }`)).toBe(false);
+});
+
 it('should handle JSON array', () => {
   expect(isJSONString('["foo", "bar"]')).toBe(true);
 });

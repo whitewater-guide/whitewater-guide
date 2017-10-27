@@ -4,6 +4,7 @@ const gauges = [
   {
     id: 'aba8c106-aaa0-11e7-abc4-cec278b6b50a',
     source_id: '6d0d717e-aa9d-11e7-abc4-cec278b6b50a',
+    location_id: '0c86ff2c-bbdd-11e7-abc4-cec278b6b50a',
     code: 'gal1',
     level_unit: 'cm',
     flow_unit: 'm3/s',

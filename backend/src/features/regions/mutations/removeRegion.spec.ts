@@ -60,7 +60,7 @@ describe('effects', () => {
     const count = await db().table('points').count().first();
     const countLinks = await db().table('regions_points').count().first();
     const countTranslations = await db().table('points_translations').count().first();
-    expect(count.count).toBe('0');
+    expect(count.count).toBe('1');
     expect(countLinks.count).toBe('0');
     expect(countTranslations.count).toBe('0');
   });

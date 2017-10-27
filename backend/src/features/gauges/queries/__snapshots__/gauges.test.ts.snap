@@ -10,7 +10,14 @@ Array [
     "id": "aba8c106-aaa0-11e7-abc4-cec278b6b50a",
     "language": "en",
     "levelUnit": "cm",
-    "location": null,
+    "location": Object {
+      "coordinates": Array [
+        1.1,
+        2.2,
+        3.3,
+      ],
+      "id": "0c86ff2c-bbdd-11e7-abc4-cec278b6b50a",
+    },
     "name": "Galicia gauge 1",
     "requestParams": Object {
       "foo": "bar",

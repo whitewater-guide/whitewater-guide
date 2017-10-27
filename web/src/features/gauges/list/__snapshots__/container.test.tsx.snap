@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should match snapshot 1`] = `
+Object {
+  "count": 20,
+  "error": undefined,
+  "loading": false,
+  "nodes": Array [
+    Object {
+      "__typename": "Gauge",
+      "code": "Omnis et",
+      "cron": "Architecto ducimus",
+      "enabled": true,
+      "flowUnit": "Eligendi occaecati",
+      "id": "7fbe024f-3316-4265-a6e8-c65a837e308a",
+      "language": "Esse blanditiis natus",
+      "levelUnit": "Delectus et ipsam",
+      "location": Object {
+        "__typename": "Point",
+        "coordinates": Array [
+          0.2984952984843403,
+          0.28044399223290384,
+        ],
+        "id": "0d0420ea-096a-4f68-8b45-3acd600c9fab",
+        Symbol(id): "Point:0d0420ea-096a-4f68-8b45-3acd600c9fab",
+      },
+      "name": "Qui itaque",
+      "requestParams": Object {
+        "temporibus": "modi",
+      },
+      "source": Object {
+        "__typename": "Source",
+        "id": "6e14e412-901a-4e3e-9479-19992f94b318",
+        Symbol(id): "Source:6e14e412-901a-4e3e-9479-19992f94b318",
+      },
+      "url": "Et saepe eum",
+      Symbol(id): "Gauge:7fbe024f-3316-4265-a6e8-c65a837e308a",
+    },
+    Object {
+      "__typename": "Gauge",
+      "code": "Est fuga est",
+      "cron": "Sit enim",
+      "enabled": false,
+      "flowUnit": "Ex saepe",
+      "id": "7fb7680c-90a2-48cf-89ee-9272ec6682ae",
+      "language": "Ut sunt",
+      "levelUnit": "Ex aliquid omnis",
+      "location": Object {
+        "__typename": "Point",
+        "coordinates": Array [
+          0.35726976045407355,
+          0.4706408050842583,
+        ],
+        "id": "1a7911cf-0759-4f66-8cec-840c925980eb",
+        Symbol(id): "Point:1a7911cf-0759-4f66-8cec-840c925980eb",
+      },
+      "name": "Quidem est consequuntur",
+      "requestParams": Object {
+        "voluptas": "fuga",
+      },
+      "source": Object {
+        "__typename": "Source",
+        "id": "fdb8f127-3be3-4b71-8c8c-2e0b81206010",
+        Symbol(id): "Source:fdb8f127-3be3-4b71-8c8c-2e0b81206010",
+      },
+      "url": "Molestiae aut sapiente",
+      Symbol(id): "Gauge:7fb7680c-90a2-48cf-89ee-9272ec6682ae",
+    },
+  ],
+  "refetch": [Function],
+}
+`;

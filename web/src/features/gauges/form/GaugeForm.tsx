@@ -27,5 +27,4 @@ export default class GaugeForm extends React.PureComponent<InjectedFormProps<Gau
       </Form>
     );
   }
-
 }

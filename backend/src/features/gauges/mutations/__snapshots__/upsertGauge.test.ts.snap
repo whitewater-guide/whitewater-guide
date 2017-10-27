@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`insert should match snapshot 1`] = `
+Object {
+  "data": Object {
+    "upsertGauge": Object {
+      "code": "nor3",
+      "cron": "10 * * * *",
+      "enabled": false,
+      "flowUnit": "m3/s",
+      "language": "en",
+      "levelUnit": "cm",
+      "location": Object {
+        "coordinates": Array [
+          11.1,
+          12.2,
+          1.1,
+        ],
+        "kind": "gauge",
+        "language": "en",
+      },
+      "name": "norway gauge 3",
+      "requestParams": "{ \\"foo\\": \\"bar\\" }",
+      "source": Object {
+        "id": "786251d4-aa9d-11e7-abc4-cec278b6b50a",
+        "language": "en",
+        "name": "Norway",
+      },
+      "url": "http://nve.no/nor3",
+    },
+  },
+}
+`;
+
+exports[`resolvers chain should throw on invalid input 1`] = `
+Object {
+  "data": Object {
+    "upsertGauge": null,
+  },
+  "errors": Array [
+    [GraphQLError: Invalid input],
+  ],
+}
+`;
+
+exports[`update should match snapshot 1`] = `
+Object {
+  "data": Object {
+    "upsertGauge": Object {
+      "code": "gal1",
+      "cron": "10 * * * *",
+      "enabled": true,
+      "flowUnit": "cm3/s",
+      "language": "en",
+      "levelUnit": "m",
+      "location": Object {
+        "coordinates": Array [
+          11.1,
+          12.2,
+          1.1,
+        ],
+        "kind": "gauge",
+        "language": "en",
+      },
+      "name": "GALICIA GAUGE 1",
+      "requestParams": "{ \\"lol\\": \\"fun\\" }",
+      "source": Object {
+        "id": "6d0d717e-aa9d-11e7-abc4-cec278b6b50a",
+        "language": "en",
+        "name": "Galicia",
+      },
+      "url": "http://galic.ia/gal1",
+    },
+  },
+}
+`;

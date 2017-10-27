@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should match snapshot 1`] = `
+Object {
+  "mutating": false,
+  "regions": Object {
+    "count": 500,
+    "error": undefined,
+    "loading": false,
+    "nodes": Array [
+      Object {
+        "__typename": "Region",
+        "hidden": true,
+        "id": "7fbe024f-3316-4265-a6e8-c65a837e308a",
+        "language": "Esse blanditiis natus",
+        "name": "Qui itaque",
+        Symbol(id): "Region:7fbe024f-3316-4265-a6e8-c65a837e308a",
+      },
+      Object {
+        "__typename": "Region",
+        "hidden": true,
+        "id": "dcbfc51b-9ede-4d1d-8420-fa196af683b4",
+        "language": "Qui nobis",
+        "name": "Fugiat velit voluptatem",
+        Symbol(id): "Region:dcbfc51b-9ede-4d1d-8420-fa196af683b4",
+      },
+    ],
+    "refetch": [Function],
+  },
+  "removeRegion": [Function],
+  "setMutating": [Function],
+}
+`;

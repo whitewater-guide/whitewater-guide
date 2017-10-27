@@ -1,13 +1,10 @@
 import * as React from 'react';
 import { Column } from 'react-virtualized';
-import { WithDeleteMutation } from '../../../apollo';
 import { BooleanColumn } from '../../../components';
 import { ResourcesListCard } from '../../../layout';
-import { WithRegionsList } from '../../../ww-clients/features/regions';
+import { RegionsListProps } from './types';
 
-type Props = WithRegionsList & WithDeleteMutation<'removeRegion'>;
-
-export class RegionsList extends React.PureComponent<Props> {
+export class RegionsList extends React.PureComponent<RegionsListProps> {
   onRegionClick = (id: string) => console.log(id);
 
   render() {

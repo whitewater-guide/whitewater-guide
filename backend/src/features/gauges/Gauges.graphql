@@ -22,15 +22,16 @@ type Gauge {
 
 input GaugeInput {
   id: ID
-  sourceId: ID!
+  source: RefInput!
   name: String!
   code: String!
   location: PointInput
   levelUnit: String
-  flowUnit:String
+  flowUnit: String
   requestParams: JSON
   cron: String
   url: String
+  enabled: Boolean
 }
 
 type GaugesList {
@@ -44,8 +45,8 @@ type Query {
 }
 
 type Mutation {
-  upsertGauge(gauge:GaugeInput!, language:String):Gauge,
-  # removeGauges(id:ID, sourceId: ID, disabledOnly:Boolean):Int,
-  # setGaugesEnabled(id:ID, sourceId:ID, enabled:Boolean!):[Gauge]!,
+  upsertGauge(gauge:GaugeInput!, language:String):Gauge
+  removeGauge(id: ID!): ID
+  # setGaugesEnabled(id:ID, sourceId:ID, enabled:Boolean!):[Gauge]!
 }
 

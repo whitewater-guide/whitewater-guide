@@ -63,4 +63,5 @@ export const GaugeFragments = {
   HarvestInfo,
   LastMeasurements,
   Measurements,
+  Source,
 };

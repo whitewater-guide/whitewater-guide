@@ -6,7 +6,8 @@
   "author": "Konstantin Kuznetsov",
   "scripts": {
     "tsc": "tsc",
-    "lint": "tslint"
+    "lint": "tslint",
+    "test": "jest"
   },
   "dependencies": {
     "cron-parser": "^2.4.1",

@@ -1,13 +1,10 @@
 import * as React from 'react';
 import { Column } from 'react-virtualized';
-import { WithDeleteMutation } from '../../../apollo';
 import { ResourcesList } from '../../../layout';
-import { WithGaugesList } from '../../../ww-clients/features/gauges';
-import { Gauge } from '../../../ww-commons/features/gauges/types';
+import { Gauge } from '../../../ww-commons';
+import { GaugesListProps } from './types';
 
-type Props = WithGaugesList & WithDeleteMutation<'removeGauge'>;
-
-export default class GaugesList extends React.PureComponent<Props> {
+export default class GaugesList extends React.PureComponent<GaugesListProps> {
   onGaugeClick = (id: string) => console.log(id);
 
   customSettingsLink = (row: Gauge) => `/sources/${row.source.id}/gauges/${row.id}`;

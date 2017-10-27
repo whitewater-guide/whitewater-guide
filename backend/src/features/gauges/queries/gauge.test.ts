@@ -26,6 +26,11 @@ const query = `
         script
         harvestMode
       }
+      location {
+        id
+        language
+        coordinates
+      }
     }
   }
 `;
@@ -53,9 +58,6 @@ test('should be able to get basic attributes without translation', async () => {
   expect(result.errors).toBeUndefined();
   expect(result.data!.gauge.name).toBe('Gauge gal1');
   expect(result.data!.gauge.url).toBe('http://ya.ru');
-});
-
-test.skip('it should return location', () => {
 });
 
 test.skip('it should return last level/flow/timestamp', () => {

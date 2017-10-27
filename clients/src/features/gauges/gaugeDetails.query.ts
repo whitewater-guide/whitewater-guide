@@ -7,9 +7,11 @@ export default gql`
       ...GaugeCore
       ...GaugeLocation
       ...GaugeHarvestInfo
+      ...GaugeSource
     }
   }
   ${GaugeFragments.Core}
   ${GaugeFragments.Location}
   ${GaugeFragments.HarvestInfo}
+  ${GaugeFragments.Source}
 `;
