@@ -110,7 +110,7 @@ export const up = async (db: Knex) => {
   await db.schema.createTableIfNotExists('gauges', (table) => {
     table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
     table.uuid('source_id').notNullable().references('id').inTable('sources').onDelete('CASCADE').index();
-    table.uuid('location_id').references('id').inTable('points').onDelete('CASCADE');
+    table.uuid('location_id').references('id').inTable('points');
     table.string('code').notNullable().index();
     table.unique(['source_id', 'code']);
     table.string('level_unit');
@@ -158,6 +158,7 @@ export const up = async (db: Knex) => {
   await runSqlFile(db, './src/migrations/initial/upsert_points.sql');
   await runSqlFile(db, './src/migrations/initial/upsert_region.sql');
   await runSqlFile(db, './src/migrations/initial/regions_points_trigger.sql');
+  await runSqlFile(db, './src/migrations/initial/gauges_points_trigger.sql');
   await runSqlFile(db, './src/migrations/initial/sources_view.sql');
   await runSqlFile(db, './src/migrations/initial/gauges_view.sql');
   await runSqlFile(db, './src/migrations/initial/upsert_source.sql');
@@ -190,6 +191,7 @@ export const down = async (db: Knex) => {
   await db.schema.raw('DROP FUNCTION IF EXISTS upsert_source(src JSON, lang language_code) CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS upsert_gauge(gauge JSON, lang language_code) CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS trigger_delete_orphan_regions_points() CASCADE');
+  await db.schema.raw('DROP FUNCTION IF EXISTS trigger_delete_orphan_gauges_points() CASCADE');
   await removeUpdatedAtFunction(db);
 };
 

@@ -55,8 +55,9 @@ describe('effects', () => {
     expect(count.count).toBe('4');
   });
 
-  test('should remove location', async () => {
-
+  test('should remove location point', async () => {
+    const count = await db().table('points').count().first();
+    expect(count.count).toBe('2');
   });
 });
 
