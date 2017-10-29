@@ -14,10 +14,8 @@ const Schema = Joi.object().keys({
   language: Joi.string().optional(),
 });
 
-const resolver: GraphQLFieldResolver<any, any> = (root, { gauge, language }: UpsertVariables) => {
-  console.log(gauge.requestParams);
-  return rawUpsert(db(), `SELECT upsert_gauge('${JSON.stringify(gauge)}', '${language}')`);
-};
+const resolver: GraphQLFieldResolver<any, any> = (root, { gauge, language }: UpsertVariables) =>
+  rawUpsert(db(), `SELECT upsert_gauge('${JSON.stringify(gauge)}', '${language}')`);
 
 const queryResolver: GraphQLFieldResolver<any, any> = (root, args: UpsertVariables, context, info) =>
   isInputValidResolver(Schema).createResolver(upsertI18nResolver(resolver))(root, args, context, info);

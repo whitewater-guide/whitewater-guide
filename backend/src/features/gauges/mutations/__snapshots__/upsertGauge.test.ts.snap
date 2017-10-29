@@ -20,7 +20,9 @@ Object {
         "language": "en",
       },
       "name": "norway gauge 3",
-      "requestParams": "{ \\"foo\\": \\"bar\\" }",
+      "requestParams": Object {
+        "foo": "bar",
+      },
       "source": Object {
         "id": "786251d4-aa9d-11e7-abc4-cec278b6b50a",
         "language": "en",
@@ -63,7 +65,9 @@ Object {
         "language": "en",
       },
       "name": "GALICIA GAUGE 1",
-      "requestParams": "{ \\"lol\\": \\"fun\\" }",
+      "requestParams": Object {
+        "lol": "fun",
+      },
       "source": Object {
         "id": "6d0d717e-aa9d-11e7-abc4-cec278b6b50a",
         "language": "en",

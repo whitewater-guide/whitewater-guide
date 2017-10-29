@@ -12,3 +12,4 @@ export * from './formContainer';
 export * from './serializeForm';
 export * from './deserializeForm';
 export * from './Form';
+export * from './Switch';

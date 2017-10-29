@@ -45,8 +45,7 @@ type Query {
 }
 
 type Mutation {
-  upsertGauge(gauge:GaugeInput!, language:String):Gauge
+  upsertGauge(gauge:GaugeInput!, language:String): Gauge
   removeGauge(id: ID!): ID
-  # setGaugesEnabled(id:ID, sourceId:ID, enabled:Boolean!):[Gauge]!
+  toggleGauge(id: ID!, enabled: Boolean!): Gauge
 }
-
