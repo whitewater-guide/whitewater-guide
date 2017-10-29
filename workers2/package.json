@@ -1,0 +1,44 @@
+{
+  "name": "workers2",
+  "version": "0.0.1",
+  "description": "workers for whitewater",
+  "main": "index.js",
+  "author": "Konstantin Kuznetsov",
+  "license": "private",
+  "private": true,
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/cheerio": "^0.22.4",
+    "@types/command-line-args": "^4.0.1",
+    "@types/lodash-es": "^4.17.0",
+    "@types/node": "^8.0.47",
+    "@types/node-fetch": "^1.6.7",
+    "@types/tough-cookie": "^2.3.2",
+    "rollup": "^0.50.0",
+    "rollup-plugin-commonjs": "^8.2.5",
+    "rollup-plugin-json": "^2.3.0",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-typescript2": "^0.7.0",
+    "rollup-plugin-uglify": "^2.0.1",
+    "tslib": "^1.8.0",
+    "tslint": "^5.8.0",
+    "tslint-eslint-rules": "^4.1.1",
+    "typescript": "^2.5.3",
+    "uglify-es": "^3.1.5"
+  },
+  "dependencies": {
+    "@3846masa/axios-cookiejar-support": "^0.1.1",
+    "axios": "^0.17.0",
+    "cheerio": "^1.0.0-rc.2",
+    "command-line-args": "^4.0.7",
+    "console.table": "^0.9.1",
+    "date-fns": "2.0.0-alpha.7",
+    "lodash-es": "^4.17.4",
+    "node-fetch": "^1.7.3",
+    "queue": "^4.4.2",
+    "tough-cookie": "^2.3.3"
+  }
+}
