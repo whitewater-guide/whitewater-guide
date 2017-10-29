@@ -7,6 +7,7 @@ export default (input?: object | null) => {
   }
   const location = result.location ? {
     ...result.location,
+    id: result.location.id || null,
     name: null,
     description: null,
     kind: 'gauge',

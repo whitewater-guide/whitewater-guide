@@ -1,4 +1,5 @@
-import { CardHeader, CardMedia } from 'material-ui/Card';
+import { CardActions, CardHeader, CardMedia } from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton';
 import { Tab } from 'material-ui/Tabs';
 import * as React from 'react';
 import * as ReactMarkdown from 'react-markdown';
@@ -8,6 +9,7 @@ import { GaugesList } from '../../gauges';
 import { Route, RouteComponentProps, Switch } from 'react-router-dom';
 import SourceDetailsMain from './SourceDetailsMain';
 import { GaugesRoute } from '../../gauges';
+import ListAdminFooter from '../../../layout/list/ListAdminFooter';
 
 export class SourceDetails extends React.PureComponent<WithSource & RouteComponentProps<any>> {
   render() {
@@ -36,6 +38,13 @@ export class SourceDetails extends React.PureComponent<WithSource & RouteCompone
                 </Tabs>
               </div>
             </CardMedia>
+            <Route exact path={`${match.path}/gauges`}>
+              <CardActions>
+                <ListAdminFooter>
+                  <FlatButton label="Autofill" />
+                </ListAdminFooter>
+              </CardActions>
+            </Route>
           </Content>
         </Route>
       </Switch>

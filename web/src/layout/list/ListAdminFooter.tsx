@@ -5,9 +5,10 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 import { adminOnly } from '../../components';
 
-const Footer: React.StatelessComponent<RouteComponentProps<any>> = ({ location: { pathname } }) => (
+const Footer: React.StatelessComponent<RouteComponentProps<any>> = ({ location: { pathname }, children }) => (
   <CardActions>
     <FlatButton label="Add new" href={`${pathname}/new`} />
+    {children}
   </CardActions>
 );
 
