@@ -15,6 +15,13 @@ const region = {
   updatedAt: '2017-10-10T10:16:34.629Z',
   createdAt: '2017-10-10T10:16:34.629Z',
   bounds: [[1, 1, 1], [2, 2, 2], [3, 4, 3]],
+  source: {
+    __typename: 'Source',
+    id: 'source_id',
+    language: 'en',
+    name: 'source_name',
+  },
+  location: null,
   pois: [
     {
       __typename: 'Point',
@@ -43,7 +50,7 @@ const region = {
 
 let result: any;
 
-const deserializer = deserializeForm(['description'], ['pois'], ['sources']);
+const deserializer = deserializeForm(['description'], ['pois', 'source', 'location'], ['sources']);
 
 beforeEach(() => {
   result = deserializer(region);
@@ -74,12 +81,24 @@ it('should omit timestamps', () => {
   expect(result).not.toHaveProperty('updatedAt');
 });
 
-it('should omit __typename from nested object', () => {
+it('should omit __typename from nested object in array', () => {
   expect(result!.pois[0]).not.toHaveProperty('__typename');
 });
 
-it('should omit language from nested object', () => {
+it('should omit language from nested object in array', () => {
   expect(result!.pois[0]).not.toHaveProperty('language');
+});
+
+it('should omit __typename from nested object', () => {
+  expect(result!.source).not.toHaveProperty('__typename');
+});
+
+it('should omit language from nested object', () => {
+  expect(result!.source).not.toHaveProperty('language');
+});
+
+it('should keep null nested objects', () => {
+  expect(result!.location).toBeNull();
 });
 
 it('should omit timestamps from nested object', () => {
@@ -101,4 +120,3 @@ it('should transform connections without nodes', () => {
 it('should match snapshot', () => {
   expect(result).toMatchSnapshot();
 });
-

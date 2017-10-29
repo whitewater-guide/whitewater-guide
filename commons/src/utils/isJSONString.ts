@@ -14,7 +14,7 @@ export const JoiWithJSONString = Joi.extend({
   base: Joi.string(),
   name: 'string',
   language: {
-    isCron: 'must be valid JSON string',
+    isJSONString: 'must be valid JSON string',
   },
   rules: [
     {

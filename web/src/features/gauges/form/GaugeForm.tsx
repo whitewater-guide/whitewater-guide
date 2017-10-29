@@ -8,7 +8,7 @@ export default class GaugeForm extends React.PureComponent<InjectedFormProps<Gau
   render() {
     return (
       <Form {...this.props} resourceType="gauge">
-        <div style={{ padding: 8 }}>
+        <div style={{ padding: 8, height: '100%', overflow: 'auto' }}>
           <TextInput fullWidth name="name" title="Name" />
           <TextInput fullWidth name="code" title="Code" />
           <PointInput

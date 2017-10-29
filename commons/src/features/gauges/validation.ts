@@ -9,9 +9,14 @@ export const GaugeInputSchema = Joi.object().keys({
   levelUnit: Joi.string().min(1).allow(null),
   flowUnit: Joi.string().min(1).allow(null),
   location: PointInputSchema.allow(null),
-  requestParams: JoiWithJSONString.string().isJSONString().allow(null),
+  requestParams: Joi.object().min(1).allow(null),
   cron: JoiWithCron.string().isCron().allow(null),
   url: Joi.string().uri().allow(null),
   enabled: Joi.boolean(),
   source: Joi.object().keys({ id: Joi.string().guid() }),
+});
+
+// description is draft.js EditorState
+export const GaugeFormSchema = GaugeInputSchema.keys({
+  requestParams: JoiWithJSONString.string().isJSONString().allow(null),
 });

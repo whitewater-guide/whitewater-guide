@@ -23,7 +23,7 @@ BEGIN
       gauge ->> 'levelUnit',
       gauge ->> 'flowUnit',
       gauge ->> 'cron',
-      to_json(gauge ->> 'requestParams'),
+      (gauge -> 'requestParams')::json,
       gauge ->> 'url',
       (gauge ->> 'enabled') :: BOOLEAN
     FROM upserted_location

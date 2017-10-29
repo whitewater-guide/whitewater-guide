@@ -115,6 +115,7 @@ Object {
   },
   "hidden": false,
   "id": "id",
+  "location": null,
   "name": "foo",
   "pois": Array [
     Object {
@@ -134,6 +135,10 @@ Object {
     1,
     2,
   ],
+  "source": Object {
+    "id": "source_id",
+    "name": "source_name",
+  },
   "sources": Array [
     Object {
       "id": "source_id",

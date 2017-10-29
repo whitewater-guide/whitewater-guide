@@ -38,3 +38,11 @@ it('should match snapshot for existing gauge', async () => {
   receiver = wrapped.find(FormReceiver).first() as any;
   expect(receiver.prop('initialValues')).toMatchSnapshot();
 });
+
+it('should receive requestParams as string', async () => {
+  mountWithOptions('foo');
+  await flushPromises();
+  wrapped.update();
+  receiver = wrapped.find(FormReceiver).first() as any;
+  expect(typeof receiver.prop('initialValues').requestParams).toBe('string');
+});

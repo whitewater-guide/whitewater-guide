@@ -7,7 +7,7 @@ import { GaugesListProps } from './types';
 export default class GaugesList extends React.PureComponent<GaugesListProps> {
   onGaugeClick = (id: string) => console.log(id);
 
-  customSettingsLink = (row: Gauge) => `/sources/${row.source.id}/gauges/${row.id}`;
+  customSettingsLink = (row: Gauge) => `/sources/${row.source.id}/gauges/${row.id}/settings`;
 
   render() {
     return (

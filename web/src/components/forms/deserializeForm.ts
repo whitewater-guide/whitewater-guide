@@ -15,7 +15,9 @@ export const deserializeForm =
       if (markdownFields.includes(key)) {
         return value ? EditorState.createWithContent(stateFromMarkdown(value)) : null;
       } else if (objectFields.includes(key)) {
-        if (Array.isArray(value)) {
+        if (!value) {
+          return null;
+        } else if (Array.isArray(value)) {
           return value.map(cleanup);
         } else {
           return cleanup(value);

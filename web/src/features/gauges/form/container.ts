@@ -1,12 +1,15 @@
-import { deserializeForm, formContainer, serializeForm } from '../../../components/forms';
+import { compose } from 'recompose';
+import { formContainer } from '../../../components/forms';
+import { withFeatureIds } from '../../../ww-clients/core/withFeatureIds';
 import { GAUGE_DETAILS } from '../../../ww-clients/features/gauges';
-import { GaugeInputSchema } from '../../../ww-commons';
+import { GaugeFormSchema } from '../../../ww-commons';
+import deserializeGauge from './deserializeGauge';
+import serializeGauge from './serializeGauge';
 import UPSERT_GAUGE from './upsertGauge.mutation';
 
 const gaugeForm = formContainer({
   formName: 'gauge',
   propName: 'gauge',
-  backPath: '/gauges',
   defaultValue: (props) => ({
     id: null,
     source: { id: props.sourceId },
@@ -21,9 +24,12 @@ const gaugeForm = formContainer({
   }),
   query: GAUGE_DETAILS,
   mutation: UPSERT_GAUGE,
-  serializeForm: serializeForm(),
-  deserializeForm: deserializeForm(),
-  validationSchema: GaugeInputSchema,
+  serializeForm: serializeGauge,
+  deserializeForm: deserializeGauge,
+  validationSchema: GaugeFormSchema,
 });
 
-export default gaugeForm;
+export default compose(
+  withFeatureIds(['source', 'gauge']),
+  gaugeForm,
+);

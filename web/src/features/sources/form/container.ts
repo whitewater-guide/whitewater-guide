@@ -20,7 +20,6 @@ const NEW_SOURCE: SourceInput = {
 const sourceForm = formContainer({
   formName: 'source',
   propName: 'source',
-  backPath: '/sources',
   defaultValue: NEW_SOURCE,
   query: SOURCE_FORM_QUERY,
   mutation: UPSERT_SOURCE,

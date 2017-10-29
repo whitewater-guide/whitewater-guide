@@ -110,7 +110,7 @@ export const up = async (db: Knex) => {
   await db.schema.createTableIfNotExists('gauges', (table) => {
     table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
     table.uuid('source_id').notNullable().references('id').inTable('sources').onDelete('CASCADE').index();
-    table.uuid('location_id').references('id').inTable('points');
+    table.uuid('location_id').references('id').inTable('points').onDelete('SET NULL');
     table.string('code').notNullable().index();
     table.unique(['source_id', 'code']);
     table.string('level_unit');

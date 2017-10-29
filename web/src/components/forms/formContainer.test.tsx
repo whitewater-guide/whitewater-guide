@@ -68,7 +68,7 @@ const options: Opts = {
   defaultValue: {
     foo: 'default_foo',
   },
-  backPath: '/entities',
+  backPath: 'entities',
   validationSchema: ValidationSchema,
   serializeForm,
   deserializeForm,
@@ -151,6 +151,19 @@ it('should navigate on successful mutation', async () => {
   const receiver = wrapped.find(FormReceiver).first();
   await receiver.find('form').simulate('submit');
   expect(history.replace).toBeCalledWith('/entities');
+});
+
+it('should navigate on successful without explicit backPath', async () => {
+  const history = createMemoryHistory({ initialEntries: ['/foos/123/entitys/456/settings'] });
+  history.replace = jest.fn();
+  (graphql as jest.Mock)
+    .mockReturnValueOnce(detailsContainer(false, false))
+    .mockReturnValueOnce(mutationContainer(false));
+  const form = formContainer({ ...options, backPath: undefined });
+  const wrapped = mountForm({ form, history });
+  const receiver = wrapped.find(FormReceiver).first();
+  await receiver.find('form').simulate('submit');
+  expect(history.replace).toBeCalledWith('/foos/123/entitys');
 });
 
 it('should pass form error on mutation error', async () => {

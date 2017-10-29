@@ -17,7 +17,6 @@ const NEW_REGION: RegionInput = {
 const regionForm = formContainer({
   formName: 'region',
   propName: 'region',
-  backPath: '/regions',
   defaultValue: NEW_REGION,
   query: REGION_DETAILS,
   mutation: UPSERT_REGION,

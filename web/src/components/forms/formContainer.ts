@@ -22,7 +22,7 @@ export interface FormContainerOptions<QueryResult, MutationResult, FormInput> {
    */
   formName: string;
   /**
-   * The graphq queryContainer return data props
+   * The graphql queryContainer return data props
    * data[propName] contains initial data for the form
    */
   propName: string;
@@ -33,9 +33,13 @@ export interface FormContainerOptions<QueryResult, MutationResult, FormInput> {
    */
   defaultValue: object | ((props: any) => object);
   /**
-   * react-router will navigate to this path on successful form submission
+   * Part of paths that indicates list of things
+   * e.g. for form paths '/sources/123/gauges/456/settings' or '/sources/123/gauges/new'
+   * we want to navigate to '/sources/123/gauges' on successful form submission
+   * In this set backPath to 'gauges'.
+   * If undefined - default to propName in plural
    */
-  backPath: string;
+  backPath?: string;
   /**
    * Convert graphql query result into something that can be feed to form (i.e. markdown -> draft.js)
    * Remove __typename here
@@ -95,9 +99,11 @@ export const formContainer = <QueryResult, MutationResult, FormInput>(
     withLoading<ChildProps<any, any>>(({ data }) => data!.loading),
     graphql(mutation, { alias: `${formName}FormMutation` }),
     mapProps<FormProps, MappedProps>((props) => {
-      const { data, history, mutate, language, onLanguageChange } = props;
+      const { data, history, mutate, location, language, onLanguageChange } = props;
       const value = (data as any)[propName] ||
         (typeof defaultValue === 'function' ? defaultValue(props) : defaultValue);
+      const splitter = backPath || `${propName}s`;
+      const path = location.pathname.split(splitter)[0] + splitter;
       return {
         language,
         onLanguageChange,
@@ -106,7 +112,7 @@ export const formContainer = <QueryResult, MutationResult, FormInput>(
         onSubmit: (input: FormInput) => {
           // Make it clear that we return promise
           return mutate!({ variables: { [propName]: serializeForm(input), language } })
-            .then(() => history.replace(backPath))
+            .then(() => history.replace(path!))
             .catch((e: ApolloError) => {
               throw new SubmissionError({ _error: e.message });
             });
