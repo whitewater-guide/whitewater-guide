@@ -3,17 +3,16 @@ import FlatButton from 'material-ui/FlatButton';
 import { Tab } from 'material-ui/Tabs';
 import * as React from 'react';
 import * as ReactMarkdown from 'react-markdown';
-import { Content, Tabs } from '../../../components';
-import { WithSource } from '../../../ww-clients/features/sources';
-import { GaugesList } from '../../gauges';
 import { Route, RouteComponentProps, Switch } from 'react-router-dom';
-import SourceDetailsMain from './SourceDetailsMain';
-import { GaugesRoute } from '../../gauges';
+import { Content, Tabs } from '../../../components';
 import ListAdminFooter from '../../../layout/list/ListAdminFooter';
+import { WithSource } from '../../../ww-clients/features/sources';
+import { GaugesList, GaugesRoute } from '../../gauges';
+import SourceDetailsMain from './SourceDetailsMain';
 
 export class SourceDetails extends React.PureComponent<WithSource & RouteComponentProps<any>> {
   render() {
-    const { source, sourceId, match } = this.props;
+    const { source, sourceId, match, location } = this.props;
     return (
       <Switch>
         <Route strict path={`${match.path}/gauges/`} component={GaugesRoute} />
@@ -38,13 +37,18 @@ export class SourceDetails extends React.PureComponent<WithSource & RouteCompone
                 </Tabs>
               </div>
             </CardMedia>
-            <Route exact path={`${match.path}/gauges`}>
-              <CardActions>
+            <Switch>
+              <Route exact path={`${match.path}/gauges`}>
                 <ListAdminFooter>
                   <FlatButton label="Autofill" />
                 </ListAdminFooter>
-              </CardActions>
-            </Route>
+              </Route>
+              <Route>
+                <CardActions>
+                  <FlatButton label="Edit" href={`${match.url}/settings${location.hash}`} />
+                </CardActions>
+              </Route>
+            </Switch>
           </Content>
         </Route>
       </Switch>
