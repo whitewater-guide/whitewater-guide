@@ -4,6 +4,7 @@ import { withDeleteMutation } from '../../../apollo';
 import { withLoading } from '../../../components';
 import { withGaugesList, WithGaugesList } from '../../../ww-clients/features/gauges';
 import REMOVE_GAUGE from './removeGauge.mutation';
+import withToggleGauge from './withToggleGauge';
 
 export default compose(
   withRouter,
@@ -13,5 +14,6 @@ export default compose(
     propName: 'removeGauge',
     refetchQueries: ['listGauges'],
   }),
+  withToggleGauge,
   withLoading<WithGaugesList>(({ gauges }) => gauges.loading),
 );

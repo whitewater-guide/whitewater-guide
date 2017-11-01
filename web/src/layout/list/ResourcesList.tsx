@@ -3,7 +3,6 @@ import * as React from 'react';
 import { AutoSizer, Dimensions } from 'react-virtualized';
 import { Table, TableProps } from '../../components';
 import { NamedNode } from '../../ww-commons';
-import ListAdminFooter from './ListAdminFooter';
 
 export class ResourcesList<DeleteHandle extends string, TResource extends NamedNode> extends
   React.PureComponent<TableProps<TResource>> {
@@ -23,9 +22,11 @@ export class ResourcesList<DeleteHandle extends string, TResource extends NamedN
 
   render() {
     const { list } = this.props;
+    // Toggle counter is pass-through prop to refresh table
+    // See https://github.com/bvaughn/react-virtualized#pure-components
     return(
       <div style={{ width: '100%', height: '100%' }} >
-        <AutoSizer rowCount={list ? list.length : 0}>
+        <AutoSizer rowCount={list ? list.length : 0} refresher={this.props.refresher}>
           {this.table}
         </AutoSizer>
       </div>
