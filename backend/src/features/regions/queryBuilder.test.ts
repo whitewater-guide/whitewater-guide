@@ -27,25 +27,41 @@ const info: GraphQLResolveInfo = {} as any;
 const options = { info, context: adminContext, knex: db(true) };
 
 describe('details', () => {
-  const connections = {
-    rivers: {
-      nodes: {
-        __typename: {},
-        id: {},
-        language: {},
-        name: {},
-      },
-      count: {},
-    },
-  };
-
   it('should build correct query without connections', () => {
     graphqlFields.mockReturnValueOnce(primitives);
     const query = buildRegionQuery(options);
     expect(query).toMatchSnapshot();
   });
 
-  it('should build correct query with connections', () => {
+  it('should build correct query with rivers connection', () => {
+    const connections = {
+      rivers: {
+        nodes: {
+          __typename: {},
+          id: {},
+          language: {},
+          name: {},
+        },
+        count: {},
+      },
+    };
+    graphqlFields.mockReturnValueOnce({ ...primitives, ...connections });
+    const query = buildRegionQuery(options);
+    expect(query).toMatchSnapshot();
+  });
+
+  it('should build correct query with gauges connection', () => {
+    const connections = {
+      gauges: {
+        nodes: {
+          __typename: {},
+          id: {},
+          language: {},
+          name: {},
+        },
+        count: {},
+      },
+    };
     graphqlFields.mockReturnValueOnce({ ...primitives, ...connections });
     const query = buildRegionQuery(options);
     expect(query).toMatchSnapshot();
@@ -53,19 +69,29 @@ describe('details', () => {
 });
 
 describe('list', () => {
-  const connections = {
-    rivers: {
-      count: {},
-    },
-  };
-
   it('should build correct query without connections', () => {
     graphqlFields.mockReturnValueOnce({ nodes: primitives, count: {} });
     const query = buildRegionsListQuery(options);
     expect(query).toMatchSnapshot();
   });
 
-  it('should build correct query with connections', () => {
+  it('should build correct query with rivers connection', () => {
+    const connections = {
+      rivers: {
+        count: {},
+      },
+    };
+    graphqlFields.mockReturnValueOnce({ nodes: { ...primitives, ...connections }, count: {} });
+    const query = buildRegionsListQuery(options);
+    expect(query).toMatchSnapshot();
+  });
+
+  it('should build correct query with gauges connection', () => {
+    const connections = {
+      gauges: {
+        count: {},
+      },
+    };
     graphqlFields.mockReturnValueOnce({ nodes: { ...primitives, ...connections }, count: {} });
     const query = buildRegionsListQuery(options);
     expect(query).toMatchSnapshot();

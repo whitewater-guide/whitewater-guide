@@ -66,7 +66,7 @@ test('should be able to specify language', async () => {
   expect(regions.nodes[1].hidden).toBe(true);
 });
 
-test.only('should return rivers count', async () => {
+test('should return rivers count', async () => {
   const riversQuery = `
     query listRegions($language: String, $page: Page){
       regions(language: $language, page: $page) {
@@ -88,4 +88,27 @@ test.only('should return rivers count', async () => {
   expect(regions.nodes[0].rivers).toEqual({ count: 0 });
   expect(regions.nodes[1].rivers).toEqual({ count: 2 });
   expect(regions.nodes[2].rivers).toEqual({ count: 0 });
+});
+
+test('should return gauges count', async () => {
+  const gaugesQuery = `
+    query listRegions($language: String, $page: Page){
+      regions(language: $language, page: $page) {
+        nodes {
+          id
+          language
+          name
+          gauges { count }
+        }
+        count
+      }
+    }
+  `;
+  const result = await runQuery(gaugesQuery, {}, superAdminContext);
+  expect(result.data!.regions).toBeDefined();
+  const regions = result.data!.regions;
+  // Check name
+  expect(regions.nodes[0].gauges).toEqual({ count: 0 }); // empty region
+  expect(regions.nodes[1].gauges).toEqual({ count: 2 }); // galicia
+  expect(regions.nodes[2].gauges).toEqual({ count: 4 }); // hidden region
 });

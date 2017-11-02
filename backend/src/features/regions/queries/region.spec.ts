@@ -95,3 +95,27 @@ test('should get rivers', async () => {
   const result = await runQuery(riversQuery, { id: 'bd3e10b6-7624-11e7-b5a5-be2e44b06b34' }, userContext,);
   expect(result.data!.region.rivers).toMatchSnapshot();
 });
+
+test('should get gauges', async () => {
+  const gaugesQuery = `
+    query regionDetails($id: ID, $language: String){
+      region(id: $id, language: $language) {
+        id
+        language
+        name
+        gauges {
+          nodes {
+            id
+            language
+            name
+          }
+          count
+        }
+      }
+    }
+  `;
+  // hidden region
+  const result = await runQuery(gaugesQuery, { id: 'b968e2b2-76c5-11e7-b5a5-be2e44b06b34' }, userContext);
+  expect(result.data!.region.gauges.count).toEqual(4);
+  expect(result.data!.region.gauges).toMatchSnapshot();
+});

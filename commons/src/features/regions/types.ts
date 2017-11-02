@@ -2,6 +2,7 @@ import { NamedNode, Timestamped } from '../../core';
 import { Coordinate3d, Point, PointInput } from '../points';
 import { River } from '../rivers';
 import { Connection } from '../types';
+import { Gauge } from '../gauges';
 
 export interface Region extends NamedNode, Timestamped {
   description: string | null;
@@ -12,6 +13,7 @@ export interface Region extends NamedNode, Timestamped {
   pois: Point[];
   // --- connections
   rivers?: Connection<River>;
+  gauges?: Connection<Gauge>;
 }
 
 export class RegionInput {

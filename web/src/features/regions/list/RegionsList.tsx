@@ -7,7 +7,7 @@ import { RegionsListProps } from './types';
 export class RegionsList extends React.PureComponent<RegionsListProps> {
   onRegionClick = (id: string) => console.log(id);
 
-  renderRiversCount: TableCellRenderer = ({ cellData: { count } }) => count;
+  renderCount: TableCellRenderer = ({ cellData: { count } }) => count;
 
   render() {
     return (
@@ -18,7 +18,8 @@ export class RegionsList extends React.PureComponent<RegionsListProps> {
         deleteHandle={this.props.removeRegion}
       >
         <Column width={200} label="Name" dataKey="name" />
-        <Column width={100} label="Rivers" dataKey="rivers" cellRenderer={this.renderRiversCount} />
+        <Column width={100} label="Gauges" dataKey="gauges" cellRenderer={this.renderCount} />
+        <Column width={100} label="Rivers" dataKey="rivers" cellRenderer={this.renderCount} />
         <Column width={100} label="Sections" dataKey="sectionsCount" />
         <BooleanColumn width={50} label="Visible" dataKey="hidden" iconFalse="visibility" />
       </ResourcesListCard>

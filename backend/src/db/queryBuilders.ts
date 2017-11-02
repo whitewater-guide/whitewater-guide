@@ -161,7 +161,7 @@ export const buildListQuery = <T>(options: ListQueryBuilderOptions<T>) => {
  */
 export const buildConnectionJSONQuery = (table: string, includeNodes = true, knex = db()) => {
   // Assumption: we can request count without nodes, but if we request nodes we also must request count
-  const nodes = includeNodes ? knex.select(knex.raw(`json_agg(${table}.*)`)).from(table) : null;
+  const nodes = includeNodes ? knex.select(knex.raw(`COALESCE(json_agg(${table}.*), '[]'::json)`)).from(table) : null;
   const count = knex.select(`${table}.count`).from(table).limit(1); // count comes from window function column
   const parts = [`'count'`, `(${count.toQuery()})`];
   if (nodes) {

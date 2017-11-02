@@ -54,7 +54,8 @@ select
                     limit 1),
                 'nodes', (
                     select
-                        json_agg (regions_connection_internal.*)
+                        COALESCE(json_agg (regions_connection_internal.*),
+                            '[]'::json)
                     from
                         regions_connection_internal))) as regions, (with gauges_connection_internal as (
         select
@@ -74,7 +75,8 @@ select
                 limit 1),
             'nodes', (
                 select
-                    json_agg (gauges_connection_internal.*)
+                    COALESCE(json_agg (gauges_connection_internal.*),
+                        '[]'::json)
                 from
                     gauges_connection_internal))) as gauges
 from
@@ -159,7 +161,8 @@ select
                     limit 1),
                 'nodes', (
                     select
-                        json_agg (regions_connection_internal.*)
+                        COALESCE(json_agg (regions_connection_internal.*),
+                            '[]'::json)
                     from
                         regions_connection_internal))) as regions, (with gauges_connection_internal as (
         select

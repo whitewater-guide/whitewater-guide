@@ -11,11 +11,17 @@ type Region {
   createdAt: Date
   updatedAt: Date
   rivers: RegionRiverConnection!
+  gauges: RegionGaugeConnection!
   # sources: [Source]!
 }
 
 type RegionRiverConnection {
   nodes: [River]!
+  count: Int!
+}
+
+type RegionGaugeConnection {
+  nodes: [Gauge]!
   count: Int!
 }
 

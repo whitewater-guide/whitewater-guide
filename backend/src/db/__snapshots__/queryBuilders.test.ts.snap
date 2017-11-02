@@ -33,7 +33,8 @@ select
                     limit 1),
                 'nodes', (
                     select
-                        json_agg (regions_connection_internal.*)
+                        COALESCE(json_agg (regions_connection_internal.*),
+                            '[]'::json)
                     from
                         regions_connection_internal))) as regions
 from
@@ -74,7 +75,8 @@ select
                     limit 1),
                 'nodes', (
                     select
-                        json_agg (regions_connection_internal.*)
+                        COALESCE(json_agg (regions_connection_internal.*),
+                            '[]'::json)
                     from
                         regions_connection_internal))) as regions
 from
@@ -159,7 +161,8 @@ select
             limit 1),
         'nodes', (
             select
-                json_agg (tbl_internal.*)
+                COALESCE(json_agg (tbl_internal.*),
+                    '[]'::json)
             from
                 tbl_internal))
 
@@ -185,7 +188,8 @@ select
             limit 1),
         'nodes', (
             select
-                json_agg (tbl_internal.*)
+                COALESCE(json_agg (tbl_internal.*),
+                    '[]'::json)
             from
                 tbl_internal))
 
@@ -199,7 +203,8 @@ select
             limit 1),
         'nodes', (
             select
-                json_agg (regions_connection_internal.*)
+                COALESCE(json_agg (regions_connection_internal.*),
+                    '[]'::json)
             from
                 regions_connection_internal))
 

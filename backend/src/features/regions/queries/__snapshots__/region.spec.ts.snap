@@ -1,5 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`should get gauges 1`] = `
+Object {
+  "count": 4,
+  "nodes": Array [
+    Object {
+      "id": "b77ef1b2-aaa0-11e7-abc4-cec278b6b50a",
+      "language": "en",
+      "name": "Galicia gauge 2",
+    },
+    Object {
+      "id": "aba8c106-aaa0-11e7-abc4-cec278b6b50a",
+      "language": "en",
+      "name": "Galicia gauge 1",
+    },
+    Object {
+      "id": "cc55b1c0-aaa0-11e7-abc4-cec278b6b50a",
+      "language": "en",
+      "name": "Norway gauge 2",
+    },
+    Object {
+      "id": "c03184b4-aaa0-11e7-abc4-cec278b6b50a",
+      "language": "en",
+      "name": "Norway gauge 1",
+    },
+  ],
+}
+`;
+
 exports[`should get rivers 1`] = `
 Object {
   "count": 2,
