@@ -48,12 +48,12 @@ describe('effects', () => {
 
   test('should remove from sources table', async () => {
     const count = await db().table('sources').count().first();
-    expect(count.count).toBe('1');
+    expect(count.count).toBe('2');
   });
 
-  test('should remove from sources table', async () => {
+  test('should remove from sources_translations table', async () => {
     const count = await db().table('sources_translations').count().first();
-    expect(count.count).toBe('1');
+    expect(count.count).toBe('2');
   });
 
   test('should remove sources -> regions connection', async () => {

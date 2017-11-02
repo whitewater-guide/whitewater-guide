@@ -108,7 +108,7 @@ describe('insert', () => {
 
   test('should add one more source', async () => {
     const result = await db().table('sources').count();
-    expect(result[0].count).toBe('3');
+    expect(result[0].count).toBe('4');
   });
 
   test('should have id', () => {
@@ -159,7 +159,7 @@ describe('update', () => {
 
   test('should not change total number of sources', async () => {
     const result = await db().table('sources').count();
-    expect(result[0].count).toBe('2');
+    expect(result[0].count).toBe('3');
   });
 
   test('should have id', () => {

@@ -13,6 +13,16 @@ Array [
     "url": "http://ya.ru",
   },
   Object {
+    "cron": "1 * * * *",
+    "enabled": false,
+    "harvestMode": "oneByOne",
+    "id": "9f962a34-bff9-11e7-abc4-cec278b6b50a",
+    "language": "en",
+    "name": "Galicia2",
+    "script": "galicia2",
+    "url": "http://yandex.ru",
+  },
+  Object {
     "cron": null,
     "enabled": true,
     "harvestMode": "allAtOnce",

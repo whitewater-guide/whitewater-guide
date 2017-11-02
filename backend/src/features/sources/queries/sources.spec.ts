@@ -49,7 +49,7 @@ describe('admin', () => {
     expect(result.errors).toBeUndefined();
     expect(result.data).toBeDefined();
     expect(result.data!.sources).toBeDefined();
-    expect(result.data!.sources.count).toBe(2);
+    expect(result.data!.sources.count).toBe(3);
     expect(result.data!.sources.nodes[0].id).toBeDefined();
     const snapshot = result.data!.sources.nodes.map(noTimestamps);
     expect(snapshot).toMatchSnapshot();
@@ -62,11 +62,11 @@ describe('super admin', () => {
     expect(result.errors).toBeUndefined();
     expect(result.data!.sources).toBeDefined();
     const sources = result.data!.sources;
-    expect(sources.count).toBe(2);
+    expect(sources.count).toBe(3);
     // Check name
-    expect(sources.nodes[1].name).toBe('Галисия');
+    expect(sources.nodes[2].name).toBe('Галисия');
     // Check name & common attribute for non-translated region
     expect(sources.nodes[0].name).toBe('Not translated');
-    expect(sources.nodes[0].script).toBe('norway');
+    expect(sources.nodes[0].script).toBe('galicia2');
   });
 });
