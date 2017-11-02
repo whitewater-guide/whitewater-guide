@@ -65,3 +65,27 @@ test('should be able to specify language', async () => {
   expect(regions.nodes[1].name).toBe('Not translated');
   expect(regions.nodes[1].hidden).toBe(true);
 });
+
+test.only('should return rivers count', async () => {
+  const riversQuery = `
+    query listRegions($language: String, $page: Page){
+      regions(language: $language, page: $page) {
+        nodes {
+          id
+          language
+          name
+          rivers { count }
+        }
+        count
+      }
+    }
+  `;
+  const result = await runQuery(riversQuery, {}, superAdminContext);
+  expect(result.data!.regions).toBeDefined();
+  const regions = result.data!.regions;
+  expect(regions.count).toBe(3);
+  // Check name
+  expect(regions.nodes[0].rivers).toEqual({ count: 0 });
+  expect(regions.nodes[1].rivers).toEqual({ count: 2 });
+  expect(regions.nodes[2].rivers).toEqual({ count: 0 });
+});

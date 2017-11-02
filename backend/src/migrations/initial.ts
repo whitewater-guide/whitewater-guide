@@ -136,6 +136,27 @@ export const up = async (db: Knex) => {
   await addUpdatedAtTrigger(db, 'gauges');
   await addUpdatedAtTrigger(db, 'gauges_translations');
 
+  // Rivers
+  await db.schema.createTableIfNotExists('rivers', (table) => {
+    table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
+    table.uuid('region_id').notNullable().references('id').inTable('regions').onDelete('CASCADE').index();
+    table.timestamps(false, true);
+  });
+  await db.schema.createTableIfNotExists('rivers_translations', (table) => {
+    table
+      .uuid('river_id')
+      .notNullable()
+      .references('id')
+      .inTable('rivers')
+      .onDelete('CASCADE');
+    table.specificType('language', 'language_code').notNullable().defaultTo('en').index();
+    table.primary(['river_id', 'language']);
+    table.string('name').notNullable().index();
+    table.timestamps(false, true);
+  });
+  await addUpdatedAtTrigger(db, 'rivers');
+  await addUpdatedAtTrigger(db, 'rivers_translations');
+
   // Points <-> regions many-to-many
   await db.schema.createTableIfNotExists('regions_points', (table) => {
     table.uuid('point_id').notNullable().references('id').inTable('points').onDelete('CASCADE');
@@ -161,6 +182,8 @@ export const up = async (db: Knex) => {
   await runSqlFile(db, './src/migrations/initial/gauges_points_trigger.sql');
   await runSqlFile(db, './src/migrations/initial/sources_view.sql');
   await runSqlFile(db, './src/migrations/initial/gauges_view.sql');
+  await runSqlFile(db, './src/migrations/initial/rivers_view.sql');
+  await runSqlFile(db, './src/migrations/initial/upsert_river.sql');
   await runSqlFile(db, './src/migrations/initial/upsert_source.sql');
   await runSqlFile(db, './src/migrations/initial/upsert_gauge.sql');
 };
@@ -178,6 +201,8 @@ export const down = async (db: Knex) => {
   await db.schema.raw('DROP TABLE IF EXISTS regions_points CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS points CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS points_translations CASCADE');
+  await db.schema.raw('DROP TABLE IF EXISTS rivers CASCADE');
+  await db.schema.raw('DROP TABLE IF EXISTS rivers_translations CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS array_json_to_int(p_input json) CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS point_from_json(point JSON) CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS polygon_from_json(polygon JSON) CASCADE');
@@ -185,11 +210,13 @@ export const down = async (db: Knex) => {
   await db.schema.raw('DROP VIEW IF EXISTS points_view');
   await db.schema.raw('DROP VIEW IF EXISTS gauges_view');
   await db.schema.raw('DROP VIEW IF EXISTS sources_view');
+  await db.schema.raw('DROP VIEW IF EXISTS rivers_view');
   await db.schema.raw('DROP TYPE IF EXISTS language_code CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS upsert_region(r JSON, lang language_code) CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS upsert_points(points_array JSON[], lang language_code) CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS upsert_source(src JSON, lang language_code) CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS upsert_gauge(gauge JSON, lang language_code) CASCADE');
+  await db.schema.raw('DROP FUNCTION IF EXISTS upsert_river(river JSON, lang language_code) CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS trigger_delete_orphan_regions_points() CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS trigger_delete_orphan_gauges_points() CASCADE');
   await removeUpdatedAtFunction(db);

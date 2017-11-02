@@ -38,8 +38,9 @@ select
     sources_view.updated_at, (with regions_connection_internal as (
             select
                 regions_connection.*,
-                count(regions_connection.*)
-                OVER ()
+                COALESCE(count(regions_connection.*)
+                    OVER (),
+                    0)
             from
                 regions_connection
             inner join sources_regions on regions_connection.id = sources_regions.region_id
@@ -58,8 +59,9 @@ select
                         regions_connection_internal))) as regions, (with gauges_connection_internal as (
         select
             gauges_connection.*,
-            count(gauges_connection.*)
-            OVER ()
+            COALESCE(count(gauges_connection.*)
+                OVER (),
+                0)
         from
             gauges_connection
         where
@@ -141,8 +143,9 @@ select
     sources_view.updated_at, (with regions_connection_internal as (
             select
                 regions_connection.*,
-                count(regions_connection.*)
-                OVER ()
+                COALESCE(count(regions_connection.*)
+                    OVER (),
+                    0)
             from
                 regions_connection
             inner join sources_regions on regions_connection.id = sources_regions.region_id
@@ -161,8 +164,9 @@ select
                         regions_connection_internal))) as regions, (with gauges_connection_internal as (
         select
             gauges_connection.*,
-            count(gauges_connection.*)
-            OVER ()
+            COALESCE(count(gauges_connection.*)
+                OVER (),
+                0)
         from
             gauges_connection
         where

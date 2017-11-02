@@ -7,11 +7,16 @@ type Region {
   seasonNumeric: [Int]!
   bounds: [[Float!]]
   pois: [Point]!
-  # sources: [Source]!
-  # rivers: [River]!
   hidden: Boolean
   createdAt: Date
   updatedAt: Date
+  rivers: RegionRiverConnection!
+  # sources: [Source]!
+}
+
+type RegionRiverConnection {
+  nodes: [River]!
+  count: Int!
 }
 
 input RegionInput {

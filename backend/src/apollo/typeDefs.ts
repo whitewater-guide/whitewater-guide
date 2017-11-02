@@ -1,6 +1,7 @@
 import { GaugesSchema } from '../features/gauges';
 import { PointsSchema } from '../features/points';
 import { RegionsSchema } from '../features/regions';
+import { RiversSchema } from '../features/rivers';
 import { ScriptsSchema } from '../features/scripts/index';
 import { SourcesSchema } from '../features/sources';
 import { UsersSchema } from '../features/users';
@@ -36,6 +37,7 @@ const SchemaDefinition = `
 export const typeDefs = [
   SchemaDefinition,
   GaugesSchema,
+  RiversSchema,
   RegionsSchema,
   SourcesSchema,
   UsersSchema,

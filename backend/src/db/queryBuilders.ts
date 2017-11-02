@@ -206,7 +206,8 @@ export const buildConnectionColumn = (options: ConnectionBuilderOptions) => {
   } = options;
   const result = buildConnectionJSONQuery(`${table}_internal`, includeNodes, knex);
   return result.with(`${table}_internal`, (db2) => {
-    let cte = db2.select(`${table}.*`, knex.raw(`count(${table}.*) OVER()`)).from(table);
+    // Use COALESCE to prevent { count: null } response and return { count: 0 } instead
+    let cte = db2.select(`${table}.*`, knex.raw(`COALESCE(count(${table}.*) OVER(), 0)`)).from(table);
     cte = join(table, cte);
     if (limit) {
       cte = cte.limit(limit);

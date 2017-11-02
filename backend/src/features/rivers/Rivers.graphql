@@ -1,0 +1,15 @@
+type River {
+  id: ID!
+  language: String!
+  name: String!
+  region: Region!
+  hidden: Boolean
+  createdAt: Date
+  updatedAt: Date
+}
+
+input RiverInput {
+  id: ID
+  name: String!
+  region: RefInput!
+}

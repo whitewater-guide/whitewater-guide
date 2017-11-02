@@ -8,6 +8,7 @@ export default gql`
         language
         name
         hidden
+        rivers { count }
       }
       count
     }

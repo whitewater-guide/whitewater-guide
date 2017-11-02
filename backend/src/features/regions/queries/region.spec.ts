@@ -73,3 +73,25 @@ test('should be able to get basic attributes without translation', async () => {
   expect(result.data!.region.name).toBe('Not translated');
   expect(result.data!.region.seasonNumeric).toEqual([20, 21]);
 });
+
+test('should get rivers', async () => {
+  const riversQuery = `
+    query regionDetails($id: ID, $language: String){
+      region(id: $id, language: $language) {
+        id
+        language
+        name
+        rivers {
+          nodes {
+            id
+            language
+            name
+          }
+          count
+        }
+      }
+    }
+  `;
+  const result = await runQuery(riversQuery, { id: 'bd3e10b6-7624-11e7-b5a5-be2e44b06b34' }, userContext,);
+  expect(result.data!.region.rivers).toMatchSnapshot();
+});

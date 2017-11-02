@@ -1,5 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`should get rivers 1`] = `
+Object {
+  "count": 2,
+  "nodes": Array [
+    Object {
+      "id": "a8416664-bfe3-11e7-abc4-cec278b6b50a",
+      "language": "en",
+      "name": "Gal_Riv_One",
+    },
+    Object {
+      "id": "d69dbabc-bfe3-11e7-abc4-cec278b6b50a",
+      "language": "en",
+      "name": "Gal_riv_two",
+    },
+  ],
+}
+`;
+
 exports[`should return region 1`] = `
 Object {
   "bounds": Array [

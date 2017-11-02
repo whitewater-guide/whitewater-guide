@@ -1,10 +1,24 @@
-import { buildListQuery, buildRootQuery, ListQueryBuilderOptions, QueryBuilderOptions } from '../../db';
+import * as Knex from 'knex';
+import db, { buildListQuery, buildRootQuery, ListQueryBuilderOptions, QueryBuilderOptions } from '../../db';
 import { Region } from '../../ww-commons';
+import { buildRiverQuery } from '../rivers';
+
+const connections = {
+  rivers: {
+    build: buildRiverQuery,
+    foreignKey: 'region_id',
+    join: (table: string, query: Knex.QueryBuilder) => {
+      const regionId = db(true).raw('??', ['regions_view.id']);
+      return query.where(`${table}.region_id`, '=', regionId);
+    },
+  },
+};
 
 export const buildRegionQuery = (options: Partial<QueryBuilderOptions<Region>>) =>
   buildRootQuery({
     context: options.context!,
     table: 'regions_view',
+    connections,
     ...options,
   });
 
@@ -12,5 +26,6 @@ export const buildRegionsListQuery = (options: Partial<ListQueryBuilderOptions<R
   buildListQuery({
     context: options.context!,
     table: 'regions_view',
+    connections,
     ...options,
   });
