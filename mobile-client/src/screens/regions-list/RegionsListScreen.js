@@ -6,6 +6,7 @@ import { compose, hoistStatics } from 'recompose';
 import { withRegionsList, selectRegion } from '../../commons/features/regions';
 import { Screen, BurgerButton, withErrorsView, spinnerWhileLoading } from '../../components';
 import { RegionListItem, REGION_ITEM_HEIGHT } from './RegionListItem';
+import I18n from '../../i18n';
 
 const keyExtractor = region => region._id;
 
@@ -24,7 +25,7 @@ class RegionsListScreen extends PureComponent {
   };
 
   static navigationOptions = ({ navigation }) => ({
-    title: 'Regions',
+    title: I18n.t('regionsList.title'),
     headerLeft: (<BurgerButton navigation={navigation} />),
   });
 
