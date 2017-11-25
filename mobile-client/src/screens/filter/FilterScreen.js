@@ -114,7 +114,7 @@ class FilterScreen extends React.Component {
             onChange={this.onChange('duration')}
           />
           <MultiSlider
-            label={`${I18n.t('filter.season')}: ${stringifySeason(this.state.seasonNumeric, true, I18n.t('locale'))}`}
+            label={`${I18n.t('commons.season')}: ${stringifySeason(this.state.seasonNumeric, true, I18n.t('locale'))}`}
             range={SEASON_RANGE}
             step={1}
             behavior="invert"
@@ -123,13 +123,13 @@ class FilterScreen extends React.Component {
           />
           <Text>{I18n.t('filter.rating')}</Text>
           <StarRating value={this.state.rating} onChange={this.onChange('rating')} />
-          <Text>{I18n.t('filter.kayakingTypes')}</Text>
+          <Text>{I18n.t('commons.kayakingTypes')}</Text>
           <TernaryChips values={this.translateTags(this.state.kayakingTags, 'kayakingTypes')} onChange={this.onChange('kayakingTags')} />
-          <Text>{I18n.t('filter.hazards')}</Text>
+          <Text>{I18n.t('commons.hazards')}</Text>
           <TernaryChips values={this.translateTags(this.state.hazardsTags, 'hazards')} onChange={this.onChange('hazardsTags')} />
-          <Text>{I18n.t('filter.supplyTypes')}</Text>
+          <Text>{I18n.t('commons.supplyTypes')}</Text>
           <TernaryChips values={this.translateTags(this.state.supplyTags, 'supply')} onChange={this.onChange('supplyTags')} />
-          <Text>{I18n.t('filter.miscTags')}</Text>
+          <Text>{I18n.t('commons.miscTags')}</Text>
           <TernaryChips values={this.translateTags(this.state.miscTags, 'miscTags')} onChange={this.onChange('miscTags')} />
         </ScrollView>
         <Button primary fullWidth onPress={this.onApply} label={I18n.t('filter.search')} />

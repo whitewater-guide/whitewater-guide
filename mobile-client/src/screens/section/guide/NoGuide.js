@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Text } from '../../../components';
+import I18n from '../../../i18n';
 
 const styles = {
   container: {
@@ -12,6 +13,6 @@ const styles = {
 
 export default () => (
   <View style={styles.container}>
-    <Text>No guide for this section yet...</Text>
+    <Text>{I18n.t('section.guide.noData')}</Text>
   </View>
 );

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Screen } from '../../../components';
 import { searchTermsSelector } from '../../../commons/features/regions';
 import { SectionsList } from '../../sections-list';
+import I18n from '../../../i18n';
 
 class RegionSectionsScreen extends React.PureComponent {
 
@@ -14,7 +15,7 @@ class RegionSectionsScreen extends React.PureComponent {
   };
 
   static navigationOptions = {
-    tabBarLabel: 'Sections',
+    tabBarLabel: I18n.t('region.sections.title'),
   };
 
   componentWillMount() {

@@ -6,6 +6,7 @@ import { Screen, TabIcon, Text } from '../../../components';
 import PhotoGrid from './PhotoGrid';
 import PhotoGallery from './PhotoGallery';
 import VideoList from './VideoList';
+import I18n from '../../../i18n';
 
 class SectionMediaScreen extends React.PureComponent {
 
@@ -14,7 +15,6 @@ class SectionMediaScreen extends React.PureComponent {
   };
 
   static navigationOptions = {
-    tabBarLabel: 'Media',
     tabBarIcon: () => <TabIcon icon="photos" />,
   };
 
@@ -30,9 +30,9 @@ class SectionMediaScreen extends React.PureComponent {
     const groups = groupBy(this.props.section.media, 'type');
     return (
       <Screen>
-        <Text paddingHorizontal={4}>Photos</Text>
+        <Text paddingHorizontal={4}>{I18n.t('section.media.photos')}</Text>
         <PhotoGrid photos={groups.photo} onPress={this.onPhotoIndexChanged} />
-        <Text paddingHorizontal={4}>Videos</Text>
+        <Text paddingHorizontal={4}>{I18n.t('section.media.videos')}</Text>
         <VideoList videos={groups.video} />
         {
           groups.photo &&

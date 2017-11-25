@@ -3,7 +3,7 @@ import React from 'react';
 import get from 'lodash/get';
 import { HTMLView, Markdown, Screen } from '../../components';
 
-const PlainTextScreen = ({ htmlText, format }) => (
+const PlainTextScreen = ({ htmlText, format = 'html' }) => (
   <Screen>
     {
       format === 'html' ?

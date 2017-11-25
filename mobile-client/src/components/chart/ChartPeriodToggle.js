@@ -4,6 +4,7 @@ import { ActivityIndicator, StyleSheet } from 'react-native';
 import moment from 'moment';
 import { Button, Body, ListItem } from '../index';
 import theme from '../../theme';
+import I18n from '../../i18n';
 
 const styles = StyleSheet.create({
   container: {
@@ -30,9 +31,9 @@ const ChartPeriodToggle = ({ onChange, loading, startDate, endDate }) => {
           </Body>
           :
           <Body flexDirection="row">
-            <Button small primary={index === 0} outlined={index !== 0} style={styles.button} label="Day" onPress={() => onChange(1)} />
-            <Button small primary={index === 1} outlined={index !== 1} style={styles.button} label="Week" onPress={() => onChange(7)} />
-            <Button small primary={index === 2} outlined={index !== 2} style={styles.button} label="Month" onPress={() => onChange(31)} />
+            <Button small primary={index === 0} outlined={index !== 0} style={styles.button} label={I18n.t('section.chart.day')} onPress={() => onChange(1)} />
+            <Button small primary={index === 1} outlined={index !== 1} style={styles.button} label={I18n.t('section.chart.week')} onPress={() => onChange(7)} />
+            <Button small primary={index === 2} outlined={index !== 2} style={styles.button} label={I18n.t('section.chart.month')} onPress={() => onChange(31)} />
           </Body>
       }
     </ListItem>

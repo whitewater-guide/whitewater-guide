@@ -6,6 +6,7 @@ import SelectedElementView from './SelectedElementView';
 import { POINames } from '../../commons/features/points';
 import { Text } from '../index';
 import theme from '../../theme';
+import I18n from '../../i18n';
 
 const styles = StyleSheet.create({
   header: {
@@ -36,12 +37,12 @@ class SelectedPOIView extends React.Component {
   renderHeader = () => (
     <View style={styles.header}>
       <Text>{get(this.props.selectedPOI, 'name', '_')}</Text>
-      <Text note>{POINames[get(this.props.selectedPOI, 'kind', 'other')]}</Text>
+      <Text note>{I18n.t('poiTypes.' + get(this.props.selectedPOI, 'kind', 'other'))}</Text>
     </View>
   );
 
   render() {
-    const buttons = [{ label: 'Navigate', coordinates: get(this.props.selectedPOI, 'coordinates', [0, 0]) }];
+    const buttons = [{ label: I18n.t('commons.navigate'), coordinates: get(this.props.selectedPOI, 'coordinates', [0, 0]) }];
     return (
       <SelectedElementView
         header={this.renderHeader()}
