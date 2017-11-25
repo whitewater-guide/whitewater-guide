@@ -1,27 +1,44 @@
 import moment from 'moment';
+import momentEn from 'moment/locale/en-gb';
+import momentRu from 'moment/locale/ru';
 import { times } from 'lodash';
 
-function halfMonth(n) {
-  const name = moment().month(Math.floor(n / 2)).format('MMMM');
-  const prefix = (n % 2 === 0) ? 'early' : 'late';
-  return `${prefix} ${name}`;
+const locales = {
+  en: {
+    moment: momentEn,
+    late: (n) => 'late ' + moment().month(Math.floor(n / 2)).format('MMMM'),
+    early: (n) => 'early ' + moment().month(Math.floor(n / 2)).format('MMMM'),
+    all: 'all year around',
+  },
+  ru: {
+    moment: momentRu,
+    late: (n) => moment().month(Math.floor(n / 2)).format('DD MMMM').replace(/\d+/, 'конец'),
+    early: (n) => moment().month(Math.floor(n / 2)).format('DD MMMM').replace(/\d+/, 'начало'),
+    all: 'круглый год',
+  },
+};
+
+function halfMonth(n, lang = 'en') {
+  const isEarly = (n % 2 === 0);
+  const locale = locales[lang];
+  return isEarly ? locale.early(n) : locale.late(n);
 }
 
-function rangeToStr(range) {
+function rangeToStr(range, lang = 'en') {
   const start = range[0] % 24;
   const end = range[1] % 24;
   if (isNaN(end)) {
-    return halfMonth(start);
+    return halfMonth(start, lang);
   } else if (start % 2 === 0 && end === start + 1) {
     return moment().month(start / 2).format('MMMM');
   }
   let startName = moment().month(Math.floor(start / 2)).format('MMMM');
   let endName = moment().month(Math.floor(end / 2)).format('MMMM');
   if (start % 2 !== 0) {
-    startName = halfMonth(start);
+    startName = halfMonth(start, lang);
   }
   if (end % 2 !== 1) {
-    endName = halfMonth(end);
+    endName = halfMonth(end, lang);
   }
   return `${startName} - ${endName}`;
 }
@@ -45,7 +62,8 @@ function loopAroundNewYear(seasons) {
  * @range - If true, seasonNumeric is considered to be a range (possibly, looping around new year, like (e.g. [22, 3])
  * otherwise - just set of half-months
  */
-export default function stringifySeason(seasonNumeric, range = false) {
+export default function stringifySeason(seasonNumeric, range = false, lang = 'en') {
+  moment.updateLocale(lang, locales[lang].moment);
   if (!seasonNumeric || seasonNumeric.length === 0) {
     return '';
   }
@@ -58,7 +76,7 @@ export default function stringifySeason(seasonNumeric, range = false) {
     }
   }
   if (seasons.length === 24) {
-    return 'all year around';
+    return locales[lang].all;
   }
   // Loop around new year
   if (seasons.indexOf(0) === 0 && seasons.indexOf(23) >= 0) {
@@ -88,6 +106,6 @@ export default function stringifySeason(seasonNumeric, range = false) {
     ranges.push(currentRange);
   }
   // Now we have array of single half-months or half-month pairs
-  return ranges.map(rangeToStr).join(', ');
+  return ranges.map(range => rangeToStr(range, lang)).join(', ');
 }
 

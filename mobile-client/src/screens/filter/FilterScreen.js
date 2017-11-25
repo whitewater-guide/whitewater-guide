@@ -12,6 +12,7 @@ import { updateSearchTerms, searchTermsSelector, selectSection } from '../../com
 import { toRomanDifficulty } from '../../commons/utils/TextUtils';
 import stringifySeason from '../../commons/utils/stringifySeason';
 import ResetFilterButton from './ResetFilterButton';
+import I18n from '../../i18n';
 
 const DIFFICULTY_RANGE = [1,6];
 const SEASON_RANGE = [0,23];
@@ -40,7 +41,7 @@ class FilterScreen extends React.Component {
   };
 
   static navigationOptions = ({ navigation }) => ({
-    title: 'Filters',
+    title: I18n.t('filter.title'),
     headerRight: (<ResetFilterButton regionId={navigation.state.params.regionId} />),
   });
 
@@ -76,17 +77,25 @@ class FilterScreen extends React.Component {
     this.props.back();
   };
 
+  translateTags = (tags, group) =>
+    tags.map(tag => ({
+      ...tag,
+      name: I18n.t(`${group}.${tag.name}`),
+    }));
+
   render() {
     const minDiff = toRomanDifficulty(this.state.difficulty[0]);
     const maxDiff = toRomanDifficulty(this.state.difficulty[1]);
-    const minDuration = Durations.find(({ value }) => value === this.state.duration[0]).slug;
-    const maxDuration = Durations.find(({ value }) => value === this.state.duration[1]).slug;
+    const minDurationSlug = Durations.find(({ value }) => value === this.state.duration[0]).slug;
+    const maxDurationSlug = Durations.find(({ value }) => value === this.state.duration[1]).slug;
+    const minDuration = I18n.t(`durations.${minDurationSlug}`);
+    const maxDuration = I18n.t(`durations.${maxDurationSlug}`);
     const difficultyLabel = minDiff === maxDiff ?
-      `Difficulty: ${minDiff}` :
-      `Difficulty: from ${minDiff} to ${maxDiff}`;
+      I18n.t('filter.difficultyValue', { minDiff }) :
+      I18n.t('filter.difficultyRange', { minDiff, maxDiff });
     const durationLabel = minDuration === maxDuration ?
-      `Duration: ${minDuration}` :
-      `Duration: from ${minDuration} to ${maxDuration}`;
+      I18n.t('filter.durationValue', { minDuration }) :
+      I18n.t('filter.durationRange', { minDuration, maxDuration });
     return (
       <View style={StyleSheet.absoluteFill}>
         <ScrollView contentContainerStyle={styles.container}>
@@ -105,25 +114,25 @@ class FilterScreen extends React.Component {
             onChange={this.onChange('duration')}
           />
           <MultiSlider
-            label={`Season: ${stringifySeason(this.state.seasonNumeric, true)}`}
+            label={`${I18n.t('filter.season')}: ${stringifySeason(this.state.seasonNumeric, true, I18n.t('locale'))}`}
             range={SEASON_RANGE}
             step={1}
             behavior="invert"
             values={this.state.seasonNumeric}
             onChange={this.onChange('seasonNumeric')}
           />
-          <Text>Minimal rating</Text>
+          <Text>{I18n.t('filter.rating')}</Text>
           <StarRating value={this.state.rating} onChange={this.onChange('rating')} />
-          <Text>Kayaking types</Text>
-          <TernaryChips values={this.state.kayakingTags} onChange={this.onChange('kayakingTags')} />
-          <Text>Hazards</Text>
-          <TernaryChips values={this.state.hazardsTags} onChange={this.onChange('hazardsTags')} />
-          <Text>Supply types</Text>
-          <TernaryChips values={this.state.supplyTags} onChange={this.onChange('supplyTags')} />
-          <Text>Misc tags</Text>
-          <TernaryChips values={this.state.miscTags} onChange={this.onChange('miscTags')} />
+          <Text>{I18n.t('filter.kayakingTypes')}</Text>
+          <TernaryChips values={this.translateTags(this.state.kayakingTags, 'kayakingTypes')} onChange={this.onChange('kayakingTags')} />
+          <Text>{I18n.t('filter.hazards')}</Text>
+          <TernaryChips values={this.translateTags(this.state.hazardsTags, 'hazards')} onChange={this.onChange('hazardsTags')} />
+          <Text>{I18n.t('filter.supplyTypes')}</Text>
+          <TernaryChips values={this.translateTags(this.state.supplyTags, 'supply')} onChange={this.onChange('supplyTags')} />
+          <Text>{I18n.t('filter.miscTags')}</Text>
+          <TernaryChips values={this.translateTags(this.state.miscTags, 'miscTags')} onChange={this.onChange('miscTags')} />
         </ScrollView>
-        <Button primary fullWidth onPress={this.onApply} label="Search" />
+        <Button primary fullWidth onPress={this.onApply} label={I18n.t('filter.search')} />
       </View>
     );
   }
