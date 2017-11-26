@@ -8,7 +8,7 @@ import I18n from '../../i18n';
 
 const AnimatableText = createAnimatableComponent(Text);
 
-const OPTIONS = ['Flow', 'Level', 'Cancel'];
+const OPTIONS = [I18n.t('commons.flow'), I18n.t('commons.level'), I18n.t('commons.cancel')];
 
 class ChartFlowToggle extends React.PureComponent {
   static propTypes = {

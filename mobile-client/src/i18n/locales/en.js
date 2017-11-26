@@ -6,7 +6,7 @@ export default {
     km: 'km',
     m: 'm',
     cm: 'cm',
-    'm3/s': 'm³/c',
+    'm3/s': 'm³/s',
     length: 'Distance',
     drop: 'Drop',
     unknown: 'unknown',

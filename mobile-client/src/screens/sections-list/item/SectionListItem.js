@@ -6,6 +6,7 @@ import { SectionPropType } from '../../../commons/features/sections';
 import { NavigateButton } from '../../../components';
 import SectionListBody, { ITEM_HEIGHT } from './SectionListBody';
 import theme from '../../../theme';
+import I18n from '../../../i18n';
 
 export { ITEM_HEIGHT } from './SectionListBody';
 
@@ -94,13 +95,13 @@ export default class SectionListItem extends React.PureComponent {
       <View style={styles.background}>
         <View style={styles.buttonsWrapper}>
           <NavigateButton
-            label="Put-in"
+            label={I18n.t('commons.putIn')}
             driver={this._deltaX}
             inputRange={[-136, -72]}
             coordinates={this.props.section.putIn.coordinates}
           />
           <NavigateButton
-            label="Take-out"
+            label={I18n.t('commons.takeOut')}
             driver={this._deltaX}
             inputRange={[-72, -8]}
             coordinates={this.props.section.takeOut.coordinates}
