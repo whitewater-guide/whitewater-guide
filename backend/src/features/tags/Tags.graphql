@@ -1,0 +1,28 @@
+enum TagCategory {
+  kayaking,
+  hazards,
+  supply,
+  misc,
+}
+
+type Tag {
+  id: String!
+  language: String!
+  name: String!
+  category: TagCategory!
+}
+
+input TagInput {
+  id: String!
+  name: String!
+  category: TagCategory!
+}
+
+type Query {
+  tags(language: String): [Tag!]!
+}
+
+type Mutation {
+  upsertTag(tag: TagInput!, language: String): Tag
+  removeTag(id: String!): String
+}

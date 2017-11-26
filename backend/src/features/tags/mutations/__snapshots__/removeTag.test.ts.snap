@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`sql should use correct query 1`] = `
+delete from tags
+where id = 'waterfalls'
+returning
+    id
+
+`;

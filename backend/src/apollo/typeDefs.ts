@@ -5,6 +5,7 @@ import { RiversSchema } from '../features/rivers';
 import { ScriptsSchema } from '../features/scripts/index';
 import { SourcesSchema } from '../features/sources';
 import { UsersSchema } from '../features/users';
+import { TagsSchema } from '../features/tags/types';
 
 // tslint:disable:no-trailing-whitespace
 const SchemaDefinition = `
@@ -36,6 +37,7 @@ const SchemaDefinition = `
 
 export const typeDefs = [
   SchemaDefinition,
+  TagsSchema,
   GaugesSchema,
   RiversSchema,
   RegionsSchema,

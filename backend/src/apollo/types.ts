@@ -25,3 +25,7 @@ export interface ListQuery extends QueryWithLanguage {
 export interface NodeQuery extends QueryWithLanguage {
   id?: string;
 }
+
+export interface RemoveQuery {
+  id: string;
+}

@@ -1,0 +1,152 @@
+import db, { holdTransaction, rollbackTransaction } from '../../../db';
+import { adminContext, anonContext, superAdminContext, userContext } from '../../../test/context';
+import { runQuery } from '../../../test/db-helpers';
+import { TagCategory, TagInput } from '../../../ww-commons';
+
+beforeEach(holdTransaction);
+afterEach(rollbackTransaction);
+
+const upsertQuery = `
+  mutation upsertTag($tag: TagInput!, $language: String){
+    upsertTag(tag: $tag, language: $language){
+      id
+      name
+      language
+      category
+    }
+  }
+`;
+
+const tag: TagInput = {
+  id: 'new_tag',
+  name: 'New tag',
+  category: TagCategory.misc,
+};
+
+describe('resolvers chain', () => {
+  test('anon should not pass', async () => {
+    const result = await runQuery(upsertQuery, { tag }, anonContext);
+    expect(result.errors).toBeDefined();
+    expect(result.data).toBeDefined();
+    expect(result.data!.upsertTag).toBeNull();
+  });
+
+  test('user should not pass', async () => {
+    const result = await runQuery(upsertQuery, { tag }, userContext);
+    expect(result.errors).toBeDefined();
+    expect(result.data).toBeDefined();
+    expect(result.data!.upsertTag).toBeNull();
+  });
+
+  test('admin should not pass', async () => {
+    const result = await runQuery(upsertQuery, { tag }, adminContext);
+    expect(result.errors).toBeDefined();
+    expect(result.data).toBeDefined();
+    expect(result.data!.upsertTag).toBeNull();
+  });
+
+  test('should throw on invalid input', async () => {
+    const invalidInput = {
+      id: 'a b',
+      name: 'x',
+      category: 'misc',
+    };
+    const result = await runQuery(upsertQuery, { tag: invalidInput }, superAdminContext);
+    expect(result.errors).toBeDefined();
+    expect(result.data).toBeDefined();
+    expect(result.data!.upsertTag).toBeNull();
+    expect(result).toMatchSnapshot();
+  });
+});
+
+describe('insert', () => {
+  it('should return result', async () => {
+    const result = await runQuery(upsertQuery, { tag }, superAdminContext);
+    expect(result.errors).toBeUndefined();
+    expect(result.data!.upsertTag).toEqual({ ...tag, language: 'en' });
+  });
+
+  it('should add one more tag', async () => {
+    const { count } = await db().table('tags').count().first();
+    const initialTagsCount = Number(count);
+    await runQuery(upsertQuery, { tag }, superAdminContext);
+    const { count: tagCount } = await db().table('tags').count().first();
+    expect(Number(tagCount) - initialTagsCount).toBe(1);
+  });
+
+});
+
+describe('update', () => {
+  const input: TagInput = {
+    id: 'waterfalls',
+    name: 'Old waterfalls',
+    category: TagCategory.kayaking,
+  };
+
+  let initialTagsCount: number;
+  let updateResult: any;
+  let updatedTag: any;
+
+  beforeAll(async () => {
+    const { count } = await db(true).table('tags').count().first();
+    initialTagsCount = Number(count);
+  });
+
+  beforeEach(async () => {
+    updateResult = await runQuery(upsertQuery, { tag: input }, superAdminContext);
+    updatedTag = updateResult && updateResult.data && updateResult.data.upsertTag;
+  });
+
+  afterEach(() => {
+    updateResult = null;
+    updatedTag = null;
+  });
+
+  it('should return result', async () => {
+    expect(updateResult.errors).toBeUndefined();
+    expect(updateResult.data).toBeDefined();
+    expect(updatedTag).toBeDefined();
+    expect(updatedTag.id).toBe(input.id);
+  });
+
+  it('should not change total number of tags', async () => {
+    const { count } = await db().table('tags').count().first();
+    expect(initialTagsCount - Number(count)).toBe(0);
+  });
+
+});
+
+describe('i18n', () => {
+  const inputFr: TagInput = {
+    id: 'waterfalls',
+    name: 'Le waterfalls',
+    category: TagCategory.misc,
+  };
+
+  it('should add new translation', async () => {
+    const { count: oldCount } = await db().table('tags_translations').count().first();
+    await runQuery(upsertQuery, { tag: inputFr, language: 'fr' }, superAdminContext);
+    const { count: newCount } = await db().table('tags_translations').count().first();
+    expect(Number(newCount) - Number(oldCount)).toBe(1);
+    const { name } = await db().table('tags_view').select('name')
+      .where({ language: 'fr', id: inputFr.id }).first();
+    expect(name).toBe('Le waterfalls');
+  });
+
+  it('should modify common props in other language', async () => {
+    await runQuery(upsertQuery, { tag: inputFr, language: 'fr' }, superAdminContext);
+    const { category } = await db().table('tags_view').select('category')
+      .where({ language: 'en', id: inputFr.id }).first();
+    expect(category).toBe(TagCategory.misc);
+  });
+
+  it('should modify existing translation', async () => {
+    const { count: oldCount } = await db().table('tags_translations').count().first();
+    await runQuery(upsertQuery, { tag: inputFr, language: 'en' }, superAdminContext);
+    const { count: newCount } = await db().table('tags_translations').count().first();
+    expect(newCount).toBe(oldCount);
+    const { name } = await db().table('tags_view').select('name')
+      .where({ language: 'en', id: inputFr.id }).first();
+    expect(name).toBe('Le waterfalls');
+  });
+});

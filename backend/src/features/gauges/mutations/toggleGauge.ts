@@ -12,7 +12,7 @@ export const toggleGaugeQuery = ({ id, enabled }: ToggleVariables) =>
 
 const resolver: GraphQLFieldResolver<any, any> = async (root, args: ToggleVariables) => {
   const [{ id, enabled }] = await toggleGaugeQuery(args);
-  // TODO: return context langauge
+  // TODO: return context language
   return { id, enabled, language: 'en' };
 };
 

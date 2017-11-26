@@ -6,6 +6,7 @@ import { HarvestMode, POITypes } from '../ww-commons';
 
 export const up = async (db: Knex) => {
   await runSqlFile(db, './src/migrations/initial/language_code.sql');
+  await runSqlFile(db, './src/migrations/initial/tag_category.sql');
   await addUpdatedAtFunction(db);
 
   // USERS
@@ -171,10 +172,28 @@ export const up = async (db: Knex) => {
     table.primary(['source_id', 'region_id']);
   });
 
+  // Tags
+  await db.schema.createTableIfNotExists('tags', (table) => {
+    table.string('id').primary();
+    table.specificType('category', 'tag_category').notNullable().index();
+  });
+  await db.schema.createTableIfNotExists('tags_translations', (table) => {
+    table
+      .string('tag_id')
+      .notNullable()
+      .references('id')
+      .inTable('tags')
+      .onDelete('CASCADE');
+    table.specificType('language', 'language_code').notNullable().defaultTo('en').index();
+    table.primary(['tag_id', 'language']);
+    table.string('name').notNullable().index();
+  });
+
   await runSqlFile(db, './src/migrations/initial/array_json_to_int.sql');
   await runSqlFile(db, './src/migrations/initial/point_from_json.sql');
   await runSqlFile(db, './src/migrations/initial/polygon_from_json.sql');
   await runSqlFile(db, './src/migrations/initial/points_view.sql');
+  await runSqlFile(db, './src/migrations/initial/tags_view.sql');
   await runSqlFile(db, './src/migrations/initial/regions_view.sql');
   await runSqlFile(db, './src/migrations/initial/upsert_points.sql');
   await runSqlFile(db, './src/migrations/initial/upsert_region.sql');
@@ -183,6 +202,7 @@ export const up = async (db: Knex) => {
   await runSqlFile(db, './src/migrations/initial/sources_view.sql');
   await runSqlFile(db, './src/migrations/initial/gauges_view.sql');
   await runSqlFile(db, './src/migrations/initial/rivers_view.sql');
+  await runSqlFile(db, './src/migrations/initial/upsert_tag.sql');
   await runSqlFile(db, './src/migrations/initial/upsert_river.sql');
   await runSqlFile(db, './src/migrations/initial/upsert_source.sql');
   await runSqlFile(db, './src/migrations/initial/upsert_gauge.sql');
@@ -203,15 +223,18 @@ export const down = async (db: Knex) => {
   await db.schema.raw('DROP TABLE IF EXISTS points_translations CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS rivers CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS rivers_translations CASCADE');
+  await db.schema.raw('DROP TABLE IF EXISTS tags CASCADE');
+  await db.schema.raw('DROP TABLE IF EXISTS tags_translations CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS array_json_to_int(p_input json) CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS point_from_json(point JSON) CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS polygon_from_json(polygon JSON) CASCADE');
+  await db.schema.raw('DROP VIEW IF EXISTS tags_view');
   await db.schema.raw('DROP VIEW IF EXISTS regions_view');
   await db.schema.raw('DROP VIEW IF EXISTS points_view');
   await db.schema.raw('DROP VIEW IF EXISTS gauges_view');
   await db.schema.raw('DROP VIEW IF EXISTS sources_view');
   await db.schema.raw('DROP VIEW IF EXISTS rivers_view');
-  await db.schema.raw('DROP TYPE IF EXISTS language_code CASCADE');
+  await db.schema.raw('DROP FUNCTION IF EXISTS upsert_tag(tag JSON, lang language_code) CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS upsert_region(r JSON, lang language_code) CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS upsert_points(points_array JSON[], lang language_code) CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS upsert_source(src JSON, lang language_code) CASCADE');
@@ -219,6 +242,8 @@ export const down = async (db: Knex) => {
   await db.schema.raw('DROP FUNCTION IF EXISTS upsert_river(river JSON, lang language_code) CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS trigger_delete_orphan_regions_points() CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS trigger_delete_orphan_gauges_points() CASCADE');
+  await db.schema.raw('DROP TYPE IF EXISTS language_code CASCADE');
+  await db.schema.raw('DROP TYPE IF EXISTS tag_category CASCADE');
   await removeUpdatedAtFunction(db);
 };
 

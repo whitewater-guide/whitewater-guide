@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`resolvers chain should throw on invalid input 1`] = `
+Object {
+  "data": Object {
+    "upsertTag": null,
+  },
+  "errors": Array [
+    [GraphQLError: Invalid input],
+  ],
+}
+`;

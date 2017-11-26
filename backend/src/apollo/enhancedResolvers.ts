@@ -58,6 +58,14 @@ export const isAdminResolver = isAuthenticatedResolver.createResolver(
   },
 );
 
+export const isSuperadminResolver = isAuthenticatedResolver.createResolver(
+  (root, args, { user }) => {
+    if (user!.role !== Role.SUPERADMIN) {
+      throw new ForbiddenError();
+    }
+  },
+);
+
 export const isInputValidResolver = (schema: Joi.Schema) => baseResolver.createResolver(
   (root, value) => {
     const { error } = Joi.validate(
