@@ -1,3 +1,5 @@
+import { NamedNode } from '../../core/types';
+
 export enum TagCategory {
   kayaking = 'kayaking',
   hazards = 'hazards',
@@ -7,9 +9,7 @@ export enum TagCategory {
 
 export const TAG_CATEGORIES = ['kayaking', 'hazards', 'supply', 'misc'];
 
-export interface Tag {
-  id: string;
-  name: string;
+export interface Tag extends NamedNode {
   category: TagCategory;
 }
 
@@ -20,10 +20,8 @@ export interface TagInput {
 }
 
 export interface WithTags {
-  supplyTags: Tag[];
-  kayakingTags: Tag[];
-  hazardsTags: Tag[];
-  miscTags: Tag[];
+  tags: Tag[];
+  tagsLoading: boolean;
 }
 
 export enum TagSelection {

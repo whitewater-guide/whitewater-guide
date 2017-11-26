@@ -1,13 +1,12 @@
 import { CardActions, CardHeader, CardMedia } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
-import MenuItem from 'material-ui/MenuItem';
-import SelectField from 'material-ui/SelectField';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 import * as React from 'react';
 import { InjectedFormProps } from 'redux-form';
 import { Styles, Themeable } from '../../styles';
 import { Content } from '../Content';
-import { WithLanguage } from './formContainer';
+import { LanguagePicker } from './LanguagePicker';
+import { WithLanguage } from './withLanguage';
 
 const styles: Styles = {
   header: {
@@ -18,12 +17,6 @@ const styles: Styles = {
   },
   title: {
     fontSize: 18,
-    color: 'white',
-  },
-  languageSelect: {
-    marginTop: -16,
-  },
-  selectedMenuItemStyle: {
     color: 'white',
   },
 };
@@ -41,7 +34,7 @@ class FormBase extends React.PureComponent<InnerProps> {
     this.props.onLanguageChange(value);
 
   render() {
-    const { initialValues, resourceType, muiTheme, language } = this.props;
+    const { initialValues, resourceType, muiTheme, language, onLanguageChange } = this.props;
     const submitLabel = (initialValues && initialValues.id) ? 'Update' : 'Create';
     const headerLabel = (initialValues && initialValues.name) ?
       `${initialValues.name} settings` : `New ${resourceType}`;
@@ -49,19 +42,7 @@ class FormBase extends React.PureComponent<InnerProps> {
     return (
       <Content card>
         <CardHeader title={headerLabel} titleStyle={styles.title} style={{ ...styles.header, backgroundColor }}>
-          <SelectField
-            style={styles.languageSelect}
-            value={language}
-            onChange={this.onLanguageChange}
-            labelStyle={styles.selectedMenuItemStyle}
-          >
-            <MenuItem value="en" primaryText="English" />
-            <MenuItem value="ru" primaryText="Russian" />
-            <MenuItem value="es" primaryText="Spanish" />
-            <MenuItem value="fr" primaryText="French" />
-            <MenuItem value="de" primaryText="German" />
-            <MenuItem value="pt" primaryText="Portuguese" />
-          </SelectField>
+          <LanguagePicker language={language} onLanguageChange={onLanguageChange} />
         </CardHeader>
         <CardMedia style={{ height: '100%' }} mediaStyle={{ height: '100%' }}>
           <div style={{ width: '100%', height: '100%' }}>

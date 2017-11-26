@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should match snapshot 1`] = `
+Array [
+  Object {
+    "__typename": "Tag",
+    "category": "supply",
+    "id": "Asperiores quisquam",
+    "language": "Alias magni corporis",
+    "name": "Ratione labore explicabo",
+    Symbol(id): "Tag:Asperiores quisquam",
+  },
+  Object {
+    "__typename": "Tag",
+    "category": "supply",
+    "id": "Iure ut",
+    "language": "Qui recusandae ut",
+    "name": "Quam ipsam nobis",
+    Symbol(id): "Tag:Iure ut",
+  },
+]
+`;

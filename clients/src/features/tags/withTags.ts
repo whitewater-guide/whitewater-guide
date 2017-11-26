@@ -1,42 +1,16 @@
-import { gql, graphql } from 'react-apollo';
-import { WithTags } from '../../../ww-commons';
+import { graphql } from 'react-apollo';
+import { Tag, WithTags } from '../../../ww-commons';
+import { LIST_TAGS } from './listTags.query';
 
-const allTags = gql`
-  query allTags($withSlugs:Boolean!) {
-    supplyTags {
-      _id
-      name
-      slug @include(if: $withSlugs)
-    }
-    kayakingTags {
-      _id
-      name
-      slug @include(if: $withSlugs)
-    }
-    hazardsTags {
-      _id
-      name
-      slug @include(if: $withSlugs)
-    }
-    miscTags {
-      _id
-      name
-      slug @include(if: $withSlugs)
-    }
-  }
-`;
-
-interface ChildProps extends WithTags {
-  tagsLoading: boolean;
+interface Result {
+  tags: Tag[];
 }
 
-export const withTags = (withSlugs = false) => graphql<WithTags, any, ChildProps>(
-  allTags,
+export const withTags = (cached = true) => graphql<Result, any, WithTags>(
+  LIST_TAGS,
   {
     options: {
-      // TODO: replace reducer with update
-      // reducer,
-      variables: { withSlugs },
+      fetchPolicy: cached ? 'cache-first' : 'network-only',
     },
     props: ({ data }) => {
       const { loading, ...tags } = data!;

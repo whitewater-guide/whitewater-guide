@@ -2,7 +2,9 @@ import MuiDrawer from 'material-ui/Drawer';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import * as React from 'react';
-import { matchPath, NavLink, RouteComponentProps, withRouter } from 'react-router-dom';
+import { matchPath, RouteComponentProps, withRouter } from 'react-router-dom';
+import { compose } from 'recompose';
+import { withMe, WithMe } from '../../ww-clients/features/users';
 
 const styles = {
   drawerContainer: {
@@ -12,8 +14,9 @@ const styles = {
 };
 
 const ITEMS = [
-  { title: 'Regions', path: '/regions' },
-  { title: 'Sources', path: '/sources' },
+  { title: 'Regions', path: '/regions', superAdmin: false },
+  { title: 'Sources', path: '/sources', superAdmin: false },
+  { title: 'Tags', path: '/tags', superAdmin: true },
 ];
 
 interface Props {
@@ -21,14 +24,17 @@ interface Props {
   onChange: (open: boolean) => void;
 }
 
-type InnerProps = Props & RouteComponentProps<any>;
+type InnerProps = Props & RouteComponentProps<any> & WithMe;
 
-const Drawer: React.StatelessComponent<InnerProps> = ({ onChange, isOpen, location, history: { push } }) => {
+const Drawer: React.StatelessComponent<InnerProps> = ({ onChange, isOpen, location, history: { push }, isSuperAdmin }) => {
   const value = '/' + location.pathname.split('/')[1];
   return (
     <MuiDrawer docked={false} open={isOpen} containerStyle={styles.drawerContainer} onRequestChange={onChange}>
       <Menu value={value}>
-        {ITEMS.map(({ path, title }) => {
+        {ITEMS.map(({ path, title, superAdmin }) => {
+          if (superAdmin && !isSuperAdmin) {
+            return null;
+          }
           const clickable = !matchPath(location.pathname, { path, exact: true });
           const onClick = () => {
             onChange(false);
@@ -48,4 +54,7 @@ const Drawer: React.StatelessComponent<InnerProps> = ({ onChange, isOpen, locati
   );
 };
 
-export default withRouter<Props>(Drawer);
+export default compose<Props, any>(
+  withRouter,
+  withMe(),
+)(Drawer);

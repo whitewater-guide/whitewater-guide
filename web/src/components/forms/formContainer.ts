@@ -3,10 +3,11 @@ import { Schema } from 'joi';
 import { memoize } from 'lodash';
 import { ApolloError, ChildProps, graphql } from 'react-apollo';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { ComponentEnhancer, compose, mapProps, withProps } from 'recompose';
+import { ComponentEnhancer, compose, mapProps } from 'recompose';
 import { ConfigProps, InjectedFormProps, reduxForm, SubmissionError } from 'redux-form';
 import { withLoading } from '../withLoading';
 import { validateInput } from './validateInput';
+import { withLanguage, WithLanguage } from './withLanguage';
 
 export interface FormContainerOptions<QueryResult, MutationResult, FormInput> {
   /**
@@ -56,11 +57,6 @@ export interface FormContainerOptions<QueryResult, MutationResult, FormInput> {
   validationSchema: Schema;
 }
 
-export interface WithLanguage {
-  language: string;
-  onLanguageChange: (language: string) => void;
-}
-
 export const formContainer = <QueryResult, MutationResult, FormInput>(
   options: FormContainerOptions<QueryResult, MutationResult, FormInput>,
 ) => {
@@ -84,17 +80,7 @@ export const formContainer = <QueryResult, MutationResult, FormInput>(
 
   return compose(
     withRouter,
-    withProps<WithLanguage, RouteComponentProps<any>>(({ history }) => ({
-      language: (new URLSearchParams(history.location.search)).get('language') || 'en',
-      onLanguageChange: (language: string) => {
-        const search = new URLSearchParams(history.location.search);
-        search.set('language', language);
-        history.replace({
-          ...history.location,
-          search: search.toString(),
-        });
-      },
-    })),
+    withLanguage,
     graphql(query, { options: { fetchPolicy: 'network-only' }, alias: `${formName}FormQuery` }),
     withLoading<ChildProps<any, any>>(({ data }) => data!.loading),
     graphql(mutation, { alias: `${formName}FormMutation` }),

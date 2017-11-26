@@ -4,7 +4,7 @@ import { addMockFunctionsToSchema, makeExecutableSchema } from 'graphql-tools';
 import * as GraphQLJSON from 'graphql-type-json';
 import * as React from 'react';
 import { ApolloClient, ApolloProvider } from 'react-apollo';
-import { HarvestMode } from '../../ww-commons';
+import { HarvestMode, TAG_CATEGORIES } from '../../ww-commons';
 import typeDefs from './typedefs';
 
 export interface QueryMap {
@@ -23,6 +23,7 @@ export const createMockedProvider = (queries: QueryMap = {}, mutations: QueryMap
       String: () => casual.title,
       Boolean: () => casual.coin_flip,
       HarvestMode: () => [HarvestMode.ONE_BY_ONE, HarvestMode.ALL_AT_ONCE][casual.integer(0, 1)],
+      TagCategory: () => TAG_CATEGORIES[casual.integer(0, TAG_CATEGORIES.length)],
       JSON: () => ({ [casual.word]: casual.word }),
       Query: () => queries,
       Mutation: () => mutations,
