@@ -189,15 +189,67 @@ export const up = async (db: Knex) => {
     table.string('name').notNullable().index();
   });
 
+  // Sections
+  await db.schema.createTableIfNotExists('sections', (table) => {
+    table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
+    table.uuid('river_id').notNullable().references('id').inTable('rivers').onDelete('CASCADE').index();
+    table.uuid('gauge_id').references('id').inTable('gauges');
+    table.specificType('season_numeric', 'integer[]').notNullable().defaultTo('{}');
+    table.jsonb('levels');
+    table.jsonb('flows');
+    table.specificType('shape', 'geography(LINESTRINGZ,4326)');
+    table.float('distance');
+    table.float('drop');
+    table.integer('duration');
+    table.float('difficulty');
+    table.string('difficulty_xtra', 32);
+    table.float('rating');
+
+    table.timestamps(false, true);
+  });
+  await db.schema.createTableIfNotExists('sections_translations', (table) => {
+    table
+      .uuid('section_id')
+      .notNullable()
+      .references('id')
+      .inTable('sections')
+      .onDelete('CASCADE');
+    table.specificType('language', 'language_code').notNullable().defaultTo('en').index();
+    table.primary(['section_id', 'language']);
+
+    table.string('name').notNullable().index();
+    table.text('description');
+    table.string('season');
+    table.string('flows_text');
+
+    table.timestamps(false, true);
+  });
+  await addUpdatedAtTrigger(db, 'sections');
+  await addUpdatedAtTrigger(db, 'sections_translations');
+  // Points <-> sections POIS many-to-many
+  await db.schema.createTableIfNotExists('sections_points', (table) => {
+    table.uuid('point_id').notNullable().references('id').inTable('points').onDelete('CASCADE');
+    table.uuid('section_id').notNullable().references('id').inTable('sections').onDelete('CASCADE');
+    table.primary(['point_id', 'section_id']);
+  });
+  // Tags <-> sections many-to-many
+  await db.schema.createTableIfNotExists('sections_tags', (table) => {
+    table.string('tag_id').notNullable().references('id').inTable('tags').onDelete('CASCADE');
+    table.uuid('section_id').notNullable().references('id').inTable('sections').onDelete('CASCADE');
+    table.primary(['tag_id', 'section_id']);
+  });
+
   await runSqlFile(db, './src/migrations/initial/array_json_to_int.sql');
   await runSqlFile(db, './src/migrations/initial/point_from_json.sql');
   await runSqlFile(db, './src/migrations/initial/polygon_from_json.sql');
   await runSqlFile(db, './src/migrations/initial/points_view.sql');
   await runSqlFile(db, './src/migrations/initial/tags_view.sql');
   await runSqlFile(db, './src/migrations/initial/regions_view.sql');
+  await runSqlFile(db, './src/migrations/initial/sections_view.sql');
   await runSqlFile(db, './src/migrations/initial/upsert_points.sql');
   await runSqlFile(db, './src/migrations/initial/upsert_region.sql');
   await runSqlFile(db, './src/migrations/initial/regions_points_trigger.sql');
+  await runSqlFile(db, './src/migrations/initial/sections_points_trigger.sql');
   await runSqlFile(db, './src/migrations/initial/gauges_points_trigger.sql');
   await runSqlFile(db, './src/migrations/initial/sources_view.sql');
   await runSqlFile(db, './src/migrations/initial/gauges_view.sql');
@@ -214,6 +266,10 @@ export const down = async (db: Knex) => {
   await db.schema.raw('DROP TABLE IF EXISTS users CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS gauges CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS gauges_translations CASCADE');
+  await db.schema.raw('DROP TABLE IF EXISTS sections CASCADE');
+  await db.schema.raw('DROP TABLE IF EXISTS sections_translations CASCADE');
+  await db.schema.raw('DROP TABLE IF EXISTS sections_points CASCADE');
+  await db.schema.raw('DROP TABLE IF EXISTS sections_tags CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS sources CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS sources_translations CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS regions CASCADE');
@@ -234,12 +290,14 @@ export const down = async (db: Knex) => {
   await db.schema.raw('DROP VIEW IF EXISTS gauges_view');
   await db.schema.raw('DROP VIEW IF EXISTS sources_view');
   await db.schema.raw('DROP VIEW IF EXISTS rivers_view');
+  await db.schema.raw('DROP VIEW IF EXISTS sections_view');
   await db.schema.raw('DROP FUNCTION IF EXISTS upsert_tag(tag JSON, lang language_code) CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS upsert_region(r JSON, lang language_code) CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS upsert_points(points_array JSON[], lang language_code) CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS upsert_source(src JSON, lang language_code) CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS upsert_gauge(gauge JSON, lang language_code) CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS upsert_river(river JSON, lang language_code) CASCADE');
+  await db.schema.raw('DROP FUNCTION IF EXISTS trigger_delete_orphan_sections_points() CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS trigger_delete_orphan_regions_points() CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS trigger_delete_orphan_gauges_points() CASCADE');
   await db.schema.raw('DROP TYPE IF EXISTS language_code CASCADE');

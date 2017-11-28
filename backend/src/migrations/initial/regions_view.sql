@@ -17,14 +17,7 @@ CREATE OR REPLACE VIEW regions_view AS
     regions.updated_at,
     ST_AsText(regions.bounds) AS bounds,
     (
-      SELECT json_agg(json_build_object(
-                          'id', points_view.id,
-                          'language', points_view.language,
-                          'name', points_view.name,
-                          'description', points_view.description,
-                          'kind', points_view.kind,
-                          'coordinates', ST_AsText(points_view.coordinates)
-                      ))
+      SELECT json_agg(points_view.*)
       FROM points_view
         INNER JOIN regions_points ON points_view.id = regions_points.point_id
       WHERE regions_points.region_id = regions.id AND points_view.language = regions_translations.language

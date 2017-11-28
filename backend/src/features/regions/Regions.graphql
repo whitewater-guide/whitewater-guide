@@ -13,6 +13,7 @@ type Region {
   rivers: RegionRiverConnection!
   gauges: RegionGaugeConnection!
   # sources: [Source]!
+  # sections: [Section]!
 }
 
 type RegionRiverConnection {

@@ -24,6 +24,16 @@ const points = [
     coordinates: getCoordinates([1.1, 2.2, 3.3]),
     kind: 'gauge',
   },
+  {
+    id: 'ca0bee06-d445-11e7-9296-cec278b6b50a', // Galicia River 1 Section 1
+    coordinates: getCoordinates([1.2, 3.2, 4.3]),
+    kind: 'rapid',
+  },
+  {
+    id: 'ef6f80ea-d445-11e7-9296-cec278b6b50a', // Galicia River 1 Section 1
+    coordinates: getCoordinates([5, 6, 7]),
+    kind: 'portage',
+  },
 ];
 
 const pointsEn = [
@@ -39,6 +49,18 @@ const pointsEn = [
     name: 'Region 1 Point 2',
     description: 'r1p2 description',
   },
+  {
+    point_id: 'ca0bee06-d445-11e7-9296-cec278b6b50a',
+    language: 'en',
+    name: 'Galicia Riv 1 Sec 1 Rapid',
+    description: 'Some rapid',
+  },
+  {
+    point_id: 'ef6f80ea-d445-11e7-9296-cec278b6b50a',
+    language: 'en',
+    name: 'Galicia Riv 1 Sec 1 Portage',
+    description: 'Some portage',
+  },
 ];
 
 const pointsRu = [
@@ -47,6 +69,12 @@ const pointsRu = [
     language: 'ru',
     name: 'Регион 1 точка 1',
     description: 'р1т1 описание',
+  },
+  {
+    point_id: 'ca0bee06-d445-11e7-9296-cec278b6b50a',
+    language: 'ru',
+    name: 'Галисия Река 1 Секция 1 Порог',
+    description: 'Какой-то порог',
   },
 ];
 
