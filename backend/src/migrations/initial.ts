@@ -193,7 +193,7 @@ export const up = async (db: Knex) => {
   await db.schema.createTableIfNotExists('sections', (table) => {
     table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
     table.uuid('river_id').notNullable().references('id').inTable('rivers').onDelete('CASCADE').index();
-    table.uuid('gauge_id').references('id').inTable('gauges');
+    table.uuid('gauge_id').references('id').inTable('gauges').onDelete('SET NULL');
     table.specificType('season_numeric', 'integer[]').notNullable().defaultTo('{}');
     table.jsonb('levels');
     table.jsonb('flows');

@@ -1,9 +1,15 @@
 import db, { holdTransaction, rollbackTransaction } from '../../../db';
 import { adminContext, anonContext, userContext } from '../../../test/context';
-import { isTimestamp, isUUID, noTimestamps, noUnstable, runQuery } from '../../../test/db-helpers';
+import { isTimestamp, isUUID, noUnstable, runQuery } from '../../../test/db-helpers';
 import { GaugeInput } from '../../../ww-commons';
-import { PointRaw } from '../../points';
 import { GaugeRaw } from '../types';
+
+let pointsBefore: number;
+
+beforeAll(async () => {
+  const p = await db(true).table('points').count().first();
+  pointsBefore = Number(p.count);
+});
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
@@ -123,8 +129,8 @@ describe('insert', () => {
 
   it('should insert point', async () => {
     await runQuery(upsertQuery, { gauge: input }, adminContext);
-    const points = await db().table('points').count();
-    expect(points[0].count).toBe('4');
+    const points = await db().table('points').count().first();
+    expect(Number(points.count) - pointsBefore).toBe(1);
   });
 
   it('should handle null point', async () => {

@@ -11,6 +11,13 @@ const query = `
 
 const gal1 = { id: 'aba8c106-aaa0-11e7-abc4-cec278b6b50a' };
 
+let pointsBefore: number;
+
+beforeAll(async () => {
+  const p = await db(true).table('points').count().first();
+  pointsBefore = Number(p.count);
+});
+
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
@@ -56,8 +63,8 @@ describe('effects', () => {
   });
 
   test('should remove location point', async () => {
-    const count = await db().table('points').count().first();
-    expect(count.count).toBe('2');
+    const { count } = await db().table('points').count().first();
+    expect(pointsBefore - Number(count)).toBe(1);
   });
 });
 

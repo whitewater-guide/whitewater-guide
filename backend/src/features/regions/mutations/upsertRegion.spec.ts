@@ -5,6 +5,16 @@ import { RegionInput } from '../../../ww-commons';
 import { PointRaw } from '../../points';
 import { RegionRaw } from '../types';
 
+let regionsPointsBefore: number;
+let pointsBefore: number;
+
+beforeAll(async () => {
+  const rp = await db(true).table('regions_points').count().first();
+  regionsPointsBefore = Number(rp.count);
+  const p = await db(true).table('points').count().first();
+  pointsBefore = Number(p.count);
+});
+
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
@@ -158,12 +168,13 @@ describe('insert', () => {
   });
 
   test('should insert POIs', async () => {
-    const regionsPoints = await db().table('regions_points').count();
-    const points = await db().table('points').count();
-    const regionsPointsByRegion = await db().table('regions_points').where('region_id', insertedRegion.id).count();
-    expect(regionsPoints[0].count).toBe('4');
-    expect(points[0].count).toBe('5');
-    expect(regionsPointsByRegion[0].count).toBe('2');
+    const regionsPoints = await db().table('regions_points').count().first();
+    const points = await db().table('points').count().first();
+    const regionsPointsByRegion = await db().table('regions_points').where('region_id', insertedRegion.id)
+      .count().first();
+    expect(Number(regionsPoints.count) - regionsPointsBefore).toBe(2);
+    expect(Number(points.count) - pointsBefore).toBe(2);
+    expect(regionsPointsByRegion.count).toBe('2');
   });
 
   test('should match snapshot', () => {
@@ -212,11 +223,11 @@ describe('update', () => {
   test('should change the number of pois', async () => {
     expect(updatedRegion.pois).toBeDefined();
     expect(updatedRegion.pois.length).toBe(3);
-    const regionsPoints = await db().table('regions_points').count();
-    const points = await db().table('points').count();
+    const regionsPoints = await db().table('regions_points').count().first();
+    const points = await db().table('points').count().first();
     const regionsPointsByRegion = await db().table('regions_points').where('region_id', updatedRegion.id).count();
-    expect(regionsPoints[0].count).toBe('3');
-    expect(points[0].count).toBe('4');
+    expect(Number(regionsPoints.count) - regionsPointsBefore).toBe(1);
+    expect(Number(points.count) - pointsBefore).toBe(1);
     expect(regionsPointsByRegion[0].count).toBe('3');
   });
 

@@ -66,7 +66,7 @@ const sectionsRu = [
 
 const sectionsTags = [
   { section_id: '2b01742c-d443-11e7-9296-cec278b6b50a', tag_id: 'waterfalls' },
-  { section_id: '2b01742c-d443-11e7-9296-cec278b6b50a', tag_id: 'portage' },
+  { section_id: '2b01742c-d443-11e7-9296-cec278b6b50a', tag_id: 'undercuts' },
 ];
 
 const sectionsPoints = [
