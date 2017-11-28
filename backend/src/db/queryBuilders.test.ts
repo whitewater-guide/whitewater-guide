@@ -134,6 +134,16 @@ describe('buildRootQuery', () => {
     const query = buildRootQuery({ ...commonOptions, connections });
     expect(query).toMatchSnapshot();
   });
+
+  it('should attach one-to-one references', () => {
+    graphqlFields.mockReturnValueOnce({ a: {}, b: { c: {} } });
+    const oneToOnes = { b: {
+      build: () => db(true).select('*').from('ref'),
+      join: (t: any, q: any) => q.where(`${t}.fk`, '=', db(true).raw('??', ['tbl.ref_id'])),
+    }};
+    const query = buildRootQuery({ ...commonOptions, oneToOnes });
+    expect(query).toMatchSnapshot();
+  });
 });
 
 describe('build list query', () => {

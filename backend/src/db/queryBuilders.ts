@@ -19,6 +19,8 @@ type ConnectionsMap<T> = {
   [field in keyof T]?: ConnectionDescriptor | null;
 };
 
+type OneToOnesMap<T> = ConnectionsMap<T>;
+
 type Builder = (options: Partial<QueryBuilderOptions<any>>) => Knex.QueryBuilder;
 type Joiner = (table: string, query: Knex.QueryBuilder) => Knex.QueryBuilder;
 
@@ -27,11 +29,16 @@ export const getPrimitives = <T>(
   prefix: string,
   context?: Context,
   connections?: Array<keyof T>,
+  oneToOnes?: Array<keyof T>,
   customMap?: ColumnMap<T>,
 ): string[] => {
   return topLevelFields.reduce((result, field) => {
-    // connection types and __typename are ignored
-    if (field === '__typename' || connections && connections.includes(field)) {
+    // connection types, one-to-one relation types and __typename are ignored
+    if (
+      field === '__typename' ||
+      connections && connections.includes(field) ||
+      oneToOnes && oneToOnes.includes(field)
+    ) {
       return result;
     }
     // Custom map allows to conditionally drop some statements based on context
@@ -51,6 +58,7 @@ export interface QueryBuilderOptions<T> {
   tableAlias?: string;
   customFieldMap?: ColumnMap<T>;
   connections?: ConnectionsMap<T>;
+  oneToOnes?: OneToOnesMap<T>;
   knex?: Knex;
   language?: string;
   orderBy?: string;
@@ -66,6 +74,7 @@ export const buildRootQuery = <T>(options: QueryBuilderOptions<T>): Knex.QueryBu
     tableAlias,
     customFieldMap = {},
     connections = {},
+    oneToOnes = {},
     knex = db(),
     language: lang,
     orderBy: ordBy,
@@ -85,6 +94,7 @@ export const buildRootQuery = <T>(options: QueryBuilderOptions<T>): Knex.QueryBu
     alias,
     context,
     Object.keys(connections) as any,
+    Object.keys(oneToOnes) as any,
     customFieldMap,
   );
   result = result.select(primitiveColumns);
@@ -100,6 +110,22 @@ export const buildRootQuery = <T>(options: QueryBuilderOptions<T>): Knex.QueryBu
         language,
         name: connectionName,
         fieldsTree: rootFieldsTree[connectionName],
+        foreignKey,
+      });
+    }
+  });
+  Object.entries(oneToOnes).forEach(([refName, value]) => {
+    if (value && rootFieldsTree[refName]) {
+      const { build, join, foreignKey } = value;
+      attachOneToOne({
+        knex,
+        query: result,
+        build,
+        join,
+        context,
+        language,
+        name: refName,
+        fieldsTree: rootFieldsTree[refName],
         foreignKey,
       });
     }
@@ -285,4 +311,34 @@ export const attachConnection = (options: AttachConnectionOptions) => {
       knex,
     }).toQuery()),
   ).select(knex!.raw(`(${connection.toQuery()}) as ${name}`));
+};
+
+export const attachOneToOne = (options: AttachConnectionOptions) => {
+  const {
+    query,
+    language,
+    context,
+    name,
+    build,
+    join,
+    fieldsTree,
+    foreignKey,
+    knex,
+  } = options;
+  const cteName = `${name}_ref`;
+  const fk = foreignKey ? { [foreignKey]: {} } : undefined;
+  // If we need only count (nodes === undefined) then we don't need this CTE all together,
+  // but this requires extra code and logic, so we always ask at least for id
+  const tree = { id: {}, ...fieldsTree.nodes, ...fk };
+  let selectJson = knex!
+    .select(knex!.raw(`to_json(${cteName}.*)`))
+    .from(cteName);
+  selectJson = join(cteName, selectJson);
+  return query.with(cteName, knex!.raw(build({
+      fieldsTree: tree,
+      context,
+      language,
+      knex,
+    }).toQuery()),
+  ).select(knex!.raw(`(${selectJson.toQuery()}) as ${name}`));
 };

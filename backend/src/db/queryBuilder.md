@@ -41,4 +41,19 @@ As a result:
         It can also paginate (via `LIMIT/OFFSET`).
         3. The connection column is produced by building json from inner CTE.
         This is done in `buildConnectionJSONQuery` function. *(5 on the picture)*
-4. As a result, a massive nested sql query is produced *(1 on the picture)*
+4. (Not on the picture) Some others are one-to-one relations, sometimes indirect, like `section`->`region`. 
+For them we want to build queries like
+    ```$sql
+    WITH rivers_ref as (
+      SELECT * from rivers_view
+      WHERE rivers_view.language = 'en'
+    )
+    SELECT
+      sections_view.*,
+      (SELECT to_json(rivers_ref.*) from rivers_ref where rivers_ref.id = sections_view.river_id) as river
+    from sections_view
+    WHERE sections_view.language = 'en'
+    ```
+    
+    This is done in `attachOneToOnes` function 
+5. As a result, a massive nested sql query is produced *(1 on the picture)*

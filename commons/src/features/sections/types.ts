@@ -1,17 +1,16 @@
 import { NamedNode, Timestamped } from '../../core';
 import { Gauge } from '../gauges';
-import { Media } from '../media';
 import { Point } from '../points';
 import { Region } from '../regions';
 import { River } from '../rivers';
 import { SelectableTagInput, Tag } from '../tags';
 
 export enum Duration {
-  LAPS = 0,
-  TWICE = 10,
-  DAYRUN = 20,
-  OVERNIGHTER = 30,
-  MULTIDAY = 40,
+  LAPS = 10,
+  TWICE = 20,
+  DAYRUN = 30,
+  OVERNIGHTER = 40,
+  MULTIDAY = 50,
 }
 
 export const Durations = new Map<number, string>();
@@ -21,17 +20,15 @@ Durations.set(Duration.DAYRUN, 'full day');
 Durations.set(Duration.OVERNIGHTER, 'overnighter');
 Durations.set(Duration.MULTIDAY, 'multiday');
 
-export interface Binding {
+export interface GaugeBinding {
   minimum: number | null;
   optimum: number | null;
   maximum: number | null;
   impossible: number | null;
   approximate: boolean;
-  lastValue: number | null;
-  lastTimestamp: Date | null;
 }
 
-export interface BindingInput {
+export interface GaugeBindingInput {
   minimum?: number;
   optimum?: number;
   maximum?: number;
@@ -48,13 +45,13 @@ export interface Section extends NamedNode, Timestamped {
   river: River;
 
   gauge: Gauge | null;
-  levels: Binding | null;
-  flows: Binding | null;
-  flowsText: string;
+  levels: GaugeBinding | null;
+  flows: GaugeBinding | null;
+  flowsText: string | null;
 
   putIn: Point;
   takeOut: Point;
-  shape: number[][];
+  shape: Array<[number, number, number]>;
   distance: number | null;
   drop: number | null;
   duration: Duration | null;
@@ -62,12 +59,9 @@ export interface Section extends NamedNode, Timestamped {
   difficultyXtra: string | null;
   rating: number | null;
 
-  supplyTags: Tag[];
-  kayakingTags: Tag[];
-  hazardsTags: Tag[];
-  miscTags: Tag[];
+  tags: Tag[];
 
-  media: Media[];
+  // media: Media[];
   pois: Point[];
 }
 

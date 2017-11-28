@@ -1,8 +1,8 @@
 import { NamedNode, Timestamped } from '../../core';
+import { Gauge } from '../gauges';
 import { Coordinate3d, Point, PointInput } from '../points';
 import { River } from '../rivers';
 import { Connection } from '../types';
-import { Gauge } from '../gauges';
 
 export interface Region extends NamedNode, Timestamped {
   description: string | null;

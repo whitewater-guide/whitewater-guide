@@ -264,6 +264,30 @@ order by
 
 `;
 
+exports[`buildRootQuery should attach one-to-one references 1`] = `
+with b_ref as (
+    select
+        *
+    from
+        ref
+)
+select
+    tbl.a, (
+        select
+            to_json(b_ref.*)
+        from
+            b_ref
+        where
+            b_ref.fk = tbl.ref_id) as b
+from
+    tbl
+where
+    tbl.language = 'en'
+order by
+    tbl.name asc
+
+`;
+
 exports[`buildRootQuery should construct basic query 1`] = `
 select
     tbl.b_c
