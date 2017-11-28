@@ -16,6 +16,7 @@ input GaugeBindingInput {
 
 type Section {
   id: ID! #
+  language: String!
   name: String! #
   description: String #
   season: String #

@@ -1,0 +1,131 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`details should build correct query with gauge 1`] = `
+with gauge_ref as (
+    select
+        gauges_view.id,
+        gauges_view.language,
+        gauges_view.name
+    from
+        gauges_view
+    where
+        gauges_view.language = 'en'
+    order by
+        gauges_view.name asc
+)
+select
+    sections_view.id,
+    sections_view.language,
+    sections_view.name, (
+        select
+            to_json(gauge_ref.*)
+        from
+            gauge_ref
+        where
+            gauge_ref.id = sections_view.gauge_id) as gauge
+from
+    sections_view
+where
+    sections_view.language = 'en'
+order by
+    sections_view.name asc
+
+`;
+
+exports[`details should build correct query with region 1`] = `
+with region_ref as (
+    select
+        regions_view.id,
+        regions_view.language,
+        regions_view.name
+    from
+        regions_view
+    where
+        regions_view.language = 'en'
+    order by
+        regions_view.name asc
+)
+select
+    sections_view.id,
+    sections_view.language,
+    sections_view.name, (
+        select
+            to_json(region_ref.*)
+        from
+            region_ref
+        inner join rivers on region_ref.id = rivers.region_id
+        where
+            rivers.id = sections_view.river_id) as region
+from
+    sections_view
+where
+    sections_view.language = 'en'
+order by
+    sections_view.name asc
+
+`;
+
+exports[`details should build correct query with river 1`] = `
+with river_ref as (
+    select
+        rivers_view.id,
+        rivers_view.language,
+        rivers_view.name
+    from
+        rivers_view
+    where
+        rivers_view.language = 'en'
+    order by
+        rivers_view.name asc
+)
+select
+    sections_view.id,
+    sections_view.language,
+    sections_view.name, (
+        select
+            to_json(river_ref.*)
+        from
+            river_ref
+        where
+            river_ref.id = sections_view.river_id) as river
+from
+    sections_view
+where
+    sections_view.language = 'en'
+order by
+    sections_view.name asc
+
+`;
+
+exports[`details should build correct query without connections 1`] = `
+select
+    sections_view.id,
+    sections_view.language,
+    sections_view.name,
+    sections_view.description,
+    sections_view.season,
+    sections_view.season_numeric,
+    sections_view.levels,
+    sections_view.flows,
+    sections_view.flows_text,
+    sections_view.put_in,
+    sections_view.take_out,
+    sections_view.shape,
+    sections_view.distance,
+    sections_view.drop,
+    sections_view.duration,
+    sections_view.difficulty,
+    sections_view.difficulty_xtra,
+    sections_view.rating,
+    sections_view.tags,
+    sections_view.created_at,
+    sections_view.updated_at,
+    sections_view.pois
+from
+    sections_view
+where
+    sections_view.language = 'en'
+order by
+    sections_view.name asc
+
+`;

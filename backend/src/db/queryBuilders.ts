@@ -329,7 +329,7 @@ export const attachOneToOne = (options: AttachConnectionOptions) => {
   const fk = foreignKey ? { [foreignKey]: {} } : undefined;
   // If we need only count (nodes === undefined) then we don't need this CTE all together,
   // but this requires extra code and logic, so we always ask at least for id
-  const tree = { id: {}, ...fieldsTree.nodes, ...fk };
+  const tree = { id: {}, ...fieldsTree, ...fk };
   let selectJson = knex!
     .select(knex!.raw(`to_json(${cteName}.*)`))
     .from(cteName);

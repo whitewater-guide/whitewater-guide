@@ -26,6 +26,8 @@ CREATE OR REPLACE VIEW sections_view AS
     ST_AsText(st_endpoint(sections.shape :: geometry) :: geography) AS take_out,
     sections.created_at,
     sections.updated_at,
+    sections.gauge_id,
+    sections.river_id,
     (
       SELECT json_agg(points_view.*)
       FROM points_view

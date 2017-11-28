@@ -1,0 +1,72 @@
+import { GraphQLResolveInfo } from 'graphql';
+import db from '../../db';
+import { adminContext } from '../../test/context';
+import { buildSectionQuery } from './queryBuilder';
+import gqf = require('graphql-fields');
+
+const graphqlFields: jest.Mock<any> = gqf as any;
+jest.mock('graphql-fields', () => jest.fn());
+
+const minPrimitives = {
+  __typename: {},
+  id: {},
+  language: {},
+  name: {},
+};
+
+const allPrimitives = {
+  ...minPrimitives,
+  description: {},
+  season: {},
+  seasonNumeric: {},
+  levels: {},
+  flows: {},
+  flowsText: {},
+  putIn: {},
+  takeOut: {},
+  shape: {},
+  distance: {},
+  drop: {},
+  duration: {},
+  difficulty: {},
+  difficultyXtra: {},
+  rating: {},
+  tags: {},
+  createdAt: {},
+  updatedAt: {},
+  pois: {},
+};
+
+const info: GraphQLResolveInfo = {} as any;
+
+const options = { info, context: adminContext, knex: db(true) };
+
+describe('details', () => {
+  it('should build correct query without connections', () => {
+    graphqlFields.mockReturnValueOnce(allPrimitives);
+    const query = buildSectionQuery(options);
+    expect(query).toMatchSnapshot();
+  });
+
+  it('should build correct query with river', () => {
+    graphqlFields.mockReturnValueOnce({ ...minPrimitives, river: minPrimitives });
+    const query = buildSectionQuery(options);
+    expect(query).toMatchSnapshot();
+  });
+
+  it('should build correct query with gauge', () => {
+    graphqlFields.mockReturnValueOnce({ ...minPrimitives, gauge: minPrimitives });
+    const query = buildSectionQuery(options);
+    expect(query).toMatchSnapshot();
+  });
+
+  it('should build correct query with region', () => {
+    graphqlFields.mockReturnValueOnce({ ...minPrimitives, region: minPrimitives });
+    const query = buildSectionQuery(options);
+    expect(query).toMatchSnapshot();
+  });
+});
+
+describe('list', () => {
+
+});
