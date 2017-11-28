@@ -18,7 +18,7 @@ jest.mock('graphql-fields', () => jest.fn());
 const graphqlFields: jest.Mock<any> = gqf as any;
 
 describe('getPrimitives', () => {
-  const topLevelFields = ['__typename', 'camelCase', 'snake_case', 'regular', 'everyone', 'admin', 'connection'];
+  const topLevelFields = ['__typename', 'camelCase', 'snake_case', 'regular', 'everyone', 'admin', 'connection', 'oneToOne'];
   const customMap = {
     admin: (c: Context) => isAdmin(c.user) ? 'admin' : null,
   };
@@ -44,14 +44,14 @@ describe('getPrimitives', () => {
   });
 
   it('should omit based on context', () => {
-    const userResult = getPrimitives<any>(topLevelFields, prefix, anonContext, ['connection'], customMap);
+    const userResult = getPrimitives<any>(topLevelFields, prefix, anonContext, ['connection'], ['oneToOne'], customMap);
     expect(userResult).not.toContain('tablename.admin');
-    const adminResult = getPrimitives<any>(topLevelFields, prefix, adminContext, ['connection'], customMap);
+    const adminResult = getPrimitives<any>(topLevelFields, prefix, adminContext, ['connection'], ['oneToOne'], customMap);
     expect(adminResult).toContain('tablename.admin');
   });
 
   it('should match snapshot', () => {
-    const userResult = getPrimitives<any>(topLevelFields, prefix, anonContext, ['connection'], customMap);
+    const userResult = getPrimitives<any>(topLevelFields, prefix, anonContext, ['connection'], ['oneToOne'], customMap);
     expect(userResult).toMatchSnapshot();
   });
 
