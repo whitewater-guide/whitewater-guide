@@ -87,7 +87,7 @@ test('should return rivers count', async () => {
   // Check name
   expect(regions.nodes[0].rivers).toEqual({ count: 0 });
   expect(regions.nodes[1].rivers).toEqual({ count: 2 });
-  expect(regions.nodes[2].rivers).toEqual({ count: 0 });
+  expect(regions.nodes[2].rivers).toEqual({ count: 2 });
 });
 
 test('should return gauges count', async () => {
@@ -108,7 +108,7 @@ test('should return gauges count', async () => {
   expect(result.data!.regions).toBeDefined();
   const regions = result.data!.regions;
   // Check name
-  expect(regions.nodes[0].gauges).toEqual({ count: 0 }); // empty region
+  expect(regions.nodes[0].gauges).toEqual({ count: 0 }); // Ecuador
   expect(regions.nodes[1].gauges).toEqual({ count: 2 }); // galicia
-  expect(regions.nodes[2].gauges).toEqual({ count: 4 }); // hidden region
+  expect(regions.nodes[2].gauges).toEqual({ count: 4 }); // Norway
 });

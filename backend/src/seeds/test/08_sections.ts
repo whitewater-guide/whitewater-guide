@@ -1,5 +1,5 @@
 import { LineString, Point } from 'wkx';
-import { Coordinate3d } from '../../ww-commons';
+import { Coordinate3d, Duration } from '../../ww-commons';
 import Knex = require('knex');
 
 function getLineString(shape: Coordinate3d[] | null) {
@@ -35,10 +35,48 @@ const sections = [
     shape: getLineString([[10, 10, 0], [20, 20, 0]]),
     distance: 11.1,
     drop: 12.2,
-    duration: 2,
+    duration: Duration.TWICE,
     difficulty: 3.5,
     difficulty_xtra: 'X',
     rating: '4.5',
+  },
+  {
+    id: '3a6e3210-d529-11e7-9296-cec278b6b50a',
+    river_id: 'a8416664-bfe3-11e7-abc4-cec278b6b50a', // Gal_riv_one
+    gauge_id: 'aba8c106-aaa0-11e7-abc4-cec278b6b50a', // Galicia gauge 1
+    season_numeric: [0, 1, 2, 3, 4],
+    levels: {
+      minimum: 100,
+      maximum: 300,
+      optimum: 200,
+      impossible: 400,
+      approximate: false,
+    },
+    flows: {
+      minimum: 100,
+      maximum: 300,
+      optimum: 200,
+      impossible: 400,
+      approximate: false,
+    },
+    shape: getLineString([[20, 20, 0], [21, 21, 0]]),
+    distance: 1.1,
+    drop: 22.2,
+    duration: Duration.DAYRUN,
+    difficulty: 4.5,
+    difficulty_xtra: 'VI',
+    rating: '2.5',
+  },
+  {
+    id: '21f2351e-d52a-11e7-9296-cec278b6b50a', // Amot
+    river_id: 'd4396dac-d528-11e7-9296-cec278b6b50a', // Sjoa
+    season_numeric: [10, 11, 12, 13, 14, 15, 16],
+    shape: getLineString([[1, 1, 0], [2, 2, 0]]),
+    distance: 3.2,
+    drop: 34.2,
+    duration: Duration.LAPS,
+    difficulty: 4,
+    rating: '5',
   },
 ];
 
@@ -51,6 +89,22 @@ const sectionsEn = [
     season: 'Gal_riv_1_sec_1 season',
     flows_text: 'Gal_riv_1_sec_1 flows text',
   },
+  {
+    section_id: '3a6e3210-d529-11e7-9296-cec278b6b50a',
+    language: 'en',
+    name: 'Gal_riv_1_sec_2',
+    description: 'Gal_riv_1_sec_2 description',
+    season: 'Gal_riv_1_sec_2 season',
+    flows_text: 'Gal_riv_1_sec_2 flows text',
+  },
+  {
+    section_id: '21f2351e-d52a-11e7-9296-cec278b6b50a',
+    language: 'en',
+    name: 'Amot',
+    description: 'Amot description',
+    season: 'Amot season',
+    flows_text: 'Amot flows text',
+  },
 ];
 
 const sectionsRu = [
@@ -61,6 +115,22 @@ const sectionsRu = [
     description: 'Галисия река 1 секция 1 описание',
     season: 'Галисия река 1 секция 1 сезон',
     flows_text: 'Галисия река 1 секция 1 уровни',
+  },
+  {
+    section_id: '3a6e3210-d529-11e7-9296-cec278b6b50a',
+    language: 'ru',
+    name: 'Галисия река 1 секция 2',
+    description: 'Галисия река 1 секция 2 описание',
+    season: 'Галисия река 2 секция 1 сезон',
+    flows_text: 'Галисия река 1 секция 2 уровни',
+  },
+  {
+    section_id: '21f2351e-d52a-11e7-9296-cec278b6b50a',
+    language: 'ru',
+    name: 'Амот',
+    description: 'Амот описание',
+    season: 'Амот сезон',
+    flows_text: 'Амот уровни текст',
   },
 ];
 

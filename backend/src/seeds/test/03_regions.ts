@@ -46,14 +46,14 @@ const regionsEn = [
   {
     region_id: '2caf75ca-7625-11e7-b5a5-be2e44b06b34',
     language: 'en',
-    name: 'Empty region',
+    name: 'Ecuador',
     description: null,
     season: null,
   },
   {
     region_id: 'b968e2b2-76c5-11e7-b5a5-be2e44b06b34',
     language: 'en',
-    name: 'Hidden region',
+    name: 'Norway',
     description: null,
     season: null,
   },

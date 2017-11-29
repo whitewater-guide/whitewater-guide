@@ -52,7 +52,7 @@ const sourcesRu = [
   },
 ];
 
-// connects sources 'galicia' and 'norway' to region 'Hidden region'
+// connects sources 'galicia' and 'norway' to region 'Norway'
 // connects sources 'galicia' and 'galicia2' to region 'galicia'
 const sourcesRegions = [
   { source_id: '6d0d717e-aa9d-11e7-abc4-cec278b6b50a', region_id: 'b968e2b2-76c5-11e7-b5a5-be2e44b06b34' },

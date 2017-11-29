@@ -1,7 +1,7 @@
 import { GraphQLResolveInfo } from 'graphql';
 import db from '../../db';
 import { adminContext } from '../../test/context';
-import { buildSectionQuery } from './queryBuilder';
+import { buildSectionQuery, buildSectionsListQuery } from './queryBuilder';
 import gqf = require('graphql-fields');
 
 const graphqlFields: jest.Mock<any> = gqf as any;
@@ -68,5 +68,27 @@ describe('details', () => {
 });
 
 describe('list', () => {
+  it('should build correct query without connections', () => {
+    graphqlFields.mockReturnValueOnce({ nodes: allPrimitives, count: {} });
+    const query = buildSectionsListQuery(options);
+    expect(query).toMatchSnapshot();
+  });
 
+  it('should build correct query with river', () => {
+    graphqlFields.mockReturnValueOnce({ nodes: { ...minPrimitives, river: minPrimitives }, count: {} });
+    const query = buildSectionsListQuery(options);
+    expect(query).toMatchSnapshot();
+  });
+
+  it('should build correct query with gauge', () => {
+    graphqlFields.mockReturnValueOnce({ nodes: { ...minPrimitives, gauge: minPrimitives }, count: {} });
+    const query = buildSectionsListQuery(options);
+    expect(query).toMatchSnapshot();
+  });
+
+  it('should build correct query with region', () => {
+    graphqlFields.mockReturnValueOnce({ nodes: { ...minPrimitives, region: minPrimitives }, count: {} });
+    const query = buildSectionsListQuery(options);
+    expect(query).toMatchSnapshot();
+  });
 });

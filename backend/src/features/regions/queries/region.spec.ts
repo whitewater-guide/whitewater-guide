@@ -114,7 +114,7 @@ test('should get gauges', async () => {
       }
     }
   `;
-  // hidden region
+  // Norway
   const result = await runQuery(gaugesQuery, { id: 'b968e2b2-76c5-11e7-b5a5-be2e44b06b34' }, userContext);
   expect(result.data!.region.gauges.count).toEqual(4);
   expect(result.data!.region.gauges).toMatchSnapshot();
