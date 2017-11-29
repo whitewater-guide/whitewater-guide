@@ -110,7 +110,3 @@ type Mutation {
   upsertSection(section: SectionInput!, language: String): Section,
   removeSection(id: ID!): Boolean,
 }
-
-#type Subscription {
-#  measurementsUpdated(regionId: ID!, sectionId: ID): [Section]!
-#}

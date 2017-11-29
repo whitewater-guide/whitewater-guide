@@ -2,10 +2,11 @@ import { GaugesSchema } from '../features/gauges';
 import { PointsSchema } from '../features/points';
 import { RegionsSchema } from '../features/regions';
 import { RiversSchema } from '../features/rivers';
-import { ScriptsSchema } from '../features/scripts/index';
+import { ScriptsSchema } from '../features/scripts';
+import { SectionsSchema } from '../features/sections';
 import { SourcesSchema } from '../features/sources';
+import { TagsSchema } from '../features/tags';
 import { UsersSchema } from '../features/users';
-import { TagsSchema } from '../features/tags/types';
 
 // tslint:disable:no-trailing-whitespace
 const SchemaDefinition = `
@@ -38,6 +39,7 @@ const SchemaDefinition = `
 export const typeDefs = [
   SchemaDefinition,
   TagsSchema,
+  SectionsSchema,
   GaugesSchema,
   RiversSchema,
   RegionsSchema,

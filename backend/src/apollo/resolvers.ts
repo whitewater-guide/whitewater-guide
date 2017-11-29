@@ -5,6 +5,7 @@ import { gaugesResolvers } from '../features/gauges';
 import { pointsResolvers } from '../features/points';
 import { regionsResolvers } from '../features/regions';
 import { scriptsResolvers } from '../features/scripts';
+import { sectionsResolvers } from '../features/sections';
 import { sourcesResolvers } from '../features/sources';
 import { tagsResolvers } from '../features/tags';
 import { usersResolvers } from '../features/users';
@@ -15,6 +16,7 @@ export const resolvers = merge(
   pointsResolvers,
   regionsResolvers,
   scriptsResolvers,
+  sectionsResolvers,
   sourcesResolvers,
   usersResolvers,
   {
