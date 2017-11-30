@@ -1,7 +1,7 @@
 import { graphql } from 'graphql';
 import { schema } from '../apollo';
 import db from '../db';
-import omit = require('lodash/omit');
+import omitDeep = require('omit-deep-lodash');
 
 export const reseedDb = async () => {
   await db(true).migrate.rollback();
@@ -21,9 +21,9 @@ export const disconnect = async () => {
   await db(true).destroy();
 };
 
-export const noTimestamps = (row: any) => omit(row, ['createdAt', 'updatedAt', 'created_at', 'updated_at']);
+export const noTimestamps = (row: any) => omitDeep(row, ['createdAt', 'updatedAt', 'created_at', 'updated_at']);
 
-export const noUnstable = (row: any) => omit(row, ['id', 'createdAt', 'updatedAt', 'created_at', 'updated_at']);
+export const noUnstable = (row: any) => omitDeep(row, ['id', 'createdAt', 'updatedAt', 'created_at', 'updated_at']);
 
 export const isUUID = (s: string) =>
   (/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i).test(s);

@@ -147,10 +147,7 @@ describe('insert', () => {
 
   test('should match snapshot', async () => {
     const result = await runQuery(upsertQuery, { gauge: input }, adminContext);
-    const gauge = result && result.data && result.data.upsertGauge;
-    const snapshot = { ...result, data: { ...result.data, upsertGauge: noUnstable(gauge) } };
-    (snapshot.data.upsertGauge as any).location = noUnstable((snapshot.data.upsertGauge as any).location);
-    expect(snapshot).toMatchSnapshot();
+    expect(noUnstable(result)).toMatchSnapshot();
   });
 });
 
@@ -217,9 +214,7 @@ describe('update', () => {
   });
 
   it('should match snapshot', async () => {
-    const snapshot = { ...updateResult, data: { ...updateResult.data, upsertGauge: noUnstable(updatedGauge) } };
-    (snapshot.data.upsertGauge as any).location = noUnstable((snapshot.data.upsertGauge as any).location);
-    expect(snapshot).toMatchSnapshot();
+    expect(noUnstable(updateResult)).toMatchSnapshot();
   });
 });
 

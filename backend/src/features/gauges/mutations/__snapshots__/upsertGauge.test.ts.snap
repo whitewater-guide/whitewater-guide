@@ -24,7 +24,6 @@ Object {
         "foo": "bar",
       },
       "source": Object {
-        "id": "786251d4-aa9d-11e7-abc4-cec278b6b50a",
         "language": "en",
         "name": "Norway",
       },
@@ -69,7 +68,6 @@ Object {
         "lol": "fun",
       },
       "source": Object {
-        "id": "6d0d717e-aa9d-11e7-abc4-cec278b6b50a",
         "language": "en",
         "name": "Galicia",
       },

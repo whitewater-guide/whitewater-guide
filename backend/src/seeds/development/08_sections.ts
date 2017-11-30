@@ -38,7 +38,7 @@ const sections = [
     duration: Duration.TWICE,
     difficulty: 3.5,
     difficulty_xtra: 'X',
-    rating: '4.5',
+    rating: 4.5,
   },
   {
     id: '3a6e3210-d529-11e7-9296-cec278b6b50a',
@@ -65,7 +65,7 @@ const sections = [
     duration: Duration.DAYRUN,
     difficulty: 4.5,
     difficulty_xtra: 'VI',
-    rating: '2.5',
+    rating: 2.5,
   },
   {
     id: '21f2351e-d52a-11e7-9296-cec278b6b50a', // Amot
@@ -76,7 +76,7 @@ const sections = [
     drop: 34.2,
     duration: Duration.LAPS,
     difficulty: 4,
-    rating: '5',
+    rating: 5,
   },
 ];
 
