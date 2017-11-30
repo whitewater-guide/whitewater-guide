@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should return simple data 1`] = `
+Object {
+  "description": "Amot description",
+  "difficulty": 4,
+  "difficultyXtra": null,
+  "distance": 3.2,
+  "drop": 34.2,
+  "duration": 10,
+  "flows": null,
+  "flowsText": "Amot flows text",
+  "id": "21f2351e-d52a-11e7-9296-cec278b6b50a",
+  "language": "en",
+  "levels": null,
+  "name": "Amot",
+  "pois": Array [],
+  "putIn": Object {
+    "coordinates": Array [
+      1,
+      1,
+      0,
+    ],
+    "description": null,
+    "id": "21f2351e-d52a-11e7-9296-cec278b6b50a_putIn",
+    "kind": "put-in",
+    "language": "en",
+    "name": "Put-in",
+  },
+  "rating": 5,
+  "season": "Amot season",
+  "seasonNumeric": Array [
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+  ],
+  "shape": Array [
+    Array [
+      1,
+      1,
+      0,
+    ],
+    Array [
+      2,
+      2,
+      0,
+    ],
+  ],
+  "tags": Array [],
+  "takeOut": Object {
+    "coordinates": Array [
+      2,
+      2,
+      0,
+    ],
+    "description": null,
+    "id": "21f2351e-d52a-11e7-9296-cec278b6b50a_takeOut",
+    "kind": "take-out",
+    "language": "en",
+    "name": "Take-out",
+  },
+}
+`;

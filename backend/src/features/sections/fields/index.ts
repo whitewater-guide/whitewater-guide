@@ -1,4 +1,4 @@
-import { Geometry, LineString, Point } from 'wkx';
+import { Geometry, LineString } from 'wkx';
 import { FieldResolvers } from '../../../apollo';
 import { timestampResolvers } from '../../../db';
 import { Section } from '../../../ww-commons';
@@ -7,6 +7,26 @@ import { SectionRaw } from '../types';
 const sectionFieldResolvers: FieldResolvers<SectionRaw, Section> = {
   seasonNumeric: section => section.season_numeric,
   difficultyXtra: section => section.difficulty_xtra,
+  putIn: ({ id, language, put_in }) => {
+    return {
+      id: `${id}_putIn`,
+      name: 'Put-in',
+      description: null,
+      language,
+      kind: 'put-in',
+      coordinates: put_in, // Will be parsed in Point resolver
+    };
+  },
+  takeOut: ({ id, language, take_out }) => {
+    return {
+      id: `${id}_takeOut`,
+      name: 'Take-out',
+      description: null,
+      language,
+      kind: 'take-out',
+      coordinates: take_out,
+    };
+  },
   flowsText: section => section.flows_text,
   shape: ({ shape }) => {
     const lineString = Geometry.parse(shape) as LineString;

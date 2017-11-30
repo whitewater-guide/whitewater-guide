@@ -29,6 +29,8 @@ export interface SectionRaw extends NamedNode, RawTimestamped {
   description: string | null;
   season: string | null;
   flows_text: string | null;
+  put_in: string;
+  take_out: string;
 
   pois: PointRaw[] | null;
   tags: Tag[] | null;

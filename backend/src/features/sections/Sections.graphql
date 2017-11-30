@@ -15,35 +15,35 @@ input GaugeBindingInput {
 }
 
 type Section {
-  id: ID! #
+  id: ID!
   language: String!
-  name: String! #
-  description: String #
-  season: String #
-  seasonNumeric: [Int]! #
+  name: String!
+  description: String
+  season: String
+  seasonNumeric: [Int]!
 
   region: Region
   river: River
 
   gauge: Gauge
-  levels: GaugeBinding #
-  flows: GaugeBinding #
-  flowsText: String #
+  levels: GaugeBinding
+  flows: GaugeBinding
+  flowsText: String
 
-  putIn: Point! #
-  takeOut: Point! #
-  shape: [[Float!]]! #
-  distance: Float #
-  drop: Float #
-  duration: Int #
-  difficulty: Float! #
-  difficultyXtra: String #
-  rating: Float #
+  putIn: Point!
+  takeOut: Point!
+  shape: [[Float!]]!
+  distance: Float
+  drop: Float
+  duration: Int
+  difficulty: Float!
+  difficultyXtra: String
+  rating: Float
   tags: [Tag]!
-  createdAt: Date #
-  updatedAt: Date #
+  createdAt: Date
+  updatedAt: Date
   # media: [Media]
-  pois: [Point]! #
+  pois: [Point]!
 }
 
 input SectionRiverInput {
@@ -74,7 +74,7 @@ input SectionInput {
   rating: Float
   tags: [RefInput]!
 #  media: [MediaInput]
-#  pois: [PointInput]
+  pois: [PointInput]
 }
 
 type SectionsList {
@@ -82,22 +82,9 @@ type SectionsList {
   count: Int!
 }
 
-input TagsSearch {
-  _id: ID,
-  selection: Int,
-}
-
 input SectionsFilter {
-  # sortBy: String
-  # sortDirection: SortDirection
   riverId: ID
   regionId: ID
-  # searchString: String
-  # difficulty: [Float]
-  # duration: [Int]
-  # seasonNumeric: [Int]
-  # rating: Float
-  #  tags: [TagsSearch]
   updatedAt: Date
 }
 
