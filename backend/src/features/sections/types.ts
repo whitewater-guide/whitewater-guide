@@ -37,3 +37,9 @@ export interface SectionRaw extends NamedNode, RawTimestamped {
 
   count: number | null; // window function count
 }
+
+export interface SectionsFilter {
+  riverId?: string;
+  regionId?: string;
+  updatedAfter?: Date;
+}

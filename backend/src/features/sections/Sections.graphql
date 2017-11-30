@@ -85,7 +85,7 @@ type SectionsList {
 input SectionsFilter {
   riverId: ID
   regionId: ID
-  updatedAt: Date
+  updatedAfter: Date
 }
 
 type Query {

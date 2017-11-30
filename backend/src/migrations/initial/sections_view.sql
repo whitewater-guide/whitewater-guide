@@ -29,6 +29,11 @@ CREATE OR REPLACE VIEW sections_view AS
     sections.gauge_id,
     sections.river_id,
     (
+      SELECT region_id
+      FROM rivers
+      WHERE rivers.id = sections.river_id
+    ) AS region_id,
+    (
       SELECT json_agg(points_view.*)
       FROM points_view
         INNER JOIN sections_points ON points_view.id = sections_points.point_id
