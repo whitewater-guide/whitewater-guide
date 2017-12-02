@@ -6,6 +6,8 @@ CREATE OR REPLACE VIEW rivers_view AS
     rivers.id,
     langs.language,
     rivers.region_id,
+    rivers.created_at,
+    rivers.updated_at,
     COALESCE(rivers_translations.name, 'Not translated') as name,
     (
       SELECT row_to_json(regions_view) FROM regions_view

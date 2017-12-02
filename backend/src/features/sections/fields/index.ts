@@ -2,6 +2,9 @@ import { Geometry, LineString } from 'wkx';
 import { FieldResolvers } from '../../../apollo';
 import { timestampResolvers } from '../../../db';
 import { Section } from '../../../ww-commons';
+import { buildGaugeQuery } from '../../gauges';
+import { buildRegionQuery } from '../../regions';
+import { buildRiverQuery } from '../../rivers';
 import { SectionRaw } from '../types';
 
 const sectionFieldResolvers: FieldResolvers<SectionRaw, Section> = {
@@ -34,6 +37,26 @@ const sectionFieldResolvers: FieldResolvers<SectionRaw, Section> = {
   },
   pois: section => section.pois || [],
   tags: section => section.tags || [],
+  region: ({ region, region_id }, { language }, context, info) => {
+    if (region) {
+      return region;
+    }
+    return buildRegionQuery({ language, id: region_id, info, context }).first();
+  },
+  river: ({ river, river_id }, { language }, context, info) => {
+    if (river) {
+      return river;
+    }
+    return buildRiverQuery({ language, id: river_id, info, context }).first();
+  },
+  gauge: ({ gauge, gauge_id }, { language }, context, info) => {
+    if (gauge) {
+      return gauge;
+    } else if (gauge_id) {
+      return buildGaugeQuery({ language, id: gauge_id, info, context }).first();
+    }
+    return null;
+  },
   ...timestampResolvers,
 };
 

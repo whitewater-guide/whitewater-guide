@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`insert existing river should return result 1`] = `
+Object {
+  "data": Object {
+    "upsertSection": Object {
+      "description": "Playrun description",
+      "difficulty": 4,
+      "difficultyXtra": "X",
+      "distance": 2.44,
+      "drop": 101.1,
+      "duration": 10,
+      "flows": null,
+      "flowsText": "Playrun flows",
+      "gauge": Object {
+        "language": "en",
+        "name": "Norway gauge 1",
+      },
+      "language": "en",
+      "levels": Object {
+        "approximate": false,
+        "impossible": null,
+        "maximum": null,
+        "minimum": 100,
+        "optimum": null,
+      },
+      "name": "Playrun",
+      "pois": Array [],
+      "putIn": Object {
+        "coordinates": Array [
+          33,
+          33,
+          0,
+        ],
+        "language": "en",
+        "name": "Put-in",
+      },
+      "rating": 5,
+      "region": Object {
+        "language": "en",
+        "name": "Norway",
+      },
+      "river": Object {
+        "language": "en",
+        "name": "Sjoa",
+      },
+      "season": "Playrun season",
+      "seasonNumeric": Array [
+        1,
+        2,
+        3,
+      ],
+      "shape": Array [
+        Array [
+          33,
+          33,
+          0,
+        ],
+        Array [
+          34,
+          42,
+          0,
+        ],
+      ],
+      "tags": Array [],
+      "takeOut": Object {
+        "coordinates": Array [
+          34,
+          42,
+          0,
+        ],
+        "language": "en",
+        "name": "Take-out",
+      },
+    },
+  },
+}
+`;

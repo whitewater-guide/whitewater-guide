@@ -80,7 +80,7 @@ it('should filter by region', async () => {
 
 it('should filter recently updated', async () => {
   const id = '21f2351e-d52a-11e7-9296-cec278b6b50a';
-  const [u2] = await db(true).update({ rating: 1 }).from('sections').where({ id }).returning('updated_at');
+  const [u2] = await db().update({ rating: 1 }).from('sections').where({ id }).returning('updated_at');
   const result = await runQuery(query, { filter: { updatedAfter: u2.toISOString() } });
   expect(result.errors).toBeUndefined();
   expect(result).toHaveProperty('data.sections.nodes.length', 1);

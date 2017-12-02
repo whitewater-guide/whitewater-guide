@@ -29,7 +29,7 @@ BEGIN
     INTO upserted_river_id;
 
   -- return the result
-  SELECT json_agg(rivers_view)
+  SELECT to_json(rivers_view)
   FROM rivers_view
   WHERE id = upserted_river_id AND language = lang
   INTO result;

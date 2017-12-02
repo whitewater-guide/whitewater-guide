@@ -7,7 +7,7 @@ BEGIN
   IF linestring IS NULL
   THEN
     RETURN NULL;
-  ELSEIF json_array_length(linestring) < 3
+  ELSEIF json_array_length(linestring) < 2
   THEN
     RETURN NULL;
   ELSE
@@ -15,7 +15,7 @@ BEGIN
       point := linestring -> i;
       points := array_append(points, (point ->> 0) || ' ' || (point ->> 1) ||  ' ' || (point ->> 2));
     END LOOP;
-    RETURN ST_GeomFromText('LINESTRING Z ((' ||  array_to_string(points, ', ') || '))', 4326);
+    RETURN ST_GeomFromText('LINESTRINGZ(' ||  array_to_string(points, ', ') || ')', 4326);
   END IF;
 END;
 $$ LANGUAGE plpgsql;

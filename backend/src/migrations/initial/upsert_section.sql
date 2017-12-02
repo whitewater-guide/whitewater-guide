@@ -3,15 +3,7 @@ CREATE OR REPLACE FUNCTION upsert_section(section JSON, lang LANGUAGE_CODE)
 DECLARE
   upserted_section_id UUID;
   result              JSON;
-  tmp varchar;
 BEGIN
-  WITH upserted_river AS (
-      SELECT upsert_river(section -> 'river', lang) AS river
-  )
-  SELECT river -> 0 ->> 'id' FROM upserted_river INTO tmp;
-
-  RAISE NOTICE 'TMP %', tmp;
-
   WITH upserted_river AS (
       SELECT upsert_river(section -> 'river', lang) AS river
   ), upserted_section AS (
@@ -32,7 +24,7 @@ BEGIN
     )
     VALUES (
       COALESCE((section ->> 'id') :: UUID, uuid_generate_v1mc()),
-      (SELECT river -> 0 ->> 'id' FROM upserted_river) :: UUID,
+      (SELECT (river ->> 'id') FROM upserted_river) :: UUID,
       (section -> 'gauge' ->> 'id') :: UUID,
       COALESCE(array_json_to_int(section -> 'seasonNumeric'), '{}' :: INTEGER []),
       section -> 'levels',
@@ -80,7 +72,7 @@ BEGIN
     INTO upserted_section_id;
 
   -- return the result
-  SELECT json_agg(sections_view)
+  SELECT to_json(sections_view)
   FROM sections_view
   WHERE id = upserted_section_id AND language = lang
   INTO result;

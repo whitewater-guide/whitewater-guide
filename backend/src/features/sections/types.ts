@@ -1,7 +1,10 @@
 import { loadGraphqlFile } from '../../apollo/loadGraphqlFile';
 import { RawTimestamped } from '../../db';
 import { NamedNode, Tag } from '../../ww-commons';
-import { PointRaw } from '../points/types';
+import { GaugeRaw } from '../gauges';
+import { PointRaw } from '../points';
+import { RegionRaw } from '../regions';
+import { RiverRaw } from '../rivers';
 
 export const SectionsSchema = loadGraphqlFile('sections');
 
@@ -15,7 +18,12 @@ export interface GaugeBindingRaw {
 
 export interface SectionRaw extends NamedNode, RawTimestamped {
   river_id: string;
+  river?: RiverRaw;
   gauge_id: string | null;
+  gauge?: GaugeRaw;
+  region_id: string;
+  region?: RegionRaw;
+
   season_numeric: number[];
   levels: GaugeBindingRaw | null;
   flows: GaugeBindingRaw | null;

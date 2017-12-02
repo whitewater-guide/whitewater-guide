@@ -29,7 +29,7 @@ BEGIN
     INTO upserted_tag_id;
 
   -- return the result
-  SELECT json_agg(tags_view)
+  SELECT to_json(tags_view)
   FROM tags_view
   WHERE id = upserted_tag_id AND language = lang
   INTO result;

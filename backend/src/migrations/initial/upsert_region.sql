@@ -78,7 +78,7 @@ BEGIN
   );
 
   -- return the result
-  SELECT json_agg(regions_view)
+  SELECT to_json(regions_view)
   FROM regions_view
   WHERE id = upserted_region_id AND language = lang
   INTO result;

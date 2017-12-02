@@ -46,7 +46,7 @@ BEGIN
   FROM json_to_recordset(src -> 'regions') as regions_json(id text);
 
   -- return the result
-  SELECT json_agg(sources_view)
+  SELECT to_json(sources_view)
   FROM sources_view
   WHERE id = upserted_source_id AND language = lang
   INTO result;

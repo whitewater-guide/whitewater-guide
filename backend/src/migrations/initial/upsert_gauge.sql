@@ -53,7 +53,7 @@ BEGIN
     INTO upserted_gauge_id;
 
   -- return the result
-  SELECT json_agg(gauges_view)
+  SELECT to_json(gauges_view)
   FROM gauges_view
   WHERE id = upserted_gauge_id AND language = lang
   INTO result;
