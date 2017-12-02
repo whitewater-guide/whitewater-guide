@@ -242,6 +242,7 @@ export const up = async (db: Knex) => {
   await runSqlFile(db, './src/migrations/initial/array_json_to_int.sql');
   await runSqlFile(db, './src/migrations/initial/point_from_json.sql');
   await runSqlFile(db, './src/migrations/initial/polygon_from_json.sql');
+  await runSqlFile(db, './src/migrations/initial/linestring_from_json.sql');
   await runSqlFile(db, './src/migrations/initial/points_view.sql');
   await runSqlFile(db, './src/migrations/initial/tags_view.sql');
   await runSqlFile(db, './src/migrations/initial/regions_view.sql');
@@ -258,6 +259,7 @@ export const up = async (db: Knex) => {
   await runSqlFile(db, './src/migrations/initial/upsert_river.sql');
   await runSqlFile(db, './src/migrations/initial/upsert_source.sql');
   await runSqlFile(db, './src/migrations/initial/upsert_gauge.sql');
+  await runSqlFile(db, './src/migrations/initial/upsert_section.sql');
 };
 
 export const down = async (db: Knex) => {
@@ -284,6 +286,7 @@ export const down = async (db: Knex) => {
   await db.schema.raw('DROP FUNCTION IF EXISTS array_json_to_int(p_input json) CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS point_from_json(point JSON) CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS polygon_from_json(polygon JSON) CASCADE');
+  await db.schema.raw('DROP FUNCTION IF EXISTS linestring_from_json(linestring JSON) CASCADE');
   await db.schema.raw('DROP VIEW IF EXISTS tags_view');
   await db.schema.raw('DROP VIEW IF EXISTS regions_view');
   await db.schema.raw('DROP VIEW IF EXISTS points_view');
@@ -291,6 +294,7 @@ export const down = async (db: Knex) => {
   await db.schema.raw('DROP VIEW IF EXISTS sources_view');
   await db.schema.raw('DROP VIEW IF EXISTS rivers_view');
   await db.schema.raw('DROP VIEW IF EXISTS sections_view');
+  await db.schema.raw('DROP FUNCTION IF EXISTS upsert_section(section JSON, lang language_code) CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS upsert_tag(tag JSON, lang language_code) CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS upsert_region(r JSON, lang language_code) CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS upsert_points(points_array JSON[], lang language_code) CASCADE');

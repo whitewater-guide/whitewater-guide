@@ -1,6 +1,6 @@
-import { NamedNode, Timestamped } from '../../core';
+import { NamedNode, Node, Timestamped } from '../../core';
 import { Gauge } from '../gauges';
-import { Point } from '../points';
+import { Coordinate3d, Point, PointInput } from '../points';
 import { Region } from '../regions';
 import { River } from '../rivers';
 import { SelectableTagInput, Tag } from '../tags';
@@ -25,15 +25,7 @@ export interface GaugeBinding {
   optimum: number | null;
   maximum: number | null;
   impossible: number | null;
-  approximate: boolean;
-}
-
-export interface GaugeBindingInput {
-  minimum?: number;
-  optimum?: number;
-  maximum?: number;
-  impossible?: number;
-  approximate?: boolean;
+  approximate: boolean | null;
 }
 
 export interface Section extends NamedNode, Timestamped {
@@ -63,6 +55,34 @@ export interface Section extends NamedNode, Timestamped {
 
   // media: Media[];
   pois: Point[];
+}
+
+export interface SectionInput {
+  id: string | null;
+  name: string;
+  description: string | null;
+  season: string | null;
+  seasonNumeric: number[];
+
+  river: {
+    id: string | null;
+    name: string;
+    region: Node;
+  };
+  gauge: Node | null;
+  levels: GaugeBinding | null;
+  flows: GaugeBinding | null;
+  flowsText: string | null;
+
+  shape: Coordinate3d[] | null;
+  distance: number | null;
+  drop: number | null;
+  duration: number | null;
+  difficulty: number;
+  difficultyXtra: string | null;
+  rating: number | null;
+  tags: Node[];
+  pois: PointInput[];
 }
 
 export interface SectionSearchTerms {

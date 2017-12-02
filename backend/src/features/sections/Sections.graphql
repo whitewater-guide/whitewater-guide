@@ -47,7 +47,7 @@ type Section {
 }
 
 input SectionRiverInput {
-  id: ID!
+  id: ID
   name: String
   region: RefInput!
 }
@@ -59,7 +59,7 @@ input SectionInput {
   season: String
   seasonNumeric: [Int]
 
-  river: SectionRiverInput
+  river: SectionRiverInput!
   gauge: RefInput
   levels: GaugeBindingInput
   flows: GaugeBindingInput
@@ -74,7 +74,7 @@ input SectionInput {
   rating: Float
   tags: [RefInput]!
 #  media: [MediaInput]
-  pois: [PointInput]
+  pois: [PointInput]!
 }
 
 type SectionsList {
