@@ -10,6 +10,25 @@ const query = `
 
 const galicia = { id: 'bd3e10b6-7624-11e7-b5a5-be2e44b06b34' };
 
+let riversBefore: number;
+let sectionsBefore: number;
+let pointsBefore: number;
+let regionPointsBefore: number;
+let sectionPointsBefore: number;
+
+beforeAll(async () => {
+  const rivers = await db(true).table('rivers').count().first();
+  riversBefore = Number(rivers.count);
+  const points = await db(true).table('points').count().first();
+  pointsBefore = Number(points.count);
+  const sections = await db(true).table('sections').count().first();
+  sectionsBefore = Number(sections.count);
+  const sectionsPoints = await db(true).table('sections_points').count().first();
+  sectionPointsBefore = Number(sectionsPoints.count);
+  const regionsPoints = await db(true).table('regions_points').count().first();
+  regionPointsBefore = Number(regionsPoints.count);
+});
+
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
@@ -47,30 +66,33 @@ describe('effects', () => {
     expect(count.count).toBe('2');
   });
 
-  test('should remove from regions table', async () => {
+  test('should remove from regions translation table', async () => {
     const count = await db().table('regions_translations').count().first();
     expect(count.count).toBe('2');
   });
 
   test('should remove pois', async () => {
-    const count = await db().table('points').count().first();
-    const countLinks = await db().table('regions_points').count().first();
-    const countTranslations = await db().table('points_translations').count().first();
-    expect(count.count).toBe('1');
-    expect(countLinks.count).toBe('0');
-    expect(countTranslations.count).toBe('0');
+    const points = await db().table('points').count().first();
+    const regionsPoints = await db().table('regions_points').count().first();
+    expect([
+      pointsBefore - Number(points.count),
+      regionPointsBefore - Number(regionsPoints.count),
+    ]).toEqual([4, 2]); // 4 - including sections points
   });
 
-  test.skip('should remove rivers', async () => {
-
+  test('should remove rivers', async () => {
+    const rivers = await db().table('rivers').count().first();
+    expect(riversBefore - Number(rivers.count)).toBe(2);
   });
 
-  test.skip('should remove sections', async () => {
-
+  test('should remove sections', async () => {
+    const sections = await db().table('sections').count().first();
+    expect(sectionsBefore - Number(sections.count)).toBe(2);
   });
 
-  test.skip('should remove section pois', async () => {
-
+  test('should remove section pois', async () => {
+    const sectionsPoints = await db().table('sections_points').count().first();
+    expect(sectionPointsBefore - Number(sectionsPoints.count)).toBe(2);
   });
 
   test.skip('should remove section media', async () => {

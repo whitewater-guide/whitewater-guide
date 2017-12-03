@@ -94,6 +94,6 @@ type Query {
 }
 
 type Mutation {
-  upsertSection(section: SectionInput!, language: String): Section,
-  removeSection(id: ID!): Boolean,
+  upsertSection(section: SectionInput!, language: String): Section
+  removeSection(id: ID!): ID
 }
