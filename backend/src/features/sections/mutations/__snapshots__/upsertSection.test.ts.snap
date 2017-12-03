@@ -195,7 +195,7 @@ Object {
 exports[`resolvers chain should fail on invalid input 1`] = `
 Object {
   "0": Object {
-    "message": "\\"name\\" length must be at least 3 characters long",
+    "message": "\\"name\\" length must be at least 2 characters long",
     "path": "section.name",
   },
   "1": Object {

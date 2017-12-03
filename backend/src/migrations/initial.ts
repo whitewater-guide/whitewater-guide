@@ -153,6 +153,7 @@ export const up = async (db: Knex) => {
     table.specificType('language', 'language_code').notNullable().defaultTo('en').index();
     table.primary(['river_id', 'language']);
     table.string('name').notNullable().index();
+    table.specificType('alt_names', 'varchar[]').notNullable().defaultTo('{}');
     table.timestamps(false, true);
   });
   await addUpdatedAtTrigger(db, 'rivers');
@@ -240,6 +241,7 @@ export const up = async (db: Knex) => {
   });
 
   await runSqlFile(db, './src/migrations/initial/array_json_to_int.sql');
+  await runSqlFile(db, './src/migrations/initial/array_json_to_varchar.sql');
   await runSqlFile(db, './src/migrations/initial/point_from_json.sql');
   await runSqlFile(db, './src/migrations/initial/polygon_from_json.sql');
   await runSqlFile(db, './src/migrations/initial/linestring_from_json.sql');
@@ -283,10 +285,6 @@ export const down = async (db: Knex) => {
   await db.schema.raw('DROP TABLE IF EXISTS rivers_translations CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS tags CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS tags_translations CASCADE');
-  await db.schema.raw('DROP FUNCTION IF EXISTS array_json_to_int(p_input json) CASCADE');
-  await db.schema.raw('DROP FUNCTION IF EXISTS point_from_json(point JSON) CASCADE');
-  await db.schema.raw('DROP FUNCTION IF EXISTS polygon_from_json(polygon JSON) CASCADE');
-  await db.schema.raw('DROP FUNCTION IF EXISTS linestring_from_json(linestring JSON) CASCADE');
   await db.schema.raw('DROP VIEW IF EXISTS tags_view');
   await db.schema.raw('DROP VIEW IF EXISTS regions_view');
   await db.schema.raw('DROP VIEW IF EXISTS points_view');
@@ -304,6 +302,11 @@ export const down = async (db: Knex) => {
   await db.schema.raw('DROP FUNCTION IF EXISTS trigger_delete_orphan_sections_points() CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS trigger_delete_orphan_regions_points() CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS trigger_delete_orphan_gauges_points() CASCADE');
+  await db.schema.raw('DROP FUNCTION IF EXISTS array_json_to_int(p_input json) CASCADE');
+  await db.schema.raw('DROP FUNCTION IF EXISTS array_json_to_varchar(p_input json) CASCADE');
+  await db.schema.raw('DROP FUNCTION IF EXISTS point_from_json(point JSON) CASCADE');
+  await db.schema.raw('DROP FUNCTION IF EXISTS polygon_from_json(polygon JSON) CASCADE');
+  await db.schema.raw('DROP FUNCTION IF EXISTS linestring_from_json(linestring JSON) CASCADE');
   await db.schema.raw('DROP TYPE IF EXISTS language_code CASCADE');
   await db.schema.raw('DROP TYPE IF EXISTS tag_category CASCADE');
   await removeUpdatedAtFunction(db);

@@ -16,11 +16,16 @@ BEGIN
         region_id         = EXCLUDED.region_id
     RETURNING id
   )
-  INSERT INTO rivers_translations(river_id, language, name)
+  INSERT INTO rivers_translations(river_id, language, name, alt_names)
     SELECT
       upserted_river.id,
       lang,
-      river ->> 'name'
+      river ->> 'name',
+      CASE
+        WHEN (river -> 'altNames') IS NULL
+          THEN '{}'::VARCHAR[]
+          ELSE array_json_to_varchar(river -> 'altNames')
+      END
     FROM upserted_river
   ON CONFLICT (river_id, language)
     DO UPDATE SET

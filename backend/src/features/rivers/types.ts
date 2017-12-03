@@ -8,4 +8,5 @@ export const RiversSchema = loadGraphqlFile('rivers');
 export interface RiverRaw extends NamedNode, RawTimestamped {
   region_id: string;
   region?: RegionRaw;
+  alt_names: string[];
 }

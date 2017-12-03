@@ -2,6 +2,7 @@ type River {
   id: ID!
   language: String!
   name: String!
+  altNames: [String!]
   region: Region!
   hidden: Boolean
   createdAt: Date
@@ -11,5 +12,6 @@ type River {
 input RiverInput {
   id: ID
   name: String!
+  altNames: [String!]
   region: RefInput!
 }
