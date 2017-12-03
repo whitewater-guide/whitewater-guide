@@ -16,18 +16,14 @@ afterEach(rollbackTransaction);
 describe('resolvers chain', () => {
   test('anon should not pass', async () => {
     const result = await runQuery(query, galicia, anonContext);
-    expect(result.errors).toBeDefined();
-    expect(result.data).toBeDefined();
-    expect(result.data!.removeSource).toBeNull();
-    expect(result).toMatchSnapshot();
+    expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
+    expect(result).toHaveProperty('data.removeSource', null);
   });
 
   test('user should not pass', async () => {
     const result = await runQuery(query, galicia, userContext);
-    expect(result.errors).toBeDefined();
-    expect(result.data).toBeDefined();
-    expect(result.data!.removeSource).toBeNull();
-    expect(result).toMatchSnapshot();
+    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
+    expect(result).toHaveProperty('data.removeSource', null);
   });
 });
 

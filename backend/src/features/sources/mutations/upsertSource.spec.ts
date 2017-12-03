@@ -52,18 +52,14 @@ const mutation = `
 describe('resolvers chain', () => {
   test('anon should not pass', async () => {
     const result = await runQuery(mutation, { source: requiredSource }, anonContext);
-    expect(result.errors).toBeDefined();
-    expect(result.data).toBeDefined();
-    expect(result.data!.upsertSource).toBeNull();
-    expect(result).toMatchSnapshot();
+    expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
+    expect(result).toHaveProperty('data.upsertSource', null);
   });
 
   test('user should not pass', async () => {
     const result = await runQuery(mutation, { source: requiredSource }, userContext);
-    expect(result.errors).toBeDefined();
-    expect(result.data).toBeDefined();
-    expect(result.data!.upsertSource).toBeNull();
-    expect(result).toMatchSnapshot();
+    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
+    expect(result).toHaveProperty('data.upsertSource', null);
   });
 
   test('should throw on invalid input', async () => {
@@ -79,10 +75,10 @@ describe('resolvers chain', () => {
       regions: [{ id: 'aaaa' }],
     };
     const result = await runQuery(mutation, { source: input }, adminContext);
-    expect(result.errors).toBeDefined();
+    expect(result).toHaveProperty('errors.0.name', 'ValidationError');
     expect(result.data).toBeDefined();
     expect(result.data!.upsertSource).toBeNull();
-    expect(result).toMatchSnapshot();
+    expect((result.errors![0] as any).data).toMatchSnapshot();
   });
 });
 

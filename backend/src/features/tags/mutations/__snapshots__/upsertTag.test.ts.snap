@@ -2,11 +2,13 @@
 
 exports[`resolvers chain should throw on invalid input 1`] = `
 Object {
-  "data": Object {
-    "upsertTag": null,
+  "0": Object {
+    "message": "\\"id\\" with value \\"a b\\" fails to match the required pattern: /^[a-zA-Z_\\\\-]{3,64}$/",
+    "path": "tag.id",
   },
-  "errors": Array [
-    [GraphQLError: Invalid input],
-  ],
+  "1": Object {
+    "message": "\\"name\\" length must be at least 3 characters long",
+    "path": "tag.name",
+  },
 }
 `;

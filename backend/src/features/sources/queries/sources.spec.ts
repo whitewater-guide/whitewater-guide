@@ -28,18 +28,17 @@ query listSources($language: String){
 describe('anonymous', () => {
   test('shall not pass', async () => {
     const result = await runQuery(query, undefined, anonContext);
+    expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
     expect(result.errors).toBeDefined();
     expect(result.data).toBeNull();
-    expect(result).toMatchSnapshot();
   });
 });
 
 describe('user', () => {
   test('shall not pass', async () => {
     const result = await runQuery(query, undefined, userContext);
-    expect(result.errors).toBeDefined();
+    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result.data).toBeNull();
-    expect(result).toMatchSnapshot();
   });
 });
 

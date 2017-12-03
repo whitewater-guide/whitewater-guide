@@ -13,36 +13,24 @@ Object {
 }
 `;
 
-exports[`resolvers chain anon should not pass 1`] = `
-Object {
-  "data": Object {
-    "upsertSource": null,
-  },
-  "errors": Array [
-    [GraphQLError: You must be logged in to do this],
-  ],
-}
-`;
-
 exports[`resolvers chain should throw on invalid input 1`] = `
 Object {
-  "data": Object {
-    "upsertSource": null,
+  "0": Object {
+    "message": "\\"id\\" must be a valid GUID",
+    "path": "source.id",
   },
-  "errors": Array [
-    [GraphQLError: Invalid input],
-  ],
-}
-`;
-
-exports[`resolvers chain user should not pass 1`] = `
-Object {
-  "data": Object {
-    "upsertSource": null,
+  "1": Object {
+    "message": "\\"cron\\" must be valid crontab expression",
+    "path": "source.cron",
   },
-  "errors": Array [
-    [GraphQLError: You are not allowed to do this],
-  ],
+  "2": Object {
+    "message": "\\"url\\" must be a valid uri",
+    "path": "source.url",
+  },
+  "3": Object {
+    "message": "\\"id\\" must be a valid GUID",
+    "path": "source.regions.0.id",
+  },
 }
 `;
 

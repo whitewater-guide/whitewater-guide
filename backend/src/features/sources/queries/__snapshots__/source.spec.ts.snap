@@ -13,17 +13,6 @@ Object {
 }
 `;
 
-exports[`anonymous shall not pass 1`] = `
-Object {
-  "data": Object {
-    "source": null,
-  },
-  "errors": Array [
-    [GraphQLError: You must be logged in to do this],
-  ],
-}
-`;
-
 exports[`superadmin should return source 1`] = `
 Object {
   "cron": "0 * * * *",
@@ -34,16 +23,5 @@ Object {
   "name": "Galicia",
   "script": "galicia",
   "url": "http://ya.ru",
-}
-`;
-
-exports[`user shall not pass 1`] = `
-Object {
-  "data": Object {
-    "source": null,
-  },
-  "errors": Array [
-    [GraphQLError: You are not allowed to do this],
-  ],
 }
 `;

@@ -1,3 +1,4 @@
+import { AuthenticationRequiredError, ForbiddenError } from '../../../apollo';
 import { holdTransaction, rollbackTransaction } from '../../../db';
 import { adminContext, anonContext, superAdminContext, userContext } from '../../../test/context';
 import { noTimestamps, runQuery } from '../../../test/db-helpers';
@@ -28,20 +29,16 @@ const galiciaId = '6d0d717e-aa9d-11e7-abc4-cec278b6b50a';
 describe('anonymous', () => {
   test('shall not pass', async () => {
     const result = await runQuery(query, { id: galiciaId }, anonContext);
-    expect(result.errors).toBeDefined();
-    expect(result.data).toBeDefined();
-    expect(result.data!.source).toBeNull();
-    expect(result).toMatchSnapshot();
+    expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
+    expect(result).toHaveProperty('data.source', null);
   });
 });
 
 describe('user', () => {
   test('shall not pass', async () => {
     const result = await runQuery(query, { id: galiciaId }, userContext);
-    expect(result.errors).toBeDefined();
-    expect(result.data).toBeDefined();
-    expect(result.data!.source).toBeNull();
-    expect(result).toMatchSnapshot();
+    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
+    expect(result).toHaveProperty('data.source', null);
   });
 });
 

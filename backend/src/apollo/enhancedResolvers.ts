@@ -80,7 +80,11 @@ export const isInputValidResolver = (schema: Joi.Schema) => baseResolver.createR
       },
     );
     if (error) {
-      throw new ValidationError({ data: error.details });
+      const data = error.details.map(({ message, path }) => ({
+        message,
+        path: (path as any).join('.'),
+      }));
+      throw new ValidationError({ data });
     }
   },
 );

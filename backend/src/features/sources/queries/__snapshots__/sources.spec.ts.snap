@@ -34,21 +34,3 @@ Array [
   },
 ]
 `;
-
-exports[`anonymous shall not pass 1`] = `
-Object {
-  "data": null,
-  "errors": Array [
-    [GraphQLError: You must be logged in to do this],
-  ],
-}
-`;
-
-exports[`user shall not pass 1`] = `
-Object {
-  "data": null,
-  "errors": Array [
-    [GraphQLError: You are not allowed to do this],
-  ],
-}
-`;

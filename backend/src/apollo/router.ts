@@ -1,26 +1,10 @@
-import { formatError as apolloFormatError } from 'apollo-errors';
 import { graphiqlExpress, graphqlExpress } from 'apollo-server-express';
 import { Router } from 'express';
-import { graphql, GraphQLError, introspectionQuery } from 'graphql';
-import { UnknownError } from './enhancedResolvers';
+import { graphql, introspectionQuery } from 'graphql';
+import { formatError } from './formatError';
 import { mergedTypedefs, schema } from './schema';
 
 export const graphqlRouter = Router();
-
-const formatError = (error: any) => {
-  let e = apolloFormatError(error);
-
-  if (e instanceof GraphQLError) {
-    e = apolloFormatError(new UnknownError({
-      data: {
-        originalMessage: e.message,
-        originalError: e.name,
-      },
-    }));
-  }
-
-  return e;
-};
 
 graphqlRouter.use(
   '/graphql',

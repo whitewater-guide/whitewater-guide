@@ -1,5 +1,6 @@
-import { graphql } from 'graphql';
-import { schema } from '../apollo';
+import { ExecutionResult, graphql } from 'graphql';
+import { isEmpty } from 'lodash';
+import { formatError, schema } from '../apollo';
 import db from '../db';
 import omitDeep = require('omit-deep-lodash');
 
@@ -13,8 +14,16 @@ export const rollbackDb = async () => {
   await db(true).migrate.rollback();
 };
 
-export const runQuery = async (query: string, variables?: { [p: string]: any }, context?: any ) => {
-  return graphql(schema, query, undefined, context, variables);
+export const runQuery = async (query: string, variables?: any, context?: any): Promise<ExecutionResult> => {
+  const { errors, ...result } = await graphql(schema, query, undefined, context, variables);
+  const errs = (errors && isEmpty(errors)) ? undefined : errors;
+  if (errs) {
+    return {
+      ...result,
+      errors: errs.map(formatError),
+    };
+  }
+  return result;
 };
 
 export const disconnect = async () => {

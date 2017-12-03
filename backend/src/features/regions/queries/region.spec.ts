@@ -49,10 +49,8 @@ test('should return null when id not specified', async () => {
 
 test('users should not see hidden region', async () => {
   const result = await runQuery(query, { id: 'b968e2b2-76c5-11e7-b5a5-be2e44b06b34' }, userContext);
-  expect(result.errors).toBeDefined();
-  expect(result.data).toBeDefined();
-  expect(result.data!.region).toBeNull();
-  expect(result).toMatchSnapshot();
+  expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
+  expect(result).toHaveProperty('data.region', null);
 });
 
 test('should be able to specify language', async () => {

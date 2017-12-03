@@ -108,14 +108,3 @@ Object {
   ],
 }
 `;
-
-exports[`users should not see hidden region 1`] = `
-Object {
-  "data": Object {
-    "region": null,
-  },
-  "errors": Array [
-    [GraphQLError: This region is not yet available for public],
-  ],
-}
-`;

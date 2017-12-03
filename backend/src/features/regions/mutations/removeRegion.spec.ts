@@ -16,18 +16,14 @@ afterEach(rollbackTransaction);
 describe('resolvers chain', () => {
   test('anon should not pass', async () => {
     const result = await runQuery(query, galicia, anonContext);
-    expect(result.errors).toBeDefined();
-    expect(result.data).toBeDefined();
-    expect(result.data!.removeRegion).toBeNull();
-    expect(result).toMatchSnapshot();
+    expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
+    expect(result).toHaveProperty('data.removeRegion', null);
   });
 
   test('user should not pass', async () => {
     const result = await runQuery(query, galicia, userContext);
-    expect(result.errors).toBeDefined();
-    expect(result.data).toBeDefined();
-    expect(result.data!.removeRegion).toBeNull();
-    expect(result).toMatchSnapshot();
+    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
+    expect(result).toHaveProperty('data.removeRegion', null);
   });
 });
 
@@ -63,5 +59,21 @@ describe('effects', () => {
     expect(count.count).toBe('1');
     expect(countLinks.count).toBe('0');
     expect(countTranslations.count).toBe('0');
+  });
+
+  test.skip('should remove rivers', async () => {
+
+  });
+
+  test.skip('should remove sections', async () => {
+
+  });
+
+  test.skip('should remove section pois', async () => {
+
+  });
+
+  test.skip('should remove section media', async () => {
+
   });
 });

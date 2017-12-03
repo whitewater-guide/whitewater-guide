@@ -92,18 +92,14 @@ const upsertQuery = `
 describe('resolvers chain', () => {
   test('anon should not pass', async () => {
     const result = await runQuery(upsertQuery, { region: minimalRegion }, anonContext);
-    expect(result.errors).toBeDefined();
-    expect(result.data).toBeDefined();
-    expect(result.data!.upsertRegion).toBeNull();
-    expect(result).toMatchSnapshot();
+    expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
+    expect(result).toHaveProperty('data.upsertRegion', null);
   });
 
   test('user should not pass', async () => {
     const result = await runQuery(upsertQuery, { region: minimalRegion }, userContext);
-    expect(result.errors).toBeDefined();
-    expect(result.data).toBeDefined();
-    expect(result.data!.upsertRegion).toBeNull();
-    expect(result).toMatchSnapshot();
+    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
+    expect(result).toHaveProperty('data.upsertRegion', null);
   });
 
   test('should throw on invalid input', async () => {
@@ -118,10 +114,10 @@ describe('resolvers chain', () => {
       pois: [],
     };
     const result = await runQuery(upsertQuery, { region: invalidInput }, adminContext);
-    expect(result.errors).toBeDefined();
+    expect(result).toHaveProperty('errors.0.name', 'ValidationError');
     expect(result.data).toBeDefined();
     expect(result.data!.upsertRegion).toBeNull();
-    expect(result).toMatchSnapshot();
+    expect((result.errors![0] as any).data).toMatchSnapshot();
   });
 });
 

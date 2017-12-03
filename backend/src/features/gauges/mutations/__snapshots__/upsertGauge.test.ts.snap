@@ -35,12 +35,58 @@ Object {
 
 exports[`resolvers chain should throw on invalid input 1`] = `
 Object {
-  "data": Object {
-    "upsertGauge": null,
+  "0": Object {
+    "message": "\\"id\\" must be a valid GUID",
+    "path": "gauge.id",
   },
-  "errors": Array [
-    [GraphQLError: Invalid input],
-  ],
+  "1": Object {
+    "message": "\\"name\\" length must be at least 3 characters long",
+    "path": "gauge.name",
+  },
+  "10": Object {
+    "message": "\\"cron\\" must be valid crontab expression",
+    "path": "gauge.cron",
+  },
+  "11": Object {
+    "message": "\\"url\\" must be a valid uri",
+    "path": "gauge.url",
+  },
+  "12": Object {
+    "message": "\\"id\\" must be a valid GUID",
+    "path": "gauge.source.id",
+  },
+  "2": Object {
+    "message": "\\"code\\" length must be at least 3 characters long",
+    "path": "gauge.code",
+  },
+  "3": Object {
+    "message": "\\"levelUnit\\" is not allowed to be empty",
+    "path": "gauge.levelUnit",
+  },
+  "4": Object {
+    "message": "\\"levelUnit\\" length must be at least 1 characters long",
+    "path": "gauge.levelUnit",
+  },
+  "5": Object {
+    "message": "\\"flowUnit\\" is not allowed to be empty",
+    "path": "gauge.flowUnit",
+  },
+  "6": Object {
+    "message": "\\"flowUnit\\" length must be at least 1 characters long",
+    "path": "gauge.flowUnit",
+  },
+  "7": Object {
+    "message": "\\"id\\" must be a valid GUID",
+    "path": "gauge.location.id",
+  },
+  "8": Object {
+    "message": "\\"name\\" length must be at least 3 characters long",
+    "path": "gauge.location.name",
+  },
+  "9": Object {
+    "message": "\\"longitude\\" must be less than or equal to 180",
+    "path": "gauge.location.coordinates.0",
+  },
 }
 `;
 

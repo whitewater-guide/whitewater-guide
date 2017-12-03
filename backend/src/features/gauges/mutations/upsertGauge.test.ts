@@ -61,16 +61,14 @@ describe('resolvers chain', () => {
 
   test('anon should not pass', async () => {
     const result = await runQuery(upsertQuery, { gauge }, anonContext);
-    expect(result.errors).toBeDefined();
-    expect(result.data).toBeDefined();
-    expect(result.data!.upsertGauge).toBeNull();
+    expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
+    expect(result).toHaveProperty('data.upsertGauge', null);
   });
 
   test('user should not pass', async () => {
     const result = await runQuery(upsertQuery, { gauge }, userContext);
-    expect(result.errors).toBeDefined();
-    expect(result.data).toBeDefined();
-    expect(result.data!.upsertGauge).toBeNull();
+    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
+    expect(result).toHaveProperty('data.upsertGauge', null);
   });
 
   test('should throw on invalid input', async () => {
@@ -88,10 +86,10 @@ describe('resolvers chain', () => {
       enabled: false,
     };
     const result = await runQuery(upsertQuery, { gauge: invalidInput }, adminContext);
-    expect(result.errors).toBeDefined();
+    expect(result).toHaveProperty('errors.0.name', 'ValidationError');
     expect(result.data).toBeDefined();
     expect(result.data!.upsertGauge).toBeNull();
-    expect(result).toMatchSnapshot();
+    expect((result.errors![0] as any).data).toMatchSnapshot();
   });
 });
 

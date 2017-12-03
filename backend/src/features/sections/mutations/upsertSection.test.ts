@@ -1,5 +1,5 @@
 import db, { holdTransaction, rollbackTransaction } from '../../../db';
-import { adminContext } from '../../../test/context';
+import { adminContext, anonContext, userContext } from '../../../test/context';
 import { noUnstable, runQuery } from '../../../test/db-helpers';
 import { Duration, SectionInput } from '../../../ww-commons/features/sections/types';
 
@@ -37,7 +37,7 @@ const upsertQuery = `
         id
         language
         name
-      }      
+      }
       gauge {
         id
         language
@@ -134,17 +134,55 @@ const existingRiverSection: SectionInput = {
   ],
 };
 
+const invalidSection: SectionInput = {
+  id: null,
+  name: 'z',
+  description: null,
+  season: null,
+  seasonNumeric: [300, 2, 3],
+  river: {
+    id: 'd4396dac-d528-11e7-9296-cec278b6b50a',
+    name: 'Sjoa',
+    region: {
+      id: 'b968e2b2-76c5-11e7-b5a5-be2e44b06b34',
+    },
+  },
+  gauge: null,
+  levels: null,
+  flows: null,
+  flowsText: null,
+
+  shape: [[300, 33, 0], [34, 42, 0]],
+  distance: -2.44,
+  drop: -101.1,
+  duration: 4,
+  difficulty: 33,
+  difficultyXtra: null,
+  rating: 35,
+  tags: [],
+  pois: [],
+};
+
 describe('resolvers chain', () => {
   it('anon should not pass', async () => {
-
+    const result = await runQuery(upsertQuery, { section: existingRiverSection }, anonContext);
+    expect(result.errors).toBeDefined();
+    expect(result.data).toBeDefined();
+    expect(result.data!.upsertSection).toBeNull();
   });
 
   it('user should not pass', async () => {
-
+    const result = await runQuery(upsertQuery, { section: existingRiverSection }, userContext);
+    expect(result.errors).toBeDefined();
+    expect(result.data).toBeDefined();
+    expect(result.data!.upsertSection).toBeNull();
   });
 
   it('should fail on invalid input', async () => {
-
+    const result = await runQuery(upsertQuery, { section: invalidSection }, adminContext);
+    expect(result.errors).toBeDefined();
+    expect(result.data).toBeDefined();
+    expect(result.data!.upsertSection).toBeNull();
   });
 });
 
