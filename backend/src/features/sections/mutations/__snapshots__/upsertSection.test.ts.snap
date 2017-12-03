@@ -25,7 +25,26 @@ Object {
         "optimum": null,
       },
       "name": "Playrun",
-      "pois": Array [],
+      "pois": Array [
+        Object {
+          "coordinates": Array [
+            10,
+            12,
+            0,
+          ],
+          "language": "en",
+          "name": "playrun pt 1",
+        },
+        Object {
+          "coordinates": Array [
+            33,
+            34,
+            0,
+          ],
+          "language": "en",
+          "name": "playrun pt 2",
+        },
+      ],
       "putIn": Object {
         "coordinates": Array [
           33,
@@ -63,6 +82,253 @@ Object {
         ],
       ],
       "tags": Array [],
+      "takeOut": Object {
+        "coordinates": Array [
+          34,
+          42,
+          0,
+        ],
+        "language": "en",
+        "name": "Take-out",
+      },
+    },
+  },
+}
+`;
+
+exports[`insert new river should return result 1`] = `
+Object {
+  "data": Object {
+    "upsertSection": Object {
+      "description": "Playrun description",
+      "difficulty": 4,
+      "difficultyXtra": "X",
+      "distance": 2.44,
+      "drop": 101.1,
+      "duration": 10,
+      "flows": null,
+      "flowsText": "Playrun flows",
+      "gauge": Object {
+        "language": "en",
+        "name": "Norway gauge 1",
+      },
+      "language": "en",
+      "levels": Object {
+        "approximate": false,
+        "impossible": null,
+        "maximum": null,
+        "minimum": 100,
+        "optimum": null,
+      },
+      "name": "Playrun",
+      "pois": Array [
+        Object {
+          "coordinates": Array [
+            10,
+            12,
+            0,
+          ],
+          "language": "en",
+          "name": "playrun pt 1",
+        },
+        Object {
+          "coordinates": Array [
+            33,
+            34,
+            0,
+          ],
+          "language": "en",
+          "name": "playrun pt 2",
+        },
+      ],
+      "putIn": Object {
+        "coordinates": Array [
+          33,
+          33,
+          0,
+        ],
+        "language": "en",
+        "name": "Put-in",
+      },
+      "rating": 5,
+      "region": Object {
+        "language": "en",
+        "name": "Norway",
+      },
+      "river": Object {
+        "language": "en",
+        "name": "Ula",
+      },
+      "season": "Playrun season",
+      "seasonNumeric": Array [
+        1,
+        2,
+        3,
+      ],
+      "shape": Array [
+        Array [
+          33,
+          33,
+          0,
+        ],
+        Array [
+          34,
+          42,
+          0,
+        ],
+      ],
+      "tags": Array [],
+      "takeOut": Object {
+        "coordinates": Array [
+          34,
+          42,
+          0,
+        ],
+        "language": "en",
+        "name": "Take-out",
+      },
+    },
+  },
+}
+`;
+
+exports[`resolvers chain should fail on invalid input 1`] = `
+Object {
+  "0": Object {
+    "message": "\\"name\\" length must be at least 3 characters long",
+    "path": "section.name",
+  },
+  "1": Object {
+    "message": "\\"0\\" must be less than or equal to 23",
+    "path": "section.seasonNumeric.0",
+  },
+  "2": Object {
+    "message": "\\"longitude\\" must be less than or equal to 180",
+    "path": "section.shape.0.0",
+  },
+  "3": Object {
+    "message": "\\"distance\\" must be a positive number",
+    "path": "section.distance",
+  },
+  "4": Object {
+    "message": "\\"drop\\" must be a positive number",
+    "path": "section.drop",
+  },
+  "5": Object {
+    "message": "\\"duration\\" must be one of [10, 20, 30, 40, 50, null]",
+    "path": "section.duration",
+  },
+  "6": Object {
+    "message": "\\"difficulty\\" must be less than or equal to 5",
+    "path": "section.difficulty",
+  },
+  "7": Object {
+    "message": "\\"rating\\" must be less than or equal to 5",
+    "path": "section.rating",
+  },
+}
+`;
+
+exports[`update should return result 1`] = `
+Object {
+  "data": Object {
+    "upsertSection": Object {
+      "description": "Playrun description",
+      "difficulty": 4,
+      "difficultyXtra": "X",
+      "distance": 2.44,
+      "drop": 101.1,
+      "duration": 10,
+      "flows": null,
+      "flowsText": "Playrun flows",
+      "gauge": Object {
+        "language": "en",
+        "name": "Galicia gauge 1",
+      },
+      "language": "en",
+      "levels": Object {
+        "approximate": false,
+        "impossible": null,
+        "maximum": null,
+        "minimum": 100,
+        "optimum": null,
+      },
+      "name": "Playrun",
+      "pois": Array [
+        Object {
+          "coordinates": Array [
+            2.1,
+            2.3,
+            3.4,
+          ],
+          "language": "en",
+          "name": "Updated poi name",
+        },
+        Object {
+          "coordinates": Array [
+            66,
+            77,
+            88,
+          ],
+          "language": "en",
+          "name": "Updated new poi 1 name",
+        },
+        Object {
+          "coordinates": Array [
+            50.1,
+            50.2,
+            333,
+          ],
+          "language": "en",
+          "name": "Updated new poi 2 name",
+        },
+      ],
+      "putIn": Object {
+        "coordinates": Array [
+          33,
+          33,
+          0,
+        ],
+        "language": "en",
+        "name": "Put-in",
+      },
+      "rating": 5,
+      "region": Object {
+        "language": "en",
+        "name": "Galicia",
+      },
+      "river": Object {
+        "language": "en",
+        "name": "Gal_Riv_One",
+      },
+      "season": "Playrun season",
+      "seasonNumeric": Array [
+        1,
+        2,
+        3,
+      ],
+      "shape": Array [
+        Array [
+          33,
+          33,
+          0,
+        ],
+        Array [
+          34,
+          42,
+          0,
+        ],
+      ],
+      "tags": Array [
+        Object {
+          "language": "en",
+          "name": "Waterfalls",
+        },
+        Object {
+          "language": "en",
+          "name": "Undercuts",
+        },
+      ],
       "takeOut": Object {
         "coordinates": Array [
           34,

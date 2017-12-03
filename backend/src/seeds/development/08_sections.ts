@@ -134,11 +134,13 @@ const sectionsRu = [
   },
 ];
 
+// Only for galician river 1 section 1
 const sectionsTags = [
   { section_id: '2b01742c-d443-11e7-9296-cec278b6b50a', tag_id: 'waterfalls' },
   { section_id: '2b01742c-d443-11e7-9296-cec278b6b50a', tag_id: 'undercuts' },
 ];
 
+// Only for galician river 1 section 1
 const sectionsPoints = [
   { section_id: '2b01742c-d443-11e7-9296-cec278b6b50a', point_id: 'ca0bee06-d445-11e7-9296-cec278b6b50a' }, // Rapid
   { section_id: '2b01742c-d443-11e7-9296-cec278b6b50a', point_id: 'ef6f80ea-d445-11e7-9296-cec278b6b50a' }, // Portage

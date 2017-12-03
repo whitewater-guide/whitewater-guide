@@ -3,7 +3,11 @@ CREATE OR REPLACE FUNCTION upsert_section(section JSON, lang LANGUAGE_CODE)
 DECLARE
   upserted_section_id UUID;
   result              JSON;
+  pois               JSON;
+  point_ids          UUID[] := '{}'::UUID[];
 BEGIN
+  pois := section -> 'pois';
+
   WITH upserted_river AS (
       SELECT upsert_river(section -> 'river', lang) AS river
   ), upserted_section AS (
@@ -70,6 +74,42 @@ BEGIN
       flows_text   = EXCLUDED.flows_text
   RETURNING section_id
     INTO upserted_section_id;
+
+  IF pois IS NOT NULL
+  THEN
+    -- now insert all points once again
+    WITH new_pois AS (
+        SELECT upsert_points(pois, lang) as id
+    ), inserted_points AS (
+      INSERT INTO sections_points (point_id, section_id)
+        SELECT
+          new_pois.id,
+          upserted_section_id
+        FROM new_pois
+      ON CONFLICT (point_id, section_id) DO NOTHING
+      RETURNING point_id
+    ), all_points AS (
+      SELECT point_id FROM inserted_points -- inserted
+      UNION  ALL
+      SELECT new_pois.id AS point_id -- not inserted
+      FROM new_pois
+        INNER JOIN points ON points.id = new_pois.id
+    )
+    SELECT array_agg(point_id)
+    FROM all_points
+    INTO point_ids;
+  END IF;
+
+  -- delete all existing points for this region
+  -- sections_points will be deleted by ON DELETE CASCADE
+  -- points_translations will be deleted by ON DELETE CASCADE
+  DELETE FROM points
+  WHERE EXISTS(SELECT *
+               FROM sections_points
+               WHERE sections_points.section_id = upserted_section_id AND
+                     sections_points.point_id = points.id AND
+                     NOT(sections_points.point_id = ANY(point_ids))
+  );
 
   -- return the result
   SELECT to_json(sections_view)
