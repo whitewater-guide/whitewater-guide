@@ -1,6 +1,6 @@
 import * as moment from 'moment';
 import * as React from 'react';
-import { Binding, GaugeMeasurement, Unit } from '../../../ww-commons';
+import { GaugeBinding, GaugeMeasurement, Unit } from '../../../ww-commons';
 import { ChartComponentProps, ChartLayoutProps, FlowToggleProps, PeriodToggleProps } from './types';
 
 export interface Props {
@@ -9,8 +9,8 @@ export interface Props {
   startDate: Date;
   endDate: Date;
   onDomainChanged?: (domain: [Date, Date]) => void;
-  levels: Binding;
-  flows: Binding;
+  levels: GaugeBinding;
+  flows: GaugeBinding;
   levelUnit: string | null;
   flowUnit: string | null;
 }

@@ -1,9 +1,9 @@
 /* tslint:disable:no-bitwise */
 import * as color from 'color';
 import { isFunction, mapValues } from 'lodash';
-import { Binding } from '../../../ww-commons';
+import { GaugeBinding } from '../../../ww-commons';
 
-interface DryBinding extends Partial<Binding> {
+interface DryBinding extends Partial<GaugeBinding> {
   dry: number;
 }
 
@@ -28,7 +28,7 @@ export const Colors = {
 
 export const ColorStrings = mapValues(Colors, clr => clr.hsl().string());
 
-export const getColorForValue = (value: number, binding: Binding, defaultColor: string) => {
+export const getColorForValue = (value: number, binding: GaugeBinding, defaultColor: string) => {
   if (!binding) {
     return defaultColor;
   }
@@ -46,7 +46,7 @@ export const getColorForValue = (value: number, binding: Binding, defaultColor: 
 };
 
 // a.k.a. "absolute minimum"
-export function getDryLevel({ minimum, maximum, optimum, impossible }: Partial<Binding>) {
+export function getDryLevel({ minimum, maximum, optimum, impossible }: Partial<GaugeBinding>) {
   if (!minimum) {
     return 0;
   } else if (optimum) {
@@ -59,7 +59,7 @@ export function getDryLevel({ minimum, maximum, optimum, impossible }: Partial<B
   return 0.7 * minimum;
 }
 
-function getRow({ minimum, maximum, optimum, impossible }: Partial<Binding>) {
+function getRow({ minimum, maximum, optimum, impossible }: Partial<GaugeBinding>) {
   let result = 0;
   if (minimum) {
     result |= 8;
@@ -124,7 +124,7 @@ function mix(col: number, { dry, minimum, maximum, optimum, impossible, lastValu
 
 interface ColorTable {
   [row: number]: {
-    [col: number]: color | ((b: Partial<Binding>) => color) | null;
+    [col: number]: color | ((b: Partial<GaugeBinding>) => color) | null;
   };
 }
 
@@ -173,9 +173,9 @@ const colorTable: ColorTable = {
     0: Colors.none,
     1: Colors.none,
     2: Colors.none,
-    3: ({ optimum, impossible, lastValue }: Binding) =>
+    3: ({ optimum, impossible, lastValue }: GaugeBinding) =>
       hslMix(Colors.optimum, Colors.impossible, (lastValue! - optimum!) / (impossible! - optimum!)),
-    4: ({ optimum, impossible, lastValue }: Binding) =>
+    4: ({ optimum, impossible, lastValue }: GaugeBinding) =>
       hslMix(Colors.optimum, Colors.impossible, (lastValue! - optimum!) / (impossible! - optimum!)),
     5: Colors.impossible,
   },
@@ -239,9 +239,9 @@ const colorTable: ColorTable = {
     0: Colors.dry,
     1: null,
     2: null,
-    3: ({ optimum, impossible, lastValue }: Binding) =>
+    3: ({ optimum, impossible, lastValue }: GaugeBinding) =>
       hslMix(Colors.optimum, Colors.impossible, (lastValue! - optimum!) / (impossible! - optimum!)),
-    4: ({ optimum, impossible, lastValue }: Binding) =>
+    4: ({ optimum, impossible, lastValue }: GaugeBinding) =>
       hslMix(Colors.optimum, Colors.impossible, (lastValue! - optimum!) / (impossible! - optimum!)),
     5: Colors.impossible,
   },
@@ -263,7 +263,7 @@ const colorTable: ColorTable = {
   },
 };
 
-export function getSectionColor(data: Partial<Binding>) {
+export function getSectionColor(data: Partial<GaugeBinding>) {
   if (!data.lastValue) {
     return Colors.none.string();
   }
