@@ -24,12 +24,14 @@ export class Table<DeleteHandle extends string, TResource extends NamedNode>
 
   onRowClick = ({ index }: Index) => this.props.onResourceClick(this.props.list[index].id);
 
+  stopPropagation = (event: React.SyntheticEvent<any>) => event.stopPropagation();
+
   renderAdminActions = (props: TableCellProps) => {
     const { customSettingsLink, resourceType } = this.props;
     const id = props.rowData.id;
     const settings = customSettingsLink ? customSettingsLink(props.rowData) : `/${resourceType}s/${id}/settings`;
     return (
-      <span onClick={(event) => event.stopPropagation()}>
+      <span onClick={this.stopPropagation}>
         <Link to={settings}>
           <FontIcon className="material-icons">mode_edit</FontIcon>
         </Link>

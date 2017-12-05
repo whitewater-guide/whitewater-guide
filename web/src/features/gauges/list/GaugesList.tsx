@@ -18,7 +18,9 @@ export default class GaugesList extends React.PureComponent<GaugesListProps, Sta
 
   setRawTableRef = (ref: Table | null) => {this.rawTable = ref; };
 
-  onGaugeClick = (id: string) => console.log(id);
+  onGaugeClick = (id: string) => {
+    // console.log(id);
+  };
 
   customSettingsLink = (row: Gauge) => `/sources/${row.source.id}/gauges/${row.id}/settings`;
 

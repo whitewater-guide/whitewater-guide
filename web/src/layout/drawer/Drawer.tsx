@@ -26,7 +26,7 @@ interface Props {
 
 type InnerProps = Props & RouteComponentProps<any> & WithMe;
 
-const Drawer: React.StatelessComponent<InnerProps> = ({ onChange, isOpen, location, history: { push }, isSuperAdmin }) => {
+const Drawer = ({ onChange, isOpen, location, history: { push }, isSuperAdmin }: InnerProps) => {
   const value = '/' + location.pathname.split('/')[1];
   return (
     <MuiDrawer docked={false} open={isOpen} containerStyle={styles.drawerContainer} onRequestChange={onChange}>

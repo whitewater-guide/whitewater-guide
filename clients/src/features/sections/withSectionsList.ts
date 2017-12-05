@@ -166,7 +166,7 @@ const sectionsGraphql = ({ withGeo, pageSize, offlineSearch }: Options) =>
           subscribeToUpdates: ({ regionId }) => subscribeToMore({
             document: UpdatesSubscription,
             variables: { regionId },
-            onError: error => console.log(`Subscription error ${error}`),
+            onError: error => console.error(`Subscription error ${error}`),
           }),
         },
       };
