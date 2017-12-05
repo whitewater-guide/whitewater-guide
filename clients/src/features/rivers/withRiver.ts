@@ -1,8 +1,8 @@
-import { gql } from 'react-apollo';
+import gql from 'graphql-tag';
 import { ComponentEnhancer, compose } from 'recompose';
+import { River } from '../../../ww-commons';
 import { enhancedQuery } from '../../apollo';
 import { withFeatureIds } from '../../core';
-import { River } from '../../../ww-commons';
 
 const riverDetails = gql`
   query riverDetails($riverId:ID!, $language: String) {

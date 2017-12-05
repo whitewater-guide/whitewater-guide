@@ -1,7 +1,7 @@
 import * as update from 'immutability-helper';
 import { defaults, flow, maxBy, noop, pick } from 'lodash';
 import { map, reject } from 'lodash/fp';
-import { gql } from 'react-apollo';
+import gql from 'graphql-tag';
 import { connect } from 'react-redux';
 import { branch, compose, mapProps } from 'recompose';
 import {

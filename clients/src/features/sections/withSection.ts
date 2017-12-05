@@ -1,4 +1,4 @@
-import { gql } from 'react-apollo';
+import gql from 'graphql-tag';
 import { compose } from 'recompose';
 import { Section } from '../../../ww-commons';
 import { enhancedQuery } from '../../apollo';

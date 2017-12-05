@@ -1,10 +1,12 @@
-import { mockNetworkInterfaceWithSchema } from 'apollo-test-utils';
+import { ApolloClient } from 'apollo-client';
+import { SchemaLink } from 'apollo-link-schema';
 import * as casual from 'casual';
 import { addMockFunctionsToSchema, makeExecutableSchema } from 'graphql-tools';
 import * as GraphQLJSON from 'graphql-type-json';
 import * as React from 'react';
-import { ApolloClient, ApolloProvider } from 'react-apollo';
+import { ApolloProvider } from 'react-apollo';
 import { HarvestMode, TAG_CATEGORIES } from '../../ww-commons';
+import { configureApolloCache } from '../apollo';
 import typeDefs from './typedefs';
 
 export interface QueryMap {
@@ -30,10 +32,9 @@ export const createMockedProvider = (queries: QueryMap = {}, mutations: QueryMap
     },
   });
 
-  const mockNetworkInterface = mockNetworkInterfaceWithSchema({ schema });
-
   const client = new ApolloClient({
-    networkInterface: mockNetworkInterface,
+    cache: configureApolloCache(),
+    link: new SchemaLink({ schema }),
   });
 
   const MockedProvider: React.StatelessComponent & { client?: ApolloClient } = ({ children }) => (

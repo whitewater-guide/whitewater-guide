@@ -1,5 +1,5 @@
 import { shallow } from 'enzyme';
-import { gql } from 'react-apollo';
+import gql from 'graphql-tag';
 import * as React from 'react';
 import { graphql, OperationOption } from 'react-apollo';
 import { withProps } from 'recompose';

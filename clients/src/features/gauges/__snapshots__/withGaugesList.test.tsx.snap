@@ -34,7 +34,7 @@ Object {
         Symbol(id): "Source:6e14e412-901a-4e3e-9479-19992f94b318",
       },
       "url": "Et saepe eum",
-      Symbol(id): "Gauge:7fbe024f-3316-4265-a6e8-c65a837e308a",
+      Symbol(id): "Gauge:7fbe024f-3316-4265-a6e8-c65a837e308a:Esse blanditiis natus",
     },
     Object {
       "__typename": "Gauge",
@@ -64,7 +64,7 @@ Object {
         Symbol(id): "Source:fdb8f127-3be3-4b71-8c8c-2e0b81206010",
       },
       "url": "Molestiae aut sapiente",
-      Symbol(id): "Gauge:7fb7680c-90a2-48cf-89ee-9272ec6682ae",
+      Symbol(id): "Gauge:7fb7680c-90a2-48cf-89ee-9272ec6682ae:Ut sunt",
     },
   ],
   "refetch": [Function],

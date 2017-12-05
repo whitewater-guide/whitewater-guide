@@ -1,4 +1,4 @@
-import { gql } from 'react-apollo';
+import gql from 'graphql-tag';
 import { RegionFragments } from './regionFraments';
 
 const REGION_DETAILS = gql`

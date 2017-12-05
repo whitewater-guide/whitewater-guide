@@ -1,3 +1,4 @@
+export * from './configureApolloCache';
 export * from './configureApolloClient';
 export * from './enhancedQuery';
 export * from './types';

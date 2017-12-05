@@ -1,4 +1,5 @@
-import { FetchPolicy, graphql } from 'react-apollo';
+import { FetchPolicy } from 'apollo-client';
+import { graphql } from 'react-apollo';
 import { compose } from 'recompose';
 import { Source } from '../../../ww-commons';
 import { queryResultToNode, WithNode } from '../../apollo';

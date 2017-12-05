@@ -1,4 +1,4 @@
-import { gql } from 'react-apollo';
+import gql from 'graphql-tag';
 import { GaugeFragments } from './gaugeFragments';
 
 export default gql`

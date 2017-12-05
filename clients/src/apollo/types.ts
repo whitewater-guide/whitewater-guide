@@ -1,4 +1,4 @@
-import { ApolloError, ApolloQueryResult } from 'react-apollo';
+import { ApolloError, ApolloQueryResult } from 'apollo-client';
 import { Connection } from '../../ww-commons';
 
 export interface FetchMoreResult<T, V = any> {

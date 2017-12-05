@@ -31,10 +31,10 @@ Object {
       "id": "6e14e412-901a-4e3e-9479-19992f94b318",
       "language": "Hic eligendi",
       "name": "Esse ut",
-      Symbol(id): "Source:6e14e412-901a-4e3e-9479-19992f94b318",
+      Symbol(id): "Source:6e14e412-901a-4e3e-9479-19992f94b318:Hic eligendi",
     },
     "url": "Et saepe eum",
-    Symbol(id): "Gauge:7fbe024f-3316-4265-a6e8-c65a837e308a",
+    Symbol(id): "Gauge:7fbe024f-3316-4265-a6e8-c65a837e308a:Esse blanditiis natus",
   },
   "refetch": [Function],
 }
