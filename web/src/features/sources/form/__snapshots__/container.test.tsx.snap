@@ -7,14 +7,14 @@ Array [
     "id": "7fbe024f-3316-4265-a6e8-c65a837e308a",
     "language": "Esse blanditiis natus",
     "name": "Qui itaque",
-    Symbol(id): "Region:7fbe024f-3316-4265-a6e8-c65a837e308a",
+    Symbol(id): "Region:7fbe024f-3316-4265-a6e8-c65a837e308a:Esse blanditiis natus",
   },
   Object {
     "__typename": "Region",
     "id": "2ccbfc51-a8ed-4ed1-b042-1ea196af683b",
     "language": "Ipsam qui",
     "name": "Dolor fugiat velit",
-    Symbol(id): "Region:2ccbfc51-a8ed-4ed1-b042-1ea196af683b",
+    Symbol(id): "Region:2ccbfc51-a8ed-4ed1-b042-1ea196af683b:Ipsam qui",
   },
 ]
 `;

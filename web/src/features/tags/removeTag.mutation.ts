@@ -1,4 +1,4 @@
-import { gql } from 'react-apollo';
+import gql from 'graphql-tag';
 
 export const REMOVE_TAG = gql`
   mutation upsertRegion($id: String!){

@@ -1,4 +1,4 @@
-import { gql } from 'react-apollo';
+import gql from 'graphql-tag';
 import { RegionFragments } from '../../../ww-clients/features/regions';
 
 const UPSERT_REGION = gql`

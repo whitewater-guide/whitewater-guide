@@ -37,7 +37,7 @@ export const createMockedProvider = (queries: QueryMap = {}, mutations: QueryMap
     link: new SchemaLink({ schema }),
   });
 
-  const MockedProvider: React.StatelessComponent & { client?: ApolloClient } = ({ children }) => (
+  const MockedProvider: React.StatelessComponent & { client?: ApolloClient<any> } = ({ children }) => (
     <ApolloProvider client={client}>
       {children}
     </ApolloProvider>

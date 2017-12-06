@@ -32,7 +32,7 @@ export default (
     compose(
       sectionsBatchLoader(),
       connect<RegionState, DispatchProps, WithRegion>(
-        (state, { region }: WithRegion) => state.persistent.regions[region.node.id],
+        (state, { region }: WithRegion) => (state as any).persistent.regions[region.node.id],
         (dispatch, { regionId }: WithRegion) => ({
           onSectionSelected: section => dispatch(selectSection({ regionId, section })),
           onPOISelected: poi => dispatch(selectPOI({ regionId, poi })),

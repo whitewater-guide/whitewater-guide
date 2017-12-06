@@ -147,7 +147,7 @@ const sectionsGraphql = ({ withGeo, pageSize, offlineSearch }: Options) =>
           loading: loading && !sections,
           loadMore: ({ startIndex: skip, stopIndex }) => fetchMore({
             variables: { skip, limit: stopIndex - skip, isLoadMore: true },
-            updateQuery: mergeNextPage,
+            updateQuery: mergeNextPage as any,
           }),
           loadUpdates: () => {
             const latest = maxBy(sections, 'updatedAt');

@@ -1,8 +1,8 @@
 import { find } from 'lodash';
 import * as React from 'react';
-import shallowequal = require('shallowequal');
 import { Point, Section } from '../../../ww-commons';
 import { MapLayoutProps, MapProps, SelectedPOIViewProps, SelectedSectionViewProps } from './types';
+import { shallowEqual } from '../../utils';
 
 const customizer = (val: any, other: any, key: string) => (key === 'initialBounds' ? true : undefined);
 
@@ -15,7 +15,7 @@ export const getMapView = <M extends MapProps>(
   class MapViewBase extends React.Component<M> {
     shouldComponentUpdate(nextProps: M) {
       // Initial bounds are initial and should not cause re-rendering
-      return !shallowequal(nextProps, this.props, customizer);
+      return !shallowEqual(nextProps, this.props, customizer);
     }
 
     render() {

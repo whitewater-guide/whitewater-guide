@@ -1,4 +1,4 @@
-import { gql } from 'react-apollo';
+import gql from 'graphql-tag';
 
 const REMOVE_GAUGE = gql`
   mutation removeGauge($id: ID!){

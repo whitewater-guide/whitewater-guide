@@ -1,4 +1,4 @@
-import { gql } from 'react-apollo';
+import gql from 'graphql-tag';
 import { GaugeFragments } from '../../../ww-clients/features/gauges';
 
 const UPSERT_GAUGE = gql`

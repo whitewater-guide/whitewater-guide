@@ -1,6 +1,7 @@
 import { ReactWrapper } from 'enzyme';
+import gql from 'graphql-tag';
 import * as React from 'react';
-import { gql, graphql } from 'react-apollo';
+import { graphql } from 'react-apollo';
 import { compose } from 'recompose';
 import { Loading } from '../components';
 import { mountWithMuiContext } from '../test';

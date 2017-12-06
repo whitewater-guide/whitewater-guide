@@ -1,5 +1,6 @@
-import 'url-search-params-polyfill';
+// tslint:disable:no-import-side-effect
 import 'raf/polyfill';
+import 'url-search-params-polyfill';
 
 import * as Enzyme from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-16';

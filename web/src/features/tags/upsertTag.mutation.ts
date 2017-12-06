@@ -1,4 +1,4 @@
-import { gql } from 'react-apollo';
+import gql from 'graphql-tag';
 
 export const UPSERT_TAG = gql`
   mutation upsertTag($tag: TagInput!, $language:String){

@@ -62,4 +62,4 @@ class TabsInternal extends React.PureComponent<InternalProps> {
   }
 }
 
-export const Tabs = withRouter<Props>(TabsInternal);
+export const Tabs = withRouter<InternalProps>(TabsInternal);

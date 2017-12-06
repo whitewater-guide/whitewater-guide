@@ -1,6 +1,5 @@
 import { applyMiddleware, compose, createStore, Middleware, StoreEnhancer } from 'redux';
 import { autoRehydrate } from 'redux-persist';
-import { apolloClient } from '../apollo';
 import configurePersist from './configurePersist';
 import rootReducer from './rootReducer';
 
@@ -9,8 +8,6 @@ type Enhancer = StoreEnhancer<any>;
 export function configureStore() {
   const middleware: Middleware[] = [];
   const enhancers: Enhancer[] = [];
-
-  middleware.push(apolloClient.middleware());
 
   enhancers.push(applyMiddleware(...middleware));
   enhancers.push(autoRehydrate());
