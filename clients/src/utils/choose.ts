@@ -1,11 +1,9 @@
-import { ComponentType } from 'react';
+import { ComponentType, createElement } from 'react';
 import { ComponentEnhancer, createEagerFactory, mapper } from 'recompose';
 
-const identity = <P>(component: ComponentType<P>): ComponentType<P> => component;
-
-export type Chooser<T> = mapper<T, string>;
-export type ChooserEnhancer<P> = (component: ComponentType<P>) => ComponentType<P>;
-export interface EnhancerMap<P> {
+type Chooser<T> = mapper<T, string>;
+type ChooserEnhancer<P> = (component: ComponentType<P>) => ComponentType<P>;
+interface EnhancerMap<P> {
   [option: string]: ChooserEnhancer<P>;
 }
 
@@ -20,18 +18,9 @@ export const choose =
         if (option && hocs[option]) {
           const hoc = hocs[option];
           const enhanced = hoc(BaseComponent);
-          const factory = createEagerFactory(enhanced);
-          return factory(props);
+          return createElement(enhanced, props);
         }
-        const identityFactory = createEagerFactory(identity(BaseComponent));
-        const result = identityFactory(props);
-        return result;
+        return createElement(BaseComponent, props);
       };
-      // if (process.env.NODE_ENV !== 'production') {
-      //   return setDisplayName(wrapDisplayName(BaseComponent, 'choose'))(Choose);
-      // }
       return Choose;
 };
-
-// Workaround to make TS emit declarations, see https://github.com/Microsoft/TypeScript/issues/9944
-let b: ComponentEnhancer<any, any>;
