@@ -29,7 +29,6 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Dosis";
   color: #444;
 }
 
@@ -3991,6 +3990,10 @@ div.mc-image {
 }
 
 /****************** HOW IT WORKS SECTION **********************/
+.how-it-works p {
+  font-size: 21px;
+  font-weight: 200;
+}
 .how-it-works h2 {
   margin-top: 15px;
 }
@@ -4042,6 +4045,11 @@ div.mc-image {
 }
 
 /****************** FEATURES **********************/
+.features p {
+  font-size: 21px;
+  font-weight: 200;
+}
+
 .features .left {
   float: left;
   width: 70%;
@@ -4287,6 +4295,15 @@ ul.social-icons li a i {
     margin-top: 0;
     width: auto;
   }
+}
+/****************** About US **********************/
+.crew-img {
+  border-radius: 50%;
+  height: 240px;
+}
+.crew h3 {
+  font-weight: 300;
+  text-transform: uppercase;
 }
 
 /****************** NEWSLETTER FORM AT FOOTER **********************/
