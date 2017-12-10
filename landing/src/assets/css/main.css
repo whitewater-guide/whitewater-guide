@@ -157,12 +157,8 @@ section p {
   background-color: #3b59ab;
 }
 
-.twitter-bg {
-  background-color: #2b97f0;
-}
-
-.googleplus-bg {
-  background-color: #dd4b39;
+.vk-bg {
+  background-color: #4a76a8;
 }
 
 .section-heading {
@@ -4195,11 +4191,8 @@ ul.social-icons li a {
 ul.social-icons li a.facebook-bg:hover, ul.social-icons li a.facebook-bg:focus {
   background-color: #344f98;
 }
-ul.social-icons li a.twitter-bg:hover, ul.social-icons li a.twitter-bg:focus {
-  background-color: #138bee;
-}
-ul.social-icons li a.googleplus-bg:hover, ul.social-icons li a.googleplus-bg:focus {
-  background-color: #d73925;
+ul.social-icons li a.vk-bg:hover, ul.social-icons li a.vk-bg:focus {
+  background-color: #4872a3;
 }
 ul.social-icons li a i {
   width: 22px;
