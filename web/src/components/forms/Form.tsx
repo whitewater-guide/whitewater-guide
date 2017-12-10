@@ -30,9 +30,6 @@ type InnerProps = Props & Themeable & WithLanguage;
 
 class FormBase extends React.PureComponent<InnerProps> {
 
-  onLanguageChange = (e: any, i: number, value: string) =>
-    this.props.onLanguageChange(value);
-
   render() {
     const { initialValues, resourceType, muiTheme, language, onLanguageChange } = this.props;
     const submitLabel = (initialValues && initialValues.id) ? 'Update' : 'Create';
