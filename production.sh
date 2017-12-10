@@ -8,7 +8,7 @@ Does any or all of following steps: builds web-client and backend for production
 
     -c, --client        Should build web-client
     -s, --server        Should build backend
-    -b, --bundle        Should bundle client, server and landing page
+    -b, --bundle        Should bundle client and server
     -d, --deploy        Should deploy everything
     --all               Does everything
     --help          Display this help and exit.
@@ -76,8 +76,7 @@ time {
         echo "----------- COMPRESSING CLIENT AND SERVER BUNDLE ------------"
         tar -czf build/bundle.tar.gz \
             -C backend/.build . \
-            --transform 's,^build,bundle/public,' -C ../../web-client build \
-            --transform 's,^src,bundle/public,' -C ../landing src
+            --transform 's,^build,bundle/public,' -C ../../web-client build
 
         echo "----------- BUNDLING DONE ------------"
     fi

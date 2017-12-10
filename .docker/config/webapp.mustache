@@ -12,7 +12,23 @@ server {
     passenger_env_var METEOR_SETTINGS '{{METEOR_SETTINGS}}';
 
     location / {
-        try_files $uri /landing.html;
+        try_files $uri @s3proxy;
+    }
+
+    location = / {
+        proxy_pass http://landing.whitewater.guide.s3.amazonaws.com/landing.html;
+    }
+
+    location = /ru/ {
+        proxy_pass http://landing.whitewater.guide.s3.amazonaws.com/landing_ru.html;
+    }
+
+    location ^~ /ru/ {
+        proxy_pass http://landing.whitewater.guide.s3.amazonaws.com/;
+    }
+
+    location @s3proxy {
+        proxy_pass http://landing.whitewater.guide.s3.amazonaws.com;
     }
 
     location /admin {

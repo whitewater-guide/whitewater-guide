@@ -8,7 +8,7 @@ There are 3 configurations currently: development, staging and production
 
 For development info, see `develop.md` file.
 
-In production app run in docker containers. Currently there are 3 containers: 
+In production app run in docker containers. Currently there are 3 containers:
 - Passenger (basically, node + nginx tuned for meteor) with backend + web-client code in it
 - MongoDB
 - Backup service that uploads mongodump to s3 on schedule
@@ -25,7 +25,7 @@ Backend is currently one-piece meteor app.
 
 Here is the build sequence:
 - Bundle web-client using webpack
-- Bundle backend using meteor's own build system. This step must be done inside dedicated docker container, 
+- Bundle backend using meteor's own build system. This step must be done inside dedicated docker container,
 so binary dependencies like `sharp` are built in same environment as production. Base image of this bundler can be built like this:
     ```bash
     docker build -f ./.docker/meteor_bundler_base.docker -t wwguide_meteor_bundler .
@@ -38,7 +38,7 @@ so binary dependencies like `sharp` are built in same environment as production.
     ```
     Update `meteor_bundler.docker` to use latest version of this image
 - Merge them into one archive, as it is easier to upload and chown later
-- Check if meteor version was changed, or some changes were made to `backend/settings.production.json`. 
+- Check if meteor version was changed, or some changes were made to `backend/settings.production.json`.
   In this case, passenger base image `doomsower/whitewater_passenger_base` must be rebuilt, see next step.
 - Use this command to build passenger base image:
     ```bash
@@ -56,21 +56,21 @@ so binary dependencies like `sharp` are built in same environment as production.
 - Stop all running containers, remove all containers and images (otherwise droplet will run out of memory)
 - Build and run services as described in `production.yml` docker-compose file
 
-## SSL 
+## SSL
 
 Certificated were deployed using certbot. This is how it was done:
 1) Certbot is baked into passenger service base
 2) Two named volumes, `certs` and `certs-data` were added into compose file. They are mapped to the dirs that certbot uses
-3) `certbot --nginx` was launched inside passenger container. It was regisered to `K.Kuznetcov@gmail.com` email. 
-It generated certificates in named volume `certs` and modified nginx config for whitewater.guide. 
+3) `certbot --nginx` was launched inside passenger container. It was regisered to `K.Kuznetcov@gmail.com` email.
+It generated certificates in named volume `certs` and modified nginx config for whitewater.guide.
 4) This modified config (besides included `/etc/letsencrypt/options-ssl-nginx.conf;`) was modified and
 baked back into passenger base image
-5) Backup of volumes was made with 
+5) Backup of volumes was made with
     ```bash
     docker-machine scp -r wwguide:/var/lib/docker/volumes/whitewater_certs/_data ./whitewater_certs
     docker-machine scp -r wwguide:/var/lib/docker/volumes/whitewater_certs-data/_data ./whitewater_certs-data
     ```
-6) Current certificates should expire in mid september 2017
+6) Current certificates should expire in mid january 2018
 
 ## Automation
 

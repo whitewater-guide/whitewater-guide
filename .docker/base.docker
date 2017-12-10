@@ -1,6 +1,6 @@
 FROM phusion/passenger-customizable:0.9.20
 
-LABEL version="1.14"
+LABEL version="1.15"
 
 # This build passenger and bakes in backend and frontend code
 
