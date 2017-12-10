@@ -1,4 +1,4 @@
-import stringifySeason from '../stringifySeason';
+import { stringifySeason } from '../stringifySeason';
 
 jest.mock('moment');
 

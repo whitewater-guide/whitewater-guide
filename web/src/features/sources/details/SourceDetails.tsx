@@ -15,18 +15,23 @@ export class SourceDetails extends React.PureComponent<WithSource & RouteCompone
     const { source, sourceId, match, location } = this.props;
     return (
       <Switch>
+
         <Route strict path={`${match.path}/gauges/`} component={GaugesRoute} />
+
         <Route>
           <Content card>
             <CardMedia style={{ height: '100%' }} mediaStyle={{ height: '100%' }}>
               <div style={{ width: '100%', height: '100%' }} >
                 <Tabs fullPathMode>
+
                   <Tab label="Details" value={`/sources/${sourceId}#main`}>
                     <SourceDetailsMain source={source.node} />
                   </Tab>
+
                   <Tab label="Terms of use" value={`/sources/${sourceId}#terms`}>
                     <ReactMarkdown source={source.node.termsOfUse || ''} />
                   </Tab>
+
                   <Tab label="Gauges" value={`/sources/${sourceId}/gauges`}>
                     <Route exact path={`${match.path}/gauges`}>
                       <div style={{ height: '100%', width: '100%', overflow: 'hidden' }}>
@@ -34,20 +39,24 @@ export class SourceDetails extends React.PureComponent<WithSource & RouteCompone
                       </div>
                     </Route>
                   </Tab>
+
                 </Tabs>
               </div>
             </CardMedia>
             <Switch>
+
               <Route exact path={`${match.path}/gauges`}>
                 <ListAdminFooter>
                   <FlatButton label="Autofill" />
                 </ListAdminFooter>
               </Route>
+
               <Route>
                 <CardActions>
                   <FlatButton label="Edit" href={`${match.url}/settings${location.hash}`} />
                 </CardActions>
               </Route>
+
             </Switch>
           </Content>
         </Route>

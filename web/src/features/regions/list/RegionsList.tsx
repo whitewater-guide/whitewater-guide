@@ -5,9 +5,7 @@ import { ResourcesListCard } from '../../../layout';
 import { RegionsListProps } from './types';
 
 export class RegionsList extends React.PureComponent<RegionsListProps> {
-  onRegionClick = (id: string) => {
-    // console.log(id);
-  };
+  onRegionClick = (id: string) => this.props.history.push(`/regions/${id}`);
 
   renderCount: TableCellRenderer = ({ cellData: { count } }) => count;
 

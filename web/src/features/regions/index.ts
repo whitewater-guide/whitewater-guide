@@ -1,2 +1,2 @@
 export * from './breadcrumbs';
-export * from './Regions';
+export * from './RegionsRoute';
