@@ -103,8 +103,8 @@ android {
         applicationId "guide.whitewater"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 36
-        versionName "1.0.35"
+        versionCode 37
+        versionName "1.0.36"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
@@ -118,9 +118,13 @@ android {
         }
     }
     buildTypes {
+        debug {
+            manifestPlaceholders = [excludeSystemAlertWindowPermission: "false"]
+        }
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            manifestPlaceholders = [excludeSystemAlertWindowPermission: "true"]
         }
     }
     // applicationVariants are e.g. debug, release
