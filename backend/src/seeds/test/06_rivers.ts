@@ -34,6 +34,7 @@ const riversEn = [
     river_id: 'd4396dac-d528-11e7-9296-cec278b6b50a',
     language: 'en',
     name: 'Sjoa',
+    alt_names: ['Shoa', 'Sjøa'],
   },
   {
     river_id: 'e7a25ab6-d528-11e7-9296-cec278b6b50a',

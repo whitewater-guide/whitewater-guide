@@ -4,9 +4,14 @@ type River {
   name: String!
   altNames: [String!]
   region: Region!
-  hidden: Boolean
   createdAt: Date
   updatedAt: Date
+  sections: RiverSectionConnection!
+}
+
+type RiverSectionConnection {
+  nodes: [Section]!
+  count: Int!
 }
 
 input RiverInput {
@@ -14,4 +19,19 @@ input RiverInput {
   name: String!
   altNames: [String!]
   region: RefInput!
+}
+
+type RiversList {
+  nodes: [River]!
+  count: Int!
+}
+
+type Query {
+  rivers(language: String, page: Page): RiversList!
+  river(id: ID, language: String): River
+}
+
+type Mutation {
+  upsertRiver(region: RiverInput!, language: String): River
+  removeRiver(id: ID!): ID
 }

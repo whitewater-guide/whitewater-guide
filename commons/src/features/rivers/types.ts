@@ -1,10 +1,11 @@
 import { NamedNode, Node, Timestamped } from '../../core';
 import { Region } from '../regions';
 import { Section } from '../sections';
+import { Connection } from '../types';
 
 export interface River extends NamedNode, Timestamped {
   region: Region;
-  sections: Section[];
+  sections: Connection<Section>;
   altNames: string[];
 }
 

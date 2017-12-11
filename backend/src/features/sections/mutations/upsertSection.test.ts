@@ -1,7 +1,7 @@
 import db, { holdTransaction, rollbackTransaction } from '../../../db';
 import { adminContext, anonContext, userContext } from '../../../test/context';
 import { noUnstable, runQuery } from '../../../test/db-helpers';
-import { Duration, SectionInput } from '../../../ww-commons/features/sections/types';
+import { Duration, SectionInput } from '../../../ww-commons';
 
 let sectionsPointsBefore: number;
 let pointsBefore: number;

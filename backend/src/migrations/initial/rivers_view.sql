@@ -9,6 +9,7 @@ CREATE OR REPLACE VIEW rivers_view AS
     rivers.created_at,
     rivers.updated_at,
     COALESCE(rivers_translations.name, 'Not translated') as name,
+    COALESCE(rivers_translations.alt_names, '{}'::VARCHAR[]) as alt_names,
     (
       SELECT row_to_json(regions_view) FROM regions_view
       WHERE regions_view.id = rivers.region_id AND regions_view.language = langs.language

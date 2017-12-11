@@ -26,8 +26,6 @@ export interface GaugeBinding {
   maximum: number | null;
   impossible: number | null;
   approximate: boolean | null;
-  // TODO: remove me
-  lastValue: number | null;
 }
 
 export interface Section extends NamedNode, Timestamped {

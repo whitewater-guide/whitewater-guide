@@ -25,7 +25,7 @@ const connections = {
   },
 };
 
-export const buildRegionQuery = (options: Partial<QueryBuilderOptions<Region>>) =>
+export const buildRegionQuery = (options: Partial<QueryBuilderOptions<Region>>): Knex.QueryBuilder =>
   buildRootQuery({
     context: options.context!,
     table: 'regions_view',

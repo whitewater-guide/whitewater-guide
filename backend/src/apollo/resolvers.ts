@@ -4,6 +4,7 @@ import { merge } from 'lodash';
 import { gaugesResolvers } from '../features/gauges';
 import { pointsResolvers } from '../features/points';
 import { regionsResolvers } from '../features/regions';
+import { riversResolvers } from '../features/rivers';
 import { scriptsResolvers } from '../features/scripts';
 import { sectionsResolvers } from '../features/sections';
 import { sourcesResolvers } from '../features/sources';
@@ -15,6 +16,7 @@ export const resolvers = merge(
   tagsResolvers,
   pointsResolvers,
   regionsResolvers,
+  riversResolvers,
   scriptsResolvers,
   sectionsResolvers,
   sourcesResolvers,
