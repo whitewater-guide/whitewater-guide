@@ -26,6 +26,8 @@ const styles = StyleSheet.create({
   },
 });
 
+const extractTagLabel = v => v.translation;
+
 class FilterScreen extends React.Component {
 
   static propTypes = {
@@ -80,7 +82,7 @@ class FilterScreen extends React.Component {
   translateTags = (tags, group) =>
     tags.map(tag => ({
       ...tag,
-      name: I18n.t(`${group}.${tag.name}`),
+      translation: I18n.t(`${group}.${tag.name}`),
     }));
 
   render() {
@@ -124,13 +126,29 @@ class FilterScreen extends React.Component {
           <Text>{I18n.t('filter.rating')}</Text>
           <StarRating value={this.state.rating} onChange={this.onChange('rating')} />
           <Text>{I18n.t('commons.kayakingTypes')}</Text>
-          <TernaryChips values={this.translateTags(this.state.kayakingTags, 'kayakingTypes')} onChange={this.onChange('kayakingTags')} />
+          <TernaryChips
+            values={this.translateTags(this.state.kayakingTags, 'kayakingTypes')}
+            extractLabel={extractTagLabel}
+            onChange={this.onChange('kayakingTags')}
+          />
           <Text>{I18n.t('commons.hazards')}</Text>
-          <TernaryChips values={this.translateTags(this.state.hazardsTags, 'hazards')} onChange={this.onChange('hazardsTags')} />
+          <TernaryChips
+            values={this.translateTags(this.state.hazardsTags, 'hazards')}
+            extractLabel={extractTagLabel}
+            onChange={this.onChange('hazardsTags')}
+          />
           <Text>{I18n.t('commons.supplyTypes')}</Text>
-          <TernaryChips values={this.translateTags(this.state.supplyTags, 'supply')} onChange={this.onChange('supplyTags')} />
+          <TernaryChips
+            values={this.translateTags(this.state.supplyTags, 'supply')}
+            extractLabel={extractTagLabel}
+            onChange={this.onChange('supplyTags')}
+          />
           <Text>{I18n.t('commons.miscTags')}</Text>
-          <TernaryChips values={this.translateTags(this.state.miscTags, 'miscTags')} onChange={this.onChange('miscTags')} />
+          <TernaryChips
+            values={this.translateTags(this.state.miscTags, 'miscTags')}
+            extractLabel={extractTagLabel}
+            onChange={this.onChange('miscTags')}
+          />
         </ScrollView>
         <Button primary fullWidth onPress={this.onApply} label={I18n.t('filter.search')} />
       </View>

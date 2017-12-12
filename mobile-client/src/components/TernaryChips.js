@@ -20,11 +20,13 @@ class TernaryChips extends React.PureComponent {
     values: PropTypes.array.isRequired,
     onChange: PropTypes.func,
     extractLabel: PropTypes.func,
+    extractKey: PropTypes.func,
   };
 
   static defaultProps = {
     onChange: () => {},
     extractLabel: v => v.name,
+    extractKey: v => v.name,
   };
 
   onToggle = (value, index) => {
@@ -35,7 +37,7 @@ class TernaryChips extends React.PureComponent {
   };
 
   render() {
-    const { extractLabel, values } = this.props;
+    const { extractKey, extractLabel, values } = this.props;
     return (
       <View style={styles.chips}>
         {
@@ -43,7 +45,7 @@ class TernaryChips extends React.PureComponent {
             values,
             (value, index) => (
               <TernaryChip
-                key={extractLabel(value)}
+                key={extractKey(value)}
                 label={extractLabel(value)}
                 selection={value.selection}
                 onPress={() => this.onToggle(value, index)}
