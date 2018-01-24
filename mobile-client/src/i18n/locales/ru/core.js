@@ -100,7 +100,7 @@ export default {
   durations: {
     laps: 'Много раз в день',
     twice: 'Пара раз в день',
-    "day-run": 'Раз в день',
+    "day-run": 'На весь день',
     overnighter: 'Возможна ночевка',
     "multi-day": 'Экспедиция',
   },
@@ -154,6 +154,8 @@ export default {
     "Hike-out": 'Пешая выброска',
     "Gyro": 'Gyro',
     "Flat sections": 'Гладкая гребля',
+    "Rafting": 'Рафтинг',
+    "Packrafting": 'Пакрафтинг',
   },
   poiTypes: {
     'put-in': 'Старт',

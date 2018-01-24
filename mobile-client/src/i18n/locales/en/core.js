@@ -154,6 +154,8 @@ export default {
     "Hike-out": 'Hike-out',
     "Gyro": 'Gyro',
     "Flat sections": 'Flat sections',
+    "Rafting": 'Rafting',
+    "Packrafting": 'Packrafting',
   },
   poiTypes: {
     'put-in': 'Put-in',
