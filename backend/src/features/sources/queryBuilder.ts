@@ -1,12 +1,10 @@
 import * as Knex from 'knex';
 import db, { buildListQuery, buildRootQuery, ListQueryBuilderOptions, QueryBuilderOptions } from '../../db';
 import { Source } from '../../ww-commons';
-import { buildGaugeQuery } from '../gauges';
-import { buildRegionQuery } from '../regions';
 
 const connections = {
   regions: {
-    build: buildRegionQuery,
+    getBuilder: () => require('../regions').buildRegionQuery,
     join: (table: string, query: Knex.QueryBuilder) => {
       const sourceId = db(true).raw('??', ['sources_view.id']);
       return query
@@ -15,7 +13,7 @@ const connections = {
     },
   },
   gauges: {
-    build: buildGaugeQuery,
+    getBuilder: () => require('../gauges').buildGaugeQuery,
     foreignKey: 'source_id',
     join: (table: string, query: Knex.QueryBuilder) => {
       const sourceId = db(true).raw('??', ['sources_view.id']);

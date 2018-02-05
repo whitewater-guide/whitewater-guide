@@ -6,7 +6,8 @@ import db from './db';
 import {
   attachConnection,
   buildConnectionColumn,
-  buildConnectionJSONQuery, buildListQuery,
+  buildConnectionJSONQuery,
+  buildListQuery,
   buildRootQuery,
   ConnectionBuilderOptions,
   getPrimitives, ListQueryBuilderOptions,
@@ -118,7 +119,7 @@ describe('buildRootQuery', () => {
   it('should not include connection when not asked by graphql', () => {
     graphqlFields.mockReturnValueOnce({ b: {}, c: {} });
     const connections = { connection: {
-      build: () => db(true).select('*').from('k'),
+      getBuilder: () => () => db(true).select('*').from('k'),
       join: (t: any, q: any) => q.where(`${t}.fk`, '=', db(true).raw('??', ['tbl.id'])),
     }};
     const query = buildRootQuery({ ...commonOptions, connections });
@@ -128,7 +129,7 @@ describe('buildRootQuery', () => {
   it('should attach connections', () => {
     graphqlFields.mockReturnValueOnce({ b: {}, c: { id: {}, fk: {} } });
     const connections = { c: {
-      build: () => db(true).select('*').from('k'),
+      getBuilder: () => () => db(true).select('*').from('k'),
       join: (t: any, q: any) => q.where(`${t}.fk`, '=', db(true).raw('??', ['tbl.id'])),
     }};
     const query = buildRootQuery({ ...commonOptions, connections });
@@ -138,7 +139,7 @@ describe('buildRootQuery', () => {
   it('should attach one-to-one references', () => {
     graphqlFields.mockReturnValueOnce({ a: {}, b: { c: {} } });
     const oneToOnes = { b: {
-      build: () => db(true).select('*').from('ref'),
+      getBuilder: () => () => db(true).select('*').from('ref'),
       join: (t: any, q: any) => q.where(`${t}.fk`, '=', db(true).raw('??', ['tbl.ref_id'])),
     }};
     const query = buildRootQuery({ ...commonOptions, oneToOnes });

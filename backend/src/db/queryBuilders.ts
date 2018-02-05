@@ -10,7 +10,7 @@ type ColumnMap<T> = {
 };
 
 interface ConnectionDescriptor {
-  build: Builder;
+  getBuilder: () => Builder; // Use getter to avoid circular dependencies
   join: Joiner;
   foreignKey?: string;
 }
@@ -43,7 +43,8 @@ export const getPrimitives = <T>(
     }
     // Custom map allows to conditionally drop some statements based on context
     if (customMap && field in customMap) {
-      const mapped = customMap[field]!(context);
+      const mapFunc: (context?: Context) => any = customMap[field]! as any;
+      const mapped = mapFunc(context);
       return mapped ?  [...result, `${prefix}.${mapped}`] : result;
     }
     return [...result, `${prefix}.${snakeCase(field)}`];
@@ -100,11 +101,11 @@ export const buildRootQuery = <T>(options: QueryBuilderOptions<T>): Knex.QueryBu
   result = result.select(primitiveColumns);
   Object.entries(connections).forEach(([connectionName, value]) => {
     if (value && rootFieldsTree[connectionName]) {
-      const { build, join, foreignKey } = value;
+      const { getBuilder, join, foreignKey } = value;
       attachConnection({
         knex,
         query: result,
-        build,
+        build: getBuilder(),
         join,
         context,
         language,
@@ -116,11 +117,11 @@ export const buildRootQuery = <T>(options: QueryBuilderOptions<T>): Knex.QueryBu
   });
   Object.entries(oneToOnes).forEach(([refName, value]) => {
     if (value && rootFieldsTree[refName]) {
-      const { build, join, foreignKey } = value;
+      const { getBuilder, join, foreignKey } = value;
       attachOneToOne({
         knex,
         query: result,
-        build,
+        build: getBuilder(),
         join,
         context,
         language,

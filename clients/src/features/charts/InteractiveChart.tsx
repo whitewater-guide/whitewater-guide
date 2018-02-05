@@ -81,7 +81,7 @@ export default (
           enabled={!!flowUnit && !!levelUnit}
           measurement={unit}
           unit={unit === 'flow' ? flowUnit : levelUnit}
-          value={binding.lastValue}
+          value={binding.lastValue!}
           onChange={this.onUnitChanged}
         />
       );

@@ -14,9 +14,9 @@
     "joi": "^13.0.2"
   },
   "devDependencies": {
-    "@types/jest": "^21.1.8",
+    "@types/jest": "^22.1.1",
     "@types/joi": "^13.0.1",
-    "jest": "^21.2.1",
+    "jest": "^22.1.4",
     "tslib": "^1.8.0",
     "tslint": "^5.8.0",
     "tslint-eslint-rules": "^4.1.1",
