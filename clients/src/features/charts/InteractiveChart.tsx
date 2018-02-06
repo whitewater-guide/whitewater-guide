@@ -3,14 +3,17 @@ import * as React from 'react';
 import { GaugeBinding, GaugeMeasurement, Unit } from '../../../ww-commons';
 import { ChartComponentProps, ChartLayoutProps, FlowToggleProps, PeriodToggleProps } from './types';
 
+// TODO: remove me
+type GaugeAndBinding = GaugeBinding & { lastValue: number | null };
+
 export interface Props {
   data: GaugeMeasurement[];
   loading: boolean;
   startDate: Date;
   endDate: Date;
   onDomainChanged?: (domain: [Date, Date]) => void;
-  levels: GaugeBinding;
-  flows: GaugeBinding;
+  levels: GaugeAndBinding;
+  flows: GaugeAndBinding;
   levelUnit: string | null;
   flowUnit: string | null;
 }

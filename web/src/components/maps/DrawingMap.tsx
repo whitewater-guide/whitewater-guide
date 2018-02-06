@@ -1,7 +1,7 @@
 import * as update from 'immutability-helper';
 import * as React from 'react';
 import { geometryToLatLngs } from '../../utils/google-maps';
-import { arrayToGmaps, getCoordinatesPatch, gmapsToArray } from '../../ww-clients/utils/GeoUtils';
+import { arrayToGmaps, getCoordinatesPatch, gmapsToArray } from '../../ww-clients/utils';
 import { Coordinate, Coordinate2d, Coordinate3d, withZeroAlt } from '../../ww-commons/features/points';
 import GoogleMap from './GoogleMap';
 import PlacesAutocomplete from './PlacesAutocomplete';
@@ -208,12 +208,12 @@ export class DrawingMap extends React.Component<Props> {
       // Need to patch points
       const oldLatLngs: LatLng[] = geometryToLatLngs(oldGeometry) as LatLng[];
       const oldPoints = oldLatLngs!.map(gmapsToArray) as Coordinate2d[];
-      const patch = getCoordinatesPatch(oldPoints, newPoints);
+      const patch: any = getCoordinatesPatch(oldPoints, newPoints);
       if (patch!.length === 3 && patch![1] === 1 && points[patch![0]].length > 2) {
         // Some point with altitude was updated, need to keep the altitude
         patch![2][2] = points[patch![0]][2];
       }
-      onChange(update(points, { $splice: [patch] }));
+      onChange(update(points, { $splice: [patch] }) as Coordinate3d[]);
     } else {
       // New geometry was created, altitudes are nulls anyway
       onChange(withZeroAlt(newPoints));

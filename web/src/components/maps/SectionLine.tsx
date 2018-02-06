@@ -41,8 +41,9 @@ export class SectionLine extends React.PureComponent<Props> {
 
   getStyle() {
     const { selected, zoom, section } = this.props;
-    const flows = section.flows;
+    const flows: any = section.flows;
     const levels = section.levels;
+    // TODO: fix lastValue - no longer exists on binding
     const bindings = (flows && flows.lastValue) ? flows : levels;
     const color = getSectionColor(bindings || {});
     return {
