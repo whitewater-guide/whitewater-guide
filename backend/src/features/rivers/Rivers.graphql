@@ -26,8 +26,12 @@ type RiversList {
   count: Int!
 }
 
+input RiversFilter {
+  riverId: ID
+}
+
 type Query {
-  rivers(language: String, page: Page): RiversList!
+  rivers(language: String, page: Page, filter: RiversFilter): RiversList!
   river(id: ID, language: String): River
 }
 
