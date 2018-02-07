@@ -5,11 +5,11 @@ import { UnknownError } from './enhancedResolvers';
 export const formatError = (error: any) => {
   let e = apolloFormatError(error, true);
 
-  if (e instanceof GraphQLError) {
+  if (!e && error instanceof GraphQLError) {
     e = apolloFormatError(new UnknownError({
       data: {
-        originalMessage: e.message,
-        originalError: e.name,
+        originalMessage: error.message,
+        originalError: error.name,
       },
     }), true);
   }

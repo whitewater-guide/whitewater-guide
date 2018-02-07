@@ -5,8 +5,8 @@ beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
 const query = `
-  query listRivers($language: String, $page: Page){
-    rivers(language: $language, page: $page) {
+  query listRivers($language: String, $page: Page, $filter: RiversFilter){
+    rivers(language: $language, page: $page, filter: $filter) {
       nodes {
         id
         language

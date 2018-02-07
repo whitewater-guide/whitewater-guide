@@ -27,7 +27,7 @@ type RiversList {
 }
 
 input RiversFilter {
-  riverId: ID
+  regionId: ID
 }
 
 type Query {
