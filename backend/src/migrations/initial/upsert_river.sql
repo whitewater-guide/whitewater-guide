@@ -13,7 +13,7 @@ BEGIN
     )
     ON CONFLICT (id)
       DO UPDATE SET
-        region_id         = EXCLUDED.region_id
+        region_id         = rivers.region_id
     RETURNING id
   )
   INSERT INTO rivers_translations(river_id, language, name, alt_names)
@@ -22,14 +22,15 @@ BEGIN
       lang,
       river ->> 'name',
       CASE
-        WHEN (river -> 'altNames') IS NULL
+        WHEN (river ->> 'altNames') IS NULL
           THEN '{}'::VARCHAR[]
           ELSE array_json_to_varchar(river -> 'altNames')
       END
     FROM upserted_river
   ON CONFLICT (river_id, language)
     DO UPDATE SET
-      name        = EXCLUDED.name
+      name        = EXCLUDED.name,
+      alt_names   = EXCLUDED.alt_names
   RETURNING river_id
     INTO upserted_river_id;
 

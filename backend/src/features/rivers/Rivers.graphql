@@ -36,6 +36,6 @@ type Query {
 }
 
 type Mutation {
-  upsertRiver(region: RiverInput!, language: String): River
+  upsertRiver(river: RiverInput!, language: String): River
   removeRiver(id: ID!): ID
 }

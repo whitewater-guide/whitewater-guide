@@ -21,6 +21,10 @@ export const ValidationError = createError('ValidationError', {
   message: 'Invalid input',
 });
 
+export const MutationNotAllowedError = createError('MutationNotAllowedError', {
+  message: 'Mutation not allowed',
+});
+
 export const baseResolver = createResolver<any, Context>(
   // incoming requests will pass through this resolver like a no-op
   null,
