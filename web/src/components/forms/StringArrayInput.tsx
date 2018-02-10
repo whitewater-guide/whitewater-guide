@@ -17,7 +17,7 @@ class StringArrayInputComponent extends React.PureComponent<Props> {
 
   onRequestDelete = (chip: string) => {
     const { input: { value, onChange } } = this.props;
-    onChange(reject(value, { chip }));
+    onChange(reject(value, v => v === chip));
   };
 
   render() {

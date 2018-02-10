@@ -10,7 +10,7 @@ export const RiversRoute: React.StatelessComponent<RouteComponentProps<any>> = (
     path = path + '/';
   }
   return (
-    path.includes('/sources/') ?
+    path.includes('/regions/') ?
       (
         <Switch>
           <Route exact path={`${path}new`} component={RiverForm} />

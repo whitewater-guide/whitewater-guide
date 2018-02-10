@@ -8,7 +8,7 @@ BEGIN
   INTO v_output
   FROM json_array_elements_text(p_input) AS ary;
 
-  RETURN v_output;
+  RETURN COALESCE(v_output, '{}'::INTEGER[]);
 
 END;
 $$ LANGUAGE plpgsql;

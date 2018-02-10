@@ -191,6 +191,7 @@ describe('i18n', () => {
 
 describe('alt names', () => {
   const riverNullAltNames = { ...input, altNames: null };
+  const riverEmptyAltNames = { ...input, altNames: [] };
 
   it('should create with null altNames', async () => {
     const result = await runQuery(upsertQuery, { river: riverNullAltNames }, adminContext);
@@ -198,8 +199,21 @@ describe('alt names', () => {
     expect(result).toHaveProperty('data.upsertRiver.altNames', []);
   });
 
+  it('should create with empty array altNames', async () => {
+    const result = await runQuery(upsertQuery, { river: riverEmptyAltNames }, adminContext);
+    expect(result.errors).toBeUndefined();
+    expect(result).toHaveProperty('data.upsertRiver.altNames', []);
+  });
+
   it('should update with null altNames', async () => {
     const sjoa = { ...riverNullAltNames, id: 'd4396dac-d528-11e7-9296-cec278b6b50a' };
+    const result = await runQuery(upsertQuery, { river: sjoa }, adminContext);
+    expect(result.errors).toBeUndefined();
+    expect(result).toHaveProperty('data.upsertRiver.altNames', []);
+  });
+
+  it('should update with empty array altNames', async () => {
+    const sjoa = { ...riverEmptyAltNames, id: 'd4396dac-d528-11e7-9296-cec278b6b50a' };
     const result = await runQuery(upsertQuery, { river: sjoa }, adminContext);
     expect(result.errors).toBeUndefined();
     expect(result).toHaveProperty('data.upsertRiver.altNames', []);
