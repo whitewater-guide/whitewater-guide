@@ -3,7 +3,7 @@
     "outDir": "build/dist",
     "module": "esnext",
     "target": "es5",
-    "lib": ["es7", "dom", "esnext.asynciterable"],
+    "lib": ["es6", "dom", "esnext"],
     "sourceMap": true,
     "jsx": "react",
     "moduleResolution": "node",

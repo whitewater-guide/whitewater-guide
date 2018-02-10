@@ -101,7 +101,7 @@
     "tslint": "^5.8.0",
     "tslint-eslint-rules": "^4.1.1",
     "tslint-react": "^3.2.0",
-    "typescript": "^2.7.1",
+    "typescript": "2.7.1",
     "url-search-params-polyfill": "^2.0.1"
   },
   "proxy": "http://localhost:3333"
