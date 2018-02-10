@@ -6,6 +6,7 @@ import { Route, RouteComponentProps, Switch } from 'react-router-dom';
 import { Content, Tabs } from '../../../components';
 import ListAdminFooter from '../../../layout/list/ListAdminFooter';
 import { WithRegion } from '../../../ww-clients/features/regions';
+import { RiversList, RiversRoute } from '../../rivers';
 import RegionDetailsMain from './RegionDetailsMain';
 
 export class RegionDetails extends React.PureComponent<WithRegion & RouteComponentProps<any>> {
@@ -13,7 +14,7 @@ export class RegionDetails extends React.PureComponent<WithRegion & RouteCompone
     const { region, regionId, match, location } = this.props;
     return (
       <Switch>
-        <Route strict path={`${match.path}/rivers/`} component={() => null} />
+        <Route strict path={`${match.path}/rivers/`} component={RiversRoute} />
 
         <Route strict path={`${match.path}/sections/`} component={() => null} />
 
@@ -34,7 +35,7 @@ export class RegionDetails extends React.PureComponent<WithRegion & RouteCompone
                   <Tab label="Rivers" value={`/regions/${regionId}/rivers`}>
                     <Route exact path={`${match.path}/rivers`}>
                       <div style={{ height: '100%', width: '100%', overflow: 'hidden' }}>
-                        {'Rivers'}
+                        <RiversList />
                       </div>
                     </Route>
                   </Tab>

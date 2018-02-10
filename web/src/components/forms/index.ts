@@ -14,4 +14,5 @@ export * from './serializeForm';
 export * from './deserializeForm';
 export * from './Form';
 export * from './Switch';
+export * from './StringArrayInput';
 export * from './withLanguage';

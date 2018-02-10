@@ -1,72 +1,38 @@
-import gql from 'graphql-tag';
-import { ComponentEnhancer, compose } from 'recompose';
+import { FetchPolicy } from 'apollo-client';
+import { graphql } from 'react-apollo';
+import { compose } from 'recompose';
 import { River } from '../../../ww-commons';
-import { enhancedQuery } from '../../apollo';
+import { queryResultToNode, WithNode } from '../../apollo';
 import { withFeatureIds } from '../../core';
+import { RIVER_DETAILS } from './riverDetails.query';
 
-const riverDetails = gql`
-  query riverDetails($riverId:ID!, $language: String) {
-    river(_id:$riverId, language:$language) {
-      id
-      name
-      description,
-      sections {
-        id
-        name
-        difficulty
-        difficultyXtra
-        rating
-        drop
-        distance
-        duration
-        river {
-          id
-          name
-        }
-      }
-    }
-  }
-`;
-
-export interface WithRiverResult {
-  river: River | null;
+interface WithRiverOptions {
+  fetchPolicy?: FetchPolicy;
 }
 
-export interface WithRiverChildProps {
-  river: River | null;
-  riverLoading: boolean;
+interface WithRiverResult {
+  river: River;
+  riverId: string;
 }
 
-export interface WithRiverProps {
-  riverId?: string;
-  language?: string;
+interface WithRiverProps {
+  riverId: string;
 }
 
-/**
- *
- * @param options.withSections (true) = Should include all sections
- * @returns High-order component
- */
-export function withRiver() {
-  return compose<WithRiverChildProps, any>(
+export interface WithRiver {
+  river: WithNode<River>;
+  riverId: string;
+}
+
+export const withRiver = ({ fetchPolicy = 'cache-and-network' }: WithRiverOptions = {}) =>
+  compose<WithRiver, any>(
     withFeatureIds('river'),
-    enhancedQuery<WithRiverResult, WithRiverProps, WithRiverChildProps>(
-      riverDetails,
+    graphql<WithRiverResult, WithRiverProps, WithRiver>(
+      RIVER_DETAILS,
       {
-        options: ({ riverId, language }) => ({
-          fetchPolicy: 'cache-and-network',
-          variables: { riverId, language },
-          // reducer: riverReducer,
-          notifyOnNetworkStatusChange: true,
-        }),
-        props: ({ data }) => {
-          const { river, loading } = data!;
-          return { river, riverLoading: loading && !river };
-        },
+        alias: 'withRiver',
+        options: { fetchPolicy },
+        props: props => queryResultToNode(props, 'river'),
       },
     ),
   );
-}
-
-// Workaround to make TS emit declarations, see https://github.com/Microsoft/TypeScript/issues/9944
-let a: ComponentEnhancer<any, any>;

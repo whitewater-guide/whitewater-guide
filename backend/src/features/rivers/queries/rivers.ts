@@ -1,6 +1,6 @@
 import { baseResolver, ListQuery } from '../../../apollo';
+import { RiversFilter } from '../../../ww-commons';
 import { buildRiversListQuery } from '../queryBuilder';
-import { RiversFilter } from '../types';
 
 interface Query extends ListQuery {
   filter?: RiversFilter;

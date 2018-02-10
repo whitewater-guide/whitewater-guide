@@ -10,7 +10,3 @@ export interface RiverRaw extends NamedNode, RawTimestamped {
   region?: RegionRaw;
   alt_names: string[];
 }
-
-export interface RiversFilter {
-  regionId?: string;
-}
