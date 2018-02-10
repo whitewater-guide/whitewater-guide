@@ -33,7 +33,7 @@ export const createBreadcrumb = <TParam extends string>(
     query,
     {
       options: (props) => ({
-        fetchPolicy: 'cache-only',
+        fetchPolicy: 'cache-first',
         variables: { id: props.params[paramName] },
       }),
     },
