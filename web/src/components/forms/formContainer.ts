@@ -1,10 +1,10 @@
+import { ApolloError } from 'apollo-client';
 import { DocumentNode } from 'graphql';
 import { Schema } from 'joi';
 import { memoize } from 'lodash';
-import { ApolloError } from 'apollo-client';
 import { ChildProps, graphql } from 'react-apollo';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { ComponentEnhancer, compose, mapProps } from 'recompose';
+import { compose, mapProps } from 'recompose';
 import { ConfigProps, InjectedFormProps, reduxForm, SubmissionError } from 'redux-form';
 import { withLoading } from '../withLoading';
 import { validateInput } from './validateInput';

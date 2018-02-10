@@ -1,16 +1,13 @@
 import { applyMiddleware, compose, createStore, Middleware, StoreEnhancer } from 'redux';
-import { autoRehydrate } from 'redux-persist';
-import configurePersist from './configurePersist';
+import createPersistor from './createPersistor';
 import rootReducer from './rootReducer';
 
-type Enhancer = StoreEnhancer<any>;
-
-export function configureStore() {
+export async function configureStore() {
+  // Nothing here, just stub
   const middleware: Middleware[] = [];
-  const enhancers: Enhancer[] = [];
+  const enhancers: Array<StoreEnhancer<any>> = [];
 
   enhancers.push(applyMiddleware(...middleware));
-  enhancers.push(autoRehydrate());
   // Apollo + redux tutorial says us to do so
   if (typeof (window as any).__REDUX_DEVTOOLS_EXTENSION__ !== 'undefined') {
     enhancers.push((window as any).__REDUX_DEVTOOLS_EXTENSION__());
@@ -18,7 +15,7 @@ export function configureStore() {
 
   const store = createStore(rootReducer, compose(...enhancers));
 
-  configurePersist(store).catch(error => console.error(`Error while initializing persist: ${error}`));
+  const persistor = await createPersistor(store);
 
-  return store;
+  return { persistor, store };
 }

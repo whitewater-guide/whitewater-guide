@@ -1,4 +1,6 @@
+import { compose } from 'recompose';
 import { deserializeForm, formContainer, serializeForm } from '../../../components/forms';
+import { withFeatureIds } from '../../../ww-clients/core';
 import { REGION_DETAILS } from '../../../ww-clients/features/regions';
 import { RegionFormSchema, RegionInput } from '../../../ww-commons';
 import UPSERT_REGION from './upsertRegion.mutation';
@@ -25,4 +27,7 @@ const regionForm = formContainer({
   validationSchema: RegionFormSchema,
 });
 
-export default regionForm;
+export default compose(
+  withFeatureIds('region'),
+  regionForm,
+);
