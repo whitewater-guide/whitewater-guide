@@ -35,7 +35,7 @@ export default class RiversList extends React.PureComponent<RiversListProps, Sta
         deleteHandle={this.props.removeRiver}
         refresher={this.state.refresher}
       >
-        <Column width={200} label="Name" dataKey="name" />
+        <Column width={200} flexGrow={1} label="Name" dataKey="name" />
         <Column width={70} label="Alt.Names" dataKey="altNames" cellRenderer={this.renderAltNames}/>
         <Column width={70} label="# Sections" dataKey="sections" cellRenderer={this.renderNumSections}/>
       </ResourcesList>

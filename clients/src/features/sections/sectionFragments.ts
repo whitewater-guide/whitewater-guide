@@ -2,6 +2,7 @@ import gql from 'graphql-tag';
 
 const Name = gql`
   fragment SectionName on Section {
+    id
     name
     language
     altNames
