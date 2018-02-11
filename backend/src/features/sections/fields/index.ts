@@ -8,6 +8,7 @@ import { buildRiverQuery } from '../../rivers';
 import { SectionRaw } from '../types';
 
 const sectionFieldResolvers: FieldResolvers<SectionRaw, Section> = {
+  altNames: section => section.alt_names,
   seasonNumeric: section => section.season_numeric,
   difficultyXtra: section => section.difficulty_xtra,
   putIn: ({ id, language, put_in }) => {

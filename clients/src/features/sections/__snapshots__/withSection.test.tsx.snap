@@ -1,0 +1,171 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should match snapshot 1`] = `
+Object {
+  "section": Object {
+    "error": undefined,
+    "loading": false,
+    "node": Object {
+      "__typename": "Section",
+      "altNames": Array [
+        "Ratione labore explicabo",
+        "Amet iure",
+      ],
+      "createdAt": 2017-01-31T21:00:00.000Z,
+      "description": "Sunt laborum ratione",
+      "difficulty": 0.26554665761068463,
+      "difficultyXtra": "Quos qui",
+      "distance": 0.9168613343499601,
+      "drop": 0.2116281110793352,
+      "duration": 821,
+      "flows": Object {
+        "__typename": "GaugeBinding",
+        "approximate": true,
+        "impossible": 0.42838240950368345,
+        "maximum": 0.42781263520009816,
+        "minimum": 0.7471216395497322,
+        "optimum": 0.5562402373179793,
+        Symbol(id): "$ROOT_QUERY.section({\\"id\\":\\"2b01742c-d443-11e7-9296-cec278b6b50a\\",\\"language\\":null}).flows",
+      },
+      "flowsText": "Veritatis sequi",
+      "gauge": Object {
+        "__typename": "Gauge",
+        "flowUnit": "Facere non et",
+        "id": "dec940c9-3598-40eb-97ec-8704edb8f127",
+        "language": "Quod non",
+        "lastFlow": 0.8071051912847906,
+        "lastLevel": 0.7173916019964963,
+        "lastTimestamp": 2017-01-31T21:00:00.000Z,
+        "levelUnit": "Incidunt facere",
+        "location": Object {
+          "__typename": "Point",
+          "coordinates": Array [
+            0.28976000170223415,
+            0.23297427338548005,
+          ],
+          "id": "1b812060-0083-41d4-a38f-c4134199f685",
+          "kind": "Vel et",
+          Symbol(id): "Point:1b812060-0083-41d4-a38f-c4134199f685",
+        },
+        "name": "Optio laudantium",
+        Symbol(id): "Gauge:dec940c9-3598-40eb-97ec-8704edb8f127:Quod non",
+      },
+      "language": "Alias magni corporis",
+      "levels": Object {
+        "__typename": "GaugeBinding",
+        "approximate": false,
+        "impossible": 0.8635418526828289,
+        "maximum": 0.3878606455400586,
+        "minimum": 0.6129480903036892,
+        "optimum": 0.42690982366912067,
+        Symbol(id): "$ROOT_QUERY.section({\\"id\\":\\"2b01742c-d443-11e7-9296-cec278b6b50a\\",\\"language\\":null}).levels",
+      },
+      "name": "Asperiores quisquam",
+      "pois": Array [
+        Object {
+          "__typename": "Point",
+          "coordinates": Array [
+            0.8289808973204345,
+            0.893021211726591,
+          ],
+          "description": "Dolorum reiciendis",
+          "id": "0e0e1c39-a08a-4021-9f59-53142b23f95f",
+          "kind": "Possimus voluptatem",
+          "language": "Nulla quod",
+          "name": "Ullam quos",
+          Symbol(id): "Point:0e0e1c39-a08a-4021-9f59-53142b23f95f:Nulla quod",
+        },
+        Object {
+          "__typename": "Point",
+          "coordinates": Array [
+            0.14326300681568682,
+            0.19343428080901504,
+          ],
+          "description": "Aspernatur aut",
+          "id": "b107d9c9-658f-4192-9883-aea7421c53a1",
+          "kind": "Rerum in cupiditate",
+          "language": "Aspernatur facere",
+          "name": "Quasi ex",
+          Symbol(id): "Point:b107d9c9-658f-4192-9883-aea7421c53a1:Aspernatur facere",
+        },
+      ],
+      "putIn": Object {
+        "__typename": "Point",
+        "coordinates": Array [
+          0.8073912905529141,
+          0.3775843451730907,
+        ],
+        "id": "e94b3186-eb76-480c-a0a2-9cf09ee8272e",
+        "kind": "Ut dolorem",
+        Symbol(id): "Point:e94b3186-eb76-480c-a0a2-9cf09ee8272e",
+      },
+      "rating": 0.0533625443931669,
+      "region": Object {
+        "__typename": "Region",
+        "id": "e683b452-bcd6-400c-afab-547c31177e14",
+        "language": "Quis quia magni",
+        "name": "Voluptatem dicta cum",
+        Symbol(id): "Region:e683b452-bcd6-400c-afab-547c31177e14:Quis quia magni",
+      },
+      "river": Object {
+        "__typename": "River",
+        "altNames": Array [
+          "Eum ipsa",
+          "Ipsum veritatis",
+        ],
+        "id": "4a6e8d65-b837-4e30-aae6-6862f3ccbfc5",
+        "language": "Eligendi occaecati",
+        "name": "Et saepe eum",
+        Symbol(id): "River:4a6e8d65-b837-4e30-aae6-6862f3ccbfc5:Eligendi occaecati",
+      },
+      "season": "Libero aspernatur deserunt",
+      "seasonNumeric": Array [
+        -158,
+        343,
+      ],
+      "shape": Array [
+        Array [
+          0.9418369478080422,
+          0.40813680412247777,
+        ],
+        Array [
+          0.3798032901249826,
+          0.23702697595581412,
+        ],
+      ],
+      "tags": Array [
+        Object {
+          "__typename": "Tag",
+          "category": "misc",
+          "id": "Et fuga voluptatem",
+          "language": "Et qui",
+          "name": "Cupiditate est id",
+          Symbol(id): "Tag:Et fuga voluptatem:Et qui",
+        },
+        Object {
+          "__typename": "Tag",
+          "category": "hazards",
+          "id": "Non nobis",
+          "language": "Molestiae ut",
+          "name": "Et possimus rerum",
+          Symbol(id): "Tag:Non nobis:Molestiae ut",
+        },
+      ],
+      "takeOut": Object {
+        "__typename": "Point",
+        "coordinates": Array [
+          0.949489259859547,
+          0.06406732695177197,
+        ],
+        "id": "be559cab-3eb9-4ac5-9c45-fc6ef0a7911c",
+        "kind": "Ex in",
+        Symbol(id): "Point:be559cab-3eb9-4ac5-9c45-fc6ef0a7911c",
+      },
+      "updatedAt": 2017-01-31T21:00:00.000Z,
+      Symbol(id): "$ROOT_QUERY.section({\\"id\\":\\"2b01742c-d443-11e7-9296-cec278b6b50a\\",\\"language\\":null})",
+    },
+    "refetch": [Function],
+  },
+  "sectionId": "2b01742c-d443-11e7-9296-cec278b6b50a",
+}
+`;

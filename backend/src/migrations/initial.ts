@@ -219,6 +219,7 @@ export const up = async (db: Knex) => {
     table.primary(['section_id', 'language']);
 
     table.string('name').notNullable().index();
+    table.specificType('alt_names', 'varchar[]').notNullable().defaultTo('{}');
     table.text('description');
     table.string('season');
     table.string('flows_text');

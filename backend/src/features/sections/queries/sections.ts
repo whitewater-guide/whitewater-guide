@@ -1,6 +1,5 @@
 import { clamp } from 'lodash';
-import { baseResolver } from '../../../apollo';
-import { ListQuery } from '../../../apollo/types';
+import { baseResolver, ListQuery } from '../../../apollo';
 import { buildSectionsListQuery } from '../queryBuilder';
 import { SectionsFilter } from '../types';
 

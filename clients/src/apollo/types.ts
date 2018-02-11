@@ -1,4 +1,4 @@
-import { ApolloError, ApolloQueryResult } from 'apollo-client';
+import { ApolloError, ApolloQueryResult, FetchMoreOptions, FetchMoreQueryOptions } from 'apollo-client';
 import { Connection } from '../../ww-commons';
 
 export interface FetchMoreResult<T, V = any> {
@@ -12,6 +12,7 @@ export interface WithList<T> {
   loading: boolean;
   refetch: () => Promise<ApolloQueryResult<Connection<T>>>;
   error?: ApolloError;
+  fetchMore: (fetchMoreOptions: FetchMoreQueryOptions & FetchMoreOptions) => Promise<ApolloQueryResult<Connection<T>>>;
 }
 
 export interface WithNode<T> {

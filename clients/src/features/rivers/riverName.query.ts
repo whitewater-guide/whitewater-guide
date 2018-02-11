@@ -6,6 +6,7 @@ export const RIVER_NAME = gql`
       id
       language
       name
+      altNames
     }
   }
 `;

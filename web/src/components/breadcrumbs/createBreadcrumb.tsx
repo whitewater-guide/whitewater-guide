@@ -1,21 +1,35 @@
 import { DocumentNode } from 'graphql';
 import * as React from 'react';
 import { ChildProps, graphql } from 'react-apollo';
-import { ResourceType } from '../../ww-commons';
+import { NamedNode, ResourceType } from '../../ww-commons';
 
-export const createBreadcrumb = <TParam extends string>(
-  query: DocumentNode, resourceType: ResourceType, paramName: TParam,
-) => {
+export interface CreateBreadcrumbOptions<T extends NamedNode> {
+  query: DocumentNode; // query to get just enough to display node name
+  resourceType: ResourceType;
+  paramName?: string; // router parameter name to get node id from url, default to `${resourceType}Id`
+  renderName?: (node: T) => string; // function to extract string name from resource instance
+}
+
+const defaultRenderName = <T extends NamedNode>(node: T) => node.name;
+
+export const createBreadcrumb = <T extends NamedNode>(options: CreateBreadcrumbOptions<T>) => {
+  const {
+    query,
+    resourceType,
+    paramName: pName,
+    renderName = defaultRenderName,
+  } = options;
+
+  const paramName = pName || `${resourceType}Id`;
+
   interface Props {
     params: {
-      [param in TParam]: string;
+      [param: string]: string;
     };
   }
 
   type Result = {
-    [key in ResourceType]: {
-      name: string;
-    }
+    [key in ResourceType]: T
   };
 
   type InnerProps = ChildProps<Props, Result>;
@@ -24,7 +38,7 @@ export const createBreadcrumb = <TParam extends string>(
     const result = data as Result;
     return (
       <span>
-        {result && result[resourceType] && result[resourceType].name}
+        {result && result[resourceType] && renderName(result[resourceType])}
       </span>
     );
   };

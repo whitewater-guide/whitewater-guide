@@ -9,6 +9,7 @@ CREATE OR REPLACE VIEW sections_view AS
     -- but if the name hasn't been translated into some language
     -- it will return null
     COALESCE(sections_translations.name, 'Not translated') as name,
+    COALESCE(sections_translations.alt_names, '{}'::VARCHAR[]) as alt_names,
     COALESCE(sections_translations.description, 'Not translated') as description,
     COALESCE(sections_translations.season, 'Not translated') as season,
     COALESCE(sections_translations.flows_text, 'Not translated') as flows_text,

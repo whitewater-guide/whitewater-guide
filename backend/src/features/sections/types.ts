@@ -17,6 +17,8 @@ export interface GaugeBindingRaw {
 }
 
 export interface SectionRaw extends NamedNode, RawTimestamped {
+  alt_names: string[];
+
   river_id: string;
   river?: RiverRaw;
   gauge_id: string | null;

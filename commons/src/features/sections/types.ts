@@ -29,6 +29,8 @@ export interface GaugeBinding {
 }
 
 export interface Section extends NamedNode, Timestamped {
+  altNames: string[];
+
   description: string | null;
   season: string | null;
   seasonNumeric: number[];

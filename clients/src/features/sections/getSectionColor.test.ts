@@ -1,6 +1,6 @@
 import * as color from 'color';
 import { mapValues } from 'lodash';
-import { Colors, getDryLevel, getSectionColor, hslMix } from '../getSectionColor';
+import { Colors, getDryLevel, getSectionColor, hslMix } from './getSectionColor';
 
 const ColorStrings = mapValues(Colors, c => c.hsl().string());
 

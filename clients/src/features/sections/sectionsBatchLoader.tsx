@@ -18,13 +18,14 @@ export const sectionsBatchLoader = (batchSize = 25) => (Wrapped: React.Component
     }
 
     loadMoreSections = (prevPros: WithSectionsList | null) => {
-      const { loadMore, list, count, loading } = this.props.sections;
-      const numSections = list.length;
-      const prevNumSections = prevPros ? prevPros.sections.list.length : 0;
+      const { nodes, count, loading, fetchMore } = this.props.sections;
+      const numSections = nodes.length;
+      const prevNumSections = prevPros ? prevPros.sections.nodes.length : 0;
       // Do not compare count like this: `prevNumSections < numSections`
       // Because when cache is starting to refresh, it is prevNumSections > numSections
       if (prevNumSections !== numSections && numSections < count && !loading) {
-        loadMore({ startIndex: numSections, stopIndex: numSections + batchSize });
+        // TODO: fixme arguments
+        fetchMore({ startIndex: numSections, stopIndex: numSections + batchSize } as any);
       }
     };
 

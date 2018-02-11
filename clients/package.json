@@ -63,6 +63,7 @@
     "@types/recompose": "^0.24.4",
     "enzyme": "3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
+    "graphql-ast-tools": "^0.2.3",
     "jest": "^22.1.4",
     "raf": "^3.4.0",
     "react": "^16.2.0",

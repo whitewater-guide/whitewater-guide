@@ -57,11 +57,16 @@ BEGIN
         rating          = EXCLUDED.rating
     RETURNING id
   )
-  INSERT INTO sections_translations (section_id, language, name, description, season, flows_text)
+  INSERT INTO sections_translations (section_id, language, name, alt_names, description, season, flows_text)
     SELECT
       upserted_section.id,
       lang,
       section ->> 'name',
+      CASE
+        WHEN (section ->> 'altNames') IS NULL
+          THEN '{}'::VARCHAR[]
+          ELSE array_json_to_varchar(section -> 'altNames')
+      END,
       section ->> 'description',
       section ->> 'season',
       section ->> 'flowsText'
@@ -69,6 +74,7 @@ BEGIN
   ON CONFLICT (section_id, language)
     DO UPDATE SET
       name        = EXCLUDED.name,
+      alt_names   = EXCLUDED.alt_names,
       description = EXCLUDED.description,
       season      = EXCLUDED.season,
       flows_text   = EXCLUDED.flows_text

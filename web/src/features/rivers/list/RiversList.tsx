@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Column, Table, TableCellRenderer } from 'react-virtualized';
+import { Column, TableCellRenderer } from 'react-virtualized';
 import { ResourcesList } from '../../../layout';
 import { River } from '../../../ww-commons';
 import { RiversListProps } from './types';
@@ -12,9 +12,6 @@ interface State {
 
 export default class RiversList extends React.PureComponent<RiversListProps, State> {
   state: State = { refresher: 0 };
-  rawTable: Table | null;
-
-  setRawTableRef = (ref: Table | null) => {this.rawTable = ref; };
 
   onRiverClick = (id: string) => {
     // console.log(id);

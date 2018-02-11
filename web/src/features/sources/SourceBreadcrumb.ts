@@ -1,4 +1,4 @@
 import { createBreadcrumb } from '../../components';
 import { SOURCE_NAME } from '../../ww-clients/features/sources';
 
-export default createBreadcrumb(SOURCE_NAME, 'source', 'sourceId');
+export default createBreadcrumb({ query: SOURCE_NAME, resourceType: 'source' });

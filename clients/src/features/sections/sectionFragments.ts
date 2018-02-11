@@ -3,26 +3,28 @@ import gql from 'graphql-tag';
 const Name = gql`
   fragment SectionName on Section {
     name
+    language
+    altNames
     river {
+      id
+      language
       name
+      altNames
     }
   }
 `;
 
 const Core = gql`
   fragment SectionCore on Section {
-    _id
-    name
+    ...SectionName
+
     season
     seasonNumeric
 
-    river {
-      _id
-      name
-    }
-
     region {
-      _id
+      id
+      language
+      name
     }
 
     distance
@@ -32,17 +34,18 @@ const Core = gql`
     difficultyXtra
     rating
   }
+  ${Name}
 `;
 
 const Ends = gql`
   fragment SectionEnds on Section {
     putIn {
-      _id
+      id
       coordinates
       kind
     }
     takeOut {
-      _id
+      id
       coordinates
       kind
     }
@@ -68,23 +71,25 @@ const GaugeBinding = {All: gql`
     optimum
     impossible
     approximate
-    lastTimestamp
-    lastValue
   }
 `};
 
 const Measurements = gql`
   fragment SectionMeasurements on Section {
     gauge {
-      _id
+      id
+      language
       name
       levelUnit
       flowUnit
       location {
-        _id
+        id
         kind
         coordinates
       }
+      lastTimestamp
+      lastLevel
+      lastFlow
     }
     levels {
       ...GaugeBindingAll
@@ -100,14 +105,13 @@ const Measurements = gql`
 const Meta = gql`
   fragment SectionMeta on Section {
     createdAt
-    createdBy
     updatedAt
   }
 `;
 
 const MediaCore = gql`
   fragment MediaCore on Media {
-    _id
+    id
     description
     copyright
     url
@@ -127,7 +131,8 @@ const Media = gql`
 const POIs = gql`
   fragment SectionPOIs on Section {
     pois {
-      _id
+      id
+      language
       name
       description
       coordinates
@@ -138,52 +143,16 @@ const POIs = gql`
 
 const Tags = gql`
   fragment SectionTags on Section {
-    supplyTags {
-      _id
+    tags {
+      id
+      language
       name
-    }
-    kayakingTags {
-      _id
-      name
-    }
-    hazardsTags {
-      _id
-      name
-    }
-    miscTags {
-      _id
-      name
+      category
     }
   }
-`;
-
-// TODO: remove when https://github.com/apollographql/graphql-anywhere/issues/38 is resolved
-const All = gql`
-  fragment SectionAll on Section {
-    ...SectionCore
-    ...SectionDescription
-    ...SectionEnds
-    ...SectionShape
-    ...SectionMeasurements
-    ...SectionMedia
-    ...SectionMeta
-    ...SectionPOIs
-    ...SectionTags
-  }
-  ${GaugeBinding.All}
-  ${Core}
-  ${Description}
-  ${Ends}
-  ${Shape}
-  ${Measurements}
-  ${Media}
-  ${Meta}
-  ${POIs}
-  ${Tags}
 `;
 
 export const SectionFragments = {
-  All,
   Name,
   Core,
   Description,

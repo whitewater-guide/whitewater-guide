@@ -1,77 +1,38 @@
-import gql from 'graphql-tag';
+import { FetchPolicy } from 'apollo-client';
+import { graphql } from 'react-apollo';
 import { compose } from 'recompose';
 import { Section } from '../../../ww-commons';
-import { enhancedQuery } from '../../apollo';
+import { queryResultToNode, WithNode } from '../../apollo';
 import { withFeatureIds } from '../../core';
-import { SectionFragments } from './sectionFragments';
+import { SECTION_DETAILS } from './sectionDetails.query';
 
-const sectionDetails = gql`
-  query sectionDetails($_id: ID, $language:String, $withGeo:Boolean!, $withDescription:Boolean!) {
-    section(_id: $_id, language: $language) {
-      ...SectionCore
-      ...SectionMeasurements
-      ...SectionMedia
-      ...SectionTags
-      ...SectionDescription @include(if: $withDescription)
-      ...SectionShape @include(if: $withGeo)
-      ...SectionEnds @include(if: $withGeo)
-      ...SectionPOIs @include(if: $withGeo)
-    }
-
-  }
-  ${SectionFragments.Core}
-  ${SectionFragments.Measurements}
-  ${SectionFragments.Media}
-  ${SectionFragments.Tags}
-  ${SectionFragments.Description}
-  ${SectionFragments.Shape}
-  ${SectionFragments.Ends}
-  ${SectionFragments.POIs}
-`;
-
-export interface WithSectionOptions {
-  withGeo?: boolean;
-  withDescription?: boolean;
-  propName?: string;
+interface WithSectionOptions {
+  fetchPolicy?: FetchPolicy;
 }
 
-export interface WithSectionResult {
-  section: Section | null;
+interface WithSectionResult {
+  section: Section;
+  sectionId: string;
 }
 
-export interface WithSectionProps {
-  sectionId?: string;
-  language?: string;
+interface WithSectionProps {
+  sectionId: string;
 }
 
-export interface WithSectionChildProps {
-  sectionLoading: boolean;
-  error?: any;
+export interface WithSection {
+  section: WithNode<Section>;
+  sectionId: string;
 }
 
-export function withSection<SectionProp = {section: Section | null}>(options: WithSectionOptions) {
-  const { withGeo = false, withDescription = false, propName = 'section' } = options;
-  type ChildProps = WithSectionChildProps & SectionProp;
-  return compose<WithSectionChildProps & ChildProps, any>(
+export const withSection = ({ fetchPolicy = 'cache-and-network' }: WithSectionOptions = {}) =>
+  compose<WithSection, any>(
     withFeatureIds('section'),
-    enhancedQuery<WithSectionResult, WithSectionProps, ChildProps>(
-      sectionDetails,
+    graphql<WithSectionResult, WithSectionProps, WithSection>(
+      SECTION_DETAILS,
       {
-        options: ({ sectionId, language }) => ({
-          fetchPolicy: 'cache-and-network',
-          variables: { _id: sectionId, language, withGeo, withDescription },
-        }),
-        props: ({ data }) => {
-          const { section, loading } = data!;
-          return {
-            [propName]: section,
-            sectionLoading: loading && !section,
-          };
-        },
+        alias: 'withSection',
+        options: { fetchPolicy },
+        props: props => queryResultToNode(props, 'section'),
       },
     ),
   );
-}
-
-export type WithSection<SectionProp = {section: Section | null}> =
-  WithSectionProps & WithSectionChildProps & SectionProp;

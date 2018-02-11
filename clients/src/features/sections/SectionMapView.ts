@@ -23,7 +23,7 @@ export const SectionMapView = (
 ) => compose<MapProps, WithSection>(
   setDisplayName('SectionMapView'),
   branch<WithSection>(
-    props => props.sectionLoading,
+    props => props.section.loading,
     renderComponent(LoadingIndicator),
   ),
   withPropsOnChange(

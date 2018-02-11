@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should generate correct query 1`] = `
+"query sectionDetails($sectionId: ID, $language: String) {
+  section(id: $sectionId, language: $language) {
+    ... on Section {
+      name
+      language
+      altNames
+      river {
+        id
+        language
+        name
+        altNames
+      }
+      season
+      seasonNumeric
+      region {
+        id
+        language
+        name
+      }
+      distance
+      drop
+      duration
+      difficulty
+      difficultyXtra
+      rating
+      description
+      putIn {
+        id
+        coordinates
+        kind
+      }
+      takeOut {
+        id
+        coordinates
+        kind
+      }
+      shape
+      gauge {
+        id
+        language
+        name
+        levelUnit
+        flowUnit
+        location {
+          id
+          kind
+          coordinates
+        }
+        lastTimestamp
+        lastLevel
+        lastFlow
+      }
+      levels {
+        ... on GaugeBinding {
+          minimum
+          maximum
+          optimum
+          impossible
+          approximate
+        }
+      }
+      flows {
+        ... on GaugeBinding {
+          minimum
+          maximum
+          optimum
+          impossible
+          approximate
+        }
+      }
+      flowsText
+      createdAt
+      updatedAt
+      pois {
+        id
+        language
+        name
+        description
+        coordinates
+        kind
+      }
+      tags {
+        id
+        language
+        name
+        category
+      }
+    }
+  }
+}
+"
+`;

@@ -13,6 +13,7 @@ export const GaugeBindingSchema = Joi.object().keys({
 export const SectionInputSchema = Joi.object().keys({
   id: Joi.string().guid().allow(null),
   name: Joi.string().min(2).max(100),
+  altNames: Joi.array().items(Joi.string().min(2)).allow(null),
   description: Joi.string().allow(null),
   season: Joi.string().allow(null),
   seasonNumeric: Joi.array().max(24).items(Joi.number().min(0).max(23)),

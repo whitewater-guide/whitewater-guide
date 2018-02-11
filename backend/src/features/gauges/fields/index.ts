@@ -7,9 +7,9 @@ import { GaugeRaw } from '../types';
 const resolvers: FieldResolvers<GaugeRaw, Gauge> = {
   levelUnit: gauge => gauge.level_unit,
   flowUnit: gauge => gauge.flow_unit,
-  lastFlow: gauge => gauge.last_flow,
-  lastLevel: gauge => gauge.last_level,
-  lastTimestamp: gauge => gauge.last_timestamp,
+  lastFlow: gauge => gauge.last_flow || null, // TODO: redis
+  lastLevel: gauge => gauge.last_level || null,
+  lastTimestamp: gauge => gauge.last_timestamp || null,
   requestParams: gauge => gauge.request_params,
   ...timestampResolvers,
 };

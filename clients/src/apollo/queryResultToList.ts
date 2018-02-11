@@ -13,7 +13,7 @@ type Result<T, R extends ListType> = {
 export const queryResultToList =
   <T, R extends ListType>(props: ChildProps<any, QueryResult<T, R>>, propName: R): Result<T, R> => {
   const { data } = props;
-  const { [propName]: list, error, loading, refetch } = data;
+  const { [propName]: list, error, loading, refetch, fetchMore } = data;
   return {
     [propName]: {
       nodes: list ? list.nodes : [],
@@ -21,6 +21,7 @@ export const queryResultToList =
       loading,
       error,
       refetch,
+      fetchMore,
     },
   } as any;
 };
