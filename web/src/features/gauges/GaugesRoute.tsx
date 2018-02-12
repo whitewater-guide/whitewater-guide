@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Route, RouteComponentProps, Switch } from 'react-router-dom';
+import { PrivateRoute } from '../../layout';
 import { GaugeForm } from './form';
 import GaugeRoute from './GaugeRoute';
 import { GaugesList } from './list';
@@ -13,7 +14,7 @@ export const GaugesRoute: React.StatelessComponent<RouteComponentProps<any>> = (
     path.includes('/sources/') ?
       (
         <Switch>
-          <Route exact path={`${path}new`} component={GaugeForm} />
+          <PrivateRoute exact path={`${path}new`} component={GaugeForm} />
           <Route path={`${path}:gaugeId`} component={GaugeRoute} />
         </Switch>
       ) :

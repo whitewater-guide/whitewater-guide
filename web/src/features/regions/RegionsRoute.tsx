@@ -9,6 +9,6 @@ export const RegionsRoute: React.StatelessComponent = () => (
   <Switch>
     <Route exact path="/regions" component={RegionsList} />
     <PrivateRoute exact path="/regions/new" component={RegionForm} />
-    <PrivateRoute path="/regions/:regionId" component={RegionRoute} />
+    <Route path="/regions/:regionId" component={RegionRoute} />
   </Switch>
 );

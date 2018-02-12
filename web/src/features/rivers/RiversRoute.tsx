@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Route, RouteComponentProps, Switch } from 'react-router-dom';
+import { PrivateRoute } from '../../layout';
 import { RiverForm } from './form';
 import RiverRoute from './RiverRoute';
 import { RiversList } from './list';
@@ -13,7 +14,7 @@ export const RiversRoute: React.StatelessComponent<RouteComponentProps<any>> = (
     path.includes('/regions/') ?
       (
         <Switch>
-          <Route exact path={`${path}new`} component={RiverForm} />
+          <PrivateRoute exact path={`${path}new`} component={RiverForm} />
           <Route path={`${path}:riverId`} component={RiverRoute} />
         </Switch>
       ) :
