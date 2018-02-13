@@ -28,7 +28,7 @@ export const SectionInputSchema = Joi.object().keys({
   flows: GaugeBindingSchema.allow(null),
   flowsText: Joi.string().allow(null),
 
-  shape: Joi.array().items(CoordinateSchema),
+  shape: Joi.array().items(CoordinateSchema).min(2),
   distance: Joi.number().positive().allow(null),
   drop: Joi.number().positive().allow(null),
   duration: Joi.any().valid(Array.from(Durations.keys())).allow(null),

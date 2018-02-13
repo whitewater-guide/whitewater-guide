@@ -7,6 +7,7 @@ export * from './PointInput';
 export * from './POICollection';
 export * from './SeasonPicker';
 export * from './Select';
+export * from './ShapeInput';
 export * from './TextInput';
 export * from './validateInput';
 export * from './formContainer';

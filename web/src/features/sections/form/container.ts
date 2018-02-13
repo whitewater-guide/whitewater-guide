@@ -1,10 +1,8 @@
 import { compose } from 'recompose';
-import { formContainer } from '../../../components/forms';
+import { deserializeForm, formContainer, serializeForm } from '../../../components/forms';
 import { withFeatureIds } from '../../../ww-clients/core';
 import { SECTION_DETAILS } from '../../../ww-clients/features/sections';
 import { SectionInputSchema } from '../../../ww-commons';
-import deserializeSection from './deserializeSection';
-import serializeSection from './serializeSection';
 import UPSERT_SECTION from './upsertSection.mutation';
 
 const sectionForm = formContainer({
@@ -18,8 +16,8 @@ const sectionForm = formContainer({
   }),
   query: SECTION_DETAILS,
   mutation: UPSERT_SECTION,
-  serializeForm: serializeSection,
-  deserializeForm: deserializeSection,
+  serializeForm: serializeForm(['description']),
+  deserializeForm: deserializeForm(['description'], ['region', 'river', 'pois']),
   validationSchema: SectionInputSchema,
 });
 
