@@ -26,7 +26,7 @@ export const TextInput: React.StatelessComponent<FieldProps> = ({ ...props }) =>
   const CustomField = Field as new () => GenericField<CustomFieldProps>;
   const numericProps = props.type === 'number' ? {
     pattern: '(\-)?[0-9]+([\,|\.][0-9]+)?',
-    format: (value?: number) => (value ? value.toString() : ''),
+    format: (value?: number) => (value !== undefined ? value.toString() : ''),
     parse: (value?: string) => (value ? value.replace(OTHER_SEPARATOR, SEPARATOR) : value),
     normalize: (value?: string) => (value ? strToFloat(value) : null),
   } : { normalize: (value?: string) => value || null };
