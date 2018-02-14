@@ -1,4 +1,5 @@
 import * as React from 'react';
+import ErrorBoundary from 'react-error-boundary';
 import { BaseFieldProps, Field, GenericField, WrappedFieldProps } from 'redux-form';
 import { Coordinate } from '../../ww-commons';
 import { DrawingMap, DrawingMode } from '../maps';
@@ -11,12 +12,14 @@ interface CustomFieldProps {
 type Props = WrappedFieldProps & CustomFieldProps;
 
 const FieldComponent: React.StatelessComponent<Props> = ({ input, meta, ...props }) => (
-  <DrawingMap
-    onChange={input.onChange}
-    bounds={props.bounds}
-    drawingMode={props.drawingMode}
-    points={input.value}
-  />
+  <ErrorBoundary>
+    <DrawingMap
+      onChange={input.onChange}
+      bounds={props.bounds}
+      drawingMode={props.drawingMode}
+      points={input.value}
+    />
+  </ErrorBoundary>
 );
 
 type FieldProps = BaseFieldProps<CustomFieldProps> & CustomFieldProps;

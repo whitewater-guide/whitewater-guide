@@ -1,13 +1,10 @@
+import { isEmpty } from 'lodash';
 import * as React from 'react';
-import * as PropTypes  from 'prop-types';
 import { BaseFieldArrayProps, FieldArray, GenericFieldArray, WrappedFieldArrayProps } from 'redux-form';
 import { Styles } from '../../styles';
 import { computeDistanceBetween } from '../../ww-clients/utils';
 import { Coordinate3d } from '../../ww-commons';
-import { CoordinateSchema } from '../../ww-commons/features/points';
 import { LatLonAltInput, LLAArrayField } from './LatLonAltInput';
-import { validateInput } from './validateInput';
-import { isEmpty } from 'lodash';
 
 const styles: Styles = {
   container: {
@@ -32,6 +29,10 @@ class ShapeInputComponent extends React.Component<Props> {
     );
   };
 
+  onAdd = (value: Coordinate3d) => {
+    this.props.fields.push(value);
+  };
+
   render() {
     const { fields } = this.props;
     return (
@@ -42,7 +43,7 @@ class ShapeInputComponent extends React.Component<Props> {
             <LLAArrayField key={index} name={name} index={index} fields={fields} />
           ))
         }
-        <LatLonAltInput isNew key="newPoint" />
+        <LatLonAltInput isNew key={`new${fields.length}`} onAdd={this.onAdd} />
       </div>
     );
   }
