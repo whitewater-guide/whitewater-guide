@@ -1,9 +1,8 @@
 import IconButton from 'material-ui/IconButton';
 import * as React from 'react';
-import { FieldsProps } from 'redux-form';
+import { BaseFieldProps, Field, FieldsProps, GenericField, WrappedFieldProps } from 'redux-form';
 import { Styles } from '../../styles';
-import { Coordinate3d } from '../../ww-commons';
-import { TextInput } from './TextInput';
+import { NumberInput } from '../NumberInput';
 
 const styles: Styles = {
   container: {
@@ -30,34 +29,79 @@ const styles: Styles = {
   },
 };
 
-interface Props {
-  name: string;
-  index?: number;
-  fields?: FieldsProps<Coordinate3d>;
+type Unnumber = undefined | number;
+type Uncoordinate = [Unnumber, Unnumber, Unnumber];
+
+interface LatLonAltInputProps {
+  value?: Uncoordinate;
+  onChange?: (val: Uncoordinate) => void;
+  onAdd?: () => void;
+  onRemove?: () => void;
+  isNew?: boolean;
 }
 
-export class LatLonAltInput extends React.PureComponent<Props> {
+export class LatLonAltInput extends React.PureComponent<LatLonAltInputProps> {
 
-  onAddOrRemove = () => this.props.fields!.remove(this.props.index!);
+  onChange = [0, 1, 2].map(index => (coord: Unnumber) => {
+    const { value = [undefined, undefined, undefined], onChange }  = this.props;
+    if (onChange) {
+      onChange(Object.assign(value.slice() as Uncoordinate, { [index]: coord }));
+    }
+  });
 
   render() {
-    const { name } = this.props;
-    const isNew = false;
+    const { value = [undefined, undefined, undefined], isNew, onAdd, onRemove } = this.props;
     return (
       <div style={styles.container}>
-        <TextInput style={styles.input} type="number" name={`${name}[1]`} title="Latitude" />
-        <TextInput style={styles.input} type="number" name={`${name}[0]`} title="Longitude" />
-        <TextInput style={styles.altitude} type="number" name={`${name}[2]`} title="Alt" />
+        <NumberInput style={styles.input} hintText="Latitude" value={value[1]} onChange={this.onChange[1]} />
+        <NumberInput style={styles.input} hintText="Longitude" value={value[0]} onChange={this.onChange[0]} />
+        <NumberInput style={styles.altitude} hintText="Alt" value={value[2]} onChange={this.onChange[2]} />
         <IconButton
           iconStyle={styles.icon}
           style={styles.button}
           disabled={false}
           iconClassName="material-icons"
-          onClick={this.onAddOrRemove}
+          onClick={isNew ? onAdd : onRemove}
         >
           {isNew ? 'add_circle' : 'remove_circle'}
         </IconButton>
       </div>
+    );
+  }
+}
+
+type CompProps = WrappedFieldProps & LatLonAltInputProps;
+
+const LatLonAltComponent: React.StatelessComponent<CompProps> = ({ input, meta, ...own }) => (
+  <LatLonAltInput
+    {...own}
+    value={input.value}
+    onChange={input.onChange}
+  />
+);
+
+type FieldProps = BaseFieldProps<LatLonAltInputProps> & LatLonAltInputProps;
+
+export const LatLonAltField: React.StatelessComponent<FieldProps> = props => {
+  const CustomField = Field as new () => GenericField<LatLonAltInputProps>;
+  return (
+    <CustomField {...props} component={LatLonAltComponent} />
+  );
+};
+
+interface LLAArrayFieldProps {
+  name: string;
+  index?: number;
+  fields?: FieldsProps<Uncoordinate>;
+}
+
+export class LLAArrayField extends React.PureComponent<LLAArrayFieldProps> {
+  onRemove = () => this.props.fields!.remove(this.props.index!);
+
+  render() {
+    const { name } = this.props;
+    return (
+      <LatLonAltField name={name} onRemove={this.onRemove} />
     );
   }
 }

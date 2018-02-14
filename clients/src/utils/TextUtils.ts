@@ -1,10 +1,7 @@
 const ROMAN_NUMBERS = ['0', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'];
 
-const DECIMAL_POINT = (1.1).toLocaleString().substr(1, 1);
-let K_SEPARATOR = (5000).toLocaleString().substr(1, 1);
-if (K_SEPARATOR === '0') {
-  K_SEPARATOR = (DECIMAL_POINT === '.' ? ',' : '.');
-}
+const SEPARATOR = (0.5).toString()[1];
+const OTHER_SEPARATOR = SEPARATOR === ',' ? /\./ : /,/;
 
 export function toRomanDifficulty(decimalDifficulty: number): string {
   if (Number.isInteger(decimalDifficulty)) {
@@ -39,6 +36,6 @@ export function strToFloat(value?: any): number {
   if (typeof value !== 'string') {
     return NaN;
   }
-  const safeStr = value.replace(/,/, '.');
+  const safeStr = value.replace(OTHER_SEPARATOR, SEPARATOR);
   return parseFloat(safeStr);
 }

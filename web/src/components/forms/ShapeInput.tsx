@@ -1,9 +1,13 @@
 import * as React from 'react';
+import * as PropTypes  from 'prop-types';
 import { BaseFieldArrayProps, FieldArray, GenericFieldArray, WrappedFieldArrayProps } from 'redux-form';
 import { Styles } from '../../styles';
 import { computeDistanceBetween } from '../../ww-clients/utils';
 import { Coordinate3d } from '../../ww-commons';
-import { LatLonAltInput } from './LatLonAltInput';
+import { CoordinateSchema } from '../../ww-commons/features/points';
+import { LatLonAltInput, LLAArrayField } from './LatLonAltInput';
+import { validateInput } from './validateInput';
+import { isEmpty } from 'lodash';
 
 const styles: Styles = {
   container: {
@@ -13,7 +17,8 @@ const styles: Styles = {
 
 type Props = WrappedFieldArrayProps<Coordinate3d>;
 
-class ShapeInputComponent extends React.PureComponent<Props> {
+class ShapeInputComponent extends React.Component<Props> {
+
   renderLineLength = () => {
     const points = this.props.fields.getAll();
     let distance = 0;
@@ -27,11 +32,6 @@ class ShapeInputComponent extends React.PureComponent<Props> {
     );
   };
 
-  onAdd = () => {
-    const { fields } = this.props;
-    fields.push([0, 0, 0]);
-  };
-
   render() {
     const { fields } = this.props;
     return (
@@ -39,9 +39,10 @@ class ShapeInputComponent extends React.PureComponent<Props> {
         { this.renderLineLength() }
         {
           fields.map((name, index) => (
-            <LatLonAltInput key={index} name={name} index={index} fields={fields} />
+            <LLAArrayField key={index} name={name} index={index} fields={fields} />
           ))
         }
+        <LatLonAltInput isNew key="newPoint" />
       </div>
     );
   }
