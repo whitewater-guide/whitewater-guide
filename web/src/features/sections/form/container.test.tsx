@@ -38,3 +38,7 @@ it('should match snapshot for existing section', async () => {
   receiver = wrapped.find(FormReceiver).first() as any;
   expect(receiver.prop('initialValues')).toMatchSnapshot();
 });
+
+it('should have region with bounds', () => {
+  throw new Error();
+});

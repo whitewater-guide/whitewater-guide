@@ -17,7 +17,7 @@ type Props = WrappedFieldArrayProps<Coordinate3d>;
 class ShapeInputComponent extends React.Component<Props> {
 
   renderLineLength = () => {
-    const points = this.props.fields.getAll();
+    const points = this.props.fields.getAll() || [];
     let distance = 0;
     for (let i = 1; i < points.length; i += 1) {
       distance += computeDistanceBetween(points[i - 1], points[i]);

@@ -1,4 +1,7 @@
+import FontIcon from 'material-ui/FontIcon';
+import FlatButton from 'material-ui/FlatButton';
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import { Column, TableCellRenderer } from 'react-virtualized';
 import { ResourcesList } from '../../../layout';
 import { River } from '../../../ww-commons';
@@ -25,6 +28,17 @@ export default class RiversList extends React.PureComponent<RiversListProps, Sta
   renderNumSections: TableCellRenderer = ({ rowData: { sections: { count } } }) =>
     count;
 
+  renderAddSection = (row: River) => {
+    return (
+      <FlatButton
+        href={`/regions/${row.region.id}/sections/new?riverId=${row.id}`}
+        label="Add Section"
+        icon={<FontIcon className="material-icons">add</FontIcon>}
+        style={{ verticalAlign: 'sub' }}
+      />
+    );
+  };
+
   render() {
     return (
       <ResourcesList
@@ -34,6 +48,7 @@ export default class RiversList extends React.PureComponent<RiversListProps, Sta
         customSettingsLink={this.customSettingsLink}
         deleteHandle={this.props.removeRiver}
         refresher={this.state.refresher}
+        renderExtraAdminActions={this.renderAddSection}
       >
         <Column width={200} flexGrow={1} label="Name" dataKey="name" />
         <Column width={70} label="Alt.Names" dataKey="altNames" cellRenderer={this.renderAltNames}/>

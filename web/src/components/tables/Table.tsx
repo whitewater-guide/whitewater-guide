@@ -15,6 +15,7 @@ export type TableProps<TResource extends NamedNode> =
     resourceType: ResourceType;
     deleteHandle: (id: string) => void;
     customSettingsLink?: (row: TResource) => string;
+    renderExtraAdminActions?: (row: TResource) => React.ReactElement<any>;
   };
 
 export class Table<DeleteHandle extends string, TResource extends NamedNode>
@@ -27,16 +28,18 @@ export class Table<DeleteHandle extends string, TResource extends NamedNode>
   stopPropagation = (event: React.SyntheticEvent<any>) => event.stopPropagation();
 
   renderAdminActions = (props: TableCellProps) => {
-    const { customSettingsLink, resourceType } = this.props;
+    const { customSettingsLink, resourceType, renderExtraAdminActions } = this.props;
     const id = props.rowData.id;
     const settings = customSettingsLink ? customSettingsLink(props.rowData) : `/${resourceType}s/${id}/settings`;
+    const extras = renderExtraAdminActions ? renderExtraAdminActions(props.rowData) : undefined;
     return (
-      <span onClick={this.stopPropagation}>
+      <div onClick={this.stopPropagation} style={{ height: '100%', overflowY: 'hidden' }}>
         <Link to={settings}>
           <FontIcon className="material-icons">mode_edit</FontIcon>
         </Link>
         <DeleteButton id={id} deleteHandler={this.props.deleteHandle} />
-      </span>
+        {extras}
+      </div>
     );
   };
 
@@ -52,7 +55,13 @@ export class Table<DeleteHandle extends string, TResource extends NamedNode>
         onRowClick={this.onRowClick}
       >
         {children}
-        <AdminColumn width={100} label="Actions" dataKey="actions" cellRenderer={this.renderAdminActions} />
+        <AdminColumn
+          width={100}
+          flexGrow={0.2}
+          label="Actions"
+          dataKey="actions"
+          cellRenderer={this.renderAdminActions}
+        />
       </RawTable>
     );
   }

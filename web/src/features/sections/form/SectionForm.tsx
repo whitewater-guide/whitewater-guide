@@ -1,13 +1,18 @@
 import { Tab } from 'material-ui/Tabs';
+import TextField from 'material-ui/TextField';
 import * as React from 'react';
-import { InjectedFormProps } from 'redux-form';
 import { Tabs } from '../../../components';
 import {
-  DraftEditor, DrawingMapField, Form, POICollection, ShapeInput, StringArrayInput,
+  DraftEditor,
+  DrawingMapField,
+  Form,
+  POICollection,
+  ShapeInput,
+  StringArrayInput,
   TextInput
 } from '../../../components/forms';
 import { Styles } from '../../../styles';
-import { SectionInput } from '../../../ww-commons';
+import { SectionFormProps } from './types';
 
 const styles: Styles = {
   container: {
@@ -27,12 +32,13 @@ const styles: Styles = {
   },
 };
 
-export default class SectionForm extends React.PureComponent<InjectedFormProps<SectionInput>> {
+export default class SectionForm extends React.PureComponent<SectionFormProps> {
   render() {
     return (
       <Form {...this.props} resourceType="section">
         <Tabs>
           <Tab label="Main" value="#main">
+            <TextField fullWidth disabled value={this.props.initialValues.river!.name} floatingLabelText="River" />
             <TextInput fullWidth name="name" title="Name" />
             <StringArrayInput name="altNames" title="Alternative names"/>
           </Tab>
@@ -52,7 +58,7 @@ export default class SectionForm extends React.PureComponent<InjectedFormProps<S
             </div>
           </Tab>
           <Tab label="POIS" value="#pois">
-            <POICollection name="pois" component={POICollection} mapBounds={null} />
+            <POICollection name="pois" component={POICollection} mapBounds={this.props.region.bounds} />
           </Tab>
         </Tabs>
       </Form>

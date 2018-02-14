@@ -58,9 +58,7 @@ export class RegionDetails extends React.PureComponent<WithRegion & RouteCompone
                 <ListAdminFooter/>
               </Route>
 
-              <Route exact path={`${match.path}/sections`}>
-                <ListAdminFooter/>
-              </Route>
+              <Route exact path={`${match.path}/sections`} />
 
               <Route>
                 <CardActions>
