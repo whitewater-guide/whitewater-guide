@@ -8,9 +8,7 @@ DECLARE
 BEGIN
   pois := section -> 'pois';
 
-  WITH upserted_river AS (
-      SELECT upsert_river(section -> 'river', lang) AS river
-  ), upserted_section AS (
+  WITH upserted_section AS (
     INSERT INTO sections (
       id,
       river_id,
@@ -28,7 +26,7 @@ BEGIN
     )
     VALUES (
       COALESCE((section ->> 'id') :: UUID, uuid_generate_v1mc()),
-      (SELECT (river ->> 'id') FROM upserted_river) :: UUID,
+      ((section -> 'river') ->> 'id') :: UUID,
       (section -> 'gauge' ->> 'id') :: UUID,
       COALESCE(array_json_to_int(section -> 'seasonNumeric'), '{}' :: INTEGER []),
       section -> 'levels',

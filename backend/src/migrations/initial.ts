@@ -38,7 +38,7 @@ export const up = async (db: Knex) => {
   });
   await addUpdatedAtTrigger(db, 'logins');
   // SOURCES
-  await db.schema.createTableIfNotExists('sources', (table) => {
+  await db.schema.createTable('sources', (table) => {
     table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
     table.string('script', 20).notNullable();
     table.string('cron', 50);
@@ -47,7 +47,7 @@ export const up = async (db: Knex) => {
     table.boolean('enabled').notNullable().defaultTo(false);
     table.timestamps(false, true);
   });
-  await db.schema.createTableIfNotExists('sources_translations', (table) => {
+  await db.schema.createTable('sources_translations', (table) => {
     table
       .uuid('source_id')
       .notNullable()
@@ -64,14 +64,14 @@ export const up = async (db: Knex) => {
   await addUpdatedAtTrigger(db, 'sources_translations');
 
   // Regions
-  await db.schema.createTableIfNotExists('regions', (table) => {
+  await db.schema.createTable('regions', (table) => {
     table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
     table.boolean('hidden').defaultTo(false);
     table.specificType('season_numeric', 'integer[]').notNullable().defaultTo('{}');
     table.specificType('bounds', 'geography(POLYGONZ,4326)');
     table.timestamps(false, true);
   });
-  await db.schema.createTableIfNotExists('regions_translations', (table) => {
+  await db.schema.createTable('regions_translations', (table) => {
     table
       .uuid('region_id')
       .notNullable()
@@ -89,12 +89,12 @@ export const up = async (db: Knex) => {
   await addUpdatedAtTrigger(db, 'regions_translations');
 
   // Points
-  await db.schema.createTableIfNotExists('points', (table) => {
+  await db.schema.createTable('points', (table) => {
     table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
     table.enu('kind', POITypes).notNullable();
     table.specificType('coordinates', 'geography(POINTZ,4326)').notNullable();
   });
-  await db.schema.createTableIfNotExists('points_translations', (table) => {
+  await db.schema.createTable('points_translations', (table) => {
     table
       .uuid('point_id')
       .notNullable()
@@ -108,7 +108,7 @@ export const up = async (db: Knex) => {
   });
 
   // GAUGES
-  await db.schema.createTableIfNotExists('gauges', (table) => {
+  await db.schema.createTable('gauges', (table) => {
     table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
     table.uuid('source_id').notNullable().references('id').inTable('sources').onDelete('CASCADE').index();
     table.uuid('location_id').references('id').inTable('points').onDelete('SET NULL');
@@ -122,7 +122,7 @@ export const up = async (db: Knex) => {
     table.boolean('enabled').notNullable().defaultTo(false);
     table.timestamps(false, true);
   });
-  await db.schema.createTableIfNotExists('gauges_translations', (table) => {
+  await db.schema.createTable('gauges_translations', (table) => {
     table
       .uuid('gauge_id')
       .notNullable()
@@ -138,12 +138,12 @@ export const up = async (db: Knex) => {
   await addUpdatedAtTrigger(db, 'gauges_translations');
 
   // Rivers
-  await db.schema.createTableIfNotExists('rivers', (table) => {
+  await db.schema.createTable('rivers', (table) => {
     table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
     table.uuid('region_id').notNullable().references('id').inTable('regions').onDelete('CASCADE').index();
     table.timestamps(false, true);
   });
-  await db.schema.createTableIfNotExists('rivers_translations', (table) => {
+  await db.schema.createTable('rivers_translations', (table) => {
     table
       .uuid('river_id')
       .notNullable()
@@ -160,25 +160,25 @@ export const up = async (db: Knex) => {
   await addUpdatedAtTrigger(db, 'rivers_translations');
 
   // Points <-> regions many-to-many
-  await db.schema.createTableIfNotExists('regions_points', (table) => {
+  await db.schema.createTable('regions_points', (table) => {
     table.uuid('point_id').notNullable().references('id').inTable('points').onDelete('CASCADE');
     table.uuid('region_id').notNullable().references('id').inTable('regions').onDelete('CASCADE');
     table.primary(['point_id', 'region_id']);
   });
 
   // Sources <-> regions many-to-many
-  await db.schema.createTableIfNotExists('sources_regions', (table) => {
+  await db.schema.createTable('sources_regions', (table) => {
     table.uuid('source_id').notNullable().references('id').inTable('sources').onDelete('CASCADE');
     table.uuid('region_id').notNullable().references('id').inTable('regions').onDelete('CASCADE');
     table.primary(['source_id', 'region_id']);
   });
 
   // Tags
-  await db.schema.createTableIfNotExists('tags', (table) => {
+  await db.schema.createTable('tags', (table) => {
     table.string('id').primary();
     table.specificType('category', 'tag_category').notNullable().index();
   });
-  await db.schema.createTableIfNotExists('tags_translations', (table) => {
+  await db.schema.createTable('tags_translations', (table) => {
     table
       .string('tag_id')
       .notNullable()
@@ -191,7 +191,7 @@ export const up = async (db: Knex) => {
   });
 
   // Sections
-  await db.schema.createTableIfNotExists('sections', (table) => {
+  await db.schema.createTable('sections', (table) => {
     table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
     table.uuid('river_id').notNullable().references('id').inTable('rivers').onDelete('CASCADE').index();
     table.uuid('gauge_id').references('id').inTable('gauges').onDelete('SET NULL');
@@ -208,7 +208,7 @@ export const up = async (db: Knex) => {
 
     table.timestamps(false, true);
   });
-  await db.schema.createTableIfNotExists('sections_translations', (table) => {
+  await db.schema.createTable('sections_translations', (table) => {
     table
       .uuid('section_id')
       .notNullable()
@@ -229,13 +229,13 @@ export const up = async (db: Knex) => {
   await addUpdatedAtTrigger(db, 'sections');
   await addUpdatedAtTrigger(db, 'sections_translations');
   // Points <-> sections POIS many-to-many
-  await db.schema.createTableIfNotExists('sections_points', (table) => {
+  await db.schema.createTable('sections_points', (table) => {
     table.uuid('point_id').notNullable().references('id').inTable('points').onDelete('CASCADE');
     table.uuid('section_id').notNullable().references('id').inTable('sections').onDelete('CASCADE');
     table.primary(['point_id', 'section_id']);
   });
   // Tags <-> sections many-to-many
-  await db.schema.createTableIfNotExists('sections_tags', (table) => {
+  await db.schema.createTable('sections_tags', (table) => {
     table.string('tag_id').notNullable().references('id').inTable('tags').onDelete('CASCADE');
     table.uuid('section_id').notNullable().references('id').inTable('sections').onDelete('CASCADE');
     table.primary(['tag_id', 'section_id']);

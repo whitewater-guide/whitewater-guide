@@ -100,6 +100,7 @@ const upsertQuery = `
 const existingRiverSection: SectionInput = {
   id: null,
   name: 'Playrun',
+  altNames: null,
   description: 'Playrun description',
   season: 'Playrun season',
   seasonNumeric: [1, 2, 3],
@@ -135,17 +136,6 @@ const existingRiverSection: SectionInput = {
     { id: null, name: 'playrun pt 1', description: 'pt 1 d', kind: 'other', coordinates: [10, 12, 0] },
     { id: null, name: 'playrun pt 2', description: 'pt 2 d', kind: 'portage', coordinates: [33, 34, 0] },
   ],
-};
-
-const newRiverSection: SectionInput = {
-  ...existingRiverSection,
-  river: {
-    id: null,
-    name: 'Ula',
-    region: {
-      id: 'b968e2b2-76c5-11e7-b5a5-be2e44b06b34',
-    },
-  },
 };
 
 const updateData: SectionInput = {
@@ -191,6 +181,7 @@ const updateData: SectionInput = {
 const invalidSection: SectionInput = {
   id: null,
   name: 'z',
+  altNames: ['x'],
   description: null,
   season: null,
   seasonNumeric: [300, 2, 3],
@@ -277,31 +268,6 @@ describe('insert', () => {
     });
   });
 
-  describe('new river', () => {
-    let insertResult: any;
-    let insertedSection: any;
-
-    beforeEach(async () => {
-      insertResult = await runQuery(upsertQuery, { section: newRiverSection }, adminContext);
-      insertedSection = insertResult && insertResult.data && insertResult.data.upsertSection;
-    });
-
-    afterEach(() => {
-      insertResult = null;
-      insertedSection = null;
-    });
-
-    it('should return result', async () => {
-      expect(insertResult.errors).toBeUndefined();
-      expect(noUnstable(insertResult)).toMatchSnapshot();
-    });
-
-    it('should create new river', async () => {
-      const rivers = await db().table('rivers').count().first();
-      expect(Number(rivers.count) - riversBefore).toBe(1);
-    });
-  });
-
 });
 
 describe('update', () => {
@@ -379,6 +345,7 @@ describe('i18n', () => {
   const amotFr: SectionInput = {
     id: '21f2351e-d52a-11e7-9296-cec278b6b50a',
     name: 'Amot FR',
+    altNames: ['Le Amot'],
     river: {
       id: 'd4396dac-d528-11e7-9296-cec278b6b50a',
       name: 'Sjoa',

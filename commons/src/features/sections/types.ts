@@ -62,6 +62,7 @@ export interface Section extends NamedNode, Timestamped {
 export interface SectionInput {
   id: string | null;
   name: string;
+  altNames: string[] | null;
   description: string | null;
   season: string | null;
   seasonNumeric: number[];
