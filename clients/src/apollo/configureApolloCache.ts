@@ -15,7 +15,7 @@ export const configureApolloCache = () =>
   new InMemoryCache({
     dataIdFromObject,
     addTypename: true,
-    cacheResolvers: {
+    cacheRedirects: {
       Query: {
         region: (_, { id, language = 'en' }) => toIdValue(dataIdFromObject({ __typename: 'Region', id,  language })!),
         source: (_, { id, language = 'en' }) => toIdValue(dataIdFromObject({ __typename: 'Source', id,  language })!),

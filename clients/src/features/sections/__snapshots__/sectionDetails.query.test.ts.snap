@@ -4,6 +4,7 @@ exports[`should generate correct query 1`] = `
 "query sectionDetails($sectionId: ID, $language: String) {
   section(id: $sectionId, language: $language) {
     ... on Section {
+      id
       name
       language
       altNames

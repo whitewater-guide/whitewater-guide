@@ -4,7 +4,7 @@ exports[`should match snapshot 1`] = `
 Array [
   Object {
     "__typename": "Tag",
-    "category": "supply",
+    "category": "hazards",
     "id": "Asperiores quisquam",
     "language": "Alias magni corporis",
     "name": "Ratione labore explicabo",

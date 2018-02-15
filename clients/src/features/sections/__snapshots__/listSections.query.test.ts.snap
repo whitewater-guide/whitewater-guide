@@ -5,6 +5,7 @@ exports[`should generate correct query 1`] = `
   sections(language: $language, page: $page, filter: $filter) {
     nodes {
       ... on Section {
+        id
         name
         language
         altNames

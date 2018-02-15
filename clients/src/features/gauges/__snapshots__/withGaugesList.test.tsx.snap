@@ -4,6 +4,7 @@ exports[`should match snapshot 1`] = `
 Object {
   "count": 20,
   "error": undefined,
+  "fetchMore": [Function],
   "loading": false,
   "nodes": Array [
     Object {
