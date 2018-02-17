@@ -7,10 +7,21 @@ export const SECTION_FORM_QUERY = gql`
       ...SectionCore
       ...SectionDescription
       ...SectionShape
-      ...SectionMeasurements
       ...SectionMeta
       ...SectionPOIs
       ...SectionTags
+      gauge {
+        id
+        language
+        name
+      }
+      levels {
+        ...GaugeBindingAll
+      }
+      flows {
+        ...GaugeBindingAll
+      }
+      flowsText
     }
     river(id: $riverId, language: $language) {
       id
@@ -40,7 +51,7 @@ export const SECTION_FORM_QUERY = gql`
   ${SectionFragments.Core}
   ${SectionFragments.Description}
   ${SectionFragments.Shape}
-  ${SectionFragments.Measurements}
+  ${SectionFragments.GaugeBinding.All}
   ${SectionFragments.Meta}
   ${SectionFragments.POIs}
   ${SectionFragments.Tags}

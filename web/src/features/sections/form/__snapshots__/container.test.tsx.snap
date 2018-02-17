@@ -1,0 +1,263 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should match snapshot for existing section 1`] = `
+Object {
+  "altNames": Array [
+    "Omnis et",
+    "Delectus et ipsam",
+  ],
+  "description": EditorState {
+    "_immutable": Object {
+      "allowUndo": true,
+      "currentContent": Object {
+        "blockMap": Object {
+          "random_key": Object {
+            "characterList": Array [
+              Object {
+                "entity": null,
+                "style": Array [],
+              },
+              Object {
+                "entity": null,
+                "style": Array [],
+              },
+              Object {
+                "entity": null,
+                "style": Array [],
+              },
+              Object {
+                "entity": null,
+                "style": Array [],
+              },
+              Object {
+                "entity": null,
+                "style": Array [],
+              },
+              Object {
+                "entity": null,
+                "style": Array [],
+              },
+              Object {
+                "entity": null,
+                "style": Array [],
+              },
+              Object {
+                "entity": null,
+                "style": Array [],
+              },
+              Object {
+                "entity": null,
+                "style": Array [],
+              },
+              Object {
+                "entity": null,
+                "style": Array [],
+              },
+              Object {
+                "entity": null,
+                "style": Array [],
+              },
+              Object {
+                "entity": null,
+                "style": Array [],
+              },
+              Object {
+                "entity": null,
+                "style": Array [],
+              },
+            ],
+            "data": Object {},
+            "depth": 0,
+            "key": "random_key",
+            "text": "Voluptates ut",
+            "type": "unstyled",
+          },
+        },
+        "entityMap": Object {
+          "__add": [Function],
+          "__create": [Function],
+          "__get": [Function],
+          "__getLastCreatedEntityKey": [Function],
+          "__mergeData": [Function],
+          "__replaceData": [Function],
+          "add": [Function],
+          "create": [Function],
+          "get": [Function],
+          "getLastCreatedEntityKey": [Function],
+          "mergeData": [Function],
+          "replaceData": [Function],
+        },
+        "selectionAfter": Object {
+          "anchorKey": "random_key",
+          "anchorOffset": 0,
+          "focusKey": "random_key",
+          "focusOffset": 0,
+          "hasFocus": false,
+          "isBackward": false,
+        },
+        "selectionBefore": Object {
+          "anchorKey": "random_key",
+          "anchorOffset": 0,
+          "focusKey": "random_key",
+          "focusOffset": 0,
+          "hasFocus": false,
+          "isBackward": false,
+        },
+      },
+      "decorator": null,
+      "directionMap": Object {
+        "random_key": "LTR",
+      },
+      "forceSelection": false,
+      "inCompositionMode": false,
+      "inlineStyleOverride": null,
+      "lastChangeType": null,
+      "nativelyRenderedContent": null,
+      "redoStack": Array [],
+      "selection": Object {
+        "anchorKey": "random_key",
+        "anchorOffset": 0,
+        "focusKey": "random_key",
+        "focusOffset": 0,
+        "hasFocus": false,
+        "isBackward": false,
+      },
+      "treeMap": Object {
+        "random_key": Array [
+          Object {
+            "decoratorKey": null,
+            "end": 13,
+            "leaves": Array [
+              Object {
+                "end": 13,
+                "start": 0,
+              },
+            ],
+            "start": 0,
+          },
+        ],
+      },
+      "undoStack": Array [],
+    },
+  },
+  "difficulty": 0.1300285691395402,
+  "difficultyXtra": "Voluptatem dicta cum",
+  "distance": 0.9033701713196933,
+  "drop": 0.28777534305118024,
+  "duration": -761,
+  "flows": Object {
+    "approximate": false,
+    "impossible": 0.8635418526828289,
+    "maximum": 0.3878606455400586,
+    "minimum": 0.6129480903036892,
+    "optimum": 0.42690982366912067,
+  },
+  "flowsText": "Molestiae iste molestiae",
+  "gauge": Object {
+    "id": "2c8c3e0b-9120-4601-8831-c4838fd41341",
+    "name": "Consequatur voluptatem vel",
+  },
+  "hazardsTags": Array [],
+  "id": "7fbe024f-3316-4265-a6e8-c65a837e308a",
+  "kayakingTags": Array [
+    Object {
+      "category": "kayaking",
+      "id": "Asperiores quasi quia",
+      "name": "Adipisci optio laudantium",
+    },
+  ],
+  "levels": Object {
+    "approximate": false,
+    "impossible": 0.7173916019964963,
+    "maximum": 0.28976000170223415,
+    "minimum": 0.8006326730828732,
+    "optimum": 0.23297427338548005,
+  },
+  "miscTags": Array [],
+  "name": "Esse blanditiis natus",
+  "pois": Array [
+    Object {
+      "coordinates": Array [
+        0.3612610234413296,
+        0.34776585921645164,
+      ],
+      "description": "Dolorem et molestiae",
+      "id": "8992f94b-2186-4fb7-980c-90a28cf09ee8",
+      "kind": "Placeat quidem est",
+      "name": "Aut vel in",
+    },
+    Object {
+      "coordinates": Array [
+        0.5786339319311082,
+        0.5270581059157848,
+      ],
+      "description": "Et sequi voluptas",
+      "id": "3eb9ac55-d45e-4c6e-b0a7-811cf1759f66",
+      "kind": "Rerum impedit",
+      "name": "Sunt corporis consequatur",
+    },
+  ],
+  "rating": 0.9168613343499601,
+  "river": Object {
+    "altNames": Array [
+      "Veniam ducimus",
+      "Modi odit architecto",
+    ],
+    "id": "0b8eded1-c042-40ea-896a-e683b452acd6",
+    "name": "Maiores distinctio placeat",
+  },
+  "season": "Totam et",
+  "seasonNumeric": Array [
+    -808,
+    -413,
+  ],
+  "shape": Array [
+    Array [
+      0.29893011087551713,
+      0.49157316028140485,
+    ],
+    Array [
+      0.584389123832807,
+      0.0533625443931669,
+    ],
+  ],
+  "supplyTags": Array [
+    Object {
+      "category": "supply",
+      "id": "Rem et",
+      "name": "Non eum",
+    },
+  ],
+}
+`;
+
+exports[`should match snapshot for new section 1`] = `
+Object {
+  "altNames": Array [],
+  "description": null,
+  "difficulty": null,
+  "difficultyXtra": null,
+  "distance": null,
+  "drop": null,
+  "duration": null,
+  "flows": null,
+  "flowsText": null,
+  "gauge": null,
+  "hazardsTags": Array [],
+  "id": null,
+  "kayakingTags": Array [],
+  "levels": null,
+  "miscTags": Array [],
+  "name": "",
+  "pois": Array [],
+  "rating": null,
+  "river": Object {
+    "id": "7fbe024f-3316-4265-a6e8-c65a837e308a",
+    "name": "Esse blanditiis natus",
+  },
+  "season": null,
+  "seasonNumeric": Array [],
+  "shape": null,
+  "supplyTags": Array [],
+}
+`;

@@ -8,6 +8,7 @@ const cleanup = (value: any) => omit(value, ['__typename', 'language', 'createdA
  * Convert graphql query result into something that can be feed into form
  * @param {string[]} markdownFields Fields that come as markdown, will be converted to Draft.js format
  * @param {string[]} refs one-to-one connections, like section->river
+ * OR one-to-many connections which are not wrapped into lists (like POIs, tags)
  * @param {string[]} connections one-to-many connections, like source->regions.
  * Come in { nodes: [], count } object which must be unfolded
  * @returns {(input?: (object | null)) => (undefined | any)} Function to deserialize accoring to rules above

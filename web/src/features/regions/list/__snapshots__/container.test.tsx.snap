@@ -2,10 +2,23 @@
 
 exports[`should match snapshot 1`] = `
 Object {
+  "isAdmin": false,
+  "isSuperAdmin": false,
+  "me": Object {
+    "__typename": "User",
+    "avatar": "Cumque incidunt",
+    "email": "Provident esse",
+    "id": "547c3117-6e14-4e41-8801-be3e44790999",
+    "name": "Tenetur officia",
+    "role": 900,
+    Symbol(id): "User:547c3117-6e14-4e41-8801-be3e44790999",
+  },
+  "meLoading": false,
   "mutating": false,
   "regions": Object {
     "count": 496,
     "error": undefined,
+    "fetchMore": [Function],
     "loading": false,
     "nodes": Array [
       Object {
