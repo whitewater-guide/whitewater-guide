@@ -1,6 +1,6 @@
-import Rating from 'react-rating';
 import * as React from 'react';
 import { Column, TableCellRenderer } from 'react-virtualized';
+import { Rating } from '../../../components';
 import { ResourcesList } from '../../../layout';
 import { renderDifficulty } from '../../../ww-clients/utils';
 import { Section } from '../../../ww-commons';
@@ -27,14 +27,7 @@ export default class SectionsList extends React.PureComponent<SectionsListProps,
   renderDifficulty: TableCellRenderer = ({ rowData }) => renderDifficulty(rowData);
 
   renderRating: TableCellRenderer = ({ rowData: { rating } }) => (
-    <Rating
-      readonly
-      start={0}
-      stop={5}
-      initialRating={rating}
-      emptySymbol={<i className="material-icons">star_border</i>}
-      fullSymbol={<i className="material-icons">star</i>}
-    />
+    <Rating value={rating} />
   );
 
   render() {

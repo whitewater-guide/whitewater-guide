@@ -23,6 +23,13 @@ export const SECTION_FORM_QUERY = gql`
       name
       language
       bounds
+      gauges {
+        nodes {
+          id
+          name
+          language
+        }
+      }
     }
   }
   ${SectionFragments.Core}
