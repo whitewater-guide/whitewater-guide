@@ -42,3 +42,11 @@ it('should match snapshot for existing section', async () => {
 it('should have region with bounds and gauges', () => {
   throw new Error();
 });
+
+it('should have river to display river name in new section form', () => {
+  throw new Error();
+});
+
+it('should have tags to select from', () => {
+  throw new Error();
+});

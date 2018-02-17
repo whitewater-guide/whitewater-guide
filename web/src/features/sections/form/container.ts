@@ -1,7 +1,8 @@
-import { mapProps, compose } from 'recompose';
-import { deserializeForm, formContainer, serializeForm } from '../../../components/forms';
+import { compose, mapProps } from 'recompose';
+import { formContainer, serializeForm } from '../../../components/forms';
 import { withFeatureIds } from '../../../ww-clients/core';
-import { SectionInputSchema } from '../../../ww-commons';
+import { SectionFormSchema } from '../../../ww-commons';
+import deserializeSection from './deserializeSection';
 import { SECTION_FORM_QUERY } from './sectionForm.query';
 import UPSERT_SECTION from './upsertSection.mutation';
 
@@ -17,9 +18,9 @@ const sectionForm = formContainer({
   }),
   query: SECTION_FORM_QUERY,
   mutation: UPSERT_SECTION,
-  serializeForm: serializeForm(['description']),
-  deserializeForm: deserializeForm(['description'], ['region', 'river', 'pois']),
-  validationSchema: SectionInputSchema,
+  serializeForm: serializeForm(['description'], ['river', 'gauge'], ['pois', 'tags']),
+  deserializeForm: deserializeSection,
+  validationSchema: SectionFormSchema,
 });
 
 export default compose(
@@ -28,6 +29,7 @@ export default compose(
   mapProps(({ data, ...props }) => ({
     region: data.region,
     river: data.river,
+    tags: data.tags,
     ...props,
   })),
 );

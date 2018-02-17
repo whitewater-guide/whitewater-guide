@@ -4,20 +4,23 @@ import * as React from 'react';
 import { Tabs } from '../../../components';
 import {
   Checkbox,
+  ChipInput,
   DraftEditor,
   DrawingMapField,
   Form,
   POICollection,
-  RatingInput, SeasonPicker,
+  RatingInput,
+  SeasonPicker,
   Select,
   ShapeInput,
   StringArrayInput,
-  TextInput
+  TextInput,
 } from '../../../components/forms';
 import { Durations, NamedNode } from '../../../ww-commons';
 import { Row } from '../../../layout';
 import { Styles } from '../../../styles';
 import { SectionFormProps } from './types';
+import { groupBy } from 'lodash';
 
 const styles: Styles = {
   container: {
@@ -42,6 +45,12 @@ Durations.forEach((val, key) => DURATIONS_OPTIONS.push({ id: key as any, name: v
 
 export default class SectionForm extends React.PureComponent<SectionFormProps> {
   render() {
+    const {
+      kayaking = [],
+      hazards = [],
+      supply = [],
+      misc = [],
+    } = groupBy(this.props.tags, 'category');
     return (
       <Form {...this.props} resourceType="section">
         <Tabs>
@@ -81,6 +90,10 @@ export default class SectionForm extends React.PureComponent<SectionFormProps> {
             </Row>
             <TextInput fullWidth name="season" title="Season" />
             <SeasonPicker name="seasonNumeric" />
+            <ChipInput name="supplyTags" title="River supply" options={supply} />
+            <ChipInput name="kayakingTags" title="Kayaking types" options={kayaking} />
+            <ChipInput name="hazardsTags" title="Hazards" options={hazards} />
+            <ChipInput name="miscTags" title="Tags" options={misc} />
           </Tab>
           <Tab label="Shape" value="#shape">
             <div style={styles.container}>

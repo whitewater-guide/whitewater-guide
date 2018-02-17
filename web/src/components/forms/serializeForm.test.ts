@@ -17,8 +17,17 @@ const inputWithDraft = {
   description: EditorState.createWithContent(ContentState.createFromText('foo')),
 };
 
-const inputWithConnections = {
+const inputWithRef = {
   ...inputWithDraft,
+  river: {
+    id: 'river_id',
+    name: 'river',
+    altNames: ['saa', 'eee'],
+  },
+};
+
+const inputWithConnections = {
+  ...inputWithRef,
   sources: [{
     __typename: 'Source',
     id: 'source_id',
@@ -27,7 +36,7 @@ const inputWithConnections = {
   }],
 };
 
-const serializer = serializeForm(['description'], ['sources']);
+const serializer = serializeForm(['description'], [], ['sources']);
 
 it('should handle undefined input', () => {
   expect(serializer(undefined)).toBeNull();
@@ -39,6 +48,15 @@ it('should serialize empty markdown field', () => {
 
 it('should transform draft.js into markdown string', () => {
   expect(serializer(inputWithDraft)!.description).toBe('foo');
+});
+
+it('should strip refs to ids only', () => {
+  expect(serializer(inputWithConnections)!.river).toEqual({ id: 'river_id' });
+});
+
+it('should handle undefined refs', () => {
+  const withUndefinedRef = { ...inputWithConnections, river: undefined };
+  expect(serializer(withUndefinedRef)!.river).toBeNull();
 });
 
 it('should strip connections to ids only', () => {

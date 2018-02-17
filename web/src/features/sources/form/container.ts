@@ -23,7 +23,7 @@ const sourceForm = formContainer({
   defaultValue: NEW_SOURCE,
   query: SOURCE_FORM_QUERY,
   mutation: UPSERT_SOURCE,
-  serializeForm: serializeForm(['termsOfUse'], ['regions']),
+  serializeForm: serializeForm(['termsOfUse'], [], ['regions']),
   deserializeForm: deserializeForm(['termsOfUse'], [], ['regions']),
   validationSchema: SourceFormSchema,
 });

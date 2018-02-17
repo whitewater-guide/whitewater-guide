@@ -104,7 +104,7 @@ BEGIN
     INTO point_ids;
   END IF;
 
-  -- delete all existing points for this region
+  -- delete all existing points for this section
   -- sections_points will be deleted by ON DELETE CASCADE
   -- points_translations will be deleted by ON DELETE CASCADE
   DELETE FROM points

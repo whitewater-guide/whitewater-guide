@@ -6,7 +6,6 @@ export const SECTION_FORM_QUERY = gql`
     section(id: $sectionId, language: $language) {
       ...SectionCore
       ...SectionDescription
-      ...SectionEnds
       ...SectionShape
       ...SectionMeasurements
       ...SectionMeta
@@ -31,10 +30,15 @@ export const SECTION_FORM_QUERY = gql`
         }
       }
     }
+    tags(language: $language) {
+      id
+      language
+      name
+      category
+    }
   }
   ${SectionFragments.Core}
   ${SectionFragments.Description}
-  ${SectionFragments.Ends}
   ${SectionFragments.Shape}
   ${SectionFragments.Measurements}
   ${SectionFragments.Meta}

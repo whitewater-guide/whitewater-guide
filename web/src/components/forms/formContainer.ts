@@ -6,6 +6,7 @@ import { ChildProps, graphql } from 'react-apollo';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { compose, mapProps } from 'recompose';
 import { ConfigProps, InjectedFormProps, reduxForm, SubmissionError } from 'redux-form';
+import { apolloErrorToString } from '../../ww-clients/apollo';
 import { withLoading } from '../withLoading';
 import { validateInput } from './validateInput';
 import { withLanguage, WithLanguage } from './withLanguage';
@@ -101,7 +102,7 @@ export const formContainer = <QueryResult, MutationResult, FormInput>(
           return mutate!({ variables: { [propName]: serializeForm(input), language } })
             .then(() => history.replace(path!))
             .catch((e: ApolloError) => {
-              throw new SubmissionError({ _error: e.message });
+              throw new SubmissionError({ _error: apolloErrorToString(e) });
             });
         },
       };

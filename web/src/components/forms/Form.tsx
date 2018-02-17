@@ -1,7 +1,9 @@
 import { CardActions, CardHeader, CardMedia } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
+import Snackbar from 'material-ui/Snackbar';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 import * as React from 'react';
+import * as CopyToClipboard from 'react-copy-to-clipboard';
 import { InjectedFormProps } from 'redux-form';
 import { Styles, Themeable } from '../../styles';
 import { Content } from '../Content';
@@ -30,6 +32,19 @@ type InnerProps = Props & Themeable & WithLanguage;
 
 class FormBase extends React.PureComponent<InnerProps> {
 
+  renderSnackbar = () => {
+    const { error = '' } = this.props;
+    const [short = '', full = ''] = error.split('\n\n');
+    const action = (
+      <CopyToClipboard text={full}>
+        <span>copy</span>
+      </CopyToClipboard>
+    );
+    return (
+      <Snackbar action={action} open={!!error} message={short} autoHideDuration={7000} />
+    );
+  };
+
   render() {
     const { initialValues, resourceType, muiTheme, language, onLanguageChange } = this.props;
     const submitLabel = (initialValues && initialValues.id) ? 'Update' : 'Create';
@@ -49,6 +64,7 @@ class FormBase extends React.PureComponent<InnerProps> {
         <CardActions>
           <FlatButton label={submitLabel} onClick={this.props.handleSubmit} />
         </CardActions>
+        {this.renderSnackbar()}
       </Content>
     );
   }

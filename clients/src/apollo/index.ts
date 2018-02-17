@@ -1,3 +1,4 @@
+export * from './apolloErrorToString';
 export * from './configureApolloCache';
 export * from './configureApolloClient';
 export * from './enhancedQuery';

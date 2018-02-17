@@ -47,12 +47,6 @@ type Section {
   pois: [Point]!
 }
 
-input SectionRiverInput {
-  id: ID
-  name: String
-  region: RefInput!
-}
-
 input SectionInput {
   id: ID
   name: String!
@@ -61,7 +55,7 @@ input SectionInput {
   season: String
   seasonNumeric: [Int]
 
-  river: SectionRiverInput!
+  river: RefInput!
   gauge: RefInput
   levels: GaugeBindingInput
   flows: GaugeBindingInput

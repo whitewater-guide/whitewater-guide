@@ -20,8 +20,6 @@ export const SectionInputSchema = Joi.object().keys({
 
   river: Joi.object().keys({
     id: Joi.string().guid().allow(null),
-    name: Joi.string().min(3).max(100),
-    region: Joi.object().keys({ id: Joi.string().guid() }),
   }),
   gauge: Joi.object().keys({ id: Joi.string().guid() }).allow(null),
   levels: GaugeBindingSchema.allow(null),
@@ -39,4 +37,9 @@ export const SectionInputSchema = Joi.object().keys({
     id: Joi.string(),
   })),
   pois: Joi.array().items(PointInputSchema),
+});
+
+// description is draft.js EditorState
+export const SectionFormSchema = SectionInputSchema.keys({
+  description: Joi.any(),
 });

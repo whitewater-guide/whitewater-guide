@@ -22,12 +22,6 @@ const Core = gql`
     season
     seasonNumeric
 
-    region {
-      id
-      language
-      name
-    }
-
     distance
     drop
     duration

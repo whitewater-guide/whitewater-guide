@@ -19,7 +19,7 @@ export default class SectionsList extends React.PureComponent<SectionsListProps,
     // console.log(id);
   };
 
-  customSettingsLink = (row: Section) => `/regions/${row.region.id}/sections/${row.id}/settings`;
+  customSettingsLink = (row: Section) => `/regions/${this.props.regionId}/sections/${row.id}/settings`;
 
   renderName: TableCellRenderer = ({ rowData: { river: { name: riverName }, name } }) =>
     `${riverName} - ${name}`;
