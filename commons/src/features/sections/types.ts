@@ -69,11 +69,7 @@ export interface SectionInput {
   season: string | null;
   seasonNumeric: number[];
 
-  river: {
-    id: string | null;
-    name: string;
-    region: Node;
-  };
+  river: Node;
   gauge: Node | null;
   levels: GaugeBinding | null;
   flows: GaugeBinding | null;

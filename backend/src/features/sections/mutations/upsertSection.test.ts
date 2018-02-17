@@ -7,6 +7,7 @@ let sectionsPointsBefore: number;
 let pointsBefore: number;
 let riversBefore: number;
 let sectionsBefore: number;
+let tagsBefore: number;
 
 beforeAll(async () => {
   const rp = await db(true).table('sections_points').count().first();
@@ -17,6 +18,8 @@ beforeAll(async () => {
   riversBefore = Number(rivers.count);
   const sections = await db(true).table('sections').count().first();
   sectionsBefore = Number(sections.count);
+  const tags = await db(true).table('sections_tags').count().first();
+  tagsBefore = Number(tags.count);
 });
 
 beforeEach(holdTransaction);
@@ -106,10 +109,6 @@ const existingRiverSection: SectionInput = {
   seasonNumeric: [1, 2, 3],
   river: {
     id: 'd4396dac-d528-11e7-9296-cec278b6b50a',
-    name: 'Sjoa',
-    region: {
-      id: 'b968e2b2-76c5-11e7-b5a5-be2e44b06b34',
-    },
   },
   gauge: {
     id: 'c03184b4-aaa0-11e7-abc4-cec278b6b50a',
@@ -143,10 +142,6 @@ const updateData: SectionInput = {
   id: '2b01742c-d443-11e7-9296-cec278b6b50a', // galician river 1 section 1
   river: {
     id: 'a8416664-bfe3-11e7-abc4-cec278b6b50a',
-    name: 'Gal_Riv_One',
-    region: {
-      id: 'bd3e10b6-7624-11e7-b5a5-be2e44b06b34',
-    },
   },
   gauge: {
     id: 'aba8c106-aaa0-11e7-abc4-cec278b6b50a', // Galicia gauge 1
@@ -176,6 +171,8 @@ const updateData: SectionInput = {
       coordinates: [50.1, 50.2, 333],
     },
   ],
+  // Delete one tag, add two new tags, keep one old
+  tags: [{ id: 'creeking' }, { id: 'undercuts' }, { id: 'snowmelt' }],
 };
 
 const invalidSection: SectionInput = {
@@ -187,10 +184,6 @@ const invalidSection: SectionInput = {
   seasonNumeric: [300, 2, 3],
   river: {
     id: 'd4396dac-d528-11e7-9296-cec278b6b50a',
-    name: 'Sjoa',
-    region: {
-      id: 'b968e2b2-76c5-11e7-b5a5-be2e44b06b34',
-    },
   },
   gauge: null,
   levels: null,
@@ -231,43 +224,45 @@ describe('resolvers chain', () => {
 });
 
 describe('insert', () => {
-  describe('existing river', () => {
-    let insertResult: any;
-    let insertedSection: any;
+  let insertResult: any;
+  let insertedSection: any;
 
-    beforeEach(async () => {
-      insertResult = await runQuery(upsertQuery, { section: existingRiverSection }, adminContext);
-      insertedSection = insertResult && insertResult.data && insertResult.data.upsertSection;
-    });
-
-    afterEach(() => {
-      insertResult = null;
-      insertedSection = null;
-    });
-
-    it('should return result', () => {
-      expect(insertResult.errors).toBeUndefined();
-      expect(noUnstable(insertResult)).toMatchSnapshot();
-    });
-
-    it('should increase total number of sections', async () => {
-      const sections = await db().table('sections').count().first();
-      expect(Number(sections.count) - sectionsBefore).toBe(1);
-    });
-
-    it('should not change total number of rivers', async () => {
-      const rivers = await db().table('rivers').count().first();
-      expect(Number(rivers.count) - riversBefore).toBe(0);
-    });
-
-    it('should insert pois', async () => {
-      const rp = await db().table('sections_points').count().first();
-      expect(Number(rp.count) - sectionsPointsBefore).toBe(2);
-      const points = await db().table('points').count().first();
-      expect(Number(points.count) - pointsBefore).toBe(2);
-    });
+  beforeEach(async () => {
+    insertResult = await runQuery(upsertQuery, { section: existingRiverSection }, adminContext);
+    insertedSection = insertResult && insertResult.data && insertResult.data.upsertSection;
   });
 
+  afterEach(() => {
+    insertResult = null;
+    insertedSection = null;
+  });
+
+  it('should return result', () => {
+    expect(insertResult.errors).toBeUndefined();
+    expect(noUnstable(insertResult)).toMatchSnapshot();
+  });
+
+  it('should increase total number of sections', async () => {
+    const sections = await db().table('sections').count().first();
+    expect(Number(sections.count) - sectionsBefore).toBe(1);
+  });
+
+  it('should not change total number of rivers', async () => {
+    const rivers = await db().table('rivers').count().first();
+    expect(Number(rivers.count) - riversBefore).toBe(0);
+  });
+
+  it('should insert pois', async () => {
+    const rp = await db().table('sections_points').count().first();
+    expect(Number(rp.count) - sectionsPointsBefore).toBe(2);
+    const points = await db().table('points').count().first();
+    expect(Number(points.count) - pointsBefore).toBe(2);
+  });
+
+  it('should insert tags', async () => {
+    const tags = await db().table('sections_tags').count().first();
+    expect(Number(tags.count) - tagsBefore).toBe(2);
+  });
 });
 
 describe('update', () => {
@@ -339,6 +334,11 @@ describe('update', () => {
       .where({ id: 'ca0bee06-d445-11e7-9296-cec278b6b50a', language: 'en' }).first();
     expect(point.name).toBe('Updated poi name');
   });
+
+  it('should change number of tags', async () => {
+    const tags = await db().table('sections_tags').count().first();
+    expect(Number(tags.count) - tagsBefore).toBe(1);
+  });
 });
 
 describe('i18n', () => {
@@ -348,8 +348,6 @@ describe('i18n', () => {
     altNames: ['Le Amot'],
     river: {
       id: 'd4396dac-d528-11e7-9296-cec278b6b50a',
-      name: 'Sjoa',
-      region: { id: 'b968e2b2-76c5-11e7-b5a5-be2e44b06b34' },
     }, // Sjoa
     seasonNumeric: [10, 11, 12, 13, 14, 15, 16],
     shape: [[1, 1, 0], [2, 2, 0]],

@@ -4,9 +4,11 @@ DECLARE
   upserted_section_id UUID;
   result              JSON;
   pois               JSON;
+  tags               JSON;
   point_ids          UUID[] := '{}'::UUID[];
 BEGIN
   pois := section -> 'pois';
+  tags := section -> 'tags';
 
   WITH upserted_section AS (
     INSERT INTO sections (
@@ -114,6 +116,16 @@ BEGIN
                      sections_points.point_id = points.id AND
                      NOT(sections_points.point_id = ANY(point_ids))
   );
+
+  ---------------- TAGS ----------------
+  -- Delete all old tags
+  DELETE FROM sections_tags WHERE section_id = upserted_section_id;
+  -- Insert new tags
+  IF tags IS NOT NULL THEN
+    INSERT INTO sections_tags(tag_id, section_id)
+      SELECT id, upserted_section_id from json_to_recordset(tags) as x(id VARCHAR);
+  END IF;
+  ------------- END OF TAGS-------------
 
   -- return the result
   SELECT to_json(sections_view)

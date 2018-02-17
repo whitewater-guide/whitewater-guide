@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`insert existing river should return result 1`] = `
+exports[`insert should return result 1`] = `
 Object {
   "data": Object {
     "upsertSection": Object {
@@ -81,7 +81,16 @@ Object {
           0,
         ],
       ],
-      "tags": Array [],
+      "tags": Array [
+        Object {
+          "language": "en",
+          "name": "Waterfalls",
+        },
+        Object {
+          "language": "en",
+          "name": "Undercuts",
+        },
+      ],
       "takeOut": Object {
         "coordinates": Array [
           34,
@@ -230,11 +239,15 @@ Object {
       "tags": Array [
         Object {
           "language": "en",
-          "name": "Waterfalls",
+          "name": "Creeking",
         },
         Object {
           "language": "en",
           "name": "Undercuts",
+        },
+        Object {
+          "language": "en",
+          "name": "Snowmelt",
         },
       ],
       "takeOut": Object {
