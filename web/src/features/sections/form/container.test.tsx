@@ -39,6 +39,6 @@ it('should match snapshot for existing section', async () => {
   expect(receiver.prop('initialValues')).toMatchSnapshot();
 });
 
-it('should have region with bounds', () => {
+it('should have region with bounds and gauges', () => {
   throw new Error();
 });

@@ -5,6 +5,7 @@ export * from './DrawingMapField';
 export * from './LanguagePicker';
 export * from './PointInput';
 export * from './POICollection';
+export * from './RatingInput';
 export * from './SeasonPicker';
 export * from './Select';
 export * from './ShapeInput';

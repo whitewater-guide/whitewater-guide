@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should match snapshot 1`] = `
+Object {
+  "count": 526,
+  "error": undefined,
+  "fetchMore": [Function],
+  "loading": false,
+  "nodes": Array [
+    Object {
+      "__typename": "River",
+      "altNames": Array [
+        "Omnis et",
+        "Delectus et ipsam",
+      ],
+      "id": "7fbe024f-3316-4265-a6e8-c65a837e308a",
+      "language": "Esse blanditiis natus",
+      "name": "Qui itaque",
+      "region": Object {
+        "__typename": "Region",
+        "id": "0b8eded1-c042-40ea-896a-e683b452acd6",
+        "language": "Aperiam placeat",
+        "name": "Maiores distinctio placeat",
+        Symbol(id): "Region:0b8eded1-c042-40ea-896a-e683b452acd6:Aperiam placeat",
+      },
+      "sections": Object {
+        "__typename": "RiverSectionConnection",
+        "count": -403,
+        Symbol(id): "$River:7fbe024f-3316-4265-a6e8-c65a837e308a:Esse blanditiis natus.sections",
+      },
+      Symbol(id): "River:7fbe024f-3316-4265-a6e8-c65a837e308a:Esse blanditiis natus",
+    },
+    Object {
+      "__typename": "River",
+      "altNames": Array [
+        "Hic eligendi",
+        "Esse ut",
+      ],
+      "id": "57c31177-f14e-4412-a01a-f3e447909992",
+      "language": "Officia voluptatem cumque",
+      "name": "Aut provident",
+      "region": Object {
+        "__typename": "Region",
+        "id": "1c80a28c-e09e-4e82-92ec-7682ae559cab",
+        "language": "Aut est",
+        "name": "Est placeat ex",
+        Symbol(id): "Region:1c80a28c-e09e-4e82-92ec-7682ae559cab:Aut est",
+      },
+      "sections": Object {
+        "__typename": "RiverSectionConnection",
+        "count": -302,
+        Symbol(id): "$River:57c31177-f14e-4412-a01a-f3e447909992:Officia voluptatem cumque.sections",
+      },
+      Symbol(id): "River:57c31177-f14e-4412-a01a-f3e447909992:Officia voluptatem cumque",
+    },
+  ],
+  "refetch": [Function],
+}
+`;
