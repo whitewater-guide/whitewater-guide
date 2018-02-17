@@ -1,7 +1,16 @@
+import { EditorState } from 'draft-js';
 import { InjectedFormProps } from 'redux-form';
-import { Region, River, SectionInput, Tag } from '../../../ww-commons';
+import { Overwrite } from 'type-zoo';
+import { NamedNode, Region, River, SectionInput, Tag } from '../../../ww-commons';
 
-export interface SectionFormProps extends InjectedFormProps<SectionInput> {
+interface FormOverrides {
+  description: EditorState | null;
+  river: NamedNode;
+}
+
+export type SectionFormInput = Overwrite<SectionInput, FormOverrides>;
+
+export interface SectionFormProps extends InjectedFormProps<SectionFormInput> {
   region: Region;
   river: River;
   tags: Tag[];
