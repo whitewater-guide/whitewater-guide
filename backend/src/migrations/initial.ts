@@ -241,6 +241,19 @@ export const up = async (db: Knex) => {
     table.primary(['tag_id', 'section_id']);
   });
 
+  // No primary key here! But single measurement is never referenced
+  await db.schema.createTable('measurements', (table) => {
+    table.timestamp('time').notNullable();
+    table.string('script').notNullable();
+    table.string('gauge_code').notNullable();
+    table.float('flow');
+    table.float('level');
+  });
+  // index
+  await db.schema.raw('CREATE UNIQUE INDEX measurements_idx ON measurements (script, gauge_code, time DESC)');
+  // Init timescale!
+  await db.schema.raw('SELECT create_hypertable(\'measurements\', \'time\');');
+
   await runSqlFile(db, './src/migrations/initial/array_json_to_int.sql');
   await runSqlFile(db, './src/migrations/initial/array_json_to_varchar.sql');
   await runSqlFile(db, './src/migrations/initial/point_from_json.sql');
@@ -286,6 +299,7 @@ export const down = async (db: Knex) => {
   await db.schema.raw('DROP TABLE IF EXISTS rivers_translations CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS tags CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS tags_translations CASCADE');
+  await db.schema.raw('DROP TABLE IF EXISTS measurements CASCADE');
   await db.schema.raw('DROP VIEW IF EXISTS tags_view');
   await db.schema.raw('DROP VIEW IF EXISTS regions_view');
   await db.schema.raw('DROP VIEW IF EXISTS points_view');
