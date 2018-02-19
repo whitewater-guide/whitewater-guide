@@ -48,4 +48,5 @@ type Mutation {
   upsertGauge(gauge:GaugeInput!, language:String): Gauge
   removeGauge(id: ID!): ID
   toggleGauge(id: ID!, enabled: Boolean!): Gauge
+  toggleAllGauges(sourceId: ID!, enabled: Boolean!): [Gauge]
 }

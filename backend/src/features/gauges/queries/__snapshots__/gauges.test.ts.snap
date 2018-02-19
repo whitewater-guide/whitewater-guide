@@ -33,7 +33,7 @@ Array [
   Object {
     "code": "gal2",
     "cron": null,
-    "enabled": false,
+    "enabled": true,
     "flowUnit": null,
     "id": "b77ef1b2-aaa0-11e7-abc4-cec278b6b50a",
     "language": "en",
@@ -73,7 +73,7 @@ Array [
   Object {
     "code": "nor2",
     "cron": null,
-    "enabled": true,
+    "enabled": false,
     "flowUnit": null,
     "id": "cc55b1c0-aaa0-11e7-abc4-cec278b6b50a",
     "language": "en",

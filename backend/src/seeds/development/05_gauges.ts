@@ -16,7 +16,7 @@ const gauges = [
     id: 'b77ef1b2-aaa0-11e7-abc4-cec278b6b50a',
     source_id: '6d0d717e-aa9d-11e7-abc4-cec278b6b50a',
     code: 'gal2',
-    enabled: false,
+    enabled: true,
   },
   {
     id: 'c03184b4-aaa0-11e7-abc4-cec278b6b50a',
@@ -32,7 +32,7 @@ const gauges = [
     id: 'cc55b1c0-aaa0-11e7-abc4-cec278b6b50a',
     source_id: '786251d4-aa9d-11e7-abc4-cec278b6b50a',
     code: 'nor2',
-    enabled: true,
+    enabled: false,
   },
 ];
 
