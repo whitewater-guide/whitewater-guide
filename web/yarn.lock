@@ -1917,9 +1917,9 @@ draft-js@^0.10.3:
     immutable "~3.7.4"
     object-assign "^4.1.0"
 
-draftjs-utils@^0.8.8:
-  version "0.8.8"
-  resolved "https://registry.yarnpkg.com/draftjs-utils/-/draftjs-utils-0.8.8.tgz#5835daed95f59d3ee1f96fdcbbb9809772c86490"
+draftjs-utils@^0.9.3:
+  version "0.9.3"
+  resolved "https://registry.yarnpkg.com/draftjs-utils/-/draftjs-utils-0.9.3.tgz#781254908beb7ca9eff6da63bc7d964ddd03ec22"
 
 duplexer3@^0.1.4:
   version "0.1.4"
@@ -2959,6 +2959,10 @@ html-minifier@^3.2.3:
     param-case "2.1.x"
     relateurl "0.2.x"
     uglify-js "3.3.x"
+
+html-to-draftjs@^1.1.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/html-to-draftjs/-/html-to-draftjs-1.3.0.tgz#9de3de81d8ff801f167ef34a6b93cbd7a9c2f85c"
 
 html-webpack-plugin@2.29.0:
   version "2.29.0"
@@ -5582,12 +5586,13 @@ react-dom@^16.2.0:
     object-assign "^4.1.1"
     prop-types "^15.6.0"
 
-react-draft-wysiwyg@^1.12.9:
-  version "1.12.9"
-  resolved "https://registry.yarnpkg.com/react-draft-wysiwyg/-/react-draft-wysiwyg-1.12.9.tgz#cc8925202d4796c6c2055bfc0bc8fe8f122e10f9"
+react-draft-wysiwyg@^1.12.10:
+  version "1.12.10"
+  resolved "https://registry.yarnpkg.com/react-draft-wysiwyg/-/react-draft-wysiwyg-1.12.10.tgz#ca3df5369713dce267ed12735351bd3f21622b1a"
   dependencies:
     classnames "^2.2.5"
-    draftjs-utils "^0.8.8"
+    draftjs-utils "^0.9.3"
+    html-to-draftjs "^1.1.0"
     linkify-it "^2.0.3"
     prop-types "^15.6.0"
 
@@ -5871,9 +5876,9 @@ redux-mock-store@^1.3.0:
   dependencies:
     lodash.isplainobject "^4.0.6"
 
-redux-persist@5.8.0:
-  version "5.8.0"
-  resolved "https://registry.yarnpkg.com/redux-persist/-/redux-persist-5.8.0.tgz#f3496bcc054e54cd9fc035ba6df0bc8dcbb49577"
+redux-persist@5.9.0:
+  version "5.9.0"
+  resolved "https://registry.yarnpkg.com/redux-persist/-/redux-persist-5.9.0.tgz#700ee49fd5f7ecf5868025c9fd0a7672b0f9ddc2"
 
 redux@*, redux@^3.6.0, redux@^3.7.2:
   version "3.7.2"

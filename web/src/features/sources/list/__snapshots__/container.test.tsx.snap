@@ -8,6 +8,7 @@ Object {
   "sources": Object {
     "count": 496,
     "error": undefined,
+    "fetchMore": [Function],
     "loading": false,
     "nodes": Array [
       Object {
@@ -41,5 +42,6 @@ Object {
     ],
     "refetch": [Function],
   },
+  "toggleSource": [Function],
 }
 `;

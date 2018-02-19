@@ -11,7 +11,6 @@ export default gql`
       cron
       harvestMode
       url
-      enabled
       regions {
         nodes {
           id

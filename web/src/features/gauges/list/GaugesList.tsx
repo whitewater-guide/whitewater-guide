@@ -1,9 +1,8 @@
 import * as React from 'react';
-import { Column, Table, TableCellRenderer } from 'react-virtualized';
-import { AdminColumn } from '../../../components';
+import { Column, TableCellRenderer } from 'react-virtualized';
+import { AdminColumn, MutationToggle } from '../../../components';
 import { ResourcesList } from '../../../layout';
 import { Gauge } from '../../../ww-commons';
-import GaugeToggle from './GaugeToggle';
 import { GaugesListProps } from './types';
 
 interface State {
@@ -14,9 +13,6 @@ interface State {
 
 export default class GaugesList extends React.PureComponent<GaugesListProps, State> {
   state: State = { refresher: 0 };
-  rawTable: Table | null;
-
-  setRawTableRef = (ref: Table | null) => {this.rawTable = ref; };
 
   onGaugeClick = (id: string) => {
     // console.log(id);
@@ -30,7 +26,7 @@ export default class GaugesList extends React.PureComponent<GaugesListProps, Sta
   };
 
   renderEnabled: TableCellRenderer = ({ rowData: { id, enabled } }) => (
-    <GaugeToggle id={id} enabled={enabled} toggleGauge={this.toggleGauge} />
+    <MutationToggle id={id} enabled={enabled} toggle={this.toggleGauge} />
   );
 
   render() {
@@ -45,6 +41,7 @@ export default class GaugesList extends React.PureComponent<GaugesListProps, Sta
       >
         <Column width={200} label="Name" dataKey="name" />
         <Column width={70} label="Code" dataKey="code" />
+        <Column width={70} label="Cron" dataKey="cron" />
         <AdminColumn width={70} label="Enabled" dataKey="enabled" cellRenderer={this.renderEnabled} />
       </ResourcesList>
     );

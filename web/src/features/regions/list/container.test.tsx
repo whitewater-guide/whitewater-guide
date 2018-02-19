@@ -49,15 +49,3 @@ it('should match snapshot', async () => {
   receiver = wrapped.find(FormReceiver).first() as any;
   expect(receiver.props()).toMatchSnapshot();
 });
-
-it('should render language changer for admins', () => {
-  throw new Error('not implemented');
-});
-
-it('should not render language changer for non-admins', () => {
-  throw new Error('not implemented');
-});
-
-it('should reload on language change', () => {
-  throw new Error('not implemented');
-});

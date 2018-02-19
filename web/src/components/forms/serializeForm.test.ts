@@ -36,7 +36,7 @@ const inputWithConnections = {
   }],
 };
 
-const serializer = serializeForm(['description'], [], ['sources']);
+const serializer = serializeForm(['description'], ['river'], ['sources']);
 
 it('should handle undefined input', () => {
   expect(serializer(undefined)).toBeNull();

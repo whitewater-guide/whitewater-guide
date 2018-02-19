@@ -43,17 +43,16 @@ Array [
 exports[`should match snapshot for existing source 1`] = `
 Object {
   "cron": "Eligendi occaecati",
-  "enabled": false,
   "harvestMode": "allAtOnce",
   "id": "7fbe024f-3316-4265-a6e8-c65a837e308a",
   "name": "Esse blanditiis natus",
   "regions": Array [
     Object {
-      "id": "1420ea19-7af6-483b-952a-dd600c9fab44",
-      "name": "Architecto ducimus",
+      "id": "c0420ea1-86af-4683-a452-bcd600c9fab4",
+      "name": "Odit architecto",
     },
     Object {
-      "id": "6e14e412-901a-4e3e-9479-19992f94b318",
+      "id": "67e14e41-3801-4ae3-b447-809992f94b31",
       "name": "Esse ut",
     },
   ],
@@ -179,7 +178,6 @@ Object {
 exports[`should match snapshot for new source 1`] = `
 Object {
   "cron": null,
-  "enabled": false,
   "harvestMode": "oneByOne",
   "id": null,
   "name": "",

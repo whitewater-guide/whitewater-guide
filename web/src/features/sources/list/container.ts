@@ -3,6 +3,7 @@ import { withDeleteMutation } from '../../../apollo';
 import { withLoading } from '../../../components';
 import { WithSourcesList, withSourcesList } from '../../../ww-clients/features/sources';
 import REMOVE_SOURCE from './removeSource.mutation';
+import withToggleSource from './withToggleSource';
 
 export default compose(
   withSourcesList,
@@ -11,5 +12,6 @@ export default compose(
     propName: 'removeSource',
     refetchQueries: ['listSources'],
   }),
+  withToggleSource,
   withLoading<WithSourcesList>(({ sources }) => sources.loading),
 );

@@ -12,7 +12,6 @@ const NEW_SOURCE: SourceInput = {
   script: '',
   cron: null,
   harvestMode: HarvestMode.ONE_BY_ONE,
-  enabled: false,
   url: null,
   regions: [],
 };

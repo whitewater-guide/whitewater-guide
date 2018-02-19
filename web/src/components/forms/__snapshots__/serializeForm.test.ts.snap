@@ -8,6 +8,9 @@ Object {
   "id": null,
   "name": "aa",
   "pois": Array [],
+  "river": Object {
+    "id": "river_id",
+  },
   "season": null,
   "seasonNumeric": Array [],
   "sources": Array [

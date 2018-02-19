@@ -9,6 +9,7 @@ import ListAdminFooter from '../../../layout/list/ListAdminFooter';
 import { WithSource } from '../../../ww-clients/features/sources';
 import { GaugesList, GaugesRoute } from '../../gauges';
 import SourceDetailsMain from './SourceDetailsMain';
+import ToggleAllGaugesButton from './ToggleAllGaugesButton';
 
 export class SourceDetails extends React.PureComponent<WithSource & RouteComponentProps<any>> {
   render() {
@@ -48,6 +49,8 @@ export class SourceDetails extends React.PureComponent<WithSource & RouteCompone
               <Route exact path={`${match.path}/gauges`}>
                 <ListAdminFooter>
                   <FlatButton label="Autofill" />
+                  <ToggleAllGaugesButton sourceId={sourceId} label="Enable All" enabled={true} />
+                  <ToggleAllGaugesButton sourceId={sourceId} label="Disable All" enabled={false} />
                 </ListAdminFooter>
               </Route>
 
