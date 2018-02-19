@@ -8,7 +8,6 @@ export const SourceInputSchema = Joi.object().keys({
   termsOfUse: Joi.string().allow(null),
   script: Joi.string().min(1),
   cron: JoiWithCron.string().isCron().allow(null),
-  enabled: Joi.boolean().allow(null),
   harvestMode: Joi.any().allow([HarvestMode.ONE_BY_ONE, HarvestMode.ALL_AT_ONCE]),
   url: Joi.string().uri().allow(null),
   regions: Joi.array().items(Joi.object().keys({ id: Joi.string().guid() })),

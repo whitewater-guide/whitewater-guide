@@ -54,11 +54,11 @@ describe('effects', () => {
 });
 
 describe('jobs', async () => {
-  it('should stop jobs', () => {
+  it.skip('should stop jobs', () => {
     throw new Error('not implemented yet');
   });
 
-  it('should start jobs', () => {
+  it.skip('should start jobs', () => {
     throw new Error('not implemented yet');
   });
 });

@@ -42,7 +42,7 @@ describe('resolvers chain', () => {
     expect(result).toHaveProperty('data.upsertTag', null);
   });
 
-  test.only('should throw on invalid input', async () => {
+  test('should throw on invalid input', async () => {
     const invalidInput = {
       id: 'a b',
       name: 'x',

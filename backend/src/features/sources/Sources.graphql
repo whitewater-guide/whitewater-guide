@@ -38,7 +38,6 @@ input SourceInput {
   harvestMode: HarvestMode!
   regions: [RefInput]
   url: String
-  enabled: Boolean
 }
 
 type SourcesList {
@@ -54,7 +53,7 @@ type Query {
 type Mutation {
   upsertSource(source: SourceInput!, language: String): Source
   removeSource(id: ID!): ID
+  toggleSource(id: ID!, enabled: Boolean!): Source
   # autofillSource(id:ID!):Boolean
   # generateSourceSchedule(id:ID!):Boolean
-  # setSourceEnabled(id:ID!, enabled:Boolean!): Source
 }

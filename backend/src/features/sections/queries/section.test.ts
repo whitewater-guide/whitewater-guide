@@ -70,7 +70,7 @@ const query = `
   }
 `;
 
-it.only('should return simple data', async () => {
+it('should return simple data', async () => {
   const result = await runQuery(query, { id: '21f2351e-d52a-11e7-9296-cec278b6b50a' }); // Amot
   expect(result.errors).toBeUndefined();
   expect(result.data).toBeDefined();
@@ -142,13 +142,13 @@ it('should return null when id not specified', async () => {
   const result = await runQuery(query, {});
   expect(result.errors).toBeUndefined();
   expect(result.data).toBeDefined();
-  expect(result.data!.region).toBeNull();
+  expect(result.data!.section).toBeNull();
 });
 
 it('should be able to specify language', async () => {
   const result = await runQuery(query, { id: '21f2351e-d52a-11e7-9296-cec278b6b50a', language: 'ru' }); // Amot
   expect(result.errors).toBeUndefined();
-  expect(result).toHaveProperty('data.section.name', 'Шоа');
+  expect(result).toHaveProperty('data.section.name', 'Амот');
 });
 
 it('should return basic attributes when not translated', async () => {

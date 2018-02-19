@@ -5,22 +5,20 @@ DECLARE
   result             JSON;
 BEGIN
   WITH upserted_source AS (
-    INSERT INTO sources (id, script, cron, harvest_mode, url, enabled)
+    INSERT INTO sources (id, script, cron, harvest_mode, url)
     VALUES (
       COALESCE((src ->> 'id') :: UUID, uuid_generate_v1mc()),
       src ->> 'script',
       src ->> 'cron',
       src ->> 'harvestMode',
-      src ->> 'url',
-      COALESCE((src ->> 'enabled') :: BOOLEAN, FALSE)
+      src ->> 'url'
     )
     ON CONFLICT (id)
       DO UPDATE SET
         script         = EXCLUDED.script,
         cron           = EXCLUDED.cron,
         harvest_mode   = EXCLUDED.harvest_mode,
-        url            = EXCLUDED.url,
-        enabled        = EXCLUDED.enabled
+        url            = EXCLUDED.url
     RETURNING id
   )
   -- Then insert translations

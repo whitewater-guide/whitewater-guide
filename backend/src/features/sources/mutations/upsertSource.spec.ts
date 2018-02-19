@@ -15,7 +15,6 @@ const requiredSource: SourceInput = {
   url: null,
   termsOfUse: null,
   cron: null,
-  enabled: null,
   regions: [{ id: '2caf75ca-7625-11e7-b5a5-be2e44b06b34' }],
 };
 
@@ -27,7 +26,6 @@ const optionalSource: SourceInput = {
   harvestMode: HarvestMode.ONE_BY_ONE,
   url: 'http://google.com',
   termsOfUse: 'New terms of use',
-  enabled: null,
   regions: [{ id: '2caf75ca-7625-11e7-b5a5-be2e44b06b34' }], // replace two regions with one different
 };
 
@@ -71,7 +69,6 @@ describe('resolvers chain', () => {
       harvestMode: HarvestMode.ONE_BY_ONE,
       url: 'not url',
       termsOfUse: 'New terms of use',
-      enabled: null,
       regions: [{ id: 'aaaa' }],
     };
     const result = await runQuery(mutation, { source: input }, adminContext);
@@ -187,7 +184,6 @@ describe('i18n', () => {
     cron: '0 * * * *',
     harvestMode: HarvestMode.ONE_BY_ONE,
     url: 'http://nve.no',
-    enabled: false,
     regions: [],
   };
 
@@ -197,7 +193,6 @@ describe('i18n', () => {
     cron: '0 * * * *',
     harvestMode: HarvestMode.ALL_AT_ONCE,
     url: 'http://ya.ru',
-    enabled: false,
     name: 'Новая Галисия',
     termsOfUse: 'Правила пользования новой галисией',
     regions: [],

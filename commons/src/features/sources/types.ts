@@ -28,7 +28,6 @@ export class SourceInput {
   script: string;
   cron: string | null;
   harvestMode: HarvestMode;
-  enabled: boolean | null;
   url: string | null;
   regions: Node[];
 }

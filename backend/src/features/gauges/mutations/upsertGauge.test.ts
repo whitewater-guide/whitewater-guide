@@ -262,3 +262,13 @@ describe('i18n', () => {
     expect(name.name).toBe('galicia gauge pt');
   });
 });
+
+describe('jobs', async () => {
+  it.skip('should stop jobs', () => {
+    throw new Error('not implemented yet');
+  });
+
+  it.skip('should start jobs', () => {
+    throw new Error('not implemented yet');
+  });
+});
