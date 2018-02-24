@@ -1,7 +1,7 @@
 package main
 
 import (
-  "core"
+  "github.com/doomsower/whitewater/workers/core"
   "github.com/spf13/cobra"
 )
 

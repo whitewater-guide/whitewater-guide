@@ -1,7 +1,7 @@
 package main
 
 import (
-  "core"
+  "github.com/doomsower/whitewater/workers/core"
   "golang.org/x/text/encoding/charmap"
   "github.com/PuerkitoBio/goquery"
   "net/http"

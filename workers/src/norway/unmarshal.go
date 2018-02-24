@@ -6,7 +6,7 @@ import (
   "strconv"
   "encoding/json"
   "time"
-  "core"
+  "github.com/doomsower/whitewater/workers/core"
 )
 
 type listItem struct {

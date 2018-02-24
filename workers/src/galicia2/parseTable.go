@@ -5,7 +5,7 @@ import (
   "bufio"
   "fmt"
   "strings"
-  "core"
+  "github.com/doomsower/whitewater/workers/core"
   "regexp"
   "strconv"
   "time"

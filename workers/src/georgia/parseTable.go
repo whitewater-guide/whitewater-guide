@@ -2,7 +2,7 @@ package main
 
 import (
   "github.com/PuerkitoBio/goquery"
-  "core"
+  "github.com/doomsower/whitewater/workers/core"
   "net/http"
   "fmt"
   "strings"
