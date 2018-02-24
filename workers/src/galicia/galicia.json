@@ -1,0 +1,914 @@
+{
+  "listaAforos": [
+    {
+      "concello": "Mondoñedo",
+      "dataLocal": "2018-02-19T20:40:00",
+      "dataUTC": "2018-02-19T19:40:00",
+      "ide": 30431,
+      "latitude": "43.47774",
+      "listaMedidas": [
+        {
+          "codParametro": 1,
+          "codValidacion": 1,
+          "parametro": "Nivel Medio da Auga",
+          "unidade": "m",
+          "valor": 1.07
+        },
+        {
+          "codParametro": 4,
+          "codValidacion": 1,
+          "parametro": "Caudal Medio da Auga",
+          "unidade": "m3\/s",
+          "valor": 8.689578
+        }
+      ],
+      "lonxitude": "-7.33423",
+      "nomeEstacion": "Masma",
+      "provincia": "Lugo"
+    },
+    {
+      "concello": "Foz",
+      "dataLocal": "2018-02-19T20:40:00",
+      "dataUTC": "2018-02-19T19:40:00",
+      "ide": 30433,
+      "latitude": "43.55815",
+      "listaMedidas": [
+        {
+          "codParametro": 4,
+          "codValidacion": 1,
+          "parametro": "Caudal Medio da Auga",
+          "unidade": "m3\/s",
+          "valor": 7.1654706
+        },
+        {
+          "codParametro": 1,
+          "codValidacion": 1,
+          "parametro": "Nivel Medio da Auga",
+          "unidade": "m",
+          "valor": 1.63
+        }
+      ],
+      "lonxitude": "-7.37617",
+      "nomeEstacion": "Ouro",
+      "provincia": "Lugo"
+    },
+    {
+      "concello": "Cervo",
+      "dataLocal": "2018-02-19T20:40:00",
+      "dataUTC": "2018-02-19T19:40:00",
+      "ide": 30435,
+      "latitude": "43.68621",
+      "listaMedidas": [
+        {
+          "codParametro": 1,
+          "codValidacion": 1,
+          "parametro": "Nivel Medio da Auga",
+          "unidade": "m",
+          "valor": 0.761
+        },
+        {
+          "codParametro": 4,
+          "codValidacion": 1,
+          "parametro": "Caudal Medio da Auga",
+          "unidade": "m3\/s",
+          "valor": 1.6157666
+        }
+      ],
+      "lonxitude": "-7.44773",
+      "nomeEstacion": "Cobo",
+      "provincia": "Lugo"
+    },
+    {
+      "concello": "Viveiro",
+      "dataLocal": "2018-02-19T20:40:00",
+      "dataUTC": "2018-02-19T19:40:00",
+      "ide": 30438,
+      "latitude": "43.61945",
+      "listaMedidas": [
+        {
+          "codParametro": 4,
+          "codValidacion": 1,
+          "parametro": "Caudal Medio da Auga",
+          "unidade": "m3\/s",
+          "valor": 15.150976
+        },
+        {
+          "codParametro": 1,
+          "codValidacion": 1,
+          "parametro": "Nivel Medio da Auga",
+          "unidade": "m",
+          "valor": 1.349
+        }
+      ],
+      "lonxitude": "-7.58993",
+      "nomeEstacion": "Landro",
+      "provincia": "Lugo"
+    },
+    {
+      "concello": "O Vicedo",
+      "dataLocal": "2018-02-19T20:40:00",
+      "dataUTC": "2018-02-19T19:40:00",
+      "ide": 30441,
+      "latitude": "43.70354",
+      "listaMedidas": [
+        {
+          "codParametro": 1,
+          "codValidacion": 1,
+          "parametro": "Nivel Medio da Auga",
+          "unidade": "m",
+          "valor": 1.882
+        },
+        {
+          "codParametro": 4,
+          "codValidacion": 1,
+          "parametro": "Caudal Medio da Auga",
+          "unidade": "m3\/s",
+          "valor": 18.521734
+        }
+      ],
+      "lonxitude": "-7.693",
+      "nomeEstacion": "Sor_Baixo",
+      "provincia": "Lugo"
+    },
+    {
+      "concello": "Ortigueira",
+      "dataLocal": "2018-02-19T20:40:00",
+      "dataUTC": "2018-02-19T19:40:00",
+      "ide": 30443,
+      "latitude": "43.64048",
+      "listaMedidas": [
+        {
+          "codParametro": 4,
+          "codValidacion": 1,
+          "parametro": "Caudal Medio da Auga",
+          "unidade": "m3\/s",
+          "valor": 11.0221195
+        },
+        {
+          "codParametro": 1,
+          "codValidacion": 1,
+          "parametro": "Nivel Medio da Auga",
+          "unidade": "m",
+          "valor": 1.202
+        }
+      ],
+      "lonxitude": "-7.90734",
+      "nomeEstacion": "Mera",
+      "provincia": "A Coruña"
+    },
+    {
+      "concello": "Valdoviño",
+      "dataLocal": "2018-02-19T20:40:00",
+      "dataUTC": "2018-02-19T19:40:00",
+      "ide": 30445,
+      "latitude": "43.62607",
+      "listaMedidas": [
+        {
+          "codParametro": 1,
+          "codValidacion": 1,
+          "parametro": "Nivel Medio da Auga",
+          "unidade": "m",
+          "valor": 0.839
+        },
+        {
+          "codParametro": 4,
+          "codValidacion": 1,
+          "parametro": "Caudal Medio da Auga",
+          "unidade": "m3\/s",
+          "valor": 4.566115
+        }
+      ],
+      "lonxitude": "-8.03861",
+      "nomeEstacion": "Rego Das Mestas",
+      "provincia": "A Coruña"
+    },
+    {
+      "concello": "San Sadurniño",
+      "dataLocal": "2018-02-19T20:40:00",
+      "dataUTC": "2018-02-19T19:40:00",
+      "ide": 30446,
+      "latitude": "43.53364",
+      "listaMedidas": [
+        {
+          "codParametro": 4,
+          "codValidacion": 1,
+          "parametro": "Caudal Medio da Auga",
+          "unidade": "m3\/s",
+          "valor": 2.8111799
+        },
+        {
+          "codParametro": 1,
+          "codValidacion": 1,
+          "parametro": "Nivel Medio da Auga",
+          "unidade": "m",
+          "valor": 1.112
+        }
+      ],
+      "lonxitude": "-8.07699",
+      "nomeEstacion": "Xubia",
+      "provincia": "A Coruña"
+    },
+    {
+      "concello": "Neda",
+      "dataLocal": "2018-02-19T20:40:00",
+      "dataUTC": "2018-02-19T19:40:00",
+      "ide": 30449,
+      "latitude": "43.5052",
+      "listaMedidas": [
+        {
+          "codParametro": 1,
+          "codValidacion": 1,
+          "parametro": "Nivel Medio da Auga",
+          "unidade": "m",
+          "valor": 2.055
+        },
+        {
+          "codParametro": 4,
+          "codValidacion": 1,
+          "parametro": "Caudal Medio da Auga",
+          "unidade": "m3\/s",
+          "valor": 5.898664
+        }
+      ],
+      "lonxitude": "-8.13047",
+      "nomeEstacion": "Belelle",
+      "provincia": "A Coruña"
+    },
+    {
+      "concello": "As Pontes",
+      "dataLocal": "2018-02-19T20:40:00",
+      "dataUTC": "2018-02-19T19:40:00",
+      "ide": 30455,
+      "latitude": "43.45616",
+      "listaMedidas": [
+        {
+          "codParametro": 4,
+          "codValidacion": 1,
+          "parametro": "Caudal Medio da Auga",
+          "unidade": "m3\/s",
+          "valor": 15.031371
+        },
+        {
+          "codParametro": 1,
+          "codValidacion": 1,
+          "parametro": "Nivel Medio da Auga",
+          "unidade": "m",
+          "valor": 1.312
+        }
+      ],
+      "lonxitude": "-7.83313",
+      "nomeEstacion": "Eume_Ribeira",
+      "provincia": "A Coruña"
+    },
+    {
+      "concello": "Aranga",
+      "dataLocal": "2018-02-19T20:40:00",
+      "dataUTC": "2018-02-19T19:40:00",
+      "ide": 30464,
+      "latitude": "43.24944",
+      "listaMedidas": [
+        {
+          "codParametro": 1,
+          "codValidacion": 1,
+          "parametro": "Nivel Medio da Auga",
+          "unidade": "m",
+          "valor": 1.836
+        },
+        {
+          "codParametro": 4,
+          "codValidacion": 1,
+          "parametro": "Caudal Medio da Auga",
+          "unidade": "m3\/s",
+          "valor": 13.079509
+        }
+      ],
+      "lonxitude": "-8.05481",
+      "nomeEstacion": "Mandeo",
+      "provincia": "A Coruña"
+    },
+    {
+      "concello": "Betanzos",
+      "dataLocal": "2018-02-19T20:40:00",
+      "dataUTC": "2018-02-19T19:40:00",
+      "ide": 30469,
+      "latitude": "43.26607",
+      "listaMedidas": [
+        {
+          "codParametro": 4,
+          "codValidacion": 1,
+          "parametro": "Caudal Medio da Auga",
+          "unidade": "m3\/s",
+          "valor": 3.9764495
+        },
+        {
+          "codParametro": 1,
+          "codValidacion": 1,
+          "parametro": "Nivel Medio da Auga",
+          "unidade": "m",
+          "valor": 1.128
+        }
+      ],
+      "lonxitude": "-8.19984",
+      "nomeEstacion": "Mendo",
+      "provincia": "A Coruña"
+    },
+    {
+      "concello": "Betanzos",
+      "dataLocal": "2018-02-19T20:40:00",
+      "dataUTC": "2018-02-19T19:40:00",
+      "ide": 30470,
+      "latitude": "43.25781",
+      "listaMedidas": [
+        {
+          "codParametro": 1,
+          "codValidacion": 1,
+          "parametro": "Nivel Medio da Auga",
+          "unidade": "m",
+          "valor": 2.108
+        },
+        {
+          "codParametro": 4,
+          "codValidacion": 1,
+          "parametro": "Caudal Medio da Auga",
+          "unidade": "m3\/s",
+          "valor": 7.9909606
+        }
+      ],
+      "lonxitude": "-8.25531",
+      "nomeEstacion": "Mero",
+      "provincia": "A Coruña"
+    },
+    {
+      "concello": "Cambre",
+      "dataLocal": "2018-02-19T20:40:00",
+      "dataUTC": "2018-02-19T19:40:00",
+      "ide": 30473,
+      "latitude": "43.2955",
+      "listaMedidas": [
+        {
+          "codParametro": 4,
+          "codValidacion": 1,
+          "parametro": "Caudal Medio da Auga",
+          "unidade": "m3\/s",
+          "valor": 10.968342
+        },
+        {
+          "codParametro": 1,
+          "codValidacion": 1,
+          "parametro": "Nivel Medio da Auga",
+          "unidade": "m",
+          "valor": 1.193
+        }
+      ],
+      "lonxitude": "-8.35528",
+      "nomeEstacion": "Mero_A Telva",
+      "provincia": "A Coruña"
+    },
+    {
+      "concello": "Carballo",
+      "dataLocal": "2018-02-19T20:40:00",
+      "dataUTC": "2018-02-19T19:40:00",
+      "ide": 30483,
+      "latitude": "43.21126",
+      "listaMedidas": [
+        {
+          "codParametro": 1,
+          "codValidacion": 1,
+          "parametro": "Nivel Medio da Auga",
+          "unidade": "m",
+          "valor": 1.046
+        },
+        {
+          "codParametro": 4,
+          "codValidacion": 1,
+          "parametro": "Caudal Medio da Auga",
+          "unidade": "m3\/s",
+          "valor": 9.509859
+        }
+      ],
+      "lonxitude": "-8.69119",
+      "nomeEstacion": "Anllons _Carballo",
+      "provincia": "A Coruña"
+    },
+    {
+      "concello": "Cee",
+      "dataLocal": "2018-02-19T20:40:00",
+      "dataUTC": "2018-02-19T19:40:00",
+      "ide": 30506,
+      "latitude": "43.00426",
+      "listaMedidas": [
+        {
+          "codParametro": 4,
+          "codValidacion": 1,
+          "parametro": "Caudal Medio da Auga",
+          "unidade": "m3\/s",
+          "valor": 11.841901
+        },
+        {
+          "codParametro": 1,
+          "codValidacion": 1,
+          "parametro": "Nivel Medio da Auga",
+          "unidade": "m",
+          "valor": 0.929
+        }
+      ],
+      "lonxitude": "-9.1904",
+      "nomeEstacion": "Castro",
+      "provincia": "A Coruña"
+    },
+    {
+      "concello": "Cee",
+      "dataLocal": "2018-02-19T20:40:00",
+      "dataUTC": "2018-02-19T19:40:00",
+      "ide": 30510,
+      "latitude": "42.96173",
+      "listaMedidas": [
+        {
+          "codParametro": 1,
+          "codValidacion": 1,
+          "parametro": "Nivel Medio da Auga",
+          "unidade": "m",
+          "valor": 0.764
+        },
+        {
+          "codParametro": 4,
+          "codValidacion": 1,
+          "parametro": "Caudal Medio da Auga",
+          "unidade": "m3\/s",
+          "valor": 0.35149437
+        }
+      ],
+      "lonxitude": "-9.19015",
+      "nomeEstacion": "Cee",
+      "provincia": "A Coruña"
+    },
+    {
+      "concello": "Santa Comba",
+      "dataLocal": "2018-02-19T20:40:00",
+      "dataUTC": "2018-02-19T19:40:00",
+      "ide": 30512,
+      "latitude": "42.99734",
+      "listaMedidas": [
+        {
+          "codParametro": 4,
+          "codValidacion": 1,
+          "parametro": "Caudal Medio da Auga",
+          "unidade": "m3\/s",
+          "valor": 21.507494
+        },
+        {
+          "codParametro": 1,
+          "codValidacion": 1,
+          "parametro": "Nivel Medio da Auga",
+          "unidade": "m",
+          "valor": 1.296
+        }
+      ],
+      "lonxitude": "-8.88816",
+      "nomeEstacion": "Xallas 1",
+      "provincia": "A Coruña"
+    },
+    {
+      "concello": "Mazaricos",
+      "dataLocal": "2018-02-19T20:40:00",
+      "dataUTC": "2018-02-19T19:40:00",
+      "ide": 30514,
+      "latitude": "42.96324",
+      "listaMedidas": [
+        {
+          "codParametro": 1,
+          "codValidacion": 1,
+          "parametro": "Nivel Medio da Auga",
+          "unidade": "m",
+          "valor": 1.555
+        },
+        {
+          "codParametro": 4,
+          "codValidacion": 1,
+          "parametro": "Caudal Medio da Auga",
+          "unidade": "m3\/s",
+          "valor": 45.324104
+        }
+      ],
+      "lonxitude": "-9.01682",
+      "nomeEstacion": "Xallas 2",
+      "provincia": "A Coruña"
+    },
+    {
+      "concello": "Oroso",
+      "dataLocal": "2018-02-19T20:40:00",
+      "dataUTC": "2018-02-19T19:40:00",
+      "ide": 30520,
+      "latitude": "42.9766",
+      "listaMedidas": [
+        {
+          "codParametro": 4,
+          "codValidacion": 1,
+          "parametro": "Caudal Medio da Auga",
+          "unidade": "m3\/s",
+          "valor": 40.13638
+        },
+        {
+          "codParametro": 1,
+          "codValidacion": 1,
+          "parametro": "Nivel Medio da Auga",
+          "unidade": "m",
+          "valor": 2.083
+        }
+      ],
+      "lonxitude": "-8.39864",
+      "nomeEstacion": "Tambre",
+      "provincia": "A Coruña"
+    },
+    {
+      "concello": "Oroso",
+      "dataLocal": "2018-02-19T20:40:00",
+      "dataUTC": "2018-02-19T19:40:00",
+      "ide": 30522,
+      "latitude": "42.99201",
+      "listaMedidas": [
+        {
+          "codParametro": 1,
+          "codValidacion": 1,
+          "parametro": "Nivel Medio da Auga",
+          "unidade": "m",
+          "valor": 1.864
+        },
+        {
+          "codParametro": 4,
+          "codValidacion": 1,
+          "parametro": "Caudal Medio da Auga",
+          "unidade": "m3\/s",
+          "valor": 26.259861
+        }
+      ],
+      "lonxitude": "-8.45415",
+      "nomeEstacion": "Lengüelle_Tambre",
+      "provincia": "A Coruña"
+    },
+    {
+      "concello": "Val Do Dubra",
+      "dataLocal": "2018-02-19T20:40:00",
+      "dataUTC": "2018-02-19T19:40:00",
+      "ide": 30525,
+      "latitude": "42.97659",
+      "listaMedidas": [
+        {
+          "codParametro": 4,
+          "codValidacion": 1,
+          "parametro": "Caudal Medio da Auga",
+          "unidade": "m3\/s",
+          "valor": 7.2775245
+        },
+        {
+          "codParametro": 1,
+          "codValidacion": 1,
+          "parametro": "Nivel Medio da Auga",
+          "unidade": "m",
+          "valor": 1.77
+        }
+      ],
+      "lonxitude": "-8.65293",
+      "nomeEstacion": "Dubra_Tambre",
+      "provincia": "A Coruña"
+    },
+    {
+      "concello": "Negreira",
+      "dataLocal": "2018-02-19T20:40:00",
+      "dataUTC": "2018-02-19T19:40:00",
+      "ide": 30528,
+      "latitude": "42.90797",
+      "listaMedidas": [
+        {
+          "codParametro": 1,
+          "codValidacion": 1,
+          "parametro": "Nivel Medio da Auga",
+          "unidade": "m",
+          "valor": 1.372
+        },
+        {
+          "codParametro": 4,
+          "codValidacion": 1,
+          "parametro": "Caudal Medio da Auga",
+          "unidade": "m3\/s",
+          "valor": 9.759956
+        }
+      ],
+      "lonxitude": "-8.73848",
+      "nomeEstacion": "Barcala_Tambre",
+      "provincia": "A Coruña"
+    },
+    {
+      "concello": "Brion",
+      "dataLocal": "2018-02-19T20:40:00",
+      "dataUTC": "2018-02-19T19:40:00",
+      "ide": 30540,
+      "latitude": "42.83151",
+      "listaMedidas": [
+        {
+          "codParametro": 4,
+          "codValidacion": 1,
+          "parametro": "Caudal Medio da Auga",
+          "unidade": "m3\/s",
+          "valor": 8.244743
+        },
+        {
+          "codParametro": 1,
+          "codValidacion": 1,
+          "parametro": "Nivel Medio da Auga",
+          "unidade": "m",
+          "valor": 1.528
+        }
+      ],
+      "lonxitude": "-8.64697",
+      "nomeEstacion": "Sar",
+      "provincia": "A Coruña"
+    },
+    {
+      "concello": "Santiso",
+      "dataLocal": "2018-02-19T20:40:00",
+      "dataUTC": "2018-02-19T19:40:00",
+      "ide": 30542,
+      "latitude": "42.85923",
+      "listaMedidas": [
+        {
+          "codParametro": 1,
+          "codValidacion": 1,
+          "parametro": "Nivel Medio da Auga",
+          "unidade": "m",
+          "valor": 1.14
+        },
+        {
+          "codParametro": 4,
+          "codValidacion": 1,
+          "parametro": "Caudal Medio da Auga",
+          "unidade": "m3\/s",
+          "valor": 8.754589
+        }
+      ],
+      "lonxitude": "-8.01902",
+      "nomeEstacion": "Furelos",
+      "provincia": "A Coruña"
+    },
+    {
+      "concello": "Santiso",
+      "dataLocal": "2018-02-19T20:40:00",
+      "dataUTC": "2018-02-19T19:40:00",
+      "ide": 30544,
+      "latitude": "42.84794",
+      "listaMedidas": [
+        {
+          "codParametro": 4,
+          "codValidacion": 1,
+          "parametro": "Caudal Medio da Auga",
+          "unidade": "m3\/s",
+          "valor": 22.225891
+        },
+        {
+          "codParametro": 1,
+          "codValidacion": 1,
+          "parametro": "Nivel Medio da Auga",
+          "unidade": "m",
+          "valor": 1.145
+        }
+      ],
+      "lonxitude": "-8.02389",
+      "nomeEstacion": "Ulla",
+      "provincia": "A Coruña"
+    },
+    {
+      "concello": "Agolada",
+      "dataLocal": "2018-02-19T20:40:00",
+      "dataUTC": "2018-02-19T19:40:00",
+      "ide": 30546,
+      "latitude": "42.77903",
+      "listaMedidas": [
+        {
+          "codParametro": 1,
+          "codValidacion": 1,
+          "parametro": "Nivel Medio da Auga",
+          "unidade": "m",
+          "valor": 1.534
+        },
+        {
+          "codParametro": 4,
+          "codValidacion": 1,
+          "parametro": "Caudal Medio da Auga",
+          "unidade": "m3\/s",
+          "valor": 11.5225315
+        }
+      ],
+      "lonxitude": "-8.10049",
+      "nomeEstacion": "Arnego_Ulla",
+      "provincia": "Pontevedra"
+    },
+    {
+      "concello": "Silleda",
+      "dataLocal": "2018-02-19T20:40:00",
+      "dataUTC": "2018-02-19T19:40:00",
+      "ide": 30552,
+      "latitude": "42.7783",
+      "listaMedidas": [
+        {
+          "codParametro": 4,
+          "codValidacion": 1,
+          "parametro": "Caudal Medio da Auga",
+          "unidade": "m3\/s",
+          "valor": 24.298618
+        },
+        {
+          "codParametro": 1,
+          "codValidacion": 1,
+          "parametro": "Nivel Medio da Auga",
+          "unidade": "m",
+          "valor": 2.091
+        }
+      ],
+      "lonxitude": "-8.33605",
+      "nomeEstacion": "Deza",
+      "provincia": "Pontevedra"
+    },
+    {
+      "concello": "Teo",
+      "dataLocal": "2018-02-19T20:40:00",
+      "dataUTC": "2018-02-19T19:40:00",
+      "ide": 30554,
+      "latitude": "42.76065",
+      "listaMedidas": [
+        {
+          "codParametro": 1,
+          "codValidacion": 1,
+          "parametro": "Nivel Medio da Auga",
+          "unidade": "m",
+          "valor": 3.317
+        },
+        {
+          "codParametro": 4,
+          "codValidacion": 1,
+          "parametro": "Caudal Medio da Auga",
+          "unidade": "m3\/s",
+          "valor": 80.489624
+        }
+      ],
+      "lonxitude": "-8.54616",
+      "nomeEstacion": "Ulla_Teo",
+      "provincia": "A Coruña"
+    },
+    {
+      "concello": "Pontevedra",
+      "dataLocal": "2018-02-19T20:40:00",
+      "dataUTC": "2018-02-19T19:40:00",
+      "ide": 30578,
+      "latitude": "42.45326",
+      "listaMedidas": [
+        {
+          "codParametro": 4,
+          "codValidacion": 1,
+          "parametro": "Caudal Medio da Auga",
+          "unidade": "m3\/s",
+          "valor": 37.507957
+        },
+        {
+          "codParametro": 1,
+          "codValidacion": 1,
+          "parametro": "Nivel Medio da Auga",
+          "unidade": "m",
+          "valor": 3.481
+        }
+      ],
+      "lonxitude": "-8.61271",
+      "nomeEstacion": "Lerez",
+      "provincia": "Pontevedra"
+    },
+    {
+      "concello": "Pontecaldelas",
+      "dataLocal": "2018-02-19T20:40:00",
+      "dataUTC": "2018-02-19T19:40:00",
+      "ide": 30585,
+      "latitude": "42.39133",
+      "listaMedidas": [
+        {
+          "codParametro": 1,
+          "codValidacion": 1,
+          "parametro": "Nivel Medio da Auga",
+          "unidade": "m",
+          "valor": 2.494
+        },
+        {
+          "codParametro": 4,
+          "codValidacion": 1,
+          "parametro": "Caudal Medio da Auga",
+          "unidade": "m3\/s",
+          "valor": 10.177749
+        }
+      ],
+      "lonxitude": "-8.49865",
+      "nomeEstacion": "Verdugo",
+      "provincia": "Pontevedra"
+    },
+    {
+      "concello": "Soutomaior",
+      "dataLocal": "2018-02-19T20:40:00",
+      "dataUTC": "2018-02-19T19:40:00",
+      "ide": 30588,
+      "latitude": "42.34143",
+      "listaMedidas": [
+        {
+          "codParametro": 4,
+          "codValidacion": 1,
+          "parametro": "Caudal Medio da Auga",
+          "unidade": "m3\/s",
+          "valor": 13.386782
+        },
+        {
+          "codParametro": 1,
+          "codValidacion": 1,
+          "parametro": "Nivel Medio da Auga",
+          "unidade": "m",
+          "valor": 3.112
+        }
+      ],
+      "lonxitude": "-8.55525",
+      "nomeEstacion": "Oitaven",
+      "provincia": "Pontevedra"
+    },
+    {
+      "concello": "Vigo",
+      "dataLocal": "2018-02-19T20:40:00",
+      "dataUTC": "2018-02-19T19:40:00",
+      "ide": 30593,
+      "latitude": "42.22339",
+      "listaMedidas": [
+        {
+          "codParametro": 1,
+          "codValidacion": 1,
+          "parametro": "Nivel Medio da Auga",
+          "unidade": "m",
+          "valor": 0.857
+        },
+        {
+          "codParametro": 4,
+          "codValidacion": 1,
+          "parametro": "Caudal Medio da Auga",
+          "unidade": "m3\/s",
+          "valor": 0.51434964
+        }
+      ],
+      "lonxitude": "-8.69378",
+      "nomeEstacion": "Lagares",
+      "provincia": "Pontevedra"
+    },
+    {
+      "concello": "Gondomar",
+      "dataLocal": "2018-02-19T20:40:00",
+      "dataUTC": "2018-02-19T19:40:00",
+      "ide": 30594,
+      "latitude": "42.11177",
+      "listaMedidas": [
+        {
+          "codParametro": 4,
+          "codValidacion": 1,
+          "parametro": "Caudal Medio da Auga",
+          "unidade": "m3\/s",
+          "valor": 2.1301482
+        },
+        {
+          "codParametro": 1,
+          "codValidacion": 1,
+          "parametro": "Nivel Medio da Auga",
+          "unidade": "m",
+          "valor": 0.996
+        }
+      ],
+      "lonxitude": "-8.77275",
+      "nomeEstacion": "Miñor",
+      "provincia": "Pontevedra"
+    },
+    {
+      "concello": "Baiona",
+      "dataLocal": "2018-02-19T20:40:00",
+      "dataUTC": "2018-02-19T19:40:00",
+      "ide": 30595,
+      "latitude": "42.10645",
+      "listaMedidas": [
+        {
+          "codParametro": 1,
+          "codValidacion": 1,
+          "parametro": "Nivel Medio da Auga",
+          "unidade": "m",
+          "valor": 0.42
+        },
+        {
+          "codParametro": 4,
+          "codValidacion": 1,
+          "parametro": "Caudal Medio da Auga",
+          "unidade": "m3\/s",
+          "valor": 1.0457801
+        }
+      ],
+      "lonxitude": "-8.81705",
+      "nomeEstacion": "Grova",
+      "provincia": "Pontevedra"
+    }
+  ]
+}
