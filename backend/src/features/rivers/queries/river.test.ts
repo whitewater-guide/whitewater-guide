@@ -1,5 +1,4 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
-import { superAdminContext, userContext } from '../../../test/context';
 import { noTimestamps, runQuery } from '../../../test/db-helpers';
 
 beforeEach(holdTransaction);
