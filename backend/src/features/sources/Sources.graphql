@@ -55,5 +55,5 @@ type Mutation {
   removeSource(id: ID!): ID
   toggleSource(id: ID!, enabled: Boolean!): Source
   # autofillSource(id:ID!):Boolean
-  # generateSourceSchedule(id:ID!):Boolean
+  generateSourceSchedule(id: ID!): [Gauge]
 }
