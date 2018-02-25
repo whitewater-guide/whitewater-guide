@@ -1,14 +1,7 @@
 import db from '../../db';
+import { WorkerMeasurement } from './types';
 
-interface Measurement {
-  script: string;
-  gauge_code: string;
-  time: string;
-  flow: number | null;
-  level: number | null;
-}
-
-export default async function insertMeasurements(values: Measurement | Measurement[]) {
+export async function insertMeasurements(values: WorkerMeasurement[]) {
   const insert = db().table('measurements').insert(values).toQuery();
   await db().raw(`${insert} ON CONFLICT DO NOTHING`);
 }
