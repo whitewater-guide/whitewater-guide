@@ -1,8 +1,13 @@
 import db, { holdTransaction, rollbackTransaction } from '../../../db';
+import { SOURCE_GALICIA_1 } from '../../../seeds/test/04_sources';
 import { GAUGE_GAL_1_1 } from '../../../seeds/test/05_gauges';
 import { adminContext, anonContext, userContext } from '../../../test/context';
 import { runQuery } from '../../../test/db-helpers';
-import { removeGaugeQuery } from './removeGauge';
+import { stopJobs } from '../../jobs';
+
+jest.mock('../../jobs', () => ({
+  stopJobs: jest.fn(),
+}));
 
 let pointsBefore: number;
 let gaugesBefore: number;
@@ -25,7 +30,10 @@ const query = `
 
 const gal1 = { id: GAUGE_GAL_1_1 };
 
-beforeEach(holdTransaction);
+beforeEach(async () => {
+  jest.clearAllMocks();
+  await holdTransaction();
+});
 afterEach(rollbackTransaction);
 
 describe('resolvers chain', () => {
@@ -73,10 +81,8 @@ describe('effects', () => {
     const { count } = await db().table('points').count().first();
     expect(pointsBefore - Number(count)).toBe(1);
   });
-});
 
-describe('sql', () => {
-  test('should use correct query', () => {
-    expect(removeGaugeQuery(gal1)).toMatchSnapshot();
+  test('sholud stop job when gauge is removed', () => {
+    expect(stopJobs).toHaveBeenCalledWith(SOURCE_GALICIA_1, GAUGE_GAL_1_1);
   });
 });

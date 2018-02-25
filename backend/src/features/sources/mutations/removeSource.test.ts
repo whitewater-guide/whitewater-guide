@@ -2,10 +2,15 @@ import db, { holdTransaction, rollbackTransaction } from '../../../db';
 import { SOURCE_GALICIA_1 } from '../../../seeds/test/04_sources';
 import { adminContext, anonContext, userContext } from '../../../test/context';
 import { runQuery } from '../../../test/db-helpers';
+import { stopJobs } from '../../jobs';
 
 let sourceCountBefore: number;
 let translationsCountBefore: number;
 let regionsConnectionCountBefore: number;
+
+jest.mock('../../jobs', () => ({
+  stopJobs: jest.fn(),
+}));
 
 beforeAll(async () => {
   const sourcesCnt = await db(true).table('sources').count().first();
@@ -24,17 +29,20 @@ const query = `
 
 const galicia = { id: SOURCE_GALICIA_1 };
 
-beforeEach(holdTransaction);
+beforeEach(async () => {
+  jest.clearAllMocks();
+  await holdTransaction();
+});
 afterEach(rollbackTransaction);
 
 describe('resolvers chain', () => {
-  test('anon should not pass', async () => {
+  it('anon should not pass', async () => {
     const result = await runQuery(query, galicia, anonContext);
     expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
     expect(result).toHaveProperty('data.removeSource', null);
   });
 
-  test('user should not pass', async () => {
+  it('user should not pass', async () => {
     const result = await runQuery(query, galicia, userContext);
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.removeSource', null);
@@ -52,22 +60,26 @@ describe('effects', () => {
     result = null;
   });
 
-  test('should return deleted source id', () => {
+  it('should return deleted source id', () => {
     expect(result.data.removeSource).toBe(galicia.id);
   });
 
-  test('should remove from sources table', async () => {
+  it('should remove from sources table', async () => {
     const { count } = await db().table('sources').count().first();
     expect(sourceCountBefore - Number(count)).toBe(1);
   });
 
-  test('should remove from sources_translations table', async () => {
+  it('should remove from sources_translations table', async () => {
     const { count } = await db().table('sources_translations').count().first();
     expect(translationsCountBefore - Number(count)).toBe(2);
   });
 
-  test('should remove sources -> regions connection', async () => {
+  it('should remove sources -> regions connection', async () => {
     const { count } = await db().table('sources_regions').count().first();
     expect(regionsConnectionCountBefore - Number(count)).toBe(2);
+  });
+
+  it('should stop jobs', () => {
+    expect(stopJobs).toHaveBeenCalledWith(SOURCE_GALICIA_1);
   });
 });
