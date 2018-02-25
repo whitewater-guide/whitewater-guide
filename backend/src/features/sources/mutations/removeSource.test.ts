@@ -1,6 +1,20 @@
 import db, { holdTransaction, rollbackTransaction } from '../../../db';
+import { SOURCE_GALICIA_1 } from '../../../seeds/test/04_sources';
 import { adminContext, anonContext, userContext } from '../../../test/context';
 import { runQuery } from '../../../test/db-helpers';
+
+let sourceCountBefore: number;
+let translationsCountBefore: number;
+let regionsConnectionCountBefore: number;
+
+beforeAll(async () => {
+  const sourcesCnt = await db(true).table('sources').count().first();
+  sourceCountBefore = Number(sourcesCnt.count);
+  const translationsCnt = await db(true).table('sources_translations').count().first();
+  translationsCountBefore = Number(translationsCnt.count);
+  const regConnCnt = await db(true).table('sources_regions').count().first();
+  regionsConnectionCountBefore = Number(regConnCnt.count);
+});
 
 const query = `
   mutation removeSource($id: ID!){
@@ -8,7 +22,7 @@ const query = `
   }
 `;
 
-const galicia = { id: '6d0d717e-aa9d-11e7-abc4-cec278b6b50a' };
+const galicia = { id: SOURCE_GALICIA_1 };
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
@@ -43,17 +57,17 @@ describe('effects', () => {
   });
 
   test('should remove from sources table', async () => {
-    const count = await db().table('sources').count().first();
-    expect(count.count).toBe('2');
+    const { count } = await db().table('sources').count().first();
+    expect(sourceCountBefore - Number(count)).toBe(1);
   });
 
   test('should remove from sources_translations table', async () => {
-    const count = await db().table('sources_translations').count().first();
-    expect(count.count).toBe('2');
+    const { count } = await db().table('sources_translations').count().first();
+    expect(translationsCountBefore - Number(count)).toBe(2);
   });
 
   test('should remove sources -> regions connection', async () => {
-    const count = await db().table('sources_regions').count().where({ source_id: galicia.id }).first();
-    expect(count.count).toBe('0');
+    const { count } = await db().table('sources_regions').count().first();
+    expect(regionsConnectionCountBefore - Number(count)).toBe(2);
   });
 });

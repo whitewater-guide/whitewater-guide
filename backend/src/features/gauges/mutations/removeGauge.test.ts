@@ -1,7 +1,21 @@
 import db, { holdTransaction, rollbackTransaction } from '../../../db';
+import { GAUGE_GAL_1_1 } from '../../../seeds/test/05_gauges';
 import { adminContext, anonContext, userContext } from '../../../test/context';
 import { runQuery } from '../../../test/db-helpers';
 import { removeGaugeQuery } from './removeGauge';
+
+let pointsBefore: number;
+let gaugesBefore: number;
+let translationsBefore: number;
+
+beforeAll(async () => {
+  const gCnt = await db(true).table('gauges').count().first();
+  gaugesBefore = Number(gCnt.count);
+  const tCnt = await db(true).table('gauges_translations').count().first();
+  translationsBefore = Number(tCnt.count);
+  const pCnt = await db(true).table('points').count().first();
+  pointsBefore = Number(pCnt.count);
+});
 
 const query = `
   mutation removeGauge($id: ID!){
@@ -9,14 +23,7 @@ const query = `
   }
 `;
 
-const gal1 = { id: 'aba8c106-aaa0-11e7-abc4-cec278b6b50a' };
-
-let pointsBefore: number;
-
-beforeAll(async () => {
-  const p = await db(true).table('points').count().first();
-  pointsBefore = Number(p.count);
-});
+const gal1 = { id: GAUGE_GAL_1_1 };
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
@@ -53,13 +60,13 @@ describe('effects', () => {
   });
 
   test('should remove from gauges table', async () => {
-    const count = await db().table('gauges').count().first();
-    expect(count.count).toBe('3');
+    const { count } = await db().table('gauges').count().first();
+    expect(gaugesBefore - Number(count)).toBe(1);
   });
 
   test('should remove from translations table', async () => {
-    const count = await db().table('gauges_translations').count().first();
-    expect(count.count).toBe('4');
+    const { count } = await db().table('gauges_translations').count().first();
+    expect(translationsBefore - Number(count)).toBe(2);
   });
 
   test('should remove location point', async () => {

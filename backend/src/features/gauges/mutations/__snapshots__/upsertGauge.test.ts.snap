@@ -4,9 +4,8 @@ exports[`insert should match snapshot 1`] = `
 Object {
   "data": Object {
     "upsertGauge": Object {
-      "code": "nor3",
+      "code": "nor5",
       "cron": "10 * * * *",
-      "enabled": false,
       "flowUnit": "m3/s",
       "language": "en",
       "levelUnit": "cm",
@@ -19,7 +18,7 @@ Object {
         "kind": "gauge",
         "language": "en",
       },
-      "name": "norway gauge 3",
+      "name": "norway gauge 5",
       "requestParams": Object {
         "foo": "bar",
       },
@@ -27,7 +26,7 @@ Object {
         "language": "en",
         "name": "Norway",
       },
-      "url": "http://nve.no/nor3",
+      "url": "http://nve.no/nor5",
     },
   },
 }
@@ -96,7 +95,6 @@ Object {
     "upsertGauge": Object {
       "code": "gal1",
       "cron": "10 * * * *",
-      "enabled": true,
       "flowUnit": "cm3/s",
       "language": "en",
       "levelUnit": "m",

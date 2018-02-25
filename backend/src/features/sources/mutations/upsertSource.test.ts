@@ -1,8 +1,16 @@
 import db, { holdTransaction, rollbackTransaction } from '../../../db';
+import { SOURCE_GALICIA_1, SOURCE_GALICIA_2, SOURCE_GEORGIA } from '../../../seeds/test/04_sources';
 import { adminContext, anonContext, userContext } from '../../../test/context';
 import { isTimestamp, isUUID, noTimestamps, noUnstable, runQuery } from '../../../test/db-helpers';
 import { HarvestMode, SourceInput } from '../../../ww-commons';
 import { SourceRaw } from '../types';
+
+let sourceCountBefore: number;
+
+beforeAll(async () => {
+  const sourcesCnt = await db(true).table('sources').count().first();
+  sourceCountBefore = Number(sourcesCnt.count);
+});
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
@@ -19,7 +27,7 @@ const requiredSource: SourceInput = {
 };
 
 const optionalSource: SourceInput = {
-  id: '6d0d717e-aa9d-11e7-abc4-cec278b6b50a',
+  id: SOURCE_GALICIA_1,
   name: 'Updated source',
   script: 'updatedScript',
   cron: '1 1 * * *',
@@ -100,8 +108,8 @@ describe('insert', () => {
   });
 
   test('should add one more source', async () => {
-    const result = await db().table('sources').count();
-    expect(result[0].count).toBe('4');
+    const { count } = await db().table('sources').count().first();
+    expect(Number(count) - sourceCountBefore).toBe(1);
   });
 
   test('should have id', () => {
@@ -151,8 +159,8 @@ describe('update', () => {
   });
 
   test('should not change total number of sources', async () => {
-    const result = await db().table('sources').count();
-    expect(result[0].count).toBe('3');
+    const { count } = await db().table('sources').count().first();
+    expect(Number(count)).toBe(sourceCountBefore);
   });
 
   test('should have id', () => {
@@ -169,6 +177,14 @@ describe('update', () => {
     expect(result).toEqual([{ source_id: optionalSource.id, region_id: '2caf75ca-7625-11e7-b5a5-be2e44b06b34' }]);
   });
 
+  test('should not change enabled sources', async () => {
+    const result = await runQuery(mutation, { source: { ...optionalSource, id: SOURCE_GALICIA_2 } }, adminContext);
+    expect(result.errors).toBeDefined();
+    expect(result.data!.upsertSource).toBeNull();
+    expect(result).toHaveProperty('errors.0.name', 'MutationNotAllowedError');
+    expect(result).toHaveProperty('errors.0.message', 'Disable source before editing it');
+  });
+
   test('should match snapshot', () => {
     expect(noTimestamps(updatedSource)).toMatchSnapshot();
   });
@@ -176,14 +192,14 @@ describe('update', () => {
 });
 
 describe('i18n', () => {
-  const norwayRu = {
-    id: '786251d4-aa9d-11e7-abc4-cec278b6b50a',
-    script: 'norway',
-    name: 'Норвегия',
-    termsOfUse: 'Правила пользования Норвегией',
+  const georgiaRu = {
+    id: SOURCE_GEORGIA,
+    script: 'georgia',
+    name: 'Грузия',
+    termsOfUse: 'Правила пользования Грузией',
     cron: '0 * * * *',
     harvestMode: HarvestMode.ONE_BY_ONE,
-    url: 'http://nve.no',
+    url: 'http://georgia.ge',
     regions: [],
   };
 
@@ -199,39 +215,40 @@ describe('i18n', () => {
   };
 
   it('should add new translation', async () => {
-    const result = await runQuery(mutation, { source: norwayRu, language: 'ru' }, adminContext);
+    const result = await runQuery(mutation, { source: georgiaRu, language: 'ru' }, adminContext);
+    expect(result.errors).toBeUndefined();
     expect(result.data!.upsertSource).toMatchObject({
-      id: '786251d4-aa9d-11e7-abc4-cec278b6b50a',
-      name: 'Норвегия',
+      id: SOURCE_GEORGIA,
+      name: 'Грузия',
       language: 'ru',
     });
     const translation = await db().table('sources_translations').select()
-      .where({ source_id: '786251d4-aa9d-11e7-abc4-cec278b6b50a', language: 'ru' })
+      .where({ source_id: SOURCE_GEORGIA, language: 'ru' })
       .first();
-    expect(translation.name).toBe('Норвегия');
+    expect(translation.name).toBe('Грузия');
   });
 
   it('should modify common props in other language', async () => {
-    await runQuery(mutation, { source: norwayRu, language: 'ru' }, adminContext);
-    const commons = await db().table('sources').select('harvest_mode')
-      .where({ id: '786251d4-aa9d-11e7-abc4-cec278b6b50a' }).first();
-    expect(commons.harvest_mode).toBe(HarvestMode.ONE_BY_ONE);
+    await runQuery(mutation, { source: georgiaRu, language: 'ru' }, adminContext);
+    const commons = await db().table('sources').select('cron')
+      .where({ id: SOURCE_GEORGIA }).first();
+    expect(commons.cron).toBe(georgiaRu.cron);
   });
 
   it('should modify translation', async () => {
     const result = await runQuery(mutation, { source: galiciaRu, language: 'ru' }, adminContext);
     expect(result.errors).toBeUndefined();
     expect(result.data!.upsertSource).toMatchObject({
-      id: '6d0d717e-aa9d-11e7-abc4-cec278b6b50a',
+      id: SOURCE_GALICIA_1,
       language: 'ru',
       name: 'Новая Галисия',
       termsOfUse: 'Правила пользования новой галисией',
     });
     const translation = await db().table('sources_translations').select()
-      .where({ source_id: '6d0d717e-aa9d-11e7-abc4-cec278b6b50a', language: 'ru' })
+      .where({ source_id: SOURCE_GALICIA_1, language: 'ru' })
       .first();
     expect(translation).toMatchObject({
-      source_id: '6d0d717e-aa9d-11e7-abc4-cec278b6b50a',
+      source_id: SOURCE_GALICIA_1,
       language: 'ru',
       name: 'Новая Галисия',
       terms_of_use: 'Правила пользования новой галисией',

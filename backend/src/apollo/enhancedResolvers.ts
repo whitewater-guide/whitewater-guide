@@ -1,9 +1,9 @@
 import { createError, isInstance } from 'apollo-errors';
 import { createResolver } from 'apollo-resolvers';
+import { GraphQLFieldResolver } from 'graphql';
 import * as Joi from 'joi';
 import { Role } from '../features/users/types';
 import { Context } from './types';
-import { GraphQLFieldResolver } from 'graphql';
 
 export const UnknownError = createError('UnknownError', {
   message: 'An unknown error has occurred!  Please try again later',

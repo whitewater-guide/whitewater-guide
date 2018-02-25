@@ -29,5 +29,4 @@ export interface GaugeInput {
   requestParams: any;
   cron: string | null;
   url: string | null;
-  enabled: boolean;
 }

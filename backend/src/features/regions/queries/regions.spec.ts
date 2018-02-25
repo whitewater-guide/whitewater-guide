@@ -108,7 +108,9 @@ test('should return gauges count', async () => {
   expect(result.data!.regions).toBeDefined();
   const regions = result.data!.regions;
   // Check name
+  // connects sources 'galicia' and 'norway' to region 'Norway'
+  // connects sources 'galicia' and 'galicia2' to region 'galicia'
   expect(regions.nodes[0].gauges).toEqual({ count: 0 }); // Ecuador
-  expect(regions.nodes[1].gauges).toEqual({ count: 2 }); // galicia
-  expect(regions.nodes[2].gauges).toEqual({ count: 4 }); // Norway
+  expect(regions.nodes[1].gauges).toEqual({ count: 4 }); // galicia
+  expect(regions.nodes[2].gauges).toEqual({ count: 6 }); // Norway
 });

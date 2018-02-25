@@ -1,6 +1,6 @@
 import { GraphQLFieldResolver } from 'graphql';
 import * as Joi from 'joi';
-import { isAdminResolver, isInputValidResolver } from '../../../apollo';
+import { isAdminResolver, isInputValidResolver, MutationNotAllowedError } from '../../../apollo';
 import db, { rawUpsert } from '../../../db';
 import { SourceInput, SourceInputSchema } from '../../../ww-commons';
 
@@ -16,9 +16,13 @@ const Schema = Joi.object().keys({
 
 const resolver: GraphQLFieldResolver<any, any> = async (root, args: UpsertVariables) => {
   const { source, language = 'en' } = args;
-  const result = await rawUpsert(db(), `SELECT upsert_source('${JSON.stringify(source)}', '${language}')`);
-  // console.log(result);
-  return result;
+  if (source.id) {
+    const { enabled } = await db().table('sources').select(['enabled']).where({ id: source.id }).first();
+    if (enabled) {
+      throw new MutationNotAllowedError({ message: 'Disable source before editing it' });
+    }
+  }
+  return rawUpsert(db(), `SELECT upsert_source('${JSON.stringify(source)}', '${language}')`);
 };
 
 const queryResolver: GraphQLFieldResolver<any, any> = (root, args: UpsertVariables, context, info) => {

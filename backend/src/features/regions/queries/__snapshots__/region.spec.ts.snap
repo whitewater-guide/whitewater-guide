@@ -2,7 +2,7 @@
 
 exports[`should get gauges 1`] = `
 Object {
-  "count": 4,
+  "count": 6,
   "nodes": Array [
     Object {
       "id": "b77ef1b2-aaa0-11e7-abc4-cec278b6b50a",
@@ -13,6 +13,16 @@ Object {
       "id": "aba8c106-aaa0-11e7-abc4-cec278b6b50a",
       "language": "en",
       "name": "Galicia gauge 1",
+    },
+    Object {
+      "id": "1628cb60-1a0a-11e8-accf-0ed5f89f718b",
+      "language": "en",
+      "name": "Norway gauge 4",
+    },
+    Object {
+      "id": "1628c340-1a0a-11e8-accf-0ed5f89f718b",
+      "language": "en",
+      "name": "Norway gauge 3",
     },
     Object {
       "id": "cc55b1c0-aaa0-11e7-abc4-cec278b6b50a",

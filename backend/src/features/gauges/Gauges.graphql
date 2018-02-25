@@ -31,7 +31,6 @@ input GaugeInput {
   requestParams: JSON
   cron: String
   url: String
-  enabled: Boolean
 }
 
 type GaugesList {

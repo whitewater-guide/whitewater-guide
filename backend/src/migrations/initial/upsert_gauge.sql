@@ -14,7 +14,7 @@ BEGIN
   ),
   -- Then insert core
   upserted_gauge AS (
-    INSERT INTO gauges(id, source_id, location_id, code, level_unit, flow_unit, cron, request_params, url, enabled)
+    INSERT INTO gauges(id, source_id, location_id, code, level_unit, flow_unit, cron, request_params, url)
     SELECT
       COALESCE((gauge ->> 'id') :: UUID, uuid_generate_v1mc()),
       (gauge -> 'source' ->> 'id') :: UUID,
@@ -24,8 +24,7 @@ BEGIN
       gauge ->> 'flowUnit',
       gauge ->> 'cron',
       (gauge -> 'requestParams')::json,
-      gauge ->> 'url',
-      (gauge ->> 'enabled') :: BOOLEAN
+      gauge ->> 'url'
     FROM upserted_location
     ON CONFLICT (id)
       DO UPDATE SET
@@ -36,8 +35,7 @@ BEGIN
         flow_unit         = EXCLUDED.flow_unit,
         cron              = EXCLUDED.cron,
         request_params    = EXCLUDED.request_params,
-        url               = EXCLUDED.url,
-        enabled           = EXCLUDED.enabled
+        url               = EXCLUDED.url
     RETURNING id
   )
   INSERT INTO gauges_translations(gauge_id, language, name)

@@ -1,14 +1,23 @@
 import db, { holdTransaction, rollbackTransaction } from '../../../db';
+import { GAUGE_GEO_3 } from '../../../seeds/development/05_gauges';
+import { SOURCE_GALICIA_1, SOURCE_GALICIA_2, SOURCE_NORWAY } from '../../../seeds/test/04_sources';
+import { GAUGE_GAL_1_1 } from '../../../seeds/test/05_gauges';
 import { adminContext, anonContext, userContext } from '../../../test/context';
 import { isTimestamp, isUUID, noUnstable, runQuery } from '../../../test/db-helpers';
 import { GaugeInput } from '../../../ww-commons';
 import { GaugeRaw } from '../types';
 
 let pointsBefore: number;
+let gaugesBefore: number;
+let translationsBefore: number;
 
 beforeAll(async () => {
-  const p = await db(true).table('points').count().first();
-  pointsBefore = Number(p.count);
+  const pCnt = await db(true).table('points').count().first();
+  const gCnt = await db(true).table('gauges').count().first();
+  const tCnt = await db(true).table('gauges_translations').count().first();
+  pointsBefore = Number(pCnt.count);
+  gaugesBefore = Number(gCnt.count);
+  translationsBefore = Number(tCnt.count);
 });
 
 beforeEach(holdTransaction);
@@ -32,7 +41,6 @@ const upsertQuery = `
       requestParams
       cron
       url
-      enabled
       createdAt
       updatedAt
       source {
@@ -47,16 +55,15 @@ const upsertQuery = `
 describe('resolvers chain', () => {
   const gauge: GaugeInput = {
     id: null,
-    source: { id: '786251d4-aa9d-11e7-abc4-cec278b6b50a' },
-    name: 'norway gauge 3',
-    code: 'nor3',
+    source: { id: SOURCE_NORWAY },
+    name: 'norway gauge 5',
+    code: 'nor5',
     location: null,
     levelUnit: 'cm',
     flowUnit: null,
     requestParams: null,
     cron: null,
     url: null,
-    enabled: false,
   };
 
   test('anon should not pass', async () => {
@@ -83,7 +90,6 @@ describe('resolvers chain', () => {
       requestParams: null,
       cron: 'aaa',
       url: 'bbb',
-      enabled: false,
     };
     const result = await runQuery(upsertQuery, { gauge: invalidInput }, adminContext);
     expect(result).toHaveProperty('errors.0.name', 'ValidationError');
@@ -96,16 +102,15 @@ describe('resolvers chain', () => {
 describe('insert', () => {
   const input: GaugeInput = {
     id: null,
-    source: { id: '786251d4-aa9d-11e7-abc4-cec278b6b50a' }, // norway
-    name: 'norway gauge 3',
-    code: 'nor3',
+    source: { id: SOURCE_NORWAY },
+    name: 'norway gauge 5',
+    code: 'nor5',
     location: { id: null, name: null, description: null, coordinates: [11.1, 12.2, 1.1], kind: 'gauge' },
     levelUnit: 'cm',
     flowUnit: 'm3/s',
     requestParams: { foo: 'bar' },
     cron: '10 * * * *',
-    url: 'http://nve.no/nor3',
-    enabled: false,
+    url: 'http://nve.no/nor5',
   };
 
   it('should return result', async () => {
@@ -121,8 +126,8 @@ describe('insert', () => {
 
   it('should add one more gauge', async () => {
     await runQuery(upsertQuery, { gauge: input }, adminContext);
-    const result = await db().table('gauges').count();
-    expect(result[0].count).toBe('5');
+    const { count } = await db().table('gauges').count().first();
+    expect(Number(count) - gaugesBefore).toBe(1);
   });
 
   it('should insert point', async () => {
@@ -151,8 +156,8 @@ describe('insert', () => {
 
 describe('update', () => {
   const input: GaugeInput = {
-    id: 'aba8c106-aaa0-11e7-abc4-cec278b6b50a', // gal1
-    source: { id: '6d0d717e-aa9d-11e7-abc4-cec278b6b50a' },
+    id: GAUGE_GAL_1_1,
+    source: { id: SOURCE_GALICIA_1 },
     name: 'GALICIA GAUGE 1',
     code: 'gal1',
     location: {
@@ -167,7 +172,6 @@ describe('update', () => {
     requestParams: { lol: 'fun' },
     cron: '10 * * * *',
     url: 'http://galic.ia/gal1',
-    enabled: true,
   };
 
   let oldGauge: GaugeRaw | null;
@@ -194,8 +198,8 @@ describe('update', () => {
   });
 
   it('should not change total number of gauges', async () => {
-    const result = await db().table('gauges').count();
-    expect(result[0].count).toBe('4');
+    const { count } = await db().table('gauges').count().first();
+    expect(Number(count)).toBe(gaugesBefore);
   });
 
   it('should update updated_at timestamp', async () => {
@@ -209,6 +213,14 @@ describe('update', () => {
       coordinates: [11.1, 12.2, 1.1],
       kind: 'gauge',
     });
+  });
+
+  test('should not change enabled gauges', async () => {
+    const result = await runQuery(upsertQuery, { gauge: { ...input, id: GAUGE_GEO_3 } }, adminContext);
+    expect(result.errors).toBeDefined();
+    expect(result.data!.upsertGauge).toBeNull();
+    expect(result).toHaveProperty('errors.0.name', 'MutationNotAllowedError');
+    expect(result).toHaveProperty('errors.0.message', 'Disable gauge before editing it');
   });
 
   it('should match snapshot', async () => {
@@ -234,15 +246,14 @@ describe('i18n', () => {
     requestParams: { lol: 'fun' },
     cron: '10 * * * *',
     url: 'http://galic.ia/gal1',
-    enabled: true,
   };
 
   it('should add new translation', async () => {
     await runQuery(upsertQuery, { gauge: inputPt, language: 'pt' }, adminContext);
-    const count = await db().table('gauges_translations').count().first();
-    expect(count.count).toBe('7');
+    const { count } = await db().table('gauges_translations').count().first();
+    expect(Number(count) - translationsBefore).toBe(1);
     const name = await db().table('gauges_view').select('name')
-      .where({ language: 'pt', id: 'aba8c106-aaa0-11e7-abc4-cec278b6b50a' }).first();
+      .where({ language: 'pt', id: GAUGE_GAL_1_1 }).first();
     expect(name.name).toBe('galicia gauge pt');
   });
 
@@ -255,20 +266,10 @@ describe('i18n', () => {
 
   it('should modify existing translation', async () => {
     await runQuery(upsertQuery, { gauge: inputPt, language: 'en' }, adminContext);
-    const count = await db().table('gauges_translations').count().first();
-    expect(count.count).toBe('6');
+    const { count } = await db().table('gauges_translations').count().first();
+    expect(Number(count)).toBe(translationsBefore);
     const name = await db().table('gauges_view').select('name')
-      .where({ language: 'en', id: 'aba8c106-aaa0-11e7-abc4-cec278b6b50a' }).first();
+      .where({ language: 'en', id: GAUGE_GAL_1_1 }).first();
     expect(name.name).toBe('galicia gauge pt');
-  });
-});
-
-describe('jobs', async () => {
-  it.skip('should stop jobs', () => {
-    throw new Error('not implemented yet');
-  });
-
-  it.skip('should start jobs', () => {
-    throw new Error('not implemented yet');
   });
 });

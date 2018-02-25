@@ -1,7 +1,14 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
+import { SOURCE_NORWAY } from '../../../seeds/test/04_sources';
+import { GAUGE_GAL_1_1, GAUGE_NOR_1, GAUGE_NOR_2, GAUGE_NOR_4 } from '../../../seeds/test/05_gauges';
 import { adminContext, anonContext, userContext } from '../../../test/context';
 import { runQuery } from '../../../test/db-helpers';
-import { toggleGaugeQuery } from './toggleGauge';
+import { startJobs, stopJobs } from '../../jobs';
+
+jest.mock('../../jobs', () => ({
+  startJobs: jest.fn(),
+  stopJobs: jest.fn(),
+}));
 
 const query = `
   mutation toggleGauge($id: ID!, $enabled: Boolean!){
@@ -13,10 +20,13 @@ const query = `
   }
 `;
 
-const gal1 = { id: 'aba8c106-aaa0-11e7-abc4-cec278b6b50a', enabled: true };
-const nor1 = { id: 'c03184b4-aaa0-11e7-abc4-cec278b6b50a', enabled: false };
+const gal1 = { id: GAUGE_GAL_1_1, enabled: true };
+const nor1 = { id: GAUGE_NOR_1, enabled: false };
 
-beforeEach(holdTransaction);
+beforeEach(async () => {
+  jest.clearAllMocks();
+  await holdTransaction();
+});
 afterEach(rollbackTransaction);
 
 describe('resolvers chain', () => {
@@ -36,13 +46,35 @@ describe('resolvers chain', () => {
 });
 
 describe('effects', () => {
-  it('should enable', async () => {
+  it('should not enable gauge if source is all-at-once', async () => {
     const result = await runQuery(query, gal1, adminContext);
+    expect(result.errors).toBeDefined();
+    expect(result.data!.toggleGauge).toBeNull();
+    expect(result).toHaveProperty('errors.0.name', 'MutationNotAllowedError');
+    expect(result).toHaveProperty('errors.0.message', 'Cannot toggle gauge for all-at-once sources');
+  });
+
+  it('should not enable gauge without cron', async () => {
+    const result = await runQuery(query, { id: GAUGE_NOR_2, enabled: true }, adminContext);
+    expect(result.errors).toBeDefined();
+    expect(result.data!.toggleGauge).toBeNull();
+    expect(result).toHaveProperty('errors.0.name', 'MutationNotAllowedError');
+    expect(result).toHaveProperty('errors.0.message', 'Cron must be set to enable gauge');
+  });
+
+  it('should enable', async () => {
+    const result = await runQuery(query, { id: GAUGE_NOR_4, enabled: true }, adminContext);
     expect(result.errors).toBeUndefined();
     expect(result.data!.toggleGauge).toMatchObject({
-      ...gal1,
+      id: GAUGE_NOR_4,
+      enabled: true,
       language: 'en',
     });
+  });
+
+  it('should start job', async () => {
+    await runQuery(query, { id: GAUGE_NOR_4, enabled: true }, adminContext);
+    expect(startJobs).lastCalledWith(SOURCE_NORWAY, GAUGE_NOR_4);
   });
 
   it('should disable', async () => {
@@ -53,10 +85,10 @@ describe('effects', () => {
       language: 'en',
     });
   });
-});
 
-describe('sql', () => {
-  test('should use correct query', () => {
-    expect(toggleGaugeQuery(gal1)).toMatchSnapshot();
+  it('should stop job', async () => {
+    await runQuery(query, { id: GAUGE_NOR_1, enabled: false }, adminContext);
+    expect(stopJobs).lastCalledWith(SOURCE_NORWAY, GAUGE_NOR_1);
   });
+
 });

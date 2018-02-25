@@ -3,6 +3,16 @@
 exports[`admin should list sources 1`] = `
 Array [
   Object {
+    "cron": "10 * * * *",
+    "enabled": true,
+    "harvestMode": "allAtOnce",
+    "id": "1628c0a2-1a0a-11e8-accf-0ed5f89f718b",
+    "language": "en",
+    "name": "Alps",
+    "script": "alps",
+    "url": "http://yandex.ru",
+  },
+  Object {
     "cron": "0 * * * *",
     "enabled": false,
     "harvestMode": "allAtOnce",
@@ -13,9 +23,9 @@ Array [
     "url": "http://ya.ru",
   },
   Object {
-    "cron": "1 * * * *",
-    "enabled": false,
-    "harvestMode": "oneByOne",
+    "cron": null,
+    "enabled": true,
+    "harvestMode": "allAtOnce",
     "id": "9f962a34-bff9-11e7-abc4-cec278b6b50a",
     "language": "en",
     "name": "Galicia2",
@@ -24,8 +34,18 @@ Array [
   },
   Object {
     "cron": null,
+    "enabled": false,
+    "harvestMode": "oneByOne",
+    "id": "53af1a54-19fe-11e8-accf-0ed5f89f718b",
+    "language": "en",
+    "name": "Georgia",
+    "script": "one_by_one",
+    "url": null,
+  },
+  Object {
+    "cron": null,
     "enabled": true,
-    "harvestMode": "allAtOnce",
+    "harvestMode": "oneByOne",
     "id": "786251d4-aa9d-11e7-abc4-cec278b6b50a",
     "language": "en",
     "name": "Norway",

@@ -12,7 +12,6 @@ export const GaugeInputSchema = Joi.object().keys({
   requestParams: Joi.object().min(1).allow(null),
   cron: JoiWithCron.string().isCron().allow(null),
   url: Joi.string().uri().allow(null),
-  enabled: Joi.boolean(),
   source: Joi.object().keys({ id: Joi.string().guid() }),
 });
 
