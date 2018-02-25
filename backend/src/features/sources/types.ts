@@ -1,8 +1,5 @@
-import { loadGraphqlFile } from '../../apollo/loadGraphqlFile';
 import { RawTimestamped } from '../../db';
 import { HarvestMode, NamedNode } from '../../ww-commons';
-
-export const SourcesSchema = loadGraphqlFile('sources');
 
 /**
  * Raw row from database `source` table

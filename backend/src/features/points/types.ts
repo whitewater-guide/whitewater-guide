@@ -1,7 +1,3 @@
-import { loadGraphqlFile } from '../../apollo/loadGraphqlFile';
-
-export const PointsSchema = loadGraphqlFile('points');
-
 /**
  * Raw row from database `points` table
  */

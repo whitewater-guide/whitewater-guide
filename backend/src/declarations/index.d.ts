@@ -9,17 +9,6 @@ declare module 'graphql-type-json' {
   export default GraphQLJSON;
 }
 
-declare module 'graphql-loader' {
-  import { IExecutableSchemaDefinition } from 'graphql-tools/dist/Interfaces';
-
-  interface LoadSchemaOptions {
-    typeDefs: string[];
-    resolvers: any;
-  }
-  export function loadSchema(options: LoadSchemaOptions): void;
-  export function getSchema(): IExecutableSchemaDefinition;
-}
-
 declare module 'http-shutdown' {
   import { Server } from 'http';
   interface Shutdownable {

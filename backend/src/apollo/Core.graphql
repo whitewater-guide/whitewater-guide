@@ -1,0 +1,24 @@
+scalar JSON
+scalar Date
+scalar UploadedFile
+
+enum SortDirection {
+  asc
+  desc
+}
+
+input RefInput {
+  id: ID!
+  name: String
+}
+
+input Page {
+  limit: Int
+  offset: Int
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+  # subscription: Subscription
+}

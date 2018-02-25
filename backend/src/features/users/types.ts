@@ -1,8 +1,5 @@
 import * as passport from 'passport';
-import { loadGraphqlFile } from '../../apollo/loadGraphqlFile';
 import { RawTimestamped } from '../../db';
-
-export const UsersSchema = loadGraphqlFile('users');
 
 export interface UserRaw extends RawTimestamped {
   id: string;

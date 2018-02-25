@@ -1,6 +1,9 @@
 import { formatError as apolloFormatError } from 'apollo-errors';
 import { GraphQLError } from 'graphql';
+import log from '../log';
 import { UnknownError } from './enhancedResolvers';
+
+const logger = log.child({ module: 'apollo' });
 
 export const formatError = (error: any) => {
   let e = apolloFormatError(error, true);
@@ -13,6 +16,8 @@ export const formatError = (error: any) => {
       },
     }), true);
   }
+
+  logger.error(e);
 
   return e;
 };

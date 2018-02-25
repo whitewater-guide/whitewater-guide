@@ -1,12 +1,9 @@
-import { loadGraphqlFile } from '../../apollo/loadGraphqlFile';
 import { RawTimestamped } from '../../db';
 import { NamedNode, Tag } from '../../ww-commons';
 import { GaugeRaw } from '../gauges';
 import { PointRaw } from '../points';
 import { RegionRaw } from '../regions';
 import { RiverRaw } from '../rivers';
-
-export const SectionsSchema = loadGraphqlFile('sections');
 
 export interface GaugeBindingRaw {
   minimum?: number;
