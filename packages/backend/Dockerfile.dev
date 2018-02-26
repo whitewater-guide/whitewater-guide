@@ -1,0 +1,25 @@
+FROM node:8
+
+ENV PROJECT_ROOT /opt/app
+
+RUN mkdir -p /tmp/app \
+ && mkdir -p /opt/app \
+ && chown -R node /opt/app
+
+# Install postgres client
+RUN apt-get update && apt-get install -f -y postgresql-client
+# Install minio client
+RUN curl https://dl.minio.io/client/mc/release/linux-amd64/mc > /usr/bin/mc && \
+    chmod +x /usr/bin/mc
+
+RUN npm install -g chokidar-cli pm2
+
+COPY package.json yarn.lock /tmp/app/
+
+RUN cd /tmp/app/ && yarn install
+
+WORKDIR $PROJECT_ROOT
+
+COPY bin /opt/bin
+
+CMD ["/opt/bin/start_dev.sh"]

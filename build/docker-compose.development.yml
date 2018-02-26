@@ -1,0 +1,55 @@
+version: '3.3'
+services:
+  api:
+    container_name: ww_api
+    image: 'ww-backend:dev'
+    build:
+      dockerfile: Dockerfile.dev
+    env_file: .env.dev
+    ports:
+      - '5775:5775'
+      - '5001:5001'
+    volumes:
+      - 'yarn:/root/.cache/yarn'
+      - 'ww-backend-sync:/opt/app:nocopy'
+  db:
+    container_name: ww_db
+    image: 'ww-db:dev'
+    env_file: .env.dev
+    tmpfs:
+      - /tmp
+      - /var/run/postgresql
+      - /var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+  minio:
+    container_name: ww_minio
+    image: 'minio/minio:latest'
+    command: server /data
+    env_file: .env.dev
+    ports:
+      - '9000:9000'
+    volumes:
+      - type: bind
+        source: ../packages/minio/data
+        target: /data
+      - type: bind
+        source: ../packages/minio/config
+        target: /root/.minio
+  caddy:
+    container_name: ww_caddy
+    image: 'ww-caddy:dev'
+    env_file: .env.dev
+    tmpfs:
+      - /tmp/caddy-cache
+    volumes:
+      - '../packages/caddy/Caddyfile:/etc/Caddyfile'
+    ports:
+      - '6000:2015'
+  imgproxy:
+    container_name: ww_imgproxy
+    env_file: .env.dev
+volumes:
+  yarn: null
+  ww-backend-sync:
+    external: true

@@ -1,66 +1,35 @@
-version: '3'
-
+version: '3.3'
 services:
-
-  # Nginx web server acting as a reverse proxy for "web" and "api" services
-  # nginx:
-  #   image: nginx:1.13.1-alpine
-  #   read_only: true
-  #   tmpfs:
-  #     - /var/cache/nginx
-  #     - /var/log/nginx
-  #     - /var/run
-  #   depends_on:
-  #     - api
-  #   ports:
-  #     - "8080:80"
-  #     - "8443:443"
-  #   volumes:
-  #     - ./config/nginx-snippets:/etc/nginx/snippets:ro
-  #     - ./config/nginx.conf:/etc/nginx/conf.d/default.conf:ro
-
   api:
-    build: ./backend
+    build:
+      context: ../packages/backend
     depends_on:
       - db
-    env_file: .env
-#    expose:
-#      - "3333"
-    ports:
-      # TODO: remove in production
-      - "5775:5775"
-      - "3333:3333"
-    volumes:
-      - yarn:/root/.cache/yarn
-      - backend-sync:/opt/app:nocopy
-    # TODO: do not run as root - wait until https://github.com/keymetrics/docker-pm2/issues/21
-    # user: node
+      - minio
+    deploy:
+      placement:
+        constraints: [node.role == manager]
   db:
-    image: timescale/timescaledb-postgis:latest
-    env_file: .env
+    build: ../packages/db
     read_only: true
-    tmpfs:
-      - /tmp
-      - /var/run/postgresql
-    ports:
-      # TODO: remove in production
-      - "5432:5432"
-    volumes:
-      - db:/var/lib/postgresql/data
-      - ./backend/config/postgres-initdb.sh:/docker-entrypoint-initdb.d/initdb.sh
-
-  # Distributed in-memory cache
-  # redis:
-  #   image: redis:3.2.9-alpine
-  #   read_only: true
-  #   volumes:
-  #     - redis:/data
-  #   user: redis
-
-volumes:
-  db:
-  redis:
-  yarn:
-  backend-sync:
-    # TODO: dev only
-    external: true
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+  minio:
+    read_only: true
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+  imgproxy:
+    image: 'darthsim/imgproxy:latest'
+    read_only: true
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+  caddy:
+    build:
+      context: ../packages/caddy
+    read_only: true
+    deploy:
+      placement:
+        constraints: [node.role == manager]

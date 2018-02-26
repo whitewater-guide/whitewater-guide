@@ -6,9 +6,14 @@
   "author": "doomsower <K.Kuznetcov@gmail.com>",
   "private": true,
   "scripts": {
+    "dev:cleanup": "build/scripts/dev_cleanup.sh",
+    "dev:start": "build/scripts/dev_start.js",
     "wml:start": "build/scripts/wml_start.sh"
   },
   "devDependencies": {
+    "eslint": "^4.9.0",
+    "eslint-config-airbnb-base": "12.1.0",
+    "eslint-plugin-import": "^2.7.0",
     "husky": "^0.14.3",
     "wml": "^0.0.83"
   }

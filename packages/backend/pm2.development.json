@@ -1,0 +1,7 @@
+{
+  "apps": [{
+    "name": "ww_api",
+    "script": "src/index.js",
+    "node-args": "--inspect=0.0.0.0:5775"
+  }]
+}
