@@ -1,0 +1,15 @@
+{
+  "name": "whitewater",
+  "version": "0.0.1",
+  "description": "whitewater.guide monorepo",
+  "repository": "https://github.com/doomsower/whitewater.git",
+  "author": "doomsower <K.Kuznetcov@gmail.com>",
+  "private": true,
+  "scripts": {
+    "wml:start": "build/scripts/wml_start.sh"
+  },
+  "devDependencies": {
+    "husky": "^0.14.3",
+    "wml": "^0.0.83"
+  }
+}

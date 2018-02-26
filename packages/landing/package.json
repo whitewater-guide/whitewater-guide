@@ -1,0 +1,12 @@
+{
+  "name": "landing",
+  "version": "0.0.1",
+  "description": "Static landing pages for whitewater.guide",
+  "scripts": {
+    "start": "browser-sync start --server 'src' --files 'src' --port 3002"
+  },
+  "author": "Konstantin Kuznetsov",
+  "devDependencies": {
+    "browser-sync": "^2.18.13"
+  }
+}

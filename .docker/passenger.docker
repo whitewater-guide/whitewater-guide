@@ -1,8 +1,0 @@
-FROM doomsower/whitewater_passenger_base:1.8
-
-# Deploy code (must be built beforehand)
-COPY build/bundle.tar.gz /home/app/webapp/
-
-RUN chown app /home/app/webapp/bundle.tar.gz \
- && tar xzf /home/app/webapp/bundle.tar.gz -C /home/app/webapp/ \
- && rm /home/app/webapp/bundle.tar.gz

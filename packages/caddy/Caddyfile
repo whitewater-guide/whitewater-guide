@@ -1,0 +1,34 @@
+{$CADDY_ADDRESS} {
+
+  tls {$CADDY_TLS_EMAIL} {
+    # The line below uses staging certificate
+    # Comment it out to use real certificate
+    ca https://acme-staging.api.letsencrypt.org/directory
+  }
+
+  proxy / api:5001 {
+    transparent
+  }
+
+  proxy /{$MINIO_PROXY_PATH} {$MINIO_HOST}:9000 {
+    transparent
+  }
+
+  proxy /{$IMGPROXY_PATH} {$IMGPROXY_HOST}:8080 {
+    without /images
+    transparent
+  }
+
+  cache {
+    match_path /images
+    match_header Content-Type image/jpg image/png
+    status_header X-Cache-Status
+    default_max_age 24h
+    path {$CADDY_CACHE_PATH}
+  }
+
+  log / stdout "{common} Origin: {>Origin} Upstream: {upstream}"
+
+  errors stdout
+
+}
