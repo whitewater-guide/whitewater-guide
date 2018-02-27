@@ -11,6 +11,8 @@ x-single-host:
 services:
   backend:
     <<: *ww-single-host
+    env_file:
+      - ${DOCKER_ENV_FILE}
     build:
       context: ../packages/backend
       labels:
@@ -20,6 +22,8 @@ services:
       - minio
   db:
     <<: *ww-single-host
+    env_file:
+      - ${DOCKER_ENV_FILE}
     build:
       context: ../packages/db
       labels:
@@ -27,13 +31,19 @@ services:
     read_only: true
   minio:
     <<: *ww-single-host
+    env_file:
+      - ${DOCKER_ENV_FILE}
     read_only: true
   imgproxy:
     <<: *ww-single-host
+    env_file:
+      - ${DOCKER_ENV_FILE}
     image: 'darthsim/imgproxy:latest'
     read_only: true
   caddy:
     <<: *ww-single-host
+    env_file:
+      - ${DOCKER_ENV_FILE}
     build:
       context: ../packages/caddy
       labels:

@@ -16,7 +16,7 @@ const generateStackFile = async configName => new Promise((resolve, reject) => {
       'docker-compose',
       ['-f', 'build/docker-compose.yml', '-f', `build/docker-compose.${configName}.yml`, 'config'],
       {
-        env: Object.assign({}, process.env, env),
+        env: Object.assign({ DOCKER_ENV_FILE: `.env.${configName}` }, process.env, env),
         stdio: ['ignore', output, 'inherit'],
       },
     );

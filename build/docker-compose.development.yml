@@ -6,7 +6,6 @@ services:
     image: 'ww-backend:dev'
     build:
       dockerfile: Dockerfile.dev
-    env_file: .env.dev
     ports:
       - '5775:5775'
     volumes:
@@ -15,7 +14,6 @@ services:
   db:
     container_name: ww-db
     image: 'ww-db:dev'
-    env_file: .env.dev
     tmpfs:
       - /tmp
       - /var/run/postgresql
@@ -26,7 +24,6 @@ services:
     container_name: ww-minio
     image: 'minio/minio:latest'
     command: server /data
-    env_file: .env.dev
     ports:
       - '9000:9000'
     volumes:
@@ -39,7 +36,6 @@ services:
   caddy:
     container_name: ww-caddy
     image: 'ww-caddy:dev'
-    env_file: .env.dev
     tmpfs:
       - /tmp/caddy-cache
     volumes:
@@ -48,7 +44,6 @@ services:
       - '6000:2015'
   imgproxy:
     container_name: ww-imgproxy
-    env_file: .env.dev
 volumes:
   yarn:
     labels:
