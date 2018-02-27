@@ -1,9 +1,11 @@
 import * as pino from 'pino';
 
 const log = pino({
-  name: 'ww',
   level: process.env.BACK_LOG_LEVEL,
-  enabled: process.env.NODE_ENV !== 'test',
+  prettyPrint: process.env.NODE_ENV === 'development' ? {
+    forceColor: true,
+    levelFirst: true,
+  } : false,
 });
 
 export default log;

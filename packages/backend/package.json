@@ -6,11 +6,10 @@
   "license": "MIT",
   "scripts": {
     "tsc": "tsc",
-    "pretest": "env $(cat ../.env.test | xargs) node ./src/test/pretest.js",
-    "posttest": "env $(cat ../.env.test | xargs) node ./src/test/posttest.js",
-    "test": "env $(cat ../.env.test | xargs) jest -i",
-    "test:watch": "env $(cat ../.env.test | xargs) jest -i --watch",
-    "docker:dev:install": "docker exec whitewaterapi_api_1 \"yarn && pm2-docker restart all\"",
+    "pretest": "env $(cat ../../build/.env.test | xargs) node ./src/test/pretest.js",
+    "posttest": "env $(cat ../../build/.env.test | xargs) node ./src/test/posttest.js",
+    "test": "env $(cat ../../build/.env.test | xargs) jest -i",
+    "test:watch": "env $(cat ../../build/.env.test | xargs) jest -i --watch",
     "madge": "madge --circular src/index.js"
   },
   "devDependencies": {

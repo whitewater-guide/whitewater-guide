@@ -1,13 +1,14 @@
 import httpShutdown = require('http-shutdown');
 import app from './app';
 import db from './db';
+import log from './log';
 
 const PORT = Number(process.env.PORT) || 3333;
 const HOST = process.env.HOSTNAME || '0.0.0.0';
 
 export default function startServer() {
   const server = httpShutdown(app.listen(PORT, HOST, () => {
-    console.log(`Example app listening on port ${PORT}!`);
+    log.info(`Example app listening on port ${PORT}!`);
   }));
 
   interface Options {

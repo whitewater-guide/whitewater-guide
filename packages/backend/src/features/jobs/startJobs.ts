@@ -1,10 +1,13 @@
 import db from '../../db';
+import log from '../../log';
 import { isMaster } from '../../utils';
 import { HarvestMode } from '../../ww-commons';
 import { GaugeRaw } from '../gauges';
 import { SourceRaw } from '../sources';
 import { createJob } from './createJob';
 import safeScheduleJob from './safeScheduleJob';
+
+const logger = log.child({ module: 'startJobs' });
 
 export async function startJobs(sourceId: string, gaugeId?: string) {
   if (!isMaster()) {
@@ -19,11 +22,11 @@ export async function startJobs(sourceId: string, gaugeId?: string) {
   }
   if (source.harvest_mode === HarvestMode.ALL_AT_ONCE) {
     if (gaugeId) {
-      console.log('Attempt to start job for allAtOnce source with gauge');
+      logger.warn(`Attempt to start job for allAtOnce source '${sourceId}' with gauge '${gaugeId}'`);
       return;
     }
     if (!source.cron) {
-      console.log('Attempt to start job for allAtOnce source without cron specified');
+      logger.warn(`Attempt to start job for allAtOnce source '${sourceId}' without cron specified`);
       return;
     }
     safeScheduleJob(source.id, source.cron, createJob(source));
