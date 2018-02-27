@@ -1,7 +1,8 @@
 {
   "apps": [{
-    "name": "ww_api",
+    "name": "ww_backend",
     "script": "src/index.js",
+    "source_map_support": true,
     "node-args": "--inspect=0.0.0.0:5775"
   }]
 }

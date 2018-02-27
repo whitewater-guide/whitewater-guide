@@ -1,35 +1,52 @@
 version: '3.3'
 services:
-  api:
+  backend:
     build:
       context: ../packages/backend
+      labels:
+        guide.whitewater: ""
     depends_on:
       - db
       - minio
     deploy:
       placement:
         constraints: [node.role == manager]
+    labels:
+      guide.whitewater: ""
   db:
-    build: ../packages/db
+    build:
+      context: ../packages/db
+      labels:
+        guide.whitewater: ""
     read_only: true
     deploy:
       placement:
         constraints: [node.role == manager]
+    labels:
+      guide.whitewater: ""
   minio:
     read_only: true
     deploy:
       placement:
         constraints: [node.role == manager]
+    labels:
+      guide.whitewater: ""
   imgproxy:
     image: 'darthsim/imgproxy:latest'
     read_only: true
     deploy:
       placement:
         constraints: [node.role == manager]
+    labels:
+      guide.whitewater: ""
   caddy:
     build:
       context: ../packages/caddy
+      labels:
+        guide.whitewater: ""
     read_only: true
     deploy:
       placement:
         constraints: [node.role == manager]
+    labels:
+      guide.whitewater: ""

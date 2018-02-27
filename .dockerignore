@@ -1,14 +1,11 @@
-.idea/
-.tmp/
-commons/
-docs/
-mobile-client/
-typings/
-web-client/
 # Docker can have only one top-level dockerignore file
-backend/node_modules/
-backend/tsconfig.json
-backend/tslint.json
-backend/Dockerfile
+/.idea/
+/docs/
+/build/
+/legacy/
 *.iml
-*.yml
+node_modules/
+/packages/web/
+/packages/commons/
+/packages/clients/
+**/*.ts

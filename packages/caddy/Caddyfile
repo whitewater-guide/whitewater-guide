@@ -6,7 +6,7 @@
     ca https://acme-staging.api.letsencrypt.org/directory
   }
 
-  proxy / api:5001 {
+  proxy / backend:5001 {
     transparent
   }
 

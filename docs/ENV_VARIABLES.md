@@ -11,7 +11,7 @@
 | PGDATA                    | /var/lib/postgresql/data/pgdata | Path (inside container) where postgres will store all the data. Must be on volume |
 | NODE_ENV                  | production | node env lol |
 | BACK_CORS_WHITELIST       | localhost,applications,whitewater.guide | Cors whitelist for express |
-| BACK_API_LOG_LEVEL        | debug | log level for pino logger |
+| BACK_LOG_LEVEL        | debug | log level for pino logger |
 | BACK_SESSION_SECRET       | <random_secret> | Secret for passport.js sessions |
 | BACK_FB_APP_ID            | <some_numbers> | Facebook app id |
 | BACK_FB_SECRET            | <random_secret> | Secret for facebook auth |

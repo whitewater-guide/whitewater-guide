@@ -25,7 +25,7 @@ export const getWorkerArgs = (gauge?: Partial<GaugeRaw>) => {
 export const createJob = (source: SourceRaw, gauge?: GaugeRaw) => async () => {
   const workerArgs = getWorkerArgs(gauge);
   try {
-    const { stdout } = await execFile(resolve(process.env.WORKERS_PATH!, source.script), workerArgs);
+    const { stdout } = await execFile(resolve(process.env.BACK_WORKERS_PATH!, source.script), workerArgs);
     const response: WorkerResponse = JSON.parse(stdout);
     if (response.success) {
       await insertMeasurements(response.data);

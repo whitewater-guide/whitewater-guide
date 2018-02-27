@@ -67,8 +67,8 @@ async function login(req: express.Request, provider: string, profile: passport.P
 passport.use(
   new FacebookStrategy(
     {
-      clientID: process.env.FACEBOOK_APP_ID!,
-      clientSecret: process.env.FACEBOOK_SECRET!,
+      clientID: process.env.BACK_FB_APP_ID!,
+      clientSecret: process.env.BACK_FB_SECRET!,
       profileFields: ['name', 'email', 'picture', 'link', 'locale'],
       callbackURL: '/auth/facebook/callback',
       passReqToCallback: true,

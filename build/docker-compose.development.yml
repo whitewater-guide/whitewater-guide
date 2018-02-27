@@ -1,19 +1,19 @@
 version: '3.3'
 services:
-  api:
-    container_name: ww_api
+  backend:
+    container_name: ww-backend
     image: 'ww-backend:dev'
     build:
       dockerfile: Dockerfile.dev
     env_file: .env.dev
     ports:
       - '5775:5775'
-      - '5001:5001'
+      - '3333:3333'
     volumes:
       - 'yarn:/root/.cache/yarn'
       - 'ww-backend-sync:/opt/app:nocopy'
   db:
-    container_name: ww_db
+    container_name: ww-db
     image: 'ww-db:dev'
     env_file: .env.dev
     tmpfs:
@@ -23,7 +23,7 @@ services:
     ports:
       - '5432:5432'
   minio:
-    container_name: ww_minio
+    container_name: ww-minio
     image: 'minio/minio:latest'
     command: server /data
     env_file: .env.dev
@@ -37,7 +37,7 @@ services:
         source: ../packages/minio/config
         target: /root/.minio
   caddy:
-    container_name: ww_caddy
+    container_name: ww-caddy
     image: 'ww-caddy:dev'
     env_file: .env.dev
     tmpfs:
@@ -47,9 +47,11 @@ services:
     ports:
       - '6000:2015'
   imgproxy:
-    container_name: ww_imgproxy
+    container_name: ww-imgproxy
     env_file: .env.dev
 volumes:
-  yarn: null
+  yarn:
+    labels:
+      guide.whitewater: ""
   ww-backend-sync:
     external: true

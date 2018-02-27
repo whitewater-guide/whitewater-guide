@@ -1,5 +1,5 @@
 {
-  "name": "whitewater-api",
+  "name": "whitewater-backend",
   "version": "0.0.1",
   "main": "index.js",
   "author": "Konstantin Kuznetsov",

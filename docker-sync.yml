@@ -1,10 +1,10 @@
 version: '2'
 
 options:
-  compose-file-path: 'build/docker-stack-dev.yml'
+  compose-file-path: 'build/docker-stack-development.yml'
 syncs:
-  swapp-backend-sync:
+  ww-backend-sync:
     src: './packages/backend/'
     notify_terminal: true
-    sync_excludes: ['Dockerfile.*', 'tsconfig.json', 'pm2.development.json', 'tslint.json', 'bin', 'node_modules', '*.ts', '*.iml']
-    watch_excludes: ['Dockerfile.*', 'tsconfig.json', 'pm2.development.json', 'tslint.json', 'bin', 'node_modules', '*.ts', '*.iml']
+    sync_excludes: ['Dockerfile.*', 'tsconfig.json', 'tslint.json', 'bin', 'node_modules', '*.ts', '*.iml']
+    watch_excludes: ['Dockerfile.*', 'tsconfig.json', 'tslint.json', 'bin', 'node_modules', '*.ts', '*.iml']
