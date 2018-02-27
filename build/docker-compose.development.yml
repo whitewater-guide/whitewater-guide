@@ -1,4 +1,5 @@
-version: '3.3'
+version: '3.5'
+
 services:
   backend:
     container_name: ww-backend
@@ -8,7 +9,6 @@ services:
     env_file: .env.dev
     ports:
       - '5775:5775'
-      - '3333:3333'
     volumes:
       - 'yarn:/root/.cache/yarn'
       - 'ww-backend-sync:/opt/app:nocopy'

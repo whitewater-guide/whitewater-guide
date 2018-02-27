@@ -1,6 +1,16 @@
-version: '3.3'
+version: '3.5'
+
+x-single-host:
+  &ww-single-host
+  deploy:
+    placement:
+      constraints: [node.role == manager]
+  labels:
+    guide.whitewater: ""
+
 services:
   backend:
+    <<: *ww-single-host
     build:
       context: ../packages/backend
       labels:
@@ -8,45 +18,24 @@ services:
     depends_on:
       - db
       - minio
-    deploy:
-      placement:
-        constraints: [node.role == manager]
-    labels:
-      guide.whitewater: ""
   db:
+    <<: *ww-single-host
     build:
       context: ../packages/db
       labels:
         guide.whitewater: ""
     read_only: true
-    deploy:
-      placement:
-        constraints: [node.role == manager]
-    labels:
-      guide.whitewater: ""
   minio:
+    <<: *ww-single-host
     read_only: true
-    deploy:
-      placement:
-        constraints: [node.role == manager]
-    labels:
-      guide.whitewater: ""
   imgproxy:
+    <<: *ww-single-host
     image: 'darthsim/imgproxy:latest'
     read_only: true
-    deploy:
-      placement:
-        constraints: [node.role == manager]
-    labels:
-      guide.whitewater: ""
   caddy:
+    <<: *ww-single-host
     build:
       context: ../packages/caddy
       labels:
         guide.whitewater: ""
     read_only: true
-    deploy:
-      placement:
-        constraints: [node.role == manager]
-    labels:
-      guide.whitewater: ""
