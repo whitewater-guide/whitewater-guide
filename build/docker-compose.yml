@@ -45,7 +45,8 @@ services:
     env_file:
       - ${DOCKER_ENV_FILE}
     build:
-      context: ../packages/caddy
+      context: ../packages
+      dockerfile: caddy/Dockerfile
       labels:
         guide.whitewater: ""
     read_only: true

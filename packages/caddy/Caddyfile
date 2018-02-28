@@ -6,7 +6,26 @@
     ca https://acme-staging.api.letsencrypt.org/directory
   }
 
-  proxy / backend:3333 {
+  root static
+
+  index landing.html
+
+  rewrite / {
+    if {path} starts_with /graphql
+    if {path} starts_with /graphiql
+    if {path} starts_with /auth
+    if {file} is schema.json
+    if {file} is typedefs.txt
+    if_op or
+    to /backend{uri}
+  }
+
+  rewrite /ru {
+    to {path} landing_ru.html
+  }
+
+  proxy /backend backend:3333 {
+    without /backend
     transparent
   }
 
@@ -15,19 +34,19 @@
   }
 
   proxy /{$IMGPROXY_PATH} {$IMGPROXY_HOST}:8080 {
-    without /images
+    without /{$IMGPROXY_PATH}
     transparent
   }
 
-  cache {
-    match_path /images
-    match_header Content-Type image/jpg image/png
-    status_header X-Cache-Status
-    default_max_age 24h
-    path {$CADDY_CACHE_PATH}
-  }
+  # cache {
+  #   match_path /${IMGPROXY_PATH}
+  #   match_header Content-Type image/jpg image/png
+  #   status_header X-Cache-Status
+  #   default_max_age 24h
+  #   path {$CADDY_CACHE_PATH}
+  # }
 
-  log / stdout "{common} Origin: {>Origin} Upstream: {upstream}"
+  log / stdout "{common} Upstream: {upstream}"
 
   errors stdout
 

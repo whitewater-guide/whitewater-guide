@@ -9,6 +9,7 @@ services:
       dockerfile: backend/Dockerfile.dev
     ports:
       - '5775:5775'
+      - '3333:3333'
     volumes:
       - 'yarn:/root/.cache/yarn'
       - 'ww-backend-sync:/opt/app:nocopy'
