@@ -4,9 +4,14 @@
 /docs/
 /build/
 /legacy/
-*.iml
-node_modules/
+**/*.iml
+**/*.md
+**/tslint.json
+**/tsconfig.json
+**/node_modules
+**/Dockerfile*
 /packages/web/
 /packages/commons/
 /packages/clients/
 **/*.ts
+/graphql.config.json
