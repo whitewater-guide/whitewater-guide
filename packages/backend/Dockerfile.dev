@@ -1,19 +1,26 @@
-# Use workers that are built separately (so this is not truly multi-stage build)
-ARG WORKERS_TAG
-FROM ww-workers:${WORKERS_TAG} AS workers
+# Stage 1: Build workers
+FROM golang:latest AS workers
+
+WORKDIR /go/src/github.com/doomsower/whitewater/workers
+
+COPY ./workers/src .
+
+RUN go get -d ./...
+RUN CGO_ENABLED=0 GOOS=linux go install -ldflags="-s -w" -a ./...
+
+# Stage 2: build node.js backend
+# Pay attention to paths: the context is 'packages/' not 'packages/backend'
 
 FROM node:8
 
 ENV PROJECT_ROOT /opt/app
-# This argument is also passed from compose env_file during runtime
-# So runtime location of workers and build-time location always match
-ARG BACK_WORKERS_PATH
+ENV BACK_WORKERS_PATH /opt/bin/workers
 
 RUN mkdir -p /tmp/app \
  && mkdir -p /opt/app \
  && chown -R node /opt/app \
- && mkdir -p ${BACK_WORKERS_PATH} \
- && chown -R node ${BACK_WORKERS_PATH}
+ && mkdir -p $BACK_WORKERS_PATH \
+ && chown -R node $BACK_WORKERS_PATH
 
 # Install postgres client
 RUN apt-get update && apt-get install -f -y postgresql-client
@@ -23,13 +30,13 @@ RUN curl https://dl.minio.io/client/mc/release/linux-amd64/mc > /usr/bin/mc && \
 
 RUN npm install -g chokidar-cli pm2
 
-COPY package.json yarn.lock /tmp/app/
+COPY backend/package.json backend/yarn.lock /tmp/app/
 
 RUN cd /tmp/app/ && yarn install
 
 WORKDIR $PROJECT_ROOT
 
-COPY bin /opt/bin
-COPY --from=workers /go/bin ${BACK_WORKERS_PATH}
+COPY backend/bin /opt/bin
+COPY --from=workers /go/bin $BACK_WORKERS_PATH
 
 CMD ["/opt/bin/start_dev.sh"]

@@ -5,7 +5,8 @@ services:
     container_name: ww-backend
     image: 'ww-backend:dev'
     build:
-      dockerfile: Dockerfile.dev
+      # Context = packages/
+      dockerfile: backend/Dockerfile.dev
     ports:
       - '5775:5775'
     volumes:

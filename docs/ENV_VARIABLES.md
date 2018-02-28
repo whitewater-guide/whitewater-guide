@@ -11,11 +11,10 @@
 | PGDATA                    | /var/lib/postgresql/data/pgdata | Path (inside container) where postgres will store all the data. Must be on volume |
 | NODE_ENV                  | production | node env lol |
 | BACK_CORS_WHITELIST       | localhost,applications,whitewater.guide | Cors whitelist for express |
-| BACK_LOG_LEVEL        | debug | log level for pino logger |
+| BACK_LOG_LEVEL            | debug | log level for pino logger |
 | BACK_SESSION_SECRET       | <random_secret> | Secret for passport.js sessions |
 | BACK_FB_APP_ID            | <some_numbers> | Facebook app id |
 | BACK_FB_SECRET            | <random_secret> | Secret for facebook auth |
-| BACK_WORKERS_PATH         | /opt/bin/workers | Path (inside container) where binary workers sit |
 | BACK_APOLLO_EXPOSE_SCHEMA | true | Should Apollo router expose 'schema.json' and 'typedefs.txt'? Mostly used by devtools and tests (mock data generator) |
 | MINIO_HOST                | minio | Minio host name in docker internal network |
 | MINIO_ACCESS_KEY          | <random_secret> | Minio access key |

@@ -1,5 +1,6 @@
 # Docker can have only one top-level dockerignore file
 /.idea/
+.git
 /docs/
 /build/
 /legacy/
