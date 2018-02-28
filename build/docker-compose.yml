@@ -15,6 +15,11 @@ services:
       - ${DOCKER_ENV_FILE}
     build:
       context: ../packages/backend
+      args:
+        # This should be known during build stage, so we know where to put workers from multi-stage build
+        BACK_WORKERS_PATH: ${BACK_WORKERS_PATH}
+        # This should be known during build stage so we copy proper version of workers
+        WORKERS_TAG: ${WORKERS_TAG} #
       labels:
         guide.whitewater: ""
     depends_on:

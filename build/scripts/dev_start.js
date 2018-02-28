@@ -1,9 +1,16 @@
 #!/usr/bin/env node
-const generateStackFile = require('./src/generateStackFile');
 const { spawn } = require('child_process');
 
+const buildWorkers = require('./src/buildWorkers');
+const generateStackFile = require('./src/generateStackFile');
+const setupEnv = require('./src/setupEnv');
+
+const CONFIG_NAME = 'development';
+
 async function devStart() {
-  await generateStackFile('development');
+  setupEnv(CONFIG_NAME);
+  await generateStackFile(CONFIG_NAME);
+  buildWorkers();
   spawn('docker-sync-stack', ['start'], { stdio: 'inherit', shell: true });
 }
 

@@ -11,6 +11,7 @@
     "wml:start": "build/scripts/wml_start.sh"
   },
   "devDependencies": {
+    "dotenv": "^5.0.1",
     "eslint": "^4.9.0",
     "eslint-config-airbnb-base": "12.1.0",
     "eslint-plugin-import": "^2.7.0",
