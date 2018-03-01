@@ -5,7 +5,7 @@ import { ScriptDescribeResponse, ScriptOperation } from '../types';
 export const describeScript = async (script: string) => {
   try {
     const { name, mode }: ScriptDescribeResponse = await execScript(script, ScriptOperation.DESCRIBE);
-    return { id: name, name, harvestMode: mode };
+    return { id: name, name, harvestMode: mode, error: null };
   } catch (err) {
     return {
       id: script,

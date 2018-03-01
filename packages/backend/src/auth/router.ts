@@ -30,6 +30,12 @@ router.get(
 );
 
 if (process.env.NODE_ENV !== 'production') {
+
+  router.get(
+    '/auth/facebook/check',
+    (req, res) => res.send('It works!'),
+  );
+
   router.get('/', (req: Request, res: Response) => {
     if (req.user) {
       // tslint:disable-next-line:max-line-length
