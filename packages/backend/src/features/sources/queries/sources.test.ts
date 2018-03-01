@@ -48,7 +48,7 @@ describe('admin', () => {
     expect(result.errors).toBeUndefined();
     expect(result.data).toBeDefined();
     expect(result.data!.sources).toBeDefined();
-    expect(result.data!.sources.count).toBe(5);
+    expect(result.data!.sources.count).toBe(6);
     expect(result.data!.sources.nodes[0].id).toBeDefined();
     const snapshot = result.data!.sources.nodes.map(noTimestamps);
     expect(snapshot).toMatchSnapshot();
@@ -61,7 +61,7 @@ describe('super admin', () => {
     expect(result.errors).toBeUndefined();
     expect(result.data!.sources).toBeDefined();
     const sources = result.data!.sources;
-    expect(sources.count).toBe(5);
+    expect(sources.count).toBe(6);
     const names = sources.nodes.map((node: any) => node.name);
     expect(names).toEqual(expect.arrayContaining(['Галисия', 'Not translated']));
   });

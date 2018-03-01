@@ -1,16 +1,14 @@
-import { execFile as execFileCb } from 'child_process';
-import { resolve } from 'path';
-import { promisify } from 'util';
+import log from '../../log';
 import { GaugeRaw } from '../gauges';
 import { insertMeasurements } from '../measurements';
+import { execScript, ScriptMeasurement, ScriptOperation, ScriptResponse } from '../scripts';
 import { SourceRaw } from '../sources';
-import { WorkerResponse } from './types';
 
-const execFile = promisify(execFileCb);
+const logger = log.child({ module: 'jobs' });
 
 export const getWorkerArgs = (gauge?: Partial<GaugeRaw>) => {
   // TODO: since!
-  let opts = ['harvest'];
+  let opts: string[] = [];
   if (gauge) {
     opts = [...opts, '--code', gauge.code!];
     if (gauge.request_params) {
@@ -23,16 +21,18 @@ export const getWorkerArgs = (gauge?: Partial<GaugeRaw>) => {
 };
 
 export const createJob = (source: SourceRaw, gauge?: GaugeRaw) => async () => {
-  const workerArgs = getWorkerArgs(gauge);
   try {
-    const { stdout } = await execFile(resolve(process.env.BACK_WORKERS_PATH!, source.script), workerArgs);
-    const response: WorkerResponse = JSON.parse(stdout);
+    const response: ScriptResponse<ScriptMeasurement> = await execScript(
+      source.script,
+      ScriptOperation.HARVEST,
+      getWorkerArgs(gauge),
+    );
     if (response.success) {
-      await insertMeasurements(response.data);
+      await insertMeasurements(response.data || []);
     } else {
-      console.log('Worker error:', response.error);
+      logger.error({ msg: 'Harvest failed', error: response.error, source, gauge });
     }
   } catch (err) {
-    console.log('Failed to run worker', err);
+    logger.error({ msg: 'Failed to run worker', error: err.message, source, gauge });
   }
 };

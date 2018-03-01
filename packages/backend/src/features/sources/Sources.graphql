@@ -54,6 +54,6 @@ type Mutation {
   upsertSource(source: SourceInput!, language: String): Source
   removeSource(id: ID!): ID
   toggleSource(id: ID!, enabled: Boolean!): Source
-  # autofillSource(id:ID!):Boolean
+  autofillSource(id:ID!): [Gauge]
   generateSourceSchedule(id: ID!): [Gauge]
 }

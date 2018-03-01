@@ -6,6 +6,7 @@ export const SOURCE_GALICIA_2 = '9f962a34-bff9-11e7-abc4-cec278b6b50a';
 export const SOURCE_ALPS = '1628c0a2-1a0a-11e8-accf-0ed5f89f718b';
 export const SOURCE_NORWAY = '786251d4-aa9d-11e7-abc4-cec278b6b50a';
 export const SOURCE_GEORGIA = '53af1a54-19fe-11e8-accf-0ed5f89f718b';
+export const SOURCE_RUSSIA = '8e37e9d2-1d7b-11e8-b467-0ed5f89f718b';
 
 const sources = [
   {
@@ -44,6 +45,12 @@ const sources = [
     harvest_mode: HarvestMode.ONE_BY_ONE,
     enabled: false,
   },
+  {
+    id: SOURCE_RUSSIA,
+    script: 'one_by_one',
+    harvest_mode: HarvestMode.ONE_BY_ONE,
+    enabled: false,
+  },
 ];
 
 const sourcesEn = [
@@ -68,6 +75,10 @@ const sourcesEn = [
   {
     source_id: SOURCE_ALPS,
     name: 'Alps',
+  },
+  {
+    source_id: SOURCE_RUSSIA,
+    name: 'Russia',
   },
 ];
 
