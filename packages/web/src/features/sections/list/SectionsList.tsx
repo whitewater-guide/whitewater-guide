@@ -6,14 +6,7 @@ import { renderDifficulty } from '../../../ww-clients/utils';
 import { Section } from '../../../ww-commons';
 import { SectionsListProps } from './types';
 
-interface State {
-  // Pure virtualized table escape hatch
-  // https://github.com/bvaughn/react-virtualized#pure-components
-  refresher: number;
-}
-
-export default class SectionsList extends React.PureComponent<SectionsListProps, State> {
-  state: State = { refresher: 0 };
+export default class SectionsList extends React.PureComponent<SectionsListProps> {
 
   onSectionClick = (id: string) => {
     // console.log(id);
@@ -38,7 +31,6 @@ export default class SectionsList extends React.PureComponent<SectionsListProps,
         resourceType="section"
         customSettingsLink={this.customSettingsLink}
         deleteHandle={this.props.removeSection}
-        refresher={this.state.refresher}
       >
         <Column width={200} flexGrow={1} label="Name" dataKey="name" cellRenderer={this.renderName} />
         <Column width={120} label="Difficulty" dataKey="difficulty" cellRenderer={this.renderDifficulty} />

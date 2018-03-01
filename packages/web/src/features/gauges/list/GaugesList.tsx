@@ -4,16 +4,9 @@ import { AdminColumn, MutationToggle } from '../../../components';
 import { ResourcesList } from '../../../layout';
 import { Gauge } from '../../../ww-commons';
 import { GaugesListProps } from './types';
+import { emitter, POKE_TABLES } from '../../../utils';
 
-interface State {
-  // Pure virtualized table escape hatch
-  // https://github.com/bvaughn/react-virtualized#pure-components
-  refresher: number;
-}
-
-export default class GaugesList extends React.PureComponent<GaugesListProps, State> {
-  state: State = { refresher: 0 };
-
+export default class GaugesList extends React.PureComponent<GaugesListProps> {
   onGaugeClick = (id: string) => {
     // console.log(id);
   };
@@ -22,7 +15,7 @@ export default class GaugesList extends React.PureComponent<GaugesListProps, Sta
 
   toggleGauge = async (id: string, enabled: boolean) => {
     await this.props.toggleGauge(id, enabled);
-    this.setState({ refresher: this.state.refresher + 1 });
+    emitter.emit(POKE_TABLES);
   };
 
   renderEnabled: TableCellRenderer = ({ rowData: { id, enabled } }) => (
@@ -37,7 +30,6 @@ export default class GaugesList extends React.PureComponent<GaugesListProps, Sta
         resourceType="gauge"
         customSettingsLink={this.customSettingsLink}
         deleteHandle={this.props.removeGauge}
-        refresher={this.state.refresher}
       >
         <Column width={200} label="Name" dataKey="name" />
         <Column width={70} label="Code" dataKey="code" />

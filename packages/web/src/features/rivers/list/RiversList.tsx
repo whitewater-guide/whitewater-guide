@@ -7,14 +7,7 @@ import { ResourcesList } from '../../../layout';
 import { River } from '../../../ww-commons';
 import { RiversListProps } from './types';
 
-interface State {
-  // Pure virtualized table escape hatch
-  // https://github.com/bvaughn/react-virtualized#pure-components
-  refresher: number;
-}
-
-export default class RiversList extends React.PureComponent<RiversListProps, State> {
-  state: State = { refresher: 0 };
+export default class RiversList extends React.PureComponent<RiversListProps> {
 
   onRiverClick = (id: string) => {
     // console.log(id);
@@ -47,7 +40,6 @@ export default class RiversList extends React.PureComponent<RiversListProps, Sta
         resourceType="river"
         customSettingsLink={this.customSettingsLink}
         deleteHandle={this.props.removeRiver}
-        refresher={this.state.refresher}
         renderExtraAdminActions={this.renderAddSection}
       >
         <Column width={200} flexGrow={1} label="Name" dataKey="name" />
