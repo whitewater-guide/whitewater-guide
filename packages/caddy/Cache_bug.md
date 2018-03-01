@@ -92,7 +92,7 @@ CADDY_CACHE_PATH=/tmp/caddy-cache
 CADDY_TLS_EMAIL=***
 ```
 
-Caddy's 2015 port is exposed as 6000 on host machine, also backend's 3333 is exposed as 3333
+Caddy's 2015 port is exposed as 6001 on host machine, also backend's 3333 is exposed as 3333
 
 ### 5. Please paste any relevant HTTP request(s) here.
 
@@ -100,7 +100,7 @@ Caddy's 2015 port is exposed as 6000 on host machine, also backend's 3333 is exp
 
 ```sh
 curl -X GET \
-  http://localhost:6000/graphiql \
+  http://localhost:6001/graphiql \
   -H 'Cache-Control: no-cache' \
   -H 'Postman-Token: 8b54d505-38b2-08cb-c16c-4c7ee7b3e03d'
 ```
@@ -109,14 +109,14 @@ curl -X GET \
 
 ```sh
 curl -X GET \
-  http://localhost:6000/backend/graphiql \
+  http://localhost:6001/backend/graphiql \
   -H 'Cache-Control: no-cache' \
   -H 'Postman-Token: a37f0839-390d-0ef6-0a2b-1447b179cbb9'
 ```
 
 ### 6. What did you expect to see?
 
-`http://localhost:6000/graphiql` should correctly respond with 200 and (`http://localhost:6000/backend/graphiql` too, but it's unnecessary). It does so if I comment out `cache` block, so I expect to see same logs with or without `cache`:
+`http://localhost:6001/graphiql` should correctly respond with 200 and (`http://localhost:6001/backend/graphiql` too, but it's unnecessary). It does so if I comment out `cache` block, so I expect to see same logs with or without `cache`:
 
 ```
 ww-caddy    | 172.18.0.1 - - [28/Feb/2018:21:03:30 +0000] "GET /graphiql HTTP/1.1" 200 3817 Upstream: http://backend:3333
@@ -131,7 +131,7 @@ ww-caddy    | 172.18.0.1 - - [28/Feb/2018:21:02:39 +0000] "GET /graphiql HTTP/1.
 ww-caddy    | 172.18.0.1 - - [28/Feb/2018:21:02:46 +0000] "GET /backend/graphiql HTTP/1.1" 200 3817 Upstream: -
 ```
 
-So `http://localhost:6000/graphiql` (rewrite to proxy) responds with 404. `http://localhost:6000/backend/graphiql` (proxy without rewrite) responds fine, but what interesting is that logs show `Upstream: -`
+So `http://localhost:6001/graphiql` (rewrite to proxy) responds with 404. `http://localhost:6001/backend/graphiql` (proxy without rewrite) responds fine, but what interesting is that logs show `Upstream: -`
 
 ### 8. How can someone who is starting from scratch reproduce the bug as minimally as possible?
 

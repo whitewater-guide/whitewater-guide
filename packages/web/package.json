@@ -111,5 +111,5 @@
     "typescript": "2.7.2",
     "url-search-params-polyfill": "^2.0.1"
   },
-  "proxy": "http://localhost:3333"
+  "proxy": "http://localhost:6001"
 }

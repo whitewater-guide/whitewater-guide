@@ -43,7 +43,7 @@ services:
     volumes:
       - '../packages/caddy/Caddyfile:/etc/Caddyfile'
     ports:
-      - '6000:2015'
+      - '6001:2015'
   imgproxy:
     container_name: ww-imgproxy
 volumes:

@@ -1,6 +1,6 @@
 | Variable name               | Value examples      | Description                        |
 |-----------------------------|---------------------|------------------------------------|
-| APP_DOMAIN                  | whitewater.guide (prod), localhost:6000 (dev) | Application domain. Used in backend to substitute minio internal urls with external urls    |
+| APP_DOMAIN                  | whitewater.guide (prod), localhost:6001 (dev) | Application domain. Used in backend to substitute minio internal urls with external urls    |
 | PROTOCOL                    | https | Used in backend together with APP_DOMAIN to generate external image urls |
 | CADDY_ADDRESS               | https://whitewater.guide (prod), http://0.0.0.0:2015 (dev)  | Server address to use Caddyfile  |
 | CADDYPATH                   | /etc/caddycerts  | Directory where to store ssl certificates obtained by caddy. Should me bind-mounted |
