@@ -4,9 +4,9 @@ import * as React from 'react';
 import { graphql } from 'react-apollo';
 import { emitter, POKE_TABLES } from '../../../utils';
 
-const GENERATE_SOURCE_SCHEDULE = gql`
-  mutation generateSourceSchedule($sourceId: ID!){
-    generateSourceSchedule(id: $sourceId) {
+const AUTOFILL_MUTATION = gql`
+  mutation autofillSource($sourceId: ID!){
+    autofillSource(id: $sourceId) {
       id
       language
       cron
@@ -17,8 +17,11 @@ const GENERATE_SOURCE_SCHEDULE = gql`
 type OuterProps = Partial<FlatButtonProps> & { sourceId: string };
 
 const container = graphql<{}, OuterProps, FlatButtonProps>(
-  GENERATE_SOURCE_SCHEDULE,
+  AUTOFILL_MUTATION,
   {
+    options: {
+      refetchQueries: ['listGauges'],
+    },
     props: ({ mutate, ownProps: { sourceId } }) => ({
       onClick: () =>
         mutate!({ sourceId } as any)
@@ -30,6 +33,6 @@ const container = graphql<{}, OuterProps, FlatButtonProps>(
   },
 );
 
-const GenerateScheduleButton = container(FlatButton);
+const AutofillButton = container(FlatButton);
 
-export default GenerateScheduleButton;
+export default AutofillButton;
