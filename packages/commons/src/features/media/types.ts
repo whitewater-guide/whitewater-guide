@@ -1,17 +1,20 @@
-export enum MediaType {
-  PHOTO = 'photo',
-  VIDEO = 'video',
-  BLOG = 'blog',
+import { Node, Timestamped } from '../../core';
+
+export enum MediaKind {
+  photo = 'photo',
+  video = 'video',
+  blog = 'blog',
 }
 
-export interface Media {
-  id: string;
+export interface Media extends Node, Timestamped {
+  language: string;
   description: string | null;
   copyright: string | null;
   url: string;
-  type: MediaType;
-  width: number | null;
-  height: number | null;
+  kind: MediaKind;
+  resolution: number[] | null;
+  deleted?: boolean;
+  weight: number;
 }
 
 export interface MediaInput {
@@ -19,10 +22,7 @@ export interface MediaInput {
   description: string | null;
   copyright: string | null;
   url: string;
-  type: MediaType;
-  width: number | null;
-  height: number | null;
-
-  deleted: boolean;
-  file: any;
+  kind: MediaKind;
+  resolution: number[] | null;
+  weight: number;
 }

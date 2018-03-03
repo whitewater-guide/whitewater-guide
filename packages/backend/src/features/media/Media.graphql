@@ -6,11 +6,16 @@ enum MediaKind {
 
 type Media {
   id: ID!
+  kind: MediaKind!
   description: String
   copyright: String
   url: String!
-  kind: MediaKind!
   resolution: [Int]
+  weight: Int
+  # Not persistent. Indicates client that it should not display this item in lists
+  deleted: Boolean
+  createdAt: Date
+  updatedAt: Date
 }
 
 input MediaInput {
@@ -20,6 +25,7 @@ input MediaInput {
   url: String
   type: MediaKind!
   resolution: [Int]
+  weight: Int
 }
 
 type MediasList {
@@ -33,6 +39,6 @@ type Query {
 }
 
 type Mutation {
-  upsertSectionMedia(media: MediaInput!, language: String): Media
-  removeSectionMedia(id: ID!): ID
+  upsertSectionMedia(sectionId: ID!, media: MediaInput!, language: String): Media
+  removeSectionMedia(sectionId: ID!, mediaId: ID!): Media
 }

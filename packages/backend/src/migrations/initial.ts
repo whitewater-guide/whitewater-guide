@@ -1,13 +1,13 @@
 import Knex = require('knex');
 import { runSqlFile } from '../db/runSqlFile';
 import { addUpdatedAtFunction, addUpdatedAtTrigger, removeUpdatedAtFunction } from '../db/updatedAtTrigger';
-import { MediaKind } from '../features/media';
 import { Role } from '../features/users/types';
 import { HarvestMode, POITypes } from '../ww-commons';
 
 export const up = async (db: Knex) => {
   await runSqlFile(db, './src/migrations/initial/language_code.sql');
   await runSqlFile(db, './src/migrations/initial/tag_category.sql');
+  await runSqlFile(db, './src/migrations/initial/media_kind.sql');
   await addUpdatedAtFunction(db);
 
   // USERS
@@ -259,9 +259,10 @@ export const up = async (db: Knex) => {
   // Media
   await db.schema.createTable('media', (table) => {
     table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
-    table.enu('kind', [MediaKind.blog, MediaKind.photo, MediaKind.video]).notNullable();
+    table.specificType('kind', 'media_kind').notNullable().index();
     table.string('url').notNullable();
     table.specificType('resolution', 'integer[]');
+    table.integer('weight').notNullable().defaultTo(0);
     table.timestamps(false, true);
   });
   await db.schema.createTable('media_translations', (table) => {
@@ -309,6 +310,7 @@ export const up = async (db: Knex) => {
   await runSqlFile(db, './src/migrations/initial/upsert_source.sql');
   await runSqlFile(db, './src/migrations/initial/upsert_gauge.sql');
   await runSqlFile(db, './src/migrations/initial/upsert_section.sql');
+  await runSqlFile(db, './src/migrations/initial/upsert_section_media.sql');
 };
 
 export const down = async (db: Knex) => {
@@ -344,6 +346,7 @@ export const down = async (db: Knex) => {
   await db.schema.raw('DROP VIEW IF EXISTS rivers_view');
   await db.schema.raw('DROP VIEW IF EXISTS sections_view');
   await db.schema.raw('DROP VIEW IF EXISTS media_view');
+  await db.schema.raw('DROP FUNCTION IF EXISTS upsert_section_media(section_id VARCHAR, media JSON, lang language_code) CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS upsert_section(section JSON, lang language_code) CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS upsert_tag(tag JSON, lang language_code) CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS upsert_region(r JSON, lang language_code) CASCADE');
@@ -361,6 +364,7 @@ export const down = async (db: Knex) => {
   await db.schema.raw('DROP FUNCTION IF EXISTS linestring_from_json(linestring JSON) CASCADE');
   await db.schema.raw('DROP TYPE IF EXISTS language_code CASCADE');
   await db.schema.raw('DROP TYPE IF EXISTS tag_category CASCADE');
+  await db.schema.raw('DROP TYPE IF EXISTS media_kind CASCADE');
   await removeUpdatedAtFunction(db);
 };
 

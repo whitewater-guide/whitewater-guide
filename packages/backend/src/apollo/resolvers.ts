@@ -2,6 +2,7 @@ import { GraphQLDateTime } from 'graphql-iso-date';
 import * as GraphQLJSON from 'graphql-type-json';
 import { merge } from 'lodash';
 import { gaugesResolvers } from '../features/gauges';
+import { mediaResolvers } from '../features/media';
 import { pointsResolvers } from '../features/points';
 import { regionsResolvers } from '../features/regions';
 import { riversResolvers } from '../features/rivers';
@@ -21,6 +22,7 @@ export const resolvers = merge(
   sectionsResolvers,
   sourcesResolvers,
   usersResolvers,
+  mediaResolvers,
   {
     Date: GraphQLDateTime,
     JSON: GraphQLJSON,

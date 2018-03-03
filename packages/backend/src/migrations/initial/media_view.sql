@@ -7,6 +7,7 @@ CREATE OR REPLACE VIEW media_view AS
     langs.language,
     media.kind,
     media.url,
+    media.weight,
     media.resolution,
     media.created_at,
     media.updated_at,

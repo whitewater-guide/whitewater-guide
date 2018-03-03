@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should return media 1`] = `
+Object {
+  "copyright": "Photo 1 copyright",
+  "description": "Photo 1 description",
+  "id": "a32664ca-1ee5-11e8-b467-0ed5f89f718b",
+  "kind": "photo",
+  "resolution": Array [
+    800,
+    600,
+  ],
+  "url": "photo1.jpg",
+  "weight": 1,
+}
+`;

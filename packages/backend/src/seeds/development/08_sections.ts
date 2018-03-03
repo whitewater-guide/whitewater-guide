@@ -12,9 +12,13 @@ function getLineString(shape: Coordinate3d[] | null) {
   return lineString;
 }
 
+export const GALICIA_R1_S1 = '2b01742c-d443-11e7-9296-cec278b6b50a';
+export const GALICIA_R1_S2 = '3a6e3210-d529-11e7-9296-cec278b6b50a';
+export const NORWAY_SJOA_AMOT = '21f2351e-d52a-11e7-9296-cec278b6b50a';
+
 const sections = [
   {
-    id: '2b01742c-d443-11e7-9296-cec278b6b50a',
+    id: GALICIA_R1_S1,
     river_id: 'a8416664-bfe3-11e7-abc4-cec278b6b50a', // Gal_riv_one
     gauge_id: 'aba8c106-aaa0-11e7-abc4-cec278b6b50a', // Galicia gauge 1
     season_numeric: [0, 1, 2, 3, 4],
@@ -41,7 +45,7 @@ const sections = [
     rating: 4.5,
   },
   {
-    id: '3a6e3210-d529-11e7-9296-cec278b6b50a',
+    id: GALICIA_R1_S2,
     river_id: 'a8416664-bfe3-11e7-abc4-cec278b6b50a', // Gal_riv_one
     gauge_id: 'aba8c106-aaa0-11e7-abc4-cec278b6b50a', // Galicia gauge 1
     season_numeric: [0, 1, 2, 3, 4],
@@ -68,7 +72,7 @@ const sections = [
     rating: 2.5,
   },
   {
-    id: '21f2351e-d52a-11e7-9296-cec278b6b50a', // Amot
+    id: NORWAY_SJOA_AMOT, // Amot
     river_id: 'd4396dac-d528-11e7-9296-cec278b6b50a', // Sjoa
     season_numeric: [10, 11, 12, 13, 14, 15, 16],
     shape: getLineString([[1, 1, 0], [2, 2, 0]]),
@@ -82,7 +86,7 @@ const sections = [
 
 const sectionsEn = [
   {
-    section_id: '2b01742c-d443-11e7-9296-cec278b6b50a',
+    section_id: GALICIA_R1_S1,
     language: 'en',
     name: 'Gal_riv_1_sec_1',
     description: 'Gal_riv_1_sec_1 description',
@@ -90,7 +94,7 @@ const sectionsEn = [
     flows_text: 'Gal_riv_1_sec_1 flows text',
   },
   {
-    section_id: '3a6e3210-d529-11e7-9296-cec278b6b50a',
+    section_id: GALICIA_R1_S2,
     language: 'en',
     name: 'Gal_riv_1_sec_2',
     description: 'Gal_riv_1_sec_2 description',
@@ -98,7 +102,7 @@ const sectionsEn = [
     flows_text: 'Gal_riv_1_sec_2 flows text',
   },
   {
-    section_id: '21f2351e-d52a-11e7-9296-cec278b6b50a',
+    section_id: NORWAY_SJOA_AMOT,
     language: 'en',
     name: 'Amot',
     description: 'Amot description',
@@ -109,7 +113,7 @@ const sectionsEn = [
 
 const sectionsRu = [
   {
-    section_id: '2b01742c-d443-11e7-9296-cec278b6b50a',
+    section_id: GALICIA_R1_S1,
     language: 'ru',
     name: 'Галисия река 1 секция 1',
     description: 'Галисия река 1 секция 1 описание',
@@ -117,7 +121,7 @@ const sectionsRu = [
     flows_text: 'Галисия река 1 секция 1 уровни',
   },
   {
-    section_id: '3a6e3210-d529-11e7-9296-cec278b6b50a',
+    section_id: GALICIA_R1_S2,
     language: 'ru',
     name: 'Галисия река 1 секция 2',
     description: 'Галисия река 1 секция 2 описание',
@@ -125,7 +129,7 @@ const sectionsRu = [
     flows_text: 'Галисия река 1 секция 2 уровни',
   },
   {
-    section_id: '21f2351e-d52a-11e7-9296-cec278b6b50a',
+    section_id: NORWAY_SJOA_AMOT,
     language: 'ru',
     name: 'Амот',
     description: 'Амот описание',
@@ -136,14 +140,14 @@ const sectionsRu = [
 
 // Only for galician river 1 section 1
 const sectionsTags = [
-  { section_id: '2b01742c-d443-11e7-9296-cec278b6b50a', tag_id: 'waterfalls' },
-  { section_id: '2b01742c-d443-11e7-9296-cec278b6b50a', tag_id: 'undercuts' },
+  { section_id: GALICIA_R1_S1, tag_id: 'waterfalls' },
+  { section_id: GALICIA_R1_S1, tag_id: 'undercuts' },
 ];
 
 // Only for galician river 1 section 1
 const sectionsPoints = [
-  { section_id: '2b01742c-d443-11e7-9296-cec278b6b50a', point_id: 'ca0bee06-d445-11e7-9296-cec278b6b50a' }, // Rapid
-  { section_id: '2b01742c-d443-11e7-9296-cec278b6b50a', point_id: 'ef6f80ea-d445-11e7-9296-cec278b6b50a' }, // Portage
+  { section_id: GALICIA_R1_S1, point_id: 'ca0bee06-d445-11e7-9296-cec278b6b50a' }, // Rapid
+  { section_id: GALICIA_R1_S1, point_id: 'ef6f80ea-d445-11e7-9296-cec278b6b50a' }, // Portage
 ];
 
 export async function seed(db: Knex) {
