@@ -22,9 +22,6 @@ RUN mkdir -p /tmp/app \
  && mkdir -p $BACK_WORKERS_PATH \
  && chown -R node $BACK_WORKERS_PATH
 
-# Install postgres client
-RUN apt-get update && apt-get install -f -y postgresql-client
-
 RUN npm install -g chokidar-cli pm2
 
 COPY backend/package.json backend/yarn.lock /tmp/app/

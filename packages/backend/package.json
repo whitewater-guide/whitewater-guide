@@ -29,6 +29,7 @@
     "@types/node-schedule": "^1.2.2",
     "@types/passport": "^0.4.3",
     "@types/passport-facebook": "^2.1.7",
+    "@types/pg": "^7.4.5",
     "@types/pino": "^4.7.1",
     "@types/sqlstring": "^2.2.0",
     "@types/valid-url": "^1.0.2",
