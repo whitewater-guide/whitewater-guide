@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-const TOGGLE_All_GAUGES = gql`
+const TOGGLE_ALL_GAUGES = gql`
   mutation toggleAllGauges($sourceId: ID!, $enabled: Boolean!){
     toggleAllGauges(sourceId: $sourceId, enabled: $enabled) {
       id
@@ -10,4 +10,4 @@ const TOGGLE_All_GAUGES = gql`
   }
 `;
 
-export default TOGGLE_All_GAUGES;
+export default TOGGLE_ALL_GAUGES;

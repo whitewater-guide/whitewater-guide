@@ -1,3 +1,4 @@
+import { groupBy } from 'lodash';
 import { Tab } from 'material-ui/Tabs';
 import TextField from 'material-ui/TextField';
 import * as React from 'react';
@@ -16,11 +17,10 @@ import {
   StringArrayInput,
   TextInput,
 } from '../../../components/forms';
-import { Durations, NamedNode } from '../../../ww-commons';
 import { Row } from '../../../layout';
 import { Styles } from '../../../styles';
+import { Durations, NamedNode } from '../../../ww-commons';
 import { SectionFormProps } from './types';
-import { groupBy } from 'lodash';
 
 const styles: Styles = {
   container: {

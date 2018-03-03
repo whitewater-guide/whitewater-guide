@@ -2,8 +2,8 @@ import * as React from 'react';
 import { Route, RouteComponentProps, Switch } from 'react-router-dom';
 import { PrivateRoute } from '../../layout';
 import { SectionForm } from './form';
-import SectionRoute from './SectionRoute';
 import { SectionsList } from './list';
+import SectionRoute from './SectionRoute';
 
 export const SectionsRoute: React.StatelessComponent<RouteComponentProps<any>> = (props) => {
   let path = props.match.path;

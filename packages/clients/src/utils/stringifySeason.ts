@@ -44,7 +44,7 @@ function loopAroundNewYear(seasons: number[]): number[] {
  * @seasonNumeric - array of numeric half-months
  * @range - If true, seasonNumeric is considered to be a range (possibly, looping around new year, like (e.g. [22, 3])
  * otherwise - just set of half-months
- */
+ */ // tslint:disable-next-line:no-inferrable-types
 export function stringifySeason(seasonNumeric?: number[], range: boolean = false): string {
   if (!seasonNumeric || seasonNumeric.length === 0) {
     return '';

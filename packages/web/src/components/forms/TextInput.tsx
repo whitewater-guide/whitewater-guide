@@ -1,9 +1,9 @@
+import { isFinite } from 'lodash';
 import { TextFieldProps } from 'material-ui';
 import TextField from 'material-ui/TextField';
 import * as React from 'react';
 import { BaseFieldProps, Field, GenericField, WrappedFieldProps } from 'redux-form';
 import { strToFloat } from '../../ww-clients/utils';
-import { isFinite } from 'lodash';
 
 const SEPARATOR = (0.5).toString()[1];
 const OTHER_SEPARATOR = SEPARATOR === ',' ? /\./ : /,/ ;

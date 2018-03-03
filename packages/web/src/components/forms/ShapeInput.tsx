@@ -1,4 +1,3 @@
-import { isEmpty } from 'lodash';
 import * as React from 'react';
 import { BaseFieldArrayProps, FieldArray, GenericFieldArray, WrappedFieldArrayProps } from 'redux-form';
 import { Styles } from '../../styles';
@@ -37,7 +36,7 @@ class ShapeInputComponent extends React.Component<Props> {
     const { fields } = this.props;
     return (
       <div style={styles.container}>
-        { this.renderLineLength() }
+        {this.renderLineLength()}
         {
           fields.map((name, index) => (
             <LLAArrayField key={index} name={name} index={index} fields={fields} />

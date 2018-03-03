@@ -50,7 +50,7 @@ export class SourceDetails extends React.PureComponent<WithSource & RouteCompone
                 <ListAdminFooter>
                   <FlatButton secondary label="Autofill" />
                   <FlatButton secondary label="Generate schedule" />
-                  <ToggleAllGaugesButton sourceId={sourceId} label="Enable All" enabled={true} />
+                  <ToggleAllGaugesButton sourceId={sourceId} label="Enable All" enabled />
                   <ToggleAllGaugesButton sourceId={sourceId} label="Disable All" enabled={false} />
                 </ListAdminFooter>
               </Route>

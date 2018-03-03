@@ -1,8 +1,8 @@
 import { find } from 'lodash';
 import * as React from 'react';
 import { Point, Section } from '../../../ww-commons';
-import { MapLayoutProps, MapProps, SelectedPOIViewProps, SelectedSectionViewProps } from './types';
 import { shallowEqual } from '../../utils';
+import { MapLayoutProps, MapProps, SelectedPOIViewProps, SelectedSectionViewProps } from './types';
 
 const customizer = (val: any, other: any, key: string) => (key === 'initialBounds' ? true : undefined);
 

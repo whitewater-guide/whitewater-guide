@@ -2,9 +2,9 @@ import * as React from 'react';
 import { Column, TableCellRenderer } from 'react-virtualized';
 import { AdminColumn, MutationToggle } from '../../../components';
 import { ResourcesList } from '../../../layout';
+import { emitter, POKE_TABLES } from '../../../utils';
 import { Gauge } from '../../../ww-commons';
 import { GaugesListProps } from './types';
-import { emitter, POKE_TABLES } from '../../../utils';
 
 export default class GaugesList extends React.PureComponent<GaugesListProps> {
   onGaugeClick = (id: string) => {

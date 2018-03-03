@@ -1,12 +1,13 @@
+import { isEmpty } from 'lodash';
 import IconButton from 'material-ui/IconButton';
-import { red500 } from 'material-ui/styles/colors';
 import * as React from 'react';
 import { BaseFieldProps, Field, FieldsProps, GenericField, WrappedFieldProps } from 'redux-form';
 import { Styles } from '../../styles';
 import { CoordinateSchema } from '../../ww-commons/features/points';
 import { NumberInput } from '../NumberInput';
 import { validateInput } from './validateInput';
-import { isEmpty } from 'lodash';
+
+/* tslint:disable:max-classes-per-file */
 
 const styles: Styles = {
   container: {
@@ -55,7 +56,7 @@ export class LatLonAltInput extends React.PureComponent<LatLonAltInputProps, Lat
   constructor(props: LatLonAltInputProps) {
     super(props);
     this.state = { errors:  {}, value: props.value || [undefined, undefined, undefined] };
-  };
+  }
 
   componentWillReceiveProps(next: LatLonAltInputProps) {
     const val = next.value || [undefined, undefined, undefined];
@@ -69,7 +70,8 @@ export class LatLonAltInput extends React.PureComponent<LatLonAltInputProps, Lat
     }
   };
 
-  onChange = [0, 1, 2].map(index => (coord: Unnumber) => {
+  // tslint:disable-next-line:member-ordering
+  onChange: Array<(value: number | undefined) => void> = [0, 1, 2].map(index => (coord: Unnumber) => {
     const { onChange }  = this.props;
     const { value }  = this.state;
     const newValue = Object.assign(value.slice() as Uncoordinate, { [index]: coord });

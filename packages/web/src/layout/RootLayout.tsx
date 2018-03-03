@@ -87,7 +87,7 @@ class RootLayoutInternal extends React.Component<Props, State> {
         </Toolbar>
         <ContentLayout/>
         <Drawer isOpen={this.state.drawerOpen} onChange={this.onDrawerToggle} />
-        { this.renderSnackbar() }
+        {this.renderSnackbar()}
       </div>
     );
   }

@@ -33,7 +33,7 @@ const container = graphql<{}, OuterProps, InnerProps, Variables>(
     props: ({ mutate, ownProps: { enabled, sourceId } }) => ({
       mutate: () =>
         mutate!({ sourceId, enabled } as any)
-          .catch(() => {}) // Ignore -> error goes to global snackbar
+          .catch(() => {/* Ignore -> error goes to global snackbar */})
           .finally(() => {
             emitter.emit(POKE_TABLES);
           }),

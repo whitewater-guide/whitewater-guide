@@ -3,7 +3,7 @@ import { Action } from 'typescript-fsa';
 import { APOLLO_ERROR } from './actions';
 
 export interface ApolloErrorState {
-  short?: string,
+  short?: string;
   full?: string;
 }
 

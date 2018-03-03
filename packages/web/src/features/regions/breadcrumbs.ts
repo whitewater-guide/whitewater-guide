@@ -1,7 +1,7 @@
+import { mapKeys } from 'lodash';
 import { riverBreadcrumbs } from '../rivers';
 import { sectionBreadcrumbs } from '../sections';
 import RegionBreadcrumb from './RegionBreadcrumb';
-import { mapKeys } from 'lodash';
 
 export const regionBreadcrumbs = {
   '/regions': 'Regions',

@@ -2,8 +2,8 @@ import * as React from 'react';
 import { Route, RouteComponentProps, Switch } from 'react-router-dom';
 import { PrivateRoute } from '../../layout';
 import { RiverForm } from './form';
-import RiverRoute from './RiverRoute';
 import { RiversList } from './list';
+import RiverRoute from './RiverRoute';
 
 export const RiversRoute: React.StatelessComponent<RouteComponentProps<any>> = (props) => {
   let path = props.match.path;

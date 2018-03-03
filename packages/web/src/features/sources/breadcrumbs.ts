@@ -1,6 +1,6 @@
-import SourceBreadcrumb from './SourceBreadcrumb';
-import { gaugeBreadcrumbs } from '../gauges';
 import { mapKeys } from 'lodash';
+import { gaugeBreadcrumbs } from '../gauges';
+import SourceBreadcrumb from './SourceBreadcrumb';
 
 export const sourceBreadcrumbs = {
   '/sources': 'Sources',

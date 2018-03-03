@@ -20,7 +20,7 @@ Durations.set(Duration.DAYRUN, 'full day');
 Durations.set(Duration.OVERNIGHTER, 'overnighter');
 Durations.set(Duration.MULTIDAY, 'multiday');
 
-Durations.entries()
+Durations.entries();
 
 export interface GaugeBinding {
   minimum: number | null;

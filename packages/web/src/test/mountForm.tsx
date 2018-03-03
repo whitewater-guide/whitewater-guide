@@ -6,8 +6,8 @@ import { ComponentEnhancer } from 'recompose';
 import { combineReducers, createStore } from 'redux';
 import { InjectedFormProps, reducer as formReducer } from 'redux-form';
 import { createMockedProvider } from '../ww-clients/test';
-import { mountWithMuiContext } from './muiTestUtils';
 import { QueryMap } from '../ww-clients/test/createMockedProvider';
+import { mountWithMuiContext } from './muiTestUtils';
 
 export class FormReceiver extends React.PureComponent<InjectedFormProps<any>> {
 

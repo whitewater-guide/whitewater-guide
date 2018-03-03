@@ -175,7 +175,7 @@ it('should pass form error on mutation error', async () => {
   wrapped.update();
   receiver = wrapped.find(FormReceiver).first();
   const message = 'Some mutation error';
-  expect(receiver.prop('error')).toBe(`${message}\n\n${JSON.stringify({ message}, null, 2)}`);
+  expect(receiver.prop('error')).toBe(`${message}\n\n${JSON.stringify({ message }, null, 2)}`);
 });
 
 it('should receive language from query string', () => {

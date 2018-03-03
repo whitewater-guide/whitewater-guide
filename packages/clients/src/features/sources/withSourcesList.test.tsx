@@ -1,9 +1,8 @@
 import * as casual from 'casual';
-import { mount, ReactWrapper } from 'enzyme';
+import { mount } from 'enzyme';
 import * as React from 'react';
-import { createMockedProvider, Receiver } from '../../test';
+import { createMockedProvider, flushPromises, Receiver } from '../../test';
 import { WithSourcesList, withSourcesList } from './withSourcesList';
-import { flushPromises } from '../../test';
 
 let receiver: Receiver<WithSourcesList>;
 

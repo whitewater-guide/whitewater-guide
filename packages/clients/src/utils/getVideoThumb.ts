@@ -54,6 +54,7 @@ const getFacebookThumb = async (pathname: string, size: number) => {
   return null;
 };
 
+// tslint:disable-next-line:no-inferrable-types
 export default async function getVideoThumb(url: string, size: number = 0) {
   if (!url) {
     return null;

@@ -1,5 +1,5 @@
+import { flow, groupBy, omit } from 'lodash/fp';
 import { deserializeForm } from '../../../components/forms';
-import { flow, groupBy, mapKeys, omit } from 'lodash/fp';
 
 export default (input?: object | null) => {
   const result = deserializeForm(['description'], ['river', 'gauge', 'pois', 'tags'])(input) as any;

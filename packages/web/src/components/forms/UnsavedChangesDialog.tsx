@@ -16,9 +16,9 @@ const UnsavedChangesDialog: React.StatelessComponent<Props> = ({ onConfirm, onCa
   return (
     <Dialog
       open
+      modal
       title="Please confirm navigation"
       actions={actions}
-      modal={true}
     >
       There are some unsaved changes, are sure you don't want to save them?
     </Dialog>

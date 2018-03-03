@@ -9,6 +9,7 @@
     "apollo-link-error": "^1.0.7",
     "apollo-link-http": "^1.5.2",
     "apollo-upload-client": "^7.1.0-alpha.2",
+    "apollo-utilities": "^1.0.8",
     "color": "^3.0.0",
     "cron-parser": "^2.4.5",
     "draft-js": "^0.10.3",
@@ -55,7 +56,8 @@
     "resize-observer-polyfill": "^1.5.0",
     "shallowequal": "^1.0.2",
     "type-zoo": "^1.2.1",
-    "typescript-fsa": "^2.5.0"
+    "typescript-fsa": "^2.5.0",
+    "url-parse": "^1.2.0"
   },
   "scripts": {
     "start": "react-scripts-ts start",

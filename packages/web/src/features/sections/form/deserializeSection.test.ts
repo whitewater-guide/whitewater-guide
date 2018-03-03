@@ -5,114 +5,114 @@ jest.mock('draft-js/lib/generateRandomKey', () => () => 'random_key');
 
 // This is real piece of JSON from test server
 const testSection = {
-  'id': '2b01742c-d443-11e7-9296-cec278b6b50a',
-  'name': 'Gal_riv_1_sec_1',
-  'language': 'en',
-  'altNames': [],
-  'river': {
-    'id': 'a8416664-bfe3-11e7-abc4-cec278b6b50a',
-    'language': 'en',
-    'name': 'Gal_Riv_One',
-    'altNames': [],
-    '__typename': 'River'
+  id: '2b01742c-d443-11e7-9296-cec278b6b50a',
+  name: 'Gal_riv_1_sec_1',
+  language: 'en',
+  altNames: [],
+  river: {
+    id: 'a8416664-bfe3-11e7-abc4-cec278b6b50a',
+    language: 'en',
+    name: 'Gal_Riv_One',
+    altNames: [],
+    __typename: 'River',
   },
-  '__typename': 'Section',
-  'season': 'Gal_riv_1_sec_1 season',
-  'seasonNumeric': [
+  __typename: 'Section',
+  season: 'Gal_riv_1_sec_1 season',
+  seasonNumeric: [
     0,
     1,
     2,
     3,
-    4
+    4,
   ],
-  'distance': 11.1,
-  'drop': 12.2,
-  'duration': 20,
-  'difficulty': 3.5,
-  'difficultyXtra': 'X',
-  'rating': 4.5,
-  'description': 'Gal\\_riv\\_1\\_sec\\_1 description',
-  'shape': [
+  distance: 11.1,
+  drop: 12.2,
+  duration: 20,
+  difficulty: 3.5,
+  difficultyXtra: 'X',
+  rating: 4.5,
+  description: 'Gal\\_riv\\_1\\_sec\\_1 description',
+  shape: [
     [
       10,
       10,
-      0
+      0,
     ],
     [
       20,
       20,
-      0
-    ]
+      0,
+    ],
   ],
-  'createdAt': '2018-02-17T10:50:28.960Z',
-  'updatedAt': '2018-02-17T12:04:44.108Z',
-  'pois': [
+  createdAt: '2018-02-17T10:50:28.960Z',
+  updatedAt: '2018-02-17T12:04:44.108Z',
+  pois: [
     {
-      'id': 'ca0bee06-d445-11e7-9296-cec278b6b50a',
-      'language': 'en',
-      'name': 'Galicia Riv 1 Sec 1 Rapid',
-      'description': 'Some rapid',
-      'coordinates': [
+      id: 'ca0bee06-d445-11e7-9296-cec278b6b50a',
+      language: 'en',
+      name: 'Galicia Riv 1 Sec 1 Rapid',
+      description: 'Some rapid',
+      coordinates: [
         1.2,
         3.2,
-        4.3
+        4.3,
       ],
-      'kind': 'rapid',
-      '__typename': 'Point'
+      kind: 'rapid',
+      __typename: 'Point',
     },
     {
-      'id': 'ef6f80ea-d445-11e7-9296-cec278b6b50a',
-      'language': 'en',
-      'name': 'Galicia Riv 1 Sec 1 Portage',
-      'description': 'Some portage',
-      'coordinates': [
+      id: 'ef6f80ea-d445-11e7-9296-cec278b6b50a',
+      language: 'en',
+      name: 'Galicia Riv 1 Sec 1 Portage',
+      description: 'Some portage',
+      coordinates: [
         5,
         6,
-        7
+        7,
       ],
-      'kind': 'portage',
-      '__typename': 'Point'
-    }
+      kind: 'portage',
+      __typename: 'Point',
+    },
   ],
-  'tags': [
+  tags: [
     {
-      'id': 'waterfalls',
-      'language': 'en',
-      'name': 'Waterfalls',
-      'category': 'kayaking',
-      '__typename': 'Tag'
+      id: 'waterfalls',
+      language: 'en',
+      name: 'Waterfalls',
+      category: 'kayaking',
+      __typename: 'Tag',
     },
     {
-      'id': 'undercuts',
-      'language': 'en',
-      'name': 'Undercuts',
-      'category': 'hazards',
-      '__typename': 'Tag'
-    }
+      id: 'undercuts',
+      language: 'en',
+      name: 'Undercuts',
+      category: 'hazards',
+      __typename: 'Tag',
+    },
   ],
-  'gauge': {
-    'id': 'aba8c106-aaa0-11e7-abc4-cec278b6b50a',
-    'language': 'en',
-    'name': 'Galicia gauge 1',
-    '__typename': 'Gauge'
+  gauge: {
+    id: 'aba8c106-aaa0-11e7-abc4-cec278b6b50a',
+    language: 'en',
+    name: 'Galicia gauge 1',
+    __typename: 'Gauge',
   },
-  'levels': {
-    'minimum': 10,
-    'maximum': 30,
-    'optimum': 20,
-    'impossible': 40,
-    'approximate': false,
-    '__typename': 'GaugeBinding'
+  levels: {
+    minimum: 10,
+    maximum: 30,
+    optimum: 20,
+    impossible: 40,
+    approximate: false,
+    __typename: 'GaugeBinding',
   },
-  'flows': {
-    'minimum': 10,
-    'maximum': 30,
-    'optimum': 20,
-    'impossible': 40,
-    'approximate': false,
-    '__typename': 'GaugeBinding'
+  flows: {
+    minimum: 10,
+    maximum: 30,
+    optimum: 20,
+    impossible: 40,
+    approximate: false,
+    __typename: 'GaugeBinding',
   },
-  'flowsText': 'Gal_riv_1_sec_1 flows text'
+  flowsText: 'Gal_riv_1_sec_1 flows text',
 };
 
 let formData: object;

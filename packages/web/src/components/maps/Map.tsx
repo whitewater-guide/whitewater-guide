@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { MapProps } from '../../ww-clients/features/maps';
-import { arrayToGmaps } from '../../ww-clients/utils/GeoUtils';
-import GoogleMap from './GoogleMap';
+import { arrayToGmaps } from '../../ww-clients/utils';
 import { Coordinate } from '../../ww-commons';
+import GoogleMap from './GoogleMap';
 
 export class Map extends React.Component<MapProps> {
 
