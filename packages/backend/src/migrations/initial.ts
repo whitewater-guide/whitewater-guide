@@ -1,6 +1,7 @@
 import Knex = require('knex');
 import { runSqlFile } from '../db/runSqlFile';
 import { addUpdatedAtFunction, addUpdatedAtTrigger, removeUpdatedAtFunction } from '../db/updatedAtTrigger';
+import { MediaKind } from '../features/media';
 import { Role } from '../features/users/types';
 import { HarvestMode, POITypes } from '../ww-commons';
 
@@ -255,6 +256,36 @@ export const up = async (db: Knex) => {
   // Init timescale!
   await db.schema.raw('SELECT create_hypertable(\'measurements\', \'timestamp\');');
 
+  // Media
+  await db.schema.createTable('media', (table) => {
+    table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
+    table.enu('kind', [MediaKind.blog, MediaKind.photo, MediaKind.video]).notNullable();
+    table.string('url').notNullable();
+    table.specificType('resolution', 'integer[]');
+    table.timestamps(false, true);
+  });
+  await db.schema.createTable('media_translations', (table) => {
+    table
+      .uuid('media_id')
+      .notNullable()
+      .references('id')
+      .inTable('media')
+      .onDelete('CASCADE');
+    table.specificType('language', 'language_code').notNullable().defaultTo('en').index();
+    table.primary(['media_id', 'language']);
+    table.string('description');
+    table.string('copyright');
+    table.timestamps(false, true);
+  });
+  await addUpdatedAtTrigger(db, 'media');
+  await addUpdatedAtTrigger(db, 'media_translations');
+  // Media <-> sections
+  await db.schema.createTable('sections_media', (table) => {
+    table.uuid('media_id').notNullable().references('id').inTable('media').onDelete('CASCADE');
+    table.uuid('section_id').notNullable().references('id').inTable('sections').onDelete('CASCADE');
+    table.primary(['media_id', 'section_id']);
+  });
+
   await runSqlFile(db, './src/migrations/initial/array_json_to_int.sql');
   await runSqlFile(db, './src/migrations/initial/array_json_to_varchar.sql');
   await runSqlFile(db, './src/migrations/initial/point_from_json.sql');
@@ -272,6 +303,7 @@ export const up = async (db: Knex) => {
   await runSqlFile(db, './src/migrations/initial/sources_view.sql');
   await runSqlFile(db, './src/migrations/initial/gauges_view.sql');
   await runSqlFile(db, './src/migrations/initial/rivers_view.sql');
+  await runSqlFile(db, './src/migrations/initial/media_view.sql');
   await runSqlFile(db, './src/migrations/initial/upsert_tag.sql');
   await runSqlFile(db, './src/migrations/initial/upsert_river.sql');
   await runSqlFile(db, './src/migrations/initial/upsert_source.sql');
@@ -308,6 +340,7 @@ export const down = async (db: Knex) => {
   await db.schema.raw('DROP VIEW IF EXISTS sources_view');
   await db.schema.raw('DROP VIEW IF EXISTS rivers_view');
   await db.schema.raw('DROP VIEW IF EXISTS sections_view');
+  await db.schema.raw('DROP VIEW IF EXISTS media_view');
   await db.schema.raw('DROP FUNCTION IF EXISTS upsert_section(section JSON, lang language_code) CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS upsert_tag(tag JSON, lang language_code) CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS upsert_region(r JSON, lang language_code) CASCADE');

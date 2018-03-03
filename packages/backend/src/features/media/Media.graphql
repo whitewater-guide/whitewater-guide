@@ -1,0 +1,38 @@
+enum MediaKind {
+  photo
+  video
+  blog
+}
+
+type Media {
+  id: ID!
+  description: String
+  copyright: String
+  url: String!
+  kind: MediaKind!
+  resolution: [Int]
+}
+
+input MediaInput {
+  id: ID
+  description: String
+  copyright: String
+  url: String
+  type: MediaKind!
+  resolution: [Int]
+}
+
+type MediasList {
+  nodes: [Source]!
+  count: Int!
+}
+
+type Query {
+  mediaBySection(sectionId: ID!, language: String): MediasList!
+  media(id: ID, language: String): Media
+}
+
+type Mutation {
+  upsertSectionMedia(media: MediaInput!, language: String): Media
+  removeSectionMedia(id: ID!): ID
+}
