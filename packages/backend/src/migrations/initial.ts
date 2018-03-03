@@ -321,6 +321,7 @@ export const down = async (db: Knex) => {
   await db.schema.raw('DROP TABLE IF EXISTS sections_translations CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS sections_points CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS sections_tags CASCADE');
+  await db.schema.raw('DROP TABLE IF EXISTS sections_media CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS sources CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS sources_translations CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS regions CASCADE');
@@ -333,6 +334,8 @@ export const down = async (db: Knex) => {
   await db.schema.raw('DROP TABLE IF EXISTS tags CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS tags_translations CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS measurements CASCADE');
+  await db.schema.raw('DROP TABLE IF EXISTS media CASCADE');
+  await db.schema.raw('DROP TABLE IF EXISTS media_translations CASCADE');
   await db.schema.raw('DROP VIEW IF EXISTS tags_view');
   await db.schema.raw('DROP VIEW IF EXISTS regions_view');
   await db.schema.raw('DROP VIEW IF EXISTS points_view');

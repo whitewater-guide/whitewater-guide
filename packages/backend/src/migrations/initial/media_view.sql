@@ -10,8 +10,8 @@ CREATE OR REPLACE VIEW media_view AS
     media.resolution,
     media.created_at,
     media.updated_at,
-    COALESCE(media_translations.description, 'Not translated') as name,
-    COALESCE(media_translations.copyright, 'Not translated') as name,
+    COALESCE(media_translations.description, 'Not translated') as description,
+    COALESCE(media_translations.copyright, 'Not translated') as copyright
   FROM langs
     CROSS JOIN media
     LEFT OUTER JOIN media_translations

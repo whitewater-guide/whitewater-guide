@@ -10,6 +10,7 @@
     "posttest": "env $(cat ../../build/.env.test | xargs) node ./src/test/posttest.js",
     "test": "env $(cat ../../build/.env.test | xargs) jest -i",
     "test:watch": "env $(cat ../../build/.env.test | xargs) jest -i --watch",
+    "dev:reset": "knex --cwd . --knexfile src/db/knex.development.js migrate:rollback && knex --cwd . --knexfile src/db/knex.development.js migrate:latest && knex --cwd . --knexfile src/db/knex.development.js seed:run",
     "madge": "madge --circular src/index.js"
   },
   "devDependencies": {
