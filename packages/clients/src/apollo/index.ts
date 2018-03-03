@@ -1,3 +1,5 @@
+export * from './actions';
+export * from './apolloErrorReducer';
 export * from './apolloErrorToString';
 export * from './configureApolloCache';
 export * from './configureApolloClient';

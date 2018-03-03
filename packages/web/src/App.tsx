@@ -5,7 +5,7 @@ import { Provider, Store } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { Persistor } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
-import { apolloClient } from './apollo';
+import { getApolloClient } from './apollo';
 import { Loading } from './components';
 import { RootLayout } from './layout';
 import { configureStore, RootState } from './store';
@@ -27,6 +27,7 @@ export default class App extends React.PureComponent<{}, State> {
   render() {
     const { store, persistor } = this.state;
     if (store && persistor) {
+      const apolloClient = getApolloClient(store.dispatch);
       return (
         <MuiThemeProvider muiTheme={theme}>
           <Provider store={store}>

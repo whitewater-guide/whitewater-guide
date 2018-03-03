@@ -1,2 +1,2 @@
 export * from './configureStore';
-export * from './types';
+export { RootState } from './rootReducer';

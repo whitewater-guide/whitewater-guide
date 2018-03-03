@@ -1,10 +1,8 @@
+import { Location } from 'history';
 import { CardActions, CardHeader, CardMedia } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
-import Snackbar from 'material-ui/Snackbar';
 import muiThemeable from 'material-ui/styles/muiThemeable';
-import { Location } from 'history';
 import * as React from 'react';
-import * as CopyToClipboard from 'react-copy-to-clipboard';
 import Prompt from 'react-router-navigation-prompt';
 import { InjectedFormProps } from 'redux-form';
 import { Styles, Themeable } from '../../styles';
@@ -37,23 +35,10 @@ class FormBase extends React.PureComponent<InnerProps> {
 
   shouldBlockNavigation = (cur: Location, nxt: Location) => {
     const { anyTouched } = this.props;
-    // Until this is resolved, ignore search string:
+    // I think this is resolved now, but let this comment hang here for a while
     // https://github.com/ZacharyRSmith/react-router-navigation-prompt/issues/20
-    // return anyTouched && (nxt.pathname !== cur.pathname || nxt.search !== cur.search);
-    return anyTouched && (nxt.pathname !== cur.pathname);
-  };
-
-  renderSnackbar = () => {
-    const { error = '' } = this.props;
-    const [short = '', full = ''] = error.split('\n\n');
-    const action = (
-      <CopyToClipboard text={full}>
-        <span>copy</span>
-      </CopyToClipboard>
-    );
-    return (
-      <Snackbar action={action} open={!!error} message={short} autoHideDuration={7000} />
-    );
+    // return anyTouched && (nxt.pathname !== cur.pathname);
+    return anyTouched && (nxt.pathname !== cur.pathname || nxt.search !== cur.search);
   };
 
   render() {
@@ -80,7 +65,6 @@ class FormBase extends React.PureComponent<InnerProps> {
         <CardActions>
           <FlatButton label={submitLabel} onClick={this.props.handleSubmit} />
         </CardActions>
-        {this.renderSnackbar()}
       </Content>
     );
   }

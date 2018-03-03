@@ -48,8 +48,8 @@ export class SourceDetails extends React.PureComponent<WithSource & RouteCompone
 
               <Route exact path={`${match.path}/gauges`}>
                 <ListAdminFooter>
-                  <FlatButton label="Autofill" />
-                  <FlatButton label="Generate schedule" />
+                  <FlatButton secondary label="Autofill" />
+                  <FlatButton secondary label="Generate schedule" />
                   <ToggleAllGaugesButton sourceId={sourceId} label="Enable All" enabled={true} />
                   <ToggleAllGaugesButton sourceId={sourceId} label="Disable All" enabled={false} />
                 </ListAdminFooter>

@@ -1,12 +1,17 @@
 /* tslint:disable:no-var-requires*/
 import IconButton from 'material-ui/IconButton';
+import Snackbar from 'material-ui/Snackbar';
 import { grey100 } from 'material-ui/styles/colors';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import * as React from 'react';
+import * as CopyToClipboard from 'react-copy-to-clipboard';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Breadcrumbs } from '../components';
 import { UserMenu } from '../features/users';
+import { RootState } from '../store';
 import { Styles } from '../styles';
+import { apolloErrorClear, ApolloErrorState } from '../ww-clients/apollo';
 import breadcrumbRoutes from './breadcrumbRoutes';
 import ContentLayout from './ContentLayout';
 import { Drawer } from './drawer';
@@ -32,16 +37,40 @@ const styles: Styles = {
 
 };
 
+interface Props {
+  apolloError: ApolloErrorState;
+  apolloErrorClear: () => any;
+}
+
 interface State {
   drawerOpen: boolean;
 }
 
 // Cannot be pure because of react-router update-blocking
-export class RootLayout extends React.Component<{}, State> {
+class RootLayoutInternal extends React.Component<Props, State> {
   state: State = { drawerOpen: false };
 
   toggleDrawer = () => this.setState({ drawerOpen: !this.state.drawerOpen });
   onDrawerToggle = (drawerOpen: boolean) => this.setState({ drawerOpen });
+  onSnackbarClose = () => this.props.apolloErrorClear();
+
+  renderSnackbar = () => {
+    const { short = '', full = '' } = this.props.apolloError;
+    const action = (
+      <CopyToClipboard text={full}>
+        <span>copy</span>
+      </CopyToClipboard>
+    );
+    return (
+      <Snackbar
+        action={action}
+        open={!!short}
+        message={short}
+        autoHideDuration={7000}
+        onRequestClose={this.onSnackbarClose}
+      />
+    );
+  };
 
   render() {
     return (
@@ -58,7 +87,15 @@ export class RootLayout extends React.Component<{}, State> {
         </Toolbar>
         <ContentLayout/>
         <Drawer isOpen={this.state.drawerOpen} onChange={this.onDrawerToggle} />
+        { this.renderSnackbar() }
       </div>
     );
   }
 }
+
+export const RootLayout = connect(
+  ({ apolloError }: RootState) => ({ apolloError }),
+  { apolloErrorClear },
+  undefined,
+  { pure: false }, // Do not block react-router updates
+)(RootLayoutInternal);

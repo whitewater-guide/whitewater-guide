@@ -1,10 +1,10 @@
 import * as React from 'react';
+import { Route } from 'react-router';
 import { Switch } from 'react-router-dom';
 import { PrivateRoute } from '../../layout';
 import SourceForm from './form';
 import SourcesList from './list';
 import SourceRoute from './SourceRoute';
-import { Route } from 'react-router';
 
 export const SourcesRoute: React.StatelessComponent = () => (
   <Switch>

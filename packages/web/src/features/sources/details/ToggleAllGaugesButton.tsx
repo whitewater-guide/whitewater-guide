@@ -17,11 +17,11 @@ interface Variables {
 
 interface InnerProps {
   label: string;
-  toggle: () => void;
+  mutate: () => Promise<any>;
 }
 
-const ToggleAllGaugesButton: React.StatelessComponent<InnerProps> = ({ label, toggle }) => (
-  <FlatButton label={label} onClick={toggle} />
+const ToggleAllGaugesButton: React.StatelessComponent<InnerProps> = ({ label, mutate }) => (
+  <FlatButton secondary label={label} onClick={mutate} />
 );
 
 const container = graphql<{}, OuterProps, InnerProps, Variables>(
@@ -30,12 +30,13 @@ const container = graphql<{}, OuterProps, InnerProps, Variables>(
     options: ({ sourceId, enabled }) => ({
       variables: { sourceId, enabled },
     }),
-    props: ({ mutate, ownProps: { enabled, sourceId} }) => ({
-      toggle: () => {
-        mutate!({ sourceId, enabled } as any).finally(() => {
-          emitter.emit(POKE_TABLES);
-        });
-      },
+    props: ({ mutate, ownProps: { enabled, sourceId } }) => ({
+      mutate: () =>
+        mutate!({ sourceId, enabled } as any)
+          .catch(() => {}) // Ignore -> error goes to global snackbar
+          .finally(() => {
+            emitter.emit(POKE_TABLES);
+          }),
     }),
   },
 );
