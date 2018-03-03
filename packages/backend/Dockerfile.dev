@@ -24,9 +24,6 @@ RUN mkdir -p /tmp/app \
 
 # Install postgres client
 RUN apt-get update && apt-get install -f -y postgresql-client
-# Install minio client
-RUN curl https://dl.minio.io/client/mc/release/linux-amd64/mc > /usr/bin/mc && \
-    chmod +x /usr/bin/mc
 
 RUN npm install -g chokidar-cli pm2
 
