@@ -29,7 +29,7 @@ input MediaInput {
 }
 
 type MediasList {
-  nodes: [Source]!
+  nodes: [Media]!
   count: Int!
 }
 

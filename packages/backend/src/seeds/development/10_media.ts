@@ -1,12 +1,13 @@
 import { MediaRaw } from '../../features/media';
 import { MediaKind } from '../../ww-commons';
-import { NORWAY_SJOA_AMOT } from './08_sections';
+import { GALICIA_R1_S1, NORWAY_SJOA_AMOT } from './08_sections';
 import Knex = require('knex');
 
 export const BLOG_1 = 'a326622c-1ee5-11e8-b467-0ed5f89f718b';
 export const PHOTO_1 = 'a32664ca-1ee5-11e8-b467-0ed5f89f718b';
 export const PHOTO_2 = 'd0d234de-1ee6-11e8-b467-0ed5f89f718b';
 export const VIDEO_1 = 'a3266920-1ee5-11e8-b467-0ed5f89f718b';
+export const VIDEO_2 = '0cfaf4dc-1ef1-11e8-b467-0ed5f89f718b';
 
 const media: Array<Partial<MediaRaw>> = [
   {
@@ -31,6 +32,12 @@ const media: Array<Partial<MediaRaw>> = [
     id: VIDEO_1,
     kind: MediaKind.video,
     url: 'http://some.video',
+    resolution: [1920, 1080],
+  },
+  {
+    id: VIDEO_2,
+    kind: MediaKind.video,
+    url: 'http://some2.video',
     resolution: [1920, 1080],
   },
 ];
@@ -60,6 +67,12 @@ const mediaEn = [
     description: 'Video description',
     copyright: 'Video copyright',
   },
+  {
+    language: 'en',
+    media_id: VIDEO_2,
+    description: 'Video 2 description',
+    copyright: 'Video 2 copyright',
+  },
 ];
 
 const mediaRu = [
@@ -76,6 +89,7 @@ const sectionsMedia = [
   { section_id: NORWAY_SJOA_AMOT, media_id: PHOTO_1 },
   { section_id: NORWAY_SJOA_AMOT, media_id: PHOTO_2 },
   { section_id: NORWAY_SJOA_AMOT, media_id: VIDEO_1 },
+  { section_id: GALICIA_R1_S1, media_id: VIDEO_2 },
 ];
 
 export async function seed(db: Knex) {
