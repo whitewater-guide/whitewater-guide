@@ -2,7 +2,7 @@ import { CopyConditions } from 'minio';
 import { MINIO_URL, TEMP, TEMP_BUCKET_URL } from './buckets';
 import { minioClient } from './client';
 
-export const getTempPostPolicy = async () => {
+export const getTempPostPolicy = async (key?: string) => {
   const policy = minioClient.newPostPolicy();
   const expires = new Date();
   // Policy expires in 24 hours
@@ -10,6 +10,9 @@ export const getTempPostPolicy = async () => {
   policy.setExpires(expires);
   policy.setContentType('image/*');
   policy.setBucket(TEMP);
+  if (key) {
+    policy.setKey(key);
+  }
   // Only allow content size in range 10KB to 10MB.
   policy.setContentLengthRange(10 * 1024, 10 * 1024 * 1024);
   const { postURL: url, formData } = await minioClient.presignedPostPolicy(policy);
@@ -43,7 +46,7 @@ const isURLInBucket = (imageURL: string, bucket: string) => {
 export const moveTempImage = async (url: string, toBucket: string): Promise<string> => {
   if (isURLInBucket(url, TEMP)) {
     const filename = url.split('/').pop();
-    await minioClient.copyObject(TEMP, filename!, `/${toBucket}/${filename}`, new CopyConditions());
+    await minioClient.copyObject(toBucket, filename!, `/${TEMP}/${filename}`, new CopyConditions());
     await minioClient.removeObject(TEMP, filename!);
     return url.replace(TEMP_BUCKET_URL, `${MINIO_URL}/${toBucket}`);
   }
