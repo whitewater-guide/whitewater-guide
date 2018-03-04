@@ -1,10 +1,9 @@
-import { CardActions, CardHeader, CardMedia } from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import { CardMedia } from 'material-ui/Card';
 import { Tab } from 'material-ui/Tabs';
 import * as React from 'react';
 import { Route, RouteComponentProps, Switch } from 'react-router-dom';
 import { Content, Tabs } from '../../../components';
-import ListAdminFooter from '../../../layout/list/ListAdminFooter';
+import { AdminFooter } from '../../../layout/';
 import { WithRegion } from '../../../ww-clients/features/regions';
 import { RiversList, RiversRoute } from '../../rivers';
 import { SectionsList, SectionsRoute } from '../../sections';
@@ -55,15 +54,13 @@ export class RegionDetails extends React.PureComponent<WithRegion & RouteCompone
             <Switch>
 
               <Route exact path={`${match.path}/rivers`}>
-                <ListAdminFooter/>
+                <AdminFooter add />
               </Route>
 
               <Route exact path={`${match.path}/sections`} />
 
               <Route>
-                <CardActions>
-                  <FlatButton label="Edit" href={`${match.url}/settings${location.hash}`} />
-                </CardActions>
+                <AdminFooter edit />
               </Route>
 
             </Switch>

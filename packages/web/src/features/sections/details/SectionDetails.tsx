@@ -1,10 +1,45 @@
+import { CardMedia } from 'material-ui/Card';
+import { Tab } from 'material-ui/Tabs';
 import * as React from 'react';
+import { RouteComponentProps } from 'react-router-dom';
+import { Content, Tabs } from '../../../components';
+import { AdminFooter } from '../../../layout';
 import { WithSection } from '../../../ww-clients/features/sections';
 
-const SectionDetails: React.StatelessComponent<WithSection> = props => (
-  <div>
-    <span>{props.section.node.name}</span>
-  </div>
-);
+export default class SectionDetails extends React.PureComponent<WithSection & RouteComponentProps<any>> {
+  render() {
+    const { section: { node: section }, sectionId, match, location: { pathname } } = this.props;
+    return (
+      <Content card>
+        <CardMedia style={{ height: '100%' }} mediaStyle={{ height: '100%' }}>
+          <div style={{ width: '100%', height: '100%' }} >
+            <Tabs fullPathMode>
 
-export default SectionDetails;
+              <Tab label="Map" value={`${pathname}#map`}>
+                <span>Map</span>
+              </Tab>
+
+              <Tab label="Flow Info" value={`${pathname}#flow`}>
+                <span>Flow</span>
+              </Tab>
+
+              <Tab label="Info" value={`${pathname}#main`}>
+                <span>{section.name}</span>
+              </Tab>
+
+              <Tab label="Description" value={`${pathname}#description`}>
+                <span>Description</span>
+              </Tab>
+
+              <Tab label="Media" value={`${pathname}#media`}>
+                <span>Media</span>
+              </Tab>
+
+            </Tabs>
+          </div>
+        </CardMedia>
+        <AdminFooter edit />
+      </Content>
+    );
+  }
+}

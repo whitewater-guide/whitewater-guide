@@ -7,7 +7,7 @@ import { Content, Table, TableProps } from '../../components';
 import { LanguagePicker, WithLanguage } from '../../components/forms';
 import { Styles, Themeable } from '../../styles';
 import { NamedNode } from '../../ww-commons';
-import ListAdminFooter from './ListAdminFooter';
+import { AdminFooter } from '../AdminFooter';
 
 const styles: Styles = {
   header: {
@@ -62,7 +62,7 @@ class ResourcesListCardInner<DeleteHandle extends string, TResource extends Name
             {this.table}
           </AutoSizer>
         </CardMedia>
-        <ListAdminFooter />
+        <AdminFooter add />
       </Content>
     );
   }

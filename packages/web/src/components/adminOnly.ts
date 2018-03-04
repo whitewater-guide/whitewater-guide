@@ -1,5 +1,5 @@
 import { branch, compose, renderNothing } from 'recompose';
-import { withMe } from '../ww-clients/features/users/withMe';
+import { withMe } from '../ww-clients/features/users';
 
 export const adminOnly = compose(
   withMe(),

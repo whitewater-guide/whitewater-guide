@@ -9,7 +9,8 @@ import { SectionsListProps } from './types';
 export default class SectionsList extends React.PureComponent<SectionsListProps> {
 
   onSectionClick = (id: string) => {
-    // console.log(id);
+    const { history, regionId } = this.props;
+    history.push(`/regions/${regionId}/sections/${id}#main`);
   };
 
   customSettingsLink = (row: Section) => `/regions/${this.props.regionId}/sections/${row.id}/settings`;
