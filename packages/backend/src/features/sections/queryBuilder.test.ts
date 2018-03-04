@@ -37,6 +37,16 @@ const allPrimitives = {
   pois: {},
 };
 
+const media = {
+  nodes: {
+    __typename: {},
+    id: {},
+    language: {},
+    url: {},
+  },
+  count: {},
+};
+
 const info: GraphQLResolveInfo = {} as any;
 
 const options = { info, context: adminContext, knex: db(true) };
@@ -62,6 +72,12 @@ describe('details', () => {
 
   it('should build correct query with region', () => {
     graphqlFields.mockReturnValueOnce({ ...minPrimitives, region: minPrimitives });
+    const query = buildSectionQuery(options);
+    expect(query).toMatchSnapshot();
+  });
+
+  it('should build correct query with media', () => {
+    graphqlFields.mockReturnValueOnce({ ...minPrimitives, media });
     const query = buildSectionQuery(options);
     expect(query).toMatchSnapshot();
   });

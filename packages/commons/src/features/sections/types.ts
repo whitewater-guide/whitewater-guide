@@ -1,9 +1,11 @@
 import { NamedNode, Node, Timestamped } from '../../core';
 import { Gauge } from '../gauges';
+import { Media } from '../media';
 import { Coordinate3d, Point, PointInput } from '../points';
 import { Region } from '../regions';
 import { River } from '../rivers';
 import { SelectableTagInput, Tag } from '../tags';
+import { Connection } from '../types';
 
 export enum Duration {
   LAPS = 10,
@@ -57,8 +59,10 @@ export interface Section extends NamedNode, Timestamped {
 
   tags: Tag[];
 
-  // media: Media[];
   pois: Point[];
+
+  // --- connections
+  media?: Connection<Media>;
 }
 
 export interface SectionInput {

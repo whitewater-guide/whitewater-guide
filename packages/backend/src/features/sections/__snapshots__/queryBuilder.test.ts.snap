@@ -32,6 +32,54 @@ order by
 
 `;
 
+exports[`details should build correct query with media 1`] = `
+with media_connection as (
+    select
+        media_view.id,
+        media_view.language,
+        media_view.url
+    from
+        media_view
+    where
+        media_view.language = 'en'
+    order by
+        media_view.weight asc
+)
+select
+    sections_view.id,
+    sections_view.language,
+    sections_view.name, (with media_connection_internal as (
+            select
+                media_connection.*,
+                COALESCE(count(media_connection.*)
+                    OVER (),
+                    0)
+            from
+                media_connection
+            inner join sections_media on media_connection.id = sections_media.media_id
+            where
+                sections_media.section_id = sections_view.id
+)
+        select
+            json_build_object('count', (
+                    select
+                        media_connection_internal.count from media_connection_internal
+                    limit 1),
+                'nodes', (
+                    select
+                        COALESCE(json_agg (media_connection_internal.*),
+                            '[]'::json)
+                    from
+                        media_connection_internal))) as media
+from
+    sections_view
+where
+    sections_view.language = 'en'
+order by
+    sections_view.name asc
+
+`;
+
 exports[`details should build correct query with region 1`] = `
 with region_ref as (
     select

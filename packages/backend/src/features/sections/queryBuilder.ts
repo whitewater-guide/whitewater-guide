@@ -2,6 +2,18 @@ import * as Knex from 'knex';
 import db, { buildListQuery, buildRootQuery, ListQueryBuilderOptions, QueryBuilderOptions } from '../../db';
 import { Section } from '../../ww-commons';
 
+const connections = {
+  media: {
+    getBuilder: () => require('../media').buildMediaQuery,
+    join: (table: string, query: Knex.QueryBuilder) => {
+      const sectionId = db(true).raw('??', ['sections_view.id']);
+      return query
+        .innerJoin('sections_media', `${table}.id`, 'sections_media.media_id')
+        .where('sections_media.section_id', '=', sectionId);
+    },
+  },
+};
+
 const oneToOnes = {
   river: {
     getBuilder: () => require('../rivers').buildRiverQuery,
@@ -33,6 +45,7 @@ export const buildSectionQuery = (options: Partial<QueryBuilderOptions<Section>>
     context: options.context!,
     table: 'sections_view',
     oneToOnes,
+    connections,
     ...options,
   });
 
@@ -41,5 +54,6 @@ export const buildSectionsListQuery = (options: Partial<ListQueryBuilderOptions<
     context: options.context!,
     table: 'sections_view',
     oneToOnes,
+    connections,
     ...options,
   });

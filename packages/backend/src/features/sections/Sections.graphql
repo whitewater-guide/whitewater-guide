@@ -43,8 +43,13 @@ type Section {
   tags: [Tag]!
   createdAt: Date
   updatedAt: Date
-  # media: [Media]
+  media: SectionMediaConnection!
   pois: [Point]!
+}
+
+type SectionMediaConnection {
+  nodes: [Media]!
+  count: Int!
 }
 
 input SectionInput {
