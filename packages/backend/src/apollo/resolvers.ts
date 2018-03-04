@@ -26,6 +26,5 @@ export const resolvers = merge(
   {
     Date: GraphQLDateTime,
     JSON: GraphQLJSON,
-    UploadedFile: GraphQLJSON,
   },
 );

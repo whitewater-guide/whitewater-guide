@@ -29,3 +29,9 @@ export interface NodeQuery extends QueryWithLanguage {
 export interface RemoveQuery {
   id: string;
 }
+
+export interface UploadLink {
+  postURL: string;
+  formData: {[key: string]: string};
+  key: string;
+}

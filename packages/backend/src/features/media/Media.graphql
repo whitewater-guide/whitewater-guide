@@ -33,12 +33,18 @@ type MediasList {
   count: Int!
 }
 
+type MediaUploadForm {
+  id: ID!
+  upload: UploadLink!
+}
+
 type Query {
   mediaBySection(sectionId: ID!, language: String): MediasList!
   media(id: ID, language: String): Media
+  mediaForm(id: ID): MediaUploadForm
 }
 
 type Mutation {
   upsertSectionMedia(sectionId: ID!, media: MediaInput!, language: String): Media
-  removeSectionMedia(sectionId: ID!, mediaId: ID!): Media
+  removeMedia(id: ID!): Media
 }

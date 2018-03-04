@@ -15,7 +15,7 @@ describe('getTempPostPolicy', () => {
         'x-amz-date': expect.stringMatching(/[0-9TZ]+/),
         'x-amz-signature': expect.any(String),
       },
-      postURL: 'http://localhost:6001/temp',
+      postURL: 'http://localhost:6001/uploads/temp',
     });
   });
 
@@ -32,7 +32,7 @@ describe('getTempPostPolicy', () => {
         'x-amz-date': expect.stringMatching(/[0-9TZ]+/),
         'x-amz-signature': expect.any(String),
       },
-      postURL: 'http://localhost:6001/temp',
+      postURL: 'http://localhost:6001/uploads/temp',
     });
   })
 });
@@ -53,9 +53,17 @@ describe('moveTempImage', () => {
     expect(exists).toBe(false);
   });
 
-  it('should delete temp file', async () => {
+  it('should create file in other bucket', async () => {
     await moveTempImage('http://localhost:6001/uploads/temp/temp1.jpg', AVATARS);
-    const exists = await fileExistsInBucket('avatars', 'temp1.jpg');
+    // Use http://onlinemd5.com/ to generate etags (md5)
+    const exists = await fileExistsInBucket('avatars', 'temp1.jpg', 'c8773384029dbf0a11464f6ad3a82997');
     expect(exists).toBe(true);
+  });
+
+  it('should overwrite existing file', async () => {
+    await moveTempImage('http://localhost:6001/uploads/temp/overwrite.png', AVATARS);
+    const exists = await fileExistsInBucket('avatars', 'overwrite.png', '4bfdb23e6fd7255f908d0a0de979bf3d');
+    expect(exists).toBe(true);
+
   });
 });

@@ -18,14 +18,14 @@ const media: Array<Partial<MediaRaw>> = [
   {
     id: PHOTO_1,
     kind: MediaKind.photo,
-    url: 'photo1.jpg',
+    url: PHOTO_1,
     resolution: [800, 600],
     weight: 1,
   },
   {
     id: PHOTO_2,
     kind: MediaKind.photo,
-    url: 'photo2.jpg',
+    url: PHOTO_2,
     resolution: [1024, 768],
   },
   {

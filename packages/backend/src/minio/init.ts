@@ -17,10 +17,9 @@ const createIfNotExists = async (bucketName: string) => {
 
 export const initMinio = async () => {
   log.info('Minio initializing');
-  const theOnlyBucket = process.env.MINIO_PROXY_PATH!;
-  await Promise.all([TEMP, MEDIA, AVATARS].map(bucket => createIfNotExists(theOnlyBucket)));
-  await minioClient.setBucketPolicy(theOnlyBucket, TEMP + '/', 'writeonly');
-  await minioClient.setBucketPolicy(theOnlyBucket, MEDIA + '/', 'readonly');
-  await minioClient.setBucketPolicy(theOnlyBucket, AVATARS + '/', 'readonly');
+  await Promise.all([TEMP, MEDIA, AVATARS].map(bucket => createIfNotExists(bucket)));
+  await minioClient.setBucketPolicy(TEMP, '', 'writeonly');
+  await minioClient.setBucketPolicy(MEDIA, '', 'readonly');
+  await minioClient.setBucketPolicy(AVATARS, '', 'readonly');
   log.info('Minio init complete');
 };

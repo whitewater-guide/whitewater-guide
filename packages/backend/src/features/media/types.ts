@@ -1,3 +1,4 @@
+import { UploadLink } from '../../apollo';
 import { RawTimestamped } from '../../db';
 import { MediaKind, Node } from '../../ww-commons';
 
@@ -9,4 +10,9 @@ export interface MediaRaw extends Node, RawTimestamped {
   url: string;
   resolution: number[] | null;
   weight: number;
+}
+
+export interface MediaUploadForm {
+  id: string;
+  upload: UploadLink;
 }

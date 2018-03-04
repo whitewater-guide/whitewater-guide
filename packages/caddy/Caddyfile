@@ -30,6 +30,7 @@
   }
 
   proxy /{$MINIO_PROXY_PATH} {$MINIO_HOST}:9000 {
+    without /{$MINIO_PROXY_PATH}
     transparent
   }
 
