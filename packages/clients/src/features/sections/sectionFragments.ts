@@ -107,17 +107,21 @@ const Meta = gql`
 const MediaCore = gql`
   fragment MediaCore on Media {
     id
+    language
     description
     copyright
     url
-    type
+    kind
   }
 `;
 
 const Media = gql`
   fragment SectionMedia on Section {
     media {
-      ...MediaCore
+      nodes {
+        ...MediaCore
+      }
+      count
     }
   }
   ${MediaCore}

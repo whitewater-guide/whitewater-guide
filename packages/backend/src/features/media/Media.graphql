@@ -6,6 +6,7 @@ enum MediaKind {
 
 type Media {
   id: ID!
+  language: String
   kind: MediaKind!
   description: String
   copyright: String

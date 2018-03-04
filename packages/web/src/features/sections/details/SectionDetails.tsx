@@ -5,11 +5,12 @@ import { RouteComponentProps } from 'react-router-dom';
 import { Content, Tabs } from '../../../components';
 import { AdminFooter } from '../../../layout';
 import { WithSection } from '../../../ww-clients/features/sections';
+import { SectionMedia } from './media';
 import SectionInfo from './SectionInfo';
 
 export default class SectionDetails extends React.PureComponent<WithSection & RouteComponentProps<any>> {
   render() {
-    const { section: { node: section }, sectionId, match, location: { pathname } } = this.props;
+    const { section: { node: section }, location: { pathname } } = this.props;
     return (
       <Content card>
         <CardMedia style={{ height: '100%' }} mediaStyle={{ height: '100%' }}>
@@ -33,7 +34,7 @@ export default class SectionDetails extends React.PureComponent<WithSection & Ro
               </Tab>
 
               <Tab label="Media" value={`${pathname}#media`}>
-                <span>Media</span>
+                <SectionMedia section={section} />
               </Tab>
 
             </Tabs>
