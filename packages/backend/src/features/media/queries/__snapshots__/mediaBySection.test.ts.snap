@@ -11,6 +11,7 @@ Object {
           "description": "Blog description",
           "id": "a326622c-1ee5-11e8-b467-0ed5f89f718b",
           "kind": "blog",
+          "language": "en",
           "resolution": null,
           "url": "http://some.blog",
           "weight": 0,
@@ -20,11 +21,12 @@ Object {
           "description": "Photo 2 description",
           "id": "d0d234de-1ee6-11e8-b467-0ed5f89f718b",
           "kind": "photo",
+          "language": "en",
           "resolution": Array [
             1024,
             768,
           ],
-          "url": "d0d234de-1ee6-11e8-b467-0ed5f89f718b",
+          "url": "http://localhost:6001/uploads/media/d0d234de-1ee6-11e8-b467-0ed5f89f718b",
           "weight": 0,
         },
         Object {
@@ -32,6 +34,7 @@ Object {
           "description": "Video description",
           "id": "a3266920-1ee5-11e8-b467-0ed5f89f718b",
           "kind": "video",
+          "language": "en",
           "resolution": Array [
             1920,
             1080,
@@ -44,11 +47,12 @@ Object {
           "description": "Photo 1 description",
           "id": "a32664ca-1ee5-11e8-b467-0ed5f89f718b",
           "kind": "photo",
+          "language": "en",
           "resolution": Array [
             800,
             600,
           ],
-          "url": "a32664ca-1ee5-11e8-b467-0ed5f89f718b",
+          "url": "http://localhost:6001/uploads/media/a32664ca-1ee5-11e8-b467-0ed5f89f718b",
           "weight": 1,
         },
       ],

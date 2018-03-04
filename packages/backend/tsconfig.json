@@ -5,7 +5,7 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "noEmitHelpers": true,
-    "lib": ["esnext"],
+    "lib": ["esnext", "dom"],
     "target": "es2017",
     "module": "commonjs",
     "moduleResolution": "node",

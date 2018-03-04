@@ -1,6 +1,8 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
 import { PHOTO_1 } from '../../../seeds/development/10_media';
 import { noTimestamps, runQuery } from '../../../test/db-helpers';
+import { ThumbResize } from '../../../ww-commons';
+import { BLOG_1 } from '../../../seeds/test/10_media';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
@@ -9,6 +11,7 @@ const query = `
   query media($id: ID, $language: String){
     media(id: $id, language: $language) {
       id
+      language
       kind
       description
       copyright
@@ -43,6 +46,26 @@ it('should be able to get basic attributes without translation', async () => {
   expect(result).toHaveProperty('data.media.kind', 'photo');
 });
 
-it.skip('should produce correct full url', async () => {
-  // Not implemented yet
+it('should return thumb', async () => {
+  const thumbQuery = `
+    query media($id: ID, $language: String, $thumbOpts: ThumbOptions){
+      media(id: $id, language: $language) {
+        id
+        language
+        thumb(options: $thumbOpts)
+      }
+    }`;
+  const thumbOpts = { width: 100, height: 100, resize: ThumbResize.FIT };
+  const result = await runQuery(thumbQuery, { id: PHOTO_1, thumbOpts });
+  expect(result.data!.media.thumb).toMatch(/http:\/\/localhost:6001\/images\/\w+\/fit\/100\/100\/ce\/1\/\w+\.jpg/);
+});
+
+it('should produce correct full url for photos', async () => {
+  const result = await runQuery(query, { id: PHOTO_1 });
+  expect(result.data!.media.url).toBe(`http://localhost:6001/uploads/media/${PHOTO_1}`);
+});
+
+it('should preserve external url for non-photos', async () => {
+  const result = await runQuery(query, { id: BLOG_1 });
+  expect(result.data!.media.url).toBe('http://some.blog');
 });

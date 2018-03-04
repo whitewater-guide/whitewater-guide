@@ -10,6 +10,7 @@ const query = `
     mediaBySection(sectionId: $sectionId, language: $language) {
       nodes {
         id
+        language
         kind
         description
         copyright
