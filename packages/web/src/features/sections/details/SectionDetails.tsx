@@ -5,6 +5,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { Content, Tabs } from '../../../components';
 import { AdminFooter } from '../../../layout';
 import { WithSection } from '../../../ww-clients/features/sections';
+import SectionInfo from './SectionInfo';
 
 export default class SectionDetails extends React.PureComponent<WithSection & RouteComponentProps<any>> {
   render() {
@@ -24,7 +25,7 @@ export default class SectionDetails extends React.PureComponent<WithSection & Ro
               </Tab>
 
               <Tab label="Info" value={`${pathname}#main`}>
-                <span>{section.name}</span>
+                <SectionInfo section={section} />
               </Tab>
 
               <Tab label="Description" value={`${pathname}#description`}>

@@ -6017,6 +6017,13 @@ react-gateway@^3.0.0:
     prop-types "^15.5.0"
     react-prop-types "^0.4.0"
 
+react-grid-system@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/react-grid-system/-/react-grid-system-3.1.2.tgz#23c5e58b07e8ee0f7f42ef8c03c7b78c240a3458"
+  dependencies:
+    lodash "^4.17.4"
+    prop-types "^15.6.0"
+
 react-markdown@^3.2.2:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/react-markdown/-/react-markdown-3.2.2.tgz#439774c14f25eb25d1b96c126f28ca1486fb0a24"
