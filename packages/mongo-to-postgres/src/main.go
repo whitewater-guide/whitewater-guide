@@ -4,26 +4,29 @@ import (
   "github.com/globalsign/mgo"
   "os"
   "fmt"
-  "github.com/globalsign/mgo/bson"
 )
 
 func main() {
   mongoUri := os.Getenv("MONGO_URI")
-  fmt.Printf(mongoUri)
   session, err := mgo.Dial(mongoUri)
   if err != nil {
     fmt.Fprintf(os.Stderr, "Couldn't connect to mongo: %s", err.Error())
     os.Exit(1)
   }
   db := session.DB("wwdb")
-  usersCollection := db.C("users")
+  gaugesCollection := db.C("gauges")
 
-  var users []User
+  var gauge Gauge
 
-  err = usersCollection.Find(bson.M{}).All(&users)
-  if err != nil {
-    fmt.Fprintf(os.Stderr, "Couldn't find users: %s", err.Error())
+  iGauges := gaugesCollection.Find(nil).Iter()
+  for iGauges.Next(&gauge) {
+    // fmt.Printf("Next gauge: %v", gauge)
+    if gauge.RequestParams != nil {
+      fmt.Printf("Next gauge: %v", gauge)
+    }
+  }
+  if err := iGauges.Close(); err != nil {
+    fmt.Fprintf(os.Stderr, "Couldn't close users iterator: %s", err.Error())
     os.Exit(1)
   }
-  fmt.Println(users)
 }
