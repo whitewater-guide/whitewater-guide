@@ -32,9 +32,11 @@ func main() {
 
   clearPg(pg)
 
-  tags := insertTags(mongo, pg);
+  tags := insertTags(mongo, pg)
+  users := insertUsers(mongo, pg)
 
-  fmt.Println(tags)
+  fmt.Printf("Inserted %d tags\n", len(tags))
+  fmt.Printf("Inserted %d users\n", len(users))
 }
 
 func clearPg(pg *sql.DB) {

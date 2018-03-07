@@ -27,7 +27,7 @@ func insertTags(db *mgo.Database, pg *sql.DB) map[bson.ObjectId]string {
     collection := db.C(cName)
     iter := collection.Find(nil).Iter()
     for iter.Next(&tag) {
-      _, err := pg.Query(`INSERT INTO tags(id, category) VALUES($1, $2) RETURNING id`, tag.Slug, cat)
+      _, err := pg.Query(`INSERT INTO tags(id, category) VALUES($1, $2)`, tag.Slug, cat)
       if err != nil {
         fmt.Fprintf(os.Stderr, "Couldn't insert tag %v: %s", tag, err.Error())
       }
