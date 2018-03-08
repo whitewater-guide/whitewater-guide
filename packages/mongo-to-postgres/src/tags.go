@@ -3,49 +3,61 @@ package main
 import (
   "github.com/globalsign/mgo/bson"
   "github.com/globalsign/mgo"
-  "fmt"
-  "os"
-  "database/sql"
+  "github.com/jmoiron/sqlx"
 )
 
-type Tag struct {
-  ID   bson.ObjectId `bson:"_id"`
-  Slug string        `bson:"slug"`
-  Name string        `bson:"name"`
+type TagTranslation struct {
+  Name     string `bson:"name"`
+  Language string
 }
 
-func insertTags(db *mgo.Database, pg *sql.DB) map[bson.ObjectId]string {
+type Tag struct {
+  ID       bson.ObjectId `bson:"_id"`
+  Slug     string        `bson:"slug"`
+  TagTranslation         `bson:",inline"`
+  Category string
+}
+
+func insertTags(db *mgo.Database, pg *sqlx.DB) (tagIds map[bson.ObjectId]string, err error) {
   collections := map[string]string{
     "hazard_tags":   "hazards",
     "kayaking_tags": "kayaking",
     "supply_tags":   "supply",
     "misc_tags":     "misc",
   }
-  var tagIds = make(map[bson.ObjectId]string)
+  tagIds = make(map[bson.ObjectId]string)
+
+  var tagStmt, transStmt *sqlx.NamedStmt
+
+  tagStmt, err = pg.PrepareNamed("INSERT INTO tags(id, category) VALUES(:slug, :category)")
+  if err != nil {
+    return
+  }
+  transStmt, err = pg.PrepareNamed("INSERT INTO tags_translations(tag_id, language, name) VALUES (:slug, :language, :name)")
+  if err != nil {
+    return
+  }
+
   var tag Tag
   for cName, cat := range collections {
     collection := db.C(cName)
     iter := collection.Find(nil).Iter()
     for iter.Next(&tag) {
-      _, err := pg.Query(`INSERT INTO tags(id, category) VALUES($1, $2)`, tag.Slug, cat)
-      if err != nil {
-        fmt.Fprintf(os.Stderr, "Couldn't insert tag %v: %s", tag, err.Error())
+      tag.Category, tag.Language = cat, "en"
+
+      if _, err = tagStmt.Exec(tag); err != nil {
+        return
       }
-      _, err = pg.Query(
-        "INSERT INTO tags_translations(tag_id, language, name) VALUES ($1, $2, $3)",
-        tag.Slug, "en", tag.Name,
-      )
-      if err != nil {
-        fmt.Fprintf(os.Stderr, "Couldn't insert translation %v: %s", tag, err.Error())
+      if _, err = transStmt.Exec(tag); err != nil {
+        return
       }
       tagIds[tag.ID] = tag.Slug
     }
 
-    if err := iter.Close(); err != nil {
-      fmt.Fprintf(os.Stderr, "Couldn't close tags iterator: %s", err.Error())
-      os.Exit(1)
+    if err = iter.Close(); err != nil {
+      return
     }
 
   }
-  return tagIds
+  return
 }

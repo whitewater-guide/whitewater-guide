@@ -5,9 +5,9 @@ import (
   "os"
   "fmt"
   _ "github.com/lib/pq"
-  "database/sql"
   "strings"
   "github.com/lib/pq"
+  "github.com/jmoiron/sqlx"
 )
 
 func main() {
@@ -24,22 +24,27 @@ func main() {
     os.Getenv("PGPASSWORD"),
     os.Getenv("POSTGRES_DB"),
   )
-  pg, err := sql.Open("postgres", pgConnStr)
+  pg, err := sqlx.Open("postgres", pgConnStr)
   if err != nil {
     fmt.Fprintf(os.Stderr, "Couldn't connect to postgres: %s", err.Error())
     os.Exit(1)
   }
+  pg.MapperFunc(ToSnake)
 
   clearPg(pg)
 
-  tags := insertTags(mongo, pg)
-  users := insertUsers(mongo, pg)
+  tags, err := insertTags(mongo, pg)
+  if err != nil {
+    fmt.Printf("Error while inserting tags: %s", err.Error())
+  }
+  // users := insertUsers(mongo, pg)
 
-  fmt.Printf("Inserted %d tags\n", len(tags))
-  fmt.Printf("Inserted %d users\n", len(users))
+  //fmt.Printf("Inserted %d tags\n", len(tags))
+  fmt.Println(tags)
+  //fmt.Printf("Inserted %d users\n", len(users))
 }
 
-func clearPg(pg *sql.DB) {
+func clearPg(pg *sqlx.DB) {
   tables := []string{
     "sources_regions",
     "logins",
