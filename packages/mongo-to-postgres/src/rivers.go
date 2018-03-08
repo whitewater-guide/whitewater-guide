@@ -50,7 +50,7 @@ func insertRivers(mongo *mgo.Database, pg *sqlx.DB, regions *IdMap, users *IdMap
   iter := collection.Find(nil).Iter()
   for iter.Next(&river) {
     river.RegionId = (*regions)[river.RegId]
-    river.CreatedBy = sql.NullString{(*users)[river.AuthorId], river.AuthorId != ""}
+    river.CreatedBy = UUIDOrNull((*users)[river.AuthorId])
     err := riverStmt.QueryRowx(river).Scan(&river.RiverID)
     if err != nil {
       return riverIds, fmt.Errorf("failed to insert river %v: %s", river.ID.Hex(), err.Error())

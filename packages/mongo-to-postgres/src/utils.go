@@ -8,6 +8,7 @@ import (
   "github.com/globalsign/mgo/bson"
   "fmt"
   "github.com/jmoiron/sqlx"
+  "database/sql"
 )
 
 type IdMap map[bson.ObjectId]string
@@ -57,9 +58,12 @@ func fillJunction(pg *sqlx.DB, table, one, many string, idMap *IdMap, oneId stri
   }
 
   for i := range manyIds {
-    _, err = rpStmt.Exec(oneId, (*idMap)[manyIds[i]])
-    if err != nil {
-      return fmt.Errorf("couldn't exec copy statement for table %s(%s, %s): %s", table, one, many, err.Error())
+    manyId := (*idMap)[manyIds[i]]
+    if manyId != "" {
+      _, err = rpStmt.Exec(oneId, manyId)
+      if err != nil {
+        return fmt.Errorf("couldn't exec copy statement for table %s(%s, %s): %s", table, one, many, err.Error())
+      }
     }
   }
 
@@ -78,4 +82,14 @@ func fillJunction(pg *sqlx.DB, table, one, many string, idMap *IdMap, oneId stri
     return fmt.Errorf("couldn't commit %s(%s, %s) transaction: %s", table, one, many, err.Error())
   }
   return nil
+}
+
+func UUIDOrNull(id string) sql.NullString {
+  return sql.NullString{String: id, Valid: id != ""}
+}
+
+type String32 string
+
+func (s String32) Value() (driver.Value, error) {
+  return fmt.Sprintf("%.32s", s), nil
 }

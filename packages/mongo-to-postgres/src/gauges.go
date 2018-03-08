@@ -62,7 +62,7 @@ func insertGauges(mongo *mgo.Database, pg *sqlx.DB, sources *IdMap, points *IdMa
   iter := collection.Find(nil).Iter()
   for iter.Next(&gauge) {
     gauge.SourceID = (*sources)[gauge.SrcID]
-    gauge.LocationID = sql.NullString{(*points)[gauge.Location.ID], gauge.Location.ID != ""}
+    gauge.LocationID = UUIDOrNull((*points)[gauge.Location.ID])
 
     err := gaugeStmt.QueryRowx(gauge).Scan(&gauge.GaugeID)
     if err != nil {

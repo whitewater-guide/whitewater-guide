@@ -81,6 +81,12 @@ func main() {
     os.Exit(1)
   }
 
+  sections, err := insertSections(mongo, pg, &rivers, &gauges, &users, &media, &tags, &points)
+  if err != nil {
+    fmt.Printf("Error while inserting sections: %s\n", err.Error())
+    os.Exit(1)
+  }
+
   fmt.Printf("Inserted %d tags\n", len(tags))
   fmt.Printf("Inserted %d users\n", len(users))
   fmt.Printf("Inserted %d points\n", len(points))
@@ -89,6 +95,7 @@ func main() {
   fmt.Printf("Inserted %d gauges\n", len(gauges))
   fmt.Printf("Inserted %d rivers\n", len(rivers))
   fmt.Printf("Inserted %d media\n", len(media))
+  fmt.Printf("Inserted %d sections\n", len(sections))
 }
 
 func clearPg(pg *sqlx.DB) {
