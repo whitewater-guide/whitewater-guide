@@ -65,14 +65,14 @@ type Section struct {
   PoiIds         []bson.ObjectId `bson:"poiIds"`
   CreatedAt      time.Time       `bson:"createdAt"`
   Difficulty     float64         `bson:"difficulty"`
-  Gradient       float64         `bson:"gradient"`
-  Drop           float64         `bson:"drop"`
-  Distance       float64         `bson:"distance"`
+  Gradient       *float64        `bson:"gradient"`
+  Drop           *float64        `bson:"drop"`
+  Distance       *float64        `bson:"distance"`
   SeasonNumeric  SeasonNumeric   `bson:"seasonNumeric"`
-  Rating         float64         `bson:"rating"`
+  Rating         *float64        `bson:"rating"`
   Shape          LinestringZ     `bson:"shape"`
-  Duration       int64           `bson:"duration"`
-  DifficultyXtra String32        `bson:"difficultyXtra"`
+  Duration       *int64          `bson:"duration"`
+  DifficultyXtra *String32       `bson:"difficultyXtra"`
   SectionTranslation             `bson:",inline"`
 }
 

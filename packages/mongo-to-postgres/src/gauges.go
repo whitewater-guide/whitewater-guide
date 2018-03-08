@@ -18,23 +18,26 @@ type GaugeTranslation struct {
 type RequestParams bson.M
 
 func (rp RequestParams) Value() (driver.Value, error) {
+  if len(rp) == 0 {
+    return nil, nil
+  }
   bytes, e := json.Marshal(rp)
   return string(bytes), e
 }
 
 type Gauge struct {
-  ID            bson.ObjectId `bson:"_id"`
-  SrcID         bson.ObjectId `bson:"sourceId"` // Raw from mongo
-  SourceID      string                          // UUID, mapped raw
-  Code          string        `bson:"code"`
-  Url           string        `bson:"url"`
-  FlowUnit      string        `bson:"flowUnit"`
-  LevelUnit     string        `bson:"levelUnit"`
-  Cron          string        `bson:"cron"`
-  Location      Point         `bson:"location"`
+  ID            bson.ObjectId   `bson:"_id"`
+  SrcID         bson.ObjectId   `bson:"sourceId"` // Raw from mongo
+  SourceID      string                            // UUID, mapped raw
+  Code          string          `bson:"code"`
+  Url           *NullableString `bson:"url"`
+  FlowUnit      *NullableString `bson:"flowUnit"`
+  LevelUnit     *NullableString `bson:"levelUnit"`
+  Cron          *NullableString `bson:"cron"`
+  Location      Point           `bson:"location"`
   LocationID    sql.NullString
-  RequestParams RequestParams `bson:"requestParams"`
-  GaugeTranslation            `bson:",inline"`
+  RequestParams RequestParams   `bson:"requestParams"`
+  GaugeTranslation              `bson:",inline"`
 }
 
 func insertGauges(mongo *mgo.Database, pg *sqlx.DB, uuids IdMap) error {

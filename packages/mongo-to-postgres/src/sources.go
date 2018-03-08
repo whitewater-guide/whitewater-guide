@@ -16,10 +16,10 @@ type SourceTranslation struct {
 type Source struct {
   ID          bson.ObjectId   `bson:"_id"`
   Script      string          `bson:"script"`
-  Cron        string          `bson:"cron"`
+  Cron        *NullableString `bson:"cron"`
   HarvestMode string          `bson:"harvestMode"`
   RegionIds   []bson.ObjectId `bson:"regionIds"`
-  Url         string          `bson:"url"`
+  Url         *NullableString `bson:"url"`
   SourceTranslation           `bson:",inline"`
 }
 

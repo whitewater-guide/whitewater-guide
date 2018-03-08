@@ -92,6 +92,24 @@ func UUIDOrNull(id string) sql.NullString {
 
 type String32 string
 
-func (s String32) Value() (driver.Value, error) {
-  return fmt.Sprintf("%.32s", s), nil
+func (s *String32) Value() (driver.Value, error) {
+  if s == nil {
+    return nil, nil
+  }
+  if *s == "" {
+    return nil, nil
+  }
+  return fmt.Sprintf("%.32s", *s), nil
+}
+
+type NullableString string
+
+func (s *NullableString) Value() (driver.Value, error) {
+  if s == nil {
+    return nil, nil
+  }
+  if *s == "" {
+    return nil, nil
+  }
+  return string(*s), nil
 }

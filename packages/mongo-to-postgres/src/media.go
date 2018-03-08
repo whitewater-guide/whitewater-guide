@@ -11,8 +11,8 @@ import (
 
 type MediaTranslation struct {
   MediaID     string
-  Description string `bson:"description"`
-  Copyright   string `bson:"copyright"`
+  Description string          `bson:"description"`
+  Copyright   *NullableString `bson:"copyright"`
 }
 
 type MediaResolution struct {

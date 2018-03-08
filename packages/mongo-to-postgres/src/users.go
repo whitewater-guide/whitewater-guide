@@ -15,12 +15,12 @@ type Token struct {
 }
 
 type FacebookProfile struct {
-  ID        string `bson:"id" json:"id"`
-  Email     string `bson:"email" json:"email"`
-  FirstName string `bson:"first_name" json:"first_name"`
-  LastName  string `bson:"last_name" json:"last_name"`
-  Link      string `bson:"link" json:"link"`
-  Locale    string `bson:"locale" json:"locale"`
+  ID        string          `bson:"id" json:"id"`
+  Email     *NullableString `bson:"email" json:"email"`
+  FirstName string          `bson:"first_name" json:"first_name"`
+  LastName  string          `bson:"last_name" json:"last_name"`
+  Link      string          `bson:"link" json:"link"`
+  Locale    string          `bson:"locale" json:"locale"`
 }
 
 type Facebook struct {
@@ -47,7 +47,7 @@ type User struct {
 func (user User) role() int {
   role := 1
   for _, v := range user.Roles.GlobalRoles {
-    if v == "superadmin" {
+    if v == "super-admin" {
       return 3
     } else if v == "admin" {
       role = 2
