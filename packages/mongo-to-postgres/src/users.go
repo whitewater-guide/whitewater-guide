@@ -6,8 +6,8 @@ import (
   "github.com/globalsign/mgo"
   "database/sql"
   "fmt"
-  "os"
   "encoding/json"
+  "github.com/jmoiron/sqlx"
 )
 
 type Token struct {
@@ -66,33 +66,56 @@ func (user User) profile() string {
   return string(bytes)
 }
 
-func insertUsers(mongo *mgo.Database, pg *sql.DB) (map[bson.ObjectId]string, error) {
+func insertUsers(mongo *mgo.Database, pg *sqlx.DB) (map[bson.ObjectId]string, error) {
   var userIds = make(map[bson.ObjectId]string)
   var user User
   var userId string
   collection := mongo.C("users")
+  userStmt, err := pg.PrepareNamed(`
+    INSERT INTO users(name, avatar, email, role, created_at)
+    VALUES(:name, :avatar, :email, :role, :created_at) RETURNING id
+  `)
+  if err != nil {
+    return userIds, fmt.Errorf("failed to prepare user statement: %s", err.Error())
+  }
+  loginStmt, err := pg.PrepareNamed(`
+    INSERT INTO logins(user_id, provider, id, username, tokens, profile)
+    VALUES (:user_id, :provider, :id, :username, :tokens, :profile)
+  `)
+  if err != nil {
+    return userIds, fmt.Errorf("failed to prepare login statement: %s", err.Error())
+  }
+
   iter := collection.Find(nil).Iter()
   for iter.Next(&user) {
-    err := pg.QueryRow(`
-      INSERT INTO users(name, avatar, email, role, created_at)
-      VALUES($1, $2, $3, $4, $5) RETURNING id
-      `, user.Services.Facebook.Name, "NULL", user.Services.Facebook.Email, user.role(), user.CreatedAt).Scan(&userId)
+    err := userStmt.QueryRowx(map[string]interface{}{
+      "name":       user.Services.Facebook.Name,
+      "avatar":     sql.NullString{},
+      "email":      user.Services.Facebook.Email,
+      "role":       user.role(),
+      "created_at": user.CreatedAt,
+    }).Scan(&userId)
     if err != nil {
-      return nil, fmt.Errorf("failed to insert user: %s", err.Error())
+      return userIds, fmt.Errorf("failed to insert user %s: %s", user.ID.Hex(), err.Error())
     }
-    _, err = pg.Query(
-      "INSERT INTO logins(user_id, provider, id, username, tokens, profile) VALUES ($1, $2, $3, $4, $5, $6)",
-      userId, "facebook", user.Services.Facebook.ID, user.Services.Facebook.Name, user.token(), user.profile(),
-    )
+
+    _, err = loginStmt.Exec(map[string]interface{}{
+      "user_id":  userId,
+      "provider": "facebook",
+      "id":       user.Services.Facebook.ID,
+      "username": user.Services.Facebook.Name,
+      "tokens":   user.token(),
+      "profile":  user.profile(),
+    })
     if err != nil {
-      fmt.Fprintf(os.Stderr, "Couldn't insert login %v: %s\n", user, err.Error())
+      return userIds, fmt.Errorf("couldn't insert login for user %v: %s", user.ID.Hex(), err.Error())
     }
     userIds[user.ID] = userId
   }
 
   if err := iter.Close(); err != nil {
-    fmt.Fprintf(os.Stderr, "Couldn't close users iterator: %s\n", err.Error())
-    os.Exit(1)
+    return userIds, fmt.Errorf("couldn't close users iterator: %s", err.Error())
   }
+
   return userIds, nil
 }
