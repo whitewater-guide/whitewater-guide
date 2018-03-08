@@ -69,12 +69,19 @@ func main() {
     os.Exit(1)
   }
 
+  rivers, err := insertRivers(mongo, pg, &regions, &users)
+  if err != nil {
+    fmt.Printf("Error while inserting rivers: %s\n", err.Error())
+    os.Exit(1)
+  }
+
   fmt.Printf("Inserted %d tags\n", len(tags))
   fmt.Printf("Inserted %d users\n", len(users))
   fmt.Printf("Inserted %d points\n", len(points))
   fmt.Printf("Inserted %d regions\n", len(regions))
   fmt.Printf("Inserted %d sources\n", len(sources))
   fmt.Printf("Inserted %d gauges\n", len(gauges))
+  fmt.Printf("Inserted %d rivers\n", len(rivers))
 }
 
 func clearPg(pg *sqlx.DB) {
