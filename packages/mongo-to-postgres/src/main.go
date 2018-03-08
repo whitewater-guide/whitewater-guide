@@ -75,6 +75,12 @@ func main() {
     os.Exit(1)
   }
 
+  media, err := insertMedia(mongo, pg)
+  if err != nil {
+    fmt.Printf("Error while inserting media: %s\n", err.Error())
+    os.Exit(1)
+  }
+
   fmt.Printf("Inserted %d tags\n", len(tags))
   fmt.Printf("Inserted %d users\n", len(users))
   fmt.Printf("Inserted %d points\n", len(points))
@@ -82,6 +88,7 @@ func main() {
   fmt.Printf("Inserted %d sources\n", len(sources))
   fmt.Printf("Inserted %d gauges\n", len(gauges))
   fmt.Printf("Inserted %d rivers\n", len(rivers))
+  fmt.Printf("Inserted %d media\n", len(media))
 }
 
 func clearPg(pg *sqlx.DB) {

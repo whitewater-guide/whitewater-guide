@@ -13,10 +13,17 @@ type GaugeBinding struct {
   Approximate float64 `bson:"approximate"`
 }
 
+type SectionTranslation struct {
+  SectionID string
+  Name           string          `bson:"name"`
+  Description    string          `bson:"description"`
+  FlowsText      string          `bson:"flowsText"`
+  Season         string          `bson:"season"`
+}
+
 type Section struct {
   ID             bson.ObjectId   `bson:"_id"`
   RiverId        bson.ObjectId   `bson:"riverId"`
-  Name           string          `bson:"name"`
   GaugeId        bson.ObjectId   `bson:"gaugeId"`
   Levels         GaugeBinding    `bson:"levels"`
   Difficulty     float64         `bson:"difficulty"`
@@ -29,7 +36,6 @@ type Section struct {
   CreatedBy      bson.ObjectId   `bson:"createdBy"`
   Gradient       float64         `bson:"gradient"`
   Distance       float64         `bson:"distance"`
-  Description    string          `bson:"description"`
   PoiIds         []bson.ObjectId `bson:"poiIds"`
   SeasonNumeric  []int64         `bson:"seasonNumeric"`
   Rating         float64         `bson:"rating"`
@@ -38,6 +44,4 @@ type Section struct {
   Shape          [][]float64     `bson:"shape"`
   Duration       int64           `bson:"duration"`
   DifficultyXtra string          `bson:"difficultyXtra"`
-  FlowsText      string          `bson:"flowsText"`
-  Season         string          `bson:"season"`
 }

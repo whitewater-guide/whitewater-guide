@@ -277,7 +277,7 @@ export const up = async (db: Knex) => {
       .onDelete('CASCADE');
     table.specificType('language', 'language_code').notNullable().defaultTo('en').index();
     table.primary(['media_id', 'language']);
-    table.string('description');
+    table.text('description');
     table.string('copyright');
     table.timestamps(false, true);
   });
