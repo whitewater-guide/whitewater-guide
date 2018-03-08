@@ -18,14 +18,14 @@ type Tag struct {
   Category string
 }
 
-func insertTags(db *mgo.Database, pg *sqlx.DB) (tagIds map[bson.ObjectId]string, err error) {
+func insertTags(db *mgo.Database, pg *sqlx.DB) (tagIds IdMap, err error) {
   collections := map[string]string{
     "hazard_tags":   "hazards",
     "kayaking_tags": "kayaking",
     "supply_tags":   "supply",
     "misc_tags":     "misc",
   }
-  tagIds = make(map[bson.ObjectId]string)
+  tagIds = make(IdMap)
 
   var tagStmt, transStmt *sqlx.NamedStmt
 

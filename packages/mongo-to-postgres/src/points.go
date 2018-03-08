@@ -29,8 +29,8 @@ type Point struct {
   PointTranslation          `bson:",inline"`
 }
 
-func insertPoints(mongo *mgo.Database, pg *sqlx.DB) (map[bson.ObjectId]string, error) {
-  var pointIds = make(map[bson.ObjectId]string)
+func insertPoints(mongo *mgo.Database, pg *sqlx.DB) (IdMap, error) {
+  var pointIds = make(IdMap)
   var point Point
   collection := mongo.C("points")
 
@@ -67,7 +67,7 @@ func insertPoints(mongo *mgo.Database, pg *sqlx.DB) (map[bson.ObjectId]string, e
   }
 
   if err := iter.Close(); err != nil {
-    return pointIds, fmt.Errorf("couldn't close users iterator: %s", err.Error())
+    return pointIds, fmt.Errorf("couldn't close points iterator: %s", err.Error())
   }
 
   return pointIds, nil

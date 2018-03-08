@@ -66,8 +66,8 @@ func (user User) profile() string {
   return string(bytes)
 }
 
-func insertUsers(mongo *mgo.Database, pg *sqlx.DB) (map[bson.ObjectId]string, error) {
-  var userIds = make(map[bson.ObjectId]string)
+func insertUsers(mongo *mgo.Database, pg *sqlx.DB) (IdMap, error) {
+  var userIds = make(IdMap)
   var user User
   var userId string
   collection := mongo.C("users")
