@@ -6,6 +6,8 @@ import (
   "database/sql/driver"
   "github.com/lunny/html2md"
   "github.com/globalsign/mgo/bson"
+  "fmt"
+  "github.com/jmoiron/sqlx"
 )
 
 type IdMap map[bson.ObjectId]string
@@ -41,4 +43,39 @@ type HtmlString string
 
 func (str HtmlString) Value() (driver.Value, error) {
   return html2md.Convert(string(str)), nil
+}
+
+func fillJunction(pg *sqlx.DB, table, one, many string, idMap *IdMap, oneId string, manyIds []bson.ObjectId) error {
+  tx, err := pg.Begin()
+  if err != nil {
+    return fmt.Errorf("couldn't obtain %s(%s, %s) transaction: %s", table, one, many, err.Error())
+  }
+
+  rpStmt, err := tx.Prepare(pq.CopyIn(table, one, many))
+  if err != nil {
+    return fmt.Errorf("couldn't prepare %s(%s, %s) copy statement: %s", table, one, many, err.Error())
+  }
+
+  for i := range manyIds {
+    _, err = rpStmt.Exec(oneId, (*idMap)[manyIds[i]])
+    if err != nil {
+      return fmt.Errorf("couldn't exec copy statement for table %s(%s, %s): %s", table, one, many, err.Error())
+    }
+  }
+
+  _, err = rpStmt.Exec()
+  if err != nil {
+    return fmt.Errorf("couldn't finalize copy statement for table %s(%s, %s): %s", table, one, many, err.Error())
+  }
+
+  err = rpStmt.Close()
+  if err != nil {
+    return fmt.Errorf("couldn't close copy statement for table %s(%s, %s): %s", table, one, many, err.Error())
+  }
+
+  err = tx.Commit()
+  if err != nil {
+    return fmt.Errorf("couldn't commit %s(%s, %s) transaction: %s", table, one, many, err.Error())
+  }
+  return nil
 }

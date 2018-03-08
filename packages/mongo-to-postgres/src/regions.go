@@ -8,7 +8,6 @@ import (
   "fmt"
   "database/sql/driver"
   "strings"
-  "github.com/lib/pq"
 )
 
 type PolygonZ [][]float64
@@ -75,36 +74,9 @@ func insertRegions(mongo *mgo.Database, pg *sqlx.DB, points *IdMap) (IdMap, erro
     }
 
     // Insert regions_points
-    tx, err := pg.Begin()
+    err = fillJunction(pg, "regions_points", "region_id", "point_id", points, region.RegionID, region.PoiIds)
     if err != nil {
-      return regionIds, fmt.Errorf("couldn't obtain regions_points transaction for region %v: %s", region.ID.Hex(), err.Error())
-    }
-
-    rpStmt, err := tx.Prepare(pq.CopyIn("regions_points", "region_id", "point_id"))
-    if err != nil {
-      return regionIds, fmt.Errorf("couldn't prepare regions_points statement for region %v: %s", region.ID.Hex(), err.Error())
-    }
-
-    for i := range region.PoiIds {
-      _, err = rpStmt.Exec(region.RegionID, (*points)[region.PoiIds[i]])
-      if err != nil {
-        return regionIds, fmt.Errorf("couldn't exec regions_points copy for region %v: %s", region.ID.Hex(), err.Error())
-      }
-    }
-
-    _, err = rpStmt.Exec()
-    if err != nil {
-      return regionIds, fmt.Errorf("couldn't finalize regions_points statement for region %v: %s", region.ID.Hex(), err.Error())
-    }
-
-    err = rpStmt.Close()
-    if err != nil {
-      return regionIds, fmt.Errorf("couldn't close regions_points statement for region %v: %s", region.ID.Hex(), err.Error())
-    }
-
-    err = tx.Commit()
-    if err != nil {
-      return regionIds, fmt.Errorf("couldn't commit regions_points transaction for region %v: %s", region.ID.Hex(), err.Error())
+      return regionIds, err
     }
 
     regionIds[region.ID] = region.RegionID
