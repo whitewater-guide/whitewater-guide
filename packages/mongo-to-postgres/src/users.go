@@ -66,8 +66,7 @@ func (user User) profile() string {
   return string(bytes)
 }
 
-func insertUsers(mongo *mgo.Database, pg *sqlx.DB) (IdMap, error) {
-  var userIds = make(IdMap)
+func insertUsers(mongo *mgo.Database, pg *sqlx.DB, uuids IdMap) error {
   var user User
   var userId string
   collection := mongo.C("users")
@@ -76,14 +75,14 @@ func insertUsers(mongo *mgo.Database, pg *sqlx.DB) (IdMap, error) {
     VALUES(:name, :avatar, :email, :role, :created_at) RETURNING id
   `)
   if err != nil {
-    return userIds, fmt.Errorf("failed to prepare user statement: %s", err.Error())
+    return fmt.Errorf("failed to prepare user statement: %s", err.Error())
   }
   loginStmt, err := pg.PrepareNamed(`
     INSERT INTO logins(user_id, provider, id, username, tokens, profile)
     VALUES (:user_id, :provider, :id, :username, :tokens, :profile)
   `)
   if err != nil {
-    return userIds, fmt.Errorf("failed to prepare login statement: %s", err.Error())
+    return fmt.Errorf("failed to prepare login statement: %s", err.Error())
   }
 
   iter := collection.Find(nil).Iter()
@@ -96,7 +95,7 @@ func insertUsers(mongo *mgo.Database, pg *sqlx.DB) (IdMap, error) {
       "created_at": user.CreatedAt,
     }).Scan(&userId)
     if err != nil {
-      return userIds, fmt.Errorf("failed to insert user %s: %s", user.ID.Hex(), err.Error())
+      return fmt.Errorf("failed to insert user %s: %s", user.ID.Hex(), err.Error())
     }
 
     _, err = loginStmt.Exec(map[string]interface{}{
@@ -108,14 +107,14 @@ func insertUsers(mongo *mgo.Database, pg *sqlx.DB) (IdMap, error) {
       "profile":  user.profile(),
     })
     if err != nil {
-      return userIds, fmt.Errorf("couldn't insert login for user %v: %s", user.ID.Hex(), err.Error())
+      return fmt.Errorf("couldn't insert login for user %v: %s", user.ID.Hex(), err.Error())
     }
-    userIds[user.ID] = userId
+    uuids[user.ID] = userId
   }
 
   if err := iter.Close(); err != nil {
-    return userIds, fmt.Errorf("couldn't close users iterator: %s", err.Error())
+    return fmt.Errorf("couldn't close users iterator: %s", err.Error())
   }
 
-  return userIds, nil
+  return nil
 }

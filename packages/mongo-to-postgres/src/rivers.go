@@ -25,8 +25,7 @@ type River struct {
   RiverTranslation        `bson:",inline"`
 }
 
-func insertRivers(mongo *mgo.Database, pg *sqlx.DB, regions *IdMap, users *IdMap) (IdMap, error) {
-  var riverIds = make(IdMap)
+func insertRivers(mongo *mgo.Database, pg *sqlx.DB, uuids IdMap) error {
   var river River
   collection := mongo.C("rivers")
 
@@ -36,7 +35,7 @@ func insertRivers(mongo *mgo.Database, pg *sqlx.DB, regions *IdMap, users *IdMap
     RETURNING id
   `)
   if err != nil {
-    return riverIds, fmt.Errorf("failed to prepare river statement: %s", err.Error())
+    return fmt.Errorf("failed to prepare river statement: %s", err.Error())
   }
 
   transStmt, err := pg.PrepareNamed(`
@@ -44,30 +43,30 @@ func insertRivers(mongo *mgo.Database, pg *sqlx.DB, regions *IdMap, users *IdMap
     VALUES (:river_id, :name)
   `)
   if err != nil {
-    return riverIds, fmt.Errorf("failed to prepare rivers translations statement: %s", err.Error())
+    return fmt.Errorf("failed to prepare rivers translations statement: %s", err.Error())
   }
 
   iter := collection.Find(nil).Iter()
   for iter.Next(&river) {
-    river.RegionId = (*regions)[river.RegId]
-    river.CreatedBy = UUIDOrNull((*users)[river.AuthorId])
+    river.RegionId = uuids[river.RegId]
+    river.CreatedBy = UUIDOrNull(uuids[river.AuthorId])
     err := riverStmt.QueryRowx(river).Scan(&river.RiverID)
     if err != nil {
-      return riverIds, fmt.Errorf("failed to insert river %v: %s", river.ID.Hex(), err.Error())
+      return fmt.Errorf("failed to insert river %v: %s", river.ID.Hex(), err.Error())
     }
 
     _, err = transStmt.Exec(river.RiverTranslation)
 
     if err != nil {
-      return riverIds, fmt.Errorf("couldn't insert river translation for river %v: %s", river.ID.Hex(), err.Error())
+      return fmt.Errorf("couldn't insert river translation for river %v: %s", river.ID.Hex(), err.Error())
     }
 
-    riverIds[river.ID] = river.RiverID
+    uuids[river.ID] = river.RiverID
   }
 
   if err := iter.Close(); err != nil {
-    return riverIds, fmt.Errorf("couldn't close rivers iterator: %s", err.Error())
+    return fmt.Errorf("couldn't close rivers iterator: %s", err.Error())
   }
 
-  return riverIds, nil
+  return nil
 }

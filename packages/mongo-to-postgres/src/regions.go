@@ -38,8 +38,7 @@ type Region struct {
   RegionTranslation             `bson:",inline"`
 }
 
-func insertRegions(mongo *mgo.Database, pg *sqlx.DB, points *IdMap) (IdMap, error) {
-  var regionIds = make(IdMap)
+func insertRegions(mongo *mgo.Database, pg *sqlx.DB, uuids IdMap) error {
   var region Region
   collection := mongo.C("regions")
 
@@ -49,7 +48,7 @@ func insertRegions(mongo *mgo.Database, pg *sqlx.DB, points *IdMap) (IdMap, erro
     RETURNING id
   `)
   if err != nil {
-    return regionIds, fmt.Errorf("failed to prepare region statement: %s", err.Error())
+    return fmt.Errorf("failed to prepare region statement: %s", err.Error())
   }
 
   transStmt, err := pg.PrepareNamed(`
@@ -57,34 +56,34 @@ func insertRegions(mongo *mgo.Database, pg *sqlx.DB, points *IdMap) (IdMap, erro
     VALUES (:region_id, :name, :description, :season)
   `)
   if err != nil {
-    return regionIds, fmt.Errorf("failed to prepare regions translations statement: %s", err.Error())
+    return fmt.Errorf("failed to prepare regions translations statement: %s", err.Error())
   }
 
   iter := collection.Find(nil).Iter()
   for iter.Next(&region) {
     err := regionStmt.QueryRowx(region).Scan(&region.RegionID)
     if err != nil {
-      return regionIds, fmt.Errorf("failed to insert region %v: %s", region.ID.Hex(), err.Error())
+      return fmt.Errorf("failed to insert region %v: %s", region.ID.Hex(), err.Error())
     }
 
     _, err = transStmt.Exec(region.RegionTranslation)
 
     if err != nil {
-      return regionIds, fmt.Errorf("couldn't insert region translation for region %v: %s", region.ID.Hex(), err.Error())
+      return fmt.Errorf("couldn't insert region translation for region %v: %s", region.ID.Hex(), err.Error())
     }
 
     // Insert regions_points
-    err = fillJunction(pg, "regions_points", "region_id", "point_id", points, region.RegionID, region.PoiIds)
+    err = fillJunction(pg, "regions_points", "region_id", "point_id", uuids, region.RegionID, region.PoiIds)
     if err != nil {
-      return regionIds, err
+      return err
     }
 
-    regionIds[region.ID] = region.RegionID
+    uuids[region.ID] = region.RegionID
   }
 
   if err := iter.Close(); err != nil {
-    return regionIds, fmt.Errorf("couldn't close regions iterator: %s", err.Error())
+    return fmt.Errorf("couldn't close regions iterator: %s", err.Error())
   }
 
-  return regionIds, nil
+  return nil
 }

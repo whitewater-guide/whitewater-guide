@@ -34,8 +34,7 @@ type Media struct {
   Resolution MediaResolution `bson:",inline"`
 }
 
-func insertMedia(mongo *mgo.Database, pg *sqlx.DB) (IdMap, error) {
-  var mediaIds = make(IdMap)
+func insertMedia(mongo *mgo.Database, pg *sqlx.DB, uuids IdMap) error {
   var media Media
   collection := mongo.C("media")
 
@@ -45,7 +44,7 @@ func insertMedia(mongo *mgo.Database, pg *sqlx.DB) (IdMap, error) {
     RETURNING id
   `)
   if err != nil {
-    return mediaIds, fmt.Errorf("failed to prepare media statement: %s", err.Error())
+    return fmt.Errorf("failed to prepare media statement: %s", err.Error())
   }
 
   transStmt, err := pg.PrepareNamed(`
@@ -53,28 +52,28 @@ func insertMedia(mongo *mgo.Database, pg *sqlx.DB) (IdMap, error) {
     VALUES (:media_id, :description, :copyright)
   `)
   if err != nil {
-    return mediaIds, fmt.Errorf("failed to prepare media translations statement: %s", err.Error())
+    return fmt.Errorf("failed to prepare media translations statement: %s", err.Error())
   }
 
   iter := collection.Find(nil).Iter()
   for iter.Next(&media) {
     err := mediaStmt.QueryRowx(media).Scan(&media.MediaID)
     if err != nil {
-      return mediaIds, fmt.Errorf("failed to insert media %v: %s", media.ID.Hex(), err.Error())
+      return fmt.Errorf("failed to insert media %v: %s", media.ID.Hex(), err.Error())
     }
 
     _, err = transStmt.Exec(media.MediaTranslation)
 
     if err != nil {
-      return mediaIds, fmt.Errorf("couldn't insert media translation for media %v: %s", media.ID.Hex(), err.Error())
+      return fmt.Errorf("couldn't insert media translation for media %v: %s", media.ID.Hex(), err.Error())
     }
 
-    mediaIds[media.ID] = media.MediaID
+    uuids[media.ID] = media.MediaID
   }
 
   if err := iter.Close(); err != nil {
-    return mediaIds, fmt.Errorf("couldn't close media iterator: %s", err.Error())
+    return fmt.Errorf("couldn't close media iterator: %s", err.Error())
   }
 
-  return mediaIds, nil
+  return nil
 }

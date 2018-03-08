@@ -46,7 +46,7 @@ func (str HtmlString) Value() (driver.Value, error) {
   return html2md.Convert(string(str)), nil
 }
 
-func fillJunction(pg *sqlx.DB, table, one, many string, idMap *IdMap, oneId string, manyIds []bson.ObjectId) error {
+func fillJunction(pg *sqlx.DB, table, one, many string, idMap IdMap, oneId string, manyIds []bson.ObjectId) error {
   tx, err := pg.Begin()
   if err != nil {
     return fmt.Errorf("couldn't obtain %s(%s, %s) transaction: %s", table, one, many, err.Error())
@@ -58,7 +58,7 @@ func fillJunction(pg *sqlx.DB, table, one, many string, idMap *IdMap, oneId stri
   }
 
   for i := range manyIds {
-    manyId := (*idMap)[manyIds[i]]
+    manyId := idMap[manyIds[i]]
     if manyId != "" {
       _, err = rpStmt.Exec(oneId, manyId)
       if err != nil {

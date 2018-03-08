@@ -37,8 +37,7 @@ type Gauge struct {
   GaugeTranslation            `bson:",inline"`
 }
 
-func insertGauges(mongo *mgo.Database, pg *sqlx.DB, sources *IdMap, points *IdMap) (IdMap, error) {
-  var gaugeIds = make(IdMap)
+func insertGauges(mongo *mgo.Database, pg *sqlx.DB, uuids IdMap) error {
   var gauge Gauge
   collection := mongo.C("gauges")
 
@@ -48,7 +47,7 @@ func insertGauges(mongo *mgo.Database, pg *sqlx.DB, sources *IdMap, points *IdMa
     RETURNING id
   `)
   if err != nil {
-    return gaugeIds, fmt.Errorf("failed to prepare gauge statement: %s", err.Error())
+    return fmt.Errorf("failed to prepare gauge statement: %s", err.Error())
   }
 
   transStmt, err := pg.PrepareNamed(`
@@ -56,31 +55,31 @@ func insertGauges(mongo *mgo.Database, pg *sqlx.DB, sources *IdMap, points *IdMa
     VALUES (:gauge_id, :name)
   `)
   if err != nil {
-    return gaugeIds, fmt.Errorf("failed to prepare gauges translations statement: %s", err.Error())
+    return fmt.Errorf("failed to prepare gauges translations statement: %s", err.Error())
   }
 
   iter := collection.Find(nil).Iter()
   for iter.Next(&gauge) {
-    gauge.SourceID = (*sources)[gauge.SrcID]
-    gauge.LocationID = UUIDOrNull((*points)[gauge.Location.ID])
+    gauge.SourceID = uuids[gauge.SrcID]
+    gauge.LocationID = UUIDOrNull(uuids[gauge.Location.ID])
 
     err := gaugeStmt.QueryRowx(gauge).Scan(&gauge.GaugeID)
     if err != nil {
-      return gaugeIds, fmt.Errorf("failed to insert gauge %v: %s", gauge.ID.Hex(), err.Error())
+      return fmt.Errorf("failed to insert gauge %v: %s", gauge.ID.Hex(), err.Error())
     }
 
     _, err = transStmt.Exec(gauge.GaugeTranslation)
 
     if err != nil {
-      return gaugeIds, fmt.Errorf("couldn't insert gauge translation for gauge %v: %s", gauge.ID.Hex(), err.Error())
+      return fmt.Errorf("couldn't insert gauge translation for gauge %v: %s", gauge.ID.Hex(), err.Error())
     }
 
-    gaugeIds[gauge.ID] = gauge.GaugeID
+    uuids[gauge.ID] = gauge.GaugeID
   }
 
   if err := iter.Close(); err != nil {
-    return gaugeIds, fmt.Errorf("couldn't close gauges iterator: %s", err.Error())
+    return fmt.Errorf("couldn't close gauges iterator: %s", err.Error())
   }
 
-  return gaugeIds, nil
+  return nil
 }

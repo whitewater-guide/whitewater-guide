@@ -29,8 +29,7 @@ type Point struct {
   PointTranslation          `bson:",inline"`
 }
 
-func insertPoints(mongo *mgo.Database, pg *sqlx.DB) (IdMap, error) {
-  var pointIds = make(IdMap)
+func insertPoints(mongo *mgo.Database, pg *sqlx.DB, uuids IdMap) error {
   var point Point
   collection := mongo.C("points")
 
@@ -40,7 +39,7 @@ func insertPoints(mongo *mgo.Database, pg *sqlx.DB) (IdMap, error) {
     RETURNING id 
   `)
   if err != nil {
-    return pointIds, fmt.Errorf("failed to prepare user statement: %s", err.Error())
+    return fmt.Errorf("failed to prepare user statement: %s", err.Error())
   }
 
   transStmt, err := pg.PrepareNamed(`
@@ -48,27 +47,27 @@ func insertPoints(mongo *mgo.Database, pg *sqlx.DB) (IdMap, error) {
     VALUES (:point_id, :name, :description)
   `)
   if err != nil {
-    return pointIds, fmt.Errorf("failed to prepare points translations statement: %s", err.Error())
+    return fmt.Errorf("failed to prepare points translations statement: %s", err.Error())
   }
 
   iter := collection.Find(nil).Iter()
   for iter.Next(&point) {
     err := pointStmt.QueryRowx(point).Scan(&point.PointID)
     if err != nil {
-      return pointIds, fmt.Errorf("failed to insert point %s: %s", point.ID.Hex(), err.Error())
+      return fmt.Errorf("failed to insert point %s: %s", point.ID.Hex(), err.Error())
     }
 
     _, err = transStmt.Exec(point.PointTranslation)
 
     if err != nil {
-      return pointIds, fmt.Errorf("couldn't insert point translation for point %v: %s", point.ID.Hex(), err.Error())
+      return fmt.Errorf("couldn't insert point translation for point %v: %s", point.ID.Hex(), err.Error())
     }
-    pointIds[point.ID] = point.PointID
+    uuids[point.ID] = point.PointID
   }
 
   if err := iter.Close(); err != nil {
-    return pointIds, fmt.Errorf("couldn't close points iterator: %s", err.Error())
+    return fmt.Errorf("couldn't close points iterator: %s", err.Error())
   }
 
-  return pointIds, nil
+  return nil
 }

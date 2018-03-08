@@ -18,24 +18,23 @@ type Tag struct {
   Category string
 }
 
-func insertTags(db *mgo.Database, pg *sqlx.DB) (tagIds IdMap, err error) {
+func insertTags(db *mgo.Database, pg *sqlx.DB, uuids IdMap) error {
   collections := map[string]string{
     "hazard_tags":   "hazards",
     "kayaking_tags": "kayaking",
     "supply_tags":   "supply",
     "misc_tags":     "misc",
   }
-  tagIds = make(IdMap)
 
   var tagStmt, transStmt *sqlx.NamedStmt
 
-  tagStmt, err = pg.PrepareNamed("INSERT INTO tags(id, category) VALUES(:slug, :category)")
+  tagStmt, err := pg.PrepareNamed("INSERT INTO tags(id, category) VALUES(:slug, :category)")
   if err != nil {
-    return
+    return err
   }
   transStmt, err = pg.PrepareNamed("INSERT INTO tags_translations(tag_id, language, name) VALUES (:slug, :language, :name)")
   if err != nil {
-    return
+    return err
   }
 
   var tag Tag
@@ -46,18 +45,18 @@ func insertTags(db *mgo.Database, pg *sqlx.DB) (tagIds IdMap, err error) {
       tag.Category, tag.Language = cat, "en"
 
       if _, err = tagStmt.Exec(tag); err != nil {
-        return
+        return err
       }
       if _, err = transStmt.Exec(tag); err != nil {
-        return
+        return err
       }
-      tagIds[tag.ID] = tag.Slug
+      uuids[tag.ID] = tag.Slug
     }
 
     if err = iter.Close(); err != nil {
-      return
+      return err
     }
 
   }
-  return
+  return nil
 }

@@ -76,8 +76,7 @@ type Section struct {
   SectionTranslation             `bson:",inline"`
 }
 
-func insertSections(mongo *mgo.Database, pg *sqlx.DB, rivers *IdMap, gauges *IdMap, users *IdMap, media *IdMap, tags *IdMap, points *IdMap) (IdMap, error) {
-  var sectionIds = make(IdMap)
+func insertSections(mongo *mgo.Database, pg *sqlx.DB, uuids IdMap) error {
   var section Section
   collection := mongo.C("sections")
 
@@ -87,7 +86,7 @@ func insertSections(mongo *mgo.Database, pg *sqlx.DB, rivers *IdMap, gauges *IdM
     RETURNING id
   `)
   if err != nil {
-    return sectionIds, fmt.Errorf("failed to prepare section statement: %s", err.Error())
+    return fmt.Errorf("failed to prepare section statement: %s", err.Error())
   }
 
   transStmt, err := pg.PrepareNamed(`
@@ -95,35 +94,35 @@ func insertSections(mongo *mgo.Database, pg *sqlx.DB, rivers *IdMap, gauges *IdM
     VALUES (:section_id, :name, :description, :season, :flows_text)
   `)
   if err != nil {
-    return sectionIds, fmt.Errorf("failed to prepare sections translations statement: %s", err.Error())
+    return fmt.Errorf("failed to prepare sections translations statement: %s", err.Error())
   }
 
   iter := collection.Find(nil).Iter()
   for iter.Next(&section) {
-    section.CreatedBy = UUIDOrNull((*users)[section.AuthorMongoId])
-    section.RiverID = UUIDOrNull((*rivers)[section.RiverMongoId])
-    section.GaugeID = UUIDOrNull((*gauges)[section.GaugeMongoId])
+    section.CreatedBy = UUIDOrNull(uuids[section.AuthorMongoId])
+    section.RiverID = UUIDOrNull(uuids[section.RiverMongoId])
+    section.GaugeID = UUIDOrNull(uuids[section.GaugeMongoId])
     err := sectionStmt.QueryRowx(section).Scan(&section.SectionID)
     if err != nil {
-      return sectionIds, fmt.Errorf("failed to insert section %v: %s", section.ID.Hex(), err.Error())
+      return fmt.Errorf("failed to insert section %v: %s", section.ID.Hex(), err.Error())
     }
 
     _, err = transStmt.Exec(section.SectionTranslation)
 
     if err != nil {
-      return sectionIds, fmt.Errorf("couldn't insert section translation for section %v: %s", section.ID.Hex(), err.Error())
+      return fmt.Errorf("couldn't insert section translation for section %v: %s", section.ID.Hex(), err.Error())
     }
 
     // Insert sections_media
-    err = fillJunction(pg, "sections_media", "section_id", "media_id", media, section.SectionID, section.MediaIds)
+    err = fillJunction(pg, "sections_media", "section_id", "media_id", uuids, section.SectionID, section.MediaIds)
     if err != nil {
-      return sectionIds, err
+      return err
     }
 
     // Insert sections_points
-    err = fillJunction(pg, "sections_points", "section_id", "point_id", points, section.SectionID, section.PoiIds)
+    err = fillJunction(pg, "sections_points", "section_id", "point_id", uuids, section.SectionID, section.PoiIds)
     if err != nil {
-      return sectionIds, err
+      return err
     }
     // Insert section_tags
     tagIds := []bson.ObjectId{}
@@ -131,17 +130,17 @@ func insertSections(mongo *mgo.Database, pg *sqlx.DB, rivers *IdMap, gauges *IdM
     tagIds = append(tagIds, section.SupplyTagIds...)
     tagIds = append(tagIds, section.HazardsTagIds...)
     tagIds = append(tagIds, section.MiscTagIds...)
-    err = fillJunction(pg, "sections_tags", "section_id", "tag_id", tags, section.SectionID, tagIds)
+    err = fillJunction(pg, "sections_tags", "section_id", "tag_id", uuids, section.SectionID, tagIds)
     if err != nil {
-      return sectionIds, err
+      return err
     }
 
-    sectionIds[section.ID] = section.SectionID
+    uuids[section.ID] = section.SectionID
   }
 
   if err := iter.Close(); err != nil {
-    return sectionIds, fmt.Errorf("couldn't close sections iterator: %s", err.Error())
+    return fmt.Errorf("couldn't close sections iterator: %s", err.Error())
   }
 
-  return sectionIds, nil
+  return nil
 }
