@@ -20,7 +20,7 @@ CREATE OR REPLACE VIEW regions_view AS
       SELECT json_agg(points_view.*)
       FROM points_view
         INNER JOIN regions_points ON points_view.id = regions_points.point_id
-      WHERE regions_points.region_id = regions.id AND points_view.language = regions_translations.language
+      WHERE regions_points.region_id = regions.id AND points_view.language = langs.language
     ) AS pois
   FROM langs
     CROSS JOIN regions

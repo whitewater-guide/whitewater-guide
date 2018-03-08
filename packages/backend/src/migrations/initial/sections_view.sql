@@ -39,13 +39,13 @@ CREATE OR REPLACE VIEW sections_view AS
       SELECT json_agg(points_view.*)
       FROM points_view
         INNER JOIN sections_points ON points_view.id = sections_points.point_id
-      WHERE sections_points.section_id = sections.id AND points_view.language = sections_translations.language
+      WHERE sections_points.section_id = sections.id AND points_view.language = langs.language
     ) AS pois,
     (
       SELECT json_agg(tags_view.*)
       FROM tags_view
         INNER JOIN sections_tags ON tags_view.id = sections_tags.tag_id
-      WHERE sections_tags.section_id = sections.id AND tags_view.language = sections_translations.language
+      WHERE sections_tags.section_id = sections.id AND tags_view.language = langs.language
     ) AS tags
   FROM langs
     CROSS JOIN sections
