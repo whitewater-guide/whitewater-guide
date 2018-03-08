@@ -9,6 +9,7 @@ import (
   "fmt"
   "github.com/jmoiron/sqlx"
   "database/sql"
+  "strings"
 )
 
 type IdMap map[bson.ObjectId]string
@@ -43,7 +44,8 @@ func (a SeasonNumeric) Value() (driver.Value, error) {
 type HtmlString string
 
 func (str HtmlString) Value() (driver.Value, error) {
-  return html2md.Convert(string(str)), nil
+  md := html2md.Convert(string(str))
+  return strings.Replace(md, "&nbsp;", "", -1), nil
 }
 
 func fillJunction(pg *sqlx.DB, table, one, many string, idMap IdMap, oneId string, manyIds []bson.ObjectId) error {
