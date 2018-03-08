@@ -6,6 +6,7 @@ import (
   "github.com/globalsign/mgo"
   "github.com/jmoiron/sqlx"
   "database/sql/driver"
+  "strings"
 )
 
 type MediaTranslation struct {
@@ -57,6 +58,11 @@ func insertMedia(mongo *mgo.Database, pg *sqlx.DB, uuids IdMap) error {
 
   iter := collection.Find(nil).Iter()
   for iter.Next(&media) {
+    // Fix some corrupted photos:
+    if media.Kind == "photo" && strings.Index(media.Url, "http") == 0 {
+      media.Kind = "video"
+    }
+
     err := mediaStmt.QueryRowx(media).Scan(&media.MediaID)
     if err != nil {
       return fmt.Errorf("failed to insert media %v: %s", media.ID.Hex(), err.Error())
