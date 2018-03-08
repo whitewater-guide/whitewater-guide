@@ -40,7 +40,7 @@ type Gauge struct {
   GaugeTranslation              `bson:",inline"`
 }
 
-func insertGauges(mongo *mgo.Database, pg *sqlx.DB, uuids IdMap) error {
+func insertGauges(mongo *mgo.Database, pg *sqlx.DB, uuids IdMap, scripts IdMap, mKeys GaugesToKeys) error {
   var gauge Gauge
   collection := mongo.C("gauges")
 
@@ -78,6 +78,7 @@ func insertGauges(mongo *mgo.Database, pg *sqlx.DB, uuids IdMap) error {
     }
 
     uuids[gauge.ID] = gauge.GaugeID
+    mKeys[gauge.ID] = MeasurementsKey{Script: scripts[gauge.SrcID], Code: gauge.Code}
   }
 
   if err := iter.Close(); err != nil {

@@ -23,7 +23,7 @@ type Source struct {
   SourceTranslation           `bson:",inline"`
 }
 
-func insertSources(mongo *mgo.Database, pg *sqlx.DB, uuids IdMap) error {
+func insertSources(mongo *mgo.Database, pg *sqlx.DB, uuids IdMap, scripts IdMap) error {
   var source Source
   collection := mongo.C("sources")
 
@@ -64,6 +64,7 @@ func insertSources(mongo *mgo.Database, pg *sqlx.DB, uuids IdMap) error {
     }
 
     uuids[source.ID] = source.SourceID
+    scripts[source.ID] = source.Script
   }
 
   if err := iter.Close(); err != nil {
