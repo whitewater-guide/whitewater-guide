@@ -57,10 +57,17 @@ func main() {
     os.Exit(1)
   }
 
+  sources, err := insertSources(mongo, pg, &regions)
+  if err != nil {
+    fmt.Printf("Error while inserting regions: %s\n", err.Error())
+    os.Exit(1)
+  }
+
   fmt.Printf("Inserted %d tags\n", len(tags))
   fmt.Printf("Inserted %d users\n", len(users))
   fmt.Printf("Inserted %d points\n", len(points))
   fmt.Printf("Inserted %d regions\n", len(regions))
+  fmt.Printf("Inserted %d sources\n", len(sources))
 }
 
 func clearPg(pg *sqlx.DB) {

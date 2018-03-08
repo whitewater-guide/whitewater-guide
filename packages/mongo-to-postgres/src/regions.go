@@ -49,7 +49,7 @@ func insertRegions(mongo *mgo.Database, pg *sqlx.DB, points *IdMap) (IdMap, erro
     RETURNING id
   `)
   if err != nil {
-    return regionIds, fmt.Errorf("failed to prepare user statement: %s", err.Error())
+    return regionIds, fmt.Errorf("failed to prepare region statement: %s", err.Error())
   }
 
   transStmt, err := pg.PrepareNamed(`
