@@ -38,14 +38,22 @@ func main() {
     fmt.Printf("Error while inserting tags: %s\n", err.Error())
     os.Exit(1)
   }
+
   users, err := insertUsers(mongo, pg)
   if err != nil {
     fmt.Printf("Error while inserting users: %s\n", err.Error())
     os.Exit(1)
   }
 
+  points, err := insertPoints(mongo, pg)
+  if err != nil {
+    fmt.Printf("Error while inserting points: %s\n", err.Error())
+    os.Exit(1)
+  }
+
   fmt.Printf("Inserted %d tags\n", len(tags))
   fmt.Printf("Inserted %d users\n", len(users))
+  fmt.Printf("Inserted %d points\n", len(points))
 }
 
 func clearPg(pg *sqlx.DB) {
