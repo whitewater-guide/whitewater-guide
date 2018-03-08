@@ -16,7 +16,7 @@ const users: PUser[] = [
     name: 'Konstantin Kuznetsov',
     avatar: 'https://scontent.xx.fbcdn.net/v/t1.0-1/p50x50/1780622_1380926282175020_67535950_n.jpg?oh=80afda8f3e3d817e233fed522e2d9f1a&oe=5A1B4612',
     email: 'fish.munga@yandex.ru',
-    role: Role.SUPERADMIN,
+    role: Role.ADMIN,
   },
   {
     id: '442cb792-749c-11e7-8cf7-a6006ad3dba0',

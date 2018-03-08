@@ -8,6 +8,7 @@ CREATE OR REPLACE VIEW rivers_view AS
     rivers.region_id,
     rivers.created_at,
     rivers.updated_at,
+    rivers.created_by,
     COALESCE(rivers_translations.name, 'Not translated') as name,
     COALESCE(rivers_translations.alt_names, '{}'::VARCHAR[]) as alt_names,
     (

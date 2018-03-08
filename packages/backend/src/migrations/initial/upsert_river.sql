@@ -6,14 +6,16 @@ DECLARE
 BEGIN
   -- Then insert core
   WITH upserted_river AS (
-    INSERT INTO rivers(id, region_id)
+    INSERT INTO rivers(id, region_id, created_by)
     VALUES (
       COALESCE((river ->> 'id') :: UUID, uuid_generate_v1mc()),
-      (river -> 'region' ->> 'id') :: UUID
+      (river -> 'region' ->> 'id') :: UUID,
+      (river ->> 'createdBy') :: UUID
     )
     ON CONFLICT (id)
       DO UPDATE SET
-        region_id         = rivers.region_id
+        region_id         = rivers.region_id,
+        created_by        = rivers.created_by
     RETURNING id
   )
   INSERT INTO rivers_translations(river_id, language, name, alt_names)

@@ -16,10 +16,10 @@ export const userContext: Context = {
 export const adminContext: Context = {
   user: {
     name: 'admin',
-    id: '8525b2b0-749e-11e7-b5a5-be2e44b06b34',
+    id: '477a0bec-8a78-11e7-b3e6-9beeff45d731',
     role: Role.ADMIN,
-    avatar: null,
-    email: null,
+    avatar: 'https://scontent.xx.fbcdn.net/v/t1.0-1/p50x50/1780622_1380926282175020_67535950_n.jpg?oh=80afda8f3e3d817e233fed522e2d9f1a&oe=5A1B4612',
+    email: 'fish.munga@yandex.ru',
     created_at: new Date(Date.UTC(2017, 0, 1)),
     updated_at: new Date(Date.UTC(2017, 0, 2)),
   },

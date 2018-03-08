@@ -11,6 +11,7 @@ CREATE OR REPLACE VIEW media_view AS
     media.resolution,
     media.created_at,
     media.updated_at,
+    media.created_by,
     COALESCE(media_translations.description, 'Not translated') as description,
     COALESCE(media_translations.copyright, 'Not translated') as copyright
   FROM langs

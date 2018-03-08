@@ -102,6 +102,11 @@ describe('insert', () => {
   test('should match snapshot', () => {
     expect(noUnstable(insertedRiver)).toMatchSnapshot();
   });
+
+  it('should correctly set created_by', async () => {
+    const { created_by } = await db().table('rivers').select(['created_by']).where({ id: insertedRiver.id }).first();
+    expect(created_by).toBe(adminContext.user!.id);
+  });
 });
 
 describe('update', () => {

@@ -24,7 +24,8 @@ BEGIN
       duration,
       difficulty,
       difficulty_xtra,
-      rating
+      rating,
+      created_by
     )
     VALUES (
       COALESCE((section ->> 'id') :: UUID, uuid_generate_v1mc()),
@@ -39,7 +40,8 @@ BEGIN
       (section ->> 'duration') :: integer,
       (section ->> 'difficulty') :: real,
       section ->> 'difficultyXtra',
-      (section ->> 'rating') :: real
+      (section ->> 'rating') :: real,
+      (section ->> 'createdBy') :: UUID
     )
     ON CONFLICT (id)
       DO UPDATE SET
@@ -54,7 +56,8 @@ BEGIN
         duration        = EXCLUDED.duration,
         difficulty      = EXCLUDED.difficulty,
         difficulty_xtra = EXCLUDED.difficulty_xtra,
-        rating          = EXCLUDED.rating
+        rating          = EXCLUDED.rating,
+        created_by      = sections.created_by
     RETURNING id
   )
   INSERT INTO sections_translations (section_id, language, name, alt_names, description, season, flows_text)

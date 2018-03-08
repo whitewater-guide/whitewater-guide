@@ -263,6 +263,11 @@ describe('insert', () => {
     const tags = await db().table('sections_tags').count().first();
     expect(Number(tags.count) - tagsBefore).toBe(2);
   });
+
+  it('should correctly set created_by', async () => {
+    const { created_by } = await db().table('sections').select(['created_by']).where({ id: insertedSection.id }).first();
+    expect(created_by).toBe(adminContext.user!.id);
+  });
 });
 
 describe('update', () => {

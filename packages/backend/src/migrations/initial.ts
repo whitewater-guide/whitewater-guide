@@ -142,6 +142,7 @@ export const up = async (db: Knex) => {
   await db.schema.createTable('rivers', (table) => {
     table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
     table.uuid('region_id').notNullable().references('id').inTable('regions').onDelete('CASCADE').index();
+    table.uuid('created_by').references('id').inTable('users').onDelete('SET NULL');
     table.timestamps(false, true);
   });
   await db.schema.createTable('rivers_translations', (table) => {
@@ -206,6 +207,7 @@ export const up = async (db: Knex) => {
     table.float('difficulty');
     table.string('difficulty_xtra', 32);
     table.float('rating');
+    table.uuid('created_by').references('id').inTable('users').onDelete('SET NULL');
 
     table.timestamps(false, true);
   });
@@ -264,6 +266,7 @@ export const up = async (db: Knex) => {
     table.specificType('resolution', 'integer[]');
     table.integer('weight').notNullable().defaultTo(0);
     table.timestamps(false, true);
+    table.uuid('created_by').references('id').inTable('users').onDelete('SET NULL');
   });
   await db.schema.createTable('media_translations', (table) => {
     table

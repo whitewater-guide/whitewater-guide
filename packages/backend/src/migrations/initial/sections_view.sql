@@ -27,6 +27,7 @@ CREATE OR REPLACE VIEW sections_view AS
     ST_AsText(st_endpoint(sections.shape :: geometry) :: geography) AS take_out,
     sections.created_at,
     sections.updated_at,
+    sections.created_by,
     sections.gauge_id,
     sections.river_id,
     (
