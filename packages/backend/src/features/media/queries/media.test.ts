@@ -1,8 +1,7 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
-import { PHOTO_1 } from '../../../seeds/development/10_media';
+import { BLOG_1, PHOTO_1 } from '../../../seeds/test/10_media';
 import { noTimestamps, runQuery } from '../../../test/db-helpers';
 import { ThumbResize } from '../../../ww-commons';
-import { BLOG_1 } from '../../../seeds/test/10_media';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);

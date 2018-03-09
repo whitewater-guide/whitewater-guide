@@ -1,8 +1,6 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
-import { SOURCE_NORWAY } from '../../../seeds/development/04_sources';
-import { GAUGE_GEO_1 } from '../../../seeds/development/05_gauges';
-import { SOURCE_GALICIA_1, SOURCE_GEORGIA } from '../../../seeds/test/04_sources';
-import { GAUGE_GEO_2, GAUGE_GEO_3, GAUGE_GEO_4 } from '../../../seeds/test/05_gauges';
+import { SOURCE_GALICIA_1, SOURCE_GEORGIA, SOURCE_NORWAY } from '../../../seeds/test/04_sources';
+import { GAUGE_GEO_1, GAUGE_GEO_2, GAUGE_GEO_3, GAUGE_GEO_4 } from '../../../seeds/test/05_gauges';
 import { adminContext, anonContext, userContext } from '../../../test/context';
 import { runQuery } from '../../../test/db-helpers';
 

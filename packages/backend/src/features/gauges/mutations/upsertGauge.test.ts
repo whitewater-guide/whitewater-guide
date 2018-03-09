@@ -1,7 +1,6 @@
 import db, { holdTransaction, rollbackTransaction } from '../../../db';
-import { GAUGE_GEO_3 } from '../../../seeds/development/05_gauges';
-import { SOURCE_GALICIA_1, SOURCE_GALICIA_2, SOURCE_NORWAY } from '../../../seeds/test/04_sources';
-import { GAUGE_GAL_1_1 } from '../../../seeds/test/05_gauges';
+import { SOURCE_GALICIA_1, SOURCE_NORWAY } from '../../../seeds/test/04_sources';
+import { GAUGE_GAL_1_1, GAUGE_GEO_3 } from '../../../seeds/test/05_gauges';
 import { adminContext, anonContext, userContext } from '../../../test/context';
 import { isTimestamp, isUUID, noUnstable, runQuery } from '../../../test/db-helpers';
 import { GaugeInput } from '../../../ww-commons';
