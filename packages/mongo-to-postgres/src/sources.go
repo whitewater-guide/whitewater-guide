@@ -46,6 +46,12 @@ func insertSources(mongo *mgo.Database, pg *sqlx.DB, uuids IdMap, scripts IdMap)
 
   iter := collection.Find(nil).Iter()
   for iter.Next(&source) {
+    if source.Script == "mockAllAtOnce" {
+      source.Script = "all_at_once"
+    } else if source.Script == "mockOneByOne" {
+      source.Script = "one_by_one"
+    }
+
     err := sourceStmt.QueryRowx(source).Scan(&source.SourceID)
     if err != nil {
       return fmt.Errorf("failed to insert source %v: %s", source.ID.Hex(), err.Error())
