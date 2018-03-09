@@ -6,6 +6,7 @@
   "author": "doomsower <K.Kuznetcov@gmail.com>",
   "private": true,
   "scripts": {
+    "build": "docker build -t ww-migration .",
     "mongo": "scripts/mongo.sh",
     "restore": "scripts/restore.sh"
   }

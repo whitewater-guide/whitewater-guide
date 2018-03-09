@@ -26,8 +26,9 @@ func main() {
   // ----- Prepare Postgres
 
   pgConnStr := fmt.Sprintf(
-    "postgres://postgres:%s@localhost/%s?sslmode=disable",
+    "postgres://postgres:%s@%s/%s?sslmode=disable",
     os.Getenv("PGPASSWORD"),
+    os.Getenv("POSTGRES_HOST"),
     os.Getenv("POSTGRES_DB"),
   )
   pg, err := sqlx.Open("postgres", pgConnStr)

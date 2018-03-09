@@ -1,0 +1,12 @@
+/Dockerfile
+/.env
+/scripts/
+/bin/
+/data/
+/src/
+/pkg/
+/package.json
+/.dockerignore
+/backup/
+/mongo-to-postgres.iml
+!/src/*.go
