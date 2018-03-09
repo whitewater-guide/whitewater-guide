@@ -3,10 +3,11 @@
 /scripts/
 /bin/
 /data/
-/src/
 /pkg/
 /package.json
 /.dockerignore
 /backup/
 /mongo-to-postgres.iml
-!/src/*.go
+/src/github.com/
+/src/gopkg.in/
+/src/golang.org/

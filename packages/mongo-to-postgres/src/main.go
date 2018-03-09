@@ -9,35 +9,60 @@ import (
   "github.com/lib/pq"
   "github.com/jmoiron/sqlx"
   "time"
+  "flag"
+  "net"
+  "github.com/fsnotify/fsnotify"
 )
 
 func main() {
+  // Flag -watch makes app wait until mongorestore container done its job
+  var waitFor = flag.String("watch", "", "Set to true to wait for mongorestore container to finish")
+  flag.Parse()
+
+  if *waitFor != "" {
+    waitUntilRestored(*waitFor)
+  }
+  migrate()
+}
+
+// Mongorestore finishes by deleting downloaded archive, wait for file deletion event
+func waitUntilRestored(mongorestoreDir string) {
+  watcher, err := fsnotify.NewWatcher()
+  backupFile := os.Getenv("BACKUP_NAME")
+  if err != nil {
+    fmt.Printf("Failed to start file watcher: %s", err.Error())
+    os.Exit(1)
+  }
+  defer watcher.Close()
+
+  done := make(chan bool)
+  go func() {
+    for {
+      event := <-watcher.Events
+      if event.Op&fsnotify.Remove == fsnotify.Remove {
+        if strings.Contains(event.Name, backupFile) {
+          fmt.Println("Removed backup archive")
+          done <- true
+        }
+      }
+    }
+  }()
+
+  err = watcher.Add(mongorestoreDir)
+  if err != nil {
+    fmt.Printf("Failed to add watch dir: %s", err.Error())
+    os.Exit(1)
+  }
+  <-done
+  watcher.Close()
+  fmt.Println("Closed watcher")
+}
+
+func migrate()  {
   start := time.Now()
-  // ---- Prepare Mongo
-
-  mongoUri := os.Getenv("MONGO_URI")
-  session, err := mgo.Dial(mongoUri)
-  if err != nil {
-    fmt.Fprintf(os.Stderr, "Couldn't connect to mongo: %s", err.Error())
-    os.Exit(1)
-  }
-  mongo := session.DB("wwdb")
-
-  // ----- Prepare Postgres
-
-  pgConnStr := fmt.Sprintf(
-    "postgres://postgres:%s@%s/%s?sslmode=disable",
-    os.Getenv("PGPASSWORD"),
-    os.Getenv("POSTGRES_HOST"),
-    os.Getenv("POSTGRES_DB"),
-  )
-  pg, err := sqlx.Open("postgres", pgConnStr)
-  if err != nil {
-    fmt.Fprintf(os.Stderr, "Couldn't connect to postgres: %s", err.Error())
-    os.Exit(1)
-  }
-  pg.MapperFunc(ToSnake)
-
+  // ---- Prepare Mongo and PG
+  mongo := getMongo(1, 60)
+  pg := getPostgres(1, 60)
   // ----- Clear all tables
 
   clearPg(pg)
@@ -115,6 +140,7 @@ func main() {
 
   elapsed = time.Since(start)
   fmt.Printf("Migrated %d measurements in %s\n", mCount, elapsed)
+  os.Exit(0)
 }
 
 func clearPg(pg *sqlx.DB) {
@@ -153,4 +179,47 @@ func clearPg(pg *sqlx.DB) {
     fmt.Fprintf(os.Stderr, "Couldn't clear postgres before migrating: %s", err.Error())
     os.Exit(1)
   }
+}
+
+func getMongo(timeout, retries int64) *mgo.Database {
+  mongoUri := os.Getenv("MONGO_URI")
+  session, err := mgo.Dial(mongoUri)
+  if err != nil {
+    if retries > 0 {
+      time.Sleep(time.Duration(timeout) * time.Second)
+      return getMongo(timeout, retries-1)
+    } else {
+      fmt.Printf("Couldn't wait for mongo anymore, %s", err.Error())
+      os.Exit(1)
+    }
+  }
+  return session.DB("wwdb")
+}
+
+func getPostgres(timeout, retries int64) *sqlx.DB {
+
+  pgConnStr := fmt.Sprintf(
+    "postgres://postgres:%s@%s/%s?sslmode=disable",
+    os.Getenv("PGPASSWORD"),
+    os.Getenv("POSTGRES_HOST"),
+    os.Getenv("POSTGRES_DB"),
+  )
+  pg, err := sqlx.Open("postgres", pgConnStr)
+
+  if err != nil {
+    if retries > 0 {
+      time.Sleep(time.Duration(timeout) * time.Second)
+      return getPostgres(timeout, retries-1)
+    } else {
+      fmt.Printf("Couldn't wait for mongo anymore, %s", err.Error())
+      os.Exit(1)
+    }
+  }
+
+  pg.MapperFunc(ToSnake)
+  return pg
+}
+
+func waitForStartSignal(conn net.Conn) {
+
 }
