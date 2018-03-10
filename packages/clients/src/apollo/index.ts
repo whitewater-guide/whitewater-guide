@@ -1,6 +1,7 @@
 export * from './actions';
 export * from './apolloErrorReducer';
 export * from './apolloErrorToString';
+export * from './chunkedListLoader';
 export * from './configureApolloCache';
 export * from './configureApolloClient';
 export * from './enhancedQuery';

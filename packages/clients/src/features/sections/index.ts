@@ -5,6 +5,5 @@ export * from './sectionFragments';
 export * from './sectionName.query';
 export * from './sectionDetails.query';
 export * from './SectionMapView';
-export * from './sectionsBatchLoader';
 export * from './withSection';
 export * from './withSectionsList';

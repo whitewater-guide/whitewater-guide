@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { branch, compose, mapProps, renderComponent, setDisplayName } from 'recompose';
 import { Point, Section } from '../../../ww-commons';
 import { getMapView, MapLayoutProps, MapProps, SelectedPOIViewProps, SelectedSectionViewProps } from '../maps';
-import { sectionsBatchLoader } from '../sections';
 import { selectBounds, selectPOI, selectSection } from './actions';
 import { RegionState } from './reducers';
 import { WithRegion } from './withRegion';
@@ -30,7 +29,6 @@ export default (
     props => props.region.loading,
     renderComponent(LoadingIndicator),
     compose(
-      sectionsBatchLoader(),
       connect<RegionState, DispatchProps, WithRegion>(
         (state, { region }: WithRegion) => (state as any).persistent.regions[region.node.id],
         (dispatch, { regionId }: WithRegion) => ({
