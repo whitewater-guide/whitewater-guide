@@ -9,6 +9,7 @@
     "dev:cleanup": "build/scripts/dev_cleanup.sh",
     "dev:start": "build/scripts/dev_start.js",
     "dev:images": "docker-machine scp -r -d wwguide:/mnt/dostorage/wwguide-uploads/images/ ./packages/minio/data/media",
+    "dev:migrate": "cd packages/mongo-to-postgres && M2PG_MAX_AGE=7 yarn run migrate",
     "wml:start": "build/scripts/wml_start.sh"
   },
   "devDependencies": {

@@ -47,3 +47,4 @@ two containers will exit too.
 | POSTGRES_DB        | wwguide                        | `mongo2pg`            | Db name
 | PGPASSWORD         |                                | `mongo2pg`            | xz
 | PGNETWORK          | build_default                  | docker-compose        | Set inline (see `package.json`) for compose file network variable substitution
+| M2PG_MAX_AGE       | 0                              | `mongo2pg`            | Max measurement age in days, or 0 for all measurements

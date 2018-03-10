@@ -29,11 +29,10 @@ services:
         target: /backup
     depends_on:
       - restore
-    command: ["-watch", "/backup"]
+    command: ["-watch", "/backup", "-maxAge", "${M2PG_MAX_AGE:-0}"]
     env_file:
       - .env
-
 networks:
   default:
     external:
-      name: ${PGNETWORK}
+      name: ${PGNETWORK:-build_default}

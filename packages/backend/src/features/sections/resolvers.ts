@@ -1,10 +1,11 @@
 import { listResolvers } from '../../apollo';
-import Section from './fields';
+import { gaugeBindingResolver, sectionFieldResolvers } from './fields';
 import Mutation from './mutations';
 import Query from './queries';
 
 export const sectionsResolvers = {
-  Section,
+  Section: sectionFieldResolvers,
+  GaugeBinding: gaugeBindingResolver,
   SectionsList: listResolvers,
   Query,
   Mutation,

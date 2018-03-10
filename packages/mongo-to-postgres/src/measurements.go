@@ -24,7 +24,7 @@ type MeasurementsKey struct {
 
 type GaugesToKeys map[bson.ObjectId]MeasurementsKey
 
-func insertMeasurements(mongo *mgo.Database, pg *sqlx.DB, mKeys GaugesToKeys) (int, error) {
+func insertMeasurements(mongo *mgo.Database, pg *sqlx.DB, maxAge int64, mKeys GaugesToKeys) (int, error) {
   var m Measurement
   count := 0
   collection := mongo.C("measurements")
@@ -38,7 +38,17 @@ func insertMeasurements(mongo *mgo.Database, pg *sqlx.DB, mKeys GaugesToKeys) (i
     return count, err
   }
 
-  iter := collection.Find(nil).Iter()
+  var query interface{} = nil
+  if maxAge > 0 {
+    since := time.Now().Add(time.Duration(-24*maxAge) * time.Hour)
+    query = bson.M{
+      "date": bson.M{
+        "$gte": since,
+      },
+    }
+  }
+
+  iter := collection.Find(query).Iter()
   for iter.Next(&m) {
     key := mKeys[m.GaugeID]
     if len(key.Code) == 0 { // Most likely it's mock script

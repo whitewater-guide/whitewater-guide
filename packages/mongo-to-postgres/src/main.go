@@ -10,17 +10,22 @@ import (
   "github.com/jmoiron/sqlx"
   "time"
   "flag"
-  "net"
   "github.com/fsnotify/fsnotify"
 )
 
+var fWaitFor string
+var fMsmAge int64
+
 func main() {
   // Flag -watch makes app wait until mongorestore container done its job
-  var waitFor = flag.String("watch", "", "Set to true to wait for mongorestore container to finish")
+  flag.StringVar(&fWaitFor,"watch", "", "Set to backup dir to wait for mongorestore container to finish")
+  flag.Int64Var(&fMsmAge, "maxAge", 0, "Limits the age of measurements, in days. 0 for all measurements")
   flag.Parse()
 
-  if *waitFor != "" {
-    waitUntilRestored(*waitFor)
+  fmt.Printf("Starting migration with watch dir='%s' and maxAge=%d\n", fWaitFor, fMsmAge)
+
+  if fWaitFor != "" {
+    waitUntilRestored(fWaitFor)
   }
   migrate()
 }
@@ -30,7 +35,7 @@ func waitUntilRestored(mongorestoreDir string) {
   watcher, err := fsnotify.NewWatcher()
   backupFile := os.Getenv("BACKUP_NAME")
   if err != nil {
-    fmt.Printf("Failed to start file watcher: %s", err.Error())
+    fmt.Printf("Failed to start file watcher: %s\n", err.Error())
     os.Exit(1)
   }
   defer watcher.Close()
@@ -50,7 +55,7 @@ func waitUntilRestored(mongorestoreDir string) {
 
   err = watcher.Add(mongorestoreDir)
   if err != nil {
-    fmt.Printf("Failed to add watch dir: %s", err.Error())
+    fmt.Printf("Failed to add watch dir: %s\n", err.Error())
     os.Exit(1)
   }
   <-done
@@ -132,7 +137,7 @@ func migrate()  {
   start = time.Now()
 
   // ----- Measurements
-  mCount, err := insertMeasurements(mongo, pg, mKeys)
+  mCount, err := insertMeasurements(mongo, pg, fMsmAge, mKeys)
   if err != nil {
     fmt.Printf("Error while inserting measurements: %s\n", err.Error())
     os.Exit(1)
@@ -176,7 +181,7 @@ func clearPg(pg *sqlx.DB) {
   q := fmt.Sprintf("TRUNCATE %s CASCADE", strings.Join(tables, ", "))
 
   if _, err := pg.Query(q); err != nil {
-    fmt.Fprintf(os.Stderr, "Couldn't clear postgres before migrating: %s", err.Error())
+    fmt.Fprintf(os.Stderr, "Couldn't clear postgres before migrating: %s\n", err.Error())
     os.Exit(1)
   }
 }
@@ -189,7 +194,7 @@ func getMongo(timeout, retries int64) *mgo.Database {
       time.Sleep(time.Duration(timeout) * time.Second)
       return getMongo(timeout, retries-1)
     } else {
-      fmt.Printf("Couldn't wait for mongo anymore, %s", err.Error())
+      fmt.Printf("Couldn't wait for mongo anymore, %s\n", err.Error())
       os.Exit(1)
     }
   }
@@ -211,15 +216,11 @@ func getPostgres(timeout, retries int64) *sqlx.DB {
       time.Sleep(time.Duration(timeout) * time.Second)
       return getPostgres(timeout, retries-1)
     } else {
-      fmt.Printf("Couldn't wait for mongo anymore, %s", err.Error())
+      fmt.Printf("Couldn't wait for mongo anymore, %s\n", err.Error())
       os.Exit(1)
     }
   }
 
   pg.MapperFunc(ToSnake)
   return pg
-}
-
-func waitForStartSignal(conn net.Conn) {
-
 }
