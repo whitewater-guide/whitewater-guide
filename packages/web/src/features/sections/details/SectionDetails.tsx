@@ -1,6 +1,7 @@
 import { CardMedia } from 'material-ui/Card';
 import { Tab } from 'material-ui/Tabs';
 import * as React from 'react';
+import * as ReactMarkdown from 'react-markdown';
 import { RouteComponentProps } from 'react-router-dom';
 import { Content, Tabs } from '../../../components';
 import { AdminFooter } from '../../../layout';
@@ -30,7 +31,7 @@ export default class SectionDetails extends React.PureComponent<WithSection & Ro
               </Tab>
 
               <Tab label="Description" value={`${pathname}#description`}>
-                <span>Description</span>
+                <ReactMarkdown source={section.description || ''} />
               </Tab>
 
               <Tab label="Media" value={`${pathname}#media`}>
