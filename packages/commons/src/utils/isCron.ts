@@ -1,4 +1,5 @@
 import * as cronParser from 'cron-parser';
+// tslint:disable-next-line
 import * as Joi from 'joi';
 
 export const JoiWithCron = Joi.extend({

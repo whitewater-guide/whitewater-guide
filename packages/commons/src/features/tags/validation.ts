@@ -1,3 +1,4 @@
+// tslint:disable-next-line
 import * as Joi from 'joi';
 import { TAG_CATEGORIES } from './types';
 

@@ -1,5 +1,6 @@
 import { ApolloError } from 'apollo-client';
 import { DocumentNode } from 'graphql';
+// tslint:disable-next-line
 import { Schema } from 'joi';
 import { memoize } from 'lodash';
 import { ChildProps, graphql } from 'react-apollo';
