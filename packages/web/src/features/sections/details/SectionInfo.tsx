@@ -16,12 +16,15 @@ const styles = {
   chip: {
     margin: 4,
   },
+  tagsCol: {
+    display: 'flex',
+  },
 };
 
 const renderTags = (tags?: Tag[]) => (
-  <React.Fragment>
+  <div style={styles.tagsCol}>
     {tags && tags.map(tag => (<Chip key={tag.id} style={styles.chip}>{tag.name}</Chip>))}
-  </React.Fragment>
+  </div>
 );
 
 const SectionInfo: React.StatelessComponent<Props> = ({ section }) => {

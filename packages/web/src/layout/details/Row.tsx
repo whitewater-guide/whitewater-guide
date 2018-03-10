@@ -3,6 +3,7 @@ import { Row as FlexRow, RowProps } from 'react-grid-system';
 
 const styles = {
   row: {
+    alignItems: 'center',
     justifyContent: 'flex-start',
     minHeight: 48,
   },
