@@ -1,17 +1,17 @@
 import { CardMedia } from 'material-ui/Card';
 import { Tab } from 'material-ui/Tabs';
 import * as React from 'react';
-import { Route, RouteComponentProps, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { Content, Tabs } from '../../../components';
 import { AdminFooter } from '../../../layout/';
-import { WithRegion } from '../../../ww-clients/features/regions';
 import { RiversList, RiversRoute } from '../../rivers';
 import { SectionsList, SectionsRoute } from '../../sections';
 import RegionDetailsMain from './RegionDetailsMain';
+import { RegionDetailsProps } from './types';
 
-export class RegionDetails extends React.PureComponent<WithRegion & RouteComponentProps<any>> {
+export class RegionDetails extends React.PureComponent<RegionDetailsProps> {
   render() {
-    const { region, regionId, match, location } = this.props;
+    const { region, regionId, sections, match } = this.props;
     return (
       <Switch>
         <Route strict path={`${match.path}/rivers/`} component={RiversRoute} />
@@ -43,7 +43,7 @@ export class RegionDetails extends React.PureComponent<WithRegion & RouteCompone
                   <Tab label="Sections" value={`/regions/${regionId}/sections`}>
                     <Route exact path={`${match.path}/sections`}>
                       <div style={{ height: '100%', width: '100%', overflow: 'hidden' }}>
-                        <SectionsList />
+                        <SectionsList sections={sections} />
                       </div>
                     </Route>
                   </Tab>
