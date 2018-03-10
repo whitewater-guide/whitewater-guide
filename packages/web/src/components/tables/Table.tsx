@@ -16,6 +16,8 @@ export type TableProps<TResource extends NamedNode> =
     deleteHandle: (id: string) => void;
     customSettingsLink?: (row: TResource) => string;
     renderExtraAdminActions?: (row: TResource) => React.ReactElement<any>;
+    adminColumnWidth?: number;
+    adminColumnGrow?: number;
   };
 
 export class Table<DeleteHandle extends string, TResource extends NamedNode>
@@ -44,7 +46,7 @@ export class Table<DeleteHandle extends string, TResource extends NamedNode>
   };
 
   render() {
-    const { list, children, ...props } = this.props;
+    const { list, children, adminColumnWidth = 100, adminColumnGrow = 0.0, ...props } = this.props;
     return (
       <RawTable
         {...props as any}
@@ -56,8 +58,8 @@ export class Table<DeleteHandle extends string, TResource extends NamedNode>
       >
         {children}
         <AdminColumn
-          width={100}
-          flexGrow={0.2}
+          width={adminColumnWidth}
+          flexGrow={adminColumnGrow}
           label="Actions"
           dataKey="actions"
           cellRenderer={this.renderAdminActions}

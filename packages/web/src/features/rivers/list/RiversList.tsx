@@ -40,6 +40,7 @@ export default class RiversList extends React.PureComponent<RiversListProps> {
         customSettingsLink={this.customSettingsLink}
         deleteHandle={this.props.removeRiver}
         renderExtraAdminActions={this.renderAddSection}
+        adminColumnWidth={250}
       >
         <Column width={200} flexGrow={1} label="Name" dataKey="name" />
         <Column width={70} label="Alt.Names" dataKey="altNames" cellRenderer={this.renderAltNames}/>
