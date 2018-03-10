@@ -4,7 +4,7 @@ import { compose } from 'recompose';
 import { Region } from '../../../ww-commons';
 import { queryResultToNode, WithNode } from '../../apollo';
 import { withFeatureIds } from '../../core';
-import REGION_DETAILS from './regionDetails.query';
+import { REGION_DETAILS } from './regionDetails.query';
 
 interface WithRegionOptions {
   fetchPolicy?: FetchPolicy;

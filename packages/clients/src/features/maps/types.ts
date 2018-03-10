@@ -25,6 +25,7 @@ export interface MapPropsBase {
 }
 
 export interface MapProps extends MapPropsBase {
+  onBoundsSelected?: (bounds: Coordinate[]) => void;
   initialBounds: Coordinate[] | null;
   contentBounds: Coordinate[] | null;
   sections: Section[];
@@ -32,7 +33,13 @@ export interface MapProps extends MapPropsBase {
 }
 
 export interface MapComponentProps extends MapPropsBase {
+  initialBounds: Coordinate[] | null;
+  contentBounds: Coordinate[] | null;
   onZoom: (zoom: number) => void;
+}
+
+export interface MapBodyState {
+  zoom: number;
 }
 
 export interface SelectedSectionViewProps {

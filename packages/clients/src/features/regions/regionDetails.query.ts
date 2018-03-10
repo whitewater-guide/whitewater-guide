@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 import { RegionFragments } from './regionFraments';
 
-const REGION_DETAILS = gql`
+export const REGION_DETAILS = gql`
   query regionDetails($regionId: ID, $language: String) {
     region(id: $regionId, language: $language) {
       ...RegionCore
@@ -15,5 +15,3 @@ const REGION_DETAILS = gql`
   ${RegionFragments.POIs}
   ${RegionFragments.Bounds}
 `;
-
-export default REGION_DETAILS;

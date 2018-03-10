@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { MapProps } from '../../ww-clients/features/maps';
+import { MapComponentProps } from '../../ww-clients/features/maps';
 import { arrayToGmaps } from '../../ww-clients/utils';
 import { Coordinate } from '../../ww-commons';
 import GoogleMap from './GoogleMap';
 
-export class Map extends React.Component<MapProps> {
+export class Map extends React.Component<MapComponentProps> {
 
   onLoaded = (map: google.maps.Map) => {
     const { initialBounds, contentBounds } = this.props;

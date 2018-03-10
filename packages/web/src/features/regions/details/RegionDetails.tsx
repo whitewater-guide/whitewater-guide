@@ -6,6 +6,7 @@ import { Content, Tabs } from '../../../components';
 import { AdminFooter } from '../../../layout/';
 import { RiversList, RiversRoute } from '../../rivers';
 import { SectionsList, SectionsRoute } from '../../sections';
+import RegionMap from './map';
 import RegionDetailsMain from './RegionDetailsMain';
 import { RegionDetailsProps } from './types';
 
@@ -29,7 +30,7 @@ export class RegionDetails extends React.PureComponent<RegionDetailsProps> {
                   </Tab>
 
                   <Tab label="Map" value={`/regions/${regionId}#map`}>
-                    {'MAP'}
+                    <RegionMap region={region.node} sections={sections.nodes} />
                   </Tab>
 
                   <Tab label="Rivers" value={`/regions/${regionId}/rivers`}>

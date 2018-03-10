@@ -8,10 +8,10 @@ const customizer = (val: any, other: any, key: string) => (key === 'initialBound
 
 export const getMapView = <M extends MapProps>(
   Layout: React.ComponentType<MapLayoutProps>,
-  Map: React.ComponentType<M>,
+  Body: React.ComponentType<M>,
   SelectedSection: React.ComponentType<SelectedSectionViewProps>,
   SelectedPOI: React.ComponentType<SelectedPOIViewProps>,
-) => {
+): React.ComponentType<M> => {
   class MapViewBase extends React.Component<M> {
     shouldComponentUpdate(nextProps: M) {
       // Initial bounds are initial and should not cause re-rendering
@@ -20,7 +20,7 @@ export const getMapView = <M extends MapProps>(
 
     render() {
       const { selectedSectionId, sections, onSectionSelected, selectedPOIId, pois, onPOISelected } = this.props;
-      const mapView = <Map {...this.props} />;
+      const mapBody: React.ReactElement<M> = <Body {...this.props} /> as React.ReactElement<M>;
       const selectedSection = find(sections, ({ id }: Section) => id === selectedSectionId) || null;
       const selectedSectionView = (
         <SelectedSection
@@ -28,7 +28,7 @@ export const getMapView = <M extends MapProps>(
           onPOISelected={onPOISelected}
           selectedSection={selectedSection}
         />
-      );
+      ) as React.ReactElement<SelectedSectionViewProps>;
       const selectedPOI = find(pois, ({ id }: Point) => id === selectedPOIId) || null;
       const selectedPOIView = (
         <SelectedPOI
@@ -36,10 +36,10 @@ export const getMapView = <M extends MapProps>(
           onPOISelected={onPOISelected}
           selectedSection={selectedSection}
         />
-      );
+      ) as React.ReactElement<SelectedPOIViewProps>;
       return (
         <Layout
-          mapView={mapView}
+          mapView={mapBody}
           selectedSectionView={selectedSectionView}
           selectedPOIView={selectedPOIView}
         />

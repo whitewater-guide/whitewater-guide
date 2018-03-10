@@ -1,3 +1,3 @@
 export * from './getMapView';
-export * from './MapBase';
+export * from './MapBody';
 export * from './types';

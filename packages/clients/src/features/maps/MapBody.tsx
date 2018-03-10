@@ -1,19 +1,17 @@
 import * as React from 'react';
 import { Point, Section } from '../../../ww-commons';
-import { MapComponentProps, MapProps, POIComponentProps, SectionComponentProps } from './types';
+import { MapBodyState, MapComponentProps, MapProps, POIComponentProps, SectionComponentProps } from './types';
 
-interface State {
-  zoom: number;
-}
+type TMap = React.ComponentType<MapComponentProps>;
+type TSection = React.ComponentType<SectionComponentProps>;
+type TPOI = React.ComponentType<POIComponentProps>;
 
-export default (
-  MapComponent: React.ComponentType<MapComponentProps>,
-  SectionComponent: React.ComponentType<SectionComponentProps>,
-  POIComponent: React.ComponentType<POIComponentProps>,
-) => {
-  class MapBase extends React.PureComponent<MapProps, State> {
+export const MapBody = (MapComponent: TMap, SectionComponent: TSection, POIComponent: TPOI) => {
+  class MapBodyInternal extends React.PureComponent<MapProps, MapBodyState> {
+    // tslint:disable-next-line:no-inferrable-types
+    static displayName: string = 'MapBody';
 
-    state: State = {
+    state: MapBodyState = {
       zoom: 1,
     };
 
@@ -59,5 +57,5 @@ export default (
     }
   }
 
-  return MapBase;
+  return MapBodyInternal;
 };

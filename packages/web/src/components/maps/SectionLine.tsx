@@ -1,15 +1,10 @@
 import * as React from 'react';
+import { SectionComponentProps } from '../../ww-clients/features/maps';
 import { getSectionColor } from '../../ww-clients/features/sections';
-import { Section } from '../../ww-commons';
+import { MapElement } from './types';
 import Line = google.maps.Polyline;
 
-interface Props {
-  section: Section;
-  selected?: boolean;
-  onSectionSelected: (section: Section | null) => void;
-  map: google.maps.Map;
-  zoom: number;
-}
+type Props = SectionComponentProps & MapElement;
 
 export class SectionLine extends React.PureComponent<Props> {
   line: Line;

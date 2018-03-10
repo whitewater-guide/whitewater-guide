@@ -1,7 +1,7 @@
-import { SectionSearchTerms } from '../../../../ww-commons';
+import { Coordinate, SectionSearchTerms } from '../../../../ww-commons';
 
 export interface RegionState {
-  selectedBounds: number[][] | null;
+  selectedBounds: Coordinate[] | null;
   selectedSectionId: string | null;
   selectedPOIId: string | null;
   searchTerms: SectionSearchTerms;
