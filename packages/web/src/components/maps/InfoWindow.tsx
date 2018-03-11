@@ -43,7 +43,7 @@ export class InfoWindow extends React.PureComponent<InfoWindowProps> {
     this.infoWindow = new google.maps.InfoWindow({
       zIndex: props.zIndex || props.defaultZIndex,
       position: props.position || props.defaultPosition,
-      maxWidth: 500,
+      maxWidth: 800,
     });
     if (props.map) {
       // @ts-ignore
