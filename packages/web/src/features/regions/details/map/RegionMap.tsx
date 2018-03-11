@@ -1,11 +1,12 @@
 import * as React from 'react';
 import ErrorBoundary from 'react-error-boundary';
+import { WebMapLayout } from '../../../../components/maps';
 import { getMapView, MapProps } from '../../../../ww-clients/features/maps';
 import RegionMapBody from './RegionMapBody';
-import RegionMapLayout from './RegionMapLayout';
+import SelectedSectionWeb from './SelectedSectionWeb';
 
 const View: React.ComponentType<MapProps> =
-  getMapView<MapProps>(RegionMapLayout, RegionMapBody, () => null, () => null);
+  getMapView<MapProps>(WebMapLayout, RegionMapBody, SelectedSectionWeb, () => null);
 
 const RegionMap: React.StatelessComponent<MapProps> = (props) => (
   <ErrorBoundary>

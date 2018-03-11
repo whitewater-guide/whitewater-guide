@@ -47,11 +47,12 @@ export const MapBody = (MapComponent: TMap, SectionComponent: TSection, POICompo
     };
 
     render() {
-      const { sections, pois, ...props } = this.props;
+      const { children, sections, pois, ...props } = this.props;
       return (
         <MapComponent onZoom={this.onZoom} {...props}>
           {sections.map(this.renderSection)}
           {pois.map(this.renderPOI)}
+          {children}
         </MapComponent>
       );
     }

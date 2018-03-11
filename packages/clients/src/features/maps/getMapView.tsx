@@ -24,6 +24,7 @@ export const getMapView = <M extends MapProps>(
       const selectedSection = find(sections, ({ id }: Section) => id === selectedSectionId) || null;
       const selectedSectionView = (
         <SelectedSection
+          key="SelectedSection"
           onSectionSelected={onSectionSelected}
           onPOISelected={onPOISelected}
           selectedSection={selectedSection}
@@ -32,6 +33,7 @@ export const getMapView = <M extends MapProps>(
       const selectedPOI = find(pois, ({ id }: Point) => id === selectedPOIId) || null;
       const selectedPOIView = (
         <SelectedPOI
+          key="SelectedPOI"
           selectedPOI={selectedPOI}
           onPOISelected={onPOISelected}
           selectedSection={selectedSection}
