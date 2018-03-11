@@ -12,7 +12,8 @@ const SECTIONS_MEDIA = gql`
         createdAt
         weight
         url
-        thumb(options: { height: 128, width: 128 })
+        resolution
+        thumb(options: { height: 128, width: 512, resize: fit })
         deleted
       }
     }
