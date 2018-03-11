@@ -11,7 +11,9 @@ with regions_connection as (
     where
         regions_view.language = 'en'
     order by
-        regions_view.name asc),
+        regions_view.name asc,
+        regions_view.created_at asc,
+        regions_view.id asc),
 gauges_connection as (
     select
         gauges_view.id,
@@ -23,7 +25,9 @@ gauges_connection as (
     where
         gauges_view.language = 'en'
     order by
-        gauges_view.name asc
+        gauges_view.name asc,
+        gauges_view.created_at asc,
+        gauges_view.id asc
 )
 select
     sources_view.id,
@@ -84,7 +88,9 @@ from
 where
     sources_view.language = 'en'
 order by
-    sources_view.name asc
+    sources_view.name asc,
+    sources_view.created_at asc,
+    sources_view.id asc
 
 `;
 
@@ -105,7 +111,9 @@ from
 where
     sources_view.language = 'en'
 order by
-    sources_view.name asc
+    sources_view.name asc,
+    sources_view.created_at asc,
+    sources_view.id asc
 
 `;
 
@@ -120,7 +128,9 @@ with regions_connection as (
     where
         regions_view.language = 'en'
     order by
-        regions_view.name asc),
+        regions_view.name asc,
+        regions_view.created_at asc,
+        regions_view.id asc),
 gauges_connection as (
     select
         gauges_view.id,
@@ -130,7 +140,9 @@ gauges_connection as (
     where
         gauges_view.language = 'en'
     order by
-        gauges_view.name asc
+        gauges_view.name asc,
+        gauges_view.created_at asc,
+        gauges_view.id asc
 )
 select
     sources_view.id,
@@ -187,7 +199,9 @@ from
 where
     sources_view.language = 'en'
 order by
-    sources_view.name asc
+    sources_view.name asc,
+    sources_view.created_at asc,
+    sources_view.id asc
 
 `;
 
@@ -210,6 +224,8 @@ from
 where
     sources_view.language = 'en'
 order by
-    sources_view.name asc
+    sources_view.name asc,
+    sources_view.created_at asc,
+    sources_view.id asc
 
 `;

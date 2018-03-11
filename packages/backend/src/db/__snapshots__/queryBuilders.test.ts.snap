@@ -10,7 +10,9 @@ with regions_connection as (
     where
         regions.language = 'en'
     order by
-        regions.name asc
+        regions.name asc,
+        regions.created_at asc,
+        regions.id asc
 )
 select
     source.id,
@@ -53,7 +55,9 @@ with regions_connection as (
     where
         regions.language = 'en'
     order by
-        regions.name asc
+        regions.name asc,
+        regions.created_at asc,
+        regions.id asc
 )
 select
     source.id,
@@ -93,7 +97,9 @@ with regions_connection as (
     where
         regions.language = 'en'
     order by
-        regions.name asc
+        regions.name asc,
+        regions.created_at asc,
+        regions.id asc
 )
 select
     source.id,
@@ -127,7 +133,9 @@ from
 where
     regions_view.language = 'en'
 order by
-    regions_view.name asc
+    regions_view.name asc,
+    regions_view.created_at asc,
+    regions_view.id asc
 limit 10 offset 20
 
 `;
@@ -227,7 +235,9 @@ from
 where
     als.language = 'en'
 order by
-    als.name asc
+    als.name asc,
+    als.created_at asc,
+    als.id asc
 
 `;
 
@@ -260,7 +270,9 @@ from
 where
     tbl.language = 'en'
 order by
-    tbl.name asc
+    tbl.name asc,
+    tbl.created_at asc,
+    tbl.id asc
 
 `;
 
@@ -284,7 +296,9 @@ from
 where
     tbl.language = 'en'
 order by
-    tbl.name asc
+    tbl.name asc,
+    tbl.created_at asc,
+    tbl.id asc
 
 `;
 
@@ -296,7 +310,9 @@ from
 where
     tbl.language = 'en'
 order by
-    tbl.name asc
+    tbl.name asc,
+    tbl.created_at asc,
+    tbl.id asc
 
 `;
 
@@ -309,7 +325,9 @@ from
 where
     tbl.language = 'en'
 order by
-    tbl.name asc
+    tbl.name asc,
+    tbl.created_at asc,
+    tbl.id asc
 
 `;
 
@@ -322,7 +340,9 @@ from
 where
     tbl.language = 'en'
 order by
-    tbl.name asc
+    tbl.name asc,
+    tbl.created_at asc,
+    tbl.id asc
 
 `;
 
@@ -335,7 +355,9 @@ from
 where
     tbl.language = 'en'
 order by
-    tbl.name asc
+    tbl.name asc,
+    tbl.created_at asc,
+    tbl.id asc
 
 `;
 
@@ -362,7 +384,9 @@ from
 where
     tbl.language = 'en'
 order by
-    tbl.name asc
+    tbl.name asc,
+    tbl.created_at asc,
+    tbl.id asc
 
 `;
 
@@ -374,7 +398,9 @@ from
 where
     tbl.language = 'en'
 order by
-    tbl.name asc
+    tbl.name asc,
+    tbl.created_at asc,
+    tbl.id asc
 
 `;
 

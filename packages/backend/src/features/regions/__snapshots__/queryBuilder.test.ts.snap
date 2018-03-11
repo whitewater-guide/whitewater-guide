@@ -12,7 +12,9 @@ with gauges_connection as (
     where
         gauges_view.language = 'en'
     order by
-        gauges_view.name asc
+        gauges_view.name asc,
+        gauges_view.created_at asc,
+        gauges_view.id asc
 )
 select
     regions_view.id,
@@ -53,7 +55,9 @@ from
 where
     regions_view.language = 'en'
 order by
-    regions_view.name asc
+    regions_view.name asc,
+    regions_view.created_at asc,
+    regions_view.id asc
 
 `;
 
@@ -69,7 +73,9 @@ with rivers_connection as (
     where
         rivers_view.language = 'en'
     order by
-        rivers_view.name asc
+        rivers_view.name asc,
+        rivers_view.created_at asc,
+        rivers_view.id asc
 )
 select
     regions_view.id,
@@ -109,7 +115,9 @@ from
 where
     regions_view.language = 'en'
 order by
-    regions_view.name asc
+    regions_view.name asc,
+    regions_view.created_at asc,
+    regions_view.id asc
 
 `;
 
@@ -131,7 +139,9 @@ from
 where
     regions_view.language = 'en'
 order by
-    regions_view.name asc
+    regions_view.name asc,
+    regions_view.created_at asc,
+    regions_view.id asc
 
 `;
 
@@ -145,7 +155,9 @@ with gauges_connection as (
     where
         gauges_view.language = 'en'
     order by
-        gauges_view.name asc
+        gauges_view.name asc,
+        gauges_view.created_at asc,
+        gauges_view.id asc
 )
 select
     regions_view.id,
@@ -182,7 +194,9 @@ from
 where
     regions_view.language = 'en'
 order by
-    regions_view.name asc
+    regions_view.name asc,
+    regions_view.created_at asc,
+    regions_view.id asc
 
 `;
 
@@ -196,7 +210,9 @@ with rivers_connection as (
     where
         rivers_view.language = 'en'
     order by
-        rivers_view.name asc
+        rivers_view.name asc,
+        rivers_view.created_at asc,
+        rivers_view.id asc
 )
 select
     regions_view.id,
@@ -232,7 +248,9 @@ from
 where
     regions_view.language = 'en'
 order by
-    regions_view.name asc
+    regions_view.name asc,
+    regions_view.created_at asc,
+    regions_view.id asc
 
 `;
 
@@ -256,6 +274,8 @@ from
 where
     regions_view.language = 'en'
 order by
-    regions_view.name asc
+    regions_view.name asc,
+    regions_view.created_at asc,
+    regions_view.id asc
 
 `;

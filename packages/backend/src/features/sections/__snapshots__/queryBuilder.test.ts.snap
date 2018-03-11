@@ -11,7 +11,9 @@ with gauge_ref as (
     where
         gauges_view.language = 'en'
     order by
-        gauges_view.name asc
+        gauges_view.name asc,
+        gauges_view.created_at asc,
+        gauges_view.id asc
 )
 select
     sections_view.id,
@@ -28,7 +30,9 @@ from
 where
     sections_view.language = 'en'
 order by
-    sections_view.name asc
+    sections_view.name asc,
+    sections_view.created_at asc,
+    sections_view.id asc
 
 `;
 
@@ -76,7 +80,9 @@ from
 where
     sections_view.language = 'en'
 order by
-    sections_view.name asc
+    sections_view.name asc,
+    sections_view.created_at asc,
+    sections_view.id asc
 
 `;
 
@@ -91,7 +97,9 @@ with region_ref as (
     where
         regions_view.language = 'en'
     order by
-        regions_view.name asc
+        regions_view.name asc,
+        regions_view.created_at asc,
+        regions_view.id asc
 )
 select
     sections_view.id,
@@ -109,7 +117,9 @@ from
 where
     sections_view.language = 'en'
 order by
-    sections_view.name asc
+    sections_view.name asc,
+    sections_view.created_at asc,
+    sections_view.id asc
 
 `;
 
@@ -124,7 +134,9 @@ with river_ref as (
     where
         rivers_view.language = 'en'
     order by
-        rivers_view.name asc
+        rivers_view.name asc,
+        rivers_view.created_at asc,
+        rivers_view.id asc
 )
 select
     sections_view.id,
@@ -141,7 +153,9 @@ from
 where
     sections_view.language = 'en'
 order by
-    sections_view.name asc
+    sections_view.name asc,
+    sections_view.created_at asc,
+    sections_view.id asc
 
 `;
 
@@ -174,7 +188,9 @@ from
 where
     sections_view.language = 'en'
 order by
-    sections_view.name asc
+    sections_view.name asc,
+    sections_view.created_at asc,
+    sections_view.id asc
 
 `;
 
@@ -189,7 +205,9 @@ with gauge_ref as (
     where
         gauges_view.language = 'en'
     order by
-        gauges_view.name asc
+        gauges_view.name asc,
+        gauges_view.created_at asc,
+        gauges_view.id asc
 )
 select
     sections_view.id,
@@ -207,7 +225,9 @@ from
 where
     sections_view.language = 'en'
 order by
-    sections_view.name asc
+    sections_view.name asc,
+    sections_view.created_at asc,
+    sections_view.id asc
 
 `;
 
@@ -222,7 +242,9 @@ with region_ref as (
     where
         regions_view.language = 'en'
     order by
-        regions_view.name asc
+        regions_view.name asc,
+        regions_view.created_at asc,
+        regions_view.id asc
 )
 select
     sections_view.id,
@@ -241,7 +263,9 @@ from
 where
     sections_view.language = 'en'
 order by
-    sections_view.name asc
+    sections_view.name asc,
+    sections_view.created_at asc,
+    sections_view.id asc
 
 `;
 
@@ -256,7 +280,9 @@ with river_ref as (
     where
         rivers_view.language = 'en'
     order by
-        rivers_view.name asc
+        rivers_view.name asc,
+        rivers_view.created_at asc,
+        rivers_view.id asc
 )
 select
     sections_view.id,
@@ -274,7 +300,9 @@ from
 where
     sections_view.language = 'en'
 order by
-    sections_view.name asc
+    sections_view.name asc,
+    sections_view.created_at asc,
+    sections_view.id asc
 
 `;
 
@@ -309,6 +337,8 @@ from
 where
     sections_view.language = 'en'
 order by
-    sections_view.name asc
+    sections_view.name asc,
+    sections_view.created_at asc,
+    sections_view.id asc
 
 `;

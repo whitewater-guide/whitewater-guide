@@ -1,6 +1,6 @@
 import { GraphQLResolveInfo } from 'graphql';
 import * as Knex from 'knex';
-import { snakeCase } from 'lodash';
+import { castArray, snakeCase } from 'lodash';
 import { Context, Page } from '../apollo';
 import db from './db';
 import graphqlFields = require('graphql-fields');
@@ -62,7 +62,7 @@ export interface QueryBuilderOptions<T> {
   oneToOnes?: OneToOnesMap<T>;
   knex?: Knex;
   language?: string;
-  orderBy?: string;
+  orderBy?: string | string[];
   id?: string;
 }
 
@@ -83,7 +83,7 @@ export const buildRootQuery = <T>(options: QueryBuilderOptions<T>): Knex.QueryBu
   } = options;
   const alias = tableAlias || table;
   const language = lang || 'en';
-  const orderBy = ordBy || 'name';
+  const orderBy: string[] = ordBy ? castArray(ordBy) : ['name', 'created_at', 'id'];
   let result = knex.from(tableAlias ? `${table} AS ${tableAlias}` : table);
   if (!fieldsTree && !info) {
     throw new Error('Provide either resolver info or parsed fields tree from resolver info');
@@ -137,9 +137,9 @@ export const buildRootQuery = <T>(options: QueryBuilderOptions<T>): Knex.QueryBu
   if (language) {
     result = result.where(`${alias}.language`, language);
   }
-  if (orderBy) {
-    result = result.orderBy(`${alias}.${orderBy}`);
-  }
+  orderBy.forEach(fieldName => {
+    result = result.orderBy(`${alias}.${fieldName}`);
+  });
   return result;
 };
 

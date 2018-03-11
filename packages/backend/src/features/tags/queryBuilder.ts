@@ -6,5 +6,6 @@ export const buildTagsListQuery = (options: Partial<QueryBuilderOptions<Tag>>) =
     info: options.info!,
     context: options.context!,
     table: 'tags_view',
+    orderBy: 'name',
     ...options,
   });
