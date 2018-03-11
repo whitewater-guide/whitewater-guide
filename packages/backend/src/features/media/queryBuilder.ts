@@ -4,6 +4,7 @@ import { Media } from '../../ww-commons';
 
 const customFieldMap = {
   thumb: () => 'url',
+  deleted: () => null,
 };
 
 export const buildMediaQuery = (options: Partial<QueryBuilderOptions<Media>>): Knex.QueryBuilder =>

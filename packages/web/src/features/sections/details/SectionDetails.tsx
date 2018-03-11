@@ -6,7 +6,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { Content, Tabs } from '../../../components';
 import { AdminFooter } from '../../../layout';
 import { WithSection } from '../../../ww-clients/features/sections';
-import { SectionMedia } from './media';
+import SectionMedia from './media/index';
 import SectionInfo from './SectionInfo';
 
 export default class SectionDetails extends React.PureComponent<WithSection & RouteComponentProps<any>> {
@@ -35,7 +35,7 @@ export default class SectionDetails extends React.PureComponent<WithSection & Ro
               </Tab>
 
               <Tab label="Media" value={`${pathname}#media`}>
-                <SectionMedia section={section} />
+                <SectionMedia />
               </Tab>
 
             </Tabs>

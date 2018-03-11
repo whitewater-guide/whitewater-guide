@@ -1,14 +1,9 @@
 import { groupBy } from 'lodash';
 import * as React from 'react';
 import { Container, Row } from '../../../../layout/details';
-import { Section } from '../../../../ww-commons/features/sections';
+import { WithMediaList } from './conatiner';
 
-interface Props {
-  section: Section;
-}
-
-export const SectionMedia: React.StatelessComponent<Props> = ({ section }) => {
-  const { nodes = [] } = section.media || {};
+const SectionMedia: React.StatelessComponent<WithMediaList> = ({ mediaBySection: { nodes } }) => {
   const { photo = [], video = [], blog = [] } = groupBy(nodes, 'kind');
   return (
     <Container>
@@ -33,3 +28,5 @@ export const SectionMedia: React.StatelessComponent<Props> = ({ section }) => {
     </Container>
   );
 };
+
+export default SectionMedia;

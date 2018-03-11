@@ -7,6 +7,7 @@ import url from './url';
 
 const mediaFieldResolvers: FieldResolvers<MediaRaw, Media> = {
   ...timestampResolvers,
+  deleted: () => false,
   thumb,
   url,
 };

@@ -12,7 +12,6 @@ export const SECTION_DETAILS = gql`
       ...SectionMeta
       ...SectionPOIs
       ...SectionTags
-      ...SectionMedia
     }
   }
   ${SectionFragments.Core}
@@ -20,7 +19,6 @@ export const SECTION_DETAILS = gql`
   ${SectionFragments.Ends}
   ${SectionFragments.Shape}
   ${SectionFragments.Measurements}
-  ${SectionFragments.Media}
   ${SectionFragments.Meta}
   ${SectionFragments.POIs}
   ${SectionFragments.Tags}

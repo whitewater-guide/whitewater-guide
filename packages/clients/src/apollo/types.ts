@@ -1,5 +1,5 @@
-import { ApolloError, ApolloQueryResult, FetchMoreOptions, FetchMoreQueryOptions, NetworkStatus } from 'apollo-client';
-import { Connection, ListType } from '../../ww-commons';
+import { ApolloError, ApolloQueryResult, NetworkStatus } from 'apollo-client';
+import { Connection } from '../../ww-commons';
 
 export interface Page {
   limit?: number;
