@@ -16,7 +16,7 @@ it('should replace external url with internal', () => {
   const thumb = getThumb(external, { width: 50, height: 50 });
   const path = decode(thumb!);
   expect(path).toBe(
-    `http://${process.env.MINIO_HOST}:9000/${process.env.MINIO_PROXY_PATH}/${AVATARS}/avatar.jpg`,
+    `http://${process.env.MINIO_HOST}:9000/${AVATARS}/avatar.jpg`,
   );
 });
 

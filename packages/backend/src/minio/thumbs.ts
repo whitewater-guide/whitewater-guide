@@ -25,7 +25,7 @@ export const getThumb = (url?: string, options?: ThumbOptions): string | null =>
   const { width = 128, height = 128, resize = ThumbResize.FILL, gravity = ThumbGravity.CENTER } = options || {};
   const internalURL = url.replace(
     MINIO_URL,
-    `http://${process.env.MINIO_HOST}:9000/${process.env.MINIO_PROXY_PATH}`,
+    `http://${process.env.MINIO_HOST}:9000`,
   );
   const encodedUrl = urlSafeBase64(internalURL);
   const path = `/${resize}/${width}/${height}/${gravity}/1/${encodedUrl}.jpg`;

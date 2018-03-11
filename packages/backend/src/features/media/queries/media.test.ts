@@ -56,7 +56,7 @@ it('should return thumb', async () => {
     }`;
   const thumbOpts = { width: 100, height: 100, resize: ThumbResize.FIT };
   const result = await runQuery(thumbQuery, { id: PHOTO_1, thumbOpts });
-  expect(result.data!.media.thumb).toMatch(/http:\/\/localhost:6001\/images\/\w+\/fit\/100\/100\/ce\/1\/\w+\.jpg/);
+  expect(result.data!.media.thumb).toMatch(/http:\/\/localhost:6001\/images\/[\w\-]+\/fit\/100\/100\/ce\/1\/[\w\-]+\.jpg/);
 });
 
 it('should produce correct full url for photos', async () => {
