@@ -6,5 +6,5 @@ syncs:
   ww-backend-sync:
     src: './packages/backend/'
     notify_terminal: true
-    sync_excludes: ['Dockerfile.*', 'tsconfig.json', 'tslint.json', 'bin', 'node_modules', '*.ts', '*.iml']
-    watch_excludes: ['Dockerfile.*', 'tsconfig.json', 'tslint.json', 'bin', 'node_modules', '*.ts', '*.iml']
+    sync_excludes: ['Dockerfile.*', 'tsconfig.json', 'tslint.json', 'bin', 'npm_scripts', 'node_modules', '*.ts', '*.iml']
+    watch_excludes: ['Dockerfile.*', 'tsconfig.json', 'tslint.json', 'bin', 'npm_scripts', 'node_modules', '*.ts', '*.iml']

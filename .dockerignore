@@ -17,3 +17,4 @@
 /graphql.config.json
 /packages/mongo-to-postgres/
 !/packages/mongo-to-postgres/src/*.go
+/packages/backend/npm_scripts/
