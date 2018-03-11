@@ -44,7 +44,7 @@ export class RegionDetails extends React.PureComponent<RegionDetailsProps> {
                   <Tab label="Sections" value={`/regions/${regionId}/sections`}>
                     <Route exact path={`${match.path}/sections`}>
                       <div style={{ height: '100%', width: '100%', overflow: 'hidden' }}>
-                        <SectionsList sections={sections} />
+                        <SectionsList sections={sections} regionId={regionId} />
                       </div>
                     </Route>
                   </Tab>
