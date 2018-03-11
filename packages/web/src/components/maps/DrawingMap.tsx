@@ -1,9 +1,10 @@
 import update from 'immutability-helper';
 import * as React from 'react';
 import { geometryToLatLngs } from '../../utils/google-maps';
+import { MapComponentProps } from '../../ww-clients/features/maps';
 import { arrayToGmaps, getCoordinatesPatch, gmapsToArray } from '../../ww-clients/utils';
 import { Coordinate, Coordinate2d, Coordinate3d, withZeroAlt } from '../../ww-commons/features/points';
-import GoogleMap from './GoogleMap';
+import GoogleMap, { InitialPosition } from './GoogleMap';
 import PlacesAutocomplete from './PlacesAutocomplete';
 import LatLng = google.maps.LatLng;
 import LatLngLiteral = google.maps.LatLngLiteral;
@@ -57,6 +58,31 @@ export class DrawingMap extends React.Component<Props> {
   feature: Feature | null = null;
   // tslint:disable-next-line:no-inferrable-types
   ignoreSetGeometryEvent: boolean = false;
+  initialPosition?: InitialPosition;
+
+  constructor(props: Props) {
+    super(props);
+    const { points, bounds } = this.props;
+    const latLngBounds = new google.maps.LatLngBounds();
+    if (points && points.length === 1) {
+      this.initialPosition = {
+        center: arrayToGmaps(points[0])!,
+        zoom: 14,
+      };
+    } else if (points && points.length > 1) {
+      points.forEach(point => latLngBounds.extend(arrayToGmaps(point)!));
+      this.initialPosition = {
+        center: latLngBounds.getCenter(),
+        bounds: latLngBounds,
+      };
+    } else if (bounds) {
+      bounds.forEach(point => latLngBounds.extend(arrayToGmaps(point)!));
+      this.initialPosition = {
+        center: latLngBounds.getCenter(),
+        bounds: latLngBounds,
+      };
+    }
+  }
 
   componentDidUpdate(prevProps: Props) {
     if (!this.map) {
@@ -111,23 +137,8 @@ export class DrawingMap extends React.Component<Props> {
   }
 
   init = (map: google.maps.Map) => {
-    const { drawingMode, points, bounds } = this.props;
+    const { drawingMode, points } = this.props;
     this.map = map;
-
-    // Set bounds
-    const latLngBounds = new google.maps.LatLngBounds();
-    if (points && points.length === 1) {
-      map.setCenter(arrayToGmaps(points[0])!);
-      map.setZoom(14);
-    } else if (points && points.length > 1) {
-      points.forEach(point => latLngBounds.extend(arrayToGmaps(point)!));
-      map.setCenter(latLngBounds.getCenter());
-      map.fitBounds(latLngBounds);
-    } else if (bounds) {
-      bounds.forEach(point => latLngBounds.extend(arrayToGmaps(point)!));
-      map.setCenter(latLngBounds.getCenter());
-      map.fitBounds(latLngBounds);
-    }
     this.map.data.setStyle(DrawingStyles[drawingMode]);
     if (points && points.length > 0) {
       this.addFeature(points);
@@ -222,7 +233,7 @@ export class DrawingMap extends React.Component<Props> {
 
   render() {
     return (
-      <GoogleMap onLoaded={this.init}>
+      <GoogleMap onLoaded={this.init} initialPosition={this.initialPosition}>
         <PlacesAutocomplete map={this.map!} />
       </GoogleMap>
     );

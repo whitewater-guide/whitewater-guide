@@ -2,27 +2,29 @@ import * as React from 'react';
 import { MapComponentProps } from '../../ww-clients/features/maps';
 import { arrayToGmaps } from '../../ww-clients/utils';
 import { Coordinate } from '../../ww-commons';
-import GoogleMap from './GoogleMap';
+import GoogleMap, { InitialPosition } from './GoogleMap';
 
 export class Map extends React.Component<MapComponentProps> {
+  initialPosition?: InitialPosition;
 
-  onLoaded = (map: google.maps.Map) => {
-    const { initialBounds, contentBounds } = this.props;
+  constructor(props: MapComponentProps) {
+    super(props);
+    const { initialBounds, contentBounds } = props;
     const startingBounds = initialBounds || contentBounds;
     if (startingBounds) {
       const bounds = new google.maps.LatLngBounds();
       startingBounds.forEach((point: Coordinate) => bounds.extend(arrayToGmaps(point)!));
-      map.setCenter(bounds.getCenter());
-      map.fitBounds(bounds);
-
-      // remove one zoom level to ensure no marker is on the edge.
-      map.setZoom(map.getZoom() - 1);
+      this.initialPosition = {
+        center: bounds.getCenter(),
+        bounds,
+        zoom: -1,
+      };
     }
-  };
+  }
 
   render() {
     return (
-      <GoogleMap onLoaded={this.onLoaded}>
+      <GoogleMap initialPosition={this.initialPosition}>
         {this.props.children}
       </GoogleMap>
     );
