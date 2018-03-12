@@ -2,9 +2,10 @@ import { compact } from 'lodash';
 import * as React from 'react';
 import Gallery, { GalleryImage } from 'react-grid-gallery';
 import Carousel, { Modal, ModalGateway } from 'react-images';
-import getVideoThumb from '../../../../ww-clients/utils/getVideoThumb';
+import { getVideoThumb } from '../../../../ww-clients/utils';
 import { Media } from '../../../../ww-commons';
 import { THUMB_HEIGHT } from './constants';
+import VideoPlayer from './VideoPlayer';
 
 const mapper = async (input: Media): Promise<GalleryImage | null> => {
   const thumb = await getVideoThumb(input.url, 1);
@@ -51,6 +52,10 @@ class VideoGallery extends React.PureComponent<Props, State> {
     } catch {/*Ignore*/}
   };
 
+  onClickThumbnail = (index: number) => {
+    this.toggleModal(index);
+  };
+
   toggleModal = (index: number | null = null) => {
     this.setState({ currentModal: index });
   };
@@ -60,14 +65,19 @@ class VideoGallery extends React.PureComponent<Props, State> {
     const { currentModal, thumbs } = this.state;
     return (
       <React.Fragment>
-        <Gallery enableImageSelection={false} images={thumbs} />
+        <Gallery
+          enableImageSelection={false}
+          enableLightbox={false}
+          images={thumbs}
+          onClickThumbnail={this.onClickThumbnail}
+        />
         <ModalGateway>
           {
             currentModal !== null &&
-            <Modal allowFullscreen={false} closeOnBackdropClick={false} onClose={this.toggleModal}>
+            <Modal allowFullscreen={false} onClose={this.toggleModal}>
               <Carousel
                 currentIndex={currentModal}
-                components={{ Footer: null, View: null }}
+                components={{ View: VideoPlayer }}
                 frameProps={{ autoSize: 'height' }}
                 views={videos}
               />

@@ -1,6 +1,6 @@
 export * from './choose';
 export * from './GeoUtils';
-export * from './getVideoThumb';
+export * from './video';
 export * from './isNative';
 export * from './shallowequals';
 export * from './sleep';

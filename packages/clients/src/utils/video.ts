@@ -24,38 +24,54 @@ export interface VideoThumb {
 
 interface YoutubeQuery {
   v: string;
+
   [other: string]: any;
 }
 
-const getYoutubeThumb =
-  async (host: string, query: YoutubeQuery, pathname: string, size: number): Promise<VideoThumb | null> => {
-    let videoId = null;
-    const { v } = query;
-    if (v && v.match(/^[\w-]{10,12}$/)) {
-      videoId = v;
-    } else {
-      const match = RE_YOUTUBE.exec(pathname);
-      if (match) {
-        videoId = match[1];
-      }
+export const isYoutube = (url: string) =>
+  ['www.youtube.com', 'youtube.com', 'youtu.be'].some(host => url.includes(host));
+
+export const getYoutubeId = (url: string): string | null => {
+  const { query, pathname } = parse(url, true);
+  const { v } = query;
+  if (v && v.match(/^[\w-]{10,12}$/)) {
+    return v;
+  } else {
+    const match = RE_YOUTUBE.exec(pathname);
+    if (match) {
+      return match[1];
     }
+  }
+  return null;
+};
 
-    if (videoId) {
-      const { name, width, height } = YOUTUBE_SIZES[size];
-      return Promise.resolve({
-        url: `http://img.youtube.com/vi/${videoId}/${name}.jpg`,
-        width,
-        height,
-      });
-    }
+const getYoutubeThumb = async (url: string, size: number): Promise<VideoThumb | null> => {
+  const videoId = getYoutubeId(url);
 
-    return Promise.resolve(null);
-  };
+  if (videoId) {
+    const { name, width, height } = YOUTUBE_SIZES[size];
+    return Promise.resolve({
+      url: `http://img.youtube.com/vi/${videoId}/${name}.jpg`,
+      width,
+      height,
+    });
+  }
 
-const getVimeoThumb = async (pathname: string, size: number): Promise<VideoThumb | null> => {
+  return Promise.resolve(null);
+};
+
+export const isVimeo = (url: string) =>
+  ['www.vimeo.com', 'vimeo.com', 'player.vimeo.com'].some(host => url.includes(host));
+
+export const getVimeoId = (url: string): string | null => {
+  const { pathname } = parse(url, true);
   const match = RE_VIMEO.exec(pathname);
-  if (match) {
-    const videoId = match[1];
+  return match ? match[1] : null;
+};
+
+const getVimeoThumb = async (url: string, size: number): Promise<VideoThumb | null> => {
+  const videoId = getVimeoId(url);
+  if (videoId) {
     const vimeoResponse = await fetch(`https://vimeo.com/api/v2/video/${videoId}.json`);
     const vimeoJson = await vimeoResponse.json();
     const { name, width, height } = VIMEO_SIZES[size];
@@ -82,19 +98,17 @@ const getVimeoThumb = async (pathname: string, size: number): Promise<VideoThumb
 // };
 
 // tslint:disable-next-line:no-inferrable-types
-export default async function getVideoThumb(url: string, size: number = 0): Promise<VideoThumb | null> {
+export const getVideoThumb = async (url: string, size: number = 0): Promise<VideoThumb | null> => {
   if (!url) {
     return null;
   }
 
-  const { host, query, pathname } = parse(url, true);
-
-  if (['www.youtube.com', 'youtube.com', 'youtu.be'].indexOf(host) !== -1) {
-    return getYoutubeThumb(host, query, pathname, size);
+  if (isYoutube(url)) {
+    return getYoutubeThumb(url, size);
   }
 
-  if (['www.vimeo.com', 'vimeo.com', 'player.vimeo.com'].indexOf(host) !== -1) {
-    return getVimeoThumb(pathname, size);
+  if (isVimeo(url)) {
+    return getVimeoThumb(url, size);
   }
 
   // if (['facebook.com', 'www.facebook.com'].indexOf(host) !== -1) {
@@ -102,4 +116,4 @@ export default async function getVideoThumb(url: string, size: number = 0): Prom
   // }
 
   return null;
-}
+};
