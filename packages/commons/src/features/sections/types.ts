@@ -4,7 +4,7 @@ import { Media } from '../media';
 import { Coordinate3d, Point, PointInput } from '../points';
 import { Region } from '../regions';
 import { River } from '../rivers';
-import { SelectableTagInput, Tag } from '../tags';
+import { Tag } from '../tags';
 import { Connection } from '../types';
 
 export enum Duration {
@@ -90,23 +90,18 @@ export interface SectionInput {
   pois: PointInput[];
 }
 
+export type SectionSortBy = 'name' | 'difficulty' | 'duration' | 'rating';
+
 export interface SectionSearchTerms {
-  sortBy: 'name' | 'difficulty' | 'duration' | 'rating';
+  sortBy: SectionSortBy;
   sortDirection: 'ASC' | 'DESC';
   searchString: '';
   difficulty: [number, number];
   duration: [Duration, Duration];
   rating: number;
   seasonNumeric: [number, number];
-}
-
-export interface SectionSearchTermInput extends SectionSearchTerms {
-  regionId?: string;
-
-  supplyTags?: SelectableTagInput[];
-  kayakingTags?: SelectableTagInput[];
-  hazardsTags?: SelectableTagInput[];
-  miscTags?: SelectableTagInput[];
+  withTags?: string[];
+  withoutTags?: string[];
 }
 
 export const DefaultSectionSearchTerms: SectionSearchTerms = {

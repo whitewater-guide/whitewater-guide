@@ -23,25 +23,3 @@ export interface WithTags {
   tags: Tag[];
   tagsLoading: boolean;
 }
-
-export enum TagSelection {
-  SELECTED = 'selected',
-  DESELECTED = 'deselected',
-  NONE = 'none',
-}
-
-export interface SelectableTag extends Tag {
-  selection: TagSelection;
-}
-
-export interface SelectableTagInput {
-  id: string;
-  selection: -1 | 1;
-}
-
-export interface WithSelectableTags {
-  supplyTags: SelectableTag[];
-  kayakingTags: SelectableTag[];
-  hazardsTags: SelectableTag[];
-  miscTags: SelectableTag[];
-}

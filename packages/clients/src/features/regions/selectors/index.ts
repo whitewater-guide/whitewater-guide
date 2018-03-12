@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect';
-import { DefaultSectionSearchTerms } from '../../../../ww-commons';
+import { DefaultSectionSearchTerms, SectionSearchTerms } from '../../../../ww-commons';
 
 const regionIdFromProps = (_: any, props: any) => props.regionId;
-const regionsSelector = (state: any) => state.persistent.regions;
+const regionsSelector = (state: any) => state.regions;
 
 export const searchTermsSelector = createSelector(
   regionsSelector,
@@ -12,3 +12,7 @@ export const searchTermsSelector = createSelector(
     return { searchTerms: (region && region.searchTerms) || DefaultSectionSearchTerms };
   },
 );
+
+export interface WithSearchTerms {
+  searchTerms: SectionSearchTerms;
+}
