@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+import { THUMB_HEIGHT } from './constants';
 
 const SECTIONS_MEDIA = gql`
   query sectionMedia($sectionId: ID!, $language: String) {
@@ -13,7 +14,7 @@ const SECTIONS_MEDIA = gql`
         weight
         url
         resolution
-        thumb(options: { height: 128, width: 512, resize: fit })
+        thumb(options: { height: ${THUMB_HEIGHT}, width: ${4 * THUMB_HEIGHT}, resize: fit })
         deleted
       }
     }
