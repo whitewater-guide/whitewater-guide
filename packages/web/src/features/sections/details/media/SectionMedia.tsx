@@ -3,8 +3,7 @@ import * as React from 'react';
 import { Col } from 'react-grid-system';
 import { Container, Row } from '../../../../layout/details';
 import { WithMediaList } from './conatiner';
-import PhotoGallery from './PhotoGallery';
-import VideoGallery from './VideoGallery';
+import GridGallery from './GridGallery';
 
 const SectionMedia: React.StatelessComponent<WithMediaList> = ({ mediaBySection: { nodes } }) => {
   const { photo = [], video = [], blog = [] } = groupBy(nodes, 'kind');
@@ -17,7 +16,7 @@ const SectionMedia: React.StatelessComponent<WithMediaList> = ({ mediaBySection:
       </Row>
       <Row>
         <Col sm={12}>
-          <PhotoGallery photos={photo} />
+          <GridGallery media={photo} />
         </Col>
       </Row>
       <Row>
@@ -27,7 +26,7 @@ const SectionMedia: React.StatelessComponent<WithMediaList> = ({ mediaBySection:
       </Row>
       <Row>
         <Col sm={12}>
-          <VideoGallery videos={video} />
+          <GridGallery media={video} />
         </Col>
       </Row>
       <Row>
