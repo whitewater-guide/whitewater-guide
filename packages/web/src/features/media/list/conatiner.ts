@@ -2,9 +2,9 @@ import { FetchPolicy } from 'apollo-client';
 import { graphql } from 'react-apollo';
 import { withRouter } from 'react-router';
 import { compose } from 'recompose';
-import { queryResultToList, WithList } from '../../../../ww-clients/apollo';
-import { withFeatureIds } from '../../../../ww-clients/core';
-import { Connection, Media } from '../../../../ww-commons';
+import { queryResultToList, WithList } from '../../../ww-clients/apollo';
+import { withFeatureIds } from '../../../ww-clients/core';
+import { Connection, Media } from '../../../ww-commons';
 import SECTIONS_MEDIA from './sectionsMedia.query';
 
 export interface WithMediaListOptions {

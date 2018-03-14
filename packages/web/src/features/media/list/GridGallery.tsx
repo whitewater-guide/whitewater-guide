@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Styles } from '../../../../styles';
-import { Media, MediaKind } from '../../../../ww-commons';
+import { Styles } from '../../../styles/index';
+import { Media, MediaKind } from '../../../ww-commons/index';
 import Dropzone from './Dropzone';
 import Thumb from './Thumb';
 

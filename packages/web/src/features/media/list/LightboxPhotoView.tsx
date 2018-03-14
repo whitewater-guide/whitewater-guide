@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Styles } from '../../../../styles';
-import { Media } from '../../../../ww-commons';
+import { Styles } from '../../../styles/index';
+import { Media } from '../../../ww-commons/index';
 
 const styles: Styles = {
   container: {

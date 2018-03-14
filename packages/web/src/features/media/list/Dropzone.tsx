@@ -1,8 +1,8 @@
 import FontIcon from 'material-ui/FontIcon';
 import * as React from 'react';
 import Dz, { DropFilesEventHandler } from 'react-dropzone';
-import { Styles } from '../../../../styles';
-import { MediaKind } from '../../../../ww-commons';
+import { Styles } from '../../../styles/index';
+import { MediaKind } from '../../../ww-commons/index';
 import { THUMB_HEIGHT } from './constants';
 
 const styles: Styles = {

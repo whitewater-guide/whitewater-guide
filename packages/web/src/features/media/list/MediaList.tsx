@@ -1,9 +1,8 @@
 import { groupBy } from 'lodash';
 import * as React from 'react';
 import { Col } from 'react-grid-system';
-import { Container, Row } from '../../../../layout/details';
-import { Media } from '../../../../ww-commons';
-import { MediaKind } from '../../../../ww-commons/features/media';
+import { Row } from '../../../layout/details';
+import { Media, MediaKind } from '../../../ww-commons';
 import { WithMediaList } from './conatiner';
 import GridGallery from './GridGallery';
 import Lightbox from './Lightbox';
@@ -16,7 +15,7 @@ interface State {
   photoAndVideo: Media[];
 }
 
-class SectionMedia extends React.PureComponent<WithMediaList, State> {
+class MediaList extends React.PureComponent<WithMediaList, State> {
   state: State = {
     currentModal: null,
     photo: [],
@@ -54,15 +53,9 @@ class SectionMedia extends React.PureComponent<WithMediaList, State> {
   };
 
   render() {
-    const {
-      currentModal,
-      photo,
-      video,
-      blog,
-      photoAndVideo,
-    } = this.state;
+    const { currentModal, photo, video, blog, photoAndVideo } = this.state;
     return (
-      <Container>
+      <React.Fragment>
         <Row>
           <Col>
             <h2>Photos</h2>
@@ -96,10 +89,9 @@ class SectionMedia extends React.PureComponent<WithMediaList, State> {
           </Col>
         </Row>
         <Lightbox media={photoAndVideo} currentModal={currentModal} onClose={this.onCloseLightbox}/>
-      </Container>
+      </React.Fragment>
     );
-  };
-
+  }
 }
 
-export default SectionMedia;
+export default MediaList;

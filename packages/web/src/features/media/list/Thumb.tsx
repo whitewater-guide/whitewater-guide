@@ -2,14 +2,15 @@ import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import * as React from 'react';
 import injectSheet from 'react-jss';
-import { getVideoThumb } from '../../../../ww-clients/utils';
-import { Media, MediaKind } from '../../../../ww-commons';
+import { getVideoThumb } from '../../../ww-clients/utils/index';
+import { Media, MediaKind } from '../../../ww-commons/index';
 import { THUMB_HEIGHT } from './constants';
 
 const styles = {
   container: {
     position: 'relative',
     marginRight: 16,
+    marginBottom: 16,
     height: THUMB_HEIGHT,
   },
   overlay: {

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Media, MediaKind } from '../../../../ww-commons';
+import { Media, MediaKind } from '../../../ww-commons/index';
 import LightboxPhotoView from './LightboxPhotoView';
 import LightboxVideoView from './LightboxVideoView';
 

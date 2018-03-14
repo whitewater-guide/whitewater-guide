@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Carousel, { Modal, ModalGateway } from 'react-images';
-import { Media } from '../../../../ww-commons';
+import { Media } from '../../../ww-commons/index';
 import LightboxFooter from './LightboxFooter';
 import LightboxView from './LightboxView';
 
