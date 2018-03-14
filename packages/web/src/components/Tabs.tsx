@@ -45,7 +45,8 @@ class TabsInternal extends React.PureComponent<InternalProps> {
     if (fullPathMode) {
       const values = React.Children.map(children, (child: any) => child.props.value);
       const path = pathname + hash;
-      value = values.includes(path) ? path : values[0];
+      const matchingTabValue = values.find(val => path.startsWith(val));
+      value = matchingTabValue || values[0];
     }
     return (
       <MUITabs
