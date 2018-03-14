@@ -13,12 +13,13 @@ const styles: Styles = {
 
 interface Props {
   media: Media[];
+  onThumbClick?: (media: Media, index: number) => void;
 }
 
 class GridGallery extends React.PureComponent<Props> {
   renderThumb = (photo: Media, index: number) => {
     return (
-      <Thumb index={index} media={photo} />
+      <Thumb key={photo.id} index={index} media={photo} onClick={this.props.onThumbClick} />
     );
   };
 

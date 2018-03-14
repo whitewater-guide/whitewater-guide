@@ -24,7 +24,7 @@ interface Props {
   interactionIsIdle: boolean;
 }
 
-class VideoPlayer extends React.PureComponent<Props> {
+class LightboxVideoView extends React.PureComponent<Props> {
   renderYoutube = (url: string) => {
     const videoId = getYoutubeId(url);
     return (
@@ -69,4 +69,4 @@ class VideoPlayer extends React.PureComponent<Props> {
   }
 }
 
-export default VideoPlayer;
+export default LightboxVideoView;
