@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Styles } from '../../../../styles';
-import { Media } from '../../../../ww-commons';
+import { Media, MediaKind } from '../../../../ww-commons';
+import Dropzone from './Dropzone';
 import Thumb from './Thumb';
 
 const styles: Styles = {
@@ -12,6 +13,8 @@ const styles: Styles = {
 };
 
 interface Props {
+  editable?: boolean;
+  kind: MediaKind;
   media: Media[];
   onThumbClick?: (media: Media, index: number) => void;
 }
@@ -19,15 +22,22 @@ interface Props {
 class GridGallery extends React.PureComponent<Props> {
   renderThumb = (photo: Media, index: number) => {
     return (
-      <Thumb key={photo.id} index={index} media={photo} onClick={this.props.onThumbClick} />
+      <Thumb
+        editable={this.props.editable}
+        key={photo.id}
+        index={index}
+        media={photo}
+        onClick={this.props.onThumbClick}
+      />
     );
   };
 
   render() {
-    const { media } = this.props;
+    const { editable, kind, media } = this.props;
     return (
       <div style={styles.gallery}>
         {media.map(this.renderThumb)}
+        {editable && <Dropzone kind={kind} />}
       </div>
     );
   }

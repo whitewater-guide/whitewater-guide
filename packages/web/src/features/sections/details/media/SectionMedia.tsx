@@ -3,6 +3,7 @@ import * as React from 'react';
 import { Col } from 'react-grid-system';
 import { Container, Row } from '../../../../layout/details';
 import { Media } from '../../../../ww-commons';
+import { MediaKind } from '../../../../ww-commons/features/media';
 import { WithMediaList } from './conatiner';
 import GridGallery from './GridGallery';
 import Lightbox from './Lightbox';
@@ -69,7 +70,7 @@ class SectionMedia extends React.PureComponent<WithMediaList, State> {
         </Row>
         <Row>
           <Col sm={12}>
-            <GridGallery media={photo} onThumbClick={this.onPhotoClick}/>
+            <GridGallery editable kind={MediaKind.photo} media={photo} onThumbClick={this.onPhotoClick}/>
           </Col>
         </Row>
         <Row>
@@ -79,7 +80,7 @@ class SectionMedia extends React.PureComponent<WithMediaList, State> {
         </Row>
         <Row>
           <Col sm={12}>
-            <GridGallery media={video} onThumbClick={this.onVideoClick} />
+            <GridGallery editable kind={MediaKind.video} media={video} onThumbClick={this.onVideoClick} />
           </Col>
         </Row>
         <Row>

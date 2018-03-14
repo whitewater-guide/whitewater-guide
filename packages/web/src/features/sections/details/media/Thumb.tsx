@@ -112,4 +112,5 @@ class Thumb extends React.PureComponent<Props, State> {
   }
 }
 
-export default injectSheet(styles)(Thumb);
+const StyledThumb: React.ComponentType<Props> = injectSheet(styles)(Thumb);
+export default StyledThumb;
