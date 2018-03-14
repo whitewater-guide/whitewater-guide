@@ -1,8 +1,20 @@
 import * as React from 'react';
-import { carouselComponents } from 'react-images/lib/components/defaultComponents';
+import { Styles } from '../../../../styles';
 import { Media } from '../../../../ww-commons';
 
-const View = carouselComponents.View;
+const styles: Styles = {
+  container: {
+    position: 'relative',
+    textAlign: 'center',
+  },
+  img: {
+    height: 'auto',
+    maxHeight: 'calc(100vh - 150px)',
+    maxWidth: '100%',
+    userSelect: 'none',
+  },
+};
+
 
 interface Props {
   currentIndex: number;
@@ -10,10 +22,11 @@ interface Props {
   interactionIsIdle: boolean;
 }
 
-const LightboxPhotoView: React.StatelessComponent<Props> = (props) => {
-  const newData = { ...props.data, source: props.data.url };
+const LightboxPhotoView: React.StatelessComponent<Props> = ({ data }) => {
   return (
-    <View {...props} data={newData} />
+    <div style={styles.container}>
+      <img src={data.url} style={styles.img} />
+    </div>
   );
 };
 
