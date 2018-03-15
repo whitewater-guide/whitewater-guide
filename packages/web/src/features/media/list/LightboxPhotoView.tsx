@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Styles } from '../../../styles/index';
+import { Styles } from '../../../styles';
 import { Media } from '../../../ww-commons/index';
 
 const styles: Styles = {
@@ -14,7 +14,6 @@ const styles: Styles = {
     userSelect: 'none',
   },
 };
-
 
 interface Props {
   currentIndex: number;

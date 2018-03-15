@@ -24,6 +24,7 @@
     "no-trailing-whitespace": true,
     "no-unused-variable": [true, "react"],
     "object-curly-spacing": [true, "always"],
+    "object-literal-key-quotes": [true, "as-needed"],
     "object-literal-sort-keys": false,
     "only-arrow-functions": [true, "allow-declarations"],
     "ordered-imports": [ true, { "import-sources-order": "case-insensitive", "named-imports-order": "case-insensitive"}],

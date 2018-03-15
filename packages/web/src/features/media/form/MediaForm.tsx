@@ -1,6 +1,6 @@
-import * as React from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
+import * as React from 'react';
 import { TextInput } from '../../../components/forms';
 import { MediaFormProps } from './types';
 
