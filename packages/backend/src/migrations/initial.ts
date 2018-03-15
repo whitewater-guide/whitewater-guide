@@ -285,7 +285,7 @@ export const up = async (db: Knex) => {
   await addUpdatedAtTrigger(db, 'media_translations');
   // Media <-> sections
   await db.schema.createTable('sections_media', (table) => {
-    table.uuid('media_id').notNullable().references('id').inTable('media').onDelete('CASCADE');
+    table.uuid('media_id').notNullable().references('id').inTable('media').onDelete('CASCADE').unique();
     table.uuid('section_id').notNullable().references('id').inTable('sections').onDelete('CASCADE');
     table.primary(['media_id', 'section_id']);
   });

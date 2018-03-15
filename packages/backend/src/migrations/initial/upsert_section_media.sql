@@ -12,11 +12,11 @@ BEGIN
       (media ->> 'kind') :: MEDIA_KIND,
       media ->> 'url',
       array_json_to_int(media -> 'resolution'),
-      (media ->> weight) :: INTEGER
+      COALESCE((media ->> 'weight') :: INTEGER, 0)
     )
     ON CONFLICT (id)
       DO UPDATE SET
-        kind       = EXCLUDED.kind,
+        kind       = media.kind,
         url        = EXCLUDED.url,
         resolution = EXCLUDED.resolution,
         weight     = EXCLUDED.weight
@@ -41,6 +41,10 @@ BEGIN
       upserted_translations.media_id,
       section_id :: UUID
     FROM upserted_translations
+  ON CONFLICT ON CONSTRAINT sections_media_pkey
+    DO UPDATE SET
+      media_id   = sections_media.media_id,
+      section_id = sections_media.section_id
   RETURNING media_id
     INTO upserted_media_id;
 

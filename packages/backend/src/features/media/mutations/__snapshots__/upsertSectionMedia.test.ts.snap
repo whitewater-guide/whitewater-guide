@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`insert should return result 1`] = `
+Object {
+  "upsertSectionMedia": Object {
+    "copyright": "new media copyright",
+    "description": "new media description",
+    "kind": "photo",
+    "language": "en",
+    "resolution": Array [
+      1920,
+      1080,
+    ],
+    "url": "http://localhost:6001/uploads/media/photo.jpg",
+    "weight": 0,
+  },
+}
+`;
+
+exports[`resolvers chain should throw on invalid input 1`] = `
+Object {
+  "0": Object {
+    "message": "\\"id\\" must be a valid GUID",
+    "path": "media.id",
+  },
+  "1": Object {
+    "message": "\\"resolution\\" must contain less than or equal to 2 items",
+    "path": "media.resolution",
+  },
+}
+`;
+
+exports[`update should return result 1`] = `
+Object {
+  "upsertSectionMedia": Object {
+    "copyright": "new media copyright",
+    "description": "new media description",
+    "kind": "photo",
+    "language": "en",
+    "resolution": Array [
+      1920,
+      1080,
+    ],
+    "url": "http://localhost:6001/uploads/media/photo.jpg",
+    "weight": 0,
+  },
+}
+`;

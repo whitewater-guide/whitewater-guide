@@ -42,3 +42,12 @@ export const isTimestamp = (s: string) =>
   (/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3,6}Z/).test(s);
 
 export const delay = (time: number) => new Promise(resolve => setTimeout(resolve, time));
+
+export const countTables = async (getKnexInstance: boolean, ...tables: string[]) => {
+  const rawQuery = 'SELECT ' + tables
+    .map(table => db(getKnexInstance).table(table).count(`* as ${table}_cnt`).toString())
+    .map(query => `(${query})`)
+    .join(', ');
+  const { rows: [ counts ] } = await db(getKnexInstance).raw(rawQuery);
+  return tables.map(t => Number(counts[`${t}_cnt`]));
+};

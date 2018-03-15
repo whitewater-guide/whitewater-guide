@@ -19,13 +19,13 @@ export interface Media extends Node, Timestamped {
 }
 
 export interface MediaInput {
-  id: string;
+  id: string | null;
   description: string | null;
   copyright: string | null;
   url: string;
   kind: MediaKind;
   resolution: number[] | null;
-  weight: number;
+  weight: number | null;
 }
 
 export enum ThumbResize {

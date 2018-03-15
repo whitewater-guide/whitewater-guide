@@ -34,10 +34,10 @@ type Media {
 
 input MediaInput {
   id: ID
+  kind: MediaKind!
   description: String
   copyright: String
   url: String
-  type: MediaKind!
   resolution: [Int]
   weight: Int
 }
