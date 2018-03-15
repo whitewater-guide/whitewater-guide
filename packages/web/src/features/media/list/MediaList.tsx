@@ -3,9 +3,9 @@ import * as React from 'react';
 import { Col } from 'react-grid-system';
 import { Row } from '../../../layout/details';
 import { Media, MediaKind } from '../../../ww-commons';
-import { WithMediaList } from './conatiner';
 import GridGallery from './GridGallery';
 import Lightbox from './Lightbox';
+import { MediaListProps } from './types';
 
 interface State {
   currentModal: number | null;
@@ -15,7 +15,7 @@ interface State {
   photoAndVideo: Media[];
 }
 
-class MediaList extends React.PureComponent<WithMediaList, State> {
+class MediaList extends React.PureComponent<MediaListProps, State> {
   state: State = {
     currentModal: null,
     photo: [],
@@ -28,7 +28,7 @@ class MediaList extends React.PureComponent<WithMediaList, State> {
     this.groupMedia(this.props.mediaBySection.nodes);
   }
 
-  componentWillReceiveProps(nextProps: WithMediaList) {
+  componentWillReceiveProps(nextProps: MediaListProps) {
     if (this.props.mediaBySection !== nextProps.mediaBySection) {
       this.groupMedia(nextProps.mediaBySection.nodes);
     }
@@ -52,6 +52,11 @@ class MediaList extends React.PureComponent<WithMediaList, State> {
     this.setState({ currentModal: null });
   };
 
+  onAdd = (kind: MediaKind, file?: any) => {
+    const { match: { params: { regionId, sectionId } }, history } = this.props;
+    history.push(`/regions/${regionId}/sections/${sectionId}/media/new?kind=${kind}`);
+  };
+
   render() {
     const { currentModal, photo, video, blog, photoAndVideo } = this.state;
     return (
@@ -63,7 +68,13 @@ class MediaList extends React.PureComponent<WithMediaList, State> {
         </Row>
         <Row>
           <Col sm={12}>
-            <GridGallery editable kind={MediaKind.photo} media={photo} onThumbClick={this.onPhotoClick}/>
+            <GridGallery
+              editable
+              kind={MediaKind.photo}
+              media={photo}
+              onThumbClick={this.onPhotoClick}
+              onAdd={this.onAdd}
+            />
           </Col>
         </Row>
         <Row>
@@ -73,7 +84,13 @@ class MediaList extends React.PureComponent<WithMediaList, State> {
         </Row>
         <Row>
           <Col sm={12}>
-            <GridGallery editable kind={MediaKind.video} media={video} onThumbClick={this.onVideoClick} />
+            <GridGallery
+              editable
+              kind={MediaKind.video}
+              media={video}
+              onThumbClick={this.onVideoClick}
+              onAdd={this.onAdd}
+            />
           </Col>
         </Row>
         <Row>

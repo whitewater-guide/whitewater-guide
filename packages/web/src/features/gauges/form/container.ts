@@ -1,6 +1,6 @@
 import { compose } from 'recompose';
 import { formContainer } from '../../../components/forms';
-import { withFeatureIds } from '../../../ww-clients/core/withFeatureIds';
+import { withFeatureIds } from '../../../ww-clients/core';
 import { GAUGE_DETAILS } from '../../../ww-clients/features/gauges';
 import { GaugeFormSchema } from '../../../ww-commons';
 import deserializeGauge from './deserializeGauge';

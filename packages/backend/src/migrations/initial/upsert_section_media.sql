@@ -11,7 +11,11 @@ BEGIN
       COALESCE((media ->> 'id') :: UUID, uuid_generate_v1mc()),
       (media ->> 'kind') :: MEDIA_KIND,
       media ->> 'url',
-      array_json_to_int(media -> 'resolution'),
+      CASE
+        WHEN (media ->> 'resolution') IS NULL
+        THEN NULL
+        ELSE array_json_to_int(media -> 'resolution')
+      END,
       COALESCE((media ->> 'weight') :: INTEGER, 0)
     )
     ON CONFLICT (id)

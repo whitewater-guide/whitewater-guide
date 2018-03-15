@@ -1,8 +1,8 @@
 import FontIcon from 'material-ui/FontIcon';
 import * as React from 'react';
 import Dz, { DropFilesEventHandler } from 'react-dropzone';
-import { Styles } from '../../../styles/index';
-import { MediaKind } from '../../../ww-commons/index';
+import { Styles } from '../../../styles';
+import { MediaKind } from '../../../ww-commons';
 import { THUMB_HEIGHT } from './constants';
 
 const styles: Styles = {
@@ -39,7 +39,7 @@ class Dropzone extends React.PureComponent<Props> {
 
   onDrop: DropFilesEventHandler = (acceptedFiles) => {
     if (this.props.onAdd) {
-      this.props.onAdd(this.props.kind);
+      this.props.onAdd(this.props.kind, acceptedFiles);
     }
   };
 

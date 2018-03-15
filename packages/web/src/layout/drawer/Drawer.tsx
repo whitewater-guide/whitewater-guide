@@ -30,7 +30,7 @@ const Drawer = ({ onChange, isOpen, location, history: { push }, isSuperAdmin }:
   const value = '/' + location.pathname.split('/')[1];
   return (
     <MuiDrawer docked={false} open={isOpen} containerStyle={styles.drawerContainer} onRequestChange={onChange}>
-      <Menu value={value}>
+      <Menu disableAutoFocus value={value}>
         {ITEMS.map(({ path, title, superAdmin }) => {
           if (superAdmin && !isSuperAdmin) {
             return null;

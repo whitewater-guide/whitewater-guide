@@ -58,6 +58,13 @@ export interface FormContainerOptions<QueryResult, MutationResult, FormInput> {
    * redux-form validation schema, works with form data (i.e. draft.js EditorState)
    */
   validationSchema: Schema;
+  /**
+   * By default mutate will be called with two varibales:
+   * [propName] = serializedForm
+   * language = language
+   * This object will be merged into variables as well
+   */
+  extraVariables?: object | ((props: any) => object);
 }
 
 export const formContainer = <QueryResult, MutationResult, FormInput>(
@@ -73,6 +80,7 @@ export const formContainer = <QueryResult, MutationResult, FormInput>(
     serializeForm,
     validationSchema,
     formName,
+    extraVariables,
   } = options;
 
   type FormProps = Partial<ConfigProps<FormInput>>;
@@ -88,19 +96,23 @@ export const formContainer = <QueryResult, MutationResult, FormInput>(
     withLoading<ChildProps<any, any>>(({ data }) => data!.loading),
     graphql(mutation, { alias: `${formName}FormMutation` }),
     mapProps<FormProps, MappedProps>((props) => {
-      const { data, history, mutate, location, language, onLanguageChange } = props;
+      const { data, history, match, mutate, location, language, onLanguageChange } = props;
       const value = (data as any)[propName] ||
         (typeof defaultValue === 'function' ? defaultValue(props) : defaultValue);
       const splitter = backPath || `${propName}s`;
       const path = location.pathname.split(splitter)[0] + splitter;
+      const extraVars = typeof extraVariables === 'function' ? extraVariables(props) : extraVariables;
       return {
         language,
         onLanguageChange,
         data,
+        history,
+        match,
+        location,
         initialValues: deserialize(value),
         onSubmit: (input: FormInput) => {
           // Make it clear that we return promise
-          return mutate!({ variables: { [propName]: serializeForm(input), language } })
+          return mutate!({ variables: { [propName]: serializeForm(input), language, ...extraVars } })
             .then(() => history.replace(path!))
             .catch((e: ApolloError) => {
               throw new SubmissionError({ _error: apolloErrorToString(e) });

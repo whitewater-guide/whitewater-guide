@@ -1,5 +1,5 @@
 import { GraphQLFieldResolver } from 'graphql';
-import { UserRaw } from '../features/users/types';
+import { UserRaw } from '../features/users';
 
 export type FieldResolvers<TRaw, TOut> = {
   [P in keyof TOut]?: GraphQLFieldResolver<TRaw, Context>;
@@ -28,10 +28,4 @@ export interface NodeQuery extends QueryWithLanguage {
 
 export interface RemoveQuery {
   id: string;
-}
-
-export interface UploadLink {
-  postURL: string;
-  formData: {[key: string]: string};
-  key: string;
 }

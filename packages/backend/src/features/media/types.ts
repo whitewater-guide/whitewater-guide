@@ -1,6 +1,5 @@
-import { UploadLink } from '../../apollo';
 import { RawTimestamped } from '../../db';
-import { MediaKind, Node } from '../../ww-commons';
+import { MediaKind, Node, UploadLink } from '../../ww-commons';
 
 export interface MediaRaw extends Node, RawTimestamped {
   language: string;

@@ -1,10 +1,10 @@
 import { castArray, get } from 'lodash';
 import * as qs from 'qs';
 import { withProps } from 'recompose';
-import { isNative } from '../utils/isNative';
+import { isNative } from '../utils';
 
-export type FeatureType = 'gauge' | 'region' | 'source' | 'river' | 'section';
-export type FeatureIdType = 'gaugeId' | 'regionId' | 'sourceId' | 'riverId' | 'sectionId';
+export type FeatureType = 'gauge' | 'region' | 'source' | 'river' | 'section' | 'media';
+export type FeatureIdType = 'gaugeId' | 'regionId' | 'sourceId' | 'riverId' | 'sectionId' | 'mediaId';
 
 const ALL_FEATURE_IDS: FeatureIdType[] = [
   'gaugeId',
@@ -12,6 +12,7 @@ const ALL_FEATURE_IDS: FeatureIdType[] = [
   'riverId',
   'sectionId',
   'sourceId',
+  'mediaId',
 ];
 
 export type WithFeatureIds = {[is in FeatureIdType]?: string};

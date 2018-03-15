@@ -197,3 +197,7 @@ it('should reinitialize form when language changes', () => {
     variables: { entity: { foo: 'bar_es_d_s' }, language: 'es' },
   });
 });
+
+it('should pass extra variables to mutation', () => {
+  throw new Error('write me');
+});

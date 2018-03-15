@@ -16,3 +16,9 @@ export interface Timestamped {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface UploadLink {
+  postURL: string;
+  formData: {[key: string]: string};
+  key: string;
+}

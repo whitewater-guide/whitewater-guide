@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Styles } from '../../../styles/index';
-import { Media, MediaKind } from '../../../ww-commons/index';
+import { Styles } from '../../../styles';
+import { Media, MediaKind } from '../../../ww-commons';
 import Dropzone from './Dropzone';
 import Thumb from './Thumb';
 
@@ -17,6 +17,7 @@ interface Props {
   kind: MediaKind;
   media: Media[];
   onThumbClick?: (media: Media, index: number) => void;
+  onAdd?: (kind: MediaKind, file?: any) => void;
 }
 
 class GridGallery extends React.PureComponent<Props> {
@@ -33,11 +34,11 @@ class GridGallery extends React.PureComponent<Props> {
   };
 
   render() {
-    const { editable, kind, media } = this.props;
+    const { editable, kind, media, onAdd } = this.props;
     return (
       <div style={styles.gallery}>
         {media.map(this.renderThumb)}
-        {editable && <Dropzone kind={kind} />}
+        {editable && <Dropzone kind={kind} onAdd={onAdd} />}
       </div>
     );
   }

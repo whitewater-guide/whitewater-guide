@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Route, RouteComponentProps, withRouter } from 'react-router';
 import { Container } from '../../layout/details';
-import MediaForm from './form/MediaForm';
+import MediaForm from './form';
 import MediaList from './list';
 
 class SectionMedia extends React.PureComponent<RouteComponentProps<any>> {
