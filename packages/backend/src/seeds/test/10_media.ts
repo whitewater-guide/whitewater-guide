@@ -18,14 +18,14 @@ const media: Array<Partial<MediaRaw>> = [
   {
     id: PHOTO_1,
     kind: MediaKind.photo,
-    url: PHOTO_1,
+    url: PHOTO_1, // Exists in seed minio data
     resolution: [800, 600],
     weight: 1,
   },
   {
     id: PHOTO_2,
     kind: MediaKind.photo,
-    url: PHOTO_2,
+    url: PHOTO_2, // Exists in seed minio data
     resolution: [1024, 768],
   },
   {
