@@ -2,6 +2,7 @@ import { capitalize } from 'lodash';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import * as React from 'react';
+import ErrorBoundary from 'react-error-boundary';
 import { Styles } from '../../../styles';
 import { MediaKind } from '../../../ww-commons';
 import NonPhotoForm from './NonPhotoForm';
@@ -28,9 +29,9 @@ export default class MediaForm extends React.PureComponent<MediaFormProps> {
     ];
     return (
       <Dialog open modal title={title} actions={actions} contentStyle={styles.dialog}>
-        {
-          kind === MediaKind.photo ? (<PhotoForm {...this.props} />) : (<NonPhotoForm {...this.props} />)
-        }
+        <ErrorBoundary>
+          {kind === MediaKind.photo ? (<PhotoForm {...this.props} />) : (<NonPhotoForm {...this.props} />)}
+        </ErrorBoundary>
       </Dialog>
     );
   }

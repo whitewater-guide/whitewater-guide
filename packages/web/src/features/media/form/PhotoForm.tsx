@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { TextInput } from '../../../components/forms';
 import { Styles } from '../../../styles';
+import { getImageSize } from '../../../utils';
 import { MediaFormProps } from './types';
 
 const styles: Styles = {
@@ -25,6 +26,14 @@ const styles: Styles = {
 };
 
 export default class PhotoForm extends React.PureComponent<MediaFormProps> {
+  async componentDidMount() {
+    const { location: { state }, data, change } = this.props;
+    const upload = data!.mediaForm!.upload;
+    const file = state.file;
+    const { width, height } = await getImageSize(file);
+    change('resolution', [width, height]);
+  }
+
   render() {
     const { location: { state } } = this.props;
     const file: any = state.file;
