@@ -52,9 +52,9 @@ class MediaList extends React.PureComponent<MediaListProps, State> {
     this.setState({ currentModal: null });
   };
 
-  onAdd = (kind: MediaKind, file?: any) => {
+  onAdd = (kind: MediaKind, file?: File) => {
     const { match: { params: { regionId, sectionId } }, history } = this.props;
-    history.push(`/regions/${regionId}/sections/${sectionId}/media/new?kind=${kind}`);
+    history.push(`/regions/${regionId}/sections/${sectionId}/media/new?kind=${kind}`, { file });
   };
 
   render() {

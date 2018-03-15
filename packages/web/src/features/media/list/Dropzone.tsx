@@ -27,7 +27,7 @@ const styles: Styles = {
 
 interface Props {
   kind: MediaKind;
-  onAdd?: (kind: MediaKind, file?: any) => void;
+  onAdd?: (kind: MediaKind, file?: File) => void;
 }
 
 class Dropzone extends React.PureComponent<Props> {
@@ -39,7 +39,7 @@ class Dropzone extends React.PureComponent<Props> {
 
   onDrop: DropFilesEventHandler = (acceptedFiles) => {
     if (this.props.onAdd) {
-      this.props.onAdd(this.props.kind, acceptedFiles);
+      this.props.onAdd(this.props.kind, acceptedFiles[0]);
     }
   };
 

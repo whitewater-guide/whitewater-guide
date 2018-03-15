@@ -17,7 +17,7 @@ interface Props {
   kind: MediaKind;
   media: Media[];
   onThumbClick?: (media: Media, index: number) => void;
-  onAdd?: (kind: MediaKind, file?: any) => void;
+  onAdd?: (kind: MediaKind, file?: File) => void;
 }
 
 class GridGallery extends React.PureComponent<Props> {
