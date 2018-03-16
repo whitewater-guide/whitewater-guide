@@ -1,5 +1,5 @@
 import { CopyConditions } from 'minio';
-import { MINIO_URL, TEMP, TEMP_BUCKET_URL } from './buckets';
+import { TEMP } from './buckets';
 import { minioClient } from './client';
 
 export const getTempPostPolicy = async (key?: string) => {
@@ -26,29 +26,16 @@ export const getTempPostPolicy = async (key?: string) => {
 };
 
 /**
- * Checks if full image URL belongs to certain bucket
- * @param {string} imageURL
- * @param {string} bucket
- * @returns {boolean}
- */
-const isURLInBucket = (imageURL: string, bucket: string) => {
-  const bucketUrl = `${MINIO_URL}/${bucket}`;
-  return imageURL.startsWith(bucketUrl);
-};
-
-/**
  * Moves uploaded image from temp bucket to target bucket
- * If url does not belong to temp bucket - returns url
- * @param {string} url URL of image
+ * If url does not belong to temp bucket - ignores it
+ * @param {string} url URL of image (or just filename)
  * @param {string} toBucket Where image should be placed (avatars? media?)
- * @returns {Promise<string>} URL in target bucket, or original url, if it wasn't from temp bucket
+ * @returns {Promise<void>}
  */
-export const moveTempImage = async (url: string, toBucket: string): Promise<string> => {
-  if (isURLInBucket(url, TEMP)) {
-    const filename = url.split('/').pop();
+export const moveTempImage = async (url: string, toBucket: string): Promise<void> => {
+  const filename = url.split('/').pop();
+  try {
     await minioClient.copyObject(toBucket, filename!, `/${TEMP}/${filename}`, new CopyConditions());
     await minioClient.removeObject(TEMP, filename!);
-    return url.replace(TEMP_BUCKET_URL, `${MINIO_URL}/${toBucket}`);
-  }
-  return url;
+  } catch {/*Ignore*/}
 };

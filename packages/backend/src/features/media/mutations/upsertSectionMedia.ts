@@ -2,7 +2,9 @@ import { GraphQLFieldResolver } from 'graphql';
 import * as Joi from 'joi';
 import { isAdminResolver, isInputValidResolver, upsertI18nResolver, ValidationError } from '../../../apollo';
 import db, { rawUpsert } from '../../../db';
+import { MEDIA, moveTempImage } from '../../../minio';
 import { MediaInput, MediaInputSchema } from '../../../ww-commons';
+import { MediaRaw } from '../types';
 
 interface UpsertVariables {
   sectionId: string;
@@ -18,10 +20,11 @@ const Schema = Joi.object().keys({
 
 const resolver: GraphQLFieldResolver<any, any> =  async (root, { media, sectionId, language }: UpsertVariables) => {
   try {
-    const result = await rawUpsert(
+    const result: MediaRaw = await rawUpsert(
       db(),
       `SELECT upsert_section_media('${sectionId}', '${JSON.stringify(media)}', '${language}')`,
-    );
+    ) as MediaRaw;
+    await moveTempImage(result.id, MEDIA);
     return result;
   } catch (err) {
     // foreign_key_violation - non-existing section id

@@ -5,13 +5,14 @@ Object {
   "upsertSectionMedia": Object {
     "copyright": "new media copyright",
     "description": "new media description",
+    "id": "717b3058-28f0-11e8-b467-0ed5f89f718b",
     "kind": "photo",
     "language": "en",
     "resolution": Array [
       1920,
       1080,
     ],
-    "url": "http://localhost:6001/uploads/media/photo.jpg",
+    "url": "http://localhost:6001/uploads/media/717b3058-28f0-11e8-b467-0ed5f89f718b",
     "weight": 0,
   },
 }
@@ -41,7 +42,7 @@ Object {
       1920,
       1080,
     ],
-    "url": "http://localhost:6001/uploads/media/photo.jpg",
+    "url": "http://localhost:6001/uploads/media/717b3058-28f0-11e8-b467-0ed5f89f718b",
     "weight": 0,
   },
 }

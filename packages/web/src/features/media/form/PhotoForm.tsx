@@ -2,6 +2,8 @@ import * as React from 'react';
 import { TextInput } from '../../../components/forms';
 import { Styles } from '../../../styles';
 import { getImageSize } from '../../../utils';
+import { uploadFile } from '../../../ww-clients/utils';
+import PhotoFormPreview from './PhotoFormPreview';
 import { MediaFormProps } from './types';
 
 const styles: Styles = {
@@ -12,30 +14,33 @@ const styles: Styles = {
   fields: {
     flex: 1,
   },
-  previewWrapper: {
-    width: 400,
-    height: 400,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  preview: {
-    maxWidth: 360,
-    maxHeight: 360,
-  },
 };
 
-export default class PhotoForm extends React.PureComponent<MediaFormProps> {
+interface State {
+  uploading: boolean;
+}
+
+export default class PhotoForm extends React.PureComponent<MediaFormProps, State> {
+  state: State = { uploading: false };
+
   async componentDidMount() {
     const { location: { state }, data, change } = this.props;
     const upload = data!.mediaForm!.upload;
     const file = state.file;
+    if (!file) {
+      throw new Error('Photo form must have file!');
+    }
+    this.setState({ uploading: true });
     const { width, height } = await getImageSize(file);
     change('resolution', [width, height]);
+    const filename = await uploadFile(file, upload);
+    this.setState({ uploading: false });
+    change('url', filename);
   }
 
   render() {
     const { location: { state } } = this.props;
+    const { uploading } = this.state;
     const file: any = state.file;
     return (
       <div style={styles.container}>
@@ -49,9 +54,7 @@ export default class PhotoForm extends React.PureComponent<MediaFormProps> {
             <TextInput fullWidth disabled name="resolution.1" title="Image height" />
           </div>
         </div>
-        <div style={styles.previewWrapper}>
-          <img src={file.preview} style={styles.preview} />
-        </div>
+        <PhotoFormPreview loading={uploading} preview={file.preview} />
       </div>
     );
   }

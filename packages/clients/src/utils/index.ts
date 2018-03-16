@@ -7,4 +7,5 @@ export * from './sleep';
 export * from './spinnerWhileLoading';
 export * from './stringifySeason';
 export * from './TextUtils';
+export * from './uploadFile';
 export * from './withErrorsView';
