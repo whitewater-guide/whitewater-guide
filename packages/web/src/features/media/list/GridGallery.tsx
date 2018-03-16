@@ -20,6 +20,7 @@ interface Props {
   onThumbClick?: (media: Media, index: number) => void;
   onAdd?: (kind: MediaKind, file?: File) => void;
   onEdit?: (media: Media) => void;
+  onRemove?: (media: Media) => void;
 }
 
 class GridGallery extends React.PureComponent<Props> {
@@ -32,6 +33,7 @@ class GridGallery extends React.PureComponent<Props> {
         media={photo}
         onClick={this.props.onThumbClick}
         onEdit={this.props.onEdit}
+        onRemove={this.props.onRemove}
       />
     );
   };

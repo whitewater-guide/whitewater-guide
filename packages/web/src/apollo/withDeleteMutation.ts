@@ -16,12 +16,12 @@ export type WithDeleteMutation<T extends string> = {
 
 interface Options<PropName extends string> {
   mutation: DocumentNode;
-  refetchQueries: string[];
+  refetchQueries?: string[];
   propName: PropName;
 }
 
 export const withDeleteMutation = <PropName extends string>(options: Options<PropName>) => {
-  const { mutation, refetchQueries, propName } = options;
+  const { mutation, refetchQueries = [], propName } = options;
 
   return compose<WithDeleteMutation<PropName>, any>(
     withState('mutating', 'setMutating', false),

@@ -1,5 +1,6 @@
 import { FetchPolicy } from 'apollo-client';
 import { RouteComponentProps } from 'react-router';
+import { WithDeleteMutation } from '../../../apollo';
 import { WithList } from '../../../ww-clients/apollo';
 import { WithMe } from '../../../ww-clients/features/users';
 import { Connection, Media } from '../../../ww-commons';
@@ -19,4 +20,5 @@ export interface WithMediaList {
 export type MediaListProps =
   WithMediaList &
   WithMe &
+  WithDeleteMutation<'removeMedia'> &
   RouteComponentProps<{regionId: string, sectionId: string}>;

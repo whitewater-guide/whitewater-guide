@@ -1,6 +1,7 @@
 import { groupBy } from 'lodash';
 import * as React from 'react';
 import { Col } from 'react-grid-system';
+import { ConfirmationDialog } from '../../../components/forms';
 import { Row } from '../../../layout/details';
 import { isAdmin, Media, MediaKind } from '../../../ww-commons';
 import GridGallery from './GridGallery';
@@ -13,6 +14,7 @@ interface State {
   video: Media[];
   blog: Media[];
   photoAndVideo: Media[];
+  pendingRemoval: Media | null;
 }
 
 class MediaList extends React.PureComponent<MediaListProps, State> {
@@ -22,6 +24,7 @@ class MediaList extends React.PureComponent<MediaListProps, State> {
     video: [],
     blog: [],
     photoAndVideo: [],
+    pendingRemoval: null,
   };
 
   componentDidMount() {
@@ -35,7 +38,8 @@ class MediaList extends React.PureComponent<MediaListProps, State> {
   }
 
   groupMedia = (media: Media[]) => {
-    const { photo = [], video = [], blog = [] } = groupBy(media, 'kind');
+    const existingMedia = media.filter(m => !m.deleted);
+    const { photo = [], video = [], blog = [] } = groupBy(existingMedia, 'kind');
     const photoAndVideo = [...photo, ...video];
     this.setState({ photo, video, blog, photoAndVideo });
   };
@@ -63,8 +67,19 @@ class MediaList extends React.PureComponent<MediaListProps, State> {
     history.push(`/regions/${regionId}/sections/${sectionId}/media/${id}/settings`);
   };
 
+  onRemove = (media: Media) => this.setState({ pendingRemoval: media });
+
+  onCancelRemove = () => this.setState({ pendingRemoval: null });
+
+  onConfirmRemove = () => {
+    if (this.state.pendingRemoval) {
+      this.props.removeMedia(this.state.pendingRemoval.id);
+      this.setState({ pendingRemoval: null });
+    }
+  };
+
   render() {
-    const { currentModal, photo, video, blog, photoAndVideo } = this.state;
+    const { currentModal, photo, video, blog, photoAndVideo, pendingRemoval } = this.state;
     const { me } = this.props;
     const editable = isAdmin(me);
     return (
@@ -83,6 +98,7 @@ class MediaList extends React.PureComponent<MediaListProps, State> {
               onThumbClick={this.onPhotoClick}
               onAdd={this.onAdd}
               onEdit={this.onEdit}
+              onRemove={this.onRemove}
             />
           </Col>
         </Row>
@@ -100,6 +116,7 @@ class MediaList extends React.PureComponent<MediaListProps, State> {
               onThumbClick={this.onVideoClick}
               onAdd={this.onAdd}
               onEdit={this.onEdit}
+              onRemove={this.onRemove}
             />
           </Col>
         </Row>
@@ -116,6 +133,17 @@ class MediaList extends React.PureComponent<MediaListProps, State> {
           </Col>
         </Row>
         <Lightbox media={photoAndVideo} currentModal={currentModal} onClose={this.onCloseLightbox}/>
+        {
+          !!pendingRemoval &&
+          (
+            <ConfirmationDialog
+              title="Delete media?"
+              description="Are you sure to delete this media?"
+              onCancel={this.onCancelRemove}
+              onConfirm={this.onConfirmRemove}
+            />
+          )
+        }
       </React.Fragment>
     );
   }

@@ -7,8 +7,8 @@ import Prompt from 'react-router-navigation-prompt';
 import { InjectedFormProps } from 'redux-form';
 import { Styles, Themeable } from '../../styles';
 import { Content } from '../Content';
+import { ConfirmationDialog } from './ConfirmationDialog';
 import { LanguagePicker } from './LanguagePicker';
-import UnsavedChangesDialog from './UnsavedChangesDialog';
 import { WithLanguage } from './withLanguage';
 
 const styles: Styles = {
@@ -51,7 +51,14 @@ class FormBase extends React.PureComponent<InnerProps> {
       <Content card>
         <Prompt when={this.shouldBlockNavigation}>
           {({ onConfirm, onCancel }: any) => (
-            <UnsavedChangesDialog onCancel={onCancel} onConfirm={onConfirm}/>
+            <ConfirmationDialog
+              invertedAccents
+              description="There are some unsaved changes, are sure you don't want to save them?"
+              confirmTitle="Leave"
+              cancelTitle="Stay"
+              onCancel={onCancel}
+              onConfirm={onConfirm}
+            />
           )}
         </Prompt>
         <CardHeader title={headerLabel} titleStyle={styles.title} style={{ ...styles.header, backgroundColor }}>

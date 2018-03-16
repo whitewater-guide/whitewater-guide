@@ -22,6 +22,7 @@ const styles = {
     right: 0,
     color: 'white',
     cursor: 'pointer',
+    textAlign: 'right',
     opacity: 0,
     '&:hover': {
       opacity: 1,
@@ -35,6 +36,7 @@ interface Props {
   media: Media;
   editable?: boolean;
   onEdit?: (media: Media) => void;
+  onRemove?: (media: Media) => void;
   onClick?: (media: Media, index: number) => void;
   classes?: any;
 }
@@ -91,6 +93,14 @@ class Thumb extends React.PureComponent<Props, State> {
     }
   };
 
+  onRemove = (e: React.MouseEvent<{}>) => {
+    e.stopPropagation();
+    const { media, onRemove } = this.props;
+    if (onRemove) {
+      onRemove(media);
+    }
+  };
+
   render() {
     const { classes, editable } = this.props;
     const { thumb = '', width = THUMB_HEIGHT, height = THUMB_HEIGHT } = this.state || {};
@@ -101,9 +111,14 @@ class Thumb extends React.PureComponent<Props, State> {
           {
             editable &&
             (
-              <IconButton onClick={this.onEdit}>
-                <FontIcon className="material-icons" color="white">edit</FontIcon>
-              </IconButton>
+              <React.Fragment>
+                <IconButton onClick={this.onEdit}>
+                  <FontIcon className="material-icons" color="white">edit</FontIcon>
+                </IconButton>
+                <IconButton onClick={this.onRemove}>
+                  <FontIcon className="material-icons" color="white">delete_forever</FontIcon>
+                </IconButton>
+              </React.Fragment>
             )
           }
         </div>

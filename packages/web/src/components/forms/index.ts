@@ -1,5 +1,6 @@
 export * from './Checkbox';
 export * from './ChipInput';
+export * from './ConfirmationDialog';
 export * from './DraftEditor';
 export * from './DrawingMapField';
 export * from './LanguagePicker';
