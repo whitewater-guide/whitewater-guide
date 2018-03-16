@@ -57,6 +57,12 @@ class MediaList extends React.PureComponent<MediaListProps, State> {
     history.push(`/regions/${regionId}/sections/${sectionId}/media/new?kind=${kind}`, { file });
   };
 
+  onEdit = (media: Media) => {
+    const { match: { params: { regionId, sectionId } }, history } = this.props;
+    const { id } = media;
+    history.push(`/regions/${regionId}/sections/${sectionId}/media/${id}/settings`);
+  };
+
   render() {
     const { currentModal, photo, video, blog, photoAndVideo } = this.state;
     return (
@@ -74,6 +80,7 @@ class MediaList extends React.PureComponent<MediaListProps, State> {
               media={photo}
               onThumbClick={this.onPhotoClick}
               onAdd={this.onAdd}
+              onEdit={this.onEdit}
             />
           </Col>
         </Row>
@@ -90,6 +97,7 @@ class MediaList extends React.PureComponent<MediaListProps, State> {
               media={video}
               onThumbClick={this.onVideoClick}
               onAdd={this.onAdd}
+              onEdit={this.onEdit}
             />
           </Col>
         </Row>

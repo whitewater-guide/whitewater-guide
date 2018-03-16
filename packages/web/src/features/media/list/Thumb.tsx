@@ -2,8 +2,8 @@ import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import * as React from 'react';
 import injectSheet from 'react-jss';
-import { getVideoThumb } from '../../../ww-clients/utils/index';
-import { Media, MediaKind } from '../../../ww-commons/index';
+import { getVideoThumb } from '../../../ww-clients/utils';
+import { Media, MediaKind } from '../../../ww-commons';
 import { THUMB_HEIGHT } from './constants';
 
 const styles = {
@@ -58,11 +58,9 @@ class Thumb extends React.PureComponent<Props, State> {
 
   setThumb = async (media: Media) => {
     const { kind, url } = media;
-    let thumb: string | undefined;
     const height = THUMB_HEIGHT;
     let width = THUMB_HEIGHT;
     if (kind === MediaKind.photo) {
-      thumb = media.thumb;
       if (media.resolution && media.resolution.length === 2) {
         const scale = THUMB_HEIGHT / media.resolution[1];
         width = media.resolution[0] * scale;
@@ -85,7 +83,8 @@ class Thumb extends React.PureComponent<Props, State> {
     }
   };
 
-  onEdit = () => {
+  onEdit = (e: React.MouseEvent<{}>) => {
+    e.stopPropagation();
     const { media, onEdit } = this.props;
     if (onEdit) {
       onEdit(media);

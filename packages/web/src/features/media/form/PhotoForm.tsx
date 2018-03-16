@@ -1,3 +1,4 @@
+import { get } from 'lodash';
 import * as React from 'react';
 import { TextInput } from '../../../components/forms';
 import { Styles } from '../../../styles';
@@ -24,7 +25,11 @@ export default class PhotoForm extends React.PureComponent<MediaFormProps, State
   state: State = { uploading: false };
 
   async componentDidMount() {
-    const { location: { state }, data, change } = this.props;
+    const { location: { state }, data, change, initialValues } = this.props;
+    if (initialValues.url) {
+      // Editing existing image
+      return;
+    }
     const upload = data!.mediaForm!.upload;
     const file = state.file;
     if (!file) {
@@ -39,9 +44,9 @@ export default class PhotoForm extends React.PureComponent<MediaFormProps, State
   }
 
   render() {
-    const { location: { state } } = this.props;
+    const { location , initialValues: { url } } = this.props;
     const { uploading } = this.state;
-    const file: any = state.file;
+    const preview = get(location, 'state.file.preview');
     return (
       <div style={styles.container}>
         <div style={styles.fields}>
@@ -54,7 +59,7 @@ export default class PhotoForm extends React.PureComponent<MediaFormProps, State
             <TextInput fullWidth disabled name="resolution.1" title="Image height" />
           </div>
         </div>
-        <PhotoFormPreview loading={uploading} preview={file.preview} />
+        <PhotoFormPreview loading={uploading} preview={preview} url={url} />
       </div>
     );
   }
