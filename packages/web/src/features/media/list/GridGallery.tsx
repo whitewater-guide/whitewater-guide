@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Styles } from '../../../styles';
 import { Media, MediaKind } from '../../../ww-commons';
 import Dropzone from './Dropzone';
+import NoMedia from './NoMedia';
 import Thumb from './Thumb';
 
 const styles: Styles = {
@@ -39,7 +40,11 @@ class GridGallery extends React.PureComponent<Props> {
     const { editable, kind, media, onAdd } = this.props;
     return (
       <div style={styles.gallery}>
-        {media.map(this.renderThumb)}
+        {
+          media.length ?
+            media.map(this.renderThumb) :
+            (<NoMedia kind={kind} />)
+        }
         {editable && <Dropzone kind={kind} onAdd={onAdd} />}
       </div>
     );
