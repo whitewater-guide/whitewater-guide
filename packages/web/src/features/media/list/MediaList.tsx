@@ -2,7 +2,7 @@ import { groupBy } from 'lodash';
 import * as React from 'react';
 import { Col } from 'react-grid-system';
 import { Row } from '../../../layout/details';
-import { Media, MediaKind } from '../../../ww-commons';
+import { isAdmin, Media, MediaKind } from '../../../ww-commons';
 import GridGallery from './GridGallery';
 import Lightbox from './Lightbox';
 import { MediaListProps } from './types';
@@ -65,6 +65,8 @@ class MediaList extends React.PureComponent<MediaListProps, State> {
 
   render() {
     const { currentModal, photo, video, blog, photoAndVideo } = this.state;
+    const { me } = this.props;
+    const editable = isAdmin(me);
     return (
       <React.Fragment>
         <Row>
@@ -75,7 +77,7 @@ class MediaList extends React.PureComponent<MediaListProps, State> {
         <Row>
           <Col sm={12}>
             <GridGallery
-              editable
+              editable={editable}
               kind={MediaKind.photo}
               media={photo}
               onThumbClick={this.onPhotoClick}
@@ -92,7 +94,7 @@ class MediaList extends React.PureComponent<MediaListProps, State> {
         <Row>
           <Col sm={12}>
             <GridGallery
-              editable
+              editable={editable}
               kind={MediaKind.video}
               media={video}
               onThumbClick={this.onVideoClick}

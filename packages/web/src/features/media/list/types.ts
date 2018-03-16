@@ -1,6 +1,7 @@
 import { FetchPolicy } from 'apollo-client';
 import { RouteComponentProps } from 'react-router';
 import { WithList } from '../../../ww-clients/apollo';
+import { WithMe } from '../../../ww-clients/features/users';
 import { Connection, Media } from '../../../ww-commons';
 
 export interface WithMediaListOptions {
@@ -15,4 +16,7 @@ export interface WithMediaList {
   mediaBySection: WithList<Media>;
 }
 
-export type MediaListProps = WithMediaList & RouteComponentProps<{regionId: string, sectionId: string}>;
+export type MediaListProps =
+  WithMediaList &
+  WithMe &
+  RouteComponentProps<{regionId: string, sectionId: string}>;

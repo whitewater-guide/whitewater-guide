@@ -4,6 +4,7 @@ import { compose } from 'recompose';
 import { withLoading } from '../../../components';
 import { queryResultToList } from '../../../ww-clients/apollo';
 import { withFeatureIds } from '../../../ww-clients/core';
+import { withMe } from '../../../ww-clients/features/users';
 import SECTIONS_MEDIA from './sectionsMedia.query';
 import { MediaListProps, WithMediaList, WithMediaListOptions, WithMediaListResult } from './types';
 
@@ -23,6 +24,7 @@ export const withSectionMedia = ({ fetchPolicy = 'cache-and-network' }: WithMedi
       },
     ),
     withLoading<WithMediaList>(({ mediaBySection }) => mediaBySection.loading),
+    withMe(),
   );
 
 export default withSectionMedia;
