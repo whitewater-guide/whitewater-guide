@@ -19,7 +19,5 @@ export const uploadFile = (file: File, link: UploadLink): Promise<string> => new
   };
   xhr.onerror = reject;
   xhr.open('POST', link.postURL);
-  xhr.setRequestHeader('Access-Control-Expose-Headers', 'Location');
-  xhr.setRequestHeader('X-Container-Meta-Access-Control-Expose-Headers', 'Location');
   xhr.send(formData);
 });
