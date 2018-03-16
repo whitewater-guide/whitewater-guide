@@ -1,24 +1,30 @@
-package main
+package georgia
 
 import (
-  "github.com/doomsower/whitewater/workers/core"
+  "core"
   "github.com/spf13/pflag"
 )
 
-type worker struct{
-  core.NamedWorker
+type workerGeorgia struct{}
+
+func (w *workerGeorgia) ScriptName() string {
+  return "georgia"
 }
 
-func (w *worker) HarvestMode() string {
+func (w *workerGeorgia) HarvestMode() string {
   return core.AllAtOnce
 }
 
-func (w *worker) Autofill() ([]core.GaugeInfo, error) {
-  return parseTable()
+func (w *workerGeorgia) FlagsToExtras(flags *pflag.FlagSet) map[string]interface{} {
+  return nil
 }
 
-func (w *worker) Harvest(_ string, _ int64, _ *pflag.FlagSet) ([]core.Measurement, error) {
-  gauges, err := parseTable()
+func (w *workerGeorgia) Autofill() ([]core.GaugeInfo, error) {
+  return w.parseTable()
+}
+
+func (w *workerGeorgia) Harvest(_ core.HarvestOptions) ([]core.Measurement, error) {
+  gauges, err := w.parseTable()
   if err != nil {
     return nil, err
   }
@@ -27,4 +33,8 @@ func (w *worker) Harvest(_ string, _ int64, _ *pflag.FlagSet) ([]core.Measuremen
     measurements[i] = gauge.Measurement
   }
   return measurements, nil
+}
+
+func NewWorkerGeorgia() core.Worker {
+  return &workerGeorgia{}
 }

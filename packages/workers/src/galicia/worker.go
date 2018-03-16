@@ -1,18 +1,28 @@
-package main
+package galicia
 
 import (
-  "github.com/doomsower/whitewater/workers/core"
+  "core"
   "encoding/json"
   "fmt"
   "net/http"
   "github.com/spf13/pflag"
 )
 
-type worker struct {
-  core.NamedWorker
+type workerGalicia struct {}
+
+func (w *workerGalicia) ScriptName() string {
+  return "galicia"
 }
 
-func (w *worker) Autofill() ([]core.GaugeInfo, error) {
+func (w *workerGalicia) HarvestMode() string {
+  return core.AllAtOnce
+}
+
+func (w *workerGalicia) FlagsToExtras(flags *pflag.FlagSet) map[string]interface{} {
+  return nil
+}
+
+func (w *workerGalicia) Autofill() ([]core.GaugeInfo, error) {
   resp, err := http.Get("http://servizos.meteogalicia.es/rss/observacion/jsonAforos.action")
   if err != nil {
     return nil, err
@@ -41,6 +51,7 @@ func (w *worker) Autofill() ([]core.GaugeInfo, error) {
     }
     info := core.GaugeInfo{
       GaugeId: core.GaugeId{
+        Script: w.ScriptName(),
         Code: fmt.Sprintf("%d", entry.Ide),
       },
       Name: entry.NomeEstacion,
@@ -53,6 +64,7 @@ func (w *worker) Autofill() ([]core.GaugeInfo, error) {
       LevelUnit: levelUnit,
       Measurement: core.Measurement{
         GaugeId: core.GaugeId{
+          Script: w.ScriptName(),
           Code: fmt.Sprintf("%d", entry.Ide),
         },
         Flow:      flowValue,
@@ -66,7 +78,7 @@ func (w *worker) Autofill() ([]core.GaugeInfo, error) {
   return result, nil
 }
 
-func (w *worker) Harvest(_ string, _ int64, _ *pflag.FlagSet) ([]core.Measurement, error) {
+func (w *workerGalicia) Harvest(_ core.HarvestOptions) ([]core.Measurement, error) {
   infos, err := w.Autofill()
   if err != nil {
     return nil, err
@@ -78,6 +90,6 @@ func (w *worker) Harvest(_ string, _ int64, _ *pflag.FlagSet) ([]core.Measuremen
   return result, nil
 }
 
-func (w *worker) HarvestMode() string {
-  return core.AllAtOnce
+func NewWorkerGalicia() core.Worker {
+  return &workerGalicia{}
 }

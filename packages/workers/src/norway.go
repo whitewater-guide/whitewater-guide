@@ -43,13 +43,14 @@ package main
  **/
 
 import (
-  "github.com/doomsower/whitewater/workers/core"
+  "core"
   "github.com/spf13/cobra"
+  "norway"
 )
 
 func main() {
-  norway := &worker{}
-  cmd := core.Init(norway)
+  worker := norway.NewWorkerNorway()
+  cmd := core.Init(worker)
   var harvestCmd cobra.Command
   for _, c := range cmd.Commands() {
     if (*c).Name() == "harvest" {
@@ -57,9 +58,9 @@ func main() {
       break
     }
   }
-  var versionFlag string
+  var versionFlag int
   var htmlFlag bool
-  harvestCmd.Flags().StringVar(&versionFlag, "version", "1", "Gauge version")
+  harvestCmd.Flags().IntVar(&versionFlag, "version", 1, "Gauge version")
   harvestCmd.Flags().BoolVar(&htmlFlag, "html", false, "Set to true to parse raw HTML instead of json")
   core.Execute()
 }

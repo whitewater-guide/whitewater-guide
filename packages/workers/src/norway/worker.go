@@ -1,7 +1,7 @@
-package main
+package norway
 
 import (
-  "github.com/doomsower/whitewater/workers/core"
+  "core"
   "golang.org/x/text/encoding/charmap"
   "github.com/PuerkitoBio/goquery"
   "net/http"
@@ -11,22 +11,35 @@ import (
   "time"
   "math/rand"
   "strings"
+  log "github.com/sirupsen/logrus"
 )
-
-type worker struct {
-  core.NamedWorker
-}
 
 const (
   urlBase = "http://www2.nve.no/h/hd/plotreal/Q/"
   listUrl = urlBase + "list.html"
 )
 
-func (w *worker) HarvestMode() string {
+type workerNorway struct {}
+
+func (w *workerNorway) ScriptName() string {
+  return "norway"
+}
+
+func (w *workerNorway) HarvestMode() string {
   return core.OneByOne
 }
 
-func (w *worker) Autofill() ([]core.GaugeInfo, error) {
+func (w *workerNorway) FlagsToExtras(flags *pflag.FlagSet) map[string]interface{} {
+  version, _ := flags.GetInt("version")
+  html, _ := flags.GetBool("html")
+  return map[string]interface{}{
+    "version": version,
+    "html":   html,
+  }
+}
+
+
+func (w *workerNorway) Autofill() ([]core.GaugeInfo, error) {
   resp, err := http.Get(listUrl)
   if err != nil {
     return nil, err
@@ -44,8 +57,8 @@ func (w *worker) Autofill() ([]core.GaugeInfo, error) {
   resultsCh := make(chan core.GaugeInfo, len(gauges))
   results := make([]core.GaugeInfo, len(gauges))
 
-  for w := 1; w <= 5; w++ {
-    go gaugePageWorker(jobsCh, resultsCh)
+  for i := 1; i <= 5; i++ {
+    go w.gaugePageWorker(jobsCh, resultsCh)
   }
   for _, g := range gauges {
     jobsCh <- g
@@ -58,21 +71,27 @@ func (w *worker) Autofill() ([]core.GaugeInfo, error) {
   return results, nil
 }
 
-func (w *worker) Harvest(code string, since int64, flags *pflag.FlagSet) ([]core.Measurement, error) {
-  version, _ := flags.GetString("version")
-  html, _ := flags.GetBool("html")
+func (w *workerNorway) Harvest(options core.HarvestOptions) ([]core.Measurement, error) {
+  var version = 1
+  var html = false
+  if v, ok := options.Extras["version"]; ok && v != 0 {
+    version = v.(int)
+  }
+  if v, ok := options.Extras["html"]; ok {
+    html = v.(bool)
+  }
 
   // Sometimes gauge JSON will contain message like "213.4.0 This station is not enabled for viewing - Ingen data"
   // In this case, set html flag to fallback to parsing raw pages
   // TODO: parse csv instead of html, as csv is 5kb vs 17
   if html {
-    return harvestFromPage(code)
+    return w.harvestFromPage(options.Code)
   } else {
-    return harvestFromJSON(code, since, version)
+    return w.harvestFromJSON(options.Code, options.Since, version)
   }
 }
 
-func harvestFromPage(code string) ([]core.Measurement, error) {
+func (w *workerNorway) harvestFromPage(code string) ([]core.Measurement, error) {
   // http://www2.nve.no/h/hd/plotreal/Q/0213.00004.000/index.html
   parts := strings.Split(code, ".")
   url := fmt.Sprintf("http://www2.nve.no/h/hd/plotreal/Q/%04v.%05v.000/index.html", parts[0], parts[1])
@@ -88,6 +107,7 @@ func harvestFromPage(code string) ([]core.Measurement, error) {
   page := parsePage(string(bytes))
   m := core.Measurement{
     GaugeId: core.GaugeId{
+      Script: w.ScriptName(),
       Code:   code,
     },
     Timestamp: core.HTime{Time: page.timestamp.Time.UTC()},
@@ -96,7 +116,7 @@ func harvestFromPage(code string) ([]core.Measurement, error) {
   return []core.Measurement{m}, nil
 }
 
-func harvestFromJSON(code string, since int64, version string) ([]core.Measurement, error) {
+func (w *workerNorway) harvestFromJSON(code string, since int64, version int) ([]core.Measurement, error) {
   now := time.Now()
   url := "http://h-web01.nve.no/chartserver/ShowData.aspx?req=getchart&ver=1.0&vfmt=json&time="
   // It seems that this endpoint cannot filter by hours, only by days
@@ -111,7 +131,7 @@ func harvestFromJSON(code string, since int64, version string) ([]core.Measureme
     sinceT := time.Unix(since, 0)
     sinceStr = sinceT.UTC().Format("20060102T1504") + ";0"
   }
-  paddedCode := code + ".0.1001." + version
+  paddedCode := fmt.Sprintf("%s.0.1001.%d", code, version)
   url += sinceStr
   url += "&lang=no&chd=ds=htsr,da=29,id=" + paddedCode + ",rt=0"
 
@@ -128,19 +148,30 @@ func harvestFromJSON(code string, since int64, version string) ([]core.Measureme
   if err != nil {
     return nil, err
   }
-  measurements, err := parseRawJSON(code, bytes)
+  measurements, err := parseRawJSON(w.ScriptName(), code, bytes)
   if err != nil {
     return nil, err
+  }
+
+  if len(measurements) == 0 {
+    log.WithFields(log.Fields{
+      "script": w.ScriptName(),
+      "command": "harvest",
+      "code": code,
+      "since": since,
+      "url": url,
+    }).Warn("returned 0 measurements")
   }
 
   return measurements, nil
 }
 
-func gaugePageWorker(gauges <-chan listItem, results chan<- core.GaugeInfo) {
+func (w *workerNorway) gaugePageWorker(gauges <-chan listItem, results chan<- core.GaugeInfo) {
   for gauge := range gauges {
     resp, err := http.Get(gauge.href)
     result := core.GaugeInfo{
       GaugeId: core.GaugeId{
+        Script: w.ScriptName(),
         Code:   gauge.id,
       },
       Name:     gauge.name,
@@ -166,4 +197,8 @@ func gaugePageWorker(gauges <-chan listItem, results chan<- core.GaugeInfo) {
     results <- result
     resp.Body.Close()
   }
+}
+
+func NewWorkerNorway() core.Worker {
+  return &workerNorway{}
 }

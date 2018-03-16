@@ -1,14 +1,15 @@
-package main
+package galicia
 
 import (
   "testing"
   "time"
+  "core"
 )
 
 func TestHarvest(t *testing.T)  {
-  w := worker{}
+  w := workerGalicia{}
 
-  measurements, e := w.Harvest("", 0, nil)
+  measurements, e := w.Harvest(core.HarvestOptions{})
 
   if e != nil {
     t.Errorf("Should work")
@@ -22,6 +23,10 @@ func TestHarvest(t *testing.T)  {
 
   if m.Code == "" {
     t.Errorf("Gauge code got screwed")
+  }
+
+  if m.Script == "" {
+    t.Errorf("Gauge script name got screwed")
   }
 
   if m.Level <= 0 || m.Flow <= 0 {

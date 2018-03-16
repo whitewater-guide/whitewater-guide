@@ -1,13 +1,13 @@
-package main
+package norway
 
 import (
   "testing"
   "strings"
-  "github.com/spf13/pflag"
+  "core"
 )
 
 func TestAutofill(t *testing.T) {
-  w := worker{}
+  w := NewWorkerNorway()
 
   gauges, e := w.Autofill()
 
@@ -21,6 +21,10 @@ func TestAutofill(t *testing.T) {
 
   g := gauges[0]
 
+  if g.Script != w.ScriptName() {
+    t.Errorf("Gauge script name got screwed")
+  }
+
   if strings.Index(g.Code, ".") <= 0 {
     t.Errorf("Gauge code got screwed")
   }
@@ -31,14 +35,18 @@ func TestAutofill(t *testing.T) {
 }
 
 func TestHarvestJson(t *testing.T) {
-  w := worker{}
-
-  flags := pflag.NewFlagSet("test", pflag.ContinueOnError)
-  flags.String("version", "1", "-")
-  flags.Bool("html", false, "-")
+  w := NewWorkerNorway()
 
   code := "2.268"
-  measurements, err := w.Harvest(code, 0, flags)
+  options := core.HarvestOptions{
+    Code: code,
+    Extras: map[string]interface{}{
+      "version": 1,
+      "html":    false,
+    },
+  }
+
+  measurements, err := w.Harvest(options)
   if err != nil {
     t.Errorf("Should work")
   }
@@ -49,6 +57,9 @@ func TestHarvestJson(t *testing.T) {
 
   m0 := measurements[0]
 
+  if m0.Script != w.ScriptName() {
+    t.Errorf("Should set script name correctly")
+  }
   if m0.Code != code {
     t.Errorf("Should set code correctly")
   }
@@ -57,21 +68,29 @@ func TestHarvestJson(t *testing.T) {
     t.Errorf("Should extract flow correctly")
   }
 
-  _, e := w.Harvest(code, measurements[5].Timestamp.Unix(), flags)
+  optionsWithSince := options
+  optionsWithSince.Since = measurements[5].Timestamp.Unix()
+
+  _, e := w.Harvest(optionsWithSince)
   if e != nil {
     t.Errorf("Should support since flag")
   }
 }
 
 func TestHarvestHTML(t *testing.T) {
-  w := worker{}
-
-  flags := pflag.NewFlagSet("test", pflag.ContinueOnError)
-  flags.String("version", "1", "-")
-  flags.Bool("html", true, "-")
+  w := NewWorkerNorway()
 
   code := "213.4"
-  measurements, err := w.Harvest(code, 0, flags)
+  options := core.HarvestOptions{
+    Code: code,
+    Extras: map[string]interface{}{
+      "version": 1,
+      "html":    true,
+    },
+  }
+
+  measurements, err := w.Harvest(options)
+
   if err != nil {
     t.Errorf("Should work")
   }
@@ -82,6 +101,9 @@ func TestHarvestHTML(t *testing.T) {
 
   m0 := measurements[0]
 
+  if m0.Script != w.ScriptName() {
+    t.Errorf("Should set script name correctly")
+  }
   if m0.Code != code {
     t.Errorf("Should set code correctly")
   }

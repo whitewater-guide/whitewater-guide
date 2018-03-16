@@ -7,14 +7,12 @@ import (
 )
 
 var rootCmd *cobra.Command
-var verbose bool
 
 func Init(worker Worker) *cobra.Command {
   rootCmd = &cobra.Command{
     Use:   worker.ScriptName(),
     Short: "Gauge harvester script '" + worker.ScriptName() + "'",
   }
-  rootCmd.PersistentFlags().BoolVarP(&verbose, "verbose", "v", false, "Human-readable output")
   rootCmd.AddCommand(
     initAutofill(worker),
     initDescribe(worker),

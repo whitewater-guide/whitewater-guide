@@ -3,7 +3,6 @@ package core
 import (
   "github.com/spf13/cobra"
   "fmt"
-  "encoding/json"
   "os"
   "sort"
   "github.com/olekukonko/tablewriter"
@@ -25,8 +24,7 @@ func initHarvest(worker Worker) *cobra.Command {
     Short: "Returns script name and harvest mode",
     Run: func(cmd *cobra.Command, args []string) {
       flags := cmd.Flags()
-      verbose, _ := flags.GetBool("verbose")
-      harvest(worker, verbose, flags)
+      harvest(worker, flags)
     },
   }
   cmd.Flags().StringVarP(&codeFlag, "code", "c", "", "Gauge code for one-by-one scripts")
@@ -34,34 +32,20 @@ func initHarvest(worker Worker) *cobra.Command {
   return cmd
 }
 
-func harvest(worker Worker, verbose bool, flags *pflag.FlagSet) {
+func harvest(worker Worker, flags *pflag.FlagSet) {
   code, _ := flags.GetString("code")
   since, _ := flags.GetInt64("since")
-  measurements, err := worker.Harvest(code, since, flags)
-  measurements = filterMeasurements(measurements, since, worker.ScriptName())
-  if verbose {
-    if err != nil {
-      fmt.Println(err)
-    } else {
-      printMeasurements(measurements)
-    }
+  extras := worker.FlagsToExtras(flags)
+  measurements, err := worker.Harvest(HarvestOptions{Code: code, Since: since, Extras: extras})
+  measurements = FilterMeasurements(measurements, since)
+  if err != nil {
+    fmt.Println(err)
   } else {
-    var resp *Response
-    if err != nil {
-      resp = &Response{Success: false, Error: err.Error()}
-    } else {
-      resp = &Response{Success: true, Data: measurements}
-    }
-    respBytes, e := json.Marshal(resp)
-    if e != nil {
-      fmt.Fprintf(os.Stderr, "Error while marshaling harvest JSON: %s", e)
-      os.Exit(1)
-    }
-    fmt.Print(string(respBytes))
+    printMeasurements(measurements)
   }
 }
 
-func filterMeasurements(measurements []Measurement, since int64, scriptName string) []Measurement {
+func FilterMeasurements(measurements []Measurement, since int64) []Measurement {
   l := len(measurements)
   seen := make(map[MKey]struct{}, l)
   result := make([]Measurement, 0)
@@ -84,7 +68,6 @@ func filterMeasurements(measurements []Measurement, since int64, scriptName stri
     )
     result = append(result, Measurement{})
     copy(result[insertAt+1:], result[insertAt:])
-    m.Script = scriptName
     result[insertAt] = m
   }
   return result

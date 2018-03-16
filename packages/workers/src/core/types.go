@@ -4,8 +4,6 @@ import (
   "time"
   "encoding/json"
   "github.com/spf13/pflag"
-  "os"
-  "strings"
 )
 
 const (
@@ -54,27 +52,18 @@ type Description struct {
   Mode string `json:"mode"`
 }
 
-type ScriptNamer interface {
-  ScriptName() string
-}
-
-type NamedWorker struct {
-  scriptName string
-}
-
-func (w *NamedWorker) ScriptName() string {
-  if w.scriptName == "" {
-    parts := strings.Split(os.Args[0], "/")
-    w.scriptName = parts[len(parts)-1]
-  }
-  return w.scriptName
+type HarvestOptions struct {
+  Code   string                 `json:"code" structs:"code,omitempty"`
+  Since  int64                  `json:"since" structs:"since,omitempty"`
+  Extras map[string]interface{} `json:"extras" structs:"extras,omitempty"`
 }
 
 type Worker interface {
-  Autofill() ([]GaugeInfo, error)
-  Harvest(code string, since int64, flags *pflag.FlagSet) ([]Measurement, error)
+  ScriptName() string
   HarvestMode() string
-  ScriptNamer
+  Autofill() ([]GaugeInfo, error)
+  Harvest(options HarvestOptions) ([]Measurement, error)
+  FlagsToExtras(flags *pflag.FlagSet) map[string]interface{}
 }
 
 type Response struct {
@@ -82,3 +71,5 @@ type Response struct {
   Error   string      `json:"error,omitempty"`
   Data    interface{} `json:"data,omitempty"`
 }
+
+type WorkerFactory func() Worker

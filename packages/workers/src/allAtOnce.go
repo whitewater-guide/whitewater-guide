@@ -1,12 +1,13 @@
 package main
 
 import (
-  "github.com/doomsower/whitewater/workers/core"
+  "core"
   "github.com/spf13/cobra"
+  "all-at-once"
 )
 
 func main()  {
-  w := &worker{}
+  w := all_at_once.NewWorkerAllAtOnce()
   cmd := core.Init(w)
   var harvestCmd cobra.Command
   for _, c := range cmd.Commands() {

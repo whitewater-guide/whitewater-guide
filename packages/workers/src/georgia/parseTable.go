@@ -1,8 +1,8 @@
-package main
+package georgia
 
 import (
   "github.com/PuerkitoBio/goquery"
-  "github.com/doomsower/whitewater/workers/core"
+  "core"
   "net/http"
   "fmt"
   "strings"
@@ -14,7 +14,7 @@ import (
 
 const url = "http://meteo.gov.ge/index.php?l=2&pg=hd"
 
-func parseTable() ([]core.GaugeInfo, error) {
+func (w *workerGeorgia) parseTable() ([]core.GaugeInfo, error) {
   resp, err := http.Get(url)
   if err != nil {
     return nil, err
@@ -36,6 +36,7 @@ func parseTable() ([]core.GaugeInfo, error) {
     code = fmt.Sprintf("%x", md5.Sum([]byte(code)))
     result = append(result, core.GaugeInfo{
       GaugeId: core.GaugeId{
+        Script: w.ScriptName(),
         Code:   code,
       },
       LevelUnit: "cm",
@@ -43,6 +44,7 @@ func parseTable() ([]core.GaugeInfo, error) {
       Url:       url,
       Measurement: core.Measurement{
         GaugeId: core.GaugeId{
+          Script: w.ScriptName(),
           Code:   code,
         },
         Timestamp: core.HTime{time.Now().UTC()},

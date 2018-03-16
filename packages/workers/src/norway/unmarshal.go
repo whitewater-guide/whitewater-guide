@@ -1,4 +1,4 @@
-package main
+package norway
 
 import (
   "github.com/PuerkitoBio/goquery"
@@ -6,7 +6,7 @@ import (
   "strconv"
   "encoding/json"
   "time"
-  "github.com/doomsower/whitewater/workers/core"
+  "core"
 )
 
 type listItem struct {
@@ -100,7 +100,7 @@ func parsePage(data string) gaugePage {
   return result
 }
 
-func parseRawJSON(code string, b []byte) (measurements []core.Measurement, err error) {
+func parseRawJSON(script, code string, b []byte) (measurements []core.Measurement, err error) {
   var res RawJSON
   err = json.Unmarshal(b, &res)
   points := res[0].SeriesPoints
@@ -108,6 +108,7 @@ func parseRawJSON(code string, b []byte) (measurements []core.Measurement, err e
   for i, p := range points {
     measurements[i] = core.Measurement{
       GaugeId: core.GaugeId{
+        Script: script,
         Code: code,
       },
       Timestamp: core.HTime{p.Key.Time},

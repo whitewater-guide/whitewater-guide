@@ -1,4 +1,4 @@
-package main
+package galicia2
 
 import (
   "net/http"

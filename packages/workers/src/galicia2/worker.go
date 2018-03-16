@@ -1,20 +1,26 @@
-package main
+package galicia2
 
 import (
-  "github.com/doomsower/whitewater/workers/core"
+  "core"
   "github.com/spf13/pflag"
 )
 
-type worker struct{
-  core.NamedWorker
+type workerGalicia2 struct{}
+
+func (w *workerGalicia2) ScriptName() string {
+  return "galicia2"
 }
 
-func (w *worker) HarvestMode() string {
+func (w *workerGalicia2) HarvestMode() string {
   return core.AllAtOnce
 }
 
-func (w *worker) Autofill() ([]core.GaugeInfo, error) {
-  gauges, err := parseTable()
+func (w *workerGalicia2) FlagsToExtras(flags *pflag.FlagSet) map[string]interface{} {
+  return nil
+}
+
+func (w *workerGalicia2) Autofill() ([]core.GaugeInfo, error) {
+  gauges, err := w.parseTable()
   if err != nil {
     return gauges, err
   }
@@ -36,15 +42,14 @@ func (w *worker) Autofill() ([]core.GaugeInfo, error) {
   return gauges, nil
 }
 
-func (w *worker) Harvest(_ string, _ int64, _ *pflag.FlagSet) ([]core.Measurement, error) {
-  gauges, err := parseTable()
+func (w *workerGalicia2) Harvest(options core.HarvestOptions) ([]core.Measurement, error) {
+  gauges, err := w.parseTable()
   if err != nil {
     return nil, err
   }
   measurements := make([]core.Measurement, len(gauges))
   for i, g := range gauges {
     measurements[i] = g.Measurement
-    measurements[i].GaugeId = g.GaugeId
   }
   return measurements, nil
 }
@@ -57,4 +62,8 @@ func gaugePageWorker(gauges <-chan *core.GaugeInfo, results chan<- struct{}) {
     gauge.Location.Altitude = altitude
     results <- struct{}{}
   }
+}
+
+func NewWorkerGalicia2() core.Worker {
+  return &workerGalicia2{}
 }

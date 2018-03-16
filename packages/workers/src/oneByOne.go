@@ -1,13 +1,14 @@
 package main
 
 import (
-  "github.com/doomsower/whitewater/workers/core"
+  "core"
   "github.com/spf13/cobra"
+  "one-by-one"
 )
 
 func main()  {
-  w := &worker{}
-  cmd := core.Init(w)
+  worker := one_by_one.NewWorkerOneByOne()
+  cmd := core.Init(worker)
   var harvestCmd cobra.Command
   for _, c := range cmd.Commands() {
     if (*c).Name() == "harvest" {

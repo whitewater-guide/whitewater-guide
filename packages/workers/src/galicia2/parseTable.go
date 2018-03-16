@@ -1,11 +1,11 @@
-package main
+package galicia2
 
 import (
   "net/http"
   "bufio"
   "fmt"
   "strings"
-  "github.com/doomsower/whitewater/workers/core"
+  "core"
   "regexp"
   "strconv"
   "time"
@@ -13,7 +13,7 @@ import (
   "html"
 )
 
-func parseTable() ([]core.GaugeInfo, error) {
+func (w *workerGalicia2) parseTable() ([]core.GaugeInfo, error) {
   var result []core.GaugeInfo
   jarOpts := jar.Options{
     Filename: "galicia2.cookies",
@@ -66,12 +66,14 @@ func parseTable() ([]core.GaugeInfo, error) {
     case 1: // River name and code
       station := scanner.Text()
       parts := stationExp.FindStringSubmatch(station)
+      row.GaugeId.Script = w.ScriptName()
       row.GaugeId.Code = parts[1]
       row.Name = prettyName(parts[2])
       row.Url = fmt.Sprintf("http://saih.chminosil.es/index.php?url=/datos/ficha/estacion:%s", parts[1])
     case 5: // Level
       levelStr := scanner.Text()
       levelStr = strings.Replace(levelStr, ",", ".", 1)
+      row.Measurement.GaugeId = row.GaugeId
       row.Measurement.Level, _ = strconv.ParseFloat(levelStr, 64)
     case 6: // timestamp
       t, _ := time.ParseInLocation("02/01/2006 15:04", scanner.Text(), location)
