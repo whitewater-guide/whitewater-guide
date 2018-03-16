@@ -198,6 +198,10 @@ it('should reinitialize form when language changes', () => {
   });
 });
 
-it('should pass extra variables to mutation', () => {
+it('should pass extra (functional) variables to mutation', () => {
+  throw new Error('write me');
+});
+
+it('should make use of (functional) mutation options when provided', () => {
   throw new Error('write me');
 });

@@ -3,10 +3,11 @@ import { DocumentNode } from 'graphql';
 // tslint:disable-next-line
 import { Schema } from 'joi';
 import { memoize } from 'lodash';
-import { ChildProps, graphql } from 'react-apollo';
+import { ChildProps, graphql, MutationOpts } from 'react-apollo';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { compose, mapProps } from 'recompose';
 import { ConfigProps, InjectedFormProps, reduxForm, SubmissionError } from 'redux-form';
+import { Omit } from 'type-zoo';
 import { apolloErrorToString } from '../../ww-clients/apollo';
 import { withLoading } from '../withLoading';
 import { validateInput } from './validateInput';
@@ -65,6 +66,10 @@ export interface FormContainerOptions<QueryResult, MutationResult, FormInput> {
    * This object will be merged into variables as well
    */
   extraVariables?: object | ((props: any) => object);
+  /**
+   * Extra options for mutation, e.g. refetchQueries
+   */
+  mutationOptions?: Omit<MutationOpts, 'variables'> | ((props: any) => Omit<MutationOpts, 'variables'>);
 }
 
 export const formContainer = <QueryResult, MutationResult, FormInput>(
@@ -81,6 +86,7 @@ export const formContainer = <QueryResult, MutationResult, FormInput>(
     validationSchema,
     formName,
     extraVariables,
+    mutationOptions,
   } = options;
 
   type FormProps = Partial<ConfigProps<FormInput>>;
@@ -102,6 +108,7 @@ export const formContainer = <QueryResult, MutationResult, FormInput>(
       const splitter = backPath || `${propName}s`;
       const path = location.pathname.split(splitter)[0] + splitter;
       const extraVars = typeof extraVariables === 'function' ? extraVariables(props) : extraVariables;
+      const mutationOpts = typeof mutationOptions === 'function' ? mutationOptions(props) : mutationOptions;
       return {
         language,
         onLanguageChange,
@@ -112,7 +119,10 @@ export const formContainer = <QueryResult, MutationResult, FormInput>(
         initialValues: deserialize(value),
         onSubmit: (input: FormInput) => {
           // Make it clear that we return promise
-          return mutate!({ variables: { [propName]: serializeForm(input), language, ...extraVars } })
+          return mutate!({
+              ...mutationOpts,
+              variables: { [propName]: serializeForm(input), language, ...extraVars },
+            })
             .then(() => history.replace(path!))
             .catch((e: ApolloError) => {
               throw new SubmissionError({ _error: apolloErrorToString(e) });
