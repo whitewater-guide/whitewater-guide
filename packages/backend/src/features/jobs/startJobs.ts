@@ -1,13 +1,11 @@
 import db from '../../db';
-import log from '../../log';
 import { isMaster } from '../../utils';
 import { HarvestMode } from '../../ww-commons';
 import { GaugeRaw } from '../gauges';
 import { SourceRaw } from '../sources';
 import { createJob } from './createJob';
+import logger from './logger';
 import safeScheduleJob from './safeScheduleJob';
-
-const logger = log.child({ module: 'startJobs' });
 
 export async function startJobs(sourceId: string, gaugeId?: string) {
   if (!isMaster()) {

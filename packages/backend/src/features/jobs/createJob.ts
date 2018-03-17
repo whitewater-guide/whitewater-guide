@@ -1,10 +1,8 @@
-import log from '../../log';
 import { GaugeRaw } from '../gauges';
 import { insertMeasurements } from '../measurements';
 import { execScript, ScriptCommand, ScriptMeasurement } from '../scripts';
 import { SourceRaw } from '../sources';
-
-const logger = log.child({ module: 'jobs' });
+import logger from './logger';
 
 export const createJob = (source: SourceRaw, gauge?: GaugeRaw) => async () => {
   try {
