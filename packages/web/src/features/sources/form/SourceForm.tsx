@@ -12,7 +12,7 @@ export default class SourceForm extends React.PureComponent<SourceFormProps> {
           <Tab label="Main" value="#main">
             <TextInput fullWidth name="name" title="Name" />
             <ChipInput name="regions" title="Regions" options={this.props.regions} />
-            <Select name="script" title="Script" options={this.props.scripts} />
+            <Select simple={false} name="script" title="Script" options={this.props.scripts} />
             <TextInput fullWidth name="url" title="URL" />
             <TextInput fullWidth name="cron" title="Cron" />
           </Tab>
