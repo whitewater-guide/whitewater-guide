@@ -29,6 +29,7 @@ export default class SourcesList extends React.PureComponent<SourceListProps> {
       >
         <Column width={200} label="Name" dataKey="name" />
         <Column width={100} label="Harvest mode" dataKey="harvestMode" />
+        <AdminColumn width={70} label="Cron" dataKey="cron" />
         <AdminColumn width={70} label="Enabled" dataKey="enabled" cellRenderer={this.renderEnabled} />
       </ResourcesListCard>
     );

@@ -9,6 +9,7 @@ export default gql`
         name
         harvestMode
         enabled
+        cron
         gauges {
           count
         }
