@@ -1,36 +1,19 @@
-# Stage 1: Build workers
-FROM golang:latest AS workers
-
-WORKDIR /go/src/github.com/doomsower/whitewater/workers
-
-COPY ./workers/src .
-
-RUN go get -d ./...
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go install -ldflags="-s -w" -a ./...
-
-# Stage 2: build node.js backend
-# Pay attention to paths: the context is 'packages/' not 'packages/backend'
-
 FROM node:8
 
 ENV PROJECT_ROOT /opt/app
-ENV BACK_WORKERS_PATH /opt/bin/workers
 
 RUN mkdir -p /tmp/app \
  && mkdir -p /opt/app \
- && chown -R node /opt/app \
- && mkdir -p $BACK_WORKERS_PATH \
- && chown -R node $BACK_WORKERS_PATH
+ && chown -R node /opt/app
 
 RUN npm install -g chokidar-cli pm2
 
-COPY backend/package.json backend/yarn.lock /tmp/app/
+COPY package.json yarn.lock /tmp/app/
 
 RUN cd /tmp/app/ && yarn install
 
 WORKDIR $PROJECT_ROOT
 
-COPY backend/bin /opt/bin
-COPY --from=workers /go/bin $BACK_WORKERS_PATH
+COPY bin /opt/bin
 
 CMD ["/opt/bin/start_dev.sh"]

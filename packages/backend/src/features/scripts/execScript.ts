@@ -1,14 +1,8 @@
-import { execFile as execFileCb } from 'child_process';
-import { resolve } from 'path';
-import { promisify } from 'util';
-import { ScriptOperation } from './types';
+import axios from 'axios';
+import { WORKERS_ENDPOINT } from './endpoint';
+import { ScriptPayload, ScriptResponse } from './types';
 
-const execFile = promisify(execFileCb);
-
-export const execScript = async (script: string, operation: ScriptOperation, options: string[] = []) => {
-  const { stdout } = await execFile(
-    resolve(process.env.BACK_WORKERS_PATH!, script),
-    [operation, ...options],
-  );
-  return JSON.parse(stdout);
+export const execScript = async <R>(payload: ScriptPayload): Promise<ScriptResponse<R>> => {
+  const { data } = await axios.post(WORKERS_ENDPOINT, payload);
+  return data;
 };

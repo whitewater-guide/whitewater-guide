@@ -1,11 +1,14 @@
-# Docker can have only one top-level dockerignore file
 /.idea/
 .git
 /docs/
 /build/
 /legacy/
+**/.DS_Store
 **/*.iml
 **/*.md
+**/*.dump
+**/*.log
+**/*.ts
 **/tslint.json
 **/tsconfig.json
 **/node_modules
@@ -13,7 +16,6 @@
 /packages/web/
 /packages/commons/
 /packages/clients/
-**/*.ts
 /graphql.config.json
 /packages/mongo-to-postgres/
 !/packages/mongo-to-postgres/src/*.go

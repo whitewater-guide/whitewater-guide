@@ -1,14 +1,19 @@
-import { readdir as readdirCb } from 'fs';
-import { promisify } from 'util';
-import { isAdminResolver } from '../../../apollo';
-import { describeScript } from './describeScript';
-
-const readDir = promisify(readdirCb);
+import { isAdminResolver, UnknownError } from '../../../apollo';
+import { execScript } from '../execScript';
+import { ScriptCommand, ScriptDescription } from '../types';
 
 const scripts = isAdminResolver.createResolver(
   async () => {
-    const workers = await readDir(process.env.BACK_WORKERS_PATH!);
-    return Promise.all(workers.map(script => describeScript(script)));
+    const { success, data, error } = await execScript<ScriptDescription>({ command: ScriptCommand.LIST });
+    if (!success) {
+      throw new UnknownError({ message: `Failed to list workers: ${error}` });
+    }
+    return data!.map(({ name, mode }) => ({
+      id: name,
+      name,
+      harvestMode: mode,
+      error: null,
+    }));
   },
 );
 

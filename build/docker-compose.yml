@@ -14,12 +14,13 @@ services:
     env_file:
       - ${DOCKER_ENV_FILE}
     build:
-      context: ../packages
+      context: ../packages/backend
       labels:
         guide.whitewater: ""
     depends_on:
       - db
       - minio
+      - workers
   db:
     <<: *ww-single-host
     env_file:
@@ -40,6 +41,18 @@ services:
       - ${DOCKER_ENV_FILE}
     image: 'darthsim/imgproxy:latest'
     read_only: true
+  workers:
+    <<: *ww-single-host
+    env_file:
+      - ${DOCKER_ENV_FILE}
+    build:
+      context: ../packages/workers
+      labels:
+        guide.whitewater: ""
+    read_only: true
+    volumes:
+      - type: tmpfs
+        target: /tmp/cookies
   caddy:
     <<: *ww-single-host
     env_file:

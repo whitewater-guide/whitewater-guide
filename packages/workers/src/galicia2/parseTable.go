@@ -16,7 +16,7 @@ import (
 func (w *workerGalicia2) parseTable() ([]core.GaugeInfo, error) {
   var result []core.GaugeInfo
   jarOpts := jar.Options{
-    Filename: "galicia2.cookies",
+    Filename: "/tmp/cookies/galicia2.cookies",
   }
   persJar, err := jar.New(&jarOpts)
   if err != nil {

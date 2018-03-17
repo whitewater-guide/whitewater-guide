@@ -16,6 +16,7 @@
     "madge": "madge --circular src/index.js"
   },
   "devDependencies": {
+    "@types/axios": "^0.14.0",
     "@types/body-parser": "^1.16.8",
     "@types/cookie-parser": "^1.4.1",
     "@types/cors": "^2.8.3",
@@ -53,6 +54,7 @@
     "apollo-errors": "^1.7.1",
     "apollo-resolvers": "https://github.com/doomsower/apollo-resolvers/releases/download/2.0.0/apollo-resolvers-1.0.2.tgz",
     "apollo-server-express": "^1.3.2",
+    "axios": "^0.18.0",
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.4",

@@ -2,7 +2,7 @@ import { GraphQLFieldResolver } from 'graphql';
 import { isAdminResolver, MutationNotAllowedError, UnknownError } from '../../../apollo';
 import db, { rawUpsert } from '../../../db';
 import { GaugeInput, PointInput } from '../../../ww-commons';
-import { execScript, ScriptGaugeInfo, ScriptOperation, ScriptResponse } from '../../scripts';
+import { execScript, ScriptCommand, ScriptGaugeInfo } from '../../scripts';
 import { SourceRaw } from '../types';
 
 interface Variables {
@@ -20,13 +20,15 @@ const resolver: GraphQLFieldResolver<any, any> = async (root, { id }: Variables)
   if (enabled) {
     throw new MutationNotAllowedError({ message: 'Cannot autofill source that is enabled' });
   }
-  // Cast workaround for tests: https://github.com/kulshekhar/ts-jest/issues/281
-  const response: ScriptResponse<ScriptGaugeInfo> = await execScript(script, 'autofill' as ScriptOperation);
-  if (response.error) {
-    throw new UnknownError({ message: `Autofill failed: ${response.error}` });
+  const { success, error, data } = await execScript<ScriptGaugeInfo>({
+    command: ScriptCommand.AUTOFILL,
+    script,
+  });
+  if (!success) {
+    throw new UnknownError({ message: `Autofill failed: ${error}` });
   }
   // This is slow, but it's executed rarely
-  const gaugesIn: ScriptGaugeInfo[] = response.data || [];
+  const gaugesIn: ScriptGaugeInfo[] = data || [];
   const gaugesOut = [];
   for (const g of gaugesIn) {
     const { latitude, longitude, altitude } = g.location;

@@ -5,8 +5,7 @@ services:
     container_name: ww-backend
     image: 'ww-backend:dev'
     build:
-      # Context = packages/
-      dockerfile: backend/Dockerfile.dev
+      dockerfile: Dockerfile.dev
     ports:
       - '5775:5775'
       - '3333:3333'
@@ -46,6 +45,9 @@ services:
       - '6001:2015'
   imgproxy:
     container_name: ww-imgproxy
+  workers:
+    container_name: ww-workers
+    image: 'ww-workers:dev'
 volumes:
   yarn:
     labels:

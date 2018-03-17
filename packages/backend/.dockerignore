@@ -1,0 +1,9 @@
+**/*.ts
+node_modules
+Dockerfile.dev
+tsconfig.json
+tslint.json
+.gitignore
+yarn-error.log
+postgres.dump
+.dockerignore
