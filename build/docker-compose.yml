@@ -63,3 +63,10 @@ services:
       labels:
         guide.whitewater: ""
     read_only: true
+  redis:
+    # TODO: password, aof-use-rdb-preamble, etc...
+    # TODO: read_only: true
+    <<: *ww-single-host
+    env_file:
+      - ${DOCKER_ENV_FILE}
+    image: redis:4-alpine

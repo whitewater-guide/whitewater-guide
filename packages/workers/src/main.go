@@ -7,6 +7,7 @@ import (
   "galicia"
   log "github.com/sirupsen/logrus"
   "github.com/fatih/structs"
+  "github.com/gomodule/redigo/redis"
   "galicia2"
   "georgia"
   "norway"
@@ -14,9 +15,12 @@ import (
   "one-by-one"
   "os"
   "fmt"
+  "time"
 )
 
 var endpoint = "/endpoint"
+var pool *redis.Pool
+const LastOpNS = "lastOp"
 
 type Payload struct {
   Command string      `json:"command" structs:"command"`
@@ -121,13 +125,47 @@ func handler(res http.ResponseWriter, req *http.Request) {
     logger.WithFields(log.Fields{"count": count}).Info("success")
   }
 
+  go sendToRedis(payload.Script, payload.Code, err, count)
+
   encoder := json.NewEncoder(res)
   if err = encoder.Encode(respBody); err != nil {
     logger.Error("failed to encode result")
   }
 }
 
+func sendToRedis(script, code string, err error, count int) {
+  conn := pool.Get()
+  defer conn.Close()
+  key := fmt.Sprintf("%s:%s", LastOpNS, script)
+  stats := make(map[string]interface{})
+  if err == nil {
+    stats["success"] = true
+    stats["count"] = count
+  } else {
+    stats["success"] = false
+    stats["error"] = err.Error()
+  }
+  bytes, e := json.Marshal(stats)
+  if e != nil {
+    log.WithFields(log.Fields{
+      "script": script,
+      "code": code,
+      "error": e.Error(),
+      "count": count,
+    }).Warn("failed to write redis last op")
+    return
+  }
+
+  if code == "" { // All-at-once script
+    conn.Do("SET", key, string(bytes))
+  } else { // One-by-one script
+    conn.Do("HSET", key, code, string(bytes))
+  }
+}
+
 func main() {
+  log.Info("staring workers")
+
   register(galicia.NewWorkerGalicia)
   register(galicia2.NewWorkerGalicia2)
   register(georgia.NewWorkerGeorgia)
@@ -143,6 +181,12 @@ func main() {
   var ep = os.Getenv("WORKERS_ENDPOINT")
   if ep != "" {
     endpoint = ep
+  }
+
+  pool = &redis.Pool{
+    MaxIdle: 3,
+    IdleTimeout: 240 * time.Second,
+    Dial: func () (redis.Conn, error) { return redis.Dial("tcp", "redis:6379") },
   }
 
   log.WithFields(log.Fields{
