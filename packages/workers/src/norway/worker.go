@@ -75,7 +75,8 @@ func (w *workerNorway) Harvest(options core.HarvestOptions) ([]core.Measurement,
   var version = 1
   var html = false
   if v, ok := options.Extras["version"]; ok && v != 0 {
-    version = v.(int)
+    vf := v.(float64)
+    version = int(vf)
   }
   if v, ok := options.Extras["html"]; ok {
     html = v.(bool)
