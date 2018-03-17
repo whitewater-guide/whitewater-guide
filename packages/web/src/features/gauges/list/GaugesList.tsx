@@ -22,6 +22,10 @@ export default class GaugesList extends React.PureComponent<GaugesListProps> {
     <MutationToggle id={id} enabled={enabled} toggle={this.toggleGauge} />
   );
 
+  renderRequestParams: TableCellRenderer = ({ rowData: { requestParams } }) => {
+    return requestParams ? JSON.stringify(requestParams) : null;
+  };
+
   render() {
     return (
       <ResourcesList
@@ -33,7 +37,8 @@ export default class GaugesList extends React.PureComponent<GaugesListProps> {
       >
         <Column width={200} label="Name" dataKey="name" />
         <Column width={70} label="Code" dataKey="code" />
-        <Column width={70} label="Cron" dataKey="cron" />
+        <AdminColumn width={70} label="Cron" dataKey="cron" />
+        <AdminColumn width={100} label="Request params" dataKey="rp" cellRenderer={this.renderRequestParams} />
         <AdminColumn width={70} label="Enabled" dataKey="enabled" cellRenderer={this.renderEnabled} />
       </ResourcesList>
     );
