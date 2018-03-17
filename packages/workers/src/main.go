@@ -12,7 +12,11 @@ import (
   "norway"
   "all-at-once"
   "one-by-one"
+  "os"
+  "fmt"
 )
+
+var endpoint = "/endpoint"
 
 type Payload struct {
   Command string      `json:"command" structs:"command"`
@@ -27,12 +31,24 @@ func register(factory core.WorkerFactory) {
   workerFactories[worker.ScriptName()] = factory
 }
 
-func handlerRecover(logger *log.Entry) {
+func handlerRecover(logger *log.Entry, res *http.ResponseWriter) {
   if err := recover(); err != nil {
+    (*res).WriteHeader(http.StatusBadRequest)
     logger.WithFields(log.Fields{
       "error": err,
     }).Error("failed to handle request")
   }
+}
+
+func list() []core.Description {
+  result := make([]core.Description, len(workerFactories))
+  i := 0
+  for _, factory := range workerFactories {
+    worker := factory()
+    result[i] = core.Description{Name: worker.ScriptName(), Mode: worker.HarvestMode()}
+    i++
+  }
+  return result
 }
 
 func handler(res http.ResponseWriter, req *http.Request) {
@@ -40,23 +56,21 @@ func handler(res http.ResponseWriter, req *http.Request) {
   var respBody *core.Response
   var earlyError string
 
-  if req.URL.Path != "/endpoint" {
-    res.WriteHeader(http.StatusBadRequest)
+  if req.URL.Path != endpoint {
     earlyError = "wrong endpoint path " + req.URL.Path
   }
   if req.Method != "POST" {
-    res.WriteHeader(http.StatusBadRequest)
     earlyError = "only POST is supported"
   }
 
   var payload Payload
   decoder := json.NewDecoder(req.Body)
   if err := decoder.Decode(&payload); err != nil {
-    res.WriteHeader(http.StatusBadRequest)
     earlyError = "failed to parse request body"
   }
 
   if earlyError != "" {
+    res.WriteHeader(http.StatusBadRequest)
     log.Error(earlyError)
     encoder := json.NewEncoder(res)
     respBody := core.Response{
@@ -74,20 +88,22 @@ func handler(res http.ResponseWriter, req *http.Request) {
 
   logger := *log.WithFields(structs.Map(payload))
   logger = *logger.WithFields(structs.Map(harvestOptions))
-  defer handlerRecover(&logger)
+  defer handlerRecover(&logger, &res)
 
-  worker := workerFactories[payload.Script]()
 
   var count int
   var err error
   switch payload.Command {
-  case "describe":
-    result = core.Description{Name: worker.ScriptName(), Mode: worker.HarvestMode()}
+  case "list":
+    descrs := list()
+    result, count = descrs, len(descrs)
   case "autofill":
+    worker := workerFactories[payload.Script]()
     var gauges []core.GaugeInfo
     gauges, err = worker.Autofill()
     result, count = gauges, len(gauges)
   case "harvest":
+    worker := workerFactories[payload.Script]()
     var measurements []core.Measurement
     measurements, err = worker.Harvest(harvestOptions)
     measurements = core.FilterMeasurements(measurements, payload.Since)
@@ -119,5 +135,20 @@ func main() {
   register(all_at_once.NewWorkerAllAtOnce)
   register(one_by_one.NewWorkerOneByOne)
   http.HandleFunc("/", handler)
-  log.Fatal(http.ListenAndServe(":7080", nil))
+
+  var port = os.Getenv("WORKERS_PORT")
+  if port == "" {
+    port = "7080"
+  }
+  var ep = os.Getenv("WORKERS_ENDPOINT")
+  if ep != "" {
+    endpoint = ep
+  }
+
+  log.WithFields(log.Fields{
+    "port": port,
+    "endpoint": endpoint,
+  }).Info("workers are listening")
+
+  log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), nil))
 }
