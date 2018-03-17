@@ -38,9 +38,16 @@ func (w *workerAllAtOnce) Autofill() ([]core.GaugeInfo, error) {
 }
 
 func (w *workerAllAtOnce) Harvest(opts core.HarvestOptions) ([]core.Measurement, error) {
-  var value = opts.Extras["value"].(float64)
-  var min = opts.Extras["min"].(float64)
-  var max = opts.Extras["max"].(float64)
+  var value, min, max float64
+  if v, ok := opts.Extras["value"]; ok {
+    value = v.(float64)
+  }
+  if v, ok := opts.Extras["min"]; ok {
+    min = v.(float64)
+  }
+  if v, ok := opts.Extras["max"]; ok {
+    max = v.(float64)
+  }
   res := make([]core.Measurement, numGauges)
   for i := 0; i < numGauges; i++ {
     res[i] = core.GenerateRandMeasurement(w.ScriptName(), fmt.Sprintf("g%03d", i), value, min, max)

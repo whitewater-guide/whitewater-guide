@@ -35,8 +35,14 @@ func GenerateRandMeasurement(script string, code string, value float64, min floa
   r := rand.New(src)
   level, flow := value, value
   if value == 0.0 {
-    level = min + r.Float64()*(max-min)
-    flow = min + r.Float64()*(max-min)
+    delta := max - min
+    if delta == 0 {
+      delta = 100
+    } else if delta < 0 {
+      delta = -delta
+    }
+    level = min + r.Float64()*delta
+    flow = min + r.Float64()*delta
   }
 
   return Measurement{

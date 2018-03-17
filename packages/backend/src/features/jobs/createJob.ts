@@ -18,9 +18,21 @@ export const createJob = (source: SourceRaw, gauge?: GaugeRaw) => async () => {
     if (success) {
       await insertMeasurements(data || []);
     } else {
-      logger.error({ msg: 'Harvest failed', error, source, gauge });
+      logger.error({
+        msg: 'Harvest failed',
+        error,
+        source: source.id,
+        script: source.script,
+        gauge: gauge && gauge.id,
+      });
     }
   } catch (err) {
-    logger.error({ msg: 'Failed to run worker', error: err.message, source, gauge });
+    logger.error({
+      msg: 'Failed to run worker',
+      error: err.message,
+      source: source.id,
+      script: source.script,
+      gauge: gauge && gauge.id,
+    });
   }
 };

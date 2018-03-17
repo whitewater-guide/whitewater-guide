@@ -48,6 +48,8 @@ services:
   workers:
     container_name: ww-workers
     image: 'ww-workers:dev'
+    ports:
+      - '7080:7080'
 volumes:
   yarn:
     labels:
