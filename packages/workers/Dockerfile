@@ -13,5 +13,6 @@ FROM alpine:latest
 
 WORKDIR /root
 COPY --from=builder /go/bin/main workers
+COPY --from=builder /usr/local/go/lib/time/zoneinfo.zip /usr/local/go/lib/time/zoneinfo.zip
 
 ENTRYPOINT ["/root/workers"]
