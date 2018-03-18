@@ -61,10 +61,10 @@ func FilterMeasurements(measurements []Measurement, since int64) []Measurement {
       continue
     }
     seen[key] = struct{}{}
-    // Result is sorted by date, inset into sorted slice
+    // Result is sorted by date descending, insert into sorted slice
     insertAt := sort.Search(
       len(result),
-      func(i int) bool { return result[i].Timestamp.Unix() > m.Timestamp.Unix() },
+      func(i int) bool { return result[i].Timestamp.Unix() < m.Timestamp.Unix() },
     )
     result = append(result, Measurement{})
     copy(result[insertAt+1:], result[insertAt:])
@@ -83,7 +83,7 @@ func printMeasurements(measurements []Measurement) {
     table.Append([]string{
       m.GaugeId.Script,
       m.GaugeId.Code,
-      fmt.Sprintf("%d", m.Timestamp.Unix()),
+      m.Timestamp.UTC().Format("02/01/2006 15:04 MST"),
       fmt.Sprintf("%.2f", m.Level),
       fmt.Sprintf("%.2f", m.Flow),
     })
