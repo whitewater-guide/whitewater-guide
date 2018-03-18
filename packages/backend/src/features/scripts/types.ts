@@ -1,10 +1,5 @@
 import { HarvestMode } from '../../ww-commons';
 
-export interface ScriptDescription {
-  name: string;
-  mode: HarvestMode;
-}
-
 export enum ScriptCommand {
   LIST = 'list',
   AUTOFILL = 'autofill',
@@ -19,10 +14,15 @@ export interface ScriptPayload {
   extras?: {[key: string]: string | number | boolean };
 }
 
-export interface ScriptResponse<Raw> {
+export interface ScriptResponse<T> {
   success: boolean;
   error?: string;
-  data?: Raw[];
+  data?: T;
+}
+
+export interface ScriptDescription {
+  name: string;
+  mode: HarvestMode;
 }
 
 export interface ScriptLocation {
@@ -39,12 +39,4 @@ export interface ScriptGaugeInfo {
   levelUnit: string;
   flowUnit: string;
   location: ScriptLocation;
-}
-
-export interface ScriptMeasurement {
-  script: string;
-  code: string;
-  timestamp: string;
-  level: number;
-  flow: number;
 }

@@ -1,20 +1,26 @@
 import { GaugeRaw } from '../gauges';
-import { insertMeasurements } from '../measurements';
-import { execScript, ScriptCommand, ScriptMeasurement } from '../scripts';
+import { execScript, ScriptCommand } from '../scripts';
 import { SourceRaw } from '../sources';
 import logger from './logger';
 
 export const createJob = (source: SourceRaw, gauge?: GaugeRaw) => async () => {
   try {
-    const { data, success, error } = await execScript<ScriptMeasurement>({
+    const { data, success, error } = await execScript<number>({
       command: ScriptCommand.HARVEST,
       script: source.script,
       code: gauge ? gauge.code : '',
-      // since // TODO: since
       extras: gauge ? gauge.request_params : {},
     });
     if (success) {
-      await insertMeasurements(data || []);
+      if (data === 0) {
+        logger.warn({
+          msg: 'Harvest returned 0 measurements',
+          error,
+          source: source.id,
+          script: source.script,
+          gauge: gauge && gauge.id,
+        });
+      }
     } else {
       logger.error({
         msg: 'Harvest failed',

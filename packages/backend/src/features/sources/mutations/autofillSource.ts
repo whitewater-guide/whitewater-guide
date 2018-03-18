@@ -20,7 +20,7 @@ const resolver: GraphQLFieldResolver<any, any> = async (root, { id }: Variables)
   if (enabled) {
     throw new MutationNotAllowedError({ message: 'Cannot autofill source that is enabled' });
   }
-  const { success, error, data } = await execScript<ScriptGaugeInfo>({
+  const { success, error, data } = await execScript<ScriptGaugeInfo[]>({
     command: ScriptCommand.AUTOFILL,
     script,
   });

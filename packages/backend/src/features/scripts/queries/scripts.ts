@@ -4,7 +4,7 @@ import { ScriptCommand, ScriptDescription } from '../types';
 
 const scripts = isAdminResolver.createResolver(
   async () => {
-    const { success, data, error } = await execScript<ScriptDescription>({ command: ScriptCommand.LIST });
+    const { success, data, error } = await execScript<ScriptDescription[]>({ command: ScriptCommand.LIST });
     if (!success) {
       throw new UnknownError({ message: `Failed to list workers: ${error}` });
     }
