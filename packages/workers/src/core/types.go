@@ -18,8 +18,8 @@ type Location struct {
 }
 
 type GaugeId struct {
-  Script string `json:"-"`
-  Code   string `json:"-"`
+  Script string `json:"script"`
+  Code   string `json:"code"`
 }
 
 type GaugeInfo struct {
@@ -38,6 +38,11 @@ type HTime struct {
 
 func (t HTime) MarshalJSON() ([]byte, error) {
   return json.Marshal(t.UTC().Format("2006-01-02T15:04Z"))
+}
+func (t *HTime) UnmarshalJSON(data []byte) error {
+  v, err := time.Parse("2006-01-02T15:04Z", string(data[1:len(data)-1]))
+  t.Time = v
+  return err
 }
 
 type Measurement struct {

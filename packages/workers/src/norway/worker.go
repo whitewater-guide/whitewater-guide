@@ -164,9 +164,9 @@ func (w *workerNorway) harvestFromJSON(code string, since int64, version int) ([
   url := "http://h-web01.nve.no/chartserver/ShowData.aspx?req=getchart&ver=1.0&vfmt=json&time="
   // It seems that this endpoint cannot filter by hours, only by days
   // So "since" parameter has daily granularity.
-  // E.g. if you want to filter values from 15:00 yesterday, you will still got all values from today and yesterday
+  // E.g. if you want to filter values from 15:00 yesterday, you will still get all values from today and yesterday
   // If you want to filter values from 13:00 today, you will still get values from 06:00 today, but none from yesterday
-  // I keep it here annway
+  // I keep it here anyway
   var sinceStr string
   if since == 0 {
     sinceStr = "-1;0"
