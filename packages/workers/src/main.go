@@ -20,7 +20,10 @@ import (
 
 var endpoint = "/endpoint"
 var pool *redis.Pool
-const LastOpNS = "lastOp"
+const (
+  LastOpNS = "lastOp" // Status of last harvest operation, success, count, error per source and gauge
+  LastVal = "lasVal" // Last timestamp, flow, level per gauge
+)
 
 type Payload struct {
   Command string      `json:"command" structs:"command"`

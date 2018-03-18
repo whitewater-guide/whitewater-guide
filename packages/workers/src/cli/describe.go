@@ -1,22 +1,21 @@
-package core
+package main
 
 import (
   "fmt"
   "github.com/spf13/cobra"
+  "core"
 )
 
-func initDescribe(worker Worker) *cobra.Command {
+func initDescribe(worker core.Worker) *cobra.Command {
   return &cobra.Command{
-    Use:   "describe",
-    Short: "Returns script name and harvest mode",
-    Long:  "Returns script name and harvest mode",
+    Use:   worker.ScriptName(),
     Run: func(cmd *cobra.Command, args []string) {
       describe(worker)
     },
   }
 }
 
-func describe(worker Worker) {
+func describe(worker core.Worker) {
   mode := worker.HarvestMode()
   fmt.Printf("Script '%s', harvest mode '%s'", worker.ScriptName(), mode)
 }

@@ -1,57 +1,43 @@
 package core
 
-import (
-  "fmt"
-  "math/rand"
-  "time"
-)
+import "sort"
 
-func unixHTime(sec int64) HTime {
-  return HTime{time.Unix(sec, 0)}
+// Gauge code + timestamp uniquely identifies measurement
+type MKey struct {
+  code      string
+  timestamp HTime
 }
 
-func GenerateRandGauge(script string, index int) GaugeInfo {
-  src := rand.NewSource(time.Now().UnixNano())
-  r := rand.New(src)
-  return GaugeInfo{
-    GaugeId: GaugeId{
-      Script: script,
-      Code:   fmt.Sprintf("g%03d", index),
-    },
-    Name:      fmt.Sprintf("Test gauge #%d", index),
-    Url:       fmt.Sprintf("http://whitewater.guide/gauges/%d", index),
-    LevelUnit: "m",
-    FlowUnit:  "m3/s",
-    Location: Location{
-      Longitude: r.Float64()*360.0 - 180.0,
-      Latitude:  r.Float64()*180.0 - 90.0,
-      Altitude:  r.Float64() * 3000.0,
-    },
-  }
-}
-
-func GenerateRandMeasurement(script string, code string, value float64, min float64, max float64) Measurement {
-  src := rand.NewSource(time.Now().UnixNano())
-  r := rand.New(src)
-  level, flow := value, value
-  if value == 0.0 {
-    delta := max - min
-    if delta == 0 {
-      delta = 100
-    } else if delta < 0 {
-      delta = -delta
+func FilterMeasurements(measurements []Measurement, since int64) []Measurement {
+  l := len(measurements)
+  seen := make(map[MKey]struct{}, l)
+  result := make([]Measurement, 0)
+  for _, m := range measurements {
+    // Omit measurements where both flow and level are 0
+    // Omit measurements that are too old
+    if (m.Flow == 0.0 && m.Level == 0.0) || (m.Timestamp.Unix() <= since) {
+      continue
     }
-    level = min + r.Float64()*delta
-    flow = min + r.Float64()*delta
+    // Filter measurement by unique (code:timestamp) pair
+    key := MKey{m.Code, m.Timestamp}
+    if _, ok := seen[key]; ok {
+      continue
+    }
+    seen[key] = struct{}{}
+    // Result is sorted by gauge code asc, date desc, insert into sorted slice
+    insertAt := sort.Search(
+      len(result),
+      func(i int) bool {
+        if result[i].Code == m.Code {
+          return result[i].Timestamp.Unix() < m.Timestamp.Unix()
+        } else {
+          return result[i].Code > m.Code
+        }
+      },
+    )
+    result = append(result, Measurement{})
+    copy(result[insertAt+1:], result[insertAt:])
+    result[insertAt] = m
   }
-
-  return Measurement{
-    GaugeId: GaugeId{
-      Script: script,
-      Code:   code,
-    },
-    Timestamp: HTime{time.Now().UTC()},
-    Level:     level,
-    Flow:      flow,
-  }
+  return result
 }

@@ -1,23 +1,23 @@
-package core
+package main
 
 import (
   "github.com/spf13/cobra"
   "fmt"
   "os"
   "github.com/olekukonko/tablewriter"
+  "core"
 )
 
-func initAutofill(worker Worker) *cobra.Command {
+func initAutofill(worker core.Worker) *cobra.Command {
   return &cobra.Command{
-    Use:   "autofill",
-    Short: "Returns list of available gauges",
+    Use:   worker.ScriptName(),
     Run: func(cmd *cobra.Command, args []string) {
       autofill(worker)
     },
   }
 }
 
-func autofill(worker Worker) {
+func autofill(worker core.Worker) {
   gauges, err := worker.Autofill()
   if err != nil {
     fmt.Printf("Error while autofill: %s", err)
@@ -26,7 +26,7 @@ func autofill(worker Worker) {
   }
 }
 
-func printGauges(gauges []GaugeInfo) {
+func printGauges(gauges []core.GaugeInfo) {
   table := tablewriter.NewWriter(os.Stdout)
   table.SetHeader([]string{"#", "Script", "Code", "Url", "LevelUnit", "FlowUnit", "Location", "Name"})
   table.SetBorders(tablewriter.Border{Left: true, Top: false, Right: true, Bottom: false})
