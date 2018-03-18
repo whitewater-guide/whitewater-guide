@@ -18,8 +18,8 @@ type Location struct {
 }
 
 type GaugeId struct {
-  Script string `json:"script"`
-  Code   string `json:"code"`
+  Script string `json:"-"`
+  Code   string `json:"-"`
 }
 
 type GaugeInfo struct {

@@ -7,7 +7,6 @@ import (
   "galicia"
   log "github.com/sirupsen/logrus"
   "github.com/fatih/structs"
-  "github.com/gomodule/redigo/redis"
   "galicia2"
   "georgia"
   "norway"
@@ -15,15 +14,9 @@ import (
   "one-by-one"
   "os"
   "fmt"
-  "time"
 )
 
 var endpoint = "/endpoint"
-var pool *redis.Pool
-const (
-  LastOpNS = "lastOp" // Status of last harvest operation, success, count, error per source and gauge
-  LastVal = "lasVal" // Last timestamp, flow, level per gauge
-)
 
 type Payload struct {
   Command string      `json:"command" structs:"command"`
@@ -40,10 +33,11 @@ func register(factory core.WorkerFactory) {
 
 func handlerRecover(logger *log.Entry, res *http.ResponseWriter) {
   if err := recover(); err != nil {
-    (*res).WriteHeader(http.StatusBadRequest)
+    errStr := fmt.Sprintf("%v", err)
     logger.WithFields(log.Fields{
-      "error": err,
+      "error": errStr,
     }).Error("failed to handle request")
+    sendFailure(*res, fmt.Errorf(errStr))
   }
 }
 
@@ -61,32 +55,10 @@ func list() []core.Description {
 func handler(res http.ResponseWriter, req *http.Request) {
   res.Header().Set("Content-Type", "application/json")
   var respBody *core.Response
-  var earlyError string
-
-  if req.URL.Path != endpoint {
-    earlyError = "wrong endpoint path " + req.URL.Path
-  }
-  if req.Method != "POST" {
-    earlyError = "only POST is supported"
-  }
 
   var payload Payload
-  decoder := json.NewDecoder(req.Body)
-  if err := decoder.Decode(&payload); err != nil {
-    earlyError = "failed to parse request body"
-  }
-
-  if earlyError != "" {
-    res.WriteHeader(http.StatusBadRequest)
-    log.Error(earlyError)
-    encoder := json.NewEncoder(res)
-    respBody := core.Response{
-      Success: false,
-      Error:   earlyError,
-    }
-    if err := encoder.Encode(respBody); err != nil {
-      log.Error("failed to encode result")
-    }
+  if err := getPayload(req, &payload); err != nil {
+    sendFailure(res, err)
     return
   }
 
@@ -96,7 +68,6 @@ func handler(res http.ResponseWriter, req *http.Request) {
   logger := *log.WithFields(structs.Map(payload))
   logger = *logger.WithFields(structs.Map(harvestOptions))
   defer handlerRecover(&logger, &res)
-
 
   var count int
   var err error
@@ -112,8 +83,7 @@ func handler(res http.ResponseWriter, req *http.Request) {
   case "harvest":
     worker := workerFactories[payload.Script]()
     var measurements []core.Measurement
-    measurements, err = worker.Harvest(harvestOptions)
-    measurements = core.FilterMeasurements(measurements, payload.Since)
+    measurements, err = harvest(worker, payload)
     result, count = measurements, len(measurements)
   default:
     logger.Error("bad command")
@@ -128,7 +98,7 @@ func handler(res http.ResponseWriter, req *http.Request) {
     logger.WithFields(log.Fields{"count": count}).Info("success")
   }
 
-  go sendToRedis(payload.Script, payload.Code, err, count)
+  go saveOpLog(payload.Script, payload.Code, err, count)
 
   encoder := json.NewEncoder(res)
   if err = encoder.Encode(respBody); err != nil {
@@ -136,37 +106,17 @@ func handler(res http.ResponseWriter, req *http.Request) {
   }
 }
 
-func sendToRedis(script, code string, err error, count int) {
-  conn := pool.Get()
-  defer conn.Close()
-  key := fmt.Sprintf("%s:%s", LastOpNS, script)
-  stats := make(map[string]interface{})
-  if err == nil {
-    stats["success"] = true
-    stats["count"] = count
-  } else {
-    stats["success"] = false
-    stats["error"] = err.Error()
-  }
-  bytes, e := json.Marshal(stats)
-  if e != nil {
-    log.WithFields(log.Fields{
-      "script": script,
-      "code": code,
-      "error": e.Error(),
-      "count": count,
-    }).Warn("failed to write redis last op")
-    return
-  }
-
-  if code == "" { // All-at-once script
-    conn.Do("SET", key, string(bytes))
-  } else { // One-by-one script
-    conn.Do("HSET", key, code, string(bytes))
-  }
-}
-
 func main() {
+  logLevelStr := os.Getenv("WORKERS_LOG_LEVEL")
+  if logLevelStr == "" {
+    logLevelStr = "debug"
+  }
+  lvl, err := log.ParseLevel(logLevelStr)
+  if err != nil {
+    lvl = log.DebugLevel
+  }
+  log.SetLevel(lvl)
+
   log.Info("staring workers")
 
   register(galicia.NewWorkerGalicia)
@@ -186,11 +136,7 @@ func main() {
     endpoint = ep
   }
 
-  pool = &redis.Pool{
-    MaxIdle: 3,
-    IdleTimeout: 240 * time.Second,
-    Dial: func () (redis.Conn, error) { return redis.Dial("tcp", "redis:6379") },
-  }
+  initRedis()
 
   log.WithFields(log.Fields{
     "port": port,
