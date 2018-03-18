@@ -2,7 +2,6 @@ package main
 
 import (
   "net/http"
-  "encoding/json"
   "core"
   "galicia"
   log "github.com/sirupsen/logrus"
@@ -54,7 +53,6 @@ func list() []core.Description {
 
 func handler(res http.ResponseWriter, req *http.Request) {
   res.Header().Set("Content-Type", "application/json")
-  var respBody *core.Response
 
   var payload Payload
   if err := getPayload(req, &payload); err != nil {
@@ -69,41 +67,22 @@ func handler(res http.ResponseWriter, req *http.Request) {
   logger = *logger.WithFields(structs.Map(harvestOptions))
   defer handlerRecover(&logger, &res)
 
-  var count int
   var err error
   switch payload.Command {
   case "list":
-    descrs := list()
-    result, count = descrs, len(descrs)
+    result = list()
   case "autofill":
     worker := workerFactories[payload.Script]()
-    var gauges []core.GaugeInfo
-    gauges, err = worker.Autofill()
-    result, count = gauges, len(gauges)
+    result, err = worker.Autofill()
   case "harvest":
     worker := workerFactories[payload.Script]()
-    var measurements []core.Measurement
-    measurements, err = harvest(worker, payload)
-    result, count = measurements, len(measurements)
+    result, err = harvest(worker, payload)
   default:
     logger.Error("bad command")
     return
   }
-
-  if err != nil {
-    respBody = &core.Response{Success: false, Error: err.Error()}
-    logger.WithFields(log.Fields{"error": err}).Error("worker failed")
-  } else {
-    respBody = &core.Response{Success: true, Data: result}
-    logger.WithFields(log.Fields{"count": count}).Info("success")
-  }
-
-  go saveOpLog(payload.Script, payload.Code, err, count)
-
-  encoder := json.NewEncoder(res)
-  if err = encoder.Encode(respBody); err != nil {
-    logger.Error("failed to encode result")
-  }
+  go saveOpLog(payload.Script, payload.Code, err, getResultCount(result))
+  sendSuccess(res, err, result, &logger)
 }
 
 func main() {
@@ -116,6 +95,11 @@ func main() {
     lvl = log.DebugLevel
   }
   log.SetLevel(lvl)
+  if os.Getenv("WORKERS_LOG_JSON") != "" {
+    log.SetFormatter(&log.JSONFormatter{})
+  } else {
+    log.SetFormatter(&log.TextFormatter{ForceColors: true})
+  }
 
   log.Info("staring workers")
 
@@ -136,10 +120,11 @@ func main() {
     endpoint = ep
   }
 
+  initPg()
   initRedis()
 
   log.WithFields(log.Fields{
-    "port": port,
+    "port":     port,
     "endpoint": endpoint,
   }).Info("workers are listening")
 

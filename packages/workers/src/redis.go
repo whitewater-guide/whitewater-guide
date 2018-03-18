@@ -39,6 +39,15 @@ func initRedis() {
       return conn, err
     },
   }
+
+  conn := pool.Get()
+  defer conn.Close()
+  _, err := conn.Do("PING")
+
+  if err != nil {
+    logrus.Fatalf("redis pool failed to init at %s:%s", redisHost, redisPort)
+  }
+
   logrus.Infof("redis pool initialized at %s:%s", redisHost, redisPort)
 }
 

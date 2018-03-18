@@ -42,3 +42,32 @@ func sendFailure(res http.ResponseWriter, err error) {
     log.Error("failed to encode result")
   }
 }
+
+func getResultCount(result interface{}) int {
+  count := 0
+  if i, ok := result.(int); ok {
+    count = i
+  } else if d, ok := result.([]core.Description); ok {
+    count = len(d)
+  } else if g, ok := result.([]core.GaugeInfo); ok {
+    count = len(g)
+  }
+  return count
+}
+
+func sendSuccess(res http.ResponseWriter, err error, result interface{}, logger *log.Entry) {
+  count := getResultCount(result)
+  var respBody *core.Response
+  if err != nil {
+    respBody = &core.Response{Success: false, Error: err.Error()}
+    logger.WithFields(log.Fields{"error": err}).Error("worker failed")
+  } else {
+    respBody = &core.Response{Success: true, Data: result}
+    logger.WithFields(log.Fields{"count": count}).Debug("success")
+  }
+
+  encoder := json.NewEncoder(res)
+  if err = encoder.Encode(respBody); err != nil {
+    logger.Error("failed to encode result")
+  }
+}
