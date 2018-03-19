@@ -33,6 +33,14 @@
     "@types/express" "*"
     "@types/node" "*"
 
+"@types/connect-redis@^0.0.7":
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/@types/connect-redis/-/connect-redis-0.0.7.tgz#97948bc727d29e5413d1ebc6be7aa26df86bca7e"
+  dependencies:
+    "@types/express" "*"
+    "@types/express-session" "*"
+    "@types/redis" "*"
+
 "@types/cookie-parser@^1.4.1":
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/@types/cookie-parser/-/cookie-parser-1.4.1.tgz#e88a39c41960f31549b4c52dd8620aa4a2feb4bb"
@@ -56,7 +64,7 @@
     "@types/events" "*"
     "@types/node" "*"
 
-"@types/express-session@^1.15.8":
+"@types/express-session@*", "@types/express-session@^1.15.8":
   version "1.15.8"
   resolved "https://registry.yarnpkg.com/@types/express-session/-/express-session-1.15.8.tgz#b187732e8fa88ad9fd5d93c021696460a0694b7c"
   dependencies:
@@ -164,6 +172,13 @@
 "@types/pino@^4.7.1":
   version "4.7.1"
   resolved "https://registry.yarnpkg.com/@types/pino/-/pino-4.7.1.tgz#8f818f8cde5c2052aef6c68a4560347f86256805"
+  dependencies:
+    "@types/events" "*"
+    "@types/node" "*"
+
+"@types/redis@*":
+  version "2.8.6"
+  resolved "https://registry.yarnpkg.com/@types/redis/-/redis-2.8.6.tgz#3674d07a13ad76bccda4c37dc3909e4e95757e7e"
   dependencies:
     "@types/events" "*"
     "@types/node" "*"
@@ -988,6 +1003,13 @@ concat-stream@^1.4.8:
     readable-stream "^2.2.2"
     typedarray "^0.0.6"
 
+connect-redis@^3.3.3:
+  version "3.3.3"
+  resolved "https://registry.yarnpkg.com/connect-redis/-/connect-redis-3.3.3.tgz#0fb8f370192f62da75ec7a9507807599fbe15b37"
+  dependencies:
+    debug "^3.1.0"
+    redis "^2.1.0"
+
 console-control-strings@^1.0.0, console-control-strings@~1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/console-control-strings/-/console-control-strings-1.1.0.tgz#3d7cf4464db6446ea644bf4b39507f9851008e8e"
@@ -1373,6 +1395,10 @@ domutils@1.5.1:
   dependencies:
     dom-serializer "0"
     domelementtype "1"
+
+double-ended-queue@^2.1.0-0:
+  version "2.1.0-0"
+  resolved "https://registry.yarnpkg.com/double-ended-queue/-/double-ended-queue-2.1.0-0.tgz#103d3527fd31528f40188130c841efdd78264e5c"
 
 duplexer@^0.1.1:
   version "0.1.1"
@@ -4260,9 +4286,17 @@ redis-commands@^1.2.0:
   version "1.3.5"
   resolved "https://registry.yarnpkg.com/redis-commands/-/redis-commands-1.3.5.tgz#4495889414f1e886261180b1442e7295602d83a2"
 
-redis-parser@^2.4.0:
+redis-parser@^2.4.0, redis-parser@^2.6.0:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/redis-parser/-/redis-parser-2.6.0.tgz#52ed09dacac108f1a631c07e9b69941e7a19504b"
+
+redis@^2.1.0:
+  version "2.8.0"
+  resolved "https://registry.yarnpkg.com/redis/-/redis-2.8.0.tgz#202288e3f58c49f6079d97af7a10e1303ae14b02"
+  dependencies:
+    double-ended-queue "^2.1.0-0"
+    redis-commands "^1.2.0"
+    redis-parser "^2.6.0"
 
 regenerator-runtime@^0.11.0:
   version "0.11.1"

@@ -3,8 +3,7 @@ import * as cors from 'cors';
 import * as express from 'express';
 import * as PrettyError from 'pretty-error';
 import { graphqlRouter } from './apollo/router';
-import { authRouter, passport } from './auth';
-import session = require('express-session');
+import { authRouter, passport, sessionMiddleware } from './auth';
 
 const app = express();
 
@@ -16,13 +15,7 @@ app.use(cors({
 }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(session({
-  // TODO: use session store like redis or connect-session-knex
-  name: 'sid',
-  resave: true,
-  saveUninitialized: true,
-  secret: process.env.BACK_SESSION_SECRET!,
-}));
+app.use(sessionMiddleware());
 
 app.use(passport.initialize());
 app.use(passport.session());
