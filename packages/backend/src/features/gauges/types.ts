@@ -1,6 +1,7 @@
 import { RawTimestamped } from '../../db';
 import { NamedNode } from '../../ww-commons';
 import { PointRaw } from '../points';
+import { SourceRaw } from '../sources';
 
 export interface GaugeRaw extends NamedNode, RawTimestamped {
   code: string;
@@ -13,4 +14,5 @@ export interface GaugeRaw extends NamedNode, RawTimestamped {
   cron: string | null;
   url: string | null;
   enabled: boolean;
+  source: SourceRaw;
 }

@@ -3,10 +3,10 @@ import { Column, TableCellRenderer } from 'react-virtualized';
 import { AdminColumn, HarvestStatusIndicator, MutationToggle } from '../../../components';
 import { ResourcesList } from '../../../layout';
 import { emitter, POKE_TABLES } from '../../../utils';
-import { Gauge } from '../../../ww-commons';
-import { GaugesListProps } from './types';
+import { Gauge, HarvestMode } from '../../../ww-commons';
+import { GaugesListInnerProps } from './types';
 
-export default class GaugesList extends React.PureComponent<GaugesListProps> {
+export default class GaugesList extends React.PureComponent<GaugesListInnerProps> {
   onGaugeClick = (id: string) => {
     // console.log(id);
   };
@@ -22,9 +22,12 @@ export default class GaugesList extends React.PureComponent<GaugesListProps> {
     <MutationToggle id={id} enabled={enabled} toggle={this.toggleGauge} />
   );
 
-  renderStatus: TableCellRenderer = ({ rowData: { status } }) => (
-    <HarvestStatusIndicator status={status} />
-  );
+  renderStatus: TableCellRenderer = ({ rowData: { status } }) => {
+    const showStatus = this.props.source.harvestMode === HarvestMode.ONE_BY_ONE;
+    return showStatus ? (
+      <HarvestStatusIndicator status={status} />
+    ) : null;
+  };
 
   renderRequestParams: TableCellRenderer = ({ rowData: { requestParams } }) => {
     return requestParams ? JSON.stringify(requestParams) : null;

@@ -5,10 +5,10 @@ import { Loading } from '../../../components';
 import { FormReceiver, mountForm } from '../../../test';
 import { flushPromises } from '../../../ww-clients/test';
 import container from './container';
-import { GaugesListProps } from './types';
+import { GaugesListInnerProps } from './types';
 
 let wrapped: ReactWrapper;
-let receiver: ReactWrapper<GaugesListProps>;
+let receiver: ReactWrapper<GaugesListInnerProps>;
 
 beforeEach(async () => {
   casual.seed(1);

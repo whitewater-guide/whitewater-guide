@@ -20,9 +20,12 @@ export default class SourcesList extends React.PureComponent<SourceListProps> {
     <MutationToggle id={id} enabled={enabled} toggle={this.toggleSource} />
   );
 
-  renderStatus: TableCellRenderer = ({ rowData: { status } }) => (
-    <HarvestStatusIndicator status={status} />
-  );
+  renderStatus: TableCellRenderer = ({ rowData: { harvestMode, status } }) => {
+    const showStatus = harvestMode === HarvestMode.ALL_AT_ONCE;
+    return showStatus ? (
+      <HarvestStatusIndicator status={status} />
+    ) : null;
+  };
 
   renderCron: TableCellRenderer = ({ rowData: { cron, harvestMode } }) =>
     harvestMode === HarvestMode.ONE_BY_ONE ? null : cron;

@@ -37,7 +37,7 @@ export class SourceDetails extends React.PureComponent<WithSource & RouteCompone
                   <Tab label="Gauges" value={`/sources/${sourceId}/gauges`}>
                     <Route exact path={`${match.path}/gauges`}>
                       <div style={{ height: '100%', width: '100%', overflow: 'hidden' }}>
-                        <GaugesList />
+                        <GaugesList source={source.node} />
                       </div>
                     </Route>
                   </Tab>

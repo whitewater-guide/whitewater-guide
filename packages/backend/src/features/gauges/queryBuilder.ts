@@ -3,7 +3,7 @@ import { Gauge } from '../../ww-commons';
 
 const customFieldMap = {
   lastMeasurement: () => 'script',
-  status: () => 'script',
+  status: () => 'source',
 };
 
 export const buildGaugeQuery = (options: Partial<QueryBuilderOptions<Gauge>>) =>
