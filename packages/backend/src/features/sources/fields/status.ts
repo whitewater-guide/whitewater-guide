@@ -1,6 +1,6 @@
 import { GraphQLFieldResolver } from 'graphql';
 import { Context } from '../../../apollo';
-import { LastOpNS, redis } from '../../../redis';
+import { getLastStatus } from '../../../redis';
 import { HarvestMode } from '../../../ww-commons';
 import { SourceRaw } from '../types';
 
@@ -8,8 +8,7 @@ const statusResolver: GraphQLFieldResolver<SourceRaw, Context> = async ({ script
   if (harvest_mode === HarvestMode.ONE_BY_ONE) {
     return null;
   }
-  const statusStr = await redis.get(`${LastOpNS}:${script}`);
-  return JSON.parse(statusStr);
+  return getLastStatus(script);
 };
 
 export default statusResolver;

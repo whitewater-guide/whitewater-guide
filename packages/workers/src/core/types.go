@@ -37,10 +37,10 @@ type HTime struct {
 }
 
 func (t HTime) MarshalJSON() ([]byte, error) {
-  return json.Marshal(t.UTC().Format("2006-01-02T15:04Z"))
+  return json.Marshal(t.UTC().Format(time.RFC3339))
 }
 func (t *HTime) UnmarshalJSON(data []byte) error {
-  v, err := time.Parse("2006-01-02T15:04Z", string(data[1:len(data)-1]))
+  v, err := time.Parse(time.RFC3339, string(data[1:len(data)-1]))
   t.Time = v
   return err
 }

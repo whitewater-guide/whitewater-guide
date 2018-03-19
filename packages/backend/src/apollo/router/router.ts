@@ -1,6 +1,7 @@
 import { graphiqlExpress, graphqlExpress } from 'apollo-server-express';
 import { Router } from 'express';
 import { graphql, introspectionQuery } from 'graphql';
+import { LastMeasurementLoader } from '../../features/measurements';
 import { formatError } from '../formatError';
 import { getSchema, getTypeDefs } from './schema';
 
@@ -13,7 +14,10 @@ graphqlRouter.use(
     return {
       schema,
       debug: process.env.NODE_ENV !== 'production',
-      context: { user: req!.user },
+      context: {
+        user: req!.user,
+        lastMeasurementLoader: new LastMeasurementLoader(),
+      },
       formatError,
     };
   }),

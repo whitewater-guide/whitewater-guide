@@ -9,6 +9,7 @@ export default gql`
         ...GaugeLocation
         ...GaugeHarvestInfo
         ...GaugeStatus
+        ...GaugeLastMeasurement
         source {
           id
         }
@@ -18,6 +19,7 @@ export default gql`
     }
   }
   ${GaugeFragments.Core}
+  ${GaugeFragments.LastMeasurement}
   ${GaugeFragments.Location}
   ${GaugeFragments.HarvestInfo}
   ${GaugeFragments.Status}

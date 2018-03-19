@@ -1,3 +1,4 @@
+import * as moment from 'moment';
 import * as React from 'react';
 import { Column, TableCellRenderer } from 'react-virtualized';
 import { AdminColumn, HarvestStatusIndicator, MutationToggle } from '../../../components';
@@ -33,6 +34,22 @@ export default class GaugesList extends React.PureComponent<GaugesListInnerProps
     return requestParams ? JSON.stringify(requestParams) : null;
   };
 
+  renderValue: TableCellRenderer = ({ rowData }) => {
+    const { lastMeasurement, flowUnit, levelUnit }: Gauge = rowData;
+    if (lastMeasurement) {
+      const { timestamp, flow, level } = lastMeasurement;
+      const v = flow ? flow : level;
+      const unit = flow ? flowUnit : levelUnit;
+      return (
+        <span>
+          <b>{v.toPrecision(3)}</b>
+          {` ${unit} ${moment(timestamp).fromNow()}`}
+        </span>
+      );
+    }
+    return null;
+  };
+
   render() {
     return (
       <ResourcesList
@@ -42,8 +59,9 @@ export default class GaugesList extends React.PureComponent<GaugesListInnerProps
         customSettingsLink={this.customSettingsLink}
         deleteHandle={this.props.removeGauge}
       >
-        <Column width={200} label="Name" dataKey="name" />
-        <Column width={70} label="Code" dataKey="code" />
+        <Column width={200} flexGrow={4} label="Name" dataKey="name" />
+        <Column width={70} flexGrow={1} label="Code" dataKey="code" />
+        <Column width={200} flexGrow={1} label="Last value" dataKey="lastMeasurement" cellRenderer={this.renderValue} />
         <AdminColumn width={50} label="Status" dataKey="status" cellRenderer={this.renderStatus} />
         <AdminColumn width={70} label="Cron" dataKey="cron" />
         <AdminColumn width={100} label="Request params" dataKey="rp" cellRenderer={this.renderRequestParams} />

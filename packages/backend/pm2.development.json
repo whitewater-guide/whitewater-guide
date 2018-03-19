@@ -4,6 +4,6 @@
     "script": "src/index.js",
     "source_map_support": true,
     "merge_logs": true,
-    "node-args": "--inspect=0.0.0.0:5775"
+    "node_args": ["--inspect=0.0.0.0:5775"]
   }]
 }

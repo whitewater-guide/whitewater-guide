@@ -1,4 +1,5 @@
 import { GraphQLFieldResolver } from 'graphql';
+import { LastMeasurementLoader } from '../features/measurements';
 import { UserRaw } from '../features/users';
 
 export type FieldResolvers<TRaw, TOut> = {
@@ -7,6 +8,7 @@ export type FieldResolvers<TRaw, TOut> = {
 
 export interface Context {
   user?: UserRaw;
+  lastMeasurementLoader: LastMeasurementLoader;
 }
 
 export interface QueryWithLanguage {
