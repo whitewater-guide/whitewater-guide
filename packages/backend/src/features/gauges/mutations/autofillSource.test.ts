@@ -72,7 +72,7 @@ describe('resolvers chain', () => {
 });
 
 describe('effects', () => {
-  const scriptSuccess: ScriptResponse<ScriptGaugeInfo> = {
+  const scriptSuccess: ScriptResponse<ScriptGaugeInfo[]> = {
     success: true,
     data: [
       {

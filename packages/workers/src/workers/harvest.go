@@ -1,6 +1,10 @@
 package main
 
-import "core"
+import (
+  "core"
+  "github.com/sirupsen/logrus"
+  "github.com/fatih/structs"
+)
 
 func harvest(worker core.Worker, payload Payload) (int, error) {
   var saved = 0
@@ -25,8 +29,13 @@ func harvest(worker core.Worker, payload Payload) (int, error) {
       lastValues[m.GaugeId] = m
     }
   }
+  if len(measurements) == 0 {
+    logrus.WithFields(structs.Map(payload)).WithFields(structs.Map(payload.HarvestOptions)).Warn("harvested 0 measurements")
+  }
   // Save to postgres
   saved, err = saveMeasurements(measurements)
-  saveLastValues(lastValues)
+  if saved > 0 {
+    saveLastValues(lastValues)
+  }
   return saved, err
 }
