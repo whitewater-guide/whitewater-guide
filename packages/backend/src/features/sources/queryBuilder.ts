@@ -2,6 +2,10 @@ import * as Knex from 'knex';
 import db, { buildListQuery, buildRootQuery, ListQueryBuilderOptions, QueryBuilderOptions } from '../../db';
 import { Source } from '../../ww-commons';
 
+const customFieldMap = {
+  status: () => 'script',
+};
+
 const connections = {
   regions: {
     getBuilder: () => require('../regions').buildRegionQuery,
@@ -27,6 +31,7 @@ export const buildQuery = (options: Partial<QueryBuilderOptions<Source>>) =>
     context: options.context!,
     table: 'sources_view',
     connections,
+    customFieldMap,
     ...options,
   });
 
@@ -34,6 +39,7 @@ export const buildSourcesListQuery = (options: Partial<ListQueryBuilderOptions<S
   buildListQuery({
     context: options.context!,
     table: 'sources_view',
+    customFieldMap,
     connections,
     ...options,
   });

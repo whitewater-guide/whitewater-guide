@@ -13,6 +13,11 @@ export default gql`
         gauges {
           count
         }
+        status {
+          success
+          count
+          timestamp
+        }
       }
       count
     }

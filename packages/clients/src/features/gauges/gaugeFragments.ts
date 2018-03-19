@@ -40,6 +40,16 @@ const LastMeasurement = gql`
   }
 `;
 
+const Status = gql`
+  fragment GaugeStatus on Gauge {
+    status {
+      timestamp
+      success
+      count
+    }
+  }
+`;
+
 const Measurements = gql`
   fragment GaugeMeasurements on Gauge {
     measurements {
@@ -67,4 +77,5 @@ export const GaugeFragments = {
   LastMeasurement,
   Measurements,
   Source,
+  Status,
 };

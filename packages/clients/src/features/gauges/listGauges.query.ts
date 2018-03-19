@@ -8,6 +8,7 @@ export default gql`
         ...GaugeCore
         ...GaugeLocation
         ...GaugeHarvestInfo
+        ...GaugeStatus
         source {
           id
         }
@@ -19,4 +20,5 @@ export default gql`
   ${GaugeFragments.Core}
   ${GaugeFragments.Location}
   ${GaugeFragments.HarvestInfo}
+  ${GaugeFragments.Status}
 `;
