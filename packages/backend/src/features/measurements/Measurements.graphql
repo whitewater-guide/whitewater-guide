@@ -1,7 +1,11 @@
 type Measurement {
-  id: ID!
-  gaugeId: ID!
-  date: Date!
+  timestamp: Date
   level: Float
   flow: Float
+}
+
+type HarvestStatus {
+  count: Int
+  success: Boolean
+  timestamp: Date
 }

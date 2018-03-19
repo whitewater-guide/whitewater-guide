@@ -8,13 +8,14 @@ type Gauge {
   flowUnit: String
   requestParams: JSON
   cron: String
-  lastTimestamp: Date
-  lastLevel: Float
-  lastFlow: Float
+
   url: String
   enabled: Boolean
   createdAt: Date
   updatedAt: Date
+
+  lastMeasurement: Measurement
+  status: HarvestStatus
 
   source: Source!
   # measurements(startDate:Date!, endDate:Date!): [Measurement]!

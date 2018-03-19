@@ -17,6 +17,7 @@ type Source {
   gauges: SourceGaugeConnection!
   createdAt: Date
   updatedAt: Date
+  status: HarvestStatus
 }
 
 type SourceRegionConnection {

@@ -14,7 +14,7 @@ import (
 var pool *redis.Pool
 const (
   LastOpNS = "lastOp" // Status of last harvest operation, success, count, error per source and gauge
-  LastValuesNs = "lastValues" // Last timestamp, flow, level per gauge
+  LastMeasurementsNs = "lastMeasurements" // Last timestamp, flow, level per gauge
 )
 
 func initRedis() {
@@ -83,7 +83,7 @@ func saveOpLog(script, code string, err error, count int) {
   }
 }
 
-func loadLastValues(script, code string) map[core.GaugeId]core.Measurement {
+func loadLastMeasurements(script, code string) map[core.GaugeId]core.Measurement {
   logger := logrus.WithFields(logrus.Fields{
     "script": script,
     "code": code,
@@ -92,7 +92,7 @@ func loadLastValues(script, code string) map[core.GaugeId]core.Measurement {
   var raws []string
   conn := pool.Get()
   defer conn.Close()
-  key := fmt.Sprintf("%s:%s", LastValuesNs, script)
+  key := fmt.Sprintf("%s:%s", LastMeasurementsNs, script)
   if code == "" {
     if stringMap, err := redis.StringMap(conn.Do("HGETALL", key)); err == nil {
       raws = make([]string, len(stringMap))
@@ -122,7 +122,7 @@ func loadLastValues(script, code string) map[core.GaugeId]core.Measurement {
   return result
 }
 
-func saveLastValues(values map[core.GaugeId]core.Measurement) {
+func saveLastMeasurements(values map[core.GaugeId]core.Measurement) {
   conn := pool.Get()
   defer conn.Close()
   var raw []byte
@@ -131,12 +131,12 @@ func saveLastValues(values map[core.GaugeId]core.Measurement) {
     raw, _ = json.Marshal(m)
     conn.Send(
       "HSET",
-      fmt.Sprintf("%s:%s", LastValuesNs, id.Script),
+      fmt.Sprintf("%s:%s", LastMeasurementsNs, id.Script),
       id.Code,
       raw,
     )
   }
   if _, err := conn.Do(""); err != nil {
-    logrus.Errorf("failed to saveLastValues: %s", err)
+    logrus.Errorf("failed to saveLastMeasurement: %s", err)
   }
 }

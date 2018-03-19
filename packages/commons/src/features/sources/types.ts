@@ -1,6 +1,7 @@
 import { NamedNode, Timestamped } from '../../core';
 import { Node } from '../../core/types';
 import { Gauge } from '../gauges/types';
+import { HarvestStatus } from '../measurements';
 import { Region } from '../regions/types';
 import { Connection } from '../types';
 
@@ -19,6 +20,7 @@ export interface Source extends NamedNode, Timestamped {
   // --- connections
   regions?: Connection<Region>;
   gauges?: Connection<Gauge>;
+  status: HarvestStatus | null;
 }
 
 export class SourceInput {

@@ -1,4 +1,5 @@
 import { NamedNode, Node, Timestamped } from '../../core';
+import { HarvestStatus, Measurement } from '../measurements';
 import { Point, PointInput } from '../points';
 import { Source } from '../sources';
 
@@ -8,14 +9,13 @@ export interface Gauge extends NamedNode, Timestamped {
   flowUnit: string | null;
   requestParams: any;
   cron: string | null;
-  lastTimestamp: Date | null;
-  lastLevel: number | null;
-  lastFlow: number | null;
   url: string | null;
   enabled: boolean;
   location: Point;
   source: Source;
   // measurements?: Measurement[];
+  lastMeasurement: Measurement | null;
+  status: HarvestStatus | null;
 }
 
 export interface GaugeInput {

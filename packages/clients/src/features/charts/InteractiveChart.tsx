@@ -1,13 +1,13 @@
 import * as moment from 'moment';
 import * as React from 'react';
-import { GaugeBinding, GaugeMeasurement, Unit } from '../../../ww-commons';
+import { GaugeBinding, Measurement, Unit } from '../../../ww-commons';
 import { ChartComponentProps, ChartLayoutProps, FlowToggleProps, PeriodToggleProps } from './types';
 
 // TODO: remove me
 type GaugeAndBinding = GaugeBinding & { lastValue: number | null };
 
 export interface Props {
-  data: GaugeMeasurement[];
+  data: Measurement[];
   loading: boolean;
   startDate: Date;
   endDate: Date;
@@ -65,7 +65,7 @@ export default (
       const start = moment(chartDomain[0]);
       const end = moment(chartDomain[1]);
       // Filter data so chart doesn't draw anything beyond selection
-      const data = this.props.data.filter(({ date }) => start.isBefore(date) && end.isAfter(date));
+      const data = this.props.data.filter(({ timestamp }) => start.isBefore(timestamp) && end.isAfter(timestamp));
       const binding = unit === 'flow' ? flows : levels;
 
       const chart = (

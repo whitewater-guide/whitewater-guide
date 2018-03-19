@@ -15,6 +15,7 @@ CREATE OR REPLACE VIEW gauges_view AS
     gauges.enabled,
     gauges.created_at,
     gauges.updated_at,
+    (SELECT script FROM sources WHERE sources.id = gauges.source_id) as script,
     COALESCE(gauges_translations.name, 'Gauge ' || gauges.code) as name,
     (
       SELECT row_to_json(sources_view) FROM sources_view

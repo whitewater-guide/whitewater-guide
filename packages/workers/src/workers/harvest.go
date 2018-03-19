@@ -8,15 +8,15 @@ import (
 
 func harvest(worker core.Worker, payload Payload) (int, error) {
   var saved = 0
-  var lastValue core.Measurement
+  var lastMeasurement core.Measurement
   var ok bool
   // get last values from redis cache
-  lastValues := loadLastValues(payload.Script, payload.Code)
+  lastMeasurements := loadLastMeasurements(payload.Script, payload.Code)
   // set since value for one-by-one scripts
   if worker.HarvestMode() == core.OneByOne {
     key := core.GaugeId{Script: payload.Script, Code: payload.Code }
-    if lastValue, ok = lastValues[key]; ok {
-      payload.Since = lastValue.Timestamp.UTC().Unix()
+    if lastMeasurement, ok = lastMeasurements[key]; ok {
+      payload.Since = lastMeasurement.Timestamp.UTC().Unix()
     }
   }
   // filter since, update last values
@@ -25,8 +25,8 @@ func harvest(worker core.Worker, payload Payload) (int, error) {
     return 0, err
   }
   for _, m := range measurements {
-    if lastValue, ok = lastValues[m.GaugeId]; !ok || m.Timestamp.After(lastValue.Timestamp.Time) {
-      lastValues[m.GaugeId] = m
+    if lastMeasurement, ok = lastMeasurements[m.GaugeId]; !ok || m.Timestamp.After(lastMeasurement.Timestamp.Time) {
+      lastMeasurements[m.GaugeId] = m
     }
   }
   if len(measurements) == 0 {
@@ -35,7 +35,7 @@ func harvest(worker core.Worker, payload Payload) (int, error) {
   // Save to postgres
   saved, err = saveMeasurements(measurements)
   if saved > 0 {
-    saveLastValues(lastValues)
+    saveLastMeasurements(lastMeasurements)
   }
   return saved, err
 }

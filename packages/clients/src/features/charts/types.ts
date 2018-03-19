@@ -1,9 +1,9 @@
 import { ReactElement } from 'react';
-import { GaugeBinding, GaugeMeasurement, Unit } from '../../../ww-commons';
+import { GaugeBinding, Measurement, Unit } from '../../../ww-commons';
 
 export interface ChartComponentProps {
   binding: GaugeBinding;
-  data: GaugeMeasurement[];
+  data: Measurement[];
   unit: Unit;
   domain: [Date, Date];
   levelUnit: string | null;

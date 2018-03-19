@@ -1,15 +1,16 @@
-export interface GaugeMeasurement {
-  date: Date;
+export interface Measurement {
+  timestamp: Date;
   level: number;
   flow: number;
-}
-
-export interface Measurement extends GaugeMeasurement {
-  id: string;
-  gaugeId: string;
 }
 
 export enum Unit {
   FLOW = 'flow',
   LEVEL = 'level',
+}
+
+export interface HarvestStatus {
+  count: number;
+  success: boolean;
+  timestamp: Date;
 }

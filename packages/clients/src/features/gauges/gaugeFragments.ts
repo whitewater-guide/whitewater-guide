@@ -16,6 +16,7 @@ const Location = gql`
   fragment GaugeLocation on Gauge {
     location {
       id
+      kind
       coordinates
     }
   }
@@ -29,11 +30,13 @@ const HarvestInfo = gql`
   }
 `;
 
-const LastMeasurements = gql`
-  fragment GaugeLastMeasurements on Gauge {
-    lastTimestamp
-    lastLevel
-    lastFlow
+const LastMeasurement = gql`
+  fragment GaugeLastMeasurement on Gauge {
+    lastMeasurement {
+      timestamp
+      flow
+      level
+    }
   }
 `;
 
@@ -61,7 +64,7 @@ export const GaugeFragments = {
   Core,
   Location,
   HarvestInfo,
-  LastMeasurements,
+  LastMeasurement,
   Measurements,
   Source,
 };

@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+import { GaugeFragments } from '../gauges';
 
 const Name = gql`
   fragment SectionName on Section {
@@ -72,19 +73,9 @@ const GaugeBinding = {All: gql`
 const Measurements = gql`
   fragment SectionMeasurements on Section {
     gauge {
-      id
-      language
-      name
-      levelUnit
-      flowUnit
-      location {
-        id
-        kind
-        coordinates
-      }
-      lastTimestamp
-      lastLevel
-      lastFlow
+      ...GaugeCore
+      ...GaugeLocation
+      ...GaugeLastMeasurement
     }
     levels {
       ...GaugeBindingAll
@@ -94,6 +85,9 @@ const Measurements = gql`
     }
     flowsText
   }
+  ${GaugeFragments.Core}
+  ${GaugeFragments.LastMeasurement}
+  ${GaugeFragments.Location}
   ${GaugeBinding.All}
 `;
 
