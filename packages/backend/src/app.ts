@@ -2,7 +2,7 @@ import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
 import * as express from 'express';
 import * as PrettyError from 'pretty-error';
-import { graphqlRouter } from './apollo';
+import { graphqlRouter } from './apollo/router';
 import { authRouter, passport } from './auth';
 import session = require('express-session');
 

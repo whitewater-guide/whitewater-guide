@@ -1,29 +1,10 @@
-import { createError, isInstance } from 'apollo-errors';
+import { isInstance } from 'apollo-errors';
 import { createResolver } from 'apollo-resolvers';
 import { GraphQLFieldResolver } from 'graphql';
 import * as Joi from 'joi';
 import { Role } from '../features/users/types';
+import { AuthenticationRequiredError, ForbiddenError, UnknownError, ValidationError } from './errors';
 import { Context } from './types';
-
-export const UnknownError = createError('UnknownError', {
-  message: 'An unknown error has occurred!  Please try again later',
-});
-
-export const AuthenticationRequiredError = createError('AuthenticationRequiredError', {
-  message: 'You must be logged in to do this',
-});
-
-export const ForbiddenError = createError('ForbiddenError', {
-  message: 'You are not allowed to do this',
-});
-
-export const ValidationError = createError('ValidationError', {
-  message: 'Invalid input',
-});
-
-export const MutationNotAllowedError = createError('MutationNotAllowedError', {
-  message: 'Mutation not allowed',
-});
 
 export const baseResolver = createResolver<any, Context>(
   // incoming requests will pass through this resolver like a no-op

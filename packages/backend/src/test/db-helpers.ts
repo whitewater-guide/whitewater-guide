@@ -1,6 +1,7 @@
 import { ExecutionResult, graphql } from 'graphql';
 import { isEmpty } from 'lodash';
-import { formatError, getSchema } from '../apollo';
+import { formatError } from '../apollo';
+import { getSchema } from '../apollo/router';
 import db from '../db';
 import omitDeep = require('omit-deep-lodash');
 

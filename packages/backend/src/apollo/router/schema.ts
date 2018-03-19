@@ -2,7 +2,7 @@ import { GraphQLSchema } from 'graphql';
 import { makeExecutableSchema } from 'graphql-tools';
 import { fileLoader, mergeTypes } from 'merge-graphql-schemas';
 import { join } from 'path';
-import log from '../log';
+import log from '../../log/index';
 import { resolvers } from './resolvers';
 
 const logger = log.child({ module: 'apollo' });

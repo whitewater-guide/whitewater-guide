@@ -1,6 +1,6 @@
 import { createHmac } from 'crypto';
-import { MINIO_URL } from '../minio';
 import { ThumbGravity, ThumbOptions, ThumbResize } from '../ww-commons';
+import { MINIO_URL } from './buckets';
 
 const urlSafeBase64 = (url: string | Buffer): string =>
   new Buffer(url as any)

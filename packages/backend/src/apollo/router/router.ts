@@ -1,7 +1,7 @@
 import { graphiqlExpress, graphqlExpress } from 'apollo-server-express';
 import { Router } from 'express';
 import { graphql, introspectionQuery } from 'graphql';
-import { formatError } from './formatError';
+import { formatError } from '../formatError';
 import { getSchema, getTypeDefs } from './schema';
 
 export const graphqlRouter = Router();
