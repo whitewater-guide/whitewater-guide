@@ -26,6 +26,7 @@
 | IMGPROXY_PATH               | images          | APP_DOMAIN that will be proxied to imgproxy by caddy |
 | IMGPROXY_HOST               | imgproxy        | imgproxy host name inside docker internal network |
 | IMGPROXY_TTL                | 86400           | Time to live for images resized by imgproxy |
+| WORKERS_HOST                | workers         | Host name in docker network, or localhost for testing
 | WORKERS_PORT                | 7080            | port on which workers container is listening (see workers README for more)
 | WORKERS_ENDPOINT            | /endpoint       | endpoint on which workers container is listening (see workers README for more)
 | WORKERS_LOG_LEVEL           | `debug`/`info`/`warning`/`error`/`fatal`       | log level for workers container, defaults to `debug`

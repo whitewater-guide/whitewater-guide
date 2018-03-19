@@ -3,6 +3,11 @@ import { WORKERS_ENDPOINT } from './endpoint';
 import { ScriptPayload, ScriptResponse } from './types';
 
 export const execScript = async <R>(payload: ScriptPayload): Promise<ScriptResponse<R>> => {
-  const { data } = await axios.post<ScriptResponse<R>>(WORKERS_ENDPOINT, payload);
-  return data;
+  try {
+    const { data } = await axios.post<ScriptResponse<R>>(WORKERS_ENDPOINT, payload);
+    return data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 };

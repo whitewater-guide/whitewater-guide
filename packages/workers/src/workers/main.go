@@ -77,11 +77,11 @@ func handler(res http.ResponseWriter, req *http.Request) {
   case "harvest":
     worker := workerFactories[payload.Script]()
     result, err = harvest(worker, payload)
+    go saveOpLog(payload.Script, payload.Code, err, getResultCount(result))
   default:
     logger.Error("bad command")
     return
   }
-  go saveOpLog(payload.Script, payload.Code, err, getResultCount(result))
   sendSuccess(res, err, result, &logger)
 }
 

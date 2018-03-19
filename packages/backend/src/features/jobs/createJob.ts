@@ -18,7 +18,7 @@ export const createJob = (source: SourceRaw, gauge?: GaugeRaw) => async () => {
           error,
           source: source.id,
           script: source.script,
-          gauge: gauge && gauge.id,
+          gauge: gauge && gauge.code,
         });
       }
     } else {
@@ -27,7 +27,7 @@ export const createJob = (source: SourceRaw, gauge?: GaugeRaw) => async () => {
         error,
         source: source.id,
         script: source.script,
-        gauge: gauge && gauge.id,
+        gauge: gauge && gauge.code,
       });
     }
   } catch (err) {
@@ -36,7 +36,7 @@ export const createJob = (source: SourceRaw, gauge?: GaugeRaw) => async () => {
       error: err.message,
       source: source.id,
       script: source.script,
-      gauge: gauge && gauge.id,
+      gauge: gauge && gauge.code,
     });
   }
 };

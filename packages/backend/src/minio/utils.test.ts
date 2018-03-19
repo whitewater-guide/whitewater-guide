@@ -42,11 +42,6 @@ describe('moveTempImage', () => {
 
   afterAll(async () => resetTestMinio(true));
 
-  it('should return url in new bucket', async () => {
-    const result = await moveTempImage('http://localhost:6001/uploads/temp/temp1.jpg', AVATARS);
-    expect(result).toBe('http://localhost:6001/uploads/avatars/temp1.jpg');
-  });
-
   it('should delete temp file', async () => {
     await moveTempImage('http://localhost:6001/uploads/temp/temp1.jpg', AVATARS);
     const exists = await fileExistsInBucket('temp', 'temp1.jpg');

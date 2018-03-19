@@ -1,4 +1,5 @@
 import db from './db';
+import { startupJobs } from './features/jobs';
 import log from './log';
 import { initMinio } from './minio';
 import startServer from './server';
@@ -9,6 +10,8 @@ async function startup() {
   log.info(`Current DB version: ${dbVersion}`);
   await initMinio();
   startServer();
+  await startupJobs();
+  log.info('Startup complete');
 }
 
 startup();
