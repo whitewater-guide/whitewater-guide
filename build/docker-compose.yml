@@ -1,4 +1,4 @@
-version: '3.5'
+version: '3.4'
 
 x-single-host:
   &ww-single-host

@@ -3,7 +3,9 @@ version: '2'
 options:
   compose-file-path: 'build/docker-stack-development.yml'
 syncs:
-  ww-backend-sync:
+  ww-sync:
+    notify_terminal: true
+    sync_strategy: 'native_osx'
     src: './packages/backend/'
     notify_terminal: true
     sync_excludes: ['Dockerfile.*', 'tsconfig.json', 'tslint.json', 'bin', 'npm_scripts', 'node_modules', '*.ts', '*.iml']

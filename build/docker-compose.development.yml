@@ -1,4 +1,4 @@
-version: '3.5'
+version: '3.4'
 
 services:
   backend:
@@ -11,7 +11,7 @@ services:
       - '3333:3333'
     volumes:
       - 'yarn:/root/.cache/yarn'
-      - 'ww-backend-sync:/opt/app:nocopy'
+      - 'ww-sync:/opt/app:nocopy'
   db:
     container_name: ww-db
     image: 'ww-db:dev'
@@ -58,5 +58,5 @@ volumes:
   yarn:
     labels:
       guide.whitewater: ""
-  ww-backend-sync:
+  ww-sync:
     external: true
