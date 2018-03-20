@@ -10,7 +10,7 @@ import { GAUGE_GAL_2_1, GAUGE_GEO_3, GAUGE_NOR_1, GAUGE_NOR_3, GAUGE_NOR_4 } fro
 import safeScheduleJob from './safeScheduleJob';
 import { startJobs } from './startJobs';
 
-jest.mock('./safeScheduleJob', () => ({ default: jest.fn() }));
+jest.mock('./safeScheduleJob', () => jest.fn());
 
 beforeEach(async () => {
   jest.clearAllMocks();
