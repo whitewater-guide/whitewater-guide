@@ -1,9 +1,10 @@
+// Move this to top, because skipBabel is true. See ts-jest docks for that.
+jest.mock('../utils/isNative', () => ({ isNative: jest.fn() }));
+
 import { shallow } from 'enzyme';
 import React from 'react';
-import { isNative } from '../utils/isNative';
+import { isNative } from '../utils';
 import { withFeatureIds } from './withFeatureIds';
-
-jest.mock('../utils/isNative', () => ({ isNative: jest.fn() }));
 
 describe('default', () => {
   beforeAll(() => {

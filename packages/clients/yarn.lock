@@ -3982,6 +3982,10 @@ type-check@~0.3.2:
   dependencies:
     prelude-ls "~1.1.2"
 
+type-zoo@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/type-zoo/-/type-zoo-1.2.1.tgz#978f2a825fef06f440718fa4671adf917e8b16cb"
+
 typescript-fsa@^2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/typescript-fsa/-/typescript-fsa-2.5.0.tgz#1baec01b5e8f5f34c322679d1327016e9e294faf"

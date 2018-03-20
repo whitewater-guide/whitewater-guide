@@ -6,6 +6,7 @@ Object {
   "error": undefined,
   "fetchMore": [Function],
   "loading": false,
+  "networkStatus": 7,
   "nodes": Array [
     Object {
       "__typename": "Region",

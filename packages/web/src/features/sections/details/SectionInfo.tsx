@@ -5,8 +5,7 @@ import { Col } from 'react-grid-system';
 import { Rating } from '../../../components';
 import { Container, Row, Title } from '../../../layout/details';
 import { renderDifficulty, stringifySeason } from '../../../ww-clients/utils';
-import { Durations, Section } from '../../../ww-commons/features/sections';
-import { Tag, TagCategory } from '../../../ww-commons/features/tags';
+import { Durations, Section, Tag, TagCategory } from '../../../ww-commons';
 
 interface Props {
   section: Section;

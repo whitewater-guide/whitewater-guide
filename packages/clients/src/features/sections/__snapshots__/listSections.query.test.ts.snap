@@ -17,11 +17,6 @@ exports[`should generate correct query 1`] = `
         }
         season
         seasonNumeric
-        region {
-          id
-          language
-          name
-        }
         distance
         drop
         duration
@@ -40,19 +35,25 @@ exports[`should generate correct query 1`] = `
         }
         shape
         gauge {
-          id
-          language
-          name
-          levelUnit
-          flowUnit
-          location {
+          ... on Gauge {
             id
-            kind
-            coordinates
+            language
+            name
+            code
+            levelUnit
+            flowUnit
+            url
+            location {
+              id
+              kind
+              coordinates
+            }
+            lastMeasurement {
+              timestamp
+              flow
+              level
+            }
           }
-          lastTimestamp
-          lastLevel
-          lastFlow
         }
         levels {
           ... on GaugeBinding {

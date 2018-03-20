@@ -1,8 +1,10 @@
+import FontIcon from 'material-ui/FontIcon';
 import moment from 'moment';
 import React from 'react';
 import { Column, TableCellRenderer } from 'react-virtualized';
 import { Rating } from '../../../components';
 import { ResourcesList } from '../../../layout';
+import { getSectionColor } from '../../../ww-clients/features/sections';
 import { renderDifficulty } from '../../../ww-clients/utils';
 import { Gauge, Section } from '../../../ww-commons';
 import { SectionsListProps } from './types';
@@ -45,6 +47,21 @@ export default class SectionsList extends React.PureComponent<SectionsListProps>
     return null;
   };
 
+  renderStatus: TableCellRenderer = ({ rowData }) => {
+    const { gauge }: Section = rowData;
+    if (!gauge) {
+      return null;
+    }
+    const { lastMeasurement, flowUnit, levelUnit } = gauge;
+    if (lastMeasurement) {
+      const color = getSectionColor(rowData);
+      return (
+        <FontIcon className="material-icons" color={color}>fiber_manual_record</FontIcon>
+      );
+    }
+    return null;
+  };
+
   render() {
     return (
       <ResourcesList
@@ -56,7 +73,8 @@ export default class SectionsList extends React.PureComponent<SectionsListProps>
       >
         <Column width={200} flexGrow={1} label="Name" dataKey="name" cellRenderer={this.renderName} />
         <Column width={120} label="Difficulty" dataKey="difficulty" cellRenderer={this.renderDifficulty} />
-        <Column width={200} label="Last value" dataKey="lastMeasurement" cellRenderer={this.renderValue} />
+        <Column width={180} label="Last value" dataKey="lastMeasurement" cellRenderer={this.renderValue} />
+        <Column width={30} label="" dataKey="status" cellRenderer={this.renderStatus} />
         <Column width={150} label="Rating" dataKey="rating" cellRenderer={this.renderRating} />
         <Column width={50} label="Length" dataKey="distance" />
         <Column width={60} label="Duration" dataKey="duration" />
