@@ -1,9 +1,10 @@
+import moment from 'moment';
 import React from 'react';
 import { Column, TableCellRenderer } from 'react-virtualized';
 import { Rating } from '../../../components';
 import { ResourcesList } from '../../../layout';
 import { renderDifficulty } from '../../../ww-clients/utils';
-import { Section } from '../../../ww-commons';
+import { Gauge, Section } from '../../../ww-commons';
 import { SectionsListProps } from './types';
 
 export default class SectionsList extends React.PureComponent<SectionsListProps> {
@@ -24,6 +25,26 @@ export default class SectionsList extends React.PureComponent<SectionsListProps>
     <Rating value={rating} />
   );
 
+  renderValue: TableCellRenderer = ({ rowData }) => {
+    const { gauge }: Section = rowData;
+    if (!gauge) {
+      return null;
+    }
+    const { lastMeasurement, flowUnit, levelUnit } = gauge;
+    if (lastMeasurement) {
+      const { timestamp, flow, level } = lastMeasurement;
+      const v = flow ? flow : level;
+      const unit = flow ? flowUnit : levelUnit;
+      return (
+        <span>
+          <b>{v.toPrecision(3)}</b>
+          {` ${unit} ${moment(timestamp).fromNow()}`}
+        </span>
+      );
+    }
+    return null;
+  };
+
   render() {
     return (
       <ResourcesList
@@ -35,6 +56,7 @@ export default class SectionsList extends React.PureComponent<SectionsListProps>
       >
         <Column width={200} flexGrow={1} label="Name" dataKey="name" cellRenderer={this.renderName} />
         <Column width={120} label="Difficulty" dataKey="difficulty" cellRenderer={this.renderDifficulty} />
+        <Column width={200} label="Last value" dataKey="lastMeasurement" cellRenderer={this.renderValue} />
         <Column width={150} label="Rating" dataKey="rating" cellRenderer={this.renderRating} />
         <Column width={50} label="Length" dataKey="distance" />
         <Column width={60} label="Duration" dataKey="duration" />

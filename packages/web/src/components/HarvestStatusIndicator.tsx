@@ -80,7 +80,7 @@ export class HarvestStatusIndicator extends React.PureComponent<Props, State> {
               <Container style={styles.popover}>
                 <Row style={tsStyle}>
                   <Col sm={4}><b>Timestamp</b></Col>
-                  <Col>{moment(status.timestamp).format('DD/MM/YYYY h:mm')}</Col>
+                  <Col>{moment(status.timestamp).format('DD/MM/YYYY H:mm')}</Col>
                 </Row>
                 <Row style={countStyle}>
                   <Col sm={4}><b>Measurements</b></Col>
