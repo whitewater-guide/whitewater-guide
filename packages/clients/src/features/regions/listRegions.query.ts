@@ -10,6 +10,7 @@ export default gql`
         hidden
         rivers { count }
         gauges { count }
+        sections { count }
       }
       count
     }
