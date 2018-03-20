@@ -80,6 +80,7 @@ func handler(res http.ResponseWriter, req *http.Request) {
     go saveOpLog(payload.Script, payload.Code, err, getResultCount(result))
   default:
     logger.Error("bad command")
+    sendFailure(res, fmt.Errorf("bad command: %s", payload.Command))
     return
   }
   sendSuccess(res, err, result, &logger)

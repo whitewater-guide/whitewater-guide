@@ -8,10 +8,17 @@ RUN go get -d workers/... cli/... \
  && CGO_ENABLED=0 GOOS=linux go build -o /go/bin/workers-cli -ldflags="-s -w" cli
 
 # -------- Runnable ---------
-FROM alpine:latest
+FROM alpine:3.7
 
-WORKDIR /root
+RUN addgroup -g 1000 -S workers && \
+    adduser -u 1000 -S workers -G workers
+
+USER workers
+WORKDIR /app
+
 COPY --from=builder /go/bin/workers-server /go/bin/workers-cli ./
 COPY --from=builder /usr/local/go/lib/time/zoneinfo.zip /usr/local/go/lib/time/zoneinfo.zip
 
-ENTRYPOINT ["/root/workers-server"]
+ENV PATH="/app:${PATH}"
+
+ENTRYPOINT ["workers-server"]
