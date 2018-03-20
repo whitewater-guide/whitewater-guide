@@ -1,4 +1,5 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
+import { REGION_GALICIA } from '../../../seeds/test/03_regions';
 import { superAdminContext, userContext } from '../../../test/context';
 import { noTimestamps, runQuery } from '../../../test/db-helpers';
 
@@ -116,4 +117,28 @@ test('should get gauges', async () => {
   const result = await runQuery(gaugesQuery, { id: 'b968e2b2-76c5-11e7-b5a5-be2e44b06b34' }, userContext);
   expect(result.data!.region.gauges.count).toEqual(6);
   expect(result.data!.region.gauges).toMatchSnapshot();
+});
+
+test('should get sections', async () => {
+  const gaugesQuery = `
+    query regionDetails($id: ID, $language: String){
+      region(id: $id, language: $language) {
+        id
+        language
+        name
+        sections {
+          nodes {
+            id
+            language
+            name
+          }
+          count
+        }
+      }
+    }
+  `;
+  // No pagination yet
+  const result = await runQuery(gaugesQuery, { id: REGION_GALICIA }, userContext);
+  expect(result.data!.region.sections.count).toEqual(2);
+  expect(result.data!.region.sections).toMatchSnapshot();
 });

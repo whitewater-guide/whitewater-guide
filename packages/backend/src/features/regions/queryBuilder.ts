@@ -21,6 +21,16 @@ const connections = {
         .where('sources_regions.region_id', '=', regionId);
     },
   },
+  sections: {
+    getBuilder: () => require('../sections').buildSectionQuery,
+    foreignKey: 'river_id',
+    join: (table: string, query: Knex.QueryBuilder) => {
+      const regionId = db(true).raw('??', ['regions_view.id']);
+      return query
+        .innerJoin('rivers', `${table}.river_id`, 'rivers.id')
+        .where('rivers.region_id', '=', regionId);
+    },
+  },
 };
 
 export const buildRegionQuery = (options: Partial<QueryBuilderOptions<Region>>): Knex.QueryBuilder =>

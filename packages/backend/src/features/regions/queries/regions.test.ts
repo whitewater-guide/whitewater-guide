@@ -114,3 +114,25 @@ test('should return gauges count', async () => {
   expect(regions.nodes[1].gauges).toEqual({ count: 4 }); // galicia
   expect(regions.nodes[2].gauges).toEqual({ count: 6 }); // Norway
 });
+
+test('should return sections count', async () => {
+  const gaugesQuery = `
+    query listRegions($language: String, $page: Page){
+      regions(language: $language, page: $page) {
+        nodes {
+          id
+          language
+          name
+          sections { count }
+        }
+        count
+      }
+    }
+  `;
+  const result = await runQuery(gaugesQuery, {}, superAdminContext);
+  expect(result.errors).toBeUndefined();
+  expect(result.data!.regions).toBeDefined();
+  const regions = result.data!.regions.nodes;
+  // At least one region should have some sections
+  expect(regions.some((r: any) => r.sections.count > 0)).toBe(true);
+});

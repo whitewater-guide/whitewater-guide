@@ -121,6 +121,67 @@ order by
 
 `;
 
+exports[`details should build correct query with sections connection 1`] = `
+with sections_connection as (
+    select
+        sections_view.id,
+        sections_view.language,
+        sections_view.name,
+        sections_view.river_id
+    from
+        sections_view
+    where
+        sections_view.language = 'en'
+    order by
+        sections_view.name asc,
+        sections_view.created_at asc,
+        sections_view.id asc
+)
+select
+    regions_view.id,
+    regions_view.language,
+    regions_view.name,
+    regions_view.description,
+    regions_view.season,
+    regions_view.season_numeric,
+    regions_view.bounds,
+    regions_view.pois,
+    regions_view.hidden,
+    regions_view.created_at,
+    regions_view.updated_at, (with sections_connection_internal as (
+            select
+                sections_connection.*,
+                COALESCE(count(sections_connection.*)
+                    OVER (),
+                    0)
+            from
+                sections_connection
+            inner join rivers on sections_connection.river_id = rivers.id
+            where
+                rivers.region_id = regions_view.id
+)
+        select
+            json_build_object('count', (
+                    select
+                        sections_connection_internal.count from sections_connection_internal
+                    limit 1),
+                'nodes', (
+                    select
+                        COALESCE(json_agg (sections_connection_internal.*),
+                            '[]'::json)
+                    from
+                        sections_connection_internal))) as sections
+from
+    regions_view
+where
+    regions_view.language = 'en'
+order by
+    regions_view.name asc,
+    regions_view.created_at asc,
+    regions_view.id asc
+
+`;
+
 exports[`details should build correct query without connections 1`] = `
 select
     regions_view.id,
@@ -241,6 +302,61 @@ select
                     select
                         rivers_connection_internal.count from rivers_connection_internal
                     limit 1))) as rivers,
+count(regions_view.*)
+OVER ()
+from
+    regions_view
+where
+    regions_view.language = 'en'
+order by
+    regions_view.name asc,
+    regions_view.created_at asc,
+    regions_view.id asc
+
+`;
+
+exports[`list should build correct query with sections connection 1`] = `
+with sections_connection as (
+    select
+        sections_view.id,
+        sections_view.river_id
+    from
+        sections_view
+    where
+        sections_view.language = 'en'
+    order by
+        sections_view.name asc,
+        sections_view.created_at asc,
+        sections_view.id asc
+)
+select
+    regions_view.id,
+    regions_view.language,
+    regions_view.name,
+    regions_view.description,
+    regions_view.season,
+    regions_view.season_numeric,
+    regions_view.bounds,
+    regions_view.pois,
+    regions_view.hidden,
+    regions_view.created_at,
+    regions_view.updated_at, (with sections_connection_internal as (
+            select
+                sections_connection.*,
+                COALESCE(count(sections_connection.*)
+                    OVER (),
+                    0)
+            from
+                sections_connection
+            inner join rivers on sections_connection.river_id = rivers.id
+            where
+                rivers.region_id = regions_view.id
+)
+        select
+            json_build_object('count', (
+                    select
+                        sections_connection_internal.count from sections_connection_internal
+                    limit 1))) as sections,
 count(regions_view.*)
 OVER ()
 from

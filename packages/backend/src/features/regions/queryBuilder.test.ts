@@ -66,6 +66,23 @@ describe('details', () => {
     const query = buildRegionQuery(options);
     expect(query).toMatchSnapshot();
   });
+
+  it('should build correct query with sections connection', () => {
+    const connections = {
+      sections: {
+        nodes: {
+          __typename: {},
+          id: {},
+          language: {},
+          name: {},
+        },
+        count: {},
+      },
+    };
+    graphqlFields.mockReturnValueOnce({ ...primitives, ...connections });
+    const query = buildRegionQuery(options);
+    expect(query).toMatchSnapshot();
+  });
 });
 
 describe('list', () => {
@@ -89,6 +106,17 @@ describe('list', () => {
   it('should build correct query with gauges connection', () => {
     const connections = {
       gauges: {
+        count: {},
+      },
+    };
+    graphqlFields.mockReturnValueOnce({ nodes: { ...primitives, ...connections }, count: {} });
+    const query = buildRegionsListQuery(options);
+    expect(query).toMatchSnapshot();
+  });
+
+  it('should build correct query with sections connection', () => {
+    const connections = {
+      sections: {
         count: {},
       },
     };

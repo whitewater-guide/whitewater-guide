@@ -13,7 +13,9 @@ type Region {
   rivers: RegionRiverConnection!
   gauges: RegionGaugeConnection!
   # sources: [Source]!
-  # sections: [Section]!
+
+  # Pagination not supported yet, so use only for count!
+  sections: RegionSectionConnection!
 }
 
 type RegionRiverConnection {
@@ -23,6 +25,11 @@ type RegionRiverConnection {
 
 type RegionGaugeConnection {
   nodes: [Gauge]!
+  count: Int!
+}
+
+type RegionSectionConnection {
+  nodes: [Section]!
   count: Int!
 }
 

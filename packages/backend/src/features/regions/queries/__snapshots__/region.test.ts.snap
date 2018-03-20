@@ -56,6 +56,24 @@ Object {
 }
 `;
 
+exports[`should get sections 1`] = `
+Object {
+  "count": 2,
+  "nodes": Array [
+    Object {
+      "id": "2b01742c-d443-11e7-9296-cec278b6b50a",
+      "language": "en",
+      "name": "Gal_riv_1_sec_1",
+    },
+    Object {
+      "id": "3a6e3210-d529-11e7-9296-cec278b6b50a",
+      "language": "en",
+      "name": "Gal_riv_1_sec_2",
+    },
+  ],
+}
+`;
+
 exports[`should return region 1`] = `
 Object {
   "bounds": Array [
