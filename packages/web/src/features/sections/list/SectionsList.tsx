@@ -6,7 +6,7 @@ import { Rating } from '../../../components';
 import { ResourcesList } from '../../../layout';
 import { getSectionColor } from '../../../ww-clients/features/sections';
 import { renderDifficulty } from '../../../ww-clients/utils';
-import { Gauge, Section } from '../../../ww-commons';
+import { Section } from '../../../ww-commons';
 import { SectionsListProps } from './types';
 
 export default class SectionsList extends React.PureComponent<SectionsListProps> {
@@ -52,7 +52,7 @@ export default class SectionsList extends React.PureComponent<SectionsListProps>
     if (!gauge) {
       return null;
     }
-    const { lastMeasurement, flowUnit, levelUnit } = gauge;
+    const { lastMeasurement } = gauge;
     if (lastMeasurement) {
       const color = getSectionColor(rowData);
       return (
