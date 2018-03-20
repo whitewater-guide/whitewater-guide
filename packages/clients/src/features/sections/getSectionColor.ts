@@ -1,5 +1,5 @@
 /* tslint:disable:no-bitwise */
-import * as color from 'color';
+import color from 'color';
 import { isFunction, mapValues } from 'lodash';
 import { GaugeBinding } from '../../../ww-commons';
 

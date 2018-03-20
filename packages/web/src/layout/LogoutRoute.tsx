@@ -1,5 +1,5 @@
 import { ApolloClient } from 'apollo-client';
-import * as React from 'react';
+import React from 'react';
 import { withApollo } from 'react-apollo';
 import { Redirect } from 'react-router-dom';
 

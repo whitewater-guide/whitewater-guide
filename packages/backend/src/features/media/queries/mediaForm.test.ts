@@ -1,4 +1,4 @@
-import * as superagent from 'superagent';
+import superagent from 'superagent';
 import { MutationNotAllowedError } from '../../../apollo';
 import { holdTransaction, rollbackTransaction } from '../../../db';
 import { fileExistsInBucket, resetTestMinio, TEMP } from '../../../minio';

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Column, TableCellRenderer } from 'react-virtualized';
 import { Rating } from '../../../components';
 import { ResourcesList } from '../../../layout';

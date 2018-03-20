@@ -1,4 +1,4 @@
-import * as Redis from 'ioredis';
+import Redis from 'ioredis';
 
 const options: Redis.RedisOptions = {
   host: 'redis',

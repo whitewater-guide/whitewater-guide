@@ -1,8 +1,8 @@
 import { times, xor } from 'lodash';
 import EnhancedButton from 'material-ui/internal/EnhancedButton';
 import muiThemeable from 'material-ui/styles/muiThemeable';
-import * as moment from 'moment';
-import * as React from 'react';
+import moment from 'moment';
+import React from 'react';
 import { BaseFieldProps, Field, GenericField, WrappedFieldProps } from 'redux-form';
 import { Styles, Themeable } from '../../styles';
 

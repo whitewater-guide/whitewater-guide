@@ -1,7 +1,7 @@
 import { groupBy } from 'lodash';
 import { Tab } from 'material-ui/Tabs';
 import TextField from 'material-ui/TextField';
-import * as React from 'react';
+import React from 'react';
 import { Tabs } from '../../../components';
 import {
   Checkbox,

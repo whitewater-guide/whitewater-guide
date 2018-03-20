@@ -1,5 +1,5 @@
 import { GraphQLFieldResolver } from 'graphql';
-import * as Joi from 'joi';
+import Joi from 'joi';
 import { isInputValidResolver, isSuperadminResolver, upsertI18nResolver } from '../../../apollo';
 import db, { rawUpsert } from '../../../db';
 import { TagInput, TagInputSchema } from '../../../ww-commons';

@@ -1,5 +1,5 @@
 import FlatButton from 'material-ui/FlatButton';
-import * as React from 'react';
+import React from 'react';
 import { graphql } from 'react-apollo';
 import { emitter, POKE_TABLES } from '../../../utils';
 import TOGGLE_All_GAUGES from './toggleAllGauges.mutation';

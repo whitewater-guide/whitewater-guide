@@ -1,5 +1,5 @@
 import FontIcon from 'material-ui/FontIcon';
-import * as React from 'react';
+import React from 'react';
 import { Styles } from '../../../styles';
 import { MediaKind } from '../../../ww-commons';
 import { THUMB_HEIGHT } from './constants';

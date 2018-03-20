@@ -1,4 +1,4 @@
-import * as knex from 'knex';
+import knex from 'knex';
 import * as development from './knex.development';
 import * as test from './knex.testing';
 

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Row as FlexRow, RowProps } from 'react-grid-system';
 
 const styles = {

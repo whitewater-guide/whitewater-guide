@@ -1,6 +1,6 @@
 import Dialog from 'material-ui/Dialog';
 import RaisedButton from 'material-ui/RaisedButton';
-import * as React from 'react';
+import React from 'react';
 import { Coordinate, Coordinate3d } from '../../ww-commons';
 import { DrawingMap } from './DrawingMap';
 import { DrawingMode } from './types';

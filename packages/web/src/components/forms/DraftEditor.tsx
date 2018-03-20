@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Editor } from 'react-draft-wysiwyg';
 // tslint:disable-next-line:no-submodule-imports
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';

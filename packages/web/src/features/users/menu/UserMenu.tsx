@@ -5,7 +5,7 @@ import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import Popover from 'material-ui/Popover';
 import { ToolbarGroup } from 'material-ui/Toolbar';
-import * as React from 'react';
+import React from 'react';
 import { InnerProps } from './container';
 
 const styles = {

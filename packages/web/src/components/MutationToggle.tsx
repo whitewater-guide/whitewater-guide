@@ -1,6 +1,6 @@
 import CircularProgress from 'material-ui/CircularProgress';
 import Toggle from 'material-ui/Toggle';
-import * as React from 'react';
+import React from 'react';
 import { sleep } from '../ww-clients/utils';
 
 interface Props {

@@ -1,5 +1,5 @@
 // tslint:disable-next-line
-import * as Joi from 'joi';
+import Joi from 'joi';
 
 export const isJSONString = (input: any) => {
   try {

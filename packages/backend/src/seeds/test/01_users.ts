@@ -1,5 +1,5 @@
+import Knex from 'knex';
 import { Role, UserRaw } from '../../features/users/types';
-import Knex = require('knex');
 
 type PUser = Partial<UserRaw>;
 

@@ -1,6 +1,6 @@
-import * as casual from 'casual';
+import casual from 'casual';
 import { mount } from 'enzyme';
-import * as React from 'react';
+import React from 'react';
 import { WithTags } from '../../../ww-commons';
 import { createMockedProvider, flushPromises, Receiver } from '../../test';
 import { withTags } from './withTags';

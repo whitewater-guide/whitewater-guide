@@ -1,7 +1,7 @@
 import Visibility from 'material-ui/svg-icons/action/visibility';
 import VisibilityOff from 'material-ui/svg-icons/action/visibility-off';
 import { Tab } from 'material-ui/Tabs';
-import * as React from 'react';
+import React from 'react';
 import { InjectedFormProps } from 'redux-form';
 import { Tabs } from '../../../components';
 import {

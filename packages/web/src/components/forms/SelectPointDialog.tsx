@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { BaseFieldProps, Field, GenericField, WrappedFieldProps } from 'redux-form';
 import { Coordinate, Coordinate3d } from '../../ww-commons';
 import { SelectGeometryDialog } from '../maps';

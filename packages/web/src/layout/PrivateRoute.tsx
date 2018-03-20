@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Redirect, Route, RouteComponentProps, RouteProps } from 'react-router-dom';
 import { branch, compose, renderComponent } from 'recompose';
 import { withLoading } from '../components/withLoading';

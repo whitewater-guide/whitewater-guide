@@ -1,6 +1,6 @@
 import { groupBy } from 'lodash';
 import { CardHeader, CardMedia } from 'material-ui/Card';
-import * as React from 'react';
+import React from 'react';
 import { Content } from '../../components';
 import { LanguagePicker } from '../../components/forms';
 import { Styles } from '../../styles';

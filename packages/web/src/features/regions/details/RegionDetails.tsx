@@ -1,6 +1,6 @@
 import { CardMedia } from 'material-ui/Card';
 import { Tab } from 'material-ui/Tabs';
-import * as React from 'react';
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Content, Tabs } from '../../../components';
 import { AdminFooter } from '../../../layout/';

@@ -1,4 +1,4 @@
-import Knex = require('knex');
+import Knex from 'knex';
 
 const tags = [
   { id: 'waterfalls', category: 'kayaking' },

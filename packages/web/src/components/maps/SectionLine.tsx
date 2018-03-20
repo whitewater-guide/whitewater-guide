@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { SectionComponentProps } from '../../ww-clients/features/maps';
 import { getSectionColor } from '../../ww-clients/features/sections';
 import { MapElement } from './types';

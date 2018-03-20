@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Route } from 'react-router-dom';
 import { Content } from '../components';
 import { Styles } from '../styles';

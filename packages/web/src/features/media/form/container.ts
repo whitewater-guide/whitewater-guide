@@ -1,4 +1,4 @@
-import * as qs from 'qs';
+import qs from 'qs';
 import { ChildProps } from 'react-apollo';
 import { RouteComponentProps } from 'react-router';
 import { compose } from 'recompose';

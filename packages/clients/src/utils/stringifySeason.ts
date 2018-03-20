@@ -1,5 +1,5 @@
 import { times } from 'lodash';
-import * as moment from 'moment';
+import moment from 'moment';
 
 function halfMonth(n: number): string {
   const name = moment().month(Math.floor(n / 2)).format('MMMM');

@@ -1,5 +1,5 @@
-import gqf = require('graphql-fields');
 import { GraphQLResolveInfo } from 'graphql';
+import gqf from 'graphql-fields';
 import db from '../../db';
 import { adminContext } from '../../test/context';
 import { buildMediaListQuery, buildMediaQuery } from './queryBuilder';

@@ -1,7 +1,7 @@
 import { mount, shallow } from 'enzyme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import * as PropTypes from 'prop-types';
-import * as React from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 // enzyme MUI Test Helpers
 // - https://github.com/callemall/material-ui/issues/4664

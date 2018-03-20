@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Styles } from '../../../styles';
 import { Media, MediaKind } from '../../../ww-commons';
 import Dropzone from './Dropzone';

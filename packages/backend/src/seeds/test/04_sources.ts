@@ -1,4 +1,4 @@
-import Knex = require('knex');
+import Knex from 'knex';
 import { HarvestMode } from '../../ww-commons';
 
 export const SOURCE_GALICIA_1 = '6d0d717e-aa9d-11e7-abc4-cec278b6b50a';

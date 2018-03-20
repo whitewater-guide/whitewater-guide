@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 import { createMemoryHistory, History } from 'history';
 // tslint:disable-next-line
-import * as Joi from 'joi';
-import * as React from 'react';
+import Joi from 'joi';
+import React from 'react';
 import { ChildProps, graphql } from 'react-apollo';
 import { ComponentEnhancer, withProps } from 'recompose';
 import { FormReceiver, mountForm } from '../../test';

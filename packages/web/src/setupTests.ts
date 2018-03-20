@@ -2,8 +2,8 @@
 import 'raf/polyfill';
 import 'url-search-params-polyfill';
 
-import * as Enzyme from 'enzyme';
-import * as Adapter from 'enzyme-adapter-react-16';
+import Enzyme from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 
 window.google = {
   maps: {

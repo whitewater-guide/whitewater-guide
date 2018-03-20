@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { InjectedFormProps } from 'redux-form';
 import { Form, StringArrayInput, TextInput } from '../../../components/forms';
 import { RiverInput } from '../../../ww-commons';

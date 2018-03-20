@@ -1,6 +1,6 @@
 /* tslint:disable:max-classes-per-file */
 declare module 'react-gateway' {
-  import * as React from 'react';
+  import React from 'react';
 
   export class GatewayProvider extends React.Component {
   }

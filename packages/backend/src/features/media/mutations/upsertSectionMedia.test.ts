@@ -1,5 +1,5 @@
 import { copy } from 'fs-extra';
-import * as path from 'path';
+import path from 'path';
 import db, { holdTransaction, rollbackTransaction } from '../../../db';
 import { fileExistsInBucket, MEDIA, MEDIA_BUCKET_URL, resetTestMinio, TEMP, TEMP_BUCKET_DIR } from '../../../minio';
 import { GALICIA_R1_S1, NORWAY_SJOA_AMOT } from '../../../seeds/test/08_sections';

@@ -1,4 +1,4 @@
-import Knex = require('knex');
+import Knex from 'knex';
 import { SOURCE_GALICIA_1, SOURCE_GALICIA_2, SOURCE_GEORGIA, SOURCE_NORWAY } from './04_sources';
 
 export const GAUGE_GAL_1_1 = 'aba8c106-aaa0-11e7-abc4-cec278b6b50a';

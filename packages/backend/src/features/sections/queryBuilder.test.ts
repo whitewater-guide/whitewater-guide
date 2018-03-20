@@ -1,8 +1,8 @@
 import { GraphQLResolveInfo } from 'graphql';
+import gqf from 'graphql-fields';
 import db from '../../db';
 import { adminContext } from '../../test/context';
 import { buildSectionQuery, buildSectionsListQuery } from './queryBuilder';
-import gqf = require('graphql-fields');
 
 const graphqlFields: jest.Mock<any> = gqf as any;
 jest.mock('graphql-fields', () => jest.fn());

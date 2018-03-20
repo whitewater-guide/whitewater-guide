@@ -1,6 +1,6 @@
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
-import * as React from 'react';
+import React from 'react';
 import injectSheet from 'react-jss';
 import { getVideoThumb } from '../../../ww-clients/utils';
 import { Media, MediaKind } from '../../../ww-commons';

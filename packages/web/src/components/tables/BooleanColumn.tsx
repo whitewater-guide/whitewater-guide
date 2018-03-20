@@ -1,5 +1,5 @@
 import FontIcon from 'material-ui/FontIcon';
-import * as React from 'react';
+import React from 'react';
 import { ColumnProps, TableCellProps } from 'react-virtualized';
 
 interface BooleanColumnProps extends ColumnProps {

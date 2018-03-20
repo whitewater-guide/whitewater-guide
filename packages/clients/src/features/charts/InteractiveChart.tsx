@@ -1,5 +1,5 @@
-import * as moment from 'moment';
-import * as React from 'react';
+import moment from 'moment';
+import React from 'react';
 import { GaugeBinding, Measurement, Unit } from '../../../ww-commons';
 import { ChartComponentProps, ChartLayoutProps, FlowToggleProps, PeriodToggleProps } from './types';
 

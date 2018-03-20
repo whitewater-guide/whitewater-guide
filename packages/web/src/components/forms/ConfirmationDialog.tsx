@@ -1,6 +1,6 @@
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import * as React from 'react';
+import React from 'react';
 
 interface Props {
   title?: string;

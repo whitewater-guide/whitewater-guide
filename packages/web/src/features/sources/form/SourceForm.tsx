@@ -1,5 +1,5 @@
 import { Tab } from 'material-ui/Tabs';
-import * as React from 'react';
+import React from 'react';
 import { Tabs } from '../../../components';
 import { ChipInput, DraftEditor, Form, Select, TextInput } from '../../../components/forms';
 import { SourceFormProps } from './types';

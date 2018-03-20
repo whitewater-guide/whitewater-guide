@@ -1,5 +1,5 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import React from 'react';
+import ReactDOM from 'react-dom';
 // tslint:disable-next-line:no-submodule-imports
 import 'react-virtualized/styles.css';
 // tslint:disable-next-line:no-import-side-effect

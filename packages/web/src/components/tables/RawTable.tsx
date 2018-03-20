@@ -1,5 +1,5 @@
-import * as PropTypes from 'prop-types';
-import * as React from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { Column, Table as RVTable, TableProps } from 'react-virtualized';
 import { compose, mapProps } from 'recompose';
 import { emitter, POKE_TABLES } from '../../utils';

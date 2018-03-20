@@ -1,7 +1,7 @@
 import { map } from 'lodash';
 import IconButton from 'material-ui/IconButton';
 import Paper from 'material-ui/Paper';
-import * as React from 'react';
+import React from 'react';
 import { FieldsProps } from 'redux-form';
 import { Styles } from '../../styles';
 import { Coordinate, NamedNode, POINames, PointInput as PointInputType } from '../../ww-commons';

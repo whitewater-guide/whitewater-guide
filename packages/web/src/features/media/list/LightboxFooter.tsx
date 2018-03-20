@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Styles } from '../../../styles/index';
 import { Media } from '../../../ww-commons/features/media/index';
 

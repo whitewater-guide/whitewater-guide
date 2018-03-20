@@ -1,6 +1,6 @@
 import IconButton from 'material-ui/IconButton';
 import TextField from 'material-ui/TextField';
-import * as React from 'react';
+import React from 'react';
 import { Styles } from '../../styles';
 import { Tag, TagInput } from '../../ww-commons';
 import { WithTagMutations } from './types';

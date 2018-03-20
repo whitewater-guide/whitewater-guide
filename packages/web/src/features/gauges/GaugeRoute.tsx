@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Route, RouteComponentProps, Switch } from 'react-router-dom';
 import GaugeDetails from './details';
 import { GaugeForm } from './form';

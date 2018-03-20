@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import YouTube from 'react-youtube';
 import { Styles } from '../../../styles/index';
 import { getVimeoId, getYoutubeId, isVimeo, isYoutube } from '../../../ww-clients/utils/index';

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Route, RouteComponentProps, withRouter } from 'react-router';
 import { Container } from '../../layout/details';
 import MediaForm from './form';

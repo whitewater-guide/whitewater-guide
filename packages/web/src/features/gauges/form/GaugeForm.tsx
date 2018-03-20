@@ -1,5 +1,5 @@
 import { Tab } from 'material-ui/Tabs';
-import * as React from 'react';
+import React from 'react';
 import { InjectedFormProps } from 'redux-form';
 import { Form, PointInput, Switch, TextInput } from '../../../components/forms';
 import { GaugeInput } from '../../../ww-commons';

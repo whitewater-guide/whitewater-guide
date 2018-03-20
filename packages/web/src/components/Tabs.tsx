@@ -1,6 +1,6 @@
 import { TabsProps } from 'material-ui';
 import { Tabs as MUITabs } from 'material-ui/Tabs';
-import * as React from 'react';
+import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { Styles } from '../styles';
 import { TabTemplate } from './TabTemplate';

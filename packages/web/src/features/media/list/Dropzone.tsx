@@ -1,5 +1,5 @@
 import FontIcon from 'material-ui/FontIcon';
-import * as React from 'react';
+import React from 'react';
 import Dz, { DropFilesEventHandler } from 'react-dropzone';
 import { Styles } from '../../../styles';
 import { MediaKind } from '../../../ww-commons';

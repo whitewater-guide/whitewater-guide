@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { WithGauge } from '../../../ww-clients/features/gauges';
 
 const GaugeDetails: React.StatelessComponent<WithGauge> = props => (

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { TextInput } from '../../../components/forms';
 import { MediaFormProps } from './types';
 

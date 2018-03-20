@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Route, RouteComponentProps, Switch } from 'react-router-dom';
 import SourceDetails from './details';
 import SourceForm from './form';

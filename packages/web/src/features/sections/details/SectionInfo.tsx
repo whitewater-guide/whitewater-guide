@@ -1,6 +1,6 @@
 import { groupBy } from 'lodash';
 import Chip from 'material-ui/Chip';
-import * as React from 'react';
+import React from 'react';
 import { Col } from 'react-grid-system';
 import { Rating } from '../../../components';
 import { Container, Row, Title } from '../../../layout/details';

@@ -1,6 +1,6 @@
+import Knex from 'knex';
 import { Point, Polygon } from 'wkx';
 import { Coordinate3d } from '../../ww-commons';
-import Knex = require('knex');
 
 function getBounds(bounds: Coordinate3d[] | null) {
   let rawBounds = null;

@@ -1,4 +1,4 @@
-import * as pino from 'pino';
+import pino from 'pino';
 
 const log = pino({
   level: process.env.BACK_LOG_LEVEL,

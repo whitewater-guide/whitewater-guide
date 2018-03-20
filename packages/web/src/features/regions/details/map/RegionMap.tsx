@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import ErrorBoundary from 'react-error-boundary';
 import { WebMapLayout } from '../../../../components/maps';
 import { getMapView, MapProps } from '../../../../ww-clients/features/maps';

@@ -1,7 +1,7 @@
 import { createHash } from 'crypto';
 import { access, constants, createReadStream, readdir } from 'fs';
 import { copy, emptyDir } from 'fs-extra';
-import * as path from 'path';
+import path from 'path';
 import { AVATARS, MEDIA, TEMP } from './buckets';
 
 export const BUCKETS_DIR = path.resolve(__dirname, '../../../minio/data');

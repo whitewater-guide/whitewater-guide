@@ -1,5 +1,5 @@
 import { get } from 'lodash';
-import * as React from 'react';
+import React from 'react';
 import { TextInput } from '../../../components/forms';
 import { Styles } from '../../../styles';
 import { getImageSize } from '../../../utils';

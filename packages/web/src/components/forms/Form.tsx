@@ -2,7 +2,7 @@ import { Location } from 'history';
 import { CardActions, CardHeader, CardMedia } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import muiThemeable from 'material-ui/styles/muiThemeable';
-import * as React from 'react';
+import React from 'react';
 import Prompt from 'react-router-navigation-prompt';
 import { InjectedFormProps } from 'redux-form';
 import { Styles, Themeable } from '../../styles';

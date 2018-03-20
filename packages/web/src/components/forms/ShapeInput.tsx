@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { BaseFieldArrayProps, FieldArray, GenericFieldArray, WrappedFieldArrayProps } from 'redux-form';
 import { Styles } from '../../styles';
 import { computeDistanceBetween } from '../../ww-clients/utils';

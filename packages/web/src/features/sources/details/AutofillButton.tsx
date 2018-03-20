@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 import { FlatButton, FlatButtonProps } from 'material-ui';
-import * as React from 'react';
+import React from 'react';
 import { graphql } from 'react-apollo';
 import { compose, mapProps } from 'recompose';
 import { emitter, POKE_TABLES } from '../../../utils';

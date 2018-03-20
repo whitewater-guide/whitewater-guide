@@ -1,4 +1,4 @@
-import * as cluster from 'cluster';
+import cluster from 'cluster';
 
 export const isMaster = () => {
   if (process.env && process.env.pm_id) {

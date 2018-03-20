@@ -1,5 +1,5 @@
 import { RaisedButton } from 'material-ui';
-import * as React from 'react';
+import React from 'react';
 import { Col } from 'react-grid-system';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { Rating } from '../../../../components';

@@ -1,5 +1,5 @@
 // tslint:disable-next-line
-import * as Joi from 'joi';
+import Joi from 'joi';
 import { MediaKind } from './types';
 
 export const MediaInputSchema = Joi.object().keys({

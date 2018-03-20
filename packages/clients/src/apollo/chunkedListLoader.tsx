@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { ListType } from '../../ww-commons';
 import { WithList } from './types';
 

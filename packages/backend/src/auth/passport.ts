@@ -1,5 +1,5 @@
-import * as express from 'express';
-import * as passport from 'passport';
+import express from 'express';
+import passport from 'passport';
 import { Strategy as FacebookStrategy } from 'passport-facebook';
 import db from '../db';
 import { UserRaw } from '../features/users';

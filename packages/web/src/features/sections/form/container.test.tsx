@@ -1,6 +1,6 @@
-import * as casual from 'casual';
+import casual from 'casual';
 import { ReactWrapper } from 'enzyme';
-import * as React from 'react';
+import React from 'react';
 import { InjectedFormProps } from 'redux-form';
 import { FormReceiver, mountForm } from '../../../test';
 import { flushPromises } from '../../../ww-clients/test';

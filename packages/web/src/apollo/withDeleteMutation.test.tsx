@@ -1,6 +1,6 @@
 import { ReactWrapper } from 'enzyme';
 import gql from 'graphql-tag';
-import * as React from 'react';
+import React from 'react';
 import { graphql } from 'react-apollo';
 import { compose } from 'recompose';
 import { Loading } from '../components';

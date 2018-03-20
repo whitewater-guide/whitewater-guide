@@ -1,9 +1,9 @@
 import { GraphQLResolveInfo } from 'graphql';
-import * as Knex from 'knex';
+import graphqlFields from 'graphql-fields';
+import Knex from 'knex';
 import { castArray, snakeCase } from 'lodash';
 import { Context, Page } from '../apollo';
 import db from './db';
-import graphqlFields = require('graphql-fields');
 
 type ColumnMap<T> = {
   [field in keyof T]?: (context?: Context) => any;

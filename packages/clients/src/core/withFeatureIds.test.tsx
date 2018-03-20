@@ -1,5 +1,5 @@
 import { shallow } from 'enzyme';
-import * as React from 'react';
+import React from 'react';
 import { isNative } from '../utils/isNative';
 import { withFeatureIds } from './withFeatureIds';
 

@@ -1,5 +1,5 @@
 declare module 'react-error-boundary' {
-  import * as React from 'react';
+  import React from 'react';
 
   interface FallbackProps {
     error?: Error;

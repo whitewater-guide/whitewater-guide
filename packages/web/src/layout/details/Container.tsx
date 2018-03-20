@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Container as FlexContainer, ContainerProps } from 'react-grid-system';
 
 const styles = {

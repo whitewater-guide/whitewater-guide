@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { AutoSizer, Dimensions } from 'react-virtualized';
 import { Table, TableProps } from '../../components';
 import { emitter, POKE_TABLES } from '../../utils';

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { MapComponentProps } from '../../ww-clients/features/maps';
 import { arrayToGmaps } from '../../ww-clients/utils';
 import { Coordinate } from '../../ww-commons';

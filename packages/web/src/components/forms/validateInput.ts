@@ -1,5 +1,5 @@
 // tslint:disable-next-line
-import * as Joi from 'joi';
+import Joi from 'joi';
 import { set } from 'lodash';
 
 export const validateInput = (schema: Joi.Schema) => (input: any) => {

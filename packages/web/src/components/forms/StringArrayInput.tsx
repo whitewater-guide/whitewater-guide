@@ -1,6 +1,6 @@
 import { reject } from 'lodash';
 import MUIChipInput from 'material-ui-chip-input';
-import * as React from 'react';
+import React from 'react';
 import { BaseFieldProps, Field, GenericField, WrappedFieldProps } from 'redux-form';
 
 interface StringArrayInputProps {

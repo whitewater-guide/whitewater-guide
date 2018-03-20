@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Styles } from '../../styles';
 import { Tag, TagCategory } from '../../ww-commons';
 import TagForm from './TagForm';

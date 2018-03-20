@@ -1,5 +1,5 @@
 // tslint:disable-next-line
-import * as Joi from 'joi';
+import Joi from 'joi';
 import { CoordinateSchema, PointInputSchema } from '../points';
 
 export const RegionInputSchema = Joi.object().keys({

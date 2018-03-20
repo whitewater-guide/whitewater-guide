@@ -1,6 +1,6 @@
 import { ToggleProps } from 'material-ui';
 import Toggle from 'material-ui/Toggle';
-import * as React from 'react';
+import React from 'react';
 import { BaseFieldProps, Field, GenericField, WrappedFieldProps } from 'redux-form';
 
 const styles = {

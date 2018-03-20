@@ -1,7 +1,7 @@
-import * as bodyParser from 'body-parser';
-import * as cors from 'cors';
-import * as express from 'express';
-import * as PrettyError from 'pretty-error';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import express from 'express';
+import PrettyError from 'pretty-error';
 import { graphqlRouter } from './apollo/router';
 import { authRouter, passport, sessionMiddleware } from './auth';
 

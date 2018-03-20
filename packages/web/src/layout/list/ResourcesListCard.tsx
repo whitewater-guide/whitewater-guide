@@ -1,7 +1,7 @@
 import { upperFirst } from 'lodash';
 import { CardHeader, CardMedia } from 'material-ui/Card';
 import muiThemeable from 'material-ui/styles/muiThemeable';
-import * as React from 'react';
+import React from 'react';
 import { AutoSizer, Dimensions } from 'react-virtualized';
 import { Content, Table, TableProps } from '../../components';
 import { LanguagePicker, WithLanguage } from '../../components/forms';

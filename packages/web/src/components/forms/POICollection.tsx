@@ -1,6 +1,6 @@
 import FontIcon from 'material-ui/FontIcon';
 import RaisedButton from 'material-ui/RaisedButton';
-import * as React from 'react';
+import React from 'react';
 import { BaseFieldArrayProps, FieldArray, GenericFieldArray, WrappedFieldArrayProps } from 'redux-form';
 import { Styles } from '../../styles';
 import { Coordinate, Point, PointInput as PointInputType } from '../../ww-commons';

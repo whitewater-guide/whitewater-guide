@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import getPathTokens from './getPathTokens';
 import getRouteMatch from './getRouteMatch';
 import { BreadcrumbsProps } from './types';

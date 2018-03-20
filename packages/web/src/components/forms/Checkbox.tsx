@@ -1,6 +1,6 @@
 import { CheckboxProps } from 'material-ui';
 import MUICheckbox from 'material-ui/Checkbox';
-import * as React from 'react';
+import React from 'react';
 import { BaseFieldProps, Field, GenericField, WrappedFieldProps } from 'redux-form';
 
 const styles = {

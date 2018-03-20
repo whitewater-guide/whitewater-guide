@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme';
 import gql from 'graphql-tag';
-import * as React from 'react';
+import React from 'react';
 import { graphql, OperationOption } from 'react-apollo';
 import { withProps } from 'recompose';
 import { enhancedQuery, wrapErrors } from './enhancedQuery';

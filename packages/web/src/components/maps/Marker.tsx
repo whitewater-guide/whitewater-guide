@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Coordinate, Coordinate2d } from '../../ww-commons/features/points/types';
 
 interface Props {

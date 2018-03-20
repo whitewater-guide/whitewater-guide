@@ -1,5 +1,5 @@
 import { castArray, get } from 'lodash';
-import * as qs from 'qs';
+import qs from 'qs';
 import { withProps } from 'recompose';
 import { isNative } from '../utils';
 

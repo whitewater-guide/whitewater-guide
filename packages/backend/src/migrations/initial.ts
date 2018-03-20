@@ -1,4 +1,4 @@
-import Knex = require('knex');
+import Knex from 'knex';
 import { runSqlFile } from '../db/runSqlFile';
 import { addUpdatedAtFunction, addUpdatedAtTrigger, removeUpdatedAtFunction } from '../db/updatedAtTrigger';
 import { Role } from '../features/users/types';

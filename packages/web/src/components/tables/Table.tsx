@@ -1,5 +1,5 @@
 import FontIcon from 'material-ui/FontIcon';
-import * as React from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Index, TableCellProps, TableProps as VTableProps } from 'react-virtualized';
 import { NamedNode, ResourceType } from '../../ww-commons';

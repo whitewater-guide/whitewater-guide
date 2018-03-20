@@ -1,5 +1,5 @@
 import { GraphQLFieldResolver } from 'graphql';
-import * as Joi from 'joi';
+import Joi from 'joi';
 import { isAdminResolver, isInputValidResolver, upsertI18nResolver, ValidationError } from '../../../apollo';
 import db, { rawUpsert } from '../../../db';
 import { MEDIA, moveTempImage } from '../../../minio';

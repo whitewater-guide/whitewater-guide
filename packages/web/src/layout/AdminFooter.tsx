@@ -1,6 +1,6 @@
 import { CardActions } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
-import * as React from 'react';
+import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 import { adminOnly } from '../components';

@@ -1,5 +1,5 @@
 import update from 'immutability-helper';
-import * as React from 'react';
+import React from 'react';
 import { geometryToLatLngs } from '../../utils/google-maps';
 import { MapComponentProps } from '../../ww-clients/features/maps';
 import { arrayToGmaps, getCoordinatesPatch, gmapsToArray } from '../../ww-clients/utils';

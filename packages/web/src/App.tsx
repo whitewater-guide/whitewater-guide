@@ -1,5 +1,5 @@
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import * as React from 'react';
+import React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import { Provider, Store } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';

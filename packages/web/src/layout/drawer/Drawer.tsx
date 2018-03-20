@@ -1,7 +1,7 @@
 import MuiDrawer from 'material-ui/Drawer';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
-import * as React from 'react';
+import React from 'react';
 import { matchPath, RouteComponentProps, withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 import { withMe, WithMe } from '../../ww-clients/features/users';

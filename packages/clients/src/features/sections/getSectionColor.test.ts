@@ -1,4 +1,4 @@
-import * as color from 'color';
+import color from 'color';
 import { mapValues } from 'lodash';
 import { Colors, getDryLevel, getSectionColor, hslMix } from './getSectionColor';
 

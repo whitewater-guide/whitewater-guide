@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { Col } from 'react-grid-system';
-import * as ReactMarkdown from 'react-markdown';
+import ReactMarkdown from 'react-markdown';
 import { Container, Row, Title } from '../../../layout/details';
 import { stringifySeason } from '../../../ww-clients/utils';
 import { Region } from '../../../ww-commons/features/regions';

@@ -1,5 +1,5 @@
 import { GraphQLFieldResolver } from 'graphql';
-import * as Joi from 'joi';
+import Joi from 'joi';
 import { isAdminResolver, isInputValidResolver, upsertI18nResolver } from '../../../apollo';
 import db from '../../../db';
 import { rawUpsert } from '../../../db/rawUpsert';

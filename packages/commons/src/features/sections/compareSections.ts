@@ -1,5 +1,5 @@
 // @ts-ignore
-import * as deburr from 'lodash/deburr';
+import deburr from 'lodash/deburr';
 import { Section, SectionSearchTerms, SectionSortBy } from './types';
 
 // sortBy: 'name' | 'difficulty' | 'duration' | 'rating';

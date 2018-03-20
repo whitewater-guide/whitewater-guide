@@ -1,10 +1,10 @@
 import { isInstance } from 'apollo-errors';
 import { createResolver } from 'apollo-resolvers';
 import { GraphQLFieldResolver } from 'graphql';
-import * as Joi from 'joi';
+import Joi from 'joi';
 import { Role } from '../features/users/types';
+import { Context } from './context';
 import { AuthenticationRequiredError, ForbiddenError, UnknownError, ValidationError } from './errors';
-import { Context } from './types';
 
 export const baseResolver = createResolver<any, Context>(
   // incoming requests will pass through this resolver like a no-op

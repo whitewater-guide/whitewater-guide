@@ -1,4 +1,4 @@
-import * as localForage from 'localforage';
+import localForage from 'localforage';
 import { combineReducers } from 'redux';
 import { FormStateMap, reducer as form } from 'redux-form';
 import { PersistConfig, persistReducer } from 'redux-persist';

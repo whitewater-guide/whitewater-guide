@@ -1,7 +1,7 @@
 import { isFinite } from 'lodash';
 import { TextFieldProps } from 'material-ui';
 import TextField from 'material-ui/TextField';
-import * as React from 'react';
+import React from 'react';
 import { BaseFieldProps, Field, GenericField, WrappedFieldProps } from 'redux-form';
 import { strToFloat } from '../../ww-clients/utils';
 

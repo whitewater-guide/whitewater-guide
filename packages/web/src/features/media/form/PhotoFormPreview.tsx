@@ -1,5 +1,5 @@
 import CircularProgress from 'material-ui/CircularProgress';
-import * as React from 'react';
+import React from 'react';
 import { Styles } from '../../../styles';
 
 const styles: Styles = {

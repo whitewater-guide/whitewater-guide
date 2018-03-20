@@ -1,5 +1,5 @@
 import { groupBy } from 'lodash';
-import * as React from 'react';
+import React from 'react';
 import { Col } from 'react-grid-system';
 import { ConfirmationDialog } from '../../../components/forms';
 import { Row } from '../../../layout/details';

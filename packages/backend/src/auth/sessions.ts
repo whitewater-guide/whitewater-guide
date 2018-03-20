@@ -1,5 +1,5 @@
-import * as connectRedis from 'connect-redis';
-import session = require('express-session');
+import connectRedis from 'connect-redis';
+import session from 'express-session';
 import { redis } from '../redis';
 
 export const sessionMiddleware = () => {

@@ -1,5 +1,5 @@
 import { Card } from 'material-ui/Card';
-import * as React from 'react';
+import React from 'react';
 import { Styles } from '../styles';
 
 const styles: Styles = {

@@ -1,6 +1,6 @@
+import Knex from 'knex';
 import { LineString, Point } from 'wkx';
 import { Coordinate3d, Duration } from '../../ww-commons';
-import Knex = require('knex');
 
 function getLineString(shape: Coordinate3d[] | null) {
   let lineString = null;

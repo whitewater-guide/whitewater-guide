@@ -1,5 +1,5 @@
 import IconButton from 'material-ui/IconButton';
-import * as React from 'react';
+import React from 'react';
 
 interface Props {
   id: string;

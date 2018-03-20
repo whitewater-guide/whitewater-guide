@@ -1,7 +1,7 @@
 import { capitalize } from 'lodash';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import * as React from 'react';
+import React from 'react';
 import ErrorBoundary from 'react-error-boundary';
 import { Styles } from '../../../styles';
 import { MediaKind } from '../../../ww-commons';

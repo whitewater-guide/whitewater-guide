@@ -1,6 +1,6 @@
 import MenuItem from 'material-ui/MenuItem';
 import SelectField from 'material-ui/SelectField';
-import * as React from 'react';
+import React from 'react';
 import { Styles } from '../../styles';
 import { WithLanguage } from './withLanguage';
 

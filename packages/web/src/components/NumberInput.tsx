@@ -1,6 +1,6 @@
 import { TextFieldProps } from 'material-ui';
 import TextField from 'material-ui/TextField';
-import * as React from 'react';
+import React from 'react';
 import { Overwrite } from 'type-zoo';
 import { strToFloat } from '../ww-clients/utils';
 

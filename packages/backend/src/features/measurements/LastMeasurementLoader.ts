@@ -1,4 +1,4 @@
-import * as DataLoader from 'dataloader';
+import DataLoader from 'dataloader';
 import { chunk, flatMap, fromPairs, get } from 'lodash';
 import { getLastMeasurements } from '../../redis';
 import { RedisLastMeasurement } from '../../redis/types';

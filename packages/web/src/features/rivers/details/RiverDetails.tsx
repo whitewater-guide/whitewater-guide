@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { WithRiver } from '../../../ww-clients/features/rivers';
 
 const RiverDetails: React.StatelessComponent<WithRiver> = props => (

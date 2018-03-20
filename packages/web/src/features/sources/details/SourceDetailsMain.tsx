@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Styles } from '../../../styles';
 import { Source } from '../../../ww-commons/features/sources';
 

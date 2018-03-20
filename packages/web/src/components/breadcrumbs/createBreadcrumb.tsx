@@ -1,5 +1,5 @@
 import { DocumentNode } from 'graphql';
-import * as React from 'react';
+import React from 'react';
 import { ChildProps, graphql } from 'react-apollo';
 import { NamedNode, ResourceType } from '../../ww-commons';
 

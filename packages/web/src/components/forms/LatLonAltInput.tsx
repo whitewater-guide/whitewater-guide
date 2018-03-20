@@ -1,6 +1,6 @@
 import { isEmpty } from 'lodash';
 import IconButton from 'material-ui/IconButton';
-import * as React from 'react';
+import React from 'react';
 import { BaseFieldProps, Field, FieldsProps, GenericField, WrappedFieldProps } from 'redux-form';
 import { Styles } from '../../styles';
 import { CoordinateSchema } from '../../ww-commons/features/points';

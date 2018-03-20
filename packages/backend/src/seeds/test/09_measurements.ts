@@ -1,4 +1,4 @@
-import Knex = require('knex');
+import Knex from 'knex';
 
 const measurements = [
   { script: 'galicia', code: 'gal1', timestamp: '2018-01-01 00:00:00', flow: null, level: 1.2 },

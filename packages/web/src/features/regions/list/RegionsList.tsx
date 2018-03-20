@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Column, TableCellRenderer } from 'react-virtualized';
 import { BooleanColumn } from '../../../components';
 import { ResourcesListCard } from '../../../layout';

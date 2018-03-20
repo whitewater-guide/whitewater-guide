@@ -1,9 +1,9 @@
 import { ApolloClient } from 'apollo-client';
 import { SchemaLink } from 'apollo-link-schema';
-import * as casual from 'casual';
+import casual from 'casual';
 import { addMockFunctionsToSchema, makeExecutableSchema } from 'graphql-tools';
-import * as GraphQLJSON from 'graphql-type-json';
-import * as React from 'react';
+import GraphQLJSON from 'graphql-type-json';
+import React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import { HarvestMode, TAG_CATEGORIES } from '../../ww-commons';
 import { configureApolloCache } from '../apollo';

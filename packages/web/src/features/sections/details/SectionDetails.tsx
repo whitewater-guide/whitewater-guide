@@ -1,7 +1,7 @@
 import { CardMedia } from 'material-ui/Card';
 import { Tab } from 'material-ui/Tabs';
-import * as React from 'react';
-import * as ReactMarkdown from 'react-markdown';
+import React from 'react';
+import ReactMarkdown from 'react-markdown';
 import { RouteComponentProps } from 'react-router-dom';
 import { Content, Tabs } from '../../../components';
 import { AdminFooter } from '../../../layout';

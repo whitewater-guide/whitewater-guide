@@ -1,5 +1,5 @@
 import { find } from 'lodash';
-import * as React from 'react';
+import React from 'react';
 import { Point, Section } from '../../../ww-commons';
 import { shallowEqual } from '../../utils';
 import { MapLayoutProps, MapProps, SelectedPOIViewProps, SelectedSectionViewProps } from './types';

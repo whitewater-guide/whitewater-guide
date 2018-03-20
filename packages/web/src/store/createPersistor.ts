@@ -1,4 +1,4 @@
-import * as localForage from 'localforage';
+import localForage from 'localforage';
 import { Store } from 'redux';
 import { Persistor, persistStore } from 'redux-persist';
 

@@ -1,6 +1,6 @@
 import FlatButton from 'material-ui/FlatButton';
 import FontIcon from 'material-ui/FontIcon';
-import * as React from 'react';
+import React from 'react';
 import { Column, TableCellRenderer } from 'react-virtualized';
 import { ResourcesList } from '../../../layout';
 import { River } from '../../../ww-commons';

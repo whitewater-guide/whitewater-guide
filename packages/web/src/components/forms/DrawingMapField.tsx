@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import ErrorBoundary from 'react-error-boundary';
 import { BaseFieldProps, Field, GenericField, WrappedFieldProps } from 'redux-form';
 import { Coordinate } from '../../ww-commons';

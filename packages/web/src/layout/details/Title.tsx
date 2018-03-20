@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Col as FlexCol, ColProps } from 'react-grid-system';
 
 const styles = {

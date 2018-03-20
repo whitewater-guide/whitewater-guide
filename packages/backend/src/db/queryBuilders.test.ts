@@ -1,7 +1,8 @@
+import gqf from 'graphql-fields';
+import Knex from 'knex';
 import { Context } from '../apollo';
 import { adminContext, anonContext } from '../test/context';
 import { isAdmin } from '../ww-commons';
-import * as Knex from 'knex';
 import db from './db';
 import {
   attachConnection,
@@ -10,10 +11,10 @@ import {
   buildListQuery,
   buildRootQuery,
   ConnectionBuilderOptions,
-  getPrimitives, ListQueryBuilderOptions,
+  getPrimitives,
+  ListQueryBuilderOptions,
   QueryBuilderOptions,
 } from './queryBuilders';
-import gqf = require('graphql-fields');
 
 jest.mock('graphql-fields', () => jest.fn());
 const graphqlFields: jest.Mock<any> = gqf as any;

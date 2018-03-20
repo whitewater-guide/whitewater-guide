@@ -1,5 +1,5 @@
 import { History } from 'history';
-import * as React from 'react';
+import React from 'react';
 import { Provider } from 'react-redux';
 import { MemoryRouter, Router } from 'react-router';
 import { ComponentEnhancer } from 'recompose';

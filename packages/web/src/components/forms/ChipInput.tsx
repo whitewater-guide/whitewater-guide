@@ -1,6 +1,6 @@
 import { intersectionBy, reject } from 'lodash';
 import MUIChipInput from 'material-ui-chip-input';
-import * as React from 'react';
+import React from 'react';
 import { findDOMNode } from 'react-dom';
 import EventListener, { withOptions } from 'react-event-listener';
 import { BaseFieldProps, Field, GenericField, WrappedFieldProps } from 'redux-form';

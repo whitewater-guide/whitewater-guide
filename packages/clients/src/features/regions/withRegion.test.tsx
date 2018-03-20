@@ -1,7 +1,7 @@
 // tslint:disable:max-classes-per-file
-import * as casual from 'casual';
-import * as React from 'react';
-import * as renderer from 'react-test-renderer';
+import casual from 'casual';
+import React from 'react';
+import renderer from 'react-test-renderer';
 import { createMockedProvider } from '../../test';
 import { withRegion, WithRegion } from './withRegion';
 

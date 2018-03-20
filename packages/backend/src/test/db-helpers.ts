@@ -1,9 +1,9 @@
 import { ExecutionResult, graphql } from 'graphql';
 import { isEmpty } from 'lodash';
+import omitDeep from 'omit-deep-lodash';
 import { formatError } from '../apollo';
 import { getSchema } from '../apollo/router';
 import db from '../db';
-import omitDeep = require('omit-deep-lodash');
 
 export const reseedDb = async () => {
   await db(true).migrate.rollback();

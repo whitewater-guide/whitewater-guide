@@ -1,4 +1,4 @@
-import httpShutdown = require('http-shutdown');
+import httpShutdown from 'http-shutdown';
 import app from './app';
 import db from './db';
 import log from './log';

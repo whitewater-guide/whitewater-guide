@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
     "noEmit": true,
-    "allowSyntheticDefaultImports": false,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "declaration": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,

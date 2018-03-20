@@ -1,6 +1,6 @@
 // @ts-ignore
-import mitt from 'mitt';
+import Mitt from 'mitt';
 
 export const POKE_TABLES = 'pokeTables';
 
-export const emitter = mitt();
+export const emitter = new Mitt();
