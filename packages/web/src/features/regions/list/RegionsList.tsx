@@ -19,11 +19,10 @@ export class RegionsList extends React.PureComponent<RegionsListProps> {
         language={this.props.language}
         onLanguageChange={this.props.onLanguageChange}
       >
-        <Column width={200} label="Name" dataKey="name" />
+        <Column width={200} flexGrow={1} label="Name" dataKey="name" />
         <Column width={100} label="Gauges" dataKey="gauges" cellRenderer={this.renderCount} />
         <Column width={100} label="Rivers" dataKey="rivers" cellRenderer={this.renderCount} />
         <Column width={100} label="Sections" dataKey="sections" cellRenderer={this.renderCount} />
-        <Column width={100} label="Sections" dataKey="sectionsCount" />
         <BooleanColumn width={50} label="Visible" dataKey="hidden" iconFalse="visibility" />
       </ResourcesListCard>
     );
