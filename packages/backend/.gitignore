@@ -4,3 +4,4 @@ src/**/*.js.map
 /src/ww-commons/
 /yarn-error.log
 /postgres.dump
+/src/seeds/development/dump.sql

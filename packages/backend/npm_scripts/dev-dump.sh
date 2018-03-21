@@ -1,14 +1,16 @@
 #!/usr/bin/env bash
 
 export $(cat ../../build/.env.development | grep POSTGRES_DB | xargs)
-# sed removes all comments and then removes all statements before alter
+
+
+# Plain sql format
 docker exec ww-db \
-    pg_dump -Fc \
-            --data-only \
+    pg_dump --data-only \
+            --no-owner \
+            --no-privileges \
+            --disable-triggers \
             --schema=public \
+            --column-inserts \
             --exclude-table='migrations*' \
             --username=postgres \
-    $POSTGRES_DB  > postgres.dump
-
-#            --no-owner \
-            #--disable-triggers \
+    $POSTGRES_DB  > src/seeds/development/dump.sql

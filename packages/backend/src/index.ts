@@ -8,6 +8,9 @@ async function startup() {
   await db(true).migrate.latest();
   const dbVersion = await db(true).migrate.currentVersion();
   log.info(`Current DB version: ${dbVersion}`);
+  if (process.env.NODE_ENV === 'development') {
+    await db(true).seed.run();
+  }
   await initMinio();
   startServer();
   await startupJobs();
