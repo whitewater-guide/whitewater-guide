@@ -8,6 +8,7 @@ import { AdminFooter } from '../../../layout';
 import { Container, Row, Title } from '../../../layout/details';
 import { arrayToDMSString } from '../../../ww-clients/utils';
 import { Gauge } from '../../../ww-commons';
+import GaugeChart from './chart';
 import { GaugeDetailsProps } from './types';
 
 class GaugeDetails extends React.PureComponent<GaugeDetailsProps> {
@@ -83,7 +84,7 @@ class GaugeDetails extends React.PureComponent<GaugeDetailsProps> {
                 </Container>
               </Tab>
               <Tab label="Chart" value="#chart">
-                <h1>Chart</h1>
+                <GaugeChart />
               </Tab>
             </Tabs>
           </div>
