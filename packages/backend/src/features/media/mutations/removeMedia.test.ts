@@ -2,14 +2,14 @@ import { holdTransaction, rollbackTransaction } from '../../../db';
 import { fileExistsInBucket, MEDIA, resetTestMinio } from '../../../minio';
 import { PHOTO_1 } from '../../../seeds/test/10_media';
 import { adminContext, anonContext, userContext } from '../../../test/context';
-import { countTables, runQuery } from '../../../test/db-helpers';
+import { countRows, runQuery } from '../../../test/db-helpers';
 
 let mBefore: number;
 let msBefore: number;
 let trBefore: number;
 
 beforeAll(async () => {
-  [mBefore, msBefore, trBefore] = await countTables(true, 'media', 'sections_media', 'media_translations');
+  [mBefore, msBefore, trBefore] = await countRows(true, 'media', 'sections_media', 'media_translations');
 });
 
 beforeEach(async () => {
@@ -65,7 +65,7 @@ describe('effects', () => {
   });
 
   it('should remove from tables', async () => {
-    const [m, ms, tr] = await countTables(false, 'media', 'sections_media', 'media_translations');
+    const [m, ms, tr] = await countRows(false, 'media', 'sections_media', 'media_translations');
     expect([mBefore - m, msBefore - ms, trBefore - tr]).toMatchObject([1, 1, 2]);
   });
 

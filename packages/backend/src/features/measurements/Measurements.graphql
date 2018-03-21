@@ -9,3 +9,7 @@ type HarvestStatus {
   success: Boolean
   timestamp: Date
 }
+
+type Query {
+  lastMeasurements(gaugeId: ID, sectionId: ID, days: Int!): [Measurement]
+}

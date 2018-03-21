@@ -1,6 +1,7 @@
 import Knex from 'knex';
 import { LineString, Point } from 'wkx';
 import { Coordinate3d, Duration } from '../../ww-commons';
+import { GAUGE_GAL_1_1 } from './05_gauges';
 
 function getLineString(shape: Coordinate3d[] | null) {
   let lineString = null;
@@ -20,7 +21,7 @@ const sections = [
   {
     id: GALICIA_R1_S1,
     river_id: 'a8416664-bfe3-11e7-abc4-cec278b6b50a', // Gal_riv_one
-    gauge_id: 'aba8c106-aaa0-11e7-abc4-cec278b6b50a', // Galicia gauge 1
+    gauge_id: GAUGE_GAL_1_1,
     season_numeric: [0, 1, 2, 3, 4],
     levels: {
       minimum: 10,

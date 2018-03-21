@@ -1,1 +1,1 @@
-export * from './LastMeasurementLoader';
+export * from './resolvers';

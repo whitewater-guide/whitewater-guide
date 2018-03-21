@@ -1,8 +1,4 @@
-import { ExecutionResult, graphql } from 'graphql';
-import { isEmpty } from 'lodash';
 import omitDeep from 'omit-deep-lodash';
-import { formatError } from '../apollo';
-import { getSchema } from '../apollo/router';
 import db from '../db';
 
 export const reseedDb = async () => {
@@ -15,19 +11,6 @@ export const rollbackDb = async () => {
   await db(true).migrate.rollback();
 };
 
-export const runQuery = async (query: string, variables?: any, context?: any): Promise<ExecutionResult> => {
-  const schema = await getSchema();
-  const { errors, ...result } = await graphql(schema, query, undefined, context, variables);
-  const errs = (errors && isEmpty(errors)) ? undefined : errors;
-  if (errs) {
-    return {
-      ...result,
-      errors: errs.map(formatError),
-    };
-  }
-  return result;
-};
-
 export const disconnect = async () => {
   await db(true).destroy();
 };
@@ -36,19 +19,7 @@ export const noTimestamps = (row: any) => omitDeep(row, ['createdAt', 'updatedAt
 
 export const noUnstable = (row: any) => omitDeep(row, ['id', 'createdAt', 'updatedAt', 'created_at', 'updated_at']);
 
-export const isUUID = (s: string) =>
-  (/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i).test(s);
-
-export const isTimestamp = (s: string) =>
-  (/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3,6}Z/).test(s);
-
-export const delay = (time: number) => new Promise(resolve => setTimeout(resolve, time));
-
-export const countTables = async (getKnexInstance: boolean, ...tables: string[]) => {
-  const rawQuery = 'SELECT ' + tables
-    .map(table => db(getKnexInstance).table(table).count(`* as ${table}_cnt`).toString())
-    .map(query => `(${query})`)
-    .join(', ');
-  const { rows: [ counts ] } = await db(getKnexInstance).raw(rawQuery);
-  return tables.map(t => Number(counts[`${t}_cnt`]));
-};
+export * from './countRows';
+export * from './isTimestamp';
+export * from './isUUID';
+export * from './runQuery';

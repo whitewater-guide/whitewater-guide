@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should build correct query for gauge 1`] = `
+select
+    script,
+    code
+from
+    gauges
+    inner join sources on gauges.source_id = sources.id
+    where
+        gauges.id = 'aba8c106-aaa0-11e7-abc4-cec278b6b50a'
+    limit 1
+
+`;
+
+exports[`should build correct query for section 1`] = `
+select
+    script,
+    code
+from
+    sections
+    inner join gauges on sections.gauge_id = gauges.id
+    inner join sources on gauges.source_id = sources.id
+    where
+        sections.id = '2b01742c-d443-11e7-9296-cec278b6b50a'
+    limit 1
+
+`;

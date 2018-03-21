@@ -1,4 +1,4 @@
-import { LastMeasurementLoader } from '../features/measurements';
+import { LastMeasurementLoader } from '../features/measurements/data-loader';
 
 export interface ContextUser {
   id: string;

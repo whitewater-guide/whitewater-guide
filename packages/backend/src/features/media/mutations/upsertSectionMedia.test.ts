@@ -5,7 +5,7 @@ import { fileExistsInBucket, MEDIA, MEDIA_BUCKET_URL, resetTestMinio, TEMP, TEMP
 import { GALICIA_R1_S1, NORWAY_SJOA_AMOT } from '../../../seeds/test/08_sections';
 import { PHOTO_1, PHOTO_2 } from '../../../seeds/test/10_media';
 import { adminContext, anonContext, userContext } from '../../../test/context';
-import { countTables, noTimestamps, noUnstable, runQuery } from '../../../test/db-helpers';
+import { countRows, noTimestamps, noUnstable, runQuery } from '../../../test/db-helpers';
 import { MediaInput, MediaKind } from '../../../ww-commons/features/media';
 
 let mBefore: number;
@@ -13,7 +13,7 @@ let msBefore: number;
 let trBefore: number;
 
 beforeAll(async () => {
-  [mBefore, msBefore, trBefore] = await countTables(true, 'media', 'sections_media', 'media_translations');
+  [mBefore, msBefore, trBefore] = await countRows(true, 'media', 'sections_media', 'media_translations');
 });
 beforeEach(async () => {
   await holdTransaction();
@@ -100,7 +100,7 @@ describe('insert', () => {
 
   it('should add one more media to db', async () => {
     await runQuery(mutation, { sectionId, media }, adminContext);
-    const [m, ms, tr] = await countTables(false, 'media', 'sections_media', 'media_translations');
+    const [m, ms, tr] = await countRows(false, 'media', 'sections_media', 'media_translations');
     expect([m - mBefore, ms - msBefore, tr - trBefore]).toMatchObject([1, 1, 1]);
   });
 });
@@ -123,7 +123,7 @@ describe('update', () => {
 
   it('should not change db counts', async () => {
     await runQuery(mutation, { sectionId, media: uMedia }, adminContext);
-    const [m, ms, tr] = await countTables(false, 'media', 'sections_media', 'media_translations');
+    const [m, ms, tr] = await countRows(false, 'media', 'sections_media', 'media_translations');
     expect([m - mBefore, ms - msBefore, tr - trBefore]).toMatchObject([0, 0, 0]);
   });
 
@@ -141,7 +141,7 @@ describe('i18n', () => {
 
   it('should add new translation', async () => {
     await runQuery(mutation, { sectionId, media: aMedia, language: 'ru' }, adminContext);
-    const [m, ms, tr] = await countTables(false, 'media', 'sections_media', 'media_translations');
+    const [m, ms, tr] = await countRows(false, 'media', 'sections_media', 'media_translations');
     expect([m - mBefore, ms - msBefore, tr - trBefore]).toMatchObject([0, 0, 1]);
   });
 
@@ -154,7 +154,7 @@ describe('i18n', () => {
 
   it('should modify existing translation', async () => {
     await runQuery(mutation, { sectionId, media: uMedia, language: 'ru' }, adminContext);
-    const [m, ms, tr] = await countTables(false, 'media', 'sections_media', 'media_translations');
+    const [m, ms, tr] = await countRows(false, 'media', 'sections_media', 'media_translations');
     expect([m - mBefore, ms - msBefore, tr - trBefore]).toMatchObject([0, 0, 0]);
     const { description } = await db().table('media_view').select('description')
       .where({ id: PHOTO_1, language: 'ru' }).first();
