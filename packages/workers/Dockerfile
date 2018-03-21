@@ -10,8 +10,10 @@ RUN go get -d workers/... cli/... \
 # -------- Runnable ---------
 FROM alpine:3.7
 
-RUN addgroup -g 1000 -S workers && \
-    adduser -u 1000 -S workers -G workers
+RUN addgroup -g 1000 -S workers \
+ && adduser -u 1000 -S workers -G workers \
+ && mkdir -p /tmp/cookies \
+ && chown -R workers:workers /tmp/cookies
 
 USER workers
 WORKDIR /app
