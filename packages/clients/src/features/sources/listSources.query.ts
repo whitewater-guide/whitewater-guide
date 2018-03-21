@@ -17,6 +17,7 @@ export default gql`
           success
           count
           timestamp
+          error
         }
       }
       count

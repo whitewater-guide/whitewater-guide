@@ -13,4 +13,5 @@ export interface HarvestStatus {
   count: number;
   success: boolean;
   timestamp: Date;
+  error: string | null;
 }

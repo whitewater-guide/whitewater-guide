@@ -46,6 +46,7 @@ const Status = gql`
       timestamp
       success
       count
+      error
     }
   }
 `;

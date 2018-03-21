@@ -54,6 +54,7 @@ export class HarvestStatusIndicator extends React.PureComponent<Props, State> {
     let color = grey500;
     let tsStyle = {};
     let countStyle = {};
+    const error = status ? status.error : null;
     const now = moment();
     const ts = status ? moment(status.timestamp) : now;
     if (status) {
@@ -86,6 +87,14 @@ export class HarvestStatusIndicator extends React.PureComponent<Props, State> {
                   <Col sm={4}><b>Measurements</b></Col>
                   <Col>{status.count.toString()}</Col>
                 </Row>
+                {
+                  !!error &&
+                  (
+                    <Row style={{ color: red500 }}>
+                      <Col sm={12}>{error}</Col>
+                    </Row>
+                  )
+                }
               </Container>
             )
           }

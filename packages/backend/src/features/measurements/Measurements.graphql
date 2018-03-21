@@ -8,6 +8,7 @@ type HarvestStatus {
   count: Int
   success: Boolean
   timestamp: Date
+  error: String
 }
 
 type Query {
