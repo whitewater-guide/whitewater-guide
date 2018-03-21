@@ -8,7 +8,7 @@ export const getLastMeasurements = async (script: string, code?: string): Promis
   try {
     if (code) {
       const lastMeasurementStr = await redis.hget(`${LastMeasurementsNs}:${script}`, code);
-      return { code: JSON.parse(lastMeasurementStr) };
+      return { [code]: JSON.parse(lastMeasurementStr) };
     } else {
       const allLastMsm: string[] = await redis.hgetall(`${LastMeasurementsNs}:${script}`);
       return mapValues(

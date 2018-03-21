@@ -9,7 +9,8 @@ import { GaugesListInnerProps } from './types';
 
 export default class GaugesList extends React.PureComponent<GaugesListInnerProps> {
   onGaugeClick = (id: string) => {
-    // console.log(id);
+    const { history, match: { params: { sourceId } } } = this.props;
+    history.push(`/sources/${sourceId}/gauges/${id}`);
   };
 
   customSettingsLink = (row: Gauge) => `/sources/${row.source.id}/gauges/${row.id}/settings`;

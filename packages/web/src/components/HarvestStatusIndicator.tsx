@@ -15,10 +15,21 @@ const styles: Styles = {
     minWidth: 360,
     overflow: 'hidden',
   },
+  wrapper: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  btnWithText: {
+    marginLeft: 0,
+    width: undefined,
+    paddingLeft: 0,
+    paddingRight: 6,
+  },
 };
 
 interface Props {
   status: HarvestStatus | null;
+  withText?: boolean;
 }
 
 interface State {
@@ -49,31 +60,40 @@ export class HarvestStatusIndicator extends React.PureComponent<Props, State> {
   };
 
   render() {
-    const { status } = this.props;
+    const { status, withText } = this.props;
     const { open, anchorEl } = this.state;
     let color = grey500;
     let tsStyle = {};
     let countStyle = {};
+    let statusText = 'unknown';
     const error = status ? status.error : null;
     const now = moment();
     const ts = status ? moment(status.timestamp) : now;
     if (status) {
       color = status.success ? green500 : red500;
+      statusText = status.success ? 'healthy' : 'error';
       if (status.count === 0) {
         countStyle = { color: red500 };
         color = amber500;
+        statusText = 'empty response';
       }
       const diff = moment.duration(now.diff(ts)).asHours();
       if (diff > 24) {
         tsStyle = { color: red500 };
         color = amber500;
+        statusText = 'stale data';
       }
     }
     return (
       <React.Fragment>
-        <IconButton disabled={!status} onClick={this.onClick}>
-          <FontIcon className="material-icons" color={color}>fiber_manual_record</FontIcon>
-        </IconButton>
+        <div style={styles.wrapper}>
+          <IconButton disabled={!status} onClick={this.onClick} style={withText ? styles.btnWithText : undefined}>
+            <FontIcon className="material-icons" color={color}>
+              fiber_manual_record
+            </FontIcon>
+          </IconButton>
+          {withText && <span style={{ color }}>{statusText}</span>}
+        </div>
         <Popover open={open} anchorEl={anchorEl} onRequestClose={this.onClose}>
           {
             status &&
