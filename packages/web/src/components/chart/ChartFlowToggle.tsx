@@ -5,8 +5,8 @@ import { FlowToggleProps } from '../../ww-clients/features/charts';
 import { Unit } from '../../ww-commons';
 
 const styles = {
-  toggle: {
-    marginBottom: 16,
+  container: {
+    width: 200,
   },
 };
 
@@ -15,16 +15,15 @@ class ChartFlowToggle extends React.PureComponent<FlowToggleProps> {
 
   render() {
     const { enabled, unit } = this.props;
-    if (!enabled) {
-      return null;
-    }
     return (
-      <Toggle
-        toggled={unit === Unit.FLOW}
-        label={capitalize(unit)}
-        style={styles.toggle}
-        onToggle={this.onChange}
-      />
+      <div style={styles.container}>
+        <Toggle
+          disabled={!enabled}
+          toggled={unit === Unit.FLOW}
+          label={capitalize(unit)}
+          onToggle={this.onChange}
+        />
+      </div>
     );
   }
 }

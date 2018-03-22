@@ -7,9 +7,25 @@ import { Content, HarvestStatusIndicator, Tabs } from '../../../components';
 import Chart from '../../../components/chart';
 import { AdminFooter } from '../../../layout';
 import { Container, Row, Title } from '../../../layout/details';
+import { Styles } from '../../../styles';
 import { arrayToDMSString } from '../../../ww-clients/utils';
 import { Gauge } from '../../../ww-commons';
 import { GaugeDetailsProps } from './types';
+
+const styles: Styles = {
+  root: {
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'stretch',
+  },
+  dataCol: {
+    flex: 1,
+  },
+  chartCol: {
+    flex: 3,
+  },
+};
 
 class GaugeDetails extends React.PureComponent<GaugeDetailsProps> {
   renderLevel = () => {
@@ -48,49 +64,67 @@ class GaugeDetails extends React.PureComponent<GaugeDetailsProps> {
     );
   };
 
+  renderName = () => {
+    const { node: { name, url } } = this.props.gauge;
+    if (url) {
+      return (
+        <a href={url} target="_blank">{name}</a>
+      );
+    } else {
+      return name;
+    }
+  };
+
   render() {
     const { gauge: { node } } = this.props;
     return (
       <Content card>
         <CardMedia style={{ height: '100%' }} mediaStyle={{ height: '100%' }}>
-          <div style={{ width: '100%', height: '100%' }} >
-            <Tabs>
-              <Tab label="Details" value={`#main`}>
-                <Container>
-                  <Row>
-                    <Title>Name</Title>
-                    <Col>{node.name}</Col>
-                  </Row>
-                  <Row>
-                    <Title>Code</Title>
-                    <Col>{node.code}</Col>
-                  </Row>
-                  <Row>
-                    <Title>Location</Title>
-                    <Col>{node.location ? arrayToDMSString(node.location.coordinates) : ''}</Col>
-                  </Row>
-                  <Row>
-                    <Title>Status</Title>
-                    <Col><HarvestStatusIndicator withText status={node.status} /></Col>
-                  </Row>
-                  <Row>
-                    <Title>Flow</Title>
-                    <Col>{this.renderFlow()}</Col>
-                  </Row>
-                  <Row>
-                    <Title>Level</Title>
-                    <Col>{this.renderLevel()}</Col>
-                  </Row>
-                </Container>
-              </Tab>
-              <Tab label="Chart" value="#chart">
-                <Chart gauge={node} />
-              </Tab>
-            </Tabs>
+          <div style={styles.root}>
+            <div style={styles.dataCol}>
+              <Container>
+                <Row>
+                  <Title>Name</Title>
+                  <Col>{this.renderName()}</Col>
+                </Row>
+                <Row>
+                  <Title>Code</Title>
+                  <Col>{node.code}</Col>
+                </Row>
+                <Row>
+                  <Title>Location</Title>
+                  <Col>{node.location ? arrayToDMSString(node.location.coordinates) : ''}</Col>
+                </Row>
+                <Row>
+                  <Title>Status</Title>
+                  <Col><HarvestStatusIndicator withText status={node.status} /></Col>
+                </Row>
+                {
+                  !!node.flowUnit &&
+                  (
+                    <Row>
+                      <Title>Flow</Title>
+                      <Col>{this.renderFlow()}</Col>
+                    </Row>
+                  )
+                }
+                {
+                  !!node.levelUnit &&
+                  (
+                    <Row>
+                      <Title>Level</Title>
+                      <Col>{this.renderLevel()}</Col>
+                    </Row>
+                  )
+                }
+              </Container>
+            </div>
+            <div style={styles.chartCol}>
+              <Chart gauge={node} />
+            </div>
           </div>
         </CardMedia>
-
-          <AdminFooter edit/>
+        <AdminFooter edit/>
       </Content>
     );
   }

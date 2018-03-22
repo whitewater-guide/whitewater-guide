@@ -15,7 +15,7 @@ export const withChart = compose<InteractiveChartInnerProps, InteractiveChartOut
       unitChangeable: !!gauge.flowUnit && !!gauge.levelUnit,
     }),
     {
-      onChangeDays: () => (unit: Unit) => ({ unit }),
+      onChangeUnit: () => (unit: Unit) => ({ unit }),
     },
   ),
   pure,
