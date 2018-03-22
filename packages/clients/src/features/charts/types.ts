@@ -1,32 +1,62 @@
 import { ReactElement } from 'react';
-import { GaugeBinding, Measurement, Unit } from '../../../ww-commons';
+import { Gauge, GaugeBinding, Measurement, Section, Unit } from '../../../ww-commons';
+import { WithMeasurements } from '../measurements';
+
+export interface InteractiveChartOuterProps {
+  gauge: Gauge;
+  section?: Section;
+}
+
+export interface DaysState {
+  days: number;
+}
+
+export interface DaysStateUpdaters {
+  onChangeDays: (days: number) => void;
+}
+
+export interface UnitState {
+  unit: Unit;
+  unitChangeable: boolean;
+}
+
+export interface UnitStateUpdaters {
+  onChangeUnit: (unit: Unit) => void;
+}
+
+export type InteractiveChartInnerProps =
+  InteractiveChartOuterProps &
+  DaysState &
+  DaysStateUpdaters &
+  UnitState &
+  UnitStateUpdaters &
+  WithMeasurements;
 
 export interface ChartComponentProps {
-  binding: GaugeBinding;
   data: Measurement[];
+  loading: boolean;
   unit: Unit;
-  domain: [Date, Date];
-  levelUnit: string | null;
-  flowUnit: string | null;
-  onDomainChanged?: (domain: {x: [Date, Date] }) => void;
+  gauge: Gauge;
+  section?: Section;
 }
 
 export interface FlowToggleProps {
   enabled: boolean;
-  measurement: Unit;
-  unit: string | null;
-  value: number | null;
+  unit: Unit;
+  unitName: string;
+  loading: boolean;
   onChange: (unit: Unit) => void;
 }
 
 export interface PeriodToggleProps {
+  days: number;
   onChange: (days: number) => void;
   loading: boolean;
-  startDate: Date;
-  endDate: Date;
 }
 
 export interface ChartLayoutProps {
+  gauge: Gauge;
+  section?: Section;
   chart: ReactElement<ChartComponentProps>;
   flowToggle: ReactElement<FlowToggleProps>;
   periodToggle: ReactElement<PeriodToggleProps>;

@@ -1,5 +1,6 @@
 {
   "ignore_dirs": [
-    "node_modules"
+    "node_modules",
+    "src/declarations"
   ]
 }

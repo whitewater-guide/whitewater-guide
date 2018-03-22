@@ -2,5 +2,6 @@
   "ignore_dirs": [
     "node_modules",
     "src/ww-commons"
+    "src/declarations"
   ]
 }

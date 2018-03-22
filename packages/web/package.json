@@ -61,7 +61,8 @@
     "shallowequal": "^1.0.2",
     "type-zoo": "^1.2.1",
     "typescript-fsa": "^2.5.0",
-    "url-parse": "^1.2.0"
+    "url-parse": "^1.2.0",
+    "victory": "^0.25.6"
   },
   "scripts": {
     "start": "react-scripts-ts start",
@@ -106,6 +107,7 @@
     "@types/redux": "^3.6.0",
     "@types/redux-form": "^7.2.2",
     "@types/redux-mock-store": "^0.0.13",
+    "@types/victory": "^0.9.15",
     "@types/zen-observable": "^0.5.3",
     "apollo-link-schema": "^1.0.6",
     "casual": "^1.5.17",

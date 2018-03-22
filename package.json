@@ -19,5 +19,6 @@
     "husky": "^0.14.3",
     "typescript": "2.8.0-rc",
     "wml": "^0.0.83"
-  }
+  },
+  "dependencies": {}
 }

@@ -1,5 +1,6 @@
 {
   "ignore_dirs": [
-    "ww-commons"
+    "ww-commons",
+    "declarations"
   ]
 }

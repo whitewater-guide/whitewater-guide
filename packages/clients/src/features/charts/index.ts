@@ -1,2 +1,3 @@
-export { default as InteractiveChart } from './InteractiveChart';
+export * from './createInteractiveChart';
 export * from './types';
+export * from './withChart';

@@ -8,8 +8,11 @@ interface Result {
 }
 
 export interface WithMeasurements {
-  measurements: Measurement[];
-  measurementsLoading: boolean;
+  measurements: {
+    data: Measurement[];
+    loading: boolean;
+    refresh: () => void;
+  };
 }
 
 export const withLastMeasurements = (fetchPolicy: FetchPolicy = 'cache-and-network') =>
@@ -17,10 +20,16 @@ export const withLastMeasurements = (fetchPolicy: FetchPolicy = 'cache-and-netwo
     LAST_MEASUREMENTS_QUERY,
     {
       alias: 'withLastMeasurements',
-      options: { fetchPolicy },
+      options: { fetchPolicy, notifyOnNetworkStatusChange: true },
       props: ({ data }) => {
-        const { loading, lastMeasurements } = data!;
-        return { measurements: lastMeasurements, measurementsLoading: loading };
+        const { loading, lastMeasurements, refetch } = data!;
+        return {
+          measurements: {
+            data: lastMeasurements || [],
+            loading,
+            refresh: refetch,
+          },
+        };
       },
     },
   );
