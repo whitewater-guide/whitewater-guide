@@ -9,7 +9,6 @@ For container-specific env variables see packages READMEs
 | PROTOCOL                    | https | Used in backend together with APP_DOMAIN to generate external image urls |
 | POSTGRES_DB                 | wwguide | Postgres database name |
 | PGPASSWORD                  | ******** | Postgres password |
-| PGDATA                      | /var/lib/postgresql/data/pgdata | Path (inside container) where postgres will store all the data. Must be on volume |
 | NODE_ENV                    | production | node env lol |
 | BACK_CORS_WHITELIST         | localhost,applications,whitewater.guide | Cors whitelist for express |
 | BACK_LOG_LEVEL              | debug | log level for pino logger |
