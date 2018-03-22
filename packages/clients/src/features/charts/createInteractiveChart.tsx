@@ -9,7 +9,7 @@ import {
   PeriodToggleProps,
 } from './types';
 
-const createInteractiveChart = (
+export const createInteractiveChart = (
   Layout: React.ComponentType<ChartLayoutProps>,
   Chart: React.ComponentType<ChartComponentProps>,
   FlowToggle: React.ComponentType<FlowToggleProps>,

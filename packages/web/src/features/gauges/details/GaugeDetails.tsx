@@ -4,11 +4,11 @@ import moment from 'moment';
 import React from 'react';
 import { Col } from 'react-grid-system';
 import { Content, HarvestStatusIndicator, Tabs } from '../../../components';
+import Chart from '../../../components/chart';
 import { AdminFooter } from '../../../layout';
 import { Container, Row, Title } from '../../../layout/details';
 import { arrayToDMSString } from '../../../ww-clients/utils';
 import { Gauge } from '../../../ww-commons';
-import GaugeChart from './chart';
 import { GaugeDetailsProps } from './types';
 
 class GaugeDetails extends React.PureComponent<GaugeDetailsProps> {
@@ -84,7 +84,7 @@ class GaugeDetails extends React.PureComponent<GaugeDetailsProps> {
                 </Container>
               </Tab>
               <Tab label="Chart" value="#chart">
-                <GaugeChart />
+                <Chart gauge={node} />
               </Tab>
             </Tabs>
           </div>
