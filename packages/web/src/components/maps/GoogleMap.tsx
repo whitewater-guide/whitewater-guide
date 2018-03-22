@@ -1,8 +1,7 @@
 import React from 'react';
 import { findDOMNode } from 'react-dom';
-import ResizeObserver from 'resize-observer-polyfill';
-import { Styles } from '../../styles/types';
-import { arrayToGmaps } from '../../ww-clients/utils';
+import ReactResizeDetector from 'react-resize-detector';
+import { Styles } from '../../styles';
 import { addZoomToFit } from './ZoomToFitControl';
 
 const styles: Styles = {
@@ -57,12 +56,6 @@ export default class GoogleMap extends React.Component<Props, State> {
   // tslint:disable-next-line:no-inferrable-types
   initialized: boolean = false;
 
-  resizeObserver: ResizeObserver = new ResizeObserver((entries) => {
-    for (const entry of entries) {
-      this.onResize(entry);
-    }
-  });
-
   initialize = () => {
     if (this.initialized || this.height === 0 || !this.map) {
       return;
@@ -114,7 +107,6 @@ export default class GoogleMap extends React.Component<Props, State> {
     if (this.map) {
       google.maps.event.clearInstanceListeners(this.map);
     }
-    this.resizeObserver.disconnect();
   }
 
   onZoom = () => {
@@ -139,20 +131,12 @@ export default class GoogleMap extends React.Component<Props, State> {
     }
   };
 
-  onResize = (entry: ResizeObserverEntry) => {
-    const { width, height } = entry.contentRect;
+  onResize = (width: number, height: number) => {
     this.width = width;
     this.height = height;
     if (this.map && width > 0 && height > 0) {
       this.initialize();
       google.maps.event.trigger(this.map, 'resize');
-    }
-  };
-
-  mountRoot = (root: HTMLDivElement | null) => {
-    if (root) {
-      const rootNode = findDOMNode(root);
-      this.resizeObserver.observe(rootNode);
     }
   };
 
@@ -168,7 +152,8 @@ export default class GoogleMap extends React.Component<Props, State> {
 
   render() {
     return (
-      <div style={styles.container} ref={this.mountRoot}>
+      <div style={styles.container}>
+        <ReactResizeDetector handleWidth handleHeight onResize={this.onResize} />
         <div style={styles.map} ref={this.setMapRef} />
         {
           this.state.loaded &&

@@ -58,7 +58,6 @@
     "redux-persist": "5.9.1",
     "reflect-metadata": "^0.1.10",
     "reselect": "^3.0.1",
-    "resize-observer-polyfill": "^1.5.0",
     "shallowequal": "^1.0.2",
     "type-zoo": "^1.2.1",
     "typescript-fsa": "^2.5.0",
