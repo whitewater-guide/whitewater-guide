@@ -19,6 +19,8 @@ services:
       - /tmp
       - /var/run/postgresql
       - /var/lib/postgresql/data
+    environment:
+      - NODE_ENV=development # This is needed to created test db
     ports:
       - '5432:5432'
   minio:

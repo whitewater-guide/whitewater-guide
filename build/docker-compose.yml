@@ -13,6 +13,7 @@ services:
     <<: *ww-single-host
     env_file:
       - ${DOCKER_ENV_FILE}
+      - ../packages/backend/${DOCKER_ENV_FILE}
     build:
       context: ../packages/backend
       labels:

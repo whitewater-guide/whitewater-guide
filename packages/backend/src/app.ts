@@ -7,10 +7,10 @@ import { authRouter, passport, sessionMiddleware } from './auth';
 
 const app = express();
 
-const BACK_CORS_WHITELIST = process.env.BACK_CORS_WHITELIST ? process.env.BACK_CORS_WHITELIST!.split(',') : [];
+const CORS_WHITELIST = process.env.CORS_WHITELIST ? process.env.CORS_WHITELIST!.split(',') : [];
 
 app.use(cors({
-  origin: (origin, cb) => cb(null, BACK_CORS_WHITELIST.includes(origin)),
+  origin: (origin, cb) => cb(null, CORS_WHITELIST.includes(origin)),
   credentials: true,
 }));
 app.use(bodyParser.urlencoded({ extended: true }));

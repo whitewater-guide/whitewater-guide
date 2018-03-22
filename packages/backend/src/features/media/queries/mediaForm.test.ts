@@ -101,6 +101,7 @@ describe('uploads', () => {
   it('should upload new media', async () => {
     const result = await runQuery(query, {}, adminContext);
     const { upload: { postURL, formData, key }, id } = result.data!.mediaForm;
+    console.log(postURL);
 
     const jpgReq = superagent.post(postURL);
     const jpgData = { ...formData, key };

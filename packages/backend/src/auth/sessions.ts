@@ -13,6 +13,6 @@ export const sessionMiddleware = () => {
     name: 'sid',
     resave: false,
     saveUninitialized: true,
-    secret: process.env.BACK_SESSION_SECRET!,
+    secret: process.env.SESSION_SECRET!,
   });
 };

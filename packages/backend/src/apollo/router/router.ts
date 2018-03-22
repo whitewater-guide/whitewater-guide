@@ -20,14 +20,14 @@ graphqlRouter.use(
   }),
 );
 
-if (process.env.BACK_APOLLO_EXPOSE_GRAPHIQL === 'true') {
+if (process.env.APOLLO_EXPOSE_GRAPHIQL === 'true') {
   graphqlRouter.use(
     '/graphiql',
     graphiqlExpress({ endpointURL: '/graphql' }),
   );
 }
 
-if (process.env.BACK_APOLLO_EXPOSE_SCHEMA === 'true') {
+if (process.env.APOLLO_EXPOSE_SCHEMA === 'true') {
   graphqlRouter.use('/schema.json', async (req, res) => {
     const schema = await getSchema();
     const result = await graphql(schema, introspectionQuery);

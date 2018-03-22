@@ -7,3 +7,5 @@ tslint.json
 yarn-error.log
 postgres.dump
 .dockerignore
+/.env.development
+/.env.test
