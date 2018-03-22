@@ -1,11 +1,12 @@
+# Env variables
+
+Only variables shared between containers are listed here.  
+For container-specific env variables see packages READMEs
+
 | Variable name               | Value examples (defaults)     | Description                        |
 |-----------------------------|---------------------|------------------------------------|
 | APP_DOMAIN                  | whitewater.guide (prod), localhost:6001 (dev) | Application domain. Used in backend to substitute minio internal urls with external urls    |
 | PROTOCOL                    | https | Used in backend together with APP_DOMAIN to generate external image urls |
-| CADDY_ADDRESS               | https://whitewater.guide (prod), http://0.0.0.0:2015 (dev)  | Server address to use Caddyfile  |
-| CADDYPATH                   | /etc/caddycerts  | Directory where to store ssl certificates obtained by caddy. Should me bind-mounted |
-| CADDY_CACHE_PATH            | /tmp/caddy-cache | Directory (inside container) where caddy will store its cache. Should be tmpfs or volume |
-| CADDY_TLS_EMAIL             | K.Kuznetcov@gmail.com | Email to be sent to letsencrypt for certificate |
 | POSTGRES_DB                 | wwguide | Postgres database name |
 | PGPASSWORD                  | ******** | Postgres password |
 | PGDATA                      | /var/lib/postgresql/data/pgdata | Path (inside container) where postgres will store all the data. Must be on volume |
