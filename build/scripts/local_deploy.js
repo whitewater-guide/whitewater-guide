@@ -59,7 +59,7 @@ async function localDeploy() {
 
   spawnSync(
     'docker',
-    ['stack', 'deploy', 'c', stackFile, STACK_NAME],
+    ['stack', 'deploy', '-c', stackFile, STACK_NAME],
     { stdio: 'inherit' },
   );
 }
