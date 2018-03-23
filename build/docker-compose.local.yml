@@ -24,7 +24,7 @@ services:
         source: /tmp/postgres
         target: /tmp
       - type: tmpfs
-        target: /run/postgresql
+        target: /var/run/postgresql
     ports:
       - '5432:5432'
 
@@ -58,11 +58,10 @@ services:
 
   # Imgproxy to generate thumbnails
   imgproxy:
-    container_name: ww-imgproxy
 
   # Redis for sessions and last measurements
   redis:
-    command: ['--appendonly', 'yes', 'aof-use-rdb-preamble', 'yes']
+    command: ['--appendonly', 'yes', '--aof-use-rdb-preamble', 'yes']
     ports:
       - '6379:6379'
     volumes:
