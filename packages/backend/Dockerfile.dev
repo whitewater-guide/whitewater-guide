@@ -1,4 +1,4 @@
-FROM node:8
+FROM node:8-alpine
 
 ENV PROJECT_ROOT /opt/app
 
@@ -10,7 +10,8 @@ RUN npm install -g chokidar-cli pm2
 
 COPY package.json yarn.lock /tmp/app/
 
-RUN cd /tmp/app/ && yarn install
+# Typescript is compiled on host, tests run on host, so it's safe to use --production here
+RUN cd /tmp/app/ && yarn install --production
 
 WORKDIR $PROJECT_ROOT
 

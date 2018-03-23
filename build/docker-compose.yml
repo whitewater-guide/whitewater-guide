@@ -70,8 +70,7 @@ services:
       - ${DOCKER_ENV_FILE}
       - ../packages/caddy/${DOCKER_ENV_FILE}
     build:
-      context: ../packages
-      dockerfile: caddy/Dockerfile
+      context: ../packages/caddy
       labels:
         guide.whitewater: ""
     read_only: true

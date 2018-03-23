@@ -19,7 +19,7 @@ until node /opt/bin/check_postgres.js; do
 done
 
 # Wait for minio
-until sh /opt/bin/check_minio.sh; do
+until node /opt/bin/check_minio.js; do
   >&2 echo "Minio is unavailable - sleeping"
   sleep 1
 done
