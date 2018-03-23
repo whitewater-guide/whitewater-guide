@@ -1,6 +1,8 @@
 version: '3.4'
 
 services:
+
+  # Node.js backend
   backend:
     container_name: ww-backend
     image: 'ww-backend:dev'
@@ -12,6 +14,8 @@ services:
     volumes:
       - 'yarn:/root/.cache/yarn'
       - 'ww-sync:/opt/app:nocopy'
+
+  # Postgres sql database
   db:
     container_name: ww-db
     image: 'ww-db:dev'
@@ -23,6 +27,8 @@ services:
       - NODE_ENV=development # This is needed to created test db
     ports:
       - '5432:5432'
+
+  # Minio to store images
   minio:
     container_name: ww-minio
     image: 'minio/minio:latest'
@@ -36,6 +42,8 @@ services:
       - type: bind
         source: ../packages/minio/config
         target: /root/.minio
+
+  # Caddy reverse proxy
   caddy:
     container_name: ww-caddy
     image: 'ww-caddy:dev'
@@ -45,12 +53,21 @@ services:
       - '../packages/caddy/Caddyfile:/etc/Caddyfile'
     ports:
       - '6001:2015'
+
+  # Imgproxy to generate thumbnails
   imgproxy:
     container_name: ww-imgproxy
+
+  # Redis for sessions and last measurements
   redis:
     container_name: ww-redis
     ports:
       - '6379:6379'
+    volumes:
+      - type: tmpfs
+        target: /data
+
+  # Workers to harvest some data
   workers:
     container_name: ww-workers
     image: 'ww-workers:dev'

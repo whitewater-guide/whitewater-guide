@@ -9,6 +9,8 @@ x-single-host:
     guide.whitewater: ""
 
 services:
+
+  # Node.js backend
   backend:
     <<: *ww-single-host
     env_file:
@@ -23,6 +25,8 @@ services:
       - redis
       - minio
       - workers
+
+  # Postgres sql database
   db:
     <<: *ww-single-host
     env_file:
@@ -34,11 +38,15 @@ services:
       labels:
         guide.whitewater: ""
     read_only: true
+
+  # Minio to store images
   minio:
     <<: *ww-single-host
     env_file:
       - ${DOCKER_ENV_FILE}
     read_only: true
+
+  # Imgproxy to generate thumbnails
   imgproxy:
     <<: *ww-single-host
     env_file:
@@ -48,6 +56,8 @@ services:
       - IMGPROXY_USE_ETAG=true
     image: 'darthsim/imgproxy:latest'
     read_only: true
+
+  # Workers to harvest some data
   workers:
     <<: *ww-single-host
     env_file:
@@ -64,6 +74,8 @@ services:
     depends_on:
       - db
       - redis
+
+  # Caddy reverse proxy
   caddy:
     <<: *ww-single-host
     env_file:
@@ -74,10 +86,11 @@ services:
       labels:
         guide.whitewater: ""
     read_only: true
+
+  # Redis for sessions and last measurements
   redis:
-    # TODO: password, aof-use-rdb-preamble, etc...
-    # TODO: read_only: true
     <<: *ww-single-host
     env_file:
       - ${DOCKER_ENV_FILE}
     image: redis:4-alpine
+    read_only: true
