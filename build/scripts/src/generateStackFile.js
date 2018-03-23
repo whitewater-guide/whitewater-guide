@@ -5,10 +5,11 @@ const { spawn } = require('child_process');
  * Takes two docker-compose file (base file and override config file), merges them together
  * Also substitutes ENV variables in those file to tag images with correct versions
  * @param configName
- * @returns {Promise<any>}
+ * @returns {Promise<string>} resulting stack .yml
  */
 const generateStackFile = async configName => new Promise((resolve, reject) => {
-  const output = createWriteStream(`build/docker-stack-${configName}.yml`);
+  const stackFile = `build/docker-stack-${configName}.yml`;
+  const output = createWriteStream(stackFile);
   output.on('open', () => {
     const compose = spawn(
       'docker-compose',
@@ -22,7 +23,7 @@ const generateStackFile = async configName => new Promise((resolve, reject) => {
       if (code) {
         reject(code);
       } else {
-        resolve();
+        resolve(stackFile);
       }
     });
   });

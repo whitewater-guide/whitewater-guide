@@ -1,0 +1,79 @@
+version: '3.4'
+
+services:
+
+  # Node.js backend
+  backend:
+    image: 'ww-backend:${BACKEND_TAG}'
+    read_only: true
+    build:
+      dockerfile: Dockerfile.staging
+    volumes:
+      - type: bind
+        source: /var/pm2
+        target: /root/.pm2
+
+  # Postgres sql database
+  db:
+    image: 'ww-db:${DB_TAG}'
+    volumes:
+      - type: bind
+        source: /var/postgres/data/pgdata
+        target: /var/lib/postgresql/data/pgdata
+      - type: bind
+        source: /tmp/postgres
+        target: /tmp
+      - type: tmpfs
+        target: /run/postgresql
+    ports:
+      - '5432:5432'
+
+  # Minio to store images
+  minio:
+    build:
+      context: ../packages/minio
+    image: 'ww-minio:${MINIO_TAG}'
+    ports:
+      - '9000:9000'
+    volumes:
+      - type: bind
+        source: /var/minio/data
+        target: /data
+      - type: bind
+        source: /var/minio/config
+        target: /root/.minio
+
+  # Caddy reverse proxy
+  caddy:
+    image: 'ww-caddy:${CADDY_TAG}'
+    volumes:
+      - type: bind
+        source: /etc/caddycerts
+        target: /etc/caddycerts
+      - type: bind
+        source: /tmp/caddy
+        target: /tmp/caddy-cache
+    ports:
+      - '80:2015'
+
+  # Imgproxy to generate thumbnails
+  imgproxy:
+    container_name: ww-imgproxy
+
+  # Redis for sessions and last measurements
+  redis:
+    command: ['--appendonly', 'yes', 'aof-use-rdb-preamble', 'yes']
+    ports:
+      - '6379:6379'
+    volumes:
+      - type: bind
+        source: /tmp/redis
+        target: /data
+
+  # Workers to harvest some data
+  workers:
+    image: 'ww-workers:${WORKERS_TAG}'
+    volumes:
+      - type: bind
+        source: /tmp/workers
+        target: /tmp

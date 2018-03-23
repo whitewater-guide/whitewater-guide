@@ -10,15 +10,19 @@
     "dev:start": "build/scripts/dev_start.js",
     "dev:images": "docker-machine scp -r -d wwguide:/mnt/dostorage/wwguide-uploads/images/ ./packages/minio/data/media",
     "dev:migrate": "cd packages/mongo-to-postgres && M2PG_MAX_AGE=7 yarn run migrate",
+    "local:prepare": "docker-machine ssh ww-local < build/scripts/local_machine_prepare.sh",
+    "local:deploy": "build/scripts/local_deploy.js",
     "wml:start": "build/scripts/wml_start.sh"
   },
   "devDependencies": {
+    "dotenv": "^5.0.1",
     "eslint": "^4.9.0",
     "eslint-config-airbnb-base": "12.1.0",
     "eslint-plugin-import": "^2.7.0",
     "husky": "^0.14.3",
     "typescript": "2.8.0-rc",
-    "wml": "^0.0.83"
+    "wml": "^0.0.83",
+    "yargs": "^11.0.0"
   },
   "dependencies": {}
 }
