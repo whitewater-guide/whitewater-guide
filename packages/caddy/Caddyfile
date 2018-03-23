@@ -29,13 +29,13 @@
     transparent
   }
 
-  proxy /{$MINIO_PROXY_PATH} {$MINIO_HOST}:9000 {
+  proxy /{$MINIO_PROXY_PATH} minio:9000 {
     without /{$MINIO_PROXY_PATH}
     header_downstream Access-Control-Expose-Headers Location
     transparent
   }
 
-  proxy /{$IMGPROXY_PATH} {$IMGPROXY_HOST}:8080 {
+  proxy /{$IMGPROXY_PATH} imgproxy:8080 {
     without /{$IMGPROXY_PATH}
     transparent
   }
