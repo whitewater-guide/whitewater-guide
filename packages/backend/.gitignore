@@ -5,3 +5,4 @@ src/**/*.js.map
 /yarn-error.log
 /postgres.dump
 /src/seeds/development/dump.sql
+.env.*

@@ -5,3 +5,4 @@
 /src/gopkg.in/
 /src/golang.org/
 /bin/
+.env.*

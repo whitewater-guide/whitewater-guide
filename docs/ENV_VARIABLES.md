@@ -1,5 +1,22 @@
 # Env variables
 
+## General principles
+
+Each docker container has access to some environment variables (some of them should be replaced with docker-secrets in future).
+These env variables are stored in `.env.*` files in root of `packages/<container_service_name>` directories.
+Some containers share some variables (e.g. postgres password). Shared variables are stored in `.env.*` files in `build` dir.
+
+Env filenames follow this patter `.env.<environment_name>`. 
+Each file can be accompanied by `.env.<environment>.local` file, which contains local overrides.  
+
+`.env.<environment_name>` files **are encrypted** with `git secret` and secrets **are checked in** into git.
+The files themselves are **.gitignored**
+  
+`env.<environment_name>.local` files are **.gitignored** and should be only used on developers machines for local overrides.
+They should never be stored in git. 
+
+## Shared variables
+
 Only variables shared between containers are listed here.  
 For container-specific env variables see packages READMEs
 

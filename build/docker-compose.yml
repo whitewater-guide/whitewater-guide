@@ -15,7 +15,9 @@ services:
     <<: *ww-single-host
     env_file:
       - ${DOCKER_ENV_FILE}
+      - ${DOCKER_ENV_FILE}.local
       - ../packages/backend/${DOCKER_ENV_FILE}
+      - ../packages/backend/${DOCKER_ENV_FILE}.local
     build:
       context: ../packages/backend
       labels:
@@ -31,6 +33,7 @@ services:
     <<: *ww-single-host
     env_file:
       - ${DOCKER_ENV_FILE}
+      - ${DOCKER_ENV_FILE}.local
     environment:
       - PGDATA=/var/lib/postgresql/data/pgdata
     build:
@@ -44,6 +47,7 @@ services:
     <<: *ww-single-host
     env_file:
       - ${DOCKER_ENV_FILE}
+      - ${DOCKER_ENV_FILE}.local
     read_only: true
 
   # Imgproxy to generate thumbnails
@@ -51,6 +55,7 @@ services:
     <<: *ww-single-host
     env_file:
       - ${DOCKER_ENV_FILE}
+      - ${DOCKER_ENV_FILE}.local
     environment:
       - IMGPROXY_TTL=86400
       - IMGPROXY_USE_ETAG=true
@@ -62,7 +67,9 @@ services:
     <<: *ww-single-host
     env_file:
       - ${DOCKER_ENV_FILE}
+      - ${DOCKER_ENV_FILE}.local
       - ../packages/workers/${DOCKER_ENV_FILE}
+      - ../packages/workers/${DOCKER_ENV_FILE}.local
     build:
       context: ../packages/workers
       labels:
@@ -80,7 +87,9 @@ services:
     <<: *ww-single-host
     env_file:
       - ${DOCKER_ENV_FILE}
+      - ${DOCKER_ENV_FILE}.local
       - ../packages/caddy/${DOCKER_ENV_FILE}
+      - ../packages/caddy/${DOCKER_ENV_FILE}.local
     build:
       context: ../packages/caddy
       labels:
@@ -92,5 +101,6 @@ services:
     <<: *ww-single-host
     env_file:
       - ${DOCKER_ENV_FILE}
+      - ${DOCKER_ENV_FILE}.local
     image: redis:4-alpine
     read_only: true

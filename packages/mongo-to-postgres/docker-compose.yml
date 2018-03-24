@@ -14,6 +14,7 @@ services:
     container_name: ww-restore
     env_file:
       - .env
+      - .env.local
     image: doomsower/mongorestore-s3
     depends_on:
       - mongo
@@ -32,6 +33,7 @@ services:
     command: ["-watch", "/backup", "-maxAge", "${M2PG_MAX_AGE:-0}"]
     env_file:
       - .env
+      - .env.local
 networks:
   default:
     external:

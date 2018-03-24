@@ -20,3 +20,5 @@
 /src/golang.org
 /src/gopkg.in/
 galicia2.cookies
+
+.env.*

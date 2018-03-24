@@ -1,2 +1,3 @@
 /docker-stack-development.yml
 /docker-stack-local.yml
+.env.*
