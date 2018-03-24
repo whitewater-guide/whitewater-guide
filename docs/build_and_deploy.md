@@ -61,7 +61,7 @@ so binary dependencies like `sharp` are built in same environment as production.
 Certificated were deployed using certbot. This is how it was done:
 1) Certbot is baked into passenger service base
 2) Two named volumes, `certs` and `certs-data` were added into compose file. They are mapped to the dirs that certbot uses
-3) `certbot --nginx` was launched inside passenger container. It was regisered to `K.Kuznetcov@gmail.com` email.
+3) `certbot --nginx` was launched inside passenger container. It was regisered to `xxx@xxx.xxx` email.
 It generated certificates in named volume `certs` and modified nginx config for whitewater.guide.
 4) This modified config (besides included `/etc/letsencrypt/options-ssl-nginx.conf;`) was modified and
 baked back into passenger base image
