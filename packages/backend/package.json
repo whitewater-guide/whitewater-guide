@@ -5,9 +5,8 @@
   "author": "Konstantin Kuznetsov",
   "license": "MIT",
   "scripts": {
-    "pretest": "env $(cat ../../build/.env.test .env.test | xargs) node ./src/test/pretest.js",
-    "posttest": "env $(cat ../../build/.env.test .env.test | xargs) node ./src/test/posttest.js",
-    "test": "env $(cat ../../build/.env.test .env.test | xargs) jest -i",
+    "pretest": "npm_scripts/pretest.sh",
+    "test": "npm_scripts/test.sh",
     "dev:dump": "npm_scripts/dev-dump.sh",
     "dev:restore": "npm_scripts/dev-restore.sh",
     "madge": "madge --circular src/index.js"
