@@ -2,3 +2,4 @@ yarn-error.log
 .idea/
 node_modules/
 *.iml
+.gitsecret/keys/random_seed

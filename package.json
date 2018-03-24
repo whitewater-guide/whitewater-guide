@@ -24,5 +24,10 @@
     "wml": "^0.0.83",
     "yargs": "^11.0.0"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "husky": {
+    "hooks": {
+      "pre-commit": "git secret hide -m"
+    }
+  }
 }

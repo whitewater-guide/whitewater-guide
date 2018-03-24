@@ -6,3 +6,4 @@ src/**/*.js.map
 /postgres.dump
 /src/seeds/development/dump.sql
 .env.*
+!.env.*.secret

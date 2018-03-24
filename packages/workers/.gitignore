@@ -22,3 +22,4 @@
 galicia2.cookies
 
 .env.*
+!.env.*.secret
