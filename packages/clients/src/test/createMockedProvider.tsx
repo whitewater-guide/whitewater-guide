@@ -7,14 +7,18 @@ import React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import { HarvestMode, TAG_CATEGORIES } from '../../ww-commons';
 import { configureApolloCache } from '../apollo';
-import typeDefs from './typedefs';
 
 export interface QueryMap {
   [name: string]: (variables: any) => any;
 }
 
 export const createMockedProvider = (queries: QueryMap = {}, mutations: QueryMap = {}) => {
-
+  let typeDefs: any = [];
+  try {
+    typeDefs = require('./typedefs').default;
+  } catch {
+    console.error('Please run clients.pretest to load typedefs');
+  }
   const schema = makeExecutableSchema({ typeDefs, resolvers: { JSON: GraphQLJSON } });
   addMockFunctionsToSchema({
     schema,
