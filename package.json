@@ -20,7 +20,7 @@
     "eslint": "^4.9.0",
     "eslint-config-airbnb-base": "12.1.0",
     "eslint-plugin-import": "^2.7.0",
-    "husky": "^0.14.3",
+    "husky": "^0.15.0-rc.13",
     "typescript": "2.8.0-rc",
     "wml": "^0.0.83",
     "yargs": "^11.0.0"
