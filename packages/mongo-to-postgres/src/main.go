@@ -205,7 +205,7 @@ func getPostgres(timeout, retries int64) *sqlx.DB {
 
   pgConnStr := fmt.Sprintf(
     "postgres://postgres:%s@%s/%s?sslmode=disable",
-    os.Getenv("PGPASSWORD"),
+    os.Getenv("POSTGRES_PASSWORD"),
     os.Getenv("POSTGRES_HOST"),
     os.Getenv("POSTGRES_DB"),
   )

@@ -78,3 +78,7 @@ services:
       - type: bind
         source: /tmp/workers
         target: /tmp
+networks:
+  default:
+    driver: overlay
+    attachable: true

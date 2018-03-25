@@ -23,7 +23,7 @@ For container-specific env variables see packages READMEs
 | Variable name               | Value examples (defaults) | Consumers                  | Description                        |
 |-----------------------------|---------------------------|----------------------------|------------------------------------|
 | POSTGRES_DB                 | wwguide                   | backend, workers, db       | Postgres database name |
-| PGPASSWORD                  | ********                  | backend, workers, db       | Postgres password |
+| POSTGRES_PASSWORD           | ********                  | backend, workers, db       | Postgres password |
 | IMGPROXY_KEY                | <random_secret>           | backend, imgproxy          | Imgproxy key | 
 | IMGPROXY_SALT               | <random_secret>           | backend, imgproxy          | Imgproxy salt |
 | MINIO_ACCESS_KEY            | <random_secret>           | backend, minio             | Minio access key |

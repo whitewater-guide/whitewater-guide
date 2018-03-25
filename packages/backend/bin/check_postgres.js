@@ -1,5 +1,7 @@
 const pg = require('pg');
-const client = new pg.Client(`postgres://postgres:${process.env.PGPASSWORD}@db:5432/${process.env.POSTGRES_DB}`);
+const pgURL = `postgres://postgres:${process.env.POSTGRES_PASSWORD}@db:5432/${process.env.POSTGRES_DB}`;
+const client = new pg.Client(pgURL);
+console.log(`Checking pg connection to ${pgURL}`);
 
 client.connect((err) => {
   if (err) {

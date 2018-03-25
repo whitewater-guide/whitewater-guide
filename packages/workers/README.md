@@ -19,7 +19,7 @@ WORKERS_LOG_LEVEL       | debug         | Log level string, the one that [logrus
 WORKERS_LOG_JSON        |               | If true, logs are printed as JSON
 POSTGRES_HOST           |               | (**required**) Postgres connection details - host 
 POSTGES_DB              |               | (**required**) Postgres connection details - database name
-PGPASSWORD              |               | (**required**) Postgres connection details - password
+POSTGRES_PASSWORD       |               | (**required**) Postgres connection details - password
 REDIS_HOST              | redis         | Redis connection details - host
 REDIS_PORT              | 6379          | Redis connection details - port
  
