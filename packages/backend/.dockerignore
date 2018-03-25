@@ -5,7 +5,5 @@ tsconfig.json
 tslint.json
 .gitignore
 yarn-error.log
-postgres.dump
 .dockerignore
-/.env.development
-/.env.test
+.env.*

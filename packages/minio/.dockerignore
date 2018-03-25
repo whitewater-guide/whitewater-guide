@@ -1,0 +1,5 @@
+config
+data
+.gitignore
+package.json
+Dockerfile

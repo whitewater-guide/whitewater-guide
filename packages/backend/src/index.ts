@@ -8,7 +8,7 @@ async function startup() {
   await db(true).migrate.latest();
   const dbVersion = await db(true).migrate.currentVersion();
   log.info(`Current DB version: ${dbVersion}`);
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.AUTO_SEED === 'true') {
     await db(true).seed.run();
   }
   await initMinio();

@@ -14,3 +14,4 @@
 | APOLLO_EXPOSE_SCHEMA        | true                                               | Should Apollo router expose 'schema.json' and 'typedefs.txt'? Mostly used by devtools and tests (mock data generator) |
 | APOLLO_EXPOSE_GRAPHIQL      | true                                               | Should Apollo router expose GRAPHIQL UI
 | MINIO_HOST                  | minio                                              | Minio host name in docker internal network |
+| AUTO_SEED                   | true                                               | Set to true to automatically seed database on startup |

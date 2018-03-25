@@ -3,7 +3,6 @@ src/**/*.js
 src/**/*.js.map
 /src/ww-commons/
 /yarn-error.log
-/postgres.dump
-/src/seeds/development/dump.sql
+**/dump.sql
 .env.*
 !.env.*.secret

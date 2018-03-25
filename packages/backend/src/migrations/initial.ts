@@ -290,11 +290,11 @@ export const up = async (db: Knex) => {
     table.primary(['media_id', 'section_id']);
   });
 
-  if (process.env.NODE_ENV === 'development') {
-    await db.schema.createTable('dev_seeds_lock', (table) => {
+  if (process.env.AUTO_SEED === 'true') {
+    await db.schema.createTable('seeds_lock', (table) => {
       table.boolean('locked');
     });
-    await db.into('dev_seeds_lock').insert({ locked: false });
+    await db.into('seeds_lock').insert({ locked: false });
   }
 
   await runSqlFile(db, './src/migrations/initial/array_json_to_int.sql');

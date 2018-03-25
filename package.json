@@ -8,7 +8,7 @@
   "scripts": {
     "dev:cleanup": "build/scripts/dev_cleanup.sh",
     "dev:start": "build/scripts/dev_start.js",
-    "dev:images": "docker-machine scp -r -d wwguide:/mnt/dostorage/wwguide-uploads/images/ ./packages/minio/data/media",
+    "dev:images": "build/scripts/dev_download_images.sh",
     "dev:migrate": "cd packages/mongo-to-postgres && M2PG_MAX_AGE=7 yarn run migrate",
     "local:prepare": "docker-machine ssh ww-local < build/scripts/local_machine_prepare.sh",
     "local:deploy": "build/scripts/local_deploy.js",

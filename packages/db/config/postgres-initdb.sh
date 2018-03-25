@@ -21,9 +21,8 @@ psql --variable=ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname=test <<-EOS
   CREATE EXTENSION IF NOT EXISTS "timescaledb" CASCADE;
 EOSQL
 
-fi
-
-# Maybe this is not required on production?
 psql --variable=ON_ERROR_STOP=1 --username "$POSTGRES_USER" <<-EOSQL
   ALTER SYSTEM SET log_statement = "all";
 EOSQL
+
+fi
