@@ -5,16 +5,19 @@
 
 docker stack rm wwguide
 # Backend
-sudo rm -rf /mnt/sda1/var/pm2/*
+sudo sh -c "rm -rf /var/pm2/*"
 # DB
-sudo rm -rf /mnt/sda1/var/postgres/data/pgdata/*
+sudo sh -c "rm -rf /var/postgres/data/pgdata/*"
+sudo sh -c "rm -rf /var/run/postgresql/*"
+sudo sh -c "rm -rf /tmp/postgres/*"
+
 # Caddy
-sudo rm -rf /etc/caddycerts/*
-sudo rm -rf /tmp/caddy/*
+sudo sh -c "rm -rf /etc/caddycerts/*"
+sudo sh -c "rm -rf /tmp/caddy/*"
 # Minio
-sudo rm -rf /mnt/sda1/var/minio/data/*
-sudo rm -rf /mnt/sda1/var/minio/config/*
+sudo sh -c "rm -rf /var/minio/data/*"
+sudo sh -c "rm -rf /var/minio/config/*"
 # Redis
-sudo rm -rf /tmp/redis/*
+sudo sh -c "rm -rf /tmp/redis/*"
 # Workers
-sudo rm -rf /tmp/workers/cookies/*
+sudo sh -c "rm -rf /tmp/workers/cookies/*"

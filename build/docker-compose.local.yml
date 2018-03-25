@@ -12,6 +12,8 @@ services:
       - type: bind
         source: /var/pm2
         target: /root/.pm2
+    ports:
+      - '3333:3333'
 
   # Postgres sql database
   db:
@@ -23,7 +25,8 @@ services:
       - type: bind
         source: /tmp/postgres
         target: /tmp
-      - type: tmpfs
+      - type: bind
+        source: /var/postgres/run
         target: /var/run/postgresql
     ports:
       - '5432:5432'
@@ -78,7 +81,7 @@ services:
       - type: bind
         source: /tmp/workers
         target: /tmp
-networks:
-  default:
-    driver: overlay
-    attachable: true
+#networks:
+#  default:
+#    driver: overlay
+#    attachable: true

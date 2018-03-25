@@ -3,6 +3,9 @@ FROM keymetrics/pm2:8-alpine
 ENV PROJECT_ROOT /opt/app
 WORKDIR $PROJECT_ROOT
 
+# Curl for healthcheck
+RUN apk add --no-cache curl
+
 RUN chown -R node /opt/app
 
 COPY . /opt/app

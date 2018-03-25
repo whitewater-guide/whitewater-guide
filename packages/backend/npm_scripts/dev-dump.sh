@@ -12,6 +12,7 @@ docker exec ww-db \
             --schema=public \
             --column-inserts \
             --exclude-table='migrations*' \
+            --exclude-table='seed*' \
             --username=postgres \
     $POSTGRES_DB  > src/seeds/development/dump.sql
 
