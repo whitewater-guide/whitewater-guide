@@ -1,6 +1,6 @@
 {
   "name": "whitewater",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "whitewater.guide monorepo",
   "repository": "https://github.com/doomsower/whitewater.git",
   "author": "doomsower <K.Kuznetcov@gmail.com>",
@@ -28,7 +28,8 @@
   "dependencies": {},
   "husky": {
     "hooks": {
-      "pre-commit": "git secret hide -m"
+      "pre-commit": "build/scripts/pre_commit.js",
+      "post-commit": "build/scripts/post_commit.sh"
     }
   }
 }

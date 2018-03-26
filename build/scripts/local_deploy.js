@@ -7,14 +7,14 @@ const dotenv = require('dotenv');
 const argv = require('yargs').argv;
 const generateStackFile = require('./src/generateStackFile');
 const setupEnv = require('./src/setupEnv');
+const hasChanged = require('./src/hasChanged');
 
 const CONFIG_NAME = 'local';
 const STACK_NAME = 'wwguide';
 const MACHINE_NAME = 'ww-local';
 
 async function localDeploy() {
-  const res = spawnSync('git', ['diff', '--exit-code', '--quiet', '.']);
-  if (res.status === 1 && !argv.noCommit) {
+  if (hasChanged() && !argv.noCommit) {
     console.error('\n\nCommit all changes before updating docker stack');
     return;
   }
