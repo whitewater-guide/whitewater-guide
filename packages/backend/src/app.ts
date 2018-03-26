@@ -9,6 +9,7 @@ import logger from './log';
 
 const app = express();
 
+app.disable('x-powered-by');
 app.use(pinoExpress({ logger }));
 
 const CORS_WHITELIST = process.env.CORS_WHITELIST ? process.env.CORS_WHITELIST!.split(',') : [];

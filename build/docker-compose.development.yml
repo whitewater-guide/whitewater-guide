@@ -19,10 +19,13 @@ services:
   db:
     container_name: ww-db
     image: 'ww-db:dev'
-    tmpfs:
-      - /tmp
-      - /var/run/postgresql
-      - /var/lib/postgresql/data
+    volumes:
+      - type: tmpfs
+        target: /tmp
+      - type: tmpfs
+        target: /run/postgresql
+      - type: tmpfs
+        target: /var/lib/postgresql/data
     environment:
       - NODE_ENV=development # This is needed to created test db
     ports:
