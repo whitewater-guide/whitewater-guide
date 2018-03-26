@@ -8,6 +8,10 @@
 
   root static
 
+  header / {
+    -Server
+  }
+
   index landing.html
 
   rewrite / {
