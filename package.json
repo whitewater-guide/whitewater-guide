@@ -1,6 +1,6 @@
 {
   "name": "whitewater",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "whitewater.guide monorepo",
   "repository": "https://github.com/doomsower/whitewater.git",
   "author": "doomsower <K.Kuznetcov@gmail.com>",
@@ -10,6 +10,7 @@
     "dev:start": "build/scripts/dev_start.js",
     "dev:images": "build/scripts/dev_download_images.sh",
     "dev:migrate": "cd packages/mongo-to-postgres && M2PG_MAX_AGE=7 yarn run migrate",
+    "local:start": "build/scripts/local_machine_start.sh",
     "local:cleanup": "docker-machine ssh ww-local < build/scripts/local_machine_cleanup.sh",
     "local:prepare": "docker-machine ssh ww-local < build/scripts/local_machine_prepare.sh",
     "local:deploy": "build/scripts/local_deploy.js",
