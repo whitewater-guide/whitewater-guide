@@ -5,6 +5,7 @@ import PrettyError from 'pretty-error';
 import { graphqlRouter } from './apollo/router';
 import { authRouter, passport, sessionMiddleware } from './auth';
 import { URL } from 'url';
+import getOrigin from './auth/getOrigin';
 
 const app = express();
 
@@ -12,8 +13,7 @@ const CORS_WHITELIST = process.env.CORS_WHITELIST ? process.env.CORS_WHITELIST!.
 
 app.use(cors({
   origin: (origin, cb) => {
-    const url = origin && new URL(origin);
-    if (!url || CORS_WHITELIST.includes(url.hostname)){
+    if (!origin || CORS_WHITELIST.includes(getOrigin(origin))){
       cb(null, true);
     } else {
       cb(new Error(`${origin} is not a valid origin`));
