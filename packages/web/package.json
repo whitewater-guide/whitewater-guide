@@ -1,6 +1,6 @@
 {
   "name": "web",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "private": true,
   "dependencies": {
     "apollo-cache-inmemory": "^1.1.10",
@@ -130,5 +130,5 @@
   "browser": {
     "joi": "joi-browser"
   },
-  "proxy": "http://localhost:6001"
+  "proxy": "http://dm1.local"
 }

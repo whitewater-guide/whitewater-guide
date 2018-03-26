@@ -4,13 +4,21 @@ import express from 'express';
 import PrettyError from 'pretty-error';
 import { graphqlRouter } from './apollo/router';
 import { authRouter, passport, sessionMiddleware } from './auth';
+import { URL } from 'url';
 
 const app = express();
 
 const CORS_WHITELIST = process.env.CORS_WHITELIST ? process.env.CORS_WHITELIST!.split(',') : [];
 
 app.use(cors({
-  origin: (origin, cb) => cb(null, CORS_WHITELIST.includes(origin)),
+  origin: (origin, cb) => {
+    const url = origin && new URL(origin);
+    if (!url || CORS_WHITELIST.includes(url.hostname)){
+      cb(null, true);
+    } else {
+      cb(new Error(`${origin} is not a valid origin`));
+    }
+  },
   credentials: true,
 }));
 app.use(bodyParser.urlencoded({ extended: true }));
