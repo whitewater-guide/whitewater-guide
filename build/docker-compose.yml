@@ -45,6 +45,8 @@ services:
   # Minio to store images
   minio:
     <<: *ww-single-host
+    image: 'minio/minio:latest'
+    command: server /data
     env_file:
       - ${DOCKER_ENV_FILE}
       - ${DOCKER_ENV_FILE}.local

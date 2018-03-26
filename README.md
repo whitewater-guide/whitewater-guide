@@ -108,7 +108,7 @@ Husky is installed in project root to ensure that hooks are properly set up afte
 | dev:start          | Runs dev configuration using docker-sync              
 | dev:images         | Downloads images from old backend to minio package, also compresses them to be included into minio docker image. Requires access to v1 docker-machine.             
 | dev:migrate        | Downloads latest dump v1 mongo dump from s3, loads it into running postgres dev instance.             
-| local:starts       | creates, starts (if necessary) local machine, prepares all folders in host vm. DOES NOT DEPLOY. 
+| local:starts       | creates, starts (if necessary) local machine, prepares all folders in host vm, uploads images. DOES NOT DEPLOY. 
 | local:prepare      | Prepares `ww-local` docker machine by creating necessary dirs. Should be run every time docker-machine starts              |
 | local:deploy       | Deploys updates to `ww-local` machine <br/> Pass `--container <xxx>` one or many times to rebuild only those containers
 | local:cleanup      | Stops docker stack and wipes filesystem on `ww-local` docker-machine
@@ -121,10 +121,11 @@ Husky is installed in project root to ensure that hooks are properly set up afte
 
 1. Checkout project from github
 2. Install requirements
-3. Run `yarn` in project root and in packages `web`, `backend`, `clients`, `commons` to install npm dependencies
-4. `git secret reveal` to show secrets, or create local .env files and develop with local env
-5. Run `yarn run wml:start` to launch WML, see about WML below
-6. Launch backend stack you want to develop client against with `yarn run dev:start` or `yarn run local:start` and then `yarn run local:deploy`
+3. Run `dev:images`, or ask for images dump
+4. Run `yarn` in project root and in packages `web`, `backend`, `clients`, `commons` to install npm dependencies
+5. `git secret reveal` to show secrets, or create local .env files and develop with local env
+6. Run `yarn run wml:start` to launch WML, see about WML below
+7. Launch backend stack you want to develop client against with `yarn run dev:start` or `yarn run local:start` and then `yarn run local:deploy`
 
 ### WML
 
@@ -139,7 +140,9 @@ I use [WML](https://github.com/wix/wml) here as least painful solution
 If you run no more than one docker-machine at a time, then ip is stable.  
 Get this ip with `docker-machine ip ww-local` and add it to your hosts file as `ww-local.io`.  
 Then in web and mobile packages set urls in `env.development.local` to point to `ww-local.io` as backend.  
-This is required, as facebook auth needs stable callback url.
+This is required, as facebook auth needs stable callback url.  
+
+It's recommended to get images dump via `dev:images`, or ask me for archive. `local:start` will copy images to docker-machine
 
 ## Deployment
 

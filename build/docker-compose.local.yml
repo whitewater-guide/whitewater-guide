@@ -33,11 +33,6 @@ services:
 
   # Minio to store images
   minio:
-    build:
-      context: ../packages/minio
-      args:
-        - SEEDS=images.tar.gz
-    image: 'ww-minio:${MINIO_TAG}'
     ports:
       - '9000:9000'
     volumes:

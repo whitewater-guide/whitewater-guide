@@ -31,8 +31,6 @@ services:
   # Minio to store images
   minio:
     container_name: ww-minio
-    image: 'minio/minio:latest'
-    command: server /data
     ports:
       - '9000:9000'
     volumes:
