@@ -1,13 +1,15 @@
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import express from 'express';
-import PrettyError from 'pretty-error';
+import pinoExpress from 'express-pino-logger';
 import { graphqlRouter } from './apollo/router';
 import { authRouter, passport, sessionMiddleware } from './auth';
-import { URL } from 'url';
 import getOrigin from './auth/getOrigin';
+import logger from './log';
 
 const app = express();
+
+app.use(pinoExpress({ logger }));
 
 const CORS_WHITELIST = process.env.CORS_WHITELIST ? process.env.CORS_WHITELIST!.split(',') : [];
 
@@ -29,14 +31,5 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(authRouter);
 app.use(graphqlRouter);
-
-const prettyError = new PrettyError();
-prettyError.skipNodeFiles();
-prettyError.skipPackage('express');
-
-app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
-  process.stderr.write(prettyError.render(err));
-  next();
-});
 
 export default app;

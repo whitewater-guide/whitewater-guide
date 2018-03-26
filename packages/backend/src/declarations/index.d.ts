@@ -18,8 +18,6 @@ declare module 'http-shutdown' {
   export = httpShutdown;
 }
 
-declare module 'pretty-error';
-
 declare module 'apollo-errors' {
   import { Error } from 'tslint/lib/error';
 
