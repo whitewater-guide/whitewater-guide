@@ -20,7 +20,6 @@ const DEPENDENCIES = {
 const bumpAllPackages = () => {
   const packages = readdirSync('packages');
   const changes = new Map(packages.map(packageName => [packageName, hasChanged(packageName)]));
-  console.log('Changes:', changes);
   changes.forEach((changed, packageName) => {
     const deps = DEPENDENCIES[packageName];
     if (changed || deps.some(dep => changes.get(dep))) {
