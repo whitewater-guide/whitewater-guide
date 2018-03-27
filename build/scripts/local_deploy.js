@@ -14,7 +14,15 @@ const STACK_NAME = 'wwguide';
 const MACHINE_NAME = 'ww-local';
 
 async function localDeploy() {
-  if (hasChanged() && !argv.noCommit) {
+  const noCommit = argv.noCommit; // Ignore uncommitted git protection
+  // Build fresh images for all (default) or some (specify via --container flags) services
+  // Multiple flags allowed, e.g. --container caddy --container db
+  let containers = [];
+  if (argv.container) {
+    containers = Array.isArray(argv.container) ? argv.container : [argv.container];
+  }
+
+  if (hasChanged() && !noCommit) {
     console.error('\n\nCommit all changes before updating docker stack');
     return;
   }
@@ -25,10 +33,21 @@ async function localDeploy() {
   const stackFile = await generateStackFile(CONFIG_NAME);
 
   // Ensure that backend is compiled
-  const tscResult = spawnSync('yarn', ['run', 'tsc'], { cwd: 'packages/backend', stdio: 'inherit' });
-  if (tscResult.status !== 0) {
-    console.log('\n\nFailed to compile backend, please fix');
-    return;
+  if (containers.length === 0 || containers.includes('backend')) {
+    const tscResult = spawnSync('yarn', ['run', 'tsc'], { cwd: 'packages/backend', stdio: 'inherit' });
+    if (tscResult.status !== 0) {
+      console.log('\n\nFailed to compile backend, please fix');
+      return;
+    }
+  }
+
+  // Ensure that web is compiled
+  if (containers.length === 0 || containers.includes('web')) {
+    const tscResult = spawnSync('yarn', ['run', 'build'], { cwd: 'packages/web', stdio: 'inherit' });
+    if (tscResult.status !== 0) {
+      console.log('\n\nFailed to compile web, please fix');
+      return;
+    }
   }
 
   // load docker-machine env
@@ -40,13 +59,15 @@ async function localDeploy() {
   const dockerMachineEnv = dotenv.parse(dmEnv.stdout.toString().replace(/export\s/g, ''));
   Object.entries(dockerMachineEnv).forEach(([key, value]) => { process.env[key] = value; });
 
+  // -------- From now on commands are executed on docker-machine ------------
 
-  // Build fresh images for all (default) or some (specify via --container flags) services
-  // Multiple flags allowed, e.g. --container caddy --container db
-  let containers = [];
-  if (argv.container) {
-    containers = Array.isArray(argv.container) ? argv.container : [argv.container];
-  }
+  // Prune old images
+  spawnSync(
+    'docker',
+    ['image', 'prune', '-a', '-f', '--filter', '"until=72h"'],
+    { stdio: 'inherit' },
+  );
+
   const buildRes = spawnSync(
     'docker-compose',
     ['-f', stackFile, 'build', ...containers],
