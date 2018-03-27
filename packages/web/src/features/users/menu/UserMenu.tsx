@@ -48,7 +48,7 @@ export default class UserMenu extends React.PureComponent<InnerProps, State> {
         </IconButton>
       );
     }
-    const href = `${process.env.REACT_APP_API_HOST}auth/facebook?returnTo=${window.location.href}`;
+    const href = `${process.env.REACT_APP_API_HOST}/auth/facebook?returnTo=${window.location.href}`;
     return (
       <IconButton style={styles.avatar} href={href}>
         <Avatar>
@@ -68,7 +68,7 @@ export default class UserMenu extends React.PureComponent<InnerProps, State> {
         onRequestClose={this.onPopoverClose}
       >
         <Menu>
-          <MenuItem primaryText="Sign out" href={`${process.env.REACT_APP_API_HOST}auth/logout`} />
+          <MenuItem primaryText="Sign out" href={`${process.env.REACT_APP_API_HOST}/auth/logout`} />
         </Menu>
       </Popover>
     );

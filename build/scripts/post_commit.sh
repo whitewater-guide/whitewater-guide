@@ -8,6 +8,7 @@ git add packages/caddy/package.json
 git add packages/clients/package.json
 git add packages/commons/package.json
 git add packages/db/package.json
+git add packages/landing/package.json
 git add packages/minio/package.json
 git add packages/mongo-to-postgres/package.json
 git add packages/web/package.json

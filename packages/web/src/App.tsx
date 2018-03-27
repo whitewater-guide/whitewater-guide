@@ -16,6 +16,8 @@ interface State {
   persistor?: Persistor;
 }
 
+const BASENAME = process.env.NODE_ENV === 'production' ? '/admin' : undefined;
+
 export default class App extends React.PureComponent<{}, State> {
   state: State = {};
 
@@ -33,7 +35,7 @@ export default class App extends React.PureComponent<{}, State> {
           <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
               <ApolloProvider client={apolloClient}>
-                <BrowserRouter>
+                <BrowserRouter basename={BASENAME}>
                   <RootLayout />
                 </BrowserRouter>
               </ApolloProvider>

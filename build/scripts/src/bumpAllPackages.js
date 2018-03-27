@@ -8,6 +8,7 @@ const DEPENDENCIES = {
   'clients': ['commons'],
   'commons': [],
   'db': [],
+  'landing': [],
   'minio': [],
   'mongo-to-postgres': [],
   'web': ['clients', 'commons'],

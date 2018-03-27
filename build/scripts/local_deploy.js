@@ -64,7 +64,7 @@ async function localDeploy() {
   // Prune old images
   spawnSync(
     'docker',
-    ['image', 'prune', '-a', '-f', '--filter', '"until=72h"'],
+    ['image', 'prune', '-a', '-f', '--filter', 'until=72h'],
     { stdio: 'inherit' },
   );
 

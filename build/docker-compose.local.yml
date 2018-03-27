@@ -76,6 +76,24 @@ services:
       - type: bind
         source: /tmp/workers
         target: /tmp
+
+  # Serve static landing
+  landing:
+    image: 'ww-landing:${LANDING_TAG}'
+
+  # Serve static web client
+  web:
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    labels:
+      guide.whitewater: ""
+    build:
+      context: ../packages/web
+      labels:
+        guide.whitewater: ""
+    image: 'ww-web:${WEB_TAG}'
+    read_only: true
 #networks:
 #  default:
 #    driver: overlay

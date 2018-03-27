@@ -106,3 +106,12 @@ services:
       - ${DOCKER_ENV_FILE}.local
     image: redis:4-alpine
     read_only: true
+
+  # Serve static landing
+  landing:
+    <<: *ww-single-host
+    build:
+      context: ../packages/landing
+      labels:
+        guide.whitewater: ""
+    read_only: true

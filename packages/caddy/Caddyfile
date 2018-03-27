@@ -6,14 +6,16 @@
     ca https://acme-staging.api.letsencrypt.org/directory
   }
 
-  root static
-
   header / {
     -Server
   }
 
-  index landing.html
+  gzip {
+    ext .css .html .js
+    min_length 2048
+  }
 
+  # All backend URIs
   rewrite / {
     if {path} starts_with /graphql
     if {path} starts_with /graphiql
@@ -24,7 +26,28 @@
     to /backend{uri}
   }
 
-  rewrite /ru {
+  # admin uris without extensions => react router
+  rewrite /admin {
+    ext /
+    to /web/admin
+  }
+
+  # admin static assets
+  rewrite /admin {
+    to /web{uri}
+  }
+
+  # Root is landing
+  rewrite / {
+    if {path} is /
+    if {path} is /index.html
+    if_op or
+    to /landing.html
+  }
+
+  # russian landing
+  rewrite / {
+    if {path} starts_with /ru
     to {path} landing_ru.html
   }
 
@@ -44,6 +67,15 @@
     transparent
   }
 
+  proxy /web web:8043 {
+    without /web/admin
+    transparent
+  }
+
+  proxy / landing:8043 {
+    transparent
+  }
+
   # cache {
   #   match_path /${IMGPROXY_PATH}
   #   match_header Content-Type image/jpg image/png
@@ -52,7 +84,7 @@
   #   path {$CADDY_CACHE_PATH}
   # }
 
-  log / stdout "{common} Upstream: {upstream}"
+  log / stdout "{common} Upstream: {upstream} URI: {rewrite_uri} PATH: {rewrite_path}"
 
   errors stdout
 
