@@ -2,3 +2,4 @@
 /docker-stack-local.yml
 .env.*
 !.env.*.secret
+/docker-stack-staging.yml

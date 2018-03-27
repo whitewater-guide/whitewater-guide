@@ -9,7 +9,7 @@ RUN VERSION=${version} PLUGINS=${plugins} /bin/sh /usr/bin/builder.sh
 # Final stage
 FROM alpine:3.7
 
-RUN apk add --no-cache ca-certificates
+RUN apk add --no-cache openssh-client ca-certificates curl
 
 # install caddy
 COPY --from=builder /install/caddy /usr/bin/caddy
@@ -19,4 +19,4 @@ VOLUME /root/.caddy /srv
 WORKDIR /srv
 
 ENTRYPOINT ["/usr/bin/caddy"]
-CMD ["--conf", "/etc/Caddyfile", "--log", "stdout"]
+CMD ["--conf", "/etc/Caddyfile", "--log", "stdout", "--agree"]

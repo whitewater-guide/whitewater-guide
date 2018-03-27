@@ -3,7 +3,7 @@
   tls {$CADDY_TLS_EMAIL} {
     # The line below uses staging certificate
     # Comment it out to use real certificate
-    ca https://acme-staging-v02.api.letsencrypt.org/directory
+    # ca https://acme-staging-v02.api.letsencrypt.org/directory
   }
 
   header / {
