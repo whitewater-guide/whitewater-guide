@@ -21,9 +21,13 @@ export default class RiversList extends React.PureComponent<RiversListProps> {
     count;
 
   renderAddSection = (row: River) => {
+    const href = this.props.history.createHref({
+      pathname: `/regions/${row.region.id}/sections/new`,
+      search: `?riverId=${row.id}`,
+    });
     return (
       <FlatButton
-        href={`/regions/${row.region.id}/sections/new?riverId=${row.id}`}
+        href={href}
         label="Add Section"
         icon={<FontIcon className="material-icons">add</FontIcon>}
         style={{ verticalAlign: 'sub' }}

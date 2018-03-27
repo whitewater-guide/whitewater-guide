@@ -14,19 +14,23 @@ interface OuterProps {
 
 type InnerProps = OuterProps & RouteComponentProps<any>;
 
-const AdminFooterInternal: React.StatelessComponent<InnerProps> = ({ add, edit, location: { pathname }, children }) => (
-  <CardActions>
-    {
-      add &&
-      <FlatButton label="Add new" href={typeof add === 'string' ? add : `${pathname}/new`} />
-    }
-    {
-      edit &&
-      <FlatButton label="Edit" href={typeof edit === 'string' ? edit : `${pathname}/settings`} />
-    }
-    {children}
-  </CardActions>
-);
+const AdminFooterInternal: React.StatelessComponent<InnerProps> = ({ add, edit, location: { pathname }, history, children }) => {
+  const addHref = history.createHref({ pathname: typeof add === 'string' ? add : `${pathname}/new` });
+  const editHref = history.createHref({ pathname: typeof edit === 'string' ? edit : `${pathname}/settings` });
+  return (
+    <CardActions>
+      {
+        add &&
+        <FlatButton label="Add new" href={addHref} />
+      }
+      {
+        edit &&
+        <FlatButton label="Edit" href={editHref} />
+      }
+      {children}
+    </CardActions>
+  );
+};
 
 export const AdminFooter = compose<InnerProps, OuterProps>(
   withRouter,
