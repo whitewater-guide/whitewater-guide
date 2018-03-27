@@ -17,6 +17,7 @@ sudo sh -c "rm -rf /tmp/caddy/*"
 # Minio
 sudo sh -c "rm -rf /var/minio/data/*"
 sudo sh -c "rm -rf /var/minio/config/*"
+sudo sh -c "rm -rf /tmp/minio/∞*"
 # Redis
 sudo sh -c "rm -rf /tmp/redis/*"
 # Workers

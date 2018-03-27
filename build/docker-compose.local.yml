@@ -42,6 +42,9 @@ services:
       - type: bind
         source: /var/minio/config
         target: /root/.minio
+      - type: bind
+        source: /tmp/minio
+        target: /tmp
 
   # Caddy reverse proxy
   caddy:

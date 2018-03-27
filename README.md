@@ -163,11 +163,10 @@ Here is what these scripts do
 ```sh
 docker-machine create -d generic \
   --engine-storage-driver overlay2 \
-  --generic-ip-address 144.76.26.140 \
-  --generic-ssh-key $HOME/.ssh/swapp_staging_rsa \
+  --generic-ip-address <ip> \
+  --generic-ssh-key $HOME/.ssh/docker_ww_beta_rsa \
   --generic-ssh-user dockeradmin \
-  --generic-ssh-port 5555 \
-  swapp-staging
+  ww-staging
 ```
 
 # Migrations
