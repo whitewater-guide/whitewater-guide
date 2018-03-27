@@ -1,5 +1,4 @@
 import db from '../../db';
-import { isMaster } from '../../utils';
 import { HarvestMode } from '../../ww-commons';
 import { GaugeRaw } from '../gauges';
 import { SourceRaw } from '../sources';
@@ -8,9 +7,6 @@ import logger from './logger';
 import safeScheduleJob from './safeScheduleJob';
 
 export async function startJobs(sourceId: string, gaugeId?: string) {
-  if (!isMaster()) {
-    return;
-  }
   const source: SourceRaw = await db().table('sources')
     .select(['id', 'script', 'cron', 'enabled', 'harvest_mode'])
     .where({ id: sourceId })
