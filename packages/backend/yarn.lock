@@ -1529,12 +1529,6 @@ expect@^22.4.3:
     jest-message-util "^22.4.3"
     jest-regex-util "^22.4.3"
 
-express-pino-logger@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/express-pino-logger/-/express-pino-logger-3.0.1.tgz#31befe82ed4f1d685d90eeb035923c0c79fe95cc"
-  dependencies:
-    pino-http "^3.0.1"
-
 express-session@^1.15.6:
   version "1.15.6"
   resolved "https://registry.yarnpkg.com/express-session/-/express-session-1.15.6.tgz#47b4160c88f42ab70fe8a508e31cbff76757ab0a"
@@ -4078,29 +4072,9 @@ pinkie@^2.0.0:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/pinkie/-/pinkie-2.0.4.tgz#72556b80cfa0d48a974e80e77248e80ed4f7f870"
 
-pino-http@^3.0.1:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/pino-http/-/pino-http-3.2.1.tgz#260c793fe04bdf1762c715dea7219f74dd10530c"
-  dependencies:
-    pino "^4.10.2"
-    pino-std-serializers "^1.0.0"
-
 pino-std-serializers@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/pino-std-serializers/-/pino-std-serializers-1.0.0.tgz#7607ab8c5b7c32bf7c4dada149da4ce3c14a3b75"
-
-pino@^4.10.2:
-  version "4.15.0"
-  resolved "https://registry.yarnpkg.com/pino/-/pino-4.15.0.tgz#fc96d089db4fad6d5d44f50f4296b5047d452524"
-  dependencies:
-    chalk "^2.3.2"
-    fast-json-parse "^1.0.3"
-    fast-safe-stringify "^1.2.3"
-    flatstr "^1.0.5"
-    pino-std-serializers "^1.0.0"
-    pump "^3.0.0"
-    quick-format-unescaped "^1.1.2"
-    split2 "^2.2.0"
 
 pino@^4.14.0:
   version "4.14.0"

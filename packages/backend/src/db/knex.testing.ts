@@ -3,9 +3,9 @@ import knex from 'knex';
 const test: knex.Config = {
   client: 'pg',
   connection: {
-    host: '127.0.0.1', // <------ Tests are run on host machine, not inside docker!
+    host: process.env.POSTGRES_HOST!,
     port: 5432,
-    database: 'test',
+    database: process.env.POSTGRES_DB!,
     user: 'postgres',
     password: process.env.POSTGRES_PASSWORD!,
   },

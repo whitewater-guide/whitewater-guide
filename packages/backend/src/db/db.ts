@@ -1,8 +1,21 @@
 import knex from 'knex';
 import knexConfig from './knexfile';
+import log from '../log';
 
 const env = process.env.NODE_ENV || 'development';
-const config: knex.Config = knexConfig[env] || knexConfig.development;
+const config: knex.Config = knexConfig[env];
+config.pool = {
+  afterCreate: (conn: any, done: any) => {
+    conn.query('SELECT NOW()', (err: any) => {
+      if (err) {
+        log.warn(`Error in pool.afterCreate: ${err}`);
+      } else {
+        log.info('afterCreate success');
+      }
+      done(err, conn);
+    });
+  },
+};
 
 const knexInstance = knex(config);
 

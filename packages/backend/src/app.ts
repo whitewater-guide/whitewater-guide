@@ -1,16 +1,13 @@
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import express from 'express';
-import pinoExpress from 'express-pino-logger';
 import { graphqlRouter } from './apollo/router';
 import { authRouter, passport, sessionMiddleware } from './auth';
 import getOrigin from './auth/getOrigin';
-import logger from './log';
 
 const app = express();
 
 app.disable('x-powered-by');
-app.use(pinoExpress({ logger, useLevel: 'debug' }));
 
 const CORS_WHITELIST = process.env.CORS_WHITELIST ? process.env.CORS_WHITELIST!.split(',') : [];
 
