@@ -80,9 +80,9 @@
   dependencies:
     "@types/node" "*"
 
-"@types/graphql@^0.12.6":
-  version "0.12.6"
-  resolved "https://registry.yarnpkg.com/@types/graphql/-/graphql-0.12.6.tgz#3d619198585fcabe5f4e1adfb5cf5f3388c66c13"
+"@types/graphql@^0.12.7":
+  version "0.12.7"
+  resolved "https://registry.yarnpkg.com/@types/graphql/-/graphql-0.12.7.tgz#392e46d6c1bceb7d68c117233cea787dde72780c"
 
 "@types/ioredis@^3.2.7":
   version "3.2.7"
@@ -307,24 +307,24 @@ apollo-link@^1.2.1:
   dependencies:
     deepmerge "^1.3.1"
 
-apollo-server-core@^1.3.2:
-  version "1.3.2"
-  resolved "https://registry.yarnpkg.com/apollo-server-core/-/apollo-server-core-1.3.2.tgz#f36855a3ebdc2d77b8b9c454380bf1d706105ffc"
+apollo-server-core@^1.3.3:
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/apollo-server-core/-/apollo-server-core-1.3.3.tgz#0badc9f95068582d434659211fa7bae81c5a6b45"
   dependencies:
     apollo-cache-control "^0.0.x"
     apollo-tracing "^0.1.0"
     graphql-extensions "^0.0.x"
 
-apollo-server-express@^1.3.2:
-  version "1.3.2"
-  resolved "https://registry.yarnpkg.com/apollo-server-express/-/apollo-server-express-1.3.2.tgz#0ff8201c0bf362804a151e1399767dae6ab7e309"
+apollo-server-express@^1.3.3:
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/apollo-server-express/-/apollo-server-express-1.3.3.tgz#8c4e63820b103057b8e3f989ead78296b5abd1ee"
   dependencies:
-    apollo-server-core "^1.3.2"
-    apollo-server-module-graphiql "^1.3.0"
+    apollo-server-core "^1.3.3"
+    apollo-server-module-graphiql "^1.3.3"
 
-apollo-server-module-graphiql@^1.3.0:
-  version "1.3.2"
-  resolved "https://registry.yarnpkg.com/apollo-server-module-graphiql/-/apollo-server-module-graphiql-1.3.2.tgz#0a9e4c48dece3af904fee333f95f7b9817335ca7"
+apollo-server-module-graphiql@^1.3.3:
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/apollo-server-module-graphiql/-/apollo-server-module-graphiql-1.3.3.tgz#5b411922177cd7b7a569655e26c84cc0f0b98e27"
 
 apollo-tracing@^0.1.0:
   version "0.1.3"
@@ -1167,9 +1167,9 @@ deepmerge@^1.3.1:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/deepmerge/-/deepmerge-1.5.2.tgz#10499d868844cdad4fee0842df8c7f6f0c95a753"
 
-deepmerge@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/deepmerge/-/deepmerge-2.0.1.tgz#25c1c24f110fb914f80001b925264dd77f3f4312"
+deepmerge@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/deepmerge/-/deepmerge-2.1.0.tgz#511a54fff405fc346f0240bb270a3e9533a31102"
 
 default-require-extensions@^1.0.0:
   version "1.0.0"
@@ -2004,15 +2004,15 @@ graphql-iso-date@^3.5.0:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/graphql-iso-date/-/graphql-iso-date-3.5.0.tgz#55a1be0efa8d28c1453afd2eb5ce1d052189a513"
 
-graphql-server-express@^1.3.2:
-  version "1.3.2"
-  resolved "https://registry.yarnpkg.com/graphql-server-express/-/graphql-server-express-1.3.2.tgz#cb60614bda10ddd6657731b1584042ee081d5a7d"
+graphql-server-express@^1.3.3:
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/graphql-server-express/-/graphql-server-express-1.3.3.tgz#986b904cf10bb1364c47a581e4f05eafd0535de3"
   dependencies:
-    apollo-server-express "^1.3.2"
+    apollo-server-express "^1.3.3"
 
-graphql-tools@^2.23.0:
-  version "2.23.0"
-  resolved "https://registry.yarnpkg.com/graphql-tools/-/graphql-tools-2.23.0.tgz#03816fceae6d0705e3674e15a63fb25804cd3ea9"
+graphql-tools@^2.23.1:
+  version "2.23.1"
+  resolved "https://registry.yarnpkg.com/graphql-tools/-/graphql-tools-2.23.1.tgz#23f43000e2b9dc5a89920fe846fc5f71a320efdb"
   dependencies:
     apollo-link "^1.2.1"
     apollo-utilities "^1.0.1"
@@ -2024,11 +2024,11 @@ graphql-type-json@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/graphql-type-json/-/graphql-type-json-0.2.0.tgz#34c1a5fc2b7707a367c436482b253dbeebf1130e"
 
-graphql@^0.13.0:
-  version "0.13.1"
-  resolved "https://registry.yarnpkg.com/graphql/-/graphql-0.13.1.tgz#9b3db3d8e40d1827e4172404bfdd2e4e17a58b55"
+graphql@^0.13.2:
+  version "0.13.2"
+  resolved "https://registry.yarnpkg.com/graphql/-/graphql-0.13.2.tgz#4c740ae3c222823e7004096f832e7b93b2108270"
   dependencies:
-    iterall "^1.2.0"
+    iterall "^1.2.1"
 
 graphviz@^0.0.8:
   version "0.0.8"
@@ -2627,7 +2627,7 @@ istanbul-reports@^1.1.4:
   dependencies:
     handlebars "^4.0.3"
 
-iterall@^1.1.3, iterall@^1.2.0:
+iterall@^1.1.3, iterall@^1.2.1:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/iterall/-/iterall-1.2.2.tgz#92d70deb8028e0c39ff3164fdbf4d8b088130cd7"
 
@@ -3414,11 +3414,11 @@ merge-descriptors@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/merge-descriptors/-/merge-descriptors-1.0.1.tgz#b00aaa556dd8b44568150ec9d1b953f3f90cbb61"
 
-merge-graphql-schemas@^1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/merge-graphql-schemas/-/merge-graphql-schemas-1.5.0.tgz#d86278cb1102fe14bb308288136325971aecd86e"
+merge-graphql-schemas@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/merge-graphql-schemas/-/merge-graphql-schemas-1.5.1.tgz#a9682d4067c0c80c0db631ec56b4573731e93dc3"
   dependencies:
-    deepmerge "^2.0.1"
+    deepmerge "^2.1.0"
     glob "^7.1.2"
     is-glob "^4.0.0"
 
@@ -4072,19 +4072,19 @@ pinkie@^2.0.0:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/pinkie/-/pinkie-2.0.4.tgz#72556b80cfa0d48a974e80e77248e80ed4f7f870"
 
-pino-std-serializers@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/pino-std-serializers/-/pino-std-serializers-1.0.0.tgz#7607ab8c5b7c32bf7c4dada149da4ce3c14a3b75"
+pino-std-serializers@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/pino-std-serializers/-/pino-std-serializers-1.1.0.tgz#de3ceb1255251c553262ccb158f5289f0adf1734"
 
-pino@^4.14.0:
-  version "4.14.0"
-  resolved "https://registry.yarnpkg.com/pino/-/pino-4.14.0.tgz#12f02b17173d6bf0763714fcab6000c04d304abe"
+pino@^4.15.2:
+  version "4.15.2"
+  resolved "https://registry.yarnpkg.com/pino/-/pino-4.15.2.tgz#77d79abc6b7d2d04aad9ee88330734046cb7c529"
   dependencies:
     chalk "^2.3.2"
     fast-json-parse "^1.0.3"
     fast-safe-stringify "^1.2.3"
     flatstr "^1.0.5"
-    pino-std-serializers "^1.0.0"
+    pino-std-serializers "^1.1.0"
     pump "^3.0.0"
     quick-format-unescaped "^1.1.2"
     split2 "^2.2.0"
@@ -5220,9 +5220,13 @@ typescript-eslint-parser@^9.0.0:
     lodash.unescape "4.0.1"
     semver "5.4.1"
 
-typescript@^2.4.2, typescript@^2.6.1, typescript@^2.7.2:
+typescript@^2.4.2, typescript@^2.6.1:
   version "2.7.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.7.2.tgz#2d615a1ef4aee4f574425cdff7026edf81919836"
+
+typescript@^2.8.1:
+  version "2.8.1"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.8.1.tgz#6160e4f8f195d5ba81d4876f9c0cc1fbc0820624"
 
 uglify-js@^2.6:
   version "2.8.29"

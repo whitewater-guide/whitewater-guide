@@ -5,6 +5,9 @@ import { initMinio } from './minio';
 import startServer from './server';
 import { isMaster } from './utils';
 
+// TODO: BUGWATCH: https://github.com/Microsoft/TypeScript/issues/22949
+// Set "noEmitHelpers": true in tsconfig
+
 async function startup() {
   await db(true).migrate.latest();
   const dbVersion = await db(true).migrate.currentVersion();
