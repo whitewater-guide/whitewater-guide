@@ -120,7 +120,7 @@ test('should get gauges', async () => {
 });
 
 test('should get sections', async () => {
-  const gaugesQuery = `
+  const sectionsQuery = `
     query regionDetails($id: ID, $language: String){
       region(id: $id, language: $language) {
         id
@@ -138,7 +138,7 @@ test('should get sections', async () => {
     }
   `;
   // No pagination yet
-  const result = await runQuery(gaugesQuery, { id: REGION_GALICIA }, userContext);
+  const result = await runQuery(sectionsQuery, { id: REGION_GALICIA }, userContext);
   expect(result.data!.region.sections.count).toEqual(2);
   expect(result.data!.region.sections).toMatchSnapshot();
 });

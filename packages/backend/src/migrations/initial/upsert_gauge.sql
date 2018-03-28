@@ -9,7 +9,7 @@ BEGIN
     SELECT
       CASE
         WHEN gauge ->> 'location' IS NULL THEN null
-        ELSE upsert_points(json_build_array(gauge -> 'location'), lang)
+        ELSE (SELECT upsert_points(json_build_array(gauge -> 'location'), lang) LIMIT 1)
       END AS location_id
   ),
   -- Then insert core

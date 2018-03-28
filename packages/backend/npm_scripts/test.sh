@@ -7,4 +7,4 @@ source .env.test
 source .env.test.local
 set +o allexport
 
-./node_modules/.bin/jest -i
+./node_modules/.bin/jest -i "$@"
