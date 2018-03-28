@@ -8,6 +8,7 @@ const development: knex.Config = {
     database: process.env.POSTGRES_DB!,
     user: 'postgres',
     password: process.env.POSTGRES_PASSWORD!,
+    keepAlive: true,
   },
   migrations: {
     loadExtensions: ['.js'],
