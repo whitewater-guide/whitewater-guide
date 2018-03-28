@@ -1,4 +1,4 @@
-version: '3.4'
+version: '3.6'
 
 x-single-host:
   &ww-single-host
@@ -77,9 +77,6 @@ services:
       labels:
         guide.whitewater: ""
     read_only: true
-    volumes:
-      - type: tmpfs
-        target: /tmp/cookies
     depends_on:
       - db
       - redis

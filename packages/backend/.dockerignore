@@ -1,6 +1,7 @@
 **/*.ts
+**/*.js.map
 node_modules
-Dockerfile.dev
+Dockerfile.*
 tsconfig.json
 tslint.json
 .gitignore

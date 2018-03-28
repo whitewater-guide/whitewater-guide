@@ -7,8 +7,10 @@ const CONFIG_NAME = 'development';
 
 async function devStart() {
   setupEnv(CONFIG_NAME);
-  await generateStackFile(CONFIG_NAME);
-  spawn('docker-sync-stack', ['start'], { stdio: 'inherit', shell: true });
+  const stackFile = await generateStackFile(CONFIG_NAME);
+  // Temporary do not use docker-sync
+  // spawn('docker-sync-stack', ['start'], { stdio: 'inherit', shell: true });
+  spawn('docker-compose', ['-f', stackFile, 'up'], { stdio: 'inherit', shell: true });
 }
 
 devStart();
