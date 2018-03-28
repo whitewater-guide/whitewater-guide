@@ -1,21 +1,11 @@
 import knex from 'knex';
 import knexConfig from './knexfile';
-import log from '../log';
 
 const env = process.env.NODE_ENV || 'development';
 const config: knex.Config = knexConfig[env];
 config.pool = {
-  afterCreate: (conn: any, done: any) => {
-    conn.query('SELECT NOW()', (err: any) => {
-      if (err) {
-        log.warn(`Error in pool.afterCreate: ${err}`);
-      } else {
-        log.info('afterCreate success');
-      }
-      done(err, conn);
-    });
-  },
-};
+  propagateCreateError: false,
+} as any; // typedefs still use generic-pool, but knex switched to tarn
 
 const knexInstance = knex(config);
 
