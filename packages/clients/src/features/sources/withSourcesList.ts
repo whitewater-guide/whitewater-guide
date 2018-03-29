@@ -11,7 +11,7 @@ export interface WithSourcesList {
   sources: WithList<Source>;
 }
 
-export const withSourcesList = graphql<Result, any, WithSourcesList>(
+export const withSourcesList = graphql<any, Result, any, WithSourcesList>(
   listSources,
   {
     alias: 'withSourcesList',

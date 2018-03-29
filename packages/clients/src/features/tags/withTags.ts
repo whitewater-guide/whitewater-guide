@@ -6,15 +6,15 @@ interface Result {
   tags: Tag[];
 }
 
-export const withTags = (cached = true) => graphql<Result, any, WithTags>(
+export const withTags = (cached = true) => graphql<any, Result, any, WithTags>(
   LIST_TAGS,
   {
     options: {
       fetchPolicy: cached ? 'cache-first' : 'network-only',
     },
     props: ({ data }) => {
-      const { loading, ...tags } = data!;
-      return { ...tags, tagsLoading: loading };
+      const { loading, tags } = data!;
+      return { tags: tags!, tagsLoading: loading };
     },
   },
 );

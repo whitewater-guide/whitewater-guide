@@ -6,28 +6,31 @@ import { queryResultToNode, WithNode } from '../../apollo';
 import { withFeatureIds } from '../../core';
 import SOURCE_DETAILS from './sourceDetails.query';
 
-interface WithSourceOptions {
+interface Options {
   fetchPolicy?: FetchPolicy;
 }
 
-interface WithSourceResult {
+interface Result {
   source: Source;
+}
+
+interface Vars {
   sourceId: string;
 }
 
-interface WithSourceProps {
-  sourceId: string;
-}
+type Props = Vars;
 
-export interface WithSource {
+
+interface ChildProps {
   source: WithNode<Source>;
-  sourceId: string;
 }
 
-export const withSource = ({ fetchPolicy = 'cache-and-network' }: WithSourceOptions = {}) =>
+export type WithSource = Props & ChildProps;
+
+export const withSource = ({ fetchPolicy = 'cache-and-network' }: Options = {}) =>
   compose<WithSource, any>(
     withFeatureIds('source'),
-    graphql<WithSourceResult, WithSourceProps, WithSource>(
+    graphql<Props, Result, Vars, ChildProps>(
       SOURCE_DETAILS,
       {
         alias: 'withSource',

@@ -14,7 +14,7 @@ export const withSectionMedia = ({ fetchPolicy = 'cache-and-network' }: WithMedi
   compose<MediaListProps, {}>(
     withRouter,
     withFeatureIds('section'),
-    graphql<WithMediaListResult, any, WithMediaList>(
+    graphql<{}, WithMediaListResult, {}, WithMediaList>(
       SECTIONS_MEDIA,
       {
         alias: 'withSectionMedia',

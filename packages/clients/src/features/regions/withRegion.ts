@@ -10,24 +10,26 @@ interface WithRegionOptions {
   fetchPolicy?: FetchPolicy;
 }
 
-interface WithRegionResult {
+interface Result {
   region: Region;
+}
+
+interface Vars {
   regionId: string;
 }
 
-interface WithRegionProps {
-  regionId: string;
-}
+type Props = Vars;
 
-export interface WithRegion {
+interface ChildProps {
   region: WithNode<Region>;
-  regionId: string;
 }
+
+export type WithRegion = Props & ChildProps;
 
 export const withRegion = ({ fetchPolicy = 'cache-and-network' }: WithRegionOptions = {}) =>
   compose<WithRegion, any>(
     withFeatureIds('region'),
-    graphql<WithRegionResult, WithRegionProps, WithRegion>(
+    graphql<Props, Result, Vars, ChildProps>(
       REGION_DETAILS,
       {
         alias: 'withRegion',

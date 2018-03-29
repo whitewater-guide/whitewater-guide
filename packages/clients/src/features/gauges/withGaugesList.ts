@@ -9,14 +9,19 @@ export interface WithGaugesListResult {
   gauges: Connection<Gauge>;
 }
 
-export interface WithGaugesList {
-  gauges: WithList<Gauge>;
+interface WithGaugesListProps {
   sourceId?: string;
 }
 
+interface ChildProps {
+  gauges: WithList<Gauge>;
+}
+
+export type WithGaugesList = WithGaugesListProps & ChildProps
+
 export const withGaugesList = compose(
   withFeatureIds('source'),
-  graphql<WithGaugesListResult, any, WithGaugesList>(
+  graphql<WithGaugesListProps, WithGaugesListResult, WithGaugesListProps, ChildProps>(
     LIST_GAUGES,
     {
       alias: 'withGaugesList',

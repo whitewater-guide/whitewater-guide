@@ -19,4 +19,5 @@ class LogoutRoute extends React.PureComponent<Props> {
   }
 }
 
-export default withApollo(LogoutRoute);
+const LogoutRouteWithApollo: React.ComponentType<{}> = withApollo(LogoutRoute);
+export default LogoutRouteWithApollo;

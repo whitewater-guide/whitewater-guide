@@ -18,7 +18,7 @@ const AUTOFILL_MUTATION = gql`
 type OuterProps = Partial<FlatButtonProps> & { sourceId: string };
 
 const container = compose<FlatButtonProps, OuterProps>(
-  graphql<{}, OuterProps, FlatButtonProps>(
+  graphql<OuterProps, {}, {}, FlatButtonProps>(
     AUTOFILL_MUTATION,
     {
       options: {

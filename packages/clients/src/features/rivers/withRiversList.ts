@@ -6,23 +6,35 @@ import { queryResultToList, WithList } from '../../apollo';
 import { withFeatureIds } from '../../core';
 import { LIST_RIVERS } from './listRivers.query';
 
-export interface WithRiversListOptions {
+interface Options {
   fetchPolicy?: FetchPolicy;
 }
 
-export interface WithRiversListResult {
+interface Result {
   rivers: Connection<River>;
 }
 
-export interface WithRiversList {
-  rivers: WithList<River>;
-  regionId?: string;
+interface Props {
+  regionId: string;
+  language?: string;
 }
 
-export const withRiversList = ({ fetchPolicy = 'cache-and-network' }: WithRiversListOptions = {}) =>
-  compose(
+interface Vars {
+  language?: string;
+  filter: {
+    regionId: string;
+  }
+}
+
+interface ChildProps {
+  rivers: WithList<River>;
+}
+export type WithRiversList = Props & ChildProps;
+
+export const withRiversList = ({ fetchPolicy = 'cache-and-network' }: Options = {}) =>
+  compose<WithRiversList, any>(
     withFeatureIds('region'),
-    graphql<WithRiversListResult, any, WithRiversList>(
+    graphql<Props, Result, Vars, ChildProps>(
       LIST_RIVERS,
       {
         alias: 'withRiversList',
@@ -30,7 +42,7 @@ export const withRiversList = ({ fetchPolicy = 'cache-and-network' }: WithRivers
           fetchPolicy,
           notifyOnNetworkStatusChange: true,
           variables: {
-            language: props.langauge,
+            language: props.language,
             filter: { regionId: props.regionId },
             // page ?
           },

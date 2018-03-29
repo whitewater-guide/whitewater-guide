@@ -10,24 +10,27 @@ interface WithRiverOptions {
   fetchPolicy?: FetchPolicy;
 }
 
-interface WithRiverResult {
+interface Result {
   river: River;
   riverId: string;
 }
 
-interface WithRiverProps {
+interface Vars {
   riverId: string;
 }
 
-export interface WithRiver {
+type Props = Vars;
+
+interface ChildProps {
   river: WithNode<River>;
-  riverId: string;
 }
+
+export type WithRiver = Props & ChildProps;
 
 export const withRiver = ({ fetchPolicy = 'cache-and-network' }: WithRiverOptions = {}) =>
   compose<WithRiver, any>(
     withFeatureIds('river'),
-    graphql<WithRiverResult, WithRiverProps, WithRiver>(
+    graphql<Props, Result, Vars, ChildProps>(
       RIVER_DETAILS,
       {
         alias: 'withRiver',

@@ -14,6 +14,10 @@ const query = gql`
   }
 `;
 
+interface Result {
+  me: User | null;
+}
+
 export interface WithMe {
   me: User | null;
   meLoading: boolean;
@@ -22,15 +26,16 @@ export interface WithMe {
 }
 
 /* tslint:disable-next-line:no-inferrable-types */
-export const withMe = (cached: boolean = true) => graphql<WithMe>(
+export const withMe = (cached: boolean = true) => graphql<{}, Result, {}, WithMe>(
   query,
   {
+    alias: 'withMe',
     options: {
       fetchPolicy: cached ? 'cache-first' : 'network-only',
     },
     props: ({ data }) => {
       const { me, loading } = data!;
-      return { me, meLoading: loading, isAdmin: isAdmin(me), isSuperAdmin: isSuperAdmin(me) };
+      return { me: me!, meLoading: loading, isAdmin: isAdmin(me), isSuperAdmin: isSuperAdmin(me) };
     },
   },
 );

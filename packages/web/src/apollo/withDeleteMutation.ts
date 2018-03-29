@@ -25,7 +25,7 @@ export const withDeleteMutation = <PropName extends string>(options: Options<Pro
 
   return compose<WithDeleteMutation<PropName>, any>(
     withState('mutating', 'setMutating', false),
-    graphql<MutationResult, WithMutationState, WithDeleteMutation<PropName>>(mutation, {
+    graphql<WithMutationState, MutationResult, {}, WithDeleteMutation<PropName>>(mutation, {
       alias: 'withDeleteMutation',
       props: ({ mutate, ownProps }) => ({
         [propName]: (id: string) => {
@@ -42,7 +42,7 @@ export const withDeleteMutation = <PropName extends string>(options: Options<Pro
               ownProps.setMutating(false);
             });
         },
-      }),
+      } as any),
     }),
     withLoading<WithMutationState>(props => props.mutating),
   );

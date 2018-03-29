@@ -6,23 +6,36 @@ import { queryResultToList, WithList } from '../../apollo';
 import { withFeatureIds } from '../../core';
 import { LIST_SECTIONS } from './listSections.query';
 
-export interface WithSectionsListOptions {
+interface Options {
   fetchPolicy?: FetchPolicy;
 }
 
-export interface WithSectionsListResult {
+interface Result {
   sections: Connection<Section>;
 }
 
-export interface WithSectionsList {
-  sections: WithList<Section>;
-  regionId?: string;
+interface Vars {
+  language?: string;
+  filter: {
+    regionId: string;
+  }
 }
 
-export const withSectionsList = ({ fetchPolicy = 'cache-and-network' }: WithSectionsListOptions = {}) =>
-  compose(
+interface Props {
+  language?: string;
+  regionId: string;
+}
+
+interface ChildProps {
+  sections: WithList<Section>;
+}
+
+export type WithSectionsList = Props & ChildProps;
+
+export const withSectionsList = ({ fetchPolicy = 'cache-and-network' }: Options = {}) =>
+  compose<WithSectionsList, any>(
     withFeatureIds('region'),
-    graphql<WithSectionsListResult, any, WithSectionsList>(
+    graphql<Props, Result, Vars, ChildProps>(
       LIST_SECTIONS,
       {
         alias: 'withSectionsList',
@@ -30,7 +43,7 @@ export const withSectionsList = ({ fetchPolicy = 'cache-and-network' }: WithSect
           fetchPolicy,
           notifyOnNetworkStatusChange: true,
           variables: {
-            language: props.langauge,
+            language: props.language,
             filter: { regionId: props.regionId },
             // page ?
           },

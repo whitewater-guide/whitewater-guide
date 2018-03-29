@@ -16,15 +16,14 @@ interface Variables {
 }
 
 interface InnerProps {
-  label: string;
   mutate: () => Promise<any>;
 }
 
-const ToggleAllGaugesButton: React.StatelessComponent<InnerProps> = ({ label, mutate }) => (
+const ToggleAllGaugesButton: React.StatelessComponent<InnerProps & OuterProps> = ({ label, mutate }) => (
   <FlatButton secondary label={label} onClick={mutate} />
 );
 
-const container = graphql<{}, OuterProps, InnerProps, Variables>(
+const container = graphql<OuterProps, {}, Variables, InnerProps>(
   TOGGLE_All_GAUGES,
   {
     options: ({ sourceId, enabled }) => ({

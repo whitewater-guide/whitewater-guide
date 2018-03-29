@@ -43,7 +43,7 @@ export const createBreadcrumb = <T extends NamedNode>(options: CreateBreadcrumbO
     );
   };
 
-  return graphql<Result, Props>(
+  return graphql<Props, Result>(
     query,
     {
       options: (props) => ({

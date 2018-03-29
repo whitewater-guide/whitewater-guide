@@ -6,28 +6,30 @@ import { queryResultToNode, WithNode } from '../../apollo';
 import { withFeatureIds } from '../../core';
 import { SECTION_DETAILS } from './sectionDetails.query';
 
-interface WithSectionOptions {
+interface Options {
   fetchPolicy?: FetchPolicy;
 }
 
-interface WithSectionResult {
+interface Result {
   section: Section;
+}
+
+interface Vars {
   sectionId: string;
 }
 
-interface WithSectionProps {
-  sectionId: string;
-}
+type Props = Vars;
 
-export interface WithSection {
+interface ChildProps {
   section: WithNode<Section>;
-  sectionId: string;
 }
 
-export const withSection = ({ fetchPolicy = 'cache-and-network' }: WithSectionOptions = {}) =>
+export type WithSection = Props & ChildProps;
+
+export const withSection = ({ fetchPolicy = 'cache-and-network' }: Options = {}) =>
   compose<WithSection, any>(
     withFeatureIds('section'),
-    graphql<WithSectionResult, WithSectionProps, WithSection>(
+    graphql<Props, Result, Vars, ChildProps>(
       SECTION_DETAILS,
       {
         alias: 'withSection',

@@ -3,7 +3,7 @@ import { Connection, Region } from '../../../ww-commons';
 import { queryResultToList, WithList } from '../../apollo';
 import listRegions from './listRegions.query';
 
-export interface WithRegionsListResult {
+interface Result {
   regions: Connection<Region>;
 }
 
@@ -11,7 +11,7 @@ export interface WithRegionsList {
   regions: WithList<Region>;
 }
 
-export const withRegionsList = graphql<WithRegionsListResult, any, WithRegionsList>(
+export const withRegionsList = graphql<{}, Result, {}, WithRegionsList>(
   listRegions,
   {
     alias: 'withRegionsList',

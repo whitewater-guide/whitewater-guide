@@ -19,15 +19,16 @@ interface WithGaugeProps {
   gaugeId: string;
 }
 
-export interface WithGauge {
+interface ChildProps {
   gauge: WithNode<Gauge>;
-  gaugeId: string;
 }
+
+export type WithGauge = ChildProps & WithGaugeProps;
 
 export const withGauge = ({ fetchPolicy = 'cache-and-network' }: WithGaugeOptions = {}) =>
   compose<WithGauge, any>(
     withFeatureIds('gauge'),
-    graphql<WithGaugeResult, WithGaugeProps, WithGauge>(
+    graphql<WithGaugeProps, WithGaugeResult, WithGaugeProps, ChildProps>(
       GAUGE_DETAILS,
       {
         alias: 'withGauge',

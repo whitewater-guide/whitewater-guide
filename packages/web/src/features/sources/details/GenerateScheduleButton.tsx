@@ -15,10 +15,14 @@ const GENERATE_SOURCE_SCHEDULE = gql`
   }
 `;
 
-type OuterProps = Partial<FlatButtonProps> & { sourceId: string };
+interface TVariables {
+  sourceId: string;
+}
+
+type OuterProps = Partial<FlatButtonProps> & TVariables;
 
 const container = compose<FlatButtonProps, OuterProps>(
-  graphql<{}, OuterProps, FlatButtonProps>(
+  graphql<OuterProps, {}, TVariables, FlatButtonProps>(
     GENERATE_SOURCE_SCHEDULE,
     {
       props: ({ mutate, ownProps: { sourceId } }) => ({
