@@ -117,7 +117,7 @@ export default class SectionForm extends React.PureComponent<SectionFormProps> {
               </div>
             </div>
           </FormTab>
-          <FormTab form="section" fields={POIFields}  label="POIS" value="#pois">
+          <FormTab form="section" fields={POIFields} label="POIS" value="#pois">
             <POICollection name="pois" component={POICollection} mapBounds={this.props.region.bounds} />
           </FormTab>
           <FormTab form="section" fields={DescriptionFields} label="Description" value="#description">
