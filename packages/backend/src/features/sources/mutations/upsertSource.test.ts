@@ -1,3 +1,4 @@
+import set from 'lodash/fp/set';
 import db, { holdTransaction, rollbackTransaction } from '../../../db';
 import { SOURCE_GALICIA_1, SOURCE_GALICIA_2, SOURCE_GEORGIA } from '../../../seeds/test/04_sources';
 import { adminContext, anonContext, userContext } from '../../../test/context';
@@ -254,4 +255,10 @@ describe('i18n', () => {
       terms_of_use: 'Правила пользования новой галисией',
     });
   });
+});
+
+it('should sanitize input', async () => {
+  let dirty = { ...requiredSource, name: "it's a \\ slash" };
+  const result = await runQuery(mutation, { source: dirty }, adminContext);
+  expect(result).toHaveProperty('data.upsertSource.name', "it's a \\ slash");
 });

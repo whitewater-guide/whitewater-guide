@@ -1,7 +1,7 @@
 import { GraphQLFieldResolver } from 'graphql';
 import Joi from 'joi';
 import { isAdminResolver, isInputValidResolver, MutationNotAllowedError, upsertI18nResolver } from '../../../apollo';
-import db, { rawUpsert } from '../../../db';
+import db, { rawUpsert, stringifyJSON } from '../../../db';
 import { GaugeInput, GaugeInputSchema } from '../../../ww-commons';
 
 interface UpsertVariables {
@@ -21,7 +21,7 @@ const resolver: GraphQLFieldResolver<any, any> = async (root, { gauge, language 
       throw new MutationNotAllowedError({ message: 'Disable gauge before editing it' });
     }
   }
-  return rawUpsert(db(), `SELECT upsert_gauge('${JSON.stringify(gauge)}', '${language}')`);
+  return rawUpsert(db(), `SELECT upsert_gauge('${stringifyJSON(gauge)}', '${language}')`);
 };
 
 const queryResolver: GraphQLFieldResolver<any, any> = (root, args: UpsertVariables, context, info) =>

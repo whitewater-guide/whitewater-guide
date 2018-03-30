@@ -1,8 +1,7 @@
 import { GraphQLFieldResolver } from 'graphql';
 import Joi from 'joi';
 import { isAdminResolver, isInputValidResolver, upsertI18nResolver } from '../../../apollo';
-import db from '../../../db';
-import { rawUpsert } from '../../../db/rawUpsert';
+import db, { rawUpsert, stringifyJSON } from '../../../db';
 import { RegionInput, RegionInputSchema } from '../../../ww-commons';
 
 interface UpsertVariables {
@@ -17,7 +16,7 @@ const Schema = Joi.object().keys({
 
 const resolver: GraphQLFieldResolver<any, any> = async (root, args: UpsertVariables) => {
   const { region, language } = args;
-  const result = await rawUpsert(db(), `SELECT upsert_region('${JSON.stringify(region)}', '${language}')`);
+  const result = await rawUpsert(db(), `SELECT upsert_region('${stringifyJSON(region)}', '${language}')`);
   return result;
 };
 

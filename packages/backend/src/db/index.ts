@@ -7,3 +7,4 @@ export * from './rawUpsert';
 export * from './types';
 export * from './db';
 export * from './queryBuilders';
+export * from './stringifyJSON';

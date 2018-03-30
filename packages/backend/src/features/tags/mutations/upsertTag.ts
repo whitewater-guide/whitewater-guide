@@ -1,7 +1,7 @@
 import { GraphQLFieldResolver } from 'graphql';
 import Joi from 'joi';
 import { isInputValidResolver, isSuperadminResolver, upsertI18nResolver } from '../../../apollo';
-import db, { rawUpsert } from '../../../db';
+import db, { rawUpsert, stringifyJSON } from '../../../db';
 import { TagInput, TagInputSchema } from '../../../ww-commons';
 
 interface UpsertVariables {
@@ -15,7 +15,7 @@ const Schema = Joi.object().keys({
 });
 
 const resolver: GraphQLFieldResolver<any, any> = (root, { tag, language }: UpsertVariables) =>
-  rawUpsert(db(), `SELECT upsert_tag('${JSON.stringify(tag)}', '${language}')`);
+  rawUpsert(db(), `SELECT upsert_tag('${stringifyJSON(tag)}', '${language}')`);
 
 const queryResolver: GraphQLFieldResolver<any, any> = (root, args: UpsertVariables, context, info) =>
   isInputValidResolver(Schema).createResolver(upsertI18nResolver(resolver))(root, args, context, info);

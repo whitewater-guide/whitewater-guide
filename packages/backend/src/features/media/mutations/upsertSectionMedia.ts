@@ -1,7 +1,7 @@
 import { GraphQLFieldResolver } from 'graphql';
 import Joi from 'joi';
 import { isAdminResolver, isInputValidResolver, upsertI18nResolver, ValidationError } from '../../../apollo';
-import db, { rawUpsert } from '../../../db';
+import db, { rawUpsert, stringifyJSON } from '../../../db';
 import { MEDIA, moveTempImage } from '../../../minio';
 import { MediaInput, MediaInputSchema } from '../../../ww-commons';
 import { MediaRaw } from '../types';
@@ -22,7 +22,7 @@ const resolver: GraphQLFieldResolver<any, any> =  async (root, { media, sectionI
   try {
     const result: MediaRaw = await rawUpsert(
       db(),
-      `SELECT upsert_section_media('${sectionId}', '${JSON.stringify(media)}', '${language}')`,
+      `SELECT upsert_section_media('${sectionId}', '${stringifyJSON(media)}', '${language}')`,
     ) as MediaRaw;
     await moveTempImage(result.id, MEDIA);
     return result;

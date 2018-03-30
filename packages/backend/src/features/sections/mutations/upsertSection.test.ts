@@ -2,6 +2,7 @@ import db, { holdTransaction, rollbackTransaction } from '../../../db';
 import { adminContext, anonContext, userContext } from '../../../test/context';
 import { noUnstable, runQuery } from '../../../test/db-helpers';
 import { Duration, SectionInput } from '../../../ww-commons';
+import set from 'lodash/fp/set';
 
 let sectionsPointsBefore: number;
 let pointsBefore: number;
@@ -420,4 +421,12 @@ describe('i18n', () => {
       description: 'Русское описание ',
     }));
   });
+});
+
+it('should sanitize input', async () => {
+  let dirty = { ...existingRiverSection, name: "it's a \\ slash" };
+  dirty = set('pois.0.name', "it's a \\ slash", dirty);
+  const result = await runQuery(upsertQuery, { section: dirty }, adminContext);
+  expect(result).toHaveProperty('data.upsertSection.name', "it's a \\ slash");
+  expect(result).toHaveProperty('data.upsertSection.pois.0.name', "it's a \\ slash");
 });

@@ -4,6 +4,7 @@ import { isTimestamp, isUUID, noTimestamps, noUnstable, runQuery } from '../../.
 import { RegionInput } from '../../../ww-commons';
 import { PointRaw } from '../../points';
 import { RegionRaw } from '../types';
+import set from 'lodash/fp/set';
 
 let regionsPointsBefore: number;
 let pointsBefore: number;
@@ -334,4 +335,14 @@ describe('i18n', () => {
       .count();
     expect(poiCount[0].count).toBe('1');
   });
+});
+
+it('should sanitize input', async () => {
+  let dirtyRegion = { ...fullRegionWithPOIs, name: "it's a \\ slash" };
+  dirtyRegion = set('pois.0.name', "it's a poi", dirtyRegion);
+
+  const insertResult = await runQuery(upsertQuery, { region: dirtyRegion }, adminContext);
+  expect(insertResult.errors).toBeUndefined();
+  expect(insertResult).toHaveProperty('data.upsertRegion.name', "it's a \\ slash");
+  expect(insertResult).toHaveProperty('data.upsertRegion.pois.0.name', "it's a poi");
 });

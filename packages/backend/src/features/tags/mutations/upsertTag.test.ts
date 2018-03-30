@@ -1,3 +1,4 @@
+import set from 'lodash/fp/set';
 import db, { holdTransaction, rollbackTransaction } from '../../../db';
 import { adminContext, anonContext, superAdminContext, userContext } from '../../../test/context';
 import { runQuery } from '../../../test/db-helpers';
@@ -145,4 +146,10 @@ describe('i18n', () => {
       .where({ language: 'en', id: inputFr.id }).first();
     expect(name).toBe('Le waterfalls');
   });
+});
+
+it('should sanitize input', async () => {
+  const dirty = { ...tag, name: "it's a \\ slash" };
+  const result = await runQuery(upsertQuery, { tag: dirty }, superAdminContext);
+  expect(result).toHaveProperty('data.upsertTag.name', "it's a \\ slash");
 });

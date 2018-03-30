@@ -224,3 +224,9 @@ describe('alt names', () => {
     expect(result).toHaveProperty('data.upsertRiver.altNames', []);
   });
 });
+
+it('should sanitize input', async () => {
+  const dirty = { ...input, name: "it's a \\ slash" };
+  const result = await runQuery(upsertQuery, { river: dirty }, adminContext);
+  expect(result).toHaveProperty('data.upsertRiver.name', "it's a \\ slash");
+});

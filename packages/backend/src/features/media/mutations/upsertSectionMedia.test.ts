@@ -7,6 +7,7 @@ import { PHOTO_1, PHOTO_2 } from '../../../seeds/test/10_media';
 import { adminContext, anonContext, userContext } from '../../../test/context';
 import { countRows, noTimestamps, noUnstable, runQuery } from '../../../test/db-helpers';
 import { MediaInput, MediaKind } from '../../../ww-commons/features/media';
+import me from '../../users/queries/me';
 
 let mBefore: number;
 let msBefore: number;
@@ -102,6 +103,12 @@ describe('insert', () => {
     await runQuery(mutation, { sectionId, media }, adminContext);
     const [m, ms, tr] = await countRows(false, 'media', 'sections_media', 'media_translations');
     expect([m - mBefore, ms - msBefore, tr - trBefore]).toMatchObject([1, 1, 1]);
+  });
+
+  it('should sanitize input', async () => {
+    const dirty = { ...media, description: "it's a \\ slash" };
+    const result = await runQuery(mutation, { sectionId, media: dirty }, adminContext);
+    expect(result).toHaveProperty('data.upsertSectionMedia.description', "it's a \\ slash");
   });
 });
 

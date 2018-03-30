@@ -1,8 +1,7 @@
 import { GraphQLFieldResolver } from 'graphql';
 import Joi from 'joi';
 import { Context, isAdminResolver, isInputValidResolver, upsertI18nResolver } from '../../../apollo';
-import db from '../../../db';
-import { rawUpsert } from '../../../db/rawUpsert';
+import db, { rawUpsert, stringifyJSON } from '../../../db';
 import { SectionInput, SectionInputSchema } from '../../../ww-commons';
 
 interface UpsertVariables {
@@ -18,7 +17,7 @@ const Schema = Joi.object().keys({
 const resolver: GraphQLFieldResolver<any, any> = async (root, vars: UpsertVariables, { user }: Context) => {
   const { language } = vars;
   const section = { ...vars.section, createdBy: user!.id };
-  const result = await rawUpsert(db(), `SELECT upsert_section('${JSON.stringify(section)}', '${language}')`);
+  const result = await rawUpsert(db(), `SELECT upsert_section('${stringifyJSON(section)}', '${language}')`);
   // console.log(result);
   return result;
 };

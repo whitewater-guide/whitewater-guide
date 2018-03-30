@@ -151,6 +151,12 @@ describe('insert', () => {
     const result = await runQuery(upsertQuery, { gauge: input }, adminContext);
     expect(noUnstable(result)).toMatchSnapshot();
   });
+
+  test('should sanitize input', async () => {
+    const dirtyInput = { ...input, name: "it's a \\ slash" };
+    const result = await runQuery(upsertQuery, { gauge: dirtyInput }, adminContext);
+    expect(result).toHaveProperty('data.upsertGauge.name', "it's a \\ slash");
+  });
 });
 
 describe('update', () => {

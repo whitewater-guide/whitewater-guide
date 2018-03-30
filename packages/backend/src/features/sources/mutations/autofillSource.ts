@@ -1,6 +1,6 @@
 import { GraphQLFieldResolver } from 'graphql';
 import { isAdminResolver, MutationNotAllowedError, UnknownError } from '../../../apollo';
-import db, { rawUpsert } from '../../../db';
+import db, { rawUpsert, stringifyJSON } from '../../../db';
 import { GaugeInput, PointInput } from '../../../ww-commons';
 import { execScript, ScriptCommand, ScriptGaugeInfo } from '../../scripts';
 import { SourceRaw } from '../types';
@@ -52,7 +52,7 @@ const resolver: GraphQLFieldResolver<any, any> = async (root, { id }: Variables)
       cron: null,
       url: g.url,
     };
-    const gOut = await rawUpsert(db(), `SELECT upsert_gauge('${JSON.stringify(input)}', 'en')`);
+    const gOut = await rawUpsert(db(), `SELECT upsert_gauge('${stringifyJSON(input)}', 'en')`);
     gaugesOut.push(gOut);
   }
   return gaugesOut;
