@@ -12,6 +12,7 @@ export const Rating: React.StatelessComponent<RatingProps> = ({ fontSize = 24, v
     readonly={!onChange}
     start={0}
     stop={5}
+    fractions={2}
     initialRating={value || 0}
     onChange={onChange}
     emptySymbol={<i className="material-icons" style={{ fontSize }}>star_border</i>}
