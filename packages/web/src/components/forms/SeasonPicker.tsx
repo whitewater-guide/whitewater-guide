@@ -12,10 +12,13 @@ const styles: Styles = {
     flexDirection: 'column',
     width: '100%',
     alignItems: 'stretch',
+    overflow: 'hidden',
   },
   row: {
     display: 'flex',
     flexDirection: 'row',
+    height: 48,
+    overflow: 'hidden',
   },
   month: {
     display: 'flex',
