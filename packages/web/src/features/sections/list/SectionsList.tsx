@@ -6,7 +6,7 @@ import { Rating } from '../../../components';
 import { ResourcesList } from '../../../layout';
 import { getSectionColor } from '../../../ww-clients/features/sections';
 import { renderDifficulty } from '../../../ww-clients/utils';
-import { Section } from '../../../ww-commons';
+import { Durations, Section } from '../../../ww-commons';
 import { SectionsListProps } from './types';
 
 export default class SectionsList extends React.PureComponent<SectionsListProps> {
@@ -22,6 +22,8 @@ export default class SectionsList extends React.PureComponent<SectionsListProps>
     `${riverName} - ${name}`;
 
   renderDifficulty: TableCellRenderer = ({ rowData }) => renderDifficulty(rowData);
+
+  renderDuration: TableCellRenderer = ({ rowData: { duration } }) => duration && Durations.get(duration);
 
   renderRating: TableCellRenderer = ({ rowData: { rating } }) => (
     <Rating value={rating} />
@@ -77,7 +79,7 @@ export default class SectionsList extends React.PureComponent<SectionsListProps>
         <Column width={30} label="" dataKey="status" cellRenderer={this.renderStatus} />
         <Column width={150} label="Rating" dataKey="rating" cellRenderer={this.renderRating} />
         <Column width={50} label="Length" dataKey="distance" />
-        <Column width={60} label="Duration" dataKey="duration" />
+        <Column width={80} label="Duration" dataKey="duration" cellRenderer={this.renderDuration}/>
       </ResourcesList>
     );
   }
