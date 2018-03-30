@@ -5,8 +5,8 @@ import { CoordinateSchema, PointInputSchema } from '../points';
 export const RegionInputSchema = Joi.object().keys({
   id: Joi.string().guid().allow(null),
   name: Joi.string().min(3).max(100),
-  description: Joi.string().allow(null),
-  season: Joi.string().allow(null),
+  description: Joi.string().allow(null).allow(''),
+  season: Joi.string().allow(null).allow(''),
   seasonNumeric: Joi.array().max(24).items(Joi.number().min(0).max(23)),
   bounds: Joi.array().items(CoordinateSchema).min(3),
   hidden: Joi.boolean(),
