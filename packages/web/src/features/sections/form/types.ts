@@ -8,7 +8,12 @@ interface FormOverrides {
   river: NamedNode;
 }
 
-export type SectionFormInput = Overwrite<SectionInput, FormOverrides>;
+export type SectionFormInput = Overwrite<SectionInput, FormOverrides> & {
+  kayakingTags: Tag[];
+  hazardsTags: Tag[];
+  supplyTags: Tag[];
+  miscTags: Tag[];
+};
 
 export interface SectionFormProps extends InjectedFormProps<SectionFormInput> {
   region: Region;

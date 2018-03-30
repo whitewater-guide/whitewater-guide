@@ -1,5 +1,4 @@
 import { groupBy } from 'lodash';
-import { Tab } from 'material-ui/Tabs';
 import TextField from 'material-ui/TextField';
 import React from 'react';
 import { Tabs } from '../../../components';
@@ -9,6 +8,7 @@ import {
   DraftEditor,
   DrawingMapField,
   Form,
+  FormTab,
   POICollection,
   RatingInput,
   SeasonPicker,
@@ -20,7 +20,7 @@ import {
 import { Row } from '../../../layout';
 import { Styles } from '../../../styles';
 import { Durations, NamedNode } from '../../../ww-commons';
-import { SectionFormProps } from './types';
+import { SectionFormInput, SectionFormProps } from './types';
 
 const styles: Styles = {
   container: {
@@ -43,6 +43,16 @@ const styles: Styles = {
 const DURATIONS_OPTIONS: NamedNode[] = [];
 Durations.forEach((val, key) => DURATIONS_OPTIONS.push({ id: key as any, name: val, language: 'en' }));
 
+const MainFields: Array<keyof SectionFormInput> = [
+  'name', 'altNames', 'difficulty', 'difficultyXtra', 'rating', 'gauge', 'levels', 'flows', 'flowsText'
+];
+const PropertiesFields: Array<keyof SectionFormInput> = [
+  'drop', 'distance', 'duration', 'season', 'seasonNumeric', 'supplyTags', 'kayakingTags', 'hazardsTags', 'miscTags'
+];
+const ShapeFields: Array<keyof SectionFormInput> = ['shape'];
+const POIFields: Array<keyof SectionFormInput> = ['pois'];
+const DescriptionFields: Array<keyof SectionFormInput> = ['description'];
+
 export default class SectionForm extends React.PureComponent<SectionFormProps> {
   render() {
     const {
@@ -54,7 +64,7 @@ export default class SectionForm extends React.PureComponent<SectionFormProps> {
     return (
       <Form {...this.props} resourceType="section">
         <Tabs>
-          <Tab label="Main" value="#main">
+          <FormTab form="section" fields={MainFields} label="Main" value="#main">
             <div style={{ overflowX: 'hidden', flex: 1 }}>
               <TextField fullWidth disabled value={this.props.initialValues.river!.name} floatingLabelText="River" />
               <TextInput fullWidth name="name" title="Name" />
@@ -81,8 +91,8 @@ export default class SectionForm extends React.PureComponent<SectionFormProps> {
               </Row>
               <TextInput fullWidth name="flowsText" title="Flows description" />
             </div>
-          </Tab>
-          <Tab label="Properties" value="#properties">
+          </FormTab>
+          <FormTab form="section" fields={PropertiesFields} label="Properties" value="#properties">
             <Row>
               <TextInput fullWidth name="drop" type="number" title="Drop, m" />
               <TextInput fullWidth name="distance" type="number" title="Length, km" />
@@ -94,8 +104,8 @@ export default class SectionForm extends React.PureComponent<SectionFormProps> {
             <ChipInput name="kayakingTags" title="Kayaking types" options={kayaking} />
             <ChipInput name="hazardsTags" title="Hazards" options={hazards} />
             <ChipInput name="miscTags" title="Tags" options={misc} />
-          </Tab>
-          <Tab label="Shape" value="#shape">
+          </FormTab>
+          <FormTab form="section" fields={ShapeFields} label="Shape" value="#shape">
             <div style={styles.container}>
               <div style={styles.mapContainer}>
                 <div style={{ width: '100%', height: '100%' }}>
@@ -106,13 +116,13 @@ export default class SectionForm extends React.PureComponent<SectionFormProps> {
                 <ShapeInput name="shape" component={ShapeInput} />
               </div>
             </div>
-          </Tab>
-          <Tab label="POIS" value="#pois">
+          </FormTab>
+          <FormTab form="section" fields={POIFields}  label="POIS" value="#pois">
             <POICollection name="pois" component={POICollection} mapBounds={this.props.region.bounds} />
-          </Tab>
-          <Tab label="Description" value="#description">
+          </FormTab>
+          <FormTab form="section" fields={DescriptionFields} label="Description" value="#description">
             <DraftEditor name="description" />
-          </Tab>
+          </FormTab>
         </Tabs>
       </Form>
     );

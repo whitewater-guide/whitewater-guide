@@ -16,6 +16,7 @@ export * from './formContainer';
 export * from './serializeForm';
 export * from './deserializeForm';
 export * from './Form';
+export * from './FormTab';
 export * from './Switch';
 export * from './StringArrayInput';
 export * from './withLanguage';
