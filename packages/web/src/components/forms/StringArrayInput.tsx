@@ -20,6 +20,14 @@ class StringArrayInputComponent extends React.PureComponent<Props> {
     onChange(reject(value, v => v === chip));
   };
 
+  onBlur = (event: any) => {
+    const value = this.props.input.value || [];
+    const newName = event.target.value;
+    if (newName) {
+      this.props.input.onChange([...value, newName]);
+    }
+  };
+
   render() {
     const { input, meta, title } = this.props;
     return (
@@ -31,6 +39,7 @@ class StringArrayInputComponent extends React.PureComponent<Props> {
         errorText={this.props.meta.error}
         onRequestAdd={this.onRequestAdd}
         onRequestDelete={this.onRequestDelete}
+        onBlur={this.onBlur}
       />
     );
   }
