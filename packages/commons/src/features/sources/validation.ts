@@ -8,11 +8,11 @@ const HarvestModeSchema = Joi.any().allow([HarvestMode.ONE_BY_ONE, HarvestMode.A
 export const SourceInputSchema = Joi.object().keys({
   id: Joi.string().guid().allow(null),
   name: Joi.string().min(3).max(100),
-  termsOfUse: Joi.string().allow(null),
+  termsOfUse: Joi.string().allow(null).allow(''),
   script: Joi.string().min(1),
-  cron: JoiWithCron.string().isCron().allow(null),
+  cron: JoiWithCron.string().isCron().allow(null).allow(''),
   harvestMode: HarvestModeSchema,
-  url: Joi.string().uri().allow(null),
+  url: Joi.string().uri().allow(null).allow(''),
   regions: Joi.array().items(Joi.object().keys({ id: Joi.string().guid() })),
 });
 

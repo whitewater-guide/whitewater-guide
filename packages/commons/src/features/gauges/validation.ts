@@ -12,7 +12,7 @@ export const GaugeInputSchema = Joi.object().keys({
   location: PointInputSchema.allow(null),
   requestParams: Joi.object().min(1).allow(null),
   cron: JoiWithCron.string().isCron().allow(null),
-  url: Joi.string().uri().allow(null),
+  url: Joi.string().uri().allow(null).allow(''),
   source: Joi.object().keys({ id: Joi.string().guid() }),
 });
 

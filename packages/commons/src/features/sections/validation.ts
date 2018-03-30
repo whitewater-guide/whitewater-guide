@@ -16,8 +16,8 @@ export const SectionInputSchema = Joi.object().keys({
   id: Joi.string().guid().allow(null),
   name: Joi.string().min(2).max(100),
   altNames: Joi.array().items(Joi.string().min(2)).allow(null),
-  description: Joi.string().allow(null),
-  season: Joi.string().allow(null),
+  description: Joi.string().allow(null).allow(''),
+  season: Joi.string().allow(null).allow(''),
   seasonNumeric: Joi.array().max(24).items(Joi.number().min(0).max(23)),
 
   river: Joi.object().keys({
@@ -26,7 +26,7 @@ export const SectionInputSchema = Joi.object().keys({
   gauge: Joi.object().keys({ id: Joi.string().guid() }).allow(null),
   levels: GaugeBindingSchema.allow(null),
   flows: GaugeBindingSchema.allow(null),
-  flowsText: Joi.string().allow(null),
+  flowsText: Joi.string().allow(null).allow(''),
 
   shape: Joi.array().items(CoordinateSchema).min(2),
   distance: Joi.number().positive().allow(null),
