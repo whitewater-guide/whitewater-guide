@@ -11,7 +11,7 @@ export const CoordinateSchema = Joi.array().ordered(
 export const PointInputSchema = Joi.object().keys({
   id: Joi.string().guid().allow(null),
   name: Joi.string().min(3).max(100).allow(null),
-  description: Joi.string().allow(null),
+  description: Joi.string().allow(null).allow(''),
   coordinates: CoordinateSchema.required(),
   kind: Joi.any().allow(POINames),
 });

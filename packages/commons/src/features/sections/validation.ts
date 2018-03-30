@@ -1,6 +1,7 @@
 // tslint:disable-next-line
 import Joi from 'joi';
 import { CoordinateSchema, PointInputSchema } from '../points';
+import { TagInputSchema } from '../tags';
 import { Durations } from './types';
 
 export const GaugeBindingSchema = Joi.object().keys({
@@ -43,4 +44,9 @@ export const SectionInputSchema = Joi.object().keys({
 // description is draft.js EditorState
 export const SectionFormSchema = SectionInputSchema.keys({
   description: Joi.any(),
+  tags: Joi.forbidden(),
+  kayakingTags: Joi.array().items(TagInputSchema),
+  hazardsTags: Joi.array().items(TagInputSchema),
+  supplyTags: Joi.array().items(TagInputSchema),
+  miscTags: Joi.array().items(TagInputSchema),
 });
