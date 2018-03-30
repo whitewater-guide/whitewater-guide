@@ -47,6 +47,7 @@ interface LatLonAltInputProps {
 interface LatLonAltInputState {
   errors: any;
   value: Uncoordinate;
+  touched: boolean;
 }
 
 const validator = validateInput(CoordinateSchema);
@@ -55,13 +56,17 @@ export class LatLonAltInput extends React.PureComponent<LatLonAltInputProps, Lat
 
   constructor(props: LatLonAltInputProps) {
     super(props);
-    this.state = { errors:  {}, value: props.value || [undefined, undefined, undefined] };
+    this.state = {
+      errors:  {},
+      value: props.value || [undefined, undefined, undefined],
+      touched: false,
+    };
   }
 
   componentWillReceiveProps(next: LatLonAltInputProps) {
     const val = next.value || [undefined, undefined, undefined];
     const errors = validator(val);
-    this.setState({ value: val, errors });
+    this.setState({ value: val, errors, touched: false });
   }
 
   onAdd = () => {
@@ -76,7 +81,7 @@ export class LatLonAltInput extends React.PureComponent<LatLonAltInputProps, Lat
     const { value }  = this.state;
     const newValue = Object.assign(value.slice() as Uncoordinate, { [index]: coord });
     const errors = validator(newValue);
-    this.setState({ value: newValue, errors });
+    this.setState({ value: newValue, errors, touched: true });
     // Do not fire onChange with bad coordinate, otherwise GoogleMaps break
     if (onChange && isEmpty(errors)) {
       onChange(newValue);
@@ -84,8 +89,8 @@ export class LatLonAltInput extends React.PureComponent<LatLonAltInputProps, Lat
   });
 
   render() {
-    const { errors, value } = this.state;
-    const { isNew, onAdd, onRemove } = this.props;
+    const { errors, value, touched } = this.state;
+    const { isNew, onRemove } = this.props;
     return (
       <div style={styles.container}>
         <NumberInput
@@ -93,21 +98,21 @@ export class LatLonAltInput extends React.PureComponent<LatLonAltInputProps, Lat
           hintText="Latitude"
           value={value[1]}
           onChange={this.onChange[1]}
-          errorText={errors[1] ? '*' : undefined}
+          errorText={(errors[1] && (!isNew || touched)) ? '*' : undefined}
         />
         <NumberInput
           style={styles.input}
           hintText="Longitude"
           value={value[0]}
           onChange={this.onChange[0]}
-          errorText={errors[0] ? '*' : undefined}
+          errorText={(errors[0] && (!isNew || touched)) ? '*' : undefined}
         />
         <NumberInput
           style={styles.altitude}
           hintText="Alt"
           value={value[2]}
           onChange={this.onChange[2]}
-          errorText={errors[2] ? '*' : undefined}
+          errorText={(errors[2] && (!isNew || touched)) ? '*' : undefined}
         />
         <IconButton
           iconStyle={styles.icon}
