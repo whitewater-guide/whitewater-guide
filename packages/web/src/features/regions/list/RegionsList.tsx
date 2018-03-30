@@ -19,8 +19,6 @@ export class RegionsList extends React.PureComponent<RegionsListProps> {
         onResourceClick={this.onRegionClick}
         resourceType="region"
         deleteHandle={this.props.removeRegion}
-        language={this.props.language}
-        onLanguageChange={this.props.onLanguageChange}
       >
         <Column width={200} flexGrow={1} label="Name" dataKey="name" />
         <Column width={100} label="Gauges" dataKey="gauges" cellRenderer={this.renderCount} />

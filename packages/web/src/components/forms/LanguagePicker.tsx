@@ -1,8 +1,10 @@
 import MenuItem from 'material-ui/MenuItem';
 import SelectField from 'material-ui/SelectField';
 import React from 'react';
+import { compose } from 'recompose';
 import { Styles } from '../../styles';
-import { WithLanguage } from './withLanguage';
+import { adminOnly } from '../adminOnly';
+import { withLanguage, WithLanguage } from './withLanguage';
 
 const styles: Styles = {
   languageSelect: {
@@ -13,7 +15,7 @@ const styles: Styles = {
   },
 };
 
-export class LanguagePicker extends React.PureComponent<WithLanguage> {
+class LanguagePickerView extends React.PureComponent<WithLanguage> {
   onChange = (e: any, i: number, value: string) => this.props.onLanguageChange(value);
 
   render() {
@@ -34,3 +36,8 @@ export class LanguagePicker extends React.PureComponent<WithLanguage> {
     );
   }
 }
+
+export const LanguagePicker = compose(
+  adminOnly,
+  withLanguage,
+)(LanguagePickerView);

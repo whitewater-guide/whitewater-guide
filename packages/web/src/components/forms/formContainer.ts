@@ -102,7 +102,7 @@ export const formContainer = <QueryResult, MutationResult, FormInput>(
     withLoading<ChildProps<any, any>>(({ data }) => data!.loading),
     graphql(mutation, { alias: `${formName}FormMutation` }),
     mapProps<FormProps, MappedProps>((props) => {
-      const { data, history, match, mutate, location, language, onLanguageChange } = props;
+      const { data, history, match, mutate, location } = props;
       const value = (data as any)[propName] ||
         (typeof defaultValue === 'function' ? defaultValue(props) : defaultValue);
       const splitter = backPath || `${propName}s`;
@@ -110,8 +110,6 @@ export const formContainer = <QueryResult, MutationResult, FormInput>(
       const extraVars = typeof extraVariables === 'function' ? extraVariables(props) : extraVariables;
       const mutationOpts = typeof mutationOptions === 'function' ? mutationOptions(props) : mutationOptions;
       return {
-        language,
-        onLanguageChange,
         data,
         history,
         match,
@@ -121,7 +119,7 @@ export const formContainer = <QueryResult, MutationResult, FormInput>(
           // Make it clear that we return promise
           return mutate!({
               ...mutationOpts,
-              variables: { [propName]: serializeForm(input), language, ...extraVars },
+              variables: { [propName]: serializeForm(input), ...extraVars },
             })
             .then(() => history.replace(path!))
             .catch((e: ApolloError) => {

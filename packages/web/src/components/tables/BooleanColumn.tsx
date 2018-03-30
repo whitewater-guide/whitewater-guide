@@ -10,7 +10,7 @@ interface BooleanColumnProps extends ColumnProps {
 export class BooleanColumn extends React.Component<BooleanColumnProps> {
 }
 
-export const renderBoolean = (iconTrue: string, iconFalse: string) => (props: TableCellProps) => {
+export const renderBoolean = (iconTrue?: string, iconFalse?: string) => (props: TableCellProps) => {
   return (
     <FontIcon className="material-icons">
       {props.cellData ? iconTrue : iconFalse}

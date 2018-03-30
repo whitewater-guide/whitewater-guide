@@ -8,7 +8,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { getApolloClient } from './apollo';
 import { Loading } from './components';
 import { RootLayout } from './layout';
-import { configureStore, RootState } from './store';
+import { configureStore, RootState } from './redux';
 import { theme } from './styles';
 
 interface State {

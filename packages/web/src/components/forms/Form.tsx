@@ -9,7 +9,6 @@ import { Styles, Themeable } from '../../styles';
 import { Content } from '../Content';
 import { ConfirmationDialog } from './ConfirmationDialog';
 import { LanguagePicker } from './LanguagePicker';
-import { WithLanguage } from './withLanguage';
 
 const styles: Styles = {
   header: {
@@ -29,7 +28,7 @@ interface FormProps {
 }
 
 type Props = FormProps & InjectedFormProps<any>;
-type InnerProps = Props & Themeable & WithLanguage;
+type InnerProps = Props & Themeable;
 
 class FormBase extends React.PureComponent<InnerProps> {
 
@@ -42,7 +41,7 @@ class FormBase extends React.PureComponent<InnerProps> {
   };
 
   render() {
-    const { initialValues, resourceType, muiTheme, language, onLanguageChange, anyTouched } = this.props;
+    const { initialValues, resourceType, muiTheme } = this.props;
     const submitLabel = (initialValues && initialValues.id) ? 'Update' : 'Create';
     const headerLabel = (initialValues && initialValues.name) ?
       `${initialValues.name} settings` : `New ${resourceType}`;
@@ -62,7 +61,7 @@ class FormBase extends React.PureComponent<InnerProps> {
           )}
         </Prompt>
         <CardHeader title={headerLabel} titleStyle={styles.title} style={{ ...styles.header, backgroundColor }}>
-          <LanguagePicker language={language} onLanguageChange={onLanguageChange} />
+          <LanguagePicker />
         </CardHeader>
         <CardMedia style={{ height: '100%' }} mediaStyle={{ height: '100%' }}>
           <div style={{ width: '100%', height: '100%' }}>

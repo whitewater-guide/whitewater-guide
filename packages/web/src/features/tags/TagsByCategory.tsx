@@ -13,17 +13,17 @@ const styles: Styles = {
 };
 
 interface Props extends WithTagMutations {
-  language: string;
   category: TagCategory;
   title: string;
   tags: Tag[];
 }
 
-const TagsByCategory: React.StatelessComponent<Props> = ({ category, title, language, tags, upsertTag, removeTag }) => (
+// TODO: fix as any
+const TagsByCategory: React.StatelessComponent<Props> = ({ category, title, tags, upsertTag, removeTag }) => (
   <div style={styles.container}>
     <h1>{title}</h1>
     {tags.map(tag => <TagForm key={tag.id} tag={tag} upsertTag={upsertTag} removeTag={removeTag} />)}
-    <TagForm upsertTag={upsertTag} removeTag={removeTag} tag={{ id: '', name: '', language, category }} />
+    <TagForm upsertTag={upsertTag} removeTag={removeTag} tag={{ id: '', name: '', category } as any} />
   </div>
 );
 

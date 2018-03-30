@@ -5,16 +5,19 @@ import { PersistConfig, persistReducer } from 'redux-persist';
 import autoMergeLevel2 from 'redux-persist/es/stateReconciler/autoMergeLevel2';
 import { apolloErrorReducer, ApolloErrorState } from '../ww-clients/apollo';
 import { regionsReducer, RegionsState } from '../ww-clients/features/regions';
+import { editorLanguageReducer, EditorLanguageState } from './editorLanguage';
 
 export interface RootState {
   regions: RegionsState;
   apolloError: ApolloErrorState;
   form: FormStateMap;
+  editorLanguage: EditorLanguageState;
 }
 
 const rootReducer = combineReducers<RootState>({
   regions: regionsReducer,
   apolloError: apolloErrorReducer,
+  editorLanguage: editorLanguageReducer,
   form,
 });
 

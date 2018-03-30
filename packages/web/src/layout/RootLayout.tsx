@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Breadcrumbs } from '../components';
 import { UserMenu } from '../features/users';
-import { RootState } from '../store';
+import { RootState } from '../redux';
 import { Styles } from '../styles';
 import { apolloErrorClear, ApolloErrorState } from '../ww-clients/apollo';
 import breadcrumbRoutes from './breadcrumbRoutes';

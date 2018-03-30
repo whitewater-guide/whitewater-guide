@@ -1,19 +1,17 @@
-import { RouteComponentProps } from 'react-router';
-import { withProps } from 'recompose';
+import { connect } from 'react-redux';
+import { changeEditorLanguage, RootState } from '../../redux';
 
-export interface WithLanguage {
+interface StateProps {
   language: string;
+}
+
+interface DispatchProps {
   onLanguageChange: (language: string) => void;
 }
 
-export const withLanguage = withProps<WithLanguage, RouteComponentProps<any>>(({ history }) => ({
-  language: (new URLSearchParams(history.location.search)).get('language') || 'en',
-  onLanguageChange: (language: string) => {
-    const search = new URLSearchParams(history.location.search);
-    search.set('language', language);
-    history.replace({
-      ...history.location,
-      search: search.toString(),
-    });
-  },
-}));
+export type WithLanguage = StateProps & DispatchProps;
+
+export const withLanguage = connect<StateProps, DispatchProps>(
+  (state: RootState) => ({ language: state.editorLanguage }),
+  { onLanguageChange: changeEditorLanguage },
+);
