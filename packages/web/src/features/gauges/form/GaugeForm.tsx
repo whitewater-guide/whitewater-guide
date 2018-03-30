@@ -1,7 +1,6 @@
-import { Tab } from 'material-ui/Tabs';
 import React from 'react';
 import { InjectedFormProps } from 'redux-form';
-import { Form, PointInput, Switch, TextInput } from '../../../components/forms';
+import { Form, PointInput, TextInput } from '../../../components/forms';
 import { GaugeInput } from '../../../ww-commons';
 
 export default class GaugeForm extends React.PureComponent<InjectedFormProps<GaugeInput>> {
@@ -23,7 +22,6 @@ export default class GaugeForm extends React.PureComponent<InjectedFormProps<Gau
           <TextInput fullWidth name="requestParams" title="Request params" />
           <TextInput fullWidth name="cron" title="Cron" />
           <TextInput fullWidth name="url" title="URL" />
-          <Switch name="enabled" title="Enabled" />
         </div>
       </Form>
     );
