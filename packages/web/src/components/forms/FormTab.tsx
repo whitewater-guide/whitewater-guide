@@ -1,11 +1,11 @@
-import FontIcon from 'material-ui/FontIcon';
-import React from 'react';
-import { Tab } from 'material-ui/Tabs';
 import { TabProps } from 'material-ui';
+import FontIcon from 'material-ui/FontIcon';
+import { red500 } from 'material-ui/styles/colors';
+import { Tab } from 'material-ui/Tabs';
+import React from 'react';
 import { connect } from 'react-redux';
 import { FormErrors, getFormSyncErrors } from 'redux-form';
-import { RootState } from '../../store';
-import { red500 } from 'material-ui/styles/colors';
+import { RootState } from '../../redux';
 import { Styles } from '../../styles';
 
 const styles: Styles = {
@@ -49,9 +49,8 @@ const FormTabView: React.StatelessComponent<Props & WithSyncErrors> = (props) =>
     <Tab label={lbl} {...rest}>
       {children}
     </Tab>
-  )
+  );
 };
-
 
 const container = connect(
   (state: RootState, props: Props) => {

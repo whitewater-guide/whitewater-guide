@@ -44,10 +44,10 @@ const DURATIONS_OPTIONS: NamedNode[] = [];
 Durations.forEach((val, key) => DURATIONS_OPTIONS.push({ id: key as any, name: val, language: 'en' }));
 
 const MainFields: Array<keyof SectionFormInput> = [
-  'name', 'altNames', 'difficulty', 'difficultyXtra', 'rating', 'gauge', 'levels', 'flows', 'flowsText'
+  'name', 'altNames', 'difficulty', 'difficultyXtra', 'rating', 'gauge', 'levels', 'flows', 'flowsText',
 ];
 const PropertiesFields: Array<keyof SectionFormInput> = [
-  'drop', 'distance', 'duration', 'season', 'seasonNumeric', 'supplyTags', 'kayakingTags', 'hazardsTags', 'miscTags'
+  'drop', 'distance', 'duration', 'season', 'seasonNumeric', 'supplyTags', 'kayakingTags', 'hazardsTags', 'miscTags',
 ];
 const ShapeFields: Array<keyof SectionFormInput> = ['shape'];
 const POIFields: Array<keyof SectionFormInput> = ['pois'];
