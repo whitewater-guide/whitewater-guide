@@ -14,7 +14,8 @@ interface OuterProps {
 
 type InnerProps = OuterProps & RouteComponentProps<any>;
 
-const AdminFooterInternal: React.StatelessComponent<InnerProps> = ({ add, edit, location: { pathname }, history, children }) => {
+const AdminFooterInternal: React.StatelessComponent<InnerProps> = (props) => {
+  const { add, edit, location: { pathname }, history, children } = props;
   const addHref = history.createHref({ pathname: typeof add === 'string' ? add : `${pathname}/new` });
   const editHref = history.createHref({ pathname: typeof edit === 'string' ? edit : `${pathname}/settings` });
   return (

@@ -20,7 +20,6 @@ interface Vars {
 
 type Props = Vars;
 
-
 interface ChildProps {
   source: WithNode<Source>;
 }

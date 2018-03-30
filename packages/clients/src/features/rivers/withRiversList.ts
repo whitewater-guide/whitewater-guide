@@ -23,7 +23,7 @@ interface Vars {
   language?: string;
   filter: {
     regionId: string;
-  }
+  };
 }
 
 interface ChildProps {

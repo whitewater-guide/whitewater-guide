@@ -18,7 +18,7 @@ interface Vars {
   language?: string;
   filter: {
     regionId: string;
-  }
+  };
 }
 
 interface Props {

@@ -17,7 +17,7 @@ interface ChildProps {
   gauges: WithList<Gauge>;
 }
 
-export type WithGaugesList = WithGaugesListProps & ChildProps
+export type WithGaugesList = WithGaugesListProps & ChildProps;
 
 export const withGaugesList = compose(
   withFeatureIds('source'),
