@@ -1,13 +1,16 @@
 import React from 'react';
 import { Column, TableCellRenderer } from 'react-virtualized';
-import { BooleanColumn } from '../../../components';
+import { AdminColumn, renderBoolean } from '../../../components/tables';
 import { ResourcesListCard } from '../../../layout';
 import { RegionsListProps } from './types';
 
 export class RegionsList extends React.PureComponent<RegionsListProps> {
-  onRegionClick = (id: string) => this.props.history.push(`/regions/${id}`);
+
+  renderVisible: TableCellRenderer = renderBoolean(undefined, 'visibility');
 
   renderCount: TableCellRenderer = ({ cellData: { count } }) => count;
+
+  onRegionClick = (id: string) => this.props.history.push(`/regions/${id}`);
 
   render() {
     return (
@@ -23,7 +26,7 @@ export class RegionsList extends React.PureComponent<RegionsListProps> {
         <Column width={100} label="Gauges" dataKey="gauges" cellRenderer={this.renderCount} />
         <Column width={100} label="Rivers" dataKey="rivers" cellRenderer={this.renderCount} />
         <Column width={100} label="Sections" dataKey="sections" cellRenderer={this.renderCount} />
-        <BooleanColumn width={50} label="Visible" dataKey="hidden" iconFalse="visibility" />
+        <AdminColumn width={50} label="Visible" dataKey="hidden" cellRenderer={this.renderVisible} />
       </ResourcesListCard>
     );
   }
