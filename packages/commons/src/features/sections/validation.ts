@@ -5,11 +5,11 @@ import { TagInputSchema } from '../tags';
 import { Durations } from './types';
 
 export const GaugeBindingSchema = Joi.object().keys({
-  minimum: Joi.number().allow(null),
-  maximum: Joi.number().allow(null),
-  optimum: Joi.number().allow(null),
-  impossible: Joi.number().allow(null),
-  approximate: Joi.boolean().allow(null),
+  minimum: Joi.number().allow(null).optional(),
+  maximum: Joi.number().allow(null).optional(),
+  optimum: Joi.number().allow(null).optional(),
+  impossible: Joi.number().allow(null).optional(),
+  approximate: Joi.boolean().allow(null).optional(),
 });
 
 export const SectionInputSchema = Joi.object().keys({
