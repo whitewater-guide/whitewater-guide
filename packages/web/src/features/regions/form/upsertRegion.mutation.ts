@@ -2,8 +2,8 @@ import gql from 'graphql-tag';
 import { RegionFragments } from '../../../ww-clients/features/regions';
 
 const UPSERT_REGION = gql`
-  mutation upsertRegion($region: RegionInput!, $language:String){
-    upsertRegion(region: $region, language: $language){
+  mutation upsertRegion($region: RegionInput!){
+    upsertRegion(region: $region){
       ...RegionCore
       ...RegionPOIs
       ...RegionBounds

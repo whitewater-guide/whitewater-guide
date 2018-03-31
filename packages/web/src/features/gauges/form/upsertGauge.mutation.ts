@@ -2,8 +2,8 @@ import gql from 'graphql-tag';
 import { GaugeFragments } from '../../../ww-clients/features/gauges';
 
 const UPSERT_GAUGE = gql`
-  mutation upsertGauge($gauge: GaugeInput!, $language:String){
-    upsertGauge(gauge: $gauge, language: $language){
+  mutation upsertGauge($gauge: GaugeInput!){
+    upsertGauge(gauge: $gauge){
       ...GaugeCore
       ...GaugeLocation
       ...GaugeHarvestInfo

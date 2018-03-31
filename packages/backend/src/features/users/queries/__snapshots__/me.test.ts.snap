@@ -3,16 +3,16 @@
 exports[`should user 1`] = `
 Object {
   "avatar": "https://scontent.xx.fbcdn.net/v/t1.0-1/p50x50/1780622_1380926282175020_67535950_n.jpg?oh=80afda8f3e3d817e233fed522e2d9f1a&oe=5A1B4612",
-  "createdAt": "2017-01-01T00:00:00.000Z",
+  "createdAt": "2017-03-02T00:00:00.000Z",
   "editorSettings": Object {
-    "language": "ru",
+    "language": "en",
   },
   "email": "fish.munga@yandex.ru",
   "id": "477a0bec-8a78-11e7-b3e6-9beeff45d731",
   "imperial": false,
-  "language": "ru",
-  "name": "admin",
+  "language": "en",
+  "name": "Konstantin Kuznetsov",
   "role": 2,
-  "updatedAt": "2017-01-02T00:00:00.000Z",
+  "updatedAt": "2017-03-02T00:00:00.000Z",
 }
 `;

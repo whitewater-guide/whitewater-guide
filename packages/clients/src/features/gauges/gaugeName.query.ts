@@ -1,10 +1,9 @@
 import gql from 'graphql-tag';
 
 export const GAUGE_NAME = gql`
-  query gaugeName($id: ID!, $language:String) {
-    gauge(id: $id, language: $language) {
+  query gaugeName($id: ID!) {
+    gauge(id: $id) {
       id
-      language
       name
     }
   }

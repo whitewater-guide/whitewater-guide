@@ -4,7 +4,6 @@ exports[`details should build correct query with gauges connection 1`] = `
 with gauges_connection as (
     select
         gauges_view.id,
-        gauges_view.language,
         gauges_view.name,
         gauges_view.source_id
     from
@@ -18,7 +17,6 @@ with gauges_connection as (
 )
 select
     regions_view.id,
-    regions_view.language,
     regions_view.name,
     regions_view.description,
     regions_view.season,
@@ -65,7 +63,6 @@ exports[`details should build correct query with rivers connection 1`] = `
 with rivers_connection as (
     select
         rivers_view.id,
-        rivers_view.language,
         rivers_view.name,
         rivers_view.region_id
     from
@@ -79,7 +76,6 @@ with rivers_connection as (
 )
 select
     regions_view.id,
-    regions_view.language,
     regions_view.name,
     regions_view.description,
     regions_view.season,
@@ -125,7 +121,6 @@ exports[`details should build correct query with sections connection 1`] = `
 with sections_connection as (
     select
         sections_view.id,
-        sections_view.language,
         sections_view.name,
         sections_view.river_id
     from
@@ -139,7 +134,6 @@ with sections_connection as (
 )
 select
     regions_view.id,
-    regions_view.language,
     regions_view.name,
     regions_view.description,
     regions_view.season,
@@ -185,7 +179,6 @@ order by
 exports[`details should build correct query without connections 1`] = `
 select
     regions_view.id,
-    regions_view.language,
     regions_view.name,
     regions_view.description,
     regions_view.season,
@@ -222,7 +215,6 @@ with gauges_connection as (
 )
 select
     regions_view.id,
-    regions_view.language,
     regions_view.name,
     regions_view.description,
     regions_view.season,
@@ -277,7 +269,6 @@ with rivers_connection as (
 )
 select
     regions_view.id,
-    regions_view.language,
     regions_view.name,
     regions_view.description,
     regions_view.season,
@@ -331,7 +322,6 @@ with sections_connection as (
 )
 select
     regions_view.id,
-    regions_view.language,
     regions_view.name,
     regions_view.description,
     regions_view.season,
@@ -373,7 +363,6 @@ order by
 exports[`list should build correct query without connections 1`] = `
 select
     regions_view.id,
-    regions_view.language,
     regions_view.name,
     regions_view.description,
     regions_view.season,

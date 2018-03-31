@@ -2,8 +2,8 @@ import gql from 'graphql-tag';
 import { SectionFragments } from '../../../ww-clients/features/sections';
 
 export const SECTION_FORM_QUERY = gql`
-  query sectionForm($sectionId: ID, $riverId: ID, $regionId: ID, $language: String) {
-    section(id: $sectionId, language: $language) {
+  query sectionForm($sectionId: ID, $riverId: ID, $regionId: ID) {
+    section(id: $sectionId) {
       ...SectionCore
       ...SectionDescription
       ...SectionShape
@@ -12,7 +12,6 @@ export const SECTION_FORM_QUERY = gql`
       ...SectionTags
       gauge {
         id
-        language
         name
       }
       levels {
@@ -23,27 +22,23 @@ export const SECTION_FORM_QUERY = gql`
       }
       flowsText
     }
-    river(id: $riverId, language: $language) {
+    river(id: $riverId) {
       id
       name
-      language
     }
-    region(id: $regionId, language: $language) {
+    region(id: $regionId) {
       id
       name
-      language
       bounds
       gauges {
         nodes {
           id
           name
-          language
         }
       }
     }
-    tags(language: $language) {
+    tags {
       id
-      language
       name
       category
     }

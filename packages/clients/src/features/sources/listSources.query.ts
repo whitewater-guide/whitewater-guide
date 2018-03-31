@@ -1,11 +1,10 @@
 import gql from 'graphql-tag';
 
 export default gql`
-  query listSources($language:String) {
-    sources(language: $language) {
+  query listSources {
+    sources {
       nodes {
         id
-        language
         name
         harvestMode
         enabled

@@ -6,11 +6,10 @@ beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
 const query = `
-  query listRegions($language: String, $page: Page){
-    regions(language: $language, page: $page) {
+  query listRegions($page: Page){
+    regions(page: $page) {
       nodes {
         id
-        language
         name
         description
         season
@@ -21,7 +20,6 @@ const query = `
         updatedAt
         pois {
           id
-          language
           name
           description
           kind
@@ -34,7 +32,7 @@ const query = `
 `;
 
 test('should return regions', async () => {
-  const result = await runQuery(query, undefined, superAdminContext);
+  const result = await runQuery(query, undefined, superAdminContext());
   expect(result.errors).toBeUndefined();
   expect(result.data).toBeDefined();
   expect(result.data!.regions).toBeDefined();
@@ -45,7 +43,7 @@ test('should return regions', async () => {
 });
 
 test('users should not see hidden regions', async () => {
-  const result = await runQuery(query, undefined, userContext);
+  const result = await runQuery(query, undefined, userContext());
   expect(result.errors).toBeUndefined();
   expect(result.data).toBeDefined();
   expect(result.data!.regions).toBeDefined();
@@ -55,7 +53,7 @@ test('users should not see hidden regions', async () => {
 });
 
 test('should be able to specify language', async () => {
-  const result = await runQuery(query, { language: 'ru' }, superAdminContext);
+  const result = await runQuery(query, { }, superAdminContext('ru'));
   expect(result.data!.regions).toBeDefined();
   const regions = result.data!.regions;
   expect(regions.count).toBe(3);
@@ -68,11 +66,10 @@ test('should be able to specify language', async () => {
 
 test('should return rivers count', async () => {
   const riversQuery = `
-    query listRegions($language: String, $page: Page){
-      regions(language: $language, page: $page) {
+    query listRegions($page: Page){
+      regions(page: $page) {
         nodes {
           id
-          language
           name
           rivers { count }
         }
@@ -80,7 +77,7 @@ test('should return rivers count', async () => {
       }
     }
   `;
-  const result = await runQuery(riversQuery, {}, superAdminContext);
+  const result = await runQuery(riversQuery, {}, superAdminContext());
   expect(result.data!.regions).toBeDefined();
   const regions = result.data!.regions;
   expect(regions.count).toBe(3);
@@ -92,11 +89,10 @@ test('should return rivers count', async () => {
 
 test('should return gauges count', async () => {
   const gaugesQuery = `
-    query listRegions($language: String, $page: Page){
-      regions(language: $language, page: $page) {
+    query listRegions($page: Page){
+      regions(page: $page) {
         nodes {
           id
-          language
           name
           gauges { count }
         }
@@ -104,7 +100,7 @@ test('should return gauges count', async () => {
       }
     }
   `;
-  const result = await runQuery(gaugesQuery, {}, superAdminContext);
+  const result = await runQuery(gaugesQuery, {}, superAdminContext());
   expect(result.data!.regions).toBeDefined();
   const regions = result.data!.regions;
   // Check name
@@ -117,11 +113,10 @@ test('should return gauges count', async () => {
 
 test('should return sections count', async () => {
   const gaugesQuery = `
-    query listRegions($language: String, $page: Page){
-      regions(language: $language, page: $page) {
+    query listRegions($page: Page){
+      regions(page: $page) {
         nodes {
           id
-          language
           name
           sections { count }
         }
@@ -129,7 +124,7 @@ test('should return sections count', async () => {
       }
     }
   `;
-  const result = await runQuery(gaugesQuery, {}, superAdminContext);
+  const result = await runQuery(gaugesQuery, {}, superAdminContext());
   expect(result.errors).toBeUndefined();
   expect(result.data!.regions).toBeDefined();
   const regions = result.data!.regions.nodes;

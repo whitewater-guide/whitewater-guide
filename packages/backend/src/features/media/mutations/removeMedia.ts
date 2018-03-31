@@ -15,7 +15,6 @@ const resolver: GraphQLFieldResolver<any, any> = async (root, { id }: RemoveVari
   }
   return {
     id: result.id,
-    language: 'en', // TODO: context lang
     deleted: true,
   };
 };

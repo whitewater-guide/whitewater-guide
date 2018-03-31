@@ -6,10 +6,8 @@ Object {
     "upserted",
     "oopserted",
   ],
-  "language": "en",
   "name": "Upsert River",
   "region": Object {
-    "language": "en",
     "name": "Ecuador",
   },
 }
@@ -39,11 +37,9 @@ Object {
     "oopserted",
   ],
   "id": "a8416664-bfe3-11e7-abc4-cec278b6b50a",
-  "language": "en",
   "name": "Upsert River",
   "region": Object {
     "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
-    "language": "en",
     "name": "Galicia",
   },
 }

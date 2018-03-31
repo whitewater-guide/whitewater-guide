@@ -1,4 +1,5 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
+import { userContext } from '../../../test/context';
 import { noTimestamps, runQuery } from '../../../test/db-helpers';
 import db from '../../../db/db';
 
@@ -6,26 +7,22 @@ beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
 const query = `
-  query listSections($language: String, $page: Page, $filter: SectionsFilter){
-    sections(language: $language, page: $page, filter: $filter) {
+  query listSections($page: Page, $filter: SectionsFilter){
+    sections(page: $page, filter: $filter) {
       nodes {
         id
-        language
         name
         rating
         river {
           id
-          language
           name
         }
         region {
           id
-          language
           name
         }
         gauge {
           id
-          language
           name
         }
       }
@@ -59,7 +56,7 @@ it('should paginate', async () => {
 });
 
 it('should be able to specify language', async () => {
-  const result = await runQuery(query, { language: 'ru' });
+  const result = await runQuery(query, { }, userContext('ru'));
   expect(result.errors).toBeUndefined();
   expect(result).toHaveProperty('data.sections.nodes.0.name', 'Амот');
 });

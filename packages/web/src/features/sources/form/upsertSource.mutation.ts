@@ -1,11 +1,10 @@
 import gql from 'graphql-tag';
 
 export default gql`
-  mutation upsertSource($source: SourceInput!, $language:String){
-    upsertSource(source: $source, language: $language){
+  mutation upsertSource($source: SourceInput!){
+    upsertSource(source: $source){
       id
       name
-      language
       termsOfUse
       script
       cron

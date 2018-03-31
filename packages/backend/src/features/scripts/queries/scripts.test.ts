@@ -22,7 +22,7 @@ describe('resolvers chain', () => {
 
   describe('anonymous', () => {
     test('shall not pass', async () => {
-      const result = await runQuery(query, undefined, anonContext);
+      const result = await runQuery(query, undefined, anonContext());
       expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
       expect(result.data).toBeNull();
     });
@@ -30,7 +30,7 @@ describe('resolvers chain', () => {
 
   describe('user', () => {
     test('shall not pass', async () => {
-      const result = await runQuery(query, undefined, userContext);
+      const result = await runQuery(query, undefined, userContext());
       expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
       expect(result.data).toBeNull();
     });
@@ -39,7 +39,7 @@ describe('resolvers chain', () => {
 });
 
 it('should return some scripts', async () => {
-  const result = await runQuery(query, undefined, adminContext);
+  const result = await runQuery(query, undefined, adminContext());
   expect(result.data!.scripts).toEqual(expect.arrayContaining([{
     id: expect.any(String),
     name: expect.any(String),

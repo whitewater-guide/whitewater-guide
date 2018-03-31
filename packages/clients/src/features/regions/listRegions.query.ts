@@ -1,11 +1,10 @@
 import gql from 'graphql-tag';
 
 export default gql`
-  query listRegions($language:String, $page: Page) {
-    regions(language: $language, page: $page) {
+  query listRegions($page: Page) {
+    regions(page: $page) {
       nodes {
         id
-        language
         name
         hidden
         rivers { count }

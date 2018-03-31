@@ -8,10 +8,9 @@ beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
 const query = `
-  query sourceDetails($id: ID, $language: String){
-    source(id: $id, language: $language) {
+  query sourceDetails($id: ID){
+    source(id: $id) {
       id
-      language
       name
       url
       script
@@ -28,7 +27,7 @@ const galiciaId = '6d0d717e-aa9d-11e7-abc4-cec278b6b50a';
 
 describe('anonymous', () => {
   test('shall not pass', async () => {
-    const result = await runQuery(query, { id: galiciaId }, anonContext);
+    const result = await runQuery(query, { id: galiciaId }, anonContext());
     expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
     expect(result).toHaveProperty('data.source', null);
   });
@@ -36,7 +35,7 @@ describe('anonymous', () => {
 
 describe('user', () => {
   test('shall not pass', async () => {
-    const result = await runQuery(query, { id: galiciaId }, userContext);
+    const result = await runQuery(query, { id: galiciaId }, userContext());
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.source', null);
   });
@@ -44,7 +43,7 @@ describe('user', () => {
 
 describe('admin', () => {
   test('should return source', async () => {
-    const result = await runQuery(query, { id: galiciaId }, adminContext);
+    const result = await runQuery(query, { id: galiciaId }, adminContext());
     expect(result.errors).toBeUndefined();
     expect(result.data).toBeDefined();
     expect(result.data!.source).toBeTruthy();
@@ -56,7 +55,7 @@ describe('admin', () => {
 
 describe('superadmin', () => {
   test('should return source', async () => {
-    const result = await runQuery(query, { id: galiciaId }, superAdminContext);
+    const result = await runQuery(query, { id: galiciaId }, superAdminContext());
     expect(result.errors).toBeUndefined();
     expect(result.data).toBeDefined();
     const source: Source = result.data!.source;
@@ -67,7 +66,7 @@ describe('superadmin', () => {
 
 describe('data', () => {
   test('should return null when id not specified', async () => {
-    const result = await runQuery(query, {}, adminContext);
+    const result = await runQuery(query, {}, adminContext());
     expect(result.errors).toBeUndefined();
     expect(result.data).toBeDefined();
     expect(result.data!.source).toBeNull();
@@ -76,12 +75,12 @@ describe('data', () => {
 
 describe('i18n', () => {
   test('should be able to specify language', async () => {
-    const result = await runQuery(query, { id: galiciaId, language: 'ru' }, superAdminContext);
+    const result = await runQuery(query, { id: galiciaId }, superAdminContext('ru'));
     expect(result.data!.source.name).toBe('Галисия');
   });
 
   test('should be able to get basic attributes without translation', async () => {
-    const result = await runQuery(query, { id: galiciaId, language: 'pt' }, superAdminContext);
+    const result = await runQuery(query, { id: galiciaId }, superAdminContext('pt'));
     expect(result.data!.source.cron).toBe('0 * * * *');
     expect(result.data!.source.name).toBe('Not translated');
   });
@@ -93,31 +92,28 @@ describe('connections', () => {
       query sourceDetails($id: ID){
         source(id: $id) {
           id
-          language
           name
           regions {
             count
             nodes {
               id
-              language
               name
             }
           }
         }
       }
     `;
-    const result = await runQuery(q, { id: galiciaId }, superAdminContext);
+    const result = await runQuery(q, { id: galiciaId }, superAdminContext());
     expect(result.errors).toBeUndefined();
     const source = result.data!.source;
     expect(source).toEqual(expect.objectContaining({
       id: '6d0d717e-aa9d-11e7-abc4-cec278b6b50a',
       name: 'Galicia',
-      language: 'en',
       regions: {
         count: 2,
         nodes: [
-          { id: 'bd3e10b6-7624-11e7-b5a5-be2e44b06b34', language: 'en', name: 'Galicia' },
-          { id: 'b968e2b2-76c5-11e7-b5a5-be2e44b06b34', language: 'en', name: 'Norway' },
+          { id: 'bd3e10b6-7624-11e7-b5a5-be2e44b06b34', name: 'Galicia' },
+          { id: 'b968e2b2-76c5-11e7-b5a5-be2e44b06b34', name: 'Norway' },
         ],
       },
     }));
@@ -128,13 +124,11 @@ describe('connections', () => {
       query sourceDetails($id: ID){
         source(id: $id) {
           id
-          language
           name
           gauges {
             count
             nodes {
               id
-              language
               name
               code
             }
@@ -142,13 +136,13 @@ describe('connections', () => {
         }
       }
     `;
-    const result = await runQuery(q, { id: galiciaId }, superAdminContext);
+    const result = await runQuery(q, { id: galiciaId }, superAdminContext());
     expect(result.errors).toBeUndefined();
     const source = result.data!.source;
     expect(source.gauges.count).toBe(2);
     expect(source.gauges.nodes).toEqual([
-      { id: 'aba8c106-aaa0-11e7-abc4-cec278b6b50a', name: 'Galicia gauge 1', code: 'gal1', language: 'en' },
-      { id: 'b77ef1b2-aaa0-11e7-abc4-cec278b6b50a', name: 'Galicia gauge 2', code: 'gal2', language: 'en' },
+      { id: 'aba8c106-aaa0-11e7-abc4-cec278b6b50a', name: 'Galicia gauge 1', code: 'gal1' },
+      { id: 'b77ef1b2-aaa0-11e7-abc4-cec278b6b50a', name: 'Galicia gauge 2', code: 'gal2' },
     ]);
   });
 });

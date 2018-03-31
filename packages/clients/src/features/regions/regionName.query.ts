@@ -1,10 +1,9 @@
 import gql from 'graphql-tag';
 
 export const REGION_NAME = gql`
-  query regionName($id: ID!, $language:String) {
-    region(id: $id, language: $language) {
+  query regionName($id: ID!) {
+    region(id: $id) {
       id
-      language
       name
     }
   }

@@ -4,7 +4,6 @@ exports[`details should build correct query with gauge 1`] = `
 with gauge_ref as (
     select
         gauges_view.id,
-        gauges_view.language,
         gauges_view.name
     from
         gauges_view
@@ -17,7 +16,6 @@ with gauge_ref as (
 )
 select
     sections_view.id,
-    sections_view.language,
     sections_view.name, (
         select
             to_json(gauge_ref.*)
@@ -40,7 +38,6 @@ exports[`details should build correct query with media 1`] = `
 with media_connection as (
     select
         media_view.id,
-        media_view.language,
         media_view.url
     from
         media_view
@@ -51,7 +48,6 @@ with media_connection as (
 )
 select
     sections_view.id,
-    sections_view.language,
     sections_view.name, (with media_connection_internal as (
             select
                 media_connection.*,
@@ -90,7 +86,6 @@ exports[`details should build correct query with region 1`] = `
 with region_ref as (
     select
         regions_view.id,
-        regions_view.language,
         regions_view.name
     from
         regions_view
@@ -103,7 +98,6 @@ with region_ref as (
 )
 select
     sections_view.id,
-    sections_view.language,
     sections_view.name, (
         select
             to_json(region_ref.*)
@@ -127,7 +121,6 @@ exports[`details should build correct query with river 1`] = `
 with river_ref as (
     select
         rivers_view.id,
-        rivers_view.language,
         rivers_view.name
     from
         rivers_view
@@ -140,7 +133,6 @@ with river_ref as (
 )
 select
     sections_view.id,
-    sections_view.language,
     sections_view.name, (
         select
             to_json(river_ref.*)
@@ -162,7 +154,6 @@ order by
 exports[`details should build correct query without connections 1`] = `
 select
     sections_view.id,
-    sections_view.language,
     sections_view.name,
     sections_view.description,
     sections_view.season,
@@ -198,7 +189,6 @@ exports[`list should build correct query with gauge 1`] = `
 with gauge_ref as (
     select
         gauges_view.id,
-        gauges_view.language,
         gauges_view.name
     from
         gauges_view
@@ -211,7 +201,6 @@ with gauge_ref as (
 )
 select
     sections_view.id,
-    sections_view.language,
     sections_view.name, (
         select
             to_json(gauge_ref.*)
@@ -235,7 +224,6 @@ exports[`list should build correct query with region 1`] = `
 with region_ref as (
     select
         regions_view.id,
-        regions_view.language,
         regions_view.name
     from
         regions_view
@@ -248,7 +236,6 @@ with region_ref as (
 )
 select
     sections_view.id,
-    sections_view.language,
     sections_view.name, (
         select
             to_json(region_ref.*)
@@ -273,7 +260,6 @@ exports[`list should build correct query with river 1`] = `
 with river_ref as (
     select
         rivers_view.id,
-        rivers_view.language,
         rivers_view.name
     from
         rivers_view
@@ -286,7 +272,6 @@ with river_ref as (
 )
 select
     sections_view.id,
-    sections_view.language,
     sections_view.name, (
         select
             to_json(river_ref.*)
@@ -309,7 +294,6 @@ order by
 exports[`list should build correct query without connections 1`] = `
 select
     sections_view.id,
-    sections_view.language,
     sections_view.name,
     sections_view.description,
     sections_view.season,

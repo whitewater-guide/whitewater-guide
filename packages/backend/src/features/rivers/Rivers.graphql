@@ -1,6 +1,5 @@
 type River {
   id: ID!
-  language: String!
   name: String!
   altNames: [String!]
   region: Region!
@@ -31,11 +30,11 @@ input RiversFilter {
 }
 
 type Query {
-  rivers(language: String, page: Page, filter: RiversFilter): RiversList!
-  river(id: ID, language: String): River
+  rivers(page: Page, filter: RiversFilter): RiversList!
+  river(id: ID): River
 }
 
 type Mutation {
-  upsertRiver(river: RiverInput!, language: String): River
+  upsertRiver(river: RiverInput!): River
   removeRiver(id: ID!): ID
 }

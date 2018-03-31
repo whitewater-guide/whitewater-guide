@@ -16,21 +16,21 @@ afterEach(rollbackTransaction);
 
 describe('resolvers chain', () => {
   test('anon should not pass', async () => {
-    const result = await runQuery(query, variables, anonContext);
+    const result = await runQuery(query, variables, anonContext());
     expect(result.errors).toBeDefined();
     expect(result.data).toBeDefined();
     expect(result.data!.removeTag).toBeNull();
   });
 
   test('user should not pass', async () => {
-    const result = await runQuery(query, variables, userContext);
+    const result = await runQuery(query, variables, userContext());
     expect(result.errors).toBeDefined();
     expect(result.data).toBeDefined();
     expect(result.data!.removeTag).toBeNull();
   });
 
   test('admin should not pass', async () => {
-    const result = await runQuery(query, variables, adminContext);
+    const result = await runQuery(query, variables, adminContext());
     expect(result.errors).toBeDefined();
     expect(result.data).toBeDefined();
     expect(result.data!.removeTag).toBeNull();
@@ -50,7 +50,7 @@ describe('effects', () => {
   });
 
   beforeEach(async () => {
-    result = await runQuery(query, variables, superAdminContext);
+    result = await runQuery(query, variables, superAdminContext());
   });
 
   afterEach(() => {

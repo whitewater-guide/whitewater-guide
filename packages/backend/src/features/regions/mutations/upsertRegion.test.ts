@@ -66,10 +66,9 @@ const fullRegionWithPOIs: RegionInput = {
 };
 
 const upsertQuery = `
-  mutation upsertRegion($region: RegionInput!, $language: String){
-    upsertRegion(region: $region, language: $language){
+  mutation upsertRegion($region: RegionInput!){
+    upsertRegion(region: $region){
       id
-      language
       name
       description
       season
@@ -80,7 +79,6 @@ const upsertQuery = `
       updatedAt
       pois {
         id
-        language
         name
         description
         coordinates
@@ -92,13 +90,13 @@ const upsertQuery = `
 
 describe('resolvers chain', () => {
   test('anon should not pass', async () => {
-    const result = await runQuery(upsertQuery, { region: minimalRegion }, anonContext);
+    const result = await runQuery(upsertQuery, { region: minimalRegion }, anonContext());
     expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
     expect(result).toHaveProperty('data.upsertRegion', null);
   });
 
   test('user should not pass', async () => {
-    const result = await runQuery(upsertQuery, { region: minimalRegion }, userContext);
+    const result = await runQuery(upsertQuery, { region: minimalRegion }, userContext());
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.upsertRegion', null);
   });
@@ -114,7 +112,7 @@ describe('resolvers chain', () => {
       hidden: false,
       pois: [],
     };
-    const result = await runQuery(upsertQuery, { region: invalidInput }, adminContext);
+    const result = await runQuery(upsertQuery, { region: invalidInput }, adminContext());
     expect(result).toHaveProperty('errors.0.name', 'ValidationError');
     expect(result.data).toBeDefined();
     expect(result.data!.upsertRegion).toBeNull();
@@ -127,7 +125,7 @@ describe('insert', () => {
   let insertedRegion: any;
 
   beforeEach(async () => {
-    insertResult = await runQuery(upsertQuery, { region: fullRegionWithPOIs }, adminContext);
+    insertResult = await runQuery(upsertQuery, { region: fullRegionWithPOIs }, adminContext());
     insertedRegion = insertResult && insertResult.data && insertResult.data.upsertRegion;
   });
 
@@ -188,7 +186,7 @@ describe('update', () => {
 
   beforeEach(async () => {
     oldRegion = await db().table('regions_view').where({ id: fullRegionUpdate.id }).first();
-    updateResult = await runQuery(upsertQuery, { region: fullRegionUpdate }, adminContext);
+    updateResult = await runQuery(upsertQuery, { region: fullRegionUpdate }, adminContext());
     updatedRegion = updateResult && updateResult.data && updateResult.data.upsertRegion;
   });
 
@@ -271,7 +269,7 @@ describe('i18n', () => {
   };
 
   test('should add translation', async () => {
-    const upsertResult = await runQuery(upsertQuery, { region: emptyRegionRu, language: 'ru' }, adminContext);
+    const upsertResult = await runQuery(upsertQuery, { region: emptyRegionRu }, adminContext('ru'));
     expect(upsertResult.errors).toBeUndefined();
     const translation = await db().table('regions_translations').select()
       .where({ region_id: '2caf75ca-7625-11e7-b5a5-be2e44b06b34', language: 'ru' }).first();
@@ -281,8 +279,8 @@ describe('i18n', () => {
   test('should modify common props when translation is added', async () => {
     const upsertResult = await runQuery(
       upsertQuery,
-      { region: { ...emptyRegionRu, seasonNumeric: [10] }, language: 'ru' },
-      adminContext,
+      { region: { ...emptyRegionRu, seasonNumeric: [10] } },
+      adminContext('ru'),
     );
     expect(upsertResult.errors).toBeUndefined();
     const reg = await db().table('regions').select()
@@ -301,7 +299,7 @@ describe('i18n', () => {
       season: 'осень осень',
       pois: [],
     };
-    const upsertResult = await runQuery(upsertQuery, { region, language: 'ru' }, adminContext);
+    const upsertResult = await runQuery(upsertQuery, { region }, adminContext('ru'));
     expect(upsertResult.errors).toBeUndefined();
     const translation = await db().table('regions_translations').select()
       .where({ region_id: 'bd3e10b6-7624-11e7-b5a5-be2e44b06b34', language: 'ru' }).first();
@@ -320,7 +318,7 @@ describe('i18n', () => {
         { id: null, name: 'Тчка 1', description: 'тчк 1 описание', kind: 'other', coordinates: [10, 12, 0] },
       ],
     };
-    const upsertResult = await runQuery(upsertQuery, { region, language: 'ru' }, adminContext);
+    const upsertResult = await runQuery(upsertQuery, { region }, adminContext('ru'));
     expect(upsertResult.errors).toBeUndefined();
     const translation = await db().table('points_translations').select()
       .where({ language: 'ru' }).first();
@@ -341,7 +339,7 @@ it('should sanitize input', async () => {
   let dirtyRegion = { ...fullRegionWithPOIs, name: "it's a \\ slash" };
   dirtyRegion = set('pois.0.name', "it's a poi", dirtyRegion);
 
-  const insertResult = await runQuery(upsertQuery, { region: dirtyRegion }, adminContext);
+  const insertResult = await runQuery(upsertQuery, { region: dirtyRegion }, adminContext());
   expect(insertResult.errors).toBeUndefined();
   expect(insertResult).toHaveProperty('data.upsertRegion.name', "it's a \\ slash");
   expect(insertResult).toHaveProperty('data.upsertRegion.pois.0.name', "it's a poi");

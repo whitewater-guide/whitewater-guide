@@ -1,25 +1,23 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
+import { userContext } from '../../../test/context';
 import { noTimestamps, runQuery } from '../../../test/db-helpers';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
 const query = `
-  query river($id: ID, $language: String){
-    river(id: $id, language: $language) {
+  query river($id: ID){
+    river(id: $id) {
       id
-      language
       name
       altNames
       region {
         id
-        language
         name
       }
       sections {
         nodes {
           id
-          language
           name
         }
         count
@@ -47,13 +45,14 @@ it('should return null when id not specified', async () => {
 it('should be able to specify language', async () => {
   const result = await runQuery(
     query,
-    { id: 'd4396dac-d528-11e7-9296-cec278b6b50a', language: 'ru' },
+    { id: 'd4396dac-d528-11e7-9296-cec278b6b50a' },
+    userContext('ru'),
   );
   expect(result.data!.river.name).toBe('Шоа');
 });
 
 it('should be able to get basic attributes without translation', async () => {
-  const result = await runQuery(query, { id: 'a8416664-bfe3-11e7-abc4-cec278b6b50a', language: 'pt' });
+  const result = await runQuery(query, { id: 'a8416664-bfe3-11e7-abc4-cec278b6b50a' }, userContext('pt'));
   expect(result.errors).toBeUndefined();
   expect(result).toHaveProperty('data.river.name', 'Not translated');
 });

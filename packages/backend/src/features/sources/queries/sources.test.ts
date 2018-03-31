@@ -6,11 +6,10 @@ beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
 const query = `
-query listSources($language: String){
-  sources(language: $language) {
+query listSources {
+  sources {
     nodes {
       id
-      language
       name
       url
       script
@@ -27,7 +26,7 @@ query listSources($language: String){
 
 describe('anonymous', () => {
   test('shall not pass', async () => {
-    const result = await runQuery(query, undefined, anonContext);
+    const result = await runQuery(query, undefined, anonContext());
     expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
     expect(result.errors).toBeDefined();
     expect(result.data).toBeNull();
@@ -36,7 +35,7 @@ describe('anonymous', () => {
 
 describe('user', () => {
   test('shall not pass', async () => {
-    const result = await runQuery(query, undefined, userContext);
+    const result = await runQuery(query, undefined, userContext());
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result.data).toBeNull();
   });
@@ -44,7 +43,7 @@ describe('user', () => {
 
 describe('admin', () => {
   test('should list sources', async () => {
-    const result = await runQuery(query, undefined, adminContext);
+    const result = await runQuery(query, undefined, adminContext());
     expect(result.errors).toBeUndefined();
     expect(result.data).toBeDefined();
     expect(result.data!.sources).toBeDefined();
@@ -57,7 +56,7 @@ describe('admin', () => {
 
 describe('super admin', () => {
   test('should be able to specify language', async () => {
-    const result = await runQuery(query, { language: 'ru' }, superAdminContext);
+    const result = await runQuery(query, { }, superAdminContext('ru'));
     expect(result.errors).toBeUndefined();
     expect(result.data!.sources).toBeDefined();
     const sources = result.data!.sources;

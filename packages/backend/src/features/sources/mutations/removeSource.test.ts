@@ -37,13 +37,13 @@ afterEach(rollbackTransaction);
 
 describe('resolvers chain', () => {
   it('anon should not pass', async () => {
-    const result = await runQuery(query, galicia, anonContext);
+    const result = await runQuery(query, galicia, anonContext());
     expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
     expect(result).toHaveProperty('data.removeSource', null);
   });
 
   it('user should not pass', async () => {
-    const result = await runQuery(query, galicia, userContext);
+    const result = await runQuery(query, galicia, userContext());
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.removeSource', null);
   });
@@ -53,7 +53,7 @@ describe('effects', () => {
   let result: any;
 
   beforeEach(async () => {
-    result = await runQuery(query, galicia, adminContext);
+    result = await runQuery(query, galicia, adminContext());
   });
 
   afterEach(() => {

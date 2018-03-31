@@ -8,11 +8,10 @@ beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
 const query = `
-query listGauges($language: String, $sourceId: ID) {
-  gauges(language: $language, sourceId: $sourceId) {
+query listGauges($sourceId: ID) {
+  gauges(sourceId: $sourceId) {
     nodes {
       id
-      language
       name
       code
       location {
@@ -30,7 +29,6 @@ query listGauges($language: String, $sourceId: ID) {
       source {
         id
         name
-        language
         harvestMode
       }
     }
@@ -40,7 +38,7 @@ query listGauges($language: String, $sourceId: ID) {
 `;
 
 test('should return gauges', async () => {
-  const result = await runQuery(query, undefined, superAdminContext);
+  const result = await runQuery(query, undefined, superAdminContext());
   expect(result.errors).toBeUndefined();
   expect(result.data).toBeDefined();
   expect(result.data!.gauges).toBeDefined();
@@ -49,7 +47,7 @@ test('should return gauges', async () => {
 });
 
 test('should be able to specify language', async () => {
-  const result = await runQuery(query, { language: 'ru' }, superAdminContext);
+  const result = await runQuery(query, {}, superAdminContext('ru'));
   expect(result.errors).toBeUndefined();
   expect(result.data!.gauges.count).toBe(12);
   const names = result.data!.gauges.nodes.map((node: any) => node.name);
@@ -57,7 +55,7 @@ test('should be able to specify language', async () => {
 });
 
 test('should be able to specify source id', async () => {
-  const result = await runQuery(query, { sourceId: SOURCE_NORWAY }, superAdminContext);
+  const result = await runQuery(query, { sourceId: SOURCE_NORWAY }, superAdminContext());
   expect(result.errors).toBeUndefined();
   expect(result.data!.gauges).toBeDefined();
   expect(result.data!.gauges.count).toBe(4);

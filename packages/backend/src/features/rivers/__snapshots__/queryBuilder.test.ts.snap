@@ -4,8 +4,7 @@ exports[`details should build correct query with region 1`] = `
 with region_ref as (
     select
         regions_view.id,
-        regions_view.name,
-        regions_view.language
+        regions_view.name
     from
         regions_view
     where
@@ -17,7 +16,6 @@ with region_ref as (
 )
 select
     rivers_view.id,
-    rivers_view.language,
     rivers_view.name,
     rivers_view.alt_names,
     rivers_view.created_at,
@@ -43,7 +41,6 @@ exports[`details should build correct query with sections connection 1`] = `
 with sections_connection as (
     select
         sections_view.id,
-        sections_view.language,
         sections_view.name,
         sections_view.river_id
     from
@@ -57,7 +54,6 @@ with sections_connection as (
 )
 select
     rivers_view.id,
-    rivers_view.language,
     rivers_view.name,
     rivers_view.alt_names,
     rivers_view.created_at,
@@ -97,7 +93,6 @@ order by
 exports[`details should build correct query without connections 1`] = `
 select
     rivers_view.id,
-    rivers_view.language,
     rivers_view.name,
     rivers_view.alt_names,
     rivers_view.created_at,
@@ -117,8 +112,7 @@ exports[`list should build correct query with region 1`] = `
 with region_ref as (
     select
         regions_view.id,
-        regions_view.name,
-        regions_view.language
+        regions_view.name
     from
         regions_view
     where
@@ -130,7 +124,6 @@ with region_ref as (
 )
 select
     rivers_view.id,
-    rivers_view.language,
     rivers_view.name,
     rivers_view.alt_names,
     rivers_view.created_at,
@@ -169,7 +162,6 @@ with sections_connection as (
 )
 select
     rivers_view.id,
-    rivers_view.language,
     rivers_view.name,
     rivers_view.alt_names,
     rivers_view.created_at,
@@ -205,7 +197,6 @@ order by
 exports[`list should build correct query without connections 1`] = `
 select
     rivers_view.id,
-    rivers_view.language,
     rivers_view.name,
     rivers_view.alt_names,
     rivers_view.created_at,

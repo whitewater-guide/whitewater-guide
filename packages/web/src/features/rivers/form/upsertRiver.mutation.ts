@@ -1,15 +1,13 @@
 import gql from 'graphql-tag';
 
 const UPSERT_RIVER = gql`
-  mutation upsertRiver($river: RiverInput!, $language: String){
-    upsertRiver(river: $river, language: $language){
+  mutation upsertRiver($river: RiverInput!){
+    upsertRiver(river: $river){
       id
-      language
       name
       altNames
       region {
         id
-        language
         name
       }
       createdAt

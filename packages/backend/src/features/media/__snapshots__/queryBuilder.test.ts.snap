@@ -13,7 +13,6 @@ where
 exports[`should build node query 1`] = `
 select
     media_view.id,
-    media_view.language,
     media_view.description,
     media_view.copyright,
     media_view.kind,

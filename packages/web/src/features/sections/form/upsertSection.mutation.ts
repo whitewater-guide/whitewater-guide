@@ -2,8 +2,8 @@ import gql from 'graphql-tag';
 import { SectionFragments } from '../../../ww-clients/features/sections';
 
 const UPSERT_SECTION = gql`
-  mutation upsertSection($section: SectionInput!, $language: String){
-    upsertSection(section: $section, language: $language){
+  mutation upsertSection($section: SectionInput!){
+    upsertSection(section: $section){
       ...SectionCore
       ...SectionDescription
       ...SectionEnds

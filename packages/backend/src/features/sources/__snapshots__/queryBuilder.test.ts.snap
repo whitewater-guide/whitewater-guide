@@ -4,7 +4,6 @@ exports[`details should build correct query with connections 1`] = `
 with regions_connection as (
     select
         regions_view.id,
-        regions_view.language,
         regions_view.name
     from
         regions_view
@@ -17,7 +16,6 @@ with regions_connection as (
 gauges_connection as (
     select
         gauges_view.id,
-        gauges_view.language,
         gauges_view.name,
         gauges_view.source_id
     from
@@ -31,7 +29,6 @@ gauges_connection as (
 )
 select
     sources_view.id,
-    sources_view.language,
     sources_view.name,
     sources_view.url,
     sources_view.script,
@@ -97,7 +94,6 @@ order by
 exports[`details should build correct query without connections 1`] = `
 select
     sources_view.id,
-    sources_view.language,
     sources_view.name,
     sources_view.url,
     sources_view.script,
@@ -121,7 +117,6 @@ exports[`list should build correct query with connections 1`] = `
 with regions_connection as (
     select
         regions_view.id,
-        regions_view.language,
         regions_view.name
     from
         regions_view
@@ -146,7 +141,6 @@ gauges_connection as (
 )
 select
     sources_view.id,
-    sources_view.language,
     sources_view.name,
     sources_view.url,
     sources_view.script,
@@ -208,7 +202,6 @@ order by
 exports[`list should build correct query without connections 1`] = `
 select
     sources_view.id,
-    sources_view.language,
     sources_view.name,
     sources_view.url,
     sources_view.script,

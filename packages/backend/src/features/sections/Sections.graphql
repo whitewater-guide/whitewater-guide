@@ -16,7 +16,6 @@ input GaugeBindingInput {
 
 type Section {
   id: ID!
-  language: String!
   name: String!
   altNames: [String!]
   description: String
@@ -90,11 +89,11 @@ input SectionsFilter {
 }
 
 type Query {
-  sections(language: String, page: Page, filter: SectionsFilter): SectionsList!
-  section(id: ID, language: String): Section
+  sections(page: Page, filter: SectionsFilter): SectionsList!
+  section(id: ID): Section
 }
 
 type Mutation {
-  upsertSection(section: SectionInput!, language: String): Section
+  upsertSection(section: SectionInput!): Section
   removeSection(id: ID!): ID
 }

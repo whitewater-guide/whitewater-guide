@@ -31,8 +31,7 @@ const resolver: GraphQLFieldResolver<any, any> = async (root, { id, enabled }: T
     stopJobs(originalGauge.source_id!, updatedGauge.id);
   }
 
-  // TODO: return context language
-  return { ...updatedGauge, language: 'en' };
+  return { ...updatedGauge };
 };
 
 const toggleGauge = isAdminResolver.createResolver(

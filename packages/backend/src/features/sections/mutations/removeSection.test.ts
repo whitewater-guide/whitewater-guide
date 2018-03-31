@@ -31,13 +31,13 @@ const id = '2b01742c-d443-11e7-9296-cec278b6b50a'; // Galicia River 1 Section 1
 
 describe('resolvers chain', () => {
   it('anon should not pass', async () => {
-    const result = await runQuery(query, { id }, anonContext);
+    const result = await runQuery(query, { id }, anonContext());
     expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
     expect(result).toHaveProperty('data.removeSection', null);
   });
 
   it('user should not pass', async () => {
-    const result = await runQuery(query, { id }, userContext);
+    const result = await runQuery(query, { id }, userContext());
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.removeSection', null);
   });
@@ -47,7 +47,7 @@ describe('effects', () => {
   let result: any;
 
   beforeEach(async () => {
-    result = await runQuery(query, { id }, adminContext);
+    result = await runQuery(query, { id }, adminContext());
   });
 
   afterEach(() => {

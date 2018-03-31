@@ -29,13 +29,13 @@ afterAll(() => resetTestMinio(true));
 
 describe('resolvers chain', () => {
   test('anon should not pass', async () => {
-    const result = await runQuery(query, {}, anonContext);
+    const result = await runQuery(query, {}, anonContext());
     expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
     expect(result).toHaveProperty('data.mediaForm', null);
   });
 
   test('user should not pass', async () => {
-    const result = await runQuery(query, {}, userContext);
+    const result = await runQuery(query, {}, userContext());
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.mediaForm', null);
   });
@@ -43,14 +43,14 @@ describe('resolvers chain', () => {
 
 describe('response', () => {
   it('should fail for non-existing media id', async () => {
-    const result = await runQuery(query, { id: 'fb2d84e0-1f95-11e8-b467-0ed5f89f718b' }, adminContext);
+    const result = await runQuery(query, { id: 'fb2d84e0-1f95-11e8-b467-0ed5f89f718b' }, adminContext());
     expect(result).toHaveProperty('errors.0.name', 'MutationNotAllowedError');
     expect(result).toHaveProperty('errors.0.message', 'This media does not exist');
     expect(result).toHaveProperty('data.mediaForm', null);
   });
 
   it('should return correct result for existing media', async () => {
-    const result = await runQuery(query, { id: PHOTO_1 }, adminContext);
+    const result = await runQuery(query, { id: PHOTO_1 }, adminContext());
     expect(result.errors).toBeUndefined();
     expect(result.data!.mediaForm).toEqual({
       id: PHOTO_1,
@@ -72,7 +72,7 @@ describe('response', () => {
   });
 
   it('should return correct result for new media', async () => {
-    const result = await runQuery(query, {}, adminContext);
+    const result = await runQuery(query, {}, adminContext());
     expect(result.errors).toBeUndefined();
     expect(result.data!.mediaForm).toEqual({
       id: expect.stringMatching(UUID_REGEX),
@@ -99,7 +99,7 @@ describe('response', () => {
 
 describe('uploads', () => {
   it('should upload new media', async () => {
-    const result = await runQuery(query, {}, adminContext);
+    const result = await runQuery(query, {}, adminContext());
     const { upload: { postURL, formData, key }, id } = result.data!.mediaForm;
 
     const jpgReq = superagent.post(postURL);
@@ -122,7 +122,7 @@ describe('uploads', () => {
   });
 
   it('should overwrite existing media', async () => {
-    const result = await runQuery(query, { id: PHOTO_1 }, adminContext);
+    const result = await runQuery(query, { id: PHOTO_1 }, adminContext());
     const { upload: { postURL, formData, key }, id } = result.data!.mediaForm;
 
     const jpgReq = superagent.post(postURL);

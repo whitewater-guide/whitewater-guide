@@ -26,14 +26,14 @@ const query = `
 `;
 
 test('should return null for anon', async () => {
-  const result = await runQuery(query, undefined, anonContext);
+  const result = await runQuery(query, undefined, anonContext());
   expect(result.errors).toBeUndefined();
   expect(result.data).toBeDefined();
   expect(result.data!.me).toBeNull();
 });
 
 test('should user', async () => {
-  const result = await runQuery(query, undefined, adminContext);
+  const result = await runQuery(query, undefined, adminContext());
   expect(result.errors).toBeUndefined();
   const me: User = result.data!.me;
   expect(me).toMatchSnapshot();

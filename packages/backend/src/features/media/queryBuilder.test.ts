@@ -10,7 +10,6 @@ jest.mock('graphql-fields', () => jest.fn());
 const primitives = {
   __typename: {},
   id: {},
-  language: {},
   description: {},
   copyright: {},
   kind: {},
@@ -23,7 +22,7 @@ graphqlFields.mockReturnValue(primitives);
 
 const info: GraphQLResolveInfo = {} as any;
 
-const options = { info, context: adminContext, knex: db(true) };
+const options = { info, context: adminContext(), knex: db(true) };
 
 it('should build node query', () => {
   const query = buildMediaQuery(options);

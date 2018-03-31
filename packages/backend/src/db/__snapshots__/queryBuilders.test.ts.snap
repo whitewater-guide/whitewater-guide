@@ -364,29 +364,14 @@ order by
 exports[`buildRootQuery should specify language, id, sort order 1`] = `
 select
     tbl.b,
-    tbl.id,
-    tbl.language
+    tbl.id
 from
     tbl
 where
     tbl.id = 'foo'
-    and tbl.language = 'en'
+    and tbl.language = 'ru'
 order by
     tbl.b asc
-
-`;
-
-exports[`buildRootQuery should use english by default 1`] = `
-select
-    tbl.name
-from
-    tbl
-where
-    tbl.language = 'en'
-order by
-    tbl.name asc,
-    tbl.created_at asc,
-    tbl.id asc
 
 `;
 

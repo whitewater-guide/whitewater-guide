@@ -61,7 +61,6 @@ export interface QueryBuilderOptions<T> {
   connections?: ConnectionsMap<T>;
   oneToOnes?: OneToOnesMap<T>;
   knex?: Knex;
-  language?: string;
   orderBy?: string | string[];
   id?: string;
 }
@@ -77,12 +76,10 @@ export const buildRootQuery = <T>(options: QueryBuilderOptions<T>): Knex.QueryBu
     connections = {},
     oneToOnes = {},
     knex = db(),
-    language: lang,
     orderBy: ordBy,
     id,
   } = options;
   const alias = tableAlias || table;
-  const language = lang || 'en';
   const orderBy: string[] = ordBy ? castArray(ordBy) : ['name', 'created_at', 'id'];
   let result = knex.from(tableAlias ? `${table} AS ${tableAlias}` : table);
   if (!fieldsTree && !info) {
@@ -108,7 +105,6 @@ export const buildRootQuery = <T>(options: QueryBuilderOptions<T>): Knex.QueryBu
         build: getBuilder(),
         join,
         context,
-        language,
         name: connectionName,
         fieldsTree: rootFieldsTree[connectionName],
         foreignKey,
@@ -124,7 +120,6 @@ export const buildRootQuery = <T>(options: QueryBuilderOptions<T>): Knex.QueryBu
         build: getBuilder(),
         join,
         context,
-        language,
         name: refName,
         fieldsTree: rootFieldsTree[refName],
         foreignKey,
@@ -134,9 +129,7 @@ export const buildRootQuery = <T>(options: QueryBuilderOptions<T>): Knex.QueryBu
   if (id) {
     result = result.where(`${alias}.id`, id);
   }
-  if (language) {
-    result = result.where(`${alias}.language`, language);
-  }
+  result = result.where(`${alias}.language`, context.language);
   orderBy.forEach(fieldName => {
     result = result.orderBy(`${alias}.${fieldName}`);
   });
@@ -153,19 +146,18 @@ export const buildListQuery = <T>(options: ListQueryBuilderOptions<T>) => {
     fieldsTree, // ignored
     page,
     knex = db(),
-    language: lang,
     id, // ignored
+    context,
     ...rest,
   } = options;
   const { limit, offset } = page || { limit: null, offset: null };
-  const language = lang || 'en';
   if (!info) {
     throw new Error('List query must be provided with resolvers info, because it is a root query');
   }
   const alias = options.tableAlias || options.table;
   const rootFieldsTree = graphqlFields(info);
   if (rootFieldsTree.nodes) {
-    const query = buildRootQuery({ ...rest, knex, language, fieldsTree: rootFieldsTree.nodes });
+    const query = buildRootQuery({ ...rest, context, knex, fieldsTree: rootFieldsTree.nodes });
     if (limit) {
       query.limit(limit);
       if (offset) {
@@ -175,7 +167,7 @@ export const buildListQuery = <T>(options: ListQueryBuilderOptions<T>) => {
     query.select(knex.raw(`count(${alias}.*) OVER()`));
     return query;
   }
-  return knex.count().from(alias).where(`${alias}.language`, language);
+  return knex.count().from(alias).where(`${alias}.language`, context.language);
 };
 
 /**
@@ -266,7 +258,6 @@ interface AttachConnectionOptions {
    * Joiner to join connection query with root query
    */
   join: Joiner;
-  language: string;
   /**
    * This is fragment of root query graphql fields tree related to connection (nodes and count)
    */
@@ -286,7 +277,6 @@ interface AttachConnectionOptions {
 export const attachConnection = (options: AttachConnectionOptions) => {
   const {
     query,
-    language,
     context,
     name,
     build,
@@ -308,7 +298,6 @@ export const attachConnection = (options: AttachConnectionOptions) => {
   return query.with(`${name}_connection`, knex!.raw(build({
       fieldsTree: tree,
       context,
-      language,
       knex,
     }).toQuery()),
   ).select(knex!.raw(`(${connection.toQuery()}) as ${name}`));
@@ -317,7 +306,6 @@ export const attachConnection = (options: AttachConnectionOptions) => {
 export const attachOneToOne = (options: AttachConnectionOptions) => {
   const {
     query,
-    language,
     context,
     name,
     build,
@@ -335,11 +323,7 @@ export const attachOneToOne = (options: AttachConnectionOptions) => {
     .select(knex!.raw(`to_json(${cteName}.*)`))
     .from(cteName);
   selectJson = join(cteName, selectJson);
-  return query.with(cteName, knex!.raw(build({
-      fieldsTree: tree,
-      context,
-      language,
-      knex,
-    }).toQuery()),
+  const cteQuery = build({ fieldsTree: tree, context, knex });
+  return query.with(cteName, knex!.raw(cteQuery.toQuery()),
   ).select(knex!.raw(`(${selectJson.toQuery()}) as ${name}`));
 };

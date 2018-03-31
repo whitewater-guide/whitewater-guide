@@ -1,11 +1,10 @@
 import gql from 'graphql-tag';
 
 export default gql`
-  query sourceDetails($sourceId: ID!, $language:String) {
-    source(id: $sourceId, language: $language) {
+  query sourceDetails($sourceId: ID!) {
+    source(id: $sourceId) {
       id
       name
-      language
       termsOfUse
       script
       cron
@@ -15,7 +14,6 @@ export default gql`
       regions {
         nodes {
           id
-          language
           name
         }
       }

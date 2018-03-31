@@ -1,10 +1,9 @@
 import gql from 'graphql-tag';
 
 const UPSERT_MEDIA = gql`
-  mutation upsertMedia($sectionId: ID!, $media: MediaInput!, $language: String) {
-    upsertSectionMedia(sectionId: $sectionId, media: $media, language: $language) {
+  mutation upsertMedia($sectionId: ID!, $media: MediaInput!) {
+    upsertSectionMedia(sectionId: $sectionId, media: $media) {
       id
-      language
       kind
       description
       copyright

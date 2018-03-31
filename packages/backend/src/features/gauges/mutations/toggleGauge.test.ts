@@ -14,7 +14,6 @@ const query = `
   mutation toggleGauge($id: ID!, $enabled: Boolean!){
     toggleGauge(id: $id, enabled: $enabled) {
       id
-      language
       enabled
     }
   }
@@ -31,14 +30,14 @@ afterEach(rollbackTransaction);
 
 describe('resolvers chain', () => {
   test('anon should not pass', async () => {
-    const result = await runQuery(query, gal1, anonContext);
+    const result = await runQuery(query, gal1, anonContext());
     expect(result.errors).toBeDefined();
     expect(result.data).toBeDefined();
     expect(result.data!.toggleGauge).toBeNull();
   });
 
   test('user should not pass', async () => {
-    const result = await runQuery(query, gal1, userContext);
+    const result = await runQuery(query, gal1, userContext());
     expect(result.errors).toBeDefined();
     expect(result.data).toBeDefined();
     expect(result.data!.toggleGauge).toBeNull();
@@ -47,7 +46,7 @@ describe('resolvers chain', () => {
 
 describe('effects', () => {
   it('should not enable gauge if source is all-at-once', async () => {
-    const result = await runQuery(query, gal1, adminContext);
+    const result = await runQuery(query, gal1, adminContext());
     expect(result.errors).toBeDefined();
     expect(result.data!.toggleGauge).toBeNull();
     expect(result).toHaveProperty('errors.0.name', 'MutationNotAllowedError');
@@ -55,7 +54,7 @@ describe('effects', () => {
   });
 
   it('should not enable gauge without cron', async () => {
-    const result = await runQuery(query, { id: GAUGE_NOR_2, enabled: true }, adminContext);
+    const result = await runQuery(query, { id: GAUGE_NOR_2, enabled: true }, adminContext());
     expect(result.errors).toBeDefined();
     expect(result.data!.toggleGauge).toBeNull();
     expect(result).toHaveProperty('errors.0.name', 'MutationNotAllowedError');
@@ -63,31 +62,29 @@ describe('effects', () => {
   });
 
   it('should enable', async () => {
-    const result = await runQuery(query, { id: GAUGE_NOR_4, enabled: true }, adminContext);
+    const result = await runQuery(query, { id: GAUGE_NOR_4, enabled: true }, adminContext());
     expect(result.errors).toBeUndefined();
     expect(result.data!.toggleGauge).toMatchObject({
       id: GAUGE_NOR_4,
       enabled: true,
-      language: 'en',
     });
   });
 
   it('should start job', async () => {
-    await runQuery(query, { id: GAUGE_NOR_4, enabled: true }, adminContext);
+    await runQuery(query, { id: GAUGE_NOR_4, enabled: true }, adminContext());
     expect(startJobs).lastCalledWith(SOURCE_NORWAY, GAUGE_NOR_4);
   });
 
   it('should disable', async () => {
-    const result = await runQuery(query, nor1, adminContext);
+    const result = await runQuery(query, nor1, adminContext());
     expect(result.errors).toBeUndefined();
     expect(result.data!.toggleGauge).toMatchObject({
       ...nor1,
-      language: 'en',
     });
   });
 
   it('should stop job', async () => {
-    await runQuery(query, { id: GAUGE_NOR_1, enabled: false }, adminContext);
+    await runQuery(query, { id: GAUGE_NOR_1, enabled: false }, adminContext());
     expect(stopJobs).lastCalledWith(SOURCE_NORWAY, GAUGE_NOR_1);
   });
 

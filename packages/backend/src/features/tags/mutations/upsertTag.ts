@@ -1,24 +1,21 @@
 import { GraphQLFieldResolver } from 'graphql';
 import Joi from 'joi';
-import { isInputValidResolver, isSuperadminResolver, upsertI18nResolver } from '../../../apollo';
+import { Context, isInputValidResolver, isSuperadminResolver } from '../../../apollo';
 import db, { rawUpsert, stringifyJSON } from '../../../db';
 import { TagInput, TagInputSchema } from '../../../ww-commons';
 
-interface UpsertVariables {
+interface Vars {
   tag: TagInput;
-  language?: string;
 }
 
 const Schema = Joi.object().keys({
   tag: TagInputSchema,
-  language: Joi.string().optional(),
 });
 
-const resolver: GraphQLFieldResolver<any, any> = (root, { tag, language }: UpsertVariables) =>
+const resolver: GraphQLFieldResolver<any, Context> = (root, { tag }: Vars, { language }) =>
   rawUpsert(db(), `SELECT upsert_tag('${stringifyJSON(tag)}', '${language}')`);
 
-const queryResolver: GraphQLFieldResolver<any, any> = (root, args: UpsertVariables, context, info) =>
-  isInputValidResolver(Schema).createResolver(upsertI18nResolver(resolver))(root, args, context, info);
+const queryResolver = isInputValidResolver(Schema).createResolver(resolver);
 
 const upsertTag = isSuperadminResolver.createResolver(
   queryResolver,

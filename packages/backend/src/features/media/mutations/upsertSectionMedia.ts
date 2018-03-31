@@ -1,24 +1,22 @@
 import { GraphQLFieldResolver } from 'graphql';
 import Joi from 'joi';
-import { isAdminResolver, isInputValidResolver, upsertI18nResolver, ValidationError } from '../../../apollo';
+import { isAdminResolver, isInputValidResolver, ValidationError } from '../../../apollo';
 import db, { rawUpsert, stringifyJSON } from '../../../db';
 import { MEDIA, moveTempImage } from '../../../minio';
 import { MediaInput, MediaInputSchema } from '../../../ww-commons';
 import { MediaRaw } from '../types';
 
-interface UpsertVariables {
+interface Vars {
   sectionId: string;
   media: MediaInput;
-  language?: string;
 }
 
 const Schema = Joi.object().keys({
   sectionId: Joi.string().uuid(),
   media: MediaInputSchema,
-  language: Joi.string().optional(),
 });
 
-const resolver: GraphQLFieldResolver<any, any> =  async (root, { media, sectionId, language }: UpsertVariables) => {
+const resolver: GraphQLFieldResolver<any, any> =  async (root, { media, sectionId }: Vars, { language }) => {
   try {
     const result: MediaRaw = await rawUpsert(
       db(),
@@ -40,8 +38,7 @@ const resolver: GraphQLFieldResolver<any, any> =  async (root, { media, sectionI
   }
 };
 
-const queryResolver: GraphQLFieldResolver<any, any> = (root, args: UpsertVariables, context, info) =>
-  isInputValidResolver(Schema).createResolver(upsertI18nResolver(resolver))(root, args, context, info);
+const queryResolver = isInputValidResolver(Schema).createResolver(resolver);
 
 const upsertSectionMedia = isAdminResolver.createResolver(
   queryResolver,

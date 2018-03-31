@@ -1,6 +1,5 @@
 type Region {
   id: ID!
-  language: String!
   name: String!
   description: String
   season: String
@@ -50,11 +49,11 @@ type RegionsList {
 }
 
 type Query {
-  regions(language: String, page: Page): RegionsList!
-  region(id: ID, language: String): Region
+  regions(page: Page): RegionsList!
+  region(id: ID): Region
 }
 
 type Mutation {
-  upsertRegion(region: RegionInput!, language: String): Region
+  upsertRegion(region: RegionInput!): Region
   removeRegion(id: ID!): ID
 }

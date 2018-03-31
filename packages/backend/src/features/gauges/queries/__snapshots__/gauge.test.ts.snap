@@ -15,7 +15,6 @@ Object {
       3.3,
     ],
     "id": "0c86ff2c-bbdd-11e7-abc4-cec278b6b50a",
-    "language": "en",
   },
   "name": "Galicia gauge 1",
   "requestParams": Object {
@@ -24,7 +23,6 @@ Object {
   "source": Object {
     "harvestMode": "allAtOnce",
     "id": "6d0d717e-aa9d-11e7-abc4-cec278b6b50a",
-    "language": "en",
     "name": "Galicia",
     "script": "galicia",
   },

@@ -10,7 +10,6 @@ jest.mock('graphql-fields', () => jest.fn());
 const minPrimitives = {
   __typename: {},
   id: {},
-  language: {},
   name: {},
 };
 
@@ -41,7 +40,6 @@ const media = {
   nodes: {
     __typename: {},
     id: {},
-    language: {},
     url: {},
   },
   count: {},
@@ -49,7 +47,7 @@ const media = {
 
 const info: GraphQLResolveInfo = {} as any;
 
-const options = { info, context: adminContext, knex: db(true) };
+const options = { info, context: adminContext(), knex: db(true) };
 
 describe('details', () => {
   it('should build correct query without connections', () => {

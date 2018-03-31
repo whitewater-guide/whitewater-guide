@@ -39,10 +39,9 @@ const optionalSource: SourceInput = {
 };
 
 const mutation = `
-  mutation upsertSource($source: SourceInput!, $language: String){
-    upsertSource(source: $source, language: $language){
+  mutation upsertSource($source: SourceInput!){
+    upsertSource(source: $source){
       id
-      language
       name
       termsOfUse
       script
@@ -58,13 +57,13 @@ const mutation = `
 
 describe('resolvers chain', () => {
   test('anon should not pass', async () => {
-    const result = await runQuery(mutation, { source: requiredSource }, anonContext);
+    const result = await runQuery(mutation, { source: requiredSource }, anonContext());
     expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
     expect(result).toHaveProperty('data.upsertSource', null);
   });
 
   test('user should not pass', async () => {
-    const result = await runQuery(mutation, { source: requiredSource }, userContext);
+    const result = await runQuery(mutation, { source: requiredSource }, userContext());
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.upsertSource', null);
   });
@@ -80,7 +79,7 @@ describe('resolvers chain', () => {
       termsOfUse: 'New terms of use',
       regions: [{ id: 'aaaa' }],
     };
-    const result = await runQuery(mutation, { source: input }, adminContext);
+    const result = await runQuery(mutation, { source: input }, adminContext());
     expect(result).toHaveProperty('errors.0.name', 'ValidationError');
     expect(result.data).toBeDefined();
     expect(result.data!.upsertSource).toBeNull();
@@ -93,7 +92,7 @@ describe('insert', () => {
   let insertedSource: any;
 
   beforeEach(async () => {
-    insertResult = await runQuery(mutation, { source: requiredSource }, adminContext);
+    insertResult = await runQuery(mutation, { source: requiredSource }, adminContext());
     insertedSource = insertResult && insertResult.data && insertResult.data.upsertSource;
   });
 
@@ -143,7 +142,7 @@ describe('update', () => {
 
   beforeEach(async () => {
     oldSource = await db().table('sources').where({ id: optionalSource.id }).first();
-    updateResult = await runQuery(mutation, { source: optionalSource }, adminContext);
+    updateResult = await runQuery(mutation, { source: optionalSource }, adminContext());
     updatedSource = updateResult && updateResult.data && updateResult.data.upsertSource;
   });
 
@@ -179,7 +178,7 @@ describe('update', () => {
   });
 
   test('should not change enabled sources', async () => {
-    const result = await runQuery(mutation, { source: { ...optionalSource, id: SOURCE_GALICIA_2 } }, adminContext);
+    const result = await runQuery(mutation, { source: { ...optionalSource, id: SOURCE_GALICIA_2 } }, adminContext());
     expect(result.errors).toBeDefined();
     expect(result.data!.upsertSource).toBeNull();
     expect(result).toHaveProperty('errors.0.name', 'MutationNotAllowedError');
@@ -216,12 +215,11 @@ describe('i18n', () => {
   };
 
   it('should add new translation', async () => {
-    const result = await runQuery(mutation, { source: georgiaRu, language: 'ru' }, adminContext);
+    const result = await runQuery(mutation, { source: georgiaRu }, adminContext('ru'));
     expect(result.errors).toBeUndefined();
     expect(result.data!.upsertSource).toMatchObject({
       id: SOURCE_GEORGIA,
       name: 'Грузия',
-      language: 'ru',
     });
     const translation = await db().table('sources_translations').select()
       .where({ source_id: SOURCE_GEORGIA, language: 'ru' })
@@ -230,18 +228,17 @@ describe('i18n', () => {
   });
 
   it('should modify common props in other language', async () => {
-    await runQuery(mutation, { source: georgiaRu, language: 'ru' }, adminContext);
+    await runQuery(mutation, { source: georgiaRu }, adminContext('ru'));
     const commons = await db().table('sources').select('cron')
       .where({ id: SOURCE_GEORGIA }).first();
     expect(commons.cron).toBe(georgiaRu.cron);
   });
 
   it('should modify translation', async () => {
-    const result = await runQuery(mutation, { source: galiciaRu, language: 'ru' }, adminContext);
+    const result = await runQuery(mutation, { source: galiciaRu }, adminContext('ru'));
     expect(result.errors).toBeUndefined();
     expect(result.data!.upsertSource).toMatchObject({
       id: SOURCE_GALICIA_1,
-      language: 'ru',
       name: 'Новая Галисия',
       termsOfUse: 'Правила пользования новой галисией',
     });
@@ -250,7 +247,6 @@ describe('i18n', () => {
       .first();
     expect(translation).toMatchObject({
       source_id: SOURCE_GALICIA_1,
-      language: 'ru',
       name: 'Новая Галисия',
       terms_of_use: 'Правила пользования новой галисией',
     });
@@ -259,6 +255,6 @@ describe('i18n', () => {
 
 it('should sanitize input', async () => {
   let dirty = { ...requiredSource, name: "it's a \\ slash" };
-  const result = await runQuery(mutation, { source: dirty }, adminContext);
+  const result = await runQuery(mutation, { source: dirty }, adminContext());
   expect(result).toHaveProperty('data.upsertSource.name', "it's a \\ slash");
 });

@@ -14,7 +14,6 @@ const query = `
   mutation toggleSource($id: ID!, $enabled: Boolean!){
     toggleSource(id: $id, enabled: $enabled) {
       id
-      language
       enabled
     }
   }
@@ -32,14 +31,14 @@ afterEach(rollbackTransaction);
 
 describe('resolvers chain', () => {
   test('anon should not pass', async () => {
-    const result = await runQuery(query, gal1, anonContext);
+    const result = await runQuery(query, gal1, anonContext());
     expect(result.errors).toBeDefined();
     expect(result.data).toBeDefined();
     expect(result.data!.toggleSource).toBeNull();
   });
 
   test('user should not pass', async () => {
-    const result = await runQuery(query, gal1, userContext);
+    const result = await runQuery(query, gal1, userContext());
     expect(result.errors).toBeDefined();
     expect(result.data).toBeDefined();
     expect(result.data!.toggleSource).toBeNull();
@@ -48,7 +47,7 @@ describe('resolvers chain', () => {
 
 describe('effects', () => {
   it('should not enable all-at-once sources without cron', async () => {
-    const result = await runQuery(query, gal2, adminContext);
+    const result = await runQuery(query, gal2, adminContext());
     expect(result.errors).toBeDefined();
     expect(result.data!.toggleSource).toBeNull();
     expect(result).toHaveProperty('errors.0.name', 'MutationNotAllowedError');
@@ -56,30 +55,28 @@ describe('effects', () => {
   });
 
   it('should enable', async () => {
-    const result = await runQuery(query, gal1, adminContext);
+    const result = await runQuery(query, gal1, adminContext());
     expect(result.errors).toBeUndefined();
     expect(result.data!.toggleSource).toMatchObject({
       ...gal1,
-      language: 'en',
     });
   });
 
   it('should start jobs', async () => {
-    await runQuery(query, gal1, adminContext);
+    await runQuery(query, gal1, adminContext());
     expect(startJobs).lastCalledWith(SOURCE_GALICIA_1);
   });
 
   it('should disable', async () => {
-    const result = await runQuery(query, nor, adminContext);
+    const result = await runQuery(query, nor, adminContext());
     expect(result.errors).toBeUndefined();
     expect(result.data!.toggleSource).toMatchObject({
       ...nor,
-      language: 'en',
     });
   });
 
   it('should stop jobs', async () => {
-    await runQuery(query, { id: SOURCE_ALPS, enabled: false }, adminContext);
+    await runQuery(query, { id: SOURCE_ALPS, enabled: false }, adminContext());
     expect(stopJobs).lastCalledWith(SOURCE_ALPS);
   });
 });

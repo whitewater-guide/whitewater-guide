@@ -8,7 +8,6 @@ Object {
         "code": "ru1",
         "cron": null,
         "flowUnit": null,
-        "language": "en",
         "levelUnit": "m",
         "location": Object {
           "coordinates": Array [
@@ -17,12 +16,10 @@ Object {
             33,
           ],
           "kind": "gauge",
-          "language": "en",
         },
         "name": "Russia gauge 1",
         "requestParams": null,
         "source": Object {
-          "language": "en",
           "name": "Russia",
         },
         "url": "http://ww.guide/ru1",
@@ -31,7 +28,6 @@ Object {
         "code": "ru2",
         "cron": null,
         "flowUnit": "m3/s",
-        "language": "en",
         "levelUnit": "m",
         "location": Object {
           "coordinates": Array [
@@ -40,12 +36,10 @@ Object {
             66,
           ],
           "kind": "gauge",
-          "language": "en",
         },
         "name": "Russia gauge 2",
         "requestParams": null,
         "source": Object {
-          "language": "en",
           "name": "Russia",
         },
         "url": "http://ww.guide/ru2",

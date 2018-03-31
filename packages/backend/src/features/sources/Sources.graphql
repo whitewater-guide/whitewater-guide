@@ -6,7 +6,6 @@ enum HarvestMode {
 type Source {
   id: ID!
   name: String!
-  language: String!
   termsOfUse: String
   script: String!
   cron: String
@@ -47,12 +46,12 @@ type SourcesList {
 }
 
 type Query {
-  sources(language: String, page: Page): SourcesList!
-  source(id: ID, language: String): Source
+  sources(page: Page): SourcesList!
+  source(id: ID): Source
 }
 
 type Mutation {
-  upsertSource(source: SourceInput!, language: String): Source
+  upsertSource(source: SourceInput!): Source
   removeSource(id: ID!): ID
   toggleSource(id: ID!, enabled: Boolean!): Source
   autofillSource(id:ID!): [Gauge]

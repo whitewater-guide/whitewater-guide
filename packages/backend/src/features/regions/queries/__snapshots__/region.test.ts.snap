@@ -6,32 +6,26 @@ Object {
   "nodes": Array [
     Object {
       "id": "b77ef1b2-aaa0-11e7-abc4-cec278b6b50a",
-      "language": "en",
       "name": "Galicia gauge 2",
     },
     Object {
       "id": "aba8c106-aaa0-11e7-abc4-cec278b6b50a",
-      "language": "en",
       "name": "Galicia gauge 1",
     },
     Object {
       "id": "1628cb60-1a0a-11e8-accf-0ed5f89f718b",
-      "language": "en",
       "name": "Norway gauge 4",
     },
     Object {
       "id": "1628c340-1a0a-11e8-accf-0ed5f89f718b",
-      "language": "en",
       "name": "Norway gauge 3",
     },
     Object {
       "id": "cc55b1c0-aaa0-11e7-abc4-cec278b6b50a",
-      "language": "en",
       "name": "Norway gauge 2",
     },
     Object {
       "id": "c03184b4-aaa0-11e7-abc4-cec278b6b50a",
-      "language": "en",
       "name": "Norway gauge 1",
     },
   ],
@@ -44,12 +38,10 @@ Object {
   "nodes": Array [
     Object {
       "id": "a8416664-bfe3-11e7-abc4-cec278b6b50a",
-      "language": "en",
       "name": "Gal_Riv_One",
     },
     Object {
       "id": "d69dbabc-bfe3-11e7-abc4-cec278b6b50a",
-      "language": "en",
       "name": "Gal_riv_two",
     },
   ],
@@ -62,12 +54,10 @@ Object {
   "nodes": Array [
     Object {
       "id": "3a6e3210-d529-11e7-9296-cec278b6b50a",
-      "language": "en",
       "name": "Gal_riv_1_sec_2",
     },
     Object {
       "id": "2b01742c-d443-11e7-9296-cec278b6b50a",
-      "language": "en",
       "name": "Gal_riv_1_sec_1",
     },
   ],
@@ -101,7 +91,6 @@ Object {
   "description": "Description of Galicia",
   "hidden": false,
   "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
-  "language": "en",
   "name": "Galicia",
   "pois": Array [
     Object {
@@ -113,7 +102,6 @@ Object {
       "description": "r1p1 description",
       "id": "573f995a-d55f-4faf-8f11-5a6016ab562f",
       "kind": "kayak-shop",
-      "language": "en",
       "name": "Region 1 Point 1",
     },
     Object {
@@ -125,7 +113,6 @@ Object {
       "description": "r1p2 description",
       "id": "d7530317-efac-44a7-92ff-8d045b2ac893",
       "kind": "other",
-      "language": "en",
       "name": "Region 1 Point 2",
     },
   ],

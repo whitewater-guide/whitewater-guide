@@ -1,10 +1,9 @@
 import gql from 'graphql-tag';
 
 export const LIST_TAGS = gql`
-  query listTags($language: String) {
-    tags(language: $language) {
+  query listTags {
+    tags {
       id
-      language
       name
       category
     }

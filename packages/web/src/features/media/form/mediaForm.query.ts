@@ -1,10 +1,9 @@
 import gql from 'graphql-tag';
 
 const MEDIA_FORM_QUERY = gql`
-  query mediaForm($mediaId: ID, $language: String) {
-    media(id: $mediaId, language: $language) {
+  query mediaForm($mediaId: ID) {
+    media(id: $mediaId) {
       id
-      language
       kind
       description
       copyright

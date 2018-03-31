@@ -10,7 +10,6 @@ jest.mock('graphql-fields', () => jest.fn());
 const primitives = {
   __typename: {},
   id: {},
-  language: {},
   name: {},
   altNames: {},
   createdAt: {},
@@ -30,7 +29,6 @@ const withSections = {
     nodes: {
       __typename: {},
       id: {},
-      language: {},
       name: {},
     },
     count: {},
@@ -42,13 +40,12 @@ const withRegion = {
   region: {
     id: {},
     name: {},
-    language: {},
   },
 };
 
 const info: GraphQLResolveInfo = {} as any;
 
-const options = { info, context: adminContext, knex: db(true) };
+const options = { info, context: adminContext(), knex: db(true) };
 
 describe('details', () => {
   it('should build correct query without connections', () => {

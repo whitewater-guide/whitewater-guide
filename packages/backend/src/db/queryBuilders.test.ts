@@ -46,14 +46,14 @@ describe('getPrimitives', () => {
   });
 
   it('should omit based on context', () => {
-    const userResult = getPrimitives<any>(topLevelFields, prefix, anonContext, ['connection'], ['oneToOne'], customMap);
+    const userResult = getPrimitives<any>(topLevelFields, prefix, anonContext(), ['connection'], ['oneToOne'], customMap);
     expect(userResult).not.toContain('tablename.admin');
-    const adminResult = getPrimitives<any>(topLevelFields, prefix, adminContext, ['connection'], ['oneToOne'], customMap);
+    const adminResult = getPrimitives<any>(topLevelFields, prefix, adminContext(), ['connection'], ['oneToOne'], customMap);
     expect(adminResult).toContain('tablename.admin');
   });
 
   it('should match snapshot', () => {
-    const userResult = getPrimitives<any>(topLevelFields, prefix, anonContext, ['connection'], ['oneToOne'], customMap);
+    const userResult = getPrimitives<any>(topLevelFields, prefix, anonContext(), ['connection'], ['oneToOne'], customMap);
     expect(userResult).toMatchSnapshot();
   });
 
@@ -62,7 +62,7 @@ describe('getPrimitives', () => {
 describe('buildRootQuery', () => {
   const commonOptions: QueryBuilderOptions<any> = {
     info: {} as any,
-    context: anonContext,
+    context: anonContext(),
     knex: db(true),
     table: 'tbl',
   };
@@ -82,12 +82,6 @@ describe('buildRootQuery', () => {
     expect(() => buildRootQuery({ ...commonOptions, info: undefined })).toThrow();
   });
 
-  it('should use english by default', () => {
-    graphqlFields.mockReturnValueOnce({ name: {} });
-    const query = buildRootQuery({ ...commonOptions, language: undefined });
-    expect(query).toMatchSnapshot();
-  });
-
   it('should alias table', () => {
     graphqlFields.mockReturnValueOnce({ b: {} });
     const query = buildRootQuery({ ...commonOptions, tableAlias: 'als' });
@@ -95,8 +89,8 @@ describe('buildRootQuery', () => {
   });
 
   it('should specify language, id, sort order', () => {
-    graphqlFields.mockReturnValueOnce({ b: {}, id: {}, language: {} });
-    const query = buildRootQuery({ ...commonOptions, id: 'foo', language: 'en', orderBy: 'b'  });
+    graphqlFields.mockReturnValueOnce({ b: {}, id: {} });
+    const query = buildRootQuery({ ...commonOptions, id: 'foo', context: anonContext('ru'), orderBy: 'b'  });
     expect(query).toMatchSnapshot();
   });
 
@@ -151,7 +145,7 @@ describe('buildRootQuery', () => {
 describe('build list query', () => {
   const commonOptions: ListQueryBuilderOptions<any> = {
     info: {} as any,
-    context: anonContext,
+    context: anonContext(),
     knex: db(true),
     table: 'regions_view',
   };
@@ -212,7 +206,7 @@ describe('attachConnection', () => {
     options = {
       query: rootQuery.clone(),
       fieldsTree: { nodes: { id: {}, name: {} }, count: {} },
-      context: adminContext,
+      context: adminContext(),
       name: 'regions',
       knex: db(true),
       build: builder,

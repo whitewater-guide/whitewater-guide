@@ -8,7 +8,6 @@ const query = `
   mutation generateSourceSchedule($id: ID!){
     generateSourceSchedule(id: $id) {
       id
-      language
       cron
     }
   }
@@ -19,14 +18,14 @@ afterEach(rollbackTransaction);
 
 describe('resolvers chain', () => {
   it('anon should not pass', async () => {
-    const result = await runQuery(query, { id: SOURCE_GALICIA_1 }, anonContext);
+    const result = await runQuery(query, { id: SOURCE_GALICIA_1 }, anonContext());
     expect(result.errors).toBeDefined();
     expect(result.data).toBeDefined();
     expect(result.data!.generateSourceSchedule).toBeNull();
   });
 
   it('user should not pass', async () => {
-    const result = await runQuery(query, { id: SOURCE_GALICIA_1 }, userContext);
+    const result = await runQuery(query, { id: SOURCE_GALICIA_1 }, userContext());
     expect(result.errors).toBeDefined();
     expect(result.data).toBeDefined();
     expect(result.data!.generateSourceSchedule).toBeNull();
@@ -36,7 +35,7 @@ describe('resolvers chain', () => {
 describe('effects', () => {
 
   it('should fail for all-at-once sources', async () => {
-    const result = await runQuery(query, { id: SOURCE_GALICIA_1 }, adminContext);
+    const result = await runQuery(query, { id: SOURCE_GALICIA_1 }, adminContext());
     expect(result.errors).toBeDefined();
     expect(result.data!.generateSourceSchedule).toBeNull();
     expect(result).toHaveProperty('errors.0.name', 'MutationNotAllowedError');
@@ -44,7 +43,7 @@ describe('effects', () => {
   });
 
   it('should fail for enabled sources', async () => {
-    const result = await runQuery(query, { id: SOURCE_NORWAY }, adminContext);
+    const result = await runQuery(query, { id: SOURCE_NORWAY }, adminContext());
     expect(result.errors).toBeDefined();
     expect(result.data!.generateSourceSchedule).toBeNull();
     expect(result).toHaveProperty('errors.0.name', 'MutationNotAllowedError');
@@ -52,7 +51,7 @@ describe('effects', () => {
   });
 
   it('should return gauges with crons', async () => {
-    const result = await runQuery(query, { id: SOURCE_GEORGIA }, adminContext);
+    const result = await runQuery(query, { id: SOURCE_GEORGIA }, adminContext());
     expect(result.errors).toBeUndefined();
     expect(result.data!.generateSourceSchedule).toMatchObject([
       { id: GAUGE_GEO_1, cron: '0 * * * *' },

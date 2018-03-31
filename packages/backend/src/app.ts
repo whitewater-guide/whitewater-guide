@@ -1,6 +1,7 @@
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import express from 'express';
+import requestLanguage from 'express-request-language';
 import { graphqlRouter } from './apollo/router';
 import { authRouter, passport, sessionMiddleware } from './auth';
 import getOrigin from './auth/getOrigin';
@@ -21,6 +22,7 @@ app.use(cors({
   },
   credentials: true,
 }));
+app.use(requestLanguage({ languages: ['en', 'ru', 'es', 'de', 'fr', 'pt', 'it'] }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(sessionMiddleware());

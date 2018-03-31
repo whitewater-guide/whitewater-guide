@@ -38,8 +38,7 @@ const resolver: GraphQLFieldResolver<any, any> = async (root, { id }: RemoveVari
     WHERE g.id = v.id
     RETURNING g.id, g.cron
   `);
-  // TODO: use context language
-  return result.rows.map((g: GaugeRaw) => ({ ...g, language: 'en' }));
+  return result.rows.map((g: GaugeRaw) => ({ ...g }));
 };
 
 const generateSourceSchedule = isAdminResolver.createResolver(

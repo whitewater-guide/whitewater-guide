@@ -13,10 +13,8 @@ Object {
       "flows": null,
       "flowsText": "Playrun flows",
       "gauge": Object {
-        "language": "en",
         "name": "Norway gauge 1",
       },
-      "language": "en",
       "levels": Object {
         "approximate": false,
         "impossible": null,
@@ -32,7 +30,6 @@ Object {
             12,
             0,
           ],
-          "language": "en",
           "name": "playrun pt 1",
         },
         Object {
@@ -41,7 +38,6 @@ Object {
             34,
             0,
           ],
-          "language": "en",
           "name": "playrun pt 2",
         },
       ],
@@ -51,16 +47,13 @@ Object {
           33,
           0,
         ],
-        "language": "en",
         "name": "Put-in",
       },
       "rating": 5,
       "region": Object {
-        "language": "en",
         "name": "Norway",
       },
       "river": Object {
-        "language": "en",
         "name": "Sjoa",
       },
       "season": "Playrun season",
@@ -83,11 +76,9 @@ Object {
       ],
       "tags": Array [
         Object {
-          "language": "en",
           "name": "Waterfalls",
         },
         Object {
-          "language": "en",
           "name": "Undercuts",
         },
       ],
@@ -97,7 +88,6 @@ Object {
           42,
           0,
         ],
-        "language": "en",
         "name": "Take-out",
       },
     },
@@ -159,10 +149,8 @@ Object {
       "flows": null,
       "flowsText": "Playrun flows",
       "gauge": Object {
-        "language": "en",
         "name": "Galicia gauge 1",
       },
-      "language": "en",
       "levels": Object {
         "approximate": false,
         "impossible": null,
@@ -178,7 +166,6 @@ Object {
             2.3,
             3.4,
           ],
-          "language": "en",
           "name": "Updated poi name",
         },
         Object {
@@ -187,7 +174,6 @@ Object {
             77,
             88,
           ],
-          "language": "en",
           "name": "Updated new poi 1 name",
         },
         Object {
@@ -196,7 +182,6 @@ Object {
             50.2,
             333,
           ],
-          "language": "en",
           "name": "Updated new poi 2 name",
         },
       ],
@@ -206,16 +191,13 @@ Object {
           33,
           0,
         ],
-        "language": "en",
         "name": "Put-in",
       },
       "rating": 5,
       "region": Object {
-        "language": "en",
         "name": "Galicia",
       },
       "river": Object {
-        "language": "en",
         "name": "Gal_Riv_One",
       },
       "season": "Playrun season",
@@ -238,15 +220,12 @@ Object {
       ],
       "tags": Array [
         Object {
-          "language": "en",
           "name": "Creeking",
         },
         Object {
-          "language": "en",
           "name": "Undercuts",
         },
         Object {
-          "language": "en",
           "name": "Snowmelt",
         },
       ],
@@ -256,7 +235,6 @@ Object {
           42,
           0,
         ],
-        "language": "en",
         "name": "Take-out",
       },
     },

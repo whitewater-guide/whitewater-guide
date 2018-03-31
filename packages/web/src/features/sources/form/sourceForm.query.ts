@@ -1,11 +1,10 @@
 import gql from 'graphql-tag';
 
 export default gql`
-  query sourceForm($sourceId: ID, $language: String) {
-    source(id: $sourceId, language: $language) {
+  query sourceForm($sourceId: ID) {
+    source(id: $sourceId) {
       id
       name
-      language
       termsOfUse
       script
       cron
@@ -14,16 +13,14 @@ export default gql`
       regions {
         nodes {
           id
-          language
           name
         }
       }
     }
 
-    regions(language: $language) {
+    regions {
       nodes {
         id
-        language
         name
       }
       count

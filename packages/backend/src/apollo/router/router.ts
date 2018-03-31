@@ -14,7 +14,7 @@ graphqlRouter.use(
     return {
       schema,
       debug: process.env.NODE_ENV !== 'production',
-      context: newContext(req!.user),
+      context: newContext(req!),
       formatError,
     };
   }),

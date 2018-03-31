@@ -9,11 +9,9 @@ Object {
         Object {
           "altNames": Array [],
           "id": "e7a25ab6-d528-11e7-9296-cec278b6b50a",
-          "language": "en",
           "name": "Finna",
           "region": Object {
             "id": "b968e2b2-76c5-11e7-b5a5-be2e44b06b34",
-            "language": "en",
             "name": "Norway",
           },
           "sections": Object {
@@ -24,11 +22,9 @@ Object {
         Object {
           "altNames": Array [],
           "id": "a8416664-bfe3-11e7-abc4-cec278b6b50a",
-          "language": "en",
           "name": "Gal_Riv_One",
           "region": Object {
             "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
-            "language": "en",
             "name": "Galicia",
           },
           "sections": Object {
@@ -36,12 +32,10 @@ Object {
             "nodes": Array [
               Object {
                 "id": "2b01742c-d443-11e7-9296-cec278b6b50a",
-                "language": "en",
                 "name": "Gal_riv_1_sec_1",
               },
               Object {
                 "id": "3a6e3210-d529-11e7-9296-cec278b6b50a",
-                "language": "en",
                 "name": "Gal_riv_1_sec_2",
               },
             ],
@@ -50,11 +44,9 @@ Object {
         Object {
           "altNames": Array [],
           "id": "d69dbabc-bfe3-11e7-abc4-cec278b6b50a",
-          "language": "en",
           "name": "Gal_riv_two",
           "region": Object {
             "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
-            "language": "en",
             "name": "Galicia",
           },
           "sections": Object {
@@ -68,11 +60,9 @@ Object {
             "Sjøa",
           ],
           "id": "d4396dac-d528-11e7-9296-cec278b6b50a",
-          "language": "en",
           "name": "Sjoa",
           "region": Object {
             "id": "b968e2b2-76c5-11e7-b5a5-be2e44b06b34",
-            "language": "en",
             "name": "Norway",
           },
           "sections": Object {
@@ -80,7 +70,6 @@ Object {
             "nodes": Array [
               Object {
                 "id": "21f2351e-d52a-11e7-9296-cec278b6b50a",
-                "language": "en",
                 "name": "Amot",
               },
             ],

@@ -1,7 +1,6 @@
 type Gauge {
   id: ID!
   name: String!
-  language: String!
   code: String!
   location: Point
   levelUnit: String
@@ -18,7 +17,6 @@ type Gauge {
   status: HarvestStatus
 
   source: Source!
-  # measurements(startDate:Date!, endDate:Date!): [Measurement]!
 }
 
 input GaugeInput {
@@ -40,12 +38,12 @@ type GaugesList {
 }
 
 type Query {
-  gauges(sourceId: ID, language: String, page: Page): GaugesList!
-  gauge(id: ID, language:String): Gauge
+  gauges(sourceId: ID, page: Page): GaugesList!
+  gauge(id: ID): Gauge
 }
 
 type Mutation {
-  upsertGauge(gauge:GaugeInput!, language:String): Gauge
+  upsertGauge(gauge:GaugeInput!): Gauge
   removeGauge(id: ID!): ID
   toggleGauge(id: ID!, enabled: Boolean!): Gauge
   toggleAllGauges(sourceId: ID!, enabled: Boolean!): [Gauge]

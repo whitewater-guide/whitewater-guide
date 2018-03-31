@@ -11,22 +11,20 @@ export const sectionFieldResolvers: FieldResolvers<SectionRaw, Section> = {
   altNames: section => section.alt_names,
   seasonNumeric: section => section.season_numeric,
   difficultyXtra: section => section.difficulty_xtra,
-  putIn: ({ id, language, put_in }) => {
+  putIn: ({ id, put_in }) => {
     return {
       id: `${id}_putIn`,
       name: 'Put-in',
       description: null,
-      language,
       kind: 'put-in',
       coordinates: put_in, // Will be parsed in Point resolver
     };
   },
-  takeOut: ({ id, language, take_out }) => {
+  takeOut: ({ id, take_out }) => {
     return {
       id: `${id}_takeOut`,
       name: 'Take-out',
       description: null,
-      language,
       kind: 'take-out',
       coordinates: take_out,
     };
@@ -38,23 +36,23 @@ export const sectionFieldResolvers: FieldResolvers<SectionRaw, Section> = {
   },
   pois: section => section.pois || [],
   tags: section => section.tags || [],
-  region: ({ region, region_id }, { language }, context, info) => {
+  region: ({ region, region_id }, _, context, info) => {
     if (region) {
       return region;
     }
-    return buildRegionQuery({ language, id: region_id, info, context }).first();
+    return buildRegionQuery({ id: region_id, info, context }).first();
   },
-  river: ({ river, river_id }, { language }, context, info) => {
+  river: ({ river, river_id }, _, context, info) => {
     if (river) {
       return river;
     }
-    return buildRiverQuery({ language, id: river_id, info, context }).first();
+    return buildRiverQuery({ id: river_id, info, context }).first();
   },
-  gauge: ({ gauge, gauge_id }, { language }, context, info) => {
+  gauge: ({ gauge, gauge_id }, _, context, info) => {
     if (gauge) {
       return gauge;
     } else if (gauge_id) {
-      return buildGaugeQuery({ language, id: gauge_id, info, context }).first();
+      return buildGaugeQuery({ id: gauge_id, info, context }).first();
     }
     return null;
   },

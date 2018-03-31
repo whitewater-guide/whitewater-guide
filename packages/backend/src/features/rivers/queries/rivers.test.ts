@@ -1,26 +1,24 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
+import { userContext } from '../../../test/context';
 import { noTimestamps, runQuery } from '../../../test/db-helpers';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
 const query = `
-  query listRivers($language: String, $page: Page, $filter: RiversFilter){
-    rivers(language: $language, page: $page, filter: $filter) {
+  query listRivers($page: Page, $filter: RiversFilter){
+    rivers(page: $page, filter: $filter) {
       nodes {
         id
-        language
         name
         altNames
         region {
           id
-          language
           name
         }
         sections {
           nodes {
             id
-            language
             name
           }
           count
@@ -58,14 +56,14 @@ it('should paginate', async () => {
 });
 
 it('should be able to specify language', async () => {
-  const result = await runQuery(query, { language: 'ru' });
+  const result = await runQuery(query, { }, userContext('ru'));
   expect(result.errors).toBeUndefined();
   expect(result).toHaveProperty('data.rivers.nodes.0.name', 'Not translated');
   expect(result).toHaveProperty('data.rivers.nodes.2.name', 'Гал_Река_Один');
 });
 
 it('should return empty array of alt names when not translated', async () => {
-  const result = await runQuery(query, { language: 'ru' });
+  const result = await runQuery(query, { }, userContext('ru'));
   expect(result).toHaveProperty('data.rivers.nodes.0.altNames', []);
 });
 

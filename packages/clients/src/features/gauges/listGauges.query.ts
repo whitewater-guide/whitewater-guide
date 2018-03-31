@@ -2,8 +2,8 @@ import gql from 'graphql-tag';
 import { GaugeFragments } from './gaugeFragments';
 
 export default gql`
-  query listGauges($sourceId: ID, $language:String, $page: Page) {
-    gauges(sourceId:$sourceId, language: $language, page: $page) {
+  query listGauges($sourceId: ID, $page: Page) {
+    gauges(sourceId: $sourceId, page: $page) {
       nodes {
         ...GaugeCore
         ...GaugeLocation

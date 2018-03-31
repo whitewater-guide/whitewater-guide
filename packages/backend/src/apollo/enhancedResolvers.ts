@@ -73,9 +73,3 @@ export const isInputValidResolver = (schema: Joi.Schema) => baseResolver.createR
     }
   },
 );
-
-export const upsertI18nResolver = <TSource, TContext>(resolver: GraphQLFieldResolver<TSource, TContext>) =>
-  (source: TSource, args: any, context: TContext, info: any) => {
-    const { language = 'en', ...rest } = args;
-    return resolver(source, { language, ...rest }, context, info);
-  };

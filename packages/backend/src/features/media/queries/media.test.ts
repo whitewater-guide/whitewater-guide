@@ -1,5 +1,6 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
 import { BLOG_1, PHOTO_1 } from '../../../seeds/test/10_media';
+import { userContext } from '../../../test/context';
 import { noTimestamps, runQuery } from '../../../test/db-helpers';
 import { ThumbResize } from '../../../ww-commons';
 
@@ -7,10 +8,9 @@ beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
 const query = `
-  query media($id: ID, $language: String){
-    media(id: $id, language: $language) {
+  query media($id: ID){
+    media(id: $id) {
       id
-      language
       kind
       description
       copyright
@@ -36,21 +36,20 @@ it('should return null when id not specified', async () => {
 });
 
 it('should be able to specify language', async () => {
-  const result = await runQuery(query, { id: PHOTO_1, language: 'ru' });
+  const result = await runQuery(query, { id: PHOTO_1 }, userContext('ru'));
   expect(result).toHaveProperty('data.media.description', 'Фото 1 описание');
 });
 
 it('should be able to get basic attributes without translation', async () => {
-  const result = await runQuery(query, { id: PHOTO_1, language: 'pt' });
+  const result = await runQuery(query, { id: PHOTO_1 }, userContext('pt'));
   expect(result).toHaveProperty('data.media.kind', 'photo');
 });
 
 it('should return thumb', async () => {
   const thumbQuery = `
-    query media($id: ID, $language: String, $thumbOpts: ThumbOptions){
-      media(id: $id, language: $language) {
+    query media($id: ID, $thumbOpts: ThumbOptions){
+      media(id: $id) {
         id
-        language
         thumb(options: $thumbOpts)
       }
     }`;

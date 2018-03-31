@@ -2,11 +2,10 @@ import gql from 'graphql-tag';
 import { THUMB_HEIGHT } from './constants';
 
 const SECTIONS_MEDIA = gql`
-  query sectionMedia($sectionId: ID!, $language: String) {
-    mediaBySection(sectionId: $sectionId, language: $language) {
+  query sectionMedia($sectionId: ID!) {
+    mediaBySection(sectionId: $sectionId) {
       nodes {
         id
-        language
         kind
         description
         copyright

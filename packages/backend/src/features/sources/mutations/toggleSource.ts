@@ -23,8 +23,7 @@ const resolver: GraphQLFieldResolver<any, any> = async (root, { id, enabled }: T
   } else {
     await stopJobs(updatedSource.id!);
   }
-  // TODO: return context language
-  return { ...updatedSource, language: 'en' };
+  return { ...updatedSource };
 };
 
 const toggleSource = isAdminResolver.createResolver(

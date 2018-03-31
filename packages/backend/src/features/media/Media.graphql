@@ -18,7 +18,6 @@ input ThumbOptions {
 
 type Media {
   id: ID!
-  language: String
   kind: MediaKind!
   description: String
   copyright: String
@@ -53,12 +52,12 @@ type MediaUploadForm {
 }
 
 type Query {
-  mediaBySection(sectionId: ID!, language: String): MediasList!
-  media(id: ID, language: String): Media
+  mediaBySection(sectionId: ID!): MediasList!
+  media(id: ID): Media
   mediaForm(id: ID): MediaUploadForm
 }
 
 type Mutation {
-  upsertSectionMedia(sectionId: ID!, media: MediaInput!, language: String): Media
+  upsertSectionMedia(sectionId: ID!, media: MediaInput!): Media
   removeMedia(id: ID!): Media
 }

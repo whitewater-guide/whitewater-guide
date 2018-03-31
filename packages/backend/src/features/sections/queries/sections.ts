@@ -8,11 +8,11 @@ interface Query extends ListQuery {
 }
 
 const sections = baseResolver.createResolver(
-  (root, { language, page = {}, filter = {} }: Query, context, info) => {
+  (root, { page = {}, filter = {} }: Query, context, info) => {
     let { limit = 20, offset = 0 } = page;
     const { riverId, regionId, updatedAfter } = filter;
     limit = clamp(limit, 1, 100);
-    let query = buildSectionsListQuery({ info, context, language, page: { limit, offset } });
+    let query = buildSectionsListQuery({ info, context, page: { limit, offset } });
     if (riverId) {
       query = query.where({ river_id: riverId });
     } else if (regionId) {

@@ -27,27 +27,23 @@ beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
 const upsertQuery = `
-  mutation upsertSection($section: SectionInput!, $language: String){
-    upsertSection(section: $section, language: $language){
+  mutation upsertSection($section: SectionInput!){
+    upsertSection(section: $section){
       id
-      language
       name
       description
       season
       seasonNumeric
       region {
         id
-        language
         name
       }
       river {
         id
-        language
         name
       }
       gauge {
         id
-        language
         name
       }
       levels {
@@ -68,13 +64,11 @@ const upsertQuery = `
       putIn {
         id
         name
-        language
         coordinates
       }
       takeOut {
         id
         name
-        language
         coordinates
       }
       shape
@@ -86,7 +80,6 @@ const upsertQuery = `
       rating
       tags {
         id
-        language
         name
       }
       createdAt
@@ -94,7 +87,6 @@ const upsertQuery = `
       pois {
         id
         name
-        language
         coordinates
       }
     }
@@ -204,19 +196,19 @@ const invalidSection: SectionInput = {
 
 describe('resolvers chain', () => {
   it('anon should not pass', async () => {
-    const result = await runQuery(upsertQuery, { section: existingRiverSection }, anonContext);
+    const result = await runQuery(upsertQuery, { section: existingRiverSection }, anonContext());
     expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
     expect(result).toHaveProperty('data.upsertSection', null);
   });
 
   it('user should not pass', async () => {
-    const result = await runQuery(upsertQuery, { section: existingRiverSection }, userContext);
+    const result = await runQuery(upsertQuery, { section: existingRiverSection }, userContext());
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.upsertSection', null);
   });
 
   it('should fail on invalid input', async () => {
-    const result = await runQuery(upsertQuery, { section: invalidSection }, adminContext);
+    const result = await runQuery(upsertQuery, { section: invalidSection }, adminContext());
     expect(result).toHaveProperty('errors.0.name', 'ValidationError');
     expect(result.data).toBeDefined();
     expect(result.data!.upsertSection).toBeNull();
@@ -229,7 +221,7 @@ describe('insert', () => {
   let insertedSection: any;
 
   beforeEach(async () => {
-    insertResult = await runQuery(upsertQuery, { section: existingRiverSection }, adminContext);
+    insertResult = await runQuery(upsertQuery, { section: existingRiverSection }, adminContext());
     insertedSection = insertResult && insertResult.data && insertResult.data.upsertSection;
   });
 
@@ -267,7 +259,7 @@ describe('insert', () => {
 
   it('should correctly set created_by', async () => {
     const { created_by } = await db().table('sections').select(['created_by']).where({ id: insertedSection.id }).first();
-    expect(created_by).toBe(adminContext.user!.id);
+    expect(created_by).toBe(adminContext().user!.id);
   });
 });
 
@@ -284,7 +276,7 @@ describe('update', () => {
   });
 
   beforeEach(async () => {
-    updateResult = await runQuery(upsertQuery, { section: updateData }, adminContext);
+    updateResult = await runQuery(upsertQuery, { section: updateData }, adminContext());
     updatedSection = updateResult && updateResult.data && updateResult.data.upsertSection;
   });
 
@@ -374,7 +366,7 @@ describe('i18n', () => {
   };
 
   it('should add translation', async () => {
-    const upsertResult = await runQuery(upsertQuery, { section: amotFr, language: 'fr' }, adminContext);
+    const upsertResult = await runQuery(upsertQuery, { section: amotFr }, adminContext('fr'));
     expect(upsertResult.errors).toBeUndefined();
     const translation = await db().table('sections_translations').select()
       .where({ section_id: amotFr.id, language: 'fr' }).first();
@@ -382,7 +374,7 @@ describe('i18n', () => {
   });
 
   it('should modify common props when translation is added', async () => {
-    const upsertResult = await runQuery(upsertQuery, { section: amotFr, language: 'fr' }, adminContext);
+    const upsertResult = await runQuery(upsertQuery, { section: amotFr }, adminContext('fr'));
     expect(upsertResult.errors).toBeUndefined();
     const section = await db().table('sections').select()
       .where({ id: amotFr.id }).first();
@@ -390,7 +382,7 @@ describe('i18n', () => {
   });
 
   it('should modify translation', async () => {
-    const upsertResult = await runQuery(upsertQuery, { section: amotFr, language: 'ru' }, adminContext);
+    const upsertResult = await runQuery(upsertQuery, { section: amotFr }, adminContext('ru'));
     expect(upsertResult.errors).toBeUndefined();
     const translation = await db().table('sections_translations').select()
       .where({ section_id: amotFr.id, language: 'ru' }).first();
@@ -412,7 +404,7 @@ describe('i18n', () => {
         coordinates: [2.1, 2.3, 3.4], // was [1.2, 3.2, 4.3]
       }],
     };
-    const upsertResult = await runQuery(upsertQuery, { section: updateRu, language: 'ru' }, adminContext);
+    const upsertResult = await runQuery(upsertQuery, { section: updateRu }, adminContext('ru'));
     expect(upsertResult.errors).toBeUndefined();
     const translation = await db().table('points_translations').select()
       .where({ language: 'ru', point_id: updateRu.pois[0].id }).first();
@@ -426,7 +418,7 @@ describe('i18n', () => {
 it('should sanitize input', async () => {
   let dirty = { ...existingRiverSection, name: "it's a \\ slash" };
   dirty = set('pois.0.name', "it's a \\ slash", dirty);
-  const result = await runQuery(upsertQuery, { section: dirty }, adminContext);
+  const result = await runQuery(upsertQuery, { section: dirty }, adminContext());
   expect(result).toHaveProperty('data.upsertSection.name', "it's a \\ slash");
   expect(result).toHaveProperty('data.upsertSection.pois.0.name', "it's a \\ slash");
 });

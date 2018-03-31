@@ -1,10 +1,9 @@
 import gql from 'graphql-tag';
 
 export const SOURCE_NAME = gql`
-  query sourceName($id: ID!, $language:String) {
-    source(id: $id, language: $language) {
+  query sourceName($id: ID!) {
+    source(id: $id) {
       id
-      language
       name
     }
   }

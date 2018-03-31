@@ -1,14 +1,14 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
+import { userContext } from '../../../test/context';
 import { noTimestamps, runQuery } from '../../../test/db-helpers';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
 const query = `
-  query sectionDetails($id: ID, $language: String){
-    section(id: $id, language: $language) {
+  query sectionDetails($id: ID){
+    section(id: $id) {
       id
-      language
       name
       description
       season
@@ -30,7 +30,6 @@ const query = `
       flowsText
       putIn {
         id
-        language
         name
         description
         kind
@@ -38,7 +37,6 @@ const query = `
       }
       takeOut {
         id
-        language
         name
         description
         kind
@@ -53,14 +51,12 @@ const query = `
       rating
       tags {
         id
-        language
         name
       }
       createdAt
       updatedAt
       pois {
         id
-        language
         name
         description
         kind
@@ -80,14 +76,12 @@ it('should return simple data', async () => {
 
 it('should return river', async () => {
   const riverQuery = `
-    query sectionDetails($id: ID, $language: String){
-      section(id: $id, language: $language) {
+    query sectionDetails($id: ID){
+      section(id: $id) {
         id
-        language
         name
         river {
           id
-          language
           name
         }
       }
@@ -100,14 +94,12 @@ it('should return river', async () => {
 
 it('should return gauge', async () => {
   const gaugeQuery = `
-    query sectionDetails($id: ID, $language: String){
-      section(id: $id, language: $language) {
+    query sectionDetails($id: ID){
+      section(id: $id) {
         id
-        language
         name
         gauge {
           id
-          language
           name
         }
       }
@@ -120,14 +112,12 @@ it('should return gauge', async () => {
 
 it('should return region', async () => {
   const regionQuery = `
-    query sectionDetails($id: ID, $language: String){
-      section(id: $id, language: $language) {
+    query sectionDetails($id: ID){
+      section(id: $id) {
         id
-        language
         name
         region {
           id
-          language
           name
         }
       }
@@ -146,13 +136,13 @@ it('should return null when id not specified', async () => {
 });
 
 it('should be able to specify language', async () => {
-  const result = await runQuery(query, { id: '21f2351e-d52a-11e7-9296-cec278b6b50a', language: 'ru' }); // Amot
+  const result = await runQuery(query, { id: '21f2351e-d52a-11e7-9296-cec278b6b50a' }, userContext('ru')); // Amot
   expect(result.errors).toBeUndefined();
   expect(result).toHaveProperty('data.section.name', 'Амот');
 });
 
 it('should return basic attributes when not translated', async () => {
-  const result = await runQuery(query, { id: '21f2351e-d52a-11e7-9296-cec278b6b50a', language: 'pt' }); // Amot
+  const result = await runQuery(query, { id: '21f2351e-d52a-11e7-9296-cec278b6b50a' }, userContext('pt')); // Amot
   expect(result.errors).toBeUndefined();
   expect(result).toHaveProperty('data.section.name', 'Not translated');
   expect(result).toHaveProperty('data.section.rating', 5);

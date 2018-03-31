@@ -1,21 +1,19 @@
 import { GraphQLFieldResolver } from 'graphql';
 import Joi from 'joi';
-import { isAdminResolver, isInputValidResolver, MutationNotAllowedError } from '../../../apollo';
+import { Context, isAdminResolver, isInputValidResolver, MutationNotAllowedError } from '../../../apollo';
 import db, { rawUpsert, stringifyJSON } from '../../../db';
 import { SourceInput, SourceInputSchema } from '../../../ww-commons';
 
-interface UpsertVariables {
+interface Vars {
   source: SourceInput;
-  language?: string;
 }
 
 const Schema = Joi.object().keys({
   source: SourceInputSchema,
-  language: Joi.string().optional(),
 });
 
-const resolver: GraphQLFieldResolver<any, any> = async (root, args: UpsertVariables) => {
-  const { source, language = 'en' } = args;
+const resolver: GraphQLFieldResolver<any, Context> = async (root, args: Vars, { language }) => {
+  const { source } = args;
   if (source.id) {
     const { enabled } = await db().table('sources').select(['enabled']).where({ id: source.id }).first();
     if (enabled) {
@@ -25,7 +23,7 @@ const resolver: GraphQLFieldResolver<any, any> = async (root, args: UpsertVariab
   return rawUpsert(db(), `SELECT upsert_source('${stringifyJSON(source)}', '${language}')`);
 };
 
-const queryResolver: GraphQLFieldResolver<any, any> = (root, args: UpsertVariables, context, info) => {
+const queryResolver: GraphQLFieldResolver<any, any> = (root, args: Vars, context, info) => {
   return isInputValidResolver(Schema).createResolver(resolver)(root, args, context, info);
 };
 

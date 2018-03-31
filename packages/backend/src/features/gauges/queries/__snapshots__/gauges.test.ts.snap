@@ -8,7 +8,6 @@ Array [
     "enabled": false,
     "flowUnit": "m3/s",
     "id": "aba8c106-aaa0-11e7-abc4-cec278b6b50a",
-    "language": "en",
     "levelUnit": "cm",
     "location": Object {
       "coordinates": Array [
@@ -25,7 +24,6 @@ Array [
     "source": Object {
       "harvestMode": "allAtOnce",
       "id": "6d0d717e-aa9d-11e7-abc4-cec278b6b50a",
-      "language": "en",
       "name": "Galicia",
     },
     "url": "http://ya.ru",
@@ -36,7 +34,6 @@ Array [
     "enabled": false,
     "flowUnit": null,
     "id": "b77ef1b2-aaa0-11e7-abc4-cec278b6b50a",
-    "language": "en",
     "levelUnit": null,
     "location": null,
     "name": "Galicia gauge 2",
@@ -44,7 +41,6 @@ Array [
     "source": Object {
       "harvestMode": "allAtOnce",
       "id": "6d0d717e-aa9d-11e7-abc4-cec278b6b50a",
-      "language": "en",
       "name": "Galicia",
     },
     "url": null,
@@ -55,7 +51,6 @@ Array [
     "enabled": false,
     "flowUnit": null,
     "id": "53af1e64-19fe-11e8-accf-0ed5f89f718b",
-    "language": "en",
     "levelUnit": null,
     "location": null,
     "name": "Galicia gauge 2 1",
@@ -63,7 +58,6 @@ Array [
     "source": Object {
       "harvestMode": "allAtOnce",
       "id": "9f962a34-bff9-11e7-abc4-cec278b6b50a",
-      "language": "en",
       "name": "Galicia2",
     },
     "url": null,
@@ -74,7 +68,6 @@ Array [
     "enabled": false,
     "flowUnit": null,
     "id": "53af229c-19fe-11e8-accf-0ed5f89f718b",
-    "language": "en",
     "levelUnit": null,
     "location": null,
     "name": "Galicia gauge 2 2",
@@ -82,7 +75,6 @@ Array [
     "source": Object {
       "harvestMode": "allAtOnce",
       "id": "9f962a34-bff9-11e7-abc4-cec278b6b50a",
-      "language": "en",
       "name": "Galicia2",
     },
     "url": null,
@@ -93,7 +85,6 @@ Array [
     "enabled": false,
     "flowUnit": null,
     "id": "53af2530-19fe-11e8-accf-0ed5f89f718b",
-    "language": "en",
     "levelUnit": null,
     "location": null,
     "name": "Georgian gauge 1",
@@ -101,7 +92,6 @@ Array [
     "source": Object {
       "harvestMode": "oneByOne",
       "id": "53af1a54-19fe-11e8-accf-0ed5f89f718b",
-      "language": "en",
       "name": "Georgia",
     },
     "url": null,
@@ -112,7 +102,6 @@ Array [
     "enabled": false,
     "flowUnit": null,
     "id": "53af279c-19fe-11e8-accf-0ed5f89f718b",
-    "language": "en",
     "levelUnit": null,
     "location": null,
     "name": "Georgian gauge 2",
@@ -120,7 +109,6 @@ Array [
     "source": Object {
       "harvestMode": "oneByOne",
       "id": "53af1a54-19fe-11e8-accf-0ed5f89f718b",
-      "language": "en",
       "name": "Georgia",
     },
     "url": null,
@@ -131,7 +119,6 @@ Array [
     "enabled": true,
     "flowUnit": null,
     "id": "53af2bb6-19fe-11e8-accf-0ed5f89f718b",
-    "language": "en",
     "levelUnit": null,
     "location": null,
     "name": "Georgian gauge 3",
@@ -139,7 +126,6 @@ Array [
     "source": Object {
       "harvestMode": "oneByOne",
       "id": "53af1a54-19fe-11e8-accf-0ed5f89f718b",
-      "language": "en",
       "name": "Georgia",
     },
     "url": null,
@@ -150,7 +136,6 @@ Array [
     "enabled": true,
     "flowUnit": null,
     "id": "53af2e2c-19fe-11e8-accf-0ed5f89f718b",
-    "language": "en",
     "levelUnit": null,
     "location": null,
     "name": "Georgian gauge 4",
@@ -158,7 +143,6 @@ Array [
     "source": Object {
       "harvestMode": "oneByOne",
       "id": "53af1a54-19fe-11e8-accf-0ed5f89f718b",
-      "language": "en",
       "name": "Georgia",
     },
     "url": null,
@@ -169,7 +153,6 @@ Array [
     "enabled": true,
     "flowUnit": "m3/s",
     "id": "c03184b4-aaa0-11e7-abc4-cec278b6b50a",
-    "language": "en",
     "levelUnit": "cm",
     "location": null,
     "name": "Norway gauge 1",
@@ -179,7 +162,6 @@ Array [
     "source": Object {
       "harvestMode": "oneByOne",
       "id": "786251d4-aa9d-11e7-abc4-cec278b6b50a",
-      "language": "en",
       "name": "Norway",
     },
     "url": "http://yarr.ru",
@@ -190,7 +172,6 @@ Array [
     "enabled": false,
     "flowUnit": null,
     "id": "cc55b1c0-aaa0-11e7-abc4-cec278b6b50a",
-    "language": "en",
     "levelUnit": null,
     "location": null,
     "name": "Norway gauge 2",
@@ -198,7 +179,6 @@ Array [
     "source": Object {
       "harvestMode": "oneByOne",
       "id": "786251d4-aa9d-11e7-abc4-cec278b6b50a",
-      "language": "en",
       "name": "Norway",
     },
     "url": null,
@@ -209,7 +189,6 @@ Array [
     "enabled": true,
     "flowUnit": null,
     "id": "1628c340-1a0a-11e8-accf-0ed5f89f718b",
-    "language": "en",
     "levelUnit": null,
     "location": null,
     "name": "Norway gauge 3",
@@ -217,7 +196,6 @@ Array [
     "source": Object {
       "harvestMode": "oneByOne",
       "id": "786251d4-aa9d-11e7-abc4-cec278b6b50a",
-      "language": "en",
       "name": "Norway",
     },
     "url": null,
@@ -228,7 +206,6 @@ Array [
     "enabled": false,
     "flowUnit": null,
     "id": "1628cb60-1a0a-11e8-accf-0ed5f89f718b",
-    "language": "en",
     "levelUnit": null,
     "location": null,
     "name": "Norway gauge 4",
@@ -236,7 +213,6 @@ Array [
     "source": Object {
       "harvestMode": "oneByOne",
       "id": "786251d4-aa9d-11e7-abc4-cec278b6b50a",
-      "language": "en",
       "name": "Norway",
     },
     "url": null,

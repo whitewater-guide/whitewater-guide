@@ -7,7 +7,6 @@ Array [
     "description": null,
     "hidden": false,
     "id": "2caf75ca-7625-11e7-b5a5-be2e44b06b34",
-    "language": "en",
     "name": "Ecuador",
     "pois": Array [],
     "season": null,
@@ -39,7 +38,6 @@ Array [
     "description": "Description of Galicia",
     "hidden": false,
     "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
-    "language": "en",
     "name": "Galicia",
     "pois": Array [
       Object {
@@ -51,7 +49,6 @@ Array [
         "description": "r1p1 description",
         "id": "573f995a-d55f-4faf-8f11-5a6016ab562f",
         "kind": "kayak-shop",
-        "language": "en",
         "name": "Region 1 Point 1",
       },
       Object {
@@ -63,7 +60,6 @@ Array [
         "description": "r1p2 description",
         "id": "d7530317-efac-44a7-92ff-8d045b2ac893",
         "kind": "other",
-        "language": "en",
         "name": "Region 1 Point 2",
       },
     ],
@@ -78,7 +74,6 @@ Array [
     "description": null,
     "hidden": true,
     "id": "b968e2b2-76c5-11e7-b5a5-be2e44b06b34",
-    "language": "en",
     "name": "Norway",
     "pois": Array [],
     "season": null,

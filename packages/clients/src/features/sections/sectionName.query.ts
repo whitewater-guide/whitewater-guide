@@ -1,14 +1,12 @@
 import gql from 'graphql-tag';
 
 export const SECTION_NAME = gql`
-  query sectionName($id: ID!, $language:String) {
-    section(id: $id, language: $language) {
+  query sectionName($id: ID!) {
+    section(id: $id) {
       id
-      language
       name
       river {
         id
-        language
         name
       }
     }

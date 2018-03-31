@@ -23,7 +23,6 @@ const mutation = `
   mutation removeMedia($id: ID!){
     removeMedia(id: $id) {
       id
-      language
       deleted
     }
   }
@@ -33,13 +32,13 @@ const vars = { id: PHOTO_1 };
 
 describe('resolvers chain', () => {
   it('anon should not pass', async () => {
-    const result = await runQuery(mutation, vars, anonContext);
+    const result = await runQuery(mutation, vars, anonContext());
     expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
     expect(result).toHaveProperty('data.removeMedia', null);
   });
 
   it('user should not pass', async () => {
-    const result = await runQuery(mutation, vars, userContext);
+    const result = await runQuery(mutation, vars, userContext());
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.removeMedia', null);
   });
@@ -49,7 +48,7 @@ describe('effects', () => {
   let result: any;
 
   beforeEach(async () => {
-    result = await runQuery(mutation, vars, adminContext);
+    result = await runQuery(mutation, vars, adminContext());
   });
 
   afterEach(() => {
@@ -59,7 +58,6 @@ describe('effects', () => {
   it('should return partial media as deleted', () => {
     expect(result.data.removeMedia).toEqual({
       id: PHOTO_1,
-      language: 'en',
       deleted: true,
     });
   });

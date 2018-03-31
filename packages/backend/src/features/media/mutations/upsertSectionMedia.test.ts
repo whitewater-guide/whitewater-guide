@@ -24,10 +24,9 @@ afterEach(rollbackTransaction);
 afterAll(() => resetTestMinio(true));
 
 const mutation = `
-  mutation upsertSectionMedia($sectionId: ID!, $media: MediaInput!, $language: String){
-    upsertSectionMedia(sectionId: $sectionId, media: $media, language: $language){
+  mutation upsertSectionMedia($sectionId: ID!, $media: MediaInput!){
+    upsertSectionMedia(sectionId: $sectionId, media: $media){
       id
-      language
       kind
       description
       copyright
@@ -56,13 +55,13 @@ const media: MediaInput = {
 
 describe('resolvers chain', () => {
   it('anon should not pass', async () => {
-    const result = await runQuery(mutation, { sectionId, media }, anonContext);
+    const result = await runQuery(mutation, { sectionId, media }, anonContext());
     expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
     expect(result).toHaveProperty('data.upsertSectionMedia', null);
   });
 
   it('user should not pass', async () => {
-    const result = await runQuery(mutation, { sectionId, media }, userContext);
+    const result = await runQuery(mutation, { sectionId, media }, userContext());
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.upsertSectionMedia', null);
   });
@@ -77,7 +76,7 @@ describe('resolvers chain', () => {
       resolution: [800, 600, 900],
       weight: -10,
     };
-    const result = await runQuery(mutation, { sectionId, media: badMedia }, adminContext);
+    const result = await runQuery(mutation, { sectionId, media: badMedia }, adminContext());
     expect(result).toHaveProperty('data.upsertSectionMedia', null);
     expect(result).toHaveProperty('errors.0.name', 'ValidationError');
     expect((result.errors![0] as any).data).toMatchSnapshot();
@@ -87,27 +86,27 @@ describe('resolvers chain', () => {
 
 describe('insert', () => {
   it('should fail on non-existing section id', async () => {
-    const result = await runQuery(mutation, { sectionId: '852421bc-2848-11e8-b467-0ed5f89f718b', media }, adminContext);
+    const result = await runQuery(mutation, { sectionId: '852421bc-2848-11e8-b467-0ed5f89f718b', media }, adminContext());
     expect(result).toHaveProperty('errors.0.name', 'ValidationError');
     expect(result).toHaveProperty('errors.0.message', 'Invalid section id');
     expect(result).toHaveProperty('data.upsertSectionMedia', null);
   });
 
   it('should return result', async () => {
-    const result = await runQuery(mutation, { sectionId, media }, adminContext);
+    const result = await runQuery(mutation, { sectionId, media }, adminContext());
     expect(result.errors).toBeUndefined();
     expect(noTimestamps(result.data)).toMatchSnapshot();
   });
 
   it('should add one more media to db', async () => {
-    await runQuery(mutation, { sectionId, media }, adminContext);
+    await runQuery(mutation, { sectionId, media }, adminContext());
     const [m, ms, tr] = await countRows(false, 'media', 'sections_media', 'media_translations');
     expect([m - mBefore, ms - msBefore, tr - trBefore]).toMatchObject([1, 1, 1]);
   });
 
   it('should sanitize input', async () => {
     const dirty = { ...media, description: "it's a \\ slash" };
-    const result = await runQuery(mutation, { sectionId, media: dirty }, adminContext);
+    const result = await runQuery(mutation, { sectionId, media: dirty }, adminContext());
     expect(result).toHaveProperty('data.upsertSectionMedia.description', "it's a \\ slash");
   });
 });
@@ -116,27 +115,27 @@ describe('update', () => {
   const uMedia = { ...media, id: PHOTO_1 };
 
   it('should fail on wrong section id', async () => {
-    const result = await runQuery(mutation, { sectionId: GALICIA_R1_S1, media: uMedia }, adminContext);
+    const result = await runQuery(mutation, { sectionId: GALICIA_R1_S1, media: uMedia }, adminContext());
     expect(result).toHaveProperty('errors.0.name', 'ValidationError');
     expect(result).toHaveProperty('errors.0.message', 'Invalid section id');
     expect(result).toHaveProperty('data.upsertSectionMedia', null);
   });
 
   it('should return result', async () => {
-    const result = await runQuery(mutation, { sectionId, media: uMedia }, adminContext);
+    const result = await runQuery(mutation, { sectionId, media: uMedia }, adminContext());
     expect(result.errors).toBeUndefined();
     expect(noUnstable(result.data)).toMatchSnapshot();
   });
 
   it('should not change db counts', async () => {
-    await runQuery(mutation, { sectionId, media: uMedia }, adminContext);
+    await runQuery(mutation, { sectionId, media: uMedia }, adminContext());
     const [m, ms, tr] = await countRows(false, 'media', 'sections_media', 'media_translations');
     expect([m - mBefore, ms - msBefore, tr - trBefore]).toMatchObject([0, 0, 0]);
   });
 
   it('should not change media kind', async () => {
     const badMedia = { ...uMedia, kind: 'blog' };
-    const result = await runQuery(mutation, { sectionId, media: badMedia }, adminContext);
+    const result = await runQuery(mutation, { sectionId, media: badMedia }, adminContext());
     expect(result.errors).toBeUndefined();
     expect(result).toHaveProperty('data.upsertSectionMedia.kind', 'photo');
   });
@@ -147,20 +146,20 @@ describe('i18n', () => {
   const uMedia = { ...media, id: PHOTO_1 };
 
   it('should add new translation', async () => {
-    await runQuery(mutation, { sectionId, media: aMedia, language: 'ru' }, adminContext);
+    await runQuery(mutation, { sectionId, media: aMedia }, adminContext('ru'));
     const [m, ms, tr] = await countRows(false, 'media', 'sections_media', 'media_translations');
     expect([m - mBefore, ms - msBefore, tr - trBefore]).toMatchObject([0, 0, 1]);
   });
 
   it('should modify common props in other language', async () => {
-    await runQuery(mutation, { sectionId, media: aMedia, language: 'ru' }, adminContext);
+    await runQuery(mutation, { sectionId, media: aMedia }, adminContext('ru'));
     const { resolution } = await db().table('media_view').select('resolution')
       .where({ id: PHOTO_2, language: 'en' }).first();
     expect(resolution).toMatchObject([1920, 1080]);
   });
 
   it('should modify existing translation', async () => {
-    await runQuery(mutation, { sectionId, media: uMedia, language: 'ru' }, adminContext);
+    await runQuery(mutation, { sectionId, media: uMedia }, adminContext('ru'));
     const [m, ms, tr] = await countRows(false, 'media', 'sections_media', 'media_translations');
     expect([m - mBefore, ms - msBefore, tr - trBefore]).toMatchObject([0, 0, 0]);
     const { description } = await db().table('media_view').select('description')
@@ -178,7 +177,7 @@ describe('files', () => {
       path.resolve(__dirname, '__tests__/test.jpg'),
       path.resolve(TEMP_BUCKET_DIR, NEW_MEDIA_ID),
     );
-    result = await runQuery(mutation, { sectionId, media }, adminContext);
+    result = await runQuery(mutation, { sectionId, media }, adminContext());
     expect(result.errors).toBeUndefined();
   });
 

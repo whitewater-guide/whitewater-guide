@@ -5,20 +5,16 @@ export type FieldResolvers<TRaw, TOut> = {
   [P in keyof TOut]?: GraphQLFieldResolver<TRaw, Context>;
 };
 
-export interface QueryWithLanguage {
-  language?: string;
-}
-
 export interface Page {
   limit?: number;
   offset?: number;
 }
 
-export interface ListQuery extends QueryWithLanguage {
+export interface ListQuery {
   page?: Page;
 }
 
-export interface NodeQuery extends QueryWithLanguage {
+export interface NodeQuery {
   id?: string;
 }
 

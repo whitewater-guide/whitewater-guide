@@ -3,7 +3,6 @@ import { baseResolver } from '../../../apollo';
 import { buildMediaListQuery } from '../queryBuilder';
 
 interface Variables {
-  language?: string;
   sectionId: string;
 }
 

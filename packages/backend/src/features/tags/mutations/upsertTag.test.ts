@@ -8,11 +8,10 @@ beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
 const upsertQuery = `
-  mutation upsertTag($tag: TagInput!, $language: String){
-    upsertTag(tag: $tag, language: $language){
+  mutation upsertTag($tag: TagInput!){
+    upsertTag(tag: $tag){
       id
       name
-      language
       category
     }
   }
@@ -26,19 +25,19 @@ const tag: TagInput = {
 
 describe('resolvers chain', () => {
   test('anon should not pass', async () => {
-    const result = await runQuery(upsertQuery, { tag }, anonContext);
+    const result = await runQuery(upsertQuery, { tag }, anonContext());
     expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
     expect(result).toHaveProperty('data.upsertTag', null);
   });
 
   test('user should not pass', async () => {
-    const result = await runQuery(upsertQuery, { tag }, userContext);
+    const result = await runQuery(upsertQuery, { tag }, userContext());
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.upsertTag', null);
   });
 
   test('admin should not pass', async () => {
-    const result = await runQuery(upsertQuery, { tag }, adminContext);
+    const result = await runQuery(upsertQuery, { tag }, adminContext());
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.upsertTag', null);
   });
@@ -49,7 +48,7 @@ describe('resolvers chain', () => {
       name: 'x',
       category: 'misc', // Bad category is validated by Graphql enum
     };
-    const result = await runQuery(upsertQuery, { tag: invalidInput }, superAdminContext);
+    const result = await runQuery(upsertQuery, { tag: invalidInput }, superAdminContext());
     expect(result).toHaveProperty('errors.0.name', 'ValidationError');
     expect(result.data!.upsertTag).toBeNull();
     expect((result.errors![0] as any).data).toMatchSnapshot();
@@ -58,15 +57,15 @@ describe('resolvers chain', () => {
 
 describe('insert', () => {
   it('should return result', async () => {
-    const result = await runQuery(upsertQuery, { tag }, superAdminContext);
+    const result = await runQuery(upsertQuery, { tag }, superAdminContext());
     expect(result.errors).toBeUndefined();
-    expect(result.data!.upsertTag).toEqual({ ...tag, language: 'en' });
+    expect(result.data!.upsertTag).toEqual({ ...tag });
   });
 
   it('should add one more tag', async () => {
     const { count } = await db().table('tags').count().first();
     const initialTagsCount = Number(count);
-    await runQuery(upsertQuery, { tag }, superAdminContext);
+    await runQuery(upsertQuery, { tag }, superAdminContext());
     const { count: tagCount } = await db().table('tags').count().first();
     expect(Number(tagCount) - initialTagsCount).toBe(1);
   });
@@ -90,7 +89,7 @@ describe('update', () => {
   });
 
   beforeEach(async () => {
-    updateResult = await runQuery(upsertQuery, { tag: input }, superAdminContext);
+    updateResult = await runQuery(upsertQuery, { tag: input }, superAdminContext());
     updatedTag = updateResult && updateResult.data && updateResult.data.upsertTag;
   });
 
@@ -122,7 +121,7 @@ describe('i18n', () => {
 
   it('should add new translation', async () => {
     const { count: oldCount } = await db().table('tags_translations').count().first();
-    await runQuery(upsertQuery, { tag: inputFr, language: 'fr' }, superAdminContext);
+    await runQuery(upsertQuery, { tag: inputFr }, superAdminContext('fr'));
     const { count: newCount } = await db().table('tags_translations').count().first();
     expect(Number(newCount) - Number(oldCount)).toBe(1);
     const { name } = await db().table('tags_view').select('name')
@@ -131,7 +130,7 @@ describe('i18n', () => {
   });
 
   it('should modify common props in other language', async () => {
-    await runQuery(upsertQuery, { tag: inputFr, language: 'fr' }, superAdminContext);
+    await runQuery(upsertQuery, { tag: inputFr }, superAdminContext('fr'));
     const { category } = await db().table('tags_view').select('category')
       .where({ language: 'en', id: inputFr.id }).first();
     expect(category).toBe(TagCategory.misc);
@@ -139,7 +138,7 @@ describe('i18n', () => {
 
   it('should modify existing translation', async () => {
     const { count: oldCount } = await db().table('tags_translations').count().first();
-    await runQuery(upsertQuery, { tag: inputFr, language: 'en' }, superAdminContext);
+    await runQuery(upsertQuery, { tag: inputFr }, superAdminContext('en'));
     const { count: newCount } = await db().table('tags_translations').count().first();
     expect(newCount).toBe(oldCount);
     const { name } = await db().table('tags_view').select('name')
@@ -150,6 +149,6 @@ describe('i18n', () => {
 
 it('should sanitize input', async () => {
   const dirty = { ...tag, name: "it's a \\ slash" };
-  const result = await runQuery(upsertQuery, { tag: dirty }, superAdminContext);
+  const result = await runQuery(upsertQuery, { tag: dirty }, superAdminContext());
   expect(result).toHaveProperty('data.upsertTag.name', "it's a \\ slash");
 });

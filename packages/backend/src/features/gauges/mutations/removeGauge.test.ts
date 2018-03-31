@@ -38,14 +38,14 @@ afterEach(rollbackTransaction);
 
 describe('resolvers chain', () => {
   test('anon should not pass', async () => {
-    const result = await runQuery(query, gal1, anonContext);
+    const result = await runQuery(query, gal1, anonContext());
     expect(result.errors).toBeDefined();
     expect(result.data).toBeDefined();
     expect(result.data!.removeGauge).toBeNull();
   });
 
   test('user should not pass', async () => {
-    const result = await runQuery(query, gal1, userContext);
+    const result = await runQuery(query, gal1, userContext());
     expect(result.errors).toBeDefined();
     expect(result.data).toBeDefined();
     expect(result.data!.removeGauge).toBeNull();
@@ -56,7 +56,7 @@ describe('effects', () => {
   let result: any;
 
   beforeEach(async () => {
-    result = await runQuery(query, gal1, adminContext);
+    result = await runQuery(query, gal1, adminContext());
   });
 
   afterEach(() => {

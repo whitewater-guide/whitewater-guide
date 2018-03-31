@@ -15,11 +15,9 @@ const query = `
     autofillSource(id: $id) {
       id
       name
-      language
       code
       location {
         id
-        language
         kind
         coordinates
       }
@@ -33,7 +31,6 @@ const query = `
       source {
         id
         name
-        language
       }
     }
   }
@@ -57,14 +54,14 @@ afterEach(rollbackTransaction);
 
 describe('resolvers chain', () => {
   it('anon should not pass', async () => {
-    const result = await runQuery(query, { id: SOURCE_GALICIA_1 }, anonContext);
+    const result = await runQuery(query, { id: SOURCE_GALICIA_1 }, anonContext());
     expect(result.errors).toBeDefined();
     expect(result.data).toBeDefined();
     expect(result.data!.autofillSource).toBeNull();
   });
 
   it('user should not pass', async () => {
-    const result = await runQuery(query, { id: SOURCE_GALICIA_1 }, userContext);
+    const result = await runQuery(query, { id: SOURCE_GALICIA_1 }, userContext());
     expect(result.errors).toBeDefined();
     expect(result.data).toBeDefined();
     expect(result.data!.autofillSource).toBeNull();
@@ -97,14 +94,14 @@ describe('effects', () => {
   };
 
   it('should fail for enabled source', async () => {
-    const result = await runQuery(query, { id: SOURCE_ALPS }, superAdminContext);
+    const result = await runQuery(query, { id: SOURCE_ALPS }, superAdminContext());
     expect(result.data!.autofillSource).toBeNull();
     expect(result).toHaveProperty('errors.0.name', 'MutationNotAllowedError');
     expect(result).toHaveProperty('errors.0.message', 'Cannot autofill source that is enabled');
   });
 
   it('should fail for source with gauges', async () => {
-    const result = await runQuery(query, { id: SOURCE_GALICIA_1 }, superAdminContext);
+    const result = await runQuery(query, { id: SOURCE_GALICIA_1 }, superAdminContext());
     expect(result.data!.autofillSource).toBeNull();
     expect(result).toHaveProperty('errors.0.name', 'MutationNotAllowedError');
     expect(result).toHaveProperty('errors.0.message', 'Cannot autofill source that already has gauges');
@@ -116,7 +113,7 @@ describe('effects', () => {
       error: 'boom!',
     };
     (execScript as Mock<any>).mockReturnValueOnce(Promise.resolve(scriptsError));
-    const result = await runQuery(query, { id: SOURCE_RUSSIA }, superAdminContext);
+    const result = await runQuery(query, { id: SOURCE_RUSSIA }, superAdminContext());
     expect(result.data!.autofillSource).toBeNull();
     expect(result).toHaveProperty('errors.0.name', 'UnknownError');
     expect(result).toHaveProperty('errors.0.message', 'Autofill failed: boom!');
@@ -124,7 +121,7 @@ describe('effects', () => {
 
   it('should insert gauges', async () => {
     (execScript as Mock<any>).mockReturnValueOnce(Promise.resolve(scriptSuccess));
-    const result = await runQuery(query, { id: SOURCE_RUSSIA }, superAdminContext);
+    const result = await runQuery(query, { id: SOURCE_RUSSIA }, superAdminContext());
     expect(result.data!.autofillSource).toBeDefined();
     const { count: pCnt } = await db().table('points').count().first();
     const { count: gCnt } = await db().table('gauges').count().first();
@@ -136,7 +133,7 @@ describe('effects', () => {
 
   it('should return gauges', async () => {
     (execScript as Mock<any>).mockReturnValueOnce(Promise.resolve(scriptSuccess));
-    const result = await runQuery(query, { id: SOURCE_RUSSIA }, superAdminContext);
+    const result = await runQuery(query, { id: SOURCE_RUSSIA }, superAdminContext());
     expect(noUnstable(result)).toMatchSnapshot();
   });
 });
