@@ -1,8 +1,7 @@
-import { Geometry, Point, Polygon } from 'wkx';
+import { Geometry, Polygon } from 'wkx';
 import { FieldResolvers } from '../../../apollo';
 import { timestampResolvers } from '../../../db';
-import { Region } from '../../../ww-commons';
-import { isAdmin } from '../../users';
+import { isAdmin, Region } from '../../../ww-commons';
 import { RegionRaw } from '../types';
 
 const regionFieldResolvers: FieldResolvers<RegionRaw, Region> = {

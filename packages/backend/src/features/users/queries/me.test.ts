@@ -1,7 +1,7 @@
-import { holdTransaction, rollbackTransaction } from '../../../db/db';
-import { anonContext, superAdminContext } from '../../../test/context';
-import { noTimestamps, runQuery } from '../../../test/db-helpers';
-import { User } from '../types';
+import { holdTransaction, rollbackTransaction } from '../../../db';
+import { adminContext, anonContext } from '../../../test/context';
+import { runQuery } from '../../../test/db-helpers';
+import { User } from '../../../ww-commons';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
@@ -16,6 +16,11 @@ const query = `
     email
     createdAt
     updatedAt
+    language
+    imperial
+    editorSettings {
+      language
+    }
   }
 }
 `;
@@ -28,11 +33,8 @@ test('should return null for anon', async () => {
 });
 
 test('should user', async () => {
-  const result = await runQuery(query, undefined, superAdminContext);
+  const result = await runQuery(query, undefined, adminContext);
   expect(result.errors).toBeUndefined();
-  expect(result.data).toBeDefined();
   const me: User = result.data!.me;
-  expect(noTimestamps(me)).toEqual(noTimestamps(superAdminContext.user));
-  expect(me.createdAt).toBe(superAdminContext.user!.created_at.toISOString());
-  expect(me.updatedAt).toBe(superAdminContext.user!.updated_at.toISOString());
+  expect(me).toMatchSnapshot();
 });

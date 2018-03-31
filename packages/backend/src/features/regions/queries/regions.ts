@@ -1,6 +1,5 @@
-import { baseResolver } from '../../../apollo';
-import { ListQuery } from '../../../apollo/types';
-import { isAdmin } from '../../users';
+import { baseResolver, ListQuery } from '../../../apollo';
+import { isAdmin } from '../../../ww-commons';
 import { buildRegionsListQuery } from '../queryBuilder';
 
 const regions = baseResolver.createResolver(

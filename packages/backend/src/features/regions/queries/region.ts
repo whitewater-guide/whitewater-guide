@@ -1,6 +1,6 @@
 import { GraphQLResolveInfo } from 'graphql';
 import { baseResolver, Context, ForbiddenError, NodeQuery } from '../../../apollo';
-import { isAdmin } from '../../users';
+import { isAdmin } from '../../../ww-commons';
 import { buildRegionQuery } from '../queryBuilder';
 import { RegionRaw } from '../types';
 

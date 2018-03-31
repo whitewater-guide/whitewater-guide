@@ -2,7 +2,7 @@ import { isInstance } from 'apollo-errors';
 import { createResolver } from 'apollo-resolvers';
 import { GraphQLFieldResolver } from 'graphql';
 import Joi from 'joi';
-import { Role } from '../features/users/types';
+import { Role } from '../ww-commons';
 import { Context } from './context';
 import { AuthenticationRequiredError, ForbiddenError, UnknownError, ValidationError } from './errors';
 

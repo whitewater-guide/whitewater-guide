@@ -1,5 +1,6 @@
 import passport from 'passport';
 import { RawTimestamped } from '../../db';
+import { EditorSettings } from '../../ww-commons';
 
 export interface UserRaw extends RawTimestamped {
   id: string;
@@ -7,6 +8,9 @@ export interface UserRaw extends RawTimestamped {
   avatar: string | null;
   email: string | null;
   role: number;
+  language: string;
+  imperial: boolean;
+  editor_settings: EditorSettings | null;
 }
 
 export interface LoginRaw extends RawTimestamped {
@@ -17,5 +21,3 @@ export interface LoginRaw extends RawTimestamped {
   tokens: {[key: string]: string};
   profile: passport.Profile;
 }
-
-export { Role, User, isAdmin, isSuperAdmin } from '../../ww-commons';

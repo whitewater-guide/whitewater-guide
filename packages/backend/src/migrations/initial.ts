@@ -1,8 +1,6 @@
 import Knex from 'knex';
-import { runSqlFile } from '../db/runSqlFile';
-import { addUpdatedAtFunction, addUpdatedAtTrigger, removeUpdatedAtFunction } from '../db/updatedAtTrigger';
-import { Role } from '../features/users/types';
-import { HarvestMode, POITypes } from '../ww-commons';
+import { addUpdatedAtFunction, addUpdatedAtTrigger, removeUpdatedAtFunction, runSqlFile } from '../db';
+import { HarvestMode, POITypes, Role } from '../ww-commons';
 
 export const up = async (db: Knex) => {
   await runSqlFile(db, './src/migrations/initial/language_code.sql');
@@ -17,6 +15,9 @@ export const up = async (db: Knex) => {
     table.string('avatar');
     table.string('email');
     table.integer('role').notNullable().defaultTo(Role.USER);
+    table.jsonb('editor_settings');
+    table.specificType('language', 'language_code').notNullable().defaultTo('en');
+    table.boolean('imperial').notNullable().defaultTo(false);
     table.timestamps(false, true);
   });
   await addUpdatedAtTrigger(db, 'users');

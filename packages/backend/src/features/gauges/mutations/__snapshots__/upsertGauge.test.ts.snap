@@ -43,14 +43,10 @@ Object {
     "path": "gauge.name",
   },
   "10": Object {
-    "message": "\\"cron\\" must be valid crontab expression",
-    "path": "gauge.cron",
-  },
-  "11": Object {
     "message": "\\"url\\" must be a valid uri",
     "path": "gauge.url",
   },
-  "12": Object {
+  "11": Object {
     "message": "\\"id\\" must be a valid GUID",
     "path": "gauge.source.id",
   },
@@ -79,12 +75,12 @@ Object {
     "path": "gauge.location.id",
   },
   "8": Object {
-    "message": "\\"name\\" length must be at least 3 characters long",
-    "path": "gauge.location.name",
-  },
-  "9": Object {
     "message": "\\"longitude\\" must be less than or equal to 180",
     "path": "gauge.location.coordinates.0",
+  },
+  "9": Object {
+    "message": "\\"cron\\" must be valid crontab expression",
+    "path": "gauge.cron",
   },
 }
 `;

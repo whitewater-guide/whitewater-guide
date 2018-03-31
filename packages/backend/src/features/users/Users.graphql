@@ -6,6 +6,12 @@ type User {
   role: Int!
   createdAt: Date!
   updatedAt: Date!
+  # Prerferred language
+  language: String!
+  # Prefer imperial measurement system
+  imperial: Boolean!
+  # Special settings for editors
+  editorSettings: EditorSettings
 }
 
 type Query {
@@ -13,6 +19,14 @@ type Query {
   listUsers: [User]!,
 }
 
+type EditorSettings {
+  language: String
+}
+
+input EditorSettingsInput {
+  language: String
+}
+
 type Mutation {
-  toggleAdmin(id: ID!, isAdmin: Boolean!):User,
+  updateEditorSettings(editorSettings: EditorSettingsInput!): User
 }
