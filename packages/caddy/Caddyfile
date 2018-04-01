@@ -84,7 +84,7 @@
   #   path {$CADDY_CACHE_PATH}
   # }
 
-  log / stdout "{common} Upstream: {upstream} URI: {rewrite_uri} PATH: {rewrite_path}"
+  log / stdout "{common} Upstream: {upstream}"
 
   errors stdout
 

@@ -1,18 +1,12 @@
-import connectRedis from 'connect-redis';
-import session from 'express-session';
+import Koa from 'koa';
+import redisStore from 'koa-redis';
+import session from 'koa-session';
 import { redis } from '../redis';
 
-export const sessionMiddleware = () => {
-  const RedisStore = connectRedis(session);
-  const store = new RedisStore({
+export const useSessions = (app: Koa) => {
+  const store = redisStore({
     client: redis as any,
   });
-
-  return session({
-    store,
-    name: 'sid',
-    resave: false,
-    saveUninitialized: true,
-    secret: process.env.SESSION_SECRET!,
-  });
+  app.keys = [process.env.SESSION_SECRET!];
+  app.use(session({ store, key: 'wwguide' }, app));
 };

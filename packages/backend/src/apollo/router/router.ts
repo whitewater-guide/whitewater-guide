@@ -1,40 +1,42 @@
-import { graphiqlExpress, graphqlExpress } from 'apollo-server-express';
-import { Router } from 'express';
+import { graphiqlKoa, graphqlKoa } from 'apollo-server-koa';
 import { graphql, introspectionQuery } from 'graphql';
+import Router from 'koa-router';
 import { newContext } from '../context';
 import { formatError } from '../formatError';
 import { getSchema, getTypeDefs } from './schema';
 
-export const graphqlRouter = Router();
+export const graphqlRouter = new Router();
 
-graphqlRouter.use(
-  '/graphql',
-  graphqlExpress(async (req) => {
-    const schema = await getSchema();
-    return {
-      schema,
-      debug: process.env.NODE_ENV !== 'production',
-      context: newContext(req!),
-      formatError,
-    };
-  }),
-);
+graphqlRouter.post('/graphql', graphqlKoa(async (ctx) => {
+  // Get user's device screen size in pixels, defaults to 1080x1920
+  const schema = await getSchema();
+  return {
+    schema,
+    debug: process.env.NODE_ENV !== 'production',
+    context: newContext(ctx),
+    formatError,
+  };
+}));
 
 if (process.env.APOLLO_EXPOSE_GRAPHIQL === 'true') {
-  graphqlRouter.use(
+  graphqlRouter.get(
     '/graphiql',
-    graphiqlExpress({ endpointURL: '/graphql' }),
+    graphiqlKoa({ endpointURL: '/graphql' }) as any,
   );
 }
 
 if (process.env.APOLLO_EXPOSE_SCHEMA === 'true') {
-  graphqlRouter.use('/schema.json', async (req, res) => {
-    const schema = await getSchema();
-    const result = await graphql(schema, introspectionQuery);
-    res.json(result);
-  });
-  graphqlRouter.use('/typedefs.txt', async (req, res) => {
-    const typeDefs = await getTypeDefs();
-    res.send(typeDefs);
-  });
+  graphqlRouter.get(
+    '/schema.json',
+    async (ctx) => {
+      const schema = await getSchema();
+      await graphql(schema, introspectionQuery).then(result => ctx.body = result);
+    },
+  );
+  graphqlRouter.get(
+    '/typedefs.txt',
+    async (ctx) => {
+      ctx.body = await getTypeDefs();
+    },
+  );
 }

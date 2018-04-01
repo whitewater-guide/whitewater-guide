@@ -21,8 +21,8 @@ const updateEditorSettings = isAuthenticatedResolver.createResolver(
         .where({ id: user!.id });
       const updatedUser = await db().table('users').where({ id: user!.id }).first();
       // Update passport context user
-      if (req && req.login) {
-        return new Promise(resolve => req.login(updatedUser, () => resolve(updatedUser)));
+      if (req && (req as any).login) {
+        return new Promise(resolve => (req as any).login(updatedUser, () => resolve(updatedUser)));
       } else {
         return updatedUser;
       }

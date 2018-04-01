@@ -1,4 +1,4 @@
-import { Request } from 'express';
+import * as koa from 'koa';
 import { get } from 'lodash';
 import { LastMeasurementLoader } from '../features/measurements/data-loader';
 
@@ -12,19 +12,19 @@ export interface Context {
   language: string;
   user?: ContextUser;
   lastMeasurementLoader: LastMeasurementLoader;
-  req?: Request;
+  req?: koa.Request;
 }
 
-export const newContext = (req?: Request): Context => {
-  const user: ContextUser | undefined = req && req.user;
+export const newContext = (ctx: koa.Context): Context => {
+  const user: ContextUser | undefined = ctx.state.user;
   const language = get(user, 'editor_settings.language') ||
     get(user, 'language') ||
-    get(req, 'language') ||
+    ctx.acceptsLanguages(['en', 'ru', 'es', 'de', 'fr', 'pt', 'it']) ||
     'en';
   return {
     user,
     language,
     lastMeasurementLoader: new LastMeasurementLoader(),
-    req,
+    req: ctx.request,
   };
 };

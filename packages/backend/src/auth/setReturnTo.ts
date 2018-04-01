@@ -1,8 +1,8 @@
-import { Request, RequestHandler } from 'express';
+import Koa from 'koa';
 import getOrigin from './getOrigin';
 import isValidRedirect from './isValidRedirect';
 
-function getLoginRedirect(req: Request) {
+function getLoginRedirect(req: Koa.Request) {
   const url = req.query.returnTo || req.body.returnTo || '/';
   if (!isValidRedirect(url)) {
     return '/';
@@ -13,11 +13,11 @@ function getLoginRedirect(req: Request) {
   return url;
 }
 
-const setReturnTo: RequestHandler = (req, res, next) => {
-  if (req.session) {
-    req.session.returnTo = getLoginRedirect(req);
+const setReturnTo: Koa.Middleware = async (ctx, next) => {
+  if (ctx.session) {
+    ctx.session.returnTo = getLoginRedirect(ctx.request);
   }
-  next();
+  await next();
 };
 
 export default setReturnTo;

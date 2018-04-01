@@ -1,9 +1,9 @@
-import { Request, Response, Router } from 'express';
+import Router from 'koa-router';
 import passport from 'passport';
 import getLogoutRedirect from './getLogoutRedirect';
 import setReturnTo from './setReturnTo';
 
-const router = Router();
+const router = new Router();
 
 router.get(
   '/auth/facebook',
@@ -18,12 +18,12 @@ router.get(
 
 router.get(
   '/auth/logout',
-  (req, res) => {
-    if (req.session) {
-      req.session.destroy(() => {
-        req.logout();
-        res.clearCookie('sid');
-        res.redirect(getLogoutRedirect(req));
+  (ctx) => {
+    if (ctx.session) {
+      ctx.session.destroy(() => {
+        ctx.logout();
+        ctx.clearCookie('wwguide');
+        ctx.redirect(getLogoutRedirect(ctx.request));
       });
     }
   },
@@ -33,15 +33,17 @@ if (process.env.NODE_ENV !== 'production') {
 
   router.get(
     '/auth/facebook/check',
-    (req, res) => res.send('It works!'),
+    async (ctx) => {
+      ctx.body = 'It works!';
+    },
   );
 
-  router.get('/', (req: Request, res: Response) => {
-    if (req.user) {
+  router.get('/', (ctx) => {
+    if (ctx.user) {
       // tslint:disable-next-line:max-line-length
-      res.send(`<p>Welcome, ${req.user.name} (<a href="javascript:fetch('/auth/logout', { method: 'POST', credentials: 'include' }).then(() => window.location = '/')">log out</a>)</p>`);
+      ctx.body = `<p>Welcome, ${ctx.user.name} (<a href="javascript:fetch('/auth/logout', { method: 'POST', credentials: 'include' }).then(() => window.location = '/')">log out</a>)</p>`;
     } else {
-      res.send(`<p>Welcome, guest! (<a href="/auth/facebook">log in</a>)</p>`);
+      ctx.body = `<p>Welcome, guest! (<a href="/auth/facebook">log in</a>)</p>`;
     }
   });
 }

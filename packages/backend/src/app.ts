@@ -1,35 +1,36 @@
-import bodyParser from 'body-parser';
-import cors from 'cors';
-import express from 'express';
-import requestLanguage from 'express-request-language';
+import cors from '@koa/cors';
+import Koa from 'koa';
+import bodyParser from 'koa-bodyparser';
 import { graphqlRouter } from './apollo/router';
-import { authRouter, passport, sessionMiddleware } from './auth';
+import { useAuthMiddleware } from './auth';
 import getOrigin from './auth/getOrigin';
 
-const app = express();
-
-app.disable('x-powered-by');
+const app = new Koa();
 
 const CORS_WHITELIST = process.env.CORS_WHITELIST ? process.env.CORS_WHITELIST!.split(',') : [];
 
 app.use(cors({
-  origin: (origin, cb) => {
-    if (!origin || CORS_WHITELIST.includes(getOrigin(origin))){
-      cb(null, true);
-    } else {
-      cb(new Error(`${origin} is not a valid origin`));
-    }
-  },
   credentials: true,
+  origin: (ctx) => {
+    const originIndex = ctx.req.rawHeaders.indexOf('Origin');
+    if (originIndex === -1) {
+      return true;
+    }
+    const origin = ctx.req.rawHeaders[originIndex + 1];
+    if (!origin) {
+      return true;
+    }
+    if (CORS_WHITELIST.includes(getOrigin(origin))) {
+       return origin;
+    } else {
+       ctx.throw(new Error(`${origin} is not a valid origin`));
+    }
+    return false;
+  },
 }));
-app.use(requestLanguage({ languages: ['en', 'ru', 'es', 'de', 'fr', 'pt', 'it'] }));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use(sessionMiddleware());
-
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(authRouter);
-app.use(graphqlRouter);
+app.use(bodyParser());
+useAuthMiddleware(app);
+app.use(graphqlRouter.routes());
+app.use(graphqlRouter.allowedMethods());
 
 export default app;
