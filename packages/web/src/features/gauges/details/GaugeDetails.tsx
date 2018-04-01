@@ -5,7 +5,7 @@ import React from 'react';
 import { Col } from 'react-grid-system';
 import { Content, HarvestStatusIndicator, Tabs } from '../../../components';
 import Chart from '../../../components/chart';
-import { AdminFooter } from '../../../layout';
+import { AdminFooter, CardHeader } from '../../../layout';
 import { Container, Row, Title } from '../../../layout/details';
 import { Styles } from '../../../styles';
 import { arrayToDMSString } from '../../../ww-clients/utils';
@@ -79,6 +79,7 @@ class GaugeDetails extends React.PureComponent<GaugeDetailsProps> {
     const { gauge: { node } } = this.props;
     return (
       <Content card>
+        <CardHeader title={node.name} />
         <CardMedia style={{ height: '100%' }} mediaStyle={{ height: '100%' }}>
           <div style={styles.root}>
             <div style={styles.dataCol}>

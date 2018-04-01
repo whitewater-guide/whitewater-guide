@@ -1,35 +1,21 @@
 import { groupBy } from 'lodash';
-import { CardHeader, CardMedia } from 'material-ui/Card';
+import { CardMedia } from 'material-ui/Card';
 import React from 'react';
 import { Content } from '../../components';
 import { EditorLanguagePicker } from '../../components/language';
-import { Styles } from '../../styles';
-import { TagCategory } from '../../ww-commons/features/tags';
+import { CardHeader } from '../../layout';
+import { TagCategory } from '../../ww-commons';
 import TagsByCategory from './TagsByCategory';
 import { TagsFormProps } from './types';
-
-const styles: Styles = {
-  header: {
-    height: 48,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  title: {
-    fontSize: 18,
-    color: 'white',
-  },
-};
 
 export default class TagsForm extends React.PureComponent<TagsFormProps> {
 
   render() {
-    const { muiTheme, tags, upsertTag, removeTag } = this.props;
-    const backgroundColor = muiTheme.palette!.primary1Color;
+    const { tags, upsertTag, removeTag } = this.props;
     const tagsByCategory = groupBy(tags, 'category');
     return (
       <Content card>
-        <CardHeader title="Tags" titleStyle={styles.title} style={{ ...styles.header, backgroundColor }}>
+        <CardHeader title="Tags">
           <EditorLanguagePicker />
         </CardHeader>
         <CardMedia style={{ height: '100%' }} mediaStyle={{ height: '100%' }}>

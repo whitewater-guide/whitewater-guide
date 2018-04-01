@@ -3,7 +3,8 @@ import { Tab } from 'material-ui/Tabs';
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Content, Tabs } from '../../../components';
-import { AdminFooter } from '../../../layout/';
+import { EditorLanguagePicker } from '../../../components/language';
+import { AdminFooter, CardHeader } from '../../../layout/';
 import { RiversList, RiversRoute } from '../../rivers';
 import { SectionsList, SectionsRoute } from '../../sections';
 import RegionMap from './map';
@@ -21,6 +22,9 @@ export class RegionDetails extends React.PureComponent<RegionDetailsProps> {
 
         <Route>
           <Content card>
+            <CardHeader title={region.node.name}>
+              <EditorLanguagePicker />
+            </CardHeader>
             <CardMedia style={{ height: '100%' }} mediaStyle={{ height: '100%' }}>
               <div style={{ width: '100%', height: '100%' }} >
                 <Tabs fullPathMode>

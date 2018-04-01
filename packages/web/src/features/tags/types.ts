@@ -1,4 +1,3 @@
-import { Themeable } from '../../styles';
 import { TagInput, WithTags } from '../../ww-commons';
 
 export interface WithTagMutations {
@@ -6,4 +5,4 @@ export interface WithTagMutations {
   removeTag: (id: string) => void;
 }
 
-export type TagsFormProps = WithTags & Themeable & WithTagMutations;
+export type TagsFormProps = WithTags & WithTagMutations;

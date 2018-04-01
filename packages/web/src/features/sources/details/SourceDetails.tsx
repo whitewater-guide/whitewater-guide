@@ -4,7 +4,8 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Route, RouteComponentProps, Switch } from 'react-router-dom';
 import { Content, Tabs } from '../../../components';
-import { AdminFooter } from '../../../layout';
+import { EditorLanguagePicker } from '../../../components/language';
+import { AdminFooter, CardHeader } from '../../../layout';
 import { WithSource } from '../../../ww-clients/features/sources';
 import { GaugesList, GaugesRoute } from '../../gauges';
 import AutofillButton from './AutofillButton';
@@ -22,6 +23,9 @@ export class SourceDetails extends React.PureComponent<WithSource & RouteCompone
 
         <Route>
           <Content card>
+            <CardHeader title={source.node.name}>
+              <EditorLanguagePicker />
+            </CardHeader>
             <CardMedia style={{ height: '100%' }} mediaStyle={{ height: '100%' }}>
               <div style={{ width: '100%', height: '100%' }} >
                 <Tabs fullPathMode>

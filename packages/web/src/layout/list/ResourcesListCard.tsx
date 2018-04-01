@@ -1,32 +1,18 @@
 import { upperFirst } from 'lodash';
-import { CardHeader, CardMedia } from 'material-ui/Card';
-import muiThemeable from 'material-ui/styles/muiThemeable';
+import { CardMedia } from 'material-ui/Card';
 import React from 'react';
 import { AutoSizer, Dimensions } from 'react-virtualized';
 import { Content, Table, TableProps } from '../../components';
 import { EditorLanguagePicker } from '../../components/language';
-import { Styles, Themeable } from '../../styles';
 import { NamedNode } from '../../ww-commons';
 import { AdminFooter } from '../AdminFooter';
-
-const styles: Styles = {
-  header: {
-    height: 48,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  title: {
-    fontSize: 18,
-    color: 'white',
-  },
-};
+import { CardHeader } from '../CardHeader';
 
 type OuterProps<TResource extends NamedNode> = TableProps<TResource>;
 
-type InnerProps<TResource extends NamedNode> = Themeable & OuterProps<TResource>;
+type InnerProps<TResource extends NamedNode> = OuterProps<TResource>;
 
-class ResourcesListCardInner<DeleteHandle extends string, TResource extends NamedNode> extends
+export class ResourcesListCard<DeleteHandle extends string, TResource extends NamedNode> extends
   React.PureComponent<InnerProps<TResource>> {
 
   table = ({ width, height }: Dimensions) => {
@@ -43,15 +29,10 @@ class ResourcesListCardInner<DeleteHandle extends string, TResource extends Name
   };
 
   render() {
-    const { resourceType, list, muiTheme } = this.props;
-    const backgroundColor = muiTheme.palette!.primary1Color;
+    const { resourceType, list } = this.props;
     return (
       <Content card>
-        <CardHeader
-          title={`${upperFirst(resourceType)}s list`}
-          titleStyle={styles.title}
-          style={{ ...styles.header, backgroundColor }}
-        >
+        <CardHeader title={`${upperFirst(resourceType)}s list`}>
           <EditorLanguagePicker />
         </CardHeader>
         <CardMedia style={{ height: '100%' }} mediaStyle={{ height: '100%' }}>
@@ -64,5 +45,3 @@ class ResourcesListCardInner<DeleteHandle extends string, TResource extends Name
     );
   }
 }
-
-export const ResourcesListCard: React.ComponentType<OuterProps<any>> = muiThemeable()(ResourcesListCardInner);

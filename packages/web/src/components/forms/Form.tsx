@@ -1,36 +1,21 @@
 import { Location } from 'history';
-import { CardActions, CardHeader, CardMedia } from 'material-ui/Card';
+import { CardActions, CardMedia } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
-import muiThemeable from 'material-ui/styles/muiThemeable';
 import React from 'react';
 import Prompt from 'react-router-navigation-prompt';
 import { InjectedFormProps } from 'redux-form';
-import { Styles, Themeable } from '../../styles';
+import { CardHeader } from '../../layout';
 import { Content } from '../Content';
 import { EditorLanguagePicker } from '../language';
 import { ConfirmationDialog } from './ConfirmationDialog';
-
-const styles: Styles = {
-  header: {
-    height: 48,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  title: {
-    fontSize: 18,
-    color: 'white',
-  },
-};
 
 interface FormProps {
   resourceType: string;
 }
 
 type Props = FormProps & InjectedFormProps<any>;
-type InnerProps = Props & Themeable;
 
-class FormBase extends React.PureComponent<InnerProps> {
+export class Form extends React.PureComponent<Props> {
 
   shouldBlockNavigation = (cur: Location, nxt: Location) => {
     const { anyTouched } = this.props;
@@ -41,11 +26,10 @@ class FormBase extends React.PureComponent<InnerProps> {
   };
 
   render() {
-    const { initialValues, resourceType, muiTheme } = this.props;
+    const { initialValues, resourceType } = this.props;
     const submitLabel = (initialValues && initialValues.id) ? 'Update' : 'Create';
     const headerLabel = (initialValues && initialValues.name) ?
       `${initialValues.name} settings` : `New ${resourceType}`;
-    const backgroundColor = muiTheme.palette!.primary1Color;
     return (
       <Content card>
         <Prompt when={this.shouldBlockNavigation}>
@@ -60,7 +44,7 @@ class FormBase extends React.PureComponent<InnerProps> {
             />
           )}
         </Prompt>
-        <CardHeader title={headerLabel} titleStyle={styles.title} style={{ ...styles.header, backgroundColor }}>
+        <CardHeader title={headerLabel}>
           <EditorLanguagePicker />
         </CardHeader>
         <CardMedia style={{ height: '100%' }} mediaStyle={{ height: '100%' }}>
@@ -76,5 +60,3 @@ class FormBase extends React.PureComponent<InnerProps> {
   }
 
 }
-
-export const Form: React.ComponentType<Props> = muiThemeable()(FormBase);

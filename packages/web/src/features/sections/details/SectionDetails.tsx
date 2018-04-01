@@ -4,7 +4,8 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import { RouteComponentProps } from 'react-router-dom';
 import { Content, Tabs } from '../../../components';
-import { AdminFooter } from '../../../layout';
+import { EditorLanguagePicker } from '../../../components/language';
+import { AdminFooter, CardHeader } from '../../../layout';
 import { WithSection } from '../../../ww-clients/features/sections';
 import { SectionMedia } from '../../media';
 import SectionInfo from './SectionInfo';
@@ -14,6 +15,9 @@ export default class SectionDetails extends React.PureComponent<WithSection & Ro
     const { section: { node: section }, match: { url } } = this.props;
     return (
       <Content card>
+        <CardHeader title={`${section.river.name} - ${section.name}`}>
+          <EditorLanguagePicker />
+        </CardHeader>
         <CardMedia style={{ height: '100%' }} mediaStyle={{ height: '100%' }}>
           <div style={{ width: '100%', height: '100%' }} >
             <Tabs fullPathMode>

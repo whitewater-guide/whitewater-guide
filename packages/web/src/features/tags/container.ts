@@ -1,4 +1,3 @@
-import muiThemeable from 'material-ui/styles/muiThemeable';
 import { graphql } from 'react-apollo';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
@@ -38,5 +37,4 @@ export default compose<TagsFormProps, any>(
       }),
     },
   ),
-  muiThemeable(),
 );
