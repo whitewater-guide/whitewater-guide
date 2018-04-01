@@ -1,9 +1,8 @@
 import { CardMedia } from 'material-ui/Card';
-import { Tab } from 'material-ui/Tabs';
 import moment from 'moment';
 import React from 'react';
 import { Col } from 'react-grid-system';
-import { Content, HarvestStatusIndicator, Tabs } from '../../../components';
+import { Content, HarvestStatusIndicator } from '../../../components';
 import Chart from '../../../components/chart';
 import { AdminFooter, CardHeader } from '../../../layout';
 import { Container, Row, Title } from '../../../layout/details';
