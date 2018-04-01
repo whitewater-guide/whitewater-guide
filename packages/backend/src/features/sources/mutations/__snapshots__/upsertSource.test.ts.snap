@@ -7,7 +7,7 @@ Object {
   "harvestMode": "allAtOnce",
   "name": "New Source",
   "script": "newScript",
-  "termsOfUse": "Not translated",
+  "termsOfUse": null,
   "url": null,
 }
 `;

@@ -29,8 +29,8 @@ const query = `
   }
 `;
 
-test('should return region', async () => {
-  const result = await runQuery(query, { id: 'bd3e10b6-7624-11e7-b5a5-be2e44b06b34' }, superAdminContext());
+it('should return region', async () => {
+  const result = await runQuery(query, { id: REGION_GALICIA }, superAdminContext());
   expect(result.errors).toBeUndefined();
   expect(result.data).toBeDefined();
   expect(result.data!.region).toBeDefined();
@@ -39,39 +39,35 @@ test('should return region', async () => {
   expect(noTimestamps(region)).toMatchSnapshot();
 });
 
-test('should return null when id not specified', async () => {
+it('should return null when id not specified', async () => {
   const result = await runQuery(query, {}, superAdminContext());
   expect(result.errors).toBeUndefined();
   expect(result.data).toBeDefined();
   expect(result.data!.region).toBeNull();
 });
 
-test('users should not see hidden region', async () => {
+it('users should not see hidden region', async () => {
   const result = await runQuery(query, { id: 'b968e2b2-76c5-11e7-b5a5-be2e44b06b34' }, userContext());
   expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
   expect(result).toHaveProperty('data.region', null);
 });
 
-test('should be able to specify language', async () => {
-  const result = await runQuery(
-    query,
-    { id: 'bd3e10b6-7624-11e7-b5a5-be2e44b06b34' },
-    userContext('ru'),
-  );
+it('should be able to specify language', async () => {
+  const result = await runQuery(query, { id: REGION_GALICIA }, userContext('ru'));
   expect(result.data!.region.name).toBe('Галисия');
 });
 
-test('should be able to get basic attributes without translation', async () => {
-  const result = await runQuery(
-    query,
-    { id: 'bd3e10b6-7624-11e7-b5a5-be2e44b06b34' },
-    userContext('pt'),
-  );
-  expect(result.data!.region.name).toBe('Not translated');
+it('should fall back to english when not translated', async () => {
+  const result = await runQuery(query, { id: REGION_GALICIA }, userContext('pt'));
+  expect(result.data!.region.name).toBe('Galicia');
+});
+
+it('should be able to get basic attributes without translation', async () => {
+  const result = await runQuery(query, { id: REGION_GALICIA }, userContext('pt'));
   expect(result.data!.region.seasonNumeric).toEqual([20, 21]);
 });
 
-test('should get rivers', async () => {
+it('should get rivers', async () => {
   const riversQuery = `
     query regionDetails($id: ID){
       region(id: $id) {
@@ -87,11 +83,11 @@ test('should get rivers', async () => {
       }
     }
   `;
-  const result = await runQuery(riversQuery, { id: 'bd3e10b6-7624-11e7-b5a5-be2e44b06b34' }, userContext());
+  const result = await runQuery(riversQuery, { id: REGION_GALICIA }, userContext());
   expect(result.data!.region.rivers).toMatchSnapshot();
 });
 
-test('should get gauges', async () => {
+it('should get gauges', async () => {
   const gaugesQuery = `
     query regionDetails($id: ID){
       region(id: $id) {
@@ -113,7 +109,7 @@ test('should get gauges', async () => {
   expect(result.data!.region.gauges).toMatchSnapshot();
 });
 
-test('should get sections', async () => {
+it('should get sections', async () => {
   const sectionsQuery = `
     query regionDetails($id: ID){
       region(id: $id) {

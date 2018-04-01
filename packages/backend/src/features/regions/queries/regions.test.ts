@@ -31,19 +31,17 @@ const query = `
   }
 `;
 
-test('should return regions', async () => {
+it('should return regions', async () => {
   const result = await runQuery(query, undefined, superAdminContext());
   expect(result.errors).toBeUndefined();
-  expect(result.data).toBeDefined();
-  expect(result.data!.regions).toBeDefined();
   const regions = result.data!.regions;
   expect(regions.count).toBe(3);
   expect(regions.nodes.length).toBe(3);
   expect(regions.nodes.map(noTimestamps)).toMatchSnapshot();
 });
 
-test('users should not see hidden regions', async () => {
-  const result = await runQuery(query, undefined, userContext());
+it('users should not see hidden regions', async () => {
+  const result = await runQuery(query, { }, userContext());
   expect(result.errors).toBeUndefined();
   expect(result.data).toBeDefined();
   expect(result.data!.regions).toBeDefined();
@@ -52,19 +50,21 @@ test('users should not see hidden regions', async () => {
   expect(regions.nodes[0].hidden).toBe(null);
 });
 
-test('should be able to specify language', async () => {
+it('should be able to specify language', async () => {
   const result = await runQuery(query, { }, superAdminContext('ru'));
-  expect(result.data!.regions).toBeDefined();
   const regions = result.data!.regions;
   expect(regions.count).toBe(3);
-  // Check name
-  expect(regions.nodes[2].name).toBe('Галисия');
-  // Check name & common attribute for non-translated region
-  expect(regions.nodes[1].name).toBe('Not translated');
-  expect(regions.nodes[1].hidden).toBe(true);
+  expect(regions.nodes).toContainEqual(expect.objectContaining({ name: 'Галисия' }));
 });
 
-test('should return rivers count', async () => {
+it('should fall back to english when not translated', async () => {
+  const result = await runQuery(query, { }, superAdminContext('ru'));
+  const regions = result.data!.regions;
+  expect(regions.count).toBe(3);
+  expect(regions.nodes).toContainEqual(expect.objectContaining({ name: 'Norway' }));
+});
+
+it('should return rivers count', async () => {
   const riversQuery = `
     query listRegions($page: Page){
       regions(page: $page) {
@@ -87,7 +87,7 @@ test('should return rivers count', async () => {
   expect(regions.nodes[2].rivers).toEqual({ count: 2 });
 });
 
-test('should return gauges count', async () => {
+it('should return gauges count', async () => {
   const gaugesQuery = `
     query listRegions($page: Page){
       regions(page: $page) {
@@ -111,7 +111,7 @@ test('should return gauges count', async () => {
   expect(regions.nodes[2].gauges).toEqual({ count: 6 }); // Norway
 });
 
-test('should return sections count', async () => {
+it('should return sections count', async () => {
   const gaugesQuery = `
     query listRegions($page: Page){
       regions(page: $page) {

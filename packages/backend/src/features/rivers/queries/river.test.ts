@@ -51,10 +51,13 @@ it('should be able to specify language', async () => {
   expect(result.data!.river.name).toBe('Шоа');
 });
 
-it('should be able to get basic attributes without translation', async () => {
-  const result = await runQuery(query, { id: 'a8416664-bfe3-11e7-abc4-cec278b6b50a' }, userContext('pt'));
-  expect(result.errors).toBeUndefined();
-  expect(result).toHaveProperty('data.river.name', 'Not translated');
+it('should fall back to english when not translated', async () => {
+  const result = await runQuery(
+    query,
+    { id: 'd4396dac-d528-11e7-9296-cec278b6b50a' },
+    userContext('pt'),
+  );
+  expect(result.data!.river.name).toBe('Sjoa');
 });
 
 it('should get sections', async () => {

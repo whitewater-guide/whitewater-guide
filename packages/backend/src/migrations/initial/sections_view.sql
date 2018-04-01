@@ -1,6 +1,8 @@
 CREATE OR REPLACE VIEW sections_view AS
   WITH langs AS (
       SELECT unnest(enum_range(NULL::language_code)) AS language
+  ), english AS (
+      SELECT * from sections_translations WHERE language = 'en'
   )
   SELECT
     sections.id,
@@ -8,11 +10,11 @@ CREATE OR REPLACE VIEW sections_view AS
     -- graphql cannot return null for non-nullable field
     -- but if the name hasn't been translated into some language
     -- it will return null
-    COALESCE(sections_translations.name, 'Not translated') as name,
-    COALESCE(sections_translations.alt_names, '{}'::VARCHAR[]) as alt_names,
-    COALESCE(sections_translations.description, 'Not translated') as description,
-    COALESCE(sections_translations.season, 'Not translated') as season,
-    COALESCE(sections_translations.flows_text, 'Not translated') as flows_text,
+    COALESCE(sections_translations.name, english.name, 'Not translated') as name,
+    COALESCE(sections_translations.alt_names, english.alt_names, '{}'::VARCHAR[]) as alt_names,
+    COALESCE(sections_translations.description, english.description) as description,
+    COALESCE(sections_translations.season, english.season) as season,
+    COALESCE(sections_translations.flows_text, english.flows_text) as flows_text,
     sections.season_numeric,
     sections.levels,
     sections.flows,
@@ -52,3 +54,5 @@ CREATE OR REPLACE VIEW sections_view AS
     LEFT OUTER JOIN sections_translations
       ON sections.id = sections_translations.section_id
          AND sections_translations.language = langs.language
+    LEFT OUTER JOIN english
+      ON sections.id = english.section_id

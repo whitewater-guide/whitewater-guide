@@ -1,5 +1,5 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
-import { BLOG_1, PHOTO_1 } from '../../../seeds/test/10_media';
+import { BLOG_1, PHOTO_1, PHOTO_2 } from '../../../seeds/test/10_media';
 import { userContext } from '../../../test/context';
 import { noTimestamps, runQuery } from '../../../test/db-helpers';
 import { ThumbResize } from '../../../ww-commons';
@@ -38,6 +38,11 @@ it('should return null when id not specified', async () => {
 it('should be able to specify language', async () => {
   const result = await runQuery(query, { id: PHOTO_1 }, userContext('ru'));
   expect(result).toHaveProperty('data.media.description', 'Фото 1 описание');
+});
+
+it('should fall back to english when not translated', async () => {
+  const result = await runQuery(query, { id: PHOTO_2 }, userContext('ru'));
+  expect(result).toHaveProperty('data.media.description', 'Photo 2 description');
 });
 
 it('should be able to get basic attributes without translation', async () => {

@@ -26,7 +26,7 @@ const query = `
 const galiciaId = '6d0d717e-aa9d-11e7-abc4-cec278b6b50a';
 
 describe('anonymous', () => {
-  test('shall not pass', async () => {
+  it('shall not pass', async () => {
     const result = await runQuery(query, { id: galiciaId }, anonContext());
     expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
     expect(result).toHaveProperty('data.source', null);
@@ -34,7 +34,7 @@ describe('anonymous', () => {
 });
 
 describe('user', () => {
-  test('shall not pass', async () => {
+  it('shall not pass', async () => {
     const result = await runQuery(query, { id: galiciaId }, userContext());
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.source', null);
@@ -42,7 +42,7 @@ describe('user', () => {
 });
 
 describe('admin', () => {
-  test('should return source', async () => {
+  it('should return source', async () => {
     const result = await runQuery(query, { id: galiciaId }, adminContext());
     expect(result.errors).toBeUndefined();
     expect(result.data).toBeDefined();
@@ -54,7 +54,7 @@ describe('admin', () => {
 });
 
 describe('superadmin', () => {
-  test('should return source', async () => {
+  it('should return source', async () => {
     const result = await runQuery(query, { id: galiciaId }, superAdminContext());
     expect(result.errors).toBeUndefined();
     expect(result.data).toBeDefined();
@@ -65,7 +65,7 @@ describe('superadmin', () => {
 });
 
 describe('data', () => {
-  test('should return null when id not specified', async () => {
+  it('should return null when id not specified', async () => {
     const result = await runQuery(query, {}, adminContext());
     expect(result.errors).toBeUndefined();
     expect(result.data).toBeDefined();
@@ -74,20 +74,25 @@ describe('data', () => {
 });
 
 describe('i18n', () => {
-  test('should be able to specify language', async () => {
+  it('should be able to specify language', async () => {
     const result = await runQuery(query, { id: galiciaId }, superAdminContext('ru'));
-    expect(result.data!.source.name).toBe('Галисия');
+    expect(result.data!.source).toMatchObject({
+      name: 'Галисия',
+      cron: '0 * * * *',
+    });
   });
 
-  test('should be able to get basic attributes without translation', async () => {
+  it('should fall back to english when not translated', async () => {
     const result = await runQuery(query, { id: galiciaId }, superAdminContext('pt'));
-    expect(result.data!.source.cron).toBe('0 * * * *');
-    expect(result.data!.source.name).toBe('Not translated');
+    expect(result.data!.source).toMatchObject({
+      name: 'Galicia',
+      cron: '0 * * * *',
+    });
   });
 });
 
 describe('connections', () => {
-  test('should return regions', async () => {
+  it('should return regions', async () => {
     const q = `
       query sourceDetails($id: ID){
         source(id: $id) {
@@ -119,7 +124,7 @@ describe('connections', () => {
     }));
   });
 
-  test('should return gauges', async () => {
+  it('should return gauges', async () => {
     const q = `
       query sourceDetails($id: ID){
         source(id: $id) {

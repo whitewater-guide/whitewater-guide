@@ -25,7 +25,7 @@ query listSources {
 `;
 
 describe('anonymous', () => {
-  test('shall not pass', async () => {
+  it('shall not pass', async () => {
     const result = await runQuery(query, undefined, anonContext());
     expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
     expect(result.errors).toBeDefined();
@@ -34,7 +34,7 @@ describe('anonymous', () => {
 });
 
 describe('user', () => {
-  test('shall not pass', async () => {
+  it('shall not pass', async () => {
     const result = await runQuery(query, undefined, userContext());
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result.data).toBeNull();
@@ -42,7 +42,7 @@ describe('user', () => {
 });
 
 describe('admin', () => {
-  test('should list sources', async () => {
+  it('should list sources', async () => {
     const result = await runQuery(query, undefined, adminContext());
     expect(result.errors).toBeUndefined();
     expect(result.data).toBeDefined();
@@ -55,13 +55,11 @@ describe('admin', () => {
 });
 
 describe('super admin', () => {
-  test('should be able to specify language', async () => {
+  it('should be able to specify language', async () => {
     const result = await runQuery(query, { }, superAdminContext('ru'));
     expect(result.errors).toBeUndefined();
-    expect(result.data!.sources).toBeDefined();
-    const sources = result.data!.sources;
-    expect(sources.count).toBe(6);
-    const names = sources.nodes.map((node: any) => node.name);
-    expect(names).toEqual(expect.arrayContaining(['Галисия', 'Not translated']));
+    expect(result.data!.sources.count).toBe(6);
+    const names = result.data!.sources.nodes.map((node: any) => node.name);
+    expect(names).toEqual(expect.arrayContaining(['Галисия', 'Georgia']));
   });
 });

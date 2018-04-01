@@ -58,13 +58,18 @@ it('should paginate', async () => {
 it('should be able to specify language', async () => {
   const result = await runQuery(query, { }, userContext('ru'));
   expect(result.errors).toBeUndefined();
-  expect(result).toHaveProperty('data.rivers.nodes.0.name', 'Not translated');
-  expect(result).toHaveProperty('data.rivers.nodes.2.name', 'Гал_Река_Один');
+  expect(result.data!.rivers.nodes).toEqual(expect.arrayContaining([
+    expect.objectContaining({ name: 'Гал_Река_Один' }),
+    expect.objectContaining({ name: 'Шоа' }),
+    expect.objectContaining({ name: 'Finna' }),
+  ]));
 });
 
 it('should return empty array of alt names when not translated', async () => {
   const result = await runQuery(query, { }, userContext('ru'));
-  expect(result).toHaveProperty('data.rivers.nodes.0.altNames', []);
+  expect(result.data!.rivers.nodes).toEqual(expect.arrayContaining([
+    expect.objectContaining({ altNames: [] }),
+  ]));
 });
 
 it('should filter by region', async () => {

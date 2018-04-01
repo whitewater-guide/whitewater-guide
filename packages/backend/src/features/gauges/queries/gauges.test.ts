@@ -51,7 +51,15 @@ test('should be able to specify language', async () => {
   expect(result.errors).toBeUndefined();
   expect(result.data!.gauges.count).toBe(12);
   const names = result.data!.gauges.nodes.map((node: any) => node.name);
-  expect(names).toEqual(expect.arrayContaining(['Галисийская линейка 1', 'Gauge nor1']));
+  expect(names).toEqual(expect.arrayContaining(['Галисийская линейка 1']));
+});
+
+test('should fall back to english', async () => {
+  const result = await runQuery(query, {}, superAdminContext('ru'));
+  expect(result.errors).toBeUndefined();
+  expect(result.data!.gauges.count).toBe(12);
+  const names = result.data!.gauges.nodes.map((node: any) => node.name);
+  expect(names).toEqual(expect.arrayContaining(['Georgian gauge 3']));
 });
 
 test('should be able to specify source id', async () => {

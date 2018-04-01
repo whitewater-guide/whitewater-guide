@@ -35,5 +35,5 @@ it('should be able to specify language', async () => {
   const result = await runQuery(query, { sectionId: NORWAY_SJOA_AMOT }, userContext('ru'));
   expect(result.errors).toBeUndefined();
   const descriptions = result.data!.mediaBySection.nodes.map((n: any) => n.description);
-  expect(descriptions).toEqual(expect.arrayContaining(['Фото 1 описание', 'Not translated']));
+  expect(descriptions).toEqual(expect.arrayContaining(['Фото 1 описание', 'Photo 2 description']));
 });

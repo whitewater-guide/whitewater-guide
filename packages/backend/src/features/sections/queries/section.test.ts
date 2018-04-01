@@ -1,4 +1,5 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
+import { NORWAY_SJOA_AMOT } from '../../../seeds/test/08_sections';
 import { userContext } from '../../../test/context';
 import { noTimestamps, runQuery } from '../../../test/db-helpers';
 
@@ -67,7 +68,7 @@ const query = `
 `;
 
 it('should return simple data', async () => {
-  const result = await runQuery(query, { id: '21f2351e-d52a-11e7-9296-cec278b6b50a' }); // Amot
+  const result = await runQuery(query, { id: NORWAY_SJOA_AMOT }); // Amot
   expect(result.errors).toBeUndefined();
   expect(result.data).toBeDefined();
   expect(result.data!.section).toBeDefined();
@@ -87,7 +88,7 @@ it('should return river', async () => {
       }
     }
   `;
-  const result = await runQuery(riverQuery, { id: '21f2351e-d52a-11e7-9296-cec278b6b50a' }); // Amot
+  const result = await runQuery(riverQuery, { id: NORWAY_SJOA_AMOT }); // Amot
   expect(result.errors).toBeUndefined();
   expect(result).toHaveProperty('data.section.river.name', 'Sjoa');
 });
@@ -123,7 +124,7 @@ it('should return region', async () => {
       }
     }
   `;
-  const result = await runQuery(regionQuery, { id: '21f2351e-d52a-11e7-9296-cec278b6b50a' }); // Amot
+  const result = await runQuery(regionQuery, { id: NORWAY_SJOA_AMOT }); // Amot
   expect(result.errors).toBeUndefined();
   expect(result).toHaveProperty('data.section.region.name', 'Norway');
 });
@@ -136,14 +137,21 @@ it('should return null when id not specified', async () => {
 });
 
 it('should be able to specify language', async () => {
-  const result = await runQuery(query, { id: '21f2351e-d52a-11e7-9296-cec278b6b50a' }, userContext('ru')); // Amot
+  const result = await runQuery(query, { id: NORWAY_SJOA_AMOT }, userContext('ru')); // Amot
   expect(result.errors).toBeUndefined();
-  expect(result).toHaveProperty('data.section.name', 'Амот');
+  expect(result.data!.section).toMatchObject({
+    name: 'Амот',
+    description: 'Амот описание',
+    distance: 3.2,
+  });
 });
 
-it('should return basic attributes when not translated', async () => {
-  const result = await runQuery(query, { id: '21f2351e-d52a-11e7-9296-cec278b6b50a' }, userContext('pt')); // Amot
+it('should fall back to english when not translated', async () => {
+  const result = await runQuery(query, { id: NORWAY_SJOA_AMOT }, userContext('pt')); // Amot
   expect(result.errors).toBeUndefined();
-  expect(result).toHaveProperty('data.section.name', 'Not translated');
-  expect(result).toHaveProperty('data.section.rating', 5);
+  expect(result.data!.section).toMatchObject({
+    name: 'Amot',
+    description: 'Amot description',
+    distance: 3.2,
+  });
 });
