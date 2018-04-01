@@ -7,11 +7,9 @@ jest.mock('draft-js/lib/generateRandomKey', () => () => 'random_key');
 const testSection = {
   id: '2b01742c-d443-11e7-9296-cec278b6b50a',
   name: 'Gal_riv_1_sec_1',
-  language: 'en',
   altNames: [],
   river: {
     id: 'a8416664-bfe3-11e7-abc4-cec278b6b50a',
-    language: 'en',
     name: 'Gal_Riv_One',
     altNames: [],
     __typename: 'River',
@@ -49,7 +47,6 @@ const testSection = {
   pois: [
     {
       id: 'ca0bee06-d445-11e7-9296-cec278b6b50a',
-      language: 'en',
       name: 'Galicia Riv 1 Sec 1 Rapid',
       description: 'Some rapid',
       coordinates: [
@@ -62,7 +59,6 @@ const testSection = {
     },
     {
       id: 'ef6f80ea-d445-11e7-9296-cec278b6b50a',
-      language: 'en',
       name: 'Galicia Riv 1 Sec 1 Portage',
       description: 'Some portage',
       coordinates: [
@@ -77,14 +73,12 @@ const testSection = {
   tags: [
     {
       id: 'waterfalls',
-      language: 'en',
       name: 'Waterfalls',
       category: 'kayaking',
       __typename: 'Tag',
     },
     {
       id: 'undercuts',
-      language: 'en',
       name: 'Undercuts',
       category: 'hazards',
       __typename: 'Tag',
@@ -92,7 +86,6 @@ const testSection = {
   ],
   gauge: {
     id: 'aba8c106-aaa0-11e7-abc4-cec278b6b50a',
-    language: 'en',
     name: 'Galicia gauge 1',
     __typename: 'Gauge',
   },

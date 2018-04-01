@@ -12,11 +12,12 @@ export interface Context {
   language: string;
   user?: ContextUser;
   lastMeasurementLoader: LastMeasurementLoader;
+  req?: Request;
 }
 
 export const newContext = (req?: Request): Context => {
   const user: ContextUser | undefined = req && req.user;
-  const language = get(user, 'editorSettings.language') ||
+  const language = get(user, 'editor_settings.language') ||
     get(user, 'language') ||
     get(req, 'language') ||
     'en';
@@ -24,5 +25,6 @@ export const newContext = (req?: Request): Context => {
     user,
     language,
     lastMeasurementLoader: new LastMeasurementLoader(),
+    req,
   };
 };

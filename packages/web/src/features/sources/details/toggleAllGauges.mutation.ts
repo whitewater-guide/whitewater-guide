@@ -4,7 +4,6 @@ const TOGGLE_ALL_GAUGES = gql`
   mutation toggleAllGauges($sourceId: ID!, $enabled: Boolean!){
     toggleAllGauges(sourceId: $sourceId, enabled: $enabled) {
       id
-      language
       enabled
     }
   }

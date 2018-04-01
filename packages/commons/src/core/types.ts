@@ -5,7 +5,6 @@ export interface Node {
 
 export interface NamedNode extends Node {
   name: string;
-  language: string;
 }
 
 /**

@@ -1,30 +1,24 @@
+import { SelectFieldProps } from 'material-ui';
 import MenuItem from 'material-ui/MenuItem';
 import SelectField from 'material-ui/SelectField';
 import React from 'react';
-import { compose } from 'recompose';
-import { Styles } from '../../styles';
-import { adminOnly } from '../adminOnly';
-import { withLanguage, WithLanguage } from './withLanguage';
+import { Omit } from 'type-zoo';
 
-const styles: Styles = {
-  languageSelect: {
-    marginTop: -16,
-  },
-  selectedMenuItemStyle: {
-    color: 'white',
-  },
-};
+export type LanguagePickerProps = {
+  language: string;
+  onLanguageChange: (language: string) => void;
+} & Omit<SelectFieldProps, 'value' | 'onChange'>;
 
-class LanguagePickerView extends React.PureComponent<WithLanguage> {
+export class LanguagePicker extends React.PureComponent<LanguagePickerProps> {
   onChange = (e: any, i: number, value: string) => this.props.onLanguageChange(value);
 
   render() {
+    const { language, onLanguageChange, ...props } = this.props;
     return (
       <SelectField
-        style={styles.languageSelect}
-        value={this.props.language}
+        {...props}
+        value={language}
         onChange={this.onChange}
-        labelStyle={styles.selectedMenuItemStyle}
       >
         <MenuItem value="en" primaryText="English" />
         <MenuItem value="ru" primaryText="Russian" />
@@ -36,8 +30,3 @@ class LanguagePickerView extends React.PureComponent<WithLanguage> {
     );
   }
 }
-
-export const LanguagePicker = compose(
-  adminOnly,
-  withLanguage,
-)(LanguagePickerView);

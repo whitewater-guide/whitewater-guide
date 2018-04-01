@@ -41,7 +41,7 @@ const styles: Styles = {
 };
 
 const DURATIONS_OPTIONS: NamedNode[] = [];
-Durations.forEach((val, key) => DURATIONS_OPTIONS.push({ id: key as any, name: val, language: 'en' }));
+Durations.forEach((val, key) => DURATIONS_OPTIONS.push({ id: key as any, name: val }));
 
 const MainFields: Array<keyof SectionFormInput> = [
   'name', 'altNames', 'difficulty', 'difficultyXtra', 'rating', 'gauge', 'levels', 'flows', 'flowsText',

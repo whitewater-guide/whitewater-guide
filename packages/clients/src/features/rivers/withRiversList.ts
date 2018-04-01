@@ -16,11 +16,9 @@ interface Result {
 
 interface Props {
   regionId: string;
-  language?: string;
 }
 
 interface Vars {
-  language?: string;
   filter: {
     regionId: string;
   };
@@ -42,7 +40,6 @@ export const withRiversList = ({ fetchPolicy = 'cache-and-network' }: Options = 
           fetchPolicy,
           notifyOnNetworkStatusChange: true,
           variables: {
-            language: props.language,
             filter: { regionId: props.regionId },
             // page ?
           },

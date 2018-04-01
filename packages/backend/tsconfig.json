@@ -18,7 +18,8 @@
     "strictNullChecks": true,
     "pretty": true,
     "removeComments": true,
-    "sourceMap": true
+    "inlineSourceMap": true,
+    "inlineSources": true
   },
   "include": [
     "src/**/*"

@@ -20,14 +20,21 @@ interface Props extends WithTagMutations {
 class TagForm extends React.PureComponent<Props, TagInput> {
   constructor(props: Props) {
     super(props);
-    const { __typename, language, ...tag } = props.tag;
+    const { __typename, ...tag } = props.tag;
     this.state = { ...tag };
+  }
+
+  componentWillReceiveProps(nextProps: Props) {
+    const { __typename, ...nextTag }: Tag = nextProps.tag;
+    if (nextTag.id !== this.state.id || nextTag.name !== this.state.name || nextTag.category !== this.state.category) {
+      this.setState({ ...nextTag });
+    }
   }
 
   onIdChange = (e: any, id: string) => this.setState({ id });
   onNameChange = (e: any, name: string) => this.setState({ name });
 
-  onSave = () => this.props.upsertTag(this.state, this.props.tag.language);
+  onSave = () => this.props.upsertTag(this.state);
   onDelete = () => this.props.removeTag(this.props.tag.id);
 
   render() {

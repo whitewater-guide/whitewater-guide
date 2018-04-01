@@ -11,7 +11,6 @@ import { Omit } from 'type-zoo';
 import { apolloErrorToString } from '../../ww-clients/apollo';
 import { withLoading } from '../withLoading';
 import { validateInput } from './validateInput';
-import { withLanguage, WithLanguage } from './withLanguage';
 
 export interface FormContainerOptions<QueryResult, MutationResult, FormInput> {
   /**
@@ -91,13 +90,12 @@ export const formContainer = <QueryResult, MutationResult, FormInput>(
 
   type FormProps = Partial<ConfigProps<FormInput>>;
 
-  type MappedProps = ChildProps<QueryResult, MutationResult> & RouteComponentProps<any> & WithLanguage;
+  type MappedProps = ChildProps<QueryResult, MutationResult> & RouteComponentProps<any>;
 
   const deserialize = memoize(deserializeForm);
 
   return compose(
     withRouter,
-    withLanguage,
     graphql(query, { options: { fetchPolicy: 'network-only' }, alias: `${formName}FormQuery` }),
     withLoading<ChildProps<any, any>>(({ data }) => data!.loading),
     graphql(mutation, { alias: `${formName}FormMutation` }),

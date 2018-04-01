@@ -3,7 +3,6 @@ import gql from 'graphql-tag';
 const Core = gql`
   fragment GaugeCore on Gauge {
     id
-    language
     name
     code
     levelUnit
@@ -65,7 +64,6 @@ const Source = gql`
   fragment GaugeSource on Gauge {
     source {
       id
-      language
       name
     }
   }

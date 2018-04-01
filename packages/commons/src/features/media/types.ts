@@ -7,7 +7,6 @@ export enum MediaKind {
 }
 
 export interface Media extends Node, Timestamped {
-  language: string;
   description: string | null;
   copyright: string | null;
   url: string;

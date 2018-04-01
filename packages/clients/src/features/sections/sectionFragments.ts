@@ -5,11 +5,9 @@ const Name = gql`
   fragment SectionName on Section {
     id
     name
-    language
     altNames
     river {
       id
-      language
       name
       altNames
     }
@@ -101,7 +99,6 @@ const Meta = gql`
 const MediaCore = gql`
   fragment MediaCore on Media {
     id
-    language
     description
     copyright
     url
@@ -125,7 +122,6 @@ const POIs = gql`
   fragment SectionPOIs on Section {
     pois {
       id
-      language
       name
       description
       coordinates
@@ -138,7 +134,6 @@ const Tags = gql`
   fragment SectionTags on Section {
     tags {
       id
-      language
       name
       category
     }

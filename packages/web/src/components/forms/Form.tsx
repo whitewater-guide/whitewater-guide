@@ -7,8 +7,8 @@ import Prompt from 'react-router-navigation-prompt';
 import { InjectedFormProps } from 'redux-form';
 import { Styles, Themeable } from '../../styles';
 import { Content } from '../Content';
+import { EditorLanguagePicker } from '../language';
 import { ConfirmationDialog } from './ConfirmationDialog';
-import { LanguagePicker } from './LanguagePicker';
 
 const styles: Styles = {
   header: {
@@ -61,7 +61,7 @@ class FormBase extends React.PureComponent<InnerProps> {
           )}
         </Prompt>
         <CardHeader title={headerLabel} titleStyle={styles.title} style={{ ...styles.header, backgroundColor }}>
-          <LanguagePicker />
+          <EditorLanguagePicker />
         </CardHeader>
         <CardMedia style={{ height: '100%' }} mediaStyle={{ height: '100%' }}>
           <div style={{ width: '100%', height: '100%' }}>

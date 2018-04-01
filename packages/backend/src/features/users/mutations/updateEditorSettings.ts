@@ -15,11 +15,16 @@ const Schema = Joi.object().keys({
 
 const updateEditorSettings = isAuthenticatedResolver.createResolver(
   isInputValidResolver(Schema).createResolver(
-    async (root, { editorSettings }: Vars, { user }: Context) => {
+    async (root, { editorSettings }: Vars, { user, req }: Context) => {
       await db().table('users')
         .update({ editor_settings: editorSettings })
         .where({ id: user!.id });
-      return db().table('users').select(['id', 'editor_settings']).where({ id: user!.id }).first();
+      const updatedUser = await db().table('users').where({ id: user!.id }).first();
+      if (req) {
+        return new Promise(resolve => req.login(updatedUser, () => resolve(updatedUser)));
+      } else {
+        return updatedUser;
+      }
     },
   ),
 );

@@ -4,8 +4,7 @@ import { toIdValue } from 'apollo-utilities';
 function dataIdFromObject(result: any) {
   if (result.__typename) {
     if (result.id !== undefined) {
-      const lang = result.language ? `:${result.language}` : '';
-      return `${result.__typename}:${result.id}${lang}`;
+      return `${result.__typename}:${result.id}`;
     }
   }
   return null;
@@ -17,8 +16,8 @@ export const configureApolloCache = () =>
     addTypename: true,
     cacheRedirects: {
       Query: {
-        region: (_, { id, language = 'en' }) => toIdValue(dataIdFromObject({ __typename: 'Region', id,  language })!),
-        source: (_, { id, language = 'en' }) => toIdValue(dataIdFromObject({ __typename: 'Source', id,  language })!),
+        region: (_, { id }) => toIdValue(dataIdFromObject({ __typename: 'Region', id })!),
+        source: (_, { id }) => toIdValue(dataIdFromObject({ __typename: 'Source', id })!),
       },
     },
   });

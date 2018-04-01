@@ -2,7 +2,7 @@ import { Themeable } from '../../styles';
 import { TagInput, WithTags } from '../../ww-commons';
 
 export interface WithTagMutations {
-  upsertTag: (tag: TagInput, language: string) => void;
+  upsertTag: (tag: TagInput) => void;
   removeTag: (id: string) => void;
 }
 

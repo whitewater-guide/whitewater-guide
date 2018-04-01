@@ -18,12 +18,11 @@ interface Props extends WithTagMutations {
   tags: Tag[];
 }
 
-// TODO: fix as any
 const TagsByCategory: React.StatelessComponent<Props> = ({ category, title, tags, upsertTag, removeTag }) => (
   <div style={styles.container}>
     <h1>{title}</h1>
     {tags.map(tag => <TagForm key={tag.id} tag={tag} upsertTag={upsertTag} removeTag={removeTag} />)}
-    <TagForm upsertTag={upsertTag} removeTag={removeTag} tag={{ id: '', name: '', category } as any} />
+    <TagForm upsertTag={upsertTag} removeTag={removeTag} tag={{ id: '', name: '', category }} />
   </div>
 );
 

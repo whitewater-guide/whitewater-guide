@@ -2,7 +2,7 @@ import { groupBy } from 'lodash';
 import { CardHeader, CardMedia } from 'material-ui/Card';
 import React from 'react';
 import { Content } from '../../components';
-import { LanguagePicker } from '../../components/forms';
+import { EditorLanguagePicker } from '../../components/language';
 import { Styles } from '../../styles';
 import { TagCategory } from '../../ww-commons/features/tags';
 import TagsByCategory from './TagsByCategory';
@@ -30,7 +30,7 @@ export default class TagsForm extends React.PureComponent<TagsFormProps> {
     return (
       <Content card>
         <CardHeader title="Tags" titleStyle={styles.title} style={{ ...styles.header, backgroundColor }}>
-          <LanguagePicker />
+          <EditorLanguagePicker />
         </CardHeader>
         <CardMedia style={{ height: '100%' }} mediaStyle={{ height: '100%' }}>
           <div style={{ width: '100%', height: '100%', overflowY: 'scroll' }}>

@@ -8,5 +8,6 @@ export * from './MutationToggle';
 export * from './NumberInput';
 export * from './Rating';
 export * from './tables';
+export * from './language';
 export * from './Tabs';
 export * from './withLoading';

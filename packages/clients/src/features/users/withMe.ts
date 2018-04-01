@@ -10,6 +10,11 @@ const query = gql`
       avatar
       email
       role
+      language
+      imperial
+      editorSettings {
+        language
+      }
     }
   }
 `;

@@ -15,14 +15,12 @@ interface Result {
 }
 
 interface Vars {
-  language?: string;
   filter: {
     regionId: string;
   };
 }
 
 interface Props {
-  language?: string;
   regionId: string;
 }
 
@@ -43,7 +41,6 @@ export const withSectionsList = ({ fetchPolicy = 'cache-and-network' }: Options 
           fetchPolicy,
           notifyOnNetworkStatusChange: true,
           variables: {
-            language: props.language,
             filter: { regionId: props.regionId },
             // page ?
           },

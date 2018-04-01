@@ -4,7 +4,7 @@ import muiThemeable from 'material-ui/styles/muiThemeable';
 import React from 'react';
 import { AutoSizer, Dimensions } from 'react-virtualized';
 import { Content, Table, TableProps } from '../../components';
-import { LanguagePicker } from '../../components/forms';
+import { EditorLanguagePicker } from '../../components/language';
 import { Styles, Themeable } from '../../styles';
 import { NamedNode } from '../../ww-commons';
 import { AdminFooter } from '../AdminFooter';
@@ -52,7 +52,7 @@ class ResourcesListCardInner<DeleteHandle extends string, TResource extends Name
           titleStyle={styles.title}
           style={{ ...styles.header, backgroundColor }}
         >
-          <LanguagePicker />
+          <EditorLanguagePicker />
         </CardHeader>
         <CardMedia style={{ height: '100%' }} mediaStyle={{ height: '100%' }}>
           <AutoSizer rowCount={list ? list.length : 0}>

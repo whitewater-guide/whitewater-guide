@@ -3,7 +3,6 @@ import { queryResultToNode } from './queryResultToNode';
 interface Foo {
   id: string;
   name: string;
-  language: string;
   bar: string;
 }
 
@@ -12,7 +11,7 @@ it('should convert graphql query response to prop consumed by react components',
   const result = queryResultToNode<Foo, 'region'>(
     {
       data: {
-        region: { id: '1', name: 'name', language: 'en', bar: 'bar' },
+        region: { id: '1', name: 'name', bar: 'bar' },
         loading: false,
         error: null,
         refetch,
@@ -22,7 +21,7 @@ it('should convert graphql query response to prop consumed by react components',
   );
   expect(result).toMatchObject({
     region: {
-      node: { id: '1', name: 'name', language: 'en', bar: 'bar' },
+      node: { id: '1', name: 'name', bar: 'bar' },
       loading: false,
       error: null,
       refetch,

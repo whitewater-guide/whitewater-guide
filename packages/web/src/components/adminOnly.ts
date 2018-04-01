@@ -1,7 +1,7 @@
 import { branch, compose, renderNothing } from 'recompose';
-import { withMe } from '../ww-clients/features/users';
+import { WithMe, withMe } from '../ww-clients/features/users';
 
-export const adminOnly = compose(
+export const adminOnly = compose<WithMe, any>(
   withMe(),
   branch(
     ({ isAdmin }) => !isAdmin,

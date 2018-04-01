@@ -6,7 +6,6 @@ jest.mock('draft-js/lib/generateRandomKey', () => () => 'random_key');
 const region = {
   __typename: 'Region',
   id: 'id',
-  language: 'en',
   name: 'foo',
   description: 'bar',
   season: 'season',
@@ -18,7 +17,6 @@ const region = {
   source: {
     __typename: 'Source',
     id: 'source_id',
-    language: 'en',
     name: 'source_name',
   },
   location: null,
@@ -26,7 +24,6 @@ const region = {
     {
       __typename: 'Point',
       id: 'point_id',
-      language: 'en',
       name: 'point_name',
       coordinates: [1, 2, 0],
       description: 'point_description',
@@ -41,7 +38,6 @@ const region = {
       {
         __typename: 'Source',
         id: 'source_id',
-        language: 'en',
         name: 'source_name',
       },
     ],
@@ -68,10 +64,6 @@ it('should omit __typename', () => {
   expect(result).not.toHaveProperty('__typename');
 });
 
-it('should omit language', () => {
-  expect(result).not.toHaveProperty('language');
-});
-
 it('should convert markdown to draft', () => {
   expect(result.description).toBeInstanceOf(EditorState);
 });
@@ -85,16 +77,8 @@ it('should omit __typename from nested object in array', () => {
   expect(result!.pois[0]).not.toHaveProperty('__typename');
 });
 
-it('should omit language from nested object in array', () => {
-  expect(result!.pois[0]).not.toHaveProperty('language');
-});
-
 it('should omit __typename from nested object', () => {
   expect(result!.source).not.toHaveProperty('__typename');
-});
-
-it('should omit language from nested object', () => {
-  expect(result!.source).not.toHaveProperty('language');
 });
 
 it('should keep null nested objects', () => {
