@@ -24,7 +24,7 @@ interface Props {
 const LightboxPhotoView: React.StatelessComponent<Props> = ({ data }) => {
   return (
     <div style={styles.container}>
-      <img src={data.url} style={styles.img} />
+      <img src={`${process.env.REACT_APP_API_HOST}/uploads/media/${data.url}`} style={styles.img} />
     </div>
   );
 };

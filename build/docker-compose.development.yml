@@ -70,9 +70,19 @@ services:
     ports:
       - '6001:2015'
 
-  # Imgproxy to generate thumbnails
-  imgproxy:
-    container_name: ww-imgproxy
+  # imageproxy to generate thumbnails
+  imageproxy:
+    container_name: ww-imageproxy
+    command:
+      - -verbose
+      - -addr
+      - 0.0.0.0:8080
+      - -whitelist
+      - minio:9000
+      - -baseURL
+      - http://minio:9000/
+    ports:
+      - '8082:8080'
 
   # Redis for sessions and last measurements
   redis:

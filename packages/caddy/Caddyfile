@@ -62,8 +62,8 @@
     transparent
   }
 
-  proxy /{$IMGPROXY_PATH} imgproxy:8080 {
-    without /{$IMGPROXY_PATH}
+  proxy /images imageproxy:8080 {
+    without /images
     transparent
   }
 
@@ -76,6 +76,7 @@
     transparent
   }
 
+  # TODO
   # cache {
   #   match_path /${IMGPROXY_PATH}
   #   match_header Content-Type image/jpg image/png

@@ -58,8 +58,8 @@ services:
     ports:
       - '80:2015'
 
-  # Imgproxy to generate thumbnails
-  imgproxy:
+  # imageproxy to generate thumbnails
+  imageproxy:
 
   # Redis for sessions and last measurements
   redis:

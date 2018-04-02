@@ -48,6 +48,8 @@ interface State {
 }
 
 class Thumb extends React.PureComponent<Props, State> {
+  state: State = {};
+
   async componentDidMount() {
     await this.setThumb(this.props.media);
   }
@@ -60,20 +62,17 @@ class Thumb extends React.PureComponent<Props, State> {
 
   setThumb = async (media: Media) => {
     const { kind, url } = media;
-    const height = THUMB_HEIGHT;
-    let width = THUMB_HEIGHT;
     if (kind === MediaKind.photo) {
-      if (media.resolution && media.resolution.length === 2) {
-        const scale = THUMB_HEIGHT / media.resolution[1];
-        width = media.resolution[0] * scale;
-      }
-      this.setState({ thumb: media.thumb, width, height });
+      this.setState({
+        thumb: `${process.env.REACT_APP_API_HOST}/images/x${THUMB_HEIGHT}/media/${media.url}`,
+        height: THUMB_HEIGHT,
+      });
     } else if (kind === MediaKind.video) {
       const videoThumb = await getVideoThumb(url, THUMB_HEIGHT);
       if (videoThumb) {
         const scale = THUMB_HEIGHT / videoThumb.height;
-        width = videoThumb.width * scale;
-        this.setState({ thumb: videoThumb.thumb, height, width });
+        const width = videoThumb.width * scale;
+        this.setState({ thumb: videoThumb.thumb, height: THUMB_HEIGHT, width });
       }
     }
   };
@@ -103,7 +102,7 @@ class Thumb extends React.PureComponent<Props, State> {
 
   render() {
     const { classes, editable } = this.props;
-    const { thumb = '', width = THUMB_HEIGHT, height = THUMB_HEIGHT } = this.state || {};
+    const { thumb, width, height } = this.state;
     return (
       <div className={classes.container} onClick={this.onClick}>
         <img src={thumb} style={{ width, height }} />

@@ -4,26 +4,16 @@ enum MediaKind {
   blog
 }
 
-enum ThumbResize {
-  fit
-  fill
-  crop
-}
-
-input ThumbOptions {
-  resize: ThumbResize
-  width: Int
-  height: Int
-}
-
 type Media {
   id: ID!
   kind: MediaKind!
   description: String
   copyright: String
+  # Full URL for videos and blogs, filename for images
   url: String!
-  thumb(options: ThumbOptions): String
+  # Mandatory for images - [width, height] array. Makes no sense for blogs and videos (yet)
   resolution: [Int]
+  # weight for sorting
   weight: Int
   # Not persistent. Indicates client that it should not display this item in lists
   deleted: Boolean
@@ -36,6 +26,7 @@ input MediaInput {
   kind: MediaKind!
   description: String
   copyright: String
+  # Full URL for videos and blogs, filename for uploaded images
   url: String
   resolution: [Int]
   weight: Int

@@ -2,7 +2,6 @@ import { holdTransaction, rollbackTransaction } from '../../../db';
 import { BLOG_1, PHOTO_1, PHOTO_2 } from '../../../seeds/test/10_media';
 import { userContext } from '../../../test/context';
 import { noTimestamps, runQuery } from '../../../test/db-helpers';
-import { ThumbResize } from '../../../ww-commons';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
@@ -48,19 +47,6 @@ it('should fall back to english when not translated', async () => {
 it('should be able to get basic attributes without translation', async () => {
   const result = await runQuery(query, { id: PHOTO_1 }, userContext('pt'));
   expect(result).toHaveProperty('data.media.kind', 'photo');
-});
-
-it('should return thumb', async () => {
-  const thumbQuery = `
-    query media($id: ID, $thumbOpts: ThumbOptions){
-      media(id: $id) {
-        id
-        thumb(options: $thumbOpts)
-      }
-    }`;
-  const thumbOpts = { width: 100, height: 100, resize: ThumbResize.FIT };
-  const result = await runQuery(thumbQuery, { id: PHOTO_1, thumbOpts });
-  expect(result.data!.media.thumb).toMatch(/http:\/\/localhost:6001\/images\/[\w\-]+\/fit\/100\/100\/ce\/1\/[\w\-]+\.jpg/);
 });
 
 it('should produce correct full url for photos', async () => {

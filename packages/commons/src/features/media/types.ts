@@ -14,7 +14,6 @@ export interface Media extends Node, Timestamped {
   resolution: number[] | null;
   deleted?: boolean;
   weight: number;
-  thumb?: string;
 }
 
 export interface MediaInput {
@@ -25,26 +24,4 @@ export interface MediaInput {
   kind: MediaKind;
   resolution: number[] | null;
   weight: number | null;
-}
-
-export enum ThumbResize {
-  FIT = 'fit',
-  FILL = 'fill',
-  CROP = 'crop',
-}
-
-export enum ThumbGravity {
-  NORTH = 'no',
-  SOUTH = 'so',
-  EAST = 'ea',
-  WEST = 'we',
-  CENTER = 'ce',
-  SMART = 'sm',
-}
-
-export interface ThumbOptions {
-  width: number;
-  height: number;
-  resize?: ThumbResize;
-  gravity?: ThumbGravity;
 }

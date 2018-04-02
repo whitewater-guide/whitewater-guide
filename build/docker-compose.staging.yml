@@ -53,8 +53,8 @@ services:
       - '80:80'
       - '443:443'
 
-  # Imgproxy to generate thumbnails
-  imgproxy:
+  # imageproxy to generate thumbnails
+  imageproxy:
 
   # Redis for sessions and last measurements
   redis:

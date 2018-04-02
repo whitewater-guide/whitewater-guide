@@ -18,6 +18,8 @@ services:
       - ${DOCKER_ENV_FILE}.local
       - ../packages/backend/${DOCKER_ENV_FILE}
       - ../packages/backend/${DOCKER_ENV_FILE}.local
+    environment:
+      - IMAGEPROXY_PATH=images
     build:
       context: ../packages/backend
       labels:
@@ -52,16 +54,17 @@ services:
       - ${DOCKER_ENV_FILE}.local
     read_only: true
 
-  # Imgproxy to generate thumbnails
-  imgproxy:
+  # imageproxy to generate thumbnails
+  imageproxy:
     <<: *ww-single-host
-    env_file:
-      - ${DOCKER_ENV_FILE}
-      - ${DOCKER_ENV_FILE}.local
-    environment:
-      - IMGPROXY_TTL=86400
-      - IMGPROXY_USE_ETAG=true
-    image: 'darthsim/imgproxy:latest'
+    command:
+      - -addr
+      - 0.0.0.0:8080
+      - -whitelist
+      - minio:9000
+      - -baseURL
+      - http://minio:9000/
+    image: 'willnorris/imageproxy:v0.7.0'
     read_only: true
 
   # Workers to harvest some data

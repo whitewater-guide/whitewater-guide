@@ -3,7 +3,6 @@ import { buildListQuery, buildRootQuery, ListQueryBuilderOptions, QueryBuilderOp
 import { Media } from '../../ww-commons';
 
 const customFieldMap = {
-  thumb: () => 'url',
   deleted: () => null,
 };
 
