@@ -69,6 +69,7 @@ export const up = async (db: Knex) => {
   await db.schema.createTable('regions', (table) => {
     table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
     table.boolean('hidden').defaultTo(false);
+    table.boolean('premium').defaultTo(false);
     table.specificType('season_numeric', 'integer[]').notNullable().defaultTo('{}');
     table.specificType('bounds', 'geography(POLYGONZ,4326)');
     table.timestamps(false, true);

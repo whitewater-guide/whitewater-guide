@@ -25,3 +25,8 @@ export class RegionInput {
   bounds: Coordinate3d[] | null;
   pois: PointInput[];
 }
+
+export interface RegionAdminSettings {
+  hidden: boolean;
+  premium: boolean;
+}

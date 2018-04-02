@@ -12,6 +12,7 @@ CREATE OR REPLACE VIEW regions_view AS
     COALESCE(regions_translations.season, english.season) as season,
     regions.season_numeric,
     regions.hidden,
+    regions.premium,
     regions.created_at,
     regions.updated_at,
     ST_AsText(regions.bounds) AS bounds,

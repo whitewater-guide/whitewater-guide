@@ -23,18 +23,21 @@ const regions = [
   {
     id: REGION_GALICIA,
     hidden: false,
+    premium: false,
     season_numeric: [20, 21],
     bounds: getBounds([[-114, 46, 0], [-115, 46, 0], [-115, 47, 0], [-114, 47, 0]]),
   },
   {
     id: REGION_ECUADOR,
     hidden: false,
+    premium: true,
     season_numeric: [],
     bounds: null,
   },
   {
     id: REGION_NORWAY,
     hidden: true,
+    premium: true,
     season_numeric: [],
     bounds: null,
   },
