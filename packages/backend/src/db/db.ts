@@ -3,9 +3,6 @@ import knexConfig from './knexfile';
 
 const env = process.env.NODE_ENV || 'development';
 const config: knex.Config = knexConfig[env];
-config.pool = {
-  propagateCreateError: false,
-} as any; // typedefs still use generic-pool, but knex switched to tarn
 
 const knexInstance = knex(config);
 

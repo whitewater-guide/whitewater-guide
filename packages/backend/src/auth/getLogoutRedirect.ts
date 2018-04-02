@@ -1,9 +1,8 @@
-import { Request } from 'koa';
-import log from '../log';
+import Koa from 'koa';
 import getOrigin from './getOrigin';
 
-export default function getLogoutRedirect(req: Request) {
-  const url = req.header('Referer') || '/';
-  log.info('Logout redirect', { referer: req.header('Referer'), origin: req.header('Origin') });
+export default function getLogoutRedirect(ctx: Koa.Context) {
+  const referer = ctx.header.referer;
+  const url = referer || '/';
   return getOrigin(url) + '/logout';
 }

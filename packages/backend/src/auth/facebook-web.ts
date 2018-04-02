@@ -1,15 +1,13 @@
 import passport from 'passport';
+import { Strategy as FacebookStrategy } from 'passport-facebook';
 import db from '../db';
 import { UserRaw } from '../features/users';
 
-import Koa from 'koa';
-import { Strategy as FacebookStrategy } from 'passport-facebook';
-
-async function login(req: Koa.Request, provider: string, profile: passport.Profile, tokens: any) {
+async function login(req: Express.Request, provider: string, profile: passport.Profile, tokens: any) {
   let user: UserRaw | null = null;
 
   // Logged in. But might be logged in via different service (not facebook)
-  const reqUesr = (req as any).user;
+  const reqUesr = req.user;
   if (reqUesr) {
     user = await db().table('users').where({ id: reqUesr.id }).first();
   }
@@ -45,13 +43,13 @@ async function login(req: Koa.Request, provider: string, profile: passport.Profi
       ...loginKeys,
       username: profile.username,
       tokens: JSON.stringify(tokens),
-      profile: JSON.stringify((profile as any)._json), // Facebook stores extra data here
+      profile: JSON.stringify(profile._json), // Facebook stores extra data here
     });
   } else {
     await db().table('logins').where(loginKeys).update({
       username: profile.username,
       tokens: JSON.stringify(tokens),
-      profile: JSON.stringify((profile as any)._json),
+      profile: JSON.stringify(profile._json),
     });
   }
 
@@ -70,7 +68,7 @@ const FacebookWebStrategy = new FacebookStrategy(
     try {
       profile.username = `${profile.name!.givenName} ${profile.name!.familyName}`;
       profile.displayName = `${profile.name!.givenName} ${profile.name!.familyName}`;
-      const user = await login(req as any, 'facebook', profile, { accessToken, refreshToken });
+      const user = await login(req, 'facebook', profile, { accessToken, refreshToken });
       done(null, user);
     } catch (err) {
       done(err);

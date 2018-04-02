@@ -21,7 +21,7 @@ graphqlRouter.post('/graphql', graphqlKoa(async (ctx) => {
 if (process.env.APOLLO_EXPOSE_GRAPHIQL === 'true') {
   graphqlRouter.get(
     '/graphiql',
-    graphiqlKoa({ endpointURL: '/graphql' }) as any,
+    graphiqlKoa({ endpointURL: '/graphql' }),
   );
 }
 

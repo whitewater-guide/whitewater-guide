@@ -20,11 +20,10 @@ router.get(
   '/auth/logout',
   (ctx) => {
     if (ctx.session) {
-      ctx.session.destroy(() => {
-        ctx.logout();
-        ctx.clearCookie('wwguide');
-        ctx.redirect(getLogoutRedirect(ctx.request));
-      });
+      ctx.logout();
+      ctx.cookies.set('wwguide');
+      ctx.redirect(getLogoutRedirect(ctx));
+      ctx.session = null as any;
     }
   },
 );

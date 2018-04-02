@@ -1,13 +1,25 @@
 import passport from 'koa-passport';
+import db from '../db';
+import { UserRaw } from '../features/users';
+import log from '../log';
 import FacebookWebStrategy from './facebook-web';
 
 const usePassport = () => {
-  passport.serializeUser((user, done) => {
-    done(null, user);
+  // Which data of user should be stored in session
+  passport.serializeUser((user: UserRaw, done) => {
+    done(null, user.id);
   });
 
-  passport.deserializeUser((user, done) => {
-    done(null, user);
+  // Retriever whole user by id and attach it to Koa context
+  passport.deserializeUser((id, done) => {
+    db().table('users').where({ id }).first()
+      .then(
+      (user: UserRaw) => done(null, user),
+      )
+      .catch((error) => {
+        log.error({ id, error }, 'Failed to deserialize user');
+        done(error);
+      });
   });
 
   passport.use(FacebookWebStrategy);

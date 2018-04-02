@@ -12,7 +12,6 @@ export interface Context {
   language: string;
   user?: ContextUser;
   lastMeasurementLoader: LastMeasurementLoader;
-  req?: koa.Request;
 }
 
 export const newContext = (ctx: koa.Context): Context => {
@@ -21,10 +20,11 @@ export const newContext = (ctx: koa.Context): Context => {
     get(user, 'language') ||
     ctx.acceptsLanguages(['en', 'ru', 'es', 'de', 'fr', 'pt', 'it']) ||
     'en';
+  // Side-effect. Set response content-language
+  ctx.set('Content-Language', language);
   return {
     user,
     language,
     lastMeasurementLoader: new LastMeasurementLoader(),
-    req: ctx.request,
   };
 };
