@@ -1,13 +1,13 @@
 import { compose } from 'recompose';
-import { deserializeForm, formContainer, serializeForm } from '../../../components/forms';
+import { formContainer, serializeForm } from '../../../components/forms';
 import { withFeatureIds } from '../../../ww-clients/core';
 import { REGION_DETAILS } from '../../../ww-clients/features/regions';
 import { RegionFormSchema, RegionInput } from '../../../ww-commons';
+import deserializeRegion from './deserializeRegion';
 import UPSERT_REGION from './upsertRegion.mutation';
 
 const NEW_REGION: RegionInput = {
   id: null,
-  hidden: false,
   description: null,
   bounds: null,
   seasonNumeric: [],
@@ -23,7 +23,7 @@ const regionForm = formContainer({
   query: REGION_DETAILS,
   mutation: UPSERT_REGION,
   serializeForm: serializeForm(['description']),
-  deserializeForm: deserializeForm(['description'], ['pois']),
+  deserializeForm: deserializeRegion,
   validationSchema: RegionFormSchema,
 });
 

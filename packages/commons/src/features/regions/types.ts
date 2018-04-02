@@ -10,6 +10,7 @@ export interface Region extends NamedNode, Timestamped {
   seasonNumeric: number[];
   bounds: Array<[number, number, number]> | null;
   hidden: boolean | null;
+  premium: boolean;
   pois: Point[];
   // --- connections
   rivers?: Connection<River>;
