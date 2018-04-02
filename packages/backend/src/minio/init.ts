@@ -1,11 +1,14 @@
 import log from '../log';
 import { AVATARS, MEDIA, TEMP } from './buckets';
 import { minioClient } from './client';
+import { AVATARS_POLICY, MEDIA_POLICY, TEMP_POLICY } from './policies';
 
 const createIfNotExists = async (bucketName: string) => {
   let exists = true;
   try {
-    await minioClient.bucketExists(bucketName);
+    // TODO: https://github.com/DefinitelyTyped/DefinitelyTyped/pull/24677
+    // @ts-ignore
+    exists = await minioClient.bucketExists(bucketName);
   } catch (err) {
     exists = false;
   }
@@ -18,8 +21,11 @@ const createIfNotExists = async (bucketName: string) => {
 export const initMinio = async () => {
   log.info('Minio initializing');
   await Promise.all([TEMP, MEDIA, AVATARS].map(bucket => createIfNotExists(bucket)));
-  await minioClient.setBucketPolicy(TEMP, '', 'writeonly');
-  await minioClient.setBucketPolicy(MEDIA, '', 'readonly');
-  await minioClient.setBucketPolicy(AVATARS, '', 'readonly');
+  // @ts-ignore
+  await minioClient.setBucketPolicy(TEMP, JSON.stringify(TEMP_POLICY));
+  // @ts-ignore
+  await minioClient.setBucketPolicy(MEDIA, JSON.stringify(MEDIA_POLICY));
+  // @ts-ignore
+  await minioClient.setBucketPolicy(AVATARS, JSON.stringify(AVATARS_POLICY));
   log.info('Minio init complete');
 };
