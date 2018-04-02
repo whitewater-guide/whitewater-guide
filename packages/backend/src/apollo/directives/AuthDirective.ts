@@ -11,23 +11,6 @@ import { Role } from '../../ww-commons/features/users';
 import { Context, ContextUser } from '../context';
 import { AuthenticationRequiredError, ForbiddenError } from '../errors';
 
-/*
-  Name hidden
-  Type true Boolean
-  details.objectType.name Region
-  { requires: 'ADMIN' }
-  ----------------------
-  Name upsertTag
-  Type false Tag
-  details.objectType.name Mutation
-  { requires: 'ADMIN' }
-  ----------------------
-  Name removeTag
-  Type true String
-  details.objectType.name Mutation
-  { requires: 'ADMIN' }
- */
-
 type AuthRole = 'ADMIN' | 'EDITOR' | 'PREMIUM' | 'USER' | 'ANON';
 
 type Fields = GraphQLField<any, Context>;
@@ -60,7 +43,7 @@ export class AuthDirective extends SchemaDirectiveVisitor {
 
   checkPermissions(source: any, requiredRole: AuthRole, user?: ContextUser): ApolloError | null  {
     if (!user) {
-      throw new AuthenticationRequiredError();
+      return new AuthenticationRequiredError();
     }
     if (requiredRole === 'ADMIN' && user.role !== Role.SUPERADMIN) {
       return new ForbiddenError();
