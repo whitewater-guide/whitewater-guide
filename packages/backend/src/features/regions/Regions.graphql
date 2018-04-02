@@ -50,9 +50,12 @@ type RegionsList {
 type Query {
   regions(page: Page): RegionsList!
   region(id: ID): Region
+  regionEditors(regionId: ID!): [User!] @auth(requires: ADMIN)
 }
 
 type Mutation {
   upsertRegion(region: RegionInput!): Region
   removeRegion(id: ID!): ID
+  addEditor(regionId: ID!, userId: ID!): Boolean @auth(requires: ADMIN)
+  removeEditor(regionId: ID!, userId: ID!): Boolean @auth(requires: ADMIN)
 }

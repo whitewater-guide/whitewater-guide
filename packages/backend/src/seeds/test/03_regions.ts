@@ -1,6 +1,7 @@
 import Knex from 'knex';
 import { Point, Polygon } from 'wkx';
 import { Coordinate3d } from '../../ww-commons';
+import { ADMIN_ID, TEST_USER_ID } from './01_users';
 
 function getBounds(bounds: Coordinate3d[] | null) {
   let rawBounds = null;
@@ -78,6 +79,13 @@ const regionsPoints = [
   { region_id: REGION_GALICIA, point_id: 'd7530317-efac-44a7-92ff-8d045b2ac893' },
 ];
 
+const regionsEditors = [
+  { region_id: REGION_GALICIA, user_id: ADMIN_ID },
+  { region_id: REGION_ECUADOR, user_id: ADMIN_ID },
+  { region_id: REGION_ECUADOR, user_id: TEST_USER_ID },
+  { region_id: REGION_NORWAY, user_id: TEST_USER_ID },
+];
+
 export async function seed(db: Knex) {
   await db.table('regions').del();
   await db.table('regions_translations').del();
@@ -86,4 +94,6 @@ export async function seed(db: Knex) {
   await db.table('regions_translations').insert(regionsRu);
   await db.table('regions_points').del();
   await db.table('regions_points').insert(regionsPoints);
+  await db.table('regions_editors').del();
+  await db.table('regions_editors').insert(regionsEditors);
 }

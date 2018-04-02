@@ -90,6 +90,13 @@ export const up = async (db: Knex) => {
   await addUpdatedAtTrigger(db, 'regions');
   await addUpdatedAtTrigger(db, 'regions_translations');
 
+  // Users (editors) <-> regions many-to-many
+  await db.schema.createTable('regions_editors', (table) => {
+    table.uuid('user_id').notNullable().references('id').inTable('users').onDelete('CASCADE');
+    table.uuid('region_id').notNullable().references('id').inTable('regions').onDelete('CASCADE');
+    table.primary(['user_id', 'region_id']);
+  });
+
   // Points
   await db.schema.createTable('points', (table) => {
     table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
@@ -340,6 +347,7 @@ export const down = async (db: Knex) => {
   await db.schema.raw('DROP TABLE IF EXISTS regions CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS regions_translations CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS regions_points CASCADE');
+  await db.schema.raw('DROP TABLE IF EXISTS regions_editors CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS points CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS points_translations CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS rivers CASCADE');

@@ -114,6 +114,10 @@ describe('resolvers chain', () => {
     expect(result.data!.upsertRegion).toBeNull();
     expect((result.errors![0] as any).data).toMatchSnapshot();
   });
+
+  test.skip('editor cannot create new region', () => {
+    // implement me
+  });
 });
 
 describe('insert', () => {
