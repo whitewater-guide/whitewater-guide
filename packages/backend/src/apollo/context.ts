@@ -14,14 +14,14 @@ export interface Context {
   lastMeasurementLoader: LastMeasurementLoader;
 }
 
-export const newContext = (ctx: koa.Context): Context => {
-  const user: ContextUser | undefined = ctx.state.user;
+export const newContext = (ctx: Partial<koa.Context>): Context => {
+  const user: ContextUser | undefined = ctx.state && ctx.state.user;
   const language = get(user, 'editor_settings.language') ||
     get(user, 'language') ||
-    ctx.acceptsLanguages(['en', 'ru', 'es', 'de', 'fr', 'pt', 'it']) ||
+    ctx.acceptsLanguages!(['en', 'ru', 'es', 'de', 'fr', 'pt', 'it']) ||
     'en';
   // Side-effect. Set response content-language
-  ctx.set('Content-Language', language);
+  ctx.set!('Content-Language', language);
   return {
     user,
     language,

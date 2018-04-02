@@ -1,9 +1,25 @@
+import Koa from 'koa';
 import { newContext } from '../apollo';
 import { ADMIN, SUPERADMIN, TEST_USER } from '../seeds/test/01_users';
 
-export const anonContext = (language?: string) => newContext({ language } as any);
+const FakeKoaContext: Partial<Koa.Context> = {
+  acceptsLanguages: () => false,
+  set: () => {},
+};
+
+export const anonContext = (language?: string) => {
+  const context = newContext(FakeKoaContext);
+  if (language) {
+    context.language = language;
+  }
+  return context;
+};
+
 export const userContext = (language?: string) => {
-  const context = newContext({ user: TEST_USER } as any);
+  const context = newContext({
+    state: { user: TEST_USER },
+    ...FakeKoaContext,
+  });
   if (language) {
     context.language = language;
   }
@@ -11,7 +27,10 @@ export const userContext = (language?: string) => {
 };
 
 export const adminContext = (language?: string) => {
-  const context = newContext({ user: ADMIN } as any);
+  const context = newContext({
+    state: { user: ADMIN },
+    ...FakeKoaContext,
+  });
   if (language) {
     context.language = language;
   }
@@ -19,7 +38,10 @@ export const adminContext = (language?: string) => {
 };
 
 export const superAdminContext = (language?: string) => {
-  const context = newContext({ user: SUPERADMIN } as any);
+  const context = newContext({
+    state: { user: SUPERADMIN },
+    ...FakeKoaContext,
+  });
   if (language) {
     context.language = language;
   }
