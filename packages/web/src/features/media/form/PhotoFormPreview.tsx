@@ -2,6 +2,8 @@ import CircularProgress from 'material-ui/CircularProgress';
 import React from 'react';
 import { Styles } from '../../../styles';
 
+const PREVIEW_SIZE = 360;
+
 const styles: Styles = {
   previewWrapper: {
     position: 'relative',
@@ -12,8 +14,8 @@ const styles: Styles = {
     justifyContent: 'center',
   },
   preview: {
-    maxWidth: 360,
-    maxHeight: 360,
+    maxWidth: PREVIEW_SIZE,
+    maxHeight: PREVIEW_SIZE,
   },
   shade: {
     position: 'absolute',
@@ -34,18 +36,21 @@ interface Props {
   loading: boolean;
 }
 
-const PhotoFormPreview: React.StatelessComponent<Props> = ({ url, preview, loading }) => (
-  <div style={styles.previewWrapper}>
-    <img src={preview || url} style={styles.preview} />
-    {
-      loading &&
-      (
-        <div style={styles.shade}>
-          <CircularProgress />
-        </div>
-      )
-    }
-  </div>
-);
+const PhotoFormPreview: React.StatelessComponent<Props> = ({ url, preview, loading }) => {
+  const src = `${process.env.REACT_APP_API_HOST}/images/${PREVIEW_SIZE},fit/media/${url}`;
+  return (
+    <div style={styles.previewWrapper}>
+      <img src={preview || src} style={styles.preview} />
+      {
+        loading &&
+        (
+          <div style={styles.shade}>
+            <CircularProgress />
+          </div>
+        )
+      }
+    </div>
+  );
+};
 
 export default PhotoFormPreview;
