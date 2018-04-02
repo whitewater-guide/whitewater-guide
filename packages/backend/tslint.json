@@ -30,7 +30,7 @@
     "ordered-imports": [ true, { "import-sources-order": "case-insensitive", "named-imports-order": "case-insensitive"}],
     "prefer-method-signature": false,
     "prefer-template": [true, "allow-single-concat"],
-    "quotemark": [true, "single", "jsx-double"],
+    "quotemark": [true, "single", "jsx-double", "avoid-escape"],
     "semicolon": [true, "always", "ignore-bound-class-methods"],
     "triple-equals": [true, "allow-null-check"],
     "typedef": [true,"parameter", "property-declaration", "member-variable-declaration"],

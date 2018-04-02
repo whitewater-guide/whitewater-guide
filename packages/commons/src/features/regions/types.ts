@@ -23,6 +23,5 @@ export class RegionInput {
   season: string | null;
   seasonNumeric: number[];
   bounds: Coordinate3d[] | null;
-  hidden: boolean;
   pois: PointInput[];
 }

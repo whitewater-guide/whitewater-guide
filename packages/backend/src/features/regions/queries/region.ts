@@ -1,5 +1,5 @@
 import { GraphQLResolveInfo } from 'graphql';
-import { baseResolver, Context, ForbiddenError, NodeQuery } from '../../../apollo';
+import { baseResolver, Context, NodeQuery } from '../../../apollo';
 import { isAdmin } from '../../../ww-commons';
 import { buildRegionQuery } from '../queryBuilder';
 import { RegionRaw } from '../types';
@@ -13,7 +13,7 @@ const region = baseResolver.createResolver(
     const query = buildRegionQuery({ info, context, ...args });
     const result: RegionRaw | null = await query.first();
     if (result && result.hidden && !isAdmin(user)) {
-      throw new ForbiddenError({ message: 'This region is not yet available for public' });
+      return null;
     }
     return result;
   },

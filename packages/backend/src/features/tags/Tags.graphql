@@ -22,6 +22,6 @@ type Query {
 }
 
 type Mutation {
-  upsertTag(tag: TagInput!): Tag
-  removeTag(id: String!): String
+  upsertTag(tag: TagInput!): Tag @auth(requires: ADMIN)
+  removeTag(id: String!): String @auth(requires: ADMIN)
 }

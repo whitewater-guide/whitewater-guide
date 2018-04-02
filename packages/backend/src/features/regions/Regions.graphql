@@ -6,7 +6,7 @@ type Region {
   seasonNumeric: [Int]!
   bounds: [[Float!]]
   pois: [Point]!
-  hidden: Boolean
+  hidden: Boolean @auth(requires: ADMIN)
   createdAt: Date
   updatedAt: Date
   rivers: RegionRiverConnection!
@@ -40,7 +40,6 @@ input RegionInput {
   seasonNumeric: [Int]
   pois: [PointInput]
   bounds: [[Float!]]
-  hidden: Boolean
 }
 
 type RegionsList {

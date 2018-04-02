@@ -48,7 +48,7 @@ it('should return null when id not specified', async () => {
 
 it('users should not see hidden region', async () => {
   const result = await runQuery(query, { id: 'b968e2b2-76c5-11e7-b5a5-be2e44b06b34' }, userContext());
-  expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
+  expect(result.errors).toBeUndefined();
   expect(result).toHaveProperty('data.region', null);
 });
 

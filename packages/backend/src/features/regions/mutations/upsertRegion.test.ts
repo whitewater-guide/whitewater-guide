@@ -1,10 +1,10 @@
+import set from 'lodash/fp/set';
 import db, { holdTransaction, rollbackTransaction } from '../../../db';
-import { adminContext, anonContext, userContext } from '../../../test/context';
+import { adminContext, anonContext, superAdminContext, userContext } from '../../../test/context';
 import { isTimestamp, isUUID, noTimestamps, noUnstable, runQuery } from '../../../test/db-helpers';
 import { RegionInput } from '../../../ww-commons';
 import { PointRaw } from '../../points';
 import { RegionRaw } from '../types';
-import set from 'lodash/fp/set';
 
 let regionsPointsBefore: number;
 let pointsBefore: number;
@@ -26,7 +26,6 @@ const minimalRegion: RegionInput = {
   bounds: [[10, 20, 0], [10, 10, 0], [20, 20, 0]],
   season: null,
   seasonNumeric: [],
-  hidden: false,
   pois: [],
 };
 
@@ -37,7 +36,6 @@ const fullRegion: RegionInput = {
   bounds: [[10, 20, 0], [10, 10, 0], [20, 20, 0]],
   season: 'season description',
   seasonNumeric: [1, 2, 3],
-  hidden: false,
   pois: [],
 };
 
@@ -74,7 +72,6 @@ const upsertQuery = `
       season
       seasonNumeric
       bounds
-      hidden
       createdAt
       updatedAt
       pois {
@@ -109,7 +106,6 @@ describe('resolvers chain', () => {
       season: null,
       seasonNumeric: [55],
       bounds: [[300, 300, 300]],
-      hidden: false,
       pois: [],
     };
     const result = await runQuery(upsertQuery, { region: invalidInput }, adminContext());
@@ -125,7 +121,7 @@ describe('insert', () => {
   let insertedRegion: any;
 
   beforeEach(async () => {
-    insertResult = await runQuery(upsertQuery, { region: fullRegionWithPOIs }, adminContext());
+    insertResult = await runQuery(upsertQuery, { region: fullRegionWithPOIs }, superAdminContext());
     insertedRegion = insertResult && insertResult.data && insertResult.data.upsertRegion;
   });
 
@@ -186,7 +182,7 @@ describe('update', () => {
 
   beforeEach(async () => {
     oldRegion = await db().table('regions_view').where({ id: fullRegionUpdate.id }).first();
-    updateResult = await runQuery(upsertQuery, { region: fullRegionUpdate }, adminContext());
+    updateResult = await runQuery(upsertQuery, { region: fullRegionUpdate }, superAdminContext());
     updatedRegion = updateResult && updateResult.data && updateResult.data.upsertRegion;
   });
 
@@ -264,7 +260,6 @@ describe('i18n', () => {
     bounds: [[10, 20, 0], [10, 10, 0], [20, 20, 0]],
     season: null,
     seasonNumeric: [],
-    hidden: false,
     pois: [],
   };
 
@@ -291,7 +286,6 @@ describe('i18n', () => {
   test('should modify translation', async () => {
     const region = {
       id: 'bd3e10b6-7624-11e7-b5a5-be2e44b06b34',
-      hidden: false,
       seasonNumeric: [20, 21],
       bounds: [[-114, 46, 0], [-115, 46, 0], [-115, 47, 0], [-114, 47, 0]],
       name: 'Сменил имя',

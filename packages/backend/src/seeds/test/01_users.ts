@@ -5,6 +5,7 @@ import { Role } from '../../ww-commons';
 export const SUPERADMIN_ID = 'bed59990-749d-11e7-8cf7-a6006ad3dba0';
 export const ADMIN_ID = '477a0bec-8a78-11e7-b3e6-9beeff45d731';
 export const TEST_USER_ID = '442cb792-749c-11e7-8cf7-a6006ad3dba0';
+export const TEST_USER2_ID = 'fa3ce7ba-36ab-11e8-b467-0ed5f89f718b';
 
 export const SUPERADMIN: UserRaw = {
   id: SUPERADMIN_ID,
@@ -45,7 +46,20 @@ export const TEST_USER: UserRaw = {
   updated_at: new Date(Date.UTC(2017, 3, 3)),
 };
 
-const users = [SUPERADMIN, ADMIN, TEST_USER];
+export const TEST_USER2: UserRaw = {
+  id: TEST_USER2_ID,
+  name: 'Another usr',
+  avatar: null,
+  email: 'konstantin@gmail.com',
+  role: Role.USER,
+  language: 'ru',
+  editor_settings: null,
+  imperial: false,
+  created_at: new Date(Date.UTC(2017, 4, 4)),
+  updated_at: new Date(Date.UTC(2017, 4, 4)),
+};
+
+const users = [SUPERADMIN, ADMIN, TEST_USER, TEST_USER2];
 
 export async function seed(db: Knex) {
   await db.table('users').del();

@@ -16,7 +16,6 @@ const regionFieldResolvers: FieldResolvers<RegionRaw, Region> = {
     points.pop();
     return points.map(({ x, y, z }) => [x, y, z]);
   },
-  hidden: ({ hidden }, args, { user }) => isAdmin(user) ? hidden : null,
   pois: region => region.pois || [],
   ...timestampResolvers,
 };

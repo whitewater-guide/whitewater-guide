@@ -9,7 +9,6 @@ export const RegionInputSchema = Joi.object().keys({
   season: Joi.string().allow(null).allow(''),
   seasonNumeric: Joi.array().max(24).items(Joi.number().min(0).max(23)),
   bounds: Joi.array().items(CoordinateSchema).min(3),
-  hidden: Joi.boolean(),
   pois: Joi.array().items(PointInputSchema),
 });
 

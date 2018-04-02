@@ -14,17 +14,17 @@ type User {
   editorSettings: EditorSettings
 }
 
-type Query {
-  me: User,
-  listUsers: [User]!,
-}
-
 type EditorSettings {
   language: String
 }
 
 input EditorSettingsInput {
   language: String
+}
+
+type Query {
+  me: User,
+  findUsers(search: String!): [User!] @auth(requires: ADMIN)
 }
 
 type Mutation {

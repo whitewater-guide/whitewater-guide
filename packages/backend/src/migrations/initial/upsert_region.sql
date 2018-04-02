@@ -10,16 +10,14 @@ BEGIN
 
   -- First, insert common region data into regions table
   WITH upserted_region AS (
-    INSERT INTO regions (id, hidden, season_numeric, bounds)
+    INSERT INTO regions (id, season_numeric, bounds)
     VALUES (
       COALESCE((r ->> 'id') :: UUID, uuid_generate_v1mc()),
-      (r ->> 'hidden') :: BOOLEAN,
       COALESCE(array_json_to_int(r -> 'seasonNumeric'), '{}'::INTEGER[]),
       polygon_from_json(r -> 'bounds')
     )
     ON CONFLICT (id)
       DO UPDATE SET
-        hidden         = EXCLUDED.hidden,
         season_numeric = EXCLUDED.season_numeric,
         bounds         = EXCLUDED.bounds
     RETURNING id
