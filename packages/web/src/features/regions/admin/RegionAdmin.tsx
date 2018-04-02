@@ -10,7 +10,7 @@ export class RegionAdmin extends React.PureComponent {
   render() {
     return (
       <Content card>
-        <CardHeader title={'zzz'}>
+        <CardHeader title="Region administration">
           <EditorLanguagePicker />
         </CardHeader>
         <CardMedia style={{ height: '100%' }} mediaStyle={{ height: '100%' }}>
