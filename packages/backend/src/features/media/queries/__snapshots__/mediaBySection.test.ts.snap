@@ -24,7 +24,7 @@ Object {
             1024,
             768,
           ],
-          "url": "http://localhost:6001/uploads/media/d0d234de-1ee6-11e8-b467-0ed5f89f718b",
+          "url": "d0d234de-1ee6-11e8-b467-0ed5f89f718b",
           "weight": 0,
         },
         Object {
@@ -48,7 +48,7 @@ Object {
             800,
             600,
           ],
-          "url": "http://localhost:6001/uploads/media/a32664ca-1ee5-11e8-b467-0ed5f89f718b",
+          "url": "a32664ca-1ee5-11e8-b467-0ed5f89f718b",
           "weight": 1,
         },
       ],

@@ -7,7 +7,6 @@ import { PHOTO_1, PHOTO_2 } from '../../../seeds/test/10_media';
 import { adminContext, anonContext, userContext } from '../../../test/context';
 import { countRows, noTimestamps, noUnstable, runQuery } from '../../../test/db-helpers';
 import { MediaInput, MediaKind } from '../../../ww-commons/features/media';
-import me from '../../users/queries/me';
 
 let mBefore: number;
 let msBefore: number;
@@ -194,7 +193,7 @@ describe('files', () => {
     expect(url).toBe(NEW_MEDIA_ID);
   });
 
-  it('should return url in bucket', async () => {
-    expect(result).toHaveProperty('data.upsertSectionMedia.url', `${MEDIA_BUCKET_URL}/${NEW_MEDIA_ID}`);
+  it('should return filename as url', async () => {
+    expect(result).toHaveProperty('data.upsertSectionMedia.url', NEW_MEDIA_ID);
   });
 });

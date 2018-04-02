@@ -49,9 +49,9 @@ it('should be able to get basic attributes without translation', async () => {
   expect(result).toHaveProperty('data.media.kind', 'photo');
 });
 
-it('should produce correct full url for photos', async () => {
+it('should return filename as url for photos', async () => {
   const result = await runQuery(query, { id: PHOTO_1 });
-  expect(result.data!.media.url).toBe(`http://localhost:6001/uploads/media/${PHOTO_1}`);
+  expect(result.data!.media.url).toBe(PHOTO_1);
 });
 
 it('should preserve external url for non-photos', async () => {
