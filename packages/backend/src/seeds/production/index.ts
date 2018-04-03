@@ -35,6 +35,7 @@ export async function seed(db: Knex) {
     '"regions"',
     '"regions_translations"',
     '"regions_points"',
+    '"regions_editors"',
     '"points"',
     '"points_translations"',
     '"rivers"',

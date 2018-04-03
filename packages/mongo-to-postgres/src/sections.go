@@ -99,6 +99,10 @@ func insertSections(mongo *mgo.Database, pg *sqlx.DB, uuids IdMap) error {
 
   iter := collection.Find(nil).Iter()
   for iter.Next(&section) {
+    if section.RiverMongoId == "" {
+      // This should not happened, but it did (totally empty section)
+      continue
+    }
     section.CreatedBy = UUIDOrNull(uuids[section.AuthorMongoId])
     section.RiverID = UUIDOrNull(uuids[section.RiverMongoId])
     section.GaugeID = UUIDOrNull(uuids[section.GaugeMongoId])

@@ -44,16 +44,13 @@ type User struct {
   Roles     Roles         `bson:"roles"`
 }
 
-func (user User) role() int {
-  role := 1
+func (user User) admin() bool {
   for _, v := range user.Roles.GlobalRoles {
     if v == "super-admin" {
-      return 3
-    } else if v == "admin" {
-      role = 2
+      return true
     }
   }
-  return role
+  return false
 }
 
 func (user User) token() string {
@@ -71,8 +68,8 @@ func insertUsers(mongo *mgo.Database, pg *sqlx.DB, uuids IdMap) error {
   var userId string
   collection := mongo.C("users")
   userStmt, err := pg.PrepareNamed(`
-    INSERT INTO users(name, avatar, email, role, created_at)
-    VALUES(:name, :avatar, :email, :role, :created_at) RETURNING id
+    INSERT INTO users(name, avatar, email, admin, created_at)
+    VALUES(:name, :avatar, :email, :admin, :created_at) RETURNING id
   `)
   if err != nil {
     return fmt.Errorf("failed to prepare user statement: %s", err.Error())
@@ -91,7 +88,7 @@ func insertUsers(mongo *mgo.Database, pg *sqlx.DB, uuids IdMap) error {
       "name":       user.Services.Facebook.Name,
       "avatar":     sql.NullString{},
       "email":      user.Services.Facebook.Email,
-      "role":       user.role(),
+      "admin":      user.admin(),
       "created_at": user.CreatedAt,
     }).Scan(&userId)
     if err != nil {

@@ -14,7 +14,7 @@ export const up = async (db: Knex) => {
     table.string('name').notNullable();
     table.string('avatar');
     table.string('email');
-    table.integer('role').notNullable().defaultTo(Role.USER);
+    table.boolean('admin').defaultTo(false).notNullable();
     table.jsonb('editor_settings');
     table.specificType('language', 'language_code').notNullable().defaultTo('en');
     table.boolean('imperial').notNullable().defaultTo(false);
