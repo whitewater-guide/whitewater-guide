@@ -4,6 +4,7 @@ import React from 'react';
 interface Props {
   id: string;
   deleteHandler: (id: string) => void;
+  disabled?: boolean;
 }
 
 export class DeleteButton extends React.PureComponent<Props> {
@@ -14,7 +15,11 @@ export class DeleteButton extends React.PureComponent<Props> {
 
   render() {
     return (
-      <IconButton iconClassName="material-icons" onClick={this.onClick}>
+      <IconButton
+        disabled={this.props.disabled}
+        iconClassName="material-icons"
+        onClick={this.onClick}
+      >
         delete_forever
       </IconButton>
     );

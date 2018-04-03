@@ -1,6 +1,6 @@
 {
   "name": "web",
-  "version": "0.1.54",
+  "version": "0.1.55",
   "private": true,
   "homepage": "/admin/",
   "dependencies": {
@@ -12,6 +12,7 @@
     "apollo-utilities": "^1.0.9",
     "color": "^3.0.0",
     "cron-parser": "^2.4.5",
+    "downshift": "^1.31.2",
     "draft-js": "^0.10.3",
     "draft-js-export-markdown": "^1.0.2",
     "draft-js-import-markdown": "^1.2.1",

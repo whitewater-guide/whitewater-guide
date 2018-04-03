@@ -9,6 +9,7 @@
     "interface-name": false,
     "jsx-boolean-value": [true, "never"],
     "jsx-no-multiline-js": false,
+    "jsx-curly-spacing": false,
     "member-access": false,
     "member-ordering": [true, {"order": "statics-first"}],
     "newline-before-return": false,

@@ -4,6 +4,7 @@ import React from 'react';
 import { Content, Tabs } from '../../../components';
 import { EditorLanguagePicker } from '../../../components/language';
 import { CardHeader } from '../../../layout';
+import RegionEditorsWithData from './editors';
 import RegionAdminSettingsForm from './settings';
 
 export class RegionAdmin extends React.PureComponent {
@@ -20,7 +21,7 @@ export class RegionAdmin extends React.PureComponent {
                 <RegionAdminSettingsForm />
               </Tab>
               <Tab label="Editors" value="#editors">
-                <div>Editors</div>
+                <RegionEditorsWithData />
               </Tab>
             </Tabs>
           </div>
