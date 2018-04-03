@@ -65,7 +65,7 @@ export class RegionDetails extends React.PureComponent<RegionDetailsProps> {
               <Route exact path={`${match.path}/sections`} />
 
               <Route>
-                <AdminFooter edit />
+                <AdminFooter edit administrate />
               </Route>
 
             </Switch>

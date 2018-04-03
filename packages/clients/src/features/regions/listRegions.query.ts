@@ -7,6 +7,7 @@ export default gql`
         id
         name
         hidden
+        premium
         rivers { count }
         gauges { count }
         sections { count }

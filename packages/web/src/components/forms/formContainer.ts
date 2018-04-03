@@ -42,8 +42,9 @@ export interface FormContainerOptions<QueryResult, MutationResult, FormInput> {
    * we want to navigate to '/sources/123/gauges' on successful form submission
    * In this set backPath to 'gauges'.
    * If undefined - default to propName in plural
+   * If null - navigate back
    */
-  backPath?: string;
+  backPath?: string | null;
   /**
    * Convert graphql query result into something that can be feed to form (i.e. markdown -> draft.js)
    * Remove __typename here
@@ -119,7 +120,7 @@ export const formContainer = <QueryResult, MutationResult, FormInput>(
               ...mutationOpts,
               variables: { [propName]: serializeForm(input), ...extraVars },
             })
-            .then(() => history.replace(path!))
+            .then(() => backPath === null ? history.goBack() : history.replace(path!))
             .catch((e: ApolloError) => {
               throw new SubmissionError({ _error: apolloErrorToString(e) });
             });

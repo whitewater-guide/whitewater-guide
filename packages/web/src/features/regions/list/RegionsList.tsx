@@ -10,6 +10,7 @@ import { RegionsListProps } from './types';
 export class RegionsList extends React.PureComponent<RegionsListProps> {
 
   renderVisible: TableCellRenderer = renderBoolean(undefined, 'visibility');
+  renderPremium: TableCellRenderer = renderBoolean('grade');
 
   renderCount: TableCellRenderer = ({ cellData: { count } }) => count;
 
@@ -35,6 +36,7 @@ export class RegionsList extends React.PureComponent<RegionsListProps> {
         <Column width={100} label="Gauges" dataKey="gauges" cellRenderer={this.renderCount} />
         <Column width={100} label="Rivers" dataKey="rivers" cellRenderer={this.renderCount} />
         <Column width={100} label="Sections" dataKey="sections" cellRenderer={this.renderCount} />
+        <Column width={50} label="Premium" dataKey="premium" cellRenderer={this.renderPremium} />
         <AdminColumn width={50} label="Visible" dataKey="hidden" cellRenderer={this.renderVisible} />
       </ResourcesListCard>
     );
