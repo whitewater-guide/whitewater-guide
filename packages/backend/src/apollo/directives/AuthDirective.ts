@@ -43,7 +43,7 @@ export class AuthDirective extends SchemaDirectiveVisitor {
     if (!user) {
       return new AuthenticationRequiredError();
     }
-    if (requiredRole === 'ADMIN' && user.admin) {
+    if (requiredRole === 'ADMIN' && !user.admin) {
       return new ForbiddenError();
     }
     return null;

@@ -16,7 +16,7 @@ type Region {
   sections: RegionSectionConnection!
 
   # Only admins and editors can see this
-  hidden: Boolean @auth(requires: EDITOR, anyMember: true)
+  hidden: Boolean @auth(requires: ADMIN)
   premium: Boolean
 }
 

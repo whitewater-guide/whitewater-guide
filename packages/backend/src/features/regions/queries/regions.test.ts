@@ -1,5 +1,6 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
-import { ADMIN, EDITOR_NO_EC } from '../../../seeds/test/01_users';
+import { ADMIN, EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '../../../seeds/test/01_users';
+import { REGION_NORWAY } from '../../../seeds/test/03_regions';
 import { fakeContext } from '../../../test/context';
 import { noTimestamps, runQuery } from '../../../test/db-helpers';
 
@@ -17,6 +18,7 @@ const query = `
         seasonNumeric
         bounds
         hidden
+        premium
         createdAt
         updatedAt
         pois {
@@ -32,7 +34,7 @@ const query = `
   }
 `;
 
-it('should return regions', async () => {
+it('admin should see all regions', async () => {
   const result = await runQuery(query, undefined, fakeContext(ADMIN));
   expect(result.errors).toBeUndefined();
   const regions = result.data!.regions;
@@ -41,14 +43,26 @@ it('should return regions', async () => {
   expect(regions.nodes.map(noTimestamps)).toMatchSnapshot();
 });
 
-it('users should not see hidden regions', async () => {
-  const result = await runQuery(query, { }, fakeContext(EDITOR_NO_EC));
+it('editor should see public regions', async () => {
+  const result = await runQuery(query, undefined, fakeContext(EDITOR_NO_EC));
   expect(result.errors).toBeUndefined();
-  expect(result.data).toBeDefined();
-  expect(result.data!.regions).toBeDefined();
-  const regions = result.data!.regions;
-  expect(regions.count).toBe(2);
-  expect(regions.nodes[0].hidden).toBe(null);
+  expect(result.data!.regions.count).toBe(3);
+  expect(result.data!.regions.nodes).toHaveLength(3);
+});
+
+it('editor should not see hidden regions without permission', async () => {
+  const result = await runQuery(query, undefined, fakeContext(EDITOR_GA_EC));
+  expect(result.errors).toBeUndefined();
+  expect(result.data!.regions.count).toBe(2);
+  expect(result.data!.regions.nodes).not.toContainEqual(expect.objectContaining({ id: REGION_NORWAY }));
+});
+
+it('users should not see hidden regions', async () => {
+  const result = await runQuery(query, { }, fakeContext(TEST_USER));
+  expect(result.errors).toBeUndefined();
+  expect(result.data!.regions.count).toBe(2);
+  expect(result.data!.regions.nodes).toHaveLength(2);
+  expect(result.data!.regions.nodes[0].hidden).toBe(null);
 });
 
 it('should be able to specify language', async () => {

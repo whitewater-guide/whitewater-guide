@@ -7,9 +7,11 @@ type Source {
   id: ID!
   name: String!
   termsOfUse: String
-  script: String! @auth(requires: ADMIN)
+  # Non-nullablle for admin
+  script: String @auth(requires: ADMIN)
   cron: String @auth(requires: ADMIN)
-  harvestMode: HarvestMode! @auth(requires: ADMIN)
+  # Non-nullable for admin
+  harvestMode: HarvestMode @auth(requires: ADMIN)
   url: String
   enabled: Boolean
   regions: SourceRegionConnection!

@@ -1,7 +1,8 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
-import { ADMIN } from '../../../seeds/test/01_users';
+import { ADMIN, EDITOR_NO_EC, TEST_USER } from '../../../seeds/test/01_users';
 import { SOURCE_NORWAY } from '../../../seeds/test/04_sources';
-import { fakeContext } from '../../../test/context';
+import { GAUGE_GAL_1_1 } from '../../../seeds/test/05_gauges';
+import { anonContext, fakeContext } from '../../../test/context';
 import { noTimestamps, runQuery } from '../../../test/db-helpers';
 
 beforeEach(holdTransaction);
@@ -36,6 +37,35 @@ query listGauges($sourceId: ID) {
   }
 }
 `;
+
+describe('resolvers chain', () => {
+  it('anon should not see cron and request params', async () => {
+    const result = await runQuery(query, undefined, anonContext());
+    expect(result.errors).toBeUndefined();
+    expect(result.data!.gauges.nodes[0]).toMatchObject({
+      requestParams: null,
+      cron: null,
+    });
+  });
+
+  it('user should not see cron and request params', async () => {
+    const result = await runQuery(query, undefined, fakeContext(TEST_USER));
+    expect(result.errors).toBeUndefined();
+    expect(result.data!.gauges.nodes[0]).toMatchObject({
+      requestParams: null,
+      cron: null,
+    });
+  });
+
+  it('editor should not see cron and request params', async () => {
+    const result = await runQuery(query, undefined, fakeContext(EDITOR_NO_EC));
+    expect(result.errors).toBeUndefined();
+    expect(result.data!.gauges.nodes[0]).toMatchObject({
+      requestParams: null,
+      cron: null,
+    });
+  });
+});
 
 test('should return gauges', async () => {
   const result = await runQuery(query, undefined, fakeContext(ADMIN));

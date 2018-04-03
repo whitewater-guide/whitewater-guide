@@ -1,8 +1,9 @@
 import db, { holdTransaction, rollbackTransaction } from '../../../db';
-import { EDITOR_GA_EC, EDITOR_NO_EC } from '../../../seeds/test/01_users';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '../../../seeds/test/01_users';
 import { SOURCE_GALICIA_1 } from '../../../seeds/test/04_sources';
 import { GAUGE_GAL_1_1 } from '../../../seeds/test/05_gauges';
 import { anonContext, fakeContext } from '../../../test/context';
+import { countRows } from '../../../test/countRows';
 import { runQuery } from '../../../test/db-helpers';
 import { stopJobs } from '../../jobs';
 
@@ -10,17 +11,12 @@ jest.mock('../../jobs', () => ({
   stopJobs: jest.fn(),
 }));
 
-let pointsBefore: number;
-let gaugesBefore: number;
-let translationsBefore: number;
+let pBefore: number;
+let gBefore: number;
+let tBefore: number;
 
 beforeAll(async () => {
-  const gCnt = await db(true).table('gauges').count().first();
-  gaugesBefore = Number(gCnt.count);
-  const tCnt = await db(true).table('gauges_translations').count().first();
-  translationsBefore = Number(tCnt.count);
-  const pCnt = await db(true).table('points').count().first();
-  pointsBefore = Number(pCnt.count);
+  [pBefore, gBefore, tBefore] = await countRows(true, 'points', 'gauges', 'gauges_translations');
 });
 
 const query = `
@@ -40,15 +36,19 @@ afterEach(rollbackTransaction);
 describe('resolvers chain', () => {
   test('anon should not pass', async () => {
     const result = await runQuery(query, gal1, anonContext());
-    expect(result.errors).toBeDefined();
-    expect(result.data).toBeDefined();
+    expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
     expect(result.data!.removeGauge).toBeNull();
   });
 
   test('user should not pass', async () => {
-    const result = await runQuery(query, gal1, fakeContext(EDITOR_NO_EC));
-    expect(result.errors).toBeDefined();
-    expect(result.data).toBeDefined();
+    const result = await runQuery(query, gal1, fakeContext(TEST_USER));
+    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
+    expect(result.data!.removeGauge).toBeNull();
+  });
+
+  test('editor should not pass', async () => {
+    const result = await runQuery(query, gal1, fakeContext(EDITOR_GA_EC));
+    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result.data!.removeGauge).toBeNull();
   });
 });
@@ -57,7 +57,7 @@ describe('effects', () => {
   let result: any;
 
   beforeEach(async () => {
-    result = await runQuery(query, gal1, fakeContext(EDITOR_GA_EC));
+    result = await runQuery(query, gal1, fakeContext(ADMIN));
   });
 
   afterEach(() => {
@@ -68,19 +68,13 @@ describe('effects', () => {
     expect(result.data.removeGauge).toBe(gal1.id);
   });
 
-  test('should remove from gauges table', async () => {
-    const { count } = await db().table('gauges').count().first();
-    expect(gaugesBefore - Number(count)).toBe(1);
-  });
-
-  test('should remove from translations table', async () => {
-    const { count } = await db().table('gauges_translations').count().first();
-    expect(translationsBefore - Number(count)).toBe(2);
-  });
-
-  test('should remove location point', async () => {
-    const { count } = await db().table('points').count().first();
-    expect(pointsBefore - Number(count)).toBe(1);
+  test('should remove from tables', async () => {
+    const [pAfter, gAfter, tAfter] = await countRows(false, 'points', 'gauges', 'gauges_translations');
+    expect([pAfter, gAfter, tAfter]).toEqual([
+      pBefore - 1,
+      gBefore - 1,
+      tBefore - 2,
+    ]);
   });
 
   test('sholud stop job when gauge is removed', () => {

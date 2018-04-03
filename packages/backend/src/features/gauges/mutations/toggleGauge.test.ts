@@ -1,5 +1,5 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
-import { EDITOR_GA_EC, EDITOR_NO_EC } from '../../../seeds/test/01_users';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '../../../seeds/test/01_users';
 import { SOURCE_NORWAY } from '../../../seeds/test/04_sources';
 import { GAUGE_GAL_1_1, GAUGE_NOR_1, GAUGE_NOR_2, GAUGE_NOR_4 } from '../../../seeds/test/05_gauges';
 import { anonContext, fakeContext } from '../../../test/context';
@@ -32,22 +32,26 @@ afterEach(rollbackTransaction);
 describe('resolvers chain', () => {
   test('anon should not pass', async () => {
     const result = await runQuery(query, gal1, anonContext());
-    expect(result.errors).toBeDefined();
-    expect(result.data).toBeDefined();
+    expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
     expect(result.data!.toggleGauge).toBeNull();
   });
 
   test('user should not pass', async () => {
-    const result = await runQuery(query, gal1, fakeContext(EDITOR_NO_EC));
-    expect(result.errors).toBeDefined();
-    expect(result.data).toBeDefined();
+    const result = await runQuery(query, gal1, fakeContext(TEST_USER));
+    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
+    expect(result.data!.toggleGauge).toBeNull();
+  });
+
+  test('user should not pass', async () => {
+    const result = await runQuery(query, gal1, fakeContext(EDITOR_GA_EC));
+    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result.data!.toggleGauge).toBeNull();
   });
 });
 
 describe('effects', () => {
   it('should not enable gauge if source is all-at-once', async () => {
-    const result = await runQuery(query, gal1, fakeContext(EDITOR_GA_EC));
+    const result = await runQuery(query, gal1, fakeContext(ADMIN));
     expect(result.errors).toBeDefined();
     expect(result.data!.toggleGauge).toBeNull();
     expect(result).toHaveProperty('errors.0.name', 'MutationNotAllowedError');
@@ -55,7 +59,7 @@ describe('effects', () => {
   });
 
   it('should not enable gauge without cron', async () => {
-    const result = await runQuery(query, { id: GAUGE_NOR_2, enabled: true }, fakeContext(EDITOR_GA_EC));
+    const result = await runQuery(query, { id: GAUGE_NOR_2, enabled: true }, fakeContext(ADMIN));
     expect(result.errors).toBeDefined();
     expect(result.data!.toggleGauge).toBeNull();
     expect(result).toHaveProperty('errors.0.name', 'MutationNotAllowedError');
@@ -63,7 +67,7 @@ describe('effects', () => {
   });
 
   it('should enable', async () => {
-    const result = await runQuery(query, { id: GAUGE_NOR_4, enabled: true }, fakeContext(EDITOR_GA_EC));
+    const result = await runQuery(query, { id: GAUGE_NOR_4, enabled: true }, fakeContext(ADMIN));
     expect(result.errors).toBeUndefined();
     expect(result.data!.toggleGauge).toMatchObject({
       id: GAUGE_NOR_4,
@@ -72,12 +76,12 @@ describe('effects', () => {
   });
 
   it('should start job', async () => {
-    await runQuery(query, { id: GAUGE_NOR_4, enabled: true }, fakeContext(EDITOR_GA_EC));
+    await runQuery(query, { id: GAUGE_NOR_4, enabled: true }, fakeContext(ADMIN));
     expect(startJobs).lastCalledWith(SOURCE_NORWAY, GAUGE_NOR_4);
   });
 
   it('should disable', async () => {
-    const result = await runQuery(query, nor1, fakeContext(EDITOR_GA_EC));
+    const result = await runQuery(query, nor1, fakeContext(ADMIN));
     expect(result.errors).toBeUndefined();
     expect(result.data!.toggleGauge).toMatchObject({
       ...nor1,
@@ -85,7 +89,7 @@ describe('effects', () => {
   });
 
   it('should stop job', async () => {
-    await runQuery(query, { id: GAUGE_NOR_1, enabled: false }, fakeContext(EDITOR_GA_EC));
+    await runQuery(query, { id: GAUGE_NOR_1, enabled: false }, fakeContext(ADMIN));
     expect(stopJobs).lastCalledWith(SOURCE_NORWAY, GAUGE_NOR_1);
   });
 

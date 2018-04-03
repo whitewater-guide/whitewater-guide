@@ -1,7 +1,7 @@
 import gqf from 'graphql-fields';
 import Knex from 'knex';
 import { Context } from '../apollo';
-import { EDITOR_GA_EC } from '../seeds/test/01_users';
+import { ADMIN, EDITOR_GA_EC } from '../seeds/test/01_users';
 import { anonContext, fakeContext } from '../test/context';
 import db from './db';
 import {
@@ -48,7 +48,7 @@ describe('getPrimitives', () => {
   it('should omit based on context', () => {
     const userResult = getPrimitives<any>(topLevelFields, prefix, anonContext(), ['connection'], ['oneToOne'], customMap);
     expect(userResult).not.toContain('tablename.admin');
-    const adminResult = getPrimitives<any>(topLevelFields, prefix, fakeContext(EDITOR_GA_EC), ['connection'], ['oneToOne'], customMap);
+    const adminResult = getPrimitives<any>(topLevelFields, prefix, fakeContext(ADMIN), ['connection'], ['oneToOne'], customMap);
     expect(adminResult).toContain('tablename.admin');
   });
 

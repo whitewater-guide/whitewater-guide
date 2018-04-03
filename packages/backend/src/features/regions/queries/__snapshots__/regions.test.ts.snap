@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should return regions 1`] = `
+exports[`admin should see all regions 1`] = `
 Array [
   Object {
     "bounds": null,
@@ -21,6 +21,7 @@ Array [
         "name": "Ecuador Point 1",
       },
     ],
+    "premium": true,
     "season": null,
     "seasonNumeric": Array [],
   },
@@ -75,6 +76,7 @@ Array [
         "name": "Region 1 Point 2",
       },
     ],
+    "premium": false,
     "season": "Late autumn - early spring",
     "seasonNumeric": Array [
       20,
@@ -88,6 +90,7 @@ Array [
     "id": "b968e2b2-76c5-11e7-b5a5-be2e44b06b34",
     "name": "Norway",
     "pois": Array [],
+    "premium": true,
     "season": null,
     "seasonNumeric": Array [],
   },
