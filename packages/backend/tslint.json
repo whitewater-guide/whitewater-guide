@@ -16,6 +16,7 @@
     "no-console": true,
     "no-empty": [true, "allow-empty-catch"],
     "no-inferrable-types": [true],
+    "no-implicit-dependencies": [true, "dev"],
     "no-import-side-effect": [true, {"ignore-module": "^rxjs/"}],
     "no-invalid-this": [true, "check-function-in-method"],
     "no-null-keyword": false,

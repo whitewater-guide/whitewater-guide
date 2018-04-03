@@ -1,6 +1,6 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
 import { fileExistsInBucket, MEDIA, resetTestMinio } from '../../../minio';
-import { EDITOR_GA_EC, EDITOR_NO_EC } from '../../../seeds/test/01_users';
+import { ADMIN, EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '../../../seeds/test/01_users';
 import { PHOTO_1 } from '../../../seeds/test/10_media';
 import { anonContext, fakeContext } from '../../../test/context';
 import { countRows, runQuery } from '../../../test/db-helpers';
@@ -39,9 +39,21 @@ describe('resolvers chain', () => {
   });
 
   it('user should not pass', async () => {
-    const result = await runQuery(mutation, vars, fakeContext(EDITOR_NO_EC));
+    const result = await runQuery(mutation, vars, fakeContext(TEST_USER));
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.removeMedia', null);
+  });
+
+  it('non-owning editor should not pass', async () => {
+    const result = await runQuery(mutation, vars, fakeContext(EDITOR_GA_EC));
+    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
+    expect(result).toHaveProperty('data.removeMedia', null);
+  });
+
+  it('admin should pass', async () => {
+    const result = await runQuery(mutation, vars, fakeContext(ADMIN));
+    expect(result.errors).toBeUndefined();
+    expect(result.data!.removeMedia).toBeDefined();
   });
 });
 
@@ -49,7 +61,7 @@ describe('effects', () => {
   let result: any;
 
   beforeEach(async () => {
-    result = await runQuery(mutation, vars, fakeContext(EDITOR_GA_EC));
+    result = await runQuery(mutation, vars, fakeContext(EDITOR_NO_EC));
   });
 
   afterEach(() => {

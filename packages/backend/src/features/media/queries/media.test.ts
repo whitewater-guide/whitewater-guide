@@ -1,7 +1,6 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
-import { EDITOR_NO_EC } from '../../../seeds/test/01_users';
 import { BLOG_1, PHOTO_1, PHOTO_2 } from '../../../seeds/test/10_media';
-import { fakeContext } from '../../../test/context';
+import { anonContext } from '../../../test/context';
 import { noTimestamps, runQuery } from '../../../test/db-helpers';
 
 beforeEach(holdTransaction);
@@ -31,22 +30,21 @@ it('should return media', async () => {
 it('should return null when id not specified', async () => {
   const result = await runQuery(query);
   expect(result.errors).toBeUndefined();
-  expect(result.data).toBeDefined();
   expect(result.data!.media).toBeNull();
 });
 
 it('should be able to specify language', async () => {
-  const result = await runQuery(query, { id: PHOTO_1 }, fakeContext(EDITOR_NO_EC, 'ru'));
+  const result = await runQuery(query, { id: PHOTO_1 }, anonContext('ru'));
   expect(result).toHaveProperty('data.media.description', 'Фото 1 описание');
 });
 
 it('should fall back to english when not translated', async () => {
-  const result = await runQuery(query, { id: PHOTO_2 }, fakeContext(EDITOR_NO_EC, 'ru'));
+  const result = await runQuery(query, { id: PHOTO_2 }, anonContext('ru'));
   expect(result).toHaveProperty('data.media.description', 'Photo 2 description');
 });
 
 it('should be able to get basic attributes without translation', async () => {
-  const result = await runQuery(query, { id: PHOTO_1 }, fakeContext(EDITOR_NO_EC, 'pt'));
+  const result = await runQuery(query, { id: PHOTO_1 }, anonContext('pt'));
   expect(result).toHaveProperty('data.media.kind', 'photo');
 });
 

@@ -2,7 +2,7 @@ import { copy } from 'fs-extra';
 import path from 'path';
 import db, { holdTransaction, rollbackTransaction } from '../../../db';
 import { fileExistsInBucket, MEDIA, resetTestMinio, TEMP, TEMP_BUCKET_DIR } from '../../../minio';
-import { EDITOR_GA_EC, EDITOR_NO_EC } from '../../../seeds/test/01_users';
+import { ADMIN, EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '../../../seeds/test/01_users';
 import { GALICIA_R1_S1, NORWAY_SJOA_AMOT } from '../../../seeds/test/08_sections';
 import { PHOTO_1, PHOTO_2 } from '../../../seeds/test/10_media';
 import { anonContext, fakeContext } from '../../../test/context';
@@ -61,9 +61,21 @@ describe('resolvers chain', () => {
   });
 
   it('user should not pass', async () => {
-    const result = await runQuery(mutation, { sectionId, media }, fakeContext(EDITOR_NO_EC));
+    const result = await runQuery(mutation, { sectionId, media }, fakeContext(TEST_USER));
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.upsertSectionMedia', null);
+  });
+
+  it('non-owning editor should not pass', async () => {
+    const result = await runQuery(mutation, { sectionId, media }, fakeContext(EDITOR_GA_EC));
+    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
+    expect(result).toHaveProperty('data.upsertSectionMedia', null);
+  });
+
+  it('admn should pass', async () => {
+    const result = await runQuery(mutation, { sectionId, media }, fakeContext(ADMIN));
+    expect(result.errors).toBeUndefined();
+    expect(result.data!.upsertSectionMedia).toBeDefined();
   });
 
   it('should throw on invalid input', async () => {
@@ -76,7 +88,7 @@ describe('resolvers chain', () => {
       resolution: [800, 600, 900],
       weight: -10,
     };
-    const result = await runQuery(mutation, { sectionId, media: badMedia }, fakeContext(EDITOR_GA_EC));
+    const result = await runQuery(mutation, { sectionId, media: badMedia }, fakeContext(EDITOR_NO_EC));
     expect(result).toHaveProperty('data.upsertSectionMedia', null);
     expect(result).toHaveProperty('errors.0.name', 'ValidationError');
     expect((result.errors![0] as any).data).toMatchSnapshot();
@@ -86,27 +98,26 @@ describe('resolvers chain', () => {
 
 describe('insert', () => {
   it('should fail on non-existing section id', async () => {
-    const result = await runQuery(mutation, { sectionId: '852421bc-2848-11e8-b467-0ed5f89f718b', media }, fakeContext(EDITOR_GA_EC));
-    expect(result).toHaveProperty('errors.0.name', 'ValidationError');
-    expect(result).toHaveProperty('errors.0.message', 'Invalid section id');
+    const result = await runQuery(mutation, { sectionId: '852421bc-2848-11e8-b467-0ed5f89f718b', media }, fakeContext(EDITOR_NO_EC));
+    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.upsertSectionMedia', null);
   });
 
   it('should return result', async () => {
-    const result = await runQuery(mutation, { sectionId, media }, fakeContext(EDITOR_GA_EC));
+    const result = await runQuery(mutation, { sectionId, media }, fakeContext(EDITOR_NO_EC));
     expect(result.errors).toBeUndefined();
     expect(noTimestamps(result.data)).toMatchSnapshot();
   });
 
   it('should add one more media to db', async () => {
-    await runQuery(mutation, { sectionId, media }, fakeContext(EDITOR_GA_EC));
+    await runQuery(mutation, { sectionId, media }, fakeContext(EDITOR_NO_EC));
     const [m, ms, tr] = await countRows(false, 'media', 'sections_media', 'media_translations');
     expect([m - mBefore, ms - msBefore, tr - trBefore]).toMatchObject([1, 1, 1]);
   });
 
   it('should sanitize input', async () => {
     const dirty = { ...media, description: "it's a \\ slash" };
-    const result = await runQuery(mutation, { sectionId, media: dirty }, fakeContext(EDITOR_GA_EC));
+    const result = await runQuery(mutation, { sectionId, media: dirty }, fakeContext(EDITOR_NO_EC));
     expect(result).toHaveProperty('data.upsertSectionMedia.description', "it's a \\ slash");
   });
 });
@@ -115,27 +126,26 @@ describe('update', () => {
   const uMedia = { ...media, id: PHOTO_1 };
 
   it('should fail on wrong section id', async () => {
-    const result = await runQuery(mutation, { sectionId: GALICIA_R1_S1, media: uMedia }, fakeContext(EDITOR_GA_EC));
-    expect(result).toHaveProperty('errors.0.name', 'ValidationError');
-    expect(result).toHaveProperty('errors.0.message', 'Invalid section id');
+    const result = await runQuery(mutation, { sectionId: GALICIA_R1_S1, media: uMedia }, fakeContext(EDITOR_NO_EC));
+    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.upsertSectionMedia', null);
   });
 
   it('should return result', async () => {
-    const result = await runQuery(mutation, { sectionId, media: uMedia }, fakeContext(EDITOR_GA_EC));
+    const result = await runQuery(mutation, { sectionId, media: uMedia }, fakeContext(EDITOR_NO_EC));
     expect(result.errors).toBeUndefined();
     expect(noUnstable(result.data)).toMatchSnapshot();
   });
 
   it('should not change db counts', async () => {
-    await runQuery(mutation, { sectionId, media: uMedia }, fakeContext(EDITOR_GA_EC));
+    await runQuery(mutation, { sectionId, media: uMedia }, fakeContext(EDITOR_NO_EC));
     const [m, ms, tr] = await countRows(false, 'media', 'sections_media', 'media_translations');
     expect([m - mBefore, ms - msBefore, tr - trBefore]).toMatchObject([0, 0, 0]);
   });
 
   it('should not change media kind', async () => {
     const badMedia = { ...uMedia, kind: 'blog' };
-    const result = await runQuery(mutation, { sectionId, media: badMedia }, fakeContext(EDITOR_GA_EC));
+    const result = await runQuery(mutation, { sectionId, media: badMedia }, fakeContext(EDITOR_NO_EC));
     expect(result.errors).toBeUndefined();
     expect(result).toHaveProperty('data.upsertSectionMedia.kind', 'photo');
   });
@@ -146,20 +156,20 @@ describe('i18n', () => {
   const uMedia = { ...media, id: PHOTO_1 };
 
   it('should add new translation', async () => {
-    await runQuery(mutation, { sectionId, media: aMedia }, fakeContext(EDITOR_GA_EC, 'ru'));
+    await runQuery(mutation, { sectionId, media: aMedia }, fakeContext(EDITOR_NO_EC, 'ru'));
     const [m, ms, tr] = await countRows(false, 'media', 'sections_media', 'media_translations');
     expect([m - mBefore, ms - msBefore, tr - trBefore]).toMatchObject([0, 0, 1]);
   });
 
   it('should modify common props in other language', async () => {
-    await runQuery(mutation, { sectionId, media: aMedia }, fakeContext(EDITOR_GA_EC, 'ru'));
+    await runQuery(mutation, { sectionId, media: aMedia }, fakeContext(EDITOR_NO_EC, 'ru'));
     const { resolution } = await db().table('media_view').select('resolution')
       .where({ id: PHOTO_2, language: 'en' }).first();
     expect(resolution).toMatchObject([1920, 1080]);
   });
 
   it('should modify existing translation', async () => {
-    await runQuery(mutation, { sectionId, media: uMedia }, fakeContext(EDITOR_GA_EC, 'ru'));
+    await runQuery(mutation, { sectionId, media: uMedia }, fakeContext(EDITOR_NO_EC, 'ru'));
     const [m, ms, tr] = await countRows(false, 'media', 'sections_media', 'media_translations');
     expect([m - mBefore, ms - msBefore, tr - trBefore]).toMatchObject([0, 0, 0]);
     const { description } = await db().table('media_view').select('description')
@@ -177,7 +187,7 @@ describe('files', () => {
       path.resolve(__dirname, '__tests__/test.jpg'),
       path.resolve(TEMP_BUCKET_DIR, NEW_MEDIA_ID),
     );
-    result = await runQuery(mutation, { sectionId, media }, fakeContext(EDITOR_GA_EC));
+    result = await runQuery(mutation, { sectionId, media }, fakeContext(EDITOR_NO_EC));
     expect(result.errors).toBeUndefined();
   });
 

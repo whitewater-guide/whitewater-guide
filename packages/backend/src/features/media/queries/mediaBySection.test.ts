@@ -1,7 +1,6 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
-import { EDITOR_NO_EC } from '../../../seeds/test/01_users';
 import { NORWAY_SJOA_AMOT } from '../../../seeds/test/08_sections';
-import { fakeContext } from '../../../test/context';
+import { anonContext } from '../../../test/context';
 import { noTimestamps, runQuery } from '../../../test/db-helpers';
 
 beforeEach(holdTransaction);
@@ -33,7 +32,7 @@ it('should return media', async () => {
 });
 
 it('should be able to specify language', async () => {
-  const result = await runQuery(query, { sectionId: NORWAY_SJOA_AMOT }, fakeContext(EDITOR_NO_EC, 'ru'));
+  const result = await runQuery(query, { sectionId: NORWAY_SJOA_AMOT }, anonContext('ru'));
   expect(result.errors).toBeUndefined();
   const descriptions = result.data!.mediaBySection.nodes.map((n: any) => n.description);
   expect(descriptions).toEqual(expect.arrayContaining(['Фото 1 описание', 'Photo 2 description']));
