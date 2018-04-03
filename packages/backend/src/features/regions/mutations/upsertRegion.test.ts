@@ -1,7 +1,8 @@
 import set from 'lodash/fp/set';
 import db, { holdTransaction, rollbackTransaction } from '../../../db';
+import { ADMIN, EDITOR_GA_EC, EDITOR_NO_EC } from '../../../seeds/test/01_users';
 import { GALICIA_PT_1, GALICIA_PT_2 } from '../../../seeds/test/02_points';
-import { adminContext, anonContext, superAdminContext, userContext } from '../../../test/context';
+import { anonContext, fakeContext } from '../../../test/context';
 import { countRows } from '../../../test/countRows';
 import { isTimestamp, isUUID, noTimestamps, noUnstable, runQuery } from '../../../test/db-helpers';
 import { RegionInput } from '../../../ww-commons';
@@ -92,7 +93,7 @@ describe('resolvers chain', () => {
   });
 
   test('user should not pass', async () => {
-    const result = await runQuery(upsertQuery, { region: minimalRegion }, userContext());
+    const result = await runQuery(upsertQuery, { region: minimalRegion }, fakeContext(EDITOR_NO_EC));
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.upsertRegion', null);
   });
@@ -107,7 +108,7 @@ describe('resolvers chain', () => {
       bounds: [[300, 300, 300]],
       pois: [],
     };
-    const result = await runQuery(upsertQuery, { region: invalidInput }, adminContext());
+    const result = await runQuery(upsertQuery, { region: invalidInput }, fakeContext(EDITOR_GA_EC));
     expect(result).toHaveProperty('errors.0.name', 'ValidationError');
     expect(result.data).toBeDefined();
     expect(result.data!.upsertRegion).toBeNull();
@@ -124,7 +125,7 @@ describe('insert', () => {
   let insertedRegion: any;
 
   beforeEach(async () => {
-    insertResult = await runQuery(upsertQuery, { region: fullRegionWithPOIs }, superAdminContext());
+    insertResult = await runQuery(upsertQuery, { region: fullRegionWithPOIs }, fakeContext(ADMIN));
     insertedRegion = insertResult && insertResult.data && insertResult.data.upsertRegion;
   });
 
@@ -183,7 +184,7 @@ describe('update', () => {
 
   beforeEach(async () => {
     oldRegion = await db().table('regions_view').where({ id: fullRegionUpdate.id }).first();
-    updateResult = await runQuery(upsertQuery, { region: fullRegionUpdate }, superAdminContext());
+    updateResult = await runQuery(upsertQuery, { region: fullRegionUpdate }, fakeContext(ADMIN));
     updatedRegion = updateResult && updateResult.data && updateResult.data.upsertRegion;
   });
 
@@ -263,7 +264,7 @@ describe('i18n', () => {
   };
 
   test('should add translation', async () => {
-    const upsertResult = await runQuery(upsertQuery, { region: emptyRegionRu }, adminContext('ru'));
+    const upsertResult = await runQuery(upsertQuery, { region: emptyRegionRu }, fakeContext(EDITOR_GA_EC, 'ru'));
     expect(upsertResult.errors).toBeUndefined();
     const translation = await db().table('regions_translations').select()
       .where({ region_id: '2caf75ca-7625-11e7-b5a5-be2e44b06b34', language: 'ru' }).first();
@@ -274,7 +275,7 @@ describe('i18n', () => {
     const upsertResult = await runQuery(
       upsertQuery,
       { region: { ...emptyRegionRu, seasonNumeric: [10] } },
-      adminContext('ru'),
+      fakeContext(EDITOR_GA_EC, 'ru'),
     );
     expect(upsertResult.errors).toBeUndefined();
     const reg = await db().table('regions').select()
@@ -292,7 +293,7 @@ describe('i18n', () => {
       season: 'осень осень',
       pois: [],
     };
-    const upsertResult = await runQuery(upsertQuery, { region }, adminContext('ru'));
+    const upsertResult = await runQuery(upsertQuery, { region }, fakeContext(EDITOR_GA_EC, 'ru'));
     expect(upsertResult.errors).toBeUndefined();
     const translation = await db().table('regions_translations').select()
       .where({ region_id: 'bd3e10b6-7624-11e7-b5a5-be2e44b06b34', language: 'ru' }).first();
@@ -311,7 +312,7 @@ describe('i18n', () => {
         { id: null, name: 'Тчка 1', description: 'тчк 1 описание', kind: 'other', coordinates: [10, 12, 0] },
       ],
     };
-    const upsertResult = await runQuery(upsertQuery, { region }, adminContext('ru'));
+    const upsertResult = await runQuery(upsertQuery, { region }, fakeContext(EDITOR_GA_EC, 'ru'));
     expect(upsertResult.errors).toBeUndefined();
     const translation = await db().table('points_translations').select()
       .where({ language: 'ru' }).first();
@@ -332,7 +333,7 @@ it('should sanitize input', async () => {
   let dirtyRegion = { ...fullRegionWithPOIs, name: "it's a \\ slash" };
   dirtyRegion = set('pois.0.name', "it's a poi", dirtyRegion);
 
-  const insertResult = await runQuery(upsertQuery, { region: dirtyRegion }, adminContext());
+  const insertResult = await runQuery(upsertQuery, { region: dirtyRegion }, fakeContext(EDITOR_GA_EC));
   expect(insertResult.errors).toBeUndefined();
   expect(insertResult).toHaveProperty('data.upsertRegion.name', "it's a \\ slash");
   expect(insertResult).toHaveProperty('data.upsertRegion.pois.0.name', "it's a poi");

@@ -1,5 +1,6 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
-import { userContext } from '../../../test/context';
+import { EDITOR_NO_EC } from '../../../seeds/test/01_users';
+import { fakeContext } from '../../../test/context';
 import { noTimestamps, runQuery } from '../../../test/db-helpers';
 
 beforeEach(holdTransaction);
@@ -56,7 +57,7 @@ it('should paginate', async () => {
 });
 
 it('should be able to specify language', async () => {
-  const result = await runQuery(query, { }, userContext('ru'));
+  const result = await runQuery(query, { }, fakeContext(EDITOR_NO_EC, 'ru'));
   expect(result.errors).toBeUndefined();
   expect(result.data!.rivers.nodes).toEqual(expect.arrayContaining([
     expect.objectContaining({ name: 'Гал_Река_Один' }),
@@ -66,7 +67,7 @@ it('should be able to specify language', async () => {
 });
 
 it('should return empty array of alt names when not translated', async () => {
-  const result = await runQuery(query, { }, userContext('ru'));
+  const result = await runQuery(query, { }, fakeContext(EDITOR_NO_EC, 'ru'));
   expect(result.data!.rivers.nodes).toEqual(expect.arrayContaining([
     expect.objectContaining({ altNames: [] }),
   ]));

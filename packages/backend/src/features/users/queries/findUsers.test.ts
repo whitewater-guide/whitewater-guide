@@ -1,5 +1,6 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
-import { adminContext, anonContext, superAdminContext, userContext } from '../../../test/context';
+import { ADMIN, EDITOR_GA_EC, EDITOR_NO_EC } from '../../../seeds/test/01_users';
+import { anonContext, fakeContext } from '../../../test/context';
 import { runQuery } from '../../../test/db-helpers';
 
 const query = `
@@ -25,13 +26,13 @@ describe('resolvers chain', () => {
   });
 
   it('user should fail', async () => {
-    const result = await runQuery(query, variables, userContext());
+    const result = await runQuery(query, variables, fakeContext(EDITOR_NO_EC));
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.findUsers', null);
   });
 
   it('admin should fail', async () => {
-    const result = await runQuery(query, variables, adminContext());
+    const result = await runQuery(query, variables, fakeContext(EDITOR_GA_EC));
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.findUsers', null);
   });
@@ -40,7 +41,7 @@ describe('resolvers chain', () => {
 
 describe('results', () => {
   it('should find many', async () => {
-    const result = await runQuery(query, { search: 'konstantin' }, superAdminContext());
+    const result = await runQuery(query, { search: 'konstantin' }, fakeContext(ADMIN));
     expect(result.errors).toBeUndefined();
     expect(result.data!.findUsers).toHaveLength(2);
     expect(result.data!.findUsers).toMatchObject([
@@ -50,7 +51,7 @@ describe('results', () => {
   });
 
   it('should find one by name', async () => {
-    const result = await runQuery(query, { search: 'uZn' }, superAdminContext());
+    const result = await runQuery(query, { search: 'uZn' }, fakeContext(ADMIN));
     expect(result.errors).toBeUndefined();
     expect(result.data!.findUsers).toHaveLength(1);
     expect(result.data!.findUsers).toMatchObject([
@@ -59,7 +60,7 @@ describe('results', () => {
   });
 
   it('should find one by email', async () => {
-    const result = await runQuery(query, { search: 'aOs' }, superAdminContext());
+    const result = await runQuery(query, { search: 'aOs' }, fakeContext(ADMIN));
     expect(result.errors).toBeUndefined();
     expect(result.data!.findUsers).toHaveLength(1);
     expect(result.data!.findUsers).toMatchObject([
@@ -68,7 +69,7 @@ describe('results', () => {
   });
 
   it('should return empty array when not found', async () => {
-    const result = await runQuery(query, { search: 'foo' }, superAdminContext());
+    const result = await runQuery(query, { search: 'foo' }, fakeContext(ADMIN));
     expect(result.errors).toBeUndefined();
     expect(result.data!.findUsers).toHaveLength(0);
   });

@@ -1,6 +1,6 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
-import { ADMIN_ID, SUPERADMIN_ID } from '../../../seeds/test/01_users';
-import { adminContext, anonContext, superAdminContext } from '../../../test/context';
+import { ADMIN, ADMIN_ID, EDITOR_GA_EC, EDITOR_GA_EC_ID } from '../../../seeds/test/01_users';
+import { anonContext, fakeContext } from '../../../test/context';
 import { runQuery } from '../../../test/runQuery';
 import { EditorSettings } from '../../../ww-commons';
 
@@ -27,18 +27,18 @@ it('anons cannot do that', async () => {
 });
 
 it('should fail on invalid input', async () => {
-  const result = await runQuery(mutation, { editorSettings: { language: 'latin' } }, adminContext());
+  const result = await runQuery(mutation, { editorSettings: { language: 'latin' } }, fakeContext(EDITOR_GA_EC));
   expect(result).toHaveProperty('errors.0.name', 'ValidationError');
 });
 
 it('should set settings if not exists', async () => {
-  const result = await runQuery(mutation, { editorSettings }, superAdminContext());
-  expect(result).toHaveProperty('data.updateEditorSettings.id', SUPERADMIN_ID);
+  const result = await runQuery(mutation, { editorSettings }, fakeContext(ADMIN));
+  expect(result).toHaveProperty('data.updateEditorSettings.id', ADMIN_ID);
   expect(result).toHaveProperty('data.updateEditorSettings.editorSettings.language', 'de');
 });
 
 it('should merge if context exists', async () => {
-  const result = await runQuery(mutation, { editorSettings }, adminContext());
-  expect(result).toHaveProperty('data.updateEditorSettings.id', ADMIN_ID);
+  const result = await runQuery(mutation, { editorSettings }, fakeContext(EDITOR_GA_EC));
+  expect(result).toHaveProperty('data.updateEditorSettings.id', EDITOR_GA_EC_ID);
   expect(result).toHaveProperty('data.updateEditorSettings.editorSettings.language', 'de');
 });

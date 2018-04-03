@@ -1,7 +1,7 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
-import { ADMIN_ID, SUPERADMIN_ID } from '../../../seeds/test/01_users';
+import { ADMIN, ADMIN_ID, EDITOR_GA_EC, EDITOR_GA_EC_ID, EDITOR_NO_EC } from '../../../seeds/test/01_users';
 import { REGION_GALICIA } from '../../../seeds/test/03_regions';
-import { adminContext, anonContext, superAdminContext, userContext } from '../../../test/context';
+import { anonContext, fakeContext } from '../../../test/context';
 import { countRows } from '../../../test/db-helpers';
 import { runQuery } from '../../../test/runQuery';
 
@@ -21,7 +21,7 @@ beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
 describe('resolvers chain', () => {
-  const variables = { regionId: REGION_GALICIA, userId: SUPERADMIN_ID };
+  const variables = { regionId: REGION_GALICIA, userId: ADMIN_ID };
 
   it('anon should fail', async () => {
     const result = await runQuery(mutation, variables, anonContext());
@@ -30,13 +30,13 @@ describe('resolvers chain', () => {
   });
 
   it('user should fail', async () => {
-    const result = await runQuery(mutation, variables, userContext());
+    const result = await runQuery(mutation, variables, fakeContext(EDITOR_NO_EC));
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.addEditor', null);
   });
 
   it('admin should fail', async () => {
-    const result = await runQuery(mutation, variables, adminContext());
+    const result = await runQuery(mutation, variables, fakeContext(EDITOR_GA_EC));
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.addEditor', null);
   });
@@ -45,7 +45,7 @@ describe('resolvers chain', () => {
 
 describe('effects', () => {
   it('should increase count by one', async () => {
-    const result = await runQuery(mutation, { regionId: REGION_GALICIA, userId: SUPERADMIN_ID }, superAdminContext());
+    const result = await runQuery(mutation, { regionId: REGION_GALICIA, userId: ADMIN_ID }, fakeContext(ADMIN));
     expect(result.errors).toBeUndefined();
     expect(result.data!.addEditor).toBe(true);
     const [reAfter] = await countRows(false, 'regions_editors');
@@ -53,7 +53,7 @@ describe('effects', () => {
   });
 
   it('should ignore dupes', async () => {
-    const result = await runQuery(mutation, { regionId: REGION_GALICIA, userId: ADMIN_ID }, superAdminContext());
+    const result = await runQuery(mutation, { regionId: REGION_GALICIA, userId: EDITOR_GA_EC_ID }, fakeContext(ADMIN));
     expect(result.errors).toBeUndefined();
     expect(result.data!.addEditor).toBe(true);
     const [reAfter] = await countRows(false, 'regions_editors');

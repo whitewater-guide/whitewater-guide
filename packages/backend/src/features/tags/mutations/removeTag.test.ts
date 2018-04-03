@@ -1,5 +1,6 @@
 import db, { holdTransaction, rollbackTransaction } from '../../../db';
-import { adminContext, anonContext, superAdminContext, userContext } from '../../../test/context';
+import { ADMIN, EDITOR_GA_EC, EDITOR_NO_EC } from '../../../seeds/test/01_users';
+import { anonContext, fakeContext } from '../../../test/context';
 import { runQuery } from '../../../test/db-helpers';
 import { removeTagQuery } from './removeTag';
 
@@ -23,14 +24,14 @@ describe('resolvers chain', () => {
   });
 
   test('user should not pass', async () => {
-    const result = await runQuery(query, variables, userContext());
+    const result = await runQuery(query, variables, fakeContext(EDITOR_NO_EC));
     expect(result.errors).toBeDefined();
     expect(result.data).toBeDefined();
     expect(result.data!.removeTag).toBeNull();
   });
 
   test('admin should not pass', async () => {
-    const result = await runQuery(query, variables, adminContext());
+    const result = await runQuery(query, variables, fakeContext(EDITOR_GA_EC));
     expect(result.errors).toBeDefined();
     expect(result.data).toBeDefined();
     expect(result.data!.removeTag).toBeNull();
@@ -50,7 +51,7 @@ describe('effects', () => {
   });
 
   beforeEach(async () => {
-    result = await runQuery(query, variables, superAdminContext());
+    result = await runQuery(query, variables, fakeContext(ADMIN));
   });
 
   afterEach(() => {

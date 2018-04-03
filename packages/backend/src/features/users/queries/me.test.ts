@@ -1,5 +1,6 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
-import { adminContext, anonContext } from '../../../test/context';
+import { EDITOR_GA_EC } from '../../../seeds/test/01_users';
+import { anonContext, fakeContext } from '../../../test/context';
 import { runQuery } from '../../../test/db-helpers';
 import { User } from '../../../ww-commons';
 
@@ -33,7 +34,7 @@ test('should return null for anon', async () => {
 });
 
 test('should user', async () => {
-  const result = await runQuery(query, undefined, adminContext());
+  const result = await runQuery(query, undefined, fakeContext(EDITOR_GA_EC));
   expect(result.errors).toBeUndefined();
   const me: User = result.data!.me;
   expect(me).toMatchSnapshot();

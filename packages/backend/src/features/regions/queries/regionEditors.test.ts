@@ -1,7 +1,7 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
-import { ADMIN_ID, TEST_USER_ID } from '../../../seeds/test/01_users';
+import { ADMIN, EDITOR_GA_EC, EDITOR_GA_EC_ID, EDITOR_NO_EC, EDITOR_NO_EC_ID } from '../../../seeds/test/01_users';
 import { REGION_ECUADOR, REGION_GALICIA } from '../../../seeds/test/03_regions';
-import { adminContext, anonContext, superAdminContext, userContext } from '../../../test/context';
+import { anonContext, fakeContext } from '../../../test/context';
 import { runQuery } from '../../../test/runQuery';
 
 const query = `
@@ -27,13 +27,13 @@ describe('resolvers chain', () => {
   });
 
   it('user should fail', async () => {
-    const result = await runQuery(query, variables, userContext());
+    const result = await runQuery(query, variables, fakeContext(EDITOR_NO_EC));
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.regionEditors', null);
   });
 
   it('admin should fail', async () => {
-    const result = await runQuery(query, variables, adminContext());
+    const result = await runQuery(query, variables, fakeContext(EDITOR_GA_EC));
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.regionEditors', null);
   });
@@ -42,19 +42,19 @@ describe('resolvers chain', () => {
 
 describe('results', () => {
   it('should find one', async () => {
-    const result = await runQuery(query, { regionId: REGION_GALICIA }, superAdminContext());
+    const result = await runQuery(query, { regionId: REGION_GALICIA }, fakeContext(ADMIN));
     expect(result.errors).toBeUndefined();
     expect(result.data!.regionEditors).toHaveLength(1);
-    expect(result.data!.regionEditors).toMatchObject([{ id: ADMIN_ID }]);
+    expect(result.data!.regionEditors).toMatchObject([{ id: EDITOR_GA_EC_ID }]);
   });
 
   it('should find many', async () => {
-    const result = await runQuery(query, { regionId: REGION_ECUADOR }, superAdminContext());
+    const result = await runQuery(query, { regionId: REGION_ECUADOR }, fakeContext(ADMIN));
     expect(result.errors).toBeUndefined();
     expect(result.data!.regionEditors).toHaveLength(2);
     expect(result.data!.regionEditors).toEqual(expect.arrayContaining([
-      expect.objectContaining({ id: ADMIN_ID }),
-      expect.objectContaining({ id: TEST_USER_ID }),
+      expect.objectContaining({ id: EDITOR_GA_EC_ID }),
+      expect.objectContaining({ id: EDITOR_NO_EC_ID }),
     ]));
   });
 });

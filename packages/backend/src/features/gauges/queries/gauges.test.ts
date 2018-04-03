@@ -1,7 +1,7 @@
-import db from '../../../db';
 import { holdTransaction, rollbackTransaction } from '../../../db';
+import { ADMIN } from '../../../seeds/test/01_users';
 import { SOURCE_NORWAY } from '../../../seeds/test/04_sources';
-import { superAdminContext } from '../../../test/context';
+import { fakeContext } from '../../../test/context';
 import { noTimestamps, runQuery } from '../../../test/db-helpers';
 
 beforeEach(holdTransaction);
@@ -38,7 +38,7 @@ query listGauges($sourceId: ID) {
 `;
 
 test('should return gauges', async () => {
-  const result = await runQuery(query, undefined, superAdminContext());
+  const result = await runQuery(query, undefined, fakeContext(ADMIN));
   expect(result.errors).toBeUndefined();
   expect(result.data).toBeDefined();
   expect(result.data!.gauges).toBeDefined();
@@ -47,7 +47,7 @@ test('should return gauges', async () => {
 });
 
 test('should be able to specify language', async () => {
-  const result = await runQuery(query, {}, superAdminContext('ru'));
+  const result = await runQuery(query, {}, fakeContext(ADMIN, 'ru'));
   expect(result.errors).toBeUndefined();
   expect(result.data!.gauges.count).toBe(12);
   const names = result.data!.gauges.nodes.map((node: any) => node.name);
@@ -55,7 +55,7 @@ test('should be able to specify language', async () => {
 });
 
 test('should fall back to english', async () => {
-  const result = await runQuery(query, {}, superAdminContext('ru'));
+  const result = await runQuery(query, {}, fakeContext(ADMIN, 'ru'));
   expect(result.errors).toBeUndefined();
   expect(result.data!.gauges.count).toBe(12);
   const names = result.data!.gauges.nodes.map((node: any) => node.name);
@@ -63,7 +63,7 @@ test('should fall back to english', async () => {
 });
 
 test('should be able to specify source id', async () => {
-  const result = await runQuery(query, { sourceId: SOURCE_NORWAY }, superAdminContext());
+  const result = await runQuery(query, { sourceId: SOURCE_NORWAY }, fakeContext(ADMIN));
   expect(result.errors).toBeUndefined();
   expect(result.data!.gauges).toBeDefined();
   expect(result.data!.gauges.count).toBe(4);

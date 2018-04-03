@@ -1,7 +1,8 @@
 import db, { holdTransaction, rollbackTransaction } from '../../../db';
+import { EDITOR_GA_EC, EDITOR_NO_EC } from '../../../seeds/test/01_users';
 import { SOURCE_GALICIA_1, SOURCE_NORWAY } from '../../../seeds/test/04_sources';
 import { GAUGE_GAL_1_1, GAUGE_GEO_3 } from '../../../seeds/test/05_gauges';
-import { adminContext, anonContext, userContext } from '../../../test/context';
+import { anonContext, fakeContext } from '../../../test/context';
 import { isTimestamp, isUUID, noUnstable, runQuery } from '../../../test/db-helpers';
 import { GaugeInput } from '../../../ww-commons';
 import { GaugeRaw } from '../types';
@@ -69,7 +70,7 @@ describe('resolvers chain', () => {
   });
 
   test('user should not pass', async () => {
-    const result = await runQuery(upsertQuery, { gauge }, userContext());
+    const result = await runQuery(upsertQuery, { gauge }, fakeContext(EDITOR_NO_EC));
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.upsertGauge', null);
   });
@@ -87,7 +88,7 @@ describe('resolvers chain', () => {
       cron: 'aaa',
       url: 'bbb',
     };
-    const result = await runQuery(upsertQuery, { gauge: invalidInput }, adminContext());
+    const result = await runQuery(upsertQuery, { gauge: invalidInput }, fakeContext(EDITOR_GA_EC));
     expect(result).toHaveProperty('errors.0.name', 'ValidationError');
     expect(result.data).toBeDefined();
     expect(result.data!.upsertGauge).toBeNull();
@@ -110,7 +111,7 @@ describe('insert', () => {
   };
 
   it('should return result', async () => {
-    const result = await runQuery(upsertQuery, { gauge: input }, adminContext());
+    const result = await runQuery(upsertQuery, { gauge: input }, fakeContext(EDITOR_GA_EC));
     const gauge = result && result.data && result.data.upsertGauge;
     expect(result.errors).toBeUndefined();
     expect(isUUID(gauge.id)).toBe(true);
@@ -121,37 +122,37 @@ describe('insert', () => {
   });
 
   it('should add one more gauge', async () => {
-    await runQuery(upsertQuery, { gauge: input }, adminContext());
+    await runQuery(upsertQuery, { gauge: input }, fakeContext(EDITOR_GA_EC));
     const { count } = await db().table('gauges').count().first();
     expect(Number(count) - gaugesBefore).toBe(1);
   });
 
   it('should insert point', async () => {
-    await runQuery(upsertQuery, { gauge: input }, adminContext());
+    await runQuery(upsertQuery, { gauge: input }, fakeContext(EDITOR_GA_EC));
     const points = await db().table('points').count().first();
     expect(Number(points.count) - pointsBefore).toBe(1);
   });
 
   it('should handle null point', async () => {
-    const result = await runQuery(upsertQuery, { gauge: { ...input, location: null } }, adminContext());
+    const result = await runQuery(upsertQuery, { gauge: { ...input, location: null } }, fakeContext(EDITOR_GA_EC));
     const gauge = result && result.data && result.data.upsertGauge;
     expect(gauge.location).toBeNull();
   });
 
   it('should handle null requestParams', async () => {
-    const result = await runQuery(upsertQuery, { gauge: { ...input, requestParams: null } }, adminContext());
+    const result = await runQuery(upsertQuery, { gauge: { ...input, requestParams: null } }, fakeContext(EDITOR_GA_EC));
     const gauge = result && result.data && result.data.upsertGauge;
     expect(gauge.requestParams).toBeNull();
   });
 
   test('should match snapshot', async () => {
-    const result = await runQuery(upsertQuery, { gauge: input }, adminContext());
+    const result = await runQuery(upsertQuery, { gauge: input }, fakeContext(EDITOR_GA_EC));
     expect(noUnstable(result)).toMatchSnapshot();
   });
 
   test('should sanitize input', async () => {
     const dirtyInput = { ...input, name: "it's a \\ slash" };
-    const result = await runQuery(upsertQuery, { gauge: dirtyInput }, adminContext());
+    const result = await runQuery(upsertQuery, { gauge: dirtyInput }, fakeContext(EDITOR_GA_EC));
     expect(result).toHaveProperty('data.upsertGauge.name', "it's a \\ slash");
   });
 });
@@ -182,7 +183,7 @@ describe('update', () => {
 
   beforeEach(async () => {
     oldGauge = await db().table('gauges').where({ id: input.id }).first();
-    updateResult = await runQuery(upsertQuery, { gauge: input }, adminContext());
+    updateResult = await runQuery(upsertQuery, { gauge: input }, fakeContext(EDITOR_GA_EC));
     updatedGauge = updateResult && updateResult.data && updateResult.data.upsertGauge;
   });
 
@@ -218,7 +219,7 @@ describe('update', () => {
   });
 
   test('should not change enabled gauges', async () => {
-    const result = await runQuery(upsertQuery, { gauge: { ...input, id: GAUGE_GEO_3 } }, adminContext());
+    const result = await runQuery(upsertQuery, { gauge: { ...input, id: GAUGE_GEO_3 } }, fakeContext(EDITOR_GA_EC));
     expect(result.errors).toBeDefined();
     expect(result.data!.upsertGauge).toBeNull();
     expect(result).toHaveProperty('errors.0.name', 'MutationNotAllowedError');
@@ -251,7 +252,7 @@ describe('i18n', () => {
   };
 
   it('should add new translation', async () => {
-    await runQuery(upsertQuery, { gauge: inputPt}, adminContext('pt'));
+    await runQuery(upsertQuery, { gauge: inputPt}, fakeContext(EDITOR_GA_EC, 'pt'));
     const { count } = await db().table('gauges_translations').count().first();
     expect(Number(count) - translationsBefore).toBe(1);
     const name = await db().table('gauges_view').select('name')
@@ -260,14 +261,14 @@ describe('i18n', () => {
   });
 
   it('should modify common props in other language', async () => {
-    await runQuery(upsertQuery, { gauge: inputPt }, adminContext('pt'));
+    await runQuery(upsertQuery, { gauge: inputPt }, fakeContext(EDITOR_GA_EC, 'pt'));
     const flowUnit = await db().table('gauges_view').select('flow_unit')
       .where({ language: 'en', id: 'aba8c106-aaa0-11e7-abc4-cec278b6b50a' }).first();
     expect(flowUnit.flow_unit).toBe('cm3/s');
   });
 
   it('should modify existing translation', async () => {
-    await runQuery(upsertQuery, { gauge: inputPt }, adminContext('en'));
+    await runQuery(upsertQuery, { gauge: inputPt }, fakeContext(EDITOR_GA_EC, 'en'));
     const { count } = await db().table('gauges_translations').count().first();
     expect(Number(count)).toBe(translationsBefore);
     const name = await db().table('gauges_view').select('name')

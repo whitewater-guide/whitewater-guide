@@ -4,7 +4,7 @@ import { LastMeasurementLoader } from '../features/measurements/data-loader';
 
 export interface ContextUser {
   id: string;
-  role: number;
+  admin: boolean;
   [key: string]: any;
 }
 

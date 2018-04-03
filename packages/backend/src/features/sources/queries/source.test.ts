@@ -1,6 +1,7 @@
 import { AuthenticationRequiredError, ForbiddenError } from '../../../apollo';
 import { holdTransaction, rollbackTransaction } from '../../../db';
-import { adminContext, anonContext, superAdminContext, userContext } from '../../../test/context';
+import { ADMIN, EDITOR_GA_EC, EDITOR_NO_EC } from '../../../seeds/test/01_users';
+import { anonContext, fakeContext } from '../../../test/context';
 import { noTimestamps, runQuery } from '../../../test/db-helpers';
 import { Source } from '../../../ww-commons';
 
@@ -35,7 +36,7 @@ describe('anonymous', () => {
 
 describe('user', () => {
   it('shall not pass', async () => {
-    const result = await runQuery(query, { id: galiciaId }, userContext());
+    const result = await runQuery(query, { id: galiciaId }, fakeContext(EDITOR_NO_EC));
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.source', null);
   });
@@ -43,7 +44,7 @@ describe('user', () => {
 
 describe('admin', () => {
   it('should return source', async () => {
-    const result = await runQuery(query, { id: galiciaId }, adminContext());
+    const result = await runQuery(query, { id: galiciaId }, fakeContext(EDITOR_GA_EC));
     expect(result.errors).toBeUndefined();
     expect(result.data).toBeDefined();
     expect(result.data!.source).toBeTruthy();
@@ -55,7 +56,7 @@ describe('admin', () => {
 
 describe('superadmin', () => {
   it('should return source', async () => {
-    const result = await runQuery(query, { id: galiciaId }, superAdminContext());
+    const result = await runQuery(query, { id: galiciaId }, fakeContext(ADMIN));
     expect(result.errors).toBeUndefined();
     expect(result.data).toBeDefined();
     const source: Source = result.data!.source;
@@ -66,7 +67,7 @@ describe('superadmin', () => {
 
 describe('data', () => {
   it('should return null when id not specified', async () => {
-    const result = await runQuery(query, {}, adminContext());
+    const result = await runQuery(query, {}, fakeContext(EDITOR_GA_EC));
     expect(result.errors).toBeUndefined();
     expect(result.data).toBeDefined();
     expect(result.data!.source).toBeNull();
@@ -75,7 +76,7 @@ describe('data', () => {
 
 describe('i18n', () => {
   it('should be able to specify language', async () => {
-    const result = await runQuery(query, { id: galiciaId }, superAdminContext('ru'));
+    const result = await runQuery(query, { id: galiciaId }, fakeContext(ADMIN, 'ru'));
     expect(result.data!.source).toMatchObject({
       name: 'Галисия',
       cron: '0 * * * *',
@@ -83,7 +84,7 @@ describe('i18n', () => {
   });
 
   it('should fall back to english when not translated', async () => {
-    const result = await runQuery(query, { id: galiciaId }, superAdminContext('pt'));
+    const result = await runQuery(query, { id: galiciaId }, fakeContext(ADMIN, 'pt'));
     expect(result.data!.source).toMatchObject({
       name: 'Galicia',
       cron: '0 * * * *',
@@ -108,7 +109,7 @@ describe('connections', () => {
         }
       }
     `;
-    const result = await runQuery(q, { id: galiciaId }, superAdminContext());
+    const result = await runQuery(q, { id: galiciaId }, fakeContext(ADMIN));
     expect(result.errors).toBeUndefined();
     const source = result.data!.source;
     expect(source).toEqual(expect.objectContaining({
@@ -141,7 +142,7 @@ describe('connections', () => {
         }
       }
     `;
-    const result = await runQuery(q, { id: galiciaId }, superAdminContext());
+    const result = await runQuery(q, { id: galiciaId }, fakeContext(ADMIN));
     expect(result.errors).toBeUndefined();
     const source = result.data!.source;
     expect(source.gauges.count).toBe(2);

@@ -1,5 +1,6 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
-import { adminContext, anonContext, superAdminContext, userContext } from '../../../test/context';
+import { ADMIN, EDITOR_GA_EC, EDITOR_NO_EC } from '../../../seeds/test/01_users';
+import { anonContext, fakeContext } from '../../../test/context';
 import { noTimestamps, runQuery } from '../../../test/db-helpers';
 
 beforeEach(holdTransaction);
@@ -35,7 +36,7 @@ describe('anonymous', () => {
 
 describe('user', () => {
   it('shall not pass', async () => {
-    const result = await runQuery(query, undefined, userContext());
+    const result = await runQuery(query, undefined, fakeContext(EDITOR_NO_EC));
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result.data).toBeNull();
   });
@@ -43,7 +44,7 @@ describe('user', () => {
 
 describe('admin', () => {
   it('should list sources', async () => {
-    const result = await runQuery(query, undefined, adminContext());
+    const result = await runQuery(query, undefined, fakeContext(EDITOR_GA_EC));
     expect(result.errors).toBeUndefined();
     expect(result.data).toBeDefined();
     expect(result.data!.sources).toBeDefined();
@@ -56,7 +57,7 @@ describe('admin', () => {
 
 describe('super admin', () => {
   it('should be able to specify language', async () => {
-    const result = await runQuery(query, { }, superAdminContext('ru'));
+    const result = await runQuery(query, { }, fakeContext(ADMIN, 'ru'));
     expect(result.errors).toBeUndefined();
     expect(result.data!.sources.count).toBe(6);
     const names = result.data!.sources.nodes.map((node: any) => node.name);

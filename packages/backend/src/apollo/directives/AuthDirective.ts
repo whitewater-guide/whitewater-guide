@@ -7,11 +7,9 @@ import {
   GraphQLObjectType,
 } from 'graphql';
 import { SchemaDirectiveVisitor } from 'graphql-tools';
-import { Role } from '../../ww-commons/features/users';
+import { Role } from '../../ww-commons';
 import { Context, ContextUser } from '../context';
 import { AuthenticationRequiredError, ForbiddenError } from '../errors';
-
-type AuthRole = 'ADMIN' | 'EDITOR' | 'PREMIUM' | 'USER' | 'ANON';
 
 type Fields = GraphQLField<any, Context>;
 interface Details {
@@ -41,11 +39,11 @@ export class AuthDirective extends SchemaDirectiveVisitor {
     }
   }
 
-  checkPermissions(source: any, requiredRole: AuthRole, user?: ContextUser): ApolloError | null  {
+  checkPermissions(source: any, requiredRole: Role, user?: ContextUser): ApolloError | null  {
     if (!user) {
       return new AuthenticationRequiredError();
     }
-    if (requiredRole === 'ADMIN' && user.role !== Role.SUPERADMIN) {
+    if (requiredRole === 'ADMIN' && user.admin) {
       return new ForbiddenError();
     }
     return null;

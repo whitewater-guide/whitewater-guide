@@ -1,8 +1,8 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
-import { adminContext, anonContext, superAdminContext, userContext } from '../../../test/context';
-import { noTimestamps, runQuery } from '../../../test/db-helpers';
+import { EDITOR_GA_EC, EDITOR_NO_EC } from '../../../seeds/test/01_users';
+import { anonContext, fakeContext } from '../../../test/context';
+import { runQuery } from '../../../test/db-helpers';
 import { HarvestMode } from '../../../ww-commons/features/sources';
-import { execScript } from '../execScript';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
@@ -30,7 +30,7 @@ describe('resolvers chain', () => {
 
   describe('user', () => {
     test('shall not pass', async () => {
-      const result = await runQuery(query, undefined, userContext());
+      const result = await runQuery(query, undefined, fakeContext(EDITOR_NO_EC));
       expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
       expect(result.data).toBeNull();
     });
@@ -39,7 +39,7 @@ describe('resolvers chain', () => {
 });
 
 it('should return some scripts', async () => {
-  const result = await runQuery(query, undefined, adminContext());
+  const result = await runQuery(query, undefined, fakeContext(EDITOR_GA_EC));
   expect(result.data!.scripts).toEqual(expect.arrayContaining([{
     id: expect.any(String),
     name: expect.any(String),

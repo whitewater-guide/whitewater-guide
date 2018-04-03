@@ -1,5 +1,6 @@
 import db, { holdTransaction, rollbackTransaction } from '../../../db';
-import { userContext } from '../../../test/context';
+import { EDITOR_NO_EC } from '../../../seeds/test/01_users';
+import { fakeContext } from '../../../test/context';
 import { noTimestamps, runQuery } from '../../../test/db-helpers';
 
 beforeEach(holdTransaction);
@@ -55,7 +56,7 @@ it('should paginate', async () => {
 });
 
 it('should be able to specify language', async () => {
-  const result = await runQuery(query, { }, userContext('ru'));
+  const result = await runQuery(query, { }, fakeContext(EDITOR_NO_EC, 'ru'));
   expect(result.errors).toBeUndefined();
   expect(result.data!.sections.nodes).toContainEqual(expect.objectContaining({
     name: 'Амот',
@@ -64,7 +65,7 @@ it('should be able to specify language', async () => {
 });
 
 it('should fall back to english when not translated', async () => {
-  const result = await runQuery(query, { }, userContext('pt'));
+  const result = await runQuery(query, { }, fakeContext(EDITOR_NO_EC, 'pt'));
   expect(result.errors).toBeUndefined();
   expect(result.errors).toBeUndefined();
   expect(result.data!.sections.nodes).toContainEqual(expect.objectContaining({

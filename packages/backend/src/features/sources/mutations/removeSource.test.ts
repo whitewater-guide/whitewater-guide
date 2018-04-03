@@ -1,6 +1,7 @@
 import db, { holdTransaction, rollbackTransaction } from '../../../db';
+import { EDITOR_GA_EC, EDITOR_NO_EC } from '../../../seeds/test/01_users';
 import { SOURCE_GALICIA_1 } from '../../../seeds/test/04_sources';
-import { adminContext, anonContext, userContext } from '../../../test/context';
+import { anonContext, fakeContext } from '../../../test/context';
 import { runQuery } from '../../../test/db-helpers';
 import { stopJobs } from '../../jobs';
 
@@ -43,7 +44,7 @@ describe('resolvers chain', () => {
   });
 
   it('user should not pass', async () => {
-    const result = await runQuery(query, galicia, userContext());
+    const result = await runQuery(query, galicia, fakeContext(EDITOR_NO_EC));
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.removeSource', null);
   });
@@ -53,7 +54,7 @@ describe('effects', () => {
   let result: any;
 
   beforeEach(async () => {
-    result = await runQuery(query, galicia, adminContext());
+    result = await runQuery(query, galicia, fakeContext(EDITOR_GA_EC));
   });
 
   afterEach(() => {

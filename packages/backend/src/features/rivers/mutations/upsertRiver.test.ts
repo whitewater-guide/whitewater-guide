@@ -1,5 +1,6 @@
 import db, { holdTransaction, rollbackTransaction } from '../../../db';
-import { adminContext, anonContext, userContext } from '../../../test/context';
+import { EDITOR_GA_EC, EDITOR_NO_EC } from '../../../seeds/test/01_users';
+import { anonContext, fakeContext } from '../../../test/context';
 import { isTimestamp, isUUID, noTimestamps, noUnstable, runQuery } from '../../../test/db-helpers';
 import { RiverInput } from '../../../ww-commons';
 import { RiverRaw } from '../../rivers';
@@ -40,7 +41,7 @@ describe('resolvers chain', () => {
   });
 
   test('user should not pass', async () => {
-    const result = await runQuery(upsertQuery, { river: input }, userContext());
+    const result = await runQuery(upsertQuery, { river: input }, fakeContext(EDITOR_NO_EC));
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.upsertRiver', null);
   });
@@ -52,7 +53,7 @@ describe('resolvers chain', () => {
       region: { id: 'aa' },
       altNames: ['x', 'zzz'],
     };
-    const result = await runQuery(upsertQuery, { river: invalidInput }, adminContext());
+    const result = await runQuery(upsertQuery, { river: invalidInput }, fakeContext(EDITOR_GA_EC));
     expect(result).toHaveProperty('errors.0.name', 'ValidationError');
     expect(result.data).toBeDefined();
     expect(result.data!.upsertRiver).toBeNull();
@@ -65,7 +66,7 @@ describe('insert', () => {
   let insertedRiver: any;
 
   beforeEach(async () => {
-    insertResult = await runQuery(upsertQuery, { river: input }, adminContext());
+    insertResult = await runQuery(upsertQuery, { river: input }, fakeContext(EDITOR_GA_EC));
     insertedRiver = insertResult && insertResult.data && insertResult.data.upsertRiver;
   });
 
@@ -103,7 +104,7 @@ describe('insert', () => {
 
   it('should correctly set created_by', async () => {
     const { created_by } = await db().table('rivers').select(['created_by']).where({ id: insertedRiver.id }).first();
-    expect(created_by).toBe(adminContext().user!.id);
+    expect(created_by).toBe(fakeContext(EDITOR_GA_EC).user!.id);
   });
 });
 
@@ -115,7 +116,7 @@ describe('update', () => {
 
   beforeEach(async () => {
     oldRiver = await db().table('rivers_view').where({ id: update.id }).first();
-    updateResult = await runQuery(upsertQuery, { river: update }, adminContext());
+    updateResult = await runQuery(upsertQuery, { river: update }, fakeContext(EDITOR_GA_EC));
     updatedRiver = updateResult && updateResult.data && updateResult.data.upsertRiver;
   });
 
@@ -164,7 +165,7 @@ describe('i18n', () => {
       },
       altNames: ['ГР2', 'Галрек'],
     };
-    const upsertResult = await runQuery(upsertQuery, { river: riverRu }, adminContext('ru'));
+    const upsertResult = await runQuery(upsertQuery, { river: riverRu }, fakeContext(EDITOR_GA_EC, 'ru'));
     expect(upsertResult.errors).toBeUndefined();
     const translation = await db().table('rivers_translations').select()
       .where({ river_id: riverRu.id, language: 'ru' }).first();
@@ -180,7 +181,7 @@ describe('i18n', () => {
       },
       altNames: ['ГР1', 'Галрек1'],
     };
-    const upsertResult = await runQuery(upsertQuery, { river: riverRu }, adminContext('ru'));
+    const upsertResult = await runQuery(upsertQuery, { river: riverRu }, fakeContext(EDITOR_GA_EC, 'ru'));
     expect(upsertResult.errors).toBeUndefined();
     const translation = await db().table('rivers_translations').select()
       .where({ river_id: riverRu.id, language: 'ru' }).first();
@@ -197,27 +198,27 @@ describe('alt names', () => {
   const riverEmptyAltNames = { ...input, altNames: [] };
 
   it('should create with null altNames', async () => {
-    const result = await runQuery(upsertQuery, { river: riverNullAltNames }, adminContext());
+    const result = await runQuery(upsertQuery, { river: riverNullAltNames }, fakeContext(EDITOR_GA_EC));
     expect(result.errors).toBeUndefined();
     expect(result).toHaveProperty('data.upsertRiver.altNames', []);
   });
 
   it('should create with empty array altNames', async () => {
-    const result = await runQuery(upsertQuery, { river: riverEmptyAltNames }, adminContext());
+    const result = await runQuery(upsertQuery, { river: riverEmptyAltNames }, fakeContext(EDITOR_GA_EC));
     expect(result.errors).toBeUndefined();
     expect(result).toHaveProperty('data.upsertRiver.altNames', []);
   });
 
   it('should update with null altNames', async () => {
     const sjoa = { ...riverNullAltNames, id: 'd4396dac-d528-11e7-9296-cec278b6b50a' };
-    const result = await runQuery(upsertQuery, { river: sjoa }, adminContext());
+    const result = await runQuery(upsertQuery, { river: sjoa }, fakeContext(EDITOR_GA_EC));
     expect(result.errors).toBeUndefined();
     expect(result).toHaveProperty('data.upsertRiver.altNames', []);
   });
 
   it('should update with empty array altNames', async () => {
     const sjoa = { ...riverEmptyAltNames, id: 'd4396dac-d528-11e7-9296-cec278b6b50a' };
-    const result = await runQuery(upsertQuery, { river: sjoa }, adminContext());
+    const result = await runQuery(upsertQuery, { river: sjoa }, fakeContext(EDITOR_GA_EC));
     expect(result.errors).toBeUndefined();
     expect(result).toHaveProperty('data.upsertRiver.altNames', []);
   });
@@ -225,6 +226,6 @@ describe('alt names', () => {
 
 it('should sanitize input', async () => {
   const dirty = { ...input, name: "it's a \\ slash" };
-  const result = await runQuery(upsertQuery, { river: dirty }, adminContext());
+  const result = await runQuery(upsertQuery, { river: dirty }, fakeContext(EDITOR_GA_EC));
   expect(result).toHaveProperty('data.upsertRiver.name', "it's a \\ slash");
 });

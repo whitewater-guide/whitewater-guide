@@ -1,8 +1,7 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
-import { ADMIN_ID, SUPERADMIN_ID } from '../../../seeds/test/01_users';
+import { ADMIN, EDITOR_GA_EC, EDITOR_NO_EC } from '../../../seeds/test/01_users';
 import { REGION_GALICIA } from '../../../seeds/test/03_regions';
-import { adminContext, anonContext, superAdminContext, userContext } from '../../../test/context';
-import { countRows } from '../../../test/db-helpers';
+import { anonContext, fakeContext } from '../../../test/context';
 import { runQuery } from '../../../test/runQuery';
 
 const mutation = `
@@ -29,13 +28,13 @@ describe('resolvers chain', () => {
   });
 
   it('user should fail', async () => {
-    const result = await runQuery(mutation, variables, userContext());
+    const result = await runQuery(mutation, variables, fakeContext(EDITOR_NO_EC));
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.administrateRegion', null);
   });
 
   it('admin should fail', async () => {
-    const result = await runQuery(mutation, variables, adminContext());
+    const result = await runQuery(mutation, variables, fakeContext(EDITOR_GA_EC));
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.administrateRegion', null);
   });
@@ -44,7 +43,7 @@ describe('resolvers chain', () => {
 
 describe('result', () => {
   it('should return result', async () => {
-    const result = await runQuery(mutation, variables, superAdminContext());
+    const result = await runQuery(mutation, variables, fakeContext(ADMIN));
     expect(result.errors).toBeUndefined();
     expect(result.data!.administrateRegion).toMatchObject({
       id: REGION_GALICIA,

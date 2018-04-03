@@ -1,5 +1,6 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
-import { userContext } from '../../../test/context';
+import { EDITOR_NO_EC } from '../../../seeds/test/01_users';
+import { fakeContext } from '../../../test/context';
 import { noTimestamps, runQuery } from '../../../test/db-helpers';
 
 beforeEach(holdTransaction);
@@ -46,7 +47,7 @@ it('should be able to specify language', async () => {
   const result = await runQuery(
     query,
     { id: 'd4396dac-d528-11e7-9296-cec278b6b50a' },
-    userContext('ru'),
+    fakeContext(EDITOR_NO_EC, 'ru'),
   );
   expect(result.data!.river.name).toBe('Шоа');
 });
@@ -55,7 +56,7 @@ it('should fall back to english when not translated', async () => {
   const result = await runQuery(
     query,
     { id: 'd4396dac-d528-11e7-9296-cec278b6b50a' },
-    userContext('pt'),
+    fakeContext(EDITOR_NO_EC, 'pt'),
   );
   expect(result.data!.river.name).toBe('Sjoa');
 });

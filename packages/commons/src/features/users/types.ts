@@ -1,10 +1,6 @@
 import { NamedNode, Timestamped } from '../../core';
 
-export enum Role {
-  USER = 1,
-  ADMIN = 2,
-  SUPERADMIN = 3,
-}
+export type Role = 'ADMIN' | 'EDITOR' | 'PREMIUM' | 'USER';
 
 /**
  * This is graphql type

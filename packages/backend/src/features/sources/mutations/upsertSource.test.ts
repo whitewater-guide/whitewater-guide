@@ -1,7 +1,7 @@
-import set from 'lodash/fp/set';
 import db, { holdTransaction, rollbackTransaction } from '../../../db';
+import { EDITOR_GA_EC, EDITOR_NO_EC } from '../../../seeds/test/01_users';
 import { SOURCE_GALICIA_1, SOURCE_GALICIA_2, SOURCE_GEORGIA } from '../../../seeds/test/04_sources';
-import { adminContext, anonContext, userContext } from '../../../test/context';
+import { anonContext, fakeContext } from '../../../test/context';
 import { isTimestamp, isUUID, noTimestamps, noUnstable, runQuery } from '../../../test/db-helpers';
 import { HarvestMode, SourceInput } from '../../../ww-commons';
 import { SourceRaw } from '../types';
@@ -63,7 +63,7 @@ describe('resolvers chain', () => {
   });
 
   test('user should not pass', async () => {
-    const result = await runQuery(mutation, { source: requiredSource }, userContext());
+    const result = await runQuery(mutation, { source: requiredSource }, fakeContext(EDITOR_NO_EC));
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.upsertSource', null);
   });
@@ -79,7 +79,7 @@ describe('resolvers chain', () => {
       termsOfUse: 'New terms of use',
       regions: [{ id: 'aaaa' }],
     };
-    const result = await runQuery(mutation, { source: input }, adminContext());
+    const result = await runQuery(mutation, { source: input }, fakeContext(EDITOR_GA_EC));
     expect(result).toHaveProperty('errors.0.name', 'ValidationError');
     expect(result.data).toBeDefined();
     expect(result.data!.upsertSource).toBeNull();
@@ -92,7 +92,7 @@ describe('insert', () => {
   let insertedSource: any;
 
   beforeEach(async () => {
-    insertResult = await runQuery(mutation, { source: requiredSource }, adminContext());
+    insertResult = await runQuery(mutation, { source: requiredSource }, fakeContext(EDITOR_GA_EC));
     insertedSource = insertResult && insertResult.data && insertResult.data.upsertSource;
   });
 
@@ -142,7 +142,7 @@ describe('update', () => {
 
   beforeEach(async () => {
     oldSource = await db().table('sources').where({ id: optionalSource.id }).first();
-    updateResult = await runQuery(mutation, { source: optionalSource }, adminContext());
+    updateResult = await runQuery(mutation, { source: optionalSource }, fakeContext(EDITOR_GA_EC));
     updatedSource = updateResult && updateResult.data && updateResult.data.upsertSource;
   });
 
@@ -178,7 +178,7 @@ describe('update', () => {
   });
 
   test('should not change enabled sources', async () => {
-    const result = await runQuery(mutation, { source: { ...optionalSource, id: SOURCE_GALICIA_2 } }, adminContext());
+    const result = await runQuery(mutation, { source: { ...optionalSource, id: SOURCE_GALICIA_2 } }, fakeContext(EDITOR_GA_EC));
     expect(result.errors).toBeDefined();
     expect(result.data!.upsertSource).toBeNull();
     expect(result).toHaveProperty('errors.0.name', 'MutationNotAllowedError');
@@ -215,7 +215,7 @@ describe('i18n', () => {
   };
 
   it('should add new translation', async () => {
-    const result = await runQuery(mutation, { source: georgiaRu }, adminContext('ru'));
+    const result = await runQuery(mutation, { source: georgiaRu }, fakeContext(EDITOR_GA_EC, 'ru'));
     expect(result.errors).toBeUndefined();
     expect(result.data!.upsertSource).toMatchObject({
       id: SOURCE_GEORGIA,
@@ -228,14 +228,14 @@ describe('i18n', () => {
   });
 
   it('should modify common props in other language', async () => {
-    await runQuery(mutation, { source: georgiaRu }, adminContext('ru'));
+    await runQuery(mutation, { source: georgiaRu }, fakeContext(EDITOR_GA_EC, 'ru'));
     const commons = await db().table('sources').select('cron')
       .where({ id: SOURCE_GEORGIA }).first();
     expect(commons.cron).toBe(georgiaRu.cron);
   });
 
   it('should modify translation', async () => {
-    const result = await runQuery(mutation, { source: galiciaRu }, adminContext('ru'));
+    const result = await runQuery(mutation, { source: galiciaRu }, fakeContext(EDITOR_GA_EC, 'ru'));
     expect(result.errors).toBeUndefined();
     expect(result.data!.upsertSource).toMatchObject({
       id: SOURCE_GALICIA_1,
@@ -255,6 +255,6 @@ describe('i18n', () => {
 
 it('should sanitize input', async () => {
   let dirty = { ...requiredSource, name: "it's a \\ slash" };
-  const result = await runQuery(mutation, { source: dirty }, adminContext());
+  const result = await runQuery(mutation, { source: dirty }, fakeContext(EDITOR_GA_EC));
   expect(result).toHaveProperty('data.upsertSource.name', "it's a \\ slash");
 });

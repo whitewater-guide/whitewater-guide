@@ -1,5 +1,6 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
-import { superAdminContext, userContext } from '../../../test/context';
+import { ADMIN, EDITOR_NO_EC } from '../../../seeds/test/01_users';
+import { fakeContext } from '../../../test/context';
 import { noTimestamps, runQuery } from '../../../test/db-helpers';
 
 beforeEach(holdTransaction);
@@ -32,7 +33,7 @@ const query = `
 `;
 
 it('should return regions', async () => {
-  const result = await runQuery(query, undefined, superAdminContext());
+  const result = await runQuery(query, undefined, fakeContext(ADMIN));
   expect(result.errors).toBeUndefined();
   const regions = result.data!.regions;
   expect(regions.count).toBe(3);
@@ -41,7 +42,7 @@ it('should return regions', async () => {
 });
 
 it('users should not see hidden regions', async () => {
-  const result = await runQuery(query, { }, userContext());
+  const result = await runQuery(query, { }, fakeContext(EDITOR_NO_EC));
   expect(result.errors).toBeUndefined();
   expect(result.data).toBeDefined();
   expect(result.data!.regions).toBeDefined();
@@ -51,14 +52,14 @@ it('users should not see hidden regions', async () => {
 });
 
 it('should be able to specify language', async () => {
-  const result = await runQuery(query, { }, superAdminContext('ru'));
+  const result = await runQuery(query, { }, fakeContext(ADMIN, 'ru'));
   const regions = result.data!.regions;
   expect(regions.count).toBe(3);
   expect(regions.nodes).toContainEqual(expect.objectContaining({ name: 'Галисия' }));
 });
 
 it('should fall back to english when not translated', async () => {
-  const result = await runQuery(query, { }, superAdminContext('ru'));
+  const result = await runQuery(query, { }, fakeContext(ADMIN, 'ru'));
   const regions = result.data!.regions;
   expect(regions.count).toBe(3);
   expect(regions.nodes).toContainEqual(expect.objectContaining({ name: 'Norway' }));
@@ -77,7 +78,7 @@ it('should return rivers count', async () => {
       }
     }
   `;
-  const result = await runQuery(riversQuery, {}, superAdminContext());
+  const result = await runQuery(riversQuery, {}, fakeContext(ADMIN));
   expect(result.data!.regions).toBeDefined();
   const regions = result.data!.regions;
   expect(regions.count).toBe(3);
@@ -100,7 +101,7 @@ it('should return gauges count', async () => {
       }
     }
   `;
-  const result = await runQuery(gaugesQuery, {}, superAdminContext());
+  const result = await runQuery(gaugesQuery, {}, fakeContext(ADMIN));
   expect(result.data!.regions).toBeDefined();
   const regions = result.data!.regions;
   // Check name
@@ -124,7 +125,7 @@ it('should return sections count', async () => {
       }
     }
   `;
-  const result = await runQuery(gaugesQuery, {}, superAdminContext());
+  const result = await runQuery(gaugesQuery, {}, fakeContext(ADMIN));
   expect(result.errors).toBeUndefined();
   expect(result.data!.regions).toBeDefined();
   const regions = result.data!.regions.nodes;

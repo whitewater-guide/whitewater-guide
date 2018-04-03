@@ -1,5 +1,6 @@
 import db, { holdTransaction, rollbackTransaction } from '../../../db';
-import { adminContext, anonContext, userContext } from '../../../test/context';
+import { EDITOR_GA_EC, EDITOR_NO_EC } from '../../../seeds/test/01_users';
+import { anonContext, fakeContext } from '../../../test/context';
 import { runQuery } from '../../../test/db-helpers';
 
 let sectionsBefore: number;
@@ -37,7 +38,7 @@ describe('resolvers chain', () => {
   });
 
   it('user should not pass', async () => {
-    const result = await runQuery(query, { id }, userContext());
+    const result = await runQuery(query, { id }, fakeContext(EDITOR_NO_EC));
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.removeSection', null);
   });
@@ -47,7 +48,7 @@ describe('effects', () => {
   let result: any;
 
   beforeEach(async () => {
-    result = await runQuery(query, { id }, adminContext());
+    result = await runQuery(query, { id }, fakeContext(EDITOR_GA_EC));
   });
 
   afterEach(() => {

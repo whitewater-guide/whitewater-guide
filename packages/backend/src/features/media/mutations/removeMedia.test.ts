@@ -1,7 +1,8 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
 import { fileExistsInBucket, MEDIA, resetTestMinio } from '../../../minio';
+import { EDITOR_GA_EC, EDITOR_NO_EC } from '../../../seeds/test/01_users';
 import { PHOTO_1 } from '../../../seeds/test/10_media';
-import { adminContext, anonContext, userContext } from '../../../test/context';
+import { anonContext, fakeContext } from '../../../test/context';
 import { countRows, runQuery } from '../../../test/db-helpers';
 
 let mBefore: number;
@@ -38,7 +39,7 @@ describe('resolvers chain', () => {
   });
 
   it('user should not pass', async () => {
-    const result = await runQuery(mutation, vars, userContext());
+    const result = await runQuery(mutation, vars, fakeContext(EDITOR_NO_EC));
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.removeMedia', null);
   });
@@ -48,7 +49,7 @@ describe('effects', () => {
   let result: any;
 
   beforeEach(async () => {
-    result = await runQuery(mutation, vars, adminContext());
+    result = await runQuery(mutation, vars, fakeContext(EDITOR_GA_EC));
   });
 
   afterEach(() => {

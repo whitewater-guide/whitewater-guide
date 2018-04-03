@@ -1,7 +1,8 @@
 import db, { holdTransaction, rollbackTransaction } from '../../../db';
+import { EDITOR_GA_EC, EDITOR_NO_EC } from '../../../seeds/test/01_users';
 import { SOURCE_GALICIA_1 } from '../../../seeds/test/04_sources';
 import { GAUGE_GAL_1_1 } from '../../../seeds/test/05_gauges';
-import { adminContext, anonContext, userContext } from '../../../test/context';
+import { anonContext, fakeContext } from '../../../test/context';
 import { runQuery } from '../../../test/db-helpers';
 import { stopJobs } from '../../jobs';
 
@@ -45,7 +46,7 @@ describe('resolvers chain', () => {
   });
 
   test('user should not pass', async () => {
-    const result = await runQuery(query, gal1, userContext());
+    const result = await runQuery(query, gal1, fakeContext(EDITOR_NO_EC));
     expect(result.errors).toBeDefined();
     expect(result.data).toBeDefined();
     expect(result.data!.removeGauge).toBeNull();
@@ -56,7 +57,7 @@ describe('effects', () => {
   let result: any;
 
   beforeEach(async () => {
-    result = await runQuery(query, gal1, adminContext());
+    result = await runQuery(query, gal1, fakeContext(EDITOR_GA_EC));
   });
 
   afterEach(() => {

@@ -7,7 +7,7 @@ export interface UserRaw extends RawTimestamped {
   name: string;
   avatar: string | null;
   email: string | null;
-  role: number;
+  admin: boolean;
   language: string;
   imperial: boolean;
   editor_settings: EditorSettings | null;

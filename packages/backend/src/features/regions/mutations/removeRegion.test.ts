@@ -1,6 +1,7 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
+import { ADMIN, EDITOR_GA_EC, EDITOR_NO_EC } from '../../../seeds/test/01_users';
 import { REGION_ECUADOR, REGION_GALICIA } from '../../../seeds/test/03_regions';
-import { adminContext, anonContext, superAdminContext, userContext } from '../../../test/context';
+import { anonContext, fakeContext } from '../../../test/context';
 import { countRows } from '../../../test/countRows';
 import { runQuery } from '../../../test/db-helpers';
 
@@ -32,13 +33,13 @@ describe('resolvers chain', () => {
   });
 
   it('user should not pass', async () => {
-    const result = await runQuery(query, ecuador, userContext());
+    const result = await runQuery(query, ecuador, fakeContext(EDITOR_NO_EC));
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.removeRegion', null);
   });
 
   it('should not remove non-empty region', async () => {
-    const result = await runQuery(query, galicia, superAdminContext());
+    const result = await runQuery(query, galicia, fakeContext(ADMIN));
     expect(result).toHaveProperty('errors.0.name', 'MutationNotAllowedError');
     expect(result).toHaveProperty('data.removeRegion', null);
   });
@@ -48,7 +49,7 @@ describe('effects', () => {
   let result: any;
 
   beforeEach(async () => {
-    result = await runQuery(query, ecuador, adminContext());
+    result = await runQuery(query, ecuador, fakeContext(EDITOR_GA_EC));
   });
 
   afterEach(() => {

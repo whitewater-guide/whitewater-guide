@@ -1,7 +1,8 @@
 import { GraphQLResolveInfo } from 'graphql';
 import gqf from 'graphql-fields';
 import db from '../../db';
-import { adminContext } from '../../test/context';
+import { EDITOR_GA_EC } from '../../seeds/test/01_users';
+import { fakeContext } from '../../test/context';
 import { buildRiverQuery, buildRiversListQuery } from './queryBuilder';
 
 const graphqlFields: jest.Mock<any> = gqf as any;
@@ -45,7 +46,7 @@ const withRegion = {
 
 const info: GraphQLResolveInfo = {} as any;
 
-const options = { info, context: adminContext(), knex: db(true) };
+const options = { info, context: fakeContext(EDITOR_GA_EC), knex: db(true) };
 
 describe('details', () => {
   it('should build correct query without connections', () => {

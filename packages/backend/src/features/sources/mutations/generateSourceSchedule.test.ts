@@ -1,7 +1,8 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
+import { EDITOR_GA_EC, EDITOR_NO_EC } from '../../../seeds/test/01_users';
 import { SOURCE_GALICIA_1, SOURCE_GEORGIA, SOURCE_NORWAY } from '../../../seeds/test/04_sources';
 import { GAUGE_GEO_1, GAUGE_GEO_2, GAUGE_GEO_3, GAUGE_GEO_4 } from '../../../seeds/test/05_gauges';
-import { adminContext, anonContext, userContext } from '../../../test/context';
+import { anonContext, fakeContext } from '../../../test/context';
 import { runQuery } from '../../../test/db-helpers';
 
 const query = `
@@ -25,7 +26,7 @@ describe('resolvers chain', () => {
   });
 
   it('user should not pass', async () => {
-    const result = await runQuery(query, { id: SOURCE_GALICIA_1 }, userContext());
+    const result = await runQuery(query, { id: SOURCE_GALICIA_1 }, fakeContext(EDITOR_NO_EC));
     expect(result.errors).toBeDefined();
     expect(result.data).toBeDefined();
     expect(result.data!.generateSourceSchedule).toBeNull();
@@ -35,7 +36,7 @@ describe('resolvers chain', () => {
 describe('effects', () => {
 
   it('should fail for all-at-once sources', async () => {
-    const result = await runQuery(query, { id: SOURCE_GALICIA_1 }, adminContext());
+    const result = await runQuery(query, { id: SOURCE_GALICIA_1 }, fakeContext(EDITOR_GA_EC));
     expect(result.errors).toBeDefined();
     expect(result.data!.generateSourceSchedule).toBeNull();
     expect(result).toHaveProperty('errors.0.name', 'MutationNotAllowedError');
@@ -43,7 +44,7 @@ describe('effects', () => {
   });
 
   it('should fail for enabled sources', async () => {
-    const result = await runQuery(query, { id: SOURCE_NORWAY }, adminContext());
+    const result = await runQuery(query, { id: SOURCE_NORWAY }, fakeContext(EDITOR_GA_EC));
     expect(result.errors).toBeDefined();
     expect(result.data!.generateSourceSchedule).toBeNull();
     expect(result).toHaveProperty('errors.0.name', 'MutationNotAllowedError');
@@ -51,7 +52,7 @@ describe('effects', () => {
   });
 
   it('should return gauges with crons', async () => {
-    const result = await runQuery(query, { id: SOURCE_GEORGIA }, adminContext());
+    const result = await runQuery(query, { id: SOURCE_GEORGIA }, fakeContext(EDITOR_GA_EC));
     expect(result.errors).toBeUndefined();
     expect(result.data!.generateSourceSchedule).toMatchObject([
       { id: GAUGE_GEO_1, cron: '0 * * * *' },
