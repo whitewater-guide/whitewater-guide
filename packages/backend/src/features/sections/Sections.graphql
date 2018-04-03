@@ -73,7 +73,6 @@ input SectionInput {
   difficultyXtra: String
   rating: Float
   tags: [RefInput]!
-#  media: [MediaInput]
   pois: [PointInput]!
 }
 
@@ -94,6 +93,6 @@ type Query {
 }
 
 type Mutation {
-  upsertSection(section: SectionInput!): Section
-  removeSection(id: ID!): ID
+  upsertSection(section: SectionInput!): Section @auth(requires: EDITOR)
+  removeSection(id: ID!): ID @auth(requires: EDITOR)
 }

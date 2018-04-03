@@ -1,6 +1,6 @@
 import { GraphQLFieldResolver } from 'graphql';
 import Joi from 'joi';
-import { Context, isAdminResolver, isInputValidResolver } from '../../../apollo';
+import { baseResolver, Context, isInputValidResolver } from '../../../apollo';
 import db, { rawUpsert, stringifyJSON } from '../../../db';
 import { SectionInput, SectionInputSchema } from '../../../ww-commons';
 
@@ -21,7 +21,7 @@ const resolver: GraphQLFieldResolver<any, Context> = async (root, vars: Vars, { 
 
 const queryResolver = isInputValidResolver(Schema).createResolver(resolver);
 
-const upsertSection = isAdminResolver.createResolver(
+const upsertSection = baseResolver.createResolver(
   queryResolver,
 );
 

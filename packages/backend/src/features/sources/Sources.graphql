@@ -7,9 +7,9 @@ type Source {
   id: ID!
   name: String!
   termsOfUse: String
-  script: String!
-  cron: String
-  harvestMode: HarvestMode!
+  script: String! @auth(requires: ADMIN)
+  cron: String @auth(requires: ADMIN)
+  harvestMode: HarvestMode! @auth(requires: ADMIN)
   url: String
   enabled: Boolean
   regions: SourceRegionConnection!
@@ -51,9 +51,9 @@ type Query {
 }
 
 type Mutation {
-  upsertSource(source: SourceInput!): Source
-  removeSource(id: ID!): ID
-  toggleSource(id: ID!, enabled: Boolean!): Source
-  autofillSource(id:ID!): [Gauge]
-  generateSourceSchedule(id: ID!): [Gauge]
+  upsertSource(source: SourceInput!): Source @auth(requires: ADMIN)
+  removeSource(id: ID!): ID @auth(requires: ADMIN)
+  toggleSource(id: ID!, enabled: Boolean!): Source @auth(requires: ADMIN)
+  autofillSource(id:ID!): [Gauge] @auth(requires: ADMIN)
+  generateSourceSchedule(id: ID!): [Gauge] @auth(requires: ADMIN)
 }

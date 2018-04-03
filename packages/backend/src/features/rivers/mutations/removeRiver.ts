@@ -1,5 +1,5 @@
 import { GraphQLFieldResolver } from 'graphql';
-import { isAdminResolver, MutationNotAllowedError } from '../../../apollo';
+import { baseResolver, MutationNotAllowedError } from '../../../apollo';
 import db from '../../../db';
 
 interface RemoveVariables {
@@ -14,7 +14,7 @@ const resolver: GraphQLFieldResolver<any, any> = async (root, { id }: RemoveVari
   return db().table('rivers').del().where({ id }).returning('id');
 };
 
-const removeRiver = isAdminResolver.createResolver(
+const removeRiver = baseResolver.createResolver(
   resolver,
 );
 

@@ -16,7 +16,7 @@ type Region {
   sections: RegionSectionConnection!
 
   # Only admins and editors can see this
-  hidden: Boolean @auth(requires: ADMIN)
+  hidden: Boolean @auth(requires: EDITOR, anyMember: true)
   premium: Boolean
 }
 
@@ -62,8 +62,8 @@ type Query {
 }
 
 type Mutation {
-  upsertRegion(region: RegionInput!): Region
-  removeRegion(id: ID!): ID
+  upsertRegion(region: RegionInput!): Region @auth(requires: EDITOR)
+  removeRegion(id: ID!): ID @auth(requires: ADMIN)
   addEditor(regionId: ID!, userId: ID!): Boolean @auth(requires: ADMIN)
   removeEditor(regionId: ID!, userId: ID!): Boolean @auth(requires: ADMIN)
   administrateRegion(regionId: ID!, settings: RegionAdminSettings!): Region @auth(requires: ADMIN)

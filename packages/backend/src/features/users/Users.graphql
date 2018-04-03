@@ -3,7 +3,7 @@ type User {
   name: String!
   avatar: String
   email: String
-  role: Int!
+  admin: Boolean!
   createdAt: Date!
   updatedAt: Date!
   # Prerferred language

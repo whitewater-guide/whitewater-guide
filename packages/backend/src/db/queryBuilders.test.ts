@@ -3,7 +3,6 @@ import Knex from 'knex';
 import { Context } from '../apollo';
 import { EDITOR_GA_EC } from '../seeds/test/01_users';
 import { anonContext, fakeContext } from '../test/context';
-import { isAdmin } from '../ww-commons';
 import db from './db';
 import {
   attachConnection,
@@ -23,7 +22,7 @@ const graphqlFields: jest.Mock<any> = gqf as any;
 describe('getPrimitives', () => {
   const topLevelFields = ['__typename', 'camelCase', 'snake_case', 'regular', 'everyone', 'admin', 'connection', 'oneToOne'];
   const customMap = {
-    admin: (c: Context) => isAdmin(c.user) ? 'admin' : null,
+    admin: (c: Context) => (c.user && c.user.admin) ? 'admin' : null,
   };
   const prefix = 'tablename';
 
@@ -99,7 +98,7 @@ describe('buildRootQuery', () => {
     graphqlFields.mockReturnValueOnce({ b: {}, camelCase: {}, c: {} });
     const customFieldMap = {
       camelCase: () => 'snake_case',
-      c: (c: Context) => isAdmin(c.user) ? 'c' : null,
+      c: (c: Context) => (c.user && c.user.admin) ? 'c' : null,
     };
     const query = buildRootQuery({ ...commonOptions, customFieldMap });
     expect(query).toMatchSnapshot();

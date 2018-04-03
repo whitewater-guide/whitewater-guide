@@ -17,7 +17,3 @@ export interface ListQuery {
 export interface NodeQuery {
   id?: string;
 }
-
-export interface RemoveQuery {
-  id: string;
-}

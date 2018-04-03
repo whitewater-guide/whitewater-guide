@@ -5,7 +5,8 @@ enum Role {
   USER
 }
 
-directive @auth(requires: Role) on FIELD_DEFINITION
+# anyMember means that owenrship is not required (for editors)
+directive @auth(requires: Role, anyMember: Boolean = false) on FIELD_DEFINITION
 
 scalar JSON
 scalar Date

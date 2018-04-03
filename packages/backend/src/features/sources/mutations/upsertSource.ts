@@ -1,6 +1,6 @@
 import { GraphQLFieldResolver } from 'graphql';
 import Joi from 'joi';
-import { Context, isAdminResolver, isInputValidResolver, MutationNotAllowedError } from '../../../apollo';
+import { baseResolver, Context, isInputValidResolver, MutationNotAllowedError } from '../../../apollo';
 import db, { rawUpsert, stringifyJSON } from '../../../db';
 import { SourceInput, SourceInputSchema } from '../../../ww-commons';
 
@@ -27,7 +27,7 @@ const queryResolver: GraphQLFieldResolver<any, any> = (root, args: Vars, context
   return isInputValidResolver(Schema).createResolver(resolver)(root, args, context, info);
 };
 
-const upsertSource = isAdminResolver.createResolver(
+const upsertSource = baseResolver.createResolver(
   queryResolver,
 );
 

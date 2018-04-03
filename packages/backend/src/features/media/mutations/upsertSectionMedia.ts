@@ -1,6 +1,6 @@
 import { GraphQLFieldResolver } from 'graphql';
 import Joi from 'joi';
-import { isAdminResolver, isInputValidResolver, ValidationError } from '../../../apollo';
+import { baseResolver, isInputValidResolver, ValidationError } from '../../../apollo';
 import db, { rawUpsert, stringifyJSON } from '../../../db';
 import { MEDIA, moveTempImage } from '../../../minio';
 import { MediaInput, MediaInputSchema } from '../../../ww-commons';
@@ -40,7 +40,7 @@ const resolver: GraphQLFieldResolver<any, any> =  async (root, { media, sectionI
 
 const queryResolver = isInputValidResolver(Schema).createResolver(resolver);
 
-const upsertSectionMedia = isAdminResolver.createResolver(
+const upsertSectionMedia = baseResolver.createResolver(
   queryResolver,
 );
 

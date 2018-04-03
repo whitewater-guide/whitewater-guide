@@ -1,4 +1,4 @@
-import { isAdminResolver, MutationNotAllowedError } from '../../../apollo';
+import { baseResolver, MutationNotAllowedError } from '../../../apollo';
 import { getTempPostPolicy } from '../../../minio';
 import { MediaUploadForm } from '../types';
 import { checkMediaId } from './checkMediaId';
@@ -23,4 +23,4 @@ const mediaForm = async (root: any, { id: mediaId }: Vars): Promise<MediaUploadF
   };
 };
 
-export default isAdminResolver.createResolver(mediaForm);
+export default baseResolver.createResolver(mediaForm);

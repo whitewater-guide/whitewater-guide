@@ -35,6 +35,6 @@ type Query {
 }
 
 type Mutation {
-  upsertRiver(river: RiverInput!): River
-  removeRiver(id: ID!): ID
+  upsertRiver(river: RiverInput!): River @auth(requires: EDITOR)
+  removeRiver(id: ID!): ID @auth(requires: EDITOR)
 }

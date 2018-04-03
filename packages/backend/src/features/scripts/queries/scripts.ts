@@ -1,8 +1,8 @@
-import { isAdminResolver, UnknownError } from '../../../apollo';
+import { baseResolver, UnknownError } from '../../../apollo';
 import { execScript } from '../execScript';
 import { ScriptCommand, ScriptDescription } from '../types';
 
-const scripts = isAdminResolver.createResolver(
+const scripts = baseResolver.createResolver(
   async () => {
     const { success, data, error } = await execScript<ScriptDescription[]>({ command: ScriptCommand.LIST });
     if (!success) {

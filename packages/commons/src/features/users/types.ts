@@ -8,7 +8,7 @@ export type Role = 'ADMIN' | 'EDITOR' | 'PREMIUM' | 'USER';
 export interface User extends NamedNode, Timestamped {
   avatar: string | null;
   email: string | null;
-  role: Role;
+  admin: boolean;
   language: string;
   imperial: boolean;
   editorSettings: EditorSettings | null;

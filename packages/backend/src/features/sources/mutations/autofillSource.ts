@@ -1,5 +1,5 @@
 import { GraphQLFieldResolver } from 'graphql';
-import { isAdminResolver, MutationNotAllowedError, UnknownError } from '../../../apollo';
+import { baseResolver, MutationNotAllowedError, UnknownError } from '../../../apollo';
 import db, { rawUpsert, stringifyJSON } from '../../../db';
 import { GaugeInput, PointInput } from '../../../ww-commons';
 import { execScript, ScriptCommand, ScriptGaugeInfo } from '../../scripts';
@@ -38,7 +38,7 @@ const resolver: GraphQLFieldResolver<any, any> = async (root, { id }: Variables)
         name: `Gauge ${g.name}`,
         description: null,
         kind: 'gauge',
-        coordinates: [longitude, latitude, altitude]
+        coordinates: [longitude, latitude, altitude],
       } : null;
     const input: GaugeInput = {
       id: null,
@@ -58,7 +58,7 @@ const resolver: GraphQLFieldResolver<any, any> = async (root, { id }: Variables)
   return gaugesOut;
 };
 
-const autofillSource = isAdminResolver.createResolver(
+const autofillSource = baseResolver.createResolver(
   resolver,
 );
 

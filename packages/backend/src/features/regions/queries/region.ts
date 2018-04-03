@@ -1,6 +1,5 @@
 import { GraphQLResolveInfo } from 'graphql';
 import { baseResolver, Context, NodeQuery } from '../../../apollo';
-import { isAdmin } from '../../../ww-commons';
 import { buildRegionQuery } from '../queryBuilder';
 import { RegionRaw } from '../types';
 
@@ -12,7 +11,7 @@ const region = baseResolver.createResolver(
     const { user } = context;
     const query = buildRegionQuery({ info, context, ...args });
     const result: RegionRaw | null = await query.first();
-    if (result && result.hidden && !isAdmin(user)) {
+    if (result && result.hidden && !(user && user.admin)) {
       return null;
     }
     return result;

@@ -1,5 +1,5 @@
 import { GraphQLFieldResolver } from 'graphql';
-import { isAdminResolver, MutationNotAllowedError } from '../../../apollo';
+import { baseResolver, MutationNotAllowedError } from '../../../apollo';
 import db from '../../../db';
 import { HarvestMode } from '../../../ww-commons';
 import { GaugeRaw } from '../../gauges';
@@ -41,7 +41,7 @@ const resolver: GraphQLFieldResolver<any, any> = async (root, { id }: RemoveVari
   return result.rows.map((g: GaugeRaw) => ({ ...g }));
 };
 
-const generateSourceSchedule = isAdminResolver.createResolver(
+const generateSourceSchedule = baseResolver.createResolver(
   resolver,
 );
 

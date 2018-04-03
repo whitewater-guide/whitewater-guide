@@ -1,7 +1,7 @@
-import { isAdminResolver, ListQuery } from '../../../apollo';
+import { baseResolver, ListQuery } from '../../../apollo';
 import { buildSourcesListQuery } from '../queryBuilder';
 
-const sources = isAdminResolver.createResolver(
+const sources = baseResolver.createResolver(
   (root, args: ListQuery, context, info) =>
     buildSourcesListQuery({ info, context, ...args }),
 );

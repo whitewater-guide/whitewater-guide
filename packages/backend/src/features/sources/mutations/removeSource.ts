@@ -1,19 +1,19 @@
 import { GraphQLFieldResolver } from 'graphql';
-import { isAdminResolver } from '../../../apollo';
+import { baseResolver } from '../../../apollo';
 import db from '../../../db';
 import { stopJobs } from '../../jobs';
 
-interface RemoveVariables {
+interface Vars {
   id: string;
 }
 
-const resolver: GraphQLFieldResolver<any, any> = async (root, { id }: RemoveVariables) => {
+const resolver: GraphQLFieldResolver<any, any> = async (root, { id }: Vars) => {
   const [result] = await db().table('sources').del().where({ id }).returning('id');
   stopJobs(result);
   return result;
 };
 
-const removeSource = isAdminResolver.createResolver(
+const removeSource = baseResolver.createResolver(
   resolver,
 );
 

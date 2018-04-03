@@ -2,7 +2,6 @@ import db, { holdTransaction, rollbackTransaction } from '../../../db';
 import { ADMIN, EDITOR_GA_EC, EDITOR_NO_EC } from '../../../seeds/test/01_users';
 import { anonContext, fakeContext } from '../../../test/context';
 import { runQuery } from '../../../test/db-helpers';
-import { removeTagQuery } from './removeTag';
 
 const query = `
   mutation removeTag($id: String!){
@@ -72,10 +71,4 @@ describe('effects', () => {
     expect(initialTranslationsCount - Number(count)).toBe(2);
   });
 
-});
-
-describe('sql', () => {
-  test('should use correct query', () => {
-    expect(removeTagQuery(variables)).toMatchSnapshot();
-  });
 });

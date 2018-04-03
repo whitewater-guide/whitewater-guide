@@ -1,16 +1,16 @@
 import { GraphQLFieldResolver } from 'graphql';
-import { isAdminResolver, MutationNotAllowedError } from '../../../apollo';
+import { baseResolver, MutationNotAllowedError } from '../../../apollo';
 import db from '../../../db';
 import { HarvestMode } from '../../../ww-commons';
 import { startJobs, stopJobs } from '../../jobs';
 import { SourceRaw } from '../types';
 
-interface ToggleVariables {
+interface Vars {
   id: string;
   enabled: boolean;
 }
 
-const resolver: GraphQLFieldResolver<any, any> = async (root, { id, enabled }: ToggleVariables) => {
+const resolver: GraphQLFieldResolver<any, any> = async (root, { id, enabled }: Vars) => {
   const source: Partial<SourceRaw> = await db().table('sources')
     .select(['id', 'harvest_mode', 'cron']).where({ id }).first();
   if (source.harvest_mode === HarvestMode.ALL_AT_ONCE && !source.cron) {
@@ -26,7 +26,7 @@ const resolver: GraphQLFieldResolver<any, any> = async (root, { id, enabled }: T
   return { ...updatedSource };
 };
 
-const toggleSource = isAdminResolver.createResolver(
+const toggleSource = baseResolver.createResolver(
   resolver,
 );
 

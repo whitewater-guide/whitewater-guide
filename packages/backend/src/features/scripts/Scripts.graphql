@@ -6,5 +6,5 @@ type Script {
 }
 
 type Query {
-  scripts: [Script]!
+  scripts: [Script]! @auth(requires: ADMIN)
 }

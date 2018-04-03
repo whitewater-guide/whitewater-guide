@@ -1,10 +1,8 @@
 import { isInstance } from 'apollo-errors';
 import { createResolver } from 'apollo-resolvers';
-import { GraphQLFieldResolver } from 'graphql';
 import Joi from 'joi';
-import { Role } from '../ww-commons';
 import { Context } from './context';
-import { AuthenticationRequiredError, ForbiddenError, UnknownError, ValidationError } from './errors';
+import { AuthenticationRequiredError, UnknownError, ValidationError } from './errors';
 
 export const baseResolver = createResolver<any, Context>(
   // incoming requests will pass through this resolver like a no-op
@@ -27,32 +25,8 @@ export const isAuthenticatedResolver = baseResolver.createResolver(
   },
 );
 
-export const isAdminResolver = isAuthenticatedResolver.createResolver(
-  // Extract the user and make sure they are an admin
-  (root, args, { user }) => {
-    // If thrown, this error will bubble up to baseResolver's
-    // error callback (if present).  If unhandled, the error is returned to
-    // the client within the `errors` array in the response.
-    if (user!.role !== Role.ADMIN && user!.role !== Role.SUPERADMIN) {
-      throw new ForbiddenError();
-    }
-    // Since we aren't returning anything from the
-    // request resolver, the request will continue on
-    // to the next child resolver or the response will
-    // return undefined if no child exists.
-  },
-);
-
-export const isSuperadminResolver = isAuthenticatedResolver.createResolver(
-  (root, args, { user }) => {
-    if (user!.role !== Role.SUPERADMIN) {
-      throw new ForbiddenError();
-    }
-  },
-);
-
 export const isInputValidResolver = (schema: Joi.Schema) => baseResolver.createResolver(
-  (root, value) => {
+  (root: any, value: any) => {
     const { error } = Joi.validate(
       value,
       schema,

@@ -45,10 +45,10 @@ type MediaUploadForm {
 type Query {
   mediaBySection(sectionId: ID!): MediasList!
   media(id: ID): Media
-  mediaForm(id: ID): MediaUploadForm
+  mediaForm(id: ID): MediaUploadForm @auth(requires: EDITOR, anyMember: true)
 }
 
 type Mutation {
-  upsertSectionMedia(sectionId: ID!, media: MediaInput!): Media
-  removeMedia(id: ID!): Media
+  upsertSectionMedia(sectionId: ID!, media: MediaInput!): Media @auth(requires: EDITOR)
+  removeMedia(id: ID!): Media  @auth(requires: EDITOR)
 }

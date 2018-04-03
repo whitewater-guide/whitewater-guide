@@ -1,6 +1,6 @@
 import { GraphQLFieldResolver } from 'graphql';
 import Joi from 'joi';
-import { Context, isAdminResolver, isInputValidResolver, MutationNotAllowedError, } from '../../../apollo';
+import { baseResolver, Context, isInputValidResolver, MutationNotAllowedError } from '../../../apollo';
 import db, { rawUpsert, stringifyJSON } from '../../../db';
 import { GaugeInput, GaugeInputSchema } from '../../../ww-commons';
 
@@ -24,7 +24,7 @@ const resolver: GraphQLFieldResolver<any, any> = async (root, { gauge }: Vars, {
 
 const queryResolver = isInputValidResolver(Schema).createResolver(resolver);
 
-const upsertGauge = isAdminResolver.createResolver(
+const upsertGauge = baseResolver.createResolver(
   queryResolver,
 );
 

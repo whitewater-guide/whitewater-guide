@@ -1,5 +1,5 @@
 import { GraphQLFieldResolver } from 'graphql';
-import { isAdminResolver } from '../../../apollo';
+import { baseResolver } from '../../../apollo';
 import db from '../../../db';
 import { stopJobs } from '../../jobs';
 
@@ -13,7 +13,7 @@ const resolver: GraphQLFieldResolver<any, any> = async (root, { id }: RemoveVari
   return result.id;
 };
 
-const removeGauge = isAdminResolver.createResolver(
+const removeGauge = baseResolver.createResolver(
   resolver,
 );
 

@@ -1,17 +1,17 @@
 import { GraphQLFieldResolver } from 'graphql';
-import { isAdminResolver, MutationNotAllowedError } from '../../../apollo';
+import { baseResolver, MutationNotAllowedError } from '../../../apollo';
 import db from '../../../db';
 import { HarvestMode } from '../../../ww-commons';
 import { startJobs, stopJobs } from '../../jobs';
 import { SourceRaw } from '../../sources';
 import { GaugeRaw } from '../types';
 
-interface ToggleVariables {
+interface Vars {
   id: string;
   enabled: boolean;
 }
 
-const resolver: GraphQLFieldResolver<any, any> = async (root, { id, enabled }: ToggleVariables) => {
+const resolver: GraphQLFieldResolver<any, any> = async (root, { id, enabled }: Vars) => {
   const originalGauge: Partial<GaugeRaw> = await db().table('gauges')
     .select(['source_id', 'cron']).where({ id }).first();
   const source: Partial<SourceRaw> = await db().table('sources')
@@ -34,7 +34,7 @@ const resolver: GraphQLFieldResolver<any, any> = async (root, { id, enabled }: T
   return { ...updatedGauge };
 };
 
-const toggleGauge = isAdminResolver.createResolver(
+const toggleGauge = baseResolver.createResolver(
   resolver,
 );
 

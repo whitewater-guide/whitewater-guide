@@ -1,6 +1,6 @@
 import { GraphQLFieldResolver } from 'graphql';
 import Joi from 'joi';
-import { Context, isAdminResolver, isInputValidResolver } from '../../../apollo';
+import { baseResolver, Context, isInputValidResolver } from '../../../apollo';
 import db, { rawUpsert, stringifyJSON } from '../../../db';
 import { RiverInput, RiverInputSchema } from '../../../ww-commons';
 
@@ -19,7 +19,7 @@ const resolver: GraphQLFieldResolver<any, Context> = async (root, vars: Vars, { 
 
 const queryResolver = isInputValidResolver(Schema).createResolver(resolver);
 
-const upsertRiver = isAdminResolver.createResolver(
+const upsertRiver = baseResolver.createResolver(
   queryResolver,
 );
 

@@ -1,6 +1,6 @@
 import { GraphQLFieldResolver } from 'graphql';
 import Joi from 'joi';
-import { Context, isAdminResolver, isInputValidResolver } from '../../../apollo';
+import { baseResolver, Context, isInputValidResolver } from '../../../apollo';
 import db, { rawUpsert, stringifyJSON } from '../../../db';
 import { RegionInput, RegionInputSchema } from '../../../ww-commons';
 
@@ -17,7 +17,7 @@ const resolver: GraphQLFieldResolver<any, Context> = (root, { region }: Vars, { 
 
 const queryResolver = isInputValidResolver(Schema).createResolver(resolver);
 
-const upsertRegion = isAdminResolver.createResolver(
+const upsertRegion = baseResolver.createResolver(
   queryResolver,
 );
 

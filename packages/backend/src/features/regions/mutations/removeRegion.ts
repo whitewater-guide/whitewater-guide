@@ -1,5 +1,5 @@
 import { GraphQLFieldResolver } from 'graphql';
-import { isAdminResolver, MutationNotAllowedError } from '../../../apollo';
+import { baseResolver, MutationNotAllowedError } from '../../../apollo';
 import db from '../../../db';
 
 interface Vars {
@@ -14,7 +14,7 @@ const resolver: GraphQLFieldResolver<any, any, Vars> = async (root, { id }) => {
   return db().table('regions').del().where({ id }).returning('id');
 };
 
-const removeRegion = isAdminResolver.createResolver(
+const removeRegion = baseResolver.createResolver(
   resolver,
 );
 
