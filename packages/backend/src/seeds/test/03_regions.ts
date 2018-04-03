@@ -2,6 +2,7 @@ import Knex from 'knex';
 import { Point, Polygon } from 'wkx';
 import { Coordinate3d } from '../../ww-commons';
 import { ADMIN_ID, TEST_USER_ID } from './01_users';
+import { ECUADOR_PT_1, GALICIA_PT_1, GALICIA_PT_2 } from './02_points';
 
 function getBounds(bounds: Coordinate3d[] | null) {
   let rawBounds = null;
@@ -78,8 +79,9 @@ const regionsRu = [
 ];
 
 const regionsPoints = [
-  { region_id: REGION_GALICIA, point_id: '573f995a-d55f-4faf-8f11-5a6016ab562f' },
-  { region_id: REGION_GALICIA, point_id: 'd7530317-efac-44a7-92ff-8d045b2ac893' },
+  { region_id: REGION_GALICIA, point_id: GALICIA_PT_1 },
+  { region_id: REGION_GALICIA, point_id: GALICIA_PT_2 },
+  { region_id: REGION_ECUADOR, point_id: ECUADOR_PT_1 },
 ];
 
 const regionsEditors = [

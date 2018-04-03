@@ -1,19 +1,18 @@
 import set from 'lodash/fp/set';
 import db, { holdTransaction, rollbackTransaction } from '../../../db';
+import { GALICIA_PT_1, GALICIA_PT_2 } from '../../../seeds/test/02_points';
 import { adminContext, anonContext, superAdminContext, userContext } from '../../../test/context';
+import { countRows } from '../../../test/countRows';
 import { isTimestamp, isUUID, noTimestamps, noUnstable, runQuery } from '../../../test/db-helpers';
 import { RegionInput } from '../../../ww-commons';
 import { PointRaw } from '../../points';
 import { RegionRaw } from '../types';
 
-let regionsPointsBefore: number;
-let pointsBefore: number;
+let rpBefore: number;
+let pBefore: number;
 
 beforeAll(async () => {
-  const rp = await db(true).table('regions_points').count().first();
-  regionsPointsBefore = Number(rp.count);
-  const p = await db(true).table('points').count().first();
-  pointsBefore = Number(p.count);
+  [pBefore, rpBefore] = await countRows(true, 'points', 'regions_points');
 });
 
 beforeEach(holdTransaction);
@@ -45,7 +44,7 @@ const fullRegionUpdate: RegionInput = {
   pois: [
     { id: null, name: 'pt 1 u', description: 'pt 1 upd', kind: 'other', coordinates: [10, 12, 0] }, // new
     { id: null, name: 'pt 2 u', description: 'pt 2 upd', kind: 'take-out', coordinates: [33, 34, 0] }, // new
-    { id: 'd7530317-efac-44a7-92ff-8d045b2ac893',
+    { id: GALICIA_PT_2,
       coordinates: [1, 2, 3],
       name: 'r 1 p 2',
       description: 'r1p2 d',
@@ -163,12 +162,10 @@ describe('insert', () => {
   });
 
   test('should insert POIs', async () => {
-    const regionsPoints = await db().table('regions_points').count().first();
-    const points = await db().table('points').count().first();
     const regionsPointsByRegion = await db().table('regions_points').where('region_id', insertedRegion.id)
       .count().first();
-    expect(Number(regionsPoints.count) - regionsPointsBefore).toBe(2);
-    expect(Number(points.count) - pointsBefore).toBe(2);
+    const [pAfter, rpAfter] = await countRows(false, 'points', 'regions_points');
+    expect([pAfter, rpAfter]).toEqual([pBefore + 2, rpBefore + 2]);
     expect(regionsPointsByRegion.count).toBe('2');
   });
 
@@ -218,19 +215,17 @@ describe('update', () => {
   test('should change the number of pois', async () => {
     expect(updatedRegion.pois).toBeDefined();
     expect(updatedRegion.pois.length).toBe(3);
-    const regionsPoints = await db().table('regions_points').count().first();
-    const points = await db().table('points').count().first();
     const regionsPointsByRegion = await db().table('regions_points').where('region_id', updatedRegion.id).count();
-    expect(Number(regionsPoints.count) - regionsPointsBefore).toBe(1);
-    expect(Number(points.count) - pointsBefore).toBe(1);
+    const [pAfter, rpAfter] = await countRows(false, 'points', 'regions_points');
+    expect([pAfter, rpAfter]).toEqual([pBefore + 1, rpBefore + 1]);
     expect(regionsPointsByRegion[0].count).toBe('3');
   });
 
   test('should delete POI', async () => {
-    expect(updatedRegion.pois.map((p: PointRaw) => p.id)).not.toContain('573f995a-d55f-4faf-8f11-5a6016ab562f');
-    const points = await db().table('points').where({ id: '573f995a-d55f-4faf-8f11-5a6016ab562f' }).count();
+    expect(updatedRegion.pois.map((p: PointRaw) => p.id)).not.toContain(GALICIA_PT_1);
+    const points = await db().table('points').where({ id: GALICIA_PT_1 }).count();
     const regionsPointsByRegion = await db().table('regions_points')
-      .where({ point_id: '573f995a-d55f-4faf-8f11-5a6016ab562f' }).count();
+      .where({ point_id: GALICIA_PT_1 }).count();
     expect(points[0].count).toBe('0');
     expect(regionsPointsByRegion[0].count).toBe('0');
   });
@@ -245,7 +240,7 @@ describe('update', () => {
 
   test('should update poi', async () => {
     const point = await db().table('points_view').select('name')
-      .where({ id: 'd7530317-efac-44a7-92ff-8d045b2ac893', language: 'en' }).first();
+      .where({ id: GALICIA_PT_2, language: 'en' }).first();
     expect(point.name).toBe('r 1 p 2');
   });
 
