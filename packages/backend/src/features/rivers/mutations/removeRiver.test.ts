@@ -1,6 +1,6 @@
 import { MutationNotAllowedError } from '../../../apollo';
 import db, { holdTransaction, rollbackTransaction } from '../../../db';
-import { EDITOR_GA_EC, EDITOR_NO_EC } from '../../../seeds/test/01_users';
+import { EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '../../../seeds/test/01_users';
 import { anonContext, fakeContext } from '../../../test/context';
 import { runQuery } from '../../../test/db-helpers';
 
@@ -24,6 +24,12 @@ describe('resolvers chain', () => {
   });
 
   test('user should not pass', async () => {
+    const result = await runQuery(query, riverWithoutSections, fakeContext(TEST_USER));
+    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
+    expect(result).toHaveProperty('data.removeRiver', null);
+  });
+
+  test('non-owning editor should not pass', async () => {
     const result = await runQuery(query, riverWithoutSections, fakeContext(EDITOR_NO_EC));
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.removeRiver', null);

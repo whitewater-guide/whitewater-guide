@@ -1,7 +1,7 @@
 import Knex from 'knex';
 import { Point, Polygon } from 'wkx';
 import { Coordinate3d } from '../../ww-commons';
-import { EDITOR_GA_EC_ID, EDITOR_NO_EC_ID } from './01_users';
+import { EDITOR_GA_EC_ID, EDITOR_NO_EC_ID, EDITOR_NO_ID } from './01_users';
 import { ECUADOR_PT_1, GALICIA_PT_1, GALICIA_PT_2 } from './02_points';
 
 function getBounds(bounds: Coordinate3d[] | null) {
@@ -89,6 +89,7 @@ const regionsEditors = [
   { region_id: REGION_ECUADOR, user_id: EDITOR_GA_EC_ID },
   { region_id: REGION_ECUADOR, user_id: EDITOR_NO_EC_ID },
   { region_id: REGION_NORWAY, user_id: EDITOR_NO_EC_ID },
+  { region_id: REGION_NORWAY, user_id: EDITOR_NO_ID },
 ];
 
 export async function seed(db: Knex) {

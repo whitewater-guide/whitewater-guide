@@ -1,5 +1,5 @@
 import db, { holdTransaction, rollbackTransaction } from '../../../db';
-import { EDITOR_GA_EC, EDITOR_NO_EC } from '../../../seeds/test/01_users';
+import { EDITOR_GA_EC, EDITOR_NO, EDITOR_NO_EC, TEST_USER } from '../../../seeds/test/01_users';
 import { anonContext, fakeContext } from '../../../test/context';
 import { isTimestamp, isUUID, noTimestamps, noUnstable, runQuery } from '../../../test/db-helpers';
 import { RiverInput } from '../../../ww-commons';
@@ -41,7 +41,13 @@ describe('resolvers chain', () => {
   });
 
   test('user should not pass', async () => {
-    const result = await runQuery(upsertQuery, { river: input }, fakeContext(EDITOR_NO_EC));
+    const result = await runQuery(upsertQuery, { river: input }, fakeContext(TEST_USER));
+    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
+    expect(result).toHaveProperty('data.upsertRiver', null);
+  });
+
+  test('non-owning editor should not pass', async () => {
+    const result = await runQuery(upsertQuery, { river: input }, fakeContext(EDITOR_NO));
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.upsertRiver', null);
   });
@@ -211,14 +217,14 @@ describe('alt names', () => {
 
   it('should update with null altNames', async () => {
     const sjoa = { ...riverNullAltNames, id: 'd4396dac-d528-11e7-9296-cec278b6b50a' };
-    const result = await runQuery(upsertQuery, { river: sjoa }, fakeContext(EDITOR_GA_EC));
+    const result = await runQuery(upsertQuery, { river: sjoa }, fakeContext(EDITOR_NO_EC));
     expect(result.errors).toBeUndefined();
     expect(result).toHaveProperty('data.upsertRiver.altNames', []);
   });
 
   it('should update with empty array altNames', async () => {
     const sjoa = { ...riverEmptyAltNames, id: 'd4396dac-d528-11e7-9296-cec278b6b50a' };
-    const result = await runQuery(upsertQuery, { river: sjoa }, fakeContext(EDITOR_GA_EC));
+    const result = await runQuery(upsertQuery, { river: sjoa }, fakeContext(EDITOR_NO_EC));
     expect(result.errors).toBeUndefined();
     expect(result).toHaveProperty('data.upsertRiver.altNames', []);
   });

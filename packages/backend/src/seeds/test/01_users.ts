@@ -4,6 +4,7 @@ import { UserRaw } from '../../features/users';
 export const ADMIN_ID = 'bed59990-749d-11e7-8cf7-a6006ad3dba0';
 export const EDITOR_GA_EC_ID = '477a0bec-8a78-11e7-b3e6-9beeff45d731';
 export const EDITOR_NO_EC_ID = '442cb792-749c-11e7-8cf7-a6006ad3dba0';
+export const EDITOR_NO_ID = '0da87d58-378f-11e8-b467-0ed5f89f718b';
 export const TEST_USER_ID = 'fa3ce7ba-36ab-11e8-b467-0ed5f89f718b';
 
 export const ADMIN: UserRaw = {
@@ -43,6 +44,19 @@ export const EDITOR_NO_EC: UserRaw = {
   imperial: false,
   created_at: new Date(Date.UTC(2017, 3, 3)),
   updated_at: new Date(Date.UTC(2017, 3, 3)),
+};
+
+export const EDITOR_NO: UserRaw = {
+  id: EDITOR_NO_ID,
+  name: 'Norwegian Dude',
+  avatar: null,
+  email: 'dude@nve.no',
+  admin: false,
+  language: 'de',
+  editor_settings: { language: 'de' },
+  imperial: false,
+  created_at: new Date(Date.UTC(2017, 6, 6)),
+  updated_at: new Date(Date.UTC(2017, 6, 6)),
 };
 
 export const TEST_USER: UserRaw = {
