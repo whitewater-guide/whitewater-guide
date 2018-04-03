@@ -58,6 +58,7 @@ const container = connect(
     const syncErrors = selector(state);
     return { syncErrors };
   },
+  {},
 );
 
 export const FormTab: React.ComponentType<Props> & FakeMui = container(FormTabView);
