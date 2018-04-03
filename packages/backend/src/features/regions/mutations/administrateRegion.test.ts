@@ -1,5 +1,5 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
-import { ADMIN, EDITOR_GA_EC, EDITOR_NO_EC } from '../../../seeds/test/01_users';
+import { ADMIN, EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '../../../seeds/test/01_users';
 import { REGION_GALICIA } from '../../../seeds/test/03_regions';
 import { anonContext, fakeContext } from '../../../test/context';
 import { runQuery } from '../../../test/runQuery';
@@ -28,12 +28,12 @@ describe('resolvers chain', () => {
   });
 
   it('user should fail', async () => {
-    const result = await runQuery(mutation, variables, fakeContext(EDITOR_NO_EC));
+    const result = await runQuery(mutation, variables, fakeContext(TEST_USER));
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.administrateRegion', null);
   });
 
-  it('admin should fail', async () => {
+  it('editor should fail', async () => {
     const result = await runQuery(mutation, variables, fakeContext(EDITOR_GA_EC));
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.administrateRegion', null);

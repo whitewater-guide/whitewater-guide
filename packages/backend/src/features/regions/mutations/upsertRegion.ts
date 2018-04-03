@@ -1,8 +1,9 @@
 import { GraphQLFieldResolver } from 'graphql';
 import Joi from 'joi';
-import { baseResolver, Context, isInputValidResolver } from '../../../apollo';
+import { Context, isInputValidResolver } from '../../../apollo';
 import db, { rawUpsert, stringifyJSON } from '../../../db';
 import { RegionInput, RegionInputSchema } from '../../../ww-commons';
+import checkEditorPermissions from '../checkEditorPermissions';
 
 interface Vars {
   region: RegionInput;
@@ -12,13 +13,11 @@ const Schema = Joi.object().keys({
   region: RegionInputSchema,
 });
 
-const resolver: GraphQLFieldResolver<any, Context> = (root, { region }: Vars, { language }) =>
-  rawUpsert(db(), `SELECT upsert_region('${stringifyJSON(region)}', '${language}')`);
+const resolver: GraphQLFieldResolver<any, Context> = async (_, { region }: Vars, { language, user }) => {
+  await checkEditorPermissions(user, region.id);
+  return rawUpsert(db(), `SELECT upsert_region('${stringifyJSON(region)}', '${language}')`);
+};
 
-const queryResolver = isInputValidResolver(Schema).createResolver(resolver);
-
-const upsertRegion = baseResolver.createResolver(
-  queryResolver,
-);
+const upsertRegion = isInputValidResolver(Schema).createResolver(resolver);
 
 export default upsertRegion;

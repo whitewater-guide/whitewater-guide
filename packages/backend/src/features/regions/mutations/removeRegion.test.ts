@@ -1,5 +1,5 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
-import { ADMIN, EDITOR_GA_EC, EDITOR_NO_EC } from '../../../seeds/test/01_users';
+import { ADMIN, EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '../../../seeds/test/01_users';
 import { REGION_ECUADOR, REGION_GALICIA } from '../../../seeds/test/03_regions';
 import { anonContext, fakeContext } from '../../../test/context';
 import { countRows } from '../../../test/countRows';
@@ -33,6 +33,12 @@ describe('resolvers chain', () => {
   });
 
   it('user should not pass', async () => {
+    const result = await runQuery(query, ecuador, fakeContext(TEST_USER));
+    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
+    expect(result).toHaveProperty('data.removeRegion', null);
+  });
+
+  it('editor should not pass', async () => {
     const result = await runQuery(query, ecuador, fakeContext(EDITOR_NO_EC));
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.removeRegion', null);
@@ -49,7 +55,7 @@ describe('effects', () => {
   let result: any;
 
   beforeEach(async () => {
-    result = await runQuery(query, ecuador, fakeContext(EDITOR_GA_EC));
+    result = await runQuery(query, ecuador, fakeContext(ADMIN));
   });
 
   afterEach(() => {

@@ -1,7 +1,8 @@
 import set from 'lodash/fp/set';
 import db, { holdTransaction, rollbackTransaction } from '../../../db';
-import { ADMIN, EDITOR_GA_EC, EDITOR_NO_EC } from '../../../seeds/test/01_users';
+import { ADMIN, EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '../../../seeds/test/01_users';
 import { GALICIA_PT_1, GALICIA_PT_2 } from '../../../seeds/test/02_points';
+import { REGION_ECUADOR, REGION_GALICIA } from '../../../seeds/test/03_regions';
 import { anonContext, fakeContext } from '../../../test/context';
 import { countRows } from '../../../test/countRows';
 import { isTimestamp, isUUID, noTimestamps, noUnstable, runQuery } from '../../../test/db-helpers';
@@ -41,7 +42,7 @@ const fullRegion: RegionInput = {
 
 const fullRegionUpdate: RegionInput = {
   ...fullRegion,
-  id: 'bd3e10b6-7624-11e7-b5a5-be2e44b06b34',
+  id: REGION_GALICIA,
   pois: [
     { id: null, name: 'pt 1 u', description: 'pt 1 upd', kind: 'other', coordinates: [10, 12, 0] }, // new
     { id: null, name: 'pt 2 u', description: 'pt 2 upd', kind: 'take-out', coordinates: [33, 34, 0] }, // new
@@ -93,7 +94,19 @@ describe('resolvers chain', () => {
   });
 
   test('user should not pass', async () => {
-    const result = await runQuery(upsertQuery, { region: minimalRegion }, fakeContext(EDITOR_NO_EC));
+    const result = await runQuery(upsertQuery, { region: minimalRegion }, fakeContext(TEST_USER));
+    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
+    expect(result).toHaveProperty('data.upsertRegion', null);
+  });
+
+  test('editor should not create', async () => {
+    const result = await runQuery(upsertQuery, { region: minimalRegion }, fakeContext(EDITOR_GA_EC));
+    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
+    expect(result).toHaveProperty('data.upsertRegion', null);
+  });
+
+  test('non-owning editor should not edit', async () => {
+    const result = await runQuery(upsertQuery, { region: fullRegionUpdate }, fakeContext(EDITOR_NO_EC));
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.upsertRegion', null);
   });
@@ -113,10 +126,6 @@ describe('resolvers chain', () => {
     expect(result.data).toBeDefined();
     expect(result.data!.upsertRegion).toBeNull();
     expect((result.errors![0] as any).data).toMatchSnapshot();
-  });
-
-  test.skip('editor cannot create new region', () => {
-    // implement me
   });
 });
 
@@ -184,7 +193,7 @@ describe('update', () => {
 
   beforeEach(async () => {
     oldRegion = await db().table('regions_view').where({ id: fullRegionUpdate.id }).first();
-    updateResult = await runQuery(upsertQuery, { region: fullRegionUpdate }, fakeContext(ADMIN));
+    updateResult = await runQuery(upsertQuery, { region: fullRegionUpdate }, fakeContext(EDITOR_GA_EC));
     updatedRegion = updateResult && updateResult.data && updateResult.data.upsertRegion;
   });
 
@@ -254,7 +263,7 @@ describe('update', () => {
 
 describe('i18n', () => {
   const emptyRegionRu = {
-    id: '2caf75ca-7625-11e7-b5a5-be2e44b06b34',
+    id: REGION_ECUADOR,
     name: 'Пустой регион',
     description: null,
     bounds: [[10, 20, 0], [10, 10, 0], [20, 20, 0]],
@@ -333,7 +342,7 @@ it('should sanitize input', async () => {
   let dirtyRegion = { ...fullRegionWithPOIs, name: "it's a \\ slash" };
   dirtyRegion = set('pois.0.name', "it's a poi", dirtyRegion);
 
-  const insertResult = await runQuery(upsertQuery, { region: dirtyRegion }, fakeContext(EDITOR_GA_EC));
+  const insertResult = await runQuery(upsertQuery, { region: dirtyRegion }, fakeContext(ADMIN));
   expect(insertResult.errors).toBeUndefined();
   expect(insertResult).toHaveProperty('data.upsertRegion.name', "it's a \\ slash");
   expect(insertResult).toHaveProperty('data.upsertRegion.pois.0.name', "it's a poi");
