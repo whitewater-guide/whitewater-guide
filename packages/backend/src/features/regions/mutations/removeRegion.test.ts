@@ -62,13 +62,13 @@ describe('effects', () => {
     result = null;
   });
 
-  it.only('should return deleted region id', () => {
+  it('should return deleted region id', () => {
     expect(result.errors).toBeUndefined();
     expect(result.data.removeRegion).toBe(REGION_ECUADOR);
   });
 
   it('should remove from tables', async () => {
-    const [rAfter, rtAfter, rpAfter] = await countRows(true, 'regions', 'regions_translations', 'regions_points');
+    const [rAfter, rtAfter, rpAfter] = await countRows(false, 'regions', 'regions_translations', 'regions_points');
     expect([rBefore - rAfter, rtBefore - rtAfter, rpBefore - rpAfter]).toEqual([1, 1, 1]);
   });
 
