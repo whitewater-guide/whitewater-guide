@@ -6,7 +6,14 @@ const Core = gql`
     name
     season
     seasonNumeric
+  }
+`;
+
+const Flags = gql`
+  fragment RegionFlags on Region {
     hidden
+    premium
+    editable
   }
 `;
 
@@ -34,24 +41,10 @@ const Bounds = gql`
   }
 `;
 
-const All = gql`
-  fragment RegionAll on Region {
-    ...RegionCore
-    ...RegionBounds
-    ...RegionPOIs
-    ...RegionDescription
-    ...RegionStats
-  }
-  ${Core}
-  ${Description}
-  ${Bounds}
-  ${POIs}
-`;
-
 export const RegionFragments = {
-  All,
   Bounds,
   Description,
   Core,
   POIs,
+  Flags,
 };

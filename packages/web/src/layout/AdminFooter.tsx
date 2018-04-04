@@ -2,8 +2,7 @@ import { CardActions } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { compose } from 'recompose';
-import { adminOnly } from '../components';
+import { AdminOnly } from '../ww-clients/features/users';
 
 interface OuterProps {
   // Should have 'Add new' button? If string, then it's custom href for add button
@@ -24,25 +23,24 @@ const AdminFooterInternal: React.StatelessComponent<InnerProps> = (props) => {
     pathname: typeof administrate === 'string' ? administrate : `${pathname}/admin`,
   });
   return (
-    <CardActions>
-      {
-        add &&
-        <FlatButton label="Add new" href={addHref} />
-      }
-      {
-        edit &&
-        <FlatButton label="Edit" href={editHref} />
-      }
-      {
-        administrate &&
-        <FlatButton label="Administrate" href={adminHref} />
-      }
-      {children}
-    </CardActions>
+    <AdminOnly>
+      <CardActions>
+        {
+          add &&
+          <FlatButton label="Add new" href={addHref} />
+        }
+        {
+          edit &&
+          <FlatButton label="Edit" href={editHref} />
+        }
+        {
+          administrate &&
+          <FlatButton label="Administrate" href={adminHref} />
+        }
+        {children}
+      </CardActions>
+    </AdminOnly>
   );
 };
 
-export const AdminFooter = compose<InnerProps, OuterProps>(
-  withRouter,
-  adminOnly,
-)(AdminFooterInternal);
+export const AdminFooter: React.ComponentType<OuterProps> = withRouter(AdminFooterInternal);

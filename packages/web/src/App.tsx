@@ -10,6 +10,7 @@ import { Loading } from './components';
 import { RootLayout } from './layout';
 import { configureStore, RootState } from './redux';
 import { theme } from './styles';
+import { MyProfileProvider } from './ww-clients/features/users';
 
 interface State {
   store?: Store<RootState>;
@@ -26,6 +27,8 @@ export default class App extends React.PureComponent<{}, State> {
     this.setState(state);
   }
 
+  renderLoading = () => <Loading />;
+
   render() {
     const { store, persistor } = this.state;
     if (store && persistor) {
@@ -35,9 +38,11 @@ export default class App extends React.PureComponent<{}, State> {
           <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
               <ApolloProvider client={apolloClient}>
-                <BrowserRouter basename={BASENAME}>
-                  <RootLayout />
-                </BrowserRouter>
+                <MyProfileProvider renderLoading={this.renderLoading}>
+                  <BrowserRouter basename={BASENAME}>
+                    <RootLayout />
+                  </BrowserRouter>
+                </MyProfileProvider>
               </ApolloProvider>
             </PersistGate>
           </Provider>

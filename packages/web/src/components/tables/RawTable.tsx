@@ -21,8 +21,8 @@ const columnMapper = (isAdmin: boolean) => (column: React.ReactElement<TableProp
 };
 
 const enhancer = compose<{}, TableProps>(
-  withMe(),
-  mapProps(({ isAdmin, me, meLoading, children, ...props }) => ({
+  withMe,
+  mapProps(({ isAdmin, me, children, ...props }) => ({
     children: React.Children.map(children, columnMapper(isAdmin)),
     ...props,
   })),

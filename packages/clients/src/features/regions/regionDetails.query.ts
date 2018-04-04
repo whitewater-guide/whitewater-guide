@@ -8,10 +8,12 @@ export const REGION_DETAILS = gql`
       ...RegionDescription
       ...RegionPOIs
       ...RegionBounds
+      ...RegionFlags
     }
   }
   ${RegionFragments.Core}
   ${RegionFragments.Description}
   ${RegionFragments.POIs}
   ${RegionFragments.Bounds}
+  ${RegionFragments.Flags}
 `;

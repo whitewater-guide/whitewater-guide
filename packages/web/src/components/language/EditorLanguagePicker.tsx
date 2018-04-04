@@ -4,9 +4,9 @@ import React from 'react';
 import { graphql, withApollo, WithApolloClient } from 'react-apollo';
 import { compose, mapProps } from 'recompose';
 import { Styles } from '../../styles';
-import { WithMe } from '../../ww-clients/features/users';
+import { withMe, WithMe } from '../../ww-clients/features/users';
 import { EditorSettings } from '../../ww-commons';
-import { adminOnly } from '../adminOnly';
+import { EditorOnly } from '../EditorOnly';
 import { LanguagePicker, LanguagePickerProps } from './LanguagePicker';
 
 const styles: Styles = {
@@ -38,7 +38,7 @@ interface MutateProps {
 }
 
 const container = compose<LanguagePickerProps, any>(
-  adminOnly,
+  withMe,
   withApollo,
   graphql<WithApolloClient<WithMe>, {}, Vars, MutateProps>(
     EDITOR_SETTINGS_MUTATION,
@@ -51,13 +51,18 @@ const container = compose<LanguagePickerProps, any>(
     },
   ),
   mapProps<LanguagePickerProps, WithMe & MutateProps>(
-    ({ me, meLoading, onLanguageChange }) => ({
+    ({ me, onLanguageChange }) => ({
       language: get(me, 'editorSettings.language', 'en'),
       onLanguageChange,
       ...styles,
-      disabled: meLoading,
     }),
   ),
 );
 
-export const EditorLanguagePicker: React.ComponentType = container(LanguagePicker);
+const LanguagePickerWithData: React.ComponentType = container(LanguagePicker);
+
+export const EditorLanguagePicker: React.StatelessComponent = () => (
+  <EditorOnly>
+    <LanguagePickerWithData />
+  </EditorOnly>
+);

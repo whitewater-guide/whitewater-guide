@@ -3,7 +3,7 @@ import React from 'react';
 import { Col } from 'react-grid-system';
 import { ConfirmationDialog } from '../../../components/forms';
 import { Row } from '../../../layout/details';
-import { isAdmin, Media, MediaKind } from '../../../ww-commons';
+import { Media, MediaKind } from '../../../ww-commons';
 import GridGallery from './GridGallery';
 import Lightbox from './Lightbox';
 import { MediaListProps } from './types';
@@ -80,8 +80,7 @@ class MediaList extends React.PureComponent<MediaListProps, State> {
 
   render() {
     const { currentModal, photo, video, blog, photoAndVideo, pendingRemoval } = this.state;
-    const { me } = this.props;
-    const editable = isAdmin(me);
+    const { region: { node: { editable } } } = this.props;
     return (
       <React.Fragment>
         <Row>

@@ -1,4 +1,3 @@
-export * from './adminOnly';
 export * from './breadcrumbs';
 export * from './Content';
 export * from './DeleteButton';

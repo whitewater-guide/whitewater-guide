@@ -5,10 +5,9 @@ import { withLoading } from '../components/withLoading';
 import { withMe, WithMe } from '../ww-clients/features/users';
 
 const container = compose(
-  withMe(),
-  withLoading<WithMe>(props => props.meLoading),
+  withMe,
   branch<WithMe>(
-    props => !props.isAdmin,
+    props => !(props.me && props.me.admin),
     renderComponent(() => (<Redirect to="/403" />)),
   ),
 );

@@ -14,9 +14,9 @@ const styles = {
 };
 
 const ITEMS = [
-  { title: 'Regions', path: '/regions', superAdmin: false },
-  { title: 'Sources', path: '/sources', superAdmin: false },
-  { title: 'Tags', path: '/tags', superAdmin: true },
+  { title: 'Regions', path: '/regions', admin: false },
+  { title: 'Sources', path: '/sources', admin: false },
+  { title: 'Tags', path: '/tags', admin: true },
 ];
 
 interface Props {
@@ -26,13 +26,13 @@ interface Props {
 
 type InnerProps = Props & RouteComponentProps<any> & WithMe;
 
-const Drawer = ({ onChange, isOpen, location, history: { push }, isSuperAdmin }: InnerProps) => {
+const Drawer = ({ onChange, isOpen, location, history: { push }, me }: InnerProps) => {
   const value = '/' + location.pathname.split('/')[1];
   return (
     <MuiDrawer docked={false} open={isOpen} containerStyle={styles.drawerContainer} onRequestChange={onChange}>
       <Menu disableAutoFocus value={value}>
-        {ITEMS.map(({ path, title, superAdmin }) => {
-          if (superAdmin && !isSuperAdmin) {
+        {ITEMS.map(({ path, title, admin }) => {
+          if (admin && !(me && me.admin)) {
             return null;
           }
           const clickable = !matchPath(location.pathname, { path, exact: true });
@@ -56,5 +56,5 @@ const Drawer = ({ onChange, isOpen, location, history: { push }, isSuperAdmin }:
 
 export default compose<Props, any>(
   withRouter,
-  withMe(),
+  withMe,
 )(Drawer);
