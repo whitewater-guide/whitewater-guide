@@ -59,25 +59,25 @@ describe('resolvers chain', () => {
     url: null,
   };
 
-  test('anon should not pass', async () => {
+  it('anon should not pass', async () => {
     const result = await runQuery(upsertQuery, { gauge }, anonContext());
     expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
     expect(result).toHaveProperty('data.upsertGauge', null);
   });
 
-  test('user should not pass', async () => {
+  it('user should not pass', async () => {
     const result = await runQuery(upsertQuery, { gauge }, fakeContext(TEST_USER));
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.upsertGauge', null);
   });
 
-  test('editor should not pass', async () => {
+  it('editor should not pass', async () => {
     const result = await runQuery(upsertQuery, { gauge }, fakeContext(EDITOR_NO_EC));
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.upsertGauge', null);
   });
 
-  test('should throw on invalid input', async () => {
+  it('should throw on invalid input', async () => {
     const invalidInput: GaugeInput = {
       id: 'wtf',
       source: { id: 'lol' },
@@ -147,12 +147,12 @@ describe('insert', () => {
     expect(gauge.requestParams).toBeNull();
   });
 
-  test('should match snapshot', async () => {
+  it('should match snapshot', async () => {
     const result = await runQuery(upsertQuery, { gauge: input }, fakeContext(ADMIN));
     expect(noUnstable(result)).toMatchSnapshot();
   });
 
-  test('should sanitize input', async () => {
+  it('should sanitize input', async () => {
     const dirtyInput = { ...input, name: "it's a \\ slash" };
     const result = await runQuery(upsertQuery, { gauge: dirtyInput }, fakeContext(ADMIN));
     expect(result).toHaveProperty('data.upsertGauge.name', "it's a \\ slash");
@@ -220,7 +220,7 @@ describe('update', () => {
     });
   });
 
-  test('should not change enabled gauges', async () => {
+  it('should not change enabled gauges', async () => {
     const result = await runQuery(upsertQuery, { gauge: { ...input, id: GAUGE_GEO_3 } }, fakeContext(ADMIN));
     expect(result.errors).toBeDefined();
     expect(result.data!.upsertGauge).toBeNull();

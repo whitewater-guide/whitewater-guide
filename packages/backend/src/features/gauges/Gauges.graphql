@@ -5,8 +5,8 @@ type Gauge {
   location: Point
   levelUnit: String
   flowUnit: String
-  requestParams: JSON @auth(requires: ADMIN)
-  cron: String @auth(requires: ADMIN)
+  requestParams: JSON @admin
+  cron: String @admin
 
   url: String
   enabled: Boolean
@@ -43,8 +43,8 @@ type Query {
 }
 
 type Mutation {
-  upsertGauge(gauge:GaugeInput!): Gauge @auth(requires: ADMIN)
-  removeGauge(id: ID!): ID @auth(requires: ADMIN)
-  toggleGauge(id: ID!, enabled: Boolean!): Gauge @auth(requires: ADMIN)
-  toggleAllGauges(sourceId: ID!, enabled: Boolean!): [Gauge] @auth(requires: ADMIN)
+  upsertGauge(gauge:GaugeInput!): Gauge @admin
+  removeGauge(id: ID!): ID @admin
+  toggleGauge(id: ID!, enabled: Boolean!): Gauge @admin
+  toggleAllGauges(sourceId: ID!, enabled: Boolean!): [Gauge] @admin
 }

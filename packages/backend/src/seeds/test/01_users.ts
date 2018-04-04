@@ -72,7 +72,7 @@ export const TEST_USER: UserRaw = {
   updated_at: new Date(Date.UTC(2017, 4, 4)),
 };
 
-const users = [ADMIN, EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER];
+const users = [ADMIN, EDITOR_GA_EC, EDITOR_NO_EC, EDITOR_NO, TEST_USER];
 
 export async function seed(db: Knex) {
   await db.table('users').del();

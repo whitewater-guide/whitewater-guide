@@ -17,19 +17,19 @@ beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
 describe('resolvers chain', () => {
-  test('anon should not pass', async () => {
+  it('anon should not pass', async () => {
     const result = await runQuery(query, riverWithoutSections, anonContext());
     expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
     expect(result).toHaveProperty('data.removeRiver', null);
   });
 
-  test('user should not pass', async () => {
+  it('user should not pass', async () => {
     const result = await runQuery(query, riverWithoutSections, fakeContext(TEST_USER));
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.removeRiver', null);
   });
 
-  test('non-owning editor should not pass', async () => {
+  it('non-owning editor should not pass', async () => {
     const result = await runQuery(query, riverWithoutSections, fakeContext(EDITOR_NO_EC));
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.removeRiver', null);
@@ -38,26 +38,26 @@ describe('resolvers chain', () => {
 
 describe('effects', () => {
 
-  test('should not remove river which has sections', async () => {
+  it('should not remove river which has sections', async () => {
     const result = await runQuery(query, riverWithSections, fakeContext(EDITOR_GA_EC));
     expect(result).toHaveProperty('errors.0.name', 'MutationNotAllowedError');
     expect(result).toHaveProperty('errors.0.message', 'Delete all sections first!');
     expect(result).toHaveProperty('data.removeRiver', null);
   });
 
-  test('should return deleted river id', async () => {
+  it('should return deleted river id', async () => {
     const result = await runQuery(query, riverWithoutSections, fakeContext(EDITOR_GA_EC));
     expect(result.errors).toBeUndefined();
     expect(result).toHaveProperty('data.removeRiver', riverWithoutSections.id);
   });
 
-  test('should remove from rivers table', async () => {
+  it('should remove from rivers table', async () => {
     const result = await runQuery(query, riverWithoutSections, fakeContext(EDITOR_GA_EC));
     const { count } = await db().table('rivers').count().first();
     expect(count).toBe('3');
   });
 
-  test('should remove from rivers translation table', async () => {
+  it('should remove from rivers translation table', async () => {
     const result = await runQuery(query, riverWithoutSections, fakeContext(EDITOR_GA_EC));
     const count = await db().table('rivers_translations').count().first();
     expect(count.count).toBe('5');

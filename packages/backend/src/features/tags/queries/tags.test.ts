@@ -15,7 +15,7 @@ query listTags {
 }
 `;
 
-test('should return tags', async () => {
+it('should return tags', async () => {
   const result = await runQuery(query, undefined, anonContext());
   expect(result.errors).toBeUndefined();
   expect(result.data).toBeDefined();
@@ -28,7 +28,7 @@ test('should return tags', async () => {
   });
 });
 
-test('should be able to specify language', async () => {
+it('should be able to specify language', async () => {
   const result = await runQuery(query, { }, anonContext('ru'));
   expect(result.errors).toBeUndefined();
   expect(result.data!.tags.length).toBe(5);
@@ -39,7 +39,7 @@ test('should be able to specify language', async () => {
   });
 });
 
-test('should fall back to english when not translated', async () => {
+it('should fall back to english when not translated', async () => {
   const result = await runQuery(query, { }, anonContext('ru'));
   expect(result.errors).toBeUndefined();
   expect(result.data!.tags.length).toBe(5);

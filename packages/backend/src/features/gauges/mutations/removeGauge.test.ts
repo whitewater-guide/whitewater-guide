@@ -34,19 +34,19 @@ beforeEach(async () => {
 afterEach(rollbackTransaction);
 
 describe('resolvers chain', () => {
-  test('anon should not pass', async () => {
+  it('anon should not pass', async () => {
     const result = await runQuery(query, gal1, anonContext());
     expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
     expect(result.data!.removeGauge).toBeNull();
   });
 
-  test('user should not pass', async () => {
+  it('user should not pass', async () => {
     const result = await runQuery(query, gal1, fakeContext(TEST_USER));
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result.data!.removeGauge).toBeNull();
   });
 
-  test('editor should not pass', async () => {
+  it('editor should not pass', async () => {
     const result = await runQuery(query, gal1, fakeContext(EDITOR_GA_EC));
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result.data!.removeGauge).toBeNull();
@@ -64,11 +64,11 @@ describe('effects', () => {
     result = null;
   });
 
-  test('should return deleted gauge id', () => {
+  it('should return deleted gauge id', () => {
     expect(result.data.removeGauge).toBe(gal1.id);
   });
 
-  test('should remove from tables', async () => {
+  it('should remove from tables', async () => {
     const [pAfter, gAfter, tAfter] = await countRows(false, 'points', 'gauges', 'gauges_translations');
     expect([pAfter, gAfter, tAfter]).toEqual([
       pBefore - 1,
@@ -77,7 +77,7 @@ describe('effects', () => {
     ]);
   });
 
-  test('sholud stop job when gauge is removed', () => {
+  it('sholud stop job when gauge is removed', () => {
     expect(stopJobs).toHaveBeenCalledWith(SOURCE_GALICIA_1, GAUGE_GAL_1_1);
   });
 });

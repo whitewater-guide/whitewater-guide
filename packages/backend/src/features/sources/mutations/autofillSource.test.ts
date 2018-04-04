@@ -1,8 +1,9 @@
 import { UnknownError } from '../../../apollo';
-import db, { holdTransaction, rollbackTransaction } from '../../../db';
-import { ADMIN, EDITOR_NO_EC } from '../../../seeds/test/01_users';
+import { holdTransaction, rollbackTransaction } from '../../../db';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '../../../seeds/test/01_users';
 import { SOURCE_ALPS, SOURCE_GALICIA_1, SOURCE_RUSSIA } from '../../../seeds/test/04_sources';
 import { anonContext, fakeContext } from '../../../test/context';
+import { countRows } from '../../../test/countRows';
 import { noUnstable, runQuery } from '../../../test/db-helpers';
 import { execScript, ScriptGaugeInfo, ScriptResponse } from '../../scripts';
 import Mock = jest.Mock;
@@ -37,17 +38,12 @@ const query = `
   }
 `;
 
-let pointsBefore: number;
-let gaugesBefore: number;
-let translationsBefore: number;
+let pBefore: number;
+let gBefore: number;
+let tBefore: number;
 
 beforeAll(async () => {
-  const pCnt = await db(true).table('points').count().first();
-  const gCnt = await db(true).table('gauges').count().first();
-  const tCnt = await db(true).table('gauges_translations').count().first();
-  pointsBefore = Number(pCnt.count);
-  gaugesBefore = Number(gCnt.count);
-  translationsBefore = Number(tCnt.count);
+  [pBefore, gBefore, tBefore] = await countRows(true, 'points', 'gauges', 'gauges_translations');
 });
 
 beforeEach(holdTransaction);
@@ -56,16 +52,20 @@ afterEach(rollbackTransaction);
 describe('resolvers chain', () => {
   it('anon should not pass', async () => {
     const result = await runQuery(query, { id: SOURCE_GALICIA_1 }, anonContext());
-    expect(result.errors).toBeDefined();
-    expect(result.data).toBeDefined();
-    expect(result.data!.autofillSource).toBeNull();
+    expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
+    expect(result).toHaveProperty('data.autofillSource', null);
   });
 
   it('user should not pass', async () => {
-    const result = await runQuery(query, { id: SOURCE_GALICIA_1 }, fakeContext(EDITOR_NO_EC));
-    expect(result.errors).toBeDefined();
-    expect(result.data).toBeDefined();
-    expect(result.data!.autofillSource).toBeNull();
+    const result = await runQuery(query, { id: SOURCE_GALICIA_1 }, fakeContext(TEST_USER));
+    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
+    expect(result).toHaveProperty('data.autofillSource', null);
+  });
+
+  it('editor should not pass', async () => {
+    const result = await runQuery(query, { id: SOURCE_GALICIA_1 }, fakeContext(EDITOR_GA_EC));
+    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
+    expect(result).toHaveProperty('data.autofillSource', null);
   });
 });
 
@@ -124,12 +124,12 @@ describe('effects', () => {
     (execScript as Mock<any>).mockReturnValueOnce(Promise.resolve(scriptSuccess));
     const result = await runQuery(query, { id: SOURCE_RUSSIA }, fakeContext(ADMIN));
     expect(result.data!.autofillSource).toBeDefined();
-    const { count: pCnt } = await db().table('points').count().first();
-    const { count: gCnt } = await db().table('gauges').count().first();
-    const { count: tCnt } = await db().table('gauges_translations').count().first();
-    expect(Number(gCnt) - gaugesBefore).toBe(2);
-    expect(Number(pCnt) - pointsBefore).toBe(2);
-    expect(Number(tCnt) - translationsBefore).toBe(2);
+    const [pAfter, gAfter, tAfter] = await countRows(false, 'points', 'gauges', 'gauges_translations');
+    expect([
+      gAfter - gBefore,
+      pAfter - pBefore,
+      tAfter - tBefore,
+    ]).toEqual([2, 2, 2]);
   });
 
   it('should return gauges', async () => {

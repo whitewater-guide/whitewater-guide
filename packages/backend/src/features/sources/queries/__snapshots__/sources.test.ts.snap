@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`admin should list sources 1`] = `
+exports[`should list sources 1`] = `
 Array [
   Object {
     "cron": "10 * * * *",

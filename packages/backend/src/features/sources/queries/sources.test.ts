@@ -1,5 +1,5 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
-import { ADMIN, EDITOR_GA_EC, EDITOR_NO_EC } from '../../../seeds/test/01_users';
+import { ADMIN, EDITOR_NO_EC, TEST_USER } from '../../../seeds/test/01_users';
 import { anonContext, fakeContext } from '../../../test/context';
 import { noTimestamps, runQuery } from '../../../test/db-helpers';
 
@@ -25,42 +25,55 @@ query listSources {
 }
 `;
 
-describe('anonymous', () => {
-  it('shall not pass', async () => {
+describe('permissions', () => {
+  it('anon shall not see internal fields', async () => {
     const result = await runQuery(query, undefined, anonContext());
-    expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
-    expect(result.errors).toBeDefined();
-    expect(result.data).toBeNull();
+    expect(result.errors).toBeUndefined();
+    expect(result.data!.sources.nodes).toHaveLength(6);
+    expect(result.data!.sources.nodes[0]).toMatchObject({
+      script: null,
+      harvestMode: null,
+      cron: null,
+    });
   });
-});
 
-describe('user', () => {
-  it('shall not pass', async () => {
+  it('user shall not see internal fields', async () => {
+    const result = await runQuery(query, undefined, fakeContext(TEST_USER));
+    expect(result.errors).toBeUndefined();
+    expect(result.data!.sources.nodes).toHaveLength(6);
+    expect(result.data!.sources.nodes[0]).toMatchObject({
+      script: null,
+      harvestMode: null,
+      cron: null,
+    });
+  });
+
+  it('editor shall not see internal fields', async () => {
     const result = await runQuery(query, undefined, fakeContext(EDITOR_NO_EC));
-    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
-    expect(result.data).toBeNull();
+    expect(result.errors).toBeUndefined();
+    expect(result.data!.sources.nodes).toHaveLength(6);
+    expect(result.data!.sources.nodes[0]).toMatchObject({
+      script: null,
+      harvestMode: null,
+      cron: null,
+    });
   });
+
 });
 
-describe('admin', () => {
-  it('should list sources', async () => {
-    const result = await runQuery(query, undefined, fakeContext(EDITOR_GA_EC));
-    expect(result.errors).toBeUndefined();
-    expect(result.data).toBeDefined();
-    expect(result.data!.sources).toBeDefined();
-    expect(result.data!.sources.count).toBe(6);
-    expect(result.data!.sources.nodes[0].id).toBeDefined();
-    const snapshot = result.data!.sources.nodes.map(noTimestamps);
-    expect(snapshot).toMatchSnapshot();
-  });
+it('should list sources', async () => {
+  const result = await runQuery(query, undefined, fakeContext(ADMIN));
+  expect(result.errors).toBeUndefined();
+  expect(result.data!.sources.count).toBe(6);
+  expect(result.data!.sources.nodes[0].id).toBeDefined();
+  const snapshot = result.data!.sources.nodes.map(noTimestamps);
+  expect(snapshot).toMatchSnapshot();
 });
 
-describe('super admin', () => {
-  it('should be able to specify language', async () => {
-    const result = await runQuery(query, { }, fakeContext(ADMIN, 'ru'));
-    expect(result.errors).toBeUndefined();
-    expect(result.data!.sources.count).toBe(6);
-    const names = result.data!.sources.nodes.map((node: any) => node.name);
-    expect(names).toEqual(expect.arrayContaining(['Галисия', 'Georgia']));
-  });
+it('should be able to specify language', async () => {
+  const result = await runQuery(query, { }, fakeContext(ADMIN, 'ru'));
+  expect(result.errors).toBeUndefined();
+  expect(result.data!.sources.count).toBe(6);
+  const names = result.data!.sources.nodes.map((node: any) => node.name);
+  expect(names).toEqual(expect.arrayContaining(['Галисия', 'Georgia']));
 });

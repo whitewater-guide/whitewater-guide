@@ -87,31 +87,31 @@ const upsertQuery = `
 `;
 
 describe('resolvers chain', () => {
-  test('anon should not pass', async () => {
+  it('anon should not pass', async () => {
     const result = await runQuery(upsertQuery, { region: minimalRegion }, anonContext());
     expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
     expect(result).toHaveProperty('data.upsertRegion', null);
   });
 
-  test('user should not pass', async () => {
+  it('user should not pass', async () => {
     const result = await runQuery(upsertQuery, { region: minimalRegion }, fakeContext(TEST_USER));
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.upsertRegion', null);
   });
 
-  test('editor should not create', async () => {
+  it('editor should not create', async () => {
     const result = await runQuery(upsertQuery, { region: minimalRegion }, fakeContext(EDITOR_GA_EC));
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.upsertRegion', null);
   });
 
-  test('non-owning editor should not edit', async () => {
+  it('non-owning editor should not edit', async () => {
     const result = await runQuery(upsertQuery, { region: fullRegionUpdate }, fakeContext(EDITOR_NO_EC));
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.upsertRegion', null);
   });
 
-  test('should throw on invalid input', async () => {
+  it('should throw on invalid input', async () => {
     const invalidInput: RegionInput = {
       id: null,
       name: 'x',
@@ -143,35 +143,35 @@ describe('insert', () => {
     insertedRegion = null;
   });
 
-  test('should return result', async () => {
+  it('should return result', async () => {
     expect(insertResult.errors).toBeUndefined();
     expect(insertResult.data).toBeDefined();
     expect(insertResult.data!.upsertRegion).toBeDefined();
   });
 
-  test('should add one more region', async () => {
+  it('should add one more region', async () => {
     const result = await db().table('regions').count();
     expect(result[0].count).toBe('4');
   });
 
-  test('should return id', () => {
+  it('should return id', () => {
     expect(insertedRegion.id).toBeDefined();
     expect(isUUID(insertedRegion.id)).toBe(true);
   });
 
-  test('should return timestamps', () => {
+  it('should return timestamps', () => {
     expect(insertedRegion.createdAt).toBeDefined();
     expect(insertedRegion.updatedAt).toBeDefined();
     expect(isTimestamp(insertedRegion.createdAt)).toBe(true);
     expect(isTimestamp(insertedRegion.updatedAt)).toBe(true);
   });
 
-  test('should return pois', () => {
+  it('should return pois', () => {
     expect(insertedRegion.pois).toBeDefined();
     expect(insertedRegion.pois.length).toBe(2);
   });
 
-  test('should insert POIs', async () => {
+  it('should insert POIs', async () => {
     const regionsPointsByRegion = await db().table('regions_points').where('region_id', insertedRegion.id)
       .count().first();
     const [pAfter, rpAfter] = await countRows(false, 'points', 'regions_points');
@@ -179,7 +179,7 @@ describe('insert', () => {
     expect(regionsPointsByRegion.count).toBe('2');
   });
 
-  test('should match snapshot', () => {
+  it('should match snapshot', () => {
     const snapshot: any = noUnstable(insertedRegion);
     snapshot.pois = snapshot.pois.map(noUnstable);
     expect(snapshot).toMatchSnapshot();
@@ -202,27 +202,27 @@ describe('update', () => {
     updatedRegion = null;
   });
 
-  test('should return result', () => {
+  it('should return result', () => {
     expect(updateResult.errors).toBeUndefined();
     expect(updateResult.data).toBeDefined();
     expect(updateResult.data!.upsertRegion).toBeDefined();
   });
 
-  test('should not change total number of regions', async () => {
+  it('should not change total number of regions', async () => {
     const result = await db().table('regions').count();
     expect(result[0].count).toBe('3');
   });
 
-  test('should return id', () => {
+  it('should return id', () => {
     expect(updatedRegion.id).toBe(fullRegionUpdate.id);
   });
 
-  test('should update updated_at timestamp', () => {
+  it('should update updated_at timestamp', () => {
     expect(updatedRegion.createdAt).toBe(oldRegion!.created_at.toISOString());
     expect(new Date(updatedRegion.updatedAt).valueOf()).toBeGreaterThan(oldRegion!.updated_at.valueOf());
   });
 
-  test('should change the number of pois', async () => {
+  it('should change the number of pois', async () => {
     expect(updatedRegion.pois).toBeDefined();
     expect(updatedRegion.pois.length).toBe(3);
     const regionsPointsByRegion = await db().table('regions_points').where('region_id', updatedRegion.id).count();
@@ -231,7 +231,7 @@ describe('update', () => {
     expect(regionsPointsByRegion[0].count).toBe('3');
   });
 
-  test('should delete POI', async () => {
+  it('should delete POI', async () => {
     expect(updatedRegion.pois.map((p: PointRaw) => p.id)).not.toContain(GALICIA_PT_1);
     const points = await db().table('points').where({ id: GALICIA_PT_1 }).count();
     const regionsPointsByRegion = await db().table('regions_points')
@@ -240,7 +240,7 @@ describe('update', () => {
     expect(regionsPointsByRegion[0].count).toBe('0');
   });
 
-  test('should insert pois', async () => {
+  it('should insert pois', async () => {
     const points = await db().table('points_view').select('points_view.name')
       .innerJoin('regions_points', 'points_view.id', 'regions_points.point_id')
       .where('regions_points.region_id', updatedRegion.id)
@@ -248,13 +248,13 @@ describe('update', () => {
     expect(points.map((p: PointRaw) => p.name)).toEqual(expect.arrayContaining(['pt 1 u', 'pt 2 u']));
   });
 
-  test('should update poi', async () => {
+  it('should update poi', async () => {
     const point = await db().table('points_view').select('name')
       .where({ id: GALICIA_PT_2, language: 'en' }).first();
     expect(point.name).toBe('r 1 p 2');
   });
 
-  test('should match snapshot', () => {
+  it('should match snapshot', () => {
     const snapshot: any = noTimestamps(updatedRegion);
     snapshot.pois = snapshot.pois.map(noUnstable);
     expect(snapshot).toMatchSnapshot();
@@ -272,7 +272,7 @@ describe('i18n', () => {
     pois: [],
   };
 
-  test('should add translation', async () => {
+  it('should add translation', async () => {
     const upsertResult = await runQuery(upsertQuery, { region: emptyRegionRu }, fakeContext(EDITOR_GA_EC, 'ru'));
     expect(upsertResult.errors).toBeUndefined();
     const translation = await db().table('regions_translations').select()
@@ -280,7 +280,7 @@ describe('i18n', () => {
     expect(translation.name).toBe('Пустой регион');
   });
 
-  test('should modify common props when translation is added', async () => {
+  it('should modify common props when translation is added', async () => {
     const upsertResult = await runQuery(
       upsertQuery,
       { region: { ...emptyRegionRu, seasonNumeric: [10] } },
@@ -292,7 +292,7 @@ describe('i18n', () => {
     expect(reg.season_numeric).toEqual([10]);
   });
 
-  test('should modify translation', async () => {
+  it('should modify translation', async () => {
     const region = {
       id: 'bd3e10b6-7624-11e7-b5a5-be2e44b06b34',
       seasonNumeric: [20, 21],
@@ -313,7 +313,7 @@ describe('i18n', () => {
     }));
   });
 
-  test('should update poi translation', async () => {
+  it('should update poi translation', async () => {
     const region = {
       ...fullRegion,
       id: 'bd3e10b6-7624-11e7-b5a5-be2e44b06b34',

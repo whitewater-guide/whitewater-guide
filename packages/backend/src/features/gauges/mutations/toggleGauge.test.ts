@@ -30,19 +30,19 @@ beforeEach(async () => {
 afterEach(rollbackTransaction);
 
 describe('resolvers chain', () => {
-  test('anon should not pass', async () => {
+  it('anon should not pass', async () => {
     const result = await runQuery(query, gal1, anonContext());
     expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
     expect(result.data!.toggleGauge).toBeNull();
   });
 
-  test('user should not pass', async () => {
+  it('user should not pass', async () => {
     const result = await runQuery(query, gal1, fakeContext(TEST_USER));
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result.data!.toggleGauge).toBeNull();
   });
 
-  test('user should not pass', async () => {
+  it('user should not pass', async () => {
     const result = await runQuery(query, gal1, fakeContext(EDITOR_GA_EC));
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result.data!.toggleGauge).toBeNull();

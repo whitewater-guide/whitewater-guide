@@ -3,7 +3,7 @@ import { makeExecutableSchema } from 'graphql-tools';
 import { fileLoader, mergeTypes } from 'merge-graphql-schemas';
 import { join } from 'path';
 import log from '../../log/index';
-import { AuthDirective } from '../directives';
+import { AdminDirective } from '../directives';
 import { resolvers } from './resolvers';
 
 const logger = log.child({ module: 'apollo' });
@@ -19,7 +19,7 @@ async function loadSchema() {
     resolvers,
     allowUndefinedInResolve: false,
     schemaDirectives: {
-      auth: AuthDirective,
+      admin: AdminDirective,
     },
   });
   logger.info('Initialized GRAPHQL schema');

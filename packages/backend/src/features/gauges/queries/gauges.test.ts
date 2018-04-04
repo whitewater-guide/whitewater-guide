@@ -67,7 +67,7 @@ describe('resolvers chain', () => {
   });
 });
 
-test('should return gauges', async () => {
+it('should return gauges', async () => {
   const result = await runQuery(query, undefined, fakeContext(ADMIN));
   expect(result.errors).toBeUndefined();
   expect(result.data).toBeDefined();
@@ -76,7 +76,7 @@ test('should return gauges', async () => {
   expect(result.data!.gauges.nodes.map(noTimestamps)).toMatchSnapshot();
 });
 
-test('should be able to specify language', async () => {
+it('should be able to specify language', async () => {
   const result = await runQuery(query, {}, fakeContext(ADMIN, 'ru'));
   expect(result.errors).toBeUndefined();
   expect(result.data!.gauges.count).toBe(12);
@@ -84,7 +84,7 @@ test('should be able to specify language', async () => {
   expect(names).toEqual(expect.arrayContaining(['Галисийская линейка 1']));
 });
 
-test('should fall back to english', async () => {
+it('should fall back to english', async () => {
   const result = await runQuery(query, {}, fakeContext(ADMIN, 'ru'));
   expect(result.errors).toBeUndefined();
   expect(result.data!.gauges.count).toBe(12);
@@ -92,7 +92,7 @@ test('should fall back to english', async () => {
   expect(names).toEqual(expect.arrayContaining(['Georgian gauge 3']));
 });
 
-test('should be able to specify source id', async () => {
+it('should be able to specify source id', async () => {
   const result = await runQuery(query, { sourceId: SOURCE_NORWAY }, fakeContext(ADMIN));
   expect(result.errors).toBeUndefined();
   expect(result.data!.gauges).toBeDefined();

@@ -1,12 +1,4 @@
-enum Role {
-  ADMIN
-  EDITOR
-  PREMIUM
-  USER
-}
-
-# anyMember means that owenrship is not required (for editors)
-directive @auth(requires: Role, anyMember: Boolean = false) on FIELD_DEFINITION
+directive @admin on FIELD_DEFINITION
 
 scalar JSON
 scalar Date

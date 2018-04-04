@@ -2,6 +2,7 @@
 
 exports[`should user 1`] = `
 Object {
+  "admin": false,
   "avatar": "https://scontent.xx.fbcdn.net/v/t1.0-1/p50x50/1780622_1380926282175020_67535950_n.jpg?oh=80afda8f3e3d817e233fed522e2d9f1a&oe=5A1B4612",
   "createdAt": "2017-03-02T00:00:00.000Z",
   "editorSettings": Object {
@@ -12,7 +13,6 @@ Object {
   "imperial": false,
   "language": "en",
   "name": "Konstantin Kuznetsov",
-  "role": 2,
   "updatedAt": "2017-03-02T00:00:00.000Z",
 }
 `;

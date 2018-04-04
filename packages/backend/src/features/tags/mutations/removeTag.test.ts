@@ -1,6 +1,7 @@
-import db, { holdTransaction, rollbackTransaction } from '../../../db';
-import { ADMIN, EDITOR_GA_EC, EDITOR_NO_EC } from '../../../seeds/test/01_users';
+import { holdTransaction, rollbackTransaction } from '../../../db';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '../../../seeds/test/01_users';
 import { anonContext, fakeContext } from '../../../test/context';
+import { countRows } from '../../../test/countRows';
 import { runQuery } from '../../../test/db-helpers';
 
 const query = `
@@ -15,38 +16,33 @@ beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
 describe('resolvers chain', () => {
-  test('anon should not pass', async () => {
+
+  it('anon should not pass', async () => {
     const result = await runQuery(query, variables, anonContext());
-    expect(result.errors).toBeDefined();
-    expect(result.data).toBeDefined();
-    expect(result.data!.removeTag).toBeNull();
+    expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
+    expect(result).toHaveProperty('data.removeTag', null);
   });
 
-  test('user should not pass', async () => {
-    const result = await runQuery(query, variables, fakeContext(EDITOR_NO_EC));
-    expect(result.errors).toBeDefined();
-    expect(result.data).toBeDefined();
-    expect(result.data!.removeTag).toBeNull();
+  it('user should not pass', async () => {
+    const result = await runQuery(query, variables, fakeContext(TEST_USER));
+    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
+    expect(result).toHaveProperty('data.removeTag', null);
   });
 
-  test('admin should not pass', async () => {
+  it('editor should not pass', async () => {
     const result = await runQuery(query, variables, fakeContext(EDITOR_GA_EC));
-    expect(result.errors).toBeDefined();
-    expect(result.data).toBeDefined();
-    expect(result.data!.removeTag).toBeNull();
+    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
+    expect(result).toHaveProperty('data.removeTag', null);
   });
 });
 
 describe('effects', () => {
   let result: any;
-  let initialTagsCount: number;
-  let initialTranslationsCount: number;
+  let tagsBefore: number;
+  let translationsBefore: number;
 
   beforeAll(async () => {
-    const tagsCount = await db(true).table('tags').count().first();
-    const translationsCount = await db(true).table('tags_translations').count().first();
-    initialTagsCount = Number(tagsCount.count);
-    initialTranslationsCount = Number(translationsCount.count);
+    [tagsBefore, translationsBefore] = await countRows(true, 'tags', 'tags_translations');
   });
 
   beforeEach(async () => {
@@ -57,18 +53,18 @@ describe('effects', () => {
     result = null;
   });
 
-  test('should return deleted tag id', () => {
+  it('should return deleted tag id', () => {
     expect(result.data.removeTag).toBe(variables.id);
   });
 
-  test('should remove from tags table', async () => {
-    const { count } = await db().table('tags').count().first();
-    expect(initialTagsCount - Number(count)).toBe(1);
+  it('should remove from tags table', async () => {
+    const [tagsAfter] = await countRows(false, 'tags');
+    expect(tagsBefore - tagsAfter).toBe(1);
   });
 
-  test('should remove from translations table', async () => {
-    const { count } = await db().table('tags_translations').count().first();
-    expect(initialTranslationsCount - Number(count)).toBe(2);
+  it('should remove from translations table', async () => {
+    const [translationsAfter] = await countRows(false, 'tags_translations');
+    expect(translationsBefore - translationsAfter).toBe(2);
   });
 
 });

@@ -1,1 +1,1 @@
-export * from './AuthDirective';
+export * from './AdminDirective';

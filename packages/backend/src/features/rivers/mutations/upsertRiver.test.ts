@@ -1,5 +1,5 @@
 import db, { holdTransaction, rollbackTransaction } from '../../../db';
-import { EDITOR_GA_EC, EDITOR_NO, EDITOR_NO_EC, TEST_USER } from '../../../seeds/test/01_users';
+import { EDITOR_GA_EC, EDITOR_GA_EC_ID, EDITOR_NO, EDITOR_NO_EC, TEST_USER } from '../../../seeds/test/01_users';
 import { anonContext, fakeContext } from '../../../test/context';
 import { isTimestamp, isUUID, noTimestamps, noUnstable, runQuery } from '../../../test/db-helpers';
 import { RiverInput } from '../../../ww-commons';
@@ -34,25 +34,25 @@ const input: RiverInput = {
 };
 
 describe('resolvers chain', () => {
-  test('anon should not pass', async () => {
+  it('anon should not pass', async () => {
     const result = await runQuery(upsertQuery, { river: input }, anonContext());
     expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
     expect(result).toHaveProperty('data.upsertRiver', null);
   });
 
-  test('user should not pass', async () => {
+  it('user should not pass', async () => {
     const result = await runQuery(upsertQuery, { river: input }, fakeContext(TEST_USER));
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.upsertRiver', null);
   });
 
-  test('non-owning editor should not pass', async () => {
+  it('non-owning editor should not pass', async () => {
     const result = await runQuery(upsertQuery, { river: input }, fakeContext(EDITOR_NO));
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.upsertRiver', null);
   });
 
-  test('should throw on invalid input', async () => {
+  it('should throw on invalid input', async () => {
     const invalidInput = {
       id: null,
       name: 'x',
@@ -81,36 +81,36 @@ describe('insert', () => {
     insertedRiver = null;
   });
 
-  test('should return result', async () => {
+  it('should return result', async () => {
     expect(insertResult.errors).toBeUndefined();
     expect(insertResult.data).toBeDefined();
     expect(insertResult.data!.upsertRiver).toBeDefined();
   });
 
-  test('should add one more river', async () => {
+  it('should add one more river', async () => {
     const { count } = await db().table('rivers').count().first();
     expect(count).toBe('5');
   });
 
-  test('should return id', () => {
+  it('should return id', () => {
     expect(insertedRiver.id).toBeDefined();
     expect(isUUID(insertedRiver.id)).toBe(true);
   });
 
-  test('should return timestamps', () => {
+  it('should return timestamps', () => {
     expect(insertedRiver.createdAt).toBeDefined();
     expect(insertedRiver.updatedAt).toBeDefined();
     expect(isTimestamp(insertedRiver.createdAt)).toBe(true);
     expect(isTimestamp(insertedRiver.updatedAt)).toBe(true);
   });
 
-  test('should match snapshot', () => {
+  it('should match snapshot', () => {
     expect(noUnstable(insertedRiver)).toMatchSnapshot();
   });
 
   it('should correctly set created_by', async () => {
     const { created_by } = await db().table('rivers').select(['created_by']).where({ id: insertedRiver.id }).first();
-    expect(created_by).toBe(fakeContext(EDITOR_GA_EC).user!.id);
+    expect(created_by).toBe(EDITOR_GA_EC_ID);
   });
 });
 
@@ -131,38 +131,38 @@ describe('update', () => {
     updatedRiver = null;
   });
 
-  test('should return result', () => {
+  it('should return result', () => {
     expect(updateResult.errors).toBeUndefined();
     expect(updateResult.data).toBeDefined();
     expect(updateResult.data!.upsertRiver).toBeDefined();
   });
 
-  test('should not be able to change region of river', async () => {
+  it('should not be able to change region of river', async () => {
     expect(updatedRiver).toHaveProperty('region.id', oldRiver.region_id);
   });
 
-  test('should not change total number of rivers', async () => {
+  it('should not change total number of rivers', async () => {
     const { count } = await db().table('rivers').count().first();
     expect(count).toBe('4');
   });
 
-  test('should return id', () => {
+  it('should return id', () => {
     expect(updatedRiver.id).toBe(update.id);
   });
 
-  test('should update updated_at timestamp', () => {
+  it('should update updated_at timestamp', () => {
     expect(updatedRiver.createdAt).toBe(oldRiver!.created_at.toISOString());
     expect(new Date(updatedRiver.updatedAt).valueOf()).toBeGreaterThan(oldRiver!.updated_at.valueOf());
   });
 
-  test('should match snapshot', () => {
+  it('should match snapshot', () => {
     expect(noTimestamps(updatedRiver)).toMatchSnapshot();
   });
 });
 
 describe('i18n', () => {
 
-  test('should add translation', async () => {
+  it('should add translation', async () => {
     const riverRu = {
       id: 'd69dbabc-bfe3-11e7-abc4-cec278b6b50a',
       name: 'Галисийская река 2',
@@ -178,7 +178,7 @@ describe('i18n', () => {
     expect(translation.name).toBe(riverRu.name);
   });
 
-  test('should modify translation', async () => {
+  it('should modify translation', async () => {
     const riverRu = {
       id: 'a8416664-bfe3-11e7-abc4-cec278b6b50a',
       name: 'Галисийская река 1',

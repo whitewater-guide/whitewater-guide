@@ -1,5 +1,5 @@
 import db, { holdTransaction, rollbackTransaction } from '../../../db';
-import { EDITOR_GA_EC, EDITOR_NO_EC } from '../../../seeds/test/01_users';
+import { ADMIN, EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '../../../seeds/test/01_users';
 import { SOURCE_GALICIA_1, SOURCE_GALICIA_2, SOURCE_GEORGIA } from '../../../seeds/test/04_sources';
 import { anonContext, fakeContext } from '../../../test/context';
 import { isTimestamp, isUUID, noTimestamps, noUnstable, runQuery } from '../../../test/db-helpers';
@@ -56,19 +56,25 @@ const mutation = `
 `;
 
 describe('resolvers chain', () => {
-  test('anon should not pass', async () => {
+  it('anon should not pass', async () => {
     const result = await runQuery(mutation, { source: requiredSource }, anonContext());
     expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
     expect(result).toHaveProperty('data.upsertSource', null);
   });
 
-  test('user should not pass', async () => {
-    const result = await runQuery(mutation, { source: requiredSource }, fakeContext(EDITOR_NO_EC));
+  it('user should not pass', async () => {
+    const result = await runQuery(mutation, { source: requiredSource }, fakeContext(TEST_USER));
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.upsertSource', null);
   });
 
-  test('should throw on invalid input', async () => {
+  it('editor should not pass', async () => {
+    const result = await runQuery(mutation, { source: requiredSource }, fakeContext(EDITOR_GA_EC));
+    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
+    expect(result).toHaveProperty('data.upsertSource', null);
+  });
+
+  it('should throw on invalid input', async () => {
     const input: SourceInput = {
       id: 'invalid-input',
       name: 'Invalid source',
@@ -79,9 +85,8 @@ describe('resolvers chain', () => {
       termsOfUse: 'New terms of use',
       regions: [{ id: 'aaaa' }],
     };
-    const result = await runQuery(mutation, { source: input }, fakeContext(EDITOR_GA_EC));
+    const result = await runQuery(mutation, { source: input }, fakeContext(ADMIN));
     expect(result).toHaveProperty('errors.0.name', 'ValidationError');
-    expect(result.data).toBeDefined();
     expect(result.data!.upsertSource).toBeNull();
     expect((result.errors![0] as any).data).toMatchSnapshot();
   });
@@ -92,7 +97,7 @@ describe('insert', () => {
   let insertedSource: any;
 
   beforeEach(async () => {
-    insertResult = await runQuery(mutation, { source: requiredSource }, fakeContext(EDITOR_GA_EC));
+    insertResult = await runQuery(mutation, { source: requiredSource }, fakeContext(ADMIN));
     insertedSource = insertResult && insertResult.data && insertResult.data.upsertSource;
   });
 
@@ -101,35 +106,35 @@ describe('insert', () => {
     insertedSource = null;
   });
 
-  test('should return result', async () => {
+  it('should return result', async () => {
     expect(insertResult.errors).toBeUndefined();
     expect(insertResult.data).toBeDefined();
     expect(insertResult.data!.upsertSource).toBeDefined();
   });
 
-  test('should add one more source', async () => {
+  it('should add one more source', async () => {
     const { count } = await db().table('sources').count().first();
     expect(Number(count) - sourceCountBefore).toBe(1);
   });
 
-  test('should have id', () => {
+  it('should have id', () => {
     expect(insertedSource.id).toBeDefined();
     expect(isUUID(insertedSource.id)).toBe(true);
   });
 
-  test('should have timestamps', () => {
+  it('should have timestamps', () => {
     expect(insertedSource.createdAt).toBeDefined();
     expect(insertedSource.updatedAt).toBeDefined();
     expect(isTimestamp(insertedSource.createdAt)).toBe(true);
     expect(isTimestamp(insertedSource.updatedAt)).toBe(true);
   });
 
-  test('should connect region', async () => {
+  it('should connect region', async () => {
     const result = await db().table('sources_regions').where({ source_id: insertedSource.id }).count();
     expect(result[0].count).toBe('1');
   });
 
-  test('should match snapshot', () => {
+  it('should match snapshot', () => {
     expect(noUnstable(insertedSource)).toMatchSnapshot();
   });
 
@@ -142,7 +147,7 @@ describe('update', () => {
 
   beforeEach(async () => {
     oldSource = await db().table('sources').where({ id: optionalSource.id }).first();
-    updateResult = await runQuery(mutation, { source: optionalSource }, fakeContext(EDITOR_GA_EC));
+    updateResult = await runQuery(mutation, { source: optionalSource }, fakeContext(ADMIN));
     updatedSource = updateResult && updateResult.data && updateResult.data.upsertSource;
   });
 
@@ -152,40 +157,40 @@ describe('update', () => {
     oldSource = null;
   });
 
-  test('should return result', async () => {
+  it('should return result', async () => {
     expect(updateResult.errors).toBeUndefined();
     expect(updateResult.data).toBeDefined();
     expect(updateResult.data!.upsertSource).toBeDefined();
   });
 
-  test('should not change total number of sources', async () => {
+  it('should not change total number of sources', async () => {
     const { count } = await db().table('sources').count().first();
     expect(Number(count)).toBe(sourceCountBefore);
   });
 
-  test('should have id', () => {
+  it('should have id', () => {
     expect(updatedSource.id).toBe(optionalSource.id);
   });
 
-  test('should update updated_at timestamp', () => {
+  it('should update updated_at timestamp', () => {
     expect(updatedSource.createdAt).toBe(oldSource!.created_at.toISOString());
     expect(new Date(updatedSource.updatedAt).valueOf()).toBeGreaterThan(oldSource!.updated_at.valueOf());
   });
 
-  test('should update connected regions', async () => {
+  it('should update connected regions', async () => {
     const result = await db().table('sources_regions').where({ source_id: optionalSource.id }).select('*');
     expect(result).toEqual([{ source_id: optionalSource.id, region_id: '2caf75ca-7625-11e7-b5a5-be2e44b06b34' }]);
   });
 
-  test('should not change enabled sources', async () => {
-    const result = await runQuery(mutation, { source: { ...optionalSource, id: SOURCE_GALICIA_2 } }, fakeContext(EDITOR_GA_EC));
+  it('should not change enabled sources', async () => {
+    const result = await runQuery(mutation, { source: { ...optionalSource, id: SOURCE_GALICIA_2 } }, fakeContext(ADMIN));
     expect(result.errors).toBeDefined();
     expect(result.data!.upsertSource).toBeNull();
     expect(result).toHaveProperty('errors.0.name', 'MutationNotAllowedError');
     expect(result).toHaveProperty('errors.0.message', 'Disable source before editing it');
   });
 
-  test('should match snapshot', () => {
+  it('should match snapshot', () => {
     expect(noTimestamps(updatedSource)).toMatchSnapshot();
   });
 
@@ -215,7 +220,7 @@ describe('i18n', () => {
   };
 
   it('should add new translation', async () => {
-    const result = await runQuery(mutation, { source: georgiaRu }, fakeContext(EDITOR_GA_EC, 'ru'));
+    const result = await runQuery(mutation, { source: georgiaRu }, fakeContext(ADMIN, 'ru'));
     expect(result.errors).toBeUndefined();
     expect(result.data!.upsertSource).toMatchObject({
       id: SOURCE_GEORGIA,
@@ -228,14 +233,14 @@ describe('i18n', () => {
   });
 
   it('should modify common props in other language', async () => {
-    await runQuery(mutation, { source: georgiaRu }, fakeContext(EDITOR_GA_EC, 'ru'));
+    await runQuery(mutation, { source: georgiaRu }, fakeContext(ADMIN, 'ru'));
     const commons = await db().table('sources').select('cron')
       .where({ id: SOURCE_GEORGIA }).first();
     expect(commons.cron).toBe(georgiaRu.cron);
   });
 
   it('should modify translation', async () => {
-    const result = await runQuery(mutation, { source: galiciaRu }, fakeContext(EDITOR_GA_EC, 'ru'));
+    const result = await runQuery(mutation, { source: galiciaRu }, fakeContext(ADMIN, 'ru'));
     expect(result.errors).toBeUndefined();
     expect(result.data!.upsertSource).toMatchObject({
       id: SOURCE_GALICIA_1,
@@ -254,7 +259,7 @@ describe('i18n', () => {
 });
 
 it('should sanitize input', async () => {
-  let dirty = { ...requiredSource, name: "it's a \\ slash" };
-  const result = await runQuery(mutation, { source: dirty }, fakeContext(EDITOR_GA_EC));
+  const dirty = { ...requiredSource, name: "it's a \\ slash" };
+  const result = await runQuery(mutation, { source: dirty }, fakeContext(ADMIN));
   expect(result).toHaveProperty('data.upsertSource.name', "it's a \\ slash");
 });

@@ -13,7 +13,7 @@ const query = `
     id
     name
     avatar
-    role
+    admin
     email
     createdAt
     updatedAt
@@ -26,16 +26,14 @@ const query = `
 }
 `;
 
-test('should return null for anon', async () => {
+it('should return null for anon', async () => {
   const result = await runQuery(query, undefined, anonContext());
   expect(result.errors).toBeUndefined();
-  expect(result.data).toBeDefined();
   expect(result.data!.me).toBeNull();
 });
 
-test('should user', async () => {
+it('should user', async () => {
   const result = await runQuery(query, undefined, fakeContext(EDITOR_GA_EC));
   expect(result.errors).toBeUndefined();
-  const me: User = result.data!.me;
-  expect(me).toMatchSnapshot();
+  expect(result.data!.me).toMatchSnapshot();
 });

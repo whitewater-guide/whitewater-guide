@@ -1,5 +1,5 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
-import { EDITOR_GA_EC, EDITOR_NO_EC } from '../../../seeds/test/01_users';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '../../../seeds/test/01_users';
 import { SOURCE_GALICIA_1, SOURCE_GEORGIA, SOURCE_NORWAY } from '../../../seeds/test/04_sources';
 import { GAUGE_GEO_1, GAUGE_GEO_2, GAUGE_GEO_3, GAUGE_GEO_4 } from '../../../seeds/test/05_gauges';
 import { anonContext, fakeContext } from '../../../test/context';
@@ -20,23 +20,27 @@ afterEach(rollbackTransaction);
 describe('resolvers chain', () => {
   it('anon should not pass', async () => {
     const result = await runQuery(query, { id: SOURCE_GALICIA_1 }, anonContext());
-    expect(result.errors).toBeDefined();
-    expect(result.data).toBeDefined();
-    expect(result.data!.generateSourceSchedule).toBeNull();
+    expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
+    expect(result).toHaveProperty('data.generateSourceSchedule', null);
   });
 
   it('user should not pass', async () => {
-    const result = await runQuery(query, { id: SOURCE_GALICIA_1 }, fakeContext(EDITOR_NO_EC));
-    expect(result.errors).toBeDefined();
-    expect(result.data).toBeDefined();
-    expect(result.data!.generateSourceSchedule).toBeNull();
+    const result = await runQuery(query, { id: SOURCE_GALICIA_1 }, fakeContext(TEST_USER));
+    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
+    expect(result).toHaveProperty('data.generateSourceSchedule', null);
+  });
+
+  it('editor should not pass', async () => {
+    const result = await runQuery(query, { id: SOURCE_GALICIA_1 }, fakeContext(EDITOR_GA_EC));
+    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
+    expect(result).toHaveProperty('data.generateSourceSchedule', null);
   });
 });
 
 describe('effects', () => {
 
   it('should fail for all-at-once sources', async () => {
-    const result = await runQuery(query, { id: SOURCE_GALICIA_1 }, fakeContext(EDITOR_GA_EC));
+    const result = await runQuery(query, { id: SOURCE_GALICIA_1 }, fakeContext(ADMIN));
     expect(result.errors).toBeDefined();
     expect(result.data!.generateSourceSchedule).toBeNull();
     expect(result).toHaveProperty('errors.0.name', 'MutationNotAllowedError');
@@ -44,7 +48,7 @@ describe('effects', () => {
   });
 
   it('should fail for enabled sources', async () => {
-    const result = await runQuery(query, { id: SOURCE_NORWAY }, fakeContext(EDITOR_GA_EC));
+    const result = await runQuery(query, { id: SOURCE_NORWAY }, fakeContext(ADMIN));
     expect(result.errors).toBeDefined();
     expect(result.data!.generateSourceSchedule).toBeNull();
     expect(result).toHaveProperty('errors.0.name', 'MutationNotAllowedError');
@@ -52,7 +56,7 @@ describe('effects', () => {
   });
 
   it('should return gauges with crons', async () => {
-    const result = await runQuery(query, { id: SOURCE_GEORGIA }, fakeContext(EDITOR_GA_EC));
+    const result = await runQuery(query, { id: SOURCE_GEORGIA }, fakeContext(ADMIN));
     expect(result.errors).toBeUndefined();
     expect(result.data!.generateSourceSchedule).toMatchObject([
       { id: GAUGE_GEO_1, cron: '0 * * * *' },

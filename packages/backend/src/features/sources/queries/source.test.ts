@@ -1,6 +1,6 @@
-import { AuthenticationRequiredError, ForbiddenError } from '../../../apollo';
 import { holdTransaction, rollbackTransaction } from '../../../db';
-import { ADMIN, EDITOR_GA_EC, EDITOR_NO_EC } from '../../../seeds/test/01_users';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '../../../seeds/test/01_users';
+import { SOURCE_GALICIA_1 } from '../../../seeds/test/04_sources';
 import { anonContext, fakeContext } from '../../../test/context';
 import { noTimestamps, runQuery } from '../../../test/db-helpers';
 import { Source } from '../../../ww-commons';
@@ -24,50 +24,52 @@ const query = `
   }
 `;
 
-const galiciaId = '6d0d717e-aa9d-11e7-abc4-cec278b6b50a';
+const galiciaId = SOURCE_GALICIA_1;
 
-describe('anonymous', () => {
-  it('shall not pass', async () => {
+describe('permissions', () => {
+  it('anon shall not see internal fields', async () => {
     const result = await runQuery(query, { id: galiciaId }, anonContext());
-    expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
-    expect(result).toHaveProperty('data.source', null);
+    expect(result.errors).toBeUndefined();
+    expect(result.data!.source).toMatchObject({
+      script: null,
+      harvestMode: null,
+      cron: null,
+    });
   });
-});
 
-describe('user', () => {
-  it('shall not pass', async () => {
-    const result = await runQuery(query, { id: galiciaId }, fakeContext(EDITOR_NO_EC));
-    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
-    expect(result).toHaveProperty('data.source', null);
+  it('user shall not see internal fields', async () => {
+    const result = await runQuery(query, { id: galiciaId }, fakeContext(TEST_USER));
+    expect(result.errors).toBeUndefined();
+    expect(result.data!.source).toMatchObject({
+      script: null,
+      harvestMode: null,
+      cron: null,
+    });
   });
-});
 
-describe('admin', () => {
-  it('should return source', async () => {
+  it('editor shall not see internal fields', async () => {
     const result = await runQuery(query, { id: galiciaId }, fakeContext(EDITOR_GA_EC));
     expect(result.errors).toBeUndefined();
-    expect(result.data).toBeDefined();
-    expect(result.data!.source).toBeTruthy();
-    const source: Source = result.data!.source;
-    expect(source.id).toBe(galiciaId);
-    expect(noTimestamps(source)).toMatchSnapshot();
+    expect(result.data!.source).toMatchObject({
+      script: null,
+      harvestMode: null,
+      cron: null,
+    });
   });
-});
 
-describe('superadmin', () => {
-  it('should return source', async () => {
-    const result = await runQuery(query, { id: galiciaId }, fakeContext(ADMIN));
-    expect(result.errors).toBeUndefined();
-    expect(result.data).toBeDefined();
-    const source: Source = result.data!.source;
-    expect(source.id).toBe(galiciaId);
-    expect(noTimestamps(source)).toMatchSnapshot();
-  });
 });
 
 describe('data', () => {
+  it('should return source', async () => {
+    const result = await runQuery(query, { id: galiciaId }, fakeContext(ADMIN));
+    expect(result.errors).toBeUndefined();
+    const source: Source = result.data!.source;
+    expect(source.id).toBe(galiciaId);
+    expect(noTimestamps(source)).toMatchSnapshot();
+  });
+
   it('should return null when id not specified', async () => {
-    const result = await runQuery(query, {}, fakeContext(EDITOR_GA_EC));
+    const result = await runQuery(query, {}, fakeContext(ADMIN));
     expect(result.errors).toBeUndefined();
     expect(result.data).toBeDefined();
     expect(result.data!.source).toBeNull();

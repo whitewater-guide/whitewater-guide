@@ -24,7 +24,7 @@ input EditorSettingsInput {
 
 type Query {
   me: User,
-  findUsers(search: String!): [User!] @auth(requires: ADMIN)
+  findUsers(search: String!): [User!] @admin
 }
 
 type Mutation {

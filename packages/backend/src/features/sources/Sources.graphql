@@ -8,10 +8,10 @@ type Source {
   name: String!
   termsOfUse: String
   # Non-nullablle for admin
-  script: String @auth(requires: ADMIN)
-  cron: String @auth(requires: ADMIN)
+  script: String @admin
+  cron: String @admin
   # Non-nullable for admin
-  harvestMode: HarvestMode @auth(requires: ADMIN)
+  harvestMode: HarvestMode @admin
   url: String
   enabled: Boolean
   regions: SourceRegionConnection!
@@ -53,9 +53,9 @@ type Query {
 }
 
 type Mutation {
-  upsertSource(source: SourceInput!): Source @auth(requires: ADMIN)
-  removeSource(id: ID!): ID @auth(requires: ADMIN)
-  toggleSource(id: ID!, enabled: Boolean!): Source @auth(requires: ADMIN)
-  autofillSource(id:ID!): [Gauge] @auth(requires: ADMIN)
-  generateSourceSchedule(id: ID!): [Gauge] @auth(requires: ADMIN)
+  upsertSource(source: SourceInput!): Source @admin
+  removeSource(id: ID!): ID @admin
+  toggleSource(id: ID!, enabled: Boolean!): Source @admin
+  autofillSource(id:ID!): [Gauge] @admin
+  generateSourceSchedule(id: ID!): [Gauge] @admin
 }
