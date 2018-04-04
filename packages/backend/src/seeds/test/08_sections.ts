@@ -1,6 +1,7 @@
 import Knex from 'knex';
 import { LineString, Point } from 'wkx';
 import { Coordinate3d, Duration } from '../../ww-commons';
+import { ADMIN_ID } from './01_users';
 import { GAUGE_GAL_1_1 } from './05_gauges';
 
 function getLineString(shape: Coordinate3d[] | null) {
@@ -44,6 +45,7 @@ const sections = [
     difficulty: 3.5,
     difficulty_xtra: 'X',
     rating: 4.5,
+    created_by: ADMIN_ID,
   },
   {
     id: GALICIA_R1_S2,

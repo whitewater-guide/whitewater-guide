@@ -2,7 +2,7 @@ import { copy } from 'fs-extra';
 import path from 'path';
 import db, { holdTransaction, rollbackTransaction } from '../../../db';
 import { fileExistsInBucket, MEDIA, resetTestMinio, TEMP, TEMP_BUCKET_DIR } from '../../../minio';
-import { ADMIN, EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '../../../seeds/test/01_users';
+import { ADMIN, ADMIN_ID, EDITOR_GA_EC, EDITOR_NO_EC, EDITOR_NO_EC_ID, TEST_USER } from '../../../seeds/test/01_users';
 import { GALICIA_R1_S1, NORWAY_SJOA_AMOT } from '../../../seeds/test/08_sections';
 import { PHOTO_1, PHOTO_2 } from '../../../seeds/test/10_media';
 import { anonContext, fakeContext } from '../../../test/context';
@@ -120,6 +120,12 @@ describe('insert', () => {
     const result = await runQuery(mutation, { sectionId, media: dirty }, fakeContext(EDITOR_NO_EC));
     expect(result).toHaveProperty('data.upsertSectionMedia.description', "it's a \\ slash");
   });
+
+  it('should set created_by field', async () => {
+    await runQuery(mutation, { sectionId, media }, fakeContext(EDITOR_NO_EC));
+    const { created_by } = await db(false).table('media').select(['created_by']).where({ id: NEW_MEDIA_ID }).first();
+    expect(created_by).toBe(EDITOR_NO_EC_ID);
+  });
 });
 
 describe('update', () => {
@@ -148,6 +154,13 @@ describe('update', () => {
     const result = await runQuery(mutation, { sectionId, media: badMedia }, fakeContext(EDITOR_NO_EC));
     expect(result.errors).toBeUndefined();
     expect(result).toHaveProperty('data.upsertSectionMedia.kind', 'photo');
+  });
+
+  it('should not modify created_by', async () => {
+    await runQuery(mutation, { sectionId, media: uMedia }, fakeContext(EDITOR_NO_EC));
+    const { created_by } = await db(false).table('media').select(['created_by'])
+      .where({ id: uMedia.id }).first();
+    expect(created_by).toBe(ADMIN_ID);
   });
 });
 

@@ -17,9 +17,11 @@ const Schema = Joi.object().keys({
   media: MediaInputSchema,
 });
 
-const resolver: GraphQLFieldResolver<any, Context> = async (root, { media, sectionId }: Vars, context) => {
+const resolver: GraphQLFieldResolver<any, Context> = async (root, vars: Vars, context) => {
+  const { sectionId } = vars;
   const { language, user } = context;
   await checkEditorPermissions(user, undefined, sectionId);
+  const media = { ...vars.media, createdBy: user ? user.id : null };
   try {
     const result: MediaRaw = await rawUpsert(
       db(),

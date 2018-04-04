@@ -1,6 +1,7 @@
 import Knex from 'knex';
 import { MediaRaw } from '../../features/media';
 import { MediaKind } from '../../ww-commons';
+import { ADMIN_ID } from './01_users';
 import { GALICIA_R1_S1, NORWAY_SJOA_AMOT } from './08_sections';
 
 export const BLOG_1 = 'a326622c-1ee5-11e8-b467-0ed5f89f718b';
@@ -21,6 +22,7 @@ const media: Array<Partial<MediaRaw>> = [
     url: PHOTO_1, // Exists in seed minio data
     resolution: [800, 600],
     weight: 1,
+    created_by: ADMIN_ID,
   },
   {
     id: PHOTO_2,

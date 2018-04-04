@@ -1,5 +1,13 @@
 import db, { holdTransaction, rollbackTransaction } from '../../../db';
-import { EDITOR_GA_EC, EDITOR_GA_EC_ID, EDITOR_NO, EDITOR_NO_EC, TEST_USER } from '../../../seeds/test/01_users';
+import {
+  ADMIN_ID,
+  EDITOR_GA_EC,
+  EDITOR_GA_EC_ID,
+  EDITOR_NO,
+  EDITOR_NO_EC,
+  TEST_USER
+} from '../../../seeds/test/01_users';
+import { RIVER_GAL_1 } from '../../../seeds/test/06_rivers';
 import { anonContext, fakeContext } from '../../../test/context';
 import { isTimestamp, isUUID, noTimestamps, noUnstable, runQuery } from '../../../test/db-helpers';
 import { RiverInput } from '../../../ww-commons';
@@ -115,7 +123,7 @@ describe('insert', () => {
 });
 
 describe('update', () => {
-  const update = { ...input, id: 'a8416664-bfe3-11e7-abc4-cec278b6b50a' }; // Gal_rive_one
+  const update = { ...input, id: RIVER_GAL_1 };
   let oldRiver: RiverRaw;
   let updateResult: any;
   let updatedRiver: any;
@@ -153,6 +161,11 @@ describe('update', () => {
   it('should update updated_at timestamp', () => {
     expect(updatedRiver.createdAt).toBe(oldRiver!.created_at.toISOString());
     expect(new Date(updatedRiver.updatedAt).valueOf()).toBeGreaterThan(oldRiver!.updated_at.valueOf());
+  });
+
+  it('should not modify created_by', async () => {
+    const { created_by } = await db().table('rivers').select(['created_by']).where({ id: updatedRiver.id }).first();
+    expect(created_by).toBe(ADMIN_ID);
   });
 
   it('should match snapshot', () => {

@@ -6,7 +6,7 @@ DECLARE
 BEGIN
   -- Then insert core
   WITH upserted_media AS (
-    INSERT INTO media (id, kind, url, resolution, weight)
+    INSERT INTO media (id, kind, url, resolution, weight, created_by)
     VALUES (
       COALESCE((media ->> 'id') :: UUID, uuid_generate_v1mc()),
       (media ->> 'kind') :: MEDIA_KIND,
@@ -16,10 +16,12 @@ BEGIN
         THEN NULL
         ELSE array_json_to_int(media -> 'resolution')
       END,
-      COALESCE((media ->> 'weight') :: INTEGER, 0)
+      COALESCE((media ->> 'weight') :: INTEGER, 0),
+      (media ->> 'createdBy') :: UUID
     )
     ON CONFLICT (id)
       DO UPDATE SET
+        created_by = media.created_by,
         kind       = media.kind,
         url        = EXCLUDED.url,
         resolution = EXCLUDED.resolution,
