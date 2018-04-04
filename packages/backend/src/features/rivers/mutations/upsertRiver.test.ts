@@ -7,7 +7,7 @@ import {
   EDITOR_NO_EC,
   TEST_USER
 } from '../../../seeds/test/01_users';
-import { RIVER_GAL_1 } from '../../../seeds/test/06_rivers';
+import { RIVER_GAL_1 } from '../../../seeds/test/07_rivers';
 import { anonContext, fakeContext } from '../../../test/context';
 import { isTimestamp, isUUID, noTimestamps, noUnstable, runQuery } from '../../../test/db-helpers';
 import { RiverInput } from '../../../ww-commons';

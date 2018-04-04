@@ -1,6 +1,6 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
 import { ADMIN, EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '../../../seeds/test/01_users';
-import { REGION_ECUADOR, REGION_GALICIA } from '../../../seeds/test/03_regions';
+import { REGION_ECUADOR, REGION_GALICIA } from '../../../seeds/test/04_regions';
 import { anonContext, fakeContext } from '../../../test/context';
 import { countRows } from '../../../test/countRows';
 import { runQuery } from '../../../test/db-helpers';

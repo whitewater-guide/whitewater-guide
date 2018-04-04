@@ -1,5 +1,5 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
-import { BLOG_1, PHOTO_1, PHOTO_2 } from '../../../seeds/test/10_media';
+import { BLOG_1, PHOTO_1, PHOTO_2 } from '../../../seeds/test/11_media';
 import { anonContext } from '../../../test/context';
 import { noTimestamps, runQuery } from '../../../test/db-helpers';
 

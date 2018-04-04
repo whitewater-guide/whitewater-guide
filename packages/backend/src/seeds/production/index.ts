@@ -1,8 +1,8 @@
+import { pathExists } from 'fs-extra';
 import Knex from 'knex';
 import { resolve } from 'path';
 import log from '../../log';
 import { sqlStreamer } from '../../utils/sqlStreamer';
-import { pathExists } from 'fs-extra';
 
 export async function seed(db: Knex) {
   // Dev db is mounted in tmpfs, so we need to seed it after startup
@@ -25,6 +25,8 @@ export async function seed(db: Knex) {
     '"users"',
     '"gauges"',
     '"gauges_translations"',
+    '"groups"',
+    '"groups_translations"',
     '"sections"',
     '"sections_translations"',
     '"sections_points"',
@@ -36,6 +38,7 @@ export async function seed(db: Knex) {
     '"regions_translations"',
     '"regions_points"',
     '"regions_editors"',
+    '"regions_groups"',
     '"points"',
     '"points_translations"',
     '"rivers"',

@@ -1,7 +1,7 @@
 import { UnknownError } from '../../../apollo';
 import { holdTransaction, rollbackTransaction } from '../../../db';
 import { ADMIN, EDITOR_GA_EC, TEST_USER } from '../../../seeds/test/01_users';
-import { SOURCE_ALPS, SOURCE_GALICIA_1, SOURCE_RUSSIA } from '../../../seeds/test/04_sources';
+import { SOURCE_ALPS, SOURCE_GALICIA_1, SOURCE_RUSSIA } from '../../../seeds/test/05_sources';
 import { anonContext, fakeContext } from '../../../test/context';
 import { countRows } from '../../../test/countRows';
 import { noUnstable, runQuery } from '../../../test/db-helpers';

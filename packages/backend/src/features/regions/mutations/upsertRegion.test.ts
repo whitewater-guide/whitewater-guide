@@ -2,7 +2,7 @@ import set from 'lodash/fp/set';
 import db, { holdTransaction, rollbackTransaction } from '../../../db';
 import { ADMIN, EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '../../../seeds/test/01_users';
 import { GALICIA_PT_1, GALICIA_PT_2 } from '../../../seeds/test/02_points';
-import { REGION_ECUADOR, REGION_GALICIA } from '../../../seeds/test/03_regions';
+import { NUM_REGIONS, REGION_ECUADOR, REGION_GALICIA } from '../../../seeds/test/04_regions';
 import { anonContext, fakeContext } from '../../../test/context';
 import { countRows } from '../../../test/countRows';
 import { isTimestamp, isUUID, noTimestamps, noUnstable, runQuery } from '../../../test/db-helpers';
@@ -150,8 +150,8 @@ describe('insert', () => {
   });
 
   it('should add one more region', async () => {
-    const result = await db().table('regions').count();
-    expect(result[0].count).toBe('4');
+    const [regions] = await countRows(false, 'regions');
+    expect(regions).toBe(NUM_REGIONS + 1);
   });
 
   it('should return id', () => {
@@ -209,8 +209,8 @@ describe('update', () => {
   });
 
   it('should not change total number of regions', async () => {
-    const result = await db().table('regions').count();
-    expect(result[0].count).toBe('3');
+    const [regions] = await countRows(false, 'regions');
+    expect(regions).toBe(NUM_REGIONS);
   });
 
   it('should return id', () => {

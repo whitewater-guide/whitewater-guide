@@ -2,7 +2,7 @@ import Knex from 'knex';
 import { LineString, Point } from 'wkx';
 import { Coordinate3d, Duration } from '../../ww-commons';
 import { ADMIN_ID } from './01_users';
-import { GAUGE_GAL_1_1 } from './05_gauges';
+import { GAUGE_GAL_1_1 } from './06_gauges';
 
 function getLineString(shape: Coordinate3d[] | null) {
   let lineString = null;

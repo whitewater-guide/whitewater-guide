@@ -1,5 +1,5 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
-import { NORWAY_SJOA_AMOT } from '../../../seeds/test/08_sections';
+import { NORWAY_SJOA_AMOT } from '../../../seeds/test/09_sections';
 import { anonContext } from '../../../test/context';
 import { noTimestamps, runQuery } from '../../../test/db-helpers';
 

@@ -3,6 +3,7 @@ import { Point, Polygon } from 'wkx';
 import { Coordinate3d } from '../../ww-commons';
 import { EDITOR_GA_EC_ID, EDITOR_NO_EC_ID, EDITOR_NO_ID } from './01_users';
 import { ECUADOR_PT_1, GALICIA_PT_1, GALICIA_PT_2 } from './02_points';
+import { GROUP_EU, GROUP_EU_CIS, GROUP_LATIN } from './03_groups';
 
 function getBounds(bounds: Coordinate3d[] | null) {
   let rawBounds = null;
@@ -16,9 +17,13 @@ function getBounds(bounds: Coordinate3d[] | null) {
   return rawBounds;
 }
 
+export const NUM_REGIONS = 5;
+
 export const REGION_GALICIA = 'bd3e10b6-7624-11e7-b5a5-be2e44b06b34';
 export const REGION_ECUADOR = '2caf75ca-7625-11e7-b5a5-be2e44b06b34';
-export const REGION_NORWAY = 'b968e2b2-76c5-11e7-b5a5-be2e44b06b34';
+export const REGION_NORWAY  = 'b968e2b2-76c5-11e7-b5a5-be2e44b06b34';
+export const REGION_GEORGIA = '8e119768-37f3-11e8-b467-0ed5f89f718b';
+export const REGION_LAOS   = 'a84d7eda-37f3-11e8-b467-0ed5f89f718b';
 
 const regions = [
   {
@@ -41,6 +46,20 @@ const regions = [
     premium: true,
     season_numeric: [],
     bounds: null,
+  },
+  {
+    id: REGION_GEORGIA,
+    hidden: false,
+    premium: true,
+    season_numeric: [11, 12],
+    bounds: getBounds([[43.51, 39.97, 0], [41.93, 46.39, 0], [41.05, 46.52, 0], [41.51, 41.58, 0]]),
+  },
+  {
+    id: REGION_LAOS,
+    hidden: true,
+    premium: false,
+    season_numeric: [3, 4, 5, 6],
+    bounds: getBounds([[20.72, 99.62, 0], [14.2, 105.42, 0], [15.05, 108.10, 0], [22.66, 102.5, 0]]),
   },
 ];
 
@@ -65,6 +84,20 @@ const regionsEn = [
     name: 'Norway',
     description: null,
     season: null,
+  },
+  {
+    region_id: REGION_GEORGIA,
+    language: 'en',
+    name: 'Georgia',
+    description: 'description of Georgia',
+    season: 'spring, summer, autumn',
+  },
+  {
+    region_id: REGION_LAOS,
+    language: 'en',
+    name: 'Laos',
+    description: 'laos description',
+    season: 'laos season',
   },
 ];
 
@@ -92,6 +125,15 @@ const regionsEditors = [
   { region_id: REGION_NORWAY, user_id: EDITOR_NO_ID },
 ];
 
+const regionsGroups = [
+  { region_id: REGION_GALICIA, group_id: GROUP_EU },
+  { region_id: REGION_GALICIA, group_id: GROUP_EU_CIS },
+  { region_id: REGION_NORWAY, group_id: GROUP_EU },
+  { region_id: REGION_NORWAY, group_id: GROUP_EU_CIS },
+  { region_id: REGION_GEORGIA, group_id: GROUP_EU_CIS },
+  { region_id: REGION_ECUADOR, group_id: GROUP_LATIN },
+];
+
 export async function seed(db: Knex) {
   await db.table('regions').del();
   await db.table('regions_translations').del();
@@ -102,4 +144,6 @@ export async function seed(db: Knex) {
   await db.table('regions_points').insert(regionsPoints);
   await db.table('regions_editors').del();
   await db.table('regions_editors').insert(regionsEditors);
+  await db.table('regions_groups').del();
+  await db.table('regions_groups').insert(regionsGroups);
 }

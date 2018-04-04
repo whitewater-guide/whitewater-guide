@@ -1,6 +1,6 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
 import { ADMIN, EDITOR_NO_EC } from '../../../seeds/test/01_users';
-import { REGION_GALICIA } from '../../../seeds/test/03_regions';
+import { REGION_GALICIA } from '../../../seeds/test/04_regions';
 import { fakeContext } from '../../../test/context';
 import { noTimestamps, runQuery } from '../../../test/db-helpers';
 

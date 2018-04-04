@@ -3,7 +3,7 @@ import { MutationNotAllowedError } from '../../../apollo';
 import { holdTransaction, rollbackTransaction } from '../../../db';
 import { fileExistsInBucket, resetTestMinio, TEMP } from '../../../minio';
 import { EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '../../../seeds/test/01_users';
-import { PHOTO_1 } from '../../../seeds/test/10_media';
+import { PHOTO_1 } from '../../../seeds/test/11_media';
 import { anonContext, fakeContext } from '../../../test/context';
 import { runQuery } from '../../../test/db-helpers';
 import { UUID_REGEX } from '../../../test/isUUID';

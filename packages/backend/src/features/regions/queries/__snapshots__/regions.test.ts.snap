@@ -84,6 +84,78 @@ Array [
     ],
   },
   Object {
+    "bounds": Array [
+      Array [
+        43.51,
+        39.97,
+        0,
+      ],
+      Array [
+        41.93,
+        46.39,
+        0,
+      ],
+      Array [
+        41.05,
+        46.52,
+        0,
+      ],
+      Array [
+        41.51,
+        41.58,
+        0,
+      ],
+    ],
+    "description": "description of Georgia",
+    "hidden": false,
+    "id": "8e119768-37f3-11e8-b467-0ed5f89f718b",
+    "name": "Georgia",
+    "pois": Array [],
+    "premium": true,
+    "season": "spring, summer, autumn",
+    "seasonNumeric": Array [
+      11,
+      12,
+    ],
+  },
+  Object {
+    "bounds": Array [
+      Array [
+        20.72,
+        80.38,
+        0,
+      ],
+      Array [
+        14.2,
+        74.58,
+        0,
+      ],
+      Array [
+        15.05,
+        71.9,
+        0,
+      ],
+      Array [
+        22.66,
+        77.5,
+        0,
+      ],
+    ],
+    "description": "laos description",
+    "hidden": true,
+    "id": "a84d7eda-37f3-11e8-b467-0ed5f89f718b",
+    "name": "Laos",
+    "pois": Array [],
+    "premium": false,
+    "season": "laos season",
+    "seasonNumeric": Array [
+      3,
+      4,
+      5,
+      6,
+    ],
+  },
+  Object {
     "bounds": null,
     "description": null,
     "hidden": true,

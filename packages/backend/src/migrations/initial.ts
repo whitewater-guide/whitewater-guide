@@ -65,6 +65,22 @@ export const up = async (db: Knex) => {
   await addUpdatedAtTrigger(db, 'sources');
   await addUpdatedAtTrigger(db, 'sources_translations');
 
+  // Region groups
+  await db.schema.createTable('groups', (table) => {
+    table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
+    table.timestamps(false, true);
+  });
+  await db.schema.createTable('groups_translations', (table) => {
+    table
+      .uuid('group_id')
+      .notNullable()
+      .references('id')
+      .inTable('groups')
+      .onDelete('CASCADE');
+    table.specificType('language', 'language_code').notNullable().defaultTo('en').index();
+    table.string('name').notNullable().index();
+  });
+
   // Regions
   await db.schema.createTable('regions', (table) => {
     table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
@@ -96,6 +112,13 @@ export const up = async (db: Knex) => {
     table.uuid('user_id').notNullable().references('id').inTable('users').onDelete('CASCADE');
     table.uuid('region_id').notNullable().references('id').inTable('regions').onDelete('CASCADE');
     table.primary(['user_id', 'region_id']);
+  });
+
+  // Groups <-> regions many-to-many
+  await db.schema.createTable('regions_groups', (table) => {
+    table.uuid('group_id').notNullable().references('id').inTable('groups').onDelete('CASCADE');
+    table.uuid('region_id').notNullable().references('id').inTable('regions').onDelete('CASCADE');
+    table.primary(['group_id', 'region_id']);
   });
 
   // Points
@@ -314,6 +337,7 @@ export const up = async (db: Knex) => {
   await runSqlFile(db, './src/migrations/initial/points_view.sql');
   await runSqlFile(db, './src/migrations/initial/tags_view.sql');
   await runSqlFile(db, './src/migrations/initial/regions_view.sql');
+  await runSqlFile(db, './src/migrations/initial/groups_view.sql');
   await runSqlFile(db, './src/migrations/initial/sections_view.sql');
   await runSqlFile(db, './src/migrations/initial/upsert_points.sql');
   await runSqlFile(db, './src/migrations/initial/upsert_region.sql');
@@ -345,10 +369,13 @@ export const down = async (db: Knex) => {
   await db.schema.raw('DROP TABLE IF EXISTS sections_media CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS sources CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS sources_translations CASCADE');
+  await db.schema.raw('DROP TABLE IF EXISTS groups CASCADE');
+  await db.schema.raw('DROP TABLE IF EXISTS groups_translations CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS regions CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS regions_translations CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS regions_points CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS regions_editors CASCADE');
+  await db.schema.raw('DROP TABLE IF EXISTS regions_groups CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS points CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS points_translations CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS rivers CASCADE');
@@ -359,6 +386,7 @@ export const down = async (db: Knex) => {
   await db.schema.raw('DROP TABLE IF EXISTS media CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS media_translations CASCADE');
   await db.schema.raw('DROP VIEW IF EXISTS tags_view');
+  await db.schema.raw('DROP VIEW IF EXISTS groups_view');
   await db.schema.raw('DROP VIEW IF EXISTS regions_view');
   await db.schema.raw('DROP VIEW IF EXISTS points_view');
   await db.schema.raw('DROP VIEW IF EXISTS gauges_view');

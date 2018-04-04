@@ -1,8 +1,8 @@
 // tslint:disable-next-line:no-implicit-dependencies
 import { holdTransaction, rollbackTransaction } from '../../../db';
 import db from '../../../db/db';
-import { GAUGE_GAL_1_1, GAUGE_GAL_2_1 } from '../../../seeds/test/05_gauges';
-import { GALICIA_R1_S1 } from '../../../seeds/test/08_sections';
+import { GAUGE_GAL_1_1, GAUGE_GAL_2_1 } from '../../../seeds/test/06_gauges';
+import { GALICIA_R1_S1 } from '../../../seeds/test/09_sections';
 import { runQuery } from '../../../test/db-helpers';
 import { TIMESTAMP_REGEX } from '../../../test/isTimestamp';
 import { cteBuilder } from './lastMeasurements';

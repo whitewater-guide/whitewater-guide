@@ -1,6 +1,6 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
 import { EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '../../../seeds/test/01_users';
-import { GALICIA_R1_S1 } from '../../../seeds/test/08_sections';
+import { GALICIA_R1_S1 } from '../../../seeds/test/09_sections';
 import { anonContext, fakeContext } from '../../../test/context';
 import { countRows } from '../../../test/countRows';
 import { runQuery } from '../../../test/db-helpers';

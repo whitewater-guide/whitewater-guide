@@ -1,8 +1,8 @@
 import set from 'lodash/fp/set';
 import db, { holdTransaction, rollbackTransaction } from '../../../db';
 import { ADMIN, ADMIN_ID, EDITOR_GA_EC, EDITOR_NO_EC, EDITOR_NO_EC_ID, TEST_USER } from '../../../seeds/test/01_users';
-import { RIVER_GAL_1, RIVER_SJOA } from '../../../seeds/test/06_rivers';
-import { GALICIA_R1_S1, NORWAY_SJOA_AMOT } from '../../../seeds/test/08_sections';
+import { RIVER_GAL_1, RIVER_SJOA } from '../../../seeds/test/07_rivers';
+import { GALICIA_R1_S1, NORWAY_SJOA_AMOT } from '../../../seeds/test/09_sections';
 import { anonContext, fakeContext } from '../../../test/context';
 import { countRows } from '../../../test/countRows';
 import { noUnstable, runQuery } from '../../../test/db-helpers';

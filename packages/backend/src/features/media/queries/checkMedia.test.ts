@@ -1,5 +1,5 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
-import { PHOTO_1 } from '../../../seeds/test/10_media';
+import { PHOTO_1 } from '../../../seeds/test/11_media';
 import { UUID_REGEX } from '../../../test/isUUID';
 import { checkMediaId } from './checkMediaId';
 

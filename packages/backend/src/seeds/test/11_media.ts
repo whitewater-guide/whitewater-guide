@@ -2,7 +2,7 @@ import Knex from 'knex';
 import { MediaRaw } from '../../features/media';
 import { MediaKind } from '../../ww-commons';
 import { ADMIN_ID } from './01_users';
-import { GALICIA_R1_S1, NORWAY_SJOA_AMOT } from './08_sections';
+import { GALICIA_R1_S1, NORWAY_SJOA_AMOT } from './09_sections';
 
 export const BLOG_1 = 'a326622c-1ee5-11e8-b467-0ed5f89f718b';
 export const PHOTO_1 = 'a32664ca-1ee5-11e8-b467-0ed5f89f718b';

@@ -5,8 +5,8 @@ import {
   SOURCE_GALICIA_2,
   SOURCE_GEORGIA,
   SOURCE_NORWAY,
-} from '../../seeds/test/04_sources';
-import { GAUGE_GAL_2_1, GAUGE_GEO_3, GAUGE_NOR_1, GAUGE_NOR_3, GAUGE_NOR_4 } from '../../seeds/test/05_gauges';
+} from '../../seeds/test/05_sources';
+import { GAUGE_GAL_2_1, GAUGE_GEO_3, GAUGE_NOR_1, GAUGE_NOR_3, GAUGE_NOR_4 } from '../../seeds/test/06_gauges';
 import safeScheduleJob from './safeScheduleJob';
 import { startJobs } from './startJobs';
 

@@ -1,6 +1,6 @@
 import Knex from 'knex';
 import { ADMIN_ID } from './01_users';
-import { REGION_GALICIA, REGION_NORWAY } from './03_regions';
+import { REGION_GALICIA, REGION_NORWAY } from './04_regions';
 
 export const RIVER_SJOA = 'd4396dac-d528-11e7-9296-cec278b6b50a';
 export const RIVER_FINNA = 'e7a25ab6-d528-11e7-9296-cec278b6b50a';

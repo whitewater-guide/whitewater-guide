@@ -1,6 +1,6 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
 import { EDITOR_NO_EC } from '../../../seeds/test/01_users';
-import { NORWAY_SJOA_AMOT } from '../../../seeds/test/08_sections';
+import { NORWAY_SJOA_AMOT } from '../../../seeds/test/09_sections';
 import { fakeContext } from '../../../test/context';
 import { noTimestamps, runQuery } from '../../../test/db-helpers';
 

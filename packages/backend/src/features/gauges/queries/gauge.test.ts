@@ -1,6 +1,6 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
 import { ADMIN, EDITOR_GA_EC, TEST_USER } from '../../../seeds/test/01_users';
-import { GAUGE_GAL_1_1 } from '../../../seeds/test/05_gauges';
+import { GAUGE_GAL_1_1 } from '../../../seeds/test/06_gauges';
 import { anonContext, fakeContext } from '../../../test/context';
 import { noTimestamps, runQuery } from '../../../test/db-helpers';
 
