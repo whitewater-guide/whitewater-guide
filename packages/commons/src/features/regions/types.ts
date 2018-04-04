@@ -11,6 +11,7 @@ export interface Region extends NamedNode, Timestamped {
   bounds: Array<[number, number, number]> | null;
   hidden: boolean | null;
   premium: boolean;
+  editable: boolean;
   pois: Point[];
   // --- connections
   rivers?: Connection<River>;

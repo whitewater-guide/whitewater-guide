@@ -18,6 +18,9 @@ type Region {
   # Only admins and editors can see this
   hidden: Boolean @admin
   premium: Boolean
+
+  # Indicates that current user can edit this region and everything in it
+  editable: Boolean!
 }
 
 type RegionRiverConnection {

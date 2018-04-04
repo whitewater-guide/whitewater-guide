@@ -2,6 +2,10 @@ import Knex from 'knex';
 import db, { buildListQuery, buildRootQuery, ListQueryBuilderOptions, QueryBuilderOptions } from '../../db';
 import { Region } from '../../ww-commons';
 
+const customFieldMap = {
+  editable: () => null,
+};
+
 const connections = {
   rivers: {
     getBuilder: () => require('../rivers').buildRiverQuery,
@@ -37,6 +41,7 @@ export const buildRegionQuery = (options: Partial<QueryBuilderOptions<Region>>):
   buildRootQuery({
     context: options.context!,
     table: 'regions_view',
+    customFieldMap,
     connections,
     ...options,
   });
@@ -45,6 +50,7 @@ export const buildRegionsListQuery = (options: Partial<ListQueryBuilderOptions<R
   buildListQuery({
     context: options.context!,
     table: 'regions_view',
+    customFieldMap,
     connections,
     ...options,
   });

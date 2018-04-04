@@ -1,5 +1,6 @@
 import { GraphQLResolveInfo } from 'graphql';
 import { baseResolver, Context, NodeQuery } from '../../../apollo';
+import checkEditorPermissions from '../checkEditorPermissions';
 import { buildRegionQuery } from '../queryBuilder';
 import { RegionRaw } from '../types';
 
@@ -11,8 +12,8 @@ const region = baseResolver.createResolver(
     const { user } = context;
     const query = buildRegionQuery({ info, context, ...args });
     const result: RegionRaw | null = await query.first();
-    if (result && result.hidden && !(user && user.admin)) {
-      return null;
+    if (result && result.hidden) {
+      await checkEditorPermissions(user, result.id);
     }
     return result;
   },

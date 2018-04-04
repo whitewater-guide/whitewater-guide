@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should get gauges 1`] = `
+exports[`data should get gauges 1`] = `
 Object {
   "count": 6,
   "nodes": Array [
@@ -32,7 +32,7 @@ Object {
 }
 `;
 
-exports[`should get rivers 1`] = `
+exports[`data should get rivers 1`] = `
 Object {
   "count": 2,
   "nodes": Array [
@@ -48,7 +48,7 @@ Object {
 }
 `;
 
-exports[`should get sections 1`] = `
+exports[`data should get sections 1`] = `
 Object {
   "count": 2,
   "nodes": Array [
@@ -64,7 +64,7 @@ Object {
 }
 `;
 
-exports[`should return region 1`] = `
+exports[`data should return region 1`] = `
 Object {
   "bounds": Array [
     Array [
@@ -89,6 +89,7 @@ Object {
     ],
   ],
   "description": "Description of Galicia",
+  "editable": true,
   "hidden": false,
   "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
   "name": "Galicia",

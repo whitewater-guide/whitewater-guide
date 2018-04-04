@@ -1,10 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`admin should see all regions 1`] = `
+exports[`results admin should get all regions 1`] = `
 Array [
   Object {
     "bounds": null,
     "description": null,
+    "editable": true,
     "hidden": false,
     "id": "2caf75ca-7625-11e7-b5a5-be2e44b06b34",
     "name": "Ecuador",
@@ -49,6 +50,7 @@ Array [
       ],
     ],
     "description": "Description of Galicia",
+    "editable": true,
     "hidden": false,
     "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
     "name": "Galicia",
@@ -107,6 +109,7 @@ Array [
       ],
     ],
     "description": "description of Georgia",
+    "editable": true,
     "hidden": false,
     "id": "8e119768-37f3-11e8-b467-0ed5f89f718b",
     "name": "Georgia",
@@ -142,6 +145,7 @@ Array [
       ],
     ],
     "description": "laos description",
+    "editable": true,
     "hidden": true,
     "id": "a84d7eda-37f3-11e8-b467-0ed5f89f718b",
     "name": "Laos",
@@ -158,6 +162,7 @@ Array [
   Object {
     "bounds": null,
     "description": null,
+    "editable": true,
     "hidden": true,
     "id": "b968e2b2-76c5-11e7-b5a5-be2e44b06b34",
     "name": "Norway",

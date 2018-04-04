@@ -10,4 +10,5 @@ export interface RegionRaw extends NamedNode, RawTimestamped {
   hidden: boolean | null;
   pois: PointRaw[] | null;
   count: number | null; // window function count
+  editable?: boolean; // computed column, not necessary present in db response
 }

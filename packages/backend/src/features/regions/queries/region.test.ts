@@ -1,7 +1,7 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
-import { ADMIN, EDITOR_NO_EC } from '../../../seeds/test/01_users';
-import { REGION_GALICIA } from '../../../seeds/test/04_regions';
-import { fakeContext } from '../../../test/context';
+import { ADMIN, EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '../../../seeds/test/01_users';
+import { REGION_GALICIA, REGION_NORWAY } from '../../../seeds/test/04_regions';
+import { anonContext, fakeContext } from '../../../test/context';
 import { noTimestamps, runQuery } from '../../../test/db-helpers';
 
 beforeEach(holdTransaction);
@@ -17,6 +17,7 @@ const query = `
       seasonNumeric
       bounds
       hidden
+      editable
       createdAt
       updatedAt
       pois {
@@ -30,46 +31,50 @@ const query = `
   }
 `;
 
-it('should return region', async () => {
-  const result = await runQuery(query, { id: REGION_GALICIA }, fakeContext(ADMIN));
-  expect(result.errors).toBeUndefined();
-  expect(result.data).toBeDefined();
-  expect(result.data!.region).toBeDefined();
-  const region = result.data!.region;
-  expect(region.hidden).not.toBeNull();
-  expect(noTimestamps(region)).toMatchSnapshot();
+describe('permissions', () => {
+  it('anons should not see hidden region', async () => {
+    const result = await runQuery(query, { id: REGION_NORWAY }, anonContext());
+    expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
+    expect(result).toHaveProperty('data.region', null);
+  });
+
+  it('users should not see hidden region', async () => {
+    const result = await runQuery(query, { id: REGION_NORWAY }, fakeContext(TEST_USER));
+    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
+    expect(result).toHaveProperty('data.region', null);
+  });
+
+  it('editors should not see hidden non-editable region', async () => {
+    const result = await runQuery(query, { id: REGION_NORWAY }, fakeContext(EDITOR_GA_EC));
+    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
+    expect(result).toHaveProperty('data.region', null);
+  });
+
+  it('editors should see hidden editable region', async () => {
+    const result = await runQuery(query, { id: REGION_NORWAY }, fakeContext(EDITOR_NO_EC));
+    expect(result.errors).toBeUndefined();
+    expect(result).toHaveProperty('data.region.editable', true);
+  });
 });
 
-it('should return null when id not specified', async () => {
-  const result = await runQuery(query, {}, fakeContext(ADMIN));
-  expect(result.errors).toBeUndefined();
-  expect(result.data).toBeDefined();
-  expect(result.data!.region).toBeNull();
-});
+describe('data', () => {
+  it('should return null when id not specified', async () => {
+    const result = await runQuery(query, {}, fakeContext(ADMIN));
+    expect(result.errors).toBeUndefined();
+    expect(result.data).toBeDefined();
+    expect(result.data!.region).toBeNull();
+  });
 
-it('users should not see hidden region', async () => {
-  const result = await runQuery(query, { id: 'b968e2b2-76c5-11e7-b5a5-be2e44b06b34' }, fakeContext(EDITOR_NO_EC));
-  expect(result.errors).toBeUndefined();
-  expect(result).toHaveProperty('data.region', null);
-});
+  it('should return region', async () => {
+    const result = await runQuery(query, { id: REGION_GALICIA }, fakeContext(ADMIN));
+    expect(result.errors).toBeUndefined();
+    const region = result.data!.region;
+    expect(region.hidden).not.toBeNull();
+    expect(noTimestamps(region)).toMatchSnapshot();
+  });
 
-it('should be able to specify language', async () => {
-  const result = await runQuery(query, { id: REGION_GALICIA }, fakeContext(EDITOR_NO_EC, 'ru'));
-  expect(result.data!.region.name).toBe('Галисия');
-});
-
-it('should fall back to english when not translated', async () => {
-  const result = await runQuery(query, { id: REGION_GALICIA }, fakeContext(EDITOR_NO_EC, 'pt'));
-  expect(result.data!.region.name).toBe('Galicia');
-});
-
-it('should be able to get basic attributes without translation', async () => {
-  const result = await runQuery(query, { id: REGION_GALICIA }, fakeContext(EDITOR_NO_EC, 'pt'));
-  expect(result.data!.region.seasonNumeric).toEqual([20, 21]);
-});
-
-it('should get rivers', async () => {
-  const riversQuery = `
+  it('should get rivers', async () => {
+    const riversQuery = `
     query regionDetails($id: ID){
       region(id: $id) {
         id
@@ -84,12 +89,12 @@ it('should get rivers', async () => {
       }
     }
   `;
-  const result = await runQuery(riversQuery, { id: REGION_GALICIA }, fakeContext(EDITOR_NO_EC));
-  expect(result.data!.region.rivers).toMatchSnapshot();
-});
+    const result = await runQuery(riversQuery, { id: REGION_GALICIA }, fakeContext(EDITOR_NO_EC));
+    expect(result.data!.region.rivers).toMatchSnapshot();
+  });
 
-it('should get gauges', async () => {
-  const gaugesQuery = `
+  it('should get gauges', async () => {
+    const gaugesQuery = `
     query regionDetails($id: ID){
       region(id: $id) {
         id
@@ -104,14 +109,14 @@ it('should get gauges', async () => {
       }
     }
   `;
-  // Norway
-  const result = await runQuery(gaugesQuery, { id: 'b968e2b2-76c5-11e7-b5a5-be2e44b06b34' }, fakeContext(EDITOR_NO_EC));
-  expect(result.data!.region.gauges.count).toEqual(6);
-  expect(result.data!.region.gauges).toMatchSnapshot();
-});
+    // Norway
+    const result = await runQuery(gaugesQuery, { id: 'b968e2b2-76c5-11e7-b5a5-be2e44b06b34' }, fakeContext(EDITOR_NO_EC));
+    expect(result.data!.region.gauges.count).toEqual(6);
+    expect(result.data!.region.gauges).toMatchSnapshot();
+  });
 
-it('should get sections', async () => {
-  const sectionsQuery = `
+  it('should get sections', async () => {
+    const sectionsQuery = `
     query regionDetails($id: ID){
       region(id: $id) {
         id
@@ -126,8 +131,26 @@ it('should get sections', async () => {
       }
     }
   `;
-  // No pagination yet
-  const result = await runQuery(sectionsQuery, { id: REGION_GALICIA }, fakeContext(EDITOR_NO_EC));
-  expect(result.data!.region.sections.count).toEqual(2);
-  expect(result.data!.region.sections).toMatchSnapshot();
+    // No pagination yet
+    const result = await runQuery(sectionsQuery, { id: REGION_GALICIA }, fakeContext(EDITOR_NO_EC));
+    expect(result.data!.region.sections.count).toEqual(2);
+    expect(result.data!.region.sections).toMatchSnapshot();
+  });
+});
+
+describe('i18n', () => {
+  it('should be able to specify language', async () => {
+    const result = await runQuery(query, { id: REGION_GALICIA }, fakeContext(EDITOR_NO_EC, 'ru'));
+    expect(result.data!.region.name).toBe('Галисия');
+  });
+
+  it('should fall back to english when not translated', async () => {
+    const result = await runQuery(query, { id: REGION_GALICIA }, fakeContext(EDITOR_NO_EC, 'pt'));
+    expect(result.data!.region.name).toBe('Galicia');
+  });
+
+  it('should be able to get basic attributes without translation', async () => {
+    const result = await runQuery(query, { id: REGION_GALICIA }, fakeContext(EDITOR_NO_EC, 'pt'));
+    expect(result.data!.region.seasonNumeric).toEqual([20, 21]);
+  });
 });
