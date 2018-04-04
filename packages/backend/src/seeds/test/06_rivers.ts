@@ -1,44 +1,49 @@
 import Knex from 'knex';
 import { REGION_GALICIA, REGION_NORWAY } from './03_regions';
 
+export const RIVER_SJOA = 'd4396dac-d528-11e7-9296-cec278b6b50a';
+export const RIVER_FINNA = 'e7a25ab6-d528-11e7-9296-cec278b6b50a';
+export const RIVER_GAL_1 = 'a8416664-bfe3-11e7-abc4-cec278b6b50a';
+export const RIVER_GAL_2 = 'd69dbabc-bfe3-11e7-abc4-cec278b6b50a';
+
 const rivers = [
   {
-    id: 'a8416664-bfe3-11e7-abc4-cec278b6b50a',
+    id: RIVER_GAL_1,
     region_id: REGION_GALICIA,
   },
   {
-    id: 'd69dbabc-bfe3-11e7-abc4-cec278b6b50a',
+    id: RIVER_GAL_2,
     region_id: REGION_GALICIA,
   },
   {
-    id: 'd4396dac-d528-11e7-9296-cec278b6b50a', // Sjoa
+    id: RIVER_SJOA,
     region_id: REGION_NORWAY,
   },
   {
-    id: 'e7a25ab6-d528-11e7-9296-cec278b6b50a', // Finna
-    region_id: REGION_NORWAY, // Norway
+    id: RIVER_FINNA,
+    region_id: REGION_NORWAY,
   },
 ];
 
 const riversEn = [
   {
-    river_id: 'a8416664-bfe3-11e7-abc4-cec278b6b50a',
+    river_id: RIVER_GAL_1,
     language: 'en',
     name: 'Gal_Riv_One',
   },
   {
-    river_id: 'd69dbabc-bfe3-11e7-abc4-cec278b6b50a',
+    river_id: RIVER_GAL_2,
     language: 'en',
     name: 'Gal_riv_two',
   },
   {
-    river_id: 'd4396dac-d528-11e7-9296-cec278b6b50a',
+    river_id: RIVER_SJOA,
     language: 'en',
     name: 'Sjoa',
     alt_names: ['Shoa', 'Sjøa'],
   },
   {
-    river_id: 'e7a25ab6-d528-11e7-9296-cec278b6b50a',
+    river_id: RIVER_FINNA,
     language: 'en',
     name: 'Finna',
   },
@@ -46,12 +51,12 @@ const riversEn = [
 
 const riversRu = [
   {
-    river_id: 'a8416664-bfe3-11e7-abc4-cec278b6b50a',
+    river_id: RIVER_GAL_1,
     language: 'ru',
     name: 'Гал_Река_Один',
   },
   {
-    river_id: 'd4396dac-d528-11e7-9296-cec278b6b50a',
+    river_id: RIVER_SJOA,
     language: 'ru',
     name: 'Шоа',
   },

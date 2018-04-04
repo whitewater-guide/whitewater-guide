@@ -1,27 +1,22 @@
 import set from 'lodash/fp/set';
 import db, { holdTransaction, rollbackTransaction } from '../../../db';
-import { EDITOR_GA_EC, EDITOR_NO_EC } from '../../../seeds/test/01_users';
+import { ADMIN, EDITOR_GA_EC, EDITOR_NO_EC, EDITOR_NO_EC_ID, TEST_USER } from '../../../seeds/test/01_users';
+import { RIVER_GAL_1, RIVER_SJOA } from '../../../seeds/test/06_rivers';
+import { GALICIA_R1_S1, NORWAY_SJOA_AMOT } from '../../../seeds/test/08_sections';
 import { anonContext, fakeContext } from '../../../test/context';
+import { countRows } from '../../../test/countRows';
 import { noUnstable, runQuery } from '../../../test/db-helpers';
 import { Duration, SectionInput } from '../../../ww-commons';
 
-let sectionsPointsBefore: number;
-let pointsBefore: number;
-let riversBefore: number;
-let sectionsBefore: number;
-let tagsBefore: number;
+let spBefore: number;
+let pBefore: number;
+let rBefore: number;
+let sBefore: number;
+let tBefore: number;
 
 beforeAll(async () => {
-  const rp = await db(true).table('sections_points').count().first();
-  sectionsPointsBefore = Number(rp.count);
-  const points = await db(true).table('points').count().first();
-  pointsBefore = Number(points.count);
-  const rivers = await db(true).table('rivers').count().first();
-  riversBefore = Number(rivers.count);
-  const sections = await db(true).table('sections').count().first();
-  sectionsBefore = Number(sections.count);
-  const tags = await db(true).table('sections_tags').count().first();
-  tagsBefore = Number(tags.count);
+  [spBefore, pBefore, rBefore, sBefore, tBefore] =
+    await countRows(true, 'sections_points', 'points', 'rivers', 'sections', 'sections_tags');
 });
 
 beforeEach(holdTransaction);
@@ -102,7 +97,7 @@ const existingRiverSection: SectionInput = {
   season: 'Playrun season',
   seasonNumeric: [1, 2, 3],
   river: {
-    id: 'd4396dac-d528-11e7-9296-cec278b6b50a',
+    id: RIVER_SJOA,
   },
   gauge: {
     id: 'c03184b4-aaa0-11e7-abc4-cec278b6b50a',
@@ -133,9 +128,9 @@ const existingRiverSection: SectionInput = {
 
 const updateData: SectionInput = {
   ...existingRiverSection,
-  id: '2b01742c-d443-11e7-9296-cec278b6b50a', // galician river 1 section 1
+  id: GALICIA_R1_S1, // galician river 1 section 1
   river: {
-    id: 'a8416664-bfe3-11e7-abc4-cec278b6b50a',
+    id: RIVER_GAL_1,
   },
   gauge: {
     id: 'aba8c106-aaa0-11e7-abc4-cec278b6b50a', // Galicia gauge 1
@@ -177,7 +172,7 @@ const invalidSection: SectionInput = {
   season: null,
   seasonNumeric: [300, 2, 3],
   river: {
-    id: 'd4396dac-d528-11e7-9296-cec278b6b50a',
+    id: RIVER_SJOA,
   },
   gauge: null,
   levels: null,
@@ -203,13 +198,19 @@ describe('resolvers chain', () => {
   });
 
   it('user should not pass', async () => {
-    const result = await runQuery(upsertQuery, { section: existingRiverSection }, fakeContext(EDITOR_NO_EC));
+    const result = await runQuery(upsertQuery, { section: existingRiverSection }, fakeContext(TEST_USER));
+    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
+    expect(result).toHaveProperty('data.upsertSection', null);
+  });
+
+  it('non-owning editor should not pass', async () => {
+    const result = await runQuery(upsertQuery, { section: existingRiverSection }, fakeContext(EDITOR_GA_EC));
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.upsertSection', null);
   });
 
   it('should fail on invalid input', async () => {
-    const result = await runQuery(upsertQuery, { section: invalidSection }, fakeContext(EDITOR_GA_EC));
+    const result = await runQuery(upsertQuery, { section: invalidSection }, fakeContext(ADMIN));
     expect(result).toHaveProperty('errors.0.name', 'ValidationError');
     expect(result.data).toBeDefined();
     expect(result.data!.upsertSection).toBeNull();
@@ -222,7 +223,7 @@ describe('insert', () => {
   let insertedSection: any;
 
   beforeEach(async () => {
-    insertResult = await runQuery(upsertQuery, { section: existingRiverSection }, fakeContext(EDITOR_GA_EC));
+    insertResult = await runQuery(upsertQuery, { section: existingRiverSection }, fakeContext(EDITOR_NO_EC));
     insertedSection = insertResult && insertResult.data && insertResult.data.upsertSection;
   });
 
@@ -236,31 +237,29 @@ describe('insert', () => {
     expect(noUnstable(insertResult)).toMatchSnapshot();
   });
 
-  it('should increase total number of sections', async () => {
-    const sections = await db().table('sections').count().first();
-    expect(Number(sections.count) - sectionsBefore).toBe(1);
+  it('should insert into tables', async () => {
+    const [sections] = await countRows(false, 'sections');
+    expect(sections - sBefore).toBe(1);
   });
 
   it('should not change total number of rivers', async () => {
-    const rivers = await db().table('rivers').count().first();
-    expect(Number(rivers.count) - riversBefore).toBe(0);
+    const [rivers] = await countRows(false, 'rivers');
+    expect(rivers - rBefore).toBe(0);
   });
 
   it('should insert pois', async () => {
-    const rp = await db().table('sections_points').count().first();
-    expect(Number(rp.count) - sectionsPointsBefore).toBe(2);
-    const points = await db().table('points').count().first();
-    expect(Number(points.count) - pointsBefore).toBe(2);
+    const [spAfter, pAfter] = await countRows(false, 'sections_points', 'points');
+    expect([spAfter - spBefore, pAfter - pBefore]).toEqual([2, 2]);
   });
 
   it('should insert tags', async () => {
-    const tags = await db().table('sections_tags').count().first();
-    expect(Number(tags.count) - tagsBefore).toBe(2);
+    const [tags] = await countRows(false, 'sections_tags');
+    expect(tags - tBefore).toBe(2);
   });
 
   it('should correctly set created_by', async () => {
     const { created_by } = await db().table('sections').select(['created_by']).where({ id: insertedSection.id }).first();
-    expect(created_by).toBe(fakeContext(EDITOR_GA_EC).user!.id);
+    expect(created_by).toBe(EDITOR_NO_EC_ID);
   });
 });
 
@@ -293,13 +292,13 @@ describe('update', () => {
   });
 
   it('should not change total number of sections', async () => {
-    const sections = await db().table('sections').count().first();
-    expect(Number(sections.count) - sectionsBefore).toBe(0);
+    const [sections] = await countRows(false, 'sections');
+    expect(sections - sBefore).toBe(0);
   });
 
   it('should not change total number of rivers', async () => {
-    const rivers = await db().table('rivers').count().first();
-    expect(Number(rivers.count) - riversBefore).toBe(0);
+    const [rivers] = await countRows(false, 'rivers');
+    expect(rivers - rBefore).toBe(0);
   });
 
   it('should increase updated_at timestamp', () => {
@@ -308,10 +307,8 @@ describe('update', () => {
   });
 
   it('should change the number of pois', async () => {
-    const sp = await db().table('sections_points').count().first();
-    expect(Number(sp.count) - sectionsPointsBefore).toBe(1);
-    const points = await db().table('points').count().first();
-    expect(Number(points.count) - pointsBefore).toBe(1);
+    const [spAfter, pAfter] = await countRows(false, 'sections_points', 'points');
+    expect([spAfter - spBefore, pAfter - pBefore]).toEqual([1, 1]);
   });
 
   it('should delete POI', async () => {
@@ -335,19 +332,19 @@ describe('update', () => {
   });
 
   it('should change number of tags', async () => {
-    const tags = await db().table('sections_tags').count().first();
-    expect(Number(tags.count) - tagsBefore).toBe(1);
+    const [tags] = await countRows(false, 'sections_tags');
+    expect(tags - tBefore).toBe(1);
   });
 });
 
 describe('i18n', () => {
   const amotFr: SectionInput = {
-    id: '21f2351e-d52a-11e7-9296-cec278b6b50a',
+    id: NORWAY_SJOA_AMOT,
     name: 'Amot FR',
     altNames: ['Le Amot'],
     river: {
-      id: 'd4396dac-d528-11e7-9296-cec278b6b50a',
-    }, // Sjoa
+      id: RIVER_SJOA,
+    },
     seasonNumeric: [10, 11, 12, 13, 14, 15, 16],
     shape: [[1, 1, 0], [2, 2, 0]],
     distance: 3.2,
@@ -367,7 +364,7 @@ describe('i18n', () => {
   };
 
   it('should add translation', async () => {
-    const upsertResult = await runQuery(upsertQuery, { section: amotFr }, fakeContext(EDITOR_GA_EC, 'fr'));
+    const upsertResult = await runQuery(upsertQuery, { section: amotFr }, fakeContext(EDITOR_NO_EC, 'fr'));
     expect(upsertResult.errors).toBeUndefined();
     const translation = await db().table('sections_translations').select()
       .where({ section_id: amotFr.id, language: 'fr' }).first();
@@ -375,7 +372,7 @@ describe('i18n', () => {
   });
 
   it('should modify common props when translation is added', async () => {
-    const upsertResult = await runQuery(upsertQuery, { section: amotFr }, fakeContext(EDITOR_GA_EC, 'fr'));
+    const upsertResult = await runQuery(upsertQuery, { section: amotFr }, fakeContext(EDITOR_NO_EC, 'fr'));
     expect(upsertResult.errors).toBeUndefined();
     const section = await db().table('sections').select()
       .where({ id: amotFr.id }).first();
@@ -383,7 +380,7 @@ describe('i18n', () => {
   });
 
   it('should modify translation', async () => {
-    const upsertResult = await runQuery(upsertQuery, { section: amotFr }, fakeContext(EDITOR_GA_EC, 'ru'));
+    const upsertResult = await runQuery(upsertQuery, { section: amotFr }, fakeContext(EDITOR_NO_EC, 'ru'));
     expect(upsertResult.errors).toBeUndefined();
     const translation = await db().table('sections_translations').select()
       .where({ section_id: amotFr.id, language: 'ru' }).first();
@@ -419,7 +416,7 @@ describe('i18n', () => {
 it('should sanitize input', async () => {
   let dirty = { ...existingRiverSection, name: "it's a \\ slash" };
   dirty = set('pois.0.name', "it's a \\ slash", dirty);
-  const result = await runQuery(upsertQuery, { section: dirty }, fakeContext(EDITOR_GA_EC));
+  const result = await runQuery(upsertQuery, { section: dirty }, fakeContext(ADMIN));
   expect(result).toHaveProperty('data.upsertSection.name', "it's a \\ slash");
   expect(result).toHaveProperty('data.upsertSection.pois.0.name', "it's a \\ slash");
 });

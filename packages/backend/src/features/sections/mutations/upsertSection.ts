@@ -3,6 +3,7 @@ import Joi from 'joi';
 import { baseResolver, Context, isInputValidResolver } from '../../../apollo';
 import db, { rawUpsert, stringifyJSON } from '../../../db';
 import { SectionInput, SectionInputSchema } from '../../../ww-commons';
+import checkEditorPermissions from '../checkEditorPermissions';
 
 interface Vars {
   section: SectionInput;
@@ -14,15 +15,10 @@ const Schema = Joi.object().keys({
 
 const resolver: GraphQLFieldResolver<any, Context> = async (root, vars: Vars, { user, language }) => {
   const section = { ...vars.section, createdBy: user!.id };
-  const result = await rawUpsert(db(), `SELECT upsert_section('${stringifyJSON(section)}', '${language}')`);
-  // console.log(result);
-  return result;
+  await checkEditorPermissions(user, section.id, section.river.id);
+  return rawUpsert(db(), `SELECT upsert_section('${stringifyJSON(section)}', '${language}')`);
 };
 
-const queryResolver = isInputValidResolver(Schema).createResolver(resolver);
-
-const upsertSection = baseResolver.createResolver(
-  queryResolver,
-);
+const upsertSection = isInputValidResolver(Schema).createResolver(resolver);
 
 export default upsertSection;

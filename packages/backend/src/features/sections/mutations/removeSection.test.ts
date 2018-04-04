@@ -1,22 +1,18 @@
-import db, { holdTransaction, rollbackTransaction } from '../../../db';
-import { EDITOR_GA_EC, EDITOR_NO_EC } from '../../../seeds/test/01_users';
+import { holdTransaction, rollbackTransaction } from '../../../db';
+import { EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '../../../seeds/test/01_users';
+import { GALICIA_R1_S1 } from '../../../seeds/test/08_sections';
 import { anonContext, fakeContext } from '../../../test/context';
+import { countRows } from '../../../test/countRows';
 import { runQuery } from '../../../test/db-helpers';
 
-let sectionsBefore: number;
-let pointsBefore: number;
-let sectionPointsBefore: number;
-let translationsBefore: number;
+let sBefore: number;
+let pBefore: number;
+let spBefore: number;
+let tBefore: number;
 
 beforeAll(async () => {
-  const sections = await db(true).table('sections').count().first();
-  sectionsBefore = Number(sections.count);
-  const translations = await db(true).table('sections_translations').count().first();
-  translationsBefore = Number(translations.count);
-  const points = await db(true).table('points').count().first();
-  pointsBefore = Number(points.count);
-  const sectionsPoints = await db(true).table('sections_points').count().first();
-  sectionPointsBefore = Number(sectionsPoints.count);
+  [sBefore, tBefore, pBefore, spBefore] =
+    await countRows(true, 'sections', 'sections_translations', 'points', 'sections_points');
 });
 
 beforeEach(holdTransaction);
@@ -28,7 +24,7 @@ const query = `
   }
 `;
 
-const id = '2b01742c-d443-11e7-9296-cec278b6b50a'; // Galicia River 1 Section 1
+const id = GALICIA_R1_S1; // Galicia River 1 Section 1
 
 describe('resolvers chain', () => {
   it('anon should not pass', async () => {
@@ -38,6 +34,12 @@ describe('resolvers chain', () => {
   });
 
   it('user should not pass', async () => {
+    const result = await runQuery(query, { id }, fakeContext(TEST_USER));
+    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
+    expect(result).toHaveProperty('data.removeSection', null);
+  });
+
+  it('non-owning editor should not pass', async () => {
     const result = await runQuery(query, { id }, fakeContext(EDITOR_NO_EC));
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.removeSection', null);
@@ -61,20 +63,18 @@ describe('effects', () => {
   });
 
   it('should remove section and translation', async () => {
-    const sections = await db().table('sections').count().first();
-    const translations = await db().table('sections_translations').count().first();
+    const [sections, translations] = await countRows(false, 'sections', 'sections_translations');
     expect([
-      sectionsBefore - Number(sections.count),
-      translationsBefore - Number(translations.count),
+      sBefore - sections,
+      tBefore - translations,
     ]).toEqual([1, 2]);
   });
 
   it('should remove points', async () => {
-    const points = await db().table('points').count().first();
-    const sectionsPoints = await db().table('sections_points').count().first();
+    const [pAfter, spAfter] = await countRows(false, 'points', 'sections_points');
     expect([
-      pointsBefore - Number(points.count),
-      sectionPointsBefore - Number(sectionsPoints.count),
+      pBefore - pAfter,
+      spBefore - spAfter,
     ]).toEqual([2, 2]);
   });
 

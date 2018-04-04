@@ -93,6 +93,6 @@ type Query {
 }
 
 type Mutation {
-  upsertSection(section: SectionInput!): Section @auth(requires: EDITOR)
-  removeSection(id: ID!): ID @auth(requires: EDITOR)
+  upsertSection(section: SectionInput!): Section
+  removeSection(id: ID!): ID
 }
