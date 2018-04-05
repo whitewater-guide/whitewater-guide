@@ -5,7 +5,7 @@ import ReactMarkdown from 'react-markdown';
 import { Route, RouteComponentProps, Switch } from 'react-router-dom';
 import { Content, Tabs } from '../../../components';
 import { EditorLanguagePicker } from '../../../components/language';
-import { AdminFooter, CardHeader } from '../../../layout';
+import { CardHeader, EditorFooter } from '../../../layout';
 import { WithSource } from '../../../ww-clients/features/sources';
 import { GaugesList, GaugesRoute } from '../../gauges';
 import AutofillButton from './AutofillButton';
@@ -52,16 +52,16 @@ export class SourceDetails extends React.PureComponent<WithSource & RouteCompone
             <Switch>
 
               <Route exact path={`${match.path}/gauges`}>
-                <AdminFooter add>
+                <EditorFooter add>
                   <AutofillButton sourceId={sourceId} secondary label="Autofill" />
                   <GenerateScheduleButton sourceId={sourceId} secondary label="Generate schedule" />
                   <ToggleAllGaugesButton sourceId={sourceId} label="Enable All" enabled />
                   <ToggleAllGaugesButton sourceId={sourceId} label="Disable All" enabled={false} />
-                </AdminFooter>
+                </EditorFooter>
               </Route>
 
               <Route>
-                <AdminFooter edit/>
+                <EditorFooter edit/>
               </Route>
 
             </Switch>

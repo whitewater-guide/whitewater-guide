@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Index, TableCellProps, TableProps as VTableProps } from 'react-virtualized';
 import { NamedNode, ResourceType } from '../../ww-commons';
 import { DeleteButton } from '../DeleteButton';
-import { AdminColumn } from './AdminColumn';
+import { EditorColumn } from './EditorColumn';
 import { RawTable } from './RawTable';
 
 export type TableProps<TResource extends NamedNode> =
@@ -29,7 +29,7 @@ export class Table<DeleteHandle extends string, TResource extends NamedNode>
 
   stopPropagation = (event: React.SyntheticEvent<any>) => event.stopPropagation();
 
-  renderAdminActions = (props: TableCellProps) => {
+  renderEditorActions = (props: TableCellProps) => {
     const { customSettingsLink, resourceType, renderExtraAdminActions } = this.props;
     const id = props.rowData.id;
     const settings = customSettingsLink ? customSettingsLink(props.rowData) : `/${resourceType}s/${id}/settings`;
@@ -57,12 +57,12 @@ export class Table<DeleteHandle extends string, TResource extends NamedNode>
         onRowClick={this.onRowClick}
       >
         {children}
-        <AdminColumn
+        <EditorColumn
           width={adminColumnWidth}
           flexGrow={adminColumnGrow}
           label="Actions"
           dataKey="actions"
-          cellRenderer={this.renderAdminActions}
+          cellRenderer={this.renderEditorActions}
         />
       </RawTable>
     );

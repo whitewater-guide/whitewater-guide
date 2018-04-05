@@ -5,15 +5,19 @@ import { AutoSizer, Dimensions } from 'react-virtualized';
 import { Content, Table, TableProps } from '../../components';
 import { EditorLanguagePicker } from '../../components/language';
 import { NamedNode } from '../../ww-commons';
-import { AdminFooter } from '../AdminFooter';
 import { CardHeader } from '../CardHeader';
+import { EditorFooter, EditorFooterProps } from '../EditorFooter';
 
 type OuterProps<TResource extends NamedNode> = TableProps<TResource>;
 
 type InnerProps<TResource extends NamedNode> = OuterProps<TResource>;
 
+interface OwnProps {
+  footerProps?: EditorFooterProps;
+}
+
 export class ResourcesListCard<DeleteHandle extends string, TResource extends NamedNode> extends
-  React.PureComponent<InnerProps<TResource>> {
+  React.PureComponent<InnerProps<TResource> & OwnProps> {
 
   table = ({ width, height }: Dimensions) => {
     const CustomTable = Table as new () => Table<DeleteHandle, TResource>;
@@ -29,7 +33,7 @@ export class ResourcesListCard<DeleteHandle extends string, TResource extends Na
   };
 
   render() {
-    const { resourceType, list } = this.props;
+    const { resourceType, list, footerProps } = this.props;
     return (
       <Content card>
         <CardHeader title={`${upperFirst(resourceType)}s list`}>
@@ -40,7 +44,7 @@ export class ResourcesListCard<DeleteHandle extends string, TResource extends Na
             {this.table}
           </AutoSizer>
         </CardMedia>
-        <AdminFooter add />
+        <EditorFooter add {...footerProps} />
       </Content>
     );
   }

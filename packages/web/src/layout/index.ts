@@ -1,4 +1,4 @@
-export * from './AdminFooter';
+export * from './EditorFooter';
 export * from './CardHeader';
 export * from './list';
 export * from './PrivateRoute';

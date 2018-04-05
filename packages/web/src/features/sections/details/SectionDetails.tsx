@@ -5,7 +5,7 @@ import ReactMarkdown from 'react-markdown';
 import { RouteComponentProps } from 'react-router-dom';
 import { Content, Tabs } from '../../../components';
 import { EditorLanguagePicker } from '../../../components/language';
-import { AdminFooter, CardHeader } from '../../../layout';
+import { CardHeader, EditorFooter } from '../../../layout';
 import { WithSection } from '../../../ww-clients/features/sections';
 import { SectionMedia } from '../../media';
 import SectionInfo from './SectionInfo';
@@ -45,7 +45,7 @@ export default class SectionDetails extends React.PureComponent<WithSection & Ro
             </Tabs>
           </div>
         </CardMedia>
-        <AdminFooter edit />
+        <EditorFooter edit />
       </Content>
     );
   }

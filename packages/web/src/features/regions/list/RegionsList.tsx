@@ -3,9 +3,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Column, TableCellRenderer } from 'react-virtualized';
 import { AdminColumn, renderBoolean } from '../../../components/tables';
-import { ResourcesListCard } from '../../../layout';
+import { EditorFooterProps, ResourcesListCard } from '../../../layout';
+import { AdminOnly } from '../../../ww-clients/features/users';
 import { Region } from '../../../ww-commons';
 import { RegionsListProps } from './types';
+
+const FooterProps: EditorFooterProps = { adminOnly: true };
 
 export class RegionsList extends React.PureComponent<RegionsListProps> {
 
@@ -15,9 +18,11 @@ export class RegionsList extends React.PureComponent<RegionsListProps> {
   renderCount: TableCellRenderer = ({ cellData: { count } }) => count;
 
   renderExtraAdmin = ({ id }: Region) => (
-    <Link to={`/regions/${id}/admin`}>
-      <FontIcon className="material-icons">settings</FontIcon>
-    </Link>
+    <AdminOnly>
+      <Link to={`/regions/${id}/admin`}>
+        <FontIcon className="material-icons">settings</FontIcon>
+      </Link>
+    </AdminOnly>
   );
 
   onRegionClick = (id: string) => this.props.history.push(`/regions/${id}`);
@@ -31,6 +36,7 @@ export class RegionsList extends React.PureComponent<RegionsListProps> {
         deleteHandle={this.props.removeRegion}
         renderExtraAdminActions={this.renderExtraAdmin}
         adminColumnWidth={120}
+        footerProps={FooterProps}
       >
         <Column width={200} flexGrow={1} label="Name" dataKey="name" />
         <Column width={100} label="Gauges" dataKey="gauges" cellRenderer={this.renderCount} />

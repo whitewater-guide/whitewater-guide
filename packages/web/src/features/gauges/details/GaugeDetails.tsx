@@ -4,7 +4,7 @@ import React from 'react';
 import { Col } from 'react-grid-system';
 import { Content, HarvestStatusIndicator } from '../../../components';
 import Chart from '../../../components/chart';
-import { AdminFooter, CardHeader } from '../../../layout';
+import { CardHeader, EditorFooter } from '../../../layout';
 import { Container, Row, Title } from '../../../layout/details';
 import { Styles } from '../../../styles';
 import { arrayToDMSString } from '../../../ww-clients/utils';
@@ -124,7 +124,7 @@ class GaugeDetails extends React.PureComponent<GaugeDetailsProps> {
             </div>
           </div>
         </CardMedia>
-        <AdminFooter edit/>
+        <EditorFooter edit/>
       </Content>
     );
   }

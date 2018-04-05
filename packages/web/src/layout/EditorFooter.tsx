@@ -2,9 +2,12 @@ import { CardActions } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { EditorOnly } from '../components/EditorOnly';
 import { AdminOnly } from '../ww-clients/features/users';
 
-interface OuterProps {
+export interface EditorFooterProps {
+  // Not editors, admins only
+  adminOnly?: boolean;
   // Should have 'Add new' button? If string, then it's custom href for add button
   add?: string | boolean;
   // Should have 'Edit' button? If string, then it's custom href for settings
@@ -13,17 +16,18 @@ interface OuterProps {
   administrate?: string | boolean;
 }
 
-type InnerProps = OuterProps & RouteComponentProps<any>;
+type InnerProps = EditorFooterProps & RouteComponentProps<any>;
 
-const AdminFooterInternal: React.StatelessComponent<InnerProps> = (props) => {
-  const { add, edit, administrate, location: { pathname }, history, children } = props;
+const EditorFooterInternal: React.StatelessComponent<InnerProps> = (props) => {
+  const { adminOnly, add, edit, administrate, location: { pathname }, history, children } = props;
   const addHref = history.createHref({ pathname: typeof add === 'string' ? add : `${pathname}/new` });
   const editHref = history.createHref({ pathname: typeof edit === 'string' ? edit : `${pathname}/settings` });
   const adminHref = history.createHref({
     pathname: typeof administrate === 'string' ? administrate : `${pathname}/admin`,
   });
+  const Guard = adminOnly ? AdminOnly : EditorOnly;
   return (
-    <AdminOnly>
+    <Guard>
       <CardActions>
         {
           add &&
@@ -35,12 +39,16 @@ const AdminFooterInternal: React.StatelessComponent<InnerProps> = (props) => {
         }
         {
           administrate &&
-          <FlatButton label="Administrate" href={adminHref} />
+          (
+            <AdminOnly>
+            <FlatButton label="Administrate" href={adminHref} />
+            </AdminOnly>
+          )
         }
         {children}
       </CardActions>
-    </AdminOnly>
+    </Guard>
   );
 };
 
-export const AdminFooter: React.ComponentType<OuterProps> = withRouter(AdminFooterInternal);
+export const EditorFooter: React.ComponentType<EditorFooterProps> = withRouter(EditorFooterInternal);

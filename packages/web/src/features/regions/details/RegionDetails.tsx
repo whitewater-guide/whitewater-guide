@@ -4,7 +4,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Content, Tabs } from '../../../components';
 import { EditorLanguagePicker } from '../../../components/language';
-import { AdminFooter, CardHeader } from '../../../layout/';
+import { CardHeader, EditorFooter } from '../../../layout/';
 import { RiversList, RiversRoute } from '../../rivers';
 import { SectionsList, SectionsRoute } from '../../sections';
 import RegionMap from './map';
@@ -59,13 +59,13 @@ export class RegionDetails extends React.PureComponent<RegionDetailsProps> {
             <Switch>
 
               <Route exact path={`${match.path}/rivers`}>
-                <AdminFooter add />
+                <EditorFooter add />
               </Route>
 
               <Route exact path={`${match.path}/sections`} />
 
               <Route>
-                <AdminFooter edit administrate />
+                <EditorFooter edit administrate />
               </Route>
 
             </Switch>
