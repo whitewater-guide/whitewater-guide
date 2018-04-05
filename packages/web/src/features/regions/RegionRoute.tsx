@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Route, RouteComponentProps, Switch } from 'react-router-dom';
 import { Loading } from '../../components';
+import { AdminRoute, EditorRoute } from '../../layout';
 import { RegionProvider, selectRegion } from '../../ww-clients/features/regions';
 import RegionAdmin from './admin';
 import RegionDetails from './details';
@@ -27,8 +28,8 @@ class RegionRoute extends React.PureComponent<Props> {
     return (
       <RegionProvider regionId={params.regionId} renderLoading={this.renderLoading}>
         <Switch>
-          <Route exact path={`${path}/settings`} component={RegionForm} />
-          <Route exact path={`${path}/admin`} component={RegionAdmin} />
+          <EditorRoute exact path={`${path}/settings`} component={RegionForm} />
+          <AdminRoute exact path={`${path}/admin`} component={RegionAdmin} />
           <Route component={RegionDetails} />
         </Switch>
       </RegionProvider>

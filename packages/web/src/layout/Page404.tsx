@@ -1,5 +1,4 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
 import { Content } from '../components';
 import { Styles } from '../styles';
 
@@ -11,11 +10,11 @@ const styles: Styles = {
   },
 };
 
-const UnauthorizedRoute: React.StatelessComponent = () => (
+const Page404: React.StatelessComponent = () => (
   <Content style={styles.container}>
-    <h1>403 Unauthorized</h1>
-    <span>Bummer!</span>
+    <h1>404 Not found</h1>
+    <span>Oops!</span>
   </Content>
 );
 
-export default UnauthorizedRoute;
+export default Page404;

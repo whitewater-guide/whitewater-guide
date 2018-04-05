@@ -1,18 +1,17 @@
 import React from 'react';
-import { Redirect, Route, RouteComponentProps, RouteProps } from 'react-router-dom';
+import { Redirect, Route, RouteProps } from 'react-router-dom';
 import { branch, compose, renderComponent } from 'recompose';
-import { withLoading } from '../components/withLoading';
-import { withMe, WithMe } from '../ww-clients/features/users';
+import { WithRegion, withRegion } from '../ww-clients/features/regions';
 
 const container = compose(
-  withMe,
-  branch<WithMe>(
-    props => !(props.me && props.me.admin),
+  withRegion,
+  branch<WithRegion>(
+    props => !(props.region && props.region.node.editable),
     renderComponent(() => (<Redirect to="/403" />)),
   ),
 );
 
-export class PrivateRoute extends React.PureComponent<RouteProps> {
+export class EditorRoute extends React.PureComponent<RouteProps> {
   wrappedComponent: React.ComponentType;
 
   constructor(props: RouteProps) {

@@ -4,7 +4,8 @@ import { RegionsRoute } from '../features/regions';
 import { SourcesRoute } from '../features/sources';
 import { TagsRoute } from '../features/tags';
 import LogoutRoute from './LogoutRoute';
-import UnauthorizedRoute from './UnauthorizedRoute';
+import Page403 from './Page403';
+import Page404 from './Page404';
 
 const ContentLayout: React.StatelessComponent = () => (
   <Switch>
@@ -21,7 +22,11 @@ const ContentLayout: React.StatelessComponent = () => (
     </Route>
 
     <Route path="/403">
-      <UnauthorizedRoute />
+      <Page403 />
+    </Route>
+
+    <Route>
+      <Page404 />
     </Route>
   </Switch>
 );
