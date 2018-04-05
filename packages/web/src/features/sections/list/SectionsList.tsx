@@ -2,8 +2,9 @@ import FontIcon from 'material-ui/FontIcon';
 import moment from 'moment';
 import React from 'react';
 import { Column, TableCellRenderer } from 'react-virtualized';
-import { Rating } from '../../../components';
+import { ClickBlocker, DeleteButton, IconLink, Rating } from '../../../components';
 import { ResourcesList } from '../../../layout';
+import { paths } from '../../../utils';
 import { getSectionColor } from '../../../ww-clients/features/sections';
 import { renderDifficulty } from '../../../ww-clients/utils';
 import { Durations, Section } from '../../../ww-commons';
@@ -15,8 +16,6 @@ export default class SectionsList extends React.PureComponent<SectionsListProps>
     const { history, regionId } = this.props;
     history.push(`/regions/${regionId}/sections/${id}#main`);
   };
-
-  customSettingsLink = (row: Section) => `/regions/${this.props.regionId}/sections/${row.id}/settings`;
 
   renderName: TableCellRenderer = ({ rowData: { river: { name: riverName }, name } }) =>
     `${riverName} - ${name}`;
@@ -64,15 +63,19 @@ export default class SectionsList extends React.PureComponent<SectionsListProps>
     return null;
   };
 
+  renderActions: TableCellRenderer = ({ rowData: { id: sectionId } }) => {
+    const { match: { params: { regionId } } } = this.props;
+    return (
+      <ClickBlocker>
+        <IconLink to={paths.settings({ regionId, sectionId })} icon="edit" />
+        <DeleteButton id={sectionId} deleteHandler={this.props.removeSection} />
+      </ClickBlocker>
+    );
+  };
+
   render() {
     return (
-      <ResourcesList
-        list={this.props.sections.nodes}
-        onResourceClick={this.onSectionClick}
-        resourceType="section"
-        customSettingsLink={this.customSettingsLink}
-        deleteHandle={this.props.removeSection}
-      >
+      <ResourcesList list={this.props.sections.nodes} onResourceClick={this.onSectionClick}>
         <Column width={200} flexGrow={1} label="Name" dataKey="name" cellRenderer={this.renderName} />
         <Column width={120} label="Difficulty" dataKey="difficulty" cellRenderer={this.renderDifficulty} />
         <Column width={180} label="Last value" dataKey="lastMeasurement" cellRenderer={this.renderValue} />
@@ -80,6 +83,7 @@ export default class SectionsList extends React.PureComponent<SectionsListProps>
         <Column width={150} label="Rating" dataKey="rating" cellRenderer={this.renderRating} />
         <Column width={50} label="Length" dataKey="distance" />
         <Column width={80} label="Duration" dataKey="duration" cellRenderer={this.renderDuration}/>
+        <Column width={100} label="Actions" dataKey="actions" cellRenderer={this.renderActions} />
       </ResourcesList>
     );
   }

@@ -8,6 +8,7 @@ export default gql`
         name
         hidden
         premium
+        editable
         rivers { count }
         gauges { count }
         sections { count }

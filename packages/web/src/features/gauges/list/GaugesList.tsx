@@ -1,9 +1,16 @@
 import moment from 'moment';
 import React from 'react';
 import { Column, TableCellRenderer } from 'react-virtualized';
-import { AdminColumn, HarvestStatusIndicator, MutationToggle } from '../../../components';
+import {
+  AdminColumn,
+  ClickBlocker,
+  DeleteButton,
+  HarvestStatusIndicator,
+  IconLink,
+  MutationToggle,
+} from '../../../components';
 import { ResourcesList } from '../../../layout';
-import { emitter, POKE_TABLES } from '../../../utils';
+import { emitter, paths, POKE_TABLES } from '../../../utils';
 import { Gauge, HarvestMode } from '../../../ww-commons';
 import { GaugesListInnerProps } from './types';
 
@@ -12,8 +19,6 @@ export default class GaugesList extends React.PureComponent<GaugesListInnerProps
     const { history, match: { params: { sourceId } } } = this.props;
     history.push(`/sources/${sourceId}/gauges/${id}`);
   };
-
-  customSettingsLink = (row: Gauge) => `/sources/${row.source.id}/gauges/${row.id}/settings`;
 
   toggleGauge = async (id: string, enabled: boolean) => {
     await this.props.toggleGauge(id, enabled);
@@ -51,22 +56,27 @@ export default class GaugesList extends React.PureComponent<GaugesListInnerProps
     return null;
   };
 
+  renderActions: TableCellRenderer = ({ rowData: { id: gaugeId } }) => {
+    const { match: { params: { sourceId } } } = this.props;
+    return (
+      <ClickBlocker>
+        <IconLink to={paths.settings({ sourceId, gaugeId })} icon="edit" />
+        <DeleteButton id={gaugeId} deleteHandler={this.props.removeGauge} />
+      </ClickBlocker>
+    );
+  };
+
   render() {
     return (
-      <ResourcesList
-        list={this.props.gauges.nodes}
-        onResourceClick={this.onGaugeClick}
-        resourceType="gauge"
-        customSettingsLink={this.customSettingsLink}
-        deleteHandle={this.props.removeGauge}
-      >
+      <ResourcesList list={this.props.gauges.nodes} onResourceClick={this.onGaugeClick}>
         <Column width={200} flexGrow={4} label="Name" dataKey="name" />
         <Column width={70} flexGrow={1} label="Code" dataKey="code" />
         <Column width={200} flexGrow={1} label="Last value" dataKey="lastMeasurement" cellRenderer={this.renderValue} />
-        <AdminColumn width={50} label="Status" dataKey="status" cellRenderer={this.renderStatus} />
+        <Column width={50} label="Status" dataKey="status" cellRenderer={this.renderStatus} />
         <AdminColumn width={70} label="Cron" dataKey="cron" />
         <AdminColumn width={100} label="Request params" dataKey="rp" cellRenderer={this.renderRequestParams} />
         <AdminColumn width={70} label="Enabled" dataKey="enabled" cellRenderer={this.renderEnabled} />
+        <AdminColumn width={100} label="Actions" dataKey="action" cellRenderer={this.renderActions} />
       </ResourcesList>
     );
   }

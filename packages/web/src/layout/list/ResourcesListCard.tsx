@@ -5,6 +5,7 @@ import { AutoSizer, Dimensions } from 'react-virtualized';
 import { Content, Table, TableProps } from '../../components';
 import { EditorLanguagePicker } from '../../components/language';
 import { NamedNode } from '../../ww-commons';
+import { ResourceType } from '../../ww-commons/features';
 import { CardHeader } from '../CardHeader';
 import { EditorFooter, EditorFooterProps } from '../EditorFooter';
 
@@ -14,6 +15,7 @@ type InnerProps<TResource extends NamedNode> = OuterProps<TResource>;
 
 interface OwnProps {
   footerProps?: EditorFooterProps;
+  resourceType: ResourceType;
 }
 
 export class ResourcesListCard<DeleteHandle extends string, TResource extends NamedNode> extends

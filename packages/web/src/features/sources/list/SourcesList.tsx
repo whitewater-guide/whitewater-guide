@@ -1,9 +1,9 @@
 import React from 'react';
 import { Column, TableCellRenderer } from 'react-virtualized';
-import { HarvestStatusIndicator, MutationToggle } from '../../../components';
+import { ClickBlocker, DeleteButton, HarvestStatusIndicator, IconLink, MutationToggle } from '../../../components';
 import { AdminColumn } from '../../../components/tables';
 import { ResourcesListCard } from '../../../layout';
-import { emitter, POKE_TABLES } from '../../../utils';
+import { emitter, paths, POKE_TABLES } from '../../../utils';
 import { HarvestMode } from '../../../ww-commons';
 import { SourceListProps } from './types';
 
@@ -30,19 +30,24 @@ export default class SourcesList extends React.PureComponent<SourceListProps> {
   renderCron: TableCellRenderer = ({ rowData: { cron, harvestMode } }) =>
     harvestMode === HarvestMode.ONE_BY_ONE ? null : cron;
 
+  renderActions: TableCellRenderer = ({ rowData: { id: sourceId } }) => {
+    return (
+      <ClickBlocker>
+        <IconLink to={paths.settings({ sourceId })} icon="edit" />
+        <DeleteButton id={sourceId} deleteHandler={this.props.removeSource} />
+      </ClickBlocker>
+    );
+  };
+
   render() {
     return (
-      <ResourcesListCard
-        list={this.props.sources.nodes}
-        onResourceClick={this.onSourceClick}
-        resourceType="source"
-        deleteHandle={this.props.removeSource}
-      >
+      <ResourcesListCard resourceType="source" list={this.props.sources.nodes} onResourceClick={this.onSourceClick}>
         <Column width={200} label="Name" dataKey="name" />
         <Column width={100} label="Harvest mode" dataKey="harvestMode" />
         <AdminColumn width={50} label="Status" dataKey="status" cellRenderer={this.renderStatus} />
         <AdminColumn width={70} label="Cron" dataKey="cron" cellRenderer={this.renderCron} />
         <AdminColumn width={70} label="Enabled" dataKey="enabled" cellRenderer={this.renderEnabled} />
+        <AdminColumn width={100} label="Actions" dataKey="action" cellRenderer={this.renderActions} />
       </ResourcesListCard>
     );
   }

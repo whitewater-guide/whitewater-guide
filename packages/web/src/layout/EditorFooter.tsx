@@ -41,7 +41,7 @@ const EditorFooterInternal: React.StatelessComponent<InnerProps> = (props) => {
           administrate &&
           (
             <AdminOnly>
-            <FlatButton label="Administrate" href={adminHref} />
+              <FlatButton label="Administrate" href={adminHref} />
             </AdminOnly>
           )
         }

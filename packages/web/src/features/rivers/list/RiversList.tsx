@@ -2,17 +2,13 @@ import FlatButton from 'material-ui/FlatButton';
 import FontIcon from 'material-ui/FontIcon';
 import React from 'react';
 import { Column, TableCellRenderer } from 'react-virtualized';
+import { ClickBlocker, DeleteButton, IconLink } from '../../../components';
+import { EditorColumn } from '../../../components/tables';
 import { ResourcesList } from '../../../layout';
-import { River } from '../../../ww-commons';
+import { paths } from '../../../utils';
 import { RiversListProps } from './types';
 
 export default class RiversList extends React.PureComponent<RiversListProps> {
-
-  onRiverClick = (id: string) => {
-    // console.log(id);
-  };
-
-  customSettingsLink = (row: River) => `/regions/${row.region.id}/rivers/${row.id}/settings`;
 
   renderAltNames: TableCellRenderer = ({ rowData: { altNames } }) =>
     altNames ? altNames.join(', ') : '';
@@ -20,32 +16,29 @@ export default class RiversList extends React.PureComponent<RiversListProps> {
   renderNumSections: TableCellRenderer = ({ rowData: { sections: { count } } }) =>
     count;
 
-  renderAddSection = (row: River) => {
-    const href = this.props.history.createHref({
-      pathname: `/regions/${row.region.id}/sections/new`,
-      search: `?riverId=${row.id}`,
+  renderActions: TableCellRenderer = ({ rowData: { id: riverId } }) => {
+    const { history, match: { params: { regionId } } } = this.props;
+    const href = history.createHref({
+      pathname: paths.to({ regionId, sectionId: 'new' }),
+      search: `?riverId=${riverId}`,
     });
     return (
-      <FlatButton
-        href={href}
-        label="Add Section"
-        icon={<FontIcon className="material-icons">add</FontIcon>}
-        style={{ verticalAlign: 'sub' }}
-      />
+      <ClickBlocker>
+        <IconLink to={paths.settings({ regionId, riverId })} icon="edit" />
+        <DeleteButton id={riverId} deleteHandler={this.props.removeRiver} />
+        <FlatButton
+          href={href}
+          label="Add Section"
+          icon={<FontIcon className="material-icons">add</FontIcon>}
+          style={{ verticalAlign: 'sub' }}
+        />
+      </ClickBlocker>
     );
   };
 
   render() {
     return (
-      <ResourcesList
-        list={this.props.rivers.nodes}
-        onResourceClick={this.onRiverClick}
-        resourceType="river"
-        customSettingsLink={this.customSettingsLink}
-        deleteHandle={this.props.removeRiver}
-        renderExtraAdminActions={this.renderAddSection}
-        adminColumnWidth={250}
-      >
+      <ResourcesList list={this.props.rivers.nodes}>
         <Column width={200} flexGrow={1} label="Name" dataKey="name" />
         <Column
           width={200}
@@ -54,7 +47,8 @@ export default class RiversList extends React.PureComponent<RiversListProps> {
           dataKey="altNames"
           cellRenderer={this.renderAltNames}
         />
-        <Column width={70} label="# Sections" dataKey="sections" cellRenderer={this.renderNumSections}/>
+        <Column width={70} label="# Sections" dataKey="sections" cellRenderer={this.renderNumSections} />
+        <EditorColumn width={250} label="Actions" dataKey="actions" cellRenderer={this.renderActions} />
       </ResourcesList>
     );
   }
