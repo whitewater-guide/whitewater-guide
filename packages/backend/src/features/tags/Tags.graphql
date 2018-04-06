@@ -6,8 +6,11 @@ enum TagCategory {
 }
 
 type Tag {
+  # unique string, can be used as slug
   id: String!
+  # Human-frindly tag label
   name: String!
+  # Tag category enum
   category: TagCategory!
 }
 

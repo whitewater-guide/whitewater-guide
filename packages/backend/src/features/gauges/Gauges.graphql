@@ -1,21 +1,36 @@
 type Gauge {
+  # Unique ID
   id: ID!
+  # Human-friendly name
   name: String!
+  # Unique code from upsteam, or synthetic code if not provided
   code: String!
+  # Gauge location
   location: Point
+  # Level unit (e.g. m, inches), or null if gauge doesn't measure levels
   levelUnit: String
+  # Flow unit (e.g. m3/s, cfs), or null if gauge doesn't measure flows
   flowUnit: String
+  # Arbitrary upstream request params
   requestParams: JSON @admin
+  # Crosn schedule
   cron: String @admin
 
+  # Gauge web page
   url: String
+  # Is gauge being harvested?
   enabled: Boolean
+  # Creation date (in whitewater.guide)
   createdAt: Date
+  # Updated date (in whitewater.guide)
   updatedAt: Date
 
+  # Last known gauge measurements
   lastMeasurement: Measurement
+  # Last known harvest result
   status: HarvestStatus
 
+  # Gauge's data source
   source: Source!
 }
 

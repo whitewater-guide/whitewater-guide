@@ -1,26 +1,37 @@
 type Region {
+  #Unique id
   id: ID!
+  # Human-friendly name
   name: String!
+  # Human-friendly description
   description: String
+  # Human-friendly description to complement numeric months list
   season: String
+  # Array of numers between 0 and 23, corresponding to half-months
   seasonNumeric: [Int]!
+  # Approximate region bounds, array of [lon, lat, lng] tuples
   bounds: [[Float!]]
+  # Points of interest
   pois: [Point]!
+  # Date when the region was added to whitewater.guide
   createdAt: Date
+  # Date when the region was last modified
   updatedAt: Date
+  # List of rivers, pagination not supported yet, so use only for count!
   rivers: RegionRiverConnection!
+  # List of gauges, pagination not supported yet, so use only for count!
   gauges: RegionGaugeConnection!
-  # sources: [Source]!
-
-  # Pagination not supported yet, so use only for count!
+  # List of sections, pagination not supported yet, so use only for count!
   sections: RegionSectionConnection!
 
   # Only admins and editors can see this
   hidden: Boolean @admin
+  # True if region has some premium content
   premium: Boolean
-
-  # Indicates that current user can edit this region and everything in it
+  # Indicates that current user can edit this region and everything inside it
   editable: Boolean!
+
+  # sources: [Source]!
 }
 
 type RegionRiverConnection {

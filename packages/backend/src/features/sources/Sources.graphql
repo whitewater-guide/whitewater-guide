@@ -4,20 +4,31 @@ enum HarvestMode {
 }
 
 type Source {
+  # Unique id
   id: ID!
+  # Human-friendly data source name
   name: String!
+  # Terms of use as given by upstream data provider
   termsOfUse: String
   # Non-nullablle for admin
   script: String @admin
+  # Cron schedule
   cron: String @admin
   # Non-nullable for admin
   harvestMode: HarvestMode @admin
+  # Upstream provider web page
   url: String
+  # Is harvesting ON?
   enabled: Boolean
+  # Regions
   regions: SourceRegionConnection!
+  # Gauges
   gauges: SourceGaugeConnection!
+  # Creation date
   createdAt: Date
+  # Last modificatio date
   updatedAt: Date
+  # Last harvest operation status
   status: HarvestStatus
 }
 

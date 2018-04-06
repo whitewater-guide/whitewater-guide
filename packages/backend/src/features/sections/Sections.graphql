@@ -1,8 +1,13 @@
 type GaugeBinding {
+  # Below this level the river is not enjoyable to paddle
   minimum: Float
+  # The river is still runnable above this level, but difficulty is considerably higher than mentioned here
   maximum: Float
+  # The best level for paddlers who consider themselves to be in the same class as the section
   optimum: Float
+  # It is insanely dangerous or physically impossible to run river this high
   impossible: Float
+  # If true, then the gauge gives very vague idea of actual section flows (e.g. the gauge is on other tributary)
   approximate: Boolean
 }
 
@@ -15,34 +20,60 @@ input GaugeBindingInput {
 }
 
 type Section {
+  # Unique section ID
   id: ID!
+  # Human-friendly section name (without river name, e.g. just 'Upper')
   name: String!
+  # Alternative names, e.g. english transliteration for names that contain umlauts
   altNames: [String!]
+  # Gudebook page
   description: String
+  # Human-friendly description to complement numeric months list
   season: String
+  # Array of numers between 0 and 23, corresponding to half-months
   seasonNumeric: [Int]!
 
+  # Section region
   region: Region
+  # Section river
   river: River
 
+  # Section gauge
   gauge: Gauge
+  # Level bindings bindings
   levels: GaugeBinding
+  # Flow gauge bindings
   flows: GaugeBinding
+  # Human-friendly description to complement gauge bindings, e.g. 'After heavy rainfall'
   flowsText: String
 
+  # Put-in location
   putIn: Point!
+  # Take-out location
   takeOut: Point!
+  # Array of [lon, lat, alt] points to roughly match river shape, ordered (inclusively) from put-in to take-out
   shape: [[Float!]]!
+  # Approximate section length, in km
   distance: Float
+  # Approximate difference between put-in and take-out altitudes, in m
   drop: Float
+  # Dictionay value, approximate time required to run this section
   duration: Int
+  # Floating point difficulty value, i.e. 4.5 means IV+
   difficulty: Float!
+  # Short extra difficulty to be written in brackets, i.e. what's inside brackets for "IV (2xV, X)" difficuly
   difficultyXtra: String
+  # Subjective rating from 0 to 5 stars, half stars allowed
   rating: Float
+  # Array of tags
   tags: [Tag]!
+  # When was this section added to whitewater.guide
   createdAt: Date
+  # When was this section last modified
   updatedAt: Date
+  # Photos, videos and blogs
   media: SectionMediaConnection!
+  # Points of interest
   pois: [Point]!
 }
 

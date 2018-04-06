@@ -5,9 +5,13 @@ enum MediaKind {
 }
 
 type Media {
+  # Unique ID
   id: ID!
+  # Photo, video or blog
   kind: MediaKind!
+  # Human-friendly description
   description: String
+  # Copyright
   copyright: String
   # Full URL for videos and blogs, filename for images
   url: String!
@@ -15,7 +19,7 @@ type Media {
   resolution: [Int]
   # weight for sorting
   weight: Int
-  # Not persistent. Indicates client that it should not display this item in lists
+  # Not persistent. Indicates that client should not display this item in lists
   deleted: Boolean
   createdAt: Date
   updatedAt: Date

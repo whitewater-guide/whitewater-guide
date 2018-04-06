@@ -1,8 +1,13 @@
 type Point {
+  # Unique ID
   id: ID!
+  # Human-friendly name
   name: String
+  # Human-friendly description
   description: String
+  # [longitude, latitude, altitude] tuple
   coordinates: [Float!]!
+  # Dictionary value, point type
   kind: String!
 }
 
