@@ -17,6 +17,7 @@ const ITEMS = [
   { title: 'Regions', path: '/regions', admin: false },
   { title: 'Sources', path: '/sources', admin: false },
   { title: 'Tags', path: '/tags', admin: true },
+  { title: 'Region Groups', path: '/groups', admin: true },
 ];
 
 interface Props {

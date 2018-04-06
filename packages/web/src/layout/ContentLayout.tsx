@@ -1,5 +1,6 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
+import { GroupsRoute } from '../features/groups';
 import { RegionsRoute } from '../features/regions';
 import { SourcesRoute } from '../features/sources';
 import { TagsRoute } from '../features/tags';
@@ -16,6 +17,7 @@ const ContentLayout: React.StatelessComponent = () => (
     <Route path="/regions" component={RegionsRoute} />
     <Route path="/sources" component={SourcesRoute} />
     <Route path="/tags" component={TagsRoute} />
+    <Route path="/groups" component={GroupsRoute} />
 
     <Route path="/logout">
       <LogoutRoute />
