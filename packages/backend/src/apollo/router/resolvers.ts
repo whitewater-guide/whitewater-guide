@@ -2,6 +2,7 @@ import { GraphQLDateTime } from 'graphql-iso-date';
 import GraphQLJSON from 'graphql-type-json';
 import { merge } from 'lodash';
 import { gaugesResolvers } from '../../features/gauges';
+import { groupsResolvers } from '../../features/groups';
 import { measurementsResolvers } from '../../features/measurements';
 import { mediaResolvers } from '../../features/media';
 import { pointsResolvers } from '../../features/points';
@@ -15,6 +16,7 @@ import { usersResolvers } from '../../features/users';
 
 export const resolvers = merge(
   gaugesResolvers,
+  groupsResolvers,
   tagsResolvers,
   pointsResolvers,
   regionsResolvers,

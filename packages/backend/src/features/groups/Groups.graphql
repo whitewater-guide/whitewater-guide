@@ -1,0 +1,27 @@
+type Group {
+  # unique string, can be used as slug
+  id: ID!
+  # Human-frindly group name
+  name: String!
+  # Regions
+  regions: GroupRegionConnection!
+}
+
+type GroupRegionConnection {
+  nodes: [Region]!
+  count: Int!
+}
+
+input GroupInput {
+  id: String
+  name: String!
+}
+
+type Query {
+  groups(regionId: ID): [Group!] @admin
+}
+
+type Mutation {
+  upsertGroup(group: GroupInput!): Group @admin
+  removeGroup(id: String!): String @admin
+}

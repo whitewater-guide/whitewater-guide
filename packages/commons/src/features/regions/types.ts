@@ -1,5 +1,6 @@
 import { NamedNode, Timestamped } from '../../core';
 import { Gauge } from '../gauges';
+import { Group } from '../groups';
 import { Coordinate3d, Point, PointInput } from '../points';
 import { River } from '../rivers';
 import { Connection } from '../types';
@@ -13,6 +14,7 @@ export interface Region extends NamedNode, Timestamped {
   premium: boolean;
   editable: boolean;
   pois: Point[];
+  groups: Group[];
   // --- connections
   rivers?: Connection<River>;
   gauges?: Connection<Gauge>;

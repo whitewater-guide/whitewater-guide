@@ -79,6 +79,7 @@ export const up = async (db: Knex) => {
       .onDelete('CASCADE');
     table.specificType('language', 'language_code').notNullable().defaultTo('en').index();
     table.string('name').notNullable().index();
+    table.primary(['group_id', 'language']);
   });
 
   // Regions
@@ -348,6 +349,7 @@ export const up = async (db: Knex) => {
   await runSqlFile(db, './src/migrations/initial/gauges_view.sql');
   await runSqlFile(db, './src/migrations/initial/rivers_view.sql');
   await runSqlFile(db, './src/migrations/initial/media_view.sql');
+  await runSqlFile(db, './src/migrations/initial/upsert_group.sql');
   await runSqlFile(db, './src/migrations/initial/upsert_tag.sql');
   await runSqlFile(db, './src/migrations/initial/upsert_river.sql');
   await runSqlFile(db, './src/migrations/initial/upsert_source.sql');
@@ -396,6 +398,7 @@ export const down = async (db: Knex) => {
   await db.schema.raw('DROP VIEW IF EXISTS media_view');
   await db.schema.raw('DROP FUNCTION IF EXISTS upsert_section_media(section_id VARCHAR, media JSON, lang language_code) CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS upsert_section(section JSON, lang language_code) CASCADE');
+  await db.schema.raw('DROP FUNCTION IF EXISTS upsert_group(grp JSON, lang language_code) CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS upsert_tag(tag JSON, lang language_code) CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS upsert_region(r JSON, lang language_code) CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS upsert_points(points_array JSON[], lang language_code) CASCADE');

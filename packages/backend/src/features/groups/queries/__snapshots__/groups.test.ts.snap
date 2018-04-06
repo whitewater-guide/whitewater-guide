@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`data should return groups 1`] = `
+Array [
+  Object {
+    "id": "9f4c3c98-37f5-11e8-b467-0ed5f89f718b",
+    "name": "Empty",
+    "regions": Object {
+      "count": 0,
+      "nodes": Array [],
+    },
+  },
+  Object {
+    "id": "c9bf96be-37f5-11e8-b467-0ed5f89f718b",
+    "name": "Europe",
+    "regions": Object {
+      "count": 2,
+      "nodes": Array [
+        Object {
+          "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
+          "name": "Galicia",
+        },
+        Object {
+          "id": "b968e2b2-76c5-11e7-b5a5-be2e44b06b34",
+          "name": "Norway",
+        },
+      ],
+    },
+  },
+  Object {
+    "id": "88a55b3c-37f5-11e8-b467-0ed5f89f718b",
+    "name": "Europe & CIS",
+    "regions": Object {
+      "count": 3,
+      "nodes": Array [
+        Object {
+          "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
+          "name": "Galicia",
+        },
+        Object {
+          "id": "8e119768-37f3-11e8-b467-0ed5f89f718b",
+          "name": "Georgia",
+        },
+        Object {
+          "id": "b968e2b2-76c5-11e7-b5a5-be2e44b06b34",
+          "name": "Norway",
+        },
+      ],
+    },
+  },
+  Object {
+    "id": "904a4852-37f5-11e8-b467-0ed5f89f718b",
+    "name": "Latin America",
+    "regions": Object {
+      "count": 1,
+      "nodes": Array [
+        Object {
+          "id": "2caf75ca-7625-11e7-b5a5-be2e44b06b34",
+          "name": "Ecuador",
+        },
+      ],
+    },
+  },
+]
+`;

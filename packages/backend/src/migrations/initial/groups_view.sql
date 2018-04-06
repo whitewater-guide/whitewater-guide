@@ -7,13 +7,7 @@ CREATE OR REPLACE VIEW groups_view AS
   SELECT
     groups.id,
     langs.language,
-    COALESCE(groups_translations.name, english.name, 'Not translated') as name,
-    (
-      SELECT json_agg((regions_view.id, regions_view.name))
-      FROM regions_view
-        INNER JOIN regions_groups ON regions_view.id = regions_groups.region_id
-      WHERE regions_groups.group_id = groups.id AND regions_view.language = langs.language
-    ) AS pois
+    COALESCE(groups_translations.name, english.name, 'Not translated') as name
   FROM langs
     CROSS JOIN groups
     LEFT OUTER JOIN groups_translations
