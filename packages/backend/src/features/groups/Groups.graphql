@@ -24,4 +24,6 @@ type Query {
 type Mutation {
   upsertGroup(group: GroupInput!): Group @admin
   removeGroup(id: String!): String @admin
+  addRegionToGroup(regionId: ID!, groupId: ID!): Boolean @admin
+  removeRegionFromGroup(regionId: ID!, groupId: ID!): Boolean @admin
 }
