@@ -1,9 +1,8 @@
 import { compose } from 'recompose';
-import { formContainer, serializeForm } from '../../../components/forms';
+import { deserializeForm, formContainer, serializeForm } from '../../../components/forms';
 import { withFeatureIds } from '../../../ww-clients/core';
-import { REGION_DETAILS } from '../../../ww-clients/features/regions';
 import { RegionFormSchema, RegionInput } from '../../../ww-commons';
-import deserializeRegion from './deserializeRegion';
+import REGION_FORM_QUEUE from './regionForm.queue';
 import UPSERT_REGION from './upsertRegion.mutation';
 
 const NEW_REGION: RegionInput = {
@@ -20,10 +19,10 @@ const regionForm = formContainer({
   formName: 'region',
   propName: 'region',
   defaultValue: NEW_REGION,
-  query: REGION_DETAILS,
+  query: REGION_FORM_QUEUE,
   mutation: UPSERT_REGION,
   serializeForm: serializeForm(['description']),
-  deserializeForm: deserializeRegion,
+  deserializeForm: deserializeForm(['description'], ['pois']),
   validationSchema: RegionFormSchema,
 });
 
