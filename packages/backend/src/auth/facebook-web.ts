@@ -1,3 +1,4 @@
+import get from 'lodash/get';
 import passport from 'passport';
 import { Strategy as FacebookStrategy } from 'passport-facebook';
 import db from '../db';
@@ -5,6 +6,9 @@ import { UserRaw } from '../features/users';
 
 async function login(req: Express.Request, provider: string, profile: passport.Profile, tokens: any) {
   let user: UserRaw | null = null;
+
+  const fbEmail = get(profile, 'emails.0.value', null);
+  const fbAvatar = get(profile, 'photos.0.value', null);
 
   // Logged in. But might be logged in via different service (not facebook)
   const reqUesr = req.user;
@@ -18,8 +22,8 @@ async function login(req: Express.Request, provider: string, profile: passport.P
       .innerJoin('users', 'users.id', 'logins.user_id')
       .where({ 'logins.provider': provider, 'logins.id': profile.id })
       .first('users.*');
-    if (!user && profile.emails && profile.emails.length && profile.emails[0]) {
-      user = await db().table('users').where({ email: profile.emails[0].value }).first();
+    if (!user && fbEmail) {
+      user = await db().table('users').where({ email: fbEmail }).first();
     }
   }
 
@@ -28,8 +32,8 @@ async function login(req: Express.Request, provider: string, profile: passport.P
     user = (await db().table('users')
       .insert({
         name: profile.displayName,
-        email: profile.emails && profile.emails.length ? profile.emails[0].value : null,
-        avatar: profile.photos && profile.photos.length ? profile.photos[0].value : null,
+        email: fbEmail,
+        avatar: fbAvatar,
       })
       .returning('*'))[0];
   }
@@ -51,6 +55,12 @@ async function login(req: Express.Request, provider: string, profile: passport.P
       tokens: JSON.stringify(tokens),
       profile: JSON.stringify(profile._json),
     });
+  }
+
+  // Set avatar if not present
+  if (user && !user.avatar && fbAvatar) {
+    user.avatar = fbAvatar;
+    await db().table('users').update({ avatar: fbAvatar }).where({ id: user.id });
   }
 
   return user;
