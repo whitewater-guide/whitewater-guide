@@ -3,3 +3,4 @@
 .env.*
 !.env.*.secret
 /docker-stack-staging.yml
+/.aws-ecr

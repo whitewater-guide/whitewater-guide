@@ -13,7 +13,12 @@ const generateStackFile = async configName => new Promise((resolve, reject) => {
   output.on('open', () => {
     const compose = spawn(
       'docker-compose',
-      ['-f', 'build/docker-compose.yml', '-f', `build/docker-compose.${configName}.yml`, 'config'],
+      [
+        '-f', 'build/docker-compose.yml',
+        '-f', 'build/docker-compose.deploy.yml',
+        '-f', `build/docker-compose.${configName}.yml`,
+        'config',
+      ],
       {
         stdio: ['ignore', output, 'inherit'],
       },

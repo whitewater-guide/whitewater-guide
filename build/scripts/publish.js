@@ -1,13 +1,20 @@
+#!/usr/bin/env node
+
 const { spawnSync } = require('child_process');
-const dotenv = require('dotenv');
 const argv = require('yargs').argv;
-const generateStackFile = require('./generateStackFile');
-const setupEnv = require('./setupEnv');
-const hasChanged = require('./hasChanged');
+const generateStackFile = require('./src/generateStackFile');
+const setupEnv = require('./src/setupEnv');
+const tagImages = require('./src/tagImages');
+const pushImages = require('./src/pushImages');
+const hasChanged = require('./src/hasChanged');
 
-const STACK_NAME = 'wwguide';
-
-async function deploy(environment, machineName) {
+async function publish() {
+  // ---------- parse cli arguments
+  const environment = argv.env;
+  if (!environment) {
+    console.error('Environment (local/staging/production) is required. Specify via --env');
+    return;
+  }
   const noCommit = argv.noCommit; // Ignore uncommitted git protection
   // Build fresh images for all (default) or some (specify via --container flags) services
   // Multiple flags allowed, e.g. --container caddy --container db
@@ -15,13 +22,14 @@ async function deploy(environment, machineName) {
   if (argv.container) {
     containers = Array.isArray(argv.container) ? argv.container : [argv.container];
   }
+  // ------------- cli arguments parsed
 
   if (hasChanged() && !noCommit) {
     console.error('\n\nCommit all changes before updating docker stack');
     return;
   }
 
-  // Set DOCKER_ENV_FILE and CONTAINERX_TAG env vars for this process
+  // Set environment variables for build-time substitution in compose files
   setupEnv(environment);
   // Merge docker-compose.yml and docker-compose.local.yml
   const stackFile = await generateStackFile(environment);
@@ -44,24 +52,7 @@ async function deploy(environment, machineName) {
     }
   }
 
-  // load docker-machine env
-  const dmEnv = spawnSync('docker-machine', ['env', machineName]);
-  if (dmEnv.status !== 0) {
-    console.log('\n\nFailed to get docker-machine env for ww-local');
-    return;
-  }
-  const dockerMachineEnv = dotenv.parse(dmEnv.stdout.toString().replace(/export\s/g, ''));
-  Object.entries(dockerMachineEnv).forEach(([key, value]) => { process.env[key] = value; });
-
-  // -------- From now on commands are executed on docker-machine ------------
-
-  // Prune old images
-  spawnSync(
-    'docker',
-    ['image', 'prune', '-a', '-f', '--filter', 'until=72h'],
-    { stdio: 'inherit' },
-  );
-
+  // Build images (locally)
   const buildRes = spawnSync(
     'docker-compose',
     ['-f', stackFile, 'build', ...containers],
@@ -72,11 +63,10 @@ async function deploy(environment, machineName) {
     return;
   }
 
-  spawnSync(
-    'docker',
-    ['stack', 'deploy', '-c', stackFile, STACK_NAME],
-    { stdio: 'inherit' },
-  );
+  // Tag images
+  const taggedImages = tagImages(environment);
+  // Push images to AWS ECR
+  pushImages(taggedImages);
 }
 
-module.exports = deploy;
+publish();

@@ -7,7 +7,7 @@ services:
     container_name: ww-backend
     image: 'ww-backend:dev'
     build:
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile.development
     ports:
       - '5775:5775'
       - '3333:3333'

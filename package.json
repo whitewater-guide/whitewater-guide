@@ -1,6 +1,6 @@
 {
   "name": "whitewater",
-  "version": "0.0.197",
+  "version": "0.0.204",
   "description": "whitewater.guide monorepo",
   "repository": "https://github.com/doomsower/whitewater.git",
   "author": "doomsower <K.Kuznetcov@gmail.com>",
@@ -13,8 +13,10 @@
     "local:start": "build/scripts/local_machine_start.sh",
     "local:cleanup": "docker-machine ssh ww-local < build/scripts/local_machine_cleanup.sh",
     "local:prepare": "docker-machine ssh ww-local < build/scripts/local_machine_prepare.sh",
-    "local:deploy": "build/scripts/local_deploy.js",
-    "staging:deploy": "build/scripts/staging_deploy.js",
+    "local:publish": "build/scripts/publish.js --env=local",
+    "local:deploy": "build/scripts/deploy.js --env=local --machine=ww-local",
+    "staging:publish": "build/scripts/publish.js --env=staging",
+    "staging:deploy": "build/scripts/deploy.js --env=staging --machine=ww-staging",
     "wml:start": "build/scripts/wml_start.sh"
   },
   "devDependencies": {
