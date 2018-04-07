@@ -1,9 +1,16 @@
 import gql from 'graphql-tag';
 
-const ADD_EDITOR_MUTATION = gql`
-  mutation addEditor($regionId: ID!, $userId: ID!) {
-    addEditor(regionId: $regionId, userId: $userId)
+export const ADD_REGION_TO_GROUP_MUTATION = gql`
+  mutation addRegionToGroup($regionId: ID!, $groupId: ID!) {
+    addRegionToGroup(regionId: $regionId, groupId: $groupId)
   }
 `;
 
-export default ADD_EDITOR_MUTATION;
+export interface AddGroupVars {
+  regionId: string;
+  groupId: string;
+}
+
+export interface AddGroupProps {
+  addGroup: (groupId: string) => void;
+}

@@ -8,6 +8,7 @@ import { WithNode } from '../../../ww-clients/apollo';
 import { RegionConsumer } from '../../../ww-clients/features/regions';
 import { Region } from '../../../ww-commons/features/regions';
 import RegionEditorsWithData from './editors';
+import RegionGroupsWithData from './groups';
 import RegionAdminSettingsForm from './settings';
 
 export class RegionAdmin extends React.PureComponent {
@@ -29,6 +30,9 @@ export class RegionAdmin extends React.PureComponent {
               </Tab>
               <Tab label="Editors" value="#editors">
                 <RegionEditorsWithData />
+              </Tab>
+              <Tab label="Groups" value="#groups">
+                <RegionGroupsWithData />
               </Tab>
             </Tabs>
           </div>
