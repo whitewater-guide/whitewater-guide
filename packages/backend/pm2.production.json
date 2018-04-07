@@ -2,6 +2,8 @@
   "apps": [{
     "name": "ww_backend",
     "script": "src/index.js",
-    "merge_logs": true
+    "merge_logs": true,
+    "exec_mode" : "cluster",
+    "instances" : "max"
   }]
 }
