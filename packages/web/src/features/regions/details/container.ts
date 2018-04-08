@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { compose, mapProps } from 'recompose';
+import { chunkedListLoader } from '../../../ww-clients/apollo';
 import { searchTermsSelector, withRegion, WithSearchTerms } from '../../../ww-clients/features/regions';
 import { withSectionsList, WithSectionsList } from '../../../ww-clients/features/sections';
 import { applySearch } from '../../../ww-commons';
@@ -17,4 +18,5 @@ export default compose(
       nodes: applySearch(sections.nodes, searchTerms),
     },
   })),
+  chunkedListLoader('sections'),
 );
