@@ -1,7 +1,7 @@
 import { groupBy } from 'lodash';
 import React from 'react';
 import { Col } from 'react-grid-system';
-import { ConfirmationDialog } from '../../../components/forms';
+import { ConfirmationDialog } from '../../../components';
 import { Row } from '../../../layout/details';
 import { Media, MediaKind } from '../../../ww-commons';
 import GridGallery from './GridGallery';

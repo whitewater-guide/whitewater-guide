@@ -2,6 +2,7 @@ export * from './IconLink';
 export * from './breadcrumbs';
 export * from './ChipList';
 export * from './ClickBlocker';
+export * from './ConfirmationDialog';
 export * from './Content';
 export * from './DeleteButton';
 export * from './HarvestStatusIndicator';

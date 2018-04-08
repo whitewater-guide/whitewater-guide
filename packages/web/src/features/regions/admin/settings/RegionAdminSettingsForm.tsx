@@ -4,7 +4,8 @@ import { CardActions } from 'material-ui/Card';
 import React from 'react';
 import Prompt from 'react-router-navigation-prompt';
 import { InjectedFormProps } from 'redux-form';
-import { Checkbox, ConfirmationDialog, TextInput } from '../../../../components/forms';
+import { ConfirmationDialog } from '../../../../components';
+import { Checkbox, TextInput } from '../../../../components/forms';
 import { Styles } from '../../../../styles';
 import { RegionAdminSettings } from '../../../../ww-commons';
 

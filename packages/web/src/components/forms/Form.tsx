@@ -5,9 +5,9 @@ import React from 'react';
 import Prompt from 'react-router-navigation-prompt';
 import { InjectedFormProps } from 'redux-form';
 import { CardHeader } from '../../layout';
+import { ConfirmationDialog } from '../ConfirmationDialog';
 import { Content } from '../Content';
 import { EditorLanguagePicker } from '../language';
-import { ConfirmationDialog } from './ConfirmationDialog';
 
 interface FormProps {
   resourceType: string;
