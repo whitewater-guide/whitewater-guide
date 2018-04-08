@@ -9,6 +9,7 @@ export const REGION_DETAILS = gql`
       ...RegionPOIs
       ...RegionBounds
       ...RegionFlags
+      sku
     }
   }
   ${RegionFragments.Core}
