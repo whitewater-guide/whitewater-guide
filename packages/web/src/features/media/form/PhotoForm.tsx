@@ -53,7 +53,7 @@ export default class PhotoForm extends React.PureComponent<MediaFormProps, State
           <TextInput multiLine fullWidth name="description" title="Description" />
           <TextInput fullWidth name="copyright" title="Copyright" />
           <TextInput fullWidth disabled name="url" title="URL" />
-          <TextInput fullWidth type="number" name="weight" title="Weight" />
+          <TextInput fullWidth type="number" name="weight" title="Sort weight" />
           <div style={{ display: 'flex', flexDirection: 'row' }}>
             <TextInput fullWidth disabled name="resolution.0" title="Image width" />
             <TextInput fullWidth disabled name="resolution.1" title="Image height" />
