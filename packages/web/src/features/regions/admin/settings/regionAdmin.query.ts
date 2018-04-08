@@ -6,6 +6,7 @@ const REGION_ADMIN_SETTINGS_QUERY = gql`
       id
       hidden
       premium
+      sku
     }
   }
 `;

@@ -5,6 +5,7 @@ export const LIST_GROUPS = gql`
     groups(regionId: $regionId) {
       id
       name
+      sku
       regions {
         nodes {
           id

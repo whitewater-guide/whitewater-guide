@@ -13,6 +13,7 @@ export interface Region extends NamedNode, Timestamped {
   hidden: boolean | null;
   premium: boolean;
   editable: boolean;
+  sku: string | null;
   pois: Point[];
   groups: Group[];
   // --- connections

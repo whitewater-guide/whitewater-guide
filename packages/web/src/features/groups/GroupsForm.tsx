@@ -30,7 +30,11 @@ export default class GroupsForm extends React.PureComponent<GroupsFormProps> {
                 {groups.map(group => (
                   <GroupForm key={group.id} group={group} upsertGroup={upsertGroup} removeGroup={removeGroup} />
                 ))}
-                <GroupForm upsertGroup={upsertGroup} removeGroup={removeGroup} group={{ id: null, name: '' }} />
+                <GroupForm
+                  upsertGroup={upsertGroup}
+                  removeGroup={removeGroup}
+                  group={{ id: null, name: '', sku: '' }}
+                />
               </TableBody>
             </Table>
           </div>

@@ -6,6 +6,7 @@ const ADMINISTRATE_REGION_MUTATION = gql`
       id
       hidden
       premium
+      sku
     }
   }
 `;

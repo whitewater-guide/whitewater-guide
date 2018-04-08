@@ -4,7 +4,7 @@ import { CardActions } from 'material-ui/Card';
 import React from 'react';
 import Prompt from 'react-router-navigation-prompt';
 import { InjectedFormProps } from 'redux-form';
-import { Checkbox, ConfirmationDialog } from '../../../../components/forms';
+import { Checkbox, ConfirmationDialog, TextInput } from '../../../../components/forms';
 import { Styles } from '../../../../styles';
 import { RegionAdminSettings } from '../../../../ww-commons';
 
@@ -46,6 +46,7 @@ export default class RegionAdminSettingsForm extends React.PureComponent<Props> 
         <div style={styles.formBox}>
           <Checkbox name="hidden" label="Hidden" />
           <Checkbox name="premium" label="Premium" />
+          <TextInput name="sku" title="SKU" />
         </div>
         <CardActions style={styles.footer}>
           <FlatButton label="Update" onClick={this.props.handleSubmit} />

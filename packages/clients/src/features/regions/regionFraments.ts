@@ -6,6 +6,7 @@ const Core = gql`
     name
     season
     seasonNumeric
+    sku
   }
 `;
 

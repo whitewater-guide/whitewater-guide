@@ -5,6 +5,7 @@ export const UPSERT_GROUP = gql`
     upsertGroup(group: $group) {
       id
       name
+      sku
     }
   }
 `;

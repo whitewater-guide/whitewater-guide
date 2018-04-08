@@ -13,7 +13,7 @@ const regionAdminForm = formContainer({
   query: REGION_ADMIN_SETTINGS_QUERY,
   mutation: ADMINISTRATE_REGION_MUTATION,
   serializeForm: serializeForm(),
-  deserializeForm: ({ hidden, premium }: Region) => ({ hidden, premium }),
+  deserializeForm: ({ hidden, premium, sku }: Region) => ({ hidden, premium, sku }),
   validationSchema: RegionAdminSettingsSchema,
   extraVariables: ({ regionId }) => ({ regionId }),
   backPath: null,

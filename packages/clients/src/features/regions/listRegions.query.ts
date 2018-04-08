@@ -9,6 +9,7 @@ export default gql`
         hidden
         premium
         editable
+        sku
         rivers { count }
         gauges { count }
         sections { count }

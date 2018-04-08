@@ -4,8 +4,7 @@ import { TableRow, TableRowColumn } from 'material-ui/Table';
 import TextField from 'material-ui/TextField';
 import React from 'react';
 import { Overwrite } from 'type-zoo';
-import { Group } from '../../ww-commons';
-import { Region } from '../../ww-commons/features/regions';
+import { Group, Region } from '../../ww-commons';
 import { WithGroupMutations } from './types';
 
 type State = Overwrite<Group, {id: string | null}>;
@@ -28,10 +27,11 @@ class GroupForm extends React.PureComponent<Props, State> {
   }
 
   onNameChange = (e: any, name: string) => this.setState({ name });
+  onSkuChange = (e: any, sku: string) => this.setState({ sku: sku || null });
 
   onSave = () => {
-    const { id, name } = this.state;
-    this.props.upsertGroup({ id, name });
+    const { id, name, sku } = this.state;
+    this.props.upsertGroup({ id, name, sku });
   };
 
   onDelete = () => this.props.removeGroup(this.props.group.id!);
@@ -51,21 +51,23 @@ class GroupForm extends React.PureComponent<Props, State> {
   };
 
   render() {
-    const { name } = this.state;
+    const { name, sku } = this.state;
+    const saveDisabled = this.props.group.id === this.state.id &&
+      this.props.group.name === this.state.name &&
+      this.props.group.sku === this.state.sku;
     return (
       <TableRow>
         <TableRowColumn>
           <TextField fullWidth value={name} hintText="Name" onChange={this.onNameChange} />
         </TableRowColumn>
         <TableRowColumn>
+          <TextField fullWidth value={sku || ''} hintText="SKU" onChange={this.onSkuChange} />
+        </TableRowColumn>
+        <TableRowColumn>
           {this.renderRegions()}
         </TableRowColumn>
         <TableRowColumn style={{ width: 150 }}>
-          <IconButton
-            iconClassName="material-icons"
-            onClick={this.onSave}
-            disabled={this.props.group.id === this.state.id && this.props.group.name === this.state.name}
-          >
+          <IconButton iconClassName="material-icons" onClick={this.onSave} disabled={saveDisabled}>
             {this.props.group.id ? 'save' : 'add'}
           </IconButton>
           <IconButton iconClassName="material-icons" onClick={this.onDelete} disabled={!this.props.group.id}>
