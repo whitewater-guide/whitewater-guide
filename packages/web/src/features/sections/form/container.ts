@@ -1,11 +1,29 @@
+import { MutationUpdaterFn } from 'apollo-client';
 import { compose, mapProps } from 'recompose';
 import { formContainer } from '../../../components/forms';
 import { withFeatureIds } from '../../../ww-clients/core';
-import { SectionFormSchema } from '../../../ww-commons';
+import { LIST_SECTIONS, WithSectionsList } from '../../../ww-clients/features/sections';
+import { Section, SectionFormSchema } from '../../../ww-commons';
 import deserializeSection from './deserializeSection';
 import { SECTION_FORM_QUERY } from './sectionForm.query';
 import serializeSection from './serializeSection';
-import UPSERT_SECTION from './upsertSection.mutation';
+import { UPSERT_SECTION, UpsertSectionResult } from './upsertSection.mutation';
+
+const addToList = ({ regionId }: any): MutationUpdaterFn<UpsertSectionResult> => (store, result) => {
+  const section: Section = result.data && result.data.upsertSection;
+  if (!section) {
+    return;
+  }
+  const queryResult: WithSectionsList | null =
+    store.readQuery({ query: LIST_SECTIONS, variables: { filter: { regionId } } });
+  if (!queryResult) {
+    return;
+  }
+  const { sections } = queryResult;
+  sections.count += 1;
+  sections.nodes.push(section);
+  store.writeQuery({ query: LIST_SECTIONS, variables: { filter: { regionId } }, data: queryResult });
+};
 
 const sectionForm = formContainer({
   formName: 'section',
@@ -35,6 +53,9 @@ const sectionForm = formContainer({
   serializeForm: serializeSection,
   deserializeForm: deserializeSection,
   validationSchema: SectionFormSchema,
+  mutationOptions: (props) => ({
+    update: addToList(props),
+  }),
 });
 
 export default compose(

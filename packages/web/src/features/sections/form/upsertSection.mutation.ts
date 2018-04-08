@@ -1,7 +1,8 @@
 import gql from 'graphql-tag';
 import { SectionFragments } from '../../../ww-clients/features/sections';
+import { Section } from '../../../ww-commons';
 
-const UPSERT_SECTION = gql`
+export const UPSERT_SECTION = gql`
   mutation upsertSection($section: SectionInput!){
     upsertSection(section: $section){
       ...SectionCore
@@ -24,4 +25,6 @@ const UPSERT_SECTION = gql`
   ${SectionFragments.Tags}
 `;
 
-export default UPSERT_SECTION;
+export interface UpsertSectionResult {
+  upsertSection: Section | null;
+}

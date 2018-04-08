@@ -3,7 +3,7 @@ import { SectionFragments } from './sectionFragments';
 
 export const LIST_SECTIONS = gql`
   query listSections($page: Page, $filter: SectionsFilter) {
-    sections(page: $page, filter: $filter) {
+    sections(page: $page, filter: $filter) @connection(key: "sections", filter: ["filter"])  {
       nodes {
         ...SectionCore
         ...SectionEnds
