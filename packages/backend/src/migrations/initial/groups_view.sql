@@ -6,6 +6,7 @@ CREATE OR REPLACE VIEW groups_view AS
   )
   SELECT
     groups.id,
+    groups.sku,
     langs.language,
     COALESCE(groups_translations.name, english.name, 'Not translated') as name
   FROM langs

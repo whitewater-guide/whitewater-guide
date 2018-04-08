@@ -4,11 +4,13 @@ DECLARE
   upserted_group_id  UUID;
   result             JSON;
 BEGIN
-  INSERT INTO groups(id)
+  INSERT INTO groups(id, sku)
   VALUES (
-    COALESCE((grp ->> 'id') :: UUID, uuid_generate_v1mc())
+    COALESCE((grp ->> 'id') :: UUID, uuid_generate_v1mc()),
+    (grp ->> 'sku')
   )
-  ON CONFLICT (id) DO NOTHING
+  ON CONFLICT (id) DO UPDATE
+    SET sku = EXCLUDED.sku
   RETURNING id
     INTO upserted_group_id;
 

@@ -25,6 +25,7 @@ Array [
     "premium": true,
     "season": null,
     "seasonNumeric": Array [],
+    "sku": "region.ecuador",
   },
   Object {
     "bounds": Array [
@@ -84,6 +85,7 @@ Array [
       20,
       21,
     ],
+    "sku": null,
   },
   Object {
     "bounds": Array [
@@ -120,6 +122,7 @@ Array [
       11,
       12,
     ],
+    "sku": "region.georgia",
   },
   Object {
     "bounds": Array [
@@ -158,6 +161,7 @@ Array [
       5,
       6,
     ],
+    "sku": null,
   },
   Object {
     "bounds": null,
@@ -170,6 +174,7 @@ Array [
     "premium": true,
     "season": null,
     "seasonNumeric": Array [],
+    "sku": "region.norway",
   },
 ]
 `;

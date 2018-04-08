@@ -23,6 +23,7 @@ const query = `
         bounds
         hidden
         premium
+        sku
         editable
         createdAt
         updatedAt

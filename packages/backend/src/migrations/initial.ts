@@ -68,6 +68,7 @@ export const up = async (db: Knex) => {
   // Region groups
   await db.schema.createTable('groups', (table) => {
     table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
+    table.string('sku').index();
     table.timestamps(false, true);
   });
   await db.schema.createTable('groups_translations', (table) => {
@@ -87,6 +88,7 @@ export const up = async (db: Knex) => {
     table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
     table.boolean('hidden').defaultTo(false);
     table.boolean('premium').defaultTo(false);
+    table.string('sku').index();
     table.specificType('season_numeric', 'integer[]').notNullable().defaultTo('{}');
     table.specificType('bounds', 'geography(POLYGONZ,4326)');
     table.timestamps(false, true);
@@ -330,6 +332,21 @@ export const up = async (db: Knex) => {
     await db.into('seeds_lock').insert({ locked: false });
   }
 
+  await db.schema.createTable('purchases', (table) => {
+    table
+      .uuid('user_id')
+      .notNullable()
+      .references('id')
+      .inTable('users')
+      .onDelete('CASCADE');
+    table.enu('platform', ['ios', 'android']).index();
+    table.string('sku');
+    table.primary(['user_id', 'platform', 'sku']);
+    table.jsonb('receipt');
+    table.timestamps(false, true);
+  });
+  await addUpdatedAtTrigger(db, 'purchases');
+
   await runSqlFile(db, './src/migrations/initial/array_json_to_int.sql');
   await runSqlFile(db, './src/migrations/initial/array_json_to_varchar.sql');
   await runSqlFile(db, './src/migrations/initial/point_from_json.sql');
@@ -387,6 +404,7 @@ export const down = async (db: Knex) => {
   await db.schema.raw('DROP TABLE IF EXISTS measurements CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS media CASCADE');
   await db.schema.raw('DROP TABLE IF EXISTS media_translations CASCADE');
+  await db.schema.raw('DROP TABLE IF EXISTS purchases CASCADE');
   await db.schema.raw('DROP VIEW IF EXISTS tags_view');
   await db.schema.raw('DROP VIEW IF EXISTS groups_view');
   await db.schema.raw('DROP VIEW IF EXISTS regions_view');

@@ -117,10 +117,12 @@ Object {
       "name": "Region 1 Point 2",
     },
   ],
+  "premium": false,
   "season": "Late autumn - early spring",
   "seasonNumeric": Array [
     20,
     21,
   ],
+  "sku": null,
 }
 `;

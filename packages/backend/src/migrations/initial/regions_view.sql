@@ -13,6 +13,7 @@ CREATE OR REPLACE VIEW regions_view AS
     regions.season_numeric,
     regions.hidden,
     regions.premium,
+    regions.sku,
     regions.created_at,
     regions.updated_at,
     ST_AsText(regions.bounds) AS bounds,

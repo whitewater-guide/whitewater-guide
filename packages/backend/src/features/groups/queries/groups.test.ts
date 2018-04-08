@@ -3,7 +3,6 @@ import { ADMIN, EDITOR_GA_EC, TEST_USER } from '../../../seeds/test/01_users';
 import { REGION_GALICIA } from '../../../seeds/test/04_regions';
 import { anonContext, fakeContext } from '../../../test/context';
 import { runQuery } from '../../../test/db-helpers';
-import { UUID_REGEX } from '../../../test/isUUID';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
@@ -13,6 +12,7 @@ query listGroups($regionId: ID) {
   groups(regionId: $regionId) {
     id
     name
+    sku
     regions {
       nodes {
         id

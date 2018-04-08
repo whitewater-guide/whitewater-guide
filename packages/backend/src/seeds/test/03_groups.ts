@@ -8,15 +8,19 @@ export const GROUP_EMPTY = '9f4c3c98-37f5-11e8-b467-0ed5f89f718b';
 const groups = [
   {
     id: GROUP_EU,
+    sku: null,
   },
   {
     id: GROUP_EU_CIS,
+    sku: 'group.eu_cis',
   },
   {
     id: GROUP_LATIN,
+    sku: 'group.latin',
   },
   {
     id: GROUP_EMPTY,
+    sku: null,
   },
 ];
 

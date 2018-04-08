@@ -20,4 +20,5 @@ export const RegionFormSchema = RegionInputSchema.keys({
 export const RegionAdminSettingsSchema = Joi.object().keys({
   hidden: Joi.bool(),
   premium: Joi.bool(),
+  sku: Joi.string().allow('').allow(null),
 });

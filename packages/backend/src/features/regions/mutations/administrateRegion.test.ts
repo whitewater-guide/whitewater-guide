@@ -1,5 +1,5 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
-import { ADMIN, EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '../../../seeds/test/01_users';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '../../../seeds/test/01_users';
 import { REGION_GALICIA } from '../../../seeds/test/04_regions';
 import { anonContext, fakeContext } from '../../../test/context';
 import { runQuery } from '../../../test/runQuery';
@@ -10,6 +10,7 @@ const mutation = `
       id
       hidden
       premium
+      sku
     }
   }
 `;
@@ -17,7 +18,7 @@ const mutation = `
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
-const variables = { regionId: REGION_GALICIA, settings: { hidden: true, premium: true } };
+const variables = { regionId: REGION_GALICIA, settings: { hidden: true, premium: true, sku: 'test.sku' } };
 
 describe('resolvers chain', () => {
 
@@ -49,6 +50,7 @@ describe('result', () => {
       id: REGION_GALICIA,
       hidden: true,
       premium: true,
+      sku: 'test.sku',
     });
   });
 

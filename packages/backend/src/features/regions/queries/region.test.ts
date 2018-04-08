@@ -18,6 +18,8 @@ const query = `
       bounds
       hidden
       editable
+      premium
+      sku
       createdAt
       updatedAt
       pois {

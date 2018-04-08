@@ -20,6 +20,7 @@ const resolver: GraphQLFieldResolver<any, any, Vars> = async (_, { regionId, set
     .update({
       hidden: settings.hidden,
       premium: settings.premium,
+      sku: settings.sku || null,
     })
     .where({ id: regionId });
   return buildRegionQuery({ info, context, id: regionId }).first();

@@ -9,6 +9,7 @@ Array [
       "count": 0,
       "nodes": Array [],
     },
+    "sku": null,
   },
   Object {
     "id": "c9bf96be-37f5-11e8-b467-0ed5f89f718b",
@@ -26,6 +27,7 @@ Array [
         },
       ],
     },
+    "sku": null,
   },
   Object {
     "id": "88a55b3c-37f5-11e8-b467-0ed5f89f718b",
@@ -38,15 +40,16 @@ Array [
           "name": "Galicia",
         },
         Object {
-          "id": "8e119768-37f3-11e8-b467-0ed5f89f718b",
-          "name": "Georgia",
-        },
-        Object {
           "id": "b968e2b2-76c5-11e7-b5a5-be2e44b06b34",
           "name": "Norway",
         },
+        Object {
+          "id": "8e119768-37f3-11e8-b467-0ed5f89f718b",
+          "name": "Georgia",
+        },
       ],
     },
+    "sku": "group.eu_cis",
   },
   Object {
     "id": "904a4852-37f5-11e8-b467-0ed5f89f718b",
@@ -60,6 +63,7 @@ Array [
         },
       ],
     },
+    "sku": "group.latin",
   },
 ]
 `;
