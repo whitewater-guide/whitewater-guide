@@ -2,7 +2,7 @@ import { reject } from 'lodash';
 import React from 'react';
 import { BaseFieldProps, Field, GenericField, WrappedFieldProps } from 'redux-form';
 import { NamedNode } from '../../ww-commons';
-import { ChipList, ChipListProps } from '../ChipList';
+import { ChipList } from '../ChipList';
 
 interface ChipInputProps {
   options: NamedNode[];

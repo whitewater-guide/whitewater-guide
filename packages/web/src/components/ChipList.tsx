@@ -67,8 +67,14 @@ export class ChipList extends React.PureComponent<ChipListProps, State> {
     });
   };
 
+  onRequestAdd = (chip: NamedNode) => {
+    const { options, onRequestAdd } = this.props;
+    const fullNode = options.find(o => o.id === chip.id);
+    onRequestAdd(fullNode!);
+  };
+
   render() {
-    const { values, options, onRequestAdd, onRequestDelete, errorText } = this.props;
+    const { values, options, onRequestDelete, errorText } = this.props;
     const value = intersectionBy(options, values, 'id');
     return (
       <div>
@@ -85,7 +91,7 @@ export class ChipList extends React.PureComponent<ChipListProps, State> {
           dataSource={options}
           dataSourceConfig={DATA_SOURCE_CONFIG}
           errorText={errorText}
-          onRequestAdd={onRequestAdd}
+          onRequestAdd={this.onRequestAdd}
           onRequestDelete={onRequestDelete}
           floatingLabelText={this.props.title}
           hintText={this.props.title}
