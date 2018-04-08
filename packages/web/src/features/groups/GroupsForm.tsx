@@ -22,6 +22,7 @@ export default class GroupsForm extends React.PureComponent<GroupsFormProps> {
               <TableHeader enableSelectAll={false} displaySelectAll={false}>
                 <TableRow>
                   <TableHeaderColumn>Name</TableHeaderColumn>
+                  <TableHeaderColumn>SKU</TableHeaderColumn>
                   <TableHeaderColumn>Regions</TableHeaderColumn>
                   <TableHeaderColumn style={{ width: 150 }}>Actions</TableHeaderColumn>
                 </TableRow>
