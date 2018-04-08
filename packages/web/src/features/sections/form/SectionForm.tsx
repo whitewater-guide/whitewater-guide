@@ -93,17 +93,19 @@ export default class SectionForm extends React.PureComponent<SectionFormProps> {
             </div>
           </FormTab>
           <FormTab form="section" fields={PropertiesFields} label="Properties" value="#properties">
-            <Row>
-              <TextInput fullWidth name="drop" type="number" title="Drop, m" />
-              <TextInput fullWidth name="distance" type="number" title="Length, km" />
-              <Select name="duration" options={DURATIONS_OPTIONS} title="Duration"/>
-            </Row>
-            <TextInput fullWidth name="season" title="Season" />
-            <SeasonPicker name="seasonNumeric" />
-            <ChipInput name="supplyTags" title="River supply" options={supply} />
-            <ChipInput name="kayakingTags" title="Kayaking types" options={kayaking} />
-            <ChipInput name="hazardsTags" title="Hazards" options={hazards} />
-            <ChipInput name="miscTags" title="Tags" options={misc} />
+            <div style={{ overflowX: 'hidden', flex: 1 }}>
+              <Row>
+                <TextInput fullWidth name="drop" type="number" title="Drop, m" />
+                <TextInput fullWidth name="distance" type="number" title="Length, km" />
+                <Select name="duration" options={DURATIONS_OPTIONS} title="Duration"/>
+              </Row>
+              <TextInput fullWidth name="season" title="Season" />
+              <SeasonPicker name="seasonNumeric" />
+              <ChipInput name="supplyTags" title="River supply" options={supply} />
+              <ChipInput name="kayakingTags" title="Kayaking types" options={kayaking} />
+              <ChipInput name="hazardsTags" title="Hazards" options={hazards} />
+              <ChipInput name="miscTags" title="Tags" options={misc} />
+            </div>
           </FormTab>
           <FormTab form="section" fields={ShapeFields} label="Shape" value="#shape">
             <div style={styles.container}>
