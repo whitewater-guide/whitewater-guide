@@ -3,7 +3,7 @@ import { graphql, introspectionQuery } from 'graphql';
 import Router from 'koa-router';
 import { newContext } from '../context';
 import { formatError } from '../formatError';
-import { getSchema, getTypeDefs } from './schema';
+import { getGraphiqlSchema, getSchema, getTypeDefs } from './schema';
 
 export const graphqlRouter = new Router();
 
@@ -19,9 +19,19 @@ graphqlRouter.post('/graphql', graphqlKoa(async (ctx) => {
 }));
 
 if (process.env.APOLLO_EXPOSE_GRAPHIQL === 'true') {
+  graphqlRouter.post('/graphql-public', graphqlKoa(async (ctx) => {
+    // Get user's device screen size in pixels, defaults to 1080x1920
+    const schema = await getGraphiqlSchema();
+    return {
+      schema,
+      context: newContext(ctx),
+      formatError,
+    };
+  }));
+
   graphqlRouter.get(
     '/graphiql',
-    graphiqlKoa({ endpointURL: '/graphql' }),
+    graphiqlKoa({ endpointURL: '/graphql-public' }),
   );
 }
 
