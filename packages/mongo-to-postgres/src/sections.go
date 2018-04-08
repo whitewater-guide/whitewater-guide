@@ -106,6 +106,9 @@ func insertSections(mongo *mgo.Database, pg *sqlx.DB, uuids IdMap) error {
     section.CreatedBy = UUIDOrNull(uuids[section.AuthorMongoId])
     section.RiverID = UUIDOrNull(uuids[section.RiverMongoId])
     section.GaugeID = UUIDOrNull(uuids[section.GaugeMongoId])
+    if section.Duration != nil {
+      *section.Duration = *section.Duration + int64(10)
+    }
     err := sectionStmt.QueryRowx(section).Scan(&section.SectionID)
     if err != nil {
       return fmt.Errorf("failed to insert section %v: %s", section.ID.Hex(), err.Error())
