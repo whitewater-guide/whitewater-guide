@@ -17,7 +17,7 @@ let graphiqlSchema: GraphQLSchema;
 async function loadSchema() {
   const typesArray = fileLoader(join(process.cwd(), 'src'), { recursive: true, extensions: ['.graphql'] });
   typeDefs = mergeTypes(typesArray);
-  schema = makeExecutableSchema({
+  const result = makeExecutableSchema({
     typeDefs,
     resolvers,
     allowUndefinedInResolve: false,
@@ -26,7 +26,7 @@ async function loadSchema() {
     },
   });
   logger.info('Initialized GRAPHQL schema');
-  return schema;
+  return result;
 }
 
 export async function getGraphiqlSchema(): Promise<GraphQLSchema> {
@@ -39,10 +39,10 @@ export async function getGraphiqlSchema(): Promise<GraphQLSchema> {
 }
 
 export async function getSchema(): Promise<GraphQLSchema> {
-  if (schema) {
-    return Promise.resolve(schema);
+  if (!schema) {
+    schema = await loadSchema();
   }
-  return loadSchema();
+  return schema;
 }
 
 export async function getTypeDefs(): Promise<string> {
