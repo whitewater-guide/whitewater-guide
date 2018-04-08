@@ -20,6 +20,10 @@ const addToList = ({ regionId }: any): MutationUpdaterFn<UpsertSectionResult> =>
     return;
   }
   const { sections } = queryResult;
+  const isNew = sections.nodes.findIndex(s => s.id === section.id) === -1;
+  if (!isNew) {
+    return;
+  }
   sections.count += 1;
   sections.nodes.push(section);
   store.writeQuery({ query: LIST_SECTIONS, variables: { filter: { regionId } }, data: queryResult });
