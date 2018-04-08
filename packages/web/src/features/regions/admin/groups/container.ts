@@ -22,7 +22,7 @@ const regionGroupsContainer = compose<RegionGroupsQueryProps & RemoverGroupProps
   graphql<{regionId: string}, RegionGroupsResult, RegionGroupsVars, RegionGroupsQueryProps>(
     REGION_GROUPS_QUERY,
     {
-      options: { fetchPolicy: 'network-only' },
+      options: () => ({ fetchPolicy: 'cache-and-network' }),
       props: ({ data }) => {
         const { regionGroups, allGroups, loading } = data!;
         return { regionGroups: regionGroups!, allGroups: allGroups!, groupsLoading: loading };

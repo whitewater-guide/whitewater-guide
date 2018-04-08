@@ -2,7 +2,7 @@ import { times, xor } from 'lodash';
 import EnhancedButton from 'material-ui/internal/EnhancedButton';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 import moment from 'moment';
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { BaseFieldProps, Field, GenericField, WrappedFieldProps } from 'redux-form';
 import { Styles, Themeable } from '../../styles';
 
@@ -51,7 +51,7 @@ type Props = WrappedFieldProps & OwnProps;
 
 class SeasonPickerComponent extends React.PureComponent<Props & Themeable> {
   renderMonth = (monthNumber: number) => {
-    const borderStyle = monthNumber === 11 ?
+    const borderStyle: CSSProperties = monthNumber === 11 ?
       {} :
       {
         borderRightWidth: 1,
@@ -71,7 +71,7 @@ class SeasonPickerComponent extends React.PureComponent<Props & Themeable> {
     const selected = value.includes(index);
     let style = selected ?
       { ...styles.month, backgroundColor: this.props.muiTheme.palette!.primary1Color } : styles.month;
-    const borderStyle = (index === 23 || index % 2 === 0) ?
+    const borderStyle: CSSProperties = (index === 23 || index % 2 === 0) ?
       {} :
       {
         borderRightWidth: 1,
@@ -97,7 +97,7 @@ class SeasonPickerComponent extends React.PureComponent<Props & Themeable> {
   };
 
   render() {
-    const rowStyle = {
+    const rowStyle: CSSProperties = {
       ...styles.row,
       borderBottomWidth: 1,
       borderBottomStyle: 'solid',

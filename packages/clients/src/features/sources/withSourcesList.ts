@@ -15,9 +15,9 @@ export const withSourcesList = graphql<any, Result, any, WithSourcesList>(
   listSources,
   {
     alias: 'withSourcesList',
-    options: {
+    options: () => ({
       fetchPolicy: 'cache-and-network',
-    },
+    }),
     props: props => queryResultToList(props, 'sources'),
   },
 );

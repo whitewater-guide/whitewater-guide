@@ -34,7 +34,7 @@ export const withRiver = ({ fetchPolicy = 'cache-and-network' }: WithRiverOption
       RIVER_DETAILS,
       {
         alias: 'withRiver',
-        options: { fetchPolicy },
+        options: () => ({ fetchPolicy }),
         props: props => queryResultToNode(props, 'river'),
       },
     ),

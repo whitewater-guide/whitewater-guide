@@ -33,7 +33,7 @@ export const withSection = ({ fetchPolicy = 'cache-and-network' }: Options = {})
       SECTION_DETAILS,
       {
         alias: 'withSection',
-        options: { fetchPolicy },
+        options: () => ({ fetchPolicy }),
         props: props => queryResultToNode(props, 'section'),
       },
     ),

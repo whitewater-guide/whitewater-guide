@@ -33,7 +33,7 @@ export const withSource = ({ fetchPolicy = 'cache-and-network' }: Options = {}) 
       SOURCE_DETAILS,
       {
         alias: 'withSource',
-        options: { fetchPolicy },
+        options: () => ({ fetchPolicy }),
         props: props => queryResultToNode(props, 'source'),
       },
     ),

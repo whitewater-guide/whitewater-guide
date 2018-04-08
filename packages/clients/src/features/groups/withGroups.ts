@@ -9,9 +9,9 @@ interface Result {
 export const withGroups = graphql<any, Result, any, WithGroups>(
   LIST_GROUPS,
   {
-    options: {
-      fetchPolicy: 'cache-and-network',
-    },
+    options: () => ({
+      fetchPolicy: 'network-only',
+    }),
     props: ({ data }) => {
       const { loading, groups } = data!;
       return { groups: groups!, groupsLoading: loading };

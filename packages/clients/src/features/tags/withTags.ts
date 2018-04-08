@@ -9,9 +9,9 @@ interface Result {
 export const withTags = (cached = true) => graphql<any, Result, any, WithTags>(
   LIST_TAGS,
   {
-    options: {
+    options: () => ({
       fetchPolicy: cached ? 'cache-first' : 'network-only',
-    },
+    }),
     props: ({ data }) => {
       const { loading, tags } = data!;
       return { tags: tags!, tagsLoading: loading };

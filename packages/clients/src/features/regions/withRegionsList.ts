@@ -15,10 +15,10 @@ export const withRegionsList = graphql<{}, Result, {}, WithRegionsList>(
   listRegions,
   {
     alias: 'withRegionsList',
-    options: {
+    options: () => ({
       fetchPolicy: 'cache-and-network',
       notifyOnNetworkStatusChange: true,
-    },
+    }),
     props: props => queryResultToList(props, 'regions'),
   },
 );

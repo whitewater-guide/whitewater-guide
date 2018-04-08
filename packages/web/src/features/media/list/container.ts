@@ -18,10 +18,10 @@ export const withSectionMedia = ({ fetchPolicy = 'cache-and-network' }: WithMedi
       SECTIONS_MEDIA,
       {
         alias: 'withSectionMedia',
-        options: {
+        options: () => ({
           fetchPolicy,
           notifyOnNetworkStatusChange: true,
-        },
+        }),
         props: props => queryResultToList(props, 'mediaBySection'),
       },
     ),

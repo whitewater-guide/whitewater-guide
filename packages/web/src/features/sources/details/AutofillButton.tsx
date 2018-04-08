@@ -21,9 +21,9 @@ const container = compose<FlatButtonProps, OuterProps>(
   graphql<OuterProps, {}, {}, FlatButtonProps>(
     AUTOFILL_MUTATION,
     {
-      options: {
+      options: () => ({
         refetchQueries: ['listGauges'],
-      },
+      }),
       props: ({ mutate, ownProps: { sourceId } }) => ({
         onClick: () =>
           mutate!({ sourceId } as any)

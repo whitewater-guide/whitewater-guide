@@ -11,7 +11,7 @@ import RegionEditorsWithData from './editors';
 import RegionGroupsWithData from './groups';
 import RegionAdminSettingsForm from './settings';
 
-export class RegionAdmin extends React.PureComponent {
+export class RegionAdmin extends React.Component {
   render() {
     return (
       <Content card>

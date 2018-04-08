@@ -25,10 +25,10 @@ export const withGaugesList = compose(
     LIST_GAUGES,
     {
       alias: 'withGaugesList',
-      options: {
+      options: () => ({
         fetchPolicy: 'cache-and-network',
         notifyOnNetworkStatusChange: true,
-      },
+      }),
       props: props => queryResultToList(props, 'gauges'),
     },
   ),

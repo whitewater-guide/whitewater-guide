@@ -97,7 +97,9 @@ export const formContainer = <QueryResult, MutationResult, FormInput>(
 
   return compose(
     withRouter,
-    graphql(query, { options: { fetchPolicy: 'network-only' }, alias: `${formName}FormQuery` }),
+    // graphql(query, { options: { fetchPolicy: 'network-only' }, alias: `${formName}FormQuery` }),
+    // TODO: Use functional options because of this bug: https://github.com/apollographql/react-apollo/issues/1873
+    graphql(query, { options: () => ({ fetchPolicy: 'network-only' }), alias: `${formName}FormQuery` }),
     withLoading<ChildProps<any, any>>(({ data }) => data!.loading),
     graphql(mutation, { alias: `${formName}FormMutation` }),
     mapProps<FormProps, MappedProps>((props) => {

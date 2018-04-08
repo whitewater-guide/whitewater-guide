@@ -32,7 +32,7 @@ export const withGauge = ({ fetchPolicy = 'cache-and-network' }: WithGaugeOption
       GAUGE_DETAILS,
       {
         alias: 'withGauge',
-        options: { fetchPolicy },
+        options: () => ({ fetchPolicy }),
         props: props => queryResultToNode(props, 'gauge'),
       },
     ),

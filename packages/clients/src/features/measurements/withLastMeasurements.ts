@@ -26,7 +26,7 @@ export const withLastMeasurements = (fetchPolicy: FetchPolicy = 'cache-and-netwo
     LAST_MEASUREMENTS_QUERY,
     {
       alias: 'withLastMeasurements',
-      options: { fetchPolicy, notifyOnNetworkStatusChange: true },
+      options: () => ({ fetchPolicy, notifyOnNetworkStatusChange: true }),
       props: ({ data }) => {
         const { loading, lastMeasurements, refetch } = data!;
         return {
