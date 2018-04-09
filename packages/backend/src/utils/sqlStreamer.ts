@@ -1,7 +1,7 @@
 import { createStream } from 'byline';
 import { createReadStream } from 'fs';
+import { Client } from 'pg';
 import { Transform, Writable } from 'stream';
-import Knex from 'knex';
 
 const ALTER_TABLE = 'ALTER TABLE ';
 const INSERT_INTO = 'INSERT INTO ';
@@ -51,20 +51,34 @@ class SqlSplitter extends Transform {
 
 // tslint:disable:max-classes-per-file
 class WritableSqlStream extends Writable {
-  constructor(readonly db: Knex) {
+  client: Client;
+
+  constructor() {
     super();
+    // Do not use knex, it will turn ? into bindings and break youtube links, for example
+    this.client = new Client({
+      user: 'postgres',
+      host: process.env.POSTGRES_HOST!,
+      database: process.env.POSTGRES_DB!,
+      password: process.env.POSTGRES_PASSWORD!,
+    });
+    this.client.connect();
   }
 
   _write(buff: Buffer, encoding: string, callback: (err?: Error) => void): void {
-    const stmpt = buff.toString('utf8');
-    this.db.raw(stmpt).finally(callback);
+    const statement = buff.toString('utf8');
+    this.client.query(statement, () => callback());
+  }
+
+  _final(callback: () => void): void {
+    this.client.end(() => callback());
   }
 }
 
-export const sqlStreamer = (filename: string, db: Knex) => {
+export const sqlStreamer = (filename: string) => {
   const reader = createReadStream(filename, 'utf8');
   const lineSplitter = createStream(reader, { keepEmptyLines: true });
   const sqlSplitter = new SqlSplitter();
-  const writer = new WritableSqlStream(db);
+  const writer = new WritableSqlStream();
   return lineSplitter.pipe(sqlSplitter).pipe(writer);
 };

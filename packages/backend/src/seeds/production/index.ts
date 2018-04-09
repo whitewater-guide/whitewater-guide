@@ -52,7 +52,7 @@ export async function seed(db: Knex) {
   await db.raw(`TRUNCATE ${tables} CASCADE`);
 
   await new Promise(rslv => {
-    const streamer = sqlStreamer(dumpFile, db);
+    const streamer = sqlStreamer(dumpFile);
     streamer.on('finish', () => {
       log.info('Finished seeding dev');
       rslv();
