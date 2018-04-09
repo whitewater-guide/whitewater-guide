@@ -2,6 +2,7 @@ import { CardMedia } from 'material-ui/Card';
 import { Tab } from 'material-ui/Tabs';
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
+import { Route, Switch } from 'react-router';
 import { RouteComponentProps } from 'react-router-dom';
 import { Content, Tabs } from '../../../components';
 import { EditorLanguagePicker } from '../../../components/language';
@@ -45,7 +46,15 @@ export default class SectionDetails extends React.PureComponent<WithSection & Ro
             </Tabs>
           </div>
         </CardMedia>
-        <EditorFooter edit />
+        <Switch>
+
+          <Route exact path={`${url}/media`} />
+
+          <Route>
+            <EditorFooter edit />
+          </Route>
+
+        </Switch>
       </Content>
     );
   }

@@ -9,22 +9,20 @@ export interface EditorFooterProps {
   // Not editors, admins only
   adminOnly?: boolean;
   // Should have 'Add new' button? If string, then it's custom href for add button
-  add?: string | boolean;
+  add?: boolean;
   // Should have 'Edit' button? If string, then it's custom href for settings
-  edit?: string | boolean;
+  edit?: boolean;
   // Should have 'Admin' button? If string, then it's custom href for settings
-  administrate?: string | boolean;
+  administrate?: boolean;
 }
 
 type InnerProps = EditorFooterProps & RouteComponentProps<any>;
 
 const EditorFooterInternal: React.StatelessComponent<InnerProps> = (props) => {
   const { adminOnly, add, edit, administrate, location: { pathname }, history, children } = props;
-  const addHref = history.createHref({ pathname: typeof add === 'string' ? add : `${pathname}/new` });
-  const editHref = history.createHref({ pathname: typeof edit === 'string' ? edit : `${pathname}/settings` });
-  const adminHref = history.createHref({
-    pathname: typeof administrate === 'string' ? administrate : `${pathname}/admin`,
-  });
+  const addHref = history.createHref({ pathname: `${pathname}/new` });
+  const editHref = history.createHref({ pathname: `${pathname}/settings` });
+  const adminHref = history.createHref({ pathname: `${pathname}/admin` });
   const Guard = adminOnly ? AdminOnly : EditorOnly;
   return (
     <Guard>
