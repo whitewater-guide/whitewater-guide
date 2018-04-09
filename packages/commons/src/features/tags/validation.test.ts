@@ -15,15 +15,15 @@ const validate = (value: any) => Joi.validate(
 );
 
 it('should fail for bad ids', () => {
-  const ids = ['aa', 'яяяяяя', 'foo bar', 'fooo11'];
+  const ids = ['aa', 'яяяяяя', 'foo bar'];
   ids.forEach(id => expect(validate({ id, name: 'Name', category: 'misc' }).error).toBeTruthy());
-  expect.assertions(4);
+  expect.assertions(3);
 });
 
 it('should accept legacy ids', () => {
-  const ids = ['Must-run', 'man_made'];
+  const ids = ['Must-run', 'man_made', '4x4'];
   ids.forEach(id => expect(validate({ id, name: 'Name', category: 'misc' }).error).toBeFalsy());
-  expect.assertions(2);
+  expect.assertions(3);
 });
 
 it('should fail for bad category', () => {

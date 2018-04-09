@@ -153,9 +153,9 @@ describe('insert', () => {
   });
 
   it('should sanitize input', async () => {
-    const dirtyInput = { ...input, name: "it's a \\ slash" };
+    const dirtyInput = { ...input, name: "it's a \\ $1 slash with . ?" };
     const result = await runQuery(upsertQuery, { gauge: dirtyInput }, fakeContext(ADMIN));
-    expect(result).toHaveProperty('data.upsertGauge.name', "it's a \\ slash");
+    expect(result).toHaveProperty('data.upsertGauge.name', "it's a \\ $1 slash with . ?");
   });
 });
 

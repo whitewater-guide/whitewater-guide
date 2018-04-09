@@ -1,7 +1,7 @@
 import { GraphQLFieldResolver } from 'graphql';
 import Joi from 'joi';
 import { baseResolver, Context, isInputValidResolver, ValidationError } from '../../../apollo';
-import db, { rawUpsert, stringifyJSON } from '../../../db';
+import db, { rawUpsert } from '../../../db';
 import { MEDIA, moveTempImage } from '../../../minio';
 import { MediaInput, MediaInputSchema } from '../../../ww-commons';
 import checkEditorPermissions from '../checkEditorPermissions';
@@ -25,7 +25,8 @@ const resolver: GraphQLFieldResolver<any, Context> = async (root, vars: Vars, co
   try {
     const result: MediaRaw = await rawUpsert(
       db(),
-      `SELECT upsert_section_media('${sectionId}', '${stringifyJSON(media)}', '${language}')`,
+      'SELECT upsert_section_media(?, ?, ?)',
+      [sectionId, media, language],
     ) as MediaRaw;
     await moveTempImage(result.id, MEDIA);
     return result;

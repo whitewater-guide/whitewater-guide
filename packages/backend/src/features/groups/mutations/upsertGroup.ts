@@ -1,6 +1,6 @@
 import Joi from 'joi';
 import { Context, isInputValidResolver } from '../../../apollo';
-import db, { rawUpsert, stringifyJSON } from '../../../db';
+import db, { rawUpsert } from '../../../db';
 import { GroupInput, GroupInputSchema } from '../../../ww-commons';
 
 interface Vars {
@@ -13,7 +13,7 @@ const Schema = Joi.object().keys({
 
 const upsertGroup = isInputValidResolver(Schema).createResolver(
   (_: any, { group }: Vars, { language }: Context) =>
-    rawUpsert(db(), `SELECT upsert_group('${stringifyJSON(group)}', '${language}')`),
+    rawUpsert(db(), 'SELECT upsert_group(?, ?)', [group, language]),
 );
 
 export default upsertGroup;

@@ -419,9 +419,9 @@ describe('i18n', () => {
 });
 
 it('should sanitize input', async () => {
-  let dirty = { ...existingRiverSection, name: "it's a \\ slash" };
-  dirty = set('pois.0.name', "it's a \\ slash", dirty);
+  let dirty = { ...existingRiverSection, name: "it's a \\ $1 slash with . ?" };
+  dirty = set('pois.0.name', "it's a \\ $1 slash with . ?", dirty);
   const result = await runQuery(upsertQuery, { section: dirty }, fakeContext(ADMIN));
-  expect(result).toHaveProperty('data.upsertSection.name', "it's a \\ slash");
-  expect(result).toHaveProperty('data.upsertSection.pois.0.name', "it's a \\ slash");
+  expect(result).toHaveProperty('data.upsertSection.name', "it's a \\ $1 slash with . ?");
+  expect(result).toHaveProperty('data.upsertSection.pois.0.name', "it's a \\ $1 slash with . ?");
 });

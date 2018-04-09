@@ -339,11 +339,11 @@ describe('i18n', () => {
 });
 
 it('should sanitize input', async () => {
-  let dirtyRegion = { ...fullRegionWithPOIs, name: "it's a \\ slash" };
+  let dirtyRegion = { ...fullRegionWithPOIs, name: "it's a \\ $1 slash with . ?" };
   dirtyRegion = set('pois.0.name', "it's a poi", dirtyRegion);
 
   const insertResult = await runQuery(upsertQuery, { region: dirtyRegion }, fakeContext(ADMIN));
   expect(insertResult.errors).toBeUndefined();
-  expect(insertResult).toHaveProperty('data.upsertRegion.name', "it's a \\ slash");
+  expect(insertResult).toHaveProperty('data.upsertRegion.name', "it's a \\ $1 slash with . ?");
   expect(insertResult).toHaveProperty('data.upsertRegion.pois.0.name', "it's a poi");
 });

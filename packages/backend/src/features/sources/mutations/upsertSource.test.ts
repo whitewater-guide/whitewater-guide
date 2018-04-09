@@ -259,7 +259,7 @@ describe('i18n', () => {
 });
 
 it('should sanitize input', async () => {
-  const dirty = { ...requiredSource, name: "it's a \\ slash" };
+  const dirty = { ...requiredSource, name: "it's a \\ $1 slash with . ?" };
   const result = await runQuery(mutation, { source: dirty }, fakeContext(ADMIN));
-  expect(result).toHaveProperty('data.upsertSource.name', "it's a \\ slash");
+  expect(result).toHaveProperty('data.upsertSource.name', "it's a \\ $1 slash with . ?");
 });

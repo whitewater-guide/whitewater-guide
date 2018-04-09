@@ -244,7 +244,7 @@ describe('alt names', () => {
 });
 
 it('should sanitize input', async () => {
-  const dirty = { ...input, name: "it's a \\ slash" };
+  const dirty = { ...input, name: "it's a \\ $1 slash with . ?" };
   const result = await runQuery(upsertQuery, { river: dirty }, fakeContext(EDITOR_GA_EC));
-  expect(result).toHaveProperty('data.upsertRiver.name', "it's a \\ slash");
+  expect(result).toHaveProperty('data.upsertRiver.name', "it's a \\ $1 slash with . ?");
 });

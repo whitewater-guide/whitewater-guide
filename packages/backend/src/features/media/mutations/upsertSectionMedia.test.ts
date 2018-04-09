@@ -116,9 +116,9 @@ describe('insert', () => {
   });
 
   it('should sanitize input', async () => {
-    const dirty = { ...media, description: "it's a \\ slash" };
+    const dirty = { ...media, description: "it's a \\ $1 slash with . ?" };
     const result = await runQuery(mutation, { sectionId, media: dirty }, fakeContext(EDITOR_NO_EC));
-    expect(result).toHaveProperty('data.upsertSectionMedia.description', "it's a \\ slash");
+    expect(result).toHaveProperty('data.upsertSectionMedia.description', "it's a \\ $1 slash with . ?");
   });
 
   it('should set created_by field', async () => {

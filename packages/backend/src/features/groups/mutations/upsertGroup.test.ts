@@ -130,7 +130,7 @@ describe('i18n', () => {
 });
 
 it('should sanitize input', async () => {
-  const dirty = { ...group, name: "it's a \\ slash" };
+  const dirty = { ...group, name: "it's a \\ $1 slash with . ?" };
   const result = await runQuery(query, { group: dirty }, fakeContext(ADMIN));
-  expect(result).toHaveProperty('data.upsertGroup.name', "it's a \\ slash");
+  expect(result).toHaveProperty('data.upsertGroup.name', "it's a \\ $1 slash with . ?");
 });

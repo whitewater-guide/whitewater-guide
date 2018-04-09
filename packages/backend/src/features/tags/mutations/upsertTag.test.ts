@@ -149,7 +149,7 @@ describe('i18n', () => {
 });
 
 it('should sanitize input', async () => {
-  const dirty = { ...tag, name: "it's a \\ slash" };
+  const dirty = { ...tag, name: "it's a \\ $1 slash with . ?" };
   const result = await runQuery(query, { tag: dirty }, fakeContext(ADMIN));
-  expect(result).toHaveProperty('data.upsertTag.name', "it's a \\ slash");
+  expect(result).toHaveProperty('data.upsertTag.name', "it's a \\ $1 slash with . ?");
 });

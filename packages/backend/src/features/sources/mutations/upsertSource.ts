@@ -1,7 +1,7 @@
 import { GraphQLFieldResolver } from 'graphql';
 import Joi from 'joi';
 import { baseResolver, Context, isInputValidResolver, MutationNotAllowedError } from '../../../apollo';
-import db, { rawUpsert, stringifyJSON } from '../../../db';
+import db, { rawUpsert } from '../../../db';
 import { SourceInput, SourceInputSchema } from '../../../ww-commons';
 
 interface Vars {
@@ -20,7 +20,7 @@ const resolver: GraphQLFieldResolver<any, Context> = async (root, args: Vars, { 
       throw new MutationNotAllowedError({ message: 'Disable source before editing it' });
     }
   }
-  return rawUpsert(db(), `SELECT upsert_source('${stringifyJSON(source)}', '${language}')`);
+  return rawUpsert(db(), 'SELECT upsert_source(?, ?)', [source, language]);
 };
 
 const queryResolver: GraphQLFieldResolver<any, any> = (root, args: Vars, context, info) => {
