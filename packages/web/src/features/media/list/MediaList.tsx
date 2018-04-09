@@ -1,9 +1,12 @@
 import { groupBy } from 'lodash';
+import FlatButton from 'material-ui/FlatButton';
+import FontIcon from 'material-ui/FontIcon';
 import React from 'react';
 import { Col } from 'react-grid-system';
 import { ConfirmationDialog } from '../../../components';
 import { Row } from '../../../layout/details';
 import { Media, MediaKind } from '../../../ww-commons';
+import BlogsList from './BlogsList';
 import GridGallery from './GridGallery';
 import Lightbox from './Lightbox';
 import { MediaListProps } from './types';
@@ -60,6 +63,8 @@ class MediaList extends React.PureComponent<MediaListProps, State> {
     const { match: { params: { regionId, sectionId } }, history } = this.props;
     history.push(`/regions/${regionId}/sections/${sectionId}/media/new?kind=${kind}`, { file });
   };
+
+  onAddBlog = () => this.onAdd(MediaKind.blog);
 
   onEdit = (media: Media) => {
     const { match: { params: { regionId, sectionId } }, history } = this.props;
@@ -121,13 +126,30 @@ class MediaList extends React.PureComponent<MediaListProps, State> {
         </Row>
         <Row>
           <Col>
-            <h2>Blogs</h2>
+            <h2>
+              {'Blogs'}
+              {editable &&
+                (
+
+                  <FlatButton
+                    onClick={this.onAddBlog}
+                    label="Add"
+                    icon={<FontIcon className="material-icons">add</FontIcon>}
+                  />
+                )
+              }
+            </h2>
           </Col>
         </Row>
         <Row>
           <Col>
             <div>
-              {JSON.stringify(blog)}
+              <BlogsList
+                editable={editable}
+                media={blog}
+                onEdit={this.onEdit}
+                onRemove={this.onRemove}
+              />
             </div>
           </Col>
         </Row>

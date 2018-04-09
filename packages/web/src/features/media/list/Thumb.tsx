@@ -2,11 +2,12 @@ import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import React from 'react';
 import injectSheet from 'react-jss';
+import { Styles } from '../../../styles';
 import { getVideoThumb } from '../../../ww-clients/utils';
 import { Media, MediaKind } from '../../../ww-commons';
 import { THUMB_HEIGHT } from './constants';
 
-const styles = {
+const styles: Styles = {
   container: {
     position: 'relative',
     marginRight: 16,
@@ -28,6 +29,34 @@ const styles = {
       opacity: 1,
       backgroundColor: 'rgba(0,0,0,0.1)',
     },
+  },
+  brokenImage: {
+    width: THUMB_HEIGHT,
+    height: THUMB_HEIGHT,
+    boxSizing: 'border-box',
+    borderRadius: 0,
+    borderWidth: 4,
+    borderColor: '#BBBBBB',
+    borderStyle: 'solid',
+    backgroundColor: 'white',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  brokenImageMenu: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    height: 48,
+  },
+  brokenImageBody: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  text: {
+    marginTop: 12,
+    textAlign: 'center',
   },
 };
 
@@ -77,6 +106,65 @@ class Thumb extends React.PureComponent<Props, State> {
     }
   };
 
+  renderImage = () => {
+    const { thumb, width, height } = this.state;
+    const { classes, editable } = this.props;
+    if (!thumb) {
+      return null;
+    }
+    return (
+      <React.Fragment>
+        <img src={thumb} style={{ width, height }} />
+        <div className={classes.overlay} style={{ width, height }}>
+        {
+          editable &&
+          (
+            <React.Fragment>
+              <IconButton onClick={this.onEdit}>
+                <FontIcon className="material-icons" color="white">edit</FontIcon>
+              </IconButton>
+              <IconButton onClick={this.onRemove}>
+                <FontIcon className="material-icons" color="white">delete_forever</FontIcon>
+              </IconButton>
+            </React.Fragment>
+          )
+        }
+        </div>
+      </React.Fragment>
+    );
+  };
+
+  renderBrokenImage = () => {
+    const { thumb } = this.state;
+    const { media, editable } = this.props;
+    if (thumb) {
+      return null;
+    }
+    return (
+      <div style={styles.brokenImage}>
+        <div style={styles.brokenImageMenu}>
+          {
+            editable &&
+            (
+              <React.Fragment>
+                <IconButton onClick={this.onEdit}>
+                  <FontIcon className="material-icons">edit</FontIcon>
+                </IconButton>
+                <IconButton onClick={this.onRemove}>
+                  <FontIcon className="material-icons">delete_forever</FontIcon>
+                </IconButton>
+              </React.Fragment>
+            )
+          }
+        </div>
+        <div style={styles.brokenImageBody}>
+          <span style={styles.text}>Cannot render thumb</span>
+          <a href={media.url} style={styles.text} target="_blank">go see yourself</a>
+        </div>
+      </div>
+    );
+  };
+
   onClick = () => {
     const { index, media, onClick } = this.props;
     if (onClick) {
@@ -101,26 +189,12 @@ class Thumb extends React.PureComponent<Props, State> {
   };
 
   render() {
-    const { classes, editable } = this.props;
-    const { thumb, width, height } = this.state;
+    const { classes } = this.props;
+    const { thumb } = this.state;
     return (
-      <div className={classes.container} onClick={this.onClick}>
-        <img src={thumb} style={{ width, height }} />
-        <div className={classes.overlay} style={{ width, height }}>
-          {
-            editable &&
-            (
-              <React.Fragment>
-                <IconButton onClick={this.onEdit}>
-                  <FontIcon className="material-icons" color="white">edit</FontIcon>
-                </IconButton>
-                <IconButton onClick={this.onRemove}>
-                  <FontIcon className="material-icons" color="white">delete_forever</FontIcon>
-                </IconButton>
-              </React.Fragment>
-            )
-          }
-        </div>
+      <div className={classes.container} onClick={thumb ? this.onClick : undefined}>
+        {this.renderImage()}
+        {this.renderBrokenImage()}
       </div>
     );
   }
