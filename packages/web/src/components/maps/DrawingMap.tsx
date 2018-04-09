@@ -226,8 +226,14 @@ export class DrawingMap extends React.Component<Props> {
       }
       onChange(withZeroAlt(update(points, { $splice: [patch] }) as Coordinate3d[]));
     } else {
-      // New geometry was created, altitudes are nulls anyway
-      onChange(withZeroAlt(newPoints));
+      // New geometry was created
+      const newPoints3d = withZeroAlt(newPoints);
+      if (points.length === newPoints3d.length) {
+        for (let i = 0; i < points.length; i++) {
+          newPoints3d[i][2] = points[i][2] || 0;
+        }
+      }
+      onChange(newPoints3d);
     }
   };
 
