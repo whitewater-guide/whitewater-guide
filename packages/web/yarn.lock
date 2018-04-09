@@ -60,6 +60,10 @@
     "@types/cheerio" "*"
     "@types/react" "*"
 
+"@types/events@*":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@types/events/-/events-1.2.0.tgz#81a6731ce4df43619e5c8c945383b3e62a89ea86"
+
 "@types/googlemaps@^3.30.7":
   version "3.30.8"
   resolved "https://registry.yarnpkg.com/@types/googlemaps/-/googlemaps-3.30.8.tgz#cc6ab90f79f3a8b799860ea1d70252a221af702e"
@@ -126,6 +130,13 @@
 "@types/qs@^6.5.1":
   version "6.5.1"
   resolved "https://registry.yarnpkg.com/@types/qs/-/qs-6.5.1.tgz#a38f69c62528d56ba7bd1f91335a8004988d72f7"
+
+"@types/raven@^2.1.6":
+  version "2.1.6"
+  resolved "https://registry.yarnpkg.com/@types/raven/-/raven-2.1.6.tgz#30faf716a28eb91b80b6764870f05144089846f8"
+  dependencies:
+    "@types/events" "*"
+    "@types/node" "*"
 
 "@types/react-addons-linked-state-mixin@*":
   version "0.14.19"
