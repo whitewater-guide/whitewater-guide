@@ -1,6 +1,6 @@
 {
   "name": "whitewater",
-  "version": "0.0.232",
+  "version": "0.0.233",
   "description": "whitewater.guide monorepo",
   "repository": "https://github.com/doomsower/whitewater.git",
   "author": "doomsower <K.Kuznetcov@gmail.com>",
@@ -18,6 +18,7 @@
     "staging:publish": "build/scripts/publish.js --env=staging",
     "staging:deploy": "build/scripts/deploy.js --env=staging --machine=ww-staging",
     "staging:cleanup": "docker-machine ssh ww-staging < build/scripts/staging_machine_cleanup.sh",
+    "staging:images": "cat packages/minio/images.tar.gz | docker-machine ssh ww-staging \"cd /var/minio/data; sudo tar xzvf -\"",
     "wml:start": "build/scripts/wml_start.sh"
   },
   "devDependencies": {
