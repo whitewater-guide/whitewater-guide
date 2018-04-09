@@ -12,10 +12,13 @@ sudo sh -c "rm -rf /var/run/postgresql/*"
 sudo sh -c "rm -rf /tmp/postgres/*"
 
 # Caddy
-sudo sh -c "rm -rf /etc/caddycerts/*"
+# Keep certs
+# sudo sh -c "rm -rf /etc/caddycerts/*"
 sudo sh -c "rm -rf /tmp/caddy/*"
 # Minio
-sudo sh -c "rm -rf /var/minio/data/*"
+sudo sh -c "rm -rf /var/minio/data/temp/*"
+sudo sh -c "rm -rf /var/minio/data/avatars/*"
+sudo sh -c "rm -rf /var/minio/data/media/*"
 sudo sh -c "rm -rf /var/minio/config/*"
 sudo sh -c "rm -rf /tmp/minio/*"
 # Redis
