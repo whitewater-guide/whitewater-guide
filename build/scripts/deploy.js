@@ -5,6 +5,7 @@ const dotenv = require('dotenv');
 const generateStackFile = require('./src/generateStackFile');
 const setupEnv = require('./src/setupEnv');
 const dockerLogin = require('./src/dockerLogin');
+const setDockerMachineEnv = require('./src/setDockerMachineEnv');
 const argv = require('yargs').argv;
 
 const STACK_NAME = 'wwguide';
@@ -30,13 +31,7 @@ async function deploy() {
   // Login as docker-image reader
   dockerLogin(true);
   // load docker-machine env
-  const dmEnv = spawnSync('docker-machine', ['env', machineName]);
-  if (dmEnv.status !== 0) {
-    console.log('\n\nFailed to get docker-machine env for ww-local');
-    return;
-  }
-  const dockerMachineEnv = dotenv.parse(dmEnv.stdout.toString().replace(/export\s/g, ''));
-  Object.entries(dockerMachineEnv).forEach(([key, value]) => { process.env[key] = value; });
+  setDockerMachineEnv(machineName);
 
   // -------- From now on commands are executed on docker-machine ------------
 
