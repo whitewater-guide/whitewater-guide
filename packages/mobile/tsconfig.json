@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    "noEmit": true, // Required for react-native-typescript-transformer
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "declaration": false, // don't emit declarations
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "importHelpers": true,
+    "noEmitHelpers": true,
+    "noEmitOnError": true,
+    "jsx": "react-native", // process JSX
+    "lib": ["esnext", "dom"],
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "node",
+
+    "strict": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "preserveConstEnums": true,
+
+    "baseUrl": ".",
+    "paths": {
+      "*": ["./typings/*"]
+    },
+
+    "skipLibCheck": true, // TODO: BUGWATCH: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/24573
+
+    "pretty": true
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "compileOnSave": true
+}
