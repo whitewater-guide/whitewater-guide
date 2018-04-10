@@ -2,6 +2,7 @@ package guide.whitewater;
 
 import android.app.Application;
 
+import com.airbnb.android.react.maps.MapsPackage;
 import com.facebook.react.ReactApplication;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.facebook.CallbackManager;
@@ -43,6 +44,7 @@ public class MainApplication extends Application implements ReactApplication {
             new SvgPackage(),
             new SplashScreenReactPackage(),
             new Interactable(),
+            new MapsPackage(),
             new ReactNativeConfigPackage()
       );
     }

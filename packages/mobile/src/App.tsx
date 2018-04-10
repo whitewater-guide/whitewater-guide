@@ -1,12 +1,8 @@
 import React from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import Config from 'react-native-config';
+import MapView from 'react-native-maps';
 import SplashScreen from 'react-native-splash-screen';
-
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload, Shake or press menu button for dev menu',
-});
 
 export default class App extends React.PureComponent {
   componentDidMount() {
@@ -16,15 +12,22 @@ export default class App extends React.PureComponent {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          {JSON.stringify(Config)}
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
+        <View>
+          <Text style={styles.instructions}>
+            {JSON.stringify(Config)}
+          </Text>
+        </View>
+        <View style={styles.mapBox}>
+          <MapView
+            style={StyleSheet.absoluteFill}
+            initialRegion={{
+              latitude: 37.78825,
+              longitude: -122.4324,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
+            }}
+          />
+        </View>
       </View>
     );
   }
@@ -33,14 +36,11 @@ export default class App extends React.PureComponent {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#ff00ff',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  mapBox: {
+    flex: 1,
+    backgroundColor: 'lime',
   },
   instructions: {
     textAlign: 'center',
