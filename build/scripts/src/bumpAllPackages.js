@@ -1,26 +1,12 @@
-const { readdirSync } = require('fs');
 const hasChanged = require('./hasChanged');
 const bumpPackageVersion = require('./bumpPackageVersion');
-
-const DEPENDENCIES = {
-  'backend': ['commons'],
-  'caddy': [],
-  'clients': ['commons'],
-  'commons': [],
-  'db': [],
-  'landing': [],
-  'minio': [],
-  'mongo-to-postgres': [],
-  'web': ['clients', 'commons'],
-  'workers': [],
-};
+const { DEPENDENCIES, PACKAGES } = require('./constants');
 
 /**
  * Bumps versions of all changed packages and whole project
  */
 const bumpAllPackages = () => {
-  const packages = readdirSync('packages');
-  const changes = new Map(packages.map(packageName => [packageName, hasChanged(packageName)]));
+  const changes = new Map(PACKAGES.map(packageName => [packageName, hasChanged(packageName)]));
   changes.forEach((changed, packageName) => {
     const deps = DEPENDENCIES[packageName];
     if (changed || deps.some(dep => changes.get(dep))) {

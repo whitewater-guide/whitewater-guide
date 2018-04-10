@@ -1,6 +1,7 @@
 const path = require('path');
-const { readdirSync, readFileSync } = require('fs');
+const { readFileSync } = require('fs');
 const { spawnSync } = require('child_process');
+const { PACKAGES } = require('./constants');
 
 /**
  * For each package find last built image (moving tag) and tag is with version from packages json
@@ -8,9 +9,8 @@ const { spawnSync } = require('child_process');
  * @returns Array of both moving and versioned tags
  */
 const tagImages = (environment) => {
-  const packages = readdirSync('packages');
   const images = [];
-  packages.forEach((pkg) => {
+  PACKAGES.forEach((pkg) => {
     const rawPkgJson = readFileSync(path.resolve('packages', pkg, 'package.json'), { encoding: 'utf8' });
     const { version } = JSON.parse(rawPkgJson);
     const movingTag = `${process.env.DOCKER_REGISTRY_PREFIX}${pkg}:${environment}`;

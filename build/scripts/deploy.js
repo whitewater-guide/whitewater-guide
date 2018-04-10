@@ -1,14 +1,12 @@
 #!/usr/bin/env node
 
 const { spawnSync } = require('child_process');
-const dotenv = require('dotenv');
 const generateStackFile = require('./src/generateStackFile');
 const setupEnv = require('./src/setupEnv');
 const dockerLogin = require('./src/dockerLogin');
 const setDockerMachineEnv = require('./src/setDockerMachineEnv');
+const { STACK_NAME } = require('./src/constants');
 const argv = require('yargs').argv;
-
-const STACK_NAME = 'wwguide';
 
 async function deploy() {
   // ---------- parse cli arguments
@@ -42,6 +40,7 @@ async function deploy() {
     { stdio: 'inherit' },
   );
 
+  // Deploy the stack
   spawnSync(
     'docker',
     ['stack', 'deploy', '--with-registry-auth', '-c', stackFile, STACK_NAME],

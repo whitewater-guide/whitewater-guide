@@ -2,12 +2,11 @@
 
 const { spawnSync } = require('child_process');
 const { resolve } = require('path');
+const { STACK_NAME } = require('./src/constants');
 const setupEnv = require('./src/setupEnv');
 const dockerLogin = require('./src/dockerLogin');
 const setDockerMachineEnv = require('./src/setDockerMachineEnv');
 const argv = require('yargs').argv;
-
-const STACK_NAME = 'wwguide';
 
 async function update() {
   // ---------- parse cli arguments
