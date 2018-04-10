@@ -19,7 +19,7 @@ const development: knex.Config = {
     loadExtensions: ['.js'],
     directory: './src/seeds/production',
   },
-  debug: true, // TODO: this is temporary, for staging
+  // debug: true,
 } as any;
 
 module.exports = development;
