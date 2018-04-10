@@ -3,7 +3,7 @@
     "noEmit": true, // Required for react-native-typescript-transformer
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "declaration": false, // don't emit declarations
+    "declaration": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
