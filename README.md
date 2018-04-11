@@ -11,8 +11,9 @@ Those things need to be installed
 5. [watchman](https://facebook.github.io/watchman/)
 6. [git-secret](http://git-secret.io/)
 7. [yarn](https://yarnpkg.com/en/)
-8. TODO ruby (for fastlane)
-9. TODO react-native requirements
+8. [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)
+9. TODO ruby (for fastlane)
+10. TODO react-native requirements
 
 ## Overview
 
@@ -29,6 +30,7 @@ Directory layout:
 ├─── /legcay/                        # TO BE DELETED - sources of old web and mobile clients
 ├─── /docs/                          # Docs
 ├─── /packages/                      #
+|    ├──────── /adminer/             # Adminer web ui for postgres
 |    ├──────── /backend/             # node.js backend
 |    ├──────── /caddy/               # reverse proxy
 |    ├──────── /clients/             # code shared by web and mobile clients
@@ -50,7 +52,7 @@ Backend has 4 configurations:
 1. **development** - Runs on local machine (docker 4 mac) with help of docker-sync. Live code reloading. 
   DB container is used for tests, which run locally
 2. **local** - Runs in virtualbox local docker-machine. Local staging configuration, NODE_ENV = production. HTTP
-3. **staging** - runs on remote docker-machine, `swapp.avatan.ru` NODE_ENV = production. HTTP
+3. **staging** - runs on remote docker-machine, `swapp.avatan.ru` NODE_ENV = production. HTTPS
 4. **production** 
 
 ### General principles
@@ -87,14 +89,16 @@ For container-specific env variables see packages READMEs
 ## Build process
 
 Backend stack is built with Docker. Base compose file is `build/docker-compose.yml`.
-For each configuration, additional override file is also used, e.g. `build/docker-compose.development.yml`.
+For each environment configuration, additional override file is also used, e.g. `build/docker-compose.development.yml`.
 
-Dev configuration is launched using `docker-sync`.
- 
+~~Dev configuration is launched using `docker-sync`.~~
+
 Staging configurations use docker swarm node (single host) and use `docker stack deploy`.
-They are managed via `docker-machine`. The machine names must be `ww-local` and `ww-staging`, scripts use these names.
+Deployed environemts also have one common `.yml` files, so the override order is `docker-compose.yml` > `docker-compose.deploy.yml` > `docker-compose.staging.yml`.  
+They are managed via `docker-machine`. The machine names must be `ww-local` and `ww-staging`, scripts use these names.  
+Private AWS container registry is used to publish docker images and then to pull them onto docker-machines.
 
-Docker images for backend stack parts are tagged with configuration (`dev`/`local`/`staging`) and version number from package.json.
+Docker images for backend stack parts are tagged with configuration (`development`/`local`/`staging`) and version number from package.json.
 Version numbers are automatically incremented in with a pair of git pre-commit and post-commit hooks.
 Husky is installed in project root to ensure that hooks are properly set up after you check-out and npm install project.
 
@@ -106,11 +110,16 @@ Husky is installed in project root to ensure that hooks are properly set up afte
 | dev:start          | Runs dev configuration using docker-sync              
 | dev:images         | Downloads images from old backend to minio package, also compresses them to be included into minio docker image. Requires access to v1 docker-machine.             
 | dev:migrate        | Downloads latest dump v1 mongo dump from s3, loads it into running postgres dev instance.             
-| local:starts       | creates, starts (if necessary) local machine, prepares all folders in host vm, uploads images. DOES NOT DEPLOY. 
-| local:prepare      | Prepares `ww-local` docker machine by creating necessary dirs. Should be run every time docker-machine starts              |
-| local:deploy       | Deploys updates to `ww-local` machine <br/> Pass `--container <xxx>` one or many times to rebuild only those containers
+| local:start        | creates, starts (if necessary) local machine, prepares all folders in host vm, uploads images. DOES NOT DEPLOY. 
 | local:cleanup      | Stops docker stack and wipes filesystem on `ww-local` docker-machine
-| staging:prepare    | Prepares `swapp-staging` docker machine by creating necessary dirs. This only needs to be done once |
+| local:prepare      | Prepares `ww-local` docker machine by creating necessary dirs. Should be run every time docker-machine starts              |
+| local:publish      | Builds stack images, tags them as `local.<version>`, pushes them to AWS ECR. <br/> Pass `--container <xxx>` one or many times to rebuild only those containers.
+| local:deploy       | Deploys updates to `ww-local` machine. <br/> Uses versions from `package.json`s. All images must be published beforehand.
+| staging:publish    | Same as `local:publish`
+| staging:deploy     | Same as `local:deploy`
+| staging:cleanup    | Same as `local:cleanup`, but keeps caddy certificates dir
+| staging:images     | Same as `local:images`
+| staging:update     | Updates one particular service in stack (`docker service update --image`), uses version from `package.json`<br> pass package name via (mandatory) `--image` flag.
 | wml:start          | Starts WML |
 
 ## Development
@@ -144,17 +153,30 @@ It's recommended to get images dump via `dev:images`, or ask me for archive. `lo
 
 ## Deployment
 
-Deployment is done via `npm run local:start` or `npm run staging:start`, assuming that machine has been prepared.
+Here are deployment steps:
 
-Here is what these scripts do
-
-1. Prevent deploying if there are uncommited changes.
-2. Set shell variables for tagging docker images
-3. Compile what needs to be compiled locally (`yarn run tsc`)
-4. Connect to remote machine via `docker-machine`. Images need to be built on remote machine.
-5. Merge compose config and compose config override into one stack file
-6. Build images (that changed) from this stack file
-7. Run `docker stack deploy` from this file
+1. Assuming that you don't have `docker-machine` yet. If you have, skip to step 3
+2. Setup docker-machine. 
+  - For local machine this can be done via `local:start` script. It will set up machine, swarm mode on it, directory structure for bind mounts and will also upload seed images.
+  - For remote machine you have to manually set up docker-machine, see example of `docker-machine create` below, use `local:prepare` and compose file for reference directory structure.
+3. If you already have running docker-machine, you can optionally reset it to black state using `<env>:reset` script.
+4. Commit all unsaved changes.
+5. Run `<env>:publish` script. To do so your AWS CLI must be configured to used credentials with publish permissions. What this script does under the hood:
+  - Merges compose ymls files and performs env substitution in those files. 
+  - Builds backend and web locally, to make sure that only latest artifacts are baked into images (TODO build on commit hook)
+  - Build all images in compose file
+  - Tags images with moving tag (e.g. `db:staging`) and version tag (e.g. `db:staging.0.0.3`), takes versions from `package.json` files
+  - Logs in into AWS ECR (using credentials stored on machine outside this repo) and pushes both moving and versioned images.
+6. If docker-machine is pristine, or you want to update stack configuration (i.e. bind mounts, env variables, etc.) then go to 7. If you want to update running stack with newer versions of images, go to 8
+7. Run `<env>:deploy`. What it does:
+  - Merges compose files (again)
+  - Logs into AWS ECR using read-only credentials from secretly commited `.aws-ecr` file.
+  - Connects to docker-machine in `docker-machine env` fashion
+  - Prunes old ( > 72h) unused images on this machine
+  - Deploys the stack using `docker stack deploy`
+8. Run `<env>:update --image <image_name>` to update image version of service in stack.
+  - Version number is read from `package.json`, therefore it must be published in advance
+  - Logs into AWS ECR using read-only credentials from secretly commited `.aws-ecr` file.
 
 ## Remote staging machine (domain unknown)
 
