@@ -7,6 +7,7 @@ import { NamedNode } from '../../ww-commons';
 
 interface SelectComponentProps extends Partial<SelectFieldProps> {
   options: NamedNode[];
+  nullable?: boolean;
   simple?: boolean; // value is id string and not NamedNode
   title: string;
 }
@@ -19,16 +20,23 @@ class SelectComponent extends React.PureComponent<Props> {
   };
 
   getValue = () => {
-    const { input, options, simple } = this.props;
+    const { input, options, simple, nullable } = this.props;
     const { value } = input;
+    if (nullable && value === null) {
+      return null;
+    }
     const findId = simple ? value : value.id;
     const option = options.find(({ id }) => id === findId) || options[0];
     return option;
   };
 
-  onChange = (event: any, index: number, value: string | NamedNode) => {
+  onChange = (event: any, index: number, value: string | NamedNode | null) => {
     const { input, simple } = this.props;
-    input.onChange(simple ? (value as NamedNode).id : value);
+    if (value === null) {
+      input.onChange(null);
+    } else {
+      input.onChange(simple ? (value as NamedNode).id : value);
+    }
   };
 
   renderItem = (item: NamedNode) => {
@@ -38,7 +46,7 @@ class SelectComponent extends React.PureComponent<Props> {
   };
 
   render() {
-    const { input, meta, simple, title, options, ...props } = this.props;
+    const { input, meta, simple, nullable, title, options, ...props } = this.props;
     const value = this.getValue();
     return (
       <SelectField
@@ -50,6 +58,7 @@ class SelectComponent extends React.PureComponent<Props> {
         hintText={title}
         errorText={meta.touched && meta.error}
       >
+        {nullable && <MenuItem key="nullable" value={null} primaryText="" />}
         {options.map(this.renderItem)}
       </SelectField>
     );

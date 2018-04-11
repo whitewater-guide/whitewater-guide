@@ -74,7 +74,14 @@ export default class SectionForm extends React.PureComponent<SectionFormProps> {
                 <TextInput fullWidth name="difficultyXtra" title="Difficulty (extra)" />
                 <RatingInput name="rating" title="Rating" />
               </Row>
-              <Select simple={false} name="gauge" options={this.props.region.gauges!.nodes!} title="Gauge" />
+              <Select
+                nullable
+                simple={false}
+                format={null}
+                name="gauge"
+                options={this.props.region.gauges!.nodes!}
+                title="Gauge"
+              />
               <Row>
                 <TextInput fullWidth name="levels.minimum" type="number" title="Minimal level" />
                 <TextInput fullWidth name="levels.optimum" type="number" title="Optimal level" />
@@ -97,7 +104,7 @@ export default class SectionForm extends React.PureComponent<SectionFormProps> {
               <Row>
                 <TextInput fullWidth name="drop" type="number" title="Drop, m" />
                 <TextInput fullWidth name="distance" type="number" title="Length, km" />
-                <Select name="duration" options={DURATIONS_OPTIONS} title="Duration"/>
+                <Select nullable format={null} name="duration" options={DURATIONS_OPTIONS} title="Duration"/>
               </Row>
               <TextInput fullWidth name="season" title="Season" />
               <SeasonPicker name="seasonNumeric" />
