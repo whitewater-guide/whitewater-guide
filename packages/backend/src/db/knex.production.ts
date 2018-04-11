@@ -22,7 +22,7 @@ const development: knex.Config = {
   pool: {
     min: 0,
   },
-  debug: true, // TEMPORARY
+  // debug: true,
 } as any;
 
 module.exports = development;
