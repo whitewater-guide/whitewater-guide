@@ -1,4 +1,5 @@
 const DEPENDENCIES = {
+  'adminer': [],
   'backend': ['commons'],
   'caddy': [],
   'clients': ['commons'],

@@ -89,6 +89,26 @@ services:
         guide.whitewater: ""
     image: '${DOCKER_REGISTRY_PREFIX}web:${DOCKER_ENVIRONMENT}'
     read_only: true
+
+  # Adminer escape hatch
+  adminer:
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    labels:
+      guide.whitewater: ""
+    build:
+      context: ../packages/adminer
+      labels:
+        guide.whitewater: ""
+    volumes:
+      - type: bind
+        source: /tmp/adminer
+        target: /tmp
+    image: '${DOCKER_REGISTRY_PREFIX}adminer:${DOCKER_ENVIRONMENT}'
+    read_only: true
+    environment:
+      - ADMINER_DEFAULT_SERVER=db
 #networks:
 #  default:
 #    driver: overlay

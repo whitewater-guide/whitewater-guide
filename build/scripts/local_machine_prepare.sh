@@ -27,6 +27,7 @@ sudo ln -s /mnt/sda1/var/minio /var/minio
 sudo mkdir -p /tmp/redis
 # Workers
 sudo mkdir -p /tmp/workers/cookies
-
+# Adminer
+sudo mkdir -p /tmp/adminer
 
 docker swarm init --advertise-addr eth1

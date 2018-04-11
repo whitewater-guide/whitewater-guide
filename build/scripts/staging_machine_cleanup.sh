@@ -25,3 +25,5 @@ sudo sh -c "rm -rf /tmp/minio/*"
 sudo sh -c "rm -rf /tmp/redis/*"
 # Workers
 sudo sh -c "rm -rf /tmp/workers/cookies/*"
+# Adminer
+sudo sh -c "rm -rf /tmp/adminer/*"

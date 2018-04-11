@@ -1,0 +1,7 @@
+{
+  "name": "adminer",
+  "version": "0.0.2",
+  "description": "adminer for swapp stack",
+  "main": "index.js",
+  "author": "doomsower"
+}

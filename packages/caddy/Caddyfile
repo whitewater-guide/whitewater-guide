@@ -72,6 +72,13 @@
     transparent
   }
 
+  basicauth /puzzle {$ADMINER_USERNAME} {$ADMINER_PASSWORD}
+
+  proxy /puzzle adminer:8080 {
+    without /puzzle
+    transparent
+  }
+
   proxy / landing:8043 {
     transparent
   }
