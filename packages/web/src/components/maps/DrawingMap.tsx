@@ -220,6 +220,9 @@ export class DrawingMap extends React.Component<Props> {
       const oldLatLngs: LatLng[] = geometryToLatLngs(oldGeometry) as LatLng[];
       const oldPoints = oldLatLngs!.map(gmapsToArray) as Coordinate2d[];
       const patch: any = getCoordinatesPatch(oldPoints, newPoints);
+      if (!patch) {
+        return; // Equal, no need to fire change event
+      }
       if (patch!.length === 3 && patch![1] === 1 && points[patch![0]].length > 2) {
         // Some point with altitude was updated, need to keep the altitude
         patch![2][2] = points[patch![0]][2];

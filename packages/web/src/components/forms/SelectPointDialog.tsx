@@ -14,9 +14,17 @@ class SelectPointDialogComponent extends React.PureComponent<Props> {
   onSubmit = (result: Coordinate3d[]) => this.props.input.onChange(result[0]);
 
   render() {
-    const { bounds, onClose } = this.props;
+    const { bounds, onClose, input } = this.props;
+    const point: Coordinate3d | undefined = input.value;
+    const points: Coordinate3d[] | undefined = point ? [point] : undefined;
     return (
-      <SelectGeometryDialog drawingMode="Point" bounds={bounds} onClose={onClose} onSubmit={this.onSubmit} />
+      <SelectGeometryDialog
+        drawingMode="Point"
+        bounds={bounds}
+        onClose={onClose}
+        onSubmit={this.onSubmit}
+        points={points}
+      />
     );
   }
 }

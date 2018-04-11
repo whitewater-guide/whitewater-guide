@@ -63,6 +63,12 @@ test('getCoordinatesPatch should return null for equal arrays', () => {
   expect(getCoordinatesPatch(prev, next)).toBeNull();
 });
 
+test('getCoordinatesPatch should handle single point', () => {
+  const prev: Coordinate2d[] = [[3, 4]];
+  const next: Coordinate2d[] = [[5, 6]];
+  expect(getCoordinatesPatch(prev, next)).toEqual([0, 1, [5, 6]]);
+});
+
 test('getCoordinatesPatch should handle updates', () => {
   const prev0: Coordinate2d[] = [[2, 4], [3, 9], [4, 16]];
   const next0: Coordinate2d[] = [[1, 1], [3, 9], [4, 16]];
