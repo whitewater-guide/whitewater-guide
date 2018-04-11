@@ -56,3 +56,5 @@ buck-out/
 *.jsbundle
 /.env.production
 /.env.development
+/src/ww-clients/
+/src/ww-commons/
