@@ -157,26 +157,26 @@ Here are deployment steps:
 
 1. Assuming that you don't have `docker-machine` yet. If you have, skip to step 3
 2. Setup docker-machine. 
-  - For local machine this can be done via `local:start` script. It will set up machine, swarm mode on it, directory structure for bind mounts and will also upload seed images.
-  - For remote machine you have to manually set up docker-machine, see example of `docker-machine create` below, use `local:prepare` and compose file for reference directory structure.
+    - For local machine this can be done via `local:start` script. It will set up machine, swarm mode on it, directory structure for bind mounts and will also upload seed images.
+    - For remote machine you have to manually set up docker-machine, see example of `docker-machine create` below, use `local:prepare` and compose file for reference directory structure.
 3. If you already have running docker-machine, you can optionally reset it to black state using `<env>:reset` script.
 4. Commit all unsaved changes.
 5. Run `<env>:publish` script. To do so your AWS CLI must be configured to used credentials with publish permissions. What this script does under the hood:
-  - Merges compose ymls files and performs env substitution in those files. 
-  - Builds backend and web locally, to make sure that only latest artifacts are baked into images (TODO build on commit hook)
-  - Build all images in compose file
-  - Tags images with moving tag (e.g. `db:staging`) and version tag (e.g. `db:staging.0.0.3`), takes versions from `package.json` files
-  - Logs in into AWS ECR (using credentials stored on machine outside this repo) and pushes both moving and versioned images.
+    - Merges compose ymls files and performs env substitution in those files. 
+    - Builds backend and web locally, to make sure that only latest artifacts are baked into images (TODO build on commit hook)
+    - Build all images in compose file
+    - Tags images with moving tag (e.g. `db:staging`) and version tag (e.g. `db:staging.0.0.3`), takes versions from `package.json` files
+    - Logs in into AWS ECR (using credentials stored on machine outside this repo) and pushes both moving and versioned images.
 6. If docker-machine is pristine, or you want to update stack configuration (i.e. bind mounts, env variables, etc.) then go to 7. If you want to update running stack with newer versions of images, go to 8
 7. Run `<env>:deploy`. What it does:
-  - Merges compose files (again)
-  - Logs into AWS ECR using read-only credentials from secretly commited `.aws-ecr` file.
-  - Connects to docker-machine in `docker-machine env` fashion
-  - Prunes old ( > 72h) unused images on this machine
-  - Deploys the stack using `docker stack deploy`
+    - Merges compose files (again)
+    - Logs into AWS ECR using read-only credentials from secretly commited `.aws-ecr` file.
+    - Connects to docker-machine in `docker-machine env` fashion
+    - Prunes old ( > 72h) unused images on this machine
+    - Deploys the stack using `docker stack deploy`
 8. Run `<env>:update --image <image_name>` to update image version of service in stack.
-  - Version number is read from `package.json`, therefore it must be published in advance
-  - Logs into AWS ECR using read-only credentials from secretly commited `.aws-ecr` file.
+    - Version number is read from `package.json`, therefore it must be published in advance
+    - Logs into AWS ECR using read-only credentials from secretly commited `.aws-ecr` file.
 
 ## Remote staging machine (domain unknown)
 
