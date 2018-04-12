@@ -68,7 +68,7 @@
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
-          <string>fb__RN_CONFIG_FACEBOOK_APP_ID</string>
+          <string>__RN_CONFIG_FACEBOOK_CUSTOM_URL_SCHEME</string>
         </array>
       </dict>
     </array>

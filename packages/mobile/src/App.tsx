@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import Config from 'react-native-config';
 import MapView from 'react-native-maps';
 import SplashScreen from 'react-native-splash-screen';
+import { LoginButton, AccessToken } from 'react-native-fbsdk';
 
 export default class App extends React.PureComponent {
   componentDidMount() {
@@ -12,10 +13,25 @@ export default class App extends React.PureComponent {
   render() {
     return (
       <View style={styles.container}>
-        <View>
-          <Text style={styles.instructions}>
-            {JSON.stringify(Config)}
-          </Text>
+        <View style={styles.loginBox}>
+          <LoginButton
+            onLoginFinished={
+              (error, result) => {
+                if (error) {
+                  alert('login has error: ' + result.error);
+                } else if (result.isCancelled) {
+                  alert('login is cancelled.');
+                } else {
+                  AccessToken.getCurrentAccessToken().then(
+                    (data) => {
+                      alert(data!.accessToken.toString());
+                    },
+                  );
+                }
+              }
+            }
+            onLogoutFinished={() => alert('logout')}
+          />
         </View>
         <View style={styles.mapBox}>
           <MapView
@@ -42,6 +58,12 @@ const styles = StyleSheet.create({
   mapBox: {
     flex: 1,
     backgroundColor: 'lime',
+  },
+  loginBox: {
+    paddingTop: 40,
+    height: 100,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   instructions: {
     textAlign: 'center',
