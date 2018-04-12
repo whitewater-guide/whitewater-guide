@@ -6,7 +6,11 @@ target 'whitewater' do
   rn_maps_path = '../node_modules/react-native-maps'
 
   # Pods for whitewater
+  pod 'AppCenter/Crashes', '~> 1.5.0'
+  pod 'AppCenter/Analytics', '~> 1.5.0'
+  pod 'AppCenterReactNativeShared', '~> 1.4.0'
 
+  platform :ios, '9.0'
   # See http://facebook.github.io/react-native/docs/integration-with-existing-apps.html#configuring-cocoapods-dependencies
   pod 'yoga', path: "#{rn_path}/ReactCommon/yoga/yoga.podspec"
   pod 'React', path: rn_path, subspecs: [
