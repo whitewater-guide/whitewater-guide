@@ -58,3 +58,6 @@ buck-out/
 /.env.development
 /src/ww-clients/
 /src/ww-commons/
+/ios/Pods/
+!/ios/prebuild.log
+/ios/prebuild.log

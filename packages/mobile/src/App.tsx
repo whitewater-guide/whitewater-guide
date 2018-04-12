@@ -19,6 +19,7 @@ export default class App extends React.PureComponent {
         </View>
         <View style={styles.mapBox}>
           <MapView
+            provider="google"
             style={StyleSheet.absoluteFill}
             initialRegion={{
               latitude: 37.78825,
@@ -36,7 +37,7 @@ export default class App extends React.PureComponent {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ff00ff',
+    backgroundColor: '#ffffff',
   },
   mapBox: {
     flex: 1,
