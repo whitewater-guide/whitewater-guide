@@ -14,6 +14,7 @@
     "no-null-keyword": false,
     "no-submodule-imports": [true, "redux-persist", "redux-saga", "react-native-vector-icons"],
     "no-unused-variable": [true, "check-parameters", "react"],
+    "object-literal-key-quotes": [true, "as-needed"],
     "object-literal-sort-keys": false,
     "ordered-imports": true,
     "prefer-method-signature": false,

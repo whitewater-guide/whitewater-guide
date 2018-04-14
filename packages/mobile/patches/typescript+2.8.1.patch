@@ -1,0 +1,29 @@
+patch-package
+--- a/node_modules/typescript/lib/lib.dom.d.ts
++++ b/node_modules/typescript/lib/lib.dom.d.ts
+@@ -4882,17 +4882,6 @@ declare var GamepadPose: {
+     new(): GamepadPose;
+ };
+ 
+-interface Geolocation {
+-    clearWatch(watchId: number): void;
+-    getCurrentPosition(successCallback: PositionCallback, errorCallback?: PositionErrorCallback, options?: PositionOptions): void;
+-    watchPosition(successCallback: PositionCallback, errorCallback?: PositionErrorCallback, options?: PositionOptions): number;
+-}
+-
+-declare var Geolocation: {
+-    prototype: Geolocation;
+-    new(): Geolocation;
+-};
+-
+ interface GetSVGDocument {
+     getSVGDocument(): Document;
+ }
+@@ -9302,7 +9291,6 @@ interface Navigator extends NavigatorID, NavigatorOnLine, NavigatorContentUtils,
+     readonly cookieEnabled: boolean;
+     readonly doNotTrack: string | null;
+     gamepadInputEmulation: GamepadInputEmulationType;
+-    readonly geolocation: Geolocation;
+     readonly maxTouchPoints: number;
+     readonly mimeTypes: MimeTypeArray;
+     readonly msManipulationViewsEnabled: boolean;

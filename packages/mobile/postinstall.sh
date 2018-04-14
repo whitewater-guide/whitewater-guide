@@ -13,3 +13,5 @@ sed -i '' "s/\(^declare var require: NodeRequire;\)/\/\/\1/g" node_modules/\@typ
 # rm ./node_modules/react-native/local-cli/core/__fixtures__/files/package.json
 
 rndebugger-open
+
+yarn run patch-package

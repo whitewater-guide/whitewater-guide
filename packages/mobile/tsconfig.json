@@ -16,19 +16,19 @@
     "module": "esnext",
     "moduleResolution": "node",
 
-    "strict": true,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "preserveConstEnums": true,
+    // "strict": true,
+    // "noFallthroughCasesInSwitch": true,
+    // "noImplicitReturns": true,
+    // "noUnusedLocals": true,
+    // "noUnusedParameters": true,
+    // "preserveConstEnums": true,
 
     "baseUrl": ".",
     "paths": {
-      "*": ["./typings/*"]
+      "*": ["./typings/*"],
+      "ww-commons/*": ["./ww-commons/*"],
+      "ww-clients/*": ["./ww-clients/*"]
     },
-
-    "skipLibCheck": true, // TODO: BUGWATCH: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/24573
 
     "pretty": true
   },

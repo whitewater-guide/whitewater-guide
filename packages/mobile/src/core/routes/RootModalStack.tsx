@@ -1,23 +1,24 @@
 import { StackNavigator, StackNavigatorConfig } from 'react-navigation';
-import { LoginScreenStack, MainTabs, PlainTextScreen } from '../../screens';
+import { PlainTextScreen } from '../../screens';
+import MainTabs from './MainTabs';
 
 const Routes = {
-  Login: {
-    screen: LoginScreenStack,
-    navigationOptions: {
-      header: null,
-    },
-  },
-  MainStack: {
+  Main: {
     screen: MainTabs,
   },
   Plain: {
     screen: PlainTextScreen,
   },
+  // MyProfile: {
+  //   screen: MyProfileScreen,
+  // },
+  // Login: {
+  //   screen: LoginScreen,
+  // },
 };
 
 const Config: StackNavigatorConfig = {
-  initialRouteName: 'MainStack',
+  initialRouteName: 'Main',
   mode: 'modal',
 };
 

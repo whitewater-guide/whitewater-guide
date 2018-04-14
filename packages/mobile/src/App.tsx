@@ -1,73 +1,60 @@
+import ApolloClient from 'apollo-client';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import Config from 'react-native-config';
-import MapView from 'react-native-maps';
-import SplashScreen from 'react-native-splash-screen';
-import { LoginButton, AccessToken } from 'react-native-fbsdk';
+import { ApolloProvider } from 'react-apollo';
+import { Provider } from 'react-redux';
+import { Store, Unsubscribe } from 'redux';
+import { Screen } from './components';
+import { getApolloClient } from './core/apollo';
+import configMisc from './core/config/configMisc';
+import { RootState } from './core/reducers';
+import RootView from './core/RootView';
+import configureStore from './core/store/configureStore';
 
-export default class App extends React.PureComponent {
-  componentDidMount() {
-    setTimeout(() => SplashScreen.hide(), 4000);
+configMisc();
+
+interface State {
+  initialized: boolean;
+}
+
+class App extends React.Component<{}, State> {
+  state: State = { initialized: false };
+  store?: Store<RootState>;
+  apolloClient?: ApolloClient<any>;
+  storeSubscription?: Unsubscribe;
+
+  async componentDidMount() {
+    this.store = await configureStore();
+    this.apolloClient = getApolloClient(this.store.dispatch);
+    const initialized = this.store.getState().app.initialized;
+    if (!initialized) {
+      this.storeSubscription = this.store.subscribe(this.listenForInitialize);
+    }
+    this.setState({ initialized });
   }
 
+  shouldComponentUpdate(nextProps: any, nextState: State) {
+    return !this.state.initialized && nextState.initialized;
+  }
+
+  listenForInitialize = () => {
+    const initialized = this.store.getState().app.initialized;
+    this.setState({ initialized });
+  };
+
   render() {
+    if (this.store && this.state.initialized) {
+      return (
+        <Provider store={this.store}>
+          <ApolloProvider client={this.apolloClient}>
+            <RootView />
+          </ApolloProvider>
+        </Provider>
+      );
+    }
     return (
-      <View style={styles.container}>
-        <View style={styles.loginBox}>
-          <LoginButton
-            onLoginFinished={
-              (error, result) => {
-                if (error) {
-                  alert('login has error: ' + result.error);
-                } else if (result.isCancelled) {
-                  alert('login is cancelled.');
-                } else {
-                  AccessToken.getCurrentAccessToken().then(
-                    (data) => {
-                      alert(data!.accessToken.toString());
-                    },
-                  );
-                }
-              }
-            }
-            onLogoutFinished={() => alert('logout')}
-          />
-        </View>
-        <View style={styles.mapBox}>
-          <MapView
-            provider="google"
-            style={StyleSheet.absoluteFill}
-            initialRegion={{
-              latitude: 37.78825,
-              longitude: -122.4324,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
-            }}
-          />
-        </View>
-      </View>
+      <Screen />
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#ffffff',
-  },
-  mapBox: {
-    flex: 1,
-    backgroundColor: 'lime',
-  },
-  loginBox: {
-    paddingTop: 40,
-    height: 100,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+export default App;

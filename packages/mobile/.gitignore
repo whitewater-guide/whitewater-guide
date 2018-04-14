@@ -63,3 +63,5 @@ buck-out/
 /ios/prebuild.log
 /android/app/src/main/assets/appcenter-config.json
 /ios/whitewater/AppCenter-Config.plist
+/ww-commons/
+/ww-clients/

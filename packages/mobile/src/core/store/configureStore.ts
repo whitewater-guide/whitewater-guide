@@ -1,4 +1,3 @@
-import { createReactNavigationReduxMiddleware } from 'react-navigation-redux-helpers';
 import { applyMiddleware, compose, createStore, Middleware, StoreCreator, StoreEnhancer } from 'redux';
 import { default as createSagaMiddleware } from 'redux-saga';
 import { persistedRootReducer, RootState } from '../reducers';
@@ -15,12 +14,6 @@ export default async function configureStore() {
   const sagaMonitor = undefined;
   const sagaMiddleware = createSagaMiddleware({ sagaMonitor });
   middleware.push(sagaMiddleware);
-
-  const navMiddleware = createReactNavigationReduxMiddleware(
-    'root',
-    (state: RootState) => state.nav,
-  );
-  middleware.push(navMiddleware);
 
   enhancers.push(applyMiddleware(...middleware));
 

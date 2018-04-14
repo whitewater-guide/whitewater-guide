@@ -1,2 +1,2 @@
 export { auth } from './actions';
-export * from './saga';
+export * from './authSaga';

@@ -1,19 +1,23 @@
 declare module 'react-error-boundary' {
   import React from 'react';
 
-  interface FallbackProps {
+  export interface FallbackProps {
     error?: Error;
     componentStack?: string;
   }
 
-  interface Props {
+  export interface ErrorBoundaryProps {
     onError?: (error: Error, componentStack: string) => void;
     FallbackComponent?: React.ComponentType<FallbackProps>;
   }
 
-  class ErrorBoundary extends React.Component<Props> {
+  export function withErrorBoundary<P>(
+    ComponentToDecorate: React.ComponentType<P>,
+    CustomFallbackComponent?: React.ComponentType<FallbackProps>,
+    onErrorHandler?: (error: Error, componentStack: string) => void,
+  ): React.ComponentType<P>;
 
-  }
-
-  export default ErrorBoundary;
+  type ErrorBoundaryStatic = React.ComponentType<ErrorBoundaryProps>;
+  export const ErrorBoundary: ErrorBoundaryStatic;
+  export type ErrorBoundary = ErrorBoundaryStatic;
 }

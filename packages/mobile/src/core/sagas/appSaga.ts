@@ -7,6 +7,7 @@ import { authSaga } from '../auth';
 export function *appSaga() {
   // Wait till redux-persist rehydrates
   yield take(bootstrapped.type);
+  // TODO: wait till apollo-cache rehydrates
 
   // Initial auth actions block app loading
   yield spawn(authSaga);
