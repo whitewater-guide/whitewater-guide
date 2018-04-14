@@ -44,6 +44,7 @@
     "react-native-easy-grid": "^0.1.15",
     "react-native-fetch-blob": "^0.10.6",
     "react-native-htmlview": "^0.12.0",
+    "react-native-i18n": "2.0.3",
     "react-native-image-zoom-viewer": "^2.0.8",
     "react-native-interactable": "https://github.com/wix/react-native-interactable",
     "react-native-keyboard-aware-scroll-view": "^0.2.9",

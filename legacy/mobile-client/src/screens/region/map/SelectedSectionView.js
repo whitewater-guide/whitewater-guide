@@ -25,6 +25,7 @@ import { withGuideStep } from '../../../guide';
 import SelectedElementView from '../../../components/map/SelectedElementView';
 import theme from '../../../theme';
 import SectionFlowsRow from './SectionFlowsRow';
+import I18n from '../../../i18n';
 
 const styles = StyleSheet.create({
   header: {
@@ -121,7 +122,7 @@ class SelectedSectionView extends React.Component {
           direction="alternate"
         >
           <Icon narrow icon="arrow-up" color={theme.colors.textLight} />
-          <Text style={styles.guideText}>Swipe up to see more</Text>
+          <Text style={styles.guideText}>{I18n.t('region.map.selectedSection.swipeUpTip')}</Text>
         </Animatable.View>
       </View>
     );
@@ -150,20 +151,20 @@ class SelectedSectionView extends React.Component {
   render() {
     const { selectedSection: section } = this.props;
     const buttons = [
-      { label: 'Put-in', coordinates: get(section, 'putIn.coordinates', [0, 0]) },
-      { label: 'Take-out', coordinates: get(section, 'takeOut.coordinates', [0, 0]) },
+      { label: I18n.t('commons.putIn'), coordinates: get(section, 'putIn.coordinates', [0, 0]) },
+      { label: I18n.t('commons.takeOut'), coordinates: get(section, 'takeOut.coordinates', [0, 0]) },
     ];
     let season = ' \n ';
     if (section) {
       season = [
-        capitalize(trim(stringifySeason(section.seasonNumeric))),
+        capitalize(trim(stringifySeason(section.seasonNumeric, false, I18n.t('locale')))),
         trim(section.season),
       ].join('\n');
     }
-    const duration = section && durationToString(section.duration);
+    const duration = section && I18n.t('durations.' + durationToString(section.duration));
     const drop = section && section.drop;
     const distance = section && section.distance;
-    const distanceStr = compact([distance ? `${distance} km` : '', duration]).join(' / ');
+    const distanceStr = compact([distance ? `${distance} ${I18n.t('commons.km')}` : '', duration]).join(' / ');
     return (
       <SelectedElementView
         header={this.renderHeader()}
@@ -176,27 +177,27 @@ class SelectedSectionView extends React.Component {
         <View>
           <ListItem>
             <View style={styles.distance}>
-              <Text>Length</Text>
+              <Text>{I18n.t('commons.length')}</Text>
               <Text note right>{distanceStr}</Text>
             </View>
             <View style={styles.drop}>
-              <Text>Drop</Text>
-              <Text note right>{drop ? `${drop} m` : 'unknown'}</Text>
+              <Text>{I18n.t('commons.drop')}</Text>
+              <Text note right>{drop ? `${drop} ${I18n.t('commons.m')}` : I18n.t('commons.unknown')}</Text>
             </View>
           </ListItem>
 
           <SectionFlowsRow section={section} />
 
           <ListItem>
-            <Left><Text>Season</Text></Left>
+            <Left><Text>{I18n.t('commons.season')}</Text></Left>
             <Body>
-              <Text note right numberOfLines={2}>
-                {season}
-              </Text>
+            <Text note right numberOfLines={2}>
+              {season}
+            </Text>
             </Body>
           </ListItem>
         </View>
-        <Button primary label="Details" onPress={this.onDetails} />
+        <Button primary label={I18n.t('region.map.selectedSection.details')} onPress={this.onDetails} />
       </SelectedElementView>
     );
   }

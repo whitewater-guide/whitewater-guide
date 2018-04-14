@@ -19,6 +19,17 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.32)',
     zIndex: 10,
   },
+  footer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 48,
+    padding: 4,
+    alignItems: 'stretch',
+    backgroundColor: 'rgba(0,0,0,0.32)',
+    zIndex: 10,
+  },
   indicator: {
     position: 'absolute',
     top: 0,
@@ -32,6 +43,14 @@ const styles = StyleSheet.create({
   },
   indicatorText: {
     color: theme.colors.textLight,
+  },
+  footerDescription: {
+    flex: 1,
+    color: theme.colors.textLight,
+  },
+  footerCopyright: {
+    color: theme.colors.textLight,
+    fontSize: 12,
   },
 });
 
@@ -58,6 +77,18 @@ class PhotoGallery extends React.PureComponent {
     </View>
   );
 
+  renderFooter = (index) => {
+    const { description, copyright } = this.props.photos[index];
+    return (
+      <View style={styles.footer}>
+        <Text style={styles.footerDescription}>
+          {description}
+          {copyright && <Text style={styles.footerCopyright}>{`\n © ${copyright}`}</Text>}
+        </Text>
+      </View>
+    );
+  };
+
   renderIndicator = (index, total) => (
     <View style={styles.indicator}>
       <Text style={styles.indicatorText}>
@@ -77,6 +108,7 @@ class PhotoGallery extends React.PureComponent {
           saveToLocalByLongPress={false}
           renderHeader={this.renderHeader}
           renderIndicator={this.renderIndicator}
+          renderFooter={this.renderFooter}
         />
       </Modal>
     );

@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { DrawerItem } from '../components';
+import I18n from '../i18n';
 
 const styles = StyleSheet.create({
   container: {
@@ -14,21 +15,21 @@ const styles = StyleSheet.create({
 const Drawer = () => (
   <View style={styles.container}>
     <DrawerItem
-      label="Regions"
+      label={I18n.t('drawer.regions')}
       routeName="RegionsRoot"
     />
     <DrawerItem
-      label="FAQ"
+      label={I18n.t('drawer.faq')}
       routeName="Plain"
       params={{ data: 'fixture', title: 'FAQ', textId: 'faq', format: 'md' }}
     />
     <DrawerItem
-      label="Terms and conditions"
+      label={I18n.t('drawer.termsAndConditions')}
       routeName="Plain"
       params={{ data: 'fixture', title: 'Terms and conditions', textId: 'termsAndConditions', format: 'md' }}
     />
     <DrawerItem
-      label="Privacy policy"
+      label={I18n.t('drawer.privacyPolicy')}
       routeName="Plain"
       params={{ data: 'fixture', title: 'Privacy policy', textId: 'privacyPolicy', format: 'md' }}
     />

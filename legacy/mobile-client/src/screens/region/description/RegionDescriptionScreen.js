@@ -4,6 +4,7 @@ import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { HTMLView, Screen } from '../../../components';
 import NoRegionDescription from './NoRegionDescription';
+import I18n from '../../../i18n';
 
 class RegionDescriptionScreen extends React.PureComponent {
 
@@ -12,7 +13,7 @@ class RegionDescriptionScreen extends React.PureComponent {
   };
 
   static navigationOptions = {
-    tabBarLabel: 'About region',
+    tabBarLabel: I18n.t('region.description.title'),
   };
 
   render() {

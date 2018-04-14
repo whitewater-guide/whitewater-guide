@@ -10,6 +10,7 @@ import ActionSheet from 'react-native-actionsheet';
 import Popover, { PopoverTouchable } from 'react-native-modal-popover';
 import { ListItem, Left, Right, Text, Icon } from '../../../components';
 import theme from '../../../theme';
+import I18n from '../../../i18n';
 
 const styles = StyleSheet.create({
   popoverContent: {
@@ -18,7 +19,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const OPTIONS = ['About data source', 'Open gauge web page', 'Cancel'];
+const OPTIONS = [
+  I18n.t('section.chart.gaugeMenu.aboutSource'),
+  I18n.t('section.chart.gaugeMenu.webPage'),
+  I18n.t('commons.cancel'),
+];
 
 class GaugeInfo extends React.PureComponent {
 
@@ -39,7 +44,7 @@ class GaugeInfo extends React.PureComponent {
     } else if (index === 0) {
       this.props.navigate({
         routeName: 'Plain',
-        params: { data: 'source', title: 'About data source', source: this.props.gauge.source },
+        params: { data: 'source', title: I18n.t('section.chart.gaugeMenu.aboutSource'), source: this.props.gauge.source },
       });
     }
   };
@@ -60,14 +65,14 @@ class GaugeInfo extends React.PureComponent {
       <View>
 
         <ListItem>
-          <Left><Text>Gauge</Text></Left>
+          <Left><Text>{I18n.t('commons.gauge')}</Text></Left>
           <Right flexDirection="row">
             {
               approximate &&
               <PopoverTouchable>
                 <Icon icon="warning" size={16} />
                 <Popover contentStyle={styles.popoverContent}>
-                  <Text note>{'This gauge gives very approximate\ndata for this river!'}</Text>
+                  <Text note>{I18n.t('section.chart.approximateWarning')}</Text>
                 </Popover>
               </PopoverTouchable>
             }
@@ -78,7 +83,7 @@ class GaugeInfo extends React.PureComponent {
         <WhitePortal name="chartPortal" />
 
         <ListItem>
-          <Left><Text>Last updated</Text></Left>
+          <Left><Text>{I18n.t('section.chart.lastUpdated')}</Text></Left>
           <Right flexDirection="row">
             <Text note>{moment(lastTimestamp).fromNow()}</Text>
             {
@@ -86,7 +91,7 @@ class GaugeInfo extends React.PureComponent {
               <PopoverTouchable>
                 <Icon icon="warning" size={16} />
                 <Popover contentStyle={styles.popoverContent}>
-                  <Text note>{'This data is probably outdated :('}</Text>
+                  <Text note>{I18n.t('section.chart.outdatedWarning')}</Text>
                 </Popover>
               </PopoverTouchable>
             }
@@ -95,7 +100,7 @@ class GaugeInfo extends React.PureComponent {
 
         <ActionSheet
           ref={this.setActionSheet}
-          title="Gauge information"
+          title={I18n.t('section.chart.gaugeMenu.title')}
           options={OPTIONS}
           cancelButtonIndex={2}
           onPress={this.onGaugeAction}

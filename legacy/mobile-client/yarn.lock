@@ -3651,6 +3651,10 @@ https-browserify@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/https-browserify/-/https-browserify-0.0.1.tgz#3f91365cabe60b77ed0ebba24b454e3e09d95a82"
 
+"i18n-js@github:fnando/i18n-js#v3.0.1":
+  version "3.0.1"
+  resolved "https://codeload.github.com/fnando/i18n-js/tar.gz/a4f947fd65d80bd3e09971f21ab02e967e676742"
+
 iconv-lite@0.4.11:
   version "0.4.11"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.11.tgz#2ecb42fd294744922209a2e7c404dac8793d8ade"
@@ -6180,6 +6184,12 @@ react-native-htmlview@^0.12.0:
   dependencies:
     entities "^1.1.1"
     htmlparser2-without-node-native "^3.9.0"
+
+react-native-i18n@2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-i18n/-/react-native-i18n-2.0.3.tgz#5d4be7e6fb21e3424554bbe4342c76a2a977908d"
+  dependencies:
+    i18n-js "github:fnando/i18n-js#v3.0.1"
 
 react-native-image-pan-zoom@^2.0.5:
   version "2.0.5"

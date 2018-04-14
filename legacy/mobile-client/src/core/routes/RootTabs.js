@@ -2,6 +2,7 @@ import React from 'react';
 import { StackNavigator, TabNavigator } from 'react-navigation';
 import { RegionsListScreen, AllSectionsModalStack, RegionScreen, SectionScreen } from '../../screens';
 import { BurgerButton } from '../../components';
+import I18n from '../../i18n';
 
 const RegionsStack = StackNavigator(
   {
@@ -41,7 +42,7 @@ const Routes = {
   RegionsRoot: {
     screen: RegionsStack,
     navigationOptions: {
-      title: 'Regions',
+      title: I18n.t('regionsList.title'),
       tabBarVisible: false,
     },
   },

@@ -4,7 +4,7 @@ import get from 'lodash/get';
 import choose from '../../commons/utils/choose';
 import { spinnerWhileLoading } from '../../components';
 import { enhancedQuery } from '../../commons/apollo';
-import fixtures from '../../fixtures';
+import I18n from '../../i18n';
 
 const sourceDetails = gql`
   query sourceDetails($_id: ID, $language:String) {
@@ -36,7 +36,7 @@ const sourceContainer = enhancedQuery(
 );
 
 const fixtureContainer = withProps(props => ({
-  htmlText: fixtures[get(props, 'navigation.state.params.textId')],
+  htmlText: I18n.t('markdown.' + get(props, 'navigation.state.params.textId')),
   format: get(props, 'navigation.state.params.format', 'html'),
   loading: false,
 }));

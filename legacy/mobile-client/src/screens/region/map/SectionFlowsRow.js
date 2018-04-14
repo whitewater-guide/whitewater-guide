@@ -4,6 +4,7 @@ import moment from 'moment';
 import { getSectionColor, ColorStrings, prettyNumber } from '../../../commons/features/sections';
 import { Body, Left, ListItem, Text, Right } from '../../../components';
 import theme from '../../../theme';
+import I18n from '../../../i18n';
 
 const styles = StyleSheet.create({
   container: {
@@ -48,18 +49,18 @@ const SectionFlowsRow = ({ section = { flowsText: 'unknown' } }) => {
   if ((!flows || !flows.lastValue) && (!levels || !levels.lastValue)) {
     return (
       <ListItem>
-        <Left><Text>Flows</Text></Left>
+        <Left><Text>{I18n.t('region.map.selectedSection.flows')}</Text></Left>
         <Body>
           <Text note right>
-            {flowsText || 'unknown'}
+            {flowsText || I18n.t('commons.unknown')}
           </Text>
         </Body>
       </ListItem>
     );
   }
   const data = (flows && flows.lastValue) ?
-    { ...flows, label: 'Flow', color: getSectionColor(flows), unit: gauge.flowUnit } :
-    { ...levels, label: 'Level', color: getSectionColor(levels), unit: gauge.levelUnit };
+    { ...flows, label: I18n.t('commons.flow'), color: getSectionColor(flows), unit: gauge.flowUnit } :
+    { ...levels, label: I18n.t('commons.level'), color: getSectionColor(levels), unit: gauge.levelUnit };
 
   return (
     <ListItem>
@@ -71,15 +72,15 @@ const SectionFlowsRow = ({ section = { flowsText: 'unknown' } }) => {
           <Text style={[styles.mainLine, { color: data.color }]}>
             {prettyNumber(data.lastValue)}
             <Text style={[styles.unitLine, { color: data.color }]}>
-              { ` ${data.unit}` }
+              { ` ${I18n.t('commons.'+data.unit)}` }
             </Text>
           </Text>
           <Text note style={styles.timeLine}>{moment(data.lastTimestamp).fromNow()}</Text>
         </View>
         <View style={styles.binding}>
-          { data.minimum && <Text style={styles.minimum}>{`${data.minimum} min`}</Text>}
-          { data.optimum && <Text style={styles.optimum}>{`${data.optimum} opt`}</Text>}
-          { data.maximum && <Text style={styles.maximum}>{`${data.maximum} max`}</Text>}
+          { data.minimum && <Text style={styles.minimum}>{`${data.minimum} ${I18n.t('commons.min')}`}</Text>}
+          { data.optimum && <Text style={styles.optimum}>{`${data.optimum} ${I18n.t('commons.opt')}`}</Text>}
+          { data.maximum && <Text style={styles.maximum}>{`${data.maximum} ${I18n.t('commons.max')}`}</Text>}
         </View>
       </Right>
     </ListItem>

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Button } from '../../components';
 import { resetSearchTerms } from '../../commons/features/regions';
 import theme from '../../theme';
+import I18n from '../../i18n';
 
 const styles = StyleSheet.create({
   button: {
@@ -30,7 +31,7 @@ class ResetFilterButton extends React.PureComponent {
 
   render() {
     return (
-      <Button link small padding={12} label="reset" onPress={this.onPress} />
+      <Button link small padding={12} label={I18n.t('filter.reset')} onPress={this.onPress} />
     );
   }
 }

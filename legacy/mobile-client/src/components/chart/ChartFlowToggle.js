@@ -4,10 +4,11 @@ import { BlackPortal } from 'react-native-portal';
 import ActionSheet from 'react-native-actionsheet';
 import { createAnimatableComponent } from 'react-native-animatable';
 import { Icon, ListItem, Left, Right, Text } from '../index';
+import I18n from '../../i18n';
 
 const AnimatableText = createAnimatableComponent(Text);
 
-const OPTIONS = ['Flow', 'Level', 'Cancel'];
+const OPTIONS = [I18n.t('commons.flow'), I18n.t('commons.level'), I18n.t('commons.cancel')];
 
 class ChartFlowToggle extends React.PureComponent {
   static propTypes = {
@@ -42,7 +43,9 @@ class ChartFlowToggle extends React.PureComponent {
     }
   };
 
-  setActionSheet = (ref) => { this._actionSheet = ref; };
+  setActionSheet = (ref) => {
+    this._actionSheet = ref;
+  };
 
   render() {
     const { measurement, value, unit, enabled } = this.props;
@@ -50,18 +53,18 @@ class ChartFlowToggle extends React.PureComponent {
       <BlackPortal name="chartPortal">
         <ListItem>
           <Left flexDirection="row">
-            <Text>{'Last recorded '}</Text>
+            <Text>{`${I18n.t('section.chart.lastRecorded.title')} `}</Text>
             <AnimatableText
               key={`txt${this._pulseKey}`}
               animation="fadeIn"
               delay={200}
               useNativeDriver
             >
-              {measurement}
+              {I18n.t('section.chart.lastRecorded.'+measurement)}
             </AnimatableText>
           </Left>
           <Right flexDirection="row">
-            <Text note>{`${value.toFixed(2)} ${unit}`}</Text>
+            <Text note>{`${value.toFixed(2)} ${I18n.t('commons.' + unit)}`}</Text>
             {
               enabled &&
               <Icon primary icon="more" onPress={this.onShowActionSheet} />
@@ -70,7 +73,7 @@ class ChartFlowToggle extends React.PureComponent {
               enabled &&
               <ActionSheet
                 ref={this.setActionSheet}
-                title="Select measured value"
+                title={I18n.t('section.chart.flowToggle')}
                 options={OPTIONS}
                 cancelButtonIndex={2}
                 onPress={this.onSelect}

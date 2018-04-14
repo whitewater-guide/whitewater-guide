@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ListItem, Text, Body, Right, Icon } from '../../components';
 import theme from '../../theme';
+import I18n from '../../i18n';
 
 export const REGION_ITEM_HEIGHT = 72;
 
@@ -24,8 +25,8 @@ export const RegionListItem = ({ region, onPress }) => {
       <Body>
         <Text>{region.name}</Text>
         <View style={styles.row}>
-          <Text note style={styles.rivers}>{`Rivers: ${region.riversCount}`}</Text>
-          <Text note>{`Sections: ${region.sectionsCount}`}</Text>
+          <Text note style={styles.rivers}>{`${I18n.t('regionsList.riversCount')}: ${region.riversCount}`}</Text>
+          <Text note>{`${I18n.t('regionsList.sectionsCount')}: ${region.sectionsCount}`}</Text>
         </View>
       </Body>
       <Right>

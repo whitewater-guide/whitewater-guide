@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import HTML from 'react-native-htmlview';
 import theme from '../theme';
 
@@ -23,7 +23,9 @@ const renderNode = (node, index, siblings, parent, defaultRenderer) => {
   if (node.name === 'p') {
     return (
       <View style={styles.p}>
-        { defaultRenderer(node.children, node) }
+        <Text>
+          { defaultRenderer(node.children, node) }
+        </Text>
       </View>
     );
   }

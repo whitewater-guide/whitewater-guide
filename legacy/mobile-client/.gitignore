@@ -61,3 +61,6 @@ fastlane/screenshots
 # Temporaryly unignore Mobile Center secrets
 # /ios/whitewater/MobileCenter-Config.plist
 # /android/app/src/main/assets/mobile-center-config.json
+/.env.production
+/.env
+/.env.development

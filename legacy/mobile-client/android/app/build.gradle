@@ -103,8 +103,8 @@ android {
         applicationId "guide.whitewater"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 32
-        versionName "1.0.31"
+        versionCode 39
+        versionName "1.0.38"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
@@ -139,6 +139,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-i18n')
     compile project(':react-native-fetch-blob')
     compile project(':react-native-interactable')
     compile project(':mobile-center-crashes')

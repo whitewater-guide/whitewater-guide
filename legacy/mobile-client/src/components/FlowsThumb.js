@@ -4,6 +4,7 @@ import { propType } from 'graphql-anywhere';
 import { StyleSheet, Text, View } from 'react-native';
 import moment from 'moment';
 import { SectionFragments, getSectionColor, prettyNumber } from '../commons/features/sections';
+import I18n from '../i18n';
 
 const styles = StyleSheet.create({
   container: {
@@ -33,15 +34,15 @@ const FlowsThumb = ({ flows, levels, flowUnit, levelUnit }) => {
     return null;
   }
   const data = (flows && flows.lastValue) ?
-    { ...flows, label: 'Flow', color: getSectionColor(flows), unit: flowUnit } :
-    { ...levels, label: 'Level', color: getSectionColor(levels), unit: levelUnit };
+    { ...flows, label: I18n.t('commons.flow'), color: getSectionColor(flows), unit: flowUnit } :
+    { ...levels, label: I18n.t('commons.level'), color: getSectionColor(levels), unit: levelUnit };
   return (
     <View style={styles.container}>
       <Text style={styles.unitLine}>{data.label}</Text>
       <Text style={[styles.mainLine, { color: data.color }]}>
         {prettyNumber(data.lastValue)}
         <Text style={[styles.unitLine, { color: data.color }]}>
-          { ` ${data.unit}` }
+          {` ${I18n.t('commons.' + data.unit)}`}
         </Text>
       </Text>
       <Text style={styles.timeLine}>{moment(data.lastTimestamp).fromNow()}</Text>
