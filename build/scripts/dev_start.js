@@ -9,9 +9,7 @@ const ENVIRONMENT = 'development';
 async function devStart() {
   setupEnv(ENVIRONMENT);
   const stackFile = await generateStackFile(ENVIRONMENT, true);
-  ensureDirSync('./packages/minio/data/temp');
-  ensureDirSync('./packages/minio/data/media');
-  ensureDirSync('./packages/minio/data/avatars');
+  ensureDirSync('./packages/minio/data');
   ensureDirSync('./packages/minio/config');
   process.on('SIGINT', () => {
     console.log('Terminating dev stack');

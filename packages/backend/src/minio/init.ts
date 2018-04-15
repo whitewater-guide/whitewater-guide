@@ -6,8 +6,6 @@ import { AVATARS_POLICY, MEDIA_POLICY, TEMP_POLICY } from './policies';
 const createIfNotExists = async (bucketName: string) => {
   let exists = true;
   try {
-    // TODO: https://github.com/DefinitelyTyped/DefinitelyTyped/pull/24677
-    // @ts-ignore
     exists = await minioClient.bucketExists(bucketName);
   } catch (err) {
     exists = false;
