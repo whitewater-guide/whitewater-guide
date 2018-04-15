@@ -2,27 +2,23 @@ import axios from 'axios';
 import Config from 'react-native-config';
 import { AccessToken, LoginManager, LoginResult } from 'react-native-fbsdk';
 import { apply, call, put, takeEvery } from 'redux-saga/effects';
+import { getApolloClient } from '../apollo';
 import { trackError } from '../errors';
 import { loginWithFB } from './actions';
 import { AuthError } from './types';
-// import { cachePersistor, client } from '../../apollo';
 
 export default function* fbSaga() {
   // On startup: refresh token, attempt to relogin with new token
   try {
     const refreshResult = yield apply(AccessToken, AccessToken.refreshCurrentAccessTokenAsync);
-    console.log(refreshResult);
     yield call(authWithFbToken, false);
-  } catch (err) {
-    console.dir(err);
-  }
+  } catch (err) {}
   yield takeEvery(loginWithFB.started.type, watchLoginWithFb);
 }
 
 function* watchLoginWithFb() {
   const result: LoginResult =
     yield apply(LoginManager, LoginManager.logInWithReadPermissions, [['public_profile, email']]);
-  console.log(result);
   yield call(authWithFbToken, true);
 }
 
@@ -55,7 +51,8 @@ export function *resetApolloCache() {
   // Read about apollo-cache-persist login flow
   // cachePersistor.pause();
   // yield apply(cachePersistor, cachePersistor.purge);
-  // yield apply(client, client.resetStore);
+  const client = getApolloClient();
+  yield apply(client, client.resetStore);
   // cachePersistor.resume();
   return 0; // temporary plug
 }
