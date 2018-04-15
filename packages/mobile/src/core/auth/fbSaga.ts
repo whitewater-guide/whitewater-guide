@@ -18,7 +18,7 @@ export default function* fbSaga() {
 
 function* watchLoginWithFb() {
   const result: LoginResult =
-    yield apply(LoginManager, LoginManager.logInWithReadPermissions, [['public_profile, email']]);
+    yield apply(LoginManager, LoginManager.logInWithReadPermissions, [['public_profile', 'email']]);
   yield call(authWithFbToken, true);
 }
 
