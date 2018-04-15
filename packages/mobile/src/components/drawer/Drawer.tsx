@@ -1,13 +1,13 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import DrawerLayout from 'react-native-drawer-layout';
+import { NavigationInjectedProps } from 'react-navigation';
 import { connect } from 'react-redux';
-import theme from '../../../theme';
-import { toggleDrawer } from '../../actions';
-import { RootState } from '../../reducers';
+import { toggleDrawer } from '../../core/actions';
+import { RootState } from '../../core/reducers';
+import theme from '../../theme';
 import DrawerSidebar from './DrawerSidebar';
 import { WithToggle } from './types';
-import { NavigationInjectedProps } from 'react-navigation';
 
 interface StateProps {
   drawerOpen: boolean;

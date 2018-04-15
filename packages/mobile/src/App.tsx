@@ -7,8 +7,8 @@ import { Screen } from './components';
 import { getApolloClient } from './core/apollo';
 import configMisc from './core/config/configMisc';
 import { RootState } from './core/reducers';
-import { RootNavigator } from './core/routes';
 import configureStore from './core/store/configureStore';
+import RootNavigator from './RootNavigator';
 
 configMisc();
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { createNavigationContainer, NavigationNavigator, StackNavigator, StackNavigatorConfig } from 'react-navigation';
-import { PlainTextScreen, RegionScreen, RegionsListScreen } from '../../screens';
-import { Drawer } from './drawer';
+import { Drawer } from './components';
+import { PlainTextScreen, RegionScreen, RegionsListScreen } from './screens';
 
 const Routes = {
   RegionsList: {
@@ -30,4 +30,7 @@ const RootNavigatorView: NavigationNavigator = Object.assign(
   { router: Navigator.router },
 );
 
-export const RootNavigator = createNavigationContainer(RootNavigatorView);
+const RootNavigator = createNavigationContainer(RootNavigatorView);
+RootNavigator.displayName = 'RootNavigator';
+
+export default RootNavigator;

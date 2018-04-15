@@ -10,6 +10,7 @@ const colors = {
   textLight: '#FFFFFF',
   error: '#f44336', // Red 500
   enabled: '#4CAF50', // Green 500
+  facebook: '#3b5998',
 };
 
 const borderWidth = 1;

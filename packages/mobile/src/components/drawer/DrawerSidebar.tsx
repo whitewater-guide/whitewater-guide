@@ -1,8 +1,10 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
-import I18n from '../../../i18n';
-import { isRouteFocused } from '../../../utils/navigation';
+import I18n from '../../i18n';
+import { isRouteFocused } from '../../utils/navigation';
+import { Separator } from '../Separator';
+import AnonHeader from './AnonHeader';
 import DrawerItem from './DrawerItem';
 import { WithToggle } from './types';
 
@@ -27,6 +29,8 @@ class DrawerSidebar extends React.PureComponent<Props> {
     const { navigation: { state } } = this.props;
     return (
       <View style={styles.container}>
+        <AnonHeader />
+        <Separator />
         <DrawerItem
           label={I18n.t('drawer.regions')}
           routeName="RegionsList"

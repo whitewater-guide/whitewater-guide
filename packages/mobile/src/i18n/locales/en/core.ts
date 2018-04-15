@@ -29,6 +29,7 @@ export default {
     cancel: 'Cancel',
   },
   drawer: {
+    facebookLogin: 'Login with Facebook',
     regions: 'Regions',
     faq: 'FAQ',
     termsAndConditions: 'Terms and conditions',
