@@ -3,12 +3,13 @@ import React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import { Provider } from 'react-redux';
 import { Store, Unsubscribe } from 'redux';
-import { Screen } from './components';
+import { Screen, SplashScreen } from './components';
 import { getApolloClient } from './core/apollo';
 import configMisc from './core/config/configMisc';
 import { RootState } from './core/reducers';
 import configureStore from './core/store/configureStore';
 import RootNavigator from './RootNavigator';
+import { MyProfileProvider } from './ww-clients/features/users';
 
 configMisc();
 
@@ -41,12 +42,16 @@ class App extends React.Component<{}, State> {
     this.setState({ initialized });
   };
 
+  renderLoading = () => <SplashScreen />;
+
   render() {
     if (this.store && this.state.initialized) {
       return (
         <Provider store={this.store}>
           <ApolloProvider client={this.apolloClient}>
-            <RootNavigator />
+            <MyProfileProvider renderLoading={this.renderLoading}>
+              <RootNavigator />
+            </MyProfileProvider>
           </ApolloProvider>
         </Provider>
       );

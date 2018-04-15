@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View, StyleProp, ViewStyle } from 'react-native';
 import Config from 'react-native-config';
 import theme from '../theme';
 import { Touchable } from './Touchable';
@@ -56,25 +56,25 @@ const stylesSmall = StyleSheet.create({
 });
 
 interface AvatarProps {
-  firstName?: string | null;
-  lastName?: string | null;
+  name?: string | null;
   avatar?: string | null;
   small?: boolean;
   onPress?: () => void;
+  style?: StyleProp<ViewStyle>;
 }
 
-export const Avatar: React.StatelessComponent<AvatarProps> = ({ firstName, lastName, avatar, onPress, small }) => {
+export const Avatar: React.StatelessComponent<AvatarProps> = ({ name, avatar, onPress, small, style }) => {
   const s = small ? stylesSmall : styles;
-  const name = (firstName && lastName) ? `${firstName[0]}${lastName[0]}`.toUpperCase() : '?';
+  const initials = (name || '?').split(' ').map((str) => str[0]).join(' ');
   const avatarSize = small ? AVATAR_SIZE_SMALL : AVATAR_SIZE;
   const uri = (avatar && avatar.startsWith('http')) ?
     avatar :
     `${Config.BACKEND_PROTOCOL}://${Config.BACKEND_HOST}/images/${avatarSize}/avatars/${avatar}`;
   const result = (
-    <View style={s.container}>
+    <View style={[s.container, style]}>
       <View style={s.avatar}>
         <Text style={s.text}>
-          {name}
+          {initials}
         </Text>
       </View>
       {avatar && <Image source={{ uri }} style={s.avatar} resizeMode="contain" />}

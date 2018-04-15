@@ -1,5 +1,4 @@
 import Crashes from 'appcenter-crashes';
-import SplashScreen from 'react-native-splash-screen';
 import { call, put, spawn, take } from 'redux-saga/effects';
 import { appStarted, bootstrapped, resetNavigationToLogin } from '../actions';
 import { auth, authSaga } from '../auth';
@@ -23,5 +22,4 @@ export function *appSaga() {
   // Show app screens
   yield put(appStarted());
   // yield call(delay, 3000);
-  SplashScreen.hide();
 }
