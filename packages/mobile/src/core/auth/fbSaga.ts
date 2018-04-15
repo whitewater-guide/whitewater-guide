@@ -11,6 +11,7 @@ export default function* fbSaga() {
   // On startup: refresh token, attempt to relogin with new token
   try {
     const refreshResult = yield apply(AccessToken, AccessToken.refreshCurrentAccessTokenAsync);
+    console.log(refreshResult);
     yield call(authWithFbToken, false);
   } catch (err) {}
   yield takeEvery(loginWithFB.started.type, watchLoginWithFb);
@@ -25,18 +26,20 @@ function* watchLoginWithFb() {
 function* authWithFbToken(reset?: boolean) {
   try {
     const token: AccessToken | null = yield apply(AccessToken, AccessToken.getCurrentAccessToken);
+    console.log('token', token);
     if (token && token.accessToken) {
-      yield call(
-        axios.post,
-        `${Config.BACKEND_PROTOCOL}://${Config.BACKEND_HOST}/auth/fb/token`,
-        { token: token.accessToken },
+      const result = yield call(
+        axios.get,
+        `${Config.BACKEND_PROTOCOL}://${Config.BACKEND_HOST}/auth/facebook/token?access_token=${token.accessToken}`,
       );
+      console.log('result', result);
       if (reset) {
         yield call(resetApolloCache);
       }
     }
     yield put(loginWithFB.done({ params: {}, result: {}}));
   } catch (e) {
+    console.log(e);
     trackError('auth', e);
     const error: AuthError = {
       title: 'i18 title',
