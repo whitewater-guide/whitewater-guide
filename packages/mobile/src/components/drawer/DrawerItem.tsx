@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import theme from '../../theme';
+import { Icon } from '../Icon';
 import { Touchable } from '../Touchable';
 
 const styles = StyleSheet.create({
@@ -9,8 +10,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   label: {
-    margin: 16,
+    marginLeft: theme.margin.single,
+    marginVertical: theme.margin.double,
     fontWeight: 'bold',
+  },
+  icon: {
+    marginRight: 0,
   },
 });
 
@@ -23,6 +28,7 @@ interface Props {
   focused: boolean;
   label: string;
   routeName: string;
+  icon?: string;
   params?: Record<string, any>;
   onPress: (routeName: string, params: Record<string, any>) => void;
 }
@@ -34,12 +40,13 @@ class DrawerItem extends React.PureComponent<Props> {
   };
 
   render() {
-    const { focused, label } = this.props;
+    const { focused, label, icon, } = this.props;
     const color = focused ? ACTIVE_TINT_COLOR : INACTIVE_TINT_COLOR;
     const backgroundColor = focused ? ACTIVE_BACKGROUND_COLOR : INACTIVE_BACKGROUND_COLOR;
     return (
       <Touchable onPress={this.onPress} delayPressIn={0}>
         <View style={[styles.item, { backgroundColor }]}>
+          {!!icon && <Icon icon={icon} color={color} style={styles.icon} />}
           <Text style={[styles.label, { color }]}>
             {label}
           </Text>

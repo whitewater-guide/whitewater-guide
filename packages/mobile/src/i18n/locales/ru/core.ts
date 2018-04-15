@@ -29,6 +29,7 @@ export default {
     cancel: 'Отмена',
   },
   drawer: {
+    myProfile: 'Мои настройки',
     facebookLogin: 'Войти через Facebook',
     regions: 'Регионы',
     faq: 'FAQ',

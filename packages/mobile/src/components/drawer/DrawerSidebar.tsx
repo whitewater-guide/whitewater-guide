@@ -5,6 +5,7 @@ import I18n from '../../i18n';
 import { isRouteFocused } from '../../utils/navigation';
 import { withMe, WithMe } from '../../ww-clients/features/users';
 import { Separator } from '../Separator';
+import { Spacer } from '../Spacer';
 import AnonHeader from './AnonHeader';
 import DrawerItem from './DrawerItem';
 import { WithToggle } from './types';
@@ -34,19 +35,35 @@ class DrawerSidebarView extends React.PureComponent<InnerProps> {
       <View style={styles.container}>
         {!!me ? <UserHeader user={me} /> : <AnonHeader />}
         <Separator />
+        {
+          !!me &&
+          (
+            <DrawerItem
+              label={I18n.t('drawer.myProfile')}
+              icon="settings"
+              routeName="MyProfile"
+              onPress={this.navigate}
+              focused={isRouteFocused(state, 'MyProfile')}
+            />
+          )
+        }
         <DrawerItem
           label={I18n.t('drawer.regions')}
+          icon="globe"
           routeName="RegionsList"
           onPress={this.navigate}
           focused={isRouteFocused(state, 'RegionsList')}
         />
         <DrawerItem
           label={I18n.t('drawer.faq')}
+          icon="help"
           routeName="Plain"
           params={{ fixture: 'faq' }}
           onPress={this.navigate}
           focused={isRouteFocused(state, 'Plain', { fixture: 'faq' })}
         />
+        <Separator />
+        <Spacer />
         <DrawerItem
           label={I18n.t('drawer.termsAndConditions')}
           routeName="Plain"

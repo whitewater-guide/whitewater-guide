@@ -29,6 +29,7 @@ export default {
     cancel: 'Cancel',
   },
   drawer: {
+    myProfile: 'My Settings',
     facebookLogin: 'Login with Facebook',
     regions: 'Regions',
     faq: 'FAQ',

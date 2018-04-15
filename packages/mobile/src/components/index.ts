@@ -6,6 +6,7 @@ export * from './Markdown';
 export * from './Nothing';
 export * from './Screen';
 export * from './Separator';
+export * from './Spacer';
 export * from './SplashScreen';
 export * from './Text';
 export * from './Touchable';
