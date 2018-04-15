@@ -7,7 +7,7 @@ import { Screen } from './components';
 import { getApolloClient } from './core/apollo';
 import configMisc from './core/config/configMisc';
 import { RootState } from './core/reducers';
-import RootView from './core/RootView';
+import { RootNavigator } from './core/routes';
 import configureStore from './core/store/configureStore';
 
 configMisc();
@@ -46,7 +46,7 @@ class App extends React.Component<{}, State> {
       return (
         <Provider store={this.store}>
           <ApolloProvider client={this.apolloClient}>
-            <RootView />
+            <RootNavigator />
           </ApolloProvider>
         </Provider>
       );

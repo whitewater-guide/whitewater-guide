@@ -1,3 +1,4 @@
+export * from './Avatar';
 export * from './BurgerButton';
 export * from './Icon';
 export * from './Markdown';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { NavigationInjectedProps, withNavigation } from 'react-navigation';
+import { NavigationInjectedProps } from 'react-navigation';
 import I18n from '../../../i18n';
 import { isRouteFocused } from '../../../utils/navigation';
 import DrawerItem from './DrawerItem';
@@ -59,6 +59,4 @@ class DrawerSidebar extends React.PureComponent<Props> {
   }
 }
 
-const DrawerSidebarWithNavigation: React.ComponentType<WithToggle> = withNavigation(DrawerSidebar);
-
-export default DrawerSidebarWithNavigation;
+export default DrawerSidebar;

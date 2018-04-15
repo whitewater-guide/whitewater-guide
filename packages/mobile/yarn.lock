@@ -5726,7 +5726,7 @@ react-native-maps@^0.21.0:
 
 "react-native-markdown-renderer@https://github.com/doomsower/react-native-markdown-renderer#ts":
   version "3.1.0"
-  resolved "https://github.com/doomsower/react-native-markdown-renderer#3c687ecdbe127a4f30bb08acfa30cafaba93b4c3"
+  resolved "https://github.com/doomsower/react-native-markdown-renderer#107aa29a8bd547bf65bd89189d12743df81df863"
   dependencies:
     "@types/markdown-it" "^0.0.4"
     "@types/react-native" ">=0.50.0"

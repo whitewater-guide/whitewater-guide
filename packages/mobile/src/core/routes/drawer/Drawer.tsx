@@ -7,14 +7,17 @@ import { toggleDrawer } from '../../actions';
 import { RootState } from '../../reducers';
 import DrawerSidebar from './DrawerSidebar';
 import { WithToggle } from './types';
+import { NavigationInjectedProps } from 'react-navigation';
 
 interface StateProps {
   drawerOpen: boolean;
 }
 
+type OwnProps = NavigationInjectedProps;
+
 type DispatchProps = WithToggle;
 
-type Props = StateProps & DispatchProps;
+type Props = StateProps & DispatchProps & OwnProps;
 
 class DrawerView extends React.PureComponent<Props> {
 
@@ -37,7 +40,9 @@ class DrawerView extends React.PureComponent<Props> {
 
   onDrawerClose = () => this.props.toggleDrawer(false);
 
-  renderDrawer = () => (<DrawerSidebar toggleDrawer={this.props.toggleDrawer} />);
+  renderDrawer = () => (
+    <DrawerSidebar navigation={this.props.navigation} toggleDrawer={this.props.toggleDrawer} />
+  );
 
   render() {
     return (
@@ -60,7 +65,7 @@ class DrawerView extends React.PureComponent<Props> {
   }
 }
 
-export const Drawer: React.ComponentType = connect<StateProps, DispatchProps>(
+export const Drawer: React.ComponentType<OwnProps> = connect<StateProps, DispatchProps, OwnProps>(
   ({ app }: RootState) => ({ drawerOpen: app.drawerOpen }),
   { toggleDrawer },
 )(DrawerView);
