@@ -13,7 +13,6 @@ router.get(
 
 router.get(
   '/auth/facebook/token',
-  setReturnTo,
   passport.authenticate('facebook-token'),
 );
 
