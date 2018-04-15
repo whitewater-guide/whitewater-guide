@@ -1,12 +1,11 @@
-import { Strategy as FacebookStrategy } from 'passport-facebook';
+import FacebookTokenStrategy from 'passport-facebook-token';
 import loginWithFacebook from './loginWithFacebook';
 
-const FacebookWebStrategy = new FacebookStrategy(
+const FacebookMobileStrategy = new FacebookTokenStrategy(
   {
     clientID: process.env.FB_APP_ID!,
     clientSecret: process.env.FB_SECRET!,
     profileFields: ['name', 'email', 'picture', 'link', 'locale'],
-    callbackURL: '/auth/facebook/callback',
     passReqToCallback: true,
   },
   async (req, accessToken, refreshToken, profile, done) => {
@@ -19,4 +18,4 @@ const FacebookWebStrategy = new FacebookStrategy(
   },
 );
 
-export default FacebookWebStrategy;
+export default FacebookMobileStrategy;

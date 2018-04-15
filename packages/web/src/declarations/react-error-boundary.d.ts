@@ -17,7 +17,7 @@ declare module 'react-error-boundary' {
     onErrorHandler?: (error: Error, componentStack: string) => void,
   ): React.ComponentType<P>;
 
-  type ErrorBoundaryStatic = React.ComponentType<ErrorBoundaryProps>;
-  export const ErrorBoundary: ErrorBoundaryStatic;
-  export type ErrorBoundary = ErrorBoundaryStatic;
+  class ErrorBoundary extends React.Component<ErrorBoundaryProps>{}
+
+  export default ErrorBoundary;
 }

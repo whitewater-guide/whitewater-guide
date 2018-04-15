@@ -21,11 +21,8 @@ const createIfNotExists = async (bucketName: string) => {
 export const initMinio = async () => {
   log.info('Minio initializing');
   await Promise.all([TEMP, MEDIA, AVATARS].map(bucket => createIfNotExists(bucket)));
-  // @ts-ignore
   await minioClient.setBucketPolicy(TEMP, JSON.stringify(TEMP_POLICY));
-  // @ts-ignore
   await minioClient.setBucketPolicy(MEDIA, JSON.stringify(MEDIA_POLICY));
-  // @ts-ignore
   await minioClient.setBucketPolicy(AVATARS, JSON.stringify(AVATARS_POLICY));
   log.info('Minio init complete');
 };

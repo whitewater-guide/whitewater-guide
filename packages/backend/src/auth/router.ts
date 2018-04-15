@@ -12,6 +12,12 @@ router.get(
 );
 
 router.get(
+  '/auth/facebook/token',
+  setReturnTo,
+  passport.authenticate('facebook-token'),
+);
+
+router.get(
   '/auth/facebook/callback',
   passport.authenticate('facebook', { successReturnToOrRedirect: '/', failureRedirect: '/login' }),
 );
