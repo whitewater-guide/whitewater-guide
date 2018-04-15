@@ -4,17 +4,19 @@ import { AccessToken, LoginManager, LoginResult } from 'react-native-fbsdk';
 import { apply, call, put, takeEvery } from 'redux-saga/effects';
 import { getApolloClient } from '../apollo';
 import { trackError } from '../errors';
-import { loginWithFB } from './actions';
+import { initialized, loginWithFB } from './actions';
 import { AuthError } from './types';
 
 export default function* fbSaga() {
   // On startup: refresh token, attempt to relogin with new token
   try {
     const refreshResult = yield apply(AccessToken, AccessToken.refreshCurrentAccessTokenAsync);
-    console.log(refreshResult);
     yield call(authWithFbToken, false);
-  } catch (err) {}
+  } catch (err) {
+    /* This will throw error when user open app for the first time, so ignore */
+  }
   yield takeEvery(loginWithFB.started.type, watchLoginWithFb);
+  yield put(initialized());
 }
 
 function* watchLoginWithFb() {
@@ -26,20 +28,17 @@ function* watchLoginWithFb() {
 function* authWithFbToken(reset?: boolean) {
   try {
     const token: AccessToken | null = yield apply(AccessToken, AccessToken.getCurrentAccessToken);
-    console.log('token', token);
     if (token && token.accessToken) {
       const result = yield call(
         axios.get,
         `${Config.BACKEND_PROTOCOL}://${Config.BACKEND_HOST}/auth/facebook/token?access_token=${token.accessToken}`,
       );
-      console.log('result', result);
       if (reset) {
         yield call(resetApolloCache);
       }
     }
     yield put(loginWithFB.done({ params: {}, result: {}}));
   } catch (e) {
-    console.log(e);
     trackError('auth', e);
     const error: AuthError = {
       title: 'i18 title',

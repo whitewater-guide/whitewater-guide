@@ -2,7 +2,7 @@ import Crashes from 'appcenter-crashes';
 import SplashScreen from 'react-native-splash-screen';
 import { call, put, spawn, take } from 'redux-saga/effects';
 import { appStarted, bootstrapped, resetNavigationToLogin } from '../actions';
-import { authSaga } from '../auth';
+import { auth, authSaga } from '../auth';
 
 export function *appSaga() {
   // Wait till redux-persist rehydrates
@@ -11,6 +11,7 @@ export function *appSaga() {
 
   // Initial auth actions block app loading
   yield spawn(authSaga);
+  yield take(auth.initialized.type);
   // Wait until init is complete
   // const me = yield take(auth.initialized.type);
 
