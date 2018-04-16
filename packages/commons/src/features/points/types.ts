@@ -19,6 +19,6 @@ export interface PointInput {
   id: string | null;
   name: string | null;
   description: string | null;
-  coordinates: Coordinate3d;
+  coordinates: Coordinate3d | null;
   kind: string;
 }

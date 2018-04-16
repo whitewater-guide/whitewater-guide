@@ -34,7 +34,7 @@ export default class RegionForm extends React.PureComponent<InjectedFormProps<Re
             <DrawingMapField name="bounds" drawingMode="Polygon" bounds={null} />
           </FormTab>
           <FormTab form="region" fields={PoisFields} label="POIS" value="#pois">
-            <POICollection name="pois" component={POICollection} mapBounds={null} />
+            <POICollection name="pois" component={POICollection} mapBounds={this.props.initialValues.bounds || null} />
           </FormTab>
         </Tabs>
       </Form>

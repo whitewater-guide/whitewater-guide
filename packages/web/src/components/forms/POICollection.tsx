@@ -41,7 +41,7 @@ class POICollectionComponent extends React.PureComponent<Props> {
       name: null,
       description: null,
       kind: 'other',
-      coordinates: [0, 0, 0],
+      coordinates: null,
     });
   };
 
