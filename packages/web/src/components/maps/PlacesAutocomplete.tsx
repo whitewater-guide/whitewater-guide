@@ -48,7 +48,7 @@ export default class PlacesAutocomplete extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    this.props.map.controls[google.maps.ControlPosition.TOP_LEFT].push(findDOMNode(this));
+    this.props.map.controls[google.maps.ControlPosition.TOP_LEFT].push(findDOMNode(this) as Element);
   }
 
   onUpdateInput = (searchText: string) => {

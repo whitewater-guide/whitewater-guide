@@ -57,7 +57,11 @@ export class ChipList extends React.PureComponent<ChipListProps, State> {
   };
 
   updateDirection = () => {
-    const rect = findDOMNode(this.self).getBoundingClientRect();
+    const node = findDOMNode(this.self);
+    if (!node) {
+      return;
+    }
+    const rect = (node as Element).getBoundingClientRect();
     const bottom = window.innerHeight - rect.bottom;
     this.setState({
       direction: {

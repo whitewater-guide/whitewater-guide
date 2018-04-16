@@ -23,8 +23,9 @@ const styles: Styles = {
   },
 };
 
-interface Props extends React.CSSProperties {
+interface Props extends React.HTMLAttributes<HTMLDivElement> {
   card?: boolean;
+  style?: React.CSSProperties;
 }
 
 export const Content: React.StatelessComponent<Props> = ({ card, children, style, ...props }) => (
