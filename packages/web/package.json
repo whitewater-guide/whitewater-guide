@@ -1,6 +1,6 @@
 {
   "name": "web",
-  "version": "0.1.95",
+  "version": "0.1.97",
   "private": true,
   "homepage": "/admin/",
   "dependencies": {
@@ -11,6 +11,7 @@
     "apollo-link-http": "^1.5.4",
     "apollo-utilities": "^1.0.9",
     "color": "^3.0.0",
+    "coordinate-parser": "^1.0.2",
     "cron-parser": "^2.5.0",
     "downshift": "^1.31.7",
     "draft-js": "^0.10.3",

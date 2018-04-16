@@ -13,7 +13,7 @@ interface NumberInputProps {
   onChange: (value: number | undefined) => void;
 }
 
-type Props = Overwrite<TextFieldProps, NumberInputProps>;
+type Props = Overwrite<TextFieldProps, NumberInputProps> & { onPaste?: any };
 
 const numToStr = (num: any): string => Number.isFinite(num) ? num!.toString() : '';
 

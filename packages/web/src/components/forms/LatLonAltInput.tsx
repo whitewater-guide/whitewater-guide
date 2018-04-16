@@ -1,3 +1,4 @@
+import Coordinates from 'coordinate-parser';
 import { isEmpty } from 'lodash';
 import IconButton from 'material-ui/IconButton';
 import React from 'react';
@@ -89,6 +90,22 @@ export class LatLonAltInput extends React.PureComponent<LatLonAltInputProps, Lat
     }
   });
 
+  onPaste = (e: React.SyntheticEvent<any>) => {
+    if (!this.props.isNew) {
+      return;
+    }
+    try {
+      const coordinateStr = (e.nativeEvent as any).clipboardData.getData('Text');
+      const coord = new Coordinates(coordinateStr);
+      const lat = coord.getLatitude();
+      const lng = coord.getLongitude();
+      const value: Uncoordinate = [lng, lat, 0];
+      const errors = validator(value);
+      this.setState({ value, errors });
+      e.preventDefault();
+    } catch (e) {}
+  };
+
   render() {
     const { errors, value, submitted } = this.state;
     const { isNew, onRemove } = this.props;
@@ -97,6 +114,7 @@ export class LatLonAltInput extends React.PureComponent<LatLonAltInputProps, Lat
     return (
       <div style={styles.container}>
         <NumberInput
+          onPaste={this.onPaste}
           style={styles.input}
           hintText="Latitude"
           value={value[1]}
