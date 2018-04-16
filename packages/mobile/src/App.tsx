@@ -18,6 +18,8 @@ interface State {
   initialized: boolean;
 }
 
+const navigationPersistenceKey = __DEV__ ? 'NavigationStateDEV' : null;
+
 class App extends React.Component<{}, State> {
   state: State = { initialized: false };
   store?: Store<RootState>;
@@ -52,7 +54,7 @@ class App extends React.Component<{}, State> {
           <ApolloProvider client={this.apolloClient}>
             <MyProfileProvider renderLoading={this.renderLoading}>
               <I18nProvider>
-                <RootNavigator />
+                <RootNavigator persistenceKey={navigationPersistenceKey} />
               </I18nProvider>
             </MyProfileProvider>
           </ApolloProvider>

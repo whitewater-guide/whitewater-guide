@@ -1,5 +1,10 @@
 import React from 'react';
-import { createNavigationContainer, NavigationNavigator, StackNavigator, StackNavigatorConfig } from 'react-navigation';
+import {
+  createNavigationContainer,
+  createStackNavigator,
+  NavigationNavigator,
+  StackNavigatorConfig,
+} from 'react-navigation';
 import { Drawer } from './components';
 import { PlainTextScreen, RegionScreen, RegionsListScreen } from './screens';
 
@@ -19,12 +24,12 @@ const Config: StackNavigatorConfig = {
   initialRouteName: 'RegionsList',
 };
 
-const Navigator = StackNavigator(Routes, Config);
+const Navigator = createStackNavigator(Routes, Config);
 
 const RootNavigatorView: NavigationNavigator = Object.assign(
   (props) => (
     <Drawer navigation={props.navigation}>
-      <Navigator {...props} />
+      <Navigator navigation={props.navigation} />
     </Drawer>
   ),
   { router: Navigator.router },

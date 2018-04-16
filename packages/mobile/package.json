@@ -1,6 +1,6 @@
 {
   "name": "whitewater",
-  "version": "0.0.39",
+  "version": "0.0.40",
   "private": true,
   "scripts": {
     "postinstall": "./postinstall.sh",
@@ -57,7 +57,7 @@
     "react-native-tab-view": "^0.0.77",
     "react-native-typescript-transformer": "^1.2.4",
     "react-native-vector-icons": "^4.6.0",
-    "react-navigation": "^1.5.11",
+    "react-navigation": "^2.0.0-rc.2",
     "react-navigation-redux-helpers": "^1.0.5",
     "react-redux": "^5.0.7",
     "recompose": "^0.26.0",
@@ -95,7 +95,6 @@
     "@types/react-native-fbsdk": "^0.6.1",
     "@types/react-native-tab-view": "^0.0.3",
     "@types/react-native-vector-icons": "^4.6.0",
-    "@types/react-navigation": "^1.5.5",
     "@types/react-redux": "^5.0.15",
     "@types/react-test-renderer": "^16.0.1",
     "@types/recompose": "^0.24.7",

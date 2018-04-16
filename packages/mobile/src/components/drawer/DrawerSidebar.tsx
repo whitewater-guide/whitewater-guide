@@ -1,7 +1,7 @@
 import React from 'react';
 import { translate } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
-import { NavigationInjectedProps } from 'react-navigation';
+import { NavigationActions, NavigationInjectedProps } from 'react-navigation';
 import { compose } from 'recompose';
 import { WithT } from '../../i18n';
 import { isRouteFocused } from '../../utils/navigation';
@@ -28,7 +28,7 @@ type InnerProps = OuterProps & WithMe & WithT;
 class DrawerSidebarView extends React.PureComponent<InnerProps> {
   navigate = (routeName: string, params: any) => {
     this.props.toggleDrawer(false);
-    this.props.navigation.navigate(routeName, params);
+    this.props.navigation.dispatch(NavigationActions.navigate({ routeName, params }));
   };
 
   render() {
