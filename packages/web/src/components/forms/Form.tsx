@@ -2,6 +2,7 @@ import { Location } from 'history';
 import { CardActions, CardMedia } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import React from 'react';
+import { RouteComponentProps } from 'react-router';
 import Prompt from 'react-router-navigation-prompt';
 import { InjectedFormProps } from 'redux-form';
 import { CardHeader } from '../../layout';
@@ -13,7 +14,7 @@ interface FormProps {
   resourceType: string;
 }
 
-type Props = FormProps & InjectedFormProps<any>;
+type Props = FormProps & InjectedFormProps<any> & Partial<RouteComponentProps<any>>;
 
 export class Form extends React.PureComponent<Props> {
 
@@ -23,6 +24,12 @@ export class Form extends React.PureComponent<Props> {
     // https://github.com/ZacharyRSmith/react-router-navigation-prompt/issues/20
     // return anyTouched && (nxt.pathname !== cur.pathname);
     return anyTouched && (nxt.pathname !== cur.pathname || nxt.search !== cur.search);
+  };
+
+  onCancel = () => {
+    if (this.props.history) {
+      this.props.history.goBack();
+    }
   };
 
   render() {
@@ -53,7 +60,8 @@ export class Form extends React.PureComponent<Props> {
           </div>
         </CardMedia>
         <CardActions>
-          <FlatButton label={submitLabel} onClick={this.props.handleSubmit} />
+          <FlatButton primary label={submitLabel} onClick={this.props.handleSubmit} />
+          <FlatButton label="Cancel" onClick={this.onCancel} />
         </CardActions>
       </Content>
     );
