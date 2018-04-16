@@ -8,6 +8,7 @@ import { getApolloClient } from './core/apollo';
 import configMisc from './core/config/configMisc';
 import { RootState } from './core/reducers';
 import configureStore from './core/store/configureStore';
+import { I18nProvider } from './i18n';
 import RootNavigator from './RootNavigator';
 import { MyProfileProvider } from './ww-clients/features/users';
 
@@ -50,7 +51,9 @@ class App extends React.Component<{}, State> {
         <Provider store={this.store}>
           <ApolloProvider client={this.apolloClient}>
             <MyProfileProvider renderLoading={this.renderLoading}>
-              <RootNavigator />
+              <I18nProvider>
+                <RootNavigator />
+              </I18nProvider>
             </MyProfileProvider>
           </ApolloProvider>
         </Provider>

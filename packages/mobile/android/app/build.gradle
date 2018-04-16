@@ -143,7 +143,7 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-i18n')
+    compile project(':react-native-languages')
     compile project(':appcenter-crashes')
     compile project(':appcenter-analytics')
     compile project(':appcenter')

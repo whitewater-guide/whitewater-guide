@@ -1,8 +1,10 @@
 import React from 'react';
+import { translate } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
+import { compose } from 'recompose';
 import { loginWithFB } from '../../core/auth/actions';
-import I18n from '../../i18n';
+import { WithT } from '../../i18n';
 import theme from '../../theme';
 import { Icon } from '../Icon';
 import { Text } from '../Text';
@@ -24,22 +26,26 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Props {
+interface DispatchProps {
   onPress: () => void;
 }
 
-const AnonHeaderView: React.StatelessComponent<Props> = ({ onPress }) => (
+type Props = DispatchProps & WithT;
+
+const AnonHeaderView: React.StatelessComponent<Props> = ({ onPress, t }) => (
   <Touchable onPress={onPress}>
     <View style={styles.container}>
       <Icon icon="fa-facebook-f" color={theme.colors.textLight} style={styles.icon} />
-      <Text large>{I18n.t('drawer.facebookLogin')}</Text>
+      <Text large>{t('drawer:facebookLogin')}</Text>
     </View>
   </Touchable>
 );
 
-const AnonHeader = connect<{}, Props>(
-  undefined,
-  { onPress: () => loginWithFB.started({}) },
-)(AnonHeaderView);
+const container = compose(
+  connect<{}, DispatchProps>(undefined, { onPress: () => loginWithFB.started({}) }),
+  translate(),
+);
+
+const AnonHeader = container(AnonHeaderView);
 
 export default AnonHeader;

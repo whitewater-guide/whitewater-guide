@@ -2,7 +2,7 @@ import React from 'react';
 import { Text } from 'react-native';
 import { NavigationScreenComponent } from 'react-navigation';
 import { BurgerButton, Screen } from '../../components';
-import I18n from '../../i18n';
+import { I18nText } from '../../i18n';
 
 export const RegionsListScreen: NavigationScreenComponent = () =>  (
   <Screen noScroll>
@@ -12,5 +12,5 @@ export const RegionsListScreen: NavigationScreenComponent = () =>  (
 
 RegionsListScreen.navigationOptions = {
   headerLeft: (<BurgerButton />),
-  headerTitle: I18n.t('regionsList.title'),
+  headerTitle: (<I18nText>{'regionsList:title'}</I18nText>),
 };

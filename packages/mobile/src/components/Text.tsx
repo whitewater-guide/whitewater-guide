@@ -2,7 +2,7 @@ import glamorous, { GlamorousComponent } from 'glamorous-native';
 import { TextProperties, TextStyle } from 'react-native';
 import theme from '../theme';
 
-interface TextProps {
+export interface TextProps {
   large?: boolean;
   medium?: boolean;
   small?: boolean;

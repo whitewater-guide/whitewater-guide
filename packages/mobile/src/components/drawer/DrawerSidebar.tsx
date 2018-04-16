@@ -1,7 +1,9 @@
 import React from 'react';
+import { translate } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { NavigationInjectedProps } from 'react-navigation';
-import I18n from '../../i18n';
+import { compose } from 'recompose';
+import { WithT } from '../../i18n';
 import { isRouteFocused } from '../../utils/navigation';
 import { withMe, WithMe } from '../../ww-clients/features/users';
 import { Separator } from '../Separator';
@@ -21,7 +23,7 @@ const styles = StyleSheet.create({
 });
 
 type OuterProps = WithToggle & NavigationInjectedProps;
-type InnerProps = OuterProps & WithMe;
+type InnerProps = OuterProps & WithMe & WithT;
 
 class DrawerSidebarView extends React.PureComponent<InnerProps> {
   navigate = (routeName: string, params: any) => {
@@ -30,7 +32,7 @@ class DrawerSidebarView extends React.PureComponent<InnerProps> {
   };
 
   render() {
-    const { navigation: { state }, me } = this.props;
+    const { navigation: { state }, me, t } = this.props;
     return (
       <View style={styles.container}>
         {!!me ? <UserHeader user={me} /> : <AnonHeader />}
@@ -39,7 +41,7 @@ class DrawerSidebarView extends React.PureComponent<InnerProps> {
           !!me &&
           (
             <DrawerItem
-              label={I18n.t('drawer.myProfile')}
+              label={t('drawer:myProfile')}
               icon="settings"
               routeName="MyProfile"
               onPress={this.navigate}
@@ -48,14 +50,14 @@ class DrawerSidebarView extends React.PureComponent<InnerProps> {
           )
         }
         <DrawerItem
-          label={I18n.t('drawer.regions')}
+          label={t('drawer:regions')}
           icon="globe"
           routeName="RegionsList"
           onPress={this.navigate}
           focused={isRouteFocused(state, 'RegionsList')}
         />
         <DrawerItem
-          label={I18n.t('drawer.faq')}
+          label={t('drawer:faq')}
           icon="help"
           routeName="Plain"
           params={{ fixture: 'faq' }}
@@ -65,14 +67,14 @@ class DrawerSidebarView extends React.PureComponent<InnerProps> {
         <Separator />
         <Spacer />
         <DrawerItem
-          label={I18n.t('drawer.termsAndConditions')}
+          label={t('drawer:termsAndConditions')}
           routeName="Plain"
           params={{ fixture: 'termsAndConditions' }}
           onPress={this.navigate}
           focused={isRouteFocused(state, 'Plain', { fixture: 'termsAndConditions' })}
         />
         <DrawerItem
-          label={I18n.t('drawer.privacyPolicy')}
+          label={t('drawer:privacyPolicy')}
           routeName="Plain"
           params={{ fixture: 'privacyPolicy' }}
           onPress={this.navigate}
@@ -83,6 +85,9 @@ class DrawerSidebarView extends React.PureComponent<InnerProps> {
   }
 }
 
-const DrawerSidebar: React.ComponentType<OuterProps> = withMe(DrawerSidebarView);
+const DrawerSidebar: React.ComponentType<OuterProps> = compose<InnerProps, OuterProps>(
+  withMe,
+  translate(),
+)(DrawerSidebarView);
 
 export default DrawerSidebar;

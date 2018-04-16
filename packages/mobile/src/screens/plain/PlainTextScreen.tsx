@@ -1,7 +1,8 @@
 import React from 'react';
+import { translate } from 'react-i18next';
 import { NavigationScreenComponent } from 'react-navigation';
 import { Markdown, Screen } from '../../components';
-import I18n from '../../i18n';
+import { WithT } from '../../i18n';
 
 interface NavParams {
   fixture?: string;
@@ -13,20 +14,18 @@ interface Props {
   text?: string;
 }
 
-export const PlainText: React.StatelessComponent<Props> = ({ text, fixture }) => (
+export const PlainText: React.StatelessComponent<Props & WithT> = ({ text, fixture, t }) => (
   <Screen>
     <Markdown>
-      {
-        text ?
-          text :
-          I18n.t(`markdown.${fixture}`)
-      }
+      {text ? text : t(fixture)}
     </Markdown>
   </Screen>
 );
 
+const PlainTextWithT = translate('markdown')(PlainText);
+
 export const PlainTextScreen: NavigationScreenComponent<NavParams> = ({ navigation }) => (
-  <PlainText fixture={navigation.getParam('fixture')} />
+  <PlainTextWithT fixture={navigation.getParam('fixture')} />
 );
 
 PlainTextScreen.navigationOptions = ({ navigation }) => {
