@@ -4,7 +4,7 @@ import IconButton from 'material-ui/IconButton';
 import React from 'react';
 import { BaseFieldProps, Field, FieldsProps, GenericField, WrappedFieldProps } from 'redux-form';
 import { Styles } from '../../styles';
-import { CoordinateSchema } from '../../ww-commons/features/points';
+import { CoordinateSchema, CoordinateSchemaLoose } from '../../ww-commons';
 import { NumberInput } from '../NumberInput';
 import { validateInput } from './validateInput';
 
@@ -51,9 +51,11 @@ interface LatLonAltInputState {
   submitted?: boolean;
 }
 
-const validator = validateInput(CoordinateSchema);
+const strictValidator = validateInput(CoordinateSchema);
+const looseValidator = validateInput(CoordinateSchemaLoose);
 
 export class LatLonAltInput extends React.PureComponent<LatLonAltInputProps, LatLonAltInputState> {
+  validator: (input: any) => object;
 
   constructor(props: LatLonAltInputProps) {
     super(props);
@@ -62,18 +64,21 @@ export class LatLonAltInput extends React.PureComponent<LatLonAltInputProps, Lat
       value: props.value || [undefined, undefined, undefined],
       submitted: false,
     };
+    this.validator = props.isNew ? looseValidator : strictValidator;
   }
 
   componentWillReceiveProps(next: LatLonAltInputProps) {
     const val = next.value || [undefined, undefined, undefined];
-    const errors = validator(val);
+    this.validator = next.isNew ? looseValidator : strictValidator;
+    const errors = this.validator(val);
     this.setState({ value: val, errors, submitted: false });
   }
 
   onAdd = () => {
     this.setState({ submitted: true });
     if (this.props.onAdd && isEmpty(this.state.errors)) {
-      this.props.onAdd(this.state.value);
+      const [lng, lat, alt = 0] = this.state.value;
+      this.props.onAdd([lng, lat, alt]);
     }
   };
 
@@ -82,7 +87,7 @@ export class LatLonAltInput extends React.PureComponent<LatLonAltInputProps, Lat
     const { onChange }  = this.props;
     const { value }  = this.state;
     const newValue = Object.assign(value.slice() as Uncoordinate, { [index]: coord });
-    const errors = validator(newValue);
+    const errors = this.validator(newValue);
     this.setState({ value: newValue, errors });
     // Do not fire onChange with bad coordinate, otherwise GoogleMaps break
     if (onChange && isEmpty(errors)) {
@@ -100,7 +105,7 @@ export class LatLonAltInput extends React.PureComponent<LatLonAltInputProps, Lat
       const lat = coord.getLatitude();
       const lng = coord.getLongitude();
       const value: Uncoordinate = [lng, lat, 0];
-      const errors = validator(value);
+      const errors = this.validator(value);
       this.setState({ value, errors });
       e.preventDefault();
     } catch (e) {}
