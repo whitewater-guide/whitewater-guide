@@ -1,6 +1,6 @@
 import { isInstance } from 'apollo-errors';
 import { createResolver } from 'apollo-resolvers';
-import Joi from 'joi';
+import Joi, { ValidationOptions } from 'joi';
 import { Context } from './context';
 import { AuthenticationRequiredError, UnknownError, ValidationError } from './errors';
 
@@ -25,7 +25,7 @@ export const isAuthenticatedResolver = baseResolver.createResolver(
   },
 );
 
-export const isInputValidResolver = (schema: Joi.Schema) => baseResolver.createResolver(
+export const isInputValidResolver = (schema: Joi.Schema, options?: ValidationOptions) => baseResolver.createResolver(
   (root: any, value: any) => {
     const { error } = Joi.validate(
       value,
@@ -36,6 +36,7 @@ export const isInputValidResolver = (schema: Joi.Schema) => baseResolver.createR
         presence: 'required',
         abortEarly: false,
         convert: false,
+        ...options,
       },
     );
     if (error) {

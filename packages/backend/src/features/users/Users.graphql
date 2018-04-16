@@ -26,6 +26,13 @@ type EditorSettings {
   language: String
 }
 
+input UserInput {
+  name: String
+  avatar: String
+  language: String
+  imperial: Boolean
+}
+
 input EditorSettingsInput {
   language: String
 }
@@ -37,4 +44,5 @@ type Query {
 
 type Mutation {
   updateEditorSettings(editorSettings: EditorSettingsInput!): User
+  updateProfile(user: UserInput!): User
 }

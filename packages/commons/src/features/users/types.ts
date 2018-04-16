@@ -17,3 +17,10 @@ export interface User extends NamedNode, Timestamped {
 export interface EditorSettings {
   language: string;
 }
+
+export interface UserInput {
+  name?: string;
+  avatar?: string | null;
+  language?: string;
+  imperial?: boolean;
+}

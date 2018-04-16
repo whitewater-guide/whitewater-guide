@@ -1,7 +1,7 @@
 import * as koa from 'koa';
 import { get } from 'lodash';
-import { LANGUAGES } from '../config';
 import { LastMeasurementLoader } from '../features/measurements/data-loader';
+import { LANGUAGES } from '../ww-commons';
 
 export interface ContextUser {
   id: string;
