@@ -109,7 +109,3 @@ services:
     read_only: true
     environment:
       - ADMINER_DEFAULT_SERVER=db
-#networks:
-#  default:
-#    driver: overlay
-#    attachable: true
