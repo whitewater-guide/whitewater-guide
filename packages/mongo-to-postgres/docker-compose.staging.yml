@@ -1,0 +1,41 @@
+version: "3.4"
+
+services:
+  mongo:
+    container_name: ww-mongo
+    image: mongo:3.2
+    volumes:
+      - type: bind
+        source: /tmp/migration/data
+        target: /data
+    ports:
+      - "27017:27017"
+  restore:
+    container_name: ww-restore
+    env_file:
+      - .env
+      - .env.staging
+    image: doomsower/mongorestore-s3
+    depends_on:
+      - mongo
+    volumes:
+      - type: bind
+        source: /tmp/migration/backup
+        target: /backup
+  mongo2pg:
+    build: .
+    volumes:
+      - type: bind
+        source: /tmp/migration/backup
+        target: /backup
+    depends_on:
+      - restore
+    command: ["-watch", "/backup", "-maxAge", "${M2PG_MAX_AGE:-0}"]
+    env_file:
+      - .env
+      - .env.staging
+networks:
+  default:
+    external:
+      name: ${PGNETWORK:-wwguide_default}
+
