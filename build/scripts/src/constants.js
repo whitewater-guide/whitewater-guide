@@ -9,6 +9,7 @@ const DEPENDENCIES = {
   'minio': [],
   'mobile': ['clients', 'commons'],
   'mongo-to-postgres': [],
+  // 'wale': [], // Temporary disabled
   'web': ['clients', 'commons'],
   'workers': [],
 };

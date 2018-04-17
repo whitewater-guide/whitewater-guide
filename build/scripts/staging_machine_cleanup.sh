@@ -8,6 +8,7 @@ docker stack rm wwguide
 sudo sh -c "rm -rf /var/pm2/*"
 # DB
 sudo sh -c "rm -rf /var/postgres/data/pgdata/*"
+sudo sh -c "rm -rf /var/postgres/data/pg_wal/*"
 sudo sh -c "rm -rf /var/run/postgresql/*"
 sudo sh -c "rm -rf /tmp/postgres/*"
 

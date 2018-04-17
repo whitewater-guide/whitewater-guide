@@ -1,0 +1,8 @@
+{
+  "name": "wale",
+  "version": "0.0.3",
+  "description": "wal-e for whitewater.guide stack",
+  "repository": "https://github.com/doomsower/whitewater.git",
+  "author": "doomsower <K.Kuznetcov@gmail.com>",
+  "private": true
+}

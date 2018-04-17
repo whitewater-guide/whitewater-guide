@@ -19,10 +19,17 @@ services:
   # Postgres sql database
   db:
     image: '${DOCKER_REGISTRY_PREFIX}db:${DOCKER_ENVIRONMENT}'
+    command:
+      - -carchive_command='wget wale/wal-push/%f -O -'
+      - -cwal_level=archive
+      - -carchive_mode=on
     volumes:
       - type: bind
         source: /var/postgres/data/pgdata
         target: /var/lib/postgresql/data/pgdata
+      - type: bind
+        source: /var/postgres/data/pg_wal
+        target: /var/lib/postgresql/data/pg_wal
       - type: bind
         source: /tmp/postgres
         target: /tmp
@@ -109,3 +116,30 @@ services:
     read_only: true
     environment:
       - ADMINER_DEFAULT_SERVER=db
+
+  # WAL-e postgres backup
+  # This is currently disabled, as I haven't figured out how to make it work
+  # wale:
+  #   deploy:
+  #     placement:
+  #       constraints: [node.role == manager]
+  #   labels:
+  #     guide.whitewater: ""
+  #   build:
+  #     context: ../packages/wale
+  #     labels:
+  #       guide.whitewater: ""
+  #   env_file:
+  #     - ../packages/wale/${DOCKER_ENV_FILE}
+  #   volumes:
+  #     - type: bind
+  #       source: /var/postgres/data/pgdata
+  #       target: /var/lib/postgresql/data/pgdata
+  #     - type: bind
+  #       source: /var/postgres/data/pg_wal
+  #       target: /var/lib/postgresql/data/pg_wal
+  #   image: '${DOCKER_REGISTRY_PREFIX}wale:${DOCKER_ENVIRONMENT}'
+  #   read_only: true
+  #   environment:
+  #     - PGDATA=/var/lib/postgresql/data/pgdata
+  #     - PGWAL=/var/lib/postgresql/data/pg_wal
