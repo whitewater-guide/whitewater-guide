@@ -32,7 +32,8 @@ server {
     }
 
     location /admin {
-        try_files /index.html /index.html;
+        rewrite ^ /admin/index.html break;
+        proxy_pass http://landing.whitewater.guide.s3.amazonaws.com;
     }
 
     # Make nginx compatible with certbot process
