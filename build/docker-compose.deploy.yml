@@ -19,10 +19,10 @@ services:
   # Postgres sql database
   db:
     image: '${DOCKER_REGISTRY_PREFIX}db:${DOCKER_ENVIRONMENT}'
-    command:
-      - -carchive_command='wget wale/wal-push/%f -O -'
-      - -cwal_level=archive
-      - -carchive_mode=on
+    # command:
+    #  - -carchive_command='wget wale/wal-push/%f -O -'
+    #  - -cwal_level=archive
+    #  - -carchive_mode=on
     volumes:
       - type: bind
         source: /var/postgres/data/pgdata
@@ -116,6 +116,27 @@ services:
     read_only: true
     environment:
       - ADMINER_DEFAULT_SERVER=db
+
+  # Simple postges backup
+  pgdump:
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    labels:
+      guide.whitewater: ""
+    image: 'schickling/postgres-backup-s3'
+    # read_only: true
+    environment:
+      SCHEDULE: '@daily'
+      S3_PREFIX: '${DOCKER_ENVIRONMENT}'
+      POSTGRES_HOST: db
+      POSTGRES_DATABASE: wwguide
+      POSTGRES_USER: postgres
+    env_file:
+      - ${DOCKER_ENV_FILE}
+      - ../packages/pgdump/${DOCKER_ENV_FILE}
+    depends_on:
+      - db
 
   # WAL-e postgres backup
   # This is currently disabled, as I haven't figured out how to make it work
