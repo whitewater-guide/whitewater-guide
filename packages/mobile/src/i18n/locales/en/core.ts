@@ -1,3 +1,5 @@
+import languages from './languages';
+
 export default {
   locale: 'en',
   commons: {
@@ -28,6 +30,7 @@ export default {
     gauge: 'Gauge',
     cancel: 'Cancel',
   },
+  languages,
   drawer: {
     myProfile: 'My Settings',
     facebookLogin: 'Login with Facebook',

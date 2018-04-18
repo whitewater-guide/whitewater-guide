@@ -1,14 +1,16 @@
 declare module 'react-native-modal-selector' {
 
+  import { Component } from 'react';
   import { Insets, StyleProp, TextStyle, ViewStyle } from 'react-native';
 
-  export interface ModalSelectorProps<T = object> {
-    data: T[];
-    onChange?: (option: T) => void;
+  export interface ModalSelectorProps {
+    data: any[];
+    value?: any;
+    onChange?: (option: any) => void;
     onModalOpen?: () => void;
     onModalClose?: () => void;
-    keyExtractor?: (option: T) => string;
-    labelExtractor?: (option: T) => string;
+    keyExtractor?: (option: any) => string;
+    labelExtractor?: (option: any) => string;
     visible?: boolean;
     initValue?: string;
     cancelText?: string;
@@ -40,4 +42,6 @@ declare module 'react-native-modal-selector' {
     optionTextStyle?: StyleProp<TextStyle>;
     cancelTextStyle?: StyleProp<TextStyle>;
   }
+
+  export default class ModalSelector extends Component<ModalSelectorProps> {}
 }
