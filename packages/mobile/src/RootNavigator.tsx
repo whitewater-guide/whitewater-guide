@@ -6,7 +6,7 @@ import {
   StackNavigatorConfig,
 } from 'react-navigation';
 import { Drawer } from './components';
-import { PlainTextScreen, RegionScreen, RegionsListScreen } from './screens';
+import { MyProfileScreen, PlainTextScreen, RegionScreen, RegionsListScreen } from './screens';
 
 const Routes = {
   RegionsList: {
@@ -17,6 +17,9 @@ const Routes = {
   },
   Plain: {
     screen: PlainTextScreen,
+  },
+  MyProfile: {
+    screen: MyProfileScreen,
   },
 };
 

@@ -36,6 +36,9 @@ export default {
     termsAndConditions: 'Terms and conditions',
     privacyPolicy: 'Privacy policy',
   },
+  myProfile: {
+    title: 'My Profile',
+  },
   regionsList: {
     title: 'Regions',
     riversCount: 'Rivers',

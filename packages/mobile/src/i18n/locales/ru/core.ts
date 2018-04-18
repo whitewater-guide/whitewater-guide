@@ -36,6 +36,9 @@ export default {
     termsAndConditions: 'Правила пользования',
     privacyPolicy: 'Политика конфиденциальности',
   },
+  myProfile: {
+    title: 'Мой профиль',
+  },
   regionsList: {
     title: 'Регионы',
     riversCount: 'Рек',
