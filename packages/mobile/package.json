@@ -1,6 +1,6 @@
 {
   "name": "whitewater",
-  "version": "0.0.42",
+  "version": "0.0.43",
   "private": true,
   "scripts": {
     "postinstall": "./postinstall.sh",
@@ -32,7 +32,7 @@
     "i18next": "^11.2.2",
     "jest-enzyme": "^6.0.0",
     "jest-serializer-enzyme": "^1.0.0",
-    "joi-browser": "^13.0.1",
+    "joi-browser": "https://github.com/doomsower/joi-browser/releases/download/v13.0.1-no-babel/joi-browser-13.0.1_no_babel.tgz",
     "lodash": "^4.17.5",
     "markdown-it-attrs": "^1.2.1",
     "moment": "^2.22.0",
