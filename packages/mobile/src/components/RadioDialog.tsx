@@ -4,7 +4,7 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle,
+  DialogTitle, Paragraph,
   RadioButton,
   RadioButtonGroup,
   Text,
@@ -51,9 +51,9 @@ export class RadioDialog extends React.PureComponent<Props, State> {
         <TouchableRipple onPress={this.openDialog}>
           <Handle>
             <HandleLeft>
-              <Text>{handleTitle}</Text>
+              <Paragraph>{handleTitle}</Paragraph>
             </HandleLeft>
-            <Text>{labelExtractor(value)}</Text>
+            <Paragraph>{labelExtractor(value)}</Paragraph>
           </Handle>
         </TouchableRipple>
         <Dialog onDismiss={this.closeDialog} visible={this.state.open}>
@@ -70,7 +70,7 @@ export class RadioDialog extends React.PureComponent<Props, State> {
                   <TouchableRipple key={keyExtractor(option)} onPress={() => this.onValueChange(keyExtractor(option))}>
                     <Handle>
                       <HandleLeft>
-                        <Text>{labelExtractor(option)}</Text>
+                        <Paragraph>{labelExtractor(option)}</Paragraph>
                       </HandleLeft>
                       <RadioButton value={keyExtractor(option)} />
                     </Handle>

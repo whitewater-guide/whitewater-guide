@@ -1,7 +1,7 @@
 import identity from 'lodash/identity';
 import React from 'react';
-import { Divider, Paper, Text } from 'react-native-paper'
-import { RadioDialog, Screen, } from '../../components';
+import { Divider, Subheading } from 'react-native-paper'
+import { Paper, RadioDialog, Screen, } from '../../components';
 import { LANGUAGE_NAMES, WithT } from '../../i18n';
 import { LANGUAGES } from '../../ww-commons';
 
@@ -20,7 +20,7 @@ class MyProfileView extends React.PureComponent<Props> {
     return (
       <Screen noScroll>
         <Paper>
-          <Text>General</Text>
+          <Subheading>General</Subheading>
           <Divider />
           <RadioDialog
             handleTitle={'Interface language'}

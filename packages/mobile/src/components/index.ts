@@ -5,6 +5,7 @@ export * from './Handle';
 export * from './Icon';
 export * from './Markdown';
 export * from './Nothing';
+export * from './Paper';
 export * from './RadioDialog';
 export * from './Screen';
 export * from './Separator';
