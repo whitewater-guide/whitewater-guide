@@ -13,11 +13,12 @@ type Result<T, R extends ResourceType> = {
 export const queryResultToNode =
   <T, R extends ResourceType>(props: ChildProps<any, QueryResult<T, R>>, propName: R): Result<T, R> => {
   const { data } = props;
-  const { [propName]: node, error, loading, refetch } = data;
+  const { [propName]: node, error, loading, networkStatus, refetch } = data;
   return {
     [propName]: {
       node,
       loading,
+      networkStatus,
       error,
       refetch,
     },

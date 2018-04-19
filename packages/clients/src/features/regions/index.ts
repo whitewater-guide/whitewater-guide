@@ -9,4 +9,4 @@ export * from './RegionProvider';
 export * from './withRegionsList';
 export * from './regionName.query';
 export * from './types';
-export { RegionConsumer } from './RegionContext';
+export { RegionContextValue, RegionConsumer, RegionSetter } from './RegionContext';

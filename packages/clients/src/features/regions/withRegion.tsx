@@ -1,14 +1,16 @@
 import React from 'react';
-import { Region } from '../../../ww-commons';
-import { WithNode } from '../../apollo';
-import { RegionConsumer } from './RegionContext';
+import { RegionConsumer, RegionSetter } from './RegionContext';
 import { WithRegion } from './types';
 
-export function withRegion<Props>(Component: React.ComponentType<Props & WithRegion>): React.ComponentType<Props> {
+type InnerProps<Props> = Props & WithRegion & Partial<RegionSetter>;
+
+export function withRegion<Props>(Component: React.ComponentType<InnerProps<Props>>): React.ComponentType<Props> {
 
   const Wrapper: React.StatelessComponent<Props> = (props: Props) => (
     <RegionConsumer>
-      {(regionNode: WithNode<Region>) => <Component {...props} region={regionNode} />}
+      {({ setRegionId, ...region }) => (
+        <Component {...props} region={region} setRegionId={setRegionId} />
+      )}
     </RegionConsumer>
   );
   Wrapper.displayName = 'withRegion';

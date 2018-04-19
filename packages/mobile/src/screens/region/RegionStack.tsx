@@ -1,8 +1,9 @@
 import React from 'react';
-import { createStackNavigator, NavigationRouter, StackNavigatorConfig } from 'react-navigation';
+import { createStackNavigator, StackNavigatorConfig } from 'react-navigation';
+import { NavigationContainer } from '../../../typings/react-navigation';
 import { Loading } from '../../components';
 import { PureScreen } from '../../utils/navigation';
-import { RegionProvider } from '../../ww-clients/features/regions';
+import { RegionSetter, WithRegion, withRegion } from '../../ww-clients/features/regions';
 import { RegionTabs } from './RegionTabs';
 import RegionTitle from './RegionTitle';
 
@@ -35,20 +36,23 @@ interface Params {
   regionId: string;
 }
 
-export class RegionStack extends PureScreen<{}, Params> {
-  static router: NavigationRouter<any, any> = Navigator.router;
+type Props = RegionSetter & WithRegion;
 
-  renderLoading = () => (<Loading />);
+class RegionStackView extends PureScreen<Props, Params> {
+
+  componentDidMount() {
+    const { setRegionId, navigation } = this.props;
+    setRegionId(navigation.getParam('regionId'));
+  }
 
   render() {
-    const { navigation } = this.props;
-    return (
-      <RegionProvider regionId={navigation.getParam('regionId')} renderLoading={this.renderLoading}>
-        <Navigator navigation={navigation} />
-      </RegionProvider>
-    );
+    const { navigation, region: { loading } } = this.props;
+    return loading ? <Loading/> : <Navigator navigation={navigation} />;
   }
 }
+
+export const RegionStack: Partial<NavigationContainer> = withRegion(RegionStackView);
+RegionStack.router = Navigator.router;
 
 RegionStack.navigationOptions = ({ navigation }) => ({
   title: <RegionTitle regionId={navigation.getParam('regionId')}/>,

@@ -19,6 +19,7 @@ export interface WithList<T> {
 export interface WithNode<T> {
   node: T;
   loading: boolean;
+  networkStatus: NetworkStatus;
   refetch: () => Promise<ApolloQueryResult<Connection<T>>>;
   error?: ApolloError;
 }

@@ -1,17 +1,17 @@
 import React from 'react';
 import { Query, QueryResult } from 'react-apollo';
 import { Region } from '../../../ww-commons';
-import { queryResultToNode, WithNode } from '../../apollo';
-import { Provider } from './RegionContext';
+import { queryResultToNode } from '../../apollo';
+import { Provider, RegionContextValue } from './RegionContext';
 import { REGION_DETAILS } from './regionDetails.query';
 
 interface Props {
-  regionId: string;
-  renderLoading: () => React.ReactElement<any>;
+  regionId?: string;
+  renderLoading?: () => React.ReactElement<any>;
 }
 
 interface Vars {
-  regionId: string;
+  regionId?: string;
 }
 
 interface Result {
@@ -20,20 +20,39 @@ interface Result {
 
 type RenderProps = QueryResult<Result, Vars>;
 
-export class RegionProvider extends React.PureComponent<Props> {
+interface State {
+  regionId?: string;
+  setRegionId: (regionId?: string) => void;
+}
+
+export class RegionProvider extends React.PureComponent<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      regionId: props.regionId,
+      setRegionId: this.setRegionId,
+    };
+  }
+
+  setRegionId = (regionId?: string) => this.setState({ regionId });
+
   render() {
-    const { renderLoading, regionId } = this.props;
+    const { renderLoading } = this.props;
+    const { regionId } = this.state;
     const variables = { regionId };
     return (
       <Query query={REGION_DETAILS} variables={variables} fetchPolicy="cache-and-network">
         {(props: RenderProps) => {
-          if (props.loading) {
+          if (props.loading && renderLoading) {
             return renderLoading();
           }
-          const withNode = queryResultToNode<Region, 'region'>(props, 'region');
-          const region: WithNode<Region> = withNode.region;
+          const { region } = queryResultToNode<Region, 'region'>(props, 'region');
+          const contextValue: RegionContextValue = {
+            ...region,
+            setRegionId: this.setRegionId,
+          };
           return (
-            <Provider value={region}>
+            <Provider value={contextValue}>
               {this.props.children}
             </Provider>
           );

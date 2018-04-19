@@ -85,7 +85,8 @@ class MediaList extends React.PureComponent<MediaListProps, State> {
 
   render() {
     const { currentModal, photo, video, blog, photoAndVideo, pendingRemoval } = this.state;
-    const { region: { node: { editable } } } = this.props;
+    const { region: { node } } = this.props;
+    const editable = node ? node.editable : false;
     return (
       <React.Fragment>
         <Row>

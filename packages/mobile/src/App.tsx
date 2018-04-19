@@ -1,6 +1,7 @@
 import ApolloClient from 'apollo-client';
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
+import { Provider as PaperProvider } from 'react-native-paper';
 import { Provider } from 'react-redux';
 import { Store, Unsubscribe } from 'redux';
 import { Screen, SplashScreen } from './components';
@@ -10,8 +11,8 @@ import { RootState } from './core/reducers';
 import configureStore from './core/store/configureStore';
 import { I18nProvider } from './i18n';
 import RootNavigator from './RootNavigator';
+import { RegionProvider } from './ww-clients/features/regions';
 import { MyProfileProvider } from './ww-clients/features/users';
-import { Provider as PaperProvider } from 'react-native-paper';
 
 configMisc();
 
@@ -19,7 +20,7 @@ interface State {
   initialized: boolean;
 }
 
-const navigationPersistenceKey = __DEV__ ? 'NavigationStateDEV' : null;
+const navigationPersistenceKey = __DEV__ ? 'NavigationStateDEV2' : null;
 
 class App extends React.Component<{}, State> {
   state: State = { initialized: false };
@@ -53,13 +54,15 @@ class App extends React.Component<{}, State> {
       return (
         <Provider store={this.store}>
           <ApolloProvider client={this.apolloClient}>
-            <MyProfileProvider renderLoading={this.renderLoading}>
-              <I18nProvider>
-                <PaperProvider>
-                  <RootNavigator persistenceKey={navigationPersistenceKey} />
-                </PaperProvider>
-              </I18nProvider>
-            </MyProfileProvider>
+            <PaperProvider>
+              <MyProfileProvider renderLoading={this.renderLoading}>
+                <RegionProvider>
+                  <I18nProvider>
+                    <RootNavigator persistenceKey={navigationPersistenceKey} />
+                  </I18nProvider>
+                </RegionProvider>
+              </MyProfileProvider>
+            </PaperProvider>
           </ApolloProvider>
         </Provider>
       );

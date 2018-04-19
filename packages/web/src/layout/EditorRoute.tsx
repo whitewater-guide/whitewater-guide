@@ -6,7 +6,7 @@ import { WithRegion, withRegion } from '../ww-clients/features/regions';
 const container = compose(
   withRegion,
   branch<WithRegion>(
-    props => !(props.region && props.region.node.editable),
+    props => !(props.region && props.region.node!.editable),
     renderComponent(() => (<Redirect to="/403" />)),
   ),
 );

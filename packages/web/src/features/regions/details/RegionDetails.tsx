@@ -22,7 +22,7 @@ export class RegionDetails extends React.PureComponent<RegionDetailsProps> {
 
         <Route>
           <Content card>
-            <CardHeader title={region.node.name}>
+            <CardHeader title={region.node!.name}>
               <EditorLanguagePicker />
             </CardHeader>
             <CardMedia style={{ height: '100%' }} mediaStyle={{ height: '100%' }}>
@@ -30,11 +30,11 @@ export class RegionDetails extends React.PureComponent<RegionDetailsProps> {
                 <Tabs fullPathMode>
 
                   <Tab label="Info" value={`/regions/${regionId}#main`}>
-                    <RegionDetailsMain region={region.node} />
+                    <RegionDetailsMain region={region.node!} />
                   </Tab>
 
                   <Tab label="Map" value={`/regions/${regionId}#map`}>
-                    <RegionMap region={region.node} sections={sections.nodes} />
+                    <RegionMap region={region.node!} sections={sections.nodes} />
                   </Tab>
 
                   <Tab label="Rivers" value={`/regions/${regionId}/rivers`}>

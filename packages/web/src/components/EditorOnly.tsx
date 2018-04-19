@@ -1,8 +1,7 @@
 import React from 'react';
-import { WithNode } from '../ww-clients/apollo';
 import { RegionConsumer } from '../ww-clients/features/regions';
 import { MyProfileConsumer } from '../ww-clients/features/users';
-import { Region, User } from '../ww-commons';
+import { User } from '../ww-commons';
 
 /**
  * Component that render its children only if the user (consumed from context) is admin
@@ -22,8 +21,8 @@ export const EditorOnly: React.StatelessComponent = ({ children }) => (
       }
       return (
         <RegionConsumer>
-          {(region: WithNode<Region> | null) => {
-            if (!region) {
+          {(region) => {
+            if (!region.node) {
               return null;
             }
             return region.node.editable ? children : null;
