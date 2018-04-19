@@ -13,4 +13,3 @@ export const MyProfileScreen: NavigationScreenComponent = () => (
 MyProfileScreen.navigationOptions = {
   title: (<I18nText>{'myProfile:title'}</I18nText>)
 };
-

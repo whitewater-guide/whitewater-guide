@@ -11,6 +11,7 @@ import configureStore from './core/store/configureStore';
 import { I18nProvider } from './i18n';
 import RootNavigator from './RootNavigator';
 import { MyProfileProvider } from './ww-clients/features/users';
+import { Provider as PaperProvider } from 'react-native-paper';
 
 configMisc();
 
@@ -54,7 +55,9 @@ class App extends React.Component<{}, State> {
           <ApolloProvider client={this.apolloClient}>
             <MyProfileProvider renderLoading={this.renderLoading}>
               <I18nProvider>
-                <RootNavigator persistenceKey={navigationPersistenceKey} />
+                <PaperProvider>
+                  <RootNavigator persistenceKey={navigationPersistenceKey} />
+                </PaperProvider>
               </I18nProvider>
             </MyProfileProvider>
           </ApolloProvider>

@@ -1,5 +1,3 @@
-import languages from './languages';
-
 export default {
   locale: 'ru',
   commons: {
@@ -30,7 +28,6 @@ export default {
     gauge: 'Линейка',
     cancel: 'Отмена',
   },
-  languages,
   drawer: {
     myProfile: 'Мои настройки',
     facebookLogin: 'Войти через Facebook',
