@@ -4,12 +4,13 @@ import { BurgerButton, Screen } from '../../components';
 import { I18nText } from '../../i18n';
 import container from './container';
 import RegionsListView from './RegionsListView';
+import { OuterProps } from './types';
 
-const RegionsListWithData = container(RegionsListView);
+const RegionsListWithData: React.ComponentType<OuterProps> = container(RegionsListView);
 
-export const RegionsListScreen: NavigationScreenComponent = () =>  (
+export const RegionsListScreen: NavigationScreenComponent = ({ navigation }) =>  (
   <Screen noScroll>
-    <RegionsListWithData />
+    <RegionsListWithData navigate={navigation.navigate} />
   </Screen>
 );
 

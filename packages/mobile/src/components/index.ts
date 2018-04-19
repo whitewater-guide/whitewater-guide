@@ -3,6 +3,7 @@ export * from './BurgerButton';
 export * from './drawer';
 export * from './Handle';
 export * from './Icon';
+export * from './Loading';
 export * from './Markdown';
 export * from './Nothing';
 export * from './Paper';

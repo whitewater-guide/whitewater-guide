@@ -1,6 +1,7 @@
 import React from 'react';
+import { Region } from '../../../ww-commons';
+import { WithNode } from '../../apollo';
 
-// @ts-ignore TODO: https://github.com/DefinitelyTyped/DefinitelyTyped/pull/24509
-export const RegionContext = React.createContext(null);
-export const Provider: React.ComponentType<any> = RegionContext.Provider;
-export const RegionConsumer: React.ComponentType<any> = RegionContext.Consumer;
+export const RegionContext = React.createContext<WithNode<Region> | null>(null);
+export const Provider = RegionContext.Provider;
+export const RegionConsumer = RegionContext.Consumer;

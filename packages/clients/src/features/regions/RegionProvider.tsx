@@ -1,7 +1,7 @@
 import React from 'react';
 import { Query, QueryResult } from 'react-apollo';
 import { Region } from '../../../ww-commons';
-import { queryResultToNode } from '../../apollo';
+import { queryResultToNode, WithNode } from '../../apollo';
 import { Provider } from './RegionContext';
 import { REGION_DETAILS } from './regionDetails.query';
 
@@ -30,7 +30,8 @@ export class RegionProvider extends React.PureComponent<Props> {
           if (props.loading) {
             return renderLoading();
           }
-          const { region } = queryResultToNode(props, 'region');
+          const withNode = queryResultToNode<Region, 'region'>(props, 'region');
+          const region: WithNode<Region> = withNode.region;
           return (
             <Provider value={region}>
               {this.props.children}

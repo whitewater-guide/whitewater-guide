@@ -2,20 +2,20 @@ import React from 'react';
 import {
   createNavigationContainer,
   createStackNavigator,
-  NavigationNavigator,
+  NavigationNavigatorProps,
+  NavigationRouter,
   StackNavigatorConfig,
 } from 'react-navigation';
-import { NavigationNavigatorProps, NavigationRouter } from '../typings/react-navigation';
 import { Drawer } from './components';
 import { navigationChannel } from './core/sagas';
-import { MyProfileScreen, PlainTextScreen, RegionScreen, RegionsListScreen } from './screens';
+import { MyProfileScreen, PlainTextScreen, RegionsListScreen, RegionStack } from './screens';
 
 const Routes = {
   RegionsList: {
     screen: RegionsListScreen,
   },
   Region: {
-    screen: RegionScreen,
+    screen: RegionStack,
   },
   Plain: {
     screen: PlainTextScreen,
@@ -27,9 +27,10 @@ const Routes = {
 
 const Config: StackNavigatorConfig = {
   initialRouteName: 'RegionsList',
-  navigationOptions: {
+  navigationOptions: ({ navigationOptions }) => ({
+    ...navigationOptions,
     headerStyle: { backgroundColor: '#FFFFFF' },
-  },
+  }),
 };
 
 const Navigator = createStackNavigator(Routes, Config);

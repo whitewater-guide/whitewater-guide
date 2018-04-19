@@ -14,7 +14,8 @@ const getItemLayout = (data, index) => ({
 
 class RegionsListView extends React.PureComponent<InnerProps> {
 
-  onRegionSelected = (region: Region) => {};
+  onRegionSelected = (region: Region) =>
+    this.props.navigate('Region', { regionId: region.id });
 
   renderItem = ({ item }: ListRenderItemInfo<Region>) => (
     <RegionListItem region={item} onPress={this.onRegionSelected} t={this.props.t} />
