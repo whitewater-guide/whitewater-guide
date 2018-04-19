@@ -1,3 +1,5 @@
+import { DrawerSectionProps } from "react-native-paper";
+
 declare module 'react-native-paper' {
   import { Component, ReactNode } from 'react';
   import {
@@ -163,7 +165,43 @@ declare module 'react-native-paper' {
 
   export class Divider extends Component<DividerProps> {}
 
-  export class Paper extends Component<ViewProperties & Themeable> {}
+  export interface DrawerItemProps extends TouchableRippleProps {
+    /**
+     * The label text of the item.
+     */
+    label: string;
+    /**
+     * Name of the icon. Can be a string (name of `MaterialIcon`),
+     * an object of shape `{ uri: 'https://path.to' }`,
+     * a local image: `require('../path/to/image.png')`,
+     * or a valid React Native component.
+     */
+    icon? : IconSource;
+    /**
+     * Whether to highlight the drawer item as active.
+     */
+    active? : boolean;
+    /**
+     * Function to execute on press.
+     */
+    onPress? : () => void;
+    /**
+     * Custom color for the drawer text and icon.
+     */
+    color? : string;
+  }
+
+  export class DrawerItem extends Component<DrawerItemProps> {}
+
+  export interface DrawerSectionProps extends ViewProperties, Themeable {
+    title?: string;
+  }
+
+  export class DrawerSection extends Component<DrawerSectionProps> {}
+
+  export type PaperProps = ViewProperties & Themeable;
+
+  export class Paper extends Component<PaperProps> {}
 
   export interface RadioButtonProps extends TouchableRippleProps {
     /**

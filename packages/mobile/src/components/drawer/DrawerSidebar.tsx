@@ -1,12 +1,12 @@
 import React from 'react';
 import { translate } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
+import { Divider, DrawerSection } from 'react-native-paper';
 import { NavigationActions, NavigationInjectedProps } from 'react-navigation';
 import { compose } from 'recompose';
 import { WithT } from '../../i18n';
 import { isRouteFocused } from '../../utils/navigation';
 import { withMe, WithMe } from '../../ww-clients/features/users';
-import { Separator } from '../Separator';
 import { Spacer } from '../Spacer';
 import AnonHeader from './AnonHeader';
 import DrawerItem from './DrawerItem';
@@ -36,35 +36,36 @@ class DrawerSidebarView extends React.PureComponent<InnerProps> {
     return (
       <View style={styles.container}>
         {!!me ? <UserHeader user={me} /> : <AnonHeader />}
-        <Separator />
-        {
-          !!me &&
-          (
-            <DrawerItem
-              label={t('drawer:myProfile')}
-              icon="settings"
-              routeName="MyProfile"
-              onPress={this.navigate}
-              focused={isRouteFocused(state, 'MyProfile')}
-            />
-          )
-        }
-        <DrawerItem
-          label={t('drawer:regions')}
-          icon="globe"
-          routeName="RegionsList"
-          onPress={this.navigate}
-          focused={isRouteFocused(state, 'RegionsList')}
-        />
-        <DrawerItem
-          label={t('drawer:faq')}
-          icon="help"
-          routeName="Plain"
-          params={{ fixture: 'faq' }}
-          onPress={this.navigate}
-          focused={isRouteFocused(state, 'Plain', { fixture: 'faq' })}
-        />
-        <Separator />
+        <Divider />
+        <DrawerSection>
+          {
+            !!me &&
+            (
+              <DrawerItem
+                label={t('drawer:myProfile')}
+                icon="settings"
+                routeName="MyProfile"
+                onPress={this.navigate}
+                focused={isRouteFocused(state, 'MyProfile')}
+              />
+            )
+          }
+          <DrawerItem
+            label={t('drawer:regions')}
+            icon="list"
+            routeName="RegionsList"
+            onPress={this.navigate}
+            focused={isRouteFocused(state, 'RegionsList')}
+          />
+          <DrawerItem
+            label={t('drawer:faq')}
+            icon="help"
+            routeName="Plain"
+            params={{ fixture: 'faq' }}
+            onPress={this.navigate}
+            focused={isRouteFocused(state, 'Plain', { fixture: 'faq' })}
+          />
+        </DrawerSection>
         <Spacer />
         <DrawerItem
           label={t('drawer:termsAndConditions')}
