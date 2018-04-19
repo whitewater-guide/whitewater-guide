@@ -1,16 +1,12 @@
 import React from 'react';
 import { translate } from 'react-i18next';
-import { Text, TextProps } from '../components';
 import { WithT } from './types';
 
-interface Props extends TextProps {
+interface Props {
   children: string;
 }
 
-const I18nTextInternal: React.StatelessComponent<Props & WithT> = ({ children, t, ...props }) => (
-  <Text {...props}>
-    {t(children)}
-  </Text>
-);
+const I18nTextInternal: React.StatelessComponent<Props & WithT> = ({ children, t }) =>
+  t(children);
 
 export const I18nText: React.ComponentType<Props> = translate()(I18nTextInternal);

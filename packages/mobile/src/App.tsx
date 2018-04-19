@@ -20,7 +20,7 @@ interface State {
   initialized: boolean;
 }
 
-const navigationPersistenceKey = __DEV__ ? 'NavigationStateDEV2' : null;
+const navigationPersistenceKey = __DEV__ ? 'NavigationStateDEV3' : null;
 
 class App extends React.Component<{}, State> {
   state: State = { initialized: false };

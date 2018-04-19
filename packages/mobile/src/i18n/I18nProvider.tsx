@@ -1,12 +1,10 @@
 import i18next from 'i18next';
-import mapValues from 'lodash/mapValues';
 import React from 'react';
 import { I18nextProvider } from 'react-i18next';
 import RNLanguages from 'react-native-languages';
 import { MyProfileConsumer } from '../ww-clients/features/users';
 import { LANGUAGES } from '../ww-commons/core';
 import { User } from '../ww-commons/features/users';
-import flattenLocales from './flattenLocales';
 import en from './locales/en';
 import ru from './locales/ru';
 
@@ -19,10 +17,6 @@ export class I18nProviderInternal extends React.PureComponent<Props> {
 
   constructor(props: Props) {
     super(props);
-    const resources = {
-      en: mapValues(en, (v: any) => flattenLocales(v)) as any,
-      ru: mapValues(ru, (v: any) => flattenLocales(v)) as any,
-    };
     this.i18n = i18next.init({
       lng: (props.language || RNLanguages.language || 'en').substr(0, 2),
       fallbackLng: 'en',
@@ -33,7 +27,7 @@ export class I18nProviderInternal extends React.PureComponent<Props> {
       react: {
         nsMode: 'fallback',
       },
-      resources,
+      resources: { en, ru },
     });
   }
 

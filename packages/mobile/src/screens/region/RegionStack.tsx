@@ -1,10 +1,9 @@
 import React from 'react';
-import { createStackNavigator, StackNavigatorConfig } from 'react-navigation';
-import { NavigationContainer } from '../../../typings/react-navigation';
+import { createStackNavigator, NavigationContainer, StackNavigatorConfig } from 'react-navigation';
 import { Loading } from '../../components';
 import { PureScreen } from '../../utils/navigation';
 import { RegionSetter, WithRegion, withRegion } from '../../ww-clients/features/regions';
-import { RegionTabs } from './RegionTabs';
+import RegionTabs from './RegionTabs';
 import RegionTitle from './RegionTitle';
 
 const Routes = {
@@ -43,6 +42,10 @@ class RegionStackView extends PureScreen<Props, Params> {
   componentDidMount() {
     const { setRegionId, navigation } = this.props;
     setRegionId(navigation.getParam('regionId'));
+  }
+
+  componentWillUnmount() {
+    this.props.setRegionId();
   }
 
   render() {

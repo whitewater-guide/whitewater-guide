@@ -1,15 +1,25 @@
 import React from 'react';
-import { Text } from 'react-native';
-import { NavigationScreenComponent } from 'react-navigation';
-import { Screen } from '../../components';
-import { RegionConsumer } from '../../ww-clients/features/regions';
+import { createMaterialBottomTabNavigator, NavigationRouteConfigMap, TabNavigatorConfig } from 'react-navigation';
+import RegionInfoScreen from './info';
+import RegionMapScreen from './map';
+import RegionSectionsListScreen from './sections-list';
 
-export const RegionTabs: NavigationScreenComponent = () =>  (
-  <Screen noScroll>
-    <RegionConsumer>
-      {(region) => (
-        <Text>{JSON.stringify(region)}</Text>
-      )}
-    </RegionConsumer>
-  </Screen>
-);
+const routes: NavigationRouteConfigMap = {
+  RegionMap: {
+    screen: RegionMapScreen,
+  },
+  RegionSectionsList: {
+    screen: RegionSectionsListScreen,
+  },
+  RegionInfo: {
+    screen: RegionInfoScreen,
+  },
+};
+
+const config: TabNavigatorConfig = {
+  initialRouteName: 'RegionInfo',
+};
+
+const RegionTabs = createMaterialBottomTabNavigator(routes, config);
+
+export default RegionTabs;

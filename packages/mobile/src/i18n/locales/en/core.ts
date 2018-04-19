@@ -52,7 +52,7 @@ export default {
     sectionsCount: 'Sections',
   },
   region: {
-    description: {
+    info: {
       title: 'About region',
       noData: 'No description for this region',
     },
