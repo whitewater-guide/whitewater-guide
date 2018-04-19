@@ -1,4 +1,5 @@
 import React from 'react';
+import { Subheading } from 'react-native-paper';
 import { NavigationScreenComponent } from 'react-navigation';
 import { BurgerButton, Screen } from '../../components';
 import { I18nText } from '../../i18n';
@@ -16,5 +17,9 @@ export const RegionsListScreen: NavigationScreenComponent = ({ navigation }) => 
 
 RegionsListScreen.navigationOptions = {
   headerLeft: (<BurgerButton />),
-  headerTitle: (<I18nText>{'regionsList:title'}</I18nText>),
+  headerTitle: (
+    <Subheading>
+      <I18nText>regionsList:title</I18nText>
+    </Subheading>
+  ),
 };
