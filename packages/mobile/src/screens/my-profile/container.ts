@@ -1,6 +1,8 @@
 import { graphql } from 'react-apollo';
 import { translate } from 'react-i18next';
+import { connect } from 'react-redux';
 import { compose } from 'recompose';
+import { auth } from '../../core/auth';
 import { WithMe, withMe } from '../../ww-clients/features/users';
 import { UserInput } from '../../ww-commons';
 import { InnerProps, WithMutation } from './types';
@@ -23,6 +25,10 @@ const container = compose<InnerProps, {}>(
         }),
       }),
     },
+  ),
+  connect(
+    undefined,
+    { logout: auth.logout },
   ),
 );
 

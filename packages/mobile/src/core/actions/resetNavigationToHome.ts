@@ -1,10 +1,9 @@
-import { NavigationActions } from 'react-navigation';
+import { StackActions } from 'react-navigation';
 
-export const resetNavigationToHome = () => NavigationActions.reset({
-  index: 1,
+export const resetNavigationToHome = () => StackActions.reset({
+  index: 0,
   key: null,
   actions: [
-    NavigationActions.navigate({ routeName: 'MainStack' }),
-    NavigationActions.navigate({ routeName: 'Main' }),
+    StackActions.push({ routeName: 'RegionsList' }),
   ],
 });

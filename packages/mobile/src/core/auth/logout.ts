@@ -1,8 +1,9 @@
+import axios from 'axios';
 import { Alert } from 'react-native';
+import Config from 'react-native-config';
 import { channel } from 'redux-saga';
 import { all, call, put, takeEvery } from 'redux-saga/effects';
-import { resetNavigationToLogin } from '../actions';
-import { confirmLogout, logout } from './actions';
+import { logout, logoutWithFB } from './actions';
 
 const confirmChannel = channel();
 const confirmButton = { text: 'Да', onPress: () => confirmChannel.put('CONFIRM') };
@@ -20,11 +21,15 @@ function *watchLogout() {
     [Alert, Alert.alert],
     'Выход',
     'Вы действительно хотите выйти из приложения?',
-    [ confirmButton, cancelButton ],
+    [ cancelButton, confirmButton ],
   );
 }
 
 function *watchLogoutConfirmed() {
-  yield put(confirmLogout());
-  yield put(resetNavigationToLogin());
+  yield call(
+    axios.get,
+    `${Config.BACKEND_PROTOCOL}://${Config.BACKEND_HOST}/auth/logout`,
+  );
+  // Until we don't have any other auth methods, delegate everything to fb saga
+  yield put(logoutWithFB());
 }

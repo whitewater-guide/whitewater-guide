@@ -40,6 +40,7 @@ export default {
     title: 'My Profile',
     general: 'General',
     language: 'Language',
+    logout: 'Log out',
   },
   regionsList: {
     title: 'Regions',

@@ -1,7 +1,8 @@
 import Crashes from 'appcenter-crashes';
 import { call, put, spawn, take } from 'redux-saga/effects';
-import { appStarted, bootstrapped, resetNavigationToLogin } from '../actions';
+import { appStarted, bootstrapped, resetNavigationToHome } from '../actions';
 import { auth, authSaga } from '../auth';
+import { navigationChannel } from './navigationChannel';
 
 export function *appSaga() {
   // Wait till redux-persist rehydrates
@@ -17,7 +18,7 @@ export function *appSaga() {
   const didCrash = yield call([Crashes, 'hasCrashedInLastSession']);
   if (didCrash) {
     // yield put(me ? resetNavigationToHome() : resetNavigationToLogin());
-    yield put(resetNavigationToLogin());
+    yield put(navigationChannel, resetNavigationToHome());
   }
   // Show app screens
   yield put(appStarted());

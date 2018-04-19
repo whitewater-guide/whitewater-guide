@@ -6,4 +6,8 @@ export interface WithMutation {
   updateMyProfile: (user: UserInput) => Promise<any>;
 }
 
-export type InnerProps = WithT & WithMe & WithMutation;
+export interface DispatchProps {
+  logout: () => void;
+}
+
+export type InnerProps = WithT & WithMe & WithMutation & DispatchProps;

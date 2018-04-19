@@ -40,6 +40,7 @@ export default {
     title: 'Мой профиль',
     general: 'Основные настройки',
     language: 'Язык',
+    logout: 'Выйти',
   },
   regionsList: {
     title: 'Регионы',

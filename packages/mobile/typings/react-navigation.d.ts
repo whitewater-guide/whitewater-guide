@@ -801,6 +801,20 @@ export namespace NavigationActions {
   function popToTop(options: NavigationPopToTopActionPayload): NavigationPopToTopAction;
 }
 
+export namespace StackActions {
+  const POP = 'Navigation/POP';
+  const POP_TO_TOP = 'Navigation/POP_TO_TOP';
+  const PUSH = 'Navigation/PUSH';
+  const RESET = 'Navigation/RESET';
+  const REPLACE = 'Navigation/REPLACE';
+  const COMPLETE_TRANSITION = 'Navigation/COMPLETE_TRANSITION';
+
+  function pop(options: NavigationPopActionPayload): NavigationPopAction;
+  function popToTop(options: NavigationPopToTopActionPayload): NavigationPopToTopAction;
+  function push(options: NavigationNavigateActionPayload): NavigationNavigateAction;
+  function reset(options: NavigationResetActionPayload): NavigationResetAction;
+}
+
 /**
  * Transitioner
  * @desc From react-navigation/src/views/Transitioner.js

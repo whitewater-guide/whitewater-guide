@@ -1,7 +1,7 @@
 import identity from 'lodash/identity';
 import React from 'react';
-import { Divider, Subheading } from 'react-native-paper'
-import { Paper, RadioDialog, Screen, } from '../../components';
+import { Button, Divider, Subheading } from 'react-native-paper'
+import { Paper, RadioDialog, Screen, Spacer, } from '../../components';
 import { LANGUAGE_NAMES } from '../../i18n';
 import theme from '../../theme';
 import { LANGUAGES } from '../../ww-commons';
@@ -40,6 +40,10 @@ class MyProfileView extends React.PureComponent<InnerProps> {
             labelExtractor={labelExtractor}
           />
         </Paper>
+        <Spacer />
+        <Button primary raised onPress={this.props.logout}>
+          {t('commons:logout')}
+        </Button>
       </Screen>
     );
   }

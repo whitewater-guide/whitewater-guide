@@ -2,9 +2,11 @@ import axios from 'axios';
 import Config from 'react-native-config';
 import { AccessToken, LoginManager, LoginResult } from 'react-native-fbsdk';
 import { apply, call, put, takeEvery } from 'redux-saga/effects';
+import { resetNavigationToHome } from '../actions';
 import { getApolloClient } from '../apollo';
 import { trackError } from '../errors';
-import { initialized, loginWithFB } from './actions';
+import { navigationChannel } from '../sagas';
+import { initialized, loginWithFB, logoutWithFB } from './actions';
 import { AuthError } from './types';
 
 export default function* fbSaga() {
@@ -16,6 +18,7 @@ export default function* fbSaga() {
     /* This will throw error when user open app for the first time, so ignore */
   }
   yield takeEvery(loginWithFB.started.type, watchLoginWithFb);
+  yield takeEvery(logoutWithFB.type, watchLogoutWithFb);
   yield put(initialized());
 }
 
@@ -23,6 +26,12 @@ function* watchLoginWithFb() {
   const result: LoginResult =
     yield apply(LoginManager, LoginManager.logInWithReadPermissions, [['public_profile', 'email']]);
   yield call(authWithFbToken, true);
+}
+
+function* watchLogoutWithFb() {
+  yield put(navigationChannel, resetNavigationToHome());
+  yield call(resetApolloCache);
+  LoginManager.logOut();
 }
 
 function* authWithFbToken(reset?: boolean) {
@@ -56,5 +65,4 @@ export function *resetApolloCache() {
   const client = getApolloClient();
   yield apply(client, client.resetStore);
   // cachePersistor.resume();
-  return 0; // temporary plug
 }
