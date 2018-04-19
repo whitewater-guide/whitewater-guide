@@ -25,6 +25,9 @@ const Routes = {
 
 const Config: StackNavigatorConfig = {
   initialRouteName: 'RegionsList',
+  navigationOptions: {
+    headerStyle: { backgroundColor: '#FFFFFF' },
+  }
 };
 
 const Navigator = createStackNavigator(Routes, Config);
