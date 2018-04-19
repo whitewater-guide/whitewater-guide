@@ -1,5 +1,7 @@
+import auth from './auth';
+
 export default {
-  locale: 'ru',
+  auth,
   commons: {
     putIn: 'Старт',
     takeOut: 'Финиш',
@@ -27,6 +29,8 @@ export default {
     miscTags: 'Прочее',
     gauge: 'Линейка',
     cancel: 'Отмена',
+    yes: 'Да',
+    no: 'Нет',
   },
   drawer: {
     myProfile: 'Мои настройки',

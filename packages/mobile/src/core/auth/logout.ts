@@ -1,4 +1,5 @@
 import axios from 'axios';
+import i18next from 'i18next';
 import { Alert } from 'react-native';
 import Config from 'react-native-config';
 import { channel } from 'redux-saga';
@@ -6,8 +7,7 @@ import { all, call, put, takeEvery } from 'redux-saga/effects';
 import { logout, logoutWithFB } from './actions';
 
 const confirmChannel = channel();
-const confirmButton = { text: 'Да', onPress: () => confirmChannel.put('CONFIRM') };
-const cancelButton = { text: 'Нет' };
+const confirmButton = { onPress: () => confirmChannel.put('CONFIRM') };
 
 export default function *logoutSaga() {
   yield all([
@@ -19,9 +19,12 @@ export default function *logoutSaga() {
 function *watchLogout() {
   yield call(
     [Alert, Alert.alert],
-    'Выход',
-    'Вы действительно хотите выйти из приложения?',
-    [ cancelButton, confirmButton ],
+    i18next.t('auth:logoutDialogTitle'),
+    i18next.t('auth:logoutDialogMessage'),
+    [
+      { text: i18next.t('commons:no')},
+      { text: i18next.t('commons:yes'), ...confirmButton },
+    ],
   );
 }
 

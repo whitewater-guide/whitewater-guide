@@ -1,5 +1,7 @@
+import auth from './auth';
+
 export default {
-  locale: 'en',
+  auth,
   commons: {
     putIn: 'Put-in',
     takeOut: 'Take-out',
@@ -27,6 +29,8 @@ export default {
     miscTags: 'Misc',
     gauge: 'Gauge',
     cancel: 'Cancel',
+    yes: 'Yes',
+    no: 'No',
   },
   drawer: {
     myProfile: 'My Settings',
