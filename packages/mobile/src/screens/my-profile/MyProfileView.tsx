@@ -2,29 +2,38 @@ import identity from 'lodash/identity';
 import React from 'react';
 import { Divider, Subheading } from 'react-native-paper'
 import { Paper, RadioDialog, Screen, } from '../../components';
-import { LANGUAGE_NAMES, WithT } from '../../i18n';
+import { LANGUAGE_NAMES } from '../../i18n';
+import theme from '../../theme';
 import { LANGUAGES } from '../../ww-commons';
-
-type Props = WithT;
+import { InnerProps } from './types';
 
 const labelExtractor = (code: string) => LANGUAGE_NAMES[code];
 
-class MyProfileView extends React.PureComponent<Props> {
-  constructor(props: Props) {
+class MyProfileView extends React.PureComponent<InnerProps> {
+  constructor(props: InnerProps) {
     super(props);
   }
 
-  onChangeLanguage = (value: string) => console.log(value);
+  onChangeLanguage = async (language: string) => {
+    try {
+      await this.props.updateMyProfile({ language });
+    } catch (e) {
+      // ignore
+    }
+  };
 
   render() {
+    const { t, me } = this.props;
+    const language = me && me.language || 'en';
     return (
       <Screen noScroll>
         <Paper>
-          <Subheading>General</Subheading>
-          <Divider />
+          <Subheading>{t('myProfile:general')}</Subheading>
+          <Divider style={{ marginBottom: theme.margin.single }}/>
           <RadioDialog
-            handleTitle={'Interface language'}
-            value={'en'}
+            handleTitle={t('myProfile:language')}
+            cancelLabel={t('commons:cancel')}
+            value={language}
             options={LANGUAGES}
             onChange={this.onChangeLanguage}
             keyExtractor={identity}

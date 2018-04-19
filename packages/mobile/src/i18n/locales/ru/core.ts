@@ -38,6 +38,8 @@ export default {
   },
   myProfile: {
     title: 'Мой профиль',
+    general: 'Основные настройки',
+    language: 'Язык',
   },
   regionsList: {
     title: 'Регионы',

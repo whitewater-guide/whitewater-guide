@@ -42,7 +42,13 @@ export class RadioDialog extends React.PureComponent<Props, State> {
 
   openDialog = () => this.setState({ open: true });
   closeDialog = () => this.setState({ open: false });
-  submitDialog = () => this.setState({ open: false });
+  submitDialog = () => {
+    const { options, keyExtractor, onChange } = this.props;
+    const { value } = this.state;
+    const option = options.find((o) => keyExtractor(o) === value);
+    onChange(option);
+    this.closeDialog();
+  };
 
   render() {
     const { dialogTitle, handleTitle, keyExtractor, labelExtractor, value, okLabel, cancelLabel, options } = this.props;

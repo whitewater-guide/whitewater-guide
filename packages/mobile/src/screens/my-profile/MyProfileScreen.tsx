@@ -1,15 +1,15 @@
 import React from 'react';
-import { translate } from 'react-i18next';
 import { NavigationScreenComponent } from 'react-navigation';
 import { I18nText } from '../../i18n';
+import container from './container';
 import MyProfileView from './MyProfileView';
 
-const View = translate()(MyProfileView);
+const MyProfileWithData: React.ComponentClass = container(MyProfileView);
 
 export const MyProfileScreen: NavigationScreenComponent = () => (
-  <View />
+  <MyProfileWithData />
 );
 
 MyProfileScreen.navigationOptions = {
-  title: (<I18nText>{'myProfile:title'}</I18nText>)
+  title: (<I18nText>{'myProfile:title'}</I18nText>),
 };

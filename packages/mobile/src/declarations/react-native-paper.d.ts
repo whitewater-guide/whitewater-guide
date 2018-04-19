@@ -1,5 +1,3 @@
-import { DrawerSectionProps } from "react-native-paper";
-
 declare module 'react-native-paper' {
   import { Component, ReactNode } from 'react';
   import {
