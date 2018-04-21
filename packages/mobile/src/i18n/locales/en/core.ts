@@ -110,11 +110,11 @@ export default {
     search: 'Find',
   },
   durations: {
-    laps: 'Laps',
-    twice: 'Twice a day',
-    'day-run': 'Whole day',
-    overnighter: 'Overnighter',
-    'multi-day': 'Multiday',
+    10: 'Laps',
+    20: 'Twice a day',
+    30: 'Whole day',
+    40: 'Overnighter',
+    50: 'Multiday',
   },
   poiTypes: {
     'put-in': 'Put-in',
