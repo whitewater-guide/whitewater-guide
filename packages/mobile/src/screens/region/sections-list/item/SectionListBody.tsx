@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { TouchableRipple } from 'react-native-paper';
 import { DifficultyThumb, FlowsThumb, StarRating } from '../../../../components';
 import { WithT } from '../../../../i18n';
+import theme from '../../../../theme';
 import { Section } from '../../../../ww-commons';
 
 export const ITEM_HEIGHT = 72;
@@ -11,6 +12,11 @@ const styles = StyleSheet.create({
   container: {
     height: ITEM_HEIGHT,
     flexDirection: 'row',
+    padding: 8,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderColor: theme.colors.border,
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   body: {
     flex: 1,
