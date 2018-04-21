@@ -8,14 +8,14 @@ import {
 } from 'react-navigation';
 import { Drawer } from './components';
 import { navigationChannel } from './core/sagas';
-import { MyProfileScreen, PlainTextScreen, RegionsListScreen, RegionStack } from './screens';
+import { MyProfileScreen, PlainTextScreen, RegionsListScreen, RegionTabs } from './screens';
 
 const Routes = {
   RegionsList: {
     screen: RegionsListScreen,
   },
   Region: {
-    screen: RegionStack,
+    screen: RegionTabs,
   },
   Plain: {
     screen: PlainTextScreen,

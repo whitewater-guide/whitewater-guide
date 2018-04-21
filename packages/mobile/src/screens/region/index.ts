@@ -1,1 +1,1 @@
-export * from './RegionStack';
+export * from './RegionTabs';
