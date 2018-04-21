@@ -1,6 +1,6 @@
 {
   "name": "whitewater",
-  "version": "0.0.334",
+  "version": "0.0.335",
   "description": "whitewater.guide monorepo",
   "repository": "https://github.com/doomsower/whitewater.git",
   "author": "doomsower <K.Kuznetcov@gmail.com>",
@@ -24,12 +24,12 @@
   },
   "devDependencies": {
     "dotenv": "^5.0.1",
-    "eslint": "^4.9.0",
+    "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "12.1.0",
-    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-import": "^2.11.0",
     "fs-extra": "^5.0.0",
     "husky": "^0.15.0-rc.13",
-    "typescript": "2.8.0-rc",
+    "typescript": "2.8.3",
     "wml": "^0.0.83",
     "yargs": "^11.0.0"
   },

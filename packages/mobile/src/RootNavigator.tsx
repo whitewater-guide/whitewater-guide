@@ -10,7 +10,7 @@ import { Drawer } from './components';
 import { navigationChannel } from './core/sagas';
 import { MyProfileScreen, PlainTextScreen, RegionsListScreen, RegionTabs } from './screens';
 
-const Routes = {
+const routes = {
   RegionsList: {
     screen: RegionsListScreen,
   },
@@ -25,7 +25,7 @@ const Routes = {
   },
 };
 
-const Config: StackNavigatorConfig = {
+const config: StackNavigatorConfig = {
   initialRouteName: 'RegionsList',
   navigationOptions: ({ navigationOptions }) => ({
     ...navigationOptions,
@@ -33,7 +33,7 @@ const Config: StackNavigatorConfig = {
   }),
 };
 
-const Navigator = createStackNavigator(Routes, Config);
+const Navigator = createStackNavigator(routes, config);
 
 class RootNavigatorView extends React.PureComponent<NavigationNavigatorProps> {
   static router: NavigationRouter<any, any> = Navigator.router;

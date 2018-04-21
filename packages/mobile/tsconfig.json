@@ -16,6 +16,8 @@
     "module": "esnext",
     "moduleResolution": "node",
 
+    "skipLibCheck": true,
+
     // "strict": true,
     // "noFallthroughCasesInSwitch": true,
     // "noImplicitReturns": true,
@@ -25,9 +27,7 @@
 
     "baseUrl": ".",
     "paths": {
-      "*": ["./typings/*"],
-      "ww-commons/*": ["./ww-commons/*"],
-      "ww-clients/*": ["./ww-clients/*"]
+      "*": ["./typings/*"]
     },
 
     "pretty": true

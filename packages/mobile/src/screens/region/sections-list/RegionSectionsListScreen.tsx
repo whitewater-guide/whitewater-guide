@@ -1,17 +1,12 @@
 import React from 'react';
-import { Text } from 'react-native';
 import { NavigationScreenComponent } from 'react-navigation';
 import { Screen } from '../../../components';
 import { I18nText } from '../../../i18n';
-import { RegionConsumer } from '../../../ww-clients/features/regions';
+import SectionsList from './SectionsList';
 
-export const RegionSectionsListScreen: NavigationScreenComponent = () =>  (
-  <Screen noScroll>
-    <RegionConsumer>
-      {(region) => (
-        <Text>{`Sections of ${region.node.name}`}</Text>
-      )}
-    </RegionConsumer>
+export const RegionSectionsListScreen: NavigationScreenComponent = (props) =>  (
+  <Screen noScroll noPadding>
+    <SectionsList sections={props.screenProps.sections.nodes} />
   </Screen>
 );
 

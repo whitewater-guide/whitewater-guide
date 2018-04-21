@@ -1,10 +1,6 @@
 import React from 'react';
-import {
-  createMaterialBottomTabNavigator,
-  NavigationContainer,
-  NavigationRouteConfigMap,
-  TabNavigatorConfig,
-} from 'react-navigation';
+import { createMaterialBottomTabNavigator, NavigationRouteConfigMap, TabNavigatorConfig } from 'react-navigation';
+import { NavigationComponent } from '../../../typings/react-navigation';
 import { PureScreen } from '../../utils/navigation';
 import { RegionSetter, WithRegion } from '../../ww-clients/features/regions';
 import { WithSectionsList } from '../../ww-clients/features/sections';
@@ -46,7 +42,7 @@ class RegionTabsView extends PureScreen<Props, Params> {
   }
 }
 
-export const RegionTabs: Partial<NavigationContainer> = container(RegionTabsView);
+export const RegionTabs: NavigationComponent & { router?: any} = container(RegionTabsView);
 RegionTabs.router = Navigator.router;
 
 RegionTabs.navigationOptions = ({ navigation }) => ({
