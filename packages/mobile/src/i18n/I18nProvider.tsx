@@ -1,4 +1,5 @@
 import i18next from 'i18next';
+import moment from 'moment';
 import React from 'react';
 import { I18nextProvider } from 'react-i18next';
 import RNLanguages from 'react-native-languages';
@@ -17,8 +18,10 @@ export class I18nProviderInternal extends React.PureComponent<Props> {
 
   constructor(props: Props) {
     super(props);
+    const language = props.language || RNLanguages.language || 'en';
+    moment.locale(language);
     this.i18n = i18next.init({
-      lng: (props.language || RNLanguages.language || 'en').substr(0, 2),
+      lng: (language).substr(0, 2),
       fallbackLng: 'en',
       whitelist: LANGUAGES,
       interpolation: {
@@ -29,6 +32,11 @@ export class I18nProviderInternal extends React.PureComponent<Props> {
       },
       resources: { en, ru },
     });
+    this.i18n.on('languageChanged', this.onLanguageChange);
+  }
+
+  componentWillUnmount() {
+    this.i18n.off('languageChanged', this.onLanguageChange);
   }
 
   componentWillReceiveProps(nextProps: Props) {
@@ -36,6 +44,8 @@ export class I18nProviderInternal extends React.PureComponent<Props> {
       this.i18n.changeLanguage(nextProps.language);
     }
   }
+
+  onLanguageChange = (language: string) => moment.locale(language);
 
   render() {
     return (

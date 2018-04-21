@@ -7,12 +7,14 @@ import { Store, Unsubscribe } from 'redux';
 import { Screen, SplashScreen } from './components';
 import { getApolloClient } from './core/apollo';
 import configMisc from './core/config/configMisc';
+import configMoment from './core/config/configMoment';
 import { RootState } from './core/reducers';
 import configureStore from './core/store/configureStore';
 import { I18nProvider } from './i18n';
 import RootNavigator from './RootNavigator';
 import { MyProfileProvider } from './ww-clients/features/users';
 
+configMoment();
 configMisc();
 
 interface State {
