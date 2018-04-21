@@ -15,13 +15,16 @@ export const chunkedListLoader = <T extends ListType>(propName: T) =>
     return class SectionsBatchLoader extends React.PureComponent<ChunkedListProps<T>> {
 
       componentDidMount() {
-        this.fetchMore().catch(/* Ignore */);
+        const { [propName]: list } = this.props;
+        if (list.nodes && list.nodes.length === 0) {
+          this.fetchMore().catch(/* Ignore */);
+        }
       }
 
       componentDidUpdate(prevProps: ChunkedListProps<T>) {
         const prevList: WithList<T> = prevProps[propName];
         const nextList: WithList<T> = this.props[propName];
-        if (nextList.nodes.length > prevList.nodes.length) {
+        if (nextList.nodes.length !== prevList.nodes.length) {
           this.fetchMore().catch(/* Ignore */);
         }
       }

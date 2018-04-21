@@ -4,9 +4,9 @@ import { Screen } from '../../../components';
 import { I18nText } from '../../../i18n';
 import RegionInfoView from './RegionInfoView';
 
-export const RegionInfoScreen: NavigationScreenComponent = () =>  (
+export const RegionInfoScreen: NavigationScreenComponent = ({ screenProps }) => (
   <Screen>
-    <RegionInfoView />
+    <RegionInfoView region={screenProps.region} />
   </Screen>
 );
 

@@ -9,6 +9,7 @@ import RegionInfoScreen from './info';
 import RegionMapScreen from './map';
 import RegionTitle from './RegionTitle';
 import RegionSectionsListScreen from './sections-list';
+import { ScreenProps } from './types';
 
 const routes: NavigationRouteConfigMap = {
   RegionMap: {
@@ -37,8 +38,9 @@ type Props = RegionSetter & WithRegion & WithSectionsList;
 class RegionTabsView extends PureScreen<Props, Params> {
 
   render() {
-    const { navigation, sections } = this.props;
-    return <Navigator navigation={navigation} screenProps={{ sections }} />;
+    const { navigation, sections, region } = this.props;
+    const screenProps: ScreenProps = { region, sections };
+    return <Navigator navigation={navigation} screenProps={screenProps} />;
   }
 }
 

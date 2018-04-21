@@ -11,7 +11,6 @@ import { RootState } from './core/reducers';
 import configureStore from './core/store/configureStore';
 import { I18nProvider } from './i18n';
 import RootNavigator from './RootNavigator';
-import { RegionProvider } from './ww-clients/features/regions';
 import { MyProfileProvider } from './ww-clients/features/users';
 
 configMisc();
@@ -56,11 +55,9 @@ class App extends React.Component<{}, State> {
           <ApolloProvider client={this.apolloClient}>
             <PaperProvider>
               <MyProfileProvider renderLoading={this.renderLoading}>
-                <RegionProvider>
-                  <I18nProvider>
-                    <RootNavigator persistenceKey={navigationPersistenceKey} />
-                  </I18nProvider>
-                </RegionProvider>
+                <I18nProvider>
+                  <RootNavigator persistenceKey={navigationPersistenceKey} />
+                </I18nProvider>
               </MyProfileProvider>
             </PaperProvider>
           </ApolloProvider>
