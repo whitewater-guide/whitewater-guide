@@ -2,15 +2,13 @@ import React from 'react';
 import { createMaterialBottomTabNavigator, NavigationRouteConfigMap, TabNavigatorConfig } from 'react-navigation';
 import { NavigationComponent } from '../../../typings/react-navigation';
 import { PureScreen } from '../../utils/navigation';
-import { RegionSetter, WithRegion } from '../../ww-clients/features/regions';
-import { WithSectionsList } from '../../ww-clients/features/sections';
 import container from './container';
 import RegionInfoScreen from './info';
 import RegionMapScreen from './map';
 import RegionTitle from './RegionTitle';
 import RegionSectionsListScreen from './sections-list';
 import SectionsProgress from './SectionsProgress';
-import { ScreenProps } from './types';
+import { InnerProps, NavParams, ScreenProps } from './types';
 
 const routes: NavigationRouteConfigMap = {
   RegionMap: {
@@ -30,13 +28,15 @@ const config: TabNavigatorConfig = {
 
 const Navigator = createMaterialBottomTabNavigator(routes, config);
 
-interface Params {
-  regionId: string;
-}
+class RegionTabsView extends PureScreen<InnerProps, NavParams> {
 
-type Props = RegionSetter & WithRegion & WithSectionsList;
+  componentDidMount() {
+    this.props.selectRegion({ regionId: this.props.region.node.id });
+  }
 
-class RegionTabsView extends PureScreen<Props, Params> {
+  componentWillUnmount() {
+    this.props.selectRegion({ regionId: null });
+  }
 
   render() {
     const { navigation, sections, region } = this.props;

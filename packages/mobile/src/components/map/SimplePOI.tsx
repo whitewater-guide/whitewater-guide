@@ -63,7 +63,12 @@ const renderCircle = (zoom: number, selected?: boolean) => {
 };
 
 export class SimplePOI extends React.PureComponent<POIComponentProps> {
-  onPress = () => this.props.onPOISelected(this.props.poi);
+  onPress = (e: any) => {
+    // This will stop the parent `MapView`'s `onPress` from being called. **Note**: iOS only.
+    // Android does not propagate `onPress` events.
+    e.stopPropagation();
+    this.props.onPOISelected(this.props.poi);
+  };
 
   render() {
     const { poi, zoom } = this.props;

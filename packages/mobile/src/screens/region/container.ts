@@ -4,12 +4,13 @@ import { compose, mapProps, pure } from 'recompose';
 import { withLoading } from '../../components';
 import { chunkedListLoader, queryResultToNode } from '../../ww-clients/apollo';
 import { withFeatureIds } from '../../ww-clients/core';
-import { REGION_DETAILS, WithRegion } from '../../ww-clients/features/regions';
+import { REGION_DETAILS, selectRegion, WithRegion } from '../../ww-clients/features/regions';
 import { searchTermsSelector, WithSearchTerms } from '../../ww-clients/features/regions/selectors';
 import { WithSectionsList, withSectionsList } from '../../ww-clients/features/sections';
 import { applySearch } from '../../ww-commons';
+import { DispatchProps, InnerProps, OuterProps } from './types';
 
-export default compose(
+export default compose<InnerProps & OuterProps, OuterProps>(
   withFeatureIds('region'),
   graphql(
     REGION_DETAILS,
@@ -22,14 +23,18 @@ export default compose(
   withLoading<WithRegion>((props) => props.region.loading),
   withSectionsList(),
   chunkedListLoader('sections'),
-  connect<WithSearchTerms, {}, WithSectionsList>(searchTermsSelector),
-  mapProps(({ sections, searchTerms, ...props }) => ({
-    ...props,
-    searchTerms,
+  connect<WithSearchTerms, DispatchProps, WithSectionsList>(
+    searchTermsSelector,
+    { selectRegion },
+  ),
+  mapProps(({ sections, searchTerms, selectRegion, navigation, region }) => ({
+    region,
     sections: {
       ...sections,
       nodes: applySearch(sections.nodes, searchTerms),
     },
+    selectRegion,
+    navigation,
   })),
   pure,
 );

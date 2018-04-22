@@ -1,4 +1,3 @@
-import noop from 'lodash/noop'
 import React from 'react';
 import { NavigationScreenComponent } from 'react-navigation';
 import { Screen } from '../../../components';
@@ -10,15 +9,8 @@ export const RegionMapScreen: NavigationScreenComponent = ({ screenProps }) => {
   return (
     <Screen noScroll>
       <RegionMap
-        onPOISelected={noop}
-        onSectionSelected={noop}
+        region={region.node}
         sections={sections.nodes}
-        contentBounds={region.node.bounds}
-        initialBounds={region.node.bounds}
-        pois={region.node.pois}
-        selectedPOIId={null}
-        selectedSectionId={null}
-        useSectionShapes={false}
       />
     </Screen>
   );
