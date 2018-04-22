@@ -4,6 +4,7 @@ const configMisc = () => {
   YellowBox.ignoreWarnings([
     'Warning: isMounted(...) is deprecated',
     'Module RCTImageLoader requires',
+    'RCTBridge required dispatch_sync',
   ]);
 
   if (UIManager.setLayoutAnimationEnabledExperimental) {
