@@ -1,3 +1,4 @@
+// tslint:disable:max-classes-per-file
 declare module 'react-native-paper' {
   import { Component, ReactNode } from 'react';
   import {
@@ -83,7 +84,7 @@ declare module 'react-native-paper' {
     /**
      * Function to execute on press.
      */
-    onPress?: () => void,
+    onPress?: () => void;
     style?: StyleProp<ViewStyle>;
   }
 
@@ -174,19 +175,19 @@ declare module 'react-native-paper' {
      * a local image: `require('../path/to/image.png')`,
      * or a valid React Native component.
      */
-    icon? : IconSource;
+    icon?: IconSource;
     /**
      * Whether to highlight the drawer item as active.
      */
-    active? : boolean;
+    active?: boolean;
     /**
      * Function to execute on press.
      */
-    onPress? : () => void;
+    onPress?: () => void;
     /**
      * Custom color for the drawer text and icon.
      */
-    color? : string;
+    color?: string;
   }
 
   export class DrawerItem extends Component<DrawerItemProps> {}
@@ -209,19 +210,19 @@ declare module 'react-native-paper' {
     /**
      * Whether radio is checked.
      */
-    checked? : boolean;
+    checked?: boolean;
     /**
      * Whether radio is disabled.
      */
-    disabled? : boolean;
+    disabled?: boolean;
     /**
      * Custom color for unchecked radio.
      */
-    uncheckedColor? : string;
+    uncheckedColor?: string;
     /**
      * Custom color for radio.
      */
-    color? : string;
+    color?: string;
   }
 
   export interface RadioButtonGroupProps {
@@ -237,5 +238,129 @@ declare module 'react-native-paper' {
 
   export class RadioButton extends Component<RadioButtonProps> {}
   export class RadioButtonGroup extends Component<RadioButtonGroupProps> {}
+
+  // Bottom navigation
+  export interface Route {
+    key: string;
+    title: string;
+    icon: IconSource;
+    color: string;
+  }
+
+  export interface NavigationState<T> {
+    index: number;
+    routes: T[];
+  }
+
+  export interface BottomNavigationProps<T = Route> extends Themeable {
+    /**
+     * Whether the shifting style is used, the active tab appears wider and the inactive tabs won't have a label.
+     * By default, this is `true` when you have more than 3 tabs.
+     */
+    shifting?: boolean;
+    /**
+     * State for the bottom navigation. The state should contain the following properties:
+     *
+     * - `index`: a number reprsenting the index of the active route in the `routes` array
+     * - `routes`: an array containing a list of route objects used for rendering the tabs
+     *
+     * Each route object should contain the following properties:
+     *
+     * - `key`: a unique key to identify the route (required)
+     * - `title`: title of the route to use as the tab label
+     * - `icon`: icon to use as the tab icon, can be a string, an image source or a react component
+     * - `color`: color to use as background color for shifting bottom navigation
+     *
+     * Example:
+     *
+     * ```js
+     * {
+     *   index: 1,
+     *   routes: [
+     *     { key: 'music', title: 'Music', icon: 'queue-music', color: '#3F51B5' },
+     *     { key: 'albums', title: 'Albums', icon: 'album', color: '#009688' },
+     *     { key: 'recents', title: 'Recents', icon: 'history', color: '#795548' },
+     *     { key: 'purchased', title: 'Purchased', icon: 'shopping-cart', color: '#607D8B' },
+     *   ]
+     * }
+     * ```
+     *
+     * `BottomNavigation` is a controlled component, which means the `index` needs to be updated via the `onIndexChange` callback.
+     */
+    navigationState: NavigationState<T>;
+    /**
+     * Callback which is called on tab change, receives the index of the new tab as argument.
+     * The navigation state needs to be updated when it's called, otherwise the change is dropped.
+     */
+    onIndexChange: (index: number) => void;
+    /**
+     * Callback which returns a react element to render as the page for the tab. Receives an object containing the route as the argument:
+     *
+     * ```js
+     * renderScene = ({ route, jumpTo }) => {
+     *   switch (route.key) {
+     *     case 'music':
+     *       return <MusicRoute jumpTo={jumpTo} />;
+     *     case 'albums':
+     *       return <AlbumsRoute jumpTo={jumpTo} />;
+     *   }
+     * }
+     * ```
+     *
+     * Pages are lazily rendered, which means that a page will be rendered the first time you navigate to it.
+     * After initial render, all the pages stay rendered to preserve their state.
+     *
+     * You need to make sure that your individual routes implement a `shouldComponentUpdate` to improve the performance.
+     * To make it easier to specify the components, you can use the `SceneMap` helper:
+     *
+     * ```js
+     * renderScene = BottomNavigation.SceneMap({
+     *   music: MusicRoute,
+     *   albums: AlbumsRoute,
+     * });
+     * ```
+     *
+     * Specifying the components this way is easier and takes care of implementing a `shouldComponentUpdate` method.
+     * Each component will receive the current route and a `jumpTo` method as it's props.
+     * The `jumpTo` method can be used to navigate to other tabs programmatically:
+     *
+     * ```js
+     * this.props.jumpTo('albums')
+     * ```
+     */
+    renderScene: (props: { route: T, jumpTo: (key: string) => void }) => ReactNode | undefined;
+    /**
+     * Callback which returns a React Element to be used as tab icon.
+     */
+    renderIcon?: (props: { route: T, focused: boolean, tintColor: string }) => ReactNode;
+    /**
+     * Callback which React Element to be used as tab label.
+     */
+    renderLabel?: (props: { route: T, focused: boolean, tintColor: string }) => ReactNode;
+    /**
+     * Get label text for the tab, uses `route.title` by default. Use `renderLabel` to replace label component.
+     */
+    getLabelText?: (props: { route: T }) => string;
+    /**
+     * Get color for the tab, uses `route.color` by default.
+     */
+    getColor?: (props: { route: T }) => string;
+    /**
+     * Function to execute on tab press. It receives the route for the pressed tab, useful for things like scroll to top.
+     */
+    onTabPress?: (props: { route: T }) => void;
+    /**
+     * Style for the bottom navigation bar.
+     * You can set a bottom padding here if you have a translucent navigation bar on Android:
+     *
+     * ```js
+     * barStyle={{ paddingBottom: 48 }}
+     * ```
+     */
+    barStyle?: StyleProp<ViewStyle>;
+    style?: StyleProp<ViewStyle>;
+  }
+
+  export class BottomNavigation extends Component<BottomNavigationProps> {}
 
 }

@@ -1,7 +1,9 @@
 import { Dimensions, PixelRatio, StyleSheet } from 'react-native';
+import { DefaultTheme, Theme } from 'react-native-paper';
 
 const colors = {
   primary: '#2196f3', // Blue 500
+  accent: '#FF9900',
   primaryBackground: '#FAFAFA', // Grey 50,
   border: '#e0e0e0', // Grey 300
   componentBorder: '#9E9E9E', // Grey 500
@@ -105,3 +107,12 @@ const theme = {
 };
 
 export default theme;
+
+export const PaperTheme: Theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: colors.primary,
+    accent: colors.accent,
+  },
+};

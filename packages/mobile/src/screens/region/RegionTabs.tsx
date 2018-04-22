@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { WhitePortal } from 'react-native-portal';
 import { createMaterialBottomTabNavigator, NavigationRouteConfigMap, TabNavigatorConfig } from 'react-navigation';
 import { NavigationComponent } from '../../../typings/react-navigation';
+import theme from '../../theme';
 import { PureScreen } from '../../utils/navigation';
 import container from './container';
 import RegionInfoScreen from './info';
@@ -26,6 +27,13 @@ const routes: NavigationRouteConfigMap = {
 
 const config: TabNavigatorConfig = {
   initialRouteName: 'RegionInfo',
+  tabBarOptions: {
+    activeTintColor: theme.colors.textLight,
+  },
+  barStyle: {
+    backgroundColor: theme.colors.primary,
+  },
+  shifting: true,
 };
 
 const Navigator = createMaterialBottomTabNavigator(routes, config);

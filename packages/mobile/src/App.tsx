@@ -13,6 +13,7 @@ import { RootState } from './core/reducers';
 import configureStore from './core/store/configureStore';
 import { I18nProvider } from './i18n';
 import RootNavigator from './RootNavigator';
+import { PaperTheme } from './theme';
 import { MyProfileProvider } from './ww-clients/features/users';
 
 configMoment();
@@ -56,7 +57,7 @@ class App extends React.Component<{}, State> {
       return (
         <Provider store={this.store}>
           <ApolloProvider client={this.apolloClient}>
-            <PaperProvider>
+            <PaperProvider theme={PaperTheme}>
               <PortalProvider>
                 <MyProfileProvider renderLoading={this.renderLoading}>
                   <I18nProvider>
