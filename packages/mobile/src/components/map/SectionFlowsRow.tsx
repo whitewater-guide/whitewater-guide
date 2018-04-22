@@ -1,11 +1,12 @@
 import moment from 'moment';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import { Caption, Subheading } from 'react-native-paper';
 import { WithT } from '../../i18n';
 import theme from '../../theme';
 import { ColorStrings, getSectionColor, prettyNumber } from '../../ww-clients/features/sections';
-import { Section } from '../../ww-commons/features/sections';
-import { Text } from '../Text';
+import { Section } from '../../ww-commons';
+import SimpleTextFlowRow from './SimpleTextFlowRow';
 
 const styles = StyleSheet.create({
   container: {
@@ -13,6 +14,10 @@ const styles = StyleSheet.create({
     borderColor: theme.colors.border,
     alignItems: 'center',
     minHeight: 48,
+  },
+  flowContainer: {
+    flex: 1,
+    alignItems: 'flex-end',
   },
   mainLine: {
     fontSize: 18,
@@ -44,13 +49,13 @@ const styles = StyleSheet.create({
     paddingLeft: 8,
   },
   listItem: {
-    padding: 8,
+    padding: theme.margin.single,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderColor: theme.colors.border,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    minHeight: 48,
+    minHeight: theme.rowHeight,
   },
 });
 
@@ -60,18 +65,11 @@ interface Props extends WithT {
 
 const SectionFlowsRow: React.StatelessComponent<Props> = ({ section, t }) => {
   if (!section) {
-    return null;
+    return <SimpleTextFlowRow t={t} />;
   }
   const { flows, levels, gauge, flowsText } = section;
   if (!gauge || !gauge.lastMeasurement || (!flows && !levels)) {
-    return (
-      <View style={styles.listItem}>
-        <Text>{t('region:map.selectedSection.flows')}</Text>
-        <Text>
-          {flowsText || t('commons:unknown')}
-        </Text>
-      </View>
-    );
+    return <SimpleTextFlowRow flowsText={flowsText} t={t} />;
   }
   const color = getSectionColor(section);
   const data = (flows && gauge.lastMeasurement.flow) ?
@@ -80,22 +78,20 @@ const SectionFlowsRow: React.StatelessComponent<Props> = ({ section, t }) => {
 
   return (
     <View style={styles.listItem}>
-      <Text>{data.label}</Text>
-      <View style={{ flexDirection: 'row' }}>
-        <View>
-          <Text style={[styles.mainLine, { color }]}>
-            {prettyNumber(data.value)}
-            <Text style={[styles.unitLine, { color }]}>
-              {` ${t('commons.' + data.unit)}`}
-            </Text>
+      <Subheading>{data.label}</Subheading>
+      <View style={styles.flowContainer}>
+        <Text style={[styles.mainLine, { color }]}>
+          {prettyNumber(data.value)}
+          <Text style={[styles.unitLine, { color }]}>
+            {` ${t('commons:' + data.unit)}`}
           </Text>
-          <Text note style={styles.timeLine}>{moment(gauge.lastMeasurement.timestamp).fromNow()}</Text>
-        </View>
-        <View style={styles.binding}>
-          {data.minimum && <Text style={styles.minimum}>{`${data.minimum} ${t('commons:min')}`}</Text>}
-          {data.optimum && <Text style={styles.optimum}>{`${data.optimum} ${t('commons:opt')}`}</Text>}
-          {data.maximum && <Text style={styles.maximum}>{`${data.maximum} ${t('commons:max')}`}</Text>}
-        </View>
+        </Text>
+        <Caption style={styles.timeLine}>{moment(gauge.lastMeasurement.timestamp).fromNow()}</Caption>
+      </View>
+      <View style={styles.binding}>
+        {data.minimum && <Caption style={styles.minimum}>{`${data.minimum} ${t('commons:min')}`}</Caption>}
+        {data.optimum && <Caption style={styles.optimum}>{`${data.optimum} ${t('commons:opt')}`}</Caption>}
+        {data.maximum && <Caption style={styles.maximum}>{`${data.maximum} ${t('commons:max')}`}</Caption>}
       </View>
     </View>
   );

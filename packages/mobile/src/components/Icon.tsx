@@ -3,6 +3,7 @@ import React from 'react';
 import { GestureResponderEvent, Platform, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import IonIcon from 'react-native-vector-icons/Ionicons';
+import MDCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 import theme from '../theme';
 import { Touchable } from './Touchable';
 
@@ -46,6 +47,9 @@ const IconBase: React.StatelessComponent<IconBaseProps> = (props) => {
   if (icon.indexOf('fa-') === 0) {
     name = icon.substr(3);
     IconComponent = FontAwesome;
+  } else if (icon.indexOf('mdc-') === 0) {
+    name = icon.substr(4);
+    IconComponent = MDCommunity;
   } else if (icon.indexOf('md-') !== 0 && icon.indexOf('ios-') !== 0) {
     name = `${prefix}-${icon}`;
   }
