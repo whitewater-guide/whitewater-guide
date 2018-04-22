@@ -2,6 +2,7 @@ import ApolloClient from 'apollo-client';
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import { Provider as PaperProvider } from 'react-native-paper';
+import { PortalProvider } from 'react-native-portal';
 import { Provider } from 'react-redux';
 import { Store, Unsubscribe } from 'redux';
 import { Screen, SplashScreen } from './components';
@@ -56,11 +57,13 @@ class App extends React.Component<{}, State> {
         <Provider store={this.store}>
           <ApolloProvider client={this.apolloClient}>
             <PaperProvider>
-              <MyProfileProvider renderLoading={this.renderLoading}>
-                <I18nProvider>
-                  <RootNavigator persistenceKey={navigationPersistenceKey} />
-                </I18nProvider>
-              </MyProfileProvider>
+              <PortalProvider>
+                <MyProfileProvider renderLoading={this.renderLoading}>
+                  <I18nProvider>
+                    <RootNavigator persistenceKey={navigationPersistenceKey} />
+                  </I18nProvider>
+                </MyProfileProvider>
+              </PortalProvider>
             </PaperProvider>
           </ApolloProvider>
         </Provider>

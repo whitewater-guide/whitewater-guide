@@ -1,4 +1,6 @@
 import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import { WhitePortal } from 'react-native-portal';
 import { createMaterialBottomTabNavigator, NavigationRouteConfigMap, TabNavigatorConfig } from 'react-navigation';
 import { NavigationComponent } from '../../../typings/react-navigation';
 import { PureScreen } from '../../utils/navigation';
@@ -45,6 +47,9 @@ class RegionTabsView extends PureScreen<InnerProps, NavParams> {
       <React.Fragment>
         <Navigator navigation={navigation} screenProps={screenProps} />
         <SectionsProgress loaded={sections.nodes.length} count={sections.count} />
+        <View style={StyleSheet.absoluteFill} pointerEvents="box-none">
+          <WhitePortal name="region" />
+        </View>
       </React.Fragment>
     );
   }

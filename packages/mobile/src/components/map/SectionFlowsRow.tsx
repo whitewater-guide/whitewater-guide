@@ -59,6 +59,9 @@ interface Props extends WithT {
 }
 
 const SectionFlowsRow: React.StatelessComponent<Props> = ({ section, t }) => {
+  if (!section) {
+    return null;
+  }
   const { flows, levels, gauge, flowsText } = section;
   if (!gauge || !gauge.lastMeasurement || (!flows && !levels)) {
     return (
