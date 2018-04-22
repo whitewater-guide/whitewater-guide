@@ -66,6 +66,7 @@ export default {
     },
     sections: {
       title: 'Sections',
+      loading: 'Loading sections',
     },
   },
   section: {

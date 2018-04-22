@@ -66,6 +66,7 @@ export default {
     },
     sections: {
       title: 'Секции',
+      loading: 'Загружаю секции',
     },
   },
   section: {
