@@ -5,6 +5,7 @@ const configMisc = () => {
     'Warning: isMounted(...) is deprecated',
     'Module RCTImageLoader requires',
     'RCTBridge required dispatch_sync',
+    'Required dispatch_sync to load',
   ]);
 
   if (UIManager.setLayoutAnimationEnabledExperimental) {

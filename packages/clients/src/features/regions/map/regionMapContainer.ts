@@ -19,8 +19,14 @@ export const regionMapContainer = compose<MapProps, RegionMapProps>(
     // TODO: clients package should export common redux state
     (state, { region }: RegionMapProps) => (state as any).regions[region.id],
     (dispatch, { region }: RegionMapProps) => ({
-      onSectionSelected: section => dispatch(selectSection({ regionId: region.id, section })),
-      onPOISelected: poi => dispatch(selectPOI({ regionId: region.id, poi })),
+      onSectionSelected: (section) => {
+        dispatch(selectPOI({ regionId: region.id, poi: null }));
+        dispatch(selectSection({ regionId: region.id, section }));
+      },
+      onPOISelected: (poi) => {
+        dispatch(selectPOI({ regionId: region.id, poi }));
+        dispatch(selectSection({ regionId: region.id, section: null }));
+      },
       onBoundsSelected: bounds => dispatch(selectBounds({ regionId: region.id, bounds })),
     }),
   ),

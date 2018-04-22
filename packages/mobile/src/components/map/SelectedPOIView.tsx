@@ -34,14 +34,14 @@ class SelectedPOIViewInternal extends React.Component<Props> {
 
   renderHeader = () => (
     <View style={styles.header}>
-      <Paragraph>{get(this.props.selectedPOI, 'name', '_')}</Paragraph>
+      <Paragraph>{get(this.props.selectedPOI, 'name', ' ')}</Paragraph>
       <Caption>{this.props.t('poiTypes:' + get(this.props.selectedPOI, 'kind', 'other'))}</Caption>
     </View>
   );
 
   render() {
     const buttons = [{
-      label: this.props.t('commons.navigate'),
+      label: this.props.t('commons:navigate'),
       coordinates: get(this.props.selectedPOI, 'coordinates', [0, 0]) as Coordinate,
     }];
     return (
