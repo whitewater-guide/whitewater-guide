@@ -1,6 +1,6 @@
 import { applyMiddleware, compose, createStore, Middleware, StoreCreator, StoreEnhancer } from 'redux';
 import { default as createSagaMiddleware } from 'redux-saga';
-import { persistedRootReducer, RootState } from '../reducers';
+import { persistedRootReducer } from '../reducers';
 import { appSaga } from '../sagas';
 import createPersistor from './createPersistor';
 
@@ -8,7 +8,7 @@ declare var window: Window & { devToolsExtension: any, __REDUX_DEVTOOLS_EXTENSIO
 
 export default async function configureStore() {
   const middleware: Middleware[] = [];
-  const enhancers: Array<StoreEnhancer<RootState>> = [];
+  const enhancers: StoreEnhancer[] = [];
 
   // const sagaMonitor = __DEV__ ? Reactotron.createSagaMonitor() : undefined;
   const sagaMonitor = undefined;

@@ -26,15 +26,16 @@ const routes: NavigationRouteConfigMap = {
 };
 
 const config: TabNavigatorConfig = {
-  initialRouteName: 'RegionInfo',
+  initialRouteName: 'RegionMap',
   tabBarOptions: {
     activeTintColor: theme.colors.textLight,
   },
+  // Not yet in typedefs
   barStyle: {
     backgroundColor: theme.colors.primary,
   },
   shifting: true,
-};
+} as any;
 
 const Navigator = createMaterialBottomTabNavigator(routes, config);
 
