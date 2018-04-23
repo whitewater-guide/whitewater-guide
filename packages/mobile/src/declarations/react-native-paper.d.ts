@@ -4,6 +4,7 @@ declare module 'react-native-paper' {
   import {
     StyleProp,
     TextProperties,
+    TextStyle,
     TouchableHighlightProperties,
     TouchableNativeFeedbackProperties,
     ViewProperties,
@@ -130,14 +131,6 @@ declare module 'react-native-paper' {
      * https://facebook.github.io/react-native/docs/touchablenativefeedback.html#background
      */
     background?: any;
-    /**
-     * Whether to prevent interaction with the touchable.
-     */
-    disabled?: boolean;
-    /**
-     * Function to execute on press. If not set, will cause the touchable to be disabled.
-     */
-    onPress?: () => void;
     /**
      * Color of the ripple effect.
      */
@@ -362,5 +355,79 @@ declare module 'react-native-paper' {
   }
 
   export class BottomNavigation extends Component<BottomNavigationProps> {}
+
+  export interface ToolbarProps extends ViewProperties, Themeable {
+    /**
+     * Theme color for the toolbar, a dark toolbar will render light text and vice-versa
+     * Child elements can override this prop independently.
+     */
+    dark?: boolean;
+    /**
+     * Extra padding to add at the top of toolbar to account for translucent status bar.
+     * This is automatically handled on iOS including iPhone X.
+     * If you are using Android and use Expo, we assume translucent status bar and set a height for status bar automatically.
+     * Pass `0` or a custom value to disable the default behaviour.
+     */
+    statusBarHeight?: number;
+  }
+
+  export class Toolbar extends Component<ToolbarProps> {}
+
+  export interface ToolbarActionProps extends TouchableRippleProps {
+    /**
+     * Theme color for the action icon, a dark action icon will render a light icon and vice-versa.
+     */
+    dark?: boolean;
+    /**
+     * Name of the icon to show.
+     */
+    icon: IconSource;
+    /**
+     * Optional icon size, defaults to 24.
+     */
+    size?: number;
+  }
+
+  export class ToolbarAction extends Component<ToolbarActionProps> {}
+
+  export interface ToolbarBackActionProps {
+    /**
+     * Theme color for the back icon, a dark action icon will render a light icon and vice-versa.
+     */
+    dark?: boolean;
+    /**
+     * Function to execute on press.
+     */
+    onPress?: () => void;
+    style?: StyleProp<ViewStyle>;
+  }
+
+  export class ToolbarBackAction extends Component<ToolbarBackActionProps> {}
+
+  export interface ToolbarContentProps extends Themeable {
+    /**
+     * Theme color for the text, a dark toolbar will render light text and vice-versa.
+     */
+    dark?: boolean;
+    /**
+     * Text for the title.
+     */
+    title: string | ReactNode;
+    /**
+     * Style for the title.
+     */
+    titleStyle?: StyleProp<TextStyle>;
+    /**
+     * Text for the subtitle.
+     */
+    subtitle?: string | ReactNode;
+    /**
+     * Style for the subtitle.
+     */
+    subtitleStyle?: StyleProp<TextStyle>;
+    style?: StyleProp<ViewStyle>;
+  }
+
+  export class ToolbarContent extends Component<ToolbarContentProps> {}
 
 }

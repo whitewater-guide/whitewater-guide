@@ -7,6 +7,7 @@ import {
   StackNavigatorConfig,
 } from 'react-navigation';
 import { Drawer } from './components';
+import { renderHeader } from './components/header';
 import { navigationChannel } from './core/sagas';
 import { MyProfileScreen, PlainTextScreen, RegionsListScreen, RegionTabs } from './screens';
 
@@ -27,8 +28,8 @@ const routes = {
 
 const config: StackNavigatorConfig = {
   initialRouteName: 'RegionsList',
-  navigationOptions: ({ navigationOptions }) => ({
-    ...navigationOptions,
+  navigationOptions: () => ({
+    header: renderHeader,
     headerStyle: { backgroundColor: '#FFFFFF' },
   }),
 };

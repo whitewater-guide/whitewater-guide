@@ -5620,6 +5620,14 @@ react-native-fit-image@^1.5.2:
   dependencies:
     prop-types "^15.5.10"
 
+react-native-hamburger@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-hamburger/-/react-native-hamburger-0.0.2.tgz#c1ebcb8cb091287e1dcfc1364a97f3b73d20a9b5"
+
+react-native-iconic@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-iconic/-/react-native-iconic-0.0.3.tgz#03c745b6af8d345bddc19238083e4bb48ded3294"
+
 react-native-interactable@^0.1.10:
   version "0.1.10"
   resolved "https://registry.yarnpkg.com/react-native-interactable/-/react-native-interactable-0.1.10.tgz#65b9a68f6a84ba1c0e2ad5478b1f22ffb29c0526"
