@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Animated, LayoutChangeEvent, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Animated, InteractionManager, LayoutChangeEvent, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Interactable from 'react-native-interactable';
+import { cloneableGenerator } from 'redux-saga/utils';
 import theme from '../../theme';
 import { Coordinate, Point, Section } from '../../ww-commons';
 import { NAVIGATE_BUTTON_HEIGHT, NAVIGATE_BUTTON_WIDTH, NavigateButton } from '../NavigateButton';
@@ -17,6 +18,10 @@ const styles = StyleSheet.create({
     height: NAVIGATE_BUTTON_HEIGHT,
     flexDirection: 'row',
     backgroundColor: '#ffffff',
+  },
+  shade: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: '#000000',
   },
 });
 
@@ -42,11 +47,11 @@ interface State {
   height: number;
   panelHeight: number;
   snapPoints: any[];
-  deltaY: Animated.Value;
-  slideAnimated: Animated.Animated;
+  deltaY?: Animated.Value;
+  slideAnimated?: Animated.Animated;
 }
 
-export default class SelectedElementView extends React.PureComponent<Props, State> {
+export default class SelectedElementView extends React.Component<Props, State> {
   _interactable: any = null;
   _muteSnapEvent: boolean = false;
   _snapIndex: number = 0;
@@ -56,8 +61,6 @@ export default class SelectedElementView extends React.PureComponent<Props, Stat
     height: 0,
     panelHeight: NAVIGATE_BUTTON_HEIGHT + 10,
     snapPoints: [],
-    deltaY: new Animated.Value(0),
-    slideAnimated: new Animated.Value(0),
   };
 
   componentDidUpdate(prevProps: Props) {
@@ -164,11 +167,11 @@ export default class SelectedElementView extends React.PureComponent<Props, Stat
           <Animated.View
             pointerEvents="none"
             style={[
-              StyleSheet.absoluteFill,
+              styles.shade,
               {
-                backgroundColor: this.state.deltaY.interpolate({
+                opacity: this.state.deltaY.interpolate({
                   inputRange: [this.state.snapPoints[2].y, this.state.snapPoints[1].y],
-                  outputRange: ['rgba(0,0,0,0.5)', 'rgba(0,0,0,0)'],
+                  outputRange: [0.5, 0],
                   extrapolate: 'clamp',
                 }),
               },
@@ -182,6 +185,7 @@ export default class SelectedElementView extends React.PureComponent<Props, Stat
           <Interactable.View
             ref={this.setInteractable}
             verticalOnly
+            animatedNativeDriver
             snapPoints={this.state.snapPoints}
             onSnap={this.onSnap}
             initialPosition={this.state.snapPoints[0]}

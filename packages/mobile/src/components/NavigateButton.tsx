@@ -47,11 +47,16 @@ const slideStyle = ({ driver, inputRange, position }) => {
   return {
     position: 'absolute',
     top: 0,
-    right: driver.interpolate({
-      inputRange: inpRange,
-      outputRange: [-NAVIGATE_BUTTON_WIDTH, position * NAVIGATE_BUTTON_WIDTH],
-      extrapolate: 'clamp',
-    }),
+    transform: [{
+      translateX: driver.interpolate({
+        inputRange: inpRange,
+        outputRange: [
+          theme.screenWidth + NAVIGATE_BUTTON_WIDTH,
+          theme.screenWidth - (position + 1) * NAVIGATE_BUTTON_WIDTH
+        ],
+        extrapolate: 'clamp',
+      }),
+    }],
   };
 };
 

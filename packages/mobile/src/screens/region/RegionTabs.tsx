@@ -55,10 +55,10 @@ class RegionTabsView extends PureScreen<InnerProps, NavParams> {
     return (
       <React.Fragment>
         <Navigator navigation={navigation} screenProps={screenProps} />
-        <SectionsProgress loaded={sections.nodes.length} count={sections.count} />
         <View style={StyleSheet.absoluteFill} pointerEvents="box-none">
           <WhitePortal name="region" />
         </View>
+        <SectionsProgress loaded={sections.nodes.length} count={sections.count} />
       </React.Fragment>
     );
   }
