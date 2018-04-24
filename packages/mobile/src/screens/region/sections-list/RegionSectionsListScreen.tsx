@@ -3,6 +3,7 @@ import { NavigationScreenComponent } from 'react-navigation';
 import { Icon, Screen } from '../../../components';
 import { I18nText } from '../../../i18n';
 import theme from '../../../theme';
+import HeaderRight from './HeaderRight';
 import SectionsList from './SectionsList';
 
 export const RegionSectionsListScreen: NavigationScreenComponent = (props) =>  (
@@ -16,4 +17,5 @@ RegionSectionsListScreen.navigationOptions = {
   tabBarIcon: () => (
     <Icon icon="list" color={theme.colors.textLight} />
   ),
+  headerRight: <HeaderRight />,
 };

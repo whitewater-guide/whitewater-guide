@@ -25,6 +25,7 @@ class Header extends React.PureComponent<Props> {
 
   render() {
     const title = get(this.props, 'scene.descriptor.options.headerTitle', null);
+    const right = get(this.props, 'scene.descriptor.options.headerRight', null);
     let titleNode: React.ReactNode = null;
     if (title) {
       titleNode = typeof title === 'string' ? this.props.t(title) : title;
@@ -33,6 +34,7 @@ class Header extends React.PureComponent<Props> {
       <Toolbar>
         {this.renderLeftButton()}
         <ToolbarContent title={titleNode} />
+        {right}
       </Toolbar>
     );
   }

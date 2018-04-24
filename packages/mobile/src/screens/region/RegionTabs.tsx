@@ -1,8 +1,12 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { WhitePortal } from 'react-native-portal';
-import { createMaterialBottomTabNavigator, NavigationRouteConfigMap, TabNavigatorConfig } from 'react-navigation';
-import { NavigationComponent } from '../../../typings/react-navigation';
+import {
+  createMaterialBottomTabNavigator,
+  NavigationComponent,
+  NavigationRouteConfigMap,
+  TabNavigatorConfig
+} from 'react-navigation';
 import theme from '../../theme';
 import { PureScreen } from '../../utils/navigation';
 import container from './container';
