@@ -9,7 +9,7 @@ import {
 import { Drawer } from './components';
 import { renderHeader } from './components/header';
 import { navigationChannel } from './core/sagas';
-import { MyProfileScreen, PlainTextScreen, RegionsListScreen, RegionTabs } from './screens';
+import { MyProfileScreen, PlainTextScreen, RegionsListScreen, RegionTabs, SectionTabs } from './screens';
 
 const routes = {
   RegionsList: {
@@ -17,6 +17,9 @@ const routes = {
   },
   Region: {
     screen: RegionTabs,
+  },
+  Section: {
+    screen: SectionTabs,
   },
   Plain: {
     screen: PlainTextScreen,

@@ -1,15 +1,16 @@
 import React from 'react';
 import { translate } from 'react-i18next';
 import { FlatList, ListRenderItemInfo } from 'react-native';
+import { NavigationScreenProp } from 'react-navigation';
 import { WithT } from '../../../i18n';
-import { Section } from '../../../ww-commons';
+import { Region, Section } from '../../../ww-commons';
 import { ITEM_HEIGHT, SectionListItem } from './item';
 import NoSectionsPlaceholder from './NoSectionsPlaceholder';
 
 const keyExtractor = (item: Section) => item.id;
 const getItemLayout = (data, index) => ({ length: ITEM_HEIGHT, offset: ITEM_HEIGHT * index, index });
 
-interface Props extends WithT {
+interface Props extends WithT, Pick<NavigationScreenProp<any, any>, 'navigate'> {
   sections: Section[];
 }
 
@@ -28,12 +29,8 @@ class SectionsList extends React.PureComponent<Props, State> {
     this.setState({ initialNumToRender });
   };
 
-  onSectionSelected = (section: Section) => {
-    // this.props.dispatch(NavigationActions.navigate({
-    //   routeName: 'SectionDetails',
-    //   params: { sectionId: section.id },
-    // }));
-  };
+  onSectionSelected = (section: Section) =>
+    this.props.navigate('Section', { sectionId: section.id });
 
   onViewableItemsChanged = ({ viewableItems }: any) => {
     const { sections } = this.props;

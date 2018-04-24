@@ -8,7 +8,10 @@ import SectionsList from './SectionsList';
 
 export const RegionSectionsListScreen: NavigationScreenComponent = (props) =>  (
   <Screen noScroll noPadding>
-    <SectionsList sections={props.screenProps.sections.nodes} />
+    <SectionsList
+      sections={props.screenProps.sections.nodes}
+      navigate={props.navigation.navigate}
+    />
   </Screen>
 );
 
