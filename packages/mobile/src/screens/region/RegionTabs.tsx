@@ -27,8 +27,11 @@ const routes: NavigationRouteConfigMap = {
 
 const config: TabNavigatorConfig = {
   initialRouteName: 'RegionMap',
+  swipeEnabled: false,
+  animationEnabled: false,
   tabBarOptions: {
     activeTintColor: theme.colors.textLight,
+    allowFontScaling: true,
   },
   // Not yet in typedefs
   barStyle: {
