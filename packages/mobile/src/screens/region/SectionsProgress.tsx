@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     height: BAR_HEIGHT,
-    backgroundColor: theme.colors.primary,
+    backgroundColor: 'rgba(0,0,0,0.5)',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -22,6 +22,9 @@ const styles = StyleSheet.create({
   },
   hidden: {
     top: -BAR_HEIGHT,
+  },
+  text: {
+    color: theme.colors.textLight,
   },
 });
 
@@ -41,7 +44,7 @@ class SectionsProgress extends React.PureComponent<Props> {
     const visible = this.props.loaded < this.props.count;
     return (
       <View style={[styles.body, visible ? styles.visible : styles.hidden]}>
-        <Caption>{`${t('region:sections.loading')} ${loaded}/${count}`}</Caption>
+        <Caption style={styles.text}>{`${t('region:sections.loading')} ${loaded}/${count}`}</Caption>
       </View>
     );
   }

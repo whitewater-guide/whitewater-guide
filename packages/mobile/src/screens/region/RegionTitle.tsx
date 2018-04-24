@@ -1,6 +1,6 @@
+import get from 'lodash/get';
 import React from 'react';
 import { Query, QueryResult } from 'react-apollo';
-import { Subheading } from 'react-native-paper';
 import { REGION_NAME } from '../../ww-clients/features/regions';
 import { Region } from '../../ww-commons';
 
@@ -15,9 +15,7 @@ interface Result {
 const RegionTitle: React.StatelessComponent<Props> = ({ regionId }) => (
   <Query query={REGION_NAME} fetchPolicy="cache-only" variables={{ id: regionId }}>
     {({ data }: QueryResult<Result>) => (
-      <Subheading>
-        {data && data.region && data.region.name}
-      </Subheading>
+      get(data, 'region.name', null)
     )}
   </Query>
 );

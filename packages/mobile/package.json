@@ -1,6 +1,6 @@
 {
   "name": "whitewater",
-  "version": "0.0.78",
+  "version": "0.0.79",
   "private": true,
   "scripts": {
     "postinstall": "./postinstall.sh",
@@ -49,7 +49,6 @@
     "react-native-debugger-open": "^0.3.17",
     "react-native-drawer-layout": "^2.0.0",
     "react-native-fbsdk": "^0.7.0",
-    "react-native-hamburger": "^0.0.2",
     "react-native-iconic": "^0.0.3",
     "react-native-interactable": "^0.1.10",
     "react-native-keyboard-aware-scroll-view": "^0.5.0",

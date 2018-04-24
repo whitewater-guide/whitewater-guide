@@ -1,38 +1,46 @@
+import get from 'lodash/get';
 import React from 'react';
-import Hamburger from 'react-native-hamburger';
-import { Toolbar, ToolbarContent } from 'react-native-paper';
+import { translate } from 'react-i18next';
+import { Toolbar, ToolbarAction, ToolbarBackAction, ToolbarContent } from 'react-native-paper';
 import { HeaderProps, NavigationActions } from 'react-navigation';
-import theme from '../../theme';
+import { connect } from 'react-redux';
+import { compose } from 'recompose';
+import { toggleDrawer } from '../../core/actions';
+import { WithT } from '../../i18n';
 
-class Header extends React.PureComponent<HeaderProps> {
+type Props = HeaderProps & WithT & { openDrawer: () => void };
 
-  onLeftButton = () => {
-    const { navigation, index } = this.props;
-    if (index) {
-      navigation.dispatch(NavigationActions.back());
-    }
-  };
+class Header extends React.PureComponent<Props> {
+
+  goBack = () =>
+    this.props.navigation.dispatch(NavigationActions.back());
 
   renderLeftButton = () => {
     const { index } = this.props;
-    return (
-      <Hamburger
-        onPress={this.onLeftButton}
-        color={theme.colors.textLight}
-        type="arrow"
-        active={index === 0}
-      />
-    );
+    return index ?
+      <ToolbarBackAction onPress={this.goBack} /> :
+      <ToolbarAction icon="menu" onPress={this.props.openDrawer} />
+    ;
   };
 
   render() {
+    const title = get(this.props, 'scene.descriptor.options.headerTitle', null);
+    let titleNode: React.ReactNode = null;
+    if (title) {
+      titleNode = typeof title === 'string' ? this.props.t(title) : title;
+    }
     return (
       <Toolbar>
         {this.renderLeftButton()}
-        <ToolbarContent title="hi" />
+        <ToolbarContent title={titleNode} />
       </Toolbar>
     );
   }
 }
 
-export default Header;
+const container = compose<Props, HeaderProps>(
+  connect(undefined, { openDrawer: () => toggleDrawer(null) }),
+  translate(),
+);
+
+export default container(Header);

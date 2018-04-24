@@ -68,5 +68,5 @@ export const RegionTabs: NavigationComponent & { router?: any} = container(Regio
 RegionTabs.router = Navigator.router;
 
 RegionTabs.navigationOptions = ({ navigation }) => ({
-  title: <RegionTitle regionId={navigation.getParam('regionId')}/>,
+  headerTitle: <RegionTitle regionId={navigation.getParam('regionId')}/>,
 });
