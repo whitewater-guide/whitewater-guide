@@ -24,7 +24,7 @@ interface ChildProps {
   section: WithNode<Section>;
 }
 
-export type WithSection = Props & ChildProps;
+export type WithSection = ChildProps;
 
 export const withSection = ({ fetchPolicy = 'cache-and-network' }: Options = {}) =>
   compose<WithSection, any>(

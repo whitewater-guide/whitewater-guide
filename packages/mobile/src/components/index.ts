@@ -1,4 +1,5 @@
 export * from './Avatar';
+export * from './Chips';
 export * from './DifficultyThumb';
 export * from './drawer';
 export * from './FlowsThumb';
