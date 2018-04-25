@@ -38,6 +38,7 @@ const routes: NavigationRouteConfigMap = {
 
 const config: TabNavigatorConfig = {
   initialRouteName: 'SectionInfo',
+  backBehavior: 'none',
   swipeEnabled: false,
   animationEnabled: false,
   tabBarOptions: {

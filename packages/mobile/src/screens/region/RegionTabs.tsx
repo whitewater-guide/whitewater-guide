@@ -31,6 +31,7 @@ const routes: NavigationRouteConfigMap = {
 
 const config: TabNavigatorConfig = {
   initialRouteName: 'RegionMap',
+  backBehavior: 'none',
   swipeEnabled: false,
   animationEnabled: false,
   tabBarOptions: {
