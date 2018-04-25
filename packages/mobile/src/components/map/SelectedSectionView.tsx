@@ -161,7 +161,7 @@ class SelectedSectionViewInternal extends React.Component<Props> {
             </Paragraph>
           </View>
           <View style={styles.col2}>
-            <Icon icon="md-trending-down" color={theme.colors.textMain} size={24} />
+            <Icon icon="trending-down" color={theme.colors.textMain} size={24} />
             <Paragraph  style={styles.colText}>
               {drop ? `${drop} ${t('commons:m')}` : t('commons:unknown')}
             </Paragraph>

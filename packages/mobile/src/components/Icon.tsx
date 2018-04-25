@@ -1,13 +1,9 @@
 import glamorous, { GlamorousComponent } from 'glamorous-native';
 import React from 'react';
-import { GestureResponderEvent, Platform, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import IonIcon from 'react-native-vector-icons/Ionicons';
-import MDCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
+import { GestureResponderEvent, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
+import RNIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import theme from '../theme';
 import { Touchable } from './Touchable';
-
-const prefix = Platform.OS === 'ios' ? 'ios' : 'md';
 
 const styles = StyleSheet.create({
   button: {
@@ -42,27 +38,16 @@ const IconBase: React.StatelessComponent<IconBaseProps> = (props) => {
   } = props;
   const clr = color ? color : (primary ? theme.colors.primary : theme.colors.textMain);
   const sz = large ? theme.icons.large : size;
-  let IconComponent = IonIcon;
-  let name = icon;
-  if (icon.indexOf('fa-') === 0) {
-    name = icon.substr(3);
-    IconComponent = FontAwesome;
-  } else if (icon.indexOf('mdc-') === 0) {
-    name = icon.substr(4);
-    IconComponent = MDCommunity;
-  } else if (icon.indexOf('md-') !== 0 && icon.indexOf('ios-') !== 0) {
-    name = `${prefix}-${icon}`;
-  }
   if (onPress || onLongPress) {
     return (
       <Touchable onPress={onPress} onLongPress={onLongPress} style={style}>
-        <IconComponent name={name} size={sz} color={clr} />
+        <RNIcon name={icon} size={sz} color={clr} />
       </Touchable>
     );
   }
   return (
     <View style={style}>
-      <IconComponent name={name} size={sz} color={clr} />
+      <RNIcon name={icon} size={sz} color={clr} />
     </View>
   );
 };

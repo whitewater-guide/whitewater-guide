@@ -17,14 +17,13 @@ export const HandleLeft: React.StatelessComponent<ViewProperties> = ({ children,
     <View {...props} style={[styles.handleLeft, props.style]}>
       {children}
     </View>
-  )
+  );
 };
-
 
 export const Handle: React.StatelessComponent<ViewProperties> = ({ children, ...props }) => {
   return (
     <View {...props} style={[styles.handle, props.style]}>
       {children}
     </View>
-  )
+  );
 };

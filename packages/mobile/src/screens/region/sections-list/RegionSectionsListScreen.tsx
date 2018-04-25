@@ -18,7 +18,7 @@ export const RegionSectionsListScreen: NavigationScreenComponent = (props) =>  (
 RegionSectionsListScreen.navigationOptions = {
   tabBarLabel: <I18nText>{'region:sections.title'}</I18nText>,
   tabBarIcon: () => (
-    <Icon icon="list" color={theme.colors.textLight} />
+    <Icon icon="view-list" color={theme.colors.textLight} />
   ),
   headerRight: <HeaderRight />,
 };
