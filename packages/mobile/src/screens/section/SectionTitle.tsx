@@ -14,9 +14,11 @@ interface Result {
 
 const SectionTitle: React.StatelessComponent<Props> = ({ sectionId }) => (
   <Query query={SECTION_NAME} fetchPolicy="cache-only" variables={{ id: sectionId }}>
-    {({ data }: QueryResult<Result>) => (
-      get(data, 'section.name', null)
-    )}
+    {({ data }: QueryResult<Result>) => {
+      const sName = get(data, 'section.name', null);
+      const rName = get(data, 'section.river.name', null);
+      return sName ? `${rName} - ${sName}` : null;
+    }}
   </Query>
 );
 
