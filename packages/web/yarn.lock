@@ -6818,9 +6818,9 @@ react-grid-system@^3.1.2:
     lodash "^4.17.4"
     prop-types "^15.6.0"
 
-"react-images@file:../../../../../Users/doomsower/projects/_cloned/react-images/react-images-1.0.0-alpha.1.tgz":
+"react-images@file:../../../_cloned/react-images/react-images-1.0.0-alpha.1.tgz":
   version "1.0.0-alpha.1"
-  resolved "file:../../../../../Users/doomsower/projects/_cloned/react-images/react-images-1.0.0-alpha.1.tgz#86a9b44a2200ca14e72802d3afa5f57ca0936c5c"
+  resolved "file:../../../_cloned/react-images/react-images-1.0.0-alpha.1.tgz#86a9b44a2200ca14e72802d3afa5f57ca0936c5c"
   dependencies:
     a11y-focus-store "^1.0.0"
     glam "^5.0.1"
