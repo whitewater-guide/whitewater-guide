@@ -4,7 +4,7 @@ import { Persistor, persistStore } from 'redux-persist';
 import { bootstrapped } from '../actions';
 
 const STORE_CONFIG = {
-  version: '1',
+  version: '2',
 };
 
 export default async function createPersistor(store: Store<any>): Promise<Persistor> {

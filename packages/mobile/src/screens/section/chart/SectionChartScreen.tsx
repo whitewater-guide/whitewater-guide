@@ -14,6 +14,6 @@ export const SectionChartScreen: NavigationScreenComponent = () => (
 SectionChartScreen.navigationOptions = {
   tabBarLabel: <I18nText>section:chart.title</I18nText>,
   tabBarIcon: () => (
-    <Icon icon="stats" color={theme.colors.textLight} />
+    <Icon icon="chart-line" color={theme.colors.textLight} />
   ),
 };

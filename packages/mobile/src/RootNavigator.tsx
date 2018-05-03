@@ -44,6 +44,7 @@ class RootNavigatorView extends React.PureComponent<NavigationNavigatorProps> {
 
   constructor(props: NavigationNavigatorProps) {
     super(props);
+    console.log(props.navigation);
     navigationChannel.dispatch = props.navigation.dispatch;
   }
 

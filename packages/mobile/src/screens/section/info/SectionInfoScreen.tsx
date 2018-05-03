@@ -14,6 +14,6 @@ export const SectionInfoScreen: NavigationScreenComponent = ({ screenProps }) =>
 SectionInfoScreen.navigationOptions = {
   tabBarLabel: <I18nText>section:info.title</I18nText>,
   tabBarIcon: () => (
-    <Icon icon="information-circle" color={theme.colors.textLight} />
+    <Icon icon="information" color={theme.colors.textLight} />
   ),
 };

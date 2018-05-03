@@ -14,6 +14,6 @@ export const SectionMediaScreen: NavigationScreenComponent = () => (
 SectionMediaScreen.navigationOptions = {
   tabBarLabel: <I18nText>section:media.title</I18nText>,
   tabBarIcon: () => (
-    <Icon icon="md-photo-library" color={theme.colors.textLight} />
+    <Icon icon="image-multiple" color={theme.colors.textLight} />
   ),
 };

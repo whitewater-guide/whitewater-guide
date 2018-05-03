@@ -14,6 +14,6 @@ export const RegionInfoScreen: NavigationScreenComponent = ({ screenProps }) => 
 RegionInfoScreen.navigationOptions = {
   tabBarLabel: <I18nText>region:info.title</I18nText>,
   tabBarIcon: () => (
-    <Icon icon="information-circle" color={theme.colors.textLight} />
+    <Icon icon="information" color={theme.colors.textLight} />
   ),
 };
