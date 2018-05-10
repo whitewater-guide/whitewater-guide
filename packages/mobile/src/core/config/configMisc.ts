@@ -1,3 +1,5 @@
+// tslint:disable-next-line
+import 'core-js/es6/symbol';
 import { UIManager, YellowBox } from 'react-native';
 
 const configMisc = () => {

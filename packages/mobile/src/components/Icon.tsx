@@ -1,7 +1,7 @@
 import glamorous, { GlamorousComponent } from 'glamorous-native';
 import React from 'react';
 import { GestureResponderEvent, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
-import RNIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import MDCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 import theme from '../theme';
 import { Touchable } from './Touchable';
 
@@ -41,13 +41,13 @@ const IconBase: React.StatelessComponent<IconBaseProps> = (props) => {
   if (onPress || onLongPress) {
     return (
       <Touchable onPress={onPress} onLongPress={onLongPress} style={style}>
-        <RNIcon name={icon} size={sz} color={clr} />
+        <MDCommunity name={icon} size={sz} color={clr} />
       </Touchable>
     );
   }
   return (
     <View style={style}>
-      <RNIcon name={icon} size={sz} color={clr} />
+      <MDCommunity name={icon} size={sz} color={clr} />
     </View>
   );
 };

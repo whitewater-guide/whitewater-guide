@@ -57,7 +57,7 @@ class RegionListItem extends React.PureComponent<Props> {
             </View>
           </View>
           <View style={styles.right}>
-            <Icon color={theme.colors.textNote} icon="chevron-right" />
+            <Icon color={theme.colors.componentBorder} icon="chevron-right" />
           </View>
         </View>
       </TouchableRipple>
