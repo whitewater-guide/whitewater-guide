@@ -12,11 +12,10 @@ const dockerLogin = (readOnly) => {
   }
   execSync('docker logout', { stdio: 'inherit' });
 
-  //aws ecr get-login --no-include-email --region eu-central-1
   const { stdout, stderr, status } = spawnSync(
     'aws',
-    ['ecr', 'get-login', '--no-include-email', '--region', 'eu-central-1'],
-    { env }
+    ['ecr', 'get-login', '--no-include-email', '--region', 'ap-south-1'],
+    { env },
   );
   if (status !== 0) {
     console.error('failed to get awc ecr login', stderr);
