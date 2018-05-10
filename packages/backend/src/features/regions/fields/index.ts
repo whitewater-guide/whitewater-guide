@@ -1,4 +1,3 @@
-import { Geometry, Polygon } from 'wkx';
 import { FieldResolvers } from '../../../apollo';
 import { timestampResolvers } from '../../../db';
 import { Region } from '../../../ww-commons';
@@ -11,11 +10,9 @@ const regionFieldResolvers: FieldResolvers<RegionRaw, Region> = {
     if (!bounds) {
       return null;
     }
-    const polygon = Geometry.parse(bounds) as Polygon;
-    const points = polygon.exteriorRing;
-    // Un-close the polygon for client
-    points.pop();
-    return points.map(({ x, y, z }) => [x, y, z]);
+    const bnds = bounds.coordinates[0];
+    bnds.pop();
+    return bnds;
   },
   pois: region => region.pois || [],
   editable: async ({ id, editable }, _, { user }) => {

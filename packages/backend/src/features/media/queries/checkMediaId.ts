@@ -30,7 +30,7 @@ export interface MediaCheckResult {
  * @returns {Promise<{found: boolean; id: string}>}
  */
 export const checkMediaId = async (mediaId?: string | null): Promise<MediaCheckResult> => {
-  const result = await db().raw(RAW_QUERY, { id: mediaId || null });
+  const result = await db().raw(RAW_QUERY, { id: (mediaId || null) as any });
   const [{ found, id }] = result.rows;
   return { found, id };
 };

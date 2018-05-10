@@ -1,5 +1,5 @@
 import { RawTimestamped } from '../../db';
-import { NamedNode, Tag } from '../../ww-commons';
+import { Coordinate3d, NamedNode, Tag } from '../../ww-commons';
 import { GaugeRaw } from '../gauges';
 import { PointRaw } from '../points';
 import { RegionRaw } from '../regions';
@@ -11,6 +11,11 @@ export interface GaugeBindingRaw {
   optimum?: number;
   impossible?: number;
   approximate?: boolean;
+}
+
+interface ShapeRaw {
+  type: string;
+  coordinates: Coordinate3d[];
 }
 
 export interface SectionRaw extends NamedNode, RawTimestamped {
@@ -26,7 +31,7 @@ export interface SectionRaw extends NamedNode, RawTimestamped {
   season_numeric: number[];
   levels: GaugeBindingRaw | null;
   flows: GaugeBindingRaw | null;
-  shape: string;
+  shape: ShapeRaw;
   distance: number | null;
   drop: number | null;
   duration: number | null;

@@ -1,4 +1,3 @@
-import { Geometry, LineString } from 'wkx';
 import { FieldResolvers } from '../../../apollo';
 import { timestampResolvers } from '../../../db';
 import { Section } from '../../../ww-commons';
@@ -6,6 +5,7 @@ import { buildGaugeQuery } from '../../gauges';
 import { buildRegionQuery } from '../../regions';
 import { buildRiverQuery } from '../../rivers';
 import { SectionRaw } from '../types';
+import shape from './shape';
 
 export const sectionFieldResolvers: FieldResolvers<SectionRaw, Section> = {
   altNames: section => section.alt_names,
@@ -30,10 +30,7 @@ export const sectionFieldResolvers: FieldResolvers<SectionRaw, Section> = {
     };
   },
   flowsText: section => section.flows_text,
-  shape: ({ shape }) => {
-    const lineString = Geometry.parse(shape) as LineString;
-    return lineString.points.map(({ x, y, z }) => [x, y, z]);
-  },
+  shape,
   pois: section => section.pois || [],
   tags: section => section.tags || [],
   region: ({ region, region_id }, _, context, info) => {
