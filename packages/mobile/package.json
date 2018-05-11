@@ -1,6 +1,6 @@
 {
   "name": "whitewater",
-  "version": "0.0.87",
+  "version": "0.0.88",
   "private": true,
   "scripts": {
     "postinstall": "./postinstall.sh",
@@ -68,7 +68,7 @@
     "recompose": "^0.27.0",
     "redux": "^4.0.0",
     "redux-persist": "^5.9.1",
-    "redux-saga": "^0.16.0",
+    "redux-saga": "^1.0.0-beta.1",
     "reselect": "^3.0.1",
     "ts-jest": "^22.4.5",
     "tslib": "^1.9.0",

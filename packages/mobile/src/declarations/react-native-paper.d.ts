@@ -3,11 +3,11 @@ declare module 'react-native-paper' {
   import { Component, ReactNode } from 'react';
   import {
     StyleProp,
-    TextProperties,
+    TextProps,
     TextStyle,
-    TouchableHighlightProperties,
-    TouchableNativeFeedbackProperties,
-    ViewProperties,
+    TouchableHighlightProps,
+    TouchableNativeFeedbackProps,
+    ViewProps,
     ViewStyle,
   } from 'react-native';
 
@@ -91,21 +91,39 @@ declare module 'react-native-paper' {
 
   export class Button extends Component<ButtonProps> {}
 
-  export class Caption extends Component<TextProperties & Themeable> {}
+  export interface ChipProps extends Themeable {
+    /**
+     * Icon to display for the `Chip`.
+     */
+    icon?: IconSource;
+    /**
+     * Function to execute on press.
+     */
+    onPress?: () => void;
+    /**
+     * Function to execute on delete. The delete button appears only when this prop is specified.
+     */
+    onDelete?: () => void;
+    style?: StyleProp<ViewStyle>;
+  }
 
-  export class Headline extends Component<TextProperties & Themeable> {}
+  export class Chip extends Component<ChipProps> {}
 
-  export class Paragraph extends Component<TextProperties & Themeable> {}
+  export class Caption extends Component<TextProps & Themeable> {}
 
-  export class StyledText extends Component<TextProperties & Themeable> {}
+  export class Headline extends Component<TextProps & Themeable> {}
 
-  export class Subheading extends Component<TextProperties & Themeable> {}
+  export class Paragraph extends Component<TextProps & Themeable> {}
 
-  export class Text extends Component<TextProperties & Themeable> {}
+  export class StyledText extends Component<TextProps & Themeable> {}
 
-  export class Title extends Component<TextProperties & Themeable> {}
+  export class Subheading extends Component<TextProps & Themeable> {}
 
-  export interface DialogProps extends Themeable, ViewProperties {
+  export class Text extends Component<TextProps & Themeable> {}
+
+  export class Title extends Component<TextProps & Themeable> {}
+
+  export interface DialogProps extends Themeable, ViewProps {
     /**
      * Determines whether clicking outside the dialog dismiss it.
      */
@@ -121,7 +139,7 @@ declare module 'react-native-paper' {
     style?: StyleProp<ViewStyle>;
   }
 
-  export interface TouchableRippleProps extends TouchableNativeFeedbackProperties, TouchableHighlightProperties, Themeable {
+  export interface TouchableRippleProps extends TouchableNativeFeedbackProps, TouchableHighlightProps, Themeable {
     /**
      * Whether to render the ripple outside the view bounds.
      */
@@ -144,11 +162,11 @@ declare module 'react-native-paper' {
   export class TouchableRipple extends Component<TouchableRippleProps> {}
 
   export class Dialog extends Component<DialogProps> {}
-  export class DialogActions extends Component<ViewProperties> {}
+  export class DialogActions extends Component<ViewProps> {}
   export class DialogContent extends Component<WithViewStyle> {}
-  export class DialogTitle extends Component<TextProperties & Themeable> {}
+  export class DialogTitle extends Component<TextProps & Themeable> {}
 
-  export interface DividerProps extends ViewProperties, Themeable {
+  export interface DividerProps extends ViewProps, Themeable {
     /**
      *  Whether divider has a left inset.
      */
@@ -185,13 +203,13 @@ declare module 'react-native-paper' {
 
   export class DrawerItem extends Component<DrawerItemProps> {}
 
-  export interface DrawerSectionProps extends ViewProperties, Themeable {
+  export interface DrawerSectionProps extends ViewProps, Themeable {
     title?: string;
   }
 
   export class DrawerSection extends Component<DrawerSectionProps> {}
 
-  export type PaperProps = ViewProperties & Themeable;
+  export type PaperProps = ViewProps & Themeable;
 
   export class Paper extends Component<PaperProps> {}
 
@@ -356,7 +374,7 @@ declare module 'react-native-paper' {
 
   export class BottomNavigation extends Component<BottomNavigationProps> {}
 
-  export interface ToolbarProps extends ViewProperties, Themeable {
+  export interface ToolbarProps extends ViewProps, Themeable {
     /**
      * Theme color for the toolbar, a dark toolbar will render light text and vice-versa
      * Child elements can override this prop independently.
