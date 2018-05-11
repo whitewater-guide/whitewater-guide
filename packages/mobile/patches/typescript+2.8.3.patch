@@ -1,7 +1,7 @@
 patch-package
 --- a/node_modules/typescript/lib/lib.dom.d.ts
 +++ b/node_modules/typescript/lib/lib.dom.d.ts
-@@ -4882,17 +4882,6 @@ declare var GamepadPose: {
+@@ -4890,17 +4890,6 @@ declare var GamepadPose: {
      new(): GamepadPose;
  };
  
@@ -19,7 +19,7 @@ patch-package
  interface GetSVGDocument {
      getSVGDocument(): Document;
  }
-@@ -9302,7 +9291,6 @@ interface Navigator extends NavigatorID, NavigatorOnLine, NavigatorContentUtils,
+@@ -9312,7 +9301,6 @@ interface Navigator extends NavigatorID, NavigatorOnLine, NavigatorContentUtils,
      readonly cookieEnabled: boolean;
      readonly doNotTrack: string | null;
      gamepadInputEmulation: GamepadInputEmulationType;
@@ -27,3 +27,19 @@ patch-package
      readonly maxTouchPoints: number;
      readonly mimeTypes: MimeTypeArray;
      readonly msManipulationViewsEnabled: boolean;
+@@ -15761,7 +15749,6 @@ declare var menubar: BarProp;
+ declare var msContentScript: ExtensionScriptApis;
+ declare var msCredentials: MSCredentials;
+ declare const name: never;
+-declare var navigator: Navigator;
+ declare var offscreenBuffering: string | boolean;
+ declare var onabort: ((this: Window, ev: UIEvent) => any) | null;
+ declare var onafterprint: ((this: Window, ev: Event) => any) | null;
+@@ -15937,7 +15924,6 @@ declare function setImmediate(handler: (...args: any[]) => void): number;
+ declare function setImmediate(handler: any, ...args: any[]): number;
+ declare var sessionStorage: Storage;
+ declare var localStorage: Storage;
+-declare var console: Console;
+ declare var onpointercancel: ((this: Window, ev: PointerEvent) => any) | null;
+ declare var onpointerdown: ((this: Window, ev: PointerEvent) => any) | null;
+ declare var onpointerenter: ((this: Window, ev: PointerEvent) => any) | null;
