@@ -15,7 +15,8 @@ class NavigationChannel implements Channel<NavigationAction> {
     if (this._dispatch) {
       this._dispatch(message as any);
     } else {
-      throw new Error('NavigationChannel dispatch not set');
+      console.warn('NavigationChannel dispatch not set');
+      // throw new Error('NavigationChannel dispatch not set');
     }
   };
 
