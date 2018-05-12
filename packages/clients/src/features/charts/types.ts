@@ -45,6 +45,7 @@ export interface FlowToggleProps {
   unit: Unit;
   unitName: string;
   loading: boolean;
+  gauge: Gauge;
   onChange: (unit: Unit) => void;
 }
 

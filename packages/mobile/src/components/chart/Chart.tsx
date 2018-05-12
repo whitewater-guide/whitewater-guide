@@ -10,7 +10,7 @@ import theme from '../../theme';
 import { ChartComponentProps } from '../../ww-clients/features/charts';
 import { Unit } from '../../ww-commons';
 import HorizontalGridLine from './HorizontalGridLine';
-import NoChart from './NoChart';
+import { NoChart } from './NoChart';
 import TimeGridLine from './TimeGridLine';
 import TimeLabel from './TimeLabel';
 import { Period } from './types';
@@ -45,7 +45,7 @@ interface State {
   height: number;
 }
 
-class Chart extends React.PureComponent<ChartComponentProps, State> {
+export class Chart extends React.PureComponent<ChartComponentProps, State> {
 
   _xDomain: [Date, Date];
   _yDomain: [number, number] = [0, 0];
@@ -116,6 +116,7 @@ class Chart extends React.PureComponent<ChartComponentProps, State> {
     const { data, unit, section, gauge } = this.props;
     const binding = section && (unit === Unit.LEVEL ? section.levels : section.flows);
     const unitName = gauge[`${unit}Unit`];
+    console.log(data);
     if (data.length === 0) {
       return (<NoChart noData />);
     }
@@ -158,5 +159,3 @@ class Chart extends React.PureComponent<ChartComponentProps, State> {
     );
   }
 }
-
-export default Chart;

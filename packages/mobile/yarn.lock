@@ -8549,6 +8549,14 @@ react-native-markdown-renderer@^3.2.1:
     prop-types "^15.5.10"
     react-native-fit-image "^1.5.2"
 
+react-native-modal-popover@0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/react-native-modal-popover/-/react-native-modal-popover-0.0.8.tgz#2fde0693d35f3f87f2086f7cba6db479a95581f2"
+  dependencies:
+    "@types/prop-types" "^15.5.2"
+    lodash.debounce "^4.0.8"
+    prop-types "^15.6.0"
+
 react-native-paper@=1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/react-native-paper/-/react-native-paper-1.4.0.tgz#33bd477cde1468b63e60bdb0c9a500822d03cdca"

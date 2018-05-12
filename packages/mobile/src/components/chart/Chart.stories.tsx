@@ -4,7 +4,7 @@ import moment from 'moment';
 import React from 'react';
 import { I18nProvider } from '../../i18n';
 import { Gauge, HarvestMode, Unit } from '../../ww-commons';
-import Chart from './Chart';
+import { Chart } from './Chart';
 
 function generateData(days: number, step: number) {
   const count = days * (24 / step);

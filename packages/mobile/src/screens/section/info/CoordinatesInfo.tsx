@@ -1,10 +1,9 @@
 import React from 'react';
 import { Clipboard, Linking } from 'react-native';
 import { Paragraph, Subheading } from 'react-native-paper';
-import { Icon } from '../../../components';
+import { Icon, Left, Right, Row } from '../../../components';
 import { arrayToDMSString } from '../../../ww-clients/utils';
 import { Coordinate } from '../../../ww-commons';
-import { Left, ListItem, Right } from './ListItem';
 
 interface Props {
   label: string;
@@ -17,7 +16,7 @@ const CoordinatesInfo: React.StatelessComponent<Props> = ({ label, coordinates }
   const direcionsURL = `https://www.google.com/maps/dir/Current+Location/${coordinates[1]},${coordinates[0]}`;
   const directionsHandler = () => Linking.openURL(direcionsURL).catch(() => {});
   return (
-    <ListItem>
+    <Row>
       <Left>
         <Subheading>{label}</Subheading>
       </Left>
@@ -26,7 +25,7 @@ const CoordinatesInfo: React.StatelessComponent<Props> = ({ label, coordinates }
         <Icon icon="content-copy" onPress={copyHandler} />
         <Icon icon="car" onPress={directionsHandler} />
       </Right>
-    </ListItem>
+    </Row>
   );
 };
 

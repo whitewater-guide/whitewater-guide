@@ -1,6 +1,6 @@
 {
   "name": "whitewater",
-  "version": "0.0.94",
+  "version": "0.0.95",
   "private": true,
   "scripts": {
     "postinstall": "./postinstall.sh",
@@ -58,6 +58,7 @@
     "react-native-languages": "^2.0.0",
     "react-native-maps": "^0.21.0",
     "react-native-markdown-renderer": "^3.2.1",
+    "react-native-modal-popover": "0.0.8",
     "react-native-paper": "^1.7.0",
     "react-native-portal": "^1.2.1",
     "react-native-splash-screen": "^3.0.6",

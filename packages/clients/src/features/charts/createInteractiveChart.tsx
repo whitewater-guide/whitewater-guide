@@ -37,6 +37,7 @@ export const createInteractiveChart = (
           loading={measurements.loading}
           unitName={unit === Unit.FLOW ? gauge.flowUnit! : gauge.levelUnit!}
           onChange={onChangeUnit}
+          gauge={gauge}
         />
       );
       const periodToggle = (

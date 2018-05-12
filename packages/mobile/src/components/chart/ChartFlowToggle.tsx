@@ -1,18 +1,20 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import { translate } from 'react-i18next';
-import { BlackPortal } from 'react-native-portal';
+import { Text } from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
 import { createAnimatableComponent } from 'react-native-animatable';
+import { Paragraph, Subheading } from 'react-native-paper';
 import { WithT } from '../../i18n';
 import { FlowToggleProps } from '../../ww-clients/features/charts';
-import { Icon, ListItem, Left, Right, Text } from '../index';
+import { Unit } from '../../ww-commons/features/measurements';
+import { Icon } from '../Icon';
+import { Left, Right, Row } from '../Row';
 
 const AnimatableText = createAnimatableComponent(Text);
 
 type Props = FlowToggleProps & WithT;
 
-class ChartFlowToggle extends React.PureComponent<Props> {
+class ChartFlowToggleInternal extends React.PureComponent<Props> {
   actionSheetOptions: string[];
   pulseKey: number = 0;
   actionSheet: ActionSheet;
@@ -40,7 +42,7 @@ class ChartFlowToggle extends React.PureComponent<Props> {
 
   onSelect = (index: number) => {
     if (index < 2) {
-      this.props.onChange(this.actionSheetOptions[index].toLowerCase());
+      this.props.onChange(index ? Unit.LEVEL : Unit.FLOW);
     }
   };
 
@@ -49,42 +51,41 @@ class ChartFlowToggle extends React.PureComponent<Props> {
   };
 
   render() {
-    const { unitName, unit, enabled, t } = this.props;
+    const { unitName, unit, enabled, gauge, t } = this.props;
+    const value = gauge.lastMeasurement ? gauge.lastMeasurement[unit].toFixed(2) : '?';
     return (
-      <BlackPortal name="chartPortal">
-        <ListItem>
-          <Left flexDirection="row">
-            <Text>{`${t('section:chart.lastRecorded.title')} `}</Text>
-            <AnimatableText
-              key={`txt${this.pulseKey}`}
-              animation="fadeIn"
-              delay={200}
-              useNativeDriver
-            >
-              {`section:chart.lastRecorded.${unit}`}
-            </AnimatableText>
-          </Left>
-          <Right flexDirection="row">
-            <Text note>{`${value.toFixed(2)} ${t('commons:' + unit)}`}</Text>
-            {
-              enabled &&
-              <Icon primary icon="more" onPress={this.onShowActionSheet} />
-            }
-            {
-              enabled &&
-              <ActionSheet
-                ref={this.setActionSheet}
-                title={t('section:chart.flowToggle')}
-                options={this.actionSheetOptions}
-                cancelButtonIndex={2}
-                onPress={this.onSelect}
-              />
-            }
-          </Right>
-        </ListItem>
-      </BlackPortal>
+      <Row>
+        <Left flexDirection="row">
+          <Subheading>{`${t('section:chart.lastRecorded.title')} `}</Subheading>
+          <AnimatableText
+            key={`txt${this.pulseKey}`}
+            animation="fadeIn"
+            delay={200}
+            useNativeDriver
+          >
+            {`section:chart.lastRecorded.${unit}`}
+          </AnimatableText>
+        </Left>
+        <Right flexDirection="row">
+          <Paragraph>{`${value} ${t('commons:' + unitName)}`}</Paragraph>
+          {
+            enabled &&
+            <Icon primary icon="more" onPress={this.onShowActionSheet} />
+          }
+          {
+            enabled &&
+            <ActionSheet
+              ref={this.setActionSheet}
+              title={t('section:chart.flowToggle')}
+              options={this.actionSheetOptions}
+              cancelButtonIndex={2}
+              onPress={this.onSelect}
+            />
+          }
+        </Right>
+      </Row>
     );
   }
 }
 
-export default translate()(ChartFlowToggle);
+export const ChartFlowToggle = translate()(ChartFlowToggleInternal);

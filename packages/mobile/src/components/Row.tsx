@@ -1,10 +1,10 @@
 import glamorous from 'glamorous-native';
 import React from 'react';
-import { StyleSheet, View, ViewProperties } from 'react-native';
-import theme from '../../../theme';
+import { StyleSheet, View, ViewProps } from 'react-native';
+import theme from '../theme';
 
 const styles = StyleSheet.create({
-  listItem: {
+  row: {
     padding: theme.margin.single,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderColor: theme.colors.border,
@@ -15,8 +15,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export const ListItem: React.StatelessComponent<ViewProperties> = (props) => (
-  <View {...props} style={[styles.listItem, props.style]}>
+export const Row: React.StatelessComponent<ViewProps> = (props) => (
+  <View {...props} style={[styles.row, props.style]}>
     {props.children}
   </View>
 );

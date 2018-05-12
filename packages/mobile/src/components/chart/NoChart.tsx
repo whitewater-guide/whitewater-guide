@@ -19,7 +19,7 @@ interface Props extends WithT {
   noData?: boolean;
 }
 
-const NoChart: React.StatelessComponent<Props> = ({ noData, t }) => {
+const NoChartInternal: React.StatelessComponent<Props> = ({ noData, t }) => {
   const message = noData ? t('section:chart.noData') : t('section:chart.noGauge');
   return (
     <View style={styles.container}>
@@ -29,4 +29,4 @@ const NoChart: React.StatelessComponent<Props> = ({ noData, t }) => {
   );
 };
 
-export default translate()(NoChart);
+export const NoChart = translate()(NoChartInternal);

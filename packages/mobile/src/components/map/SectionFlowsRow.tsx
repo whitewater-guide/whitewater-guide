@@ -6,6 +6,7 @@ import { WithT } from '../../i18n';
 import theme from '../../theme';
 import { ColorStrings, getSectionColor, prettyNumber } from '../../ww-clients/features/sections';
 import { Section } from '../../ww-commons';
+import { Row } from '../Row';
 import SimpleTextFlowRow from './SimpleTextFlowRow';
 
 const styles = StyleSheet.create({
@@ -48,15 +49,6 @@ const styles = StyleSheet.create({
     borderLeftColor: theme.colors.border,
     paddingLeft: 8,
   },
-  listItem: {
-    padding: theme.margin.single,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderColor: theme.colors.border,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    minHeight: theme.rowHeight,
-  },
 });
 
 interface Props extends WithT {
@@ -77,7 +69,7 @@ const SectionFlowsRow: React.StatelessComponent<Props> = ({ section, t }) => {
     { ...levels, label: t('commons:level'), unit: gauge.levelUnit, value: gauge.lastMeasurement.level };
 
   return (
-    <View style={styles.listItem}>
+    <Row>
       <Subheading>{data.label}</Subheading>
       <View style={styles.flowContainer}>
         <Text style={[styles.mainLine, { color }]}>
@@ -93,7 +85,7 @@ const SectionFlowsRow: React.StatelessComponent<Props> = ({ section, t }) => {
         {data.optimum && <Caption style={styles.optimum}>{`${data.optimum} ${t('commons:opt')}`}</Caption>}
         {data.maximum && <Caption style={styles.maximum}>{`${data.maximum} ${t('commons:max')}`}</Caption>}
       </View>
-    </View>
+    </Row>
   );
 };
 
