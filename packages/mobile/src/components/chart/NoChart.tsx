@@ -23,7 +23,7 @@ const NoChart: React.StatelessComponent<Props> = ({ noData, t }) => {
   const message = noData ? t('section:chart.noData') : t('section:chart.noGauge');
   return (
     <View style={styles.container}>
-      <Icon narrow icon="warning" />
+      <Icon narrow icon="alert" />
       <Subheading>{message}</Subheading>
     </View>
   );

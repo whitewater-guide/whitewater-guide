@@ -2,7 +2,8 @@ import { storiesOf } from '@storybook/react-native';
 import times from 'lodash/times';
 import moment from 'moment';
 import React from 'react';
-import { Gauge, HarvestMode, Section, Unit } from '../../ww-commons';
+import { I18nProvider } from '../../i18n';
+import { Gauge, HarvestMode, Unit } from '../../ww-commons';
 import Chart from './Chart';
 
 function generateData(days: number, step: number) {
@@ -63,6 +64,11 @@ const weekly = generateData(7, 4);
 const monthly = generateData(31, 12);
 
 storiesOf('Chart')
+  .addDecorator((story) => (
+    <I18nProvider>
+      {story()}
+    </I18nProvider>
+  ))
   .add('With empty data', () => (
     <Chart
       loading={false}
