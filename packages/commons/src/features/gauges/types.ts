@@ -11,7 +11,7 @@ export interface Gauge extends NamedNode, Timestamped {
   cron: string | null;
   url: string | null;
   enabled: boolean;
-  location: Point;
+  location: Point | null;
   source: Source;
   // measurements?: Measurement[];
   lastMeasurement: Measurement | null;

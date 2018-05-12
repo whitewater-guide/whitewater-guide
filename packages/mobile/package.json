@@ -1,6 +1,6 @@
 {
   "name": "whitewater",
-  "version": "0.0.89",
+  "version": "0.0.90",
   "private": true,
   "scripts": {
     "postinstall": "./postinstall.sh",
@@ -10,7 +10,9 @@
     "clean-start": "yarn run clean && yarn run rc-start",
     "fresh-install": "rm -rf $TMPDIR/react-* && watchman watch-del-all && rm -rf ios/build/ModuleCache/* && rm -rf node_modules/ && rm -rf android/build && rm -rf android/app/build && rm -f yarn.lock && yarn cache clean && yarn",
     "fresh-start": "yarn run fresh-install && yarn run rc-start",
-    "test": "jest"
+    "test": "jest",
+    "prestorybook": "rnstl",
+    "storybook": "storybook start -p 7007 --metro-config $PWD/rn-cli.config.js"
   },
   "dependencies": {
     "apollo-cache-inmemory": "^1.2.1",
@@ -23,6 +25,7 @@
     "appcenter-crashes": "^1.5.0",
     "axios": "^0.18.0",
     "cron-parser": "^2.4.5",
+    "d3-scale": "^2.0.0",
     "glamorous-native": "^1.4.0",
     "graphql": "^0.13.0",
     "graphql-tag": "^2.9.2",
@@ -75,9 +78,14 @@
     "type-zoo": "^2.0.0",
     "typescript": "2.8.3",
     "typescript-fsa": "^3.0.0-beta-1",
-    "url-parse": "^1.4.0"
+    "url-parse": "^1.4.0",
+    "victory-native": "^0.17.4"
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^3.4.3",
+    "@storybook/addon-links": "^3.4.3",
+    "@storybook/addons": "^3.4.3",
+    "@storybook/react-native": "4.0.0-alpha.4",
     "@types/enzyme": "^3.1.10",
     "@types/googlemaps": "^3.30.8",
     "@types/graphql": "^0.13.1",
@@ -102,15 +110,20 @@
     "@types/react-test-renderer": "^16.0.1",
     "@types/recompose": "^0.26.1",
     "@types/url-parse": "^1.1.0",
+    "@types/victory": "^0.9.16",
     "apollo-link-schema": "^1.1.0",
+    "babel-core": "^6.26.3",
     "babel-jest": "22.4.3",
     "babel-preset-react-native": "4.0.0",
+    "babel-runtime": "^6.26.0",
     "casual": "^1.5.19",
     "enzyme": "^3.3.0",
     "graphql-ast-tools": "^0.2.3",
     "jest": "22.4.3",
     "patch-package": "^5.1.1",
     "postinstall-postinstall": "^1.0.0",
+    "react-dom": "16.3.2",
+    "react-native-storybook-loader": "^1.8.0",
     "react-test-renderer": "16.3.2",
     "tslint": "^5.10.0",
     "tslint-eslint-rules": "^5.2.0",
@@ -144,6 +157,15 @@
       "ts-jest": {
         "useBabelrc": true
       }
+    }
+  },
+  "config": {
+    "react-native-storybook-loader": {
+      "searchDir": [
+        "./src"
+      ],
+      "pattern": "**/*.stories.tsx",
+      "outputFile": "./storybook/storyLoader.ts"
     }
   },
   "browser": {
