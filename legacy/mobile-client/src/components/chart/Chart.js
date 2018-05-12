@@ -63,8 +63,8 @@ class Chart extends PureComponent {
   constructor(props) {
     super(props);
     this._period = '';
-    this._tickFormat = '';
-    this._tickCount = 0;
+    this._xTickFormat = '';
+    this._xTickCount = 0;
     this._yTickValues = [];
     this.computeChartSettings(props.domain);
     this.computeDomain(props);
@@ -120,8 +120,8 @@ class Chart extends PureComponent {
     }
     const settings = ChartSettings[period];
     this._period = period;
-    this._tickFormat = date => moment(date).format(settings.tickFormat);
-    this._tickCount = settings.tickCount;
+    this._xTickFormat = date => moment(date).format(settings.tickFormat);
+    this._xTickCount = settings.tickCount;
   };
 
   render() {
@@ -142,8 +142,8 @@ class Chart extends PureComponent {
             theme={ChartTheme}
           >
             <VictoryAxis
-              tickFormat={this._tickFormat}
-              tickCount={this._tickCount}
+              tickFormat={this._xTickFormat}
+              tickCount={this._xTickCount}
               tickLabelComponent={<TimeLabel angle={90} period={this._period} />}
               gridComponent={<TimeGridLine period={this._period} />}
             />

@@ -8,7 +8,7 @@ import { LayoutChangeEvent, StyleSheet, View } from 'react-native';
 import { VictoryAxis, VictoryChart, VictoryLine, VictoryTheme } from 'victory-native';
 import theme from '../../theme';
 import { ChartComponentProps } from '../../ww-clients/features/charts';
-import { Measurement, Unit } from '../../ww-commons';
+import { Unit } from '../../ww-commons';
 import HorizontalGridLine from './HorizontalGridLine';
 import NoChart from './NoChart';
 import TimeGridLine from './TimeGridLine';
@@ -51,8 +51,8 @@ class Chart extends React.PureComponent<ChartComponentProps, State> {
   _yDomain: [number, number] = [0, 0];
   _yTickValues: number[] = [];
   _period: Period = Period.DAY;
-  _tickFormat: (date: Date) => string;
-  _tickCount: number = 0;
+  _xTickFormat: (date: Date) => string;
+  _xTickCount: number = 0;
 
   state: State = { height: 0 };
 
@@ -108,8 +108,8 @@ class Chart extends React.PureComponent<ChartComponentProps, State> {
       this._period = Period.DAY;
     }
     const settings = ChartSettings[this._period];
-    this._tickFormat = (date: Date) => moment(date).format(settings.tickFormat);
-    this._tickCount = settings.tickCount;
+    this._xTickFormat = (date: Date) => moment(date).format(settings.tickFormat);
+    this._xTickCount = settings.tickCount;
   };
 
   render() {
@@ -126,14 +126,14 @@ class Chart extends React.PureComponent<ChartComponentProps, State> {
           <VictoryChart
             width={theme.screenWidth}
             height={this.state.height}
-            padding={{ top: 20, bottom: 48, left: 48, right: 16 }}
+            padding={{ top: 20, bottom: 54, left: 48, right: 16 }}
             scale={{ x: 'time', y: 'linear' }}
             domain={{ x: this._xDomain, y: this._yDomain }}
             theme={VictoryTheme.material}
           >
             <VictoryAxis
-              tickFormat={this._tickFormat}
-              tickCount={this._tickCount}
+              tickFormat={this._xTickFormat}
+              tickCount={this._xTickCount}
               tickLabelComponent={<TimeLabel period={this._period} />}
               gridComponent={<TimeGridLine period={this._period} />}
             />
