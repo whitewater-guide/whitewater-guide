@@ -1,6 +1,6 @@
 {
   "name": "whitewater",
-  "version": "0.0.90",
+  "version": "0.0.91",
   "private": true,
   "scripts": {
     "postinstall": "./postinstall.sh",
@@ -25,6 +25,7 @@
     "appcenter-crashes": "^1.5.0",
     "axios": "^0.18.0",
     "cron-parser": "^2.4.5",
+    "d3-array": "^1.2.1",
     "d3-scale": "^2.0.0",
     "glamorous-native": "^1.4.0",
     "graphql": "^0.13.0",
@@ -86,6 +87,8 @@
     "@storybook/addon-links": "^3.4.3",
     "@storybook/addons": "^3.4.3",
     "@storybook/react-native": "4.0.0-alpha.4",
+    "@types/d3-array": "^1.2.1",
+    "@types/d3-scale": "^2.0.0",
     "@types/enzyme": "^3.1.10",
     "@types/googlemaps": "^3.30.8",
     "@types/graphql": "^0.13.1",

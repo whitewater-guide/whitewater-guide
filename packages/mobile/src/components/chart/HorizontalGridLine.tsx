@@ -4,13 +4,13 @@ import { getColorForValue } from '../../ww-clients/features/sections';
 import { GaugeBinding } from '../../ww-commons/features/sections';
 
 interface Props {
-  x1: number;
-  x2: number;
-  y1: number;
-  y2: number;
-  datum: number;
-  style: LineProps;
-  binding: GaugeBinding;
+  x1?: number;
+  x2?: number;
+  y1?: number;
+  y2?: number;
+  datum?: number;
+  style?: LineProps;
+  binding?: GaugeBinding;
 }
 
 const HorizontalGridLine: React.StatelessComponent<Props> = (props) => {

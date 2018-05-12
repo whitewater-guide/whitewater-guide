@@ -86,7 +86,7 @@ class Chart extends PureComponent {
 
   computeDomain = ({ data, unit, binding }) => {
     if (!data || data.length === 0) {
-      this._domain = [0, 0];
+      this._yDomain = [0, 0];
       return;
     }
     let result = data.reduce(
@@ -104,9 +104,9 @@ class Chart extends PureComponent {
     }
     // Manually apply padding. Chart is square (height === screen width)
     const delta = (result[1] - result[0]) * (8 / width);
-    this._domain = [result[0] - delta, result[1] + delta];
+    this._yDomain = [result[0] - delta, result[1] + delta];
 
-    this._yTickValues = ticks.concat(scaleLinear().domain(this._domain).ticks(5));
+    this._yTickValues = ticks.concat(scaleLinear().domain(this._yDomain).ticks(5));
   };
 
   computeChartSettings = (domain) => {
@@ -138,7 +138,7 @@ class Chart extends PureComponent {
             height={this.state.height}
             padding={{ top: 20, bottom: 48, left: 48, right: 16 }}
             scale={{ x: 'time', y: 'linear' }}
-            domain={{ x: domain, y: this._domain }}
+            domain={{ x: domain, y: this._yDomain }}
             theme={ChartTheme}
           >
             <VictoryAxis

@@ -1,49 +1,19 @@
 import moment from 'moment';
 import React from 'react';
-import { G, Text } from 'react-native-svg';
-import { VictoryLabel, NativeHelpers } from 'victory-native';
+import { VictoryLabel, VictoryLabelProps } from 'victory-native';
+import { Period } from './types';
 
-export default class extends VictoryLabel {
-  static defaultProps = {
-    ...VictoryLabel.defaultProps,
-    capHeight: 0.71,
-    lineHeight: 1,
-    period: PropTypes.oneOf(['daily', 'weekly', 'monthly']),
-  };
-
-  shouldRender = () => {
-    const { period, datum } = this.props;
-    if (period === 'monthly') {
-      return moment(datum).day() === 0; // Only render sundays
-    }
-    return true;
-  };
-
-  // Overrides method in victory-core
-  renderElements(props) {
-    if (!this.shouldRender()){
-      return null;
-    }
-    const { x, y, dx, className, events } = props;
-    // const transform = NativeHelpers.getTransform(this.transform);
-    // // Since 0.11.1 victory-native temporarily disabled rotation, but we need it
-    // transform.rotation = 90;
-    return (
-      <G {...events} originX={x} originY={y} className={className}>
-        {this.content.map((line, i) => {
-          const style = NativeHelpers.getStyle(this.style[i] || this.style[0]);
-          const lastStyle = NativeHelpers.getStyle(this.style[i - 1] || this.style[0]);
-          const fontSize = (style.fontSize + lastStyle.fontSize) / 2;
-          const textAnchor = style.textAnchor || this.textAnchor;
-          const lineOffset = i ? fontSize : 0;
-          const dy = this.dy - fontSize + lineOffset;
-          return (
-            <Text {...style} key={i} x={x + 10} y={y - 7} dx={dx} dy={dy} textAnchor={textAnchor}>
-              {line}
-            </Text>
-          );
-        })}
-      </G>
-    );
-  }
+interface Props extends VictoryLabelProps {
+  period: Period;
 }
+
+const TimeLabel: React.StatelessComponent<Props> = ({ period, ...props }) => {
+  if (period === Period.MONTH && moment(props.datum).day() !== 0) {
+    return null; // Only render sundays
+  }
+  return (
+    <VictoryLabel {...props} angle={90} dx={15} dy={-6} />
+  );
+};
+
+export default TimeLabel;

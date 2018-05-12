@@ -4,13 +4,13 @@ import { getColorForValue } from '../../ww-clients/features/sections';
 import { GaugeBinding } from '../../ww-commons';
 
 interface YTickProps {
-  x1: number;
-  x2: number;
-  y1: number;
-  y2: number;
-  datum: number;
-  style: CommonPathProps;
-  binding: GaugeBinding;
+  x1?: number;
+  x2?: number;
+  y1?: number;
+  y2?: number;
+  datum?: number;
+  style?: CommonPathProps;
+  binding?: GaugeBinding;
 }
 
 const YTick: React.StatelessComponent<YTickProps> = (props) => {
