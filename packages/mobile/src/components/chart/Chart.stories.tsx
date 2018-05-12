@@ -2,7 +2,7 @@ import { storiesOf } from '@storybook/react-native';
 import times from 'lodash/times';
 import moment from 'moment';
 import React from 'react';
-import { Gauge, HarvestMode, Unit } from '../../ww-commons';
+import { Gauge, HarvestMode, Section, Unit } from '../../ww-commons';
 import Chart from './Chart';
 
 function generateData(days: number, step: number) {
@@ -95,9 +95,21 @@ storiesOf('Chart')
       gauge={gauge}
     />
   ))
-  // .add('With close bindings', () => (
-  //   <Chart {...monthly} binding={closeBindings} />
-  // ))
-  // .add('With distant bindings', () => (
-  //   <Chart {...monthly} binding={distantBindings} />
-  // ));
+  .add('With close bindings', () => (
+    <Chart
+      loading={false}
+      data={weekly}
+      unit={Unit.FLOW}
+      gauge={gauge}
+      section={{ flows: closeBindings } as any}
+    />
+  ))
+  .add('With distant bindings', () => (
+    <Chart
+      loading={false}
+      data={weekly}
+      unit={Unit.FLOW}
+      gauge={gauge}
+      section={{ flows: distantBindings } as any}
+    />
+  ));

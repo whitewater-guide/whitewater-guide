@@ -32,7 +32,7 @@ const HorizontalGridLine: React.StatelessComponent<Props> = (props) => {
       <Line {...lineStyle} x1={0} x2={x2 - x1} y1={0} y2={0} />
       {
         label &&
-        <Text textAnchor="end" y={-14} x={x2 - x1} fill={color}>
+        <Text textAnchor="end" y={-4} x={x2 - x1} fill={color}>
           {label}
         </Text>
       }
