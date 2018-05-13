@@ -71,9 +71,12 @@ export default {
   },
   section: {
     chart: {
-      day: 'Day',
-      week: 'Week',
-      month: 'Month',
+      periodToggle: {
+        title: 'Select period',
+        day: 'Day',
+        week: 'Week',
+        month: 'Month',
+      },
       flowToggle: 'Select measurement',
       lastRecorded: {
         title: 'Last recorded',

@@ -71,9 +71,12 @@ export default {
   },
   section: {
     chart: {
-      day: 'День',
-      week: 'Неделя',
-      month: 'Месяц',
+      periodToggle: {
+        title: 'Выберите период',
+        day: 'День',
+        week: 'Неделя',
+        month: 'Месяц',
+      },
       flowToggle: 'Выберите показатель',
       lastRecorded: {
         title: 'Последнее значение',
