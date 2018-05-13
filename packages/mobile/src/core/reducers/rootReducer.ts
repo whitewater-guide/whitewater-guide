@@ -2,17 +2,14 @@ import { AsyncStorage } from 'react-native';
 import { combineReducers, Reducer } from 'redux';
 import { PersistConfig, persistReducer } from 'redux-persist';
 import autoMergeLevel2 from 'redux-persist/es/stateReconciler/autoMergeLevel2';
-import { regionsReducer, RegionsState } from '../../ww-clients/features/regions/reducers';
 import { appReducer, AppState } from './appReducer';
 
 export interface RootState {
   app: AppState;
-  regions: RegionsState;
 }
 
 const rootReducer = combineReducers<RootState>({
   app: appReducer,
-  regions: regionsReducer,
 });
 
 const persistConfig: PersistConfig = {

@@ -1,17 +1,15 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { WhitePortal } from 'react-native-portal';
-import { NavigationComponent, NavigationRouteConfigMap, TabNavigatorConfig } from 'react-navigation';
+import { NavigationRouteConfigMap, TabNavigatorConfig } from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import theme from '../../theme';
-import { PureScreen } from '../../utils/navigation';
 import container from './container';
 import RegionInfoScreen from './info';
 import RegionMapScreen from './map';
-import RegionTitle from './RegionTitle';
 import RegionSectionsListScreen from './sections-list';
 import SectionsProgress from './SectionsProgress';
-import { InnerProps, NavParams, ScreenProps } from './types';
+import { InnerProps, OuterProps, ScreenProps } from './types';
 
 const routes: NavigationRouteConfigMap = {
   RegionMap: {
@@ -41,20 +39,11 @@ const config: TabNavigatorConfig = {
   shifting: true,
 } as any;
 
-const Navigator = createMaterialBottomTabNavigator(routes, config);
+export const Navigator = createMaterialBottomTabNavigator(routes, config);
 
-class RegionTabsView extends PureScreen<InnerProps, NavParams> {
-
-  componentDidMount() {
-    this.props.selectRegion({ regionId: this.props.region.node.id });
-  }
-
-  componentWillUnmount() {
-    this.props.selectRegion({ regionId: null });
-  }
-
+class RegionTabsContent extends React.PureComponent<InnerProps & OuterProps> {
   render() {
-    const { navigation, sections, region } = this.props;
+    const {navigation, region, sections } = this.props;
     const screenProps: ScreenProps = { region, sections };
     return (
       <React.Fragment>
@@ -68,9 +57,4 @@ class RegionTabsView extends PureScreen<InnerProps, NavParams> {
   }
 }
 
-export const RegionTabs: NavigationComponent & { router?: any} = container(RegionTabsView);
-RegionTabs.router = Navigator.router;
-
-RegionTabs.navigationOptions = ({ navigation }) => ({
-  headerTitle: <RegionTitle regionId={navigation.getParam('regionId')}/>,
-});
+export const RegionTabs = container(RegionTabsContent);

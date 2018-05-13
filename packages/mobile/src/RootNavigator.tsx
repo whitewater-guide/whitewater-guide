@@ -9,14 +9,14 @@ import {
 import { Drawer } from './components';
 import { renderHeader } from './components/header';
 import { navigationChannel } from './core/sagas';
-import { MyProfileScreen, PlainTextScreen, RegionsListScreen, RegionTabs, SectionTabs } from './screens';
+import { MyProfileScreen, PlainTextScreen, RegionScreen, RegionsListScreen, SectionTabs } from './screens';
 
 const routes = {
   RegionsList: {
     screen: RegionsListScreen,
   },
   Region: {
-    screen: RegionTabs,
+    screen: RegionScreen,
   },
   Section: {
     screen: SectionTabs,

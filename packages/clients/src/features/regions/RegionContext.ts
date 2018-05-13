@@ -1,22 +1,29 @@
 import { NetworkStatus } from 'apollo-client';
 import React from 'react';
-import { Region } from '../../../ww-commons';
-import { WithNode } from '../../apollo';
+import { DefaultSectionSearchTerms } from '../../../ww-commons';
+import { RegionContext } from './types';
 
-export interface RegionSetter {
-  setRegionId: (regionId?: string) => void;
-}
+const defaultValue: RegionContext = {
+  region: {
+    loading: false,
+    node: null,
+    networkStatus: NetworkStatus.ready,
+    refetch: () => Promise.reject('Default context value cannot be refetched'),
+  },
 
-export type RegionContextValue = WithNode<Region | null> & RegionSetter;
+  selectedSectionId: null,
+  onSectionSelected: () => {},
 
-const defaultValue: RegionContextValue = {
-  setRegionId: () => {/*nothing*/},
-  loading: false,
-  node: null,
-  networkStatus: NetworkStatus.ready,
-  refetch: () => Promise.reject('Default context value cannot be refetched'),
+  selectedPOIId: null,
+  onPOISelected: () => {},
+
+  searchTerms: { ...DefaultSectionSearchTerms },
+  resetSearchTerms: () => {},
+  setSearchTerms: () => {},
+
+  selectedBounds: null,
 };
 
-export const RegionContext = React.createContext<RegionContextValue>(defaultValue);
-export const Provider = RegionContext.Provider;
-export const RegionConsumer = RegionContext.Consumer;
+const context = React.createContext<RegionContext>(defaultValue);
+export const Provider = context.Provider;
+export const RegionConsumer = context.Consumer;

@@ -1,12 +1,9 @@
-export * from './actions';
-export * from './reducers';
-export * from './selectors';
+export * from './consumeRegion';
 export * from './regionDetails.query';
 export * from './regionFraments';
 export * from './map';
-export * from './withRegion';
 export * from './RegionProvider';
 export * from './withRegionsList';
 export * from './regionName.query';
 export * from './types';
-export { RegionContextValue, RegionConsumer, RegionSetter } from './RegionContext';
+export { RegionConsumer } from './RegionContext';

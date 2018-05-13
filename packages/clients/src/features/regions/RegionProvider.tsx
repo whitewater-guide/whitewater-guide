@@ -1,9 +1,10 @@
 import React from 'react';
 import { Query, QueryResult } from 'react-apollo';
-import { Region } from '../../../ww-commons';
+import { DefaultSectionSearchTerms, Point, Region, Section, SectionSearchTerms } from '../../../ww-commons';
 import { queryResultToNode } from '../../apollo';
-import { Provider, RegionContextValue } from './RegionContext';
+import { Provider } from './RegionContext';
 import { REGION_DETAILS } from './regionDetails.query';
+import { RegionContext, RegionState } from './types';
 
 interface Props {
   regionId?: string;
@@ -20,25 +21,30 @@ interface Result {
 
 type RenderProps = QueryResult<Result, Vars>;
 
-interface State {
-  regionId?: string;
-  setRegionId: (regionId?: string) => void;
-}
+export class RegionProvider extends React.PureComponent<Props, RegionState> {
+  state: RegionState = {
+    selectedSectionId: null,
+    selectedPOIId: null,
+    searchTerms: { ...DefaultSectionSearchTerms },
+    selectedBounds: null,
+  };
 
-export class RegionProvider extends React.PureComponent<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      regionId: props.regionId,
-      setRegionId: this.setRegionId,
-    };
-  }
+  onSectionSelected = (section: Section | null) => this.setState({
+    selectedSectionId: section ? section.id : null,
+    selectedPOIId: null,
+  });
 
-  setRegionId = (regionId?: string) => this.setState({ regionId });
+  onPOISelected = (poi: Point | null) => this.setState({
+    selectedSectionId: null,
+    selectedPOIId: poi ? poi.id : null,
+  });
+
+  resetSearchTerms = () => this.setState({ searchTerms: { ...DefaultSectionSearchTerms } });
+
+  setSearchTerms = (searchTerms: SectionSearchTerms) => this.setState({ searchTerms });
 
   render() {
-    const { renderLoading } = this.props;
-    const { regionId } = this.state;
+    const { regionId, renderLoading } = this.props;
     const variables = { regionId };
     return (
       <Query query={REGION_DETAILS} variables={variables} fetchPolicy="cache-and-network">
@@ -47,9 +53,13 @@ export class RegionProvider extends React.PureComponent<Props, State> {
             return renderLoading();
           }
           const { region } = queryResultToNode<Region, 'region'>(props, 'region');
-          const contextValue: RegionContextValue = {
-            ...region,
-            setRegionId: this.setRegionId,
+          const contextValue: RegionContext = {
+            region,
+            ...this.state,
+            onSectionSelected: this.onSectionSelected,
+            onPOISelected: this.onPOISelected,
+            resetSearchTerms: this.resetSearchTerms,
+            setSearchTerms: this.setSearchTerms,
           };
           return (
             <Provider value={contextValue}>

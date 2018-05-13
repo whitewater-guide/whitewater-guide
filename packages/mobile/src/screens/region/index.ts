@@ -1,1 +1,1 @@
-export * from './RegionTabs';
+export * from './RegionScreen';

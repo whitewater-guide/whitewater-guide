@@ -9,14 +9,10 @@ export interface ScreenProps {
   sections: WithList<Section>;
 }
 
-export interface DispatchProps {
-  selectRegion: (payload: { regionId: string | null }) => void;
-}
-
 export interface NavParams {
   regionId: string;
 }
 
 export type OuterProps = NavigationScreenProps<NavParams>;
 
-export type InnerProps = DispatchProps & WithRegion & WithSectionsList;
+export type InnerProps = WithRegion & WithSectionsList;
