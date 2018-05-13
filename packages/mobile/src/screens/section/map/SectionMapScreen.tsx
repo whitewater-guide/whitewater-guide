@@ -10,17 +10,7 @@ export const SectionMapScreen: NavigationScreenComponent = ({ screenProps }) => 
   const { section }: ScreenProps = screenProps as any;
   return (
     <Screen noScroll>
-      <SectionMap
-        useSectionShapes
-        sections={[section.node]}
-        initialBounds={section.node.shape}
-        contentBounds={section.node.shape}
-        pois={section.node.pois}
-        selectedSectionId={null}
-        onPOISelected={() => {}}
-        onSectionSelected={() => {}}
-        selectedPOIId={null}
-      />
+      <SectionMap section={section} />
     </Screen>
   );
 };
