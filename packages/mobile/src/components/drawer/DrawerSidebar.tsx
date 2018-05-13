@@ -61,7 +61,7 @@ class DrawerSidebarView extends React.PureComponent<InnerProps> {
             label={t('drawer:faq')}
             icon="help"
             routeName="Plain"
-            params={{ fixture: 'faq' }}
+            params={{ fixture: 'faq', title: t('drawer:faq') }}
             onPress={this.navigate}
             focused={isRouteFocused(state, 'Plain', { fixture: 'faq' })}
           />
@@ -70,14 +70,14 @@ class DrawerSidebarView extends React.PureComponent<InnerProps> {
         <DrawerItem
           label={t('drawer:termsAndConditions')}
           routeName="Plain"
-          params={{ fixture: 'termsAndConditions' }}
+          params={{ fixture: 'termsAndConditions', title: t('drawer:termsAndConditions') }}
           onPress={this.navigate}
           focused={isRouteFocused(state, 'Plain', { fixture: 'termsAndConditions' })}
         />
         <DrawerItem
           label={t('drawer:privacyPolicy')}
           routeName="Plain"
-          params={{ fixture: 'privacyPolicy' }}
+          params={{ fixture: 'privacyPolicy', title: t('drawer:privacyPolicy') }}
           onPress={this.navigate}
           focused={isRouteFocused(state, 'Plain', { fixture: 'privacyPolicy' })}
         />

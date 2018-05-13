@@ -7,6 +7,7 @@ import { WithT } from '../../i18n';
 interface NavParams {
   fixture?: string;
   title?: string;
+  text?: string;
 }
 
 interface Props {
@@ -25,9 +26,12 @@ export const PlainText: React.StatelessComponent<Props & WithT> = ({ text, fixtu
 const PlainTextWithT = translate('markdown')(PlainText);
 
 export const PlainTextScreen: NavigationScreenComponent<NavParams> = ({ navigation }) => (
-  <PlainTextWithT fixture={navigation.getParam('fixture')} />
+  <PlainTextWithT
+    fixture={navigation.getParam('fixture')}
+    text={navigation.getParam('text')}
+  />
 );
 
 PlainTextScreen.navigationOptions = ({ navigation }) => {
-  return { title: navigation.getParam('title') };
+  return { headerTitle: navigation.getParam('title') };
 };

@@ -74,6 +74,11 @@ const Measurements = gql`
       ...GaugeCore
       ...GaugeLocation
       ...GaugeLastMeasurement
+      source {
+        id
+        name
+        termsOfUse
+      }
     }
     levels {
       ...GaugeBindingAll

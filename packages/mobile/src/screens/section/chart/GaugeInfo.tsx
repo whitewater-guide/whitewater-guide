@@ -52,9 +52,8 @@ class GaugeInfo extends React.PureComponent<InnerProps> {
       this.props.navigation.navigate({
         routeName: 'Plain',
         params: {
-          data: 'source',
           title: this.props.t('section:chart.gaugeMenu.aboutSource'),
-          source: this.props.gauge.source,
+          text: this.props.gauge.source.termsOfUse,
         },
       });
     }
