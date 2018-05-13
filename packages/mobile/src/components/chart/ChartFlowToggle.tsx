@@ -1,16 +1,23 @@
 import React from 'react';
 import { translate } from 'react-i18next';
-import { Text } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
-import { createAnimatableComponent } from 'react-native-animatable';
+import * as Animatable from 'react-native-animatable';
 import { Paragraph, Subheading } from 'react-native-paper';
 import { WithT } from '../../i18n';
 import { FlowToggleProps } from '../../ww-clients/features/charts';
-import { Unit } from '../../ww-commons/features/measurements';
+import { Unit } from '../../ww-commons';
 import { Icon } from '../Icon';
 import { Left, Right, Row } from '../Row';
 
-const AnimatableText = createAnimatableComponent(Text);
+const styles = StyleSheet.create({
+  text: {
+    color: 'rgba(0, 0, 0, 0.87)',
+    fontSize: 16,
+    lineHeight: 24,
+    marginVertical: 2,
+  },
+});
 
 type Props = FlowToggleProps & WithT;
 
@@ -50,6 +57,26 @@ class ChartFlowToggleInternal extends React.PureComponent<Props> {
     this.actionSheet = ref;
   };
 
+  renderUnit = () => {
+    const { t, unit } = this.props;
+    if (this.pulseKey) {
+      return (
+        <Animatable.Text
+          key={`txt${this.pulseKey}`}
+          animation="fadeIn"
+          delay={200}
+          style={styles.text}
+        >
+          {t(`section:chart.lastRecorded.${unit}`)}
+        </Animatable.Text>
+      );
+    } else {
+      return (
+        <Text style={styles.text}>{t(`section:chart.lastRecorded.${unit}`)}</Text>
+      );
+    }
+  };
+
   render() {
     const { unitName, unit, enabled, gauge, t } = this.props;
     const value = gauge.lastMeasurement ? gauge.lastMeasurement[unit].toFixed(2) : '?';
@@ -57,20 +84,13 @@ class ChartFlowToggleInternal extends React.PureComponent<Props> {
       <Row>
         <Left flexDirection="row">
           <Subheading>{`${t('section:chart.lastRecorded.title')} `}</Subheading>
-          <AnimatableText
-            key={`txt${this.pulseKey}`}
-            animation="fadeIn"
-            delay={200}
-            useNativeDriver
-          >
-            {`section:chart.lastRecorded.${unit}`}
-          </AnimatableText>
+          {this.renderUnit()}
         </Left>
         <Right flexDirection="row">
           <Paragraph>{`${value} ${t('commons:' + unitName)}`}</Paragraph>
           {
             enabled &&
-            <Icon primary icon="more" onPress={this.onShowActionSheet} />
+            <Icon primary icon="dots-vertical" onPress={this.onShowActionSheet} />
           }
           {
             enabled &&

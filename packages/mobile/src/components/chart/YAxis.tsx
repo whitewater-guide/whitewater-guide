@@ -14,7 +14,7 @@ const YAxis: React.StatelessComponent<YAxisProps> = (props) => {
   return (
     <G x={x1} y={y1}>
       <Line {...style} x1={0} y1={0} x2={0} y2={y2 - y1} />
-      <Text x={-12} y={4} textAnchor="end">
+      <Text x={-12} y={-6} textAnchor="end">
         {unitName}
       </Text>
     </G>

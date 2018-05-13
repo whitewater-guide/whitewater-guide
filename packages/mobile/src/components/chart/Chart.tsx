@@ -14,7 +14,6 @@ import { NoChart } from './NoChart';
 import TimeGridLine from './TimeGridLine';
 import TimeLabel from './TimeLabel';
 import { Period } from './types';
-import YAxis from './YAxis';
 import YLabel from './YLabel';
 import YTick from './YTick';
 
@@ -116,7 +115,6 @@ export class Chart extends React.PureComponent<ChartComponentProps, State> {
     const { data, unit, section, gauge } = this.props;
     const binding = section && (unit === Unit.LEVEL ? section.levels : section.flows);
     const unitName = gauge[`${unit}Unit`];
-    console.log(data);
     if (data.length === 0) {
       return (<NoChart noData />);
     }
@@ -129,22 +127,23 @@ export class Chart extends React.PureComponent<ChartComponentProps, State> {
             height={this.state.height}
             padding={{ top: 20, bottom: 54, left: 48, right: 16 }}
             scale={{ x: 'time', y: 'linear' }}
-            domain={{ x: this._xDomain, y: this._yDomain }}
+            domain={{ y: this._yDomain }}
             theme={VictoryTheme.material}
           >
             <VictoryAxis
+              crossAxis
               tickFormat={this._xTickFormat}
               tickCount={this._xTickCount}
               tickLabelComponent={<TimeLabel period={this._period} />}
               gridComponent={<TimeGridLine period={this._period} />}
             />
             <VictoryAxis
+              crossAxis
               dependentAxis
               tickValues={this._yTickValues}
               tickComponent={<YTick binding={binding} />}
               tickLabelComponent={<YLabel binding={binding} />}
               gridComponent={<HorizontalGridLine binding={binding} />}
-              axisComponent={<YAxis unitName={unitName} />}
             />
             <VictoryLine
               data={data}

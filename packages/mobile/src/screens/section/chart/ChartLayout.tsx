@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ChartLayoutProps } from '../../../ww-clients/features/charts';
+import GaugeInfo from './GaugeInfo';
 
 const styles = StyleSheet.create({
   container: {
@@ -9,12 +10,18 @@ const styles = StyleSheet.create({
   },
 });
 
-const ChartLayout: React.StatelessComponent<ChartLayoutProps> = ({ chart, flowToggle, periodToggle }) => (
-  <View style={styles.container}>
-    {chart}
-    {periodToggle}
-    {flowToggle}
-  </View>
-);
+const ChartLayout: React.SFC<ChartLayoutProps> = ({ gauge, section, chart, flowToggle, periodToggle }) => {
+  const approximate = section && (
+    (section.flows && section.flows.approximate) || (section.levels && section.levels.approximate)
+  );
+  return (
+    <View style={styles.container}>
+      {chart}
+      {periodToggle}
+      <GaugeInfo gauge={gauge} approximate={approximate} />
+      {flowToggle}
+    </View>
+  );
+};
 
 export default ChartLayout;

@@ -2,14 +2,13 @@ import upperFirst from 'lodash/upperFirst';
 import moment from 'moment';
 import React from 'react';
 import { translate } from 'react-i18next';
-import { Linking, StyleSheet, View } from 'react-native';
+import { Linking, StyleSheet } from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
 import { Popover, PopoverController } from 'react-native-modal-popover';
-import { WhitePortal } from 'react-native-portal';
-import { NavigationActions } from 'react-navigation';
-import { connect } from 'react-redux';
+import { Paragraph, Subheading } from 'react-native-paper';
+import { NavigationInjectedProps, withNavigation } from 'react-navigation';
 import { compose } from 'recompose';
-import { Icon, Left, Right, Row, Text } from '../../../components';
+import { Icon, Left, Right, Row } from '../../../components';
 import { WithT } from '../../../i18n';
 import theme from '../../../theme';
 import { Gauge } from '../../../ww-commons';
@@ -19,20 +18,25 @@ const styles = StyleSheet.create({
     padding: 8,
     backgroundColor: theme.colors.primaryBackground,
   },
+  link: {
+    color: theme.colors.primary,
+    textDecorationLine: 'underline',
+  },
 });
 
-interface Props extends WithT {
+interface OuterProps {
   gauge: Gauge;
   approximate: boolean;
-  navigate: (to: any) => void;
 }
 
-class GaugeInfo extends React.PureComponent<Props> {
+type InnerProps = OuterProps & WithT & NavigationInjectedProps;
+
+class GaugeInfo extends React.PureComponent<InnerProps> {
 
   _actionSheet: ActionSheet;
   _actionSheetOptions: string[];
 
-  constructor(props: Props) {
+  constructor(props: InnerProps) {
     super(props);
     this._actionSheetOptions = [
       props.t('section:chart.gaugeMenu.aboutSource'),
@@ -45,11 +49,11 @@ class GaugeInfo extends React.PureComponent<Props> {
     if (index === 1) {
       Linking.openURL(this.props.gauge.url).catch(() => {});
     } else if (index === 0) {
-      this.props.navigate({
+      this.props.navigation.navigate({
         routeName: 'Plain',
         params: {
           data: 'source',
-          title: this.props.t('section.chart.gaugeMenu.aboutSource'),
+          title: this.props.t('section:chart.gaugeMenu.aboutSource'),
           source: this.props.gauge.source,
         },
       });
@@ -69,52 +73,49 @@ class GaugeInfo extends React.PureComponent<Props> {
     const { name, lastMeasurement } = gauge;
     const isOutdated = moment().diff(lastMeasurement.timestamp, 'days') > 1;
     return (
-      <View>
-
+      <React.Fragment>
         <Row>
-          <Left><Text>{t('commons:gauge')}</Text></Left>
+          <Left><Subheading>{t('commons:gauge')}</Subheading></Left>
           <Right flexDirection="row">
             {
               approximate &&
               <PopoverController>
                 {({ openPopover, closePopover, popoverVisible, setPopoverAnchor, popoverAnchorRect }) => (
                   <React.Fragment>
-                    <Icon icon="warning" size={16} ref={setPopoverAnchor} onPress={openPopover}/>
+                    <Icon icon="alert" size={16} ref={setPopoverAnchor} onPress={openPopover}/>
                     <Popover
                       contentStyle={styles.popoverContent}
                       visible={popoverVisible}
                       onClose={closePopover}
                       fromRect={popoverAnchorRect}
                     >
-                      <Text note>{t('section:chart.approximateWarning')}</Text>
+                      <Paragraph>{t('section:chart.approximateWarning')}</Paragraph>
                     </Popover>
                   </React.Fragment>
                 )}
               </PopoverController>
             }
-            <Text onPress={this.onShowActionSheet}>{upperFirst(name)}</Text>
+            <Paragraph style={styles.link} onPress={this.onShowActionSheet}>{upperFirst(name)}</Paragraph>
           </Right>
         </Row>
 
-        <WhitePortal name="chartPortal" />
-
         <Row>
-          <Left><Text>{t('section:chart.lastUpdated')}</Text></Left>
+          <Left><Subheading>{t('section:chart.lastUpdated')}</Subheading></Left>
           <Right flexDirection="row">
-            <Text note>{moment(lastMeasurement.timestamp).fromNow()}</Text>
+            <Paragraph>{moment(lastMeasurement.timestamp).fromNow()}</Paragraph>
             {
               isOutdated &&
               <PopoverController>
                 {({ openPopover, closePopover, popoverVisible, setPopoverAnchor, popoverAnchorRect }) => (
                   <React.Fragment>
-                    <Icon icon="warning" size={16} ref={setPopoverAnchor} onPress={openPopover}/>
+                    <Icon icon="alert" size={16} ref={setPopoverAnchor} onPress={openPopover}/>
                     <Popover
                       contentStyle={styles.popoverContent}
                       visible={popoverVisible}
                       onClose={closePopover}
                       fromRect={popoverAnchorRect}
                     >
-                      <Text note>{t('section:chart.outdatedWarning')}</Text>
+                      <Paragraph>{t('section:chart.outdatedWarning')}</Paragraph>
                     </Popover>
                   </React.Fragment>
                 )}
@@ -125,22 +126,19 @@ class GaugeInfo extends React.PureComponent<Props> {
 
         <ActionSheet
           ref={this.setActionSheet}
-          title={t('section.chart.gaugeMenu.title')}
+          title={t('section:chart.gaugeMenu.title')}
           options={this._actionSheetOptions}
           cancelButtonIndex={2}
           onPress={this.onGaugeAction}
         />
 
-      </View>
+      </React.Fragment>
     );
   }
 
 }
 
-export default compose(
-  connect(
-  undefined,
-  { navigate: NavigationActions.navigate },
-  ),
+export default compose<InnerProps, OuterProps>(
+  withNavigation,
   translate(),
 )(GaugeInfo);
