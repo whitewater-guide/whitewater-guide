@@ -56,7 +56,7 @@ export class SimpleSection extends React.PureComponent<SectionComponentProps> {
             originX="12"
             originY="12"
             points="7,6 22,12 7,18"
-            rotate={rotate}
+            rotation={rotate}
             scale={scale}
             fill={color}
           />
