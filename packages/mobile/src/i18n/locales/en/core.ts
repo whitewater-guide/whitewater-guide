@@ -71,6 +71,7 @@ export default {
   },
   section: {
     chart: {
+      title: 'Flows',
       periodToggle: {
         title: 'Select period',
         day: 'Day',
@@ -95,12 +96,20 @@ export default {
       noGauge: 'There is no gauge for this section',
     },
     guide: {
+      title: 'Description',
       noData: 'No guide for this section yet...',
     },
     media: {
+      title: 'Media',
       photos: 'Photos',
       videos: 'Videos',
       noMedia: 'No {{type}} for this section yet :(',
+    },
+    map: {
+      title: 'Map',
+    },
+    info: {
+      title: 'Info',
     },
   },
   filter: {

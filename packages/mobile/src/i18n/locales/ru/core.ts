@@ -71,6 +71,7 @@ export default {
   },
   section: {
     chart: {
+      title: 'Уровни',
       periodToggle: {
         title: 'Выберите период',
         day: 'День',
@@ -95,12 +96,20 @@ export default {
       noGauge: 'Нет линейки для этой секции',
     },
     guide: {
+      title: 'Описание',
       noData: 'Для этой секции описание пока не добавлено',
     },
     media: {
+      title: 'Медиа',
       photos: 'Фото',
       videos: 'Видео',
       noMedia: 'Для этой секции пока нет {{type}} :(',
+    },
+    map: {
+      title: 'Карта',
+    },
+    info: {
+      title: 'Инфо',
     },
   },
   filter: {

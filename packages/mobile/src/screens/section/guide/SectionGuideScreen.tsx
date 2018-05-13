@@ -12,7 +12,7 @@ export const SectionGuideScreen: NavigationScreenComponent = ({ screenProps }) =
 );
 
 SectionGuideScreen.navigationOptions = {
-  tabBarLabel: <I18nText>section:info.title</I18nText>,
+  tabBarLabel: <I18nText>section:guide.title</I18nText>,
   tabBarIcon: () => (
     <Icon icon="book-open-variant" color={theme.colors.textLight} />
   ),
