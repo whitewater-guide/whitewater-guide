@@ -1,5 +1,3 @@
-import { Section } from '../../../../ww-commons';
+import { WithSection } from '../withSection';
 
-export interface SectionMapProps {
-  section: Section;
-}
+export type SectionMapProps = WithSection;
