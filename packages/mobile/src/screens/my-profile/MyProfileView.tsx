@@ -42,7 +42,7 @@ class MyProfileView extends React.PureComponent<InnerProps> {
         </Paper>
         <Spacer />
         <Button primary raised onPress={this.props.logout}>
-          {t('commons:logout')}
+          {t('myProfile:logout')}
         </Button>
       </Screen>
     );

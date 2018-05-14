@@ -1,6 +1,5 @@
 import React from 'react';
 import { NavigationScreenComponent } from 'react-navigation';
-import { I18nText } from '../../i18n';
 import container from './container';
 import MyProfileView from './MyProfileView';
 
@@ -11,5 +10,5 @@ export const MyProfileScreen: NavigationScreenComponent = () => (
 );
 
 MyProfileScreen.navigationOptions = {
-  title: (<I18nText>{'myProfile:title'}</I18nText>),
+  headerTitle: 'myProfile:title',
 };
