@@ -1,9 +1,9 @@
 import glamorous, { GlamorousComponent } from 'glamorous-native';
 import React from 'react';
 import { GestureResponderEvent, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
+import { TouchableRipple } from 'react-native-paper';
 import MDCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 import theme from '../theme';
-import { Touchable } from './Touchable';
 
 const styles = StyleSheet.create({
   button: {
@@ -40,9 +40,9 @@ const IconBase: React.StatelessComponent<IconBaseProps> = (props) => {
   const sz = large ? theme.icons.large : size;
   if (onPress || onLongPress) {
     return (
-      <Touchable onPress={onPress} onLongPress={onLongPress} style={style}>
+      <TouchableRipple onPress={onPress} onLongPress={onLongPress} style={style}>
         <MDCommunity name={icon} size={sz} color={clr} />
-      </Touchable>
+      </TouchableRipple>
     );
   }
   return (

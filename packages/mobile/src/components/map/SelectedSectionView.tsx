@@ -1,4 +1,4 @@
-import { capitalize, compact, get, noop, trim } from 'lodash';
+import { capitalize, get, noop, trim } from 'lodash';
 import React from 'react';
 import { translate } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
@@ -10,9 +10,8 @@ import { SelectedSectionViewProps } from '../../ww-clients/features/maps';
 import { stringifySeason } from '../../ww-clients/utils';
 import { DifficultyThumb } from '../DifficultyThumb';
 import { Icon } from '../Icon';
-import { NAVIGATE_BUTTON_HEIGHT, NAVIGATE_BUTTON_WIDTH } from '../NavigateButton';
+import { NAVIGATE_BUTTON_WIDTH } from '../NavigateButton';
 import { StarRating } from '../StarRating';
-import { Text } from '../Text';
 import SectionFlowsRow from './SectionFlowsRow';
 import SelectedElementView from './SelectedElementView';
 

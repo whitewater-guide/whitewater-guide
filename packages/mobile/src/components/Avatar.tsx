@@ -1,8 +1,8 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View, StyleProp, ViewStyle } from 'react-native';
+import { Image, StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
 import Config from 'react-native-config';
+import { TouchableRipple } from 'react-native-paper';
 import theme from '../theme';
-import { Touchable } from './Touchable';
 
 const AVATAR_SIZE = 48;
 const AVATAR_SIZE_SMALL = 32;
@@ -82,9 +82,9 @@ export const Avatar: React.StatelessComponent<AvatarProps> = ({ name, avatar, on
   );
   if (onPress) {
     return (
-      <Touchable onPress={onPress}>
+      <TouchableRipple onPress={onPress}>
         {result}
-      </Touchable>
+      </TouchableRipple>
     );
   }
   return result;
