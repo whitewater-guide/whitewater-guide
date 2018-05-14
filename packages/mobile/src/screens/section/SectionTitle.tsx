@@ -1,6 +1,8 @@
 import get from 'lodash/get';
 import React from 'react';
 import { Query, QueryResult } from 'react-apollo';
+import { Text } from 'react-native';
+import getTitleFontSize from '../../utils/getTitleFontSize';
 import { SECTION_NAME } from '../../ww-clients/features/sections';
 import { Section } from '../../ww-commons';
 
@@ -17,7 +19,13 @@ const SectionTitle: React.StatelessComponent<Props> = ({ sectionId }) => (
     {({ data }: QueryResult<Result>) => {
       const sName = get(data, 'section.name', null);
       const rName = get(data, 'section.river.name', null);
-      return sName ? `${rName} - ${sName}` : null;
+      if (!sName) {
+        return null;
+      }
+      const fullName = `${rName} - ${sName}`;
+      return (
+        <Text style={{ fontSize: getTitleFontSize(fullName)}}>{fullName}</Text>
+      );
     }}
   </Query>
 );
