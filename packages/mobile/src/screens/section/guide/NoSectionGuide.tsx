@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
 export default () => (
   <View style={styles.container}>
     <Caption>
-      <I18nText>section:info.noData</I18nText>
+      <I18nText>section:guide.noData</I18nText>
     </Caption>
   </View>
 );
