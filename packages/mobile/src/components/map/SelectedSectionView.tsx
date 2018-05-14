@@ -1,9 +1,14 @@
-import { capitalize, get, noop, trim } from 'lodash';
+import capitalize from 'lodash/capitalize';
+import get from 'lodash/get';
+import noop from 'lodash/noop';
+import trim from 'lodash/trim';
 import React from 'react';
 import { translate } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Button, Paragraph, Subheading } from 'react-native-paper';
 import Svg, { Path } from 'react-native-svg';
+import { NavigationInjectedProps, withNavigation } from 'react-navigation';
+import { compose } from 'recompose';
 import { WithT } from '../../i18n';
 import theme from '../../theme';
 import { SelectedSectionViewProps } from '../../ww-clients/features/maps';
@@ -82,9 +87,7 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Props extends SelectedSectionViewProps, WithT {
-  navigate: () => void;
-}
+type Props = SelectedSectionViewProps & WithT & NavigationInjectedProps;
 
 class SelectedSectionViewInternal extends React.Component<Props> {
 
@@ -95,10 +98,10 @@ class SelectedSectionViewInternal extends React.Component<Props> {
   }
 
   onDetails = () => {
-    // this.props.navigate({
-    //   routeName: 'SectionDetails',
-    //   params: { sectionId: this.props.selectedSection._id },
-    // });
+    this.props.navigation.navigate({
+      routeName: 'Section',
+      params: { sectionId: this.props.selectedSection.id },
+    });
   };
 
   renderHeader = () => {
@@ -192,4 +195,7 @@ class SelectedSectionViewInternal extends React.Component<Props> {
 }
 
 export const SelectedSectionView: React.ComponentType<SelectedSectionViewProps> =
-  translate()(SelectedSectionViewInternal);
+  compose<Props, SelectedSectionViewProps>(
+    translate(),
+    withNavigation,
+  )(SelectedSectionViewInternal);
