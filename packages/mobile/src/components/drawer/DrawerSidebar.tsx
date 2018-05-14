@@ -1,6 +1,6 @@
 import React from 'react';
 import { translate } from 'react-i18next';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { Divider, DrawerSection } from 'react-native-paper';
 import { NavigationActions, NavigationInjectedProps } from 'react-navigation';
 import { compose } from 'recompose';
@@ -13,12 +13,19 @@ import DrawerItem from './DrawerItem';
 import { WithToggle } from './types';
 import UserHeader from './UserHeader';
 
+const pjson = require('../../../package.json');
+
 const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: 'white',
     padding: 4,
     paddingTop: 32,
+  },
+  versionText: {
+    marginLeft: 16,
+    fontSize: 10,
+    color: 'rgba(0,0,0,0.32)',
   },
 });
 
@@ -81,6 +88,7 @@ class DrawerSidebarView extends React.PureComponent<InnerProps> {
           onPress={this.navigate}
           focused={isRouteFocused(state, 'Plain', { fixture: 'privacyPolicy' })}
         />
+        <Text style={styles.versionText}>{`v${pjson.version}`}</Text>
       </View>
     );
   }
