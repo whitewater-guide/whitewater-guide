@@ -1,15 +1,19 @@
 import React from 'react';
-import { Paragraph } from 'react-native-paper';
 import { NavigationScreenComponent } from 'react-navigation';
 import { Icon, Screen } from '../../../components';
 import { I18nText } from '../../../i18n';
 import theme from '../../../theme';
+import { ScreenProps } from '../types';
+import SectionMediaScreenContent from './SectionMediaScreenContent';
 
-export const SectionMediaScreen: NavigationScreenComponent = () => (
-  <Screen>
-    <Paragraph>Section media</Paragraph>
-  </Screen>
-);
+export const SectionMediaScreen: NavigationScreenComponent = (props) => {
+  const screenProps: ScreenProps = props.screenProps as any;
+  return (
+    <Screen>
+      <SectionMediaScreenContent section={screenProps.section.node} />
+    </Screen>
+  );
+};
 
 SectionMediaScreen.navigationOptions = {
   tabBarLabel: <I18nText>section:media.title</I18nText>,

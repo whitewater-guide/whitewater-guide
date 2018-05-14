@@ -101,9 +101,10 @@ export default {
     },
     media: {
       title: 'Media',
-      photos: 'Photos',
-      videos: 'Videos',
-      noMedia: 'No {{type}} for this section yet :(',
+      photo: 'Photos',
+      video: 'Videos',
+      blog: 'Blogs',
+      noMedia: 'No {{kind}} for this section yet :(',
     },
     map: {
       title: 'Map',

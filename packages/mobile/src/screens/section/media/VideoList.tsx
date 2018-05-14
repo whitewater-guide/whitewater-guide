@@ -1,8 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { StyleSheet, View } from 'react-native';
-import VideoItem from './VideoItem';
+import { Media, MediaKind } from '../../../ww-commons';
 import NoMedia from './NoMedia';
+import VideoItem from './VideoItem';
 
 const styles = StyleSheet.create({
   container: {
@@ -10,30 +10,21 @@ const styles = StyleSheet.create({
   },
 });
 
-const VideoList = ({ videos }) => {
+interface Props {
+  videos?: Media[];
+}
+
+const VideoList: React.SFC<Props> = ({ videos }) => {
   if (!videos || videos.length === 0) {
     return (
-      <NoMedia type="videos" />
+      <NoMedia kind={MediaKind.video} />
     );
   }
   return (
     <View style={styles.container}>
-      { videos.map(video => (<VideoItem key={video.url} video={video} />)) }
+      {videos.map((video) => (<VideoItem key={video.url} video={video} />))}
     </View>
   );
-};
-
-VideoList.propTypes = {
-  videos: PropTypes.arrayOf(PropTypes.shape({
-    type: PropTypes.string,
-    url: PropTypes.string,
-    copyright: PropTypes.string,
-    description: PropTypes.string,
-  })),
-};
-
-VideoList.defaultProps = {
-  videos: null,
 };
 
 export default VideoList;

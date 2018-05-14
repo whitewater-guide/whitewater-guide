@@ -1,10 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Modal, StyleSheet, View } from 'react-native';
+import { Modal, StyleSheet, Text, View } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import ImageViewer from 'react-native-image-zoom-viewer';
-import { getUrl } from './MediaConstants';
-import { Icon, Text } from '../../../components';
+import { Icon } from '../../../components';
 import theme from '../../../theme';
+import { Media } from '../../../ww-commons';
+import { getUrl } from './MediaConstants';
 
 const styles = StyleSheet.create({
   header: {
@@ -19,16 +20,16 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.32)',
     zIndex: 10,
   },
-  footer: {
+  footerContainer: {
     position: 'absolute',
     bottom: 0,
     left: 0,
     right: 0,
-    height: 48,
     padding: 4,
     alignItems: 'stretch',
     backgroundColor: 'rgba(0,0,0,0.32)',
-    zIndex: 10,
+  },
+  footer: {
   },
   indicator: {
     position: 'absolute',
@@ -47,6 +48,7 @@ const styles = StyleSheet.create({
   footerDescription: {
     flex: 1,
     color: theme.colors.textLight,
+    fontSize: 16,
   },
   footerCopyright: {
     color: theme.colors.textLight,
@@ -54,17 +56,13 @@ const styles = StyleSheet.create({
   },
 });
 
-class PhotoGallery extends React.PureComponent {
-  static propTypes = {
-    photos: PropTypes.arrayOf(PropTypes.shape({
-      type: PropTypes.string,
-      url: PropTypes.string,
-      copyright: PropTypes.string,
-      description: PropTypes.string,
-    })).isRequired,
-    index: PropTypes.number.isRequired,
-    onClose: PropTypes.func.isRequired,
-  };
+interface Props {
+  photos?: Media[];
+  index: number;
+  onClose: () => void;
+}
+
+class PhotoGallery extends React.PureComponent<Props> {
 
   renderHeader = () => (
     <View style={styles.header}>
@@ -77,7 +75,7 @@ class PhotoGallery extends React.PureComponent {
     </View>
   );
 
-  renderFooter = (index) => {
+  renderFooter = (index: number) => {
     const { description, copyright } = this.props.photos[index];
     return (
       <View style={styles.footer}>
@@ -89,7 +87,7 @@ class PhotoGallery extends React.PureComponent {
     );
   };
 
-  renderIndicator = (index, total) => (
+  renderIndicator = (index: number, total: number) => (
     <View style={styles.indicator}>
       <Text style={styles.indicatorText}>
         {`${index}/${total}`}
@@ -97,8 +95,15 @@ class PhotoGallery extends React.PureComponent {
     </View>
   );
 
+  renderImage = (props: any) => (
+    <FastImage {...props} />
+  );
+
   render() {
     const { photos, index, onClose } = this.props;
+    if (!photos) {
+      return null;
+    }
     const imageUrls = photos.map(({ url }) => getUrl(url));
     return (
       <Modal visible={index >= 0} onRequestClose={onClose}>
@@ -108,7 +113,9 @@ class PhotoGallery extends React.PureComponent {
           saveToLocalByLongPress={false}
           renderHeader={this.renderHeader}
           renderIndicator={this.renderIndicator}
+          footerContainerStyle={styles.footerContainer}
           renderFooter={this.renderFooter}
+          renderImage={this.renderImage}
         />
       </Modal>
     );

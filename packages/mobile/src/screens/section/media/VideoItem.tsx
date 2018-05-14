@@ -1,16 +1,18 @@
 import React from 'react';
 import { Linking, StyleSheet, View } from 'react-native';
-import { propType } from 'graphql-anywhere';
-import CachedImage from 'react-native-cached-image';
-import { MediaFragments } from '../../../commons/features/sections';
-import getVideoThumb from '../../../commons/utils/getVideoThumb';
-import { ListItem, Text } from '../../../components';
+import FastImage from 'react-native-fast-image';
+import { Caption, Paragraph, TouchableRipple } from 'react-native-paper';
+import { Row } from '../../../components';
+import { getVideoThumb } from '../../../ww-clients/utils';
+import { Media } from '../../../ww-commons';
 import { PHOTO_PADDING, PHOTO_SIZE } from './MediaConstants';
+import VideoThumbPlaceholder from './VideoThumbPlaceholder';
 
 const styles = StyleSheet.create({
   container: {
     padding: PHOTO_PADDING / 2,
     height: PHOTO_SIZE + 2 * PHOTO_PADDING,
+    borderBottomWidth: undefined,
   },
   body: {
     flex: 1,
@@ -24,40 +26,50 @@ const styles = StyleSheet.create({
   },
   description: {
     flex: 1,
-    fontSize: 14,
   },
 });
 
-class VideoItem extends React.PureComponent {
+interface Props {
+  video: Media;
+}
 
-  static propTypes = {
-    video: propType(MediaFragments.Core).isRequired,
-  };
+interface State {
+  thumb: string | null;
+}
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      thumb: null,
-    };
-  }
+class VideoItem extends React.PureComponent<Props, State> {
+  state: State = { thumb: null };
 
   async componentDidMount() {
-    const thumb = await getVideoThumb(this.props.video.url);
-    this.setState({ thumb });
+    const thumb = await getVideoThumb(this.props.video.url, PHOTO_SIZE);
+    this.setState({ thumb: thumb ? thumb.thumb : null });
   }
 
   onPress = () => Linking.openURL(this.props.video.url).catch(() => {});
 
+  renderThumb = () => {
+    const { thumb } = this.state;
+    if (thumb) {
+      return <FastImage source={{ uri: this.state.thumb }} style={styles.image} resizeMode="cover" />;
+    }
+    return <VideoThumbPlaceholder />;
+  };
+
   render() {
     const { description, copyright } = this.props.video;
     return (
-      <ListItem style={styles.container} onPress={this.onPress}>
-        <CachedImage source={{ uri: this.state.thumb }} style={styles.image} resizeMode="cover" />
-        <View style={styles.body}>
-          <Text style={styles.description} numberOfLines={copyright ? 3 : 4}>{description}</Text>
-          { copyright && <Text note>{`By: ${copyright}`}</Text> }
-        </View>
-      </ListItem>
+      <TouchableRipple onPress={this.onPress}>
+        <Row style={styles.container}>
+          {this.renderThumb()}
+          <View style={styles.body}>
+            <Paragraph style={styles.description} numberOfLines={copyright ? 3 : 4}>{description}</Paragraph>
+            {
+              copyright &&
+              <Caption>{`© ${copyright}`}</Caption>
+            }
+          </View>
+        </Row>
+      </TouchableRipple>
     );
   }
 }

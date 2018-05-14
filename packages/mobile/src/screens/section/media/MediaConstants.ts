@@ -8,8 +8,10 @@ export const PHOTO_PADDING = 4;
 export const PHOTO_COLUMNS = 4;
 export const PHOTO_SIZE = Math.floor((minDim - PHOTO_PADDING * (PHOTO_COLUMNS + 1)) / PHOTO_COLUMNS);
 export const PHOTO_SIZE_PX = PixelRatio.getPixelSizeForLayoutSize(PHOTO_SIZE);
-export const THUMBS_BASE = `${Config.HOST}/thumbs`;
-export const IMAGES_BASE = `${Config.HOST}/images`;
 
-export const getThumbUri = (url, size = PHOTO_SIZE_PX) => ({ uri: `${THUMBS_BASE}/${size}/${url}` });
-export const getUrl = url => ({ url: `${IMAGES_BASE}/${url}` });
+export const getThumbUri = (file: string, size = PHOTO_SIZE_PX) => ({
+  uri: `${Config.BACKEND_PROTOCOL}://${Config.BACKEND_HOST}/images/${size}/media/${file}`,
+});
+export const getUrl = (file: string) => ({
+  url: `${Config.BACKEND_PROTOCOL}://${Config.BACKEND_HOST}/uploads/media/${file}`,
+});

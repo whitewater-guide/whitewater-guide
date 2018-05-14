@@ -101,9 +101,10 @@ export default {
     },
     media: {
       title: 'Медиа',
-      photos: 'Фото',
-      videos: 'Видео',
-      noMedia: 'Для этой секции пока нет {{type}} :(',
+      photo: 'Фото',
+      video: 'Видео',
+      blog: 'Блоги',
+      noMedia: 'Для этой секции пока нет {{kind}} :(',
     },
     map: {
       title: 'Карта',

@@ -1,9 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import CachedImage from 'react-native-cached-image';
-import { PHOTO_PADDING, PHOTO_SIZE, getThumbUri } from './MediaConstants';
+import { StyleSheet, View } from 'react-native';
+import { Media, MediaKind } from '../../../ww-commons';
+import { PHOTO_PADDING, PHOTO_SIZE } from './MediaConstants';
 import NoMedia from './NoMedia';
+import PhotoGridItem from './PhotoGridItem';
 
 const styles = StyleSheet.create({
   grid: {
@@ -21,35 +21,24 @@ const styles = StyleSheet.create({
   },
 });
 
-const PhotoGrid = ({ photos, onPress }) => {
+interface Props {
+  photos?: Media[];
+  onPress: (index: number) => void;
+}
+
+const PhotoGrid: React.SFC<Props> = ({ photos, onPress }) => {
   if (!photos || photos.length === 0) {
     return (
-      <NoMedia type="photos" />
+      <NoMedia kind={MediaKind.photo} />
     );
   }
   return (
     <View style={styles.grid}>
       { photos.map(({ url }, index) => (
-        <TouchableOpacity key={url} onPress={() => onPress(index)}>
-          <CachedImage source={getThumbUri(url)} style={styles.image} />
-        </TouchableOpacity>
+        <PhotoGridItem key={index} url={url} index={index} onPress={onPress} />
       ))}
     </View>
   );
-};
-
-PhotoGrid.propTypes = {
-  photos: PropTypes.arrayOf(PropTypes.shape({
-    type: PropTypes.string,
-    url: PropTypes.string,
-    copyright: PropTypes.string,
-    description: PropTypes.string,
-  })),
-  onPress: PropTypes.func.isRequired,
-};
-
-PhotoGrid.defaultProps = {
-  photos: null,
 };
 
 export default PhotoGrid;

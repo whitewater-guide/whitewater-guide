@@ -448,4 +448,29 @@ declare module 'react-native-paper' {
 
   export class ToolbarContent extends Component<ToolbarContentProps> {}
 
+  interface ListItemProps extends Themeable {
+    /**
+     * Title text for the list item.
+     */
+    title: ReactNode;
+    /**
+     * Description text for the list item.
+     */
+    description?: ReactNode;
+    /**
+     * Icon to display for the `ListItem`.
+     */
+    icon?: IconSource;
+    /**
+     * Component to display as avatar image.
+     */
+    avatar?: ReactNode;
+    /**
+     * Function to execute on press.
+     */
+    onPress?: () => void;
+    style?: StyleProp<ViewStyle>;
+  }
+
+  export class ListItem extends Component<ListItemProps> {}
 }

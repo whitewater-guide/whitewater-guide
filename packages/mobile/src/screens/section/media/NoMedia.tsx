@@ -1,9 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { translate } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
+import { Subheading } from 'react-native-paper';
+import { WithT } from '../../../i18n';
+import { MediaKind } from '../../../ww-commons';
 import { PHOTO_SIZE } from './MediaConstants';
-import { Text } from '../../../components';
-import I18n from '../../../i18n';
 
 const styles = StyleSheet.create({
   container: {
@@ -14,17 +15,17 @@ const styles = StyleSheet.create({
   },
 });
 
-const NoMedia = ({ type }) => {
-  const text = I18n.t('section.media.noMedia', { type: I18n.t('section.media.' + type).toLowerCase()});
+interface Props {
+  kind: MediaKind;
+}
+
+const NoMedia: React.SFC<Props & WithT> = ({ kind, t }) => {
+  const text = t('section:media.noMedia', { kind: t('section:media.' + kind).toLowerCase()});
   return (
     <View style={styles.container}>
-      <Text note>{text}</Text>
+      <Subheading>{text}</Subheading>
     </View>
   );
 };
 
-NoMedia.propTypes = {
-  type: PropTypes.string.isRequired,
-};
-
-export default NoMedia;
+export default translate()(NoMedia);

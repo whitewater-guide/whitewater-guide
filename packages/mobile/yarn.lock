@@ -8495,6 +8495,12 @@ react-native-drawer-layout@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/react-native-drawer-layout/-/react-native-drawer-layout-2.0.0.tgz#8ce1e4027bd3f3a09045afdb46080e18346be232"
 
+react-native-fast-image@^4.0.14:
+  version "4.0.14"
+  resolved "https://registry.yarnpkg.com/react-native-fast-image/-/react-native-fast-image-4.0.14.tgz#1e84c9a01b1471793e294ef4e7c3cc20e09562a0"
+  dependencies:
+    prop-types "^15.5.10"
+
 react-native-fbsdk@^0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/react-native-fbsdk/-/react-native-fbsdk-0.7.0.tgz#263dfe5845205de7b80efb0f18ed5c1ded025291"
@@ -8512,6 +8518,16 @@ react-native-fit-image@^1.5.2:
   resolved "https://registry.yarnpkg.com/react-native-fit-image/-/react-native-fit-image-1.5.4.tgz#73d2fccc7ad902cf2ffcd008a2a74749ad50134a"
   dependencies:
     prop-types "^15.5.10"
+
+react-native-image-pan-zoom@^2.1.2:
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/react-native-image-pan-zoom/-/react-native-image-pan-zoom-2.1.3.tgz#1f1847518eb0d10a43fce20ee387a9f273dacd9a"
+
+react-native-image-zoom-viewer@^2.2.5:
+  version "2.2.5"
+  resolved "https://registry.yarnpkg.com/react-native-image-zoom-viewer/-/react-native-image-zoom-viewer-2.2.5.tgz#ad06f7b4666ef554ab2a900b92b56d2658570464"
+  dependencies:
+    react-native-image-pan-zoom "^2.1.2"
 
 react-native-interactable@^0.1.10:
   version "0.1.10"
@@ -8549,9 +8565,9 @@ react-native-markdown-renderer@^3.2.1:
     prop-types "^15.5.10"
     react-native-fit-image "^1.5.2"
 
-react-native-modal-popover@0.0.8:
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/react-native-modal-popover/-/react-native-modal-popover-0.0.8.tgz#2fde0693d35f3f87f2086f7cba6db479a95581f2"
+react-native-modal-popover@^0.0.10:
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/react-native-modal-popover/-/react-native-modal-popover-0.0.10.tgz#89271eb45f6c3f83702669378c6af97f0c258711"
   dependencies:
     "@types/prop-types" "^15.5.2"
     lodash.debounce "^4.0.8"

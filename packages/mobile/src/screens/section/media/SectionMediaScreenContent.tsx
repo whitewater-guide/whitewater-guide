@@ -1,48 +1,51 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import { flattenProp, hoistStatics } from 'recompose';
 import groupBy from 'lodash/groupBy';
-import { Screen, TabIcon, Text } from '../../../components';
-import PhotoGrid from './PhotoGrid';
+import React from 'react';
+import { translate } from 'react-i18next';
+import { StatusBar } from 'react-native';
+import { Title } from 'react-native-paper';
+import { WithT } from '../../../i18n';
+import { Section } from '../../../ww-commons';
+import BlogList from './BlogList';
 import PhotoGallery from './PhotoGallery';
+import PhotoGrid from './PhotoGrid';
 import VideoList from './VideoList';
-import I18n from '../../../i18n';
 
-class SectionMediaScreen extends React.PureComponent {
+interface Props {
+  section: Section;
+}
 
-  static propTypes = {
-    section: PropTypes.object,
-  };
+interface State {
+  openPhotoIndex: number;
+}
 
-  static navigationOptions = {
-    tabBarIcon: () => <TabIcon icon="photos" />,
-  };
+class SectionMediaScreenContent extends React.PureComponent<Props & WithT, State> {
 
-  state = {
+  state: State = {
     openPhotoIndex: -1,
   };
 
-  onPhotoIndexChanged = openPhotoIndex => this.setState({ openPhotoIndex });
+  onPhotoIndexChanged = (openPhotoIndex: number) => this.setState({ openPhotoIndex });
 
   onGalleryClose = () => this.setState({ openPhotoIndex: -1 });
 
   render() {
-    const groups = groupBy(this.props.section.media, 'type');
+    const { section, t } = this.props;
+    const groups = groupBy(section.media.nodes, 'kind');
     return (
-      <Screen>
-        <Text paddingHorizontal={4}>{I18n.t('section.media.photos')}</Text>
+      <React.Fragment>
+        <StatusBar hidden={this.state.openPhotoIndex >= 0} />
+        <Title>{t('section:media.photo')}</Title>
         <PhotoGrid photos={groups.photo} onPress={this.onPhotoIndexChanged} />
-        <Text paddingHorizontal={4}>{I18n.t('section.media.videos')}</Text>
+        <Title>{t('section:media.video')}</Title>
         <VideoList videos={groups.video} />
-        {
-          groups.photo &&
-          <PhotoGallery photos={groups.photo} index={this.state.openPhotoIndex} onClose={this.onGalleryClose} />
-        }
-      </Screen>
+        <Title>{t('section:media.blog')}</Title>
+        <BlogList blogs={groups.blog} />
+
+        <PhotoGallery photos={groups.photo} index={this.state.openPhotoIndex} onClose={this.onGalleryClose} />
+      </React.Fragment>
     );
   }
 
 }
 
-const container = flattenProp('screenProps');
-export default hoistStatics(container)(SectionMediaScreen);
+export default translate()(SectionMediaScreenContent);
