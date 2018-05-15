@@ -9,6 +9,7 @@ export const LIST_SECTIONS = gql`
         ...SectionEnds
         ...SectionShape
         ...SectionMeasurements
+        ...SectionTags
         updatedAt
       }
       count
@@ -18,4 +19,5 @@ export const LIST_SECTIONS = gql`
   ${SectionFragments.Ends}
   ${SectionFragments.Shape}
   ${SectionFragments.Measurements}
+  ${SectionFragments.Tags}
 `;

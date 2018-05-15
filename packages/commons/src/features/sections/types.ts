@@ -112,4 +112,6 @@ export const DefaultSectionSearchTerms: SectionSearchTerms = {
   duration: [Duration.LAPS, Duration.MULTIDAY],
   rating: 0,
   seasonNumeric: [0, 23],
+  withTags: [],
+  withoutTags: [],
 };

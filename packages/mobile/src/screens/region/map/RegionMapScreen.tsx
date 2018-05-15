@@ -3,7 +3,6 @@ import { NavigationScreenComponent } from 'react-navigation';
 import { Icon, Screen } from '../../../components';
 import { I18nText } from '../../../i18n';
 import theme from '../../../theme';
-import FilterButton from '../FilterButton';
 import { ScreenProps } from '../types';
 import RegionMap from './RegionMap';
 
@@ -24,5 +23,4 @@ RegionMapScreen.navigationOptions = {
   tabBarIcon: () => (
     <Icon icon="map" color={theme.colors.textLight} />
   ),
-  headerRight: <FilterButton />,
 };

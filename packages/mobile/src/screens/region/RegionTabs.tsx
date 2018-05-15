@@ -51,7 +51,12 @@ class RegionTabsContent extends React.PureComponent<InnerProps & OuterProps> {
         <View style={StyleSheet.absoluteFill} pointerEvents="box-none">
           <WhitePortal name="region" />
         </View>
-        <SectionsProgress loaded={sections.nodes.length} count={sections.count} />
+        {
+          sections.loading &&
+          (
+            <SectionsProgress loaded={sections.nodes.length} count={sections.count} />
+          )
+        }
       </React.Fragment>
     );
   }

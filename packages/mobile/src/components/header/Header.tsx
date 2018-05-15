@@ -1,12 +1,14 @@
 import get from 'lodash/get';
 import React from 'react';
 import { translate } from 'react-i18next';
-import { Toolbar, ToolbarAction, ToolbarBackAction, ToolbarContent } from 'react-native-paper';
+import { Platform } from 'react-native';
+import { Toolbar, ToolbarAction, ToolbarContent } from 'react-native-paper';
 import { HeaderProps, NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { toggleDrawer } from '../../core/actions';
 import { WithT } from '../../i18n';
+import { HeaderRight } from '../../screens';
 
 type Props = HeaderProps & WithT & { openDrawer: () => void };
 
@@ -17,15 +19,24 @@ class Header extends React.PureComponent<Props> {
 
   renderLeftButton = () => {
     const { index } = this.props;
+    const backProps = Platform.select({
+      ios: {
+        icon: 'chevron-left',
+        size: 36,
+      },
+      android: {
+        icon: 'arrow-left',
+        size: 24,
+      },
+    });
     return index ?
-      <ToolbarBackAction onPress={this.goBack} /> :
+      <ToolbarAction {...backProps} onPress={this.goBack} /> :
       <ToolbarAction icon="menu" onPress={this.props.openDrawer} />
     ;
   };
 
   render() {
     const title = get(this.props, 'scene.descriptor.options.headerTitle', null);
-    const right = get(this.props, 'scene.descriptor.options.headerRight', null);
     let titleNode: React.ReactNode = null;
     if (title) {
       titleNode = typeof title === 'string' ? this.props.t(title) : title;
@@ -34,7 +45,7 @@ class Header extends React.PureComponent<Props> {
       <Toolbar>
         {this.renderLeftButton()}
         <ToolbarContent title={titleNode} />
-        {right}
+        <HeaderRight navigation={this.props.navigation} />
       </Toolbar>
     );
   }

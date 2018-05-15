@@ -1,6 +1,6 @@
 {
   "name": "whitewater-commons",
-  "version": "0.0.30",
+  "version": "0.0.32",
   "description": "shared code for whitewater.guide backend and frontend",
   "main": "build/index.js",
   "author": "Konstantin Kuznetsov",

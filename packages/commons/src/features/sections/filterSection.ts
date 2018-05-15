@@ -29,8 +29,18 @@ export const getFilter = (terms: SectionSearchTerms) => (section: Section): bool
   if (section.rating !== null && section.rating < rating) {
     return false;
   }
+  if (withTags && withTags.length) {
+    const someTagsMissing = withTags.some((id) => !section.tags.find((st) => st.id === id));
+    if (someTagsMissing) {
+      return false;
+    }
+  }
+  if (withoutTags && withoutTags.length) {
+    const hasBadTag = withoutTags.some((id) => !!section.tags.find((st) => st.id === id));
+    if (hasBadTag) {
+      return false;
+    }
+  }
   // seasonNumeric
-  // withTags
-  // withoutTags
   return true;
 };

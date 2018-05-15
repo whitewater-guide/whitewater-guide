@@ -11,7 +11,14 @@ import {
 import { Drawer } from './components';
 import { renderHeader } from './components/header';
 import { navigationChannel } from './core/sagas';
-import { MyProfileScreen, PlainTextScreen, RegionScreen, RegionsListScreen, SectionTabs } from './screens';
+import {
+  FilterScreen,
+  MyProfileScreen,
+  PlainTextScreen,
+  RegionScreen,
+  RegionsListScreen,
+  SectionTabs,
+} from './screens';
 import { RegionProvider } from './ww-clients/features/regions';
 
 const routes = {
@@ -30,6 +37,9 @@ const routes = {
   MyProfile: {
     screen: MyProfileScreen,
   },
+  Filter: {
+    screen: FilterScreen,
+  },
 };
 
 const config: StackNavigatorConfig = {
@@ -37,6 +47,7 @@ const config: StackNavigatorConfig = {
   navigationOptions: () => ({
     header: renderHeader,
     headerStyle: { backgroundColor: '#FFFFFF' },
+    gesturesEnabled: false,
   }),
 };
 

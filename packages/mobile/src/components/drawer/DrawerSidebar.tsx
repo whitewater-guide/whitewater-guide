@@ -59,7 +59,7 @@ class DrawerSidebarView extends React.PureComponent<InnerProps> {
           }
           <DrawerItem
             label={t('drawer:regions')}
-            icon="list"
+            icon="view-list"
             routeName="RegionsList"
             onPress={this.navigate}
             focused={isRouteFocused(state, 'RegionsList')}

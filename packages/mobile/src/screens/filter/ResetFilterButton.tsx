@@ -1,39 +1,30 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { StyleSheet } from 'react-native';
-import { connect } from 'react-redux';
-import { Button } from '../../components';
-import { resetSearchTerms } from '../../commons/features/regions';
+import { translate } from 'react-i18next';
+import { Button } from 'react-native-paper';
+import { compose } from 'recompose';
+import { NavigationInjectedProps } from '../../../typings/react-navigation';
+import { WithT } from '../../i18n';
 import theme from '../../theme';
-import I18n from '../../i18n';
+import { consumeRegion, RegionContext } from '../../ww-clients/features/regions';
 
-const styles = StyleSheet.create({
-  button: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 12,
-  },
-  label: {
-    color: theme.colors.primary,
-    fontSize: 14,
-  },
-});
+type Props = WithT & NavigationInjectedProps & Pick<RegionContext, 'resetSearchTerms'>;
 
-class ResetFilterButton extends React.PureComponent {
-  static propTypes = {
-    resetSearchTerms: PropTypes.func.isRequired,
-    regionId: PropTypes.string.isRequired,
-  };
-
+class ResetFilterButton extends React.PureComponent<Props> {
   onPress = () => {
-    this.props.resetSearchTerms(this.props.regionId);
+    this.props.resetSearchTerms();
+    this.props.navigation.goBack(null);
   };
 
   render() {
     return (
-      <Button link small padding={12} label={I18n.t('filter.reset')} onPress={this.onPress} />
+      <Button compact color={theme.colors.textLight} onPress={this.onPress}>
+        {this.props.t('filter:reset')}
+      </Button>
     );
   }
 }
 
-export default connect(undefined, { resetSearchTerms })(ResetFilterButton);
+export default compose<Props, NavigationInjectedProps>(
+  translate(),
+  consumeRegion(({ resetSearchTerms }) => ({ resetSearchTerms })),
+)(ResetFilterButton);

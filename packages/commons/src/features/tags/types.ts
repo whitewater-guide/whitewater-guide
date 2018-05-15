@@ -7,10 +7,22 @@ export enum TagCategory {
   misc = 'misc',
 }
 
+export enum TagSelection {
+  SELECTED = 'selected',
+  DESELECTED = 'deselected',
+  NONE = 'none',
+}
+
+export const TagSelections = [TagSelection.NONE, TagSelection.SELECTED, TagSelection.DESELECTED];
+
 export const TAG_CATEGORIES = ['kayaking', 'hazards', 'supply', 'misc'];
 
 export interface Tag extends NamedNode {
   category: TagCategory;
+}
+
+export interface SelectableTag extends Tag {
+  selection?: TagSelection;
 }
 
 export interface TagInput {
