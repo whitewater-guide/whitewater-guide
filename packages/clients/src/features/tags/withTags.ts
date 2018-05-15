@@ -1,10 +1,6 @@
 import { graphql } from 'react-apollo';
-import { Tag, WithTags } from '../../../ww-commons';
-import { LIST_TAGS } from './listTags.query';
-
-interface Result {
-  tags: Tag[];
-}
+import { WithTags } from '../../../ww-commons';
+import { LIST_TAGS, Result } from './listTags.query';
 
 export const withTags = (cached = true) => graphql<any, Result, any, WithTags>(
   LIST_TAGS,

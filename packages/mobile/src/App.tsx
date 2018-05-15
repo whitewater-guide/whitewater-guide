@@ -5,6 +5,7 @@ import { Provider as PaperProvider } from 'react-native-paper';
 import { PortalProvider } from 'react-native-portal';
 import { Provider } from 'react-redux';
 import { Store, Unsubscribe } from 'redux';
+import { TagsProvider } from './ww-clients/features/tags';
 import { Screen, SplashScreen } from './components';
 import { getApolloClient } from './core/apollo';
 import configMisc from './core/config/configMisc';
@@ -59,11 +60,13 @@ class App extends React.Component<{}, State> {
           <ApolloProvider client={this.apolloClient}>
             <PaperProvider theme={PaperTheme}>
               <PortalProvider>
-                <MyProfileProvider renderLoading={this.renderLoading}>
-                  <I18nProvider>
-                    <RootNavigator persistenceKey={navigationPersistenceKey} />
-                  </I18nProvider>
-                </MyProfileProvider>
+                <TagsProvider>
+                  <MyProfileProvider renderLoading={this.renderLoading}>
+                    <I18nProvider>
+                      <RootNavigator persistenceKey={navigationPersistenceKey} />
+                    </I18nProvider>
+                  </MyProfileProvider>
+                </TagsProvider>
               </PortalProvider>
             </PaperProvider>
           </ApolloProvider>

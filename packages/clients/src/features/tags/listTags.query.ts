@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+import { Tag } from '../../../ww-commons';
 
 export const LIST_TAGS = gql`
   query listTags {
@@ -9,3 +10,7 @@ export const LIST_TAGS = gql`
     }
   }
 `;
+
+export interface Result {
+  tags: Tag[];
+}
