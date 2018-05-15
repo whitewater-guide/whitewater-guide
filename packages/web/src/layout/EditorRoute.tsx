@@ -1,10 +1,10 @@
 import React from 'react';
 import { Redirect, Route, RouteProps } from 'react-router-dom';
 import { branch, compose, renderComponent } from 'recompose';
-import { WithRegion, withRegion } from '../ww-clients/features/regions';
+import { consumeRegion, WithRegion } from '../ww-clients/features/regions';
 
 const container = compose(
-  withRegion,
+  consumeRegion(),
   branch<WithRegion>(
     props => !(props.region && props.region.node!.editable),
     renderComponent(() => (<Redirect to="/403" />)),

@@ -21,7 +21,7 @@ export const EditorOnly: React.StatelessComponent = ({ children }) => (
       }
       return (
         <RegionConsumer>
-          {(region) => {
+          {({ region }) => {
             if (!region.node) {
               return null;
             }

@@ -3,7 +3,7 @@ import React from 'react';
 import { Column, Table as RVTable, TableProps } from 'react-virtualized';
 import { compose, mapProps } from 'recompose';
 import { emitter, POKE_TABLES } from '../../utils';
-import { withRegion } from '../../ww-clients/features/regions';
+import { consumeRegion } from '../../ww-clients/features/regions';
 import { withMe } from '../../ww-clients/features/users';
 import { AdminColumn } from './AdminColumn';
 import { BooleanColumn, renderBoolean } from './BooleanColumn';
@@ -26,7 +26,7 @@ const columnMapper = (isAdmin: boolean, isEditor: boolean) => (column: React.Rea
 
 const enhancer = compose<{}, TableProps>(
   withMe,
-  withRegion,
+  consumeRegion(),
   mapProps(({ me, children, region, ...props }) => {
     const isEditor = region && region.node && region.node.editable;
     const isAdmin = me && me.admin;

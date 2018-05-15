@@ -1,6 +1,6 @@
 {
   "name": "whitewater",
-  "version": "1.1.124",
+  "version": "1.1.125",
   "private": true,
   "scripts": {
     "postinstall": "./postinstall.sh",
@@ -62,7 +62,7 @@
     "react-native-markdown-renderer": "^3.2.1",
     "react-native-modal-popover": "^0.0.10",
     "react-native-paper": "^1.7.0",
-    "react-native-portal": "https://github.com/doomsower/react-native-portal#nostate",
+    "react-native-portal": "1.3.0",
     "react-native-splash-screen": "^3.0.6",
     "react-native-star-rating": "^1.0.9",
     "react-native-svg": "^6.3.1",

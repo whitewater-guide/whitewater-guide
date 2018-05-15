@@ -14,8 +14,8 @@ export class RegionAdmin extends React.Component {
     return (
       <Content card>
         <RegionConsumer>
-          {(regionNode) => (
-            <CardHeader title={regionNode.node!.name}>
+          {({ region }) => (
+            <CardHeader title={region.node!.name}>
               <EditorLanguagePicker />
             </CardHeader>
           )}

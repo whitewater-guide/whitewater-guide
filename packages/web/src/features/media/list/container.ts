@@ -5,7 +5,7 @@ import { withDeleteMutation } from '../../../apollo';
 import { withLoading } from '../../../components';
 import { queryResultToList } from '../../../ww-clients/apollo';
 import { withFeatureIds } from '../../../ww-clients/core';
-import { withRegion } from '../../../ww-clients/features/regions';
+import { consumeRegion } from '../../../ww-clients/features/regions';
 import REMOVE_MEDIA from './removeMedia.mutation';
 import SECTIONS_MEDIA from './sectionsMedia.query';
 import { MediaListProps, WithMediaList, WithMediaListOptions, WithMediaListResult } from './types';
@@ -30,7 +30,7 @@ export const withSectionMedia = ({ fetchPolicy = 'cache-and-network' }: WithMedi
       propName: 'removeMedia',
     }),
     withLoading<WithMediaList>(({ mediaBySection }) => mediaBySection.loading),
-    withRegion,
+    consumeRegion(),
   );
 
 export default withSectionMedia;

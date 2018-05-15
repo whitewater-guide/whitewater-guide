@@ -19,8 +19,9 @@ export class MyProfileProvider extends React.PureComponent<Props> {
           if (loading) {
             return renderLoading();
           }
+          const me = data ? data.me : null;
           return (
-            <Provider value={data!.me}>
+            <Provider value={me}>
               {this.props.children}
             </Provider>
           );

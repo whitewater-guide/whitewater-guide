@@ -1,26 +1,15 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Route, RouteComponentProps, Switch } from 'react-router-dom';
 import { Loading } from '../../components';
 import { AdminRoute, EditorRoute } from '../../layout';
-import { RegionProvider, selectRegion } from '../../ww-clients/features/regions';
+import { RegionProvider } from '../../ww-clients/features/regions';
 import RegionAdmin from './admin';
 import RegionDetails from './details';
 import RegionForm from './form';
 
-interface Props extends RouteComponentProps<{ regionId: string }> {
-  selectRegion: (id: string | null) => void;
-}
+type Props = RouteComponentProps<{ regionId: string }>;
 
 class RegionRoute extends React.PureComponent<Props> {
-  componentDidMount() {
-    this.props.selectRegion(this.props.match.params.regionId);
-  }
-
-  componentWillUnmount() {
-    this.props.selectRegion(null);
-  }
-
   renderLoading = () => <Loading />;
 
   render() {
@@ -37,7 +26,4 @@ class RegionRoute extends React.PureComponent<Props> {
   }
 }
 
-export default connect(
-  undefined,
-  { selectRegion },
-)(RegionRoute as any);
+export default RegionRoute;

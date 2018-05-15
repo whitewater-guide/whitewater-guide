@@ -1,6 +1,6 @@
 {
   "name": "web",
-  "version": "0.1.119",
+  "version": "0.1.120",
   "private": true,
   "homepage": "/admin/",
   "dependencies": {
@@ -70,6 +70,7 @@
   "scripts": {
     "start": "react-scripts-ts start",
     "start:local": "REACT_APP_API_HOST=http://ww-local.io react-scripts-ts start",
+    "start:beta": "REACT_APP_API_HOST=https://beta.whitewater.guide react-scripts-ts start",
     "build": "react-scripts-ts build",
     "analyze": "source-map-explorer build/static/js/main.*",
     "tsc": "tsc",
