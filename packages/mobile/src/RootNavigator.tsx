@@ -3,13 +3,16 @@ import {
   createNavigationContainer,
   createStackNavigator,
   NavigationNavigatorProps,
+  NavigationRoute,
   NavigationRouter,
+  NavigationState,
   StackNavigatorConfig,
 } from 'react-navigation';
 import { Drawer } from './components';
 import { renderHeader } from './components/header';
 import { navigationChannel } from './core/sagas';
 import { MyProfileScreen, PlainTextScreen, RegionScreen, RegionsListScreen, SectionTabs } from './screens';
+import { RegionProvider } from './ww-clients/features/regions';
 
 const routes = {
   RegionsList: {
@@ -39,10 +42,12 @@ const config: StackNavigatorConfig = {
 
 const Navigator = createStackNavigator(routes, config);
 
-class RootNavigatorView extends React.PureComponent<NavigationNavigatorProps> {
+type Props = NavigationNavigatorProps<{}, NavigationState>;
+
+class RootNavigatorView extends React.PureComponent<Props> {
   static router: NavigationRouter<any, any> = Navigator.router;
 
-  constructor(props: NavigationNavigatorProps) {
+  constructor(props: Props) {
     super(props);
     navigationChannel.dispatch = props.navigation.dispatch;
   }
@@ -55,10 +60,14 @@ class RootNavigatorView extends React.PureComponent<NavigationNavigatorProps> {
 
   render() {
     const { navigation } = this.props;
+    const regionRoute = navigation.state.routes.find((route: NavigationRoute) => route.routeName === 'Region');
+    const regionId = regionRoute ? regionRoute.params.regionId : undefined;
     return (
-      <Drawer navigation={navigation as any}>
-        <Navigator navigation={navigation} />
-      </Drawer>
+      <RegionProvider regionId={regionId}>
+        <Drawer navigation={navigation as any}>
+          <Navigator navigation={navigation} />
+        </Drawer>
+      </RegionProvider>
     );
   }
 }

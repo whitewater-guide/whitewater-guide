@@ -1,7 +1,7 @@
 import React from 'react';
 import { Loading } from '../../components';
 import { PureScreen } from '../../utils/navigation';
-import { RegionProvider } from '../../ww-clients/features/regions';
+import { RegionConsumer } from '../../ww-clients/features/regions';
 import { Navigator, RegionTabs } from './RegionTabs';
 import RegionTitle from './RegionTitle';
 import { InnerProps, NavParams } from './types';
@@ -13,9 +13,17 @@ export class RegionScreen extends PureScreen<InnerProps, NavParams> {
   render() {
     const { navigation } = this.props;
     return (
-      <RegionProvider regionId={navigation.getParam('regionId')} renderLoading={this.renderLoading}>
-        <RegionTabs navigation={navigation} />
-      </RegionProvider>
+      <RegionConsumer>
+        {(props) => {
+          const { region, searchTerms } = props;
+          if (region.loading || region.node === null) {
+            return (<Loading />);
+          }
+          return (
+            <RegionTabs navigation={navigation} region={region} searchTerms={searchTerms} />
+          );
+        }}
+      </RegionConsumer>
     );
   }
 }

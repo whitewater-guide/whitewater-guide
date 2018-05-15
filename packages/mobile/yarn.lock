@@ -3669,6 +3669,10 @@ decompress-response@^3.2.0:
   dependencies:
     mimic-response "^1.0.0"
 
+deep-diff@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/deep-diff/-/deep-diff-1.0.0.tgz#0dd55f9412f22a07b2edbfbb11bb4633be6be40b"
+
 deep-equal-ident@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/deep-equal-ident/-/deep-equal-ident-1.1.1.tgz#06f4b89e53710cd6cea4a7781c7a956642de8dc9"
@@ -8593,9 +8597,9 @@ react-native-paper@^1.7.0:
     hoist-non-react-statics "^2.5.0"
     react-lifecycles-compat "^3.0.2"
 
-react-native-portal@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/react-native-portal/-/react-native-portal-1.2.1.tgz#58c5b9bd9340a9b65702470811521cb1244c3dcd"
+"react-native-portal@https://github.com/doomsower/react-native-portal#nostate":
+  version "1.2.0"
+  resolved "https://github.com/doomsower/react-native-portal#ceff5fe0dd1f5f55228ade61f2cc0902a07fff5b"
   dependencies:
     mitt "*"
 

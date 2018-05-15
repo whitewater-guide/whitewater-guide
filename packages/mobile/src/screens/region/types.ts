@@ -1,6 +1,6 @@
 import { NavigationScreenProps } from '../../../typings/react-navigation';
 import { WithList, WithNode } from '../../ww-clients/apollo';
-import { WithRegion } from '../../ww-clients/features/regions';
+import { RegionContext, WithRegion } from '../../ww-clients/features/regions';
 import { WithSectionsList } from '../../ww-clients/features/sections';
 import { Region, Section } from '../../ww-commons';
 
@@ -13,6 +13,6 @@ export interface NavParams {
   regionId: string;
 }
 
-export type OuterProps = NavigationScreenProps<NavParams>;
+export type OuterProps = NavigationScreenProps<NavParams> & Pick<RegionContext, 'region' | 'searchTerms'>;
 
-export type InnerProps = WithRegion & WithSectionsList;
+export type InnerProps = WithSectionsList;
