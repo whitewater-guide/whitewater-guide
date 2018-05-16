@@ -31,6 +31,8 @@ export default {
     cancel: 'Cancel',
     yes: 'Yes',
     no: 'No',
+    offline: "It appears that you're offline...",
+    retry: 'Retry',
   },
   drawer: {
     myProfile: 'My Settings',

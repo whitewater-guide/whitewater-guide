@@ -21,7 +21,7 @@ type Props<T, R extends ResourceType> = ChildProps<any, GraphqlResult<T, R>> | Q
 export const queryResultToNode =
   <T, R extends ResourceType>(props: Props<T, R>, propName: R): Result<T, R> => {
   const auxObject = props.hasOwnProperty('client') ? props : props.data;
-  const node = props.data[propName];
+  const node = props.data ? props.data[propName] : null;
   const { error, loading, networkStatus, refetch } = auxObject;
   return {
     [propName]: {

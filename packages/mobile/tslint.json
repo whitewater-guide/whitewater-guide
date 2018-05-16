@@ -8,6 +8,7 @@
     "member-access": false,
     "member-ordering": [true, {"order": "statics-first"}],
     "no-any": false,
+    "no-empty": [true, "allow-empty-catch", "allow-empty-functions"],
     "no-implicit-dependencies": [true, "dev"],
     "no-inferrable-types": [true, "ignore-params", "ignore-properties"],
     "no-invalid-this": [true, "check-function-in-method"],

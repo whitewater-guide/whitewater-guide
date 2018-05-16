@@ -1,5 +1,7 @@
 import React from 'react';
 import { FlatList, ListRenderItemInfo } from 'react-native';
+import { OfflineQueryPlaceholder } from '../../components';
+import isApolloOfflineError from '../../utils/isApolloOfflineError';
 import { Region } from '../../ww-commons';
 import { default as RegionListItem, REGION_ITEM_HEIGHT } from './RegionListItem';
 import { InnerProps } from './types';
@@ -23,7 +25,12 @@ class RegionsListView extends React.PureComponent<InnerProps> {
 
   render() {
     const { regions } = this.props;
-    const { nodes, loading, refetch } = regions;
+    const { nodes, error, loading, refetch } = regions;
+    if (isApolloOfflineError(error, nodes)) {
+      return (
+        <OfflineQueryPlaceholder refetch={refetch} />
+      );
+    }
     return (
       <FlatList
         data={nodes}

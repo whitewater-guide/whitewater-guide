@@ -31,6 +31,8 @@ export default {
     cancel: 'Отмена',
     yes: 'Да',
     no: 'Нет',
+    offline: 'Похоже что вы не онлайн...',
+    retry: 'Повторить',
   },
   drawer: {
     myProfile: 'Мои настройки',

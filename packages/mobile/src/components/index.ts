@@ -8,6 +8,7 @@ export * from './Icon';
 export * from './Loading';
 export * from './Markdown';
 export * from './MultiSlider';
+export * from './OfflineQueryPlaceholder';
 export * from './NavigateButton';
 export * from './Nothing';
 export * from './Paper';
