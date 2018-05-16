@@ -12,8 +12,7 @@ import AnonHeader from './AnonHeader';
 import DrawerItem from './DrawerItem';
 import { WithToggle } from './types';
 import UserHeader from './UserHeader';
-
-const pjson = require('../../../package.json');
+import DeviceInfo from 'react-native-device-info';
 
 const styles = StyleSheet.create({
   container: {
@@ -40,6 +39,7 @@ class DrawerSidebarView extends React.PureComponent<InnerProps> {
 
   render() {
     const { navigation: { state }, me, t } = this.props;
+    const version = DeviceInfo.getVersion();
     return (
       <View style={styles.container}>
         {!!me ? <UserHeader user={me} /> : <AnonHeader />}
@@ -88,7 +88,7 @@ class DrawerSidebarView extends React.PureComponent<InnerProps> {
           onPress={this.navigate}
           focused={isRouteFocused(state, 'Plain', { fixture: 'privacyPolicy' })}
         />
-        <Text style={styles.versionText}>{`v${pjson.version}`}</Text>
+        <Text style={styles.versionText}>{`v${version}`}</Text>
       </View>
     );
   }
