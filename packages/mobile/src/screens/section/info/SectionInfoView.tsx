@@ -36,20 +36,35 @@ const SectionInfoView: React.StatelessComponent<Props> = ({ section: { node }, t
         </Right>
       </Row>
 
-      <Row>
-        <Left><Subheading>{t('commons:drop')}</Subheading></Left>
-        <Right><Paragraph>{`${node.drop} ${t('commons:m')}`}</Paragraph></Right>
-      </Row>
+      {
+        !!node.drop &&
+        (
+          <Row>
+            <Left><Subheading>{t('commons:drop')}</Subheading></Left>
+            <Right><Paragraph>{`${node.drop} ${t('commons:m')}`}</Paragraph></Right>
+          </Row>
+        )
+      }
 
-      <Row>
-        <Left><Subheading>{t('commons:length')}</Subheading></Left>
-        <Right><Paragraph>{`${node.distance} ${t('commons:km')}`}</Paragraph></Right>
-      </Row>
+      {
+        !!node.distance &&
+        (
+          <Row>
+            <Left><Subheading>{t('commons:length')}</Subheading></Left>
+            <Right><Paragraph>{`${node.distance} ${t('commons:km')}`}</Paragraph></Right>
+          </Row>
+        )
+      }
 
-      <Row>
-        <Left><Subheading>{t('commons:duration')}</Subheading></Left>
-        <Right><Paragraph>{node.duration ? t('durations:' + node.duration) : t('commons:unknown')}</Paragraph></Right>
-      </Row>
+      {
+        !!node.duration &&
+        (
+          <Row>
+            <Left><Subheading>{t('commons:duration')}</Subheading></Left>
+            <Right><Paragraph>{t('durations:' + node.duration)}</Paragraph></Right>
+          </Row>
+        )
+      }
 
       {
         !!node.flowsText &&
@@ -74,21 +89,45 @@ const SectionInfoView: React.StatelessComponent<Props> = ({ section: { node }, t
 
       <CoordinatesInfo label={t('commons:takeOut')} coordinates={node.takeOut.coordinates} />
 
-      <Row>
-        <Chips label={t('commons:kayakingTypes')} items={tagsByCategory[TagCategory.kayaking]} />
-      </Row>
+      {
+        !!tagsByCategory[TagCategory.kayaking] &&
+        !!tagsByCategory[TagCategory.kayaking].length &&
+        (
+          <Row>
+            <Chips label={t('commons:kayakingTypes')} items={tagsByCategory[TagCategory.kayaking]} />
+          </Row>
+        )
+      }
 
-      <Row>
-        <Chips label={t('commons:hazards')} items={tagsByCategory[TagCategory.hazards]} />
-      </Row>
+      {
+        !!tagsByCategory[TagCategory.hazards] &&
+        !!tagsByCategory[TagCategory.hazards].length &&
+        (
+          <Row>
+            <Chips label={t('commons:hazards')} items={tagsByCategory[TagCategory.hazards]} />
+          </Row>
+        )
+      }
 
-      <Row>
-        <Chips label={t('commons:supplyTypes')} items={tagsByCategory[TagCategory.supply]} />
-      </Row>
+      {
+        !!tagsByCategory[TagCategory.supply] &&
+        !!tagsByCategory[TagCategory.supply].length &&
+        (
+          <Row>
+            <Chips label={t('commons:supplyTypes')} items={tagsByCategory[TagCategory.supply]} />
+          </Row>
+        )
+      }
 
-      <Row>
-        <Chips label={t('commons:miscTags')} items={tagsByCategory[TagCategory.misc]} />
-      </Row>
+      {
+        !!tagsByCategory[TagCategory.misc] &&
+        !!tagsByCategory[TagCategory.misc].length &&
+        (
+          <Row>
+            <Chips label={t('commons:miscTags')} items={tagsByCategory[TagCategory.misc]} />
+          </Row>
+        )
+      }
 
     </React.Fragment>
   );

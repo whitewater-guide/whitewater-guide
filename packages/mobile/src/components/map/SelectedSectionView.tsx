@@ -142,7 +142,7 @@ class SelectedSectionViewInternal extends React.Component<Props> {
       ].join('\n');
     }
     const seasonNumLines = season.includes('\n') ? 2 : 1;
-    const duration = section && t('durations:' + section.duration);
+    const duration = (section && section.duration) ? t('durations:' + section.duration) : t('commons:unknown');
     const drop = section && section.drop;
     const distance = section && section.distance;
     return (
@@ -172,7 +172,7 @@ class SelectedSectionViewInternal extends React.Component<Props> {
           <View style={styles.col3}>
             <Icon icon="clock" color={theme.colors.textMain} size={24} />
             <Paragraph style={styles.colText}>
-              {duration ? duration : t('commons:unknown')}
+              {duration}
             </Paragraph>
           </View>
         </View>
