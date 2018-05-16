@@ -19,7 +19,6 @@ export class I18nProviderInternal extends React.PureComponent<Props> {
   constructor(props: Props) {
     super(props);
     const language = props.language || RNLanguages.language || 'en';
-    moment.locale(language);
     this.i18n = i18next.init({
       lng: (language).substr(0, 2),
       fallbackLng: 'en',
@@ -32,6 +31,7 @@ export class I18nProviderInternal extends React.PureComponent<Props> {
       },
       resources: { en, ru },
     });
+    moment.locale(this.i18n.language);
     this.i18n.on('languageChanged', this.onLanguageChange);
   }
 

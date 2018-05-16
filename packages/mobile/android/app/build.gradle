@@ -3,6 +3,7 @@ apply plugin: "com.android.application"
 project.ext.envConfigFiles = [
         debug: ".env.development",
         release: ".env.production",
+        beta: ".env.beta",
 ]
 apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
@@ -79,7 +80,12 @@ import com.android.build.OutputFile
  */
 
 project.ext.react = [
-    entryFile: "index.js"
+    entryFile: "index.js",
+    // Beta build type:
+    bundleInBeta: true,
+    devDisabledInBeta: true,
+    jsBundleDirBeta: "$buildDir/intermediates/assets/beta",
+    resourcesDirBeta: "$buildDir/intermediates/res/merged/beta"
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
@@ -99,8 +105,6 @@ def enableSeparateBuildPerCPUArchitecture = false
  */
 def enableProguardInReleaseBuilds = false
 
-def _applicationId = System.getenv("GRADLE_APP_IDENTIFIER") ?: 'guide.whitewater.beta'
-def _appName = System.getenv("GRADLE_APP_NAME") ?: 'whitewater.guide beta'
 def _versionCode = (System.getenv("ANDROID_VERSION_CODE") ?: "1") as Integer
 def _versionName = System.getenv("ANDROID_VERSION_NAME") ?: "1.0.0"
 
@@ -109,7 +113,7 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        applicationId _applicationId
+        applicationId "guide.whitewater"
         minSdkVersion 16
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode _versionCode
@@ -136,13 +140,22 @@ android {
     }
     buildTypes {
         debug {
-            resValue "string", "app_name", _appName
+            resValue "string", "app_name", "WW DEBUG"
+            manifestPlaceholders = [excludeSystemAlertWindowPermission: "false"]
         }
         release {
-            resValue "string", "app_name", _appName
+            manifestPlaceholders = [excludeSystemAlertWindowPermission: "true"]
+            resValue "string", "app_name", "whitewater.guide"
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
             signingConfig signingConfigs.release
+        }
+        beta {
+            initWith release
+            // applicationIdSuffix ".beta" // Not compatible with facebook login sdk
+            versionNameSuffix "-beta"
+            resValue "string", "app_name", "WW BETA"
+            matchingFallbacks = ['release']
         }
     }
     // applicationVariants are e.g. debug, release

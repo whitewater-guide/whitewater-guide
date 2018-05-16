@@ -54,8 +54,8 @@ buck-out/
 
 # Bundle artifact
 *.jsbundle
-/.env.production
-/.env.development
+.env.*
+!.env.*.secret
 /src/ww-clients/
 /src/ww-commons/
 /ios/Pods/
@@ -73,3 +73,5 @@ fastlane/report.xml
 fastlane/.env.*
 !fastlane/.env.*.secret
 *.back
+
+/android/google_play_android_developer-5eac6da2ad1b.json

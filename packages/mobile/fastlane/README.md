@@ -15,20 +15,7 @@ Install _fastlane_ using
 or alternatively using `brew cask install fastlane`
 
 # Available Actions
-### parse_package_json
-```
-fastlane parse_package_json
-```
-
-
-----
-
 ## iOS
-### ios check
-```
-fastlane ios check
-```
-
 ### ios setup
 ```
 fastlane ios setup
@@ -73,24 +60,14 @@ fastlane ios deploy_local
 fastlane android build
 ```
 
-### android deploy_hockey
+### android deploy_app_center
 ```
-fastlane android deploy_hockey
-```
-
-### android deploy_appCenter
-```
-fastlane android deploy_appCenter
+fastlane android deploy_app_center
 ```
 
 ### android deploy
 ```
 fastlane android deploy
-```
-
-### android deploy_local
-```
-fastlane android deploy_local
 ```
 
 

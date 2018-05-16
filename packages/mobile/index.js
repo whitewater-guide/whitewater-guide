@@ -1,3 +1,5 @@
+import 'core-js/es6/symbol';
+
 import { AppRegistry } from 'react-native';
 import App from './src/App';
 // import App from './storybook';

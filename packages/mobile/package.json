@@ -1,6 +1,6 @@
 {
   "name": "whitewater",
-  "version": "1.1.127",
+  "version": "1.1.151",
   "private": true,
   "scripts": {
     "postinstall": "./postinstall.sh",
@@ -12,7 +12,9 @@
     "fresh-start": "yarn run fresh-install && yarn run rc-start",
     "test": "jest",
     "prestorybook": "rnstl",
-    "storybook": "storybook start -p 7007 --metro-config $PWD/rn-cli.config.js"
+    "storybook": "storybook start -p 7007 --metro-config $PWD/rn-cli.config.js",
+    "android:beta:build": "fastlane android build --env beta",
+    "android:beta:appcenter": "fastlane android deploy_app_center --env beta"
   },
   "dependencies": {
     "apollo-cache-inmemory": "^1.2.1",

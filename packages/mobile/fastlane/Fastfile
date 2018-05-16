@@ -1,15 +1,11 @@
 # Check Git Status
 
 private_lane :check_git_status do |options|
-  ensure_git_branch(
-    branch: "#{options[:name]}"
-  )
   ensure_git_status_clean
   git_pull
-
 end
 
-lane :parse_package_json do |options|
+private_lane :parse_package_json do |options|
   pjson = load_json(json_path: "package.json")
   versionString = pjson["version"]
   version = versionString.split('.')
@@ -21,6 +17,7 @@ lane :parse_package_json do |options|
 end
 
 before_all do |lane, options|
+  check_git_status
   parse_package_json
 end
 
@@ -131,40 +128,27 @@ end
 
 platform :android do
   lane :build do |options|
-    set_js_env
     gradle(
-      task: "assembleRelease",
+      task: "assemble",
+      build_type: ENV['GRADLE_BUILD_TYPE'],
       project_dir: ENV['ANDROID_PROJECT_DIR']
     )
   end
 
-  lane :deploy_hockey do |options|
-    hockey(
-      notify: '0',
-      apk: ENV['ANDROID_APK_PATH']
-    )
-  end
-
-  lane :deploy_appCenter do |options|
+  lane :deploy_app_center do |options|
+    build
     appcenter_upload(
-      api_token: ENV['FL_APPCENTER_API_TOKEN'],
-      owner_name: ENV['APPCENTER_USERNAME'],
       app_name: ENV['GRADLE_APP_NAME'],
-      apk: ENV['ANDROID_APK_PATH']
+      apk: "#{lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]}"
     )
   end
 
   lane :deploy do |options|
     build
-    if ENV['DEPLOYMENT_PLATFORM'] === 'hockeyapp' then
-      deploy_hockey
-    elsif ENV['DEPLOYMENT_PLATFORM'] === 'appcenter' then
-      deploy_appCenter
-    end
+    upload_to_play_store(
+        track: ENV["ENV"],
+        apk: "#{lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]}"
+    )
   end
 
-  lane :deploy_local do |options|
-    check_git_status(name: ENV['REPO_GIT_BRANCH'])
-    deploy
-  end
 end
