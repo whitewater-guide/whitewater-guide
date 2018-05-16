@@ -1,8 +1,6 @@
-fastlane_require 'dotenv'
-
 # Check Git Status
 
-lane :check_git_status do |options|
+private_lane :check_git_status do |options|
   ensure_git_branch(
     branch: "#{options[:name]}"
   )
@@ -11,8 +9,19 @@ lane :check_git_status do |options|
 
 end
 
+lane :parse_package_json do |options|
+  pjson = load_json(json_path: "package.json")
+  versionString = pjson["version"]
+  version = versionString.split('.')
+  versionCode = format('%d%02d%3d', version[0], version[1], version[2])
+  ENV["IOS_VERSION"] = versionString
+  ENV["ANDROID_VERSION_NAME"] = versionString
+  ENV["IOS_VERSION_BUILD_NUMBER"] = versionCode
+  ENV["ANDROID_VERSION_CODE"] = versionCode
+end
+
 before_all do |lane, options|
-  Dotenv.load(".env.#{ENV['ENV']}")
+  parse_package_json
 end
 
 # IOS
