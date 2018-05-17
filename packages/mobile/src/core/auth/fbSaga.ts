@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Platform } from 'react-native';
 import Config from 'react-native-config';
 import { AccessToken, LoginManager, LoginResult } from 'react-native-fbsdk';
 import { apply, call, put, takeEvery } from 'redux-saga/effects';
@@ -8,8 +9,10 @@ import { trackError } from '../errors';
 import { navigationChannel } from '../sagas';
 import { initialized, loginWithFB, logoutWithFB } from './actions';
 import { AuthError } from './types';
+import Analytics from 'appcenter-analytics'; // TEMP;
 
 export default function* fbSaga() {
+  LoginManager.setLoginBehavior(Platform.OS === 'ios' ? 'native' : 'native_with_fallback');
   // On startup: refresh token, attempt to relogin with new token
   try {
     const refreshResult = yield apply(AccessToken, AccessToken.refreshCurrentAccessTokenAsync);
@@ -23,8 +26,10 @@ export default function* fbSaga() {
 }
 
 function* watchLoginWithFb() {
+  Analytics.trackEvent('fbLoginRequest');
   const result: LoginResult =
     yield apply(LoginManager, LoginManager.logInWithReadPermissions, [['public_profile', 'email']]);
+  Analytics.trackEvent('fbLoginSuccess', result);
   yield call(authWithFbToken, true);
 }
 
