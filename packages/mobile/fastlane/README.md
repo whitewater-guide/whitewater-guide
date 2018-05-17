@@ -31,24 +31,9 @@ fastlane ios setup_push
 fastlane ios build
 ```
 
-### ios deploy_hockey
+### ios alpha
 ```
-fastlane ios deploy_hockey
-```
-
-### ios deploy_appCenter
-```
-fastlane ios deploy_appCenter
-```
-
-### ios deploy
-```
-fastlane ios deploy
-```
-
-### ios deploy_local
-```
-fastlane ios deploy_local
+fastlane ios alpha
 ```
 
 
@@ -60,14 +45,14 @@ fastlane ios deploy_local
 fastlane android build
 ```
 
-### android deploy_app_center
+### android alpha
 ```
-fastlane android deploy_app_center
+fastlane android alpha
 ```
 
-### android deploy
+### android beta
 ```
-fastlane android deploy
+fastlane android beta
 ```
 
 

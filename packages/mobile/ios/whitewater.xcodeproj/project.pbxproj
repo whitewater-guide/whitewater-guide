@@ -1884,7 +1884,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 922TKPGBXZ;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-config/ios/ReactNativeConfig",
@@ -1913,7 +1913,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = guide.whitewater;
 				PRODUCT_NAME = whitewater;
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "e6c2585c-eb03-4542-b3c4-cc8c6f9857a2";
+				PROVISIONING_PROFILE_SPECIFIER = "match AdHoc guide.whitewater";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
