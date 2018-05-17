@@ -5,7 +5,6 @@ import { I18nextProvider } from 'react-i18next';
 import RNLanguages from 'react-native-languages';
 import { MyProfileConsumer } from '../ww-clients/features/users';
 import { LANGUAGES } from '../ww-commons/core';
-import { User } from '../ww-commons/features/users';
 import en from './locales/en';
 import ru from './locales/ru';
 
@@ -58,7 +57,7 @@ export class I18nProviderInternal extends React.PureComponent<Props> {
 
 export const I18nProvider: React.StatelessComponent = ({ children }) => (
   <MyProfileConsumer>
-    {(me: User | null) => (
+    {({ me }) => (
       <I18nProviderInternal language={me ? me.language : undefined}>
         {children}
       </I18nProviderInternal>
