@@ -13,11 +13,11 @@ import CoordinatesInfo from './CoordinatesInfo';
 
 type Props = WithSection & WithT;
 
-const SectionInfoView: React.StatelessComponent<Props> = ({ section: { node }, t }) => {
+const SectionInfoView: React.StatelessComponent<Props> = ({ section: { node }, i18n, t }) => {
   if (!node) {
     return null;
   }
-  let season = capitalize(trim(`${stringifySeason(node.seasonNumeric, false)}`));
+  let season = capitalize(trim(`${stringifySeason(node.seasonNumeric, false, i18n.language)}`));
   if (node.season) {
     season = `${season}\n${node.season}`;
   }

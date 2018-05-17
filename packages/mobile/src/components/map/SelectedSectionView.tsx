@@ -9,7 +9,6 @@ import { Button, Paragraph, Subheading } from 'react-native-paper';
 import Svg, { Path } from 'react-native-svg';
 import { NavigationInjectedProps, withNavigation } from 'react-navigation';
 import { compose } from 'recompose';
-import sections from '../../../../backend/src/features/sections/queries/sections';
 import { WithT } from '../../i18n';
 import theme from '../../theme';
 import { SelectedSectionViewProps } from '../../ww-clients/features/maps';
@@ -141,7 +140,7 @@ class SelectedSectionViewInternal extends React.Component<Props, State> {
   };
 
   render() {
-    const { t } = this.props;
+    const { i18n, t } = this.props;
     const { section } = this.state;
     const buttons = [
       { label: t('commons:putIn'), coordinates: get(section, 'putIn.coordinates', [0, 0]) },
@@ -150,7 +149,7 @@ class SelectedSectionViewInternal extends React.Component<Props, State> {
     let season = ' ';
     if (section) {
       season = [
-        capitalize(trim(stringifySeason(section.seasonNumeric, false))),
+        capitalize(trim(stringifySeason(section.seasonNumeric, false, i18n.language))),
         trim(section.season),
       ].join('\n').trim();
     }
@@ -190,7 +189,7 @@ class SelectedSectionViewInternal extends React.Component<Props, State> {
           </View>
         </View>
 
-        <SectionFlowsRow section={section} t={t} />
+        <SectionFlowsRow section={section} t={t} i18n={i18n} />
 
         <View style={styles.listItem}>
           <Subheading>{t('commons:season')}</Subheading>

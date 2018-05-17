@@ -80,7 +80,7 @@ export default class FilterScreenContent extends React.PureComponent<InnerProps,
   };
 
   render() {
-    const { t } = this.props;
+    const { i18n, t } = this.props;
     const { duration, difficulty } = this.state;
     const [minDiff, maxDiff] = difficulty.map(toRomanDifficulty);
     const [minDuration, maxDuration] = duration.map((d) => t(`durations:${d}`));
@@ -108,7 +108,7 @@ export default class FilterScreenContent extends React.PureComponent<InnerProps,
             onChange={this.onChange('duration')}
           />
           <MultiSlider
-            label={`${t('commons:season')}: ${stringifySeason(this.state.seasonNumeric, true)}`}
+            label={`${t('commons:season')}: ${stringifySeason(this.state.seasonNumeric, true, i18n.language)}`}
             range={SEASON_RANGE}
             step={1}
             behavior="invert"
