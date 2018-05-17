@@ -63,6 +63,8 @@ export function *resetApolloCache() {
   // cachePersistor.pause();
   // yield apply(cachePersistor, cachePersistor.purge);
   const client = getApolloClient();
-  yield apply(client, client.resetStore);
+  try {
+    yield apply(client, client.resetStore);
+  } catch (e) {}
   // cachePersistor.resume();
 }

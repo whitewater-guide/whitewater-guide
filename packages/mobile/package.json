@@ -1,6 +1,6 @@
 {
   "name": "whitewater",
-  "version": "1.1.169",
+  "version": "1.1.172",
   "private": true,
   "scripts": {
     "postinstall": "./postinstall.sh",
@@ -15,8 +15,8 @@
     "storybook": "storybook start -p 7007 --metro-config $PWD/rn-cli.config.js",
     "android:alpha": "fastlane android alpha --env beta",
     "android:beta": "fastlane android alpha --env beta",
-    "ios:alpha": "fastlane ios alpha --env beta",
-    "ios:beta": "fastlane ios alpha --env beta"
+    "ios:appcenter": "fastlane ios alpha --env beta",
+    "ios:beta": "fastlane ios beta --env beta"
   },
   "dependencies": {
     "apollo-cache-inmemory": "^1.2.1",

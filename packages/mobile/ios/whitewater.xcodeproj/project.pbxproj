@@ -1913,8 +1913,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = guide.whitewater;
 				PRODUCT_NAME = whitewater;
-				PROVISIONING_PROFILE = "e6c2585c-eb03-4542-b3c4-cc8c6f9857a2";
-				PROVISIONING_PROFILE_SPECIFIER = "match AdHoc guide.whitewater";
+				PROVISIONING_PROFILE = "8d5442d8-70fc-4392-b0b9-2dc756faeb9d";
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore guide.whitewater";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

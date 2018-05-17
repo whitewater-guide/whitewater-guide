@@ -73,7 +73,7 @@ platform :ios do
     restore_file(path: plist_full_path)
   end
 
-  lane :alpha do |options|
+  lane :appcenter do |options|
     match(
       type: 'adhoc',
       shallow_clone: true,
@@ -85,6 +85,17 @@ platform :ios do
         app_name: ENV['APPCENTER_APP_NAME_IOS'],
         ipa: "#{lane_context[SharedValues::IPA_OUTPUT_PATH]}"
     )
+  end
+
+  lane :beta do |options|
+    match(
+      type: 'appstore',
+      shallow_clone: true,
+      clone_branch_directly: true,
+      readonly: true
+    )
+    build
+    pilot
   end
 
 end

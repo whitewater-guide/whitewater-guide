@@ -1,5 +1,6 @@
 # See https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Appfile.md
 app_identifier ENV['IOS_APP_IDENTIFIER']
 apple_id ENV['IOS_USER_ID']
+itc_team_id ENV['IOS_ITC_TEAM_ID']
 
 json_key_file "#{ENV['ANDROID_PROJECT_DIR']}/google_play_android_developer-5eac6da2ad1b.json"

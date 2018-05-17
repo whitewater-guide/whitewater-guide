@@ -31,9 +31,14 @@ fastlane ios setup_push
 fastlane ios build
 ```
 
-### ios alpha
+### ios appcenter
 ```
-fastlane ios alpha
+fastlane ios appcenter
+```
+
+### ios beta
+```
+fastlane ios beta
 ```
 
 
