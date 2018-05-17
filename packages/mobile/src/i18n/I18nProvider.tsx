@@ -40,7 +40,8 @@ export class I18nProviderInternal extends React.PureComponent<Props> {
 
   componentWillReceiveProps(nextProps: Props) {
     if (this.props.language !== nextProps.language) {
-      this.i18n.changeLanguage(nextProps.language || RNLanguages.language || 'en');
+      const language = (nextProps.language || RNLanguages.language || 'en').substr(0, 2);
+      this.i18n.changeLanguage(language);
     }
   }
 
