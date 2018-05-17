@@ -1,6 +1,7 @@
 import debounce from 'lodash/debounce';
 import React from 'react';
 import { RefreshControl, RefreshControlProps } from 'react-native';
+import theme from '../theme';
 
 interface State {
   refreshing: boolean;
@@ -12,7 +13,7 @@ export class RefreshIndicator extends React.PureComponent<RefreshControlProps, S
     this.state = { refreshing: props.refreshing };
   }
 
-  updateState = debounce(this.setState, 400);
+  updateState = debounce(this.setState, 450);
 
   componentWillReceiveProps(next: RefreshControlProps) {
     this.updateState({ refreshing: next.refreshing });
@@ -20,7 +21,7 @@ export class RefreshIndicator extends React.PureComponent<RefreshControlProps, S
 
   render() {
     return (
-      <RefreshControl {...this.props} refreshing={this.state.refreshing} />
+      <RefreshControl {...this.props} refreshing={this.state.refreshing} tintColor={theme.colors.primary} />
     );
   }
 }
