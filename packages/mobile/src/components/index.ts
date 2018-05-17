@@ -13,6 +13,7 @@ export * from './NavigateButton';
 export * from './Nothing';
 export * from './Paper';
 export * from './RadioDialog';
+export * from './RefreshIndicator';
 export * from './Row';
 export * from './Screen';
 export * from './Spacer';

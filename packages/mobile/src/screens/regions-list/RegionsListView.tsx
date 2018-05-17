@@ -1,6 +1,6 @@
 import React from 'react';
 import { FlatList, ListRenderItemInfo } from 'react-native';
-import { OfflineQueryPlaceholder } from '../../components';
+import { OfflineQueryPlaceholder, RefreshIndicator } from '../../components';
 import isApolloOfflineError from '../../utils/isApolloOfflineError';
 import { Region } from '../../ww-commons';
 import { default as RegionListItem, REGION_ITEM_HEIGHT } from './RegionListItem';
@@ -37,8 +37,7 @@ class RegionsListView extends React.PureComponent<InnerProps> {
         renderItem={this.renderItem}
         keyExtractor={keyExtractor}
         getItemLayout={getItemLayout}
-        onRefresh={refetch}
-        refreshing={loading}
+        refreshControl={<RefreshIndicator refreshing={loading} onRefresh={refetch} />}
       />
     );
   }

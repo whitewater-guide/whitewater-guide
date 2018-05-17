@@ -3,7 +3,7 @@ import { translate } from 'react-i18next';
 import { FlatList, ListRenderItemInfo } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 import { WithT } from '../../../i18n';
-import { Region, Section } from '../../../ww-commons';
+import { Section } from '../../../ww-commons';
 import { ITEM_HEIGHT, SectionListItem } from './item';
 import NoSectionsPlaceholder from './NoSectionsPlaceholder';
 
@@ -65,7 +65,6 @@ class SectionsList extends React.PureComponent<Props, State> {
     if (this.props.sections.length === 0) {
       return <NoSectionsPlaceholder />;
     }
-    // const extraData = { ...this.state, ...this.props.extraData };
     return (
       <FlatList
         onLayout={this.onListLayout}
@@ -73,10 +72,6 @@ class SectionsList extends React.PureComponent<Props, State> {
         keyExtractor={keyExtractor}
         getItemLayout={getItemLayout}
         renderItem={this.renderItem}
-        // onEndReached={this.props.onEndReached}
-        refreshing={false}
-        onRefresh={this.onRefresh}
-        // extraData={extraData}
         initialNumToRender={this.state.initialNumToRender}
         onViewableItemsChanged={this.onViewableItemsChanged}
       />
