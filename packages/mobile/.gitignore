@@ -75,3 +75,4 @@ fastlane/.env.*
 *.back
 
 /android/google_play_android_developer-5eac6da2ad1b.json
+*.dSYM.zip
