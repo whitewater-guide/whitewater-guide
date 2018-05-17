@@ -1,6 +1,11 @@
 import React from 'react';
+import { User } from '../../../ww-commons';
 
-// @ts-ignore TODO: https://github.com/DefinitelyTyped/DefinitelyTyped/pull/24509
-export const MyProfileContext = React.createContext(null);
-export const Provider: React.ComponentType<any> = MyProfileContext.Provider;
-export const MyProfileConsumer: React.ComponentType<any> = MyProfileContext.Consumer;
+interface ContextState {
+  me: User | null;
+  loading: boolean;
+}
+
+export const MyProfileContext = React.createContext<ContextState>({ me: null, loading: false });
+export const Provider = MyProfileContext.Provider;
+export const MyProfileConsumer = MyProfileContext.Consumer;

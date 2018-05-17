@@ -1,6 +1,7 @@
 import React from 'react';
 import { translate } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
+import DeviceInfo from 'react-native-device-info';
 import { Divider, DrawerSection } from 'react-native-paper';
 import { NavigationActions, NavigationInjectedProps } from 'react-navigation';
 import { compose } from 'recompose';
@@ -8,11 +9,9 @@ import { WithT } from '../../i18n';
 import { isRouteFocused } from '../../utils/navigation';
 import { withMe, WithMe } from '../../ww-clients/features/users';
 import { Spacer } from '../Spacer';
-import AnonHeader from './AnonHeader';
+import DrawerHeader from './DrawerHeader';
 import DrawerItem from './DrawerItem';
 import { WithToggle } from './types';
-import UserHeader from './UserHeader';
-import DeviceInfo from 'react-native-device-info';
 
 const styles = StyleSheet.create({
   container: {
@@ -38,11 +37,11 @@ class DrawerSidebarView extends React.PureComponent<InnerProps> {
   };
 
   render() {
-    const { navigation: { state }, me, t } = this.props;
+    const { navigation: { state }, me, meLoading, t } = this.props;
     const version = DeviceInfo.getVersion();
     return (
       <View style={styles.container}>
-        {!!me ? <UserHeader user={me} /> : <AnonHeader />}
+        <DrawerHeader me={me} meLoading={meLoading} />
         <Divider />
         <DrawerSection>
           {

@@ -31,6 +31,7 @@ class App extends React.Component<{}, State> {
   store?: Store<RootState>;
   apolloClient?: ApolloClient<any>;
   storeSubscription?: Unsubscribe;
+  showSplash: boolean = true;
 
   async componentDidMount() {
     this.store = await configureStore();
@@ -51,7 +52,9 @@ class App extends React.Component<{}, State> {
     this.setState({ initialized });
   };
 
-  renderLoading = () => <SplashScreen />;
+  onHideSplash = () => { this.showSplash = false; };
+
+  renderLoading = () => this.showSplash ? <SplashScreen onHide={this.onHideSplash} /> : null;
 
   render() {
     if (this.store && this.state.initialized) {

@@ -5,7 +5,7 @@ import { Provider } from './MyProfileContext';
 import { WithMe } from './types';
 
 interface Props {
-  renderLoading: () => React.ReactElement<any>;
+  renderLoading?: () => React.ReactNode;
 }
 
 type RenderProps = QueryResult<WithMe, {}>;
@@ -16,12 +16,15 @@ export class MyProfileProvider extends React.PureComponent<Props> {
     return (
       <Query query={MY_PROFILE_QUERY} fetchPolicy="cache-and-network">
         {({ data, loading }: RenderProps) => {
-          if (loading) {
-            return renderLoading();
+          if (renderLoading && loading) {
+            const loadingNode = renderLoading();
+            if (loadingNode) {
+              return loadingNode;
+            }
           }
           const me = data ? data.me : null;
           return (
-            <Provider value={me}>
+            <Provider value={{ me, loading }}>
               {this.props.children}
             </Provider>
           );

@@ -1058,6 +1058,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = 922TKPGBXZ;
 						ProvisioningStyle = Manual;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
@@ -1842,7 +1843,7 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 922TKPGBXZ;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-config/ios/ReactNativeConfig",
@@ -1871,7 +1872,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = guide.whitewater;
 				PRODUCT_NAME = whitewater;
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "367afb31-3622-4845-9db2-aaf930bb1213";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development guide.whitewater";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
