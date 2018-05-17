@@ -9,7 +9,6 @@ import { trackError } from '../errors';
 import { navigationChannel } from '../sagas';
 import { initialized, loginWithFB, logoutWithFB } from './actions';
 import { AuthError } from './types';
-import Analytics from 'appcenter-analytics'; // TEMP;
 
 export default function* fbSaga() {
   LoginManager.setLoginBehavior(Platform.OS === 'ios' ? 'native' : 'native_with_fallback');
@@ -26,10 +25,8 @@ export default function* fbSaga() {
 }
 
 function* watchLoginWithFb() {
-  Analytics.trackEvent('fbLoginRequest');
   const result: LoginResult =
     yield apply(LoginManager, LoginManager.logInWithReadPermissions, [['public_profile', 'email']]);
-  Analytics.trackEvent('fbLoginSuccess', result);
   yield call(authWithFbToken, true);
 }
 
