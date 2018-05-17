@@ -83,7 +83,8 @@ platform :ios do
     build
     appcenter_upload(
         app_name: ENV['APPCENTER_APP_NAME_IOS'],
-        ipa: "#{lane_context[SharedValues::IPA_OUTPUT_PATH]}"
+        ipa: "#{lane_context[SharedValues::IPA_OUTPUT_PATH]}",
+        dsym: "#{lane_context[SharedValues::DSYM_OUTPUT_PATH]}"
     )
   end
 
@@ -96,6 +97,11 @@ platform :ios do
     )
     build
     pilot
+    appcenter_upload(
+        app_name: ENV['APPCENTER_APP_NAME_IOS'],
+        upload_dsym_only: true,
+        dsym: "#{lane_context[SharedValues::DSYM_OUTPUT_PATH]}"
+    )
   end
 
 end
