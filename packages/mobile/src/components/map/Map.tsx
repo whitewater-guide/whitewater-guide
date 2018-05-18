@@ -1,5 +1,5 @@
 import React from 'react';
-import { LayoutChangeEvent, StyleSheet, View } from 'react-native';
+import { LayoutChangeEvent, PermissionsAndroid, StyleSheet, View } from 'react-native';
 import RNMapView, { Region as MapsRegion } from 'react-native-maps';
 import { MapBody, MapComponentProps, MapProps } from '../../ww-clients/features/maps';
 import { computeDistanceBetween, computeOffset, getBBox, getBoundsZoomLevel } from '../../ww-clients/utils';
@@ -7,12 +7,33 @@ import { Coordinate } from '../../ww-commons/features/points';
 import { SimplePOI } from './SimplePOI';
 import { SimpleSection } from './SimpleSection';
 
-export class MapView extends React.PureComponent<MapComponentProps> {
+const styles = StyleSheet.create({
+  initialMapStyle: {
+    ...StyleSheet.absoluteFillObject,
+    top: 1,
+  },
+});
+
+interface State {
+  showMyLocationAndroidWorkaround: boolean;
+}
+
+export class MapView extends React.PureComponent<MapComponentProps, State> {
   _map: RNMapView | null;
   _mapLaidOut: boolean = false;
   _userLocationSet: boolean = false;
   _bounds: Coordinate[];
   _dimensions: { width: number, height: number };
+
+  state: State = { showMyLocationAndroidWorkaround: false };
+
+  async componentDidMount() {
+    const fine = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
+    if (!fine) {
+      await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
+      this.forceUpdate();
+    }
+  }
 
   onDeselect = () => {
     const { onSectionSelected, onPOISelected } = this.props;
@@ -43,6 +64,7 @@ export class MapView extends React.PureComponent<MapComponentProps> {
           animated: false,
         },
       );
+      this.setState({ showMyLocationAndroidWorkaround: true });
     }
   };
 
@@ -76,6 +98,7 @@ export class MapView extends React.PureComponent<MapComponentProps> {
   };
 
   render() {
+    const mapStyle = this.state.showMyLocationAndroidWorkaround ? StyleSheet.absoluteFill : styles.initialMapStyle;
     return (
       <View style={StyleSheet.absoluteFill} pointerEvents="box-none">
         <RNMapView
@@ -87,7 +110,7 @@ export class MapView extends React.PureComponent<MapComponentProps> {
           rotateEnabled={false}
           pitchEnabled={false}
           toolbarEnabled={false}
-          style={StyleSheet.absoluteFill}
+          style={mapStyle}
           provider="google"
           onPress={this.onDeselect}
           onMarkerDeselect={this.onDeselect}
