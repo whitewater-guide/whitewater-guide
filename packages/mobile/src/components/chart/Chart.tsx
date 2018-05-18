@@ -97,7 +97,7 @@ export class Chart extends React.PureComponent<ChartComponentProps, State> {
     this._yDomain = [result[0] - delta, result[1] + delta];
     this._yTickValues = ticks.concat(scaleLinear().domain(this._yDomain).ticks(5));
 
-    this._xDomain = [data[data.length - 1].timestamp, data[0].timestamp];
+    this._xDomain = [data[0].timestamp, data[data.length - 1].timestamp];
     const duration = moment(this._xDomain[1]).diff(this._xDomain[0], 'days');
     if (duration > 7) {
       this._period = Period.MONTH;
@@ -134,8 +134,8 @@ export class Chart extends React.PureComponent<ChartComponentProps, State> {
               crossAxis
               tickFormat={this._xTickFormat}
               tickCount={this._xTickCount}
-              tickLabelComponent={<TimeLabel period={this._period} />}
-              gridComponent={<TimeGridLine period={this._period} />}
+              tickLabelComponent={<TimeLabel period={this._period} data={data} />}
+              gridComponent={<TimeGridLine period={this._period} data={data} />}
             />
             <VictoryAxis
               crossAxis

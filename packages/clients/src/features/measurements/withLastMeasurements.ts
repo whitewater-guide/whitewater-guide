@@ -31,7 +31,7 @@ export const withLastMeasurements = (fetchPolicy: FetchPolicy = 'cache-and-netwo
         const { loading, lastMeasurements, refetch } = data!;
         return {
           measurements: {
-            data: lastMeasurements || [],
+            data: lastMeasurements ? [...lastMeasurements].reverse() : [],
             loading,
             refresh: refetch,
           },
