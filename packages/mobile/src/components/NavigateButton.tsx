@@ -72,8 +72,8 @@ interface Props {
 
 export const NavigateButton: React.StatelessComponent<Props> = (props) => {
   const { driver, label, inputRange, coordinates, animationType = 'fade', position = 0, style } = props;
-  const direcionsURL = `https://www.google.com/maps/dir/Current+Location/${coordinates[1]},${coordinates[0]}`;
-  const directionsHandler = () => Linking.openURL(direcionsURL).catch(() => {/*Ignore*/});
+  const directionsURL = `https://www.google.com/maps/dir/?api=1&destination=${coordinates[1]},${coordinates[0]}`;
+  const directionsHandler = () => Linking.openURL(directionsURL).catch(() => {/*Ignore*/});
   const animatedStyle = animationType === 'fade' ?
     fadeStyle({ driver, inputRange }) :
     slideStyle({ driver, inputRange, position });
