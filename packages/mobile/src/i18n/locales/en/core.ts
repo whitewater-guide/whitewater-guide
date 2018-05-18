@@ -106,7 +106,11 @@ export default {
       photo: 'Photos',
       video: 'Videos',
       blog: 'Blogs',
-      noMedia: 'No {{kind}} for this section yet :(',
+      noMedia: {
+        photo: 'No photos for this section yet :(',
+        video: 'No videos for this section yet :(',
+        blog: 'No blogs for this section yet :(',
+      },
     },
     map: {
       title: 'Map',

@@ -20,7 +20,7 @@ interface Props {
 }
 
 const NoMedia: React.SFC<Props & WithT> = ({ kind, t }) => {
-  const text = t('section:media.noMedia', { kind: t('section:media.' + kind).toLowerCase()});
+  const text = t(`section:media.noMedia.${kind}`);
   return (
     <View style={styles.container}>
       <Subheading>{text}</Subheading>
