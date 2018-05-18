@@ -93,7 +93,7 @@ class Thumb extends React.PureComponent<Props, State> {
     const { kind, url } = media;
     if (kind === MediaKind.photo) {
       this.setState({
-        thumb: `${process.env.REACT_APP_API_HOST}/images/x${THUMB_HEIGHT}/media/${media.url}`,
+        thumb: media.url ? `${process.env.REACT_APP_API_HOST}/images/x${THUMB_HEIGHT}/media/${media.url}` : undefined,
         height: THUMB_HEIGHT,
       });
     } else if (kind === MediaKind.video) {
