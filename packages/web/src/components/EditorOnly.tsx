@@ -1,7 +1,6 @@
 import React from 'react';
 import { RegionConsumer } from '../ww-clients/features/regions';
 import { MyProfileConsumer } from '../ww-clients/features/users';
-import { User } from '../ww-commons';
 
 /**
  * Component that render its children only if the user (consumed from context) is admin
@@ -12,7 +11,7 @@ import { User } from '../ww-commons';
  */
 export const EditorOnly: React.StatelessComponent = ({ children }) => (
   <MyProfileConsumer>
-    {(me: User | null) => {
+    {({ me }) => {
       if (!me) {
         return null;
       }

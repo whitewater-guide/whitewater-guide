@@ -159,7 +159,12 @@ class Thumb extends React.PureComponent<Props, State> {
         </div>
         <div style={styles.brokenImageBody}>
           <span style={styles.text}>Cannot render thumb</span>
-          <a href={media.url} style={styles.text} target="_blank">go see yourself</a>
+          {
+            !!media.url &&
+            (
+              <a href={media.url} style={styles.text} target="_blank">go see yourself</a>
+            )
+          }
         </div>
       </div>
     );

@@ -6,7 +6,7 @@ export const MediaInputSchema = Joi.object().keys({
   id: Joi.string().guid().allow(null),
   description: Joi.string().min(3).max(200).allow(null).allow(''),
   copyright: Joi.string().min(3).max(500).allow(null).allow(''),
-  url: Joi.string().allow(''),
+  url: Joi.string().min(3),
   kind: Joi.any().allow(MediaKind.photo, MediaKind.video, MediaKind.blog),
   resolution: Joi.array().items(Joi.number().integer()).min(2).max(2).allow(null),
   weight: Joi.number().integer().allow(null),
