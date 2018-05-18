@@ -1,8 +1,14 @@
 import React from 'react';
-import { LayoutChangeEvent, PermissionsAndroid, StyleSheet, View } from 'react-native';
+import { InteractionManager, LayoutChangeEvent, PermissionsAndroid, StyleSheet, View } from 'react-native';
 import RNMapView, { Region as MapsRegion } from 'react-native-maps';
 import { MapBody, MapComponentProps, MapProps } from '../../ww-clients/features/maps';
-import { computeDistanceBetween, computeOffset, getBBox, getBoundsZoomLevel } from '../../ww-clients/utils';
+import {
+  computeDistanceBetween,
+  computeOffset,
+  getBBox,
+  getBoundsDeltaRegion,
+  getBoundsZoomLevel
+} from '../../ww-clients/utils';
 import { Coordinate } from '../../ww-commons/features/points';
 import { SimplePOI } from './SimplePOI';
 import { SimpleSection } from './SimpleSection';
@@ -15,6 +21,7 @@ const styles = StyleSheet.create({
 });
 
 interface State {
+  // See https://github.com/react-community/react-native-maps/issues/1033
   showMyLocationAndroidWorkaround: boolean;
 }
 
@@ -22,11 +29,17 @@ export class MapView extends React.PureComponent<MapComponentProps, State> {
   _map: RNMapView | null;
   _mapLaidOut: boolean = false;
   _mapReady: boolean = false;
-  _userLocationSet: boolean = false;
+  _initialUserLocation: { latitude: number, longitude: number} | undefined;
   _bounds: Coordinate[];
   _dimensions: { width: number, height: number };
+  _initialRegion: any;
+  _inititalRegionSet: boolean = false;
 
-  state: State = { showMyLocationAndroidWorkaround: false };
+  constructor(props: MapComponentProps) {
+    super(props);
+    this.state = { showMyLocationAndroidWorkaround: false };
+    this._initialRegion = getBoundsDeltaRegion(props.initialBounds);
+  }
 
   async componentDidMount() {
     const fine = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
@@ -55,48 +68,25 @@ export class MapView extends React.PureComponent<MapComponentProps, State> {
   };
 
   onMapLayout = ({ nativeEvent: { layout: { width, height } } }: LayoutChangeEvent) => {
-    console.log('Layout');
     this._dimensions = { width, height };
     if (this._map && !this._mapLaidOut) {
       this._mapLaidOut = true;
-      this._map.fitToCoordinates(
-        this.props.initialBounds!.map(([ longitude, latitude]) => ({ longitude, latitude })),
-        {
-          edgePadding: { top: 20, left: 20, right: 20, bottom: 20 },
-          animated: false,
-        },
-      );
-      this.runMyLocationButtonWorkaroundAndroid();
+      this.setLocationAndRegion();
     }
   };
 
   onMapReady = () => {
     this._mapReady = true;
-    this.runMyLocationButtonWorkaroundAndroid();
+    this.setLocationAndRegion();
   };
 
   onUserLocationChange = (evt: any) => {
-    if (this._userLocationSet) {
+    if (this._initialUserLocation) {
       return;
     }
-    this._userLocationSet = true;
-    const { latitude, longitude } = evt.nativeEvent.coordinate;
-    const [minLng, maxLng, minLat, maxLat] = getBBox(this.props.initialBounds);
-    if (this._map && latitude >= minLat && latitude <= maxLat && longitude >= minLng && longitude <= maxLng) {
-      if (computeDistanceBetween([minLng, minLat], [maxLng, maxLat]) < 150) {
-        this._map.animateToCoordinate({ latitude, longitude }, 300);
-      } else {
-        const corner = computeOffset({ latitude, longitude }, 100, -45);
-        this._map.animateToRegion(
-          {
-            latitude,
-            longitude,
-            latitudeDelta: Math.abs(latitude - corner.latitude),
-            longitudeDelta: Math.abs(longitude - corner.longitude),
-          },
-          300,
-        );
-      }
+    this._initialUserLocation = evt.nativeEvent.coordinate;
+    if (this._inititalRegionSet) {
+      InteractionManager.runAfterInteractions(this.zoomToMyLocation);
     }
   };
 
@@ -104,10 +94,42 @@ export class MapView extends React.PureComponent<MapComponentProps, State> {
     this._map = ref;
   };
 
-  // See https://github.com/react-community/react-native-maps/issues/1033
-  runMyLocationButtonWorkaroundAndroid = () => {
-    if (this._mapReady && this._mapLaidOut) {
-      this.setState({ showMyLocationAndroidWorkaround: true });
+  setLocationAndRegion = () => {
+    if (this._map && this._mapReady && this._mapLaidOut) {
+      this.setState({ showMyLocationAndroidWorkaround: true }, () => {
+        this._map.fitToCoordinates(
+          this.props.initialBounds!.map(([ longitude, latitude]) => ({ longitude, latitude })),
+          {
+            edgePadding: { top: 20, left: 20, right: 20, bottom: 20 },
+            animated: false,
+          },
+        );
+        this._inititalRegionSet = true;
+        if (this._initialUserLocation) {
+          InteractionManager.runAfterInteractions(this.zoomToMyLocation);
+        }
+      });
+    }
+  };
+
+  zoomToMyLocation = () => {
+    const { latitude, longitude } = this._initialUserLocation;
+    const [minLng, maxLng, minLat, maxLat] = getBBox(this.props.initialBounds);
+    if (this._map && latitude >= minLat && latitude <= maxLat && longitude >= minLng && longitude <= maxLng) {
+      if (computeDistanceBetween([minLng, minLat], [maxLng, maxLat]) < 150) {
+        this._map.animateToCoordinate({ latitude, longitude }, 300);
+      } else {
+        const corner = computeOffset({ latitude, longitude }, 200, -45);
+        this._map.animateToRegion(
+          {
+            latitude,
+            longitude,
+            latitudeDelta: Math.abs(latitude - corner.latitude) / 2,
+            longitudeDelta: Math.abs(longitude - corner.longitude) / 2,
+          },
+          300,
+        );
+      }
     }
   };
 
@@ -126,6 +148,7 @@ export class MapView extends React.PureComponent<MapComponentProps, State> {
           toolbarEnabled={false}
           style={mapStyle}
           provider="google"
+          initialRegion={this._initialRegion}
           onPress={this.onDeselect}
           onMarkerDeselect={this.onDeselect}
           onRegionChange={this.onRegionChange}

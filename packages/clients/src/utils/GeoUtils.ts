@@ -85,6 +85,19 @@ export function getBBox(bounds: Coordinate[]): BBox {
   );
 }
 
+export function getBoundsDeltaRegion(bounds?: Coordinate[]) {
+  if (!bounds) {
+    return undefined;
+  }
+  const [minLng, maxLng, minLat, maxLat] = getBBox(bounds);
+  return {
+    latitude: (minLat + maxLat) / 2,
+    longitude: (minLng + maxLng) / 2,
+    latitudeDelta: Math.abs(maxLat - minLat) / 2,
+    longitudeDelta: Math.abs(maxLng - minLng) / 2,
+  };
+}
+
 function latRad(lat: number) {
   const sin = Math.sin(lat * Math.PI / 180);
   const radX2 = Math.log((1 + sin) / (1 - sin)) / 2;
