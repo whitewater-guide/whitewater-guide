@@ -10,7 +10,8 @@ private_lane :parse_package_json do |options|
   versionString = pjson["version"]
   version = versionString.split('.')
   versionCode = format('%d%02d%3d', version[0], version[1], version[2])
-  ENV["IOS_VERSION"] = versionString
+  iosVersionString = format('%d.%d', version[0], version[1])
+  ENV["IOS_VERSION"] = iosVersionString
   ENV["ANDROID_VERSION_NAME"] = versionString
   ENV["IOS_VERSION_BUILD_NUMBER"] = versionCode
   ENV["ANDROID_VERSION_CODE"] = versionCode
