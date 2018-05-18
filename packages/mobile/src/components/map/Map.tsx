@@ -21,6 +21,7 @@ interface State {
 export class MapView extends React.PureComponent<MapComponentProps, State> {
   _map: RNMapView | null;
   _mapLaidOut: boolean = false;
+  _mapReady: boolean = false;
   _userLocationSet: boolean = false;
   _bounds: Coordinate[];
   _dimensions: { width: number, height: number };
@@ -54,6 +55,7 @@ export class MapView extends React.PureComponent<MapComponentProps, State> {
   };
 
   onMapLayout = ({ nativeEvent: { layout: { width, height } } }: LayoutChangeEvent) => {
+    console.log('Layout');
     this._dimensions = { width, height };
     if (this._map && !this._mapLaidOut) {
       this._mapLaidOut = true;
@@ -64,8 +66,13 @@ export class MapView extends React.PureComponent<MapComponentProps, State> {
           animated: false,
         },
       );
-      this.setState({ showMyLocationAndroidWorkaround: true });
+      this.runMyLocationButtonWorkaroundAndroid();
     }
+  };
+
+  onMapReady = () => {
+    this._mapReady = true;
+    this.runMyLocationButtonWorkaroundAndroid();
   };
 
   onUserLocationChange = (evt: any) => {
@@ -97,6 +104,13 @@ export class MapView extends React.PureComponent<MapComponentProps, State> {
     this._map = ref;
   };
 
+  // See https://github.com/react-community/react-native-maps/issues/1033
+  runMyLocationButtonWorkaroundAndroid = () => {
+    if (this._mapReady && this._mapLaidOut) {
+      this.setState({ showMyLocationAndroidWorkaround: true });
+    }
+  };
+
   render() {
     const mapStyle = this.state.showMyLocationAndroidWorkaround ? StyleSheet.absoluteFill : styles.initialMapStyle;
     return (
@@ -118,6 +132,7 @@ export class MapView extends React.PureComponent<MapComponentProps, State> {
           onRegionChangeComplete={this.onRegionChange}
           onLayout={this.onMapLayout}
           onUserLocationChange={this.onUserLocationChange}
+          onMapReady={this.onMapReady}
         >
           {this.props.children}
         </RNMapView>
