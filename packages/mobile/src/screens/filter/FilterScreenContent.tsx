@@ -5,6 +5,7 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { Button, Subheading } from 'react-native-paper';
 import { Omit } from 'type-zoo';
 import { MultiSlider, StarRating, TernaryChips } from '../../components';
+import theme from '../../theme';
 import { stringifySeason, toRomanDifficulty } from '../../ww-clients/utils';
 import { Duration, SectionSearchTerms, SelectableTag, TagSelection } from '../../ww-commons';
 import { InnerProps } from './types';
@@ -12,6 +13,9 @@ import { InnerProps } from './types';
 const DIFFICULTY_RANGE: [number, number] = [1, 6];
 const SEASON_RANGE: [number, number] = [0, 23];
 const DURATION_RANGE: [number, number] = [Duration.LAPS, Duration.MULTIDAY];
+// container.paddingHorizontal (12) + multidlider.marginHorizontal (-10) + rangeslider._trackMarginH (18)
+const DEFAULT_SLIDER_PAGEX = 20;
+const DEFAULT_SLIDER_WIDTH = theme.screenWidth - 2 * DEFAULT_SLIDER_PAGEX;
 
 const styles = StyleSheet.create({
   container: {
@@ -94,6 +98,8 @@ export default class FilterScreenContent extends React.PureComponent<InnerProps,
       <View style={StyleSheet.absoluteFill}>
         <ScrollView contentContainerStyle={styles.container}>
           <MultiSlider
+            defaultTrackWidth={DEFAULT_SLIDER_WIDTH}
+            defaultTrackPageX={DEFAULT_SLIDER_PAGEX}
             label={difficultyLabel}
             range={DIFFICULTY_RANGE}
             step={0.5}
@@ -101,6 +107,8 @@ export default class FilterScreenContent extends React.PureComponent<InnerProps,
             onChange={this.onChange('difficulty')}
           />
           <MultiSlider
+            defaultTrackWidth={DEFAULT_SLIDER_WIDTH}
+            defaultTrackPageX={DEFAULT_SLIDER_PAGEX}
             label={durationLabel}
             range={DURATION_RANGE}
             step={10}
@@ -108,6 +116,8 @@ export default class FilterScreenContent extends React.PureComponent<InnerProps,
             onChange={this.onChange('duration')}
           />
           <MultiSlider
+            defaultTrackWidth={DEFAULT_SLIDER_WIDTH}
+            defaultTrackPageX={DEFAULT_SLIDER_PAGEX}
             label={`${t('commons:season')}: ${stringifySeason(this.state.seasonNumeric, true, i18n.language)}`}
             range={SEASON_RANGE}
             step={1}

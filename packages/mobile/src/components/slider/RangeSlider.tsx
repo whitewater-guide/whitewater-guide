@@ -1,6 +1,14 @@
 import clamp from 'lodash/clamp';
 import React from 'react';
-import { Animated, GestureResponderEvent, LayoutChangeEvent, StyleSheet, View, ViewProps } from 'react-native';
+import {
+  Animated,
+  GestureResponderEvent,
+  InteractionManager,
+  LayoutChangeEvent,
+  StyleSheet,
+  View,
+  ViewProps,
+} from 'react-native';
 import theme from '../../theme';
 import Thumb, { THUMB_SCALE_RATIO } from './Thumb';
 
@@ -19,6 +27,8 @@ export interface RangeSliderProps extends ViewProps {
   behavior?: 'block' | 'continue' | 'invert';
   onChange?: (values: [number, number]) => void;
   onChangeEnd?: (values: [number, number]) => void;
+  defaultTrackWidth?: number;
+  defaultTrackPageX?: number;
 }
 
 export class RangeSlider extends React.PureComponent<RangeSliderProps> {
@@ -58,19 +68,33 @@ export class RangeSlider extends React.PureComponent<RangeSliderProps> {
     });
   }
 
+  componentDidMount() {
+    const { defaultTrackPageX, defaultTrackWidth } = this.props;
+    if (defaultTrackPageX && defaultTrackWidth) {
+      this._trackPageX = defaultTrackPageX;
+      this._trackWidthPx = defaultTrackWidth;
+      this.setValuesPx(this.props);
+      this.updateThumbs();
+    }
+  }
+
   componentWillReceiveProps(nextProps: RangeSliderProps) {
     this.setValuesPx(nextProps);
     this.updateThumbs();
   }
 
   onTrackLayout = ({ nativeEvent: { layout: { width } } }: LayoutChangeEvent) => {
-    if (this._trackWidthPx !== width) {
-      this._trackWidthPx = width;
-      this.setValuesPx(this.props);
-      this.updateThumbs(true);
-    }
-    this._track.measure((x, y, w, height, pageX) => {
-      this._trackPageX = pageX;
+    // InteractionManager.runAfterInteractions is required because when RangeSlider is inside animated StackScreen
+    // initial measurements get screwed
+    InteractionManager.runAfterInteractions(() => {
+      if (this._trackWidthPx !== width) {
+        this._trackWidthPx = width;
+        this.setValuesPx(this.props);
+        this.updateThumbs(true);
+      }
+      this._track.measure((x, y, w, h, pageX) => {
+        this._trackPageX = pageX;
+      });
     });
   };
 
