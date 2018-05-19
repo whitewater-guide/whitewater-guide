@@ -14,7 +14,7 @@ const dockerLogin = (readOnly) => {
 
   const { stdout, stderr, status } = spawnSync(
     'aws',
-    ['ecr', 'get-login', '--no-include-email', '--region', 'ap-south-1'],
+    ['ecr', 'get-login', '--no-include-email', '--region', env.AWS_REGION],
     { env },
   );
   if (status !== 0) {

@@ -83,14 +83,13 @@
     transparent
   }
 
-  # TODO
-  # cache {
-  #   match_path /${IMGPROXY_PATH}
-  #   match_header Content-Type image/jpg image/png
-  #   status_header X-Cache-Status
-  #   default_max_age 24h
-  #   path {$CADDY_CACHE_PATH}
-  # }
+  cache {
+    match_path /${IMGPROXY_PATH}
+    match_header Content-Type image/jpg image/png
+    status_header X-Cache-Status
+    default_max_age 24h
+    path {$CADDY_CACHE_PATH}
+  }
 
   log / stdout "{common} Upstream: {upstream}"
 
