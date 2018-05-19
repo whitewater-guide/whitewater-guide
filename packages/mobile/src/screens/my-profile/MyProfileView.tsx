@@ -4,8 +4,11 @@ import { Button, Divider, Subheading } from 'react-native-paper'
 import { Paper, RadioDialog, Screen, Spacer, } from '../../components';
 import { LANGUAGE_NAMES } from '../../i18n';
 import theme from '../../theme';
-import { LANGUAGES } from '../../ww-commons';
 import { InnerProps } from './types';
+
+// import { LANGUAGES } from '../../ww-commons';
+// Only include languages that are truly translated
+export const LANGUAGES = ['en', 'ru'];
 
 const labelExtractor = (code: string) => LANGUAGE_NAMES[code];
 

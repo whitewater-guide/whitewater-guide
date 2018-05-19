@@ -56,7 +56,7 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>whitewater.guide needs this permission so you can see how close is this or that river to your current position</string>
+	<string>It needs this permission to show you how close you are to this or that river</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Entypo.ttf</string>

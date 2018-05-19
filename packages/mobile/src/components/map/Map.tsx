@@ -1,5 +1,5 @@
 import React from 'react';
-import { InteractionManager, LayoutChangeEvent, PermissionsAndroid, StyleSheet, View } from 'react-native';
+import { InteractionManager, LayoutChangeEvent, PermissionsAndroid, Platform, StyleSheet, View } from 'react-native';
 import RNMapView, { Region as MapsRegion } from 'react-native-maps';
 import { MapBody, MapComponentProps, MapProps } from '../../ww-clients/features/maps';
 import {
@@ -33,7 +33,7 @@ export class MapView extends React.PureComponent<MapComponentProps, State> {
   _bounds: Coordinate[];
   _dimensions: { width: number, height: number };
   _initialRegion: any;
-  _inititalRegionSet: boolean = false;
+  _initialRegionSet: boolean = false;
 
   constructor(props: MapComponentProps) {
     super(props);
@@ -42,10 +42,12 @@ export class MapView extends React.PureComponent<MapComponentProps, State> {
   }
 
   async componentDidMount() {
-    const fine = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
-    if (!fine) {
-      await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
-      this.forceUpdate();
+    if (Platform.OS === 'android') {
+      const fine = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
+      if (!fine) {
+        await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
+        this.forceUpdate();
+      }
     }
   }
 
@@ -85,7 +87,7 @@ export class MapView extends React.PureComponent<MapComponentProps, State> {
       return;
     }
     this._initialUserLocation = evt.nativeEvent.coordinate;
-    if (this._inititalRegionSet) {
+    if (this._initialRegionSet) {
       InteractionManager.runAfterInteractions(this.zoomToMyLocation);
     }
   };
@@ -104,7 +106,7 @@ export class MapView extends React.PureComponent<MapComponentProps, State> {
             animated: false,
           },
         );
-        this._inititalRegionSet = true;
+        this._initialRegionSet = true;
         if (this._initialUserLocation) {
           InteractionManager.runAfterInteractions(this.zoomToMyLocation);
         }
