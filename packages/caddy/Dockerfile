@@ -1,3 +1,3 @@
-FROM doomsower/caddy:6
+FROM doomsower/caddy:7
 
 COPY Caddyfile /etc/Caddyfile
