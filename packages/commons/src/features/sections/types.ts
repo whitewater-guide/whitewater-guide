@@ -57,6 +57,7 @@ export interface Section extends NamedNode, Timestamped {
   difficultyXtra: string | null;
   rating: number | null;
   hidden: boolean;
+  demo: boolean;
 
   tags: Tag[];
 

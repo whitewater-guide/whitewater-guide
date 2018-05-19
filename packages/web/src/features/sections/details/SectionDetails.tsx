@@ -51,7 +51,7 @@ export default class SectionDetails extends React.PureComponent<WithSection & Ro
           <Route exact path={`${url}/media`} />
 
           <Route>
-            <EditorFooter edit />
+            <EditorFooter edit administrate />
           </Route>
 
         </Switch>

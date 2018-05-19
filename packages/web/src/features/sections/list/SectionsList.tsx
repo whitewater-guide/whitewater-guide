@@ -6,6 +6,7 @@ import { ClickBlocker, DeleteButton, IconLink, Rating } from '../../../component
 import { ResourcesList } from '../../../layout';
 import { paths } from '../../../utils';
 import { getSectionColor } from '../../../ww-clients/features/sections';
+import { AdminOnly } from '../../../ww-clients/features/users';
 import { renderDifficulty } from '../../../ww-clients/utils';
 import { Durations, Section } from '../../../ww-commons';
 import { SectionsListProps } from './types';
@@ -69,6 +70,9 @@ export default class SectionsList extends React.PureComponent<SectionsListProps>
       <ClickBlocker>
         <IconLink to={paths.settings({ regionId, sectionId })} icon="edit" />
         <DeleteButton id={sectionId} deleteHandler={this.props.removeSection} />
+        <AdminOnly>
+          <IconLink to={paths.admin({ regionId, sectionId })} icon="settings" />
+        </AdminOnly>
       </ClickBlocker>
     );
   };
@@ -83,7 +87,7 @@ export default class SectionsList extends React.PureComponent<SectionsListProps>
         <Column width={150} label="Rating" dataKey="rating" cellRenderer={this.renderRating} />
         <Column width={50} label="Length" dataKey="distance" />
         <Column width={80} label="Duration" dataKey="duration" cellRenderer={this.renderDuration}/>
-        <Column width={100} label="Actions" dataKey="actions" cellRenderer={this.renderActions} />
+        <Column width={120} label="Actions" dataKey="actions" cellRenderer={this.renderActions} />
       </ResourcesList>
     );
   }
