@@ -2,6 +2,7 @@
 
 exports[`should return simple data 1`] = `
 Object {
+  "demo": false,
   "description": "Amot description",
   "difficulty": 4,
   "difficultyXtra": null,

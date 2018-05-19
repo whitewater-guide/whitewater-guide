@@ -39,7 +39,7 @@ export const SectionInputSchema = Joi.object().keys({
     id: Joi.string(),
   })),
   pois: Joi.array().items(PointInputSchema),
-  hidden: Joi.boolean(),
+  hidden: Joi.bool(),
 });
 
 // description is draft.js EditorState
@@ -50,4 +50,8 @@ export const SectionFormSchema = SectionInputSchema.keys({
   hazardsTags: Joi.array().items(TagInputSchema),
   supplyTags: Joi.array().items(TagInputSchema),
   miscTags: Joi.array().items(TagInputSchema),
+});
+
+export const SectionAdminSettingsSchema = Joi.object().keys({
+  demo: Joi.bool(),
 });

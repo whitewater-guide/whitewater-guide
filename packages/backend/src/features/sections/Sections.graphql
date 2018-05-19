@@ -79,7 +79,7 @@ type Section {
   # Not ready for publication yet
   hidden: Boolean!
   # Is demo section in premium region
-  demo: Boolean!
+  demo: Boolean
 }
 
 type SectionMediaConnection {
@@ -114,6 +114,10 @@ input SectionInput {
   hidden: Boolean!
 }
 
+input SectionAdminSettings {
+  demo: Boolean!
+}
+
 type SectionsList {
   nodes: [Section]!
   count: Int!
@@ -133,4 +137,5 @@ type Query {
 type Mutation {
   upsertSection(section: SectionInput!): Section
   removeSection(id: ID!): ID
+  administrateSection(id: ID!, settings: SectionAdminSettings!): Section @admin
 }

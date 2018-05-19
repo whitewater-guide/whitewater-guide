@@ -24,7 +24,7 @@ type Region {
   # List of sections, pagination not supported yet, so use only for count!
   sections: RegionSectionConnection!
 
-  # Only admins and editors can see this
+  # Only admins can see this
   hidden: Boolean @admin
   # True if region has some premium content
   premium: Boolean
