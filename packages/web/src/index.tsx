@@ -6,7 +6,7 @@ import 'react-virtualized/styles.css';
 import 'reflect-metadata';
 import App from './App';
 import './index.css';
-import registerServiceWorker from './registerServiceWorker';
+import { unregister } from './registerServiceWorker';
 import './styles/react-virtualized-override.css';
 
 declare const Raven: any;
@@ -19,4 +19,4 @@ ReactDOM.render(
   <App />,
   document.getElementById('root') as HTMLElement,
 );
-registerServiceWorker();
+unregister();
