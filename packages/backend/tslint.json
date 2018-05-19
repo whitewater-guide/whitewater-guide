@@ -14,7 +14,7 @@
     "newline-before-return": false,
     "no-any": false,
     "no-console": true,
-    "no-empty": [true, "allow-empty-catch"],
+    "no-empty": [true, "allow-empty-catch", "allow-empty-functions"],
     "no-inferrable-types": [true],
     "no-implicit-dependencies": [true, "dev"],
     "no-import-side-effect": [true, {"ignore-module": "^rxjs/"}],

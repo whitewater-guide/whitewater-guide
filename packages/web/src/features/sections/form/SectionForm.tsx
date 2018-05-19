@@ -97,6 +97,7 @@ export default class SectionForm extends React.PureComponent<SectionFormProps> {
                 <Checkbox name="flows.approximate" label="Approximate" />
               </Row>
               <TextInput fullWidth name="flowsText" title="Flows description" />
+              <Checkbox name="hidden" label="Hidden from users" />
             </div>
           </FormTab>
           <FormTab form="section" fields={PropertiesFields} label="Properties" value="#properties">
