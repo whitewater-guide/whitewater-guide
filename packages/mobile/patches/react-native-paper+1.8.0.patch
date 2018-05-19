@@ -1,0 +1,23 @@
+patch-package
+--- a/node_modules/react-native-paper/src/components/Icon.js
++++ b/node_modules/react-native-paper/src/components/Icon.js
+@@ -7,7 +7,7 @@ let MaterialIcons;
+ 
+ try {
+   // Optionally require vector-icons
+-  MaterialIcons = require('react-native-vector-icons/MaterialIcons').default;
++  MaterialIcons = require('react-native-vector-icons/MaterialCommunityIcons').default;
+ } catch (e) {
+   MaterialIcons = ({ name, color, size, ...rest }) => {
+     // eslint-disable-next-line no-console
+--- a/node_modules/react-native-paper/src/components/RadioButton.ios.js
++++ b/node_modules/react-native-paper/src/components/RadioButton.ios.js
+@@ -85,7 +85,7 @@ class RadioButton extends React.Component<Props> {
+               <View style={{ opacity: checked ? 1 : 0 }}>
+                 <Icon
+                   allowFontScaling={false}
+-                  name={checked && 'done'}
++                  name={checked && 'check'}
+                   size={24}
+                   color={checkedColor}
+                 />
