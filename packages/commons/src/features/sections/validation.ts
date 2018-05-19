@@ -39,6 +39,7 @@ export const SectionInputSchema = Joi.object().keys({
     id: Joi.string(),
   })),
   pois: Joi.array().items(PointInputSchema),
+  hidden: Joi.boolean(),
 });
 
 // description is draft.js EditorState

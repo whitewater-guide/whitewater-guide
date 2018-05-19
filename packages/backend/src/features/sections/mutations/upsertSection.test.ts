@@ -80,6 +80,7 @@ const upsertQuery = `
       }
       createdAt
       updatedAt
+      hidden
       pois {
         id
         name
@@ -124,6 +125,7 @@ const existingRiverSection: SectionInput = {
     { id: null, name: 'playrun pt 1', description: 'pt 1 d', kind: 'other', coordinates: [10, 12, 0] },
     { id: null, name: 'playrun pt 2', description: 'pt 2 d', kind: 'portage', coordinates: [33, 34, 0] },
   ],
+  hidden: false,
 };
 
 const updateData: SectionInput = {
@@ -188,6 +190,8 @@ const invalidSection: SectionInput = {
   rating: 35,
   tags: [],
   pois: [],
+
+  hidden: false,
 };
 
 describe('resolvers chain', () => {
@@ -366,6 +370,8 @@ describe('i18n', () => {
     gauge: null,
     levels: null,
     tags: [],
+
+    hidden: false,
   };
 
   it('should add translation', async () => {

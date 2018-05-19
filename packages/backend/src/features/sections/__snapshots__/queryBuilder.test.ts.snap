@@ -213,6 +213,14 @@ from
     sections_view
 where
     sections_view.language = 'en'
+    and (sections_view.hidden = false
+        or sections_view.region_id in (
+            select
+                regions_editors.region_id
+            from
+                regions_editors
+            where
+                regions_editors.user_id = '477a0bec-8a78-11e7-b3e6-9beeff45d731'))
 order by
     sections_view.name asc,
     sections_view.created_at asc,
@@ -249,6 +257,14 @@ from
     sections_view
 where
     sections_view.language = 'en'
+    and (sections_view.hidden = false
+        or sections_view.region_id in (
+            select
+                regions_editors.region_id
+            from
+                regions_editors
+            where
+                regions_editors.user_id = '477a0bec-8a78-11e7-b3e6-9beeff45d731'))
 order by
     sections_view.name asc,
     sections_view.created_at asc,
@@ -284,6 +300,14 @@ from
     sections_view
 where
     sections_view.language = 'en'
+    and (sections_view.hidden = false
+        or sections_view.region_id in (
+            select
+                regions_editors.region_id
+            from
+                regions_editors
+            where
+                regions_editors.user_id = '477a0bec-8a78-11e7-b3e6-9beeff45d731'))
 order by
     sections_view.name asc,
     sections_view.created_at asc,
@@ -320,9 +344,17 @@ from
     sections_view
 where
     sections_view.language = 'en'
-order by
-    sections_view.name asc,
-    sections_view.created_at asc,
-    sections_view.id asc
+    and (sections_view.hidden = false
+        or sections_view.region_id in (
+            select
+                regions_editors.region_id
+            from
+                regions_editors
+            where
+                regions_editors.user_id = '477a0bec-8a78-11e7-b3e6-9beeff45d731'))
+    order by
+        sections_view.name asc,
+        sections_view.created_at asc,
+        sections_view.id asc
 
 `;

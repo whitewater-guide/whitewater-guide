@@ -1,7 +1,7 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
-import { EDITOR_NO_EC } from '../../../seeds/test/01_users';
-import { NORWAY_SJOA_AMOT } from '../../../seeds/test/09_sections';
-import { fakeContext } from '../../../test/context';
+import { ADMIN, EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '../../../seeds/test/01_users';
+import { NORWAY_FINNA_GORGE, NORWAY_SJOA_AMOT } from '../../../seeds/test/09_sections';
+import { anonContext, fakeContext } from '../../../test/context';
 import { noTimestamps, runQuery } from '../../../test/db-helpers';
 
 beforeEach(holdTransaction);
@@ -64,9 +64,42 @@ const query = `
         kind
         coordinates
       }
+      hidden
     }
   }
 `;
+
+describe('permissions', () => {
+  it('anon should not get hidden section', async () => {
+    const result = await runQuery(query, { id: NORWAY_FINNA_GORGE }, anonContext());
+    expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
+    expect(result.data!.section).toBeNull();
+  });
+
+  it('user should not get hidden section', async () => {
+    const result = await runQuery(query, { id: NORWAY_FINNA_GORGE }, fakeContext(TEST_USER));
+    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
+    expect(result.data!.section).toBeNull();
+  });
+
+  it('non-owning editor should not get hidden section', async () => {
+    const result = await runQuery(query, { id: NORWAY_FINNA_GORGE }, fakeContext(EDITOR_GA_EC));
+    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
+    expect(result.data!.section).toBeNull();
+  });
+
+  it('owning editor should get hidden section', async () => {
+    const result = await runQuery(query, { id: NORWAY_FINNA_GORGE }, fakeContext(EDITOR_NO_EC));
+    expect(result.errors).toBeUndefined();
+    expect(result).toHaveProperty('data.section.hidden', true);
+  });
+
+  it('admin should get hidden section', async () => {
+    const result = await runQuery(query, { id: NORWAY_FINNA_GORGE }, fakeContext(ADMIN));
+    expect(result.errors).toBeUndefined();
+    expect(result).toHaveProperty('data.section.hidden', true);
+  });
+});
 
 it('should return simple data', async () => {
   const result = await runQuery(query, { id: NORWAY_SJOA_AMOT }); // Amot

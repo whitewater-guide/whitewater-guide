@@ -3,6 +3,7 @@ import { LineString, Point } from 'wkx';
 import { Coordinate3d, Duration } from '../../ww-commons';
 import { ADMIN_ID } from './01_users';
 import { GAUGE_GAL_1_1 } from './06_gauges';
+import { RIVER_FINNA } from './07_rivers';
 
 function getLineString(shape: Coordinate3d[] | null) {
   let lineString = null;
@@ -17,6 +18,7 @@ function getLineString(shape: Coordinate3d[] | null) {
 export const GALICIA_R1_S1 = '2b01742c-d443-11e7-9296-cec278b6b50a';
 export const GALICIA_R1_S2 = '3a6e3210-d529-11e7-9296-cec278b6b50a';
 export const NORWAY_SJOA_AMOT = '21f2351e-d52a-11e7-9296-cec278b6b50a';
+export const NORWAY_FINNA_GORGE = '8688e656-5b4b-11e8-9c2d-fa7ae01bbebc';
 
 const sections = [
   {
@@ -85,6 +87,18 @@ const sections = [
     difficulty: 4,
     rating: 5,
   },
+  {
+    id: NORWAY_FINNA_GORGE,
+    river_id: RIVER_FINNA,
+    season_numeric: [11, 12, 13, 14, 15, 16],
+    shape: getLineString([[2, 2, 0], [3, 3, 0]]),
+    distance: 5.5,
+    drop: 334.2,
+    duration: Duration.DAYRUN,
+    difficulty: 4,
+    rating: 4,
+    hidden: true,
+  },
 ];
 
 const sectionsEn = [
@@ -111,6 +125,14 @@ const sectionsEn = [
     description: 'Amot description',
     season: 'Amot season',
     flows_text: 'Amot flows text',
+  },
+  {
+    section_id: NORWAY_FINNA_GORGE,
+    language: 'en',
+    name: 'Gorge',
+    description: 'Finna gorge description',
+    season: 'Finna gorge season',
+    flows_text: 'Finna gorge flows text',
   },
 ];
 

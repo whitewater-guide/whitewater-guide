@@ -75,6 +75,11 @@ type Section {
   media: SectionMediaConnection!
   # Points of interest
   pois: [Point]!
+
+  # Not ready for publication yet
+  hidden: Boolean!
+  # Is demo section in premium region
+  demo: Boolean!
 }
 
 type SectionMediaConnection {
@@ -105,6 +110,8 @@ input SectionInput {
   rating: Float
   tags: [RefInput]!
   pois: [PointInput]!
+
+  hidden: Boolean!
 }
 
 type SectionsList {

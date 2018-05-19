@@ -1,6 +1,6 @@
 import db, { holdTransaction, rollbackTransaction } from '../../../db';
-import { EDITOR_NO_EC } from '../../../seeds/test/01_users';
-import { fakeContext } from '../../../test/context';
+import { ADMIN, EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '../../../seeds/test/01_users';
+import { anonContext, fakeContext } from '../../../test/context';
 import { noTimestamps, runQuery } from '../../../test/db-helpers';
 
 beforeEach(holdTransaction);
@@ -25,11 +25,49 @@ const query = `
           id
           name
         }
+        hidden
       }
       count
     }
   }
 `;
+
+describe('permissions', () => {
+  it('anon should not see hidden sections', async () => {
+    const result = await runQuery(query, {}, anonContext());
+    expect(result.errors).toBeUndefined();
+    expect(result).toHaveProperty('data.sections.nodes.length', 3);
+    expect(result).toHaveProperty('data.sections.count', 3);
+  });
+
+  it('user should not see hidden sections', async () => {
+    const result = await runQuery(query, {}, fakeContext(TEST_USER));
+    expect(result.errors).toBeUndefined();
+    expect(result).toHaveProperty('data.sections.nodes.length', 3);
+    expect(result).toHaveProperty('data.sections.count', 3);
+  });
+
+  it('non-owning editor should not see hidden sections', async () => {
+    const result = await runQuery(query, {}, fakeContext(EDITOR_GA_EC));
+    expect(result.errors).toBeUndefined();
+    expect(result).toHaveProperty('data.sections.nodes.length', 3);
+    expect(result).toHaveProperty('data.sections.count', 3);
+  });
+
+  it('owning editor should see hidden sections', async () => {
+    const result = await runQuery(query, {}, fakeContext(EDITOR_NO_EC));
+    expect(result.errors).toBeUndefined();
+    expect(result).toHaveProperty('data.sections.nodes.length', 4);
+    expect(result).toHaveProperty('data.sections.count', 4);
+  });
+
+  it('admin should see hidden sections', async () => {
+    const result = await runQuery(query, {}, fakeContext(ADMIN));
+    expect(result.errors).toBeUndefined();
+    expect(result).toHaveProperty('data.sections.nodes.length', 4);
+    expect(result).toHaveProperty('data.sections.count', 4);
+  });
+});
 
 it('should return sections', async () => {
   const result = await runQuery(query);
@@ -66,7 +104,6 @@ it('should be able to specify language', async () => {
 
 it('should fall back to english when not translated', async () => {
   const result = await runQuery(query, { }, fakeContext(EDITOR_NO_EC, 'pt'));
-  expect(result.errors).toBeUndefined();
   expect(result.errors).toBeUndefined();
   expect(result.data!.sections.nodes).toContainEqual(expect.objectContaining({
     name: 'Amot',

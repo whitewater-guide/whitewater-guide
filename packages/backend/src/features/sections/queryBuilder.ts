@@ -1,4 +1,4 @@
-import Knex from 'knex';
+import Knex, { QueryBuilder } from 'knex';
 import db, { buildListQuery, buildRootQuery, ListQueryBuilderOptions, QueryBuilderOptions } from '../../db';
 import { Section } from '../../ww-commons';
 
@@ -49,11 +49,28 @@ export const buildSectionQuery = (options: Partial<QueryBuilderOptions<Section>>
     ...options,
   });
 
-export const buildSectionsListQuery = (options: Partial<ListQueryBuilderOptions<Section>>) =>
-  buildListQuery({
+export const buildSectionsListQuery = (options: Partial<ListQueryBuilderOptions<Section>>) => {
+  const query = buildListQuery({
     context: options.context!,
     table: 'sections_view',
     oneToOnes,
     connections,
     ...options,
   });
+
+  // Filter hidden regions
+  if (!options.context!.user) {
+    query.where('sections_view.hidden', false);
+  } else if (!options.context!.user!.admin) {
+    query.where((qb) => {
+      qb
+        .where('sections_view.hidden', false)
+        .orWhereIn('sections_view.region_id', function(this: QueryBuilder) {
+          this.select('regions_editors.region_id')
+            .from('regions_editors')
+            .where('regions_editors.user_id', options.context!.user!.id);
+        });
+    });
+  }
+  return query;
+};

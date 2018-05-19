@@ -8,6 +8,7 @@ Object {
       "nodes": Array [
         Object {
           "gauge": null,
+          "hidden": false,
           "id": "21f2351e-d52a-11e7-9296-cec278b6b50a",
           "name": "Amot",
           "rating": 5,
@@ -25,6 +26,7 @@ Object {
             "id": "aba8c106-aaa0-11e7-abc4-cec278b6b50a",
             "name": "Galicia gauge 1",
           },
+          "hidden": false,
           "id": "2b01742c-d443-11e7-9296-cec278b6b50a",
           "name": "Gal_riv_1_sec_1",
           "rating": 4.5,
@@ -42,6 +44,7 @@ Object {
             "id": "aba8c106-aaa0-11e7-abc4-cec278b6b50a",
             "name": "Galicia gauge 1",
           },
+          "hidden": false,
           "id": "3a6e3210-d529-11e7-9296-cec278b6b50a",
           "name": "Gal_riv_1_sec_2",
           "rating": 2.5,

@@ -15,6 +15,7 @@ Object {
       "gauge": Object {
         "name": "Norway gauge 1",
       },
+      "hidden": false,
       "levels": Object {
         "approximate": false,
         "impossible": null,
@@ -151,6 +152,7 @@ Object {
       "gauge": Object {
         "name": "Galicia gauge 1",
       },
+      "hidden": false,
       "levels": Object {
         "approximate": false,
         "impossible": null,

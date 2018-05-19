@@ -56,6 +56,7 @@ export interface Section extends NamedNode, Timestamped {
   difficulty: number;
   difficultyXtra: string | null;
   rating: number | null;
+  hidden: boolean;
 
   tags: Tag[];
 
@@ -88,6 +89,8 @@ export interface SectionInput {
   rating: number | null;
   tags: Node[];
   pois: PointInput[];
+
+  hidden: boolean;
 }
 
 export type SectionSortBy = 'name' | 'difficulty' | 'duration' | 'rating';
@@ -115,3 +118,7 @@ export const DefaultSectionSearchTerms: SectionSearchTerms = {
   withTags: [],
   withoutTags: [],
 };
+
+export interface SectionAdminSettings {
+  demo: boolean;
+}
