@@ -32,6 +32,8 @@ type Region {
   sku: String
   # Indicates that current user can edit this region and everything inside it
   editable: Boolean!
+  # Indicates that current user can see premium content in this region
+  hasPremiumAccess: Boolean!
 
   # sources: [Source]!
 }

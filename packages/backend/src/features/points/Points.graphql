@@ -9,6 +9,8 @@ type Point {
   coordinates: [Float!]!
   # Dictionary value, point type
   kind: String!
+  # This POI is premium
+  premium: Boolean!
 }
 
 input PointInput {
