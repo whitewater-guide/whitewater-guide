@@ -25,6 +25,9 @@ const EMPTY_DATA_SOURCE = [
   },
 ];
 
+const filterFunction = (searchText: string, key: string) =>
+  searchText !== '' && key.toLowerCase().indexOf(searchText.toLowerCase()) !== -1;
+
 interface UserAutocompleteProps {
   isOpen: boolean;
   inputValue: string | null;
@@ -63,6 +66,7 @@ class UserAutocomplete extends React.PureComponent<InnerProps> {
       <AutoComplete
         hintText="Select user"
         searchText={inputValue || ''}
+        filter={filterFunction}
         onUpdateInput={this.onUpdateInput}
         onNewRequest={this.onNewRequest}
         dataSourceConfig={DATA_SOURCE_CONFIG}
