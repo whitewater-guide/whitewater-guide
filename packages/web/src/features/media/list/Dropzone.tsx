@@ -47,7 +47,7 @@ class Dropzone extends React.PureComponent<Props> {
     const { kind } = this.props;
     if (kind === MediaKind.photo) {
       return (
-        <Dz style={styles.dz} onDrop={this.onDrop}>
+        <Dz style={styles.dz} onDrop={this.onDrop} multiple={false}>
           <FontIcon className="material-icons" style={styles.icon} color="#333333">add</FontIcon>
           <span>or drop image here</span>
         </Dz>
