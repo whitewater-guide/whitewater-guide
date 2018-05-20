@@ -5,7 +5,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "noEmitHelpers": false,
+    "noEmitHelpers": true,
     "lib": ["esnext", "dom"],
     "target": "es2017",
     "module": "commonjs",

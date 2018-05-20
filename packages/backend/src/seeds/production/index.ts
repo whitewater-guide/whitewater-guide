@@ -15,41 +15,10 @@ export async function seed(db: Knex) {
   }
   const { locked } = await db('seeds_lock').select('*').first();
   if (locked) {
-    log.info('Development database is already seeded, check seeds_lock');
+    log.info('Production database is already seeded, check seeds_lock');
     return;
   }
-  log.info('Started seeding dev');
-  const tables = [
-    '"sources_regions"',
-    '"logins"',
-    '"users"',
-    '"gauges"',
-    '"gauges_translations"',
-    '"groups"',
-    '"groups_translations"',
-    '"sections"',
-    '"sections_translations"',
-    '"sections_points"',
-    '"sections_tags"',
-    '"sections_media"',
-    '"sources"',
-    '"sources_translations"',
-    '"regions"',
-    '"regions_translations"',
-    '"regions_points"',
-    '"regions_editors"',
-    '"regions_groups"',
-    '"points"',
-    '"points_translations"',
-    '"rivers"',
-    '"rivers_translations"',
-    '"tags"',
-    '"tags_translations"',
-    '"measurements"',
-    '"media"',
-    '"media_translations"',
-  ].join(', ');
-  await db.raw(`TRUNCATE ${tables} CASCADE`);
+  log.info('Started seeding production');
 
   await new Promise(rslv => {
     const streamer = sqlStreamer(dumpFile);
