@@ -42,5 +42,22 @@ export const getFilter = (terms: SectionSearchTerms) => (section: Section): bool
     }
   }
   // seasonNumeric
+  if (seasonNumeric && seasonNumeric.length) {
+    const [from, to] = seasonNumeric;
+    let firstRange = [from, to];
+    let secondRange = [100, 100]; // Make sure nothing gets in this range
+    if (to < from) {
+      firstRange = [0, to];
+      secondRange = [from, 23];
+    }
+    const isInRange =
+      section.seasonNumeric &&
+      section.seasonNumeric.some(
+        (m) => (m >= firstRange[0] && m <= firstRange[1]) || (m >= secondRange[0] && m <= secondRange[1]),
+    );
+    if (!isInRange) {
+      return false;
+    }
+  }
   return true;
 };
