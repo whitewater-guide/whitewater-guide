@@ -7,7 +7,7 @@ CREATE OR REPLACE VIEW groups_view AS
   SELECT
     groups.id,
     groups.sku,
-    groups.auto_add,
+    groups.all_regions,
     langs.language,
     COALESCE(groups_translations.name, english.name, 'Not translated') as name
   FROM langs

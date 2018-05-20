@@ -4,6 +4,7 @@ export const GROUP_EU = 'c9bf96be-37f5-11e8-b467-0ed5f89f718b';
 export const GROUP_EU_CIS = '88a55b3c-37f5-11e8-b467-0ed5f89f718b';
 export const GROUP_LATIN = '904a4852-37f5-11e8-b467-0ed5f89f718b';
 export const GROUP_EMPTY = '9f4c3c98-37f5-11e8-b467-0ed5f89f718b';
+export const GROUP_ALL = 'cad81a76-5c44-11e8-9c2d-fa7ae01bbebc';
 
 const groups = [
   {
@@ -21,6 +22,11 @@ const groups = [
   {
     id: GROUP_EMPTY,
     sku: null,
+  },
+  {
+    id: GROUP_ALL,
+    sku: 'group.all',
+    all_regions: true,
   },
 ];
 
@@ -44,6 +50,11 @@ const groupsEn = [
     group_id: GROUP_EMPTY,
     language: 'en',
     name: 'Empty',
+  },
+  {
+    group_id: GROUP_ALL,
+    language: 'en',
+    name: 'All regions',
   },
 ];
 

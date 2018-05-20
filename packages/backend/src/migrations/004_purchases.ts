@@ -1,7 +1,9 @@
 import Knex from 'knex';
 import { addUpdatedAtTrigger, createViews, dropViews, runSqlFile } from '../db';
+import { GROUP_EU_CIS } from '../seeds/test/03_groups';
 
 const VIEWS = ['groups', 'gauges', 'sections', 'rivers', 'regions', 'points'];
+const ALL_REGIONS_GROUP = 'f38c7006-5c4a-11e8-9c2d-fa7ae01bbebc';
 /**
  * This patch adds tables for transactions and boomstarter promo codes
  * Also adds premium attribute to POI
@@ -20,7 +22,7 @@ export const up = async (db: Knex) => {
 
   // Add auto-add column which indicated that regions should be automatically added to this group
   await db.schema.table('groups', (table) => {
-    table.boolean('auto_add').notNullable().defaultTo(false);
+    table.boolean('all_regions').notNullable().defaultTo(false);
   });
 
   // Make sku uniques
@@ -60,15 +62,24 @@ export const up = async (db: Knex) => {
   await addUpdatedAtTrigger(db, 'transactions');
 
   await createViews(db, 4, ...VIEWS);
+
+  if (process.env.NODE_ENV !== 'test') {
+    await db.table('groups').insert({ id: ALL_REGIONS_GROUP, sku: 'groups.all', all_regions: true });
+    await db.table('groups_translations').insert({ group_id: ALL_REGIONS_GROUP, language: 'en', name: 'All regions' });
+  }
 };
 
 export const down = async (db: Knex) => {
+  if (process.env.NODE_ENV !== 'test') {
+    await db.table('groups').del().where({ id: ALL_REGIONS_GROUP });
+  }
   await dropViews(db, ...VIEWS);
   await db.schema.raw('DROP TABLE IF EXISTS transactions CASCADE');
+  await db.schema.raw('DROP TABLE IF EXISTS boom_promos CASCADE');
   await db.schema.raw('DROP TYPE IF EXISTS platform_type CASCADE');
 
   await db.schema.table('groups', (table) => {
-    table.dropColumn('auto_add');
+    table.dropColumn('all_regions');
   });
 
   await db.schema.table('points', (table) => {

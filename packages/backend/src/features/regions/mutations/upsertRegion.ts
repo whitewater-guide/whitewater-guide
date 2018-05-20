@@ -15,7 +15,19 @@ const Schema = Joi.object().keys({
 
 const resolver: GraphQLFieldResolver<any, Context> = async (_, { region }: Vars, { language, user }) => {
   await checkEditorPermissions(user, region.id);
-  return rawUpsert(db(), 'SELECT upsert_region(?, ?)', [region, language]);
+  const result: any = await rawUpsert(db(), 'SELECT upsert_region(?, ?)', [region, language]);
+  // When created, add to all regions group
+  if (!region.id && result.id) {
+    await db().raw(`
+      INSERT INTO regions_groups (region_id, group_id)
+      SELECT ?, id
+      FROM groups
+      WHERE all_regions = TRUE
+      LIMIT 1
+      ON CONFLICT DO NOTHING
+    `, result.id);
+  }
+  return result;
 };
 
 const upsertRegion = isInputValidResolver(Schema).createResolver(resolver);

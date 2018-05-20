@@ -2,6 +2,7 @@ import set from 'lodash/fp/set';
 import db, { holdTransaction, rollbackTransaction } from '../../../db';
 import { ADMIN, EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '../../../seeds/test/01_users';
 import { GALICIA_PT_1, GALICIA_PT_2 } from '../../../seeds/test/02_points';
+import { GROUP_ALL } from '../../../seeds/test/03_groups';
 import { NUM_REGIONS, REGION_ECUADOR, REGION_GALICIA } from '../../../seeds/test/04_regions';
 import { anonContext, fakeContext } from '../../../test/context';
 import { countRows } from '../../../test/countRows';
@@ -183,6 +184,14 @@ describe('insert', () => {
     const snapshot: any = noUnstable(insertedRegion);
     snapshot.pois = snapshot.pois.map(noUnstable);
     expect(snapshot).toMatchSnapshot();
+  });
+
+  it('should add region to ALL_REGIONS group', async () => {
+    const { count } = await db().table('regions_groups')
+      .where('region_id', insertedRegion.id)
+      .andWhere('group_id', GROUP_ALL)
+      .count().first();
+    expect(Number(count)).toBe(1);
   });
 });
 

@@ -49,20 +49,20 @@ describe('data', () => {
   it('should return groups', async () => {
     const result = await runQuery(query, {}, fakeContext(ADMIN));
     expect(result.errors).toBeUndefined();
-    expect(result.data!.groups).toHaveLength(4);
+    expect(result.data!.groups).toHaveLength(5);
     expect(result.data!.groups).toMatchSnapshot();
   });
 
   it('should filter by region', async () => {
     const result = await runQuery(query, { regionId: REGION_GALICIA }, fakeContext(ADMIN));
     expect(result.errors).toBeUndefined();
-    expect(result.data!.groups).toHaveLength(2);
+    expect(result.data!.groups).toHaveLength(3);
   });
 
   it('should be able to specify language', async () => {
     const result = await runQuery(query, {}, fakeContext(ADMIN, 'ru'));
     expect(result.errors).toBeUndefined();
-    expect(result.data!.groups).toHaveLength(4);
+    expect(result.data!.groups).toHaveLength(5);
     expect(result.data!.groups.map((g: any) => g.name)).toContainEqual(
       'Европа и СНГ',
     );
@@ -71,7 +71,7 @@ describe('data', () => {
   it('should fall back to english when not translated', async () => {
     const result = await runQuery(query, {}, fakeContext(ADMIN, 'ru'));
     expect(result.errors).toBeUndefined();
-    expect(result.data!.groups).toHaveLength(4);
+    expect(result.data!.groups).toHaveLength(5);
     expect(result.data!.groups.map((g: any) => g.name)).toContainEqual(
       'Latin America',
     );

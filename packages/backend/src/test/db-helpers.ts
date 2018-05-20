@@ -2,13 +2,15 @@ import omitDeep from 'omit-deep-lodash';
 import db from '../db';
 
 export const reseedDb = async () => {
-  await db(true).migrate.rollback();
+  let version = '';
+  do {
+    try {
+      await db(true).migrate.rollback();
+    } catch (e) {}
+    version = await db(true).migrate.currentVersion();
+  } while (version !== 'none');
   await db(true).migrate.latest();
   await db(true).seed.run();
-};
-
-export const rollbackDb = async () => {
-  await db(true).migrate.rollback();
 };
 
 export const disconnect = async () => {

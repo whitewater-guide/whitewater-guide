@@ -3,7 +3,7 @@ import { Point, Polygon } from 'wkx';
 import { Coordinate3d } from '../../ww-commons';
 import { EDITOR_GA_EC_ID, EDITOR_NO_EC_ID, EDITOR_NO_ID } from './01_users';
 import { ECUADOR_PT_1, GALICIA_PT_1, GALICIA_PT_2 } from './02_points';
-import { GROUP_EU, GROUP_EU_CIS, GROUP_LATIN } from './03_groups';
+import { GROUP_ALL, GROUP_EU, GROUP_EU_CIS, GROUP_LATIN } from './03_groups';
 
 function getBounds(bounds: Coordinate3d[] | null) {
   let rawBounds = null;
@@ -21,9 +21,9 @@ export const NUM_REGIONS = 5;
 
 export const REGION_GALICIA = 'bd3e10b6-7624-11e7-b5a5-be2e44b06b34';
 export const REGION_ECUADOR = '2caf75ca-7625-11e7-b5a5-be2e44b06b34';
-export const REGION_NORWAY  = 'b968e2b2-76c5-11e7-b5a5-be2e44b06b34';
+export const REGION_NORWAY = 'b968e2b2-76c5-11e7-b5a5-be2e44b06b34';
 export const REGION_GEORGIA = '8e119768-37f3-11e8-b467-0ed5f89f718b';
-export const REGION_LAOS   = 'a84d7eda-37f3-11e8-b467-0ed5f89f718b';
+export const REGION_LAOS = 'a84d7eda-37f3-11e8-b467-0ed5f89f718b';
 
 const regions = [
   {
@@ -137,6 +137,12 @@ const regionsGroups = [
   { region_id: REGION_NORWAY, group_id: GROUP_EU_CIS },
   { region_id: REGION_GEORGIA, group_id: GROUP_EU_CIS },
   { region_id: REGION_ECUADOR, group_id: GROUP_LATIN },
+
+  { region_id: REGION_GALICIA, group_id: GROUP_ALL },
+  { region_id: REGION_ECUADOR, group_id: GROUP_ALL },
+  { region_id: REGION_NORWAY, group_id: GROUP_ALL },
+  { region_id: REGION_GEORGIA, group_id: GROUP_ALL },
+  { region_id: REGION_LAOS, group_id: GROUP_ALL },
 ];
 
 export async function seed(db: Knex) {

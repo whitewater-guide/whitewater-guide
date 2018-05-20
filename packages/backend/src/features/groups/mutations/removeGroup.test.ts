@@ -1,6 +1,6 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
 import { ADMIN, EDITOR_GA_EC, TEST_USER } from '../../../seeds/test/01_users';
-import { GROUP_EU } from '../../../seeds/test/03_groups';
+import { GROUP_ALL, GROUP_EU } from '../../../seeds/test/03_groups';
 import { anonContext, fakeContext } from '../../../test/context';
 import { countRows } from '../../../test/countRows';
 import { runQuery } from '../../../test/db-helpers';
@@ -68,4 +68,10 @@ describe('effects', () => {
     expect(translationsBefore - translationsAfter).toBe(2);
   });
 
+});
+
+it('should not remove group with all regions', async () => {
+  const result = await runQuery(query, { id: GROUP_ALL }, fakeContext(ADMIN));
+  expect(result).toHaveProperty('errors.0.name', 'MutationNotAllowedError');
+  expect(result).toHaveProperty('data.removeGroup', null);
 });
