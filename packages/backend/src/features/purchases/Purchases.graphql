@@ -1,0 +1,24 @@
+input PurchaseInput {
+  platform: String!
+  transactionId: String!
+  transactionDate: Date
+  productId: String!
+  receipt: String
+  extra: JSON
+}
+
+type BoomPromoInfo {
+  id: ID!
+  # Promocode pre-generated and sent to backers
+  code: String!
+  # regions group name which this promo code grants or null if this is one-region promo code
+  groupName: String
+}
+
+type Query {
+  checkBoomPromo(code: String): BoomPromoInfo
+}
+
+type Mutation {
+  addPurchase(purchase: PurchaseInput!): Boolean
+}

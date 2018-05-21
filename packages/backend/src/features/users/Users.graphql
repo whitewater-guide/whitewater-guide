@@ -42,15 +42,6 @@ input EditorSettingsInput {
   language: String
 }
 
-input PurchaseInput {
-  platform: String!
-  transactionId: String!
-  date: Date!
-  productId: String!
-  receipt: String!
-  extra: JSON
-}
-
 type Query {
   me: User,
   findUsers(search: String!): [User!] @admin
@@ -59,5 +50,4 @@ type Query {
 type Mutation {
   updateEditorSettings(editorSettings: EditorSettingsInput!): User
   updateProfile(user: UserInput!): User
-#  purchase(data: PurchaseInput!): Boolean!
 }

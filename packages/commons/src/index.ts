@@ -5,6 +5,7 @@ export * from './features/groups';
 export * from './features/measurements';
 export * from './features/media';
 export * from './features/points';
+export * from './features/purchases';
 export * from './features/regions';
 export * from './features/rivers';
 export * from './features/scripts';

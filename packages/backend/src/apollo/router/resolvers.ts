@@ -6,6 +6,7 @@ import { groupsResolvers } from '../../features/groups';
 import { measurementsResolvers } from '../../features/measurements';
 import { mediaResolvers } from '../../features/media';
 import { pointsResolvers } from '../../features/points';
+import { purchasesResolvers } from '../../features/purchases';
 import { regionsResolvers } from '../../features/regions';
 import { riversResolvers } from '../../features/rivers';
 import { scriptsResolvers } from '../../features/scripts';
@@ -19,6 +20,7 @@ export const resolvers = merge(
   groupsResolvers,
   tagsResolvers,
   pointsResolvers,
+  purchasesResolvers,
   regionsResolvers,
   riversResolvers,
   scriptsResolvers,

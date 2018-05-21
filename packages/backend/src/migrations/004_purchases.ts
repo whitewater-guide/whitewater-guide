@@ -38,10 +38,10 @@ export const up = async (db: Knex) => {
       .inTable('users')
       .onDelete('SET NULL'); // Keep transactions even if user was deleted
     table.specificType('platform', 'platform_type').notNullable().index();
-    table.timestamp('transaction_date').notNullable();
-    table.string('transaction_id').notNullable();
+    table.timestamp('transaction_date');
+    table.string('transaction_id').notNullable(); // for boomstarter, this is boom_promos.code
     table.string('product_id').notNullable();
-    table.string('receipt').notNullable();
+    table.string('receipt'); // null for boomstarter
     table.boolean('validated'); // null, true, or false for invalid
     table.json('extra');
     table.timestamps(false, true);
@@ -52,8 +52,7 @@ export const up = async (db: Knex) => {
   // Generated promocodes for boomstarter promo campaign
   // If group_sku is null, then this promocode is for single region of choice
   await await db.schema.createTable('boom_promos', (table) => {
-    table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
-    table.string('code').notNullable();
+    table.string('code').notNullable().unique().primary();
     table.boolean('redeemed').notNullable().defaultTo(false);
     table.string('group_sku')
       .references('sku')
@@ -64,7 +63,7 @@ export const up = async (db: Knex) => {
   await createViews(db, 4, ...VIEWS);
 
   if (process.env.NODE_ENV !== 'test') {
-    await db.table('groups').insert({ id: ALL_REGIONS_GROUP, sku: 'groups.all', all_regions: true });
+    await db.table('groups').insert({ id: ALL_REGIONS_GROUP, sku: 'group.all', all_regions: true });
     await db.table('groups_translations').insert({ group_id: ALL_REGIONS_GROUP, language: 'en', name: 'All regions' });
   }
 };
