@@ -1,5 +1,5 @@
 import React from 'react';
-import ErrorBoundary from 'react-error-boundary';
+import ErrorBoundary, { ErrorBoundaryProps } from 'react-error-boundary';
 import { Unit } from '../../../ww-commons';
 import {
   ChartComponentProps,
@@ -14,13 +14,14 @@ export const createInteractiveChart = (
   Chart: React.ComponentType<ChartComponentProps>,
   FlowToggle: React.ComponentType<FlowToggleProps>,
   PeriodToggle: React.ComponentType<PeriodToggleProps>,
+  errorBoundaryProps?: ErrorBoundaryProps,
 ): React.ComponentType<InteractiveChartInnerProps> => {
   class InteractiveChart extends React.Component<InteractiveChartInnerProps> {
 
     render() {
       const { gauge, days, measurements, onChangeDays, onChangeUnit, section, unit, unitChangeable } = this.props;
       const chart = (
-        <ErrorBoundary>
+        <ErrorBoundary {...errorBoundaryProps}>
           <Chart
             data={measurements.data}
             loading={measurements.loading}
@@ -49,7 +50,7 @@ export const createInteractiveChart = (
       );
 
       return (
-        <ErrorBoundary>
+        <ErrorBoundary {...errorBoundaryProps}>
           <Layout
             gauge={gauge}
             section={section}

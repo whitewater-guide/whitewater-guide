@@ -33,6 +33,7 @@ export default {
     no: 'No',
     offline: "It appears that you're offline...",
     retry: 'Retry',
+    bug: 'Oops! Something is broken',
   },
   drawer: {
     myProfile: 'My Settings',
