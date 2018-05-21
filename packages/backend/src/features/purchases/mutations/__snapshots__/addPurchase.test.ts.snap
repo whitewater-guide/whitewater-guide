@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should throw on invalid input 1`] = `
+Object {
+  "0": Object {
+    "message": "\\"transactionId\\" length must be at least 3 characters long",
+    "path": "purchase.transactionId",
+  },
+  "1": Object {
+    "message": "\\"productId\\" length must be at least 3 characters long",
+    "path": "purchase.productId",
+  },
+}
+`;
