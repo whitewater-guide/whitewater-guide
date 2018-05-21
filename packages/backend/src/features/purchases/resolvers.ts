@@ -1,7 +1,7 @@
 import Mutation from './mutations';
-// import Query from './queries';
+import Query from './queries';
 
 export const purchasesResolvers = {
-  // Query,
+  Query,
   Mutation,
 };

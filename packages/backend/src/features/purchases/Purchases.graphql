@@ -13,10 +13,15 @@ type BoomPromoInfo {
   code: String!
   # regions group name which this promo code grants or null if this is one-region promo code
   groupName: String
+  # true if promocode has been used already
+  redeemed: Boolean
 }
 
 type Query {
-  checkBoomPromo(code: String): BoomPromoInfo
+  # Gets information about promocode. Is it group promocode or one-region promocode
+  checkBoomPromo(code: String!): BoomPromoInfo
+  # Get regions that current user can activate with one-region promocode
+  promoRegions: [Region]
 }
 
 type Mutation {

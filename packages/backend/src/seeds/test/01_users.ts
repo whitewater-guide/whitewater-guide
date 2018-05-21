@@ -79,7 +79,7 @@ export const BOOM_USER_3500: UserRaw = {
   avatar: null,
   email: 'boom_backer_3500@gmail.com',
   admin: false,
-  language: 'ru',
+  language: 'en',
   editor_settings: null,
   imperial: false,
   created_at: new Date(Date.UTC(2017, 4, 5)),
