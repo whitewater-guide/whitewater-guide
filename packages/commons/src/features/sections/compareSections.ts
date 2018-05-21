@@ -1,6 +1,6 @@
 // @ts-ignore
 import deburr from 'lodash/deburr';
-import { Section, SectionSearchTerms, SectionSortBy } from './types';
+import { DefaultSectionSearchTerms, Section, SectionSearchTerms, SectionSortBy } from './types';
 
 // sortBy: 'name' | 'difficulty' | 'duration' | 'rating';
 // sortDirection: 'ASC' | 'DESC';
@@ -16,8 +16,9 @@ const comparators: {[key in SectionSortBy]: SectionComparator} = {
   rating: ({ rating: a }: Section, { rating: b }: Section) => (a || 0) - (b || 0),
 };
 
-export const getSectionsComparator = (terms: SectionSearchTerms): SectionComparator => {
-  const comparator = comparators[terms.sortBy];
-  const x = terms.sortDirection.toLowerCase() === 'asc' ? 1 : -1;
+export const getSectionsComparator = (terms: SectionSearchTerms | null): SectionComparator => {
+  const { sortBy, sortDirection } = terms || DefaultSectionSearchTerms;
+  const comparator = comparators[sortBy];
+  const x = sortDirection.toLowerCase() === 'asc' ? 1 : -1;
   return (a: Section, b: Section) => x * comparator(a, b);
 };

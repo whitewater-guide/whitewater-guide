@@ -1,6 +1,9 @@
 import { Section, SectionSearchTerms } from './types';
 
-export const getFilter = (terms: SectionSearchTerms) => (section: Section): boolean => {
+export const getFilter = (terms: SectionSearchTerms | null) => (section: Section): boolean => {
+  if (!terms) {
+    return true;
+  }
   const {
     searchString,
     difficulty,

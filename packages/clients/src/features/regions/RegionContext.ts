@@ -1,6 +1,5 @@
 import { NetworkStatus } from 'apollo-client';
 import React from 'react';
-import { DefaultSectionSearchTerms } from '../../../ww-commons';
 import { RegionContext } from './types';
 
 const defaultValue: RegionContext = {
@@ -17,7 +16,7 @@ const defaultValue: RegionContext = {
   selectedPOIId: null,
   onPOISelected: () => {},
 
-  searchTerms: { ...DefaultSectionSearchTerms },
+  searchTerms: null,
   resetSearchTerms: () => {},
   setSearchTerms: () => {},
 

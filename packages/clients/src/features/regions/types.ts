@@ -8,7 +8,7 @@ export interface WithRegion {
 export interface RegionState {
   selectedSectionId: string | null;
   selectedPOIId: string | null;
-  searchTerms: SectionSearchTerms;
+  searchTerms: SectionSearchTerms | null;
   selectedBounds: Coordinate[] | null;
 }
 

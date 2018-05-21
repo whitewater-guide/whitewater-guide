@@ -7,7 +7,7 @@ import { Omit } from 'type-zoo';
 import { MultiSlider, StarRating, TernaryChips } from '../../components';
 import theme from '../../theme';
 import { stringifySeason, toRomanDifficulty } from '../../ww-clients/utils';
-import { Duration, SectionSearchTerms, SelectableTag, TagSelection } from '../../ww-commons';
+import { DefaultSectionSearchTerms, Duration, SectionSearchTerms, SelectableTag, TagSelection } from '../../ww-commons';
 import { InnerProps } from './types';
 
 const DIFFICULTY_RANGE: [number, number] = [1, 6];
@@ -34,7 +34,7 @@ interface State extends Omit<SectionSearchTerms, 'withTags' | 'withoutTags'> {
 
 const propsToState = (props: InnerProps): State => {
   const { tags, searchTerms } = props;
-  const { withTags, withoutTags, ...restTerms } = searchTerms;
+  const { withTags, withoutTags, ...restTerms } = searchTerms || DefaultSectionSearchTerms;
   const selectableTags: SelectableTag[] = tags.map((tag) => {
     const selection = withTags.includes(tag.id) ?
       TagSelection.SELECTED :

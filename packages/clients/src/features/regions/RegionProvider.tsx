@@ -1,6 +1,6 @@
 import React from 'react';
 import { Query, QueryResult } from 'react-apollo';
-import { DefaultSectionSearchTerms, Point, Region, Section, SectionSearchTerms } from '../../../ww-commons';
+import { Point, Region, Section, SectionSearchTerms } from '../../../ww-commons';
 import { queryResultToNode } from '../../apollo';
 import { Provider } from './RegionContext';
 import { REGION_DETAILS } from './regionDetails.query';
@@ -25,7 +25,7 @@ export class RegionProvider extends React.PureComponent<Props, RegionState> {
   state: RegionState = {
     selectedSectionId: null,
     selectedPOIId: null,
-    searchTerms: { ...DefaultSectionSearchTerms },
+    searchTerms: null,
     selectedBounds: null,
   };
 
@@ -39,7 +39,7 @@ export class RegionProvider extends React.PureComponent<Props, RegionState> {
     selectedPOIId: poi ? poi.id : null,
   });
 
-  resetSearchTerms = () => this.setState({ searchTerms: { ...DefaultSectionSearchTerms } });
+  resetSearchTerms = () => this.setState({ searchTerms: null });
 
   setSearchTerms = (searchTerms: SectionSearchTerms) => this.setState({ searchTerms });
 
