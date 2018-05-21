@@ -114,6 +114,13 @@ const regionsRu = [
     description: 'описание Галисии',
     season: 'осень весна',
   },
+  {
+    region_id: REGION_GEORGIA,
+    language: 'ru',
+    name: 'Грузия',
+    description: 'описание Грузии',
+    season: 'осень лето весна',
+  },
 ];
 
 const regionsPoints = [

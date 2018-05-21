@@ -7,6 +7,7 @@ export const EDITOR_NO_EC_ID = '442cb792-749c-11e7-8cf7-a6006ad3dba0';
 export const EDITOR_NO_ID = '0da87d58-378f-11e8-b467-0ed5f89f718b';
 export const TEST_USER_ID = 'fa3ce7ba-36ab-11e8-b467-0ed5f89f718b';
 export const BOOM_USER_3500_ID = 'cd3c7db8-5cc4-11e8-9c2d-fa7ae01bbebc';
+export const BOOM_USER_1500_ID = 'e8224a5e-5d00-11e8-9c2d-fa7ae01bbebc';
 
 export const ADMIN: UserRaw = {
   id: ADMIN_ID,
@@ -86,7 +87,20 @@ export const BOOM_USER_3500: UserRaw = {
   updated_at: new Date(Date.UTC(2017, 4, 5)),
 };
 
-const users = [ADMIN, EDITOR_GA_EC, EDITOR_NO_EC, EDITOR_NO, TEST_USER, BOOM_USER_3500];
+export const BOOM_USER_1500: UserRaw = {
+  id: BOOM_USER_1500_ID,
+  name: 'Boom Backer 1500',
+  avatar: null,
+  email: 'boom_backer_1500@gmail.com',
+  admin: false,
+  language: 'en',
+  editor_settings: null,
+  imperial: false,
+  created_at: new Date(Date.UTC(2017, 4, 5)),
+  updated_at: new Date(Date.UTC(2017, 4, 5)),
+};
+
+const users = [ADMIN, EDITOR_GA_EC, EDITOR_NO_EC, EDITOR_NO, TEST_USER, BOOM_USER_3500, BOOM_USER_1500];
 
 export async function seed(db: Knex) {
   await db.table('users').del();

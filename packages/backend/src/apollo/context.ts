@@ -1,6 +1,7 @@
 import * as koa from 'koa';
 import { get } from 'lodash';
 import { LastMeasurementLoader } from '../features/measurements/data-loader';
+import { PurchasesLoader } from '../features/purchases/data-loader';
 import { LANGUAGES } from '../ww-commons';
 
 export interface ContextUser {
@@ -13,6 +14,7 @@ export interface Context {
   language: string;
   user?: ContextUser;
   lastMeasurementLoader: LastMeasurementLoader;
+  purchasesLoader: PurchasesLoader;
 }
 
 export const newContext = (ctx: Partial<koa.Context>): Context => {
@@ -27,5 +29,6 @@ export const newContext = (ctx: Partial<koa.Context>): Context => {
     user,
     language,
     lastMeasurementLoader: new LastMeasurementLoader(),
+    purchasesLoader: new PurchasesLoader(user, language),
   };
 };

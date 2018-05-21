@@ -6,7 +6,7 @@ interface Vars {
   code: string;
 }
 
-const media = isAuthenticatedResolver.createResolver(
+const checkBoomPromo = isAuthenticatedResolver.createResolver(
   async (_, { code }: Vars, context: Context) => {
     const query = db()
       .table('boom_promos')
@@ -31,4 +31,4 @@ const media = isAuthenticatedResolver.createResolver(
   },
 );
 
-export default media;
+export default checkBoomPromo;

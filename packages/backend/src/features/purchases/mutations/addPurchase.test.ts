@@ -2,7 +2,7 @@ import { holdTransaction, rollbackTransaction } from '../../../db';
 import db from '../../../db/db';
 import { BOOM_USER_3500, BOOM_USER_3500_ID, TEST_USER } from '../../../seeds/test/01_users';
 import {
-  BOOM_PROMO_EU_CIS_ACTIVE, BOOM_PROMO_EU_CIS_REDEEMED,
+  BOOM_PROMO_EU_CIS_ACTIVE, BOOM_PROMO_EU_CIS_REDEEMED, BOOM_PROMO_LATIN_REDEEMED,
   BOOM_PROMO_REGION_ACTIVE,
   BOOM_PROMO_REGION_REDEEMED
 } from '../../../seeds/test/12_boom_promos';
@@ -94,8 +94,8 @@ describe('boomstarter', () => {
   it('should throw error for used promo code', async () => {
     const purchase: PurchaseInput = {
       platform: PurchasePlatform.boomstarter,
-      transactionId: BOOM_PROMO_EU_CIS_REDEEMED,
-      productId: 'group.eu_cis',
+      transactionId: BOOM_PROMO_LATIN_REDEEMED,
+      productId: 'group.latin',
     };
     const result = await runQuery(mutation, { purchase }, fakeContext(BOOM_USER_3500));
     expect(result).toHaveProperty('errors.0.name', 'MutationNotAllowedError');

@@ -40,7 +40,7 @@ export const up = async (db: Knex) => {
     table.specificType('platform', 'platform_type').notNullable().index();
     table.timestamp('transaction_date');
     table.string('transaction_id').notNullable(); // for boomstarter, this is boom_promos.code
-    table.string('product_id').notNullable();
+    table.string('product_id').notNullable().index();
     table.string('receipt'); // null for boomstarter
     table.boolean('validated'); // null, true, or false for invalid
     table.json('extra');
