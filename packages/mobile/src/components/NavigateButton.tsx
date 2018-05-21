@@ -52,7 +52,7 @@ const slideStyle = ({ driver, inputRange, position }) => {
         inputRange: inpRange,
         outputRange: [
           theme.screenWidth + NAVIGATE_BUTTON_WIDTH,
-          theme.screenWidth - (position + 1) * NAVIGATE_BUTTON_WIDTH
+          theme.screenWidth - (position + 1) * NAVIGATE_BUTTON_WIDTH,
         ],
         extrapolate: 'clamp',
       }),
@@ -72,7 +72,7 @@ interface Props {
 
 export const NavigateButton: React.StatelessComponent<Props> = (props) => {
   const { driver, label, inputRange, coordinates, animationType = 'fade', position = 0, style } = props;
-  const directionsURL = `https://www.google.com/maps/dir/?api=1&destination=${coordinates[1]},${coordinates[0]}`;
+  const directionsURL = `https://maps.google.com/maps/search/?api=1&query=${coordinates[1]},${coordinates[0]}`;
   const directionsHandler = () => Linking.openURL(directionsURL).catch(() => {/*Ignore*/});
   const animatedStyle = animationType === 'fade' ?
     fadeStyle({ driver, inputRange }) :
