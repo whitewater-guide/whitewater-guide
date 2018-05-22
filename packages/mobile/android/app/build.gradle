@@ -174,13 +174,17 @@ android {
 }
 
 dependencies {
-    compile(project(':react-native-firebase')) {
-        transitive = false
+    implementation project(':react-native-firebase')
+    implementation(project(':react-native-maps')){
+        exclude group: 'com.google.android.gms', module: 'play-services-base'
+        exclude group: 'com.google.android.gms', module: 'play-services-maps'
     }
+    implementation "com.google.android.gms:play-services-base:15.0.0"
+    implementation 'com.google.android.gms:play-services-maps:15.0.0'
+    implementation "com.google.firebase:firebase-core:15.0.2"
     compile project(':react-native-device-info')
     compile project(':react-native-fast-image')
     compile project(':react-native-languages')
-    implementation project(':react-native-maps')
     compile project(':react-native-fbsdk')
     compile project(':react-native-vector-icons')
     compile project(':react-native-svg')
@@ -199,3 +203,5 @@ task copyDownloadableDepsToLibs(type: Copy) {
     from configurations.compile
     into 'libs'
 }
+
+apply plugin: 'com.google.gms.google-services'
