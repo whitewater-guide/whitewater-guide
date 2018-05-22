@@ -11,7 +11,7 @@ import {
 import ChartLayout from './ChartLayout';
 
 const reportChartError = (error: Error, componentStack: string) =>
-  trackError('interactive_chart', { error, componentStack });
+  trackError('interactive_chart', error, componentStack);
 
 const InteractiveChart = createInteractiveChart(
   ChartLayout,
