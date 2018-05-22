@@ -72,7 +72,7 @@ interface Props {
 
 export const NavigateButton: React.StatelessComponent<Props> = (props) => {
   const { driver, label, inputRange, coordinates, animationType = 'fade', position = 0, style } = props;
-  const directionsURL = `https://maps.google.com/maps/search/?api=1&query=${coordinates[1]},${coordinates[0]}`;
+  const directionsURL = `https://www.google.com/maps/search/?api=1&query=${coordinates[1]},${coordinates[0]}`;
   const directionsHandler = () => Linking.openURL(directionsURL).catch(() => {/*Ignore*/});
   const animatedStyle = animationType === 'fade' ?
     fadeStyle({ driver, inputRange }) :

@@ -13,7 +13,7 @@ interface Props {
 const CoordinatesInfo: React.StatelessComponent<Props> = ({ label, coordinates }) => {
   const prettyCoord = arrayToDMSString(coordinates);
   const copyHandler = () => Clipboard.setString(prettyCoord);
-  const directionsURL = `https://maps.google.com/maps/search/?api=1&query=${coordinates[1]},${coordinates[0]}`;
+  const directionsURL = `https://www.google.com/maps/search/?api=1&query=${coordinates[1]},${coordinates[0]}`;
   const directionsHandler = () => Linking.openURL(directionsURL).catch(() => {});
   return (
     <Row>
