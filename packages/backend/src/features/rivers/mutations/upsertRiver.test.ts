@@ -9,9 +9,17 @@ import {
 } from '../../../seeds/test/01_users';
 import { RIVER_GAL_1 } from '../../../seeds/test/07_rivers';
 import { anonContext, fakeContext } from '../../../test/context';
+import { countRows } from '../../../test/countRows';
 import { isTimestamp, isUUID, noTimestamps, noUnstable, runQuery } from '../../../test/db-helpers';
 import { RiverInput } from '../../../ww-commons';
 import { RiverRaw } from '../../rivers';
+
+let rBefore: number;
+let rtBefore: number;
+
+beforeAll(async () => {
+  [rBefore, rtBefore] = await countRows(true, 'rivers', 'rivers_translations');
+});
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
@@ -96,8 +104,9 @@ describe('insert', () => {
   });
 
   it('should add one more river', async () => {
-    const { count } = await db().table('rivers').count().first();
-    expect(count).toBe('5');
+    const [rAfter, rtAfter] = await countRows(false, 'rivers', 'rivers_translations');
+    expect(rAfter - rBefore).toBe(1);
+    expect(rtAfter - rtBefore).toBe(1);
   });
 
   it('should return id', () => {
@@ -150,8 +159,9 @@ describe('update', () => {
   });
 
   it('should not change total number of rivers', async () => {
-    const { count } = await db().table('rivers').count().first();
-    expect(count).toBe('4');
+    const [rAfter, rtAfter] = await countRows(false, 'rivers', 'rivers_translations');
+    expect(rAfter - rBefore).toBe(0);
+    expect(rtAfter - rtBefore).toBe(0);
   });
 
   it('should return id', () => {

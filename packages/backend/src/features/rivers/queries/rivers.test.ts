@@ -1,5 +1,7 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
 import { EDITOR_NO_EC } from '../../../seeds/test/01_users';
+import { REGION_GALICIA, REGION_NORWAY } from '../../../seeds/test/04_regions';
+import { RIVERS_TOTAL } from '../../../seeds/test/07_rivers';
 import { fakeContext } from '../../../test/context';
 import { noTimestamps, runQuery } from '../../../test/db-helpers';
 
@@ -35,8 +37,8 @@ const query = `
 it('should return rivers', async () => {
   const result = await runQuery(query);
   expect(result.errors).toBeUndefined();
-  expect(result).toHaveProperty('data.rivers.nodes.length', 4);
-  expect(result).toHaveProperty('data.rivers.count', 4);
+  expect(result).toHaveProperty('data.rivers.nodes.length', RIVERS_TOTAL);
+  expect(result).toHaveProperty('data.rivers.count', RIVERS_TOTAL);
   expect(noTimestamps(result)).toMatchSnapshot();
 });
 
@@ -44,16 +46,16 @@ it('should limit', async () => {
   const result = await runQuery(query, { page: { limit: 1 } });
   expect(result.errors).toBeUndefined();
   expect(result).toHaveProperty('data.rivers.nodes.length', 1);
-  expect(result).toHaveProperty('data.rivers.nodes.0.name', 'Finna');
-  expect(result).toHaveProperty('data.rivers.count', 4);
+  expect(result).toHaveProperty('data.rivers.nodes.0.name', 'Bzhuzha');
+  expect(result).toHaveProperty('data.rivers.count', RIVERS_TOTAL);
 });
 
 it('should paginate', async () => {
   const result = await runQuery(query, { page: { limit: 1, offset: 1 } });
   expect(result.errors).toBeUndefined();
   expect(result).toHaveProperty('data.rivers.nodes.length', 1);
-  expect(result).toHaveProperty('data.rivers.nodes.0.name', 'Gal_Riv_One');
-  expect(result).toHaveProperty('data.rivers.count', 4);
+  expect(result).toHaveProperty('data.rivers.nodes.0.name', 'Finna');
+  expect(result).toHaveProperty('data.rivers.count', RIVERS_TOTAL);
 });
 
 it('should be able to specify language', async () => {
@@ -74,14 +76,14 @@ it('should return empty array of alt names when not translated', async () => {
 });
 
 it('should filter by region', async () => {
-  const result = await runQuery(query, { filter: { regionId: 'bd3e10b6-7624-11e7-b5a5-be2e44b06b34' } });
+  const result = await runQuery(query, { filter: { regionId: REGION_GALICIA } });
   expect(result.errors).toBeUndefined();
   expect(result).toHaveProperty('data.rivers.nodes.length', 2);
   expect(result).toHaveProperty('data.rivers.count', 2);
 });
 
 it('should return sections', async () => {
-  const result = await runQuery(query);
-  expect(result).toHaveProperty('data.rivers.nodes.1.sections.count', 2);
-  expect(result).toHaveProperty('data.rivers.nodes.1.sections.nodes.0.name', 'Gal_riv_1_sec_1');
+  const result = await runQuery(query, { filter: { regionId: REGION_GALICIA } });
+  expect(result).toHaveProperty('data.rivers.nodes.0.sections.count', 2);
+  expect(result).toHaveProperty('data.rivers.nodes.0.sections.nodes.0.name', 'Gal_riv_1_sec_1');
 });

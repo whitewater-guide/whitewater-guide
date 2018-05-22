@@ -3,7 +3,7 @@ import { LineString, Point } from 'wkx';
 import { Coordinate3d, Duration } from '../../ww-commons';
 import { ADMIN_ID } from './01_users';
 import { GAUGE_GAL_1_1 } from './06_gauges';
-import { RIVER_FINNA } from './07_rivers';
+import { RIVER_BZHUZHA, RIVER_FINNA } from './07_rivers';
 
 function getLineString(shape: Coordinate3d[] | null) {
   let lineString = null;
@@ -19,6 +19,13 @@ export const GALICIA_R1_S1 = '2b01742c-d443-11e7-9296-cec278b6b50a';
 export const GALICIA_R1_S2 = '3a6e3210-d529-11e7-9296-cec278b6b50a';
 export const NORWAY_SJOA_AMOT = '21f2351e-d52a-11e7-9296-cec278b6b50a';
 export const NORWAY_FINNA_GORGE = '8688e656-5b4b-11e8-9c2d-fa7ae01bbebc';
+export const GEORGIA_BZHUZHA_LONG = 'e6e0e826-5db4-11e8-9c2d-fa7ae01bbebc';
+export const GEORGIA_BZHUZHA_QUALI = 'f73b533c-5db4-11e8-9c2d-fa7ae01bbebc';
+
+export const SECTIONS_TOTAL = 6;
+export const SECTIONS_VISIBLE = 5;
+export const SECTIONS_HIDDEN = 1;
+export const SECTIONS_DEMO = 1;
 
 const sections = [
   {
@@ -99,6 +106,33 @@ const sections = [
     rating: 4,
     hidden: true,
   },
+  {
+    id: GEORGIA_BZHUZHA_LONG,
+    river_id: RIVER_BZHUZHA,
+    season_numeric: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+    shape: getLineString([[12, 21, 110], [34, 43, 10]]),
+    distance: 2.45,
+    drop: 101,
+    duration: Duration.LAPS,
+    difficulty: 3.5,
+    difficulty_xtra: 'IV',
+    rating: 5,
+    hidden: false,
+    demo: false,
+  },
+  {
+    id: GEORGIA_BZHUZHA_QUALI,
+    river_id: RIVER_BZHUZHA,
+    season_numeric: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+    shape: getLineString([[32, 23, 210], [15, 51, 100]]),
+    distance: 1.45,
+    drop: 55,
+    duration: Duration.LAPS,
+    difficulty: 2.5,
+    rating: 5,
+    hidden: false,
+    demo: true,
+  },
 ];
 
 const sectionsEn = [
@@ -134,6 +168,22 @@ const sectionsEn = [
     season: 'Finna gorge season',
     flows_text: 'Finna gorge flows text',
   },
+  {
+    section_id: GEORGIA_BZHUZHA_LONG,
+    language: 'en',
+    name: 'Long Race',
+    description: 'Bzhuzha long race description',
+    season: 'Bzhuzha long race season',
+    flows_text: 'Bzhuzha long race flows text',
+  },
+  {
+    section_id: GEORGIA_BZHUZHA_QUALI,
+    language: 'en',
+    name: 'Qualification',
+    description: 'Bzhuzha Qualification description',
+    season: 'Bzhuzha Qualification season',
+    flows_text: 'Bzhuzha Qualification flows text',
+  },
 ];
 
 const sectionsRu = [
@@ -161,6 +211,22 @@ const sectionsRu = [
     season: 'Амот сезон',
     flows_text: 'Амот уровни текст',
   },
+  {
+    section_id: GEORGIA_BZHUZHA_LONG,
+    language: 'ru',
+    name: 'Длинная гонка',
+    description: 'Бжужа Длинная гонка описание',
+    season: 'Бжужа Длинная гонка сезонность',
+    flows_text: 'Бжужа Длинная гонка уровни',
+  },
+  {
+    section_id: GEORGIA_BZHUZHA_QUALI,
+    language: 'ru',
+    name: 'Квалификация',
+    description: 'Бжужа Квалификация описание',
+    season: 'Бжужа Квалификация сезонность',
+    flows_text: 'Бжужа Квалификация уровни',
+  },
 ];
 
 // Only for galician river 1 section 1
@@ -181,8 +247,7 @@ export async function seed(db: Knex) {
   await db.table('sections_points').del();
   await db.table('sections_tags').del();
   await db.table('sections').insert(sections);
-  await db.table('sections_translations').insert(sectionsEn);
-  await db.table('sections_translations').insert(sectionsRu);
+  await db.table('sections_translations').insert([...sectionsEn, ...sectionsRu]);
   await db.table('sections_points').insert(sectionsPoints);
   await db.table('sections_tags').insert(sectionsTags);
 }

@@ -1,11 +1,12 @@
 import Knex from 'knex';
 import { ADMIN_ID } from './01_users';
-import { REGION_GALICIA, REGION_NORWAY } from './04_regions';
+import { REGION_GALICIA, REGION_GEORGIA, REGION_NORWAY } from './04_regions';
 
 export const RIVER_SJOA = 'd4396dac-d528-11e7-9296-cec278b6b50a';
 export const RIVER_FINNA = 'e7a25ab6-d528-11e7-9296-cec278b6b50a';
 export const RIVER_GAL_1 = 'a8416664-bfe3-11e7-abc4-cec278b6b50a';
 export const RIVER_GAL_2 = 'd69dbabc-bfe3-11e7-abc4-cec278b6b50a';
+export const RIVER_BZHUZHA = 'b80554ba-5db4-11e8-9c2d-fa7ae01bbebc';
 
 const rivers = [
   {
@@ -25,7 +26,13 @@ const rivers = [
     id: RIVER_FINNA,
     region_id: REGION_NORWAY,
   },
+  {
+    id: RIVER_BZHUZHA,
+    region_id: REGION_GEORGIA,
+  },
 ];
+
+export const RIVERS_TOTAL = rivers.length;
 
 const riversEn = [
   {
@@ -49,6 +56,11 @@ const riversEn = [
     language: 'en',
     name: 'Finna',
   },
+  {
+    river_id: RIVER_BZHUZHA,
+    language: 'en',
+    name: 'Bzhuzha',
+  },
 ];
 
 const riversRu = [
@@ -61,6 +73,11 @@ const riversRu = [
     river_id: RIVER_SJOA,
     language: 'ru',
     name: 'Шоа',
+  },
+  {
+    river_id: RIVER_BZHUZHA,
+    language: 'ru',
+    name: 'Бжужа',
   },
 ];
 

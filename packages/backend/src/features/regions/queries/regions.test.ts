@@ -107,7 +107,7 @@ describe('results', () => {
     expect(result.data!.regions.nodes).toMatchObject([
       { rivers: { count: 0 } }, // Ecuador
       { rivers: { count: 2 } }, // galicia
-      { rivers: { count: 0 } }, // georgia
+      { rivers: { count: 1 } }, // georgia
       { rivers: { count: 0 } }, // laos
       { rivers: { count: 2 } }, // norway
     ]);

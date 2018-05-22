@@ -4,7 +4,7 @@ exports[`should return sections 1`] = `
 Object {
   "data": Object {
     "sections": Object {
-      "count": 3,
+      "count": 5,
       "nodes": Array [
         Object {
           "gauge": null,
@@ -55,6 +55,36 @@ Object {
           "river": Object {
             "id": "a8416664-bfe3-11e7-abc4-cec278b6b50a",
             "name": "Gal_Riv_One",
+          },
+        },
+        Object {
+          "gauge": null,
+          "hidden": false,
+          "id": "e6e0e826-5db4-11e8-9c2d-fa7ae01bbebc",
+          "name": "Long Race",
+          "rating": 5,
+          "region": Object {
+            "id": "8e119768-37f3-11e8-b467-0ed5f89f718b",
+            "name": "Georgia",
+          },
+          "river": Object {
+            "id": "b80554ba-5db4-11e8-9c2d-fa7ae01bbebc",
+            "name": "Bzhuzha",
+          },
+        },
+        Object {
+          "gauge": null,
+          "hidden": false,
+          "id": "f73b533c-5db4-11e8-9c2d-fa7ae01bbebc",
+          "name": "Qualification",
+          "rating": 5,
+          "region": Object {
+            "id": "8e119768-37f3-11e8-b467-0ed5f89f718b",
+            "name": "Georgia",
+          },
+          "river": Object {
+            "id": "b80554ba-5db4-11e8-9c2d-fa7ae01bbebc",
+            "name": "Bzhuzha",
           },
         },
       ],

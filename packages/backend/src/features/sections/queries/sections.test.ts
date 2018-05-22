@@ -1,5 +1,6 @@
 import db, { holdTransaction, rollbackTransaction } from '../../../db';
 import { ADMIN, EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '../../../seeds/test/01_users';
+import { SECTIONS_TOTAL, SECTIONS_VISIBLE } from '../../../seeds/test/09_sections';
 import { anonContext, fakeContext } from '../../../test/context';
 import { noTimestamps, runQuery } from '../../../test/db-helpers';
 
@@ -36,44 +37,44 @@ describe('permissions', () => {
   it('anon should not see hidden sections', async () => {
     const result = await runQuery(query, {}, anonContext());
     expect(result.errors).toBeUndefined();
-    expect(result).toHaveProperty('data.sections.nodes.length', 3);
-    expect(result).toHaveProperty('data.sections.count', 3);
+    expect(result).toHaveProperty('data.sections.nodes.length', SECTIONS_VISIBLE);
+    expect(result).toHaveProperty('data.sections.count', SECTIONS_VISIBLE);
   });
 
   it('user should not see hidden sections', async () => {
     const result = await runQuery(query, {}, fakeContext(TEST_USER));
     expect(result.errors).toBeUndefined();
-    expect(result).toHaveProperty('data.sections.nodes.length', 3);
-    expect(result).toHaveProperty('data.sections.count', 3);
+    expect(result).toHaveProperty('data.sections.nodes.length', SECTIONS_VISIBLE);
+    expect(result).toHaveProperty('data.sections.count', SECTIONS_VISIBLE);
   });
 
   it('non-owning editor should not see hidden sections', async () => {
     const result = await runQuery(query, {}, fakeContext(EDITOR_GA_EC));
     expect(result.errors).toBeUndefined();
-    expect(result).toHaveProperty('data.sections.nodes.length', 3);
-    expect(result).toHaveProperty('data.sections.count', 3);
+    expect(result).toHaveProperty('data.sections.nodes.length', SECTIONS_VISIBLE);
+    expect(result).toHaveProperty('data.sections.count', SECTIONS_VISIBLE);
   });
 
   it('owning editor should see hidden sections', async () => {
     const result = await runQuery(query, {}, fakeContext(EDITOR_NO_EC));
     expect(result.errors).toBeUndefined();
-    expect(result).toHaveProperty('data.sections.nodes.length', 4);
-    expect(result).toHaveProperty('data.sections.count', 4);
+    expect(result).toHaveProperty('data.sections.nodes.length', SECTIONS_TOTAL);
+    expect(result).toHaveProperty('data.sections.count', SECTIONS_TOTAL);
   });
 
   it('admin should see hidden sections', async () => {
     const result = await runQuery(query, {}, fakeContext(ADMIN));
     expect(result.errors).toBeUndefined();
-    expect(result).toHaveProperty('data.sections.nodes.length', 4);
-    expect(result).toHaveProperty('data.sections.count', 4);
+    expect(result).toHaveProperty('data.sections.nodes.length', SECTIONS_TOTAL);
+    expect(result).toHaveProperty('data.sections.count', SECTIONS_TOTAL);
   });
 });
 
 it('should return sections', async () => {
   const result = await runQuery(query);
   expect(result.errors).toBeUndefined();
-  expect(result).toHaveProperty('data.sections.nodes.length', 3);
-  expect(result).toHaveProperty('data.sections.count', 3);
+  expect(result).toHaveProperty('data.sections.nodes.length', SECTIONS_VISIBLE);
+  expect(result).toHaveProperty('data.sections.count', SECTIONS_VISIBLE);
   expect(noTimestamps(result)).toMatchSnapshot();
 });
 
@@ -82,7 +83,7 @@ it('should limit', async () => {
   expect(result.errors).toBeUndefined();
   expect(result).toHaveProperty('data.sections.nodes.length', 1);
   expect(result).toHaveProperty('data.sections.nodes.0.name', 'Amot');
-  expect(result).toHaveProperty('data.sections.count', 3);
+  expect(result).toHaveProperty('data.sections.count', SECTIONS_VISIBLE);
 });
 
 it('should paginate', async () => {
@@ -90,7 +91,7 @@ it('should paginate', async () => {
   expect(result.errors).toBeUndefined();
   expect(result).toHaveProperty('data.sections.nodes.length', 1);
   expect(result).toHaveProperty('data.sections.nodes.0.name', 'Gal_riv_1_sec_1');
-  expect(result).toHaveProperty('data.sections.count', 3);
+  expect(result).toHaveProperty('data.sections.count', SECTIONS_VISIBLE);
 });
 
 it('should be able to specify language', async () => {
