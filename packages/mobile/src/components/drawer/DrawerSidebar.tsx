@@ -1,6 +1,6 @@
 import React from 'react';
 import { translate } from 'react-i18next';
-import { StyleSheet, Text, View } from 'react-native';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import { Divider, DrawerSection } from 'react-native-paper';
 import { NavigationActions, NavigationInjectedProps } from 'react-navigation';
@@ -39,6 +39,8 @@ class DrawerSidebarView extends React.PureComponent<InnerProps> {
   render() {
     const { navigation: { state }, me, meLoading, t } = this.props;
     const version = DeviceInfo.getVersion();
+    const build = DeviceInfo.getBuildNumber();
+    const versionStr = Platform.OS === 'ios' ? `${version} (${build})` : version;
     return (
       <View style={styles.container}>
         <DrawerHeader me={me} meLoading={meLoading} />
@@ -87,7 +89,7 @@ class DrawerSidebarView extends React.PureComponent<InnerProps> {
           onPress={this.navigate}
           focused={isRouteFocused(state, 'Plain', { fixture: 'privacyPolicy' })}
         />
-        <Text style={styles.versionText}>{`v${version}`}</Text>
+        <Text style={styles.versionText}>{`v${versionStr}`}</Text>
       </View>
     );
   }
