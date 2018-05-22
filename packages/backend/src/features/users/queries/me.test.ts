@@ -1,8 +1,9 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
-import { EDITOR_GA_EC } from '../../../seeds/test/01_users';
+import { BOOM_USER_3500, BOOM_USER_3500_ID, EDITOR_GA_EC, TEST_USER, TEST_USER_ID } from '../../../seeds/test/01_users';
+import { GROUP_ALL } from '../../../seeds/test/03_groups';
+import { REGION_GEORGIA } from '../../../seeds/test/04_regions';
 import { anonContext, fakeContext } from '../../../test/context';
 import { runQuery } from '../../../test/db-helpers';
-import { User } from '../../../ww-commons';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
@@ -36,4 +37,50 @@ it('should user', async () => {
   const result = await runQuery(query, undefined, fakeContext(EDITOR_GA_EC));
   expect(result.errors).toBeUndefined();
   expect(result.data!.me).toMatchSnapshot();
+});
+
+it('should return purchased regions', async () => {
+  const queryWithRegions = `
+  {
+    me {
+      id
+      purchasedRegions {
+        id
+        name
+      }
+    }
+  }
+  `;
+  const result = await runQuery(queryWithRegions, undefined, fakeContext(TEST_USER));
+  expect(result.errors).toBeUndefined();
+  expect(result.data!.me).toMatchObject({
+    id: TEST_USER_ID,
+    purchasedRegions: [{
+      id: REGION_GEORGIA,
+      name: 'Грузия',
+    }],
+  });
+});
+
+it('should return purchased regions', async () => {
+  const queryWithRegions = `
+  {
+    me {
+      id
+      purchasedGroups {
+        id
+        name
+      }
+    }
+  }
+  `;
+  const result = await runQuery(queryWithRegions, undefined, fakeContext(BOOM_USER_3500));
+  expect(result.errors).toBeUndefined();
+  expect(result.data!.me).toMatchObject({
+    id: BOOM_USER_3500_ID,
+    purchasedGroups: [{
+      id: GROUP_ALL,
+      name: 'All regions',
+    }],
+  });
 });

@@ -1,4 +1,6 @@
 import { NamedNode, Timestamped } from '../../core';
+import { Group } from '../groups';
+import { Region } from '../regions';
 
 export type Role = 'ADMIN' | 'EDITOR' | 'PREMIUM' | 'USER';
 
@@ -12,6 +14,9 @@ export interface User extends NamedNode, Timestamped {
   language: string;
   imperial: boolean;
   editorSettings: EditorSettings | null;
+
+  purchasedRegions: Region[];
+  purchasedGroups: Group[];
 }
 
 export interface EditorSettings {
