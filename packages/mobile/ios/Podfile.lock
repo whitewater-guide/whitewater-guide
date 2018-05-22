@@ -21,6 +21,9 @@ PODS:
     - FirebaseAnalytics (= 5.0.0)
   - Firebase/CoreOnly (5.0.1):
     - FirebaseCore (= 5.0.1)
+  - Firebase/Messaging (5.0.1):
+    - Firebase/CoreOnly
+    - FirebaseMessaging (= 3.0.0)
   - FirebaseAnalytics (5.0.0):
     - FirebaseCore (~> 5.0)
     - FirebaseInstanceID (~> 3.0)
@@ -30,6 +33,11 @@ PODS:
     - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
   - FirebaseInstanceID (3.0.0):
     - FirebaseCore (~> 5.0)
+  - FirebaseMessaging (3.0.0):
+    - FirebaseCore (~> 5.0)
+    - FirebaseInstanceID (~> 3.0)
+    - GoogleToolboxForMac/Logger (~> 2.1)
+    - Protobuf (~> 3.1)
   - Folly (2016.09.26.00):
     - boost-for-react-native
     - DoubleConversion
@@ -57,6 +65,8 @@ PODS:
   - GoogleMaps/Maps (2.5.0):
     - GoogleMaps/Base
   - GoogleToolboxForMac/Defines (2.1.4)
+  - GoogleToolboxForMac/Logger (2.1.4):
+    - GoogleToolboxForMac/Defines (= 2.1.4)
   - "GoogleToolboxForMac/NSData+zlib (2.1.4)":
     - GoogleToolboxForMac/Defines (= 2.1.4)
   - nanopb (0.3.8):
@@ -64,6 +74,7 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
+  - Protobuf (3.5.0)
   - React (0.55.4):
     - React/Core (= 0.55.4)
   - react-native-google-maps (0.21.0):
@@ -126,6 +137,7 @@ DEPENDENCIES:
   - FBSDKLoginKit
   - FBSDKShareKit
   - Firebase/Core
+  - Firebase/Messaging
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - Google-Maps-iOS-Utils
@@ -160,10 +172,12 @@ SPEC REPOS:
     - FirebaseAnalytics
     - FirebaseCore
     - FirebaseInstanceID
+    - FirebaseMessaging
     - Google-Maps-iOS-Utils
     - GoogleMaps
     - GoogleToolboxForMac
     - nanopb
+    - Protobuf
 
 EXTERNAL SOURCES:
   DoubleConversion:
@@ -194,17 +208,19 @@ SPEC CHECKSUMS:
   FirebaseAnalytics: 19812b49fa5f283dd6b23edf8a14b5d477029ab8
   FirebaseCore: cafc814b2d84fc8733f09e653041cc2165332ad7
   FirebaseInstanceID: 83e0040351565df711a5db3d8ebe5ea21aca998a
+  FirebaseMessaging: f2360a966ecfb0d14facf0fbdf306efc2df0ddbe
   Folly: 211775e49d8da0ca658aebc8eab89d642935755c
   glog: 1de0bb937dccdc981596d3b5825ebfb765017ded
   Google-Maps-iOS-Utils: c32891ff472eaaa1fca032beedafa1a013af7875
   GoogleMaps: c087b8e5dfe87ca6ebf59adb9b4894a4146bec4f
   GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
+  Protobuf: 8a9838fba8dae3389230e1b7f8c104aa32389c03
   React: aa2040dbb6f317b95314968021bd2888816e03d5
   react-native-google-maps: 2cfe3b01f8422c7dae51d8764139fd70f888cfce
   react-native-maps: 066c2afcc89e18726377bcc685315f989ca22449
   yoga: a23273df0088bf7f2bb7e5d7b00044ea57a2a54a
 
-PODFILE CHECKSUM: 3d5f599d1d2fae251d6236063031ef75c10719c2
+PODFILE CHECKSUM: bce48d09b5fdac3d9d7c50f153b9ee0767a7e0ab
 
 COCOAPODS: 1.5.2

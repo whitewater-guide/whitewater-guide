@@ -1,6 +1,6 @@
 {
   "name": "whitewater",
-  "version": "1.1.222",
+  "version": "1.1.232",
   "private": true,
   "scripts": {
     "postinstall": "./postinstall.sh",
@@ -15,6 +15,7 @@
     "storybook": "storybook start -p 7007 --metro-config $PWD/rn-cli.config.js",
     "android:alpha": "fastlane android alpha --env beta",
     "android:beta": "fastlane android alpha --env beta",
+    "ios:setup_push": "fastlane ios setup_push --env beta",
     "ios:beta": "fastlane ios beta --env beta"
   },
   "dependencies": {

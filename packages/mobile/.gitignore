@@ -76,3 +76,4 @@ fastlane/.env.*
 *.dSYM.zip
 /ios/whitewater/GoogleService-Info.plist
 /android/app/google-services.json
+/ios/pem/

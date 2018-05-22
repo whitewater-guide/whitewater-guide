@@ -13,6 +13,8 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 #import <Firebase.h>
+#import "RNFirebaseNotifications.h"
+#import "RNFirebaseMessaging.h"
 
 #import "ReactNativeConfig.h"
 #import "SplashScreen.h"
@@ -25,6 +27,7 @@
   NSURL *jsCodeLocation;
 
   [FIRApp configure];
+  [RNFirebaseNotifications configure];
 
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
 
@@ -65,6 +68,19 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
   [FBSDKAppEvents activateApp];
+}
+
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+  [[RNFirebaseNotifications instance] didReceiveLocalNotification:notification];
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(nonnull NSDictionary *)userInfo
+                                                       fetchCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHandler{
+  [[RNFirebaseNotifications instance] didReceiveRemoteNotification:userInfo fetchCompletionHandler:completionHandler];
+}
+
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
+  [[RNFirebaseMessaging instance] didRegisterUserNotificationSettings:notificationSettings];
 }
 
 @end

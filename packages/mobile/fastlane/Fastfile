@@ -46,8 +46,17 @@ platform :ios do
     )
   end
 
-  lane :setup_push do
-    pem
+  lane :setup_push do |options|
+    if options[:development]
+      pem(
+          output_path: "#{ENV['IOS_PROJECT_PATH']}/pem/dev",
+          development: true
+      )
+    else
+      pem(
+        output_path: "#{ENV['IOS_PROJECT_PATH']}/pem",
+      )
+    end
   end
 
   lane :build do |options|
