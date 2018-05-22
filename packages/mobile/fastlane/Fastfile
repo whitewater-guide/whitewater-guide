@@ -86,7 +86,7 @@ platform :ios do
     end
     pilot(
       ipa: ENV['IOS_IPA_PATH'],
-      distribute_external: true,
+      skip_waiting_for_build_processing: true,
     )
     appcenter_upload(
         app_name: ENV['APPCENTER_APP_NAME_IOS'],
