@@ -2,6 +2,10 @@ import Knex, { QueryBuilder } from 'knex';
 import db, { buildListQuery, buildRootQuery, ListQueryBuilderOptions, QueryBuilderOptions } from '../../db';
 import { Section } from '../../ww-commons';
 
+const customFieldMap = {
+  description: () => ['description', 'premium', 'river_id', 'region_id', 'demo'], // premium determines description visibility
+};
+
 const connections = {
   media: {
     getBuilder: () => require('../media').buildMediaQuery,
@@ -46,6 +50,7 @@ export const buildSectionQuery = (options: Partial<QueryBuilderOptions<Section>>
     table: 'sections_view',
     oneToOnes,
     connections,
+    customFieldMap,
     ...options,
   });
 
@@ -54,6 +59,7 @@ export const buildSectionsListQuery = (options: Partial<ListQueryBuilderOptions<
     context: options.context!,
     table: 'sections_view',
     oneToOnes,
+    customFieldMap,
     connections,
     ...options,
   });

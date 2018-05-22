@@ -6,7 +6,7 @@ import { Context, Page } from '../apollo';
 import db from './db';
 
 type ColumnMap<T> = {
-  [field in keyof T]?: (context?: Context) => any;
+  [field in keyof T]?: (context?: Context) => string | string[] | null;
 };
 
 interface ConnectionDescriptor {
@@ -45,7 +45,11 @@ export const getPrimitives = <T>(
     if (customMap && field in customMap) {
       const mapFunc: (context?: Context) => any = customMap[field]! as any;
       const mapped = mapFunc(context);
-      return mapped ?  [...result, `${prefix}.${mapped}`] : result;
+      if (!mapped) {
+        return result;
+      }
+      const mappedArr = castArray(mapped).map((column) => `${prefix}.${column}`);
+      return mapped ?  [...result, ...mappedArr] : result;
     }
     return [...result, `${prefix}.${snakeCase(field)}`];
   }, []);

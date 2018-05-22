@@ -52,6 +52,15 @@ describe('getPrimitives', () => {
     expect(adminResult).toContain('tablename.admin');
   });
 
+  it('should map one field to many', () => {
+    const multimap = {
+      admin: () => ['admin1', 'admin2'],
+    };
+    const result = getPrimitives<any>(topLevelFields, prefix, anonContext(), [], [], multimap);
+    expect(result).toContain('tablename.admin1');
+    expect(result).toContain('tablename.admin2');
+  });
+
   it('should match snapshot', () => {
     const userResult = getPrimitives<any>(topLevelFields, prefix, anonContext(), ['connection'], ['oneToOne'], customMap);
     expect(userResult).toMatchSnapshot();

@@ -1,6 +1,5 @@
 import Knex from 'knex';
 import { addUpdatedAtTrigger, createViews, dropViews, runSqlFile } from '../db';
-import { GROUP_EU_CIS } from '../seeds/test/03_groups';
 
 const VIEWS = ['groups', 'gauges', 'sections', 'rivers', 'regions', 'points'];
 const ALL_REGIONS_GROUP = 'f38c7006-5c4a-11e8-9c2d-fa7ae01bbebc';
@@ -8,6 +7,7 @@ const ALL_REGIONS_GROUP = 'f38c7006-5c4a-11e8-9c2d-fa7ae01bbebc';
  * This patch adds tables for transactions and boomstarter promo codes
  * Also adds premium attribute to POI
  * And makes SKU unique for groups and regions
+ * Adds premium attribute to sections (inherit from region)
  */
 export const up = async (db: Knex) => {
   // Never really used this

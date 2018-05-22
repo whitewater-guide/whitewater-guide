@@ -4,11 +4,23 @@ import { Section } from '../../../ww-commons';
 import { buildGaugeQuery } from '../../gauges';
 import { buildRegionQuery } from '../../regions';
 import { buildRiverQuery } from '../../rivers';
+import checkEditorPermissions from '../checkEditorPermissions';
 import { SectionRaw } from '../types';
 import shape from './shape';
 
 export const sectionFieldResolvers: FieldResolvers<SectionRaw, Section> = {
   altNames: section => section.alt_names,
+  description: async ({ id, demo, description, premium, river_id, region_id }, _, { purchasesLoader, user }) => {
+    try {
+      await checkEditorPermissions(user, id, river_id);
+      return description;
+    } catch (e) {/* Continue execution, user is not admin or editor */}
+    if (premium && !demo) {
+      const ids = await purchasesLoader.loadPurchasedRegions();
+      return ids.includes(region_id) ? description : null;
+    }
+    return description;
+  },
   seasonNumeric: section => section.season_numeric,
   difficultyXtra: section => section.difficulty_xtra,
   putIn: ({ id, put_in }) => {
