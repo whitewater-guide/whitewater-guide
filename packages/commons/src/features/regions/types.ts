@@ -13,6 +13,7 @@ export interface Region extends NamedNode, Timestamped {
   bounds: Array<[number, number, number]> | null;
   hidden: boolean | null;
   premium: boolean;
+  hasPremiumAccess: boolean;
   editable: boolean;
   sku: string | null;
   pois: Point[];

@@ -32,6 +32,10 @@ const regionFieldResolvers: FieldResolvers<RegionRaw, Region> = {
     }
     return true;
   },
+  hasPremiumAccess: async ({ id }, _, { purchasesLoader }) => {
+    const ids = await purchasesLoader.loadPurchasedRegions();
+    return ids.includes(id);
+  },
   ...timestampResolvers,
 };
 

@@ -4,6 +4,7 @@ import { Region } from '../../ww-commons';
 
 const customFieldMap = {
   editable: () => null,
+  hasPremiumAccess: () => null,
 };
 
 const connections = {

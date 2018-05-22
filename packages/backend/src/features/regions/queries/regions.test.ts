@@ -1,5 +1,5 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
-import { ADMIN, EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '../../../seeds/test/01_users';
+import { ADMIN, BOOM_USER_1500, EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '../../../seeds/test/01_users';
 import {
   NUM_REGIONS, REGION_ECUADOR, REGION_GALICIA, REGION_GEORGIA,
   REGION_NORWAY
@@ -173,5 +173,41 @@ describe('i18n', () => {
     const regions = result.data!.regions;
     expect(regions.count).toBe(NUM_REGIONS);
     expect(regions.nodes).toContainEqual(expect.objectContaining({ name: 'Norway' }));
+  });
+});
+
+describe('premium access', () => {
+  const premiumQuery = `
+    query listRegions($page: Page){
+      regions(page: $page) {
+        nodes {
+          id
+          hasPremiumAccess
+        }
+        count
+      }
+    }
+  `;
+
+  it('without purchases', async () => {
+    const result = await runQuery(premiumQuery, {}, fakeContext(EDITOR_NO_EC));
+    expect(result.data!.regions.nodes)
+      .not.toContainEqual(expect.objectContaining({ hasPremiumAccess: true }));
+  });
+
+  it('with single region purchased', async () => {
+    const result = await runQuery(premiumQuery, {}, fakeContext(TEST_USER, 'en'));
+    expect(result.data!.regions.nodes).toEqual(expect.arrayContaining([
+      { id: REGION_ECUADOR, hasPremiumAccess: false },
+      { id: REGION_GEORGIA, hasPremiumAccess: true },
+    ]));
+  });
+
+  it('with group of regions purchased', async () => {
+    const result = await runQuery(premiumQuery, {}, fakeContext(BOOM_USER_1500, 'en'));
+    expect(result.data!.regions.nodes).toEqual(expect.arrayContaining([
+      { id: REGION_ECUADOR, hasPremiumAccess: false },
+      { id: REGION_GEORGIA, hasPremiumAccess: true },
+    ]));
   });
 });

@@ -1,6 +1,6 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
-import { ADMIN, EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '../../../seeds/test/01_users';
-import { REGION_GALICIA, REGION_NORWAY } from '../../../seeds/test/04_regions';
+import { ADMIN, BOOM_USER_1500, EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '../../../seeds/test/01_users';
+import { REGION_GALICIA, REGION_GEORGIA, REGION_NORWAY } from '../../../seeds/test/04_regions';
 import { anonContext, fakeContext } from '../../../test/context';
 import { noTimestamps, runQuery } from '../../../test/db-helpers';
 
@@ -155,4 +155,31 @@ describe('i18n', () => {
     const result = await runQuery(query, { id: REGION_GALICIA }, fakeContext(EDITOR_NO_EC, 'pt'));
     expect(result.data!.region.seasonNumeric).toEqual([20, 21]);
   });
+});
+
+describe('premium access', () => {
+  const premiumQuery = `
+    query regionDetails($id: ID){
+      region(id: $id) {
+        id
+        hasPremiumAccess
+      }
+    }
+  `;
+
+  it('false when not purchased', async () => {
+    const result = await runQuery(premiumQuery, { id: REGION_GEORGIA }, fakeContext(EDITOR_NO_EC));
+    expect(result).toHaveProperty('data.region.hasPremiumAccess', false);
+  });
+
+  it('true when purchases as single region', async () => {
+    const result = await runQuery(premiumQuery, { id: REGION_GEORGIA }, fakeContext(TEST_USER));
+    expect(result).toHaveProperty('data.region.hasPremiumAccess', true);
+  });
+
+  it('true when purchases as part of group', async () => {
+    const result = await runQuery(premiumQuery, { id: REGION_GEORGIA }, fakeContext(BOOM_USER_1500));
+    expect(result).toHaveProperty('data.region.hasPremiumAccess', true);
+  });
+
 });
