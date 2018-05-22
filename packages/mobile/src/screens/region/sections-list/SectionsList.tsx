@@ -17,12 +17,17 @@ interface Props extends WithT, Pick<NavigationScreenProp<any, any>, 'navigate'> 
 interface State {
   renderedFirstBatch: boolean;
   initialNumToRender: number;
+  swipedItemIndex: number;
 }
 
 class SectionsList extends React.PureComponent<Props, State> {
   _shouldBounceFirstRowOnMount: boolean = true;
 
-  state: State = { renderedFirstBatch: false, initialNumToRender: 10 };
+  state: State = {
+    renderedFirstBatch: false,
+    initialNumToRender: 10,
+    swipedItemIndex: -1,
+  };
 
   onListLayout = ({ nativeEvent: { layout: { height } } }: any) => {
     const initialNumToRender = Math.ceil(height / ITEM_HEIGHT);
@@ -45,6 +50,10 @@ class SectionsList extends React.PureComponent<Props, State> {
     // this.props.loadUpdates();
   };
 
+  onItemMaximized = (index: number) => {
+    this.setState({ swipedItemIndex: index });
+  };
+
   renderItem = ({ item: section, index }: ListRenderItemInfo<Section>) => {
     let shouldBounceOnMount = false;
     if (this._shouldBounceFirstRowOnMount && this.state.renderedFirstBatch) {
@@ -53,9 +62,12 @@ class SectionsList extends React.PureComponent<Props, State> {
     }
     return (
       <SectionListItem
+        index={index}
+        swipedIndex={this.state.swipedItemIndex}
         shouldBounceOnMount={shouldBounceOnMount}
         section={section}
         onPress={this.onSectionSelected}
+        onMaximize={this.onItemMaximized}
         t={this.props.t}
       />
     );
@@ -67,6 +79,7 @@ class SectionsList extends React.PureComponent<Props, State> {
     }
     return (
       <FlatList
+        extraData={this.state.swipedItemIndex}
         onLayout={this.onListLayout}
         data={this.props.sections}
         keyExtractor={keyExtractor}

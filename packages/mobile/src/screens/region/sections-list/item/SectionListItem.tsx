@@ -26,9 +26,11 @@ const styles = StyleSheet.create({
 const BOUNDS = { left: -136, right: 30, bounce: 0.5 };
 
 interface Props extends WithT {
+  index: number;
+  swipedIndex: number;
   section: Section;
   onPress: (section: Section) => void;
-  onMaximize?: () => void;
+  onMaximize?: (index: number) => void;
   shouldBounceOnMount: boolean;
 }
 
@@ -42,9 +44,17 @@ export class SectionListItem extends React.PureComponent<Props> {
     this.animateInitialBounce();
   }
 
-  componentDidUpdate() {
-    if (this.props.shouldBounceOnMount) {
+  componentDidUpdate(prevProps: Props) {
+    const { shouldBounceOnMount, index, swipedIndex } = this.props;
+    if (shouldBounceOnMount) {
       this.animateInitialBounce();
+    } else if (
+      this._interactable &&
+      swipedIndex !== prevProps.swipedIndex &&
+      index !== swipedIndex &&
+      prevProps.swipedIndex !== -1
+    ) {
+      this._interactable.snapTo({ index: 0 });
     }
   }
 
@@ -55,10 +65,16 @@ export class SectionListItem extends React.PureComponent<Props> {
 
   onPress = () => this.props.onPress(this.props.section);
 
-  onSnap = ({ nativeEvent: { index } }) => {
-    const { shouldBounceOnMount, onMaximize } = this.props;
+  onNavigate = () => {
+    if (this._interactable) {
+      this._interactable.snapTo({ index: 0 });
+    }
+  };
+
+  onSnap = ({ nativeEvent: { index } }: any) => {
+    const { shouldBounceOnMount, onMaximize, index: itemIndex } = this.props;
     if (index === 1 && onMaximize && (this._animatedBounce || !shouldBounceOnMount)) {
-      onMaximize();
+      onMaximize(itemIndex);
     }
   };
 
@@ -93,12 +109,14 @@ export class SectionListItem extends React.PureComponent<Props> {
             driver={this._deltaX}
             inputRange={[-136, -72]}
             coordinates={this.props.section.putIn.coordinates}
+            onPress={this.onNavigate}
           />
           <NavigateButton
             label={t('commons:takeOut')}
             driver={this._deltaX}
             inputRange={[-72, -8]}
             coordinates={this.props.section.takeOut.coordinates}
+            onPress={this.onNavigate}
           />
         </View>
         <Interactable.View

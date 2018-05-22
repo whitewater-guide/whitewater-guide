@@ -1,5 +1,6 @@
 import React from 'react';
 import { Animated, Linking, StyleProp, StyleSheet, Text, TouchableOpacity, ViewStyle } from 'react-native';
+import { TouchableRipple } from 'react-native-paper';
 import theme from '../theme';
 import { Coordinate } from '../ww-commons';
 import { Icon } from './Icon';
@@ -68,21 +69,31 @@ interface Props {
   animationType?: 'fade' | 'slide';
   position?: number;
   style?: StyleProp<ViewStyle>;
+  onPress?: () => void;
 }
 
-export const NavigateButton: React.StatelessComponent<Props> = (props) => {
-  const { driver, label, inputRange, coordinates, animationType = 'fade', position = 0, style } = props;
-  const directionsURL = `https://www.google.com/maps/search/?api=1&query=${coordinates[1]},${coordinates[0]}`;
-  const directionsHandler = () => Linking.openURL(directionsURL).catch(() => {/*Ignore*/});
-  const animatedStyle = animationType === 'fade' ?
-    fadeStyle({ driver, inputRange }) :
-    slideStyle({ driver, inputRange, position });
-  return (
-    <Animated.View style={[animatedStyle, style]}>
-      <TouchableOpacity onPress={directionsHandler} style={styles.button}>
-        <Icon icon="car" size={28} />
-        <Text style={styles.label}>{label}</Text>
-      </TouchableOpacity>
-    </Animated.View>
-  );
-};
+export class NavigateButton extends React.PureComponent<Props> {
+  onPress = () => {
+    const { coordinates, onPress } = this.props;
+    const directionsURL = `https://www.google.com/maps/search/?api=1&query=${coordinates[1]},${coordinates[0]}`;
+    Linking.openURL(directionsURL).catch(() => {/*Ignore*/});
+    if (onPress) {
+      onPress();
+    }
+  };
+
+  render() {
+    const { driver, label, inputRange, animationType = 'fade', position = 0, style } = this.props;
+    const animatedStyle = animationType === 'fade' ?
+      fadeStyle({ driver, inputRange }) :
+      slideStyle({ driver, inputRange, position });
+    return (
+      <Animated.View style={[animatedStyle, style]}>
+        <TouchableRipple onPress={this.onPress} style={styles.button}>
+          <Icon icon="car" size={28} />
+          <Text style={styles.label}>{label}</Text>
+        </TouchableRipple>
+      </Animated.View>
+    );
+  }
+}
