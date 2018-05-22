@@ -74,21 +74,6 @@ platform :ios do
     restore_file(path: plist_full_path)
   end
 
-  lane :appcenter do |options|
-    match(
-      type: 'adhoc',
-      shallow_clone: true,
-      clone_branch_directly: true,
-      readonly: true
-    )
-    build
-    appcenter_upload(
-        app_name: ENV['APPCENTER_APP_NAME_IOS'],
-        ipa: "#{lane_context[SharedValues::IPA_OUTPUT_PATH]}",
-        dsym: "#{lane_context[SharedValues::DSYM_OUTPUT_PATH]}"
-    )
-  end
-
   lane :beta do |options|
     match(
       type: 'appstore',
@@ -96,12 +81,17 @@ platform :ios do
       clone_branch_directly: true,
       readonly: true
     )
-    build
-    pilot
+    unless options[:skipBuild]
+      build
+    end
+    pilot(
+      ipa: ENV['IOS_IPA_PATH'],
+      distribute_external: true,
+    )
     appcenter_upload(
         app_name: ENV['APPCENTER_APP_NAME_IOS'],
         upload_dsym_only: true,
-        dsym: "#{lane_context[SharedValues::DSYM_OUTPUT_PATH]}"
+        dsym: ENV['IOS_DSYM_PATH']
     )
   end
 

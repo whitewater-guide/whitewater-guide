@@ -31,11 +31,6 @@ fastlane ios setup_push
 fastlane ios build
 ```
 
-### ios appcenter
-```
-fastlane ios appcenter
-```
-
 ### ios beta
 ```
 fastlane ios beta
