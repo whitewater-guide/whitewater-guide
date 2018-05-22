@@ -8,8 +8,7 @@ interface Props extends VictoryLabelProps {
 }
 
 const TimeLabel: React.StatelessComponent<Props> = ({ period, ...props }) => {
-  const value = props.data[props.datum as any].timestamp;
-  if (period === Period.MONTH && moment(value).day() !== 0) {
+  if (period === Period.MONTH && moment(props.datum).day() !== 0) {
     return null; // Only render sundays
   }
   return (

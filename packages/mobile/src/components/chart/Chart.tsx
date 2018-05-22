@@ -9,6 +9,7 @@ import { VictoryAxis, VictoryChart, VictoryLine, VictoryTheme } from 'victory-na
 import theme from '../../theme';
 import { ChartComponentProps } from '../../ww-clients/features/charts';
 import { Unit } from '../../ww-commons';
+import { Measurement } from '../../ww-commons/features/measurements';
 import HorizontalGridLine from './HorizontalGridLine';
 import { NoChart } from './NoChart';
 import TimeGridLine from './TimeGridLine';
@@ -52,6 +53,7 @@ export class Chart extends React.PureComponent<ChartComponentProps, State> {
   _period: Period = Period.DAY;
   _xTickFormat: (date: Date) => string;
   _xTickCount: number = 0;
+  _data: Measurement[];
 
   state: State = { height: 0 };
 
@@ -72,9 +74,10 @@ export class Chart extends React.PureComponent<ChartComponentProps, State> {
   }
 
   computeDomain = (props: ChartComponentProps): [number, number] => {
-    const { data, unit, section } = props;
+    const { data, days, unit, section } = props;
     if (!data || data.length === 0) {
       this._yDomain = [0, 0];
+      this._data = [];
       return;
     }
     let result = data.reduce(
@@ -98,10 +101,12 @@ export class Chart extends React.PureComponent<ChartComponentProps, State> {
     this._yTickValues = ticks.concat(scaleLinear().domain(this._yDomain).ticks(5));
 
     this._xDomain = [data[0].timestamp, data[data.length - 1].timestamp];
-    const duration = moment(this._xDomain[1]).diff(this._xDomain[0], 'days');
-    if (duration > 7) {
+    // Cannot set _xDomain on chhart explicitly, so workaround by adding data
+    this._xDomain = [moment().subtract(days, 'days').toDate(), moment().toDate()];
+
+    if (days > 7) {
       this._period = Period.MONTH;
-    } else if (duration > 1) {
+    } else if (days > 1) {
       this._period = Period.WEEK;
     } else {
       this._period = Period.DAY;
@@ -112,9 +117,8 @@ export class Chart extends React.PureComponent<ChartComponentProps, State> {
   };
 
   render() {
-    const { data, unit, section, gauge } = this.props;
+    const { data, unit, section } = this.props;
     const binding = section && (unit === Unit.LEVEL ? section.levels : section.flows);
-    const unitName = gauge[`${unit}Unit`];
     if (data.length === 0) {
       return (<NoChart noData />);
     }
@@ -127,15 +131,15 @@ export class Chart extends React.PureComponent<ChartComponentProps, State> {
             height={this.state.height}
             padding={{ top: 20, bottom: 54, left: 48, right: 16 }}
             scale={{ x: 'time', y: 'linear' }}
-            domain={{ y: this._yDomain }}
+            domain={{ x: this._xDomain, y: this._yDomain }}
             theme={VictoryTheme.material}
           >
             <VictoryAxis
               crossAxis
               tickFormat={this._xTickFormat}
               tickCount={this._xTickCount}
-              tickLabelComponent={<TimeLabel period={this._period} data={data} />}
-              gridComponent={<TimeGridLine period={this._period} data={data} />}
+              tickLabelComponent={<TimeLabel period={this._period} />}
+              gridComponent={<TimeGridLine period={this._period} />}
             />
             <VictoryAxis
               crossAxis

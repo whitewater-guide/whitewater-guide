@@ -28,6 +28,7 @@ export const createInteractiveChart = (
             unit={unit}
             gauge={gauge}
             section={section}
+            days={days}
           />
         </ErrorBoundary>
       );

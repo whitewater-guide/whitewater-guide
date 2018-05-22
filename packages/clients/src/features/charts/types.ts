@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { Gauge, GaugeBinding, Measurement, Section, Unit } from '../../../ww-commons';
+import { Gauge, Measurement, Section, Unit } from '../../../ww-commons';
 import { WithMeasurements } from '../measurements';
 
 export interface InteractiveChartOuterProps {
@@ -38,6 +38,7 @@ export interface ChartComponentProps {
   unit: Unit;
   gauge: Gauge;
   section?: Section;
+  days: number;
 }
 
 export interface FlowToggleProps {
