@@ -1,6 +1,6 @@
 {
   "name": "whitewater",
-  "version": "1.1.219",
+  "version": "1.1.220",
   "private": true,
   "scripts": {
     "postinstall": "./postinstall.sh",
@@ -55,6 +55,7 @@
     "react-native-drawer-layout": "^2.0.0",
     "react-native-fast-image": "^4.0.14",
     "react-native-fbsdk": "^0.7.0",
+    "react-native-firebase": "^4.2.0",
     "react-native-image-zoom-viewer": "^2.2.5",
     "react-native-interactable": "^0.1.10",
     "react-native-keyboard-aware-scroll-view": "^0.5.0",

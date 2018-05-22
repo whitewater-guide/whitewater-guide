@@ -12,6 +12,8 @@
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
+#import <Firebase.h>
+
 #import "ReactNativeConfig.h"
 #import "SplashScreen.h"
 @import GoogleMaps;
@@ -21,6 +23,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   NSURL *jsCodeLocation;
+
+  [FIRApp configure];
 
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
 

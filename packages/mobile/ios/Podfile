@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+platform :ios, '9.0'
 
 target 'whitewater' do
   rn_path = '../node_modules/react-native'
@@ -7,7 +7,6 @@ target 'whitewater' do
 
   # Pods for whitewater
 
-  platform :ios, '9.0'
   # See http://facebook.github.io/react-native/docs/integration-with-existing-apps.html#configuring-cocoapods-dependencies
   pod 'yoga', path: "#{rn_path}/ReactCommon/yoga/yoga.podspec"
   pod 'React', path: rn_path, subspecs: [
@@ -25,6 +24,8 @@ target 'whitewater' do
       'RCTVibration',
       'RCTWebSocket',
   ]
+
+  pod 'Firebase/Core'
 
   pod 'FBSDKLoginKit'
   pod 'FBSDKShareKit'
