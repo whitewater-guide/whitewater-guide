@@ -27,7 +27,7 @@ const styles: StyleRulesCallback<ClassNames> = (theme) => ({
     color: '#FFFFFF',
     backgroundColor: '#3B5998',
     '&:hover': {
-      backgroundColor: '#0e1f56',
+      backgroundColor: '#003069',
     },
   },
 });
