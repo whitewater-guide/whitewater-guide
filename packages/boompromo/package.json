@@ -5,6 +5,7 @@
   "homepage": "/boompromo/",
   "dependencies": {
     "@material-ui/core": "^1.0.0",
+    "classnames": "^2.2.5",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-scripts-ts": "2.16.0"
@@ -16,6 +17,7 @@
     "eject": "react-scripts-ts eject"
   },
   "devDependencies": {
+    "@types/classnames": "^2.2.3",
     "@types/jest": "^22.2.3",
     "@types/node": "^10.1.2",
     "@types/react": "^16.3.14",
