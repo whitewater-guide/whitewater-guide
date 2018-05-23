@@ -15,6 +15,7 @@ import configureStore from './core/store/configureStore';
 import { I18nProvider } from './i18n';
 import RootNavigator from './RootNavigator';
 import { PaperTheme } from './theme';
+import { trackScreenChange } from './utils/navigation';
 import { TagsProvider } from './ww-clients/features/tags';
 import { MyProfileProvider } from './ww-clients/features/users';
 
@@ -68,7 +69,10 @@ class App extends React.Component<{}, State> {
                 <TagsProvider>
                   <MyProfileProvider renderLoading={this.renderLoading}>
                     <I18nProvider>
-                      <RootNavigator persistenceKey={navigationPersistenceKey} />
+                      <RootNavigator
+                        persistenceKey={navigationPersistenceKey}
+                        onNavigationStateChange={trackScreenChange}
+                      />
                     </I18nProvider>
                   </MyProfileProvider>
                 </TagsProvider>

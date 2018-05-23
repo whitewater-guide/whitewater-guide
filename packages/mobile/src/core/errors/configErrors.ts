@@ -9,6 +9,6 @@ export const configErrors = () => {
 
   ErrorUtils.setGlobalHandler((error: Error, isFatal) => {
     trackError('global', error, undefined, isFatal);
-    defaultHandler.apply(error, isFatal);
+    defaultHandler(error, isFatal);
   });
 };

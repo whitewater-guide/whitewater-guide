@@ -12,7 +12,7 @@ export const getNavigationDotPath = (state: NavigationRoute): string => {
   return state.routeName;
 };
 
-const getCurrentRoute = (navigationState: NavigationState): NavigationRoute | null => {
+export const getCurrentRoute = (navigationState: NavigationState): NavigationRoute | null => {
   if (!navigationState) {
     return null;
   }
