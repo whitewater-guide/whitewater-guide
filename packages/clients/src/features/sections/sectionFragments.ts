@@ -18,7 +18,6 @@ const Core = gql`
   fragment SectionCore on Section {
     ...SectionName
 
-    demo
     hidden
 
     season
