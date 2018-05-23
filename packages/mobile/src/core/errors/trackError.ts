@@ -6,6 +6,6 @@ export const trackError = (origin: string, error: Error, componentStack?: string
   Firebase.crashlytics().setBoolValue('isFatal', !!isFatal);
   if (componentStack) {
     Firebase.crashlytics().setStringValue('componentStack', componentStack);
-    Firebase.crashlytics().recordError(1, error.message);
   }
+  Firebase.crashlytics().recordError(1, error.message);
 };

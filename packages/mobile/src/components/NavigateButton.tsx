@@ -1,6 +1,5 @@
 import React from 'react';
 import { Animated, Linking, StyleProp, StyleSheet, Text, TouchableOpacity, ViewStyle } from 'react-native';
-import { TouchableRipple } from 'react-native-paper';
 import theme from '../theme';
 import { Coordinate } from '../ww-commons';
 import { Icon } from './Icon';
@@ -89,10 +88,10 @@ export class NavigateButton extends React.PureComponent<Props> {
       slideStyle({ driver, inputRange, position });
     return (
       <Animated.View style={[animatedStyle, style]}>
-        <TouchableRipple onPress={this.onPress} style={styles.button}>
+        <TouchableOpacity onPress={this.onPress} style={styles.button}>
           <Icon icon="car" size={28} />
           <Text style={styles.label}>{label}</Text>
-        </TouchableRipple>
+        </TouchableOpacity>
       </Animated.View>
     );
   }
