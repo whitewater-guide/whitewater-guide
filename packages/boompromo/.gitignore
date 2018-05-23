@@ -22,3 +22,5 @@ yarn-error.log*
 
 .env.*
 !.env.*.secret
+/src/ww-clients/
+/src/ww-commons/

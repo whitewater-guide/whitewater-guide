@@ -9,7 +9,7 @@ import LoginStep from './login';
 
 const styles: StyleRulesCallback<any> = (theme) => ({
   root: {
-    width: '90%',
+    alignItems: 'center',
   },
   button: {
     marginRight: theme.spacing.unit,
