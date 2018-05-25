@@ -4,7 +4,7 @@ apply plugin: "io.fabric"
 project.ext.envConfigFiles = [
         debug: ".env.development",
         release: ".env.production",
-        beta: ".env.beta",
+        releaseStaging: ".env.staging",
 ]
 apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
@@ -82,14 +82,16 @@ import com.android.build.OutputFile
 
 project.ext.react = [
     entryFile: "index.js",
-    // Beta build type:
-    bundleInBeta: true,
-    devDisabledInBeta: true,
-    jsBundleDirBeta: "$buildDir/intermediates/assets/beta",
-    resourcesDirBeta: "$buildDir/intermediates/res/merged/beta"
+    // Staging build type:
+    // named "releaseStaging" and not just "staging" because of code-push requirements
+    bundleInReleaseStaging: true,
+    devDisabledInReleaseStaging: true,
+    jsBundleDirReleaseStaging: "$buildDir/intermediates/assets/releaseStaging",
+    resourcesDirReleaseStaging: "$buildDir/intermediates/res/merged/releaseStaging"
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
+apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
 
 /**
  * Set this to true to create two separate APKs instead of one:
@@ -151,11 +153,11 @@ android {
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
             signingConfig signingConfigs.release
         }
-        beta {
+        releaseStaging {
             initWith release
-            // applicationIdSuffix ".beta" // Not compatible with facebook login sdk
-            versionNameSuffix "-beta"
-            resValue "string", "app_name", "WW BETA"
+            // applicationIdSuffix ".staging" // Not compatible with facebook login sdk
+            // versionNameSuffix "-staging"
+            resValue "string", "app_name", "WW STAGING"
             matchingFallbacks = ['release']
         }
     }
@@ -175,6 +177,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-code-push')
     implementation project(':react-native-firebase')
     implementation(project(':react-native-maps')){
         exclude group: 'com.google.android.gms', module: 'play-services-base'

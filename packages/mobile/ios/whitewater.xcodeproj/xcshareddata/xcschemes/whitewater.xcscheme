@@ -10,7 +10,7 @@
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
                title = "Run Script"
-               scriptText = "exec &gt; ${PROJECT_DIR}/prebuild.log 2&gt;&amp;1  # just dumps any echo output to ios/prebuild.log&#10;echo ${CONFIGURATION}&#10;if [ ${CONFIGURATION} == &quot;Release&quot; ]&#10;then&#10;echo &quot;.env.production&quot; &gt; /tmp/envfile&#10;else&#10;echo &quot;.env.development&quot; &gt; /tmp/envfile&#10;fi"
+               scriptText = "exec &gt; ${PROJECT_DIR}/prebuild.log 2&gt;&amp;1  # just dumps any echo output to ios/prebuild.log&#10;echo ${CONFIGURATION}&#10;if [ ${CONFIGURATION} == &quot;Release&quot; ]&#10;then&#10;echo &quot;.env.production&quot; &gt; /tmp/envfile&#10;elif [ ${CONFIGURATION} == &quot;Staging&quot; ]&#10;then&#10;echo &quot;.env.staging&quot; &gt; /tmp/envfile&#10;else&#10;echo &quot;.env.development&quot; &gt; /tmp/envfile&#10;fi"
                shellToInvoke = "/bin/sh">
                <EnvironmentBuildable>
                   <BuildableReference
@@ -73,7 +73,6 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
          <TestableReference
@@ -103,7 +102,6 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      language = ""
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"

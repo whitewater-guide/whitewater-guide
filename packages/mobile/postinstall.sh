@@ -8,3 +8,4 @@
 rndebugger-open
 
 yarn run patch-package
+yarn run ios:fix-xcode

@@ -1,6 +1,7 @@
 import ApolloClient from 'apollo-client';
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
+import codePush from 'react-native-code-push';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { PortalProvider } from 'react-native-portal';
 import { Provider } from 'react-redux';
@@ -88,4 +89,8 @@ class App extends React.Component<{}, State> {
   }
 }
 
-export default App;
+export default codePush({
+  checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
+  installMode: codePush.InstallMode.ON_NEXT_RESUME,
+  minimumBackgroundDuration: 60 * 5,
+})(App);

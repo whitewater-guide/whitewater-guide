@@ -1,6 +1,7 @@
 import React from 'react';
 import { translate } from 'react-i18next';
 import { Platform, StyleSheet, Text, View } from 'react-native';
+import Config from 'react-native-config';
 import DeviceInfo from 'react-native-device-info';
 import { Divider, DrawerSection } from 'react-native-paper';
 import { NavigationActions, NavigationInjectedProps } from 'react-navigation';
@@ -40,7 +41,8 @@ class DrawerSidebarView extends React.PureComponent<InnerProps> {
     const { navigation: { state }, me, meLoading, t } = this.props;
     const version = DeviceInfo.getVersion();
     const build = DeviceInfo.getBuildNumber();
-    const versionStr = Platform.OS === 'ios' ? `${version} (${build})` : version;
+    let versionStr = Platform.OS === 'ios' ? `${version} (${build})` : version;
+    versionStr += ` ${Config.ENV_NAME}`;
     return (
       <View style={styles.container}>
         <DrawerHeader me={me} meLoading={meLoading} />

@@ -1,6 +1,6 @@
 {
   "name": "whitewater",
-  "version": "1.1.243",
+  "version": "1.2.11-2",
   "private": true,
   "scripts": {
     "postinstall": "./postinstall.sh",
@@ -13,10 +13,12 @@
     "test": "jest",
     "prestorybook": "rnstl",
     "storybook": "storybook start -p 7007 --metro-config $PWD/rn-cli.config.js",
-    "android:alpha": "fastlane android alpha --env beta",
-    "android:beta": "fastlane android alpha --env beta",
-    "ios:setup_push": "fastlane ios setup_push --env beta",
-    "ios:beta": "fastlane ios beta --env beta"
+    "android:code_push": "fastlane android code_push --env staging",
+    "android:staging": "fastlane android staging --env staging",
+    "ios:code_push": "fastlane ios code_push --env staging",
+    "ios:setup_push": "fastlane ios setup_push --env staging",
+    "ios:staging": "fastlane ios staging --env staging",
+    "ios:fix-xcode": "react-native-schemes-manager all"
   },
   "dependencies": {
     "apollo-cache-inmemory": "^1.2.1",
@@ -50,6 +52,7 @@
     "react-native-action-button": "^2.8.4",
     "react-native-actionsheet": "^2.4.2",
     "react-native-animatable": "^1.2.4",
+    "react-native-code-push": "^5.3.4",
     "react-native-config": "^0.11.5",
     "react-native-debugger-open": "^0.3.17",
     "react-native-device-info": "^0.21.5",
@@ -121,6 +124,7 @@
     "@types/url-parse": "^1.1.0",
     "@types/victory": "^0.9.16",
     "apollo-link-schema": "^1.1.0",
+    "appcenter-cli": "^1.0.17",
     "babel-core": "^6.26.3",
     "babel-jest": "22.4.3",
     "babel-preset-react-native": "4.0.0",
@@ -133,6 +137,7 @@
     "patch-package": "^5.1.1",
     "postinstall-postinstall": "^1.0.0",
     "react-dom": "16.3.2",
+    "react-native-schemes-manager": "^1.0.4",
     "react-native-storybook-loader": "^1.8.0",
     "react-test-renderer": "16.3.2",
     "tslint": "^5.10.0",
@@ -180,5 +185,12 @@
   },
   "browser": {
     "joi": "joi-browser"
+  },
+  "xcodeSchemes": {
+    "Debug": [],
+    "Release": [
+      "Staging"
+    ],
+    "projectDirectory": "iOS"
   }
 }

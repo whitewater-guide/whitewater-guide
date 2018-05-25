@@ -4,6 +4,7 @@ declare module 'react-native-config' {
     BACKEND_PROTOCOL: string;
     BACKEND_HOST: string;
     FACEBOOK_APP_ID: string;
+    ENV_NAME: string;
   }
 
   const Config: IConfig;

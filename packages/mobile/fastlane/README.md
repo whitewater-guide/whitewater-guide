@@ -31,9 +31,14 @@ fastlane ios setup_push
 fastlane ios build
 ```
 
-### ios beta
+### ios code_push
 ```
-fastlane ios beta
+fastlane ios code_push
+```
+
+### ios staging
+```
+fastlane ios staging
 ```
 
 
@@ -45,14 +50,14 @@ fastlane ios beta
 fastlane android build
 ```
 
-### android alpha
+### android code_push
 ```
-fastlane android alpha
+fastlane android code_push
 ```
 
-### android beta
+### android staging
 ```
-fastlane android beta
+fastlane android staging
 ```
 
 
