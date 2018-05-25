@@ -51,6 +51,7 @@ const sectionForm = formContainer({
     tags: [],
     pois: [],
     description: null,
+    hidden: false,
   }),
   query: SECTION_FORM_QUERY,
   mutation: UPSERT_SECTION,
