@@ -1,6 +1,7 @@
 import IconButton from 'material-ui/IconButton';
 import TextField from 'material-ui/TextField';
 import React from 'react';
+import { DeleteButton } from '../../components';
 import { Styles } from '../../styles';
 import { Tag, TagInput } from '../../ww-commons';
 import { WithTagMutations } from './types';
@@ -35,10 +36,10 @@ class TagForm extends React.PureComponent<Props, TagInput> {
   onNameChange = (e: any, name: string) => this.setState({ name });
 
   onSave = () => this.props.upsertTag(this.state);
-  onDelete = () => this.props.removeTag(this.props.tag.id);
 
   render() {
     const { id, name } = this.state;
+    const { tag, removeTag } = this.props;
     return (
       <div style={styles.row}>
         <TextField fullWidth value={id} floatingLabelText="id" hintText="id" onChange={this.onIdChange} />
@@ -46,13 +47,15 @@ class TagForm extends React.PureComponent<Props, TagInput> {
         <IconButton
           iconClassName="material-icons"
           onClick={this.onSave}
-          disabled={this.props.tag.id === this.state.id && this.props.tag.name === this.state.name}
+          disabled={tag.id === id && tag.name === name}
         >
-          {this.props.tag.id ? 'save' : 'add'}
+          {tag.id ? 'save' : 'add'}
         </IconButton>
-        <IconButton iconClassName="material-icons" onClick={this.onDelete} disabled={!this.props.tag.id}>
-          delete_forever
-        </IconButton>
+        <DeleteButton
+          id={tag.id}
+          disabled={!tag.id}
+          deleteHandler={removeTag}
+        />
       </div>
     );
   }
