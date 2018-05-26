@@ -4,10 +4,13 @@ import Divider from '@material-ui/core/es/Divider';
 import Step, { StepProps } from '@material-ui/core/Step';
 import StepContent from '@material-ui/core/StepContent';
 import StepLabel from '@material-ui/core/StepLabel';
+import red from '@material-ui/core/colors/red';
 import { StyleRulesCallback, withStyles, WithStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import React from 'react';
 import { Omit } from 'type-zoo';
 import { FacebookConsumer, FacebookContext } from '../../auth/fb';
+import { wwLogin } from '../../auth/ww';
 import AnonView from './AnonView';
 import UserView from './UserView';
 
@@ -44,10 +47,11 @@ type Props = Omit<StepProps, 'classes'> & WithStyles<ClassNames> & {
 
 interface State {
   loading: boolean;
+  error: Error | null;
 }
 
 class LoginStep extends React.PureComponent<Props, State> {
-  state: State = { loading: false };
+  state: State = { loading: false, error: null };
 
   renderUserView = ({ me, loading, logout, login }: FacebookContext) => {
     const { classes } = this.props;
@@ -60,13 +64,20 @@ class LoginStep extends React.PureComponent<Props, State> {
     return (<AnonView login={login} />);
   };
 
-  login = () => {
+  login = async (accessToken: string) => {
     this.setState({ loading: true });
-    setTimeout(() => this.setState({ loading: false }), 1000);
+    const error = await wwLogin(accessToken);
+    if (error) {
+      this.setState({ loading: false, error });
+    } else {
+      this.setState({ loading: false, error: null });
+      this.props.onNext();
+    }
   };
 
   render() {
     const { classes, ...stepProps } = this.props;
+    const { loading, error } = this.state;
     return (
       <Step {...stepProps}>
         <StepLabel>Войдите</StepLabel>
@@ -76,16 +87,24 @@ class LoginStep extends React.PureComponent<Props, State> {
               <React.Fragment>
                 {this.renderUserView(fbContext)}
                 <Divider className={classes.divider} />
+                {
+                  error &&
+                  (
+                    <Typography gutterBottom noWrap style={{ color: red[500] }}>
+                      {error.message}
+                    </Typography>
+                  )
+                }
                 <div className={classes.wrapper}>
                   <Button
                     variant="raised"
                     color="primary"
-                    disabled={!fbContext.me || !fbContext.accessToken || this.state.loading}
-                    onClick={this.login}
+                    disabled={!fbContext.me || !fbContext.accessToken || loading}
+                    onClick={() => this.login(fbContext.accessToken!)}
                   >
                     Продолжить
                   </Button>
-                  {this.state.loading && <CircularProgress size={24} className={classes.buttonProgress} />}
+                  {loading && <CircularProgress size={24} className={classes.buttonProgress} />}
                 </div>
               </React.Fragment>
             )}
