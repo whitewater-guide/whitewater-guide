@@ -6,6 +6,8 @@ import { withStyles } from '@material-ui/core/styles';
 import { WithStyles } from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import React from 'react';
+import { ApolloProvider } from 'react-apollo';
+import { getApolloClient } from './apollo';
 import { FacebookProvider } from './auth/fb';
 import Stepper from './stepper';
 import { withRoot } from './theme';
@@ -32,27 +34,31 @@ const styles: StyleRulesCallback<ClassNames> = (theme) => ({
   },
 });
 
+const apolloClient = getApolloClient();
+
 class App extends React.PureComponent<WithStyles<ClassNames>> {
   render() {
     const { classes } = this.props;
     return (
-      <FacebookProvider>
-        <div className={classes.root}>
-          <Card className={classes.card}>
-            <CardMedia
-              className={classes.media}
-              image="/static/logo-header.png"
-              title="Contemplative Reptile"
-            />
-            <CardContent>
-              <Typography gutterBottom variant="title" component="h2">
-                Активация промо кода boomstarter
-              </Typography>
-              <Stepper />
-            </CardContent>
-          </Card>
-        </div>
-      </FacebookProvider>
+      <ApolloProvider client={apolloClient}>
+        <FacebookProvider>
+          <div className={classes.root}>
+            <Card className={classes.card}>
+              <CardMedia
+                className={classes.media}
+                image="/static/logo-header.png"
+                title="Contemplative Reptile"
+              />
+              <CardContent>
+                <Typography gutterBottom variant="title" component="h2">
+                  Активация промо кода boomstarter
+                </Typography>
+                <Stepper />
+              </CardContent>
+            </Card>
+          </div>
+        </FacebookProvider>
+      </ApolloProvider>
     );
   }
 }

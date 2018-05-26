@@ -31,7 +31,7 @@ const NextButtonInner: React.SFC<Props> = ({ classes, loading, disabled, onClick
     <Button
       variant="raised"
       color="primary"
-      disabled={disabled}
+      disabled={disabled || loading}
       onClick={onClick}
     >
       {label}

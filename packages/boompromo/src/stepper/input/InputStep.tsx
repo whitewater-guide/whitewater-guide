@@ -6,16 +6,16 @@ import Step, { StepProps } from '@material-ui/core/Step';
 import StepContent from '@material-ui/core/StepContent';
 import StepLabel from '@material-ui/core/StepLabel';
 import { StyleRulesCallback, withStyles, WithStyles } from '@material-ui/core/styles';
+import { GraphQLError } from 'graphql';
 import React from 'react';
 import { Omit } from 'type-zoo';
 import { StepFooter } from '../../components';
+import { BoomPromoInfo } from '../../ww-commons/features/purchases';
+import Query from './Query';
 
-type ClassNames = 'root' | 'formControl';
+type ClassNames = 'formControl';
 
 const styles: StyleRulesCallback<ClassNames> = (theme) => ({
-  root: {
-    width: '90%',
-  },
   formControl: {
     margin: theme.spacing.unit,
   },
@@ -27,50 +27,50 @@ interface Props extends Omit<StepProps, 'classes'>, WithStyles<ClassNames> {
 }
 
 interface State {
-  promo: string;
+  code: string;
   error?: string;
-  submitted: boolean;
 }
 
 class InputStep extends React.PureComponent<Props, State> {
-  state: State = { promo: '', submitted: false };
+  state: State = { code: '' };
 
   onChange = (e: any) => {
-    this.setState({ promo: e.target.value });
+    this.setState({ code: e.target.value });
   };
 
-  onNext = () => {
-    this.setState({ submitted: true });
-    this.props.onNext();
+  onLoaded = (data: BoomPromoInfo | null, errors?: GraphQLError[]) => {
+    if (errors && errors.length > 0) {
+      this.setState({ error: 'Упс! Что-то сломалось. Попробуйте заново' });
+    } else if (!data) {
+      this.setState({ error: 'Похоже этот промо код не подходит ' });
+    } else {
+      this.setState({ error: undefined });
+      this.props.onNext();
+    }
   };
 
   render() {
     const { classes, onPrev, onNext, ...stepProps } = this.props;
-    const { submitted, promo } = this.state;
+    const { code, error } = this.state;
     return (
       <Step {...stepProps}>
         <StepLabel>Введите промо код</StepLabel>
         <StepContent>
-          <FormControl
-            className={classes.formControl}
-            error={promo.length !== 8 && submitted}
-            aria-describedby="name-error-text"
-          >
-            <InputLabel htmlFor="name-error">Промо код</InputLabel>
-            <Input id="name-error" value={promo} onChange={this.onChange} />
-            {
-              submitted && promo.length !== 8 &&
-              (
-                <FormHelperText id="name-error-text">Промо код должен состоять из 8 символов</FormHelperText>
-              )
-            }
+          <FormControl className={classes.formControl} error={!!error}>
+            <InputLabel htmlFor="name-simple">Промо код</InputLabel>
+            <Input id="name-simple" value={code} onChange={this.onChange} />
+            <FormHelperText id="name-error-text">{error}</FormHelperText>
           </FormControl>
-          <StepFooter
-            onPrev={onPrev}
-            onNext={this.onNext}
-            nextDisabled={promo.length !== 8}
-            nextLoading={false}
-          />
+          <Query code={code} onLoaded={this.onLoaded}>
+            {({ checkBoomPromo, loading }) => (
+              <StepFooter
+                onPrev={onPrev}
+                onNext={checkBoomPromo}
+                nextDisabled={code.length !== 8}
+                nextLoading={loading}
+              />
+            )}
+          </Query>
         </StepContent>
       </Step>
     );

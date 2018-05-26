@@ -12,3 +12,10 @@ export interface PurchaseInput {
   receipt?: string; // Can be undefined for boomstarter
   extra?: any;
 }
+
+export interface BoomPromoInfo {
+  id: string;
+  code: string;
+  groupName: string | null;
+  redeemed: boolean;
+}
