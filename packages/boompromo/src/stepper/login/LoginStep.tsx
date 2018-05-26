@@ -1,20 +1,20 @@
-import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import red from '@material-ui/core/colors/red';
 import Divider from '@material-ui/core/es/Divider';
 import Step, { StepProps } from '@material-ui/core/Step';
 import StepContent from '@material-ui/core/StepContent';
 import StepLabel from '@material-ui/core/StepLabel';
-import red from '@material-ui/core/colors/red';
 import { StyleRulesCallback, withStyles, WithStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import React from 'react';
 import { Omit } from 'type-zoo';
 import { FacebookConsumer, FacebookContext } from '../../auth/fb';
 import { wwLogin } from '../../auth/ww';
+import { NextButton } from '../../components';
 import AnonView from './AnonView';
 import UserView from './UserView';
 
-type ClassNames = 'button' | 'progress' | 'buttonProgress' | 'wrapper' | 'divider';
+type ClassNames = 'button' | 'progress' | 'divider';
 
 const styles: StyleRulesCallback<ClassNames> = (theme) => ({
   progress: {
@@ -23,17 +23,6 @@ const styles: StyleRulesCallback<ClassNames> = (theme) => ({
   button: {
     marginTop: theme.spacing.unit,
     marginRight: theme.spacing.unit,
-  },
-  buttonProgress: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    marginTop: -12,
-    marginLeft: -12,
-  },
-  wrapper: {
-    display: 'inline',
-    position: 'relative',
   },
   divider: {
     marginBottom: theme.spacing.unit * 2,
@@ -95,17 +84,11 @@ class LoginStep extends React.PureComponent<Props, State> {
                     </Typography>
                   )
                 }
-                <div className={classes.wrapper}>
-                  <Button
-                    variant="raised"
-                    color="primary"
-                    disabled={!fbContext.me || !fbContext.accessToken || loading}
-                    onClick={() => this.login(fbContext.accessToken!)}
-                  >
-                    Продолжить
-                  </Button>
-                  {loading && <CircularProgress size={24} className={classes.buttonProgress} />}
-                </div>
+                <NextButton
+                  disabled={!fbContext.me || !fbContext.accessToken || loading}
+                  onClick={() => this.login(fbContext.accessToken!)}
+                  loading={loading}
+                />
               </React.Fragment>
             )}
           </FacebookConsumer>

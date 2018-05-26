@@ -5,6 +5,7 @@ import { StyleRulesCallback, withStyles, WithStyles } from '@material-ui/core/st
 import Typography from '@material-ui/core/Typography';
 import React from 'react';
 import GenericStep from './GenericStep';
+import InputStep from './input';
 import LoginStep from './login';
 
 const styles: StyleRulesCallback<any> = (theme) => ({
@@ -63,7 +64,7 @@ class HorizontalNonLinearStepper extends React.Component<WithStyles<any>, State>
       <div className={classes.root}>
         <Stepper orientation="vertical" activeStep={activeStep}>
           <LoginStep onNext={this.handleNext} />
-          <GenericStep index={1} activeStep={activeStep} totalStep={4} onNext={this.handleNext} onPrev={this.handleBack} />
+          <InputStep onNext={this.handleNext} onPrev={this.handleBack} />
           <GenericStep index={2} activeStep={activeStep} totalStep={4} onNext={this.handleNext} onPrev={this.handleBack} />
           <GenericStep index={3} activeStep={activeStep} totalStep={4} onNext={this.handleNext} onPrev={this.handleBack} />
         </Stepper>
