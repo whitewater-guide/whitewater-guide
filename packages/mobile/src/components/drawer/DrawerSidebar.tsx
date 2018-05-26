@@ -1,8 +1,6 @@
 import React from 'react';
 import { translate } from 'react-i18next';
-import { Platform, StyleSheet, Text, View } from 'react-native';
-import Config from 'react-native-config';
-import DeviceInfo from 'react-native-device-info';
+import { StyleSheet, View } from 'react-native';
 import { Divider, DrawerSection } from 'react-native-paper';
 import { NavigationActions, NavigationInjectedProps } from 'react-navigation';
 import { compose } from 'recompose';
@@ -13,6 +11,7 @@ import { Spacer } from '../Spacer';
 import DrawerHeader from './DrawerHeader';
 import DrawerItem from './DrawerItem';
 import { WithToggle } from './types';
+import VersionBadge from './VersionBadge';
 
 const styles = StyleSheet.create({
   container: {
@@ -20,11 +19,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     padding: 4,
     paddingTop: 32,
-  },
-  versionText: {
-    marginLeft: 16,
-    fontSize: 10,
-    color: 'rgba(0,0,0,0.32)',
   },
 });
 
@@ -39,10 +33,7 @@ class DrawerSidebarView extends React.PureComponent<InnerProps> {
 
   render() {
     const { navigation: { state }, me, meLoading, t } = this.props;
-    const version = DeviceInfo.getVersion();
-    const build = DeviceInfo.getBuildNumber();
-    let versionStr = Platform.OS === 'ios' ? `${version} (${build})` : version;
-    versionStr += ` ${Config.ENV_NAME}`;
+
     return (
       <View style={styles.container}>
         <DrawerHeader me={me} meLoading={meLoading} />
@@ -91,7 +82,7 @@ class DrawerSidebarView extends React.PureComponent<InnerProps> {
           onPress={this.navigate}
           focused={isRouteFocused(state, 'Plain', { fixture: 'privacyPolicy' })}
         />
-        <Text style={styles.versionText}>{`v${versionStr}`}</Text>
+        <VersionBadge />
       </View>
     );
   }

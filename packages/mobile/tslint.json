@@ -21,6 +21,7 @@
     "prefer-method-signature": false,
     "prefer-template": [true, "allow-single-concat"],
     "quotemark": [true, "single", "jsx-double", "avoid-template", "avoid-escape"],
+    "radix": false,
     "semicolon": [true, "always", "ignore-bound-class-methods"],
     "typedef": [true,"parameter", "property-declaration", "member-variable-declaration"],
     "variable-name": [true, "ban-keywords", "check-format", "allow-pascal-case", "allow-leading-underscore"]
