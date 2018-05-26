@@ -18,6 +18,7 @@ const TextInputComponent: React.StatelessComponent<Props> = ({ input, meta, ...o
     floatingLabelText={own.title}
     {...own}
     errorText={meta.touched && meta.error}
+    onWheel={(e) => e.preventDefault()}
   />
 );
 
