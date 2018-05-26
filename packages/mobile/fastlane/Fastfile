@@ -89,7 +89,7 @@ platform :ios do
     sh("yarn", "run", "appcenter", "codepush", "release-react",
        "-a", "#{ENV['APPCENTER_OWNER_NAME']}/#{ENV['APPCENTER_APP_NAME_IOS']}",
        "-t", ENV['IOS_VERSION'],
-       "-d", options[:deployment],
+       "-d", ENV['CODEPUSH_DEPLOYMENT'],
      )
   end
 
@@ -109,9 +109,7 @@ platform :ios do
       ipa: ENV['IOS_IPA_PATH'],
       skip_waiting_for_build_processing: true,
     )
-    code_push(
-      deployment: 'Staging'
-    )
+    code_push
   end
 
 end
@@ -132,7 +130,7 @@ platform :android do
        "yarn", "run", "appcenter", "codepush", "release-react",
        "-a", "#{ENV['APPCENTER_OWNER_NAME']}/#{ENV['APPCENTER_APP_NAME_ANDROID']}",
        "-t", ENV['ANDROID_VERSION_NAME'],
-       "-d", options[:deployment],
+       "-d", ENV['CODEPUSH_DEPLOYMENT'],
      )
   end
 
@@ -144,9 +142,7 @@ platform :android do
       track: 'beta',
       apk: "#{lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]}"
     )
-    code_push(
-      deployment: 'Staging'
-    )
+    code_push
   end
 
 end
