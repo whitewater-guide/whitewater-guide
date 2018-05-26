@@ -1,4 +1,3 @@
-import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Input from '@material-ui/core/Input';
@@ -9,19 +8,13 @@ import StepLabel from '@material-ui/core/StepLabel';
 import { StyleRulesCallback, withStyles, WithStyles } from '@material-ui/core/styles';
 import React from 'react';
 import { Omit } from 'type-zoo';
+import { StepFooter } from '../../components';
 
-type ClassNames = 'root' | 'button' | 'actionsContainer' | 'formControl';
+type ClassNames = 'root' | 'formControl';
 
 const styles: StyleRulesCallback<ClassNames> = (theme) => ({
   root: {
     width: '90%',
-  },
-  button: {
-    marginTop: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-  },
-  actionsContainer: {
-    marginBottom: theme.spacing.unit * 2,
   },
   formControl: {
     margin: theme.spacing.unit,
@@ -44,10 +37,6 @@ class InputStep extends React.PureComponent<Props, State> {
 
   onChange = (e: any) => {
     this.setState({ promo: e.target.value });
-  };
-
-  onPrev = () => {
-    this.props.onPrev();
   };
 
   onNext = () => {
@@ -76,16 +65,12 @@ class InputStep extends React.PureComponent<Props, State> {
               )
             }
           </FormControl>
-          <div className={classes.actionsContainer}>
-            <div>
-              <Button onClick={this.onPrev} className={classes.button}>
-                Назад
-              </Button>
-              <Button variant="raised" color="primary" onClick={this.onNext} className={classes.button}>
-                Продолжить
-              </Button>
-            </div>
-          </div>
+          <StepFooter
+            onPrev={onPrev}
+            onNext={this.onNext}
+            nextDisabled={promo.length !== 8}
+            nextLoading={false}
+          />
         </StepContent>
       </Step>
     );
