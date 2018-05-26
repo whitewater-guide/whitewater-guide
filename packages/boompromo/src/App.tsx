@@ -6,7 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { WithStyles } from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import React from 'react';
-import { FacebookProvider } from './auth';
+import { FacebookProvider } from './auth/fb';
 import Stepper from './stepper';
 import { withRoot } from './theme';
 

@@ -1,19 +1,14 @@
-import Divider from '@material-ui/core/Divider';
 import { StyleRulesCallback, withStyles, WithStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import React from 'react';
 import FacebookButton from './FacebookButton';
 
-type ClassNames = 'divider' | 'root';
+type ClassNames = 'root';
 
 const styles: StyleRulesCallback<ClassNames> = (theme) => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
-  },
-  divider: {
-    marginBottom: theme.spacing.unit * 2,
-    marginTop: theme.spacing.unit * 2,
   },
 });
 
@@ -28,7 +23,6 @@ const AnonView: React.SFC<Props> = ({ login, classes }) => (
       который вы собираетесь использовать в мобильном приложении.
     </Typography>
     <FacebookButton label="Войти через Facebook" onClick={login} />
-    <Divider className={classes.divider}/>
   </div>
 );
 

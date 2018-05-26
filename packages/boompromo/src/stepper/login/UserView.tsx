@@ -1,12 +1,11 @@
 import Avatar from '@material-ui/core/Avatar';
-import Divider from '@material-ui/core/Divider';
 import { StyleRulesCallback, WithStyles, withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import React from 'react';
-import { FacebookProfile } from '../../auth';
+import { FacebookProfile } from '../../auth/fb';
 import FacebookButton from './FacebookButton';
 
-type ClassNames = 'root' | 'row' | 'avatar' | 'divider';
+type ClassNames = 'root' | 'row' | 'avatar';
 
 const styles: StyleRulesCallback<ClassNames> = (theme) => ({
   root: {
@@ -24,10 +23,6 @@ const styles: StyleRulesCallback<ClassNames> = (theme) => ({
     marginLeft: 0,
     width: 50,
     height: 50,
-  },
-  divider: {
-    marginBottom: theme.spacing.unit * 2,
-    marginTop: theme.spacing.unit * 2,
   },
 });
 
@@ -50,7 +45,6 @@ const UserView: React.SFC<Props> = ({ classes, user, logout }) => (
       который вы собираетесь использовать в мобильном приложении.
     </Typography>
     <FacebookButton label="Выйти" onClick={logout} />
-    <Divider className={classes.divider} />
   </div>
 );
 

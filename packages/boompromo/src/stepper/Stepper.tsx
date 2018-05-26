@@ -62,7 +62,7 @@ class HorizontalNonLinearStepper extends React.Component<WithStyles<any>, State>
     return (
       <div className={classes.root}>
         <Stepper orientation="vertical" activeStep={activeStep}>
-          <LoginStep onLogin={this.handleNext} />
+          <LoginStep onNext={this.handleNext} />
           <GenericStep index={1} activeStep={activeStep} totalStep={4} onNext={this.handleNext} onPrev={this.handleBack} />
           <GenericStep index={2} activeStep={activeStep} totalStep={4} onNext={this.handleNext} onPrev={this.handleBack} />
           <GenericStep index={3} activeStep={activeStep} totalStep={4} onNext={this.handleNext} onPrev={this.handleBack} />
