@@ -1,7 +1,10 @@
 input PurchaseInput {
+  # ios, android or boomstarter
   platform: String!
+  # This is promo code for boomstarter
   transactionId: String!
   transactionDate: Date
+  # Group sku or region sku
   productId: String!
   receipt: String
   extra: JSON

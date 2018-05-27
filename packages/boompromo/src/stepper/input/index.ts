@@ -1,3 +1,3 @@
-import InputStep from './InputStep';
+import InputStep from './InputStepView';
 
 export default InputStep;

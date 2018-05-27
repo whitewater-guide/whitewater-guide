@@ -8,7 +8,6 @@ import Typography from '@material-ui/core/Typography';
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import { getApolloClient } from './apollo';
-import { FacebookProvider } from './auth/fb';
 import Stepper from './stepper';
 import { withRoot } from './theme';
 
@@ -41,23 +40,21 @@ class App extends React.PureComponent<WithStyles<ClassNames>> {
     const { classes } = this.props;
     return (
       <ApolloProvider client={apolloClient}>
-        <FacebookProvider>
-          <div className={classes.root}>
-            <Card className={classes.card}>
-              <CardMedia
-                className={classes.media}
-                image="/static/logo-header.png"
-                title="Contemplative Reptile"
-              />
-              <CardContent>
-                <Typography gutterBottom variant="title" component="h2">
-                  Активация промо кода boomstarter
-                </Typography>
-                <Stepper />
-              </CardContent>
-            </Card>
-          </div>
-        </FacebookProvider>
+        <div className={classes.root}>
+          <Card className={classes.card}>
+            <CardMedia
+              className={classes.media}
+              image="/static/logo-header.png"
+              title="Whitewater.guide"
+            />
+            <CardContent>
+              <Typography gutterBottom variant="title" component="h2">
+                Активация промо кода boomstarter
+              </Typography>
+              <Stepper />
+            </CardContent>
+          </Card>
+        </div>
       </ApolloProvider>
     );
   }

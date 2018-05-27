@@ -9,11 +9,3 @@ export interface FacebookProfile {
     };
   };
 }
-
-export interface FacebookContext {
-  me?: FacebookProfile;
-  accessToken?: string;
-  loading: boolean;
-  login: () => void;
-  logout: () => void;
-}

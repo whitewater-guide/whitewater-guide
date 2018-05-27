@@ -2,7 +2,7 @@ import { FBSDK } from './types';
 
 const FB_ELEMENT_ID = 'facebook-jssdk';
 
-const loadFacebookSDK = (appId: string): Promise<FBSDK> => {
+export const loadFacebookSDK = (appId: string): Promise<FBSDK> => {
 
   return new Promise(resolve => {
     if (document.getElementById(FB_ELEMENT_ID)) {
@@ -25,5 +25,3 @@ const loadFacebookSDK = (appId: string): Promise<FBSDK> => {
     fjs.parentNode!.insertBefore(js, fjs);
   });
 };
-
-export default loadFacebookSDK;
