@@ -16,6 +16,7 @@
     "classnames": "^2.2.5",
     "color": "^3.0.0",
     "cron-parser": "^2.5.0",
+    "downshift": "^1.31.15",
     "graphql": "^0.13.2",
     "graphql-anywhere": "^4.1.10",
     "graphql-tag": "^2.9.2",

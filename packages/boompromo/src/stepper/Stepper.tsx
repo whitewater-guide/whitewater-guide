@@ -8,6 +8,7 @@ import { observer } from 'mobx-react';
 import React from 'react';
 import InputStep from './input';
 import LoginStep from './login';
+import SelectRegionStep from './select-region';
 import { StepperStore } from './store';
 
 const styles: StyleRulesCallback<any> = (theme) => ({
@@ -48,9 +49,7 @@ class HorizontalNonLinearStepper extends React.Component<WithStyles<any>> {
             <StepLabel>
               Выберите регион
             </StepLabel>
-            <StepContent>
-              <p>hi</p>
-            </StepContent>
+            <SelectRegionStep next={nextStep} prev={prevStep} />
           </Step>
           <Step active={activeStep === 3} completed={completed.get(3)}>
             <StepLabel>
