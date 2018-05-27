@@ -19,6 +19,7 @@ export class InputStepStore {
 
   @action.bound setCode(e: any) {
     this.code = e.target.value;
+    this.error = null;
   }
 
   checkBoomPromo: () => Promise<BoomPromoInfo | null> = flow(function *checkBoomPromo(this: InputStepStore) {
@@ -30,11 +31,20 @@ export class InputStepStore {
         variables: { code: this.code },
         fetchPolicy: 'network-only',
       });
-      info = data ? data.checkBoomProm : null;
+      info = data ? data.checkBoomPromo : null;
       const hasErrors = errors && errors.length > 0;
-      this.error = info ?
-        (hasErrors ? 'Упс! Что-то сломалось. Попробуйте заново' : null) :
-        'Похоже этот промо код не подходит';
+      if (info) {
+        if (info.redeemed) {
+          this.error = 'Этот промо код уже активирован';
+          info = null;
+        } else if (hasErrors) {
+          this.error = 'Упс! Что-то сломалось. Попробуйте заново';
+        } else {
+          this.error = null;
+        }
+      } else {
+        this.error = 'Похоже этот промо код не подходит';
+      }
     } catch (e) {
       this.error = 'Упс! Что-то сломалось. Попробуйте заново';
     } finally {
