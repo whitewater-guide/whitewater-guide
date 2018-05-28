@@ -1,11 +1,8 @@
-import gql from 'graphql-tag';
-import get from 'lodash/get';
 import React from 'react';
-import { graphql, withApollo, WithApolloClient } from 'react-apollo';
+import { withApollo, WithApolloClient } from 'react-apollo';
 import { compose, mapProps } from 'recompose';
+import { withEditorLanguage } from '../../i18n/editors';
 import { Styles } from '../../styles';
-import { withMe, WithMe } from '../../ww-clients/features/users';
-import { EditorSettings } from '../../ww-commons';
 import { EditorOnly } from '../EditorOnly';
 import { LanguagePicker, LanguagePickerProps } from './LanguagePicker';
 
@@ -18,45 +15,17 @@ const styles: Styles = {
   },
 };
 
-const EDITOR_SETTINGS_MUTATION = gql`
-  mutation updateEditorSettings($settings: EditorSettingsInput!) {
-    updateEditorSettings(editorSettings: $settings) {
-      id
-      editorSettings {
-        language
-      }
-    }
-  }
-`;
-
-interface Vars {
-  settings: EditorSettings;
-}
-
-interface MutateProps {
-  onLanguageChange: (language: string) => void;
-}
-
-const container = compose<LanguagePickerProps, any>(
-  withMe,
+const container = compose(
   withApollo,
-  graphql<WithApolloClient<WithMe>, {}, Vars, MutateProps>(
-    EDITOR_SETTINGS_MUTATION,
-    {
-      props: ({ mutate, ownProps: { client } }) => ({
-        onLanguageChange: (language: string) =>
-          mutate!({ variables: { settings: { language } } })
-            .then(() => client.resetStore()),
-      }),
+  withEditorLanguage,
+  mapProps<LanguagePickerProps, LanguagePickerProps & WithApolloClient<any>>(({ language, onLanguageChange, client }) => ({
+    language,
+    onLanguageChange: (value: string) => {
+      onLanguageChange(value);
+      client.resetStore();
     },
-  ),
-  mapProps<LanguagePickerProps, WithMe & MutateProps>(
-    ({ me, onLanguageChange }) => ({
-      language: get(me, 'editorSettings.language', 'en'),
-      onLanguageChange,
-      ...styles,
-    }),
-  ),
+    ...styles,
+  })),
 );
 
 const LanguagePickerWithData: React.ComponentType = container(LanguagePicker);
