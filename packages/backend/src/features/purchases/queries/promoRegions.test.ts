@@ -1,6 +1,6 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
-import { BOOM_USER_1500, BOOM_USER_3500, EDITOR_NO_EC, TEST_USER } from '../../../seeds/test/01_users';
-import { REGION_GEORGIA, REGION_NORWAY } from '../../../seeds/test/04_regions';
+import { BOOM_USER_1500, BOOM_USER_3500, EDITOR_NO_EC, TEST_USER, TEST_USER2 } from '../../../seeds/test/01_users';
+import { REGION_ECUADOR, REGION_GEORGIA, REGION_NORWAY } from '../../../seeds/test/04_regions';
 import { anonContext, fakeContext } from '../../../test/context';
 import { runQuery } from '../../../test/runQuery';
 
@@ -25,7 +25,13 @@ it('anon shall not pass', async () => {
 it('should return all premium regions for user without purchases', async () => {
   const result = await runQuery(query, { }, fakeContext(EDITOR_NO_EC));
   expect(result.errors).toBeUndefined();
-  expect(result.data!.promoRegions).toHaveLength(3); // ecuador, norway, georgia
+  expect(result.data!.promoRegions).toHaveLength(2); // ecuador, georgia
+});
+
+it('should not include hidden regions', async () => {
+  const result = await runQuery(query, { }, fakeContext(TEST_USER2));
+  expect(result.errors).toBeUndefined();
+  expect(result.data!.promoRegions).not.toContainEqual(expect.objectContaining({ id: REGION_NORWAY }));
 });
 
 it('should return empty array for users who purchased all regions group', async () => {
@@ -37,7 +43,8 @@ it('should return empty array for users who purchased all regions group', async 
 it('should exclude regions purchased as single regions', async () => {
   const result = await runQuery(query, { }, fakeContext(TEST_USER));
   expect(result.errors).toBeUndefined();
-  expect(result.data!.promoRegions).toHaveLength(2);
+  expect(result.data!.promoRegions).toHaveLength(1); // Only ecuador
+  expect(result.data!.promoRegions).toContainEqual(expect.objectContaining({ id: REGION_ECUADOR }));
   expect(result.data!.promoRegions).not.toContainEqual(expect.objectContaining({ id: REGION_GEORGIA }));
 });
 
@@ -48,6 +55,7 @@ it('should exclude regions purchased as part of group', async () => {
   expect(result.data!.promoRegions).not.toContainEqual(expect.objectContaining({ id: REGION_GEORGIA }));
   expect(result.data!.promoRegions).not.toContainEqual(expect.objectContaining({ id: REGION_NORWAY }));
 });
+
 
 it('should i18nize', async () => {
   const result = await runQuery(query, { }, fakeContext(EDITOR_NO_EC, 'ru'));
