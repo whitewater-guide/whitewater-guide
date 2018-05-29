@@ -35,7 +35,7 @@ const styles: TStyle = StyleSheet.create({
 });
 
 const plugins = [
-  new PluginContainer(Attributes, 'block', {}),
+  new PluginContainer(Attributes),
 ];
 
 const rules: RenderRules = {
