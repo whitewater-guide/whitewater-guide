@@ -18,35 +18,49 @@ export interface EditorFooterProps {
 
 type InnerProps = EditorFooterProps & RouteComponentProps<any>;
 
-const EditorFooterInternal: React.StatelessComponent<InnerProps> = (props) => {
-  const { adminOnly, add, edit, administrate, location: { pathname }, history, children } = props;
-  const addHref = history.createHref({ pathname: `${pathname}/new` });
-  const editHref = history.createHref({ pathname: `${pathname}/settings` });
-  const adminHref = history.createHref({ pathname: `${pathname}/admin` });
-  const Guard = adminOnly ? AdminOnly : EditorOnly;
-  return (
-    <Guard>
-      <CardActions>
-        {
-          add &&
-          <FlatButton label="Add new" href={addHref} />
-        }
-        {
-          edit &&
-          <FlatButton label="Edit" href={editHref} />
-        }
-        {
-          administrate &&
-          (
-            <AdminOnly>
-              <FlatButton label="Administrate" href={adminHref} />
-            </AdminOnly>
-          )
-        }
-        {children}
-      </CardActions>
-    </Guard>
-  );
-};
+class EditorFooterInternal extends React.PureComponent<InnerProps> {
+  onAdd = () => {
+    const { history, location: { pathname } } = this.props;
+    history.push(`${pathname}/new`);
+  };
+
+  onEdit = () => {
+    const { history, location: { pathname } } = this.props;
+    history.push(`${pathname}/settings`);
+  };
+
+  onAdmin = () => {
+    const { history, location: { pathname } } = this.props;
+    history.push(`${pathname}/admin`);
+  };
+
+  render() {
+    const { adminOnly, add, edit, administrate, children } = this.props;
+    const Guard = adminOnly ? AdminOnly : EditorOnly;
+    return (
+      <Guard>
+        <CardActions>
+          {
+            add &&
+            <FlatButton label="Add new" onClick={this.onAdd} />
+          }
+          {
+            edit &&
+            <FlatButton label="Edit" onClick={this.onEdit} />
+          }
+          {
+            administrate &&
+            (
+              <AdminOnly>
+                <FlatButton label="Administrate" onClick={this.onAdmin} />
+              </AdminOnly>
+            )
+          }
+          {children}
+        </CardActions>
+      </Guard>
+    );
+  }
+}
 
 export const EditorFooter: React.ComponentType<EditorFooterProps> = withRouter(EditorFooterInternal);

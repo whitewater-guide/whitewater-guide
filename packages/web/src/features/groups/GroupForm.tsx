@@ -6,6 +6,7 @@ import React from 'react';
 import { Overwrite } from 'type-zoo';
 import { Group, Region } from '../../ww-commons';
 import { WithGroupMutations } from './types';
+import { Link } from 'react-router-dom';
 
 type State = Overwrite<Group, {id: string | null}>;
 
@@ -43,7 +44,7 @@ class GroupForm extends React.PureComponent<Props, State> {
       <div style={{ flex: 1 }}>
         <ul>
           {nodes.map(r => (
-            <li><a key={r.id} href={`/regions/${r.id}`}>{r.name}</a></li>
+            <li><Link key={r.id} to={`/regions/${r.id}`}>{r.name}</Link></li>
           ))}
         </ul>
       </div>

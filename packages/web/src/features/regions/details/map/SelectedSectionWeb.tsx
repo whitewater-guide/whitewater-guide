@@ -24,6 +24,14 @@ class SelectedSectionWeb extends React.PureComponent<Props> {
     this.props.onSectionSelected(null);
   };
 
+  onDetails = () => {
+    const { history, match, selectedSection } = this.props;
+    const href = history.createHref({
+      pathname: `/regions/${match.params.regionId}/sections/${selectedSection!.id}`,
+    });
+    history.push(href);
+  };
+
   render() {
     const {
       onPOISelected,
@@ -40,9 +48,7 @@ class SelectedSectionWeb extends React.PureComponent<Props> {
     }
     const putIn = section.putIn;
     const putInLL = { lat: putIn.coordinates[1], lng: putIn.coordinates[0] };
-    const href = history.createHref({
-      pathname: `/regions/${match.params.regionId}/sections/${section.id}`,
-    });
+
     return (
       <InfoWindow position={putInLL} onCloseClick={this.onClose} {...mapElementProps}>
         <Container style={{ minWidth: 500 }}>
@@ -78,7 +84,7 @@ class SelectedSectionWeb extends React.PureComponent<Props> {
             fullWidth
             primary
             label="More"
-            href={href}
+            onClick={this.onDetails}
           />
         </Container>
       </InfoWindow>
