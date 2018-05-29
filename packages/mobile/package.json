@@ -1,6 +1,6 @@
 {
   "name": "whitewater",
-  "version": "1.2.12-4",
+  "version": "1.2.12-6",
   "private": true,
   "scripts": {
     "postinstall": "./postinstall.sh",
@@ -15,9 +15,11 @@
     "storybook": "storybook start -p 7007 --metro-config $PWD/rn-cli.config.js",
     "android:code_push:staging": "fastlane android code_push --env staging",
     "android:staging": "fastlane android staging --env staging",
+    "android:production": "fastlane android production --env production",
     "ios:code_push:staging": "fastlane ios code_push --env staging",
     "ios:setup_push": "fastlane ios setup_push --env staging",
     "ios:staging": "fastlane ios staging --env staging",
+    "ios:production": "fastlane ios production --env production",
     "ios:fix-xcode": "react-native-schemes-manager all"
   },
   "dependencies": {

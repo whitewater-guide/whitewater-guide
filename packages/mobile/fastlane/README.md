@@ -41,6 +41,11 @@ fastlane ios code_push
 fastlane ios staging
 ```
 
+### ios production
+```
+fastlane ios production
+```
+
 
 ----
 
@@ -58,6 +63,11 @@ fastlane android code_push
 ### android staging
 ```
 fastlane android staging
+```
+
+### android production
+```
+fastlane android production
 ```
 
 
