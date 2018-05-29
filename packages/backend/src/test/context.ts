@@ -9,6 +9,7 @@ const FakeKoaContext: Partial<Koa.Context> = {
 
 export const fakeContext = (user?: UserRaw, language?: string) => {
   const context = newContext({
+    headers: {},
     state: { user },
     ...FakeKoaContext,
   });

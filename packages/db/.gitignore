@@ -1,2 +1,3 @@
 .env.*
 !.env.*.secret
+/config/x_dev_dump.sql

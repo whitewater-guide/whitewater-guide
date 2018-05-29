@@ -41,6 +41,9 @@ services:
         target: /run/postgresql
       - type: tmpfs
         target: /var/lib/postgresql/data
+      - type: bind
+        source: ../packages/db/config/x_dev_dump.sql
+        target: /docker-entrypoint-initdb.d/x_dev_dump.sql
     environment:
       - NODE_ENV=development # This is needed to created test db
     ports:

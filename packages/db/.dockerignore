@@ -1,3 +1,4 @@
 .env.*
 Dockerfile
 package.json
+/config/x_dev_dump.sql
