@@ -1,10 +1,10 @@
 import React from 'react';
 import { Modal, StyleSheet, Text, View } from 'react-native';
-import FastImage from 'react-native-fast-image';
 import ImageViewer from 'react-native-image-zoom-viewer';
 import { Icon } from '../../../components';
 import theme from '../../../theme';
 import { Media } from '../../../ww-commons';
+import LoadableImage from './LoadableImage';
 import { getUrl } from './MediaConstants';
 
 const styles = StyleSheet.create({
@@ -96,7 +96,7 @@ class PhotoGallery extends React.PureComponent<Props> {
   );
 
   renderImage = (props: any) => (
-    <FastImage {...props} />
+    <LoadableImage {...props} />
   );
 
   render() {

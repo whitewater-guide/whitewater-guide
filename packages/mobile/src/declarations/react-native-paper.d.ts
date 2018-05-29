@@ -473,4 +473,18 @@ declare module 'react-native-paper' {
   }
 
   export class ListItem extends Component<ListItemProps> {}
+
+  export interface ProgressBarProps extends Themeable {
+    /**
+     * Progress value (between 0 and 1).
+     */
+    progress: number;
+    /**
+     * Color of the progress bar.
+     */
+    color?: string;
+    style?: any;
+  }
+
+  export class ProgressBar extends Component<ProgressBarProps> {}
 }

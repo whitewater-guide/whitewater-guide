@@ -1,6 +1,6 @@
 {
   "name": "whitewater",
-  "version": "1.2.11-10",
+  "version": "1.2.12-3",
   "private": true,
   "scripts": {
     "postinstall": "./postinstall.sh",
