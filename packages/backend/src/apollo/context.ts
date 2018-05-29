@@ -19,7 +19,7 @@ export interface Context {
 
 export const newContext = (ctx: Partial<koa.Context>): Context => {
   const user: ContextUser | undefined = ctx.state && ctx.state.user;
-  const language = get(user, 'editor_settings.language') ||
+  const language = ctx.headers['x-editor-language'] ||
     get(user, 'language') ||
     ctx.acceptsLanguages!(LANGUAGES) ||
     'en';

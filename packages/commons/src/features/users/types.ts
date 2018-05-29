@@ -20,6 +20,7 @@ export interface User extends NamedNode, Timestamped {
 }
 
 export interface EditorSettings {
+  // @deprecated
   language: string;
 }
 
