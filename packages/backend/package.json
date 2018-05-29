@@ -1,6 +1,6 @@
 {
   "name": "whitewater-backend",
-  "version": "0.0.137",
+  "version": "0.0.141",
   "main": "index.js",
   "author": "Konstantin Kuznetsov",
   "license": "MIT",
@@ -16,6 +16,7 @@
     "@types/body-parser": "^1.17.0",
     "@types/connect-redis": "^0.0.7",
     "@types/fs-extra": "^5.0.2",
+    "@types/geojson": "^7946.0.3",
     "@types/graphql": "^0.13.0",
     "@types/ioredis": "^3.2.7",
     "@types/jest": "^22.2.3",
@@ -37,7 +38,9 @@
     "@types/pino": "^4.7.1",
     "@types/superagent": "^3.5.8",
     "@types/valid-url": "^1.0.2",
+    "@types/xmldom": "^0.1.29",
     "apollo-link": "^1.2.2",
+    "as-table": "^1.0.32",
     "jest": "^22.4.3",
     "jest-serializer-sql": "^1.0.0",
     "leakage": "^0.3.0",
@@ -62,6 +65,7 @@
     "cron-parser": "^2.4.5",
     "dataloader": "^1.4.0",
     "fs-extra": "^5.0.0",
+    "geojson": "^0.5.0",
     "graphql": "^0.13.2",
     "graphql-fields": "^1.0.2",
     "graphql-iso-date": "^3.5.0",
@@ -88,8 +92,10 @@
     "passport-facebook-token": "^3.3.0",
     "pg": "^7.4.1",
     "pino": "^4.16.1",
+    "togeojson": "^0.16.0",
     "tslib": "^1.9.0",
-    "valid-url": "^1.0.9"
+    "valid-url": "^1.0.9",
+    "xmldom": "^0.1.27"
   },
   "jest": {
     "transform": {

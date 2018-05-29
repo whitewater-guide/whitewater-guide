@@ -1,0 +1,4770 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>Norge</name>
+    <description/>
+    <Style id="line-000000-5456-normal">
+      <LineStyle>
+        <color>ff000000</color>
+        <width>5.456</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-000000-5456-highlight">
+      <LineStyle>
+        <color>ff000000</color>
+        <width>8.184</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-000000-5456">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-000000-5456-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-000000-5456-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-000000-5844-normal">
+      <LineStyle>
+        <color>ff000000</color>
+        <width>5.844</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-000000-5844-highlight">
+      <LineStyle>
+        <color>ff000000</color>
+        <width>8.766</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-000000-5844">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-000000-5844-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-000000-5844-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-009D57-5263-normal">
+      <LineStyle>
+        <color>ff579d00</color>
+        <width>5.263</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-009D57-5263-highlight">
+      <LineStyle>
+        <color>ff579d00</color>
+        <width>7.8945</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-009D57-5263">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-009D57-5263-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-009D57-5263-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-009D57-5456-normal">
+      <LineStyle>
+        <color>ff579d00</color>
+        <width>5.456</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-009D57-5456-highlight">
+      <LineStyle>
+        <color>ff579d00</color>
+        <width>8.184</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-009D57-5456">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-009D57-5456-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-009D57-5456-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-009D57-5650-normal">
+      <LineStyle>
+        <color>ff579d00</color>
+        <width>5.65</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-009D57-5650-highlight">
+      <LineStyle>
+        <color>ff579d00</color>
+        <width>8.475</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-009D57-5650">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-009D57-5650-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-009D57-5650-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-009D57-5844-normal">
+      <LineStyle>
+        <color>ff579d00</color>
+        <width>5.844</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-009D57-5844-highlight">
+      <LineStyle>
+        <color>ff579d00</color>
+        <width>8.766</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-009D57-5844">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-009D57-5844-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-009D57-5844-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-009D57-6038-normal">
+      <LineStyle>
+        <color>ff579d00</color>
+        <width>6.038</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-009D57-6038-highlight">
+      <LineStyle>
+        <color>ff579d00</color>
+        <width>9.057</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-009D57-6038">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-009D57-6038-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-009D57-6038-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-009D57-6038-nodesc-normal">
+      <LineStyle>
+        <color>ff579d00</color>
+        <width>6.038</width>
+      </LineStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="line-009D57-6038-nodesc-highlight">
+      <LineStyle>
+        <color>ff579d00</color>
+        <width>9.057</width>
+      </LineStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="line-009D57-6038-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-009D57-6038-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-009D57-6038-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-009D57-6231-normal">
+      <LineStyle>
+        <color>ff579d00</color>
+        <width>6.231</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-009D57-6231-highlight">
+      <LineStyle>
+        <color>ff579d00</color>
+        <width>9.3465</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-009D57-6231">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-009D57-6231-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-009D57-6231-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-009D57-6425-normal">
+      <LineStyle>
+        <color>ff579d00</color>
+        <width>6.425</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-009D57-6425-highlight">
+      <LineStyle>
+        <color>ff579d00</color>
+        <width>9.6375</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-009D57-6425">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-009D57-6425-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-009D57-6425-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-009D57-6619-normal">
+      <LineStyle>
+        <color>ff579d00</color>
+        <width>6.619</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-009D57-6619-highlight">
+      <LineStyle>
+        <color>ff579d00</color>
+        <width>9.9285</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-009D57-6619">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-009D57-6619-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-009D57-6619-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-009D57-6813-normal">
+      <LineStyle>
+        <color>ff579d00</color>
+        <width>6.813</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-009D57-6813-highlight">
+      <LineStyle>
+        <color>ff579d00</color>
+        <width>10.2195</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-009D57-6813">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-009D57-6813-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-009D57-6813-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-4186F0-5069-normal">
+      <LineStyle>
+        <color>fff08641</color>
+        <width>5.069</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-4186F0-5069-highlight">
+      <LineStyle>
+        <color>fff08641</color>
+        <width>7.6035</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-4186F0-5069">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-4186F0-5069-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-4186F0-5069-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-4186F0-5263-normal">
+      <LineStyle>
+        <color>fff08641</color>
+        <width>5.263</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-4186F0-5263-highlight">
+      <LineStyle>
+        <color>fff08641</color>
+        <width>7.8945</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-4186F0-5263">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-4186F0-5263-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-4186F0-5263-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-4186F0-5650-normal">
+      <LineStyle>
+        <color>fff08641</color>
+        <width>5.65</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-4186F0-5650-highlight">
+      <LineStyle>
+        <color>fff08641</color>
+        <width>8.475</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-4186F0-5650">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-4186F0-5650-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-4186F0-5650-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-4186F0-6038-normal">
+      <LineStyle>
+        <color>fff08641</color>
+        <width>6.038</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-4186F0-6038-highlight">
+      <LineStyle>
+        <color>fff08641</color>
+        <width>9.057</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-4186F0-6038">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-4186F0-6038-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-4186F0-6038-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-4186F0-6231-normal">
+      <LineStyle>
+        <color>fff08641</color>
+        <width>6.231</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-4186F0-6231-highlight">
+      <LineStyle>
+        <color>fff08641</color>
+        <width>9.3465</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-4186F0-6231">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-4186F0-6231-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-4186F0-6231-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-4186F0-6425-normal">
+      <LineStyle>
+        <color>fff08641</color>
+        <width>6.425</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-4186F0-6425-highlight">
+      <LineStyle>
+        <color>fff08641</color>
+        <width>9.6375</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-4186F0-6425">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-4186F0-6425-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-4186F0-6425-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-4186F0-6619-normal">
+      <LineStyle>
+        <color>fff08641</color>
+        <width>6.619</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-4186F0-6619-highlight">
+      <LineStyle>
+        <color>fff08641</color>
+        <width>9.9285</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-4186F0-6619">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-4186F0-6619-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-4186F0-6619-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-4186F0-7006-normal">
+      <LineStyle>
+        <color>fff08641</color>
+        <width>7.006</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-4186F0-7006-highlight">
+      <LineStyle>
+        <color>fff08641</color>
+        <width>10.509</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-4186F0-7006">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-4186F0-7006-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-4186F0-7006-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-DB4436-4681-normal">
+      <LineStyle>
+        <color>ff3644db</color>
+        <width>4.681</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-DB4436-4681-highlight">
+      <LineStyle>
+        <color>ff3644db</color>
+        <width>7.0215</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-DB4436-4681">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-DB4436-4681-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-DB4436-4681-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-DB4436-4875-normal">
+      <LineStyle>
+        <color>ff3644db</color>
+        <width>4.875</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-DB4436-4875-highlight">
+      <LineStyle>
+        <color>ff3644db</color>
+        <width>7.3125</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-DB4436-4875">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-DB4436-4875-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-DB4436-4875-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-DB4436-5069-normal">
+      <LineStyle>
+        <color>ff3644db</color>
+        <width>5.069</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-DB4436-5069-highlight">
+      <LineStyle>
+        <color>ff3644db</color>
+        <width>7.6035</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-DB4436-5069">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-DB4436-5069-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-DB4436-5069-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-DB4436-5263-normal">
+      <LineStyle>
+        <color>ff3644db</color>
+        <width>5.263</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-DB4436-5263-highlight">
+      <LineStyle>
+        <color>ff3644db</color>
+        <width>7.8945</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-DB4436-5263">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-DB4436-5263-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-DB4436-5263-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-DB4436-5456-normal">
+      <LineStyle>
+        <color>ff3644db</color>
+        <width>5.456</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-DB4436-5456-highlight">
+      <LineStyle>
+        <color>ff3644db</color>
+        <width>8.184</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-DB4436-5456">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-DB4436-5456-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-DB4436-5456-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-DB4436-5650-normal">
+      <LineStyle>
+        <color>ff3644db</color>
+        <width>5.65</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-DB4436-5650-highlight">
+      <LineStyle>
+        <color>ff3644db</color>
+        <width>8.475</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-DB4436-5650">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-DB4436-5650-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-DB4436-5650-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-DB4436-5844-normal">
+      <LineStyle>
+        <color>ff3644db</color>
+        <width>5.844</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-DB4436-5844-highlight">
+      <LineStyle>
+        <color>ff3644db</color>
+        <width>8.766</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-DB4436-5844">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-DB4436-5844-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-DB4436-5844-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-DB4436-6038-normal">
+      <LineStyle>
+        <color>ff3644db</color>
+        <width>6.038</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-DB4436-6038-highlight">
+      <LineStyle>
+        <color>ff3644db</color>
+        <width>9.057</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-DB4436-6038">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-DB4436-6038-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-DB4436-6038-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-DB4436-6231-normal">
+      <LineStyle>
+        <color>ff3644db</color>
+        <width>6.231</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-DB4436-6231-highlight">
+      <LineStyle>
+        <color>ff3644db</color>
+        <width>9.3465</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-DB4436-6231">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-DB4436-6231-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-DB4436-6231-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-DB4436-6425-normal">
+      <LineStyle>
+        <color>ff3644db</color>
+        <width>6.425</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-DB4436-6425-highlight">
+      <LineStyle>
+        <color>ff3644db</color>
+        <width>9.6375</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-DB4436-6425">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-DB4436-6425-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-DB4436-6425-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-DB4436-6619-normal">
+      <LineStyle>
+        <color>ff3644db</color>
+        <width>6.619</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-DB4436-6619-highlight">
+      <LineStyle>
+        <color>ff3644db</color>
+        <width>9.9285</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-DB4436-6619">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-DB4436-6619-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-DB4436-6619-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-DB4436-6813-normal">
+      <LineStyle>
+        <color>ff3644db</color>
+        <width>6.813</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-DB4436-6813-highlight">
+      <LineStyle>
+        <color>ff3644db</color>
+        <width>10.2195</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-DB4436-6813">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-DB4436-6813-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-DB4436-6813-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-F4EB37-5844-normal">
+      <LineStyle>
+        <color>ff37ebf4</color>
+        <width>5.844</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-F4EB37-5844-highlight">
+      <LineStyle>
+        <color>ff37ebf4</color>
+        <width>8.766</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-F4EB37-5844">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-F4EB37-5844-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-F4EB37-5844-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-FFDD5E-4681-normal">
+      <LineStyle>
+        <color>ff5eddff</color>
+        <width>4.681</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-FFDD5E-4681-highlight">
+      <LineStyle>
+        <color>ff5eddff</color>
+        <width>7.0215</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-FFDD5E-4681">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-FFDD5E-4681-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-FFDD5E-4681-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-FFDD5E-4875-normal">
+      <LineStyle>
+        <color>ff5eddff</color>
+        <width>4.875</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-FFDD5E-4875-highlight">
+      <LineStyle>
+        <color>ff5eddff</color>
+        <width>7.3125</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-FFDD5E-4875">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-FFDD5E-4875-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-FFDD5E-4875-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-FFDD5E-5069-normal">
+      <LineStyle>
+        <color>ff5eddff</color>
+        <width>5.069</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-FFDD5E-5069-highlight">
+      <LineStyle>
+        <color>ff5eddff</color>
+        <width>7.6035</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-FFDD5E-5069">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-FFDD5E-5069-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-FFDD5E-5069-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-FFDD5E-5263-normal">
+      <LineStyle>
+        <color>ff5eddff</color>
+        <width>5.263</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-FFDD5E-5263-highlight">
+      <LineStyle>
+        <color>ff5eddff</color>
+        <width>7.8945</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-FFDD5E-5263">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-FFDD5E-5263-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-FFDD5E-5263-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-FFDD5E-5456-normal">
+      <LineStyle>
+        <color>ff5eddff</color>
+        <width>5.456</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-FFDD5E-5456-highlight">
+      <LineStyle>
+        <color>ff5eddff</color>
+        <width>8.184</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-FFDD5E-5456">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-FFDD5E-5456-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-FFDD5E-5456-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-FFDD5E-5456-nodesc-normal">
+      <LineStyle>
+        <color>ff5eddff</color>
+        <width>5.456</width>
+      </LineStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="line-FFDD5E-5456-nodesc-highlight">
+      <LineStyle>
+        <color>ff5eddff</color>
+        <width>8.184</width>
+      </LineStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="line-FFDD5E-5456-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-FFDD5E-5456-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-FFDD5E-5456-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-FFDD5E-5650-normal">
+      <LineStyle>
+        <color>ff5eddff</color>
+        <width>5.65</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-FFDD5E-5650-highlight">
+      <LineStyle>
+        <color>ff5eddff</color>
+        <width>8.475</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-FFDD5E-5650">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-FFDD5E-5650-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-FFDD5E-5650-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-FFDD5E-5650-nodesc-normal">
+      <LineStyle>
+        <color>ff5eddff</color>
+        <width>5.65</width>
+      </LineStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="line-FFDD5E-5650-nodesc-highlight">
+      <LineStyle>
+        <color>ff5eddff</color>
+        <width>8.475</width>
+      </LineStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="line-FFDD5E-5650-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-FFDD5E-5650-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-FFDD5E-5650-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-FFDD5E-5844-normal">
+      <LineStyle>
+        <color>ff5eddff</color>
+        <width>5.844</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-FFDD5E-5844-highlight">
+      <LineStyle>
+        <color>ff5eddff</color>
+        <width>8.766</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-FFDD5E-5844">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-FFDD5E-5844-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-FFDD5E-5844-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-FFDD5E-6038-normal">
+      <LineStyle>
+        <color>ff5eddff</color>
+        <width>6.038</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-FFDD5E-6038-highlight">
+      <LineStyle>
+        <color>ff5eddff</color>
+        <width>9.057</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-FFDD5E-6038">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-FFDD5E-6038-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-FFDD5E-6038-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-FFDD5E-6231-normal">
+      <LineStyle>
+        <color>ff5eddff</color>
+        <width>6.231</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-FFDD5E-6231-highlight">
+      <LineStyle>
+        <color>ff5eddff</color>
+        <width>9.3465</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-FFDD5E-6231">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-FFDD5E-6231-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-FFDD5E-6231-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-FFDD5E-6425-normal">
+      <LineStyle>
+        <color>ff5eddff</color>
+        <width>6.425</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-FFDD5E-6425-highlight">
+      <LineStyle>
+        <color>ff5eddff</color>
+        <width>9.6375</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-FFDD5E-6425">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-FFDD5E-6425-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-FFDD5E-6425-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-FFDD5E-6619-normal">
+      <LineStyle>
+        <color>ff5eddff</color>
+        <width>6.619</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-FFDD5E-6619-highlight">
+      <LineStyle>
+        <color>ff5eddff</color>
+        <width>9.9285</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-FFDD5E-6619">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-FFDD5E-6619-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-FFDD5E-6619-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-FFDD5E-6813-normal">
+      <LineStyle>
+        <color>ff5eddff</color>
+        <width>6.813</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-FFDD5E-6813-highlight">
+      <LineStyle>
+        <color>ff5eddff</color>
+        <width>10.2195</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-FFDD5E-6813">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-FFDD5E-6813-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-FFDD5E-6813-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-FFDD5E-7006-normal">
+      <LineStyle>
+        <color>ff5eddff</color>
+        <width>7.006</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-FFDD5E-7006-highlight">
+      <LineStyle>
+        <color>ff5eddff</color>
+        <width>10.509</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-FFDD5E-7006">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-FFDD5E-7006-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-FFDD5E-7006-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-FFFFFF-4875-nodesc-normal">
+      <LineStyle>
+        <color>ffffffff</color>
+        <width>4.875</width>
+      </LineStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="line-FFFFFF-4875-nodesc-highlight">
+      <LineStyle>
+        <color>ffffffff</color>
+        <width>7.3125</width>
+      </LineStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="line-FFFFFF-4875-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-FFFFFF-4875-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-FFFFFF-4875-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-FFFFFF-5650-normal">
+      <LineStyle>
+        <color>ffffffff</color>
+        <width>5.65</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-FFFFFF-5650-highlight">
+      <LineStyle>
+        <color>ffffffff</color>
+        <width>8.475</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-FFFFFF-5650">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-FFFFFF-5650-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-FFFFFF-5650-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-FFFFFF-5650-nodesc-normal">
+      <LineStyle>
+        <color>ffffffff</color>
+        <width>5.65</width>
+      </LineStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="line-FFFFFF-5650-nodesc-highlight">
+      <LineStyle>
+        <color>ffffffff</color>
+        <width>8.475</width>
+      </LineStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="line-FFFFFF-5650-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-FFFFFF-5650-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-FFFFFF-5650-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-FFFFFF-5844-nodesc-normal">
+      <LineStyle>
+        <color>ffffffff</color>
+        <width>5.844</width>
+      </LineStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="line-FFFFFF-5844-nodesc-highlight">
+      <LineStyle>
+        <color>ffffffff</color>
+        <width>8.766</width>
+      </LineStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="line-FFFFFF-5844-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-FFFFFF-5844-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-FFFFFF-5844-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-FFFFFF-6231-normal">
+      <LineStyle>
+        <color>ffffffff</color>
+        <width>6.231</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-FFFFFF-6231-highlight">
+      <LineStyle>
+        <color>ffffffff</color>
+        <width>9.3465</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-FFFFFF-6231">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-FFFFFF-6231-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-FFFFFF-6231-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-FFFFFF-6231-nodesc-normal">
+      <LineStyle>
+        <color>ffffffff</color>
+        <width>6.231</width>
+      </LineStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="line-FFFFFF-6231-nodesc-highlight">
+      <LineStyle>
+        <color>ffffffff</color>
+        <width>9.3465</width>
+      </LineStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="line-FFFFFF-6231-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-FFFFFF-6231-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-FFFFFF-6231-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-FFFFFF-6425-normal">
+      <LineStyle>
+        <color>ffffffff</color>
+        <width>6.425</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-FFFFFF-6425-highlight">
+      <LineStyle>
+        <color>ffffffff</color>
+        <width>9.6375</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-FFFFFF-6425">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-FFFFFF-6425-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-FFFFFF-6425-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-FFFFFF-6619-normal">
+      <LineStyle>
+        <color>ffffffff</color>
+        <width>6.619</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-FFFFFF-6619-highlight">
+      <LineStyle>
+        <color>ffffffff</color>
+        <width>9.9285</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-FFFFFF-6619">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-FFFFFF-6619-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-FFFFFF-6619-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-FFFFFF-6619-nodesc-normal">
+      <LineStyle>
+        <color>ffffffff</color>
+        <width>6.619</width>
+      </LineStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="line-FFFFFF-6619-nodesc-highlight">
+      <LineStyle>
+        <color>ffffffff</color>
+        <width>9.9285</width>
+      </LineStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="line-FFFFFF-6619-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-FFFFFF-6619-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-FFFFFF-6619-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-FFFFFF-7006-nodesc-normal">
+      <LineStyle>
+        <color>ffffffff</color>
+        <width>7.006</width>
+      </LineStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="line-FFFFFF-7006-nodesc-highlight">
+      <LineStyle>
+        <color>ffffffff</color>
+        <width>10.509</width>
+      </LineStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="line-FFFFFF-7006-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-FFFFFF-7006-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-FFFFFF-7006-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Folder>
+      <name>Реки</name>
+      <Placemark>
+        <name>Eiteraga</name>
+        <description>IV</description>
+        <styleUrl>#line-FFDD5E-5844</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            13.154068,65.681189,0
+            13.1593037,65.686243,0
+            13.1710625,65.6872679,0
+            13.1757832,65.6923207,0
+            13.1923485,65.6933453,0
+            13.2113171,65.6912961,0
+            13.2150078,65.6941225,0
+            13.235178,65.6918261,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Fiplingdalselva, Lille</name>
+        <description>V-</description>
+        <styleUrl>#line-DB4436-5650</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            13.649826,65.4708069,0
+            13.6618423,65.4782888,0
+            13.6762619,65.4931749,0
+            13.6899948,65.511753,0
+            13.692956,65.512927,0
+            13.6925697,65.5144389,0
+            13.6935997,65.5157729,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Fiplingdalselva, Store</name>
+        <description>II, IV</description>
+        <styleUrl>#line-FFDD5E-4875</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            13.7155724,65.4899705,0
+            13.7212372,65.489472,0
+            13.7329102,65.4941718,0
+            13.7332535,65.4992979,0
+            13.7433815,65.507768,0
+            13.7456131,65.5129626,0
+            13.7550545,65.5178715,0
+            13.7517929,65.5217127,0
+            13.7347984,65.5213571,0
+            13.7257862,65.5230641,0
+            13.720293,65.5223884,0
+            13.715229,65.5230997,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Gronnfjellaga</name>
+        <description>IV</description>
+        <styleUrl>#line-FFDD5E-5844</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            14.6904802,66.3436705,0
+            14.6828413,66.3474757,0
+            14.6754169,66.3484227,0
+            14.6736145,66.3509017,0
+            14.662199,66.3535527,0
+            14.6634865,66.3558935,0
+            14.6533585,66.3554116,0
+            14.6494102,66.3566852,0
+            14.651041,66.3574769,0
+            14.6417713,66.3597486,0
+            14.6392822,66.3588537,0
+            14.6364498,66.3600583,0
+            14.6315575,66.3600583,0
+            14.6294117,66.360609,0
+            14.6244335,66.3607811,0
+            14.6216869,66.3622265,0
+            14.6168804,66.363018,0
+            14.615593,66.3646354,0
+            14.6088123,66.3682827,0
+            14.6029758,66.3694524,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Krutaga</name>
+        <description>IV</description>
+        <styleUrl>#line-FFDD5E-5069</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            14.3393898,65.69278,0
+            14.301796,65.6941225,0
+            14.2959595,65.6901654,0
+            14.2829132,65.688752,0
+            14.2599106,65.6722095,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Krutaga - Gorge</name>
+        <description>VI - X</description>
+        <styleUrl>#line-000000-5844</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            14.2164803,65.676134,0
+            14.2122746,65.6772653,0
+            14.2067814,65.6774774,0
+            14.1996574,65.6796337,0
+            14.1900444,65.6798105,0
+            14.1858387,65.6814011,0
+            14.1809464,65.6810476,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Skarmodalselva</name>
+        <description>IV+</description>
+        <styleUrl>#line-FFDD5E-5069</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            14.6537018,65.4252994,0
+            14.6142197,65.4210156,0
+            14.5527649,65.4372902,0
+            14.5019531,65.4449957,0
+            14.4758606,65.4488476,0
+            14.4339752,65.4501314,0
+            14.3838501,65.4608277,0
+            14.3399048,65.4608277,0
+            14.3131256,65.4708069,0
+            14.3072891,65.4870506,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Stavasselva</name>
+        <description>IV-</description>
+        <styleUrl>#line-FFDD5E-5650</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            13.2980919,65.4868369,0
+            13.3083057,65.4881189,0
+            13.3165455,65.4912167,0
+            13.3317375,65.4924985,0
+            13.3416939,65.4947414,0
+            13.3465862,65.4941006,0
+            13.3505344,65.4952754,0
+            13.3518219,65.5049212,0
+            13.3661556,65.507341,0
+            13.3699322,65.5093692,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Susna</name>
+        <description>IV</description>
+        <styleUrl>#line-FFDD5E-5263</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            13.9682579,65.4218367,0
+            13.9688587,65.4254778,0
+            13.985939,65.4357203,0
+            13.9905739,65.4492756,0
+            14.0051651,65.457548,0
+            14.0067101,65.4624674,0
+            14.0111732,65.4633228,0
+            14.0134048,65.4698804,0
+            14.0041351,65.4736574,0
+            13.9979553,65.4853412,0
+            14.0091133,65.4910387,0
+            14.0008736,65.5006504,0
+            14.0046501,65.5032842,0
+            13.9998436,65.5075545,0
+            14.0052509,65.5094759,0
+            14.0049076,65.5117174,0
+            14.0076542,65.5134606,0
+            14.0067101,65.5156662,0
+            14.0113449,65.5178715,0
+            14.0091991,65.5203079,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Unkerelva</name>
+        <description>IV-</description>
+        <styleUrl>#line-FFDD5E-5650</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            14.1416359,65.5131049,0
+            14.1332245,65.5143855,0
+            14.1297913,65.5185829,0
+            14.1327095,65.5216416,0
+            14.1246414,65.5261223,0
+            14.1021538,65.5309577,0
+            14.0935707,65.5300333,0
+            14.0863609,65.5260511,0
+            14.0791512,65.5266201,0
+            14.072113,65.5246288,0
+            14.0578651,65.5241309,0
+            14.0408707,65.5183695,0
+            14.0132332,65.5213571,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Upper Susna</name>
+        <description>IV/V</description>
+        <styleUrl>#line-FFDD5E-4681</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            14.2282391,65.368089,0
+            14.2115021,65.3656205,0
+            14.1893578,65.3635454,0
+            14.1732216,65.3619711,0
+            14.1651535,65.3629729,0
+            14.1419792,65.3628835,0
+            14.1249847,65.36181,0
+            14.1160154,65.3628298,0
+            14.1104794,65.3616848,0
+            14.0928197,65.362141,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Junkerdalselva</name>
+        <description>II+/IV</description>
+        <styleUrl>#line-4186F0-5263</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            15.5070305,66.8233451,0
+            15.500679,66.824899,0
+            15.4829979,66.8251017,0
+            15.4567337,66.8203723,0
+            15.4472923,66.8173991,0
+            15.4354477,66.8180073,0
+            15.4105568,66.8137497,0
+            15.3981972,66.8158448,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Upper Junkerdalselva</name>
+        <description>III+ (IV)</description>
+        <styleUrl>#line-009D57-5456</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            15.7145691,66.7502714,0
+            15.6812668,66.7594175,0
+            15.6665039,66.7667997,0
+            15.6359482,66.7760073,0
+            15.6321287,66.7769719,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Lonsdal</name>
+        <description>V</description>
+        <styleUrl>#line-DB4436-4875</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            15.4751873,66.7643279,0
+            15.468235,66.7701514,0
+            15.4683208,66.7750935,0
+            15.4632568,66.7814896,0
+            15.4568195,66.7870384,0
+            15.4505539,66.7899476,0
+            15.4440308,66.7958327,0
+            15.4310703,66.7992143,0
+            15.4233456,66.8031025,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Stormdalselva</name>
+        <description>IV</description>
+        <styleUrl>#line-FFDD5E-5650</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            14.8535156,66.5140814,0
+            14.8737717,66.5167493,0
+            14.8888779,66.5219474,0
+            14.8971176,66.5194853,0
+            14.8844147,66.5059391,0
+            14.8991776,66.5033385,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Glomaga</name>
+        <description>V</description>
+        <styleUrl>#line-DB4436-6425</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            14.1531373,66.6540659,0
+            13.8670489,66.5403902,0
+            13.8578741,66.5057857,0
+            13.8822526,66.4989114,0
+            13.857193,66.477523,0
+            13.8596821,66.4761186,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Tverraga</name>
+        <description>IV</description>
+        <styleUrl>#line-FFDD5E-6038</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            13.1759548,65.7869052,0
+            13.1719208,65.7925369,0
+            13.1807613,65.7971469,0
+            13.1930351,65.8008414,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Bjollaga</name>
+        <description>IV</description>
+        <styleUrl>#line-FFDD5E-5650</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            15.0457764,66.5823986,0
+            15.0114441,66.5324088,0
+            14.9946213,66.5324088,0
+            14.982605,66.5345963,0
+            14.9736786,66.5310416,0
+            14.9668121,66.5088816,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Rana</name>
+        <description>V</description>
+        <styleUrl>#line-DB4436-6038</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            14.9836349,66.5049126,0
+            14.9803734,66.5107974,0
+            14.9688721,66.5095658,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Laksforsen</name>
+        <description>V</description>
+        <styleUrl>#line-DB4436-5456</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            13.2928133,65.6222352,0
+            13.2902813,65.6242279,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Molnhusbeken</name>
+        <styleUrl>#line-FFDD5E-5650-nodesc</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            14.1014671,65.6400487,0
+            14.1044712,65.6435533,0
+            14.1060162,65.6499595,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Kultsjoan</name>
+        <styleUrl>#line-FFDD5E-5456-nodesc</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            15.6359482,64.9228142,0
+            15.7780838,64.9401247,0
+            15.8168793,64.9409972,0
+            15.837822,64.9398339,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Pite Elven</name>
+        <styleUrl>#line-009D57-6038-nodesc</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            19.2415237,66.0372679,0
+            19.351387,65.9884178,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Junkerelva Canyon</name>
+        <styleUrl>#line-FFFFFF-5650-nodesc</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            15.8067083,66.7503561,0
+            15.7918167,66.7511184,0
+            15.7749081,66.7489161,0
+            15.7632351,66.7459682,0
+            15.7513046,66.7472219,0
+            15.7419491,66.7458665,0
+            15.7159424,66.750373,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Lonsdal</name>
+        <description>IV - V (VI, X)</description>
+        <styleUrl>#line-DB4436-5263</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            15.4739857,66.7345118,0
+            15.473299,66.7391899,0
+            15.4797363,66.7426809,0
+            15.4770756,66.7479335,0
+            15.4802513,66.7519654,0
+            15.4775906,66.7566402,0
+            15.4805088,66.7601287,0
+            15.4766464,66.7639554,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Gaavesjohke</name>
+        <styleUrl>#line-FFFFFF-5650-nodesc</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            14.1987133,64.9449231,0
+            14.1869545,64.9548807,0
+            14.190731,64.9595312,0
+            14.1948509,64.9605484,0
+            14.2051506,64.97188,0
+            14.208498,64.9746396,0
+            14.2120171,64.975039,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Gaavesjohke - Upper</name>
+        <styleUrl>#line-FFFFFF-5650-nodesc</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            14.3285751,65.0454191,0
+            14.3270302,65.0424495,0
+            14.3194771,65.0400592,0
+            14.3246269,65.0264373,0
+            14.3175888,65.0244803,0
+            14.3138123,65.0273794,0
+            14.2964745,65.0227407,0
+            14.2892647,65.0179563,0
+            14.2666054,65.0144036,0
+            14.2434311,65.0027273,0
+            14.2242479,64.9931866,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Vefsna</name>
+        <styleUrl>#line-FFFFFF-6231-nodesc</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            13.9709616,65.5894448,0
+            13.9445686,65.5941266,0
+            13.9245701,65.5933464,0
+            13.9158154,65.5849395,0
+            13.9074898,65.5821366,0
+            13.8893795,65.5839816,0
+            13.884058,65.5829527,0
+            13.8778782,65.5778076,0
+            13.869381,65.5777721,0
+            13.8510132,65.5671947,0
+            13.8401985,65.5647449,0
+            13.828783,65.5575719,0
+            13.8091278,65.5501838,0
+            13.7929058,65.5492423,0
+            13.7489605,65.5420473,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Sogndalselva: Upper</name>
+        <description>IV (V)</description>
+        <styleUrl>#line-F4EB37-5844</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            7.0045915,61.2818806,0
+            7.0033866,61.2809263,0
+            7.0197862,61.2556709,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Sogndalselva: Lower</name>
+        <description>IV - V</description>
+        <styleUrl>#line-DB4436-5844</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            7.0200169,61.2534883,0
+            7.0405858,61.2328818,0
+            7.0999897,61.228582,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Jostedøla: Upper run</name>
+        <description>V</description>
+        <styleUrl>#line-DB4436-4681</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            7.2985214,61.6626338,0
+            7.2774918,61.6577425,0
+            7.2781849,61.6186792,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Gaula: Upper</name>
+        <description>IV - V</description>
+        <styleUrl>#line-FFDD5E-5069</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            11.4027787,62.8176362,0
+            11.4023868,62.8108625,0
+            11.3760814,62.8014501,0
+            11.3498908,62.8089181,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Bua: Canyon</name>
+        <description>IV</description>
+        <styleUrl>#line-FFDD5E-5456</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            10.4959774,62.880444,0
+            10.4602883,62.9197462,0
+            10.4781897,62.9296702,0
+            10.4885556,62.9564644,0
+            10.4741433,62.9706588,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Fora: Lower</name>
+        <description>III - IV</description>
+        <styleUrl>#line-009D57-6231</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            10.6983447,62.9015277,0
+            10.6522478,62.9322234,0
+            10.6522751,62.9393449,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Forra: Forra</name>
+        <description>V-</description>
+        <styleUrl>#line-DB4436-5650</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            11.4657891,63.5340297,0
+            11.4665618,63.5265607,0
+            11.4508829,63.5104912,0
+            11.4291491,63.5072846,0
+            11.4277339,63.4982945,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Gargbergselva: Gargbergselva</name>
+        <description>IV</description>
+        <styleUrl>#line-FFDD5E-5263</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            11.2027716,63.2767237,0
+            11.1740984,63.2837707,0
+            11.1352766,63.2674011,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Hauka: Hauka</name>
+        <description>IV (X)</description>
+        <styleUrl>#line-FFDD5E-6231</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            10.3296375,62.9136307,0
+            10.3419209,62.936094,0
+            10.2877615,62.9506075,0
+            10.2937351,62.9620413,0
+            10.2726869,62.9848414,0
+            10.2507923,62.9894744,0
+            10.2464032,62.9937554,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Ila: Ila</name>
+        <description>IV</description>
+        <styleUrl>#line-FFDD5E-5263</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            10.1505411,62.9237316,0
+            10.1548004,62.928185,0
+            10.1782714,62.9295136,0
+            10.1896262,62.9376463,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Inna: Inna</name>
+        <description>IV</description>
+        <styleUrl>#line-FFDD5E-5650</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            10.0385964,62.693655,0
+            10.043435,62.6998215,0
+            10.0376093,62.7105862,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Orkla: Orkla</name>
+        <description>IV</description>
+        <styleUrl>#line-FFDD5E-5456</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            10.1290619,62.7013222,0
+            10.0375235,62.7105862,0
+            9.9771738,62.734247,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Tronda: Twitch section</name>
+        <description>V+</description>
+        <styleUrl>#line-DB4436-5456</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.5906675,62.5321515,0
+            9.5931029,62.5301298,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Vigda: Vigda</name>
+        <description>IV</description>
+        <styleUrl>#line-FFDD5E-5844</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            11.5287244,63.5366882,0
+            11.499598,63.5239155,0
+            11.4939502,63.5104043,0
+            11.4805861,63.4985769,0
+            11.4589282,63.4953229,0
+            11.4378136,63.4965495,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Driva: Kongsvoll</name>
+        <description>IV</description>
+        <styleUrl>#line-FFDD5E-5844</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.6071148,62.3065899,0
+            9.619376,62.3219804,0
+            9.6192011,62.3425054,0
+            9.6370483,62.3628106,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Driva: Oppdal</name>
+        <description>I - III</description>
+        <styleUrl>#line-4186F0-5069</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.6363455,62.576224,0
+            9.6351893,62.593663,0
+            9.5956962,62.6038244,0
+            9.5112499,62.6007313,0
+            9.4934069,62.6045709,0
+            9.4563514,62.6027551,0
+            9.4330834,62.5915269,0
+            9.3892175,62.5750084,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Driva: Gråura</name>
+        <description>IV+</description>
+        <styleUrl>#line-FFDD5E-5456</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.3892175,62.5750084,0
+            9.2991939,62.5829602,0
+            9.2646296,62.5770218,0
+            9.2403674,62.5805635,0
+            9.147234,62.5730662,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Grøvu: Lower</name>
+        <description>IV</description>
+        <styleUrl>#line-FFDD5E-5069</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.0586567,62.5085888,0
+            9.1008779,62.5405323,0
+            9.0957462,62.5499886,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Grøvu: Upper</name>
+        <description>IV - V (VI)</description>
+        <styleUrl>#line-DB4436-5844</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.9309406,62.4681929,0
+            8.9456606,62.4844946,0
+            8.9485313,62.4980517,0
+            8.974092,62.5046215,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Toåa: Standart</name>
+        <description>III - IV (X)</description>
+        <styleUrl>#line-FFDD5E-5069</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.8757622,62.7815903,0
+            8.8299834,62.7845215,0
+            8.783977,62.7967007,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Vindøla: Gorge</name>
+        <description>IV - V (X)</description>
+        <styleUrl>#line-FFDD5E-6038</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.9732391,62.9562158,0
+            8.9720598,62.9676664,0
+            8.9158465,62.9859239,0
+            8.9226151,62.988737,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Bøvra: Upper</name>
+        <description>IV-</description>
+        <styleUrl>#line-FFDD5E-5844</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.1954145,61.7045834,0
+            8.2009116,61.710037,0
+            8.235251,61.715285,0
+            8.2498529,61.7228655,0
+            8.2695175,61.7199857,0
+            8.296051,61.7260476,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Bøvra: Lower</name>
+        <description>IV- (X)</description>
+        <styleUrl>#line-FFDD5E-5650</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.449688,61.7914257,0
+            8.4476607,61.7999179,0
+            8.4603873,61.8091135,0
+            8.5007517,61.8145203,0
+            8.5151088,61.8209479,0
+            8.5324205,61.8223775,0
+            8.5655379,61.8364464,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Aurdola: Aurdola</name>
+        <description>V-</description>
+        <styleUrl>#line-DB4436-5069</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.7032881,60.5326938,0
+            9.7194851,60.539227,0
+            9.7327709,60.548038,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Bingselva: Bingselva</name>
+        <description>III - IV</description>
+        <styleUrl>#line-FFDD5E-5456</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.7157764,59.8756289,0
+            9.7796866,59.890349,0
+            9.8330963,59.8652081,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Bjørvassåi: Bjørvassåi</name>
+        <description>IV</description>
+        <styleUrl>#line-FFDD5E-6619</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.0570259,59.871364,0
+            9.0978043,59.8679536,0
+            9.0953493,59.8478018,0
+            9.0845114,59.8383728,0
+            9.0835663,59.826949,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Dokka: Dokka</name>
+        <description>III- - IV-</description>
+        <styleUrl>#line-009D57-5263</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            10.0904274,60.9699418,0
+            10.1141141,60.9582145,0
+            10.1022631,60.9487675,0
+            10.103805,60.937153,0
+            10.094533,60.919423,0
+            10.0650215,60.9100331,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Dørja: Dørja</name>
+        <description>IV-</description>
+        <styleUrl>#line-FFDD5E-5069</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.7075367,59.7497368,0
+            9.7259486,59.7407008,0
+            9.7383196,59.7409803,0
+            9.7436457,59.7433233,0
+            9.7771229,59.7391306,0
+            9.8016659,59.7291995,0
+            9.8339311,59.7306351,0
+            9.8342657,59.7258384,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Eggedøla: Eggedøla</name>
+        <description>V</description>
+        <styleUrl>#line-DB4436-5263</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.2365837,60.2948198,0
+            9.2588945,60.2801068,0
+            9.2724737,60.2607108,0
+            9.2818288,60.2517392,0
+            9.3011793,60.2512133,0
+            9.3261909,60.2461691,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Eidsåa: Upper</name>
+        <description>IV</description>
+        <styleUrl>#line-FFDD5E-5650</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.9307475,60.1489713,0
+            8.9889833,60.1519437,0
+            8.9968157,60.1475507,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Eidsåa: Lower</name>
+        <description>VI</description>
+        <styleUrl>#line-000000-5456</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.9968533,60.1475347,0
+            9.0084457,60.144154,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Finna: Gorge</name>
+        <description>IV (X)</description>
+        <styleUrl>#line-FFDD5E-5844</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.9871597,61.9226342,0
+            8.9817876,61.9126959,0
+            9.0237269,61.8921247,0
+            9.0807581,61.8800864,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Skjerva: Upper</name>
+        <description>IV+</description>
+        <styleUrl>#line-FFDD5E-5650</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.9140534,62.0042691,0
+            8.9386026,61.9970596,0
+            8.9646375,61.996496,0
+            8.9769323,61.9856928,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Folla: Moan - Dolplass</name>
+        <description>III - IV</description>
+        <styleUrl>#line-009D57-5650</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            10.2761862,62.187786,0
+            10.2976225,62.2001478,0
+            10.4489422,62.1918704,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Frya: Gorge</name>
+        <description>IV (V-)</description>
+        <styleUrl>#line-FFDD5E-5456</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.9348164,61.7124652,0
+            9.970821,61.6899796,0
+            9.9588109,61.6720859,0
+            9.9776924,61.6225789,0
+            10.0383956,61.5876779,0
+            10.0595605,61.5569712,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Gløta: Gløta</name>
+        <description>III-</description>
+        <styleUrl>#line-009D57-5456</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            11.8792676,61.93253,0
+            11.8672085,61.934953,0
+            11.827898,61.9363259,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Grøna: Grøna</name>
+        <description>V</description>
+        <styleUrl>#line-DB4436-5844</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.0942764,62.1315786,0
+            9.0954974,62.1216357,0
+            9.0807581,62.1124148,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Grøndøla: Grøndøla</name>
+        <description>IV</description>
+        <styleUrl>#line-FFDD5E-5456</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.3487511,60.9728572,0
+            8.4019232,60.9300777,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Lågen: Rosten</name>
+        <description>IV</description>
+        <styleUrl>#line-FFDD5E-5650</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.4040823,61.8845259,0
+            9.4195802,61.8750455,0
+            9.3949453,61.8645031,0
+            9.4254112,61.8493465,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Gøyst: Gøyst</name>
+        <description>IV</description>
+        <styleUrl>#line-FFDD5E-5263</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.622036,60.0137891,0
+            8.6821834,59.9985229,0
+            8.7030978,59.9899143,0
+            8.7339377,59.9869887,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Mår: Upper</name>
+        <description>IV - V</description>
+        <styleUrl>#line-FFDD5E-4875</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.6242247,60.0761673,0
+            8.6581311,60.0794903,0
+            8.7104416,60.0705365,0
+            8.7340737,60.0458989,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Hemsil: Lower</name>
+        <description>IV - V</description>
+        <styleUrl>#line-DB4436-6231</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.8514398,60.7522409,0
+            8.933816,60.7032014,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Hira: Hira</name>
+        <description>III+</description>
+        <styleUrl>#line-009D57-6231</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            10.5406308,61.671738,0
+            10.7037306,61.7371907,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Hjuksa: Hjuksa</name>
+        <description>IV</description>
+        <styleUrl>#line-FFDD5E-5844</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.3650561,59.5303685,0
+            9.3224037,59.5121763,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Hovda: Lower</name>
+        <description>III-</description>
+        <styleUrl>#line-009D57-6619</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            11.2254739,61.2041004,0
+            11.2703351,61.210941,0
+            11.3012797,61.2025061,0
+            11.3284492,61.2125852,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Imsa: Lower</name>
+        <description>III</description>
+        <styleUrl>#line-009D57-6425</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            10.8849621,61.4829314,0
+            11.0223985,61.4617594,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Imsa: Upper</name>
+        <description>III</description>
+        <styleUrl>#line-009D57-5456</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            10.6634545,61.5475674,0
+            10.7335567,61.5281375,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Jondalselva: Upper</name>
+        <description>I - IV</description>
+        <styleUrl>#line-009D57-6038</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.3765736,59.7257518,0
+            9.4154648,59.706076,0
+            9.4999767,59.7034277,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Jori: Upper</name>
+        <description>V</description>
+        <styleUrl>#line-DB4436-5456</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.9399529,62.2181759,0
+            8.9372063,62.2162956,0
+            8.9200401,62.1922007,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Jori: Lower</name>
+        <description>III - IV</description>
+        <styleUrl>#line-009D57-6425</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.9994335,62.1338855,0
+            9.0342278,62.1330874,0
+            9.0766346,62.1133993,0
+            9.107176,62.1059088,0
+            9.1007352,62.0863838,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Kopperbergselva: Kopperbergselva</name>
+        <description>IV</description>
+        <styleUrl>#line-FFDD5E-6231</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.5580357,59.6293632,0
+            9.6008813,59.6271716,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Lysakerelva: Lysakerelva</name>
+        <description>III - IV</description>
+        <styleUrl>#line-FFDD5E-5844</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            10.6269121,59.9616437,0
+            10.6353697,59.9482965,0
+            10.6264841,59.923271,0
+            10.6304097,59.9182366,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Lora: Lora</name>
+        <description>III, IV</description>
+        <styleUrl>#line-009D57-6038</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.3557033,62.0530004,0
+            8.5773611,62.1045652,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Mistra: Mistra</name>
+        <description>II - IV</description>
+        <styleUrl>#line-FFDD5E-5456</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            11.4043665,61.7859482,0
+            11.419112,61.7602386,0
+            11.3712669,61.7397268,0
+            11.3483249,61.7447416,0
+            11.2422967,61.7109398,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Mørkedøla: Standart section</name>
+        <description>IV - V (X)</description>
+        <styleUrl>#line-FFDD5E-5844</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.3263063,60.8935562,0
+            8.3739853,60.8673153,0
+            8.4620476,60.8758698,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Revåa: Revåa</name>
+        <description>IV-</description>
+        <styleUrl>#line-FFDD5E-6425</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.5863438,61.2740694,0
+            9.6181902,61.2777354,0
+            9.7056184,61.2548064,0
+            9.7506666,61.2290003,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Rotvolla: Rotvolla</name>
+        <description>III - IV+</description>
+        <styleUrl>#line-FFDD5E-5456</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.5720959,61.0850227,0
+            9.5781639,61.0661826,0
+            9.5701569,61.0472595,0
+            9.5495871,61.0423208,0
+            9.5512497,61.0395423,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Smådøla: Smådøla</name>
+        <description>IV - VI</description>
+        <styleUrl>#line-FFDD5E-5844</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.6191177,60.9901985,0
+            8.6546516,60.9626624,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Speka: Speka</name>
+        <description>IV</description>
+        <styleUrl>#line-FFDD5E-5650</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            11.0966205,62.210859,0
+            11.0604,62.2153954,0
+            11.0347366,62.2075124,0
+            11.0248232,62.2014287,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Unsetåa: Unsetåa</name>
+        <description>II - IV-</description>
+        <styleUrl>#line-FFDD5E-5650</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            11.0912294,61.9955553,0
+            11.0906894,61.9591381,0
+            11.0725021,61.9371738,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Stordalselva: Classic</name>
+        <description>V - VI (X)</description>
+        <styleUrl>#line-DB4436-5263</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            7.2040487,62.3888727,0
+            7.1146774,62.3738023,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Teigdalselvi: Upper</name>
+        <description>V - VI (X)</description>
+        <styleUrl>#line-DB4436-6425</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            6.1657548,60.7342506,0
+            6.1514415,60.7335748,0
+            6.1365617,60.7306524,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Rømoåa: Rømoåa</name>
+        <description>IV+</description>
+        <styleUrl>#line-FFDD5E-5650</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            12.0745325,61.6297336,0
+            12.0576882,61.6170778,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Utla</name>
+        <styleUrl>#line-FFFFFF-4875-nodesc</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            7.9163361,61.3694227,0
+            7.8140259,61.3114627,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Atna: Upper</name>
+        <description>IV</description>
+        <styleUrl>#line-FFDD5E-5650</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.8734474,62.0097681,0
+            9.8902702,62.0121849,0
+            9.9000549,62.021045,0
+            9.9115562,62.025313,0
+            9.9228859,62.0336058,0
+            9.931469,62.0343303,0
+            9.9345589,62.0364232,0
+            9.9417686,62.0349743,0
+            9.9807358,62.0269234,0
+            9.9906492,62.0248097,0
+            9.9921513,62.0222731,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Breida: Breida</name>
+        <description>III, V</description>
+        <styleUrl>#line-DB4436-5456</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            10.3455162,61.4751037,0
+            10.3571892,61.4678071,0
+            10.350666,61.462887,0
+            10.3496361,61.4604267,0
+            10.3544426,61.4553414,0
+            10.3467178,61.4472197,0
+            10.3320408,61.4524909,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Byrteåi: Byrteåi</name>
+        <description>IV - V</description>
+        <styleUrl>#line-DB4436-6231</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            7.7185928,59.5714456,0
+            7.7336884,59.571375,0
+            7.7462196,59.5660712,0
+            7.7661324,59.564419,0
+            7.7726555,59.5625059,0
+            7.798748,59.5604187,0
+            7.8021812,59.5590272,0
+            7.8059578,59.5592011,0
+            7.8115582,59.5576084,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name><![CDATA[* Bøvra: Galdesand & Rustadjuvet Gorges]]></name>
+        <description>III - IV - V</description>
+        <styleUrl>#line-DB4436-6038</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.2971668,61.7261594,0
+            8.3046341,61.7249397,0
+            8.3086681,61.7207109,0
+            8.3050632,61.719247,0
+            8.3068657,61.7153428,0
+            8.3205128,61.7146514,0
+            8.3260059,61.7150988,0
+            8.3314991,61.71396,0
+            8.3381081,61.7168883,0
+            8.3425713,61.7198163,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Brandsetelva: Brandsetelva</name>
+        <description>IV - V</description>
+        <styleUrl>#line-FFDD5E-5844</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            6.6949654,60.7887461,0
+            6.6903305,60.792097,0
+            6.6870689,60.7918038,0
+            6.6864681,60.7932278,0
+            6.6827774,60.7932697,0
+            6.6749668,60.8001376,0
+            6.6772842,60.8014357,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Hakadalselva: Hakadalselva</name>
+        <description>II+</description>
+        <styleUrl>#line-4186F0-6619</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            10.7257676,60.154941,0
+            10.7411098,60.1510752,0
+            10.7696915,60.1509471,0
+            10.7951403,60.1413979,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Hovda: Upper</name>
+        <description>IV</description>
+        <styleUrl>#line-FFDD5E-6038</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            11.1466599,61.1930701,0
+            11.1682034,61.2002242,0
+            11.2009048,61.2003896,0
+            11.2254739,61.2041004,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Nedalselva: Nedalselva</name>
+        <description>III - V</description>
+        <styleUrl>#line-DB4436-6231</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.356178,60.1194211,0
+            9.3737411,60.120303,0
+            9.3927956,60.1285972,0
+            9.400177,60.1348379,0
+            9.4135666,60.1333847,0
+            9.4277287,60.1359278,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Nordåa: Nordåa</name>
+        <description>III-</description>
+        <styleUrl>#line-4186F0-6425</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            10.1674068,61.6207445,0
+            10.1702499,61.6057433,0
+            10.1659584,61.5942312,0
+            10.1714516,61.5658817,0
+            10.1514852,61.5576917,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Numedalslågen: Dagali section</name>
+        <description>III - IV</description>
+        <styleUrl>#line-FFDD5E-5844</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.2473206,60.3801131,0
+            8.3307266,60.4065626,0
+            8.4086609,60.3958794,0
+            8.4389591,60.4029861,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Ostri: Upper</name>
+        <description>IV</description>
+        <styleUrl>#line-FFDD5E-6231</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            7.7665401,61.8665112,0
+            7.7744579,61.8763038,0
+            7.7887273,61.8823922,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Otta: Stuttgongen run</name>
+        <description>IV - V</description>
+        <styleUrl>#line-FFDD5E-6231</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            7.7056861,62.0018415,0
+            7.7130032,61.9979228,0
+            7.7621948,62.0097378,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Otta: Polfoss run</name>
+        <description>IV</description>
+        <styleUrl>#line-FFDD5E-6231</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            7.7993703,62.0134436,0
+            7.8409767,62.0098486,0
+            7.8624344,62.0051756,0
+            7.884922,61.9827671,0
+            7.894814,61.9634765,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Otta: Family run</name>
+        <description>II</description>
+        <styleUrl>#line-4186F0-6038</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.3041325,61.8041825,0
+            9.3479919,61.8007961,0
+            9.3751144,61.7841627,0
+            9.4388008,61.793089,0
+            9.4748497,61.7748278,0
+            9.4986248,61.7734476,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Setninga: Setninga</name>
+        <description>II - III+</description>
+        <styleUrl>#line-009D57-5844</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            10.2689123,61.7572055,0
+            10.284276,61.752575,0
+            10.3583908,61.7649622,0
+            10.3825092,61.7680075,0
+            10.4227638,61.7823365,0
+            10.4562378,61.7871249,0
+            10.4893148,61.786151,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Sjoa: Steinholet</name>
+        <description>II</description>
+        <styleUrl>#line-4186F0-6231</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.0036822,61.6236358,0
+            9.0331221,61.6588804,0
+            9.0315342,61.6644314,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Sjoa: Ridderspranget</name>
+        <description>IV - V</description>
+        <styleUrl>#line-FFDD5E-6038</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.075694,61.6818828,0
+            9.1049194,61.6794297,0
+            9.1434574,61.6886103,0
+            9.173069,61.6889767,0
+            9.1797638,61.6949192,0
+            9.1747641,61.7041258,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Sjoa: Åsengjuvet</name>
+        <description>III - IV</description>
+        <styleUrl>#line-009D57-6231</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.1747641,61.7041258,0
+            9.1728973,61.7285987,0
+            9.258728,61.7521688,0
+            9.3019867,61.7516813,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Sjoa: Playrun</name>
+        <description>III</description>
+        <styleUrl>#line-009D57-6425</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.3610382,61.7336394,0
+            9.3939972,61.7206296,0
+            9.3922806,61.7167256,0
+            9.4327497,61.7076957,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Sjoa: Åmot</name>
+        <description>IV+</description>
+        <styleUrl>#line-FFDD5E-6425</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.4709873,61.6944512,0
+            9.4880676,61.6840916,0
+            9.5307255,61.6804375,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Skirva: Skirva</name>
+        <description>III - IV</description>
+        <styleUrl>#line-FFDD5E-6038</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.0144539,59.9147625,0
+            9.0125656,59.8990325,0
+            9.0240241,59.8823045,0
+            9.0229083,59.8653742,0
+            9.0162993,59.8635213,0
+            9.0196468,59.8542981,0
+            9.0079735,59.8474868,0
+            9.0087887,59.8375284,0
+            9.0044545,59.8376608,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Skjøli: Skjøli</name>
+        <description>IV+</description>
+        <styleUrl>#line-FFDD5E-6038</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.2235242,61.8308554,0
+            8.2342052,61.8365994,0
+            8.2685852,61.8443653,0
+            8.27528,61.8535171,0
+            8.2838631,61.8563512,0
+            8.2830048,61.8599137,0
+            8.2993984,61.8666731,0
+            8.3079385,61.8747056,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Skogsåa: Upper</name>
+        <description>III - V</description>
+        <styleUrl>#line-FFDD5E-6425</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.8585209,59.702161,0
+            8.8819313,59.6874137,0
+            8.8721466,59.6761486,0
+            8.8819313,59.6627121,0
+            8.9317131,59.6486631,0
+            8.9458752,59.6266617,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Synna: Synna</name>
+        <description>IV</description>
+        <styleUrl>#line-FFDD5E-6038</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.9488497,61.062449,0
+            9.9556732,61.046321,0
+            9.95327,61.040254,0
+            9.9636555,61.0319827,0
+            9.9670029,61.0227113,0
+            9.9915504,61.0039108,0
+            10.0023973,61.0014559,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Sølna: Sølna</name>
+        <description>II</description>
+        <styleUrl>#line-4186F0-6231</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            10.3970897,62.0745734,0
+            10.4033554,62.0790952,0
+            10.4318512,62.0878152,0
+            10.4972542,62.0952876,0
+            10.5213726,62.0953679,0
+            10.5379164,62.1008555,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Søråa: Søråa</name>
+        <description>IV - V-</description>
+        <styleUrl>#line-FFDD5E-6619</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            10.2364469,61.589229,0
+            10.2262974,61.579978,0
+            10.2277565,61.5631843,0
+            10.2035522,61.5535371,0
+            10.1514852,61.5576917,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Tora: Tora Bora</name>
+        <description>V</description>
+        <styleUrl>#line-DB4436-6231</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            7.8663826,62.0140175,0
+            7.8665113,62.008197,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Trysilelva: Trysilelva</name>
+        <description>II - III</description>
+        <styleUrl>#line-4186F0-6038</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            11.7473888,61.8794594,0
+            11.7285919,61.8800258,0
+            11.7340851,61.8464308,0
+            11.705246,61.8073658,0
+            11.6296158,61.7731141,0
+            11.6858483,61.7222968,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Tundra: Gorge</name>
+        <description>IV</description>
+        <styleUrl>#line-FFDD5E-6038</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            7.9925859,61.8535424,0
+            8.0031967,61.8692632,0
+            8.030287,61.8926649,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Store Ula: Store Ula</name>
+        <description>IV - V</description>
+        <styleUrl>#line-FFDD5E-6038</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.7253895,61.8402745,0
+            9.7107983,61.8366692,0
+            9.6909714,61.8268235,0
+            9.6774101,61.8247972,0
+            9.6765786,61.8151554,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Ula: Ula</name>
+        <description>III - IV</description>
+        <styleUrl>#line-009D57-6231</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.6470261,61.8136352,0
+            9.6204185,61.8121503,0
+            9.5646715,61.8002789,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Urula: Urula</name>
+        <description>IV-</description>
+        <styleUrl>#line-FFDD5E-6231</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.8315513,60.5451153,0
+            9.8749924,60.5587134,0
+            9.9057198,60.5524689,0
+            9.9289906,60.5543466,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Åslielva: Åslielva</name>
+        <description>IV</description>
+        <styleUrl>#line-FFDD5E-5456</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.5838225,60.6373624,0
+            9.6037674,60.6317013,0
+            9.6532059,60.6283337,0
+            9.6705437,60.6219342,0
+            9.6780109,60.62345,0
+            9.7168815,60.6139832,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Åsta: Åsta</name>
+        <description>III - III+</description>
+        <styleUrl>#line-009D57-6425</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            11.1507583,61.10363,0
+            11.1727524,61.0948152,0
+            11.3463557,61.0765503,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Horndøla: Horndøla</name>
+        <description>IV</description>
+        <styleUrl>#line-FFDD5E-5650</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            6.6405863,61.9987716,0
+            6.6264725,61.9941346,0
+            6.5919685,61.9951824,0
+            6.5361249,61.9892375,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Jordalselvi: Jordalselvi</name>
+        <description>III - V</description>
+        <styleUrl>#line-FFDD5E-5456</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            6.7461956,60.9218664,0
+            6.7504978,60.9064859,0
+            6.7185688,60.8939214,0
+            6.7205429,60.8880341,0
+            6.7217445,60.8808509,0
+            6.7173672,60.8792637,0
+            6.7227637,60.871927,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Jølstra: Upper</name>
+        <description>III - IV</description>
+        <styleUrl>#line-FFDD5E-6231</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            6.1136234,61.4923804,0
+            6.0742378,61.4855948,0
+            6.0105032,61.4503501,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Langedalselva: Flemmings Homerun</name>
+        <description>IV+</description>
+        <styleUrl>#line-FFDD5E-6231</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            6.7912673,62.0573746,0
+            6.7977047,62.0711364,0
+            6.8204337,62.0748046,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Myklebustelva: Mickey Mouse run</name>
+        <description>IV+</description>
+        <styleUrl>#line-FFDD5E-6038</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            7.3479223,62.3446199,0
+            7.3497033,62.3412235,0
+            7.3458624,62.3381156,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Rauma: Upper</name>
+        <description>IV - V</description>
+        <styleUrl>#line-FFDD5E-6038</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.1900179,62.2648221,0
+            8.1795788,62.2644476,0
+            8.1567478,62.2721161,0
+            8.1560612,62.2750711,0
+            8.1425858,62.2791837,0
+            8.1393403,62.2836974,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Rauma: Lower</name>
+        <description>V</description>
+        <styleUrl>#line-DB4436-6619</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.1251192,62.290201,0
+            8.1033611,62.3091527,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Smeddalselvi: Upper</name>
+        <description>V</description>
+        <styleUrl>#line-DB4436-6425</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.0040121,61.1385488,0
+            8.015728,61.1299769,0
+            8.0138397,61.1229311,0
+            8.0332375,61.111157,0
+            8.0291176,61.1065125,0
+            8.0097867,61.1014843,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Stordalselva: Upper</name>
+        <description>V</description>
+        <styleUrl>#line-DB4436-6038</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            7.2935056,62.4247724,0
+            7.2245729,62.4228701,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Ulvåa: Standart</name>
+        <description>III - IV</description>
+        <styleUrl>#line-009D57-6231</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            7.9479646,62.2428197,0
+            7.9899006,62.2541978,0
+            8.010928,62.2754776,0
+            8.0612398,62.2700868,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Ulvåa: Lower</name>
+        <description>IV+</description>
+        <styleUrl>#line-FFDD5E-6038</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.0612398,62.2700868,0
+            8.0885124,62.2658057,0
+            8.0952072,62.2664049,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Valldøla: Upper</name>
+        <description>IV - V</description>
+        <styleUrl>#line-FFDD5E-5844</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            7.6190346,62.402872,0
+            7.5831521,62.3895763,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Valldøla: Middle</name>
+        <description>III - IV</description>
+        <styleUrl>#line-009D57-6038</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            7.5568342,62.3736084,0
+            7.5597954,62.3681652,0
+            7.5501984,62.3471819,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Valldøla: Lower </name>
+        <description>I - II (III)</description>
+        <styleUrl>#line-4186F0-6038</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            7.3886919,62.3369177,0
+            7.3838425,62.3327955,0
+            7.3500252,62.3314404,0
+            7.2542381,62.3068791,0
+            7.2595596,62.2982619,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Bua: Upper</name>
+        <description><![CDATA[III - IV<br>Уточнить Put-in]]></description>
+        <styleUrl>#line-FFDD5E-6425</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            10.5420685,62.8252124,0
+            10.4959774,62.880444,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Numedalslågen: Lakes run</name>
+        <description>III+ (IV)</description>
+        <styleUrl>#line-4186F0-5650</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.9139595,59.3433443,0
+            9.8931885,59.318915,0
+            9.8961067,59.3095414,0
+            9.8875237,59.3082271,0
+            9.8887253,59.3051603,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Mår: Lower</name>
+        <description>III - IV</description>
+        <styleUrl>#line-009D57-6231</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.7474775,60.0114725,0
+            8.7568331,59.9884484,0
+            8.7683344,59.9891996,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Husevollelvi: Project 2000</name>
+        <description>V - VII (X)</description>
+        <styleUrl>#line-000000-5844</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.7123299,59.975846,0
+            8.7160206,59.9776711,0
+            8.7226295,59.9849709,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Usteåni: Gorge Run</name>
+        <description>V (VI, X)</description>
+        <styleUrl>#line-DB4436-6231</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.2954502,60.5603957,0
+            8.3270359,60.5817823,0
+            8.330791,60.580781,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Atna: Lower</name>
+        <description>I - II</description>
+        <styleUrl>#line-4186F0-6038</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            10.5134869,61.7875915,0
+            10.610733,61.7984436,0
+            10.6838608,61.7820524,0
+            10.7466888,61.7464811,0
+            10.8283997,61.73055,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Grimsa: Grimsa</name>
+        <description>II (V)</description>
+        <styleUrl>#line-4186F0-6038</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.9821949,62.0684076,0
+            10.0258827,62.0664325,0
+            10.0766087,62.0858866,0
+            10.1594353,62.1186569,0
+            10.1605511,62.1395215,0
+            10.1804316,62.1539078,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Lågen: Hunderfoss</name>
+        <description>III - IV</description>
+        <styleUrl>#line-009D57-6425</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            10.4408097,61.2180612,0
+            10.4107475,61.1901748,0
+            10.3983665,61.1661136,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Veo: Veo</name>
+        <description>IV - V</description>
+        <styleUrl>#line-DB4436-6038</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.8397026,61.6770883,0
+            8.8889694,61.6701648,0
+            8.9322281,61.650771,0
+            8.9720535,61.6439232,0
+            8.9995193,61.6525642,0
+            9.0105057,61.6515861,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Otta: Big Gorge</name>
+        <description>V - VII</description>
+        <styleUrl>#line-DB4436-6425</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.0304909,61.9341049,0
+            8.0280876,61.9272392,0
+            8.037014,61.9216647,0
+            8.0927825,61.9157255,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Skjøli: Upper</name>
+        <description>V - VI</description>
+        <styleUrl>#line-DB4436-5844</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.2235241,61.8308959,0
+            8.210054,61.8186442,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Rjuande: Tunneldrop</name>
+        <description>V</description>
+        <styleUrl>#line-DB4436-5844</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            6.8464136,60.7001143,0
+            6.8475294,60.6953885,0
+            6.8445039,60.6905938,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Urdlandselvi: Urdlandselvi</name>
+        <description>V</description>
+        <styleUrl>#line-DB4436-5844</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            6.5809822,60.6977069,0
+            6.5769026,60.6811807,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Teigdalselvi: Lower</name>
+        <description>?</description>
+        <styleUrl>#line-FFFFFF-6231</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            6.0874128,60.6716546,0
+            6.0863185,60.6693528,0
+            6.0921335,60.6653583,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Eksingadalen: Upper Run</name>
+        <description>Где-то здесь</description>
+        <styleUrl>#line-DB4436-6038</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            6.1798096,60.8371321,0
+            6.1859894,60.8331167,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Eksingadalen: Lake to Lake</name>
+        <description>V</description>
+        <styleUrl>#line-DB4436-5844</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            6.135478,60.7939503,0
+            6.1350274,60.793343,0
+            6.1363792,60.7927776,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Eksingadalen: 2 waterfalls</name>
+        <description>Где-то здесь</description>
+        <styleUrl>#line-DB4436-5844</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            6.0573721,60.7775077,0
+            6.0517501,60.7812421,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Eksingadalen: Schnellaelva</name>
+        <description>Наверное здесь</description>
+        <styleUrl>#line-DB4436-6425</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            6.0466003,60.7924321,0
+            6.0421371,60.7865679,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Tysselva: Tysselva</name>
+        <description>III - IV (VI/VII)</description>
+        <styleUrl>#line-FFDD5E-6425</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            5.9544397,60.6726531,0
+            5.9331322,60.6602279,0
+            5.9128761,60.6638445,0
+            5.9017181,60.6589662,0
+            5.8939934,60.6457574,0
+            5.8980274,60.6398664,0
+            5.8942616,60.6364522,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Jostedøla: Rafting section</name>
+        <description><![CDATA[III<br>Точек старта и финиша не нашел, отметил наиболее вероятный участок.]]></description>
+        <styleUrl>#line-009D57-5650</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            7.2856092,61.5988855,0
+            7.2798175,61.5893272,0
+            7.2934015,61.5816695,0
+            7.2929048,61.5675981,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Sumelvi: Scenic run</name>
+        <description>I - II (IV/V)</description>
+        <styleUrl>#line-FFDD5E-6231</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            6.9771338,61.544623,0
+            6.9682502,61.5382834,0
+            6.9836783,61.5070372,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Storeelva: Lower</name>
+        <description>III - IV-</description>
+        <styleUrl>#line-009D57-5650</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            6.5127522,61.7245305,0
+            6.4790154,61.7340458,0
+            6.4180756,61.7352652,0
+            6.4053726,61.7296557,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Ulvåa: Slides</name>
+        <description>V</description>
+        <styleUrl>#line-DB4436-6038</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.1161606,62.2768929,0
+            8.1241,62.2925557,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Pytåa: Pytåa</name>
+        <description>III - V</description>
+        <styleUrl>#line-FFDD5E-6231</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            7.8923464,62.2202762,0
+            7.9479646,62.2428197,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Asbjørnsåe: Lower</name>
+        <description>I - II+</description>
+        <styleUrl>#line-4186F0-6619</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.1437016,62.2356936,0
+            8.139689,62.2355712,0
+            8.1121159,62.2561779,0
+            8.1069231,62.270299,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Embla: Embla</name>
+        <description>II - V (X)</description>
+        <styleUrl>#line-FFDD5E-5844</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            6.9058621,62.2413656,0
+            6.8760681,62.2735936,0
+            6.9033623,62.2889239,0
+            6.9157219,62.3036878,0
+            6.9480479,62.3067644,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Bygdelva: Lower</name>
+        <description>V</description>
+        <styleUrl>#line-DB4436-6619</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            6.9266471,62.0703796,0
+            6.8964529,62.0757793,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Driva: Romfo</name>
+        <description>III - IV</description>
+        <styleUrl>#line-009D57-6038</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.9436865,62.6010045,0
+            8.8888836,62.6227894,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Numedalslågen: Niagara</name>
+        <description>?</description>
+        <styleUrl>#line-FFDD5E-6038</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.1200552,60.3531538,0
+            8.1201839,60.3533237,0
+            8.1339169,60.3621534,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Memuru</name>
+        <description>?</description>
+        <styleUrl>#line-FFFFFF-6425</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.5753441,61.4930921,0
+            8.6014366,61.4891183,0
+            8.6240101,61.4911258,0
+            8.6305332,61.4875615,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Kleivelvi: Left</name>
+        <description>IV - V</description>
+        <styleUrl>#line-DB4436-6813</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            6.9493246,60.6921746,0
+            6.9487667,60.6930359,0
+            6.9509983,60.6993162,0
+            6.9449902,60.6991062,0
+            6.9372493,60.7017052,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Kleivelvi: Right</name>
+        <description>IV - V</description>
+        <styleUrl>#line-DB4436-6231</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            6.9584656,60.7017524,0
+            6.9509983,60.6993162,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Asbjørnsåe: Upper</name>
+        <description>V</description>
+        <styleUrl>#line-DB4436-6231</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.1514478,62.2246113,0
+            8.1437016,62.2356936,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Bjerkreimsåni: Lower</name>
+        <description>II+</description>
+        <styleUrl>#line-4186F0-6231</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            6.0934639,58.6254973,0
+            6.0930347,58.6093619,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Bjerkreimsåni: Bjerkremselva</name>
+        <description>II - III</description>
+        <styleUrl>#line-009D57-6038</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            6.1629868,58.6671198,0
+            6.1671066,58.6555134,0
+            6.155262,58.6496194,0
+            6.1356068,58.6476992,0
+            6.1347485,58.6426079,0
+            6.1271954,58.6412679,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Bjerkreimsåni: Stavtjorn/Grotteland</name>
+        <description>III</description>
+        <styleUrl>#line-009D57-6038</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            6.3396907,58.7088154,0
+            6.336472,58.7072551,0
+            6.3298845,58.7079349,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Bjerkreimsåni: Malmei</name>
+        <description>III</description>
+        <styleUrl>#line-009D57-6038</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            6.2109017,58.6919491,0
+            6.1979198,58.69574,0
+            6.1908388,58.692239,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Bøelva: Middle</name>
+        <description><![CDATA[III - IV<br>Где точно находится не знаю. Поставил сюда, так как ниже и выше по течению порогов нет.]]></description>
+        <styleUrl>#line-FFDD5E-6425</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.0217066,59.4243648,0
+            9.0275431,59.4247796,0
+            9.0345383,59.4229458,0
+            9.0425205,59.4287523,0
+            9.0494728,59.4298,0
+            9.0540218,59.4323754,0
+            9.0557384,59.4312405,0
+            9.0613174,59.4307167,0
+            9.0719604,59.4263076,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Hørteelva: Upper</name>
+        <description>III - IV</description>
+        <styleUrl>#line-FFDD5E-6425</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.0735912,59.4786342,0
+            9.0836763,59.4752994,0
+            9.0819168,59.4733812,0
+            9.0988287,59.4672117,0
+            9.1106701,59.4582498,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Nordelva Fosen, Kringsvatnet</name>
+        <description><![CDATA[IX (X)<br>Мог ошибиться с местом. Не знаю где точно.]]></description>
+        <styleUrl>#line-FFDD5E-5650</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            10.2266836,63.8035986,0
+            10.2078009,63.7997715,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Sanddøla: Canyon</name>
+        <description><![CDATA[III - V<br>Возможно неправильно отметил.]]></description>
+        <styleUrl>#line-DB4436-5844</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            13.2697678,64.4924643,0
+            13.176384,64.4992643,0
+            13.0991364,64.4966036,0
+            13.0129623,64.4818913,0
+            12.9797459,64.4717119,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Tverrelva: Tverrelva</name>
+        <description><![CDATA[IV<br>Возможно неправильно отметил.]]></description>
+        <styleUrl>#line-FFDD5E-6038</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            7.9095554,62.6861975,0
+            7.9113579,62.6960026,0
+            7.9147053,62.7010417,0
+            7.9210567,62.7034823,0
+            7.9264641,62.703561,0
+            7.9296398,62.7054109,0
+            7.9384804,62.7062768,0
+            7.9440594,62.7127505,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Visa (Romsdalen): Upper</name>
+        <description><![CDATA[IV - V<br>Возможно неправильно отметил.]]></description>
+        <styleUrl>#line-FFFFFF-6231</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.026886,62.6395294,0
+            7.9915237,62.6850947,0
+            7.9635429,62.6929709,0
+            7.9533291,62.7019078,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Ålma: Lower</name>
+        <description>IV</description>
+        <styleUrl>#line-FFDD5E-6038</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.6579051,62.5927581,0
+            9.6556306,62.5916123,0
+            9.6386147,62.5883821,0
+            9.6361685,62.5891922,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Visa</name>
+        <description><![CDATA[II, IV - V<br>Нет подробного описания.]]></description>
+        <styleUrl>#line-FFFFFF-6425</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.4107637,61.6346732,0
+            8.4217178,61.6457525,0
+            8.4499669,61.696664,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Bjoreio: Bjoreio</name>
+        <description><![CDATA[III - IV<br>Стартовать можно когда закончатся очевидные пороги класса V. Точку старта поставил наугад.]]></description>
+        <styleUrl>#line-FFDD5E-6425</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            7.1876335,60.418683,0
+            7.1811104,60.4217336,0
+            7.1483231,60.4161406,0
+            7.1398258,60.4237671,0
+            7.1212864,60.4276009,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Leira</name>
+        <styleUrl>#line-FFFFFF-6231-nodesc</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.1858444,61.6639732,0
+            8.3205128,61.7146514,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Leira: Leira</name>
+        <description>III+ - IV</description>
+        <styleUrl>#line-FFDD5E-6425</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            10.9019136,60.2611062,0
+            10.9067202,60.2582109,0
+            10.9280491,60.2571038,0
+            10.9453225,60.2610902,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Vutudalselva</name>
+        <styleUrl>#line-FFFFFF-6231-nodesc</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.4296598,63.3335106,0
+            9.3903923,63.3569793,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Røa</name>
+        <styleUrl>#line-FFFFFF-5844-nodesc</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            12.1414375,61.5113157,0
+            12.1222115,61.4948945,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Gaulfossen: Gaulfossen</name>
+        <description>III</description>
+        <styleUrl>#line-009D57-5844</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            10.2298594,63.1082133,0
+            10.2387857,63.1150258,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Sona</name>
+        <description>Вроде бы здесь</description>
+        <styleUrl>#line-FFFFFF-6425</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            11.3330841,63.3766405,0
+            11.288023,63.3778713,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Randselva</name>
+        <styleUrl>#line-FFFFFF-7006-nodesc</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            10.3757715,60.2279438,0
+            10.3705359,60.2214438,0
+            10.2980733,60.1879639,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Akerselva</name>
+        <description>III - IV - V ???</description>
+        <styleUrl>#line-FFFFFF-6425</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            10.7674599,59.9587917,0
+            10.7621384,59.9480478,0
+            10.7679749,59.940568,0
+            10.7578468,59.9349785,0
+            10.7556152,59.9082219,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Usteåni: Lower</name>
+        <description>IV ??</description>
+        <styleUrl>#line-FFDD5E-6813</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.3462835,60.5970637,0
+            8.3536434,60.5884426,0
+            8.3666039,60.5883162,0
+            8.3912373,60.5802224,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Hølera</name>
+        <description><![CDATA[Надо определить где put-in и take-out<br><br>По видео класс III - IV]]></description>
+        <styleUrl>#line-FFFFFF-5650</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.4809437,60.7149803,0
+            9.5123577,60.7198501,0
+            9.5419693,60.7374761,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Solnørelva: Lower</name>
+        <description>III - IV</description>
+        <styleUrl>#line-FFDD5E-6425</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            6.7555672,62.4933533,0
+            6.7273933,62.4880917,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Solnørelva: Giant Slide</name>
+        <styleUrl>#line-FFFFFF-6619-nodesc</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            6.8202943,62.5057856,0
+            6.8113947,62.5015405,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Stordalselva: Lower</name>
+        <description>II - III</description>
+        <styleUrl>#line-009D57-6231</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            7.1146774,62.3738023,0
+            6.9815111,62.3772001,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Vaksvikelva</name>
+        <styleUrl>#line-FFFFFF-6619-nodesc</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            6.9909954,62.4487064,0
+            6.9036734,62.4517632,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Valldøla: Grønning</name>
+        <description><![CDATA[IV<br>Только по низкой воде ~8 м3]]></description>
+        <styleUrl>#line-FFDD5E-6813</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            7.5106359,62.3299358,0
+            7.4844468,62.3292632,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Ørskogelva</name>
+        <description><![CDATA[III - IV<br>Нужно уточнить put-in и take-out]]></description>
+        <styleUrl>#line-FFFFFF-6231</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            6.9329739,62.5129518,0
+            6.8293333,62.4799243,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Atna: Middle</name>
+        <description>II - III+</description>
+        <styleUrl>#line-009D57-6038</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            10.2565527,61.8465118,0
+            10.3031158,61.8537196,0
+            10.3813934,61.8431908,0
+            10.4057693,61.8422187,0
+            10.4232788,61.8517761,0
+            10.4411316,61.8512902,0
+            10.4589844,61.8410846,0
+            10.4737473,61.8248783,0
+            10.4761505,61.810934,0
+            10.492165,61.7888382,0
+            10.5134869,61.7875915,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Austbygdåi: Upper</name>
+        <description>II - IV-</description>
+        <styleUrl>#line-4186F0-7006</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.5160995,60.1317177,0
+            8.6100313,60.1415133,0
+            8.6953568,60.1232105,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Austbygdåi: Middle</name>
+        <description>IV</description>
+        <styleUrl>#line-FFDD5E-7006</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.6953568,60.1232105,0
+            8.7504212,60.1021874,0
+            8.7728083,60.0707132,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Austbygdåi: Lower</name>
+        <description>IV</description>
+        <styleUrl>#line-FFDD5E-6619</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.7950492,60.0576333,0
+            8.8367414,60.0163842,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Etna: Etnesenn Lake Upper</name>
+        <description>IV</description>
+        <styleUrl>#line-FFDD5E-6813</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.5067465,61.089686,0
+            9.5512497,61.0395423,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Etna: Brendabrua - Hestkinn</name>
+        <description>IV- - IV+</description>
+        <styleUrl>#line-FFDD5E-6425</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.5512497,61.0395423,0
+            9.5586312,61.0067139,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Etna: Hestkinn - Flatøygard</name>
+        <description>III - IV</description>
+        <styleUrl>#line-FFDD5E-6813</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.5586312,61.0067139,0
+            9.5677661,60.9840219,0
+            9.6024048,60.9731696,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Etna: Espeset section</name>
+        <description>IV</description>
+        <styleUrl>#line-FFDD5E-6425</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.6244526,60.9562149,0
+            9.6253109,60.9496097,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Etna: Bruflat section</name>
+        <description>IV - V</description>
+        <styleUrl>#line-FFDD5E-6813</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.6413827,60.8907587,0
+            9.7128582,60.8651215,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Etna: Lower</name>
+        <description>III</description>
+        <styleUrl>#line-009D57-6619</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.8032379,60.8272286,0
+            9.8488355,60.8377908,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Jondalselva: Lower</name>
+        <description>II - III</description>
+        <styleUrl>#line-009D57-6619</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            9.5587277,59.7057765,0
+            9.6011496,59.7072161,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Mår: Homerun</name>
+        <description>V</description>
+        <styleUrl>#line-DB4436-6231</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.7318993,60.0442108,0
+            8.728284,60.0366075,0
+            8.7356544,60.0324335,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Ostri: Lower</name>
+        <description>II - III</description>
+        <styleUrl>#line-009D57-6425</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            7.7887273,61.8823922,0
+            7.8173947,61.8909766,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Skjerva: Middle</name>
+        <description>V-</description>
+        <styleUrl>#line-DB4436-6425</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.9836085,61.981739,0
+            9.0018645,61.9729437,0
+            8.9888763,61.9597924,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Skjerva: Lower</name>
+        <description>IV</description>
+        <styleUrl>#line-FFDD5E-6813</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.9888334,61.95779,0
+            8.9872429,61.9226746,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Tromsa: Upper</name>
+        <description>III+</description>
+        <styleUrl>#line-009D57-6813</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            10.4511738,61.4357718,0
+            10.3549576,61.4440811,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Tromsa: Lower</name>
+        <description>IV</description>
+        <styleUrl>#line-FFDD5E-6425</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            10.3451943,61.4475273,0
+            10.3212364,61.4549506,0
+            10.2460967,61.4643246,0
+            10.2025867,61.4609085,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Jølstra: Lower (Little Zambezi)</name>
+        <description>III  - V</description>
+        <styleUrl>#line-FFDD5E-6619</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            6.0089099,61.4455735,0
+            6.0046184,61.4389675,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Myrkdalselvi: Upper</name>
+        <description>IV - V</description>
+        <styleUrl>#line-FFDD5E-7006</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            6.4823198,60.8996721,0
+            6.5099514,60.8802152,0
+            6.4970613,60.8581683,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Myrkdalselvi: Lower</name>
+        <description>V</description>
+        <styleUrl>#line-DB4436-6619</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            6.4970613,60.8581683,0
+            6.4969249,60.8541048,0
+            6.4582229,60.8330017,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Raundalselvi: Upper</name>
+        <description>IV - V</description>
+        <styleUrl>#line-DB4436-6425</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            6.9372493,60.7017052,0
+            6.8445039,60.6905938,0
+            6.8137551,60.684296,0
+            6.8003225,60.6666829,0
+            6.7316365,60.6778866,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Raundalselvi: Train station section</name>
+        <description>IV - V</description>
+        <styleUrl>#line-FFDD5E-6619</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            6.7316365,60.6778866,0
+            6.7156475,60.6764622,0
+            6.7163224,60.6665417,0
+            6.6968355,60.6639769,0
+            6.6833514,60.676883,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Raundalselvi: Rafting section</name>
+        <description>IV+</description>
+        <styleUrl>#line-FFDD5E-6813</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            6.6833514,60.676883,0
+            6.6165805,60.6781704,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Raundalselvi: Play run</name>
+        <description>III - IV</description>
+        <styleUrl>#line-009D57-6619</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            6.6165805,60.6781704,0
+            6.5670529,60.6765968,0
+            6.5606189,60.6706456,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Raundalselvi: Marine Juvet</name>
+        <description>IV - V</description>
+        <styleUrl>#line-DB4436-6425</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            6.5452123,60.6677393,0
+            6.5432183,60.6536736,0
+            6.5257823,60.6426358,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Smeddalselvi: Road run</name>
+        <description>V</description>
+        <styleUrl>#line-DB4436-6425</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.0097867,61.1014843,0
+            7.9986101,61.0877589,0
+            7.9901509,61.0878133,0
+            7.966593,61.0729253,0
+            7.9555285,61.0733642,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Strandelvi: Lower</name>
+        <description>III+</description>
+        <styleUrl>#line-009D57-6619</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            6.4904952,60.7405963,0
+            6.490109,60.7192152,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Strandelvi: Upper</name>
+        <description>III-, V</description>
+        <styleUrl>#line-FFDD5E-6813</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            6.5057731,60.790275,0
+            6.4878286,60.782157,0
+            6.4904952,60.7405963,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Bua: Lower</name>
+        <description>III</description>
+        <styleUrl>#line-009D57-6619</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            10.4741433,62.9706588,0
+            10.4973507,62.9929174,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Ena: Upper</name>
+        <description>IV</description>
+        <styleUrl>#line-FFDD5E-6619</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            10.427388,62.7964333,0
+            10.4338892,62.8128072,0
+            10.4545641,62.8218068,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Ena: Middle</name>
+        <description>III - IV</description>
+        <styleUrl>#line-FFDD5E-6813</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            10.4545641,62.8218068,0
+            10.4748523,62.8793019,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Fora: Upper</name>
+        <description>IV - V</description>
+        <styleUrl>#line-FFDD5E-6813</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            10.8750057,62.8151364,0
+            10.8087486,62.8288793,0
+            10.7867289,62.849271,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Fora: Gorge</name>
+        <description>V</description>
+        <styleUrl>#line-DB4436-6619</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            10.7636189,62.8703257,0
+            10.7402756,62.8691533,0
+            10.721401,62.875203,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Sokna: Soknedal - Gaula confluence</name>
+        <description>II - III</description>
+        <styleUrl>#line-4186F0-6425</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            10.1890683,62.9522667,0
+            10.1826965,62.9605305,0
+            10.2464032,62.9937554,0
+            10.2669382,63.0280427,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Stavilla: Upper</name>
+        <description>III+ - IV+</description>
+        <styleUrl>#line-FFDD5E-6425</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            10.2141738,62.7847259,0
+            10.1913449,62.8209781,0
+            10.2268982,62.8652274,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Stavilla: Lower</name>
+        <description>IV</description>
+        <styleUrl>#line-FFDD5E-6813</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            10.2268982,62.8652274,0
+            10.2181393,62.9303951,0
+            10.1955424,62.9382069,0
+            10.1890683,62.9522667,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Hommedalselva (Holaelvi)</name>
+        <description>Уточнить пут-ин и тейк-аут</description>
+        <styleUrl>#line-FFFFFF-6619</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            6.4276457,60.7744382,0
+            6.4452839,60.763855,0
+            6.4731789,60.7605011,0
+            6.4834356,60.7732962,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Rossåa</name>
+        <description>?</description>
+        <styleUrl>#line-FFFFFF-6425</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            8.7458038,62.828113,0
+            8.7337017,62.828505,0
+            8.7133598,62.8238796,0
+            8.7024593,62.8251732,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>* Bygdelva: Race course</name>
+        <description>IV - V</description>
+        <styleUrl>#line-DB4436-6813</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            6.9306672,62.0682921,0
+            6.9268048,62.0702369,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+    </Folder>
+  </Document>
+</kml>
