@@ -112,6 +112,27 @@ platform :ios do
     code_push
   end
 
+  lane :production do |options|
+    match(
+      type: 'appstore',
+      shallow_clone: true,
+      clone_branch_directly: true,
+      readonly: true
+    )
+    unless options[:skipBuild]
+      build(
+        configuration: 'Release'
+      )
+    end
+    deliver(
+      ipa: ENV['IOS_IPA_PATH'],
+      submit_for_review: false,
+      skip_screenshots: true,
+      skip_metadata: true,
+    )
+    code_push
+  end
+
 end
 
 #  ANDROID
@@ -140,6 +161,17 @@ platform :android do
     upload_to_play_store(
       package_name: ENV['ANDROID_PACKAGE_NAME'],
       track: 'beta',
+      apk: "#{lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]}"
+    )
+    code_push
+  end
+
+  lane :production do |options|
+    ENV['ENVFILE'] = '.env.production' # for some reason react-native-config isn't picked from gradle
+    build
+    upload_to_play_store(
+      package_name: ENV['ANDROID_PACKAGE_NAME'],
+      track: 'production',
       apk: "#{lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]}"
     )
     code_push
