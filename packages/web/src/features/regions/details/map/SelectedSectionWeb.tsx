@@ -6,9 +6,10 @@ import { Rating } from '../../../../components';
 import { InfoWindow, MapElement } from '../../../../components/maps';
 import { Container, Row, Title } from '../../../../layout/details';
 import { Styles } from '../../../../styles';
+import { paths } from '../../../../utils';
 import { SelectedSectionViewProps } from '../../../../ww-clients/features/maps';
 import { renderDifficulty, stringifySeason } from '../../../../ww-clients/utils';
-import { Durations } from '../../../../ww-commons/features/sections';
+import { Durations } from '../../../../ww-commons';
 
 const styles: Styles = {
   h2: {
@@ -26,10 +27,7 @@ class SelectedSectionWeb extends React.PureComponent<Props> {
 
   onDetails = () => {
     const { history, match, selectedSection } = this.props;
-    const href = history.createHref({
-      pathname: `/regions/${match.params.regionId}/sections/${selectedSection!.id}`,
-    });
-    history.push(href);
+    history.push(paths.to({ regionId: match.params.regionId, sectionId: selectedSection!.id }));
   };
 
   render() {

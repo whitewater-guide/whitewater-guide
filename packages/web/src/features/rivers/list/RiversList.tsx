@@ -24,11 +24,8 @@ export default class RiversList extends React.PureComponent<RiversListProps> {
     count;
 
   renderActions: TableCellRenderer = ({ rowData: { id: riverId } }) => {
-    const { history, match: { params: { regionId } } } = this.props;
-    const href = history.createHref({
-      pathname: paths.to({ regionId, sectionId: 'new' }),
-      search: `?riverId=${riverId}`,
-    });
+    const { match: { params: { regionId } } } = this.props;
+    const href = paths.to({ regionId, sectionId: 'new' }) + `?riverId=${riverId}`;
     return (
       <ClickBlocker style={styles.actions}>
         <IconLink to={paths.settings({ regionId, riverId })} icon="edit" />
