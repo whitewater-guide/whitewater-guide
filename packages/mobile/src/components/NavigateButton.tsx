@@ -1,6 +1,7 @@
 import React from 'react';
-import { Animated, Linking, StyleProp, StyleSheet, Text, TouchableOpacity, ViewStyle } from 'react-native';
+import { Animated, StyleProp, StyleSheet, Text, TouchableOpacity, ViewStyle } from 'react-native';
 import theme from '../theme';
+import { openGoogleMaps } from '../utils/maps';
 import { Coordinate } from '../ww-commons';
 import { Icon } from './Icon';
 
@@ -72,10 +73,9 @@ interface Props {
 }
 
 export class NavigateButton extends React.PureComponent<Props> {
-  onPress = () => {
+  onPress = async () => {
     const { coordinates, onPress } = this.props;
-    const directionsURL = `https://www.google.com/maps/search/?api=1&query=${coordinates[1]},${coordinates[0]}`;
-    Linking.openURL(directionsURL).catch(() => {/*Ignore*/});
+    await openGoogleMaps(coordinates);
     if (onPress) {
       onPress();
     }

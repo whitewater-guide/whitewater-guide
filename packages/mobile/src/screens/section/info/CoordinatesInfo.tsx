@@ -1,7 +1,8 @@
 import React from 'react';
-import { Clipboard, Linking } from 'react-native';
+import { Clipboard } from 'react-native';
 import { Paragraph, Subheading } from 'react-native-paper';
 import { Icon, Left, Right, Row } from '../../../components';
+import { openGoogleMaps } from '../../../utils/maps';
 import { arrayToDMSString } from '../../../ww-clients/utils';
 import { Coordinate } from '../../../ww-commons';
 
@@ -13,8 +14,7 @@ interface Props {
 const CoordinatesInfo: React.StatelessComponent<Props> = ({ label, coordinates }) => {
   const prettyCoord = arrayToDMSString(coordinates);
   const copyHandler = () => Clipboard.setString(prettyCoord);
-  const directionsURL = `https://www.google.com/maps/search/?api=1&query=${coordinates[1]},${coordinates[0]}`;
-  const directionsHandler = () => Linking.openURL(directionsURL).catch(() => {});
+  const directionsHandler = () => openGoogleMaps(coordinates);
   return (
     <Row>
       <Left>
