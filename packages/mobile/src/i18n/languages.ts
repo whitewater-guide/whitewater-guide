@@ -1,3 +1,7 @@
+// import { LANGUAGES } from '../ww-commons/core';
+// export const SUPPORTED_LANGUAGES = LANGUAGES;
+export const SUPPORTED_LANGUAGES = ['en', 'ru'];
+
 export const LANGUAGE_NAMES = {
   en: 'English',
   fr: 'Français',
@@ -7,3 +11,4 @@ export const LANGUAGE_NAMES = {
   ru: 'Русский',
   es: 'Español',
 };
+

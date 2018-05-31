@@ -4,7 +4,7 @@ import React from 'react';
 import { I18nextProvider } from 'react-i18next';
 import RNLanguages from 'react-native-languages';
 import { MyProfileConsumer } from '../ww-clients/features/users';
-import { LANGUAGES } from '../ww-commons/core';
+import { SUPPORTED_LANGUAGES } from './languages';
 import en from './locales/en';
 import ru from './locales/ru';
 
@@ -21,7 +21,7 @@ export class I18nProviderInternal extends React.PureComponent<Props> {
     this.i18n = i18next.init({
       lng: (language).substr(0, 2),
       fallbackLng: 'en',
-      whitelist: LANGUAGES,
+      whitelist: SUPPORTED_LANGUAGES,
       interpolation: {
         escapeValue: false, // not needed for react!!
       },
@@ -30,7 +30,7 @@ export class I18nProviderInternal extends React.PureComponent<Props> {
       },
       resources: { en, ru },
     });
-    moment.locale(this.i18n.language);
+    moment.locale(this.i18n.languages[0]);
     this.i18n.on('languageChanged', this.onLanguageChange);
   }
 
@@ -45,7 +45,11 @@ export class I18nProviderInternal extends React.PureComponent<Props> {
     }
   }
 
-  onLanguageChange = (language: string) => moment.locale(language);
+  onLanguageChange = (language: string) => {
+    if (language) {
+      moment.locale(this.i18n.languages[0]);
+    }
+  };
 
   render() {
     return (

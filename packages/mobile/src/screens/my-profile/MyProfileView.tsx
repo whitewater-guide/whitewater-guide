@@ -1,14 +1,10 @@
 import identity from 'lodash/identity';
 import React from 'react';
-import { Button, Divider, Subheading } from 'react-native-paper'
+import { Button, Divider, Subheading } from 'react-native-paper';
 import { Paper, RadioDialog, Screen, Spacer, } from '../../components';
-import { LANGUAGE_NAMES } from '../../i18n';
+import { LANGUAGE_NAMES, SUPPORTED_LANGUAGES } from '../../i18n';
 import theme from '../../theme';
 import { InnerProps } from './types';
-
-// import { LANGUAGES } from '../../ww-commons';
-// Only include languages that are truly translated
-export const LANGUAGES = ['en', 'ru'];
 
 const labelExtractor = (code: string) => LANGUAGE_NAMES[code];
 
@@ -37,7 +33,7 @@ class MyProfileView extends React.PureComponent<InnerProps> {
             handleTitle={t('myProfile:language')}
             cancelLabel={t('commons:cancel')}
             value={language}
-            options={LANGUAGES}
+            options={SUPPORTED_LANGUAGES}
             onChange={this.onChangeLanguage}
             keyExtractor={identity}
             labelExtractor={labelExtractor}

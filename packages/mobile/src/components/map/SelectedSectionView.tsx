@@ -149,7 +149,7 @@ class SelectedSectionViewInternal extends React.Component<Props, State> {
     let season = ' ';
     if (section) {
       season = [
-        capitalize(trim(stringifySeason(section.seasonNumeric, false, i18n.language))),
+        capitalize(trim(stringifySeason(section.seasonNumeric, false, i18n.languages[0]))),
         trim(section.season),
       ].join('\n').trim();
     }

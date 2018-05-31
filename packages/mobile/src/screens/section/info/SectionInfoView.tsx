@@ -17,7 +17,7 @@ const SectionInfoView: React.StatelessComponent<Props> = ({ section: { node }, i
   if (!node) {
     return null;
   }
-  let season = capitalize(trim(`${stringifySeason(node.seasonNumeric, false, i18n.language)}`));
+  let season = capitalize(trim(`${stringifySeason(node.seasonNumeric, false, i18n.languages[0])}`));
   if (node.season) {
     season = `${season}\n${node.season}`;
   }
