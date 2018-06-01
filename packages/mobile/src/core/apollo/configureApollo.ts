@@ -1,5 +1,6 @@
 import ApolloClient from 'apollo-client';
 import Config from 'react-native-config';
+import RNLanguages from 'react-native-languages';
 import { Dispatch } from 'react-redux';
 import { configureApolloClient } from '../../ww-clients/apollo';
 
@@ -11,6 +12,9 @@ export const getApolloClient = (dispatch?: Dispatch<any>) => {
       dispatch,
       uri: `${Config.BACKEND_PROTOCOL}://${Config.BACKEND_HOST}/graphql`,
       credentials: 'include',
+      headers: {
+        'Accept-Language': RNLanguages.language,
+      },
     });
   }
   return apolloClient;
