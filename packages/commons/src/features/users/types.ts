@@ -2,8 +2,6 @@ import { NamedNode, Timestamped } from '../../core';
 import { Group } from '../groups';
 import { Region } from '../regions';
 
-export type Role = 'ADMIN' | 'EDITOR' | 'PREMIUM' | 'USER';
-
 /**
  * This is graphql type
  */
@@ -20,7 +18,6 @@ export interface User extends NamedNode, Timestamped {
 }
 
 export interface EditorSettings {
-  // @deprecated
   language: string;
 }
 

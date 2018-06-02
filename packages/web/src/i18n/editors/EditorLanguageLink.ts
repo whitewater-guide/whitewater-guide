@@ -1,17 +1,26 @@
-import { ApolloLink } from 'apollo-link';
-import { setContext } from 'apollo-link-context';
+import { ApolloLink, NextLink, Operation } from 'apollo-link';
+import get from 'lodash/get';
 
-export class EditorLanguageLink {
+export class EditorLanguageLink extends ApolloLink {
   // tslint:disable-next-line:no-inferrable-types
-  public language: string = 'en';
+  private _language: string = 'en';
 
-  public link: ApolloLink = setContext(() => ({
-    headers: {
-      'X-Editor-Language': this.language,
-    },
-  }));
-
-  public onLanguageChange = (value: string) => {
-    this.language = value;
+  request(operation: Operation, forward: NextLink) {
+    operation.setContext({
+      headers: {
+        'X-Editor-Language': this._language,
+      },
+    });
+    if (operation.operationName === 'myProfile' || operation.operationName === 'updateEditorSettings') {
+      return forward(operation).map((data) => {
+        const lang = get(data, 'data.me.editorSettings.language') ||
+          get(data, 'data.updateEditorSettings.editorSettings.language');
+        if (lang) {
+          this._language = lang;
+        }
+        return data;
+      });
+    }
+    return forward(operation);
   }
 }
