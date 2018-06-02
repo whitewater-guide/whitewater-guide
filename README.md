@@ -177,6 +177,12 @@ Here are deployment steps:
 8. Run `<env>:update --image <image_name>` to update image version of service in stack.
     - Version number is read from `package.json`, therefore it must be published in advance
     - Logs into AWS ECR using read-only credentials from secretly commited `.aws-ecr` file.
+    
+### tmp dir
+
+Many containers have their tmp stuff mapped to folders inside `/tmp` dir. This folder gets cleared on host restart.  
+Put commands to recreate required dir structure inside `/etc/rc.local` file.   
+Example file is here in this repo: `build/rc.local`.
 
 ## Remote staging machine (domain unknown)
 
