@@ -52,7 +52,6 @@ class RegionListItem extends React.PureComponent<Props> {
           <View style={styles.left}>
             <Subheading>{region.name}</Subheading>
             <View style={styles.row}>
-              <Caption style={styles.rivers}>{`${t('regionsList:riversCount')}: ${region.rivers.count}`}</Caption>
               <Caption>{`${t('regionsList:sectionsCount')}: ${region.sections.count}`}</Caption>
             </View>
           </View>
