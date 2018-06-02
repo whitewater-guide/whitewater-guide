@@ -124,7 +124,7 @@ services:
         constraints: [node.role == manager]
     labels:
       guide.whitewater: ""
-    image: 'schickling/postgres-backup-s3'
+    image: 'doomsower/postgres-backup-s3:1'
     # read_only: true
     environment:
       SCHEDULE: '@daily'

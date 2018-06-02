@@ -197,4 +197,29 @@ docker-machine create -d generic \
 
 # Migrations
 
-TBD, see `mongo-to-postgres` README for v1 db migration instructions, see `dev:images` npm script for images v1 migration
+## From v1 to v2
+
+See `mongo-to-postgres` README for v1 db migration instructions, see `dev:images` npm script for images v1 migration
+
+## From production to staging
+
+ssh into docker machine and run
+
+```
+docker run -e S3_ACCESS_KEY_ID=xxx \
+           -e S3_SECRET_ACCESS_KEY=xxxx \
+           -e S3_BUCKET=bucket \
+           -e S3_PREFIX=production \
+           -e POSTGRES_DATABASE=wwguide \
+           -e POSTGRES_USER=postgres \
+           -e POSTGRES_PASSWORD=xxxx \
+           -e POSTGRES_HOST=db \
+           --network wwguide_default \
+           doomsower/postgres-restore-s3:x
+```
+
+Notes on arguments:
+- **S3_ACCESS_KEY_ID** and **S3_SECRET_ACCESS_KEY** must belong to a user who has aws read access ti backups. The access key for dumper has no read permissions.
+- **S3_PREFIX** is **where from** the backup will be restored. When restoring at staging, set this to `production` (and vice versa)
+- **--network wwguide_default** Network must be attachable, see stack yml file for that
+- **doomsower/postgres-restore-s3:x** replace X with latest version

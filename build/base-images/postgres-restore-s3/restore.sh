@@ -62,7 +62,8 @@ aws s3 cp s3://$S3_BUCKET/$S3_PREFIX/${LATEST_BACKUP} dump.bak
 echo "Restoring ${LATEST_BACKUP}"
 
 psql $POSTGRES_HOST_OPTS  -c "ALTER DATABASE ${POSTGRES_DATABASE} SET timescaledb.restoring='on';"
-pg_restore $POSTGRES_HOST_OPTS -Fc -d $POSTGRES_DATABASE tutorial.bak
+psql $POSTGRES_HOST_OPTS -d $POSTGRES_DATABASE -c "drop schema public cascade; create schema public;"
+pg_restore $POSTGRES_HOST_OPTS -Fc -d $POSTGRES_DATABASE dump.bak
 psql $POSTGRES_HOST_OPTS  -c "ALTER DATABASE ${POSTGRES_DATABASE} SET timescaledb.restoring='off';"
 
 echo "Restore complete"
