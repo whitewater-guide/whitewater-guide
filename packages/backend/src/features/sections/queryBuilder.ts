@@ -1,9 +1,11 @@
 import Knex, { QueryBuilder } from 'knex';
+import { Context } from '../../apollo';
 import db, { buildListQuery, buildRootQuery, ListQueryBuilderOptions, QueryBuilderOptions } from '../../db';
 import { Section } from '../../ww-commons';
 
 const customFieldMap = {
-  description: () => ['description', 'premium', 'river_id', 'region_id', 'demo'], // premium determines description visibility
+  // premium determines description visibility
+  description: () => ['description', 'premium', 'river_id', 'region_id', 'demo'],
 };
 
 const connections = {
@@ -44,8 +46,25 @@ const oneToOnes = {
   },
 };
 
-export const buildSectionQuery = (options: Partial<QueryBuilderOptions<Section>>) =>
-  buildRootQuery({
+const addHiddenWhere = (query: QueryBuilder, context: Context) => {
+  if (!context.user) {
+    query.where('sections_view.hidden', false);
+  } else if (!context.user!.admin) {
+    query.where((qb) => {
+      qb
+        .where('sections_view.hidden', false)
+        .orWhereIn('sections_view.region_id', function(this: QueryBuilder) {
+          this.select('regions_editors.region_id')
+            .from('regions_editors')
+            .where('regions_editors.user_id', context.user!.id);
+        });
+    });
+  }
+  return query;
+};
+
+export const buildSectionQuery = (options: Partial<QueryBuilderOptions<Section>>) => {
+  const query = buildRootQuery({
     context: options.context!,
     table: 'sections_view',
     oneToOnes,
@@ -53,6 +72,8 @@ export const buildSectionQuery = (options: Partial<QueryBuilderOptions<Section>>
     customFieldMap,
     ...options,
   });
+  return addHiddenWhere(query, options.context!);
+};
 
 export const buildSectionsListQuery = (options: Partial<ListQueryBuilderOptions<Section>>) => {
   const query = buildListQuery({
@@ -64,19 +85,5 @@ export const buildSectionsListQuery = (options: Partial<ListQueryBuilderOptions<
     ...options,
   });
 
-  // Filter hidden regions
-  if (!options.context!.user) {
-    query.where('sections_view.hidden', false);
-  } else if (!options.context!.user!.admin) {
-    query.where((qb) => {
-      qb
-        .where('sections_view.hidden', false)
-        .orWhereIn('sections_view.region_id', function(this: QueryBuilder) {
-          this.select('regions_editors.region_id')
-            .from('regions_editors')
-            .where('regions_editors.user_id', options.context!.user!.id);
-        });
-    });
-  }
-  return query;
+  return addHiddenWhere(query, options.context!);
 };

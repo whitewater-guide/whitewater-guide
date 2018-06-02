@@ -10,8 +10,8 @@ const section = baseResolver.createResolver(
     }
     const query = buildSectionQuery({ info, context, ...args });
     const result = await query.first();
-    if (result && result.hidden) {
-      await checkEditorPermissions(context.user, result.id);
+    if (!result || result.hidden) {
+      await checkEditorPermissions(context.user, args.id);
     }
     return result;
   },

@@ -37,13 +37,8 @@ Object {
             "name": "Norway",
           },
           "sections": Object {
-            "count": 1,
-            "nodes": Array [
-              Object {
-                "id": "8688e656-5b4b-11e8-9c2d-fa7ae01bbebc",
-                "name": "Gorge",
-              },
-            ],
+            "count": 0,
+            "nodes": Array [],
           },
         },
         Object {

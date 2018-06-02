@@ -1,6 +1,6 @@
 import Knex from 'knex';
 import { addUpdatedAtFunction, addUpdatedAtTrigger, removeUpdatedAtFunction, runSqlFile } from '../db';
-import { HarvestMode, POITypes, Role } from '../ww-commons';
+import { HarvestMode, POITypes } from '../ww-commons';
 
 export const up = async (db: Knex) => {
   await runSqlFile(db, './src/migrations/001/language_code.sql');
