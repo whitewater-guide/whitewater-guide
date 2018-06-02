@@ -108,7 +108,7 @@ Husky is installed in project root to ensure that hooks are properly set up afte
 |--------------------|-------------------------------------------------------
 | dev:cleanup        | Stops dev containers, cleans up `docker-sync` stack. Pass `--hard` to delete all images, volumes, containers and start next build from scratch    
 | dev:start          | Runs dev configuration using docker-sync              
-| dev:images         | Downloads images from old backend to minio package, also compresses them to be included into minio docker image. Requires access to v1 docker-machine.             
+| dev:images         | Downloads images from old backend to minio package, also compresses them, so they can be uploaded somewhere else. Requires access to v1 docker-machine.             
 | dev:migrate        | Downloads latest dump v1 mongo dump from s3, loads it into running postgres dev instance.             
 | local:start        | creates, starts (if necessary) local machine, prepares all folders in host vm, uploads images. DOES NOT DEPLOY. 
 | local:cleanup      | Stops docker stack and wipes filesystem on `ww-local` docker-machine
