@@ -1,5 +1,5 @@
 import React from 'react';
-import { Linking, StyleSheet, View } from 'react-native';
+import { Clipboard, Linking, StyleSheet, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { Caption, Paragraph, TouchableRipple } from 'react-native-paper';
 import { Row } from '../../../components';
@@ -47,6 +47,8 @@ class VideoItem extends React.PureComponent<Props, State> {
 
   onPress = () => Linking.openURL(this.props.video.url).catch(() => {});
 
+  onLongPress = () => Clipboard.setString(this.props.video.url);
+
   renderThumb = () => {
     const { thumb } = this.state;
     if (thumb) {
@@ -58,7 +60,7 @@ class VideoItem extends React.PureComponent<Props, State> {
   render() {
     const { description, copyright } = this.props.video;
     return (
-      <TouchableRipple onPress={this.onPress}>
+      <TouchableRipple onPress={this.onPress} onLongPress={this.onLongPress}>
         <Row style={styles.container}>
           {this.renderThumb()}
           <View style={styles.body}>
