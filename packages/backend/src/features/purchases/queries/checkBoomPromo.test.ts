@@ -17,6 +17,7 @@ const query = `
       id
       code
       groupName
+      groupSku
       redeemed
     }
   }
@@ -41,6 +42,7 @@ it('should return result for group code', async () => {
     id: BOOM_PROMO_EU_CIS_ACTIVE,
     code: BOOM_PROMO_EU_CIS_ACTIVE,
     groupName: 'Europe & CIS',
+    groupSku: 'group.eu_cis',
     redeemed: false,
   });
 });
@@ -52,6 +54,7 @@ it('should return result for one-region code', async () => {
     id: BOOM_PROMO_REGION_REDEEMED,
     code: BOOM_PROMO_REGION_REDEEMED,
     groupName: null,
+    groupSku: null,
     redeemed: true,
   });
 });
@@ -63,6 +66,7 @@ it('should i18nize', async () => {
     id: BOOM_PROMO_EU_CIS_ACTIVE,
     code: BOOM_PROMO_EU_CIS_ACTIVE,
     groupName: 'Европа и СНГ',
+    groupSku: 'group.eu_cis',
     redeemed: false,
   });
 });

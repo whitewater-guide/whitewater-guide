@@ -16,6 +16,8 @@ type BoomPromoInfo {
   code: String!
   # regions group name which this promo code grants or null if this is one-region promo code
   groupName: String
+  # Null for one-region promo codes
+  groupSku: String
   # true if promocode has been used already
   redeemed: Boolean
 }

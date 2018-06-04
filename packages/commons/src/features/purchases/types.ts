@@ -17,5 +17,6 @@ export interface BoomPromoInfo {
   id: string;
   code: string;
   groupName: string | null;
+  groupSku: string | null;
   redeemed: boolean;
 }

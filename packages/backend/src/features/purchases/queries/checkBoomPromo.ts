@@ -10,7 +10,7 @@ const checkBoomPromo = isAuthenticatedResolver.createResolver(
   async (_, { code }: Vars, context: Context) => {
     const query = db()
       .table('boom_promos')
-      .select(['boom_promos.code', 'boom_promos.redeemed', 'groups_view.name'])
+      .select(['boom_promos.code', 'boom_promos.redeemed', 'groups_view.name', 'boom_promos.group_sku'])
       .leftOuterJoin('groups_view', 'boom_promos.group_sku', 'groups_view.sku')
       .where('boom_promos.code', code)
       .andWhere((qb) => {
@@ -26,6 +26,7 @@ const checkBoomPromo = isAuthenticatedResolver.createResolver(
       id: promo.code,
       code: promo.code,
       groupName: promo.name,
+      groupSku: promo.group_sku,
       redeemed: promo.redeemed,
     };
   },
