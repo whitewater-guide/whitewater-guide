@@ -3,7 +3,6 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import { StepProps } from '@material-ui/core/Step';
 import StepContent from '@material-ui/core/StepContent';
 import { StyleRulesCallback, withStyles, WithStyles } from '@material-ui/core/styles';
-import { observer } from 'mobx-react';
 import React from 'react';
 import { Query, QueryResult } from 'react-apollo';
 import { Omit } from 'type-zoo';
@@ -31,30 +30,27 @@ const styles: StyleRulesCallback<ClassNames> = (theme) => ({
 
 type Props = Omit<StepProps, 'classes'> & WithStyles<ClassNames> & {
   prev: () => void;
-  next: () => void;
+  next: (region: Region) => void;
 };
 
 interface State {
   region: Region | null;
 }
 
-@observer
 class SelectRegionStepView extends React.Component<Props, State> {
   state: State = {
     region: null,
   };
 
   onNext = async () => {
-    // const promo = await this.store.checkBoomPromo();
-    // if (promo) {
-      this.props.next();
-      // this.store.reset();
-    // }
+    const { region } = this.state;
+    this.setState({ region: null });
+    this.props.next(region!);
   };
 
   onPrev = () => {
+    this.setState({ region: null });
     this.props.prev();
-    // this.store.reset();
   };
 
   onChange = (region: Region | null) => this.setState({ region });
