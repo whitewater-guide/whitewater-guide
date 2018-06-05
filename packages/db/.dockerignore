@@ -1,4 +1,5 @@
 .env.*
 Dockerfile
 package.json
-/config/x_dev_dump.sql
+/config/x-dev-restore.sh
+/config/dump.bak
