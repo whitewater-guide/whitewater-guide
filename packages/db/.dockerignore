@@ -3,3 +3,5 @@ Dockerfile
 package.json
 /config/x-dev-restore.sh
 /config/dump.bak
+/scripts
+/.env
