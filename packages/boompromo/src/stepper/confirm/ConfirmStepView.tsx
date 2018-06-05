@@ -20,7 +20,6 @@ const styles: StyleRulesCallback<ClassNames> = (theme) => ({
   },
 });
 
-@observer
 type Props = Omit<StepProps, 'classes'> & WithStyles<ClassNames> & {
   prev: () => void;
   next: () => void;
@@ -28,6 +27,7 @@ type Props = Omit<StepProps, 'classes'> & WithStyles<ClassNames> & {
   promo: BoomPromoInfo;
 };
 
+@observer
 class ConfirmStepView extends React.PureComponent<Props> {
   @observable store: ConfirmStepStore = new ConfirmStepStore();
 
@@ -38,7 +38,7 @@ class ConfirmStepView extends React.PureComponent<Props> {
       (promo.groupSku || region!.sku)!,
     );
     if (promo) {
-      this.props.next(promo);
+      // this.props.next(promo);
       this.store.reset();
     }
   };
@@ -56,11 +56,11 @@ class ConfirmStepView extends React.PureComponent<Props> {
         <StepFooter
           onPrev={this.onPrev}
           onNext={this.onNext}
-          nextDisabled={!region}
+          nextDisabled={false}
           nextLoading={false}
         />
       </StepContent>
-    )
+    );
   }
 }
 

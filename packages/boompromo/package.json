@@ -46,9 +46,12 @@
     "start": "react-scripts-ts start",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
+    "eject": "react-scripts-ts eject",
+    "storybook": "start-storybook -p 6006 -c .storybook"
   },
   "devDependencies": {
+    "@storybook/addon-actions": "4.0.0-alpha.8",
+    "@storybook/react": "4.0.0-alpha.8",
     "@types/classnames": "^2.2.3",
     "@types/color": "^3.0.0",
     "@types/enzyme": "^3.1.10",
@@ -67,7 +70,11 @@
     "@types/react-redux": "^6.0.0",
     "@types/react-test-renderer": "^16.0.1",
     "@types/recompose": "^0.26.1",
+    "@types/storybook__addon-actions": "^3.0.3",
+    "@types/storybook__react": "^3.0.7",
     "@types/url-parse": "^1.1.0",
+    "awesome-typescript-loader": "^5.0.0",
+    "babel-core": "^6.26.3",
     "graphql-ast-tools": "^0.2.3",
     "tslint-eslint-rules": "^5.3.1",
     "tslint-react": "^3.6.0",
