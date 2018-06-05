@@ -14,6 +14,7 @@ export const getApolloClient = (dispatch?: Dispatch<any>) => {
       credentials: 'include',
       headers: {
         'Accept-Language': RNLanguages.language,
+        'Cache-Control': 'no-store',
       },
     });
   }
