@@ -44,7 +44,7 @@ class App extends React.PureComponent<WithStyles<ClassNames>> {
           <Card className={classes.card}>
             <CardMedia
               className={classes.media}
-              image="/static/logo-header.png"
+              image={`${process.env.PUBLIC_URL}/static/logo-header.png`}
               title="Whitewater.guide"
             />
             <CardContent>
