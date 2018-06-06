@@ -6,11 +6,15 @@ export class StepperStore {
   @observable activeStep = 0;
   @observable completed: Map<number, boolean> = new Map<number, boolean>();
   @observable promoInfo: BoomPromoInfo | null = null;
-  @observable regionSku: string | null = null;
+  @observable region: Region | null = null;
+  @observable username: string | null = null;
 
   @action.bound nextStep(payload?: any) {
     this.completed.set(this.activeStep, true);
     switch (this.activeStep) {
+      case 0: // promo code received
+        this.onLoginReceived(payload);
+        break;
       case 1: // promo code received
         this.onPromoReceived(payload);
         break;
@@ -25,7 +29,7 @@ export class StepperStore {
   @action.bound prevStep() {
     switch (this.activeStep) {
       case 3:
-        this.regionSku = null;
+        this.region = null;
         break;
       case 2:
         this.promoInfo = null;
@@ -34,6 +38,11 @@ export class StepperStore {
     this.completed.set(this.activeStep - 1, false);
     this.activeStep -= 1;
   }
+
+  onLoginReceived = (username: string) => {
+    this.username = username;
+    this.activeStep += 1;
+  };
 
   onPromoReceived = (payload: BoomPromoInfo) => {
     this.promoInfo = payload;
@@ -49,7 +58,8 @@ export class StepperStore {
     if (!region.sku) {
       throw new Error('Region must have sku');
     }
-    this.regionSku = region.sku;
+    this.region = region;
     this.activeStep += 1;
   };
+
 }

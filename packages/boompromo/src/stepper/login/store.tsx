@@ -2,18 +2,7 @@ import noop from 'lodash/noop';
 import { computed, flow, observable } from 'mobx';
 import { FacebookProfile, getLoginStatus, getMyFacebookProfile, loadFacebookSDK, login, logout } from '../../auth/fb';
 import { wwLogin } from '../../auth/ww';
-
-export interface ILoginStepStore {
-  error: string | null;
-  loading: boolean;
-  facebookLoading: boolean;
-  me: FacebookProfile | null;
-  ready: boolean;
-  init: () => void;
-  fbLogin: () => void;
-  fbLogout: () => void;
-  login: () => Promise<any>;
-}
+import { ILoginStepStore } from './types';
 
 export class LoginStepStore implements ILoginStepStore {
   private accessToken: string | null = null;

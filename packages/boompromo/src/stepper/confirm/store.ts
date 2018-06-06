@@ -3,14 +3,16 @@ import { action, flow, observable } from 'mobx';
 import { getApolloClient } from '../../apollo';
 import { PurchaseInput, PurchasePlatform } from '../../ww-commons';
 import { ACTIVATE_PROMO_MUTATION } from './activatePromo.mutation';
+import { IConfirmStepStore } from './types';
 
-export class ConfirmStepStore {
+export class ConfirmStepStore implements IConfirmStepStore {
   private client: ApolloClient<any> = getApolloClient();
   // tslint:disable-next-line:typedef
   @observable loading = false;
   @observable error: string | null = null;
+  @observable success: boolean | null = null;
 
-  activatePromo: (code: string, sku: string) => Promise<boolean> =
+  activatePromo: (code: string, sku: string) => Promise<void> =
     flow(function *activatePromo(this: ConfirmStepStore, code: string, sku: string) {
       const purchase: PurchaseInput = {
         platform: PurchasePlatform.boomstarter,
@@ -35,7 +37,7 @@ export class ConfirmStepStore {
       } finally {
         this.loading = false;
       }
-      return success;
+      this.success = success;
     }).bind(this);
 
   @action.bound reset() {
@@ -43,3 +45,11 @@ export class ConfirmStepStore {
     this.error = null;
   }
 }
+
+export const getMockStore = (): IConfirmStepStore => ({
+  loading: false,
+  error: null,
+  success: null,
+  activatePromo: () => Promise.resolve(),
+  reset: () => {},
+});

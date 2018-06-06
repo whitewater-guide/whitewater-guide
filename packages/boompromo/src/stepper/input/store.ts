@@ -4,16 +4,7 @@ import { action, computed, flow, observable } from 'mobx';
 import { getApolloClient } from '../../apollo';
 import { BoomPromoInfo } from '../../ww-commons';
 import { CHECK_BOOM_PROMO_QUERY, Result } from './checkBoomPromo.query';
-
-export interface IInputStepStore {
-  code: string;
-  loading: boolean;
-  error: string | null;
-  ready: boolean;
-  setCode: (e: any) => void;
-  checkBoomPromo: () => Promise<BoomPromoInfo | null>;
-  reset: () => void;
-}
+import { IInputStepStore } from './types';
 
 export class InputStepStore implements IInputStepStore {
   private client: ApolloClient<any> = getApolloClient();

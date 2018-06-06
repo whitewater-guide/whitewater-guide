@@ -5,11 +5,11 @@ import { Page, WithList } from './types';
 
 type QueryResult<T, R extends ListType> = {
   [prop in R]: Connection<T>
-  };
+};
 
 type Result<T, R extends ListType> = {
   [prop in R]: WithList<T>
-  };
+};
 
 interface FMResult<T, R extends ListType> {
   fetchMoreResult: QueryResult<T, R>;
@@ -19,8 +19,8 @@ const noop = () => Promise.resolve(false);
 
 const getListMerger = <T, R extends ListType>(propName: R) =>
   (prevResult: QueryResult<T, R>, { fetchMoreResult: nextResult }: FMResult<T, R>) => {
-    const { [propName]: { nodes: prevNodes, __typename } } = prevResult;
-    const { [propName]: { nodes: newNodes, count } } = nextResult;
+    const { [propName]: { nodes: prevNodes, __typename } } = prevResult as any;
+    const { [propName]: { nodes: newNodes, count } } = nextResult as any;
     return {
       [propName]: {
         __typename,

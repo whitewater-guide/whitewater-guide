@@ -1,11 +1,11 @@
 import Step from '@material-ui/core/Step';
-import StepContent from '@material-ui/core/StepContent/StepContent';
 import StepLabel from '@material-ui/core/StepLabel';
 import Stepper from '@material-ui/core/Stepper';
 import { StyleRulesCallback, withStyles, WithStyles } from '@material-ui/core/styles';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import React from 'react';
+import ConfirmStepView from './confirm/ConfirmStepView';
 import InputStep from './input';
 import LoginStep from './login';
 import SelectRegionStep from './select-region';
@@ -33,7 +33,7 @@ class HorizontalNonLinearStepper extends React.Component<WithStyles<any>> {
 
   render() {
     const { classes } = this.props;
-    const { activeStep, completed, nextStep, prevStep } = this.store;
+    const { activeStep, completed, nextStep, prevStep, username, promoInfo, region } = this.store;
     return (
       <div className={classes.root}>
         <Stepper orientation="vertical" activeStep={activeStep}>
@@ -55,9 +55,12 @@ class HorizontalNonLinearStepper extends React.Component<WithStyles<any>> {
             <StepLabel>
               Активируйте промо код
             </StepLabel>
-            <StepContent>
-              <p>hi</p>
-            </StepContent>
+            <ConfirmStepView
+              prev={prevStep}
+              region={region}
+              promo={promoInfo!}
+              username={username}
+            />
           </Step>
         </Stepper>
       </div>

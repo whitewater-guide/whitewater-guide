@@ -11,7 +11,8 @@ import React from 'react';
 import { Omit } from 'type-zoo';
 import { NextButton } from '../../components';
 import AnonView from './AnonView';
-import { ILoginStepStore, LoginStepStore } from './store';
+import { LoginStepStore } from './store';
+import { ILoginStepStore } from './types';
 import UserView from './UserView';
 
 type ClassNames = 'button' | 'progress' | 'divider';
@@ -31,7 +32,7 @@ const styles: StyleRulesCallback<ClassNames> = (theme) => ({
 });
 
 type Props = Omit<StepProps, 'classes'> & WithStyles<ClassNames> & {
-  next: () => void;
+  next: (username: string) => void;
   store?: ILoginStepStore;
 };
 
@@ -64,12 +65,12 @@ class LoginStepView extends React.Component<Props> {
   next = async () => {
     const success = await this.store.login();
     if (success) {
-      this.props.next();
+      this.props.next(this.store.me!.name);
     }
   };
 
   render() {
-    const { classes, next, ...stepProps } = this.props;
+    const { classes, store, next, ...stepProps } = this.props;
     const { loading, error, ready } = this.store;
     return (
       <StepContent {...stepProps}>

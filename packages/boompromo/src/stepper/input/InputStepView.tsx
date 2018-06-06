@@ -9,7 +9,8 @@ import { observer } from 'mobx-react';
 import React from 'react';
 import { StepFooter } from '../../components';
 import { BoomPromoInfo } from '../../ww-commons';
-import { IInputStepStore, InputStepStore } from './store';
+import { InputStepStore } from './store';
+import { IInputStepStore } from './types';
 
 type ClassNames = 'formControl';
 
@@ -50,7 +51,7 @@ class InputStepView extends React.Component<Props> {
   };
 
   render() {
-    const { classes, prev, next, ...stepProps } = this.props;
+    const { classes, store, prev, next, ...stepProps } = this.props;
     const { code, error, loading, ready, setCode } = this.store;
     return (
       <StepContent {...stepProps}>

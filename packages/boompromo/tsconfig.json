@@ -3,8 +3,8 @@
     "baseUrl": ".",
     "outDir": "build/dist",
     "module": "esnext",
-    "target": "es5",
-    "lib": ["es6", "dom", "esnext"],
+    "target": "es2015",
+    "lib": ["dom", "esnext"],
     "sourceMap": true,
     "allowJs": true,
     "jsx": "react",
@@ -17,7 +17,8 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noImplicitAny": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "skipLibCheck": true
   },
   "exclude": [
     "__mocks__",
