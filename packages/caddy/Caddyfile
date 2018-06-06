@@ -72,8 +72,8 @@
     transparent
   }
 
-  proxy /boomstarter boompromo:8043 {
-    without /boomstarter
+  proxy /boompromo boompromo:8043 {
+    without /boompromo
     transparent
   }
 
