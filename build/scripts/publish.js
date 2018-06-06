@@ -52,6 +52,15 @@ async function publish() {
     }
   }
 
+  // Ensure that boompromo is compiled
+  if (containers.length === 0 || containers.includes('boompromo')) {
+    const tscResult = spawnSync('yarn', ['run', 'build'], { cwd: 'packages/boompromo', stdio: 'inherit' });
+    if (tscResult.status !== 0) {
+      console.log('\n\nFailed to compile web, please fix');
+      return;
+    }
+  }
+
   // Build images (locally)
   const buildRes = spawnSync(
     'docker-compose',

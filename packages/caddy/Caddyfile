@@ -72,6 +72,11 @@
     transparent
   }
 
+  proxy /boomstarter boompromo:8043 {
+    without /boomstarter
+    transparent
+  }
+
   basicauth /puzzle {$ADMINER_USERNAME} {$ADMINER_PASSWORD}
 
   proxy /puzzle adminer:8080 {

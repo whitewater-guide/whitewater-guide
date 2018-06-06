@@ -97,6 +97,20 @@ services:
     image: '${DOCKER_REGISTRY_PREFIX}web:${DOCKER_ENVIRONMENT}'
     read_only: true
 
+  # Serve static boompromo client
+  boompromo:
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    labels:
+      guide.whitewater: ""
+    build:
+      context: ../packages/boompromo
+      labels:
+        guide.whitewater: ""
+    image: '${DOCKER_REGISTRY_PREFIX}boompromo:${DOCKER_ENVIRONMENT}'
+    read_only: true
+
   # Adminer escape hatch
   adminer:
     deploy:

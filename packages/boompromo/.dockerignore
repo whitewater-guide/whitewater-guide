@@ -1,0 +1,5 @@
+/.storybook/
+/node_modules/
+/src/
+/public/
+/build/dist/

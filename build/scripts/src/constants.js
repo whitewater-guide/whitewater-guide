@@ -1,6 +1,7 @@
 const DEPENDENCIES = {
   'adminer': [],
   'backend': ['commons'],
+  'boompromo': ['clients', 'commons'],
   'caddy': [],
   'clients': ['commons'],
   'commons': [],
