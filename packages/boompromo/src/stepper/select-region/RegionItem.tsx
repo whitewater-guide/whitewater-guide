@@ -1,13 +1,13 @@
 import MenuItem from '@material-ui/core/MenuItem';
 import React from 'react';
-import { Region } from '../../ww-commons';
+import { NamedNode } from '../../ww-commons';
 
 interface Props {
   highlightedIndex: number | null;
   index: number;
   itemProps: object;
-  selectedItem: Region | null;
-  region: Region;
+  selectedItem: NamedNode | null;
+  region: NamedNode;
 }
 
 const RegionItem: React.SFC<Props> = ({ region, index, itemProps, highlightedIndex, selectedItem }) => {

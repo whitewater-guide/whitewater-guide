@@ -3,7 +3,7 @@ import { StyleRulesCallback, withStyles, WithStyles } from '@material-ui/core/st
 import TextField from '@material-ui/core/TextField';
 import Downshift from 'downshift';
 import React from 'react';
-import { Region } from '../../ww-commons';
+import { NamedNode } from '../../ww-commons';
 import filterRegions from './filterRegions';
 import RegionItem from './RegionItem';
 
@@ -27,16 +27,16 @@ const styles: StyleRulesCallback<ClassNames> = theme => ({
 });
 
 interface Props extends WithStyles<ClassNames> {
-  regions: Region[];
-  value: Region | null;
-  onChange: (value: Region | null) => void;
+  regions: NamedNode[];
+  value: NamedNode | null;
+  onChange: (value: NamedNode | null) => void;
 }
 
 interface State {
   anchorEl?: HTMLElement;
 }
 
-const regionToString = (region: Region | null) => (region ? region.name : '');
+const regionToString = (region: NamedNode | null) => (region ? region.name : '');
 
 class RegionSelector extends React.PureComponent<Props, State> {
   state: State = { anchorEl: undefined };

@@ -1,7 +1,7 @@
 import take from 'lodash/take'
-import { Region } from '../../ww-commons';
+import { NamedNode } from '../../ww-commons';
 
-const filterRegions = (regions: Region[], inputValue: string | null) => {
+const filterRegions = (regions: NamedNode[], inputValue: string | null) => {
   if (!inputValue) {
     return take(regions, 5);
   }
