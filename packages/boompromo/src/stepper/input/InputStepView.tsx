@@ -9,7 +9,7 @@ import { observer } from 'mobx-react';
 import React from 'react';
 import { StepFooter } from '../../components';
 import { BoomPromoInfo } from '../../ww-commons';
-import { InputStepStore } from './store';
+import { IInputStepStore, InputStepStore } from './store';
 
 type ClassNames = 'formControl';
 
@@ -22,11 +22,19 @@ const styles: StyleRulesCallback<ClassNames> = (theme) => ({
 interface Props extends WithStyles<ClassNames> {
   next: (info: BoomPromoInfo) => void;
   prev: () => void;
+  store?: IInputStepStore;
 }
 
 @observer
 class InputStepView extends React.Component<Props> {
-  @observable store: InputStepStore = new InputStepStore();
+  @observable store: IInputStepStore = new InputStepStore();
+
+  constructor(props: Props) {
+    super(props);
+    if (props.store) {
+      this.store = props.store;
+    }
+  }
 
   onNext = async () => {
     const promo = await this.store.checkBoomPromo();

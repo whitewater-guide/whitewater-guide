@@ -1,10 +1,21 @@
 import ApolloClient from 'apollo-client';
+import noop from 'lodash/noop';
 import { action, computed, flow, observable } from 'mobx';
 import { getApolloClient } from '../../apollo';
 import { BoomPromoInfo } from '../../ww-commons';
 import { CHECK_BOOM_PROMO_QUERY, Result } from './checkBoomPromo.query';
 
-export class InputStepStore {
+export interface IInputStepStore {
+  code: string;
+  loading: boolean;
+  error: string | null;
+  ready: boolean;
+  setCode: (e: any) => void;
+  checkBoomPromo: () => Promise<BoomPromoInfo | null>;
+  reset: () => void;
+}
+
+export class InputStepStore implements IInputStepStore {
   private client: ApolloClient<any> = getApolloClient();
 
   // tslint:disable-next-line:typedef
@@ -59,3 +70,13 @@ export class InputStepStore {
     this.code = '';
   }
 }
+
+export const getMockStore = (): IInputStepStore => ({
+  code: '',
+  loading: false,
+  error: null,
+  ready: false,
+  setCode: noop,
+  checkBoomPromo: () => Promise.resolve(null),
+  reset: noop,
+});
