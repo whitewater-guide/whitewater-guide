@@ -5799,7 +5799,7 @@ jss-vendor-prefixer@^7.0.0:
   dependencies:
     css-vendor "^0.3.8"
 
-jss@^9.3.3, jss@^9.7.0:
+jss@^9.3.3, jss@^9.7.0, jss@^9.8.2:
   version "9.8.2"
   resolved "https://registry.yarnpkg.com/jss/-/jss-9.8.2.tgz#09cabdfba831545bf094e399cfa45a1743daf4a6"
   dependencies:
@@ -7663,7 +7663,7 @@ react-inspector@^2.3.0:
     babel-runtime "^6.26.0"
     is-dom "^1.0.9"
 
-react-jss@^8.1.0:
+react-jss@^8.1.0, react-jss@^8.4.0:
   version "8.4.0"
   resolved "https://registry.yarnpkg.com/react-jss/-/react-jss-8.4.0.tgz#7cb43d85dea56afafc8f0fd072ae27fcc0518950"
   dependencies:

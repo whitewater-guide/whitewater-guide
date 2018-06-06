@@ -1,11 +1,11 @@
 import { configure } from 'mobx';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import JssRoot from './JssRoot';
 
 configure({ enforceActions: true });
 
 ReactDOM.render(
-  <App />,
+  <JssRoot />,
   document.getElementById('root') as HTMLElement,
 );

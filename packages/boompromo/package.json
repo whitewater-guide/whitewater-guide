@@ -1,6 +1,6 @@
 {
   "name": "boompromo",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "private": true,
   "homepage": "/boompromo/",
   "dependencies": {
@@ -24,6 +24,7 @@
     "graphql-type-json": "^0.2.1",
     "immutability-helper": "^2.7.0",
     "joi-browser": "^13.0.1",
+    "jss": "^9.8.2",
     "lodash": "^4.17.10",
     "mobx": "^4.3.1",
     "mobx-react": "^5.2.0",
@@ -33,6 +34,7 @@
     "react-apollo": "^2.1.4",
     "react-dom": "^16.4.0",
     "react-error-boundary": "^1.2.3",
+    "react-jss": "^8.4.0",
     "react-redux": "^5.0.7",
     "react-scripts-ts": "2.16.0",
     "recompose": "^0.27.1",
