@@ -11,7 +11,7 @@ import React from 'react';
 import { Omit } from 'type-zoo';
 import { NextButton } from '../../components';
 import AnonView from './AnonView';
-import { LoginStepStore } from './store';
+import { ILoginStepStore, LoginStepStore } from './store';
 import UserView from './UserView';
 
 type ClassNames = 'button' | 'progress' | 'divider';
@@ -32,11 +32,19 @@ const styles: StyleRulesCallback<ClassNames> = (theme) => ({
 
 type Props = Omit<StepProps, 'classes'> & WithStyles<ClassNames> & {
   next: () => void;
+  store?: ILoginStepStore;
 };
 
 @observer
 class LoginStepView extends React.Component<Props> {
-  @observable store: LoginStepStore = new LoginStepStore();
+  @observable store: ILoginStepStore = new LoginStepStore();
+
+  constructor(props: Props) {
+    super(props);
+    if (props.store) {
+      this.store = props.store;
+    }
+  }
 
   componentDidMount() {
     this.store.init();

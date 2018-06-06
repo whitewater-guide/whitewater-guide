@@ -1,8 +1,21 @@
+import noop from 'lodash/noop';
 import { computed, flow, observable } from 'mobx';
 import { FacebookProfile, getLoginStatus, getMyFacebookProfile, loadFacebookSDK, login, logout } from '../../auth/fb';
 import { wwLogin } from '../../auth/ww';
 
-export class LoginStepStore {
+export interface ILoginStepStore {
+  error: string | null;
+  loading: boolean;
+  facebookLoading: boolean;
+  me: FacebookProfile | null;
+  ready: boolean;
+  init: () => void;
+  fbLogin: () => void;
+  fbLogout: () => void;
+  login: () => Promise<any>;
+}
+
+export class LoginStepStore implements ILoginStepStore {
   private accessToken: string | null = null;
 
   @observable error: string | null = null;
@@ -59,3 +72,15 @@ export class LoginStepStore {
   }).bind(this);
 
 }
+
+export const getMockStore = (): ILoginStepStore => ({
+  error: null,
+  loading: false,
+  facebookLoading: false,
+  me: null,
+  ready: false,
+  init: noop,
+  fbLogin: noop,
+  fbLogout: noop,
+  login: () => Promise.resolve(),
+});
