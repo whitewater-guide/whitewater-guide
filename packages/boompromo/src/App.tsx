@@ -29,9 +29,10 @@ const styles: StyleRulesCallback<ClassNames> = (theme) => ({
     marginTop: theme.spacing.unit * 3,
   },
   media: {
+    width: '100%',
     backgroundColor: theme.palette.primary.main,
     backgroundOrigin: 'content-box',
-    height: 160,
+    backgroundSize: 'cover',
     padding: theme.spacing.unit * 2,
   },
   actions: {
@@ -54,10 +55,10 @@ class App extends React.PureComponent<WithStyles<ClassNames>> {
         <div className={classes.root}>
           <Card className={classes.card}>
             <CardMedia
-              className={classes.media}
-              image={`${process.env.PUBLIC_URL}/static/logo-header.png`}
               title="Whitewater.guide"
-            />
+            >
+              <img src={`${process.env.PUBLIC_URL}/static/logo-header.png`} className={classes.media}/>
+            </CardMedia>
             <CardContent>
               <Typography gutterBottom variant="title">
                 Привет!
