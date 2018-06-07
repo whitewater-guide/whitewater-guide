@@ -31,7 +31,7 @@ export class ConfirmStepStore implements IConfirmStepStore {
         if (hasErrors) {
           console.log(errors);
         }
-        this.error = success ? null : 'Похоже этот промо код не подходит';
+        this.error = success ? null : 'Похоже этот промокод не подходит';
       } catch (e) {
         this.error = 'Упс! Что-то сломалось. Попробуйте заново';
       } finally {

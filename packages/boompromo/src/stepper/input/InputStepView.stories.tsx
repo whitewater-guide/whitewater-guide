@@ -12,7 +12,7 @@ storiesOf('InputStepView', module)
     <div style={{ width: 400 }}>
       <Stepper orientation="vertical" activeStep={0}>
         <Step active completed={false}>
-          <StepLabel>Введите промо код</StepLabel>
+          <StepLabel>Введите промокод</StepLabel>
           {story()}
         </Step>
       </Stepper>
@@ -66,7 +66,7 @@ storiesOf('InputStepView', module)
     const store = getMockStore();
     store.code = 'aaaa1111';
     store.ready = true;
-    store.error = 'Похоже этот промо код не подходит';
+    store.error = 'Похоже этот промокод не подходит';
     return (
       <InputStepView
         next={action('next')}

@@ -40,7 +40,7 @@ storiesOf('ConfirmStepView', module)
   })
   .add('error', () => {
     const store = getMockStore();
-    store.error = 'Похоже этот промо код уже активирован';
+    store.error = 'Похоже этот промокод уже активирован';
     return (
       <ConfirmStepView
         username="Вася Пупкин"
@@ -54,7 +54,7 @@ storiesOf('ConfirmStepView', module)
   .add('loading', () => {
     const store = getMockStore();
     store.loading = true;
-    store.error = 'Похоже этот промо код уже активирован';
+    store.error = 'Похоже этот промокод уже активирован';
     return (
       <ConfirmStepView
         username="Вася Пупкин"

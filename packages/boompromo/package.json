@@ -1,6 +1,6 @@
 {
   "name": "boompromo",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "private": true,
   "homepage": "/boompromo/",
   "dependencies": {
@@ -49,7 +49,7 @@
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject",
-    "storybook": "start-storybook -p 6006 -c .storybook"
+    "storybook": "STORYBOOK_ENABLED=true start-storybook -s ./public/static -p 6006 -c .storybook"
   },
   "resolutions": {
     "@types/node": "9.4.6"

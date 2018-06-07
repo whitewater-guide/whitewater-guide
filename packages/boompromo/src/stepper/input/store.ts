@@ -37,7 +37,7 @@ export class InputStepStore implements IInputStepStore {
       const hasErrors = errors && errors.length > 0;
       if (info) {
         if (info.redeemed) {
-          this.error = 'Этот промо код уже активирован';
+          this.error = 'Этот промокод уже активирован';
           info = null;
         } else if (hasErrors) {
           this.error = 'Упс! Что-то сломалось. Попробуйте заново';
@@ -45,7 +45,7 @@ export class InputStepStore implements IInputStepStore {
           this.error = null;
         }
       } else {
-        this.error = 'Похоже этот промо код не подходит';
+        this.error = 'Похоже этот промокод не подходит';
       }
     } catch (e) {
       this.error = 'Упс! Что-то сломалось. Попробуйте заново';

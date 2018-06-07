@@ -10,6 +10,7 @@ import React from 'react';
 import { Omit } from 'type-zoo';
 import { StepFooter } from '../../components';
 import { BoomPromoInfo, Region } from '../../ww-commons';
+import Footer from './Footer';
 import { ConfirmStepStore } from './store';
 import { IConfirmStepStore } from './types';
 
@@ -56,8 +57,9 @@ class ConfirmStepView extends React.Component<Props> {
 
   renderSuccess = () => (
     <React.Fragment>
-      <Typography variant="headline">Успех!</Typography>
-      <Typography variant="subheading">Промо код был активировн</Typography>
+      <Typography gutterBottom variant="headline">Успех!</Typography>
+      <Typography variant="subheading">Промокод был активирован</Typography>
+      <Footer />
     </React.Fragment>
   );
 
@@ -76,25 +78,23 @@ class ConfirmStepView extends React.Component<Props> {
     return (
       <React.Fragment>
         <Typography variant="subheading">
-          {'Вы почти активировали промо код '}
+          {'Вы почти активировали промокод '}
           <strong>{promo.code}</strong>
         </Typography>
         <Typography>На всякий случай, проверьте:</Typography>
-        <Typography>
-          <ul>
-            <li>
-              {`Вознаграждение: `}
-              {prize}
-            </li>
-            <li>
-              {'Спонсор: '}
-              <b>{username}</b>
-            </li>
-          </ul>
+        <Typography component="ul">
+          <li>
+            {`Вознаграждение: `}
+            {prize}
+          </li>
+          <li>
+            {'Спонсор: '}
+            <b>{username}</b>
+          </li>
         </Typography>
         {
           !this.store.loading && (!!this.store.error || this.store.success === false) &&
-          <FormHelperText error>{this.store.error || 'Вы уже активировали этот промо код ранее'}</FormHelperText>
+          <FormHelperText error>{this.store.error || 'Вы уже активировали этот промокод ранее'}</FormHelperText>
         }
         <Divider className={classes.divider} />
         <StepFooter

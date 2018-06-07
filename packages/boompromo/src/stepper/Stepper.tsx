@@ -42,7 +42,7 @@ class HorizontalNonLinearStepper extends React.Component<WithStyles<any>> {
             <LoginStep next={nextStep} />
           </Step>
           <Step active={activeStep === 1} completed={completed.get(1)}>
-            <StepLabel>Введите промо код</StepLabel>
+            <StepLabel>Введите промокод</StepLabel>
             <InputStep next={nextStep} prev={prevStep} />
           </Step>
           <Step active={activeStep === 2} completed={completed.get(2)}>
@@ -53,7 +53,7 @@ class HorizontalNonLinearStepper extends React.Component<WithStyles<any>> {
           </Step>
           <Step active={activeStep === 3} completed={completed.get(3)}>
             <StepLabel>
-              Активируйте промо код
+              Активируйте промокод
             </StepLabel>
             <ConfirmStepView
               prev={prevStep}

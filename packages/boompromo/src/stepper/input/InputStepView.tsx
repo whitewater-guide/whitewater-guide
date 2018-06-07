@@ -56,7 +56,7 @@ class InputStepView extends React.Component<Props> {
     return (
       <StepContent {...stepProps}>
         <FormControl className={classes.formControl} error={!!error}>
-          <InputLabel htmlFor="name-simple">Промо код</InputLabel>
+          <InputLabel htmlFor="name-simple">Промокод</InputLabel>
           <Input id="name-simple" value={code} onChange={setCode} />
           <FormHelperText id="name-error-text">{error}</FormHelperText>
         </FormControl>
