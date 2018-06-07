@@ -7,6 +7,7 @@ export const CHECK_BOOM_PROMO_QUERY = gql`
       id
       code
       groupName
+      groupSku
       redeemed
     }
   }
