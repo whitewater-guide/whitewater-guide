@@ -75,7 +75,7 @@ async function publish() {
   // Tag images
   const taggedImages = tagImages(environment);
   // Push images to AWS ECR
-  pushImages(taggedImages);
+  pushImages(taggedImages, containers);
 }
 
 publish();
