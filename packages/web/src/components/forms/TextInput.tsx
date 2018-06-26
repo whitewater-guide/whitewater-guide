@@ -12,15 +12,22 @@ type CustomFieldProps = { title?: string } & Partial<TextFieldProps>;
 
 type Props = WrappedFieldProps & CustomFieldProps;
 
-const TextInputComponent: React.StatelessComponent<Props> = ({ input, meta, ...own }) => (
-  <TextField
-    {...input}
-    floatingLabelText={own.title}
-    {...own}
-    errorText={meta.touched && meta.error}
-    onWheel={(e) => e.preventDefault()}
-  />
-);
+class TextInputComponent extends React.PureComponent<Props> {
+  onWheel = (e: React.SyntheticEvent) => e.preventDefault();
+
+  render() {
+    const { input, meta, ...own } = this.props;
+    return (
+      <TextField
+        {...input}
+        floatingLabelText={own.title}
+        {...own}
+        errorText={meta.touched && meta.error}
+        onWheel={this.onWheel}
+      />
+    );
+  }
+}
 
 type FieldProps = BaseFieldProps<CustomFieldProps> & CustomFieldProps;
 

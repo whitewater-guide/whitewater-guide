@@ -1,8 +1,9 @@
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
-import { Provider, Store } from 'react-redux';
+import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import { Store } from 'redux';
 import { Persistor } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import { getApolloClient } from './apollo';

@@ -1,3 +1,4 @@
+import Divider from 'material-ui/Divider';
 import IconButton from 'material-ui/IconButton';
 import React from 'react';
 import { BaseFieldArrayProps, FieldArray, GenericFieldArray, WrappedFieldArrayProps } from 'redux-form';
@@ -5,7 +6,6 @@ import { Styles } from '../../styles';
 import { computeDistanceBetween } from '../../ww-clients/utils';
 import { Coordinate3d } from '../../ww-commons';
 import { LatLonAltInput, LLAArrayField } from './LatLonAltInput';
-import Divider from 'material-ui/Divider';
 
 const styles: Styles = {
   container: {

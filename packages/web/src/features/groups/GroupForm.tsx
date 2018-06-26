@@ -3,10 +3,10 @@ import IconButton from 'material-ui/IconButton';
 import { TableRow, TableRowColumn } from 'material-ui/Table';
 import TextField from 'material-ui/TextField';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Overwrite } from 'type-zoo';
 import { Group, Region } from '../../ww-commons';
 import { WithGroupMutations } from './types';
-import { Link } from 'react-router-dom';
 
 type State = Overwrite<Group, {id: string | null}>;
 

@@ -11,7 +11,8 @@ export default (input?: object | null) => {
     hazardsTags,
     supplyTags,
     miscTags,
-    ...rest,
+    // tslint:disable-next-line:trailing-comma
+    ...rest
   } = result;
   const tags = [...kayakingTags, ...hazardsTags, ...supplyTags, ...miscTags]
     .map((tag: Tag) => ({ id: tag.id }));

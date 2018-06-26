@@ -39,7 +39,8 @@ class SelectedSectionWeb extends React.PureComponent<Props> {
       location,
       history,
       staticContext,
-      ...mapElementProps,
+      // tslint:disable-next-line:trailing-comma
+      ...mapElementProps
     } = this.props;
     if (!section) {
       return null;

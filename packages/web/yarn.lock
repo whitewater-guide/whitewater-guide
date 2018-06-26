@@ -81,17 +81,13 @@
   dependencies:
     "@types/graphql" "*"
 
-"@types/graphql@*":
+"@types/graphql@*", "@types/graphql@0.13.1":
   version "0.13.1"
   resolved "https://registry.yarnpkg.com/@types/graphql/-/graphql-0.13.1.tgz#7d39750355c9ecb921816d6f76c080405b5f6bea"
 
 "@types/graphql@0.12.6":
   version "0.12.6"
   resolved "https://registry.yarnpkg.com/@types/graphql/-/graphql-0.12.6.tgz#3d619198585fcabe5f4e1adfb5cf5f3388c66c13"
-
-"@types/graphql@0.13.0":
-  version "0.13.0"
-  resolved "https://registry.yarnpkg.com/@types/graphql/-/graphql-0.13.0.tgz#78a33a7f429a06a64714817d9130d578e0f35ecb"
 
 "@types/history@*", "@types/history@^4.6.2":
   version "4.6.2"
@@ -103,9 +99,9 @@
   dependencies:
     immutability-helper "*"
 
-"@types/jest@^22.2.3":
-  version "22.2.3"
-  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-22.2.3.tgz#0157c0316dc3722c43a7b71de3fdf3acbccef10d"
+"@types/jest@^23.1.2":
+  version "23.1.2"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-23.1.2.tgz#a6cd37deb9110a8c63dc1435d6ee2518b3bd8e54"
 
 "@types/joi@^13.0.2":
   version "13.3.0"
@@ -134,11 +130,11 @@
   dependencies:
     moment ">=2.14.0"
 
-"@types/node@*":
+"@types/node@*", "@types/node@^10.3.6":
   version "10.3.6"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.3.6.tgz#ea8aab9439b59f40d19ec5f13b44642344872b11"
 
-"@types/node@^9.6.6":
+"@types/node@^9.4.6":
   version "9.6.22"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-9.6.22.tgz#05b55093faaadedea7a4b3f76e9a61346a6dd209"
 
@@ -188,12 +184,12 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-redux@^5.0.16":
-  version "5.0.20"
-  resolved "https://registry.yarnpkg.com/@types/react-redux/-/react-redux-5.0.20.tgz#a332f2a97043d6127159956a4639a9fb5dc1f5dc"
+"@types/react-redux@^6.0.3":
+  version "6.0.3"
+  resolved "https://registry.yarnpkg.com/@types/react-redux/-/react-redux-6.0.3.tgz#7e8a86cce1c453166056bce9d4eb5cab5a2cfe13"
   dependencies:
     "@types/react" "*"
-    redux "^3.6.0"
+    redux "^4.0.0"
 
 "@types/react-resize-detector@^2.1.0":
   version "2.2.0"
@@ -254,11 +250,11 @@
     "@types/react" "*"
     redux "^3.6.0"
 
-"@types/redux-mock-store@^0.0.13":
-  version "0.0.13"
-  resolved "https://registry.yarnpkg.com/@types/redux-mock-store/-/redux-mock-store-0.0.13.tgz#f7ec160214b854f2d976ca12525997a21512b2ea"
+"@types/redux-mock-store@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@types/redux-mock-store/-/redux-mock-store-1.0.0.tgz#e06bad2b4ca004bdd371f432c3e48a92c1857ed9"
   dependencies:
-    redux "^3.6.0"
+    redux "^4.0.0"
 
 "@types/redux@^3.6.0":
   version "3.6.0"
@@ -275,6 +271,10 @@
 "@types/zen-observable@^0.5.3":
   version "0.5.4"
   resolved "https://registry.yarnpkg.com/@types/zen-observable/-/zen-observable-0.5.4.tgz#b863a4191e525206819e008097ebf0fb2e3a1cdc"
+
+"@types/zen-observable@^0.8.0":
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/@types/zen-observable/-/zen-observable-0.8.0.tgz#8b63ab7f1aa5321248aad5ac890a485656dcea4d"
 
 a11y-focus-store@^1.0.0:
   version "1.0.0"
@@ -476,7 +476,15 @@ apollo-link-schema@^1.1.0:
   dependencies:
     apollo-link "^1.2.2"
 
-apollo-link@^1.0.0, apollo-link@^1.2.1, apollo-link@^1.2.2:
+apollo-link@1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/apollo-link/-/apollo-link-1.2.1.tgz#c120b16059f9bd93401b9f72b94d2f80f3f305d2"
+  dependencies:
+    "@types/node" "^9.4.6"
+    apollo-utilities "^1.0.0"
+    zen-observable-ts "^0.8.6"
+
+apollo-link@^1.0.0, apollo-link@^1.2.2:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/apollo-link/-/apollo-link-1.2.2.tgz#54c84199b18ac1af8d63553a68ca389c05217a03"
   dependencies:
@@ -2683,9 +2691,11 @@ dotenv@4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-4.0.0.tgz#864ef1379aced55ce6f95debecdce179f7a0cd1d"
 
-downshift@^1.31.9:
-  version "1.31.16"
-  resolved "https://registry.yarnpkg.com/downshift/-/downshift-1.31.16.tgz#acd81631539502d4112d01bd573654419fd9f640"
+downshift@^2.0.10:
+  version "2.0.10"
+  resolved "https://registry.yarnpkg.com/downshift/-/downshift-2.0.10.tgz#598b93c5598c4c45caf8c46479fdfde587da7860"
+  dependencies:
+    prop-types "^15.6.0"
 
 draft-js-export-markdown@^1.0.2:
   version "1.2.0"
@@ -3636,15 +3646,15 @@ graphql-ast-tools@^0.2.3:
   dependencies:
     apollo-utilities "^1.0.3"
 
-graphql-tag@2.9.1:
-  version "2.9.1"
-  resolved "https://registry.yarnpkg.com/graphql-tag/-/graphql-tag-2.9.1.tgz#1ab090ef7d3518b06d8c97d1393672145fe91587"
+graphql-tag@2.9.2:
+  version "2.9.2"
+  resolved "https://registry.yarnpkg.com/graphql-tag/-/graphql-tag-2.9.2.tgz#2f60a5a981375f430bf1e6e95992427dc18af686"
 
-graphql-tools@^2.24.0:
-  version "2.24.0"
-  resolved "https://registry.yarnpkg.com/graphql-tools/-/graphql-tools-2.24.0.tgz#bbacaad03924012a0edb8735a5e65df5d5563675"
+graphql-tools@^3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/graphql-tools/-/graphql-tools-3.0.4.tgz#d08aa75db111d704cba05d92afd67ec5d1dc6b24"
   dependencies:
-    apollo-link "^1.2.1"
+    apollo-link "1.2.1"
     apollo-utilities "^1.0.1"
     deprecated-decorator "^0.1.6"
     iterall "^1.1.3"
@@ -3654,11 +3664,11 @@ graphql-type-json@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/graphql-type-json/-/graphql-type-json-0.2.1.tgz#d2c177e2f1b17d87f81072cd05311c0754baa420"
 
-graphql@0.13.0:
-  version "0.13.0"
-  resolved "https://registry.yarnpkg.com/graphql/-/graphql-0.13.0.tgz#d1b44a282279a9ce0a6ec1037329332f4c1079b6"
+graphql@0.13.2:
+  version "0.13.2"
+  resolved "https://registry.yarnpkg.com/graphql/-/graphql-0.13.2.tgz#4c740ae3c222823e7004096f832e7b93b2108270"
   dependencies:
-    iterall "1.1.x"
+    iterall "^1.2.1"
 
 growly@^1.3.0:
   version "1.3.0"
@@ -4536,11 +4546,7 @@ istanbul-reports@^1.3.0:
   dependencies:
     handlebars "^4.0.3"
 
-iterall@1.1.x:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/iterall/-/iterall-1.1.4.tgz#0db40d38fdcf53ae14dc8ec674e62ab190d52cfc"
-
-iterall@^1.1.3:
+iterall@^1.1.3, iterall@^1.2.1:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/iterall/-/iterall-1.2.2.tgz#92d70deb8028e0c39ff3164fdbf4d8b088130cd7"
 
@@ -4550,7 +4556,7 @@ jest-changed-files@^22.2.0:
   dependencies:
     throat "^4.0.0"
 
-jest-cli@^22.1.4:
+jest-cli@^22.4.2:
   version "22.4.4"
   resolved "https://registry.yarnpkg.com/jest-cli/-/jest-cli-22.4.4.tgz#68cd2a2aae983adb1e6638248ca21082fd6d9e90"
   dependencies:
@@ -4796,11 +4802,12 @@ jest-worker@^22.2.2, jest-worker@^22.4.3:
   dependencies:
     merge-stream "^1.0.1"
 
-jest@22.1.4:
-  version "22.1.4"
-  resolved "https://registry.yarnpkg.com/jest/-/jest-22.1.4.tgz#9ec71373a38f40ff92a3e5e96ae85687c181bb72"
+jest@22.4.2:
+  version "22.4.2"
+  resolved "https://registry.yarnpkg.com/jest/-/jest-22.4.2.tgz#34012834a49bf1bdd3bc783850ab44e4499afc20"
   dependencies:
-    jest-cli "^22.1.4"
+    import-local "^1.0.0"
+    jest-cli "^22.4.2"
 
 joi-browser@^13.0.1:
   version "13.4.0"
@@ -5173,7 +5180,11 @@ lodash.flattendeep@^4.4.0:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/lodash.flattendeep/-/lodash.flattendeep-4.4.0.tgz#fb030917f86a3134e5bc9bec0d69e0013ddfedb2"
 
-lodash.isfunction@^3.0.8:
+lodash.isarray@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/lodash.isarray/-/lodash.isarray-4.0.0.tgz#2aca496b28c4ca6d726715313590c02e6ea34403"
+
+lodash.isfunction@^3.0.8, lodash.isfunction@^3.0.9:
   version "3.0.9"
   resolved "https://registry.yarnpkg.com/lodash.isfunction/-/lodash.isfunction-3.0.9.tgz#06de25df4db327ac931981d1bdb067e5af68d051"
 
@@ -5292,9 +5303,9 @@ markdown-escapes@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/markdown-escapes/-/markdown-escapes-1.0.2.tgz#e639cbde7b99c841c0bacc8a07982873b46d2122"
 
-material-ui-chip-input@^0.18.7:
-  version "0.18.8"
-  resolved "https://registry.yarnpkg.com/material-ui-chip-input/-/material-ui-chip-input-0.18.8.tgz#1eaace3ee066db022723bce3cb5189f6e3a63c42"
+material-ui-chip-input@^0.19.0:
+  version "0.19.0"
+  resolved "https://registry.yarnpkg.com/material-ui-chip-input/-/material-ui-chip-input-0.19.0.tgz#f837f93557f4369522d8446e8a4aeb94d36e90fa"
   dependencies:
     prop-types "^15.5.7"
 
@@ -6769,9 +6780,17 @@ react-event-listener@^0.5.1:
     prop-types "^15.6.0"
     warning "^3.0.0"
 
-react-fast-compare@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-1.0.0.tgz#813a039155e49b43ceffe99528fe5e9d97a6c938"
+react-event-listener@^0.6.1:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/react-event-listener/-/react-event-listener-0.6.1.tgz#41c7a80a66b398c27dd511e22712b02f3d4eccca"
+  dependencies:
+    "@babel/runtime" "^7.0.0-beta.42"
+    prop-types "^15.6.0"
+    warning "^4.0.1"
+
+react-fast-compare@^2.0.0:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-2.0.1.tgz#92c91ac4814aa8cfcfb04780ad1bfff2bbe3a3c6"
 
 react-full-screen@^0.2.2:
   version "0.2.2"
@@ -6789,11 +6808,11 @@ react-gateway@^3.0.0:
     prop-types "^15.5.0"
     react-prop-types "^0.4.0"
 
-react-grid-system@^3.1.2:
-  version "3.2.3"
-  resolved "https://registry.yarnpkg.com/react-grid-system/-/react-grid-system-3.2.3.tgz#5a67256c63ab3f17801fe903791428f3de174975"
+react-grid-system@^4.1.2:
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/react-grid-system/-/react-grid-system-4.1.2.tgz#1cbcafe2b5f813793e3da01482ec90dd4f97c51a"
   dependencies:
-    lodash "^4.17.5"
+    lodash "^4.17.10"
     prop-types "^15.6.1"
 
 "react-images@file:../../../../../Users/doomsower/projects/_cloned/react-images/react-images-1.0.0-alpha.1.tgz":
@@ -6879,13 +6898,15 @@ react-redux@^5.0.7:
     loose-envify "^1.1.0"
     prop-types "^15.6.0"
 
-react-resize-detector@^2.2.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/react-resize-detector/-/react-resize-detector-2.3.0.tgz#57bad1ae26a28a62a2ddb678ba6ffdf8fa2b599c"
+react-resize-detector@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/react-resize-detector/-/react-resize-detector-3.0.1.tgz#73214983c0652e96fac1e2eba39b5501de3e2a12"
   dependencies:
     lodash.debounce "^4.0.8"
+    lodash.isarray "^4.0.0"
+    lodash.isfunction "^3.0.9"
     lodash.throttle "^4.1.1"
-    prop-types "^15.6.0"
+    prop-types "^15.6.1"
     resize-observer-polyfill "^1.5.0"
 
 react-router-dom@^4.2.2:
@@ -6915,9 +6936,9 @@ react-router@^4.2.0, react-router@^4.3.1:
     prop-types "^15.6.1"
     warning "^4.0.1"
 
-react-scripts-ts@2.15.1:
-  version "2.15.1"
-  resolved "https://registry.yarnpkg.com/react-scripts-ts/-/react-scripts-ts-2.15.1.tgz#98032840e61faff65e59047036a7fa236568d503"
+react-scripts-ts@2.16.0:
+  version "2.16.0"
+  resolved "https://registry.yarnpkg.com/react-scripts-ts/-/react-scripts-ts-2.16.0.tgz#45f831a12139c3b59d6bb729c1b6ef51e0f22908"
   dependencies:
     autoprefixer "7.1.6"
     babel-jest "^22.1.0"
@@ -6933,7 +6954,7 @@ react-scripts-ts@2.15.1:
     fork-ts-checker-webpack-plugin "^0.2.8"
     fs-extra "3.0.1"
     html-webpack-plugin "2.29.0"
-    jest "22.1.4"
+    jest "22.4.2"
     object-assign "4.1.1"
     postcss-flexbugs-fixes "3.2.0"
     postcss-loader "2.0.8"
@@ -7174,18 +7195,18 @@ redux-mock-store@^1.3.0:
   dependencies:
     lodash.isplainobject "^4.0.6"
 
-redux-persist@5.9.1:
-  version "5.9.1"
-  resolved "https://registry.yarnpkg.com/redux-persist/-/redux-persist-5.9.1.tgz#83bd4abd526ef768f63fceee338fa9d8ed6552d6"
+redux-persist@5.10.0:
+  version "5.10.0"
+  resolved "https://registry.yarnpkg.com/redux-persist/-/redux-persist-5.10.0.tgz#5d8d802c5571e55924efc1c3a9b23575283be62b"
 
-redux@*:
+redux@*, redux@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/redux/-/redux-4.0.0.tgz#aa698a92b729315d22b34a0553d7e6533555cc03"
   dependencies:
     loose-envify "^1.1.0"
     symbol-observable "^1.2.0"
 
-redux@^3.6.0, redux@^3.7.2:
+redux@^3.6.0:
   version "3.7.2"
   resolved "https://registry.yarnpkg.com/redux/-/redux-3.7.2.tgz#06b73123215901d25d065be342eb026bc1c8537b"
   dependencies:
@@ -8427,9 +8448,9 @@ type-is@~1.6.15, type-is@~1.6.16:
     media-typer "0.3.0"
     mime-types "~2.1.18"
 
-type-zoo@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/type-zoo/-/type-zoo-1.2.1.tgz#978f2a825fef06f440718fa4671adf917e8b16cb"
+"type-zoo@https://github.com/marcind/type-zoo#removeRequired":
+  version "2.0.0"
+  resolved "https://github.com/marcind/type-zoo#a3fb98c4ae9e10f5aca4e6e07835f469ec270290"
 
 typedarray@^0.0.6:
   version "0.0.6"
@@ -8439,9 +8460,9 @@ typescript-fsa@^3.0.0-beta-1:
   version "3.0.0-beta-2"
   resolved "https://registry.yarnpkg.com/typescript-fsa/-/typescript-fsa-3.0.0-beta-2.tgz#1cc1d0c014c025fd51cba097776033ac4b6b753c"
 
-typescript@2.8.1:
-  version "2.8.1"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.8.1.tgz#6160e4f8f195d5ba81d4876f9c0cc1fbc0820624"
+typescript@2.9.2:
+  version "2.9.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.9.2.tgz#1cbf61d05d6b96269244eb6a3bce4bd914e0f00c"
 
 ua-parser-js@^0.7.18:
   version "0.7.18"
@@ -8657,9 +8678,9 @@ url-parse@^1.1.8, url-parse@^1.4.0, url-parse@~1.4.0:
     querystringify "^2.0.0"
     requires-port "^1.0.0"
 
-url-search-params-polyfill@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/url-search-params-polyfill/-/url-search-params-polyfill-3.0.0.tgz#145fae5b19fc72e8e0a148a2b3ee5330c58f9555"
+url-search-params-polyfill@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/url-search-params-polyfill/-/url-search-params-polyfill-4.0.0.tgz#9f51d499c500d84b43d940677f3f7ac756410167"
 
 url@^0.11.0:
   version "0.11.0"
@@ -8763,18 +8784,18 @@ vfile@^2.0.0:
     unist-util-stringify-position "^1.0.0"
     vfile-message "^1.0.0"
 
-victory-chart@^25.2.0:
-  version "25.2.5"
-  resolved "https://registry.yarnpkg.com/victory-chart/-/victory-chart-25.2.5.tgz#70625c4fbe596ca2919e1ee4a1676d5bc9b5cd3e"
+victory-chart@^27.1.0:
+  version "27.1.0"
+  resolved "https://registry.yarnpkg.com/victory-chart/-/victory-chart-27.1.0.tgz#05026852b08ae96ef74c674da31e4a44d0c60cf6"
   dependencies:
     d3-voronoi "^1.1.2"
     lodash "^4.17.5"
-    react-fast-compare "^1.0.0"
-    victory-core "^21.1.12"
+    react-fast-compare "^2.0.0"
+    victory-core "^24.0.0"
 
-victory-core@^21.1.0, victory-core@^21.1.1, victory-core@^21.1.12:
-  version "21.1.13"
-  resolved "https://registry.yarnpkg.com/victory-core/-/victory-core-21.1.13.tgz#5076e57e450af8e136fd11376ff80213904963d1"
+victory-core@^24.0.0:
+  version "24.0.1"
+  resolved "https://registry.yarnpkg.com/victory-core/-/victory-core-24.0.1.tgz#a0b377821fe62be8dfcb0d7c35a628fee4e16616"
   dependencies:
     d3-ease "^1.0.0"
     d3-interpolate "^1.1.1"
@@ -8782,23 +8803,23 @@ victory-core@^21.1.0, victory-core@^21.1.1, victory-core@^21.1.12:
     d3-shape "^1.2.0"
     d3-timer "^1.0.0"
     lodash "^4.17.5"
-    react-fast-compare "^1.0.0"
+    react-fast-compare "^2.0.0"
 
-victory-pie@^14.0.2:
-  version "14.0.2"
-  resolved "https://registry.yarnpkg.com/victory-pie/-/victory-pie-14.0.2.tgz#fc284febf9c505b5de852e34891492d607145c39"
+victory-pie@^16.1.0:
+  version "16.1.0"
+  resolved "https://registry.yarnpkg.com/victory-pie/-/victory-pie-16.1.0.tgz#12216935bef911c427f3316c80b15b9ca6563252"
   dependencies:
     d3-shape "^1.0.0"
     lodash "^4.17.5"
-    victory-core "^21.1.0"
+    victory-core "^24.0.0"
 
-victory@^0.25.6:
-  version "0.25.7"
-  resolved "https://registry.yarnpkg.com/victory/-/victory-0.25.7.tgz#7de7532ba5514f9703da880ffa06c998d86a98fb"
+victory@^0.27.2:
+  version "0.27.2"
+  resolved "https://registry.yarnpkg.com/victory/-/victory-0.27.2.tgz#1e6cdef88b29466befea194f26788549befa0ea3"
   dependencies:
-    victory-chart "^25.2.0"
-    victory-core "^21.1.1"
-    victory-pie "^14.0.2"
+    victory-chart "^27.1.0"
+    victory-core "^24.0.0"
+    victory-pie "^16.1.0"
 
 vm-browserify@0.0.4:
   version "0.0.4"
@@ -9196,7 +9217,7 @@ youtube-player@^5.4.0:
     load-script "^1.0.0"
     sister "^3.0.0"
 
-zen-observable-ts@^0.8.9:
+zen-observable-ts@^0.8.6, zen-observable-ts@^0.8.9:
   version "0.8.9"
   resolved "https://registry.yarnpkg.com/zen-observable-ts/-/zen-observable-ts-0.8.9.tgz#d3c97af08c0afdca37ebcadf7cc3ee96bda9bab1"
   dependencies:
