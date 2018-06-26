@@ -19,7 +19,7 @@ export const createMockedProvider = (queries: QueryMap = {}, mutations: QueryMap
   } catch {
     console.error('Please run clients.pretest to load typedefs');
   }
-  const schema = makeExecutableSchema({ typeDefs, resolvers: { JSON: GraphQLJSON } });
+  const schema = makeExecutableSchema({ typeDefs, resolvers: { JSON: GraphQLJSON } } as any);
   addMockFunctionsToSchema({
     schema,
     mocks: {

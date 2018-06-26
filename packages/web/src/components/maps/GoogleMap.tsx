@@ -82,7 +82,7 @@ export default class GoogleMap extends React.Component<Props, State> {
     }
     this.map = new google.maps.Map(
       findDOMNode(ref) as Element,
-      { center: DEFAULT_CENTER, zoom: this.state.zoom },
+      { center: DEFAULT_CENTER, zoom: this.state.zoom, keyboardShortcuts: false },
     );
 
     this.map.addListener('zoom_changed', this.onZoom);
