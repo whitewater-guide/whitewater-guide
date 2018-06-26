@@ -1,6 +1,6 @@
 {
   "name": "web",
-  "version": "0.1.164",
+  "version": "0.1.165",
   "private": true,
   "homepage": "/admin/",
   "dependencies": {
@@ -33,6 +33,7 @@
     "mitt": "^1.1.3",
     "moment": "^2.22.1",
     "moment-timezone": "^0.5.16",
+    "prismjs": "^1.15.0",
     "prop-types": "^15.6.1",
     "qs": "^6.5.1",
     "react": "^16.3.2",
@@ -48,6 +49,7 @@
     "react-images": "file:/Users/doomsower/projects/_cloned/react-images/react-images-1.0.0-alpha.1.tgz",
     "react-jss": "^8.4.0",
     "react-markdown": "^3.3.0",
+    "react-prism": "^4.3.2",
     "react-rating": "^1.1.2",
     "react-redux": "^5.0.7",
     "react-resize-detector": "^3.0.1",

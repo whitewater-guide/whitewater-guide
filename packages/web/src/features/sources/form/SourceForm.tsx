@@ -1,7 +1,7 @@
 import { Tab } from 'material-ui/Tabs';
 import React from 'react';
 import { Tabs } from '../../../components';
-import { ChipInput, DraftEditor, Form, Select, TextInput } from '../../../components/forms';
+import { ChipInput, DraftField, Form, Select, TextInput } from '../../../components/forms';
 import { SourceFormProps } from './types';
 
 export default class SourceForm extends React.PureComponent<SourceFormProps> {
@@ -17,7 +17,7 @@ export default class SourceForm extends React.PureComponent<SourceFormProps> {
             <TextInput fullWidth name="cron" title="Cron" />
           </Tab>
           <Tab label="Terms Of Use" value="#terms">
-            <DraftEditor name="description" />
+            <DraftField name="description" />
           </Tab>
         </Tabs>
       </Form>
