@@ -40,6 +40,7 @@ class StringArrayInputComponent extends React.PureComponent<Props> {
         onRequestAdd={this.onRequestAdd}
         onRequestDelete={this.onRequestDelete}
         onBlur={this.onBlur}
+        newChipKeyCodes={[13, 188, 59]}
       />
     );
   }
