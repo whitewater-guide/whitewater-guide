@@ -25,9 +25,12 @@ export default function* fbSaga() {
 }
 
 function* watchLoginWithFb() {
+  LoginManager.logOut();
   const result: LoginResult =
     yield apply(LoginManager, LoginManager.logInWithReadPermissions, [['public_profile', 'email']]);
-  yield call(authWithFbToken, true);
+  if (!result.isCancelled) {
+    yield call(authWithFbToken, true);
+  }
 }
 
 function* watchLogoutWithFb() {
@@ -50,6 +53,12 @@ function* authWithFbToken(reset?: boolean) {
     }
     yield put(loginWithFB.done({ params: {}, result: {}}));
   } catch (e) {
+    // For some reason sometimes this request fails without reaching backend
+    if (!e.response && e.request._response === 'The network connection was lost.') {
+      yield call(authWithFbToken, reset);
+      return;
+    }
+
     trackError('auth', e);
     const error: AuthError = {
       title: 'i18 title',
@@ -57,6 +66,7 @@ function* authWithFbToken(reset?: boolean) {
       error: e,
     };
     yield put(loginWithFB.failed({ params: {}, error }));
+    LoginManager.logOut();
   }
 }
 
