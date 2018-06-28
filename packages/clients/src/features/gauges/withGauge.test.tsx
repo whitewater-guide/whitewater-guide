@@ -9,13 +9,13 @@ let receiver: Receiver<WithGauge>;
 beforeEach(async () => {
   casual.seed(1);
   const MockedProvider = createMockedProvider();
-  const WithData = withGauge()(Receiver);
+  const WithData = withGauge()(Receiver as any);
   const wrapped = mount(
     <MockedProvider>
       <WithData gaugeId="foo" />
     </MockedProvider>,
   );
-  receiver = wrapped.find(Receiver).first().instance() as any;
+  receiver = wrapped.find(Receiver as any).first().instance() as any;
   await flushPromises();
 });
 

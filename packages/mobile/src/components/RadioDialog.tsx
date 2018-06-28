@@ -30,13 +30,10 @@ interface State {
 }
 
 export class RadioDialog extends React.PureComponent<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      open: false,
-      value: props.keyExtractor(props.value),
-    };
-  }
+  readonly state: State = {
+    open: false,
+    value: this.props.keyExtractor(this.props.value),
+  };
 
   onValueChange = (value: string) => this.setState({ value });
 

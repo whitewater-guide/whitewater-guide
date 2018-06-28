@@ -1,5 +1,4 @@
-import { NavigationState, NavigationStateRoute } from 'react-navigation';
-import { NavigationRoute } from 'react-navigation';
+import { NavigationRoute, NavigationState, NavigationStateRoute } from 'react-navigation';
 import { shallowEqual } from 'recompose';
 
 const hasLeafs = (route: NavigationRoute): route is NavigationStateRoute<any> => route.hasOwnProperty('index');
@@ -7,10 +6,16 @@ const hasLeafs = (route: NavigationRoute): route is NavigationStateRoute<any> =>
 export const getNavigationDotPath = (state: NavigationRoute): string => {
   if (hasLeafs(state)) {
     const s = state as NavigationStateRoute<any>;
+    // tslint:disable-next-line:prefer-template
     return s.routeName + '.' + getNavigationDotPath(s.routes[s.index]);
   }
   return state.routeName;
 };
+
+function isStateRoute(route: NavigationRoute<any>): route is NavigationStateRoute<any> {
+  // tslint:disable-next-line
+  return (<NavigationStateRoute<any>> route).routes !== undefined;
+}
 
 export const getCurrentRoute = (navigationState: NavigationState): NavigationRoute | null => {
   if (!navigationState) {
@@ -18,7 +23,7 @@ export const getCurrentRoute = (navigationState: NavigationState): NavigationRou
   }
   const route = navigationState.routes[navigationState.index];
   // dive into nested navigators
-  if (route.routes) {
+  if (isStateRoute(route)) {
     return getCurrentRoute(route);
   }
   return route;

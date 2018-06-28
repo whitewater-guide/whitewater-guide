@@ -1,4 +1,4 @@
-import { NavigationInjectedProps } from '../../../typings/react-navigation';
+import { NavigationInjectedProps } from 'react-navigation';
 import { WithT } from '../../i18n';
 import { RegionContext } from '../../ww-clients/features/regions';
 import { WithTags } from '../../ww-commons';

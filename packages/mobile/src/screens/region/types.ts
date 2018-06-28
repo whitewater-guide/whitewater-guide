@@ -1,6 +1,6 @@
-import { NavigationScreenProps } from '../../../typings/react-navigation';
+import { NavigationScreenProps } from 'react-navigation';
 import { WithList, WithNode } from '../../ww-clients/apollo';
-import { RegionContext, WithRegion } from '../../ww-clients/features/regions';
+import { RegionContext } from '../../ww-clients/features/regions';
 import { WithSectionsList } from '../../ww-clients/features/sections';
 import { Region, Section } from '../../ww-commons';
 

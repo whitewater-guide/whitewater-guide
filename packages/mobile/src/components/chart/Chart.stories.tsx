@@ -71,6 +71,7 @@ storiesOf('Chart')
   ))
   .add('With empty data', () => (
     <Chart
+      days={1}
       loading={false}
       data={[]}
       unit={Unit.LEVEL}
@@ -79,6 +80,7 @@ storiesOf('Chart')
   ))
   .add('With daily data', () => (
     <Chart
+      days={1}
       loading={false}
       data={daily}
       unit={Unit.LEVEL}
@@ -87,6 +89,7 @@ storiesOf('Chart')
   ))
   .add('With weekly data', () => (
     <Chart
+      days={7}
       loading={false}
       data={weekly}
       unit={Unit.LEVEL}
@@ -95,6 +98,7 @@ storiesOf('Chart')
   ))
   .add('With monthly data', () => (
     <Chart
+      days={31}
       loading={false}
       data={monthly}
       unit={Unit.LEVEL}
@@ -103,6 +107,7 @@ storiesOf('Chart')
   ))
   .add('With close bindings', () => (
     <Chart
+      days={7}
       loading={false}
       data={weekly}
       unit={Unit.FLOW}
@@ -113,6 +118,7 @@ storiesOf('Chart')
   .add('With distant bindings', () => (
     <Chart
       loading={false}
+      days={7}
       data={weekly}
       unit={Unit.FLOW}
       gauge={gauge}

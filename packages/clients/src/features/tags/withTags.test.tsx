@@ -10,7 +10,7 @@ let receiver: Receiver<WithTags>;
 beforeEach(async () => {
   casual.seed(1);
   const MockedProvider = createMockedProvider();
-  const WithData = withTags(false)(Receiver);
+  const WithData = withTags(false)(Receiver as any);
   const wrapped = mount(
     (
       <MockedProvider>
@@ -18,7 +18,7 @@ beforeEach(async () => {
       </MockedProvider>
     ),
   );
-  receiver = wrapped.find(Receiver).first().instance() as any;
+  receiver = wrapped.find(Receiver as any).first().instance() as any;
   await flushPromises();
 });
 

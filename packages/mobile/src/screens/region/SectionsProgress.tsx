@@ -40,12 +40,9 @@ interface State {
 }
 
 class SectionsProgress extends React.PureComponent<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = { isLoading: props.isLoading };
-  }
+  readonly state: State = { isLoading: this.props.isLoading };
 
-  updateState = debounce(this.setState, 200);
+  updateState: any = debounce(this.setState, 200);
 
   componentWillReceiveProps(next: Props) {
     if (next.isLoading !== this.props.isLoading) {

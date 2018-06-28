@@ -1,4 +1,4 @@
-import { NavigationScreenProps } from '../../../typings/react-navigation';
+import { NavigationScreenProps } from 'react-navigation';
 import { WithNode } from '../../ww-clients/apollo';
 import { WithSection } from '../../ww-clients/features/sections';
 import { Section } from '../../ww-commons';

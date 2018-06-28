@@ -8,12 +8,9 @@ interface State {
 }
 
 export class RefreshIndicator extends React.PureComponent<RefreshControlProps, State> {
-  constructor(props: RefreshControlProps) {
-    super(props);
-    this.state = { refreshing: props.refreshing };
-  }
+  readonly state: State = { refreshing: this.props.refreshing };
 
-  updateState = debounce(this.setState, 450);
+  updateState: any = debounce(this.setState, 450);
 
   componentWillReceiveProps(next: RefreshControlProps) {
     this.updateState({ refreshing: next.refreshing });

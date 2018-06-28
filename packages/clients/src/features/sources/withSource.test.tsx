@@ -9,13 +9,13 @@ let receiver: Receiver<WithSource>;
 beforeEach(async () => {
   casual.seed(1);
   const MockedProvider = createMockedProvider();
-  const WithData = withSource()(Receiver);
+  const WithData = withSource()(Receiver as any);
   const wrapped = mount(
     <MockedProvider>
       <WithData sourceId="foo" />
     </MockedProvider>,
   );
-  receiver = wrapped.find(Receiver).first().instance() as any;
+  receiver = wrapped.find(Receiver as any).first().instance() as any;
   await flushPromises();
 });
 

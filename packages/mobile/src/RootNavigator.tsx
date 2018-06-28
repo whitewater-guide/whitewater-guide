@@ -76,7 +76,7 @@ class RootNavigatorView extends React.PureComponent<Props> {
     return (
       <RegionProvider regionId={regionId}>
         <Drawer navigation={navigation as any}>
-          <Navigator navigation={navigation} />
+          <Navigator navigation={navigation as any} />
         </Drawer>
       </RegionProvider>
     );

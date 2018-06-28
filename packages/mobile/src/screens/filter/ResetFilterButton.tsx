@@ -1,8 +1,8 @@
 import React from 'react';
 import { translate } from 'react-i18next';
 import { Button } from 'react-native-paper';
+import { NavigationInjectedProps } from 'react-navigation';
 import { compose } from 'recompose';
-import { NavigationInjectedProps } from '../../../typings/react-navigation';
 import { WithT } from '../../i18n';
 import theme from '../../theme';
 import { consumeRegion, RegionContext } from '../../ww-clients/features/regions';

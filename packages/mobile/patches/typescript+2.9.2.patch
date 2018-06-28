@@ -43,3 +43,11 @@ patch-package
  declare var onpointercancel: ((this: Window, ev: PointerEvent) => any) | null;
  declare var onpointerdown: ((this: Window, ev: PointerEvent) => any) | null;
  declare var onpointerenter: ((this: Window, ev: PointerEvent) => any) | null;
+@@ -15994,7 +15980,6 @@ type MSLocalClientEvent = MSLocalClientEventBase | MSAudioLocalClientEvent;
+ type MSOutboundPayload = MSVideoSendPayload | MSAudioSendPayload;
+ type RTCIceGatherCandidate = RTCIceCandidateDictionary | RTCIceCandidateComplete;
+ type RTCTransport = RTCDtlsTransport | RTCSrtpSdesTransport;
+-type RequestInfo = Request | string;
+ type USVString = string;
+ type payloadtype = number;
+ type BufferSource = ArrayBuffer | ArrayBufferView;

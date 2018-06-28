@@ -69,12 +69,9 @@ const stateToSearchTerms = (state: State): SectionSearchTerms => {
 
 export default class FilterScreenContent extends React.PureComponent<InnerProps, State> {
 
-  constructor(props: InnerProps) {
-    super(props);
-    this.state = propsToState(props);
-  }
+  readonly state: State = propsToState(this.props);
 
-  onChange = memoize(
+  onChange: any = memoize(
     (key: keyof State) => (value: any) => this.setState({ [key]: value } as any),
   );
 

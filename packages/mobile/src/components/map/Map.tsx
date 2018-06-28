@@ -35,9 +35,10 @@ export class MapView extends React.PureComponent<MapComponentProps, State> {
   _initialRegion: any;
   _initialRegionSet: boolean = false;
 
+  readonly state: State = { showMyLocationAndroidWorkaround: false };
+
   constructor(props: MapComponentProps) {
     super(props);
-    this.state = { showMyLocationAndroidWorkaround: false };
     this._initialRegion = getBoundsDeltaRegion(props.initialBounds);
   }
 

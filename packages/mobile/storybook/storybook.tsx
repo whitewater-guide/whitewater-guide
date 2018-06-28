@@ -1,6 +1,7 @@
 import { configure, getStorybookUI } from '@storybook/react-native';
 import React from 'react';
 import { AppRegistry } from 'react-native';
+// @ts-ignore
 import { loadStories } from './storyLoader';
 
 // import stories

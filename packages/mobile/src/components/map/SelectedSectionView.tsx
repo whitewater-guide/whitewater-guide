@@ -89,17 +89,14 @@ interface State {
 
 class SelectedSectionViewInternal extends React.Component<Props, State> {
 
+  readonly state: State = { section: this.props.selectedSection };
+
   static getDerivedStateFromProps(nextProps: Props, prevState: State): State {
     // Keep section as state to prevent flash of empty content before panel hides
     if (nextProps.selectedSection) {
       return { ...prevState, section: nextProps.selectedSection };
     }
     return prevState;
-  }
-
-  constructor(props: Props) {
-    super(props);
-    this.state = { section: props.selectedSection };
   }
 
   shouldComponentUpdate(next: Props) {
