@@ -104,6 +104,7 @@ const theme = {
   screenHeight,
   screenWidthPx: Math.round(screenWidth * PixelRatio.get()),
   screenHeightPx: Math.round(screenHeight * PixelRatio.get()),
+  elevation: 2,
 };
 
 export default theme;

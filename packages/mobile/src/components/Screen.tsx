@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.primaryBackground,
   },
   padding: {
-    padding: 8,
+    padding: theme.margin.single,
   },
 });
 

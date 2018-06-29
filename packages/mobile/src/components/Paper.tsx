@@ -1,16 +1,19 @@
 import glamorous, { GlamorousComponent } from 'glamorous-native';
-import { StyleSheet } from 'react-native';
+import { StyleProp, StyleSheet, ViewStyle } from 'react-native';
 import { Paper as RNPaper } from 'react-native-paper';
 import theme from '../theme';
 
 interface PaperProps {
   noPad?: boolean;
   doublePad?: boolean;
+  gutterBottom?: boolean;
+  style?: StyleProp<ViewStyle>;
 }
 
 const styles = StyleSheet.create({
   base: {
     padding: theme.margin.single,
+    elevation: theme.elevation,
   },
   noPad: {
     padding: 0,
@@ -18,18 +21,20 @@ const styles = StyleSheet.create({
   doublePad: {
     padding: theme.margin.double,
   },
+  gutterBottom: {
+    marginBottom: theme.margin.single,
+  },
 });
 
-const separatorFactory = glamorous<{}>(RNPaper);
+const paperFactory = glamorous<{}>(RNPaper);
 
-export const Paper: GlamorousComponent<{}, PaperProps> = separatorFactory(
+export const Paper: GlamorousComponent<PaperProps, {}> = paperFactory(
   styles.base,
   (props: PaperProps) => {
-    if (props.noPad) {
-      return styles.noPad
-    } else if (props.doublePad) {
-      return styles.doublePad;
-    }
-    return null;
+    return [
+      props.noPad && styles.noPad,
+      props.doublePad && styles.doublePad,
+      props.gutterBottom && styles.gutterBottom,
+    ];
   },
 );
