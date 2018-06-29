@@ -16,7 +16,7 @@ const PurchasesListView: React.SFC<WithT> = ({ t }) => (
         if (loading) {
           return <Loading />;
         }
-        const { myPurchases: { me: { purchasedGroups, purchasedRegions } }} = data;
+        const { me: { purchasedGroups, purchasedRegions } } = data;
         return [
           ...purchasedGroups.map((group) => (
             <PurchaseItem key={group.id} group={group} />

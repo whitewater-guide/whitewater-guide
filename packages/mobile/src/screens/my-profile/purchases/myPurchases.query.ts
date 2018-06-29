@@ -18,7 +18,5 @@ export const MY_PURCHASES_QUERY = gql`
 `;
 
 export interface Result {
-  myPurchases: {
-    me: Pick<User, 'id' | 'purchasedRegions' | 'purchasedGroups'>;
-  };
+  me: Pick<User, 'id' | 'purchasedRegions' | 'purchasedGroups'>;
 }
