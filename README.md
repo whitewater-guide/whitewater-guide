@@ -113,13 +113,13 @@ Husky is installed in project root to ensure that hooks are properly set up afte
 | local:start        | creates, starts (if necessary) local machine, prepares all folders in host vm, uploads images. DOES NOT DEPLOY. 
 | local:cleanup      | Stops docker stack and wipes filesystem on `ww-local` docker-machine
 | local:prepare      | Prepares `ww-local` docker machine by creating necessary dirs. Should be run every time docker-machine starts              |
-| local:publish      | Builds stack images, tags them as `local.<version>`, pushes them to AWS ECR. <br/> Pass `--container <xxx>` one or many times to rebuild only those containers.
+| local:publish      | Builds stack images, tags them as `local.<version>`, pushes them to AWS ECR. <br/> Pass `--service <xxx>` one or many times to rebuild only those services.
 | local:deploy       | Deploys updates to `ww-local` machine. <br/> Uses versions from `package.json`s. All images must be published beforehand.
 | staging:publish    | Same as `local:publish`
 | staging:deploy     | Same as `local:deploy`
 | staging:cleanup    | Same as `local:cleanup`, but keeps caddy certificates dir
 | staging:images     | Same as `local:images`
-| staging:update     | Updates one particular service in stack (`docker service update --image`), uses version from `package.json`<br> pass package name via (mandatory) `--image` flag.
+| staging:update     | Updates one particular service in stack (`docker service update --service`), uses version from `package.json`<br> pass package name via (mandatory) `--service` flag.
 | wml:start          | Starts WML |
 
 ## Development
@@ -174,7 +174,7 @@ Here are deployment steps:
     - Connects to docker-machine in `docker-machine env` fashion
     - Prunes old ( > 72h) unused images on this machine
     - Deploys the stack using `docker stack deploy`
-8. Run `<env>:update --image <image_name>` to update image version of service in stack.
+8. Run `<env>:update --service <service_name>` to update image version of service in stack.
     - Version number is read from `package.json`, therefore it must be published in advance
     - Logs into AWS ECR using read-only credentials from secretly commited `.aws-ecr` file.
     

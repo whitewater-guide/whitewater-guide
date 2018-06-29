@@ -6,7 +6,7 @@ const setupEnv = require('./src/setupEnv');
 const dockerLogin = require('./src/dockerLogin');
 const setDockerMachineEnv = require('./src/setDockerMachineEnv');
 const { STACK_NAME } = require('./src/constants');
-const argv = require('yargs').argv;
+const { argv } = require('yargs');
 
 async function deploy() {
   // ---------- parse cli arguments

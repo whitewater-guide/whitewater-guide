@@ -6,7 +6,7 @@ const { STACK_NAME } = require('./src/constants');
 const setupEnv = require('./src/setupEnv');
 const dockerLogin = require('./src/dockerLogin');
 const setDockerMachineEnv = require('./src/setDockerMachineEnv');
-const argv = require('yargs').argv;
+const { argv } = require('yargs');
 
 async function update() {
   // ---------- parse cli arguments
@@ -15,12 +15,12 @@ async function update() {
     console.error('Environment (local/staging/production) is required. Specify via --env');
     return;
   }
-  let images = [];
-  if (argv.image) {
-    images = Array.isArray(argv.image) ? argv.image : [argv.image];
+  let services = [];
+  if (argv.service) {
+    services = Array.isArray(argv.service) ? argv.service : [argv.service];
   }
-  if (images.length === 0) {
-    console.error('Specify list of images to update via --image');
+  if (services.length === 0) {
+    console.error('Specify list of services to update via --service');
     return;
   }
   const machineName = argv.machine;
@@ -36,8 +36,8 @@ async function update() {
   // load docker-machine env
   setDockerMachineEnv(machineName);
 
-  for (const image of images) {
-    const packagePath = resolve('packages', image, 'package.json');
+  for (const service of services) {
+    const packagePath = resolve('packages', service, 'package.json');
     const version = require(packagePath).version;
     spawnSync(
       'docker',
@@ -46,8 +46,8 @@ async function update() {
         'update',
         '--with-registry-auth',
         '--image',
-        `${process.env.DOCKER_REGISTRY_PREFIX}${image}:${environment}.${version}`,
-        `${STACK_NAME}_${image}`,
+        `${process.env.DOCKER_REGISTRY_PREFIX}${service}:${environment}.${version}`,
+        `${STACK_NAME}_${service}`,
       ],
       {
         stdio: 'inherit',
