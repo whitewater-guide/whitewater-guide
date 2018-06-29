@@ -9,6 +9,7 @@ import { observer } from 'mobx-react';
 import React from 'react';
 import { Omit } from 'type-zoo';
 import { StepFooter } from '../../components';
+import Button from '@material-ui/core/Button';
 import { BoomPromoInfo, Region } from '../../ww-commons';
 import Footer from './Footer';
 import { ConfirmStepStore } from './store';
@@ -55,25 +56,38 @@ class ConfirmStepView extends React.Component<Props> {
     this.store.reset();
   };
 
+  onRestart = () => window.location.reload(true);
+
+  getPrize = () => {
+    const { region, promo } = this.props;
+    if (region) {
+      return <>{`один регион на выбор - `}<strong>{region.name}</strong></>;
+    }
+    return <strong>{promo.groupSku === 'group.all' ? 'все регионы' : 'регионы Европы и СНГ на русском'}</strong>;
+  };
+
   renderSuccess = () => (
     <React.Fragment>
       <Typography gutterBottom variant="headline">Успех!</Typography>
-      <Typography variant="subheading">Промокод был активирован</Typography>
+      <Typography gutterBottom variant="subheading">
+        Промокод был активирован
+      </Typography>
+      <Typography gutterBottom>
+        {`Вознаграждение: `}
+        {this.getPrize()}
+      </Typography>
+      <Typography>Теперь войдите в приложение whitewater.guide под вашим аккаунтом facebook</Typography>
       <Footer />
+      <Button color="primary" onClick={this.onRestart} size="small">
+        Начать заново
+      </Button>
     </React.Fragment>
   );
 
   renderConfirmation = () => {
-    const { classes, username, region, promo } = this.props;
+    const { classes, username, promo } = this.props;
     if (!promo) {
       return null;
-    }
-    let prize: React.ReactNode;
-    // tslint:disable-next-line:prefer-conditional-expression
-    if (region) {
-      prize = <>{`один регион на выбор - `}<strong>{region.name}</strong></>;
-    } else {
-      prize = <strong>{promo.groupSku === 'group.all' ? 'все регионы' : 'регионы Европы и СНГ'}</strong>;
     }
     return (
       <React.Fragment>
@@ -85,7 +99,7 @@ class ConfirmStepView extends React.Component<Props> {
         <Typography component="ul">
           <li>
             {`Вознаграждение: `}
-            {prize}
+            {this.getPrize()}
           </li>
           <li>
             {'Спонсор: '}

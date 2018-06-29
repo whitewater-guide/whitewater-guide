@@ -12,6 +12,7 @@ const styles: StyleRulesCallback<ClassNames> = (theme) => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    flexWrap: 'wrap',
   },
   image: {
     height: 48,

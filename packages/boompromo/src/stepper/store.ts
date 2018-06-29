@@ -27,16 +27,21 @@ export class StepperStore {
   }
 
   @action.bound prevStep() {
+    let step = 1;
     switch (this.activeStep) {
       case 3:
         this.region = null;
+        this.completed.set(this.activeStep - 1, false);
+        if (this.promoInfo && this.promoInfo.groupSku) {
+          step = 2;
+        }
         break;
       case 2:
         this.promoInfo = null;
         break;
     }
-    this.completed.set(this.activeStep - 1, false);
-    this.activeStep -= 1;
+    this.completed.set(this.activeStep - step, false);
+    this.activeStep -= step;
   }
 
   onLoginReceived = (username: string) => {

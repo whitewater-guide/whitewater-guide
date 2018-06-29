@@ -65,7 +65,7 @@ storiesOf('ConfirmStepView', module)
       />
     );
   })
-  .add('success', () => {
+  .add('success - single region', () => {
     const store = getMockStore();
     store.success = true;
     return (
@@ -73,6 +73,32 @@ storiesOf('ConfirmStepView', module)
         username="Вася Пупкин"
         promo={{ id: 'x', groupSku: null, groupName: null, code: 'qwertyui', redeemed: false }}
         region={{ id: 'aa', name: 'Грузия', ski: 'region.georgia' } as any}
+        prev={action('prev')}
+        store={store}
+      />
+    );
+  })
+  .add('success - group all', () => {
+    const store = getMockStore();
+    store.success = true;
+    return (
+      <ConfirmStepView
+        username="Вася Пупкин"
+        promo={{ id: 'x', groupSku: 'group.all', groupName: 'Все регионы', code: 'qwertyui', redeemed: false }}
+        region={null}
+        prev={action('prev')}
+        store={store}
+      />
+    );
+  })
+  .add('success - group eu cis', () => {
+    const store = getMockStore();
+    store.success = true;
+    return (
+      <ConfirmStepView
+        username="Вася Пупкин"
+        promo={{ id: 'x', groupSku: 'group.boom1000', groupName: 'Промо за 1000', code: 'qwertyui', redeemed: false }}
+        region={null}
         prev={action('prev')}
         store={store}
       />
