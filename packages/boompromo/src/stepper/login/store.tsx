@@ -1,7 +1,7 @@
 import noop from 'lodash/noop';
 import { computed, flow, observable } from 'mobx';
 import { FacebookProfile, getLoginStatus, getMyFacebookProfile, loadFacebookSDK, login, logout } from '../../auth/fb';
-import { wwLogin } from '../../auth/ww';
+import { wwLogin, wwLogout } from '../../auth/ww';
 import { ILoginStepStore } from './types';
 
 export class LoginStepStore implements ILoginStepStore {
@@ -50,6 +50,7 @@ export class LoginStepStore implements ILoginStepStore {
     this.facebookLoading = true;
     yield logout();
     this.facebookLoading = false;
+    yield wwLogout();
     this.me = null;
   }).bind(this);
 
