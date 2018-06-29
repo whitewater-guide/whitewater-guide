@@ -48,6 +48,11 @@ export default {
     general: 'General',
     language: 'Language',
     logout: 'Log out',
+    purchases: {
+      title: 'My purchases',
+      region: 'Region',
+      group: 'Regions pack',
+    },
   },
   regionsList: {
     title: 'Regions',

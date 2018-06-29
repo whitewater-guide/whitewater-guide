@@ -48,6 +48,11 @@ export default {
     general: 'Основные настройки',
     language: 'Язык',
     logout: 'Выйти',
+    purchases: {
+      title: 'Мои покупки',
+      region: 'Регион',
+      group: 'Пакет регионов',
+    },
   },
   regionsList: {
     title: 'Регионы',

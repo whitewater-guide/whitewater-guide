@@ -208,8 +208,9 @@ ssh into docker machine and run
 ```
 docker run -e S3_ACCESS_KEY_ID=xxx \
            -e S3_SECRET_ACCESS_KEY=xxxx \
-           -e S3_BUCKET=bucket \
+           -e S3_BUCKET=backup.whitewater.guide \
            -e S3_PREFIX=production \
+           -e S3_REGION=eu-central-1 \
            -e POSTGRES_DATABASE=wwguide \
            -e POSTGRES_USER=postgres \
            -e POSTGRES_PASSWORD=xxxx \

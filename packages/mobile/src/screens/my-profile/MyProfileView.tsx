@@ -4,6 +4,7 @@ import { Button, Divider, Subheading } from 'react-native-paper';
 import { Paper, RadioDialog, Screen, Spacer, } from '../../components';
 import { LANGUAGE_NAMES, SUPPORTED_LANGUAGES } from '../../i18n';
 import theme from '../../theme';
+import { PurchasesListView } from './purchases';
 import { InnerProps } from './types';
 
 const labelExtractor = (code: string) => LANGUAGE_NAMES[code];
@@ -39,6 +40,7 @@ class MyProfileView extends React.PureComponent<InnerProps> {
             labelExtractor={labelExtractor}
           />
         </Paper>
+        <PurchasesListView />
         <Spacer />
         <Button primary raised onPress={this.props.logout}>
           {t('myProfile:logout')}
