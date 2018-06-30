@@ -58,6 +58,7 @@ export default {
     title: 'Регионы',
     riversCount: 'Рек',
     sectionsCount: 'Секций',
+    gaugesCount: 'Гидропостов',
   },
   region: {
     info: {

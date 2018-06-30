@@ -58,6 +58,7 @@ export default {
     title: 'Regions',
     riversCount: 'Rivers',
     sectionsCount: 'Sections',
+    gaugesCount: 'Gauges',
   },
   region: {
     info: {

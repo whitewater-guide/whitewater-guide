@@ -8,7 +8,7 @@ import { OuterProps } from './types';
 const RegionsListWithData: React.ComponentType<OuterProps> = container(RegionsListView);
 
 export const RegionsListScreen: NavigationScreenComponent = ({ navigation }) =>  (
-  <Screen noScroll>
+  <Screen noScroll noPadding>
     <RegionsListWithData navigate={navigation.navigate} />
   </Screen>
 );
