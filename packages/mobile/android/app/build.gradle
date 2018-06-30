@@ -177,6 +177,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-linear-gradient')
     compile project(':react-native-code-push')
     implementation project(':react-native-firebase')
     implementation(project(':react-native-maps')){

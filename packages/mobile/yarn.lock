@@ -9299,6 +9299,12 @@ react-native-languages@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/react-native-languages/-/react-native-languages-2.0.0.tgz#131062ad7e3a8b882dc485846b9ab7f024044dc3"
 
+react-native-linear-gradient@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-linear-gradient/-/react-native-linear-gradient-2.4.0.tgz#51d8ea12bb72a59bede9edc87b694b16b64cf435"
+  dependencies:
+    prop-types "^15.5.10"
+
 react-native-maps@react-community/react-native-maps:
   version "0.21.0"
   resolved "https://codeload.github.com/react-community/react-native-maps/tar.gz/ceed47f2297630c4616359f41d96a56eae76f1fd"
