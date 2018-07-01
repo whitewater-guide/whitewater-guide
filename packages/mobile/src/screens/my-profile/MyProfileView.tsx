@@ -1,7 +1,7 @@
 import identity from 'lodash/identity';
 import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
-import { Button, Divider, Subheading, Title } from 'react-native-paper';
+import { Button, Divider, Title } from 'react-native-paper';
 import { Avatar, Paper, RadioDialog, Screen } from '../../components';
 import { LANGUAGE_NAMES, SUPPORTED_LANGUAGES } from '../../i18n';
 import theme from '../../theme';

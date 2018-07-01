@@ -61,19 +61,22 @@ class RegionCard extends React.PureComponent<Props> {
   onPress = () => this.props.onPress(this.props.region);
 
   renderPremium = () => {
-    const open = Math.random() > 0.5;
-    if (open) {
+    const { premium, hasPremiumAccess } = this.props.region;
+    if (!premium) {
+      return null;
+    }
+    if (hasPremiumAccess) {
       return (
         <React.Fragment>
-          <Caption style={styles.premium}>Premium</Caption>
-          <Icon icon="lock" color={theme.colors.primary} size={16} />
+          <Caption style={styles.premiumUnlocked}>Premium</Caption>
+          <Icon icon="lock-open-outline" color={theme.colors.componentBorder} size={16} />
         </React.Fragment>
       );
     }
     return (
       <React.Fragment>
-        <Caption style={styles.premiumUnlocked}>Premium</Caption>
-        <Icon icon="lock-open-outline" color={theme.colors.componentBorder} size={16} />
+        <Caption style={styles.premium}>Premium</Caption>
+        <Icon icon="lock" color={theme.colors.primary} size={16} />
       </React.Fragment>
     );
   };

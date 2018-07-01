@@ -8,6 +8,7 @@ export default gql`
         name
         hidden
         premium
+        hasPremiumAccess
         editable
         sku
         rivers { count }
