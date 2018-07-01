@@ -74,10 +74,16 @@ type RegionsList {
   count: Int!
 }
 
+type RegionMediaForm {
+  upload: UploadLink!
+}
+
+
 type Query {
   regions(page: Page): RegionsList!
   region(id: ID): Region
   regionEditors(regionId: ID!): [User!] @admin
+  regionMediaForm(regionId: ID): RegionMediaForm @admin
 }
 
 type Mutation {

@@ -21,7 +21,7 @@ input Page {
 type UploadLink {
   postURL: String!
   formData: JSON!
-  key: String!
+  key: String
 }
 
 schema {
