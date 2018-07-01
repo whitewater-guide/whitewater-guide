@@ -19,5 +19,5 @@ export const formatError = (error: any) => {
 
   logger.error(e);
 
-  return e;
+  return e as any;
 };

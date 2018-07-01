@@ -1,5 +1,5 @@
 import { DirectiveNode, GraphQLField, GraphQLObjectType, GraphQLSchema } from 'graphql';
-import { SchemaVisitor } from 'graphql-tools';
+import { SchemaVisitor } from 'graphql-tools/dist/schemaVisitor';
 
 const isAdmin = (field: GraphQLField<any, any>): boolean =>
   !!field.astNode &&

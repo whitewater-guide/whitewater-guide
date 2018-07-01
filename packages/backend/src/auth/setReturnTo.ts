@@ -3,7 +3,7 @@ import getOrigin from './getOrigin';
 import isValidRedirect from './isValidRedirect';
 
 function getLoginRedirect(req: Koa.Request) {
-  const url = req.query.returnTo || req.body.returnTo || '/';
+  const url = req.query.returnTo || (req.body! as any).returnTo || '/';
   if (!isValidRedirect(url)) {
     return '/';
   }

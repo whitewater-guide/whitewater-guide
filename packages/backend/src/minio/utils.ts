@@ -1,6 +1,9 @@
 import { CopyConditions } from 'minio';
+import log from '../log';
 import { TEMP } from './buckets';
 import { minioClient } from './client';
+
+const logger = log.child({ module: 'minio' });
 
 export const getTempPostPolicy = async (key?: string) => {
   const policy = minioClient.newPostPolicy();
@@ -37,5 +40,7 @@ export const moveTempImage = async (url: string, toBucket: string): Promise<void
   try {
     await minioClient.copyObject(toBucket, filename!, `/${TEMP}/${filename}`, new CopyConditions());
     await minioClient.removeObject(TEMP, filename!);
-  } catch {/*Ignore*/}
+  } catch (e) {
+    logger.error(`Error while moving file ${filename}: ${e.message}`);
+  }
 };

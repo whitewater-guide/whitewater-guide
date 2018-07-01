@@ -51,7 +51,7 @@ export const getPrimitives = <T>(
       const mappedArr = castArray(mapped).map((column) => `${prefix}.${column}`);
       return mapped ?  [...result, ...mappedArr] : result;
     }
-    return [...result, `${prefix}.${snakeCase(field)}`];
+    return [...result, `${prefix}.${snakeCase(field.toString())}`];
   }, []);
 };
 
@@ -152,6 +152,8 @@ export const buildListQuery = <T>(options: ListQueryBuilderOptions<T>) => {
     knex = db(),
     id, // ignored
     context,
+    // TS1013: A rest parameter or binding pattern may not have a trailing comma
+    // @ts-ignore
     ...rest,
   } = options;
   const { limit, offset } = page || { limit: null, offset: null };

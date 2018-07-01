@@ -1,5 +1,6 @@
 import { GraphQLSchema } from 'graphql';
-import { makeExecutableSchema, visitSchema } from 'graphql-tools';
+import { makeExecutableSchema } from 'graphql-tools';
+import { visitSchema } from 'graphql-tools/dist/schemaVisitor';
 import { fileLoader, mergeTypes } from 'merge-graphql-schemas';
 import { join } from 'path';
 import log from '../../log/index';

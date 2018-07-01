@@ -18,43 +18,4 @@ declare module 'http-shutdown' {
   export = httpShutdown;
 }
 
-declare module 'apollo-errors' {
-  import { Error } from 'tslint/lib/error';
-
-  class ApolloError extends Error {
-    serialize(): {[key: string]: any };
-  }
-
-  export function isInstance(e: any): boolean;
-  export function createError(name: string, data: {[key: string]: any } ):
-    { new <T extends ApolloError>(data?: {[key: string]: any }): T };
-  export function formatError(e: ApolloError, returnNull?: boolean): any;
-}
-
-declare module 'apollo-resolvers' {
-  import { GraphQLFieldResolver, GraphQLResolveInfo } from 'graphql';
-
-  type ErrorHandler<TSource, TContext> = (
-    source: TSource,
-    args: { [argName: string]: any },
-    context: TContext,
-    info: GraphQLResolveInfo,
-    error: any,
-  ) => any;
-
-  type ResolverCreator<TSource, TContext> = (
-    resolver: GraphQLFieldResolver<TSource, TContext>,
-    errorHandler?: ErrorHandler<TSource, TContext>,
-  ) => BaseResolver<TSource, TContext>;
-
-  interface BaseResolver<TSource, TContext> extends GraphQLFieldResolver<TSource, TContext> {
-    createResolver: ResolverCreator<TSource, TContext>;
-  }
-
-  export function createResolver<TSource, TContext>(
-    resolver: GraphQLFieldResolver<TSource, TContext> | null,
-    errorHandler: ErrorHandler<TSource, TContext> | null,
-  ): BaseResolver<TSource, TContext>;
-}
-
 declare module 'cron-parser';

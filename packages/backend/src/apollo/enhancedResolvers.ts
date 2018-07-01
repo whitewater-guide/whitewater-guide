@@ -1,31 +1,32 @@
 import { isInstance } from 'apollo-errors';
 import { createResolver } from 'apollo-resolvers';
 import Joi, { ValidationOptions } from 'joi';
-import { Context } from './context';
 import { AuthenticationRequiredError, UnknownError, ValidationError } from './errors';
 
-export const baseResolver = createResolver<any, Context>(
+type Resolver = Required<ReturnType<typeof createResolver>>;
+
+export const baseResolver: Resolver = createResolver<any, any>(
   // incoming requests will pass through this resolver like a no-op
-  null,
+  null as any,
 
   /*
     Only mask outgoing errors that aren't already apollo-errors,
     such as ORM errors etc
   */
   // (root, args, context, info, error) => isInstance(error) ? error : new UnknownError(),
-  (root, args, context, info, error) => isInstance(error) ? error : new UnknownError({ message: error }),
-);
+  (root, args, context, error) => isInstance(error) ? error : new UnknownError({ message: error }),
+) as any;
 
-export const isAuthenticatedResolver = baseResolver.createResolver(
+export const isAuthenticatedResolver: Resolver = baseResolver.createResolver!(
   // Extract the user from context (undefined if non-existent)
   (root, args, { user }) => {
     if (!user) {
       throw new AuthenticationRequiredError();
     }
   },
-);
+) as any;
 
-export const isInputValidResolver = (schema: Joi.Schema, options?: ValidationOptions) => baseResolver.createResolver(
+export const isInputValidResolver = (schema: Joi.Schema, options?: ValidationOptions) => baseResolver.createResolver!(
   (root: any, value: any) => {
     const { error } = Joi.validate(
       value,
@@ -47,4 +48,4 @@ export const isInputValidResolver = (schema: Joi.Schema, options?: ValidationOpt
       throw new ValidationError({ data });
     }
   },
-);
+) as any as Resolver;
