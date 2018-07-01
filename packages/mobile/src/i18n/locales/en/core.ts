@@ -34,6 +34,7 @@ export default {
     offline: "It appears that you're offline...",
     retry: 'Retry',
     bug: 'Oops! Something is broken',
+    premium: 'Premium',
   },
   drawer: {
     myProfile: 'My Settings',

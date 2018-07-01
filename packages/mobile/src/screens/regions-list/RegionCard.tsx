@@ -68,14 +68,14 @@ class RegionCard extends React.PureComponent<Props> {
     if (hasPremiumAccess) {
       return (
         <React.Fragment>
-          <Caption style={styles.premiumUnlocked}>Premium</Caption>
+          <Caption style={styles.premiumUnlocked}>{this.props.t('commons:premium')}</Caption>
           <Icon icon="lock-open-outline" color={theme.colors.componentBorder} size={16} />
         </React.Fragment>
       );
     }
     return (
       <React.Fragment>
-        <Caption style={styles.premium}>Premium</Caption>
+        <Caption style={styles.premium}>{this.props.t('commons:premium')}</Caption>
         <Icon icon="lock" color={theme.colors.primary} size={16} />
       </React.Fragment>
     );

@@ -34,6 +34,7 @@ export default {
     offline: 'Похоже что вы не онлайн...',
     retry: 'Повторить',
     bug: 'Упс! Что-то сломалось',
+    premium: 'Премиум',
   },
   drawer: {
     myProfile: 'Мои настройки',
