@@ -33,6 +33,30 @@ describe('details', () => {
     expect(query).toMatchSnapshot();
   });
 
+  it('should build correct query with cover images', () => {
+    const coverImage = {
+      __typename: {},
+      mobile: {},
+    };
+    graphqlFields.mockReturnValueOnce({ ...primitives, coverImage });
+    const query = buildRegionQuery(options);
+    expect(query).toMatchSnapshot();
+  });
+
+  it('should build correct query with banners', () => {
+    const banners = {
+      __typename: {},
+      sectionDescriptionMobile: {},
+      sectionRowMobile: {},
+      sectionMediaMobile: {},
+      regionDescriptionMobile: {},
+      regionLoadingMobile: {},
+    };
+    graphqlFields.mockReturnValueOnce({ ...primitives, banners });
+    const query = buildRegionQuery(options);
+    expect(query).toMatchSnapshot();
+  });
+
   it('should build correct query with rivers connection', () => {
     const connections = {
       rivers: {

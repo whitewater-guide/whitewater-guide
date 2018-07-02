@@ -18,4 +18,14 @@ export interface RegionRaw extends NamedNode, RawTimestamped {
   count: number | null; // window function count
   editable?: boolean; // computed column, not necessary present in db response
   premium: boolean;
+  cover_image: {
+    mobile?: string;
+  };
+  banners: {
+    sectionDescriptionMobile?: string;
+    sectionRowMobile?: string;
+    sectionMediaMobile?: string;
+    regionDescriptionMobile?: string;
+    regionLoadingMobile?: string;
+  };
 }

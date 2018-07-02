@@ -1,5 +1,53 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`details should build correct query with banners 1`] = `
+select
+    regions_view.id,
+    regions_view.name,
+    regions_view.description,
+    regions_view.season,
+    regions_view.season_numeric,
+    regions_view.bounds,
+    regions_view.pois,
+    regions_view.hidden,
+    regions_view.created_at,
+    regions_view.updated_at,
+    regions_view.banners
+from
+    regions_view
+where
+    regions_view.language = 'en'
+order by
+    regions_view.name asc,
+    regions_view.created_at asc,
+    regions_view.id asc
+
+`;
+
+exports[`details should build correct query with cover images 1`] = `
+select
+    regions_view.id,
+    regions_view.name,
+    regions_view.description,
+    regions_view.season,
+    regions_view.season_numeric,
+    regions_view.bounds,
+    regions_view.pois,
+    regions_view.hidden,
+    regions_view.created_at,
+    regions_view.updated_at,
+    regions_view.cover_image
+from
+    regions_view
+where
+    regions_view.language = 'en'
+order by
+    regions_view.name asc,
+    regions_view.created_at asc,
+    regions_view.id asc
+
+`;
+
 exports[`details should build correct query with gauges connection 1`] = `
 with gauges_connection as (
     select

@@ -29,6 +29,13 @@ const query = `
         kind
         coordinates
       }
+      banners {
+        sectionDescriptionMobile
+        sectionRowMobile
+        sectionMediaMobile
+        regionDescriptionMobile
+        regionLoadingMobile
+      }
     }
   }
 `;

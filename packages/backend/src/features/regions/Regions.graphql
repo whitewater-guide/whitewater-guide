@@ -5,6 +5,10 @@ type Region {
   name: String!
   # Human-friendly description
   description: String
+  # Cover image
+  coverImage: RegionCoverImage!
+  # Banners
+  banners: RegionBanners!
   # Human-friendly description to complement numeric months list
   season: String
   # Array of numers between 0 and 23, corresponding to half-months
@@ -53,6 +57,30 @@ type RegionSectionConnection {
   count: Int!
 }
 
+type RegionBanners {
+  sectionDescriptionMobile: String
+  sectionRowMobile: String
+  sectionMediaMobile: String
+  regionDescriptionMobile: String
+  regionLoadingMobile: String
+}
+
+input RegionBannersInput {
+  sectionDescriptionMobile: String
+  sectionRowMobile: String
+  sectionMediaMobile: String
+  regionDescriptionMobile: String
+  regionLoadingMobile: String
+}
+
+type RegionCoverImage {
+  mobile: String
+}
+
+input RegionCoverImageInput {
+  mobile: String
+}
+
 input RegionInput {
   id: ID
   name: String!
@@ -67,6 +95,8 @@ input RegionAdminSettings {
   hidden: Boolean!
   premium: Boolean!
   sku: String
+  coverImage: RegionCoverImageInput!
+  banners: RegionBannersInput!
 }
 
 type RegionsList {
@@ -77,7 +107,6 @@ type RegionsList {
 type RegionMediaForm {
   upload: UploadLink!
 }
-
 
 type Query {
   regions(page: Page): RegionsList!

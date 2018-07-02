@@ -2,13 +2,15 @@ import { createHash } from 'crypto';
 import { access, constants, createReadStream, readdir } from 'fs';
 import { copy, emptyDir } from 'fs-extra';
 import path from 'path';
-import { AVATARS, MEDIA, TEMP } from './buckets';
+import { AVATARS, BANNERS, COVERS, MEDIA, TEMP } from './buckets';
 
 export const BUCKETS_DIR = path.resolve(__dirname, '../../../minio/data');
 
 export const TEMP_BUCKET_DIR = path.resolve(BUCKETS_DIR, TEMP);
 export const MEDIA_BUCKET_DIR = path.resolve(BUCKETS_DIR, MEDIA);
 export const AVATARS_BUCKET_DIR = path.resolve(BUCKETS_DIR, AVATARS);
+export const COVERS_BUCKET_DIR = path.resolve(BUCKETS_DIR, COVERS);
+export const BANNERS_BUCKET_DIR = path.resolve(BUCKETS_DIR, BANNERS);
 
 export const FIXTURES_BUCKETS_DIR = path.resolve(__dirname, '../seeds/test/minio');
 
@@ -17,6 +19,8 @@ export const resetTestMinio = async (clearOnly = false) => {
     emptyDir(TEMP_BUCKET_DIR),
     emptyDir(MEDIA_BUCKET_DIR),
     emptyDir(AVATARS_BUCKET_DIR),
+    emptyDir(COVERS_BUCKET_DIR),
+    emptyDir(BANNERS_BUCKET_DIR),
   ]);
   if (!clearOnly) {
     await copy(FIXTURES_BUCKETS_DIR, BUCKETS_DIR);

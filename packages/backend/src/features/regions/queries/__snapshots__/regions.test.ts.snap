@@ -4,6 +4,9 @@ exports[`results admin should get all regions 1`] = `
 Array [
   Object {
     "bounds": null,
+    "coverImage": Object {
+      "mobile": "ecuador_mobile_cover.jpg",
+    },
     "description": null,
     "editable": true,
     "hidden": false,
@@ -50,6 +53,9 @@ Array [
         0,
       ],
     ],
+    "coverImage": Object {
+      "mobile": "galicia_mobile_cover.jpg",
+    },
     "description": "Description of Galicia",
     "editable": true,
     "hidden": false,
@@ -110,6 +116,9 @@ Array [
         0,
       ],
     ],
+    "coverImage": Object {
+      "mobile": null,
+    },
     "description": "description of Georgia",
     "editable": true,
     "hidden": false,
@@ -147,6 +156,9 @@ Array [
         0,
       ],
     ],
+    "coverImage": Object {
+      "mobile": null,
+    },
     "description": "laos description",
     "editable": true,
     "hidden": true,
@@ -165,6 +177,9 @@ Array [
   },
   Object {
     "bounds": null,
+    "coverImage": Object {
+      "mobile": null,
+    },
     "description": null,
     "editable": true,
     "hidden": true,

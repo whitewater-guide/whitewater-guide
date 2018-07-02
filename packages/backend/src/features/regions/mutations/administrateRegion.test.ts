@@ -1,4 +1,5 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
+import { BANNERS, COVERS, fileExistsInBucket, resetTestMinio, TEMP } from '../../../minio';
 import { ADMIN, EDITOR_GA_EC, TEST_USER } from '../../../seeds/test/01_users';
 import { REGION_GALICIA } from '../../../seeds/test/04_regions';
 import { anonContext, fakeContext } from '../../../test/context';
@@ -11,14 +12,45 @@ const mutation = `
       hidden
       premium
       sku
+      coverImage {
+        mobile
+      }
+      banners {
+        sectionDescriptionMobile
+        sectionRowMobile
+        sectionMediaMobile
+        regionDescriptionMobile
+        regionLoadingMobile
+      }
     }
   }
 `;
 
-beforeEach(holdTransaction);
+beforeEach(async () => {
+  await holdTransaction();
+  await resetTestMinio();
+});
 afterEach(rollbackTransaction);
+afterAll(() => resetTestMinio(true));
 
-const variables = { regionId: REGION_GALICIA, settings: { hidden: true, premium: true, sku: 'test.sku' } };
+const variables = {
+  regionId: REGION_GALICIA,
+  settings: {
+    hidden: true,
+    premium: true,
+    sku: 'test.sku',
+    coverImage: {
+      mobile: 'galicia_mobile_cover2.jpg',
+    },
+    banners: {
+      sectionDescriptionMobile: 'sectionDescriptionMobile2.jpg',
+      sectionRowMobile: 'sectionRowMobile2.jpg',
+      sectionMediaMobile: 'sectionMediaMobile2.jpg',
+      regionDescriptionMobile: 'regionDescriptionMobile2.jpg',
+      regionLoadingMobile: 'regionLoadingMobile2.jpg',
+    },
+  },
+};
 
 describe('resolvers chain', () => {
 
@@ -43,15 +75,63 @@ describe('resolvers chain', () => {
 });
 
 describe('result', () => {
-  it('should return result', async () => {
-    const result = await runQuery(mutation, variables, fakeContext(ADMIN));
+  let result: any;
+
+  beforeEach(async () => {
+    result = await runQuery(mutation, variables, fakeContext(ADMIN));
     expect(result.errors).toBeUndefined();
+  });
+
+  it('should return result', async () => {
     expect(result.data!.administrateRegion).toMatchObject({
       id: REGION_GALICIA,
       hidden: true,
       premium: true,
       sku: 'test.sku',
+      coverImage: {
+        mobile: 'galicia_mobile_cover2.jpg',
+      },
+      banners: {
+        sectionDescriptionMobile: 'sectionDescriptionMobile2.jpg',
+        sectionRowMobile: 'sectionRowMobile2.jpg',
+        sectionMediaMobile: 'sectionMediaMobile2.jpg',
+        regionDescriptionMobile: 'regionDescriptionMobile2.jpg',
+        regionLoadingMobile: 'regionLoadingMobile2.jpg',
+      },
     });
+  });
+
+  it('should delete old files', async () => {
+    const deleted = await Promise.all([
+      fileExistsInBucket(COVERS, 'galicia_mobile_cover.jpg'),
+      fileExistsInBucket(BANNERS, 'sectionDescriptionMobile.jpg'),
+      fileExistsInBucket(BANNERS, 'sectionRowMobile.jpg'),
+      fileExistsInBucket(BANNERS, 'sectionMediaMobile.jpg'),
+      fileExistsInBucket(BANNERS, 'regionDescriptionMobile.jpg'),
+      fileExistsInBucket(BANNERS, 'regionLoadingMobile.jpg'),
+    ]);
+    expect(deleted.every((v: boolean) => !v)).toBe(true);
+  });
+
+  it('should move new cover', async () => {
+    const tempExists = await Promise.all([
+      fileExistsInBucket(TEMP, 'galicia_mobile_cover2.jpg'),
+      fileExistsInBucket(TEMP, 'sectionDescriptionMobile2.jpg'),
+      fileExistsInBucket(TEMP, 'sectionRowMobile2.jpg'),
+      fileExistsInBucket(TEMP, 'sectionMediaMobile2.jpg'),
+      fileExistsInBucket(TEMP, 'regionDescriptionMobile2.jpg'),
+      fileExistsInBucket(TEMP, 'regionLoadingMobile2.jpg'),
+    ]);
+    const newExists = await Promise.all([
+      fileExistsInBucket(COVERS, 'galicia_mobile_cover2.jpg'),
+      fileExistsInBucket(BANNERS, 'sectionDescriptionMobile2.jpg'),
+      fileExistsInBucket(BANNERS, 'sectionRowMobile2.jpg'),
+      fileExistsInBucket(BANNERS, 'sectionMediaMobile2.jpg'),
+      fileExistsInBucket(BANNERS, 'regionDescriptionMobile2.jpg'),
+      fileExistsInBucket(BANNERS, 'regionLoadingMobile2.jpg'),
+    ]);
+    expect(tempExists.every((v: boolean) => !v)).toBe(true);
+    expect(newExists.every((v: boolean) => v)).toBe(true);
   });
 
 });

@@ -66,6 +66,13 @@ Object {
 
 exports[`data should return region 1`] = `
 Object {
+  "banners": Object {
+    "regionDescriptionMobile": "regionDescriptionMobile.jpg",
+    "regionLoadingMobile": "regionLoadingMobile.jpg",
+    "sectionDescriptionMobile": "sectionDescriptionMobile.jpg",
+    "sectionMediaMobile": "sectionMediaMobile.jpg",
+    "sectionRowMobile": "sectionRowMobile.jpg",
+  },
   "bounds": Array [
     Array [
       -114,

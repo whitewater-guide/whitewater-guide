@@ -33,6 +33,16 @@ const regions = [
     sku: null,
     season_numeric: [20, 21],
     bounds: getBounds([[-114, 46, 0], [-115, 46, 0], [-115, 47, 0], [-114, 47, 0]]),
+    cover_image: {
+      mobile: 'galicia_mobile_cover.jpg',
+    },
+    banners: {
+      sectionDescriptionMobile: 'sectionDescriptionMobile.jpg',
+      sectionRowMobile: 'sectionRowMobile.jpg',
+      sectionMediaMobile: 'sectionMediaMobile.jpg',
+      regionDescriptionMobile: 'regionDescriptionMobile.jpg',
+      regionLoadingMobile: 'regionLoadingMobile.jpg',
+    },
   },
   {
     id: REGION_ECUADOR,
@@ -41,6 +51,9 @@ const regions = [
     sku: 'region.ecuador',
     season_numeric: [],
     bounds: null,
+    cover_image: {
+      mobile: 'ecuador_mobile_cover.jpg',
+    },
   },
   {
     id: REGION_NORWAY,

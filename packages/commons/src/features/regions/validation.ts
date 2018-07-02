@@ -17,8 +17,21 @@ export const RegionFormSchema = RegionInputSchema.keys({
   description: Joi.any(),
 });
 
+export const RegionCoverImageSchema = Joi.object().keys({
+  mobile: Joi.string().allow(null),
+});
+export const RegionBannersSchema = Joi.object().keys({
+  sectionDescriptionMobile: Joi.string().allow(null),
+  sectionRowMobile: Joi.string().allow(null),
+  sectionMediaMobile: Joi.string().allow(null),
+  regionDescriptionMobile: Joi.string().allow(null),
+  regionLoadingMobile: Joi.string().allow(null),
+});
+
 export const RegionAdminSettingsSchema = Joi.object().keys({
   hidden: Joi.bool(),
   premium: Joi.bool(),
   sku: Joi.string().allow('').allow(null),
+  coverImage: RegionCoverImageSchema,
+  banners: RegionBannersSchema,
 });

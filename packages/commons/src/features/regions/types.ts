@@ -16,6 +16,7 @@ export interface Region extends NamedNode, Timestamped {
   hasPremiumAccess: boolean;
   editable: boolean;
   sku: string | null;
+  coverImage: RegionCoverImage;
   pois: Point[];
   groups: Group[];
   // --- connections
@@ -38,4 +39,20 @@ export interface RegionAdminSettings {
   hidden: boolean;
   premium: boolean;
   sku: string | null;
+  coverImage: RegionCoverImage;
+  banners: RegionBanners;
+}
+
+export interface RegionCoverImage {
+  __typename?: string;
+  mobile: string | null;
+}
+
+export interface RegionBanners {
+  __typename?: string;
+  sectionDescriptionMobile: string | null;
+  sectionRowMobile: string | null;
+  sectionMediaMobile: string | null;
+  regionDescriptionMobile: string | null;
+  regionLoadingMobile: string | null;
 }

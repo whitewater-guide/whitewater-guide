@@ -5,6 +5,7 @@ import { Region } from '../../ww-commons';
 const customFieldMap = {
   editable: () => null,
   hasPremiumAccess: () => null,
+  coverImage: () => 'cover_image',
 };
 
 const connections = {

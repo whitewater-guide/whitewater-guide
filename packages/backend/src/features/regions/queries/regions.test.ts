@@ -34,6 +34,9 @@ const query = `
           kind
           coordinates
         }
+        coverImage {
+          mobile
+        }
       }
       count
     }

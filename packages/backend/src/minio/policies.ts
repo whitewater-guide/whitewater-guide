@@ -25,6 +25,60 @@ export const AVATARS_POLICY = {
   ],
 };
 
+export const BANNERS_POLICY = {
+  Version: '2012-10-17',
+  Statement: [
+    {
+      Action: ['s3:GetBucketLocation'],
+      Effect: 'Allow',
+      Principal: { AWS: ['*'] },
+      Resource: ['arn:aws:s3:::banners'],
+      Sid: '',
+    },
+    {
+      Action: ['s3:GetObject'],
+      Effect: 'Allow',
+      Principal: { AWS: ['*'] },
+      Resource: ['arn:aws:s3:::banners/*'],
+      Sid: '',
+    },
+    {
+      Action: ['s3:ListBucket'],
+      Effect: 'Allow',
+      Principal: { AWS: ['*'] },
+      Resource: ['arn:aws:s3:::banners'],
+      Sid: '',
+    },
+  ],
+};
+
+export const COVERS_POLICY = {
+  Version: '2012-10-17',
+  Statement: [
+    {
+      Action: ['s3:GetBucketLocation'],
+      Effect: 'Allow',
+      Principal: { AWS: ['*'] },
+      Resource: ['arn:aws:s3:::covers'],
+      Sid: '',
+    },
+    {
+      Action: ['s3:GetObject'],
+      Effect: 'Allow',
+      Principal: { AWS: ['*'] },
+      Resource: ['arn:aws:s3:::covers/*'],
+      Sid: '',
+    },
+    {
+      Action: ['s3:ListBucket'],
+      Effect: 'Allow',
+      Principal: { AWS: ['*'] },
+      Resource: ['arn:aws:s3:::covers'],
+      Sid: '',
+    },
+  ],
+};
+
 export const MEDIA_POLICY = {
   Version: '2012-10-17',
   Statement: [
