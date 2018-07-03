@@ -117,6 +117,13 @@ export const TEMP_POLICY = {
       Sid: '',
     },
     {
+      Action: ['s3:GetObject'],
+      Effect: 'Allow',
+      Principal: { AWS: ['*'] },
+      Resource: ['arn:aws:s3:::temp/*'],
+      Sid: '',
+    },
+    {
       Action: ['s3:AbortMultipartUpload', 's3:DeleteObject', 's3:ListMultipartUploadParts', 's3:PutObject'],
       Effect: 'Allow',
       Principal: { AWS: ['*'] },
