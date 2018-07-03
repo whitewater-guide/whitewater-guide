@@ -1,8 +1,8 @@
 import React from 'react';
 import YouTube from 'react-youtube';
-import { Styles } from '../../../styles/index';
-import { getVimeoId, getYoutubeId, isVimeo, isYoutube } from '../../../ww-clients/utils/index';
-import { Media } from '../../../ww-commons/index';
+import { Styles } from '../../styles';
+import { getVimeoId, getYoutubeId, isVimeo, isYoutube } from '../../ww-clients/utils/index';
+import { Media } from '../../ww-commons';
 
 const styles: Styles = {
   container: {

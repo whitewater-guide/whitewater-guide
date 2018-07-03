@@ -7,6 +7,7 @@ export * from './Content';
 export * from './DeleteButton';
 export * from './HarvestStatusIndicator';
 export * from './IconButtonWithData';
+export * from './lightbox';
 export * from './Loading';
 export * from './MutationToggle';
 export * from './NumberInput';

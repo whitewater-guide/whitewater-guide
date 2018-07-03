@@ -8,6 +8,14 @@ const REGION_ADMIN_SETTINGS_QUERY = gql`
       premium
       sku
     }
+
+    regionMediaForm(regionId: $regionId) {
+      upload {
+        postURL
+        formData
+        key
+      }
+    }
   }
 `;
 

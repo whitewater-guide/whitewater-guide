@@ -3,12 +3,11 @@ import FlatButton from 'material-ui/FlatButton';
 import FontIcon from 'material-ui/FontIcon';
 import React from 'react';
 import { Col } from 'react-grid-system';
-import { ConfirmationDialog } from '../../../components';
+import { ConfirmationDialog, Lightbox } from '../../../components';
 import { Row } from '../../../layout/details';
 import { Media, MediaKind } from '../../../ww-commons';
 import BlogsList from './BlogsList';
 import GridGallery from './GridGallery';
-import Lightbox from './Lightbox';
 import { MediaListProps } from './types';
 
 interface State {

@@ -1,6 +1,6 @@
 {
   "name": "web",
-  "version": "0.1.170",
+  "version": "0.1.172",
   "private": true,
   "homepage": "/admin/",
   "dependencies": {
@@ -66,7 +66,7 @@
     "reflect-metadata": "^0.1.10",
     "reselect": "^3.0.1",
     "shallowequal": "^1.0.2",
-    "type-zoo": "https://github.com/marcind/type-zoo#removeRequired",
+    "type-zoo": "^3.0.0",
     "typescript-fsa": "^3.0.0-beta-1",
     "url-parse": "^1.4.0",
     "victory": "^0.27.2"
@@ -80,9 +80,12 @@
     "tsc": "tsc",
     "pretest": "cd ../clients && npm run pretest",
     "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
+    "eject": "react-scripts-ts eject",
+    "storybook": "STORYBOOK_ENABLED=true start-storybook -s ./public/storybook -p 6006 -c .storybook"
   },
   "devDependencies": {
+    "@storybook/addon-actions": "4.0.0-alpha.11",
+    "@storybook/react": "4.0.0-alpha.11",
     "@types/color": "^3.0.0",
     "@types/draft-js": "^0.10.23",
     "@types/enzyme": "^3.1.10",
@@ -118,9 +121,14 @@
     "@types/redux": "^3.6.0",
     "@types/redux-form": "^7.2.3",
     "@types/redux-mock-store": "^1.0.0",
+    "@types/storybook__addon-actions": "^3.0.3",
+    "@types/storybook__react": "^3.0.7",
     "@types/victory": "^0.9.16",
     "@types/zen-observable": "^0.8.0",
     "apollo-link-schema": "^1.1.0",
+    "apollo-storybook-react": "^0.1.4",
+    "awesome-typescript-loader": "^5.2.0",
+    "babel-core": "^6.26.3",
     "casual": "^1.5.17",
     "enzyme": "^3.2.0",
     "enzyme-adapter-react-16": "^1.1.0",

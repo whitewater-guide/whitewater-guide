@@ -1,6 +1,6 @@
 import React from 'react';
 import Carousel, { Modal, ModalGateway } from 'react-images';
-import { Media } from '../../../ww-commons/index';
+import { Media } from '../../ww-commons';
 import LightboxFooter from './LightboxFooter';
 import LightboxView from './LightboxView';
 
@@ -21,7 +21,7 @@ interface Props {
   onClose: () => void;
 }
 
-class Lightbox extends React.PureComponent<Props> {
+export class Lightbox extends React.PureComponent<Props> {
 
   render() {
     const { currentModal, media, onClose } = this.props;
@@ -42,5 +42,3 @@ class Lightbox extends React.PureComponent<Props> {
     );
   }
 }
-
-export default Lightbox;

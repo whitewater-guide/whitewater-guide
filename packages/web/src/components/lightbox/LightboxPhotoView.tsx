@@ -1,6 +1,6 @@
 import React from 'react';
-import { Styles } from '../../../styles';
-import { Media } from '../../../ww-commons/index';
+import { Styles } from '../../styles';
+import { Media } from '../../ww-commons';
 
 const styles: Styles = {
   container: {
@@ -22,9 +22,12 @@ interface Props {
 }
 
 const LightboxPhotoView: React.StatelessComponent<Props> = ({ data }) => {
+  const src = (process.env.STORYBOOK_ENABLED === 'true' || data.url.startsWith('http')) ?
+    data.url :
+    `${process.env.REACT_APP_API_HOST}/uploads/media/${data.url}`;
   return (
     <div style={styles.container}>
-      <img src={`${process.env.REACT_APP_API_HOST}/uploads/media/${data.url}`} style={styles.img} />
+      <img src={src} style={styles.img} />
     </div>
   );
 };
