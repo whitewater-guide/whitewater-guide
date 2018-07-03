@@ -22,7 +22,7 @@ interface Props {
 }
 
 const LightboxPhotoView: React.StatelessComponent<Props> = ({ data }) => {
-  const src = (process.env.STORYBOOK_ENABLED === 'true' || data.url.startsWith('http')) ?
+  const src = (process.env.STORYBOOK_ENABLED === 'true' || data.url.includes('/')) ?
     data.url :
     `${process.env.REACT_APP_API_HOST}/uploads/media/${data.url}`;
   return (
