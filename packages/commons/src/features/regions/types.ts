@@ -36,6 +36,7 @@ export class RegionInput {
 }
 
 export interface RegionAdminSettings {
+  id: string;
   hidden: boolean;
   premium: boolean;
   sku: string | null;

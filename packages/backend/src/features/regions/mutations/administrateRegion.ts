@@ -9,12 +9,10 @@ import { buildRegionQuery } from '../queryBuilder';
 import { RegionRaw } from '../types';
 
 interface Vars {
-  regionId: string;
   settings: RegionAdminSettings;
 }
 
 const Schema = Joi.object().keys({
-  regionId: Joi.string().guid(),
   settings: RegionAdminSettingsSchema,
 });
 
@@ -35,10 +33,10 @@ const updateImageFile = async (
   }
 };
 
-const resolver: GraphQLFieldResolver<any, any, Vars> = async (_, { regionId, settings }, context, info) => {
+const resolver: GraphQLFieldResolver<any, any, Vars> = async (_, { settings }, context, info) => {
   const oldRegion: RegionRaw = await db().table('regions')
     .select(['id', 'cover_image', 'banners'])
-    .where({ id: regionId })
+    .where({ id: settings.id })
     .first();
   if (!oldRegion) {
     throw new MutationNotAllowedError({ message: "Region doesn't exist" });
@@ -59,8 +57,8 @@ const resolver: GraphQLFieldResolver<any, any, Vars> = async (_, { regionId, set
       cover_image: settings.coverImage,
       banners: settings.banners,
     })
-    .where({ id: regionId });
-  return buildRegionQuery({ info, context, id: regionId }).first();
+    .where({ id: settings.id });
+  return buildRegionQuery({ info, context, id: settings.id }).first();
 };
 
 const administrateRegion = isInputValidResolver(Schema).createResolver(resolver);

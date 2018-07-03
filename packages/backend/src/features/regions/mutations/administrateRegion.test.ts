@@ -6,8 +6,8 @@ import { anonContext, fakeContext } from '../../../test/context';
 import { runQuery } from '../../../test/runQuery';
 
 const mutation = `
-  mutation administrateRegion($regionId: ID!, $settings: RegionAdminSettings!){
-    administrateRegion(regionId: $regionId, settings: $settings) {
+  mutation administrateRegion($settings: RegionAdminSettings!){
+    administrateRegion(settings: $settings) {
       id
       hidden
       premium
@@ -34,8 +34,8 @@ afterEach(rollbackTransaction);
 afterAll(() => resetTestMinio(true));
 
 const variables = {
-  regionId: REGION_GALICIA,
   settings: {
+    id: REGION_GALICIA,
     hidden: true,
     premium: true,
     sku: 'test.sku',

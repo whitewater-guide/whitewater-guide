@@ -29,6 +29,7 @@ export const RegionBannersSchema = Joi.object().keys({
 });
 
 export const RegionAdminSettingsSchema = Joi.object().keys({
+  id: Joi.string().guid(),
   hidden: Joi.bool(),
   premium: Joi.bool(),
   sku: Joi.string().allow('').allow(null),

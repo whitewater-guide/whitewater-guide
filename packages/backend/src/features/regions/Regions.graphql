@@ -92,6 +92,7 @@ input RegionInput {
 }
 
 input RegionAdminSettings {
+  id: ID!
   hidden: Boolean!
   premium: Boolean!
   sku: String
@@ -120,5 +121,5 @@ type Mutation {
   removeRegion(id: ID!): ID @admin
   addEditor(regionId: ID!, userId: ID!): Boolean @admin
   removeEditor(regionId: ID!, userId: ID!): Boolean @admin
-  administrateRegion(regionId: ID!, settings: RegionAdminSettings!): Region @admin
+  administrateRegion(settings: RegionAdminSettings!): Region @admin
 }
