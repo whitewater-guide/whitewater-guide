@@ -59,10 +59,10 @@ const styles: Styles = {
   },
 };
 
-interface Props {
+export interface ImageUploaderProps {
   bucket: string;
-  width: number;
-  height: number;
+  width: number | [number, number];
+  height: number | [number, number];
   previewScale: number;
   value: string | File | null;
   title: string;
@@ -76,6 +76,7 @@ interface State {
   uploading: boolean;
   currentModal: number | null;
   fakeMedia: Media[];
+  useTempBucket: boolean;
 }
 
 const getSrc = (value: string, bucket: string) => {
@@ -85,27 +86,28 @@ const getSrc = (value: string, bucket: string) => {
   return `${process.env.REACT_APP_API_HOST}/uploads/${bucket}/${value}`;
 };
 
-const getFakeMedia = (props: Props): Media[] => {
-  const { value, bucket, width, height } = props;
+const getFakeMedia = (props: ImageUploaderProps, useTempBucket?: boolean): Media[] => {
+  const { value, bucket } = props;
   return (typeof value === 'string') ? [{
     id: 'upload',
-    url: value,
+    // lightbox is will render relative urls from  to media bucket, but can render absolute urls
+    url: getSrc(value, useTempBucket ? 'temp' : bucket),
     description: value,
     copyright: '',
     kind: MediaKind.photo,
-    resolution: [width, height],
+    resolution: [1000, 1000], // it's fake - doesn't matter for lightbox
     weight: 0,
     createdAt: new Date().toDateString(),
     updatedAt: new Date().toDateString(),
   }] : [];
 };
 
-export class ImageUploader extends React.PureComponent<Props, State> {
+export class ImageUploader extends React.PureComponent<ImageUploaderProps, State> {
 
-  static getDerivedStateFromProps(props: Props, prevState: State) {
+  static getDerivedStateFromProps(props: ImageUploaderProps, prevState: State) {
     return {
       ...prevState,
-      fakeMedia: getFakeMedia(props),
+      fakeMedia: getFakeMedia(props, prevState.useTempBucket),
     };
   }
 
@@ -114,6 +116,7 @@ export class ImageUploader extends React.PureComponent<Props, State> {
     uploading: this.props.uploading || false,
     currentModal: null,
     fakeMedia: getFakeMedia(this.props),
+    useTempBucket: false,
   };
 
   async componentDidMount() {
@@ -123,10 +126,23 @@ export class ImageUploader extends React.PureComponent<Props, State> {
     }
   }
 
+  componentDidUpdate(prevProps: ImageUploaderProps) {
+    if (prevProps.value instanceof File && prevProps.value !== this.props.value) {
+      window.URL.revokeObjectURL((prevProps.value as any).preview);
+    }
+  }
+
   checkFileSize = async (file: File) => {
     const { width, height } = this.props;
     const dimensions = await getImageSize(file);
-    return dimensions.width !== width || dimensions.height !== height;
+    const [minWidth, maxWidth] = typeof width === 'number' ? [width, width] : width;
+    const [minHeight, maxHeight] = typeof height === 'number' ? [height, height] : height;
+    return !(
+      dimensions.width >= minWidth &&
+      dimensions.width <= maxWidth &&
+      dimensions.height >= minHeight &&
+      dimensions.height <= maxHeight
+    );
   };
 
   onAdd = async (file: File) => {
@@ -137,7 +153,7 @@ export class ImageUploader extends React.PureComponent<Props, State> {
       this.setState({ uploading: true });
       const filename = await uploadFile(file, this.props.upload, file.name);
       this.props.onChange(filename);
-      this.setState({ uploading: false });
+      this.setState({ uploading: false, useTempBucket: true });
     }
   };
 
@@ -154,10 +170,10 @@ export class ImageUploader extends React.PureComponent<Props, State> {
 
   renderImage = () => {
     const { bucket, width, height, previewScale, value } = this.props;
-    const { uploading } = this.state;
+    const { uploading, useTempBucket } = this.state;
     const imageStyle = {
-      width: width * previewScale,
-      height: height * previewScale,
+      width: (typeof width === 'number' ? width : width[1]) * previewScale,
+      height: (typeof height === 'number' ? height : height[1]) * previewScale,
     };
     if (uploading) {
       return (
@@ -167,7 +183,9 @@ export class ImageUploader extends React.PureComponent<Props, State> {
       );
     }
     if (value) {
-      const src: string = (value instanceof File) ? (value as any).preview : getSrc(value, bucket);
+      const src: string = (value instanceof File) ?
+        (value as any).preview :
+        getSrc(value, useTempBucket ? 'temp' : bucket);
       return (
         <div style={imageStyle}>
           <img style={styles.image} src={src} onClick={this.onOpenLightbox} />
@@ -214,7 +232,11 @@ export class ImageUploader extends React.PureComponent<Props, State> {
             <AddFile onAdd={this.onAdd} />
           </div>
         </div>
-        <Lightbox media={this.state.fakeMedia} currentModal={this.state.currentModal} onClose={this.onCloseLightbox} />
+        <Lightbox
+          media={this.state.fakeMedia}
+          currentModal={this.state.currentModal}
+          onClose={this.onCloseLightbox}
+        />
       </div>
     );
   }

@@ -2,6 +2,7 @@ export * from './Checkbox';
 export * from './ChipInput';
 export * from './DraftField';
 export * from './DrawingMapField';
+export * from './ImageUploadField';
 export * from './PointInput';
 export * from './POICollection';
 export * from './RatingInput';

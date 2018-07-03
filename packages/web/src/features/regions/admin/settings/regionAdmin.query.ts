@@ -1,12 +1,23 @@
 import gql from 'graphql-tag';
+import { Region, UploadLink } from '../../../../ww-commons';
 
-const REGION_ADMIN_SETTINGS_QUERY = gql`
+export const REGION_ADMIN_SETTINGS_QUERY = gql`
   query regionAdminSettings($regionId: ID) {
     settings: region(id: $regionId) {
       id
       hidden
       premium
       sku
+      coverImage {
+        mobile
+      }
+      banners {
+        regionDescriptionMobile
+        regionLoadingMobile
+        sectionDescriptionMobile
+        sectionMediaMobile
+        sectionRowMobile
+      }
     }
 
     regionMediaForm(regionId: $regionId) {
@@ -19,4 +30,9 @@ const REGION_ADMIN_SETTINGS_QUERY = gql`
   }
 `;
 
-export default REGION_ADMIN_SETTINGS_QUERY;
+export interface Result {
+  settings: Region;
+  regionMediaForm: {
+    upload: UploadLink;
+  };
+}

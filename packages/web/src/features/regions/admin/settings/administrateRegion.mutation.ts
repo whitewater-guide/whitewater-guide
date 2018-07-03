@@ -1,12 +1,22 @@
 import gql from 'graphql-tag';
 
 const ADMINISTRATE_REGION_MUTATION = gql`
-  mutation administrateRegion($regionId: ID!, $settings: RegionAdminSettings!){
-    administrateRegion(regionId: $regionId, settings: $settings) {
+  mutation administrateRegion($settings: RegionAdminSettings!){
+    administrateRegion(settings: $settings) {
       id
       hidden
       premium
       sku
+      coverImage {
+        mobile
+      }
+      banners {
+        regionDescriptionMobile
+        regionLoadingMobile
+        sectionDescriptionMobile
+        sectionMediaMobile
+        sectionRowMobile
+      }
     }
   }
 `;
