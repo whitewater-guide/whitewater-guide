@@ -60,6 +60,8 @@
     without /{$MINIO_PROXY_PATH}
     header_downstream Access-Control-Expose-Headers Location
     transparent
+    header_upstream -Authorization
+    header_upstream -Cookie
   }
 
   proxy /images imageproxy:8080 {
