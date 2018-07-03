@@ -7,6 +7,7 @@ import { Icon, Paper } from '../../components';
 import { WithT } from '../../i18n';
 import theme from '../../theme';
 import { Region } from '../../ww-commons';
+import getCoverImage from './getCoverImage';
 
 const styles = StyleSheet.create({
   root: {
@@ -14,7 +15,8 @@ const styles = StyleSheet.create({
     marginVertical: theme.margin.half,
     padding: 0,
   },
-  body: {
+  footer: {
+    height: 24,
     paddingHorizontal: theme.margin.single,
   },
   row: {
@@ -26,6 +28,14 @@ const styles = StyleSheet.create({
   },
   title: {
     color: theme.colors.textLight,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0.75,
+      height: 0.75,
+    },
+    shadowOpacity: 0.24,
+    shadowRadius: 1.5,
   },
   scrim: {
     flex: 1,
@@ -46,18 +56,17 @@ const styles = StyleSheet.create({
   },
 });
 
+export const CARD_HEIGHT =
+  theme.margin.half * 2 + // root.marginVertical
+  (theme.screenWidth - 2 * theme.margin.single) / 3 + // image - card margin horizontal, aspect ratio
+  24; // footer
+
 interface Props extends WithT {
   region: Region;
   onPress: (region: Region) => void;
 }
 
-const IMAGES = [
-  'https://lh3.googleusercontent.com/TFxsTiivzCSabrn8WrEBV9jb2FQtWxfc6y_CHsbbg8XeW7eZBCLgmMjT3HZz7NHBrh8KuSaGCdwSjUB9TI9CcO9gks7TOCXLRMc6qRJ8WSI99sMMTCTH5oMOzRB7xHsGpsn_08rgAUO3Cfmo19DVSdyWdXnbM9c7gyswo-U1Myc--iOZLu9CoqLTlIHNt9aqnKzP6uByT1JXvaGjkif-GvOll4miwoYJZyEPQQ7PY-4IipUPu48-4zSDlIIbxMhytonIMHUidlhZtJ9MYdlAilhaCViUx7sChux3Xuek9NkKt74KViSrkgxLDk8eIC-PZai2IeaLxQOHX8C-MCrmcIfd4DD9MhAOdEJo4YU0b8Jj6K297yalF4WJnklpg0kQA7myoChrEE9eUKPtoQuNIglrvqV8VLCB2xjhlSEKDVgj1MvriMsYcNvuWmW4_GpHwVBwwEKceI8_ydRmo9yaBNT6lJ1-imYMzP2VK_w-wvdFNbO6-C30_2reFExr03J0YtktYN6FplqPLLADRHAYtkUvNkE_EjRiJCPp_h8Q3kdM=w1024-h576-no',
-  'https://explore-laos.com/wp-content/uploads/2015/06/KhonePhapheng.jpg',
-  'https://i.pinimg.com/originals/1f/41/f5/1f41f5c73faee77658666cca9f43e276.jpg',
-];
-
-class RegionCard extends React.PureComponent<Props> {
+export class RegionCard extends React.PureComponent<Props> {
   onPress = () => this.props.onPress(this.props.region);
 
   renderPremium = () => {
@@ -83,7 +92,7 @@ class RegionCard extends React.PureComponent<Props> {
 
   render() {
     const { region, t } = this.props;
-    const uri = IMAGES[Math.round(Math.random() * (IMAGES.length - 1))];
+    const uri = getCoverImage(region.coverImage.mobile);
     return (
       <TouchableRipple onPress={this.onPress}>
         <Paper style={styles.root}>
@@ -96,7 +105,7 @@ class RegionCard extends React.PureComponent<Props> {
               <Title style={styles.title}>{region.name}</Title>
             </LinearGradient>
           </Image>
-          <View style={styles.body}>
+          <View style={styles.footer}>
             <View style={styles.row}>
               <View style={styles.col}>
                 <Caption>{`${t('regionsList:sectionsCount')}: ${region.sections.count}`}</Caption>
@@ -114,5 +123,3 @@ class RegionCard extends React.PureComponent<Props> {
     );
   }
 }
-
-export default RegionCard;

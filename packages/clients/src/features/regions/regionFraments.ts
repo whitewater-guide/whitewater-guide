@@ -6,6 +6,7 @@ const Core = gql`
     name
     season
     seasonNumeric
+    sku
   }
 `;
 
@@ -14,6 +15,7 @@ const Flags = gql`
     hidden
     premium
     editable
+    hasPremiumAccess
   }
 `;
 

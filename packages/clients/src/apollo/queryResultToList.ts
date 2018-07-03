@@ -32,8 +32,9 @@ const getListMerger = <T, R extends ListType>(propName: R) =>
 
 export const queryResultToList =
   <T, R extends ListType>(props: ChildProps<any, QueryResult<T, R>>, propName: R): Result<T, R> => {
-    const { data } = props;
-    const { [propName]: listRaw, error, loading, refetch, fetchMore, networkStatus } = data;
+    const auxObject = props.hasOwnProperty('client') ? props : props.data;
+    const listRaw = props.data ? props.data[propName] : null;
+    const { error, loading, refetch, fetchMore, networkStatus } = auxObject;
     const list = listRaw || { nodes: [], count: 0 };
     const offset = list.nodes.length;
     const canLoadMore = listRaw && offset < list.count && networkStatus === NetworkStatus.ready;
