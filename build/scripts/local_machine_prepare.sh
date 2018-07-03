@@ -22,6 +22,8 @@ sudo mkdir -p /tmp/minio
 sudo mkdir -p /mnt/sda1/var/minio/data/temp
 sudo mkdir -p /mnt/sda1/var/minio/data/media
 sudo mkdir -p /mnt/sda1/var/minio/data/avatars
+sudo mkdir -p /mnt/sda1/var/minio/data/banners
+sudo mkdir -p /mnt/sda1/var/minio/data/covers
 sudo mkdir -p /mnt/sda1/var/minio/config
 sudo ln -s /mnt/sda1/var/minio /var/minio
 # Redis

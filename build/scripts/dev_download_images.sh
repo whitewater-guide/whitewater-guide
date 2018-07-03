@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
 # What this script does:
-# Downloads images from old (v1) backend to to media bucket of locally (dev) mounted minio volume
-# So in dev environment images are available
-# It also compresses them so they can be built into image (for local, staging deploys)
+# Downloads images from production machine
 
-docker-machine scp -r -d ww-production:/var/minio/data/ ./packages/minio/data
-tar czf ./packages/minio/images.tar.gz -C ./packages/minio data
+docker-machine scp -r -d ww-production:/var/minio/data/avatars ./packages/minio/data
+docker-machine scp -r -d ww-production:/var/minio/data/media ./packages/minio/data
+docker-machine scp -r -d ww-production:/var/minio/data/banners ./packages/minio/data
+docker-machine scp -r -d ww-production:/var/minio/data/covers ./packages/minio/data
+tar czf ./packages/minio/images.tar.gz -C ./packages/minio/data media avatars banners covers
