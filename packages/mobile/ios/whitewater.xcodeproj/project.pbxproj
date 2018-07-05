@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -47,6 +46,7 @@
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		6B5615A9E9EA4D00A9C73409 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5C568B7D8B204EF0BDD15764 /* Feather.ttf */; };
 		7509730020B45F7A00D87A5F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 750972CE20B45F7A00D87A5F /* GoogleService-Info.plist */; };
+		75117DC720EE81700071BCCA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75117DC620EE81700071BCCA /* StoreKit.framework */; };
 		75EAA31F20B00A6B00C89D8D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 75EAA32120B00A6B00C89D8D /* InfoPlist.strings */; };
 		824EB4B370264E30AC8F6884 /* libRNLanguages.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AB811DD1F534C48852FD464 /* libRNLanguages.a */; };
 		82E15DA693A54FBEA41B95E9 /* libRCTFBSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A1078FFEB224FB9AF15CE0F /* libRCTFBSDK.a */; };
@@ -67,6 +67,7 @@
 		E07509E74F1F4A298E58F351 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 28958E50B6E042CBAAB55510 /* Octicons.ttf */; };
 		E79C5784DD834858AB089A3E /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2FDD84928D514C7A84A98CFE /* Ionicons.ttf */; };
 		EECC50BFFE0F420B91D47678 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 569C0EC35359481D8214E358 /* MaterialIcons.ttf */; };
+		8B3820FD7D824E33BD410726 /* libRNIap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32FCD85C42BD4D6D9B85C62A /* libRNIap.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -492,6 +493,7 @@
 		6CA903EEB2154687B40AA083 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		6FDAB0647A8548B88129CCB6 /* libRNSVG-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNSVG-tvOS.a"; sourceTree = "<group>"; };
 		750972CE20B45F7A00D87A5F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "whitewater/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		75117DC620EE81700071BCCA /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		7527449C89E9470C8CEF182B /* RNLanguages.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNLanguages.xcodeproj; path = "../node_modules/react-native-languages/ios/RNLanguages.xcodeproj"; sourceTree = "<group>"; };
 		75B8A96220B49BE4009DC970 /* whitewater.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = whitewater.entitlements; path = whitewater/whitewater.entitlements; sourceTree = "<group>"; };
 		75EAA32020B00A6B00C89D8D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -522,6 +524,8 @@
 		F8E4527532CD422CB9D15881 /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
 		F96663855DEF1920C20611F4 /* Pods-whitewater.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-whitewater.staging.xcconfig"; path = "Pods/Target Support Files/Pods-whitewater/Pods-whitewater.staging.xcconfig"; sourceTree = "<group>"; };
 		FA42011965664B6AB05DD306 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
+		299504E4B1F943428AFB4011 /* RNIap.xcodeproj */ = {isa = PBXFileReference; name = "RNIap.xcodeproj"; path = "../node_modules/react-native-iap/ios/RNIap.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		32FCD85C42BD4D6D9B85C62A /* libRNIap.a */ = {isa = PBXFileReference; name = "libRNIap.a"; path = "libRNIap.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -555,6 +559,7 @@
 				BF4C3F47781E4FC2B269A00C /* libSplashScreen.a in Frameworks */,
 				53B90FD2E7E54A1EAE00679A /* libRNSVG.a in Frameworks */,
 				8759CD47843D4D4AA00F3A37 /* libRNVectorIcons.a in Frameworks */,
+				75117DC720EE81700071BCCA /* StoreKit.framework in Frameworks */,
 				82E15DA693A54FBEA41B95E9 /* libRCTFBSDK.a in Frameworks */,
 				824EB4B370264E30AC8F6884 /* libRNLanguages.a in Frameworks */,
 				A1D4CF6F7FE842648A146BC2 /* libFastImage.a in Frameworks */,
@@ -563,6 +568,7 @@
 				8F6FA9E10ECF4FB8B85974E6 /* libCodePush.a in Frameworks */,
 				3A4079E3C8434AB697959D86 /* libz.tbd in Frameworks */,
 				07E424FE2390787775561BCB /* libPods-whitewater.a in Frameworks */,
+				8B3820FD7D824E33BD410726 /* libRNIap.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -716,6 +722,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				75117DC620EE81700071BCCA /* StoreKit.framework */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
 				A269E46E8AEE44F098882919 /* libz.tbd */,
 				EB5FBB9DA84146CD89BE2439 /* libPods-whitewater.a */,
@@ -909,6 +916,7 @@
 				79C7DCB70E8A4E01BE7DDC56 /* RNDeviceInfo.xcodeproj */,
 				76AAEB832582444198C095E5 /* RNFirebase.xcodeproj */,
 				C117375E4F66401FABFD906F /* CodePush.xcodeproj */,
+				299504E4B1F943428AFB4011 /* RNIap.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1055,6 +1063,9 @@
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.InAppPurchase = {
 								enabled = 1;
 							};
 							com.apple.Push = {
@@ -1778,12 +1789,14 @@
 					"$(SRCROOT)/../node_modules/react-native-device-info/ios/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
+					"$(SRCROOT)/../node_modules/react-native-iap/ios",
 				);
 				INFOPLIST_FILE = whitewaterTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1814,12 +1827,14 @@
 					"$(SRCROOT)/../node_modules/react-native-device-info/ios/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
+					"$(SRCROOT)/../node_modules/react-native-iap/ios",
 				);
 				INFOPLIST_FILE = whitewaterTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1856,6 +1871,7 @@
 					"$(SRCROOT)/../node_modules/react-native-device-info/ios/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
+					"$(SRCROOT)/../node_modules/react-native-iap/ios",
 				);
 				INFOPLIST_FILE = whitewater/Info.plist;
 				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "-traditional";
@@ -1899,6 +1915,7 @@
 					"$(SRCROOT)/../node_modules/react-native-device-info/ios/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
+					"$(SRCROOT)/../node_modules/react-native-iap/ios",
 				);
 				INFOPLIST_FILE = whitewater/Info.plist;
 				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "-traditional";
@@ -1944,11 +1961,13 @@
 					"$(SRCROOT)/../node_modules/react-native-device-info/ios/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
+					"$(SRCROOT)/../node_modules/react-native-iap/ios",
 				);
 				INFOPLIST_FILE = "whitewater-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1989,11 +2008,13 @@
 					"$(SRCROOT)/../node_modules/react-native-device-info/ios/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
+					"$(SRCROOT)/../node_modules/react-native-iap/ios",
 				);
 				INFOPLIST_FILE = "whitewater-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -2033,11 +2054,13 @@
 					"$(SRCROOT)/../node_modules/react-native-device-info/ios/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
+					"$(SRCROOT)/../node_modules/react-native-iap/ios",
 				);
 				INFOPLIST_FILE = "whitewater-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -2077,11 +2100,13 @@
 					"$(SRCROOT)/../node_modules/react-native-device-info/ios/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
+					"$(SRCROOT)/../node_modules/react-native-iap/ios",
 				);
 				INFOPLIST_FILE = "whitewater-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -2156,6 +2181,7 @@
 					"$(SRCROOT)/../node_modules/react-native-device-info/ios/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
+					"$(SRCROOT)/../node_modules/react-native-iap/ios",
 				);
 				INFOPLIST_FILE = whitewater/Info.plist;
 				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "-traditional";
@@ -2194,12 +2220,14 @@
 					"$(SRCROOT)/../node_modules/react-native-device-info/ios/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
+					"$(SRCROOT)/../node_modules/react-native-iap/ios",
 				);
 				INFOPLIST_FILE = whitewaterTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -2237,11 +2265,13 @@
 					"$(SRCROOT)/../node_modules/react-native-device-info/ios/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
+					"$(SRCROOT)/../node_modules/react-native-iap/ios",
 				);
 				INFOPLIST_FILE = "whitewater-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -2281,11 +2311,13 @@
 					"$(SRCROOT)/../node_modules/react-native-device-info/ios/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
+					"$(SRCROOT)/../node_modules/react-native-iap/ios",
 				);
 				INFOPLIST_FILE = "whitewater-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);

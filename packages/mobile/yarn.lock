@@ -4087,6 +4087,12 @@ domutils@^1.5.1:
     dom-serializer "0"
     domelementtype "1"
 
+dooboolab-welcome@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/dooboolab-welcome/-/dooboolab-welcome-1.0.5.tgz#7b9a5e8db3cace4cc98764258830180c009d7e70"
+  dependencies:
+    chalk "^2.3.0"
+
 dot-prop@^4.1.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/dot-prop/-/dot-prop-4.2.0.tgz#1f19e0c2e1aa0e32797c49799f2837ac6af69c57"
@@ -9269,6 +9275,12 @@ react-native-fit-image@^1.5.2:
   resolved "https://registry.yarnpkg.com/react-native-fit-image/-/react-native-fit-image-1.5.4.tgz#73d2fccc7ad902cf2ffcd008a2a74749ad50134a"
   dependencies:
     prop-types "^15.5.10"
+
+react-native-iap@^1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/react-native-iap/-/react-native-iap-1.2.3.tgz#086e2ef68d2e40d1f34489b274752a4a2e51cb38"
+  dependencies:
+    dooboolab-welcome "^1.0.5"
 
 react-native-image-pan-zoom@^2.1.6:
   version "2.1.6"
