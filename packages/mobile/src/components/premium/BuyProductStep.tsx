@@ -26,15 +26,15 @@ interface Props {
   onCancel?: () => void;
   onBuy?: () => void;
   onRefetchIAP?: () => void;
+  cancelable: boolean;
 }
 
 export class BuyProductStep extends React.PureComponent<Props> {
   render() {
-    const { region, error, onBuy, onCancel, onRefetchIAP, price, priceLoading } = this.props;
+    const { error, onBuy, onCancel, onRefetchIAP, price, priceLoading, cancelable } = this.props;
     const buyButton = error ? 'Retry' : (priceLoading ? 'Buy' : `Buy for ${price}`);
     return (
       <React.Fragment>
-        <DialogTitle>{region.name}</DialogTitle>
         <DialogContent>
           <Subheading style={styles.subheading}>Buy premium region</Subheading>
           <Paragraph>You will get access to following features:</Paragraph>
@@ -53,7 +53,12 @@ export class BuyProductStep extends React.PureComponent<Props> {
           </View>
         </DialogContent>
         <DialogActions>
-          <Button raised onPress={onCancel}>Cancel</Button>
+          {
+            !cancelable &&
+            (
+              <Button raised onPress={onCancel}>Cancel</Button>
+            )
+          }
           <Button
             primary
             raised

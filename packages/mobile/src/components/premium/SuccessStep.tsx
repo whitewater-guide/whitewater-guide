@@ -12,13 +12,13 @@ const styles = StyleSheet.create({
 
 interface Props {
   region: PremiumRegion;
-  onCancel?: () => void;
+  onComplete?: () => void;
 }
 
 export class SuccessStep extends React.PureComponent<Props> {
 
   render() {
-    const { region, onCancel } = this.props;
+    const { region, onComplete } = this.props;
     return (
       <React.Fragment>
         <DialogTitle>{region.name}</DialogTitle>
@@ -31,7 +31,7 @@ export class SuccessStep extends React.PureComponent<Props> {
           </Paragraph>
         </DialogContent>
         <DialogActions>
-          <Button primary raised onPress={onCancel}>
+          <Button primary raised onPress={onComplete}>
             OK
           </Button>
         </DialogActions>

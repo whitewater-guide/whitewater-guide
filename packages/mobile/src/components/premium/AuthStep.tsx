@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { Button, DialogActions, DialogContent, DialogTitle, Subheading } from 'react-native-paper';
+import { Button, DialogActions, DialogContent, Subheading } from 'react-native-paper';
 import theme from '../../theme';
 import { User } from '../../ww-commons';
 import AnonHeader from '../AnonHeader';
@@ -18,6 +18,7 @@ interface Props {
   me: Pick<User, 'name' | 'avatar'> | null;
   onContinue?: () => void;
   onCancel?: () => void;
+  cancelable: boolean;
 }
 
 export class AuthStep extends React.PureComponent<Props> {
@@ -36,17 +37,21 @@ export class AuthStep extends React.PureComponent<Props> {
   );
 
   render() {
-    const { region, me, onCancel, onContinue } = this.props;
+    const { me, onCancel, onContinue, cancelable } = this.props;
     return (
       <React.Fragment>
-        <DialogTitle>{region.name}</DialogTitle>
         <DialogContent>
           {
             me ? this.renderUser() : this.renderAnon()
           }
         </DialogContent>
         <DialogActions>
-          <Button raised onPress={onCancel}>Cancel</Button>
+          {
+            !cancelable &&
+            (
+              <Button raised onPress={onCancel}>Cancel</Button>
+            )
+          }
           <Button primary raised onPress={onContinue} disabled={!me}>
             Continue
           </Button>

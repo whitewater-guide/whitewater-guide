@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { Button, DialogActions, DialogContent, DialogTitle, Subheading } from 'react-native-paper';
+import { Button, DialogActions, DialogContent, Subheading } from 'react-native-paper';
 import theme from '../../theme';
 import { PremiumRegion } from './types';
 
@@ -18,10 +18,9 @@ interface Props {
 export class AlreadyHaveStep extends React.PureComponent<Props> {
 
   render() {
-    const { region, onCancel } = this.props;
+    const { onCancel } = this.props;
     return (
       <React.Fragment>
-        <DialogTitle>{region.name}</DialogTitle>
         <DialogContent>
           <Subheading style={styles.subheading}>
             It seems that you already have premium access to this region
