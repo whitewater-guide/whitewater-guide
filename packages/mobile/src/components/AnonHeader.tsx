@@ -5,9 +5,9 @@ import { Title, TouchableRipple } from 'react-native-paper';
 import Svg, { Path } from 'react-native-svg';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
-import { loginWithFB } from '../../core/auth/actions';
-import { WithT } from '../../i18n';
-import theme from '../../theme';
+import { loginWithFB } from '../core/auth/actions';
+import { WithT } from '../i18n';
+import theme from '../theme';
 
 const styles = StyleSheet.create({
   icon: {

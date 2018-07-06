@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Title } from 'react-native-paper';
-import theme from '../../theme';
-import { User } from '../../ww-commons';
-import { Avatar } from '../Avatar';
+import theme from '../theme';
+import { User } from '../ww-commons';
+import { Avatar } from './Avatar';
 
 const styles = StyleSheet.create({
   icon: {
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-  user: User;
+  user: Pick<User, 'name' | 'avatar'>;
 }
 
 const UserHeader: React.StatelessComponent<Props> = ({ user }) => (
