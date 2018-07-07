@@ -10,6 +10,16 @@ export const PREMIUM_DIALOG_QUERY = gql`
       id
       description
     }
+    me {
+      purchasedRegions {
+        id
+        name
+      }
+      purchasedGroups {
+        id
+        name
+      }
+    }
   }
 `;
 

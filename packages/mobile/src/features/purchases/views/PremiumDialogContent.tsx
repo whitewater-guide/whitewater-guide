@@ -2,12 +2,11 @@ import React from 'react';
 import * as RNIap from 'react-native-iap';
 import { DialogTitle } from 'react-native-paper';
 import { Key, NavigationState, Scene, TabView } from 'react-native-tab-view';
-import theme from '../../theme';
+import theme from '../../../theme';
 import { AlreadyHaveStep } from './AlreadyHaveStep';
 import { AuthStep } from './AuthStep';
 import { BuyProductStep } from './BuyProductStep';
 import { InnerProps } from './container';
-import { PREMIUM_DIALOG_QUERY } from './premiumDialog.query';
 import { SuccessStep } from './SuccessStep';
 
 const initialLayout = {
@@ -41,17 +40,12 @@ export class PremiumDialogContent extends React.PureComponent<InnerProps, State>
     await this.fetchProduct();
   }
 
+  componentWillUnmount() {
+    // dispatch purchase flow reset
+  }
+
   fetchProduct = async () => {
-    try {
-      this.setState({ productLoading: true, error: false });
-      await RNIap.prepare();
-      const [product] = await RNIap.getProducts([this.props.region.sku]);
-      this.setState({ product, productLoading: false, error: false });
-      await RNIap.endConnection();
-    } catch (e) {
-      console.log(e);
-      this.setState({ product: undefined, productLoading: false, error: true });
-    }
+    // Dispatch with this.props.region.sku
   };
 
   onIndexChange = (index: number) => this.setState({ nav: { ...this.state.nav, index } });
@@ -59,24 +53,12 @@ export class PremiumDialogContent extends React.PureComponent<InnerProps, State>
   onAuth = () => this.setState({ nav: { ...this.state.nav, index: 2 } });
 
   onBuy = async () =>  {
-    await RNIap.prepare();
-    await RNIap.buyProductWithoutFinishTransaction(this.props.region.sku);
-    // buy product from our server
-    // TODO: handle network loss here
-    await RNIap.finishTransaction();
-    await RNIap.endConnection();
-    this.setState({ nav: { ...this.state.nav, index: 3 } });
+    // Dispatch with this.props.region.sku
   };
 
   onComplete = async () => {
-    const { client, onCancel, region, sectionId } = this.props;
-    await client.query({
-      query: PREMIUM_DIALOG_QUERY,
-      variables: { regionId: region.id, sectionId },
-      fetchPolicy: 'network-only',
-    });
-    // TODO: handle network break here
-    onCancel();
+    // dispatch premium refresh { regionId: region.id, sectionId }
+    this.props.onCancel();
   };
 
   renderScene = ({ route }: Scene<Key>) => {
