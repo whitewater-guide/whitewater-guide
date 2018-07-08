@@ -1,3 +1,4 @@
+export * from './AnonHeader';
 export * from './Avatar';
 export * from './Chips';
 export * from './DifficultyThumb';
@@ -21,3 +22,4 @@ export * from './Spacer';
 export * from './SplashScreen';
 export * from './StarRating';
 export * from './TernaryChips';
+export * from './UserHeader';

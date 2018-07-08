@@ -1,10 +1,11 @@
 import React from 'react';
+import { translate } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 import { Button, DialogActions, DialogContent, Subheading } from 'react-native-paper';
-import theme from '../../theme';
-import { User } from '../../ww-commons';
-import AnonHeader from '../AnonHeader';
-import UserHeader from '../UserHeader';
+import { AnonHeader, UserHeader } from '../../../components';
+import { WithT } from '../../../i18n';
+import theme from '../../../theme';
+import { User } from '../../../ww-commons';
 import { PremiumRegion } from './types';
 
 const styles = StyleSheet.create({
@@ -13,18 +14,20 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Props {
+interface Props extends WithT {
   region: PremiumRegion;
   me: Pick<User, 'name' | 'avatar'> | null;
   onContinue?: () => void;
   onCancel?: () => void;
-  cancelable: boolean;
+  cancelable?: boolean;
 }
 
-export class AuthStep extends React.PureComponent<Props> {
+class AuthStep extends React.PureComponent<Props> {
   renderAnon = () => (
     <React.Fragment>
-      <Subheading style={styles.subheading}>Please authenticate to proceed to purchase</Subheading>
+      <Subheading style={styles.subheading}>
+        {this.props.t('iap:auth.anon')}
+      </Subheading>
       <AnonHeader />
     </React.Fragment>
   );
@@ -32,7 +35,9 @@ export class AuthStep extends React.PureComponent<Props> {
   renderUser = () => (
     <React.Fragment>
       <UserHeader user={this.props.me} />
-      <Subheading style={styles.subheading}>Success! Please continue to your purchase</Subheading>
+      <Subheading style={styles.subheading}>
+        {this.props.t('iap:auth.user')}
+      </Subheading>
     </React.Fragment>
   );
 
@@ -60,3 +65,5 @@ export class AuthStep extends React.PureComponent<Props> {
     );
   }
 }
+
+export default translate()(AuthStep);

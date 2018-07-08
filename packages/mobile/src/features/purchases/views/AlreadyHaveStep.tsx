@@ -1,7 +1,9 @@
 import React from 'react';
+import { translate } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 import { Button, DialogActions, DialogContent, Subheading } from 'react-native-paper';
-import theme from '../../theme';
+import { WithT } from '../../../i18n';
+import theme from '../../../theme';
 import { PremiumRegion } from './types';
 
 const styles = StyleSheet.create({
@@ -10,28 +12,30 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Props {
+interface Props extends WithT {
   region: PremiumRegion;
   onCancel?: () => void;
 }
 
-export class AlreadyHaveStep extends React.PureComponent<Props> {
+class AlreadyHaveStep extends React.PureComponent<Props> {
 
   render() {
-    const { onCancel } = this.props;
+    const { onCancel, region, t } = this.props;
     return (
       <React.Fragment>
         <DialogContent>
           <Subheading style={styles.subheading}>
-            It seems that you already have premium access to this region
+            {t('iap:alreadyHave.message', { region: region.name })}
           </Subheading>
         </DialogContent>
         <DialogActions>
           <Button primary raised onPress={onCancel}>
-            OK
+            {t('commons:ok')}
           </Button>
         </DialogActions>
       </React.Fragment>
     );
   }
 }
+
+export default translate()(AlreadyHaveStep);

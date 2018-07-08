@@ -1,7 +1,9 @@
 import auth from './auth';
+import iap from './iap';
 
 export default {
   auth,
+  iap,
   commons: {
     putIn: 'Put-in',
     takeOut: 'Take-out',

@@ -52,6 +52,4 @@ const container = compose(
   translate(),
 );
 
-const AnonHeader = container(AnonHeaderView);
-
-export default AnonHeader;
+export const AnonHeader = container(AnonHeaderView);

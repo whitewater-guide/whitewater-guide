@@ -1,7 +1,11 @@
 import React from 'react';
+import { translate } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
-import { Button, DialogActions, DialogContent, DialogTitle, Paragraph, Subheading } from 'react-native-paper';
-import theme from '../../theme';
+import { Button, DialogActions, DialogContent, Paragraph } from 'react-native-paper';
+import { Markdown } from '../../../components';
+import { WithT } from '../../../i18n';
+import theme from '../../../theme';
+import { PurchaseState } from '../types';
 import { PremiumRegion } from './types';
 
 const styles = StyleSheet.create({
@@ -18,35 +22,37 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Props {
+interface Props extends WithT {
   region: PremiumRegion;
+  state: PurchaseState;
   price?: string;
-  priceLoading?: boolean;
-  error?: boolean;
+  error?: [string] | [string, { [key: string]: string }] | null;
   onCancel?: () => void;
-  onBuy?: () => void;
-  onRefetchIAP?: () => void;
-  cancelable: boolean;
+  onConfirm?: () => void;
+  cancelable?: boolean;
 }
 
-export class BuyProductStep extends React.PureComponent<Props> {
+class BuyProductStep extends React.PureComponent<Props> {
   render() {
-    const { error, onBuy, onCancel, onRefetchIAP, price, priceLoading, cancelable } = this.props;
-    const buyButton = error ? 'Retry' : (priceLoading ? 'Buy' : `Buy for ${price}`);
+    const { error, onConfirm, onCancel, price, state, cancelable = true, t, region } = this.props;
+    const confirmButtonLabel = t(`iap:buy.confirmButton.${state}`, { price });
+    const loading = state === PurchaseState.PRODUCT_LOADING ||
+      state === PurchaseState.PRODUCT_PURCHASING ||
+      state === PurchaseState.REFRESHING_PREMIUM ||
+      state === PurchaseState.PURCHASE_SAVING;
+    const body = t('iap:buy.descriptionMd', { sectionsCount: region.sections!.count });
     return (
       <React.Fragment>
         <DialogContent>
-          <Subheading style={styles.subheading}>Buy premium region</Subheading>
-          <Paragraph>You will get access to following features:</Paragraph>
-          <Paragraph>• Descriptions of 44 sections</Paragraph>
-          <Paragraph>• Unlocks navigate to put-in/take-out buttons</Paragraph>
-          <Paragraph>• Unlocks precise coordinates of put-ins, take-outs and POIs</Paragraph>
+          <Markdown>
+            {body}
+          </Markdown>
           <View style={styles.errorWrapper}>
             {
               error &&
               (
                 <Paragraph style={styles.error}>
-                  Could not get product details, please check your internet connection
+                  {t.apply(null, error)}
                 </Paragraph>
               )
             }
@@ -54,7 +60,7 @@ export class BuyProductStep extends React.PureComponent<Props> {
         </DialogContent>
         <DialogActions>
           {
-            !cancelable &&
+            cancelable &&
             (
               <Button raised onPress={onCancel}>Cancel</Button>
             )
@@ -62,14 +68,16 @@ export class BuyProductStep extends React.PureComponent<Props> {
           <Button
             primary
             raised
-            onPress={error ? onRefetchIAP : onBuy}
-            disabled={priceLoading}
-            loading={priceLoading}
+            onPress={onConfirm}
+            disabled={loading}
+            loading={loading}
           >
-            {buyButton}
+            {confirmButtonLabel}
           </Button>
         </DialogActions>
       </React.Fragment>
     );
   }
 }
+
+export default translate()(BuyProductStep);

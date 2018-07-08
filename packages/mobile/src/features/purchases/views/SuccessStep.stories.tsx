@@ -2,8 +2,8 @@ import { storiesOf } from '@storybook/react-native';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Paper } from 'react-native-paper';
-import { I18nProvider } from '../../i18n';
-import { SuccessStep } from './SuccessStep';
+import { I18nProvider } from '../../../i18n';
+import SuccessStep from './SuccessStep';
 import { PremiumRegion } from './types';
 
 const region: PremiumRegion = {

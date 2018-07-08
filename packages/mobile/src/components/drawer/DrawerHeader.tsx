@@ -2,9 +2,9 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import theme from '../../theme';
 import { WithMe } from '../../ww-clients/features/users';
-import AnonHeader from '../AnonHeader';
+import { AnonHeader } from '../AnonHeader';
 import { Loading } from '../Loading';
-import UserHeader from '../UserHeader';
+import { UserHeader } from '../UserHeader';
 
 const styles = StyleSheet.create({
   container: {

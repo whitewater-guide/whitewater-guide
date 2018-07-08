@@ -14,10 +14,6 @@ export function* watchBuyProduct(action: Action<string>) {
   // Step 1. Refresh premium, redirect to different dialog screen if not logged in or already has this region
   yield update({ error: null, product: null, state: PurchaseState.REFRESHING_PREMIUM });
   const status = yield call(refreshPremium);
-  yield update({
-    state: status === RefreshPremiumResult.ERROR ? PurchaseState.REFRESHING_PREMIUM_FAILED : PurchaseState.IDLE,
-    error: status === RefreshPremiumResult.ERROR ? 'iap:errors.refreshPremium' : null,
-  });
   switch (status) {
     case RefreshPremiumResult.ERROR:
       yield update({ error: 'iap:errors.refreshPremium', state: PurchaseState.REFRESHING_PREMIUM_FAILED });
@@ -28,8 +24,6 @@ export function* watchBuyProduct(action: Action<string>) {
     case RefreshPremiumResult.NOT_LOGGED_IN:
       yield update({ state: PurchaseState.IDLE, dialogStep: 'Auth' });
       return;
-    default:
-      yield update({ state: PurchaseState.IDLE });
   }
 
   // Step 2: Purchase product via react-native-iap

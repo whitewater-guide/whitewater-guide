@@ -4,8 +4,8 @@ import { StyleSheet, View } from 'react-native';
 import { Paper } from 'react-native-paper';
 import { Provider } from 'react-redux';
 import createMockStore from 'redux-mock-store';
-import { I18nProvider } from '../../i18n';
-import { AuthStep } from './AuthStep';
+import { I18nProvider } from '../../../i18n';
+import AuthStep from './AuthStep';
 import { PremiumRegion } from './types';
 
 const store = createMockStore()({});
@@ -39,8 +39,22 @@ storiesOf('Premium dialog: auth step')
       me={null}
     />
   ))
+  .add('Without user, cancelable', () => (
+    <AuthStep
+      cancelable
+      region={region}
+      me={null}
+    />
+  ))
   .add('With user', () => (
     <AuthStep
+      region={region}
+      me={user}
+    />
+  ))
+  .add('With user, cancelable', () => (
+    <AuthStep
+      cancelable
       region={region}
       me={user}
     />

@@ -1,3 +1,3 @@
-import { Region } from '../../ww-commons';
+import { Region } from '../../../ww-commons';
 
-export type PremiumRegion = Pick<Region, 'id' | 'name' | 'sku'>;
+export type PremiumRegion = Pick<Region, 'id' | 'name' | 'sku' | 'sections'>;

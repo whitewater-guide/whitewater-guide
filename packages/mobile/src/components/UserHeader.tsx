@@ -21,11 +21,9 @@ interface Props {
   user: Pick<User, 'name' | 'avatar'>;
 }
 
-const UserHeader: React.StatelessComponent<Props> = ({ user }) => (
+export const UserHeader: React.StatelessComponent<Props> = ({ user }) => (
   <View style={styles.container}>
     <Avatar avatar={user.avatar} name={user.name} style={styles.icon} />
     <Title>{user.name}</Title>
   </View>
 );
-
-export default UserHeader;
