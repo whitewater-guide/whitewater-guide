@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+import { Region, Section, User } from '../../../ww-commons';
 
 export const PREMIUM_DIALOG_QUERY = gql`
   query premiumDialog($regionId: ID!, $sectionId: ID) {
@@ -26,4 +27,10 @@ export const PREMIUM_DIALOG_QUERY = gql`
 export interface Vars {
   regionId?: string;
   sectionId?: string;
+}
+
+export interface Result {
+  region: Pick<Region, 'id' | 'hasPremiumAccess'> | null;
+  section: Pick<Section, 'id' | 'description'> | null;
+  me: Pick<User, 'purchasedRegions' | 'purchasedGroups'> | null;
 }
