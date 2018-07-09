@@ -75,7 +75,9 @@ export class RegionCard extends React.PureComponent<Props> {
   renderPremium = () => {
     const { premium, hasPremiumAccess } = this.props.region;
     if (!premium) {
-      return null;
+      return (
+        <View style={styles.col} />
+      );
     }
     if (hasPremiumAccess) {
       return (

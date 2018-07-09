@@ -17,7 +17,7 @@ storiesOf('Premium dialog: buy product step')
   .addDecorator((story) => (
     <I18nProvider>
       <View style={{ ...StyleSheet.absoluteFillObject, padding: 8, paddingTop: 64, backgroundColor: '#AAA' }}>
-        <Paper elevation={2}>
+        <Paper elevation={2} style={{ height: 450 }}>
           {story()}
         </Paper>
       </View>

@@ -12,18 +12,26 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: theme.margin.single,
     marginBottom: theme.margin.single,
+  },
+  containerPadding: {
+    padding: theme.margin.single,
+  },
+  fontMedium: {
+    fontSize: 18,
+    lineHeight: 25,
   },
 });
 
 interface Props {
   user: Pick<User, 'name' | 'avatar'>;
+  medium?: boolean;
+  padded?: boolean;
 }
 
-export const UserHeader: React.StatelessComponent<Props> = ({ user }) => (
-  <View style={styles.container}>
-    <Avatar avatar={user.avatar} name={user.name} style={styles.icon} />
-    <Title>{user.name}</Title>
+export const UserHeader: React.StatelessComponent<Props> = ({ user, medium, padded = true }) => (
+  <View style={[styles.container, padded && styles.containerPadding]}>
+    <Avatar avatar={user.avatar} name={user.name} style={styles.icon} medium={medium} />
+    <Title style={medium && styles.fontMedium}>{user.name}</Title>
   </View>
 );

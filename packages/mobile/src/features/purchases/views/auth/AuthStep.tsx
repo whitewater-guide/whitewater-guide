@@ -29,13 +29,13 @@ class AuthStep extends React.PureComponent<Props> {
       <Subheading style={styles.subheading}>
         {this.props.t('iap:auth.anon')}
       </Subheading>
-      <AnonHeader />
+      <AnonHeader medium padded={false} />
     </React.Fragment>
   );
 
   renderUser = () => (
     <React.Fragment>
-      <UserHeader user={this.props.me} />
+      <UserHeader user={this.props.me} medium padded={false} />
       <Subheading style={styles.subheading}>
         {this.props.t('iap:auth.user')}
       </Subheading>

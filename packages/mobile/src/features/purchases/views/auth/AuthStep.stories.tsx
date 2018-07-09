@@ -19,7 +19,7 @@ storiesOf('Premium dialog: auth step')
     <I18nProvider>
       <Provider store={store}>
         <View style={{ ...StyleSheet.absoluteFillObject, padding: 8, paddingTop: 64, backgroundColor: '#AAA' }}>
-          <Paper elevation={2}>
+          <Paper elevation={2} style={{ height: 450 }}>
             {story()}
           </Paper>
         </View>
