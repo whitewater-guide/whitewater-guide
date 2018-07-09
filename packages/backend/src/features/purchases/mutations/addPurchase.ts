@@ -1,3 +1,4 @@
+import { isValidated, validate } from 'in-app-purchase';
 import Joi from 'joi';
 import { Transaction } from 'knex';
 import { AuthenticationRequiredError, Context, isInputValidResolver, MutationNotAllowedError } from '../../../apollo';
@@ -51,6 +52,23 @@ const processBoomstarterPurchase = async (purchase: PurchaseInput, { user }: Con
   return true;
 };
 
+const processIAP = async (purchase: PurchaseInput, { user }: Context) => {
+  const response = await validate(purchase.receipt!);
+  const validated = isValidated(response);
+  const transaction: Partial<TransactionRaw> = {
+    user_id: user!.id,
+    platform: PurchasePlatform.boomstarter,
+    transaction_id: purchase.transactionId,
+    transaction_date: purchase.transactionDate,
+    product_id: purchase.productId,
+    receipt: purchase.receipt,
+    extra: response,
+    validated,
+  };
+  await db().insert(transaction).into('transactions');
+  return true;
+};
+
 const addPurchase = isInputValidResolver(Schema).createResolver(
   async (_: any, { purchase }: Vars, context: Context) => {
     const { user } = context;
@@ -72,8 +90,9 @@ const addPurchase = isInputValidResolver(Schema).createResolver(
 
     if (purchase.platform === PurchasePlatform.boomstarter) {
       return processBoomstarterPurchase(purchase, context);
+    } else {
+      return processIAP(purchase, context);
     }
-    return false;
   },
 );
 

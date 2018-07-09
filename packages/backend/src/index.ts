@@ -1,5 +1,6 @@
 import db from './db';
 import { startupJobs } from './features/jobs';
+import { initIAP } from './features/purchases/init';
 import log from './log';
 import { initMinio } from './minio';
 import startServer from './server';
@@ -11,6 +12,7 @@ async function startup() {
   await initMinio();
   startServer();
   await startupJobs();
+  await initIAP();
   log.info('Startup complete');
 }
 
