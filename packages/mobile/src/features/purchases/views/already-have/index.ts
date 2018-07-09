@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { RootState } from '../../../../core/reducers';
 import { purchaseActions } from '../../actions';
-import AlreadyHaveStep from './AlreadyHaveStep';
 import { PremiumRegion } from '../../types';
+import AlreadyHaveStep from './AlreadyHaveStep';
 
 interface DispatchProps {
   onCancel?: () => void;

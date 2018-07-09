@@ -1,4 +1,5 @@
 import { AsyncStorage } from 'react-native';
+import { reducer as network } from 'react-native-offline';
 import { combineReducers, Reducer } from 'redux';
 import { PersistConfig, persistReducer } from 'redux-persist';
 import autoMergeLevel2 from 'redux-persist/es/stateReconciler/autoMergeLevel2';
@@ -10,12 +11,17 @@ export interface RootState {
   app: AppState;
   settings: SettingsState;
   purchase: PurchaseStore;
+  network: {
+    isConnected: boolean;
+    actionQueue: any;
+  };
 }
 
 const rootReducer = combineReducers<RootState>({
   app: appReducer,
   settings: settingsReducer,
-  purchase: purchaseReducer as any,
+  purchase: purchaseReducer,
+  network,
 });
 
 const persistConfig: PersistConfig = {

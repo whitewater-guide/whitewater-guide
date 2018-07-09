@@ -1,12 +1,15 @@
 import React from 'react';
 import { translate } from 'react-i18next';
 import { StyleSheet } from 'react-native';
-import { Button, DialogActions, DialogContent, DialogTitle, Paragraph, Subheading } from 'react-native-paper';
+import { Button, DialogActions, DialogContent, Paragraph, Subheading } from 'react-native-paper';
 import { WithT } from '../../../../i18n';
 import theme from '../../../../theme';
 import { PremiumRegion } from '../../types';
 
 const styles = StyleSheet.create({
+  dialogContent: {
+    flex: 1,
+  },
   subheading: {
     marginBottom: theme.margin.single,
   },
@@ -23,8 +26,7 @@ class SuccessStep extends React.PureComponent<Props> {
     const { t, region, onComplete } = this.props;
     return (
       <React.Fragment>
-        <DialogTitle>{region.name}</DialogTitle>
-        <DialogContent>
+        <DialogContent style={styles.dialogContent}>
           <Subheading style={styles.subheading}>
             {t('iap:success.subheading')}
           </Subheading>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { StyleSheet, View } from 'react-native';
 import {
   createNavigationContainer,
   createStackNavigator,
@@ -11,6 +12,7 @@ import {
 import { Drawer } from './components';
 import { renderHeader } from './components/header';
 import { navigationChannel } from './core/sagas';
+import { PremiumDialog } from './features/purchases';
 import {
   FilterScreen,
   MyProfileScreen,
@@ -76,7 +78,10 @@ class RootNavigatorView extends React.PureComponent<Props> {
     return (
       <RegionProvider regionId={regionId}>
         <Drawer navigation={navigation as any}>
-          <Navigator navigation={navigation as any} />
+          <View style={StyleSheet.absoluteFill}>
+            <Navigator navigation={navigation as any} />
+            <PremiumDialog />
+          </View>
         </Drawer>
       </RegionProvider>
     );

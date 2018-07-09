@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { RootState } from '../../../../core/reducers';
 import { purchaseActions } from '../../actions';
-import SuccessStep from './SuccessStep';
 import { PremiumRegion } from '../../types';
+import SuccessStep from './SuccessStep';
 
 interface DispatchProps {
   onComplete?: () => void;

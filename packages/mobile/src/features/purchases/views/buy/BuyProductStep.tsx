@@ -8,6 +8,9 @@ import theme from '../../../../theme';
 import { PremiumRegion, PurchaseState } from '../../types';
 
 const styles = StyleSheet.create({
+  dialogContent: {
+    flex: 1,
+  },
   subheading: {
     marginBottom: theme.margin.single,
   },
@@ -42,7 +45,7 @@ class BuyProductStep extends React.PureComponent<Props> {
     const body = t('iap:buy.descriptionMd', { sectionsCount: region.sections!.count });
     return (
       <React.Fragment>
-        <DialogContent>
+        <DialogContent style={styles.dialogContent}>
           <Markdown>
             {body}
           </Markdown>

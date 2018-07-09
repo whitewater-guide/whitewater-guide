@@ -7,6 +7,9 @@ import theme from '../../../../theme';
 import { PremiumRegion } from '../../types';
 
 const styles = StyleSheet.create({
+  dialogContent: {
+    flex: 1,
+  },
   subheading: {
     marginBottom: theme.margin.single,
   },
@@ -23,7 +26,7 @@ class AlreadyHaveStep extends React.PureComponent<Props> {
     const { onCancel, region, t } = this.props;
     return (
       <React.Fragment>
-        <DialogContent>
+        <DialogContent style={styles.dialogContent}>
           <Subheading style={styles.subheading}>
             {t('iap:alreadyHave.message', { region: region.name })}
           </Subheading>

@@ -11,7 +11,7 @@ export function* watchFetchProduct(action: Action<string>) {
   yield update({
     product,
     state: product ? PurchaseState.IDLE : PurchaseState.PRODUCT_LOADING_FAILED,
-    error: product ? 'iap:errors.fetchProduct' : null,
+    error: product ? null : 'iap:errors.fetchProduct',
   });
 }
 

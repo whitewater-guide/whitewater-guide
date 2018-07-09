@@ -1,4 +1,5 @@
 import React from 'react';
+import { StyleSheet, View } from 'react-native';
 import { DialogTitle } from 'react-native-paper';
 import { NavigationState, Scene, TabView } from 'react-native-tab-view';
 import theme from '../../../theme';
@@ -13,6 +14,12 @@ const initialLayout = {
   height: 0,
 };
 
+const styles = StyleSheet.create({
+  root: {
+    minHeight: 450,
+  },
+});
+
 interface Key {
   key: PurchaseDialogStep;
 }
@@ -20,12 +27,11 @@ interface Key {
 type State = NavigationState<Key>;
 
 interface Props {
-  region: PremiumRegion;
+  region?: PremiumRegion;
   step: PurchaseDialogStep;
   cancelable?: boolean;
 
   onFetchProduct: () => void;
-  onResetPurchase: () => void;
 }
 
 export class PremiumDialogView extends React.PureComponent<Props, State> {
@@ -48,10 +54,6 @@ export class PremiumDialogView extends React.PureComponent<Props, State> {
 
   componentDidMount() {
     this.props.onFetchProduct();
-  }
-
-  componentWillUnmount() {
-    this.props.onResetPurchase();
   }
 
   onIndexChange = (index: number) => this.setState({ ...this.state, index });
@@ -84,8 +86,11 @@ export class PremiumDialogView extends React.PureComponent<Props, State> {
 
   render() {
     const { region } = this.props;
+    if (!region) {
+      return null;
+    }
     return (
-      <React.Fragment>
+      <View style={styles.root}>
         <DialogTitle>{region.name}</DialogTitle>
         <TabView
           navigationState={this.state}
@@ -95,7 +100,7 @@ export class PremiumDialogView extends React.PureComponent<Props, State> {
           renderTabBar={this.renderTabBar}
           swipeEnabled={false}
         />
-      </React.Fragment>
+      </View>
     );
   }
 }

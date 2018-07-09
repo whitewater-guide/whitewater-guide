@@ -16,11 +16,10 @@ const styles = StyleSheet.create({
     padding: 0,
   },
   footer: {
-    height: 24,
-    paddingHorizontal: theme.margin.single,
-  },
-  row: {
+    height: 32,
     flexDirection: 'row',
+    paddingHorizontal: theme.margin.single,
+    alignItems: 'center',
   },
   image: {
     alignSelf: 'stretch',
@@ -59,15 +58,19 @@ const styles = StyleSheet.create({
 export const CARD_HEIGHT =
   theme.margin.half * 2 + // root.marginVertical
   (theme.screenWidth - 2 * theme.margin.single) / 3 + // image - card margin horizontal, aspect ratio
-  24; // footer
+  32; // footer
+
+const PREMIUM_HIT_SLOP = { left: 16, right: 8, top: 0, bottom: 0 };
 
 interface Props extends WithT {
   region: Region;
   onPress: (region: Region) => void;
+  onPremiumPress: (region: Region) => void;
 }
 
 export class RegionCard extends React.PureComponent<Props> {
   onPress = () => this.props.onPress(this.props.region);
+  onPremiumPress = () => this.props.onPremiumPress(this.props.region);
 
   renderPremium = () => {
     const { premium, hasPremiumAccess } = this.props.region;
@@ -76,17 +79,19 @@ export class RegionCard extends React.PureComponent<Props> {
     }
     if (hasPremiumAccess) {
       return (
-        <React.Fragment>
+        <View style={styles.col}>
           <Caption style={styles.premiumUnlocked}>{this.props.t('commons:premium')}</Caption>
           <Icon icon="lock-open-outline" color={theme.colors.componentBorder} size={16} />
-        </React.Fragment>
+        </View>
       );
     }
     return (
-      <React.Fragment>
-        <Caption style={styles.premium}>{this.props.t('commons:premium')}</Caption>
-        <Icon icon="lock" color={theme.colors.primary} size={16} />
-      </React.Fragment>
+      <TouchableRipple onPress={this.onPremiumPress} hitSlop={PREMIUM_HIT_SLOP}>
+        <View style={styles.col}>
+          <Caption style={styles.premium}>{this.props.t('commons:premium')}</Caption>
+          <Icon icon="lock" color={theme.colors.primary} size={16} />
+        </View>
+      </TouchableRipple>
     );
   };
 
@@ -106,17 +111,13 @@ export class RegionCard extends React.PureComponent<Props> {
             </LinearGradient>
           </Image>
           <View style={styles.footer}>
-            <View style={styles.row}>
-              <View style={styles.col}>
-                <Caption>{`${t('regionsList:sectionsCount')}: ${region.sections.count}`}</Caption>
-              </View>
-              <View style={styles.col}>
-                <Caption>{`${t('regionsList:gaugesCount')}: ${region.gauges.count}`}</Caption>
-              </View>
-              <View style={styles.col}>
-                {this.renderPremium()}
-              </View>
+            <View style={styles.col}>
+              <Caption>{`${t('regionsList:sectionsCount')}: ${region.sections.count}`}</Caption>
             </View>
+            <View style={styles.col}>
+              <Caption>{`${t('regionsList:gaugesCount')}: ${region.gauges.count}`}</Caption>
+            </View>
+            {this.renderPremium()}
           </View>
         </Paper>
       </TouchableRipple>

@@ -1,7 +1,7 @@
 import i18next from 'i18next';
 import moment from 'moment';
 import React from 'react';
-import { I18nextProvider } from 'react-i18next';
+import { reactI18nextModule } from 'react-i18next';
 import RNLanguages from 'react-native-languages';
 import { MyProfileConsumer } from '../ww-clients/features/users';
 import { SUPPORTED_LANGUAGES } from './languages';
@@ -18,18 +18,20 @@ export class I18nProviderInternal extends React.PureComponent<Props> {
   constructor(props: Props) {
     super(props);
     const language = props.language || RNLanguages.language || 'en';
-    this.i18n = i18next.init({
-      lng: (language).substr(0, 2),
-      fallbackLng: 'en',
-      whitelist: SUPPORTED_LANGUAGES,
-      interpolation: {
-        escapeValue: false, // not needed for react!!
-      },
-      react: {
-        nsMode: 'fallback',
-      },
-      resources: { en, ru },
-    });
+    this.i18n = i18next
+      .use(reactI18nextModule)
+      .init({
+        lng: (language).substr(0, 2),
+        fallbackLng: 'en',
+        whitelist: SUPPORTED_LANGUAGES,
+        interpolation: {
+          escapeValue: false, // not needed for react!!
+        },
+        react: {
+          nsMode: 'fallback',
+        },
+        resources: { en, ru },
+      });
     moment.locale(this.i18n.languages[0]);
     this.i18n.on('languageChanged', this.onLanguageChange);
   }
@@ -52,11 +54,7 @@ export class I18nProviderInternal extends React.PureComponent<Props> {
   };
 
   render() {
-    return (
-      <I18nextProvider i18n={this.i18n}>
-        {this.props.children as any}
-      </I18nextProvider>
-    );
+    return this.props.children;
   }
 }
 

@@ -1,11 +1,11 @@
 import React from 'react';
 import { Query, QueryResult } from 'react-apollo';
-import { translate } from 'react-i18next';
 import { FlatList, ListRenderItemInfo } from 'react-native';
 import { OfflineQueryPlaceholder, RefreshIndicator } from '../../components';
 import isApolloOfflineError from '../../utils/isApolloOfflineError';
 import { queryResultToList, WithList } from '../../ww-clients/apollo';
 import { Region } from '../../ww-commons';
+import container from './container';
 import { CARD_HEIGHT, RegionCard } from './RegionCard';
 import { REGIONS_LIST_QUERY, Result } from './regionsList.query';
 import { InnerProps } from './types';
@@ -24,7 +24,12 @@ class RegionsListView extends React.PureComponent<InnerProps> {
     this.props.navigate('Region', { regionId: region.id });
 
   renderItem = ({ item }: ListRenderItemInfo<Region>) => (
-    <RegionCard region={item} onPress={this.onRegionSelected} t={this.props.t} />
+    <RegionCard
+      region={item}
+      onPress={this.onRegionSelected}
+      t={this.props.t}
+      onPremiumPress={this.props.buyPremium}
+    />
   );
 
   renderList = (regions: WithList<Region>) => {
@@ -57,4 +62,4 @@ class RegionsListView extends React.PureComponent<InnerProps> {
   }
 }
 
-export default translate()(RegionsListView);
+export default container(RegionsListView);

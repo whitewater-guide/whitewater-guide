@@ -8,6 +8,9 @@ import theme from '../../../../theme';
 import { User } from '../../../../ww-commons';
 
 const styles = StyleSheet.create({
+  dialogContent: {
+    flex: 1,
+  },
   subheading: {
     marginBottom: theme.margin.single,
   },
@@ -43,7 +46,7 @@ class AuthStep extends React.PureComponent<Props> {
     const { me, onCancel, onContinue, cancelable = true } = this.props;
     return (
       <React.Fragment>
-        <DialogContent>
+        <DialogContent style={styles.dialogContent}>
           {
             me ? this.renderUser() : this.renderAnon()
           }

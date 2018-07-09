@@ -28,7 +28,7 @@ const initialState: PurchaseStore = {
 export const purchaseReducer = persistReducer(persistConfig,
   (state: PurchaseStore = initialState, action: AnyAction): PurchaseStore => {
     if (isType(action, purchaseActions.openDialog)) {
-      const { dialogOpen, region, sectionId } = action.payload;
+      const { dialogOpen = true, region, sectionId } = action.payload;
       return {
         ...state,
         dialogData: { region, sectionId },

@@ -65,20 +65,20 @@ class App extends React.Component<{}, State> {
       return (
         <Provider store={this.store}>
           <ApolloProvider client={this.apolloClient}>
-            <PaperProvider theme={PaperTheme}>
-              <PortalProvider>
-                <TagsProvider>
-                  <MyProfileProvider renderLoading={this.renderLoading}>
-                    <I18nProvider>
+            <I18nProvider>
+              <PaperProvider theme={PaperTheme}>
+                <PortalProvider>
+                  <TagsProvider>
+                    <MyProfileProvider renderLoading={this.renderLoading}>
                       <RootNavigator
                         persistenceKey={navigationPersistenceKey}
                         onNavigationStateChange={trackScreenChange}
                       />
-                    </I18nProvider>
-                  </MyProfileProvider>
-                </TagsProvider>
-              </PortalProvider>
-            </PaperProvider>
+                    </MyProfileProvider>
+                  </TagsProvider>
+                </PortalProvider>
+              </PaperProvider>
+            </I18nProvider>
           </ApolloProvider>
         </Provider>
       );
