@@ -2,11 +2,10 @@ import React from 'react';
 import { translate } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Button, DialogActions, DialogContent, Paragraph } from 'react-native-paper';
-import { Markdown } from '../../../components';
-import { WithT } from '../../../i18n';
-import theme from '../../../theme';
-import { PurchaseState } from '../types';
-import { PremiumRegion } from './types';
+import { Markdown } from '../../../../components';
+import { WithT } from '../../../../i18n';
+import theme from '../../../../theme';
+import { PremiumRegion, PurchaseState } from '../../types';
 
 const styles = StyleSheet.create({
   subheading: {

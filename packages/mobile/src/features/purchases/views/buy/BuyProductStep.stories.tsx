@@ -2,10 +2,9 @@ import { storiesOf } from '@storybook/react-native';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Paper } from 'react-native-paper';
-import { I18nProvider } from '../../../i18n';
-import { PurchaseState } from '../types';
+import { I18nProvider } from '../../../../i18n';
+import { PremiumRegion, PurchaseState } from '../../types';
 import BuyProductStep from './BuyProductStep';
-import { PremiumRegion } from './types';
 
 const region: PremiumRegion = {
   id: '1111',

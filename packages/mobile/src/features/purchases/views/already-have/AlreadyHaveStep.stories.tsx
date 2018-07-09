@@ -2,9 +2,9 @@ import { storiesOf } from '@storybook/react-native';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Paper } from 'react-native-paper';
-import { I18nProvider } from '../../../i18n';
-import SuccessStep from './SuccessStep';
-import { PremiumRegion } from './types';
+import { I18nProvider } from '../../../../i18n';
+import { PremiumRegion } from '../../types';
+import AlreadyHaveStep from './AlreadyHaveStep';
 
 const region: PremiumRegion = {
   id: '1111',
@@ -12,7 +12,7 @@ const region: PremiumRegion = {
   sku: 'region.georgia',
 };
 
-storiesOf('Premium dialog: success step')
+storiesOf('Premium dialog: already have step')
   .addDecorator((story) => (
     <I18nProvider>
       <View style={{ ...StyleSheet.absoluteFillObject, padding: 8, paddingTop: 64, backgroundColor: '#AAA' }}>
@@ -23,7 +23,7 @@ storiesOf('Premium dialog: success step')
     </I18nProvider>
   ))
   .add('Default', () => (
-    <SuccessStep
+    <AlreadyHaveStep
       region={region}
     />
   ));

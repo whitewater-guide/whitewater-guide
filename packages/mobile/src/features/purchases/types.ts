@@ -1,5 +1,7 @@
 import { Product, ProductPurchase } from 'react-native-iap';
-import { Region } from '../../ww-commons/features/regions';
+import { Region } from '../../ww-commons';
+
+export type PremiumRegion = Pick<Region, 'id' | 'name' | 'sku' | 'sections'>;
 
 export const enum PurchaseState {
   IDLE = 'IDLE',
@@ -23,15 +25,15 @@ export const enum RefreshPremiumResult {
   ERROR,
 }
 
-export interface PurchaseDialogData {
-  region: Region;
-  sectionId?: string;
-}
-
 export const enum SavePurchaseResult {
   SUCCESS,
   ERROR,
   OFFLINE,
+}
+
+export interface PurchaseDialogData {
+  region: Region;
+  sectionId?: string;
 }
 
 export interface PurchaseStore {
@@ -42,6 +44,10 @@ export interface PurchaseStore {
   product: Product | null;
   error: [string] | [string, { [key: string]: string }] | null;
   offlinePurchases: ProductPurchase[];
+}
+
+export interface OpenDialogPayload extends PurchaseDialogData {
+  dialogOpen?: boolean; // false for buy premium panel
 }
 
 export interface UpdatePurchasePayload {

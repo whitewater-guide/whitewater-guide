@@ -2,11 +2,10 @@ import React from 'react';
 import { translate } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 import { Button, DialogActions, DialogContent, Subheading } from 'react-native-paper';
-import { AnonHeader, UserHeader } from '../../../components';
-import { WithT } from '../../../i18n';
-import theme from '../../../theme';
-import { User } from '../../../ww-commons';
-import { PremiumRegion } from './types';
+import { AnonHeader, UserHeader } from '../../../../components';
+import { WithT } from '../../../../i18n';
+import theme from '../../../../theme';
+import { User } from '../../../../ww-commons';
 
 const styles = StyleSheet.create({
   subheading: {
@@ -15,7 +14,6 @@ const styles = StyleSheet.create({
 });
 
 interface Props extends WithT {
-  region: PremiumRegion;
   me: Pick<User, 'name' | 'avatar'> | null;
   onContinue?: () => void;
   onCancel?: () => void;
@@ -42,7 +40,7 @@ class AuthStep extends React.PureComponent<Props> {
   );
 
   render() {
-    const { me, onCancel, onContinue, cancelable } = this.props;
+    const { me, onCancel, onContinue, cancelable = true } = this.props;
     return (
       <React.Fragment>
         <DialogContent>
@@ -52,7 +50,7 @@ class AuthStep extends React.PureComponent<Props> {
         </DialogContent>
         <DialogActions>
           {
-            !cancelable &&
+            cancelable &&
             (
               <Button raised onPress={onCancel}>Cancel</Button>
             )

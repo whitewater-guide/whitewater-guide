@@ -1,15 +1,13 @@
 import { ProductPurchase } from 'react-native-iap';
 import { actionCreatorFactory } from 'typescript-fsa';
-import { PurchaseDialogData, RemoveOfflinePurchasePayload, UpdatePurchasePayload } from './types';
+import { OpenDialogPayload, RemoveOfflinePurchasePayload, UpdatePurchasePayload } from './types';
 
 const factory = actionCreatorFactory('IAP');
 
 export const purchaseActions = {
   update: factory<UpdatePurchasePayload>('UPDATE'),
-  // Set region and section id for current purchase flow
-  setDialogData: factory<PurchaseDialogData | null>('SET_DIALOG_DATA'),
   // Opens dialog
-  openDialog: factory('OPEN_DIALOG'),
+  openDialog: factory<OpenDialogPayload>('OPEN_DIALOG'),
   // Loads product info (price, etc) by sku from AppStore / PlayStore
   fetch: factory<string>('FETCH_PRODUCT_INFO'),
   // Buys product by sku from AppStore / PlayStore

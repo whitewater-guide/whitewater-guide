@@ -1,33 +1,34 @@
-import { ApolloClient } from 'apollo-client';
-import { withApollo } from 'react-apollo';
-import { branch, compose } from 'recompose';
-import { consumeRegion } from '../../ww-clients/features/regions';
-import { withMe } from '../../ww-clients/features/users';
-import { Region, User } from '../../ww-commons';
+import { connect, DispatchProp } from 'react-redux';
+import { RootState } from '../../../core/reducers';
+import { purchaseActions } from '../actions';
+import { PremiumRegion, PurchaseDialogStep } from '../types';
 
-export interface OuterProps {
-  region?: Region;
-  sectionId?: string;
+interface OwnProps {
   cancelable?: boolean;
-  onCancel?: () => void;
 }
 
-export interface InnerProps {
-  region: Region; // required here
-  sectionId?: string;
-  cancelable?: boolean;
-  onCancel?: () => void;
-  me: User | null;
-  client: ApolloClient<any>;
+interface StateProps {
+  region: PremiumRegion;
+  step: PurchaseDialogStep;
+  visible: boolean;
 }
 
-const container = compose<InnerProps, OuterProps>(
-  branch(
-    (props: OuterProps) => !props.region,
-    consumeRegion(),
-  ),
-  withMe,
-  withApollo,
+export interface MergedProps extends OwnProps, StateProps {
+  onFetchProduct: () => void;
+  onResetPurchase: () => void;
+}
+
+export const container = connect<StateProps, DispatchProp, OwnProps, MergedProps>(
+  (state: RootState) => ({
+    region: state.purchase.dialogData!.region,
+    step: state.purchase.dialogStep,
+    visible: state.purchase.dialogOpen,
+  }),
+  (dispatch) => ({ dispatch }),
+  (state, { dispatch }, ownProps) => ({
+    ...state,
+    ...ownProps,
+    onFetchProduct: () => dispatch(purchaseActions.fetch(state.region.sku)),
+    onResetPurchase: () => dispatch(purchaseActions.reset()),
+  }),
 );
-
-export default container;
