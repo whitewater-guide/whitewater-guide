@@ -1,6 +1,5 @@
 import { AsyncStorage } from 'react-native';
 import { PersistConfig, persistReducer } from 'redux-persist';
-import autoMergeLevel2 from 'redux-persist/es/stateReconciler/autoMergeLevel2';
 import { AnyAction, isType } from 'typescript-fsa';
 import { auth } from '../../core/auth';
 import { purchaseActions } from './actions';
@@ -12,7 +11,6 @@ const persistConfig: PersistConfig = {
   key: PURCHASE_REDUCER_KEY,
   storage: AsyncStorage,
   whitelist: ['offlinePurchases'],
-  stateReconciler: autoMergeLevel2,
 };
 
 const initialState: PurchaseStore = {
