@@ -40,7 +40,7 @@ You will get access to following features:
     savePurchaseOffline: 'Failed to save your purchase. Please check your internet connection. Your transaction id was {{transactionId}}.',
   },
   section: {
-    message: 'Full section description is only available in premium version',
+    message: 'Full section description is only available in premium version.',
     button: 'Get premium',
   }
 };
