@@ -43,6 +43,7 @@ class BuyProductStep extends React.PureComponent<Props> {
       state === PurchaseState.REFRESHING_PREMIUM ||
       state === PurchaseState.PURCHASE_SAVING;
     const body = t('iap:buy.descriptionMd', { sectionsCount: region.sections!.count });
+    const renderCancelButton = state === PurchaseState.PURCHASE_SAVING_FATAL ? false : cancelable;
     return (
       <React.Fragment>
         <DialogContent style={styles.dialogContent}>
@@ -62,7 +63,7 @@ class BuyProductStep extends React.PureComponent<Props> {
         </DialogContent>
         <DialogActions>
           {
-            cancelable &&
+            renderCancelButton &&
             (
               <Button raised onPress={onCancel}>Cancel</Button>
             )

@@ -1,5 +1,6 @@
 import { ApolloQueryResult } from 'apollo-client';
-import { apply, select } from 'redux-saga/effects';
+import { apply, put, select } from 'redux-saga/effects';
+import { refreshRegionsList } from '../../../core/actions';
 import { getApolloClient } from '../../../core/apollo';
 import { trackError } from '../../../core/errors';
 import { RootState } from '../../../core/reducers';
@@ -20,6 +21,7 @@ export function *refreshPremium() {
       client.query,
       [{ query: PREMIUM_DIALOG_QUERY, variables, fetchPolicy: 'network-only' }],
     );
+    yield put(refreshRegionsList());
     if (errors && errors.length) {
       trackError('iap', errors[0]);
       return RefreshPremiumResult.ERROR;

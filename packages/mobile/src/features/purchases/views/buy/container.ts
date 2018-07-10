@@ -39,6 +39,9 @@ const container = connect<StateProps, DispatchProp, OwnProps, MergedProps>(
       case PurchaseState.PURCHASE_SAVING_OFFLINE:
         onConfirm = () => dispatch(purchaseActions.retryOfflinePurchases());
         break;
+      case PurchaseState.PURCHASE_SAVING_FATAL:
+        onConfirm = () => dispatch(purchaseActions.reset());
+        break;
       case PurchaseState.PRODUCT_PURCHASING_FAILED:
         onConfirm = () => dispatch(purchaseActions.buy(state.region.sku));
         break;

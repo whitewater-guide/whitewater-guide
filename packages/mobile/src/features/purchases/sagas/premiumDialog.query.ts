@@ -12,6 +12,7 @@ export const PREMIUM_DIALOG_QUERY = gql`
       description
     }
     me {
+      id
       purchasedRegions {
         id
         name

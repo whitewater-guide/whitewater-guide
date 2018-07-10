@@ -42,6 +42,7 @@ class RegionsListView extends React.PureComponent<InnerProps> {
     return (
       <FlatList
         data={nodes}
+        extraData={this.props.regionsListRefreshToken}
         getItemLayout={getItemLayout}
         renderItem={this.renderItem}
         keyExtractor={keyExtractor}
