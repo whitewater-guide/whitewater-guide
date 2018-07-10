@@ -1,6 +1,6 @@
 {
   "name": "whitewater",
-  "version": "1.5.1-1",
+  "version": "1.5.1-3",
   "private": true,
   "scripts": {
     "postinstall": "./postinstall.sh",
@@ -15,6 +15,7 @@
     "storybook": "storybook start -p 7007 --metro-config $PWD/rn-cli.config.js",
     "android:code_push:staging": "fastlane android code_push --env staging",
     "android:code_push:production": "fastlane android code_push --env production",
+    "android:alpha": "fastlane android staging --env staging",
     "android:staging": "fastlane android staging --env staging",
     "android:production": "fastlane android production --env production",
     "ios:code_push:staging": "fastlane ios code_push --env staging",

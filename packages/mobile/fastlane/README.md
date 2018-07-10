@@ -60,6 +60,11 @@ fastlane android build
 fastlane android code_push
 ```
 
+### android alpha
+```
+fastlane android alpha
+```
+
 ### android staging
 ```
 fastlane android staging
