@@ -19,6 +19,7 @@ const Core = gql`
     ...SectionName
 
     hidden
+    demo
 
     season
     seasonNumeric

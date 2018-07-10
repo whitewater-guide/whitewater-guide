@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
 const BOUNDS = { left: -136, right: 30, bounce: 0.5 };
 
 interface Props extends WithT {
+  hasPremiumAccess: boolean;
   index: number;
   swipedIndex: number;
   section: Section;
@@ -100,7 +101,7 @@ export class SectionListItem extends React.PureComponent<Props> {
   };
 
   render() {
-    const { section, t } = this.props;
+    const { section, hasPremiumAccess, t } = this.props;
     return (
       <View style={styles.background}>
         <View style={styles.buttonsWrapper}>
@@ -133,7 +134,12 @@ export class SectionListItem extends React.PureComponent<Props> {
           onSnap={this.onSnap}
         >
           <View style={{ left: 0, right: 0, height: ITEM_HEIGHT, backgroundColor: 'white' }}>
-            <SectionListBody section={section} onPress={this.onPress} t={t} />
+            <SectionListBody
+              hasPremiumAccess={hasPremiumAccess}
+              section={section}
+              onPress={this.onPress}
+              t={t}
+            />
           </View>
         </Interactable.View>
 

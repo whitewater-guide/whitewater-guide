@@ -3,7 +3,7 @@ import { translate } from 'react-i18next';
 import { FlatList, ListRenderItemInfo } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 import { WithT } from '../../../i18n';
-import { Section } from '../../../ww-commons';
+import { Region, Section } from '../../../ww-commons';
 import { ITEM_HEIGHT, SectionListItem } from './item';
 import NoSectionsPlaceholder from './NoSectionsPlaceholder';
 
@@ -12,6 +12,7 @@ const getItemLayout = (data, index) => ({ length: ITEM_HEIGHT, offset: ITEM_HEIG
 
 interface Props extends WithT, Pick<NavigationScreenProp<any, any>, 'navigate'> {
   sections: Section[];
+  region: Region;
 }
 
 interface State {
@@ -55,6 +56,7 @@ class SectionsList extends React.PureComponent<Props, State> {
   };
 
   renderItem = ({ item: section, index }: ListRenderItemInfo<Section>) => {
+    const { premium, hasPremiumAccess } = this.props.region;
     let shouldBounceOnMount = false;
     if (this._shouldBounceFirstRowOnMount && this.state.renderedFirstBatch) {
       this._shouldBounceFirstRowOnMount = false;
@@ -63,6 +65,7 @@ class SectionsList extends React.PureComponent<Props, State> {
     return (
       <SectionListItem
         index={index}
+        hasPremiumAccess={hasPremiumAccess || !premium}
         swipedIndex={this.state.swipedItemIndex}
         shouldBounceOnMount={shouldBounceOnMount}
         section={section}

@@ -9,6 +9,8 @@ import theme from '../../theme';
 import { Region } from '../../ww-commons';
 import getCoverImage from './getCoverImage';
 
+const FOOTER_HEIGHT = 40;
+
 const styles = StyleSheet.create({
   root: {
     marginHorizontal: theme.margin.single,
@@ -16,7 +18,7 @@ const styles = StyleSheet.create({
     padding: 0,
   },
   footer: {
-    height: 32,
+    height: FOOTER_HEIGHT,
     flexDirection: 'row',
     paddingHorizontal: theme.margin.single,
     alignItems: 'center',
@@ -58,7 +60,7 @@ const styles = StyleSheet.create({
 export const CARD_HEIGHT =
   theme.margin.half * 2 + // root.marginVertical
   (theme.screenWidth - 2 * theme.margin.single) / 3 + // image - card margin horizontal, aspect ratio
-  32; // footer
+  FOOTER_HEIGHT;
 
 const PREMIUM_HIT_SLOP = { left: 16, right: 8, top: 0, bottom: 0 };
 
