@@ -69,13 +69,16 @@ interface Props {
   animationType?: 'fade' | 'slide';
   position?: number;
   style?: StyleProp<ViewStyle>;
+  canNavigate: (coordinates: Coordinate) => boolean;
   onPress?: () => void;
 }
 
 export class NavigateButton extends React.PureComponent<Props> {
   onPress = async () => {
-    const { coordinates, onPress } = this.props;
-    await openGoogleMaps(coordinates);
+    const { coordinates, onPress, canNavigate } = this.props;
+    if (canNavigate(coordinates)) {
+      await openGoogleMaps(coordinates);
+    }
     if (onPress) {
       onPress();
     }

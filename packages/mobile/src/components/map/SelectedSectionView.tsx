@@ -8,13 +8,15 @@ import { StyleSheet, View } from 'react-native';
 import { Button, Paragraph, Subheading } from 'react-native-paper';
 import Svg, { Path } from 'react-native-svg';
 import { NavigationInjectedProps, withNavigation } from 'react-navigation';
+import { connect } from 'react-redux';
 import { compose } from 'recompose';
+import { purchaseActions } from '../../features/purchases';
 import { WithT } from '../../i18n';
 import theme from '../../theme';
 import { SelectedSectionViewProps } from '../../ww-clients/features/maps';
 import { consumeRegion, WithRegion } from '../../ww-clients/features/regions';
 import { stringifySeason } from '../../ww-clients/utils';
-import { Section } from '../../ww-commons/features/sections';
+import { Region, Section } from '../../ww-commons';
 import { DifficultyThumb } from '../DifficultyThumb';
 import { Icon } from '../Icon';
 import { NAVIGATE_BUTTON_WIDTH } from '../NavigateButton';
@@ -89,7 +91,11 @@ const styles = StyleSheet.create({
   },
 });
 
-type Props = SelectedSectionViewProps & WithT & NavigationInjectedProps & WithRegion;
+type Props = SelectedSectionViewProps &
+  WithT &
+  NavigationInjectedProps &
+  WithRegion &
+  { buyRegion: (region: Region) => void };
 
 interface State {
   section: Section | null;
@@ -118,6 +124,16 @@ class SelectedSectionViewInternal extends React.Component<Props, State> {
       routeName: 'Section',
       params: { sectionId: this.props.selectedSection.id },
     });
+  };
+
+  canNavigate = () => {
+    const { section } = this.state;
+    const { region, buyRegion } = this.props;
+    const result = (section && section.demo) || !region.node.premium || region.node.hasPremiumAccess;
+    if (!result) {
+      buyRegion(region.node);
+    }
+    return result;
   };
 
   renderHeader = () => {
@@ -164,8 +180,16 @@ class SelectedSectionViewInternal extends React.Component<Props, State> {
     const { i18n, t } = this.props;
     const { section } = this.state;
     const buttons = [
-      { label: t('commons:putIn'), coordinates: get(section, 'putIn.coordinates', [0, 0]) },
-      { label: t('commons:takeOut'), coordinates: get(section, 'takeOut.coordinates', [0, 0]) },
+      {
+        label: t('commons:putIn'),
+        coordinates: get(section, 'putIn.coordinates', [0, 0]),
+        canNavigate: this.canNavigate,
+      },
+      {
+        label: t('commons:takeOut'),
+        coordinates: get(section, 'takeOut.coordinates', [0, 0]),
+        canNavigate: this.canNavigate,
+      },
     ];
     let season = ' ';
     if (section) {
@@ -232,4 +256,8 @@ export const SelectedSectionView: React.ComponentType<SelectedSectionViewProps> 
     translate(),
     consumeRegion(),
     withNavigation,
+    connect(
+      undefined,
+      { buyRegion: (region: Region) => purchaseActions.openDialog({ region }) },
+    ),
   )(SelectedSectionViewInternal);

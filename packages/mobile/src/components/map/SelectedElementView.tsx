@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
 interface NavButtonProps {
   label: string;
   coordinates: Coordinate;
+  canNavigate: (coordinates: Coordinate) => boolean;
 }
 
 interface Props {
@@ -142,7 +143,7 @@ export default class SelectedElementView extends React.Component<Props, State> {
     }
   };
 
-  renderButton = ({ label, coordinates }: NavButtonProps, index: number) => {
+  renderButton = ({ label, coordinates, canNavigate }: NavButtonProps, index: number) => {
     const numButtons = this.props.buttons.length;
     const step = 66 / numButtons;
     return (
@@ -155,6 +156,7 @@ export default class SelectedElementView extends React.Component<Props, State> {
         style={{ zIndex: numButtons - index }}
         position={index}
         coordinates={coordinates}
+        canNavigate={canNavigate}
       />
     );
   };

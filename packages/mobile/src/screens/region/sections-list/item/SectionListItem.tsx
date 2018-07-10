@@ -4,7 +4,7 @@ import Interactable from 'react-native-interactable';
 import { NavigateButton } from '../../../../components';
 import { WithT } from '../../../../i18n';
 import theme from '../../../../theme';
-import { Section } from '../../../../ww-commons';
+import { Coordinate, Section } from '../../../../ww-commons';
 import SectionListBody, { ITEM_HEIGHT } from './SectionListBody';
 
 export { ITEM_HEIGHT } from './SectionListBody';
@@ -32,6 +32,7 @@ interface Props extends WithT {
   section: Section;
   onPress: (section: Section) => void;
   onMaximize?: (index: number) => void;
+  canNavigate: (coordinates: Coordinate) => boolean;
   shouldBounceOnMount: boolean;
 }
 
@@ -101,7 +102,7 @@ export class SectionListItem extends React.PureComponent<Props> {
   };
 
   render() {
-    const { section, hasPremiumAccess, t } = this.props;
+    const { section, hasPremiumAccess, t, canNavigate } = this.props;
     return (
       <View style={styles.background}>
         <View style={styles.buttonsWrapper}>
@@ -109,6 +110,7 @@ export class SectionListItem extends React.PureComponent<Props> {
             label={t('commons:putIn')}
             driver={this._deltaX}
             inputRange={[-136, -72]}
+            canNavigate={canNavigate}
             coordinates={this.props.section.putIn.coordinates}
             onPress={this.onNavigate}
           />
@@ -116,6 +118,7 @@ export class SectionListItem extends React.PureComponent<Props> {
             label={t('commons:takeOut')}
             driver={this._deltaX}
             inputRange={[-72, -8]}
+            canNavigate={canNavigate}
             coordinates={this.props.section.takeOut.coordinates}
             onPress={this.onNavigate}
           />

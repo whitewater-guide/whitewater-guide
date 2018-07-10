@@ -85,9 +85,9 @@ const SectionInfoView: React.StatelessComponent<Props> = ({ section: { node }, i
         </Body>
       </Row>
 
-      <CoordinatesInfo label={t('commons:putIn')} coordinates={node.putIn.coordinates} />
+      <CoordinatesInfo label={t('commons:putIn')} coordinates={node.putIn.coordinates} section={node} />
 
-      <CoordinatesInfo label={t('commons:takeOut')} coordinates={node.takeOut.coordinates} />
+      <CoordinatesInfo label={t('commons:takeOut')} coordinates={node.takeOut.coordinates} section={node} />
 
       {
         !!tagsByCategory[TagCategory.kayaking] &&

@@ -4,10 +4,14 @@ import React from 'react';
 import { translate } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Caption, Paragraph } from 'react-native-paper';
+import { connect } from 'react-redux';
+import { compose } from 'recompose';
+import { purchaseActions } from '../../features/purchases';
 import { WithT } from '../../i18n';
 import theme from '../../theme';
 import { SelectedPOIViewProps } from '../../ww-clients/features/maps';
-import { Coordinate } from '../../ww-commons/features/points';
+import { consumeRegion, WithRegion } from '../../ww-clients/features/regions';
+import { Coordinate, Region } from '../../ww-commons';
 import SelectedElementView from './SelectedElementView';
 
 const styles = StyleSheet.create({
@@ -22,7 +26,7 @@ const styles = StyleSheet.create({
   },
 });
 
-type Props = SelectedPOIViewProps & WithT;
+type Props = SelectedPOIViewProps & WithT & WithRegion & { buyRegion: (region: Region) => void };
 
 class SelectedPOIViewInternal extends React.Component<Props> {
 
@@ -39,10 +43,20 @@ class SelectedPOIViewInternal extends React.Component<Props> {
     </View>
   );
 
+  canNavigate = () => {
+    const { buyRegion, region } = this.props;
+    const result = !region.node.premium || region.node.hasPremiumAccess;
+    if (!result) {
+      buyRegion(region.node);
+    }
+    return result;
+  };
+
   render() {
     const buttons = [{
       label: this.props.t('commons:navigate'),
       coordinates: get(this.props.selectedPOI, 'coordinates', [0, 0]) as Coordinate,
+      canNavigate: this.canNavigate,
     }];
     return (
       <SelectedElementView
@@ -60,4 +74,11 @@ class SelectedPOIViewInternal extends React.Component<Props> {
   }
 }
 
-export const SelectedPOIView: React.ComponentType<SelectedPOIViewProps> = translate()(SelectedPOIViewInternal);
+export const SelectedPOIView: React.ComponentType<SelectedPOIViewProps> = compose<Props, SelectedPOIViewProps>(
+  translate(),
+  consumeRegion(),
+  connect(
+    undefined,
+    { buyRegion: (region: Region) => purchaseActions.openDialog({ region }) },
+  ),
+)(SelectedPOIViewInternal);

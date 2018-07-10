@@ -2,6 +2,9 @@ import React from 'react';
 import { translate } from 'react-i18next';
 import { FlatList, ListRenderItemInfo } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
+import { connect } from 'react-redux';
+import { compose } from 'recompose';
+import { purchaseActions } from '../../../features/purchases';
 import { WithT } from '../../../i18n';
 import { Region, Section } from '../../../ww-commons';
 import { ITEM_HEIGHT, SectionListItem } from './item';
@@ -9,10 +12,12 @@ import NoSectionsPlaceholder from './NoSectionsPlaceholder';
 
 const keyExtractor = (item: Section) => item.id;
 const getItemLayout = (data, index) => ({ length: ITEM_HEIGHT, offset: ITEM_HEIGHT * index, index });
+const always = () => true;
 
 interface Props extends WithT, Pick<NavigationScreenProp<any, any>, 'navigate'> {
   sections: Section[];
   region: Region;
+  buyRegion: (region: Region) => void;
 }
 
 interface State {
@@ -55,6 +60,15 @@ class SectionsList extends React.PureComponent<Props, State> {
     this.setState({ swipedItemIndex: index });
   };
 
+  canNavigate = () => {
+    const { premium, hasPremiumAccess } = this.props.region;
+    if (premium && !hasPremiumAccess) {
+      this.props.buyRegion(this.props.region);
+      return false;
+    }
+    return true;
+  };
+
   renderItem = ({ item: section, index }: ListRenderItemInfo<Section>) => {
     const { premium, hasPremiumAccess } = this.props.region;
     let shouldBounceOnMount = false;
@@ -66,6 +80,7 @@ class SectionsList extends React.PureComponent<Props, State> {
       <SectionListItem
         index={index}
         hasPremiumAccess={hasPremiumAccess || !premium}
+        canNavigate={section.demo ? always : this.canNavigate}
         swipedIndex={this.state.swipedItemIndex}
         shouldBounceOnMount={shouldBounceOnMount}
         section={section}
@@ -95,4 +110,10 @@ class SectionsList extends React.PureComponent<Props, State> {
   }
 }
 
-export default translate()(SectionsList);
+export default compose(
+  translate(),
+  connect(
+    undefined,
+    { buyRegion: (region: Region) => purchaseActions.openDialog({ region }) },
+  ),
+)(SectionsList);
