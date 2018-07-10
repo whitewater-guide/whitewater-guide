@@ -12,6 +12,7 @@ import { compose } from 'recompose';
 import { WithT } from '../../i18n';
 import theme from '../../theme';
 import { SelectedSectionViewProps } from '../../ww-clients/features/maps';
+import { consumeRegion, WithRegion } from '../../ww-clients/features/regions';
 import { stringifySeason } from '../../ww-clients/utils';
 import { Section } from '../../ww-commons/features/sections';
 import { DifficultyThumb } from '../DifficultyThumb';
@@ -79,9 +80,16 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderColor: theme.colors.border,
   },
+  row: {
+    flexDirection: 'row',
+  },
+  unlocked: {
+    position: 'absolute',
+    top: -3,
+  },
 });
 
-type Props = SelectedSectionViewProps & WithT & NavigationInjectedProps;
+type Props = SelectedSectionViewProps & WithT & NavigationInjectedProps & WithRegion;
 
 interface State {
   section: Section | null;
@@ -114,15 +122,31 @@ class SelectedSectionViewInternal extends React.Component<Props, State> {
 
   renderHeader = () => {
     const { section } = this.state;
+    const { region } = this.props;
     return (
       <View style={styles.header}>
         <View style={styles.body}>
           <Paragraph numberOfLines={1} style={styles.title}>
             {get(section, 'river.name', ' ')}
           </Paragraph>
-          <Subheading numberOfLines={1} style={styles.title}>
-            {get(section, 'name', ' ')}
-          </Subheading>
+          <View style={styles.row}>
+            <Subheading numberOfLines={1} style={styles.title}>
+              {get(section, 'name', ' ')}
+            </Subheading>
+            {
+              section && section.demo && region.node.premium && !region.node.hasPremiumAccess &&
+              (
+                <View>
+                  <Icon
+                    style={styles.unlocked}
+                    icon="lock-open-outline"
+                    color={theme.colors.textMain}
+                    size={16}
+                  />
+                </View>
+              )
+            }
+          </View>
           <View style={styles.starsContainer}>
             <StarRating value={get(section, 'rating', 0)} />
           </View>
@@ -206,5 +230,6 @@ class SelectedSectionViewInternal extends React.Component<Props, State> {
 export const SelectedSectionView: React.ComponentType<SelectedSectionViewProps> =
   compose<Props, SelectedSectionViewProps>(
     translate(),
+    consumeRegion(),
     withNavigation,
   )(SelectedSectionViewInternal);
