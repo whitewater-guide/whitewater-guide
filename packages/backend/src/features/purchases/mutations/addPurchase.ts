@@ -57,7 +57,7 @@ const processIAP = async (purchase: PurchaseInput, { user }: Context) => {
   const validated = isValidated(response);
   const transaction: Partial<TransactionRaw> = {
     user_id: user!.id,
-    platform: PurchasePlatform.boomstarter,
+    platform: purchase.platform,
     transaction_id: purchase.transactionId,
     transaction_date: purchase.transactionDate,
     product_id: purchase.productId,
