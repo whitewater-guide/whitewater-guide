@@ -9,9 +9,6 @@ export const REGION_DETAILS = gql`
       ...RegionPOIs
       ...RegionBounds
       ...RegionFlags
-      sections {
-        count
-      }
       sku
     }
   }

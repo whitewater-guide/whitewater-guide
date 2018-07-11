@@ -36,19 +36,18 @@ interface Props extends WithT {
 
 class BuyProductStep extends React.PureComponent<Props> {
   render() {
-    const { error, onConfirm, onCancel, price, state, cancelable = true, t, region } = this.props;
+    const { error, onConfirm, onCancel, price, state, cancelable = true, t } = this.props;
     const confirmButtonLabel = t(`iap:buy.confirmButton.${state}`, { price });
     const loading = state === PurchaseState.PRODUCT_LOADING ||
       state === PurchaseState.PRODUCT_PURCHASING ||
       state === PurchaseState.REFRESHING_PREMIUM ||
       state === PurchaseState.PURCHASE_SAVING;
-    const body = t('iap:buy.descriptionMd', { sectionsCount: region.sections!.count });
     const renderCancelButton = state === PurchaseState.PURCHASE_SAVING_FATAL ? false : cancelable;
     return (
       <React.Fragment>
         <DialogContent style={styles.dialogContent}>
           <Markdown>
-            {body}
+            {t('iap:buy.descriptionMd')}
           </Markdown>
           <View style={styles.errorWrapper}>
             {

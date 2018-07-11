@@ -29,10 +29,10 @@ class Placeholder extends React.PureComponent<Props> {
   onBuy = () => this.props.buyRegion(this.props.region.node);
 
   renderBuy = () => {
-    const { t } = this.props;
+    const { t, region } = this.props;
     return (
       <View style={styles.premiumRoot}>
-        <Caption>{t('iap:section.message')}</Caption>
+        <Caption>{t('iap:section.message', { region: region.node.name })}</Caption>
         <Button raised primary onPress={this.onBuy}>
           {t('iap:section.button')}
         </Button>

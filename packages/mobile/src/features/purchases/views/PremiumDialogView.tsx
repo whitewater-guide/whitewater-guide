@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { DialogTitle } from 'react-native-paper';
 import { NavigationState, Scene, TabView } from 'react-native-tab-view';
+import { WithT } from '../../../i18n';
 import theme from '../../../theme';
 import { PremiumRegion, PurchaseDialogStep } from '../types';
 import AlreadyHaveStep from './already-have';
@@ -26,7 +27,7 @@ interface Key {
 
 type State = NavigationState<Key>;
 
-interface Props {
+interface Props extends WithT {
   region?: PremiumRegion;
   step: PurchaseDialogStep;
   cancelable?: boolean;
@@ -85,13 +86,13 @@ export class PremiumDialogView extends React.PureComponent<Props, State> {
   renderTabBar = () => null;
 
   render() {
-    const { region } = this.props;
+    const { region, t } = this.props;
     if (!region) {
       return null;
     }
     return (
       <View style={styles.root}>
-        <DialogTitle>{region.name}</DialogTitle>
+        <DialogTitle>{t('iap:dialog.title', { region: region.name })}</DialogTitle>
         <TabView
           navigationState={this.state}
           renderScene={this.renderScene}

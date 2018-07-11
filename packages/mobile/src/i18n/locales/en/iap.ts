@@ -1,4 +1,7 @@
 const iap = {
+  dialog: {
+    title: 'Get {{region}} premium',
+  },
   buy: {
     confirmButton: {
       REFRESHING_PREMIUM: 'Buy for {{price}}',
@@ -12,25 +15,22 @@ const iap = {
       PURCHASE_SAVING_OFFLINE: 'Retry',
       PURCHASE_SAVING_FATAL: 'OK',
     },
-    descriptionMd: `### Buy premium region
-
-You will get access to following features:
-
-- Descriptions of {{sectionsCount}} sections
-- Unlocks navigate to put-in/take-out buttons
-- Unlocks precise coordinates of put-ins, take-outs and POIs
-    `,
+    descriptionMd: `Take the full advantage of the whitewater.guide for {{region}}
+- Detailed sections descriptions
+- Navigate to put-ins/take-outs with just one tap
+- Copy coordinates of put-ins, take-outs and extra points
+`,
   },
   alreadyHave: {
-    message: 'It seems that you already have premium access to {{region}}',
+    message: 'It seems that you already have your premium access to {{region}}',
   },
   auth: {
-    anon: 'Please authenticate to proceed to purchase',
+    anon: 'Please authenticate to proceed',
     user: 'Success! Please continue to your purchase',
   },
   success: {
     subheading: 'Success!',
-    body: 'Now you have access to all premium features in region {{region}}',
+    body: 'Now you have access to all premium features in {{region}}',
   },
   errors: {
     refreshPremium: 'Failed to check product availability. Please check your internet connection.',
@@ -40,9 +40,9 @@ You will get access to following features:
     savePurchaseOffline: 'Failed to save your purchase. Please check your internet connection. Your transaction id was {{transactionId}}.',
   },
   section: {
-    message: 'Full section description is only available in premium version.',
+    message: '{{region}} is a premium region. Full description of this section is a premium feature',
     button: 'Get premium',
-  }
+  },
 };
 
 export default iap;
