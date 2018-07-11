@@ -46,8 +46,12 @@ const styles = StyleSheet.create({
   },
   col: {
     flex: 1,
+    alignSelf: 'stretch',
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  premiumCol: {
+    paddingLeft: theme.margin.single,
   },
   premium: {
     color: theme.colors.primary,
@@ -83,19 +87,21 @@ export class RegionCard extends React.PureComponent<Props> {
     }
     if (hasPremiumAccess) {
       return (
-        <View style={styles.col}>
+        <View style={[styles.col, styles.premiumCol]}>
           <Caption style={styles.premiumUnlocked}>{this.props.t('commons:premium')}</Caption>
           <Icon icon="lock-open-outline" color={theme.colors.componentBorder} size={16} />
         </View>
       );
     }
     return (
-      <TouchableRipple onPress={this.onPremiumPress} hitSlop={PREMIUM_HIT_SLOP}>
-        <View style={styles.col}>
-          <Caption style={styles.premium}>{this.props.t('commons:premium')}</Caption>
-          <Icon icon="lock" color={theme.colors.primary} size={16} />
-        </View>
-      </TouchableRipple>
+      <View style={[styles.col, styles.premiumCol]}>
+        <TouchableRipple onPress={this.onPremiumPress} hitSlop={PREMIUM_HIT_SLOP}>
+          <View style={styles.col}>
+            <Caption style={styles.premium}>{this.props.t('commons:premium')}</Caption>
+            <Icon icon="lock" color={theme.colors.primary} size={16} />
+          </View>
+        </TouchableRipple>
+      </View>
     );
   };
 
