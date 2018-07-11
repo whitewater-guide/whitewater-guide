@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import { Provider as PaperProvider } from 'react-native-paper';
 import {
   createNavigationContainer,
   createStackNavigator,
@@ -21,6 +22,7 @@ import {
   RegionsListScreen,
   SectionTabs,
 } from './screens';
+import { PaperTheme } from './theme';
 import { RegionProvider } from './ww-clients/features/regions';
 
 const routes = {
@@ -75,14 +77,17 @@ class RootNavigatorView extends React.PureComponent<Props> {
     const { navigation } = this.props;
     const regionRoute = navigation.state.routes.find((route: NavigationRoute) => route.routeName === 'Region');
     const regionId = regionRoute ? regionRoute.params.regionId : undefined;
+    // PaperProvider needs to be innermost provider, so dialogs can consume from other providers
     return (
       <RegionProvider regionId={regionId}>
-        <Drawer navigation={navigation as any}>
-          <View style={StyleSheet.absoluteFill}>
-            <Navigator navigation={navigation as any} />
-            <PremiumDialog />
-          </View>
-        </Drawer>
+        <PaperProvider theme={PaperTheme}>
+          <Drawer navigation={navigation as any}>
+            <View style={StyleSheet.absoluteFill}>
+              <Navigator navigation={navigation as any} />
+              <PremiumDialog />
+            </View>
+          </Drawer>
+        </PaperProvider>
       </RegionProvider>
     );
   }
