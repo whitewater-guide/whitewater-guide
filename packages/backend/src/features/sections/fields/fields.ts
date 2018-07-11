@@ -10,7 +10,12 @@ import shape from './shape';
 
 export const sectionFieldResolvers: FieldResolvers<SectionRaw, Section> = {
   altNames: section => section.alt_names,
+  // description is empty string when there is no description ind db (even for premium)
+  // description is null when premium is required and description in db is not empty
   description: async ({ id, demo, description, premium, river_id, region_id }, _, { purchasesLoader, user }) => {
+    if (!description || description.trim() === '') {
+      return '';
+    }
     try {
       await checkEditorPermissions(user, id, river_id);
       return description;

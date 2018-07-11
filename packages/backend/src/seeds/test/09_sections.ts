@@ -21,9 +21,10 @@ export const NORWAY_SJOA_AMOT = '21f2351e-d52a-11e7-9296-cec278b6b50a';
 export const NORWAY_FINNA_GORGE = '8688e656-5b4b-11e8-9c2d-fa7ae01bbebc';
 export const GEORGIA_BZHUZHA_LONG = 'e6e0e826-5db4-11e8-9c2d-fa7ae01bbebc';
 export const GEORGIA_BZHUZHA_QUALI = 'f73b533c-5db4-11e8-9c2d-fa7ae01bbebc';
+export const GEORGIA_BZHUZHA_EXTREME = '9e9c0366-84e2-11e8-adc0-fa7ae01bbebc';
 
-export const SECTIONS_TOTAL = 6;
-export const SECTIONS_VISIBLE = 5;
+export const SECTIONS_TOTAL = 7;
+export const SECTIONS_VISIBLE = 6;
 export const SECTIONS_HIDDEN = 1;
 export const SECTIONS_DEMO = 1;
 
@@ -121,6 +122,19 @@ const sections = [
     demo: false,
   },
   {
+    id: GEORGIA_BZHUZHA_EXTREME,
+    river_id: RIVER_BZHUZHA,
+    season_numeric: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+    shape: getLineString([[12.1, 21, 110], [34, 43, 10]]),
+    distance: 1.15,
+    drop: 332,
+    duration: Duration.LAPS,
+    difficulty: 4.5,
+    rating: 5,
+    hidden: false,
+    demo: false,
+  },
+  {
     id: GEORGIA_BZHUZHA_QUALI,
     river_id: RIVER_BZHUZHA,
     season_numeric: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
@@ -148,7 +162,7 @@ const sectionsEn = [
     section_id: GALICIA_R1_S2,
     language: 'en',
     name: 'Gal_riv_1_sec_2',
-    description: 'Gal_riv_1_sec_2 description',
+    description: null,
     season: 'Gal_riv_1_sec_2 season',
     flows_text: 'Gal_riv_1_sec_2 flows text',
   },
@@ -172,7 +186,7 @@ const sectionsEn = [
     section_id: GEORGIA_BZHUZHA_LONG,
     language: 'en',
     name: 'Long Race',
-    description: 'Bzhuzha long race description',
+    description: null,
     season: 'Bzhuzha long race season',
     flows_text: 'Bzhuzha long race flows text',
   },
@@ -183,6 +197,14 @@ const sectionsEn = [
     description: 'Bzhuzha Qualification description',
     season: 'Bzhuzha Qualification season',
     flows_text: 'Bzhuzha Qualification flows text',
+  },
+  {
+    section_id: GEORGIA_BZHUZHA_EXTREME,
+    language: 'en',
+    name: 'Extreme race',
+    description: 'Bzhuzha Extreme race description',
+    season: 'Bzhuzha Extreme race season',
+    flows_text: 'Bzhuzha Extreme race flows text',
   },
 ];
 
@@ -199,7 +221,7 @@ const sectionsRu = [
     section_id: GALICIA_R1_S2,
     language: 'ru',
     name: 'Галисия река 1 секция 2',
-    description: 'Галисия река 1 секция 2 описание',
+    description: null,
     season: 'Галисия река 2 секция 1 сезон',
     flows_text: 'Галисия река 1 секция 2 уровни',
   },
@@ -215,7 +237,7 @@ const sectionsRu = [
     section_id: GEORGIA_BZHUZHA_LONG,
     language: 'ru',
     name: 'Длинная гонка',
-    description: 'Бжужа Длинная гонка описание',
+    description: null,
     season: 'Бжужа Длинная гонка сезонность',
     flows_text: 'Бжужа Длинная гонка уровни',
   },
@@ -226,6 +248,14 @@ const sectionsRu = [
     description: 'Бжужа Квалификация описание',
     season: 'Бжужа Квалификация сезонность',
     flows_text: 'Бжужа Квалификация уровни',
+  },
+  {
+    section_id: GEORGIA_BZHUZHA_EXTREME,
+    language: 'ru',
+    name: 'Экстрим',
+    description: 'Бжужа Экстрим описание',
+    season: 'Бжужа Экстрим сезонность',
+    flows_text: 'Бжужа Экстрим уровни',
   },
 ];
 

@@ -1,7 +1,16 @@
 import { holdTransaction, rollbackTransaction } from '../../../db';
-import { ADMIN, BOOM_USER_1500, EDITOR_GA_EC, EDITOR_GE, EDITOR_NO_EC, TEST_USER } from '../../../seeds/test/01_users';
+import {
+  ADMIN,
+  BOOM_USER_1500,
+  EDITOR_GA_EC,
+  EDITOR_GE,
+  EDITOR_NO_EC,
+  TEST_USER,
+  TEST_USER2
+} from '../../../seeds/test/01_users';
 import {
   GALICIA_R1_S1,
+  GALICIA_R1_S2, GEORGIA_BZHUZHA_EXTREME,
   GEORGIA_BZHUZHA_LONG,
   GEORGIA_BZHUZHA_QUALI,
   NORWAY_FINNA_GORGE,
@@ -177,6 +186,13 @@ describe('data', () => {
     expect(result.data).toBeDefined();
     expect(result.data!.section).toBeNull();
   });
+
+  it('should return empty string for free region when description is null', async () => {
+    const result = await runQuery(query, { id: GALICIA_R1_S2 }, fakeContext(TEST_USER2));
+    expect(result.errors).toBeUndefined();
+    expect(result.data!.section.description).toBe('');
+  });
+
 });
 
 describe('i18n', () => {
@@ -214,9 +230,21 @@ describe('premium access', () => {
   `;
 
   it('should return null description when premium region is not purchased', async () => {
-    const result = await runQuery(descrQuery, { id: GEORGIA_BZHUZHA_LONG }, fakeContext(EDITOR_NO_EC));
+    const result = await runQuery(descrQuery, { id: GEORGIA_BZHUZHA_EXTREME }, fakeContext(EDITOR_NO_EC));
     expect(result.errors).toBeUndefined();
     expect(result).toHaveProperty('data.section.description', null);
+  });
+
+  it('should return empty string description instead of null when premium is not purchased', async () => {
+    const result = await runQuery(query, { id: GEORGIA_BZHUZHA_LONG }, fakeContext(TEST_USER2));
+    expect(result.errors).toBeUndefined();
+    expect(result).toHaveProperty('data.section.description', '');
+  });
+
+  it('should return empty string description instead of null when premium is purchased', async () => {
+    const result = await runQuery(query, { id: GEORGIA_BZHUZHA_LONG }, fakeContext(TEST_USER));
+    expect(result.errors).toBeUndefined();
+    expect(result).toHaveProperty('data.section.description', '');
   });
 
   it('should return demo section description when premium region is not purchased', async () => {
@@ -226,26 +254,26 @@ describe('premium access', () => {
   });
 
   it('should return description when premium region is purchased', async () => {
-    const result = await runQuery(descrQuery, { id: GEORGIA_BZHUZHA_LONG }, fakeContext(TEST_USER));
+    const result = await runQuery(descrQuery, { id: GEORGIA_BZHUZHA_EXTREME }, fakeContext(TEST_USER));
     expect(result.errors).toBeUndefined();
-    expect(result).toHaveProperty('data.section.description', 'Бжужа Длинная гонка описание');
+    expect(result).toHaveProperty('data.section.description', 'Бжужа Экстрим описание');
   });
 
   it('should return description when premium region is purchased as part of group', async () => {
-    const result = await runQuery(descrQuery, { id: GEORGIA_BZHUZHA_LONG }, fakeContext(BOOM_USER_1500));
+    const result = await runQuery(descrQuery, { id: GEORGIA_BZHUZHA_EXTREME }, fakeContext(BOOM_USER_1500));
     expect(result.errors).toBeUndefined();
-    expect(result).toHaveProperty('data.section.description', 'Bzhuzha long race description');
+    expect(result).toHaveProperty('data.section.description', 'Bzhuzha Extreme race description');
   });
 
   it('editor should see description even when not purchased region', async () => {
-    const result = await runQuery(descrQuery, { id: GEORGIA_BZHUZHA_LONG }, fakeContext(EDITOR_GE));
+    const result = await runQuery(descrQuery, { id: GEORGIA_BZHUZHA_EXTREME }, fakeContext(EDITOR_GE));
     expect(result.errors).toBeUndefined();
-    expect(result).toHaveProperty('data.section.description', 'Bzhuzha long race description');
+    expect(result).toHaveProperty('data.section.description', 'Bzhuzha Extreme race description');
   });
 
   it('admin should see description even when not purchased region', async () => {
-    const result = await runQuery(descrQuery, { id: GEORGIA_BZHUZHA_LONG }, fakeContext(ADMIN));
+    const result = await runQuery(descrQuery, { id: GEORGIA_BZHUZHA_EXTREME }, fakeContext(ADMIN));
     expect(result.errors).toBeUndefined();
-    expect(result).toHaveProperty('data.section.description', 'Bzhuzha long race description');
+    expect(result).toHaveProperty('data.section.description', 'Bzhuzha Extreme race description');
   });
 });

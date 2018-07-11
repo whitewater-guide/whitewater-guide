@@ -90,7 +90,6 @@ it('should paginate', async () => {
   const result = await runQuery(query, { page: { limit: 1, offset: 1 } });
   expect(result.errors).toBeUndefined();
   expect(result).toHaveProperty('data.sections.nodes.length', 1);
-  expect(result).toHaveProperty('data.sections.nodes.0.name', 'Gal_riv_1_sec_1');
   expect(result).toHaveProperty('data.sections.count', SECTIONS_VISIBLE);
 });
 

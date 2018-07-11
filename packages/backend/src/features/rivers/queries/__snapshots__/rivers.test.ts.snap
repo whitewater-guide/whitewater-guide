@@ -15,8 +15,12 @@ Object {
             "name": "Georgia",
           },
           "sections": Object {
-            "count": 2,
+            "count": 3,
             "nodes": Array [
+              Object {
+                "id": "9e9c0366-84e2-11e8-adc0-fa7ae01bbebc",
+                "name": "Extreme race",
+              },
               Object {
                 "id": "e6e0e826-5db4-11e8-9c2d-fa7ae01bbebc",
                 "name": "Long Race",
