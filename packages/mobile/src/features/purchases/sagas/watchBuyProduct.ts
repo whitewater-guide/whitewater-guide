@@ -12,7 +12,7 @@ import update from './update';
 
 export function* watchBuyProduct(action: Action<string>) {
   // Step 1. Refresh premium, redirect to different dialog screen if not logged in or already has this region
-  yield update({ error: null, product: null, state: PurchaseState.REFRESHING_PREMIUM });
+  yield update({ error: null, state: PurchaseState.REFRESHING_PREMIUM });
   const status = yield call(refreshPremium);
   switch (status) {
     case RefreshPremiumResult.ERROR:
@@ -59,7 +59,7 @@ export function* watchBuyProduct(action: Action<string>) {
       yield call(waitUntilOfflinePurchaseRemoved, purchase);
   }
 
-  yield call(finishTransaction);
+  yield call(finishPurchase);
 }
 
 export function *waitUntilOfflinePurchaseRemoved(purchase: ProductPurchase) {

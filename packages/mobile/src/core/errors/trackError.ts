@@ -2,7 +2,7 @@ import Firebase from 'react-native-firebase';
 
 export const trackError = (origin: string, error: Error, componentStack?: string, isFatal?: boolean) => {
   if (__DEV__) {
-    console.log(error);
+    console.dir(error);
   }
   Firebase.crashlytics().setStringValue('origin', origin);
   Firebase.crashlytics().setStringValue('stack', error.stack);
