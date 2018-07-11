@@ -14,9 +14,12 @@ const keyExtractor = (item: Section) => item.id;
 const getItemLayout = (data, index) => ({ length: ITEM_HEIGHT, offset: ITEM_HEIGHT * index, index });
 const always = () => true;
 
-interface Props extends WithT, Pick<NavigationScreenProp<any, any>, 'navigate'> {
+interface OuterProps extends Pick<NavigationScreenProp<any, any>, 'navigate'> {
   sections: Section[];
   region: Region;
+}
+
+interface InnerProps extends OuterProps, WithT {
   buyRegion: (region: Region) => void;
 }
 
@@ -26,7 +29,7 @@ interface State {
   swipedItemIndex: number;
 }
 
-class SectionsList extends React.PureComponent<Props, State> {
+class SectionsList extends React.PureComponent<InnerProps, State> {
   _shouldBounceFirstRowOnMount: boolean = true;
 
   state: State = {
@@ -110,7 +113,7 @@ class SectionsList extends React.PureComponent<Props, State> {
   }
 }
 
-export default compose(
+export default compose<InnerProps, OuterProps>(
   translate(),
   connect(
     undefined,

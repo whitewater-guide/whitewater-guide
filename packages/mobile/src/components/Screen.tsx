@@ -1,5 +1,5 @@
 import React from 'react';
-import { StatusBar, StyleSheet, View, ViewProperties } from 'react-native';
+import { StyleSheet, View, ViewProps } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import theme from '../theme';
 
@@ -14,15 +14,13 @@ const styles = StyleSheet.create({
   },
 });
 
-interface ScreeProps extends ViewProperties {
+interface ScreenProps extends ViewProps {
   noScroll?: boolean;
   noPadding?: boolean;
-  statusBar?: 'light' | 'dark';
 }
 
-export const Screen: React.StatelessComponent<ScreeProps> = ({ children, style, noScroll, noPadding, statusBar }) => {
+export const Screen: React.StatelessComponent<ScreenProps> = ({ children, style, noScroll, noPadding }) => {
   let screenStyles: any[] = [styles.screen];
-  const barStyle = statusBar === 'light' ? 'light-content' : 'dark-content';
 
   if (!noPadding) {
     screenStyles = [...screenStyles, styles.padding];
@@ -31,7 +29,6 @@ export const Screen: React.StatelessComponent<ScreeProps> = ({ children, style, 
   if (noScroll) {
     return (
       <View style={[StyleSheet.absoluteFill, ...screenStyles]}>
-        <StatusBar barStyle={barStyle} />
         {children}
       </View>
     );
@@ -43,7 +40,6 @@ export const Screen: React.StatelessComponent<ScreeProps> = ({ children, style, 
       automaticallyAdjustContentInsets={false}
       resetScrollToCoords={TOP_LEFT}
     >
-      <StatusBar barStyle={barStyle} />
       {children}
     </KeyboardAwareScrollView>
   );
