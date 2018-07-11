@@ -53,7 +53,8 @@ const processBoomstarterPurchase = async (purchase: PurchaseInput, { user }: Con
 };
 
 const processIAP = async (purchase: PurchaseInput, { user }: Context) => {
-  const response = await validate(purchase.receipt!);
+  const receipt = purchase.platform === PurchasePlatform.android ? JSON.parse(purchase.receipt!) : purchase.receipt!;
+  const response = await validate(receipt);
   const validated = isValidated(response);
   const transaction: Partial<TransactionRaw> = {
     user_id: user!.id,
