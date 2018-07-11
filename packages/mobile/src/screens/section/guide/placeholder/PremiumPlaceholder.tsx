@@ -1,18 +1,16 @@
 import React from 'react';
+import { translate } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Button, Caption } from 'react-native-paper';
+import { connect } from 'react-redux';
+import { compose } from 'recompose';
+import { purchaseActions } from '../../../../features/purchases';
 import { WithT } from '../../../../i18n';
-import { WithNode } from '../../../../ww-clients/apollo';
+import { consumeRegion, WithRegion } from '../../../../ww-clients/features/regions';
 import { Region } from '../../../../ww-commons';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignSelf: 'stretch',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  premiumRoot: {
     height: 100,
     alignSelf: 'stretch',
     alignItems: 'center',
@@ -20,44 +18,33 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Props extends WithT {
-  region: WithNode<Region>;
+interface Props extends WithRegion, WithT {
   buyRegion: (region: Region) => void;
 }
 
-class Placeholder extends React.PureComponent<Props> {
+class PremiumPlaceholder extends React.PureComponent<Props> {
   onBuy = () => this.props.buyRegion(this.props.region.node);
 
-  renderBuy = () => {
+  render() {
     const { t, region } = this.props;
     return (
-      <View style={styles.premiumRoot}>
+      <View style={styles.container}>
         <Caption>{t('iap:section.message', { region: region.node.name })}</Caption>
         <Button raised primary onPress={this.onBuy}>
           {t('iap:section.button')}
         </Button>
       </View>
     );
-  };
-
-  renderNoData = () => {
-    const { t } = this.props;
-    return (
-      <View style={styles.container}>
-        <Caption>
-          {t('section:guide.noData')}
-        </Caption>
-      </View>
-    );
-  };
-
-  render() {
-    const node = this.props.region.node;
-    if (node.premium && !node.hasPremiumAccess) {
-      return this.renderBuy();
-    }
-    return this.renderNoData();
   }
 }
 
-export default Placeholder;
+const container = compose(
+  consumeRegion(),
+  connect(
+    undefined,
+    { buyRegion: (region: Region) => purchaseActions.openDialog({ region }) },
+  ),
+  translate(),
+);
+
+export default container(PremiumPlaceholder);
