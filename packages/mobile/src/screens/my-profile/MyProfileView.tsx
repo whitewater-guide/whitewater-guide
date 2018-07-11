@@ -44,7 +44,7 @@ class MyProfileView extends React.PureComponent<InnerProps> {
     const language = me && me.language || 'en';
     return (
       <Screen noScroll noPadding>
-        <ScrollView style={styles.scroll}>
+        <ScrollView style={{ flex: 1 }} contentContainerStyle={styles.scroll}>
           <Paper gutterBottom style={styles.userHeader}>
             <Avatar avatar={me.avatar} name={me.name} style={styles.avatar} />
             <Title>{me.name}</Title>
