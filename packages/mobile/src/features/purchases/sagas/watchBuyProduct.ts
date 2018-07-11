@@ -59,6 +59,7 @@ export function* watchBuyProduct(action: Action<string>) {
       yield call(waitUntilOfflinePurchaseRemoved, purchase);
   }
 
+  yield put(purchaseActions.refresh());
   yield call(finishPurchase);
 }
 
