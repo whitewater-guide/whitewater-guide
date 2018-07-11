@@ -11,6 +11,9 @@ import { ADD_PURCHASE_MUTATION } from './addPurchase.mutation';
 export default function *savePurchase(purchase: ProductPurchase) {
   try {
     const client = getApolloClient();
+    // console.log('------------------');
+    // console.dir(purchase);
+    // console.dir(purchaseToGraphqlInput(purchase));
     // false for duplicate purchases, unless purchase is for different user. In this case throws
     const { errors }: FetchResult<any> = yield apply(client, client.mutate, [{
       mutation: ADD_PURCHASE_MUTATION,
