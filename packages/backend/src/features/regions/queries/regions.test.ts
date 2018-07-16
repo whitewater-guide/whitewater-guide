@@ -1,12 +1,9 @@
+import countBy from 'lodash/countBy';
 import { holdTransaction, rollbackTransaction } from '../../../db';
 import { ADMIN, BOOM_USER_1500, EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '../../../seeds/test/01_users';
-import {
-  NUM_REGIONS, REGION_ECUADOR, REGION_GALICIA, REGION_GEORGIA,
-  REGION_NORWAY
-} from '../../../seeds/test/04_regions';
+import { NUM_REGIONS, REGION_ECUADOR, REGION_GEORGIA, REGION_NORWAY } from '../../../seeds/test/04_regions';
 import { anonContext, fakeContext } from '../../../test/context';
 import { noTimestamps, runQuery } from '../../../test/db-helpers';
-import countBy from 'lodash/countBy';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
@@ -201,8 +198,8 @@ describe('premium access', () => {
   it('with single region purchased', async () => {
     const result = await runQuery(premiumQuery, {}, fakeContext(TEST_USER, 'en'));
     expect(result.data!.regions.nodes).toEqual(expect.arrayContaining([
-      { id: REGION_ECUADOR, hasPremiumAccess: false },
-      { id: REGION_GEORGIA, hasPremiumAccess: true },
+      { id: REGION_ECUADOR, hasPremiumAccess: false }, // invalid transaction
+      { id: REGION_GEORGIA, hasPremiumAccess: true }, // valid transaction
     ]));
   });
 

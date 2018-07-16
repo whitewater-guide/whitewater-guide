@@ -2,6 +2,7 @@ import Knex from 'knex';
 
 export const BOOM_PROMO_REGION_ACTIVE = 'fbWYzB9y';
 export const BOOM_PROMO_REGION_REDEEMED = '6UJPjFZc';
+export const BOOM_PROMO_REGION_REDEEMED2 = 'MtNVwMsz';
 export const BOOM_PROMO_ALL_REGIONS_ACTIVE = 'YABy6CpH';
 export const BOOM_PROMO_ALL_REGIONS_REDEEMED = 'Qo393hFL';
 export const BOOM_PROMO_EU_CIS_ACTIVE = 'TjBM6Jgz';
@@ -17,6 +18,11 @@ const promos = [
   },
   {
     code: BOOM_PROMO_REGION_REDEEMED,
+    redeemed: true,
+    group_sku: null,
+  },
+  {
+    code: BOOM_PROMO_REGION_REDEEMED2,
     redeemed: true,
     group_sku: null,
   },

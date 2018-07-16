@@ -6,7 +6,10 @@ import {
   BOOM_PROMO_ALL_REGIONS_REDEEMED,
   BOOM_PROMO_EU_CIS_REDEEMED,
   BOOM_PROMO_REGION_REDEEMED,
+  BOOM_PROMO_REGION_REDEEMED2,
 } from './12_boom_promos';
+
+export const INVALID_TRANSACTION_ID = 'd5db753a-8921-11e8-8769-a6cf71072f73';
 
 const transactions: Array<Partial<TransactionRaw>> = [
   {
@@ -16,6 +19,14 @@ const transactions: Array<Partial<TransactionRaw>> = [
     transaction_id: BOOM_PROMO_REGION_REDEEMED,
     product_id: 'region.georgia',
     validated: true,
+  },
+  {
+    id: INVALID_TRANSACTION_ID,
+    user_id: TEST_USER_ID,
+    platform: PurchasePlatform.boomstarter,
+    transaction_id: BOOM_PROMO_REGION_REDEEMED2,
+    product_id: 'region.ecuador',
+    validated: false,
   },
   {
     id: 'ba830f5c-5d00-11e8-9c2d-fa7ae01bbebc',

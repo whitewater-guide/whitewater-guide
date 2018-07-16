@@ -56,6 +56,11 @@ it('should exclude regions purchased as part of group', async () => {
   expect(result.data!.promoRegions).not.toContainEqual(expect.objectContaining({ id: REGION_NORWAY }));
 });
 
+it('should include regions for which transactions are failed', async () => {
+  const result = await runQuery(query, { }, fakeContext(TEST_USER));
+  expect(result.errors).toBeUndefined();
+  expect(result.data!.promoRegions).toContainEqual(expect.objectContaining({ id: REGION_ECUADOR }));
+});
 
 it('should i18nize', async () => {
   const result = await runQuery(query, { }, fakeContext(EDITOR_NO_EC, 'ru'));

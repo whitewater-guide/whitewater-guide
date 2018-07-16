@@ -60,14 +60,14 @@ export class PurchasesLoader {
         .select('id')
         .whereIn('regions.sku', (qb) => {
           qb.table('transactions')
-            .where({ user_id: this.user!.id })
+            .where({ user_id: this.user!.id, validated: true })
             .select('product_id');
         })
         .orWhereIn('regions.id', (qb) => {
           qb.table('transactions')
             .innerJoin('groups', 'transactions.product_id', 'groups.sku')
             .innerJoin('regions_groups', 'groups.id', 'regions_groups.group_id')
-            .where({ user_id: this.user!.id })
+            .where({ user_id: this.user!.id, validated: true })
             .select('regions_groups.region_id');
         });
       this.purchasedRegionIds = (result || []).map(({ id }: any) => id);
