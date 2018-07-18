@@ -7,7 +7,7 @@ export enum PurchasePlatform {
 export interface PurchaseInput {
   platform: PurchasePlatform;
   transactionId: string; // Promocode for boomstarter
-  transactionDate?: Date;
+  transactionDate?: Date; // or is it?
   productId: string;
   receipt?: string; // Can be undefined for boomstarter
   extra?: any;

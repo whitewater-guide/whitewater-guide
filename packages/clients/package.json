@@ -1,6 +1,6 @@
 {
   "name": "ww-clients",
-  "version": "0.0.100",
+  "version": "0.0.101",
   "description": "shared code for whitewater.guide clients",
   "main": "build/index.js",
   "author": "Konstantin Kuznetsov",
