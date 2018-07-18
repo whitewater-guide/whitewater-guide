@@ -123,8 +123,7 @@ services:
       labels:
         guide.whitewater: ""
     volumes:
-      - type: bind
-        source: /tmp/adminer
+      - type: tmpfs
         target: /tmp
     image: '${DOCKER_REGISTRY_PREFIX}adminer:${DOCKER_ENVIRONMENT}'
     read_only: true
