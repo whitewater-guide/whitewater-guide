@@ -4,7 +4,7 @@ FROM abiosoft/caddy:builder as builder
 ARG version="0.11.0"
 ARG plugins="cache"
 
-RUN VERSION=${version} PLUGINS=${plugins} /bin/sh /usr/bin/builder.sh
+RUN VERSION=${version} PLUGINS=${plugins} ENABLE_TELEMETRY=false /bin/sh /usr/bin/builder.sh
 
 # Final stage
 FROM alpine:3.7
