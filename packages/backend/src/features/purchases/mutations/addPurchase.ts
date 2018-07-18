@@ -4,6 +4,7 @@ import { Transaction } from 'knex';
 import { AuthenticationRequiredError, Context, isInputValidResolver, MutationNotAllowedError } from '../../../apollo';
 import db from '../../../db';
 import { PurchaseInput, PurchasePlatform } from '../../../ww-commons';
+import logger from '../logger';
 import { BoomPromoRaw, TransactionRaw } from '../types';
 
 interface Vars {
@@ -76,6 +77,7 @@ const addPurchase = isInputValidResolver(Schema).createResolver(
     if (!user) {
       throw new AuthenticationRequiredError();
     }
+    const { transactionId, platform } = purchase;
 
     // check if transaction already added
     const transaction = await db().table('transactions')
@@ -83,16 +85,23 @@ const addPurchase = isInputValidResolver(Schema).createResolver(
       .first();
 
     if (transaction) {
-      if (transaction.user_id === user.id) {
+      const sameUser = transaction.user_id === user.id;
+      logger.warn({ platform, transactionId, sameUser }, 'Duplicate transaction');
+      if (sameUser) {
         return false;
       }
       throw new MutationNotAllowedError({ message: 'Duplicate transaction' });
     }
 
-    if (purchase.platform === PurchasePlatform.boomstarter) {
-      return processBoomstarterPurchase(purchase, context);
-    } else {
-      return processIAP(purchase, context);
+    try {
+      if (purchase.platform === PurchasePlatform.boomstarter) {
+        return processBoomstarterPurchase(purchase, context);
+      } else {
+        return processIAP(purchase, context);
+      }
+    } catch (e) {
+      logger.warn({ platform, transactionId }, e.message);
+      throw e;
     }
   },
 );
