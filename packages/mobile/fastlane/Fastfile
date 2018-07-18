@@ -163,7 +163,6 @@ platform :android do
       track: 'alpha',
       apk: "#{lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]}"
     )
-    code_push
   end
 
   lane :staging do |options|
