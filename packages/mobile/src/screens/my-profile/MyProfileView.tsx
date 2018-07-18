@@ -42,12 +42,14 @@ class MyProfileView extends React.PureComponent<InnerProps> {
   render() {
     const { t, me } = this.props;
     const language = me && me.language || 'en';
+    const avatar = me ? me.avatar : '';
+    const username = me ? me.name : '';
     return (
       <Screen noScroll noPadding>
         <ScrollView style={{ flex: 1 }} contentContainerStyle={styles.scroll}>
           <Paper gutterBottom style={styles.userHeader}>
-            <Avatar avatar={me.avatar} name={me.name} style={styles.avatar} />
-            <Title>{me.name}</Title>
+            <Avatar avatar={avatar} name={username} style={styles.avatar} />
+            <Title>{username}</Title>
           </Paper>
           <Paper gutterBottom>
             <Title>{t('myProfile:general')}</Title>
