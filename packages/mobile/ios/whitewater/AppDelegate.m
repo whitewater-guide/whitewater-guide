@@ -30,7 +30,7 @@
   [FIRApp configure];
   [RNFirebaseNotifications configure];
 
-  
+
     #ifdef DEBUG
         jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
     #else
