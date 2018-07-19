@@ -8,15 +8,14 @@ import { StyleSheet, View } from 'react-native';
 import { Button, Paragraph, Subheading } from 'react-native-paper';
 import Svg, { Path } from 'react-native-svg';
 import { NavigationInjectedProps, withNavigation } from 'react-navigation';
-import { connect } from 'react-redux';
 import { compose } from 'recompose';
-import { purchaseActions } from '../../features/purchases';
+import { connectPremiumDialog, WithPremiumDialog } from '../../features/purchases';
 import { WithT } from '../../i18n';
 import theme from '../../theme';
 import { SelectedSectionViewProps } from '../../ww-clients/features/maps';
 import { consumeRegion, WithRegion } from '../../ww-clients/features/regions';
 import { stringifySeason } from '../../ww-clients/utils';
-import { Region, Section } from '../../ww-commons';
+import { Section } from '../../ww-commons';
 import { DifficultyThumb } from '../DifficultyThumb';
 import { Icon } from '../Icon';
 import { NAVIGATE_BUTTON_WIDTH } from '../NavigateButton';
@@ -95,7 +94,7 @@ type Props = SelectedSectionViewProps &
   WithT &
   NavigationInjectedProps &
   WithRegion &
-  { buyRegion: (region: Region) => void };
+  WithPremiumDialog;
 
 interface State {
   section: Section | null;
@@ -128,8 +127,11 @@ class SelectedSectionViewInternal extends React.Component<Props, State> {
 
   canNavigate = () => {
     const { section } = this.state;
-    const { region, buyRegion } = this.props;
-    const result = (section && section.demo) || !region.node.premium || region.node.hasPremiumAccess;
+    const { region, buyRegion, canMakePayments } = this.props;
+    const result = !canMakePayments ||
+      (section && section.demo) ||
+      !region.node.premium ||
+      region.node.hasPremiumAccess;
     if (!result) {
       buyRegion(region.node);
     }
@@ -256,8 +258,5 @@ export const SelectedSectionView: React.ComponentType<SelectedSectionViewProps> 
     translate(),
     consumeRegion(),
     withNavigation,
-    connect(
-      undefined,
-      { buyRegion: (region: Region) => purchaseActions.openDialog({ region }) },
-    ),
+    connectPremiumDialog,
   )(SelectedSectionViewInternal);

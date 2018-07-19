@@ -4,14 +4,13 @@ import React from 'react';
 import { translate } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Caption, Paragraph } from 'react-native-paper';
-import { connect } from 'react-redux';
 import { compose } from 'recompose';
-import { purchaseActions } from '../../features/purchases';
+import { connectPremiumDialog, WithPremiumDialog } from '../../features/purchases';
 import { WithT } from '../../i18n';
 import theme from '../../theme';
 import { SelectedPOIViewProps } from '../../ww-clients/features/maps';
 import { consumeRegion, WithRegion } from '../../ww-clients/features/regions';
-import { Coordinate, Region } from '../../ww-commons';
+import { Coordinate } from '../../ww-commons';
 import SelectedElementView from './SelectedElementView';
 
 const styles = StyleSheet.create({
@@ -26,7 +25,7 @@ const styles = StyleSheet.create({
   },
 });
 
-type Props = SelectedPOIViewProps & WithT & WithRegion & { buyRegion: (region: Region) => void };
+type Props = SelectedPOIViewProps & WithT & WithRegion & WithPremiumDialog;
 
 class SelectedPOIViewInternal extends React.Component<Props> {
 
@@ -44,8 +43,8 @@ class SelectedPOIViewInternal extends React.Component<Props> {
   );
 
   canNavigate = () => {
-    const { buyRegion, region } = this.props;
-    const result = !region.node.premium || region.node.hasPremiumAccess;
+    const { buyRegion, region, canMakePayments } = this.props;
+    const result = !canMakePayments || !region.node.premium || region.node.hasPremiumAccess;
     if (!result) {
       buyRegion(region.node);
     }
@@ -77,8 +76,5 @@ class SelectedPOIViewInternal extends React.Component<Props> {
 export const SelectedPOIView: React.ComponentType<SelectedPOIViewProps> = compose<Props, SelectedPOIViewProps>(
   translate(),
   consumeRegion(),
-  connect(
-    undefined,
-    { buyRegion: (region: Region) => purchaseActions.openDialog({ region }) },
-  ),
+  connectPremiumDialog,
 )(SelectedPOIViewInternal);

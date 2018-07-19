@@ -73,6 +73,7 @@ interface Props extends WithT {
   region: Region;
   onPress: (region: Region) => void;
   onPremiumPress: (region: Region) => void;
+  canMakePayments: boolean;
 }
 
 export class RegionCard extends React.PureComponent<Props> {
@@ -81,7 +82,7 @@ export class RegionCard extends React.PureComponent<Props> {
 
   renderPremium = () => {
     const { premium, hasPremiumAccess } = this.props.region;
-    if (!premium) {
+    if (!premium || !this.props.canMakePayments) {
       return (
         <View style={styles.col} />
       );

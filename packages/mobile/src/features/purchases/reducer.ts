@@ -14,6 +14,7 @@ const persistConfig: PersistConfig = {
 };
 
 const initialState: PurchaseStore = {
+  canMakePayments: true,
   state: PurchaseState.IDLE,
   dialogOpen: false,
   dialogStep: 'BuyProduct',

@@ -37,6 +37,7 @@ export interface PurchaseDialogData {
 }
 
 export interface PurchaseStore {
+  canMakePayments: boolean;
   dialogOpen: boolean;
   dialogStep: PurchaseDialogStep;
   dialogData: PurchaseDialogData | null;
@@ -51,6 +52,7 @@ export interface OpenDialogPayload extends PurchaseDialogData {
 }
 
 export interface UpdatePurchasePayload {
+  canMakePayments?: boolean;
   dialogStep?: PurchaseDialogStep;
   state?: PurchaseState;
   product?: Product | null;

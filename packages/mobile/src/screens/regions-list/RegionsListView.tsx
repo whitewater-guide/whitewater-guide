@@ -28,7 +28,8 @@ class RegionsListView extends React.PureComponent<InnerProps> {
       region={item}
       onPress={this.onRegionSelected}
       t={this.props.t}
-      onPremiumPress={this.props.buyPremium}
+      onPremiumPress={this.props.buyRegion}
+      canMakePayments={this.props.canMakePayments}
     />
   );
 

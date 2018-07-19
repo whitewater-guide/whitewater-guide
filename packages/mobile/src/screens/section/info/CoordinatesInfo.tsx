@@ -1,14 +1,13 @@
 import React from 'react';
 import { Clipboard } from 'react-native';
 import { Paragraph, Subheading } from 'react-native-paper';
-import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { Icon, Left, Right, Row } from '../../../components';
-import { purchaseActions } from '../../../features/purchases';
+import { connectPremiumDialog, WithPremiumDialog } from '../../../features/purchases';
 import { openGoogleMaps } from '../../../utils/maps';
 import { consumeRegion, WithRegion } from '../../../ww-clients/features/regions';
 import { arrayToDMSString } from '../../../ww-clients/utils';
-import { Coordinate, Region, Section } from '../../../ww-commons';
+import { Coordinate, Section } from '../../../ww-commons';
 
 interface OwnProps {
   label: string;
@@ -16,14 +15,16 @@ interface OwnProps {
   section: Section;
 }
 
-interface InnerProps extends OwnProps, WithRegion {
-  buyRegion: (region: Region) => void;
-}
+type InnerProps = OwnProps & WithRegion & WithPremiumDialog;
 
 class CoordinatesInfo extends React.PureComponent<InnerProps> {
   canNavigate = () => {
-    const { section, region } = this.props;
-    return (section && section.demo) || !region.node || !region.node.premium || region.node.hasPremiumAccess;
+    const { section, region, canMakePayments } = this.props;
+    return (section && section.demo) ||
+      !canMakePayments ||
+      !region.node ||
+      !region.node.premium ||
+      region.node.hasPremiumAccess;
   };
 
   onCopy = () => {
@@ -37,11 +38,11 @@ class CoordinatesInfo extends React.PureComponent<InnerProps> {
   };
 
   onNavigate = () => {
-    const { coordinates, region, buyRegion } = this.props;
+    const { coordinates, region, buyRegion, section } = this.props;
     if (this.canNavigate()) {
       openGoogleMaps(coordinates);
     } else {
-      buyRegion(region.node);
+      buyRegion(region.node, section.id);
     }
   };
 
@@ -65,8 +66,5 @@ class CoordinatesInfo extends React.PureComponent<InnerProps> {
 
 export default compose<InnerProps, OwnProps>(
   consumeRegion(),
-  connect(
-    undefined,
-    { buyRegion: (region: Region) => purchaseActions.openDialog({ region }) },
-  ),
+  connectPremiumDialog,
 )(CoordinatesInfo);

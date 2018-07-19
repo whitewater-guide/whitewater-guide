@@ -2,9 +2,8 @@ import React from 'react';
 import { translate } from 'react-i18next';
 import { FlatList, ListRenderItemInfo } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
-import { connect } from 'react-redux';
 import { compose } from 'recompose';
-import { purchaseActions } from '../../../features/purchases';
+import { connectPremiumDialog, WithPremiumDialog } from '../../../features/purchases';
 import { WithT } from '../../../i18n';
 import { Region, Section } from '../../../ww-commons';
 import { ITEM_HEIGHT, SectionListItem } from './item';
@@ -19,9 +18,7 @@ interface OuterProps extends Pick<NavigationScreenProp<any, any>, 'navigate'> {
   region: Region;
 }
 
-interface InnerProps extends OuterProps, WithT {
-  buyRegion: (region: Region) => void;
-}
+type InnerProps = OuterProps & WithT & WithPremiumDialog;
 
 interface State {
   renderedFirstBatch: boolean;
@@ -65,7 +62,7 @@ class SectionsList extends React.PureComponent<InnerProps, State> {
 
   canNavigate = () => {
     const { premium, hasPremiumAccess } = this.props.region;
-    if (premium && !hasPremiumAccess) {
+    if (this.props.canMakePayments && premium && !hasPremiumAccess) {
       this.props.buyRegion(this.props.region);
       return false;
     }
@@ -115,8 +112,5 @@ class SectionsList extends React.PureComponent<InnerProps, State> {
 
 export default compose<InnerProps, OuterProps>(
   translate(),
-  connect(
-    undefined,
-    { buyRegion: (region: Region) => purchaseActions.openDialog({ region }) },
-  ),
+  connectPremiumDialog,
 )(SectionsList);

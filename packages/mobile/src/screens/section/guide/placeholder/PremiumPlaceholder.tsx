@@ -2,12 +2,11 @@ import React from 'react';
 import { translate } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Button, Caption } from 'react-native-paper';
-import { connect } from 'react-redux';
 import { compose } from 'recompose';
-import { purchaseActions } from '../../../../features/purchases';
+import { WithPremiumDialog } from '../../../../features/purchases';
 import { WithT } from '../../../../i18n';
 import { consumeRegion, WithRegion } from '../../../../ww-clients/features/regions';
-import { Region, Section } from '../../../../ww-commons';
+import { Section } from '../../../../ww-commons';
 
 const styles = StyleSheet.create({
   container: {
@@ -18,13 +17,11 @@ const styles = StyleSheet.create({
   },
 });
 
-interface OuterProps {
+interface OuterProps extends WithPremiumDialog {
   section: Section;
 }
 
-interface InnerProps extends OuterProps, WithRegion, WithT {
-  buyRegion: (region: Region, sectionId: string) => void;
-}
+type InnerProps = OuterProps & WithRegion & WithT;
 
 class PremiumPlaceholder extends React.PureComponent<InnerProps> {
   onBuy = () => {
@@ -47,10 +44,6 @@ class PremiumPlaceholder extends React.PureComponent<InnerProps> {
 
 const container = compose<InnerProps, OuterProps>(
   consumeRegion(),
-  connect(
-    undefined,
-    { buyRegion: (region: Region, sectionId: string) => purchaseActions.openDialog({ region, sectionId }) },
-  ),
   translate(),
 );
 

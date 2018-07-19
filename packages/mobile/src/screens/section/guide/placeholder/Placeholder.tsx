@@ -1,14 +1,17 @@
 import React from 'react';
+import { connectPremiumDialog, WithPremiumDialog } from '../../../../features/purchases';
 import { Section } from '../../../../ww-commons';
 import NoDataPlaceholder from './NoDataPlaceholder';
 import PremiumPlaceholder from './PremiumPlaceholder';
 
-interface Props {
+interface Props extends WithPremiumDialog {
   premium: boolean;
   section: Section;
 }
 
-const Placeholder: React.SFC<Props> = ({ premium, section }) =>
-  premium ? <PremiumPlaceholder section={section} /> : <NoDataPlaceholder />;
+const Placeholder: React.SFC<Props> = ({ canMakePayments, buyRegion, premium, section }) =>
+  (premium && canMakePayments) ?
+    <PremiumPlaceholder section={section} canMakePayments={canMakePayments} buyRegion={buyRegion} /> :
+    <NoDataPlaceholder />;
 
-export default Placeholder;
+export default connectPremiumDialog(Placeholder);
