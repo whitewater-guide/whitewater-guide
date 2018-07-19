@@ -117,7 +117,7 @@ android {
 
     defaultConfig {
         applicationId "guide.whitewater"
-        minSdkVersion 16
+        minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode _versionCode
         versionName _versionName
