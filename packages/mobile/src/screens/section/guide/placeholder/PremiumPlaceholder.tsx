@@ -7,7 +7,7 @@ import { compose } from 'recompose';
 import { purchaseActions } from '../../../../features/purchases';
 import { WithT } from '../../../../i18n';
 import { consumeRegion, WithRegion } from '../../../../ww-clients/features/regions';
-import { Region } from '../../../../ww-commons';
+import { Region, Section } from '../../../../ww-commons';
 
 const styles = StyleSheet.create({
   container: {
@@ -18,12 +18,19 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Props extends WithRegion, WithT {
-  buyRegion: (region: Region) => void;
+interface OuterProps {
+  section: Section;
 }
 
-class PremiumPlaceholder extends React.PureComponent<Props> {
-  onBuy = () => this.props.buyRegion(this.props.region.node);
+interface InnerProps extends OuterProps, WithRegion, WithT {
+  buyRegion: (region: Region, sectionId: string) => void;
+}
+
+class PremiumPlaceholder extends React.PureComponent<InnerProps> {
+  onBuy = () => {
+    const { buyRegion, region: { node }, section } = this.props;
+    buyRegion(node, section.id);
+  };
 
   render() {
     const { t, region } = this.props;
@@ -38,11 +45,11 @@ class PremiumPlaceholder extends React.PureComponent<Props> {
   }
 }
 
-const container = compose(
+const container = compose<InnerProps, OuterProps>(
   consumeRegion(),
   connect(
     undefined,
-    { buyRegion: (region: Region) => purchaseActions.openDialog({ region }) },
+    { buyRegion: (region: Region, sectionId: string) => purchaseActions.openDialog({ region, sectionId }) },
   ),
   translate(),
 );

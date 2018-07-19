@@ -9,7 +9,7 @@ import Placeholder from './placeholder';
 const SectionGuideView: React.StatelessComponent<WithSection> = ({ section: { node } }) => (
   (node && node.description) ?
     <Markdown>{node.description}</Markdown> :
-    <Placeholder premium={node && node.description === null} />
+    <Placeholder section={node} premium={node && node.description === null} />
 );
 
 export default SectionGuideView;
