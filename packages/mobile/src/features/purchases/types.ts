@@ -61,3 +61,9 @@ export interface RemoveOfflinePurchasePayload {
   purchase: ProductPurchase;
   success: boolean; // false if purchase was saved to backend, but returned error as result
 }
+
+export interface BuyProductResult {
+  purchase?: ProductPurchase;
+  canceled?: boolean;
+  errorCode?: string;
+}

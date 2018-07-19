@@ -1,9 +1,9 @@
-import { finishTransaction, ProductPurchase, } from 'react-native-iap';
+import { ProductPurchase, } from 'react-native-iap';
 import { call, put, race, take } from 'redux-saga/effects';
 import { Action, isType } from 'typescript-fsa';
 import { auth } from '../../../core/auth';
 import { purchaseActions } from '../actions';
-import { PurchaseState, RefreshPremiumResult, SavePurchaseResult } from '../types';
+import { BuyProductResult, PurchaseState, RefreshPremiumResult, SavePurchaseResult } from '../types';
 import { buyProduct } from './buyProduct';
 import { finishPurchase } from './finishPurchase';
 import { refreshPremium } from './refreshPremium';
@@ -28,8 +28,12 @@ export function* watchBuyProduct(action: Action<string>) {
 
   // Step 2: Purchase product via react-native-iap
   yield update({ state: PurchaseState.PRODUCT_PURCHASING });
-  const purchase: ProductPurchase | undefined = yield call(buyProduct, action.payload);
-  if (!purchase) {
+  const { purchase, canceled }: BuyProductResult = yield call(buyProduct, action.payload);
+  if (canceled) {
+    yield update({ error: null, state: PurchaseState.IDLE });
+    yield call(finishPurchase);
+    return;
+  } else if (!purchase) {
     yield update({ error: 'iap:errors.buyProduct', state: PurchaseState.PRODUCT_PURCHASING_FAILED });
     yield call(finishPurchase);
     return;
