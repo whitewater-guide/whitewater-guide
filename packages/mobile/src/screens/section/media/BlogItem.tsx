@@ -12,10 +12,11 @@ class BlogItem extends React.PureComponent<Props> {
 
   render() {
     const { blog } = this.props;
+    const copyright = blog.copyright ? `© ${blog.copyright}` : undefined;
     return (
       <ListItem
         title={blog.description}
-        description={`© ${blog.copyright}`}
+        description={copyright}
         icon="link"
         onPress={this.onPress}
       />
