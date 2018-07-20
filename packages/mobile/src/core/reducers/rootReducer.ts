@@ -26,7 +26,7 @@ const rootReducer = combineReducers<RootState>({
 const persistConfig: PersistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  blacklist: ['app', 'purchase'],
+  blacklist: ['app', 'purchase', 'network'],
 };
 
 export const persistedRootReducer: Reducer<RootState> = persistReducer(persistConfig, rootReducer as any);
