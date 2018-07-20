@@ -25,7 +25,7 @@ class Header extends React.PureComponent<Props> {
         size: 36,
       },
       android: {
-        icon: 'arrow-back',
+        icon: 'arrow-left',
         size: 24,
       },
     });
