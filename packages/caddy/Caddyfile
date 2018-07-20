@@ -91,8 +91,8 @@
   }
 
   cache {
-    match_path /${IMGPROXY_PATH}
-    match_header Content-Type image/jpg image/png
+    match_path /images
+    match_header Content-Type image/jpg image/png image/*
     status_header X-Cache-Status
     default_max_age 24h
     path {$CADDY_CACHE_PATH}
