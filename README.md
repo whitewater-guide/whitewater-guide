@@ -108,7 +108,7 @@ Husky is installed in project root to ensure that hooks are properly set up afte
 |--------------------|-------------------------------------------------------
 | dev:cleanup        | Stops dev containers, cleans up `docker-sync` stack. Pass `--hard` to delete all images, volumes, containers and start next build from scratch    
 | dev:start          | Runs dev configuration using docker-sync              
-| dev:images         | Downloads images production, also compresses them, so they can be uploaded somewhere else. Requires production docker-machine.             
+| dev:images         | Downloads images production (default, to download from staging, pass `staging` argument), also compresses them, so they can be uploaded somewhere else. Requires access to docker-machine.             
 | dev:migrate        | Downloads latest dump v1 mongo dump from s3, loads it into running postgres dev instance.             
 | local:start        | creates, starts (if necessary) local machine, prepares all folders in host vm, uploads images. DOES NOT DEPLOY. 
 | local:cleanup      | Stops docker stack and wipes filesystem on `ww-local` docker-machine
@@ -118,7 +118,7 @@ Husky is installed in project root to ensure that hooks are properly set up afte
 | staging:publish    | Same as `local:publish`
 | staging:deploy     | Same as `local:deploy`
 | staging:cleanup    | Same as `local:cleanup`, but keeps caddy certificates dir
-| staging:images     | Same as `local:images`
+| staging:images     | Uploads images from local dump to staging
 | staging:update     | Updates one particular service in stack (`docker service update --service`), uses version from `package.json`<br> pass package name via (mandatory) `--service` flag.
 | wml:start          | Starts WML |
 

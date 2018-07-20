@@ -6860,7 +6860,7 @@ mississippi@^2.0.0:
     stream-each "^1.1.0"
     through2 "^2.0.0"
 
-mitt@^1.0.0, mitt@^1.1.3:
+mitt@1.1.3, mitt@^1.1.3:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/mitt/-/mitt-1.1.3.tgz#528c506238a05dce11cd914a741ea2cc332da9b8"
 
@@ -8272,9 +8272,9 @@ react-icons@^2.2.7:
   dependencies:
     react-icon-base "2.1.0"
 
-"react-images@file:../../../../../Users/doomsower/projects/_cloned/react-images/react-images-1.0.0-alpha.1.tgz":
-  version "1.0.0-alpha.1"
-  resolved "file:../../../../../Users/doomsower/projects/_cloned/react-images/react-images-1.0.0-alpha.1.tgz#86a9b44a2200ca14e72802d3afa5f57ca0936c5c"
+react-images@1.0.1-alpha.1:
+  version "1.0.1-alpha.1"
+  resolved "https://registry.yarnpkg.com/react-images/-/react-images-1.0.1-alpha.1.tgz#6ed5fd70105d02b29655cb5e45746ec243538210"
   dependencies:
     a11y-focus-store "^1.0.0"
     glam "^5.0.1"
@@ -8284,7 +8284,7 @@ react-icons@^2.2.7:
     react-full-screen "^0.2.2"
     react-scrolllock "^1.0.9"
     react-transition-group "^2.2.1"
-    react-view-pager "^0.5.1"
+    react-view-pager "^0.6.0"
 
 react-inspector@^2.3.0:
   version "2.3.0"
@@ -8521,16 +8521,16 @@ react-transition-group@^2.2.1:
     loose-envify "^1.3.1"
     prop-types "^15.6.1"
 
-react-view-pager@^0.5.1:
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/react-view-pager/-/react-view-pager-0.5.1.tgz#aa2d7a5e8827b870e4c9e5f2906a8b341d157d61"
+react-view-pager@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/react-view-pager/-/react-view-pager-0.6.0.tgz#6c6be04b0cc3b907b5ceafec7b2ab6e7228df650"
   dependencies:
     animation-bus "^0.2.0"
     get-prefix "^1.0.0"
-    mitt "^1.0.0"
+    mitt "1.1.3"
     react-motion "^0.5.0"
-    resize-observer-polyfill "^1.4.2"
-    tabbable "^1.0.5"
+    resize-observer-polyfill "1.5.0"
+    tabbable "1.1.2"
 
 react-virtualized@^9.13.0:
   version "9.20.0"
@@ -8945,7 +8945,7 @@ reselect@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/reselect/-/reselect-3.0.1.tgz#efdaa98ea7451324d092b2b2163a6a1d7a9a2147"
 
-resize-observer-polyfill@^1.4.2, resize-observer-polyfill@^1.5.0:
+resize-observer-polyfill@1.5.0, resize-observer-polyfill@^1.5.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/resize-observer-polyfill/-/resize-observer-polyfill-1.5.0.tgz#660ff1d9712a2382baa2cad450a4716209f9ca69"
 
@@ -9773,9 +9773,9 @@ synthetic-dom@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/synthetic-dom/-/synthetic-dom-1.2.0.tgz#f3589aafe2b5e299f337bb32973a9be42dd5625e"
 
-tabbable@^1.0.5:
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/tabbable/-/tabbable-1.1.3.tgz#0e4ee376f3631e42d7977a074dbd2b3827843081"
+tabbable@1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/tabbable/-/tabbable-1.1.2.tgz#b171680aea6e0a3e9281ff23532e2e5de11c0d94"
 
 tapable@^0.2.7:
   version "0.2.8"

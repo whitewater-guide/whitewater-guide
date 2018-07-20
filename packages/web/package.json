@@ -1,6 +1,6 @@
 {
   "name": "web",
-  "version": "0.1.180",
+  "version": "0.1.181",
   "private": true,
   "homepage": "/admin/",
   "dependencies": {
@@ -46,7 +46,7 @@
     "react-event-listener": "^0.6.1",
     "react-gateway": "^3.0.0",
     "react-grid-system": "^4.1.2",
-    "react-images": "file:/Users/doomsower/projects/_cloned/react-images/react-images-1.0.0-alpha.1.tgz",
+    "react-images": "1.0.1-alpha.1",
     "react-jss": "^8.4.0",
     "react-markdown": "^3.3.0",
     "react-prism": "^4.3.2",
