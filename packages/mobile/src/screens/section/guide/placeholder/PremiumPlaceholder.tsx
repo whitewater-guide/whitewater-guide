@@ -31,9 +31,11 @@ class PremiumPlaceholder extends React.PureComponent<InnerProps> {
 
   render() {
     const { t, region } = this.props;
+    const node = region.node;
+    const name = node ? node.name : '';
     return (
       <View style={styles.container}>
-        <Caption>{t('iap:section.message', { region: region.node.name })}</Caption>
+        <Caption>{t('iap:section.message', { region: name })}</Caption>
         <Button raised primary onPress={this.onBuy}>
           {t('iap:section.button')}
         </Button>
