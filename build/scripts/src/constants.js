@@ -6,6 +6,7 @@ const DEPENDENCIES = {
   'clients': ['commons'],
   'commons': [],
   'db': [],
+  'imagedump': [],
   'landing': [],
   'minio': [],
   'mobile': ['clients', 'commons'],

@@ -151,6 +151,25 @@ services:
     depends_on:
       - db
 
+  # Backup images from minio to s3
+  imagedump:
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    labels:
+      guide.whitewater: ""
+    build:
+      context: ../packages/imagedump
+      labels:
+        guide.whitewater: ""
+    image: '${DOCKER_REGISTRY_PREFIX}imagedump:${DOCKER_ENVIRONMENT}'
+    # read_only: true
+    env_file:
+      - ${DOCKER_ENV_FILE}
+      - ../packages/imagedump/${DOCKER_ENV_FILE}
+    depends_on:
+      - minio
+
   # WAL-e postgres backup
   # This is currently disabled, as I haven't figured out how to make it work
   # wale:

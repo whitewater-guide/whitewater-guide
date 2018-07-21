@@ -1,0 +1,23 @@
+[minio]
+type = s3
+provider = Minio
+env_auth = false
+access_key_id = {{ .Env.MINIO_ACCESS_KEY }}
+secret_access_key = {{ .Env.MINIO_SECRET_KEY }}
+region = eu-west-1
+endpoint = http://minio:9000
+location_constraint =
+acl = private
+
+[s3]
+type = s3
+provider = AWS
+env_auth = false
+access_key_id = {{ .Env.S3_ACCESS_KEY_ID }}
+secret_access_key = {{ .Env.S3_SECRET_ACCESS_KEY }}
+region = {{ .Env.S3_REGION }}
+endpoint =
+location_constraint =
+acl = private
+server_side_encryption =
+storage_class = ONEZONE_IA
