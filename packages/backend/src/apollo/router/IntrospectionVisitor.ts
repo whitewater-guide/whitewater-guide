@@ -14,9 +14,9 @@ export class LimitIntrospection extends SchemaVisitor {
 
   visitObject(object: GraphQLObjectType) {
     const fields = object.getFields();
-    const adminKeys = Object.values(fields).reduce(
+    const adminKeys: string[] = Object.values(fields).reduce(
       (ak, field) => isAdmin(field) ? [...ak, field.name] : ak,
-      [],
+      [] as string[],
     );
     adminKeys.forEach(key => delete fields[key]);
   }

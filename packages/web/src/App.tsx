@@ -10,12 +10,12 @@ import { getApolloClient } from './apollo';
 import { Loading } from './components';
 import { EditorLanguageLink } from './i18n/editors';
 import { RootLayout } from './layout';
-import { configureStore, RootState } from './redux';
+import { configureStore } from './redux';
 import { theme } from './styles';
 import { MyProfileProvider } from './ww-clients/features/users';
 
 interface State {
-  store?: Store<RootState>;
+  store?: Store;
   persistor?: Persistor;
 }
 

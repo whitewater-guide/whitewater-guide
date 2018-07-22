@@ -1,3 +1,4 @@
+// @ts-ignore
 import { storiesOf } from '@storybook/react-native';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
@@ -14,7 +15,7 @@ const region: PremiumRegion = {
 };
 
 storiesOf('Premium dialog: buy product step')
-  .addDecorator((story) => (
+  .addDecorator((story: any) => (
     <I18nProvider>
       <View style={{ ...StyleSheet.absoluteFillObject, padding: 8, paddingTop: 64, backgroundColor: '#AAA' }}>
         <Paper elevation={2} style={{ height: 450 }}>

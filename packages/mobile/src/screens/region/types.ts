@@ -5,7 +5,7 @@ import { WithSectionsList } from '../../ww-clients/features/sections';
 import { Region, Section } from '../../ww-commons';
 
 export interface ScreenProps {
-  region: WithNode<Region>;
+  region: WithNode<Region | null>;
   sections: WithList<Section>;
 }
 

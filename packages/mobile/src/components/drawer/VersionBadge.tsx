@@ -31,7 +31,7 @@ const getPrettyVersion = () => {
   } else {
     // '%d%03d%03d%02d' - from Fastfile
     const regexp = /(\d+)(\d{3})(\d{3})(\d{2})/;
-    const [_, majorStr, minorStr, patchStr, buildStr] = build.match(regexp);
+    const [_, majorStr, minorStr, patchStr, buildStr]: any = build.match(regexp);
     result = `${parseInt(majorStr)}.${parseInt(minorStr)}.${parseInt(patchStr)}.${parseInt(buildStr)}`;
   }
   return result;

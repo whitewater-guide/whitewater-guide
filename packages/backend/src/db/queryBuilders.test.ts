@@ -20,9 +20,11 @@ jest.mock('graphql-fields', () => jest.fn());
 const graphqlFields: jest.Mock<any> = gqf as any;
 
 describe('getPrimitives', () => {
-  const topLevelFields = ['__typename', 'camelCase', 'snake_case', 'regular', 'everyone', 'admin', 'connection', 'oneToOne'];
+  const topLevelFields = [
+    '__typename', 'camelCase', 'snake_case', 'regular', 'everyone', 'admin', 'connection', 'oneToOne',
+  ];
   const customMap = {
-    admin: (c: Context) => (c.user && c.user.admin) ? 'admin' : null,
+    admin: (c?: Context) => (c && c.user && c.user.admin) ? 'admin' : null,
   };
   const prefix = 'tablename';
 
@@ -46,9 +48,23 @@ describe('getPrimitives', () => {
   });
 
   it('should omit based on context', () => {
-    const userResult = getPrimitives<any>(topLevelFields, prefix, anonContext(), ['connection'], ['oneToOne'], customMap);
+    const userResult = getPrimitives<any>(
+      topLevelFields,
+      prefix,
+      anonContext(),
+      ['connection'],
+      ['oneToOne'],
+      customMap,
+    );
     expect(userResult).not.toContain('tablename.admin');
-    const adminResult = getPrimitives<any>(topLevelFields, prefix, fakeContext(ADMIN), ['connection'], ['oneToOne'], customMap);
+    const adminResult = getPrimitives<any>(
+      topLevelFields,
+      prefix,
+      fakeContext(ADMIN),
+      ['connection'],
+      ['oneToOne'],
+      customMap,
+    );
     expect(adminResult).toContain('tablename.admin');
   });
 
@@ -62,7 +78,14 @@ describe('getPrimitives', () => {
   });
 
   it('should match snapshot', () => {
-    const userResult = getPrimitives<any>(topLevelFields, prefix, anonContext(), ['connection'], ['oneToOne'], customMap);
+    const userResult = getPrimitives<any>(
+      topLevelFields,
+      prefix,
+      anonContext(),
+      ['connection'],
+      ['oneToOne'],
+      customMap,
+    );
     expect(userResult).toMatchSnapshot();
   });
 
@@ -107,7 +130,7 @@ describe('buildRootQuery', () => {
     graphqlFields.mockReturnValueOnce({ b: {}, camelCase: {}, c: {} });
     const customFieldMap = {
       camelCase: () => 'snake_case',
-      c: (c: Context) => (c.user && c.user.admin) ? 'c' : null,
+      c: (c?: Context) => (c && c.user && c.user.admin) ? 'c' : null,
     };
     const query = buildRootQuery({ ...commonOptions, customFieldMap });
     expect(query).toMatchSnapshot();

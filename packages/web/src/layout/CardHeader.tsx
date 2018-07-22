@@ -30,4 +30,4 @@ const CardHeaderView: React.StatelessComponent<Props> = ({ muiTheme, ...props })
   );
 };
 
-export const CardHeader: React.ComponentType<CardHeaderProps> = muiThemeable()(CardHeaderView);
+export const CardHeader: React.ComponentType<CardHeaderProps> = muiThemeable()(CardHeaderView as any);

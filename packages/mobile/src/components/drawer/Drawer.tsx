@@ -65,7 +65,7 @@ class DrawerView extends React.PureComponent<Props> {
   }
 }
 
-export const Drawer: React.ComponentType<OwnProps> = connect<StateProps, DispatchProps, OwnProps>(
+export const Drawer: React.ComponentType<OwnProps> = connect<StateProps, DispatchProps, OwnProps, RootState>(
   ({ app }: RootState) => ({ drawerOpen: app.drawerOpen }),
   { toggleDrawer },
 )(DrawerView);

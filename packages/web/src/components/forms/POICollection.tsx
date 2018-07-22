@@ -2,6 +2,7 @@ import FontIcon from 'material-ui/FontIcon';
 import RaisedButton from 'material-ui/RaisedButton';
 import React from 'react';
 import { BaseFieldArrayProps, FieldArray, GenericFieldArray, WrappedFieldArrayProps } from 'redux-form';
+import { Omit } from 'type-zoo';
 import { Styles } from '../../styles';
 import { Coordinate, Point, PointInput as PointInputType } from '../../ww-commons';
 import { PointInput } from './PointInput';
@@ -74,9 +75,10 @@ class POICollectionComponent extends React.PureComponent<Props> {
 
 type FieldArrayProps = BaseFieldArrayProps<POICollectionProps> & POICollectionProps;
 
-export const POICollection: React.StatelessComponent<FieldArrayProps> = props => {
-  const CustomField = FieldArray as new () => GenericFieldArray<Partial<Point>, POICollectionProps>;
+const CustomField = FieldArray as new () => GenericFieldArray<Partial<Point>, POICollectionProps>;
+
+export const POICollection: React.StatelessComponent<Omit<FieldArrayProps, 'component'>> = props => {
   return (
-    <CustomField {...props} component={POICollectionComponent} />
+    <CustomField {...props} component={POICollectionComponent as any} />
   );
 };

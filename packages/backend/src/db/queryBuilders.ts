@@ -35,9 +35,9 @@ export const getPrimitives = <T>(
   return topLevelFields.reduce((result, field) => {
     // connection types, one-to-one relation types and __typename are ignored
     if (
-      field === '__typename' ||
-      connections && connections.includes(field) ||
-      oneToOnes && oneToOnes.includes(field)
+      (field as any) === '__typename' ||
+      connections && connections.includes(field as any) ||
+      oneToOnes && oneToOnes.includes(field as any)
     ) {
       return result;
     }
@@ -52,7 +52,7 @@ export const getPrimitives = <T>(
       return mapped ?  [...result, ...mappedArr] : result;
     }
     return [...result, `${prefix}.${snakeCase(field.toString())}`];
-  }, []);
+  }, [] as string[]);
 };
 
 export interface QueryBuilderOptions<T> {

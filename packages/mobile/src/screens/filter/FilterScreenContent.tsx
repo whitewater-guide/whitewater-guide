@@ -115,7 +115,7 @@ export default class FilterScreenContent extends React.PureComponent<InnerProps,
           <MultiSlider
             defaultTrackWidth={DEFAULT_SLIDER_WIDTH}
             defaultTrackPageX={DEFAULT_SLIDER_PAGEX}
-            label={`${t('commons:season')}: ${stringifySeason(this.state.seasonNumeric, true, i18n.languages[0])}`}
+            label={`${t('commons:season')}: ${stringifySeason(this.state.seasonNumeric, true, i18n!.languages[0])}`}
             range={SEASON_RANGE}
             step={1}
             behavior="invert"

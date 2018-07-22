@@ -44,9 +44,9 @@ class SelectedPOIViewInternal extends React.Component<Props> {
 
   canNavigate = () => {
     const { buyRegion, region, canMakePayments } = this.props;
-    const result = !canMakePayments || !region.node.premium || region.node.hasPremiumAccess;
+    const result = !canMakePayments || !region.node || !region.node.premium || region.node.hasPremiumAccess;
     if (!result) {
-      buyRegion(region.node);
+      buyRegion(region.node!);
     }
     return result;
   };

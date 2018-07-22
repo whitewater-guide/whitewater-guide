@@ -17,3 +17,5 @@ export interface ListQuery {
 export interface NodeQuery {
   id?: string;
 }
+
+export type TopLevelResolver<Vars> = GraphQLFieldResolver<any, Context, Vars>;

@@ -5,12 +5,12 @@ import { RegionRaw } from '../../regions';
 import { TransactionRaw } from '../types';
 
 export class PurchasesLoader {
-  private user?: ContextUser;
-  private language: string;
-  private transactions: TransactionRaw[];
-  private purchasedGroups: GroupRaw[];
-  private purchasedSingleRegions: RegionRaw[];
-  private purchasedRegionIds: string[]; // both single and parts of groups
+  private readonly user?: ContextUser;
+  private readonly language: string;
+  private transactions: TransactionRaw[] | null = null;
+  private purchasedGroups: GroupRaw[] | null = null;
+  private purchasedSingleRegions: RegionRaw[] | null = null;
+  private purchasedRegionIds: string[] | null = null; // both single and parts of groups
 
   constructor(user: ContextUser | undefined, language: string) {
     this.user = user;
@@ -25,10 +25,10 @@ export class PurchasesLoader {
       this.transactions = await db().table('transactions')
         .where({ user_id: this.user!.id, validated: true });
     }
-    return this.transactions;
+    return this.transactions || [];
   }
 
-  async loadPurchasedGroups() {
+  async loadPurchasedGroups(): Promise<GroupRaw[]> {
     const transactions = await this.loadTransactions();
     if (!this.purchasedGroups) {
       this.purchasedGroups = await db()
@@ -36,10 +36,10 @@ export class PurchasesLoader {
         .whereIn('sku', transactions.map((t) => t.product_id))
         .andWhere({ language: this.language });
     }
-    return this.purchasedGroups;
+    return this.purchasedGroups || [];
   }
 
-  async loadPurchasedSingleRegions() {
+  async loadPurchasedSingleRegions(): Promise<RegionRaw[]> {
     const transactions = await this.loadTransactions();
     if (!this.purchasedSingleRegions) {
       this.purchasedSingleRegions = await db()
@@ -47,10 +47,10 @@ export class PurchasesLoader {
         .whereIn('sku', transactions.map((t) => t.product_id))
         .andWhere({ language: this.language });
     }
-    return this.purchasedSingleRegions;
+    return this.purchasedSingleRegions || [];
   }
 
-  async loadPurchasedRegions() {
+  async loadPurchasedRegions(): Promise<string[]> {
     if (!this.user) {
       this.purchasedRegionIds = [];
     }
@@ -72,6 +72,6 @@ export class PurchasesLoader {
         });
       this.purchasedRegionIds = (result || []).map(({ id }: any) => id);
     }
-    return this.purchasedRegionIds;
+    return this.purchasedRegionIds || [];
   }
 }

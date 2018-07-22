@@ -7,6 +7,7 @@ import { Section, SectionFormSchema } from '../../../ww-commons';
 import deserializeSection from './deserializeSection';
 import { SECTION_FORM_QUERY } from './sectionForm.query';
 import serializeSection from './serializeSection';
+import { SectionFormProps } from './types';
 import { UPSERT_SECTION, UpsertSectionResult } from './upsertSection.mutation';
 
 const addToList = ({ regionId }: any): MutationUpdaterFn<UpsertSectionResult> => (store, result) => {
@@ -63,10 +64,10 @@ const sectionForm = formContainer({
   }),
 });
 
-export default compose(
+export default compose<SectionFormProps, {}>(
   withFeatureIds(['region', 'river', 'section']),
   sectionForm,
-  mapProps(({ data, ...props }) => ({
+  mapProps(({ data, ...props }: any) => ({
     region: data.region,
     river: data.river,
     tags: data.tags,

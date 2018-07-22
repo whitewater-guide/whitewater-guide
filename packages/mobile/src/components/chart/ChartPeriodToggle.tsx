@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
 type Props = PeriodToggleProps & WithT;
 
 class ChartPeriodToggleInternal extends React.PureComponent<Props> {
-  _actionSheet: ActionSheet;
+  _actionSheet: ActionSheet | null = null;
   _actionSheetOptions: string[];
 
   constructor(props: Props) {
@@ -44,7 +44,7 @@ class ChartPeriodToggleInternal extends React.PureComponent<Props> {
     }
   };
 
-  setActionSheet = (ref: ActionSheet) => {
+  setActionSheet = (ref: ActionSheet | null) => {
     this._actionSheet = ref;
   };
 

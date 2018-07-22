@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
-import { Animated, InteractionManager, LayoutChangeEvent, StyleSheet, TouchableOpacity, View } from 'react-native';
+import React from 'react';
+import { Animated, LayoutChangeEvent, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Interactable from 'react-native-interactable';
-import { cloneableGenerator } from 'redux-saga/utils';
 import theme from '../../theme';
 import { Coordinate, Point, Section } from '../../ww-commons';
 import { NAVIGATE_BUTTON_HEIGHT, NAVIGATE_BUTTON_WIDTH, NavigateButton } from '../NavigateButton';
@@ -49,7 +48,7 @@ interface State {
   panelHeight: number;
   snapPoints: any[];
   deltaY?: Animated.Value;
-  slideAnimated?: Animated.Animated;
+  slideAnimated?: Animated.AnimatedInterpolation;
 }
 
 export default class SelectedElementView extends React.Component<Props, State> {
@@ -171,11 +170,11 @@ export default class SelectedElementView extends React.Component<Props, State> {
             style={[
               styles.shade,
               {
-                opacity: this.state.deltaY.interpolate({
+                opacity: this.state.deltaY ? this.state.deltaY.interpolate({
                   inputRange: [this.state.snapPoints[2].y, this.state.snapPoints[1].y],
                   outputRange: [0.5, 0],
                   extrapolate: 'clamp',
-                }),
+                }) : 0.5,
               },
             ]}
           >

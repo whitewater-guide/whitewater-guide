@@ -1,8 +1,7 @@
-import { NamedNode, Timestamped } from '../../core';
-import { Node } from '../../core/types';
-import { Gauge } from '../gauges/types';
+import { NamedNode, Node, Timestamped } from '../../core';
+import { Gauge } from '../gauges';
 import { HarvestStatus } from '../measurements';
-import { Region } from '../regions/types';
+import { Region } from '../regions';
 import { Connection } from '../types';
 
 export enum HarvestMode {
@@ -23,7 +22,7 @@ export interface Source extends NamedNode, Timestamped {
   status: HarvestStatus | null;
 }
 
-export class SourceInput {
+export interface SourceInput {
   id: string | null;
   name: string;
   termsOfUse: string | null;

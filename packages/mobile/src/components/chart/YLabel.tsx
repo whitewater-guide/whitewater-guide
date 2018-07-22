@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, TextAnchor, TextSpecificProps } from 'react-native-svg';
+import theme from '../../theme';
 import { getColorForValue } from '../../ww-clients/features/sections';
 import { GaugeBinding } from '../../ww-commons';
 
@@ -13,8 +14,9 @@ interface YLabelProps {
 }
 
 const YLabel: React.StatelessComponent<YLabelProps> = (props) => {
-  const { x, y, textAnchor, binding, datum, style } = props;
-  const textStyle = { ...style, fill: getColorForValue(datum, binding, style.fill) };
+  const { x, y = 0, textAnchor, binding, datum = 0, style } = props;
+  const defaultColor = (style && style.fill) ? style.fill : theme.colors.textMain;
+  const textStyle = { ...style, fill: getColorForValue(datum, binding, defaultColor) };
   return (
     <Text {...textStyle} x={x} y={y + 3} textAnchor={textAnchor}>
       {datum}

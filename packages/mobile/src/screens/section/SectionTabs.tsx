@@ -1,7 +1,12 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { WhitePortal } from 'react-native-portal';
-import { NavigationComponent, NavigationRouteConfigMap, TabNavigatorConfig, } from 'react-navigation';
+import {
+  NavigationComponent,
+  NavigationRouteConfigMap,
+  NavigationScreenConfigProps,
+  TabNavigatorConfig,
+} from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import theme from '../../theme';
 import { PureScreen } from '../../utils/navigation';
@@ -69,6 +74,6 @@ class SectionTabsView extends PureScreen<InnerProps, NavParams> {
 export const SectionTabs: NavigationComponent & { router?: any} = container(SectionTabsView);
 SectionTabs.router = Navigator.router;
 
-SectionTabs.navigationOptions = ({ navigation }) => ({
+SectionTabs.navigationOptions = ({ navigation }: NavigationScreenConfigProps) => ({
   headerTitle: <SectionTitle sectionId={navigation.getParam('sectionId')}/>,
 });

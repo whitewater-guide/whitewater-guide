@@ -1,5 +1,5 @@
+import { MutationOptions } from 'apollo-client/core/watchQueryOptions';
 import { FetchResult } from 'apollo-link';
-import moment from 'moment';
 import { ProductPurchase } from 'react-native-iap';
 import { apply } from 'redux-saga/effects';
 import { getApolloClient } from '../../../core/apollo';
@@ -7,7 +7,7 @@ import { trackError } from '../../../core/errors';
 import isApolloOfflineError from '../../../utils/isApolloOfflineError';
 import { SavePurchaseResult } from '../types';
 import { purchaseToGraphqlInput } from '../utils';
-import { ADD_PURCHASE_MUTATION } from './addPurchase.mutation';
+import { ADD_PURCHASE_MUTATION, Vars } from './addPurchase.mutation';
 
 export default function *savePurchase(purchase: ProductPurchase) {
   try {
@@ -16,7 +16,7 @@ export default function *savePurchase(purchase: ProductPurchase) {
     // console.dir(purchase);
     // console.dir(purchaseToGraphqlInput(purchase));
     // false for duplicate purchases, unless purchase is for different user. In this case throws
-    const { errors }: FetchResult<any> = yield apply(client, client.mutate, [{
+    const { errors } = yield apply<Promise<FetchResult<any>>, MutationOptions<Vars>>(client, client.mutate, [{
       mutation: ADD_PURCHASE_MUTATION,
       variables: { info: purchaseToGraphqlInput(purchase) },
     }]);

@@ -28,9 +28,9 @@ type Props = InjectedFormProps<RegionAdminSettings> & ChildProps<{}, Result>;
 
 export default class RegionAdminSettingsForm extends React.PureComponent<Props> {
 
-  shouldBlockNavigation = (cur: Location, nxt: Location) => {
+  shouldBlockNavigation = (cur: Location, nxt?: Location) => {
     const { anyTouched } = this.props;
-    return anyTouched && (nxt.pathname !== cur.pathname || nxt.search !== cur.search);
+    return anyTouched && !!nxt && (nxt.pathname !== cur.pathname || nxt.search !== cur.search);
   };
 
   render() {

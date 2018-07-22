@@ -15,13 +15,16 @@ interface Props {
   text?: string;
 }
 
-export const PlainText: React.StatelessComponent<Props & WithT> = ({ text, fixture, t }) => (
-  <Screen>
-    <Markdown>
-      {text ? text : t(fixture)}
-    </Markdown>
-  </Screen>
-);
+export const PlainText: React.StatelessComponent<Props & WithT> = ({ text, fixture, t }) => {
+  const markdown = text || (fixture ? t(fixture) : 'Text not found');
+  return (
+    <Screen>
+      <Markdown>
+        {markdown}
+      </Markdown>
+    </Screen>
+  );
+};
 
 const PlainTextWithT = translate('markdown')(PlainText);
 

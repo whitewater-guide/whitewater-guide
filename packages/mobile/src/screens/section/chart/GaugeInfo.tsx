@@ -33,7 +33,7 @@ type InnerProps = OuterProps & WithT & NavigationInjectedProps;
 
 class GaugeInfo extends React.PureComponent<InnerProps> {
 
-  _actionSheet: ActionSheet;
+  _actionSheet: ActionSheet | null = null;
   _actionSheetOptions: string[];
 
   constructor(props: InnerProps) {
@@ -46,14 +46,17 @@ class GaugeInfo extends React.PureComponent<InnerProps> {
   }
 
   onGaugeAction = (index: number) => {
+    const { gauge, navigation, t } = this.props;
     if (index === 1) {
-      Linking.openURL(this.props.gauge.url).catch(() => {});
+      if (gauge.url) {
+        Linking.openURL(gauge.url).catch(() => {});
+      }
     } else if (index === 0) {
-      this.props.navigation.navigate({
+      navigation.navigate({
         routeName: 'Plain',
         params: {
-          title: this.props.t('section:chart.gaugeMenu.aboutSource'),
-          text: this.props.gauge.source.termsOfUse,
+          title: t('section:chart.gaugeMenu.aboutSource'),
+          text: gauge.source.termsOfUse,
         },
       });
     }
@@ -65,12 +68,12 @@ class GaugeInfo extends React.PureComponent<InnerProps> {
     }
   };
 
-  setActionSheet = (ref: ActionSheet) => { this._actionSheet = ref; };
+  setActionSheet = (ref: ActionSheet | null) => { this._actionSheet = ref; };
 
   render() {
     const { gauge, approximate, t } = this.props;
     const { name, lastMeasurement } = gauge;
-    const isOutdated = moment().diff(lastMeasurement.timestamp, 'days') > 1;
+    const isOutdated = lastMeasurement ? moment().diff(lastMeasurement.timestamp, 'days') > 1 : false;
     return (
       <React.Fragment>
         <Row>
@@ -101,7 +104,11 @@ class GaugeInfo extends React.PureComponent<InnerProps> {
         <Row>
           <Left><Subheading>{t('section:chart.lastUpdated')}</Subheading></Left>
           <Right flexDirection="row">
-            <Paragraph>{moment(lastMeasurement.timestamp).fromNow()}</Paragraph>
+            <Paragraph>
+              {
+                lastMeasurement ? moment(lastMeasurement.timestamp).fromNow() : ''
+              }
+            </Paragraph>
             {
               isOutdated &&
               <PopoverController>

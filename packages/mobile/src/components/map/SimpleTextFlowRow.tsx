@@ -4,14 +4,14 @@ import { WithT } from '../../i18n';
 import { Row } from '../Row';
 
 interface Props extends WithT {
-  flowsText?: string;
+  flowsText?: string | null;
 }
 
 const SimpleTextFlowRow: React.StatelessComponent<Props> = ({ t, flowsText }) => (
   <Row>
     <Subheading>{t('region:map.selectedSection.flows')}</Subheading>
     <Paragraph>
-      {flowsText || t('commons:unknown')}
+      {!!flowsText || t('commons:unknown')}
     </Paragraph>
   </Row>
 );

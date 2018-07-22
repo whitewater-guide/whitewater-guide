@@ -27,7 +27,10 @@ interface Props extends WithT {
 }
 
 const PurchaseItem: React.SFC<Props> = ({ last, region, group, t }) => {
-  const title = region ? region.name : group.name;
+  if (!region && !group) {
+    return null;
+  }
+  const title = region ? region.name : group!.name;
   const description = region ? t('myProfile:purchases.region') : t('myProfile:purchases.group');
   return (
     <View style={[styles.container, last && styles.last]}>

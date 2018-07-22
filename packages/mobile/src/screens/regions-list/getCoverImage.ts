@@ -8,6 +8,9 @@ const widthRounded = [2048, 1600, 1366, 1024, 768, 640].reduce(
   2048,
 );
 
-export default function getCoverImage(cover: string) {
+export default function getCoverImage(cover: string | null) {
+  if (!cover) {
+    return 'fallback';
+  }
   return `${Config.BACKEND_PROTOCOL}://${Config.BACKEND_HOST}/images/${widthRounded}x/covers/${cover}`;
 }

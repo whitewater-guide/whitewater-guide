@@ -39,7 +39,7 @@ function* watchLogoutWithFb() {
   LoginManager.logOut();
 }
 
-function* authWithFbToken(reset?: boolean) {
+function* authWithFbToken(reset?: boolean): any {
   try {
     const token: AccessToken | null = yield apply(AccessToken, AccessToken.getCurrentAccessToken);
     if (token && token.accessToken) {

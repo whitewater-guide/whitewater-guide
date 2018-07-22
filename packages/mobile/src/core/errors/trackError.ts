@@ -9,7 +9,7 @@ export const trackError = (origin: string, error: Error, componentStack?: string
     }
   }
   Firebase.crashlytics().setStringValue('origin', origin);
-  Firebase.crashlytics().setStringValue('stack', error.stack);
+  Firebase.crashlytics().setStringValue('stack', error.stack || '');
   Firebase.crashlytics().setBoolValue('isFatal', !!isFatal);
   if (componentStack) {
     Firebase.crashlytics().setStringValue('componentStack', componentStack);

@@ -5,7 +5,7 @@ import { Button, DialogActions, DialogContent, Subheading } from 'react-native-p
 import { AnonHeader, UserHeader } from '../../../../components';
 import { WithT } from '../../../../i18n';
 import theme from '../../../../theme';
-import { User } from '../../../../ww-commons';
+import { InnerProps, OuterProps } from './types';
 
 const styles = StyleSheet.create({
   dialogContent: {
@@ -16,12 +16,7 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Props extends WithT {
-  me: Pick<User, 'name' | 'avatar'> | null;
-  onContinue?: () => void;
-  onCancel?: () => void;
-  cancelable?: boolean;
-}
+type Props = InnerProps & OuterProps & WithT;
 
 class AuthStep extends React.PureComponent<Props> {
   renderAnon = () => (
@@ -35,7 +30,7 @@ class AuthStep extends React.PureComponent<Props> {
 
   renderUser = () => (
     <React.Fragment>
-      <UserHeader user={this.props.me} medium padded={false} />
+      <UserHeader user={this.props.me!} medium padded={false} />
       <Subheading style={styles.subheading}>
         {this.props.t('iap:auth.user')}
       </Subheading>

@@ -17,7 +17,7 @@ const SectionInfoView: React.StatelessComponent<Props> = ({ section: { node }, i
   if (!node) {
     return null;
   }
-  let season = capitalize(trim(`${stringifySeason(node.seasonNumeric, false, i18n.languages[0])}`));
+  let season = capitalize(trim(`${stringifySeason(node.seasonNumeric, false, i18n!.languages[0])}`));
   if (node.season) {
     season = `${season}\n${node.season}`;
   }
@@ -32,7 +32,7 @@ const SectionInfoView: React.StatelessComponent<Props> = ({ section: { node }, i
       <Row>
         <Left><Subheading>{t('commons:rating')}</Subheading></Left>
         <Right>
-          <StarRating value={node.rating} />
+          <StarRating value={node.rating || 0} />
         </Right>
       </Row>
 

@@ -1,33 +1,9 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "noEmit": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "declaration": false,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "forceConsistentCasingInFileNames": true,
-    "importHelpers": true,
-    "noEmitHelpers": true,
-    "jsx": "react",
-    "lib": [
-      "es2017",
-      "dom"
-    ],
-    "target": "es5",
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitAny": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "strictNullChecks": true,
-    "pretty": true,
-    "removeComments": true,
-    "sourceMap": true
+    "jsx": "react"
   },
   "include": [
     "src/**/*.ts"
-  ],
-  "compileOnSave": true
+  ]
 }

@@ -5,7 +5,7 @@ import { withSectionsList } from '../../../ww-clients/features/sections';
 import { applySearch } from '../../../ww-commons';
 import { RegionDetailsProps } from './types';
 
-export default compose(
+export default compose<RegionDetailsProps, {}>(
   consumeRegion(({ region, searchTerms }) => ({ region, searchTerms })),
   withSectionsList(),
   chunkedListLoader('sections'),

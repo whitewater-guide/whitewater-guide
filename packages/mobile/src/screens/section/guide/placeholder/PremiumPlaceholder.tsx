@@ -26,7 +26,9 @@ type InnerProps = OuterProps & WithRegion & WithT;
 class PremiumPlaceholder extends React.PureComponent<InnerProps> {
   onBuy = () => {
     const { buyRegion, region: { node }, section } = this.props;
-    buyRegion(node, section.id);
+    if (node) {
+      buyRegion(node, section.id);
+    }
   };
 
   render() {

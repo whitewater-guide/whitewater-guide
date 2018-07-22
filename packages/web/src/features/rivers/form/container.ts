@@ -1,8 +1,9 @@
 import { compose } from 'recompose';
+import { InjectedFormProps } from 'redux-form';
 import { formContainer } from '../../../components/forms';
 import { withFeatureIds } from '../../../ww-clients/core';
 import { RIVER_DETAILS } from '../../../ww-clients/features/rivers';
-import { RiverInputSchema } from '../../../ww-commons';
+import { RiverInput, RiverInputSchema } from '../../../ww-commons';
 import deserializeRiver from './deserializeRiver';
 import serializeRiver from './serializeRiver';
 import UPSERT_RIVER from './upsertRiver.mutation';
@@ -23,7 +24,7 @@ const riverForm = formContainer({
   validationSchema: RiverInputSchema,
 });
 
-export default compose(
+export default compose<InjectedFormProps<RiverInput>, {}>(
   withFeatureIds(['region', 'river']),
   riverForm,
 );

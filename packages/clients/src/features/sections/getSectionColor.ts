@@ -305,5 +305,5 @@ export function getSectionColor(section: ColorizeSection): string {
   } else if (isFunction(result)) {
     return result(binding, lastValue).string();
   }
-  return result.string();
+  return (result as color).string();
 }

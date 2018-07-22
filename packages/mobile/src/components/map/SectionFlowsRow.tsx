@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
 });
 
 interface Props extends WithT {
-  section: Section;
+  section: Section | null;
 }
 
 const SectionFlowsRow: React.StatelessComponent<Props> = ({ section, t }) => {
@@ -64,26 +64,27 @@ const SectionFlowsRow: React.StatelessComponent<Props> = ({ section, t }) => {
     return <SimpleTextFlowRow flowsText={flowsText} t={t} />;
   }
   const color = getSectionColor(section);
-  const data = (flows && gauge.lastMeasurement.flow) ?
-    { ...flows, label: t('commons:flow'), unit: gauge.flowUnit, value: gauge.lastMeasurement.flow} :
-    { ...levels, label: t('commons:level'), unit: gauge.levelUnit, value: gauge.lastMeasurement.level };
-
+  const preferFlow = flows && gauge.lastMeasurement.flow;
+  const binding = (preferFlow ? flows : levels)!;
+  const label = preferFlow ? t('commons:flow') : t('commons:level');
+  const unitName = preferFlow ? gauge.flowUnit : gauge.levelUnit;
+  const value = preferFlow ? gauge.lastMeasurement.flow : gauge.lastMeasurement.level;
   return (
     <Row>
-      <Subheading>{data.label}</Subheading>
+      <Subheading>{label}</Subheading>
       <View style={styles.flowContainer}>
         <Text style={[styles.mainLine, { color }]}>
-          {prettyNumber(data.value)}
+          {prettyNumber(value)}
           <Text style={[styles.unitLine, { color }]}>
-            {` ${t('commons:' + data.unit)}`}
+            {` ${t('commons:' + unitName)}`}
           </Text>
         </Text>
         <Caption style={styles.timeLine}>{moment(gauge.lastMeasurement.timestamp).fromNow()}</Caption>
       </View>
       <View style={styles.binding}>
-        {data.minimum && <Caption style={styles.minimum}>{`${data.minimum} ${t('commons:min')}`}</Caption>}
-        {data.optimum && <Caption style={styles.optimum}>{`${data.optimum} ${t('commons:opt')}`}</Caption>}
-        {data.maximum && <Caption style={styles.maximum}>{`${data.maximum} ${t('commons:max')}`}</Caption>}
+        {binding.minimum && <Caption style={styles.minimum}>{`${binding.minimum} ${t('commons:min')}`}</Caption>}
+        {binding.optimum && <Caption style={styles.optimum}>{`${binding.optimum} ${t('commons:opt')}`}</Caption>}
+        {binding.maximum && <Caption style={styles.maximum}>{`${binding.maximum} ${t('commons:max')}`}</Caption>}
       </View>
     </Row>
   );

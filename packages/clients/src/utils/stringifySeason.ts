@@ -1,6 +1,8 @@
 import times from 'lodash/times';
 import moment from 'moment';
 
+type Range = [number, number];
+
 interface Locales {
   [key: string]: {
     late: (halfMonth: number) => string;
@@ -28,7 +30,7 @@ function halfMonth(n: number, lang: string): string {
   return isEarly ? locale.early(n) : locale.late(n);
 }
 
-function rangeToStr(range: [number, number], lang: string): string {
+function rangeToStr(range: Range, lang: string): string {
   const start = range[0] % 24;
   const end = range[1] % 24;
   if (isNaN(end)) {
@@ -84,7 +86,7 @@ export function stringifySeason(seasonNumeric?: number[], range: boolean = false
   if (seasons.indexOf(0) === 0 && seasons.indexOf(23) >= 0) {
     seasons = loopAroundNewYear(seasons);
   }
-  const ranges = [];
+  const ranges: Range[] = [];
   let currentRange: number[] = [];
   let prev = -1;
   const cnt = seasons.length;
@@ -98,15 +100,15 @@ export function stringifySeason(seasonNumeric?: number[], range: boolean = false
       }
     } else {
       if (currentRange.length > 0) {
-        ranges.push(currentRange);
+        ranges.push(currentRange as Range);
       }
       currentRange = [hm];
     }
     prev = hm;
   }
   if (currentRange.length > 0) {
-    ranges.push(currentRange);
+    ranges.push(currentRange as Range);
   }
   // Now we have array of single half-months or half-month pairs
-  return ranges.map((r: [number, number]) => rangeToStr(r, lang)).join(', ');
+  return ranges.map((r) => rangeToStr(r, lang)).join(', ');
 }

@@ -35,7 +35,7 @@ const container = compose<FlatButtonProps, OuterProps>(
       }),
     },
   ),
-  mapProps(({ sourceId, ...props }) => ({ ...props })),
+  mapProps(({ sourceId, ...props }: FlatButtonProps & TVariables) => ({ ...props })),
 );
 
 const GenerateScheduleButton = container(FlatButton);

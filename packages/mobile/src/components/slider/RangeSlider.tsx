@@ -17,14 +17,14 @@ const TRACK_EXTRA_MARGIN_V = 5;
 const TRACK_EXTRA_MARGIN_H = 5;
 
 export interface RangeSliderProps extends ViewProps {
-  range?: [number, number];
+  range?: [number, number]; // defaultProps
   values: [number, number];
-  step?: number;
-  trackThickness?: number;
-  thumbRadius?: number;
-  selectedTrackColor?: string;
-  backgroundTrackColor?: string;
-  behavior?: 'block' | 'continue' | 'invert';
+  step?: number; // defaultProps
+  trackThickness?: number; // defaultProps
+  thumbRadius?: number; // defaultProps
+  selectedTrackColor?: string; // defaultProps
+  backgroundTrackColor?: string; // defaultProps
+  behavior?: 'block' | 'continue' | 'invert'; // defaultProps
   onChange?: (values: [number, number]) => void;
   onChangeEnd?: (values: [number, number]) => void;
   defaultTrackWidth?: number;
@@ -53,7 +53,7 @@ export class RangeSlider extends React.PureComponent<RangeSliderProps> {
   _trackMarginH: number;
   _trackStyle: any;
 
-  _activeThumb: Thumb;
+  _activeThumb: Thumb | null = null;
   _minThumb: Thumb | null = null;
   _maxThumb: Thumb | null = null;
   _track: View | null = null;
@@ -61,8 +61,8 @@ export class RangeSlider extends React.PureComponent<RangeSliderProps> {
   constructor(props: RangeSliderProps) {
     super(props);
 
-    this._trackMarginV = props.thumbRadius * THUMB_SCALE_RATIO + TRACK_EXTRA_MARGIN_V - this.props.trackThickness / 2;
-    this._trackMarginH = props.thumbRadius * THUMB_SCALE_RATIO + TRACK_EXTRA_MARGIN_H;
+    this._trackMarginV = props.thumbRadius! * THUMB_SCALE_RATIO + TRACK_EXTRA_MARGIN_V - (props.trackThickness!) / 2;
+    this._trackMarginH = props.thumbRadius! * THUMB_SCALE_RATIO + TRACK_EXTRA_MARGIN_H;
     this._trackStyle = StyleSheet.create({
       track: { marginHorizontal: this._trackMarginH, marginVertical: this._trackMarginV, height: 2 },
     });
@@ -92,7 +92,7 @@ export class RangeSlider extends React.PureComponent<RangeSliderProps> {
         this.setValuesPx(this.props);
         this.updateThumbs(true);
       }
-      this._track.measure((x, y, w, h, pageX) => {
+      this._track!.measure((x, y, w, h, pageX) => {
         this._trackPageX = pageX;
       });
     });
@@ -107,7 +107,7 @@ export class RangeSlider extends React.PureComponent<RangeSliderProps> {
     const dx = e.nativeEvent.pageX;
     const x = this.constrainValue(dx);
     this.changeValues(x);
-    this.moveThumb(this._activeThumb, x);
+    this.moveThumb(this._activeThumb!, x);
   };
 
   onMoveEnd = (thumb: Thumb) => {
@@ -121,7 +121,7 @@ export class RangeSlider extends React.PureComponent<RangeSliderProps> {
   };
 
   snap = (valuePx: number) => {
-    const stepPx = this.props.step * this._trackWidthPx / (this.props.range[1] - this.props.range[0]);
+    const stepPx = this.props.step! * this._trackWidthPx / (this.props.range![1] - this.props.range![0]);
     return Math.round(valuePx / stepPx) * stepPx;
   };
 
@@ -130,10 +130,10 @@ export class RangeSlider extends React.PureComponent<RangeSliderProps> {
   };
 
   pixelToValue = (px: number) =>
-    px * (this.props.range[1] - this.props.range[0]) / this._trackWidthPx + this.props.range[0];
+    px * (this.props.range![1] - this.props.range![0]) / this._trackWidthPx + this.props.range![0];
 
   valueToPixel = (value: number) =>
-    this._trackWidthPx * (value - this.props.range[0]) / (this.props.range[1] - this.props.range[0]);
+    this._trackWidthPx * (value - this.props.range![0]) / (this.props.range![1] - this.props.range![0]);
 
   changeValues = (value: number) => {
     const index = this._activeThumb === this._minThumb ? 0 : 1;
@@ -144,14 +144,21 @@ export class RangeSlider extends React.PureComponent<RangeSliderProps> {
   };
 
   updateThumbs = (immediately: boolean = false) => {
-    this.moveThumb(this._minThumb, this._valuesPx[0], immediately);
-    this._minThumb.release();
+    if (this._minThumb) {
+      this.moveThumb(this._minThumb, this._valuesPx[0], immediately);
+      this._minThumb.release();
+    }
 
-    this.moveThumb(this._maxThumb, this._valuesPx[1], immediately);
-    this._maxThumb.release();
+    if (this._maxThumb) {
+      this.moveThumb(this._maxThumb, this._valuesPx[1], immediately);
+      this._maxThumb.release();
+    }
   };
 
   constrainValue = (dx: number) => {
+    if (!this._minThumb || !this._maxThumb) {
+      return dx;
+    }
     const { behavior } = this.props;
 
     const x = dx - this._trackPageX;
@@ -170,6 +177,7 @@ export class RangeSlider extends React.PureComponent<RangeSliderProps> {
         }
       }
 
+      // tslint:disable-next-line:prefer-conditional-expression
       if (this._activeThumb === this._minThumb) {
         constrainedX = x >= this._maxThumb.x ? this._maxThumb.x : constrainedX;
       } else {
@@ -215,7 +223,7 @@ export class RangeSlider extends React.PureComponent<RangeSliderProps> {
               height: this.props.trackThickness,
               backgroundColor: this._inverted.interpolate({
                 inputRange: [0, 1],
-                outputRange: [backgroundTrackColor, selectedTrackColor],
+                outputRange: [backgroundTrackColor!, selectedTrackColor!],
                 extrapolate: 'clamp',
               }),
             }}
@@ -228,7 +236,7 @@ export class RangeSlider extends React.PureComponent<RangeSliderProps> {
               height: this.props.trackThickness,
               backgroundColor: this._inverted.interpolate({
                 inputRange: [0, 1],
-                outputRange: [selectedTrackColor, backgroundTrackColor],
+                outputRange: [selectedTrackColor!, backgroundTrackColor!],
                 extrapolate: 'clamp',
               }),
             }}
@@ -236,27 +244,27 @@ export class RangeSlider extends React.PureComponent<RangeSliderProps> {
         </View>
         <Thumb
           ref={this.setMinThumb}
-          radius={this.props.thumbRadius}
+          radius={this.props.thumbRadius!}
           trackMargin={this._trackMarginH}
-          color={selectedTrackColor}
+          color={selectedTrackColor!}
           onGrant={this.onMoveStart}
           onMove={this.onMove}
           onEnd={this.onMoveEnd}
           style={{
-            top: thumbRadius * (THUMB_SCALE_RATIO - 1) + TRACK_EXTRA_MARGIN_V,
+            top: thumbRadius! * (THUMB_SCALE_RATIO - 1) + TRACK_EXTRA_MARGIN_V,
           }}
         />
 
         <Thumb
           ref={this.setMaxThumb}
-          radius={this.props.thumbRadius}
+          radius={this.props.thumbRadius!}
           trackMargin={this._trackMarginH}
-          color={selectedTrackColor}
+          color={selectedTrackColor!}
           onGrant={this.onMoveStart}
           onMove={this.onMove}
           onEnd={this.onMoveEnd}
           style={{
-            top: thumbRadius * (THUMB_SCALE_RATIO - 1) + TRACK_EXTRA_MARGIN_V,
+            top: thumbRadius! * (THUMB_SCALE_RATIO - 1) + TRACK_EXTRA_MARGIN_V,
           }}
         />
       </View>

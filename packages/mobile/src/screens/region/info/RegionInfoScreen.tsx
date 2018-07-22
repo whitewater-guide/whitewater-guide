@@ -7,7 +7,7 @@ import RegionInfoView from './RegionInfoView';
 
 export const RegionInfoScreen: NavigationScreenComponent = ({ screenProps }) => (
   <Screen>
-    <RegionInfoView region={screenProps.region} />
+    <RegionInfoView region={screenProps!.region} />
   </Screen>
 );
 

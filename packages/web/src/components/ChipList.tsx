@@ -39,6 +39,8 @@ const DATA_SOURCE_CONFIG = { text: 'name', value: 'id' };
 
 export class ChipList extends React.PureComponent<ChipListProps, State> {
 
+  self: ChipList | null = null;
+
   state: State = {
     direction: {
       anchorOrigin: { horizontal: 'left', vertical: 'bottom' },
@@ -47,9 +49,7 @@ export class ChipList extends React.PureComponent<ChipListProps, State> {
     open: false,
   };
 
-  self: ChipList;
-
-  onMount = (node: ChipList) => {
+  onMount = (node: ChipList | null) => {
     if (node) {
       this.self = node;
       this.updateDirection();
@@ -57,7 +57,7 @@ export class ChipList extends React.PureComponent<ChipListProps, State> {
   };
 
   updateDirection = () => {
-    const node = findDOMNode(this.self);
+    const node = this.self && findDOMNode(this.self);
     if (!node) {
       return;
     }

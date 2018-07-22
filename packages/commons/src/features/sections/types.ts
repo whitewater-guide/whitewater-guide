@@ -104,8 +104,8 @@ export interface SectionSearchTerms {
   duration: [Duration, Duration];
   rating: number;
   seasonNumeric: [number, number];
-  withTags?: string[];
-  withoutTags?: string[];
+  withTags: string[];
+  withoutTags: string[];
 }
 
 export const DefaultSectionSearchTerms: SectionSearchTerms = {

@@ -75,8 +75,12 @@ class PhotoGallery extends React.PureComponent<Props> {
     </View>
   );
 
-  renderFooter = (index: number) => {
-    const { description, copyright } = this.props.photos[index];
+  renderFooter = (index?: number) => {
+    const { photos} = this.props;
+    if (index === undefined || !photos) {
+      return <View />;
+    }
+    const { description, copyright } = photos[index];
     return (
       <View style={styles.footer}>
         <Text style={styles.footerDescription}>
@@ -87,7 +91,7 @@ class PhotoGallery extends React.PureComponent<Props> {
     );
   };
 
-  renderIndicator = (index: number, total: number) => (
+  renderIndicator = (index: number = 0, total: number = 0) => (
     <View style={styles.indicator}>
       <Text style={styles.indicatorText}>
         {`${index}/${total}`}

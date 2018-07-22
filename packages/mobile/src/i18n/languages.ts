@@ -2,7 +2,7 @@
 // export const SUPPORTED_LANGUAGES = LANGUAGES;
 export const SUPPORTED_LANGUAGES = ['en', 'ru'];
 
-export const LANGUAGE_NAMES = {
+export const LANGUAGE_NAMES: {[key: string]: string} = {
   en: 'English',
   fr: 'Français',
   de: 'Deutsch',
@@ -11,4 +11,3 @@ export const LANGUAGE_NAMES = {
   ru: 'Русский',
   es: 'Español',
 };
-

@@ -123,12 +123,12 @@ export default class SectionForm extends React.PureComponent<SectionFormProps> {
                 </div>
               </div>
               <div style={styles.sidebar}>
-                <ShapeInput name="shape" component={ShapeInput} />
+                <ShapeInput name="shape" />
               </div>
             </div>
           </FormTab>
           <FormTab form="section" fields={POIFields} label="POIS" value="#pois">
-            <POICollection name="pois" component={POICollection} mapBounds={this.props.region.bounds} />
+            <POICollection name="pois" mapBounds={this.props.region.bounds} />
           </FormTab>
           <FormTab form="section" fields={DescriptionFields} label="Description" value="#description">
             <DraftField name="description" />

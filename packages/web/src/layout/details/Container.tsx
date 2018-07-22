@@ -9,7 +9,7 @@ const styles = {
   },
 };
 
-export const Container: React.StatelessComponent<ContainerProps> = ({ children, ...props }) => (
+export const Container: React.StatelessComponent<ContainerProps> = ({ children, ref, ...props }) => (
   <FlexContainer fluid style={styles.container} {...props}>
     {children}
   </FlexContainer>

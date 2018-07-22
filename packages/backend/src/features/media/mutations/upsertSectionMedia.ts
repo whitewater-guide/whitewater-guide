@@ -1,6 +1,5 @@
-import { GraphQLFieldResolver } from 'graphql';
 import Joi from 'joi';
-import { baseResolver, Context, isInputValidResolver, ValidationError } from '../../../apollo';
+import { baseResolver, isInputValidResolver, TopLevelResolver, ValidationError } from '../../../apollo';
 import db, { rawUpsert } from '../../../db';
 import { MEDIA, moveTempImage } from '../../../minio';
 import { MediaInput, MediaInputSchema } from '../../../ww-commons';
@@ -17,7 +16,7 @@ const Schema = Joi.object().keys({
   media: MediaInputSchema,
 });
 
-const resolver: GraphQLFieldResolver<any, Context> = async (root, vars: Vars, context) => {
+const resolver: TopLevelResolver<Vars> = async (root, vars: Vars, context) => {
   const { sectionId } = vars;
   const { language, user } = context;
   await checkEditorPermissions(user, undefined, sectionId);

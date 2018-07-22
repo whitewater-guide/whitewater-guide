@@ -1,15 +1,14 @@
-import { GraphQLFieldResolver } from 'graphql';
-import { baseResolver, MutationNotAllowedError } from '../../../apollo';
+import { baseResolver, MutationNotAllowedError, TopLevelResolver } from '../../../apollo';
 import db from '../../../db';
 import { HarvestMode } from '../../../ww-commons';
 import { GaugeRaw } from '../../gauges';
 import { SourceRaw } from '../types';
 
-interface RemoveVariables {
+interface Vars {
   id: string;
 }
 
-const resolver: GraphQLFieldResolver<any, any> = async (root, { id }: RemoveVariables) => {
+const resolver: TopLevelResolver<Vars> = async (root, { id }) => {
   const source: Partial<SourceRaw> = await db().table('sources')
     .select(['harvest_mode', 'enabled']).where({ id }).first();
   if (source.harvest_mode === HarvestMode.ALL_AT_ONCE) {

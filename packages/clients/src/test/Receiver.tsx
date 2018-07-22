@@ -7,7 +7,7 @@ export interface WithCalls<P> {
 
 export class Receiver<P> extends React.PureComponent<P> implements WithCalls<P> {
   public cwrp: P[] = [];
-  public cdm: P;
+  public cdm!: P;
 
   componentDidMount() {
     this.cdm = this.props;

@@ -2,6 +2,7 @@ import { AsyncStorage } from 'react-native';
 import { reducer as network } from 'react-native-offline';
 import { combineReducers, Reducer } from 'redux';
 import { PersistConfig, persistReducer } from 'redux-persist';
+import { Action } from 'typescript-fsa';
 import { purchaseReducer, PurchaseStore } from '../../features/purchases';
 import { appReducer, AppState } from './appReducer';
 import { settingsReducer, SettingsState } from './settingsReducer';
@@ -16,7 +17,7 @@ export interface RootState {
   };
 }
 
-const rootReducer = combineReducers<RootState>({
+const rootReducer = combineReducers<RootState, Action<any>>({
   app: appReducer,
   settings: settingsReducer,
   purchase: purchaseReducer,
@@ -29,4 +30,4 @@ const persistConfig: PersistConfig = {
   blacklist: ['app', 'purchase', 'network'],
 };
 
-export const persistedRootReducer: Reducer<RootState> = persistReducer(persistConfig, rootReducer as any);
+export const persistedRootReducer: Reducer = persistReducer(persistConfig, rootReducer as any);

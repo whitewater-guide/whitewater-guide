@@ -32,7 +32,7 @@ class CoordinatesInfo extends React.PureComponent<InnerProps> {
     if (this.canNavigate()) {
       const prettyCoord = arrayToDMSString(coordinates);
       Clipboard.setString(prettyCoord);
-    } else {
+    } else if (region.node) {
       buyRegion(region.node);
     }
   };
@@ -41,7 +41,7 @@ class CoordinatesInfo extends React.PureComponent<InnerProps> {
     const { coordinates, region, buyRegion, section } = this.props;
     if (this.canNavigate()) {
       openGoogleMaps(coordinates);
-    } else {
+    } else if (region.node) {
       buyRegion(region.node, section.id);
     }
   };

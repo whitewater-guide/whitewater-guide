@@ -1,5 +1,6 @@
 import React from 'react';
 import { G, Line, LineProps, Text } from 'react-native-svg';
+import theme from '../../theme';
 import { getColorForValue } from '../../ww-clients/features/sections';
 import { GaugeBinding } from '../../ww-commons/features/sections';
 
@@ -14,10 +15,10 @@ interface Props {
 }
 
 const HorizontalGridLine: React.StatelessComponent<Props> = (props) => {
-  const { x1, x2, y1, y2, datum, binding } = props;
-  const { pointerEvents, ...style } = props.style;
+  const { x1 = 0, x2 = 0, y1 = 0, y2 = 0, datum = 0, binding, style } = props;
   const { minimum = 0, maximum = 0, optimum = 0} = binding || {};
-  const color = getColorForValue(datum, binding, style.stroke);
+  const defaultColor = (style && style.stroke) ? style.stroke : theme.colors.textMain;
+  const color = getColorForValue(datum, binding, defaultColor);
   const lineStyle = { ...style, stroke: color };
   let label;
   if (datum === minimum) {

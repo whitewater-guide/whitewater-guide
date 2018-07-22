@@ -38,8 +38,11 @@ export const dotRouteSelector = (state: NavigationState) => getNavigationDotPath
 export const currentRouteNameSelector = (state: NavigationState) => getCurrentRouteName(state);
 export const isRouteFocused = (state: NavigationState, routeName: string, params?: any) => {
   const route = getCurrentRoute(state);
+  if (!route) {
+    return false;
+  }
   if (params) {
-    return route.routeName === routeName && shallowEqual(route.params, params);
+    return route.routeName === routeName && !!route.params && shallowEqual(route.params, params);
   }
   return route.routeName === routeName;
 };

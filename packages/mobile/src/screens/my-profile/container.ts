@@ -15,7 +15,7 @@ const container = compose<InnerProps, {}>(
     UPDATE_MY_PROFILE,
     {
       props: ({ mutate, ownProps: { me } }) => ({
-        updateMyProfile: (user: UserInput) => mutate({
+        updateMyProfile: (user: UserInput) => mutate!({
           variables: { user },
           optimisticResponse: {
             __typename: 'Mutation',

@@ -18,7 +18,7 @@ const ChartLayout: React.SFC<ChartLayoutProps> = ({ gauge, section, chart, flowT
     <View style={styles.container}>
       {chart}
       {periodToggle}
-      <GaugeInfo gauge={gauge} approximate={approximate} />
+      <GaugeInfo gauge={gauge} approximate={!!approximate} />
       {flowToggle}
     </View>
   );

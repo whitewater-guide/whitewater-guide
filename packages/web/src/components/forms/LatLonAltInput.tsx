@@ -5,6 +5,7 @@ import React from 'react';
 import { BaseFieldProps, Field, FieldsProps, GenericField, WrappedFieldProps } from 'redux-form';
 import { Styles } from '../../styles';
 import { CoordinateSchema, CoordinateSchemaLoose } from '../../ww-commons';
+import { Coordinate3d } from '../../ww-commons/features/points';
 import { NumberInput } from '../NumberInput';
 import { validateInput } from './validateInput';
 
@@ -40,7 +41,7 @@ type Uncoordinate = [Unnumber, Unnumber, Unnumber];
 interface LatLonAltInputProps {
   value?: Uncoordinate;
   onChange?: (val: Uncoordinate) => void;
-  onAdd?: (val: Uncoordinate) => void;
+  onAdd?: (val: Coordinate3d) => void;
   onRemove?: () => void;
   isNew?: boolean;
 }
@@ -78,7 +79,8 @@ export class LatLonAltInput extends React.PureComponent<LatLonAltInputProps, Lat
     this.setState({ submitted: true });
     if (this.props.onAdd && isEmpty(this.state.errors)) {
       const [lng, lat, alt = 0] = this.state.value;
-      this.props.onAdd([lng, lat, alt]);
+      // All three are defined, because errors are empty
+      this.props.onAdd([lng!, lat!, alt]);
     }
   };
 

@@ -54,8 +54,8 @@ export interface SelectedPOIViewProps {
   selectedSection: Section | null;
 }
 
-export interface MapLayoutProps {
-  mapView: ReactElement<MapProps>;
+export interface MapLayoutProps<M extends MapProps = MapProps> {
+  mapView: ReactElement<M>;
   selectedSectionView: ReactElement<SelectedSectionViewProps>;
   selectedPOIView: ReactElement<SelectedPOIViewProps>;
 }

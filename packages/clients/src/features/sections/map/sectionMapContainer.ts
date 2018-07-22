@@ -13,7 +13,7 @@ export const sectionMapContainer = compose<MapProps, SectionMapProps>(
       onPOISelected: () => (poi: Point | null) => ({ selectedPOIId: poi ? poi.id : null }),
     },
   ),
-  withProps(({ section }) => ({
+  withProps(({ section }: SectionMapProps) => ({
     useSectionShapes: true,
     sections: [section.node],
     initialBounds: section.node.shape,

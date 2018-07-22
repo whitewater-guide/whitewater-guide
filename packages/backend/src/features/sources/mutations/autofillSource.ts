@@ -1,15 +1,14 @@
-import { GraphQLFieldResolver } from 'graphql';
-import { baseResolver, MutationNotAllowedError, UnknownError } from '../../../apollo';
+import { baseResolver, MutationNotAllowedError, TopLevelResolver, UnknownError } from '../../../apollo';
 import db, { rawUpsert } from '../../../db';
 import { GaugeInput, PointInput } from '../../../ww-commons';
 import { execScript, ScriptCommand, ScriptGaugeInfo } from '../../scripts';
 import { SourceRaw } from '../types';
 
-interface Variables {
+interface Vars {
   id: string;
 }
 
-const resolver: GraphQLFieldResolver<any, any> = async (root, { id }: Variables) => {
+const resolver: TopLevelResolver<Vars> = async (root, { id }) => {
   const { count } = await db().table('gauges').where({ source_id: id }).count().first();
 
   if (count > 0) {

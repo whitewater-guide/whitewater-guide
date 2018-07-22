@@ -18,12 +18,12 @@ type Props = FormProps & InjectedFormProps<any> & Partial<RouteComponentProps<an
 
 export class Form extends React.PureComponent<Props> {
 
-  shouldBlockNavigation = (cur: Location, nxt: Location) => {
+  shouldBlockNavigation = (cur: Location, nxt?: Location) => {
     const { anyTouched } = this.props;
     // I think this is resolved now, but let this comment hang here for a while
     // https://github.com/ZacharyRSmith/react-router-navigation-prompt/issues/20
     // return anyTouched && (nxt.pathname !== cur.pathname);
-    return anyTouched && (nxt.pathname !== cur.pathname || nxt.search !== cur.search);
+    return anyTouched && !!nxt && (nxt.pathname !== cur.pathname || nxt.search !== cur.search);
   };
 
   onCancel = () => {

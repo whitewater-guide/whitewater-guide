@@ -1,4 +1,5 @@
 import { AsyncStorage } from 'react-native';
+import { Reducer } from 'redux';
 import { PersistConfig, persistReducer } from 'redux-persist';
 import { AnyAction, isType } from 'typescript-fsa';
 import { auth } from '../../core/auth';
@@ -24,7 +25,7 @@ const initialState: PurchaseStore = {
   offlinePurchases: [],
 };
 
-export const purchaseReducer = persistReducer(persistConfig,
+export const purchaseReducer: Reducer = persistReducer(persistConfig,
   (state: PurchaseStore = initialState, action: AnyAction): PurchaseStore => {
     if (isType(action, purchaseActions.openDialog)) {
       const { dialogOpen = true, region, sectionId } = action.payload;

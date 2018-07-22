@@ -1,3 +1,4 @@
+// @ts-ignore
 import { configure, getStorybookUI } from '@storybook/react-native';
 import React from 'react';
 import { AppRegistry } from 'react-native';

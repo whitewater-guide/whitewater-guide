@@ -15,7 +15,11 @@ const AUTOFILL_MUTATION = gql`
   }
 `;
 
-type OuterProps = Partial<FlatButtonProps> & { sourceId: string };
+interface TVariables {
+  sourceId: string;
+}
+
+type OuterProps = Partial<FlatButtonProps> & TVariables;
 
 const container = compose<FlatButtonProps, OuterProps>(
   graphql<OuterProps, {}, {}, FlatButtonProps>(
@@ -34,7 +38,7 @@ const container = compose<FlatButtonProps, OuterProps>(
       }),
     },
   ),
-  mapProps(({ sourceId, ...props }) => ({ ...props })),
+  mapProps(({ sourceId, ...props }: FlatButtonProps & TVariables) => ({ ...props })),
 );
 
 const AutofillButton = container(FlatButton);

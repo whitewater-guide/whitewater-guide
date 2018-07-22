@@ -3,17 +3,21 @@ import { NavigationScreenComponent } from 'react-navigation';
 import { Icon, Screen } from '../../../components';
 import { I18nText } from '../../../i18n';
 import theme from '../../../theme';
+import { ScreenProps } from '../types';
 import SectionsList from './SectionsList';
 
-export const RegionSectionsListScreen: NavigationScreenComponent = (props) =>  (
-  <Screen noScroll noPadding>
-    <SectionsList
-      sections={props.screenProps.sections.nodes}
-      region={props.screenProps.region.node}
-      navigate={props.navigation.navigate}
-    />
-  </Screen>
-);
+export const RegionSectionsListScreen: NavigationScreenComponent = ({ navigation, screenProps }) => {
+  const { region, sections }: ScreenProps = screenProps as any;
+  return (
+    <Screen noScroll noPadding>
+      <SectionsList
+        sections={sections.nodes}
+        region={region.node}
+        navigate={navigation.navigate}
+      />
+    </Screen>
+  );
+};
 
 RegionSectionsListScreen.navigationOptions = {
   tabBarLabel: <I18nText>{'region:sections.title'}</I18nText>,

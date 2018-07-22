@@ -3,11 +3,12 @@ import { NavigationScreenComponent } from 'react-navigation';
 import { Icon, Screen } from '../../../components';
 import { I18nText } from '../../../i18n';
 import theme from '../../../theme';
+import { ScreenProps } from '../types';
 import SectionGuideView from './SectionGuideView';
 
 export const SectionGuideScreen: NavigationScreenComponent = ({ screenProps }) => (
   <Screen>
-    <SectionGuideView section={screenProps.section} />
+    <SectionGuideView section={(screenProps as ScreenProps).section} />
   </Screen>
 );
 

@@ -25,7 +25,7 @@ export interface Region extends NamedNode, Timestamped {
   sections?: Connection<Section>;
 }
 
-export class RegionInput {
+export interface RegionInput {
   id: string | null;
   name: string;
   description: string | null;

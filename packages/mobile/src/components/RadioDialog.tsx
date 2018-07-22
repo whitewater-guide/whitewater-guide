@@ -4,11 +4,11 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle, Paragraph,
+  DialogTitle,
+  Paragraph,
   RadioButton,
   RadioButtonGroup,
-  Text,
-  TouchableRipple
+  TouchableRipple,
 } from 'react-native-paper';
 import { Handle, HandleLeft } from './Handle';
 
@@ -88,6 +88,6 @@ export class RadioDialog extends React.PureComponent<Props, State> {
           </DialogActions>
         </Dialog>
       </React.Fragment>
-    )
+    );
   }
 }

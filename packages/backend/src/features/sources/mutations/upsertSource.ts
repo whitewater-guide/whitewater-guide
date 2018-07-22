@@ -1,6 +1,5 @@
-import { GraphQLFieldResolver } from 'graphql';
 import Joi from 'joi';
-import { baseResolver, Context, isInputValidResolver, MutationNotAllowedError } from '../../../apollo';
+import { baseResolver, isInputValidResolver, MutationNotAllowedError, TopLevelResolver } from '../../../apollo';
 import db, { rawUpsert } from '../../../db';
 import { SourceInput, SourceInputSchema } from '../../../ww-commons';
 
@@ -12,7 +11,7 @@ const Schema = Joi.object().keys({
   source: SourceInputSchema,
 });
 
-const resolver: GraphQLFieldResolver<any, Context> = async (root, args: Vars, { language }) => {
+const resolver: TopLevelResolver<Vars> = async (root, args, { language }) => {
   const { source } = args;
   if (source.id) {
     const { enabled } = await db().table('sources').select(['enabled']).where({ id: source.id }).first();
@@ -23,9 +22,7 @@ const resolver: GraphQLFieldResolver<any, Context> = async (root, args: Vars, { 
   return rawUpsert(db(), 'SELECT upsert_source(?, ?)', [source, language]);
 };
 
-const queryResolver: GraphQLFieldResolver<any, any> = (root, args: Vars, context, info) => {
-  return isInputValidResolver(Schema).createResolver(resolver)(root, args, context, info);
-};
+const queryResolver = isInputValidResolver(Schema).createResolver(resolver);
 
 const upsertSource = baseResolver.createResolver(
   queryResolver,

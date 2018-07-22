@@ -7,7 +7,7 @@ export const configErrors = () => {
   const ErrorUtils = (global as any).ErrorUtils;
   const defaultHandler = ErrorUtils.getGlobalHandler();
 
-  ErrorUtils.setGlobalHandler((error: Error, isFatal) => {
+  ErrorUtils.setGlobalHandler((error: Error, isFatal?: boolean) => {
     trackError('global', error, undefined, isFatal);
     defaultHandler(error, isFatal);
   });

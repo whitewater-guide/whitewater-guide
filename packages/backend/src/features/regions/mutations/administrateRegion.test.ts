@@ -102,34 +102,34 @@ describe('result', () => {
   });
 
   it('should delete old files', async () => {
-    const deleted = await Promise.all([
+    const deleted: boolean[] = await Promise.all([
       fileExistsInBucket(COVERS, 'galicia_mobile_cover.jpg'),
       fileExistsInBucket(BANNERS, 'sectionDescriptionMobile.jpg'),
       fileExistsInBucket(BANNERS, 'sectionRowMobile.jpg'),
       fileExistsInBucket(BANNERS, 'sectionMediaMobile.jpg'),
       fileExistsInBucket(BANNERS, 'regionDescriptionMobile.jpg'),
       fileExistsInBucket(BANNERS, 'regionLoadingMobile.jpg'),
-    ]);
+    ]) as any;
     expect(deleted.every((v: boolean) => !v)).toBe(true);
   });
 
   it('should move new cover', async () => {
-    const tempExists = await Promise.all([
+    const tempExists: boolean[] = await Promise.all([
       fileExistsInBucket(TEMP, 'galicia_mobile_cover2.jpg'),
       fileExistsInBucket(TEMP, 'sectionDescriptionMobile2.jpg'),
       fileExistsInBucket(TEMP, 'sectionRowMobile2.jpg'),
       fileExistsInBucket(TEMP, 'sectionMediaMobile2.jpg'),
       fileExistsInBucket(TEMP, 'regionDescriptionMobile2.jpg'),
       fileExistsInBucket(TEMP, 'regionLoadingMobile2.jpg'),
-    ]);
-    const newExists = await Promise.all([
+    ]) as any;
+    const newExists: boolean[] = await Promise.all([
       fileExistsInBucket(COVERS, 'galicia_mobile_cover2.jpg'),
       fileExistsInBucket(BANNERS, 'sectionDescriptionMobile2.jpg'),
       fileExistsInBucket(BANNERS, 'sectionRowMobile2.jpg'),
       fileExistsInBucket(BANNERS, 'sectionMediaMobile2.jpg'),
       fileExistsInBucket(BANNERS, 'regionDescriptionMobile2.jpg'),
       fileExistsInBucket(BANNERS, 'regionLoadingMobile2.jpg'),
-    ]);
+    ]) as any;
     expect(tempExists.every((v: boolean) => !v)).toBe(true);
     expect(newExists.every((v: boolean) => v)).toBe(true);
   });

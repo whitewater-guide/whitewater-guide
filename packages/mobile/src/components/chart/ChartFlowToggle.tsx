@@ -22,13 +22,13 @@ const styles = StyleSheet.create({
 type Props = FlowToggleProps & WithT;
 
 class ChartFlowToggleInternal extends React.PureComponent<Props> {
-  actionSheetOptions: string[];
-  pulseKey: number = 0;
-  actionSheet: ActionSheet;
+  _actionSheetOptions: string[];
+  _pulseKey: number = 0;
+  _actionSheet: ActionSheet | null = null;
 
   constructor(props: Props) {
     super(props);
-    this.actionSheetOptions = [
+    this._actionSheetOptions = [
       props.t('commons:flow'),
       props.t('commons:level'),
       props.t('commons:cancel'),
@@ -37,13 +37,13 @@ class ChartFlowToggleInternal extends React.PureComponent<Props> {
 
   componentWillReceiveProps(nextProps: Props) {
     if (this.props.unit !== nextProps.unit) {
-      this.pulseKey += 1;
+      this._pulseKey += 1;
     }
   }
 
   onShowActionSheet = () => {
-    if (this.actionSheet) {
-      this.actionSheet.show();
+    if (this._actionSheet) {
+      this._actionSheet.show();
     }
   };
 
@@ -53,16 +53,16 @@ class ChartFlowToggleInternal extends React.PureComponent<Props> {
     }
   };
 
-  setActionSheet = (ref: ActionSheet) => {
-    this.actionSheet = ref;
+  setActionSheet = (ref: ActionSheet | null) => {
+    this._actionSheet = ref;
   };
 
   renderUnit = () => {
     const { t, unit } = this.props;
-    if (this.pulseKey) {
+    if (this._pulseKey) {
       return (
         <Animatable.Text
-          key={`txt${this.pulseKey}`}
+          key={`txt${this._pulseKey}`}
           animation="fadeIn"
           delay={200}
           style={styles.text}
@@ -97,7 +97,7 @@ class ChartFlowToggleInternal extends React.PureComponent<Props> {
             <ActionSheet
               ref={this.setActionSheet}
               title={t('section:chart.flowToggle')}
-              options={this.actionSheetOptions}
+              options={this._actionSheetOptions}
               cancelButtonIndex={2}
               onPress={this.onSelect}
             />

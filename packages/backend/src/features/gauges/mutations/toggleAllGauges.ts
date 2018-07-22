@@ -1,5 +1,4 @@
-import { GraphQLFieldResolver } from 'graphql';
-import { baseResolver, MutationNotAllowedError } from '../../../apollo';
+import { baseResolver, MutationNotAllowedError, TopLevelResolver } from '../../../apollo';
 import db from '../../../db';
 import { HarvestMode } from '../../../ww-commons';
 import { startJobs, stopJobs } from '../../jobs';
@@ -10,7 +9,7 @@ interface Vars {
   enabled: boolean;
 }
 
-const resolver: GraphQLFieldResolver<any, any> = async (root, { sourceId, enabled }: Vars) => {
+const resolver: TopLevelResolver<Vars> = async (root, { sourceId, enabled }) => {
   const { harvest_mode }: Partial<SourceRaw> = await db().table('sources')
     .select(['harvest_mode']).where({ id: sourceId }).first();
   if (harvest_mode === HarvestMode.ALL_AT_ONCE) {

@@ -1,3 +1,3 @@
-export const getLoginStatus = (): Promise<facebook.AuthResponse> => new Promise((resolve) => {
+export const getLoginStatus = (): Promise<facebook.StatusResponse> => new Promise((resolve) => {
   FB.getLoginStatus(resolve);
 });

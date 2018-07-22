@@ -21,7 +21,9 @@ interface Props {
 class OfflineQueryPlaceholderInner extends React.PureComponent<Props & WithT> {
   onRetry = async () => {
     try {
-      this.props.refetch();
+      if (this.props.refetch) {
+        await this.props.refetch();
+      }
     } catch (e) {}
   };
 

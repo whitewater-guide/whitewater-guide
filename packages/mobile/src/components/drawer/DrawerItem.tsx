@@ -7,7 +7,7 @@ interface Props {
   routeName: string;
   icon?: string;
   params?: Record<string, any>;
-  onPress: (routeName: string, params: Record<string, any>) => void;
+  onPress: (routeName: string, params?: Record<string, any>) => void;
 }
 
 class DrawerItem extends React.PureComponent<Props> {

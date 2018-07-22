@@ -70,7 +70,7 @@ const SectionListBody: React.StatelessComponent<Props> = ({ onPress, hasPremiumA
           }
         </View>
         <View style={styles.starsContainer}>
-          <StarRating disabled value={section.rating} />
+          <StarRating disabled value={section.rating || 0} />
         </View>
       </View>
       <FlowsThumb section={section} t={t} />

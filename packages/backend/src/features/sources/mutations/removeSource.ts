@@ -1,5 +1,4 @@
-import { GraphQLFieldResolver } from 'graphql';
-import { baseResolver } from '../../../apollo';
+import { baseResolver, TopLevelResolver } from '../../../apollo';
 import db from '../../../db';
 import { stopJobs } from '../../jobs';
 
@@ -7,7 +6,7 @@ interface Vars {
   id: string;
 }
 
-const resolver: GraphQLFieldResolver<any, any> = async (root, { id }: Vars) => {
+const resolver: TopLevelResolver<Vars> = async (root, { id }) => {
   const [result] = await db().table('sources').del().where({ id }).returning('id');
   stopJobs(result);
   return result;

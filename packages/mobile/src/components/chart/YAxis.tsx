@@ -10,7 +10,7 @@ interface YAxisProps {
 }
 
 const YAxis: React.StatelessComponent<YAxisProps> = (props) => {
-  const { x1, y1, y2, style, unitName } = props;
+  const { x1, y1 = 0, y2 = 0, style, unitName } = props;
   return (
     <G x={x1} y={y1}>
       <Line {...style} x1={0} y1={0} x2={0} y2={y2 - y1} />

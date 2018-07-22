@@ -2,6 +2,7 @@ import Divider from 'material-ui/Divider';
 import IconButton from 'material-ui/IconButton';
 import React from 'react';
 import { BaseFieldArrayProps, FieldArray, GenericFieldArray, WrappedFieldArrayProps } from 'redux-form';
+import { Omit } from 'type-zoo';
 import { Styles } from '../../styles';
 import { computeDistanceBetween } from '../../ww-clients/utils';
 import { Coordinate3d } from '../../ww-commons';
@@ -86,9 +87,10 @@ class ShapeInputComponent extends React.Component<Props> {
 
 type FieldArrayProps = BaseFieldArrayProps;
 
-export const ShapeInput: React.StatelessComponent<FieldArrayProps> = props => {
-  const CustomField = FieldArray as new () => GenericFieldArray<Coordinate3d>;
+const CustomField = FieldArray as new () => GenericFieldArray<Coordinate3d>;
+
+export const ShapeInput: React.StatelessComponent<Omit<FieldArrayProps, 'component'>> = props => {
   return (
-    <CustomField {...props} component={ShapeInputComponent} />
+    <CustomField {...props} component={ShapeInputComponent as any} />
   );
 };

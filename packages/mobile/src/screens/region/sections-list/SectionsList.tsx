@@ -10,12 +10,12 @@ import { ITEM_HEIGHT, SectionListItem } from './item';
 import NoSectionsPlaceholder from './NoSectionsPlaceholder';
 
 const keyExtractor = (item: Section) => item.id;
-const getItemLayout = (data, index) => ({ length: ITEM_HEIGHT, offset: ITEM_HEIGHT * index, index });
+const getItemLayout = (data: any, index: number) => ({ length: ITEM_HEIGHT, offset: ITEM_HEIGHT * index, index });
 const always = () => true;
 
 interface OuterProps extends Pick<NavigationScreenProp<any, any>, 'navigate'> {
   sections: Section[];
-  region: Region;
+  region: Region | null;
 }
 
 type InnerProps = OuterProps & WithT & WithPremiumDialog;
@@ -61,16 +61,20 @@ class SectionsList extends React.PureComponent<InnerProps, State> {
   };
 
   canNavigate = () => {
-    const { premium, hasPremiumAccess } = this.props.region;
-    if (this.props.canMakePayments && premium && !hasPremiumAccess) {
-      this.props.buyRegion(this.props.region);
+    const { region, canMakePayments, buyRegion } = this.props;
+    if (!region) {
+      return false;
+    }
+    const { premium, hasPremiumAccess } = region;
+    if (canMakePayments && premium && !hasPremiumAccess) {
+      buyRegion(region);
       return false;
     }
     return true;
   };
 
   renderItem = ({ item: section, index }: ListRenderItemInfo<Section>) => {
-    const { premium, hasPremiumAccess } = this.props.region;
+    const { premium, hasPremiumAccess } = this.props.region!;
     let shouldBounceOnMount = false;
     if (this._shouldBounceFirstRowOnMount && this.state.renderedFirstBatch) {
       this._shouldBounceFirstRowOnMount = false;
@@ -92,14 +96,15 @@ class SectionsList extends React.PureComponent<InnerProps, State> {
   };
 
   render() {
-    if (this.props.sections.length === 0) {
+    const { region, sections } = this.props;
+    if (!region || sections.length === 0) {
       return <NoSectionsPlaceholder />;
     }
     return (
       <FlatList
         extraData={this.state.swipedItemIndex}
         onLayout={this.onListLayout}
-        data={this.props.sections}
+        data={sections}
         keyExtractor={keyExtractor}
         getItemLayout={getItemLayout}
         renderItem={this.renderItem}

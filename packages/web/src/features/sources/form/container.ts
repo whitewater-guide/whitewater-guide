@@ -5,6 +5,7 @@ import { HarvestMode, SourceFormSchema, SourceInput } from '../../../ww-commons'
 import deserializeSourceForm from './deserializeSourceForm';
 import serializeSourceForm from './serializeSourceForm';
 import SOURCE_FORM_QUERY from './sourceForm.query';
+import { SourceFormProps } from './types';
 import UPSERT_SOURCE from './upsertSource.mutation';
 
 const NEW_SOURCE: SourceInput = {
@@ -29,10 +30,10 @@ const sourceForm = formContainer({
   validationSchema: SourceFormSchema,
 });
 
-export default compose(
+export default compose<SourceFormProps, {}>(
   withFeatureIds('source'),
   sourceForm,
-  mapProps(({ data, ...props }) => ({
+  mapProps(({ data, ...props }: any) => ({
     regions: data.regions.nodes,
     scripts: data.scripts,
     ...props,

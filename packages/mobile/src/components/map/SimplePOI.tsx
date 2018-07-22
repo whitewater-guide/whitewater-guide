@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const IconKinds = {
+const IconKinds: {[key: string]: string} = {
   'put-in': 'arrow-downward',
   'take-out': 'arrow-upward',
   'put-in-alt': 'arrow-downward',
@@ -83,7 +83,7 @@ export class SimplePOI extends React.PureComponent<POIComponentProps> {
         onPress={this.onPress}
         coordinate={{ longitude, latitude }}
       >
-        { inner }
+        {inner}
       </Marker>
     );
   }

@@ -14,7 +14,7 @@ interface Props extends ViewProps {
 
 export default class Thumb extends React.PureComponent<Props> {
   x: number = 0;
-  _panResponder: PanResponderInstance;
+  _panResponder: PanResponderInstance | null = null;
   _animatedLeft: Animated.Value = new Animated.Value(0);
   _animatedScale: Animated.Value = new Animated.Value(1);
   _hitSlop: Insets;
@@ -56,6 +56,7 @@ export default class Thumb extends React.PureComponent<Props> {
 
   render() {
     const { color, radius } = this.props;
+    const panHandlers = this._panResponder ? this._panResponder.panHandlers : undefined;
     return (
       <Animated.View
         style={[
@@ -72,7 +73,7 @@ export default class Thumb extends React.PureComponent<Props> {
             ],
           },
         ]}
-        {...this._panResponder.panHandlers}
+        {...panHandlers}
         hitSlop={this._hitSlop}
       />
     );

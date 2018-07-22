@@ -18,13 +18,13 @@ export interface InfoWindowProps {
   onZindexChanged?: (zIndex: number) => void;
 }
 
-const EVENT_MAP = {
-  onCloseClick: 'closeclick',
-  onDomReady: 'domready',
-  onContentChanged: 'content_changed',
-  onPositionChanged: 'position_changed',
-  onZindexChanged: 'zindex_changed',
-};
+const EVENT_MAP_ENTRIES: Array<[keyof InfoWindowProps, string]> = [
+  ['onCloseClick', 'closeclick'],
+  ['onDomReady', 'domready'],
+  ['onContentChanged', 'content_changed'],
+  ['onPositionChanged', 'position_changed'],
+  ['onZindexChanged', 'zindex_changed'],
+];
 
 /**
  * Based on https://github.com/tomchentw/react-google-maps
@@ -35,7 +35,7 @@ const EVENT_MAP = {
 export class InfoWindow extends React.PureComponent<InfoWindowProps> {
 
   infoWindow: google.maps.InfoWindow;
-  containerElement: HTMLElement;
+  containerElement: HTMLElement = document.createElement('div');
   listeners: google.maps.MapsEventListener[] = [];
 
   constructor(props: InfoWindowProps) {
@@ -49,13 +49,6 @@ export class InfoWindow extends React.PureComponent<InfoWindowProps> {
       // @ts-ignore
       this.infoWindow.setMap(props.map);
     }
-  }
-
-  componentWillMount() {
-    if (this.containerElement) {
-      return;
-    }
-    this.containerElement = document.createElement('div');
   }
 
   componentDidMount() {
@@ -99,8 +92,8 @@ export class InfoWindow extends React.PureComponent<InfoWindowProps> {
   }
 
   registerListeners = () => {
-    this.listeners = Object.entries(EVENT_MAP).reduce(
-      (listeners: google.maps.MapsEventListener[], [propName, event]: [keyof InfoWindowProps, string]) => {
+    this.listeners = EVENT_MAP_ENTRIES.reduce(
+      (listeners: google.maps.MapsEventListener[], [propName, event]) => {
         const prop = this.props[propName];
         if (prop && typeof prop === 'function') {
           listeners.push(google.maps.event.addListener(this.infoWindow, event, prop));

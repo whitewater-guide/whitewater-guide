@@ -6,7 +6,11 @@ interface Dimensions {
 const readContent = (file: File): Promise<string> => new Promise((resolve, reject) => {
   const reader = new FileReader();
   reader.onload = () => {
-    resolve(reader.result);
+    if (reader.result && typeof reader.result === 'string') {
+      resolve(reader.result);
+    } else {
+      reject();
+    }
   };
   reader.onerror = reject;
   reader.readAsDataURL(file);

@@ -1,6 +1,4 @@
 {
-  // react-native-typescript-transformer doesn't support extends
-  // "extends": "../../tsconfig.json",
   "compilerOptions": {
     "noEmit": true,
     "allowSyntheticDefaultImports": true,
@@ -12,20 +10,16 @@
     "importHelpers": true,
     "noEmitHelpers": true,
     "noEmitOnError": true,
-    "jsx": "react-native",
+    "jsx": "react",
     "lib": ["esnext", "dom"],
     "target": "es2015",
     "module": "es2015",
     "moduleResolution": "node",
 
-    "skipLibCheck": true,
+    "skipLibCheck": false,
 
     "strict": true,
 
     "pretty": true
-  },
-  "include": [
-    "src/**/*",
-    "storybook/**/*"
-  ]
+  }
 }

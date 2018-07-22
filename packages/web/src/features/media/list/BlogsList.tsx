@@ -31,8 +31,8 @@ class BlogsList extends React.PureComponent<Props> {
     const { onEdit, onRemove } = this.props;
     return (
       <div style={styles.actions}>
-        <IconButtonWithData icon="edit" data={item} onPress={onEdit!} />
-        <IconButtonWithData icon="delete_forever" data={item} onPress={onRemove!} />
+        <IconButtonWithData<Media> icon="edit" data={item} onPress={onEdit!} />
+        <IconButtonWithData<Media> icon="delete_forever" data={item} onPress={onRemove!} />
       </div>
     );
   };

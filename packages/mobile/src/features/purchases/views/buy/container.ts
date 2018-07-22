@@ -19,7 +19,7 @@ interface MergedProps extends StateProps, OwnProps {
   onConfirm?: () => void;
 }
 
-const container = connect<StateProps, DispatchProp, OwnProps, MergedProps>(
+const container = connect<StateProps, DispatchProp, OwnProps, MergedProps, RootState>(
   (state: RootState) => ({
     region: state.purchase.dialogData!.region,
     error: state.purchase.error,
@@ -31,10 +31,10 @@ const container = connect<StateProps, DispatchProp, OwnProps, MergedProps>(
     let onConfirm  = () => {};
     switch (state.state) {
       case PurchaseState.IDLE:
-        onConfirm = () => dispatch(purchaseActions.buy(state.region.sku));
+        onConfirm = () => dispatch(purchaseActions.buy(state.region.sku!));
         break;
       case PurchaseState.PRODUCT_LOADING_FAILED:
-        onConfirm = () => dispatch(purchaseActions.fetch(state.region.sku));
+        onConfirm = () => dispatch(purchaseActions.fetch(state.region.sku!));
         break;
       case PurchaseState.PURCHASE_SAVING_OFFLINE:
         onConfirm = () => dispatch(purchaseActions.retryOfflinePurchases());
@@ -43,7 +43,7 @@ const container = connect<StateProps, DispatchProp, OwnProps, MergedProps>(
         onConfirm = () => dispatch(purchaseActions.reset());
         break;
       case PurchaseState.PRODUCT_PURCHASING_FAILED:
-        onConfirm = () => dispatch(purchaseActions.buy(state.region.sku));
+        onConfirm = () => dispatch(purchaseActions.buy(state.region.sku!));
         break;
       case PurchaseState.REFRESHING_PREMIUM_FAILED:
         onConfirm = () => dispatch(purchaseActions.refresh());

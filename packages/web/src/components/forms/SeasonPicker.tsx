@@ -117,12 +117,13 @@ class SeasonPickerComponent extends React.PureComponent<Props & Themeable> {
   }
 }
 
-const SeasonPickerThemeable: React.ComponentType<Props> = muiThemeable()(SeasonPickerComponent);
+const SeasonPickerThemeable: React.ComponentType<Props> = muiThemeable()(SeasonPickerComponent as any);
 
 type FieldProps = BaseFieldProps<OwnProps> & OwnProps;
 
+const CustomField = Field as new () => GenericField<OwnProps>;
+
 export const SeasonPicker: React.StatelessComponent<FieldProps> = props => {
-  const CustomField = Field as new () => GenericField<OwnProps>;
   return (
     <CustomField {...props} component={SeasonPickerThemeable} />
   );

@@ -20,7 +20,9 @@ export type WithFeatureIds = {[is in FeatureIdType]?: string};
 export const withFeatureIds = <TOuter>(features?: FeatureType | FeatureType[]) => {
   return withProps<WithFeatureIds, TOuter>(
     (props: any) => {
-      const featureIds = features ? castArray(features).map(feature => `${feature}Id`) : ALL_FEATURE_IDS;
+      const featureIds: FeatureIdType[] = features ?
+        castArray(features).map(feature => `${feature}Id` as FeatureIdType) :
+        ALL_FEATURE_IDS;
       const result: WithFeatureIds = {};
       featureIds.forEach((featureId: FeatureIdType) => {
         let value = props[featureId];

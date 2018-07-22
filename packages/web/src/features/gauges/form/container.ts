@@ -1,8 +1,9 @@
 import { compose } from 'recompose';
+import { InjectedFormProps } from 'redux-form';
 import { formContainer } from '../../../components/forms';
 import { withFeatureIds } from '../../../ww-clients/core';
 import { GAUGE_DETAILS } from '../../../ww-clients/features/gauges';
-import { GaugeFormSchema } from '../../../ww-commons';
+import { GaugeFormSchema, GaugeInput } from '../../../ww-commons';
 import deserializeGauge from './deserializeGauge';
 import serializeGauge from './serializeGauge';
 import UPSERT_GAUGE from './upsertGauge.mutation';
@@ -29,7 +30,7 @@ const gaugeForm = formContainer({
   validationSchema: GaugeFormSchema,
 });
 
-export default compose(
+export default compose<InjectedFormProps<GaugeInput>, {}>(
   withFeatureIds(['source', 'gauge']),
   gaugeForm,
 );

@@ -85,7 +85,7 @@ export function getBBox(bounds: Coordinate[]): BBox {
   );
 }
 
-export function getBoundsDeltaRegion(bounds?: Coordinate[]) {
+export function getBoundsDeltaRegion(bounds: Coordinate[] | null | undefined) {
   if (!bounds) {
     return undefined;
   }

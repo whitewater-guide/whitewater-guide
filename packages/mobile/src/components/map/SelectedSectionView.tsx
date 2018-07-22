@@ -119,10 +119,13 @@ class SelectedSectionViewInternal extends React.Component<Props, State> {
   }
 
   onDetails = () => {
-    this.props.navigation.navigate({
-      routeName: 'Section',
-      params: { sectionId: this.props.selectedSection.id },
-    });
+    const { navigation, selectedSection } = this.props;
+    if (selectedSection) {
+      navigation.navigate({
+        routeName: 'Section',
+        params: { sectionId: selectedSection.id },
+      });
+    }
   };
 
   canNavigate = () => {
@@ -130,10 +133,11 @@ class SelectedSectionViewInternal extends React.Component<Props, State> {
     const { region, buyRegion, canMakePayments } = this.props;
     const result = !canMakePayments ||
       (section && section.demo) ||
+      !region.node ||
       !region.node.premium ||
       region.node.hasPremiumAccess;
     if (!result) {
-      buyRegion(region.node);
+      buyRegion(region.node!);
     }
     return result;
   };
@@ -152,7 +156,7 @@ class SelectedSectionViewInternal extends React.Component<Props, State> {
               {get(section, 'name', ' ')}
             </Subheading>
             {
-              section && section.demo && region.node.premium && !region.node.hasPremiumAccess &&
+              section && section.demo && region.node && region.node.premium && !region.node.hasPremiumAccess &&
               (
                 <View>
                   <Icon
@@ -166,7 +170,7 @@ class SelectedSectionViewInternal extends React.Component<Props, State> {
             }
           </View>
           <View style={styles.starsContainer}>
-            <StarRating value={get(section, 'rating', 0)} />
+            <StarRating value={get(section, 'rating', 0) || 0} />
           </View>
         </View>
         <DifficultyThumb
@@ -181,6 +185,7 @@ class SelectedSectionViewInternal extends React.Component<Props, State> {
   render() {
     const { i18n, t } = this.props;
     const { section } = this.state;
+    const language = i18n ? i18n.languages[0] : undefined;
     const buttons = [
       {
         label: t('commons:putIn'),
@@ -196,8 +201,8 @@ class SelectedSectionViewInternal extends React.Component<Props, State> {
     let season = ' ';
     if (section) {
       season = [
-        capitalize(trim(stringifySeason(section.seasonNumeric, false, i18n.languages[0]))),
-        trim(section.season),
+        capitalize(trim(stringifySeason(section.seasonNumeric, false, language))),
+        trim(section.season || ''),
       ].join('\n').trim();
     }
     const seasonNumLines = season.includes('\n') ? 2 : 1;

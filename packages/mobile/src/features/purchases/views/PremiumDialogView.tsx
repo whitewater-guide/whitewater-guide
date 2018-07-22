@@ -28,7 +28,7 @@ interface Key {
 type State = NavigationState<Key>;
 
 interface Props extends WithT {
-  region?: PremiumRegion;
+  region: PremiumRegion | null;
   step: PurchaseDialogStep;
   cancelable?: boolean;
 

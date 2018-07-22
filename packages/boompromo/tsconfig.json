@@ -1,24 +1,11 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": ".",
+    "noEmit": false,
     "outDir": "build/dist",
-    "module": "esnext",
-    "target": "es2015",
-    "lib": ["dom", "esnext"],
     "sourceMap": true,
-    "allowJs": true,
-    "jsx": "react",
-    "moduleResolution": "node",
     "rootDir": "src",
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "skipLibCheck": true
+    "baseUrl": "."
   },
   "exclude": [
     "__mocks__",

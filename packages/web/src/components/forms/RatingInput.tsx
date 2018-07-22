@@ -31,9 +31,10 @@ export const RatingComponent: React.StatelessComponent<Props> = ({ input, meta, 
 
 type FieldProps = BaseFieldProps<OwnProps> & OwnProps;
 
+const CustomField = Field as new () => GenericField<OwnProps>;
+
 export const RatingInput: React.StatelessComponent<FieldProps> = props => {
-  const CustomField = Field as new () => GenericField<OwnProps>;
   return (
-    <CustomField {...props} component={RatingComponent} />
+    <CustomField {...props} component={RatingComponent as any} />
   );
 };

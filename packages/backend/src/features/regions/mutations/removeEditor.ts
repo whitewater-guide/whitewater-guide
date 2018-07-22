@@ -1,5 +1,4 @@
-import { GraphQLFieldResolver } from 'graphql';
-import { baseResolver, Context } from '../../../apollo';
+import { baseResolver, TopLevelResolver } from '../../../apollo';
 import db from '../../../db';
 
 interface Vars {
@@ -7,7 +6,7 @@ interface Vars {
   userId: string;
 }
 
-const resolver: GraphQLFieldResolver<any, Context> = async (root, { regionId, userId }: Vars) => {
+const resolver: TopLevelResolver<Vars> = async (root, { regionId, userId }: Vars) => {
   await db().table('regions_editors').del().where({ region_id: regionId, user_id: userId });
   return true;
 };

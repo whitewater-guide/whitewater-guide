@@ -20,7 +20,7 @@ const styles: Styles = {
 
 type Props = MapElement & SelectedSectionViewProps & RouteComponentProps<{ regionId: string }>;
 
-class SelectedSectionWeb extends React.PureComponent<Props> {
+class SelectedSectionWebInner extends React.PureComponent<Props> {
   onClose = () => {
     this.props.onSectionSelected(null);
   };
@@ -91,4 +91,7 @@ class SelectedSectionWeb extends React.PureComponent<Props> {
   }
 }
 
-export default withRouter(SelectedSectionWeb);
+const SelectedSectionWeb: React.ComponentType<MapElement & SelectedSectionViewProps> =
+  withRouter(SelectedSectionWebInner);
+
+export default SelectedSectionWeb;

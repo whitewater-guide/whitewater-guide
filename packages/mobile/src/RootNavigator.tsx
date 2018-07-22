@@ -64,19 +64,19 @@ class RootNavigatorView extends React.PureComponent<Props> {
 
   constructor(props: Props) {
     super(props);
-    navigationChannel.dispatch = props.navigation.dispatch;
+    navigationChannel.dispatch = props.navigation!.dispatch;
   }
 
   componentWillReceiveProps(nexProps: NavigationNavigatorProps) {
-    if (nexProps.navigation.dispatch !== this.props.navigation.dispatch) {
-      navigationChannel.dispatch = nexProps.navigation.dispatch;
+    if (nexProps.navigation!.dispatch !== this.props.navigation!.dispatch) {
+      navigationChannel.dispatch = nexProps.navigation!.dispatch;
     }
   }
 
   render() {
     const { navigation } = this.props;
-    const regionRoute = navigation.state.routes.find((route: NavigationRoute) => route.routeName === 'Region');
-    const regionId = regionRoute ? regionRoute.params.regionId : undefined;
+    const regionRoute = navigation!.state.routes.find((route: NavigationRoute) => route.routeName === 'Region');
+    const regionId = (regionRoute && regionRoute.params) ? regionRoute.params.regionId : undefined;
     // PaperProvider needs to be innermost provider, so dialogs can consume from other providers
     return (
       <RegionProvider regionId={regionId}>

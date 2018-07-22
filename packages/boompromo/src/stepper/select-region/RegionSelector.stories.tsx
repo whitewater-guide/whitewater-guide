@@ -2,11 +2,9 @@ import Paper from '@material-ui/core/Paper';
 import { action } from '@storybook/addon-actions';
 import { storiesOf } from '@storybook/react';
 import React from 'react';
-import { NamedNode } from '../../ww-commons';
-import NoRegions from './NoRegions';
 import RegionSelector from './RegionSelector';
 
-const regions: NamedNode[] = [
+const regions = [
   { id: 'r1', name: 'Argentina' },
   { id: 'r2', name: 'Bolivia' },
   { id: 'r3', name: 'Canada' },
@@ -30,7 +28,7 @@ storiesOf('RegionSelector', module)
   .add('default', () => {
     return (
       <RegionSelector
-        regions={regions}
+        regions={regions as any}
         value={null}
         onChange={action('onChange')}
       />
@@ -39,8 +37,8 @@ storiesOf('RegionSelector', module)
   .add('with selection', () => {
     return (
       <RegionSelector
-        regions={regions}
-        value={regions[3]}
+        regions={regions as any}
+        value={regions[3] as any}
         onChange={action('onChange')}
       />
     );

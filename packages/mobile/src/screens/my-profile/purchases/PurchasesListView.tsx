@@ -18,6 +18,9 @@ const PurchasesListView: React.SFC<WithT> = ({ t }) => (
           if (loading) {
             return <Loading />;
           }
+          if (!data || !data.me) {
+            return null;
+          }
           const { me: { purchasedGroups, purchasedRegions } } = data;
           return [
             ...purchasedGroups.map((group, index) => (

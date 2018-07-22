@@ -9,7 +9,7 @@ const styles = {
   },
 };
 
-export const Row: React.StatelessComponent<RowProps> = ({ children, ...props }) => {
+export const Row: React.StatelessComponent<RowProps> = ({ children, ref, ...props }) => {
   const propWithStyle = { ...props, style: { ...props.style, ...styles.row } };
   return (
     <FlexRow {...propWithStyle}>

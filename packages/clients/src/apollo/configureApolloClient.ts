@@ -1,12 +1,13 @@
 import { ApolloClient } from 'apollo-client';
 import { ApolloLink } from 'apollo-link';
 import { createHttpLink, FetchOptions } from 'apollo-link-http';
-import { DispatchProp } from 'react-redux';
+import { Dispatch } from 'redux';
 import { createApolloErrorLink } from './apolloLinkError';
 import { configureApolloCache } from './configureApolloCache';
 
-type Options = FetchOptions & DispatchProp<any> & {
+type Options = FetchOptions & {
   links?: ApolloLink[];
+  dispatch?: Dispatch<any>;
 };
 
 export function configureApolloClient(options: Options) {

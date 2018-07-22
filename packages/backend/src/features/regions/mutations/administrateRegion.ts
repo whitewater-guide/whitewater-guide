@@ -1,7 +1,6 @@
-import { GraphQLFieldResolver } from 'graphql';
 import Joi from 'joi';
 import get from 'lodash/get';
-import { isInputValidResolver, MutationNotAllowedError } from '../../../apollo';
+import { isInputValidResolver, MutationNotAllowedError, TopLevelResolver } from '../../../apollo';
 import db from '../../../db';
 import { BANNERS, COVERS, minioClient, moveTempImage } from '../../../minio';
 import { RegionAdminSettings, RegionAdminSettingsSchema } from '../../../ww-commons';
@@ -33,7 +32,7 @@ const updateImageFile = async (
   }
 };
 
-const resolver: GraphQLFieldResolver<any, any, Vars> = async (_, { settings }, context, info) => {
+const resolver: TopLevelResolver<Vars> = async (_, { settings }, context, info) => {
   const oldRegion: RegionRaw = await db().table('regions')
     .select(['id', 'cover_image', 'banners'])
     .where({ id: settings.id })

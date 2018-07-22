@@ -47,13 +47,13 @@ interface State {
 
 export class Chart extends React.PureComponent<ChartComponentProps, State> {
 
-  _xDomain: [Date, Date];
+  _xDomain: [Date, Date] = [new Date(), new Date()];
   _yDomain: [number, number] = [0, 0];
   _yTickValues: number[] = [];
   _period: Period = Period.DAY;
-  _xTickFormat: (date: Date) => string;
+  _xTickFormat: (date: Date) => string = () => '';
   _xTickCount: number = 0;
-  _data: Measurement[];
+  _data: Measurement[] = [];
 
   state: State = { height: 0 };
 
@@ -73,7 +73,7 @@ export class Chart extends React.PureComponent<ChartComponentProps, State> {
     }
   }
 
-  computeDomain = (props: ChartComponentProps): [number, number] => {
+  computeDomain = (props: ChartComponentProps) => {
     const { data, days, unit, section } = props;
     if (!data || data.length === 0) {
       this._yDomain = [0, 0];
@@ -81,10 +81,10 @@ export class Chart extends React.PureComponent<ChartComponentProps, State> {
       return;
     }
     let result = data.reduce(
-      ([min, max], { [unit]: value }) => [Math.min(value, min), Math.max(value, max)],
+      ([min, max], { [unit]: value }: any) => [Math.min(value, min), Math.max(value, max)],
       [Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY],
     );
-    let ticks = [];
+    let ticks: number[] = [];
     const binding = section && (unit === Unit.LEVEL ? section.levels : section.flows);
     if (binding) {
       const { minimum, maximum, optimum, impossible } = binding;
@@ -119,7 +119,7 @@ export class Chart extends React.PureComponent<ChartComponentProps, State> {
   render() {
     const { data, unit, section } = this.props;
     const binding = section && (unit === Unit.LEVEL ? section.levels : section.flows);
-    if (data.length === 0) {
+    if (data.length === 0 || !binding) {
       return (<NoChart noData />);
     }
     return (

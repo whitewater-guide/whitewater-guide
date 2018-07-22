@@ -30,16 +30,16 @@ const styles = StyleSheet.create({
 
 interface Props {
   difficulty: number;
-  difficultyXtra?: string;
+  difficultyXtra?: string | null;
   noBorder?: boolean;
 }
 
-export const DifficultyThumb: React.StatelessComponent<Props> = ({ difficulty, difficultyXtra, noBorder }) => {
+export const DifficultyThumb: React.SFC<Props> = ({ difficulty, difficultyXtra, noBorder }) => {
   const style = noBorder ? styles.container : [styles.container, styles.withBorder];
   return (
     <View style={style}>
       <Text style={styles.mainLine}>{toRomanDifficulty(difficulty).replace(/\s/gi, '')}</Text>
-      {difficultyXtra && <Text style={styles.xtraLine}>{`(${difficultyXtra})`}</Text>}
+      {!!difficultyXtra && <Text style={styles.xtraLine}>{`(${difficultyXtra})`}</Text>}
     </View>
   );
 };

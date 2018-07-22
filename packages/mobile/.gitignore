@@ -77,3 +77,4 @@ fastlane/.env.*
 /ios/whitewater/GoogleService-Info.plist
 /android/app/google-services.json
 /ios/pem/
+/tsconfig.base.json

@@ -55,7 +55,7 @@ const Drawer = ({ onChange, isOpen, location, history: { push }, me }: InnerProp
   );
 };
 
-export default compose<Props, any>(
+export default compose<InnerProps, Props>(
   withRouter,
   withMe,
 )(Drawer);

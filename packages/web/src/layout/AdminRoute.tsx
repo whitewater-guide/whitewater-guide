@@ -3,7 +3,7 @@ import { Redirect, Route, RouteProps } from 'react-router-dom';
 import { branch, compose, renderComponent } from 'recompose';
 import { withMe, WithMe } from '../ww-clients/features/users';
 
-const container = compose(
+const container = compose<any, any>(
   withMe,
   branch<WithMe>(
     props => !(props.me && props.me.admin),

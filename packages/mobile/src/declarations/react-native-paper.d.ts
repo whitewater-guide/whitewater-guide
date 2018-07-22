@@ -244,7 +244,7 @@ declare module 'react-native-paper' {
     /**
      * Value of the currently selected radio button.
      */
-    value: string;
+    value?: string;
   }
 
   export class RadioButton extends Component<RadioButtonProps> {}

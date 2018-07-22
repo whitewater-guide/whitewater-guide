@@ -26,12 +26,12 @@ interface State {
 }
 
 export class MapView extends React.PureComponent<MapComponentProps, State> {
-  _map: RNMapView | null;
+  _map: RNMapView | null = null;
   _mapLaidOut: boolean = false;
   _mapReady: boolean = false;
   _initialUserLocation: { latitude: number, longitude: number} | undefined;
-  _bounds: Coordinate[];
-  _dimensions: { width: number, height: number };
+  _bounds: Coordinate[] = [];
+  _dimensions: { width: number, height: number } = { width: 0, height: 0 };
   _initialRegion: any;
   _initialRegionSet: boolean = false;
 
@@ -100,7 +100,7 @@ export class MapView extends React.PureComponent<MapComponentProps, State> {
   setLocationAndRegion = () => {
     if (this._map && this._mapReady && this._mapLaidOut) {
       this.setState({ showMyLocationAndroidWorkaround: true }, () => {
-        this._map.fitToCoordinates(
+        this._map!.fitToCoordinates(
           this.props.initialBounds!.map(([ longitude, latitude]) => ({ longitude, latitude })),
           {
             edgePadding: { top: 20, left: 20, right: 20, bottom: 20 },
@@ -116,8 +116,8 @@ export class MapView extends React.PureComponent<MapComponentProps, State> {
   };
 
   zoomToMyLocation = () => {
-    const { latitude, longitude } = this._initialUserLocation;
-    const [minLng, maxLng, minLat, maxLat] = getBBox(this.props.initialBounds);
+    const { latitude, longitude } = this._initialUserLocation!;
+    const [minLng, maxLng, minLat, maxLat] = getBBox(this.props.initialBounds!);
     if (this._map && latitude >= minLat && latitude <= maxLat && longitude >= minLng && longitude <= maxLng) {
       if (computeDistanceBetween([minLng, minLat], [maxLng, maxLat]) < 150) {
         this._map.animateToCoordinate({ latitude, longitude }, 300);

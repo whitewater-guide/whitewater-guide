@@ -13,7 +13,7 @@ interface DispatchProps {
 
 export type WithPremiumDialog = StateProps & DispatchProps;
 
-export const connectPremiumDialog = connect<StateProps, DispatchProps, any>(
+export const connectPremiumDialog = connect<StateProps, DispatchProps, any, RootState>(
   (state: RootState) => ({
     canMakePayments: state.purchase.canMakePayments,
   }),

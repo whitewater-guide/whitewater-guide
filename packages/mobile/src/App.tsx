@@ -50,7 +50,7 @@ class App extends React.Component<{}, State> {
   }
 
   listenForInitialize = () => {
-    const initialized = this.store.getState().app.initialized;
+    const initialized = this.store!.getState().app.initialized;
     this.setState({ initialized });
   };
 
@@ -62,7 +62,7 @@ class App extends React.Component<{}, State> {
     if (this.store && this.state.initialized) {
       return (
         <Provider store={this.store}>
-          <ApolloProvider client={this.apolloClient}>
+          <ApolloProvider client={this.apolloClient!}>
             <PortalProvider>
               <TagsProvider>
                 <MyProfileProvider renderLoading={this.renderLoading}>

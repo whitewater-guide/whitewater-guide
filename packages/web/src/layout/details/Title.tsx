@@ -6,7 +6,7 @@ const styles = {
   },
 };
 
-export const Title: React.StatelessComponent<ColProps> = ({ children, ...props }) => {
+export const Title: React.StatelessComponent<ColProps> = ({ children, ref, ...props }) => {
   const propsWithStyle = { style: styles.col, ...props };
   return (
     <FlexCol sm={2} {...propsWithStyle}>

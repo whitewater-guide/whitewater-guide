@@ -79,7 +79,7 @@ class UserAutocomplete extends React.PureComponent<InnerProps> {
   }
 }
 
-const UserAutocompleteWithData = graphql<UserAutocompleteProps>(FIND_USERS_QUERY)(
+const UserAutocompleteWithData = graphql<UserAutocompleteProps, {}, {}, InnerProps>(FIND_USERS_QUERY)(
   UserAutocomplete,
 );
 

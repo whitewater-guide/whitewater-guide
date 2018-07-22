@@ -3,14 +3,16 @@ import React from 'react';
 import { Column, Table as RVTable, TableProps } from 'react-virtualized';
 import { compose, mapProps } from 'recompose';
 import { emitter, POKE_TABLES } from '../../utils';
-import { consumeRegion } from '../../ww-clients/features/regions';
-import { withMe } from '../../ww-clients/features/users';
+import { consumeRegion, WithRegion } from '../../ww-clients/features/regions';
+import { WithMe, withMe } from '../../ww-clients/features/users';
 import { AdminColumn } from './AdminColumn';
 import { BooleanColumn, renderBoolean } from './BooleanColumn';
 import { EditorColumn } from './EditorColumn';
 
-const columnMapper = (isAdmin: boolean, isEditor: boolean) => (column: React.ReactElement<TableProps>) => {
-  if (column.type === AdminColumn as React.ComponentClass<any>) {
+const columnMapper = (isAdmin: boolean, isEditor: boolean) => (column: React.ReactChild) => {
+  if (typeof column === 'string' || typeof column === 'number') {
+    return null;
+  } else if (column.type === AdminColumn as React.ComponentClass<any>) {
     return isAdmin ? React.createElement(Column as React.ComponentClass<any>, column.props) : null;
   } else if (column.type === EditorColumn as React.ComponentClass<any>) {
     return isEditor ? React.createElement(Column as React.ComponentClass<any>, column.props) : null;
@@ -24,12 +26,12 @@ const columnMapper = (isAdmin: boolean, isEditor: boolean) => (column: React.Rea
   return column;
 };
 
-const enhancer = compose<{}, TableProps>(
+const enhancer = compose<TableProps, TableProps>(
   withMe,
   consumeRegion(),
-  mapProps(({ me, children, region, ...props }) => {
-    const isEditor = region && region.node && region.node.editable;
-    const isAdmin = me && me.admin;
+  mapProps(({ me, children, region, ...props }: WithMe & WithRegion & TableProps) => {
+    const isEditor = !!region && !!region.node && region.node.editable;
+    const isAdmin = !!me && me.admin;
     return {
       children: React.Children.map(children, columnMapper(isAdmin, isEditor)),
       ...props,

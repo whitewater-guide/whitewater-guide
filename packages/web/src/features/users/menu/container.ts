@@ -8,7 +8,7 @@ export interface InnerProps {
 
 export default compose<InnerProps, any>(
   withMe,
-  mapProps(({ me, match, location, history,  ...rest }) => ({
+  mapProps(({ me, match, location, history,  ...rest }: any) => ({
     user: me,
     location,
     ...rest,

@@ -12,7 +12,7 @@ import { InnerProps } from './types';
 
 const keyExtractor = (region: Region) => region.id;
 
-const getItemLayout = (data, index) => ({
+const getItemLayout = (data: any, index: number) => ({
   length: CARD_HEIGHT,
   offset: index * CARD_HEIGHT,
   index,

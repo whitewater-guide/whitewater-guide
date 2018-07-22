@@ -4,8 +4,9 @@ import { withDeleteMutation } from '../../../apollo';
 import { withLoading } from '../../../components';
 import { withRiversList, WithRiversList } from '../../../ww-clients/features/rivers';
 import REMOVE_RIVER from './removeRiver.mutation';
+import { RiversListProps } from './types';
 
-export default compose(
+export default compose<RiversListProps, {}>(
   withRouter,
   withRiversList(),
   withDeleteMutation({

@@ -3,13 +3,13 @@ import IconButton from 'material-ui/IconButton';
 import React from 'react';
 import { Node } from '../ww-commons';
 
-interface Props extends IconButtonProps {
-  data: Node;
-  onPress: (data: Node) => void;
+interface Props<TData = Node> extends IconButtonProps {
+  data: TData;
+  onPress: (data: TData) => void;
   icon: string;
 }
 
-export class IconButtonWithData extends React.PureComponent<Props> {
+export class IconButtonWithData<TData> extends React.PureComponent<Props<TData>> {
   onClick = () => this.props.onPress(this.props.data);
 
   render() {

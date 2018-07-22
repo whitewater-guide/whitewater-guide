@@ -1,6 +1,5 @@
-import { GraphQLFieldResolver } from 'graphql';
 import Joi from 'joi';
-import { Context, isInputValidResolver } from '../../../apollo';
+import { isInputValidResolver, TopLevelResolver } from '../../../apollo';
 import db, { rawUpsert } from '../../../db';
 import { RiverInput, RiverInputSchema } from '../../../ww-commons';
 import checkEditorPermissions from '../checkEditorPermissions';
@@ -13,7 +12,7 @@ const Schema = Joi.object().keys({
   river: RiverInputSchema,
 });
 
-const resolver: GraphQLFieldResolver<any, Context> = async (root, vars: Vars, { user, language }) => {
+const resolver: TopLevelResolver<Vars> = async (root, vars, { user, language }) => {
   const river = { ...vars.river, createdBy: user ? user.id : null };
   await checkEditorPermissions(user, river.id, river.region.id);
   return rawUpsert(db(), 'SELECT upsert_river(?, ?)', [river, language]);

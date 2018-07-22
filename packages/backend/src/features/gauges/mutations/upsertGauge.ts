@@ -1,6 +1,5 @@
-import { GraphQLFieldResolver } from 'graphql';
 import Joi from 'joi';
-import { baseResolver, Context, isInputValidResolver, MutationNotAllowedError } from '../../../apollo';
+import { baseResolver, isInputValidResolver, MutationNotAllowedError, TopLevelResolver } from '../../../apollo';
 import db, { rawUpsert } from '../../../db';
 import { GaugeInput, GaugeInputSchema } from '../../../ww-commons';
 
@@ -12,7 +11,7 @@ const Schema = Joi.object().keys({
   gauge: GaugeInputSchema,
 });
 
-const resolver: GraphQLFieldResolver<any, any> = async (root, { gauge }: Vars, { language }: Context) => {
+const resolver: TopLevelResolver<Vars> = async (root, { gauge }, { language }) => {
   if (gauge.id) {
     const { enabled } = await db().table('gauges').select(['enabled']).where({ id: gauge.id }).first();
     if (enabled) {

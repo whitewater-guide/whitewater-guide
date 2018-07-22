@@ -1,12 +1,11 @@
-import { GraphQLFieldResolver } from 'graphql';
-import { baseResolver, Context } from '../../../apollo';
+import { baseResolver, TopLevelResolver } from '../../../apollo';
 import db from '../../../db';
 
 interface Vars {
   search: string;
 }
 
-const resolver: GraphQLFieldResolver<any, Context> = (root, { search }: Vars) =>
+const resolver: TopLevelResolver<Vars> = (root, { search }) =>
   db().table('users')
     .where('name', 'ilike', `%${search}%`)
     .orWhere('email', 'ilike', `%${search}%`)

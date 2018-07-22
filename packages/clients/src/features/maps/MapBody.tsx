@@ -2,11 +2,15 @@ import React from 'react';
 import { Point, Section } from '../../../ww-commons';
 import { MapBodyState, MapComponentProps, MapProps, POIComponentProps, SectionComponentProps } from './types';
 
-type TMap = React.ComponentType<MapComponentProps>;
-type TSection = React.ComponentType<SectionComponentProps>;
-type TPOI = React.ComponentType<POIComponentProps>;
-
-export const MapBody = (MapComponent: TMap, SectionComponent: TSection, POIComponent: TPOI) => {
+export const MapBody = <
+  MProps extends MapComponentProps = MapComponentProps,
+  SProps extends SectionComponentProps = SectionComponentProps,
+  PProps extends POIComponentProps = POIComponentProps
+>(
+  MapComponent: React.ComponentType<MProps>,
+  SectionComponent: React.ComponentType<SProps>,
+  POIComponent: React.ComponentType<PProps>,
+) => {
   class MapBodyInternal extends React.PureComponent<MapProps, MapBodyState> {
     // tslint:disable-next-line:no-inferrable-types
     static displayName: string = 'MapBody';

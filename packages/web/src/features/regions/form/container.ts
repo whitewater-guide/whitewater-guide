@@ -1,8 +1,10 @@
 import { compose } from 'recompose';
+import { InjectedFormProps } from 'redux-form';
 import { deserializeForm, formContainer, serializeForm } from '../../../components/forms';
 import { withFeatureIds } from '../../../ww-clients/core';
 import { RegionFormSchema, RegionInput } from '../../../ww-commons';
 import REGION_FORM_QUEUE from './regionForm.queue';
+import { RegionFormInput } from './types';
 import UPSERT_REGION from './upsertRegion.mutation';
 
 const NEW_REGION: RegionInput = {
@@ -26,7 +28,7 @@ const regionForm = formContainer({
   validationSchema: RegionFormSchema,
 });
 
-export default compose(
+export default compose<InjectedFormProps<RegionFormInput>, {}>(
   withFeatureIds('region'),
   regionForm,
 );

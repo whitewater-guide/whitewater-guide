@@ -49,7 +49,7 @@ let wrapped: ReactWrapper;
 beforeEach(() => {
   removeRegion.mockClear();
   regions.mockClear();
-  const WithMutation = container(Receiver);
+  const WithMutation = container(Receiver as any);
   wrapped = mountWithMuiContext(
     <MockedProvider>
       <WithMutation/>

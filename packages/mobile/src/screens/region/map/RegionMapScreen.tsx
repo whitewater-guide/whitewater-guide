@@ -10,10 +10,15 @@ export const RegionMapScreen: NavigationScreenComponent = ({ screenProps }) => {
   const { region, sections }: ScreenProps = screenProps as any;
   return (
     <Screen noScroll>
-      <RegionMap
-        region={region.node}
-        sections={sections.nodes}
-      />
+      {
+        region.node &&
+        (
+          <RegionMap
+            region={region.node}
+            sections={sections.nodes}
+          />
+        )
+      }
     </Screen>
   );
 };

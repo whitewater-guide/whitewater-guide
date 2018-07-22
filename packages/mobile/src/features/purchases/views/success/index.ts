@@ -13,7 +13,7 @@ interface StateProps {
   region: PremiumRegion;
 }
 
-const container = connect<StateProps, DispatchProps>(
+const container = connect<StateProps, DispatchProps, any, RootState>(
   (state: RootState) => ({
     region: state.purchase.dialogData!.region,
   }),

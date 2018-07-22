@@ -1,4 +1,4 @@
-import { ApolloQueryResult } from 'apollo-client';
+import { ApolloQueryResult, QueryOptions } from 'apollo-client';
 import { apply, put, select } from 'redux-saga/effects';
 import { refreshRegionsList } from '../../../core/actions';
 import { getApolloClient } from '../../../core/apollo';
@@ -16,7 +16,7 @@ export function *refreshPremium() {
   }
   const variables: Vars = { regionId: dialogData.region.id, sectionId: dialogData.sectionId };
   try {
-    const { data, errors }: ApolloQueryResult<Result> = yield apply(
+    const { data, errors } = yield apply<Promise<ApolloQueryResult<Result>>, QueryOptions<Vars>>(
       client,
       client.query,
       [{ query: PREMIUM_DIALOG_QUERY, variables, fetchPolicy: 'network-only' }],

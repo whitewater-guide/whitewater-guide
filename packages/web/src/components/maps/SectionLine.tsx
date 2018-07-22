@@ -7,7 +7,7 @@ import Line = google.maps.Polyline;
 type Props = SectionComponentProps & MapElement;
 
 export class SectionLine extends React.PureComponent<Props> {
-  line: Line;
+  line: Line | null = null;
 
   componentDidMount() {
     const { map } = this.props;
@@ -16,13 +16,15 @@ export class SectionLine extends React.PureComponent<Props> {
   }
 
   componentDidUpdate(prevProps: Props) {
-    if (this.props.zoom !== prevProps.zoom || this.props.selected !== prevProps.selected) {
+    if (this.line && (this.props.zoom !== prevProps.zoom || this.props.selected !== prevProps.selected)) {
       this.line.setOptions(this.getStyle());
     }
   }
 
   componentWillUnmount() {
-    this.line.setMap(null);
+    if (this.line) {
+      this.line.setMap(null);
+    }
     this.setupListeners(false);
   }
 
@@ -53,6 +55,9 @@ export class SectionLine extends React.PureComponent<Props> {
   }
 
   setupListeners = (on: boolean) => {
+    if (!this.line) {
+      return;
+    }
     if (on) {
       this.line.addListener('click', () => this.props.onSectionSelected(this.props.section));
     } else {

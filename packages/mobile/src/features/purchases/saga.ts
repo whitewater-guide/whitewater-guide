@@ -13,7 +13,7 @@ export function* purchasesSaga() {
   yield takeEvery(purchaseActions.refresh, watchRefreshPremium);
   yield takeEvery(purchaseActions.retryOfflinePurchases, watchRetryOfflinePurchases);
   yield takeEvery(
-    (action: Action<boolean>) => action.type === offlineActionTypes.CONNECTION_CHANGE && action.payload,
+    ((action: Action<boolean>) => action.type === offlineActionTypes.CONNECTION_CHANGE && action.payload) as any,
     watchRetryOfflinePurchases,
   );
   // Android: all items are consumables

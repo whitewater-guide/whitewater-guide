@@ -4,12 +4,9 @@ import { compose } from 'recompose';
 import { withMe } from '../../../../ww-clients/features/users';
 import { purchaseActions } from '../../actions';
 import AuthStep from './AuthStep';
+import { InnerProps, OuterProps } from './types';
 
-interface OuterProps {
-  cancelable?: boolean;
-}
-
-const container = compose(
+const container = compose<InnerProps, OuterProps>(
   withMe,
   connect(
     undefined,

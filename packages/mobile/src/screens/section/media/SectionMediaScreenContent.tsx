@@ -30,7 +30,8 @@ class SectionMediaScreenContent extends React.PureComponent<Props & WithT, State
 
   render() {
     const { section, t } = this.props;
-    const groups = groupBy(section.media.nodes, 'kind');
+    const nodes = section.media ? section.media.nodes : [];
+    const groups = groupBy(nodes, 'kind');
     return (
       <React.Fragment>
         <StatusBar hidden={this.state.openPhotoIndex >= 0} />

@@ -22,14 +22,16 @@ class LoadableImage extends React.PureComponent<FastImageProperties, State> {
     showProgress: false,
   };
 
-  timeout: number;
+  timeout: number = NaN;
 
   componentDidMount() {
     this.timeout = setTimeout(this.showProgress, 200) as any;
   }
 
   componentWillUnmount() {
-    clearTimeout(this.timeout);
+    if (!isNaN(this.timeout)) {
+      clearTimeout(this.timeout);
+    }
   }
 
   showProgress = () => this.setState({ showProgress: true });

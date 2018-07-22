@@ -124,10 +124,10 @@ export class RegionCard extends React.PureComponent<Props> {
           </Image>
           <View style={styles.footer}>
             <View style={styles.col}>
-              <Caption>{`${t('regionsList:sectionsCount')}: ${region.sections.count}`}</Caption>
+              <Caption>{`${t('regionsList:sectionsCount')}: ${region.sections!.count}`}</Caption>
             </View>
             <View style={styles.col}>
-              <Caption>{`${t('regionsList:gaugesCount')}: ${region.gauges.count}`}</Caption>
+              <Caption>{`${t('regionsList:gaugesCount')}: ${region.gauges!.count}`}</Caption>
             </View>
             {this.renderPremium()}
           </View>

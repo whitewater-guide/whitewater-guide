@@ -52,7 +52,7 @@ class VideoItem extends React.PureComponent<Props, State> {
   renderThumb = () => {
     const { thumb } = this.state;
     if (thumb) {
-      return <FastImage source={{ uri: this.state.thumb }} style={styles.image} resizeMode="cover" />;
+      return <FastImage source={{ uri: this.state.thumb || '' }} style={styles.image} resizeMode="cover" />;
     }
     return <VideoThumbPlaceholder />;
   };

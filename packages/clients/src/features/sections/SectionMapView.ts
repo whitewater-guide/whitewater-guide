@@ -10,7 +10,7 @@ import {
   withPropsOnChange,
   withState,
 } from 'recompose';
-import { Point } from '../../../ww-commons';
+import { Point, Section } from '../../../ww-commons';
 import { getMapView, MapLayoutProps, MapProps, SelectedPOIViewProps, SelectedSectionViewProps } from '../maps';
 import { WithSection } from './withSection';
 
@@ -28,18 +28,19 @@ export const SectionMapView = (
   ),
   withPropsOnChange(
     ['section'],
-    ({ section }) => {
-      const pois = [...section.pois];
-      const gaugePOI = get(section, 'gauge.location');
+    ({ section }: WithSection) => {
+      const node: Section = section.node;
+      const pois = [...node.pois];
+      const gaugePOI = get(node, 'gauge.location');
       if (gaugePOI) {
-        pois.push({ ...gaugePOI, name: `Gauge ${section.gauge.name}` });
+        pois.push({ ...gaugePOI, name: `Gauge ${node.gauge!.name}` });
       }
-      const contentBounds = section.shape.concat(pois.map(poi => poi.coordinates));
+      const contentBounds = node.shape.concat(pois.map(poi => poi.coordinates));
       return {
         initialBounds: null, // Currently state is not saved anywhere
         contentBounds,
-        sections: [section],
-        selectedSection: section,
+        sections: [node],
+        selectedSection: node,
         pois,
       };
     },

@@ -23,47 +23,47 @@ const styles = StyleSheet.create({
   },
 });
 
-const fadeStyle = ({ driver, inputRange }) => {
+const fadeStyle = (driver: Animated.AnimatedInterpolation | undefined, inputRange: number[]) => {
   const opacityOutput = inputRange[0] <= inputRange[1] ? [1, 0] : [0, 1];
   const scaleOutput = inputRange[0] <= inputRange[1] ? [1, 0.7] : [0.7, 1];
   const inpRange = inputRange[0] <= inputRange[1] ? inputRange : inputRange.reverse();
   return {
-    opacity: driver.interpolate({
+    opacity: driver ? driver.interpolate({
       inputRange: inpRange,
       outputRange: opacityOutput,
       extrapolate: 'clamp',
-    }),
+    }) : opacityOutput[0],
     transform: [{
-      scale: driver.interpolate({
+      scale: driver ? driver.interpolate({
         inputRange: inpRange,
         outputRange: scaleOutput,
         extrapolate: 'clamp',
-      }),
+      }) : scaleOutput[0],
     }],
   };
 };
 
-const slideStyle = ({ driver, inputRange, position }) => {
+const slideStyle = (driver: Animated.AnimatedInterpolation | undefined, inputRange: number[], position: number) => {
   const inpRange = inputRange[0] <= inputRange[1] ? inputRange : inputRange.reverse();
   return {
     position: 'absolute',
     top: 0,
     transform: [{
-      translateX: driver.interpolate({
+      translateX: driver ? driver.interpolate({
         inputRange: inpRange,
         outputRange: [
           theme.screenWidth + NAVIGATE_BUTTON_WIDTH,
           theme.screenWidth - (position + 1) * NAVIGATE_BUTTON_WIDTH,
         ],
         extrapolate: 'clamp',
-      }),
+      }) : (theme.screenWidth + NAVIGATE_BUTTON_WIDTH),
     }],
   };
 };
 
 interface Props {
   label: string;
-  driver: any;
+  driver?: Animated.AnimatedInterpolation;
   inputRange: [number, number];
   coordinates: Coordinate;
   animationType?: 'fade' | 'slide';
@@ -87,8 +87,8 @@ export class NavigateButton extends React.PureComponent<Props> {
   render() {
     const { driver, label, inputRange, animationType = 'fade', position = 0, style } = this.props;
     const animatedStyle = animationType === 'fade' ?
-      fadeStyle({ driver, inputRange }) :
-      slideStyle({ driver, inputRange, position });
+      fadeStyle(driver, inputRange) :
+      slideStyle(driver, inputRange, position);
     return (
       <Animated.View style={[animatedStyle, style]}>
         <TouchableOpacity onPress={this.onPress} style={styles.button}>

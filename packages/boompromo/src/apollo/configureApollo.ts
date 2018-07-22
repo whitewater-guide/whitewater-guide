@@ -1,5 +1,4 @@
 import ApolloClient from 'apollo-client';
-import { Dispatch } from 'react-redux';
 import { configureApolloClient } from '../ww-clients/apollo';
 
 let apolloClient: ApolloClient<any>;

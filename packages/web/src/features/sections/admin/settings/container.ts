@@ -1,8 +1,9 @@
 import { withRouter } from 'react-router';
 import { compose } from 'recompose';
+import { InjectedFormProps } from 'redux-form';
 import { formContainer, serializeForm } from '../../../../components/forms';
 import { withFeatureIds } from '../../../../ww-clients/core';
-import { Section, SectionAdminSettingsSchema } from '../../../../ww-commons';
+import { Section, SectionAdminSettings, SectionAdminSettingsSchema } from '../../../../ww-commons';
 import ADMINISTRATE_SECTION_MUTATION from './administrateSection.mutation';
 import SECTION_ADMIN_SETTINGS_QUERY from './sectionAdmin.query';
 
@@ -19,7 +20,7 @@ const sectionAdminForm = formContainer({
   backPath: null,
 });
 
-export default compose(
+export default compose<InjectedFormProps<SectionAdminSettings>, {}>(
   withRouter,
   withFeatureIds('section'),
   sectionAdminForm,

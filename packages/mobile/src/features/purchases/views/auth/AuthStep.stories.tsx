@@ -1,3 +1,4 @@
+// @ts-ignore
 import { storiesOf } from '@storybook/react-native';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
@@ -15,7 +16,7 @@ const user = {
 };
 
 storiesOf('Premium dialog: auth step')
-  .addDecorator((story) => (
+  .addDecorator((story: any) => (
     <I18nProvider>
       <Provider store={store}>
         <View style={{ ...StyleSheet.absoluteFillObject, padding: 8, paddingTop: 64, backgroundColor: '#AAA' }}>
