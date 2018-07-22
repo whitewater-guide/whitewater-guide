@@ -16,7 +16,7 @@ export class InputStepStore implements IInputStepStore {
   @observable error: string | null = null;
 
   @computed get ready() {
-    return this.code.length === 8;
+    return this.code.length >= 8;
   }
 
   @action.bound setCode(e: any) {
