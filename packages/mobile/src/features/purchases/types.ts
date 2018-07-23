@@ -36,13 +36,17 @@ export interface PurchaseDialogData {
   sectionId?: string;
 }
 
+export interface RestorableProduct extends Product {
+  transactionId?: string;
+}
+
 export interface PurchaseStore {
   canMakePayments: boolean;
   dialogOpen: boolean;
   dialogStep: PurchaseDialogStep;
   dialogData: PurchaseDialogData | null;
   state: PurchaseState;
-  product: Product | null;
+  product: RestorableProduct | null;
   error: [string] | [string, { [key: string]: string }] | null;
   offlinePurchases: ProductPurchase[];
 }
@@ -55,7 +59,7 @@ export interface UpdatePurchasePayload {
   canMakePayments?: boolean;
   dialogStep?: PurchaseDialogStep;
   state?: PurchaseState;
-  product?: Product | null;
+  product?: RestorableProduct | null;
   error?: string | [string, { [key: string]: string }] | null;
 }
 
@@ -67,5 +71,6 @@ export interface RemoveOfflinePurchasePayload {
 export interface BuyProductResult {
   purchase?: ProductPurchase;
   canceled?: boolean;
+  alreadyOwned?: boolean;
   errorCode?: string;
 }

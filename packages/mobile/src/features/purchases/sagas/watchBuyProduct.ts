@@ -1,9 +1,10 @@
-import { ProductPurchase, } from 'react-native-iap';
-import { call, put, race, take } from 'redux-saga/effects';
+import { ProductPurchase } from 'react-native-iap';
+import { call, put, race, select, take } from 'redux-saga/effects';
 import { Action, isType } from 'typescript-fsa';
 import { auth } from '../../../core/auth';
+import { RootState } from '../../../core/reducers';
 import { purchaseActions } from '../actions';
-import { BuyProductResult, PurchaseState, RefreshPremiumResult, SavePurchaseResult } from '../types';
+import { BuyProductResult, PurchaseState, RefreshPremiumResult, RestorableProduct, SavePurchaseResult } from '../types';
 import { buyProduct } from './buyProduct';
 import { finishPurchase } from './finishPurchase';
 import { refreshPremium } from './refreshPremium';
@@ -26,11 +27,30 @@ export function* watchBuyProduct(action: Action<string>) {
       return;
   }
 
-  // Step 2: Purchase product via react-native-iap
+  // Step 2: If user is logged in on iOS, and our backend says that he doesn't own this product, but
+  // react-native-iap says that he owns it (via restore purchases mechanism)
+  const product: (RestorableProduct | null) = yield select((state: RootState) => state.purchase.product);
+  if (product && product.transactionId) {
+    yield update({
+      error: ['iap:errors.alreadyOwned', { transactionId: product.transactionId }],
+      state: PurchaseState.PURCHASE_SAVING_FATAL,
+    });
+    yield call(finishPurchase);
+    return;
+  }
+
+  // Step 3: Purchase product via react-native-iap
   yield update({ state: PurchaseState.PRODUCT_PURCHASING });
-  const { purchase, canceled }: BuyProductResult = yield call(buyProduct, action.payload);
+  const { purchase, canceled, alreadyOwned }: BuyProductResult = yield call(buyProduct, action.payload);
   if (canceled) {
     yield update({ error: null, state: PurchaseState.IDLE });
+    yield call(finishPurchase);
+    return;
+  } else if (alreadyOwned) {
+    yield update({
+      error: ['iap:errors.alreadyOwned', { transactionId: product.transactionId }],
+      state: PurchaseState.PURCHASE_SAVING_FATAL,
+    });
     yield call(finishPurchase);
     return;
   } else if (!purchase) {
@@ -39,7 +59,7 @@ export function* watchBuyProduct(action: Action<string>) {
     return;
   }
 
-  // Step 3: validate purchase (save transaction to backend)
+  // Step 4: validate purchase (save transaction to backend)
   yield update({ state: PurchaseState.PURCHASE_SAVING });
   const saveResult = yield call(savePurchase, purchase);
   switch (saveResult) {

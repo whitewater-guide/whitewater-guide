@@ -1,8 +1,8 @@
-import { endConnection, getProducts, prepare, Product } from 'react-native-iap';
+import { endConnection, getAvailablePurchases, getProducts, prepare, Product, Purchase } from 'react-native-iap';
 import { call } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
 import { trackError } from '../../../core/errors';
-import { PurchaseState } from '../types';
+import { PurchaseState, RestorableProduct } from '../types';
 import update from './update';
 
 export function* watchFetchProduct(action: Action<string>) {
@@ -16,11 +16,18 @@ export function* watchFetchProduct(action: Action<string>) {
 }
 
 function* fetchProduct(sku: string) {
-  let product: Product;
+  let product: RestorableProduct;
   try {
     yield call(prepare);
     const products: Product[] = yield call(getProducts, [sku]);
     product = products[0];
+    const availablePurchases: Purchase[] = yield call(getAvailablePurchases);
+    for (const purchase of availablePurchases) {
+      if (purchase.productId === sku) {
+        product.transactionId = purchase.originalTransactionIdentifier;
+        break;
+      }
+    }
   } catch (e) {
     trackError('iap', e);
   } finally {

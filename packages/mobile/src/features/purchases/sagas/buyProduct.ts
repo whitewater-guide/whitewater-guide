@@ -17,6 +17,8 @@ export function *buyProduct(sku: string) {
     // android : { code: 'E_USER_CANCELLED', message: 'Cancelled.'}
     if (e.code === 'E_USER_CANCELLED') {
       result.canceled = true;
+    } else if (e.code === 'E_ALREADY_OWNED') {
+      result.alreadyOwned = true;
     } else {
       trackError('iap', e);
       result.errorCode = e.code;

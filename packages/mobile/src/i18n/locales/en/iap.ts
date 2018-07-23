@@ -38,6 +38,7 @@ const iap = {
     buyProduct: 'Failed to buy product. Please check your internet connection.',
     savePurchase: 'Failed to save your purchase. Please contact us. Your transaction id was {{transactionId}}.',
     savePurchaseOffline: 'Failed to save your purchase. Please check your internet connection. Your transaction id was {{transactionId}}.',
+    alreadyOwned: 'It appears that you have already purchased this region. Please log out and log in under account that you used to purchase it. Your transaction id was {{transactionId}}.',
   },
   section: {
     message: '{{region}} is a premium region. Full description of this section is a premium feature',

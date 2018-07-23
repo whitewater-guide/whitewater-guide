@@ -17,7 +17,7 @@ const initialLayout = {
 
 const styles = StyleSheet.create({
   root: {
-    minHeight: 450,
+    minHeight: 460,
   },
 });
 
