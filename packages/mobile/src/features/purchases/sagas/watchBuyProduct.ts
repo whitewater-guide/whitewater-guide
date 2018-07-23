@@ -29,6 +29,8 @@ export function* watchBuyProduct(action: Action<string>) {
 
   // Step 2: If user is logged in on iOS, and our backend says that he doesn't own this product, but
   // react-native-iap says that he owns it (via restore purchases mechanism)
+  // TODO: better approach would be to use restored purchase as secondary source of truth
+  // this will require backend to always send description
   const product: (RestorableProduct | null) = yield select((state: RootState) => state.purchase.product);
   if (product && product.transactionId) {
     yield update({
