@@ -1,0 +1,62 @@
+patch-package
+--- a/node_modules/typescript/lib/lib.dom.d.ts
++++ b/node_modules/typescript/lib/lib.dom.d.ts
+@@ -5453,12 +5453,6 @@ declare var GamepadPose: {
+     new(): GamepadPose;
+ };
+ 
+-interface Geolocation {
+-    clearWatch(watchId: number): void;
+-    getCurrentPosition(successCallback: PositionCallback, errorCallback?: PositionErrorCallback, options?: PositionOptions): void;
+-    watchPosition(successCallback: PositionCallback, errorCallback?: PositionErrorCallback, options?: PositionOptions): number;
+-}
+-
+ interface GetSVGDocument {
+     getSVGDocument(): Document;
+ }
+@@ -10205,7 +10199,6 @@ interface Navigator extends NavigatorID, NavigatorOnLine, NavigatorContentUtils,
+     readonly cookieEnabled: boolean;
+     readonly doNotTrack: string | null;
+     gamepadInputEmulation: GamepadInputEmulationType;
+-    readonly geolocation: Geolocation;
+     readonly maxTouchPoints: number;
+     readonly mimeTypes: MimeTypeArray;
+     readonly msManipulationViewsEnabled: boolean;
+@@ -11794,13 +11787,6 @@ interface Response extends Body {
+     clone(): Response;
+ }
+ 
+-declare var Response: {
+-    prototype: Response;
+-    new(body?: BodyInit | null, init?: ResponseInit): Response;
+-    error(): Response;
+-    redirect(url: string, status?: number): Response;
+-};
+-
+ interface SVGAElement extends SVGGraphicsElement, SVGURIReference {
+     readonly target: SVGAnimatedString;
+     addEventListener<K extends keyof SVGElementEventMap>(type: K, listener: (this: SVGAElement, ev: SVGElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+@@ -16940,7 +16926,6 @@ declare var menubar: BarProp;
+ declare var msContentScript: ExtensionScriptApis;
+ declare var msCredentials: MSCredentials;
+ declare const name: never;
+-declare var navigator: Navigator;
+ declare var offscreenBuffering: string | boolean;
+ declare var onabort: ((this: Window, ev: UIEvent) => any) | null;
+ declare var onafterprint: ((this: Window, ev: Event) => any) | null;
+@@ -17114,7 +17099,6 @@ declare function setImmediate(handler: (...args: any[]) => void): number;
+ declare function setImmediate(handler: any, ...args: any[]): number;
+ declare var sessionStorage: Storage;
+ declare var localStorage: Storage;
+-declare var console: Console;
+ declare var onanimationcancel: ((this: Window, ev: AnimationEvent) => any) | null;
+ declare var onanimationend: ((this: Window, ev: AnimationEvent) => any) | null;
+ declare var onanimationiteration: ((this: Window, ev: AnimationEvent) => any) | null;
+@@ -17151,7 +17135,6 @@ declare function removeEventListener(type: string, listener: EventListenerOrEven
+ type BlobPart = BufferSource | Blob | string;
+ type HeadersInit = Headers | string[][] | Record<string, string>;
+ type BodyInit = Blob | BufferSource | FormData | URLSearchParams | ReadableStream | string;
+-type RequestInfo = Request | string;
+ type DOMHighResTimeStamp = number;
+ type PerformanceEntryList = PerformanceEntry[];
+ type PushMessageDataInit = BufferSource | string;
