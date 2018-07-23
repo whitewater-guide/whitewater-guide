@@ -90,6 +90,8 @@
     transparent
   }
 
+  # Important note:
+  # other paths will be cached to, based on their headers (Cache-control, Expires, Last-Modified)
   cache {
     match_path /images
     match_header Content-Type image/jpg image/png image/*
