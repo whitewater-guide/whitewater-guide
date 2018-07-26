@@ -90,15 +90,16 @@
     transparent
   }
 
+  # Cache is temporary disabled, because sometimes it returns empty images: https://github.com/nicolasazrak/caddy-cache/issues/28
   # Important note:
   # other paths will be cached to, based on their headers (Cache-control, Expires, Last-Modified)
-  cache {
-    match_path /images
-    match_header Content-Type image/jpg image/png image/*
-    status_header X-Cache-Status
-    default_max_age 24h
-    path {$CADDY_CACHE_PATH}
-  }
+  # cache {
+  #   match_path /images
+  #   match_header Content-Type image/jpg image/png image/*
+  #   status_header X-Cache-Status
+  #   default_max_age 24h
+  #   path {$CADDY_CACHE_PATH}
+  # }
 
   log / stdout "{common} Upstream: {upstream}"
 

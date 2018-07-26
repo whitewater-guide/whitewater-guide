@@ -32,5 +32,8 @@ sudo mkdir -p /tmp/redis
 sudo mkdir -p /tmp/workers/cookies
 # Adminer
 sudo mkdir -p /tmp/adminer
+# imageproxy
+sudo mkdir -p /mnt/sda1/var/imageproxy
+sudo ln -s /mnt/sda1/var/imageproxy /var/imageproxy
 
 docker swarm init --advertise-addr eth1

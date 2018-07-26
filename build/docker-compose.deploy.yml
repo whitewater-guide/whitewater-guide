@@ -62,6 +62,20 @@ services:
 
   # imageproxy to generate thumbnails
   imageproxy:
+    # Adds cache
+    command:
+      - -addr
+      - 0.0.0.0:8080
+      - -whitelist
+      - minio:9000
+      - -baseURL
+      - http://minio:9000/
+      - cache
+      - /tmp/imageproxy
+    volumes:
+      - type: bind
+        source: /var/imageproxy
+        target: /tmp/imageproxy
 
   # Redis for sessions and last measurements
   redis:
