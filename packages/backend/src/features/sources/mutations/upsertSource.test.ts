@@ -1,9 +1,8 @@
-import db, { holdTransaction, rollbackTransaction } from '../../../db';
-import { ADMIN, EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '../../../seeds/test/01_users';
-import { SOURCE_GALICIA_1, SOURCE_GALICIA_2, SOURCE_GEORGIA } from '../../../seeds/test/05_sources';
-import { anonContext, fakeContext } from '../../../test/context';
-import { isTimestamp, isUUID, noTimestamps, noUnstable, runQuery } from '../../../test/db-helpers';
-import { HarvestMode, SourceInput } from '../../../ww-commons';
+import db, { holdTransaction, rollbackTransaction } from '@db';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
+import { SOURCE_GALICIA_1, SOURCE_GALICIA_2, SOURCE_GEORGIA } from '@seeds/05_sources';
+import { anonContext, fakeContext, isTimestamp, isUUID, noTimestamps, noUnstable, runQuery } from '@test';
+import { HarvestMode, SourceInput } from '@ww-commons';
 import { SourceRaw } from '../types';
 
 let sourceCountBefore: number;
@@ -183,7 +182,11 @@ describe('update', () => {
   });
 
   it('should not change enabled sources', async () => {
-    const result = await runQuery(mutation, { source: { ...optionalSource, id: SOURCE_GALICIA_2 } }, fakeContext(ADMIN));
+    const result = await runQuery(
+      mutation,
+      { source: { ...optionalSource, id: SOURCE_GALICIA_2 } },
+      fakeContext(ADMIN),
+    );
     expect(result.errors).toBeDefined();
     expect(result.data!.upsertSource).toBeNull();
     expect(result).toHaveProperty('errors.0.name', 'MutationNotAllowedError');

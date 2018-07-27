@@ -1,11 +1,9 @@
-import db, { holdTransaction, rollbackTransaction } from '../../../db';
-import { ADMIN, EDITOR_NO_EC, TEST_USER } from '../../../seeds/test/01_users';
-import { SOURCE_GALICIA_1, SOURCE_NORWAY } from '../../../seeds/test/05_sources';
-import { GAUGE_GAL_1_1, GAUGE_GEO_3 } from '../../../seeds/test/06_gauges';
-import { anonContext, fakeContext } from '../../../test/context';
-import { countRows } from '../../../test/countRows';
-import { isTimestamp, isUUID, noUnstable, runQuery } from '../../../test/db-helpers';
-import { GaugeInput } from '../../../ww-commons';
+import db, { holdTransaction, rollbackTransaction } from '@db';
+import { ADMIN, EDITOR_NO_EC, TEST_USER } from '@seeds/01_users';
+import { SOURCE_GALICIA_1, SOURCE_NORWAY } from '@seeds/05_sources';
+import { GAUGE_GAL_1_1, GAUGE_GEO_3 } from '@seeds/06_gauges';
+import { anonContext, countRows, fakeContext, isTimestamp, isUUID, noUnstable, runQuery } from '@test';
+import { GaugeInput } from '@ww-commons';
 import { GaugeRaw } from '../types';
 
 let pBefore: number;
@@ -254,7 +252,7 @@ describe('i18n', () => {
   };
 
   it('should add new translation', async () => {
-    await runQuery(upsertQuery, { gauge: inputPt}, fakeContext(ADMIN, 'pt'));
+    await runQuery(upsertQuery, { gauge: inputPt }, fakeContext(ADMIN, 'pt'));
     const { count } = await db().table('gauges_translations').count().first();
     expect(Number(count) - tBefore).toBe(1);
     const name = await db().table('gauges_view').select('name')

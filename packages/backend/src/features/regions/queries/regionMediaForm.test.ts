@@ -1,10 +1,9 @@
+import { holdTransaction, rollbackTransaction } from '@db';
+import { fileExistsInBucket, resetTestMinio, TEMP } from '@minio';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
+import { REGION_ECUADOR } from '@seeds/04_regions';
+import { anonContext, fakeContext, runQuery } from '@test';
 import superagent from 'superagent';
-import { holdTransaction, rollbackTransaction } from '../../../db';
-import { fileExistsInBucket, resetTestMinio, TEMP } from '../../../minio';
-import { ADMIN, EDITOR_GA_EC, TEST_USER } from '../../../seeds/test/01_users';
-import { REGION_ECUADOR } from '../../../seeds/test/04_regions';
-import { anonContext, fakeContext } from '../../../test/context';
-import { runQuery } from '../../../test/db-helpers';
 
 const query = `
   query regionMediaForm($regionId: ID!) {

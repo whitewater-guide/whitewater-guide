@@ -1,5 +1,5 @@
+import { baseResolver, Context, NodeQuery } from '@apollo';
 import { GraphQLResolveInfo } from 'graphql';
-import { baseResolver, Context, NodeQuery } from '../../../apollo';
 import { buildRiverQuery } from '../queryBuilder';
 
 const river = baseResolver.createResolver(

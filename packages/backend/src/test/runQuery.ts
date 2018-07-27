@@ -1,6 +1,6 @@
+import { formatError } from '@apollo';
 import { ExecutionResult, graphql } from 'graphql';
 import { isEmpty } from 'lodash';
-import { formatError } from '../apollo';
 import { getSchema } from '../apollo/router';
 import { anonContext } from './context';
 

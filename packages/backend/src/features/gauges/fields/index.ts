@@ -1,6 +1,6 @@
-import { FieldResolvers } from '../../../apollo';
-import { timestampResolvers } from '../../../db';
-import { Gauge } from '../../../ww-commons';
+import { FieldResolvers } from '@apollo';
+import { timestampResolvers } from '@db';
+import { Gauge } from '@ww-commons';
 import { GaugeRaw } from '../types';
 import lastMeasurement from './lastMeasurement';
 import status from './status';

@@ -1,10 +1,10 @@
+import db, { buildListQuery, buildRootQuery, ListQueryBuilderOptions, QueryBuilderOptions } from '@db';
+import { River } from '@ww-commons';
 import Knex from 'knex';
-import db, { buildListQuery, buildRootQuery, ListQueryBuilderOptions, QueryBuilderOptions } from '../../db';
-import { River } from '../../ww-commons';
 
 const oneToOnes = {
   region: {
-    getBuilder: () => require('../regions').buildRegionQuery,
+    getBuilder: () => require('@features/regions').buildRegionQuery,
     join: (table: string, query: Knex.QueryBuilder) => {
       const regionId = db(true).raw('??', ['rivers_view.region_id']);
       return query.where(`${table}.id`, '=', regionId);

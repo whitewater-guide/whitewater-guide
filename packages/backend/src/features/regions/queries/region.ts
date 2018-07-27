@@ -1,5 +1,5 @@
+import { baseResolver, Context, NodeQuery } from '@apollo';
 import { GraphQLResolveInfo } from 'graphql';
-import { baseResolver, Context, NodeQuery } from '../../../apollo';
 import checkEditorPermissions from '../checkEditorPermissions';
 import { buildRegionQuery } from '../queryBuilder';
 import { RegionRaw } from '../types';

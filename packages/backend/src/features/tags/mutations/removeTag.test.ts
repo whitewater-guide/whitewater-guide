@@ -1,8 +1,6 @@
-import { holdTransaction, rollbackTransaction } from '../../../db';
-import { ADMIN, EDITOR_GA_EC, TEST_USER } from '../../../seeds/test/01_users';
-import { anonContext, fakeContext } from '../../../test/context';
-import { countRows } from '../../../test/countRows';
-import { runQuery } from '../../../test/db-helpers';
+import { holdTransaction, rollbackTransaction } from '@db';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
+import { anonContext, countRows, fakeContext, runQuery } from '@test';
 
 const query = `
   mutation removeTag($id: String!){

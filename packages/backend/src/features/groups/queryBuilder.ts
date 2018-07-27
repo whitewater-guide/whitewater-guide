@@ -1,10 +1,10 @@
+import db, { buildRootQuery, QueryBuilderOptions } from '@db';
+import { Group } from '@ww-commons';
 import Knex from 'knex';
-import db, { buildRootQuery, QueryBuilderOptions } from '../../db';
-import { Group } from '../../ww-commons';
 
 const connections = {
   regions: {
-    getBuilder: () => require('../regions').buildRegionQuery,
+    getBuilder: () => require('@features/regions').buildRegionQuery,
     join: (table: string, query: Knex.QueryBuilder) => {
       const groupId = db(true).raw('??', ['groups_view.id']);
       return query

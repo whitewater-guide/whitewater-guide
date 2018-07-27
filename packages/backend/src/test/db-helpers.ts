@@ -1,5 +1,5 @@
+import db from '@db';
 import omitDeep from 'omit-deep-lodash';
-import db from '../db';
 
 export const reseedDb = async () => {
   let version = '';

@@ -1,8 +1,8 @@
+import { Context, Page } from '@apollo';
 import { GraphQLResolveInfo } from 'graphql';
 import graphqlFields from 'graphql-fields';
 import Knex from 'knex';
 import { castArray, snakeCase } from 'lodash';
-import { Context, Page } from '../apollo';
 import db from './db';
 
 type ColumnMap<T> = {

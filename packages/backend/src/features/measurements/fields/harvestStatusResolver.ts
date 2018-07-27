@@ -1,5 +1,5 @@
-import { FieldResolvers } from '../../../apollo';
-import { HarvestStatus } from '../../../ww-commons';
+import { FieldResolvers } from '@apollo';
+import { HarvestStatus } from '@ww-commons';
 
 interface HarvestStatusRaw {
   success: boolean;

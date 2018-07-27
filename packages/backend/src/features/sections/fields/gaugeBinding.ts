@@ -1,5 +1,5 @@
-import { FieldResolvers } from '../../../apollo';
-import { GaugeBinding } from '../../../ww-commons';
+import { FieldResolvers } from '@apollo';
+import { GaugeBinding } from '@ww-commons';
 
 // Stored as JSONb in postgres
 interface GaugeBindingRaw {

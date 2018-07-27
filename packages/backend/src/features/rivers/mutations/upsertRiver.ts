@@ -1,7 +1,7 @@
+import { isInputValidResolver, TopLevelResolver } from '@apollo';
+import db, { rawUpsert } from '@db';
+import { RiverInput, RiverInputSchema } from '@ww-commons';
 import Joi from 'joi';
-import { isInputValidResolver, TopLevelResolver } from '../../../apollo';
-import db, { rawUpsert } from '../../../db';
-import { RiverInput, RiverInputSchema } from '../../../ww-commons';
 import checkEditorPermissions from '../checkEditorPermissions';
 
 interface Vars {

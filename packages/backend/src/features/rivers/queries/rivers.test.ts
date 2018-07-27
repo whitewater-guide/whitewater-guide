@@ -1,9 +1,8 @@
-import { holdTransaction, rollbackTransaction } from '../../../db';
-import { EDITOR_NO_EC } from '../../../seeds/test/01_users';
-import { REGION_GALICIA, REGION_NORWAY } from '../../../seeds/test/04_regions';
-import { RIVERS_TOTAL } from '../../../seeds/test/07_rivers';
-import { fakeContext } from '../../../test/context';
-import { noTimestamps, runQuery } from '../../../test/db-helpers';
+import { holdTransaction, rollbackTransaction } from '@db';
+import { EDITOR_NO_EC } from '@seeds/01_users';
+import { REGION_GALICIA } from '@seeds/04_regions';
+import { RIVERS_TOTAL } from '@seeds/07_rivers';
+import { fakeContext, noTimestamps, runQuery } from '@test';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);

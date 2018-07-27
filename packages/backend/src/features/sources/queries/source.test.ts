@@ -1,9 +1,8 @@
-import { holdTransaction, rollbackTransaction } from '../../../db';
-import { ADMIN, EDITOR_GA_EC, TEST_USER } from '../../../seeds/test/01_users';
-import { SOURCE_GALICIA_1 } from '../../../seeds/test/05_sources';
-import { anonContext, fakeContext } from '../../../test/context';
-import { noTimestamps, runQuery } from '../../../test/db-helpers';
-import { Source } from '../../../ww-commons';
+import { holdTransaction, rollbackTransaction } from '@db';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
+import { SOURCE_GALICIA_1 } from '@seeds/05_sources';
+import { anonContext, fakeContext, noTimestamps, runQuery } from '@test';
+import { Source } from '@ww-commons';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);

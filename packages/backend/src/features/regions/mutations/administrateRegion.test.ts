@@ -1,9 +1,8 @@
-import { holdTransaction, rollbackTransaction } from '../../../db';
-import { BANNERS, COVERS, fileExistsInBucket, resetTestMinio, TEMP } from '../../../minio';
-import { ADMIN, EDITOR_GA_EC, TEST_USER } from '../../../seeds/test/01_users';
-import { REGION_GALICIA } from '../../../seeds/test/04_regions';
-import { anonContext, fakeContext } from '../../../test/context';
-import { runQuery } from '../../../test/runQuery';
+import { holdTransaction, rollbackTransaction } from '@db';
+import { BANNERS, COVERS, fileExistsInBucket, resetTestMinio, TEMP } from '@minio';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
+import { REGION_GALICIA } from '@seeds/04_regions';
+import { anonContext, fakeContext, runQuery } from '@test';
 
 const mutation = `
   mutation administrateRegion($settings: RegionAdminSettings!){

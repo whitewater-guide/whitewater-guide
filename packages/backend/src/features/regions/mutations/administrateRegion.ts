@@ -1,9 +1,9 @@
+import { isInputValidResolver, MutationNotAllowedError, TopLevelResolver } from '@apollo';
+import db from '@db';
+import { BANNERS, COVERS, minioClient, moveTempImage } from '@minio';
+import { RegionAdminSettings, RegionAdminSettingsSchema } from '@ww-commons';
 import Joi from 'joi';
 import get from 'lodash/get';
-import { isInputValidResolver, MutationNotAllowedError, TopLevelResolver } from '../../../apollo';
-import db from '../../../db';
-import { BANNERS, COVERS, minioClient, moveTempImage } from '../../../minio';
-import { RegionAdminSettings, RegionAdminSettingsSchema } from '../../../ww-commons';
 import { buildRegionQuery } from '../queryBuilder';
 import { RegionRaw } from '../types';
 
@@ -42,7 +42,13 @@ const resolver: TopLevelResolver<Vars> = async (_, { settings }, context, info) 
   }
   await Promise.all([
     updateImageFile(COVERS, oldRegion, settings, 'cover_image.mobile', 'coverImage.mobile'),
-    updateImageFile(BANNERS, oldRegion, settings, 'banners.sectionDescriptionMobile', 'banners.sectionDescriptionMobile'),
+    updateImageFile(
+      BANNERS,
+      oldRegion,
+      settings,
+      'banners.sectionDescriptionMobile',
+      'banners.sectionDescriptionMobile',
+    ),
     updateImageFile(BANNERS, oldRegion, settings, 'banners.sectionRowMobile', 'banners.sectionRowMobile'),
     updateImageFile(BANNERS, oldRegion, settings, 'banners.sectionMediaMobile', 'banners.sectionMediaMobile'),
     updateImageFile(BANNERS, oldRegion, settings, 'banners.regionDescriptionMobile', 'banners.regionDescriptionMobile'),

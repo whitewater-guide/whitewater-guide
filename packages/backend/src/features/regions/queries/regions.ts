@@ -1,6 +1,6 @@
+import { baseResolver, Context, ListQuery } from '@apollo';
+import db from '@db';
 import { QueryBuilder } from 'knex';
-import { baseResolver, Context, ListQuery } from '../../../apollo';
-import db from '../../../db';
 import { buildRegionsListQuery } from '../queryBuilder';
 
 const regions = baseResolver.createResolver(

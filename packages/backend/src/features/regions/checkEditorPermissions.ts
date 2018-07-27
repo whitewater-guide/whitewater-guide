@@ -1,5 +1,5 @@
-import { AuthenticationRequiredError, ContextUser, ForbiddenError } from '../../apollo';
-import db from '../../db';
+import { AuthenticationRequiredError, ContextUser, ForbiddenError } from '@apollo';
+import db from '@db';
 
 const checkEditorPermissions = async (user: ContextUser | undefined, regionId: string | null) => {
   if (!user) {

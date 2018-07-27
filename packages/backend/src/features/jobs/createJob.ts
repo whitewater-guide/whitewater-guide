@@ -1,6 +1,6 @@
-import { GaugeRaw } from '../gauges';
-import { execScript, ScriptCommand } from '../scripts';
-import { SourceRaw } from '../sources';
+import { GaugeRaw } from '@features/gauges';
+import { execScript, ScriptCommand } from '@features/scripts';
+import { SourceRaw } from '@features/sources';
 import logger from './logger';
 
 export const createJob = ({ script }: SourceRaw, gauge?: GaugeRaw) => async () => {

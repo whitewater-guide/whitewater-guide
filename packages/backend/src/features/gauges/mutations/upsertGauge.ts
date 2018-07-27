@@ -1,7 +1,7 @@
+import { baseResolver, isInputValidResolver, MutationNotAllowedError, TopLevelResolver } from '@apollo';
+import db, { rawUpsert } from '@db';
+import { GaugeInput, GaugeInputSchema } from '@ww-commons';
 import Joi from 'joi';
-import { baseResolver, isInputValidResolver, MutationNotAllowedError, TopLevelResolver } from '../../../apollo';
-import db, { rawUpsert } from '../../../db';
-import { GaugeInput, GaugeInputSchema } from '../../../ww-commons';
 
 interface Vars {
   gauge: GaugeInput;

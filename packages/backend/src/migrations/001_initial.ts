@@ -1,6 +1,6 @@
+import { addUpdatedAtFunction, addUpdatedAtTrigger, removeUpdatedAtFunction, runSqlFile } from '@db';
+import { HarvestMode, POITypes } from '@ww-commons';
 import Knex from 'knex';
-import { addUpdatedAtFunction, addUpdatedAtTrigger, removeUpdatedAtFunction, runSqlFile } from '../db';
-import { HarvestMode, POITypes } from '../ww-commons';
 
 export const up = async (db: Knex) => {
   await runSqlFile(db, './src/migrations/001/language_code.sql');
@@ -414,7 +414,9 @@ export const down = async (db: Knex) => {
   await db.schema.raw('DROP VIEW IF EXISTS rivers_view');
   await db.schema.raw('DROP VIEW IF EXISTS sections_view');
   await db.schema.raw('DROP VIEW IF EXISTS media_view');
-  await db.schema.raw('DROP FUNCTION IF EXISTS upsert_section_media(section_id VARCHAR, media JSON, lang language_code) CASCADE');
+  await db.schema.raw(
+    'DROP FUNCTION IF EXISTS upsert_section_media(section_id VARCHAR, media JSON, lang language_code) CASCADE',
+  );
   await db.schema.raw('DROP FUNCTION IF EXISTS upsert_section(section JSON, lang language_code) CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS upsert_group(grp JSON, lang language_code) CASCADE');
   await db.schema.raw('DROP FUNCTION IF EXISTS upsert_tag(tag JSON, lang language_code) CASCADE');

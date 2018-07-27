@@ -1,5 +1,5 @@
-import { baseResolver } from '../../../apollo';
-import db from '../../../db';
+import { baseResolver } from '@apollo';
+import db from '@db';
 
 interface Vars {
   regionId: string;

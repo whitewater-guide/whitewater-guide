@@ -1,4 +1,4 @@
-import db from '../../../db';
+import db from '@db';
 
 const RAW_QUERY = `
   WITH media_found AS (

@@ -1,7 +1,7 @@
+import { redis } from '@redis';
 import Koa from 'koa';
 import redisStore from 'koa-redis';
 import session from 'koa-session';
-import { redis } from '../redis';
 
 export const useSessions = (app: Koa) => {
   const store = redisStore({

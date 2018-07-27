@@ -1,6 +1,7 @@
 import { readFileSync } from 'fs';
 import Knex from 'knex';
 
+// tslint:disable-next-line:no-inferrable-types
 export async function createView(db: Knex, view: string, version: number = 1) {
   for (let i = version; i >= 1; i--) {
     const file = `./src/migrations/${i.toString(10).padStart(3, '0')}/${view}_view.sql`;

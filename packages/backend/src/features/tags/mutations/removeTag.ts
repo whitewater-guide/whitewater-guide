@@ -1,5 +1,5 @@
-import { baseResolver, NodeQuery } from '../../../apollo';
-import db from '../../../db';
+import { baseResolver, NodeQuery } from '@apollo';
+import db from '@db';
 
 const removeTag = baseResolver.createResolver(
   async (root, { id }: NodeQuery) => {

@@ -1,6 +1,6 @@
-import db from '../../db';
-import { isMaster } from '../../utils';
-import { SourceRaw } from '../sources';
+import db from '@db';
+import { SourceRaw } from '@features/sources';
+import { isMaster } from '@utils';
 import logger from './logger';
 import { startJobs } from './startJobs';
 

@@ -1,5 +1,5 @@
-import { baseResolver, MutationNotAllowedError, TopLevelResolver } from '../../../apollo';
-import db from '../../../db';
+import { baseResolver, MutationNotAllowedError, TopLevelResolver } from '@apollo';
+import db from '@db';
 import checkEditorPermissions from '../checkEditorPermissions';
 
 interface Vars {

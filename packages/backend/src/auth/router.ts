@@ -47,6 +47,7 @@ if (process.env.NODE_ENV !== 'production') {
   );
 
   router.get('/', (ctx) => {
+    // tslint:disable-next-line:prefer-conditional-expression
     if (ctx.user) {
       // tslint:disable-next-line:max-line-length
       ctx.body = `<p>Welcome, ${ctx.user.name} (<a href="javascript:fetch('/auth/logout', { method: 'POST', credentials: 'include' }).then(() => window.location = '/')">log out</a>)</p>`;

@@ -1,6 +1,6 @@
+import { TransactionRaw } from '@features/purchases';
+import { PurchasePlatform } from '@ww-commons';
 import Knex from 'knex';
-import { TransactionRaw } from '../../features/purchases';
-import { PurchasePlatform } from '../../ww-commons';
 import { BOOM_USER_1500_ID, BOOM_USER_3500_ID, TEST_USER_ID } from './01_users';
 import {
   BOOM_PROMO_ALL_REGIONS_REDEEMED,

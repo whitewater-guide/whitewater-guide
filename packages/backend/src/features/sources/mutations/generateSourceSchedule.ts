@@ -1,7 +1,7 @@
-import { baseResolver, MutationNotAllowedError, TopLevelResolver } from '../../../apollo';
-import db from '../../../db';
-import { HarvestMode } from '../../../ww-commons';
-import { GaugeRaw } from '../../gauges';
+import { baseResolver, MutationNotAllowedError, TopLevelResolver } from '@apollo';
+import db from '@db';
+import { GaugeRaw } from '@features/gauges';
+import { HarvestMode } from '@ww-commons';
 import { SourceRaw } from '../types';
 
 interface Vars {

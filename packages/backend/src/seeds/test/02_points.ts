@@ -1,6 +1,6 @@
+import { Coordinate3d } from '@ww-commons';
 import Knex from 'knex';
 import { Point as WKXPoint } from 'wkx';
-import { Coordinate3d } from '../../ww-commons/';
 
 function getCoordinates(coordinates: Coordinate3d): string {
   const wkxPoint = new WKXPoint(...coordinates);

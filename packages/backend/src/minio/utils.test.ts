@@ -1,5 +1,5 @@
 import { AVATARS } from './buckets';
-import { BUCKETS_DIR, fileExistsInBucket, FIXTURES_BUCKETS_DIR, resetTestMinio } from './test-utils';
+import { fileExistsInBucket, resetTestMinio } from './test-utils';
 import { getTempPostPolicy, moveTempImage } from './utils';
 
 describe('getTempPostPolicy', () => {
@@ -34,7 +34,7 @@ describe('getTempPostPolicy', () => {
       },
       postURL: 'http://localhost:6001/uploads/temp',
     });
-  })
+  });
 });
 
 describe('moveTempImage', () => {

@@ -3,7 +3,22 @@
   "compilerOptions": {
     "module": "commonjs",
     "inlineSourceMap": true,
-    "inlineSources": true
+    "inlineSources": true,
+    "baseUrl": ".",
+    "paths": {
+      "@apollo": ["src/apollo"],
+      "@auth": ["src/auth"],
+      "@db": ["src/db"],
+      "@features": ["src/features"],
+      "@features/*": ["src/features/*"],
+      "@log": ["src/log"],
+      "@minio": ["src/minio"],
+      "@redis": ["src/redis"],
+      "@seeds/*": ["src/seeds/test/*"],
+      "@test": ["src/test"],
+      "@utils": ["src/utils"],
+      "@ww-commons": ["src/ww-commons"]
+    }
   },
   "include": [
     "src/**/*"

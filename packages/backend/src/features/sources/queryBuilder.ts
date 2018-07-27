@@ -1,6 +1,6 @@
+import db, { buildListQuery, buildRootQuery, ListQueryBuilderOptions, QueryBuilderOptions } from '@db';
+import { Source } from '@ww-commons';
 import Knex from 'knex';
-import db, { buildListQuery, buildRootQuery, ListQueryBuilderOptions, QueryBuilderOptions } from '../../db';
-import { Source } from '../../ww-commons';
 
 const customFieldMap = {
   status: () => 'script',
@@ -8,7 +8,7 @@ const customFieldMap = {
 
 const connections = {
   regions: {
-    getBuilder: () => require('../regions').buildRegionQuery,
+    getBuilder: () => require('@features/regions').buildRegionQuery,
     join: (table: string, query: Knex.QueryBuilder) => {
       const sourceId = db(true).raw('??', ['sources_view.id']);
       return query
@@ -17,7 +17,7 @@ const connections = {
     },
   },
   gauges: {
-    getBuilder: () => require('../gauges').buildGaugeQuery,
+    getBuilder: () => require('@features/gauges').buildGaugeQuery,
     foreignKey: 'source_id',
     join: (table: string, query: Knex.QueryBuilder) => {
       const sourceId = db(true).raw('??', ['sources_view.id']);

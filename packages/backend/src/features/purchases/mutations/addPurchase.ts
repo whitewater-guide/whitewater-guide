@@ -1,9 +1,9 @@
+import { AuthenticationRequiredError, Context, isInputValidResolver, MutationNotAllowedError } from '@apollo';
+import db from '@db';
+import { PurchaseInput, PurchasePlatform } from '@ww-commons';
 import { isValidated, validate } from 'in-app-purchase';
 import Joi from 'joi';
 import { Transaction } from 'knex';
-import { AuthenticationRequiredError, Context, isInputValidResolver, MutationNotAllowedError } from '../../../apollo';
-import db from '../../../db';
-import { PurchaseInput, PurchasePlatform } from '../../../ww-commons';
 import logger from '../logger';
 import { BoomPromoRaw, TransactionRaw } from '../types';
 

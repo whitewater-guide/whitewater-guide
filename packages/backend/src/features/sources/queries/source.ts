@@ -1,5 +1,5 @@
-import { baseResolver, NodeQuery } from '../../../apollo';
-import db from '../../../db';
+import { baseResolver, NodeQuery } from '@apollo';
+import db from '@db';
 import { buildQuery } from '../queryBuilder';
 
 const source = baseResolver.createResolver(

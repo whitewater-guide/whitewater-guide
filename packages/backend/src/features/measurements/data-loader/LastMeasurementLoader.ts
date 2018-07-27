@@ -1,6 +1,6 @@
+import { getLastMeasurements, RedisLastMeasurement } from '@redis';
 import DataLoader from 'dataloader';
 import { chunk, fromPairs } from 'lodash';
-import { getLastMeasurements, RedisLastMeasurement } from '../../../redis';
 
 interface Key {
   script: string;

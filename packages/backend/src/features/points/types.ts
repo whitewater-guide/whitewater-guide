@@ -1,4 +1,4 @@
-import { Coordinate3d } from '../../ww-commons';
+import { Coordinate3d } from '@ww-commons';
 
 interface PointGeoJSON {
   type: string;

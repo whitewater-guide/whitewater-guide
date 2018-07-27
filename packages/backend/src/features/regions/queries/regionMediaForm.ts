@@ -1,5 +1,5 @@
-import { baseResolver, Context } from '../../../apollo';
-import { getTempPostPolicy } from '../../../minio';
+import { baseResolver, Context } from '@apollo';
+import { getTempPostPolicy } from '@minio';
 
 interface Vars {
   regionId: string;

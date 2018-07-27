@@ -1,7 +1,6 @@
-import { holdTransaction, rollbackTransaction } from '../../../db';
-import { ADMIN, EDITOR_GA_EC, EDITOR_NO_EC } from '../../../seeds/test/01_users';
-import { anonContext, fakeContext } from '../../../test/context';
-import { runQuery } from '../../../test/db-helpers';
+import { holdTransaction, rollbackTransaction } from '@db';
+import { ADMIN, EDITOR_GA_EC, EDITOR_NO_EC } from '@seeds/01_users';
+import { anonContext, fakeContext, runQuery } from '@test';
 
 const query = `
   query findUsers($search: String!){

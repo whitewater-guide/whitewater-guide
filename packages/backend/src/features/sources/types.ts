@@ -1,5 +1,5 @@
-import { RawTimestamped } from '../../db';
-import { HarvestMode, NamedNode } from '../../ww-commons';
+import { RawTimestamped } from '@db';
+import { HarvestMode, NamedNode } from '@ww-commons';
 
 /**
  * Raw row from database `source` table

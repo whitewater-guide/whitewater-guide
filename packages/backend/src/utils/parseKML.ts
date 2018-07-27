@@ -1,10 +1,10 @@
+import { Coordinate3d } from '@ww-commons';
 import { readFileSync } from 'fs';
 import { Feature, FeatureCollection, LineString } from 'geojson';
 import compact from 'lodash/compact';
 import orderBy from 'lodash/orderBy';
 import { kml } from 'togeojson';
 import { DOMParser } from 'xmldom';
-import { Coordinate3d } from '../ww-commons/features/points';
 
 const COLOR_TO_DIFFICULTY = new Map<string, number>([
   ['#4186f0', 2],

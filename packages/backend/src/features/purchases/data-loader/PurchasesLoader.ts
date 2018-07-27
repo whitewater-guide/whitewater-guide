@@ -1,7 +1,7 @@
-import { ContextUser } from '../../../apollo';
-import db from '../../../db/db';
-import { GroupRaw } from '../../groups';
-import { RegionRaw } from '../../regions';
+import { ContextUser } from '@apollo';
+import db from '@db';
+import { GroupRaw } from '@features/groups';
+import { RegionRaw } from '@features/regions';
 import { TransactionRaw } from '../types';
 
 export class PurchasesLoader {

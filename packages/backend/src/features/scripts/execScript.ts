@@ -1,3 +1,4 @@
+import log from '@log';
 import axios from 'axios';
 import { WORKERS_ENDPOINT } from './endpoint';
 import { ScriptPayload, ScriptResponse } from './types';
@@ -7,7 +8,7 @@ export const execScript = async <R>(payload: ScriptPayload): Promise<ScriptRespo
     const { data } = await axios.post<ScriptResponse<R>>(WORKERS_ENDPOINT, payload);
     return data;
   } catch (error) {
-    console.log(error);
+    log.error(error);
     throw error;
   }
 };

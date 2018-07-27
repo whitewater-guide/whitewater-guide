@@ -1,6 +1,6 @@
+import { newContext } from '@apollo';
+import { UserRaw } from '@features/users';
 import Koa from 'koa';
-import { newContext } from '../apollo';
-import { UserRaw } from '../features/users';
 
 const FakeKoaContext: Partial<Koa.Context> = {
   acceptsLanguages: () => false,

@@ -1,6 +1,6 @@
+import { buildListQuery, buildRootQuery, ListQueryBuilderOptions, QueryBuilderOptions } from '@db';
+import { Media } from '@ww-commons';
 import Knex from 'knex';
-import { buildListQuery, buildRootQuery, ListQueryBuilderOptions, QueryBuilderOptions } from '../../db';
-import { Media } from '../../ww-commons';
 
 const customFieldMap = {
   deleted: () => null,

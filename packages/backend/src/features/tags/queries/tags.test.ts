@@ -1,6 +1,5 @@
-import { holdTransaction, rollbackTransaction } from '../../../db';
-import { anonContext } from '../../../test/context';
-import { runQuery } from '../../../test/db-helpers';
+import { holdTransaction, rollbackTransaction } from '@db';
+import { anonContext, runQuery } from '@test';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);

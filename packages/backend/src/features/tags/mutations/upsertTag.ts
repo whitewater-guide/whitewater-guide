@@ -1,7 +1,7 @@
+import { Context, isInputValidResolver } from '@apollo';
+import db, { rawUpsert } from '@db';
+import { TagInput, TagInputSchema } from '@ww-commons';
 import Joi from 'joi';
-import { Context, isInputValidResolver } from '../../../apollo';
-import db, { rawUpsert } from '../../../db';
-import { TagInput, TagInputSchema } from '../../../ww-commons';
 
 interface Vars {
   tag: TagInput;

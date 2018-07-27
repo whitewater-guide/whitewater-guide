@@ -1,6 +1,6 @@
-import { baseResolver, TopLevelResolver } from '../../../apollo';
-import db from '../../../db';
-import { stopJobs } from '../../jobs';
+import { baseResolver, TopLevelResolver } from '@apollo';
+import db from '@db';
+import { stopJobs } from '@features/jobs';
 
 interface Vars {
   id: string;

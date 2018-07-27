@@ -1,4 +1,4 @@
-import { Connection } from '../ww-commons';
+import { Connection } from '@ww-commons';
 import { FieldResolvers } from './types';
 
 interface WithCount {

@@ -1,5 +1,5 @@
-import { FieldResolvers } from '../../../apollo';
-import { Point } from '../../../ww-commons';
+import { FieldResolvers } from '@apollo';
+import { Point } from '@ww-commons';
 import { PointRaw } from '../types';
 
 const resolvers: FieldResolvers<PointRaw, Point> = {

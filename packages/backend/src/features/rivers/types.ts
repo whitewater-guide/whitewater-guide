@@ -1,6 +1,6 @@
-import { RawTimestamped } from '../../db';
-import { NamedNode } from '../../ww-commons';
-import { RegionRaw } from '../regions';
+import { RawTimestamped } from '@db';
+import { RegionRaw } from '@features/regions';
+import { NamedNode } from '@ww-commons';
 
 export interface RiverRaw extends NamedNode, RawTimestamped {
   region_id: string;

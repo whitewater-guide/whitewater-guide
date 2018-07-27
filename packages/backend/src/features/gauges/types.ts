@@ -1,7 +1,7 @@
-import { RawTimestamped } from '../../db';
-import { NamedNode } from '../../ww-commons';
-import { PointRaw } from '../points';
-import { SourceRaw } from '../sources';
+import { RawTimestamped } from '@db';
+import { PointRaw } from '@features/points';
+import { SourceRaw } from '@features/sources';
+import { NamedNode } from '@ww-commons';
 
 export interface GaugeRaw extends NamedNode, RawTimestamped {
   code: string;

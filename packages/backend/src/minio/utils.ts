@@ -1,5 +1,5 @@
+import log from '@log';
 import { CopyConditions } from 'minio';
-import log from '../log';
 import { TEMP } from './buckets';
 import { minioClient } from './client';
 

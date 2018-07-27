@@ -1,6 +1,6 @@
+import { Coordinate3d } from '@ww-commons';
 import Knex from 'knex';
 import { Point, Polygon } from 'wkx';
-import { Coordinate3d } from '../../ww-commons';
 import { EDITOR_GA_EC_ID, EDITOR_GE_ID, EDITOR_NO_EC_ID, EDITOR_NO_ID } from './01_users';
 import { ECUADOR_PT_1, GALICIA_PT_1, GALICIA_PT_2 } from './02_points';
 import { GROUP_ALL, GROUP_EU, GROUP_EU_CIS, GROUP_LATIN } from './03_groups';

@@ -1,5 +1,5 @@
-import { buildRootQuery, QueryBuilderOptions } from '../../db';
-import { Tag } from '../../ww-commons';
+import { buildRootQuery, QueryBuilderOptions } from '@db';
+import { Tag } from '@ww-commons';
 
 export const buildTagsListQuery = (options: Partial<QueryBuilderOptions<Tag>>) =>
   buildRootQuery({

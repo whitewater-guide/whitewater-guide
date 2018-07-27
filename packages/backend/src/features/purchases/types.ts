@@ -1,4 +1,4 @@
-import { PurchasePlatform } from '../../ww-commons';
+import { PurchasePlatform } from '@ww-commons';
 
 export interface TransactionRaw {
   id: string;

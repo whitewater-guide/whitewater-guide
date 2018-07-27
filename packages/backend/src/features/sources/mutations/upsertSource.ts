@@ -1,7 +1,7 @@
+import { baseResolver, isInputValidResolver, MutationNotAllowedError, TopLevelResolver } from '@apollo';
+import db, { rawUpsert } from '@db';
+import { SourceInput, SourceInputSchema } from '@ww-commons';
 import Joi from 'joi';
-import { baseResolver, isInputValidResolver, MutationNotAllowedError, TopLevelResolver } from '../../../apollo';
-import db, { rawUpsert } from '../../../db';
-import { SourceInput, SourceInputSchema } from '../../../ww-commons';
 
 interface Vars {
   source: SourceInput;

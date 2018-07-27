@@ -1,6 +1,6 @@
-import { holdTransaction, rollbackTransaction } from '../../../db';
-import { PHOTO_1 } from '../../../seeds/test/11_media';
-import { UUID_REGEX } from '../../../test/isUUID';
+import { holdTransaction, rollbackTransaction } from '@db';
+import { PHOTO_1 } from '@seeds/11_media';
+import { UUID_REGEX } from '@test';
 import { checkMediaId } from './checkMediaId';
 
 beforeEach(holdTransaction);

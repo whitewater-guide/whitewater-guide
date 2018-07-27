@@ -1,10 +1,10 @@
+import db from '@db';
+import { UserRaw } from '@features/users';
+import { LANGUAGES } from '@ww-commons';
 import { Request } from 'koa';
 import get from 'lodash/get';
 import { preferredLanguages } from 'negotiator/lib/language';
 import { Profile } from 'passport';
-import db from '../db';
-import { UserRaw } from '../features/users';
-import { LANGUAGES } from '../ww-commons';
 
 const loginWithFacebook = async (req: Request, provider: string, profile: Profile, tokens: any) => {
   profile.username = `${profile.name!.givenName} ${profile.name!.familyName}`;

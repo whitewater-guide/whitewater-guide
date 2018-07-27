@@ -1,8 +1,7 @@
-import { holdTransaction, rollbackTransaction } from '../../../db';
-import { ADMIN, EDITOR_GA_EC, EDITOR_GA_EC_ID, EDITOR_NO_EC_ID, TEST_USER } from '../../../seeds/test/01_users';
-import { REGION_ECUADOR, REGION_GALICIA } from '../../../seeds/test/04_regions';
-import { anonContext, fakeContext } from '../../../test/context';
-import { runQuery } from '../../../test/runQuery';
+import { holdTransaction, rollbackTransaction } from '@db';
+import { ADMIN, EDITOR_GA_EC, EDITOR_GA_EC_ID, EDITOR_NO_EC_ID, TEST_USER } from '@seeds/01_users';
+import { REGION_ECUADOR, REGION_GALICIA } from '@seeds/04_regions';
+import { anonContext, fakeContext, runQuery } from '@test';
 
 const query = `
   query regionEditors($regionId: ID!){

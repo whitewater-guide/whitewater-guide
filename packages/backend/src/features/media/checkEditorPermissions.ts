@@ -1,6 +1,6 @@
+import { AuthenticationRequiredError, ContextUser, ForbiddenError } from '@apollo';
+import db from '@db';
 import { QueryBuilder } from 'knex';
-import { AuthenticationRequiredError, ContextUser, ForbiddenError } from '../../apollo';
-import db from '../../db/db';
 
 const checkEditorPermissions = async (user?: ContextUser, mediaId?: string, sectionId?: string) => {
   if (!user) {

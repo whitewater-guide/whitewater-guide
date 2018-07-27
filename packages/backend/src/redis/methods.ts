@@ -1,5 +1,5 @@
+import log from '@log';
 import { mapValues } from 'lodash';
-import log from '../log';
 import { redis } from './client';
 import { LastMeasurementsNs, LastOpNS } from './constants';
 import { RedisLastMeasurements } from './types';

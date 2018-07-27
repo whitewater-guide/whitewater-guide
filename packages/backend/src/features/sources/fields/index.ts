@@ -1,6 +1,6 @@
-import { FieldResolvers } from '../../../apollo';
-import { timestampResolvers } from '../../../db';
-import { Source } from '../../../ww-commons';
+import { FieldResolvers } from '@apollo';
+import { timestampResolvers } from '@db';
+import { Source } from '@ww-commons';
 import { SourceRaw } from '../types';
 import status from './status';
 

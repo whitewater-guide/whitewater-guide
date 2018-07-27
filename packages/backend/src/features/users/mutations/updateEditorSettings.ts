@@ -1,7 +1,7 @@
+import { Context, isAuthenticatedResolver, isInputValidResolver } from '@apollo';
+import db from '@db';
+import { EditorSettings } from '@ww-commons';
 import Joi from 'joi';
-import { Context, isAuthenticatedResolver, isInputValidResolver } from '../../../apollo';
-import db from '../../../db';
-import { EditorSettings } from '../../../ww-commons';
 
 interface Vars {
   editorSettings: EditorSettings;

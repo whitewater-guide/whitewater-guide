@@ -1,10 +1,11 @@
 {
   "name": "whitewater-backend",
-  "version": "0.0.171",
+  "version": "0.0.173",
   "main": "index.js",
   "author": "Konstantin Kuznetsov",
   "license": "MIT",
   "scripts": {
+    "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "pretest": "npm_scripts/pretest.sh",
     "test": "npm_scripts/test.sh",
     "dev:dump": "npm_scripts/dev-dump.sh",
@@ -41,7 +42,6 @@
     "@types/valid-url": "^1.0.2",
     "@types/xmldom": "^0.1.29",
     "apollo-link": "^1.2.2",
-    "as-table": "^1.0.36",
     "jest": "^23.4.1",
     "jest-serializer-sql": "^1.0.0",
     "leakage": "^0.4.0",
@@ -111,6 +111,19 @@
       "js",
       "json"
     ],
+    "moduleNameMapper": {
+      "^@apollo$": "<rootDir>/src/apollo",
+      "^@auth$": "<rootDir>/src/auth",
+      "^@db$": "<rootDir>/src/db",
+      "^@features/(.*)$": "<rootDir>/src/features/$1",
+      "^@log$": "<rootDir>/src/log",
+      "^@minio$": "<rootDir>/src/minio",
+      "^@redis$": "<rootDir>/src/redis",
+      "^@seeds/(.*)$": "<rootDir>/src/seeds/test/$1",
+      "^@test$": "<rootDir>/src/test",
+      "^@utils$": "<rootDir>/src/utils",
+      "^@ww-commons$": "<rootDir>/src/ww-commons"
+    },
     "snapshotSerializers": [
       "jest-serializer-sql"
     ]

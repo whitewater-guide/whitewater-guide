@@ -1,9 +1,8 @@
-import { holdTransaction, rollbackTransaction } from '../../../db';
-import { fileExistsInBucket, MEDIA, resetTestMinio } from '../../../minio';
-import { ADMIN, EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '../../../seeds/test/01_users';
-import { PHOTO_1 } from '../../../seeds/test/11_media';
-import { anonContext, fakeContext } from '../../../test/context';
-import { countRows, runQuery } from '../../../test/db-helpers';
+import { holdTransaction, rollbackTransaction } from '@db';
+import { fileExistsInBucket, MEDIA, resetTestMinio } from '@minio';
+import { ADMIN, EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '@seeds/01_users';
+import { PHOTO_1 } from '@seeds/11_media';
+import { anonContext, countRows, fakeContext, runQuery } from '@test';
 
 let mBefore: number;
 let msBefore: number;

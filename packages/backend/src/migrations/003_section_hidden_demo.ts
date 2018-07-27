@@ -1,5 +1,5 @@
+import { createViews, dropViews, runSqlFile } from '@db';
 import Knex from 'knex';
-import { createViews, dropViews, runSqlFile } from '../db';
 
 /**
  * This patch adds 'demo' and 'hidden' columns to section table

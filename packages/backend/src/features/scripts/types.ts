@@ -1,4 +1,4 @@
-import { HarvestMode } from '../../ww-commons';
+import { HarvestMode } from '@ww-commons';
 
 export enum ScriptCommand {
   LIST = 'list',

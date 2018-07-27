@@ -1,7 +1,7 @@
+import { Context, isInputValidResolver } from '@apollo';
+import db, { rawUpsert } from '@db';
+import { GroupInput, GroupInputSchema } from '@ww-commons';
 import Joi from 'joi';
-import { Context, isInputValidResolver } from '../../../apollo';
-import db, { rawUpsert } from '../../../db';
-import { GroupInput, GroupInputSchema } from '../../../ww-commons';
 
 interface Vars {
   group: GroupInput;

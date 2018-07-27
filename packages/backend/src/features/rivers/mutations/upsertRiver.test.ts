@@ -1,18 +1,9 @@
-import db, { holdTransaction, rollbackTransaction } from '../../../db';
-import {
-  ADMIN_ID,
-  EDITOR_GA_EC,
-  EDITOR_GA_EC_ID,
-  EDITOR_NO,
-  EDITOR_NO_EC,
-  TEST_USER
-} from '../../../seeds/test/01_users';
-import { RIVER_GAL_1 } from '../../../seeds/test/07_rivers';
-import { anonContext, fakeContext } from '../../../test/context';
-import { countRows } from '../../../test/countRows';
-import { isTimestamp, isUUID, noTimestamps, noUnstable, runQuery } from '../../../test/db-helpers';
-import { RiverInput } from '../../../ww-commons';
-import { RiverRaw } from '../../rivers';
+import db, { holdTransaction, rollbackTransaction } from '@db';
+import { RiverRaw } from '@features/rivers';
+import { ADMIN_ID, EDITOR_GA_EC, EDITOR_GA_EC_ID, EDITOR_NO, EDITOR_NO_EC, TEST_USER } from '@seeds/01_users';
+import { RIVER_GAL_1 } from '@seeds/07_rivers';
+import { anonContext, countRows, fakeContext, isTimestamp, isUUID, noTimestamps, noUnstable, runQuery } from '@test';
+import { RiverInput } from '@ww-commons';
 
 let rBefore: number;
 let rtBefore: number;

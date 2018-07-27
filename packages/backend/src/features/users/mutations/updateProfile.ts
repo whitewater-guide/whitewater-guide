@@ -1,8 +1,8 @@
+import { Context, isInputValidResolver } from '@apollo';
+import db from '@db';
+import { UserInput, UserInputSchema } from '@ww-commons';
 import Joi from 'joi';
 import pickBy from 'lodash/pickBy';
-import { Context, isInputValidResolver } from '../../../apollo';
-import db from '../../../db';
-import { UserInput, UserInputSchema } from '../../../ww-commons';
 
 interface Vars {
   user: UserInput;

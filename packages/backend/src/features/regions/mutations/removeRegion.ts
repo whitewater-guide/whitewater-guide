@@ -1,6 +1,6 @@
+import { baseResolver, MutationNotAllowedError } from '@apollo';
+import db from '@db';
 import { GraphQLFieldResolver } from 'graphql';
-import { baseResolver, MutationNotAllowedError } from '../../../apollo';
-import db from '../../../db';
 
 interface Vars {
   id: string;

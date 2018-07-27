@@ -1,10 +1,8 @@
-import { holdTransaction, rollbackTransaction } from '../../../db';
-import { ADMIN, EDITOR_GA_EC, TEST_USER } from '../../../seeds/test/01_users';
-import { GROUP_EMPTY, GROUP_EU } from '../../../seeds/test/03_groups';
-import { REGION_GALICIA } from '../../../seeds/test/04_regions';
-import { anonContext, fakeContext } from '../../../test/context';
-import { countRows } from '../../../test/db-helpers';
-import { runQuery } from '../../../test/runQuery';
+import { holdTransaction, rollbackTransaction } from '@db';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
+import { GROUP_EMPTY, GROUP_EU } from '@seeds/03_groups';
+import { REGION_GALICIA } from '@seeds/04_regions';
+import { anonContext, countRows, fakeContext, runQuery } from '@test';
 
 let rgBefore: number;
 

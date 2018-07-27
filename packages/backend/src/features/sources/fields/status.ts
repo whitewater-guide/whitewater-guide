@@ -1,7 +1,7 @@
+import { Context } from '@apollo';
+import { getLastStatus } from '@redis';
+import { HarvestMode } from '@ww-commons';
 import { GraphQLFieldResolver } from 'graphql';
-import { Context } from '../../../apollo';
-import { getLastStatus } from '../../../redis';
-import { HarvestMode } from '../../../ww-commons';
 import { SourceRaw } from '../types';
 
 const statusResolver: GraphQLFieldResolver<SourceRaw, Context> = async ({ script, harvest_mode }) => {

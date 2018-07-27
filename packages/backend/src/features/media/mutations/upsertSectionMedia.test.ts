@@ -1,13 +1,12 @@
+import db, { holdTransaction, rollbackTransaction } from '@db';
+import { fileExistsInBucket, MEDIA, resetTestMinio, TEMP, TEMP_BUCKET_DIR } from '@minio';
+import { ADMIN, ADMIN_ID, EDITOR_GA_EC, EDITOR_NO_EC, EDITOR_NO_EC_ID, TEST_USER } from '@seeds/01_users';
+import { GALICIA_R1_S1, NORWAY_SJOA_AMOT } from '@seeds/09_sections';
+import { PHOTO_1, PHOTO_2 } from '@seeds/11_media';
+import { anonContext, countRows, fakeContext, noTimestamps, noUnstable, runQuery } from '@test';
+import { MediaInput, MediaKind } from '@ww-commons';
 import { copy } from 'fs-extra';
-import path from 'path';
-import db, { holdTransaction, rollbackTransaction } from '../../../db';
-import { fileExistsInBucket, MEDIA, resetTestMinio, TEMP, TEMP_BUCKET_DIR } from '../../../minio';
-import { ADMIN, ADMIN_ID, EDITOR_GA_EC, EDITOR_NO_EC, EDITOR_NO_EC_ID, TEST_USER } from '../../../seeds/test/01_users';
-import { GALICIA_R1_S1, NORWAY_SJOA_AMOT } from '../../../seeds/test/09_sections';
-import { PHOTO_1, PHOTO_2 } from '../../../seeds/test/11_media';
-import { anonContext, fakeContext } from '../../../test/context';
-import { countRows, noTimestamps, noUnstable, runQuery } from '../../../test/db-helpers';
-import { MediaInput, MediaKind } from '../../../ww-commons/features/media';
+import * as path from 'path';
 
 let mBefore: number;
 let msBefore: number;
@@ -72,7 +71,7 @@ describe('resolvers chain', () => {
     expect(result).toHaveProperty('data.upsertSectionMedia', null);
   });
 
-  it('admn should pass', async () => {
+  it('admin should pass', async () => {
     const result = await runQuery(mutation, { sectionId, media }, fakeContext(ADMIN));
     expect(result.errors).toBeUndefined();
     expect(result.data!.upsertSectionMedia).toBeDefined();
@@ -98,7 +97,11 @@ describe('resolvers chain', () => {
 
 describe('insert', () => {
   it('should fail on non-existing section id', async () => {
-    const result = await runQuery(mutation, { sectionId: '852421bc-2848-11e8-b467-0ed5f89f718b', media }, fakeContext(EDITOR_NO_EC));
+    const result = await runQuery(
+      mutation,
+      { sectionId: '852421bc-2848-11e8-b467-0ed5f89f718b', media },
+      fakeContext(EDITOR_NO_EC),
+    );
     expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
     expect(result).toHaveProperty('data.upsertSectionMedia', null);
   });

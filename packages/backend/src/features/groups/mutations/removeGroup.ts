@@ -1,5 +1,5 @@
-import { baseResolver, MutationNotAllowedError, NodeQuery } from '../../../apollo';
-import db from '../../../db';
+import { baseResolver, MutationNotAllowedError, NodeQuery } from '@apollo';
+import db from '@db';
 
 const removeGroup = baseResolver.createResolver(
   async (root, { id }: NodeQuery) => {

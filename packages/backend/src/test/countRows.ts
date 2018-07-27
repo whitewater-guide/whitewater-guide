@@ -1,4 +1,4 @@
-import db from '../db';
+import db from '@db';
 
 export const countRows = async (getKnexInstance: boolean, ...tables: string[]) => {
   const rawQuery = 'SELECT ' + tables

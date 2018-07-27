@@ -1,9 +1,7 @@
-import { holdTransaction, rollbackTransaction } from '../../../db';
-import { ADMIN, EDITOR_NO_EC, TEST_USER } from '../../../seeds/test/01_users';
-import { SOURCE_NORWAY } from '../../../seeds/test/05_sources';
-import { GAUGE_GAL_1_1 } from '../../../seeds/test/06_gauges';
-import { anonContext, fakeContext } from '../../../test/context';
-import { noTimestamps, runQuery } from '../../../test/db-helpers';
+import { holdTransaction, rollbackTransaction } from '@db';
+import { ADMIN, EDITOR_NO_EC, TEST_USER } from '@seeds/01_users';
+import { SOURCE_NORWAY } from '@seeds/05_sources';
+import { anonContext, fakeContext, noTimestamps, runQuery } from '@test';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);

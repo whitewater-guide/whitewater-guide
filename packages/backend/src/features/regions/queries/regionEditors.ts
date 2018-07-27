@@ -1,6 +1,6 @@
+import { baseResolver } from '@apollo';
+import db from '@db';
 import { QueryBuilder } from 'knex';
-import { baseResolver } from '../../../apollo';
-import db from '../../../db/db';
 
 interface Vars {
   regionId: string;

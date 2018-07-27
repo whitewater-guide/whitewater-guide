@@ -1,15 +1,13 @@
-import { holdTransaction, rollbackTransaction } from '../../../db';
-import db from '../../../db/db';
-import { BOOM_USER_3500, BOOM_USER_3500_ID, TEST_USER } from '../../../seeds/test/01_users';
+import db, { holdTransaction, rollbackTransaction } from '@db';
+import { BOOM_USER_3500, BOOM_USER_3500_ID, TEST_USER } from '@seeds/01_users';
 import {
-  BOOM_PROMO_EU_CIS_ACTIVE, BOOM_PROMO_EU_CIS_REDEEMED, BOOM_PROMO_LATIN_REDEEMED,
+  BOOM_PROMO_EU_CIS_ACTIVE,
+  BOOM_PROMO_LATIN_REDEEMED,
   BOOM_PROMO_REGION_ACTIVE,
-  BOOM_PROMO_REGION_REDEEMED
-} from '../../../seeds/test/12_boom_promos';
-import { anonContext, fakeContext } from '../../../test/context';
-import { UUID_REGEX } from '../../../test/isUUID';
-import { runQuery } from '../../../test/runQuery';
-import { PurchaseInput, PurchasePlatform } from '../../../ww-commons';
+  BOOM_PROMO_REGION_REDEEMED,
+} from '@seeds/12_boom_promos';
+import { anonContext, fakeContext, runQuery, UUID_REGEX } from '@test';
+import { PurchaseInput, PurchasePlatform } from '@ww-commons';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);

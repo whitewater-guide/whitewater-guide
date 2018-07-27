@@ -1,4 +1,4 @@
-import { baseResolver, UnknownError } from '../../../apollo';
+import { baseResolver, UnknownError } from '@apollo';
 import { execScript } from '../execScript';
 import { ScriptCommand, ScriptDescription } from '../types';
 

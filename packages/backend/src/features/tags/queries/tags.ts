@@ -1,4 +1,4 @@
-import { baseResolver } from '../../../apollo/enhancedResolvers';
+import { baseResolver } from '@apollo';
 import { buildTagsListQuery } from '../queryBuilder';
 
 const tags = baseResolver.createResolver(

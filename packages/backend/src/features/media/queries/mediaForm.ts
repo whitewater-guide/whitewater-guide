@@ -1,5 +1,5 @@
-import { baseResolver, Context, MutationNotAllowedError } from '../../../apollo';
-import { getTempPostPolicy } from '../../../minio';
+import { baseResolver, Context, MutationNotAllowedError } from '@apollo';
+import { getTempPostPolicy } from '@minio';
 import checkEditorPermissions from '../checkEditorPermissions';
 import { MediaUploadForm } from '../types';
 import { checkMediaId } from './checkMediaId';

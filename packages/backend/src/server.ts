@@ -1,7 +1,7 @@
+import db from '@db';
+import log from '@log';
 import httpShutdown from 'http-shutdown';
 import app from './app';
-import db from './db';
-import log from './log';
 
 const PORT = Number(process.env.PORT) || 3333;
 const HOST = process.env.HOSTNAME || '0.0.0.0';
@@ -23,7 +23,7 @@ export default function startServer() {
       db(true).destroy();
     }
     if (error) {
-      console.error(error.stack);
+      log.error(error);
     }
     if (exit) {
       process.exit();

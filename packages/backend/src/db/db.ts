@@ -8,7 +8,8 @@ const knexInstance = knex(config);
 
 let testTransaction: knex.Transaction | null = null;
 
-export default function db(getKnexInstance: boolean = false) {
+// tslint:disable-next-line:no-inferrable-types
+export function db(getKnexInstance: boolean = false) {
   if (env === 'test' && !getKnexInstance) {
     if (testTransaction) {
       return testTransaction;
@@ -16,7 +17,7 @@ export default function db(getKnexInstance: boolean = false) {
     throw new Error('No saved test transaction found');
   }
   return knexInstance;
-};
+}
 
 // See here https://github.com/tgriesser/knex/issues/2076
 // And here https://gist.github.com/odigity/7f37077de74964051d45c4ca80ec3250
@@ -45,3 +46,5 @@ export const rollbackTransaction = async () => {
     testTransaction = null;
   }
 };
+
+export default db;

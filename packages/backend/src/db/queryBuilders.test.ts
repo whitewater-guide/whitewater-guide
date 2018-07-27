@@ -1,8 +1,8 @@
+import { Context } from '@apollo';
+import { ADMIN, EDITOR_GA_EC } from '@seeds/01_users';
+import { anonContext, fakeContext } from '@test';
 import gqf from 'graphql-fields';
 import Knex from 'knex';
-import { Context } from '../apollo';
-import { ADMIN, EDITOR_GA_EC } from '../seeds/test/01_users';
-import { anonContext, fakeContext } from '../test/context';
 import db from './db';
 import {
   attachConnection,

@@ -1,7 +1,7 @@
-import { baseResolver, MutationNotAllowedError, TopLevelResolver } from '../../../apollo';
-import db from '../../../db';
-import { HarvestMode } from '../../../ww-commons';
-import { startJobs, stopJobs } from '../../jobs';
+import { baseResolver, MutationNotAllowedError, TopLevelResolver } from '@apollo';
+import db from '@db';
+import { startJobs, stopJobs } from '@features/jobs';
+import { HarvestMode } from '@ww-commons';
 import { SourceRaw } from '../types';
 
 interface Vars {

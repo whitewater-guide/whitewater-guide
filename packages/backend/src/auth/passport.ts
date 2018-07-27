@@ -1,7 +1,7 @@
+import db from '@db';
+import { UserRaw } from '@features/users';
+import log from '@log';
 import passport from 'koa-passport';
-import db from '../db';
-import { UserRaw } from '../features/users';
-import log from '../log';
 import FacebookMobileStrategy from './facebook-mobile';
 import FacebookWebStrategy from './facebook-web';
 

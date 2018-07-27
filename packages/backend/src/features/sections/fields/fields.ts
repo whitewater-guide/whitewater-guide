@@ -1,9 +1,9 @@
-import { FieldResolvers } from '../../../apollo';
-import { timestampResolvers } from '../../../db';
-import { Section } from '../../../ww-commons';
-import { buildGaugeQuery } from '../../gauges';
-import { buildRegionQuery } from '../../regions';
-import { buildRiverQuery } from '../../rivers';
+import { FieldResolvers } from '@apollo';
+import { timestampResolvers } from '@db';
+import { buildGaugeQuery } from '@features/gauges';
+import { buildRegionQuery } from '@features/regions';
+import { buildRiverQuery } from '@features/rivers';
+import { Section } from '@ww-commons';
 import checkEditorPermissions from '../checkEditorPermissions';
 import { SectionRaw } from '../types';
 import shape from './shape';

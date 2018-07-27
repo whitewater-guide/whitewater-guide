@@ -1,12 +1,11 @@
-import { MutationNotAllowedError } from '../../../apollo';
-import { holdTransaction, rollbackTransaction } from '../../../db';
-import { ADMIN, EDITOR_GA_EC, TEST_USER } from '../../../seeds/test/01_users';
-import { SOURCE_ALPS, SOURCE_GALICIA_1, SOURCE_GALICIA_2, SOURCE_NORWAY } from '../../../seeds/test/05_sources';
-import { anonContext, fakeContext } from '../../../test/context';
-import { runQuery } from '../../../test/db-helpers';
-import { startJobs, stopJobs } from '../../jobs';
+import { MutationNotAllowedError } from '@apollo';
+import { holdTransaction, rollbackTransaction } from '@db';
+import { startJobs, stopJobs } from '@features/jobs';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
+import { SOURCE_ALPS, SOURCE_GALICIA_1, SOURCE_GALICIA_2, SOURCE_NORWAY } from '@seeds/05_sources';
+import { anonContext, fakeContext, runQuery } from '@test';
 
-jest.mock('../../jobs', () => ({
+jest.mock('@features/jobs', () => ({
   startJobs: jest.fn(),
   stopJobs: jest.fn(),
 }));

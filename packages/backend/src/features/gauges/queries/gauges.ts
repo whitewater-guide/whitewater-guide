@@ -1,4 +1,4 @@
-import { baseResolver, ListQuery } from '../../../apollo';
+import { baseResolver, ListQuery } from '@apollo';
 import { buildGaugesListQuery } from '../queryBuilder';
 
 interface GaugesListQuery extends ListQuery {

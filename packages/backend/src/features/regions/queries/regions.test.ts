@@ -1,9 +1,8 @@
+import { holdTransaction, rollbackTransaction } from '@db';
+import { ADMIN, BOOM_USER_1500, EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '@seeds/01_users';
+import { NUM_REGIONS, REGION_ECUADOR, REGION_GEORGIA, REGION_NORWAY } from '@seeds/04_regions';
+import { anonContext, fakeContext, noTimestamps, runQuery } from '@test';
 import countBy from 'lodash/countBy';
-import { holdTransaction, rollbackTransaction } from '../../../db';
-import { ADMIN, BOOM_USER_1500, EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '../../../seeds/test/01_users';
-import { NUM_REGIONS, REGION_ECUADOR, REGION_GEORGIA, REGION_NORWAY } from '../../../seeds/test/04_regions';
-import { anonContext, fakeContext } from '../../../test/context';
-import { noTimestamps, runQuery } from '../../../test/db-helpers';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);

@@ -1,7 +1,7 @@
-import db from '../../db';
-import { HarvestMode } from '../../ww-commons';
-import { GaugeRaw } from '../gauges';
-import { SourceRaw } from '../sources';
+import db from '@db';
+import { GaugeRaw } from '@features/gauges';
+import { SourceRaw } from '@features/sources';
+import { HarvestMode } from '@ww-commons';
 import { createJob } from './createJob';
 import logger from './logger';
 import safeScheduleJob from './safeScheduleJob';

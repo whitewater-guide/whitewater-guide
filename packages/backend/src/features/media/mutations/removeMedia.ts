@@ -1,7 +1,7 @@
-import { baseResolver, TopLevelResolver } from '../../../apollo';
-import db from '../../../db';
-import { MEDIA, minioClient } from '../../../minio';
-import { MediaKind } from '../../../ww-commons';
+import { baseResolver, TopLevelResolver } from '@apollo';
+import db from '@db';
+import { MEDIA, minioClient } from '@minio';
+import { MediaKind } from '@ww-commons';
 import checkEditorPermissions from '../checkEditorPermissions';
 
 interface Vars {

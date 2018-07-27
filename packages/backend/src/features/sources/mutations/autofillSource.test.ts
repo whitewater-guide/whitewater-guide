@@ -1,10 +1,8 @@
-import { UnknownError } from '../../../apollo';
-import { holdTransaction, rollbackTransaction } from '../../../db';
-import { ADMIN, EDITOR_GA_EC, TEST_USER } from '../../../seeds/test/01_users';
-import { SOURCE_ALPS, SOURCE_GALICIA_1, SOURCE_RUSSIA } from '../../../seeds/test/05_sources';
-import { anonContext, fakeContext } from '../../../test/context';
-import { countRows } from '../../../test/countRows';
-import { noUnstable, runQuery } from '../../../test/db-helpers';
+import { UnknownError } from '@apollo';
+import { holdTransaction, rollbackTransaction } from '@db';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
+import { SOURCE_ALPS, SOURCE_GALICIA_1, SOURCE_RUSSIA } from '@seeds/05_sources';
+import { anonContext, countRows, fakeContext, noUnstable, runQuery } from '@test';
 import { execScript, ScriptGaugeInfo, ScriptResponse } from '../../scripts';
 import Mock = jest.Mock;
 

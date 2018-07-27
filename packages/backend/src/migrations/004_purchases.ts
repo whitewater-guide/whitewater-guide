@@ -1,5 +1,5 @@
+import { addUpdatedAtTrigger, createViews, dropViews, runSqlFile } from '@db';
 import Knex from 'knex';
-import { addUpdatedAtTrigger, createViews, dropViews, runSqlFile } from '../db';
 
 const VIEWS = ['groups', 'gauges', 'sections', 'rivers', 'regions', 'points'];
 const ALL_REGIONS_GROUP = 'f38c7006-5c4a-11e8-9c2d-fa7ae01bbebc';

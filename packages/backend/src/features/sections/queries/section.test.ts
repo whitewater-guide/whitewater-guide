@@ -1,23 +1,15 @@
-import { holdTransaction, rollbackTransaction } from '../../../db';
-import {
-  ADMIN,
-  BOOM_USER_1500,
-  EDITOR_GA_EC,
-  EDITOR_GE,
-  EDITOR_NO_EC,
-  TEST_USER,
-  TEST_USER2
-} from '../../../seeds/test/01_users';
+import { holdTransaction, rollbackTransaction } from '@db';
+import { ADMIN, BOOM_USER_1500, EDITOR_GA_EC, EDITOR_GE, EDITOR_NO_EC, TEST_USER, TEST_USER2 } from '@seeds/01_users';
 import {
   GALICIA_R1_S1,
-  GALICIA_R1_S2, GEORGIA_BZHUZHA_EXTREME,
+  GALICIA_R1_S2,
+  GEORGIA_BZHUZHA_EXTREME,
   GEORGIA_BZHUZHA_LONG,
   GEORGIA_BZHUZHA_QUALI,
   NORWAY_FINNA_GORGE,
   NORWAY_SJOA_AMOT,
-} from '../../../seeds/test/09_sections';
-import { anonContext, fakeContext } from '../../../test/context';
-import { noTimestamps, runQuery } from '../../../test/db-helpers';
+} from '@seeds/09_sections';
+import { anonContext, fakeContext, noTimestamps, runQuery } from '@test';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);

@@ -1,5 +1,5 @@
-import { buildListQuery, buildRootQuery, ListQueryBuilderOptions, QueryBuilderOptions } from '../../db';
-import { Gauge } from '../../ww-commons';
+import { buildListQuery, buildRootQuery, ListQueryBuilderOptions, QueryBuilderOptions } from '@db';
+import { Gauge } from '@ww-commons';
 
 const customFieldMap = {
   lastMeasurement: () => 'script',

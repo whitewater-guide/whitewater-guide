@@ -1,9 +1,9 @@
-import { RawTimestamped } from '../../db';
-import { Coordinate3d, NamedNode, Tag } from '../../ww-commons';
-import { GaugeRaw } from '../gauges';
-import { PointRaw } from '../points';
-import { RegionRaw } from '../regions';
-import { RiverRaw } from '../rivers';
+import { RawTimestamped } from '@db';
+import { GaugeRaw } from '@features/gauges';
+import { PointRaw } from '@features/points';
+import { RegionRaw } from '@features/regions';
+import { RiverRaw } from '@features/rivers';
+import { Coordinate3d, NamedNode, Tag } from '@ww-commons';
 
 export interface GaugeBindingRaw {
   minimum?: number;

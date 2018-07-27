@@ -1,5 +1,5 @@
-import { Context, isAuthenticatedResolver } from '../../../apollo';
-import { buildRegionQuery } from '../../regions';
+import { Context, isAuthenticatedResolver } from '@apollo';
+import { buildRegionQuery } from '@features/regions';
 
 const promoRegions = isAuthenticatedResolver.createResolver(
   async (_, vars, context: Context, info) => {

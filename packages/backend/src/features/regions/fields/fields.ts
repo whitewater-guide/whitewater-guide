@@ -1,6 +1,6 @@
-import { FieldResolvers } from '../../../apollo';
-import { timestampResolvers } from '../../../db';
-import { Region } from '../../../ww-commons';
+import { FieldResolvers } from '@apollo';
+import { timestampResolvers } from '@db';
+import { Region } from '@ww-commons';
 import checkEditorPermissions from '../checkEditorPermissions';
 import { RegionRaw } from '../types';
 

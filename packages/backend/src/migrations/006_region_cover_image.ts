@@ -1,5 +1,5 @@
+import { createViews, dropViews } from '@db';
 import Knex from 'knex';
-import { createViews, dropViews } from '../db';
 
 const VIEWS = ['rivers', 'regions'];
 /**

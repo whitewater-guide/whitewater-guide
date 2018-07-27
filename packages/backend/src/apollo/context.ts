@@ -1,8 +1,8 @@
+import { LastMeasurementLoader } from '@features/measurements/data-loader';
+import { PurchasesLoader } from '@features/purchases/data-loader';
+import { LANGUAGES } from '@ww-commons';
 import * as koa from 'koa';
 import { get } from 'lodash';
-import { LastMeasurementLoader } from '../features/measurements/data-loader';
-import { PurchasesLoader } from '../features/purchases/data-loader';
-import { LANGUAGES } from '../ww-commons';
 
 export interface ContextUser {
   id: string;

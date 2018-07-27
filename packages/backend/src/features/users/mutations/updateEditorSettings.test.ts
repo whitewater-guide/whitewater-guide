@@ -1,8 +1,7 @@
-import { holdTransaction, rollbackTransaction } from '../../../db';
-import { ADMIN, ADMIN_ID, EDITOR_GA_EC, EDITOR_GA_EC_ID } from '../../../seeds/test/01_users';
-import { anonContext, fakeContext } from '../../../test/context';
-import { runQuery } from '../../../test/runQuery';
-import { EditorSettings } from '../../../ww-commons';
+import { holdTransaction, rollbackTransaction } from '@db';
+import { ADMIN, ADMIN_ID, EDITOR_GA_EC, EDITOR_GA_EC_ID } from '@seeds/01_users';
+import { anonContext, fakeContext, runQuery } from '@test';
+import { EditorSettings } from '@ww-commons';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);

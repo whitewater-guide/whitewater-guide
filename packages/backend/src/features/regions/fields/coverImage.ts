@@ -1,5 +1,5 @@
-import { FieldResolvers } from '../../../apollo';
-import { RegionCoverImage } from '../../../ww-commons';
+import { FieldResolvers } from '@apollo';
+import { RegionCoverImage } from '@ww-commons';
 
 export const coverImageResolvers: FieldResolvers<any, RegionCoverImage> = {
   mobile: (coverImageRaw) => {

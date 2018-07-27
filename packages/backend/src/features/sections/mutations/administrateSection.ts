@@ -1,8 +1,8 @@
+import { isInputValidResolver } from '@apollo';
+import db from '@db';
+import { SectionAdminSettings, SectionAdminSettingsSchema } from '@ww-commons';
 import { GraphQLFieldResolver } from 'graphql';
 import Joi from 'joi';
-import { isInputValidResolver } from '../../../apollo';
-import db from '../../../db';
-import { SectionAdminSettings, SectionAdminSettingsSchema } from '../../../ww-commons';
 import { buildSectionQuery } from '../queryBuilder';
 
 interface Vars {

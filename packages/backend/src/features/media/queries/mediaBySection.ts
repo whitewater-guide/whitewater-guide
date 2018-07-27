@@ -1,5 +1,5 @@
+import { baseResolver } from '@apollo';
 import { QueryBuilder } from 'knex';
-import { baseResolver } from '../../../apollo';
 import { buildMediaListQuery } from '../queryBuilder';
 
 interface Variables {

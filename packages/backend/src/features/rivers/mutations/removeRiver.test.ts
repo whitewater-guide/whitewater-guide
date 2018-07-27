@@ -1,10 +1,8 @@
-import { MutationNotAllowedError } from '../../../apollo';
-import db, { holdTransaction, rollbackTransaction } from '../../../db';
-import { EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '../../../seeds/test/01_users';
-import { RIVER_GAL_1, RIVER_GAL_2 } from '../../../seeds/test/07_rivers';
-import { anonContext, fakeContext } from '../../../test/context';
-import { countRows } from '../../../test/countRows';
-import { runQuery } from '../../../test/db-helpers';
+import { MutationNotAllowedError } from '@apollo';
+import { holdTransaction, rollbackTransaction } from '@db';
+import { EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '@seeds/01_users';
+import { RIVER_GAL_1, RIVER_GAL_2 } from '@seeds/07_rivers';
+import { anonContext, countRows, fakeContext, runQuery } from '@test';
 
 let rBefore: number;
 let rtBefore: number;
@@ -66,6 +64,5 @@ describe('effects', () => {
     expect(rBefore - rAfter).toBe(1);
     expect(rtBefore - rtAfter).toBe(1);
   });
-
 
 });

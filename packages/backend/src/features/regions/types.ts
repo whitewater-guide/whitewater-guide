@@ -1,7 +1,6 @@
-import { RawTimestamped } from '../../db';
-import { Coordinate3d } from '../../ww-commons';
-import { NamedNode } from '../../ww-commons/';
-import { PointRaw } from '../points';
+import { RawTimestamped } from '@db';
+import { PointRaw } from '@features/points';
+import { Coordinate3d, NamedNode } from '@ww-commons';
 
 interface BoundsGeoJson {
   type: string;

@@ -1,5 +1,5 @@
-import { RawTimestamped } from '../../db';
-import { MediaKind, Node, UploadLink } from '../../ww-commons';
+import { RawTimestamped } from '@db';
+import { MediaKind, Node, UploadLink } from '@ww-commons';
 
 export interface MediaRaw extends Node, RawTimestamped {
   kind: MediaKind;

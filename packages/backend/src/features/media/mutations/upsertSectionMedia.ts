@@ -1,8 +1,8 @@
+import { baseResolver, isInputValidResolver, TopLevelResolver, ValidationError } from '@apollo';
+import db, { rawUpsert } from '@db';
+import { MEDIA, moveTempImage } from '@minio';
+import { MediaInput, MediaInputSchema } from '@ww-commons';
 import Joi from 'joi';
-import { baseResolver, isInputValidResolver, TopLevelResolver, ValidationError } from '../../../apollo';
-import db, { rawUpsert } from '../../../db';
-import { MEDIA, moveTempImage } from '../../../minio';
-import { MediaInput, MediaInputSchema } from '../../../ww-commons';
 import checkEditorPermissions from '../checkEditorPermissions';
 import { MediaRaw } from '../types';
 

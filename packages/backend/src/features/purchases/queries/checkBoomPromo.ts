@@ -1,5 +1,5 @@
-import { Context, isAuthenticatedResolver } from '../../../apollo';
-import db from '../../../db/db';
+import { Context, isAuthenticatedResolver } from '@apollo';
+import db from '@db';
 import { BoomPromoRaw } from '../types';
 
 interface Vars {

@@ -1,8 +1,7 @@
-import { holdTransaction, rollbackTransaction } from '../../../db';
-import { ADMIN, BOOM_USER_1500, EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '../../../seeds/test/01_users';
-import { REGION_GALICIA, REGION_GEORGIA, REGION_NORWAY } from '../../../seeds/test/04_regions';
-import { anonContext, fakeContext } from '../../../test/context';
-import { noTimestamps, runQuery } from '../../../test/db-helpers';
+import { holdTransaction, rollbackTransaction } from '@db';
+import { ADMIN, BOOM_USER_1500, EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '@seeds/01_users';
+import { REGION_GALICIA, REGION_GEORGIA, REGION_NORWAY } from '@seeds/04_regions';
+import { anonContext, fakeContext, noTimestamps, runQuery } from '@test';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
@@ -119,7 +118,11 @@ describe('data', () => {
     }
   `;
     // Norway
-    const result = await runQuery(gaugesQuery, { id: 'b968e2b2-76c5-11e7-b5a5-be2e44b06b34' }, fakeContext(EDITOR_NO_EC));
+    const result = await runQuery(
+      gaugesQuery,
+      { id: 'b968e2b2-76c5-11e7-b5a5-be2e44b06b34' },
+      fakeContext(EDITOR_NO_EC),
+    );
     expect(result.data!.region.gauges.count).toEqual(6);
     expect(result.data!.region.gauges).toMatchSnapshot();
   });

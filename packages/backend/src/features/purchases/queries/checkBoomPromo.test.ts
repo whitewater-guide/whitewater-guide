@@ -1,12 +1,11 @@
-import { holdTransaction, rollbackTransaction } from '../../../db';
-import { BOOM_USER_3500 } from '../../../seeds/test/01_users';
+import { holdTransaction, rollbackTransaction } from '@db';
+import { BOOM_USER_3500 } from '@seeds/01_users';
 import {
   BOOM_PROMO_ALL_REGIONS_ACTIVE,
   BOOM_PROMO_EU_CIS_ACTIVE,
   BOOM_PROMO_REGION_REDEEMED,
-} from '../../../seeds/test/12_boom_promos';
-import { anonContext, fakeContext } from '../../../test/context';
-import { runQuery } from '../../../test/runQuery';
+} from '@seeds/12_boom_promos';
+import { anonContext, fakeContext, runQuery } from '@test';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);

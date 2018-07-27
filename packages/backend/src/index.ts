@@ -1,8 +1,8 @@
-import db from './db';
-import { startupJobs } from './features/jobs';
-import { initIAP } from './features/purchases/init';
-import log from './log';
-import { initMinio } from './minio';
+import db from '@db';
+import { startupJobs } from '@features/jobs';
+import { initIAP } from '@features/purchases/init';
+import log from '@log';
+import { initMinio } from '@minio';
 import startServer from './server';
 
 async function startup() {

@@ -1,8 +1,7 @@
-import { holdTransaction, rollbackTransaction } from '../../../db';
-import { ADMIN, EDITOR_NO_EC, TEST_USER } from '../../../seeds/test/01_users';
-import { NORWAY_SJOA_AMOT } from '../../../seeds/test/09_sections';
-import { anonContext, fakeContext } from '../../../test/context';
-import { runQuery } from '../../../test/runQuery';
+import { holdTransaction, rollbackTransaction } from '@db';
+import { ADMIN, EDITOR_NO_EC, TEST_USER } from '@seeds/01_users';
+import { NORWAY_SJOA_AMOT } from '@seeds/09_sections';
+import { anonContext, fakeContext, runQuery } from '@test';
 
 const mutation = `
   mutation administrateSection($sectionId: ID!, $settings: SectionAdminSettings!){

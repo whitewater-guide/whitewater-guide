@@ -1,6 +1,6 @@
+import { RawTimestamped } from '@db';
+import { EditorSettings } from '@ww-commons';
 import passport from 'passport';
-import { RawTimestamped } from '../../db';
-import { EditorSettings } from '../../ww-commons';
 
 export interface UserRaw extends RawTimestamped {
   id: string;

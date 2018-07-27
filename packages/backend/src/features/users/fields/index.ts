@@ -1,6 +1,6 @@
-import { FieldResolvers } from '../../../apollo';
-import { timestampResolvers } from '../../../db';
-import { User } from '../../../ww-commons';
+import { FieldResolvers } from '@apollo';
+import { timestampResolvers } from '@db';
+import { User } from '@ww-commons';
 import { UserRaw } from '../types';
 
 const resolvers: FieldResolvers<UserRaw, User> = {

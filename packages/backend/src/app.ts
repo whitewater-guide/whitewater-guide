@@ -1,8 +1,8 @@
+import { useAuthMiddleware } from '@auth';
 import cors from '@koa/cors';
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
 import { graphqlRouter } from './apollo/router';
-import { useAuthMiddleware } from './auth';
 import getOrigin from './auth/getOrigin';
 
 const app = new Koa();

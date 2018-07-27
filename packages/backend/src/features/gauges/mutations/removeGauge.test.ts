@@ -1,13 +1,11 @@
-import db, { holdTransaction, rollbackTransaction } from '../../../db';
-import { ADMIN, EDITOR_GA_EC, TEST_USER } from '../../../seeds/test/01_users';
-import { SOURCE_GALICIA_1 } from '../../../seeds/test/05_sources';
-import { GAUGE_GAL_1_1 } from '../../../seeds/test/06_gauges';
-import { anonContext, fakeContext } from '../../../test/context';
-import { countRows } from '../../../test/countRows';
-import { runQuery } from '../../../test/db-helpers';
-import { stopJobs } from '../../jobs';
+import { holdTransaction, rollbackTransaction } from '@db';
+import { stopJobs } from '@features/jobs';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
+import { SOURCE_GALICIA_1 } from '@seeds/05_sources';
+import { GAUGE_GAL_1_1 } from '@seeds/06_gauges';
+import { anonContext, countRows, fakeContext, runQuery } from '@test';
 
-jest.mock('../../jobs', () => ({
+jest.mock('@features/jobs', () => ({
   stopJobs: jest.fn(),
 }));
 

@@ -1,8 +1,8 @@
+import db from '@db';
+import { EDITOR_GA_EC } from '@seeds/01_users';
+import { fakeContext } from '@test';
 import { GraphQLResolveInfo } from 'graphql';
 import gqf from 'graphql-fields';
-import db from '../../db';
-import { EDITOR_GA_EC } from '../../seeds/test/01_users';
-import { fakeContext } from '../../test/context';
 import { buildRiverQuery, buildRiversListQuery } from './queryBuilder';
 
 const graphqlFields: jest.Mock<any> = gqf as any;

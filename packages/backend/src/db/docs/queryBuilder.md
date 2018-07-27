@@ -4,7 +4,7 @@ Query builder is used to build deeply nested sql queries to match graphql querie
 
 # How it works
 
-![Schema](./docs/queryBuilder.jpg)
+![Schema](./queryBuilder.jpg)
 
 Consider following example graphql query:
 ```$graphql

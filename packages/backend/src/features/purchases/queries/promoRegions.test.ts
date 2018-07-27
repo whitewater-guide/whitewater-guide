@@ -1,8 +1,7 @@
-import { holdTransaction, rollbackTransaction } from '../../../db';
-import { BOOM_USER_1500, BOOM_USER_3500, EDITOR_NO_EC, TEST_USER, TEST_USER2 } from '../../../seeds/test/01_users';
-import { REGION_ECUADOR, REGION_GEORGIA, REGION_NORWAY } from '../../../seeds/test/04_regions';
-import { anonContext, fakeContext } from '../../../test/context';
-import { runQuery } from '../../../test/runQuery';
+import { holdTransaction, rollbackTransaction } from '@db';
+import { BOOM_USER_1500, BOOM_USER_3500, EDITOR_NO_EC, TEST_USER, TEST_USER2 } from '@seeds/01_users';
+import { REGION_ECUADOR, REGION_GEORGIA, REGION_NORWAY } from '@seeds/04_regions';
+import { anonContext, fakeContext, runQuery } from '@test';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);

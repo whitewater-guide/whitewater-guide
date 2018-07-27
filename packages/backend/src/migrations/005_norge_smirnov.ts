@@ -1,7 +1,7 @@
+import { rawUpsert } from '@db';
+import { KMLSection, parseKML } from '@utils';
 import Knex from 'knex';
 import groupBy from 'lodash/groupBy';
-import { rawUpsert } from '../db';
-import { KMLSection, parseKML } from '../utils';
 
 /**
  * This loads norway map by Evgeny Smirnov

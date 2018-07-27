@@ -1,6 +1,6 @@
-import { baseResolver, MutationNotAllowedError, TopLevelResolver, UnknownError } from '../../../apollo';
-import db, { rawUpsert } from '../../../db';
-import { GaugeInput, PointInput } from '../../../ww-commons';
+import { baseResolver, MutationNotAllowedError, TopLevelResolver, UnknownError } from '@apollo';
+import db, { rawUpsert } from '@db';
+import { GaugeInput, PointInput } from '@ww-commons';
 import { execScript, ScriptCommand, ScriptGaugeInfo } from '../../scripts';
 import { SourceRaw } from '../types';
 

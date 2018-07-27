@@ -1,7 +1,7 @@
+import { baseResolver, ValidationError } from '@apollo';
+import db from '@db';
 import { QueryBuilder } from 'knex';
 import { clamp } from 'lodash';
-import { baseResolver, ValidationError } from '../../../apollo';
-import db from '../../../db/db';
 
 export interface Variables {
   gaugeId?: string;

@@ -1,4 +1,4 @@
-import { baseResolver, ListQuery } from '../../../apollo';
+import { baseResolver, ListQuery } from '@apollo';
 import { buildSourcesListQuery } from '../queryBuilder';
 
 const sources = baseResolver.createResolver(

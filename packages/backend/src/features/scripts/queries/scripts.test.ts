@@ -1,8 +1,7 @@
-import { holdTransaction, rollbackTransaction } from '../../../db';
-import { ADMIN, EDITOR_GA_EC, TEST_USER } from '../../../seeds/test/01_users';
-import { anonContext, fakeContext } from '../../../test/context';
-import { runQuery } from '../../../test/db-helpers';
-import { HarvestMode } from '../../../ww-commons/features/sources';
+import { holdTransaction, rollbackTransaction } from '@db';
+import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
+import { anonContext, fakeContext, runQuery } from '@test';
+import { HarvestMode } from '@ww-commons';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
