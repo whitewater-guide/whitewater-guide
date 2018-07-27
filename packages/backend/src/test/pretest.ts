@@ -1,3 +1,6 @@
+// @ts-ignore
+require('module-alias/register');
+
 import { reseedDb } from './db-helpers';
 
 reseedDb()

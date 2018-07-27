@@ -18,3 +18,11 @@
 | GOOGLE_IAB_PUBLICKEY_SANDBOX | <pubkey>                                           | See https://github.com/voltrue2/in-app-purchase |
 | GOOGLE_IAB_PUBLICKEY_LIVE    | <pubkey>                                           | See https://github.com/voltrue2/in-app-purchase |
 | IAP_DEBUG                    | false                                              | Controls `verbose` and `test` config options for https://github.com/voltrue2/in-app-purchase |
+
+# Module aliases
+
+To use module alias like `@features/regions` it should be added to 4 places:
+- `paths` in `tsconfig.json`
+- `no-implicit-dependencies` rule of `tslint.json`
+- `moduleNameMapper` in jest settings in `package.json`
+- `_moduleAliases` in `package.json` (so that compiled js can use aliases)

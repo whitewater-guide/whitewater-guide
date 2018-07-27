@@ -1,3 +1,6 @@
+// @ts-ignore
+require('module-alias/register');
+
 import db from '@db';
 import { startupJobs } from '@features/jobs';
 import { initIAP } from '@features/purchases/init';
