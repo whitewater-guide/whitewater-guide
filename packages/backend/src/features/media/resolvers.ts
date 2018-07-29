@@ -5,7 +5,7 @@ import Query from './queries';
 
 export const mediaResolvers = {
   Media,
-  MediasList: listResolvers,
+  MediaList: listResolvers,
   Query,
   Mutation,
 };

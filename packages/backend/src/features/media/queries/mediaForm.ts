@@ -1,19 +1,17 @@
 import { baseResolver, Context, MutationNotAllowedError } from '@apollo';
 import { getTempPostPolicy } from '@minio';
-import checkEditorPermissions from '../checkEditorPermissions';
 import { MediaUploadForm } from '../types';
-import { checkMediaId } from './checkMediaId';
 
 interface Vars {
   id?: string;
 }
 
-const mediaForm = async (root: any, { id: mediaId }: Vars, { user }: Context): Promise<MediaUploadForm> => {
-  const { found, id } = await checkMediaId(mediaId);
+const mediaForm = async (root: any, { id: mediaId }: Vars, { user, models }: Context): Promise<MediaUploadForm> => {
+  const { found, id } = await models.media.checkMediaId(mediaId);
   if (!found && mediaId) {
     throw new MutationNotAllowedError({ message: 'This media does not exist' });
   }
-  await checkEditorPermissions(user, mediaId);
+  await models.media.assertEditorPermissions(mediaId);
   const { postURL, formData } = await getTempPostPolicy(id);
   return {
     id,

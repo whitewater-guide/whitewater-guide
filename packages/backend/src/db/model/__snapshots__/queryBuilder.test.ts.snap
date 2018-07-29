@@ -2,18 +2,12 @@
 
 exports[`buildConnectionQuery count and nodes queries should build correct query 1`] = `
 select
-    id,
-    language,
     first_name,
     last_name,
     count(*)
     OVER ()
 from
     test_table
-order by
-    name asc,
-    created_at desc,
-    id asc
 
 `;
 
@@ -27,8 +21,6 @@ from
 
 exports[`buildQuery should build basic query 1`] = `
 select
-    id,
-    language,
     name,
     age
 from

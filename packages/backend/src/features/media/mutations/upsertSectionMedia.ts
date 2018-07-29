@@ -3,7 +3,6 @@ import db, { rawUpsert } from '@db';
 import { MEDIA, moveTempImage } from '@minio';
 import { MediaInput, MediaInputSchema } from '@ww-commons';
 import Joi from 'joi';
-import checkEditorPermissions from '../checkEditorPermissions';
 import { MediaRaw } from '../types';
 
 interface Vars {
@@ -18,8 +17,8 @@ const Schema = Joi.object().keys({
 
 const resolver: TopLevelResolver<Vars> = async (root, vars: Vars, context) => {
   const { sectionId } = vars;
-  const { language, user } = context;
-  await checkEditorPermissions(user, undefined, sectionId);
+  const { language, user, models } = context;
+  await models.media.assertEditorPermissions(undefined, sectionId);
   const media = { ...vars.media, createdBy: user ? user.id : null };
   try {
     const result: MediaRaw = await rawUpsert(

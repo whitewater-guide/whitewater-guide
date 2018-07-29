@@ -67,18 +67,6 @@ describe('buildQuery', () => {
     expect(query.toString()).toContain('last_name');
   });
 
-  it('should include id and language by default', () => {
-    const query = buildQuery<any, any>(
-      TABLE,
-      {
-        fields: new Set(['name']),
-      },
-    );
-    expect(query.toString()).toContain('id');
-    expect(query.toString()).toContain('language');
-    expect(query.toString()).toContain('name');
-  });
-
   it('should add arbitrary sql fields', () => {
     const query = buildQuery<any, any>(
       TABLE,
@@ -184,21 +172,7 @@ describe('buildManyQuery', () => {
     expect(query.toString()).toContain(`count(*)`);
   });
 
-  it('apply default sort', () => {
-    const query = buildManyQuery(
-      TABLE,
-      {
-        fields: new Set(['name', 'age']),
-      },
-      {},
-    );
-    expect(query.toString()).toContain(`order by`);
-    expect(query.toString()).toContain(`"name" asc`);
-    expect(query.toString()).toContain(`"created_at" desc`);
-    expect(query.toString()).toContain(`"id" asc`);
-  });
-
-  it('apply custom sort', () => {
+  it('apply sort', () => {
     const query = buildManyQuery(
       TABLE,
       {

@@ -36,7 +36,7 @@ input MediaInput {
   weight: Int
 }
 
-type MediasList {
+type MediaList {
   nodes: [Media]!
   count: Int!
 }
@@ -47,7 +47,7 @@ type MediaUploadForm {
 }
 
 type Query {
-  mediaBySection(sectionId: ID!): MediasList!
+  mediaBySection(sectionId: ID!): MediaList!
   media(id: ID): Media
   mediaForm(id: ID): MediaUploadForm
 }

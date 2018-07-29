@@ -2,7 +2,7 @@ import { ContextUser } from '@apollo';
 import DataLoader from 'dataloader';
 import { GraphQLResolveInfo } from 'graphql';
 import { buildBatchQuery, buildConnectionQuery } from './queryBuilder';
-import { FieldsMap, ManyBuilderOptions } from './types';
+import { FieldsMap, ManyBuilderOptions, OrderBy } from './types';
 
 export class BaseModel<TGraphql, TSql extends { id: string }> {
   protected readonly _loader: DataLoader<string, TSql | null>;
@@ -14,6 +14,12 @@ export class BaseModel<TGraphql, TSql extends { id: string }> {
   protected _tableName!: string;
   protected _graphqlTypeName!: string;
   protected _fieldsMap!: FieldsMap<TGraphql, TSql>;
+  protected _sqlFields: Array<keyof TSql> = ['id'];
+  protected _orderBy: OrderBy[] = [
+    { column: 'name', direction: 'asc' },
+    { column: 'created_at', direction: 'desc' },
+    { column: 'id', direction: 'asc' },
+  ];
 
   constructor(user: ContextUser | undefined, language: string, fieldsByType: Map<string, Set<string>>) {
     this._user = user;
@@ -30,6 +36,7 @@ export class BaseModel<TGraphql, TSql extends { id: string }> {
         fields: graphqlFields,
         fieldsMap: this._fieldsMap,
         language: this._language,
+        sqlFields: this._sqlFields,
       },
       keys,
     );
@@ -48,7 +55,10 @@ export class BaseModel<TGraphql, TSql extends { id: string }> {
         fieldsMap: this._fieldsMap,
         language: this._language,
       },
-      options,
+      {
+        ...options,
+        orderBy: options.orderBy || this._orderBy,
+      },
       info,
     );
 

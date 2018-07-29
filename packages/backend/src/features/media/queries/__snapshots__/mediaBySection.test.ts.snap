@@ -7,6 +7,18 @@ Object {
       "count": 4,
       "nodes": Array [
         Object {
+          "copyright": "Photo 1 copyright",
+          "description": "Photo 1 description",
+          "id": "a32664ca-1ee5-11e8-b467-0ed5f89f718b",
+          "kind": "photo",
+          "resolution": Array [
+            800,
+            600,
+          ],
+          "url": "a32664ca-1ee5-11e8-b467-0ed5f89f718b",
+          "weight": 1,
+        },
+        Object {
           "copyright": "Blog copyright",
           "description": "Blog description",
           "id": "a326622c-1ee5-11e8-b467-0ed5f89f718b",
@@ -38,18 +50,6 @@ Object {
           ],
           "url": "http://some.video",
           "weight": 0,
-        },
-        Object {
-          "copyright": "Photo 1 copyright",
-          "description": "Photo 1 description",
-          "id": "a32664ca-1ee5-11e8-b467-0ed5f89f718b",
-          "kind": "photo",
-          "resolution": Array [
-            800,
-            600,
-          ],
-          "url": "a32664ca-1ee5-11e8-b467-0ed5f89f718b",
-          "weight": 1,
         },
       ],
     },
