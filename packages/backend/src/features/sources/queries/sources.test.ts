@@ -60,19 +60,43 @@ describe('permissions', () => {
 
 });
 
-it('should list sources', async () => {
-  const result = await runQuery(query, undefined, fakeContext(ADMIN));
-  expect(result.errors).toBeUndefined();
-  expect(result.data!.sources.count).toBe(6);
-  expect(result.data!.sources.nodes[0].id).toBeDefined();
-  const snapshot = result.data!.sources.nodes.map(noTimestamps);
-  expect(snapshot).toMatchSnapshot();
+describe('data', () => {
+  it('should list sources', async () => {
+    const result = await runQuery(query, undefined, fakeContext(ADMIN));
+    expect(result.errors).toBeUndefined();
+    expect(result.data!.sources.count).toBe(6);
+    expect(result.data!.sources.nodes[0].id).toBeDefined();
+    const snapshot = result.data!.sources.nodes.map(noTimestamps);
+    expect(snapshot).toMatchSnapshot();
+  });
+
+  it('should be able to specify language', async () => {
+    const result = await runQuery(query, { }, fakeContext(ADMIN, 'ru'));
+    expect(result.errors).toBeUndefined();
+    expect(result.data!.sources.count).toBe(6);
+    const names = result.data!.sources.nodes.map((node: any) => node.name);
+    expect(names).toEqual(expect.arrayContaining(['Галисия', 'Georgia']));
+  });
 });
 
-it('should be able to specify language', async () => {
-  const result = await runQuery(query, { }, fakeContext(ADMIN, 'ru'));
-  expect(result.errors).toBeUndefined();
-  expect(result.data!.sources.count).toBe(6);
-  const names = result.data!.sources.nodes.map((node: any) => node.name);
-  expect(names).toEqual(expect.arrayContaining(['Галисия', 'Georgia']));
+describe('connections', () => {
+  it('should count gauges', async () => {
+    const gaugesQuery = `
+      query listSources {
+        sources {
+          nodes {
+            id
+            name
+            gauges {
+              count
+            }
+          }
+          count
+        }
+      }
+    `;
+    const result = await runQuery(gaugesQuery, undefined, fakeContext(ADMIN));
+    expect(result.errors).toBeUndefined();
+    expect(result.data).toMatchSnapshot();
+  });
 });
