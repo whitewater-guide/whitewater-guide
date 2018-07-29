@@ -20,10 +20,11 @@ export class Groups extends BaseModel<Group, GroupRaw> {
     this._tableName = 'groups_view';
     this._graphqlTypeName = 'Group';
     this._fieldsMap = FIELDS_MAP;
+    this._orderBy = [{ column: 'name' }];
   }
 
   getMany(info: GraphQLResolveInfo, { regionId, ...options }: GetManyOptions) {
-    const query = super.getMany(info, { ...options, orderBy: [{ column: 'name' }] });
+    const query = super.getMany(info, options);
     if (regionId) {
       query.whereExists(function(this: QueryBuilder) {
         this.select('*').from('regions_groups')

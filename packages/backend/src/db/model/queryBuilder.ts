@@ -11,7 +11,7 @@ export function buildQuery<TGraphql, TSql>(tableName: string, options: BuilderOp
   const {
     fields,
     fieldsMap = {},
-    sqlFields = ['id', 'language'] as any,
+    sqlFields = [],
     language,
   } = options;
 
@@ -83,12 +83,9 @@ export function buildManyQuery<TGraphql, TSql>(
   }
 
   // Sort
-  const orders = orderBy || [
-    { column: 'name', direction: 'asc' },
-    { column: 'created_at', direction: 'desc' },
-    { column: 'id', direction: 'asc' },
-  ];
-  orders.forEach(({ column, direction }) => query.orderBy(column, direction));
+  if (orderBy) {
+    orderBy.forEach(({ column, direction }) => query.orderBy(column, direction));
+  }
 
   return query;
 }

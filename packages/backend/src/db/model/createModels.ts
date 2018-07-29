@@ -5,9 +5,11 @@ export function createModels(user: ContextUser | undefined, language: string, fi
   const { Gauges } = require('@features/gauges');
   const { Groups } = require('@features/groups');
   const { Sources } = require('@features/sources');
+  const { MediaConnector } = require('@features/media');
   return {
     gauges: new Gauges(user, language, fieldsByType),
     groups: new Groups(user, language, fieldsByType),
+    media: new MediaConnector(user, language, fieldsByType),
     sources: new Sources(user, language, fieldsByType),
   };
 }

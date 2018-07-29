@@ -1,21 +1,10 @@
-import { baseResolver } from '@apollo';
-import { QueryBuilder } from 'knex';
-import { buildMediaListQuery } from '../queryBuilder';
+import { TopLevelResolver } from '@apollo';
 
-interface Variables {
+interface Vars {
   sectionId: string;
 }
 
-const mediaBySection = baseResolver.createResolver(
-  (root, { sectionId, ...args }: Variables, context, info) => {
-    let query = buildMediaListQuery({ info, context, ...args });
-    query = query.whereExists(function(this: QueryBuilder) {
-      this.select('*').from('sections_media')
-        .where({ section_id: sectionId })
-        .whereRaw('media_view.id = sections_media.media_id');
-    });
-    return query;
-  },
-);
+const mediaBySection: TopLevelResolver<Vars> = (_, { sectionId }, { models }, info) =>
+  models.media.getMany(info, { sectionId });
 
 export default mediaBySection;
