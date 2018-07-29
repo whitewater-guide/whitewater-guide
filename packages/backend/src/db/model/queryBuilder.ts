@@ -1,6 +1,5 @@
 import { Page } from '@apollo';
 import db from '@db';
-import { Connection } from '@ww-commons';
 import DataLoader from 'dataloader';
 import { GraphQLResolveInfo } from 'graphql';
 import gqf from 'graphql-fields';
@@ -10,9 +9,8 @@ import { Omit } from 'type-zoo';
 import { FieldsMap } from './types';
 
 export interface BuilderOptions<TGraphql, TSql> {
-  knex?: Knex;
   fields: Set<keyof TGraphql>;
-  fieldsMap: FieldsMap<TGraphql, TSql>;
+  fieldsMap?: FieldsMap<TGraphql, TSql>;
   sqlFields?: Array<keyof TSql>;
   language?: string;
 }
@@ -34,23 +32,19 @@ export interface ManyBuilderOption<TSql> {
 
 export function buildQuery<TGraphql, TSql>(tableName: string, options: BuilderOptions<TGraphql, TSql>) {
   const {
-    knex = db(),
     fields,
-    fieldsMap,
+    fieldsMap = {},
     sqlFields = ['id', 'language'] as any,
     language,
   } = options;
 
   const sqlFieldsSet: Set<keyof TSql> = new Set<keyof TSql>(sqlFields);
   for (const graphqlField of fields.values()) {
-    if (typeof graphqlField !== 'string') {
-      continue;
-    }
     const mapped = fieldsMap[graphqlField];
     if (mapped === null) {
       continue;
     } else if (!mapped) {
-      sqlFieldsSet.add(snakeCase(graphqlField) as any);
+      sqlFieldsSet.add(snakeCase(graphqlField as any) as any);
     } else if (Array.isArray(mapped)) {
       mapped.forEach(f => sqlFieldsSet.add(f as any));
     } else {
@@ -58,7 +52,7 @@ export function buildQuery<TGraphql, TSql>(tableName: string, options: BuilderOp
     }
   }
 
-  const query = knex.table(tableName)
+  const query = db().table(tableName)
     .select(Array.from(sqlFieldsSet) as any);
 
   if (language) {
@@ -92,7 +86,6 @@ export function buildManyQuery<TGraphql, TSql>(
   { page, count, orderBy, where }: ManyBuilderOption<TSql>,
 ) {
   const query = buildQuery(tableName, options);
-  const { knex = db() } = options;
 
   // Filtering
   if (where) {
@@ -109,7 +102,7 @@ export function buildManyQuery<TGraphql, TSql>(
 
   // Count
   if (count) {
-    query.select(knex.raw(`count(*) OVER()`));
+    query.select(db().raw(`count(*) OVER()`));
   }
 
   // Sort
@@ -128,12 +121,11 @@ export function buildConnectionQuery<TGraphql, TSql>(
   options: Omit<BuilderOptions<TGraphql, TSql>, 'fields'>,
   manyOptions: ManyBuilderOption<TSql>,
   info: GraphQLResolveInfo,
-): Promise<Connection<TSql>> {
+) {
   const { nodes, count } = gqf(info);
 
   if (!nodes) {
-    const knexInstance = options.knex || db();
-    const query = knexInstance.count().from(tableName);
+    const query = db().count().from(tableName);
     if (options.language) {
       query.where('language', options.language);
     }
@@ -141,23 +133,13 @@ export function buildConnectionQuery<TGraphql, TSql>(
       query.where(manyOptions.where);
     }
 
-    return query.then((values: any) => {
-      const cnt: number = (values && values.length) ? values[0].count : 0;
-      return { count: Number(cnt), nodes: [] as TSql[] };
-    }) as any;
-  } else {
-    const query = buildManyQuery(
-      tableName,
-      { ...options, fields: new Set(Object.keys(nodes)) as any },
-      { ...manyOptions, count: !!count },
-    );
-    return query.then((values: any) => {
-      return {
-        nodes: values,
-        count: (values && values.length) ? Number(values[0].count) : 0,
-      };
-    }) as any;
+    return query;
   }
+  return buildManyQuery(
+    tableName,
+    { ...options, fields: new Set(Object.keys(nodes)) as any },
+    { ...manyOptions, count: !!count },
+  );
 }
 
 export function maybePrimeCache<V extends { id: string }>(

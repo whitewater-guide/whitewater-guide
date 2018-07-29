@@ -6,3 +6,4 @@ src/**/*.js.map
 src/**/dump.sql
 .env.*
 !.env.*.secret
+/coverage/
