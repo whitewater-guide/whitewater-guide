@@ -20,16 +20,17 @@ type Source {
   url: String
   # Is harvesting ON?
   enabled: Boolean
-  # Regions
-  regions: SourceRegionConnection!
-  # Gauges
-  gauges: SourceGaugeConnection!
   # Creation date
   createdAt: Date
   # Last modificatio date
   updatedAt: Date
+
   # Last harvest operation status
   status: HarvestStatus
+  # Regions
+  regions: SourceRegionConnection!
+  # Gauges
+  gauges(page: Page): SourceGaugeConnection!
 }
 
 type SourceRegionConnection {
