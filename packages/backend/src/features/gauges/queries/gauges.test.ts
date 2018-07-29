@@ -1,4 +1,4 @@
-import { holdTransaction, rollbackTransaction } from '@db';
+import db, { holdTransaction, rollbackTransaction } from '@db';
 import { ADMIN, EDITOR_NO_EC, TEST_USER } from '@seeds/01_users';
 import { SOURCE_NORWAY } from '@seeds/05_sources';
 import { anonContext, fakeContext, noTimestamps, runQuery } from '@test';
@@ -7,8 +7,8 @@ beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
 const query = `
-query listGauges($sourceId: ID) {
-  gauges(sourceId: $sourceId) {
+query listGauges($sourceId: ID, $page: Page) {
+  gauges(sourceId: $sourceId, page: $page) {
     nodes {
       id
       name
@@ -93,7 +93,22 @@ it('should fall back to english', async () => {
 it('should be able to specify source id', async () => {
   const result = await runQuery(query, { sourceId: SOURCE_NORWAY }, fakeContext(ADMIN));
   expect(result.errors).toBeUndefined();
-  expect(result.data!.gauges).toBeDefined();
   expect(result.data!.gauges.count).toBe(4);
   expect(result.data!.gauges.nodes[0].code).toBe('nor1');
+});
+
+it('should paginate', async () => {
+  const result = await runQuery(query, { sourceId: SOURCE_NORWAY, page: { limit: 1, offset: 1 } }, fakeContext(ADMIN));
+  expect(result.errors).toBeUndefined();
+  expect(result.data!.gauges.count).toBe(4);
+  expect(result.data!.gauges.nodes).toHaveLength(1);
+  expect(result.data!.gauges.nodes[0].code).toBe('nor2');
+});
+
+it('should fire two queries', async () => {
+  const queryMock = jest.fn();
+  db().on('query', queryMock);
+  await runQuery(query, { sourceId: SOURCE_NORWAY }, fakeContext(ADMIN));
+  db().removeListener('query', queryMock);
+  expect(queryMock).toHaveBeenCalledTimes(2);
 });

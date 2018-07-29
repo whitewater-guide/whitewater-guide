@@ -1,5 +1,4 @@
 import { GraphQLSchema } from 'graphql';
-import gqf from 'graphql-fields';
 import { addSchemaLevelResolveFunction, makeExecutableSchema } from 'graphql-tools';
 import { visitSchema } from 'graphql-tools/dist/schemaVisitor';
 import { fileLoader, mergeTypes } from 'merge-graphql-schemas';
@@ -29,8 +28,7 @@ async function loadSchema() {
     },
   });
   addSchemaLevelResolveFunction(result, ((source, args, context, info) => {
-    const fbt = fieldsByType(info);
-    console.log(fbt);
+    fieldsByType(info, context.fieldsByType);
   }));
   logger.info('Initialized GRAPHQL schema');
   return result;

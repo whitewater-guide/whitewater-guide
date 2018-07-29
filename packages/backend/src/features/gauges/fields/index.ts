@@ -11,6 +11,7 @@ const resolvers: FieldResolvers<GaugeRaw, Gauge> = {
   lastMeasurement,
   status,
   requestParams: gauge => gauge.request_params,
+  source: ({ source_id }, _, { models }) => models.sources.getById(source_id),
   ...timestampResolvers,
 };
 

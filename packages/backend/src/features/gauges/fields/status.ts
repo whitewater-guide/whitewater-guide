@@ -4,8 +4,11 @@ import { HarvestMode } from '@ww-commons';
 import { GraphQLFieldResolver } from 'graphql';
 import { GaugeRaw } from '../types';
 
-const statusResolver: GraphQLFieldResolver<GaugeRaw, Context> = async ({ source, code }) => {
-  // TODO: extract redis cache api, use data loaders (this is admin part and not critical)
+const statusResolver: GraphQLFieldResolver<GaugeRaw, Context> = async ({ source_id, code }, _, { models }) => {
+  const source = await models.sources.getById(source_id);
+  if (!source) {
+    return null;
+  }
   if (source.harvest_mode === HarvestMode.ALL_AT_ONCE) {
     return null;
   }

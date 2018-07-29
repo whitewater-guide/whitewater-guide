@@ -10,6 +10,7 @@
       "@apollo": ["src/apollo"],
       "@auth": ["src/auth"],
       "@db": ["src/db"],
+      "@db/*": ["src/db/*"],
       "@features": ["src/features"],
       "@features/*": ["src/features/*"],
       "@log": ["src/log"],

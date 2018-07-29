@@ -18,4 +18,8 @@ export interface NodeQuery {
   id?: string;
 }
 
-export type TopLevelResolver<Vars> = GraphQLFieldResolver<any, Context, Vars>;
+export interface WithLanguage {
+  language: string;
+}
+
+export type TopLevelResolver<Vars = {}> = GraphQLFieldResolver<any, Context, Vars>;

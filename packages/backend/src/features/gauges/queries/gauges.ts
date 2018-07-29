@@ -1,18 +1,12 @@
-import { baseResolver, ListQuery } from '@apollo';
-import { buildGaugesListQuery } from '../queryBuilder';
+import { ListQuery, TopLevelResolver } from '@apollo';
 
-interface GaugesListQuery extends ListQuery {
+interface Vars extends ListQuery {
   sourceId?: string;
 }
 
-const gauges = baseResolver.createResolver(
-  (root, { sourceId, ...args }: GaugesListQuery, context, info) => {
-    const query = buildGaugesListQuery({ info, context, ...args });
-    if (sourceId) {
-      query.where('gauges_view.source_id', sourceId);
-    }
-    return query;
-  },
-);
+const gauges: TopLevelResolver<Vars> = (_, { sourceId, page }, { models }, info) => {
+  const where = sourceId ? { source_id: sourceId } : undefined;
+  return models.gauges.getMany(info, { where, page });
+};
 
 export default gauges;
