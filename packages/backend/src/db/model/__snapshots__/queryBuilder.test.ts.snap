@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`buildConnectionQuery count and nodes queries should build correct query 1`] = `
+select
+    id,
+    language,
+    first_name,
+    last_name,
+    count(*)
+    OVER ()
+from
+    test_table
+order by
+    name asc,
+    created_at desc,
+    id asc
+
+`;
+
+exports[`buildConnectionQuery count-only queries should build correct query 1`] = `
+select
+    count(*)
+from
+    test_table
+
+`;
+
+exports[`buildQuery should build basic query 1`] = `
+select
+    id,
+    language,
+    name,
+    age
+from
+    test_table
+
+`;
