@@ -10,7 +10,7 @@
     "test": "npm_scripts/test.sh",
     "dev:dump": "npm_scripts/dev-dump.sh",
     "dev:restore": "npm_scripts/dev-restore.sh",
-    "madge": "madge --circular src/index.js"
+    "madge": "madge --circular --basedir ./src --webpackConfig madge.js src/index.js"
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
@@ -51,6 +51,7 @@
     "tslint": "^5.11.0",
     "tslint-eslint-rules": "^5.2.0",
     "tslint-react": "^3.6.0",
+    "type-zoo": "^3.1.0",
     "typescript": "3.0.0-rc",
     "wkx": "^0.4.4"
   },
@@ -115,7 +116,7 @@
     "moduleNameMapper": {
       "^@apollo$": "<rootDir>/src/apollo",
       "^@auth$": "<rootDir>/src/auth",
-      "^@db$": "<rootDir>/src/db",
+      "^@db(.*)$": "<rootDir>/src/db$1",
       "^@features/(.*)$": "<rootDir>/src/features/$1",
       "^@log$": "<rootDir>/src/log",
       "^@minio$": "<rootDir>/src/minio",

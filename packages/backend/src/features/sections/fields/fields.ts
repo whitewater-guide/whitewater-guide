@@ -1,6 +1,5 @@
 import { FieldResolvers } from '@apollo';
 import { timestampResolvers } from '@db';
-import { buildGaugeQuery } from '@features/gauges';
 import { buildRegionQuery } from '@features/regions';
 import { buildRiverQuery } from '@features/rivers';
 import { Section } from '@ww-commons';
@@ -62,13 +61,6 @@ export const sectionFieldResolvers: FieldResolvers<SectionRaw, Section> = {
     }
     return buildRiverQuery({ id: river_id, info, context }).first();
   },
-  gauge: ({ gauge, gauge_id }, _, context, info) => {
-    if (gauge) {
-      return gauge;
-    } else if (gauge_id) {
-      return buildGaugeQuery({ id: gauge_id, info, context }).first();
-    }
-    return null;
-  },
+  gauge: ({ gauge_id }, _, { models }) => models.gauges.getById(gauge_id),
   ...timestampResolvers,
 };

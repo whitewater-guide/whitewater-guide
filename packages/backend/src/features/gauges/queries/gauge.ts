@@ -1,14 +1,6 @@
-import { baseResolver, Context, NodeQuery } from '@apollo';
-import { GraphQLResolveInfo } from 'graphql';
-import { buildGaugeQuery } from '../queryBuilder';
+import { NodeQuery, TopLevelResolver } from '@apollo';
 
-const gauge = baseResolver.createResolver(
-  (root, args: NodeQuery, context: Context, info: GraphQLResolveInfo) => {
-    if (!args.id) {
-      return null;
-    }
-    return buildGaugeQuery({ info, context, ...args }).first();
-  },
-);
+const gauge: TopLevelResolver<NodeQuery> = (_, { id }, { models }) =>
+  models.gauges.getById(id);
 
 export default gauge;

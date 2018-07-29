@@ -1,5 +1,4 @@
 import { RawTimestamped } from '@db';
-import { GaugeRaw } from '@features/gauges';
 import { PointRaw } from '@features/points';
 import { RegionRaw } from '@features/regions';
 import { RiverRaw } from '@features/rivers';
@@ -24,7 +23,6 @@ export interface SectionRaw extends NamedNode, RawTimestamped {
   river_id: string;
   river?: RiverRaw;
   gauge_id: string | null;
-  gauge?: GaugeRaw;
   region_id: string;
   region?: RegionRaw;
 

@@ -5566,6 +5566,10 @@ type-is@^1.6.16:
     media-typer "0.3.0"
     mime-types "~2.1.18"
 
+type-zoo@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/type-zoo/-/type-zoo-3.1.0.tgz#984cf7b60235129aebfd7207b79a0afd02f5c841"
+
 typedarray@^0.0.6, typedarray@~0.0.5:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
