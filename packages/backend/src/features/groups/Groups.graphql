@@ -14,6 +14,11 @@ type GroupRegionConnection {
   count: Int!
 }
 
+type GroupsList {
+  nodes: [Group]!
+  count: Int!
+}
+
 input GroupInput {
   id: String
   name: String!
@@ -21,7 +26,7 @@ input GroupInput {
 }
 
 type Query {
-  groups(regionId: ID): [Group!] @admin
+  groups(regionId: ID): GroupsList @admin
 }
 
 type Mutation {

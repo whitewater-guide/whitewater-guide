@@ -9,16 +9,19 @@ afterEach(rollbackTransaction);
 const query = `
 query listGroups($regionId: ID) {
   groups(regionId: $regionId) {
-    id
-    name
-    sku
-    regions {
-      nodes {
-        id
-        name
+    nodes {
+      id
+      name
+      sku
+      regions {
+        nodes {
+          id
+          name
+        }
+        count
       }
-      count
     }
+    count
   }
 }
 `;
@@ -48,31 +51,33 @@ describe('data', () => {
   it('should return groups', async () => {
     const result = await runQuery(query, {}, fakeContext(ADMIN));
     expect(result.errors).toBeUndefined();
-    expect(result.data!.groups).toHaveLength(5);
+    expect(result.data!.groups.nodes).toHaveLength(5);
+    expect(result.data!.groups.count).toBe(5);
     expect(result.data!.groups).toMatchSnapshot();
   });
 
   it('should filter by region', async () => {
     const result = await runQuery(query, { regionId: REGION_GALICIA }, fakeContext(ADMIN));
     expect(result.errors).toBeUndefined();
-    expect(result.data!.groups).toHaveLength(3);
+    expect(result.data!.groups.nodes).toHaveLength(3);
+    expect(result.data!.groups.count).toBe(3);
   });
 
   it('should be able to specify language', async () => {
     const result = await runQuery(query, {}, fakeContext(ADMIN, 'ru'));
     expect(result.errors).toBeUndefined();
-    expect(result.data!.groups).toHaveLength(5);
-    expect(result.data!.groups.map((g: any) => g.name)).toContainEqual(
-      'Европа и СНГ',
+    expect(result.data!.groups.nodes).toHaveLength(5);
+    expect(result.data!.groups.nodes).toContainEqual(
+      expect.objectContaining({ name: 'Европа и СНГ' }),
     );
   });
 
   it('should fall back to english when not translated', async () => {
     const result = await runQuery(query, {}, fakeContext(ADMIN, 'ru'));
     expect(result.errors).toBeUndefined();
-    expect(result.data!.groups).toHaveLength(5);
-    expect(result.data!.groups.map((g: any) => g.name)).toContainEqual(
-      'Latin America',
+    expect(result.data!.groups.nodes).toHaveLength(5);
+    expect(result.data!.groups.nodes).toContainEqual(
+      expect.objectContaining({ name: 'Latin America' }),
     );
   });
 });

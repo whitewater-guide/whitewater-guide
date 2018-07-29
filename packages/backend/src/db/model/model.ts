@@ -1,8 +1,8 @@
 import { ContextUser } from '@apollo';
 import DataLoader from 'dataloader';
 import { GraphQLResolveInfo } from 'graphql';
-import { buildBatchQuery, buildConnectionQuery, ManyBuilderOption } from './queryBuilder';
-import { FieldsMap } from './types';
+import { buildBatchQuery, buildConnectionQuery } from './queryBuilder';
+import { FieldsMap, ManyBuilderOptions } from './types';
 
 export class BaseModel<TGraphql, TSql extends { id: string }> {
   protected readonly _loader: DataLoader<string, TSql | null>;
@@ -19,10 +19,10 @@ export class BaseModel<TGraphql, TSql extends { id: string }> {
     this._user = user;
     this._language = language;
     this._fieldsByType = fieldsByType;
-    this._loader = new DataLoader<string, TSql | null>(this.getBatch);
+    this._loader = new DataLoader<string, TSql | null>(this.getBatch.bind(this));
   }
 
-  protected getBatch = async (keys: string[]): Promise<Array<TSql | null>> => {
+  protected async getBatch(keys: string[]): Promise<Array<TSql | null>> {
     const graphqlFields: Set<keyof TGraphql> = this._fieldsByType.get(this._graphqlTypeName)! as any;
     const query = buildBatchQuery<TGraphql, TSql>(
       this._tableName,
@@ -37,9 +37,11 @@ export class BaseModel<TGraphql, TSql extends { id: string }> {
     return keys.map((key) => values.find(({ id }) => id === key) || null);
   };
 
-  getById = (id?: string | null) => id ? this._loader.load(id) : null;
+  getById(id?: string | null) {
+    return id ? this._loader.load(id) : null;
+  }
 
-  getMany = (info: GraphQLResolveInfo, options: ManyBuilderOption<TSql>) => {
+  getMany(info: GraphQLResolveInfo, options: ManyBuilderOptions<TSql>) {
     const query = buildConnectionQuery<TGraphql, TSql>(
       this._tableName,
       {
