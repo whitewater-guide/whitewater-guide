@@ -4,6 +4,7 @@ import { Group } from '../groups';
 import { Coordinate3d, Point, PointInput } from '../points';
 import { River } from '../rivers';
 import { Section } from '../sections';
+import { Source } from '../sources';
 import { Connection } from '../types';
 
 export interface Region extends NamedNode, Timestamped {
@@ -23,6 +24,7 @@ export interface Region extends NamedNode, Timestamped {
   rivers?: Connection<River>;
   gauges?: Connection<Gauge>;
   sections?: Connection<Section>;
+  sources?: Connection<Source>;
 }
 
 export interface RegionInput {

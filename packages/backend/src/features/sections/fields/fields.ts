@@ -1,30 +1,18 @@
 import { FieldResolvers } from '@apollo';
 import { timestampResolvers } from '@db';
-import { buildRegionQuery } from '@features/regions';
-import { buildRiverQuery } from '@features/rivers';
 import { Section } from '@ww-commons';
-import checkEditorPermissions from '../checkEditorPermissions';
 import { SectionRaw } from '../types';
+import description from './description';
+import gauge from './gauge';
+import region from './region';
+import river from './river';
 import shape from './shape';
 
 export const sectionFieldResolvers: FieldResolvers<SectionRaw, Section> = {
   altNames: section => section.alt_names,
   // description is empty string when there is no description ind db (even for premium)
   // description is null when premium is required and description in db is not empty
-  description: async ({ id, demo, description, premium, river_id, region_id }, _, { purchasesLoader, user }) => {
-    if (!description || description.trim() === '') {
-      return '';
-    }
-    try {
-      await checkEditorPermissions(user, id, river_id);
-      return description;
-    } catch (e) {/* Continue execution, user is not admin or editor */}
-    if (premium && !demo) {
-      const ids = await purchasesLoader.loadPurchasedRegions();
-      return ids.includes(region_id) ? description : null;
-    }
-    return description;
-  },
+  description,
   seasonNumeric: section => section.season_numeric,
   difficultyXtra: section => section.difficulty_xtra,
   putIn: ({ id, put_in }) => {
@@ -49,18 +37,8 @@ export const sectionFieldResolvers: FieldResolvers<SectionRaw, Section> = {
   shape,
   pois: section => section.pois || [],
   tags: section => section.tags || [],
-  region: ({ region, region_id }, _, context, info) => {
-    if (region) {
-      return region;
-    }
-    return buildRegionQuery({ id: region_id, info, context }).first();
-  },
-  river: ({ river, river_id }, _, context, info) => {
-    if (river) {
-      return river;
-    }
-    return buildRiverQuery({ id: river_id, info, context }).first();
-  },
-  gauge: ({ gauge_id }, _, { models }) => models.gauges.getById(gauge_id),
+  region,
+  river,
+  gauge,
   ...timestampResolvers,
 };

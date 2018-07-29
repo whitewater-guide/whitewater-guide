@@ -7,6 +7,7 @@ export const sectionsResolvers = {
   Section: sectionFieldResolvers,
   GaugeBinding: gaugeBindingResolver,
   SectionsList: listResolvers,
+  SectionMediaConnection: listResolvers,
   Query,
   Mutation,
 };

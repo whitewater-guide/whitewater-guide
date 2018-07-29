@@ -1,20 +1,14 @@
-import { baseResolver, ListQuery } from '@apollo';
+import { ListQuery, TopLevelResolver } from '@apollo';
 import { RiversFilter } from '@ww-commons';
-import { buildRiversListQuery } from '../queryBuilder';
 
-interface Query extends ListQuery {
+interface Vars extends ListQuery {
   filter?: RiversFilter;
 }
 
-const rivers = baseResolver.createResolver(
-  (root, { filter = {}, ...args }: Query, context, info) => {
-    let query = buildRiversListQuery({ info, context, ...args });
-    const { regionId } = filter;
-    if (regionId) {
-      query = query.where({ region_id: regionId });
-    }
-    return query;
-  },
-);
+const rivers: TopLevelResolver<Vars> = (_, { filter = {}, page }, { models }, info) => {
+  const { regionId } = filter;
+  const where = regionId ? { region_id: regionId } : undefined;
+  return models.rivers.getMany(info, { where, page });
+};
 
 export default rivers;
