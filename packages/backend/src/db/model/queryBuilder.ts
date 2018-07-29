@@ -1,4 +1,3 @@
-import { Page } from '@apollo';
 import db from '@db';
 import DataLoader from 'dataloader';
 import { GraphQLResolveInfo } from 'graphql';
@@ -6,29 +5,7 @@ import gqf from 'graphql-fields';
 import Knex from 'knex';
 import snakeCase from 'lodash/snakeCase';
 import { Omit } from 'type-zoo';
-import { FieldsMap } from './types';
-
-export interface BuilderOptions<TGraphql, TSql> {
-  fields: Set<keyof TGraphql>;
-  fieldsMap?: FieldsMap<TGraphql, TSql>;
-  sqlFields?: Array<keyof TSql>;
-  language?: string;
-}
-
-export interface OrderBy {
-  column: string;
-  direction?: 'asc' | 'desc';
-}
-
-// tslint:disable-next-line:ban-types
-export type Where<TSql> = {[P in keyof TSql]?: string | number | null } | Knex.QueryCallback | Knex.Raw;
-
-export interface ManyBuilderOption<TSql> {
-  count?: boolean;
-  page?: Page;
-  orderBy?: OrderBy[];
-  where?: Where<TSql>;
-}
+import { BuilderOptions, ManyBuilderOptions } from './types';
 
 export function buildQuery<TGraphql, TSql>(tableName: string, options: BuilderOptions<TGraphql, TSql>) {
   const {
@@ -83,7 +60,7 @@ export function buildBatchQuery<TGraphql, TSql>(
 export function buildManyQuery<TGraphql, TSql>(
   tableName: string,
   options: BuilderOptions<TGraphql, TSql>,
-  { page, count, orderBy, where }: ManyBuilderOption<TSql>,
+  { page, count, orderBy, where }: ManyBuilderOptions<TSql>,
 ) {
   const query = buildQuery(tableName, options);
 
@@ -119,7 +96,7 @@ export function buildManyQuery<TGraphql, TSql>(
 export function buildConnectionQuery<TGraphql, TSql>(
   tableName: string,
   options: Omit<BuilderOptions<TGraphql, TSql>, 'fields'>,
-  manyOptions: ManyBuilderOption<TSql>,
+  manyOptions: ManyBuilderOptions<TSql>,
   info: GraphQLResolveInfo,
 ) {
   const { nodes, count } = gqf(info);

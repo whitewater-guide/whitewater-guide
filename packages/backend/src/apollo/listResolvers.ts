@@ -7,5 +7,5 @@ interface WithCount {
 
 export const listResolvers: FieldResolvers<WithCount[], Connection<object>> = {
   nodes: list => list,
-  count: list => list.length ? list[0].count : 0,
+  count: list => list.length ? Number(list[0].count) : 0,
 };
