@@ -21,12 +21,15 @@ type Region {
   createdAt: Date
   # Date when the region was last modified
   updatedAt: Date
-  # List of rivers, pagination not supported yet, so use only for count!
-  rivers: RegionRiverConnection!
-  # List of gauges, pagination not supported yet, so use only for count!
-  gauges: RegionGaugeConnection!
-  # List of sections, pagination not supported yet, so use only for count!
-  sections: RegionSectionConnection!
+
+  # List of rivers
+  rivers(page: Page): RegionRiverConnection!
+  # List of gauges
+  gauges(page: Page): RegionGaugeConnection!
+  # List of sections
+  sections(page: Page): RegionSectionConnection!
+  # List of sources
+  sources(page: Page): RegionSourceConnection!
 
   # Only admins can see this
   hidden: Boolean @admin
@@ -54,6 +57,11 @@ type RegionGaugeConnection {
 
 type RegionSectionConnection {
   nodes: [Section]!
+  count: Int!
+}
+
+type RegionSourceConnection {
+  nodes: [Source]!
   count: Int!
 }
 

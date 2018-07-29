@@ -6,6 +6,7 @@ import Query from './queries';
 export const riversResolvers = {
   River,
   RiversList: listResolvers,
+  RiverSectionConnection: listResolvers,
   Query,
   Mutation,
 };

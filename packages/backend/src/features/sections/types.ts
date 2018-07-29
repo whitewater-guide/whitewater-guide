@@ -1,7 +1,5 @@
 import { RawTimestamped } from '@db';
 import { PointRaw } from '@features/points';
-import { RegionRaw } from '@features/regions';
-import { RiverRaw } from '@features/rivers';
 import { Coordinate3d, NamedNode, Tag } from '@ww-commons';
 
 export interface GaugeBindingRaw {
@@ -21,10 +19,8 @@ export interface SectionRaw extends NamedNode, RawTimestamped {
   alt_names: string[];
 
   river_id: string;
-  river?: RiverRaw;
   gauge_id: string | null;
   region_id: string;
-  region?: RegionRaw;
 
   hidden: boolean;
   demo: boolean;

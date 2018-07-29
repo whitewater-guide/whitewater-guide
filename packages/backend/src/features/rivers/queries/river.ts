@@ -1,14 +1,6 @@
-import { baseResolver, Context, NodeQuery } from '@apollo';
-import { GraphQLResolveInfo } from 'graphql';
-import { buildRiverQuery } from '../queryBuilder';
+import { NodeQuery, TopLevelResolver } from '@apollo';
 
-const river = baseResolver.createResolver(
-  (root, args: NodeQuery, context: Context, info: GraphQLResolveInfo) => {
-    if (!args.id) {
-      return null;
-    }
-    return buildRiverQuery({ info, context, ...args }).first();
-  },
-);
+const river: TopLevelResolver<NodeQuery> = async (_, { id }, { models }) =>
+  models.rivers.getById(id);
 
 export default river;

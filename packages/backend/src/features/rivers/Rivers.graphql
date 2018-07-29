@@ -5,14 +5,14 @@ type River {
   name: String!
   # Alternative names, e.g. english transliteration for names that contain umlauts
   altNames: [String!]
-  # River region
-  region: Region!
   # Creating date
   createdAt: Date
   # Last modification date
   updatedAt: Date
-  # List of sections, pagination not supported yet, so use only for count!
-  sections: RiverSectionConnection!
+  # River region
+  region: Region!
+  # List of sections
+  sections(page: Page): RiverSectionConnection!
 }
 
 type RiverSectionConnection {

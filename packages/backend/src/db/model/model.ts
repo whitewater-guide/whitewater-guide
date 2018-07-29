@@ -1,6 +1,7 @@
 import { ContextUser } from '@apollo';
 import DataLoader from 'dataloader';
 import { GraphQLResolveInfo } from 'graphql';
+import { QueryBuilder } from 'knex';
 import { buildBatchQuery, buildConnectionQuery } from './queryBuilder';
 import { FieldsMap, ManyBuilderOptions, OrderBy } from './types';
 
@@ -28,9 +29,15 @@ export class BaseModel<TGraphql, TSql extends { id: string }> {
     this._loader = new DataLoader<string, TSql | null>(this.getBatch.bind(this));
   }
 
-  protected async getBatch(keys: string[]): Promise<Array<TSql | null>> {
+  private async getBatch(keys: string[]): Promise<Array<TSql | null>> {
+    const query = this.getBatchQuery(keys);
+    const values: TSql[] = (await query) || [];
+    return keys.map((key) => values.find(({ id }) => id === key) || null);
+  }
+
+  protected getBatchQuery(keys: string[]): QueryBuilder {
     const graphqlFields: Set<keyof TGraphql> = this._fieldsByType.get(this._graphqlTypeName)! as any;
-    const query = buildBatchQuery<TGraphql, TSql>(
+    return buildBatchQuery<TGraphql, TSql>(
       this._tableName,
       {
         fields: graphqlFields,
@@ -40,15 +47,13 @@ export class BaseModel<TGraphql, TSql extends { id: string }> {
       },
       keys,
     );
-    const values: TSql[] = (await query) || [];
-    return keys.map((key) => values.find(({ id }) => id === key) || null);
-  };
+  }
 
   getById(id?: string | null) {
     return id ? this._loader.load(id) : null;
   }
 
-  getMany(info: GraphQLResolveInfo, options: ManyBuilderOptions<TSql>) {
+  getMany(info: GraphQLResolveInfo, options: ManyBuilderOptions<TSql> = {}) {
     const query = buildConnectionQuery<TGraphql, TSql>(
       this._tableName,
       {
@@ -66,5 +71,5 @@ export class BaseModel<TGraphql, TSql extends { id: string }> {
     // maybePrimeCache(graphqlFields, fields, query, this._loader);
 
     return query;
-  };
+  }
 }

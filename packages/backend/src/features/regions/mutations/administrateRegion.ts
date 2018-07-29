@@ -4,7 +4,6 @@ import { BANNERS, COVERS, minioClient, moveTempImage } from '@minio';
 import { RegionAdminSettings, RegionAdminSettingsSchema } from '@ww-commons';
 import Joi from 'joi';
 import get from 'lodash/get';
-import { buildRegionQuery } from '../queryBuilder';
 import { RegionRaw } from '../types';
 
 interface Vars {
@@ -63,7 +62,7 @@ const resolver: TopLevelResolver<Vars> = async (_, { settings }, context, info) 
       banners: settings.banners,
     })
     .where({ id: settings.id });
-  return buildRegionQuery({ info, context, id: settings.id }).first();
+  return context.models.regions.getById(settings.id);
 };
 
 const administrateRegion = isInputValidResolver(Schema).createResolver(resolver);

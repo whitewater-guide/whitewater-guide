@@ -3,7 +3,6 @@ import db from '@db';
 import { SectionAdminSettings, SectionAdminSettingsSchema } from '@ww-commons';
 import { GraphQLFieldResolver } from 'graphql';
 import Joi from 'joi';
-import { buildSectionQuery } from '../queryBuilder';
 
 interface Vars {
   id: string;
@@ -15,13 +14,13 @@ const Schema = Joi.object().keys({
   settings: SectionAdminSettingsSchema,
 });
 
-const resolver: GraphQLFieldResolver<any, any, Vars> = async (_, { id, settings }, context, info) => {
+const resolver: GraphQLFieldResolver<any, any, Vars> = async (_, { id, settings }, { models }, info) => {
   await db().table('sections')
     .update({
       demo: settings.demo,
     })
     .where({ id });
-  return buildSectionQuery({ info, context, id }).first();
+  return models.sections.getById(id);
 };
 
 const administrateSection = isInputValidResolver(Schema).createResolver(resolver);

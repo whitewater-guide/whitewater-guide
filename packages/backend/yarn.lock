@@ -3173,6 +3173,12 @@ jest-snapshot@^23.4.1:
     pretty-format "^23.2.0"
     semver "^5.5.0"
 
+jest-summary-reporter@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/jest-summary-reporter/-/jest-summary-reporter-0.0.2.tgz#53b9997b56f343a0dd9af24199c68d371e01f534"
+  dependencies:
+    chalk "^2.4.1"
+
 jest-util@^23.4.0:
   version "23.4.0"
   resolved "https://registry.yarnpkg.com/jest-util/-/jest-util-23.4.0.tgz#4d063cb927baf0a23831ff61bec2cbbf49793561"

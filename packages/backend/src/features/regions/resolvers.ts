@@ -8,6 +8,10 @@ export const regionsResolvers = {
   RegionBanners: bannersResolvers,
   RegionCoverImage: coverImageResolvers,
   RegionsList: listResolvers,
+  RegionRiverConnection: listResolvers,
+  RegionGaugeConnection: listResolvers,
+  RegionSectionConnection: listResolvers,
+  RegionSourceConnection: listResolvers,
   Query,
   Mutation,
 };
