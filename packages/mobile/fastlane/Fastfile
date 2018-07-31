@@ -165,18 +165,19 @@ platform :android do
      )
   end
 
-  lane :alpha do |options|
+  lane :staging do |options|
     ENV['ENVFILE'] = '.env.staging' # for some reason react-native-config isn't picked from gradle
     build
     upload_to_play_store(
       package_name: ENV['ANDROID_PACKAGE_NAME'],
-      track: 'alpha',
+      track: 'production',
       apk: "#{lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]}"
     )
+    code_push
   end
 
-  lane :staging do |options|
-    ENV['ENVFILE'] = '.env.staging' # for some reason react-native-config isn't picked from gradle
+  lane :beta do |options|
+    ENV['ENVFILE'] = '.env.beta' # for some reason react-native-config isn't picked from gradle
     build
     upload_to_play_store(
       package_name: ENV['ANDROID_PACKAGE_NAME'],
