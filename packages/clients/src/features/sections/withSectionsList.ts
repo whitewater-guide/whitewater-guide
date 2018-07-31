@@ -10,6 +10,8 @@ interface Options {
   fetchPolicy?: FetchPolicy;
 }
 
+type OptionsFunc = (props: any) => Options;
+
 interface Result {
   sections: Connection<Section>;
 }
@@ -30,21 +32,24 @@ interface ChildProps {
 
 export type WithSectionsList = Props & ChildProps;
 
-export const withSectionsList = ({ fetchPolicy = 'cache-and-network' }: Options = {}) =>
+export const withSectionsList = (options: Options | OptionsFunc = {}) =>
   compose<WithSectionsList, any>(
     withFeatureIds('region'),
     graphql<Props, Result, Vars, ChildProps>(
       LIST_SECTIONS,
       {
         alias: 'withSectionsList',
-        options: (props) => ({
-          fetchPolicy,
-          notifyOnNetworkStatusChange: true,
-          variables: {
-            filter: { regionId: props.regionId },
-            page: { limit: 20 },
-          },
-        }),
+        options: (props) => {
+          const opts = typeof options === 'function' ? options(props) : options;
+          return {
+            ...opts,
+            notifyOnNetworkStatusChange: true,
+            variables: {
+              filter: { regionId: props.regionId },
+              page: { limit: 20 },
+            },
+          };
+        },
         props: props => queryResultToList(props, 'sections'),
       },
     ),
