@@ -1,5 +1,5 @@
 import { holdTransaction, rollbackTransaction } from '@db';
-import { ADMIN, BOOM_USER_1500, EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '@seeds/01_users';
+import { ADMIN, BOOM_USER_1500, EDITOR_GA_EC, EDITOR_GE, EDITOR_NO_EC, TEST_USER, TEST_USER2 } from '@seeds/01_users';
 import { NUM_REGIONS, REGION_ECUADOR, REGION_GEORGIA, REGION_NORWAY } from '@seeds/04_regions';
 import { anonContext, fakeContext, noTimestamps, runQuery } from '@test';
 import countBy from 'lodash/countBy';
@@ -189,7 +189,7 @@ describe('premium access', () => {
   `;
 
   it('without purchases', async () => {
-    const result = await runQuery(premiumQuery, {}, fakeContext(EDITOR_NO_EC));
+    const result = await runQuery(premiumQuery, {}, fakeContext(TEST_USER2));
     expect(result.data!.regions.nodes)
       .not.toContainEqual(expect.objectContaining({ hasPremiumAccess: true }));
   });
@@ -204,6 +204,20 @@ describe('premium access', () => {
 
   it('with group of regions purchased', async () => {
     const result = await runQuery(premiumQuery, {}, fakeContext(BOOM_USER_1500, 'en'));
+    expect(result.data!.regions.nodes).toEqual(expect.arrayContaining([
+      { id: REGION_ECUADOR, hasPremiumAccess: false },
+      { id: REGION_GEORGIA, hasPremiumAccess: true },
+    ]));
+  });
+
+  it('admin should always have premium access', async () => {
+    const result = await runQuery(premiumQuery, {}, fakeContext(ADMIN));
+    expect(result.data!.regions.nodes)
+      .not.toContainEqual(expect.objectContaining({ hasPremiumAccess: false }));
+  });
+
+  it('editor should always have premium access', async () => {
+    const result = await runQuery(premiumQuery, {}, fakeContext(EDITOR_GE));
     expect(result.data!.regions.nodes).toEqual(expect.arrayContaining([
       { id: REGION_ECUADOR, hasPremiumAccess: false },
       { id: REGION_GEORGIA, hasPremiumAccess: true },

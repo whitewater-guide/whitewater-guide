@@ -25,6 +25,20 @@ export class RegionsConnector extends BaseConnector<Region, RegionRaw> {
     this._fieldsMap = FIELDS_MAP;
   }
 
+  getBatchQuery(keys: string[]): QueryBuilder {
+    const query = super.getBatchQuery(keys);
+    const regionFields = this._fieldsByType.get('Region')!;
+    if (this._user && (regionFields.has('hasPremiumAccess') || regionFields.has('editable'))) {
+      // Add 'editable' column as subquery
+      const editableQ = db().select('region_id').from('regions_editors')
+        .where('regions_editors.user_id', '=', this._user.id)
+        .whereRaw('regions_editors.region_id = regions_view.id');
+
+      query.select(db().raw(`(SELECT EXISTS (${editableQ.toString()})) as editable`));
+    }
+    return query;
+  }
+
   getMany(info: GraphQLResolveInfo, options: ManyBuilderOptions<RegionRaw>) {
     const query = super.getMany(info, options);
     if (!this._user) {

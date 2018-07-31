@@ -1,5 +1,5 @@
 import db, { holdTransaction, rollbackTransaction } from '@db';
-import { ADMIN, BOOM_USER_1500, EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '@seeds/01_users';
+import { ADMIN, BOOM_USER_1500, EDITOR_GA_EC, EDITOR_GE, EDITOR_NO_EC, TEST_USER } from '@seeds/01_users';
 import { REGION_GALICIA, REGION_GEORGIA, REGION_LAOS, REGION_NORWAY } from '@seeds/04_regions';
 import { GEORGIA_BZHUZHA_LONG } from '@seeds/09_sections';
 import { anonContext, fakeContext, noTimestamps, runQuery } from '@test';
@@ -438,6 +438,16 @@ describe('premium access', () => {
 
   it('true when purchases as part of group', async () => {
     const result = await runQuery(premiumQuery, { id: REGION_GEORGIA }, fakeContext(BOOM_USER_1500));
+    expect(result).toHaveProperty('data.region.hasPremiumAccess', true);
+  });
+
+  it('true for admin', async () => {
+    const result = await runQuery(premiumQuery, { id: REGION_GEORGIA }, fakeContext(ADMIN));
+    expect(result).toHaveProperty('data.region.hasPremiumAccess', true);
+  });
+
+  it('true for editor', async () => {
+    const result = await runQuery(premiumQuery, { id: REGION_GEORGIA }, fakeContext(EDITOR_GE));
     expect(result).toHaveProperty('data.region.hasPremiumAccess', true);
   });
 
