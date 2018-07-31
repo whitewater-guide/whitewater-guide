@@ -1,20 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should generate correct query 1`] = `
-"query listSections($language: String, $page: Page, $filter: SectionsFilter) {
-  sections(language: $language, page: $page, filter: $filter) {
+"query listSections($page: Page, $filter: SectionsFilter) {
+  sections(page: $page, filter: $filter) @connection(key: \\"sections\\", filter: [\\"filter\\"]) {
     nodes {
       ... on Section {
         id
         name
-        language
         altNames
         river {
           id
-          language
           name
           altNames
         }
+        hidden
+        demo
         season
         seasonNumeric
         distance
@@ -37,7 +37,6 @@ exports[`should generate correct query 1`] = `
         gauge {
           ... on Gauge {
             id
-            language
             name
             code
             levelUnit
@@ -53,6 +52,11 @@ exports[`should generate correct query 1`] = `
               flow
               level
             }
+          }
+          source {
+            id
+            name
+            termsOfUse
           }
         }
         levels {
@@ -74,6 +78,11 @@ exports[`should generate correct query 1`] = `
           }
         }
         flowsText
+        tags {
+          id
+          name
+          category
+        }
       }
       updatedAt
     }

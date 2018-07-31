@@ -5,18 +5,16 @@ Array [
   Object {
     "__typename": "Tag",
     "category": "hazards",
-    "id": "Asperiores quisquam",
-    "language": "Alias magni corporis",
-    "name": "Ratione labore explicabo",
-    Symbol(id): "Tag:Asperiores quisquam:Alias magni corporis",
+    "id": "Tag.id.1",
+    "name": "Tag.name.1",
+    Symbol(id): "Tag:Tag.id.1",
   },
   Object {
     "__typename": "Tag",
     "category": "supply",
-    "id": "Iure ut",
-    "language": "Qui recusandae ut",
-    "name": "Quam ipsam nobis",
-    Symbol(id): "Tag:Iure ut:Qui recusandae ut",
+    "id": "Tag.id.2",
+    "name": "Tag.name.2",
+    Symbol(id): "Tag:Tag.id.2",
   },
 ]
 `;

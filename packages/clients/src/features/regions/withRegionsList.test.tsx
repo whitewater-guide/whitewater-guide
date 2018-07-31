@@ -1,4 +1,3 @@
-import casual from 'casual';
 import { mount } from 'enzyme';
 import React from 'react';
 import { createMockedProvider, flushPromises, Receiver } from '../../test';
@@ -7,7 +6,6 @@ import { withRegionsList, WithRegionsList } from './withRegionsList';
 let receiver: Receiver<WithRegionsList>;
 
 beforeEach(async () => {
-  casual.seed(1);
   const MockedProvider = createMockedProvider();
   const WithData = withRegionsList(Receiver as any);
   const wrapped = mount(

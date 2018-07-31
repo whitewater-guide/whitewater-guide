@@ -32,7 +32,7 @@ interface ChildProps {
 
 export type WithSectionsList = Props & ChildProps;
 
-export const withSectionsList = (options: Options | OptionsFunc = {}) =>
+export const withSectionsList = (options: Options | OptionsFunc = { fetchPolicy: 'cache-and-network' }) =>
   compose<WithSectionsList, any>(
     withFeatureIds('region'),
     graphql<Props, Result, Vars, ChildProps>(

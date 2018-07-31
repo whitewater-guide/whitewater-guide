@@ -1,13 +1,10 @@
 // tslint:disable:max-classes-per-file
-import casual from 'casual';
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { createMockedProvider } from '../../test';
 import { withSection, WithSection } from './withSection';
 
 const MockedProvider = createMockedProvider();
-
-beforeEach(() => casual.seed(1));
 
 it('has a loading state', done => {
   class Container extends React.PureComponent<WithSection> {

@@ -21,7 +21,7 @@ interface Vars {
 type Props = Vars;
 
 interface ChildProps {
-  section: WithNode<Section>;
+  section: WithNode<Section | null>;
 }
 
 export type WithSection = ChildProps;

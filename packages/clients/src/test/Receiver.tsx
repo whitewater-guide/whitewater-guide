@@ -1,3 +1,4 @@
+import { ReactWrapper } from 'enzyme';
 import React from 'react';
 
 export interface WithCalls<P> {
@@ -20,4 +21,12 @@ export class Receiver<P> extends React.PureComponent<P> implements WithCalls<P> 
   render() {
     return null;
   }
+}
+
+export function genericReceiver<P>(): React.ComponentType<P> {
+  return Receiver as any;
+}
+
+export function findReceiver<P>(wrapped: ReactWrapper<P>): Receiver<P> {
+  return wrapped.find(Receiver).first().instance() as any;
 }

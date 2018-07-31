@@ -29,13 +29,13 @@ export const SectionMapView = (
   withPropsOnChange(
     ['section'],
     ({ section }: WithSection) => {
-      const node: Section = section.node;
-      const pois = [...node.pois];
+      const node: Section | null = section.node;
+      const pois = node ? [...node.pois] : [];
       const gaugePOI = get(node, 'gauge.location');
-      if (gaugePOI) {
+      if (node && gaugePOI) {
         pois.push({ ...gaugePOI, name: `Gauge ${node.gauge!.name}` });
       }
-      const contentBounds = node.shape.concat(pois.map(poi => poi.coordinates));
+      const contentBounds = node ? node.shape.concat(pois.map(poi => poi.coordinates)) : null;
       return {
         initialBounds: null, // Currently state is not saved anywhere
         contentBounds,

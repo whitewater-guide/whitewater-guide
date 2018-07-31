@@ -1,4 +1,3 @@
-import casual from 'casual';
 import { mount } from 'enzyme';
 import React from 'react';
 import { WithTags } from '../../../ww-commons';
@@ -8,7 +7,6 @@ import { withTags } from './withTags';
 let receiver: Receiver<WithTags>;
 
 beforeEach(async () => {
-  casual.seed(1);
   const MockedProvider = createMockedProvider();
   const WithData = withTags(false)(Receiver as any);
   const wrapped = mount(

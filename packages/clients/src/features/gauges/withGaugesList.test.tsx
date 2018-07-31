@@ -1,4 +1,3 @@
-import casual from 'casual';
 import { mount } from 'enzyme';
 import React from 'react';
 import { createMockedProvider, flushPromises, Receiver } from '../../test';
@@ -7,7 +6,6 @@ import { withGaugesList, WithGaugesList } from './withGaugesList';
 let receiver: Receiver<WithGaugesList>;
 
 beforeEach(async () => {
-  casual.seed(1);
   const MockedProvider = createMockedProvider();
   const WithData = withGaugesList(Receiver as any);
   const wrapped = mount(

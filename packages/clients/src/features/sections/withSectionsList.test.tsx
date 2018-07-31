@@ -1,21 +1,19 @@
-import casual from 'casual';
 import { mount } from 'enzyme';
 import React from 'react';
-import { createMockedProvider, flushPromises, Receiver } from '../../test';
+import { createMockedProvider, findReceiver, flushPromises, genericReceiver, Receiver } from '../../test';
 import { withSectionsList, WithSectionsList } from './withSectionsList';
 
 let receiver: Receiver<WithSectionsList>;
 
 beforeEach(async () => {
-  casual.seed(1);
   const MockedProvider = createMockedProvider();
-  const WithData = withSectionsList()(Receiver as any);
+  const WithData = withSectionsList()(genericReceiver());
   const wrapped = mount(
     <MockedProvider>
       <WithData/>
     </MockedProvider>,
   );
-  receiver = wrapped.find(Receiver as any).first().instance() as any;
+  receiver = findReceiver(wrapped);
   await flushPromises();
 });
 
