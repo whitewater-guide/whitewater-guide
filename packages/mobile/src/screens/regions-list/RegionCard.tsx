@@ -86,12 +86,17 @@ export class RegionCard extends React.PureComponent<Props> {
   };
 
   renderDownloadButton = () => {
-    const { premium, hasPremiumAccess } = this.props.region;
-    if (premium && !hasPremiumAccess && !this.props.canMakePayments) {
+    const { regionInProgress, region, canMakePayments } = this.props;
+    const { premium, hasPremiumAccess } = region;
+    if (premium && !hasPremiumAccess && !canMakePayments) {
       return null;
     }
     return (
-      <DownloadButton onPress={this.onDownloadPress} />
+      <DownloadButton
+        onPress={this.onDownloadPress}
+        inProgress={regionInProgress === region.id}
+        disabled={!!regionInProgress && regionInProgress !== region.id}
+      />
     );
   };
 

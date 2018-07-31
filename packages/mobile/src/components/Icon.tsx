@@ -23,6 +23,7 @@ interface IconBaseProps {
   size?: number;
   large?: boolean;
   style?: StyleProp<ViewStyle>;
+  iconStyle?: StyleProp<ViewStyle>;
 }
 
 const IconBase: React.StatelessComponent<IconBaseProps> = (props) => {
@@ -35,19 +36,20 @@ const IconBase: React.StatelessComponent<IconBaseProps> = (props) => {
     onPress,
     onLongPress,
     style,
+    iconStyle,
   } = props;
   const clr = color ? color : (primary ? theme.colors.primary : theme.colors.textMain);
   const sz = large ? theme.icons.large : size;
   if (onPress || onLongPress) {
     return (
       <TouchableRipple onPress={onPress} onLongPress={onLongPress} style={style}>
-        <MDCommunity name={icon} size={sz} color={clr} />
+        <MDCommunity name={icon} size={sz} color={clr} style={iconStyle}/>
       </TouchableRipple>
     );
   }
   return (
     <View style={style}>
-      <MDCommunity name={icon} size={sz} color={clr} />
+      <MDCommunity name={icon} size={sz} color={clr} style={iconStyle} />
     </View>
   );
 };
