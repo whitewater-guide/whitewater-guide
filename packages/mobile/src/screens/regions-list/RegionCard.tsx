@@ -7,6 +7,7 @@ import { Icon, Paper } from '../../components';
 import { WithT } from '../../i18n';
 import theme from '../../theme';
 import { Region } from '../../ww-commons';
+import DownloadButton from './DownloadButton';
 import getCoverImage from './getCoverImage';
 
 const FOOTER_HEIGHT = 40;
@@ -73,6 +74,24 @@ interface Props extends WithT {
 export class RegionCard extends React.PureComponent<Props> {
   onPress = () => this.props.onPress(this.props.region);
   onPremiumPress = () => this.props.onPremiumPress(this.props.region);
+  onDownloadPress = () => {
+    const { region, onPremiumPress } = this.props;
+    if (region.hasPremiumAccess) {
+      // nothing
+    } else {
+      onPremiumPress(region);
+    }
+  };
+
+  renderDownloadButton = () => {
+    const { premium, hasPremiumAccess } = this.props.region;
+    if (premium && !hasPremiumAccess && !this.props.canMakePayments) {
+      return null;
+    }
+    return (
+      <DownloadButton onPress={this.onDownloadPress} />
+    );
+  };
 
   renderPremium = () => {
     const { premium, hasPremiumAccess } = this.props.region;
@@ -113,6 +132,7 @@ export class RegionCard extends React.PureComponent<Props> {
               style={styles.scrim}
               locations={[0.0, 0.75, 1.0]}
             >
+              {this.renderDownloadButton()}
               <Title style={styles.title}>{region.name}</Title>
             </LinearGradient>
           </Image>
