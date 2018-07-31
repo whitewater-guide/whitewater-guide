@@ -33,8 +33,12 @@ const container = compose<InnerProps, {}>(
       }),
       props: ({ data }) => {
         return {
-          summary: data!.region && data!.region!.mediaSummary,
-          isLoadingSummary: data!.loading,
+          summary: {
+            summary: data!.region && data!.region!.mediaSummary,
+            loading: data!.loading,
+            error: data!.error,
+            refetch: data!.refetch,
+          },
         };
       },
     },

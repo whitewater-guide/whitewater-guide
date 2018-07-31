@@ -1,11 +1,12 @@
 import React from 'react';
 import { translate } from 'react-i18next';
-import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Button, Caption, DialogActions, DialogTitle } from 'react-native-paper';
 import { OfflineQueryPlaceholder } from '../../../components';
 import { WithT } from '../../../i18n';
 import theme from '../../../theme';
 import { OfflineCategorySelection, OfflineCategoryType } from '../types';
+import LoadingSummary from './LoadingSummary';
 import OfflineCategory from './OfflineCategory';
 import { InnerProps } from './types';
 
@@ -18,7 +19,7 @@ const styles = StyleSheet.create({
     height: theme.rowHeight,
     paddingHorizontal: theme.margin.single,
   },
-  loadingSummaryContainer: {
+  offlinePlaceholderContainer: {
     height: 4 * theme.rowHeight,
     alignItems: 'center',
     justifyContent: 'center',
@@ -60,7 +61,7 @@ class OfflineContentDialogView extends React.PureComponent<Props, State> {
   renderCategories = () => {
     const { t, inProgress, progress, summary } = this.props;
     const { selection } = this.state;
-    const photoSize = summary ? summary.photo.size : undefined;
+    const photoSize = (summary && summary.summary) ? summary.summary.photo.size : undefined;
     return (
       <View style={styles.categoriesContainer}>
         <OfflineCategory
@@ -101,29 +102,31 @@ class OfflineContentDialogView extends React.PureComponent<Props, State> {
   };
 
   renderLoadingSummary = () => {
-    const { t } = this.props;
+    const { t, summary } = this.props;
     return (
-      <View style={styles.loadingSummaryContainer}>
-        <ActivityIndicator color={theme.colors.primary} />
-        <Caption>{t('offline:dialog.loadingSummary')}</Caption>
-      </View>
+      <LoadingSummary t={t} summary={summary} />
     );
   };
 
   renderOffline = () => (
-    <View style={styles.loadingSummaryContainer}>
+    <View style={styles.offlinePlaceholderContainer}>
       <OfflineQueryPlaceholder />
     </View>
   );
 
   renderReadyButtons = () => {
-    const { onDismiss, isConnected = true, isLoadingSummary, t } = this.props;
+    const { onDismiss, isConnected = true, summary, t } = this.props;
     return (
       <DialogActions>
         <Button raised onPress={onDismiss}>
           {t('commons:cancel')}
         </Button>
-        <Button primary raised disabled={!isConnected || isLoadingSummary} onPress={this.onDownload}>
+        <Button
+          primary
+          raised
+          disabled={!isConnected || !!summary.error || summary.loading}
+          onPress={this.onDownload}
+        >
           {t('commons:ok')}
         </Button>
       </DialogActions>
@@ -141,17 +144,26 @@ class OfflineContentDialogView extends React.PureComponent<Props, State> {
     );
   };
 
+  renderBody = () => {
+    const { isConnected = true, summary } = this.props;
+    if (!isConnected) {
+      return this.renderOffline();
+    }
+    if (summary.loading || summary.error) {
+      return this.renderLoadingSummary();
+    }
+    return this.renderCategories();
+  };
+
   render() {
-    const { region, isConnected = true, inProgress, isLoadingSummary, t } = this.props;
+    const { region, inProgress, t } = this.props;
     if (!region) {
       return null;
     }
     return (
       <React.Fragment>
         <DialogTitle>{t('offline:dialog.title', { region: region.name })}</DialogTitle>
-        {!isConnected && this.renderOffline()}
-        {!!isLoadingSummary && this.renderLoadingSummary()}
-        {!!isConnected && !isLoadingSummary && this.renderCategories()}
+        {this.renderBody()}
         {inProgress ? this.renderInProgressButtons() : this.renderReadyButtons()}
       </React.Fragment>
     );

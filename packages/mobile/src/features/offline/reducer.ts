@@ -6,7 +6,6 @@ const initialState: OfflineContentStore = {
   dialogRegion: null,
   regionInProgress: null,
   progress: {},
-  summary: null,
 };
 
 export const offlineContentReducer = (state = initialState, action: AnyAction) => {
@@ -22,12 +21,8 @@ export const offlineContentReducer = (state = initialState, action: AnyAction) =
     return { ...state, regionInProgress, progress: { ...state.progress, ...progress } };
   }
 
-  if (isType(action, offlineContentActions.updateSummary)) {
-    return { ...state, summary: action.payload };
-  }
-
   if (isType(action, offlineContentActions.finishDownload)) {
-    return { ...state, progress: {}, regionInProgress: null, summary: null };
+    return { ...state, progress: {}, regionInProgress: null };
   }
 
   return state;

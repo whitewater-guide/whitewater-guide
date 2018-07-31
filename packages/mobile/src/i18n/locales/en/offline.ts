@@ -9,6 +9,7 @@ const offline = {
     cacheWarning: '* This data will be lost when you logout or change language',
     loadingSummary: 'Loading metadata',
     inBackground: 'Continue in background',
+    summaryError: 'Error while loading metadata',
   },
 };
 

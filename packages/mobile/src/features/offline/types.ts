@@ -16,7 +16,6 @@ export interface OfflineContentStore {
   dialogRegion: NamedNode | null;
   regionInProgress: string | null; // region id
   progress: OfflineProgress;
-  summary: RegionMediaSummary | null;
 }
 
 export interface OfflineProgressPayload extends OfflineProgress {

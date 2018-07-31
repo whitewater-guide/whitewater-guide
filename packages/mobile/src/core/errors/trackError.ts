@@ -1,6 +1,8 @@
 import Firebase from 'react-native-firebase';
+import shortid from 'shortid';
 
 export const trackError = (origin: string, error: Error, componentStack?: string, isFatal?: boolean) => {
+  const errorId = shortid();
   if (__DEV__) {
     try {
       console.dir(error);
@@ -15,4 +17,5 @@ export const trackError = (origin: string, error: Error, componentStack?: string
     Firebase.crashlytics().setStringValue('componentStack', componentStack);
   }
   Firebase.crashlytics().recordError(1, error.message);
+  return errorId;
 };
