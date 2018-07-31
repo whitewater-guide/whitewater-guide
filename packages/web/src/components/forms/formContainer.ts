@@ -132,7 +132,6 @@ export const formContainer = <QueryResult, MutationResult, FormInput>(
     reduxForm({
       form: formName,
       validate: validateInput(validationSchema),
-      enableReinitialize: true,
     }),
     withLoading<InjectedFormProps>(props => props.submitting),
   );

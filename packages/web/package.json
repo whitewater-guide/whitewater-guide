@@ -1,10 +1,10 @@
 {
   "name": "web",
-  "version": "0.1.192",
+  "version": "0.1.193",
   "private": true,
   "homepage": "/admin/",
   "dependencies": {
-    "@whitewater-guide/md-editor": "^0.1.4",
+    "@whitewater-guide/md-editor": "0.1.5",
     "apollo-cache-inmemory": "^1.1.10",
     "apollo-client": "^2.2.6",
     "apollo-link": "^1.2.2",
@@ -94,6 +94,7 @@
     "@storybook/addon-actions": "4.0.0-alpha.11",
     "@storybook/react": "4.0.0-alpha.11",
     "@types/color": "^3.0.0",
+    "@types/deep-diff": "^0.0.31",
     "@types/enzyme": "^3.1.12",
     "@types/enzyme-to-json": "^1.5.1",
     "@types/googlemaps": "^3.30.11",
@@ -136,6 +137,7 @@
     "awesome-typescript-loader": "^5.2.0",
     "babel-core": "^6.26.3",
     "casual": "^1.5.17",
+    "deep-diff": "^1.0.1",
     "enzyme": "^3.2.0",
     "enzyme-adapter-react-16": "^1.1.0",
     "enzyme-to-json": "^3.2.2",

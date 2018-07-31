@@ -65,7 +65,7 @@ export default class SectionsList extends React.PureComponent<SectionsListProps>
   };
 
   renderActions: TableCellRenderer = ({ rowData: { id: sectionId } }) => {
-    const { match: { params: { regionId } } } = this.props;
+    const { regionId } = this.props;
     return (
       <ClickBlocker>
         <IconLink to={paths.settings({ regionId, sectionId })} icon="edit" />
