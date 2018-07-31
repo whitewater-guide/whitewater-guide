@@ -3,6 +3,7 @@ import { holdTransaction, rollbackTransaction } from '@db';
 import { ADMIN, BOOM_USER_1500, EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '@seeds/01_users';
 import { REGION_GALICIA, REGION_GEORGIA, REGION_NORWAY } from '@seeds/04_regions';
 import { SOURCE_NORWAY } from '@seeds/05_sources';
+import { GEORGIA_BZHUZHA_LONG } from '@seeds/09_sections';
 import { anonContext, fakeContext, noTimestamps, runQuery } from '@test';
 
 beforeEach(holdTransaction);
@@ -201,7 +202,6 @@ describe('connections', () => {
       }
     }
     `;
-    // No pagination yet
     const result = await runQuery(sectionsQuery, { id: REGION_GALICIA }, fakeContext(EDITOR_NO_EC));
     expect(result.data!.region.sources.count).toEqual(2);
     expect(result.data!.region.sources).toMatchSnapshot();
@@ -235,21 +235,20 @@ describe('connections', () => {
 
   it('should get sections', async () => {
     const sectionsQuery = `
-    query regionDetails($id: ID){
-      region(id: $id) {
-        id
-        name
-        sections {
-          nodes {
-            id
-            name
+      query regionDetails($id: ID){
+        region(id: $id) {
+          id
+          name
+          sections {
+            nodes {
+              id
+              name
+            }
+            count
           }
-          count
         }
       }
-    }
-  `;
-    // No pagination yet
+    `;
     const result = await runQuery(sectionsQuery, { id: REGION_GALICIA }, fakeContext(EDITOR_NO_EC));
     expect(result.data!.region.sections.count).toEqual(2);
     expect(result.data!.region.sections).toMatchSnapshot();
@@ -257,20 +256,20 @@ describe('connections', () => {
 
   it('should paginate sections', async () => {
     const sectionsQuery = `
-    query regionDetails($id: ID, $page: Page){
-      region(id: $id) {
-        id
-        name
-        sections(page: $page) {
-          nodes {
-            id
-            name
+      query regionDetails($id: ID, $page: Page){
+        region(id: $id) {
+          id
+          name
+          sections(page: $page) {
+            nodes {
+              id
+              name
+            }
+            count
           }
-          count
         }
       }
-    }
-  `;
+    `;
     const result = await runQuery(
       sectionsQuery,
       { id: REGION_GEORGIA, page: { limit: 1, offset: 1 } },
@@ -279,6 +278,37 @@ describe('connections', () => {
     expect(result.data!.region.sections.count).toEqual(3);
     expect(result.data!.region.sections.nodes).toHaveLength(1);
     expect(result.data!.region.sections).toHaveProperty('nodes.0.name', 'Long Race');
+  });
+
+  it('should filter recently updated sections', async () => {
+    const sectionsQuery = `
+      query regionDetails($id: ID, $filter: SectionsFilter){
+        region(id: $id) {
+          id
+          name
+          sections(filter: $filter) {
+            nodes {
+              id
+              name
+            }
+            count
+          }
+        }
+      }
+    `;
+    const [u2] = await db()
+      .update({ rating: 1 })
+      .from('sections')
+      .where({ id: GEORGIA_BZHUZHA_LONG })
+      .returning('updated_at');
+    const result = await runQuery(
+      sectionsQuery,
+      { id: REGION_GEORGIA, filter: { updatedAfter: u2.toISOString() }  },
+      fakeContext(EDITOR_NO_EC),
+    );
+    expect(result.errors).toBeUndefined();
+    expect(result).toHaveProperty('data.region.sections.nodes.length', 1);
+    expect(result).toHaveProperty('data.region.sections.count', 1);
   });
 
   it('should fire two queries for region->sections->region', async () => {
