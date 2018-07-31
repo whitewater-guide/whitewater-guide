@@ -3,8 +3,10 @@ FROM keymetrics/pm2:8-alpine
 ENV PROJECT_ROOT /opt/app
 WORKDIR $PROJECT_ROOT
 
-# curl for healthcheck
-RUN apk add --no-cache curl
+# curl for healthcheck, also dependencies for hiredis
+RUN apk --no-cache add --virtual native-deps \
+    g++ gcc libgcc libstdc++ linux-headers make python && \
+    apk add --no-cache curl
 
 RUN chown -R node /opt/app
 
@@ -17,6 +19,8 @@ RUN cd /opt/app/ && rm -rf node_modules && yarn install --production=true
 HEALTHCHECK --timeout=3s --start-period=60s \
   CMD curl -f http://localhost:9615/ || exit 1
 
+RUN apk del native-deps
+
 COPY bin /opt/bin
 
-CMD ["/opt/bin/start_staging.sh"]
+CMD ["/opt/bin/start_production.sh"]

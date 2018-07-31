@@ -16,7 +16,7 @@ interface Details {
 }
 
 export class AdminDirective extends SchemaDirectiveVisitor {
-  visitFieldDefinition(field: Fields, { objectType }: Details) {
+  public visitFieldDefinition(field: Fields, { objectType }: Details) {
     // Throw errors for queries and mutations
     if (objectType.name === 'Mutation' || objectType.name === 'Query') {
       const { resolve: oldResolver = defaultFieldResolver } = field;
@@ -38,7 +38,7 @@ export class AdminDirective extends SchemaDirectiveVisitor {
     }
   }
 
-  checkPermissions(source: any, user?: ContextUser): ApolloError | null  {
+  private checkPermissions(source: any, user?: ContextUser): ApolloError | null  {
     if (!user) {
       return new AuthenticationRequiredError();
     }

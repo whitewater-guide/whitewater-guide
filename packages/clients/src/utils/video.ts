@@ -40,7 +40,7 @@ export const isYoutube = (url: string) =>
   ['www.youtube.com', 'youtube.com', 'youtu.be'].some(host => url.includes(host));
 
 export const getYoutubeId = (url: string): string | null => {
-  const { query, pathname } = parse(url, true);
+  const { query, pathname } = parse(url, {}, true);
   const { v } = query;
   if (v && v.match(/^[\w-]{10,12}$/)) {
     return v;
@@ -72,7 +72,7 @@ export const isVimeo = (url: string) =>
   ['www.vimeo.com', 'vimeo.com', 'player.vimeo.com'].some(host => url.includes(host));
 
 export const getVimeoId = (url: string): string | null => {
-  const { pathname } = parse(url, true);
+  const { pathname } = parse(url, {}, true);
   const match = RE_VIMEO.exec(pathname);
   return match ? match[1] : null;
 };

@@ -6,7 +6,8 @@
     "merge_logs": true,
     "watch": true,
     "watch_options": {
-      "usePolling": true
+      "usePolling": true,
+      "ignore_watch": ["**/*.ts"]
     },
     "node_args": ["--inspect=0.0.0.0:5775"]
   }]
