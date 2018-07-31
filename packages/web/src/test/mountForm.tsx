@@ -43,7 +43,7 @@ export const mountForm = (options: MountFormOptions) => {
       </MemoryRouter>
     );
   if (mockApollo) {
-    const MockedProvider = createMockedProvider(queries, mutations);
+    const MockedProvider = createMockedProvider({ Query: queries, Mutation: mutations });
     router = (
       <MockedProvider>
         {router}

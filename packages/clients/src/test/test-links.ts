@@ -2,17 +2,10 @@
  * Copied from https://github.com/apollographql/react-apollo/blob/master/src/test-links.ts to avoid babel/jest issues
  * Changes: added removeConnectionDirectiveFromDocument
  */
-import {
-  Operation,
-  GraphQLRequest,
-  ApolloLink,
-  FetchResult,
-  Observable,
-  // Observer,
-} from 'apollo-link';
+import { ApolloLink, FetchResult, GraphQLRequest, Observable, Operation, } from 'apollo-link';
+import { addTypenameToDocument, removeConnectionDirectiveFromDocument } from 'apollo-utilities';
 
 import { print } from 'graphql/language/printer';
-import { addTypenameToDocument, removeConnectionDirectiveFromDocument } from 'apollo-utilities';
 import { isEqual } from 'lodash';
 
 export interface MockedResponse {
@@ -34,10 +27,10 @@ export interface MockedSubscription {
 }
 
 export class MockLink extends ApolloLink {
-  public addTypename: Boolean = true;
+  public addTypename: boolean = true;
   private mockedResponsesByKey: { [key: string]: MockedResponse[] } = {};
 
-  constructor(mockedResponses: MockedResponse[], addTypename: Boolean = true) {
+  constructor(mockedResponses: MockedResponse[], addTypename: boolean = true) {
     super();
     this.addTypename = addTypename;
     if (mockedResponses)
@@ -108,6 +101,7 @@ export class MockLink extends ApolloLink {
 }
 
 function requestToKey(request: GraphQLRequest, addTypename: Boolean): string {
+  // @ts-ignore
   const cleanQuery = removeConnectionDirectiveFromDocument(request.query);
   const queryString =
     request.query && print(addTypename ? addTypenameToDocument(cleanQuery) : cleanQuery);

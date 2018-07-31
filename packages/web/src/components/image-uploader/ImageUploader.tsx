@@ -99,6 +99,7 @@ const getFakeMedia = (props: ImageUploaderProps, useTempBucket?: boolean): Media
     weight: 0,
     createdAt: new Date().toDateString(),
     updatedAt: new Date().toDateString(),
+    size: 12345678,
   }] : [];
 };
 

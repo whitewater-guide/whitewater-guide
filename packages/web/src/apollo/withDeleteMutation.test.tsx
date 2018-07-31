@@ -10,7 +10,7 @@ import { withDeleteMutation, WithDeleteMutation } from './withDeleteMutation';
 
 const removeRegion = jest.fn(() => 'deleted');
 const regions = jest.fn(() => []);
-const MockedProvider = createMockedProvider({ regions }, { removeRegion });
+const MockedProvider = createMockedProvider({ Query: { regions }, Mutation: { removeRegion } });
 
 class Receiver extends React.PureComponent<WithDeleteMutation<'removeRegion'>> {
   render() {

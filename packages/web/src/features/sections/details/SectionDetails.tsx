@@ -14,6 +14,9 @@ import SectionInfo from './SectionInfo';
 export default class SectionDetails extends React.PureComponent<WithSection & RouteComponentProps<any>> {
   render() {
     const { section: { node: section }, match: { url } } = this.props;
+    if (!section) {
+      return null;
+    }
     return (
       <Content card>
         <CardHeader title={`${section.river.name} - ${section.name}`}>

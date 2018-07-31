@@ -16,7 +16,7 @@ export class WebMapLayout extends React.PureComponent<MapLayoutProps> {
     const { mapView, selectedSectionView, selectedPOIView } = this.props;
     return (
       <div style={styles.container}>
-        {React.cloneElement(mapView, {}, [ selectedSectionView, selectedPOIView ])}
+        {React.cloneElement(mapView as any, {}, [ selectedSectionView, selectedPOIView ])}
       </div>
     );
   }
