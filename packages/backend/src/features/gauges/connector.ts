@@ -1,12 +1,14 @@
 import { ContextUser } from '@apollo';
 import { BaseModel, FieldsMap } from '@db/model';
 import { Gauge } from '@ww-commons';
+import { redis } from '../../redis/client';
+import { NS_LAST_OP } from '../../redis/constants';
 import { GaugeRaw } from './types';
 
 const FIELDS_MAP: FieldsMap<Gauge, GaugeRaw> = {
   lastMeasurement: 'script',
-  status: 'source_id',
-  source: 'source_id',
+  status: ['source_id', 'script'],
+  source: ['source_id', 'script'],
 };
 
 export class GaugesConnector extends BaseModel<Gauge, GaugeRaw> {
@@ -16,6 +18,15 @@ export class GaugesConnector extends BaseModel<Gauge, GaugeRaw> {
     this._tableName = 'gauges_view';
     this._graphqlTypeName = 'Gauge';
     this._fieldsMap = FIELDS_MAP;
+  }
+
+  async getStatus(script: string, code: string) {
+    try {
+      const statusStr = await redis.hget(`${NS_LAST_OP}:${script}`, code);
+      return JSON.parse(statusStr);
+    } catch {
+      return null;
+    }
   }
 
 }
