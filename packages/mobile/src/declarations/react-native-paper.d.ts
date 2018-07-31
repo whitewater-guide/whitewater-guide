@@ -209,7 +209,7 @@ declare module 'react-native-paper' {
 
   export class DrawerSection extends Component<DrawerSectionProps> {}
 
-  export type PaperProps = ViewProps & Themeable;
+  export type PaperProps = ViewProps & Themeable & { elevation?: number };
 
   export class Paper extends Component<PaperProps> {}
 
@@ -249,6 +249,30 @@ declare module 'react-native-paper' {
 
   export class RadioButton extends Component<RadioButtonProps> {}
   export class RadioButtonGroup extends Component<RadioButtonGroupProps> {}
+
+  export interface CheckboxProps extends TouchableRippleProps {
+    /**
+     * Whether checkbox is checked.
+     */
+    checked: boolean;
+    /**
+     * Whether checkbox is disabled.
+     */
+    disabled?: boolean;
+    /**
+     * Function to execute on press.
+     */
+    onPress?: () => void;
+    /**
+     * Custom color for unchecked checkbox.
+     */
+    uncheckedColor?: string;
+    /**
+     * Custom color for checkbox.
+     */
+    color?: string;
+  }
+  export class Checkbox extends Component<CheckboxProps> {}
 
   // Bottom navigation
   export interface Route {

@@ -628,21 +628,6 @@
     react-inspector "^2.3.0"
     uuid "^3.2.1"
 
-"@storybook/addon-actions@^3.4.6":
-  version "3.4.10"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-actions/-/addon-actions-3.4.10.tgz#b90ca8ccbad925dcbb4af02d2d24cc2c60bcec3f"
-  dependencies:
-    "@storybook/components" "3.4.10"
-    babel-runtime "^6.26.0"
-    deep-equal "^1.0.1"
-    glamor "^2.20.40"
-    glamorous "^4.12.1"
-    global "^4.3.2"
-    make-error "^1.3.4"
-    prop-types "^15.6.1"
-    react-inspector "^2.2.2"
-    uuid "^3.2.1"
-
 "@storybook/addon-links@4.0.0-alpha.4":
   version "4.0.0-alpha.4"
   resolved "https://registry.yarnpkg.com/@storybook/addon-links/-/addon-links-4.0.0-alpha.4.tgz#3aa97e73e91f1b302f9f8291856f42878aa3da0f"
@@ -653,25 +638,12 @@
     global "^4.3.2"
     prop-types "^15.6.1"
 
-"@storybook/addon-links@^3.4.6":
-  version "3.4.10"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-links/-/addon-links-3.4.10.tgz#db53d0a0b354e7f5e55195315f48f7045307a429"
-  dependencies:
-    "@storybook/components" "3.4.10"
-    babel-runtime "^6.26.0"
-    global "^4.3.2"
-    prop-types "^15.6.1"
-
 "@storybook/addons@4.0.0-alpha.4":
   version "4.0.0-alpha.4"
   resolved "https://registry.yarnpkg.com/@storybook/addons/-/addons-4.0.0-alpha.4.tgz#0da1b5aa7f6d98392341be323c8283a0993e428d"
   dependencies:
     "@storybook/channels" "4.0.0-alpha.4"
     global "^4.3.2"
-
-"@storybook/addons@^3.4.6":
-  version "3.4.10"
-  resolved "https://registry.yarnpkg.com/@storybook/addons/-/addons-3.4.10.tgz#13298cdcb7ccc396321b1336b9785b69273a022d"
 
 "@storybook/channel-postmessage@4.0.0-alpha.4":
   version "4.0.0-alpha.4"
@@ -695,14 +667,6 @@
 "@storybook/client-logger@4.0.0-alpha.4":
   version "4.0.0-alpha.4"
   resolved "https://registry.yarnpkg.com/@storybook/client-logger/-/client-logger-4.0.0-alpha.4.tgz#92d8c72378f13c99448999614b99a07ba2adb8a1"
-
-"@storybook/components@3.4.10":
-  version "3.4.10"
-  resolved "https://registry.yarnpkg.com/@storybook/components/-/components-3.4.10.tgz#9af0bba14234d10f14a37656ac5982ec640cfcc8"
-  dependencies:
-    glamor "^2.20.40"
-    glamorous "^4.12.1"
-    prop-types "^15.6.1"
 
 "@storybook/components@4.0.0-alpha.4":
   version "4.0.0-alpha.4"
@@ -919,10 +883,6 @@
   dependencies:
     "@types/color-convert" "*"
 
-"@types/d3-array@^1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@types/d3-array/-/d3-array-1.2.1.tgz#e489605208d46a1c9d980d2e5772fa9c75d9ec65"
-
 "@types/d3-scale@^2.0.1":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@types/d3-scale/-/d3-scale-2.0.1.tgz#f94cd991c50422b2e68d8f43be3f9fffdb1ae7be"
@@ -1092,6 +1052,10 @@
   resolved "https://registry.yarnpkg.com/@types/redux-mock-store/-/redux-mock-store-1.0.0.tgz#e06bad2b4ca004bdd371f432c3e48a92c1857ed9"
   dependencies:
     redux "^4.0.0"
+
+"@types/storybook__addon-actions@^3.4.1":
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/@types/storybook__addon-actions/-/storybook__addon-actions-3.4.1.tgz#8f90d76b023b58ee794170f2fe774a3fddda2c1d"
 
 "@types/storybook__react-native@^3.0.0":
   version "3.0.1"
@@ -3815,7 +3779,7 @@ cyclist@~0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-0.2.2.tgz#1b33792e11e914a2fd6d6ed6447464444e5fa640"
 
-d3-array@^1.2.0, d3-array@^1.2.4:
+d3-array@^1.2.0:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/d3-array/-/d3-array-1.2.4.tgz#635ce4d5eea759f6f605863dbcfc30edc737f71f"
 
@@ -5196,7 +5160,7 @@ glamorous-native@robinpowered/glamorous-native#98/head:
   dependencies:
     brcast "^2.0.0"
 
-glamorous@^4.12.1, glamorous@^4.12.4:
+glamorous@^4.12.4:
   version "4.13.1"
   resolved "https://registry.yarnpkg.com/glamorous/-/glamorous-4.13.1.tgz#8909afcbc7f09133c6eb26bedcc1250c1f774312"
   dependencies:
@@ -9143,7 +9107,7 @@ react-icons@^2.2.7:
   dependencies:
     react-icon-base "2.1.0"
 
-react-inspector@^2.2.2, react-inspector@^2.3.0:
+react-inspector@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/react-inspector/-/react-inspector-2.3.0.tgz#fc9c1d38ab687fc0d190dcaf133ae40158968fc8"
   dependencies:
