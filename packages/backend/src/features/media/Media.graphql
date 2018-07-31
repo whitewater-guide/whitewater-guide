@@ -17,6 +17,8 @@ type Media {
   url: String!
   # Mandatory for images - [width, height] array. Makes no sense for blogs and videos (yet)
   resolution: [Int]
+  # Image size in bytes. Null for blogs and videos
+  size: Int
   # weight for sorting
   weight: Int
   # Not persistent. Indicates that client should not display this item in lists

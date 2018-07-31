@@ -25,6 +25,7 @@ export interface Region extends NamedNode, Timestamped {
   gauges?: Connection<Gauge>;
   sections?: Connection<Section>;
   sources?: Connection<Source>;
+  mediaSummary?: RegionMediaSummary;
 }
 
 export interface RegionInput {
@@ -58,4 +59,15 @@ export interface RegionBanners {
   sectionMediaMobile: string | null;
   regionDescriptionMobile: string | null;
   regionLoadingMobile: string | null;
+}
+
+export interface RegionMediaSummaryItem {
+  count: number;
+  size: number;
+}
+
+export interface RegionMediaSummary {
+  photo: RegionMediaSummaryItem;
+  video: RegionMediaSummaryItem;
+  blog: RegionMediaSummaryItem;
 }

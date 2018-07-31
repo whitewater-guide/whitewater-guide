@@ -23,12 +23,14 @@ const media: Array<Partial<MediaRaw>> = [
     resolution: [800, 600],
     weight: 1,
     created_by: ADMIN_ID,
+    size: 100000,
   },
   {
     id: PHOTO_2,
     kind: MediaKind.photo,
     url: PHOTO_2, // Exists in seed minio data
     resolution: [1024, 768],
+    size: 333333,
   },
   {
     id: VIDEO_1,

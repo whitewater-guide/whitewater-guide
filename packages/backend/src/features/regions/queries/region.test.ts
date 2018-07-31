@@ -1,8 +1,6 @@
-import db from '@db';
-import { holdTransaction, rollbackTransaction } from '@db';
+import db, { holdTransaction, rollbackTransaction } from '@db';
 import { ADMIN, BOOM_USER_1500, EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '@seeds/01_users';
 import { REGION_GALICIA, REGION_GEORGIA, REGION_NORWAY } from '@seeds/04_regions';
-import { SOURCE_NORWAY } from '@seeds/05_sources';
 import { GEORGIA_BZHUZHA_LONG } from '@seeds/09_sections';
 import { anonContext, fakeContext, noTimestamps, runQuery } from '@test';
 
@@ -337,6 +335,34 @@ describe('connections', () => {
     await runQuery(sectionsQuery, { id: REGION_GEORGIA }, fakeContext(ADMIN));
     db().removeListener('query', queryMock);
     expect(queryMock).toHaveBeenCalledTimes(2);
+  });
+
+  it('should get media summary', async () => {
+    const riversQuery = `
+      query regionDetails($id: ID){
+        region(id: $id) {
+          id
+          name
+          mediaSummary {
+            photo {
+              count
+              size
+            }
+            video {
+              count
+              size
+            }
+            blog {
+              count
+              size
+            }
+          }
+        }
+      }
+    `;
+    const result = await runQuery(riversQuery, { id: REGION_NORWAY }, fakeContext(ADMIN));
+    expect(result.errors).toBeUndefined();
+    expect(result.data!.region).toMatchSnapshot();
   });
 
 });

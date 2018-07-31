@@ -34,6 +34,7 @@ const mutation = `
       weight
       createdAt
       updatedAt
+      size
     }
   }
 `;
@@ -220,7 +221,16 @@ describe('files', () => {
     expect(url).toBe(NEW_MEDIA_ID);
   });
 
+  it('should store media size', async () => {
+    const { size } = await db().table('media').select(['size']).where({ id: NEW_MEDIA_ID }).first();
+    expect(size).toBe(14935);
+  });
+
   it('should return filename as url', async () => {
     expect(result).toHaveProperty('data.upsertSectionMedia.url', NEW_MEDIA_ID);
+  });
+
+  it('should return media size', async () => {
+    expect(result).toHaveProperty('data.upsertSectionMedia.size', 14935);
   });
 });

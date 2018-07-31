@@ -16,6 +16,7 @@ const query = `
         url
         resolution
         weight
+        size
       }
       count
     }

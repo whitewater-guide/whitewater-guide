@@ -6,6 +6,7 @@ import bounds from './bounds';
 import editable from './editable';
 import gauges from './gauges';
 import hasPremiumAccess from './hasPremiumAccess';
+import mediaSummary from './mediaSummary';
 import rivers from './rivers';
 import sections from './sections';
 import sources from './sources';
@@ -21,5 +22,6 @@ export const regionFieldResolvers: FieldResolvers<RegionRaw, Region> = {
   sections,
   gauges,
   sources,
+  mediaSummary,
   ...timestampResolvers,
 };

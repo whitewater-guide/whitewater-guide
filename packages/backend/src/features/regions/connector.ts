@@ -13,6 +13,7 @@ const FIELDS_MAP: FieldsMap<Region, RegionRaw> = {
   gauges: null,
   sections: null,
   sources: null,
+  mediaSummary: null,
 };
 
 export class RegionsConnector extends BaseConnector<Region, RegionRaw> {

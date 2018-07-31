@@ -14,6 +14,7 @@ export interface Media extends Node, Timestamped {
   resolution: number[] | null;
   deleted?: boolean;
   weight: number;
+  size: number;
 }
 
 export interface MediaInput {

@@ -32,6 +32,27 @@ Object {
 }
 `;
 
+exports[`connections should get media summary 1`] = `
+Object {
+  "id": "b968e2b2-76c5-11e7-b5a5-be2e44b06b34",
+  "mediaSummary": Object {
+    "blog": Object {
+      "count": 1,
+      "size": 0,
+    },
+    "photo": Object {
+      "count": 2,
+      "size": 433333,
+    },
+    "video": Object {
+      "count": 1,
+      "size": 0,
+    },
+  },
+  "name": "Norway",
+}
+`;
+
 exports[`connections should get rivers 1`] = `
 Object {
   "count": 2,

@@ -10,6 +10,7 @@ export interface MediaRaw extends Node, RawTimestamped {
   weight: number;
   deleted?: boolean;
   created_by: string | null;
+  size: number;
 }
 
 export interface MediaUploadForm {

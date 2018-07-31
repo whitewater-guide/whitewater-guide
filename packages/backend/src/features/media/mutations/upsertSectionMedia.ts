@@ -1,6 +1,7 @@
 import { baseResolver, isInputValidResolver, TopLevelResolver, ValidationError } from '@apollo';
 import db, { rawUpsert } from '@db';
-import { MEDIA, moveTempImage } from '@minio';
+import log from '@log';
+import { MEDIA, minioClient, moveTempImage, TEMP } from '@minio';
 import { MediaInput, MediaInputSchema } from '@ww-commons';
 import Joi from 'joi';
 import { MediaRaw } from '../types';
@@ -19,7 +20,14 @@ const resolver: TopLevelResolver<Vars> = async (root, vars: Vars, context) => {
   const { sectionId } = vars;
   const { language, user, dataSources } = context;
   await dataSources.media.assertEditorPermissions(undefined, sectionId);
-  const media = { ...vars.media, createdBy: user ? user.id : null };
+  let size = 0;
+  try {
+    const stat = await minioClient.statObject(TEMP, vars.media.url);
+    size = stat.size;
+  } catch (e) {
+    log.error(vars.media, 'Failed to get temp file size');
+  }
+  const media = { ...vars.media, createdBy: user ? user.id : null, size };
   try {
     const result: MediaRaw = await rawUpsert(
       db(),

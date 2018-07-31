@@ -42,7 +42,8 @@ type Region {
   # Indicates that current user can see premium content in this region
   hasPremiumAccess: Boolean!
 
-  # sources: [Source]!
+  # Summary of all media belongng to region
+  mediaSummary: RegionMediaSummary!
 }
 
 type RegionRiverConnection {
@@ -71,6 +72,19 @@ type RegionBanners {
   sectionMediaMobile: String
   regionDescriptionMobile: String
   regionLoadingMobile: String
+}
+
+type RegionMediaSummaryItem {
+  # Total number of media items of certain kind
+  count: Int!
+  # Total stored size of media items of certain kind
+  size: Int!
+}
+
+type RegionMediaSummary {
+  photo: RegionMediaSummaryItem!
+  video: RegionMediaSummaryItem!
+  blog: RegionMediaSummaryItem!
 }
 
 input RegionBannersInput {
