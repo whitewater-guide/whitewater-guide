@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`data should get gauges 1`] = `
+exports[`connections should get gauges 1`] = `
 Object {
   "count": 6,
   "nodes": Array [
@@ -32,7 +32,7 @@ Object {
 }
 `;
 
-exports[`data should get rivers 1`] = `
+exports[`connections should get rivers 1`] = `
 Object {
   "count": 2,
   "nodes": Array [
@@ -48,7 +48,7 @@ Object {
 }
 `;
 
-exports[`data should get sections 1`] = `
+exports[`connections should get sections 1`] = `
 Object {
   "count": 2,
   "nodes": Array [
@@ -59,6 +59,22 @@ Object {
     Object {
       "id": "3a6e3210-d529-11e7-9296-cec278b6b50a",
       "name": "Gal_riv_1_sec_2",
+    },
+  ],
+}
+`;
+
+exports[`connections should get sources 1`] = `
+Object {
+  "count": 2,
+  "nodes": Array [
+    Object {
+      "id": "6d0d717e-aa9d-11e7-abc4-cec278b6b50a",
+      "name": "Galicia",
+    },
+    Object {
+      "id": "9f962a34-bff9-11e7-abc4-cec278b6b50a",
+      "name": "Galicia2",
     },
   ],
 }

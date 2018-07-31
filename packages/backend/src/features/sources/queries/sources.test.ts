@@ -1,7 +1,5 @@
-import db from '@db';
 import { holdTransaction, rollbackTransaction } from '@db';
 import { ADMIN, EDITOR_NO_EC, TEST_USER } from '@seeds/01_users';
-import { SOURCE_NORWAY } from '@seeds/05_sources';
 import { anonContext, fakeContext, noTimestamps, runQuery } from '@test';
 
 beforeEach(holdTransaction);
