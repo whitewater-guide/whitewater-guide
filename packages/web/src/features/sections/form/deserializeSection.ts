@@ -6,7 +6,7 @@ export default (input?: object | null) => {
   if (!result) {
     return result;
   }
-  const { flows, levels, tags, ...rest } = result;
+  const { flows, levels, tags, demo, ...rest } = result;
   const {
     kayaking: kayakingTags = [],
     hazards: hazardsTags = [],
