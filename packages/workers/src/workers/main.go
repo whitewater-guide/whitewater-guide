@@ -109,7 +109,7 @@ func handler(res http.ResponseWriter, req *http.Request) {
     result, err = worker.Autofill()
   case "harvest":
     worker := workerFactories[payload.Script]()
-    result, err = harvest(&database, &cache, worker, payload)
+    result, err = harvest(&database, &cache, &worker, &payload)
     go cache.SaveOpLog(payload.Script, payload.Code, err, getResultCount(result))
   default:
     logger.Error("bad command")
