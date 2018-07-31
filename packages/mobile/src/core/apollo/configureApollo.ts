@@ -1,9 +1,9 @@
 import ApolloClient from 'apollo-client';
 import { ApolloLink } from 'apollo-link';
 import { createHttpLink } from 'apollo-link-http';
+import { RetryLink } from 'apollo-link-retry';
 import Config from 'react-native-config';
 import RNLanguages from 'react-native-languages';
-import { offlineLink } from './apollo-link-offline';
 import { assertCachePersistorVersion, inMemoryCache } from './cache';
 
 let apolloClient: ApolloClient<any>;
@@ -23,6 +23,7 @@ export const getApolloClient = async () => {
 
     const link = ApolloLink.from([
       // offlineLink,
+      new RetryLink(),
       httpLink,
     ]);
 

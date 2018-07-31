@@ -1184,6 +1184,10 @@
   dependencies:
     "@types/react" "*"
 
+"@types/zen-observable@0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@types/zen-observable/-/zen-observable-0.5.3.tgz#91b728599544efbb7386d8b6633693a3c2e7ade5"
+
 "@types/zen-observable@^0.8.0":
   version "0.8.0"
   resolved "https://registry.yarnpkg.com/@types/zen-observable/-/zen-observable-0.8.0.tgz#8b63ab7f1aa5321248aad5ac890a485656dcea4d"
@@ -1550,6 +1554,13 @@ apollo-link-http@^1.5.3:
   dependencies:
     apollo-link "^1.2.2"
     apollo-link-http-common "^0.2.4"
+
+apollo-link-retry@^2.2.4:
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/apollo-link-retry/-/apollo-link-retry-2.2.4.tgz#63fadf06fcd6975ad0914d8f0146be5f950f6539"
+  dependencies:
+    "@types/zen-observable" "0.5.3"
+    apollo-link "^1.2.2"
 
 apollo-link-schema@^1.1.0:
   version "1.1.0"
