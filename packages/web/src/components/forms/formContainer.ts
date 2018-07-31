@@ -8,6 +8,7 @@ import { ConfigProps, InjectedFormProps, reduxForm, SubmissionError } from 'redu
 import { Kind } from 'superstruct';
 import { Omit } from 'type-zoo';
 import { apolloErrorToString } from '../../ww-clients/apollo';
+import { omitTypename } from '../../ww-commons/utils';
 import { withLoading } from '../withLoading';
 import { validateInput } from './validation';
 
@@ -46,7 +47,6 @@ export interface FormContainerOptions<QueryResult, MutationResult, FormInput> {
   backPath?: string | null;
   /**
    * Convert graphql query result into something that can be feed to form (i.e. markdown -> draft.js)
-   * Remove __typename here
    */
   deserializeForm: (data: any) => FormInput;
   /**
@@ -98,7 +98,13 @@ export const formContainer = <QueryResult, MutationResult, FormInput>(
     withRouter,
     // graphql(query, { options: { fetchPolicy: 'network-only' }, alias: `${formName}FormQuery` }),
     // TODO: Use functional options because of this bug: https://github.com/apollographql/react-apollo/issues/1873
-    graphql(query, { options: () => ({ fetchPolicy: 'network-only' }), alias: `${formName}FormQuery` }),
+    graphql(
+      query,
+      {
+        options: () => ({ fetchPolicy: 'network-only' }),
+        alias: `${formName}FormQuery`,
+        props: (props) => omitTypename(props),
+      }),
     withLoading<ChildProps<any, any>>(({ data }) => data!.loading),
     graphql(mutation, { alias: `${formName}FormMutation` }),
     mapProps<FormProps, MappedProps>((props) => {

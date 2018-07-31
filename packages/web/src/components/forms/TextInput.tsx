@@ -1,4 +1,5 @@
 import { isFinite } from 'lodash';
+import isString from 'lodash/isString';
 import { TextFieldProps } from 'material-ui';
 import TextField from 'material-ui/TextField';
 import React from 'react';
@@ -17,12 +18,13 @@ class TextInputComponent extends React.PureComponent<Props> {
 
   render() {
     const { input, meta, ...own } = this.props;
+    const errorText = meta.error && isString(meta.error) ? meta.error : JSON.stringify(meta.error);
     return (
       <TextField
         {...input}
         floatingLabelText={own.title}
         {...own}
-        errorText={meta.touched && meta.error}
+        errorText={errorText}
         onWheel={this.onWheel}
       />
     );

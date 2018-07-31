@@ -70,7 +70,7 @@ export default compose<SectionFormProps, {}>(
   mapProps(({ data, ...props }: any) => ({
     region: data.region,
     river: data.river,
-    tags: data.tags.map(({ __typename, ...tag}: Tag) => tag),
+    tags: data.tags,
     ...props,
   })),
 );

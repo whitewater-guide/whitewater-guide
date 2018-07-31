@@ -2,6 +2,7 @@ import { SelectFieldProps } from 'material-ui';
 import MenuItem from 'material-ui/MenuItem';
 import SelectField from 'material-ui/SelectField';
 import React from 'react';
+import isString from 'lodash/isString';
 import { BaseFieldProps, Field, GenericField, WrappedFieldProps } from 'redux-form';
 import { NamedNode } from '../../ww-commons';
 
@@ -48,6 +49,7 @@ class SelectComponent extends React.PureComponent<Props> {
   render() {
     const { input, meta, simple, nullable, title, options, ...props } = this.props;
     const value = this.getValue();
+    const errorText = meta.error && isString(meta.error) ? meta.error : JSON.stringify(meta.error);
     return (
       <SelectField
         {...props}
@@ -56,7 +58,7 @@ class SelectComponent extends React.PureComponent<Props> {
         onChange={this.onChange}
         floatingLabelText={title}
         hintText={title}
-        errorText={meta.touched && meta.error}
+        errorText={errorText}
       >
         {nullable && <MenuItem key="nullable" value={null} primaryText="" />}
         {options.map(this.renderItem)}

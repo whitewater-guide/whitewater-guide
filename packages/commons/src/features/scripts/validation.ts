@@ -5,5 +5,5 @@ export const ScriptStruct = struct.object({
   id: 'script',
   name: 'script',
   harvestMode: HarvestModeStruct,
-  error: 'null',
+  error: 'null?',
 });
