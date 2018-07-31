@@ -71,7 +71,7 @@ func (w *workerNorway) HarvestMode() string {
 }
 
 func (w *workerNorway) FlagsToExtras(flags *pflag.FlagSet) map[string]interface{} {
-  version, _ := flags.GetInt("version")
+  version, _ := flags.GetFloat64("version")
   html, _ := flags.GetBool("html")
   return map[string]interface{}{
     "version": version,
@@ -115,8 +115,8 @@ func (w *workerNorway) Harvest(options core.HarvestOptions) ([]core.Measurement,
   var version = 1
   var html = false
   if v, ok := options.Extras["version"]; ok && v != 0 {
-    vint := v.(int)
-    version = int(vint)
+    vf := v.(float64)
+    version = int(vf)
   }
   if v, ok := options.Extras["html"]; ok {
     html = v.(bool)
