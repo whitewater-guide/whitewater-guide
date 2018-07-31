@@ -7,3 +7,4 @@ tslint.json
 yarn-error.log
 .dockerignore
 .env.*
+gulpfile.js
