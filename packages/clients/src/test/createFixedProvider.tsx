@@ -11,7 +11,7 @@ export interface FixedProviderOptions<TResult = any, TVars = any> {
       query: DocumentNode;
       variables?: TVars;
     },
-    result?: TResult;
+    result?: { data: TResult };
     error?: any;
   }>;
   addTypename?: boolean;

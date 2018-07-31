@@ -26,11 +26,12 @@ export const getListMerger = <T, R extends ListType>(propName: R) =>
     }
     const { [propName]: { nodes: prevNodes, __typename } } = prevResult as any;
     const { [propName]: { nodes: newNodes, count } } = nextResult as any;
+    const nodes = updateList(prevNodes, newNodes);
     return {
       [propName]: {
         __typename,
-        count,
-        nodes: updateList(prevNodes, newNodes),
+        count: Math.max(nodes.length, count),
+        nodes,
       },
     };
   };

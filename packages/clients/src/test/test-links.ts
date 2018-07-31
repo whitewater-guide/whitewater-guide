@@ -1,5 +1,6 @@
 /**
  * Copied from https://github.com/apollographql/react-apollo/blob/master/src/test-links.ts to avoid babel/jest issues
+ * Changes: added removeConnectionDirectiveFromDocument
  */
 import {
   Operation,
@@ -11,7 +12,7 @@ import {
 } from 'apollo-link';
 
 import { print } from 'graphql/language/printer';
-import { addTypenameToDocument } from 'apollo-utilities';
+import { addTypenameToDocument, removeConnectionDirectiveFromDocument } from 'apollo-utilities';
 import { isEqual } from 'lodash';
 
 export interface MockedResponse {
@@ -90,7 +91,7 @@ export class MockLink extends ApolloLink {
     }
 
     return new Observable<FetchResult>(observer => {
-      let timer = setTimeout(() => {
+      let timer = setImmediate(() => {
         if (error) {
           observer.error(error);
         } else {
@@ -106,48 +107,11 @@ export class MockLink extends ApolloLink {
   }
 }
 
-export class MockSubscriptionLink extends ApolloLink {
-  // private observer: Observer<any>;
-  public unsubscribers: any[] = [];
-  public setups: any[] = [];
-
-  private observer: any;
-
-  constructor() {
-    super();
-  }
-
-  public request(_req: any) {
-    return new Observable<FetchResult>(observer => {
-      this.setups.forEach(x => x());
-      this.observer = observer;
-      return () => {
-        this.unsubscribers.forEach(x => x());
-      };
-    });
-  }
-
-  public simulateResult(result: MockedSubscriptionResult) {
-    setTimeout(() => {
-      const { observer } = this;
-      if (!observer) throw new Error('subscription torn down');
-      if (result.result && observer.next) observer.next(result.result);
-      if (result.error && observer.error) observer.error(result.error);
-    }, result.delay || 0);
-  }
-
-  public onSetup(listener: any): void {
-    this.setups = this.setups.concat([listener]);
-  }
-
-  public onUnsubscribe(listener: any): void {
-    this.unsubscribers = this.unsubscribers.concat([listener]);
-  }
-}
-
 function requestToKey(request: GraphQLRequest, addTypename: Boolean): string {
+  const cleanQuery = removeConnectionDirectiveFromDocument(request.query);
   const queryString =
-    request.query && print(addTypename ? addTypenameToDocument(request.query) : request.query);
+    request.query && print(addTypename ? addTypenameToDocument(cleanQuery) : cleanQuery);
+  // removeConnectionDirectiveFromDocument
 
   const requestKey = { query: queryString };
 
@@ -168,8 +132,4 @@ export function mockSingleLink(...mockedResponses: Array<any>): ApolloLink {
   }
 
   return new MockLink(mocks, maybeTypename);
-}
-
-export function mockObservableLink(): MockSubscriptionLink {
-  return new MockSubscriptionLink();
 }

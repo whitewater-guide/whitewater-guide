@@ -24,5 +24,5 @@ export interface InnerProps {
   sections: Section[];
   count: number;
   status: SectionsStatus;
-  refresh: () => void;
+  refresh: () => Promise<void>;
 }

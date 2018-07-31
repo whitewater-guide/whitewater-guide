@@ -2,6 +2,7 @@ export type ResourceType = 'gauge' | 'region' | 'river'  | 'section' | 'source' 
 export type ListType = 'gauges' | 'regions' | 'rivers'  | 'sections' | 'sources' | 'users' | 'mediaBySection';
 
 export interface Connection<T> {
+  __typename?: string;
   count?: number;
   nodes?: T[];
 }

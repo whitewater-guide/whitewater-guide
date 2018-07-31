@@ -4,6 +4,7 @@ export * from './apolloErrorToString';
 export * from './chunkedListLoader';
 export * from './configureApolloCache';
 export * from './configureApolloClient';
+export * from './dataIdFromObject';
 export * from './types';
 export * from './queryResultToList';
 export * from './queryResultToNode';

@@ -1,14 +1,6 @@
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { toIdValue } from 'apollo-utilities';
-
-function dataIdFromObject(result: any) {
-  if (result.__typename) {
-    if (result.id !== undefined) {
-      return `${result.__typename}:${result.id}`;
-    }
-  }
-  return null;
-}
+import { dataIdFromObject } from './dataIdFromObject';
 
 export const configureApolloCache = () =>
   new InMemoryCache({
