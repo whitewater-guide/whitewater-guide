@@ -16,7 +16,6 @@ export const chunkedListLoader = <T extends ListType>(propName: T) =>
 
       componentDidMount() {
         const { [propName]: list } = this.props as any;
-        console.log('Start', list.nodes.length);
         if (list.nodes && list.nodes.length === 0) {
           this.fetchMore().catch(/* Ignore */);
         }
@@ -25,15 +24,12 @@ export const chunkedListLoader = <T extends ListType>(propName: T) =>
       componentDidUpdate(prevProps: ChunkedListProps<T>) {
         const prevList: WithList<T> = prevProps[propName];
         const nextList: WithList<T> = (this.props as any)[propName];
-        console.log('Prev', prevList.nodes.length);
-        console.log('Next', nextList.nodes.length);
         if (nextList.nodes.length !== prevList.nodes.length) {
           this.fetchMore().catch(/* Ignore */);
         }
       }
 
       fetchMore = async () => {
-        console.log('Fetch');
         const { [propName]: list } = this.props as any;
         return list.fetchMore();
       };

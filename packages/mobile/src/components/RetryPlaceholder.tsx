@@ -36,14 +36,6 @@ interface State {
 class RetryPlaceholderInner extends React.PureComponent<Props & WithT, State> {
   readonly state: State = { refetching: false };
 
-  componentDidMount() {
-    console.log('CDM');
-  }
-
-  componentWillUnmount() {
-    console.log('CWU');
-  }
-
   onRetry = async () => {
     const { refetch } = this.props;
     try {
