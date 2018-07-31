@@ -24,7 +24,7 @@ func (w *workerRiverzone) FlagsToExtras(flags *pflag.FlagSet) map[string]interfa
 }
 
 func fetchStations() (*Stations, error) {
-  req, _ := http.NewRequest("GET", "https://api.riverzone.eu/v1/stations", nil)
+  req, _ := http.NewRequest("GET", "https://api.riverzone.eu/v1/stations?status=enabled", nil)
   req.Header.Set("User-Agent", core.UserAgent)
   req.Header.Set("Cache-Control", "no-cache")
   req.Header.Set("X-Key", os.Getenv("RIVERZONE_KEY"))
