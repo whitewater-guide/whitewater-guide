@@ -4,6 +4,9 @@ import (
   "net/url"
     "time"
   "core"
+  "strings"
+  log "github.com/sirupsen/logrus"
+  "github.com/moul/http2curl"
 )
 
 const xlsUrl = "http://dgasatel.mop.cl/cons_det_instan_xls.asp"
@@ -18,8 +21,8 @@ func loadXLS(code string, since int64) (string, error) {
     period = "3m"
   }
   t := time.Now().In(tz)
-  core.Client.EnsureCookie("http://dgasatel.mop.cl", "http://dgasatel.mop.cl")
-  html, err := core.Client.PostFormAsString(xlsUrl, url.Values{
+  cookieErr := core.Client.EnsureCookie("http://dgasatel.mop.cl", "http://dgasatel.mop.cl")
+  html, req, err := core.Client.PostFormAsString(xlsUrl, url.Values{
     "accion":         {"refresca"},
     "chk_estacion1a": {code + "_1", code + "_12"},
     "chk_estacion1b": {""},
@@ -36,5 +39,17 @@ func loadXLS(code string, since int64) (string, error) {
     "period":         {period},
     "tiporep":        {"I"},
   })
+
+  // TEMPORARY CODE
+  command, _ := http2curl.GetCurlCommand(req)
+  if strings.Index(html, "tabla para resultados numerados ") == -1 {
+    log.WithFields(log.Fields{
+      "code": code,
+      "since": since,
+      "cookieErr": cookieErr != nil,
+      "req": command,
+    }).Warn("missing data table in XLS response")
+  }
+
   return html, err
 }

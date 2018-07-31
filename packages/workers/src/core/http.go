@@ -88,8 +88,8 @@ func (client *HttpClient) GetAsString(url string) (string, error) {
   return string(bytes), nil
 }
 
-func (client *HttpClient) PostForm(url string, data url.Values) (resp *http.Response, err error) {
-  req, err := http.NewRequest("POST", url, strings.NewReader(data.Encode()))
+func (client *HttpClient) PostForm(url string, data url.Values) (resp *http.Response, req *http.Request, err error) {
+  req, err = http.NewRequest("POST", url, strings.NewReader(data.Encode()))
   if err != nil {
     return
   }
@@ -100,15 +100,15 @@ func (client *HttpClient) PostForm(url string, data url.Values) (resp *http.Resp
   return
 }
 
-func (client *HttpClient) PostFormAsString(url string, data url.Values) (result string, err error) {
-  resp, err := client.PostForm(url, data)
+func (client *HttpClient) PostFormAsString(url string, data url.Values) (result string, req *http.Request, err error) {
+  resp, req, err := client.PostForm(url, data)
   if err != nil {
-    return "", err
+    return "", req, err
   }
   defer resp.Body.Close()
   bytes, err := ioutil.ReadAll(resp.Body)
   if err != nil {
-    return "", err
+    return "", req, err
   }
-  return string(bytes), nil
+  return string(bytes), req, nil
 }
