@@ -1,9 +1,9 @@
 import React from 'react';
+import { WithI18n } from 'react-i18next';
 import { Paragraph, Subheading } from 'react-native-paper';
-import { WithT } from '../../i18n';
 import { Row } from '../Row';
 
-interface Props extends WithT {
+interface Props extends WithI18n {
   flowsText?: string | null;
 }
 

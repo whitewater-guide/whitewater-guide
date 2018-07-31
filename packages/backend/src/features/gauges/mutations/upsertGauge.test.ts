@@ -3,7 +3,7 @@ import { ADMIN, EDITOR_NO_EC, TEST_USER } from '@seeds/01_users';
 import { SOURCE_GALICIA_1, SOURCE_NORWAY } from '@seeds/05_sources';
 import { GAUGE_GAL_1_1, GAUGE_GEO_3 } from '@seeds/06_gauges';
 import { anonContext, countRows, fakeContext, isTimestamp, isUUID, noUnstable, runQuery } from '@test';
-import { GaugeInput } from '@ww-commons';
+import { ApolloErrorCodes, GaugeInput } from '@ww-commons';
 import { GaugeRaw } from '../types';
 
 let pBefore: number;
@@ -59,20 +59,17 @@ describe('resolvers chain', () => {
 
   it('anon should not pass', async () => {
     const result = await runQuery(upsertQuery, { gauge }, anonContext());
-    expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
-    expect(result).toHaveProperty('data.upsertGauge', null);
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
   });
 
   it('user should not pass', async () => {
     const result = await runQuery(upsertQuery, { gauge }, fakeContext(TEST_USER));
-    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
-    expect(result).toHaveProperty('data.upsertGauge', null);
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 
   it('editor should not pass', async () => {
     const result = await runQuery(upsertQuery, { gauge }, fakeContext(EDITOR_NO_EC));
-    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
-    expect(result).toHaveProperty('data.upsertGauge', null);
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 
   it('should throw on invalid input', async () => {
@@ -89,9 +86,7 @@ describe('resolvers chain', () => {
       url: 'bbb',
     };
     const result = await runQuery(upsertQuery, { gauge: invalidInput }, fakeContext(ADMIN));
-    expect(result).toHaveProperty('errors.0.name', 'ValidationError');
-    expect(result.data).toBeDefined();
-    expect(result.data!.upsertGauge).toBeNull();
+    expect(result).toHaveGraphqlValidationError();
   });
 });
 
@@ -219,10 +214,10 @@ describe('update', () => {
 
   it('should not change enabled gauges', async () => {
     const result = await runQuery(upsertQuery, { gauge: { ...input, id: GAUGE_GEO_3 } }, fakeContext(ADMIN));
-    expect(result.errors).toBeDefined();
-    expect(result.data!.upsertGauge).toBeNull();
-    expect(result).toHaveProperty('errors.0.name', 'MutationNotAllowedError');
-    expect(result).toHaveProperty('errors.0.message', 'Disable gauge before editing it');
+    expect(result).toHaveGraphqlError(
+      ApolloErrorCodes.MUTATION_NOT_ALLOWED,
+      'Disable gauge before editing it',
+    );
   });
 
   it('should match snapshot', async () => {

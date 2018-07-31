@@ -1,5 +1,6 @@
 export function createConnectors() {
   // Dynamically load modules to avoid cyclic dependency
+  const { BannersConnector } = require('@features/banners');
   const { GaugesConnector } = require('@features/gauges');
   const { GroupsConnector } = require('@features/groups');
   const { MeasurementsConnector } = require('@features/measurements');
@@ -11,6 +12,7 @@ export function createConnectors() {
   const { SourcesConnector } = require('@features/sources');
   const { TagsConnector } = require('@features/tags');
   return {
+    banners: new BannersConnector(),
     gauges: new GaugesConnector(),
     groups: new GroupsConnector(),
     measurements: new MeasurementsConnector(),

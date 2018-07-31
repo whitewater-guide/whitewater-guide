@@ -1,10 +1,9 @@
 import React from 'react';
-import { translate } from 'react-i18next';
+import { translate, withI18n, WithI18n } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Button, Caption } from 'react-native-paper';
 import { compose } from 'recompose';
 import { WithPremiumDialog } from '../../../../features/purchases';
-import { WithT } from '../../../../i18n';
 import { consumeRegion, WithRegion } from '../../../../ww-clients/features/regions';
 import { Section } from '../../../../ww-commons';
 
@@ -21,7 +20,7 @@ interface OuterProps extends WithPremiumDialog {
   section: Section;
 }
 
-type InnerProps = OuterProps & WithRegion & WithT;
+type InnerProps = OuterProps & WithRegion & WithI18n;
 
 class PremiumPlaceholder extends React.PureComponent<InnerProps> {
   onBuy = () => {
@@ -38,7 +37,7 @@ class PremiumPlaceholder extends React.PureComponent<InnerProps> {
     return (
       <View style={styles.container}>
         <Caption>{t('iap:section.message', { region: name })}</Caption>
-        <Button raised primary onPress={this.onBuy}>
+        <Button mode="contained" onPress={this.onBuy}>
           {t('iap:section.button')}
         </Button>
       </View>
@@ -48,7 +47,7 @@ class PremiumPlaceholder extends React.PureComponent<InnerProps> {
 
 const container = compose<InnerProps, OuterProps>(
   consumeRegion(),
-  translate(),
+  withI18n(),
 );
 
 export default container(PremiumPlaceholder);

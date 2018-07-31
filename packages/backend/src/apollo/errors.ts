@@ -1,21 +1,19 @@
-import { createError } from 'apollo-errors';
+// tslint:disable:max-classes-per-file
+import { ApolloErrorCodes } from '@ww-commons';
+import { ApolloError } from 'apollo-server';
 
-export const UnknownError = createError('UnknownError', {
-  message: 'An unknown error has occurred!  Please try again later',
-});
+export class UnknownError extends ApolloError {
+  constructor(message: string, properties?: Record<string, any>) {
+    super(message, ApolloErrorCodes.UNKNOWN_ERROR, properties);
 
-export const AuthenticationRequiredError = createError('AuthenticationRequiredError', {
-  message: 'You must be logged in to do this',
-});
+    Object.defineProperty(this, 'name', { value: 'UnknownError' });
+  }
+}
 
-export const ForbiddenError = createError('ForbiddenError', {
-  message: 'You are not allowed to do this',
-});
+export class MutationNotAllowedError extends ApolloError {
+  constructor(message: string = 'mutation not allowed', properties?: Record<string, any>) {
+    super(message, ApolloErrorCodes.MUTATION_NOT_ALLOWED, properties);
 
-export const ValidationError = createError('ValidationError', {
-  message: 'Invalid input',
-});
-
-export const MutationNotAllowedError = createError('MutationNotAllowedError', {
-  message: 'Mutation not allowed',
-});
+    Object.defineProperty(this, 'name', { value: 'MutationNotAllowedError' });
+  }
+}

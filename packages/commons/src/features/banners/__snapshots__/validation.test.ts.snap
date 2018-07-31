@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should be invalid for bad group 1`] = `
+Object {
+  "regions": Array [
+    undefined,
+    "Value must be node with id",
+  ],
+}
+`;
+
+exports[`should be invalid for bad link 1`] = `
+Object {
+  "link": "Value must be valid https URL",
+}
+`;
+
+exports[`should be invalid for bad placement 1`] = `
+Object {
+  "placement": "Expected a value of type \`\\"mobileSectionDescription\\" | \\"mobileSectionRow\\" | \\"mobileSectionMedia\\" | \\"mobileRegionDescription\\"\` for \`placement\` but received \`\\"nowhere\\"\`.",
+}
+`;
+
+exports[`should be invalid for bad ratio 1`] = `
+Object {
+  "source": Object {
+    "ratio": "Ratio must be a number between 10 and 3",
+  },
+}
+`;
+
+exports[`should be invalid for bad region 1`] = `
+Object {
+  "regions": Array [
+    undefined,
+    "Value must be node with id",
+  ],
+}
+`;
+
+exports[`should be invalid for bad slug 1 1`] = `
+Object {
+  "slug": "Value must be valid slug",
+}
+`;
+
+exports[`should be invalid for bad slug 2 1`] = `
+Object {
+  "slug": "Value must be valid slug",
+}
+`;
+
+exports[`should be invalid for bad uuid 1`] = `
+Object {
+  "id": "Incorrect UUID",
+}
+`;
+
+exports[`should be invalid for empty name 1`] = `
+Object {
+  "name": "Value must be non-empty string",
+}
+`;
+
+exports[`should be invalid for empty source 1`] = `
+Object {
+  "source": Object {
+    "src": "Value must be non-empty string",
+  },
+}
+`;
+
+exports[`should be invalid for extra fields 1`] = `
+Object {
+  "foo": "Expected a value of type \`undefined\` for \`foo\` but received \`\\"bar\\"\`.",
+}
+`;
+
+exports[`should be invalid for http link 1`] = `
+Object {
+  "link": "Value must be valid https URL",
+}
+`;

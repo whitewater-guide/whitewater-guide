@@ -1,6 +1,6 @@
 import React from 'react';
+import { WithI18n } from 'react-i18next';
 import { NavigationState, Scene, TabView } from 'react-native-tab-view';
-import { WithT } from '../../../i18n';
 import theme from '../../../theme';
 import { PremiumRegion, PurchaseDialogStep } from '../types';
 import AlreadyHaveStep from './already-have';
@@ -20,7 +20,7 @@ interface Key {
 
 type State = NavigationState<Key>;
 
-interface Props extends WithT {
+interface Props {
   region: PremiumRegion | null;
   step: PurchaseDialogStep;
   cancelable?: boolean;
@@ -28,7 +28,7 @@ interface Props extends WithT {
   onFetchProduct: () => void;
 }
 
-export class PremiumDialogView extends React.PureComponent<Props, State> {
+export class PremiumDialogView extends React.PureComponent<Props & WithI18n, State> {
   readonly state: State = {
     index: 2,
     routes: [

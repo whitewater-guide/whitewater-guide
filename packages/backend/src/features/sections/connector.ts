@@ -1,7 +1,8 @@
-import { AuthenticationRequiredError, ForbiddenError } from '@apollo';
+import { UnknownError } from '@apollo';
 import db from '@db';
 import { BaseConnector, FieldsMap, ManyBuilderOptions } from '@db/connectors';
 import { Section } from '@ww-commons';
+import { AuthenticationError, ForbiddenError } from 'apollo-server';
 import { GraphQLResolveInfo } from 'graphql';
 import { QueryBuilder } from 'knex';
 import { SectionRaw, SectionsFilter } from './types';
@@ -77,13 +78,13 @@ export class SectionsConnector extends BaseConnector<Section, SectionRaw> {
 
   async assertEditorPermissions(id?: string | null, riverId?: string) {
     if (!this._user) {
-      throw new AuthenticationRequiredError();
+      throw new AuthenticationError('must authenticate');
     }
     if (this._user.admin) {
       return true;
     }
     if (!riverId && !id) {
-      throw new ForbiddenError();
+      throw new UnknownError('this should not happen');
     }
     const query = db()
       .select('regions_editors.region_id')
@@ -99,7 +100,7 @@ export class SectionsConnector extends BaseConnector<Section, SectionRaw> {
 
     const { rows: [{ exists }] } = await db().raw(`SELECT EXISTS (${query.toString()})`);
     if (!exists) {
-      throw new ForbiddenError();
+      throw new ForbiddenError('must be editor');
     }
     return true;
   }

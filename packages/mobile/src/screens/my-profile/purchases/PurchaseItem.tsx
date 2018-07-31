@@ -1,8 +1,7 @@
 import React from 'react';
-import { translate } from 'react-i18next';
+import { withI18n, WithI18n } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Caption, Subheading } from 'react-native-paper';
-import { WithT } from '../../../i18n';
 import theme from '../../../theme';
 import { Group } from '../../../ww-commons/features/groups';
 import { Region } from '../../../ww-commons/features/regions';
@@ -20,13 +19,13 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Props extends WithT {
+interface Props {
   region?: Region;
   group?: Group;
   last: boolean;
 }
 
-const PurchaseItem: React.SFC<Props> = ({ last, region, group, t }) => {
+const PurchaseItem: React.SFC<Props & WithI18n> = ({ last, region, group, t }) => {
   if (!region && !group) {
     return null;
   }
@@ -40,4 +39,4 @@ const PurchaseItem: React.SFC<Props> = ({ last, region, group, t }) => {
   );
 };
 
-export default translate()(PurchaseItem);
+export default withI18n()(PurchaseItem);

@@ -2,7 +2,7 @@
 
 exports[`should be invalid for bad kind 1`] = `
 Object {
-  "kind": "Incorrect value",
+  "kind": "Expected a value of type \`\\"photo\\" | \\"video\\" | \\"blog\\"\` for \`kind\` but received \`\\"foo\\"\`.",
 }
 `;
 

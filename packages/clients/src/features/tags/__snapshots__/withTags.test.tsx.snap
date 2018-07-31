@@ -7,14 +7,12 @@ Array [
     "category": "hazards",
     "id": "Tag.id.1",
     "name": "Tag.name.1",
-    Symbol(id): "Tag:Tag.id.1",
   },
   Object {
     "__typename": "Tag",
     "category": "supply",
     "id": "Tag.id.2",
     "name": "Tag.name.2",
-    Symbol(id): "Tag:Tag.id.2",
   },
 ]
 `;

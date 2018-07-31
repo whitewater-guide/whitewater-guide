@@ -3,11 +3,12 @@ import { StyleSheet } from 'react-native';
 import { Chip } from 'react-native-paper';
 import theme from '../theme';
 import { SelectableTag, TagSelection } from '../ww-commons/features/tags';
+import { Icon } from './Icon';
 
 const styles = StyleSheet.create({
   chip: {
-    paddingTop: 2,
-    paddingLeft: 2,
+    marginTop: 4,
+    marginRight: 4,
   },
 });
 
@@ -17,10 +18,18 @@ const Colors = {
   [TagSelection.NONE]: { colors: { text: theme.colors.textMain } },
 };
 
+interface PartialIconProps {
+  color: string;
+  size: number;
+}
+
 const Icons = {
-  [TagSelection.SELECTED]: 'check-circle-outline',
-  [TagSelection.DESELECTED]: 'close-circle-outline',
-  [TagSelection.NONE]: 'checkbox-blank-circle-outline',
+  [TagSelection.SELECTED]: ({ size }: PartialIconProps) =>
+    (<Icon narrow icon="check-circle-outline" size={size} color={theme.colors.enabled} />),
+  [TagSelection.DESELECTED]: ({ size }: PartialIconProps) =>
+    (<Icon narrow icon="close-circle-outline" size={size} color={theme.colors.error} />),
+  [TagSelection.NONE]: ({ size }: PartialIconProps) =>
+    (<Icon narrow icon="checkbox-blank-circle-outline" size={size} color={theme.colors.textMain} />),
 };
 
 interface Props {
@@ -35,6 +44,7 @@ export class TernaryChip extends React.PureComponent<Props> {
     const { selection = TagSelection.NONE, name } = this.props.tag;
     return (
       <Chip
+        mode="outlined"
         theme={Colors[selection]}
         icon={Icons[selection]}
         onPress={this.onPress}

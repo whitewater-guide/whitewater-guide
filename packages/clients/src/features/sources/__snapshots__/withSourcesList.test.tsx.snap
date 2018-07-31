@@ -15,7 +15,6 @@ Object {
       "gauges": Object {
         "__typename": "SourceGaugeConnection",
         "count": 1,
-        Symbol(id): "$Source:Source.id.1.gauges",
       },
       "harvestMode": "allAtOnce",
       "id": "Source.id.1",
@@ -26,9 +25,7 @@ Object {
         "error": "HarvestStatus.error.1",
         "success": false,
         "timestamp": 2017-02-01T21:00:00.000Z,
-        Symbol(id): "$Source:Source.id.1.status",
       },
-      Symbol(id): "Source:Source.id.1",
     },
     Object {
       "__typename": "Source",
@@ -37,7 +34,6 @@ Object {
       "gauges": Object {
         "__typename": "SourceGaugeConnection",
         "count": 2,
-        Symbol(id): "$Source:Source.id.2.gauges",
       },
       "harvestMode": "oneByOne",
       "id": "Source.id.2",
@@ -48,9 +44,7 @@ Object {
         "error": "HarvestStatus.error.2",
         "success": true,
         "timestamp": 2017-02-02T21:00:00.000Z,
-        Symbol(id): "$Source:Source.id.2.status",
       },
-      Symbol(id): "Source:Source.id.2",
     },
   ],
   "refetch": [Function],

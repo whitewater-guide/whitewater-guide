@@ -1,9 +1,8 @@
 import React from 'react';
-import { translate } from 'react-i18next';
+import { translate, withI18n, WithI18n } from 'react-i18next';
 import { StyleSheet } from 'react-native';
-import { Button, DialogActions, DialogContent, Subheading } from 'react-native-paper';
+import { Button, Dialog, Subheading } from 'react-native-paper';
 import { AnonHeader, UserHeader } from '../../../../components';
-import { WithT } from '../../../../i18n';
 import theme from '../../../../theme';
 import { InnerProps, OuterProps } from './types';
 
@@ -16,7 +15,7 @@ const styles = StyleSheet.create({
   },
 });
 
-type Props = InnerProps & OuterProps & WithT;
+type Props = InnerProps & OuterProps & WithI18n;
 
 class AuthStep extends React.PureComponent<Props> {
   renderAnon = () => (
@@ -41,25 +40,25 @@ class AuthStep extends React.PureComponent<Props> {
     const { me, onCancel, onContinue, cancelable = true } = this.props;
     return (
       <React.Fragment>
-        <DialogContent style={styles.dialogContent}>
+        <Dialog.Content style={styles.dialogContent}>
           {
             me ? this.renderUser() : this.renderAnon()
           }
-        </DialogContent>
-        <DialogActions>
+        </Dialog.Content>
+        <Dialog.Actions>
           {
             cancelable &&
             (
-              <Button raised onPress={onCancel}>Cancel</Button>
+              <Button mode="outlined" onPress={onCancel}>Cancel</Button>
             )
           }
-          <Button primary raised onPress={onContinue} disabled={!me}>
+          <Button mode="contained" onPress={onContinue} disabled={!me}>
             Continue
           </Button>
-        </DialogActions>
+        </Dialog.Actions>
       </React.Fragment>
     );
   }
 }
 
-export default translate()(AuthStep);
+export default withI18n()(AuthStep);

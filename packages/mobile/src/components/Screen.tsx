@@ -12,6 +12,10 @@ const styles = StyleSheet.create({
   padding: {
     padding: theme.margin.single,
   },
+  noScroll: {
+    flex: 1,
+    alignSelf: 'stretch',
+  },
 });
 
 interface ScreenProps extends ViewProps {
@@ -28,7 +32,7 @@ export const Screen: React.StatelessComponent<ScreenProps> = ({ children, style,
   screenStyles = [...screenStyles, style];
   if (noScroll) {
     return (
-      <View style={[StyleSheet.absoluteFill, ...screenStyles]}>
+      <View style={[styles.noScroll, ...screenStyles]}>
         {children}
       </View>
     );

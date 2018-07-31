@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { DialogTitle } from 'react-native-paper';
+import { Dialog } from 'react-native-paper';
 
 const styles = StyleSheet.create({
   root: {
@@ -14,7 +14,7 @@ interface Props {
 
 const DialogBody: React.SFC<Props> = ({ title, children }) => (
   <View style={styles.root}>
-    <DialogTitle>{title}</DialogTitle>
+    <Dialog.Title>{title}</Dialog.Title>
     {children}
   </View>
 );

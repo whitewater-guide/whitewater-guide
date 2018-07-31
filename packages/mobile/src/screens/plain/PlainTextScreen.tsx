@@ -1,8 +1,7 @@
 import React from 'react';
-import { translate } from 'react-i18next';
+import { WithNamespaces, withNamespaces } from 'react-i18next';
 import { NavigationScreenComponent } from 'react-navigation';
 import { Markdown, Screen } from '../../components';
-import { WithT } from '../../i18n';
 
 interface NavParams {
   fixture?: string;
@@ -15,7 +14,7 @@ interface Props {
   text?: string;
 }
 
-export const PlainText: React.StatelessComponent<Props & WithT> = ({ text, fixture, t }) => {
+export const PlainText: React.StatelessComponent<Props & WithNamespaces> = ({ text, fixture, t }) => {
   const markdown = text || (fixture ? t(fixture) : 'Text not found');
   return (
     <Screen>
@@ -26,7 +25,7 @@ export const PlainText: React.StatelessComponent<Props & WithT> = ({ text, fixtu
   );
 };
 
-const PlainTextWithT = translate('markdown')(PlainText);
+const PlainTextWithT = withNamespaces('markdown')(PlainText);
 
 export const PlainTextScreen: NavigationScreenComponent<NavParams> = ({ navigation }) => (
   <PlainTextWithT

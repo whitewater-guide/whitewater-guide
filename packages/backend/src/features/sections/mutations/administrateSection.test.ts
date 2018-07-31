@@ -2,6 +2,7 @@ import { holdTransaction, rollbackTransaction } from '@db';
 import { ADMIN, EDITOR_NO_EC, TEST_USER } from '@seeds/01_users';
 import { NORWAY_SJOA_AMOT } from '@seeds/09_sections';
 import { anonContext, fakeContext, runQuery } from '@test';
+import { ApolloErrorCodes } from '@ww-commons';
 
 const mutation = `
   mutation administrateSection($sectionId: ID!, $settings: SectionAdminSettings!){
@@ -21,20 +22,17 @@ describe('resolvers chain', () => {
 
   it('anon should fail', async () => {
     const result = await runQuery(mutation, variables, anonContext());
-    expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
-    expect(result).toHaveProperty('data.administrateSection', null);
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
   });
 
   it('user should fail', async () => {
     const result = await runQuery(mutation, variables, fakeContext(TEST_USER));
-    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
-    expect(result).toHaveProperty('data.administrateSection', null);
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 
   it('editor should fail', async () => {
     const result = await runQuery(mutation, variables, fakeContext(EDITOR_NO_EC));
-    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
-    expect(result).toHaveProperty('data.administrateSection', null);
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 
 });

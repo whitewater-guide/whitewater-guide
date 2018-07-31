@@ -1,4 +1,4 @@
-import { baseResolver, isInputValidResolver, MutationNotAllowedError, TopLevelResolver } from '@apollo';
+import { isInputValidResolver, MutationNotAllowedError, TopLevelResolver } from '@apollo';
 import db, { rawUpsert } from '@db';
 import { GaugeInput, GaugeInputStruct } from '@ww-commons';
 import { struct } from 'superstruct';
@@ -15,16 +15,12 @@ const resolver: TopLevelResolver<Vars> = async (root, { gauge }, { language }) =
   if (gauge.id) {
     const { enabled } = await db().table('gauges').select(['enabled']).where({ id: gauge.id }).first();
     if (enabled) {
-      throw new MutationNotAllowedError({ message: 'Disable gauge before editing it' });
+      throw new MutationNotAllowedError('Disable gauge before editing it');
     }
   }
   return rawUpsert(db(), 'SELECT upsert_gauge(?, ?)', [gauge, language]);
 };
 
-const queryResolver = isInputValidResolver(Struct).createResolver(resolver);
-
-const upsertGauge = baseResolver.createResolver(
-  queryResolver,
-);
+const upsertGauge = isInputValidResolver(Struct, resolver);
 
 export default upsertGauge;

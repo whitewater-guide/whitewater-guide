@@ -84,7 +84,7 @@ export class MockLink extends ApolloLink {
     }
 
     return new Observable<FetchResult>(observer => {
-      let timer = setImmediate(() => {
+      const timer: any = setImmediate(() => {
         if (error) {
           observer.error(error);
         } else {

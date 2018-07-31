@@ -1,7 +1,7 @@
 import upperFirst from 'lodash/upperFirst';
 import moment from 'moment';
 import React from 'react';
-import { translate } from 'react-i18next';
+import { withI18n, WithI18n } from 'react-i18next';
 import { Linking, StyleSheet } from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
 import { Popover, PopoverController } from 'react-native-modal-popover';
@@ -9,7 +9,6 @@ import { Paragraph, Subheading } from 'react-native-paper';
 import { NavigationInjectedProps, withNavigation } from 'react-navigation';
 import { compose } from 'recompose';
 import { Icon, Left, Right, Row } from '../../../components';
-import { WithT } from '../../../i18n';
 import theme from '../../../theme';
 import { Gauge } from '../../../ww-commons';
 
@@ -29,7 +28,7 @@ interface OuterProps {
   approximate: boolean;
 }
 
-type InnerProps = OuterProps & WithT & NavigationInjectedProps;
+type InnerProps = OuterProps & WithI18n & NavigationInjectedProps;
 
 class GaugeInfo extends React.PureComponent<InnerProps> {
 
@@ -146,5 +145,5 @@ class GaugeInfo extends React.PureComponent<InnerProps> {
 
 export default compose<InnerProps, OuterProps>(
   withNavigation,
-  translate(),
+  withI18n(),
 )(GaugeInfo);

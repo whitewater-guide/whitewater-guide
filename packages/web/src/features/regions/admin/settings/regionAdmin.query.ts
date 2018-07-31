@@ -11,13 +11,6 @@ export const REGION_ADMIN_SETTINGS_QUERY = gql`
       coverImage {
         mobile
       }
-      banners {
-        regionDescriptionMobile
-        regionLoadingMobile
-        sectionDescriptionMobile
-        sectionMediaMobile
-        sectionRowMobile
-      }
     }
 
     regionMediaForm(regionId: $regionId) {

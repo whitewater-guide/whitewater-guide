@@ -64,11 +64,14 @@ export interface ImageUploaderProps {
   width: number | [number, number];
   height: number | [number, number];
   previewScale: number;
+  title?: string;
+  hideFileName?: boolean;
   value: string | File | null;
-  title: string;
   onChange: (value: string | File | null) => void;
   uploading?: boolean; // for storybook
   upload?: UploadLink; // optional for storybook
+  rootStyle?: any;
+  mainStyle?: any;
 }
 
 interface State {
@@ -201,15 +204,7 @@ export class ImageUploader extends React.PureComponent<ImageUploaderProps, State
   };
 
   renderFilename = () => {
-    const { width, height, value } = this.props;
-    const { badSize } = this.state;
-    if (badSize) {
-      return (
-        <span style={styles.error}>
-          {`Required image size is ${width}x${height}`}
-        </span>
-      );
-    }
+    const { value } = this.props;
     const filename = (value instanceof File) ? value.name : value;
     return (
       <span>
@@ -218,13 +213,25 @@ export class ImageUploader extends React.PureComponent<ImageUploaderProps, State
     );
   };
 
+  renderBadSize = () => {
+    const { width, height } = this.props;
+    const { badSize } = this.state;
+    if (badSize) {
+      return (
+        <span style={styles.error}>
+          {`Required image size is ${width}x${height}`}
+        </span>
+      );
+    }
+  };
+
   render() {
-    const { title } = this.props;
+    const { hideFileName, title, rootStyle, mainStyle } = this.props;
     return (
-      <div style={styles.root}>
-        <span><strong>{title}</strong></span>
-        {this.renderFilename()}
-        <div style={styles.main}>
+      <div style={{ ...styles.root, ...rootStyle }}>
+        {!!title && <span><strong>{title}</strong></span>}
+        {!hideFileName && this.renderFilename()}
+        <div style={{ ...styles.main, ...mainStyle }}>
           <div style={styles.imageWrapper}>
             {this.renderImage()}
           </div>
@@ -233,6 +240,7 @@ export class ImageUploader extends React.PureComponent<ImageUploaderProps, State
             <AddFile onAdd={this.onAdd} />
           </div>
         </div>
+        {this.renderBadSize()}
         <Lightbox
           media={this.state.fakeMedia}
           currentModal={this.state.currentModal}

@@ -1,4 +1,4 @@
-import { Context, isAuthenticatedResolver, isInputValidResolver } from '@apollo';
+import { isAuthenticatedResolver, isInputValidResolver } from '@apollo';
 import db from '@db';
 import { EditorSettings, EditorSettingsStruct } from '@ww-commons';
 import { struct } from 'superstruct';
@@ -8,12 +8,13 @@ interface Vars {
 }
 
 const Struct = struct.object({
-  editorSettings: EditorSettingsStruct
+  editorSettings: EditorSettingsStruct,
 });
 
-const updateEditorSettings = isAuthenticatedResolver.createResolver(
-  isInputValidResolver(Struct).createResolver(
-    async (root, { editorSettings }: Vars, { user }: Context) => {
+const updateEditorSettings = isAuthenticatedResolver(
+  isInputValidResolver<Vars>(
+    Struct,
+    async (root, { editorSettings }, { user }) => {
       await db().table('users')
         .update({ editor_settings: editorSettings })
         .where({ id: user!.id });

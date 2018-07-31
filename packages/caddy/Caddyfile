@@ -87,6 +87,10 @@
     transparent
   }
 
+  header /banners {
+    Cache-Control "public, max-age=31536000"
+  }
+
   proxy / landing:8043 {
     transparent
   }

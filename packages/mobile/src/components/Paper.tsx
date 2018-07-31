@@ -1,6 +1,6 @@
 import glamorous, { GlamorousComponent } from 'glamorous-native';
 import { StyleProp, StyleSheet, ViewStyle } from 'react-native';
-import { Paper as RNPaper } from 'react-native-paper';
+import { Surface } from 'react-native-paper';
 import theme from '../theme';
 
 interface PaperProps {
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const paperFactory = glamorous<{}>(RNPaper);
+const paperFactory = glamorous<{}>(Surface);
 
 export const Paper: GlamorousComponent<PaperProps, {}> = paperFactory(
   styles.base,

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Linking } from 'react-native';
-import { ListItem } from 'react-native-paper';
+import { List } from 'react-native-paper';
+import { Icon } from '../../../components';
 import { Media } from '../../../ww-commons';
 
 interface Props {
@@ -10,14 +11,18 @@ interface Props {
 class BlogItem extends React.PureComponent<Props> {
   onPress = () => Linking.openURL(this.props.blog.url).catch(() => {});
 
+  renderIcon = () => (
+    <Icon icon="link" />
+  );
+
   render() {
     const { blog } = this.props;
     const copyright = blog.copyright ? `© ${blog.copyright}` : undefined;
     return (
-      <ListItem
+      <List.Item
         title={blog.description}
         description={copyright}
-        icon="link"
+        left={this.renderIcon}
         onPress={this.onPress}
       />
     );

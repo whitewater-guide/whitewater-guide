@@ -1,8 +1,7 @@
 import React from 'react';
-import { translate } from 'react-i18next';
+import { withI18n, WithI18n } from 'react-i18next';
 import { StyleSheet } from 'react-native';
-import { Button, DialogActions, DialogContent, Subheading } from 'react-native-paper';
-import { WithT } from '../../../../i18n';
+import { Button, Dialog, Subheading } from 'react-native-paper';
 import theme from '../../../../theme';
 import { PremiumRegion } from '../../types';
 
@@ -15,30 +14,30 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Props extends WithT {
+interface Props {
   region: PremiumRegion;
   onCancel?: () => void;
 }
 
-class AlreadyHaveStep extends React.PureComponent<Props> {
+class AlreadyHaveStep extends React.PureComponent<Props & WithI18n> {
 
   render() {
     const { onCancel, region, t } = this.props;
     return (
       <React.Fragment>
-        <DialogContent style={styles.dialogContent}>
+        <Dialog.Content style={styles.dialogContent}>
           <Subheading style={styles.subheading}>
             {t('iap:alreadyHave.message', { region: region.name })}
           </Subheading>
-        </DialogContent>
-        <DialogActions>
-          <Button primary raised onPress={onCancel}>
+        </Dialog.Content>
+        <Dialog.Actions>
+          <Button mode="contained" onPress={onCancel}>
             {t('commons:ok')}
           </Button>
-        </DialogActions>
+        </Dialog.Actions>
       </React.Fragment>
     );
   }
 }
 
-export default translate()(AlreadyHaveStep);
+export default withI18n()(AlreadyHaveStep);

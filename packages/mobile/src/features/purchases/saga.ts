@@ -1,5 +1,5 @@
 import { Platform } from 'react-native';
-import { endConnection, prepare } from 'react-native-iap';
+import { endConnection, initConnection } from 'react-native-iap';
 import { offlineActionTypes } from 'react-native-offline';
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
@@ -17,7 +17,7 @@ export function* purchasesSaga() {
     watchRetryOfflinePurchases,
   );
   try {
-    const prepareResult = yield call(prepare);
+    const prepareResult = yield call(initConnection);
     if (Platform.OS === 'ios' && !(prepareResult === 'true' || prepareResult === true)) {
       yield put(purchaseActions.update({ canMakePayments: false }));
     }

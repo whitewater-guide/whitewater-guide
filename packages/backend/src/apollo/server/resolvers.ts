@@ -1,3 +1,4 @@
+import { bannersResolvers } from '@features/banners';
 import { gaugesResolvers } from '@features/gauges';
 import { groupsResolvers } from '@features/groups';
 import { measurementsResolvers } from '@features/measurements';
@@ -16,6 +17,7 @@ import GraphQLJSON from 'graphql-type-json';
 import { merge } from 'lodash';
 
 export const resolvers = merge(
+  bannersResolvers,
   gaugesResolvers,
   groupsResolvers,
   tagsResolvers,

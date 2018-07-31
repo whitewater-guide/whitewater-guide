@@ -1,12 +1,11 @@
 import get from 'lodash/get';
 import noop from 'lodash/noop';
 import React from 'react';
-import { translate } from 'react-i18next';
-import { LayoutChangeEvent, ScrollView, StyleSheet, View } from 'react-native';
+import { withI18n, WithI18n } from 'react-i18next';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { Caption, Paragraph } from 'react-native-paper';
 import { compose } from 'recompose';
 import { connectPremiumDialog, WithPremiumDialog } from '../../features/purchases';
-import { WithT } from '../../i18n';
 import theme from '../../theme';
 import { SelectedPOIViewProps } from '../../ww-clients/features/maps';
 import { consumeRegion, WithRegion } from '../../ww-clients/features/regions';
@@ -28,7 +27,7 @@ const styles = StyleSheet.create({
   },
 });
 
-type Props = SelectedPOIViewProps & WithT & WithRegion & WithPremiumDialog;
+type Props = SelectedPOIViewProps & WithI18n & WithRegion & WithPremiumDialog;
 
 interface State {
   poi: Point | null;
@@ -92,7 +91,7 @@ class SelectedPOIViewInternal extends React.Component<Props, State> {
 }
 
 export const SelectedPOIView: React.ComponentType<SelectedPOIViewProps> = compose<Props, SelectedPOIViewProps>(
-  translate(),
+  withI18n(),
   consumeRegion(),
   connectPremiumDialog,
 )(SelectedPOIViewInternal);

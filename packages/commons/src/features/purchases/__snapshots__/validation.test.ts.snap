@@ -2,7 +2,7 @@
 
 exports[`should be invalid for bad platform 1`] = `
 Object {
-  "platform": "Incorrect value",
+  "platform": "Expected a value of type \`\\"ios\\" | \\"android\\" | \\"boomstarter\\"\` for \`platform\` but received \`\\"windows\\"\`.",
 }
 `;
 

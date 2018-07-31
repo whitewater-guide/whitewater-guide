@@ -1,9 +1,8 @@
 import debounce from 'lodash/debounce';
 import React from 'react';
-import { translate } from 'react-i18next';
+import { withI18n, WithI18n } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Caption } from 'react-native-paper';
-import { WithT } from '../../i18n';
 import theme from '../../theme';
 import { SectionsStatus } from './types';
 
@@ -30,7 +29,7 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Props extends WithT {
+interface Props {
   status: SectionsStatus;
   loaded: number;
   count: number;
@@ -40,7 +39,7 @@ interface State {
   status: SectionsStatus;
 }
 
-class SectionsProgress extends React.PureComponent<Props, State> {
+class SectionsProgress extends React.PureComponent<Props & WithI18n, State> {
   readonly state: State = { status: this.props.status };
 
   updateState: any = debounce(this.setState, 200);
@@ -67,4 +66,4 @@ class SectionsProgress extends React.PureComponent<Props, State> {
   }
 }
 
-export default translate()(SectionsProgress);
+export default withI18n()(SectionsProgress);

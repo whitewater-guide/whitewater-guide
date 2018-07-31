@@ -1,9 +1,8 @@
 import React from 'react';
-import { translate } from 'react-i18next';
+import { withI18n, WithI18n } from 'react-i18next';
 import { Clipboard, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Button, DialogActions, DialogContent } from 'react-native-paper';
+import { Button, Dialog } from 'react-native-paper';
 import { Markdown } from '../../../../components';
-import { WithT } from '../../../../i18n';
 import theme from '../../../../theme';
 import { PremiumRegion, PurchaseState } from '../../types';
 
@@ -32,7 +31,7 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Props extends WithT {
+interface Props {
   region: PremiumRegion;
   state: PurchaseState;
   price?: string;
@@ -42,7 +41,7 @@ interface Props extends WithT {
   cancelable?: boolean;
 }
 
-class BuyProductStep extends React.PureComponent<Props> {
+class BuyProductStep extends React.PureComponent<Props & WithI18n> {
   copyError = () => {
     const { error, t } = this.props;
     Clipboard.setString(t.apply(null, error));
@@ -58,7 +57,7 @@ class BuyProductStep extends React.PureComponent<Props> {
     const renderCancelButton = state === PurchaseState.PURCHASE_SAVING_FATAL ? false : cancelable;
     return (
       <React.Fragment>
-        <DialogContent style={styles.dialogContent}>
+        <Dialog.Content style={styles.dialogContent}>
           <Markdown>
             {t('iap:buy.descriptionMd')}
           </Markdown>
@@ -75,27 +74,26 @@ class BuyProductStep extends React.PureComponent<Props> {
                 )
               }
             </View>
-        </DialogContent>
-        <DialogActions>
+        </Dialog.Content>
+        <Dialog.Actions>
           {
             renderCancelButton &&
             (
-              <Button raised onPress={onCancel}>{t('commons:cancel')}</Button>
+              <Button mode="outlined" onPress={onCancel}>{t('commons:cancel')}</Button>
             )
           }
           <Button
-            primary
-            raised
+            mode="contained"
             onPress={onConfirm}
             disabled={loading}
             loading={loading}
           >
             {confirmButtonLabel}
           </Button>
-        </DialogActions>
+        </Dialog.Actions>
       </React.Fragment>
     );
   }
 }
 
-export default translate()(BuyProductStep);
+export default withI18n()(BuyProductStep);

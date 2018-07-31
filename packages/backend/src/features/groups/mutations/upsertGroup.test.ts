@@ -2,7 +2,7 @@ import db, { holdTransaction, rollbackTransaction } from '@db';
 import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
 import { GROUP_EU } from '@seeds/03_groups';
 import { anonContext, countRows, fakeContext, runQuery, UUID_REGEX } from '@test';
-import { GroupInput } from '@ww-commons';
+import { ApolloErrorCodes, GroupInput } from '@ww-commons';
 
 let gBefore: number;
 let tBefore: number;
@@ -34,20 +34,17 @@ describe('resolvers chain', () => {
 
   it('anon should not pass', async () => {
     const result = await runQuery(query, { group }, anonContext());
-    expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
-    expect(result).toHaveProperty('data.upsertGroup', null);
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
   });
 
   it('user should not pass', async () => {
     const result = await runQuery(query, { group }, fakeContext(TEST_USER));
-    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
-    expect(result).toHaveProperty('data.upsertGroup', null);
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 
   it('editor should not pass', async () => {
     const result = await runQuery(query, { group }, fakeContext(EDITOR_GA_EC));
-    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
-    expect(result).toHaveProperty('data.upsertGroup', null);
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 
   it('should throw on invalid input', async () => {
@@ -57,8 +54,7 @@ describe('resolvers chain', () => {
       sku: 'sku',
     };
     const result = await runQuery(query, { group: invalidInput }, fakeContext(ADMIN));
-    expect(result).toHaveProperty('errors.0.name', 'ValidationError');
-    expect(result.data!.upsertGroup).toBeNull();
+    expect(result).toHaveGraphqlValidationError();
   });
 });
 

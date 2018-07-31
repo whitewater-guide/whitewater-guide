@@ -1,13 +1,12 @@
 import React from 'react';
-import { translate } from 'react-i18next';
+import { withI18n, WithI18n } from 'react-i18next';
 import { Button } from 'react-native-paper';
 import { NavigationInjectedProps } from 'react-navigation';
 import { compose } from 'recompose';
-import { WithT } from '../../i18n';
 import theme from '../../theme';
 import { consumeRegion, RegionContext } from '../../ww-clients/features/regions';
 
-type Props = WithT & NavigationInjectedProps & Pick<RegionContext, 'resetSearchTerms'>;
+type Props = WithI18n & NavigationInjectedProps & Pick<RegionContext, 'resetSearchTerms'>;
 
 class ResetFilterButton extends React.PureComponent<Props> {
   onPress = () => {
@@ -25,6 +24,6 @@ class ResetFilterButton extends React.PureComponent<Props> {
 }
 
 export default compose<Props, NavigationInjectedProps>(
-  translate(),
+  withI18n(),
   consumeRegion(({ resetSearchTerms }) => ({ resetSearchTerms })),
 )(ResetFilterButton);

@@ -2,6 +2,7 @@ import { holdTransaction, rollbackTransaction } from '@db';
 import { BOOM_USER_1500, BOOM_USER_3500, EDITOR_NO_EC, TEST_USER, TEST_USER2 } from '@seeds/01_users';
 import { REGION_ECUADOR, REGION_GEORGIA, REGION_NORWAY } from '@seeds/04_regions';
 import { anonContext, fakeContext, runQuery } from '@test';
+import { ApolloErrorCodes } from '@ww-commons';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
@@ -17,8 +18,7 @@ const query = `
 
 it('anon shall not pass', async () => {
   const result = await runQuery(query, { }, anonContext());
-  expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
-  expect(result).toHaveProperty('data.promoRegions', null);
+  expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
 });
 
 it('should return all premium regions for user without purchases', async () => {

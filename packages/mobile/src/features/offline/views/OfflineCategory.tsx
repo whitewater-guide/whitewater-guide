@@ -88,7 +88,7 @@ class OfflineCategory extends React.PureComponent<Props> {
     return (
       <TouchableRipple onPress={this.onPress} disabled={!!disabled}>
         <View style={styles.row}>
-          <Checkbox checked={!!selected} color={theme.colors.primary} />
+          <Checkbox status={selected ? 'checked' : 'unchecked'} color={theme.colors.primary} />
           <Paragraph style={[styles.label, unavailable && styles.unavailable]}>
             {this.getLabel()}
           </Paragraph>

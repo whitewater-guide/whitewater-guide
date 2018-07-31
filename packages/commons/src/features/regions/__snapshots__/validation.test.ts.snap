@@ -18,14 +18,6 @@ Object {
 }
 `;
 
-exports[`RegionAdminSettings should be invalid for empty banner 1`] = `
-Object {
-  "banners": Object {
-    "regionDescriptionMobile": "Value must be non-empty string",
-  },
-}
-`;
-
 exports[`RegionAdminSettings should be invalid for empty cover image 1`] = `
 Object {
   "coverImage": Object {
@@ -42,7 +34,7 @@ Object {
 
 exports[`RegionAdminSettings should be invalid for extra fields 1`] = `
 Object {
-  "foo": "Incorrect value",
+  "foo": "Expected a value of type \`undefined\` for \`foo\` but received \`\\"bar\\"\`.",
 }
 `;
 
@@ -87,7 +79,7 @@ Object {
 
 exports[`RegionFormInput should be invalid for extra fields 1`] = `
 Object {
-  "foo": "Incorrect value",
+  "foo": "Expected a value of type \`undefined\` for \`foo\` but received \`\\"bar\\"\`.",
 }
 `;
 
@@ -132,6 +124,6 @@ Object {
 
 exports[`RegionInput should be invalid for extra fields 1`] = `
 Object {
-  "foo": "Incorrect value",
+  "foo": "Expected a value of type \`undefined\` for \`foo\` but received \`\\"bar\\"\`.",
 }
 `;

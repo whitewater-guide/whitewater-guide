@@ -10,13 +10,6 @@ const ADMINISTRATE_REGION_MUTATION = gql`
       coverImage {
         mobile
       }
-      banners {
-        regionDescriptionMobile
-        regionLoadingMobile
-        sectionDescriptionMobile
-        sectionMediaMobile
-        sectionRowMobile
-      }
     }
   }
 `;

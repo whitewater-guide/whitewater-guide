@@ -5,6 +5,7 @@ import android.support.multidex.MultiDexApplication;
 
 import com.airbnb.android.react.maps.MapsPackage;
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.webview.RNCWebViewPackage;
 import com.rnfs.RNFSPackage;
 import com.dooboolab.RNIap.RNIapPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
@@ -21,7 +22,6 @@ import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
-import com.oblador.vectoricons.VectorIconsPackage;
 import com.horcrux.svg.SvgPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.wix.interactable.Interactable;
@@ -58,6 +58,7 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNCWebViewPackage(),
             new RNFSPackage(),
             new RNIapPackage(),
             new LinearGradientPackage(),
@@ -71,7 +72,6 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
             new FastImageViewPackage(),
             new RNLanguagesPackage(),
             new FBSDKPackage(mCallbackManager),
-            new VectorIconsPackage(),
             new SvgPackage(),
             new SplashScreenReactPackage(),
             new Interactable(),

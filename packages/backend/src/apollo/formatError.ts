@@ -1,21 +1,17 @@
-import { formatError as apolloFormatError } from 'apollo-errors';
-import { ApolloError } from 'apollo-server';
-import { UnknownError } from './errors';
+import { formatApolloErrors } from 'apollo-server-errors';
+import set from 'lodash/set';
+import shortid from 'shortid';
 import { logger } from './logger';
 
 export const formatError = (error: any) => {
-  let e = apolloFormatError(error, true);
+  const apolloError = formatApolloErrors([error], { debug: true })[0];
+  // Put unique id into extensions, to grep server logs easier
+  // It should be in extensions and not on the root level: https://facebook.github.io/graphql/June2018/#example-9008d
+  const id = shortid.generate();
+  set(apolloError, 'extensions.id', id);
+  logger.error(apolloError);
 
-  if (!e && error instanceof ApolloError) {
-    e = apolloFormatError(new UnknownError({
-      data: {
-        originalMessage: error.message,
-        originalError: error.name,
-      },
-    }), true);
-  }
-
-  logger.error(e);
-
-  return e as any;
+  set(apolloError, 'extensions.exception.stacktrace', undefined);
+  apolloError.stack = undefined;
+  return apolloError;
 };

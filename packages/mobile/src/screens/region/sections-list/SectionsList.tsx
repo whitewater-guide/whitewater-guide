@@ -1,18 +1,34 @@
 import React from 'react';
-import { translate } from 'react-i18next';
-import { FlatList, ListRenderItemInfo } from 'react-native';
+import { withI18n, WithI18n } from 'react-i18next';
+import { FlatList, ListRenderItemInfo, StyleSheet, View } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 import { compose } from 'recompose';
+import { BannerView } from '../../../features/banners/BannerView';
 import { connectPremiumDialog, WithPremiumDialog } from '../../../features/purchases';
-import { WithT } from '../../../i18n';
-import { Region, Section } from '../../../ww-commons';
+import theme from '../../../theme';
+import { Banner, isBanner, Region, Section } from '../../../ww-commons';
 import { SectionsStatus } from '../types';
+import getSectionsWithBanners from './getSectionsWithBanners';
 import { ITEM_HEIGHT, SectionListItem } from './item';
 import NoSectionsPlaceholder from './NoSectionsPlaceholder';
 
 const keyExtractor = (item: Section) => item.id;
 const getItemLayout = (data: any, index: number) => ({ length: ITEM_HEIGHT, offset: ITEM_HEIGHT * index, index });
 const always = () => true;
+
+const styles = StyleSheet.create({
+  banner: {
+    alignSelf: 'center',
+    height: ITEM_HEIGHT,
+  },
+  bannerContainer: {
+    alignSelf: 'stretch',
+    height: ITEM_HEIGHT,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.textLight,
+  },
+});
 
 interface OuterProps extends Pick<NavigationScreenProp<any, any>, 'navigate'> {
   sections: Section[];
@@ -21,11 +37,12 @@ interface OuterProps extends Pick<NavigationScreenProp<any, any>, 'navigate'> {
   status: SectionsStatus;
 }
 
-type InnerProps = OuterProps & WithT & WithPremiumDialog;
+type InnerProps = OuterProps & WithI18n & WithPremiumDialog;
 
 interface State {
+  layoutComplete: boolean;
   renderedFirstBatch: boolean;
-  initialNumToRender: number;
+  rowsPerScreen: number;
   swipedItemIndex: number;
 }
 
@@ -33,14 +50,15 @@ class SectionsList extends React.PureComponent<InnerProps, State> {
   _shouldBounceFirstRowOnMount: boolean = true;
 
   state: State = {
+    layoutComplete: false,
     renderedFirstBatch: false,
-    initialNumToRender: 10,
+    rowsPerScreen: 10,
     swipedItemIndex: -1,
   };
 
   onListLayout = ({ nativeEvent: { layout: { height } } }: any) => {
-    const initialNumToRender = Math.ceil(height / ITEM_HEIGHT);
-    this.setState({ initialNumToRender });
+    const rowsPerScreen = height / ITEM_HEIGHT;
+    this.setState({ rowsPerScreen, layoutComplete: true });
   };
 
   onSectionSelected = (section: Section) =>
@@ -48,8 +66,8 @@ class SectionsList extends React.PureComponent<InnerProps, State> {
 
   onViewableItemsChanged = ({ viewableItems }: any) => {
     const { sections } = this.props;
-    const { renderedFirstBatch, initialNumToRender } = this.state;
-    const threshold = Math.min(sections.length, initialNumToRender);
+    const { renderedFirstBatch, rowsPerScreen } = this.state;
+    const threshold = Math.min(sections.length, Math.ceil(rowsPerScreen));
     if (!renderedFirstBatch && viewableItems.length >= threshold) {
       this.setState({ renderedFirstBatch: true });
     }
@@ -76,21 +94,28 @@ class SectionsList extends React.PureComponent<InnerProps, State> {
     return true;
   };
 
-  renderItem = ({ item: section, index }: ListRenderItemInfo<Section>) => {
+  renderItem = ({ item, index }: ListRenderItemInfo<Section | Banner>) => {
     const { premium, hasPremiumAccess } = this.props.region!;
     let shouldBounceOnMount = false;
     if (this._shouldBounceFirstRowOnMount && this.state.renderedFirstBatch) {
       this._shouldBounceFirstRowOnMount = false;
       shouldBounceOnMount = index === 0;
     }
+    if (isBanner(item)) {
+      return (
+        <View style={styles.bannerContainer}>
+          <BannerView banner={item} style={styles.banner} />
+        </View>
+      );
+    }
     return (
       <SectionListItem
         index={index}
         hasPremiumAccess={hasPremiumAccess || !premium}
-        canNavigate={section.demo ? always : this.canNavigate}
+        canNavigate={item.demo ? always : this.canNavigate}
         swipedIndex={this.state.swipedItemIndex}
         shouldBounceOnMount={shouldBounceOnMount}
-        section={section}
+        section={item}
         onPress={this.onSectionSelected}
         onMaximize={this.onItemMaximized}
         t={this.props.t}
@@ -100,18 +125,20 @@ class SectionsList extends React.PureComponent<InnerProps, State> {
 
   render() {
     const { region, sections, status } = this.props;
+    const { layoutComplete, rowsPerScreen, swipedItemIndex } = this.state;
     if (!region || sections.length === 0) {
       return <NoSectionsPlaceholder />;
     }
+    const data = layoutComplete ? getSectionsWithBanners(sections, region, Math.floor(rowsPerScreen)) : [];
     return (
       <FlatList
-        extraData={this.state.swipedItemIndex}
+        extraData={layoutComplete ? swipedItemIndex : -10}
         onLayout={this.onListLayout}
-        data={sections}
+        data={data}
         keyExtractor={keyExtractor}
         getItemLayout={getItemLayout}
         renderItem={this.renderItem}
-        initialNumToRender={this.state.initialNumToRender}
+        initialNumToRender={Math.ceil(rowsPerScreen)}
         onViewableItemsChanged={this.onViewableItemsChanged}
         onRefresh={this.onRefresh}
         refreshing={status === SectionsStatus.LOADING_UPDATES}
@@ -121,6 +148,6 @@ class SectionsList extends React.PureComponent<InnerProps, State> {
 }
 
 export default compose<InnerProps, OuterProps>(
-  translate(),
+  withI18n(),
   connectPremiumDialog,
 )(SectionsList);

@@ -1,8 +1,8 @@
-import { MutationNotAllowedError } from '@apollo';
 import { holdTransaction, rollbackTransaction } from '@db';
 import { EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '@seeds/01_users';
 import { RIVER_GAL_1, RIVER_GAL_2 } from '@seeds/07_rivers';
 import { anonContext, countRows, fakeContext, runQuery } from '@test';
+import { ApolloErrorCodes } from '@ww-commons';
 
 let rBefore: number;
 let rtBefore: number;
@@ -26,20 +26,17 @@ afterEach(rollbackTransaction);
 describe('resolvers chain', () => {
   it('anon should not pass', async () => {
     const result = await runQuery(query, riverWithoutSections, anonContext());
-    expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
-    expect(result).toHaveProperty('data.removeRiver', null);
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
   });
 
   it('user should not pass', async () => {
     const result = await runQuery(query, riverWithoutSections, fakeContext(TEST_USER));
-    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
-    expect(result).toHaveProperty('data.removeRiver', null);
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 
   it('non-owning editor should not pass', async () => {
     const result = await runQuery(query, riverWithoutSections, fakeContext(EDITOR_NO_EC));
-    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
-    expect(result).toHaveProperty('data.removeRiver', null);
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 });
 
@@ -47,9 +44,10 @@ describe('effects', () => {
 
   it('should not remove river which has sections', async () => {
     const result = await runQuery(query, riverWithSections, fakeContext(EDITOR_GA_EC));
-    expect(result).toHaveProperty('errors.0.name', 'MutationNotAllowedError');
-    expect(result).toHaveProperty('errors.0.message', 'Delete all sections first!');
-    expect(result).toHaveProperty('data.removeRiver', null);
+    expect(result).toHaveGraphqlError(
+      ApolloErrorCodes.MUTATION_NOT_ALLOWED,
+      'Delete all sections first!',
+    );
   });
 
   it('should return deleted river id', async () => {

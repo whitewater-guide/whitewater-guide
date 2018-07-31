@@ -2,7 +2,7 @@ import db, { holdTransaction, rollbackTransaction } from '@db';
 import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
 import { SOURCE_GALICIA_1, SOURCE_GALICIA_2, SOURCE_GEORGIA } from '@seeds/05_sources';
 import { anonContext, fakeContext, isTimestamp, isUUID, noTimestamps, noUnstable, runQuery } from '@test';
-import { HarvestMode, SourceInput } from '@ww-commons';
+import { ApolloErrorCodes, HarvestMode, SourceInput } from '@ww-commons';
 import { SourceRaw } from '../types';
 
 let sourceCountBefore: number;
@@ -57,20 +57,17 @@ const mutation = `
 describe('resolvers chain', () => {
   it('anon should not pass', async () => {
     const result = await runQuery(mutation, { source: requiredSource }, anonContext());
-    expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
-    expect(result).toHaveProperty('data.upsertSource', null);
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
   });
 
   it('user should not pass', async () => {
     const result = await runQuery(mutation, { source: requiredSource }, fakeContext(TEST_USER));
-    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
-    expect(result).toHaveProperty('data.upsertSource', null);
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 
   it('editor should not pass', async () => {
     const result = await runQuery(mutation, { source: requiredSource }, fakeContext(EDITOR_GA_EC));
-    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
-    expect(result).toHaveProperty('data.upsertSource', null);
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 
   it('should throw on invalid input', async () => {
@@ -85,8 +82,7 @@ describe('resolvers chain', () => {
       regions: [{ id: 'aaaa' }],
     };
     const result = await runQuery(mutation, { source: input }, fakeContext(ADMIN));
-    expect(result).toHaveProperty('errors.0.name', 'ValidationError');
-    expect(result.data!.upsertSource).toBeNull();
+    expect(result).toHaveGraphqlValidationError();
   });
 });
 
@@ -186,10 +182,10 @@ describe('update', () => {
       { source: { ...optionalSource, id: SOURCE_GALICIA_2 } },
       fakeContext(ADMIN),
     );
-    expect(result.errors).toBeDefined();
-    expect(result.data!.upsertSource).toBeNull();
-    expect(result).toHaveProperty('errors.0.name', 'MutationNotAllowedError');
-    expect(result).toHaveProperty('errors.0.message', 'Disable source before editing it');
+    expect(result).toHaveGraphqlError(
+      ApolloErrorCodes.MUTATION_NOT_ALLOWED,
+      'Disable source before editing it',
+    );
   });
 
   it('should match snapshot', () => {

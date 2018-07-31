@@ -1,10 +1,9 @@
 import React from 'react';
-import { translate } from 'react-i18next';
+import { WithI18n, withI18n } from 'react-i18next';
 import { StyleSheet, Text } from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
 import * as Animatable from 'react-native-animatable';
 import { Paragraph, Subheading } from 'react-native-paper';
-import { WithT } from '../../i18n';
 import { FlowToggleProps } from '../../ww-clients/features/charts';
 import { Unit } from '../../ww-commons';
 import { Icon } from '../Icon';
@@ -19,7 +18,7 @@ const styles = StyleSheet.create({
   },
 });
 
-type Props = FlowToggleProps & WithT;
+type Props = FlowToggleProps & WithI18n;
 
 class ChartFlowToggleInternal extends React.PureComponent<Props> {
   _actionSheetOptions: string[];
@@ -108,4 +107,4 @@ class ChartFlowToggleInternal extends React.PureComponent<Props> {
   }
 }
 
-export const ChartFlowToggle = translate()(ChartFlowToggleInternal);
+export const ChartFlowToggle = withI18n()(ChartFlowToggleInternal);

@@ -1,14 +1,13 @@
 import React from 'react';
 import { Query, QueryResult } from 'react-apollo';
 import ErrorBoundary from 'react-error-boundary';
-import { translate } from 'react-i18next';
+import { withI18n, WithI18n } from 'react-i18next';
 import { Divider, Title } from 'react-native-paper';
 import { ErrorBoundaryFallback, Loading, Paper } from '../../../components';
-import { WithT } from '../../../i18n';
 import { MY_PURCHASES_QUERY, Result } from './myPurchases.query';
 import PurchaseItem from './PurchaseItem';
 
-const PurchasesListView: React.SFC<WithT> = ({ t }) => (
+const PurchasesListViewInner: React.SFC<WithI18n> = ({ t }) => (
   <ErrorBoundary FallbackComponent={ErrorBoundaryFallback}>
     <Paper>
       <Title>{t('myProfile:purchases.title')}</Title>
@@ -44,4 +43,5 @@ const PurchasesListView: React.SFC<WithT> = ({ t }) => (
   </ErrorBoundary>
 );
 
-export default translate()(PurchasesListView);
+const PurchasesListView: React.ComponentType<{}> = withI18n()(PurchasesListViewInner);
+export default PurchasesListView;

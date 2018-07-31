@@ -1,9 +1,10 @@
-import { baseResolver, isInputValidResolver, TopLevelResolver, ValidationError } from '@apollo';
+import { isInputValidResolver, TopLevelResolver } from '@apollo';
 import db, { rawUpsert } from '@db';
 import log from '@log';
 import { MEDIA, minioClient, moveTempImage, TEMP } from '@minio';
 import { MediaInput, MediaInputStruct } from '@ww-commons';
 import { struct } from '@ww-commons/utils/validation';
+import { UserInputError } from 'apollo-server';
 import { MediaRaw } from '../types';
 
 interface Vars {
@@ -16,7 +17,7 @@ const Struct = struct.object({
   media: MediaInputStruct,
 });
 
-const resolver: TopLevelResolver<Vars> = async (root, vars: Vars, context) => {
+const resolver: TopLevelResolver<Vars> = async (root, vars, context) => {
   const { sectionId } = vars;
   const { language, user, dataSources } = context;
   await dataSources.media.assertEditorPermissions(undefined, sectionId);
@@ -39,21 +40,17 @@ const resolver: TopLevelResolver<Vars> = async (root, vars: Vars, context) => {
   } catch (err) {
     // foreign_key_violation - non-existing section id
     if (err.code === '23503' && err.constraint === 'sections_media_section_id_foreign') {
-      throw new ValidationError({ message: 'Invalid section id' });
+      throw new UserInputError('Invalid section id');
     }
     // unique_violation - trying assign media to different section
     // breaks media * --- 1 section relation (many to one)
     if (err.code === '23505' && err.constraint === 'sections_media_media_id_unique') {
-      throw new ValidationError({ message: 'Invalid section id' });
+      throw new UserInputError('Invalid section id');
     }
     throw err;
   }
 };
 
-const queryResolver = isInputValidResolver(Struct).createResolver(resolver);
-
-const upsertSectionMedia = baseResolver.createResolver(
-  queryResolver,
-);
+const upsertSectionMedia = isInputValidResolver(Struct, resolver);
 
 export default upsertSectionMedia;

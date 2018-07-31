@@ -4,6 +4,7 @@ export interface PathsOpts {
   regionId?: string;
   riverId?: string;
   sectionId?: string;
+  bannerId?: string;
 }
 
 const to = (opts: PathsOpts) => {
@@ -13,6 +14,7 @@ const to = (opts: PathsOpts) => {
     regionId,
     riverId,
     sectionId,
+    bannerId,
   } = opts;
 
   if (gaugeId) {
@@ -29,6 +31,9 @@ const to = (opts: PathsOpts) => {
   }
   if (regionId) {
     return `/regions/${regionId}`;
+  }
+  if (bannerId) {
+    return `/banners/${bannerId}`;
   }
   return '/404';
 };

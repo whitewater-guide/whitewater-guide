@@ -1,16 +1,14 @@
 import get from 'lodash/get';
 import React from 'react';
-import { translate } from 'react-i18next';
-import { Platform } from 'react-native';
-import { Toolbar, ToolbarAction, ToolbarContent } from 'react-native-paper';
+import { withI18n, WithI18n } from 'react-i18next';
+import { Appbar } from 'react-native-paper';
 import { HeaderProps, NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { toggleDrawer } from '../../core/actions';
-import { WithT } from '../../i18n';
 import { HeaderRight } from '../../screens';
 
-type Props = HeaderProps & WithT & { openDrawer: () => void };
+type Props = HeaderProps & WithI18n & { openDrawer: () => void };
 
 class Header extends React.PureComponent<Props> {
 
@@ -18,20 +16,10 @@ class Header extends React.PureComponent<Props> {
     this.props.navigation.dispatch(NavigationActions.back());
 
   renderLeftButton = () => {
-    const { index } = this.props;
-    const backProps = Platform.select({
-      ios: {
-        icon: 'chevron-left',
-        size: 36,
-      },
-      android: {
-        icon: 'arrow-left',
-        size: 24,
-      },
-    });
+    const { index, openDrawer } = this.props;
     return index ?
-      <ToolbarAction {...backProps} onPress={this.goBack} /> :
-      <ToolbarAction icon="menu" onPress={this.props.openDrawer} />
+      <Appbar.Action icon="chevron-left" size={36} onPress={this.goBack} /> :
+      <Appbar.Action icon="menu" onPress={openDrawer} />
     ;
   };
 
@@ -42,18 +30,18 @@ class Header extends React.PureComponent<Props> {
       titleNode = typeof title === 'string' ? this.props.t(title) : title;
     }
     return (
-      <Toolbar>
+      <Appbar.Header>
         {this.renderLeftButton()}
-        <ToolbarContent title={titleNode} />
+        <Appbar.Content title={titleNode} />
         <HeaderRight navigation={this.props.navigation} />
-      </Toolbar>
+      </Appbar.Header>
     );
   }
 }
 
 const container = compose<Props, HeaderProps>(
   connect(undefined, { openDrawer: () => toggleDrawer(null) }),
-  translate(),
+  withI18n(),
 );
 
 export default container(Header);

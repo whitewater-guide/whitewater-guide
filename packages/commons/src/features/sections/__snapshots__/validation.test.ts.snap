@@ -2,7 +2,7 @@
 
 exports[`SectionAdminSettings should be invalid for extra fields 1`] = `
 Object {
-  "foo": "Incorrect value",
+  "foo": "Expected a value of type \`undefined\` for \`foo\` but received \`\\"bar\\"\`.",
 }
 `;
 
@@ -17,19 +17,19 @@ Object {
 
 exports[`SectionFormInput should be invalid for bad difficulty (fraction) 1`] = `
 Object {
-  "difficulty": "Incorrect value",
+  "difficulty": "Expected a value of type \`0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5\` for \`difficulty\` but received \`4.4\`.",
 }
 `;
 
 exports[`SectionFormInput should be invalid for bad difficulty (max) 1`] = `
 Object {
-  "difficulty": "Incorrect value",
+  "difficulty": "Expected a value of type \`0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5\` for \`difficulty\` but received \`5.5\`.",
 }
 `;
 
 exports[`SectionFormInput should be invalid for bad difficulty (min) 1`] = `
 Object {
-  "difficulty": "Incorrect value",
+  "difficulty": "Expected a value of type \`0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5\` for \`difficulty\` but received \`-0.5\`.",
 }
 `;
 
@@ -47,7 +47,7 @@ Object {
 
 exports[`SectionFormInput should be invalid for bad duration 1`] = `
 Object {
-  "duration": "Incorrect value",
+  "duration": "Expected a value of type \`null | 10 | 20 | 30 | 40 | 50\` for \`duration\` but received \`-100\`.",
 }
 `;
 
@@ -88,19 +88,19 @@ Object {
 
 exports[`SectionFormInput should be invalid for bad rating (fraction) 1`] = `
 Object {
-  "rating": "Incorrect value",
+  "rating": "Expected a value of type \`null | 0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5\` for \`rating\` but received \`4.4\`.",
 }
 `;
 
 exports[`SectionFormInput should be invalid for bad rating (max) 1`] = `
 Object {
-  "rating": "Incorrect value",
+  "rating": "Expected a value of type \`null | 0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5\` for \`rating\` but received \`5.5\`.",
 }
 `;
 
 exports[`SectionFormInput should be invalid for bad rating (min) 1`] = `
 Object {
-  "rating": "Incorrect value",
+  "rating": "Expected a value of type \`null | 0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5\` for \`rating\` but received \`-0.5\`.",
 }
 `;
 
@@ -148,7 +148,7 @@ Object {
   "kayakingTags": Array [
     undefined,
     Object {
-      "id": "Invalid tag",
+      "id": "Value must be valid slug",
     },
   ],
 }
@@ -156,13 +156,13 @@ Object {
 
 exports[`SectionFormInput should be invalid for extra fields 1`] = `
 Object {
-  "foo": "Incorrect value",
+  "foo": "Expected a value of type \`undefined\` for \`foo\` but received \`\\"bar\\"\`.",
 }
 `;
 
 exports[`SectionFormInput should be invalid for present tag field 1`] = `
 Object {
-  "tags": "Incorrect value",
+  "tags": "Expected a value of type \`undefined\` for \`tags\` but received \`[{\\"id\\":\\"4x4\\"}]\`.",
 }
 `;
 
@@ -177,19 +177,19 @@ Object {
 
 exports[`SectionInput should be invalid for bad difficulty (fraction) 1`] = `
 Object {
-  "difficulty": "Incorrect value",
+  "difficulty": "Expected a value of type \`0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5\` for \`difficulty\` but received \`4.4\`.",
 }
 `;
 
 exports[`SectionInput should be invalid for bad difficulty (max) 1`] = `
 Object {
-  "difficulty": "Incorrect value",
+  "difficulty": "Expected a value of type \`0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5\` for \`difficulty\` but received \`5.5\`.",
 }
 `;
 
 exports[`SectionInput should be invalid for bad difficulty (min) 1`] = `
 Object {
-  "difficulty": "Incorrect value",
+  "difficulty": "Expected a value of type \`0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5\` for \`difficulty\` but received \`-0.5\`.",
 }
 `;
 
@@ -207,7 +207,7 @@ Object {
 
 exports[`SectionInput should be invalid for bad duration 1`] = `
 Object {
-  "duration": "Incorrect value",
+  "duration": "Expected a value of type \`null | 10 | 20 | 30 | 40 | 50\` for \`duration\` but received \`-100\`.",
 }
 `;
 
@@ -248,19 +248,19 @@ Object {
 
 exports[`SectionInput should be invalid for bad rating (fraction) 1`] = `
 Object {
-  "rating": "Incorrect value",
+  "rating": "Expected a value of type \`null | 0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5\` for \`rating\` but received \`4.4\`.",
 }
 `;
 
 exports[`SectionInput should be invalid for bad rating (max) 1`] = `
 Object {
-  "rating": "Incorrect value",
+  "rating": "Expected a value of type \`null | 0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5\` for \`rating\` but received \`5.5\`.",
 }
 `;
 
 exports[`SectionInput should be invalid for bad rating (min) 1`] = `
 Object {
-  "rating": "Incorrect value",
+  "rating": "Expected a value of type \`null | 0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5\` for \`rating\` but received \`-0.5\`.",
 }
 `;
 
@@ -306,7 +306,7 @@ Object {
 exports[`SectionInput should be invalid for bad tags 1`] = `
 Object {
   "tags": Array [
-    "Incorrect value",
+    "Expected a value of type \`{id}\` for \`tags.0\` but received \`\\"foo\\"\`.",
     "Incorrect value",
     "Incorrect value",
   ],
@@ -315,6 +315,6 @@ Object {
 
 exports[`SectionInput should be invalid for extra fields 1`] = `
 Object {
-  "foo": "Incorrect value",
+  "foo": "Expected a value of type \`undefined\` for \`foo\` but received \`\\"bar\\"\`.",
 }
 `;

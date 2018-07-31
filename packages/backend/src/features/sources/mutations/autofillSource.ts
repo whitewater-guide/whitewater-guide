@@ -1,4 +1,4 @@
-import { baseResolver, MutationNotAllowedError, TopLevelResolver, UnknownError } from '@apollo';
+import { MutationNotAllowedError, TopLevelResolver, UnknownError } from '@apollo';
 import db, { rawUpsert } from '@db';
 import { GaugeInput, PointInput } from '@ww-commons';
 import { execScript, ScriptCommand, ScriptGaugeInfo } from '../../scripts';
@@ -8,23 +8,23 @@ interface Vars {
   id: string;
 }
 
-const resolver: TopLevelResolver<Vars> = async (root, { id }) => {
+const autofillSource: TopLevelResolver<Vars> = async (root, { id }) => {
   const { count } = await db().table('gauges').where({ source_id: id }).count().first();
 
   if (count > 0) {
-    throw new MutationNotAllowedError({ message: 'Cannot autofill source that already has gauges' });
+    throw new MutationNotAllowedError('Cannot autofill source that already has gauges');
   }
   const { enabled, script }: SourceRaw = await db().table('sources')
     .select(['script', 'enabled']).where({ id }).first();
   if (enabled) {
-    throw new MutationNotAllowedError({ message: 'Cannot autofill source that is enabled' });
+    throw new MutationNotAllowedError('Cannot autofill source that is enabled');
   }
   const { success, error, data } = await execScript<ScriptGaugeInfo[]>({
     command: 'autofill' as ScriptCommand,
     script,
   });
   if (!success) {
-    throw new UnknownError({ message: `Autofill failed: ${error}` });
+    throw new UnknownError(`Autofill failed: ${error}`);
   }
   // This is slow, but it's executed rarely
   const gaugesIn: ScriptGaugeInfo[] = data || [];
@@ -56,9 +56,5 @@ const resolver: TopLevelResolver<Vars> = async (root, { id }) => {
   }
   return gaugesOut;
 };
-
-const autofillSource = baseResolver.createResolver(
-  resolver,
-);
 
 export default autofillSource;

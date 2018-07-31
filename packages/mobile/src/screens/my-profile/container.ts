@@ -1,5 +1,5 @@
 import { graphql } from 'react-apollo';
-import { translate } from 'react-i18next';
+import { withI18n } from 'react-i18next';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { auth } from '../../core/auth';
@@ -9,7 +9,7 @@ import { InnerProps, WithMutation } from './types';
 import { Result, UPDATE_MY_PROFILE, Vars } from './updateProfile.mutation';
 
 const container = compose<InnerProps, {}>(
-  translate(),
+  withI18n(),
   withMe,
   graphql<WithMe, Result, Vars, WithMutation>(
     UPDATE_MY_PROFILE,

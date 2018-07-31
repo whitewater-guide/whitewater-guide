@@ -2,7 +2,7 @@ import { map } from 'lodash';
 import IconButton from 'material-ui/IconButton';
 import Paper from 'material-ui/Paper';
 import React from 'react';
-import { FieldsProps } from 'redux-form';
+import { FieldArrayFieldsProps } from 'redux-form';
 import { Styles } from '../../styles';
 import { Coordinate, NamedNode, POINames, PointInput as PointInputType } from '../../ww-commons';
 import { Select } from './Select';
@@ -34,7 +34,7 @@ const styles: Styles = {
 interface Props {
   name: string;
   index?: number;
-  fields?: FieldsProps<PointInputType>;
+  fields?: FieldArrayFieldsProps<PointInputType>;
   title?: string;
   detailed?: boolean;
   mapDialog?: boolean;

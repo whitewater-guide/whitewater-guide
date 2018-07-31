@@ -1,4 +1,4 @@
-import { ApolloError } from 'apollo-errors';
+import { ApolloError, AuthenticationError, ForbiddenError } from 'apollo-server';
 import {
   defaultFieldResolver,
   GraphQLField,
@@ -8,7 +8,6 @@ import {
 } from 'graphql';
 import { SchemaDirectiveVisitor } from 'graphql-tools';
 import { Context, ContextUser } from '../context';
-import { AuthenticationRequiredError, ForbiddenError } from '../errors';
 
 type Fields = GraphQLField<any, Context>;
 interface Details {
@@ -40,10 +39,10 @@ export class AdminDirective extends SchemaDirectiveVisitor {
 
   private checkPermissions(source: any, user?: ContextUser): ApolloError | null  {
     if (!user) {
-      return new AuthenticationRequiredError();
+      return new AuthenticationError('must authenticate');
     }
     if (!user.admin) {
-      return new ForbiddenError();
+      return new ForbiddenError('must be admin');
     }
     return null;
   }

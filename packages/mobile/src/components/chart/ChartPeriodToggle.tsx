@@ -1,9 +1,8 @@
 import React from 'react';
-import { translate } from 'react-i18next';
+import { withI18n, WithI18n } from 'react-i18next';
 import { ActivityIndicator, StyleSheet } from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
 import { Paragraph, Subheading } from 'react-native-paper';
-import { WithT } from '../../i18n';
 import theme from '../../theme';
 import { PeriodToggleProps } from '../../ww-clients/features/charts';
 import { Body, Left, Right, Row } from '../Row';
@@ -15,7 +14,7 @@ const styles = StyleSheet.create({
   },
 });
 
-type Props = PeriodToggleProps & WithT;
+type Props = PeriodToggleProps & WithI18n;
 
 class ChartPeriodToggleInternal extends React.PureComponent<Props> {
   _actionSheet: ActionSheet | null = null;
@@ -85,4 +84,4 @@ class ChartPeriodToggleInternal extends React.PureComponent<Props> {
   }
 }
 
-export const ChartPeriodToggle = translate()(ChartPeriodToggleInternal);
+export const ChartPeriodToggle = withI18n()(ChartPeriodToggleInternal);

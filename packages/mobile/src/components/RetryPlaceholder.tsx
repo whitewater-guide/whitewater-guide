@@ -1,8 +1,7 @@
 import React from 'react';
-import { translate } from 'react-i18next';
+import { translate, withI18n, WithI18n } from 'react-i18next';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { Button, Subheading } from 'react-native-paper';
-import { WithT } from '../i18n';
 import theme from '../theme';
 import { sleep } from '../ww-clients/utils';
 import { Icon } from './Icon';
@@ -34,7 +33,7 @@ interface State {
   refetching: boolean;
 }
 
-class RetryPlaceholderInner extends React.PureComponent<Props & WithT, State> {
+class RetryPlaceholderInner extends React.PureComponent<Props & WithI18n, State> {
   readonly state: State = { refetching: false };
 
   onRetry = async () => {
@@ -65,7 +64,7 @@ class RetryPlaceholderInner extends React.PureComponent<Props & WithT, State> {
         {
           !!this.props.refetch &&
           (
-            <Button primary compact disabled={isBusy} onPress={this.onRetry}>
+            <Button color={theme.colors.primary} compact disabled={isBusy} onPress={this.onRetry}>
               {t(buttonKey)}
             </Button>
           )
@@ -75,4 +74,4 @@ class RetryPlaceholderInner extends React.PureComponent<Props & WithT, State> {
   }
 }
 
-export const RetryPlaceholder = translate()(RetryPlaceholderInner);
+export const RetryPlaceholder = withI18n()(RetryPlaceholderInner);

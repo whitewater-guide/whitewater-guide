@@ -1,4 +1,4 @@
-import { AuthenticationRequiredError, ForbiddenError } from '@apollo';
+import { AuthenticationError, ForbiddenError } from 'apollo-server';
 import db from '@db';
 import { BaseConnector, FieldsMap, ManyBuilderOptions } from '@db/connectors';
 import { Region } from '@ww-commons';
@@ -14,6 +14,7 @@ const FIELDS_MAP: FieldsMap<Region, RegionRaw> = {
   sections: null,
   sources: null,
   mediaSummary: null,
+  banners: null,
 };
 
 export class RegionsConnector extends BaseConnector<Region, RegionRaw> {
@@ -39,7 +40,7 @@ export class RegionsConnector extends BaseConnector<Region, RegionRaw> {
     return query;
   }
 
-  getMany(info: GraphQLResolveInfo, options: ManyBuilderOptions<RegionRaw>) {
+  getMany(info: GraphQLResolveInfo, options: ManyBuilderOptions<RegionRaw> = {}) {
     const query = super.getMany(info, options);
     if (!this._user) {
       // Anons should not see hidden regions
@@ -63,20 +64,20 @@ export class RegionsConnector extends BaseConnector<Region, RegionRaw> {
 
   async assertEditorPermissions(id: string | null) {
     if (!this._user) {
-      throw new AuthenticationRequiredError();
+      throw new AuthenticationError('must authenticate');
     }
     if (this._user.admin) {
       return true;
     }
     if (!id) {
       // only admin can create regions
-      throw new ForbiddenError();
+      throw new ForbiddenError('must be admin');
     }
     const { count } = await db(true).table('regions_editors')
       .where({ region_id: id, user_id: this._user.id })
       .count().first();
     if (Number(count) !== 1) {
-      throw new ForbiddenError();
+      throw new ForbiddenError('must be editor');
     }
     return true;
   }

@@ -27,7 +27,6 @@ Object {
         "maximum": 2.5,
         "minimum": 2.5,
         "optimum": 2.5,
-        Symbol(id): "$Section:Section.id.1.flows",
       },
       "flowsText": "Section.flowsText.1",
       "gauge": Object {
@@ -40,7 +39,6 @@ Object {
           "flow": 1.5,
           "level": 1.5,
           "timestamp": 2017-02-01T21:00:00.000Z,
-          Symbol(id): "$Gauge:Gauge.id.1.lastMeasurement",
         },
         "levelUnit": "Gauge.levelUnit.1",
         "location": Object {
@@ -51,7 +49,6 @@ Object {
           ],
           "id": "Point.id.3",
           "kind": "Point.kind.3",
-          Symbol(id): "Point:Point.id.3",
         },
         "name": "Gauge.name.1",
         "source": Object {
@@ -59,10 +56,8 @@ Object {
           "id": "Source.id.1",
           "name": "Source.name.1",
           "termsOfUse": "Source.termsOfUse.1",
-          Symbol(id): "Source:Source.id.1",
         },
         "url": "Gauge.url.1",
-        Symbol(id): "Gauge:Gauge.id.1",
       },
       "hidden": false,
       "id": "Section.id.1",
@@ -73,7 +68,6 @@ Object {
         "maximum": 1.5,
         "minimum": 1.5,
         "optimum": 1.5,
-        Symbol(id): "$Section:Section.id.1.levels",
       },
       "name": "Section.name.1",
       "putIn": Object {
@@ -84,7 +78,6 @@ Object {
         ],
         "id": "Point.id.1",
         "kind": "Point.kind.1",
-        Symbol(id): "Point:Point.id.1",
       },
       "rating": 1.5,
       "river": Object {
@@ -95,7 +88,6 @@ Object {
         ],
         "id": "River.id.1",
         "name": "River.name.1",
-        Symbol(id): "River:River.id.1",
       },
       "season": "Section.season.1",
       "seasonNumeric": Array [
@@ -118,14 +110,12 @@ Object {
           "category": "hazards",
           "id": "Tag.id.1",
           "name": "Tag.name.1",
-          Symbol(id): "Tag:Tag.id.1",
         },
         Object {
           "__typename": "Tag",
           "category": "supply",
           "id": "Tag.id.2",
           "name": "Tag.name.2",
-          Symbol(id): "Tag:Tag.id.2",
         },
       ],
       "takeOut": Object {
@@ -136,10 +126,8 @@ Object {
         ],
         "id": "Point.id.2",
         "kind": "Point.kind.2",
-        Symbol(id): "Point:Point.id.2",
       },
       "updatedAt": 2017-02-01T21:00:00.000Z,
-      Symbol(id): "Section:Section.id.1",
     },
     Object {
       "__typename": "Section",
@@ -160,7 +148,6 @@ Object {
         "maximum": 4.5,
         "minimum": 4.5,
         "optimum": 4.5,
-        Symbol(id): "$Section:Section.id.2.flows",
       },
       "flowsText": "Section.flowsText.2",
       "gauge": Object {
@@ -173,7 +160,6 @@ Object {
           "flow": 2.5,
           "level": 2.5,
           "timestamp": 2017-02-02T21:00:00.000Z,
-          Symbol(id): "$Gauge:Gauge.id.2.lastMeasurement",
         },
         "levelUnit": "Gauge.levelUnit.2",
         "location": Object {
@@ -184,7 +170,6 @@ Object {
           ],
           "id": "Point.id.6",
           "kind": "Point.kind.6",
-          Symbol(id): "Point:Point.id.6",
         },
         "name": "Gauge.name.2",
         "source": Object {
@@ -192,10 +177,8 @@ Object {
           "id": "Source.id.2",
           "name": "Source.name.2",
           "termsOfUse": "Source.termsOfUse.2",
-          Symbol(id): "Source:Source.id.2",
         },
         "url": "Gauge.url.2",
-        Symbol(id): "Gauge:Gauge.id.2",
       },
       "hidden": true,
       "id": "Section.id.2",
@@ -206,7 +189,6 @@ Object {
         "maximum": 3.5,
         "minimum": 3.5,
         "optimum": 3.5,
-        Symbol(id): "$Section:Section.id.2.levels",
       },
       "name": "Section.name.2",
       "putIn": Object {
@@ -217,7 +199,6 @@ Object {
         ],
         "id": "Point.id.4",
         "kind": "Point.kind.4",
-        Symbol(id): "Point:Point.id.4",
       },
       "rating": 2.5,
       "river": Object {
@@ -228,7 +209,6 @@ Object {
         ],
         "id": "River.id.2",
         "name": "River.name.2",
-        Symbol(id): "River:River.id.2",
       },
       "season": "Section.season.2",
       "seasonNumeric": Array [
@@ -251,14 +231,12 @@ Object {
           "category": "misc",
           "id": "Tag.id.3",
           "name": "Tag.name.3",
-          Symbol(id): "Tag:Tag.id.3",
         },
         Object {
           "__typename": "Tag",
           "category": "kayaking",
           "id": "Tag.id.4",
           "name": "Tag.name.4",
-          Symbol(id): "Tag:Tag.id.4",
         },
       ],
       "takeOut": Object {
@@ -269,10 +247,8 @@ Object {
         ],
         "id": "Point.id.5",
         "kind": "Point.kind.5",
-        Symbol(id): "Point:Point.id.5",
       },
       "updatedAt": 2017-02-02T21:00:00.000Z,
-      Symbol(id): "Section:Section.id.2",
     },
   ],
   "refetch": [Function],

@@ -1,4 +1,4 @@
-import { baseResolver, MutationNotAllowedError, TopLevelResolver } from '@apollo';
+import { MutationNotAllowedError, TopLevelResolver } from '@apollo';
 import db from '@db';
 import { startJobs, stopJobs } from '@features/jobs';
 import { SourceRaw } from '@features/sources';
@@ -9,11 +9,11 @@ interface Vars {
   enabled: boolean;
 }
 
-const resolver: TopLevelResolver<Vars> = async (root, { sourceId, enabled }) => {
+const toggleAllGauges: TopLevelResolver<Vars> = async (root, { sourceId, enabled }) => {
   const { harvest_mode }: Partial<SourceRaw> = await db().table('sources')
     .select(['harvest_mode']).where({ id: sourceId }).first();
   if (harvest_mode === HarvestMode.ALL_AT_ONCE) {
-    throw new MutationNotAllowedError({ message: 'Not allowed on all-at-once sources' });
+    throw new MutationNotAllowedError('Not allowed on all-at-once sources');
   }
   let query = db().table('gauges')
     .update({ enabled })
@@ -33,9 +33,5 @@ const resolver: TopLevelResolver<Vars> = async (root, { sourceId, enabled }) => 
 
   return toggledGauges.map((gauge: any) => ({ ...gauge }));
 };
-
-const toggleAllGauges = baseResolver.createResolver(
-  resolver,
-);
 
 export default toggleAllGauges;

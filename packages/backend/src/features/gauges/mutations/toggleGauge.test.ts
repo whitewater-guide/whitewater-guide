@@ -4,6 +4,7 @@ import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
 import { SOURCE_NORWAY } from '@seeds/05_sources';
 import { GAUGE_GAL_1_1, GAUGE_NOR_1, GAUGE_NOR_2, GAUGE_NOR_4 } from '@seeds/06_gauges';
 import { anonContext, fakeContext, runQuery } from '@test';
+import { ApolloErrorCodes } from '@ww-commons';
 
 jest.mock('@features/jobs', () => ({
   startJobs: jest.fn(),
@@ -31,38 +32,35 @@ afterEach(rollbackTransaction);
 describe('resolvers chain', () => {
   it('anon should not pass', async () => {
     const result = await runQuery(query, gal1, anonContext());
-    expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
-    expect(result.data!.toggleGauge).toBeNull();
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
   });
 
   it('user should not pass', async () => {
     const result = await runQuery(query, gal1, fakeContext(TEST_USER));
-    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
-    expect(result.data!.toggleGauge).toBeNull();
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 
   it('user should not pass', async () => {
     const result = await runQuery(query, gal1, fakeContext(EDITOR_GA_EC));
-    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
-    expect(result.data!.toggleGauge).toBeNull();
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 });
 
 describe('effects', () => {
   it('should not enable gauge if source is all-at-once', async () => {
     const result = await runQuery(query, gal1, fakeContext(ADMIN));
-    expect(result.errors).toBeDefined();
-    expect(result.data!.toggleGauge).toBeNull();
-    expect(result).toHaveProperty('errors.0.name', 'MutationNotAllowedError');
-    expect(result).toHaveProperty('errors.0.message', 'Cannot toggle gauge for all-at-once sources');
+    expect(result).toHaveGraphqlError(
+      ApolloErrorCodes.MUTATION_NOT_ALLOWED,
+      'Cannot toggle gauge for all-at-once sources',
+    );
   });
 
   it('should not enable gauge without cron', async () => {
     const result = await runQuery(query, { id: GAUGE_NOR_2, enabled: true }, fakeContext(ADMIN));
-    expect(result.errors).toBeDefined();
-    expect(result.data!.toggleGauge).toBeNull();
-    expect(result).toHaveProperty('errors.0.name', 'MutationNotAllowedError');
-    expect(result).toHaveProperty('errors.0.message', 'Cron must be set to enable gauge');
+    expect(result).toHaveGraphqlError(
+      ApolloErrorCodes.MUTATION_NOT_ALLOWED,
+      'Cron must be set to enable gauge',
+    );
   });
 
   it('should enable', async () => {

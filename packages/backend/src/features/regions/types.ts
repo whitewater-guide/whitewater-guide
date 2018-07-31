@@ -19,11 +19,4 @@ export interface RegionRaw extends NamedNode, RawTimestamped {
   cover_image: {
     mobile?: string;
   };
-  banners: {
-    sectionDescriptionMobile?: string;
-    sectionRowMobile?: string;
-    sectionMediaMobile?: string;
-    regionDescriptionMobile?: string;
-    regionLoadingMobile?: string;
-  };
 }

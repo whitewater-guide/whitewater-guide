@@ -1,3 +1,4 @@
+import { bannerBreadcrumbs } from '../features/banners';
 import { groupsBreadcrumbs } from '../features/groups';
 import { regionBreadcrumbs } from '../features/regions';
 import { sourceBreadcrumbs } from '../features/sources';
@@ -11,4 +12,5 @@ export default {
   ...sourceBreadcrumbs,
   ...tagsBreadcrumbs,
   ...groupsBreadcrumbs,
+  ...bannerBreadcrumbs,
 };

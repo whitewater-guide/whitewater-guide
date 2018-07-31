@@ -18,4 +18,4 @@ const mock = function moment() {
   };
 };
 
-export = Object.assign(mock, actual);
+module.exports = Object.assign(mock, actual);

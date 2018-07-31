@@ -1,7 +1,5 @@
-import { baseResolver } from '@apollo';
+import { TopLevelResolver } from '@apollo';
 
-const me = baseResolver.createResolver(
-  (root, args, context) => context.user,
-);
+const me: TopLevelResolver = (root, args, context) => context.user || null;
 
 export default me;

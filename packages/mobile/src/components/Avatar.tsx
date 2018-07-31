@@ -32,9 +32,9 @@ const getStyles = (size: number): StyleSheet.NamedStyles<any> => ({
   },
 });
 
-const styles = StyleSheet.create(getStyles(AVATAR_SIZE));
-const stylesSmall = StyleSheet.create(getStyles(AVATAR_SIZE_SMALL));
-const stylesMedium = StyleSheet.create(getStyles(AVATAR_SIZE_SMALL));
+const styles: any = StyleSheet.create(getStyles(AVATAR_SIZE));
+const stylesSmall: any = StyleSheet.create(getStyles(AVATAR_SIZE_SMALL));
+const stylesMedium: any = StyleSheet.create(getStyles(AVATAR_SIZE_SMALL));
 
 interface AvatarProps {
   name?: string | null;

@@ -1,4 +1,4 @@
-import { baseResolver, Context, MutationNotAllowedError } from '@apollo';
+import { MutationNotAllowedError, TopLevelResolver } from '@apollo';
 import { getTempPostPolicy } from '@minio';
 import { MediaUploadForm } from '../types';
 
@@ -6,14 +6,14 @@ interface Vars {
   id?: string;
 }
 
-const mediaForm = async (root: any, { id: mediaId }: Vars, { user, dataSources }: Context): Promise<MediaUploadForm> => {
+const mediaForm: TopLevelResolver<Vars> = async (_, { id: mediaId }, { user, dataSources }) => {
   const { found, id } = await dataSources.media.checkMediaId(mediaId);
   if (!found && mediaId) {
-    throw new MutationNotAllowedError({ message: 'This media does not exist' });
+    throw new MutationNotAllowedError('This media does not exist');
   }
   await dataSources.media.assertEditorPermissions(mediaId);
   const { postURL, formData } = await getTempPostPolicy(id);
-  return {
+  const result: MediaUploadForm = {
     id,
     upload: {
       postURL,
@@ -21,6 +21,7 @@ const mediaForm = async (root: any, { id: mediaId }: Vars, { user, dataSources }
       key: id,
     },
   };
+  return result;
 };
 
-export default baseResolver.createResolver(mediaForm);
+export default mediaForm;

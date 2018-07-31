@@ -221,7 +221,6 @@ it('should continue loading initial data when cache contains partial data', asyn
 
   expect(receiver.cwrp).toMatchObject([
     { count: 3, status: SectionsStatus.LOADING, sections: seedSections.slice(0, 2) },
-    { count: 3, status: SectionsStatus.LOADING, sections: seedSections.slice(0, 2) },
     { count: 3, status: SectionsStatus.LOADING, sections: seedSections.slice(0, 3) },
     { count: 3, status: SectionsStatus.READY,   sections: seedSections.slice(0, 3) },
   ]);
@@ -233,10 +232,9 @@ it('should load updates page by page when cache is full', async () => {
     responses: mockedResponses,
   });
 
-  await flushPromises(10);
+  await flushPromises(20);
 
   expect(receiver.cwrp).toMatchObject([
-    { sections: seedSections.slice(0, 3) },
     { sections: seedSections.slice(0, 3) },
     { sections: seedSections.slice(0, 4) },
     { sections: seedSections.slice(0, 5) },
@@ -256,7 +254,6 @@ it('should change status while loading updates', async () => {
     { status: SectionsStatus.LOADING_UPDATES },
     { status: SectionsStatus.LOADING_UPDATES },
     { status: SectionsStatus.LOADING_UPDATES },
-    { status: SectionsStatus.LOADING_UPDATES },
     { status: SectionsStatus.READY },
   ]);
 });
@@ -270,7 +267,6 @@ it('should update count after loading updates', async () => {
   await flushPromises(10);
 
   expect(receiver.cwrp).toMatchObject([
-    { count: 3 },
     { count: 3 },
     { count: 4 },
     { count: 5 },

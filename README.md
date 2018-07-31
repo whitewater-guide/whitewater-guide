@@ -203,6 +203,8 @@ See `mongo-to-postgres` README for v1 db migration instructions, see `dev:images
 
 ## From production to staging
 
+### Step 1: database
+
 ssh into docker machine and run
 
 ```
@@ -224,3 +226,9 @@ Notes on arguments:
 - **S3_PREFIX** is **where from** the backup will be restored. When restoring at staging, set this to `production` (and vice versa)
 - **--network wwguide_default** Network must be attachable, see stack yml file for that
 - **doomsower/postgres-restore-s3:x** replace X with latest version
+
+### Step 2: images
+
+First, run `dev:images` to download images from production to local machine
+
+Then run `staging:images` to upload images from local machine to staging machine

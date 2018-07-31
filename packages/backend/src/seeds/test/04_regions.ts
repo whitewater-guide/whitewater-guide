@@ -36,13 +36,6 @@ const regions = [
     cover_image: {
       mobile: 'galicia_mobile_cover.jpg',
     },
-    banners: {
-      sectionDescriptionMobile: 'sectionDescriptionMobile.jpg',
-      sectionRowMobile: 'sectionRowMobile.jpg',
-      sectionMediaMobile: 'sectionMediaMobile.jpg',
-      regionDescriptionMobile: 'regionDescriptionMobile.jpg',
-      regionLoadingMobile: 'regionLoadingMobile.jpg',
-    },
   },
   {
     id: REGION_ECUADOR,

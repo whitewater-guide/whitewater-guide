@@ -7,7 +7,7 @@ import {
   BOOM_PROMO_REGION_REDEEMED,
 } from '@seeds/12_boom_promos';
 import { anonContext, fakeContext, runQuery, UUID_REGEX } from '@test';
-import { PurchaseInput, PurchasePlatform } from '@ww-commons';
+import { ApolloErrorCodes, PurchaseInput, PurchasePlatform } from '@ww-commons';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
@@ -25,8 +25,7 @@ it('anon should fail', async () => {
     productId: 'region.georgia',
   };
   const result = await runQuery(mutation, { purchase }, anonContext());
-  expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
-  expect(result).toHaveProperty('data.addPurchase', null);
+  expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
 });
 
 it('duplicate purchase should return false when for same user', async () => {
@@ -47,9 +46,10 @@ it('duplicate purchase should return throw when for different user', async () =>
     productId: 'region.norway', // different region from already redeemed, but should not matter
   };
   const result = await runQuery(mutation, { purchase }, fakeContext(BOOM_USER_3500));
-  expect(result).toHaveProperty('errors.0.name', 'MutationNotAllowedError');
-  expect(result).toHaveProperty('errors.0.message', 'Duplicate transaction');
-  expect(result).toHaveProperty('data.addPurchase', null);
+  expect(result).toHaveGraphqlError(
+    ApolloErrorCodes.MUTATION_NOT_ALLOWED,
+    'Duplicate transaction',
+  );
 });
 
 it('should throw on invalid input', async () => {
@@ -59,8 +59,7 @@ it('should throw on invalid input', async () => {
     productId: 'y',
   };
   const result = await runQuery(mutation, { purchase }, fakeContext(TEST_USER));
-  expect(result).toHaveProperty('errors.0.name', 'ValidationError');
-  expect(result).toHaveProperty('data.addPurchase', null);
+  expect(result).toHaveGraphqlValidationError();
 });
 
 describe('boomstarter', () => {
@@ -71,9 +70,10 @@ describe('boomstarter', () => {
       productId: 'region.norway',
     };
     const result = await runQuery(mutation, { purchase }, fakeContext(BOOM_USER_3500));
-    expect(result).toHaveProperty('errors.0.name', 'MutationNotAllowedError');
-    expect(result).toHaveProperty('errors.0.message', 'Bad promo code');
-    expect(result).toHaveProperty('data.addPurchase', null);
+    expect(result).toHaveGraphqlError(
+      ApolloErrorCodes.MUTATION_NOT_ALLOWED,
+      'Bad promo code',
+    );
   });
 
   it('should throw error when promo code and product do not match', async () => {
@@ -83,9 +83,10 @@ describe('boomstarter', () => {
       productId: 'region.norway',
     };
     const result = await runQuery(mutation, { purchase }, fakeContext(BOOM_USER_3500));
-    expect(result).toHaveProperty('errors.0.name', 'MutationNotAllowedError');
-    expect(result).toHaveProperty('errors.0.message', 'Promo code and product do not match');
-    expect(result).toHaveProperty('data.addPurchase', null);
+    expect(result).toHaveGraphqlError(
+      ApolloErrorCodes.MUTATION_NOT_ALLOWED,
+      'Promo code and product do not match',
+    );
   });
 
   it('should throw error for used promo code', async () => {
@@ -95,9 +96,10 @@ describe('boomstarter', () => {
       productId: 'group.latin',
     };
     const result = await runQuery(mutation, { purchase }, fakeContext(BOOM_USER_3500));
-    expect(result).toHaveProperty('errors.0.name', 'MutationNotAllowedError');
-    expect(result).toHaveProperty('errors.0.message', 'Promo code already redeemed');
-    expect(result).toHaveProperty('data.addPurchase', null);
+    expect(result).toHaveGraphqlError(
+      ApolloErrorCodes.MUTATION_NOT_ALLOWED,
+      'Promo code already redeemed',
+    );
   });
 
   describe('success', () => {

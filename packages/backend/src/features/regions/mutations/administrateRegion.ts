@@ -1,6 +1,6 @@
 import { isInputValidResolver, MutationNotAllowedError, TopLevelResolver } from '@apollo';
 import db from '@db';
-import { BANNERS, COVERS, minioClient, moveTempImage } from '@minio';
+import { COVERS, minioClient, moveTempImage } from '@minio';
 import { RegionAdminSettings, RegionAdminSettingsStruct } from '@ww-commons';
 import get from 'lodash/get';
 import { struct } from 'superstruct';
@@ -33,38 +33,24 @@ const updateImageFile = async (
 
 const resolver: TopLevelResolver<Vars> = async (_, { settings }, context, info) => {
   const oldRegion: RegionRaw = await db().table('regions')
-    .select(['id', 'cover_image', 'banners'])
+    .select(['id', 'cover_image'])
     .where({ id: settings.id })
     .first();
   if (!oldRegion) {
-    throw new MutationNotAllowedError({ message: "Region doesn't exist" });
+    throw new MutationNotAllowedError("Region doesn't exist");
   }
-  await Promise.all([
-    updateImageFile(COVERS, oldRegion, settings, 'cover_image.mobile', 'coverImage.mobile'),
-    updateImageFile(
-      BANNERS,
-      oldRegion,
-      settings,
-      'banners.sectionDescriptionMobile',
-      'banners.sectionDescriptionMobile',
-    ),
-    updateImageFile(BANNERS, oldRegion, settings, 'banners.sectionRowMobile', 'banners.sectionRowMobile'),
-    updateImageFile(BANNERS, oldRegion, settings, 'banners.sectionMediaMobile', 'banners.sectionMediaMobile'),
-    updateImageFile(BANNERS, oldRegion, settings, 'banners.regionDescriptionMobile', 'banners.regionDescriptionMobile'),
-    updateImageFile(BANNERS, oldRegion, settings, 'banners.regionLoadingMobile', 'banners.regionLoadingMobile'),
-  ]);
+  await updateImageFile(COVERS, oldRegion, settings, 'cover_image.mobile', 'coverImage.mobile');
   await db().table('regions')
     .update({
       hidden: settings.hidden,
       premium: settings.premium,
       sku: settings.sku || null,
       cover_image: settings.coverImage,
-      banners: settings.banners,
     })
     .where({ id: settings.id });
   return context.dataSources.regions.getById(settings.id);
 };
 
-const administrateRegion = isInputValidResolver(Struct).createResolver(resolver);
+const administrateRegion = isInputValidResolver(Struct, resolver);
 
 export default administrateRegion;

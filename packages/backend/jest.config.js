@@ -4,6 +4,7 @@ module.exports = {
       isolatedModules: true
     }
   },
+  setupTestFrameworkScriptFile: '<rootDir>/src/test/setupTestFrameworkScriptFile.ts',
   transform: {
     '^.+\\.ts$': 'ts-jest'
   },

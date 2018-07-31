@@ -3,7 +3,7 @@ import { RiverRaw } from '@features/rivers';
 import { ADMIN_ID, EDITOR_GA_EC, EDITOR_GA_EC_ID, EDITOR_NO, EDITOR_NO_EC, TEST_USER } from '@seeds/01_users';
 import { RIVER_GAL_1 } from '@seeds/07_rivers';
 import { anonContext, countRows, fakeContext, isTimestamp, isUUID, noTimestamps, noUnstable, runQuery } from '@test';
-import { RiverInput } from '@ww-commons';
+import { ApolloErrorCodes, RiverInput } from '@ww-commons';
 
 let rBefore: number;
 let rtBefore: number;
@@ -43,20 +43,17 @@ const input: RiverInput = {
 describe('resolvers chain', () => {
   it('anon should not pass', async () => {
     const result = await runQuery(upsertQuery, { river: input }, anonContext());
-    expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
-    expect(result).toHaveProperty('data.upsertRiver', null);
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
   });
 
   it('user should not pass', async () => {
     const result = await runQuery(upsertQuery, { river: input }, fakeContext(TEST_USER));
-    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
-    expect(result).toHaveProperty('data.upsertRiver', null);
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 
   it('non-owning editor should not pass', async () => {
     const result = await runQuery(upsertQuery, { river: input }, fakeContext(EDITOR_NO));
-    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
-    expect(result).toHaveProperty('data.upsertRiver', null);
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 
   it('should throw on invalid input', async () => {
@@ -67,9 +64,7 @@ describe('resolvers chain', () => {
       altNames: ['x', 'zzz'],
     };
     const result = await runQuery(upsertQuery, { river: invalidInput }, fakeContext(EDITOR_GA_EC));
-    expect(result).toHaveProperty('errors.0.name', 'ValidationError');
-    expect(result.data).toBeDefined();
-    expect(result.data!.upsertRiver).toBeNull();
+    expect(result).toHaveGraphqlValidationError();
   });
 });
 

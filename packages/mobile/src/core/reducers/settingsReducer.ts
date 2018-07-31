@@ -2,7 +2,7 @@ import { Action } from 'redux';
 import { isType } from 'typescript-fsa';
 import { settings } from '../actions';
 
-export const enum MessagingPermission {
+export enum MessagingPermission {
   UNKNOWN = 1,
   ENABLED = 2,
   DISABLED = 3,

@@ -3,8 +3,8 @@ import qs from 'qs';
 import { withProps } from 'recompose';
 import { isNative } from '../utils';
 
-export type FeatureType = 'gauge' | 'region' | 'source' | 'river' | 'section' | 'media';
-export type FeatureIdType = 'gaugeId' | 'regionId' | 'sourceId' | 'riverId' | 'sectionId' | 'mediaId';
+export type FeatureType = 'gauge' | 'region' | 'source' | 'river' | 'section' | 'media' | 'banner';
+export type FeatureIdType = 'gaugeId' | 'regionId' | 'sourceId' | 'riverId' | 'sectionId' | 'mediaId' | 'bannerId';
 
 const ALL_FEATURE_IDS: FeatureIdType[] = [
   'gaugeId',
@@ -13,9 +13,10 @@ const ALL_FEATURE_IDS: FeatureIdType[] = [
   'sectionId',
   'sourceId',
   'mediaId',
+  'bannerId',
 ];
 
-export type WithFeatureIds = {[is in FeatureIdType]?: string};
+export type WithFeatureIds = { [is in FeatureIdType]?: string };
 
 export const withFeatureIds = <TOuter>(features?: FeatureType | FeatureType[]) => {
   return withProps<WithFeatureIds, TOuter>(

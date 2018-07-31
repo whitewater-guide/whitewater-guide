@@ -1,6 +1,7 @@
 import { holdTransaction, rollbackTransaction } from '@db';
 import { ADMIN, EDITOR_GA_EC, EDITOR_NO_EC } from '@seeds/01_users';
 import { anonContext, fakeContext, runQuery } from '@test';
+import { ApolloErrorCodes } from '@ww-commons';
 
 const query = `
   query findUsers($search: String!){
@@ -20,20 +21,17 @@ describe('resolvers chain', () => {
 
   it('anon should fail', async () => {
     const result = await runQuery(query, variables, anonContext());
-    expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
-    expect(result).toHaveProperty('data.findUsers', null);
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
   });
 
   it('user should fail', async () => {
     const result = await runQuery(query, variables, fakeContext(EDITOR_NO_EC));
-    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
-    expect(result).toHaveProperty('data.findUsers', null);
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 
   it('admin should fail', async () => {
     const result = await runQuery(query, variables, fakeContext(EDITOR_GA_EC));
-    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
-    expect(result).toHaveProperty('data.findUsers', null);
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 
 });

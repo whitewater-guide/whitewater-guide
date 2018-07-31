@@ -11,6 +11,7 @@ const region: PremiumRegion = {
   id: '1111',
   name: 'Georgia',
   sku: 'region.georgia',
+  hasPremiumAccess: false,
 };
 
 storiesOf('Premium dialog: success step')

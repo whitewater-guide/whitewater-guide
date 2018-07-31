@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import RNStarRating, { StarRatingProps } from 'react-native-star-rating';
 import theme from '../theme';
 
@@ -40,10 +40,10 @@ export const StarRating: React.StatelessComponent<Props> = ({ value, onChange, .
       <View>
         <RNStarRating
           {...props}
-          iconSet="Ionicons"
-          fullStar={Platform.OS === 'ios' ? 'ios-star' : 'md-star'}
-          emptyStar={Platform.OS === 'ios' ? 'ios-star-outline' : 'md-star-outline'}
-          halfStar={Platform.OS === 'ios' ? 'ios-star-half' : 'md-star-half'}
+          iconSet="MaterialCommunityIcons"
+          fullStar="star"
+          emptyStar="star-outline"
+          halfStar="star-half"
           rating={value}
           starSize={onChange ? 30 : 14}
           halfStarColor={fullStarColor}

@@ -2,7 +2,7 @@ import React from 'react';
 import { Animated, InteractionManager, StyleSheet, View } from 'react-native';
 import Interactable from 'react-native-interactable';
 import { NavigateButton } from '../../../../components';
-import { WithT } from '../../../../i18n';
+import { WithTrans } from '../../../../i18n';
 import theme from '../../../../theme';
 import { Coordinate, Section } from '../../../../ww-commons';
 import SectionListBody, { ITEM_HEIGHT } from './SectionListBody';
@@ -21,11 +21,17 @@ const styles = StyleSheet.create({
   background: {
     backgroundColor: theme.colors.primary,
   },
+  bodyWrapper: {
+    left: 0,
+    right: 0,
+    height: ITEM_HEIGHT,
+    backgroundColor: theme.colors.textLight,
+  },
 });
 
 const BOUNDS = { left: -136, right: 30, bounce: 0.5 };
 
-interface Props extends WithT {
+interface Props extends WithTrans {
   hasPremiumAccess: boolean;
   index: number;
   swipedIndex: number;
@@ -136,7 +142,7 @@ export class SectionListItem extends React.PureComponent<Props> {
           animatedValueX={this._deltaX}
           onSnap={this.onSnap}
         >
-          <View style={{ left: 0, right: 0, height: ITEM_HEIGHT, backgroundColor: 'white' }}>
+          <View style={styles.bodyWrapper}>
             <SectionListBody
               hasPremiumAccess={hasPremiumAccess}
               section={section}

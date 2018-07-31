@@ -1,4 +1,4 @@
-import { endConnection, getProducts, prepare, Product } from 'react-native-iap';
+import { endConnection, getProducts, initConnection, Product } from 'react-native-iap';
 import { call } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
 import { trackError } from '../../../core/errors';
@@ -16,10 +16,10 @@ export function* watchFetchProduct(action: Action<string>) {
 }
 
 function* fetchProduct(sku: string) {
-  let product: Product | null = null;
+  let product: Product<string> | null = null;
   try {
-    yield call(prepare);
-    const products: Product[] = yield call(getProducts, [sku]);
+    yield call(initConnection);
+    const products: Array<Product<string>> = yield call(getProducts, [sku]);
     product = products[0] || null;
   } catch (e) {
     trackError('iap', e);

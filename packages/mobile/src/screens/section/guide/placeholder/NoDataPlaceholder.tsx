@@ -1,8 +1,7 @@
 import React from 'react';
-import { translate } from 'react-i18next';
+import { withI18n, WithI18n } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Caption } from 'react-native-paper';
-import { WithT } from '../../../../i18n';
 
 const styles = StyleSheet.create({
   container: {
@@ -13,7 +12,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const NoDataPlaceholder: React.SFC<WithT> = ({ t }) => (
+const NoDataPlaceholder: React.SFC<WithI18n> = ({ t }) => (
   <View style={styles.container}>
     <Caption>
       {t('section:guide.noData')}
@@ -21,4 +20,4 @@ const NoDataPlaceholder: React.SFC<WithT> = ({ t }) => (
   </View>
 );
 
-export default translate()(NoDataPlaceholder);
+export default withI18n()(NoDataPlaceholder) as React.ComponentType<{}>;

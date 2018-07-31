@@ -78,3 +78,6 @@ fastlane/.env.*
 /android/app/google-services.json
 /ios/pem/
 /tsconfig.base.json
+/android/app/src/main/assets/fonts/
+/.jest/
+/coverage/

@@ -17,6 +17,6 @@ const resolver: TopLevelResolver<Vars> = async (root, vars, { user, language, da
   return rawUpsert(db(), 'SELECT upsert_river(?, ?)', [river, language]);
 };
 
-const upsertRiver = isInputValidResolver(Struct).createResolver(resolver);
+const upsertRiver = isInputValidResolver(Struct, resolver);
 
 export default upsertRiver;

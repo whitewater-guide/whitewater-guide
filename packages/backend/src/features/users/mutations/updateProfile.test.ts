@@ -1,7 +1,7 @@
 import { holdTransaction, rollbackTransaction } from '@db';
 import { ADMIN, ADMIN_ID } from '@seeds/01_users';
 import { anonContext, fakeContext, runQuery } from '@test';
-import { UserInput } from '@ww-commons';
+import { ApolloErrorCodes, UserInput } from '@ww-commons';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
@@ -21,8 +21,7 @@ const mutation = `
 it('should fail for anons', async () => {
   const user = { name: 'Vasya' };
   const result = await runQuery(mutation, { user }, anonContext());
-  expect(result.errors).toBeUndefined();
-  expect(result.data).toHaveProperty('updateProfile', null);
+  expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
 });
 
 it('should fail for invalid input', async () => {
@@ -31,7 +30,7 @@ it('should fail for invalid input', async () => {
     language: 'bg',
   };
   const result = await runQuery(mutation, { user }, fakeContext(ADMIN));
-  expect(result).toHaveProperty('errors.0.name', 'ValidationError');
+  expect(result).toHaveGraphqlValidationError();
 });
 
 it('should work for partial data', async () => {

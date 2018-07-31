@@ -1,11 +1,9 @@
-import { ApolloQueryResult } from 'apollo-client';
 import React from 'react';
 import { Query, QueryResult } from 'react-apollo';
 import { FlatList, ListRenderItemInfo } from 'react-native';
-import { RefreshIndicator, RetryPlaceholder, WithNetworkError } from '../../components';
-import isApolloOfflineError from '../../utils/isApolloOfflineError';
+import { WithNetworkError } from '../../components';
 import { queryResultToList, WithList } from '../../ww-clients/apollo';
-import { Connection, Region } from '../../ww-commons';
+import { Region } from '../../ww-commons';
 import container from './container';
 import { CARD_HEIGHT, RegionCard } from './RegionCard';
 import { REGIONS_LIST_QUERY, Result } from './regionsList.query';
@@ -46,7 +44,8 @@ class RegionsListView extends React.PureComponent<InnerProps> {
           getItemLayout={getItemLayout}
           renderItem={this.renderItem}
           keyExtractor={keyExtractor}
-          refreshControl={<RefreshIndicator refreshing={loading} onRefresh={refetch} /> as any}
+          refreshing={loading}
+          onRefresh={refetch}
         />
       </WithNetworkError>
     );

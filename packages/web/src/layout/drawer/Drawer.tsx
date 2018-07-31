@@ -23,6 +23,7 @@ const ITEMS = [
   { title: 'Sources', path: '/sources', admin: false },
   { title: 'Tags', path: '/tags', admin: true },
   { title: 'Region Groups', path: '/groups', admin: true },
+  { title: 'Banners', path: '/banners', admin: true },
 ];
 
 interface Props {

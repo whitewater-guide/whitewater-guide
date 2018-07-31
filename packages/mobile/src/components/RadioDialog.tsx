@@ -2,14 +2,11 @@ import React from 'react';
 import {
   Button,
   Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
   Paragraph,
   RadioButton,
-  RadioButtonGroup,
   TouchableRipple,
 } from 'react-native-paper';
+import theme from '../theme';
 import { Handle, HandleLeft } from './Handle';
 
 interface Props {
@@ -26,7 +23,7 @@ interface Props {
 
 interface State {
   open: boolean;
-  value?: string;
+  value: string;
 }
 
 export class RadioDialog extends React.PureComponent<Props, State> {
@@ -63,11 +60,11 @@ export class RadioDialog extends React.PureComponent<Props, State> {
           {
             !!dialogTitle &&
             (
-              <DialogTitle>{dialogTitle}</DialogTitle>
+              <Dialog.Title>{dialogTitle}</Dialog.Title>
             )
           }
-          <DialogContent>
-            <RadioButtonGroup onValueChange={this.onValueChange} value={this.state.value}>
+          <Dialog.Content>
+            <RadioButton.Group onValueChange={this.onValueChange} value={this.state.value}>
               {
                 options.map((option) => (
                   <TouchableRipple key={keyExtractor(option)} onPress={() => this.onValueChange(keyExtractor(option))}>
@@ -80,12 +77,12 @@ export class RadioDialog extends React.PureComponent<Props, State> {
                   </TouchableRipple>
                 ))
               }
-            </RadioButtonGroup>
-          </DialogContent>
-          <DialogActions>
+            </RadioButton.Group>
+          </Dialog.Content>
+          <Dialog.Actions>
             <Button onPress={this.closeDialog}>{cancelLabel || 'Cancel'}</Button>
-            <Button primary onPress={this.submitDialog}>{okLabel || 'OK'}</Button>
-          </DialogActions>
+            <Button color={theme.colors.primary} onPress={this.submitDialog}>{okLabel || 'OK'}</Button>
+          </Dialog.Actions>
         </Dialog>
       </React.Fragment>
     );

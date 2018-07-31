@@ -1,7 +1,7 @@
 import { isNumber, take } from 'lodash';
 import { Coordinate, Coordinate2d } from '../../ww-commons/features/points';
-import LatLng = google.maps.LatLng;
-import LatLngLiteral = google.maps.LatLngLiteral;
+type LatLng = google.maps.LatLng;
+type LatLngLiteral = google.maps.LatLngLiteral;
 
 const EARTH_RADIUS_KM = 6378.137;
 

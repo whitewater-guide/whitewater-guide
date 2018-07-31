@@ -1,9 +1,10 @@
-import { baseResolver, ValidationError } from '@apollo';
+import { TopLevelResolver } from '@apollo';
 import db from '@db';
+import { UserInputError } from 'apollo-server';
 import { QueryBuilder } from 'knex';
 import { clamp } from 'lodash';
 
-export interface Variables {
+interface Vars {
   gaugeId?: string;
   sectionId?: string;
   days: number;
@@ -26,22 +27,20 @@ const sectionQueryBuilder = (sectionId: string) => (qb: QueryBuilder) =>
 
 export const cteBuilder = (gaugeId?: string, sectionId?: string) => {
     if (!gaugeId && !sectionId) {
-      throw new ValidationError({ message: 'Either gauge id or section id must be specified' });
+      throw new UserInputError('Either gauge id or section id must be specified');
     }
     return gaugeId ? gaugeQueryBuilder(gaugeId) : sectionQueryBuilder(sectionId!);
 };
 
-const lastMeasurementsResolver = baseResolver.createResolver(
-  async (root, { gaugeId, sectionId, days }: Variables) => {
-    const dayz = clamp(days, 1, 31);
-    return db()
-      .with('key',  cteBuilder(gaugeId, sectionId))
-      .select('*')
-      .from('measurements')
-      .joinRaw('NATURAL JOIN key')
-      .whereRaw(`timestamp > NOW() - interval '${dayz} days'`)
-      .orderBy('timestamp', 'DESC');
-  },
-);
+const lastMeasurementsResolver: TopLevelResolver<Vars> = async (root, { gaugeId, sectionId, days }) => {
+  const dayz = clamp(days, 1, 31);
+  return db()
+    .with('key',  cteBuilder(gaugeId, sectionId))
+    .select('*')
+    .from('measurements')
+    .joinRaw('NATURAL JOIN key')
+    .whereRaw(`timestamp > NOW() - interval '${dayz} days'`)
+    .orderBy('timestamp', 'DESC');
+};
 
 export default lastMeasurementsResolver;

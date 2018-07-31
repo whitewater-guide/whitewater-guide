@@ -1,4 +1,4 @@
-import { baseResolver } from '@apollo';
+import { TopLevelResolver } from '@apollo';
 import db from '@db';
 import { QueryBuilder } from 'knex';
 
@@ -6,14 +6,12 @@ interface Vars {
   regionId: string;
 }
 
-const regionEditors = baseResolver.createResolver(
-  (_, { regionId }: Vars) =>
-    db().table('users')
-      .whereExists(function(this: QueryBuilder) {
-        this.select('*').from('regions_editors')
-          .where({ region_id: regionId })
-          .andWhereRaw('users.id = regions_editors.user_id');
-      }),
-);
+const regionEditors: TopLevelResolver<Vars> = (_, { regionId }) =>
+  db().table('users')
+    .whereExists(function(this: QueryBuilder) {
+      this.select('*').from('regions_editors')
+        .where({ region_id: regionId })
+        .andWhereRaw('users.id = regions_editors.user_id');
+    });
 
 export default regionEditors;

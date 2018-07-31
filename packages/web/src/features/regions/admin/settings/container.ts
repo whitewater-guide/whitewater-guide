@@ -14,7 +14,7 @@ const regionAdminForm = formContainer({
   query: REGION_ADMIN_SETTINGS_QUERY,
   mutation: ADMINISTRATE_REGION_MUTATION,
   serializeForm: serializeForm(),
-  deserializeForm: deserializeForm([], ['banners', 'coverImage']),
+  deserializeForm: deserializeForm([], ['coverImage']),
   validationSchema: RegionAdminSettingsStruct,
   backPath: null,
 });

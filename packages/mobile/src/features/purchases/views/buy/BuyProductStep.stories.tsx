@@ -12,6 +12,7 @@ const region: PremiumRegion = {
   name: 'Georgia',
   sku: 'region.georgia',
   sections: { count: 33 },
+  hasPremiumAccess: false,
 };
 
 storiesOf('Premium dialog: buy product step')

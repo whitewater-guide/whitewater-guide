@@ -1,4 +1,4 @@
-import { translate } from 'react-i18next';
+import { withI18n } from 'react-i18next';
 import { compose } from 'recompose';
 import { withLoading } from '../../components';
 import { consumeRegion } from '../../ww-clients/features/regions';
@@ -12,5 +12,5 @@ export default compose<InnerProps, OuterProps>(
     ({ searchTerms, resetSearchTerms, setSearchTerms }) => ({ searchTerms, resetSearchTerms, setSearchTerms }),
   ),
   withLoading((props: WithTags) => props.tagsLoading),
-  translate(),
+  withI18n(),
 );

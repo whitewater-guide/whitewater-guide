@@ -4,7 +4,7 @@ import { GALICIA_PT_1, GALICIA_PT_2 } from '@seeds/02_points';
 import { GROUP_ALL } from '@seeds/03_groups';
 import { NUM_REGIONS, REGION_ECUADOR, REGION_GALICIA } from '@seeds/04_regions';
 import { anonContext, countRows, fakeContext, isTimestamp, isUUID, noTimestamps, noUnstable, runQuery } from '@test';
-import { RegionInput } from '@ww-commons';
+import { ApolloErrorCodes, RegionInput } from '@ww-commons';
 import set from 'lodash/fp/set';
 import { PointRaw } from '../../points';
 import { RegionRaw } from '../types';
@@ -88,26 +88,22 @@ const upsertQuery = `
 describe('resolvers chain', () => {
   it('anon should not pass', async () => {
     const result = await runQuery(upsertQuery, { region: minimalRegion }, anonContext());
-    expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
-    expect(result).toHaveProperty('data.upsertRegion', null);
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
   });
 
   it('user should not pass', async () => {
     const result = await runQuery(upsertQuery, { region: minimalRegion }, fakeContext(TEST_USER));
-    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
-    expect(result).toHaveProperty('data.upsertRegion', null);
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 
   it('editor should not create', async () => {
     const result = await runQuery(upsertQuery, { region: minimalRegion }, fakeContext(EDITOR_GA_EC));
-    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
-    expect(result).toHaveProperty('data.upsertRegion', null);
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 
   it('non-owning editor should not edit', async () => {
     const result = await runQuery(upsertQuery, { region: fullRegionUpdate }, fakeContext(EDITOR_NO_EC));
-    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
-    expect(result).toHaveProperty('data.upsertRegion', null);
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 
   it('should throw on invalid input', async () => {
@@ -121,9 +117,7 @@ describe('resolvers chain', () => {
       pois: [],
     };
     const result = await runQuery(upsertQuery, { region: invalidInput }, fakeContext(EDITOR_GA_EC));
-    expect(result).toHaveProperty('errors.0.name', 'ValidationError');
-    expect(result.data).toBeDefined();
-    expect(result.data!.upsertRegion).toBeNull();
+    expect(result).toHaveGraphqlValidationError();
   });
 });
 
@@ -142,8 +136,7 @@ describe('insert', () => {
   });
 
   it('should return result', async () => {
-    expect(insertResult.errors).toBeUndefined();
-    expect(insertResult.data).toBeDefined();
+    expect(insertResult).not.toHaveGraphqlError();
     expect(insertResult.data!.upsertRegion).toBeDefined();
   });
 
@@ -209,8 +202,7 @@ describe('update', () => {
   });
 
   it('should return result', () => {
-    expect(updateResult.errors).toBeUndefined();
-    expect(updateResult.data).toBeDefined();
+    expect(updateResult).not.toHaveGraphqlError();
     expect(updateResult.data!.upsertRegion).toBeDefined();
   });
 
@@ -349,7 +341,7 @@ it('should sanitize input', async () => {
   dirtyRegion = set('pois.0.name', "it's a poi", dirtyRegion);
 
   const insertResult = await runQuery(upsertQuery, { region: dirtyRegion }, fakeContext(ADMIN));
-  expect(insertResult.errors).toBeUndefined();
+  expect(insertResult).not.toHaveGraphqlError();
   expect(insertResult).toHaveProperty('data.upsertRegion.name', "it's a \\ $1 slash with . ?");
   expect(insertResult).toHaveProperty('data.upsertRegion.pois.0.name', "it's a poi");
 });

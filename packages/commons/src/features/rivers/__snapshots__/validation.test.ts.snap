@@ -28,6 +28,6 @@ Object {
 
 exports[`should be invalid for extra fields 1`] = `
 Object {
-  "foo": "Incorrect value",
+  "foo": "Expected a value of type \`undefined\` for \`foo\` but received \`\\"bar\\"\`.",
 }
 `;

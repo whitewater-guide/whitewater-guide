@@ -1,9 +1,9 @@
 import React from 'react';
-import { translate } from 'react-i18next';
+import { translate, withI18n, WithI18n } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
-import { Button, Caption, DialogActions, DialogTitle, Subheading } from 'react-native-paper';
+import { analytics } from 'react-native-firebase';
+import { Button, Caption, Dialog, Subheading } from 'react-native-paper';
 import { RetryPlaceholder } from '../../../components';
-import { WithT } from '../../../i18n';
 import theme from '../../../theme';
 import { OfflineCategorySelection, OfflineCategoryType } from '../types';
 import LoadingSummary from './LoadingSummary';
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   },
 });
 
-type Props = InnerProps & WithT;
+type Props = InnerProps & WithI18n;
 
 interface State {
   selection: OfflineCategorySelection;
@@ -47,6 +47,13 @@ class OfflineContentDialogView extends React.PureComponent<Props, State> {
       maps: false,
     },
   };
+
+  componentDidMount() {
+    const { region } = this.props;
+    if (region) {
+      analytics().logEvent('offline_dialog', { region: region.id });
+    }
+  }
 
   onDownload = () => {
     if (this.props.onDownload) {
@@ -108,9 +115,9 @@ class OfflineContentDialogView extends React.PureComponent<Props, State> {
   };
 
   renderLoadingSummary = () => {
-    const { t, summary } = this.props;
+    const { t, summary, i18n } = this.props;
     return (
-      <LoadingSummary t={t} summary={summary} />
+      <LoadingSummary t={t} summary={summary} i18n={i18n} />
     );
   };
 
@@ -123,30 +130,29 @@ class OfflineContentDialogView extends React.PureComponent<Props, State> {
   renderReadyButtons = () => {
     const { onDismiss, isConnected = true, summary, t } = this.props;
     return (
-      <DialogActions>
-        <Button raised onPress={onDismiss}>
+      <Dialog.Actions>
+        <Button mode="outlined" onPress={onDismiss}>
           {t('commons:cancel')}
         </Button>
         <Button
-          primary
-          raised
+          mode="contained"
           disabled={!isConnected || !!summary.error || summary.loading}
           onPress={this.onDownload}
         >
           {t('commons:ok')}
         </Button>
-      </DialogActions>
+      </Dialog.Actions>
     );
   };
 
   renderInProgressButtons = () => {
     const { onDismiss, t } = this.props;
     return (
-      <DialogActions>
-        <Button raised onPress={onDismiss}>
+      <Dialog.Actions>
+        <Button mode="outlined" onPress={onDismiss}>
           {t('offline:dialog.inBackground')}
         </Button>
-      </DialogActions>
+      </Dialog.Actions>
     );
   };
 
@@ -168,9 +174,9 @@ class OfflineContentDialogView extends React.PureComponent<Props, State> {
     }
     return (
       <React.Fragment>
-        <DialogTitle>
+        <Dialog.Title>
           {t('offline:dialog.title', { region: region.name })}
-        </DialogTitle>
+        </Dialog.Title>
         <Subheading style={styles.subtitle}>
           {t('offline:dialog.subtitle', { region: region.name })}
         </Subheading>
@@ -181,4 +187,4 @@ class OfflineContentDialogView extends React.PureComponent<Props, State> {
   }
 }
 
-export default translate()(OfflineContentDialogView);
+export default withI18n()(OfflineContentDialogView);

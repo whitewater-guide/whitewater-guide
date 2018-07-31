@@ -8,7 +8,7 @@ Object {
 
 exports[`SourceForm should be invalid for bad harvest_mode 1`] = `
 Object {
-  "harvestMode": "Incorrect value",
+  "harvestMode": "Expected a value of type \`\\"oneByOne\\" | \\"allAtOnce\\"\` for \`harvestMode\` but received \`\\"foo\\"\`.",
 }
 `;
 
@@ -24,7 +24,7 @@ exports[`SourceForm should be invalid for bad script 1`] = `
 Object {
   "script": Object {
     "harvestMode": "Incorrect value",
-    "id": "Incorrect value",
+    "id": "Expected a value of type \`script\` for \`script.id\` but received \`\\"\\"\`.",
     "name": "Incorrect value",
   },
 }
@@ -66,7 +66,7 @@ Object {
 
 exports[`SourceInput should be invalid for bad harvest_mode 1`] = `
 Object {
-  "harvestMode": "Incorrect value",
+  "harvestMode": "Expected a value of type \`\\"oneByOne\\" | \\"allAtOnce\\"\` for \`harvestMode\` but received \`\\"foo\\"\`.",
 }
 `;
 
@@ -98,7 +98,7 @@ Object {
 
 exports[`SourceInput should be invalid for empty script 1`] = `
 Object {
-  "script": "Incorrect value",
+  "script": "Expected a value of type \`script\` for \`script\` but received \`\\"\\"\`.",
 }
 `;
 

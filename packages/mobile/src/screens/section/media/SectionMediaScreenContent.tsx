@@ -1,10 +1,10 @@
 import groupBy from 'lodash/groupBy';
 import React from 'react';
-import { translate } from 'react-i18next';
+import { withI18n, WithI18n } from 'react-i18next';
 import { StatusBar } from 'react-native';
 import { Title } from 'react-native-paper';
-import { WithT } from '../../../i18n';
-import { Section } from '../../../ww-commons';
+import { RegionBanners } from '../../../features/banners';
+import { BannerPlacement, Section } from '../../../ww-commons';
 import BlogList from './BlogList';
 import PhotoGallery from './PhotoGallery';
 import PhotoGrid from './PhotoGrid';
@@ -18,7 +18,7 @@ interface State {
   openPhotoIndex: number;
 }
 
-class SectionMediaScreenContent extends React.PureComponent<Props & WithT, State> {
+class SectionMediaScreenContent extends React.PureComponent<Props & WithI18n, State> {
 
   state: State = {
     openPhotoIndex: -1,
@@ -41,7 +41,7 @@ class SectionMediaScreenContent extends React.PureComponent<Props & WithT, State
         <VideoList videos={groups.video} />
         <Title>{t('section:media.blog')}</Title>
         <BlogList blogs={groups.blog} />
-
+        <RegionBanners placement={BannerPlacement.MOBILE_SECTION_MEDIA} />
         <PhotoGallery photos={groups.photo} index={this.state.openPhotoIndex} onClose={this.onGalleryClose} />
       </React.Fragment>
     );
@@ -49,4 +49,4 @@ class SectionMediaScreenContent extends React.PureComponent<Props & WithT, State
 
 }
 
-export default translate()(SectionMediaScreenContent);
+export default withI18n()(SectionMediaScreenContent);

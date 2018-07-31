@@ -1,5 +1,6 @@
 import { Overwrite } from 'type-zoo';
 import { NamedNode, Timestamped } from '../../core';
+import { Banner } from '../banners';
 import { Gauge } from '../gauges';
 import { Group } from '../groups';
 import { Coordinate3d, Point, PointInput } from '../points';
@@ -27,6 +28,7 @@ export interface Region extends NamedNode, Timestamped {
   sections?: Connection<Section>;
   sources?: Connection<Source>;
   mediaSummary?: RegionMediaSummary;
+  banners?: Connection<Banner>;
 }
 
 export interface RegionInput {
@@ -45,21 +47,11 @@ export interface RegionAdminSettings {
   premium: boolean;
   sku: string | null;
   coverImage: RegionCoverImage;
-  banners: RegionBanners;
 }
 
 export interface RegionCoverImage {
   __typename?: string;
   mobile: string | null;
-}
-
-export interface RegionBanners {
-  __typename?: 'RegionBanners';
-  sectionDescriptionMobile: string | null;
-  sectionRowMobile: string | null;
-  sectionMediaMobile: string | null;
-  regionDescriptionMobile: string | null;
-  regionLoadingMobile: string | null;
 }
 
 export interface RegionMediaSummaryItem {

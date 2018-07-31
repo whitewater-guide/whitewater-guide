@@ -1,4 +1,4 @@
-import { buyProduct as buy, getAvailablePurchases, prepare, Purchase } from 'react-native-iap';
+import { buyProduct as buy, getAvailablePurchases, initConnection, Purchase } from 'react-native-iap';
 import { call } from 'redux-saga/effects';
 import { trackError } from '../../../core/errors';
 import { BuyProductResult } from '../types';
@@ -6,7 +6,7 @@ import { BuyProductResult } from '../types';
 export function *buyOrRestoreProduct(sku: string) {
   const result: BuyProductResult = {};
   try {
-    yield call(prepare);
+    yield call(initConnection);
     result.purchase = yield call(buy, sku);
   } catch (e) {
     // Error examples

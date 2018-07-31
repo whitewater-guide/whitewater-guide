@@ -4,7 +4,7 @@ import Image from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
 import { Caption, Title, TouchableRipple } from 'react-native-paper';
 import { Icon, Paper } from '../../components';
-import { WithT } from '../../i18n';
+import { WithTrans } from '../../i18n';
 import theme from '../../theme';
 import { Region } from '../../ww-commons';
 import DownloadButton from './DownloadButton';
@@ -64,7 +64,7 @@ export const CARD_HEIGHT =
 
 const PREMIUM_HIT_SLOP = { left: 16, right: 8, top: 0, bottom: 0 };
 
-interface Props extends WithT {
+interface Props extends WithTrans {
   region: Region;
   onPress: (region: Region) => void;
   onPremiumPress: (region: Region) => void;

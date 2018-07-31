@@ -4,6 +4,7 @@ import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
 import { SOURCE_GALICIA_1 } from '@seeds/05_sources';
 import { GAUGE_GAL_1_1 } from '@seeds/06_gauges';
 import { anonContext, countRows, fakeContext, runQuery } from '@test';
+import { ApolloErrorCodes } from '@ww-commons';
 
 jest.mock('@features/jobs', () => ({
   stopJobs: jest.fn(),
@@ -23,6 +24,8 @@ const query = `
   }
 `;
 
+const DATA_FIELD = 'removeGauge';
+
 const gal1 = { id: GAUGE_GAL_1_1 };
 
 beforeEach(async () => {
@@ -34,20 +37,17 @@ afterEach(rollbackTransaction);
 describe('resolvers chain', () => {
   it('anon should not pass', async () => {
     const result = await runQuery(query, gal1, anonContext());
-    expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
-    expect(result.data!.removeGauge).toBeNull();
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED, DATA_FIELD);
   });
 
   it('user should not pass', async () => {
     const result = await runQuery(query, gal1, fakeContext(TEST_USER));
-    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
-    expect(result.data!.removeGauge).toBeNull();
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN, DATA_FIELD);
   });
 
   it('editor should not pass', async () => {
     const result = await runQuery(query, gal1, fakeContext(EDITOR_GA_EC));
-    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
-    expect(result.data!.removeGauge).toBeNull();
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN, DATA_FIELD);
   });
 });
 

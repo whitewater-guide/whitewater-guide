@@ -3,6 +3,7 @@ import { holdTransaction, rollbackTransaction } from '@db';
 import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
 import { SOURCE_ALPS, SOURCE_GALICIA_1, SOURCE_RUSSIA } from '@seeds/05_sources';
 import { anonContext, countRows, fakeContext, noUnstable, runQuery } from '@test';
+import { ApolloErrorCodes } from '@ww-commons';
 import { execScript, ScriptGaugeInfo, ScriptResponse } from '../../scripts';
 import Mock = jest.Mock;
 
@@ -50,20 +51,17 @@ afterEach(rollbackTransaction);
 describe('resolvers chain', () => {
   it('anon should not pass', async () => {
     const result = await runQuery(query, { id: SOURCE_GALICIA_1 }, anonContext());
-    expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
-    expect(result).toHaveProperty('data.autofillSource', null);
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
   });
 
   it('user should not pass', async () => {
     const result = await runQuery(query, { id: SOURCE_GALICIA_1 }, fakeContext(TEST_USER));
-    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
-    expect(result).toHaveProperty('data.autofillSource', null);
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 
   it('editor should not pass', async () => {
     const result = await runQuery(query, { id: SOURCE_GALICIA_1 }, fakeContext(EDITOR_GA_EC));
-    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
-    expect(result).toHaveProperty('data.autofillSource', null);
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 });
 
@@ -95,15 +93,18 @@ describe('effects', () => {
   it('should fail for enabled source', async () => {
     const result = await runQuery(query, { id: SOURCE_ALPS }, fakeContext(ADMIN));
     expect(result.data!.autofillSource).toBeNull();
-    expect(result).toHaveProperty('errors.0.name', 'MutationNotAllowedError');
-    expect(result).toHaveProperty('errors.0.message', 'Cannot autofill source that is enabled');
+    expect(result).toHaveGraphqlError(
+      ApolloErrorCodes.MUTATION_NOT_ALLOWED,
+      'Cannot autofill source that is enabled',
+    );
   });
 
   it('should fail for source with gauges', async () => {
     const result = await runQuery(query, { id: SOURCE_GALICIA_1 }, fakeContext(ADMIN));
-    expect(result.data!.autofillSource).toBeNull();
-    expect(result).toHaveProperty('errors.0.name', 'MutationNotAllowedError');
-    expect(result).toHaveProperty('errors.0.message', 'Cannot autofill source that already has gauges');
+    expect(result).toHaveGraphqlError(
+      ApolloErrorCodes.MUTATION_NOT_ALLOWED,
+      'Cannot autofill source that already has gauges',
+    );
   });
 
   it('should fail when script fails', async () => {
@@ -113,9 +114,10 @@ describe('effects', () => {
     };
     (execScript as Mock<any>).mockReturnValueOnce(Promise.resolve(scriptsError));
     const result = await runQuery(query, { id: SOURCE_RUSSIA }, fakeContext(ADMIN));
-    expect(result.data!.autofillSource).toBeNull();
-    expect(result).toHaveProperty('errors.0.name', 'UnknownError');
-    expect(result).toHaveProperty('errors.0.message', 'Autofill failed: boom!');
+    expect(result).toHaveGraphqlError(
+      ApolloErrorCodes.UNKNOWN_ERROR,
+      'Autofill failed: boom!',
+    );
   });
 
   it('should insert gauges', async () => {

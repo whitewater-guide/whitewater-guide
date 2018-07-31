@@ -2,6 +2,7 @@ import { holdTransaction, rollbackTransaction } from '@db';
 import { ADMIN, ADMIN_ID, EDITOR_GA_EC, EDITOR_GA_EC_ID, TEST_USER } from '@seeds/01_users';
 import { REGION_GALICIA } from '@seeds/04_regions';
 import { anonContext, countRows, fakeContext, runQuery } from '@test';
+import { ApolloErrorCodes } from '@ww-commons';
 
 let reBefore: number;
 
@@ -23,20 +24,17 @@ describe('resolvers chain', () => {
 
   it('anon should fail', async () => {
     const result = await runQuery(mutation, variables, anonContext());
-    expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
-    expect(result).toHaveProperty('data.removeEditor', null);
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
   });
 
   it('user should fail', async () => {
     const result = await runQuery(mutation, variables, fakeContext(TEST_USER));
-    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
-    expect(result).toHaveProperty('data.removeEditor', null);
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 
   it('editor should fail', async () => {
     const result = await runQuery(mutation, variables, fakeContext(EDITOR_GA_EC));
-    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
-    expect(result).toHaveProperty('data.removeEditor', null);
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 
 });

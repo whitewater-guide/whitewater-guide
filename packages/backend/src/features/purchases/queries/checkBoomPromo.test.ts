@@ -6,6 +6,7 @@ import {
   BOOM_PROMO_REGION_REDEEMED,
 } from '@seeds/12_boom_promos';
 import { anonContext, fakeContext, runQuery } from '@test';
+import { ApolloErrorCodes } from '@ww-commons';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
@@ -24,8 +25,7 @@ const query = `
 
 it('anon shall not pass', async () => {
   const result = await runQuery(query, { code: BOOM_PROMO_ALL_REGIONS_ACTIVE }, anonContext());
-  expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
-  expect(result).toHaveProperty('data.checkBoomPromo', null);
+  expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
 });
 
 it('should return null for bad code', async () => {

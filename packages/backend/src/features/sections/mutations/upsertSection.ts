@@ -17,6 +17,6 @@ const resolver: TopLevelResolver<Vars> = async (root, vars, { user, language, da
   return rawUpsert(db(), 'SELECT upsert_section(?, ?)', [section, language]);
 };
 
-const upsertSection = isInputValidResolver(Struct).createResolver(resolver);
+const upsertSection = isInputValidResolver(Struct, resolver);
 
 export default upsertSection;

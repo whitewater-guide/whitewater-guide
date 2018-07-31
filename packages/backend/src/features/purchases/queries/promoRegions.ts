@@ -1,7 +1,7 @@
-import { Context, isAuthenticatedResolver } from '@apollo';
+import { isAuthenticatedResolver, TopLevelResolver } from '@apollo';
 
-const promoRegions = isAuthenticatedResolver.createResolver(
-  async (_, vars, { dataSources }: Context, info) => {
+const promoRegions: TopLevelResolver = isAuthenticatedResolver(
+  async (_, vars, { dataSources }, info) => {
     const purchasedIds = await dataSources.purchases.getPurchasedRegions();
     const query = dataSources.regions.getMany(info, { count: false })
       .where('regions_view.premium', true)

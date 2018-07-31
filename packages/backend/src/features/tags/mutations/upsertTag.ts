@@ -11,7 +11,8 @@ const Struct = struct.object({
   tag: TagInputStruct,
 });
 
-const upsertTag = isInputValidResolver(Struct).createResolver(
+const upsertTag = isInputValidResolver<Vars>(
+  Struct,
   (_: any, { tag }: Vars, { language }: Context) =>
     rawUpsert(db(), 'SELECT upsert_tag(?, ?)', [tag, language]),
 );

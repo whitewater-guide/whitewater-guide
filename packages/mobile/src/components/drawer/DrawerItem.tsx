@@ -1,5 +1,5 @@
 import React from 'react';
-import { DrawerItem as PaperDrawerItem } from 'react-native-paper';
+import { Drawer } from 'react-native-paper';
 
 interface Props {
   focused: boolean;
@@ -19,7 +19,7 @@ class DrawerItem extends React.PureComponent<Props> {
   render() {
     const { focused, label, icon, } = this.props;
     return (
-      <PaperDrawerItem label={label} icon={icon} active={focused} onPress={this.onPress} />
+      <Drawer.Item label={label} icon={icon} active={focused} onPress={this.onPress} />
     );
   }
 }

@@ -1,7 +1,7 @@
 import { holdTransaction, rollbackTransaction } from '@db';
 import { ADMIN, ADMIN_ID, EDITOR_GA_EC, EDITOR_GA_EC_ID } from '@seeds/01_users';
 import { anonContext, fakeContext, runQuery } from '@test';
-import { EditorSettings } from '@ww-commons';
+import { ApolloErrorCodes, EditorSettings } from '@ww-commons';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
@@ -21,13 +21,12 @@ const editorSettings: EditorSettings = { language: 'de' };
 
 it('anons cannot do that', async () => {
   const result = await runQuery(mutation, { editorSettings }, anonContext());
-  expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
-  expect(result).toHaveProperty('data.updateEditorSettings', null);
+  expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
 });
 
 it('should fail on invalid input', async () => {
   const result = await runQuery(mutation, { editorSettings: { language: 'latin' } }, fakeContext(EDITOR_GA_EC));
-  expect(result).toHaveProperty('errors.0.name', 'ValidationError');
+  expect(result).toHaveGraphqlValidationError();
 });
 
 it('should set settings if not exists', async () => {

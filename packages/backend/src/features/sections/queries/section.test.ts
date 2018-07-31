@@ -10,6 +10,7 @@ import {
   NORWAY_SJOA_AMOT,
 } from '@seeds/09_sections';
 import { anonContext, fakeContext, noTimestamps, runQuery } from '@test';
+import { ApolloErrorCodes } from '@ww-commons';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
@@ -80,20 +81,17 @@ const query = `
 describe('permissions', () => {
   it('anon should not get hidden section', async () => {
     const result = await runQuery(query, { id: NORWAY_FINNA_GORGE }, anonContext());
-    expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
-    expect(result.data!.section).toBeNull();
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
   });
 
   it('user should not get hidden section', async () => {
     const result = await runQuery(query, { id: NORWAY_FINNA_GORGE }, fakeContext(TEST_USER));
-    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
-    expect(result.data!.section).toBeNull();
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 
   it('non-owning editor should not get hidden section', async () => {
     const result = await runQuery(query, { id: NORWAY_FINNA_GORGE }, fakeContext(EDITOR_GA_EC));
-    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
-    expect(result.data!.section).toBeNull();
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 
   it('owning editor should get hidden section', async () => {

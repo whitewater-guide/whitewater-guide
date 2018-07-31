@@ -1,4 +1,4 @@
-import { baseResolver, isInputValidResolver, MutationNotAllowedError, TopLevelResolver } from '@apollo';
+import { isInputValidResolver, MutationNotAllowedError, TopLevelResolver } from '@apollo';
 import db, { rawUpsert } from '@db';
 import { SourceInput, SourceInputStruct } from '@ww-commons';
 import { struct } from 'superstruct';
@@ -16,16 +16,12 @@ const resolver: TopLevelResolver<Vars> = async (root, args, { language }) => {
   if (source.id) {
     const { enabled } = await db().table('sources').select(['enabled']).where({ id: source.id }).first();
     if (enabled) {
-      throw new MutationNotAllowedError({ message: 'Disable source before editing it' });
+      throw new MutationNotAllowedError('Disable source before editing it');
     }
   }
   return rawUpsert(db(), 'SELECT upsert_source(?, ?)', [source, language]);
 };
 
-const queryResolver = isInputValidResolver(Struct).createResolver(resolver);
-
-const upsertSource = baseResolver.createResolver(
-  queryResolver,
-);
+const upsertSource = isInputValidResolver(Struct, resolver);
 
 export default upsertSource;

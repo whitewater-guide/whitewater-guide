@@ -71,7 +71,7 @@ class MyProfileView extends React.PureComponent<InnerProps> {
           </Paper>
           <PurchasesListView />
         </ScrollView>
-        <Button primary raised onPress={this.props.logout}>
+        <Button mode="contained" onPress={this.props.logout}>
           {t('myProfile:logout')}
         </Button>
       </Screen>

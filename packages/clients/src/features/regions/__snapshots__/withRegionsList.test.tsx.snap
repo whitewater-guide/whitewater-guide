@@ -14,7 +14,6 @@ Object {
       "gauges": Object {
         "__typename": "RegionGaugeConnection",
         "count": 1,
-        Symbol(id): "$Region:Region.id.1.gauges",
       },
       "hasPremiumAccess": false,
       "hidden": false,
@@ -24,15 +23,12 @@ Object {
       "rivers": Object {
         "__typename": "RegionRiverConnection",
         "count": 1,
-        Symbol(id): "$Region:Region.id.1.rivers",
       },
       "sections": Object {
         "__typename": "RegionSectionConnection",
         "count": 1,
-        Symbol(id): "$Region:Region.id.1.sections",
       },
       "sku": "Region.sku.1",
-      Symbol(id): "Region:Region.id.1",
     },
     Object {
       "__typename": "Region",
@@ -40,7 +36,6 @@ Object {
       "gauges": Object {
         "__typename": "RegionGaugeConnection",
         "count": 2,
-        Symbol(id): "$Region:Region.id.2.gauges",
       },
       "hasPremiumAccess": true,
       "hidden": true,
@@ -50,15 +45,12 @@ Object {
       "rivers": Object {
         "__typename": "RegionRiverConnection",
         "count": 2,
-        Symbol(id): "$Region:Region.id.2.rivers",
       },
       "sections": Object {
         "__typename": "RegionSectionConnection",
         "count": 2,
-        Symbol(id): "$Region:Region.id.2.sections",
       },
       "sku": "Region.sku.2",
-      Symbol(id): "Region:Region.id.2",
     },
   ],
   "refetch": [Function],

@@ -9,6 +9,9 @@ import { Config, superstruct } from 'superstruct';
 import isJSON from 'validator/lib/isJSON';
 import isURL from 'validator/lib/isURL';
 import isUUID from 'validator/lib/isUUID';
+import matches from 'validator/lib/matches';
+
+const SLUG_REGEX = /^[0-9a-zA-Z_\-]{3,64}$/;
 
 const types: Config['types'] = {
   cron: (value: any) => {
@@ -36,10 +39,11 @@ const types: Config['types'] = {
   },
   node: (value: any) => (isObject(value) && isUUID(value.id)) || 'Value must be node with id',
   url: (v: any) => (isString(v) && isURL(v)) || 'Value must be valid URL',
+  https: (v: any) => (isString(v) && isURL(v, { protocols: ['https'] })) || 'Value must be valid https URL',
   jsonString: (v: any) => (isString(v) && isJSON(v)) || 'Value must be valid JSON string',
   integer: (v: any) => isInteger(v) || 'Value must be integer',
-  positiveInteger: (v: any) => (isInteger(v) && v >= 0) || 'Value must be positive integer',
-  positiveNumber: (v: any) => (isNumber(v) && v >= 0) || 'Value must be positive number',
+  positiveInteger: (v: any) => (isInteger(v) && v > 0) || 'Value must be positive integer',
+  positiveNumber: (v: any) => (isNumber(v) && v > 0) || 'Value must be positive number',
   halfMonth: (v: any) =>
     (isInteger(v) && v >= 0 && v <= 23) || 'Must be integer between 0 and 23',
   seasonNumeric: (v: any) =>
@@ -50,6 +54,8 @@ const types: Config['types'] = {
     (isString(v) && v.length < 256 && v.trim().length > 0) || 'Value must be non-empty string no longer than 255 chars',
   nonEmptyString: (v: any) =>
     (isString(v) && v.trim().length > 0) || 'Value must be non-empty string',
+  slug: (v: any) =>
+    (isString(v) && matches(v, SLUG_REGEX)) || 'Value must be valid slug',
   script: (v: any) => isString(v) && v.length > 0 && v.length < 20,
 };
 

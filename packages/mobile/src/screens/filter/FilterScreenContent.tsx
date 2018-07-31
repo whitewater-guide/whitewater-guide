@@ -7,7 +7,14 @@ import { Omit } from 'type-zoo';
 import { MultiSlider, StarRating, TernaryChips } from '../../components';
 import theme from '../../theme';
 import { stringifySeason, toRomanDifficulty } from '../../ww-clients/utils';
-import { DefaultSectionSearchTerms, Duration, SectionSearchTerms, SelectableTag, TagSelection } from '../../ww-commons';
+import {
+  DefaultSectionSearchTerms,
+  Duration,
+  SectionSearchTerms,
+  SelectableTag,
+  Tag,
+  TagSelection,
+} from '../../ww-commons';
 import { InnerProps } from './types';
 
 const DIFFICULTY_RANGE: [number, number] = [1, 6];
@@ -35,7 +42,7 @@ interface State extends Omit<SectionSearchTerms, 'withTags' | 'withoutTags'> {
 const propsToState = (props: InnerProps): State => {
   const { tags, searchTerms } = props;
   const { withTags, withoutTags, ...restTerms } = searchTerms || DefaultSectionSearchTerms;
-  const selectableTags: SelectableTag[] = tags.map((tag) => {
+  const selectableTags: SelectableTag[] = tags.map((tag: Tag) => {
     const selection = withTags.includes(tag.id) ?
       TagSelection.SELECTED :
       (withoutTags.includes(tag.id) ? TagSelection.DESELECTED : TagSelection.NONE);
@@ -139,7 +146,7 @@ export default class FilterScreenContent extends React.PureComponent<InnerProps,
           <TernaryChips tags={this.state.misc} onChange={this.onChange('misc')} />
 
         </ScrollView>
-        <Button primary raised onPress={this.onApply}>
+        <Button mode="contained" onPress={this.onApply}>
           {t('filter:search')}
         </Button>
       </View>

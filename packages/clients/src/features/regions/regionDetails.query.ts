@@ -9,6 +9,7 @@ export const REGION_DETAILS = gql`
       ...RegionPOIs
       ...RegionBounds
       ...RegionFlags
+      ...RegionBanners
       sku
     }
   }
@@ -17,4 +18,5 @@ export const REGION_DETAILS = gql`
   ${RegionFragments.POIs}
   ${RegionFragments.Bounds}
   ${RegionFragments.Flags}
+  ${RegionFragments.Banners}
 `;

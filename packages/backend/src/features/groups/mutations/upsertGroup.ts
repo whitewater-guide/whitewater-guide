@@ -1,4 +1,4 @@
-import { Context, isInputValidResolver } from '@apollo';
+import { isInputValidResolver } from '@apollo';
 import db, { rawUpsert } from '@db';
 import { GroupInput, GroupInputStruct } from '@ww-commons';
 import { struct } from 'superstruct';
@@ -11,8 +11,9 @@ const Struct = struct.object({
   group: GroupInputStruct,
 });
 
-const upsertGroup = isInputValidResolver(Struct).createResolver(
-  (_: any, { group }: Vars, { language }: Context) =>
+const upsertGroup = isInputValidResolver<Vars>(
+  Struct,
+  (_, { group }, { language }) =>
     rawUpsert(db(), 'SELECT upsert_group(?, ?)', [group, language]),
 );
 

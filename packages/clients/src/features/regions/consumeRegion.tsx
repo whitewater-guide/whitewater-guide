@@ -14,8 +14,9 @@ export function consumeRegion<T = WithRegion>(selector?: RegionSelector<T>) {
       <RegionConsumer>
         {(state: RegionContext) => {
           const selected = select(state);
+          const innerProps: Props & T = { ...props as any, ...selected as any };
           return (
-            <Component {...props} {...selected} />
+            <Component {...innerProps} />
           );
         }}
       </RegionConsumer>

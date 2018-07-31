@@ -2,16 +2,15 @@ import capitalize from 'lodash/capitalize';
 import groupBy from 'lodash/groupBy';
 import trim from 'lodash/trim';
 import React from 'react';
-import { translate } from 'react-i18next';
+import { withI18n, WithI18n } from 'react-i18next';
 import { Paragraph, Subheading } from 'react-native-paper';
 import { Body, Chips, Left, Right, Row, StarRating } from '../../../components';
-import { WithT } from '../../../i18n';
 import { WithSection } from '../../../ww-clients/features/sections';
 import { renderDifficulty, stringifySeason } from '../../../ww-clients/utils';
 import { TagCategory } from '../../../ww-commons/features/tags';
 import CoordinatesInfo from './CoordinatesInfo';
 
-type Props = WithSection & WithT;
+type Props = WithSection & WithI18n;
 
 const SectionInfoView: React.StatelessComponent<Props> = ({ section: { node }, i18n, t }) => {
   if (!node) {
@@ -133,4 +132,4 @@ const SectionInfoView: React.StatelessComponent<Props> = ({ section: { node }, i
   );
 };
 
-export default translate()(SectionInfoView);
+export default withI18n()(SectionInfoView);

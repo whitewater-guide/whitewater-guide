@@ -17,7 +17,6 @@ Object {
       "flow": 1.5,
       "level": 1.5,
       "timestamp": 2017-02-01T21:00:00.000Z,
-      Symbol(id): "$Gauge:Gauge.id.1.lastMeasurement",
     },
     "levelUnit": "Gauge.levelUnit.1",
     "location": Object {
@@ -28,7 +27,6 @@ Object {
       ],
       "id": "Point.id.1",
       "kind": "Point.kind.1",
-      Symbol(id): "Point:Point.id.1",
     },
     "name": "Gauge.name.1",
     "requestParams": Object {
@@ -38,7 +36,6 @@ Object {
       "__typename": "Source",
       "id": "Source.id.1",
       "name": "Source.name.1",
-      Symbol(id): "Source:Source.id.1",
     },
     "status": Object {
       "__typename": "HarvestStatus",
@@ -46,10 +43,8 @@ Object {
       "error": "HarvestStatus.error.1",
       "success": false,
       "timestamp": 2017-02-01T21:00:00.000Z,
-      Symbol(id): "$Gauge:Gauge.id.1.status",
     },
     "url": "Gauge.url.1",
-    Symbol(id): "Gauge:Gauge.id.1",
   },
   "refetch": [Function],
 }

@@ -1,7 +1,7 @@
-import { AuthenticationRequiredError, ForbiddenError } from '@apollo';
 import db from '@db';
 import { BaseConnector, FieldsMap, ManyBuilderOptions } from '@db/connectors';
 import { Media } from '@ww-commons';
+import { AuthenticationError, ForbiddenError } from 'apollo-server';
 import { GraphQLResolveInfo } from 'graphql';
 import { QueryBuilder } from 'knex';
 import { MediaRaw } from './types';
@@ -62,7 +62,7 @@ export class MediaConnector extends BaseConnector<Media, MediaRaw> {
 
   async assertEditorPermissions(id?: string, sectionId?: string) {
     if (!this._user) {
-      throw new AuthenticationRequiredError();
+      throw new AuthenticationError('must authenticate');
     }
     if (this._user.admin) {
       return true;
@@ -86,7 +86,7 @@ export class MediaConnector extends BaseConnector<Media, MediaRaw> {
 
     const { rows: [{ exists }] } = await db().raw(`SELECT EXISTS (${query.toString()})`);
     if (!exists) {
-      throw new ForbiddenError();
+      throw new ForbiddenError('must be editor');
     }
     return true;
   }

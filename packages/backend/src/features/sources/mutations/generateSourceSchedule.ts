@@ -1,4 +1,4 @@
-import { baseResolver, MutationNotAllowedError, TopLevelResolver } from '@apollo';
+import { MutationNotAllowedError, TopLevelResolver } from '@apollo';
 import db from '@db';
 import { GaugeRaw } from '@features/gauges';
 import { HarvestMode } from '@ww-commons';
@@ -8,18 +8,18 @@ interface Vars {
   id: string;
 }
 
-const resolver: TopLevelResolver<Vars> = async (root, { id }) => {
+const generateSourceSchedule: TopLevelResolver<Vars> = async (root, { id }) => {
   const source: Partial<SourceRaw> = await db().table('sources')
     .select(['harvest_mode', 'enabled']).where({ id }).first();
   if (source.harvest_mode === HarvestMode.ALL_AT_ONCE) {
-    throw new MutationNotAllowedError({ message: 'Cannot generate schedule for all-at-once sources' });
+    throw new MutationNotAllowedError('Cannot generate schedule for all-at-once sources');
   }
   if (source.enabled) {
-    throw new MutationNotAllowedError({ message: 'Disable source first' });
+    throw new MutationNotAllowedError('Disable source first');
   }
   const gauges: Array<Partial<GaugeRaw>> = await db().table('gauges').select(['id', 'cron']).where({ source_id: id });
   if (gauges.length === 0) {
-    throw new MutationNotAllowedError({ message: 'Add gauges first' });
+    throw new MutationNotAllowedError('Add gauges first');
   }
   const step = 59 / gauges.length;
   const values = gauges
@@ -39,9 +39,5 @@ const resolver: TopLevelResolver<Vars> = async (root, { id }) => {
   `);
   return result.rows.map((g: GaugeRaw) => ({ ...g }));
 };
-
-const generateSourceSchedule = baseResolver.createResolver(
-  resolver,
-);
 
 export default generateSourceSchedule;

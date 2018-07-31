@@ -22,7 +22,7 @@ export class GroupsConnector extends BaseConnector<Group, GroupRaw> {
     this._orderBy = [{ column: 'name' }];
   }
 
-  getMany(info: GraphQLResolveInfo, { regionId, ...options }: GetManyOptions) {
+  getMany(info: GraphQLResolveInfo, { regionId, ...options }: GetManyOptions = {}) {
     const query = super.getMany(info, options);
     if (regionId) {
       query.whereExists(function(this: QueryBuilder) {

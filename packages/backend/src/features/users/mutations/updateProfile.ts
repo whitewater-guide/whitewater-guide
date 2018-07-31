@@ -1,4 +1,5 @@
-import { Context, isInputValidResolver } from '@apollo';
+import { isInputValidResolver } from '@apollo';
+import { AuthenticationError } from 'apollo-server';
 import db from '@db';
 import { UserInput, UserInputStruct } from '@ww-commons';
 import pickBy from 'lodash/pickBy';
@@ -12,10 +13,11 @@ const Struct = struct.object({
   user: UserInputStruct,
 });
 
-const updateProfile = isInputValidResolver(Struct).createResolver(
-  async (root, { user }: Vars, context: Context) => {
+const updateProfile = isInputValidResolver<Vars>(
+  Struct,
+  async (root, { user }, context) => {
     if (!context.user) {
-      return null;
+      throw new AuthenticationError('must be authenticated');
     }
     const cleanUser = pickBy(user, v => v !== undefined);
     await db().table('users').update(cleanUser).where({ id: context.user.id });

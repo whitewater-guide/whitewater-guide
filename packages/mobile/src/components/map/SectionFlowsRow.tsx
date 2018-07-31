@@ -1,8 +1,8 @@
 import moment from 'moment';
 import React from 'react';
+import { WithI18n } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
 import { Caption, Subheading } from 'react-native-paper';
-import { WithT } from '../../i18n';
 import theme from '../../theme';
 import { ColorStrings, getSectionColor, prettyNumber } from '../../ww-clients/features/sections';
 import { Section } from '../../ww-commons';
@@ -51,17 +51,17 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Props extends WithT {
+interface Props extends WithI18n {
   section: Section | null;
 }
 
-const SectionFlowsRow: React.StatelessComponent<Props> = ({ section, t }) => {
+const SectionFlowsRow: React.StatelessComponent<Props> = ({ section, t, i18n }) => {
   if (!section) {
-    return <SimpleTextFlowRow t={t} />;
+    return <SimpleTextFlowRow t={t} i18n={i18n} />;
   }
   const { flows, levels, gauge, flowsText } = section;
   if (!gauge || !gauge.lastMeasurement || (!flows && !levels)) {
-    return <SimpleTextFlowRow flowsText={flowsText} t={t} />;
+    return <SimpleTextFlowRow flowsText={flowsText} t={t} i18n={i18n} />;
   }
   const color = getSectionColor(section);
   const preferFlow = flows && gauge.lastMeasurement.flow;

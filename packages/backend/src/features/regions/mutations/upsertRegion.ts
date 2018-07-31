@@ -11,7 +11,7 @@ const Struct = struct.object({
   region: RegionInputStruct,
 });
 
-const resolver: TopLevelResolver<Vars> = async (_, { region }: Vars, { language, user, dataSources }) => {
+const resolver: TopLevelResolver<Vars> = async (_, { region }, { language, user, dataSources }) => {
   await dataSources.regions.assertEditorPermissions(region.id);
   const result: any = await rawUpsert(db(), 'SELECT upsert_region(?, ?)', [region, language]);
   // When created, add to all regions group
@@ -28,6 +28,6 @@ const resolver: TopLevelResolver<Vars> = async (_, { region }: Vars, { language,
   return result;
 };
 
-const upsertRegion = isInputValidResolver(Struct).createResolver(resolver);
+const upsertRegion = isInputValidResolver(Struct, resolver);
 
 export default upsertRegion;

@@ -4,6 +4,7 @@ import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
 import { SOURCE_GALICIA_1, SOURCE_NORWAY } from '@seeds/05_sources';
 import { GAUGE_NOR_1, GAUGE_NOR_3, GAUGE_NOR_4 } from '@seeds/06_gauges';
 import { anonContext, fakeContext, runQuery } from '@test';
+import { ApolloErrorCodes } from '@ww-commons';
 
 jest.mock('@features/jobs', () => ({
   startJobs: jest.fn(),
@@ -32,20 +33,17 @@ afterEach(rollbackTransaction);
 describe('resolvers chain', () => {
   it('anon should not pass', async () => {
     const result = await runQuery(mutation, gal, anonContext());
-    expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
-    expect(result.data!.toggleAllGauges).toBeNull();
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
   });
 
   it('user should not pass', async () => {
     const result = await runQuery(mutation, gal, fakeContext(TEST_USER));
-    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
-    expect(result.data!.toggleAllGauges).toBeNull();
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 
   it('editor should not pass', async () => {
     const result = await runQuery(mutation, gal, fakeContext(EDITOR_GA_EC));
-    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
-    expect(result.data!.toggleAllGauges).toBeNull();
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 });
 
@@ -53,8 +51,10 @@ describe('effects', () => {
   it('should not toggle gauges for all-at-once sources', async () => {
     const result = await runQuery(mutation, gal, fakeContext(ADMIN));
     expect(result.data!.toggleAllGauges).toBeNull();
-    expect(result).toHaveProperty('errors.0.name', 'MutationNotAllowedError');
-    expect(result).toHaveProperty('errors.0.message', 'Not allowed on all-at-once sources');
+    expect(result).toHaveGraphqlError(
+      ApolloErrorCodes.MUTATION_NOT_ALLOWED,
+      'Not allowed on all-at-once sources',
+    );
   });
 
   it('should not enable gauges without cron', async () => {

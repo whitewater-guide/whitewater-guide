@@ -2,6 +2,7 @@ import { holdTransaction, rollbackTransaction } from '@db';
 import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
 import { GROUP_ALL, GROUP_EU } from '@seeds/03_groups';
 import { anonContext, countRows, fakeContext, runQuery } from '@test';
+import { ApolloErrorCodes } from '@ww-commons';
 
 const query = `
   mutation removeGroup($id: String!){
@@ -18,20 +19,17 @@ describe('resolvers chain', () => {
 
   it('anon should not pass', async () => {
     const result = await runQuery(query, variables, anonContext());
-    expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
-    expect(result).toHaveProperty('data.removeGroup', null);
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
   });
 
   it('user should not pass', async () => {
     const result = await runQuery(query, variables, fakeContext(TEST_USER));
-    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
-    expect(result).toHaveProperty('data.removeGroup', null);
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 
   it('editor should not pass', async () => {
     const result = await runQuery(query, variables, fakeContext(EDITOR_GA_EC));
-    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
-    expect(result).toHaveProperty('data.removeGroup', null);
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 });
 
@@ -70,6 +68,8 @@ describe('effects', () => {
 
 it('should not remove group with all regions', async () => {
   const result = await runQuery(query, { id: GROUP_ALL }, fakeContext(ADMIN));
-  expect(result).toHaveProperty('errors.0.name', 'MutationNotAllowedError');
-  expect(result).toHaveProperty('data.removeGroup', null);
+  expect(result).toHaveGraphqlError(
+    ApolloErrorCodes.MUTATION_NOT_ALLOWED,
+    'Cannot toggle gauge for all-at-once sources',
+  );
 });

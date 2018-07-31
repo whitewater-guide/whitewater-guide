@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "noEmit": true,
+    "noEmitOnError": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "declaration": false,
@@ -9,7 +10,6 @@
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
     "noEmitHelpers": true,
-    "noEmitOnError": true,
     "jsx": "react",
     "lib": ["esnext", "dom"],
     "target": "es2015",
@@ -19,6 +19,7 @@
     "skipLibCheck": false,
 
     "strict": true,
+    "strictFunctionTypes": false,
 
     "pretty": true
   }

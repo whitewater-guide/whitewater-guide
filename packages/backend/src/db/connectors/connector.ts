@@ -9,7 +9,7 @@ import { FieldsMap, ManyBuilderOptions, OrderBy } from './types';
 export class BaseConnector<TGraphql, TSql extends { id: string }> implements DataSource<Context> {
   protected readonly _loader: DataLoader<string, TSql | null>;
   protected _user: ContextUser | undefined;
-  protected _language!: string;
+  protected _language?: string;
   protected _fieldsByType!: Map<string, Set<string>>;
 
   // fields that should be set in subclass

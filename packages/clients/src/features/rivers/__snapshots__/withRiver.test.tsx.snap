@@ -18,10 +18,8 @@ Object {
       "__typename": "Region",
       "id": "Region.id.1",
       "name": "Region.name.1",
-      Symbol(id): "Region:Region.id.1",
     },
     "updatedAt": 2017-02-01T21:00:00.000Z,
-    Symbol(id): "River:River.id.1",
   },
   "refetch": [Function],
 }

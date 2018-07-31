@@ -22,6 +22,6 @@ const resolver: TopLevelResolver<Vars> = async (_, { id, settings }, { dataSourc
   return dataSources.sections.getById(id);
 };
 
-const administrateSection = isInputValidResolver(Struct).createResolver(resolver);
+const administrateSection = isInputValidResolver(Struct, resolver);
 
 export default administrateSection;

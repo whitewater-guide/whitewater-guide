@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-control" content="public">
+    <title>Sample banner 4:1 ratio</title>
+    <style>
+        body {
+            background-color: white;
+            margin: 0px;
+            overflow: hidden;
+        }
+        .aspect-ratio-box {
+            height: 0;
+            overflow: hidden;
+            padding-top: 25%;
+            position: relative;
+        }
+        .aspect-ratio-box-inside {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #eeeeee;
+        }
+        .content {
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+        .image-box {
+            height: 100%;
+            width: auto;
+        }
+        .text-box {
+            flex-grow: 1;
+            flex-shrink: 0;
+            font-size: 5vw;
+            padding: 8px;
+        }
+        img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+        }
+        a {
+            color: #333;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="aspect-ratio-box">
+        <div class="aspect-ratio-box-inside">
+            <div class="content">
+                <div class="image-box">
+                    <a href="https://yandex.ru" target="_blank">
+                        <img
+                                src="images/logo@90.png"
+                                srcset="
+                                    images/logo@90.png 90w,
+                                    images/logo@120.png 120w,
+                                    images/logo@192.png 192w,
+                                    images/logo@256.png 256w,
+                                    images/logo@512.png 512w
+                                "
+                        >
+                    </a>
+                </div>
+                <div class="text-box">
+                    <a href="https://whitewater.guide" target="_blank">
+                        <span>WHITEWATER.GUIDE</span>
+                    </a>
+                </div>
+                <div class="image-box">
+                    <a href="https://yandex.ru" target="_blank">
+                        <img
+                                src="images/logo@90.png"
+                                srcset="
+                                    images/logo@90.png 90w,
+                                    images/logo@120.png 120w,
+                                    images/logo@192.png 192w,
+                                    images/logo@256.png 256w,
+                                    images/logo@512.png 512w
+                                "
+                        >
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

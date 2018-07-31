@@ -1,8 +1,8 @@
 import React from 'react';
+import { WithI18n } from 'react-i18next';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { Button, Caption, Subheading } from 'react-native-paper';
 import { Icon } from '../../../components';
-import { WithT } from '../../../i18n';
 import theme from '../../../theme';
 import { GraphqlProps } from './types';
 
@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Props extends WithT {
+interface Props extends WithI18n {
   summary: GraphqlProps['summary'];
 }
 
@@ -28,7 +28,7 @@ class LoadingSummary extends React.PureComponent<Props> {
         <View style={styles.container}>
           <Icon icon="alert" />
           <Subheading>{t('offline:dialog.summaryError')}</Subheading>
-          <Button primary compact onPress={refetch}>
+          <Button color={theme.colors.primary} compact onPress={refetch}>
             {this.props.t('commons:retry')}
           </Button>
         </View>

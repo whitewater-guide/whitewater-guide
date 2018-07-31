@@ -13,7 +13,7 @@
     "no-inferrable-types": [true, "ignore-params", "ignore-properties"],
     "no-invalid-this": [true, "check-function-in-method"],
     "no-null-keyword": false,
-    "no-submodule-imports": [true, "redux-persist", "redux-saga", "react-native-vector-icons", "lodash", "moment/locale"],
+    "no-submodule-imports": [true, "redux-persist", "redux-saga", "react-native-vector-icons", "lodash", "moment/locale", "react-native-mock-render"],
     "no-unused-variable": [true, "check-parameters", "react"],
     "object-literal-key-quotes": [true, "as-needed"],
     "object-literal-sort-keys": false,

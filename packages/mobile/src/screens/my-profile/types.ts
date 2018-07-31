@@ -1,4 +1,4 @@
-import { WithT } from '../../i18n';
+import { WithI18n } from 'react-i18next';
 import { WithMe } from '../../ww-clients/features/users';
 import { UserInput } from '../../ww-commons';
 
@@ -10,4 +10,4 @@ export interface DispatchProps {
   logout: () => void;
 }
 
-export type InnerProps = WithT & WithMe & WithMutation & DispatchProps;
+export type InnerProps = WithI18n & WithMe & WithMutation & DispatchProps;

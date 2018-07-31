@@ -1,12 +1,11 @@
 import React from 'react';
-import { translate } from 'react-i18next';
+import { withI18n, WithI18n } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Title, TouchableRipple } from 'react-native-paper';
 import Svg, { Path } from 'react-native-svg';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { loginWithFB } from '../core/auth/actions';
-import { WithT } from '../i18n';
 import theme from '../theme';
 
 const SIZE_REGULAR = 48;
@@ -52,7 +51,7 @@ interface DispatchProps {
   onPress: () => void;
 }
 
-type Props = DispatchProps & WithT & OwnProps;
+type Props = DispatchProps & WithI18n & OwnProps;
 
 const AnonHeaderView: React.StatelessComponent<Props> = ({ onPress, medium, t, padded = true }) => {
   const svgSize = medium ? 26 : 32;
@@ -70,11 +69,11 @@ const AnonHeaderView: React.StatelessComponent<Props> = ({ onPress, medium, t, p
       </View>
     </TouchableRipple>
   );
-}
+};
 
 const container = compose<Props, OwnProps>(
   connect<{}, DispatchProps>(undefined, { onPress: () => loginWithFB.started({}) }),
-  translate(),
+  withI18n(),
 );
 
 export const AnonHeader = container(AnonHeaderView);

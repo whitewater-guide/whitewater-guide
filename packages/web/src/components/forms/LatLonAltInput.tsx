@@ -2,7 +2,7 @@ import Coordinates from 'coordinate-parser';
 import { isEmpty } from 'lodash';
 import IconButton from 'material-ui/IconButton';
 import React from 'react';
-import { BaseFieldProps, Field, FieldsProps, GenericField, WrappedFieldProps } from 'redux-form';
+import { BaseFieldProps, Field, FieldArrayFieldsProps, GenericField, WrappedFieldProps } from 'redux-form';
 import { Styles } from '../../styles';
 import { CoordinateStruct, CoordinateStructLoose } from '../../ww-commons';
 import { Coordinate3d } from '../../ww-commons/features/points';
@@ -178,7 +178,7 @@ export const LatLonAltField: React.StatelessComponent<FieldProps> = props => {
 interface LLAArrayFieldProps {
   name: string;
   index?: number;
-  fields?: FieldsProps<Uncoordinate>;
+  fields?: FieldArrayFieldsProps<Uncoordinate>;
 }
 
 export class LLAArrayField extends React.PureComponent<LLAArrayFieldProps> {

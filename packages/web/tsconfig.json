@@ -7,7 +7,8 @@
     "target": "es5",
     "sourceMap": true,
     "rootDir": "src",
-    "baseUrl": "."
+    "baseUrl": ".",
+    "skipLibCheck": true
   },
   "exclude": [
     "__mocks__",

@@ -1,6 +1,7 @@
 import { ApolloError } from 'apollo-client';
 import { DocumentNode } from 'graphql';
-import { memoize } from 'lodash';
+import memoize from 'lodash/memoize';
+import isFunction from 'lodash/isFunction';
 import { ChildProps, graphql, MutationOpts } from 'react-apollo';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { compose, mapProps } from 'recompose';
@@ -11,6 +12,8 @@ import { apolloErrorToString } from '../../ww-clients/apollo';
 import { omitTypename } from '../../ww-commons/utils';
 import { withLoading } from '../withLoading';
 import { validateInput } from './validation';
+
+type NoVarsMutationOpts = Omit<MutationOpts, 'variables'>;
 
 export interface FormContainerOptions<QueryResult, MutationResult, FormInput> {
   /**
@@ -68,7 +71,7 @@ export interface FormContainerOptions<QueryResult, MutationResult, FormInput> {
   /**
    * Extra options for mutation, e.g. refetchQueries
    */
-  mutationOptions?: Omit<MutationOpts, 'variables'> | ((props: any) => Omit<MutationOpts, 'variables'>);
+  mutationOptions?: NoVarsMutationOpts | ((props: any) => NoVarsMutationOpts);
 }
 
 export const formContainer = <QueryResult, MutationResult, FormInput>(
@@ -85,7 +88,7 @@ export const formContainer = <QueryResult, MutationResult, FormInput>(
     validationSchema,
     formName,
     extraVariables,
-    mutationOptions,
+    mutationOptions = {},
   } = options;
 
   type FormProps = Partial<ConfigProps<FormInput>>;
@@ -110,11 +113,11 @@ export const formContainer = <QueryResult, MutationResult, FormInput>(
     mapProps<FormProps, MappedProps>((props) => {
       const { data, history, match, mutate, location } = props;
       const value = (data as any)[propName] ||
-        (typeof defaultValue === 'function' ? defaultValue(props) : defaultValue);
+        (isFunction(defaultValue) ? defaultValue(props) : defaultValue);
       const splitter = backPath || `${propName}s`;
       const path = location.pathname.split(splitter)[0] + splitter;
-      const extraVars = typeof extraVariables === 'function' ? extraVariables(props) : extraVariables;
-      const mutationOpts = typeof mutationOptions === 'function' ? mutationOptions(props) : mutationOptions;
+      const extraVars = isFunction(extraVariables) ? extraVariables(props) : extraVariables;
+      const mutationOpts: MutationOpts = isFunction(mutationOptions) ? mutationOptions(props) : mutationOptions;
       return {
         data,
         history,

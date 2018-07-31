@@ -1,5 +1,5 @@
 export { purchaseActions } from './actions';
-export * from './reducer';
+export { purchaseReducer, PURCHASE_REDUCER_KEY } from './reducer';
 export * from './saga';
 export * from './types';
 export * from './views';

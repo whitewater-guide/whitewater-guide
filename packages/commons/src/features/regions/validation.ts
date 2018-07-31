@@ -41,19 +41,10 @@ export const RegionCoverImageStruct = struct.object({
   mobile: 'nonEmptyString|null',
 });
 
-export const RegionBannersStruct = struct.object({
-  sectionDescriptionMobile: 'nonEmptyString|null',
-  sectionRowMobile: 'nonEmptyString|null',
-  sectionMediaMobile: 'nonEmptyString|null',
-  regionDescriptionMobile: 'nonEmptyString|null',
-  regionLoadingMobile: 'nonEmptyString|null',
-});
-
 export const RegionAdminSettingsStruct = struct.object({
   id: 'uuid',
   hidden: 'boolean',
   premium: 'boolean',
   sku: 'sku|null',
   coverImage: RegionCoverImageStruct,
-  banners: RegionBannersStruct,
 });

@@ -1,8 +1,7 @@
-import { translate } from 'react-i18next';
+import { withI18n, WithI18n } from 'react-i18next';
 import { connect, DispatchProp } from 'react-redux';
 import { compose } from 'recompose';
 import { RootState } from '../../../core/reducers';
-import { WithT } from '../../../i18n';
 import { purchaseActions } from '../actions';
 import { PremiumRegion, PurchaseDialogStep } from '../types';
 
@@ -19,7 +18,7 @@ interface MergedProps extends OwnProps, StateProps {
   onFetchProduct: () => void;
 }
 
-const container = compose<MergedProps & WithT, OwnProps>(
+const container = compose<MergedProps & WithI18n, OwnProps>(
   connect<StateProps, DispatchProp, OwnProps, MergedProps, RootState>(
     (state: RootState) => ({
       region: state.purchase.dialogData && state.purchase.dialogData!.region,
@@ -36,7 +35,7 @@ const container = compose<MergedProps & WithT, OwnProps>(
       },
     }),
   ),
-  translate(),
+  withI18n(),
 );
 
 export default container;

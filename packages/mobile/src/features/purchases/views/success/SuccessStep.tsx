@@ -1,8 +1,7 @@
 import React from 'react';
-import { translate } from 'react-i18next';
+import { withI18n, WithI18n } from 'react-i18next';
 import { StyleSheet } from 'react-native';
-import { Button, DialogActions, DialogContent, Paragraph, Subheading } from 'react-native-paper';
-import { WithT } from '../../../../i18n';
+import { Button, Dialog, Paragraph, Subheading } from 'react-native-paper';
 import theme from '../../../../theme';
 import { PremiumRegion } from '../../types';
 
@@ -15,33 +14,33 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Props extends WithT {
+interface Props {
   region: PremiumRegion;
   onComplete?: () => void;
 }
 
-class SuccessStep extends React.PureComponent<Props> {
+class SuccessStep extends React.PureComponent<Props & WithI18n> {
 
   render() {
     const { t, region, onComplete } = this.props;
     return (
       <React.Fragment>
-        <DialogContent style={styles.dialogContent}>
+        <Dialog.Content style={styles.dialogContent}>
           <Subheading style={styles.subheading}>
             {t('iap:success.subheading')}
           </Subheading>
           <Paragraph>
             {t('iap:success.body', { region: region.name })}
           </Paragraph>
-        </DialogContent>
-        <DialogActions>
-          <Button primary raised onPress={onComplete}>
+        </Dialog.Content>
+        <Dialog.Actions>
+          <Button mode="contained" onPress={onComplete}>
             {t('commons:ok')}
           </Button>
-        </DialogActions>
+        </Dialog.Actions>
       </React.Fragment>
     );
   }
 }
 
-export default translate()(SuccessStep);
+export default withI18n()(SuccessStep);

@@ -1,10 +1,9 @@
 import React from 'react';
-import { translate } from 'react-i18next';
+import { translate, withI18n, WithI18n } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
-import { Divider, DrawerSection } from 'react-native-paper';
+import { Divider, Drawer } from 'react-native-paper';
 import { NavigationActions, NavigationInjectedProps } from 'react-navigation';
 import { compose } from 'recompose';
-import { WithT } from '../../i18n';
 import { isRouteFocused } from '../../utils/navigation';
 import { withMe, WithMe } from '../../ww-clients/features/users';
 import { Spacer } from '../Spacer';
@@ -23,7 +22,7 @@ const styles = StyleSheet.create({
 });
 
 type OuterProps = WithToggle & NavigationInjectedProps;
-type InnerProps = OuterProps & WithMe & WithT;
+type InnerProps = OuterProps & WithMe & WithI18n;
 
 class DrawerSidebarView extends React.PureComponent<InnerProps> {
   navigate = (routeName: string, params: any) => {
@@ -38,7 +37,7 @@ class DrawerSidebarView extends React.PureComponent<InnerProps> {
       <View style={styles.container}>
         <DrawerHeader me={me} meLoading={meLoading} />
         <Divider />
-        <DrawerSection>
+        <Drawer.Section>
           {
             !!me &&
             (
@@ -66,7 +65,7 @@ class DrawerSidebarView extends React.PureComponent<InnerProps> {
             onPress={this.navigate}
             focused={isRouteFocused(state, 'Plain', { fixture: 'faq' })}
           />
-        </DrawerSection>
+        </Drawer.Section>
         <Spacer />
         <DrawerItem
           label={t('drawer:termsAndConditions')}
@@ -90,7 +89,7 @@ class DrawerSidebarView extends React.PureComponent<InnerProps> {
 
 const DrawerSidebar: React.ComponentType<OuterProps> = compose<InnerProps, OuterProps>(
   withMe,
-  translate(),
+  withI18n(),
 )(DrawerSidebarView);
 
 export default DrawerSidebar;

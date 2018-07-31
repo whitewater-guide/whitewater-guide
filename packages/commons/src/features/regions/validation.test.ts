@@ -194,13 +194,6 @@ describe('RegionAdminSettings', () => {
     hidden: false,
     premium: false,
     sku: 'region.sku',
-    banners: {
-      sectionDescriptionMobile: 'string|null',
-      sectionRowMobile: 'string|null',
-      sectionMediaMobile: 'string|null',
-      regionDescriptionMobile: 'string|null',
-      regionLoadingMobile: 'string|null',
-    },
     coverImage: {
       mobile: 'cover.jpg',
     },
@@ -216,13 +209,6 @@ describe('RegionAdminSettings', () => {
       {
         ...correct,
         sku: null,
-        banners: {
-          sectionDescriptionMobile: null,
-          sectionRowMobile: null,
-          sectionMediaMobile: null,
-          regionDescriptionMobile: null,
-          regionLoadingMobile: null,
-        },
         coverImage: {
           mobile: null,
         },
@@ -250,10 +236,6 @@ describe('RegionAdminSettings', () => {
     [
       'empty cover image',
       { ...correct, coverImage: { mobile: '' } },
-    ],
-    [
-      'empty banner',
-      { ...correct, banners: { ...correct.banners, regionDescriptionMobile: '' } },
     ],
     [
       'extra fields',

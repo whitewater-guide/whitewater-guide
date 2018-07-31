@@ -1,7 +1,8 @@
 import moment from 'moment';
 import React from 'react';
+import { WithI18n } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
-import { WithT } from '../i18n';
+import { WithTrans } from '../i18n';
 import { getSectionColor, prettyNumber } from '../ww-clients/features/sections';
 import { Section } from '../ww-commons';
 
@@ -28,7 +29,7 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Props extends WithT {
+interface Props extends WithTrans {
   section: Section;
 }
 

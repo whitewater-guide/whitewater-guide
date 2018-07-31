@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { TouchableRipple } from 'react-native-paper';
 import { DifficultyThumb, FlowsThumb, Icon, StarRating } from '../../../../components';
-import { WithT } from '../../../../i18n';
+import { WithTrans } from '../../../../i18n';
 import theme from '../../../../theme';
 import { Section } from '../../../../ww-commons';
 
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Props extends WithT {
+interface Props extends WithTrans {
   section: Section;
   hasPremiumAccess: boolean;
   onPress: () => void;

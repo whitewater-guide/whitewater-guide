@@ -4,7 +4,7 @@ import { ADMIN, ADMIN_ID, EDITOR_GA_EC, EDITOR_NO_EC, EDITOR_NO_EC_ID, TEST_USER
 import { GALICIA_R1_S1, NORWAY_SJOA_AMOT } from '@seeds/09_sections';
 import { PHOTO_1, PHOTO_2 } from '@seeds/11_media';
 import { anonContext, countRows, fakeContext, noTimestamps, noUnstable, runQuery } from '@test';
-import { MediaInput, MediaKind } from '@ww-commons';
+import { ApolloErrorCodes, MediaInput, MediaKind } from '@ww-commons';
 import { copy } from 'fs-extra';
 import * as path from 'path';
 
@@ -56,26 +56,22 @@ const media: MediaInput = {
 describe('resolvers chain', () => {
   it('anon should not pass', async () => {
     const result = await runQuery(mutation, { sectionId, media }, anonContext());
-    expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
-    expect(result).toHaveProperty('data.upsertSectionMedia', null);
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
   });
 
   it('user should not pass', async () => {
     const result = await runQuery(mutation, { sectionId, media }, fakeContext(TEST_USER));
-    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
-    expect(result).toHaveProperty('data.upsertSectionMedia', null);
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 
   it('non-owning editor should not pass', async () => {
     const result = await runQuery(mutation, { sectionId, media }, fakeContext(EDITOR_GA_EC));
-    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
-    expect(result).toHaveProperty('data.upsertSectionMedia', null);
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 
   it('admin should pass', async () => {
     const result = await runQuery(mutation, { sectionId, media }, fakeContext(ADMIN));
-    expect(result.errors).toBeUndefined();
-    expect(result.data!.upsertSectionMedia).toBeDefined();
+    expect(result).not.toHaveGraphqlError(undefined);
   });
 
   it('should throw on invalid input', async () => {
@@ -89,8 +85,7 @@ describe('resolvers chain', () => {
       weight: -10,
     };
     const result = await runQuery(mutation, { sectionId, media: badMedia }, fakeContext(EDITOR_NO_EC));
-    expect(result).toHaveProperty('data.upsertSectionMedia', null);
-    expect(result).toHaveProperty('errors.0.name', 'ValidationError');
+    expect(result).toHaveGraphqlValidationError();
   });
 
 });
@@ -100,15 +95,14 @@ describe('insert', () => {
     const result = await runQuery(
       mutation,
       { sectionId: '852421bc-2848-11e8-b467-0ed5f89f718b', media },
-      fakeContext(EDITOR_NO_EC),
+      fakeContext(ADMIN),
     );
-    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
-    expect(result).toHaveProperty('data.upsertSectionMedia', null);
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.BAD_USER_INPUT);
   });
 
   it('should return result', async () => {
     const result = await runQuery(mutation, { sectionId, media }, fakeContext(EDITOR_NO_EC));
-    expect(result.errors).toBeUndefined();
+    expect(result).not.toHaveGraphqlError();
     expect(noTimestamps(result.data)).toMatchSnapshot();
   });
 
@@ -135,9 +129,8 @@ describe('update', () => {
   const uMedia = { ...media, id: PHOTO_1 };
 
   it('should fail on wrong section id', async () => {
-    const result = await runQuery(mutation, { sectionId: GALICIA_R1_S1, media: uMedia }, fakeContext(EDITOR_NO_EC));
-    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
-    expect(result).toHaveProperty('data.upsertSectionMedia', null);
+    const result = await runQuery(mutation, { sectionId: GALICIA_R1_S1, media: uMedia }, fakeContext(EDITOR_GA_EC));
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.BAD_USER_INPUT);
   });
 
   it('should return result', async () => {

@@ -1,4 +1,4 @@
-import { Context, isAuthenticatedResolver } from '@apollo';
+import { isAuthenticatedResolver, TopLevelResolver } from '@apollo';
 import db from '@db';
 import { BoomPromoRaw } from '../types';
 
@@ -6,8 +6,8 @@ interface Vars {
   code: string;
 }
 
-const checkBoomPromo = isAuthenticatedResolver.createResolver(
-  async (_, { code }: Vars, context: Context) => {
+const checkBoomPromo: TopLevelResolver<Vars> = isAuthenticatedResolver(
+  async (_, { code }, context) => {
     const query = db()
       .table('boom_promos')
       .select(['boom_promos.code', 'boom_promos.redeemed', 'groups_view.name', 'boom_promos.group_sku'])

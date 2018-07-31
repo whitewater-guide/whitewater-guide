@@ -16,7 +16,7 @@ export const purchaseToGraphqlInput = (purchase: ProductPurchase): PurchaseInput
     transactionDate,
     receipt: Platform.select({
       ios: purchase.transactionReceipt,
-      android: JSON.stringify({ data: purchase.data, signature: purchase.signature }),
+      android: JSON.stringify({ data: purchase.dataAndroid, signature: purchase.signatureAndroid }),
     }),
     extra: purchase,
   };

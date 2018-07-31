@@ -1,9 +1,9 @@
 import { Product, ProductPurchase } from 'react-native-iap';
 import { Region } from '../../ww-commons';
 
-export type PremiumRegion = Pick<Region, 'id' | 'name' | 'sku' | 'sections'>;
+export type PremiumRegion = Pick<Region, 'id' | 'name' | 'sku' | 'sections' | 'hasPremiumAccess'>;
 
-export const enum PurchaseState {
+export enum PurchaseState {
   IDLE = 'IDLE',
   PRODUCT_LOADING = 'PRODUCT_LOADING',
   PRODUCT_LOADING_FAILED = 'PRODUCT_LOADING_FAILED',
@@ -18,21 +18,21 @@ export const enum PurchaseState {
 
 export type PurchaseDialogStep = 'AlreadyHave' | 'Auth' | 'BuyProduct' | 'Success';
 
-export const enum RefreshPremiumResult {
+export enum RefreshPremiumResult {
   AVAILABLE,
   PURCHASED,
   NOT_LOGGED_IN,
   ERROR,
 }
 
-export const enum SavePurchaseResult {
+export enum SavePurchaseResult {
   SUCCESS,
   ERROR,
   OFFLINE,
 }
 
 export interface PurchaseDialogData {
-  region: Region;
+  region: PremiumRegion;
   sectionId?: string;
 }
 
@@ -42,13 +42,9 @@ export interface PurchaseStore {
   dialogStep: PurchaseDialogStep;
   dialogData: PurchaseDialogData | null;
   state: PurchaseState;
-  product: Product | null;
+  product: Product<string> | null;
   error: [string] | [string, { [key: string]: string | undefined }] | null;
   offlinePurchases: ProductPurchase[];
-}
-
-export interface OpenDialogPayload extends PurchaseDialogData {
-  dialogOpen?: boolean; // false for buy premium panel
 }
 
 export type PurchaseError = string | [string, { [key: string]: string | undefined }] | null;
@@ -57,7 +53,7 @@ export interface UpdatePurchasePayload {
   canMakePayments?: boolean;
   dialogStep?: PurchaseDialogStep;
   state?: PurchaseState;
-  product?: Product | null;
+  product?: Product<string> | null;
   error?: PurchaseError;
 }
 

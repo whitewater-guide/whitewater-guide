@@ -43,10 +43,32 @@ const Bounds = gql`
   }
 `;
 
+const Banners = gql`
+  fragment RegionBanners on Region {
+    banners {
+      nodes {
+        id
+        slug
+        priority
+        placement
+        enabled
+        source {
+          kind
+          ratio
+          src
+        }
+        link
+        extras
+      }
+    }
+  }
+`;
+
 export const RegionFragments = {
   Bounds,
   Description,
   Core,
   POIs,
   Flags,
+  Banners,
 };

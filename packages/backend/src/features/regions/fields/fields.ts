@@ -2,6 +2,7 @@ import { FieldResolvers } from '@apollo';
 import { timestampResolvers } from '@db';
 import { Region } from '@ww-commons';
 import { RegionRaw } from '../types';
+import banners from './banners';
 import bounds from './bounds';
 import editable from './editable';
 import gauges from './gauges';
@@ -15,6 +16,7 @@ export const regionFieldResolvers: FieldResolvers<RegionRaw, Region> = {
   seasonNumeric: region => region.season_numeric,
   coverImage: region => region.cover_image,
   pois: region => region.pois || [],
+  banners,
   bounds,
   editable,
   hasPremiumAccess,

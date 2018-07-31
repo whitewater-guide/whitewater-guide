@@ -1,7 +1,7 @@
 import db, { holdTransaction, rollbackTransaction } from '@db';
 import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
 import { anonContext, fakeContext, runQuery } from '@test';
-import { TagCategory, TagInput } from '@ww-commons';
+import { ApolloErrorCodes, TagCategory, TagInput } from '@ww-commons';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
@@ -26,20 +26,17 @@ describe('resolvers chain', () => {
 
   it('anon should not pass', async () => {
     const result = await runQuery(query, { tag }, anonContext());
-    expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
-    expect(result).toHaveProperty('data.upsertTag', null);
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
   });
 
   it('user should not pass', async () => {
     const result = await runQuery(query, { tag }, fakeContext(TEST_USER));
-    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
-    expect(result).toHaveProperty('data.upsertTag', null);
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 
   it('editor should not pass', async () => {
     const result = await runQuery(query, { tag }, fakeContext(EDITOR_GA_EC));
-    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
-    expect(result).toHaveProperty('data.upsertTag', null);
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 
   it('should throw on invalid input', async () => {
@@ -49,8 +46,7 @@ describe('resolvers chain', () => {
       category: 'misc', // Bad category is validated by Graphql enum
     };
     const result = await runQuery(query, { tag: invalidInput }, fakeContext(ADMIN));
-    expect(result).toHaveProperty('errors.0.name', 'ValidationError');
-    expect(result.data!.upsertTag).toBeNull();
+    expect(result).toHaveGraphqlValidationError();
   });
 });
 

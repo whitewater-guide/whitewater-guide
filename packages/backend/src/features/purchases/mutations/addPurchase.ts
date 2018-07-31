@@ -1,6 +1,7 @@
-import { AuthenticationRequiredError, Context, isInputValidResolver, MutationNotAllowedError } from '@apollo';
+import { Context, isInputValidResolver, MutationNotAllowedError } from '@apollo';
 import db from '@db';
 import { PurchaseInput, PurchaseInputStruct, PurchasePlatform } from '@ww-commons';
+import { AuthenticationError } from 'apollo-server';
 import { isValidated, validate } from 'in-app-purchase';
 import { Transaction } from 'knex';
 import { struct } from 'superstruct';
@@ -20,13 +21,13 @@ const processBoomstarterPurchase = async (purchase: PurchaseInput, { user }: Con
     .where({ code: purchase.transactionId }).
     first();
   if (!promo) {
-    throw new MutationNotAllowedError({ message: 'Bad promo code' });
+    throw new MutationNotAllowedError('Bad promo code');
   }
   if (promo.group_sku && promo.group_sku !== purchase.productId) {
-    throw new MutationNotAllowedError({ message: 'Promo code and product do not match' });
+    throw new MutationNotAllowedError('Promo code and product do not match');
   }
   if (promo.redeemed) {
-    throw new MutationNotAllowedError({ message: 'Promo code already redeemed' });
+    throw new MutationNotAllowedError('Promo code already redeemed');
   }
   await db().transaction(async (trx: Transaction) => {
     const transaction: Partial<TransactionRaw> = {
@@ -62,11 +63,12 @@ const processIAP = async (purchase: PurchaseInput, { user }: Context) => {
   return true;
 };
 
-const addPurchase = isInputValidResolver(Struct).createResolver(
+const addPurchase = isInputValidResolver<Vars>(
+  Struct,
   async (_: any, { purchase }: Vars, context: Context) => {
     const { user } = context;
     if (!user) {
-      throw new AuthenticationRequiredError();
+      throw new AuthenticationError('must be authenticated');
     }
     const { transactionId, platform } = purchase;
 
@@ -81,7 +83,7 @@ const addPurchase = isInputValidResolver(Struct).createResolver(
       if (sameUser) {
         return false;
       }
-      throw new MutationNotAllowedError({ message: 'Duplicate transaction' });
+      throw new MutationNotAllowedError('Duplicate transaction');
     }
 
     try {

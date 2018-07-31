@@ -1,11 +1,10 @@
 import React from 'react';
-import { translate } from 'react-i18next';
+import { withI18n, WithI18n } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { settings } from '../../core/actions';
-import { WithT } from '../../i18n';
 import theme from '../../theme';
 import { Icon } from '../Icon';
 
@@ -25,7 +24,7 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Props extends WithT {
+interface Props extends WithI18n {
   onLayerChange: (layer: string) => void;
 }
 
@@ -80,7 +79,7 @@ class LayersIcon extends React.PureComponent<Props> {
 }
 
 export default compose<Props, {}>(
-  translate(),
+  withI18n(),
   connect(
 undefined,
     { onLayerChange: settings.setMapType },

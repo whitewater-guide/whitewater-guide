@@ -2,6 +2,7 @@ import db, { holdTransaction, rollbackTransaction } from '@db';
 import { GAUGE_GAL_1_1, GAUGE_GAL_2_1 } from '@seeds/06_gauges';
 import { GALICIA_R1_S1 } from '@seeds/09_sections';
 import { runQuery, TIMESTAMP_REGEX } from '@test';
+import { ApolloErrorCodes } from '@ww-commons';
 import { cteBuilder } from './lastMeasurements';
 
 beforeEach(holdTransaction);
@@ -37,9 +38,7 @@ it('should prefer gauge id to section id', () => {
 
 it('should should fail when neither gaugeId not sectionId is provided', async () => {
   const r = await runQuery(query, { days: 1 });
-  expect(r).toHaveProperty('errors.0.name', 'ValidationError');
-  expect(r).toHaveProperty('errors.0.message', 'Either gauge id or section id must be specified');
-  expect(r).toHaveProperty('data.lastMeasurements', null);
+  expect(r).toHaveGraphqlError(ApolloErrorCodes.BAD_USER_INPUT, 'Either gauge id or section id must be specified');
 });
 
 it('should should return empty array when nothing is found', async () => {

@@ -1,7 +1,7 @@
 import { holdTransaction, rollbackTransaction } from '@db';
 import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
 import { anonContext, fakeContext, runQuery } from '@test';
-import { HarvestMode } from '@ww-commons';
+import { ApolloErrorCodes, HarvestMode } from '@ww-commons';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
@@ -21,20 +21,17 @@ describe('resolvers chain', () => {
 
   it('anon shall not pass', async () => {
     const result = await runQuery(query, undefined, anonContext());
-    expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
-    expect(result.data).toBeNull();
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
   });
 
   it('user shall not pass', async () => {
     const result = await runQuery(query, undefined, fakeContext(TEST_USER));
-    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
-    expect(result.data).toBeNull();
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 
   it('editor shall not pass', async () => {
     const result = await runQuery(query, undefined, fakeContext(EDITOR_GA_EC));
-    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
-    expect(result.data).toBeNull();
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 
 });

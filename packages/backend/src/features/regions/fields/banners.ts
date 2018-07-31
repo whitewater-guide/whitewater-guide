@@ -1,11 +1,9 @@
-import { FieldResolvers } from '@apollo';
-import { RegionBanners } from '@ww-commons';
-import get from 'lodash/get';
+import { Context, ListQuery } from '@apollo';
+import { GraphQLFieldResolver } from 'graphql';
+import { RegionRaw } from '../types';
 
-export const bannersResolvers: FieldResolvers<any, RegionBanners> = {
-  sectionDescriptionMobile: (bannersRaw) => get(bannersRaw, 'sectionDescriptionMobile', null),
-  sectionRowMobile: (bannersRaw) => get(bannersRaw, 'sectionRowMobile', null),
-  sectionMediaMobile: (bannersRaw) => get(bannersRaw, 'sectionMediaMobile', null),
-  regionDescriptionMobile: (bannersRaw) => get(bannersRaw, 'regionDescriptionMobile', null),
-  regionLoadingMobile: (bannersRaw) => get(bannersRaw, 'regionLoadingMobile', null),
-};
+const bannersResolver: GraphQLFieldResolver<RegionRaw, Context, ListQuery> =
+  async ({ id }, { page }, { dataSources }, info) =>
+    dataSources.banners.getMany(info, { regionId: id, page });
+
+export default bannersResolver;

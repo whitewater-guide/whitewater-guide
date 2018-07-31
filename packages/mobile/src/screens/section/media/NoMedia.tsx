@@ -1,9 +1,8 @@
 import React from 'react';
-import { translate } from 'react-i18next';
+import { withI18n, WithI18n } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Subheading } from 'react-native-paper';
 import { PHOTO_SIZE } from '../../../features/media';
-import { WithT } from '../../../i18n';
 import { MediaKind } from '../../../ww-commons';
 
 const styles = StyleSheet.create({
@@ -19,7 +18,7 @@ interface Props {
   kind: MediaKind;
 }
 
-const NoMedia: React.SFC<Props & WithT> = ({ kind, t }) => {
+const NoMedia: React.SFC<Props & WithI18n> = ({ kind, t }) => {
   const text = t(`section:media.noMedia.${kind}`);
   return (
     <View style={styles.container}>
@@ -28,4 +27,4 @@ const NoMedia: React.SFC<Props & WithT> = ({ kind, t }) => {
   );
 };
 
-export default translate()(NoMedia);
+export default withI18n()(NoMedia);

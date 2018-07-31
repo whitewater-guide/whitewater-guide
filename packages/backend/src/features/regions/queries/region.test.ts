@@ -2,7 +2,14 @@ import db, { holdTransaction, rollbackTransaction } from '@db';
 import { ADMIN, BOOM_USER_1500, EDITOR_GA_EC, EDITOR_GE, EDITOR_NO_EC, TEST_USER } from '@seeds/01_users';
 import { REGION_GALICIA, REGION_GEORGIA, REGION_LAOS, REGION_NORWAY } from '@seeds/04_regions';
 import { GEORGIA_BZHUZHA_LONG } from '@seeds/09_sections';
+import {
+  ALL_SECTION_ROW_BANNER,
+  ALL_SECTION_ROW_BANNER_DISABLED,
+  GALICIA_REGION_DESCR_BANNER, GALICIA_REGION_DESCR_BANNER2,
+  GALICIA_SECTION_ROW_BANNER
+} from '@seeds/14_banners';
 import { anonContext, fakeContext, noTimestamps, runQuery } from '@test';
+import { ApolloErrorCodes } from '@ww-commons';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
@@ -29,13 +36,6 @@ const query = `
         kind
         coordinates
       }
-      banners {
-        sectionDescriptionMobile
-        sectionRowMobile
-        sectionMediaMobile
-        regionDescriptionMobile
-        regionLoadingMobile
-      }
     }
   }
 `;
@@ -43,20 +43,17 @@ const query = `
 describe('permissions', () => {
   it('anons should not see hidden region', async () => {
     const result = await runQuery(query, { id: REGION_NORWAY }, anonContext());
-    expect(result).toHaveProperty('errors.0.name', 'AuthenticationRequiredError');
-    expect(result).toHaveProperty('data.region', null);
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
   });
 
   it('users should not see hidden region', async () => {
     const result = await runQuery(query, { id: REGION_NORWAY }, fakeContext(TEST_USER));
-    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
-    expect(result).toHaveProperty('data.region', null);
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 
   it('editors should not see hidden non-editable region', async () => {
     const result = await runQuery(query, { id: REGION_NORWAY }, fakeContext(EDITOR_GA_EC));
-    expect(result).toHaveProperty('errors.0.name', 'ForbiddenError');
-    expect(result).toHaveProperty('data.region', null);
+    expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
   });
 
   it('editors should see hidden editable region', async () => {
@@ -394,6 +391,63 @@ describe('connections', () => {
       photo: { count: 0, size: 0 },
       video: { count: 0, size: 0 },
       blog: { count: 0, size: 0 },
+    });
+  });
+
+  describe('banners', () => {
+    let result: any;
+    const bannersQuery = `
+      query regionDetails($id: ID){
+        region(id: $id) {
+          id
+          name
+          banners {
+            nodes {
+              id
+              priority
+              name
+            }
+            count
+          }
+        }
+      }
+    `;
+
+    beforeEach(async () => {
+      result = await runQuery(bannersQuery, { id: REGION_GALICIA }, fakeContext(TEST_USER));
+      expect(result).not.toHaveGraphqlError();
+    });
+
+    it('should get all banners', async () => {
+      expect(result.data!.region.banners.count).toBe(5);
+      expect(result.data!.region.banners.nodes).toHaveLength(5);
+      expect(result).toMatchSnapshot();
+    });
+
+    it('should get individual banners', async () => {
+      expect(result.data!.region.banners.nodes).toContainEqual({
+        id: GALICIA_SECTION_ROW_BANNER,
+        name: 'galicia section row banner',
+        priority: 1,
+      });
+    });
+
+    it('should get group banners', () => {
+      expect(result.data!.region.banners.nodes).toContainEqual({
+        id: ALL_SECTION_ROW_BANNER,
+        name: 'all section row banner',
+        priority: 10,
+      });
+    });
+
+    it('should prioritize individual banners over group banners', () => {
+      expect(result.data!.region.banners.nodes).toMatchObject([
+        { id: GALICIA_REGION_DESCR_BANNER2, priority: 10 },
+        { id: GALICIA_SECTION_ROW_BANNER, priority: 1 },
+        { id: GALICIA_REGION_DESCR_BANNER, priority: 1 },
+        { id: ALL_SECTION_ROW_BANNER_DISABLED, priority: 20 },
+        { id: ALL_SECTION_ROW_BANNER, priority: 10 },
+      ]);
     });
   });
 

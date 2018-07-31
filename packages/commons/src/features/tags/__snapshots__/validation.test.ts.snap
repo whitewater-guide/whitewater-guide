@@ -2,25 +2,25 @@
 
 exports[`should be invalid for bad category 1`] = `
 Object {
-  "category": "Incorrect value",
+  "category": "Expected a value of type \`\\"kayaking\\" | \\"hazards\\" | \\"supply\\" | \\"misc\\"\` for \`category\` but received \`\\"foo\\"\`.",
 }
 `;
 
 exports[`should be invalid for bad id 1 1`] = `
 Object {
-  "id": "Invalid tag",
+  "id": "Value must be valid slug",
 }
 `;
 
 exports[`should be invalid for bad id 2 1`] = `
 Object {
-  "id": "Invalid tag",
+  "id": "Value must be valid slug",
 }
 `;
 
 exports[`should be invalid for bad id 3 1`] = `
 Object {
-  "id": "Invalid tag",
+  "id": "Value must be valid slug",
 }
 `;
 

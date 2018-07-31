@@ -23,12 +23,12 @@ export class Table<DeleteHandle extends string, TResource extends NamedNode>
   };
 
   render() {
-    const { list, children, ...props } = this.props;
+    const { list, children, rowHeight = 48, ...props } = this.props;
     return (
       <RawTable
         {...props as any}
         headerHeight={52}
-        rowHeight={48}
+        rowHeight={rowHeight}
         rowCount={list.length}
         rowGetter={this.rowGetter}
         onRowClick={this.onRowClick}

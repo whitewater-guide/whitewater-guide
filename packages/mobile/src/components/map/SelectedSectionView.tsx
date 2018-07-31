@@ -3,14 +3,13 @@ import get from 'lodash/get';
 import noop from 'lodash/noop';
 import trim from 'lodash/trim';
 import React from 'react';
-import { translate } from 'react-i18next';
+import { translate, withI18n, WithI18n } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Button, Paragraph, Subheading } from 'react-native-paper';
 import Svg, { Path } from 'react-native-svg';
 import { NavigationInjectedProps, withNavigation } from 'react-navigation';
 import { compose } from 'recompose';
 import { connectPremiumDialog, WithPremiumDialog } from '../../features/purchases';
-import { WithT } from '../../i18n';
 import theme from '../../theme';
 import { SelectedSectionViewProps } from '../../ww-clients/features/maps';
 import { consumeRegion, WithRegion } from '../../ww-clients/features/regions';
@@ -91,7 +90,7 @@ const styles = StyleSheet.create({
 });
 
 type Props = SelectedSectionViewProps &
-  WithT &
+  WithI18n &
   NavigationInjectedProps &
   WithRegion &
   WithPremiumDialog;
@@ -249,7 +248,7 @@ class SelectedSectionViewInternal extends React.Component<Props, State> {
             {season}
           </Paragraph>
         </View>
-        <Button primary raised onPress={this.onDetails}>
+        <Button mode="contained" onPress={this.onDetails}>
           {t('region:map.selectedSection.details')}
         </Button>
       </SelectedElementView>
@@ -260,7 +259,7 @@ class SelectedSectionViewInternal extends React.Component<Props, State> {
 
 export const SelectedSectionView: React.ComponentType<SelectedSectionViewProps> =
   compose<Props, SelectedSectionViewProps>(
-    translate(),
+    withI18n(),
     consumeRegion(),
     withNavigation,
     connectPremiumDialog,

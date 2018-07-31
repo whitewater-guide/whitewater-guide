@@ -1,3 +1,4 @@
+import { analytics } from 'react-native-firebase';
 import { buffers, Channel, channel, Effect } from 'redux-saga';
 import { all, call, put, select, take } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
@@ -22,6 +23,7 @@ export function* downloadOfflineContent() {
   if (!region) {
     return;
   }
+  analytics().logEvent('offline_download_started', { region: region.id });
   // get summary
   const { photosCount, sectionsCount } = yield call(readCachedRegionSummary, region.id);
   // dispatch progress
@@ -50,4 +52,5 @@ export function* downloadOfflineContent() {
 
   // dispatch download complete
   yield put(offlineContentActions.finishDownload());
+  analytics().logEvent('offline_download_complete', { region: region.id });
 }

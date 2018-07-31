@@ -3,15 +3,15 @@ import { action } from '@storybook/addon-actions';
 import { storiesOf } from '@storybook/react-native';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Paper } from 'react-native-paper';
+import { Surface } from 'react-native-paper';
 import OfflineCategory from './OfflineCategory';
 
 storiesOf('OfflineCategory')
   .addDecorator((story: any) => (
     <View style={{ ...StyleSheet.absoluteFillObject, padding: 8, paddingTop: 64, backgroundColor: '#AAA' }}>
-      <Paper elevation={2} style={{ alignSelf: 'stretch', margin: 16 }}>
+      <Surface style={{ alignSelf: 'stretch', margin: 16, elevation: 2 }}>
         {story()}
-      </Paper>
+      </Surface>
     </View>
   ))
   .add('Default', () => (

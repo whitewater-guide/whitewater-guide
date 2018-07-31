@@ -1,11 +1,11 @@
-import { baseResolver, Context } from '@apollo';
+import { TopLevelResolver } from '@apollo';
 import { getTempPostPolicy } from '@minio';
 
 interface Vars {
   regionId: string;
 }
 
-const regionMediaForm = async (root: any, { regionId }: Vars, { user }: Context) => {
+const regionMediaForm: TopLevelResolver<Vars> = async (_, { regionId }, { user }) => {
   const { postURL, formData } = await getTempPostPolicy();
   return {
     upload: {
@@ -16,4 +16,4 @@ const regionMediaForm = async (root: any, { regionId }: Vars, { user }: Context)
   };
 };
 
-export default baseResolver.createResolver(regionMediaForm);
+export default regionMediaForm;
