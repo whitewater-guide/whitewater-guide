@@ -9,3 +9,5 @@ export interface RedisLastMeasurement {
 export interface RedisLastMeasurements {
   [key: string]: RedisLastMeasurement;
 }
+
+export type LastMeasurement = RedisLastMeasurement | null;

@@ -2,8 +2,8 @@ import { Context } from '@apollo';
 import { GraphQLFieldResolver } from 'graphql';
 import { RegionRaw } from '../types';
 
-const hasPremiumAccessResolver: GraphQLFieldResolver<RegionRaw, Context> = async ({ id }, _, { purchasesLoader }) => {
-  const ids = await purchasesLoader.loadPurchasedRegions();
+const hasPremiumAccessResolver: GraphQLFieldResolver<RegionRaw, Context> = async ({ id }, _, { models }) => {
+  const ids = await models.purchases.getPurchasedRegions();
   return ids.includes(id);
 };
 

@@ -1,5 +1,6 @@
 import { ContextUser } from '@apollo';
 import { BaseModel, FieldsMap } from '@db/model';
+import { NS_LAST_OP, redis } from '@redis';
 import { Source } from '@ww-commons';
 import { SourceRaw } from './types';
 
@@ -18,4 +19,12 @@ export class SourcesConnector extends BaseModel<Source, SourceRaw> {
     this._fieldsMap = FIELDS_MAP;
   }
 
+  async getStatus(script: string) {
+    try {
+      const statusStr = await redis.get(`${NS_LAST_OP}:${script}`);
+      return JSON.parse(statusStr);
+    } catch {
+      return null;
+    }
+  }
 }

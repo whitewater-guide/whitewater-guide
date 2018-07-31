@@ -2,59 +2,59 @@ import { ContextUser } from '@apollo';
 import db from '@db';
 import { GroupRaw } from '@features/groups';
 import { RegionRaw } from '@features/regions';
-import { TransactionRaw } from '../types';
+import { TransactionRaw } from './types';
 
-export class PurchasesLoader {
+export class PurchasesConnector {
   private readonly user?: ContextUser;
   private readonly language: string;
-  private transactions: TransactionRaw[] | null = null;
-  private purchasedGroups: GroupRaw[] | null = null;
-  private purchasedSingleRegions: RegionRaw[] | null = null;
-  private purchasedRegionIds: string[] | null = null; // both single and parts of groups
+  private _transactions: TransactionRaw[] | null = null;
+  private _purchasedGroups: GroupRaw[] | null = null;
+  private _purchasedSingleRegions: RegionRaw[] | null = null;
+  private _purchasedRegionIds: string[] | null = null; // both single and parts of groups
 
   constructor(user: ContextUser | undefined, language: string) {
     this.user = user;
     this.language = language;
   }
 
-  async loadTransactions(): Promise<TransactionRaw[]> {
+  private async getTransactions(): Promise<TransactionRaw[]> {
     if (!this.user) {
-      this.transactions = [];
+      this._transactions = [];
     }
-    if (!this.transactions) {
-      this.transactions = await db().table('transactions')
+    if (!this._transactions) {
+      this._transactions = await db().table('transactions')
         .where({ user_id: this.user!.id, validated: true });
     }
-    return this.transactions || [];
+    return this._transactions || [];
   }
 
-  async loadPurchasedGroups(): Promise<GroupRaw[]> {
-    const transactions = await this.loadTransactions();
-    if (!this.purchasedGroups) {
-      this.purchasedGroups = await db()
+  async getPurchasedGroups(): Promise<GroupRaw[]> {
+    const transactions = await this.getTransactions();
+    if (!this._purchasedGroups) {
+      this._purchasedGroups = await db()
         .table('groups_view')
         .whereIn('sku', transactions.map((t) => t.product_id))
         .andWhere({ language: this.language });
     }
-    return this.purchasedGroups || [];
+    return this._purchasedGroups || [];
   }
 
-  async loadPurchasedSingleRegions(): Promise<RegionRaw[]> {
-    const transactions = await this.loadTransactions();
-    if (!this.purchasedSingleRegions) {
-      this.purchasedSingleRegions = await db()
+  async getPurchasedSingleRegions(): Promise<RegionRaw[]> {
+    const transactions = await this.getTransactions();
+    if (!this._purchasedSingleRegions) {
+      this._purchasedSingleRegions = await db()
         .table('regions_view')
         .whereIn('sku', transactions.map((t) => t.product_id))
         .andWhere({ language: this.language });
     }
-    return this.purchasedSingleRegions || [];
+    return this._purchasedSingleRegions || [];
   }
 
-  async loadPurchasedRegions(): Promise<string[]> {
+  async getPurchasedRegions(): Promise<string[]> {
     if (!this.user) {
-      this.purchasedRegionIds = [];
+      this._purchasedRegionIds = [];
     }
-    if (!this.purchasedRegionIds) {
+    if (!this._purchasedRegionIds) {
       const result = await db()
         .table('regions')
         .select('id')
@@ -70,8 +70,8 @@ export class PurchasesLoader {
             .where({ user_id: this.user!.id, validated: true })
             .select('regions_groups.region_id');
         });
-      this.purchasedRegionIds = (result || []).map(({ id }: any) => id);
+      this._purchasedRegionIds = (result || []).map(({ id }: any) => id);
     }
-    return this.purchasedRegionIds || [];
+    return this._purchasedRegionIds || [];
   }
 }
