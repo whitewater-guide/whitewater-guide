@@ -2,8 +2,7 @@ package chile
 
 import (
   "net/url"
-  "fmt"
-  "time"
+    "time"
   "core"
 )
 
@@ -22,7 +21,7 @@ func loadXLS(code string, since int64) (string, error) {
   core.Client.EnsureCookie("http://dgasatel.mop.cl", "http://dgasatel.mop.cl")
   html, err := core.Client.PostFormAsString(xlsUrl, url.Values{
     "accion":         {"refresca"},
-    "chk_estacion1a": {fmt.Sprintf("%s_1, %s_12", code, code)},
+    "chk_estacion1a": {code + "_1", code + "_12"},
     "chk_estacion1b": {""},
     "chk_estacion2a": {""},
     "chk_estacion2b": {""},
