@@ -1,7 +1,7 @@
 import db, { holdTransaction, rollbackTransaction } from '@db';
 import { ADMIN, EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '@seeds/01_users';
 import { REGION_NORWAY } from '@seeds/04_regions';
-import { RIVER_GAL_1 } from '@seeds/07_rivers';
+import { RIVER_BZHUZHA, RIVER_GAL_1 } from '@seeds/07_rivers';
 import { SECTIONS_TOTAL, SECTIONS_VISIBLE } from '@seeds/09_sections';
 import { anonContext, fakeContext, noTimestamps, runQuery } from '@test';
 
@@ -83,7 +83,7 @@ it('should limit', async () => {
   const result = await runQuery(query, { page: { limit: 1 } });
   expect(result.errors).toBeUndefined();
   expect(result).toHaveProperty('data.sections.nodes.length', 1);
-  expect(result).toHaveProperty('data.sections.nodes.0.name', 'Amot');
+  expect(result).toHaveProperty('data.sections.nodes.0.name', 'Extreme race');
   expect(result).toHaveProperty('data.sections.count', SECTIONS_VISIBLE);
 });
 
@@ -159,14 +159,17 @@ it('should fire two queries for sections->region', async () => {
   expect(queryMock).toHaveBeenCalledTimes(2);
 });
 
-it('should fire two queries for sections->river', async () => {
+it('should fire one query for sections->river with only river name queried', async () => {
   const riverQuery = `
     query listSections($page: Page, $filter: SectionsFilter){
       sections(page: $page, filter: $filter) {
+        __typename
         nodes {
+          __typename
           id
           name
           river {
+            __typename
             id
             name
           }
@@ -176,7 +179,7 @@ it('should fire two queries for sections->river', async () => {
   `;
   const queryMock = jest.fn();
   db().on('query', queryMock);
-  await runQuery(riverQuery, { filter: { riverId: RIVER_GAL_1 } });
+  await runQuery(riverQuery, { filter: { riverId: RIVER_BZHUZHA } });
   db().removeListener('query', queryMock);
-  expect(queryMock).toHaveBeenCalledTimes(2);
+  expect(queryMock).toHaveBeenCalledTimes(1);
 });
