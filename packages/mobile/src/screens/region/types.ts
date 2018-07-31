@@ -6,6 +6,8 @@ import { Region, Section } from '../../ww-commons';
 export interface ScreenProps {
   region: WithNode<Region | null>;
   sections: Section[];
+  updateSections: () => Promise<any>;
+  sectionsStatus: SectionsStatus;
 }
 
 export interface NavParams {

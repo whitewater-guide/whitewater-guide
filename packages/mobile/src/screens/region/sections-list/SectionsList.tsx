@@ -6,6 +6,7 @@ import { compose } from 'recompose';
 import { connectPremiumDialog, WithPremiumDialog } from '../../../features/purchases';
 import { WithT } from '../../../i18n';
 import { Region, Section } from '../../../ww-commons';
+import { SectionsStatus } from '../types';
 import { ITEM_HEIGHT, SectionListItem } from './item';
 import NoSectionsPlaceholder from './NoSectionsPlaceholder';
 
@@ -16,6 +17,8 @@ const always = () => true;
 interface OuterProps extends Pick<NavigationScreenProp<any, any>, 'navigate'> {
   sections: Section[];
   region: Region | null;
+  refresh: () => Promise<any>;
+  status: SectionsStatus;
 }
 
 type InnerProps = OuterProps & WithT & WithPremiumDialog;
@@ -53,7 +56,7 @@ class SectionsList extends React.PureComponent<InnerProps, State> {
   };
 
   onRefresh = () => {
-    // this.props.loadUpdates();
+    this.props.refresh().catch(() => {});
   };
 
   onItemMaximized = (index: number) => {
@@ -96,7 +99,7 @@ class SectionsList extends React.PureComponent<InnerProps, State> {
   };
 
   render() {
-    const { region, sections } = this.props;
+    const { region, sections, status } = this.props;
     if (!region || sections.length === 0) {
       return <NoSectionsPlaceholder />;
     }
@@ -110,6 +113,8 @@ class SectionsList extends React.PureComponent<InnerProps, State> {
         renderItem={this.renderItem}
         initialNumToRender={this.state.initialNumToRender}
         onViewableItemsChanged={this.onViewableItemsChanged}
+        onRefresh={this.onRefresh}
+        refreshing={status === SectionsStatus.LOADING_UPDATES}
       />
     );
   }

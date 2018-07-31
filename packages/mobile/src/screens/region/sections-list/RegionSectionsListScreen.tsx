@@ -7,12 +7,14 @@ import { ScreenProps } from '../types';
 import SectionsList from './SectionsList';
 
 export const RegionSectionsListScreen: NavigationScreenComponent = ({ navigation, screenProps }) => {
-  const { region, sections }: ScreenProps = screenProps as any;
+  const { region, sections, updateSections, sectionsStatus }: ScreenProps = screenProps as any;
   return (
     <Screen noScroll noPadding>
       <SectionsList
+        status={sectionsStatus}
         sections={sections}
         region={region.node}
+        refresh={updateSections}
         navigate={navigation.navigate}
       />
     </Screen>

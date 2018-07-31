@@ -194,7 +194,7 @@ export function sectionsListContainer(limit: number = 20, pollingInterval: numbe
   };
 }
 
-const container = (pageSize: number = 20) => compose<InnerProps, OuterProps>(
+const container = (pageSize: number = 20) => compose<InnerProps & OuterProps, OuterProps>(
   connect((state: RootState) => ({ isConnected: state.network.isConnected })),
   withApollo,
   sectionsListContainer(pageSize),

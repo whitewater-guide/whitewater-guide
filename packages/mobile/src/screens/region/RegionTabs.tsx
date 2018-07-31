@@ -43,8 +43,8 @@ export const Navigator = createMaterialBottomTabNavigator(routes, config);
 
 class RegionTabsContent extends React.PureComponent<InnerProps & OuterProps> {
   render() {
-    const { navigation, region, sections, count, status } = this.props;
-    const screenProps: ScreenProps = { region, sections };
+    const { navigation, region, sections, count, status, refresh } = this.props;
+    const screenProps: ScreenProps = { region, sections, updateSections: refresh, sectionsStatus: status };
     return (
       <React.Fragment>
         <Navigator navigation={navigation} screenProps={screenProps} />
