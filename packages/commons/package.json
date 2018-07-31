@@ -1,6 +1,6 @@
 {
   "name": "whitewater-commons",
-  "version": "0.0.87",
+  "version": "0.0.89",
   "description": "shared code for whitewater.guide backend and frontend",
   "main": "build/index.js",
   "author": "Konstantin Kuznetsov",
@@ -19,26 +19,12 @@
     "@types/superstruct": "^0.5.0",
     "@types/validator": "^9.4.2",
     "jest": "^23.6.0",
-    "ts-jest": "^23.1.4",
+    "ts-jest": "^23.10.3",
     "tslib": "^1.9.3",
     "tslint": "^5.11.0",
     "tslint-eslint-rules": "^5.4.0",
     "tslint-react": "^3.6.0",
     "type-zoo": "^3.1.1",
-    "typescript": "3.0.3"
-  },
-  "jest": {
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest"
-    },
-    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-      "json",
-      "node"
-    ]
+    "typescript": "3.1.1"
   }
 }

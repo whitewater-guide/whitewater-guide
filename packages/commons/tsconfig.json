@@ -1,7 +1,9 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "jsx": "react"
+    "module": "commonjs",
+    "inlineSourceMap": true,
+    "inlineSources": true
   },
   "include": [
     "src/**/*.ts"
