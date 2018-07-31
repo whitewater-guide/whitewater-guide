@@ -4,12 +4,12 @@ import { WhitePortal } from 'react-native-portal';
 import { NavigationRouteConfigMap, TabNavigatorConfig } from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import theme from '../../theme';
+import container from './container';
 import RegionInfoScreen from './info';
 import RegionMapScreen from './map';
 import RegionSectionsListScreen from './sections-list';
 import SectionsProgress from './SectionsProgress';
 import { InnerProps, OuterProps, ScreenProps } from './types';
-import withRegionSections from './withRegionSections';
 
 const routes: NavigationRouteConfigMap = {
   RegionMap: {
@@ -61,4 +61,4 @@ class RegionTabsContent extends React.PureComponent<InnerProps & OuterProps> {
   }
 }
 
-export const RegionTabs = withRegionSections()(RegionTabsContent);
+export const RegionTabs = container()(RegionTabsContent);

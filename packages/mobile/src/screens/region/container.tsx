@@ -22,7 +22,7 @@ interface State {
 
 type WrapperProps<P> = OuterProps & ConnectivityProps & WithApolloClient<P>;
 
-function withRegionSections(limit: number = 20) {
+function container(limit: number = 20) {
   // tslint:disable-next-line:only-arrow-functions
   return function<P>(Wrapped: React.ComponentType<P & InnerProps>): React.ComponentType<P & OuterProps> {
     class WithRegionSections extends React.PureComponent<WrapperProps<P>, State> {
@@ -157,4 +157,4 @@ function withRegionSections(limit: number = 20) {
   };
 }
 
-export default withRegionSections;
+export default container;

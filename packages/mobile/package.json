@@ -1,6 +1,6 @@
 {
   "name": "whitewater",
-  "version": "1.5.3-2",
+  "version": "1.5.3-3",
   "private": true,
   "scripts": {
     "postinstall": "./postinstall.sh",
@@ -33,7 +33,7 @@
     "apollo-link-error": "^1.0.7",
     "apollo-link-http": "^1.5.3",
     "axios": "^0.18.0",
-    "cron-parser": "^2.4.5",
+    "cron-parser": "^2.6.0",
     "d3-array": "^1.2.1",
     "d3-scale": "^2.0.0",
     "es6-symbol": "^3.1.1",
@@ -71,7 +71,7 @@
     "react-native-iap": "^1.3.5",
     "react-native-image-zoom-viewer": "^2.2.13",
     "react-native-interactable": "^0.1.10",
-    "react-native-keyboard-aware-scroll-view": "^0.6.0",
+    "react-native-keyboard-aware-scroll-view": "^0.7.0",
     "react-native-languages": "^2.0.1",
     "react-native-linear-gradient": "^2.4.0",
     "react-native-maps": "react-community/react-native-maps",
@@ -96,7 +96,7 @@
     "redux-persist-fs-storage": "^1.2.2",
     "redux-saga": "^1.0.0-beta.1",
     "reselect": "^3.0.1",
-    "ts-jest": "^23.0.1",
+    "ts-jest": "^23.1.4",
     "tslib": "^1.9.0",
     "type-zoo": "^3.1.0",
     "typescript": "3.0.1",
@@ -105,6 +105,7 @@
     "victory-native": "^30.1.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.0.0-beta",
     "@storybook/addon-actions": "^3.4.6",
     "@storybook/addon-links": "^3.4.6",
     "@storybook/addons": "^3.4.6",
@@ -119,14 +120,14 @@
     "@types/i18n-js": "^3.0.0",
     "@types/i18next": "^8.4.4",
     "@types/jest": "^23.3.1",
-    "@types/joi": "^13.4.0",
+    "@types/joi": "^13.4.3",
     "@types/lodash": "^4.14.115",
-    "@types/markdown-it": "^0.0.4",
+    "@types/markdown-it": "^0.0.5",
     "@types/prop-types": "^15.5.4",
     "@types/qs": "^6.5.1",
     "@types/react": "^16.4.7",
     "@types/react-i18next": "^7.6.1",
-    "@types/react-native": "^0.56.4",
+    "@types/react-native": "^0.56.10",
     "@types/react-native-drawer-layout": "^1.3.4",
     "@types/react-native-fbsdk": "^0.6.1",
     "@types/react-native-fs": "^2.8.1",
@@ -143,18 +144,18 @@
     "@types/victory": "^0.9.19",
     "apollo-link-schema": "^1.1.0",
     "appcenter-cli": "^1.1.1",
-    "babel-core": "^6.26.3",
+    "babel-core": "7.0.0-bridge.0",
     "babel-jest": "23.4.2",
-    "babel-preset-react-native": "4.0.0",
-    "babel-runtime": "^6.26.0",
-    "casual": "^1.5.19",
+    "babel-preset-react-native": "5.0.2",
     "deep-diff": "^1.0.0",
     "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.2.0",
     "graphql-ast-tools": "^0.2.3",
-    "jest": "23.4.2",
+    "jest": "23.5.0",
     "patch-package": "^5.1.1",
     "postinstall-postinstall": "^1.0.0",
     "react-dom": "16.4.2",
+    "react-native-mock-render": "^0.1.0",
     "react-native-schemes-manager": "^1.0.4",
     "react-native-storybook-loader": "^1.8.0",
     "react-test-renderer": "16.4.2",
@@ -171,9 +172,9 @@
     "preset": "react-native",
     "transform": {
       "^.+\\.jsx?$": "<rootDir>/node_modules/babel-jest",
-      "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+      "^.+\\.tsx?$": "ts-jest"
     },
-    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(tsx?)$",
     "moduleFileExtensions": [
       "ts",
       "tsx",
@@ -182,17 +183,17 @@
       "json",
       "node"
     ],
+    "moduleNameMapper": {
+      "joi": "joi-browser"
+    },
     "testPathIgnorePatterns": [
       "\\.snap$",
-      "<rootDir>/node_modules/",
-      "<rootDir>/lib/"
+      "<rootDir>/node_modules/"
     ],
-    "transformIgnorePatterns": [
-      "/node_modules/(?!react-native-firebase)"
-    ],
+    "setupTestFrameworkScriptFile": "<rootDir>/jest.setup.ts",
     "globals": {
       "ts-jest": {
-        "useBabelrc": true
+        "tsConfigFile": "tsconfig.test.json"
       }
     }
   },

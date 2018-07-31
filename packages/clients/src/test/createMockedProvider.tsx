@@ -1,6 +1,6 @@
 import { ApolloClient } from 'apollo-client';
 import { SchemaLink } from 'apollo-link-schema';
-import { GraphQLResolveInfo } from 'graphql';
+import { GraphQLFieldResolver, GraphQLResolveInfo } from 'graphql';
 import { addMockFunctionsToSchema, makeExecutableSchema } from 'graphql-tools';
 import GraphQLJSON from 'graphql-type-json';
 import React from 'react';
@@ -32,7 +32,16 @@ class CounterMap extends Map<string, number> {
   }
 }
 
-export const createMockedProvider = (queries: QueryMap = {}, mutations: QueryMap = {}): MockedProviderStatic => {
+export interface MockedProviderOptions {
+  Query?: QueryMap;
+  Mutation?: QueryMap;
+  mocks?: {
+    [name: string]: GraphQLFieldResolver<any, any>;
+  };
+}
+
+export const createMockedProvider = (options: MockedProviderOptions = {}): MockedProviderStatic => {
+  const { Query = {}, Mutation = {}, mocks = {} } = options;
   let typeDefs: any = [];
   try {
     typeDefs = require('./typedefs').default;
@@ -84,8 +93,9 @@ export const createMockedProvider = (queries: QueryMap = {}, mutations: QueryMap
         result.setDate(result.getDate() + seq);
         return result;
       },
-      Query: () => queries,
-      Mutation: () => mutations,
+      ...mocks,
+      Query: () => Query,
+      Mutation: () => Mutation,
     },
   });
 

@@ -130,7 +130,7 @@ PODS:
     - React/Core
     - React/fishhook
     - React/RCTBlob
-  - RNFS (2.10.14):
+  - RNFS (2.11.15):
     - React
   - yoga (0.55.4.React)
 
