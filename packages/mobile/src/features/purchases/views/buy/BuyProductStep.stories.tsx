@@ -1,10 +1,10 @@
 // @ts-ignore
 import { storiesOf } from '@storybook/react-native';
+import noop from 'lodash/noop';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Paper } from 'react-native-paper';
-import { I18nProvider } from '../../../../i18n';
+import { Dialog } from 'react-native-paper';
 import { PremiumRegion, PurchaseState } from '../../types';
+import DialogBody from '../DialogBody';
 import BuyProductStep from './BuyProductStep';
 
 const region: PremiumRegion = {
@@ -16,13 +16,11 @@ const region: PremiumRegion = {
 
 storiesOf('Premium dialog: buy product step')
   .addDecorator((story: any) => (
-    <I18nProvider>
-      <View style={{ ...StyleSheet.absoluteFillObject, padding: 8, paddingTop: 64, backgroundColor: '#AAA' }}>
-        <Paper elevation={2} style={{ height: 450 }}>
-          {story()}
-        </Paper>
-      </View>
-    </I18nProvider>
+    <Dialog onDismiss={noop} visible dismissable={false}>
+      <DialogBody title="Get Georgia premium">
+        {story()}
+      </DialogBody>
+    </Dialog>
   ))
   .add('Loading product', () => (
     <BuyProductStep
@@ -85,7 +83,15 @@ storiesOf('Premium dialog: buy product step')
     <BuyProductStep
       region={region}
       state={PurchaseState.PURCHASE_SAVING_OFFLINE}
-      error={['iap:errors.savePurchaseOffline', { transactionId: 'Bg0fJ8ts99' }]}
+      error={['iap:errors.savePurchaseOffline', { transactionId: '1000000400186472 (1000000400186472)' }]}
+      price="700 RUB"
+    />
+  ))
+  .add('Saving purchase - already have', () => (
+    <BuyProductStep
+      region={region}
+      state={PurchaseState.PURCHASE_SAVING_FATAL}
+      error={['iap:errors.alreadyOwned', { transactionId: '1000000400186472 (1000000400186472)' }]}
       price="700 RUB"
     />
   ))
@@ -94,7 +100,7 @@ storiesOf('Premium dialog: buy product step')
       region={region}
       cancelable={false}
       state={PurchaseState.PURCHASE_SAVING_FATAL}
-      error={['iap:errors.savePurchase', { transactionId: 'Bg0fJ8ts99' }]}
+      error={['iap:errors.savePurchase', { transactionId: '1000000400186472 (1000000400186472)' }]}
       price="700 RUB"
     />
   ));

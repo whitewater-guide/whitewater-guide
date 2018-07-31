@@ -1,10 +1,10 @@
 // @ts-ignore
 import { storiesOf } from '@storybook/react-native';
+import noop from 'lodash/noop';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Paper } from 'react-native-paper';
-import { I18nProvider } from '../../../../i18n';
+import { Dialog } from 'react-native-paper';
 import { PremiumRegion } from '../../types';
+import DialogBody from '../DialogBody';
 import SuccessStep from './SuccessStep';
 
 const region: PremiumRegion = {
@@ -15,13 +15,11 @@ const region: PremiumRegion = {
 
 storiesOf('Premium dialog: success step')
   .addDecorator((story: any) => (
-    <I18nProvider>
-      <View style={{ ...StyleSheet.absoluteFillObject, padding: 8, paddingTop: 64, backgroundColor: '#AAA' }}>
-        <Paper elevation={2} style={{ height: 450 }}>
-          {story()}
-        </Paper>
-      </View>
-    </I18nProvider>
+    <Dialog onDismiss={noop} visible dismissable={false}>
+      <DialogBody title="Get Georgia premium">
+        {story()}
+      </DialogBody>
+    </Dialog>
   ))
   .add('Default', () => (
     <SuccessStep

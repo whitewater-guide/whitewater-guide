@@ -1,7 +1,7 @@
 import React from 'react';
 import { translate } from 'react-i18next';
-import { StyleSheet, View } from 'react-native';
-import { Button, DialogActions, DialogContent, Paragraph } from 'react-native-paper';
+import { Clipboard, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Button, DialogActions, DialogContent } from 'react-native-paper';
 import { Markdown } from '../../../../components';
 import { WithT } from '../../../../i18n';
 import theme from '../../../../theme';
@@ -21,6 +21,14 @@ const styles = StyleSheet.create({
   },
   error: {
     color: theme.colors.error,
+    fontSize: 12,
+  },
+  copy: {
+    fontFamily: Platform.select({
+      android: 'MaterialCommunityIcons',
+      ios: 'Material Design Icons',
+    }),
+    marginRight: theme.margin.single,
   },
 });
 
@@ -35,6 +43,11 @@ interface Props extends WithT {
 }
 
 class BuyProductStep extends React.PureComponent<Props> {
+  copyError = () => {
+    const { error, t } = this.props;
+    Clipboard.setString(t.apply(null, error));
+  };
+
   render() {
     const { error, onConfirm, onCancel, price, state, cancelable = true, t } = this.props;
     const confirmButtonLabel = t(`iap:buy.confirmButton.${state}`, { price });
@@ -49,16 +62,19 @@ class BuyProductStep extends React.PureComponent<Props> {
           <Markdown>
             {t('iap:buy.descriptionMd')}
           </Markdown>
-          <View style={styles.errorWrapper}>
-            {
-              error &&
-              (
-                <Paragraph style={styles.error}>
-                  {t.apply(null, error)}
-                </Paragraph>
-              )
-            }
-          </View>
+            <View style={styles.errorWrapper}>
+              {
+                error &&
+                (
+                  <TouchableOpacity onPress={this.copyError}>
+                    <Text style={styles.error}>
+                      <Text style={styles.copy}>{String.fromCharCode(61839) + ' '}</Text>
+                      {t.apply(null, error)}
+                    </Text>
+                  </TouchableOpacity>
+                )
+              }
+            </View>
         </DialogContent>
         <DialogActions>
           {

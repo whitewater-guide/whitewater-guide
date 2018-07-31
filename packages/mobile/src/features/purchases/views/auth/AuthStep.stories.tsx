@@ -1,11 +1,11 @@
 // @ts-ignore
 import { storiesOf } from '@storybook/react-native';
+import noop from 'lodash/noop';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Paper } from 'react-native-paper';
+import { Dialog } from 'react-native-paper';
 import { Provider } from 'react-redux';
 import createMockStore from 'redux-mock-store';
-import { I18nProvider } from '../../../../i18n';
+import DialogBody from '../DialogBody';
 import AuthStep from './AuthStep';
 
 const store = createMockStore()({});
@@ -17,15 +17,13 @@ const user = {
 
 storiesOf('Premium dialog: auth step')
   .addDecorator((story: any) => (
-    <I18nProvider>
-      <Provider store={store}>
-        <View style={{ ...StyleSheet.absoluteFillObject, padding: 8, paddingTop: 64, backgroundColor: '#AAA' }}>
-          <Paper elevation={2} style={{ height: 450 }}>
+      <Dialog onDismiss={noop} visible dismissable={false}>
+        <DialogBody title="Get Georgia premium">
+          <Provider store={store}>
             {story()}
-          </Paper>
-        </View>
-      </Provider>
-    </I18nProvider>
+          </Provider>
+        </DialogBody>
+      </Dialog>
   ))
   .add('Without user', () => (
     <AuthStep cancelable={false} me={null} />

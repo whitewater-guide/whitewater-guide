@@ -1,6 +1,4 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { DialogTitle } from 'react-native-paper';
 import { NavigationState, Scene, TabView } from 'react-native-tab-view';
 import { WithT } from '../../../i18n';
 import theme from '../../../theme';
@@ -8,18 +6,13 @@ import { PremiumRegion, PurchaseDialogStep } from '../types';
 import AlreadyHaveStep from './already-have';
 import AuthStep from './auth';
 import BuyProductStep from './buy';
+import DialogBody from './DialogBody';
 import SuccessStep from './success';
 
 const initialLayout = {
   width: theme.screenWidth,
   height: 0,
 };
-
-const styles = StyleSheet.create({
-  root: {
-    minHeight: 460,
-  },
-});
 
 interface Key {
   key: PurchaseDialogStep;
@@ -91,8 +84,7 @@ export class PremiumDialogView extends React.PureComponent<Props, State> {
       return null;
     }
     return (
-      <View style={styles.root}>
-        <DialogTitle>{t('iap:dialog.title', { region: region.name })}</DialogTitle>
+      <DialogBody title={t('iap:dialog.title', { region: region.name })}>
         <TabView
           navigationState={this.state}
           renderScene={this.renderScene}
@@ -101,7 +93,7 @@ export class PremiumDialogView extends React.PureComponent<Props, State> {
           renderTabBar={this.renderTabBar}
           swipeEnabled={false}
         />
-      </View>
+      </DialogBody>
     );
   }
 }

@@ -1,4 +1,4 @@
-import { buyProductWithoutFinishTransaction, prepare } from 'react-native-iap';
+import { buyProduct as buy, prepare } from 'react-native-iap';
 import { call } from 'redux-saga/effects';
 import { trackError } from '../../../core/errors';
 import { BuyProductResult } from '../types';
@@ -7,7 +7,7 @@ export function *buyProduct(sku: string) {
   const result: BuyProductResult = {};
   try {
     yield call(prepare);
-    result.purchase = yield call(buyProductWithoutFinishTransaction, sku);
+    result.purchase = yield call(buy, sku);
   } catch (e) {
     // Error examples
     // android.test.item_unavailable: { code: 'E_ITEM_UNAVAILABLE', message: 'That item is unavailable.'}
@@ -25,4 +25,8 @@ export function *buyProduct(sku: string) {
     }
   }
   return result;
+}
+
+export function *restorePurchase(sku: string) {
+
 }
