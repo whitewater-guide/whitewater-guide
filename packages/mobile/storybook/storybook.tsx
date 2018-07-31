@@ -1,10 +1,20 @@
 // @ts-ignore
-import { configure, getStorybookUI } from '@storybook/react-native';
+import { addDecorator, configure, getStorybookUI } from '@storybook/react-native';
 import React from 'react';
 import { AppRegistry } from 'react-native';
+import { Provider as PaperProvider } from 'react-native-paper';
 import SplashScreen from 'react-native-splash-screen';
+import { I18nProvider } from '../src/i18n';
 // @ts-ignore
 import { loadStories } from './storyLoader';
+
+addDecorator((story: any) => (
+  <I18nProvider>
+    <PaperProvider>
+      {story()}
+    </PaperProvider>
+  </I18nProvider>
+));
 
 // import stories
 configure(() => loadStories(), module);

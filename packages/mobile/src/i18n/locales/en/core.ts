@@ -1,9 +1,11 @@
 import auth from './auth';
 import iap from './iap';
+import offline from './offline';
 
 export default {
   auth,
   iap,
+  offline,
   commons: {
     putIn: 'Put-in',
     takeOut: 'Take-out',

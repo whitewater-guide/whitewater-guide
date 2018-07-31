@@ -98,6 +98,7 @@ const theme = {
     half: 4,
     single: 8,
     double: 16,
+    triple: 24,
   },
   rowHeight: 48,
   navigationStyles,

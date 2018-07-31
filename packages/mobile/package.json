@@ -1,6 +1,6 @@
 {
   "name": "whitewater",
-  "version": "1.5.3-18",
+  "version": "1.5.3-22",
   "private": true,
   "scripts": {
     "postinstall": "./postinstall.sh",
@@ -33,6 +33,7 @@
     "apollo-link-error": "^1.0.7",
     "apollo-link-http": "^1.5.3",
     "axios": "^0.18.0",
+    "byte-size": "^4.0.3",
     "cron-parser": "^2.6.0",
     "d3-scale": "^2.1.2",
     "es6-symbol": "^3.1.1",
