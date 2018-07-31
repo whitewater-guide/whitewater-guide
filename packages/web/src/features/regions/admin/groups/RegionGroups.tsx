@@ -30,8 +30,8 @@ export class RegionGroups extends React.PureComponent<Props> {
     return (
       <div style={styles.container}>
         <ChipList
-          options={allGroups}
-          values={regionGroups}
+          options={allGroups.nodes || []}
+          values={regionGroups.nodes || []}
           onRequestAdd={this.onAdd}
           onRequestDelete={this.onDelete}
           title="Группы"

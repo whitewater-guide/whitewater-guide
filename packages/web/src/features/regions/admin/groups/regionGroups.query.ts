@@ -1,16 +1,20 @@
 import gql from 'graphql-tag';
-import { Group } from '../../../../ww-commons';
+import { Connection, Group } from '../../../../ww-commons';
 
 export const REGION_GROUPS_QUERY = gql`
   query regionGroups($regionId: ID!) {
     regionGroups: groups(regionId: $regionId) {
-      id
-      name
+      nodes {
+        id
+        name
+      }
     }
 
     allGroups: groups {
-      id
-      name
+      nodes {
+        id
+        name
+      }
     }
   }
 `;
@@ -20,13 +24,13 @@ export interface RegionGroupsVars {
 }
 
 export interface RegionGroupsResult {
-  regionGroups: Group[];
-  allGroups: Group[];
+  regionGroups: Connection<Group>;
+  allGroups: Connection<Group>;
 }
 
 export interface RegionGroupsQueryProps {
-  regionGroups: Group[];
-  allGroups: Group[];
+  regionGroups: Connection<Group>;
+  allGroups: Connection<Group>;
   groupsLoading: boolean;
 }
 
