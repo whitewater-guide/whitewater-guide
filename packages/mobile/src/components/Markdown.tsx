@@ -1,6 +1,6 @@
 import Attributes from 'markdown-it-attrs';
 import React from 'react';
-import { StyleProp, StyleSheet, Text } from 'react-native';
+import { Platform, StyleProp, StyleSheet, Text } from 'react-native';
 import SimpleMarkdown, { getUniqueID, PluginContainer, RenderRules } from 'react-native-markdown-renderer';
 import theme from '../theme';
 import { ColorStrings } from '../ww-clients/features/sections';
@@ -31,6 +31,18 @@ const styles: TStyle = StyleSheet.create({
   },
   level5: {
     color: ColorStrings.impossible,
+  },
+  listUnorderedItemIcon: {
+    marginLeft: 10,
+    marginRight: 10,
+    ...Platform.select({
+      ios: {
+        lineHeight: 36,
+      },
+      android: {
+        lineHeight: 40,
+      },
+    }),
   },
 });
 
