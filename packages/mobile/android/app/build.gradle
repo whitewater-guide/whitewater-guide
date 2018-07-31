@@ -178,6 +178,7 @@ android {
 }
 
 dependencies {
+    compile 'com.android.support:multidex:1.0.3'
     compile project(':react-native-fs')
     compile project(':react-native-iap')
     compile project(':react-native-linear-gradient')
