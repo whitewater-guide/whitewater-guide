@@ -1,8 +1,8 @@
-import { endConnection, getAvailablePurchases, getProducts, prepare, Product, Purchase } from 'react-native-iap';
+import { endConnection, getProducts, prepare, Product } from 'react-native-iap';
 import { call } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
 import { trackError } from '../../../core/errors';
-import { PurchaseState, RestorableProduct } from '../types';
+import { PurchaseState } from '../types';
 import update from './update';
 
 export function* watchFetchProduct(action: Action<string>) {
@@ -16,20 +16,11 @@ export function* watchFetchProduct(action: Action<string>) {
 }
 
 function* fetchProduct(sku: string) {
-  let product: RestorableProduct | null = null;
+  let product: Product | null = null;
   try {
     yield call(prepare);
     const products: Product[] = yield call(getProducts, [sku]);
-    product = products[0];
-    const availablePurchases: Purchase[] = yield call(getAvailablePurchases);
-    for (const purchase of availablePurchases) {
-      if (purchase.productId === sku) {
-        // originalTransactionIdentifier is not in typedefs
-        // @ts-ignore
-        product.transactionId = purchase.originalTransactionIdentifier;
-        break;
-      }
-    }
+    product = products[0] || null;
   } catch (e) {
     trackError('iap', e);
   } finally {

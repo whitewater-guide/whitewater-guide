@@ -1,11 +1,10 @@
 import { ProductPurchase } from 'react-native-iap';
-import { call, put, race, select, take } from 'redux-saga/effects';
+import { call, put, race, take } from 'redux-saga/effects';
 import { Action, isType } from 'typescript-fsa';
 import { auth } from '../../../core/auth';
-import { RootState } from '../../../core/reducers';
 import { purchaseActions } from '../actions';
-import { BuyProductResult, PurchaseState, RefreshPremiumResult, RestorableProduct, SavePurchaseResult } from '../types';
-import { buyProduct } from './buyProduct';
+import { BuyProductResult, PurchaseError, PurchaseState, RefreshPremiumResult, SavePurchaseResult } from '../types';
+import { buyOrRestoreProduct } from './buyOrRestoreProduct';
 import { finishPurchase } from './finishPurchase';
 import { refreshPremium } from './refreshPremium';
 import savePurchase from './savePurchase';
@@ -25,34 +24,16 @@ export function* watchBuyProduct(action: Action<string>) {
     case RefreshPremiumResult.NOT_LOGGED_IN:
       yield update({ state: PurchaseState.IDLE, dialogStep: 'Auth' });
       return;
+    case RefreshPremiumResult.AVAILABLE:
+      // make it clear that we continue below
+      break;
   }
 
-  // Step 2: If user is logged in on iOS, and our backend says that he doesn't own this product, but
-  // react-native-iap says that he owns it (via restore purchases mechanism)
-  // TODO: better approach would be to use restored purchase as secondary source of truth
-  // this will require backend to always send description
-  const product: (RestorableProduct | null) = yield select((state: RootState) => state.purchase.product);
-  if (product && product.transactionId) {
-    yield update({
-      error: ['iap:errors.alreadyOwned', { transactionId: product.transactionId }],
-      state: PurchaseState.PURCHASE_SAVING_FATAL,
-    });
-    yield call(finishPurchase);
-    return;
-  }
-
-  // Step 3: Purchase product via react-native-iap
+  // Step 2: Purchase product via react-native-iap
   yield update({ state: PurchaseState.PRODUCT_PURCHASING });
-  const { purchase, canceled, alreadyOwned }: BuyProductResult = yield call(buyProduct, action.payload);
+  const { purchase, canceled, alreadyOwned }: BuyProductResult = yield call(buyOrRestoreProduct, action.payload);
   if (canceled) {
     yield update({ error: null, state: PurchaseState.IDLE });
-    yield call(finishPurchase);
-    return;
-  } else if (alreadyOwned) {
-    yield update({
-      error: ['iap:errors.alreadyOwned', { transactionId: product ? product.transactionId : undefined }],
-      state: PurchaseState.PURCHASE_SAVING_FATAL,
-    });
     yield call(finishPurchase);
     return;
   } else if (!purchase) {
@@ -61,16 +42,22 @@ export function* watchBuyProduct(action: Action<string>) {
     return;
   }
 
-  // Step 4: validate purchase (save transaction to backend)
+  // Step 3: validate purchase (save transaction to backend)
+  // it might be restored (in this case alreadyOwned === true)
   yield update({ state: PurchaseState.PURCHASE_SAVING });
   const saveResult = yield call(savePurchase, purchase);
   switch (saveResult) {
+    // Fatal failure: e.g. this transaction is already used by different user
     case SavePurchaseResult.ERROR:
-      // Fatal failure: e.g. this transaction is already used by different user
-      yield update({
-        error: ['iap:errors.savePurchase', { transactionId: purchase.transactionId }],
-        state: PurchaseState.PURCHASE_SAVING_FATAL,
-      });
+      // @ts-ignore
+      const originalTransactionId = purchase.originalTransactionIdentifier || purchase.originalTransactionIdentifierIOS;
+      const error: PurchaseError = [
+        alreadyOwned ? 'iap:errors.alreadyOwned' : 'iap:errors.savePurchase',
+        {
+          transactionId: purchase.transactionId + (originalTransactionId ? `(${originalTransactionId})` : ''),
+        },
+      ];
+      yield update({ error, state: PurchaseState.PURCHASE_SAVING_FATAL });
       break;
     case SavePurchaseResult.SUCCESS:
       yield update({ state: PurchaseState.IDLE, dialogStep: 'Success' });

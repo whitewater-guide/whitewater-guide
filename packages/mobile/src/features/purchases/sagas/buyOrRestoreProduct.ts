@@ -1,9 +1,9 @@
-import { buyProduct as buy, prepare } from 'react-native-iap';
+import { buyProduct as buy, getAvailablePurchases, prepare, Purchase } from 'react-native-iap';
 import { call } from 'redux-saga/effects';
 import { trackError } from '../../../core/errors';
 import { BuyProductResult } from '../types';
 
-export function *buyProduct(sku: string) {
+export function *buyOrRestoreProduct(sku: string) {
   const result: BuyProductResult = {};
   try {
     yield call(prepare);
@@ -19,6 +19,10 @@ export function *buyProduct(sku: string) {
       result.canceled = true;
     } else if (e.code === 'E_ALREADY_OWNED') {
       result.alreadyOwned = true;
+      const purchase = yield call(restorePurchase, sku);
+      if (purchase) {
+        result.purchase = purchase;
+      }
     } else {
       trackError('iap', e);
       result.errorCode = e.code;
@@ -28,5 +32,11 @@ export function *buyProduct(sku: string) {
 }
 
 export function *restorePurchase(sku: string) {
-
+  const availablePurchases: Purchase[] = yield call(getAvailablePurchases);
+  for (const purchase of availablePurchases) {
+    if (purchase.productId === sku) {
+      return purchase;
+    }
+  }
+  return null;
 }

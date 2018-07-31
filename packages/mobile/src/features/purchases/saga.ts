@@ -1,5 +1,5 @@
 import { Platform } from 'react-native';
-import { consumeAllItems, endConnection, prepare } from 'react-native-iap';
+import { endConnection, prepare } from 'react-native-iap';
 import { offlineActionTypes } from 'react-native-offline';
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
@@ -16,13 +16,11 @@ export function* purchasesSaga() {
     ((action: Action<boolean>) => action.type === offlineActionTypes.CONNECTION_CHANGE && action.payload) as any,
     watchRetryOfflinePurchases,
   );
-  // Android: all items are consumables
   try {
     const prepareResult = yield call(prepare);
     if (Platform.OS === 'ios' && !(prepareResult === 'true' || prepareResult === true)) {
       yield put(purchaseActions.update({ canMakePayments: false }));
     }
-    yield call(consumeAllItems);
     yield call(endConnection);
   } catch (e) {
     trackError('iap', e);

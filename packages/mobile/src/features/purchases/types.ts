@@ -36,17 +36,13 @@ export interface PurchaseDialogData {
   sectionId?: string;
 }
 
-export interface RestorableProduct extends Product {
-  transactionId?: string;
-}
-
 export interface PurchaseStore {
   canMakePayments: boolean;
   dialogOpen: boolean;
   dialogStep: PurchaseDialogStep;
   dialogData: PurchaseDialogData | null;
   state: PurchaseState;
-  product: RestorableProduct | null;
+  product: Product | null;
   error: [string] | [string, { [key: string]: string | undefined }] | null;
   offlinePurchases: ProductPurchase[];
 }
@@ -55,12 +51,14 @@ export interface OpenDialogPayload extends PurchaseDialogData {
   dialogOpen?: boolean; // false for buy premium panel
 }
 
+export type PurchaseError = string | [string, { [key: string]: string | undefined }] | null;
+
 export interface UpdatePurchasePayload {
   canMakePayments?: boolean;
   dialogStep?: PurchaseDialogStep;
   state?: PurchaseState;
-  product?: RestorableProduct | null;
-  error?: string | [string, { [key: string]: string | undefined }] | null;
+  product?: Product | null;
+  error?: PurchaseError;
 }
 
 export interface RemoveOfflinePurchasePayload {
