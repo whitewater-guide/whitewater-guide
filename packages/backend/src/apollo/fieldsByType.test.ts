@@ -37,6 +37,7 @@ it('should be correct for simple query', async () => {
     me {
       id
       firstName
+      __typename
     }
   }`;
   await graphql(schema, query);
@@ -51,6 +52,7 @@ it('should be correct for query with lists', async () => {
     people {
       id
       firstName
+      __typename
     }
   }`;
   await graphql(schema, query);
@@ -65,10 +67,12 @@ it('should be correct for query with multiple root-level resolvers', async () =>
     me {
       id
       lastName
+      __typename
     }
     people {
       id
       firstName
+      __typename
     }
   }`;
   await graphql(schema, query);
@@ -89,8 +93,11 @@ it('should be correct for query with deep nesting', async () => {
           id
           firstName
           lastName
+          __typename
         }
+        __typename
       }
+      __typename
     }
   }`;
   await graphql(schema, query);
@@ -110,8 +117,11 @@ it('should be correct for query with named fragments', async () => {
         id
         author {
           ...PersonCore
+          __typename
         }
+        __typename
       }
+      __typename
     }
   }
 
@@ -134,6 +144,7 @@ it('should return correct result for simple mutation', async () => {
     addBook {
       id
       firstName
+      __typename
     }
   }`;
   const { errors } = await graphql(schema, mutation);
@@ -148,6 +159,7 @@ it('should return correct result for mutation with fragments', async () => {
   const mutation = `mutation addBook {
     addBook {
       ...PersonCore
+      __typename
     }
   }
 

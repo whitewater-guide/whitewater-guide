@@ -24,6 +24,9 @@ const unwrap = (type: GraphQLOutputType): GraphQLNamedType =>
   isWrappingType(type) ? unwrap(type.ofType) : type;
 
 const inspectField = (field: FieldNode, type: GraphQLNamedType, fragments: Fragments, acc: Acc) => {
+  if (field.name.value === '__typename') {
+    return;
+  }
   const typeFields: Set<string> = acc.get(type.name) || acc.set(type.name, new Set<string>()).get(type.name)!;
   typeFields.add(field.name.value);
   if (!isObjectType(type)) {
