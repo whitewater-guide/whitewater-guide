@@ -1,15 +1,18 @@
 import React from 'react';
 import { InteractionManager, LayoutChangeEvent, PermissionsAndroid, Platform, StyleSheet, View } from 'react-native';
 import RNMapView, { Region as MapsRegion } from 'react-native-maps';
+import { connect } from 'react-redux';
+import { RootState } from '../../core/reducers';
 import { MapBody, MapComponentProps, MapProps } from '../../ww-clients/features/maps';
 import {
   computeDistanceBetween,
   computeOffset,
   getBBox,
   getBoundsDeltaRegion,
-  getBoundsZoomLevel
+  getBoundsZoomLevel,
 } from '../../ww-clients/utils';
 import { Coordinate } from '../../ww-commons/features/points';
+import LayersIcon from './LayersIcon';
 import { SimplePOI } from './SimplePOI';
 import { SimpleSection } from './SimpleSection';
 
@@ -25,7 +28,11 @@ interface State {
   showMyLocationAndroidWorkaround: boolean;
 }
 
-export class MapView extends React.PureComponent<MapComponentProps, State> {
+interface Props extends MapComponentProps {
+  mapType?: string;
+}
+
+class MapView extends React.PureComponent<Props, State> {
   _map: RNMapView | null = null;
   _mapLaidOut: boolean = false;
   _mapReady: boolean = false;
@@ -143,6 +150,7 @@ export class MapView extends React.PureComponent<MapComponentProps, State> {
 
   render() {
     const mapStyle = this.state.showMyLocationAndroidWorkaround ? StyleSheet.absoluteFill : styles.initialMapStyle;
+    const mapType: any = this.props.mapType || 'standard';
     return (
       <View style={StyleSheet.absoluteFill} pointerEvents="box-none">
         <RNMapView
@@ -150,6 +158,7 @@ export class MapView extends React.PureComponent<MapComponentProps, State> {
           showsMyLocationButton
           showsCompass
           showsScale
+          mapType={mapType}
           ref={this.setMapRef}
           rotateEnabled={false}
           pitchEnabled={false}
@@ -167,9 +176,16 @@ export class MapView extends React.PureComponent<MapComponentProps, State> {
         >
           {this.props.children}
         </RNMapView>
+        <LayersIcon />
       </View>
     );
   }
 }
 
-export const Map: React.ComponentType<MapProps> = MapBody(MapView, SimpleSection, SimplePOI);
+const MapViewWithLayer = connect(
+  (state: RootState) => ({
+    mapType: state.settings.mapType,
+  }),
+)(MapView);
+
+export const Map: React.ComponentType<MapProps> = MapBody(MapViewWithLayer, SimpleSection, SimplePOI);

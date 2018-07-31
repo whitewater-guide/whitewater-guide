@@ -8,8 +8,8 @@ import { appReducer, AppState } from './appReducer';
 import { settingsReducer, SettingsState } from './settingsReducer';
 
 export interface RootState {
-  app: AppState;
-  settings: SettingsState;
+  app: AppState; // transient app state
+  settings: SettingsState; // persistent app state
   purchase: PurchaseStore;
   network: {
     isConnected: boolean;

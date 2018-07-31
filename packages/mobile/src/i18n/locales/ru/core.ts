@@ -75,6 +75,13 @@ export default {
         details: 'Подробнее',
         flows: 'Уровни',
       },
+      layers: {
+        prompt: 'Выберите слой',
+        standard: 'Стандарт',
+        terrain: 'Топография',
+        satellite: 'Спутник',
+        hybrid: 'Карта + спутник',
+      },
     },
     sections: {
       title: 'Секции',

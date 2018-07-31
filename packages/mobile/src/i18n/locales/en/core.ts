@@ -75,6 +75,13 @@ export default {
         details: 'Details',
         flows: 'Flows',
       },
+      layers: {
+        prompt: 'Please select layer',
+        standard: 'Standard',
+        terrain: 'Terrain',
+        satellite: 'Satellite',
+        hybrid: 'Hybrid',
+      },
     },
     sections: {
       title: 'Sections',
