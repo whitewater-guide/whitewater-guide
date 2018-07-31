@@ -1,3 +1,4 @@
+import { Overwrite } from 'type-zoo';
 import { NamedNode, Node } from '../../core';
 import { Group } from '../groups';
 import { Region } from '../regions';
@@ -45,11 +46,13 @@ export interface BannerInput {
   placement: BannerPlacement;
   source: BannerSource;
   link: string | null;
-  extras: any;
+  extras: {[key: string]: any} | null;
   // --- connections
   regions: Node[];
   groups: Node[];
 }
+
+export type BannerFormInput = Overwrite<BannerInput, { extras: string | null }>;
 
 export function isBanner(node: Node): node is Banner {
   return node.__typename === 'Banner';

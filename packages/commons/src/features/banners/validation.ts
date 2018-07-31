@@ -20,7 +20,7 @@ const BannerSourceStruct = struct.object({
   src: 'nonEmptyString',
 });
 
-export const BannerInputStruct = struct.object({
+const BannerInputFields = {
   id: 'uuid|null',
   slug: 'slug',
   name: 'nonEmptyString',
@@ -32,4 +32,10 @@ export const BannerInputStruct = struct.object({
   extras: 'object|null',
   regions: ['node'],
   groups: ['node'],
+};
+
+export const BannerInputStruct = struct.object(BannerInputFields);
+export const BannerFormStruct = struct.object({
+  ...BannerInputFields,
+  extras: 'jsonString|null',
 });

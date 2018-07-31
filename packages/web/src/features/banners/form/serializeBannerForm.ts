@@ -1,10 +1,13 @@
 import { serializeForm } from '../../../components/forms';
-import { BannerInput } from '../../../ww-commons';
+import { BannerFormInput } from '../../../ww-commons';
 
 const serializer = serializeForm([], [], ['regions', 'groups']);
 
-const serializeBannerForm = (input: BannerInput) => {
-  return serializer(input);
+const serializeBannerForm = (input: BannerFormInput) => {
+  return {
+    ...serializer(input),
+    extras: input.extras ? JSON.parse(input.extras) : null,
+  };
 };
 
 export default serializeBannerForm;

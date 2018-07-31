@@ -1,7 +1,7 @@
 import { compose, mapProps } from 'recompose';
 import { formContainer } from '../../../components/forms';
 import { withFeatureIds } from '../../../ww-clients/core';
-import { BannerInput, BannerInputStruct, BannerKind, BannerPlacement } from '../../../ww-commons';
+import { BannerInput, BannerFormStruct, BannerKind, BannerPlacement } from '../../../ww-commons';
 import BANNER_FORM_QUERY from './bannerForm.query';
 import deserializeBannerForm from './deserializeBannerForm';
 import serializeBannerForm from './serializeBannerForm';
@@ -34,7 +34,7 @@ const bannerForm = formContainer({
   mutation: UPSERT_BANNER,
   serializeForm: serializeBannerForm,
   deserializeForm: deserializeBannerForm,
-  validationSchema: BannerInputStruct,
+  validationSchema: BannerFormStruct,
 });
 
 export default compose<BannerFormProps, {}>(
