@@ -1,14 +1,12 @@
 import { action } from '@storybook/addon-actions';
-
 // @ts-ignore
 import { storiesOf } from '@storybook/react-native';
 import noop from 'lodash/noop';
 import React from 'react';
 import { Dialog } from 'react-native-paper';
-import { NamedNode } from '../../ww-commons/core';
-import { RegionMediaSummary } from '../../ww-commons/features/regions';
-import OfflineDialogView from './OfflineDialogView';
-import { OfflineProgress } from './types';
+import { NamedNode, RegionMediaSummary } from '../../../ww-commons';
+import { OfflineProgress } from '../types';
+import OfflineContentDialogView from './OfflineContentDialogView';
 
 const region: NamedNode = {
   id: '1111',
@@ -47,13 +45,13 @@ storiesOf('Offline dialog')
     </Dialog>
   ))
   .add('Offline', () => (
-    <OfflineDialogView region={region} progress={progress} isConnected={false} />
+    <OfflineContentDialogView region={region} progress={progress} isConnected={false} />
   ))
   .add('Loading summary', () => (
-    <OfflineDialogView region={region} progress={progress} isLoadingSummary />
+    <OfflineContentDialogView region={region} progress={progress} isLoadingSummary />
   ))
   .add('Ready', () => (
-    <OfflineDialogView
+    <OfflineContentDialogView
       region={region}
       progress={progress}
       summary={summary}
@@ -62,8 +60,8 @@ storiesOf('Offline dialog')
     />
   ))
   .add('In progress (full)', () => (
-    <OfflineDialogView region={region} progress={progress} summary={summary} inProgress />
+    <OfflineContentDialogView region={region} progress={progress} summary={summary} inProgress />
   ))
   .add('In progress (partial)', () => (
-    <OfflineDialogView region={region} progress={progressPartial} summary={summary} inProgress />
+    <OfflineContentDialogView region={region} progress={progressPartial} summary={summary} inProgress />
   ));

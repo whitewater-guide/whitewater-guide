@@ -2,12 +2,12 @@ import React from 'react';
 import { translate } from 'react-i18next';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { Button, Caption, DialogActions, DialogTitle } from 'react-native-paper';
-import { OfflineQueryPlaceholder } from '../../components';
-import { WithT } from '../../i18n';
-import theme from '../../theme';
-import { NamedNode, RegionMediaSummary } from '../../ww-commons';
+import { OfflineQueryPlaceholder } from '../../../components';
+import { WithT } from '../../../i18n';
+import theme from '../../../theme';
+import { OfflineCategorySelection, OfflineCategoryType } from '../types';
 import OfflineCategory from './OfflineCategory';
-import { OfflineCategorySelection, OfflineCategoryType, OfflineProgress } from './types';
+import { InnerProps } from './types';
 
 const styles = StyleSheet.create({
   categoriesContainer: {
@@ -26,22 +26,13 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Props extends WithT {
-  region: NamedNode | null;
-  summary?: RegionMediaSummary | null;
-  inProgress?: boolean;
-  progress: OfflineProgress;
-  isConnected?: boolean;
-  isLoadingSummary?: boolean;
-  onDismiss?: () => void;
-  onDownload?: (selection: OfflineCategorySelection) => void;
-}
+type Props = InnerProps & WithT;
 
 interface State {
   selection: OfflineCategorySelection;
 }
 
-class OfflineDialogView extends React.PureComponent<Props, State> {
+class OfflineContentDialogView extends React.PureComponent<Props, State> {
   readonly state: State = {
     selection: {
       data: true,
@@ -149,4 +140,4 @@ class OfflineDialogView extends React.PureComponent<Props, State> {
   }
 }
 
-export default translate()(OfflineDialogView);
+export default translate()(OfflineContentDialogView);

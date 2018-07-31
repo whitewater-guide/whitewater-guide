@@ -69,15 +69,17 @@ interface Props extends WithT {
   onPress: (region: Region) => void;
   onPremiumPress: (region: Region) => void;
   canMakePayments: boolean;
+  openDownloadDialog: (region: Region) => void;
+  regionInProgress: string | null;
 }
 
 export class RegionCard extends React.PureComponent<Props> {
   onPress = () => this.props.onPress(this.props.region);
   onPremiumPress = () => this.props.onPremiumPress(this.props.region);
   onDownloadPress = () => {
-    const { region, onPremiumPress } = this.props;
-    if (region.hasPremiumAccess) {
-      // nothing
+    const { region, onPremiumPress, openDownloadDialog } = this.props;
+    if (!region.premium || region.hasPremiumAccess) {
+      openDownloadDialog(region);
     } else {
       onPremiumPress(region);
     }

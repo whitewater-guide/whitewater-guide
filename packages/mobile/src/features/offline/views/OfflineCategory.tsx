@@ -1,9 +1,9 @@
+import byteSize from 'byte-size';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Caption, Checkbox, Paragraph, ProgressBar, TouchableRipple } from 'react-native-paper';
-import theme from '../../theme';
-import byteSize from 'byte-size';
-import { OfflineCategoryType } from './types';
+import theme from '../../../theme';
+import { OfflineCategoryType } from '../types';
 
 const styles = StyleSheet.create({
   label: {

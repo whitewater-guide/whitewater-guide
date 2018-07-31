@@ -26,5 +26,12 @@ export const offlineContentReducer = (state = initialState, action: AnyAction) =
     return { ...state, summary: action.payload };
   }
 
+  if (isType(action, offlineContentActions.finishDownload)) {
+    return { ...state, progress: {}, regionInProgress: null, summary: null };
+  }
+
   return state;
 };
+
+// re-export
+export { OfflineContentStore } from './types';

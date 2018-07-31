@@ -13,6 +13,7 @@ import {
 import { Drawer } from './components';
 import { renderHeader } from './components/header';
 import { navigationChannel } from './core/sagas';
+import { OfflineContentDialog } from './features/offline';
 import { PremiumDialog } from './features/purchases';
 import {
   FilterScreen,
@@ -85,6 +86,7 @@ class RootNavigatorView extends React.PureComponent<Props> {
             <View style={StyleSheet.absoluteFill}>
               <Navigator navigation={navigation as any} />
               <PremiumDialog />
+              <OfflineContentDialog />
             </View>
           </Drawer>
         </PaperProvider>

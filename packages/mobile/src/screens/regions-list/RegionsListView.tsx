@@ -30,6 +30,8 @@ class RegionsListView extends React.PureComponent<InnerProps> {
       t={this.props.t}
       onPremiumPress={this.props.buyRegion}
       canMakePayments={this.props.canMakePayments}
+      openDownloadDialog={this.props.openDownloadDialog}
+      regionInProgress={this.props.regionInProgress}
     />
   );
 
