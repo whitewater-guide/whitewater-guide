@@ -43,7 +43,7 @@ func initStorage() {
   }).Info("starting storage...")
   switch *cacheManager {
   case "redis":
-    initRedis()
+    cache = NewRedisCacheManager()
   case "inmemory":
     cache = NewInmemoryDB()
   default:
@@ -52,7 +52,7 @@ func initStorage() {
 
   switch *databaseManager {
   case "postgres":
-    initPg()
+    database = NewPostgresManager()
   case "inmemory":
     database = NewInmemoryDB()
   default:

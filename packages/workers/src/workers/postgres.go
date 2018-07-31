@@ -10,9 +10,12 @@ import (
 	"time"
 )
 
-var pg *sqlx.DB
+type PostgresManager struct {
+	pg *sqlx.DB
+}
 
-func initPg() {
+func NewPostgresManager() *PostgresManager {
+	manager := &PostgresManager{}
 	pgHost := os.Getenv("POSTGRES_HOST")
 	if pgHost == "" {
 		pgHost = "db"
@@ -23,13 +26,14 @@ func initPg() {
 		pgHost,
 		os.Getenv("POSTGRES_DB"),
 	)
-	var err error
-	pg, err = getPostgres(pgConnStr, 2, 60)
+	pg, err := getPostgres(pgConnStr, 2, 60)
 	if err != nil {
 		logrus.WithFields(logrus.Fields{
 			"pgConnStr": pgConnStr,
 		}).Fatal("failed to init postgres")
 	}
+	manager.pg = pg
+	return manager
 }
 
 /**
@@ -51,7 +55,7 @@ func getPostgres(pgConnStr string, timeout, retries int64) (*sqlx.DB, error) {
 	return pg, nil
 }
 
-func saveMeasurements(measurements []core.Measurement) (int, error) {
+func (self PostgresManager) SaveMeasurements(measurements []core.Measurement) (int, error) {
 	query := "INSERT INTO measurements (timestamp, script, code, flow, level) VALUES"
 	count := 0
 	for _, m := range measurements {
@@ -66,7 +70,7 @@ func saveMeasurements(measurements []core.Measurement) (int, error) {
 		return 0, nil
 	}
 	query = query[:len(query)-1] + " ON CONFLICT DO NOTHING"
-	result, err := pg.Exec(query)
+	result, err := self.pg.Exec(query)
 	if err != nil {
 		return 0, err
 	}

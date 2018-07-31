@@ -1,143 +1,147 @@
 package main
 
 import (
-	"core"
-	"encoding/json"
-	"fmt"
-	"github.com/gomodule/redigo/redis"
-	"github.com/sirupsen/logrus"
-	"log"
-	"os"
-	"time"
+  "core"
+  "encoding/json"
+  "fmt"
+  "github.com/gomodule/redigo/redis"
+  "github.com/sirupsen/logrus"
+  "log"
+  "os"
+  "time"
 )
 
-var pool *redis.Pool
+type RedisCacheManager struct {
+  pool *redis.Pool
+}
 
 const (
-	LastOpNS           = "lastOp"           // Status of last harvest operation, success, count, error per source and gauge
-	LastMeasurementsNs = "lastMeasurements" // Last timestamp, flow, level per gauge
+  LastOpNS           = "lastOp"           // Status of last harvest operation, success, count, error per source and gauge
+  LastMeasurementsNs = "lastMeasurements" // Last timestamp, flow, level per gauge
 )
 
-func initRedis() {
-	redisHost := os.Getenv("REDIS_HOST")
-	if redisHost == "" {
-		redisHost = "redis"
-	}
-	redisPort := os.Getenv("REDIS_PORT")
-	if redisPort == "" {
-		redisPort = "6379"
-	}
+func NewRedisCacheManager() *RedisCacheManager {
+  manager := &RedisCacheManager{}
+  redisHost := os.Getenv("REDIS_HOST")
+  if redisHost == "" {
+    redisHost = "redis"
+  }
+  redisPort := os.Getenv("REDIS_PORT")
+  if redisPort == "" {
+    redisPort = "6379"
+  }
 
-	pool = &redis.Pool{
-		MaxIdle:     3,
-		IdleTimeout: 240 * time.Second,
-		Dial: func() (redis.Conn, error) {
-			conn, err := redis.Dial("tcp", fmt.Sprintf("%s:%s", redisHost, redisPort))
-			if err != nil && logrus.GetLevel() == logrus.DebugLevel {
-				logger := logrus.New()
-				conn = redis.NewLoggingConn(conn, log.New(logger.Writer(), "", 0), "redis")
-			}
-			return conn, err
-		},
-	}
+  manager.pool = &redis.Pool{
+    MaxIdle:     3,
+    IdleTimeout: 240 * time.Second,
+    Dial: func() (redis.Conn, error) {
+      conn, err := redis.Dial("tcp", fmt.Sprintf("%s:%s", redisHost, redisPort))
+      if err != nil && logrus.GetLevel() == logrus.DebugLevel {
+        logger := logrus.New()
+        conn = redis.NewLoggingConn(conn, log.New(logger.Writer(), "", 0), "redis")
+      }
+      return conn, err
+    },
+  }
 
-	//conn := pool.Get()
-	//defer conn.Close()
-	//_, err := conn.Do("PING")
-	//
-	//if err != nil {
-	//  logrus.Fatalf("redis pool failed to init at %s:%s", redisHost, redisPort)
-	//}
+  //conn := pool.Get()
+  //defer conn.Close()
+  //_, err := conn.Do("PING")
+  //
+  //if err != nil {
+  //  logrus.Fatalf("redis pool failed to init at %s:%s", redisHost, redisPort)
+  //}
 
-	logrus.Infof("redis pool initialized at %s:%s", redisHost, redisPort)
+  logrus.Infof("redis pool initialized at %s:%s", redisHost, redisPort)
+  return manager
 }
 
-func saveOpLog(script, code string, err error, count int) {
-	conn := pool.Get()
-	defer conn.Close()
-	key := fmt.Sprintf("%s:%s", LastOpNS, script)
-	stats := map[string]interface{}{
-		"timestamp": time.Now().UTC().Format(time.RFC3339),
-	}
-	if err == nil {
-		stats["success"] = true
-		stats["count"] = count
-	} else {
-		stats["success"] = false
-		stats["error"] = err.Error()
-	}
-	bytes, e := json.Marshal(stats)
-	if e != nil {
-		logrus.WithFields(logrus.Fields{
-			"script": script,
-			"code":   code,
-			"error":  e.Error(),
-			"count":  count,
-		}).Warn("failed to write redis last op")
-		return
-	}
+func (self RedisCacheManager) SaveOpLog(script, code string, err error, count int) {
+  conn := self.pool.Get()
+  defer conn.Close()
+  key := fmt.Sprintf("%s:%s", LastOpNS, script)
+  stats := map[string]interface{}{
+    "timestamp": time.Now().UTC().Format(time.RFC3339),
+  }
+  if err == nil {
+    stats["success"] = true
+    stats["count"] = count
+  } else {
+    stats["success"] = false
+    stats["error"] = err.Error()
+  }
+  bytes, e := json.Marshal(stats)
+  if e != nil {
+    logrus.WithFields(logrus.Fields{
+      "script": script,
+      "code":   code,
+      "error":  e.Error(),
+      "count":  count,
+    }).Warn("failed to write redis last op")
+    return
+  }
 
-	if code == "" { // All-at-once script
-		conn.Do("SET", key, string(bytes))
-	} else { // One-by-one script
-		conn.Do("HSET", key, code, string(bytes))
-	}
+  if code == "" { // All-at-once script
+    conn.Do("SET", key, string(bytes))
+  } else { // One-by-one script
+    conn.Do("HSET", key, code, string(bytes))
+  }
 }
 
-func loadLastMeasurements(script, code string) map[core.GaugeId]core.Measurement {
-	logger := logrus.WithFields(logrus.Fields{
-		"script": script,
-		"code":   code,
-	})
-	result := make(map[core.GaugeId]core.Measurement)
-	var raws []string
-	conn := pool.Get()
-	defer conn.Close()
-	key := fmt.Sprintf("%s:%s", LastMeasurementsNs, script)
-	if code == "" {
-		if stringMap, err := redis.StringMap(conn.Do("HGETALL", key)); err == nil {
-			raws = make([]string, len(stringMap))
-			i := 0
-			for _, v := range stringMap {
-				raws[i] = v
-				i++
-			}
-		} else if err != redis.ErrNil {
-			logger.Errorf("failed to HGETALL: %s", err)
-		}
-	} else {
-		if str, err := redis.String(conn.Do("HGET", key, code)); err == nil {
-			raws = []string{str}
-		} else if err != redis.ErrNil {
-			logger.Errorf("failed to 'HGET %s %s': %s", key, code, err)
-		}
-	}
-	for _, jsonStr := range raws {
-		var m core.Measurement
-		if err := json.Unmarshal([]byte(jsonStr), &m); err != nil {
-			logger.Errorf("failed to unmarshal JSON: %s", err)
-		} else {
-			result[m.GaugeId] = m
-		}
-	}
-	return result
+func (self RedisCacheManager) LoadLastMeasurements(script, code string) map[core.GaugeId]core.Measurement {
+  logger := logrus.WithFields(logrus.Fields{
+    "script": script,
+    "code":   code,
+  })
+  result := make(map[core.GaugeId]core.Measurement)
+  var raws []string
+  conn := self.pool.Get()
+  defer conn.Close()
+  key := fmt.Sprintf("%s:%s", LastMeasurementsNs, script)
+  if code == "" {
+    if stringMap, err := redis.StringMap(conn.Do("HGETALL", key)); err == nil {
+      raws = make([]string, len(stringMap))
+      i := 0
+      for _, v := range stringMap {
+        raws[i] = v
+        i++
+      }
+    } else if err != redis.ErrNil {
+      logger.Errorf("failed to HGETALL: %s", err)
+    }
+  } else {
+    if str, err := redis.String(conn.Do("HGET", key, code)); err == nil {
+      raws = []string{str}
+    } else if err != redis.ErrNil {
+      logger.Errorf("failed to 'HGET %s %s': %s", key, code, err)
+    }
+  }
+  for _, jsonStr := range raws {
+    var m core.Measurement
+    if err := json.Unmarshal([]byte(jsonStr), &m); err != nil {
+      logger.Errorf("failed to unmarshal JSON: %s", err)
+    } else {
+      result[m.GaugeId] = m
+    }
+  }
+  return result
 }
 
-func saveLastMeasurements(values map[core.GaugeId]core.Measurement) {
-	conn := pool.Get()
-	defer conn.Close()
-	var raw []byte
+func (self RedisCacheManager) SaveLastMeasurements(values map[core.GaugeId]core.Measurement) {
+  conn := self.pool.Get()
+  defer conn.Close()
+  var raw []byte
 
-	for id, m := range values {
-		raw, _ = json.Marshal(m)
-		conn.Send(
-			"HSET",
-			fmt.Sprintf("%s:%s", LastMeasurementsNs, id.Script),
-			id.Code,
-			raw,
-		)
-	}
-	if _, err := conn.Do(""); err != nil {
-		logrus.Errorf("failed to saveLastMeasurement: %s", err)
-	}
+  for id, m := range values {
+    raw, _ = json.Marshal(m)
+    conn.Send(
+      "HSET",
+      fmt.Sprintf("%s:%s", LastMeasurementsNs, id.Script),
+      id.Code,
+      raw,
+    )
+  }
+  if _, err := conn.Do(""); err != nil {
+    logrus.Errorf("failed to saveLastMeasurement: %s", err)
+  }
 }
