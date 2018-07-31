@@ -61,6 +61,8 @@
     </dict>
     <key>NSLocationWhenInUseUsageDescription</key>
     <string>It needs this permission to show you how close you are to this or that river</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>It needs this permission to show you how close you are to this or that river</string>
     <key>UIAppFonts</key>
     <array>
       <string>Entypo.ttf</string>
