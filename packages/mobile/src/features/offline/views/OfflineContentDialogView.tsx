@@ -31,6 +31,10 @@ const styles = StyleSheet.create({
     paddingTop: 0,
     marginHorizontal: theme.margin.triple,
   },
+  okButton: {
+    marginLeft: theme.margin.single,
+    minWidth: 80,
+  },
 });
 
 type Props = InnerProps & WithI18n;
@@ -138,8 +142,9 @@ class OfflineContentDialogView extends React.PureComponent<Props, State> {
           mode="contained"
           disabled={!isConnected || !!summary.error || summary.loading}
           onPress={this.onDownload}
+          style={styles.okButton}
         >
-          {t('commons:ok')}
+          {t('offline:dialog.download')}
         </Button>
       </Dialog.Actions>
     );

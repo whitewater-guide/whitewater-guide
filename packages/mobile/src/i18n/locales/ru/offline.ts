@@ -11,6 +11,7 @@ const offline = {
     loadingSummary: 'Загружаем метаданные',
     inBackground: 'Продолжить в фоне',
     summaryError: 'Ошибка загрузки метаданных',
+    download: 'Скачать',
   },
 };
 

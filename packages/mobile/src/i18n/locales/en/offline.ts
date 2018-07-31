@@ -11,6 +11,7 @@ const offline = {
     loadingSummary: 'Loading metadata',
     inBackground: 'Continue in background',
     summaryError: 'Error while loading metadata',
+    download: 'Download',
   },
 };
 
