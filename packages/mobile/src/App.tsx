@@ -6,7 +6,7 @@ import { PortalProvider } from 'react-native-portal';
 import { Provider } from 'react-redux';
 import { Store, Unsubscribe } from 'redux';
 import { Screen, SplashScreen } from './components';
-import { getApolloClient } from './core/apollo';
+import { getApolloClient, offlineLink } from './core/apollo';
 import configMisc from './core/config/configMisc';
 import configMoment from './core/config/configMoment';
 import { configErrors } from './core/errors';
@@ -37,6 +37,7 @@ class App extends React.Component<{}, State> {
 
   async componentDidMount() {
     this.store = await configureStore();
+    offlineLink.store = this.store;
     this.apolloClient = await getApolloClient();
     const initialized = this.store.getState().app.initialized;
     if (!initialized) {

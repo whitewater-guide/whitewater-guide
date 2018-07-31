@@ -9,10 +9,15 @@ import { messagingSaga } from './messagingSaga';
 export function *appSaga() {
   // Wait till redux-persist rehydrates
   yield take(bootstrapped.type);
-  // TODO: wait till apollo-cache rehydrates
 
+  yield spawn(
+    networkEventsListenerSaga,
+    {
+      pingServerUrl: `${Config.BACKEND_PROTOCOL}://${Config.BACKEND_HOST}`,
+      checkConnectionInterval: 60 * 1000,
+    },
+  );
   // Initial auth actions block app loading
-  yield spawn(networkEventsListenerSaga, { pingServerUrl: `${Config.BACKEND_PROTOCOL}://${Config.BACKEND_HOST}` });
   yield spawn(authSaga);
   yield spawn(messagingSaga);
   yield spawn(purchasesSaga);

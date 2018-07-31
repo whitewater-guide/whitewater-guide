@@ -1,6 +1,6 @@
 {
   "name": "whitewater",
-  "version": "1.5.2-5",
+  "version": "1.5.2-6",
   "private": true,
   "scripts": {
     "postinstall": "./postinstall.sh",
@@ -163,6 +163,9 @@
     "tslint-eslint-rules": "^5.2.0",
     "tslint-react": "^3.6.0",
     "typesync": "^0.3.1"
+  },
+  "resolutions": {
+    "react-native-offline/redux-saga": "^1.0.0-beta.1"
   },
   "jest": {
     "preset": "react-native",

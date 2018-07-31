@@ -1,7 +1,9 @@
 import ApolloClient from 'apollo-client';
+import { ApolloLink } from 'apollo-link';
 import { createHttpLink } from 'apollo-link-http';
 import Config from 'react-native-config';
 import RNLanguages from 'react-native-languages';
+import { offlineLink } from './apollo-link-offline';
 import { assertCachePersistorVersion, inMemoryCache } from './cache';
 
 let apolloClient: ApolloClient<any>;
@@ -19,8 +21,13 @@ export const getApolloClient = async () => {
 
     await assertCachePersistorVersion();
 
+    const link = ApolloLink.from([
+      offlineLink,
+      httpLink,
+    ]);
+
     apolloClient = new ApolloClient({
-      link: httpLink,
+      link,
       cache: inMemoryCache,
       connectToDevTools: process.env.NODE_ENV === 'development',
     });
