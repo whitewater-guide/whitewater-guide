@@ -28,7 +28,7 @@ type Source {
   # Last harvest operation status
   status: HarvestStatus
   # Regions
-  regions: SourceRegionConnection!
+  regions(page: Page): SourceRegionConnection!
   # Gauges
   gauges(page: Page): SourceGaugeConnection!
 }

@@ -2,6 +2,7 @@
 
 exports[`data should return source 1`] = `
 Object {
+  "__typename": "Source",
   "cron": "0 * * * *",
   "enabled": false,
   "harvestMode": "allAtOnce",
