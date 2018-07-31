@@ -9286,12 +9286,6 @@ react-native-image-pan-zoom@^2.1.8:
   version "2.1.8"
   resolved "https://registry.yarnpkg.com/react-native-image-pan-zoom/-/react-native-image-pan-zoom-2.1.8.tgz#2f8d8459a6f56b897b53222649e1225d8fc6e5ee"
 
-react-native-image-zoom-viewer@^2.2.13:
-  version "2.2.15"
-  resolved "https://registry.yarnpkg.com/react-native-image-zoom-viewer/-/react-native-image-zoom-viewer-2.2.15.tgz#186734ea25473fd1c15202a157adf53fb8fa8fb6"
-  dependencies:
-    react-native-image-pan-zoom "^2.1.8"
-
 "react-native-image-zoom-viewer@https://github.com/doomsower/react-native-image-viewer#preloaded":
   version "2.2.15"
   resolved "https://github.com/doomsower/react-native-image-viewer#1b86f5413579ba81a8ad090ccb2eb18714e89f78"
@@ -9317,9 +9311,9 @@ react-native-languages@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/react-native-languages/-/react-native-languages-2.0.1.tgz#f0f06c6315f9f3d9fa9da5f173711ec0f0dd7c84"
 
-react-native-linear-gradient@^2.4.1:
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/react-native-linear-gradient/-/react-native-linear-gradient-2.4.1.tgz#89a1e36e0e1db3c1955af95c56ef05bfe51773d1"
+react-native-linear-gradient@^2.4.2:
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/react-native-linear-gradient/-/react-native-linear-gradient-2.4.2.tgz#9d3acd0a198b9d4566e8f6253ef1f60fef0ff2be"
 
 react-native-maps@react-community/react-native-maps:
   version "0.21.0"

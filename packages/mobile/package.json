@@ -1,6 +1,6 @@
 {
   "name": "whitewater",
-  "version": "1.5.3-29",
+  "version": "1.5.3-30",
   "private": true,
   "scripts": {
     "postinstall": "./postinstall.sh",
@@ -73,7 +73,7 @@
     "react-native-interactable": "^0.1.10",
     "react-native-keyboard-aware-scroll-view": "^0.7.1",
     "react-native-languages": "^2.0.1",
-    "react-native-linear-gradient": "^2.4.1",
+    "react-native-linear-gradient": "^2.4.2",
     "react-native-maps": "react-community/react-native-maps",
     "react-native-markdown-renderer": "^3.2.1",
     "react-native-modal-popover": "^0.0.10",
