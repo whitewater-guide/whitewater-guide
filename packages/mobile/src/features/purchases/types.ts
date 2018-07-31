@@ -47,7 +47,7 @@ export interface PurchaseStore {
   dialogData: PurchaseDialogData | null;
   state: PurchaseState;
   product: RestorableProduct | null;
-  error: [string] | [string, { [key: string]: string }] | null;
+  error: [string] | [string, { [key: string]: string | undefined }] | null;
   offlinePurchases: ProductPurchase[];
 }
 
@@ -60,7 +60,7 @@ export interface UpdatePurchasePayload {
   dialogStep?: PurchaseDialogStep;
   state?: PurchaseState;
   product?: RestorableProduct | null;
-  error?: string | [string, { [key: string]: string }] | null;
+  error?: string | [string, { [key: string]: string | undefined }] | null;
 }
 
 export interface RemoveOfflinePurchasePayload {

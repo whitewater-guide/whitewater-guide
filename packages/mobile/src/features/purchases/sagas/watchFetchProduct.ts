@@ -16,7 +16,7 @@ export function* watchFetchProduct(action: Action<string>) {
 }
 
 function* fetchProduct(sku: string) {
-  let product: RestorableProduct;
+  let product: RestorableProduct | null = null;
   try {
     yield call(prepare);
     const products: Product[] = yield call(getProducts, [sku]);
@@ -24,6 +24,8 @@ function* fetchProduct(sku: string) {
     const availablePurchases: Purchase[] = yield call(getAvailablePurchases);
     for (const purchase of availablePurchases) {
       if (purchase.productId === sku) {
+        // originalTransactionIdentifier is not in typedefs
+        // @ts-ignore
         product.transactionId = purchase.originalTransactionIdentifier;
         break;
       }
