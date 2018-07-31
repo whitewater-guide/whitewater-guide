@@ -1,6 +1,6 @@
 {
   "name": "web",
-  "version": "0.1.184",
+  "version": "0.1.186",
   "private": true,
   "homepage": "/admin/",
   "dependencies": {
@@ -76,6 +76,7 @@
     "start:local": "REACT_APP_API_HOST=http://ww-local.io react-scripts-ts start",
     "start:beta": "REACT_APP_API_HOST=https://beta.whitewater.guide react-scripts-ts start",
     "build": "react-scripts-ts build",
+    "postbuild": "./postbuild.sh",
     "analyze": "source-map-explorer build/static/js/main.*",
     "tsc": "tsc",
     "pretest": "cd ../clients && npm run pretest",
@@ -84,6 +85,7 @@
     "storybook": "STORYBOOK_ENABLED=true start-storybook -s ./public/storybook -p 6006 -c .storybook"
   },
   "devDependencies": {
+    "@sentry/cli": "^1.34.0",
     "@storybook/addon-actions": "4.0.0-alpha.11",
     "@storybook/react": "4.0.0-alpha.11",
     "@types/color": "^3.0.0",
