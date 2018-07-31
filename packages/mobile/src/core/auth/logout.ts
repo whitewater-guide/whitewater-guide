@@ -29,10 +29,21 @@ function *watchLogout() {
 }
 
 function *watchLogoutConfirmed() {
-  yield call(
-    axios.get,
-    `${Config.BACKEND_PROTOCOL}://${Config.BACKEND_HOST}/auth/logout`,
-  );
-  // Until we don't have any other auth methods, delegate everything to fb saga
-  yield put(logoutWithFB());
+  try {
+    yield call(
+      axios.get,
+      `${Config.BACKEND_PROTOCOL}://${Config.BACKEND_HOST}/auth/logout`,
+    );
+    // Until we don't have any other auth methods, delegate everything to fb saga
+    yield put(logoutWithFB());
+  } catch (e) {
+    yield call(
+      [Alert, Alert.alert],
+      i18next.t('auth:logoutErrorTitle'),
+      i18next.t('auth:logoutErrorMessage'),
+      [
+        { text: i18next.t('commons:ok') },
+      ],
+    );
+  }
 }
