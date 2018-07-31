@@ -8,8 +8,9 @@ import container from './container';
 import RegionInfoScreen from './info';
 import RegionMapScreen from './map';
 import RegionSectionsListScreen from './sections-list';
+import { SectionsListLoader } from './SectionsListLoader';
 import SectionsProgress from './SectionsProgress';
-import { InnerProps, OuterProps, ScreenProps } from './types';
+import { InnerProps, RenderProps, ScreenProps } from './types';
 
 const routes: NavigationRouteConfigMap = {
   RegionMap: {
@@ -41,24 +42,30 @@ const config: TabNavigatorConfig = {
 
 export const Navigator = createMaterialBottomTabNavigator(routes, config);
 
-class RegionTabsContent extends React.PureComponent<InnerProps & OuterProps> {
+class RegionTabsContent extends React.PureComponent<InnerProps> {
   render() {
-    const { navigation, region, sections, count, status, refresh } = this.props;
-    const screenProps: ScreenProps = { region, sections, updateSections: refresh, sectionsStatus: status };
+    const { navigation, region, isConnected, searchTerms, client } = this.props;
     return (
-      <React.Fragment>
-        <Navigator navigation={navigation} screenProps={screenProps} />
-        <View style={StyleSheet.absoluteFill} pointerEvents="box-none">
-          <WhitePortal name="region" />
-        </View>
-        <SectionsProgress
-          status={status}
-          loaded={sections.length}
-          count={count}
-        />
-      </React.Fragment>
+      <SectionsListLoader searchTerms={searchTerms} region={region} isConnected={isConnected} client={client} pollingInterval={60000}>
+        {({ sections, count, status, refresh }: RenderProps) => {
+          const screenProps: ScreenProps = { region, sections, updateSections: refresh, sectionsStatus: status };
+          return (
+            <React.Fragment>
+              <Navigator navigation={navigation} screenProps={screenProps} />
+              <View style={StyleSheet.absoluteFill} pointerEvents="box-none">
+                <WhitePortal name="region" />
+              </View>
+              <SectionsProgress
+                status={status}
+                loaded={sections.length}
+                count={count}
+              />
+            </React.Fragment>
+          );
+        }}
+      </SectionsListLoader>
     );
   }
 }
 
-export const RegionTabs = container()(RegionTabsContent);
+export const RegionTabs = container(RegionTabsContent);

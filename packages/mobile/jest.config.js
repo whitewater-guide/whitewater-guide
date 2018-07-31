@@ -37,4 +37,8 @@ module.exports = {
       babelConfig: true,
     },
   },
+  reporters: [
+    'default',
+    'jest-summary-reporter',
+  ],
 };
