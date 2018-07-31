@@ -1,0 +1,15 @@
+{
+  "version": "independent",
+  "command": {
+    "publish": {
+      "allowBranch": ["v2"],
+      "ignoreChanges": ["*.md"],
+      "message": "chore(release): publish new packages"
+    },
+    "run": {
+      "noBail": true
+    }
+  },
+  "npmClient": "yarn",
+  "packages": ["packages/*"]
+}

@@ -1,6 +1,6 @@
 {
   "name": "whitewater",
-  "version": "0.0.1027",
+  "version": "0.0.1028",
   "description": "whitewater.guide monorepo",
   "repository": "https://github.com/doomsower/whitewater.git",
   "author": "doomsower <K.Kuznetcov@gmail.com>",
@@ -35,6 +35,7 @@
     "fs-extra": "^7.0.0",
     "generator-rn-toolbox": "^3.3.2",
     "husky": "^0.15.0-rc.13",
+    "lerna": "^3.4.3",
     "trash-junk-cli": "^1.0.3",
     "typescript": "3.0.1",
     "wml": "^0.0.83",
