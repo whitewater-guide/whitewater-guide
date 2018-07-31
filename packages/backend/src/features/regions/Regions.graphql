@@ -27,7 +27,7 @@ type Region {
   # List of gauges
   gauges(page: Page): RegionGaugeConnection!
   # List of sections
-  sections(page: Page): RegionSectionConnection!
+  sections(page: Page, filter: SectionsFilter): RegionSectionConnection!
   # List of sources
   sources(page: Page): RegionSourceConnection!
 

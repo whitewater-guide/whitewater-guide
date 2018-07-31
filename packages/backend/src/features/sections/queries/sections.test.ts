@@ -1,5 +1,7 @@
 import db, { holdTransaction, rollbackTransaction } from '@db';
 import { ADMIN, EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '@seeds/01_users';
+import { REGION_NORWAY } from '@seeds/04_regions';
+import { RIVER_GAL_1 } from '@seeds/07_rivers';
 import { SECTIONS_TOTAL, SECTIONS_VISIBLE } from '@seeds/09_sections';
 import { anonContext, fakeContext, noTimestamps, runQuery } from '@test';
 
@@ -111,14 +113,14 @@ it('should fall back to english when not translated', async () => {
 });
 
 it('should filter by river', async () => {
-  const result = await runQuery(query, { filter: { riverId: 'a8416664-bfe3-11e7-abc4-cec278b6b50a' } });
+  const result = await runQuery(query, { filter: { riverId: RIVER_GAL_1 } });
   expect(result.errors).toBeUndefined();
   expect(result).toHaveProperty('data.sections.nodes.length', 2);
   expect(result).toHaveProperty('data.sections.count', 2);
 });
 
 it('should filter by region', async () => {
-  const result = await runQuery(query, { filter: { regionId: 'b968e2b2-76c5-11e7-b5a5-be2e44b06b34' } });
+  const result = await runQuery(query, { filter: { regionId: REGION_NORWAY } });
   expect(result.errors).toBeUndefined();
   expect(result).toHaveProperty('data.sections.nodes.length', 1);
   expect(result).toHaveProperty('data.sections.count', 1);
@@ -132,4 +134,49 @@ it('should filter recently updated', async () => {
   expect(result).toHaveProperty('data.sections.nodes.length', 1);
   expect(result).toHaveProperty('data.sections.count', 1);
   expect(result).toHaveProperty('data.sections.nodes.0.rating', 1);
+});
+
+it('should fire two queries for sections->region', async () => {
+  const regionQuery = `
+    query listSections($page: Page, $filter: SectionsFilter){
+      sections(page: $page, filter: $filter) {
+        nodes {
+          id
+          name
+          region {
+            id
+            name
+          }
+        }
+      }
+    }
+  `;
+
+  const queryMock = jest.fn();
+  db().on('query', queryMock);
+  await runQuery(regionQuery, { filter: { regionId: REGION_NORWAY } });
+  db().removeListener('query', queryMock);
+  expect(queryMock).toHaveBeenCalledTimes(2);
+});
+
+it('should fire two queries for sections->river', async () => {
+  const riverQuery = `
+    query listSections($page: Page, $filter: SectionsFilter){
+      sections(page: $page, filter: $filter) {
+        nodes {
+          id
+          name
+          river {
+            id
+            name
+          }
+        }
+      }
+    }
+  `;
+  const queryMock = jest.fn();
+  db().on('query', queryMock);
+  await runQuery(riverQuery, { filter: { riverId: RIVER_GAL_1 } });
+  db().removeListener('query', queryMock);
+  expect(queryMock).toHaveBeenCalledTimes(2);
 });
