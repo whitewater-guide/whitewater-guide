@@ -22,7 +22,7 @@ export const getTempPostPolicy = async (key?: string) => {
   const postURL = url
     .replace(/https?:\/\//, '')
     .replace(
-      `${process.env.MINIO_HOST!}:9000`,
+      `${process.env.MINIO_HOST!}:${process.env.MINIO_PORT!}`,
       `${process.env.PROTOCOL!}://${process.env.APP_DOMAIN!}/${process.env.MINIO_PROXY_PATH}`,
     );
   return { postURL, formData };
