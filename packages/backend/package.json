@@ -1,6 +1,6 @@
 {
   "name": "whitewater-backend",
-  "version": "0.0.190",
+  "version": "0.0.191",
   "main": "index.js",
   "author": "Konstantin Kuznetsov",
   "license": "MIT",
@@ -13,7 +13,6 @@
     "madge": "madge --circular --basedir ./src --webpackConfig madge.js src/index.js"
   },
   "devDependencies": {
-    "@types/axios": "^0.14.0",
     "@types/body-parser": "^1.17.0",
     "@types/connect-redis": "^0.0.7",
     "@types/fs-extra": "^5.0.4",
@@ -22,7 +21,7 @@
     "@types/in-app-purchase": "^1.9.0",
     "@types/jest": "^23.3.1",
     "@types/joi": "^13.4.0",
-    "@types/knex": "^0.14.18",
+    "@types/knex": "^0.14.19",
     "@types/koa": "^2.0.46",
     "@types/koa-bodyparser": "^5.0.1",
     "@types/koa-passport": "^4.0.1",
@@ -30,7 +29,7 @@
     "@types/koa-session": "^5.7.4",
     "@types/lodash": "^4.14.115",
     "@types/minio": "^6.0.2",
-    "@types/node": "10.5.4",
+    "@types/node": "10.5.5",
     "@types/node-schedule": "^1.2.2",
     "@types/passport": "^0.4.6",
     "@types/passport-facebook": "^2.1.8",
@@ -75,7 +74,7 @@
     "graphql": "^0.13.2",
     "graphql-fields": "^1.1.0",
     "graphql-iso-date": "^3.5.0",
-    "graphql-tools": "^3.0.5",
+    "graphql-tools": "^3.1.0",
     "graphql-type-json": "^0.2.0",
     "http-shutdown": "^1.2.0",
     "in-app-purchase": "^1.9.16",

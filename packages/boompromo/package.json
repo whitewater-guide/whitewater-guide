@@ -1,6 +1,6 @@
 {
   "name": "boompromo",
-  "version": "0.0.28",
+  "version": "0.0.30",
   "private": true,
   "homepage": "/boompromo/",
   "dependencies": {
@@ -85,7 +85,7 @@
     "tslint-eslint-rules": "^5.3.1",
     "tslint-react": "^3.6.0",
     "type-zoo": "^3.1.0",
-    "typescript": "3.0.0-rc"
+    "typescript": "3.0.1"
   },
   "browser": {
     "joi": "joi-browser"

@@ -9,7 +9,7 @@ fi
 # Watch package.json changes and install them
 # see https://github.com/Unitech/pm2/issues/2222
 # TODO: remove this (and from Dockerfile as well) when PM2 gets update: https://github.com/Unitech/pm2/issues/2629
-SHELL=/bin/sh chokidar package.json -p --poll-interval 300 -c yarn &
+SHELL=/bin/sh chokidar package.json -p --poll-interval 300 -c yarn --production=true &
 
 export NODE_PATH=/opt/app/node_modules:$NODE_PATH
 # Wait for db

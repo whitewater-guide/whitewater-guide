@@ -127,6 +127,10 @@
   dependencies:
     "@types/react" "*"
 
+"@types/url-parse@^1.4.1":
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/@types/url-parse/-/url-parse-1.4.1.tgz#c7ad9eb4f409fc14b93ea5d0d3c3dd812ac5b372"
+
 "@types/zen-observable@^0.5.3":
   version "0.5.4"
   resolved "https://registry.yarnpkg.com/@types/zen-observable/-/zen-observable-0.5.4.tgz#b863a4191e525206819e008097ebf0fb2e3a1cdc"
@@ -4014,9 +4018,9 @@ urix@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/urix/-/urix-0.1.0.tgz#da937f7a62e21fec1fd18d49b35c2935067a6c72"
 
-url-parse@^1.4.1:
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/url-parse/-/url-parse-1.4.1.tgz#4dec9dad3dc8585f862fed461d2e19bbf623df30"
+url-parse@^1.4.3:
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/url-parse/-/url-parse-1.4.3.tgz#bfaee455c889023219d757e045fa6a684ec36c15"
   dependencies:
     querystringify "^2.0.0"
     requires-port "^1.0.0"

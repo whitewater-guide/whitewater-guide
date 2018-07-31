@@ -1,6 +1,6 @@
 {
   "name": "web",
-  "version": "0.1.187",
+  "version": "0.1.189",
   "private": true,
   "homepage": "/admin/",
   "dependencies": {
