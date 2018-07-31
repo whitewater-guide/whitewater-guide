@@ -1,4 +1,3 @@
-import Config from 'react-native-config';
 import { networkEventsListenerSaga } from 'react-native-offline';
 import { put, spawn, take } from 'redux-saga/effects';
 import { offlineContentSaga } from '../../features/offline';
@@ -13,10 +12,15 @@ export function *appSaga() {
 
   yield spawn(
     networkEventsListenerSaga,
+    // The idea of pinging our backend is good, but yields inconsistent results
+    // So do not ping anything
+    // {
+    //   pingServerUrl: `${Config.BACKEND_PROTOCOL}://${Config.BACKEND_HOST}/ping`,
+    //   timeout: 10 * 1000,
+    //   checkConnectionInterval: 60 * 1000,
+    // },
     {
-      pingServerUrl: `${Config.BACKEND_PROTOCOL}://${Config.BACKEND_HOST}/ping`,
-      timeout: 10 * 1000,
-      checkConnectionInterval: 60 * 1000,
+      withExtraHeadRequest: false,
     },
   );
   // Initial auth actions block app loading
