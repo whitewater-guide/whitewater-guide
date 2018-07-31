@@ -1,5 +1,4 @@
 import { NamedNode } from '../../core';
-import { Group } from '../groups/types';
 import { Region } from '../regions';
 import { Connection } from '../types';
 
