@@ -1,6 +1,6 @@
 import { Context } from '@apollo';
 import log from '@log';
-import { NS_LAST_MEASUREMENTS, redis } from '@redis';
+import { asyncRedis, NS_LAST_MEASUREMENTS } from '@redis';
 import { DataSource } from 'apollo-datasource';
 import DataLoader from 'dataloader';
 import { chunk, fromPairs, mapValues } from 'lodash';
@@ -19,6 +19,7 @@ export class MeasurementsConnector implements DataSource<Context> {
   readonly loader: DataLoader<Key, LastMeasurement>;
 
   constructor() {
+    this.loadBatch = this.loadBatch.bind(this);
     this.loader = new DataLoader<Key, LastMeasurement>(this.loadBatch, DLOptions);
   }
 
@@ -43,7 +44,9 @@ export class MeasurementsConnector implements DataSource<Context> {
     const scripts = new Set<string>();
     keys.forEach(({ script }) => scripts.add(script));
     const promises: any[] = [];
-    scripts.forEach(script => promises.push(script, this.getLastMeasurements(script)));
+    for (const script of scripts) {
+      promises.push(script, this.getLastMeasurements(script));
+    }
     const flatRes = await Promise.all(promises);
     const deepMap = fromPairs(chunk(flatRes, 2)); // script --> code --> RedisMeasurement
     return keys.map(({ script, code }) => {
@@ -58,14 +61,14 @@ export class MeasurementsConnector implements DataSource<Context> {
   private async getLastMeasurements(script: string, code?: string): Promise<RedisLastMeasurements | null> {
     try {
       if (code) {
-        const lastMeasurementStr = await redis.hget(`${NS_LAST_MEASUREMENTS}:${script}`, code);
+        const lastMeasurementStr = await asyncRedis.hget(`${NS_LAST_MEASUREMENTS}:${script}`, code);
         return { [code]: JSON.parse(lastMeasurementStr) };
       } else {
-        const allLastMsm: string[] = await redis.hgetall(`${NS_LAST_MEASUREMENTS}:${script}`);
+        const allLastMsm = await asyncRedis.hgetall(`${NS_LAST_MEASUREMENTS}:${script}`);
         return mapValues(
           allLastMsm,
           (value: string) => JSON.parse(value),
-        ) as any;
+        );
       }
     } catch (err) {
       log.error({ msg: `failed to get last measurements: ${err}`, script, code });

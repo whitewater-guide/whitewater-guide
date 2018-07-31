@@ -15,7 +15,7 @@ export const createApp = async () => {
 
   app.use(cors({
     credentials: true,
-    origin: (process.env.NODE_ENV === 'production') ? (ctx) => {
+    origin: (ctx) => {
       const originIndex = ctx.req.rawHeaders.indexOf('Origin');
       if (originIndex === -1) {
         return true;
@@ -31,7 +31,7 @@ export const createApp = async () => {
         ctx.throw(new Error(`${origin} is not a valid origin`));
       }
       return false;
-    } : '*',
+    },
   }));
 
   app.use(bodyParser());
