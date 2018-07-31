@@ -9,7 +9,7 @@ import { ConnectivityProps, InnerState, RenderProps, SectionsStatus } from './ty
 
 interface OwnProps {
   limit?: number;
-  pollingInterval?: number;
+  pollInterval?: number;
   children: (props: RenderProps) => any;
 }
 
@@ -21,7 +21,7 @@ export type Props = Pick<RegionContext, 'region' | 'searchTerms'> &
 export class SectionsListLoader extends React.PureComponent<Props, InnerState> {
   static defaultProps: Partial<Props> = {
     limit: 20,
-    pollingInterval: 5 * 60 * 1000,
+    pollInterval: 5 * 60 * 1000,
   };
 
   _query!: ObservableQuery<Result, Vars>;
@@ -172,15 +172,16 @@ export class SectionsListLoader extends React.PureComponent<Props, InnerState> {
   };
 
   startPolling = async () => {
-    const { client, region, pollingInterval } = this.props;
-    if (!region.node || pollingInterval === 0) {
+    const { client, region, pollInterval } = this.props;
+    if (!region.node || pollInterval === 0) {
       return;
     }
     this._pollQuery = client.watchQuery({
       query: POLL_REGION_MEASUREMENTS,
       variables: { regionId: region.node.id },
+      pollInterval,
     }) as any;
-    await this._pollQuery.startPolling(pollingInterval);
+    await this._pollQuery.startPolling(pollInterval);
   };
 
   refresh = async () => {

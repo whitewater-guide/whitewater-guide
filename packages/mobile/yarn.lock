@@ -1164,8 +1164,8 @@
   resolved "https://registry.yarnpkg.com/@types/markdown-it/-/markdown-it-0.0.6.tgz#32c4bea406f243263ba741b8d588e314a44d4a45"
 
 "@types/node@*":
-  version "10.12.1"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.12.1.tgz#da61b64a2930a80fa708e57c45cd5441eb379d5b"
+  version "10.12.2"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.12.2.tgz#d77f9faa027cadad9c912cd47f4f8b07b0fb0864"
 
 "@types/prop-types@*", "@types/prop-types@^15.5.4", "@types/prop-types@^15.5.5":
   version "15.5.6"
@@ -1287,8 +1287,8 @@
   resolved "https://registry.yarnpkg.com/@types/superstruct/-/superstruct-0.5.0.tgz#2a71e613929f8049cb8504bc7d90dbf0e31da034"
 
 "@types/tough-cookie@*":
-  version "2.3.3"
-  resolved "https://registry.yarnpkg.com/@types/tough-cookie/-/tough-cookie-2.3.3.tgz#7f226d67d654ec9070e755f46daebf014628e9d9"
+  version "2.3.4"
+  resolved "https://registry.yarnpkg.com/@types/tough-cookie/-/tough-cookie-2.3.4.tgz#821878b81bfab971b93a265a561d54ea61f9059f"
 
 "@types/url-parse@^1.4.1":
   version "1.4.1"
@@ -4397,8 +4397,8 @@ entities@^1.1.1, entities@~1.1.1:
   resolved "https://registry.yarnpkg.com/entities/-/entities-1.1.2.tgz#bdfa735299664dfafd34529ed4f8522a275fea56"
 
 envinfo@^5.7.0:
-  version "5.11.0"
-  resolved "https://registry.yarnpkg.com/envinfo/-/envinfo-5.11.0.tgz#0eb97683e4225c93ce029e4be3c90acd0c4b09d4"
+  version "5.11.1"
+  resolved "https://registry.yarnpkg.com/envinfo/-/envinfo-5.11.1.tgz#a1c2cb55196931b2ac6d4110fa7f0003697ad9df"
 
 enzyme-adapter-react-16@^1.2.0:
   version "1.6.0"

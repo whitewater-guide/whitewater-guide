@@ -70,7 +70,7 @@ const mountInHarness = (options: TestOptions): any => {
       isConnected={isConnected}
       client={FixedProvider.client}
       limit={PAGE_SIZE}
-      pollingInterval={pollInterval}
+      pollInterval={pollInterval}
       children={children}
     />,
   );
