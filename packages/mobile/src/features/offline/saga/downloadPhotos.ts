@@ -1,7 +1,7 @@
-import FastImage from 'react-native-fast-image';
-import { Channel, END, EventChannel, eventChannel } from 'redux-saga';
+import { Channel, EventChannel } from 'redux-saga';
 import { call, put, take } from 'redux-saga/effects';
 import { offlineContentActions } from '../actions';
+import createPhotoChannel from './createPhotoChannel';
 
 export default function* downloadPhotos(channel: Channel<string[]>) {
   try {
@@ -20,15 +20,7 @@ export function* downloadPhotosWorker(photos: string[], offset: number) {
   if (photos.length === 0) {
     return;
   }
-  const chan: EventChannel<number> = eventChannel((emitter) => {
-    FastImage.preload(
-      photos.map((uri) => ({ uri })),
-      // Total is not from current batch, but comes as arg
-      (loaded: number) => emitter(loaded),
-      () => emitter(END),
-    );
-    return () => {};
-  });
+  const chan: EventChannel<number> = createPhotoChannel(photos);
   try {
     while (true) {
       const progress: number = yield take(chan);
