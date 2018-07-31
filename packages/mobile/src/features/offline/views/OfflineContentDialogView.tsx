@@ -116,8 +116,33 @@ class OfflineContentDialogView extends React.PureComponent<Props, State> {
     </View>
   );
 
+  renderReadyButtons = () => {
+    const { onDismiss, isConnected = true, isLoadingSummary, t } = this.props;
+    return (
+      <DialogActions>
+        <Button raised onPress={onDismiss}>
+          {t('commons:cancel')}
+        </Button>
+        <Button primary raised disabled={!isConnected || isLoadingSummary} onPress={this.onDownload}>
+          {t('commons:ok')}
+        </Button>
+      </DialogActions>
+    );
+  };
+
+  renderInProgressButtons = () => {
+    const { onDismiss, t } = this.props;
+    return (
+      <DialogActions>
+        <Button raised onPress={onDismiss}>
+          {t('offline:dialog.inBackground')}
+        </Button>
+      </DialogActions>
+    );
+  };
+
   render() {
-    const { region, onDismiss, isConnected = true, isLoadingSummary, t } = this.props;
+    const { region, isConnected = true, inProgress, isLoadingSummary, t } = this.props;
     if (!region) {
       return null;
     }
@@ -127,14 +152,7 @@ class OfflineContentDialogView extends React.PureComponent<Props, State> {
         {!isConnected && this.renderOffline()}
         {!!isLoadingSummary && this.renderLoadingSummary()}
         {!!isConnected && !isLoadingSummary && this.renderCategories()}
-        <DialogActions>
-          <Button raised onPress={onDismiss}>
-            {t('commons:cancel')}
-          </Button>
-          <Button primary raised disabled={!isConnected} onPress={this.onDownload}>
-            {t('commons:ok')}
-          </Button>
-        </DialogActions>
+        {inProgress ? this.renderInProgressButtons() : this.renderReadyButtons()}
       </React.Fragment>
     );
   }
