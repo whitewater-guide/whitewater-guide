@@ -42,7 +42,8 @@ Content-Type: application/json
 {
   "command": "harvest",
   "script": "chile",
-  "code": "10702002-0"
+  "code": "10702002-0",
+  "since": 101
 }
 
 ###
