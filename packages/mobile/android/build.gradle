@@ -33,15 +33,15 @@ ext {
     compileSdkVersion   = 27
     targetSdkVersion    = 27
     minSdkVersion   = 16
-    buildToolsVersion   = "27.0.3"
+    buildToolsVersion   = "28.0.2"
     supportLibVersion   = "27.1.1"
     androidMapsUtilsVersion = "0.5+"
-    googlePlayServicesVersion = "15.0.1"
+    googlePlayServicesVersion = "16.0.0"
 }
 
 subprojects { subproject ->
     afterEvaluate {
-        if ((subproject.plugins.hasPlugin('android') || subproject.plugins.hasPlugin('android-library'))) {
+        if (project.hasProperty("android")) {
             android {
                 compileSdkVersion rootProject.ext.compileSdkVersion
                 buildToolsVersion rootProject.ext.buildToolsVersion
