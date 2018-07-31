@@ -14,7 +14,6 @@ const styles: Styles = {
   },
   tabsContent: {
     flex: 1,
-    padding: 8,
     display: 'flex',
     flexDirection: 'column',
   },

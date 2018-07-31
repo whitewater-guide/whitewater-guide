@@ -1,4 +1,5 @@
 import React from 'react';
+import { RouteComponentProps } from 'react-router';
 import { InjectedFormProps } from 'redux-form';
 import { Tabs } from '../../../components';
 import {
@@ -17,11 +18,14 @@ const DescriptionFields: Array<keyof RegionFormInput> = ['description'];
 const BoundsFields: Array<keyof RegionFormInput> = ['bounds'];
 const PoisFields: Array<keyof RegionFormInput> = ['pois'];
 
-export default class RegionForm extends React.PureComponent<InjectedFormProps<RegionFormInput>> {
+type Props = InjectedFormProps<RegionFormInput> & RouteComponentProps<any>;
+
+export default class RegionForm extends React.PureComponent<Props> {
   render() {
+    const tabTemplateStyle = this.props.location.hash === '#description' ? { padding : 0 } : undefined;
     return (
       <Form {...this.props} resourceType="region">
-        <Tabs>
+        <Tabs tabTemplateStyle={tabTemplateStyle}>
           <FormTab form="region" fields={MainFields} label="Main" value="#main">
             <TextInput fullWidth name="name" title="Name" />
             <TextInput fullWidth name="season" title="Season" />

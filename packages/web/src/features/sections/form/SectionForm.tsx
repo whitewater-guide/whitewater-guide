@@ -61,9 +61,10 @@ export default class SectionForm extends React.PureComponent<SectionFormProps> {
       supply = [],
       misc = [],
     } = groupBy(this.props.tags, 'category');
+    const tabTemplateStyle = this.props.location.hash === '#description' ? { padding : 0 } : undefined;
     return (
       <Form {...this.props} resourceType="section">
-        <Tabs>
+        <Tabs tabTemplateStyle={tabTemplateStyle}>
           <FormTab form="section" fields={MainFields} label="Main" value="#main">
             <div style={{ overflowX: 'hidden', flex: 1 }}>
               <TextField fullWidth disabled value={this.props.initialValues.river!.name} floatingLabelText="River" />

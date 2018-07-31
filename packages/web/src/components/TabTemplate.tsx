@@ -7,6 +7,7 @@ const styles = {
     overflow: 'hidden',
     display: 'flex',
     flexDirection: 'column',
+    padding: 8,
   },
 };
 

@@ -1,4 +1,5 @@
 import { MdEditorValue } from '@whitewater-guide/md-editor';
+import { RouteComponentProps } from 'react-router';
 import { InjectedFormProps } from 'redux-form';
 import { Overwrite } from 'type-zoo';
 import { NamedNode, Region, River, SectionInput, Tag } from '../../../ww-commons';
@@ -15,7 +16,7 @@ export type SectionFormInput = Overwrite<SectionInput, FormOverrides> & {
   miscTags: Tag[];
 };
 
-export interface SectionFormProps extends InjectedFormProps<SectionFormInput> {
+export interface SectionFormProps extends InjectedFormProps<SectionFormInput>, RouteComponentProps<any> {
   region: Region;
   river: River;
   tags: Tag[];

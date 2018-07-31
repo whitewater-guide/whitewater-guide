@@ -1,3 +1,4 @@
+import { RouteComponentProps } from 'react-router';
 import { compose } from 'recompose';
 import { InjectedFormProps } from 'redux-form';
 import { deserializeForm, formContainer, serializeForm } from '../../../components/forms';
@@ -28,7 +29,7 @@ const regionForm = formContainer({
   validationSchema: RegionFormSchema,
 });
 
-export default compose<InjectedFormProps<RegionFormInput>, {}>(
+export default compose<InjectedFormProps<RegionFormInput> & RouteComponentProps<any>, RouteComponentProps<any>>(
   withFeatureIds('region'),
   regionForm,
 );

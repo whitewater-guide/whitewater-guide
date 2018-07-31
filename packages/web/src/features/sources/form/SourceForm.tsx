@@ -6,9 +6,10 @@ import { SourceFormProps } from './types';
 
 export default class SourceForm extends React.PureComponent<SourceFormProps> {
   render() {
+    const tabTemplateStyle = this.props.location.hash === '#terms' ? { padding : 0 } : undefined;
     return (
       <Form {...this.props} resourceType="source">
-        <Tabs>
+        <Tabs tabTemplateStyle={tabTemplateStyle}>
           <Tab label="Main" value="#main">
             <TextInput fullWidth name="name" title="Name" />
             <ChipInput name="regions" title="Regions" options={this.props.regions} />
