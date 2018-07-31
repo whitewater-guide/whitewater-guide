@@ -1,12 +1,13 @@
 {
   "name": "whitewater-backend",
-  "version": "0.0.245",
+  "version": "0.0.246",
   "main": "index.js",
   "author": "Konstantin Kuznetsov",
   "license": "proprietary",
   "scripts": {
     "clean": "rm -rf dist/*",
-    "build": "yarn clean && tsc && cd src && find . \\( -name '*.graphql' -o -name '*.json' -o -name '*.sql'  -o -name '*.kml' \\) | cpio -updm ../dist",
+    "build": "yarn clean && tsc -p tsconfig.build.json && cd src && find . \\( -name '*.graphql' -o -name '*.json' -o -name '*.sql'  -o -name '*.kml' \\) | cpio -updm ../dist",
+    "tsc": "tsc -p tsconfig.build.json",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "pretest": "npm_scripts/pretest.sh",
     "test": "npm_scripts/test.sh",

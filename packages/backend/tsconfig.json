@@ -1,10 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "noEmit": false,
     "module": "commonjs",
-    "inlineSourceMap": true,
-    "inlineSources": true,
     "baseUrl": ".",
     "paths": {
       "@apollo": ["src/apollo"],
@@ -21,13 +18,9 @@
       "@utils": ["src/utils"],
       "@ww-commons": ["src/ww-commons"],
       "@ww-commons/*": ["src/ww-commons/*"]
-    },
-    "outDir": "dist"
+    }
   },
   "include": [
     "src/**/*"
-  ],
-  "exclude": [
-    "**/__mocks__/**/*"
   ]
 }
