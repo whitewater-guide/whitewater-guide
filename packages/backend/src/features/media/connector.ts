@@ -22,7 +22,9 @@ const CHECK_MEDIA_QUERY = `
   FROM media_found
 `;
 
-const FIELDS_MAP: FieldsMap<Media, MediaRaw> = {};
+const FIELDS_MAP: FieldsMap<Media, MediaRaw> = {
+  deleted: null,
+};
 
 interface GetManyOptions extends ManyBuilderOptions<MediaRaw> {
   sectionId: string;
