@@ -1,6 +1,6 @@
 {
   "name": "boompromo",
-  "version": "0.0.81",
+  "version": "0.0.82",
   "private": true,
   "homepage": "/boompromo/",
   "dependencies": {
@@ -23,7 +23,6 @@
     "graphql-tools": "^3.0.5",
     "graphql-type-json": "^0.2.1",
     "immutability-helper": "^2.7.1",
-    "joi-browser": "^13.0.1",
     "jss": "^9.8.7",
     "lodash": "^4.17.10",
     "mobx": "^4.3.1",
@@ -40,9 +39,11 @@
     "recompose": "^0.27.1",
     "reselect": "^3.0.1",
     "subscriptions-transport-ws": "^0.9.12",
+    "superstruct": "^0.6.0",
     "tslib": "^1.9.3",
     "typescript-fsa": "^3.0.0-beta-2",
-    "url-parse": "^1.4.1"
+    "url-parse": "^1.4.1",
+    "validator": "^10.8.0"
   },
   "scripts": {
     "start": "react-scripts-ts start",
@@ -65,7 +66,6 @@
     "@types/graphql-type-json": "^0.1.2",
     "@types/immutability-helper": "^2.6.3",
     "@types/jest": "^23.3.0",
-    "@types/joi": "^13.4.0",
     "@types/lodash": "^4.14.112",
     "@types/node": "^9.4.6",
     "@types/prop-types": "^15.5.3",
@@ -77,7 +77,9 @@
     "@types/recompose": "^0.26.2",
     "@types/storybook__addon-actions": "^3.0.3",
     "@types/storybook__react": "^3.0.8",
+    "@types/superstruct": "^0.5.0",
     "@types/url-parse": "^1.1.1",
+    "@types/validator": "^9.4.2",
     "apollo-storybook-react": "^0.1.5",
     "awesome-typescript-loader": "^5.2.0",
     "babel-core": "^6.26.3",
@@ -86,8 +88,5 @@
     "tslint-react": "^3.6.0",
     "type-zoo": "^3.1.0",
     "typescript": "3.0.1"
-  },
-  "browser": {
-    "joi": "joi-browser"
   }
 }
