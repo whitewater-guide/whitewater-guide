@@ -873,6 +873,12 @@
     "@types/react" "*"
     "@types/react-native" "*"
 
+"@types/react-native-fs@^2.8.1":
+  version "2.8.1"
+  resolved "https://registry.yarnpkg.com/@types/react-native-fs/-/react-native-fs-2.8.1.tgz#cbe5d5b733490fd75b96b9733dbbc37479b91c23"
+  dependencies:
+    "@types/react-native" "*"
+
 "@types/react-native-star-rating@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@types/react-native-star-rating/-/react-native-star-rating-1.0.0.tgz#32bf47afe1b71710059394dac55e367a4a5871b4"
@@ -1274,6 +1280,10 @@ apollo-cache-inmemory@^1.2.1:
     apollo-cache "^1.1.12"
     apollo-utilities "^1.0.16"
     graphql-anywhere "^4.1.14"
+
+apollo-cache-persist@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/apollo-cache-persist/-/apollo-cache-persist-0.1.1.tgz#e6cfe1983b998982a679aaf05241d3ed395edb1e"
 
 apollo-cache@^1.1.12:
   version "1.1.12"
@@ -2602,6 +2612,10 @@ balanced-match@^0.4.2:
 balanced-match@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
+
+base-64@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/base-64/-/base-64-0.1.0.tgz#780a99c84e7d600260361511c4877613bf24f6bb"
 
 base64-js@0.0.8:
   version "0.0.8"
@@ -9294,6 +9308,13 @@ react-native-fit-image@^1.5.2:
   dependencies:
     prop-types "^15.5.10"
 
+react-native-fs@^2.10.14:
+  version "2.10.14"
+  resolved "https://registry.yarnpkg.com/react-native-fs/-/react-native-fs-2.10.14.tgz#394721801825db8330b62e92ae36861fd9864084"
+  dependencies:
+    base-64 "^0.1.0"
+    utf8 "^2.1.1"
+
 react-native-iap@^1.3.5:
   version "1.3.5"
   resolved "https://registry.yarnpkg.com/react-native-iap/-/react-native-iap-1.3.5.tgz#fa43cf9c2fde0bb78e7cca2c99ce372744d2c087"
@@ -9843,6 +9864,12 @@ redux-mock-store@^1.5.3:
   resolved "https://registry.yarnpkg.com/redux-mock-store/-/redux-mock-store-1.5.3.tgz#1f10528949b7ce8056c2532624f7cafa98576c6d"
   dependencies:
     lodash.isplainobject "^4.0.6"
+
+redux-persist-fs-storage@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/redux-persist-fs-storage/-/redux-persist-fs-storage-1.2.2.tgz#43a3bf0b25f248824a06fdbd9137be7f52caa332"
+  dependencies:
+    react-native-fs "^2.10.14"
 
 redux-persist@^5.9.1:
   version "5.10.0"
@@ -11300,6 +11327,10 @@ url@^0.11.0:
 use@^3.1.0:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/use/-/use-3.1.1.tgz#d50c8cac79a19fbc20f2911f56eb973f4e10070f"
+
+utf8@^2.1.1:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/utf8/-/utf8-2.1.2.tgz#1fa0d9270e9be850d9b05027f63519bf46457d96"
 
 util-deprecate@1.0.2, util-deprecate@^1.0.2, util-deprecate@~1.0.1:
   version "1.0.2"

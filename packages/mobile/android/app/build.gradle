@@ -177,6 +177,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-fs')
     compile project(':react-native-iap')
     compile project(':react-native-linear-gradient')
     compile project(':react-native-code-push')

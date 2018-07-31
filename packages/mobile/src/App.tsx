@@ -37,7 +37,7 @@ class App extends React.Component<{}, State> {
 
   async componentDidMount() {
     this.store = await configureStore();
-    this.apolloClient = getApolloClient(this.store.dispatch);
+    this.apolloClient = await getApolloClient();
     const initialized = this.store.getState().app.initialized;
     if (!initialized) {
       this.storeSubscription = this.store.subscribe(this.listenForInitialize);

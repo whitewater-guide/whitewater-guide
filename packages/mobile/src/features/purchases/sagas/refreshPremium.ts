@@ -8,7 +8,7 @@ import { PurchaseDialogData, RefreshPremiumResult } from '../types';
 import { PREMIUM_DIALOG_QUERY, Result, Vars } from './premiumDialog.query';
 
 export function *refreshPremium() {
-  const client = getApolloClient();
+  const client = yield getApolloClient();
 
   const dialogData: PurchaseDialogData = yield select((root: RootState) => root.purchase.dialogData);
   if (!dialogData) {

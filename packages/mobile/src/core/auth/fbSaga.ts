@@ -4,7 +4,7 @@ import Config from 'react-native-config';
 import { AccessToken, LoginManager, LoginResult } from 'react-native-fbsdk';
 import { apply, call, put, takeEvery } from 'redux-saga/effects';
 import { resetNavigationToHome } from '../actions';
-import { getApolloClient } from '../apollo';
+import { apolloCachePersistor, getApolloClient } from '../apollo';
 import { trackError } from '../errors';
 import { navigationChannel } from '../sagas';
 import { initialized, loginWithFB, logoutWithFB } from './actions';
@@ -70,13 +70,11 @@ function* authWithFbToken(reset?: boolean): any {
   }
 }
 
+// See https://github.com/apollographql/apollo-cache-persist/issues/34#issuecomment-371177206 for explanation
 export function *resetApolloCache() {
-  // Read about apollo-cache-persist login flow
-  // cachePersistor.pause();
-  // yield apply(cachePersistor, cachePersistor.purge);
-  const client = getApolloClient();
-  try {
-    yield apply(client, client.resetStore);
-  } catch (e) {}
-  // cachePersistor.resume();
+  apolloCachePersistor.pause();
+  yield apply(apolloCachePersistor, apolloCachePersistor.purge);
+  const client = yield getApolloClient();
+  yield apply(client, client.resetStore);
+  apolloCachePersistor.resume();
 }
