@@ -6,7 +6,7 @@ PODS:
     - Bolts/Tasks
   - Bolts/Tasks (1.9.0)
   - boost-for-react-native (1.63.0)
-  - BVLinearGradient (2.4.1):
+  - BVLinearGradient (2.4.2):
     - React
   - Crashlytics (3.10.7):
     - Fabric (~> 1.7.11)
