@@ -121,6 +121,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode _versionCode
         versionName _versionName
+        multiDexEnabled true
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
