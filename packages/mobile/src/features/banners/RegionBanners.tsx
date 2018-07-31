@@ -1,8 +1,16 @@
 import React from 'react';
+import { StyleSheet } from 'react-native';
+import theme from '../../theme';
 import { consumeRegion, WithRegion } from '../../ww-clients/features/regions';
 import { BannerPlacement } from '../../ww-commons';
 import { BannerView } from './BannerView';
 import { getBannersForPlacement } from './getBannersForPlacement';
+
+const styles = StyleSheet.create({
+  bannerContainer: {
+    marginVertical: theme.margin.double,
+  },
+});
 
 interface OuterProps {
   placement: BannerPlacement;
@@ -19,7 +27,7 @@ class RegionBannersInner extends React.PureComponent<OuterProps & WithRegion> {
     return (
       <React.Fragment>
         {banners.map((banner) =>
-          (<BannerView key={banner.id} banner={banner} />))
+          (<BannerView key={banner.id} banner={banner} containerStyle={styles.bannerContainer} />))
         }
       </React.Fragment>
     );

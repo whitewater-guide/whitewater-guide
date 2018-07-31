@@ -44,13 +44,14 @@ export default class ImageBanner extends React.PureComponent<Props> {
 
   render() {
     const { banner, style } = this.props;
-    const uri = getBannerURL(banner.source.src!);
+    const { placement, extras, source } = banner;
+    const uri = getBannerURL(source.src!);
     return (
-      <View style={[styles.container, aspectRatios[banner.placement], style]}>
+      <View style={[styles.container, aspectRatios[placement], style, extras && extras.style]}>
         <TouchableWithoutFeedback onPress={this.onPress}>
           <FastImage
             source={{ uri }}
-            style={[styles.image, aspectRatios[banner.placement]]}
+            style={[styles.image, aspectRatios[placement]]}
           />
         </TouchableWithoutFeedback>
       </View>

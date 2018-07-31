@@ -3,13 +3,12 @@ import { withI18n, WithI18n } from 'react-i18next';
 import { FlatList, ListRenderItemInfo, StyleSheet, View } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 import { compose } from 'recompose';
-import { BannerView } from '../../../features/banners/BannerView';
 import { connectPremiumDialog, WithPremiumDialog } from '../../../features/purchases';
 import theme from '../../../theme';
 import { Banner, isBanner, Region, Section } from '../../../ww-commons';
 import { SectionsStatus } from '../types';
 import getSectionsWithBanners from './getSectionsWithBanners';
-import { ITEM_HEIGHT, SectionListItem } from './item';
+import { ITEM_HEIGHT, SectionListItem, SectionListBanner } from './item';
 import NoSectionsPlaceholder from './NoSectionsPlaceholder';
 
 const keyExtractor = (item: Section) => item.id;
@@ -26,7 +25,7 @@ const styles = StyleSheet.create({
     height: ITEM_HEIGHT,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderColor: theme.colors.border,
-    backgroundColor: theme.colors.textLight,
+    backgroundColor: 'pink',
   },
 });
 
@@ -103,9 +102,7 @@ class SectionsList extends React.PureComponent<InnerProps, State> {
     }
     if (isBanner(item)) {
       return (
-        <View style={styles.bannerContainer}>
-          <BannerView banner={item} style={styles.banner} />
-        </View>
+        <SectionListBanner banner={item} />
       );
     }
     return (
