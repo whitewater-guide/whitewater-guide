@@ -12,27 +12,6 @@ Object {
 }
 `;
 
-exports[`resolvers chain should throw on invalid input 1`] = `
-Object {
-  "0": Object {
-    "message": "\\"id\\" must be a valid GUID",
-    "path": "source.id",
-  },
-  "1": Object {
-    "message": "\\"cron\\" must be valid crontab expression",
-    "path": "source.cron",
-  },
-  "2": Object {
-    "message": "\\"url\\" must be a valid uri",
-    "path": "source.url",
-  },
-  "3": Object {
-    "message": "\\"id\\" must be a valid GUID",
-    "path": "source.regions.0.id",
-  },
-}
-`;
-
 exports[`update should match snapshot 1`] = `
 Object {
   "cron": "1 1 * * *",

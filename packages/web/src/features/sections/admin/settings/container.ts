@@ -3,7 +3,7 @@ import { compose } from 'recompose';
 import { InjectedFormProps } from 'redux-form';
 import { formContainer, serializeForm } from '../../../../components/forms';
 import { withFeatureIds } from '../../../../ww-clients/core';
-import { Section, SectionAdminSettings, SectionAdminSettingsSchema } from '../../../../ww-commons';
+import { Section, SectionAdminSettings, SectionAdminSettingsStruct } from '../../../../ww-commons';
 import ADMINISTRATE_SECTION_MUTATION from './administrateSection.mutation';
 import SECTION_ADMIN_SETTINGS_QUERY from './sectionAdmin.query';
 
@@ -15,7 +15,7 @@ const sectionAdminForm = formContainer({
   mutation: ADMINISTRATE_SECTION_MUTATION,
   serializeForm: serializeForm(),
   deserializeForm: ({ demo }: Section) => ({ demo }),
-  validationSchema: SectionAdminSettingsSchema,
+  validationSchema: SectionAdminSettingsStruct,
   extraVariables: ({ sectionId }) => ({ sectionId }),
   backPath: null,
 });

@@ -1,17 +1,17 @@
 import { isInputValidResolver, MutationNotAllowedError, TopLevelResolver } from '@apollo';
 import db from '@db';
 import { BANNERS, COVERS, minioClient, moveTempImage } from '@minio';
-import { RegionAdminSettings, RegionAdminSettingsSchema } from '@ww-commons';
-import Joi from 'joi';
+import { RegionAdminSettings, RegionAdminSettingsStruct } from '@ww-commons';
 import get from 'lodash/get';
+import { struct } from 'superstruct';
 import { RegionRaw } from '../types';
 
 interface Vars {
   settings: RegionAdminSettings;
 }
 
-const Schema = Joi.object().keys({
-  settings: RegionAdminSettingsSchema,
+const Struct = struct.object({
+  settings: RegionAdminSettingsStruct,
 });
 
 const updateImageFile = async (
@@ -65,6 +65,6 @@ const resolver: TopLevelResolver<Vars> = async (_, { settings }, context, info) 
   return context.dataSources.regions.getById(settings.id);
 };
 
-const administrateRegion = isInputValidResolver(Schema).createResolver(resolver);
+const administrateRegion = isInputValidResolver(Struct).createResolver(resolver);
 
 export default administrateRegion;

@@ -1,9 +1,8 @@
-// tslint:disable-next-line
-import Joi from 'joi';
+import { struct } from '../../utils/validation';
 
-export const RiverInputSchema = Joi.object().keys({
-  id: Joi.string().guid().allow(null),
-  name: Joi.string().min(2).max(200),
-  region: Joi.object().keys({ id: Joi.string().guid() }),
-  altNames: Joi.array().items(Joi.string().min(2)).allow(null),
+export const RiverInputStruct = struct.object({
+  id: 'uuid|null',
+  name: 'nonEmptyString',
+  region: 'node',
+  altNames: struct.union([struct.list(['nonEmptyString']), 'null']),
 });

@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should be invalid for bad platform 1`] = `
+Object {
+  "platform": "Incorrect value",
+}
+`;
+
+exports[`should be invalid for bad product 1`] = `
+Object {
+  "productId": "Value must be non-empty string",
+}
+`;

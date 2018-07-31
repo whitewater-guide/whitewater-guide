@@ -1,31 +1,65 @@
 // tslint:disable-next-line
-import Joi from 'joi';
-import { TagInputSchema } from './validation';
+import { createValidator } from '../../utils/validation';
+import { TagCategory, TagInput } from './types';
+import { TagInputStruct } from './validation';
 
-const validate = (value: any) => Joi.validate(
-  value,
-  TagInputSchema,
-  {
-    noDefaults: true,
-    stripUnknown: { objects: true, arrays: false },
-    presence: 'required',
-    abortEarly: false,
-    convert: false,
-  },
-);
+const validator = createValidator(TagInputStruct);
 
-it('should fail for bad ids', () => {
-  const ids = ['aa', 'яяяяяя', 'foo bar'];
-  ids.forEach(id => expect(validate({ id, name: 'Name', category: 'misc' }).error).toBeTruthy());
-  expect.assertions(3);
+type TestValue = [string, TagInput];
+
+const correct: TagInput = {
+  id: 'sometag',
+  name: 'Some tag',
+  category: TagCategory.hazards,
+};
+
+const correctValues: TestValue[] = [
+  [
+    'full value',
+    correct,
+  ],
+  [
+    'legacy id 1',
+    { ...correct, id: 'Must-run' },
+  ],
+  [
+    'legacy id 2',
+    { ...correct, id: 'man_made' },
+  ],
+  [
+    'legacy id 3',
+    { ...correct, id: '4x4' },
+  ],
+];
+
+const incorrectValues: TestValue[] = [
+  [
+    'empty name',
+    { ...correct, name: '' },
+  ],
+  [
+    'bad category',
+    { ...correct, category: 'foo' as any },
+  ],
+  [
+    'bad id 1',
+    { ...correct, id: 'aa' },
+  ],
+  [
+    'bad id 2',
+    { ...correct, id: 'яяяяяя' },
+  ],
+  [
+    'bad id 3',
+    { ...correct, id: 'foo bar' },
+  ],
+];
+
+it.each(correctValues)('should be valid for %s', (_, value) => {
+  expect(validator(value)).toBeNull();
 });
 
-it('should accept legacy ids', () => {
-  const ids = ['Must-run', 'man_made', '4x4'];
-  ids.forEach(id => expect(validate({ id, name: 'Name', category: 'misc' }).error).toBeFalsy());
-  expect.assertions(3);
-});
-
-it('should fail for bad category', () => {
-  expect(validate({ id: 'ololol', name: 'Name', category: 'baz' }).error).toBeTruthy();
+it.each(incorrectValues)('should be invalid for %s', (_, value) => {
+  expect(validator(value)).not.toBeNull();
+  expect(validator(value)).toMatchSnapshot();
 });

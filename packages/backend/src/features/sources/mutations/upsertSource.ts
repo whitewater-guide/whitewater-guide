@@ -1,14 +1,14 @@
 import { baseResolver, isInputValidResolver, MutationNotAllowedError, TopLevelResolver } from '@apollo';
 import db, { rawUpsert } from '@db';
-import { SourceInput, SourceInputSchema } from '@ww-commons';
-import Joi from 'joi';
+import { SourceInput, SourceInputStruct } from '@ww-commons';
+import { struct } from 'superstruct';
 
 interface Vars {
   source: SourceInput;
 }
 
-const Schema = Joi.object().keys({
-  source: SourceInputSchema,
+const Struct = struct.object({
+  source: SourceInputStruct,
 });
 
 const resolver: TopLevelResolver<Vars> = async (root, args, { language }) => {
@@ -22,7 +22,7 @@ const resolver: TopLevelResolver<Vars> = async (root, args, { language }) => {
   return rawUpsert(db(), 'SELECT upsert_source(?, ?)', [source, language]);
 };
 
-const queryResolver = isInputValidResolver(Schema).createResolver(resolver);
+const queryResolver = isInputValidResolver(Struct).createResolver(resolver);
 
 const upsertSource = baseResolver.createResolver(
   queryResolver,

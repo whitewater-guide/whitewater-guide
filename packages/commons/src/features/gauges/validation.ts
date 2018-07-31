@@ -1,22 +1,22 @@
-// tslint:disable-next-line
-import Joi from 'joi';
-import { JoiWithCron, JoiWithJSONString } from '../../utils';
-import { PointInputSchema } from '../points';
+import { struct } from '../../utils/validation';
+import { PointInputStruct } from '../points';
 
-export const GaugeInputSchema = Joi.object().keys({
-  id: Joi.string().guid().allow(null),
-  name: Joi.string().min(3).max(100),
-  code: Joi.string().min(3).max(100),
-  levelUnit: Joi.string().min(1).allow(null),
-  flowUnit: Joi.string().min(1).allow(null),
-  location: PointInputSchema.allow(null),
-  requestParams: Joi.object().min(1).allow(null),
-  cron: JoiWithCron.string().isCron().allow(null),
-  url: Joi.string().uri().allow(null).allow(''),
-  source: Joi.object().keys({ id: Joi.string().guid() }),
-});
+const GaugeInputFields = {
+  id: struct.union(['uuid', 'null']),
+  name: 'nonEmptyString',
+  code: 'nonEmptyVarchar',
+  levelUnit: 'nonEmptyVarchar|null',
+  flowUnit: 'nonEmptyVarchar|null',
+  location: struct.union([PointInputStruct, 'null']),
+  requestParams: 'object|null',
+  cron: struct.union(['cron', 'null']),
+  url: struct.union(['url', 'null', struct.literal('')]),
+  source: 'node',
+};
 
-// description is draft.js EditorState
-export const GaugeFormSchema = GaugeInputSchema.keys({
-  requestParams: JoiWithJSONString.string().isJSONString().allow(null),
+export const GaugeInputStruct = struct.object(GaugeInputFields);
+
+export const GaugeFormStruct = struct.object({
+  ...GaugeInputFields,
+  requestParams: struct.union(['jsonString', 'null']),
 });

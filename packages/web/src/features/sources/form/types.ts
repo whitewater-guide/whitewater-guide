@@ -1,10 +1,10 @@
 import { MdEditorValue } from '@whitewater-guide/md-editor';
 import { RouteComponentProps } from 'react-router';
 import { InjectedFormProps } from 'redux-form';
-import { Overwrite } from 'type-zoo';
-import { Region, Script, SourceInput } from '../../../ww-commons';
+import { Region, Script, SourceFormInput } from '../../../ww-commons';
 
-export type SourceFormInput = Overwrite<SourceInput, {termsOfUse: MdEditorValue, script: Script}>;
-export type SourceFormProps = InjectedFormProps<SourceFormInput> &
+export type SourceFormData = SourceFormInput<MdEditorValue>;
+
+export type SourceFormProps = InjectedFormProps<SourceFormData> &
   RouteComponentProps<any> &
   {scripts: Script[], regions: Region[] };

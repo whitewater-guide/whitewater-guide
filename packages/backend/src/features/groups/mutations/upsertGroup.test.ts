@@ -27,7 +27,7 @@ const query = `
 const group: GroupInput = {
   id: null,
   name: 'New group',
-  sku: 'test.group.sku',
+  sku: 'group.sku',
 };
 
 describe('resolvers chain', () => {
@@ -59,7 +59,6 @@ describe('resolvers chain', () => {
     const result = await runQuery(query, { group: invalidInput }, fakeContext(ADMIN));
     expect(result).toHaveProperty('errors.0.name', 'ValidationError');
     expect(result.data!.upsertGroup).toBeNull();
-    expect((result.errors![0] as any).data).toMatchSnapshot();
   });
 });
 
@@ -70,7 +69,7 @@ describe('insert', () => {
     expect(result.data!.upsertGroup).toMatchObject({
       id: expect.stringMatching(UUID_REGEX),
       name: 'New group',
-      sku: 'test.group.sku',
+      sku: 'group.sku',
     });
   });
 
@@ -86,7 +85,7 @@ describe('update', () => {
   const input: GroupInput = {
     id: GROUP_EU,
     name: 'Evrope',
-    sku: 'test.group.sku',
+    sku: 'group.sku',
   };
 
   it('should return result', async () => {
@@ -107,7 +106,7 @@ describe('i18n', () => {
   const inputFr: GroupInput = {
     id: GROUP_EU,
     name: "L'Europe",
-    sku: 'test.group.sku',
+    sku: 'group.sku',
   };
 
   it('should add new translation', async () => {

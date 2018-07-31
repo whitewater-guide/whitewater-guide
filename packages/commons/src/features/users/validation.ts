@@ -1,10 +1,13 @@
-// tslint:disable-next-line
-import Joi from 'joi';
 import { LANGUAGES } from '../../core';
+import { struct } from '../../utils/validation';
 
-export const UserInputSchema = Joi.object().keys({
-  name: Joi.string().min(3).max(200).optional(),
-  avatar: Joi.string().allow('').allow(null).optional(),
-  language: Joi.any().valid(LANGUAGES).optional(),
-  imperial: Joi.bool().optional(),
+export const UserInputStruct = struct.object({
+  name: 'nonEmptyString?',
+  avatar: 'string?|null',
+  language: struct.optional(struct.enum(LANGUAGES)),
+  imperial: struct.optional('boolean'),
+});
+
+export const EditorSettingsStruct = struct.object({
+  language: struct.enum(LANGUAGES),
 });

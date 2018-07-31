@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`coordinate schema error 1`] = `
+Object {
+  "0": "Longitude value must be between -180 and 180",
+  "1": "Latitude value must be between -90 and 90",
+}
+`;
+
+exports[`loose coordinate schema error 1`] = `
+Object {
+  "0": "Longitude value must be between -180 and 180",
+  "1": "Latitude value must be between -90 and 90",
+}
+`;
+
+exports[`point input schema should return errors for incorrect input 1`] = `
+Object {
+  "coordinates": Array [
+    "Longitude value must be between -180 and 180",
+    "Latitude value must be between -90 and 90",
+  ],
+  "id": "Incorrect UUID",
+  "kind": "Incorrect value",
+}
+`;

@@ -4,7 +4,7 @@ import { RouteComponentProps } from 'react-router';
 import { compose } from 'recompose';
 import { deserializeForm, formContainer, serializeForm } from '../../../components/forms';
 import { withFeatureIds } from '../../../ww-clients/core';
-import { MediaInputSchema, MediaKind } from '../../../ww-commons';
+import { MediaInputStruct, MediaKind } from '../../../ww-commons';
 import SECTIONS_MEDIA from '../list/sectionsMedia.query';
 import MEDIA_FORM_QUERY from './mediaForm.query';
 import { MediaFormInput, MediaFormProps, MediaFormQueryResult } from './types';
@@ -31,7 +31,7 @@ const mediaForm = formContainer({
   mutation: UPSERT_MEDIA,
   serializeForm: serializeForm(),
   deserializeForm: deserializeForm(),
-  validationSchema: MediaInputSchema,
+  validationSchema: MediaInputStruct,
   extraVariables: (props: DefaultValueProps) => ({ sectionId: props.match.params.sectionId }),
   mutationOptions: (props: DefaultValueProps) => ({
     refetchQueries: [{

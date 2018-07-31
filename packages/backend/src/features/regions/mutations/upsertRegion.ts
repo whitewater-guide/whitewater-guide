@@ -1,14 +1,14 @@
 import { isInputValidResolver, TopLevelResolver } from '@apollo';
 import db, { rawUpsert } from '@db';
-import { RegionInput, RegionInputSchema } from '@ww-commons';
-import Joi from 'joi';
+import { RegionInput, RegionInputStruct } from '@ww-commons';
+import { struct } from 'superstruct';
 
 interface Vars {
   region: RegionInput;
 }
 
-const Schema = Joi.object().keys({
-  region: RegionInputSchema,
+const Struct = struct.object({
+  region: RegionInputStruct,
 });
 
 const resolver: TopLevelResolver<Vars> = async (_, { region }: Vars, { language, user, dataSources }) => {
@@ -28,6 +28,6 @@ const resolver: TopLevelResolver<Vars> = async (_, { region }: Vars, { language,
   return result;
 };
 
-const upsertRegion = isInputValidResolver(Schema).createResolver(resolver);
+const upsertRegion = isInputValidResolver(Struct).createResolver(resolver);
 
 export default upsertRegion;

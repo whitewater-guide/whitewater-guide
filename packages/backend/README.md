@@ -25,5 +25,5 @@
 To use module alias like `@features/regions` it should be added to 4 places:
 - `paths` in `tsconfig.json`
 - `no-implicit-dependencies` rule of `tslint.json`
-- `moduleNameMapper` in jest settings in `package.json`
+- `moduleNameMapper` in `jest.config.json`
 - `_moduleAliases` in `package.json` (so that compiled js can use aliases)

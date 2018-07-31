@@ -1,16 +1,15 @@
 import { ApolloError } from 'apollo-client';
 import { DocumentNode } from 'graphql';
-// tslint:disable-next-line
-import { Schema } from 'joi';
 import { memoize } from 'lodash';
 import { ChildProps, graphql, MutationOpts } from 'react-apollo';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { compose, mapProps } from 'recompose';
 import { ConfigProps, InjectedFormProps, reduxForm, SubmissionError } from 'redux-form';
+import { Kind } from 'superstruct';
 import { Omit } from 'type-zoo';
 import { apolloErrorToString } from '../../ww-clients/apollo';
 import { withLoading } from '../withLoading';
-import { validateInput } from './validateInput';
+import { validateInput } from './validation';
 
 export interface FormContainerOptions<QueryResult, MutationResult, FormInput> {
   /**
@@ -56,9 +55,9 @@ export interface FormContainerOptions<QueryResult, MutationResult, FormInput> {
    */
   serializeForm: (input: FormInput) => any;
   /**
-   * redux-form validation schema, works with form data (i.e. draft.js EditorState)
+   * redux-form validateInput schema, works with form data (i.e. draft.js EditorState)
    */
-  validationSchema: Schema;
+  validationSchema: Kind;
   /**
    * By default mutate will be called with two varibales:
    * [propName] = serializedForm

@@ -1,57 +1,73 @@
-// tslint:disable-next-line
-import Joi from 'joi';
-import { CoordinateSchema, PointInputSchema } from '../points';
-import { TagInputSchema } from '../tags';
+import isArray from 'lodash/isArray';
+import isString from 'lodash/isString';
+import omit from 'lodash/omit';
+import times from 'lodash/times';
+import { Type } from 'superstruct';
+import { customStruct } from '../../utils/validation';
+import { CoordinateStruct, PointInputStruct } from '../points';
+import { TagInputStruct } from '../tags';
 import { Durations } from './types';
 
-export const GaugeBindingSchema = Joi.object().keys({
-  minimum: Joi.number().allow(null).optional(),
-  maximum: Joi.number().allow(null).optional(),
-  optimum: Joi.number().allow(null).optional(),
-  impossible: Joi.number().allow(null).optional(),
-  approximate: Joi.boolean().allow(null).optional(),
+const struct = customStruct({
+  difficultyXtra: (v: any) => {
+    if (!isString(v) || v.length > 32) {
+      return 'Must be string no longer than 32 chars';
+    }
+    return true;
+  },
+  shapeArray: (v: any) =>
+    (isArray(v) && v.length >= 2) || 'Minimal length is 2',
 });
 
-export const SectionInputSchema = Joi.object().keys({
-  id: Joi.string().guid().allow(null),
-  name: Joi.string().min(2).max(100),
-  altNames: Joi.array().items(Joi.string().min(2)).allow(null),
-  description: Joi.string().allow(null).allow(''),
-  season: Joi.string().allow(null).allow(''),
-  seasonNumeric: Joi.array().max(24).items(Joi.number().min(0).max(23)),
-
-  river: Joi.object().keys({
-    id: Joi.string().guid().allow(null),
-  }),
-  gauge: Joi.object().keys({ id: Joi.string().guid() }).allow(null),
-  levels: GaugeBindingSchema.allow(null),
-  flows: GaugeBindingSchema.allow(null),
-  flowsText: Joi.string().allow(null).allow(''),
-
-  shape: Joi.array().items(CoordinateSchema).min(2),
-  distance: Joi.number().positive().allow(null),
-  drop: Joi.number().positive().allow(null),
-  duration: Joi.any().valid(Array.from(Durations.keys())).allow(null),
-  difficulty: Joi.number().min(0).max(5),
-  difficultyXtra: Joi.string().max(32).allow(null),
-  rating: Joi.number().min(0).max(5).allow(null),
-  tags: Joi.array().items(Joi.object().keys({
-    id: Joi.string(),
-  })),
-  pois: Joi.array().items(PointInputSchema),
-  hidden: Joi.bool(),
+export const GaugeBindingStruct = struct.object({
+  minimum: 'number?|null',
+  maximum: 'number?|null',
+  optimum: 'number?|null',
+  impossible: 'number?|null',
+  approximate: 'boolean?|null',
 });
 
-// description is draft.js EditorState
-export const SectionFormSchema = SectionInputSchema.keys({
-  description: Joi.any(),
-  tags: Joi.forbidden(),
-  kayakingTags: Joi.array().items(TagInputSchema),
-  hazardsTags: Joi.array().items(TagInputSchema),
-  supplyTags: Joi.array().items(TagInputSchema),
-  miscTags: Joi.array().items(TagInputSchema),
+const SimpleTagStruct = struct.object({
+  id: 'nonEmptyVarchar',
 });
 
-export const SectionAdminSettingsSchema = Joi.object().keys({
-  demo: Joi.bool(),
+const SectionInputFields = {
+  id: 'uuid|null',
+  name: 'nonEmptyString',
+  altNames: struct.union([struct.list(['nonEmptyString']), 'null']),
+  description: 'string|null',
+  season: 'string|null',
+  seasonNumeric: struct.intersection([['halfMonth'], 'seasonNumeric']),
+
+  river: 'node',
+  gauge: 'node|null',
+  levels: struct.union([GaugeBindingStruct, 'null']),
+  flows: struct.union([GaugeBindingStruct, 'null']),
+  flowsText: 'string|null',
+
+  shape: struct.intersection(['shapeArray', [CoordinateStruct]]),
+  distance: 'positiveNumber|null',
+  drop: 'positiveNumber|null',
+  duration: struct.union(['null', struct.enum(Array.from(Durations.keys()))]),
+  difficulty: struct.enum(times(11, i => i * 0.5)),
+  difficultyXtra: 'difficultyXtra|null',
+  rating: struct.union(['null', struct.enum(times(11, i => i * 0.5))]),
+  tags: [SimpleTagStruct],
+  pois: [PointInputStruct],
+  hidden: 'boolean',
+};
+
+export const SectionInputStruct = struct.object(SectionInputFields);
+
+export const SectionFormStruct = (richTextStruct?: Type) => struct.object({
+  ...omit(SectionInputFields, 'tags'),
+  description: richTextStruct || 'any',
+  kayakingTags: [TagInputStruct],
+  hazardsTags: [TagInputStruct],
+  supplyTags: [TagInputStruct],
+  miscTags: [TagInputStruct],
+});
+
+export const SectionAdminSettingsStruct = struct.object({
+  demo: 'boolean',
 });

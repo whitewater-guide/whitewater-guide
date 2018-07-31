@@ -1,18 +1,18 @@
 import { Context, isInputValidResolver } from '@apollo';
 import db from '@db';
-import { UserInput, UserInputSchema } from '@ww-commons';
-import Joi from 'joi';
+import { UserInput, UserInputStruct } from '@ww-commons';
 import pickBy from 'lodash/pickBy';
+import { struct } from 'superstruct';
 
 interface Vars {
   user: UserInput;
 }
 
-const Schema = Joi.object().keys({
-  user: UserInputSchema,
+const Struct = struct.object({
+  user: UserInputStruct,
 });
 
-const updateProfile = isInputValidResolver(Schema).createResolver(
+const updateProfile = isInputValidResolver(Struct).createResolver(
   async (root, { user }: Vars, context: Context) => {
     if (!context.user) {
       return null;

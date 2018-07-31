@@ -1,5 +1,5 @@
 import { NamedNode } from '../../core';
-import { HarvestMode } from '../sources';
+import { HarvestMode } from '../harvest-mode';
 
 export interface Script extends NamedNode {
   harvestMode: HarvestMode;

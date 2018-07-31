@@ -51,7 +51,6 @@ describe('resolvers chain', () => {
     const result = await runQuery(query, { tag: invalidInput }, fakeContext(ADMIN));
     expect(result).toHaveProperty('errors.0.name', 'ValidationError');
     expect(result.data!.upsertTag).toBeNull();
-    expect((result.errors![0] as any).data).toMatchSnapshot();
   });
 });
 

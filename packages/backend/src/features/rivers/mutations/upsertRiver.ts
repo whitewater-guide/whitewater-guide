@@ -1,14 +1,14 @@
 import { isInputValidResolver, TopLevelResolver } from '@apollo';
 import db, { rawUpsert } from '@db';
-import { RiverInput, RiverInputSchema } from '@ww-commons';
-import Joi from 'joi';
+import { RiverInput, RiverInputStruct } from '@ww-commons';
+import { struct } from 'superstruct';
 
 interface Vars {
   river: RiverInput;
 }
 
-const Schema = Joi.object().keys({
-  river: RiverInputSchema,
+const Struct = struct.object({
+  river: RiverInputStruct,
 });
 
 const resolver: TopLevelResolver<Vars> = async (root, vars, { user, language, dataSources }) => {
@@ -17,6 +17,6 @@ const resolver: TopLevelResolver<Vars> = async (root, vars, { user, language, da
   return rawUpsert(db(), 'SELECT upsert_river(?, ?)', [river, language]);
 };
 
-const upsertRiver = isInputValidResolver(Schema).createResolver(resolver);
+const upsertRiver = isInputValidResolver(Struct).createResolver(resolver);
 
 export default upsertRiver;

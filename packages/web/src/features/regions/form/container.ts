@@ -1,17 +1,17 @@
 import { RouteComponentProps } from 'react-router';
 import { compose } from 'recompose';
 import { InjectedFormProps } from 'redux-form';
-import { deserializeForm, formContainer, serializeForm } from '../../../components/forms';
+import { deserializeForm, formContainer, MdEditorStruct, serializeForm } from '../../../components/forms';
 import { withFeatureIds } from '../../../ww-clients/core';
-import { RegionFormSchema, RegionInput } from '../../../ww-commons';
+import { RegionFormStruct, RegionInput } from '../../../ww-commons';
 import REGION_FORM_QUEUE from './regionForm.queue';
-import { RegionFormInput } from './types';
+import { FormData } from './types';
 import UPSERT_REGION from './upsertRegion.mutation';
 
 const NEW_REGION: RegionInput = {
   id: null,
   description: null,
-  bounds: null,
+  bounds: [],
   seasonNumeric: [],
   season: null,
   name: '',
@@ -26,10 +26,10 @@ const regionForm = formContainer({
   mutation: UPSERT_REGION,
   serializeForm: serializeForm(['description']),
   deserializeForm: deserializeForm(['description'], ['pois']),
-  validationSchema: RegionFormSchema,
+  validationSchema: RegionFormStruct(MdEditorStruct),
 });
 
-export default compose<InjectedFormProps<RegionFormInput> & RouteComponentProps<any>, RouteComponentProps<any>>(
+export default compose<InjectedFormProps<FormData> & RouteComponentProps<any>, RouteComponentProps<any>>(
   withFeatureIds('region'),
   regionForm,
 );

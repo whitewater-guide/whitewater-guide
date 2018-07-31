@@ -1,0 +1,113 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SourceForm should be invalid for bad cron 1`] = `
+Object {
+  "cron": "Incorrect cron expression",
+}
+`;
+
+exports[`SourceForm should be invalid for bad harvest_mode 1`] = `
+Object {
+  "harvestMode": "Incorrect value",
+}
+`;
+
+exports[`SourceForm should be invalid for bad region 1`] = `
+Object {
+  "regions": Array [
+    "Value must be node with id",
+  ],
+}
+`;
+
+exports[`SourceForm should be invalid for bad script 1`] = `
+Object {
+  "script": Object {
+    "harvestMode": "Incorrect value",
+    "id": "Incorrect value",
+    "name": "Incorrect value",
+  },
+}
+`;
+
+exports[`SourceForm should be invalid for bad url 1`] = `
+Object {
+  "url": "Value must be valid URL",
+}
+`;
+
+exports[`SourceForm should be invalid for bad uuid 1`] = `
+Object {
+  "id": "Incorrect UUID",
+}
+`;
+
+exports[`SourceForm should be invalid for empty name 1`] = `
+Object {
+  "name": "Value must be non-empty string",
+}
+`;
+
+exports[`SourceForm should be invalid for some bad regions legacy snapshot 1`] = `
+Object {
+  "regions": Array [
+    "Value must be node with id",
+    undefined,
+    "Value must be node with id",
+  ],
+}
+`;
+
+exports[`SourceInput should be invalid for bad cron 1`] = `
+Object {
+  "cron": "Incorrect cron expression",
+}
+`;
+
+exports[`SourceInput should be invalid for bad harvest_mode 1`] = `
+Object {
+  "harvestMode": "Incorrect value",
+}
+`;
+
+exports[`SourceInput should be invalid for bad region 1`] = `
+Object {
+  "regions": Array [
+    "Value must be node with id",
+  ],
+}
+`;
+
+exports[`SourceInput should be invalid for bad url 1`] = `
+Object {
+  "url": "Value must be valid URL",
+}
+`;
+
+exports[`SourceInput should be invalid for bad uuid 1`] = `
+Object {
+  "id": "Incorrect UUID",
+}
+`;
+
+exports[`SourceInput should be invalid for empty name 1`] = `
+Object {
+  "name": "Value must be non-empty string",
+}
+`;
+
+exports[`SourceInput should be invalid for empty script 1`] = `
+Object {
+  "script": "Incorrect value",
+}
+`;
+
+exports[`SourceInput should be invalid for some bad regions legacy snapshot 1`] = `
+Object {
+  "regions": Array [
+    "Value must be node with id",
+    undefined,
+    "Value must be node with id",
+  ],
+}
+`;

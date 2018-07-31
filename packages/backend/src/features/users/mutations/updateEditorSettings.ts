@@ -1,20 +1,18 @@
 import { Context, isAuthenticatedResolver, isInputValidResolver } from '@apollo';
 import db from '@db';
-import { EditorSettings } from '@ww-commons';
-import Joi from 'joi';
+import { EditorSettings, EditorSettingsStruct } from '@ww-commons';
+import { struct } from 'superstruct';
 
 interface Vars {
   editorSettings: EditorSettings;
 }
 
-const Schema = Joi.object().keys({
-  editorSettings: Joi.object().keys({
-    language: Joi.string().length(2),
-  }),
+const Struct = struct.object({
+  editorSettings: EditorSettingsStruct
 });
 
 const updateEditorSettings = isAuthenticatedResolver.createResolver(
-  isInputValidResolver(Schema).createResolver(
+  isInputValidResolver(Struct).createResolver(
     async (root, { editorSettings }: Vars, { user }: Context) => {
       await db().table('users')
         .update({ editor_settings: editorSettings })

@@ -3,7 +3,7 @@ import { compose } from 'recompose';
 import { InjectedFormProps } from 'redux-form';
 import { deserializeForm, formContainer, serializeForm } from '../../../../components/forms';
 import { withFeatureIds } from '../../../../ww-clients/core';
-import { RegionAdminSettings, RegionAdminSettingsSchema } from '../../../../ww-commons';
+import { RegionAdminSettings, RegionAdminSettingsStruct } from '../../../../ww-commons';
 import ADMINISTRATE_REGION_MUTATION from './administrateRegion.mutation';
 import { REGION_ADMIN_SETTINGS_QUERY } from './regionAdmin.query';
 
@@ -15,7 +15,7 @@ const regionAdminForm = formContainer({
   mutation: ADMINISTRATE_REGION_MUTATION,
   serializeForm: serializeForm(),
   deserializeForm: deserializeForm([], ['banners', 'coverImage']),
-  validationSchema: RegionAdminSettingsSchema,
+  validationSchema: RegionAdminSettingsStruct,
   backPath: null,
 });
 

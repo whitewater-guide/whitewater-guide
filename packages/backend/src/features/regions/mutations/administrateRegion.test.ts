@@ -37,7 +37,7 @@ const variables = {
     id: REGION_GALICIA,
     hidden: true,
     premium: true,
-    sku: 'test.sku',
+    sku: 'region.sku',
     coverImage: {
       mobile: 'galicia_mobile_cover2.jpg',
     },
@@ -86,7 +86,7 @@ describe('result', () => {
       id: REGION_GALICIA,
       hidden: true,
       premium: true,
-      sku: 'test.sku',
+      sku: 'region.sku',
       coverImage: {
         mobile: 'galicia_mobile_cover2.jpg',
       },

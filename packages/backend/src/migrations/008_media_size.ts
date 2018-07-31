@@ -39,7 +39,7 @@ function readFiles(): Promise<BucketFile[]> {
   return new Promise((resolve) => {
     const files: BucketFile[] = [];
     minioClient.listObjectsV2(MEDIA)
-      .on('data', ({ name, size }) => files.push({ name, size }))
+      .on('data', ({ name, size }: BucketItem) => files.push({ name, size }))
       .on('end' as any, () => resolve(files));
   });
 }

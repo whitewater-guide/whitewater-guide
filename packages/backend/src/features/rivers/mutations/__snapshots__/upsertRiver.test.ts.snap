@@ -13,23 +13,6 @@ Object {
 }
 `;
 
-exports[`resolvers chain should throw on invalid input 1`] = `
-Object {
-  "0": Object {
-    "message": "\\"name\\" length must be at least 2 characters long",
-    "path": "river.name",
-  },
-  "1": Object {
-    "message": "\\"id\\" must be a valid GUID",
-    "path": "river.region.id",
-  },
-  "2": Object {
-    "message": "\\"0\\" length must be at least 2 characters long",
-    "path": "river.altNames.0",
-  },
-}
-`;
-
 exports[`update should match snapshot 1`] = `
 Object {
   "altNames": Array [

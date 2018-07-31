@@ -1,17 +1,17 @@
 import { Context, isInputValidResolver } from '@apollo';
 import db, { rawUpsert } from '@db';
-import { TagInput, TagInputSchema } from '@ww-commons';
-import Joi from 'joi';
+import { TagInput, TagInputStruct } from '@ww-commons';
+import { struct } from 'superstruct';
 
 interface Vars {
   tag: TagInput;
 }
 
-const Schema = Joi.object().keys({
-  tag: TagInputSchema,
+const Struct = struct.object({
+  tag: TagInputStruct,
 });
 
-const upsertTag = isInputValidResolver(Schema).createResolver(
+const upsertTag = isInputValidResolver(Struct).createResolver(
   (_: any, { tag }: Vars, { language }: Context) =>
     rawUpsert(db(), 'SELECT upsert_tag(?, ?)', [tag, language]),
 );

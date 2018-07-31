@@ -11,7 +11,8 @@ const resolver: TopLevelResolver<Vars> = async (root, { id }: Vars, { user, data
   if (sectionsCount > 0) {
     throw new MutationNotAllowedError({ message: 'Delete all sections first!' });
   }
-  return db().table('rivers').del().where({ id }).returning('id');
+  const result = await db().table('rivers').del().where({ id }).returning('id');
+  return (result && result.length) ? result[0] : null;
 };
 
 const removeRiver = baseResolver.createResolver(

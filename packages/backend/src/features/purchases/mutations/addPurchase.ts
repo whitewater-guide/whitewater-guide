@@ -1,9 +1,9 @@
 import { AuthenticationRequiredError, Context, isInputValidResolver, MutationNotAllowedError } from '@apollo';
 import db from '@db';
-import { PurchaseInput, PurchasePlatform } from '@ww-commons';
+import { PurchaseInput, PurchaseInputStruct, PurchasePlatform } from '@ww-commons';
 import { isValidated, validate } from 'in-app-purchase';
-import Joi from 'joi';
 import { Transaction } from 'knex';
+import { struct } from 'superstruct';
 import logger from '../logger';
 import { BoomPromoRaw, TransactionRaw } from '../types';
 
@@ -11,17 +11,8 @@ interface Vars {
   purchase: PurchaseInput;
 }
 
-const PurchaseInputSchema = Joi.object().keys({
-  platform: Joi.any().allow(PurchasePlatform),
-  transactionId: Joi.string().min(3),
-  transactionDate: Joi.date().allow(null).optional(),
-  productId: Joi.string().min(3),
-  receipt: Joi.string().allow('').allow(null).optional(),
-  extra: Joi.object().min(1).allow(null).optional(),
-});
-
-const Schema = Joi.object().keys({
-  purchase: PurchaseInputSchema,
+const Struct = struct.object({
+  purchase: PurchaseInputStruct,
 });
 
 const processBoomstarterPurchase = async (purchase: PurchaseInput, { user }: Context) => {
@@ -71,7 +62,7 @@ const processIAP = async (purchase: PurchaseInput, { user }: Context) => {
   return true;
 };
 
-const addPurchase = isInputValidResolver(Schema).createResolver(
+const addPurchase = isInputValidResolver(Struct).createResolver(
   async (_: any, { purchase }: Vars, context: Context) => {
     const { user } = context;
     if (!user) {

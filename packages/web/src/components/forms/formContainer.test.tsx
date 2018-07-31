@@ -1,15 +1,14 @@
 import gql from 'graphql-tag';
 import { createMemoryHistory, History } from 'history';
-// tslint:disable-next-line
-import Joi from 'joi';
 import React from 'react';
 import { ChildProps, graphql } from 'react-apollo';
 import { ComponentEnhancer, withProps } from 'recompose';
+import { struct } from 'superstruct';
 import { FormReceiver, mountForm } from '../../test';
 import { flushPromises } from '../../ww-clients/test';
 import { Loading } from '../Loading';
 import { formContainer, FormContainerOptions } from './formContainer';
-import { validateInput } from './validateInput';
+import { validateInput } from './validation';
 
 function mockReactApollo() {
   const original = require.requireActual('react-apollo');
@@ -21,7 +20,7 @@ function mockReactApollo() {
 
 jest.mock('react-apollo', () => mockReactApollo());
 
-jest.mock('./validateInput', () => ({
+jest.mock('./validation', () => ({
   validateInput: jest.fn(),
 }));
 
@@ -41,7 +40,7 @@ interface FormInput {
   foo: string;
 }
 
-const ValidationSchema = Joi.object().keys({ foo: Joi.string() });
+const Struct = struct.object({ foo: 'string' });
 
 type Opts = FormContainerOptions<QueryResult, MutationResult, FormInput>;
 
@@ -71,7 +70,7 @@ const options: Opts = {
     foo: 'default_foo',
   },
   backPath: 'entities',
-  validationSchema: ValidationSchema,
+  validationSchema: Struct,
   serializeForm,
   deserializeForm,
 };
@@ -120,9 +119,9 @@ it('should use default value when query returns null', () => {
   expect(receiver.prop('initialValues')).toEqual({ foo: 'default_foo_d' });
 });
 
-it('should use validation schema', () => {
+it('should use validateInput schema', () => {
   mountThings(false, false, false);
-  expect(validateInput).toBeCalledWith(ValidationSchema);
+  expect(validateInput).toBeCalledWith(Struct);
 });
 
 it('should send serialized values', () => {

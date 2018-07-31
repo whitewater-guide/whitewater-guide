@@ -1,23 +1,22 @@
-// tslint:disable-next-line
-import Joi from 'joi';
-import { POINames } from './POITypes';
+import { struct } from '../../utils/validation';
+import { POITypes } from './POITypes';
 
-export const CoordinateSchema = Joi.array().ordered(
-  Joi.number().min(-180).max(180).required().label('longitude'), // longitude
-  Joi.number().min(-90).max(90).required().label('latitude'), // latitude
-  Joi.number().required().label('altitude'), // altitude
-);
+export const CoordinateStruct = struct.tuple([
+  'longitude',
+  'latitude',
+  'number',
+]);
 
-export const CoordinateSchemaLoose = Joi.array().ordered(
-  Joi.number().min(-180).max(180).required().label('longitude'), // longitude
-  Joi.number().min(-90).max(90).required().label('latitude'), // latitude
-  Joi.number().label('altitude').optional(), // altitude
-).sparse(true);
+export const CoordinateStructLoose = struct.tuple([
+  'longitude',
+  'latitude',
+  'number?',
+]);
 
-export const PointInputSchema = Joi.object().keys({
-  id: Joi.string().guid().allow(null),
-  name: Joi.string().allow(null).allow(''),
-  description: Joi.string().allow(null).allow(''),
-  coordinates: CoordinateSchema.required(),
-  kind: Joi.any().allow(POINames),
+export const PointInputStruct = struct.object({
+  id: 'uuid|null',
+  name: 'string|null',
+  description: 'string|null',
+  coordinates: CoordinateStruct,
+  kind: struct.enum(POITypes),
 });

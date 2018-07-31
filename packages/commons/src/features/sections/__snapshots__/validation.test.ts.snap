@@ -1,0 +1,320 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SectionAdminSettings should be invalid for extra fields 1`] = `
+Object {
+  "foo": "Incorrect value",
+}
+`;
+
+exports[`SectionFormInput should be invalid for bad alt name 1`] = `
+Object {
+  "altNames": Array [
+    undefined,
+    "Value must be non-empty string",
+  ],
+}
+`;
+
+exports[`SectionFormInput should be invalid for bad difficulty (fraction) 1`] = `
+Object {
+  "difficulty": "Incorrect value",
+}
+`;
+
+exports[`SectionFormInput should be invalid for bad difficulty (max) 1`] = `
+Object {
+  "difficulty": "Incorrect value",
+}
+`;
+
+exports[`SectionFormInput should be invalid for bad difficulty (min) 1`] = `
+Object {
+  "difficulty": "Incorrect value",
+}
+`;
+
+exports[`SectionFormInput should be invalid for bad distance 1`] = `
+Object {
+  "distance": "Value must be positive number",
+}
+`;
+
+exports[`SectionFormInput should be invalid for bad drop 1`] = `
+Object {
+  "drop": "Value must be positive number",
+}
+`;
+
+exports[`SectionFormInput should be invalid for bad duration 1`] = `
+Object {
+  "duration": "Incorrect value",
+}
+`;
+
+exports[`SectionFormInput should be invalid for bad extra difficulty 1`] = `
+Object {
+  "difficultyXtra": "Must be string no longer than 32 chars",
+}
+`;
+
+exports[`SectionFormInput should be invalid for bad gauge id 1`] = `
+Object {
+  "gauge": "Value must be node with id",
+}
+`;
+
+exports[`SectionFormInput should be invalid for bad id 1`] = `
+Object {
+  "id": "Incorrect UUID",
+}
+`;
+
+exports[`SectionFormInput should be invalid for bad name 1`] = `
+Object {
+  "name": "Value must be non-empty string",
+}
+`;
+
+exports[`SectionFormInput should be invalid for bad pois 1`] = `
+Object {
+  "pois": Array [
+    undefined,
+    Object {
+      "id": "Incorrect UUID",
+    },
+  ],
+}
+`;
+
+exports[`SectionFormInput should be invalid for bad rating (fraction) 1`] = `
+Object {
+  "rating": "Incorrect value",
+}
+`;
+
+exports[`SectionFormInput should be invalid for bad rating (max) 1`] = `
+Object {
+  "rating": "Incorrect value",
+}
+`;
+
+exports[`SectionFormInput should be invalid for bad rating (min) 1`] = `
+Object {
+  "rating": "Incorrect value",
+}
+`;
+
+exports[`SectionFormInput should be invalid for bad river id 1`] = `
+Object {
+  "river": "Value must be node with id",
+}
+`;
+
+exports[`SectionFormInput should be invalid for bad season numeric (bad half-month) 1`] = `
+Object {
+  "seasonNumeric": Array [
+    undefined,
+    "Must be integer between 0 and 23",
+    "Must be integer between 0 and 23",
+  ],
+}
+`;
+
+exports[`SectionFormInput should be invalid for bad season numeric (too many items) 1`] = `
+Object {
+  "seasonNumeric": "Maximal length is 24",
+}
+`;
+
+exports[`SectionFormInput should be invalid for bad shape (bad point) 1`] = `
+Object {
+  "shape": Array [
+    undefined,
+    Array [
+      "Longitude value must be between -180 and 180",
+    ],
+  ],
+}
+`;
+
+exports[`SectionFormInput should be invalid for bad shape (not enough points) 1`] = `
+Object {
+  "shape": "Minimal length is 2",
+}
+`;
+
+exports[`SectionFormInput should be invalid for bad tag 1`] = `
+Object {
+  "kayakingTags": Array [
+    undefined,
+    Object {
+      "id": "Invalid tag",
+    },
+  ],
+}
+`;
+
+exports[`SectionFormInput should be invalid for extra fields 1`] = `
+Object {
+  "foo": "Incorrect value",
+}
+`;
+
+exports[`SectionFormInput should be invalid for present tag field 1`] = `
+Object {
+  "tags": "Incorrect value",
+}
+`;
+
+exports[`SectionInput should be invalid for bad alt name 1`] = `
+Object {
+  "altNames": Array [
+    undefined,
+    "Value must be non-empty string",
+  ],
+}
+`;
+
+exports[`SectionInput should be invalid for bad difficulty (fraction) 1`] = `
+Object {
+  "difficulty": "Incorrect value",
+}
+`;
+
+exports[`SectionInput should be invalid for bad difficulty (max) 1`] = `
+Object {
+  "difficulty": "Incorrect value",
+}
+`;
+
+exports[`SectionInput should be invalid for bad difficulty (min) 1`] = `
+Object {
+  "difficulty": "Incorrect value",
+}
+`;
+
+exports[`SectionInput should be invalid for bad distance 1`] = `
+Object {
+  "distance": "Value must be positive number",
+}
+`;
+
+exports[`SectionInput should be invalid for bad drop 1`] = `
+Object {
+  "drop": "Value must be positive number",
+}
+`;
+
+exports[`SectionInput should be invalid for bad duration 1`] = `
+Object {
+  "duration": "Incorrect value",
+}
+`;
+
+exports[`SectionInput should be invalid for bad extra difficulty 1`] = `
+Object {
+  "difficultyXtra": "Must be string no longer than 32 chars",
+}
+`;
+
+exports[`SectionInput should be invalid for bad gauge id 1`] = `
+Object {
+  "gauge": "Value must be node with id",
+}
+`;
+
+exports[`SectionInput should be invalid for bad id 1`] = `
+Object {
+  "id": "Incorrect UUID",
+}
+`;
+
+exports[`SectionInput should be invalid for bad name 1`] = `
+Object {
+  "name": "Value must be non-empty string",
+}
+`;
+
+exports[`SectionInput should be invalid for bad pois 1`] = `
+Object {
+  "pois": Array [
+    undefined,
+    Object {
+      "id": "Incorrect UUID",
+    },
+  ],
+}
+`;
+
+exports[`SectionInput should be invalid for bad rating (fraction) 1`] = `
+Object {
+  "rating": "Incorrect value",
+}
+`;
+
+exports[`SectionInput should be invalid for bad rating (max) 1`] = `
+Object {
+  "rating": "Incorrect value",
+}
+`;
+
+exports[`SectionInput should be invalid for bad rating (min) 1`] = `
+Object {
+  "rating": "Incorrect value",
+}
+`;
+
+exports[`SectionInput should be invalid for bad river id 1`] = `
+Object {
+  "river": "Value must be node with id",
+}
+`;
+
+exports[`SectionInput should be invalid for bad season numeric (bad half-month) 1`] = `
+Object {
+  "seasonNumeric": Array [
+    undefined,
+    "Must be integer between 0 and 23",
+    "Must be integer between 0 and 23",
+  ],
+}
+`;
+
+exports[`SectionInput should be invalid for bad season numeric (too many items) 1`] = `
+Object {
+  "seasonNumeric": "Maximal length is 24",
+}
+`;
+
+exports[`SectionInput should be invalid for bad shape (bad point) 1`] = `
+Object {
+  "shape": Array [
+    undefined,
+    Array [
+      "Longitude value must be between -180 and 180",
+    ],
+  ],
+}
+`;
+
+exports[`SectionInput should be invalid for bad shape (not enough points) 1`] = `
+Object {
+  "shape": "Minimal length is 2",
+}
+`;
+
+exports[`SectionInput should be invalid for bad tags 1`] = `
+Object {
+  "tags": Array [
+    "Incorrect value",
+    "Incorrect value",
+    "Incorrect value",
+  ],
+}
+`;
+
+exports[`SectionInput should be invalid for extra fields 1`] = `
+Object {
+  "foo": "Incorrect value",
+}
+`;

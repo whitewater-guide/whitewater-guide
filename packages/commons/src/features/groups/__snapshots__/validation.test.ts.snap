@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should be invalid for bad sku value - cyrillic 1`] = `
+Object {
+  "sku": "SKU must start with \\"group.\\" and contain at least 3 word characters after dot",
+}
+`;
+
+exports[`should be invalid for bad sku value - multiline 1`] = `
+Object {
+  "sku": "SKU must start with \\"group.\\" and contain at least 3 word characters after dot",
+}
+`;
+
+exports[`should be invalid for bad sku value - multimatch 1`] = `
+Object {
+  "sku": "SKU must start with \\"group.\\" and contain at least 3 word characters after dot",
+}
+`;
+
+exports[`should be invalid for bad sku value - non-word 1`] = `
+Object {
+  "sku": "SKU must start with \\"group.\\" and contain at least 3 word characters after dot",
+}
+`;
+
+exports[`should be invalid for bad sku value - postfix 1`] = `
+Object {
+  "sku": "SKU must start with \\"group.\\" and contain at least 3 word characters after dot",
+}
+`;
+
+exports[`should be invalid for bad sku value - prefix 1`] = `
+Object {
+  "sku": "SKU must start with \\"group.\\" and contain at least 3 word characters after dot",
+}
+`;
+
+exports[`should be invalid for bad sku value - random 1`] = `
+Object {
+  "sku": "SKU must start with \\"group.\\" and contain at least 3 word characters after dot",
+}
+`;
+
+exports[`should be invalid for bad uuid 1`] = `
+Object {
+  "id": "Incorrect UUID",
+}
+`;
+
+exports[`should be invalid for empty name 1`] = `
+Object {
+  "name": "Value must be non-empty string",
+}
+`;

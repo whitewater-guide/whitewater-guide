@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should be invalid for bad region 1`] = `
+Object {
+  "region": "Value must be node with id",
+}
+`;
+
+exports[`should be invalid for bad uuid 1`] = `
+Object {
+  "id": "Incorrect UUID",
+}
+`;
+
+exports[`should be invalid for empty alt names 1`] = `
+Object {
+  "altNames": Array [
+    "Value must be non-empty string",
+  ],
+}
+`;
+
+exports[`should be invalid for empty name 1`] = `
+Object {
+  "name": "Value must be non-empty string",
+}
+`;
+
+exports[`should be invalid for extra fields 1`] = `
+Object {
+  "foo": "Incorrect value",
+}
+`;

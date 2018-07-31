@@ -1,3 +1,4 @@
+import { Overwrite } from 'type-zoo';
 import { NamedNode, Timestamped } from '../../core';
 import { Gauge } from '../gauges';
 import { Group } from '../groups';
@@ -34,7 +35,7 @@ export interface RegionInput {
   description: string | null;
   season: string | null;
   seasonNumeric: number[];
-  bounds: Coordinate3d[] | null;
+  bounds: Coordinate3d[];
   pois: PointInput[];
 }
 
@@ -53,7 +54,7 @@ export interface RegionCoverImage {
 }
 
 export interface RegionBanners {
-  __typename?: string;
+  __typename?: 'RegionBanners';
   sectionDescriptionMobile: string | null;
   sectionRowMobile: string | null;
   sectionMediaMobile: string | null;
@@ -71,3 +72,5 @@ export interface RegionMediaSummary {
   video: RegionMediaSummaryItem;
   blog: RegionMediaSummaryItem;
 }
+
+export type RegionFormInput<RichText> = Overwrite<RegionInput, { description: RichText }>;

@@ -61,7 +61,6 @@ it('should throw on invalid input', async () => {
   const result = await runQuery(mutation, { purchase }, fakeContext(TEST_USER));
   expect(result).toHaveProperty('errors.0.name', 'ValidationError');
   expect(result).toHaveProperty('data.addPurchase', null);
-  expect((result.errors![0] as any).data).toMatchSnapshot();
 });
 
 describe('boomstarter', () => {

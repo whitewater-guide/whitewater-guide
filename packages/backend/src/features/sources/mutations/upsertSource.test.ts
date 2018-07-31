@@ -87,7 +87,6 @@ describe('resolvers chain', () => {
     const result = await runQuery(mutation, { source: input }, fakeContext(ADMIN));
     expect(result).toHaveProperty('errors.0.name', 'ValidationError');
     expect(result.data!.upsertSource).toBeNull();
-    expect((result.errors![0] as any).data).toMatchSnapshot();
   });
 });
 

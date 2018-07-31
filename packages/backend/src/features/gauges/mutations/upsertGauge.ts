@@ -1,14 +1,14 @@
 import { baseResolver, isInputValidResolver, MutationNotAllowedError, TopLevelResolver } from '@apollo';
 import db, { rawUpsert } from '@db';
-import { GaugeInput, GaugeInputSchema } from '@ww-commons';
-import Joi from 'joi';
+import { GaugeInput, GaugeInputStruct } from '@ww-commons';
+import { struct } from 'superstruct';
 
 interface Vars {
   gauge: GaugeInput;
 }
 
-const Schema = Joi.object().keys({
-  gauge: GaugeInputSchema,
+const Struct = struct.object({
+  gauge: GaugeInputStruct,
 });
 
 const resolver: TopLevelResolver<Vars> = async (root, { gauge }, { language }) => {
@@ -21,7 +21,7 @@ const resolver: TopLevelResolver<Vars> = async (root, { gauge }, { language }) =
   return rawUpsert(db(), 'SELECT upsert_gauge(?, ?)', [gauge, language]);
 };
 
-const queryResolver = isInputValidResolver(Schema).createResolver(resolver);
+const queryResolver = isInputValidResolver(Struct).createResolver(resolver);
 
 const upsertGauge = baseResolver.createResolver(
   queryResolver,

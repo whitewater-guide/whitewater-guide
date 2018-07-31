@@ -19,7 +19,8 @@
       "@seeds/*": ["src/seeds/test/*"],
       "@test": ["src/test"],
       "@utils": ["src/utils"],
-      "@ww-commons": ["src/ww-commons"]
+      "@ww-commons": ["src/ww-commons"],
+      "@ww-commons/*": ["src/ww-commons/*"]
     }
   },
   "include": [

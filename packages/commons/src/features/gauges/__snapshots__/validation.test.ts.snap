@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should produce error on incorrect input 1`] = `
+Object {
+  "code": "Value must be non-empty string no longer than 255 chars",
+  "cron": "Incorrect cron expression",
+  "flowUnit": "Value must be non-empty string no longer than 255 chars",
+  "id": "Incorrect UUID",
+  "levelUnit": "Value must be non-empty string no longer than 255 chars",
+  "location": Object {
+    "coordinates": Array [
+      "Longitude value must be between -180 and 180",
+      "Latitude value must be between -90 and 90",
+    ],
+    "id": "Incorrect UUID",
+    "kind": "Incorrect value",
+  },
+  "name": "Value must be non-empty string",
+  "source": "Value must be node with id",
+  "url": "Value must be valid URL",
+}
+`;

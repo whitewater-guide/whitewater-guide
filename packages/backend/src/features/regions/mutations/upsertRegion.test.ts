@@ -124,7 +124,6 @@ describe('resolvers chain', () => {
     expect(result).toHaveProperty('errors.0.name', 'ValidationError');
     expect(result.data).toBeDefined();
     expect(result.data!.upsertRegion).toBeNull();
-    expect((result.errors![0] as any).data).toMatchSnapshot();
   });
 });
 
@@ -331,8 +330,8 @@ describe('i18n', () => {
     const upsertResult = await runQuery(upsertQuery, { region }, fakeContext(EDITOR_GA_EC, 'ru'));
     expect(upsertResult.errors).toBeUndefined();
     const translation = await db().table('points_translations').select()
-      .where({ language: 'ru' }).first();
-    expect(translation).toEqual(expect.objectContaining({
+      .where({ language: 'ru' });
+    expect(translation).toContainEqual(expect.objectContaining({
       name: 'Тчка 1',
       description: 'тчк 1 описание',
     }));

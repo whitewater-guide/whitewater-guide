@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should be invalid for bad kind 1`] = `
+Object {
+  "kind": "Incorrect value",
+}
+`;
+
+exports[`should be invalid for bad resolution 1 1`] = `
+Object {
+  "resolution": Array [
+    "Value must be positive integer",
+    "Value must be positive integer",
+  ],
+}
+`;
+
+exports[`should be invalid for bad resolution 2 1`] = `
+Object {
+  "resolution": Array [
+    undefined,
+    "Value must be positive integer",
+  ],
+}
+`;
+
+exports[`should be invalid for bad resolution 3 1`] = `
+Object {
+  "resolution": Array [
+    "Value must be positive integer",
+  ],
+}
+`;
+
+exports[`should be invalid for bad resolution 4 1`] = `
+Object {
+  "resolution": Array [
+    "Value must be positive integer",
+  ],
+}
+`;
+
+exports[`should be invalid for bad uuid 1`] = `
+Object {
+  "id": "Incorrect UUID",
+}
+`;
+
+exports[`should be invalid for bad weight 1`] = `
+Object {
+  "weight": "Value must be integer",
+}
+`;
+
+exports[`should be invalid for empty url 1`] = `
+Object {
+  "url": "Value must be non-empty string",
+}
+`;

@@ -1,27 +1,23 @@
-// tslint:disable-next-line
-import Joi from 'joi';
-import { JoiWithCron } from '../../utils';
-import { HarvestMode } from './types';
+import { Type } from 'superstruct';
+import { struct } from '../../utils/validation';
+import { HarvestModeStruct } from '../harvest-mode';
+import { ScriptStruct } from '../scripts';
 
-const HarvestModeSchema = Joi.any().allow([HarvestMode.ONE_BY_ONE, HarvestMode.ALL_AT_ONCE]);
+const SourceInputFields = {
+  id: 'uuid|null',
+  name: 'nonEmptyString',
+  termsOfUse: 'string|null',
+  script: 'script',
+  cron: struct.union(['cron', 'null', struct.literal('')]),
+  harvestMode: HarvestModeStruct,
+  url: struct.union(['url', 'null', struct.literal('')]),
+  regions: ['node'],
+};
 
-export const SourceInputSchema = Joi.object().keys({
-  id: Joi.string().guid().allow(null),
-  name: Joi.string().min(3).max(100),
-  termsOfUse: Joi.string().allow(null).allow(''),
-  script: Joi.string().min(1),
-  cron: JoiWithCron.string().isCron().allow(null).allow(''),
-  harvestMode: HarvestModeSchema,
-  url: Joi.string().uri().allow(null).allow(''),
-  regions: Joi.array().items(Joi.object().keys({ id: Joi.string().guid() })),
-});
+export const SourceInputStruct = struct.object(SourceInputFields);
 
-// description is draft.js EditorState
-export const SourceFormSchema = SourceInputSchema.keys({
-  termsOfUse: Joi.any(),
-  script: Joi.object().keys({
-    id: Joi.string().min(3).max(100),
-    name: Joi.string().min(3).max(100),
-    harvestMode: HarvestModeSchema,
-  }),
+export const SourceFormStruct = (richTextStruct?: Type) => struct.object({
+  ...SourceInputFields,
+  termsOfUse: richTextStruct || 'any',
+  script: ScriptStruct,
 });

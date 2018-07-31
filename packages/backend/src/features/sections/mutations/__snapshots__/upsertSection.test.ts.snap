@@ -96,47 +96,6 @@ Object {
 }
 `;
 
-exports[`resolvers chain should fail on invalid input 1`] = `
-Object {
-  "0": Object {
-    "message": "\\"name\\" length must be at least 2 characters long",
-    "path": "section.name",
-  },
-  "1": Object {
-    "message": "\\"0\\" length must be at least 2 characters long",
-    "path": "section.altNames.0",
-  },
-  "2": Object {
-    "message": "\\"0\\" must be less than or equal to 23",
-    "path": "section.seasonNumeric.0",
-  },
-  "3": Object {
-    "message": "\\"longitude\\" must be less than or equal to 180",
-    "path": "section.shape.0.0",
-  },
-  "4": Object {
-    "message": "\\"distance\\" must be a positive number",
-    "path": "section.distance",
-  },
-  "5": Object {
-    "message": "\\"drop\\" must be a positive number",
-    "path": "section.drop",
-  },
-  "6": Object {
-    "message": "\\"duration\\" must be one of [10, 20, 30, 40, 50, null]",
-    "path": "section.duration",
-  },
-  "7": Object {
-    "message": "\\"difficulty\\" must be less than or equal to 5",
-    "path": "section.difficulty",
-  },
-  "8": Object {
-    "message": "\\"rating\\" must be less than or equal to 5",
-    "path": "section.rating",
-  },
-}
-`;
-
 exports[`update should return result 1`] = `
 Object {
   "data": Object {

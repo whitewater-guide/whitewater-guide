@@ -1,9 +1,9 @@
 import { MutationUpdaterFn } from 'apollo-client';
 import { compose, mapProps } from 'recompose';
-import { formContainer } from '../../../components/forms';
+import { formContainer, MdEditorStruct } from '../../../components/forms';
 import { withFeatureIds } from '../../../ww-clients/core';
 import { LIST_SECTIONS, WithSectionsList } from '../../../ww-clients/features/sections';
-import { Section, SectionFormSchema } from '../../../ww-commons';
+import { Section, SectionFormStruct, Tag } from '../../../ww-commons';
 import deserializeSection from './deserializeSection';
 import { SECTION_FORM_QUERY } from './sectionForm.query';
 import serializeSection from './serializeSection';
@@ -58,7 +58,7 @@ const sectionForm = formContainer({
   mutation: UPSERT_SECTION,
   serializeForm: serializeSection,
   deserializeForm: deserializeSection,
-  validationSchema: SectionFormSchema,
+  validationSchema: SectionFormStruct(MdEditorStruct),
   mutationOptions: (props) => ({
     update: addToList(props),
   }),
@@ -70,7 +70,7 @@ export default compose<SectionFormProps, {}>(
   mapProps(({ data, ...props }: any) => ({
     region: data.region,
     river: data.river,
-    tags: data.tags,
+    tags: data.tags.map(({ __typename, ...tag}: Tag) => tag),
     ...props,
   })),
 );

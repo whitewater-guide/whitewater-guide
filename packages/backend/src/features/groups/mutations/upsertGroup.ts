@@ -1,17 +1,17 @@
 import { Context, isInputValidResolver } from '@apollo';
 import db, { rawUpsert } from '@db';
-import { GroupInput, GroupInputSchema } from '@ww-commons';
-import Joi from 'joi';
+import { GroupInput, GroupInputStruct } from '@ww-commons';
+import { struct } from 'superstruct';
 
 interface Vars {
   group: GroupInput;
 }
 
-const Schema = Joi.object().keys({
-  group: GroupInputSchema,
+const Struct = struct.object({
+  group: GroupInputStruct,
 });
 
-const upsertGroup = isInputValidResolver(Schema).createResolver(
+const upsertGroup = isInputValidResolver(Struct).createResolver(
   (_: any, { group }: Vars, { language }: Context) =>
     rawUpsert(db(), 'SELECT upsert_group(?, ?)', [group, language]),
 );

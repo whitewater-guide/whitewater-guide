@@ -10,7 +10,7 @@ export * from './SeasonPicker';
 export * from './Select';
 export * from './ShapeInput';
 export * from './TextInput';
-export * from './validateInput';
+export * from './validation';
 export * from './formContainer';
 export * from './serializeForm';
 export * from './deserializeForm';

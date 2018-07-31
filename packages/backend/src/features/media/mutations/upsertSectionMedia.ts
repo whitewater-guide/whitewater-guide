@@ -2,8 +2,8 @@ import { baseResolver, isInputValidResolver, TopLevelResolver, ValidationError }
 import db, { rawUpsert } from '@db';
 import log from '@log';
 import { MEDIA, minioClient, moveTempImage, TEMP } from '@minio';
-import { MediaInput, MediaInputSchema } from '@ww-commons';
-import Joi from 'joi';
+import { MediaInput, MediaInputStruct } from '@ww-commons';
+import { struct } from '@ww-commons/utils/validation';
 import { MediaRaw } from '../types';
 
 interface Vars {
@@ -11,9 +11,9 @@ interface Vars {
   media: MediaInput;
 }
 
-const Schema = Joi.object().keys({
-  sectionId: Joi.string().uuid(),
-  media: MediaInputSchema,
+const Struct = struct.object({
+  sectionId: 'uuid',
+  media: MediaInputStruct,
 });
 
 const resolver: TopLevelResolver<Vars> = async (root, vars: Vars, context) => {
@@ -50,7 +50,7 @@ const resolver: TopLevelResolver<Vars> = async (root, vars: Vars, context) => {
   }
 };
 
-const queryResolver = isInputValidResolver(Schema).createResolver(resolver);
+const queryResolver = isInputValidResolver(Struct).createResolver(resolver);
 
 const upsertSectionMedia = baseResolver.createResolver(
   queryResolver,

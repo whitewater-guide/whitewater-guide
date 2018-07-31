@@ -1,0 +1,137 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RegionAdminSettings should be invalid for bad id 1`] = `
+Object {
+  "id": "Incorrect UUID",
+}
+`;
+
+exports[`RegionAdminSettings should be invalid for bad sku 1 1`] = `
+Object {
+  "sku": "SKU must start with \\"region.\\" and contain at least 3 word characters after dot",
+}
+`;
+
+exports[`RegionAdminSettings should be invalid for bad sku 2 1`] = `
+Object {
+  "sku": "SKU must start with \\"region.\\" and contain at least 3 word characters after dot",
+}
+`;
+
+exports[`RegionAdminSettings should be invalid for empty banner 1`] = `
+Object {
+  "banners": Object {
+    "regionDescriptionMobile": "Value must be non-empty string",
+  },
+}
+`;
+
+exports[`RegionAdminSettings should be invalid for empty cover image 1`] = `
+Object {
+  "coverImage": Object {
+    "mobile": "Value must be non-empty string",
+  },
+}
+`;
+
+exports[`RegionAdminSettings should be invalid for empty sku 1`] = `
+Object {
+  "sku": "SKU must start with \\"region.\\" and contain at least 3 word characters after dot",
+}
+`;
+
+exports[`RegionAdminSettings should be invalid for extra fields 1`] = `
+Object {
+  "foo": "Incorrect value",
+}
+`;
+
+exports[`RegionFormInput should be invalid for bad id 1`] = `
+Object {
+  "id": "Incorrect UUID",
+}
+`;
+
+exports[`RegionFormInput should be invalid for bad pois 1`] = `
+Object {
+  "pois": Array [
+    undefined,
+    Object {
+      "id": "Incorrect UUID",
+    },
+  ],
+}
+`;
+
+exports[`RegionFormInput should be invalid for bad season numeric (bad half-month) 1`] = `
+Object {
+  "seasonNumeric": Array [
+    undefined,
+    "Must be integer between 0 and 23",
+    "Must be integer between 0 and 23",
+  ],
+}
+`;
+
+exports[`RegionFormInput should be invalid for bad season numeric (too many items) 1`] = `
+Object {
+  "seasonNumeric": "Maximal length is 24",
+}
+`;
+
+exports[`RegionFormInput should be invalid for empty name 1`] = `
+Object {
+  "name": "Value must be non-empty string",
+}
+`;
+
+exports[`RegionFormInput should be invalid for extra fields 1`] = `
+Object {
+  "foo": "Incorrect value",
+}
+`;
+
+exports[`RegionInput should be invalid for bad id 1`] = `
+Object {
+  "id": "Incorrect UUID",
+}
+`;
+
+exports[`RegionInput should be invalid for bad pois 1`] = `
+Object {
+  "pois": Array [
+    undefined,
+    Object {
+      "id": "Incorrect UUID",
+    },
+  ],
+}
+`;
+
+exports[`RegionInput should be invalid for bad season numeric (bad half-month) 1`] = `
+Object {
+  "seasonNumeric": Array [
+    undefined,
+    "Must be integer between 0 and 23",
+    "Must be integer between 0 and 23",
+  ],
+}
+`;
+
+exports[`RegionInput should be invalid for bad season numeric (too many items) 1`] = `
+Object {
+  "seasonNumeric": "Maximal length is 24",
+}
+`;
+
+exports[`RegionInput should be invalid for empty name 1`] = `
+Object {
+  "name": "Value must be non-empty string",
+}
+`;
+
+exports[`RegionInput should be invalid for extra fields 1`] = `
+Object {
+  "foo": "Incorrect value",
+}
+`;

@@ -1,13 +1,11 @@
+import { Overwrite } from 'type-zoo';
 import { NamedNode, Node, Timestamped } from '../../core';
 import { Gauge } from '../gauges';
+import { HarvestMode } from '../harvest-mode';
 import { HarvestStatus } from '../measurements';
 import { Region } from '../regions';
+import { Script } from '../scripts';
 import { Connection } from '../types';
-
-export enum HarvestMode {
-  ALL_AT_ONCE = 'allAtOnce',
-  ONE_BY_ONE = 'oneByOne',
-}
 
 export interface Source extends NamedNode, Timestamped {
   termsOfUse: string | null;
@@ -32,3 +30,6 @@ export interface SourceInput {
   url: string | null;
   regions: Node[];
 }
+
+export type SourceFormInput<RichText = any> =
+  Overwrite<SourceInput, {termsOfUse: RichText, script: Script}>;

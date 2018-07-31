@@ -70,7 +70,6 @@ describe('resolvers chain', () => {
     expect(result).toHaveProperty('errors.0.name', 'ValidationError');
     expect(result.data).toBeDefined();
     expect(result.data!.upsertRiver).toBeNull();
-    expect((result.errors![0] as any).data).toMatchSnapshot();
   });
 });
 

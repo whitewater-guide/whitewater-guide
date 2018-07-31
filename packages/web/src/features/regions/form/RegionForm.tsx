@@ -11,14 +11,14 @@ import {
   TextareaField,
   TextInput,
 } from '../../../components/forms';
-import { RegionFormInput } from './types';
+import { FormData } from './types';
 
-const MainFields: Array<keyof RegionFormInput> = ['name', 'season', 'seasonNumeric'];
-const DescriptionFields: Array<keyof RegionFormInput> = ['description'];
-const BoundsFields: Array<keyof RegionFormInput> = ['bounds'];
-const PoisFields: Array<keyof RegionFormInput> = ['pois'];
+const MainFields: Array<keyof FormData> = ['name', 'season', 'seasonNumeric'];
+const DescriptionFields: Array<keyof FormData> = ['description'];
+const BoundsFields: Array<keyof FormData> = ['bounds'];
+const PoisFields: Array<keyof FormData> = ['pois'];
 
-type Props = InjectedFormProps<RegionFormInput> & RouteComponentProps<any>;
+type Props = InjectedFormProps<FormData> & RouteComponentProps<any>;
 
 export default class RegionForm extends React.PureComponent<Props> {
   render() {

@@ -1,28 +1,44 @@
 {
   "name": "whitewater-commons",
-  "version": "0.0.58",
+  "version": "0.0.87",
   "description": "shared code for whitewater.guide backend and frontend",
   "main": "build/index.js",
   "author": "Konstantin Kuznetsov",
   "scripts": {
-    "tsc": "tsc",
-    "lint": "tslint",
     "test": "jest"
   },
   "dependencies": {
-    "cron-parser": "^2.5.0",
-    "joi": "^13.5.2",
-    "lodash": "^4.17.10"
+    "cron-parser": "^2.6.0",
+    "lodash": "^4.17.11",
+    "superstruct": "^0.6.0",
+    "validator": "^10.8.0"
   },
   "devDependencies": {
-    "@types/jest": "^23.3.1",
-    "@types/joi": "^13.4.0",
-    "@types/lodash": "^4.14.115",
-    "jest": "^23.4.2",
+    "@types/jest": "^23.3.2",
+    "@types/lodash": "^4.14.116",
+    "@types/superstruct": "^0.5.0",
+    "@types/validator": "^9.4.2",
+    "jest": "^23.6.0",
+    "ts-jest": "^23.1.4",
     "tslib": "^1.9.3",
     "tslint": "^5.11.0",
-    "tslint-eslint-rules": "^5.3.1",
+    "tslint-eslint-rules": "^5.4.0",
     "tslint-react": "^3.6.0",
-    "typescript": "3.0.1"
+    "type-zoo": "^3.1.1",
+    "typescript": "3.0.3"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
   }
 }

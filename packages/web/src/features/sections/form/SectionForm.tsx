@@ -20,7 +20,7 @@ import {
 import { Row } from '../../../layout';
 import { Styles } from '../../../styles';
 import { Durations, NamedNode } from '../../../ww-commons';
-import { SectionFormInput, SectionFormProps } from './types';
+import { SectionFormData, SectionFormProps } from './types';
 
 const styles: Styles = {
   container: {
@@ -43,15 +43,15 @@ const styles: Styles = {
 const DURATIONS_OPTIONS: NamedNode[] = [];
 Durations.forEach((val, key) => DURATIONS_OPTIONS.push({ id: key as any, name: val }));
 
-const MainFields: Array<keyof SectionFormInput> = [
+const MainFields: Array<keyof SectionFormData> = [
   'name', 'altNames', 'difficulty', 'difficultyXtra', 'rating', 'gauge', 'levels', 'flows', 'flowsText',
 ];
-const PropertiesFields: Array<keyof SectionFormInput> = [
+const PropertiesFields: Array<keyof SectionFormData> = [
   'drop', 'distance', 'duration', 'season', 'seasonNumeric', 'supplyTags', 'kayakingTags', 'hazardsTags', 'miscTags',
 ];
-const ShapeFields: Array<keyof SectionFormInput> = ['shape'];
-const POIFields: Array<keyof SectionFormInput> = ['pois'];
-const DescriptionFields: Array<keyof SectionFormInput> = ['description'];
+const ShapeFields: Array<keyof SectionFormData> = ['shape'];
+const POIFields: Array<keyof SectionFormData> = ['pois'];
+const DescriptionFields: Array<keyof SectionFormData> = ['description'];
 
 export default class SectionForm extends React.PureComponent<SectionFormProps> {
   render() {

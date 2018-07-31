@@ -4,10 +4,10 @@ import IconButton from 'material-ui/IconButton';
 import React from 'react';
 import { BaseFieldProps, Field, FieldsProps, GenericField, WrappedFieldProps } from 'redux-form';
 import { Styles } from '../../styles';
-import { CoordinateSchema, CoordinateSchemaLoose } from '../../ww-commons';
+import { CoordinateStruct, CoordinateStructLoose } from '../../ww-commons';
 import { Coordinate3d } from '../../ww-commons/features/points';
 import { NumberInput } from '../NumberInput';
-import { validateInput } from './validateInput';
+import { validateInput } from './validation';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -52,8 +52,8 @@ interface LatLonAltInputState {
   submitted?: boolean;
 }
 
-const strictValidator = validateInput(CoordinateSchema);
-const looseValidator = validateInput(CoordinateSchemaLoose);
+const strictValidator = validateInput(CoordinateStruct);
+const looseValidator = validateInput(CoordinateStructLoose);
 
 export class LatLonAltInput extends React.PureComponent<LatLonAltInputProps, LatLonAltInputState> {
   validator: (input: any) => object;

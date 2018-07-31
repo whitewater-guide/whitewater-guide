@@ -1,6 +1,6 @@
 {
   "name": "web",
-  "version": "0.1.210",
+  "version": "0.1.240",
   "private": true,
   "homepage": "/admin/",
   "dependencies": {
@@ -23,7 +23,6 @@
     "history": "^4.7.2",
     "immutability-helper": "^2.6.6",
     "immutable": "3.8.2",
-    "joi-browser": "^13.0.1",
     "localforage": "^1.7.1",
     "lodash": "^4.17.4",
     "material-ui": "^0.20.0",
@@ -71,9 +70,11 @@
     "reflect-metadata": "^0.1.10",
     "reselect": "^3.0.1",
     "shallowequal": "^1.0.2",
+    "superstruct": "^0.6.0",
     "type-zoo": "^3.1.0",
     "typescript-fsa": "^3.0.0-beta-1",
     "url-parse": "^1.4.0",
+    "validator": "^10.8.0",
     "victory": "^30.0.0"
   },
   "scripts": {
@@ -102,7 +103,6 @@
     "@types/graphql-type-json": "^0.1.2",
     "@types/history": "^4.6.2",
     "@types/jest": "^23.3.0",
-    "@types/joi": "^13.4.0",
     "@types/lodash": "^4.14.112",
     "@types/lodash-es": "^4.17.0",
     "@types/material-ui": "^0.21.4",
@@ -130,6 +130,8 @@
     "@types/redux-mock-store": "^1.0.0",
     "@types/storybook__addon-actions": "^3.0.3",
     "@types/storybook__react": "^3.0.8",
+    "@types/superstruct": "^0.5.0",
+    "@types/validator": "^9.4.2",
     "@types/victory": "^0.9.19",
     "@types/zen-observable": "^0.8.0",
     "apollo-link-schema": "^1.1.0",
@@ -152,8 +154,5 @@
     "tslint-react": "^3.5.1",
     "typescript": "3.0.1",
     "url-search-params-polyfill": "^4.0.1"
-  },
-  "browser": {
-    "joi": "joi-browser"
   }
 }

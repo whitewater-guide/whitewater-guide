@@ -91,7 +91,6 @@ describe('resolvers chain', () => {
     const result = await runQuery(mutation, { sectionId, media: badMedia }, fakeContext(EDITOR_NO_EC));
     expect(result).toHaveProperty('data.upsertSectionMedia', null);
     expect(result).toHaveProperty('errors.0.name', 'ValidationError');
-    expect((result.errors![0] as any).data).toMatchSnapshot();
   });
 
 });

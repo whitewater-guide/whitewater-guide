@@ -1,8 +1,8 @@
 import { deserializeForm } from '../../../components/forms';
 import { Source } from '../../../ww-commons';
-import { SourceFormInput } from './types';
+import { SourceFormData } from './types';
 
-const deserializeSourceForm = (data: Source): SourceFormInput => {
+const deserializeSourceForm = (data: Source): SourceFormData => {
   const result = deserializeForm(['termsOfUse'], [], ['regions'])(data);
   return {
     ...result,

@@ -1,16 +1,16 @@
 import { isInputValidResolver, TopLevelResolver } from '@apollo';
 import db from '@db';
-import { SectionAdminSettings, SectionAdminSettingsSchema } from '@ww-commons';
-import Joi from 'joi';
+import { SectionAdminSettings, SectionAdminSettingsStruct } from '@ww-commons';
+import { struct } from '@ww-commons/utils/validation';
 
 interface Vars {
   id: string;
   settings: SectionAdminSettings;
 }
 
-const Schema = Joi.object().keys({
-  id: Joi.string().guid(),
-  settings: SectionAdminSettingsSchema,
+const Struct = struct.object({
+  id: 'uuid',
+  settings: SectionAdminSettingsStruct,
 });
 
 const resolver: TopLevelResolver<Vars> = async (_, { id, settings }, { dataSources }) => {
@@ -22,6 +22,6 @@ const resolver: TopLevelResolver<Vars> = async (_, { id, settings }, { dataSourc
   return dataSources.sections.getById(id);
 };
 
-const administrateSection = isInputValidResolver(Schema).createResolver(resolver);
+const administrateSection = isInputValidResolver(Struct).createResolver(resolver);
 
 export default administrateSection;

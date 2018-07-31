@@ -1,38 +1,59 @@
-// tslint:disable-next-line
-import Joi from 'joi';
-import { CoordinateSchema, PointInputSchema } from '../points';
+import isArray from 'lodash/isArray';
+import isString from 'lodash/isString';
+import { Type } from 'superstruct';
+import { customStruct } from '../../utils/validation';
+import { CoordinateStruct, PointInputStruct } from '../points';
 
-export const RegionInputSchema = Joi.object().keys({
-  id: Joi.string().guid().allow(null),
-  name: Joi.string().min(3).max(100),
-  description: Joi.string().allow(null).allow(''),
-  season: Joi.string().allow(null).allow(''),
-  seasonNumeric: Joi.array().max(24).items(Joi.number().min(0).max(23)),
-  bounds: Joi.array().items(CoordinateSchema).min(3),
-  pois: Joi.array().items(PointInputSchema),
+const REGION_SKU = /^region\.\w{3,}$/;
+
+const struct = customStruct({
+  boundsArray: (v: any) =>
+    (isArray(v) && v.length >= 3) || 'Minimum length is 3',
+  sku: (value: any) => {
+    if (!isString(value) || value.length > 255) {
+      return 'SKU must be string no longer than 255 chars';
+    }
+    if (!REGION_SKU.test(value)) {
+      return 'SKU must start with "region." and contain at least 3 word characters after dot';
+    }
+    return true;
+  },
 });
 
-// description is draft.js EditorState
-export const RegionFormSchema = RegionInputSchema.keys({
-  description: Joi.any(),
+const RegionInputFields = {
+  id: 'uuid|null',
+  name: 'nonEmptyString',
+  description: 'string|null',
+  season: 'string|null',
+  seasonNumeric: struct.intersection([['halfMonth'], 'seasonNumeric']),
+  bounds: struct.intersection(['boundsArray', [CoordinateStruct]]),
+  pois: [PointInputStruct],
+};
+
+export const RegionInputStruct = struct.object(RegionInputFields);
+
+export const RegionFormStruct = (richTextStruct?: Type) => struct.object({
+  ...RegionInputFields,
+  description: richTextStruct || 'any',
 });
 
-export const RegionCoverImageSchema = Joi.object().keys({
-  mobile: Joi.string().allow(null),
-});
-export const RegionBannersSchema = Joi.object().keys({
-  sectionDescriptionMobile: Joi.string().allow(null),
-  sectionRowMobile: Joi.string().allow(null),
-  sectionMediaMobile: Joi.string().allow(null),
-  regionDescriptionMobile: Joi.string().allow(null),
-  regionLoadingMobile: Joi.string().allow(null),
+export const RegionCoverImageStruct = struct.object({
+  mobile: 'nonEmptyString|null',
 });
 
-export const RegionAdminSettingsSchema = Joi.object().keys({
-  id: Joi.string().guid(),
-  hidden: Joi.bool(),
-  premium: Joi.bool(),
-  sku: Joi.string().allow('').allow(null),
-  coverImage: RegionCoverImageSchema,
-  banners: RegionBannersSchema,
+export const RegionBannersStruct = struct.object({
+  sectionDescriptionMobile: 'nonEmptyString|null',
+  sectionRowMobile: 'nonEmptyString|null',
+  sectionMediaMobile: 'nonEmptyString|null',
+  regionDescriptionMobile: 'nonEmptyString|null',
+  regionLoadingMobile: 'nonEmptyString|null',
+});
+
+export const RegionAdminSettingsStruct = struct.object({
+  id: 'uuid',
+  hidden: 'boolean',
+  premium: 'boolean',
+  sku: 'sku|null',
+  coverImage: RegionCoverImageStruct,
+  banners: RegionBannersStruct,
 });

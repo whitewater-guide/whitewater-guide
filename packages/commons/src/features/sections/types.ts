@@ -1,10 +1,11 @@
+import { Omit, Overwrite } from 'type-zoo';
 import { NamedNode, Node, Timestamped } from '../../core';
 import { Gauge } from '../gauges';
 import { Media } from '../media';
 import { Coordinate3d, Point, PointInput } from '../points';
 import { Region } from '../regions';
 import { River } from '../rivers';
-import { Tag } from '../tags';
+import { Tag, TagInput } from '../tags';
 import { Connection } from '../types';
 
 export enum Duration {
@@ -25,11 +26,11 @@ Durations.set(Duration.MULTIDAY, 'multiday');
 Durations.entries();
 
 export interface GaugeBinding {
-  minimum: number | null;
-  optimum: number | null;
-  maximum: number | null;
-  impossible: number | null;
-  approximate: boolean | null;
+  minimum?: number | null;
+  optimum?: number | null;
+  maximum?: number | null;
+  impossible?: number | null;
+  approximate?: boolean | null;
 }
 
 export interface Section extends NamedNode, Timestamped {
@@ -81,7 +82,7 @@ export interface SectionInput {
   flows: GaugeBinding | null;
   flowsText: string | null;
 
-  shape: Coordinate3d[] | null;
+  shape: Coordinate3d[];
   distance: number | null;
   drop: number | null;
   duration: number | null;
@@ -129,3 +130,15 @@ export interface SectionsFilter {
   regionId?: string;
   updatedAfter?: Date;
 }
+
+interface FormOverrides<RichText = any> {
+  description: RichText;
+  river: NamedNode;
+}
+
+export type SectionFormInput<RichText> = Overwrite<Omit<SectionInput, 'tags'>, FormOverrides<RichText>> & {
+  kayakingTags: TagInput[];
+  hazardsTags: TagInput[];
+  supplyTags: TagInput[];
+  miscTags: TagInput[];
+};

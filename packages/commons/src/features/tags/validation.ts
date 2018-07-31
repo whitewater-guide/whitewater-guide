@@ -1,9 +1,14 @@
-// tslint:disable-next-line
-import Joi from 'joi';
+import { customStruct } from '../../utils/validation';
 import { TAG_CATEGORIES } from './types';
 
-export const TagInputSchema = Joi.object().keys({
-  id: Joi.string().regex(/^[0-9a-zA-Z_\-]{3,64}$/),
-  name: Joi.string().min(3).max(200),
-  category: Joi.any().valid(TAG_CATEGORIES),
+const TAG_REGEX = /^[0-9a-zA-Z_\-]{3,64}$/;
+
+const struct = customStruct({
+  tag: (v: any) => TAG_REGEX.test(v) || 'Invalid tag',
+});
+
+export const TagInputStruct = struct.object({
+  id: 'tag',
+  name: 'nonEmptyString',
+  category: struct.enum(TAG_CATEGORIES),
 });

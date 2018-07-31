@@ -1,7 +1,7 @@
 import { compose, mapProps } from 'recompose';
-import { formContainer } from '../../../components/forms';
+import { formContainer, MdEditorStruct } from '../../../components/forms';
 import { withFeatureIds } from '../../../ww-clients/core';
-import { HarvestMode, SourceFormSchema, SourceInput } from '../../../ww-commons';
+import { HarvestMode, SourceFormStruct, SourceInput } from '../../../ww-commons';
 import deserializeSourceForm from './deserializeSourceForm';
 import serializeSourceForm from './serializeSourceForm';
 import SOURCE_FORM_QUERY from './sourceForm.query';
@@ -27,7 +27,7 @@ const sourceForm = formContainer({
   mutation: UPSERT_SOURCE,
   serializeForm: serializeSourceForm,
   deserializeForm: deserializeSourceForm,
-  validationSchema: SourceFormSchema,
+  validationSchema: SourceFormStruct(MdEditorStruct),
 });
 
 export default compose<SourceFormProps, {}>(
