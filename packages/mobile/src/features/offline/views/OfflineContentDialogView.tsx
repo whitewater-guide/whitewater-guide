@@ -2,7 +2,7 @@ import React from 'react';
 import { translate } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Button, Caption, DialogActions, DialogTitle, Subheading } from 'react-native-paper';
-import { OfflineQueryPlaceholder } from '../../../components';
+import { RetryPlaceholder } from '../../../components';
 import { WithT } from '../../../i18n';
 import theme from '../../../theme';
 import { OfflineCategorySelection, OfflineCategoryType } from '../types';
@@ -116,7 +116,7 @@ class OfflineContentDialogView extends React.PureComponent<Props, State> {
 
   renderOffline = () => (
     <View style={styles.offlinePlaceholderContainer}>
-      <OfflineQueryPlaceholder />
+      <RetryPlaceholder />
     </View>
   );
 

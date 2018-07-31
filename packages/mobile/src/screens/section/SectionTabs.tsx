@@ -8,7 +8,7 @@ import {
   TabNavigatorConfig,
 } from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
-import { OfflineQueryPlaceholder } from '../../components';
+import { RetryPlaceholder } from '../../components';
 import theme from '../../theme';
 import isApolloOfflineError from '../../utils/isApolloOfflineError';
 import { PureScreen } from '../../utils/navigation';
@@ -64,7 +64,7 @@ class SectionTabsView extends PureScreen<InnerProps, NavParams> {
     const screenProps: ScreenProps = { section };
     if (isApolloOfflineError(section.error, section.node)) {
       return (
-        <OfflineQueryPlaceholder refetch={section.refetch} />
+        <RetryPlaceholder refetch={section.refetch} />
       );
     }
     return (

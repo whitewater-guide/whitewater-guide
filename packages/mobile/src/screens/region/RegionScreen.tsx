@@ -1,5 +1,5 @@
 import React from 'react';
-import { Loading, OfflineQueryPlaceholder } from '../../components';
+import { Loading, RetryPlaceholder } from '../../components';
 import isApolloOfflineError from '../../utils/isApolloOfflineError';
 import { PureScreen } from '../../utils/navigation';
 import { RegionConsumer } from '../../ww-clients/features/regions';
@@ -19,7 +19,7 @@ export class RegionScreen extends PureScreen<InnerProps, NavParams> {
           const { region, searchTerms } = props;
           if (isApolloOfflineError(region.error, region.node)) {
             return (
-              <OfflineQueryPlaceholder refetch={region.refetch} />
+              <RetryPlaceholder refetch={region.refetch} />
             );
           }
           if (region.loading || region.node === null) {

@@ -1,10 +1,12 @@
+import { ApolloQueryResult } from 'apollo-client';
 import React from 'react';
 import { Query, QueryResult } from 'react-apollo';
 import { FlatList, ListRenderItemInfo } from 'react-native';
-import { OfflineQueryPlaceholder, RefreshIndicator } from '../../components';
+import { cloneableGenerator } from 'redux-saga/utils';
+import { RefreshIndicator, RetryPlaceholder } from '../../components';
 import isApolloOfflineError from '../../utils/isApolloOfflineError';
 import { queryResultToList, WithList } from '../../ww-clients/apollo';
-import { Region } from '../../ww-commons';
+import { Connection, Region } from '../../ww-commons';
 import container from './container';
 import { CARD_HEIGHT, RegionCard } from './RegionCard';
 import { REGIONS_LIST_QUERY, Result } from './regionsList.query';
@@ -18,7 +20,13 @@ const getItemLayout = (data: any, index: number) => ({
   index,
 });
 
-class RegionsListView extends React.PureComponent<InnerProps> {
+interface State {
+  refetchingFromError: boolean;
+}
+
+class RegionsListView extends React.PureComponent<InnerProps, State> {
+  readonly state: State = { refetchingFromError: false };
+  private _refetch!: () => Promise<ApolloQueryResult<Connection<Region>>>;
 
   onRegionSelected = (region: Region) =>
     this.props.navigate('Region', { regionId: region.id });
@@ -36,10 +44,17 @@ class RegionsListView extends React.PureComponent<InnerProps> {
   );
 
   renderList = (regions: WithList<Region>) => {
+    const { refetchingFromError } = this.state;
     const { nodes, error, loading, refetch } = regions;
-    if (isApolloOfflineError(error, nodes)) {
+    this._refetch = refetch;
+    if (refetchingFromError || isApolloOfflineError(error, nodes)) {
+      const refetchFromError = async () => {
+        this.setState({ refetchingFromError: true });
+        await refetch();
+        this.setState({ refetchingFromError: false });
+      };
       return (
-        <OfflineQueryPlaceholder refetch={refetch} />
+        <RetryPlaceholder refetch={refetchFromError} loading={loading} />
       );
     }
     return (
