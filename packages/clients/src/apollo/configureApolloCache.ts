@@ -18,6 +18,9 @@ export const configureApolloCache = () =>
       Query: {
         region: (_, { id }) => toIdValue(dataIdFromObject({ __typename: 'Region', id })!),
         source: (_, { id }) => toIdValue(dataIdFromObject({ __typename: 'Source', id })!),
+        gauge: (_, { id }) => toIdValue(dataIdFromObject({ __typename: 'Gauge', id })!),
+        river: (_, { id }) => toIdValue(dataIdFromObject({ __typename: 'River', id })!),
+        section: (_, { id }) => toIdValue(dataIdFromObject({ __typename: 'Section', id })!),
       },
     },
   });

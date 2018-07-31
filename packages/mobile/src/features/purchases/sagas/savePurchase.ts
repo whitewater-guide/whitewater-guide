@@ -1,4 +1,4 @@
-import { MutationOptions } from 'apollo-client/core/watchQueryOptions';
+import { MutationOptions } from 'apollo-client';
 import { FetchResult } from 'apollo-link';
 import { ProductPurchase } from 'react-native-iap';
 import { apply } from 'redux-saga/effects';
@@ -11,7 +11,7 @@ import { ADD_PURCHASE_MUTATION, Vars } from './addPurchase.mutation';
 
 export default function *savePurchase(purchase: ProductPurchase) {
   try {
-    const client = getApolloClient();
+    const client = yield getApolloClient();
     // console.log('------------------');
     // console.dir(purchase);
     // console.dir(purchaseToGraphqlInput(purchase));
