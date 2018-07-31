@@ -10,7 +10,8 @@ export const useSessions = (app: Koa) => {
     {
       store,
       key: 'wwguide',
-      maxAge: 31 * 24 * 60 * 60 * 1000, // 1 month
+      // maxAge: 31 * 24 * 60 * 60 * 1000, // 1 month
+      maxAge: 5 * 60 * 1000, // 5 minutes, TEMPORARY
       renew: true,
     },
     app,
