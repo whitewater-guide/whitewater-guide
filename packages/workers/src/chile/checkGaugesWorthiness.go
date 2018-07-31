@@ -51,7 +51,6 @@ func checkGaugesWorthiness(ids []string, data map[string]bool) error {
 
   if !strings.Contains(html, "DATOS EN TABLAS") {
     time.Sleep(10 * time.Second)
-    fmt.Println("sleep")
     return checkGaugesWorthiness(ids, data)
   }
 

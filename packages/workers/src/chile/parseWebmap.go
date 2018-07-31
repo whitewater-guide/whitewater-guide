@@ -60,7 +60,6 @@ type WebmapPage struct {
 func getWepmapUrl() (string, error) {
   webmapId, err := getWebmapId()
   if err != nil {
-    fmt.Println("cant get web map id", err)
     return "", err
   }
   result := fmt.Sprintf("http://www.arcgis.com/sharing/rest/content/items/%s/data?f=json", webmapId)

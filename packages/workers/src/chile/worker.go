@@ -42,10 +42,10 @@ func (w *workerChile) Autofill() ([]core.GaugeInfo, error) {
   worthiness := make(map[string]bool)
   for i := 0; i < numGauges; i += 3 {
     //fmt.Println("Checking", i+3, numGauges)
-    err := checkGaugesWorthiness(gaugeIds[i:i+3], worthiness)
-    if err != nil {
-      fmt.Println(err)
-    }
+    checkGaugesWorthiness(gaugeIds[i:i+3], worthiness)
+    //if err != nil {
+    //  fmt.Println(err)
+    //}
   }
 
   var result []core.GaugeInfo
@@ -95,7 +95,6 @@ func (w *workerChile) Harvest(opts core.HarvestOptions) ([]core.Measurement, err
     return nil, err
   }
   result, err := parseXLS(rawDoc, w.ScriptName(), opts.Code)
-  fmt.Println(result)
   return result, err
 }
 
