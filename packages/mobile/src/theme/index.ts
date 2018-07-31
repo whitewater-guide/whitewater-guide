@@ -19,10 +19,12 @@ const borderWidth = 1;
 
 const shadow = {
   shadowColor: '#000',
-  shadowOffset: { width: 0, height: 1 },
-  shadowOpacity: 0.2,
-  shadowRadius: 1,
-  elevation: 1,
+  shadowOffset: {
+    width: 0.75,
+    height: 0.75,
+  },
+  shadowOpacity: 0.24,
+  shadowRadius: 1.5,
 };
 
 const navigationStyles = StyleSheet.create({

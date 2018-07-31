@@ -30,13 +30,7 @@ const styles = StyleSheet.create({
   title: {
     color: theme.colors.textLight,
     elevation: 2,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0.75,
-      height: 0.75,
-    },
-    shadowOpacity: 0.24,
-    shadowRadius: 1.5,
+    ...theme.shadow,
   },
   scrim: {
     flex: 1,

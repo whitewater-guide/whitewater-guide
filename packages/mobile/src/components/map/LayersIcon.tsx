@@ -21,14 +21,7 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     paddingBottom: 3,
     paddingHorizontal: 3,
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 0.75,
-    },
-    shadowOpacity: 0.24,
-    shadowRadius: 1.5,
+    ...theme.shadow,
   },
 });
 
