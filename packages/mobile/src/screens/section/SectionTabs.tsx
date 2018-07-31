@@ -8,7 +8,7 @@ import {
   TabNavigatorConfig,
 } from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
-import { RetryPlaceholder } from '../../components';
+import { RetryPlaceholder, WithNetworkError } from '../../components';
 import theme from '../../theme';
 import isApolloOfflineError from '../../utils/isApolloOfflineError';
 import { PureScreen } from '../../utils/navigation';
@@ -62,18 +62,14 @@ class SectionTabsView extends PureScreen<InnerProps, NavParams> {
   render() {
     const { navigation, section } = this.props;
     const screenProps: ScreenProps = { section };
-    if (isApolloOfflineError(section.error, section.node)) {
-      return (
-        <RetryPlaceholder refetch={section.refetch} />
-      );
-    }
+    const { node, loading, error, refetch } = section;
     return (
-      <React.Fragment>
+      <WithNetworkError data={node} error={error} loading={loading} refetch={refetch}>
         <Navigator navigation={navigation} screenProps={screenProps} />
         <View style={StyleSheet.absoluteFill} pointerEvents="box-none">
           <WhitePortal name="section" />
         </View>
-      </React.Fragment>
+      </WithNetworkError>
     );
   }
 }

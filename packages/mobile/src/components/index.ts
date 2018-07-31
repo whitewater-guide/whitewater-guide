@@ -23,3 +23,4 @@ export * from './SplashScreen';
 export * from './StarRating';
 export * from './TernaryChips';
 export * from './UserHeader';
+export * from './WithNetworkError';

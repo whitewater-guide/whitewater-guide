@@ -2,7 +2,7 @@ import { ApolloQueryResult } from 'apollo-client';
 import React from 'react';
 import { Query, QueryResult } from 'react-apollo';
 import { FlatList, ListRenderItemInfo } from 'react-native';
-import { RefreshIndicator, RetryPlaceholder } from '../../components';
+import { RefreshIndicator, RetryPlaceholder, WithNetworkError } from '../../components';
 import isApolloOfflineError from '../../utils/isApolloOfflineError';
 import { queryResultToList, WithList } from '../../ww-clients/apollo';
 import { Connection, Region } from '../../ww-commons';
@@ -19,12 +19,7 @@ const getItemLayout = (data: any, index: number) => ({
   index,
 });
 
-interface State {
-  refetchingFromError: boolean;
-}
-
-class RegionsListView extends React.PureComponent<InnerProps, State> {
-  readonly state: State = { refetchingFromError: false };
+class RegionsListView extends React.PureComponent<InnerProps> {
 
   onRegionSelected = (region: Region) =>
     this.props.navigate('Region', { regionId: region.id });
@@ -42,27 +37,18 @@ class RegionsListView extends React.PureComponent<InnerProps, State> {
   );
 
   renderList = (regions: WithList<Region>) => {
-    const { refetchingFromError } = this.state;
     const { nodes, error, loading, refetch } = regions;
-    if (refetchingFromError || isApolloOfflineError(error, nodes)) {
-      const refetchFromError = async () => {
-        this.setState({ refetchingFromError: true });
-        await refetch().catch(() => {/* Otherwise it hangs as loading forever */});
-        this.setState({ refetchingFromError: false });
-      };
-      return (
-        <RetryPlaceholder refetch={refetchFromError} loading={loading} />
-      );
-    }
     return (
-      <FlatList
-        data={nodes}
-        extraData={this.props.regionsListRefreshToken}
-        getItemLayout={getItemLayout}
-        renderItem={this.renderItem}
-        keyExtractor={keyExtractor}
-        refreshControl={<RefreshIndicator refreshing={loading} onRefresh={refetch} /> as any}
-      />
+      <WithNetworkError data={nodes} error={error} loading={loading} refetch={refetch}>
+        <FlatList
+          data={nodes}
+          extraData={this.props.regionsListRefreshToken}
+          getItemLayout={getItemLayout}
+          renderItem={this.renderItem}
+          keyExtractor={keyExtractor}
+          refreshControl={<RefreshIndicator refreshing={loading} onRefresh={refetch} /> as any}
+        />
+      </WithNetworkError>
     );
   };
 

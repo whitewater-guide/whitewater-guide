@@ -1,9 +1,8 @@
 import { graphql } from 'react-apollo';
-import { compose, pure } from 'recompose';
-import { withLoading } from '../../components';
+import { compose } from 'recompose';
 import { queryResultToNode, WithNode } from '../../ww-clients/apollo';
 import { withFeatureIds } from '../../ww-clients/core';
-import { withSection, WithSection } from '../../ww-clients/features/sections';
+import { withSection } from '../../ww-clients/features/sections';
 import { Section } from '../../ww-commons';
 import { Result, SECTION_DETAILS, Vars } from './sectionDetails.query';
 import { InnerProps, OuterProps } from './types';
@@ -20,12 +19,8 @@ export default compose<InnerProps & OuterProps, OuterProps>(
     SECTION_DETAILS,
     {
       alias: 'withSection',
-      // TODO: cache-and-network not working when offline
-      // https://github.com/apollographql/apollo-client/issues/3755
       options: () => ({ fetchPolicy: 'cache-and-network' }),
       props: (props) => queryResultToNode(props, 'section'),
     },
   ),
-  withLoading<WithSection>((props) => props.section.loading),
-  pure,
 );
