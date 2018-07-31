@@ -250,4 +250,24 @@ describe('buildConnectionQuery', () => {
       expect(query).toMatchSnapshot();
     });
   });
+
+  describe('array queries without count and nodes', () => {
+    beforeEach(() => {
+      graphqlFields.mockReturnValueOnce({
+        firstName: {},
+        lastName: {},
+      });
+    });
+
+    it('should build correct query', () => {
+      const query = buildConnectionQuery<any, any>(
+        TABLE,
+        {},
+        {},
+        {} as any,
+      );
+      expect(query).toMatchSnapshot();
+    });
+  });
+
 });

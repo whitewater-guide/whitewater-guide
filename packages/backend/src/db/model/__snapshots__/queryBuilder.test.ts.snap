@@ -1,5 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`buildConnectionQuery array queries without count and nodes should build correct query 1`] = `
+select
+    first_name,
+    last_name
+from
+    test_table
+
+`;
+
 exports[`buildConnectionQuery count and nodes queries should build correct query 1`] = `
 select
     first_name,

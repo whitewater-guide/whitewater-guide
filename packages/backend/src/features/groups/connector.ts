@@ -13,7 +13,7 @@ interface GetManyOptions extends ManyBuilderOptions<GroupRaw> {
   regionId?: string;
 }
 
-export class Groups extends BaseModel<Group, GroupRaw> {
+export class GroupsConnector extends BaseModel<Group, GroupRaw> {
 
   constructor(user: ContextUser | undefined, language: string, fieldsByType: Map<string, Set<string>>) {
     super(user, language, fieldsByType);
