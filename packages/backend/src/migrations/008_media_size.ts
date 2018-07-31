@@ -19,7 +19,7 @@ export const up = async (db: Knex) => {
   await setFileSizes(db);
 
   await createViews(db, 8, ...VIEWS);
-  await runSqlFile(db, './src/migrations/008/upsert_section_media.sql');
+  await runSqlFile(db, './dist/migrations/008/upsert_section_media.sql');
 };
 
 export const down = async (db: Knex) => {
@@ -30,7 +30,7 @@ export const down = async (db: Knex) => {
   });
 
   await createViews(db, 7, ...VIEWS);
-  await runSqlFile(db, './src/migrations/001/upsert_section_media.sql');
+  await runSqlFile(db, './dist/migrations/001/upsert_section_media.sql');
 };
 
 type BucketFile = Pick<BucketItem, 'name' | 'size'>;

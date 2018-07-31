@@ -1,5 +1,4 @@
-**/*.ts
-**/*.js.map
+src/
 node_modules
 Dockerfile.*
 tsconfig.json

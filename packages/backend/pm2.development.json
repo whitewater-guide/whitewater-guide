@@ -1,13 +1,12 @@
 {
   "apps": [{
     "name": "ww_backend",
-    "script": "src/index.js",
+    "script": "dist/index.js",
     "source_map_support": true,
     "merge_logs": true,
     "watch": true,
     "watch_options": {
-      "usePolling": true,
-      "ignore_watch": ["**/*.ts"]
+      "usePolling": true
     },
     "node_args": ["--inspect=0.0.0.0:5775"]
   }]

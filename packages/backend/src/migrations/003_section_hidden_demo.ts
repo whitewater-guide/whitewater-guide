@@ -16,7 +16,7 @@ export const up = async (db: Knex) => {
   // Add these columns to views
   await dropViews(db, 'sections');
   await createViews(db, 3, 'sections');
-  await runSqlFile(db, './src/migrations/003/upsert_section.sql');
+  await runSqlFile(db, './dist/migrations/003/upsert_section.sql');
 };
 
 export const down = async (db: Knex) => {
@@ -27,7 +27,7 @@ export const down = async (db: Knex) => {
     table.dropColumn('hidden');
   });
   await createViews(db, 2, 'sections');
-  await runSqlFile(db, './src/migrations/001/upsert_section.sql');
+  await runSqlFile(db, './dist/migrations/001/upsert_section.sql');
 };
 
 export const configuration = { transaction: true };

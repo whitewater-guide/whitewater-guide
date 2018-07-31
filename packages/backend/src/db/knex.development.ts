@@ -13,11 +13,11 @@ const development: knex.Config = {
   migrations: {
     loadExtensions: ['.js'],
     tableName: 'migrations',
-    directory: './src/migrations',
+    directory: './dist/migrations',
   },
   seeds: {
     loadExtensions: ['.js'],
-    directory: './src/seeds/development',
+    directory: './dist/seeds/development',
   },
   debug: process.env.DATABASE_DEBUG === 'true',
 } as any;

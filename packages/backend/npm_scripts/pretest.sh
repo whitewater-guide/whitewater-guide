@@ -7,4 +7,4 @@ source .env.test
 source .env.test.local
 set +o allexport
 
-node ./src/test/pretest.js
+node ./dist/test/pretest.js

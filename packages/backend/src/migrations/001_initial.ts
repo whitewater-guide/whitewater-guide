@@ -3,9 +3,9 @@ import { HarvestMode, POITypes } from '@ww-commons';
 import Knex from 'knex';
 
 export const up = async (db: Knex) => {
-  await runSqlFile(db, './src/migrations/001/language_code.sql');
-  await runSqlFile(db, './src/migrations/001/tag_category.sql');
-  await runSqlFile(db, './src/migrations/001/media_kind.sql');
+  await runSqlFile(db, './dist/migrations/001/language_code.sql');
+  await runSqlFile(db, './dist/migrations/001/tag_category.sql');
+  await runSqlFile(db, './dist/migrations/001/media_kind.sql');
   await addUpdatedAtFunction(db);
 
   // USERS
@@ -347,32 +347,32 @@ export const up = async (db: Knex) => {
   });
   await addUpdatedAtTrigger(db, 'purchases');
 
-  await runSqlFile(db, './src/migrations/001/array_json_to_int.sql');
-  await runSqlFile(db, './src/migrations/001/array_json_to_varchar.sql');
-  await runSqlFile(db, './src/migrations/001/point_from_json.sql');
-  await runSqlFile(db, './src/migrations/001/polygon_from_json.sql');
-  await runSqlFile(db, './src/migrations/001/linestring_from_json.sql');
-  await runSqlFile(db, './src/migrations/001/points_view.sql');
-  await runSqlFile(db, './src/migrations/001/tags_view.sql');
-  await runSqlFile(db, './src/migrations/001/regions_view.sql');
-  await runSqlFile(db, './src/migrations/001/groups_view.sql');
-  await runSqlFile(db, './src/migrations/001/sections_view.sql');
-  await runSqlFile(db, './src/migrations/001/upsert_points.sql');
-  await runSqlFile(db, './src/migrations/001/upsert_region.sql');
-  await runSqlFile(db, './src/migrations/001/regions_points_trigger.sql');
-  await runSqlFile(db, './src/migrations/001/sections_points_trigger.sql');
-  await runSqlFile(db, './src/migrations/001/gauges_points_trigger.sql');
-  await runSqlFile(db, './src/migrations/001/sources_view.sql');
-  await runSqlFile(db, './src/migrations/001/gauges_view.sql');
-  await runSqlFile(db, './src/migrations/001/rivers_view.sql');
-  await runSqlFile(db, './src/migrations/001/media_view.sql');
-  await runSqlFile(db, './src/migrations/001/upsert_group.sql');
-  await runSqlFile(db, './src/migrations/001/upsert_tag.sql');
-  await runSqlFile(db, './src/migrations/001/upsert_river.sql');
-  await runSqlFile(db, './src/migrations/001/upsert_source.sql');
-  await runSqlFile(db, './src/migrations/001/upsert_gauge.sql');
-  await runSqlFile(db, './src/migrations/001/upsert_section.sql');
-  await runSqlFile(db, './src/migrations/001/upsert_section_media.sql');
+  await runSqlFile(db, './dist/migrations/001/array_json_to_int.sql');
+  await runSqlFile(db, './dist/migrations/001/array_json_to_varchar.sql');
+  await runSqlFile(db, './dist/migrations/001/point_from_json.sql');
+  await runSqlFile(db, './dist/migrations/001/polygon_from_json.sql');
+  await runSqlFile(db, './dist/migrations/001/linestring_from_json.sql');
+  await runSqlFile(db, './dist/migrations/001/points_view.sql');
+  await runSqlFile(db, './dist/migrations/001/tags_view.sql');
+  await runSqlFile(db, './dist/migrations/001/regions_view.sql');
+  await runSqlFile(db, './dist/migrations/001/groups_view.sql');
+  await runSqlFile(db, './dist/migrations/001/sections_view.sql');
+  await runSqlFile(db, './dist/migrations/001/upsert_points.sql');
+  await runSqlFile(db, './dist/migrations/001/upsert_region.sql');
+  await runSqlFile(db, './dist/migrations/001/regions_points_trigger.sql');
+  await runSqlFile(db, './dist/migrations/001/sections_points_trigger.sql');
+  await runSqlFile(db, './dist/migrations/001/gauges_points_trigger.sql');
+  await runSqlFile(db, './dist/migrations/001/sources_view.sql');
+  await runSqlFile(db, './dist/migrations/001/gauges_view.sql');
+  await runSqlFile(db, './dist/migrations/001/rivers_view.sql');
+  await runSqlFile(db, './dist/migrations/001/media_view.sql');
+  await runSqlFile(db, './dist/migrations/001/upsert_group.sql');
+  await runSqlFile(db, './dist/migrations/001/upsert_tag.sql');
+  await runSqlFile(db, './dist/migrations/001/upsert_river.sql');
+  await runSqlFile(db, './dist/migrations/001/upsert_source.sql');
+  await runSqlFile(db, './dist/migrations/001/upsert_gauge.sql');
+  await runSqlFile(db, './dist/migrations/001/upsert_section.sql');
+  await runSqlFile(db, './dist/migrations/001/upsert_section_media.sql');
 };
 
 export const down = async (db: Knex) => {

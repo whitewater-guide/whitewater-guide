@@ -16,8 +16,8 @@ services:
         source: yarn
         target: /root/.cache/yarn
       - type: bind
-        source: ../packages/backend/src
-        target: /opt/app/src
+        source: ../packages/backend/dist
+        target: /opt/app/dist
         volume:
           nocopy: true
       - type: bind

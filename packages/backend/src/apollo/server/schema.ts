@@ -11,7 +11,7 @@ let typeDefs: string;
 let schema: GraphQLSchema;
 
 async function loadSchema() {
-  const typesArray = fileLoader(join(process.cwd(), 'src'), { recursive: true, extensions: ['.graphql'] });
+  const typesArray = fileLoader(join(process.cwd(), 'dist'), { recursive: true, extensions: ['.graphql'] });
   typeDefs = mergeTypes(typesArray);
   const result = makeExecutableSchema({
     typeDefs,

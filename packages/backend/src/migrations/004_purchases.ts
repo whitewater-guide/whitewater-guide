@@ -29,7 +29,7 @@ export const up = async (db: Knex) => {
   await db.raw('ALTER TABLE groups ADD CONSTRAINT groups_sku_unique UNIQUE (sku)');
   await db.raw('ALTER TABLE regions ADD CONSTRAINT regions_sku_unique UNIQUE (sku)');
 
-  await runSqlFile(db, './src/migrations/004/platform_type.sql');
+  await runSqlFile(db, './dist/migrations/004/platform_type.sql');
   await db.schema.createTable('transactions', (table) => {
     table.uuid('id').notNullable().defaultTo(db.raw('uuid_generate_v1mc()')).primary();
     table

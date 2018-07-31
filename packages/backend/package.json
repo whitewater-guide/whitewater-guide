@@ -1,10 +1,12 @@
 {
   "name": "whitewater-backend",
-  "version": "0.0.244",
+  "version": "0.0.245",
   "main": "index.js",
   "author": "Konstantin Kuznetsov",
   "license": "proprietary",
   "scripts": {
+    "clean": "rm -rf dist/*",
+    "build": "yarn clean && tsc && cd src && find . \\( -name '*.graphql' -o -name '*.json' -o -name '*.sql'  -o -name '*.kml' \\) | cpio -updm ../dist",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "pretest": "npm_scripts/pretest.sh",
     "test": "npm_scripts/test.sh",
@@ -28,6 +30,7 @@
     "@types/koa-session": "^5.7.4",
     "@types/lodash": "^4.14.116",
     "@types/minio": "^7.0.0",
+    "@types/module-alias": "^2.0.0",
     "@types/node": "10.11.3",
     "@types/node-schedule": "^1.2.2",
     "@types/passport": "^0.4.6",
@@ -107,16 +110,16 @@
     "xmldom": "^0.1.27"
   },
   "_moduleAliases": {
-    "@apollo": "src/apollo",
-    "@auth": "src/auth",
-    "@db": "src/db",
-    "@features": "src/features",
-    "@log": "src/log",
-    "@minio": "src/minio",
-    "@redis": "src/redis",
-    "@seeds": "src/seeds",
-    "@test": "src/test",
-    "@utils": "src/utils",
-    "@ww-commons": "src/ww-commons"
+    "@apollo": "dist/apollo",
+    "@auth": "dist/auth",
+    "@db": "dist/db",
+    "@features": "dist/features",
+    "@log": "dist/log",
+    "@minio": "dist/minio",
+    "@redis": "dist/redis",
+    "@seeds": "dist/seeds",
+    "@test": "dist/test",
+    "@utils": "dist/utils",
+    "@ww-commons": "dist/ww-commons"
   }
 }

@@ -22,7 +22,7 @@ export const up = async (db: Knex) => {
     return;
   }
 
-  const sections = parseKML('./src/migrations/005/norge.kml');
+  const sections = parseKML('./dist/migrations/005/norge.kml');
   const byRiver: {[key: string]: KMLSection[] } = groupBy(sections, 'river');
   const rivers = Object.keys(byRiver);
   const { region_id: norway } = await db.table('regions_translations').select('region_id')

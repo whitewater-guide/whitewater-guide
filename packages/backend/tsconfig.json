@@ -21,7 +21,8 @@
       "@utils": ["src/utils"],
       "@ww-commons": ["src/ww-commons"],
       "@ww-commons/*": ["src/ww-commons/*"]
-    }
+    },
+    "outDir": "dist"
   },
   "include": [
     "src/**/*"
