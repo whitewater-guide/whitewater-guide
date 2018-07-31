@@ -36,13 +36,15 @@ it('should update progress', () => {
     regionInProgress: '11',
     progress: {
       data: [0, 10],
+      media: [10, 20],
     },
   };
-  const action = offlineContentActions.updateProgress({ data: [7, 10] });
+  // test both array and number progress payloads
+  const action = offlineContentActions.updateProgress({ data: [7, 10], media: 13 });
   expect(offlineContentReducer(state, action)).toEqual({
     dialogRegion: { id: '11', name: 'Georgia' },
     regionInProgress: '11',
-    progress: { data: [7, 10] },
+    progress: { data: [7, 10], media: [13, 20] },
   });
 });
 

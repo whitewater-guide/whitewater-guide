@@ -1,6 +1,6 @@
 {
   "name": "whitewater",
-  "version": "1.5.3-38",
+  "version": "1.5.3-39",
   "private": true,
   "scripts": {
     "postinstall": "./postinstall.sh",
@@ -160,6 +160,7 @@
     "react-native-storybook-loader": "^1.8.0",
     "react-test-renderer": "16.4.2",
     "redux-mock-store": "^1.5.3",
+    "redux-saga-test-plan": "^3.7.0",
     "tslint": "^5.10.0",
     "tslint-eslint-rules": "^5.2.0",
     "tslint-react": "^3.6.0",

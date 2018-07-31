@@ -18,6 +18,9 @@ export interface OfflineContentStore {
   progress: OfflineProgress;
 }
 
-export interface OfflineProgressPayload extends OfflineProgress {
+export interface OfflineProgressPayload {
   regionInProgress?: string | null;
+  data?: number | [number, number]; // number for downloaded only, array for [downloaded, total]
+  media?: number | [number, number];
+  maps?: number | [number, number];
 }
