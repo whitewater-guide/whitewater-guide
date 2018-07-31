@@ -122,6 +122,7 @@ android {
 
     defaultConfig {
         applicationId "guide.whitewater"
+        resValue "string", "build_config_package", "guide.whitewater"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode _versionCode
@@ -150,6 +151,7 @@ android {
     buildTypes {
         debug {
             resValue "string", "app_name", "WW DEBUG"
+            applicationIdSuffix ".staging"
             manifestPlaceholders = [excludeSystemAlertWindowPermission: "false"]
         }
         release {
@@ -161,8 +163,7 @@ android {
         }
         releaseStaging {
             initWith release
-            // applicationIdSuffix ".staging" // Not compatible with facebook login sdk
-            // versionNameSuffix "-staging"
+            applicationIdSuffix ".staging"
             resValue "string", "app_name", "WW STAGING"
             matchingFallbacks = ['release']
         }
