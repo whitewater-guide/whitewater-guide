@@ -11,7 +11,7 @@ import PhotoGrid from './PhotoGrid';
 import VideoList from './VideoList';
 
 interface Props {
-  section: Section;
+  section: Section | null;
 }
 
 interface State {
@@ -30,7 +30,7 @@ class SectionMediaScreenContent extends React.PureComponent<Props & WithT, State
 
   render() {
     const { section, t } = this.props;
-    const nodes = section.media ? section.media.nodes : [];
+    const nodes = (section && section.media) ? section.media.nodes : [];
     const groups = groupBy(nodes, 'kind');
     return (
       <React.Fragment>

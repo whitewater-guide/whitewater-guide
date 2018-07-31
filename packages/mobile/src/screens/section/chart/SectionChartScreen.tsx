@@ -10,10 +10,10 @@ import InteractiveChart from './InteractiveChart';
 export const SectionChartScreen: NavigationScreenComponent = (props) => {
   const screenProps: ScreenProps = props.screenProps as any;
   const section = screenProps.section.node;
-  const gauge = section.gauge;
+  const gauge = section && section.gauge;
   return (
     <Screen noScroll noPadding>
-      {gauge ? <InteractiveChart section={section} gauge={gauge} /> : <NoChart />}
+      {(section && gauge) ? <InteractiveChart section={section} gauge={gauge} /> : <NoChart />}
     </Screen>
   );
 };

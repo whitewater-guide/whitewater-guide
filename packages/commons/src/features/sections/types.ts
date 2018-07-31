@@ -123,3 +123,9 @@ export const DefaultSectionSearchTerms: SectionSearchTerms = {
 export interface SectionAdminSettings {
   demo: boolean;
 }
+
+export interface SectionsFilter {
+  riverId?: string;
+  regionId?: string;
+  updatedAfter?: Date;
+}

@@ -4,12 +4,12 @@ import { WhitePortal } from 'react-native-portal';
 import { NavigationRouteConfigMap, TabNavigatorConfig } from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import theme from '../../theme';
-import container from './container';
 import RegionInfoScreen from './info';
 import RegionMapScreen from './map';
 import RegionSectionsListScreen from './sections-list';
 import SectionsProgress from './SectionsProgress';
 import { InnerProps, OuterProps, ScreenProps } from './types';
+import withRegionSections from './withRegionSections';
 
 const routes: NavigationRouteConfigMap = {
   RegionMap: {
@@ -43,7 +43,7 @@ export const Navigator = createMaterialBottomTabNavigator(routes, config);
 
 class RegionTabsContent extends React.PureComponent<InnerProps & OuterProps> {
   render() {
-    const {navigation, region, sections } = this.props;
+    const { navigation, region, sections, count, status } = this.props;
     const screenProps: ScreenProps = { region, sections };
     return (
       <React.Fragment>
@@ -52,13 +52,13 @@ class RegionTabsContent extends React.PureComponent<InnerProps & OuterProps> {
           <WhitePortal name="region" />
         </View>
         <SectionsProgress
-          isLoading={sections.loading}
-          loaded={sections.nodes.length}
-          count={sections.count}
+          status={status}
+          loaded={sections.length}
+          count={count}
         />
       </React.Fragment>
     );
   }
 }
 
-export const RegionTabs = container(RegionTabsContent);
+export const RegionTabs = withRegionSections()(RegionTabsContent);

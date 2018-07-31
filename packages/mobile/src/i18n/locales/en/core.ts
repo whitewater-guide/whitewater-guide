@@ -78,7 +78,8 @@ export default {
     },
     sections: {
       title: 'Sections',
-      loading: 'Loading sections',
+      loading: 'Loading sections: {{loaded}}/{{count}}',
+      loadingUpdates: 'Loading updates',
     },
   },
   section: {

@@ -4,7 +4,7 @@ import { WithSection } from '../../ww-clients/features/sections';
 import { Section } from '../../ww-commons';
 
 export interface ScreenProps {
-  section: WithNode<Section>;
+  section: WithNode<Section | null>;
 }
 
 export interface NavParams {

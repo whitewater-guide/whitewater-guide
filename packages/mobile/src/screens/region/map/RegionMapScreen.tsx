@@ -15,7 +15,7 @@ export const RegionMapScreen: NavigationScreenComponent = ({ screenProps }) => {
         (
           <RegionMap
             region={region.node}
-            sections={sections.nodes}
+            sections={sections}
           />
         )
       }

@@ -78,7 +78,8 @@ export default {
     },
     sections: {
       title: 'Секции',
-      loading: 'Загружаю секции',
+      loading: 'Загружаю секции {{loaded}}/{{count}}',
+      loadingUpdates: 'Загружаю обновления',
     },
   },
   section: {

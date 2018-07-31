@@ -5,6 +5,7 @@ import { StyleSheet, View } from 'react-native';
 import { Caption } from 'react-native-paper';
 import { WithT } from '../../i18n';
 import theme from '../../theme';
+import { SectionsStatus } from './types';
 
 const BAR_HEIGHT = 32;
 
@@ -30,33 +31,37 @@ const styles = StyleSheet.create({
 });
 
 interface Props extends WithT {
-  isLoading: boolean;
+  status: SectionsStatus;
   loaded: number;
   count: number;
 }
 
 interface State {
-  isLoading: boolean;
+  status: SectionsStatus;
 }
 
 class SectionsProgress extends React.PureComponent<Props, State> {
-  readonly state: State = { isLoading: this.props.isLoading };
+  readonly state: State = { status: this.props.status };
 
   updateState: any = debounce(this.setState, 200);
 
   componentWillReceiveProps(next: Props) {
-    if (next.isLoading !== this.props.isLoading) {
-      this.updateState({ isLoading: next.isLoading });
+    if (next.status !== this.props.status) {
+      this.updateState({ status: next.status });
     }
   }
 
   render() {
     const { loaded, count, t } = this.props;
-    const { isLoading } = this.state;
-    const visible = isLoading && this.props.loaded < this.props.count;
+    const { status } = this.state;
+    const visible = status !== SectionsStatus.READY && this.props.loaded < this.props.count;
+    const caption = t(
+      status === SectionsStatus.LOADING ? 'region:sections.loading' : 'region:sections.loadingUpdates',
+      { loaded, count },
+    );
     return (
       <View style={[styles.body, visible ? styles.visible : styles.hidden]}>
-        <Caption style={styles.text}>{`${t('region:sections.loading')} ${loaded}/${count}`}</Caption>
+        <Caption style={styles.text}>{caption}</Caption>
       </View>
     );
   }

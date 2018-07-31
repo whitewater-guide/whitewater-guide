@@ -11,7 +11,7 @@ export const RegionSectionsListScreen: NavigationScreenComponent = ({ navigation
   return (
     <Screen noScroll noPadding>
       <SectionsList
-        sections={sections.nodes}
+        sections={sections}
         region={region.node}
         navigate={navigation.navigate}
       />

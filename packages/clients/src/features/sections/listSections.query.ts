@@ -1,4 +1,6 @@
 import gql from 'graphql-tag';
+import { Connection, Section, SectionsFilter } from '../../../ww-commons';
+import { Page } from '../../apollo';
 import { SectionFragments } from './sectionFragments';
 
 export const LIST_SECTIONS = gql`
@@ -21,3 +23,12 @@ export const LIST_SECTIONS = gql`
   ${SectionFragments.Measurements}
   ${SectionFragments.Tags}
 `;
+
+export interface Vars {
+  page?: Page;
+  filter?: SectionsFilter;
+}
+
+export interface Result {
+  sections: NonNullable<Connection<Section>>;
+}

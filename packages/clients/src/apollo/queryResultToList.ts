@@ -1,6 +1,7 @@
 import { NetworkStatus } from 'apollo-client';
 import { ChildProps } from 'react-apollo';
 import { Connection, ListType } from '../../ww-commons';
+import { updateList } from '../../ww-commons/utils';
 import { Page, WithList } from './types';
 
 type QueryResult<T, R extends ListType> = {
@@ -17,15 +18,19 @@ interface FMResult<T, R extends ListType> {
 
 const noop = () => Promise.resolve(false);
 
-const getListMerger = <T, R extends ListType>(propName: R) =>
+export const getListMerger = <T, R extends ListType>(propName: R) =>
   (prevResult: QueryResult<T, R>, { fetchMoreResult: nextResult }: FMResult<T, R>) => {
+    // This happens when fetchMore used without initial fetch (as in region sections container)
+    if (!prevResult || !prevResult[propName]) {
+      return nextResult;
+    }
     const { [propName]: { nodes: prevNodes, __typename } } = prevResult as any;
     const { [propName]: { nodes: newNodes, count } } = nextResult as any;
     return {
       [propName]: {
         __typename,
         count,
-        nodes: [...prevNodes, ...newNodes],
+        nodes: updateList(prevNodes, newNodes),
       },
     };
   };
