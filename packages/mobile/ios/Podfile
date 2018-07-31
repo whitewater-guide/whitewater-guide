@@ -31,8 +31,8 @@ target 'whitewater' do
   pod 'FBSDKLoginKit'
   pod 'FBSDKShareKit'
 
-  pod 'Fabric', '~> 1.7.5'
-  pod 'Crashlytics', '~> 3.10.1'
+  pod 'Fabric', '~> 1.7.11'
+  pod 'Crashlytics', '~> 3.10.7'
 
   # React Native third party dependencies podspecs
   pod 'DoubleConversion', :podspec => "#{rn_path}/third-party-podspecs/DoubleConversion.podspec"
