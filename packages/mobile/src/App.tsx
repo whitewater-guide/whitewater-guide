@@ -56,7 +56,10 @@ class App extends React.Component<{}, State> {
 
   onHideSplash = () => { this.showSplash = false; };
 
-  renderLoading = () => this.showSplash ? <SplashScreen onHide={this.onHideSplash} /> : null;
+  renderProfileLoading = () =>
+    (__DEV__ || !this.showSplash) ? null : <SplashScreen onHide={this.onHideSplash} />;
+
+  renderLoadingExperimental = () => __DEV__ ? <SplashScreen /> : null;
 
   render() {
     if (this.store && this.state.initialized) {
@@ -65,11 +68,12 @@ class App extends React.Component<{}, State> {
           <ApolloProvider client={this.apolloClient!}>
             <PortalProvider>
               <TagsProvider>
-                <MyProfileProvider renderLoading={this.renderLoading}>
+                <MyProfileProvider renderLoading={this.renderProfileLoading}>
                   <I18nProvider>
                     <RootNavigator
                       persistenceKey={navigationPersistenceKey}
                       onNavigationStateChange={trackScreenChange}
+                      renderLoadingExperimental={this.renderLoadingExperimental}
                     />
                   </I18nProvider>
                 </MyProfileProvider>
