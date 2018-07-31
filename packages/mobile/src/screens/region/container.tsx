@@ -30,13 +30,14 @@ export function sectionsListContainer(limit: number = 20, pollingInterval: numbe
     class WithSectionsList extends React.PureComponent<WrapperProps<P>, State> {
       _query!: ObservableQuery<Result, Vars>;
       _pollQuery!: ObservableQuery<any, PollVars>;
-      _subscription!: ZenObservable.Subscription;
+      _subscription: ZenObservable.Subscription | undefined;
       _mounted: boolean = false;
 
       constructor(props: WrapperProps<P>) {
         super(props);
         const { client, region  } = props;
         if (!region.node) {
+          this.state = { sections: [], count: 0, status: SectionsStatus.READY };
           return;
         }
 
@@ -82,7 +83,9 @@ export function sectionsListContainer(limit: number = 20, pollingInterval: numbe
 
       componentWillUnmount() {
         this._mounted = false;
-        this._subscription.unsubscribe();
+        if (this._subscription) {
+          this._subscription.unsubscribe();
+        }
         if (this._pollQuery) {
           this._pollQuery.stopPolling();
         }
