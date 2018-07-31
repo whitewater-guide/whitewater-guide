@@ -15,10 +15,20 @@ describe('buildQuery', () => {
     const query = buildQuery(
       TABLE,
       {
-        fields: new Set(['name', 'age']),
+        fields: new Set(['name', 'age', '__typename']),
       },
     );
     expect(query).toMatchSnapshot();
+  });
+
+  it('should omit __typename', () => {
+    const query = buildQuery(
+      TABLE,
+      {
+        fields: new Set(['name', 'age', '__typename']),
+      },
+    );
+    expect(query.toString()).not.toContain('typename');
   });
 
   it('should map camel-cased columns', () => {

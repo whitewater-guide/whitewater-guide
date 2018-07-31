@@ -17,6 +17,9 @@ export function buildQuery<TGraphql, TSql>(tableName: string, options: BuilderOp
 
   const sqlFieldsSet: Set<keyof TSql> = new Set<keyof TSql>(sqlFields);
   for (const graphqlField of fields.values()) {
+    if (graphqlField === '__typename') {
+      continue;
+    }
     const mapped = fieldsMap[graphqlField];
     if (mapped === null) {
       continue;
