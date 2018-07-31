@@ -19,6 +19,7 @@ const iap = {
 - Detailed sections descriptions
 - Navigate to put-ins/take-outs with just one tap
 - Copy coordinates of put-ins, take-outs and extra points
+- Download data for offline use
 `,
   },
   alreadyHave: {
