@@ -4,13 +4,15 @@ import { RegionFragments } from '../../../ww-clients/features/regions';
 const REGION_FORM_QUEUE = gql`
   query regionForm($regionId: ID) {
     region(id: $regionId) {
-      ...RegionCore
+      id
+      name
+      season
+      seasonNumeric
       ...RegionDescription
       ...RegionPOIs
       ...RegionBounds
     }
   }
-  ${RegionFragments.Core}
   ${RegionFragments.Description}
   ${RegionFragments.POIs}
   ${RegionFragments.Bounds}
