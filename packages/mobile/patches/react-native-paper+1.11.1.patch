@@ -1,4 +1,26 @@
 patch-package
+--- a/node_modules/react-native-paper/src/components/Checkbox.ios.js
++++ b/node_modules/react-native-paper/src/components/Checkbox.ios.js
+@@ -67,7 +67,7 @@ class Checkbox extends React.Component<Props> {
+         <View style={{ opacity: checked ? 1 : 0 }}>
+           <Icon
+             allowFontScaling={false}
+-            name="done"
++            name="check"
+             size={24}
+             color={checkedColor}
+           />
+--- a/node_modules/react-native-paper/src/components/Checkbox.js
++++ b/node_modules/react-native-paper/src/components/Checkbox.js
+@@ -147,7 +147,7 @@ class Checkbox extends React.Component<Props, State> {
+         <Animated.View style={{ transform: [{ scale: this.state.scaleAnim }] }}>
+           <Icon
+             allowFontScaling={false}
+-            name={checked ? 'check-box' : 'check-box-outline-blank'}
++            name={checked ? 'checkbox-marked' : 'checkbox-blank-outline'}
+             size={24}
+             color={checkboxColor}
+           />
 --- a/node_modules/react-native-paper/src/components/Icon.js
 +++ b/node_modules/react-native-paper/src/components/Icon.js
 @@ -7,7 +7,7 @@ let MaterialIcons;
