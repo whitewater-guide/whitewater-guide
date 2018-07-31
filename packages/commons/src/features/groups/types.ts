@@ -13,8 +13,3 @@ export interface GroupInput {
   name: string;
   sku: string | null;
 }
-
-export interface WithGroups {
-  groups: Group[];
-  groupsLoading: boolean;
-}

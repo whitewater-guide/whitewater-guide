@@ -1,8 +1,9 @@
-import { GroupInput, WithGroups } from '../../ww-commons';
+import { WithGroupsList } from '../../ww-clients/features/groups';
+import { GroupInput } from '../../ww-commons';
 
 export interface WithGroupMutations {
   upsertGroup: (group: GroupInput) => void;
   removeGroup: (id: string) => void;
 }
 
-export type GroupsFormProps = WithGroups & WithGroupMutations;
+export type GroupsFormProps = WithGroupsList & WithGroupMutations;

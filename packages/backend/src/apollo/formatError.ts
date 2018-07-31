@@ -1,12 +1,12 @@
 import { formatError as apolloFormatError } from 'apollo-errors';
-import { GraphQLError } from 'graphql';
+import { ApolloError } from 'apollo-server';
 import { UnknownError } from './errors';
 import { logger } from './logger';
 
 export const formatError = (error: any) => {
   let e = apolloFormatError(error, true);
 
-  if (!e && error instanceof GraphQLError) {
+  if (!e && error instanceof ApolloError) {
     e = apolloFormatError(new UnknownError({
       data: {
         originalMessage: error.message,

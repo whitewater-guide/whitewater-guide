@@ -1,6 +1,6 @@
 {
   "name": "whitewater-backend",
-  "version": "0.0.203",
+  "version": "0.0.205",
   "main": "index.js",
   "author": "Konstantin Kuznetsov",
   "license": "MIT",
