@@ -16,6 +16,7 @@ import (
   "riverzone"
   "flag"
   "chile"
+  "logging"
 )
 
 var endpoint = "/endpoint"
@@ -134,19 +135,12 @@ func startWorkers() {
 }
 
 func main() {
-  logLevelStr := os.Getenv("WORKERS_LOG_LEVEL")
-  if logLevelStr == "" {
-    logLevelStr = "debug"
-  }
-  lvl, err := log.ParseLevel(logLevelStr)
+  logging.ConfigureLogging()
+
+  err := core.InitHttpClient()
   if err != nil {
-    lvl = log.DebugLevel
-  }
-  log.SetLevel(lvl)
-  if os.Getenv("WORKERS_LOG_JSON") != "" {
-    log.SetFormatter(&log.JSONFormatter{})
-  } else {
-    log.SetFormatter(&log.TextFormatter{ForceColors: true})
+    log.WithError(err).Fatal("failed to initialize http client")
+    return
   }
 
   initStorage()

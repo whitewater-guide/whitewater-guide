@@ -3,7 +3,7 @@ package chile
 import (
   "encoding/json"
   "fmt"
-  "net/http"
+  "core"
 )
 
 type SpatialReference struct {
@@ -69,7 +69,7 @@ func getWepmapUrl() (string, error) {
 
 func parseWebmap() (map[string]Feature, error) {
   url, _ := getWepmapUrl()
-  resp, err := http.Get(url)
+  resp, err := core.Client.Get(url)
 
   if err != nil {
     return nil, err

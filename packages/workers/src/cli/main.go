@@ -14,6 +14,8 @@ import (
   "strings"
   "riverzone"
   "chile"
+  "logging"
+  log "github.com/sirupsen/logrus"
 )
 
 var (
@@ -30,6 +32,13 @@ func register(factory core.WorkerFactory, flags func(cmd *cobra.Command)) {
 }
 
 func main() {
+  logging.ConfigureLogging()
+  err := core.InitHttpClient()
+  if err != nil {
+    log.WithError(err).Fatal("failed to initialize http client")
+    return
+  }
+
   register(all_at_once.NewWorkerAllAtOnce, func(cmd *cobra.Command) {
     cmd.Flags().Float64("value", 0, "Set this to return fixed value. Has priority over min/max.")
     cmd.Flags().Float64("min", 10, "Set this and max to return random values within interval")

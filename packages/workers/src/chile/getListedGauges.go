@@ -3,6 +3,7 @@ package chile
 import (
   "strings"
   "bufio"
+  "core"
 )
 
 const (
@@ -48,7 +49,7 @@ func parseOption(opt string) (id string, name string) {
  * Returns map where gauge id is the key and gauge name is the value
  */
 func getListedGauges() (map[string]string, error) {
-  html, err := getPage(listPageUrl)
+  html, err := core.Client.GetAsString(listPageUrl)
   if err != nil {
     return nil, err
   }

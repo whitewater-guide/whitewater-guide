@@ -2,7 +2,7 @@ package chile
 
 import (
   "encoding/json"
-  "net/http"
+  "core"
 )
 
 const (
@@ -19,7 +19,7 @@ type WebmapIdPage struct {
 }
 
 func getWebmapId() (string, error) {
-  resp, err := http.Get(webmapIdPageUrl)
+  resp, err := core.Client.Get(webmapIdPageUrl)
 
   if err != nil {
     return "", err

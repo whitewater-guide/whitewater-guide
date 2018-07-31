@@ -24,12 +24,11 @@ func (w *workerRiverzone) FlagsToExtras(flags *pflag.FlagSet) map[string]interfa
 }
 
 func fetchStations() (*Stations, error) {
-  client := &http.Client{}
   req, _ := http.NewRequest("GET", "https://api.riverzone.eu/v1/stations", nil)
-  req.Header.Set("User-Agent", "whitewater.guide bot")
+  req.Header.Set("User-Agent", core.UserAgent)
   req.Header.Set("Cache-Control", "no-cache")
   req.Header.Set("X-Key", os.Getenv("RIVERZONE_KEY"))
-  resp, err := client.Do(req)
+  resp, err := core.Client.Do(req)
 
   // Hardcoded example
   // resp, err := http.Get("https://gist.githubusercontent.com/doomsower/bd8d6152828acfd19cf7a627065d96ca/raw/0d1f36dd6a19dd8cd15af2c3c46e95b8112dfacb/reverzone.json")
@@ -114,7 +113,6 @@ func (w *workerRiverzone) Harvest(_ core.HarvestOptions) ([]core.Measurement, er
       }
     }
 
-
     if station.Readings.Cm != nil {
       for _, reading := range station.Readings.Cm {
         if reading.Value == 0.0 {
@@ -137,7 +135,7 @@ func (w *workerRiverzone) Harvest(_ core.HarvestOptions) ([]core.Measurement, er
       }
     }
 
-    for  _, v := range flowValues {
+    for _, v := range flowValues {
       result = append(result, v)
     }
   }

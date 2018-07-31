@@ -4,6 +4,7 @@ import (
   "net/url"
   "fmt"
   "time"
+  "core"
 )
 
 const xlsUrl = "http://dgasatel.mop.cl/cons_det_instan_xls.asp"
@@ -18,8 +19,8 @@ func loadXLS(code string, since int64) (string, error) {
     period = "3m"
   }
   t := time.Now().In(tz)
-
-  html, err := postForm(xlsUrl, url.Values{
+  core.Client.EnsureCookie("http://dgasatel.mop.cl", "http://dgasatel.mop.cl")
+  html, err := core.Client.PostFormAsString(xlsUrl, url.Values{
     "accion":         {"refresca"},
     "chk_estacion1a": {fmt.Sprintf("%s_1, %s_12", code, code)},
     "chk_estacion1b": {""},

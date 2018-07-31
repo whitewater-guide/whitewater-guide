@@ -42,7 +42,7 @@ Content-Type: application/json
 {
   "command": "harvest",
   "script": "chile",
-  "code": "02103018-K"
+  "code": "10702002-0"
 }
 
 ###

@@ -5,6 +5,7 @@ import (
   "net/url"
   "time"
   "strings"
+  "core"
 )
 
 const checkURL = "http://dgasatel.mop.cl/filtro_paramxestac_new2.asp"
@@ -30,7 +31,7 @@ func checkGaugesWorthiness(ids []string, data map[string]bool) error {
     return err
   }
   t := time.Now().In(tz)
-  html, err := postForm(checkURL, url.Values{
+  html, err := core.Client.PostFormAsString(checkURL, url.Values{
     "accion":     {"refresca"},
     "EsDL1":      {"0"},
     "EsDL2":      {"0"},
