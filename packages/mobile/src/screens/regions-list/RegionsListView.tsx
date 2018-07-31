@@ -47,7 +47,7 @@ class RegionsListView extends React.PureComponent<InnerProps> {
         getItemLayout={getItemLayout}
         renderItem={this.renderItem}
         keyExtractor={keyExtractor}
-        refreshControl={<RefreshIndicator refreshing={loading} onRefresh={refetch} />}
+        refreshControl={<RefreshIndicator refreshing={loading} onRefresh={refetch} /> as any}
       />
     );
   };

@@ -11,7 +11,7 @@ interface StateProps {
   region: PremiumRegion;
   state: PurchaseState;
   price?: string;
-  error?: [string] | [string, { [key: string]: string }] | null;
+  error?: [string] | [string, { [key: string]: string | undefined }] | null;
 }
 
 interface MergedProps extends StateProps, OwnProps {

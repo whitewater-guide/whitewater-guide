@@ -18,7 +18,7 @@
 #import "RNFirebaseMessaging.h"
 
 #import "ReactNativeConfig.h"
-#import "SplashScreen.h"
+#import "RNSplashScreen.h"
 @import GoogleMaps;
 
 @implementation AppDelegate
@@ -54,7 +54,7 @@
   NSString *googelApiKey = [ReactNativeConfig envFor:@"GOOGLE_API_KEY"];
   [GMSServices provideAPIKey:googelApiKey];
 
-  [SplashScreen show];
+  [RNSplashScreen show];
 
   return YES;
 }

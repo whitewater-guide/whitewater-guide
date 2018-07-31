@@ -28,7 +28,7 @@ interface Props extends WithT {
   region: PremiumRegion;
   state: PurchaseState;
   price?: string;
-  error?: [string] | [string, { [key: string]: string }] | null;
+  error?: [string] | [string, { [key: string]: string | undefined}] | null;
   onCancel?: () => void;
   onConfirm?: () => void;
   cancelable?: boolean;

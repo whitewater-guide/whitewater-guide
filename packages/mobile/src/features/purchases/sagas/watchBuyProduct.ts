@@ -50,7 +50,7 @@ export function* watchBuyProduct(action: Action<string>) {
     return;
   } else if (alreadyOwned) {
     yield update({
-      error: ['iap:errors.alreadyOwned', { transactionId: product.transactionId }],
+      error: ['iap:errors.alreadyOwned', { transactionId: product ? product.transactionId : undefined }],
       state: PurchaseState.PURCHASE_SAVING_FATAL,
     });
     yield call(finishPurchase);
