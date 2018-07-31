@@ -19,7 +19,7 @@ const (
 // http://saih.chminosil.es/index.php?url=/datos/ficha/estacion:N015
 func parseGaugePage(url string) (latitude float64, longitude float64, altitude float64) {
 	jarOpts := jar.Options{
-		Filename: "galicia2.cookies",
+		Filename: "/tmp/cookies/galicia2.cookies",
 	}
 	persJar, err := jar.New(&jarOpts)
 	if err != nil {

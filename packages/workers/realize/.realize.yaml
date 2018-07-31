@@ -19,6 +19,7 @@ schema:
     paths:
     - /
     - ../all-at-once
+    - ../chile
     - ../core
     - ../galicia
     - ../galicia2
@@ -43,6 +44,7 @@ schema:
     paths:
     - /
     - ../all-at-once
+    - ../chile
     - ../core
     - ../galicia
     - ../galicia2

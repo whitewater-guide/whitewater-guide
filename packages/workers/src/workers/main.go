@@ -15,6 +15,7 @@ import (
   "os"
   "riverzone"
   "flag"
+  "chile"
 )
 
 var endpoint = "/endpoint"
@@ -127,6 +128,7 @@ func startWorkers() {
   register(all_at_once.NewWorkerAllAtOnce)
   register(one_by_one.NewWorkerOneByOne)
   register(riverzone.NewWorkerRiverzone)
+  register(chile.NewWorkerChile)
 
   log.Info("started workers")
 }

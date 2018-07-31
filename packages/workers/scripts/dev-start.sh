@@ -11,4 +11,5 @@ docker run --rm \
             -v $(pwd)/realize:/realize \
             -v $(pwd)/cookies:/tmp/cookies \
             --env-file .env.development \
-            ${IMAGE}
+            ${IMAGE} \
+            "$@"

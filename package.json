@@ -1,6 +1,6 @@
 {
   "name": "whitewater",
-  "version": "0.0.1068",
+  "version": "0.0.1080",
   "description": "whitewater.guide monorepo",
   "repository": "https://github.com/doomsower/whitewater.git",
   "author": "doomsower <K.Kuznetcov@gmail.com>",
@@ -28,6 +28,7 @@
     "junk": "yarn trash-junk"
   },
   "devDependencies": {
+    "@types/node": "^10.12.9",
     "dotenv": "^6.0.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "12.1.0",

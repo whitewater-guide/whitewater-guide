@@ -15,7 +15,7 @@ Content-Type: application/json
 
 {
   "command": "autofill",
-  "script": "riverzone"
+  "script": "chile"
 }
 
 ###
@@ -31,6 +31,18 @@ Content-Type: application/json
   "extras": {
     "html": true
   }
+}
+
+###
+# Harvest one by one
+POST http://localhost:7080/endpoint
+Cache-Control: no-cache
+Content-Type: application/json
+
+{
+  "command": "harvest",
+  "script": "chile",
+  "code": "02103018-K"
 }
 
 ###

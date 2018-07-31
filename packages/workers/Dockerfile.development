@@ -6,3 +6,4 @@ COPY /realize /realize
 WORKDIR /realize
 
 ENTRYPOINT ["/realize/docker-entrypoint.sh"]
+CMD []
