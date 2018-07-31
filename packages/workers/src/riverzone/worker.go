@@ -62,7 +62,7 @@ func (w *workerRiverzone) Autofill() ([]core.GaugeInfo, error) {
       levelUnit = "cm"
     }
     if station.Readings.M3s != nil {
-      levelUnit = "m3s"
+      flowUnit = "m3s"
     }
     info := core.GaugeInfo{
       GaugeId: core.GaugeId{
