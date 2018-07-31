@@ -24,8 +24,9 @@ const styles = StyleSheet.create({
 
 interface Props {
   refetch?: () => Promise<any>;
-  labelKey?: string;
   loading?: boolean;
+  labelKey?: string;
+  buttonKey?: string;
 }
 
 interface State {
@@ -49,7 +50,7 @@ class RetryPlaceholderInner extends React.PureComponent<Props & WithT, State> {
   };
 
   render() {
-    const { labelKey = 'commons:offline', t, loading } = this.props;
+    const { labelKey = 'commons:offline', buttonKey = 'commons:retry', t, loading } = this.props;
     const isBusy = this.state.refetching || loading;
     return (
       <View style={styles.container}>
@@ -65,7 +66,7 @@ class RetryPlaceholderInner extends React.PureComponent<Props & WithT, State> {
           !!this.props.refetch &&
           (
             <Button primary compact disabled={isBusy} onPress={this.onRetry}>
-              {t('commons:retry')}
+              {t(buttonKey)}
             </Button>
           )
         }

@@ -58,6 +58,7 @@ export default {
       region: 'Region',
       group: 'Regions pack',
     },
+    notLoggedIn: 'You\'re not logged in',
   },
   regionsList: {
     title: 'Regions',

@@ -2,7 +2,7 @@ import identity from 'lodash/identity';
 import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import { Button, Divider, Title } from 'react-native-paper';
-import { Avatar, Paper, RadioDialog, Screen } from '../../components';
+import { Avatar, Paper, RadioDialog, RetryPlaceholder, Screen } from '../../components';
 import { LANGUAGE_NAMES, SUPPORTED_LANGUAGES } from '../../i18n';
 import theme from '../../theme';
 import { PurchasesListView } from './purchases';
@@ -41,9 +41,14 @@ class MyProfileView extends React.PureComponent<InnerProps> {
 
   render() {
     const { t, me } = this.props;
-    const language = me && me.language || 'en';
-    const avatar = me ? me.avatar : '';
-    const username = me ? me.name : '';
+    if (!me) {
+      return (
+        <RetryPlaceholder labelKey={'myProfile:notLoggedIn'} />
+      );
+    }
+    const language = me.language || 'en';
+    const avatar = me.avatar || '';
+    const username = me.name || '';
     return (
       <Screen noScroll noPadding>
         <ScrollView style={{ flex: 1 }} contentContainerStyle={styles.scroll}>

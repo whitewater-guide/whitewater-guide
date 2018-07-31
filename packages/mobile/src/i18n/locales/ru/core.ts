@@ -58,6 +58,7 @@ export default {
       region: 'Регион',
       group: 'Пакет регионов',
     },
+    notLoggedIn: 'Вы не залогинены',
   },
   regionsList: {
     title: 'Регионы',
