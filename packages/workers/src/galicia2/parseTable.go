@@ -13,7 +13,7 @@ import (
 
 func (w *workerGalicia2) parseTable() ([]core.GaugeInfo, error) {
   var result []core.GaugeInfo
-  core.Client.EnsureCookie("http://saih.chminosil.es", "http://saih.chminosil.es")
+  core.Client.EnsureCookie("http://saih.chminosil.es", "http://saih.chminosil.es", false)
   resp, err := core.Client.Get("http://saih.chminosil.es/index.php?url=/datos/resumen_excel")
   if err != nil {
     return result, err

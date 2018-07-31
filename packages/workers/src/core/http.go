@@ -9,7 +9,7 @@ import (
   "net/url"
   "io/ioutil"
   "strings"
-  )
+)
 
 const UserAgent = "whitewater.guide robot"
 
@@ -45,13 +45,13 @@ func InitHttpClient() (err error) {
   return nil
 }
 
-func (client *HttpClient) EnsureCookie(cookieUrl, fetchUrl string) (err error) {
+func (client *HttpClient) EnsureCookie(cookieUrl, fetchUrl string, force bool) (err error) {
   cUrl, err := url.Parse(cookieUrl)
   if err != nil {
     return
   }
   cookies := client.PersistentJar.Cookies(cUrl)
-  if len(cookies) == 0 {
+  if force || len(cookies) == 0 {
     resp, err := client.Get(fetchUrl)
     if err != nil {
       resp.Body.Close()

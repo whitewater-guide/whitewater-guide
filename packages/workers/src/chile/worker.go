@@ -90,7 +90,7 @@ func (w *workerChile) Harvest(opts core.HarvestOptions) ([]core.Measurement, err
   if opts.Code == "" {
     return nil, fmt.Errorf("gauge code is required")
   }
-  rawDoc, err := loadXLS(opts.Code, opts.Since)
+  rawDoc, err := loadXLS(opts.Code, opts.Since, true)
   if err != nil {
     return nil, err
   }

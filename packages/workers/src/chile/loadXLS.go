@@ -8,13 +8,11 @@ import (
   log "github.com/sirupsen/logrus"
   "github.com/moul/http2curl"
   "encoding/base64"
-  "fmt"
 )
 
 const xlsUrl = "http://dgasatel.mop.cl/cons_det_instan_xls.asp"
 
-func loadXLS(code string, since int64) (string, error) {
-  fmt.Println("Load XLS", code, since)
+func loadXLS(code string, since int64, retry bool) (string, error) {
   tz, err := time.LoadLocation("America/Santiago")
   if err != nil {
     return "", nil
@@ -24,7 +22,7 @@ func loadXLS(code string, since int64) (string, error) {
     period = "3m"
   }
   t := time.Now().In(tz)
-  cookieErr := core.Client.EnsureCookie("http://dgasatel.mop.cl", "http://dgasatel.mop.cl")
+  cookieErr := core.Client.EnsureCookie("http://dgasatel.mop.cl", "http://dgasatel.mop.cl", !retry)
   values := url.Values{
     "accion":         {"refresca"},
     "chk_estacion1a": {code + "_1", code + "_12"},
@@ -44,8 +42,10 @@ func loadXLS(code string, since int64) (string, error) {
   }
   html, req, err := core.Client.PostFormAsString(xlsUrl, values)
 
-  // TEMPORARY CODE
   if strings.Index(html, "tabla para resultados numerados") == -1 {
+    if retry {
+      return loadXLS(code, since, false)
+    }
     curl, _ := http2curl.GetCurlCommand(req)
     encoded := base64.StdEncoding.EncodeToString([]byte(curl.String()))
     log.WithFields(log.Fields{
