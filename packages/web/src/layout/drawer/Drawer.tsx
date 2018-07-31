@@ -4,12 +4,17 @@ import MenuItem from 'material-ui/MenuItem';
 import React from 'react';
 import { matchPath, RouteComponentProps, withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
+import { Styles } from '../../styles';
 import { withMe, WithMe } from '../../ww-clients/features/users';
 
-const styles = {
+const styles: Styles = {
   drawerContainer: {
     marginTop: 56,
     paddingTop: 16,
+    paddingBottom: 56,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
   },
 };
 
@@ -51,6 +56,9 @@ const Drawer = ({ onChange, isOpen, location, history: { push }, me }: InnerProp
           },
         )}
       </Menu>
+      <span style={{ paddingLeft: 8 }}>
+        {`Version: ${process.env.REACT_APP_VERSION}`}
+      </span>
     </MuiDrawer>
   );
 };
