@@ -18,6 +18,7 @@ RUN addgroup -g 1000 -S workers \
 USER workers
 WORKDIR /app
 
+COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 COPY --from=builder /go/bin/workers-server /go/bin/workers-cli ./
 COPY --from=builder /usr/local/go/lib/time/zoneinfo.zip /usr/local/go/lib/time/zoneinfo.zip
 
