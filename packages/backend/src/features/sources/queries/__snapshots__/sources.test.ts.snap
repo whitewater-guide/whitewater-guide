@@ -52,6 +52,58 @@ Object {
 }
 `;
 
+exports[`connections should count regions 1`] = `
+Object {
+  "sources": Object {
+    "count": 6,
+    "nodes": Array [
+      Object {
+        "id": "1628c0a2-1a0a-11e8-accf-0ed5f89f718b",
+        "name": "Alps",
+        "regions": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "id": "6d0d717e-aa9d-11e7-abc4-cec278b6b50a",
+        "name": "Galicia",
+        "regions": Object {
+          "count": 2,
+        },
+      },
+      Object {
+        "id": "9f962a34-bff9-11e7-abc4-cec278b6b50a",
+        "name": "Galicia2",
+        "regions": Object {
+          "count": 1,
+        },
+      },
+      Object {
+        "id": "53af1a54-19fe-11e8-accf-0ed5f89f718b",
+        "name": "Georgia",
+        "regions": Object {
+          "count": 0,
+        },
+      },
+      Object {
+        "id": "786251d4-aa9d-11e7-abc4-cec278b6b50a",
+        "name": "Norway",
+        "regions": Object {
+          "count": 1,
+        },
+      },
+      Object {
+        "id": "8e37e9d2-1d7b-11e8-b467-0ed5f89f718b",
+        "name": "Russia",
+        "regions": Object {
+          "count": 0,
+        },
+      },
+    ],
+  },
+}
+`;
+
 exports[`data should list sources 1`] = `
 Array [
   Object {

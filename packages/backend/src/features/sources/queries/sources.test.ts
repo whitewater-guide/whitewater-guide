@@ -1,5 +1,7 @@
+import db from '@db';
 import { holdTransaction, rollbackTransaction } from '@db';
 import { ADMIN, EDITOR_NO_EC, TEST_USER } from '@seeds/01_users';
+import { SOURCE_NORWAY } from '@seeds/05_sources';
 import { anonContext, fakeContext, noTimestamps, runQuery } from '@test';
 
 beforeEach(holdTransaction);
@@ -88,6 +90,26 @@ describe('connections', () => {
             id
             name
             gauges {
+              count
+            }
+          }
+          count
+        }
+      }
+    `;
+    const result = await runQuery(gaugesQuery, undefined, fakeContext(ADMIN));
+    expect(result.errors).toBeUndefined();
+    expect(result.data).toMatchSnapshot();
+  });
+
+  it('should count regions', async () => {
+    const gaugesQuery = `
+      query listSources {
+        sources {
+          nodes {
+            id
+            name
+            regions {
               count
             }
           }

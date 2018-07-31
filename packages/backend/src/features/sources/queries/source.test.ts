@@ -20,6 +20,7 @@ const query = `
       enabled
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -93,8 +94,9 @@ describe('i18n', () => {
 });
 
 describe('connections', () => {
-  it('should return regions', async () => {
-    const q = `
+  describe('regions', () => {
+    it('should return nodes', async () => {
+      const q = `
       query sourceDetails($id: ID){
         source(id: $id) {
           id
@@ -104,29 +106,69 @@ describe('connections', () => {
             nodes {
               id
               name
+              __typename
             }
+            __typename
           }
+          __typename
         }
       }
     `;
-    const result = await runQuery(q, { id: SOURCE_GALICIA_1 }, fakeContext(ADMIN));
-    expect(result.errors).toBeUndefined();
-    const source = result.data!.source;
-    expect(source).toEqual(expect.objectContaining({
-      id: '6d0d717e-aa9d-11e7-abc4-cec278b6b50a',
-      name: 'Galicia',
-      regions: {
-        count: 2,
-        nodes: [
-          { id: 'bd3e10b6-7624-11e7-b5a5-be2e44b06b34', name: 'Galicia' },
-          { id: 'b968e2b2-76c5-11e7-b5a5-be2e44b06b34', name: 'Norway' },
-        ],
-      },
-    }));
+      const result = await runQuery(q, { id: SOURCE_GALICIA_1 }, fakeContext(ADMIN));
+      expect(result.errors).toBeUndefined();
+      const source = result.data!.source;
+      expect(source).toMatchObject({
+        id: SOURCE_GALICIA_1,
+        name: 'Galicia',
+        regions: {
+          count: 2,
+          nodes: [
+            { id: 'bd3e10b6-7624-11e7-b5a5-be2e44b06b34', name: 'Galicia' },
+            { id: 'b968e2b2-76c5-11e7-b5a5-be2e44b06b34', name: 'Norway' },
+          ],
+        },
+      });
+    });
+
+    it('should paginate', async () => {
+      const q = `
+      query sourceDetails($id: ID, $regionsPage: Page){
+        source(id: $id) {
+          id
+          regions(page: $regionsPage) {
+            count
+            nodes {
+              id
+              name
+              __typename
+            }
+            __typename
+          }
+          __typename
+        }
+      }
+    `;
+      const result = await runQuery(
+        q,
+        { id: SOURCE_GALICIA_1, regionsPage: { limit: 1, offset: 1 } },
+        fakeContext(ADMIN),
+      );
+      expect(result.errors).toBeUndefined();
+      expect(result.data!.source).toMatchObject({
+        id: SOURCE_GALICIA_1,
+        regions: {
+          count: 2,
+          nodes: [
+            { id: 'b968e2b2-76c5-11e7-b5a5-be2e44b06b34', name: 'Norway' },
+          ],
+        },
+      });
+    });
   });
 
-  it('should return gauges', async () => {
-    const q = `
+  describe('gauges', () => {
+    it('should return nodes', async () => {
+      const q = `
       query sourceDetails($id: ID){
         source(id: $id) {
           id
@@ -137,23 +179,27 @@ describe('connections', () => {
               id
               name
               code
+              __typename
             }
+            __typename
           }
+          __typename
         }
       }
     `;
-    const result = await runQuery(q, { id: SOURCE_GALICIA_1 }, fakeContext(ADMIN));
-    expect(result.errors).toBeUndefined();
-    const source = result.data!.source;
-    expect(source.gauges.count).toBe(2);
-    expect(source.gauges.nodes).toEqual([
-      { id: 'aba8c106-aaa0-11e7-abc4-cec278b6b50a', name: 'Galicia gauge 1', code: 'gal1' },
-      { id: 'b77ef1b2-aaa0-11e7-abc4-cec278b6b50a', name: 'Galicia gauge 2', code: 'gal2' },
-    ]);
-  });
+      const result = await runQuery(q, { id: SOURCE_GALICIA_1 }, fakeContext(ADMIN));
+      expect(result.errors).toBeUndefined();
+      const source = result.data!.source;
+      expect(source.gauges.count).toBe(2);
+      expect(source.gauges.nodes).toHaveLength(2);
+      expect(source.gauges.nodes).toMatchObject([
+        { id: 'aba8c106-aaa0-11e7-abc4-cec278b6b50a', name: 'Galicia gauge 1', code: 'gal1' },
+        { id: 'b77ef1b2-aaa0-11e7-abc4-cec278b6b50a', name: 'Galicia gauge 2', code: 'gal2' },
+      ]);
+    });
 
-  it('should paginate gauges', async () => {
-    const q = `
+    it('should paginate', async () => {
+      const q = `
       query sourceDetails($id: ID, $page: Page){
         source(id: $id) {
           id
@@ -162,15 +208,21 @@ describe('connections', () => {
             nodes {
               id
               code
+              __typename
             }
+            __typename
           }
+          __typename
         }
       }
     `;
-    const result = await runQuery(q, { id: SOURCE_NORWAY, page: { limit: 1, offset: 1 } }, fakeContext(ADMIN));
-    expect(result.errors).toBeUndefined();
-    const source = result.data!.source;
-    expect(source.gauges.count).toBe(4);
-    expect(source.gauges.nodes).toEqual([{ id: GAUGE_NOR_2, code: 'nor2' }]);
+      const result = await runQuery(q, { id: SOURCE_NORWAY, page: { limit: 1, offset: 1 } }, fakeContext(ADMIN));
+      expect(result.errors).toBeUndefined();
+      const source = result.data!.source;
+      expect(source.gauges.count).toBe(4);
+      expect(source.gauges.nodes).toHaveLength(1);
+      expect(source.gauges.nodes).toMatchObject([{ id: GAUGE_NOR_2, code: 'nor2' }]);
+    });
   });
+
 });
