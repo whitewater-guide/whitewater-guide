@@ -93,6 +93,15 @@ platform :ios do
      )
   end
 
+  private_lane :crashlytics do |options|
+    puts "Upload dsyms: #{lane_context[SharedValues::DSYM_OUTPUT_PATH]}"
+    upload_symbols_to_crashlytics(
+        dsym_path: lane_context[SharedValues::DSYM_OUTPUT_PATH],
+        gsp_path: ENV['IOS_GSP_PATH'],
+        binary_path: "#{ENV['IOS_PROJECT_PATH']}/Pods/Fabric/upload-symbols"
+    )
+  end
+
   lane :staging do |options|
     match(
       type: 'appstore',
@@ -109,6 +118,7 @@ platform :ios do
       ipa: ENV['IOS_IPA_PATH'],
       skip_waiting_for_build_processing: true,
     )
+    crashlytics
     code_push
   end
 
@@ -130,6 +140,7 @@ platform :ios do
       skip_screenshots: true,
       skip_metadata: true,
     )
+    crashlytics
     code_push
   end
 
