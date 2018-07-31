@@ -7,7 +7,7 @@
 
     "README_request" : "To request the schema from a url instead, remove the 'file' JSON property above (and optionally delete the default graphql.schema.json file).",
     "request": {
-      "url" : "http://localhost:3333/schema.json",
+      "url" : "https://beta.whitewater.guide/graphql/schema.json",
       "method" : "GET",
       "README_postIntrospectionQuery" : "Whether to POST an introspectionQuery to the url. If the url always returns the schema JSON, set to false and consider using GET",
       "postIntrospectionQuery" : false,
@@ -25,7 +25,7 @@
   "endpoints" : [
     {
       "name": "Default (http://localhost:8080/graphql)",
-      "url": "http://localhost:3333/graphql",
+      "url": "https://beta.whitewater.guide/graphql/schema.json",
       "options" : {
         "headers": {
           "user-agent" : "JS GraphQL"
