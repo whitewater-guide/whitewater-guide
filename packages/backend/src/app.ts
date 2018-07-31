@@ -1,36 +1,42 @@
 import { useAuthMiddleware } from '@auth';
 import cors from '@koa/cors';
+import log from '@log';
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
-import { graphqlRouter } from './apollo/router';
+import { createApolloServer } from './apollo/server';
 import getOrigin from './auth/getOrigin';
 
-const app = new Koa();
+export const createApp = async () => {
 
-const CORS_WHITELIST = process.env.CORS_WHITELIST ? process.env.CORS_WHITELIST!.split(',') : [];
+  const app = new Koa();
+  app.silent = true;
 
-app.use(cors({
-  credentials: true,
-  origin: (ctx) => {
-    const originIndex = ctx.req.rawHeaders.indexOf('Origin');
-    if (originIndex === -1) {
-      return true;
-    }
-    const origin = ctx.req.rawHeaders[originIndex + 1];
-    if (!origin) {
-      return true;
-    }
-    if (CORS_WHITELIST.includes(getOrigin(origin))) {
-       return origin;
-    } else {
-       ctx.throw(new Error(`${origin} is not a valid origin`));
-    }
-    return false;
-  },
-}));
-app.use(bodyParser());
-useAuthMiddleware(app);
-app.use(graphqlRouter.routes());
-app.use(graphqlRouter.allowedMethods());
+  const CORS_WHITELIST = process.env.CORS_WHITELIST ? process.env.CORS_WHITELIST!.split(',') : [];
 
-export default app;
+  app.use(cors({
+    credentials: true,
+    origin: (process.env.NODE_ENV === 'production') ? (ctx) => {
+      const originIndex = ctx.req.rawHeaders.indexOf('Origin');
+      if (originIndex === -1) {
+        return true;
+      }
+      const origin = ctx.req.rawHeaders[originIndex + 1];
+      if (!origin) {
+        return true;
+      }
+      if (CORS_WHITELIST.includes(getOrigin(origin))) {
+        return origin;
+      } else {
+        log.error({ origin }, 'Invalid CORS origin');
+        ctx.throw(new Error(`${origin} is not a valid origin`));
+      }
+      return false;
+    } : '*',
+  }));
+
+  app.use(bodyParser());
+  useAuthMiddleware(app);
+
+  await createApolloServer(app as any);
+  return app;
+};

@@ -1,7 +1,6 @@
-import { isInputValidResolver } from '@apollo';
+import { isInputValidResolver, TopLevelResolver } from '@apollo';
 import db from '@db';
 import { SectionAdminSettings, SectionAdminSettingsSchema } from '@ww-commons';
-import { GraphQLFieldResolver } from 'graphql';
 import Joi from 'joi';
 
 interface Vars {
@@ -14,13 +13,13 @@ const Schema = Joi.object().keys({
   settings: SectionAdminSettingsSchema,
 });
 
-const resolver: GraphQLFieldResolver<any, any, Vars> = async (_, { id, settings }, { models }, info) => {
+const resolver: TopLevelResolver<Vars> = async (_, { id, settings }, { dataSources }) => {
   await db().table('sections')
     .update({
       demo: settings.demo,
     })
     .where({ id });
-  return models.sections.getById(id);
+  return dataSources.sections.getById(id);
 };
 
 const administrateSection = isInputValidResolver(Schema).createResolver(resolver);

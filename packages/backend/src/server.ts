@@ -1,12 +1,12 @@
 import db from '@db';
 import log from '@log';
 import httpShutdown from 'http-shutdown';
-import app from './app';
+import Koa from 'koa';
 
 const PORT = Number(process.env.PORT) || 3333;
 const HOST = process.env.HOSTNAME || '0.0.0.0';
 
-export default function startServer() {
+export default function startServer(app: Koa) {
   const server = httpShutdown(app.listen(PORT, HOST, () => {
     log.info(`Example app listening on port ${PORT}!`);
   }));

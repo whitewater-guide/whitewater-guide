@@ -5,8 +5,8 @@ import { UserRaw } from '../types';
 
 const resolvers: FieldResolvers<UserRaw, User> = {
   editorSettings: u => u.editor_settings,
-  purchasedRegions: (root, args, { models }) => models.purchases.getPurchasedSingleRegions(),
-  purchasedGroups: (root, args, { models }) => models.purchases.getPurchasedGroups(),
+  purchasedRegions: (root, args, { dataSources }) => dataSources.purchases.getPurchasedSingleRegions(),
+  purchasedGroups: (root, args, { dataSources }) => dataSources.purchases.getPurchasedGroups(),
   ...timestampResolvers,
 };
 

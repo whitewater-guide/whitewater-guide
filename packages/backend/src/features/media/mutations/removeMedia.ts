@@ -7,8 +7,8 @@ interface Vars {
   id: string;
 }
 
-const resolver: TopLevelResolver<Vars> = async (root, { id }, { user, models }) => {
-  await models.media.assertEditorPermissions(id);
+const resolver: TopLevelResolver<Vars> = async (root, { id }, { user, dataSources }) => {
+  await dataSources.media.assertEditorPermissions(id);
   const [result] = await db().table('media').del().where({ id }).returning(['id', 'url', 'kind']);
   if (result.kind === MediaKind.photo && result.url && !result.url.startsWith('http')) {
     await minioClient.removeObject(MEDIA, result.url);

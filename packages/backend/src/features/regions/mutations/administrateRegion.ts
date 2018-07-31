@@ -62,7 +62,7 @@ const resolver: TopLevelResolver<Vars> = async (_, { settings }, context, info) 
       banners: settings.banners,
     })
     .where({ id: settings.id });
-  return context.models.regions.getById(settings.id);
+  return context.dataSources.regions.getById(settings.id);
 };
 
 const administrateRegion = isInputValidResolver(Schema).createResolver(resolver);

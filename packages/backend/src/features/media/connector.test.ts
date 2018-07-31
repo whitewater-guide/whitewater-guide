@@ -1,13 +1,16 @@
 import { holdTransaction, rollbackTransaction } from '@db';
 import { PHOTO_1 } from '@seeds/11_media';
-import { UUID_REGEX } from '@test';
+import { anonContext, UUID_REGEX } from '@test';
 import { MediaConnector } from './connector';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
 describe(('checkMediaId'), () => {
-  const connector = new MediaConnector(undefined, 'en', new Map());
+  const connector = new MediaConnector();
+  // Do not test cache here
+  // @ts-ignore
+  connector.initialize({ context: anonContext() });
 
   it('should find existing', async () => {
     const result = await connector.checkMediaId(PHOTO_1);

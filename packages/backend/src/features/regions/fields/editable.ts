@@ -2,7 +2,7 @@ import { Context } from '@apollo';
 import { GraphQLFieldResolver } from 'graphql';
 import { RegionRaw } from '../types';
 
-const editableResolver: GraphQLFieldResolver<RegionRaw, Context> = async ({ id, editable }, _, { user, models }) => {
+const editableResolver: GraphQLFieldResolver<RegionRaw, Context> = async ({ id, editable }, _, { user, dataSources }) => {
   if (!user) {
     return false;
   }
@@ -13,7 +13,7 @@ const editableResolver: GraphQLFieldResolver<RegionRaw, Context> = async ({ id, 
     return editable;
   }
   try {
-    await models.regions.assertEditorPermissions(id);
+    await dataSources.regions.assertEditorPermissions(id);
   } catch {
     return false;
   }

@@ -1,5 +1,4 @@
-import { ContextUser } from '@apollo';
-import { BaseModel, FieldsMap, ManyBuilderOptions } from '@db/model';
+import { BaseConnector, FieldsMap, ManyBuilderOptions } from '@db/connectors';
 import { Group } from '@ww-commons';
 import { GraphQLResolveInfo } from 'graphql';
 import { QueryBuilder } from 'knex';
@@ -13,10 +12,10 @@ interface GetManyOptions extends ManyBuilderOptions<GroupRaw> {
   regionId?: string;
 }
 
-export class GroupsConnector extends BaseModel<Group, GroupRaw> {
+export class GroupsConnector extends BaseConnector<Group, GroupRaw> {
 
-  constructor(user: ContextUser | undefined, language: string, fieldsByType: Map<string, Set<string>>) {
-    super(user, language, fieldsByType);
+  constructor() {
+    super();
     this._tableName = 'groups_view';
     this._graphqlTypeName = 'Group';
     this._fieldsMap = FIELDS_MAP;

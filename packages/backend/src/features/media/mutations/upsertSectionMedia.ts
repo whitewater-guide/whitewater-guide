@@ -17,8 +17,8 @@ const Schema = Joi.object().keys({
 
 const resolver: TopLevelResolver<Vars> = async (root, vars: Vars, context) => {
   const { sectionId } = vars;
-  const { language, user, models } = context;
-  await models.media.assertEditorPermissions(undefined, sectionId);
+  const { language, user, dataSources } = context;
+  await dataSources.media.assertEditorPermissions(undefined, sectionId);
   const media = { ...vars.media, createdBy: user ? user.id : null };
   try {
     const result: MediaRaw = await rawUpsert(

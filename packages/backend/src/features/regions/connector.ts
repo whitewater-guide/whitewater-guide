@@ -1,6 +1,6 @@
-import { AuthenticationRequiredError, ContextUser, ForbiddenError } from '@apollo';
+import { AuthenticationRequiredError, ForbiddenError } from '@apollo';
 import db from '@db';
-import { BaseModel, FieldsMap, ManyBuilderOptions } from '@db/model';
+import { BaseConnector, FieldsMap, ManyBuilderOptions } from '@db/connectors';
 import { Region } from '@ww-commons';
 import { GraphQLResolveInfo } from 'graphql';
 import { QueryBuilder } from 'knex';
@@ -15,10 +15,10 @@ const FIELDS_MAP: FieldsMap<Region, RegionRaw> = {
   sources: null,
 };
 
-export class RegionsConnector extends BaseModel<Region, RegionRaw> {
+export class RegionsConnector extends BaseConnector<Region, RegionRaw> {
 
-  constructor(user: ContextUser | undefined, language: string, fieldsByType: Map<string, Set<string>>) {
-    super(user, language, fieldsByType);
+  constructor() {
+    super();
     this._tableName = 'regions_view';
     this._graphqlTypeName = 'Region';
     this._fieldsMap = FIELDS_MAP;

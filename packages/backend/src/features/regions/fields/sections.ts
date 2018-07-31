@@ -8,9 +8,9 @@ interface Vars extends ListQuery {
 }
 
 const sectionsResolver: GraphQLFieldResolver<RegionRaw, Context, Vars> =
-  async ({ id }, { page, filter = {} }, { models }, info) => {
+  async ({ id }, { page, filter = {} }, { dataSources }, info) => {
     const { updatedAfter } = filter;
-    return models.sections.getMany(info, { page, filter: { regionId: id, updatedAfter } });
+    return dataSources.sections.getMany(info, { page, filter: { regionId: id, updatedAfter } });
   };
 
 export default sectionsResolver;

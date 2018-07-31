@@ -26,7 +26,7 @@
         "@auth/undefined",
         "@db",
         "@db/undefined",
-        "@db/model",
+        "@db/connectors",
         "@features",
         "@features/undefined",
         "@features/gauges",

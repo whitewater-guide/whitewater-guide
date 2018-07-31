@@ -11,8 +11,8 @@ const Schema = Joi.object().keys({
   region: RegionInputSchema,
 });
 
-const resolver: TopLevelResolver<Vars> = async (_, { region }: Vars, { language, user, models }) => {
-  await models.regions.assertEditorPermissions(region.id);
+const resolver: TopLevelResolver<Vars> = async (_, { region }: Vars, { language, user, dataSources }) => {
+  await dataSources.regions.assertEditorPermissions(region.id);
   const result: any = await rawUpsert(db(), 'SELECT upsert_region(?, ?)', [region, language]);
   // When created, add to all regions group
   if (!region.id && result.id) {

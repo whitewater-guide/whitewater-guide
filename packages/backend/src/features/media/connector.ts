@@ -1,6 +1,6 @@
-import { AuthenticationRequiredError, ContextUser, ForbiddenError } from '@apollo';
+import { AuthenticationRequiredError, ForbiddenError } from '@apollo';
 import db from '@db';
-import { BaseModel, FieldsMap, ManyBuilderOptions } from '@db/model';
+import { BaseConnector, FieldsMap, ManyBuilderOptions } from '@db/connectors';
 import { Media } from '@ww-commons';
 import { GraphQLResolveInfo } from 'graphql';
 import { QueryBuilder } from 'knex';
@@ -35,10 +35,10 @@ interface MediaCheckResult {
   id: string;
 }
 
-export class MediaConnector extends BaseModel<Media, MediaRaw> {
+export class MediaConnector extends BaseConnector<Media, MediaRaw> {
 
-  constructor(user: ContextUser | undefined, language: string, fieldsByType: Map<string, Set<string>>) {
-    super(user, language, fieldsByType);
+  constructor() {
+    super();
     this._tableName = 'media_view';
     this._graphqlTypeName = 'Media';
     this._fieldsMap = FIELDS_MAP;

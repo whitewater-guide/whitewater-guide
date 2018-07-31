@@ -4,9 +4,9 @@ interface Vars extends ListQuery {
   sourceId?: string;
 }
 
-const gauges: TopLevelResolver<Vars> = (_, { sourceId, page }, { models }, info) => {
+const gauges: TopLevelResolver<Vars> = (_, { sourceId, page }, { dataSources }, info) => {
   const where = sourceId ? { source_id: sourceId } : undefined;
-  return models.gauges.getMany(info, { where, page });
+  return dataSources.gauges.getMany(info, { where, page });
 };
 
 export default gauges;

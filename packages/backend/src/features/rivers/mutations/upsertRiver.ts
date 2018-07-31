@@ -11,9 +11,9 @@ const Schema = Joi.object().keys({
   river: RiverInputSchema,
 });
 
-const resolver: TopLevelResolver<Vars> = async (root, vars, { user, language, models }) => {
+const resolver: TopLevelResolver<Vars> = async (root, vars, { user, language, dataSources }) => {
   const river = { ...vars.river, createdBy: user ? user.id : null };
-  await models.rivers.assertEditorPermissions(river.id, river.region.id);
+  await dataSources.rivers.assertEditorPermissions(river.id, river.region.id);
   return rawUpsert(db(), 'SELECT upsert_river(?, ?)', [river, language]);
 };
 

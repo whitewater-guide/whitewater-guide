@@ -1,6 +1,6 @@
-import { AuthenticationRequiredError, ContextUser, ForbiddenError } from '@apollo';
+import { AuthenticationRequiredError, ForbiddenError } from '@apollo';
 import db from '@db';
-import { BaseModel, FieldsMap, ManyBuilderOptions } from '@db/model';
+import { BaseConnector, FieldsMap, ManyBuilderOptions } from '@db/connectors';
 import { Section } from '@ww-commons';
 import { GraphQLResolveInfo } from 'graphql';
 import { QueryBuilder } from 'knex';
@@ -18,10 +18,10 @@ const FIELDS_MAP: FieldsMap<Section, SectionRaw> = {
   gauge: 'gauge_id',
 };
 
-export class SectionsConnector extends BaseModel<Section, SectionRaw> {
+export class SectionsConnector extends BaseConnector<Section, SectionRaw> {
 
-  constructor(user: ContextUser | undefined, language: string, fieldsByType: Map<string, Set<string>>) {
-    super(user, language, fieldsByType);
+  constructor() {
+    super();
     this._tableName = 'sections_view';
     this._graphqlTypeName = 'Section';
     this._fieldsMap = FIELDS_MAP;
