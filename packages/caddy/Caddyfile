@@ -20,6 +20,7 @@
     if {path} starts_with /graphql
     if {path} starts_with /graphiql
     if {path} starts_with /auth
+    if {path} starts_with /ping
     if {file} is schema.json
     if {file} is typedefs.txt
     if_op or

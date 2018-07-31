@@ -1,6 +1,7 @@
 import { useAuthMiddleware } from '@auth';
 import cors from '@koa/cors';
 import log from '@log';
+import { addPingRoute } from '@utils';
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
 import { createApolloServer } from './apollo/server';
@@ -38,5 +39,8 @@ export const createApp = async () => {
   useAuthMiddleware(app);
 
   await createApolloServer(app as any);
+
+  addPingRoute(app);
+
   return app;
 };
