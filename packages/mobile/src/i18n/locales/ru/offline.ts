@@ -1,6 +1,7 @@
 const offline = {
   dialog: {
-    title: 'Скачать {{region}} для работы в оффлайн',
+    title: 'Скачать для работы в оффлайн',
+    subtitle: 'Для региона: {{region}}',
     categories: {
       data: 'Пдробные описания секций *',
       media: 'Фото',

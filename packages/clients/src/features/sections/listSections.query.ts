@@ -30,5 +30,5 @@ export interface Vars {
 }
 
 export interface Result {
-  sections: NonNullable<Connection<Section>>;
+  sections: Required<Connection<Section>>;
 }

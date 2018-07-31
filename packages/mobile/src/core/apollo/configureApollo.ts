@@ -30,6 +30,17 @@ export const getApolloClient = async () => {
       link,
       cache: inMemoryCache,
       connectToDevTools: process.env.NODE_ENV === 'development',
+      defaultOptions: {
+        mutate: {
+          errorPolicy: 'all',
+        },
+        query: {
+          errorPolicy: 'all',
+        },
+        watchQuery: {
+          errorPolicy: 'all',
+        },
+      },
     });
   }
 

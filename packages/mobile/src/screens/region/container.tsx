@@ -55,7 +55,7 @@ export function sectionsListContainer(limit: number = 20, pollingInterval: numbe
 
         this._query = client.watchQuery<Result, Vars>({
           query: LIST_SECTIONS,
-          fetchPolicy: 'cache-only',
+          fetchPolicy: 'cache-only', // set to cache-only so first time query is not fired
           variables: { filter: { regionId: region.node.id } },
         });
         this._subscription = this._query.subscribe(this.onUpdate);

@@ -282,7 +282,7 @@ it('should not try to load anything when offline', async () => {
   const spy = jest.spyOn(MockLink.prototype, 'request');
   const receiver = await mountInHarness({
     isConnected: false,
-    responses: [],
+    responses: mockedResponses,
   });
 
   await flushPromises(10);
@@ -412,7 +412,7 @@ it('should load updates on refresh', async () => {
   }));
 });
 
-it.only('should not load updates when already loading', async () => {
+it('should not load updates when already loading', async () => {
   const receiver = await mountInHarness({
     responses: mockedResponses,
   });

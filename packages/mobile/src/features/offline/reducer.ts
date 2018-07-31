@@ -18,11 +18,15 @@ export const offlineContentReducer = (state = initialState, action: AnyAction) =
 
   if (isType(action, offlineContentActions.updateProgress)) {
     const { regionInProgress, ...progress } = action.payload;
-    return { ...state, regionInProgress, progress: { ...state.progress, ...progress } };
+    return {
+      ...state,
+      regionInProgress: regionInProgress === undefined ? state.regionInProgress : regionInProgress,
+      progress: { ...state.progress, ...progress },
+    };
   }
 
   if (isType(action, offlineContentActions.finishDownload)) {
-    return { ...state, progress: {}, regionInProgress: null };
+    return { dialogRegion: null, progress: {}, regionInProgress: null };
   }
 
   return state;

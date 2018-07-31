@@ -2,9 +2,9 @@ import React from 'react';
 import { translate } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Subheading } from 'react-native-paper';
+import { PHOTO_SIZE } from '../../../features/media';
 import { WithT } from '../../../i18n';
 import { MediaKind } from '../../../ww-commons';
-import { PHOTO_SIZE } from './MediaConstants';
 
 const styles = StyleSheet.create({
   container: {

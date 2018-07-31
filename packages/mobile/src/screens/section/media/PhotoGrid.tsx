@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import { PHOTO_PADDING, PHOTO_SIZE } from '../../../features/media';
 import { Media, MediaKind } from '../../../ww-commons';
-import { PHOTO_PADDING, PHOTO_SIZE } from './MediaConstants';
 import NoMedia from './NoMedia';
 import PhotoGridItem from './PhotoGridItem';
 

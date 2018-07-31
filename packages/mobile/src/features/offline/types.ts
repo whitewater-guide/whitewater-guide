@@ -1,4 +1,4 @@
-import { NamedNode, RegionMediaSummary } from '../../ww-commons';
+import { NamedNode } from '../../ww-commons';
 
 export type OfflineCategoryType = 'data' | 'media' | 'maps';
 
@@ -19,5 +19,5 @@ export interface OfflineContentStore {
 }
 
 export interface OfflineProgressPayload extends OfflineProgress {
-  regionInProgress: string | null;
+  regionInProgress?: string | null;
 }

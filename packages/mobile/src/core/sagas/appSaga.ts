@@ -1,6 +1,7 @@
 import Config from 'react-native-config';
 import { networkEventsListenerSaga } from 'react-native-offline';
 import { put, spawn, take } from 'redux-saga/effects';
+import { offlineContentSaga } from '../../features/offline';
 import { purchasesSaga } from '../../features/purchases';
 import { appStarted, bootstrapped } from '../actions';
 import { auth, authSaga } from '../auth';
@@ -21,6 +22,7 @@ export function *appSaga() {
   yield spawn(authSaga);
   yield spawn(messagingSaga);
   yield spawn(purchasesSaga);
+  yield spawn(offlineContentSaga);
   yield take(auth.initialized.type);
   // Wait until init is complete
   // const me = yield take(auth.initialized.type);

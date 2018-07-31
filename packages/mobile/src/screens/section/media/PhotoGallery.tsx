@@ -2,10 +2,10 @@ import React from 'react';
 import { Modal, StyleSheet, Text, View } from 'react-native';
 import ImageViewer from 'react-native-image-zoom-viewer';
 import { Icon } from '../../../components';
+import { getUri } from '../../../features/media';
 import theme from '../../../theme';
 import { Media } from '../../../ww-commons';
 import LoadableImage from './LoadableImage';
-import { getUrl } from './MediaConstants';
 
 const styles = StyleSheet.create({
   header: {
@@ -108,7 +108,11 @@ class PhotoGallery extends React.PureComponent<Props> {
     if (!photos) {
       return null;
     }
-    const imageUrls = photos.map(({ url }) => getUrl(url));
+    const imageUrls = photos.map(({ url, resolution }) => {
+      const width = resolution ? resolution[0] : 0;
+      const height = resolution ? resolution[1] : 0;
+      return getUri(url, width, height);
+    });
     return (
       <Modal visible={index >= 0} onRequestClose={onClose}>
         <ImageViewer

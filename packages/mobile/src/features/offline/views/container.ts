@@ -4,8 +4,8 @@ import { compose } from 'recompose';
 import { Dispatch } from 'redux';
 import { RootState } from '../../../core/reducers';
 import { offlineContentActions } from '../actions';
+import { REGION_MEDIA_SUMMARY, Result, Vars } from '../regionMediaSummary.query';
 import { OfflineCategorySelection } from '../types';
-import { REGION_MEDIA_SUMMARY, Result, Vars } from './regionMediaSummary.query';
 import { DispatchProps, GraphqlProps, InnerProps, StateProps } from './types';
 
 const mapStateToProps = ({ offlineContent, network }: RootState): StateProps => ({

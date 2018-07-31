@@ -1,7 +1,7 @@
 import React from 'react';
 import { translate } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
-import { Button, Caption, DialogActions, DialogTitle } from 'react-native-paper';
+import { Button, Caption, DialogActions, DialogTitle, Subheading } from 'react-native-paper';
 import { OfflineQueryPlaceholder } from '../../../components';
 import { WithT } from '../../../i18n';
 import theme from '../../../theme';
@@ -24,6 +24,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: theme.margin.double,
+  },
+  subtitle: {
+    marginTop: 0,
+    marginBottom: theme.margin.double,
+    paddingTop: 0,
+    marginHorizontal: theme.margin.triple,
   },
 });
 
@@ -88,7 +94,7 @@ class OfflineContentDialogView extends React.PureComponent<Props, State> {
           type="maps"
           selected={selection.maps}
           inProgress={inProgress}
-          progress={progress.media}
+          progress={progress.maps}
           onToggle={this.onToggleCategory}
           label={t('offline:dialog.categories.maps')}
         />
@@ -162,7 +168,12 @@ class OfflineContentDialogView extends React.PureComponent<Props, State> {
     }
     return (
       <React.Fragment>
-        <DialogTitle>{t('offline:dialog.title', { region: region.name })}</DialogTitle>
+        <DialogTitle>
+          {t('offline:dialog.title', { region: region.name })}
+        </DialogTitle>
+        <Subheading style={styles.subtitle}>
+          {t('offline:dialog.subtitle', { region: region.name })}
+        </Subheading>
         {this.renderBody()}
         {inProgress ? this.renderInProgressButtons() : this.renderReadyButtons()}
       </React.Fragment>

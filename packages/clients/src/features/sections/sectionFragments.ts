@@ -111,6 +111,8 @@ const MediaCore = gql`
     copyright
     url
     kind
+    resolution
+    size
   }
 `;
 

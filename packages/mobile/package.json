@@ -1,6 +1,6 @@
 {
   "name": "whitewater",
-  "version": "1.5.3-28",
+  "version": "1.5.3-29",
   "private": true,
   "scripts": {
     "postinstall": "./postinstall.sh",
@@ -28,7 +28,7 @@
   "dependencies": {
     "apollo-cache-inmemory": "^1.2.1",
     "apollo-cache-persist": "^0.1.1",
-    "apollo-client": "^2.3.7",
+    "apollo-client": "^2.4.1",
     "apollo-link": "^1.2.1",
     "apollo-link-error": "^1.0.7",
     "apollo-link-http": "^1.5.3",
@@ -64,12 +64,12 @@
     "react-native-debugger-open": "^0.3.17",
     "react-native-device-info": "^0.22.5",
     "react-native-drawer-layout": "^2.0.0",
-    "react-native-fast-image": "^5.0.3",
+    "react-native-fast-image": "https://github.com/doomsower/react-native-fast-image/releases/download/v5.0.2-preload/react-native-fast-image-5.0.2.tgz",
     "react-native-fbsdk": "^0.7.0",
     "react-native-firebase": "5.0.0-rc1",
     "react-native-fs": "^2.10.14",
     "react-native-iap": "^1.3.5",
-    "react-native-image-zoom-viewer": "^2.2.13",
+    "react-native-image-zoom-viewer": "https://github.com/doomsower/react-native-image-viewer#preloaded",
     "react-native-interactable": "^0.1.10",
     "react-native-keyboard-aware-scroll-view": "^0.7.1",
     "react-native-languages": "^2.0.1",

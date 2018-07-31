@@ -1,7 +1,7 @@
 import React from 'react';
 import { Clipboard, StyleSheet, TouchableOpacity } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import { getThumbUri, getUrl, PHOTO_PADDING, PHOTO_SIZE } from './MediaConstants';
+import { getThumbUri, getUri, PHOTO_PADDING, PHOTO_SIZE } from '../../../features/media';
 
 const styles = StyleSheet.create({
   image: {
@@ -20,7 +20,7 @@ interface Props {
 class PhotoGridItem extends React.PureComponent<Props> {
   onPress = () => this.props.onPress(this.props.index);
 
-  onLongPress = () => Clipboard.setString(getUrl(this.props.url).url);
+  onLongPress = () => Clipboard.setString(getUri(this.props.url).url);
 
   render() {
     const { url } = this.props;

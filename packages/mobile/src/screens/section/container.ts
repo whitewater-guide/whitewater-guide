@@ -20,6 +20,8 @@ export default compose<InnerProps & OuterProps, OuterProps>(
     SECTION_DETAILS,
     {
       alias: 'withSection',
+      // TODO: cache-and-network not working when offline
+      // https://github.com/apollographql/apollo-client/issues/3755
       options: () => ({ fetchPolicy: 'cache-and-network' }),
       props: (props) => queryResultToNode(props, 'section'),
     },

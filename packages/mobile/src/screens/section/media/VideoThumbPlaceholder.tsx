@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Icon } from '../../../components';
+import { PHOTO_PADDING, PHOTO_SIZE } from '../../../features/media';
 import theme from '../../../theme';
-import { PHOTO_PADDING, PHOTO_SIZE } from './MediaConstants';
 
 const styles = StyleSheet.create({
   container: {

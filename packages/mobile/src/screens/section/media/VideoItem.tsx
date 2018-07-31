@@ -3,9 +3,9 @@ import { Clipboard, Linking, StyleSheet, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { Caption, Paragraph, TouchableRipple } from 'react-native-paper';
 import { Row } from '../../../components';
+import { PHOTO_PADDING, PHOTO_SIZE } from '../../../features/media';
 import { getVideoThumb } from '../../../ww-clients/utils';
 import { Media } from '../../../ww-commons';
-import { PHOTO_PADDING, PHOTO_SIZE } from './MediaConstants';
 import VideoThumbPlaceholder from './VideoThumbPlaceholder';
 
 const styles = StyleSheet.create({

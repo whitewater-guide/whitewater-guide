@@ -10,11 +10,10 @@ it('should toggle dialog', () => {
     dialogRegion: { id: '11', name: 'Georgia' },
     regionInProgress: null,
     progress: {},
-    summary: null,
   });
 });
 
-it('should update progress', () => {
+it('should set initial progress', () => {
   const state: OfflineContentStore = {
     dialogRegion: { id: '11', name: 'Georgia' },
     regionInProgress: null,
@@ -31,9 +30,25 @@ it('should update progress', () => {
   });
 });
 
+it('should update progress', () => {
+  const state: OfflineContentStore = {
+    dialogRegion: { id: '11', name: 'Georgia' },
+    regionInProgress: '11',
+    progress: {
+      data: [0, 10],
+    },
+  };
+  const action = offlineContentActions.updateProgress({ data: [7, 10] });
+  expect(offlineContentReducer(state, action)).toEqual({
+    dialogRegion: { id: '11', name: 'Georgia' },
+    regionInProgress: '11',
+    progress: { data: [7, 10] },
+  });
+});
+
 it('should reset on finish', () => {
   const state: OfflineContentStore = {
-    dialogRegion: null,
+    dialogRegion: { id: '11', name: 'Georgia' },
     regionInProgress: null,
     progress: {},
   };
