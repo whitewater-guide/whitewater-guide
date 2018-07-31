@@ -16,11 +16,11 @@ const styles = StyleSheet.create({
     marginHorizontal: theme.margin.double,
   },
   cacheWarningContainer: {
-    height: theme.rowHeight,
+    height: 2 * theme.rowHeight,
     paddingHorizontal: theme.margin.single,
   },
   offlinePlaceholderContainer: {
-    height: 4 * theme.rowHeight,
+    height: 5 * theme.rowHeight,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: theme.margin.double,

@@ -8,7 +8,7 @@ import { GraphqlProps } from './types';
 
 const styles = StyleSheet.create({
   container: {
-    height: 4 * theme.rowHeight,
+    height: 5 * theme.rowHeight,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: theme.margin.double,
