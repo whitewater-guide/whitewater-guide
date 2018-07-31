@@ -1,6 +1,7 @@
 import { Context, ListQuery } from '@apollo';
 import db from '@db';
 import { SectionsFilter } from '@features/sections';
+import { RegionMediaSummary } from '@ww-commons';
 import { GraphQLFieldResolver } from 'graphql';
 import { RegionRaw } from '../types';
 
@@ -19,10 +20,15 @@ const mediaSummaryResolver: GraphQLFieldResolver<RegionRaw, Context, Vars> =
       .sum('media.size as size')
       .groupBy('media.kind')
       .where('rivers.region_id', id);
-    return result.reduce((acc: any, { kind, size, count }: any) => ({
+    const emptySummary: RegionMediaSummary = {
+      photo: { count: 0, size: 0 },
+      video: { count: 0, size: 0 },
+      blog: { count: 0, size: 0 },
+    };
+    return result.reduce((acc: RegionMediaSummary, { kind, size, count }: any) => ({
       ...acc,
       [kind]: { size, count },
-    }), {} as any);
+    }), emptySummary);
   };
 
 export default mediaSummaryResolver;

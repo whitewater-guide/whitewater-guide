@@ -1,6 +1,6 @@
 import db, { holdTransaction, rollbackTransaction } from '@db';
 import { ADMIN, BOOM_USER_1500, EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '@seeds/01_users';
-import { REGION_GALICIA, REGION_GEORGIA, REGION_NORWAY } from '@seeds/04_regions';
+import { REGION_GALICIA, REGION_GEORGIA, REGION_LAOS, REGION_NORWAY } from '@seeds/04_regions';
 import { GEORGIA_BZHUZHA_LONG } from '@seeds/09_sections';
 import { anonContext, fakeContext, noTimestamps, runQuery } from '@test';
 
@@ -338,7 +338,7 @@ describe('connections', () => {
   });
 
   it('should get media summary', async () => {
-    const riversQuery = `
+    const mediaSummaryQuery = `
       query regionDetails($id: ID){
         region(id: $id) {
           id
@@ -360,9 +360,41 @@ describe('connections', () => {
         }
       }
     `;
-    const result = await runQuery(riversQuery, { id: REGION_NORWAY }, fakeContext(ADMIN));
+    const result = await runQuery(mediaSummaryQuery, { id: REGION_NORWAY }, fakeContext(ADMIN));
     expect(result.errors).toBeUndefined();
     expect(result.data!.region).toMatchSnapshot();
+  });
+
+  it('should get media summary even when there is no media', async () => {
+    const mediaSummaryQuery = `
+      query regionDetails($id: ID){
+        region(id: $id) {
+          id
+          name
+          mediaSummary {
+            photo {
+              count
+              size
+            }
+            video {
+              count
+              size
+            }
+            blog {
+              count
+              size
+            }
+          }
+        }
+      }
+    `;
+    const result = await runQuery(mediaSummaryQuery, { id: REGION_LAOS }, fakeContext(ADMIN));
+    expect(result.errors).toBeUndefined();
+    expect(result.data!.region.mediaSummary).toEqual({
+      photo: { count: 0, size: 0 },
+      video: { count: 0, size: 0 },
+      blog: { count: 0, size: 0 },
+    });
   });
 
 });
