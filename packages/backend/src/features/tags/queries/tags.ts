@@ -1,8 +1,6 @@
-import { baseResolver } from '@apollo';
-import { buildTagsListQuery } from '../queryBuilder';
+import { baseResolver, TopLevelResolver } from '@apollo';
 
-const tags = baseResolver.createResolver(
-  (root, args, context, info) => buildTagsListQuery({ info, context, ...args }),
-);
+const tags: TopLevelResolver = (_, __, { models }, info) =>
+  models.tags.getMany(info);
 
-export default tags;
+export default baseResolver.createResolver(tags);

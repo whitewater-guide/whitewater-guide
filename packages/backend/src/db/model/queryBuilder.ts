@@ -96,9 +96,11 @@ export function buildConnectionQuery<TGraphql, TSql>(
   manyOptions: ManyBuilderOptions<TSql>,
   info: GraphQLResolveInfo,
 ) {
-  const { nodes, count } = gqf(info);
+  const tree = gqf(info);
+  const { nodes, count } = tree;
+  const manyNodes = nodes || tree;
 
-  if (!nodes) {
+  if (!nodes && !!count) {
     const query = db().count().from(tableName);
     if (options.language) {
       query.where('language', options.language);
@@ -111,7 +113,7 @@ export function buildConnectionQuery<TGraphql, TSql>(
   }
   return buildManyQuery(
     tableName,
-    { ...options, fields: new Set(Object.keys(nodes)) as any },
+    { ...options, fields: new Set(Object.keys(manyNodes)) as any },
     { ...manyOptions, count: !!count },
   );
 }

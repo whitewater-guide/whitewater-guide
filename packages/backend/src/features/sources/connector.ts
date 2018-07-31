@@ -9,7 +9,7 @@ const FIELDS_MAP: FieldsMap<Source, SourceRaw> = {
   regions: null,
 };
 
-export class Sources extends BaseModel<Source, SourceRaw> {
+export class SourcesConnector extends BaseModel<Source, SourceRaw> {
 
   constructor(user: ContextUser | undefined, language: string, fieldsByType: Map<string, Set<string>>) {
     super(user, language, fieldsByType);
