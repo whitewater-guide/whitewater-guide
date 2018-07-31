@@ -1,15 +1,16 @@
-import { ContextUser } from '@apollo';
+import { Context, ContextUser } from '@apollo';
+import { DataSource, DataSourceConfig } from 'apollo-datasource';
 import DataLoader from 'dataloader';
 import { GraphQLResolveInfo } from 'graphql';
 import { QueryBuilder } from 'knex';
 import { buildBatchQuery, buildConnectionQuery } from './queryBuilder';
 import { FieldsMap, ManyBuilderOptions, OrderBy } from './types';
 
-export class BaseModel<TGraphql, TSql extends { id: string }> {
+export class BaseConnector<TGraphql, TSql extends { id: string }> implements DataSource<Context> {
   protected readonly _loader: DataLoader<string, TSql | null>;
-  protected readonly _user: ContextUser | undefined;
-  protected readonly _language: string;
-  protected readonly _fieldsByType: Map<string, Set<string>>;
+  protected _user: ContextUser | undefined;
+  protected _language!: string;
+  protected _fieldsByType!: Map<string, Set<string>>;
 
   // fields that should be set in subclass
   protected _tableName!: string;
@@ -22,11 +23,14 @@ export class BaseModel<TGraphql, TSql extends { id: string }> {
     { column: 'id', direction: 'asc' },
   ];
 
-  constructor(user: ContextUser | undefined, language: string, fieldsByType: Map<string, Set<string>>) {
-    this._user = user;
-    this._language = language;
-    this._fieldsByType = fieldsByType;
+  constructor() {
     this._loader = new DataLoader<string, TSql | null>(this.getBatch.bind(this));
+  }
+
+  initialize({ context }: DataSourceConfig<Context>) {
+    this._user = context.user;
+    this._language = context.language;
+    this._fieldsByType = context.fieldsByType;
   }
 
   private async getBatch(keys: string[]): Promise<Array<TSql | null>> {

@@ -1,8 +1,7 @@
 import { ContextUser } from '@apollo';
-import { BaseModel, FieldsMap } from '@db/model';
+import { BaseConnector, FieldsMap } from '@db/connectors';
+import { NS_LAST_OP, redis } from '@redis';
 import { Gauge } from '@ww-commons';
-import { redis } from '../../redis/client';
-import { NS_LAST_OP } from '../../redis/constants';
 import { GaugeRaw } from './types';
 
 const FIELDS_MAP: FieldsMap<Gauge, GaugeRaw> = {
@@ -11,10 +10,10 @@ const FIELDS_MAP: FieldsMap<Gauge, GaugeRaw> = {
   source: ['source_id', 'script'],
 };
 
-export class GaugesConnector extends BaseModel<Gauge, GaugeRaw> {
+export class GaugesConnector extends BaseConnector<Gauge, GaugeRaw> {
 
-  constructor(user: ContextUser | undefined, language: string, fieldsByType: Map<string, Set<string>>) {
-    super(user, language, fieldsByType);
+  constructor() {
+    super();
     this._tableName = 'gauges_view';
     this._graphqlTypeName = 'Gauge';
     this._fieldsMap = FIELDS_MAP;

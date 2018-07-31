@@ -1,7 +1,7 @@
 import { ListQuery, TopLevelResolver } from '@apollo';
 
-const sources: TopLevelResolver<ListQuery> = async (_, {  page }, { models }, info) =>
-  models.sources.getMany(
+const sources: TopLevelResolver<ListQuery> = async (_, {  page }, { dataSources }, info) =>
+  dataSources.sources.getMany(
     info,
     {
       page,

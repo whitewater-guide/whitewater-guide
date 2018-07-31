@@ -5,8 +5,8 @@ interface Vars {
   id: string;
 }
 
-const resolver: TopLevelResolver<Vars> = async (root, { id }, { user, models }) => {
-  await models.sections.assertEditorPermissions(id);
+const resolver: TopLevelResolver<Vars> = async (root, { id }, { user, dataSources }) => {
+  await dataSources.sections.assertEditorPermissions(id);
   return db().table('sections').del().where({ id }).returning('id');
 };
 

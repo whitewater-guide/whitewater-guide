@@ -11,9 +11,9 @@ const Schema = Joi.object().keys({
   section: SectionInputSchema,
 });
 
-const resolver: TopLevelResolver<Vars> = async (root, vars, { user, language, models }) => {
+const resolver: TopLevelResolver<Vars> = async (root, vars, { user, language, dataSources }) => {
   const section = { ...vars.section, createdBy: user ? user.id : null };
-  await models.sections.assertEditorPermissions(section.id, section.river.id);
+  await dataSources.sections.assertEditorPermissions(section.id, section.river.id);
   return rawUpsert(db(), 'SELECT upsert_section(?, ?)', [section, language]);
 };
 

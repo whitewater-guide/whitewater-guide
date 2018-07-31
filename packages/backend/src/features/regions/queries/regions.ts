@@ -1,6 +1,6 @@
 import { ListQuery, TopLevelResolver } from '@apollo';
 
-const regions: TopLevelResolver<ListQuery> = async (_, {  page }, { models }, info) =>
-  models.regions.getMany(info, { page });
+const regions: TopLevelResolver<ListQuery> = async (_, {  page }, { dataSources }, info) =>
+  dataSources.regions.getMany(info, { page });
 
 export default regions;

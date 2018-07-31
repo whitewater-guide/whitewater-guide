@@ -1,5 +1,7 @@
+import { Context } from '@apollo';
 import log from '@log';
 import { NS_LAST_MEASUREMENTS, redis } from '@redis';
+import { DataSource } from 'apollo-datasource';
 import DataLoader from 'dataloader';
 import { chunk, fromPairs, mapValues } from 'lodash';
 import { LastMeasurement, RedisLastMeasurements } from './types';
@@ -13,11 +15,15 @@ const DLOptions: DataLoader.Options<Key, LastMeasurement> = {
   cacheKeyFn: ({ script, code }: Key) => `${script}:${code}`,
 };
 
-export class MeasurementsConnector {
+export class MeasurementsConnector implements DataSource<Context> {
   readonly loader: DataLoader<Key, LastMeasurement>;
 
   constructor() {
     this.loader = new DataLoader<Key, LastMeasurement>(this.loadBatch, DLOptions);
+  }
+
+  initialize() {
+    // no-op
   }
 
   getLastMeasurement(script: string, code: string) {

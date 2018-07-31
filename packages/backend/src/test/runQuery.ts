@@ -1,7 +1,7 @@
 import { formatError } from '@apollo';
 import { ExecutionResult, graphql } from 'graphql';
 import { isEmpty } from 'lodash';
-import { getSchema } from '../apollo/router';
+import { getSchema } from '../apollo/server';
 import { anonContext } from './context';
 
 export const runQuery = async (query: string, variables?: any, context?: any): Promise<ExecutionResult> => {

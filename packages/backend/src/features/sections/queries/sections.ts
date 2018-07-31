@@ -5,7 +5,7 @@ interface Vars extends ListQuery {
   filter?: SectionsFilter;
 }
 
-const sections: TopLevelResolver<Vars> = (_, { filter, page }, { models }, info) =>
-  models.sections.getMany(info, { filter, page });
+const sections: TopLevelResolver<Vars> = (_, { filter, page }, { dataSources }, info) =>
+  dataSources.sections.getMany(info, { filter, page });
 
 export default sections;

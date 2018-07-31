@@ -1,6 +1,6 @@
-import { AuthenticationRequiredError, ContextUser, ForbiddenError } from '@apollo';
+import { AuthenticationRequiredError, ForbiddenError } from '@apollo';
 import db from '@db';
-import { BaseModel, FieldsMap } from '@db/model';
+import { BaseConnector, FieldsMap } from '@db/connectors';
 import { River } from '@ww-commons';
 import { RiverRaw } from './types';
 
@@ -9,10 +9,10 @@ const FIELDS_MAP: FieldsMap<River, RiverRaw> = {
   sections: null,
 };
 
-export class RiversConnector extends BaseModel<River, RiverRaw> {
+export class RiversConnector extends BaseConnector<River, RiverRaw> {
 
-  constructor(user: ContextUser | undefined, language: string, fieldsByType: Map<string, Set<string>>) {
-    super(user, language, fieldsByType);
+  constructor() {
+    super();
     this._tableName = 'rivers_view';
     this._graphqlTypeName = 'River';
     this._fieldsMap = FIELDS_MAP;

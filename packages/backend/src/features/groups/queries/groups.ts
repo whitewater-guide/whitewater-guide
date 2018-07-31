@@ -4,7 +4,7 @@ interface Vars {
   regionId?: string;
 }
 
-const groups: TopLevelResolver<Vars> = (_, { regionId }, { models }, info) =>
-  models.groups.getMany(info, { regionId });
+const groups: TopLevelResolver<Vars> = (_, { regionId }, { dataSources }, info) =>
+  dataSources.groups.getMany(info, { regionId });
 
 export default groups;

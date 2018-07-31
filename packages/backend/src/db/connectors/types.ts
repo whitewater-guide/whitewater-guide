@@ -1,11 +1,8 @@
-import { Context, Page } from '@apollo';
+import { Page } from '@apollo';
 import Knex from 'knex';
-import { Omit } from 'type-zoo';
-import { createModels } from './createModels';
+import { createConnectors } from './createConnectors';
 
-export type ContextWithoutModels = Omit<Context, 'models'>;
-
-export type Models = ReturnType<typeof createModels>;
+export type Connectors = ReturnType<typeof createConnectors>;
 
 export type FieldsMap<TGraphql, TSql> = {
   [P in keyof TGraphql]?: keyof TSql | Array<keyof TSql> | null;
