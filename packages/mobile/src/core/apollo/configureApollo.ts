@@ -22,7 +22,7 @@ export const getApolloClient = async () => {
     await assertCachePersistorVersion();
 
     const link = ApolloLink.from([
-      offlineLink,
+      // offlineLink,
       httpLink,
     ]);
 
