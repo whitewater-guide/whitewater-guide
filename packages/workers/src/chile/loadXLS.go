@@ -2,11 +2,12 @@ package chile
 
 import (
   "net/url"
-    "time"
+  "time"
   "core"
   "strings"
   log "github.com/sirupsen/logrus"
   "github.com/moul/http2curl"
+  "encoding/base64"
 )
 
 const xlsUrl = "http://dgasatel.mop.cl/cons_det_instan_xls.asp"
@@ -41,13 +42,14 @@ func loadXLS(code string, since int64) (string, error) {
   })
 
   // TEMPORARY CODE
-  command, _ := http2curl.GetCurlCommand(req)
-  if strings.Index(html, "tabla para resultados numerados ") == -1 {
+  if strings.Index(html, "tabla para resultados numerados") == -1 {
+    curl, _ := http2curl.GetCurlCommand(req)
+    encoded := base64.StdEncoding.EncodeToString([]byte(curl.String()))
     log.WithFields(log.Fields{
-      "code": code,
-      "since": since,
+      "code":      code,
+      "since":     since,
       "cookieErr": cookieErr != nil,
-      "req": command,
+      "req":       encoded,
     }).Warn("missing data table in XLS response")
   }
 
