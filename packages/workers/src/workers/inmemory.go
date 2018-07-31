@@ -21,7 +21,7 @@ func (db *inmemoryDB) LoadLastMeasurements(script, code string) map[core.GaugeId
   result := make(map[core.GaugeId]core.Measurement)
   for k, v := range db.lastMeasurements {
     if k.Script == script && (code == "" || code == k.Code) {
-      result[core.GaugeId{ Code: code, Script: script}] = v
+      result[k] = v
     }
   }
   return result

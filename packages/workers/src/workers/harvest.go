@@ -4,7 +4,7 @@ import (
   "core"
   "github.com/fatih/structs"
   "github.com/sirupsen/logrus"
-)
+  )
 
 func harvest(db *DatabaseManager, cache *CacheManager, worker *core.Worker, payload *Payload) (int, error) {
   var saved = 0
@@ -24,6 +24,12 @@ func harvest(db *DatabaseManager, cache *CacheManager, worker *core.Worker, payl
   if err != nil {
     return 0, err
   }
+
+  if (*worker).HarvestMode() == core.AllAtOnce {
+    // For one-by-one script filtering is done using since parameter
+    measurements = core.FilterByLast(measurements, lastMeasurements)
+  }
+
   for _, m := range measurements {
     if lastMeasurement, ok = lastMeasurements[m.GaugeId]; !ok || m.Timestamp.After(lastMeasurement.Timestamp.Time) {
       lastMeasurements[m.GaugeId] = m
