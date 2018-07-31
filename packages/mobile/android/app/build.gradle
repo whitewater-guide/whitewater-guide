@@ -163,7 +163,8 @@ android {
         }
         releaseStaging {
             initWith release
-            applicationIdSuffix ".staging"
+            // Cannot be uploaded to play store
+            // applicationIdSuffix ".staging"
             resValue "string", "app_name", "WW STAGING"
             matchingFallbacks = ['release']
         }
