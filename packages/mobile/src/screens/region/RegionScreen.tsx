@@ -12,6 +12,7 @@ interface State {
 }
 
 export class RegionScreen extends PureScreen<InnerProps, NavParams, State> {
+  readonly state: State = { refetchingFromError: false };
 
   renderLoading = () => (<Loading />);
 
@@ -21,12 +22,19 @@ export class RegionScreen extends PureScreen<InnerProps, NavParams, State> {
       <RegionConsumer>
         {(props) => {
           const { region, searchTerms } = props;
-          if (isApolloOfflineError(region.error, region.node)) {
+          const { refetchingFromError } = this.state;
+          const { node, error, loading, refetch } = region;
+          if (refetchingFromError || isApolloOfflineError(error, node)) {
+            const refetchFromError = async () => {
+              this.setState({ refetchingFromError: true });
+              await refetch().catch(() => {/* Otherwise it hangs as loading forever */});
+              this.setState({ refetchingFromError: false });
+            };
             return (
-              <RetryPlaceholder refetch={region.refetch} />
+              <RetryPlaceholder refetch={refetchFromError} loading={loading} />
             );
           }
-          if (region.loading && !region.node) {
+          if (loading && !node) {
             return (<Loading />);
           }
           return (

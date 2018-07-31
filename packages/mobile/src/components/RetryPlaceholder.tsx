@@ -14,6 +14,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  iconContainer: {
+    width: 32,
+    height: 32,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
 
 interface Props {
@@ -47,11 +53,13 @@ class RetryPlaceholderInner extends React.PureComponent<Props & WithT, State> {
     const isBusy = this.state.refetching || loading;
     return (
       <View style={styles.container}>
-        {
-          isBusy ?
-            <ActivityIndicator size="small" color={theme.colors.primary} /> :
-            <Icon icon="alert" />
-        }
+        <View style={styles.iconContainer}>
+          {
+            isBusy ?
+              <ActivityIndicator size="small" color={theme.colors.primary} /> :
+              <Icon narrow icon="alert" />
+          }
+        </View>
         <Subheading>{t(labelKey)}</Subheading>
         {
           !!this.props.refetch &&
