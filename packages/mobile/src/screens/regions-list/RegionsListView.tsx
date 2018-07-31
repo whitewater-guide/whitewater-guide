@@ -2,7 +2,6 @@ import { ApolloQueryResult } from 'apollo-client';
 import React from 'react';
 import { Query, QueryResult } from 'react-apollo';
 import { FlatList, ListRenderItemInfo } from 'react-native';
-import { cloneableGenerator } from 'redux-saga/utils';
 import { RefreshIndicator, RetryPlaceholder } from '../../components';
 import isApolloOfflineError from '../../utils/isApolloOfflineError';
 import { queryResultToList, WithList } from '../../ww-clients/apollo';
@@ -26,7 +25,6 @@ interface State {
 
 class RegionsListView extends React.PureComponent<InnerProps, State> {
   readonly state: State = { refetchingFromError: false };
-  private _refetch!: () => Promise<ApolloQueryResult<Connection<Region>>>;
 
   onRegionSelected = (region: Region) =>
     this.props.navigate('Region', { regionId: region.id });
@@ -46,11 +44,10 @@ class RegionsListView extends React.PureComponent<InnerProps, State> {
   renderList = (regions: WithList<Region>) => {
     const { refetchingFromError } = this.state;
     const { nodes, error, loading, refetch } = regions;
-    this._refetch = refetch;
     if (refetchingFromError || isApolloOfflineError(error, nodes)) {
       const refetchFromError = async () => {
         this.setState({ refetchingFromError: true });
-        await refetch();
+        await refetch().catch(() => {/* Otherwise it hangs as loading forever */});
         this.setState({ refetchingFromError: false });
       };
       return (

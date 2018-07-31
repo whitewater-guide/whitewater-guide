@@ -7,7 +7,11 @@ import { Navigator, RegionTabs } from './RegionTabs';
 import RegionTitle from './RegionTitle';
 import { InnerProps, NavParams } from './types';
 
-export class RegionScreen extends PureScreen<InnerProps, NavParams> {
+interface State {
+  refetchingFromError: boolean;
+}
+
+export class RegionScreen extends PureScreen<InnerProps, NavParams, State> {
 
   renderLoading = () => (<Loading />);
 
@@ -22,7 +26,7 @@ export class RegionScreen extends PureScreen<InnerProps, NavParams> {
               <RetryPlaceholder refetch={region.refetch} />
             );
           }
-          if (region.loading || region.node === null) {
+          if (region.loading && !region.node) {
             return (<Loading />);
           }
           return (
