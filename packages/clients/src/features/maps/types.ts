@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import React from 'react';
 import { Coordinate, Point, Section } from '../../../ww-commons';
 
 export interface SectionComponentProps {
@@ -54,8 +54,8 @@ export interface SelectedPOIViewProps {
   selectedSection: Section | null;
 }
 
-export interface MapLayoutProps<M extends MapProps = MapProps> {
-  mapView: ReactElement<M>;
-  selectedSectionView: ReactElement<SelectedSectionViewProps>;
-  selectedPOIView: ReactElement<SelectedPOIViewProps>;
+export interface MapLayoutProps {
+  mapView: React.ReactNode;
+  selectedSectionView: React.ReactNode;
+  selectedPOIView: React.ReactNode;
 }

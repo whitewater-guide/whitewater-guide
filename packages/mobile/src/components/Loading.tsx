@@ -1,6 +1,6 @@
 import React from 'react';
-import { branch, renderComponent } from 'recompose';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import { branch, renderComponent } from 'recompose';
 import theme from '../theme';
 
 const styles = StyleSheet.create({
@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export const Loading: React.StatelessComponent = () => (
+export const Loading: React.SFC = () => (
   <View style={styles.container}>
     <ActivityIndicator color={theme.colors.primary} />
   </View>
@@ -20,6 +20,6 @@ export const Loading: React.StatelessComponent = () => (
 export function withLoading<TOuter>(isLoading: (props: TOuter) => boolean) {
   return branch<TOuter>(
     isLoading,
-    renderComponent(Loading),
+    renderComponent<{}>(Loading),
   );
 }

@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import React from 'react';
 import { Gauge, Measurement, Section, Unit } from '../../../ww-commons';
 import { WithMeasurements } from '../measurements';
 
@@ -59,7 +59,7 @@ export interface PeriodToggleProps {
 export interface ChartLayoutProps {
   gauge: Gauge;
   section?: Section;
-  chart: ReactElement<ChartComponentProps>;
-  flowToggle: ReactElement<FlowToggleProps>;
-  periodToggle: ReactElement<PeriodToggleProps>;
+  chart: React.ReactNode;
+  flowToggle: React.ReactNode;
+  periodToggle: React.ReactNode;
 }
