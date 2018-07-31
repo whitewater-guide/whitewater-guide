@@ -1,3 +1,4 @@
+import Config from 'react-native-config';
 import { networkEventsListenerSaga } from 'react-native-offline';
 import { put, spawn, take } from 'redux-saga/effects';
 import { offlineContentSaga } from '../../features/offline';
@@ -13,8 +14,8 @@ export function *appSaga() {
   yield spawn(
     networkEventsListenerSaga,
     {
-      // This probably causes some issues, so comment it out
-      // pingServerUrl: `${Config.BACKEND_PROTOCOL}://${Config.BACKEND_HOST}`,
+      pingServerUrl: `${Config.BACKEND_PROTOCOL}://${Config.BACKEND_HOST}/ping`,
+      timeout: 10 * 1000,
       checkConnectionInterval: 60 * 1000,
     },
   );
