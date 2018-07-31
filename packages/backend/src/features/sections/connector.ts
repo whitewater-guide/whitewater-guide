@@ -14,7 +14,7 @@ const FIELDS_MAP: FieldsMap<Section, SectionRaw> = {
   // premium determines description visibility
   description: ['description', 'premium', 'river_id', 'region_id', 'demo'],
   region: 'region_id',
-  river: 'river_id',
+  river: ['river_id', 'river_name'],
   gauge: 'gauge_id',
 };
 
@@ -25,6 +25,12 @@ export class SectionsConnector extends BaseConnector<Section, SectionRaw> {
     this._tableName = 'sections_view';
     this._graphqlTypeName = 'Section';
     this._fieldsMap = FIELDS_MAP;
+    this._orderBy = [
+      { column: 'river_name', direction: 'asc' },
+      { column: 'name', direction: 'asc' },
+      { column: 'created_at', direction: 'desc' },
+      { column: 'id', direction: 'asc' },
+    ];
   }
 
   private addHiddenWhere(query: QueryBuilder) {

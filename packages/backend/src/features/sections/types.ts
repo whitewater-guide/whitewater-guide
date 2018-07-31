@@ -19,6 +19,7 @@ export interface SectionRaw extends NamedNode, RawTimestamped {
   alt_names: string[];
 
   river_id: string;
+  river_name: string;
   gauge_id: string | null;
   region_id: string;
 

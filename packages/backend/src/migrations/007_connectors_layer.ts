@@ -1,7 +1,7 @@
 import { createViews, dropViews } from '@db';
 import Knex from 'knex';
 
-const VIEWS = ['gauges'];
+const VIEWS = ['gauges', 'sections'];
 /**
  * This patch is related to bug https://github.com/doomsower/whitewater/issues/197
  * WKX module cannot parse numbers in scientific notation
