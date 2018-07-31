@@ -1,6 +1,6 @@
 {
   "name": "whitewater",
-  "version": "1.6.3-50",
+  "version": "1.6.3-51",
   "private": true,
   "scripts": {
     "postinstall": "./postinstall.sh",
@@ -15,6 +15,7 @@
     "prestorybook": "rnstl",
     "storybook": "storybook start -p 7007 --metro-config $PWD/rn-cli.config.js",
     "android:clean": "rm -rf android/build && rm -rf android/app/build",
+    "android:screenshot": "adb exec-out screencap -p > ~/Pictures/ww_screen_$(date +%s).png",
     "android:code_push:staging": "fastlane android code_push --env staging",
     "android:code_push:production": "fastlane android code_push --env production",
     "android:staging": "fastlane android staging --env staging",
