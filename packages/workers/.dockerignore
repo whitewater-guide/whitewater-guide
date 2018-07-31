@@ -4,3 +4,6 @@
 /src/golang.org/
 /src/gopkg.in/
 **/galicia2.cookies
+/scripts
+/requests.http
+/cookies/

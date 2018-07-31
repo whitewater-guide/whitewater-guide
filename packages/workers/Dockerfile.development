@@ -1,0 +1,8 @@
+FROM golang:1.11.2-stretch
+
+RUN go get github.com/oxequa/realize
+
+COPY /realize /realize
+WORKDIR /realize
+
+ENTRYPOINT ["/realize/docker-entrypoint.sh"]

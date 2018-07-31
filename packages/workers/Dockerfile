@@ -1,4 +1,4 @@
-FROM golang:latest as builder
+FROM golang:1.11.2-stretch as builder
 
 COPY ./src /go/src
 WORKDIR /go/src
@@ -8,7 +8,7 @@ RUN go get -d workers/... cli/... \
  && CGO_ENABLED=0 GOOS=linux go build -o /go/bin/workers-cli -ldflags="-s -w" cli
 
 # -------- Runnable ---------
-FROM alpine:3.7
+FROM alpine:3.8
 
 RUN addgroup -g 1000 -S workers \
  && adduser -u 1000 -S workers -G workers \

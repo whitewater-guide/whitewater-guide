@@ -23,3 +23,6 @@ galicia2.cookies
 
 .env.*
 !.env.*.secret
+/src/workers/workers
+/src/cli/cli
+/cookies/

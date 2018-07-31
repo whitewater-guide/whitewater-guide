@@ -1,6 +1,6 @@
 {
   "name": "mongo-to-postgres",
-  "version": "0.0.14",
+  "version": "0.0.16",
   "description": "Converter from v1 to v2",
   "repository": "https://github.com/doomsower/whitewater.git",
   "author": "doomsower <K.Kuznetcov@gmail.com>",

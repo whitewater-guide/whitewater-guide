@@ -6,6 +6,13 @@ Docker image container two binary files:
 - `workers-server` (*entrypoint*) - simple http server, listens for HTTP POST request with JSON bodies, replies with status. 
 - `workers-cli` - command-line executable for manual diagnostics. Bash (well, it's alpine, so `sh`) into container or just run `docker exec ww-workers workers-cli autofill galicia`.
 Command-line help provided, thanks to `cobra`
+
+## Development
+
+Develop in docker. Use `yarn start` to spin up docker container with live reloading (with [realize](https://github.com/oxequa/realize)).  
+You can then use `requests.http` file to execute requests against web-server.  
+Or you can bash into container and work with console.
+**Important**: This dev environment uses inmemory db instead of redis/postgres pair 
  
 ## Env variables
 
@@ -22,6 +29,7 @@ POSTGES_DB              |               | (**required**) Postgres connection det
 POSTGRES_PASSWORD       |               | (**required**) Postgres connection details - password
 REDIS_HOST              | redis         | Redis connection details - host
 REDIS_PORT              | 6379          | Redis connection details - port
+RIVERZONE_KEY           |               | riverzone.eu access key
  
 So most likely you should send your requests to `http://workers:7080/endpoint`
 

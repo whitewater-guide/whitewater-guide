@@ -1,33 +1,64 @@
 package main
 
 import (
-  "net/http"
+  "all-at-once"
   "core"
+  "fmt"
   "galicia"
-  log "github.com/sirupsen/logrus"
-  "github.com/fatih/structs"
   "galicia2"
   "georgia"
+  "github.com/fatih/structs"
+  log "github.com/sirupsen/logrus"
+  "net/http"
   "norway"
-  "all-at-once"
   "one-by-one"
   "os"
-  "fmt"
+  "riverzone"
+  "flag"
 )
 
 var endpoint = "/endpoint"
+var cache CacheManager
+var database DatabaseManager
+var workerFactories = make(map[string]core.WorkerFactory)
 
 type Payload struct {
-  Command string      `json:"command" structs:"command"`
-  Script  string      `json:"script" structs:"script,omitempty"`
+  Command             string `json:"command" structs:"command"`
+  Script              string `json:"script" structs:"script,omitempty"`
   core.HarvestOptions `json:",inline" structs:"-"`
 }
-
-var workerFactories = make(map[string]core.WorkerFactory)
 
 func register(factory core.WorkerFactory) {
   worker := factory()
   workerFactories[worker.ScriptName()] = factory
+}
+
+func initStorage() {
+  cacheManager := flag.String("cache", "redis", "inmemory/redis")
+  databaseManager := flag.String("db", "postgres", "inmemory/postgres")
+  flag.Parse()
+  log.WithFields(log.Fields{
+    "cache": *cacheManager,
+    "db":    *databaseManager,
+  }).Info("starting storage...")
+  switch *cacheManager {
+  case "redis":
+    initRedis()
+  case "inmemory":
+    cache = NewInmemoryDB()
+  default:
+    log.Fatal("invalid cache manager")
+  }
+
+  switch *databaseManager {
+  case "postgres":
+    initPg()
+  case "inmemory":
+    database = NewInmemoryDB()
+  default:
+    log.Fatal("invalid database manager")
+  }
+  log.Info("storage started")
 }
 
 func handlerRecover(logger *log.Entry, res *http.ResponseWriter) {
@@ -76,14 +107,28 @@ func handler(res http.ResponseWriter, req *http.Request) {
     result, err = worker.Autofill()
   case "harvest":
     worker := workerFactories[payload.Script]()
-    result, err = harvest(worker, payload)
-    go saveOpLog(payload.Script, payload.Code, err, getResultCount(result))
+    result, err = harvest(&database, &cache, worker, payload)
+    go cache.SaveOpLog(payload.Script, payload.Code, err, getResultCount(result))
   default:
     logger.Error("bad command")
     sendFailure(res, fmt.Errorf("bad command: %s", payload.Command))
     return
   }
   sendSuccess(res, err, result, &logger)
+}
+
+func startWorkers() {
+  log.Info("staring workers...")
+
+  register(galicia.NewWorkerGalicia)
+  register(galicia2.NewWorkerGalicia2)
+  register(georgia.NewWorkerGeorgia)
+  register(norway.NewWorkerNorway)
+  register(all_at_once.NewWorkerAllAtOnce)
+  register(one_by_one.NewWorkerOneByOne)
+  register(riverzone.NewWorkerRiverzone)
+
+  log.Info("started workers")
 }
 
 func main() {
@@ -102,14 +147,9 @@ func main() {
     log.SetFormatter(&log.TextFormatter{ForceColors: true})
   }
 
-  log.Info("staring workers")
+  initStorage()
+  startWorkers()
 
-  register(galicia.NewWorkerGalicia)
-  register(galicia2.NewWorkerGalicia2)
-  register(georgia.NewWorkerGeorgia)
-  register(norway.NewWorkerNorway)
-  register(all_at_once.NewWorkerAllAtOnce)
-  register(one_by_one.NewWorkerOneByOne)
   http.HandleFunc("/", handler)
 
   var port = os.Getenv("WORKERS_PORT")
@@ -120,9 +160,6 @@ func main() {
   if ep != "" {
     endpoint = ep
   }
-
-  initPg()
-  initRedis()
 
   log.WithFields(log.Fields{
     "port":     port,

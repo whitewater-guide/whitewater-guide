@@ -1,0 +1,47 @@
+# Basic list
+POST http://localhost:7080/endpoint
+Cache-Control: no-cache
+Content-Type: application/json
+
+{
+  "command" : "list"
+}
+
+###
+# Autofill
+POST http://localhost:7080/endpoint
+Cache-Control: no-cache
+Content-Type: application/json
+
+{
+  "command": "autofill",
+  "script": "riverzone"
+}
+
+###
+# Harvest one by one
+POST http://localhost:7080/endpoint
+Cache-Control: no-cache
+Content-Type: application/json
+
+{
+  "command": "harvest",
+  "script": "norway",
+  "code": "6.9",
+  "extras": {
+    "html": true
+  }
+}
+
+###
+# Harvest all at once
+POST http://localhost:7080/endpoint
+Cache-Control: no-cache
+Content-Type: application/json
+
+{
+  "command": "harvest",
+  "script": "riverzone"
+}
+
+###
