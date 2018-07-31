@@ -59,8 +59,7 @@ func (self PostgresManager) SaveMeasurements(measurements []core.Measurement) (i
 	query := "INSERT INTO measurements (timestamp, script, code, flow, level) VALUES"
 	count := 0
 	for _, m := range measurements {
-		// Omit bad measurements (galicia sometimes send negative values)
-		if m.Flow < 0 || m.Level < 0 || (m.Flow == 0.0 && m.Level == 0.0) {
+		if m.Flow == 0.0 && m.Level == 0.0 {
 			continue
 		}
 		count++
