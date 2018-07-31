@@ -1,6 +1,6 @@
 {
   "name": "whitewater",
-  "version": "1.5.3-7",
+  "version": "1.5.3-8",
   "private": true,
   "scripts": {
     "postinstall": "./postinstall.sh",
@@ -174,7 +174,7 @@
       "^.+\\.jsx?$": "<rootDir>/node_modules/babel-jest",
       "^.+\\.tsx?$": "ts-jest"
     },
-    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(tsx?)$",
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
     "moduleFileExtensions": [
       "ts",
       "tsx",
