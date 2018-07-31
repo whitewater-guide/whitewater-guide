@@ -4,7 +4,7 @@ import { Gauge } from '@ww-commons';
 import { GaugeRaw } from './types';
 
 const FIELDS_MAP: FieldsMap<Gauge, GaugeRaw> = {
-  lastMeasurement: 'script',
+  lastMeasurement: ['script', 'code'],
   status: ['source_id', 'script'],
   source: ['source_id', 'script'],
 };
