@@ -16,6 +16,7 @@ const FIELDS_MAP: FieldsMap<Section, SectionRaw> = {
   region: 'region_id',
   river: ['river_id', 'river_name'],
   gauge: 'gauge_id',
+  media: null,
 };
 
 export class SectionsConnector extends BaseConnector<Section, SectionRaw> {

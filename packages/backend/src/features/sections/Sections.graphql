@@ -74,7 +74,7 @@ type Section {
   # When was this section last modified
   updatedAt: Date
   # Photos, videos and blogs
-  media: SectionMediaConnection!
+  media(page: Page): SectionMediaConnection!
   # Points of interest
   pois: [Point]!
 

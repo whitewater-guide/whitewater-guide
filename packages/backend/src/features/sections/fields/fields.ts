@@ -4,6 +4,7 @@ import { Section } from '@ww-commons';
 import { SectionRaw } from '../types';
 import description from './description';
 import gauge from './gauge';
+import media from './media';
 import region from './region';
 import river from './river';
 import shape from './shape';
@@ -37,6 +38,7 @@ export const sectionFieldResolvers: FieldResolvers<SectionRaw, Section> = {
   shape,
   pois: section => section.pois || [],
   tags: section => section.tags || [],
+  media,
   region,
   river,
   gauge,

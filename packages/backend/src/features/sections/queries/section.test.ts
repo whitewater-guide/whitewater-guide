@@ -172,6 +172,28 @@ describe('data', () => {
     expect(result).toHaveProperty('data.section.region.name', 'Norway');
   });
 
+  it('should return media', async () => {
+    const mediaQuery = `
+    query sectionDetails($id: ID){
+      section(id: $id) {
+        id
+        name
+        media {
+          nodes {
+            id
+            url
+          }
+          count
+        }
+      }
+    }
+  `;
+    const result = await runQuery(mediaQuery, { id: NORWAY_SJOA_AMOT });
+    expect(result.errors).toBeUndefined();
+    expect(result.data!.section.media.nodes).toHaveLength(4);
+    expect(result.data!.section.media.count).toBe(4);
+  });
+
   it('should return null when id not specified', async () => {
     const result = await runQuery(query, {});
     expect(result.errors).toBeUndefined();

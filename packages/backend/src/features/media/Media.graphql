@@ -47,7 +47,7 @@ type MediaUploadForm {
 }
 
 type Query {
-  mediaBySection(sectionId: ID!): MediaList!
+  mediaBySection(sectionId: ID!, page: Page): MediaList!
   media(id: ID): Media
   mediaForm(id: ID): MediaUploadForm
 }
