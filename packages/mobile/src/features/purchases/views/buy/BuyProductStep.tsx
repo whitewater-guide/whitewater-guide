@@ -64,7 +64,7 @@ class BuyProductStep extends React.PureComponent<Props> {
           {
             renderCancelButton &&
             (
-              <Button raised onPress={onCancel}>Cancel</Button>
+              <Button raised onPress={onCancel}>{t('commons:cancel')}</Button>
             )
           }
           <Button
