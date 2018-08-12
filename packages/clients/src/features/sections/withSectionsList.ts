@@ -42,7 +42,7 @@ export const withSectionsList = ({ fetchPolicy = 'cache-and-network' }: Options 
           notifyOnNetworkStatusChange: true,
           variables: {
             filter: { regionId: props.regionId },
-            // page ?
+            page: { limit: 20 },
           },
         }),
         props: props => queryResultToList(props, 'sections'),

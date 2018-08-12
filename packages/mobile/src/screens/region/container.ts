@@ -5,11 +5,11 @@ import { withSectionsList, WithSectionsList } from '../../ww-clients/features/se
 import { applySearch } from '../../ww-commons';
 import { InnerProps, OuterProps } from './types';
 
-type MappedProps = OuterProps & WithSectionsList
+type MappedProps = OuterProps & WithSectionsList;
 
 export default compose<InnerProps & OuterProps, OuterProps>(
   withFeatureIds('region'),
-  withSectionsList(),
+  withSectionsList({ fetchPolicy: 'cache-first' }),
   chunkedListLoader('sections'),
   mapProps(({ sections, searchTerms, navigation, region }: MappedProps) => ({
     region,
