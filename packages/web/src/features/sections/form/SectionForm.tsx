@@ -5,7 +5,6 @@ import { Tabs } from '../../../components';
 import {
   Checkbox,
   ChipInput,
-  DraftField,
   DrawingMapField,
   Form,
   FormTab,
@@ -15,6 +14,7 @@ import {
   Select,
   ShapeInput,
   StringArrayInput,
+  TextareaField,
   TextInput,
 } from '../../../components/forms';
 import { Row } from '../../../layout';
@@ -131,7 +131,7 @@ export default class SectionForm extends React.PureComponent<SectionFormProps> {
             <POICollection name="pois" mapBounds={this.props.region.bounds} />
           </FormTab>
           <FormTab form="section" fields={DescriptionFields} label="Description" value="#description">
-            <DraftField name="description" />
+            <TextareaField name="description" />
           </FormTab>
         </Tabs>
       </Form>

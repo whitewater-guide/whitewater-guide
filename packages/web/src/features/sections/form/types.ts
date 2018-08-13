@@ -1,10 +1,10 @@
-import { EditorState } from 'draft-js';
+import { MdEditorValue } from '@whitewater-guide/md-editor';
 import { InjectedFormProps } from 'redux-form';
 import { Overwrite } from 'type-zoo';
 import { NamedNode, Region, River, SectionInput, Tag } from '../../../ww-commons';
 
 interface FormOverrides {
-  description: EditorState | null;
+  description: MdEditorValue;
   river: NamedNode;
 }
 

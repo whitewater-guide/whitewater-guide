@@ -1,4 +1,3 @@
-import { EditorState } from 'draft-js';
 import { deserializeForm } from './deserializeForm';
 
 jest.mock('draft-js/lib/generateRandomKey', () => () => 'random_key');
@@ -65,7 +64,8 @@ it('should omit __typename', () => {
 });
 
 it('should convert markdown to draft', () => {
-  expect(result.description).toBeInstanceOf(EditorState);
+  expect(result.description).toHaveProperty('markdown');
+  expect(result.description).toHaveProperty('isMarkdown');
 });
 
 it('should omit timestamps', () => {

@@ -1,13 +1,13 @@
+import { MdEditor } from '@whitewater-guide/md-editor';
 import React from 'react';
 import { BaseFieldProps, Field, GenericField, WrappedFieldProps } from 'redux-form';
-import DraftEditor from './draft';
 
 type Props = WrappedFieldProps;
 
-class DraftEditorComponent extends React.PureComponent<Props> {
+class TextareaComponent extends React.PureComponent<Props> {
   render() {
     return (
-      <DraftEditor
+      <MdEditor
         value={this.props.input.value}
         onChange={this.props.input.onChange}
       />
@@ -17,12 +17,12 @@ class DraftEditorComponent extends React.PureComponent<Props> {
 
 type FieldProps = BaseFieldProps<{}>;
 
-export const DraftField: React.StatelessComponent<FieldProps> = props => {
+export const TextareaField: React.StatelessComponent<FieldProps> = props => {
   const CustomField = Field as new () => GenericField<{}>;
   return (
     <CustomField
       {...props}
-      component={DraftEditorComponent}
+      component={TextareaComponent}
     />
   );
 };

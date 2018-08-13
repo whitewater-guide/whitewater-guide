@@ -1,4 +1,4 @@
-import { ContentState, EditorState } from 'draft-js';
+import { fromMarkdown } from '@whitewater-guide/md-editor';
 import { serializeForm } from './serializeForm';
 
 const input = {
@@ -14,7 +14,7 @@ const input = {
 
 const inputWithDraft = {
   ...input,
-  description: EditorState.createWithContent(ContentState.createFromText('foo')),
+  description: fromMarkdown('foo'),
 };
 
 const inputWithRef = {

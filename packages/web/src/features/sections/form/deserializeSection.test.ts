@@ -1,4 +1,3 @@
-import { EditorState } from 'draft-js';
 import deserializeSection from './deserializeSection';
 
 jest.mock('draft-js/lib/generateRandomKey', () => () => 'random_key');
@@ -115,7 +114,8 @@ beforeEach(() => {
 });
 
 it('should transform description into draft.js state', () => {
-  expect(formData).toHaveProperty('description', expect.any(EditorState));
+  expect(formData).toHaveProperty('description.isMarkdown');
+  expect(formData).toHaveProperty('description.markdown');
 });
 
 it('should split tags into categories', () => {

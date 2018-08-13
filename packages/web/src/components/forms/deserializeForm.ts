@@ -1,5 +1,4 @@
-import { EditorState } from 'draft-js';
-import { stateFromMarkdown } from 'draft-js-import-markdown';
+import { fromMarkdown } from '@whitewater-guide/md-editor';
 import { mapValues, omit } from 'lodash';
 
 const cleanup = (value: any) => omit(value, ['__typename', 'createdAt', 'updatedAt']);
@@ -22,7 +21,7 @@ export const deserializeForm =
     const omitted = omit(input, ['__typename', 'createdAt', 'updatedAt']);
     return mapValues(omitted, (value: any, key: string) => {
       if (markdownFields.includes(key)) {
-        return value ? EditorState.createWithContent(stateFromMarkdown(value)) : null;
+        return fromMarkdown(value);
       } else if (refs.includes(key)) {
         if (!value) {
           return null;

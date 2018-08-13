@@ -9,7 +9,7 @@ type Props = WrappedFieldProps & OwnProps;
 
 class ImageUploaderComponent extends React.PureComponent<Props> {
   render() {
-    const { input, meta, label, ...ownProps } = this.props;
+    const { input, meta, ...ownProps } = this.props;
     return (
       <ImageUploader
         {...ownProps}

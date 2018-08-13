@@ -1,4 +1,4 @@
-import { stateToMarkdown } from 'draft-js-export-markdown';
+import { toMarkdown } from '@whitewater-guide/md-editor';
 import { mapValues } from 'lodash';
 
 /**
@@ -17,7 +17,7 @@ export const serializeForm =
       }
       return mapValues(input, (value: any, key: string) => {
         if (markdownFields.includes(key)) {
-          return value ? stateToMarkdown(value.getCurrentContent()).trim() : null;
+          return value ? toMarkdown(value) : null;
         } else if (refs.includes(key)) {
           return value ? { id: value.id } : null;
         } else if (connections.includes(key)) {

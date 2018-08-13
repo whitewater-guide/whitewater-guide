@@ -1,6 +1,6 @@
 export * from './Checkbox';
 export * from './ChipInput';
-export * from './DraftField';
+export * from './TextareaField';
 export * from './DrawingMapField';
 export * from './ImageUploadField';
 export * from './PointInput';

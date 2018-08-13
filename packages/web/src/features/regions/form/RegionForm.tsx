@@ -2,12 +2,12 @@ import React from 'react';
 import { InjectedFormProps } from 'redux-form';
 import { Tabs } from '../../../components';
 import {
-  DraftField,
   DrawingMapField,
   Form,
   FormTab,
   POICollection,
   SeasonPicker,
+  TextareaField,
   TextInput,
 } from '../../../components/forms';
 import { RegionFormInput } from './types';
@@ -28,7 +28,7 @@ export default class RegionForm extends React.PureComponent<InjectedFormProps<Re
             <SeasonPicker name="seasonNumeric" />
           </FormTab>
           <FormTab form="region" fields={DescriptionFields} label="Description" value="#description">
-            <DraftField name="description" />
+            <TextareaField name="description" />
           </FormTab>
           <FormTab form="region" fields={BoundsFields} label="Shape" value="#shape">
             <DrawingMapField name="bounds" drawingMode="Polygon" bounds={null} />
