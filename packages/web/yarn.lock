@@ -797,12 +797,11 @@
     "@webassemblyjs/wast-parser" "1.5.13"
     long "^3.2.0"
 
-"@whitewater-guide/md-editor@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@whitewater-guide/md-editor/-/md-editor-0.1.1.tgz#63c48f86096d4ac8f98735e74623425a1ee0948f"
+"@whitewater-guide/md-editor@^0.1.3":
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/@whitewater-guide/md-editor/-/md-editor-0.1.3.tgz#84a8f5bc7d6e283c0fb0601a40496e8316e61617"
   dependencies:
     classnames "^2.2.6"
-    lodash "^4.17.10"
     tslib "^1.9.3"
 
 a11y-focus-store@^1.0.0:
