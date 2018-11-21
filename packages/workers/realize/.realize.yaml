@@ -27,6 +27,7 @@ schema:
     - ../norway
     - ../one-by-one
     - ../riverzone
+    - ../tirol
     ignored_paths:
     - .git
     - .realize
@@ -52,6 +53,7 @@ schema:
     - ../norway
     - ../one-by-one
     - ../riverzone
+    - ../tirol
     ignored_paths:
     - .git
     - .realize

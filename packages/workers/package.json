@@ -1,6 +1,6 @@
 {
   "name": "workers",
-  "version": "0.0.45",
+  "version": "0.0.46",
   "description": "workers for whitewater.guide stack",
   "repository": "https://github.com/doomsower/whitewater.git",
   "author": "doomsower <K.Kuznetcov@gmail.com>",
