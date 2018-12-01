@@ -1,12 +1,14 @@
 import { Strategy as FacebookStrategy } from 'passport-facebook';
 import loginWithFacebook from './loginWithFacebook';
 
+const { FB_APP_ID, FB_SECRET, PROTOCOL, APP_DOMAIN } = process.env;
+
 const FacebookWebStrategy = new FacebookStrategy(
   {
-    clientID: process.env.FB_APP_ID!,
-    clientSecret: process.env.FB_SECRET!,
+    clientID: FB_APP_ID!,
+    clientSecret: FB_SECRET!,
     profileFields: ['name', 'email', 'picture', 'link', 'locale'],
-    callbackURL: '/auth/facebook/callback',
+    callbackURL: `${PROTOCOL}://${APP_DOMAIN}/auth/facebook/callback`,
     passReqToCallback: true,
   },
   async (req, accessToken, refreshToken, profile, done) => {
