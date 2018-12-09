@@ -6,8 +6,9 @@ import (
 	"time"
 )
 
-//const dataURL = "https://www.hydrodaten.admin.ch/lhg/SMS.xml"
-const dataURL = "https://gist.githubusercontent.com/doomsower/df9b9b7655531353a1b07017d157b89a/raw/288beb658506d4a60cc2ad97f6903130785d68e0/swiss.xml"
+const xmlURL = "https://www.hydrodaten.admin.ch/lhg/SMS.xml"
+
+//const xmlURL = "https://gist.githubusercontent.com/doomsower/df9b9b7655531353a1b07017d157b89a/raw/288beb658506d4a60cc2ad97f6903130785d68e0/swiss.xml"
 
 var units = map[string]string{"01": "m", "02": "m ü.M.", "10": "m3/s", "22": "l/s", "28": "cm"}
 var flowPriorities = map[string]int{
@@ -60,7 +61,7 @@ func getValue(gauge Gauge) float64 {
 }
 
 func parseXML(script string) (result []core.GaugeInfo, err error) {
-	resp, err := core.Client.Get(dataURL)
+	resp, err := core.Client.Get(xmlURL)
 
 	if err != nil {
 		return
@@ -109,6 +110,7 @@ func parseXML(script string) (result []core.GaugeInfo, err error) {
 				info.Measurement.Level = value
 			}
 		}
+		byStation[gauge.Code] = info
 	}
 	result = make([]core.GaugeInfo, len(byStation))
 	i := 0

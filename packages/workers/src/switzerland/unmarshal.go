@@ -3,22 +3,8 @@ package switzerland
 import (
 	"encoding/xml"
 	"strconv"
-	"time"
+	"strings"
 )
-
-type GTime struct {
-	time.Time
-}
-
-func (self *GTime) UnmarshalJSON(b []byte) (err error) {
-	i, err := strconv.ParseFloat(string(b), 64)
-	if err != nil {
-		return
-	}
-	t := time.Unix(int64(i), 0)
-	self.Time = t.UTC()
-	return
-}
 
 type AKTData struct {
 	XMLName xml.Name `xml:"AKT_Data"`
@@ -40,4 +26,33 @@ type Reading struct {
 	Type    string   `xml:"Typ,attr"`
 	Delta   string   `xml:"dt,attr"`
 	Value   float64  `xml:",chardata"`
+}
+
+func (self *Reading) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	for _, attr := range start.Attr {
+		switch attr.Name.Local {
+		case "Typ":
+			self.Type = attr.Value
+		case "dt":
+			self.Delta = attr.Value
+		}
+	}
+	for {
+		token, err := d.Token()
+		if token == nil {
+			break
+		}
+		if err != nil {
+			return err
+		}
+		if v, ok := token.(xml.CharData); ok {
+			strVal := strings.Replace(string([]byte(v)), "'", "", -1)
+			f, e := strconv.ParseFloat(strVal, 64)
+			if e != nil {
+				return e
+			}
+			self.Value = f
+		}
+	}
+	return nil
 }

@@ -17,6 +17,7 @@ import (
 	"one-by-one"
 	"os"
 	"riverzone"
+	"switzerland"
 	"tirol"
 )
 
@@ -132,6 +133,7 @@ func startWorkers() {
 	register(riverzone.NewWorkerRiverzone)
 	register(chile.NewWorkerChile)
 	register(tirol.NewWorkerTirol)
+	register(switzerland.NewWorkerSwitzerland)
 
 	log.Info("started workers")
 }

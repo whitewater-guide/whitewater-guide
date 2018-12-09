@@ -15,7 +15,7 @@ Content-Type: application/json
 
 {
   "command": "autofill",
-  "script": "tirol"
+  "script": "switzerland"
 }
 
 ###
@@ -54,7 +54,7 @@ Content-Type: application/json
 
 {
   "command": "harvest",
-  "script": "riverzone"
+  "script": "switzerland"
 }
 
 ###
