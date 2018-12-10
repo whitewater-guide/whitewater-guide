@@ -93,6 +93,7 @@ func parseXML(script string) (result []core.GaugeInfo, err error) {
 						Code:   gauge.Code,
 					},
 				},
+				Name: gauge.Name,
 			}
 		}
 		if isFlow {
