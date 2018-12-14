@@ -19,6 +19,8 @@
 | GOOGLE_IAB_PUBLICKEY_SANDBOX | <pubkey>                                                    | See https://github.com/voltrue2/in-app-purchase |
 | GOOGLE_IAB_PUBLICKEY_LIVE    | <pubkey>                                                    | See https://github.com/voltrue2/in-app-purchase |
 | IAP_DEBUG                    | false                                                       | Controls `verbose` and `test` config options for https://github.com/voltrue2/in-app-purchase |
+| MAILCHIMP_API_KEY            | <random_secret>                                             | Mailchimp API key |
+| MAILCHIMP_LIST_ID            | <random_id>                                                 | Mailchimp list id for site subscriptions |
 
 # Module aliases
 

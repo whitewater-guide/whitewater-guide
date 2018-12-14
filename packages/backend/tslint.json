@@ -30,6 +30,7 @@
         "@features",
         "@features/undefined",
         "@features/banners",
+        "@features/emails",
         "@features/gauges",
         "@features/groups",
         "@features/jobs",

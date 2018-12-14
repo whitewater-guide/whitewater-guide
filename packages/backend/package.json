@@ -1,6 +1,6 @@
 {
   "name": "whitewater-backend",
-  "version": "0.0.269",
+  "version": "0.0.271",
   "main": "index.js",
   "author": "Konstantin Kuznetsov",
   "license": "proprietary",
@@ -95,6 +95,7 @@
     "koa-router": "^7.4.0",
     "koa-session": "^5.9.0",
     "lodash": "^4.17.11",
+    "mailchimp-api-v3": "^1.12.1",
     "merge-graphql-schemas": "^1.5.7",
     "minio": "^7.0.1",
     "module-alias": "^2.1.0",

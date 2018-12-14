@@ -1,4 +1,5 @@
 import { bannersResolvers } from '@features/banners';
+import { emailsResolvers } from '@features/emails';
 import { gaugesResolvers } from '@features/gauges';
 import { groupsResolvers } from '@features/groups';
 import { measurementsResolvers } from '@features/measurements';
@@ -18,6 +19,7 @@ import { merge } from 'lodash';
 
 export const resolvers = merge(
   bannersResolvers,
+  emailsResolvers,
   gaugesResolvers,
   groupsResolvers,
   tagsResolvers,
