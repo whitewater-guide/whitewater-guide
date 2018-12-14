@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  Button,
-  Dialog,
-  Paragraph,
-  RadioButton,
-  TouchableRipple,
-} from 'react-native-paper';
+import { Button, Dialog, Paragraph, Portal, RadioButton, TouchableRipple, } from 'react-native-paper';
 import theme from '../theme';
 import { Handle, HandleLeft } from './Handle';
 
@@ -56,34 +50,37 @@ export class RadioDialog extends React.PureComponent<Props, State> {
             <Paragraph>{labelExtractor(value)}</Paragraph>
           </Handle>
         </TouchableRipple>
-        <Dialog onDismiss={this.closeDialog} visible={this.state.open}>
-          {
-            !!dialogTitle &&
-            (
-              <Dialog.Title>{dialogTitle}</Dialog.Title>
-            )
-          }
-          <Dialog.Content>
-            <RadioButton.Group onValueChange={this.onValueChange} value={this.state.value}>
-              {
-                options.map((option) => (
-                  <TouchableRipple key={keyExtractor(option)} onPress={() => this.onValueChange(keyExtractor(option))}>
-                    <Handle>
-                      <HandleLeft>
-                        <Paragraph>{labelExtractor(option)}</Paragraph>
-                      </HandleLeft>
-                      <RadioButton value={keyExtractor(option)} />
-                    </Handle>
-                  </TouchableRipple>
-                ))
-              }
-            </RadioButton.Group>
-          </Dialog.Content>
-          <Dialog.Actions>
-            <Button onPress={this.closeDialog}>{cancelLabel || 'Cancel'}</Button>
-            <Button color={theme.colors.primary} onPress={this.submitDialog}>{okLabel || 'OK'}</Button>
-          </Dialog.Actions>
-        </Dialog>
+        <Portal>
+          <Dialog onDismiss={this.closeDialog} visible={this.state.open}>
+            {
+              !!dialogTitle &&
+              (
+                <Dialog.Title>{dialogTitle}</Dialog.Title>
+              )
+            }
+            <Dialog.Content>
+              <RadioButton.Group onValueChange={this.onValueChange} value={this.state.value}>
+                {
+                  options.map((option) => (
+                    <TouchableRipple key={keyExtractor(option)}
+                                     onPress={() => this.onValueChange(keyExtractor(option))}>
+                      <Handle>
+                        <HandleLeft>
+                          <Paragraph>{labelExtractor(option)}</Paragraph>
+                        </HandleLeft>
+                        <RadioButton value={keyExtractor(option)} />
+                      </Handle>
+                    </TouchableRipple>
+                  ))
+                }
+              </RadioButton.Group>
+            </Dialog.Content>
+            <Dialog.Actions>
+              <Button onPress={this.closeDialog}>{cancelLabel || 'Cancel'}</Button>
+              <Button color={theme.colors.primary} onPress={this.submitDialog}>{okLabel || 'OK'}</Button>
+            </Dialog.Actions>
+          </Dialog>
+        </Portal>
       </React.Fragment>
     );
   }
