@@ -5405,9 +5405,10 @@ getpass@^0.1.1:
   dependencies:
     assert-plus "^1.0.0"
 
-glamorous-native@robinpowered/glamorous-native#98/head:
-  version "1.4.0"
-  resolved "https://codeload.github.com/robinpowered/glamorous-native/tar.gz/37957c4541a0e1210e83a343476d007ac6021ff5"
+glamorous-native@^1.4.2:
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/glamorous-native/-/glamorous-native-1.4.2.tgz#ce895cf4c53c2bbf653c3cdba1e95980b173fac0"
+  integrity sha512-s3IG7RXuulnJ734AX2EFCyGmBjTYIaP5s8ABhsjFrxv5LrOW2F9jNM4GP3QUGxGW3XaHX4OdxJ8W98eTOS6o1w==
   dependencies:
     brcast "^2.0.0"
 
@@ -5860,9 +5861,10 @@ hyphenate-style-name@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/hyphenate-style-name/-/hyphenate-style-name-1.0.2.tgz#31160a36930adaf1fc04c6074f7eb41465d4ec4b"
 
-i18next@^12.0.0:
-  version "12.0.0"
-  resolved "https://registry.yarnpkg.com/i18next/-/i18next-12.0.0.tgz#27c1494219dde0451a8d714d5bfc19bf055d51bb"
+i18next@^13.1.4:
+  version "13.1.4"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-13.1.4.tgz#2d07e7f191dec3b22f02420a89897dc25b29b291"
+  integrity sha512-qPmjdQrUQ4AGzKBGBpPLC7XiJoqbV/dGmDW/xmwbzAk60eavTkZ+s5FqoSAP2YeurPF8XpNWQaDvXNSWzT0ZYw==
 
 iconv-lite@0.4.23:
   version "0.4.23"
@@ -9222,12 +9224,21 @@ react-fuzzy@^0.5.2:
     fuse.js "^3.0.1"
     prop-types "^15.5.9"
 
-react-i18next@*, react-i18next@^8.3.8:
+react-i18next@*:
   version "8.3.8"
   resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-8.3.8.tgz#6f0f56d048cc10e60ae7ea1a8266e460261d6777"
   dependencies:
     "@babel/runtime" "^7.1.2"
     create-react-context "0.2.3"
+    hoist-non-react-statics "3.0.1"
+    html-parse-stringify2 "2.0.1"
+
+react-i18next@^9.0.3:
+  version "9.0.3"
+  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-9.0.3.tgz#33f5cf1672f4f5eb9af8fd3bfe6243e023b0b2fa"
+  integrity sha512-N03buTFvhdMQsZMV5Bl283HNQpVfRmfCjUTvxxH3FieiQgDB4tcTgkPYj192CfxujNFfyKEj10hnN0Y670JPKQ==
+  dependencies:
+    "@babel/runtime" "^7.1.2"
     hoist-non-react-statics "3.0.1"
     html-parse-stringify2 "2.0.1"
 
@@ -9262,6 +9273,13 @@ react-native-actionsheet@^2.4.2:
 react-native-animatable@^1.2.4:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/react-native-animatable/-/react-native-animatable-1.3.0.tgz#b5c3940fc758cfd9b2fe54613a457c4b6962b46e"
+  dependencies:
+    prop-types "^15.5.10"
+
+react-native-animatable@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/react-native-animatable/-/react-native-animatable-1.3.1.tgz#f004a7e9de6838d0fbf210d642593cff7affd9ef"
+  integrity sha512-NoE6OAgCrhggWBRV6rBJup5vLAGoTjx168Tku1RZmjUGIdYRAyGesP/MoqvxiNJjhTAgwYx2LT63VTT1xO8g4Q==
   dependencies:
     prop-types "^15.5.10"
 
@@ -9441,9 +9459,10 @@ react-native-offline@^3.11.1:
     lodash "^4.17.4"
     redux-saga "^0.16.0"
 
-react-native-paper@^2.2.4:
-  version "2.2.4"
-  resolved "https://registry.yarnpkg.com/react-native-paper/-/react-native-paper-2.2.4.tgz#78cede681b587eed70c483acbec262bf2de82931"
+react-native-paper@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/react-native-paper/-/react-native-paper-2.5.0.tgz#008636eebe2f29499bd237df02bfc8498086e222"
+  integrity sha512-Dh/072/YKWvbkqOw1kyHMXIZwPo5JR7OPqxROwEYAnJlGPO4Mv5w6IEpL87uUsrPGQMZGzbSyEKS/x3K8AW/cA==
   dependencies:
     "@callstack/react-theme-provider" "^1.0.7"
     color "^2.0.1"
