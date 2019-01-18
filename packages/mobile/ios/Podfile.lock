@@ -12,37 +12,37 @@ PODS:
     - Fabric (~> 1.7.13)
   - DoubleConversion (1.1.6)
   - Fabric (1.7.13)
-  - FBSDKCoreKit (4.38.1):
+  - FBSDKCoreKit (4.39.1):
     - Bolts (~> 1.9)
-  - FBSDKLoginKit (4.38.1):
+  - FBSDKLoginKit (4.39.1):
     - FBSDKCoreKit
-  - FBSDKShareKit (4.38.1):
+  - FBSDKShareKit (4.39.1):
     - FBSDKCoreKit
-  - Firebase/Core (5.11.0):
+  - Firebase/Core (5.15.0):
     - Firebase/CoreOnly
-    - FirebaseAnalytics (= 5.3.0)
-  - Firebase/CoreOnly (5.11.0):
-    - FirebaseCore (= 5.1.6)
-  - Firebase/Messaging (5.11.0):
+    - FirebaseAnalytics (= 5.4.0)
+  - Firebase/CoreOnly (5.15.0):
+    - FirebaseCore (= 5.1.10)
+  - Firebase/Messaging (5.15.0):
     - Firebase/CoreOnly
-    - FirebaseMessaging (= 3.2.1)
-  - FirebaseAnalytics (5.3.0):
+    - FirebaseMessaging (= 3.2.2)
+  - FirebaseAnalytics (5.4.0):
     - FirebaseCore (~> 5.1)
     - FirebaseInstanceID (~> 3.3)
-    - GoogleAppMeasurement (~> 5.3)
+    - GoogleAppMeasurement (= 5.4.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
     - GoogleUtilities/MethodSwizzler (~> 5.2)
     - GoogleUtilities/Network (~> 5.2)
-    - "GoogleUtilities/NSData+zlib (~> 5.2)"
+    - GoogleUtilities/NSData+zlib (~> 5.2)
     - nanopb (~> 0.3)
   - FirebaseAnalyticsInterop (1.1.0)
-  - FirebaseCore (5.1.6):
+  - FirebaseCore (5.1.10):
     - GoogleUtilities/Logger (~> 5.2)
   - FirebaseInstanceID (3.3.0):
     - FirebaseCore (~> 5.1)
     - GoogleUtilities/Environment (~> 5.3)
     - GoogleUtilities/UserDefaults (~> 5.3)
-  - FirebaseMessaging (3.2.1):
+  - FirebaseMessaging (3.2.2):
     - FirebaseAnalyticsInterop (~> 1.1)
     - FirebaseCore (~> 5.1)
     - FirebaseInstanceID (~> 3.0)
@@ -70,34 +70,34 @@ PODS:
     - GoogleMaps
   - Google-Maps-iOS-Utils/QuadTree (2.1.0):
     - GoogleMaps
-  - GoogleAppMeasurement (5.3.0):
+  - GoogleAppMeasurement (5.4.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
     - GoogleUtilities/MethodSwizzler (~> 5.2)
     - GoogleUtilities/Network (~> 5.2)
-    - "GoogleUtilities/NSData+zlib (~> 5.2)"
+    - GoogleUtilities/NSData+zlib (~> 5.2)
     - nanopb (~> 0.3)
   - GoogleMaps (2.5.0):
     - GoogleMaps/Maps (= 2.5.0)
   - GoogleMaps/Base (2.5.0)
   - GoogleMaps/Maps (2.5.0):
     - GoogleMaps/Base
-  - GoogleUtilities/AppDelegateSwizzler (5.3.4):
+  - GoogleUtilities/AppDelegateSwizzler (5.3.7):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
     - GoogleUtilities/Network
-  - GoogleUtilities/Environment (5.3.4)
-  - GoogleUtilities/Logger (5.3.4):
+  - GoogleUtilities/Environment (5.3.7)
+  - GoogleUtilities/Logger (5.3.7):
     - GoogleUtilities/Environment
-  - GoogleUtilities/MethodSwizzler (5.3.4):
+  - GoogleUtilities/MethodSwizzler (5.3.7):
     - GoogleUtilities/Logger
-  - GoogleUtilities/Network (5.3.4):
+  - GoogleUtilities/Network (5.3.7):
     - GoogleUtilities/Logger
-    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/NSData+zlib
     - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (5.3.4)"
-  - GoogleUtilities/Reachability (5.3.4):
+  - GoogleUtilities/NSData+zlib (5.3.7)
+  - GoogleUtilities/Reachability (5.3.7):
     - GoogleUtilities/Logger
-  - GoogleUtilities/UserDefaults (5.3.4):
+  - GoogleUtilities/UserDefaults (5.3.7):
     - GoogleUtilities/Logger
   - nanopb (0.3.901):
     - nanopb/decode (= 0.3.901)
@@ -105,8 +105,8 @@ PODS:
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
   - Protobuf (3.6.1)
-  - React (0.57.5):
-    - React/Core (= 0.57.5)
+  - React (0.57.8):
+    - React/Core (= 0.57.8)
   - react-native-google-maps (0.22.1):
     - Google-Maps-iOS-Utils (= 2.1.0)
     - GoogleMaps (= 2.5.0)
@@ -115,54 +115,54 @@ PODS:
     - React
   - react-native-webview (2.5.0):
     - React
-  - React/Core (0.57.5):
-    - yoga (= 0.57.5.React)
-  - React/CxxBridge (0.57.5):
+  - React/Core (0.57.8):
+    - yoga (= 0.57.8.React)
+  - React/CxxBridge (0.57.8):
     - Folly (= 2016.10.31.00)
     - React/Core
     - React/cxxreact
-  - React/cxxreact (0.57.5):
+  - React/cxxreact (0.57.8):
     - boost-for-react-native (= 1.63.0)
     - Folly (= 2016.10.31.00)
     - React/jschelpers
     - React/jsinspector
-  - React/DevSupport (0.57.5):
+  - React/DevSupport (0.57.8):
     - React/Core
     - React/RCTWebSocket
-  - React/fishhook (0.57.5)
-  - React/jschelpers (0.57.5):
+  - React/fishhook (0.57.8)
+  - React/jschelpers (0.57.8):
     - Folly (= 2016.10.31.00)
     - React/PrivateDatabase
-  - React/jsinspector (0.57.5)
-  - React/PrivateDatabase (0.57.5)
-  - React/RCTActionSheet (0.57.5):
+  - React/jsinspector (0.57.8)
+  - React/PrivateDatabase (0.57.8)
+  - React/RCTActionSheet (0.57.8):
     - React/Core
-  - React/RCTAnimation (0.57.5):
+  - React/RCTAnimation (0.57.8):
     - React/Core
-  - React/RCTBlob (0.57.5):
+  - React/RCTBlob (0.57.8):
     - React/Core
-  - React/RCTGeolocation (0.57.5):
+  - React/RCTGeolocation (0.57.8):
     - React/Core
-  - React/RCTImage (0.57.5):
+  - React/RCTImage (0.57.8):
     - React/Core
     - React/RCTNetwork
-  - React/RCTLinkingIOS (0.57.5):
+  - React/RCTLinkingIOS (0.57.8):
     - React/Core
-  - React/RCTNetwork (0.57.5):
+  - React/RCTNetwork (0.57.8):
     - React/Core
-  - React/RCTSettings (0.57.5):
+  - React/RCTSettings (0.57.8):
     - React/Core
-  - React/RCTText (0.57.5):
+  - React/RCTText (0.57.8):
     - React/Core
-  - React/RCTVibration (0.57.5):
+  - React/RCTVibration (0.57.8):
     - React/Core
-  - React/RCTWebSocket (0.57.5):
+  - React/RCTWebSocket (0.57.8):
     - React/Core
     - React/fishhook
     - React/RCTBlob
   - RNFS (2.12.1):
     - React
-  - yoga (0.57.5.React)
+  - yoga (0.57.8.React)
 
 DEPENDENCIES:
   - BVLinearGradient (from `../node_modules/react-native-linear-gradient`)
@@ -171,8 +171,8 @@ DEPENDENCIES:
   - Fabric (~> 1.7.11)
   - FBSDKLoginKit
   - FBSDKShareKit
-  - Firebase/Core (~> 5.11.0)
-  - Firebase/Messaging (~> 5.11.0)
+  - Firebase/Core (~> 5.15.0)
+  - Firebase/Messaging (~> 5.15.0)
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - Google-Maps-iOS-Utils
@@ -196,49 +196,27 @@ DEPENDENCIES:
   - RNFS (from `../node_modules/react-native-fs`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga/yoga.podspec`)
 
-SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
-    - Bolts
-    - boost-for-react-native
-    - Crashlytics
-    - Fabric
-    - FBSDKCoreKit
-    - FBSDKLoginKit
-    - FBSDKShareKit
-    - Firebase
-    - FirebaseAnalytics
-    - FirebaseAnalyticsInterop
-    - FirebaseCore
-    - FirebaseInstanceID
-    - FirebaseMessaging
-    - Google-Maps-iOS-Utils
-    - GoogleAppMeasurement
-    - GoogleMaps
-    - GoogleUtilities
-    - nanopb
-    - Protobuf
-
 EXTERNAL SOURCES:
   BVLinearGradient:
-    :path: "../node_modules/react-native-linear-gradient"
+    :path: ../node_modules/react-native-linear-gradient
   DoubleConversion:
-    :podspec: "../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec"
+    :podspec: ../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec
   Folly:
-    :podspec: "../node_modules/react-native/third-party-podspecs/Folly.podspec"
+    :podspec: ../node_modules/react-native/third-party-podspecs/Folly.podspec
   glog:
-    :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
+    :podspec: ../node_modules/react-native/third-party-podspecs/glog.podspec
   React:
-    :path: "../node_modules/react-native"
+    :path: ../node_modules/react-native
   react-native-google-maps:
-    :path: "../node_modules/react-native-maps"
+    :path: ../node_modules/react-native-maps
   react-native-maps:
-    :path: "../node_modules/react-native-maps"
+    :path: ../node_modules/react-native-maps
   react-native-webview:
-    :path: "../node_modules/react-native-webview"
+    :path: ../node_modules/react-native-webview
   RNFS:
-    :path: "../node_modules/react-native-fs"
+    :path: ../node_modules/react-native-fs
   yoga:
-    :path: "../node_modules/react-native/ReactCommon/yoga/yoga.podspec"
+    :path: ../node_modules/react-native/ReactCommon/yoga/yoga.podspec
 
 SPEC CHECKSUMS:
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
@@ -247,21 +225,21 @@ SPEC CHECKSUMS:
   Crashlytics: 55e24fc23989680285a21cb1146578d9d18e432c
   DoubleConversion: bb338842f62ab1d708ceb63ec3d999f0f3d98ecd
   Fabric: 25d0963b691fc97be566392243ff0ecef5a68338
-  FBSDKCoreKit: 8d47857400e2f5bdea697a80daff882e91c84ef6
-  FBSDKLoginKit: 4621c690d9dd8628031a4791497062183ea34b0d
-  FBSDKShareKit: 6ffe22f0a0618eb7424d4104ab0ef3ce9643d42a
-  Firebase: b48f9e653da971ecce5b8c749684bc8bb2d26bd3
-  FirebaseAnalytics: 63202d2665de4e6adcbdce189135255d8b5962ba
+  FBSDKCoreKit: f442aa96179cc9b382bb4abeb7e340a47cca8f91
+  FBSDKLoginKit: c3079d9a4db27c492287b1eed7a4272b28cf8a59
+  FBSDKShareKit: 27d7b982e7b1f4638da2f2b1ab6eba5afc6b5888
+  Firebase: 8bb9268bff82374f2cbaaabb143e725743c316ae
+  FirebaseAnalytics: c06f9d70577d79074214700a71fd5d39de5550fb
   FirebaseAnalyticsInterop: e5f21be9af6548372e2f0815834ff909bff395a2
-  FirebaseCore: d16552f06821489ce1affe2e5e3e5593402ddfe3
+  FirebaseCore: 35747502d9e8c6ee217385ad04446c7c2aaf9c5c
   FirebaseInstanceID: e2fa4cb35ef5558c200f7f0ad8a53e212215f93e
-  FirebaseMessaging: 0f14a264b0d7f867e8eff5d3556bc5d0d4e57888
+  FirebaseMessaging: b412996f6a09337d232bb3a6676ce4d1f353d024
   Folly: c89ac2d5c6ab169cd7397ef27485c44f35f742c7
   glog: e8acf0ebbf99759d3ff18c86c292a5898282dcde
   Google-Maps-iOS-Utils: c32891ff472eaaa1fca032beedafa1a013af7875
-  GoogleAppMeasurement: 5029d78f2b438bd30ffb44e6c558b57c21622727
+  GoogleAppMeasurement: 98b71f5e04142793729a5ef23e5b96651ff4b70f
   GoogleMaps: c087b8e5dfe87ca6ebf59adb9b4894a4146bec4f
-  GoogleUtilities: abb092d2c12e817fa3e0e7b274987dd72fb86ec3
+  GoogleUtilities: 111a012f4c3a29c9e7c954c082fafd6ee3c999c0
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
   React: 1fe0eb13d90b625d94c3b117c274dcfd2e760e11
@@ -271,6 +249,6 @@ SPEC CHECKSUMS:
   RNFS: bbb1a64eb245763daf34aea86f97c97c4e85f74c
   yoga: b1ce48b6cf950b98deae82838f5173ea7cf89e85
 
-PODFILE CHECKSUM: 1fd6e75fda631cbdff78f4a2e2f3fa04114692cd
+PODFILE CHECKSUM: de127d5bb1d665d6efcf393183816a45ddc47b37
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.4.0

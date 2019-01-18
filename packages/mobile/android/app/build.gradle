@@ -184,8 +184,8 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-webview')
     compile 'com.android.support:multidex:1.0.3'
+    compile project(':react-native-webview')
     compile project(':react-native-fs')
     compile project(':react-native-iap')
     compile project(':react-native-linear-gradient')
@@ -200,7 +200,7 @@ dependencies {
     }
     implementation "com.google.android.gms:play-services-base:16.0.1"
     implementation "com.google.firebase:firebase-messaging:17.3.4"
-    implementation "com.google.firebase:firebase-core:16.0.4"
+    implementation "com.google.firebase:firebase-core:16.0.6"
     implementation 'com.google.android.gms:play-services-maps:16.0.0'
     compile project(':react-native-device-info')
     compile project(':react-native-fast-image')
@@ -212,11 +212,13 @@ dependencies {
     compile project(':react-native-config')
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
+    // TODO: TEMPORARY fix
     // using version higher than this makes app fail on android 4.4
     compile 'com.facebook.android:facebook-android-sdk:4.35.0'
     compile "com.facebook.react:react-native:+"  // From node_modules
 }
 
+// TODO: TEMPORARY fix
 configurations.all {
 //    exclude group: 'com.facebook.android', module: 'facebook-share'
 //    exclude group: 'com.facebook.android', module: 'facebook-places'

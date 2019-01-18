@@ -25,8 +25,8 @@ target 'whitewater' do
       'RCTWebSocket',
   ]
 
-  pod 'Firebase/Core', '~> 5.11.0'
-  pod 'Firebase/Messaging', '~> 5.11.0'
+  pod 'Firebase/Core', '~> 5.15.0'
+  pod 'Firebase/Messaging', '~> 5.15.0'
 
   pod 'FBSDKLoginKit'
   pod 'FBSDKShareKit'
