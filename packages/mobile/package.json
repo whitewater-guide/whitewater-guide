@@ -1,6 +1,6 @@
 {
   "name": "whitewater",
-  "version": "1.6.3-62",
+  "version": "1.6.3-63",
   "private": true,
   "scripts": {
     "postinstall": "./postinstall.sh",
@@ -19,7 +19,6 @@
     "android:code_push:staging": "fastlane android code_push --env staging",
     "android:code_push:production": "fastlane android code_push --env production",
     "android:staging": "fastlane android staging --env staging",
-    "android:beta": "fastlane android beta --env production",
     "android:production": "fastlane android production --env production",
     "android:uninstall": "adb uninstall guide.whitewater",
     "ios:clean": "rm -rf ios/build/ModuleCache/*",

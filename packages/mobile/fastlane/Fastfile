@@ -176,17 +176,6 @@ platform :android do
     code_push
   end
 
-  lane :beta do |options|
-    ENV['ENVFILE'] = '.env.beta' # for some reason react-native-config isn't picked from gradle
-    build
-    upload_to_play_store(
-      package_name: ENV['ANDROID_PACKAGE_NAME'],
-      track: 'beta',
-      apk: "#{lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]}"
-    )
-    code_push
-  end
-
   lane :production do |options|
     ENV['ENVFILE'] = '.env.production' # for some reason react-native-config isn't picked from gradle
     build
