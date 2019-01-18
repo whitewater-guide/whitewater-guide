@@ -65,11 +65,6 @@ fastlane android code_push
 fastlane android staging
 ```
 
-### android beta
-```
-fastlane android beta
-```
-
 ### android production
 ```
 fastlane android production
