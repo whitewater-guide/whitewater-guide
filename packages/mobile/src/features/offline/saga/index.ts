@@ -1,6 +1,6 @@
 import { analytics } from 'react-native-firebase';
-import { buffers, Channel, channel, Effect } from 'redux-saga';
-import { all, call, put, select, take } from 'redux-saga/effects';
+import { buffers, Channel, channel } from 'redux-saga';
+import { all, call, CallEffect, put, select, take } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
 import { RootState } from '../../../core/reducers';
 import { NamedNode } from '../../../ww-commons/core';
@@ -40,7 +40,7 @@ export function* downloadOfflineContent() {
   yield call(downloadRegionData, region.id);
 
   // will also contain maps in future
-  const callEffects: Effect[] = [];
+  const callEffects: CallEffect[] = [];
   // batch-download sections
   let mediaChannel: Channel<string[]> | undefined;
   if (payload.media) { // watch event from sections

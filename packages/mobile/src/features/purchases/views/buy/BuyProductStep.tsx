@@ -44,7 +44,9 @@ interface Props {
 class BuyProductStep extends React.PureComponent<Props & WithI18n> {
   copyError = () => {
     const { error, t } = this.props;
-    Clipboard.setString(t.apply(null, error));
+    if (error) {
+      Clipboard.setString(t.apply(null, error));
+    }
   };
 
   render() {

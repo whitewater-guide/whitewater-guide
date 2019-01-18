@@ -1,5 +1,5 @@
 import React from 'react';
-import { translate, withI18n, WithI18n } from 'react-i18next';
+import { withI18n, WithI18n } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Divider, Drawer } from 'react-native-paper';
 import { NavigationActions, NavigationInjectedProps } from 'react-navigation';

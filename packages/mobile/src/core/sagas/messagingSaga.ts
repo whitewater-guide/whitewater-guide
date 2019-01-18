@@ -16,10 +16,10 @@ function* watchSplashRemoved() {
   yield take(splashRemoved.type);
   const messagingOld = yield select((state: RootState) => state.settings.messaging);
   if (messagingOld === MessagingPermission.UNKNOWN) {
-    let enabled = yield apply(Firebase.messaging(), Firebase.messaging().hasPermission);
+    let enabled = yield apply(Firebase.messaging(), Firebase.messaging().hasPermission, []);
     if (!enabled) {
       try {
-        yield apply(Firebase.messaging(), Firebase.messaging().requestPermission);
+        yield apply(Firebase.messaging(), Firebase.messaging().requestPermission, []);
         enabled = true;
       } catch (e) {
         enabled = false;

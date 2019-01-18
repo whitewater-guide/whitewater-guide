@@ -16,10 +16,15 @@ export function *refreshPremium() {
   }
   const variables: Vars = { regionId: dialogData.region.id, sectionId: dialogData.sectionId };
   try {
-    const { data, errors } = yield apply<Promise<ApolloQueryResult<Result>>, QueryOptions<Vars>>(
+    const queryOpts: QueryOptions<Vars> = {
+      query: PREMIUM_DIALOG_QUERY,
+      variables,
+      fetchPolicy: 'network-only',
+    };
+    const { data, errors }: ApolloQueryResult<Result> = yield apply(
       client,
       client.query,
-      [{ query: PREMIUM_DIALOG_QUERY, variables, fetchPolicy: 'network-only' }],
+      [queryOpts],
     );
     yield put(refreshRegionsList());
     if (errors && errors.length) {

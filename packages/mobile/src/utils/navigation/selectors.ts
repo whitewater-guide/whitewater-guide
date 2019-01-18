@@ -1,4 +1,4 @@
-import { NavigationRoute, NavigationState, NavigationStateRoute } from 'react-navigation';
+import { NavigationParams, NavigationRoute, NavigationState, NavigationStateRoute } from 'react-navigation';
 import { shallowEqual } from 'recompose';
 
 const hasLeafs = (route: NavigationRoute): route is NavigationStateRoute<any> => route.hasOwnProperty('index');
@@ -17,7 +17,7 @@ function isStateRoute(route: NavigationRoute<any>): route is NavigationStateRout
   return (<NavigationStateRoute<any>> route).routes !== undefined;
 }
 
-export const getCurrentRoute = (navigationState: NavigationState): NavigationRoute | null => {
+export const getCurrentRoute = (navigationState: NavigationState | NavigationRoute<any>): NavigationRoute | null => {
   if (!navigationState) {
     return null;
   }
@@ -36,7 +36,7 @@ const getCurrentRouteName = (navigationState: NavigationState): string | null =>
 
 export const dotRouteSelector = (state: NavigationState) => getNavigationDotPath(state as any);
 export const currentRouteNameSelector = (state: NavigationState) => getCurrentRouteName(state);
-export const isRouteFocused = (state: NavigationState, routeName: string, params?: any) => {
+export const isRouteFocused = (state: NavigationState | NavigationRoute<any>, routeName: string, params?: any) => {
   const route = getCurrentRoute(state);
   if (!route) {
     return false;

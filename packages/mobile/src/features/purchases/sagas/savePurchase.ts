@@ -16,10 +16,11 @@ export default function *savePurchase(purchase: ProductPurchase) {
     // console.dir(purchase);
     // console.dir(purchaseToGraphqlInput(purchase));
     // false for duplicate purchases, unless purchase is for different user. In this case throws
-    const { errors } = yield apply<Promise<FetchResult<any>>, MutationOptions<Vars>>(client, client.mutate, [{
+    const mutationOpts: MutationOptions<Vars> = {
       mutation: ADD_PURCHASE_MUTATION,
       variables: { info: purchaseToGraphqlInput(purchase) },
-    }]);
+    };
+    const { errors }: FetchResult<any> = yield apply(client, client.mutate, [mutationOpts]);
     if (errors && errors.length) {
       trackError('iap', errors[0]);
       return SavePurchaseResult.ERROR;

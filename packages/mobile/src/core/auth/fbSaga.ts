@@ -14,7 +14,7 @@ export default function* fbSaga() {
   LoginManager.setLoginBehavior(Platform.OS === 'ios' ? 'native' : 'native_with_fallback');
   // On startup: refresh token, attempt to relogin with new token
   try {
-    const refreshResult = yield apply(AccessToken, AccessToken.refreshCurrentAccessTokenAsync);
+    const refreshResult = yield apply(AccessToken, AccessToken.refreshCurrentAccessTokenAsync, []);
     yield call(authWithFbToken, false);
   } catch (err) {
     /* This will throw error when user open app for the first time, so ignore */
@@ -41,7 +41,7 @@ function* watchLogoutWithFb() {
 
 function* authWithFbToken(reset?: boolean): any {
   try {
-    const token: AccessToken | null = yield apply(AccessToken, AccessToken.getCurrentAccessToken);
+    const token: AccessToken | null = yield apply(AccessToken, AccessToken.getCurrentAccessToken, []);
     if (token && token.accessToken) {
       const result = yield call(
         axios.get,
@@ -73,8 +73,8 @@ function* authWithFbToken(reset?: boolean): any {
 // See https://github.com/apollographql/apollo-cache-persist/issues/34#issuecomment-371177206 for explanation
 export function *resetApolloCache() {
   apolloCachePersistor.pause();
-  yield apply(apolloCachePersistor, apolloCachePersistor.purge);
+  yield apply(apolloCachePersistor, apolloCachePersistor.purge, []);
   const client = yield getApolloClient();
-  yield apply(client, client.resetStore);
+  yield apply(client, client.resetStore, []);
   apolloCachePersistor.resume();
 }
