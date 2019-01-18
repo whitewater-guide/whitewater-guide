@@ -1,5 +1,4 @@
 import React from 'react';
-import { View } from 'react-native';
 import { Circle, Marker } from 'react-native-maps';
 import { Polygon, Svg } from 'react-native-svg';
 import { SectionComponentProps } from '../../ww-clients/features/maps';
@@ -44,12 +43,15 @@ export class SimpleSection extends React.PureComponent<SectionComponentProps> {
     }
     const rotate = 180 * Math.atan2(putInLat - takeOutLat, takeOutLng - putInLng) / Math.PI;
     const scale = Math.min(1, (zoom - 3) / 8);
+    // TODO: tracksViewChanges makes markers stick to specific zoom, but is necessary for performance on Android
     return (
       <Marker
         anchor={Anchor}
         flat={false}
         onPress={this.selectSection}
         coordinate={{ longitude: takeOutLng, latitude: takeOutLat }}
+        tracksInfoWindowChanges={false}
+        tracksViewChanges={false}
       >
         <Svg width={24} height={24}>
           <Polygon
