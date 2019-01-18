@@ -6,7 +6,7 @@ PODS:
     - Bolts/Tasks
   - Bolts/Tasks (1.9.0)
   - boost-for-react-native (1.63.0)
-  - BVLinearGradient (2.4.3):
+  - BVLinearGradient (2.5.3):
     - React
   - Crashlytics (3.10.9):
     - Fabric (~> 1.7.13)
@@ -113,7 +113,7 @@ PODS:
     - React
   - react-native-maps (0.22.1):
     - React
-  - react-native-webview (2.5.0):
+  - react-native-webview (3.1.2):
     - React
   - React/Core (0.57.8):
     - yoga (= 0.57.8.React)
@@ -160,7 +160,7 @@ PODS:
     - React/Core
     - React/fishhook
     - React/RCTBlob
-  - RNFS (2.12.1):
+  - RNFS (2.13.3):
     - React
   - yoga (0.57.8.React)
 
@@ -221,7 +221,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
-  BVLinearGradient: 6d8909e3fc6b089defa4b89d967441fa6827a2ee
+  BVLinearGradient: b0b70acf63ee888829b7c2ebbf6b50e227396e55
   Crashlytics: 55e24fc23989680285a21cb1146578d9d18e432c
   DoubleConversion: bb338842f62ab1d708ceb63ec3d999f0f3d98ecd
   Fabric: 25d0963b691fc97be566392243ff0ecef5a68338
