@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Provider as PaperProvider } from 'react-native-paper';
 import {
-  createNavigationContainer,
+  createAppContainer,
   createStackNavigator,
   NavigationNavigatorProps,
   NavigationRoute,
@@ -49,7 +49,7 @@ const routes = {
 
 const config: StackNavigatorConfig = {
   initialRouteName: 'RegionsList',
-  navigationOptions: () => ({
+  defaultNavigationOptions: () => ({
     header: renderHeader,
     headerStyle: { backgroundColor: '#FFFFFF' },
     gesturesEnabled: false,
@@ -95,7 +95,7 @@ class RootNavigatorView extends React.PureComponent<Props> {
   }
 }
 
-const RootNavigator = createNavigationContainer(RootNavigatorView);
+const RootNavigator = createAppContainer(RootNavigatorView);
 RootNavigator.displayName = 'RootNavigator';
 
 export default RootNavigator;

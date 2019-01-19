@@ -8,9 +8,8 @@ import {
   TabNavigatorConfig,
 } from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
-import { RetryPlaceholder, WithNetworkError } from '../../components';
+import { WithNetworkError } from '../../components';
 import theme from '../../theme';
-import isApolloOfflineError from '../../utils/isApolloOfflineError';
 import { PureScreen } from '../../utils/navigation';
 import { SectionChartScreen } from './chart';
 import container from './container';
@@ -49,11 +48,12 @@ const config: TabNavigatorConfig = {
     allowFontScaling: true,
   },
   // Not yet in typedefs
+  // @ts-ignore
   barStyle: {
     backgroundColor: theme.colors.primary,
   },
   shifting: true,
-} as any;
+};
 
 const Navigator = createMaterialBottomTabNavigator(routes, config);
 

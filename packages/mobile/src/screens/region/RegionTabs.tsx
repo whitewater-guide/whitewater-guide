@@ -34,11 +34,12 @@ const config: TabNavigatorConfig = {
     allowFontScaling: true,
   },
   // Not yet in typedefs
+  // @ts-ignore
   barStyle: {
     backgroundColor: theme.colors.primary,
   },
   shifting: true,
-} as any;
+};
 
 export const Navigator = createMaterialBottomTabNavigator(routes, config);
 

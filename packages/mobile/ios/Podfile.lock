@@ -162,6 +162,10 @@ PODS:
     - React/RCTBlob
   - RNFS (2.13.3):
     - React
+  - RNGestureHandler (1.0.12):
+    - React
+  - RNScreens (1.0.0-alpha.22):
+    - React
   - yoga (0.57.8.React)
 
 DEPENDENCIES:
@@ -194,6 +198,8 @@ DEPENDENCIES:
   - React/RCTVibration (from `../node_modules/react-native`)
   - React/RCTWebSocket (from `../node_modules/react-native`)
   - RNFS (from `../node_modules/react-native-fs`)
+  - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - RNScreens (from `../node_modules/react-native-screens`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga/yoga.podspec`)
 
 EXTERNAL SOURCES:
@@ -215,6 +221,10 @@ EXTERNAL SOURCES:
     :path: ../node_modules/react-native-webview
   RNFS:
     :path: ../node_modules/react-native-fs
+  RNGestureHandler:
+    :path: ../node_modules/react-native-gesture-handler
+  RNScreens:
+    :path: ../node_modules/react-native-screens
   yoga:
     :path: ../node_modules/react-native/ReactCommon/yoga/yoga.podspec
 
@@ -247,8 +257,10 @@ SPEC CHECKSUMS:
   react-native-maps: 066c2afcc89e18726377bcc685315f989ca22449
   react-native-webview: a42108b827082f8f0333529b0772102031d5960d
   RNFS: bbb1a64eb245763daf34aea86f97c97c4e85f74c
+  RNGestureHandler: 282af6ea58ed8483612365159c58a3ca5f55e7da
+  RNScreens: 354046589421edc3d83d5c6212475bf1fb9a731d
   yoga: b1ce48b6cf950b98deae82838f5173ea7cf89e85
 
-PODFILE CHECKSUM: de127d5bb1d665d6efcf393183816a45ddc47b37
+PODFILE CHECKSUM: 641180017104efb34b20673b9c6c3950d4e10c12
 
 COCOAPODS: 1.4.0

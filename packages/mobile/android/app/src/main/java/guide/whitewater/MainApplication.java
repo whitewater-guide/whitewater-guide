@@ -5,6 +5,8 @@ import android.support.multidex.MultiDexApplication;
 
 import com.airbnb.android.react.maps.MapsPackage;
 import com.facebook.react.ReactApplication;
+import com.swmansion.rnscreens.RNScreensPackage;
+import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
 import com.rnfs.RNFSPackage;
 import com.dooboolab.RNIap.RNIapPackage;
@@ -58,6 +60,8 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNScreensPackage(),
+            new RNGestureHandlerPackage(),
             new RNCWebViewPackage(),
             new RNFSPackage(),
             new RNIapPackage(),
