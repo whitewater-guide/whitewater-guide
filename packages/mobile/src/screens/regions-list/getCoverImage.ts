@@ -1,4 +1,4 @@
-import { PixelRatio } from 'react-native';
+import { PixelRatio, Platform } from 'react-native';
 import Config from 'react-native-config';
 import theme from '../../theme';
 
@@ -10,7 +10,7 @@ const widthRounded = [2048, 1600, 1366, 1024, 768, 640].reduce(
 
 export default function getCoverImage(cover: string | null) {
   if (!cover) {
-    return 'fallback';
+    return Platform.OS === 'ios' ? 'fallback' : null;
   }
   return `${Config.BACKEND_PROTOCOL}://${Config.BACKEND_HOST}/images/${widthRounded}x/covers/${cover}`;
 }

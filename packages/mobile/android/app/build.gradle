@@ -86,13 +86,13 @@ import com.android.build.OutputFile
  */
 
 project.ext.react = [
-    entryFile: "index.js",
-    // Staging build type:
-    // named "releaseStaging" and not just "staging" because of code-push requirements
-    bundleInReleaseStaging: true,
-    devDisabledInReleaseStaging: true,
-    jsBundleDirReleaseStaging: "$buildDir/intermediates/assets/releaseStaging",
-    resourcesDirReleaseStaging: "$buildDir/intermediates/res/merged/releaseStaging"
+        entryFile: "index.js",
+        // Staging build type:
+        // named "releaseStaging" and not just "staging" because of code-push requirements
+        bundleInReleaseStaging: true,
+        devDisabledInReleaseStaging: true,
+        jsBundleDirReleaseStaging: "$buildDir/intermediates/assets/releaseStaging",
+        resourcesDirReleaseStaging: "$buildDir/intermediates/res/merged/releaseStaging"
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"

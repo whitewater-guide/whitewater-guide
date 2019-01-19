@@ -29,7 +29,7 @@ interface Props {
   padded?: boolean;
 }
 
-export const UserHeader: React.StatelessComponent<Props> = ({ user, medium, padded = true }) => (
+export const UserHeader: React.FC<Props> = ({ user, medium, padded = true }) => (
   <View style={[styles.container, padded && styles.containerPadding]}>
     <Avatar avatar={user.avatar} name={user.name} style={styles.icon} medium={medium} />
     <Title style={medium && styles.fontMedium}>{user.name}</Title>
