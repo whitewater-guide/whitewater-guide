@@ -10598,9 +10598,9 @@ react-native-drawer-layout@^2.0.0:
   resolved "https://registry.yarnpkg.com/react-native-drawer-layout/-/react-native-drawer-layout-2.0.0.tgz#8ce1e4027bd3f3a09045afdb46080e18346be232"
   integrity sha512-zYmzv+4QKDwxmAj7pF1yr8VUb+Hp7oBlwMjRZsvv56vPwO89I+kPTI8G78uwSNIf5b4e/iOChE4vpB5J2XsJFA==
 
-"react-native-fast-image@https://github.com/doomsower/react-native-fast-image/releases/download/v5.0.3-preload.3/react-native-fast-image-5.0.3-preload.3.tgz":
-  version "5.0.3"
-  resolved "https://github.com/doomsower/react-native-fast-image/releases/download/v5.0.3-preload.3/react-native-fast-image-5.0.3-preload.3.tgz#548e44ae04ad87d94415a3b808fc8794e2c174f1"
+"react-native-fast-image@https://github.com/doomsower/react-native-fast-image/releases/download/5.1.2-preload/react-native-fast-image-5.1.2-preload.tgz":
+  version "0.0.0-development"
+  resolved "https://github.com/doomsower/react-native-fast-image/releases/download/5.1.2-preload/react-native-fast-image-5.1.2-preload.tgz#14b87c1afe21d81f73b1f189d5896059c9e2afe0"
 
 react-native-fbsdk@^0.8.0:
   version "0.8.0"
