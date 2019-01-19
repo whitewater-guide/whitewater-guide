@@ -1458,6 +1458,11 @@
   dependencies:
     redux "^4.0.0"
 
+"@types/shallowequal@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@types/shallowequal/-/shallowequal-1.1.0.tgz#60ca2ebbfcb4f99ba3d2a625b5fca6589eac87ac"
+  integrity sha512-TaWi1DCELnxeNfo4L2T0NbOkR+/uqdr9ERn2hn/k/5pzmc52xo9bin07y3NYfckwET3x1vjVHINXbawhGnG8cQ==
+
 "@types/shortid@^0.0.29":
   version "0.0.29"
   resolved "https://registry.yarnpkg.com/@types/shortid/-/shortid-0.0.29.tgz#8093ee0416a6e2bf2aa6338109114b3fbffa0e9b"

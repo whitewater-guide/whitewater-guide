@@ -2,7 +2,6 @@ export * from './choose';
 export * from './GeoUtils';
 export * from './video';
 export * from './isNative';
-export * from './shallowequals';
 export * from './sleep';
 export * from './spinnerWhileLoading';
 export * from './stringifySeason';

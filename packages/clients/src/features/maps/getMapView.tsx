@@ -1,21 +1,19 @@
 import { find } from 'lodash';
 import React from 'react';
+import shallowEqual from 'shallowequal';
 import { Point, Section } from '../../../ww-commons';
-import { shallowEqual } from '../../utils';
 import { MapLayoutProps, MapProps, SelectedPOIViewProps, SelectedSectionViewProps } from './types';
 
 const customizer = (val: any, other: any, key: string) => (key === 'initialBounds' ? true : undefined);
 
 export const getMapView = <
   M extends MapProps = MapProps,
-  SProps extends SelectedSectionViewProps = SelectedSectionViewProps,
-  PProps extends SelectedPOIViewProps = SelectedPOIViewProps,
   >
 (
   Layout: React.ComponentType<MapLayoutProps>,
   Body: React.ComponentType<M>,
-  SelectedSection: React.ComponentType<SProps>,
-  SelectedPOI: React.ComponentType<PProps>,
+  SelectedSection: React.ComponentType<SelectedSectionViewProps>,
+  SelectedPOI: React.ComponentType<SelectedPOIViewProps>,
 ): React.ComponentType<M> => {
   class MapViewBase extends React.Component<M> {
     shouldComponentUpdate(nextProps: M) {
