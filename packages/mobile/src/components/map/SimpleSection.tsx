@@ -1,4 +1,5 @@
 import React from 'react';
+import { Platform } from 'react-native';
 import { Circle, Marker } from 'react-native-maps';
 import { Polygon, Svg } from 'react-native-svg';
 import { SectionComponentProps } from '../../ww-clients/features/maps';
@@ -51,7 +52,7 @@ export class SimpleSection extends React.PureComponent<SectionComponentProps> {
         onPress={this.selectSection}
         coordinate={{ longitude: takeOutLng, latitude: takeOutLat }}
         tracksInfoWindowChanges={false}
-        tracksViewChanges={false}
+        tracksViewChanges={Platform.OS === 'ios'}
       >
         <Svg width={24} height={24}>
           <Polygon
