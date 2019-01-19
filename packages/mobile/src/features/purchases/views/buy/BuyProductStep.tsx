@@ -45,7 +45,8 @@ class BuyProductStep extends React.PureComponent<Props & WithI18n> {
   copyError = () => {
     const { error, t } = this.props;
     if (error) {
-      Clipboard.setString(t.apply(null, error));
+      const errorString: string = t.apply(null, error) as any;
+      Clipboard.setString(errorString);
     }
   };
 

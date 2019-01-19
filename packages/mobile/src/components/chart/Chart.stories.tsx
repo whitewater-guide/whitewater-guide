@@ -1,4 +1,3 @@
-// @ts-ignore
 import { storiesOf } from '@storybook/react-native';
 import times from 'lodash/times';
 import moment from 'moment';
@@ -64,7 +63,7 @@ const daily = generateData(1, 1);
 const weekly = generateData(7, 4);
 const monthly = generateData(31, 12);
 
-storiesOf('Chart')
+storiesOf('Chart', module)
   .addDecorator((story: any) => (
     <I18nProvider>
       {story()}

@@ -1,4 +1,3 @@
-// @ts-ignore
 import { storiesOf } from '@storybook/react-native';
 import noop from 'lodash/noop';
 import React from 'react';
@@ -15,7 +14,7 @@ const user = {
   name: 'Konstantin Kuznetsov',
 };
 
-storiesOf('Premium dialog: auth step')
+storiesOf('Premium dialog: auth step', module)
   .addDecorator((story: any) => (
       <Dialog onDismiss={noop} visible dismissable={false}>
         <DialogBody title="Get Georgia premium">

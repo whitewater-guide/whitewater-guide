@@ -1,4 +1,3 @@
-// @ts-ignore
 import { storiesOf } from '@storybook/react-native';
 import noop from 'lodash/noop';
 import React from 'react';
@@ -15,7 +14,7 @@ const region: PremiumRegion = {
   hasPremiumAccess: false,
 };
 
-storiesOf('Premium dialog: buy product step')
+storiesOf('Premium dialog: buy product step', module)
   .addDecorator((story: any) => (
     <Dialog onDismiss={noop} visible dismissable={false}>
       <DialogBody title="Get Georgia premium">

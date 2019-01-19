@@ -1,6 +1,6 @@
 {
   "name": "whitewater",
-  "version": "1.6.3-67",
+  "version": "1.6.3-68",
   "private": true,
   "scripts": {
     "postinstall": "./postinstall.sh",
@@ -113,8 +113,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
-    "@storybook/addon-actions": "4.0.6",
-    "@storybook/react-native": "4.0.6",
+    "@storybook/addon-actions": "^4.1.7",
+    "@storybook/react-native": "4.1.7",
     "@types/color": "^3.0.0",
     "@types/d3-scale": "^2.1.0",
     "@types/enzyme": "^3.1.15",

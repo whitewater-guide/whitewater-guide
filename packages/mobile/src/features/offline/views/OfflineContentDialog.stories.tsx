@@ -1,5 +1,4 @@
 import { action } from '@storybook/addon-actions';
-// @ts-ignore
 import { storiesOf } from '@storybook/react-native';
 import { ApolloError } from 'apollo-client';
 import noop from 'lodash/noop';
@@ -39,7 +38,7 @@ const summary: RegionMediaSummary = {
   },
 };
 
-storiesOf('Offline dialog')
+storiesOf('Offline dialog', module)
   .addDecorator((story: any) => (
     <Dialog onDismiss={noop} visible dismissable={false}>
       {story()}
