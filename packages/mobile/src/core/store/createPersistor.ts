@@ -16,7 +16,7 @@ export default async function createPersistor(store: Store<any>): Promise<Persis
     store,
     {},
     async () => {
-      const isConnected = await checkInternetConnection(3000, `${Config.BACKEND_PROTOCOL}://${Config.BACKEND_HOST}`);
+      const isConnected = await checkInternetConnection(`${Config.BACKEND_PROTOCOL}://${Config.BACKEND_HOST}`, 3000);
       store.dispatch({
         type: offlineActionTypes.CONNECTION_CHANGE,
         payload: isConnected,

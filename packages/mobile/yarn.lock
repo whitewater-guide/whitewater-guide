@@ -10725,14 +10725,14 @@ react-native-modal-popover@^0.0.12:
     lodash.debounce "^4.0.8"
     prop-types "^15.6.2"
 
-react-native-offline@^3.11.1:
-  version "3.15.2"
-  resolved "https://registry.yarnpkg.com/react-native-offline/-/react-native-offline-3.15.2.tgz#1e87834eee72beee3e925f072c7646aa14e03dc7"
-  integrity sha512-6HBZTvBKW8TsoT5h2l10tD6RH7YfTZvqMiPNoV6Mrjmcq7EapUjln4QNCSVw1OU8CdCRnBmwbQ64lBk7o3fZZw==
+react-native-offline@^4.1.2:
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/react-native-offline/-/react-native-offline-4.1.2.tgz#035ac3a93d204de4aadf46d601f2b0b27ba36781"
+  integrity sha512-QS64YDxFvGgrr6gP0e7qjkvNbA2q0DDnO/6esntOekjpWH22duFhMARTyzD9GWY4CLblbNTRAtSZrcMXt8GBOA==
   dependencies:
-    hoist-non-react-statics "^1.2.0"
-    lodash "^4.17.4"
-    redux-saga "^0.16.0"
+    lodash "^4.17.11"
+    react-redux "^6.0.0"
+    redux-saga "^0.16.2"
 
 react-native-paper@^2.5.0:
   version "2.5.0"
@@ -11277,7 +11277,7 @@ redux-saga-test-plan@4.0.0-beta.1:
     object-assign "^4.1.0"
     util-inspect "^0.1.8"
 
-redux-saga@^0.16.0, redux-saga@^1.0.0-rc.0:
+redux-saga@^0.16.2, redux-saga@^1.0.0-rc.0:
   version "1.0.0-rc.0"
   resolved "https://registry.yarnpkg.com/redux-saga/-/redux-saga-1.0.0-rc.0.tgz#ab798552e340602d4587714ffbac308e4ed5b96a"
   integrity sha512-vD+hU68Z4PWzqVHSJeUoDhk1KK+xkF7CE6WbDzmxyoAm30RpyUBZhuPAFBkMKJkt+OehKRoHZlF+BrherJl1Mg==

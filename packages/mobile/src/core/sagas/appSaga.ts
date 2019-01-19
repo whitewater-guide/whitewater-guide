@@ -1,4 +1,4 @@
-import { networkEventsListenerSaga } from 'react-native-offline';
+import { networkSaga } from 'react-native-offline';
 import { put, spawn, take } from 'redux-saga/effects';
 import { offlineContentSaga } from '../../features/offline';
 import { purchasesSaga } from '../../features/purchases';
@@ -11,7 +11,7 @@ export function *appSaga() {
   yield take(bootstrapped.type);
 
   yield spawn(
-    networkEventsListenerSaga,
+    networkSaga,
     // The idea of pinging our backend is good, but yields inconsistent results
     // So do not ping anything
     // {

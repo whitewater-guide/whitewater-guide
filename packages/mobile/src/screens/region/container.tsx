@@ -1,6 +1,5 @@
 import React from 'react';
 import { withApollo } from 'react-apollo';
-import { withNetworkConnectivity } from 'react-native-offline';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { RootState } from '../../core/reducers';
