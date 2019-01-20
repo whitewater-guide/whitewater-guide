@@ -1,0 +1,6 @@
+{
+  "hooks": {
+    "pre-commit": "build/scripts/pre-commit.js",
+    "post-commit": "build/scripts/post-commit.js"
+  }
+}
