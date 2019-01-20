@@ -89,6 +89,7 @@ platform :ios do
        "-a", "#{ENV['APPCENTER_OWNER_NAME']}/#{ENV['APPCENTER_APP_NAME_IOS']}",
        "-t", ENV['IOS_VERSION'],
        "-d", ENV['CODEPUSH_DEPLOYMENT'],
+       "--token", ENV['APPCENTER_API_TOKEN'],
      )
   end
 
@@ -162,6 +163,7 @@ platform :android do
        "-a", "#{ENV['APPCENTER_OWNER_NAME']}/#{ENV['APPCENTER_APP_NAME_ANDROID']}",
        "-t", ENV['ANDROID_VERSION_NAME'],
        "-d", ENV['CODEPUSH_DEPLOYMENT'],
+       "--token", ENV['APPCENTER_API_TOKEN'],
      )
   end
 
