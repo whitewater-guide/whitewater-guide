@@ -6,7 +6,7 @@ import Placeholder from './placeholder';
 // Priorities:
 // section description is empty string when there is no description (even for premium)
 // section description is null when premium is required
-const SectionGuideView: React.StatelessComponent<WithSection> = ({ section: { node } }) => (
+const SectionGuideView: React.FC<WithSection> = ({ section: { node } }) => (
   (node && node.description) ?
     <Markdown>{node.description}</Markdown> :
     <Placeholder section={node} premium={node && node.description === null} />
