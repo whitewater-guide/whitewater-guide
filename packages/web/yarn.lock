@@ -2163,10 +2163,10 @@
     "@webassemblyjs/wast-parser" "1.7.6"
     "@xtuc/long" "4.2.1"
 
-"@whitewater-guide/md-editor@0.1.5":
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/@whitewater-guide/md-editor/-/md-editor-0.1.5.tgz#6f67b1620528692afb98bb64811a0bc93eb34afc"
-  integrity sha512-Qhe6HESiZat57b7owUrGlA6No9/TkoeB/iCGSitO/l7JN7gnwd4dWOPavJqXz4y1FwUT0lZXc3wd5OPE5SyaVQ==
+"@whitewater-guide/md-editor@0.1.6":
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/@whitewater-guide/md-editor/-/md-editor-0.1.6.tgz#66809e7ad82813b29d7bbf02338d0c9a31f57ed2"
+  integrity sha512-iL0a0Mt3y9Hahv2yFUm7au2KfznPR008CCkp1Ci1DTxzem3R9qD+kWFY73Kk8OPMhCvx9dk4/smPq/HG4Qz5cQ==
   dependencies:
     classnames "^2.2.6"
     tslib "^1.9.3"
