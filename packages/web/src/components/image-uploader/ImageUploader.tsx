@@ -1,7 +1,7 @@
 import CircularProgress from 'material-ui/CircularProgress';
 import React from 'react';
 import { Styles } from '../../styles';
-import { getImageSize } from '../../utils';
+import { cleanupPreview, FileWithPreview, getImageSize, isFileWithPreview } from '../../utils';
 import { uploadFile } from '../../ww-clients/utils';
 import { Media, MediaKind, UploadLink } from '../../ww-commons';
 import { DeleteButton } from '../DeleteButton';
@@ -66,8 +66,8 @@ export interface ImageUploaderProps {
   previewScale: number;
   title?: string;
   hideFileName?: boolean;
-  value: string | File | null;
-  onChange: (value: string | File | null) => void;
+  value: string | FileWithPreview | null;
+  onChange: (value: string | FileWithPreview | null) => void;
   uploading?: boolean; // for storybook
   upload?: UploadLink; // optional for storybook
   rootStyle?: any;
@@ -124,19 +124,19 @@ export class ImageUploader extends React.PureComponent<ImageUploaderProps, State
   };
 
   async componentDidMount() {
-    if (this.props.value instanceof File) {
+    if (isFileWithPreview(this.props.value)) {
       const badSize = await this.checkFileSize(this.props.value);
       this.setState({ badSize });
     }
   }
 
   componentDidUpdate(prevProps: ImageUploaderProps) {
-    if (prevProps.value instanceof File && prevProps.value !== this.props.value) {
-      window.URL.revokeObjectURL((prevProps.value as any).preview);
+    if (isFileWithPreview(prevProps.value) && prevProps.value !== this.props.value) {
+      cleanupPreview(prevProps.value);
     }
   }
 
-  checkFileSize = async (file: File) => {
+  checkFileSize = async (file: FileWithPreview) => {
     const { width, height } = this.props;
     const dimensions = await getImageSize(file);
     const [minWidth, maxWidth] = typeof width === 'number' ? [width, width] : width;
@@ -149,13 +149,13 @@ export class ImageUploader extends React.PureComponent<ImageUploaderProps, State
     );
   };
 
-  onAdd = async (file: File) => {
+  onAdd = async (file: FileWithPreview) => {
     const badSize = await this.checkFileSize(file);
     this.setState({ badSize });
     this.props.onChange(file);
     if (!badSize && this.props.upload) {
       this.setState({ uploading: true });
-      const filename = await uploadFile(file, this.props.upload, file.name);
+      const filename = await uploadFile(file.file, this.props.upload, file.file.name);
       this.props.onChange(filename);
       this.setState({ uploading: false, useTempBucket: true });
     }
@@ -187,8 +187,8 @@ export class ImageUploader extends React.PureComponent<ImageUploaderProps, State
       );
     }
     if (value) {
-      const src: string = (value instanceof File) ?
-        (value as any).preview :
+      const src: string = (isFileWithPreview(value)) ?
+        value.preview :
         getSrc(value, useTempBucket ? 'temp' : bucket);
       return (
         <div style={imageStyle}>

@@ -5,6 +5,7 @@ import React from 'react';
 import { Col } from 'react-grid-system';
 import { ConfirmationDialog, Lightbox } from '../../../components';
 import { Row } from '../../../layout/details';
+import { FileWithPreview } from '../../../utils';
 import { Media, MediaKind } from '../../../ww-commons';
 import BlogsList from './BlogsList';
 import GridGallery from './GridGallery';
@@ -58,7 +59,7 @@ class MediaList extends React.PureComponent<MediaListProps, State> {
     this.setState({ currentModal: null });
   };
 
-  onAdd = (kind: MediaKind, file?: File) => {
+  onAdd = (kind: MediaKind, file?: FileWithPreview) => {
     const { match: { params: { regionId, sectionId } }, history } = this.props;
     history.push(`/regions/${regionId}/sections/${sectionId}/media/new?kind=${kind}`, { file });
   };

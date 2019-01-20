@@ -1,9 +1,11 @@
+import { FileWithPreview, isFileWithPreview } from './files';
+
 interface Dimensions {
   width: number;
   height: number;
 }
 
-const readContent = (file: File): Promise<string> => new Promise((resolve, reject) => {
+const readContent = (file: File | FileWithPreview): Promise<string> => new Promise((resolve, reject) => {
   const reader = new FileReader();
   reader.onload = () => {
     if (reader.result && typeof reader.result === 'string') {
@@ -13,7 +15,7 @@ const readContent = (file: File): Promise<string> => new Promise((resolve, rejec
     }
   };
   reader.onerror = reject;
-  reader.readAsDataURL(file);
+  reader.readAsDataURL(isFileWithPreview(file) ? file.file : file);
 });
 
 const processTempImage = (base64: string): Promise<Dimensions> => new Promise((resolve, reject) => {
@@ -23,7 +25,7 @@ const processTempImage = (base64: string): Promise<Dimensions> => new Promise((r
   temp.src = base64;
 });
 
-export const getImageSize = async (imageFile: File): Promise<Dimensions> => {
+export const getImageSize = async (imageFile: File | FileWithPreview): Promise<Dimensions> => {
   const base64: string = await readContent(imageFile);
   return processTempImage(base64);
 };

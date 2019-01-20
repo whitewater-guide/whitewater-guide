@@ -2,7 +2,7 @@ import { get } from 'lodash';
 import React from 'react';
 import { TextInput } from '../../../components/forms';
 import { Styles } from '../../../styles';
-import { getImageSize } from '../../../utils';
+import { FileWithPreview, getImageSize } from '../../../utils';
 import { uploadFile } from '../../../ww-clients/utils';
 import PhotoFormPreview from './PhotoFormPreview';
 import { MediaFormProps } from './types';
@@ -31,14 +31,14 @@ export default class PhotoForm extends React.PureComponent<MediaFormProps, State
       return;
     }
     const upload = data!.mediaForm!.upload;
-    const file = state.file;
+    const file: FileWithPreview = state.file;
     if (!file) {
       throw new Error('Photo form must have file!');
     }
     this.setState({ uploading: true });
     const { width, height } = await getImageSize(file);
     change('resolution', [width, height]);
-    const filename = await uploadFile(file, upload);
+    const filename = await uploadFile(file.file, upload);
     this.setState({ uploading: false });
     change('url', filename);
   }

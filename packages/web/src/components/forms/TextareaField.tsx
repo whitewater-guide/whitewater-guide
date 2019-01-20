@@ -31,7 +31,7 @@ const ThemedTextearea = muiThemeable()(TextareaComponent as any);
 
 type FieldProps = BaseFieldProps<{}>;
 
-export const TextareaField: React.StatelessComponent<FieldProps> = props => {
+export const TextareaField: React.FC<FieldProps> = props => {
   const CustomField = Field as new () => GenericField<{}>;
   return (
     <CustomField

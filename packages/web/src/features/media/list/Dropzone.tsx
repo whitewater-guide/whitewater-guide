@@ -2,6 +2,7 @@ import FontIcon from 'material-ui/FontIcon';
 import React from 'react';
 import Dz, { DropFilesEventHandler } from 'react-dropzone';
 import { Styles } from '../../../styles';
+import { FileWithPreview, withPreview } from '../../../utils';
 import { MediaKind } from '../../../ww-commons';
 import { THUMB_HEIGHT } from './constants';
 
@@ -27,7 +28,7 @@ const styles: Styles = {
 
 interface Props {
   kind: MediaKind;
-  onAdd?: (kind: MediaKind, file?: File) => void;
+  onAdd?: (kind: MediaKind, file?: FileWithPreview) => void;
 }
 
 class Dropzone extends React.PureComponent<Props> {
@@ -39,7 +40,7 @@ class Dropzone extends React.PureComponent<Props> {
 
   onDrop: DropFilesEventHandler = (acceptedFiles) => {
     if (this.props.onAdd) {
-      this.props.onAdd(this.props.kind, acceptedFiles[0]);
+      this.props.onAdd(this.props.kind, withPreview(acceptedFiles[0]));
     }
   };
 
@@ -47,9 +48,19 @@ class Dropzone extends React.PureComponent<Props> {
     const { kind } = this.props;
     if (kind === MediaKind.photo) {
       return (
-        <Dz style={styles.dz} onDrop={this.onDrop} multiple={false}>
-          <FontIcon className="material-icons" style={styles.icon} color="#333333">add</FontIcon>
-          <span>or drop image here</span>
+        <Dz onDrop={this.onDrop} multiple={false}>
+          {({ getRootProps, getInputProps, isDragActive }) => {
+            return (
+              <div
+                {...getRootProps()}
+                style={styles.dz}
+              >
+                <input {...getInputProps()} />
+                <FontIcon className="material-icons" style={styles.icon} color="#333333">add</FontIcon>
+                <span>or drop</span> image here
+              </div>
+            );
+          }}
         </Dz>
       );
     } else {

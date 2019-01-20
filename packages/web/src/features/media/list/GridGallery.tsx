@@ -1,5 +1,6 @@
 import React from 'react';
 import { Styles } from '../../../styles';
+import { FileWithPreview } from '../../../utils';
 import { Media, MediaKind } from '../../../ww-commons';
 import Dropzone from './Dropzone';
 import NoMedia from './NoMedia';
@@ -18,7 +19,7 @@ interface Props {
   kind: MediaKind;
   media: Media[];
   onThumbClick?: (media: Media, index: number) => void;
-  onAdd?: (kind: MediaKind, file?: File) => void;
+  onAdd?: (kind: MediaKind, file?: FileWithPreview) => void;
   onEdit?: (media: Media) => void;
   onRemove?: (media: Media) => void;
 }
