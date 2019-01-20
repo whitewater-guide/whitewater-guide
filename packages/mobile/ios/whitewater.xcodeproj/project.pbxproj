@@ -15,6 +15,7 @@
 		00E356F31AD99517003FC87E /* whitewaterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* whitewaterTests.m */; };
 		078D29B4F05E4061B0E4F7E0 /* libReactNativeConfig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FF15258D9E24D69B1DBAC2D /* libReactNativeConfig.a */; };
 		119FDFB6FB2243D8A1CFE0F7 /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D2CCB7B59D24558997607D7 /* libRNDeviceInfo.a */; };
+		1279A3FF389911CA491B6045 /* libPods-whitewater.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B1C909D6654056F9C101C466 /* libPods-whitewater.a */; };
 		133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
 		139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
 		139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139FDEF41B06529B00C62182 /* libRCTWebSocket.a */; };
@@ -41,7 +42,6 @@
 		3A4079E3C8434AB697959D86 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A269E46E8AEE44F098882919 /* libz.tbd */; };
 		3BDE0A5329614E6AB7A14A08 /* libRNFirebase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 848B5DFFF44946F3996FA636 /* libRNFirebase.a */; };
 		53B90FD2E7E54A1EAE00679A /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 963C0A01203448D9B731CF49 /* libRNSVG.a */; };
-		5516DE39C2080BF9993E07E3 /* libPods-whitewater.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C939A14F2B93ED75EEE2F457 /* libPods-whitewater.a */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		7509730020B45F7A00D87A5F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 750972CE20B45F7A00D87A5F /* GoogleService-Info.plist */; };
 		75117DC720EE81700071BCCA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75117DC620EE81700071BCCA /* StoreKit.framework */; };
@@ -452,7 +452,6 @@
 		00E356EE1AD99517003FC87E /* whitewaterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = whitewaterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* whitewaterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = whitewaterTests.m; sourceTree = "<group>"; };
-		0A9583F97814801C27266721 /* Pods-whitewater.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-whitewater.staging.xcconfig"; path = "Pods/Target Support Files/Pods-whitewater/Pods-whitewater.staging.xcconfig"; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* whitewater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = whitewater.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -478,7 +477,6 @@
 		6042CE62F68D43948E9020E2 /* libInteractable.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libInteractable.a; sourceTree = "<group>"; };
 		6A1078FFEB224FB9AF15CE0F /* libRCTFBSDK.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTFBSDK.a; sourceTree = "<group>"; };
 		6AB811DD1F534C48852FD464 /* libRNLanguages.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNLanguages.a; sourceTree = "<group>"; };
-		6B13DE12ABB8DD6272BAEC61 /* Pods-whitewater.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-whitewater.release.xcconfig"; path = "Pods/Target Support Files/Pods-whitewater/Pods-whitewater.release.xcconfig"; sourceTree = "<group>"; };
 		6FDAB0647A8548B88129CCB6 /* libRNSVG-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNSVG-tvOS.a"; sourceTree = "<group>"; };
 		750972CE20B45F7A00D87A5F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "whitewater/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		75117DC620EE81700071BCCA /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -498,13 +496,15 @@
 		9D2CCB7B59D24558997607D7 /* libRNDeviceInfo.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNDeviceInfo.a; sourceTree = "<group>"; };
 		A269E46E8AEE44F098882919 /* libz.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
+		B1C909D6654056F9C101C466 /* libPods-whitewater.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-whitewater.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BAC737EAAF45A904004CB6FE /* Pods-whitewater.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-whitewater.staging.xcconfig"; path = "Pods/Target Support Files/Pods-whitewater/Pods-whitewater.staging.xcconfig"; sourceTree = "<group>"; };
 		BFB9A716A81942B19F7FBD67 /* SplashScreen.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SplashScreen.xcodeproj; path = "../node_modules/react-native-splash-screen/ios/SplashScreen.xcodeproj"; sourceTree = "<group>"; };
 		C117375E4F66401FABFD906F /* CodePush.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = CodePush.xcodeproj; path = "../node_modules/react-native-code-push/ios/CodePush.xcodeproj"; sourceTree = "<group>"; };
-		C939A14F2B93ED75EEE2F457 /* libPods-whitewater.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-whitewater.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D23DD398A287D85D3BA2E242 /* Pods-whitewater.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-whitewater.debug.xcconfig"; path = "Pods/Target Support Files/Pods-whitewater/Pods-whitewater.debug.xcconfig"; sourceTree = "<group>"; };
 		D8BC75ABEB0A449DA37AD008 /* libRNLanguages-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNLanguages-tvOS.a"; sourceTree = "<group>"; };
-		DCDBF00FB17C2279C465B5B4 /* Pods-whitewater.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-whitewater.debug.xcconfig"; path = "Pods/Target Support Files/Pods-whitewater/Pods-whitewater.debug.xcconfig"; sourceTree = "<group>"; };
 		EA10AE71F3AE475D8B038420 /* RCTFBSDK.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTFBSDK.xcodeproj; path = "../node_modules/react-native-fbsdk/ios/RCTFBSDK.xcodeproj"; sourceTree = "<group>"; };
 		ED8A3BE9DB8E45AFB8F441B2 /* libSplashScreen.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libSplashScreen.a; sourceTree = "<group>"; };
+		EDD6E39B989FD590B6820C70 /* Pods-whitewater.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-whitewater.release.xcconfig"; path = "Pods/Target Support Files/Pods-whitewater/Pods-whitewater.release.xcconfig"; sourceTree = "<group>"; };
 		F27314FD534C4B62B25EC753 /* Interactable.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = Interactable.xcodeproj; path = "../node_modules/react-native-interactable/ios/Interactable.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -547,7 +547,7 @@
 				8F6FA9E10ECF4FB8B85974E6 /* libCodePush.a in Frameworks */,
 				3A4079E3C8434AB697959D86 /* libz.tbd in Frameworks */,
 				8B3820FD7D824E33BD410726 /* libRNIap.a in Frameworks */,
-				5516DE39C2080BF9993E07E3 /* libPods-whitewater.a in Frameworks */,
+				1279A3FF389911CA491B6045 /* libPods-whitewater.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -704,7 +704,7 @@
 				75117DC620EE81700071BCCA /* StoreKit.framework */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
 				A269E46E8AEE44F098882919 /* libz.tbd */,
-				C939A14F2B93ED75EEE2F457 /* libPods-whitewater.a */,
+				B1C909D6654056F9C101C466 /* libPods-whitewater.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -726,16 +726,6 @@
 				5E9157351DD0AC6500FF2AA8 /* libRCTAnimation.a */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		6C1CC10DC5279AA7783CE0D8 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				DCDBF00FB17C2279C465B5B4 /* Pods-whitewater.debug.xcconfig */,
-				6B13DE12ABB8DD6272BAEC61 /* Pods-whitewater.release.xcconfig */,
-				0A9583F97814801C27266721 /* Pods-whitewater.staging.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 		75120E5220B48E5100528A32 /* Products */ = {
@@ -909,7 +899,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				754142AE207D1878007918C4 /* Recovered References */,
 				4D1DDCEB53B94532A3649827 /* Resources */,
-				6C1CC10DC5279AA7783CE0D8 /* Pods */,
+				C1378D062BF0F5549E8A035C /* Pods */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -934,6 +924,16 @@
 				2D16E6721FA4F8DC00B85C8A /* libRCTBlob-tvOS.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		C1378D062BF0F5549E8A035C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D23DD398A287D85D3BA2E242 /* Pods-whitewater.debug.xcconfig */,
+				EDD6E39B989FD590B6820C70 /* Pods-whitewater.release.xcconfig */,
+				BAC737EAAF45A904004CB6FE /* Pods-whitewater.staging.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -961,14 +961,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "whitewater" */;
 			buildPhases = (
-				F8338549A039EFD27F93AD73 /* [CP] Check Pods Manifest.lock */,
+				4DFBDC2313419D4D83E1C175 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				75120E6E20B48ECC00528A32 /* ShellScript */,
-				421704D3C73BDDFB8D95489E /* [CP] Embed Pods Frameworks */,
-				66AD1E272DB63E4F2D866129 /* [CP] Copy Pods Resources */,
+				A41EFC6789E87306DB22135B /* [CP] Embed Pods Frameworks */,
+				80FAD932E619B889D9AE8190 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1604,22 +1604,38 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-		421704D3C73BDDFB8D95489E /* [CP] Embed Pods Frameworks */ = {
+		4DFBDC2313419D4D83E1C175 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-whitewater-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		75120E6E20B48ECC00528A32 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-whitewater/Pods-whitewater-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\"";
 		};
-		66AD1E272DB63E4F2D866129 /* [CP] Copy Pods Resources */ = {
+		80FAD932E619B889D9AE8190 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1639,35 +1655,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-whitewater/Pods-whitewater-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		75120E6E20B48ECC00528A32 /* ShellScript */ = {
+		A41EFC6789E87306DB22135B /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/run\"";
-		};
-		F8338549A039EFD27F93AD73 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-whitewater-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-whitewater/Pods-whitewater-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1813,7 +1813,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DCDBF00FB17C2279C465B5B4 /* Pods-whitewater.debug.xcconfig */;
+			baseConfigurationReference = D23DD398A287D85D3BA2E242 /* Pods-whitewater.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = whitewater/whitewater.entitlements;
@@ -1857,7 +1857,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6B13DE12ABB8DD6272BAEC61 /* Pods-whitewater.release.xcconfig */;
+			baseConfigurationReference = EDD6E39B989FD590B6820C70 /* Pods-whitewater.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = whitewater/whitewater.entitlements;
@@ -2098,7 +2098,7 @@
 		};
 		756B664020B8719C006E28A7 /* Staging */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0A9583F97814801C27266721 /* Pods-whitewater.staging.xcconfig */;
+			baseConfigurationReference = BAC737EAAF45A904004CB6FE /* Pods-whitewater.staging.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = whitewater/whitewater.entitlements;
