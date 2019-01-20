@@ -1,18 +1,24 @@
 import update from 'immutability-helper';
 import React from 'react';
 import { geometryToLatLngs } from '../../utils/google-maps';
-import { MapComponentProps } from '../../ww-clients/features/maps';
 import { arrayToGmaps, getCoordinatesPatch, gmapsToArray } from '../../ww-clients/utils';
 import { Coordinate, Coordinate2d, Coordinate3d, withZeroAlt } from '../../ww-commons/features/points';
 import GoogleMap, { InitialPosition } from './GoogleMap';
 import PlacesAutocomplete from './PlacesAutocomplete';
-import LatLng = google.maps.LatLng;
-import LatLngLiteral = google.maps.LatLngLiteral;
-import Geometry = google.maps.Data.Geometry;
-import LineString = google.maps.Data.LineString;
-import Point = google.maps.Data.Point;
-import Polygon = google.maps.Data.Polygon;
-import Feature = google.maps.Data.Feature;
+
+type LatLngLiteral = google.maps.LatLngLiteral;
+const LatLng = google.maps.LatLng;
+type LatLng = google.maps.LatLng;
+const Geometry = google.maps.Data.Geometry;
+type Geometry = google.maps.Data.Geometry;
+const LineString = google.maps.Data.LineString;
+type LineString = google.maps.Data.LineString;
+const Point = google.maps.Data.Point;
+type Point = google.maps.Data.Point;
+const Polygon = google.maps.Data.Polygon;
+type Polygon = google.maps.Data.Polygon;
+const Feature = google.maps.Data.Feature;
+type Feature = google.maps.Data.Feature;
 
 const DrawingStyles = {
   Point: {

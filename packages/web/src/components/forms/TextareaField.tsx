@@ -1,9 +1,10 @@
 import { MdEditor } from '@whitewater-guide/md-editor';
+import { MuiThemeProvider } from 'material-ui/styles';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 import React from 'react';
 import { BaseFieldProps, Field, GenericField, WrappedFieldProps } from 'redux-form';
-import MuiThemeProviderProps = __MaterialUI.Styles.MuiThemeProviderProps;
 
+type MuiThemeProviderProps = MuiThemeProvider['props'];
 type Props = WrappedFieldProps & MuiThemeProviderProps;
 
 class TextareaComponent extends React.PureComponent<Props> {

@@ -2,9 +2,10 @@ import AutoComplete from 'material-ui/AutoComplete';
 import React from 'react';
 import { findDOMNode } from 'react-dom';
 import { Styles } from '../../styles';
-import AutocompletePrediction = google.maps.places.AutocompletePrediction;
-import PlacesServiceStatus = google.maps.places.PlacesServiceStatus;
-import PlaceResult = google.maps.places.PlaceResult;
+type AutocompletePrediction = google.maps.places.AutocompletePrediction;
+type PlacesServiceStatus = google.maps.places.PlacesServiceStatus;
+const PlacesServiceStatus = google.maps.places.PlacesServiceStatus;
+type PlaceResult = google.maps.places.PlaceResult;
 
 const styles: Styles = {
   container: {

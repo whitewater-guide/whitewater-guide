@@ -1,8 +1,8 @@
-import LatLng = google.maps.LatLng;
-import Geometry = google.maps.Data.Geometry;
-import Point = google.maps.Data.Point;
-import LineString = google.maps.Data.LineString;
-import Polygon = google.maps.Data.Polygon;
+type LatLng = google.maps.LatLng;
+type Geometry = google.maps.Data.Geometry;
+type Point = google.maps.Data.Point;
+type LineString = google.maps.Data.LineString;
+type Polygon = google.maps.Data.Polygon;
 
 export function isPoint(geometry: Geometry): geometry is Point {
   return geometry.getType() === 'Point';

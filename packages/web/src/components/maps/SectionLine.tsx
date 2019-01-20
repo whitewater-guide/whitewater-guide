@@ -2,7 +2,9 @@ import React from 'react';
 import { SectionComponentProps } from '../../ww-clients/features/maps';
 import { getSectionColor } from '../../ww-clients/features/sections';
 import { MapElement } from './types';
-import Line = google.maps.Polyline;
+
+const Line = google.maps.Polyline;
+type Line = google.maps.Polyline;
 
 type Props = SectionComponentProps & MapElement;
 

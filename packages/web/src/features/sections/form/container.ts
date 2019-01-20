@@ -3,7 +3,7 @@ import { compose, mapProps } from 'recompose';
 import { formContainer, MdEditorStruct } from '../../../components/forms';
 import { withFeatureIds } from '../../../ww-clients/core';
 import { LIST_SECTIONS, WithSectionsList } from '../../../ww-clients/features/sections';
-import { Section, SectionFormStruct, Tag } from '../../../ww-commons';
+import { SectionFormStruct } from '../../../ww-commons';
 import deserializeSection from './deserializeSection';
 import { SECTION_FORM_QUERY } from './sectionForm.query';
 import serializeSection from './serializeSection';
@@ -11,7 +11,7 @@ import { SectionFormProps } from './types';
 import { UPSERT_SECTION, UpsertSectionResult } from './upsertSection.mutation';
 
 const addToList = ({ regionId }: any): MutationUpdaterFn<UpsertSectionResult> => (store, result) => {
-  const section: Section = result.data && result.data.upsertSection;
+  const section = result.data && result.data.upsertSection;
   if (!section) {
     return;
   }

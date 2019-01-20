@@ -1,2 +1,4 @@
+import * as rootReducer from './rootReducer';
+
 export * from './configureStore';
-export { RootState } from './rootReducer';
+export type RootState = rootReducer.RootState;

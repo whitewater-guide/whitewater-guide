@@ -1,6 +1,6 @@
 {
   "name": "whitewater",
-  "version": "0.0.1128",
+  "version": "0.0.1129",
   "description": "whitewater.guide monorepo",
   "repository": "https://github.com/doomsower/whitewater.git",
   "author": "doomsower <K.Kuznetcov@gmail.com>",
@@ -28,26 +28,20 @@
     "junk": "yarn trash-junk"
   },
   "devDependencies": {
-    "@types/node": "^10.12.9",
-    "dotenv": "^6.0.0",
-    "eslint": "^4.19.1",
-    "eslint-config-airbnb-base": "12.1.0",
-    "eslint-plugin-import": "^2.11.0",
-    "fs-extra": "^7.0.0",
-    "generator-rn-toolbox": "^3.3.2",
-    "husky": "^0.15.0-rc.13",
-    "lerna": "^3.4.3",
+    "@types/node": "^10.12.18",
+    "commitlint": "^7.3.2",
+    "dotenv": "^6.2.0",
+    "eslint": "5.6.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "fs-extra": "^7.0.1",
+    "husky": "^1.3.1",
+    "lerna": "^3.10.6",
     "trash-junk-cli": "^1.0.3",
-    "typescript": "3.0.1",
+    "typescript": "3.2.4",
     "wml": "^0.0.83",
-    "yargs": "^12.0.1",
+    "yargs": "^12.0.5",
     "yo": "^2.0.5"
   },
-  "dependencies": {},
-  "husky": {
-    "hooks": {
-      "pre-commit": "build/scripts/pre-commit.js",
-      "post-commit": "build/scripts/post-commit.js"
-    }
-  }
+  "dependencies": {}
 }
