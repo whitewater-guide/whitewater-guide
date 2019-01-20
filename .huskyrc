@@ -1,6 +1,7 @@
 {
   "hooks": {
     "pre-commit": "build/scripts/pre-commit.js",
-    "post-commit": "build/scripts/post-commit.js"
+    "post-commit": "build/scripts/post-commit.js",
+    "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
   }
 }

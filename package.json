@@ -1,6 +1,6 @@
 {
   "name": "whitewater",
-  "version": "0.0.1131",
+  "version": "0.0.1134",
   "description": "whitewater.guide monorepo",
   "repository": "https://github.com/doomsower/whitewater.git",
   "author": "doomsower <K.Kuznetcov@gmail.com>",
@@ -28,6 +28,7 @@
     "junk": "yarn trash-junk"
   },
   "devDependencies": {
+    "@commitlint/config-conventional": "^7.3.1",
     "@types/node": "^10.12.18",
     "commitlint": "^7.3.2",
     "dotenv": "^6.2.0",
