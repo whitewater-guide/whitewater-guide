@@ -178,9 +178,10 @@ export class SectionsListLoader extends React.PureComponent<Props, InnerState> {
     }
     this._pollQuery = client.watchQuery({
       query: POLL_REGION_MEASUREMENTS,
-      variables: { regionId: region.node.id },
+      variables: { regionId: regionº.node.id },
       pollInterval,
-    }) as any;
+      fetchPolicy: 'network-only',
+    });
     await this._pollQuery.startPolling(pollInterval);
   };
 

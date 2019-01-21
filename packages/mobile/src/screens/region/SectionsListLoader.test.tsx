@@ -470,3 +470,8 @@ it('should not load updates when already loading', async () => {
   }));
   await flushPromises();
 });
+
+it('should fire polling query immediately', async () => {
+  // TODO: test for https://github.com/doomsower/whitewater/issues/316#issuecomment-455904189
+  expect(true).toBe(false);
+});

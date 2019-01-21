@@ -47,7 +47,7 @@ class RegionTabsContent extends React.PureComponent<InnerProps> {
   render() {
     const { navigation, region, isConnected, searchTerms, client } = this.props;
     return (
-      <SectionsListLoader searchTerms={searchTerms} region={region} isConnected={isConnected} client={client} pollInterval={60000}>
+      <SectionsListLoader searchTerms={searchTerms} region={region} isConnected={isConnected} client={client}>
         {({ sections, count, status, refresh }: RenderProps) => {
           const screenProps: ScreenProps = { region, sections, updateSections: refresh, sectionsStatus: status };
           return (
