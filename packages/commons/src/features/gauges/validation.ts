@@ -1,22 +1,22 @@
-import { struct } from '../../utils/validation';
+import { baseStruct } from '../../utils/validation';
 import { PointInputStruct } from '../points';
 
 const GaugeInputFields = {
-  id: struct.union(['uuid', 'null']),
+  id: baseStruct.union(['uuid', 'null']),
   name: 'nonEmptyString',
   code: 'nonEmptyVarchar',
   levelUnit: 'nonEmptyVarchar|null',
   flowUnit: 'nonEmptyVarchar|null',
-  location: struct.union([PointInputStruct, 'null']),
+  location: baseStruct.union([PointInputStruct, 'null']),
   requestParams: 'object|null',
-  cron: struct.union(['cron', 'null']),
-  url: struct.union(['url', 'null', struct.literal('')]),
+  cron: baseStruct.union(['cron', 'null']),
+  url: baseStruct.union(['url', 'null', baseStruct.literal('')]),
   source: 'node',
 };
 
-export const GaugeInputStruct = struct.object(GaugeInputFields);
+export const GaugeInputStruct = baseStruct.object(GaugeInputFields);
 
-export const GaugeFormStruct = struct.object({
+export const GaugeFormStruct = baseStruct.object({
   ...GaugeInputFields,
-  requestParams: struct.union(['jsonString', 'null']),
+  requestParams: baseStruct.union(['jsonString', 'null']),
 });

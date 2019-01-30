@@ -14,7 +14,9 @@ const buildErrorTree = (error: StructError, result: object) => {
   return result;
 };
 
-export const createValidator = (struct: Kind) => (value: any): object | null => {
+export const createValidator = (struct: Kind) => (
+  value: any,
+): object | null => {
   const [error] = struct.validate(value);
   if (error) {
     return buildErrorTree(error, {});

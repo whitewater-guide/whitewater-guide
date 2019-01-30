@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { PHOTO_PADDING, PHOTO_SIZE } from '../../../features/media';
-import { Media, MediaKind } from '../../../ww-commons';
+import { Media, MediaKind } from '@whitewater-guide/commons';
 import NoMedia from './NoMedia';
 import PhotoGridItem from './PhotoGridItem';
 
@@ -28,13 +28,11 @@ interface Props {
 
 const PhotoGrid: React.SFC<Props> = ({ photos, onPress }) => {
   if (!photos || photos.length === 0) {
-    return (
-      <NoMedia kind={MediaKind.photo} />
-    );
+    return <NoMedia kind={MediaKind.photo} />;
   }
   return (
     <View style={styles.grid}>
-      { photos.map(({ url }, index) => (
+      {photos.map(({ url }, index) => (
         <PhotoGridItem key={index} url={url} index={index} onPress={onPress} />
       ))}
     </View>

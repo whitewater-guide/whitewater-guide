@@ -1,7 +1,10 @@
+import { Region } from '@whitewater-guide/commons';
 import { Product, ProductPurchase } from 'react-native-iap';
-import { Region } from '../../ww-commons';
 
-export type PremiumRegion = Pick<Region, 'id' | 'name' | 'sku' | 'sections' | 'hasPremiumAccess'>;
+export type PremiumRegion = Pick<
+  Region,
+  'id' | 'name' | 'sku' | 'sections' | 'hasPremiumAccess'
+>;
 
 export enum PurchaseState {
   IDLE = 'IDLE',
@@ -16,7 +19,11 @@ export enum PurchaseState {
   REFRESHING_PREMIUM_FAILED = 'REFRESHING_PREMIUM_FAILED',
 }
 
-export type PurchaseDialogStep = 'AlreadyHave' | 'Auth' | 'BuyProduct' | 'Success';
+export type PurchaseDialogStep =
+  | 'AlreadyHave'
+  | 'Auth'
+  | 'BuyProduct'
+  | 'Success';
 
 export enum RefreshPremiumResult {
   AVAILABLE,
@@ -47,7 +54,10 @@ export interface PurchaseStore {
   offlinePurchases: ProductPurchase[];
 }
 
-export type PurchaseError = string | [string, { [key: string]: string | undefined }] | null;
+export type PurchaseError =
+  | string
+  | [string, { [key: string]: string | undefined }]
+  | null;
 
 export interface UpdatePurchasePayload {
   canMakePayments?: boolean;

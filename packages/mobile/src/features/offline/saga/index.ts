@@ -1,9 +1,9 @@
+import { NamedNode } from '@whitewater-guide/commons';
 import { analytics } from 'react-native-firebase';
 import { buffers, Channel, channel } from 'redux-saga';
 import { all, call, CallEffect, put, select, take } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
 import { RootState } from '../../../core/reducers';
-import { NamedNode } from '../../../ww-commons/core';
 import { offlineContentActions } from '../actions';
 import { OfflineCategorySelection, OfflineProgressPayload } from '../types';
 import downloadRegionData from './calls/downloadRegionData';
@@ -18,14 +18,21 @@ export function* offlineContentSaga() {
 }
 
 export function* downloadOfflineContent() {
-  const { payload }: Action<OfflineCategorySelection> = yield take(offlineContentActions.startDownload);
-  const region: NamedNode = yield select((state: RootState) => state.offlineContent.dialogRegion);
+  const { payload }: Action<OfflineCategorySelection> = yield take(
+    offlineContentActions.startDownload,
+  );
+  const region: NamedNode = yield select(
+    (state: RootState) => state.offlineContent.dialogRegion,
+  );
   if (!region) {
     return;
   }
   analytics().logEvent('offline_download_started', { region: region.id });
   // get summary
-  const { photosCount, sectionsCount } = yield call(readCachedRegionSummary, region.id);
+  const { photosCount, sectionsCount } = yield call(
+    readCachedRegionSummary,
+    region.id,
+  );
   // dispatch progress
   const initialProgress: OfflineProgressPayload = {
     regionInProgress: region.id,
@@ -43,7 +50,8 @@ export function* downloadOfflineContent() {
   const callEffects: CallEffect[] = [];
   // batch-download sections
   let mediaChannel: Channel<string[]> | undefined;
-  if (payload.media) { // watch event from sections
+  if (payload.media) {
+    // watch event from sections
     mediaChannel = yield call(channel, buffers.expanding(10));
     callEffects.push(call(downloadPhotos, mediaChannel!));
   }

@@ -1,8 +1,8 @@
-import { struct } from '../../utils/validation';
+import { baseStruct } from '../../utils/validation';
 import { TAG_CATEGORIES } from './types';
 
-export const TagInputStruct = struct.object({
+export const TagInputStruct = baseStruct.object({
   id: 'slug',
   name: 'nonEmptyString',
-  category: struct.enum(TAG_CATEGORIES),
+  category: baseStruct.enum(TAG_CATEGORIES),
 });

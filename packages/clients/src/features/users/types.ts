@@ -1,4 +1,4 @@
-import { User } from '../../../ww-commons/features/users';
+import { User } from '@whitewater-guide/commons';
 
 export interface WithMe {
   me: User | null;

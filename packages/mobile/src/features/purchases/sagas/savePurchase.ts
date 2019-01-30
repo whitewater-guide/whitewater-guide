@@ -9,7 +9,7 @@ import { SavePurchaseResult } from '../types';
 import { purchaseToGraphqlInput } from '../utils';
 import { ADD_PURCHASE_MUTATION, Vars } from './addPurchase.mutation';
 
-export default function *savePurchase(purchase: ProductPurchase) {
+export default function* savePurchase(purchase: ProductPurchase) {
   try {
     const client = yield getApolloClient();
     // console.log('------------------');
@@ -20,7 +20,9 @@ export default function *savePurchase(purchase: ProductPurchase) {
       mutation: ADD_PURCHASE_MUTATION,
       variables: { info: purchaseToGraphqlInput(purchase) },
     };
-    const { errors }: FetchResult<any> = yield apply(client, client.mutate, [mutationOpts]);
+    const { errors }: FetchResult<any> = yield apply(client, client.mutate, [
+      mutationOpts,
+    ]);
     if (errors && errors.length) {
       trackError('iap', errors[0]);
       return SavePurchaseResult.ERROR;

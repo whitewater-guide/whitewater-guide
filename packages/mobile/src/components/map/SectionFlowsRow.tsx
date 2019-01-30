@@ -4,8 +4,12 @@ import { WithI18n } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
 import { Caption, Subheading } from 'react-native-paper';
 import theme from '../../theme';
-import { ColorStrings, getSectionColor, prettyNumber } from '../../ww-clients/features/sections';
-import { Section } from '../../ww-commons';
+import {
+  ColorStrings,
+  getSectionColor,
+  prettyNumber,
+} from '@whitewater-guide/clients';
+import { Section } from '@whitewater-guide/commons';
 import { Row } from '../Row';
 import SimpleTextFlowRow from './SimpleTextFlowRow';
 
@@ -55,7 +59,11 @@ interface Props extends WithI18n {
   section: Section | null;
 }
 
-const SectionFlowsRow: React.StatelessComponent<Props> = ({ section, t, i18n }) => {
+const SectionFlowsRow: React.StatelessComponent<Props> = ({
+  section,
+  t,
+  i18n,
+}) => {
   if (!section) {
     return <SimpleTextFlowRow t={t} i18n={i18n} />;
   }
@@ -68,7 +76,9 @@ const SectionFlowsRow: React.StatelessComponent<Props> = ({ section, t, i18n }) 
   const binding = (preferFlow ? flows : levels)!;
   const label = preferFlow ? t('commons:flow') : t('commons:level');
   const unitName = preferFlow ? gauge.flowUnit : gauge.levelUnit;
-  const value = preferFlow ? gauge.lastMeasurement.flow : gauge.lastMeasurement.level;
+  const value = preferFlow
+    ? gauge.lastMeasurement.flow
+    : gauge.lastMeasurement.level;
   return (
     <Row>
       <Subheading>{label}</Subheading>
@@ -79,12 +89,26 @@ const SectionFlowsRow: React.StatelessComponent<Props> = ({ section, t, i18n }) 
             {` ${t('commons:' + unitName)}`}
           </Text>
         </Text>
-        <Caption style={styles.timeLine}>{moment(gauge.lastMeasurement.timestamp).fromNow()}</Caption>
+        <Caption style={styles.timeLine}>
+          {moment(gauge.lastMeasurement.timestamp).fromNow()}
+        </Caption>
       </View>
       <View style={styles.binding}>
-        {binding.minimum && <Caption style={styles.minimum}>{`${binding.minimum} ${t('commons:min')}`}</Caption>}
-        {binding.optimum && <Caption style={styles.optimum}>{`${binding.optimum} ${t('commons:opt')}`}</Caption>}
-        {binding.maximum && <Caption style={styles.maximum}>{`${binding.maximum} ${t('commons:max')}`}</Caption>}
+        {binding.minimum && (
+          <Caption style={styles.minimum}>{`${binding.minimum} ${t(
+            'commons:min',
+          )}`}</Caption>
+        )}
+        {binding.optimum && (
+          <Caption style={styles.optimum}>{`${binding.optimum} ${t(
+            'commons:opt',
+          )}`}</Caption>
+        )}
+        {binding.maximum && (
+          <Caption style={styles.maximum}>{`${binding.maximum} ${t(
+            'commons:max',
+          )}`}</Caption>
+        )}
       </View>
     </Row>
   );

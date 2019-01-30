@@ -13,19 +13,35 @@ interface Locales {
 
 const locales: Locales = {
   en: {
-    late: (n) => 'late ' + moment().month(Math.floor(n / 2)).format('MMMM'),
-    early: (n) => 'early ' + moment().month(Math.floor(n / 2)).format('MMMM'),
+    late: (n) =>
+      'late ' +
+      moment()
+        .month(Math.floor(n / 2))
+        .format('MMMM'),
+    early: (n) =>
+      'early ' +
+      moment()
+        .month(Math.floor(n / 2))
+        .format('MMMM'),
     all: 'all year around',
   },
   ru: {
-    late: (n) => moment().month(Math.floor(n / 2)).format('DD MMMM').replace(/\d+/, 'конец'),
-    early: (n) => moment().month(Math.floor(n / 2)).format('DD MMMM').replace(/\d+/, 'начало'),
+    late: (n) =>
+      moment()
+        .month(Math.floor(n / 2))
+        .format('DD MMMM')
+        .replace(/\d+/, 'конец'),
+    early: (n) =>
+      moment()
+        .month(Math.floor(n / 2))
+        .format('DD MMMM')
+        .replace(/\d+/, 'начало'),
     all: 'круглый год',
   },
 };
 
 function halfMonth(n: number, lang: string): string {
-  const isEarly = (n % 2 === 0);
+  const isEarly = n % 2 === 0;
   const locale = locales[lang];
   return isEarly ? locale.early(n) : locale.late(n);
 }
@@ -36,10 +52,16 @@ function rangeToStr(range: Range, lang: string): string {
   if (isNaN(end)) {
     return halfMonth(start, lang);
   } else if (start % 2 === 0 && end === start + 1) {
-    return moment().month(start / 2).format('MMMM');
+    return moment()
+      .month(start / 2)
+      .format('MMMM');
   }
-  let startName = moment().month(Math.floor(start / 2)).format('MMMM');
-  let endName = moment().month(Math.floor(end / 2)).format('MMMM');
+  let startName = moment()
+    .month(Math.floor(start / 2))
+    .format('MMMM');
+  let endName = moment()
+    .month(Math.floor(end / 2))
+    .format('MMMM');
   if (start % 2 !== 0) {
     startName = halfMonth(start, lang);
   }
@@ -60,7 +82,7 @@ function loopAroundNewYear(seasons: number[]): number[] {
   result.splice(0, shift);
   result = result.concat(tail);
   return result;
-}
+} // tslint:disable-next-line:no-inferrable-types
 
 /**
  * Stringifies season
@@ -68,16 +90,25 @@ function loopAroundNewYear(seasons: number[]): number[] {
  * @range - If true, seasonNumeric is considered to be a range (possibly, looping around new year, like (e.g. [22, 3])
  * @lang - Language
  * otherwise - just set of half-months
- */ // tslint:disable-next-line:no-inferrable-types
-export function stringifySeason(seasonNumeric?: number[], range: boolean = false, lang: string = 'en'): string {
+ */ export function stringifySeason(
+  seasonNumeric?: number[],
+  range: boolean = false,
+  lang: string = 'en',
+): string {
   if (!seasonNumeric || seasonNumeric.length === 0) {
     return '';
   }
   let seasons = [...seasonNumeric];
   if (range && seasonNumeric.length === 2) {
-    seasons = seasonNumeric[0] <= seasonNumeric[1] ?
-      times(seasonNumeric[1] - seasonNumeric[0] + 1, i => seasonNumeric[0] + i) :
-      times(seasonNumeric[1] + 1).concat(times(23 - seasonNumeric[0] + 1, i => seasonNumeric[0] + i));
+    seasons =
+      seasonNumeric[0] <= seasonNumeric[1]
+        ? times(
+            seasonNumeric[1] - seasonNumeric[0] + 1,
+            (i) => seasonNumeric[0] + i,
+          )
+        : times(seasonNumeric[1] + 1).concat(
+            times(23 - seasonNumeric[0] + 1, (i) => seasonNumeric[0] + i),
+          );
   }
   if (seasons.length === 24) {
     return locales[lang].all;

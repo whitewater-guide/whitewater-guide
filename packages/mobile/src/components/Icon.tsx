@@ -1,6 +1,12 @@
 import glamorous, { GlamorousComponent } from 'glamorous-native';
 import React from 'react';
-import { GestureResponderEvent, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
+import {
+  GestureResponderEvent,
+  StyleProp,
+  StyleSheet,
+  View,
+  ViewStyle,
+} from 'react-native';
 import { TouchableRipple } from 'react-native-paper';
 import MDCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 import theme from '../theme';
@@ -38,12 +44,20 @@ const IconBase: React.StatelessComponent<IconBaseProps> = (props) => {
     style,
     iconStyle,
   } = props;
-  const clr = color ? color : (primary ? theme.colors.primary : theme.colors.textMain);
+  const clr = color
+    ? color
+    : primary
+    ? theme.colors.primary
+    : theme.colors.textMain;
   const sz = large ? theme.icons.large : size;
   if (onPress || onLongPress) {
     return (
-      <TouchableRipple onPress={onPress} onLongPress={onLongPress} style={style}>
-        <MDCommunity name={icon} size={sz} color={clr} style={iconStyle}/>
+      <TouchableRipple
+        onPress={onPress}
+        onLongPress={onLongPress}
+        style={style}
+      >
+        <MDCommunity name={icon} size={sz} color={clr} style={iconStyle} />
       </TouchableRipple>
     );
   }

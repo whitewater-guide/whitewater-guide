@@ -4,7 +4,7 @@ import { withI18n, WithI18n } from 'react-i18next';
 import { StatusBar } from 'react-native';
 import { Title } from 'react-native-paper';
 import { RegionBanners } from '../../../features/banners';
-import { BannerPlacement, Section } from '../../../ww-commons';
+import { BannerPlacement, Section } from '@whitewater-guide/commons';
 import BlogList from './BlogList';
 import PhotoGallery from './PhotoGallery';
 import PhotoGrid from './PhotoGrid';
@@ -18,19 +18,22 @@ interface State {
   openPhotoIndex: number;
 }
 
-class SectionMediaScreenContent extends React.PureComponent<Props & WithI18n, State> {
-
+class SectionMediaScreenContent extends React.PureComponent<
+  Props & WithI18n,
+  State
+> {
   state: State = {
     openPhotoIndex: -1,
   };
 
-  onPhotoIndexChanged = (openPhotoIndex: number) => this.setState({ openPhotoIndex });
+  onPhotoIndexChanged = (openPhotoIndex: number) =>
+    this.setState({ openPhotoIndex });
 
   onGalleryClose = () => this.setState({ openPhotoIndex: -1 });
 
   render() {
     const { section, t } = this.props;
-    const nodes = (section && section.media) ? section.media.nodes : [];
+    const nodes = section && section.media ? section.media.nodes : [];
     const groups = groupBy(nodes, 'kind');
     return (
       <React.Fragment>
@@ -42,11 +45,14 @@ class SectionMediaScreenContent extends React.PureComponent<Props & WithI18n, St
         <Title>{t('section:media.blog')}</Title>
         <BlogList blogs={groups.blog} />
         <RegionBanners placement={BannerPlacement.MOBILE_SECTION_MEDIA} />
-        <PhotoGallery photos={groups.photo} index={this.state.openPhotoIndex} onClose={this.onGalleryClose} />
+        <PhotoGallery
+          photos={groups.photo}
+          index={this.state.openPhotoIndex}
+          onClose={this.onGalleryClose}
+        />
       </React.Fragment>
     );
   }
-
 }
 
 export default withI18n()(SectionMediaScreenContent);

@@ -6,7 +6,7 @@ import { appStarted, bootstrapped } from '../actions';
 import { auth, authSaga } from '../auth';
 import { messagingSaga } from './messagingSaga';
 
-export function *appSaga() {
+export function* appSaga() {
   // Wait till redux-persist rehydrates
   yield take(bootstrapped.type);
 
@@ -34,8 +34,8 @@ export function *appSaga() {
 
   // const didCrash = yield call([Crashes, 'hasCrashedInLastSession']);
   // if (didCrash) {
-    // yield put(me ? resetNavigationToHome() : resetNavigationToLogin());
-    // yield put(navigationChannel, resetNavigationToHome());
+  // yield put(me ? resetNavigationToHome() : resetNavigationToLogin());
+  // yield put(navigationChannel, resetNavigationToHome());
   // }
   // Show app screens
   yield put(appStarted());

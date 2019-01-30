@@ -1,0 +1,116 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`insert should match snapshot 1`] = `
+Object {
+  "bounds": Array [
+    Array [
+      10,
+      20,
+      0,
+    ],
+    Array [
+      10,
+      10,
+      0,
+    ],
+    Array [
+      20,
+      20,
+      0,
+    ],
+  ],
+  "description": "Full region description",
+  "name": "Full region",
+  "pois": Array [
+    Object {
+      "coordinates": Array [
+        10,
+        12,
+        0,
+      ],
+      "description": "pt 1 d",
+      "kind": "other",
+      "name": "pt 1",
+    },
+    Object {
+      "coordinates": Array [
+        33,
+        34,
+        0,
+      ],
+      "description": "pt 2 d",
+      "kind": "take-out",
+      "name": "pt 2",
+    },
+  ],
+  "season": "season description",
+  "seasonNumeric": Array [
+    1,
+    2,
+    3,
+  ],
+}
+`;
+
+exports[`update should match snapshot 1`] = `
+Object {
+  "bounds": Array [
+    Array [
+      10,
+      20,
+      0,
+    ],
+    Array [
+      10,
+      10,
+      0,
+    ],
+    Array [
+      20,
+      20,
+      0,
+    ],
+  ],
+  "description": "Full region description",
+  "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
+  "name": "Full region",
+  "pois": Array [
+    Object {
+      "coordinates": Array [
+        10,
+        12,
+        0,
+      ],
+      "description": "pt 1 upd",
+      "kind": "other",
+      "name": "pt 1 u",
+    },
+    Object {
+      "coordinates": Array [
+        33,
+        34,
+        0,
+      ],
+      "description": "pt 2 upd",
+      "kind": "take-out",
+      "name": "pt 2 u",
+    },
+    Object {
+      "coordinates": Array [
+        1,
+        2,
+        3,
+      ],
+      "description": "r1p2 d",
+      "kind": "put-in",
+      "name": "r 1 p 2",
+    },
+  ],
+  "season": "season description",
+  "seasonNumeric": Array [
+    1,
+    2,
+    3,
+  ],
+}
+`;

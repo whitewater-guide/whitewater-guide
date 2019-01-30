@@ -46,7 +46,7 @@ export interface BannerInput {
   placement: BannerPlacement;
   source: BannerSource;
   link: string | null;
-  extras: {[key: string]: any} | null;
+  extras: { [key: string]: any } | null;
   // --- connections
   regions: Node[];
   groups: Node[];

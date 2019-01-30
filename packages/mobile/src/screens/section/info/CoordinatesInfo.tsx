@@ -3,11 +3,14 @@ import { Clipboard } from 'react-native';
 import { Paragraph, Subheading } from 'react-native-paper';
 import { compose } from 'recompose';
 import { Icon, Left, Right, Row } from '../../../components';
-import { connectPremiumDialog, WithPremiumDialog } from '../../../features/purchases';
+import {
+  connectPremiumDialog,
+  WithPremiumDialog,
+} from '../../../features/purchases';
 import { openGoogleMaps } from '../../../utils/maps';
-import { consumeRegion, WithRegion } from '../../../ww-clients/features/regions';
-import { arrayToDMSString } from '../../../ww-clients/utils';
-import { Coordinate, Section } from '../../../ww-commons';
+import { consumeRegion, WithRegion } from '@whitewater-guide/clients';
+import { arrayToDMSString } from '@whitewater-guide/clients';
+import { Coordinate, Section } from '@whitewater-guide/commons';
 
 interface OwnProps {
   label: string;
@@ -20,11 +23,13 @@ type InnerProps = OwnProps & WithRegion & WithPremiumDialog;
 class CoordinatesInfo extends React.PureComponent<InnerProps> {
   canNavigate = () => {
     const { section, region, canMakePayments } = this.props;
-    return (section && section.demo) ||
+    return (
+      (section && section.demo) ||
       !canMakePayments ||
       !region.node ||
       !region.node.premium ||
-      region.node.hasPremiumAccess;
+      region.node.hasPremiumAccess
+    );
   };
 
   onCopy = () => {

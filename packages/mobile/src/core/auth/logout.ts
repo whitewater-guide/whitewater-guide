@@ -9,26 +9,26 @@ import { logout, logoutWithFB } from './actions';
 const confirmChannel = channel();
 const confirmButton = { onPress: () => confirmChannel.put('CONFIRM') };
 
-export default function *logoutSaga() {
+export default function* logoutSaga() {
   yield all([
     takeEvery(logout.toString(), watchLogout),
     takeEvery(confirmChannel, watchLogoutConfirmed),
   ]);
 }
 
-function *watchLogout() {
+function* watchLogout() {
   yield call(
     [Alert, Alert.alert],
     i18next.t('auth:logoutDialogTitle'),
     i18next.t('auth:logoutDialogMessage'),
     [
-      { text: i18next.t('commons:no')},
-      { text: i18next.t('commons:yes'), ...confirmButton },
+      { text: i18next.t('commons:no') as string },
+      { text: i18next.t('commons:yes') as string, ...confirmButton },
     ],
   );
 }
 
-function *watchLogoutConfirmed() {
+function* watchLogoutConfirmed() {
   try {
     yield call(
       axios.get,
@@ -41,9 +41,7 @@ function *watchLogoutConfirmed() {
       [Alert, Alert.alert],
       i18next.t('auth:logoutErrorTitle'),
       i18next.t('auth:logoutErrorMessage'),
-      [
-        { text: i18next.t('commons:ok') },
-      ],
+      [{ text: i18next.t('commons:ok') as string }],
     );
   }
 }

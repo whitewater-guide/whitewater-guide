@@ -49,9 +49,9 @@ const SectionInputFields = {
   distance: 'positiveNumber|null',
   drop: 'positiveNumber|null',
   duration: struct.union(['null', struct.enum(Array.from(Durations.keys()))]),
-  difficulty: struct.enum(times(11, i => i * 0.5)),
+  difficulty: struct.enum(times(13, (i) => i * 0.5)),
   difficultyXtra: 'difficultyXtra|null',
-  rating: struct.union(['null', struct.enum(times(11, i => i * 0.5))]),
+  rating: struct.union(['null', struct.enum(times(11, (i) => i * 0.5))]),
   tags: [SimpleTagStruct],
   pois: [PointInputStruct],
   hidden: 'boolean',
@@ -59,14 +59,15 @@ const SectionInputFields = {
 
 export const SectionInputStruct = struct.object(SectionInputFields);
 
-export const SectionFormStruct = (richTextStruct?: Type) => struct.object({
-  ...omit(SectionInputFields, 'tags'),
-  description: richTextStruct || 'any',
-  kayakingTags: [TagInputStruct],
-  hazardsTags: [TagInputStruct],
-  supplyTags: [TagInputStruct],
-  miscTags: [TagInputStruct],
-});
+export const SectionFormStruct = (richTextStruct?: Type) =>
+  struct.object({
+    ...omit(SectionInputFields, 'tags'),
+    description: richTextStruct || 'any',
+    kayakingTags: [TagInputStruct],
+    hazardsTags: [TagInputStruct],
+    supplyTags: [TagInputStruct],
+    miscTags: [TagInputStruct],
+  });
 
 export const SectionAdminSettingsStruct = struct.object({
   demo: 'boolean',

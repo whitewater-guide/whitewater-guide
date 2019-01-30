@@ -2,7 +2,7 @@ import React from 'react';
 import { Linking } from 'react-native';
 import { List } from 'react-native-paper';
 import { Icon } from '../../../components';
-import { Media } from '../../../ww-commons';
+import { Media } from '@whitewater-guide/commons';
 
 interface Props {
   blog: Media;
@@ -11,9 +11,7 @@ interface Props {
 class BlogItem extends React.PureComponent<Props> {
   onPress = () => Linking.openURL(this.props.blog.url).catch(() => {});
 
-  renderIcon = () => (
-    <Icon icon="link" />
-  );
+  renderIcon = () => <Icon icon="link" />;
 
   render() {
     const { blog } = this.props;

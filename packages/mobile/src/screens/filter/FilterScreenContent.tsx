@@ -1,3 +1,12 @@
+import { stringifySeason, toRomanDifficulty } from '@whitewater-guide/clients';
+import {
+  DefaultSectionSearchTerms,
+  Duration,
+  SectionSearchTerms,
+  SelectableTag,
+  Tag,
+  TagSelection,
+} from '@whitewater-guide/commons';
 import groupBy from 'lodash/groupBy';
 import memoize from 'lodash/memoize';
 import React from 'react';
@@ -6,15 +15,6 @@ import { Button, Subheading } from 'react-native-paper';
 import { Omit } from 'type-zoo';
 import { MultiSlider, StarRating, TernaryChips } from '../../components';
 import theme from '../../theme';
-import { stringifySeason, toRomanDifficulty } from '../../ww-clients/utils';
-import {
-  DefaultSectionSearchTerms,
-  Duration,
-  SectionSearchTerms,
-  SelectableTag,
-  Tag,
-  TagSelection,
-} from '../../ww-commons';
 import { InnerProps } from './types';
 
 const DIFFICULTY_RANGE: [number, number] = [1, 6];
@@ -41,14 +41,20 @@ interface State extends Omit<SectionSearchTerms, 'withTags' | 'withoutTags'> {
 
 const propsToState = (props: InnerProps): State => {
   const { tags, searchTerms } = props;
-  const { withTags, withoutTags, ...restTerms } = searchTerms || DefaultSectionSearchTerms;
+  const { withTags, withoutTags, ...restTerms } =
+    searchTerms || DefaultSectionSearchTerms;
   const selectableTags: SelectableTag[] = tags.map((tag: Tag) => {
-    const selection = withTags.includes(tag.id) ?
-      TagSelection.SELECTED :
-      (withoutTags.includes(tag.id) ? TagSelection.DESELECTED : TagSelection.NONE);
+    const selection = withTags.includes(tag.id)
+      ? TagSelection.SELECTED
+      : withoutTags.includes(tag.id)
+      ? TagSelection.DESELECTED
+      : TagSelection.NONE;
     return { ...tag, selection };
   });
-  const {kayaking, hazards, supply, misc} = groupBy(selectableTags, 'category');
+  const { kayaking, hazards, supply, misc } = groupBy(
+    selectableTags,
+    'category',
+  );
   return {
     ...restTerms,
     kayaking,
@@ -63,23 +69,28 @@ type Acc = Pick<SectionSearchTerms, 'withTags' | 'withoutTags'>;
 const stateToSearchTerms = (state: State): SectionSearchTerms => {
   const { kayaking, hazards, supply, misc, ...restTerms } = state;
   const allTags = [...kayaking, ...hazards, ...supply, ...misc];
-  const tagIds: Acc = allTags.reduce((acc: Acc, tag) => {
-    if (tag.selection === TagSelection.SELECTED) {
-      acc.withTags.push(tag.id);
-    } else if (tag.selection === TagSelection.DESELECTED) {
-      acc.withoutTags.push(tag.id);
-    }
-    return acc;
-  }, { withTags: [], withoutTags: [] });
+  const tagIds: Acc = allTags.reduce(
+    (acc: Acc, tag) => {
+      if (tag.selection === TagSelection.SELECTED) {
+        acc.withTags.push(tag.id);
+      } else if (tag.selection === TagSelection.DESELECTED) {
+        acc.withoutTags.push(tag.id);
+      }
+      return acc;
+    },
+    { withTags: [], withoutTags: [] },
+  );
   return { ...restTerms, ...tagIds };
 };
 
-export default class FilterScreenContent extends React.PureComponent<InnerProps, State> {
-
+export default class FilterScreenContent extends React.PureComponent<
+  InnerProps,
+  State
+> {
   readonly state: State = propsToState(this.props);
 
-  onChange: any = memoize(
-    (key: keyof State) => (value: any) => this.setState({ [key]: value } as any),
+  onChange: any = memoize((key: keyof State) => (value: any) =>
+    this.setState({ [key]: value } as any),
   );
 
   onApply = () => {
@@ -91,13 +102,17 @@ export default class FilterScreenContent extends React.PureComponent<InnerProps,
     const { i18n, t } = this.props;
     const { duration, difficulty } = this.state;
     const [minDiff, maxDiff] = difficulty.map(toRomanDifficulty);
-    const [minDuration, maxDuration] = duration.map((d) => t(`durations:${d}`));
-    const difficultyLabel = minDiff === maxDiff ?
-      t('filter:difficultyValue', { minDiff }) :
-      t('filter:difficultyRange', { minDiff, maxDiff });
-    const durationLabel = minDuration === maxDuration ?
-      t('filter:durationValue', { minDuration }) :
-      t('filter:durationRange', { minDuration, maxDuration });
+    const [minDuration, maxDuration] = duration.map(
+      (d) => t(`durations:${d}`) as string,
+    );
+    const difficultyLabel: string =
+      minDiff === maxDiff
+        ? t('filter:difficultyValue', { minDiff })
+        : t('filter:difficultyRange', { minDiff, maxDiff });
+    const durationLabel: string =
+      minDuration === maxDuration
+        ? t('filter:durationValue', { minDuration })
+        : t('filter:durationRange', { minDuration, maxDuration });
     return (
       <View style={StyleSheet.absoluteFill}>
         <ScrollView contentContainerStyle={styles.container}>
@@ -122,7 +137,11 @@ export default class FilterScreenContent extends React.PureComponent<InnerProps,
           <MultiSlider
             defaultTrackWidth={DEFAULT_SLIDER_WIDTH}
             defaultTrackPageX={DEFAULT_SLIDER_PAGEX}
-            label={`${t('commons:season')}: ${stringifySeason(this.state.seasonNumeric, true, i18n!.languages[0])}`}
+            label={`${t('commons:season')}: ${stringifySeason(
+              this.state.seasonNumeric,
+              true,
+              i18n!.languages[0],
+            )}`}
             range={SEASON_RANGE}
             step={1}
             behavior="invert"
@@ -131,20 +150,34 @@ export default class FilterScreenContent extends React.PureComponent<InnerProps,
           />
 
           <Subheading>{t('filter:rating')}</Subheading>
-          <StarRating value={this.state.rating} onChange={this.onChange('rating')} />
+          <StarRating
+            value={this.state.rating}
+            onChange={this.onChange('rating')}
+          />
 
           <Subheading>{t('commons:kayakingTypes')}</Subheading>
-          <TernaryChips tags={this.state.kayaking} onChange={this.onChange('kayaking')} />
+          <TernaryChips
+            tags={this.state.kayaking}
+            onChange={this.onChange('kayaking')}
+          />
 
           <Subheading>{t('commons:hazards')}</Subheading>
-          <TernaryChips tags={this.state.hazards} onChange={this.onChange('hazards')} />
+          <TernaryChips
+            tags={this.state.hazards}
+            onChange={this.onChange('hazards')}
+          />
 
           <Subheading>{t('commons:supplyTypes')}</Subheading>
-          <TernaryChips tags={this.state.supply} onChange={this.onChange('supply')} />
+          <TernaryChips
+            tags={this.state.supply}
+            onChange={this.onChange('supply')}
+          />
 
           <Subheading>{t('commons:miscTags')}</Subheading>
-          <TernaryChips tags={this.state.misc} onChange={this.onChange('misc')} />
-
+          <TernaryChips
+            tags={this.state.misc}
+            onChange={this.onChange('misc')}
+          />
         </ScrollView>
         <Button mode="contained" onPress={this.onApply}>
           {t('filter:search')}
@@ -152,5 +185,4 @@ export default class FilterScreenContent extends React.PureComponent<InnerProps,
       </View>
     );
   }
-
 }

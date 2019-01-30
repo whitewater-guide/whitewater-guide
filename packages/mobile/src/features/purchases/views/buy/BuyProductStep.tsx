@@ -1,6 +1,13 @@
 import React from 'react';
 import { withI18n, WithI18n } from 'react-i18next';
-import { Clipboard, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  Clipboard,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { Button, Dialog } from 'react-native-paper';
 import { Markdown } from '../../../../components';
 import theme from '../../../../theme';
@@ -35,7 +42,7 @@ interface Props {
   region: PremiumRegion;
   state: PurchaseState;
   price?: string;
-  error?: [string] | [string, { [key: string]: string | undefined}] | null;
+  error?: [string] | [string, { [key: string]: string | undefined }] | null;
   onCancel?: () => void;
   onConfirm?: () => void;
   cancelable?: boolean;
@@ -51,40 +58,46 @@ class BuyProductStep extends React.PureComponent<Props & WithI18n> {
   };
 
   render() {
-    const { error, onConfirm, onCancel, price, state, cancelable = true, t } = this.props;
+    const {
+      error,
+      onConfirm,
+      onCancel,
+      price,
+      state,
+      cancelable = true,
+      t,
+    } = this.props;
     const confirmButtonLabel = t(`iap:buy.confirmButton.${state}`, { price });
-    const loading = state === PurchaseState.PRODUCT_LOADING ||
+    const loading =
+      state === PurchaseState.PRODUCT_LOADING ||
       state === PurchaseState.PRODUCT_PURCHASING ||
       state === PurchaseState.REFRESHING_PREMIUM ||
       state === PurchaseState.PURCHASE_SAVING;
-    const renderCancelButton = state === PurchaseState.PURCHASE_SAVING_FATAL ? false : cancelable;
+    const renderCancelButton =
+      state === PurchaseState.PURCHASE_SAVING_FATAL ? false : cancelable;
     return (
       <React.Fragment>
         <Dialog.Content style={styles.dialogContent}>
-          <Markdown>
-            {t('iap:buy.descriptionMd')}
-          </Markdown>
-            <View style={styles.errorWrapper}>
-              {
-                error &&
-                (
-                  <TouchableOpacity onPress={this.copyError}>
-                    <Text style={styles.error}>
-                      <Text style={styles.copy}>{String.fromCharCode(61839) + ' '}</Text>
-                      {t.apply(null, error)}
-                    </Text>
-                  </TouchableOpacity>
-                )
-              }
-            </View>
+          <Markdown>{t('iap:buy.descriptionMd')}</Markdown>
+          <View style={styles.errorWrapper}>
+            {error && (
+              <TouchableOpacity onPress={this.copyError}>
+                <Text style={styles.error}>
+                  <Text style={styles.copy}>
+                    {String.fromCharCode(61839) + ' '}
+                  </Text>
+                  {t.apply(null, error)}
+                </Text>
+              </TouchableOpacity>
+            )}
+          </View>
         </Dialog.Content>
         <Dialog.Actions>
-          {
-            renderCancelButton &&
-            (
-              <Button mode="outlined" onPress={onCancel}>{t('commons:cancel')}</Button>
-            )
-          }
+          {renderCancelButton && (
+            <Button mode="outlined" onPress={onCancel}>
+              {t('commons:cancel')}
+            </Button>
+          )}
           <Button
             mode="contained"
             onPress={onConfirm}

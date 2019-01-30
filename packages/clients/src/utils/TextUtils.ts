@@ -1,4 +1,16 @@
-const ROMAN_NUMBERS = ['0', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'];
+const ROMAN_NUMBERS = [
+  '0',
+  'I',
+  'II',
+  'III',
+  'IV',
+  'V',
+  'VI',
+  'VII',
+  'VIII',
+  'IX',
+  'X',
+];
 
 const SEPARATOR = (0.5).toString()[1];
 const OTHER_SEPARATOR = SEPARATOR === ',' ? /\./ : /,/;
@@ -16,7 +28,10 @@ export interface DifficultyFragment {
   difficultyXtra?: string | null;
 }
 
-export function renderDifficulty({ difficulty, difficultyXtra }: DifficultyFragment) {
+export function renderDifficulty({
+  difficulty,
+  difficultyXtra,
+}: DifficultyFragment) {
   let result = toRomanDifficulty(difficulty);
   if (difficultyXtra) {
     result = `${result} (${difficultyXtra})`;

@@ -1,5 +1,5 @@
+import { Gauge, Measurement, Section, Unit } from '@whitewater-guide/commons';
 import React from 'react';
-import { Gauge, Measurement, Section, Unit } from '../../../ww-commons';
 import { WithMeasurements } from '../measurements';
 
 export interface InteractiveChartOuterProps {
@@ -24,8 +24,7 @@ export interface UnitStateUpdaters {
   onChangeUnit: (unit: Unit) => void;
 }
 
-export type InteractiveChartInnerProps =
-  InteractiveChartOuterProps &
+export type InteractiveChartInnerProps = InteractiveChartOuterProps &
   DaysState &
   DaysStateUpdaters &
   UnitState &

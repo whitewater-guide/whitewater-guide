@@ -4,10 +4,12 @@ import { Icon, Screen } from '../../../components';
 import { RegionBanners } from '../../../features/banners';
 import { I18nText } from '../../../i18n';
 import theme from '../../../theme';
-import { BannerPlacement } from '../../../ww-commons';
+import { BannerPlacement } from '@whitewater-guide/commons';
 import RegionInfoView from './RegionInfoView';
 
-export const RegionInfoScreen: NavigationScreenComponent = ({ screenProps }) => (
+export const RegionInfoScreen: NavigationScreenComponent = ({
+  screenProps,
+}) => (
   <Screen>
     <RegionBanners placement={BannerPlacement.MOBILE_REGION_DESCRIPTION} />
     <RegionInfoView region={screenProps!.region} />
@@ -16,7 +18,5 @@ export const RegionInfoScreen: NavigationScreenComponent = ({ screenProps }) => 
 
 RegionInfoScreen.navigationOptions = {
   tabBarLabel: <I18nText>region:info.title</I18nText>,
-  tabBarIcon: () => (
-    <Icon icon="information" color={theme.colors.textLight} />
-  ),
+  tabBarIcon: () => <Icon icon="information" color={theme.colors.textLight} />,
 };

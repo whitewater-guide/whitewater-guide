@@ -6,7 +6,7 @@ import { withSection, WithSection } from './withSection';
 
 const MockedProvider = createMockedProvider();
 
-it('has a loading state', done => {
+it('has a loading state', (done) => {
   class Container extends React.PureComponent<WithSection> {
     // tslint:disable-next-line:no-inferrable-types
     ticks: number = 0;
@@ -31,10 +31,11 @@ it('has a loading state', done => {
   renderer.create(
     <MockedProvider>
       <ContainerWithData sectionId="2b01742c-d443-11e7-9296-cec278b6b50a" />
-      </MockedProvider>);
+    </MockedProvider>,
+  );
 });
 
-it('should match snapshot', done => {
+it('should match snapshot', (done) => {
   class Container extends React.PureComponent<WithSection> {
     // tslint:disable-next-line:no-inferrable-types
     ticks: number = 0;
@@ -56,5 +57,6 @@ it('should match snapshot', done => {
   renderer.create(
     <MockedProvider>
       <ContainerWithData sectionId="2b01742c-d443-11e7-9296-cec278b6b50a" />
-      </MockedProvider>);
+    </MockedProvider>,
+  );
 });

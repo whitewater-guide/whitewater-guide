@@ -1,11 +1,24 @@
-import { ApolloQueryResult, NetworkStatus, ObservableQuery } from 'apollo-client';
+import {
+  ApolloQueryResult,
+  NetworkStatus,
+  ObservableQuery,
+} from 'apollo-client';
 import React from 'react';
 import { WithApolloClient } from 'react-apollo';
-import { getListMerger } from '../../ww-clients/apollo';
-import { POLL_REGION_MEASUREMENTS, PollVars, RegionContext } from '../../ww-clients/features/regions';
-import { LIST_SECTIONS, Result, Vars } from '../../ww-clients/features/sections';
-import { applySearch } from '../../ww-commons';
-import { ConnectivityProps, InnerState, RenderProps, SectionsStatus } from './types';
+import { getListMerger } from '@whitewater-guide/clients';
+import {
+  POLL_REGION_MEASUREMENTS,
+  PollVars,
+  RegionContext,
+} from '@whitewater-guide/clients';
+import { LIST_SECTIONS, Result, Vars } from '@whitewater-guide/clients';
+import { applySearch } from '@whitewater-guide/commons';
+import {
+  ConnectivityProps,
+  InnerState,
+  RenderProps,
+  SectionsStatus,
+} from './types';
 
 interface OwnProps {
   limit?: number;
@@ -32,7 +45,7 @@ export class SectionsListLoader extends React.PureComponent<Props, InnerState> {
 
   constructor(props: Props) {
     super(props);
-    const { client, region  } = props;
+    const { client, region } = props;
     if (!region.node) {
       this.state = { sections: [], count: 0, status: SectionsStatus.READY };
       return;
@@ -44,16 +57,20 @@ export class SectionsListLoader extends React.PureComponent<Props, InnerState> {
         query: LIST_SECTIONS,
         variables: { filter: { regionId: region.node.id } },
       });
-    } catch (e) {/* ignore, not in cache*/}
+    } catch (e) {
+      /* ignore, not in cache*/
+    }
     this.state = {
       sections: fromCache ? fromCache.sections.nodes! : [],
       count: fromCache ? fromCache.sections.count! : 0,
       status: SectionsStatus.READY,
     };
-    this._lastUpdatedId = fromCache &&
-      fromCache.sections &&
-      fromCache.sections.nodes.length &&
-      fromCache.sections.nodes[fromCache.sections.nodes.length - 1].id || undefined;
+    this._lastUpdatedId =
+      (fromCache &&
+        fromCache.sections &&
+        fromCache.sections.nodes.length &&
+        fromCache.sections.nodes[fromCache.sections.nodes.length - 1].id) ||
+      undefined;
 
     this._query = client.watchQuery({
       query: LIST_SECTIONS,
@@ -101,9 +118,11 @@ export class SectionsListLoader extends React.PureComponent<Props, InnerState> {
     }
     // Fetch more triggers update twice
     // https://github.com/apollographql/apollo-client/issues/3948
-    const lastId = data.sections &&
-      data.sections.nodes.length &&
-      data.sections.nodes[data.sections.nodes.length - 1].id || undefined;
+    const lastId =
+      (data.sections &&
+        data.sections.nodes.length &&
+        data.sections.nodes[data.sections.nodes.length - 1].id) ||
+      undefined;
     if (lastId === this._lastUpdatedId && !this._pollQuery) {
       return;
     }
@@ -112,7 +131,10 @@ export class SectionsListLoader extends React.PureComponent<Props, InnerState> {
     if (!this._mounted || !data.sections) {
       return;
     }
-    this.setState({ sections: data.sections.nodes!, count: data.sections.count! });
+    this.setState({
+      sections: data.sections.nodes!,
+      count: data.sections.count!,
+    });
   };
 
   /**
@@ -129,11 +151,16 @@ export class SectionsListLoader extends React.PureComponent<Props, InnerState> {
     try {
       const { data } = await this._query.fetchMore({
         query: LIST_SECTIONS,
-        variables: { page: { limit, offset }, filter: { regionId: region.node.id, updatedAfter } },
+        variables: {
+          page: { limit, offset },
+          filter: { regionId: region.node.id, updatedAfter },
+        },
         updateQuery: getListMerger('sections') as any,
       });
 
-      const { sections: { nodes, count } } = data;
+      const {
+        sections: { nodes, count },
+      } = data;
       if (offset + nodes!.length < count!) {
         await this.loadSections(offset + nodes!.length, updatedAfter);
       }
@@ -160,7 +187,8 @@ export class SectionsListLoader extends React.PureComponent<Props, InnerState> {
     }
     // get latest updated section
     const updatedAfter: Date | undefined = this.state.sections.reduce(
-      (acc, { updatedAt }) => (acc && acc > new Date(updatedAt)) ? acc : new Date(updatedAt),
+      (acc, { updatedAt }) =>
+        acc && acc > new Date(updatedAt) ? acc : new Date(updatedAt),
       undefined as (Date | undefined),
     );
     this.setState({ status: SectionsStatus.LOADING_UPDATES });
@@ -199,7 +227,7 @@ export class SectionsListLoader extends React.PureComponent<Props, InnerState> {
 
   render() {
     const { searchTerms } = this.props;
-    const children: ((props: RenderProps) => any) = this.props.children as any;
+    const children: (props: RenderProps) => any = this.props.children as any;
     const { status, count, sections } = this.state;
     const filteredSections = applySearch(sections, searchTerms);
     return children({

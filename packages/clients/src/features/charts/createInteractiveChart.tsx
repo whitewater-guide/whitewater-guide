@@ -1,6 +1,6 @@
+import { Unit } from '@whitewater-guide/commons';
 import React from 'react';
 import ErrorBoundary, { ErrorBoundaryProps } from 'react-error-boundary';
-import { Unit } from '../../../ww-commons';
 import {
   ChartComponentProps,
   ChartLayoutProps,
@@ -17,9 +17,17 @@ export const createInteractiveChart = (
   errorBoundaryProps?: ErrorBoundaryProps,
 ): React.ComponentType<InteractiveChartInnerProps> => {
   class InteractiveChart extends React.Component<InteractiveChartInnerProps> {
-
     render() {
-      const { gauge, days, measurements, onChangeDays, onChangeUnit, section, unit, unitChangeable } = this.props;
+      const {
+        gauge,
+        days,
+        measurements,
+        onChangeDays,
+        onChangeUnit,
+        section,
+        unit,
+        unitChangeable,
+      } = this.props;
       const chart = (
         <ErrorBoundary {...errorBoundaryProps}>
           <Chart
@@ -62,7 +70,6 @@ export const createInteractiveChart = (
         </ErrorBoundary>
       );
     }
-
   }
 
   return InteractiveChart;

@@ -4,9 +4,11 @@ import { Button } from 'react-native-paper';
 import { NavigationSceneRendererProps } from 'react-navigation';
 import { compose } from 'recompose';
 import theme from '../../theme';
-import { consumeRegion, RegionContext } from '../../ww-clients/features/regions';
+import { consumeRegion, RegionContext } from '@whitewater-guide/clients';
 
-type Props = WithI18n & Pick<NavigationSceneRendererProps, 'navigation'> & Pick<RegionContext, 'resetSearchTerms'>;
+type Props = WithI18n &
+  Pick<NavigationSceneRendererProps, 'navigation'> &
+  Pick<RegionContext, 'resetSearchTerms'>;
 
 class ResetFilterButton extends React.PureComponent<Props> {
   onPress = () => {

@@ -61,15 +61,17 @@ const Description = gql`
   }
 `;
 
-const GaugeBinding = {All: gql`
-  fragment GaugeBindingAll on GaugeBinding {
-    minimum
-    maximum
-    optimum
-    impossible
-    approximate
-  }
-`};
+const GaugeBinding = {
+  All: gql`
+    fragment GaugeBindingAll on GaugeBinding {
+      minimum
+      maximum
+      optimum
+      impossible
+      approximate
+    }
+  `,
+};
 
 const Measurements = gql`
   fragment SectionMeasurements on Section {

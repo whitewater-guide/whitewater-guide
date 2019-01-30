@@ -1,4 +1,4 @@
-import { isEmpty } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 import { ComponentType } from 'react';
 import { branch, renderComponent, withProps } from 'recompose';
 
@@ -21,7 +21,8 @@ export interface WithErrorMessage {
 export default <TOuter extends WithErrors>(
   errorComponent: ComponentType<WithErrorMessage>,
   errorMessage = defaultErrorMessage,
-) => branch<TOuter>(
-  props => !isEmpty(props.errors),
-  renderComponent(withProps({ errorMessage })(errorComponent)),
-);
+) =>
+  branch<TOuter>(
+    (props) => !isEmpty(props.errors),
+    renderComponent(withProps({ errorMessage })(errorComponent)),
+  );

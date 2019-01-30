@@ -41,17 +41,14 @@ class AuthStep extends React.PureComponent<Props> {
     return (
       <React.Fragment>
         <Dialog.Content style={styles.dialogContent}>
-          {
-            me ? this.renderUser() : this.renderAnon()
-          }
+          {me ? this.renderUser() : this.renderAnon()}
         </Dialog.Content>
         <Dialog.Actions>
-          {
-            cancelable &&
-            (
-              <Button mode="outlined" onPress={onCancel}>Cancel</Button>
-            )
-          }
+          {cancelable && (
+            <Button mode="outlined" onPress={onCancel}>
+              Cancel
+            </Button>
+          )}
           <Button mode="contained" onPress={onContinue} disabled={!me}>
             Continue
           </Button>

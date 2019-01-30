@@ -5,4 +5,4 @@ const styles = StyleSheet.create({
   spacer: { flex: 1 },
 });
 
-export const Spacer = () => (<View style={styles.spacer} />);
+export const Spacer = () => <View style={styles.spacer} />;

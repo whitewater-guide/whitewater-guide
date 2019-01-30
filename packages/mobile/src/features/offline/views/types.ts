@@ -1,5 +1,5 @@
+import { NamedNode, RegionMediaSummary } from '@whitewater-guide/commons';
 import { ApolloError } from 'apollo-client';
-import { NamedNode, RegionMediaSummary } from '../../../ww-commons';
 import { OfflineCategorySelection, OfflineProgress } from '../types';
 
 export interface StateProps {

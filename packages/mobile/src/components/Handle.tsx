@@ -12,7 +12,10 @@ const styles = StyleSheet.create({
   },
 });
 
-export const HandleLeft: React.StatelessComponent<ViewProperties> = ({ children, ...props }) => {
+export const HandleLeft: React.StatelessComponent<ViewProperties> = ({
+  children,
+  ...props
+}) => {
   return (
     <View {...props} style={[styles.handleLeft, props.style]}>
       {children}
@@ -20,7 +23,10 @@ export const HandleLeft: React.StatelessComponent<ViewProperties> = ({ children,
   );
 };
 
-export const Handle: React.StatelessComponent<ViewProperties> = ({ children, ...props }) => {
+export const Handle: React.StatelessComponent<ViewProperties> = ({
+  children,
+  ...props
+}) => {
   return (
     <View {...props} style={[styles.handle, props.style]}>
       {children}

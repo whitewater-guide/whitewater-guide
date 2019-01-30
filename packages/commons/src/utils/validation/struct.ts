@@ -37,21 +37,29 @@ const types: Config['types'] = {
     const result = isString(value) && isUUID(value);
     return result || 'Incorrect UUID';
   },
-  node: (value: any) => (isObject(value) && isUUID(value.id)) || 'Value must be node with id',
+  node: (value: any) =>
+    (isObject(value) && isUUID(value.id)) || 'Value must be node with id',
   url: (v: any) => (isString(v) && isURL(v)) || 'Value must be valid URL',
-  https: (v: any) => (isString(v) && isURL(v, { protocols: ['https'] })) || 'Value must be valid https URL',
-  jsonString: (v: any) => (isString(v) && isJSON(v)) || 'Value must be valid JSON string',
+  https: (v: any) =>
+    (isString(v) && isURL(v, { protocols: ['https'] })) ||
+    'Value must be valid https URL',
+  jsonString: (v: any) =>
+    (isString(v) && isJSON(v)) || 'Value must be valid JSON string',
   integer: (v: any) => isInteger(v) || 'Value must be integer',
-  positiveInteger: (v: any) => (isInteger(v) && v > 0) || 'Value must be positive integer',
-  positiveNumber: (v: any) => (isNumber(v) && v > 0) || 'Value must be positive number',
+  positiveInteger: (v: any) =>
+    (isInteger(v) && v > 0) || 'Value must be positive integer',
+  positiveNumber: (v: any) =>
+    (isNumber(v) && v > 0) || 'Value must be positive number',
   halfMonth: (v: any) =>
     (isInteger(v) && v >= 0 && v <= 23) || 'Must be integer between 0 and 23',
   seasonNumeric: (v: any) =>
     (isArray(v) && v.length <= 24) || 'Maximal length is 24',
   varchar: (v: any) =>
-    (isString(v) && v.length < 256) || 'Value must be string no longer than 255 chars',
+    (isString(v) && v.length < 256) ||
+    'Value must be string no longer than 255 chars',
   nonEmptyVarchar: (v: any) =>
-    (isString(v) && v.length < 256 && v.trim().length > 0) || 'Value must be non-empty string no longer than 255 chars',
+    (isString(v) && v.length < 256 && v.trim().length > 0) ||
+    'Value must be non-empty string no longer than 255 chars',
   nonEmptyString: (v: any) =>
     (isString(v) && v.trim().length > 0) || 'Value must be non-empty string',
   slug: (v: any) =>
@@ -59,7 +67,7 @@ const types: Config['types'] = {
   script: (v: any) => isString(v) && v.length > 0 && v.length < 20,
 };
 
-export const struct = superstruct({
+export const baseStruct = superstruct({
   types,
 });
 

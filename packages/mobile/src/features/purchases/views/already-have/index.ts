@@ -22,6 +22,8 @@ const container = connect<StateProps, DispatchProps, any, RootState>(
   }),
 );
 
-const AlreadyHaveStepWithData: React.ComponentType<{}> = container(AlreadyHaveStep);
+const AlreadyHaveStepWithData: React.ComponentType<{}> = container(
+  AlreadyHaveStep,
+);
 
 export default AlreadyHaveStepWithData;

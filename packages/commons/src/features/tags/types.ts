@@ -13,7 +13,11 @@ export enum TagSelection {
   NONE = 'none',
 }
 
-export const TagSelections = [TagSelection.NONE, TagSelection.SELECTED, TagSelection.DESELECTED];
+export const TagSelections = [
+  TagSelection.NONE,
+  TagSelection.SELECTED,
+  TagSelection.DESELECTED,
+];
 
 export const TAG_CATEGORIES = ['kayaking', 'hazards', 'supply', 'misc'];
 

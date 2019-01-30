@@ -11,23 +11,25 @@ it.each([
 });
 
 it('should omit __typename', () => {
-  expect(omitTypename({
-    __typename: 'Top',
-    foo: 'bar',
-    children: {
-      __typename: 'Middle',
-      nodes: [
-        {
-          __typename: 'Bottom',
-          bar: 1,
-        },
-        {
-          __typename: 'Bottom',
-          bar: 2,
-        },
-      ],
-    },
-  })).toEqual({
+  expect(
+    omitTypename({
+      __typename: 'Top',
+      foo: 'bar',
+      children: {
+        __typename: 'Middle',
+        nodes: [
+          {
+            __typename: 'Bottom',
+            bar: 1,
+          },
+          {
+            __typename: 'Bottom',
+            bar: 2,
+          },
+        ],
+      },
+    }),
+  ).toEqual({
     foo: 'bar',
     children: {
       nodes: [

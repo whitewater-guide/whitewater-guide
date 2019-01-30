@@ -1,5 +1,10 @@
 import { createValidator } from '../../utils/validation';
-import { BannerFormInput, BannerInput, BannerKind, BannerPlacement } from './types';
+import {
+  BannerFormInput,
+  BannerInput,
+  BannerKind,
+  BannerPlacement,
+} from './types';
 import { BannerFormStruct, BannerInputStruct } from './validation';
 
 describe('BannerInputStruct', () => {
@@ -26,14 +31,8 @@ describe('BannerInputStruct', () => {
   };
 
   const correctValues: TestValue[] = [
-    [
-      'full value',
-      correct,
-    ],
-    [
-      'null value',
-      { ...correct, id: null, link: null, extras: null },
-    ],
+    ['full value', correct],
+    ['null value', { ...correct, id: null, link: null, extras: null }],
     [
       'image source',
       {
@@ -45,53 +44,29 @@ describe('BannerInputStruct', () => {
         },
       },
     ],
-    [
-      'empty regions',
-      { ...correct, regions: [] },
-    ],
-    [
-      'empty groups',
-      { ...correct, groups: [] },
-    ],
+    ['empty regions', { ...correct, regions: [] }],
+    ['empty groups', { ...correct, groups: [] }],
   ];
 
   const incorrectValues: TestValue[] = [
-    [
-      'bad uuid',
-      { ...correct, id: 'foo' },
-    ],
-    [
-      'empty name',
-      { ...correct, name: '' },
-    ],
-    [
-      'bad slug 1',
-      { ...correct, slug: 'a' },
-    ],
-    [
-      'bad slug 2',
-      { ...correct, slug: 'ешкин крот' },
-    ],
+    ['bad uuid', { ...correct, id: 'foo' }],
+    ['empty name', { ...correct, name: '' }],
+    ['bad slug 1', { ...correct, slug: 'a' }],
+    ['bad slug 2', { ...correct, slug: 'ешкин крот' }],
     [
       'bad ratio',
-      { ...correct, source: { kind: BannerKind.WebView, ratio: 1, src: 'https://ya.ru' } },
+      {
+        ...correct,
+        source: { kind: BannerKind.WebView, ratio: 1, src: 'https://ya.ru' },
+      },
     ],
     [
       'empty source',
       { ...correct, source: { kind: BannerKind.WebView, ratio: 4, src: '' } },
     ],
-    [
-      'bad link',
-      { ...correct, link: 'hey' },
-    ],
-    [
-      'http link',
-      { ...correct, link: 'http://ya.ru' },
-    ],
-    [
-      'bad placement',
-      { ...correct, placement: 'nowhere' as any },
-    ],
+    ['bad link', { ...correct, link: 'hey' }],
+    ['http link', { ...correct, link: 'http://ya.ru' }],
+    ['bad placement', { ...correct, placement: 'nowhere' as any }],
     [
       'bad region',
       {
@@ -114,10 +89,7 @@ describe('BannerInputStruct', () => {
         ],
       },
     ],
-    [
-      'extra fields',
-      { ...correct, foo: 'bar' } as any,
-    ],
+    ['extra fields', { ...correct, foo: 'bar' } as any],
   ];
 
   it.each(correctValues)('should be valid for %s', (_, value) => {
@@ -128,7 +100,6 @@ describe('BannerInputStruct', () => {
     expect(validator(value)).not.toBeNull();
     expect(validator(value)).toMatchSnapshot();
   });
-
 });
 
 describe('BannerFormStruct', () => {
@@ -157,5 +128,4 @@ describe('BannerFormStruct', () => {
   it('should be valid for extras as JSON string', () => {
     expect(validator(correct)).toBeNull();
   });
-
 });

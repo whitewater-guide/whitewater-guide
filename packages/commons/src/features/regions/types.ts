@@ -65,4 +65,7 @@ export interface RegionMediaSummary {
   blog: RegionMediaSummaryItem;
 }
 
-export type RegionFormInput<RichText> = Overwrite<RegionInput, { description: RichText }>;
+export type RegionFormInput<RichText> = Overwrite<
+  RegionInput,
+  { description: RichText }
+>;

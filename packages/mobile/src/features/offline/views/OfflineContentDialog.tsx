@@ -13,13 +13,11 @@ interface Props {
 }
 
 const PremiumDialog: React.SFC<Props> = ({ visible }) => (
-  <Dialog dismissable={false} onDismiss={noop} visible={visible} >
+  <Dialog dismissable={false} onDismiss={noop} visible={visible}>
     <DialogViewWithData />
   </Dialog>
 );
 
-export default connect(
-  (state: RootState) => ({
-    visible: !!state.offlineContent.dialogRegion,
-  }),
-)(PremiumDialog);
+export default connect((state: RootState) => ({
+  visible: !!state.offlineContent.dialogRegion,
+}))(PremiumDialog);

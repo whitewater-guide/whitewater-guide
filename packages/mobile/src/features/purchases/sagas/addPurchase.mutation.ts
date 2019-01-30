@@ -1,5 +1,5 @@
+import { PurchaseInput } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
-import { PurchaseInput } from '../../../ww-commons';
 
 export const ADD_PURCHASE_MUTATION = gql`
   mutation addPurchase($info: PurchaseInput!) {

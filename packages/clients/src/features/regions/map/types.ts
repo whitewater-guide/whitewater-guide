@@ -1,4 +1,4 @@
-import { Region, Section } from '../../../../ww-commons';
+import { Region, Section } from '@whitewater-guide/commons';
 
 export interface RegionMapProps {
   region: Region;

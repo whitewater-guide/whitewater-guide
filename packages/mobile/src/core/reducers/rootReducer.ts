@@ -3,7 +3,10 @@ import { reducer as network } from 'react-native-offline';
 import { combineReducers, Reducer } from 'redux';
 import { PersistConfig, persistReducer } from 'redux-persist';
 import { Action } from 'typescript-fsa';
-import { offlineContentReducer, OfflineContentStore } from '../../features/offline';
+import {
+  offlineContentReducer,
+  OfflineContentStore,
+} from '../../features/offline';
 import { purchaseReducer, PurchaseStore } from '../../features/purchases';
 import { appReducer, AppState } from './appReducer';
 import { settingsReducer, SettingsState } from './settingsReducer';
@@ -33,4 +36,7 @@ const persistConfig: PersistConfig = {
   blacklist: ['app', 'purchase', 'network', 'offlineContent'],
 };
 
-export const persistedRootReducer: Reducer = persistReducer(persistConfig, rootReducer as any);
+export const persistedRootReducer: Reducer = persistReducer(
+  persistConfig,
+  rootReducer as any,
+);

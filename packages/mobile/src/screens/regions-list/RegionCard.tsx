@@ -1,3 +1,4 @@
+import { Region } from '@whitewater-guide/commons';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import Image from 'react-native-fast-image';
@@ -6,7 +7,6 @@ import { Caption, Title, TouchableRipple } from 'react-native-paper';
 import { Icon, Paper } from '../../components';
 import { WithTrans } from '../../i18n';
 import theme from '../../theme';
-import { Region } from '../../ww-commons';
 import DownloadButton from './DownloadButton';
 import getCoverImage from './getCoverImage';
 
@@ -103,23 +103,33 @@ export class RegionCard extends React.PureComponent<Props> {
   renderPremium = () => {
     const { premium, hasPremiumAccess } = this.props.region;
     if (!premium || !this.props.canMakePayments) {
-      return (
-        <View style={styles.col} />
-      );
+      return <View style={styles.col} />;
     }
     if (hasPremiumAccess) {
       return (
         <View style={styles.col}>
-          <Caption style={styles.premiumUnlocked}>{this.props.t('commons:premium')}</Caption>
-          <Icon icon="lock-open-outline" color={theme.colors.componentBorder} size={16} />
+          <Caption style={styles.premiumUnlocked}>
+            {this.props.t('commons:premium')}
+          </Caption>
+          <Icon
+            icon="lock-open-outline"
+            color={theme.colors.componentBorder}
+            size={16}
+          />
         </View>
       );
     }
     return (
       <View style={styles.col}>
-        <TouchableRipple onPress={this.onPremiumPress} hitSlop={PREMIUM_HIT_SLOP} style={styles.premiumTouchable}>
+        <TouchableRipple
+          onPress={this.onPremiumPress}
+          hitSlop={PREMIUM_HIT_SLOP}
+          style={styles.premiumTouchable}
+        >
           <View style={styles.col}>
-            <Caption style={styles.premium}>{this.props.t('commons:premium')}</Caption>
+            <Caption style={styles.premium}>
+              {this.props.t('commons:premium')}
+            </Caption>
             <Icon icon="lock" color={theme.colors.primary} size={16} />
           </View>
         </TouchableRipple>
@@ -129,7 +139,7 @@ export class RegionCard extends React.PureComponent<Props> {
 
   render() {
     const { region, t } = this.props;
-    const uri = getCoverImage(region.coverImage.mobile);
+    const uri: any = getCoverImage(region.coverImage.mobile);
     return (
       <TouchableRipple onPress={this.onPress}>
         <Paper style={styles.root}>
@@ -145,10 +155,14 @@ export class RegionCard extends React.PureComponent<Props> {
           </Image>
           <View style={styles.footer}>
             <View style={styles.col}>
-              <Caption>{`${t('regionsList:sectionsCount')}: ${region.sections!.count}`}</Caption>
+              <Caption>{`${t('regionsList:sectionsCount')}: ${
+                region.sections!.count
+              }`}</Caption>
             </View>
             <View style={styles.col}>
-              <Caption>{`${t('regionsList:gaugesCount')}: ${region.gauges!.count}`}</Caption>
+              <Caption>{`${t('regionsList:gaugesCount')}: ${
+                region.gauges!.count
+              }`}</Caption>
             </View>
             {this.renderPremium()}
           </View>

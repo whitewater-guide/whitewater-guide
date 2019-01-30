@@ -1,6 +1,12 @@
 import { mount } from 'enzyme';
 import React from 'react';
-import { createMockedProvider, findReceiver, flushPromises, genericReceiver, Receiver } from '../../test';
+import {
+  createMockedProvider,
+  findReceiver,
+  flushPromises,
+  genericReceiver,
+  Receiver,
+} from '../../test';
 import { withSectionsList, WithSectionsList } from './withSectionsList';
 
 let receiver: Receiver<WithSectionsList>;
@@ -10,7 +16,7 @@ beforeEach(async () => {
   const WithData = withSectionsList()(genericReceiver());
   const wrapped = mount(
     <MockedProvider>
-      <WithData/>
+      <WithData />
     </MockedProvider>,
   );
   receiver = findReceiver(wrapped);

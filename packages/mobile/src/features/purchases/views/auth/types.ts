@@ -1,4 +1,4 @@
-import { User } from '../../../../ww-commons';
+import { User } from '@whitewater-guide/commons';
 
 export interface OuterProps {
   cancelable?: boolean;

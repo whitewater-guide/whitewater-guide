@@ -13,53 +13,20 @@ const correctValue: GroupInput = {
 };
 
 const correct: TestValue[] = [
-  [
-    'full value',
-    correctValue,
-  ],
-  [
-    'null value',
-    { id: null, sku: null, name: 'Group' },
-  ],
-  [
-    'fancy sku value',
-    { ...correctValue, sku: 'group.sKu11_1' },
-  ],
+  ['full value', correctValue],
+  ['null value', { id: null, sku: null, name: 'Group' }],
+  ['fancy sku value', { ...correctValue, sku: 'group.sKu11_1' }],
 ];
 
 const incorrect: TestValue[] = [
-  [
-    'bad uuid',
-    { ...correctValue, id: 'foo' },
-  ],
-  [
-    'empty name',
-    { ...correctValue, name: '' },
-  ],
-  [
-    'bad sku value - random',
-    { ...correctValue, sku: 'aaaa' },
-  ],
-  [
-    'bad sku value - prefix',
-    { ...correctValue, sku: 'region.sku' },
-  ],
-  [
-    'bad sku value - postfix',
-    { ...correctValue, sku: 'group.a' },
-  ],
-  [
-    'bad sku value - non-word',
-    { ...correctValue, sku: 'group.foo-bar' },
-  ],
-  [
-    'bad sku value - cyrillic',
-    { ...correctValue, sku: 'group.группа' },
-  ],
-  [
-    'bad sku value - multiline',
-    { ...correctValue, sku: '\ngroup.all' },
-  ],
+  ['bad uuid', { ...correctValue, id: 'foo' }],
+  ['empty name', { ...correctValue, name: '' }],
+  ['bad sku value - random', { ...correctValue, sku: 'aaaa' }],
+  ['bad sku value - prefix', { ...correctValue, sku: 'region.sku' }],
+  ['bad sku value - postfix', { ...correctValue, sku: 'group.a' }],
+  ['bad sku value - non-word', { ...correctValue, sku: 'group.foo-bar' }],
+  ['bad sku value - cyrillic', { ...correctValue, sku: 'group.группа' }],
+  ['bad sku value - multiline', { ...correctValue, sku: '\ngroup.all' }],
   [
     'bad sku value - multimatch',
     { ...correctValue, sku: 'group.all\ngroup.some' },

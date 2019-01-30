@@ -3,8 +3,8 @@ import React from 'react';
 import { WithI18n } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
 import { WithTrans } from '../i18n';
-import { getSectionColor, prettyNumber } from '../ww-clients/features/sections';
-import { Section } from '../ww-commons';
+import { getSectionColor, prettyNumber } from '@whitewater-guide/clients';
+import { Section } from '@whitewater-guide/commons';
 
 const styles = StyleSheet.create({
   container: {
@@ -39,13 +39,26 @@ export const FlowsThumb: React.StatelessComponent<Props> = ({ section, t }) => {
     return null;
   }
   const { lastMeasurement, flowUnit, levelUnit } = gauge;
-  if (!lastMeasurement || (!lastMeasurement.flow && !lastMeasurement.level) || (!flows && !levels)) {
+  if (
+    !lastMeasurement ||
+    (!lastMeasurement.flow && !lastMeasurement.level) ||
+    (!flows && !levels)
+  ) {
     return null;
   }
   const color = getSectionColor(section);
-  const data = (flows && lastMeasurement.flow) ?
-    { label: t('commons:flow'), unit: flowUnit, value: lastMeasurement.flow } :
-    { label: t('commons:level'), unit: levelUnit, value: lastMeasurement.level };
+  const data =
+    flows && lastMeasurement.flow
+      ? {
+          label: t('commons:flow'),
+          unit: flowUnit,
+          value: lastMeasurement.flow,
+        }
+      : {
+          label: t('commons:level'),
+          unit: levelUnit,
+          value: lastMeasurement.level,
+        };
   return (
     <View style={styles.container}>
       <Text style={styles.unitLine}>{data.label}</Text>
@@ -55,7 +68,9 @@ export const FlowsThumb: React.StatelessComponent<Props> = ({ section, t }) => {
           {` ${t('commons:' + data.unit)}`}
         </Text>
       </Text>
-      <Text style={styles.timeLine}>{moment(lastMeasurement.timestamp).fromNow()}</Text>
+      <Text style={styles.timeLine}>
+        {moment(lastMeasurement.timestamp).fromNow()}
+      </Text>
     </View>
   );
 };

@@ -136,7 +136,10 @@ interface FormOverrides<RichText = any> {
   river: NamedNode;
 }
 
-export type SectionFormInput<RichText> = Overwrite<Omit<SectionInput, 'tags'>, FormOverrides<RichText>> & {
+export type SectionFormInput<RichText> = Overwrite<
+  Omit<SectionInput, 'tags'>,
+  FormOverrides<RichText>
+> & {
   kayakingTags: TagInput[];
   hazardsTags: TagInput[];
   supplyTags: TagInput[];

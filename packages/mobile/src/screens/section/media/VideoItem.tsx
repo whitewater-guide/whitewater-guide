@@ -4,8 +4,8 @@ import FastImage from 'react-native-fast-image';
 import { Caption, Paragraph, TouchableRipple } from 'react-native-paper';
 import { Row } from '../../../components';
 import { PHOTO_PADDING, PHOTO_SIZE } from '../../../features/media';
-import { getVideoThumb } from '../../../ww-clients/utils';
-import { Media } from '../../../ww-commons';
+import { getVideoThumb } from '@whitewater-guide/clients';
+import { Media } from '@whitewater-guide/commons';
 import VideoThumbPlaceholder from './VideoThumbPlaceholder';
 
 const styles = StyleSheet.create({
@@ -52,7 +52,13 @@ class VideoItem extends React.PureComponent<Props, State> {
   renderThumb = () => {
     const { thumb } = this.state;
     if (thumb) {
-      return <FastImage source={{ uri: this.state.thumb || '' }} style={styles.image} resizeMode="cover" />;
+      return (
+        <FastImage
+          source={{ uri: this.state.thumb || '' }}
+          style={styles.image}
+          resizeMode="cover"
+        />
+      );
     }
     return <VideoThumbPlaceholder />;
   };
@@ -64,11 +70,13 @@ class VideoItem extends React.PureComponent<Props, State> {
         <Row style={styles.container}>
           {this.renderThumb()}
           <View style={styles.body}>
-            <Paragraph style={styles.description} numberOfLines={copyright ? 3 : 4}>{description}</Paragraph>
-            {
-              copyright &&
-              <Caption>{`© ${copyright}`}</Caption>
-            }
+            <Paragraph
+              style={styles.description}
+              numberOfLines={copyright ? 3 : 4}
+            >
+              {description}
+            </Paragraph>
+            {copyright && <Caption>{`© ${copyright}`}</Caption>}
           </View>
         </Row>
       </TouchableRipple>

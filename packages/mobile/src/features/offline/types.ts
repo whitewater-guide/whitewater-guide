@@ -1,9 +1,9 @@
-import { NamedNode } from '../../ww-commons';
+import { NamedNode } from '@whitewater-guide/commons';
 
 export type OfflineCategoryType = 'data' | 'media' | 'maps';
 
 export type OfflineCategorySelection = {
-  [key in OfflineCategoryType]: boolean;
+  [key in OfflineCategoryType]: boolean
 };
 
 export interface OfflineProgress {

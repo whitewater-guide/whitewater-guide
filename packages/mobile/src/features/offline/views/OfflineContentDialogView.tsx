@@ -78,7 +78,8 @@ class OfflineContentDialogView extends React.PureComponent<Props, State> {
   renderCategories = () => {
     const { t, inProgress, progress, summary } = this.props;
     const { selection } = this.state;
-    const photoSize = (summary && summary.summary) ? summary.summary.photo.size : undefined;
+    const photoSize =
+      summary && summary.summary ? summary.summary.photo.size : undefined;
     return (
       <View style={styles.categoriesContainer}>
         <OfflineCategory
@@ -110,9 +111,7 @@ class OfflineContentDialogView extends React.PureComponent<Props, State> {
           label={t('offline:dialog.categories.maps')}
         />
         <View style={styles.cacheWarningContainer}>
-          <Caption>
-            {t('offline:dialog:cacheWarning')}
-          </Caption>
+          <Caption>{t('offline:dialog:cacheWarning')}</Caption>
         </View>
       </View>
     );
@@ -120,9 +119,7 @@ class OfflineContentDialogView extends React.PureComponent<Props, State> {
 
   renderLoadingSummary = () => {
     const { t, summary, i18n } = this.props;
-    return (
-      <LoadingSummary t={t} summary={summary} i18n={i18n} />
-    );
+    return <LoadingSummary t={t} summary={summary} i18n={i18n} />;
   };
 
   renderOffline = () => (
@@ -186,7 +183,9 @@ class OfflineContentDialogView extends React.PureComponent<Props, State> {
           {t('offline:dialog.subtitle', { region: region.name })}
         </Subheading>
         {this.renderBody()}
-        {inProgress ? this.renderInProgressButtons() : this.renderReadyButtons()}
+        {inProgress
+          ? this.renderInProgressButtons()
+          : this.renderReadyButtons()}
       </React.Fragment>
     );
   }

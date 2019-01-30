@@ -31,10 +31,18 @@ interface Props extends StarRatingProps {
   onChange?: (value: number) => void;
 }
 
-export const StarRating: React.StatelessComponent<Props> = ({ value, onChange, ...props }) => {
+export const StarRating: React.StatelessComponent<Props> = ({
+  value,
+  onChange,
+  ...props
+}) => {
   const isUnknown = value === 0 && !onChange;
-  const fullStarColor = onChange ? theme.colors.primary : theme.colors.componentBorder;
-  const emptyStarColor = isUnknown ? 'rgba(158, 158, 158, 0.4)' : theme.colors.componentBorder;
+  const fullStarColor = onChange
+    ? theme.colors.primary
+    : theme.colors.componentBorder;
+  const emptyStarColor = isUnknown
+    ? 'rgba(158, 158, 158, 0.4)'
+    : theme.colors.componentBorder;
   return (
     <View style={onChange ? styles.containerInteractive : styles.container}>
       <View>
@@ -51,14 +59,11 @@ export const StarRating: React.StatelessComponent<Props> = ({ value, onChange, .
           emptyStarColor={emptyStarColor}
           selectedStar={onChange}
         />
-        {
-          isUnknown &&
-          (
-            <View style={styles.unknownContainer} pointerEvents="none">
-              <Text style={styles.unknownText}>?</Text>
-            </View>
-          )
-        }
+        {isUnknown && (
+          <View style={styles.unknownContainer} pointerEvents="none">
+            <Text style={styles.unknownText}>?</Text>
+          </View>
+        )}
       </View>
       {!onChange && <View style={styles.compressor} />}
     </View>

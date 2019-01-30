@@ -1,13 +1,13 @@
 import { LANGUAGES } from '../../core';
-import { struct } from '../../utils/validation';
+import { baseStruct } from '../../utils/validation';
 
-export const UserInputStruct = struct.object({
+export const UserInputStruct = baseStruct.object({
   name: 'nonEmptyString?',
   avatar: 'string?|null',
-  language: struct.optional(struct.enum(LANGUAGES)),
-  imperial: struct.optional('boolean'),
+  language: baseStruct.optional(baseStruct.enum(LANGUAGES)),
+  imperial: baseStruct.optional('boolean'),
 });
 
-export const EditorSettingsStruct = struct.object({
-  language: struct.enum(LANGUAGES),
+export const EditorSettingsStruct = baseStruct.object({
+  language: baseStruct.enum(LANGUAGES),
 });

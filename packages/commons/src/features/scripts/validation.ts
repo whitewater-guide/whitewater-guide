@@ -1,7 +1,7 @@
-import { struct } from '../../utils/validation';
+import { baseStruct } from '../../utils/validation';
 import { HarvestModeStruct } from '../harvest-mode';
 
-export const ScriptStruct = struct.object({
+export const ScriptStruct = baseStruct.object({
   id: 'script',
   name: 'script',
   harvestMode: HarvestModeStruct,

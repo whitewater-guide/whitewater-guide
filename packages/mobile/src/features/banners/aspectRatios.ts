@@ -1,5 +1,5 @@
+import { BannerPlacement, BannerRatios } from '@whitewater-guide/commons';
 import { StyleSheet } from 'react-native';
-import { BannerPlacement, BannerRatios } from '../../ww-commons';
 
 const aspectRatios = StyleSheet.create({
   [BannerPlacement.MOBILE_REGION_DESCRIPTION]: {

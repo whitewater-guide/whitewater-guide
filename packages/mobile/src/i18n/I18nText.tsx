@@ -5,7 +5,9 @@ interface Props {
   children: string;
 }
 
-const I18nTextInternal: React.StatelessComponent<Props & WithI18n> = ({ children, t }) =>
-  t(children);
+const I18nTextInternal: React.FC<Props & WithI18n> = ({ children, t }) =>
+  t(children) as any;
 
-export const I18nText: React.ComponentType<Props> = withI18n()(I18nTextInternal);
+export const I18nText: React.ComponentType<Props> = withI18n()(
+  I18nTextInternal,
+);

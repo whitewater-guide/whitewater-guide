@@ -7,18 +7,23 @@ interface Foo {
 
 it('should convert graphql result to prop consumed by react components', () => {
   const refetch = jest.fn();
-  const result = queryResultToList<Foo, 'regions'>({ data: {
-    regions: {
-      nodes: [ { id: '1', name: 'foo' }, { id: '2', name: 'bar' }],
-      count: 2,
+  const result = queryResultToList<Foo, 'regions'>(
+    {
+      data: {
+        regions: {
+          nodes: [{ id: '1', name: 'foo' }, { id: '2', name: 'bar' }],
+          count: 2,
+        },
+        error: null,
+        loading: false,
+        refetch,
+      },
     },
-    error: null,
-    loading: false,
-    refetch,
-  }}, 'regions');
+    'regions',
+  );
   expect(result).toMatchObject({
     regions: {
-      nodes: [ { id: '1', name: 'foo' }, { id: '2', name: 'bar' }],
+      nodes: [{ id: '1', name: 'foo' }, { id: '2', name: 'bar' }],
       count: 2,
       error: null,
       loading: false,

@@ -1,5 +1,5 @@
+import { Tag } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
-import { Tag } from '../../../ww-commons';
 
 export const LIST_TAGS = gql`
   query listTags {

@@ -29,7 +29,11 @@ class SplashScreenInner extends React.PureComponent<InnerProps & OuterProps> {
   }
 }
 
-export const SplashScreen: React.ComponentType<OuterProps> = connect<{}, InnerProps, OuterProps>(
+export const SplashScreen: React.ComponentType<OuterProps> = connect<
+  {},
+  InnerProps,
+  OuterProps
+>(
   undefined,
   { splashRemoved },
 )(SplashScreenInner);

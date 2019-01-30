@@ -1,3 +1,4 @@
+// tslint:disable:max-classes-per-file
 declare module 'react-native-actionsheet' {
   import { Component, ReactElement } from 'react';
   import { StyleProp, TextStyle, ViewStyle } from 'react-native';

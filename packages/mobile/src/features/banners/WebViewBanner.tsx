@@ -2,7 +2,7 @@ import React from 'react';
 import { Linking, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import { WebView, WebViewNavigation } from 'react-native-webview';
 import theme from '../../theme';
-import { Banner } from '../../ww-commons';
+import { Banner } from '@whitewater-guide/commons';
 import aspectRatios from './aspectRatios';
 
 const styles = StyleSheet.create({
@@ -53,7 +53,11 @@ class WebViewBanner extends React.PureComponent<Props> {
         <WebView
           ref={this.setRef}
           source={{ uri: source.src! }}
-          style={[styles.webview, aspectRatios[placement], extras && extras.style]}
+          style={[
+            styles.webview,
+            aspectRatios[placement],
+            extras && extras.style,
+          ]}
           onNavigationStateChange={this.onNavigationStateChange}
         />
       </View>

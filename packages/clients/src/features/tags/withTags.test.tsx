@@ -1,6 +1,6 @@
+import { WithTags } from '@whitewater-guide/commons';
 import { mount } from 'enzyme';
 import React from 'react';
-import { WithTags } from '../../../ww-commons';
 import { createMockedProvider, flushPromises, Receiver } from '../../test';
 import { withTags } from './withTags';
 
@@ -10,13 +10,14 @@ beforeEach(async () => {
   const MockedProvider = createMockedProvider();
   const WithData = withTags(false)(Receiver as any);
   const wrapped = mount(
-    (
-      <MockedProvider>
-        <WithData />
-      </MockedProvider>
-    ),
+    <MockedProvider>
+      <WithData />
+    </MockedProvider>,
   );
-  receiver = wrapped.find(Receiver as any).first().instance() as any;
+  receiver = wrapped
+    .find(Receiver as any)
+    .first()
+    .instance() as any;
   await flushPromises();
 });
 

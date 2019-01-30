@@ -3,7 +3,7 @@ import { translate, withI18n, WithI18n } from 'react-i18next';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { Button, Subheading } from 'react-native-paper';
 import theme from '../theme';
-import { sleep } from '../ww-clients/utils';
+import { sleep } from '@whitewater-guide/clients';
 import { Icon } from './Icon';
 
 const styles = StyleSheet.create({
@@ -33,7 +33,10 @@ interface State {
   refetching: boolean;
 }
 
-class RetryPlaceholderInner extends React.PureComponent<Props & WithI18n, State> {
+class RetryPlaceholderInner extends React.PureComponent<
+  Props & WithI18n,
+  State
+> {
   readonly state: State = { refetching: false };
 
   onRetry = async () => {
@@ -49,26 +52,33 @@ class RetryPlaceholderInner extends React.PureComponent<Props & WithI18n, State>
   };
 
   render() {
-    const { labelKey = 'commons:offline', buttonKey = 'commons:retry', t, loading } = this.props;
+    const {
+      labelKey = 'commons:offline',
+      buttonKey = 'commons:retry',
+      t,
+      loading,
+    } = this.props;
     const isBusy = this.state.refetching || loading;
     return (
       <View style={styles.container}>
         <View style={styles.iconContainer}>
-          {
-            isBusy ?
-              <ActivityIndicator size="small" color={theme.colors.primary} /> :
-              <Icon narrow icon="alert" />
-          }
+          {isBusy ? (
+            <ActivityIndicator size="small" color={theme.colors.primary} />
+          ) : (
+            <Icon narrow icon="alert" />
+          )}
         </View>
         <Subheading>{t(labelKey)}</Subheading>
-        {
-          !!this.props.refetch &&
-          (
-            <Button color={theme.colors.primary} compact disabled={isBusy} onPress={this.onRetry}>
-              {t(buttonKey)}
-            </Button>
-          )
-        }
+        {!!this.props.refetch && (
+          <Button
+            color={theme.colors.primary}
+            compact
+            disabled={isBusy}
+            onPress={this.onRetry}
+          >
+            {t(buttonKey)}
+          </Button>
+        )}
       </View>
     );
   }

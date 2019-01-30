@@ -3,7 +3,7 @@ import { withI18n, WithI18n } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Subheading } from 'react-native-paper';
 import { PHOTO_SIZE } from '../../../features/media';
-import { MediaKind } from '../../../ww-commons';
+import { MediaKind } from '@whitewater-guide/commons';
 
 const styles = StyleSheet.create({
   container: {

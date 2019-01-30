@@ -2,9 +2,10 @@ import React from 'react';
 import { NavigationSceneRendererProps } from 'react-navigation';
 import { Icon } from '../../components';
 import theme from '../../theme';
-import { consumeRegion, RegionState } from '../../ww-clients/features/regions';
+import { consumeRegion, RegionState } from '@whitewater-guide/clients';
 
-type Props = Pick<NavigationSceneRendererProps, 'navigation'> & Pick<RegionState, 'searchTerms'>;
+type Props = Pick<NavigationSceneRendererProps, 'navigation'> &
+  Pick<RegionState, 'searchTerms'>;
 
 class FilterButton extends React.PureComponent<Props> {
   onPress = () => this.props.navigation.navigate('Filter');
@@ -17,6 +18,6 @@ class FilterButton extends React.PureComponent<Props> {
   }
 }
 
-export default consumeRegion(
-  ({ searchTerms }) => ({ searchTerms }),
-)(FilterButton);
+export default consumeRegion(({ searchTerms }) => ({ searchTerms }))(
+  FilterButton,
+);

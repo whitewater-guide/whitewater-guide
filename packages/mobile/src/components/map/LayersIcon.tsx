@@ -51,21 +51,22 @@ class LayersIcon extends React.PureComponent<Props> {
 
   onSelectLayer = (index: number) => {
     this.props.onLayerChange(
-      [
-        'standard',
-        'terrain',
-        'satellite',
-        'hybrid',
-      ][index],
+      ['standard', 'terrain', 'satellite', 'hybrid'][index],
     );
   };
 
-  setActionSheet = (ref: ActionSheet | null) => { this._actionSheet = ref; };
+  setActionSheet = (ref: ActionSheet | null) => {
+    this._actionSheet = ref;
+  };
 
   render() {
     return (
       <React.Fragment>
-        <Icon icon="layers" style={styles.icon} onPress={this.onShowActionSheet} />
+        <Icon
+          icon="layers"
+          style={styles.icon}
+          onPress={this.onShowActionSheet}
+        />
         <ActionSheet
           ref={this.setActionSheet}
           title={this.props.t('region:map.layers.prompt')}
@@ -81,7 +82,7 @@ class LayersIcon extends React.PureComponent<Props> {
 export default compose<Props, {}>(
   withI18n(),
   connect(
-undefined,
+    undefined,
     { onLayerChange: settings.setMapType },
   ),
 )(LayersIcon);

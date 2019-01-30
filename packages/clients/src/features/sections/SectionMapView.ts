@@ -1,4 +1,5 @@
-import { get } from 'lodash';
+import { Point, Section } from '@whitewater-guide/commons';
+import get from 'lodash/get';
 import { ComponentType } from 'react';
 import {
   branch,
@@ -10,8 +11,13 @@ import {
   withPropsOnChange,
   withState,
 } from 'recompose';
-import { Point, Section } from '../../../ww-commons';
-import { getMapView, MapLayoutProps, MapProps, SelectedPOIViewProps, SelectedSectionViewProps } from '../maps';
+import {
+  getMapView,
+  MapLayoutProps,
+  MapProps,
+  SelectedPOIViewProps,
+  SelectedSectionViewProps,
+} from '../maps';
 import { WithSection } from './withSection';
 
 export const SectionMapView = (
@@ -20,22 +26,23 @@ export const SectionMapView = (
   SelectedSection: ComponentType<SelectedSectionViewProps>,
   SelectedPOI: ComponentType<SelectedPOIViewProps>,
   LoadingIndicator: ComponentType<any>,
-) => compose<MapProps, WithSection>(
-  setDisplayName('SectionMapView'),
-  branch<WithSection>(
-    props => props.section.loading,
-    renderComponent(LoadingIndicator),
-  ),
-  withPropsOnChange(
-    ['section'],
-    ({ section }: WithSection) => {
+) =>
+  compose<MapProps, WithSection>(
+    setDisplayName('SectionMapView'),
+    branch<WithSection>(
+      (props) => props.section.loading,
+      renderComponent(LoadingIndicator),
+    ),
+    withPropsOnChange(['section'], ({ section }: WithSection) => {
       const node: Section | null = section.node;
       const pois = node ? [...node.pois] : [];
       const gaugePOI = get(node, 'gauge.location');
       if (node && gaugePOI) {
         pois.push({ ...gaugePOI, name: `Gauge ${node.gauge!.name}` });
       }
-      const contentBounds = node ? node.shape.concat(pois.map(poi => poi.coordinates)) : null;
+      const contentBounds = node
+        ? node.shape.concat(pois.map((poi) => poi.coordinates))
+        : null;
       return {
         initialBounds: null, // Currently state is not saved anywhere
         contentBounds,
@@ -43,13 +50,13 @@ export const SectionMapView = (
         selectedSection: node,
         pois,
       };
-    },
-  ),
-  withState('selectedPOIId', 'setSelectedPOIId', null),
-  withHandlers({
-    onPOISelected: (props: any) => (poi: Point) => props.setSelectedPOIId(poi && poi.id),
-    /* tslint:disable-next-line:no-empty */
-    onSectionSelected: () => () => {}, // Blank handler so deselect will work
-  }),
-  withProps({ useSectionShapes: true }),
-)(getMapView(Layout, Map, SelectedSection, SelectedPOI));
+    }),
+    withState('selectedPOIId', 'setSelectedPOIId', null),
+    withHandlers({
+      onPOISelected: (props: any) => (poi: Point) =>
+        props.setSelectedPOIId(poi && poi.id),
+      /* tslint:disable-next-line:no-empty */
+      onSectionSelected: () => () => {}, // Blank handler so deselect will work
+    }),
+    withProps({ useSectionShapes: true }),
+  )(getMapView(Layout, Map, SelectedSection, SelectedPOI));

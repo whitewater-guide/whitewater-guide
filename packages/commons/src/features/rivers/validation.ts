@@ -1,8 +1,8 @@
-import { struct } from '../../utils/validation';
+import { baseStruct } from '../../utils/validation';
 
-export const RiverInputStruct = struct.object({
+export const RiverInputStruct = baseStruct.object({
   id: 'uuid|null',
   name: 'nonEmptyString',
   region: 'node',
-  altNames: struct.union([struct.list(['nonEmptyString']), 'null']),
+  altNames: baseStruct.union([baseStruct.list(['nonEmptyString']), 'null']),
 });

@@ -1,5 +1,12 @@
 import React from 'react';
-import { Animated, GestureResponderEvent, Insets, PanResponder, PanResponderInstance, ViewProps } from 'react-native';
+import {
+  Animated,
+  GestureResponderEvent,
+  Insets,
+  PanResponder,
+  PanResponderInstance,
+  ViewProps,
+} from 'react-native';
 
 export const THUMB_SCALE_RATIO = 1.3;
 
@@ -22,7 +29,12 @@ export default class Thumb extends React.PureComponent<Props> {
   constructor(props: Props) {
     super(props);
     const touchPadding = Math.max(0, 20 - props.radius);
-    this._hitSlop = { top: touchPadding, left: touchPadding, bottom: touchPadding, right: touchPadding };
+    this._hitSlop = {
+      top: touchPadding,
+      left: touchPadding,
+      bottom: touchPadding,
+      right: touchPadding,
+    };
   }
 
   componentWillMount() {
@@ -45,8 +57,14 @@ export default class Thumb extends React.PureComponent<Props> {
     this.x = x;
     const xTo = x + this.props.trackMargin;
     Animated.parallel([
-      Animated.timing(this._animatedScale, { toValue: THUMB_SCALE_RATIO, duration: 100 }),
-      Animated.timing(this._animatedLeft, { toValue: xTo - this.props.radius, duration: 0 }),
+      Animated.timing(this._animatedScale, {
+        toValue: THUMB_SCALE_RATIO,
+        duration: 100,
+      }),
+      Animated.timing(this._animatedLeft, {
+        toValue: xTo - this.props.radius,
+        duration: 0,
+      }),
     ]).start();
   };
 
@@ -56,7 +74,9 @@ export default class Thumb extends React.PureComponent<Props> {
 
   render() {
     const { color, radius } = this.props;
-    const panHandlers = this._panResponder ? this._panResponder.panHandlers : undefined;
+    const panHandlers = this._panResponder
+      ? this._panResponder.panHandlers
+      : undefined;
     return (
       <Animated.View
         style={[
@@ -68,9 +88,7 @@ export default class Thumb extends React.PureComponent<Props> {
             borderRadius: radius,
             position: 'absolute',
             left: this._animatedLeft,
-            transform: [
-              { scale: this._animatedScale },
-            ],
+            transform: [{ scale: this._animatedScale }],
           },
         ]}
         {...panHandlers}

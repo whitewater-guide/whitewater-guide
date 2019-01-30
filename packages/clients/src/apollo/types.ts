@@ -1,5 +1,5 @@
+import { Connection } from '@whitewater-guide/commons';
 import { ApolloError, ApolloQueryResult, NetworkStatus } from 'apollo-client';
-import { Connection } from '../../ww-commons';
 
 export interface Page {
   limit?: number;

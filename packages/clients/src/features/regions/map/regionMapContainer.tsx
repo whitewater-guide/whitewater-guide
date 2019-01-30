@@ -4,8 +4,9 @@ import { RegionConsumer } from '../RegionContext';
 import { RegionContext } from '../types';
 import { RegionMapProps } from './types';
 
-export function regionMapContainer(Component: React.ComponentType<MapProps>): React.ComponentType<RegionMapProps> {
-
+export function regionMapContainer(
+  Component: React.ComponentType<MapProps>,
+): React.ComponentType<RegionMapProps> {
   const Wrapper: React.StatelessComponent<RegionMapProps> = (props) => (
     <RegionConsumer>
       {(state: RegionContext) => {

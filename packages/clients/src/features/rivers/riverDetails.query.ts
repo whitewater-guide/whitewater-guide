@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 export const RIVER_DETAILS = gql`
-  query viewRiverQuery($riverId: ID ) {
+  query viewRiverQuery($riverId: ID) {
     river(id: $riverId) {
       id
       name

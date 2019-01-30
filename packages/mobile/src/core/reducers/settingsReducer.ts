@@ -18,7 +18,10 @@ const initialState: SettingsState = {
   mapType: 'standard',
 };
 
-export function settingsReducer(state: SettingsState = initialState, action: Action) {
+export function settingsReducer(
+  state: SettingsState = initialState,
+  action: Action,
+) {
   if (isType(action, settings.setMessaging)) {
     return { ...state, messaging: action.payload };
   }

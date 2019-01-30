@@ -2,8 +2,8 @@ import React from 'react';
 import { Query, QueryResult } from 'react-apollo';
 import { FlatList, ListRenderItemInfo } from 'react-native';
 import { WithNetworkError } from '../../components';
-import { queryResultToList, WithList } from '../../ww-clients/apollo';
-import { Region } from '../../ww-commons';
+import { queryResultToList, WithList } from '@whitewater-guide/clients';
+import { Region } from '@whitewater-guide/commons';
 import container from './container';
 import { CARD_HEIGHT, RegionCard } from './RegionCard';
 import { REGIONS_LIST_QUERY, Result } from './regionsList.query';
@@ -18,7 +18,6 @@ const getItemLayout = (data: any, index: number) => ({
 });
 
 class RegionsListView extends React.PureComponent<InnerProps> {
-
   onRegionSelected = (region: Region) =>
     this.props.navigate('Region', { regionId: region.id });
 
@@ -37,7 +36,12 @@ class RegionsListView extends React.PureComponent<InnerProps> {
   renderList = (regions: WithList<Region>) => {
     const { nodes, error, loading, refetch } = regions;
     return (
-      <WithNetworkError data={nodes} error={error} loading={loading} refetch={refetch}>
+      <WithNetworkError
+        data={nodes}
+        error={error}
+        loading={loading}
+        refetch={refetch}
+      >
         <FlatList
           data={nodes}
           extraData={this.props.regionsListRefreshToken}

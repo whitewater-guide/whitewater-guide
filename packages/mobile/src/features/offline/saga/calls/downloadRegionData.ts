@@ -1,5 +1,5 @@
+import { REGION_DETAILS } from '@whitewater-guide/clients';
 import { getApolloClient } from '../../../../core/apollo';
-import { REGION_DETAILS } from '../../../../ww-clients/features/regions';
 
 export default async function downloadRegionData(regionId: string) {
   const client = await getApolloClient();

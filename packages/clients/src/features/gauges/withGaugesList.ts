@@ -1,6 +1,6 @@
+import { Connection, Gauge } from '@whitewater-guide/commons';
 import { graphql } from 'react-apollo';
 import { compose } from 'recompose';
-import { Connection, Gauge } from '../../../ww-commons';
 import { queryResultToList, WithList } from '../../apollo';
 import { withFeatureIds } from '../../core';
 import LIST_GAUGES from './listGauges.query';
@@ -21,15 +21,17 @@ export type WithGaugesList = WithGaugesListProps & ChildProps;
 
 export const withGaugesList = compose(
   withFeatureIds('source'),
-  graphql<WithGaugesListProps, WithGaugesListResult, WithGaugesListProps, ChildProps>(
-    LIST_GAUGES,
-    {
-      alias: 'withGaugesList',
-      options: () => ({
-        fetchPolicy: 'cache-and-network',
-        notifyOnNetworkStatusChange: true,
-      }),
-      props: props => queryResultToList(props, 'gauges'),
-    },
-  ),
+  graphql<
+    WithGaugesListProps,
+    WithGaugesListResult,
+    WithGaugesListProps,
+    ChildProps
+  >(LIST_GAUGES, {
+    alias: 'withGaugesList',
+    options: () => ({
+      fetchPolicy: 'cache-and-network',
+      notifyOnNetworkStatusChange: true,
+    }),
+    props: (props) => queryResultToList(props, 'gauges'),
+  }),
 );

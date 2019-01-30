@@ -2,7 +2,7 @@
   "version": "independent",
   "command": {
     "publish": {
-      "allowBranch": ["v2"],
+      "allowBranch": ["dev", "master"],
       "ignoreChanges": ["*.md"],
       "message": "chore(release): publish new packages"
     },
@@ -11,5 +11,5 @@
     }
   },
   "npmClient": "yarn",
-  "packages": ["packages/*"]
+  "packages": ["packages/*", "tooling/*", "services/*"]
 }

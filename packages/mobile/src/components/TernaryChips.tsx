@@ -2,7 +2,11 @@ import set from 'lodash/fp/set';
 import map from 'lodash/map';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { SelectableTag, TagSelection, TagSelections } from '../ww-commons/features/tags';
+import {
+  SelectableTag,
+  TagSelection,
+  TagSelections,
+} from '@whitewater-guide/commons';
 import { TernaryChip } from './TernaryChip';
 
 const styles = StyleSheet.create({
@@ -19,7 +23,6 @@ interface Props {
 }
 
 export class TernaryChips extends React.PureComponent<Props> {
-
   onToggle = (id: string) => {
     const { tags, onChange } = this.props;
     const index = tags.findIndex((t) => t.id === id);
@@ -28,7 +31,10 @@ export class TernaryChips extends React.PureComponent<Props> {
     }
     const tag = tags[index];
     const selection = tag.selection || TagSelection.NONE;
-    const newSelection = TagSelections[(TagSelections.indexOf(selection) + 1) % TagSelections.length];
+    const newSelection =
+      TagSelections[
+        (TagSelections.indexOf(selection) + 1) % TagSelections.length
+      ];
     onChange(set(index, { ...tag, selection: newSelection }, tags));
   };
 
@@ -36,15 +42,9 @@ export class TernaryChips extends React.PureComponent<Props> {
     const { tags } = this.props;
     return (
       <View style={styles.chips}>
-        {
-          map(tags, (tag) => (
-            <TernaryChip
-              key={tag.id}
-              tag={tag}
-              onPress={this.onToggle}
-            />
-          ))
-        }
+        {map(tags, (tag) => (
+          <TernaryChip key={tag.id} tag={tag} onPress={this.onToggle} />
+        ))}
       </View>
     );
   }

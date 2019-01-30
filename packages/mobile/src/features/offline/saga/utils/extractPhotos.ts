@@ -1,5 +1,5 @@
+import { Section } from '@whitewater-guide/commons';
 import flatMap from 'lodash/flatMap';
-import { Section } from '../../../../ww-commons/features/sections';
 import { getThumbUri, getUri } from '../../../media';
 
 export function extractPhotos(sections: Section[]): string[] {
@@ -8,7 +8,10 @@ export function extractPhotos(sections: Section[]): string[] {
       return [];
     }
     return section.media.nodes.reduce(
-      (urls, { kind, url }) => kind === 'photo' ? [ ...urls, getUri(url).url, getThumbUri(url).uri ] : urls,
+      (urls, { kind, url }) =>
+        kind === 'photo'
+          ? [...urls, getUri(url).url, getThumbUri(url).uri]
+          : urls,
       [] as string[],
     );
   });

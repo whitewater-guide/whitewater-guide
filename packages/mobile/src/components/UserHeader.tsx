@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Title } from 'react-native-paper';
 import theme from '../theme';
-import { User } from '../ww-commons';
+import { User } from '@whitewater-guide/commons';
 import { Avatar } from './Avatar';
 
 const styles = StyleSheet.create({
@@ -29,9 +29,18 @@ interface Props {
   padded?: boolean;
 }
 
-export const UserHeader: React.FC<Props> = ({ user, medium, padded = true }) => (
+export const UserHeader: React.FC<Props> = ({
+  user,
+  medium,
+  padded = true,
+}) => (
   <View style={[styles.container, padded && styles.containerPadding]}>
-    <Avatar avatar={user.avatar} name={user.name} style={styles.icon} medium={medium} />
+    <Avatar
+      avatar={user.avatar}
+      name={user.name}
+      style={styles.icon}
+      medium={medium}
+    />
     <Title style={medium && styles.fontMedium}>{user.name}</Title>
   </View>
 );

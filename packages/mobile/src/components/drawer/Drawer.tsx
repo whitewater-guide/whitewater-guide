@@ -20,7 +20,6 @@ type DispatchProps = WithToggle;
 type Props = StateProps & DispatchProps & OwnProps;
 
 class DrawerView extends React.PureComponent<Props> {
-
   drawer?: DrawerLayout;
 
   componentDidUpdate(prevProps: Props) {
@@ -41,7 +40,10 @@ class DrawerView extends React.PureComponent<Props> {
   onDrawerClose = () => this.props.toggleDrawer(false);
 
   renderDrawer = () => (
-    <DrawerSidebar navigation={this.props.navigation} toggleDrawer={this.props.toggleDrawer} />
+    <DrawerSidebar
+      navigation={this.props.navigation}
+      toggleDrawer={this.props.toggleDrawer}
+    />
   );
 
   render() {
@@ -57,15 +59,18 @@ class DrawerView extends React.PureComponent<Props> {
         renderNavigationView={this.renderDrawer}
         drawerPosition="left"
       >
-        <View style={StyleSheet.absoluteFill}>
-          {this.props.children}
-        </View>
+        <View style={StyleSheet.absoluteFill}>{this.props.children}</View>
       </DrawerLayout>
     );
   }
 }
 
-export const Drawer: React.ComponentType<OwnProps> = connect<StateProps, DispatchProps, OwnProps, RootState>(
+export const Drawer: React.ComponentType<OwnProps> = connect<
+  StateProps,
+  DispatchProps,
+  OwnProps,
+  RootState
+>(
   ({ app }: RootState) => ({ drawerOpen: app.drawerOpen }),
   { toggleDrawer },
 )(DrawerView);

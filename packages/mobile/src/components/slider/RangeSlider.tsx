@@ -32,7 +32,6 @@ export interface RangeSliderProps extends ViewProps {
 }
 
 export class RangeSlider extends React.PureComponent<RangeSliderProps> {
-
   static defaultProps: Partial<RangeSliderProps> = {
     thumbRadius: 10,
     trackThickness: 2,
@@ -61,10 +60,18 @@ export class RangeSlider extends React.PureComponent<RangeSliderProps> {
   constructor(props: RangeSliderProps) {
     super(props);
 
-    this._trackMarginV = props.thumbRadius! * THUMB_SCALE_RATIO + TRACK_EXTRA_MARGIN_V - (props.trackThickness!) / 2;
-    this._trackMarginH = props.thumbRadius! * THUMB_SCALE_RATIO + TRACK_EXTRA_MARGIN_H;
+    this._trackMarginV =
+      props.thumbRadius! * THUMB_SCALE_RATIO +
+      TRACK_EXTRA_MARGIN_V -
+      props.trackThickness! / 2;
+    this._trackMarginH =
+      props.thumbRadius! * THUMB_SCALE_RATIO + TRACK_EXTRA_MARGIN_H;
     this._trackStyle = StyleSheet.create({
-      track: { marginHorizontal: this._trackMarginH, marginVertical: this._trackMarginV, height: 2 },
+      track: {
+        marginHorizontal: this._trackMarginH,
+        marginVertical: this._trackMarginV,
+        height: 2,
+      },
     });
   }
 
@@ -83,7 +90,11 @@ export class RangeSlider extends React.PureComponent<RangeSliderProps> {
     this.updateThumbs();
   }
 
-  onTrackLayout = ({ nativeEvent: { layout: { width } } }: LayoutChangeEvent) => {
+  onTrackLayout = ({
+    nativeEvent: {
+      layout: { width },
+    },
+  }: LayoutChangeEvent) => {
     // InteractionManager.runAfterInteractions is required because when RangeSlider is inside animated StackScreen
     // initial measurements get screwed
     InteractionManager.runAfterInteractions(() => {
@@ -121,7 +132,9 @@ export class RangeSlider extends React.PureComponent<RangeSliderProps> {
   };
 
   snap = (valuePx: number) => {
-    const stepPx = this.props.step! * this._trackWidthPx / (this.props.range![1] - this.props.range![0]);
+    const stepPx =
+      (this.props.step! * this._trackWidthPx) /
+      (this.props.range![1] - this.props.range![0]);
     return Math.round(valuePx / stepPx) * stepPx;
   };
 
@@ -130,10 +143,12 @@ export class RangeSlider extends React.PureComponent<RangeSliderProps> {
   };
 
   pixelToValue = (px: number) =>
-    px * (this.props.range![1] - this.props.range![0]) / this._trackWidthPx + this.props.range![0];
+    (px * (this.props.range![1] - this.props.range![0])) / this._trackWidthPx +
+    this.props.range![0];
 
   valueToPixel = (value: number) =>
-    this._trackWidthPx * (value - this.props.range![0]) / (this.props.range![1] - this.props.range![0]);
+    (this._trackWidthPx * (value - this.props.range![0])) /
+    (this.props.range![1] - this.props.range![0]);
 
   changeValues = (value: number) => {
     const index = this._activeThumb === this._minThumb ? 0 : 1;
@@ -168,10 +183,12 @@ export class RangeSlider extends React.PureComponent<RangeSliderProps> {
     if (behavior !== 'invert') {
       // The moment when user drags one thumb over another
       if (behavior === 'continue' && this._minThumb.x === this._maxThumb.x) {
-        if (x > this._maxThumb.x) { // Drag min thumb to the right over max thumb
+        if (x > this._maxThumb.x) {
+          // Drag min thumb to the right over max thumb
           this._activeThumb = this._maxThumb;
           this._minThumb.release(); // Release minThumb, continue with maxThumb
-        } else if (x < this._minThumb.x) { // Drag max thumb to the left over min thumb
+        } else if (x < this._minThumb.x) {
+          // Drag max thumb to the left over min thumb
           this._activeThumb = this._minThumb;
           this._maxThumb.release(); // Release maxThumb, continue with minThumb
         }
@@ -199,22 +216,43 @@ export class RangeSlider extends React.PureComponent<RangeSliderProps> {
       this._inverted.setValue(inverted);
     } else {
       Animated.parallel([
-        Animated.timing(this._selectedTrackLeftPx, { toValue: left, duration: 0 }),
-        Animated.timing(this._selectedTrackWidthPx, { toValue: width, duration: 0 }),
+        Animated.timing(this._selectedTrackLeftPx, {
+          toValue: left,
+          duration: 0,
+        }),
+        Animated.timing(this._selectedTrackWidthPx, {
+          toValue: width,
+          duration: 0,
+        }),
         Animated.timing(this._inverted, { toValue: inverted, duration: 0 }),
       ]).start();
     }
   };
 
-  setTrack = (track: View | null) => { this._track = track; };
-  setMinThumb = (thumb: Thumb | null) => { this._minThumb = thumb; };
-  setMaxThumb = (thumb: Thumb | null) => { this._maxThumb = thumb; };
+  setTrack = (track: View | null) => {
+    this._track = track;
+  };
+  setMinThumb = (thumb: Thumb | null) => {
+    this._minThumb = thumb;
+  };
+  setMaxThumb = (thumb: Thumb | null) => {
+    this._maxThumb = thumb;
+  };
 
   render() {
-    const { selectedTrackColor, backgroundTrackColor, thumbRadius } = this.props;
+    const {
+      selectedTrackColor,
+      backgroundTrackColor,
+      thumbRadius,
+    } = this.props;
     return (
       <View>
-        <View ref={this.setTrack} onLayout={this.onTrackLayout} collapsable={false} style={this._trackStyle.track}>
+        <View
+          ref={this.setTrack}
+          onLayout={this.onTrackLayout}
+          collapsable={false}
+          style={this._trackStyle.track}
+        >
           <Animated.View
             style={{
               position: 'absolute',

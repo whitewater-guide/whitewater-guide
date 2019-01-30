@@ -3,7 +3,7 @@ import moment from 'moment';
 import React from 'react';
 import { reactI18nextModule } from 'react-i18next';
 import RNLanguages from 'react-native-languages';
-import { MyProfileConsumer } from '../ww-clients/features/users';
+import { MyProfileConsumer } from '@whitewater-guide/clients';
 import { SUPPORTED_LANGUAGES } from './languages';
 import en from './locales/en';
 import ru from './locales/ru';
@@ -23,7 +23,7 @@ export class I18nProviderInternal extends React.PureComponent<Props, State> {
 
   async componentDidMount() {
     const language = this.props.language || RNLanguages.language || 'en';
-    const lng = (language).substr(0, 2);
+    const lng = language.substr(0, 2);
     await this._i18n.init({
       lng,
       fallbackLng: 'en',
@@ -47,7 +47,11 @@ export class I18nProviderInternal extends React.PureComponent<Props, State> {
 
   componentWillReceiveProps(nextProps: Props) {
     if (this.props.language !== nextProps.language) {
-      const language = (nextProps.language || RNLanguages.language || 'en').substr(0, 2);
+      const language = (
+        nextProps.language ||
+        RNLanguages.language ||
+        'en'
+      ).substr(0, 2);
       this._i18n.changeLanguage(language);
     }
   }

@@ -4,8 +4,8 @@ import { StyleSheet, View } from 'react-native';
 import { Button, Caption } from 'react-native-paper';
 import { compose } from 'recompose';
 import { WithPremiumDialog } from '../../../../features/purchases';
-import { consumeRegion, WithRegion } from '../../../../ww-clients/features/regions';
-import { Section } from '../../../../ww-commons';
+import { consumeRegion, WithRegion } from '@whitewater-guide/clients';
+import { Section } from '@whitewater-guide/commons';
 
 const styles = StyleSheet.create({
   container: {
@@ -24,7 +24,11 @@ type InnerProps = OuterProps & WithRegion & WithI18n;
 
 class PremiumPlaceholder extends React.PureComponent<InnerProps> {
   onBuy = () => {
-    const { buyRegion, region: { node }, section } = this.props;
+    const {
+      buyRegion,
+      region: { node },
+      section,
+    } = this.props;
     if (node) {
       buyRegion(node, section.id);
     }

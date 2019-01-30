@@ -1,5 +1,5 @@
+import { Connection, Region } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
-import { Connection, Region } from '../../ww-commons';
 
 export const REGIONS_LIST_QUERY = gql`
   query regionsList($page: Page) {
@@ -10,8 +10,12 @@ export const REGIONS_LIST_QUERY = gql`
         premium
         hasPremiumAccess
         sku
-        gauges { count }
-        sections { count }
+        gauges {
+          count
+        }
+        sections {
+          count
+        }
         coverImage {
           mobile
         }

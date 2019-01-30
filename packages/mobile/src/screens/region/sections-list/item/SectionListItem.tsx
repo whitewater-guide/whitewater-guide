@@ -4,7 +4,7 @@ import Interactable from 'react-native-interactable';
 import { NavigateButton } from '../../../../components';
 import { WithTrans } from '../../../../i18n';
 import theme from '../../../../theme';
-import { Coordinate, Section } from '../../../../ww-commons';
+import { Coordinate, Section } from '@whitewater-guide/commons';
 import SectionListBody, { ITEM_HEIGHT } from './SectionListBody';
 
 export { ITEM_HEIGHT } from './SectionListBody';
@@ -43,7 +43,6 @@ interface Props extends WithTrans {
 }
 
 export class SectionListItem extends React.PureComponent<Props> {
-
   _deltaX: Animated.Value = new Animated.Value(0);
   _interactable: any = null;
   _animatedBounce: boolean = false;
@@ -81,28 +80,33 @@ export class SectionListItem extends React.PureComponent<Props> {
 
   onSnap = ({ nativeEvent: { index } }: any) => {
     const { shouldBounceOnMount, onMaximize, index: itemIndex } = this.props;
-    if (index === 1 && onMaximize && (this._animatedBounce || !shouldBounceOnMount)) {
+    if (
+      index === 1 &&
+      onMaximize &&
+      (this._animatedBounce || !shouldBounceOnMount)
+    ) {
       onMaximize(itemIndex);
     }
   };
 
   animateInitialBounce = () => {
-    if (this._interactable && !this._animatedBounce && this.props.shouldBounceOnMount) {
+    if (
+      this._interactable &&
+      !this._animatedBounce &&
+      this.props.shouldBounceOnMount
+    ) {
       InteractionManager.runAfterInteractions(() => {
-        setTimeout(
-          () => {
+        setTimeout(() => {
+          if (this._interactable) {
+            this._interactable.snapTo({ index: 1 });
+          }
+          setTimeout(() => {
             if (this._interactable) {
-              this._interactable.snapTo({ index: 1 });
+              this._interactable.snapTo({ index: 0 });
+              this._animatedBounce = true;
             }
-            setTimeout(() => {
-              if (this._interactable) {
-                this._interactable.snapTo({ index: 0 });
-                this._animatedBounce = true;
-              }
-            }, 700);
-          },
-          100,
-        );
+          }, 700);
+        }, 100);
       });
     }
   };
@@ -151,7 +155,6 @@ export class SectionListItem extends React.PureComponent<Props> {
             />
           </View>
         </Interactable.View>
-
       </View>
     );
   }

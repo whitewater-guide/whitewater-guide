@@ -15,7 +15,8 @@ export const POLL_REGION_MEASUREMENTS = gql`
         }
       }
     }
-  }`;
+  }
+`;
 
 export interface PollVars {
   regionId: string;

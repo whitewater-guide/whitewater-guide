@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Media, MediaKind } from '../../../ww-commons';
+import { Media, MediaKind } from '@whitewater-guide/commons';
 import NoMedia from './NoMedia';
 import VideoItem from './VideoItem';
 
@@ -16,13 +16,13 @@ interface Props {
 
 const VideoList: React.SFC<Props> = ({ videos }) => {
   if (!videos || videos.length === 0) {
-    return (
-      <NoMedia kind={MediaKind.video} />
-    );
+    return <NoMedia kind={MediaKind.video} />;
   }
   return (
     <View style={styles.container}>
-      {videos.map((video) => (<VideoItem key={video.url} video={video} />))}
+      {videos.map((video) => (
+        <VideoItem key={video.url} video={video} />
+      ))}
     </View>
   );
 };

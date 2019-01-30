@@ -1,6 +1,12 @@
+import { Point, Section } from '@whitewater-guide/commons';
 import React from 'react';
-import { Point, Section } from '../../../ww-commons';
-import { MapBodyState, MapComponentProps, MapProps, POIComponentProps, SectionComponentProps } from './types';
+import {
+  MapBodyState,
+  MapComponentProps,
+  MapProps,
+  POIComponentProps,
+  SectionComponentProps,
+} from './types';
 
 export const MapBody = <
   MProps extends {} = {},
@@ -10,8 +16,11 @@ export const MapBody = <
   MapComponent: React.ComponentType<MapComponentProps & MProps>,
   SectionComponent: React.ComponentType<SectionComponentProps & SProps>,
   POIComponent: React.ComponentType<POIComponentProps & PProps>,
-) => {
-  class MapBodyInternal extends React.PureComponent<MapProps & MProps, MapBodyState> {
+): React.ComponentType<MapProps & MapProps> => {
+  class MapBodyInternal extends React.PureComponent<
+    MapProps & MProps,
+    MapBodyState
+  > {
     // tslint:disable-next-line:no-inferrable-types
     static displayName: string = 'MapBody';
 
@@ -22,7 +31,11 @@ export const MapBody = <
     onZoom = (zoom: number) => this.setState({ zoom });
 
     renderSection = (section: Section) => {
-      const { onSectionSelected, selectedSectionId, useSectionShapes } = this.props;
+      const {
+        onSectionSelected,
+        selectedSectionId,
+        useSectionShapes,
+      } = this.props;
       const { zoom } = this.state;
       const props: SectionComponentProps = {
         useSectionShapes,
@@ -33,9 +46,7 @@ export const MapBody = <
       };
       // This is MapComponent's responsibility to pass extra SProps
       // to its children which are SectionComponents
-      return (
-        <SectionComponent key={section.id} {...props as any} />
-      );
+      return <SectionComponent key={section.id} {...props as any} />;
     };
 
     renderPOI = (poi: Point) => {
@@ -49,13 +60,17 @@ export const MapBody = <
       };
       // This is MapComponent's responsibility to pass extra PProps
       // to its children which are POIComponent
-      return (
-        <POIComponent key={poi.id}{...props as any} />
-      );
+      return <POIComponent key={poi.id} {...props as any} />;
     };
 
     render() {
-      const { children, sections, pois, onBoundsSelected, ...props } = this.props;
+      const {
+        children,
+        sections,
+        pois,
+        onBoundsSelected,
+        ...props
+      } = this.props;
       return (
         <MapComponent onZoom={this.onZoom} {...props as any}>
           {sections.map(this.renderSection)}

@@ -1,5 +1,5 @@
+import { NamedNode } from '@whitewater-guide/commons';
 import { actionCreatorFactory } from 'typescript-fsa';
-import { NamedNode } from '../../ww-commons';
 import { OfflineCategorySelection, OfflineProgressPayload } from './types';
 
 const factory = actionCreatorFactory('OFFLINE_CONTENT');

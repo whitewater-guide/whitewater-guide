@@ -7,7 +7,14 @@ import OfflineCategory from './OfflineCategory';
 
 storiesOf('OfflineCategory', module)
   .addDecorator((story: any) => (
-    <View style={{ ...StyleSheet.absoluteFillObject, padding: 8, paddingTop: 64, backgroundColor: '#AAA' }}>
+    <View
+      style={{
+        ...StyleSheet.absoluteFillObject,
+        padding: 8,
+        paddingTop: 64,
+        backgroundColor: '#AAA',
+      }}
+    >
       <Surface style={{ alignSelf: 'stretch', margin: 16, elevation: 2 }}>
         {story()}
       </Surface>
@@ -56,11 +63,7 @@ storiesOf('OfflineCategory', module)
     />
   ))
   .add('In progress without progress', () => (
-    <OfflineCategory
-      inProgress
-      type="data"
-      label="Detailed sections info"
-    />
+    <OfflineCategory inProgress type="data" label="Detailed sections info" />
   ))
   .add('In progress', () => (
     <OfflineCategory

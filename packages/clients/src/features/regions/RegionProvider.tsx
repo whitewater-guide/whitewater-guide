@@ -1,6 +1,11 @@
+import {
+  Point,
+  Region,
+  Section,
+  SectionSearchTerms,
+} from '@whitewater-guide/commons';
 import React from 'react';
 import { Query, QueryResult } from 'react-apollo';
-import { Point, Region, Section, SectionSearchTerms } from '../../../ww-commons';
 import { queryResultToNode } from '../../apollo';
 import { Provider } from './RegionContext';
 import { REGION_DETAILS } from './regionDetails.query';
@@ -29,30 +34,40 @@ export class RegionProvider extends React.PureComponent<Props, RegionState> {
     selectedBounds: null,
   };
 
-  onSectionSelected = (section: Section | null) => this.setState({
-    selectedSectionId: section ? section.id : null,
-    selectedPOIId: null,
-  });
+  onSectionSelected = (section: Section | null) =>
+    this.setState({
+      selectedSectionId: section ? section.id : null,
+      selectedPOIId: null,
+    });
 
-  onPOISelected = (poi: Point | null) => this.setState({
-    selectedSectionId: null,
-    selectedPOIId: poi ? poi.id : null,
-  });
+  onPOISelected = (poi: Point | null) =>
+    this.setState({
+      selectedSectionId: null,
+      selectedPOIId: poi ? poi.id : null,
+    });
 
   resetSearchTerms = () => this.setState({ searchTerms: null });
 
-  setSearchTerms = (searchTerms: SectionSearchTerms) => this.setState({ searchTerms });
+  setSearchTerms = (searchTerms: SectionSearchTerms) =>
+    this.setState({ searchTerms });
 
   render() {
     const { regionId, renderLoading } = this.props;
     const variables = { regionId };
     return (
-      <Query query={REGION_DETAILS} variables={variables} fetchPolicy="cache-and-network">
+      <Query
+        query={REGION_DETAILS}
+        variables={variables}
+        fetchPolicy="cache-and-network"
+      >
         {(props: RenderProps) => {
           if (props.loading && renderLoading) {
             return renderLoading();
           }
-          const { region } = queryResultToNode<Region, 'region'>(props, 'region');
+          const { region } = queryResultToNode<Region, 'region'>(
+            props,
+            'region',
+          );
           const contextValue: RegionContext = {
             region,
             ...this.state,
@@ -62,9 +77,7 @@ export class RegionProvider extends React.PureComponent<Props, RegionState> {
             setSearchTerms: this.setSearchTerms,
           };
           return (
-            <Provider value={contextValue}>
-              {this.props.children}
-            </Provider>
+            <Provider value={contextValue}>{this.props.children}</Provider>
           );
         }}
       </Query>

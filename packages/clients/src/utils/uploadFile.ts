@@ -1,6 +1,10 @@
-import { UploadLink } from '../../ww-commons';
+import { UploadLink } from '@whitewater-guide/commons';
 
-export const uploadFile = (file: File, link: UploadLink, filename?: string): Promise<string> =>
+export const uploadFile = (
+  file: File,
+  link: UploadLink,
+  filename?: string,
+): Promise<string> =>
   new Promise((resolve, reject) => {
     const formData = new FormData();
     if (!link.key && !filename) {
@@ -8,7 +12,9 @@ export const uploadFile = (file: File, link: UploadLink, filename?: string): Pro
     }
     const rawFormData = { ...link.formData, key: (link.key || filename)! };
     // console.log(JSON.stringify(rawFormData, null, 2));
-    Object.entries(rawFormData).forEach(([key, value]) => formData.append(key, value));
+    Object.entries(rawFormData).forEach(([key, value]) =>
+      formData.append(key, value),
+    );
     formData.append('file', file);
 
     const xhr = new XMLHttpRequest();
@@ -18,7 +24,13 @@ export const uploadFile = (file: File, link: UploadLink, filename?: string): Pro
         const resultingFilename = location!.split('/').pop()!;
         resolve(resultingFilename);
       } else {
-        reject(new Error(`Failed to upload file. Status code: ${xhr.status}. Message: ${xhr.response}`));
+        reject(
+          new Error(
+            `Failed to upload file. Status code: ${xhr.status}. Message: ${
+              xhr.response
+            }`,
+          ),
+        );
       }
     };
     xhr.onerror = reject;

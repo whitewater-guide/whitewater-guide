@@ -14,10 +14,7 @@ const correct: RiverInput = {
 };
 
 const correctValues: TestValue[] = [
-  [
-    'full value',
-    correct,
-  ],
+  ['full value', correct],
   [
     'null value',
     {
@@ -29,26 +26,11 @@ const correctValues: TestValue[] = [
 ];
 
 const incorrectValues: TestValue[] = [
-  [
-    'bad uuid',
-    { ...correct, id: 'foo' },
-  ],
-  [
-    'empty name',
-    { ...correct, name: '' },
-  ],
-  [
-    'empty alt names',
-    { ...correct, altNames: [''] },
-  ],
-  [
-    'bad region',
-    { ...correct, region: { id: 'foo' } },
-  ],
-  [
-    'extra fields',
-    { ...correct, foo: 'bar' } as any,
-  ],
+  ['bad uuid', { ...correct, id: 'foo' }],
+  ['empty name', { ...correct, name: '' }],
+  ['empty alt names', { ...correct, altNames: [''] }],
+  ['bad region', { ...correct, region: { id: 'foo' } }],
+  ['extra fields', { ...correct, foo: 'bar' } as any],
 ];
 
 it.each(correctValues)('should be valid for %s', (_, value) => {

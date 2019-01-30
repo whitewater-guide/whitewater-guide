@@ -13,7 +13,10 @@ beforeEach(async () => {
       <WithData sourceId="foo" />
     </MockedProvider>,
   );
-  receiver = wrapped.find(Receiver as any).first().instance() as any;
+  receiver = wrapped
+    .find(Receiver as any)
+    .first()
+    .instance() as any;
   await flushPromises();
 });
 

@@ -3,10 +3,12 @@ import { offlineContentReducer } from './reducer';
 import { OfflineContentStore } from './types';
 
 it('should toggle dialog', () => {
-  expect(offlineContentReducer(
-    undefined,
-    offlineContentActions.toggleDialog({ id: '11', name: 'Georgia' }),
-  )).toEqual({
+  expect(
+    offlineContentReducer(
+      undefined,
+      offlineContentActions.toggleDialog({ id: '11', name: 'Georgia' }),
+    ),
+  ).toEqual({
     dialogRegion: { id: '11', name: 'Georgia' },
     regionInProgress: null,
     progress: {},
@@ -40,7 +42,10 @@ it('should update progress', () => {
     },
   };
   // test both array and number progress payloads
-  const action = offlineContentActions.updateProgress({ data: [7, 10], media: 13 });
+  const action = offlineContentActions.updateProgress({
+    data: [7, 10],
+    media: 13,
+  });
   expect(offlineContentReducer(state, action)).toEqual({
     dialogRegion: { id: '11', name: 'Georgia' },
     regionInProgress: '11',

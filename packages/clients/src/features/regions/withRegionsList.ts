@@ -1,5 +1,5 @@
+import { Connection, Region } from '@whitewater-guide/commons';
 import { graphql } from 'react-apollo';
-import { Connection, Region } from '../../../ww-commons';
 import { queryResultToList, WithList } from '../../apollo';
 import listRegions from './listRegions.query';
 
@@ -19,6 +19,6 @@ export const withRegionsList = graphql<{}, Result, {}, WithRegionsList>(
       fetchPolicy: 'cache-and-network',
       notifyOnNetworkStatusChange: true,
     }),
-    props: props => queryResultToList(props, 'regions'),
+    props: (props) => queryResultToList(props, 'regions'),
   },
 );

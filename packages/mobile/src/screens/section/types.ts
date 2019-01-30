@@ -1,7 +1,6 @@
+import { WithNode, WithSection } from '@whitewater-guide/clients';
+import { Section } from '@whitewater-guide/commons';
 import { NavigationScreenProps } from 'react-navigation';
-import { WithNode } from '../../ww-clients/apollo';
-import { WithSection } from '../../ww-clients/features/sections';
-import { Section } from '../../ww-commons';
 
 export interface ScreenProps {
   section: WithNode<Section | null>;

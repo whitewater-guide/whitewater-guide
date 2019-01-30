@@ -28,7 +28,10 @@ interface Props {
   onFetchProduct: () => void;
 }
 
-export class PremiumDialogView extends React.PureComponent<Props & WithI18n, State> {
+export class PremiumDialogView extends React.PureComponent<
+  Props & WithI18n,
+  State
+> {
   readonly state: State = {
     index: 2,
     routes: [
@@ -56,21 +59,13 @@ export class PremiumDialogView extends React.PureComponent<Props & WithI18n, Sta
     const { cancelable } = this.props;
     switch (route.key) {
       case 'AlreadyHave':
-        return (
-          <AlreadyHaveStep />
-        );
+        return <AlreadyHaveStep />;
       case 'Auth':
-        return (
-          <AuthStep cancelable={cancelable} />
-        );
+        return <AuthStep cancelable={cancelable} />;
       case 'BuyProduct':
-        return (
-          <BuyProductStep cancelable={cancelable} />
-        );
+        return <BuyProductStep cancelable={cancelable} />;
       case 'Success':
-        return (
-          <SuccessStep />
-        );
+        return <SuccessStep />;
       default:
         return null;
     }

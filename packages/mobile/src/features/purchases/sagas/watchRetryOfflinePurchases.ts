@@ -6,11 +6,18 @@ import { SavePurchaseResult } from '../types';
 import savePurchase from './savePurchase';
 
 export function* watchRetryOfflinePurchases() {
-  const offlinePurchases: ProductPurchase[] = yield select((state: RootState) => state.purchase.offlinePurchases);
+  const offlinePurchases: ProductPurchase[] = yield select(
+    (state: RootState) => state.purchase.offlinePurchases,
+  );
   for (const purchase of offlinePurchases) {
     const result = yield call(savePurchase, purchase);
     if (result !== SavePurchaseResult.OFFLINE) {
-      yield put(purchaseActions.removeOfflinePurchase({ purchase, success: result !== SavePurchaseResult.ERROR }));
+      yield put(
+        purchaseActions.removeOfflinePurchase({
+          purchase,
+          success: result !== SavePurchaseResult.ERROR,
+        }),
+      );
     }
   }
 }

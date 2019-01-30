@@ -13,14 +13,16 @@ export const SectionChartScreen: NavigationScreenComponent = (props) => {
   const gauge = section && section.gauge;
   return (
     <Screen noScroll noPadding>
-      {(section && gauge) ? <InteractiveChart section={section} gauge={gauge} /> : <NoChart />}
+      {section && gauge ? (
+        <InteractiveChart section={section} gauge={gauge} />
+      ) : (
+        <NoChart />
+      )}
     </Screen>
   );
 };
 
 SectionChartScreen.navigationOptions = {
   tabBarLabel: <I18nText>section:chart.title</I18nText>,
-  tabBarIcon: () => (
-    <Icon icon="chart-line" color={theme.colors.textLight} />
-  ),
+  tabBarIcon: () => <Icon icon="chart-line" color={theme.colors.textLight} />,
 };

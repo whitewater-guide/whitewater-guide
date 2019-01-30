@@ -1,7 +1,13 @@
 import byteSize from 'byte-size';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Caption, Checkbox, Paragraph, ProgressBar, TouchableRipple } from 'react-native-paper';
+import {
+  Caption,
+  Checkbox,
+  Paragraph,
+  ProgressBar,
+  TouchableRipple,
+} from 'react-native-paper';
 import theme from '../../../theme';
 import { OfflineCategoryType } from '../types';
 
@@ -50,7 +56,9 @@ interface Props {
 
 class OfflineCategory extends React.PureComponent<Props> {
   getLabel = () =>
-    this.props.size ? `${this.props.label} (${byteSize(this.props.size)})` : this.props.label;
+    this.props.size
+      ? `${this.props.label} (${byteSize(this.props.size)})`
+      : this.props.label;
 
   onPress = () => {
     if (this.props.onToggle) {
@@ -59,11 +67,9 @@ class OfflineCategory extends React.PureComponent<Props> {
   };
 
   renderProgress = () => {
-    const { progress} = this.props;
+    const { progress } = this.props;
     if (!progress) {
-      return (
-        <View style={styles.progressContainer} />
-      );
+      return <View style={styles.progressContainer} />;
     }
     const [downloaded, total] = progress;
     return (
@@ -88,7 +94,10 @@ class OfflineCategory extends React.PureComponent<Props> {
     return (
       <TouchableRipple onPress={this.onPress} disabled={!!disabled}>
         <View style={styles.row}>
-          <Checkbox status={selected ? 'checked' : 'unchecked'} color={theme.colors.primary} />
+          <Checkbox
+            status={selected ? 'checked' : 'unchecked'}
+            color={theme.colors.primary}
+          />
           <Paragraph style={[styles.label, unavailable && styles.unavailable]}>
             {this.getLabel()}
           </Paragraph>

@@ -32,10 +32,11 @@ const RegionInputFields = {
 
 export const RegionInputStruct = struct.object(RegionInputFields);
 
-export const RegionFormStruct = (richTextStruct?: Type) => struct.object({
-  ...RegionInputFields,
-  description: richTextStruct || 'any',
-});
+export const RegionFormStruct = (richTextStruct?: Type) =>
+  struct.object({
+    ...RegionInputFields,
+    description: richTextStruct || 'any',
+  });
 
 export const RegionCoverImageStruct = struct.object({
   mobile: 'nonEmptyString|null',

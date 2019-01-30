@@ -15,6 +15,14 @@ Install _fastlane_ using
 or alternatively using `brew cask install fastlane`
 
 # Available Actions
+### bump_build_numbers
+```
+fastlane bump_build_numbers
+```
+
+
+----
+
 ## iOS
 ### ios setup
 ```
@@ -34,6 +42,11 @@ fastlane ios build
 ### ios code_push
 ```
 fastlane ios code_push
+```
+
+### ios crashlytics
+```
+fastlane ios crashlytics
 ```
 
 ### ios staging

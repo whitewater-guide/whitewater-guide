@@ -1,0 +1,15 @@
+{
+  "name": "@whitewater-guide/landing",
+  "private": true,
+  "version": "0.0.26",
+  "license": "UNLICENSED",
+  "description": "Static landing pages for whitewater.guide",
+  "scripts": {
+    "start": "browser-sync start --server 'src' --files 'src' --port 3002",
+    "postpublish:global": "node ../../tooling/scripts/bin/dockerPublish.js"
+  },
+  "author": "Konstantin Kuznetsov",
+  "devDependencies": {
+    "browser-sync": "^2.18.13"
+  }
+}

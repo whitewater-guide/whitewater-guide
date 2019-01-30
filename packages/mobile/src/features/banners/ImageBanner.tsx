@@ -1,8 +1,15 @@
 import React from 'react';
-import { Linking, StyleProp, StyleSheet, TouchableWithoutFeedback, View, ViewStyle } from 'react-native';
+import {
+  Linking,
+  StyleProp,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  View,
+  ViewStyle,
+} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import theme from '../../theme';
-import { Banner } from '../../ww-commons';
+import { Banner } from '@whitewater-guide/commons';
 import aspectRatios from './aspectRatios';
 import { getBannerURL } from './getBannerURL';
 
@@ -26,7 +33,10 @@ interface Props {
 
 export default class ImageBanner extends React.PureComponent<Props> {
   onPress = async () => {
-    const { banner: { link }, onPress } = this.props;
+    const {
+      banner: { link },
+      onPress,
+    } = this.props;
     if (!link) {
       return;
     }
@@ -47,7 +57,14 @@ export default class ImageBanner extends React.PureComponent<Props> {
     const { placement, extras, source } = banner;
     const uri = getBannerURL(source.src!);
     return (
-      <View style={[styles.container, aspectRatios[placement], style, extras && extras.style]}>
+      <View
+        style={[
+          styles.container,
+          aspectRatios[placement],
+          style,
+          extras && extras.style,
+        ]}
+      >
         <TouchableWithoutFeedback onPress={this.onPress}>
           <FastImage
             source={{ uri }}

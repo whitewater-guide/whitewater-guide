@@ -14,9 +14,7 @@ const styles = StyleSheet.create({
 
 const NoDataPlaceholder: React.SFC<WithI18n> = ({ t }) => (
   <View style={styles.container}>
-    <Caption>
-      {t('section:guide.noData')}
-    </Caption>
+    <Caption>{t('section:guide.noData')}</Caption>
   </View>
 );
 

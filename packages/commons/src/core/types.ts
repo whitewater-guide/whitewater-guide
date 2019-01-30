@@ -18,6 +18,6 @@ export interface Timestamped {
 
 export interface UploadLink {
   postURL: string;
-  formData: {[key: string]: string};
+  formData: { [key: string]: string };
   key: string | null;
 }

@@ -1,4 +1,9 @@
-import { endConnection, getProducts, initConnection, Product } from 'react-native-iap';
+import {
+  endConnection,
+  getProducts,
+  initConnection,
+  Product,
+} from 'react-native-iap';
 import { call } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
 import { trackError } from '../../../core/errors';
@@ -6,7 +11,11 @@ import { PurchaseState } from '../types';
 import update from './update';
 
 export function* watchFetchProduct(action: Action<string>) {
-  yield update({ error: null, product: null, state: PurchaseState.PRODUCT_LOADING });
+  yield update({
+    error: null,
+    product: null,
+    state: PurchaseState.PRODUCT_LOADING,
+  });
   const product = yield call(fetchProduct, action.payload);
   yield update({
     product,

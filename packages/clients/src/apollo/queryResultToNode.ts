@@ -1,16 +1,14 @@
+import { ResourceType } from '@whitewater-guide/commons';
 import { ChildProps, QueryResult } from 'react-apollo';
-import { ResourceType } from '../../ww-commons';
 import { WithNode } from './types';
 
-type GraphqlResult<T, R extends ResourceType> = {
-  [prop in R]: T
-};
+type GraphqlResult<T, R extends ResourceType> = { [prop in R]: T };
 
-type Result<T, R extends ResourceType> = {
-  [prop in R]: WithNode<T>
-};
+type Result<T, R extends ResourceType> = { [prop in R]: WithNode<T> };
 
-type Props<T, R extends ResourceType> = ChildProps<any, GraphqlResult<T, R>> | QueryResult<T>;
+type Props<T, R extends ResourceType> =
+  | ChildProps<any, GraphqlResult<T, R>>
+  | QueryResult<T>;
 
 /**
  * Accepts both render function argument of new Apollo Query and childProps of old graphqlHoc
@@ -18,8 +16,10 @@ type Props<T, R extends ResourceType> = ChildProps<any, GraphqlResult<T, R>> | Q
  * @param {R} propName
  * @returns {Result<T, R extends ResourceType>}
  */
-export const queryResultToNode =
-  <T, R extends ResourceType>(props: Props<T, R>, propName: R): Result<T, R> => {
+export const queryResultToNode = <T, R extends ResourceType>(
+  props: Props<T, R>,
+  propName: R,
+): Result<T, R> => {
   const auxObject = props.hasOwnProperty('client') ? props : props.data;
   const node = props.data ? props.data[propName] : null;
   const { error, loading, networkStatus, refetch } = auxObject;

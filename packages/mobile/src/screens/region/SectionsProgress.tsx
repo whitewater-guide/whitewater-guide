@@ -53,9 +53,12 @@ class SectionsProgress extends React.PureComponent<Props & WithI18n, State> {
   render() {
     const { loaded, count, t } = this.props;
     const { status } = this.state;
-    const visible = status !== SectionsStatus.READY && this.props.loaded < this.props.count;
+    const visible =
+      status !== SectionsStatus.READY && this.props.loaded < this.props.count;
     const caption = t(
-      status === SectionsStatus.LOADING ? 'region:sections.loading' : 'region:sections.loadingUpdates',
+      status === SectionsStatus.LOADING
+        ? 'region:sections.loading'
+        : 'region:sections.loadingUpdates',
       { loaded, count },
     );
     return (

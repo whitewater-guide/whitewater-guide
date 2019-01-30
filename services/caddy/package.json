@@ -1,0 +1,12 @@
+{
+  "name": "@whitewater-guide/caddy",
+  "private": true,
+  "version": "0.0.85",
+  "license": "UNLICENSED",
+  "description": "caddy for whitewater.guide",
+  "repository": "https://github.com/doomsower/whitewater.git",
+  "author": "doomsower <K.Kuznetcov@gmail.com>",
+  "scripts": {
+    "postpublish:global": "node ../../tooling/scripts/bin/dockerPublish.js"
+  }
+}

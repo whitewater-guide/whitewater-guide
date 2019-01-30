@@ -1,3 +1,4 @@
+export * from './map';
 export * from './getSectionColor';
 export * from './listSections.query';
 export * from './prettyNumber';

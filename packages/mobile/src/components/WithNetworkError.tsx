@@ -22,20 +22,16 @@ export class WithNetworkError extends React.PureComponent<Props, State> {
     if (refetching || isApolloOfflineError(error, data)) {
       const refetchFromError = async () => {
         this.setState({ refetching: true });
-        await refetch().catch(() => {/* Otherwise it hangs as loading forever */});
+        await refetch().catch(() => {
+          /* Otherwise it hangs as loading forever */
+        });
         this.setState({ refetching: false });
       };
-      return (
-        <RetryPlaceholder refetch={refetchFromError} loading={loading} />
-      );
+      return <RetryPlaceholder refetch={refetchFromError} loading={loading} />;
     }
     if (loading && !data) {
-      return (<Loading />);
+      return <Loading />;
     }
-    return (
-      <React.Fragment>
-        {children}
-      </React.Fragment>
-    );
+    return <React.Fragment>{children}</React.Fragment>;
   }
 }

@@ -24,7 +24,9 @@ export function* downloadPhotosWorker(photos: string[], offset: number) {
   try {
     while (true) {
       const progress: number = yield take(chan);
-      yield put(offlineContentActions.updateProgress({ media: progress + offset }));
+      yield put(
+        offlineContentActions.updateProgress({ media: progress + offset }),
+      );
     }
   } finally {
     // console.log('Media download complete');

@@ -1,5 +1,5 @@
+import { Coordinate, Point, Section } from '@whitewater-guide/commons';
 import React from 'react';
-import { Coordinate, Point, Section } from '../../../ww-commons';
 
 export interface SectionComponentProps {
   useSectionShapes: boolean;

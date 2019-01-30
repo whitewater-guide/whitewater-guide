@@ -1,6 +1,6 @@
+import { configureApolloCache } from '@whitewater-guide/clients';
 import { CachePersistor } from 'apollo-cache-persist';
 import { AsyncStorage } from 'react-native';
-import { configureApolloCache } from '../../ww-clients/apollo';
 import { storage } from './storage';
 
 const SCHEMA_VERSION = '1'; // Must be a string.

@@ -1,13 +1,17 @@
-const fs = require('fs')
+const fs = require('fs');
 const https = require('https');
 const http = require('http');
 const path = require('path');
 
-const writer = fs.createWriteStream(path.resolve('src', 'test', 'typedefs.ts'));
+const typedefsPath =
+  process.argv.length > 2 ? process.argv[2] : 'src/test/typedefs.ts';
+const writer = fs.createWriteStream(path.resolve(typedefsPath));
 
 function saveTypedefs(response) {
   writer.write('/* tslint:disable */\n');
-  writer.write('// this file contains GRAPHQL typedefs and it was automatically downloaded from server\n');
+  writer.write(
+    '// this file contains GRAPHQL typedefs and it was automatically downloaded from server\n',
+  );
   writer.write('const typeDefs = `');
   response.on('data', function(chunk) {
     writer.write(chunk);
@@ -19,7 +23,7 @@ function saveTypedefs(response) {
 
 function fetch(url, successCallback, errorCallback) {
   const protocol = url.startsWith('https') ? https : http;
-  const req = protocol.get(url, function (response) {
+  const req = protocol.get(url, function(response) {
     if (response.statusCode >= 200 && response.statusCode < 300) {
       successCallback(response);
     } else {
@@ -32,5 +36,9 @@ function fetch(url, successCallback, errorCallback) {
 }
 
 fetch('http://localhost:3333/graphql/typedefs.txt', saveTypedefs, () => {
-  fetch('https://beta.whitewater.guide/graphql/typedefs.txt', saveTypedefs, console.error);
+  fetch(
+    'https://beta.whitewater.guide/graphql/typedefs.txt',
+    saveTypedefs,
+    console.error,
+  );
 });

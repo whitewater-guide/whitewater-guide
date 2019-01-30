@@ -9,13 +9,18 @@ export interface ApolloErrorState {
 
 const initialState: ApolloErrorState = {};
 
-export const apolloErrorReducer = (state = initialState, action: Action<ErrorResponse>) => {
+export const apolloErrorReducer = (
+  state = initialState,
+  action: Action<ErrorResponse>,
+) => {
   if (action.type === APOLLO_ERROR) {
     const { payload } = action;
     if (!payload.graphQLErrors && !payload.networkError) {
       return {};
     }
-    const msg = payload.networkError ? payload.networkError.message : payload.graphQLErrors![0].message;
+    const msg = payload.networkError
+      ? payload.networkError.message
+      : payload.graphQLErrors![0].message;
     return {
       short: `${payload.operation.operationName}: ${msg}`,
       full: JSON.stringify(payload, null, 2),

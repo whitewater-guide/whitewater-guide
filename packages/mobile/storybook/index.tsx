@@ -1,4 +1,8 @@
-import { addDecorator, configure, getStorybookUI } from '@storybook/react-native';
+import {
+  addDecorator,
+  configure,
+  getStorybookUI,
+} from '@storybook/react-native';
 import React from 'react';
 import { Provider as PaperProvider } from 'react-native-paper';
 import SplashScreen from 'react-native-splash-screen';
@@ -8,9 +12,7 @@ import { loadStories } from './storyLoader';
 
 addDecorator((story: any) => (
   <I18nProvider>
-    <PaperProvider>
-      {story()}
-    </PaperProvider>
+    <PaperProvider>{story()}</PaperProvider>
   </I18nProvider>
 ));
 

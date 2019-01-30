@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleProp, View, ViewStyle } from 'react-native';
 import { analytics } from 'react-native-firebase';
-import { Banner, BannerKind } from '../../ww-commons';
+import { Banner, BannerKind } from '@whitewater-guide/commons';
 import ImageBanner from './ImageBanner';
 import WebViewBanner from './WebViewBanner';
 
@@ -25,7 +25,10 @@ export class BannerView extends React.PureComponent<Props> {
   };
 
   render() {
-    const { containerStyle, banner: { extras } } = this.props;
+    const {
+      containerStyle,
+      banner: { extras },
+    } = this.props;
     return (
       <View style={[containerStyle, extras && extras.containerStyle]}>
         {this.renderBanner()}

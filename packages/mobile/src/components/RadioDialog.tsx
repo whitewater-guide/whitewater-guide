@@ -1,5 +1,12 @@
 import React from 'react';
-import { Button, Dialog, Paragraph, Portal, RadioButton, TouchableRipple, } from 'react-native-paper';
+import {
+  Button,
+  Dialog,
+  Paragraph,
+  Portal,
+  RadioButton,
+  TouchableRipple,
+} from 'react-native-paper';
 import theme from '../theme';
 import { Handle, HandleLeft } from './Handle';
 
@@ -39,7 +46,16 @@ export class RadioDialog extends React.PureComponent<Props, State> {
   };
 
   render() {
-    const { dialogTitle, handleTitle, keyExtractor, labelExtractor, value, okLabel, cancelLabel, options } = this.props;
+    const {
+      dialogTitle,
+      handleTitle,
+      keyExtractor,
+      labelExtractor,
+      value,
+      okLabel,
+      cancelLabel,
+      options,
+    } = this.props;
     return (
       <React.Fragment>
         <TouchableRipple onPress={this.openDialog}>
@@ -52,32 +68,34 @@ export class RadioDialog extends React.PureComponent<Props, State> {
         </TouchableRipple>
         <Portal>
           <Dialog onDismiss={this.closeDialog} visible={this.state.open}>
-            {
-              !!dialogTitle &&
-              (
-                <Dialog.Title>{dialogTitle}</Dialog.Title>
-              )
-            }
+            {!!dialogTitle && <Dialog.Title>{dialogTitle}</Dialog.Title>}
             <Dialog.Content>
-              <RadioButton.Group onValueChange={this.onValueChange} value={this.state.value}>
-                {
-                  options.map((option) => (
-                    <TouchableRipple key={keyExtractor(option)}
-                                     onPress={() => this.onValueChange(keyExtractor(option))}>
-                      <Handle>
-                        <HandleLeft>
-                          <Paragraph>{labelExtractor(option)}</Paragraph>
-                        </HandleLeft>
-                        <RadioButton value={keyExtractor(option)} />
-                      </Handle>
-                    </TouchableRipple>
-                  ))
-                }
+              <RadioButton.Group
+                onValueChange={this.onValueChange}
+                value={this.state.value}
+              >
+                {options.map((option) => (
+                  <TouchableRipple
+                    key={keyExtractor(option)}
+                    onPress={() => this.onValueChange(keyExtractor(option))}
+                  >
+                    <Handle>
+                      <HandleLeft>
+                        <Paragraph>{labelExtractor(option)}</Paragraph>
+                      </HandleLeft>
+                      <RadioButton value={keyExtractor(option)} />
+                    </Handle>
+                  </TouchableRipple>
+                ))}
               </RadioButton.Group>
             </Dialog.Content>
             <Dialog.Actions>
-              <Button onPress={this.closeDialog}>{cancelLabel || 'Cancel'}</Button>
-              <Button color={theme.colors.primary} onPress={this.submitDialog}>{okLabel || 'OK'}</Button>
+              <Button onPress={this.closeDialog}>
+                {cancelLabel || 'Cancel'}
+              </Button>
+              <Button color={theme.colors.primary} onPress={this.submitDialog}>
+                {okLabel || 'OK'}
+              </Button>
             </Dialog.Actions>
           </Dialog>
         </Portal>

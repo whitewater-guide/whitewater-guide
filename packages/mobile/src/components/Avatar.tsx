@@ -1,5 +1,12 @@
 import React from 'react';
-import { Image, StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
+import {
+  Image,
+  StyleProp,
+  StyleSheet,
+  Text,
+  View,
+  ViewStyle,
+} from 'react-native';
 import Config from 'react-native-config';
 import { TouchableRipple } from 'react-native-paper';
 import theme from '../theme';
@@ -45,29 +52,42 @@ interface AvatarProps {
   style?: StyleProp<ViewStyle>;
 }
 
-export const Avatar: React.StatelessComponent<AvatarProps> = ({ name, avatar, onPress, small, medium, style }) => {
-  const s = small ? stylesSmall : (medium ? stylesMedium : styles);
-  const initials = (name || '?').split(' ').map((str) => str[0]).join(' ');
-  const avatarSize = small ? AVATAR_SIZE_SMALL : (medium ? AVATAR_SIZE_MEDIUM : AVATAR_SIZE);
-  const uri = (avatar && avatar.startsWith('http')) ?
-    avatar :
-    `${Config.BACKEND_PROTOCOL}://${Config.BACKEND_HOST}/images/${avatarSize}/avatars/${avatar}`;
+export const Avatar: React.StatelessComponent<AvatarProps> = ({
+  name,
+  avatar,
+  onPress,
+  small,
+  medium,
+  style,
+}) => {
+  const s = small ? stylesSmall : medium ? stylesMedium : styles;
+  const initials = (name || '?')
+    .split(' ')
+    .map((str) => str[0])
+    .join(' ');
+  const avatarSize = small
+    ? AVATAR_SIZE_SMALL
+    : medium
+    ? AVATAR_SIZE_MEDIUM
+    : AVATAR_SIZE;
+  const uri =
+    avatar && avatar.startsWith('http')
+      ? avatar
+      : `${Config.BACKEND_PROTOCOL}://${
+          Config.BACKEND_HOST
+        }/images/${avatarSize}/avatars/${avatar}`;
   const result = (
     <View style={[s.container, style]}>
       <View style={s.avatar}>
-        <Text style={s.text}>
-          {initials}
-        </Text>
+        <Text style={s.text}>{initials}</Text>
       </View>
-      {avatar && <Image source={{ uri }} style={s.avatar} resizeMode="contain" />}
+      {avatar && (
+        <Image source={{ uri }} style={s.avatar} resizeMode="contain" />
+      )}
     </View>
   );
   if (onPress) {
-    return (
-      <TouchableRipple onPress={onPress}>
-        {result}
-      </TouchableRipple>
-    );
+    return <TouchableRipple onPress={onPress}>{result}</TouchableRipple>;
   }
   return result;
 };

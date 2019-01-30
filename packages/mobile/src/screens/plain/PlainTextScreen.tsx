@@ -14,20 +14,24 @@ interface Props {
   text?: string;
 }
 
-export const PlainText: React.StatelessComponent<Props & WithNamespaces> = ({ text, fixture, t }) => {
+export const PlainText: React.StatelessComponent<Props & WithNamespaces> = ({
+  text,
+  fixture,
+  t,
+}) => {
   const markdown = text || (fixture ? t(fixture) : 'Text not found');
   return (
     <Screen>
-      <Markdown>
-        {markdown}
-      </Markdown>
+      <Markdown>{markdown}</Markdown>
     </Screen>
   );
 };
 
 const PlainTextWithT = withNamespaces('markdown')(PlainText);
 
-export const PlainTextScreen: NavigationScreenComponent<NavParams> = ({ navigation }) => (
+export const PlainTextScreen: NavigationScreenComponent<NavParams> = ({
+  navigation,
+}) => (
   <PlainTextWithT
     fixture={navigation.getParam('fixture')}
     text={navigation.getParam('text')}

@@ -1,4 +1,4 @@
-import { get } from 'lodash';
+import get from 'lodash/get';
 import parse from 'url-parse';
 
 const RE_VIMEO = /^(?:\/video|\/channels\/[\w-]+|\/groups\/[\w-]+\/videos)?\/(\d+)$/;
@@ -30,14 +30,16 @@ export interface VideoThumb {
 
 const getThumbSize = (minHeight: number, sizes: ThumbSize[]) => {
   let i = 0;
-  while (i < (sizes.length - 1) && sizes[i].height < minHeight) {
+  while (i < sizes.length - 1 && sizes[i].height < minHeight) {
     i++;
   }
   return sizes[i];
 };
 
 export const isYoutube = (url: string) =>
-  ['www.youtube.com', 'youtube.com', 'youtu.be'].some(host => url.includes(host));
+  ['www.youtube.com', 'youtube.com', 'youtu.be'].some((host) =>
+    url.includes(host),
+  );
 
 export const getYoutubeId = (url: string): string | null => {
   const { query, pathname } = parse(url, {}, true);
@@ -53,7 +55,10 @@ export const getYoutubeId = (url: string): string | null => {
   return null;
 };
 
-const getYoutubeThumb = async (url: string, minHeight: number): Promise<VideoThumb | null> => {
+const getYoutubeThumb = async (
+  url: string,
+  minHeight: number,
+): Promise<VideoThumb | null> => {
   const videoId = getYoutubeId(url);
 
   if (videoId) {
@@ -69,7 +74,9 @@ const getYoutubeThumb = async (url: string, minHeight: number): Promise<VideoThu
 };
 
 export const isVimeo = (url: string) =>
-  ['www.vimeo.com', 'vimeo.com', 'player.vimeo.com'].some(host => url.includes(host));
+  ['www.vimeo.com', 'vimeo.com', 'player.vimeo.com'].some((host) =>
+    url.includes(host),
+  );
 
 export const getVimeoId = (url: string): string | null => {
   const { pathname } = parse(url, {}, true);
@@ -77,10 +84,15 @@ export const getVimeoId = (url: string): string | null => {
   return match ? match[1] : null;
 };
 
-const getVimeoThumb = async (url: string, minHeight: number): Promise<VideoThumb | null> => {
+const getVimeoThumb = async (
+  url: string,
+  minHeight: number,
+): Promise<VideoThumb | null> => {
   const videoId = getVimeoId(url);
   if (videoId) {
-    const vimeoResponse = await fetch(`https://vimeo.com/api/v2/video/${videoId}.json`);
+    const vimeoResponse = await fetch(
+      `https://vimeo.com/api/v2/video/${videoId}.json`,
+    );
     const vimeoJson = await vimeoResponse.json();
     const { name, width, height } = getThumbSize(minHeight, VIMEO_SIZES);
     return {
@@ -106,7 +118,10 @@ const getVimeoThumb = async (url: string, minHeight: number): Promise<VideoThumb
 // };
 
 // tslint:disable-next-line:no-inferrable-types
-export const getVideoThumb = async (url: string, minHeight: number = 32): Promise<VideoThumb | null> => {
+export const getVideoThumb = async (
+  url: string,
+  minHeight: number = 32,
+): Promise<VideoThumb | null> => {
   if (!url) {
     return null;
   }

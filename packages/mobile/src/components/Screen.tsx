@@ -23,7 +23,12 @@ interface ScreenProps extends ViewProps {
   noPadding?: boolean;
 }
 
-export const Screen: React.StatelessComponent<ScreenProps> = ({ children, style, noScroll, noPadding }) => {
+export const Screen: React.StatelessComponent<ScreenProps> = ({
+  children,
+  style,
+  noScroll,
+  noPadding,
+}) => {
   let screenStyles: any[] = [styles.screen];
 
   if (!noPadding) {
@@ -31,11 +36,7 @@ export const Screen: React.StatelessComponent<ScreenProps> = ({ children, style,
   }
   screenStyles = [...screenStyles, style];
   if (noScroll) {
-    return (
-      <View style={[styles.noScroll, ...screenStyles]}>
-        {children}
-      </View>
-    );
+    return <View style={[styles.noScroll, ...screenStyles]}>{children}</View>;
   }
   return (
     <KeyboardAwareScrollView

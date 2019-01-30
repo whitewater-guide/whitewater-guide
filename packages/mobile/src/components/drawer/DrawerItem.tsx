@@ -17,9 +17,14 @@ class DrawerItem extends React.PureComponent<Props> {
   };
 
   render() {
-    const { focused, label, icon, } = this.props;
+    const { focused, label, icon } = this.props;
     return (
-      <Drawer.Item label={label} icon={icon} active={focused} onPress={this.onPress} />
+      <Drawer.Item
+        label={label}
+        icon={icon}
+        active={focused}
+        onPress={this.onPress}
+      />
     );
   }
 }

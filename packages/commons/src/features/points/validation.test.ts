@@ -1,6 +1,10 @@
 import { createValidator } from '../../utils/validation';
 import { PointInput } from './types';
-import { CoordinateStruct, CoordinateStructLoose, PointInputStruct } from './validation';
+import {
+  CoordinateStruct,
+  CoordinateStructLoose,
+  PointInputStruct,
+} from './validation';
 
 describe('coordinate schema', () => {
   const validator = createValidator(CoordinateStruct);
@@ -66,12 +70,9 @@ describe('point input schema', () => {
     ],
   ];
 
-  it.each(correct)(
-    'should be valid for %s',
-    (_, value) => {
-      expect(validator(value)).toBeNull();
-    },
-  );
+  it.each(correct)('should be valid for %s', (_, value) => {
+    expect(validator(value)).toBeNull();
+  });
 
   it('should return errors for incorrect input', () => {
     const incorrect: PointInput = {
@@ -83,5 +84,4 @@ describe('point input schema', () => {
     };
     expect(validator(incorrect)).toMatchSnapshot();
   });
-
 });

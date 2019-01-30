@@ -1,11 +1,11 @@
+import { Page, SectionFragments } from '@whitewater-guide/clients';
+import { Connection, Section } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
-import { Page } from '../../ww-clients/apollo';
-import { SectionFragments } from '../../ww-clients/features/sections';
-import { Connection, Section } from '../../ww-commons';
 
 export const OFFLINE_SECTIONS = gql`
   query listSections($page: Page, $regionId: ID) {
-    sections(page: $page, filter: { regionId: $regionId }) @connection(key: "offline_sections", filter: ["filter"])  {
+    sections(page: $page, filter: { regionId: $regionId })
+      @connection(key: "offline_sections", filter: ["filter"]) {
       nodes {
         ...SectionCore
         ...SectionDescription

@@ -1,5 +1,5 @@
+import { Region, Section, User } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
-import { Region, Section, User } from '../../../ww-commons';
 
 export const PREMIUM_DIALOG_QUERY = gql`
   query premiumDialog($regionId: ID!, $sectionId: ID) {

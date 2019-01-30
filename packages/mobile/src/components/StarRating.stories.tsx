@@ -7,24 +7,23 @@ import { StarRating } from './StarRating';
 
 storiesOf('StarRating', module)
   .addDecorator((story: any) => (
-    <View style={{ ...StyleSheet.absoluteFillObject, padding: 8, paddingTop: 64, backgroundColor: '#AAA' }}>
+    <View
+      style={{
+        ...StyleSheet.absoluteFillObject,
+        padding: 8,
+        paddingTop: 64,
+        backgroundColor: '#AAA',
+      }}
+    >
       <Surface style={{ alignSelf: 'stretch', margin: 16, elevation: 2 }}>
         {story()}
       </Surface>
     </View>
   ))
-  .add('Fixed, 0', () => (
-    <StarRating value={0} />
-  ))
-  .add('Fixed, 2.5', () => (
-    <StarRating value={2.5} />
-  ))
-  .add('Fixed, 4', () => (
-    <StarRating value={4} />
-  ))
-  .add('Fixed, 5', () => (
-    <StarRating value={5} />
-  ))
+  .add('Fixed, 0', () => <StarRating value={0} />)
+  .add('Fixed, 2.5', () => <StarRating value={2.5} />)
+  .add('Fixed, 4', () => <StarRating value={4} />)
+  .add('Fixed, 5', () => <StarRating value={5} />)
   .add('Interactive, 0', () => (
     <StarRating value={0} onChange={action('change')} />
   ))

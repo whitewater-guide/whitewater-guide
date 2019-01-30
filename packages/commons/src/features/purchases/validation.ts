@@ -1,8 +1,8 @@
-import { struct } from '../../utils/validation';
+import { baseStruct } from '../../utils/validation';
 import { PurchasePlatform } from './types';
 
-export const PurchaseInputStruct = struct.object({
-  platform: struct.enum(Object.values(PurchasePlatform)),
+export const PurchaseInputStruct = baseStruct.object({
+  platform: baseStruct.enum(Object.values(PurchasePlatform)),
   transactionId: 'nonEmptyString',
   transactionDate: 'date?|null',
   productId: 'nonEmptyString',

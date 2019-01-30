@@ -1,8 +1,0 @@
-{
-  "name": "caddy",
-  "version": "0.0.74",
-  "description": "caddy for whitewater.guide",
-  "repository": "https://github.com/doomsower/whitewater.git",
-  "author": "doomsower <K.Kuznetcov@gmail.com>",
-  "private": true
-}

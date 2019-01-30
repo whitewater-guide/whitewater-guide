@@ -58,13 +58,17 @@ const config: TabNavigatorConfig = {
 const Navigator = createMaterialBottomTabNavigator(routes, config);
 
 class SectionTabsView extends PureScreen<InnerProps, NavParams> {
-
   render() {
     const { navigation, section } = this.props;
     const screenProps: ScreenProps = { section };
     const { node, loading, error, refetch } = section;
     return (
-      <WithNetworkError data={node} error={error} loading={loading} refetch={refetch}>
+      <WithNetworkError
+        data={node}
+        error={error}
+        loading={loading}
+        refetch={refetch}
+      >
         <Navigator navigation={navigation} screenProps={screenProps} />
         <View style={StyleSheet.absoluteFill} pointerEvents="box-none">
           <WhitePortal name="section" />
@@ -74,9 +78,13 @@ class SectionTabsView extends PureScreen<InnerProps, NavParams> {
   }
 }
 
-export const SectionTabs: NavigationComponent & { router?: any} = container(SectionTabsView);
+export const SectionTabs: NavigationComponent & { router?: any } = container(
+  SectionTabsView,
+);
 SectionTabs.router = Navigator.router;
 
-SectionTabs.navigationOptions = ({ navigation }: NavigationScreenConfigProps) => ({
-  headerTitle: <SectionTitle sectionId={navigation.getParam('sectionId')}/>,
+SectionTabs.navigationOptions = ({
+  navigation,
+}: NavigationScreenConfigProps) => ({
+  headerTitle: <SectionTitle sectionId={navigation.getParam('sectionId')} />,
 });

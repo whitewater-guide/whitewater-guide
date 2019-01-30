@@ -1,3 +1,4 @@
+import { MyProfileProvider, TagsProvider } from '@whitewater-guide/clients';
 import ApolloClient from 'apollo-client';
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
@@ -15,8 +16,6 @@ import configureStore from './core/store/configureStore';
 import { I18nProvider } from './i18n';
 import RootNavigator from './RootNavigator';
 import { trackScreenChange } from './utils/navigation';
-import { TagsProvider } from './ww-clients/features/tags';
-import { MyProfileProvider } from './ww-clients/features/users';
 
 configErrors();
 configMoment();
@@ -55,12 +54,16 @@ class App extends React.Component<{}, State> {
     this.setState({ initialized });
   };
 
-  onHideSplash = () => { this.showSplash = false; };
+  onHideSplash = () => {
+    this.showSplash = false;
+  };
 
   renderProfileLoading = () =>
-    (__DEV__ || !this.showSplash) ? null : <SplashScreen onHide={this.onHideSplash} />;
+    __DEV__ || !this.showSplash ? null : (
+      <SplashScreen onHide={this.onHideSplash} />
+    );
 
-  renderLoadingExperimental = () => __DEV__ ? <SplashScreen /> : null;
+  renderLoadingExperimental = () => (__DEV__ ? <SplashScreen /> : null);
 
   render() {
     if (this.store && this.state.initialized) {
@@ -84,9 +87,7 @@ class App extends React.Component<{}, State> {
         </Provider>
       );
     }
-    return (
-      <Screen />
-    );
+    return <Screen />;
   }
 }
 

@@ -1,11 +1,15 @@
 import Attributes from 'markdown-it-attrs';
 import React from 'react';
 import { Platform, StyleProp, StyleSheet, Text } from 'react-native';
-import SimpleMarkdown, { getUniqueID, PluginContainer, RenderRules } from 'react-native-markdown-renderer';
+import SimpleMarkdown, {
+  getUniqueID,
+  PluginContainer,
+  RenderRules,
+} from 'react-native-markdown-renderer';
 import theme from '../theme';
-import { ColorStrings } from '../ww-clients/features/sections';
+import { ColorStrings } from '@whitewater-guide/clients';
 
-type TStyle = ReturnType<typeof StyleSheet.create> & { [key: string]: any};
+type TStyle = ReturnType<typeof StyleSheet.create> & { [key: string]: any };
 
 const styles: TStyle = StyleSheet.create({
   a: {
@@ -46,9 +50,7 @@ const styles: TStyle = StyleSheet.create({
   },
 });
 
-const plugins = [
-  new PluginContainer(Attributes),
-];
+const plugins = [new PluginContainer(Attributes)];
 
 const rules: RenderRules = {
   strong: (node, children) => {

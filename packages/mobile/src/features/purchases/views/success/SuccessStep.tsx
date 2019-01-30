@@ -20,7 +20,6 @@ interface Props {
 }
 
 class SuccessStep extends React.PureComponent<Props & WithI18n> {
-
   render() {
     const { t, region, onComplete } = this.props;
     return (

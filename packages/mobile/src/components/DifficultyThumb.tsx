@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { toRomanDifficulty } from '../ww-clients/utils';
+import { toRomanDifficulty } from '@whitewater-guide/clients';
 
 const styles = StyleSheet.create({
   container: {
@@ -22,9 +22,7 @@ const styles = StyleSheet.create({
   },
   xtraLine: {
     fontSize: 10,
-    transform: [
-      { translateY: -4 },
-    ],
+    transform: [{ translateY: -4 }],
   },
 });
 
@@ -34,12 +32,22 @@ interface Props {
   noBorder?: boolean;
 }
 
-export const DifficultyThumb: React.SFC<Props> = ({ difficulty, difficultyXtra, noBorder }) => {
-  const style = noBorder ? styles.container : [styles.container, styles.withBorder];
+export const DifficultyThumb: React.SFC<Props> = ({
+  difficulty,
+  difficultyXtra,
+  noBorder,
+}) => {
+  const style = noBorder
+    ? styles.container
+    : [styles.container, styles.withBorder];
   return (
     <View style={style}>
-      <Text style={styles.mainLine}>{toRomanDifficulty(difficulty).replace(/\s/gi, '')}</Text>
-      {!!difficultyXtra && <Text style={styles.xtraLine}>{`(${difficultyXtra})`}</Text>}
+      <Text style={styles.mainLine}>
+        {toRomanDifficulty(difficulty).replace(/\s/gi, '')}
+      </Text>
+      {!!difficultyXtra && (
+        <Text style={styles.xtraLine}>{`(${difficultyXtra})`}</Text>
+      )}
     </View>
   );
 };

@@ -20,13 +20,19 @@ const PurchasesListViewInner: React.SFC<WithI18n> = ({ t }) => (
           if (!data || !data.me) {
             return null;
           }
-          const { me: { purchasedGroups, purchasedRegions } } = data;
+          const {
+            me: { purchasedGroups, purchasedRegions },
+          } = data;
           return [
             ...purchasedGroups.map((group, index) => (
               <PurchaseItem
                 key={group.id}
                 group={group}
-                last={purchasedRegions.length === 0 ? index === purchasedGroups.length - 1 : false}
+                last={
+                  purchasedRegions.length === 0
+                    ? index === purchasedGroups.length - 1
+                    : false
+                }
               />
             )),
             ...purchasedRegions.map((region, index) => (
@@ -43,5 +49,7 @@ const PurchasesListViewInner: React.SFC<WithI18n> = ({ t }) => (
   </ErrorBoundary>
 );
 
-const PurchasesListView: React.ComponentType<{}> = withI18n()(PurchasesListViewInner);
+const PurchasesListView: React.ComponentType<{}> = withI18n()(
+  PurchasesListViewInner,
+);
 export default PurchasesListView;

@@ -18,7 +18,7 @@ export function configureApolloClient(options: Options) {
   const httpLink = createHttpLink(fetchOptions);
 
   return new ApolloClient({
-    link: ApolloLink.from([ errorLink, ...links, httpLink ]),
+    link: ApolloLink.from([errorLink, ...links, httpLink]),
     cache: configureApolloCache(),
     connectToDevTools: process.env.NODE_ENV === 'development',
   });

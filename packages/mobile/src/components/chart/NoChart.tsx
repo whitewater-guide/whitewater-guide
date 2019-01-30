@@ -18,8 +18,13 @@ interface Props {
   noData?: boolean;
 }
 
-const NoChartInternal: React.StatelessComponent<Props & WithI18n> = ({ noData, t }) => {
-  const message = noData ? t('section:chart.noData') : t('section:chart.noGauge');
+const NoChartInternal: React.StatelessComponent<Props & WithI18n> = ({
+  noData,
+  t,
+}) => {
+  const message = noData
+    ? t('section:chart.noData')
+    : t('section:chart.noGauge');
   return (
     <View style={styles.container}>
       <Icon narrow icon="alert" />

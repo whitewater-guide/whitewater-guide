@@ -1,7 +1,7 @@
+import { River } from '@whitewater-guide/commons';
 import { FetchPolicy } from 'apollo-client';
 import { graphql } from 'react-apollo';
 import { compose } from 'recompose';
-import { River } from '../../../ww-commons';
 import { queryResultToNode, WithNode } from '../../apollo';
 import { withFeatureIds } from '../../core';
 import { RIVER_DETAILS } from './riverDetails.query';
@@ -27,15 +27,14 @@ interface ChildProps {
 
 export type WithRiver = Props & ChildProps;
 
-export const withRiver = ({ fetchPolicy = 'cache-and-network' }: WithRiverOptions = {}) =>
+export const withRiver = ({
+  fetchPolicy = 'cache-and-network',
+}: WithRiverOptions = {}) =>
   compose<WithRiver, any>(
     withFeatureIds('river'),
-    graphql<Props, Result, Vars, ChildProps>(
-      RIVER_DETAILS,
-      {
-        alias: 'withRiver',
-        options: () => ({ fetchPolicy }),
-        props: props => queryResultToNode(props, 'river'),
-      },
-    ),
+    graphql<Props, Result, Vars, ChildProps>(RIVER_DETAILS, {
+      alias: 'withRiver',
+      options: () => ({ fetchPolicy }),
+      props: (props) => queryResultToNode(props, 'river'),
+    }),
   );

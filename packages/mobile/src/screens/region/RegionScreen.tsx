@@ -1,7 +1,7 @@
 import React from 'react';
 import { WithNetworkError } from '../../components';
 import { PureScreen } from '../../utils/navigation';
-import { RegionConsumer } from '../../ww-clients/features/regions';
+import { RegionConsumer } from '@whitewater-guide/clients';
 import { Navigator, RegionTabs } from './RegionTabs';
 import RegionTitle from './RegionTitle';
 import { InnerProps, NavParams } from './types';
@@ -15,8 +15,17 @@ export class RegionScreen extends PureScreen<InnerProps, NavParams> {
           const { region, searchTerms } = props;
           const { node, error, loading, refetch } = region;
           return (
-            <WithNetworkError data={node} loading={loading} error={error} refetch={refetch}>
-              <RegionTabs navigation={navigation} region={region} searchTerms={searchTerms} />
+            <WithNetworkError
+              data={node}
+              loading={loading}
+              error={error}
+              refetch={refetch}
+            >
+              <RegionTabs
+                navigation={navigation}
+                region={region}
+                searchTerms={searchTerms}
+              />
             </WithNetworkError>
           );
         }}
@@ -28,5 +37,5 @@ export class RegionScreen extends PureScreen<InnerProps, NavParams> {
 (RegionScreen as any).router = Navigator.router;
 
 RegionScreen.navigationOptions = ({ navigation }) => ({
-  headerTitle: <RegionTitle regionId={navigation.getParam('regionId')}/>,
+  headerTitle: <RegionTitle regionId={navigation.getParam('regionId')} />,
 });

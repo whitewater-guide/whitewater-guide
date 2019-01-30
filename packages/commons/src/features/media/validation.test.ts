@@ -17,10 +17,7 @@ const correct: MediaInput = {
 };
 
 const correctValues: TestValue[] = [
-  [
-    'full value',
-    correct,
-  ],
+  ['full value', correct],
   [
     'null value',
     {
@@ -44,38 +41,14 @@ const correctValues: TestValue[] = [
 ];
 
 const incorrectValues: TestValue[] = [
-  [
-    'bad uuid',
-    { ...correct, id: 'fooo' },
-  ],
-  [
-    'empty url',
-    { ...correct, url: '' },
-  ],
-  [
-    'bad kind',
-    { ...correct, kind: 'foo' as any },
-  ],
-  [
-    'bad resolution 1',
-    { ...correct, resolution: [] },
-  ],
-  [
-    'bad resolution 2',
-    { ...correct, resolution: [11] },
-  ],
-  [
-    'bad resolution 3',
-    { ...correct, resolution: [-100, 100] },
-  ],
-  [
-    'bad resolution 4',
-    { ...correct, resolution: [12.3, 11] },
-  ],
-  [
-    'bad weight',
-    { ...correct, weight: 12.3 },
-  ],
+  ['bad uuid', { ...correct, id: 'fooo' }],
+  ['empty url', { ...correct, url: '' }],
+  ['bad kind', { ...correct, kind: 'foo' as any }],
+  ['bad resolution 1', { ...correct, resolution: [] }],
+  ['bad resolution 2', { ...correct, resolution: [11] }],
+  ['bad resolution 3', { ...correct, resolution: [-100, 100] }],
+  ['bad resolution 4', { ...correct, resolution: [12.3, 11] }],
+  ['bad weight', { ...correct, weight: 12.3 }],
 ];
 
 it.each(correctValues)('should be valid for %s', (_, value) => {

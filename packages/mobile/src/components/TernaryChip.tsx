@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Chip } from 'react-native-paper';
 import theme from '../theme';
-import { SelectableTag, TagSelection } from '../ww-commons/features/tags';
+import { SelectableTag, TagSelection } from '@whitewater-guide/commons';
 import { Icon } from './Icon';
 
 const styles = StyleSheet.create({
@@ -24,12 +24,30 @@ interface PartialIconProps {
 }
 
 const Icons = {
-  [TagSelection.SELECTED]: ({ size }: PartialIconProps) =>
-    (<Icon narrow icon="check-circle-outline" size={size} color={theme.colors.enabled} />),
-  [TagSelection.DESELECTED]: ({ size }: PartialIconProps) =>
-    (<Icon narrow icon="close-circle-outline" size={size} color={theme.colors.error} />),
-  [TagSelection.NONE]: ({ size }: PartialIconProps) =>
-    (<Icon narrow icon="checkbox-blank-circle-outline" size={size} color={theme.colors.textMain} />),
+  [TagSelection.SELECTED]: ({ size }: PartialIconProps) => (
+    <Icon
+      narrow
+      icon="check-circle-outline"
+      size={size}
+      color={theme.colors.enabled}
+    />
+  ),
+  [TagSelection.DESELECTED]: ({ size }: PartialIconProps) => (
+    <Icon
+      narrow
+      icon="close-circle-outline"
+      size={size}
+      color={theme.colors.error}
+    />
+  ),
+  [TagSelection.NONE]: ({ size }: PartialIconProps) => (
+    <Icon
+      narrow
+      icon="checkbox-blank-circle-outline"
+      size={size}
+      color={theme.colors.textMain}
+    />
+  ),
 };
 
 interface Props {

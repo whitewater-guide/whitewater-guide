@@ -1,5 +1,5 @@
+import { Region } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
-import { Region } from '../../ww-commons';
 
 export const REGION_MEDIA_SUMMARY = gql`
   query regionMediaSummary($regionId: ID) {

@@ -8,14 +8,15 @@ interface Props extends LineProps {
   datum?: Date;
 }
 
-const TimeGridLine: React.StatelessComponent<Props> = ({ period, ...props }) => {
+const TimeGridLine: React.StatelessComponent<Props> = ({
+  period,
+  ...props
+}) => {
   const style = { ...props.style };
   if (period === Period.MONTH && moment(props.datum).day() === 0) {
     style.stroke = '#AAA';
   }
-  return (
-    <Line {...props} style={style} />
-  );
+  return <Line {...props} style={style} />;
 };
 
 export default TimeGridLine;

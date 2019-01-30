@@ -1,0 +1,10 @@
+/node_modules
+src/**/*.js
+src/**/*.js.map
+/src/ww-commons/
+/services/backend/yarn-error.log
+src/**/dump.sql
+.env.*
+!.env.*.secret
+/coverage/
+/dist/

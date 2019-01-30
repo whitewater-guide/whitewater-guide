@@ -1,4 +1,10 @@
-import { Coordinate, Point, Region, Section, SectionSearchTerms } from '../../../ww-commons';
+import {
+  Coordinate,
+  Point,
+  Region,
+  Section,
+  SectionSearchTerms,
+} from '@whitewater-guide/commons';
 import { WithNode } from '../../apollo';
 
 export interface WithRegion {

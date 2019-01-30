@@ -1,0 +1,14 @@
+#! /bin/sh
+
+if [ -f /docker-entrypoint-initdb.d/dump.bak ]; then
+    echo "Restoring dump"
+    #psql --username "$POSTGRES_USER" -c "ALTER DATABASE ${POSTGRES_DB} SET timescaledb.restoring='on';"
+    psql --username "$POSTGRES_USER" -d $POSTGRES_DB -c "drop schema public cascade; create schema public;"
+    pg_restore --username "$POSTGRES_USER" -Fc -d $POSTGRES_DB /docker-entrypoint-initdb.d/dump.bak
+    #psql --username "$POSTGRES_USER" -c "ALTER DATABASE ${POSTGRES_DB} SET timescaledb.restoring='off';"
+
+    # Disable sources when restoring
+    psql --username "$POSTGRES_USER" -d $POSTGRES_DB -c "UPDATE public.sources SET enabled = false;"
+    # Recreate hypertable in case it's not in the dump
+    psql --username "$POSTGRES_USER" -d $POSTGRES_DB -c "SELECT create_hypertable('measurements', 'timestamp', if_not_exists => true);"
+fi

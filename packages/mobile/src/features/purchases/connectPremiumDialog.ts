@@ -1,6 +1,6 @@
+import { Region } from '@whitewater-guide/commons';
 import { connect } from 'react-redux';
 import { RootState } from '../../core/reducers';
-import { Region } from '../../ww-commons';
 import { purchaseActions } from './index';
 
 interface StateProps {
@@ -13,9 +13,17 @@ interface DispatchProps {
 
 export type WithPremiumDialog = StateProps & DispatchProps;
 
-export const connectPremiumDialog = connect<StateProps, DispatchProps, any, RootState>(
+export const connectPremiumDialog = connect<
+  StateProps,
+  DispatchProps,
+  any,
+  RootState
+>(
   (state: RootState) => ({
     canMakePayments: state.purchase.canMakePayments,
   }),
-  { buyRegion: (region: Region, sectionId?: string) => purchaseActions.openDialog({ region, sectionId }) },
+  {
+    buyRegion: (region: Region, sectionId?: string) =>
+      purchaseActions.openDialog({ region, sectionId }),
+  },
 );

@@ -1,5 +1,5 @@
 import { Type } from 'superstruct';
-import { struct } from '../../utils/validation';
+import { baseStruct } from '../../utils/validation';
 import { HarvestModeStruct } from '../harvest-mode';
 import { ScriptStruct } from '../scripts';
 
@@ -8,16 +8,17 @@ const SourceInputFields = {
   name: 'nonEmptyString',
   termsOfUse: 'string|null',
   script: 'script',
-  cron: struct.union(['cron', 'null', struct.literal('')]),
+  cron: baseStruct.union(['cron', 'null', baseStruct.literal('')]),
   harvestMode: HarvestModeStruct,
-  url: struct.union(['url', 'null', struct.literal('')]),
+  url: baseStruct.union(['url', 'null', baseStruct.literal('')]),
   regions: ['node'],
 };
 
-export const SourceInputStruct = struct.object(SourceInputFields);
+export const SourceInputStruct = baseStruct.object(SourceInputFields);
 
-export const SourceFormStruct = (richTextStruct?: Type) => struct.object({
-  ...SourceInputFields,
-  termsOfUse: richTextStruct || 'any',
-  script: ScriptStruct,
-});
+export const SourceFormStruct = (richTextStruct?: Type) =>
+  baseStruct.object({
+    ...SourceInputFields,
+    termsOfUse: richTextStruct || 'any',
+    script: ScriptStruct,
+  });

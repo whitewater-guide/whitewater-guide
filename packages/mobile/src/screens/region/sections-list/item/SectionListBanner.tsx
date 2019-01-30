@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { BannerView } from '../../../../features/banners';
 import theme from '../../../../theme';
-import { Banner } from '../../../../ww-commons';
+import { Banner } from '@whitewater-guide/commons';
 import { ITEM_HEIGHT } from './index';
 
 const styles = StyleSheet.create({

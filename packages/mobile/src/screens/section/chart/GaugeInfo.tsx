@@ -10,7 +10,7 @@ import { NavigationInjectedProps, withNavigation } from 'react-navigation';
 import { compose } from 'recompose';
 import { Icon, Left, Right, Row } from '../../../components';
 import theme from '../../../theme';
-import { Gauge } from '../../../ww-commons';
+import { Gauge } from '@whitewater-guide/commons';
 
 const styles = StyleSheet.create({
   popoverContent: {
@@ -31,7 +31,6 @@ interface OuterProps {
 type InnerProps = OuterProps & WithI18n & NavigationInjectedProps;
 
 class GaugeInfo extends React.PureComponent<InnerProps> {
-
   _actionSheet: ActionSheet | null = null;
   _actionSheetOptions: string[];
 
@@ -67,65 +66,99 @@ class GaugeInfo extends React.PureComponent<InnerProps> {
     }
   };
 
-  setActionSheet = (ref: ActionSheet | null) => { this._actionSheet = ref; };
+  setActionSheet = (ref: ActionSheet | null) => {
+    this._actionSheet = ref;
+  };
 
   render() {
     const { gauge, approximate, t } = this.props;
     const { name, lastMeasurement } = gauge;
-    const isOutdated = lastMeasurement ? moment().diff(lastMeasurement.timestamp, 'days') > 1 : false;
+    const isOutdated = lastMeasurement
+      ? moment().diff(lastMeasurement.timestamp, 'days') > 1
+      : false;
     return (
       <React.Fragment>
         <Row>
-          <Left><Subheading>{t('commons:gauge')}</Subheading></Left>
+          <Left>
+            <Subheading>{t('commons:gauge')}</Subheading>
+          </Left>
           <Right flexDirection="row">
-            {
-              approximate &&
+            {approximate && (
               <PopoverController>
-                {({ openPopover, closePopover, popoverVisible, setPopoverAnchor, popoverAnchorRect }) => (
+                {({
+                  openPopover,
+                  closePopover,
+                  popoverVisible,
+                  setPopoverAnchor,
+                  popoverAnchorRect,
+                }) => (
                   <React.Fragment>
-                    <Icon icon="alert" size={16} ref={setPopoverAnchor} onPress={openPopover}/>
+                    <Icon
+                      icon="alert"
+                      size={16}
+                      ref={setPopoverAnchor}
+                      onPress={openPopover}
+                    />
                     <Popover
                       contentStyle={styles.popoverContent}
                       visible={popoverVisible}
                       onClose={closePopover}
                       fromRect={popoverAnchorRect}
                     >
-                      <Paragraph>{t('section:chart.approximateWarning')}</Paragraph>
+                      <Paragraph>
+                        {t('section:chart.approximateWarning')}
+                      </Paragraph>
                     </Popover>
                   </React.Fragment>
                 )}
               </PopoverController>
-            }
-            <Paragraph style={styles.link} onPress={this.onShowActionSheet}>{upperFirst(name)}</Paragraph>
+            )}
+            <Paragraph style={styles.link} onPress={this.onShowActionSheet}>
+              {upperFirst(name)}
+            </Paragraph>
           </Right>
         </Row>
 
         <Row>
-          <Left><Subheading>{t('section:chart.lastUpdated')}</Subheading></Left>
+          <Left>
+            <Subheading>{t('section:chart.lastUpdated')}</Subheading>
+          </Left>
           <Right flexDirection="row">
             <Paragraph>
-              {
-                lastMeasurement ? moment(lastMeasurement.timestamp).fromNow() : ''
-              }
+              {lastMeasurement
+                ? moment(lastMeasurement.timestamp).fromNow()
+                : ''}
             </Paragraph>
-            {
-              isOutdated &&
+            {isOutdated && (
               <PopoverController>
-                {({ openPopover, closePopover, popoverVisible, setPopoverAnchor, popoverAnchorRect }) => (
+                {({
+                  openPopover,
+                  closePopover,
+                  popoverVisible,
+                  setPopoverAnchor,
+                  popoverAnchorRect,
+                }) => (
                   <React.Fragment>
-                    <Icon icon="alert" size={16} ref={setPopoverAnchor} onPress={openPopover}/>
+                    <Icon
+                      icon="alert"
+                      size={16}
+                      ref={setPopoverAnchor}
+                      onPress={openPopover}
+                    />
                     <Popover
                       contentStyle={styles.popoverContent}
                       visible={popoverVisible}
                       onClose={closePopover}
                       fromRect={popoverAnchorRect}
                     >
-                      <Paragraph>{t('section:chart.outdatedWarning')}</Paragraph>
+                      <Paragraph>
+                        {t('section:chart.outdatedWarning')}
+                      </Paragraph>
                     </Popover>
                   </React.Fragment>
                 )}
               </PopoverController>
-            }
+            )}
           </Right>
         </Row>
 
@@ -136,11 +169,9 @@ class GaugeInfo extends React.PureComponent<InnerProps> {
           cancelButtonIndex={2}
           onPress={this.onGaugeAction}
         />
-
       </React.Fragment>
     );
   }
-
 }
 
 export default compose<InnerProps, OuterProps>(

@@ -3,14 +3,16 @@ import times from 'lodash/times';
 import moment from 'moment';
 import React from 'react';
 import { I18nProvider } from '../../i18n';
-import { Gauge, HarvestMode, Unit } from '../../ww-commons';
+import { Gauge, HarvestMode, Unit } from '@whitewater-guide/commons';
 import { Chart } from './Chart';
 
 function generateData(days: number, step: number) {
   const count = days * (24 / step);
   return times(count, (i) => ({
-    timestamp: moment().subtract(i * step, 'hours').toDate(),
-    flow: 100 + (100 * (Math.random() - 0.5)),
+    timestamp: moment()
+      .subtract(i * step, 'hours')
+      .toDate(),
+    flow: 100 + 100 * (Math.random() - 0.5),
     level: 0.5 + Math.random(),
   }));
 }
@@ -64,19 +66,9 @@ const weekly = generateData(7, 4);
 const monthly = generateData(31, 12);
 
 storiesOf('Chart', module)
-  .addDecorator((story: any) => (
-    <I18nProvider>
-      {story()}
-    </I18nProvider>
-  ))
+  .addDecorator((story: any) => <I18nProvider>{story()}</I18nProvider>)
   .add('With empty data', () => (
-    <Chart
-      days={1}
-      loading={false}
-      data={[]}
-      unit={Unit.LEVEL}
-      gauge={gauge}
-    />
+    <Chart days={1} loading={false} data={[]} unit={Unit.LEVEL} gauge={gauge} />
   ))
   .add('With daily data', () => (
     <Chart

@@ -1,0 +1,177 @@
+##################################################################################
+# This is base file for all docker-machine deploys (local, staging, production)  #
+##################################################################################
+version: '3.6'
+
+services:
+  # Node.js backend
+  backend:
+    image: '${DOCKER_REGISTRY_PREFIX}backend:${BACKEND_VERSION}'
+    read_only: true
+    build:
+      dockerfile: Dockerfile.production
+    volumes:
+      - type: bind
+        source: /var/pm2
+        target: /root/.pm2
+
+  # Postgres sql database
+  db:
+    image: '${DOCKER_REGISTRY_PREFIX}db:${DB_VERSION}'
+    volumes:
+      - type: bind
+        source: /var/postgres/data/pgdata
+        target: /var/lib/postgresql/data/pgdata
+      - type: bind
+        source: /tmp/postgres
+        target: /tmp
+      - type: tmpfs
+        target: /run/postgresql
+
+  # Minio to store images
+  minio:
+    volumes:
+      - type: bind
+        source: /var/minio/data
+        target: /data
+      - type: bind
+        source: /var/minio/config
+        target: /root/.minio
+      - type: bind
+        source: /tmp/minio
+        target: /tmp
+
+  # Caddy reverse proxy
+  caddy:
+    image: '${DOCKER_REGISTRY_PREFIX}caddy:${CADDY_VERSION}'
+    volumes:
+      - type: bind
+        source: /etc/caddycerts
+        target: /etc/caddycerts
+      - type: bind
+        source: /tmp/caddy
+        target: /tmp/caddy-cache
+
+  # imageproxy to generate thumbnails
+  imageproxy:
+    # Adds cache
+    command:
+      - -addr
+      - 0.0.0.0:8080
+      - -whitelist
+      - minio:9000
+      - -baseURL
+      - http://minio:9000/
+      - cache
+      - /tmp/imageproxy
+    volumes:
+      - type: bind
+        source: /var/imageproxy
+        target: /tmp/imageproxy
+
+  # Redis for sessions and last measurements
+  redis:
+    command: ['--appendonly', 'yes', '--aof-use-rdb-preamble', 'yes']
+    volumes:
+      - type: bind
+        source: /tmp/redis
+        target: /data
+
+  # Workers to harvest some data
+  workers:
+    image: '${DOCKER_REGISTRY_PREFIX}workers:${WORKERS_VERSION}'
+    volumes:
+      - type: bind
+        source: /tmp/workers
+        target: /tmp
+
+  # Serve static landing
+  landing:
+    image: '${DOCKER_REGISTRY_PREFIX}landing:${LANDING_VERSION}'
+
+  # Serve static web client
+  web:
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    labels:
+      guide.whitewater: ''
+    build:
+      context: ../services/web
+      labels:
+        guide.whitewater: ''
+    image: '${DOCKER_REGISTRY_PREFIX}web:${WEB_VERSION}'
+    read_only: true
+
+  # Serve static boompromo client
+  boompromo:
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    labels:
+      guide.whitewater: ''
+    build:
+      context: ../services/boompromo
+      labels:
+        guide.whitewater: ''
+    image: '${DOCKER_REGISTRY_PREFIX}boompromo:${BOOMPROMO_VERSION}'
+    read_only: true
+
+  # Adminer escape hatch
+  adminer:
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    labels:
+      guide.whitewater: ''
+    build:
+      context: ../services/adminer
+      labels:
+        guide.whitewater: ''
+    volumes:
+      - type: tmpfs
+        target: /tmp
+    image: '${DOCKER_REGISTRY_PREFIX}adminer:${ADMINER_VERSION}'
+    read_only: true
+    environment:
+      - ADMINER_DEFAULT_SERVER=db
+
+  # Simple postges backup
+  pgdump:
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    labels:
+      guide.whitewater: ''
+    image: 'doomsower/postgres-backup-s3:3'
+    # read_only: true
+    environment:
+      SCHEDULE: '@daily'
+      S3_PREFIX: '${DOCKER_ENVIRONMENT}'
+      POSTGRES_HOST: db
+      POSTGRES_DATABASE: wwguide
+      POSTGRES_USER: postgres
+    env_file:
+      - ${DOCKER_ENV_FILE}
+      - ../services/pgdump/${DOCKER_ENV_FILE}
+    depends_on:
+      - db
+
+  # Backup images from minio to s3
+  imagedump:
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    labels:
+      guide.whitewater: ''
+    build:
+      context: ../services/imagedump
+      labels:
+        guide.whitewater: ''
+    image: '${DOCKER_REGISTRY_PREFIX}imagedump:${IMAGEDUMP_VERSION}'
+    # read_only: true
+    env_file:
+      - ${DOCKER_ENV_FILE}
+      - ../services/imagedump/${DOCKER_ENV_FILE}
+    depends_on:
+      - minio

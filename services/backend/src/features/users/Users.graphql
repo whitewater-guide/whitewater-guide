@@ -1,0 +1,53 @@
+type User {
+  # Unique id
+  id: ID!
+  # Username
+  name: String!
+  # userpic, url for external, filename for internal
+  avatar: String
+  # email, not public
+  email: String
+  # is admin flag
+  admin: Boolean!
+  # registration date
+  createdAt: Date!
+  # last profle update date
+  updatedAt: Date!
+  # Prerferred UI language
+  language: String!
+  # Prefer imperial measurement system
+  imperial: Boolean!
+  # Special settings for editors
+  editorSettings: EditorSettings
+
+  # Which regions current user has purchased
+  purchasedRegions: [Region]!
+  # Which region groups current user has purchased
+  purchasedGroups: [Group]!
+}
+
+type EditorSettings {
+  # current editor UI language
+  language: String
+}
+
+input UserInput {
+  name: String
+  avatar: String
+  language: String
+  imperial: Boolean
+}
+
+input EditorSettingsInput {
+  language: String
+}
+
+type Query {
+  me: User
+  findUsers(search: String!): [User!] @admin
+}
+
+type Mutation {
+  updateEditorSettings(editorSettings: EditorSettingsInput!): User
+  updateProfile(user: UserInput!): User
+}

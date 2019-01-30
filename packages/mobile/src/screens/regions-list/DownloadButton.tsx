@@ -1,5 +1,10 @@
 import React from 'react';
-import { ActivityIndicator, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
+import {
+  ActivityIndicator,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 import { Icon } from '../../components';
 import theme from '../../theme';
 

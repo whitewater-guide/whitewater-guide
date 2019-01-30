@@ -5,5 +5,5 @@ export async function flushPromises(ticks: number = 1) {
 }
 
 function flushPromise() {
-  return new Promise(resolve => setImmediate(resolve));
+  return new Promise((resolve) => setImmediate(resolve));
 }

@@ -5,20 +5,33 @@ import { call, put, takeEvery } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
 import { trackError } from '../../core/errors';
 import { purchaseActions } from './actions';
-import { watchBuyProduct, watchFetchProduct, watchRefreshPremium, watchRetryOfflinePurchases } from './sagas';
+import {
+  watchBuyProduct,
+  watchFetchProduct,
+  watchRefreshPremium,
+  watchRetryOfflinePurchases,
+} from './sagas';
 
 export function* purchasesSaga() {
   yield takeEvery(purchaseActions.fetch, watchFetchProduct);
   yield takeEvery(purchaseActions.buy, watchBuyProduct);
   yield takeEvery(purchaseActions.refresh, watchRefreshPremium);
-  yield takeEvery(purchaseActions.retryOfflinePurchases, watchRetryOfflinePurchases);
   yield takeEvery(
-    ((action: Action<boolean>) => action.type === offlineActionTypes.CONNECTION_CHANGE && action.payload) as any,
+    purchaseActions.retryOfflinePurchases,
+    watchRetryOfflinePurchases,
+  );
+  yield takeEvery(
+    ((action: Action<boolean>) =>
+      action.type === offlineActionTypes.CONNECTION_CHANGE &&
+      action.payload) as any,
     watchRetryOfflinePurchases,
   );
   try {
     const prepareResult = yield call(initConnection);
-    if (Platform.OS === 'ios' && !(prepareResult === 'true' || prepareResult === true)) {
+    if (
+      Platform.OS === 'ios' &&
+      !(prepareResult === 'true' || prepareResult === true)
+    ) {
       yield put(purchaseActions.update({ canMakePayments: false }));
     }
     yield call(endConnection);

@@ -1,0 +1,7 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "emitDeclarationOnly": true
+  },
+  "exclude": ["**/*.test.ts", "**/__mocks__/**/*", "src/test/typedefs.ts"]
+}

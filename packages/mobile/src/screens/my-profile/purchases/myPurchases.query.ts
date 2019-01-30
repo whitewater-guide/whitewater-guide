@@ -1,5 +1,5 @@
+import { User } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
-import { User } from '../../../ww-commons/features/users';
 
 export const MY_PURCHASES_QUERY = gql`
   query myPurchases {

@@ -10,10 +10,13 @@ beforeEach(async () => {
   const WithData = withRiversList()(Receiver as any);
   const wrapped = mount(
     <MockedProvider>
-      <WithData/>
+      <WithData />
     </MockedProvider>,
   );
-  receiver = wrapped.find(Receiver as any).first().instance() as any;
+  receiver = wrapped
+    .find(Receiver as any)
+    .first()
+    .instance() as any;
   await flushPromises();
 });
 

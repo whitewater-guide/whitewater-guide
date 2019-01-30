@@ -20,10 +20,7 @@ describe('SourceInput', () => {
   };
 
   const correctValues: TestValue[] = [
-    [
-      'full value',
-      correct,
-    ],
+    ['full value', correct],
     [
       'nulled value',
       {
@@ -37,49 +34,19 @@ describe('SourceInput', () => {
         url: null,
       },
     ],
-    [
-      'empty termsOfUse',
-      { ...correct, termsOfUse: '' },
-    ],
-    [
-      'empty cron',
-      { ...correct, cron: '' },
-    ],
-    [
-      'empty url',
-      { ...correct, url: '' },
-    ],
+    ['empty termsOfUse', { ...correct, termsOfUse: '' }],
+    ['empty cron', { ...correct, cron: '' }],
+    ['empty url', { ...correct, url: '' }],
   ];
 
   const incorrectValues: TestValue[] = [
-    [
-      'bad uuid',
-      { ...correct, id: 'foo' },
-    ],
-    [
-      'empty name',
-      { ...correct, name: '' },
-    ],
-    [
-      'empty script',
-      { ...correct, script: '' },
-    ],
-    [
-      'bad cron',
-      { ...correct, cron: '100 * * * * *' },
-    ],
-    [
-      'bad harvest_mode',
-      { ...correct, harvestMode: 'foo' as any },
-    ],
-    [
-      'bad url',
-      { ...correct, url: 'foo' },
-    ],
-    [
-      'bad region',
-      { ...correct, regions: [{ id: 'foo' }] },
-    ],
+    ['bad uuid', { ...correct, id: 'foo' }],
+    ['empty name', { ...correct, name: '' }],
+    ['empty script', { ...correct, script: '' }],
+    ['bad cron', { ...correct, cron: '100 * * * * *' }],
+    ['bad harvest_mode', { ...correct, harvestMode: 'foo' as any }],
+    ['bad url', { ...correct, url: 'foo' }],
+    ['bad region', { ...correct, regions: [{ id: 'foo' }] }],
     [
       'some bad regions legacy snapshot',
       {
@@ -134,10 +101,7 @@ describe('SourceForm', () => {
   };
 
   const correctValues: TestValue[] = [
-    [
-      'full value',
-      correct,
-    ],
+    ['full value', correct],
     [
       'nulled value',
       {
@@ -148,25 +112,13 @@ describe('SourceForm', () => {
         url: null,
       },
     ],
-    [
-      'empty cron',
-      { ...correct, cron: '' },
-    ],
-    [
-      'empty url',
-      { ...correct, url: '' },
-    ],
+    ['empty cron', { ...correct, cron: '' }],
+    ['empty url', { ...correct, url: '' }],
   ];
 
   const incorrectValues: TestValue[] = [
-    [
-      'bad uuid',
-      { ...correct, id: 'foo' },
-    ],
-    [
-      'empty name',
-      { ...correct, name: '' },
-    ],
+    ['bad uuid', { ...correct, id: 'foo' }],
+    ['empty name', { ...correct, name: '' }],
     [
       'bad script',
       {
@@ -179,22 +131,10 @@ describe('SourceForm', () => {
         },
       },
     ],
-    [
-      'bad cron',
-      { ...correct, cron: '100 * * * * *' },
-    ],
-    [
-      'bad harvest_mode',
-      { ...correct, harvestMode: 'foo' as any },
-    ],
-    [
-      'bad url',
-      { ...correct, url: 'foo' },
-    ],
-    [
-      'bad region',
-      { ...correct, regions: [{ id: 'foo' }] },
-    ],
+    ['bad cron', { ...correct, cron: '100 * * * * *' }],
+    ['bad harvest_mode', { ...correct, harvestMode: 'foo' as any }],
+    ['bad url', { ...correct, url: 'foo' }],
+    ['bad region', { ...correct, regions: [{ id: 'foo' }] }],
     [
       'some bad regions legacy snapshot',
       {

@@ -16,10 +16,7 @@ const correct: PurchaseInput = {
 };
 
 const correctValues: TestValue[] = [
-  [
-    'full value',
-    correct,
-  ],
+  ['full value', correct],
   [
     'null value',
     {
@@ -40,14 +37,8 @@ const correctValues: TestValue[] = [
 ];
 
 const incorrectValues: TestValue[] = [
-  [
-    'bad platform',
-    { ...correct, platform: 'windows' } as any,
-  ],
-  [
-    'bad product',
-    { ...correct, productId: '' },
-  ],
+  ['bad platform', { ...correct, platform: 'windows' } as any],
+  ['bad product', { ...correct, productId: '' }],
 ];
 
 it.each(correctValues)('should be valid for %s', (_, value) => {

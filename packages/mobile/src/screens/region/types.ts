@@ -1,8 +1,7 @@
+import { RegionContext, WithNode } from '@whitewater-guide/clients';
+import { Region, Section } from '@whitewater-guide/commons';
 import { WithApolloClient } from 'react-apollo';
 import { NavigationScreenProps } from 'react-navigation';
-import { WithNode } from '../../ww-clients/apollo';
-import { RegionContext } from '../../ww-clients/features/regions';
-import { Region, Section } from '../../ww-commons';
 
 export interface ScreenProps {
   region: WithNode<Region | null>;
@@ -25,7 +24,8 @@ export interface ConnectivityProps {
   isConnected: boolean;
 }
 
-export type OuterProps = NavigationScreenProps<NavParams> & Pick<RegionContext, 'region' | 'searchTerms'>;
+export type OuterProps = NavigationScreenProps<NavParams> &
+  Pick<RegionContext, 'region' | 'searchTerms'>;
 
 export type InnerProps = OuterProps & ConnectivityProps & WithApolloClient<any>;
 

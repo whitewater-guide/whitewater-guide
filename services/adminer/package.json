@@ -1,0 +1,12 @@
+{
+  "name": "@whitewater-guide/adminer",
+  "private": true,
+  "version": "0.0.12",
+  "license": "UNLICENSED",
+  "description": "adminer for whitewater.guide stack",
+  "main": "index.js",
+  "author": "doomsower",
+  "scripts": {
+    "postpublish:global": "node ../../tooling/scripts/bin/dockerPublish.js"
+  }
+}

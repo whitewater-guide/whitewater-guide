@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import theme from '../../theme';
-import { consumeRegion, WithRegion } from '../../ww-clients/features/regions';
-import { BannerPlacement } from '../../ww-commons';
+import { consumeRegion, WithRegion } from '@whitewater-guide/clients';
+import { BannerPlacement } from '@whitewater-guide/commons';
 import { BannerView } from './BannerView';
 import { getBannersForPlacement } from './getBannersForPlacement';
 
@@ -23,15 +23,25 @@ class RegionBannersInner extends React.PureComponent<OuterProps & WithRegion> {
     if (!region.node || !region.node.banners) {
       return null;
     }
-    const banners = getBannersForPlacement(region.node.banners.nodes!, placement, count);
+    const banners = getBannersForPlacement(
+      region.node.banners.nodes!,
+      placement,
+      count,
+    );
     return (
       <React.Fragment>
-        {banners.map((banner) =>
-          (<BannerView key={banner.id} banner={banner} containerStyle={styles.bannerContainer} />))
-        }
+        {banners.map((banner) => (
+          <BannerView
+            key={banner.id}
+            banner={banner}
+            containerStyle={styles.bannerContainer}
+          />
+        ))}
       </React.Fragment>
     );
   }
 }
 
-export const RegionBanners: React.ComponentType<OuterProps> = consumeRegion()(RegionBannersInner);
+export const RegionBanners: React.ComponentType<OuterProps> = consumeRegion()(
+  RegionBannersInner,
+);

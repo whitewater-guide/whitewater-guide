@@ -1,6 +1,15 @@
-export type ResourceType = 'gauge' | 'region' | 'river' | 'section' | 'source' | 'user' | 'media' | 'group' | 'banner';
+export type ResourceType =
+  | 'gauge'
+  | 'region'
+  | 'river'
+  | 'section'
+  | 'source'
+  | 'user'
+  | 'media'
+  | 'group'
+  | 'banner';
 export type ListType =
-  'gauges'
+  | 'gauges'
   | 'regions'
   | 'rivers'
   | 'sections'

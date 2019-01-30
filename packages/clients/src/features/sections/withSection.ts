@@ -1,7 +1,7 @@
+import { Section } from '@whitewater-guide/commons';
 import { FetchPolicy } from 'apollo-client';
 import { graphql } from 'react-apollo';
 import { compose } from 'recompose';
-import { Section } from '../../../ww-commons';
 import { queryResultToNode, WithNode } from '../../apollo';
 import { withFeatureIds } from '../../core';
 import { SECTION_DETAILS } from './sectionDetails.query';
@@ -20,21 +20,18 @@ interface Vars {
 
 type Props = Vars;
 
-interface ChildProps {
+export interface WithSection {
   section: WithNode<Section | null>;
 }
 
-export type WithSection = ChildProps;
-
-export const withSection = ({ fetchPolicy = 'cache-and-network' }: Options = {}) =>
+export const withSection = ({
+  fetchPolicy = 'cache-and-network',
+}: Options = {}) =>
   compose<WithSection, any>(
     withFeatureIds('section'),
-    graphql<Props, Result, Vars, ChildProps>(
-      SECTION_DETAILS,
-      {
-        alias: 'withSection',
-        options: () => ({ fetchPolicy }),
-        props: props => queryResultToNode(props, 'section'),
-      },
-    ),
+    graphql<Props, Result, Vars, WithSection>(SECTION_DETAILS, {
+      alias: 'withSection',
+      options: () => ({ fetchPolicy }),
+      props: (props) => queryResultToNode(props, 'section'),
+    }),
   );

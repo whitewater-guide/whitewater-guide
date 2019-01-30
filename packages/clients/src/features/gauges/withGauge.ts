@@ -1,7 +1,7 @@
+import { Gauge } from '@whitewater-guide/commons';
 import { FetchPolicy } from 'apollo-client';
 import { graphql } from 'react-apollo';
 import { compose } from 'recompose';
-import { Gauge } from '../../../ww-commons';
 import { queryResultToNode, WithNode } from '../../apollo';
 import { withFeatureIds } from '../../core';
 import GAUGE_DETAILS from './gaugeDetails.query';
@@ -25,7 +25,9 @@ interface ChildProps {
 
 export type WithGauge = ChildProps & WithGaugeProps;
 
-export const withGauge = ({ fetchPolicy = 'cache-and-network' }: WithGaugeOptions = {}) =>
+export const withGauge = ({
+  fetchPolicy = 'cache-and-network',
+}: WithGaugeOptions = {}) =>
   compose<WithGauge, any>(
     withFeatureIds('gauge'),
     graphql<WithGaugeProps, WithGaugeResult, WithGaugeProps, ChildProps>(
@@ -33,7 +35,7 @@ export const withGauge = ({ fetchPolicy = 'cache-and-network' }: WithGaugeOption
       {
         alias: 'withGauge',
         options: () => ({ fetchPolicy }),
-        props: props => queryResultToNode(props, 'gauge'),
+        props: (props) => queryResultToNode(props, 'gauge'),
       },
     ),
   );

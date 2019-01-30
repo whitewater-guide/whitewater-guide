@@ -10,7 +10,7 @@ export interface FixedProviderOptions<TResult = any, TVars = any> {
     request?: {
       query: DocumentNode;
       variables?: TVars;
-    },
+    };
     result?: { data: TResult };
     error?: any;
   }>;
@@ -26,7 +26,9 @@ export type FixedProviderStatic = React.SFC & {
   client: ApolloClient<any>;
 };
 
-export function createFixedProvider<TResult = any, TVars = any>(options: FixedProviderOptions<TResult, TVars>) {
+export function createFixedProvider<TResult = any, TVars = any>(
+  options: FixedProviderOptions<TResult, TVars>,
+) {
   const { responses = [], addTypename = true, cache } = options;
   const link = mockSingleLink(...responses, addTypename);
   const client = new ApolloClient({
@@ -35,9 +37,7 @@ export function createFixedProvider<TResult = any, TVars = any>(options: FixedPr
   });
 
   const FixedProvider: React.SFC = ({ children }) => (
-    <ApolloProvider client={client}>
-      {children}
-    </ApolloProvider>
+    <ApolloProvider client={client}>{children}</ApolloProvider>
   );
 
   if (cache) {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { ChartLayoutProps } from '../../../ww-clients/features/charts';
+import { ChartLayoutProps } from '@whitewater-guide/clients';
 import GaugeInfo from './GaugeInfo';
 
 const styles = StyleSheet.create({
@@ -10,10 +10,17 @@ const styles = StyleSheet.create({
   },
 });
 
-const ChartLayout: React.SFC<ChartLayoutProps> = ({ gauge, section, chart, flowToggle, periodToggle }) => {
-  const approximate = section && (
-    (section.flows && section.flows.approximate) || (section.levels && section.levels.approximate)
-  );
+const ChartLayout: React.SFC<ChartLayoutProps> = ({
+  gauge,
+  section,
+  chart,
+  flowToggle,
+  periodToggle,
+}) => {
+  const approximate =
+    section &&
+    ((section.flows && section.flows.approximate) ||
+      (section.levels && section.levels.approximate));
   return (
     <View style={styles.container}>
       {chart}

@@ -3,7 +3,9 @@ import { NavigationScreenComponent } from 'react-navigation';
 import { Screen } from '../../components';
 import RegionsListView from './RegionsListView';
 
-export const RegionsListScreen: NavigationScreenComponent = ({ navigation }) =>  (
+export const RegionsListScreen: NavigationScreenComponent = ({
+  navigation,
+}) => (
   <Screen noScroll noPadding>
     <RegionsListView navigate={navigation.navigate} />
   </Screen>

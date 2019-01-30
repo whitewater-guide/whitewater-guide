@@ -8,11 +8,16 @@ export const configureApolloCache = () =>
     addTypename: true,
     cacheRedirects: {
       Query: {
-        region: (_, { id }) => toIdValue(dataIdFromObject({ __typename: 'Region', id })!),
-        source: (_, { id }) => toIdValue(dataIdFromObject({ __typename: 'Source', id })!),
-        gauge: (_, { id }) => toIdValue(dataIdFromObject({ __typename: 'Gauge', id })!),
-        river: (_, { id }) => toIdValue(dataIdFromObject({ __typename: 'River', id })!),
-        section: (_, { id }) => toIdValue(dataIdFromObject({ __typename: 'Section', id })!),
+        region: (_, { id }) =>
+          toIdValue(dataIdFromObject({ __typename: 'Region', id })!),
+        source: (_, { id }) =>
+          toIdValue(dataIdFromObject({ __typename: 'Source', id })!),
+        gauge: (_, { id }) =>
+          toIdValue(dataIdFromObject({ __typename: 'Gauge', id })!),
+        river: (_, { id }) =>
+          toIdValue(dataIdFromObject({ __typename: 'River', id })!),
+        section: (_, { id }) =>
+          toIdValue(dataIdFromObject({ __typename: 'Section', id })!),
         sections: (store, { filter: { regionId } }) => {
           // This is brittle. Inspect first argument to see query store keys
           // 'offline_sections' is @connection directive cache

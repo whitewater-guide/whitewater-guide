@@ -11,10 +11,16 @@ import { initialized, loginWithFB, logoutWithFB } from './actions';
 import { AuthError } from './types';
 
 export default function* fbSaga() {
-  LoginManager.setLoginBehavior(Platform.OS === 'ios' ? 'native' : 'native_with_fallback');
+  LoginManager.setLoginBehavior(
+    Platform.OS === 'ios' ? 'native' : 'native_with_fallback',
+  );
   // On startup: refresh token, attempt to relogin with new token
   try {
-    const refreshResult = yield apply(AccessToken, AccessToken.refreshCurrentAccessTokenAsync, []);
+    const refreshResult = yield apply(
+      AccessToken,
+      AccessToken.refreshCurrentAccessTokenAsync,
+      [],
+    );
     yield call(authWithFbToken, false);
   } catch (err) {
     /* This will throw error when user open app for the first time, so ignore */
@@ -26,8 +32,11 @@ export default function* fbSaga() {
 
 function* watchLoginWithFb() {
   LoginManager.logOut();
-  const result: LoginResult =
-    yield apply(LoginManager, LoginManager.logInWithReadPermissions, [['public_profile', 'email']]);
+  const result: LoginResult = yield apply(
+    LoginManager,
+    LoginManager.logInWithReadPermissions,
+    [['public_profile', 'email']],
+  );
   if (!result.isCancelled) {
     yield call(authWithFbToken, true);
   }
@@ -41,20 +50,29 @@ function* watchLogoutWithFb() {
 
 function* authWithFbToken(reset?: boolean): any {
   try {
-    const token: AccessToken | null = yield apply(AccessToken, AccessToken.getCurrentAccessToken, []);
+    const token: AccessToken | null = yield apply(
+      AccessToken,
+      AccessToken.getCurrentAccessToken,
+      [],
+    );
     if (token && token.accessToken) {
       const result = yield call(
         axios.get,
-        `${Config.BACKEND_PROTOCOL}://${Config.BACKEND_HOST}/auth/facebook/token?access_token=${token.accessToken}`,
+        `${Config.BACKEND_PROTOCOL}://${
+          Config.BACKEND_HOST
+        }/auth/facebook/token?access_token=${token.accessToken}`,
       );
       if (reset) {
         yield call(resetApolloCache);
       }
     }
-    yield put(loginWithFB.done({ params: {}, result: {}}));
+    yield put(loginWithFB.done({ params: {}, result: {} }));
   } catch (e) {
     // For some reason sometimes this request fails without reaching backend
-    if (!e.response && e.request._response === 'The network connection was lost.') {
+    if (
+      !e.response &&
+      e.request._response === 'The network connection was lost.'
+    ) {
       yield call(authWithFbToken, reset);
       return;
     }
@@ -71,7 +89,7 @@ function* authWithFbToken(reset?: boolean): any {
 }
 
 // See https://github.com/apollographql/apollo-cache-persist/issues/34#issuecomment-371177206 for explanation
-export function *resetApolloCache() {
+export function* resetApolloCache() {
   apolloCachePersistor.pause();
   yield apply(apolloCachePersistor, apolloCachePersistor.purge, []);
   const client = yield getApolloClient();

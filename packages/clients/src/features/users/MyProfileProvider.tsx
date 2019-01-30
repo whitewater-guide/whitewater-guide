@@ -24,9 +24,7 @@ export class MyProfileProvider extends React.PureComponent<Props> {
           }
           const me = data ? data.me : null;
           return (
-            <Provider value={{ me, loading }}>
-              {this.props.children}
-            </Provider>
+            <Provider value={{ me, loading }}>{this.props.children}</Provider>
           );
         }}
       </Query>

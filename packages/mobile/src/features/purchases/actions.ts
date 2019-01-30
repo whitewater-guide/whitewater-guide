@@ -1,6 +1,10 @@
 import { ProductPurchase } from 'react-native-iap';
 import { actionCreatorFactory } from 'typescript-fsa';
-import { PurchaseDialogData, RemoveOfflinePurchasePayload, UpdatePurchasePayload } from './types';
+import {
+  PurchaseDialogData,
+  RemoveOfflinePurchasePayload,
+  UpdatePurchasePayload,
+} from './types';
 
 const factory = actionCreatorFactory('IAP');
 
@@ -19,7 +23,9 @@ export const purchaseActions = {
   // Save purchase on backend
   saveOfflinePurchase: factory<ProductPurchase>('SAVE_OFFLINE_PURCHASE'),
   // Remove offline purchase that was successfully saved
-  removeOfflinePurchase: factory<RemoveOfflinePurchasePayload>('REMOVE_OFFLINE_PURCHASE'),
+  removeOfflinePurchase: factory<RemoveOfflinePurchasePayload>(
+    'REMOVE_OFFLINE_PURCHASE',
+  ),
   // Retry save offline purchases
   retryOfflinePurchases: factory('RETRY_OFFLINE_PURCHASES'),
 };

@@ -4,14 +4,19 @@ import { Icon, Screen } from '../../../components';
 import { RegionBanners } from '../../../features/banners';
 import { I18nText } from '../../../i18n';
 import theme from '../../../theme';
-import { BannerPlacement } from '../../../ww-commons';
+import { BannerPlacement } from '@whitewater-guide/commons';
 import { ScreenProps } from '../types';
 import SectionGuideView from './SectionGuideView';
 
-export const SectionGuideScreen: NavigationScreenComponent = ({ screenProps }) => (
+export const SectionGuideScreen: NavigationScreenComponent = ({
+  screenProps,
+}) => (
   <Screen>
     <SectionGuideView section={(screenProps as ScreenProps).section} />
-    <RegionBanners placement={BannerPlacement.MOBILE_SECTION_DESCRIPTION} count={10} />
+    <RegionBanners
+      placement={BannerPlacement.MOBILE_SECTION_DESCRIPTION}
+      count={10}
+    />
   </Screen>
 );
 

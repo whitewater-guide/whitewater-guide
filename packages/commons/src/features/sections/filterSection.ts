@@ -1,6 +1,8 @@
 import { Section, SectionSearchTerms } from './types';
 
-export const getFilter = (terms: SectionSearchTerms | null) => (section: Section): boolean => {
+export const getFilter = (terms: SectionSearchTerms | null) => (
+  section: Section,
+): boolean => {
   if (!terms) {
     return true;
   }
@@ -19,27 +21,40 @@ export const getFilter = (terms: SectionSearchTerms | null) => (section: Section
     ...(section.river.altNames || []),
     section.name,
     ...(section.altNames || []),
-  ].map(s => s.toLowerCase());
-  if (searchString && !allNames.some(n => n.toLowerCase().includes(searchString))) {
+  ].map((s) => s.toLowerCase());
+  if (
+    searchString &&
+    !allNames.some((n) => n.toLowerCase().includes(searchString))
+  ) {
     return false;
   }
-  if (section.difficulty > difficulty[1] || section.difficulty < difficulty[0]) {
+  if (
+    section.difficulty > difficulty[1] ||
+    section.difficulty < difficulty[0]
+  ) {
     return false;
   }
-  if (section.duration && (section.duration > duration[1] || section.duration < duration[0])) {
+  if (
+    section.duration &&
+    (section.duration > duration[1] || section.duration < duration[0])
+  ) {
     return false;
   }
   if (section.rating !== null && section.rating < rating) {
     return false;
   }
   if (withTags && withTags.length) {
-    const someTagsMissing = withTags.some((id) => !section.tags.find((st) => st.id === id));
+    const someTagsMissing = withTags.some(
+      (id) => !section.tags.find((st) => st.id === id),
+    );
     if (someTagsMissing) {
       return false;
     }
   }
   if (withoutTags && withoutTags.length) {
-    const hasBadTag = withoutTags.some((id) => !!section.tags.find((st) => st.id === id));
+    const hasBadTag = withoutTags.some(
+      (id) => !!section.tags.find((st) => st.id === id),
+    );
     if (hasBadTag) {
       return false;
     }
@@ -56,8 +71,10 @@ export const getFilter = (terms: SectionSearchTerms | null) => (section: Section
     const isInRange =
       section.seasonNumeric &&
       section.seasonNumeric.some(
-        (m) => (m >= firstRange[0] && m <= firstRange[1]) || (m >= secondRange[0] && m <= secondRange[1]),
-    );
+        (m) =>
+          (m >= firstRange[0] && m <= firstRange[1]) ||
+          (m >= secondRange[0] && m <= secondRange[1]),
+      );
     if (!isInRange) {
       return false;
     }

@@ -1,6 +1,6 @@
+import { SectionFragments } from '@whitewater-guide/clients';
+import { Section } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
-import { SectionFragments } from '../../ww-clients/features/sections';
-import { Section } from '../../ww-commons';
 
 export const SECTION_DETAILS = gql`
   query sectionDetails($sectionId: ID) {

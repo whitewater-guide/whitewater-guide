@@ -1,20 +1,26 @@
+import {
+  consumeRegion,
+  SelectedSectionViewProps,
+  stringifySeason,
+  WithRegion,
+} from '@whitewater-guide/clients';
+import { Section } from '@whitewater-guide/commons';
 import capitalize from 'lodash/capitalize';
 import get from 'lodash/get';
 import noop from 'lodash/noop';
 import trim from 'lodash/trim';
 import React from 'react';
-import { translate, withI18n, WithI18n } from 'react-i18next';
+import { withI18n, WithI18n } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Button, Paragraph, Subheading } from 'react-native-paper';
 import Svg, { Path } from 'react-native-svg';
 import { NavigationInjectedProps, withNavigation } from 'react-navigation';
 import { compose } from 'recompose';
-import { connectPremiumDialog, WithPremiumDialog } from '../../features/purchases';
+import {
+  connectPremiumDialog,
+  WithPremiumDialog,
+} from '../../features/purchases';
 import theme from '../../theme';
-import { SelectedSectionViewProps } from '../../ww-clients/features/maps';
-import { consumeRegion, WithRegion } from '../../ww-clients/features/regions';
-import { stringifySeason } from '../../ww-clients/utils';
-import { Section } from '../../ww-commons';
 import { DifficultyThumb } from '../DifficultyThumb';
 import { Icon } from '../Icon';
 import { NAVIGATE_BUTTON_WIDTH } from '../NavigateButton';
@@ -100,7 +106,6 @@ interface State {
 }
 
 class SelectedSectionViewInternal extends React.Component<Props, State> {
-
   readonly state: State = { section: this.props.selectedSection };
 
   static getDerivedStateFromProps(nextProps: Props, prevState: State): State {
@@ -130,7 +135,8 @@ class SelectedSectionViewInternal extends React.Component<Props, State> {
   canNavigate = () => {
     const { section } = this.state;
     const { region, buyRegion, canMakePayments } = this.props;
-    const result = !canMakePayments ||
+    const result =
+      !canMakePayments ||
       (section && section.demo) ||
       !region.node ||
       !region.node.premium ||
@@ -154,9 +160,11 @@ class SelectedSectionViewInternal extends React.Component<Props, State> {
             <Subheading numberOfLines={1} style={styles.title}>
               {get(section, 'name', ' ')}
             </Subheading>
-            {
-              section && section.demo && region.node && region.node.premium && !region.node.hasPremiumAccess &&
-              (
+            {section &&
+              section.demo &&
+              region.node &&
+              region.node.premium &&
+              !region.node.hasPremiumAccess && (
                 <View>
                   <Icon
                     style={styles.unlocked}
@@ -165,8 +173,7 @@ class SelectedSectionViewInternal extends React.Component<Props, State> {
                     size={16}
                   />
                 </View>
-              )
-            }
+              )}
           </View>
           <View style={styles.starsContainer}>
             <StarRating value={get(section, 'rating', 0) || 0} />
@@ -187,12 +194,12 @@ class SelectedSectionViewInternal extends React.Component<Props, State> {
     const language = i18n ? i18n.languages[0] : undefined;
     const buttons = [
       {
-        label: t('commons:putIn'),
+        label: t('commons:putIn') as string,
         coordinates: get(section, 'putIn.coordinates', [0, 0]),
         canNavigate: this.canNavigate,
       },
       {
-        label: t('commons:takeOut'),
+        label: t('commons:takeOut') as string,
         coordinates: get(section, 'takeOut.coordinates', [0, 0]),
         canNavigate: this.canNavigate,
       },
@@ -200,12 +207,19 @@ class SelectedSectionViewInternal extends React.Component<Props, State> {
     let season = ' ';
     if (section) {
       season = [
-        capitalize(trim(stringifySeason(section.seasonNumeric, false, language))),
+        capitalize(
+          trim(stringifySeason(section.seasonNumeric, false, language)),
+        ),
         trim(section.season || ''),
-      ].join('\n').trim();
+      ]
+        .join('\n')
+        .trim();
     }
     const seasonNumLines = season.includes('\n') ? 2 : 1;
-    const duration = (section && section.duration) ? t('durations:' + section.duration) : t('commons:unknown');
+    const duration =
+      section && section.duration
+        ? t('durations:' + section.duration)
+        : t('commons:unknown');
     const drop = section && section.drop;
     const distance = section && section.distance;
     return (
@@ -220,23 +234,30 @@ class SelectedSectionViewInternal extends React.Component<Props, State> {
           <View style={[styles.col, styles.col1]}>
             <Svg width={24} height={24}>
               {/*tslint:disable-next-line*/}
-              <Path fill={theme.colors.textMain} d="M6.5,8.11C5.61,8.11 4.89,7.39 4.89,6.5A1.61,1.61 0 0,1 6.5,4.89C7.39,4.89 8.11,5.61 8.11,6.5V6.5A1.61,1.61 0 0,1 6.5,8.11M6.5,2C4,2 2,4 2,6.5C2,9.87 6.5,14.86 6.5,14.86C6.5,14.86 11,9.87 11,6.5C11,4 9,2 6.5,2M17.5,8.11A1.61,1.61 0 0,1 15.89,6.5C15.89,5.61 16.61,4.89 17.5,4.89C18.39,4.89 19.11,5.61 19.11,6.5A1.61,1.61 0 0,1 17.5,8.11M17.5,2C15,2 13,4 13,6.5C13,9.87 17.5,14.86 17.5,14.86C17.5,14.86 22,9.87 22,6.5C22,4 20,2 17.5,2M17.5,16C16.23,16 15.1,16.8 14.68,18H9.32C8.77,16.44 7.05,15.62 5.5,16.17C3.93,16.72 3.11,18.44 3.66,20C4.22,21.56 5.93,22.38 7.5,21.83C8.35,21.53 9,20.85 9.32,20H14.69C15.24,21.56 16.96,22.38 18.5,21.83C20.08,21.28 20.9,19.56 20.35,18C19.92,16.8 18.78,16 17.5,16V16M17.5,20.5A1.5,1.5 0 0,1 16,19A1.5,1.5 0 0,1 17.5,17.5A1.5,1.5 0 0,1 19,19A1.5,1.5 0 0,1 17.5,20.5Z" />
+              <Path
+                fill={theme.colors.textMain}
+                d="M6.5,8.11C5.61,8.11 4.89,7.39 4.89,6.5A1.61,1.61 0 0,1 6.5,4.89C7.39,4.89 8.11,5.61 8.11,6.5V6.5A1.61,1.61 0 0,1 6.5,8.11M6.5,2C4,2 2,4 2,6.5C2,9.87 6.5,14.86 6.5,14.86C6.5,14.86 11,9.87 11,6.5C11,4 9,2 6.5,2M17.5,8.11A1.61,1.61 0 0,1 15.89,6.5C15.89,5.61 16.61,4.89 17.5,4.89C18.39,4.89 19.11,5.61 19.11,6.5A1.61,1.61 0 0,1 17.5,8.11M17.5,2C15,2 13,4 13,6.5C13,9.87 17.5,14.86 17.5,14.86C17.5,14.86 22,9.87 22,6.5C22,4 20,2 17.5,2M17.5,16C16.23,16 15.1,16.8 14.68,18H9.32C8.77,16.44 7.05,15.62 5.5,16.17C3.93,16.72 3.11,18.44 3.66,20C4.22,21.56 5.93,22.38 7.5,21.83C8.35,21.53 9,20.85 9.32,20H14.69C15.24,21.56 16.96,22.38 18.5,21.83C20.08,21.28 20.9,19.56 20.35,18C19.92,16.8 18.78,16 17.5,16V16M17.5,20.5A1.5,1.5 0 0,1 16,19A1.5,1.5 0 0,1 17.5,17.5A1.5,1.5 0 0,1 19,19A1.5,1.5 0 0,1 17.5,20.5Z"
+              />
             </Svg>
             <Paragraph style={styles.colText}>
-              {distance ? `${distance} ${t('commons:km')}` : t('commons:unknown')}
+              {distance
+                ? `${distance} ${t('commons:km')}`
+                : t('commons:unknown')}
             </Paragraph>
           </View>
           <View style={[styles.col, styles.col2]}>
-            <Icon icon="arrow-expand-vertical" color={theme.colors.textMain} size={24} />
-            <Paragraph  style={styles.colText}>
+            <Icon
+              icon="arrow-expand-vertical"
+              color={theme.colors.textMain}
+              size={24}
+            />
+            <Paragraph style={styles.colText}>
               {drop ? `${drop} ${t('commons:m')}` : t('commons:unknown')}
             </Paragraph>
           </View>
           <View style={[styles.col, styles.col3]}>
             <Icon icon="clock" color={theme.colors.textMain} size={24} />
-            <Paragraph style={styles.colText}>
-              {duration}
-            </Paragraph>
+            <Paragraph style={styles.colText}>{duration}</Paragraph>
           </View>
         </View>
 
@@ -244,9 +265,7 @@ class SelectedSectionViewInternal extends React.Component<Props, State> {
 
         <View style={styles.listItem}>
           <Subheading>{t('commons:season')}</Subheading>
-          <Paragraph numberOfLines={seasonNumLines}>
-            {season}
-          </Paragraph>
+          <Paragraph numberOfLines={seasonNumLines}>{season}</Paragraph>
         </View>
         <Button mode="contained" onPress={this.onDetails}>
           {t('region:map.selectedSection.details')}
@@ -254,13 +273,13 @@ class SelectedSectionViewInternal extends React.Component<Props, State> {
       </SelectedElementView>
     );
   }
-
 }
 
-export const SelectedSectionView: React.ComponentType<SelectedSectionViewProps> =
-  compose<Props, SelectedSectionViewProps>(
-    withI18n(),
-    consumeRegion(),
-    withNavigation,
-    connectPremiumDialog,
-  )(SelectedSectionViewInternal);
+export const SelectedSectionView: React.ComponentType<
+  SelectedSectionViewProps
+> = compose<Props, SelectedSectionViewProps>(
+  withI18n(),
+  consumeRegion(),
+  withNavigation,
+  connectPremiumDialog,
+)(SelectedSectionViewInternal);

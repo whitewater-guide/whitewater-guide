@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { Marker } from 'react-native-maps';
 import { Circle, Svg } from 'react-native-svg';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { POIComponentProps } from '../../ww-clients/features/maps';
+import { POIComponentProps } from '@whitewater-guide/clients';
 
 const styles = StyleSheet.create({
   iconContainer: {
@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const IconKinds: {[key: string]: string} = {
+const IconKinds: { [key: string]: string } = {
   'put-in': 'arrow-downward',
   'take-out': 'arrow-upward',
   'put-in-alt': 'arrow-downward',
@@ -75,7 +75,10 @@ export class SimplePOI extends React.PureComponent<POIComponentProps> {
     if (zoom < 3) {
       return null;
     }
-    const { coordinates: [longitude, latitude], kind } = poi;
+    const {
+      coordinates: [longitude, latitude],
+      kind,
+    } = poi;
     const inner = zoom < 12 ? renderCircle(zoom) : renderCustomMarkerView(kind);
     return (
       <Marker

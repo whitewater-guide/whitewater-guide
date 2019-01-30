@@ -3,7 +3,13 @@ import { call, put, race, take } from 'redux-saga/effects';
 import { Action, isType } from 'typescript-fsa';
 import { auth } from '../../../core/auth';
 import { purchaseActions } from '../actions';
-import { BuyProductResult, PurchaseError, PurchaseState, RefreshPremiumResult, SavePurchaseResult } from '../types';
+import {
+  BuyProductResult,
+  PurchaseError,
+  PurchaseState,
+  RefreshPremiumResult,
+  SavePurchaseResult,
+} from '../types';
 import { buyOrRestoreProduct } from './buyOrRestoreProduct';
 import { finishPurchase } from './finishPurchase';
 import { refreshPremium } from './refreshPremium';
@@ -16,7 +22,10 @@ export function* watchBuyProduct(action: Action<string>) {
   const status = yield call(refreshPremium);
   switch (status) {
     case RefreshPremiumResult.ERROR:
-      yield update({ error: 'iap:errors.refreshPremium', state: PurchaseState.REFRESHING_PREMIUM_FAILED });
+      yield update({
+        error: 'iap:errors.refreshPremium',
+        state: PurchaseState.REFRESHING_PREMIUM_FAILED,
+      });
       return;
     case RefreshPremiumResult.PURCHASED:
       yield update({ state: PurchaseState.IDLE, dialogStep: 'AlreadyHave' });
@@ -31,13 +40,19 @@ export function* watchBuyProduct(action: Action<string>) {
 
   // Step 2: Purchase product via react-native-iap
   yield update({ state: PurchaseState.PRODUCT_PURCHASING });
-  const { purchase, canceled, alreadyOwned }: BuyProductResult = yield call(buyOrRestoreProduct, action.payload);
+  const { purchase, canceled, alreadyOwned }: BuyProductResult = yield call(
+    buyOrRestoreProduct,
+    action.payload,
+  );
   if (canceled) {
     yield update({ error: null, state: PurchaseState.IDLE });
     yield call(finishPurchase);
     return;
   } else if (!purchase) {
-    yield update({ error: 'iap:errors.buyProduct', state: PurchaseState.PRODUCT_PURCHASING_FAILED });
+    yield update({
+      error: 'iap:errors.buyProduct',
+      state: PurchaseState.PRODUCT_PURCHASING_FAILED,
+    });
     yield call(finishPurchase);
     return;
   }
@@ -49,12 +64,17 @@ export function* watchBuyProduct(action: Action<string>) {
   switch (saveResult) {
     // Fatal failure: e.g. this transaction is already used by different user
     case SavePurchaseResult.ERROR:
-      // @ts-ignore
-      const originalTransactionId = purchase.originalTransactionIdentifier || purchase.originalTransactionIdentifierIOS;
+      const originalTransactionId =
+        // @ts-ignore
+        purchase.originalTransactionIdentifier ||
+        // @ts-ignore
+        purchase.originalTransactionIdentifierIOS;
       const error: PurchaseError = [
         alreadyOwned ? 'iap:errors.alreadyOwned' : 'iap:errors.savePurchase',
         {
-          transactionId: purchase.transactionId + (originalTransactionId ? `(${originalTransactionId})` : ''),
+          transactionId:
+            purchase.transactionId +
+            (originalTransactionId ? `(${originalTransactionId})` : ''),
         },
       ];
       yield update({ error, state: PurchaseState.PURCHASE_SAVING_FATAL });
@@ -64,7 +84,10 @@ export function* watchBuyProduct(action: Action<string>) {
       break;
     case SavePurchaseResult.OFFLINE:
       yield update({
-        error: ['iap:errors.savePurchaseOffline', { transactionId: purchase.transactionId }],
+        error: [
+          'iap:errors.savePurchaseOffline',
+          { transactionId: purchase.transactionId },
+        ],
         state: PurchaseState.PURCHASE_SAVING_OFFLINE,
       });
       yield put(purchaseActions.saveOfflinePurchase(purchase));
@@ -76,10 +99,12 @@ export function* watchBuyProduct(action: Action<string>) {
   yield call(finishPurchase);
 }
 
-export function *waitUntilOfflinePurchaseRemoved(purchase: ProductPurchase) {
+export function* waitUntilOfflinePurchaseRemoved(purchase: ProductPurchase) {
   const { saved } = yield race({
-    saved: take((a: any) =>
-      isType(a, purchaseActions.removeOfflinePurchase) && a.payload.purchase.transactionId === purchase.transactionId,
+    saved: take(
+      (a: any) =>
+        isType(a, purchaseActions.removeOfflinePurchase) &&
+        a.payload.purchase.transactionId === purchase.transactionId,
     ),
     logout: take(auth.logout),
   });
@@ -88,7 +113,10 @@ export function *waitUntilOfflinePurchaseRemoved(purchase: ProductPurchase) {
       yield update({ state: PurchaseState.IDLE, dialogStep: 'Success' });
     } else {
       yield update({
-        error: ['iap:errors.savePurchase', { transactionId: purchase.transactionId }],
+        error: [
+          'iap:errors.savePurchase',
+          { transactionId: purchase.transactionId },
+        ],
         state: PurchaseState.PURCHASE_SAVING_FATAL,
       });
     }

@@ -10,22 +10,12 @@ export const RegionMapScreen: NavigationScreenComponent = ({ screenProps }) => {
   const { region, sections }: ScreenProps = screenProps as any;
   return (
     <Screen noScroll>
-      {
-        region.node &&
-        (
-          <RegionMap
-            region={region.node}
-            sections={sections}
-          />
-        )
-      }
+      {region.node && <RegionMap region={region.node} sections={sections} />}
     </Screen>
   );
 };
 
 RegionMapScreen.navigationOptions = {
   tabBarLabel: <I18nText>region:map.title</I18nText>,
-  tabBarIcon: () => (
-    <Icon icon="map" color={theme.colors.textLight} />
-  ),
+  tabBarIcon: () => <Icon icon="map" color={theme.colors.textLight} />,
 };

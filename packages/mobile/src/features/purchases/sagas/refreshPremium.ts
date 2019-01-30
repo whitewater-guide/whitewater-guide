@@ -7,14 +7,19 @@ import { RootState } from '../../../core/reducers';
 import { PurchaseDialogData, RefreshPremiumResult } from '../types';
 import { PREMIUM_DIALOG_QUERY, Result, Vars } from './premiumDialog.query';
 
-export function *refreshPremium() {
+export function* refreshPremium() {
   const client = yield getApolloClient();
 
-  const dialogData: PurchaseDialogData = yield select((root: RootState) => root.purchase.dialogData);
+  const dialogData: PurchaseDialogData = yield select(
+    (root: RootState) => root.purchase.dialogData,
+  );
   if (!dialogData) {
     return RefreshPremiumResult.ERROR;
   }
-  const variables: Vars = { regionId: dialogData.region.id, sectionId: dialogData.sectionId };
+  const variables: Vars = {
+    regionId: dialogData.region.id,
+    sectionId: dialogData.sectionId,
+  };
   try {
     const queryOpts: QueryOptions<Vars> = {
       query: PREMIUM_DIALOG_QUERY,

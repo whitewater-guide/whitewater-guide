@@ -1,12 +1,22 @@
+// tslint:disable
 /**
  * Copied from https://github.com/apollographql/react-apollo/blob/master/src/test-links.ts to avoid babel/jest issues
  * Changes: added removeConnectionDirectiveFromDocument
  */
-import { ApolloLink, FetchResult, GraphQLRequest, Observable, Operation, } from 'apollo-link';
-import { addTypenameToDocument, removeConnectionDirectiveFromDocument } from 'apollo-utilities';
+import {
+  ApolloLink,
+  FetchResult,
+  GraphQLRequest,
+  Observable,
+  Operation,
+} from 'apollo-link';
+import {
+  addTypenameToDocument,
+  removeConnectionDirectiveFromDocument,
+} from 'apollo-utilities';
 
 import { print } from 'graphql/language/printer';
-import { isEqual } from 'lodash';
+import isEqual from 'lodash/isEqual';
 
 export interface MockedResponse {
   request: GraphQLRequest;
@@ -34,7 +44,7 @@ export class MockLink extends ApolloLink {
     super();
     this.addTypename = addTypename;
     if (mockedResponses)
-      mockedResponses.forEach(mockedResponse => {
+      mockedResponses.forEach((mockedResponse) => {
         this.addMockedResponse(mockedResponse);
       });
   }
@@ -52,15 +62,17 @@ export class MockLink extends ApolloLink {
   public request(operation: Operation) {
     const key = requestToKey(operation, this.addTypename);
     let responseIndex;
-    const response = (this.mockedResponsesByKey[key] || []).find((res, index) => {
-      const requestVariables = operation.variables || {};
-      const mockedResponseVariables = res.request.variables || {};
-      if (!isEqual(requestVariables, mockedResponseVariables)) {
-        return false;
-      }
-      responseIndex = index;
-      return true;
-    });
+    const response = (this.mockedResponsesByKey[key] || []).find(
+      (res, index) => {
+        const requestVariables = operation.variables || {};
+        const mockedResponseVariables = res.request.variables || {};
+        if (!isEqual(requestVariables, mockedResponseVariables)) {
+          return false;
+        }
+        responseIndex = index;
+        return true;
+      },
+    );
 
     if (!response || typeof responseIndex === 'undefined') {
       throw new Error(
@@ -80,18 +92,23 @@ export class MockLink extends ApolloLink {
     }
 
     if (!result && !error) {
-      throw new Error(`Mocked response should contain either result or error: ${key}`);
+      throw new Error(
+        `Mocked response should contain either result or error: ${key}`,
+      );
     }
 
-    return new Observable<FetchResult>(observer => {
-      const timer: any = setImmediate(() => {
-        if (error) {
-          observer.error(error);
-        } else {
-          if (result) observer.next(result);
-          observer.complete();
-        }
-      }, delay ? delay : 0);
+    return new Observable<FetchResult>((observer) => {
+      const timer: any = setImmediate(
+        () => {
+          if (error) {
+            observer.error(error);
+          } else {
+            if (result) observer.next(result);
+            observer.complete();
+          }
+        },
+        delay ? delay : 0,
+      );
 
       return () => {
         clearTimeout(timer);
@@ -104,7 +121,8 @@ function requestToKey(request: GraphQLRequest, addTypename: Boolean): string {
   // @ts-ignore
   const cleanQuery = removeConnectionDirectiveFromDocument(request.query);
   const queryString =
-    request.query && print(addTypename ? addTypenameToDocument(cleanQuery) : cleanQuery);
+    request.query &&
+    print(addTypename ? addTypenameToDocument(cleanQuery) : cleanQuery);
   // removeConnectionDirectiveFromDocument
 
   const requestKey = { query: queryString };

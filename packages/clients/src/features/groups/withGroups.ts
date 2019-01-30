@@ -1,5 +1,5 @@
+import { Group } from '@whitewater-guide/commons';
 import { graphql } from 'react-apollo';
-import { Group } from '../../../ww-commons';
 import { queryResultToList, WithList } from '../../apollo';
 import { LIST_GROUPS } from './listGroups.query';
 
@@ -17,6 +17,6 @@ export const withGroups = graphql<any, Result, any, WithGroupsList>(
     options: () => ({
       fetchPolicy: 'network-only',
     }),
-    props: props => queryResultToList(props, 'groups'),
+    props: (props) => queryResultToList(props, 'groups'),
   },
 );

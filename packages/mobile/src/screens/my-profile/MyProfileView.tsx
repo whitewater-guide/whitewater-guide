@@ -2,7 +2,13 @@ import identity from 'lodash/identity';
 import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import { Button, Divider, Title } from 'react-native-paper';
-import { Avatar, Paper, RadioDialog, RetryPlaceholder, Screen } from '../../components';
+import {
+  Avatar,
+  Paper,
+  RadioDialog,
+  RetryPlaceholder,
+  Screen,
+} from '../../components';
 import { LANGUAGE_NAMES, SUPPORTED_LANGUAGES } from '../../i18n';
 import theme from '../../theme';
 import { PurchasesListView } from './purchases';
@@ -42,9 +48,7 @@ class MyProfileView extends React.PureComponent<InnerProps> {
   render() {
     const { t, me } = this.props;
     if (!me) {
-      return (
-        <RetryPlaceholder labelKey={'myProfile:notLoggedIn'} />
-      );
+      return <RetryPlaceholder labelKey={'myProfile:notLoggedIn'} />;
     }
     const language = me.language || 'en';
     const avatar = me.avatar || '';
@@ -58,10 +62,10 @@ class MyProfileView extends React.PureComponent<InnerProps> {
           </Paper>
           <Paper gutterBottom>
             <Title>{t('myProfile:general')}</Title>
-            <Divider style={{ marginBottom: theme.margin.single }}/>
+            <Divider style={{ marginBottom: theme.margin.single }} />
             <RadioDialog
-              handleTitle={t('myProfile:language')}
-              cancelLabel={t('commons:cancel')}
+              handleTitle={t('myProfile:language') as string}
+              cancelLabel={t('commons:cancel') as string}
               value={language}
               options={SUPPORTED_LANGUAGES}
               onChange={this.onChangeLanguage}

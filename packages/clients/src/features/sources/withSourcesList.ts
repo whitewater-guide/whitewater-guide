@@ -1,5 +1,5 @@
+import { Connection, Source } from '@whitewater-guide/commons';
 import { graphql } from 'react-apollo';
-import { Connection, Source } from '../../../ww-commons';
 import { queryResultToList, WithList } from '../../apollo';
 import listSources from './listSources.query';
 
@@ -18,6 +18,6 @@ export const withSourcesList = graphql<any, Result, any, WithSourcesList>(
     options: () => ({
       fetchPolicy: 'cache-and-network',
     }),
-    props: props => queryResultToList(props, 'sources'),
+    props: (props) => queryResultToList(props, 'sources'),
   },
 );

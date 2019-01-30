@@ -4,7 +4,7 @@ import { ActivityIndicator, StyleSheet } from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
 import { Paragraph, Subheading } from 'react-native-paper';
 import theme from '../../theme';
-import { PeriodToggleProps } from '../../ww-clients/features/charts';
+import { PeriodToggleProps } from '@whitewater-guide/clients';
 import { Body, Left, Right, Row } from '../Row';
 
 const styles = StyleSheet.create({
@@ -49,7 +49,7 @@ class ChartPeriodToggleInternal extends React.PureComponent<Props> {
 
   renderLoaded = () => {
     const { days, t } = this.props;
-    const index = days > 10 ? 'month' : (days > 2 ? 'week' : 'day');
+    const index = days > 10 ? 'month' : days > 2 ? 'week' : 'day';
     return (
       <Row>
         <Left flexDirection="row">
@@ -74,7 +74,7 @@ class ChartPeriodToggleInternal extends React.PureComponent<Props> {
   renderLoading = () => (
     <Row>
       <Body>
-      <ActivityIndicator color={theme.colors.primary} />
+        <ActivityIndicator color={theme.colors.primary} />
       </Body>
     </Row>
   );

@@ -1,3 +1,9 @@
+import {
+  consumeRegion,
+  SelectedPOIViewProps,
+  WithRegion,
+} from '@whitewater-guide/clients';
+import { Coordinate, Point } from '@whitewater-guide/commons';
 import get from 'lodash/get';
 import noop from 'lodash/noop';
 import React from 'react';
@@ -5,11 +11,11 @@ import { withI18n, WithI18n } from 'react-i18next';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { Caption, Paragraph } from 'react-native-paper';
 import { compose } from 'recompose';
-import { connectPremiumDialog, WithPremiumDialog } from '../../features/purchases';
+import {
+  connectPremiumDialog,
+  WithPremiumDialog,
+} from '../../features/purchases';
 import theme from '../../theme';
-import { SelectedPOIViewProps } from '../../ww-clients/features/maps';
-import { consumeRegion, WithRegion } from '../../ww-clients/features/regions';
-import { Coordinate, Point } from '../../ww-commons';
 import SelectedElementView from './SelectedElementView';
 
 const styles = StyleSheet.create({
@@ -34,7 +40,6 @@ interface State {
 }
 
 class SelectedPOIViewInternal extends React.Component<Props, State> {
-
   readonly state: State = { poi: null };
 
   static getDerivedStateFromProps(props: Props, prevState: State): State {
@@ -53,13 +58,19 @@ class SelectedPOIViewInternal extends React.Component<Props, State> {
   renderHeader = () => (
     <View style={styles.header}>
       <Paragraph>{get(this.state.poi, 'name', ' ')}</Paragraph>
-      <Caption>{this.props.t('poiTypes:' + get(this.state.poi, 'kind', 'other'))}</Caption>
+      <Caption>
+        {this.props.t('poiTypes:' + get(this.state.poi, 'kind', 'other'))}
+      </Caption>
     </View>
   );
 
   canNavigate = () => {
     const { buyRegion, region, canMakePayments } = this.props;
-    const result = !canMakePayments || !region.node || !region.node.premium || region.node.hasPremiumAccess;
+    const result =
+      !canMakePayments ||
+      !region.node ||
+      !region.node.premium ||
+      region.node.hasPremiumAccess;
     if (!result) {
       buyRegion(region.node!);
     }
@@ -69,11 +80,13 @@ class SelectedPOIViewInternal extends React.Component<Props, State> {
   render() {
     const { t, selectedPOI } = this.props;
     const { poi } = this.state;
-    const buttons = [{
-      label: t('commons:navigate'),
-      coordinates: get(poi, 'coordinates', [0, 0]) as Coordinate,
-      canNavigate: this.canNavigate,
-    }];
+    const buttons = [
+      {
+        label: t('commons:navigate') as string,
+        coordinates: get(poi, 'coordinates', [0, 0]) as Coordinate,
+        canNavigate: this.canNavigate,
+      },
+    ];
     return (
       <SelectedElementView
         renderHeader={this.renderHeader}
@@ -82,7 +95,10 @@ class SelectedPOIViewInternal extends React.Component<Props, State> {
         onSectionSelected={noop}
         onPOISelected={noop}
       >
-        <ScrollView contentContainerStyle={styles.bodyContent} style={styles.body}>
+        <ScrollView
+          contentContainerStyle={styles.bodyContent}
+          style={styles.body}
+        >
           <Paragraph>{get(poi, 'description', ' ')}</Paragraph>
         </ScrollView>
       </SelectedElementView>
@@ -90,7 +106,9 @@ class SelectedPOIViewInternal extends React.Component<Props, State> {
   }
 }
 
-export const SelectedPOIView: React.ComponentType<SelectedPOIViewProps> = compose<Props, SelectedPOIViewProps>(
+export const SelectedPOIView: React.ComponentType<
+  SelectedPOIViewProps
+> = compose<Props, SelectedPOIViewProps>(
   withI18n(),
   consumeRegion(),
   connectPremiumDialog,

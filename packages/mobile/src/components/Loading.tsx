@@ -18,8 +18,5 @@ export const Loading: React.SFC = () => (
 );
 
 export function withLoading<TOuter>(isLoading: (props: TOuter) => boolean) {
-  return branch<TOuter>(
-    isLoading,
-    renderComponent<{}>(Loading),
-  );
+  return branch<TOuter>(isLoading, renderComponent<{}>(Loading));
 }

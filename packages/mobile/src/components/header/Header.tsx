@@ -11,16 +11,15 @@ import { HeaderRight } from '../../screens';
 type Props = HeaderProps & WithI18n & { openDrawer: () => void };
 
 class Header extends React.PureComponent<Props> {
-
-  goBack = () =>
-    this.props.navigation.dispatch(NavigationActions.back());
+  goBack = () => this.props.navigation.dispatch(NavigationActions.back());
 
   renderLeftButton = () => {
     const { index, openDrawer } = this.props;
-    return index ?
-      <Appbar.Action icon="chevron-left" size={36} onPress={this.goBack} /> :
+    return index ? (
+      <Appbar.Action icon="chevron-left" size={36} onPress={this.goBack} />
+    ) : (
       <Appbar.Action icon="menu" onPress={openDrawer} />
-    ;
+    );
   };
 
   render() {
@@ -40,7 +39,10 @@ class Header extends React.PureComponent<Props> {
 }
 
 const container = compose<Props, HeaderProps>(
-  connect(undefined, { openDrawer: () => toggleDrawer(null) }),
+  connect(
+    undefined,
+    { openDrawer: () => toggleDrawer(null) },
+  ),
   withI18n(),
 );
 

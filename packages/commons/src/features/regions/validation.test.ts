@@ -1,6 +1,10 @@
 import { createValidator } from '../../utils/validation';
 import { RegionAdminSettings, RegionFormInput, RegionInput } from './types';
-import { RegionAdminSettingsStruct, RegionFormStruct, RegionInputStruct } from './validation';
+import {
+  RegionAdminSettingsStruct,
+  RegionFormStruct,
+  RegionInputStruct,
+} from './validation';
 
 describe('RegionInput', () => {
   const validator = createValidator(RegionInputStruct);
@@ -13,20 +17,19 @@ describe('RegionInput', () => {
     bounds: [[1, 1, 1], [2, 2, 2], [3, 3, 3]],
     season: 'when it rains',
     seasonNumeric: [10, 11, 12],
-    pois: [{
-      id: 'b5678064-c34b-11e8-a355-529269fb1459',
-      coordinates: [1, 1.3, 200],
-      description: 'poi description',
-      name: 'some poi',
-      kind: 'portage',
-    }],
+    pois: [
+      {
+        id: 'b5678064-c34b-11e8-a355-529269fb1459',
+        coordinates: [1, 1.3, 200],
+        description: 'poi description',
+        name: 'some poi',
+        kind: 'portage',
+      },
+    ],
   };
 
   const correctValues: TestValue[] = [
-    [
-      'full value',
-      correct,
-    ],
+    ['full value', correct],
     [
       'null value',
       {
@@ -38,25 +41,13 @@ describe('RegionInput', () => {
         seasonNumeric: [],
       },
     ],
-    [
-      'empty description',
-      { ...correct, description: '' },
-    ],
-    [
-      'empty season',
-      { ...correct, season: '' },
-    ],
+    ['empty description', { ...correct, description: '' }],
+    ['empty season', { ...correct, season: '' }],
   ];
 
   const incorrectValues: TestValue[] = [
-    [
-      'bad id',
-      { ...correct, id: 'foo' },
-    ],
-    [
-      'empty name',
-      { ...correct, name: '' },
-    ],
+    ['bad id', { ...correct, id: 'foo' }],
+    ['empty name', { ...correct, name: '' }],
     [
       'bad season numeric (bad half-month)',
       { ...correct, seasonNumeric: [10, 100, -10, 11] },
@@ -70,16 +61,31 @@ describe('RegionInput', () => {
       {
         ...correct,
         pois: [
-          { id: null, description: null, kind: 'dam', name: null, coordinates: [1, 1, 1] },
-          { id: 'foo', description: null, kind: 'dam', name: null, coordinates: [1, 1, 1] },
-          { id: null, description: null, kind: 'dam', name: null, coordinates: [1, 2, 1] },
+          {
+            id: null,
+            description: null,
+            kind: 'dam',
+            name: null,
+            coordinates: [1, 1, 1],
+          },
+          {
+            id: 'foo',
+            description: null,
+            kind: 'dam',
+            name: null,
+            coordinates: [1, 1, 1],
+          },
+          {
+            id: null,
+            description: null,
+            kind: 'dam',
+            name: null,
+            coordinates: [1, 2, 1],
+          },
         ],
       },
     ],
-    [
-      'extra fields',
-      { ...correct, foo: 'bar' } as any,
-    ],
+    ['extra fields', { ...correct, foo: 'bar' } as any],
   ];
 
   it.each(correctValues)('should be valid for %s', (_, value) => {
@@ -111,20 +117,19 @@ describe('RegionFormInput', () => {
     bounds: [[1, 1, 1], [2, 2, 2], [3, 3, 3]],
     season: 'when it rains',
     seasonNumeric: [10, 11, 12],
-    pois: [{
-      id: 'b5678064-c34b-11e8-a355-529269fb1459',
-      coordinates: [1, 1.3, 200],
-      description: 'poi description',
-      name: 'some poi',
-      kind: 'portage',
-    }],
+    pois: [
+      {
+        id: 'b5678064-c34b-11e8-a355-529269fb1459',
+        coordinates: [1, 1.3, 200],
+        description: 'poi description',
+        name: 'some poi',
+        kind: 'portage',
+      },
+    ],
   };
 
   const correctValues: TestValue[] = [
-    [
-      'full value',
-      correct,
-    ],
+    ['full value', correct],
     [
       'null value',
       {
@@ -135,21 +140,12 @@ describe('RegionFormInput', () => {
         seasonNumeric: [],
       },
     ],
-    [
-      'empty season',
-      { ...correct, season: '' },
-    ],
+    ['empty season', { ...correct, season: '' }],
   ];
 
   const incorrectValues: TestValue[] = [
-    [
-      'bad id',
-      { ...correct, id: 'foo' },
-    ],
-    [
-      'empty name',
-      { ...correct, name: '' },
-    ],
+    ['bad id', { ...correct, id: 'foo' }],
+    ['empty name', { ...correct, name: '' }],
     [
       'bad season numeric (bad half-month)',
       { ...correct, seasonNumeric: [10, 100, -10, 11] },
@@ -163,16 +159,31 @@ describe('RegionFormInput', () => {
       {
         ...correct,
         pois: [
-          { id: null, description: null, kind: 'dam', name: null, coordinates: [1, 1, 1] },
-          { id: 'foo', description: null, kind: 'dam', name: null, coordinates: [1, 1, 1] },
-          { id: null, description: null, kind: 'dam', name: null, coordinates: [1, 2, 1] },
+          {
+            id: null,
+            description: null,
+            kind: 'dam',
+            name: null,
+            coordinates: [1, 1, 1],
+          },
+          {
+            id: 'foo',
+            description: null,
+            kind: 'dam',
+            name: null,
+            coordinates: [1, 1, 1],
+          },
+          {
+            id: null,
+            description: null,
+            kind: 'dam',
+            name: null,
+            coordinates: [1, 2, 1],
+          },
         ],
       },
     ],
-    [
-      'extra fields',
-      { ...correct, foo: 'bar' } as any,
-    ],
+    ['extra fields', { ...correct, foo: 'bar' } as any],
   ];
 
   it.each(correctValues)('should be valid for %s', (_, value) => {
@@ -200,10 +211,7 @@ describe('RegionAdminSettings', () => {
   };
 
   const correctValues: TestValue[] = [
-    [
-      'full value',
-      correct,
-    ],
+    ['full value', correct],
     [
       'null value',
       {
@@ -217,30 +225,12 @@ describe('RegionAdminSettings', () => {
   ];
 
   const incorrectValues: TestValue[] = [
-    [
-      'bad id',
-      { ...correct, id: 'foo' },
-    ],
-    [
-      'empty sku',
-      { ...correct, sku: '' },
-    ],
-    [
-      'bad sku 1',
-      { ...correct, sku: 'region.x' },
-    ],
-    [
-      'bad sku 2',
-      { ...correct, sku: 'region.g@licia' },
-    ],
-    [
-      'empty cover image',
-      { ...correct, coverImage: { mobile: '' } },
-    ],
-    [
-      'extra fields',
-      { ...correct, foo: 'bar' } as any,
-    ],
+    ['bad id', { ...correct, id: 'foo' }],
+    ['empty sku', { ...correct, sku: '' }],
+    ['bad sku 1', { ...correct, sku: 'region.x' }],
+    ['bad sku 2', { ...correct, sku: 'region.g@licia' }],
+    ['empty cover image', { ...correct, coverImage: { mobile: '' } }],
+    ['extra fields', { ...correct, foo: 'bar' } as any],
   ];
 
   it.each(correctValues)('should be valid for %s', (_, value) => {

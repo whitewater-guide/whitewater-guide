@@ -1,13 +1,19 @@
+import { RegionMediaSummary } from '@whitewater-guide/commons';
 import { getApolloClient } from '../../../../core/apollo';
-import { RegionMediaSummary } from '../../../../ww-commons/features/regions';
-import { REGION_MEDIA_SUMMARY, Result, Vars } from '../../regionMediaSummary.query';
+import {
+  REGION_MEDIA_SUMMARY,
+  Result,
+  Vars,
+} from '../../regionMediaSummary.query';
 
 interface Summary {
   photosCount: number;
   sectionsCount: number;
 }
 
-export default async function readCachedRegionSummary(regionId: string): Promise<Summary> {
+export default async function readCachedRegionSummary(
+  regionId: string,
+): Promise<Summary> {
   const client = await getApolloClient();
   const mediaQueryResult = client.readQuery<Result, Vars>({
     query: REGION_MEDIA_SUMMARY,

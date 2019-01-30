@@ -1,12 +1,18 @@
 import Firebase from 'react-native-firebase';
 import shortid from 'shortid';
 
-export const trackError = (origin: string, error: Error, componentStack?: string, isFatal?: boolean) => {
+export const trackError = (
+  origin: string,
+  error: Error,
+  componentStack?: string,
+  isFatal?: boolean,
+) => {
   const errorId = shortid();
   if (__DEV__) {
     try {
       console.dir(error);
     } catch {
+      // tslint:disable-next-line:no-console
       console.log(error);
     }
   }

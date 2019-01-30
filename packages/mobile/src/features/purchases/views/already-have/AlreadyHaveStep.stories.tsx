@@ -16,13 +16,7 @@ const region: PremiumRegion = {
 storiesOf('Premium dialog: already have step', module)
   .addDecorator((story: any) => (
     <Dialog onDismiss={noop} visible dismissable={false}>
-      <DialogBody title="Get Georgia premium">
-        {story()}
-      </DialogBody>
+      <DialogBody title="Get Georgia premium">{story()}</DialogBody>
     </Dialog>
   ))
-  .add('Default', () => (
-    <AlreadyHaveStep
-      region={region}
-    />
-  ));
+  .add('Default', () => <AlreadyHaveStep region={region} />);

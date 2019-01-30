@@ -1,0 +1,30 @@
+enum TagCategory {
+  kayaking
+  hazards
+  supply
+  misc
+}
+
+type Tag {
+  # unique string, can be used as slug
+  id: String!
+  # Human-frindly tag label
+  name: String!
+  # Tag category enum
+  category: TagCategory!
+}
+
+input TagInput {
+  id: String!
+  name: String!
+  category: TagCategory!
+}
+
+type Query {
+  tags: [Tag!]!
+}
+
+type Mutation {
+  upsertTag(tag: TagInput!): Tag @admin
+  removeTag(id: String!): String @admin
+}

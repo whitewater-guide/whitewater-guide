@@ -1,6 +1,7 @@
 const { readdirSync } = require('fs');
-const reactNativeModules = readdirSync('./node_modules')
-  .filter((pkg) => pkg.indexOf('react-native') === 0);
+const reactNativeModules = readdirSync('./node_modules').filter(
+  (pkg) => pkg.indexOf('react-native') === 0,
+);
 
 const notIgnoredModules = [
   ...reactNativeModules,
@@ -27,9 +28,7 @@ module.exports = {
     '<rootDir>/src/ww-clients/',
   ],
   moduleFileExtensions: ['js', 'json', 'jsx', 'node', 'ts', 'tsx'],
-  transformIgnorePatterns: [
-    `node_modules/(?!(${notIgnoredModules})/)`,
-  ],
+  transformIgnorePatterns: [`node_modules/(?!(${notIgnoredModules})/)`],
   setupTestFrameworkScriptFile: '<rootDir>/jest.setup.ts',
   cacheDirectory: '.jest/cache',
   globals: {
@@ -37,8 +36,5 @@ module.exports = {
       babelConfig: true,
     },
   },
-  reporters: [
-    'default',
-    'jest-summary-reporter',
-  ],
+  reporters: ['default', 'jest-summary-reporter'],
 };

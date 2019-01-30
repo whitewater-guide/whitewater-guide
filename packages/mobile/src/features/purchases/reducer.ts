@@ -25,7 +25,10 @@ export const initialState: PurchaseStore = {
   offlinePurchases: [],
 };
 
-export const basePurchaseReducer = (state: PurchaseStore = initialState, action: AnyAction): PurchaseStore => {
+export const basePurchaseReducer = (
+  state: PurchaseStore = initialState,
+  action: AnyAction,
+): PurchaseStore => {
   if (isType(action, purchaseActions.openDialog)) {
     const { region, sectionId } = action.payload;
     return {
@@ -37,7 +40,9 @@ export const basePurchaseReducer = (state: PurchaseStore = initialState, action:
 
   if (isType(action, purchaseActions.update)) {
     const pError = action.payload.error;
-    const error = (typeof pError === 'string' ? [pError] as [string] : pError!) || state.error;
+    const error =
+      (typeof pError === 'string' ? ([pError] as [string]) : pError!) ||
+      state.error;
     return { ...state, ...action.payload, error };
   }
 
@@ -50,13 +55,18 @@ export const basePurchaseReducer = (state: PurchaseStore = initialState, action:
   }
 
   if (isType(action, purchaseActions.saveOfflinePurchase)) {
-    return { ...state, offlinePurchases: [...state.offlinePurchases, action.payload] };
+    return {
+      ...state,
+      offlinePurchases: [...state.offlinePurchases, action.payload],
+    };
   }
 
   if (isType(action, purchaseActions.removeOfflinePurchase)) {
     const { purchase } = action.payload;
     const offlinePurchases = [...state.offlinePurchases];
-    const index = offlinePurchases.findIndex((p) => p.transactionId === purchase.transactionId);
+    const index = offlinePurchases.findIndex(
+      (p) => p.transactionId === purchase.transactionId,
+    );
     if (index >= 0) {
       offlinePurchases.splice(index, 1);
     }
@@ -66,4 +76,7 @@ export const basePurchaseReducer = (state: PurchaseStore = initialState, action:
   return state;
 };
 
-export const purchaseReducer: Reducer = persistReducer(persistConfig, basePurchaseReducer);
+export const purchaseReducer: Reducer = persistReducer(
+  persistConfig,
+  basePurchaseReducer,
+);

@@ -3,16 +3,23 @@ import { withI18n, WithI18n } from 'react-i18next';
 import { FlatList, ListRenderItemInfo, StyleSheet, View } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 import { compose } from 'recompose';
-import { connectPremiumDialog, WithPremiumDialog } from '../../../features/purchases';
+import {
+  connectPremiumDialog,
+  WithPremiumDialog,
+} from '../../../features/purchases';
 import theme from '../../../theme';
-import { Banner, isBanner, Region, Section } from '../../../ww-commons';
+import { Banner, isBanner, Region, Section } from '@whitewater-guide/commons';
 import { SectionsStatus } from '../types';
 import getSectionsWithBanners from './getSectionsWithBanners';
 import { ITEM_HEIGHT, SectionListItem, SectionListBanner } from './item';
 import NoSectionsPlaceholder from './NoSectionsPlaceholder';
 
 const keyExtractor = (item: Section) => item.id;
-const getItemLayout = (data: any, index: number) => ({ length: ITEM_HEIGHT, offset: ITEM_HEIGHT * index, index });
+const getItemLayout = (data: any, index: number) => ({
+  length: ITEM_HEIGHT,
+  offset: ITEM_HEIGHT * index,
+  index,
+});
 const always = () => true;
 
 const styles = StyleSheet.create({
@@ -55,7 +62,11 @@ class SectionsList extends React.PureComponent<InnerProps, State> {
     swipedItemIndex: -1,
   };
 
-  onListLayout = ({ nativeEvent: { layout: { height } } }: any) => {
+  onListLayout = ({
+    nativeEvent: {
+      layout: { height },
+    },
+  }: any) => {
     const rowsPerScreen = height / ITEM_HEIGHT;
     this.setState({ rowsPerScreen, layoutComplete: true });
   };
@@ -101,9 +112,7 @@ class SectionsList extends React.PureComponent<InnerProps, State> {
       shouldBounceOnMount = index === 0;
     }
     if (isBanner(item)) {
-      return (
-        <SectionListBanner banner={item} />
-      );
+      return <SectionListBanner banner={item} />;
     }
     return (
       <SectionListItem
@@ -126,7 +135,9 @@ class SectionsList extends React.PureComponent<InnerProps, State> {
     if (!region || sections.length === 0) {
       return <NoSectionsPlaceholder />;
     }
-    const data = layoutComplete ? getSectionsWithBanners(sections, region, Math.floor(rowsPerScreen)) : [];
+    const data = layoutComplete
+      ? getSectionsWithBanners(sections, region, Math.floor(rowsPerScreen))
+      : [];
     return (
       <FlatList
         extraData={layoutComplete ? swipedItemIndex : -10}

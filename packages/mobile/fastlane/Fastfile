@@ -1,30 +1,54 @@
-# Check Git Status
+fastlane_require 'json'
+fastlane_require 'spaceship'
 
-private_lane :check_git_status do |options|
-  ensure_git_status_clean
+lane :bump_build_numbers do
+  appJsonFile = File.read("../app.json")
+  appJson = JSON.parse(appJsonFile)
+  appJson["androidBuildNumber"] = appJson["androidBuildNumber"] + 1
+  appJson["iosBuildNumber"] = appJson["iosBuildNumber"] + 1
+  File.open("../app.json","w") do |f|
+    f.write(JSON.pretty_generate(appJson) + "\n")
+  end
 end
 
-private_lane :parse_package_json do |options|
-  pjson = load_json(json_path: "package.json")
-  version = pjson["version"]
-  major, minor, patchAndBuild = version.split('.')
-  patch, buildNumber = "#{patchAndBuild}-0".split('-')
-  versionCode = format('%d%03d%03d%02d', major, minor, patch, buildNumber)
-  versionName = format('%d.%d.%d', major, minor, patch)
-  ENV["IOS_VERSION"] = versionName
-  ENV["ANDROID_VERSION_NAME"] = versionName
-  ENV["IOS_VERSION_BUILD_NUMBER"] = buildNumber
-  ENV["ANDROID_VERSION_CODE"] = versionCode
+# Check Git Status
+private_lane :check_git_status do
+  ensure_git_status_clean
+  ensure_git_branch(
+    branch: ENV["BRANCH"]
+  )
+end
+
+private_lane :parse_package_json do
+  packageJsonFile = File.read("../package.json")
+  packageJson = JSON.parse(packageJsonFile)
+  version = packageJson["version"]
+
+  appJsonFile = File.read("../app.json")
+  appJson = JSON.parse(appJsonFile)
+
+  ENV["IOS_VERSION"] = version
+  ENV["ANDROID_VERSION_NAME"] = version
+  ENV["IOS_VERSION_BUILD_NUMBER"] = appJson["iosBuildNumber"].to_s
+  ENV["ANDROID_VERSION_CODE"] = appJson["androidBuildNumber"].to_s
 end
 
 before_all do |lane, options|
-  check_git_status
   parse_package_json
 end
 
 # IOS
 
 platform :ios do
+  private_lane :check_live_version do
+    Spaceship::Tunes.login(ENV["IOS_USER_ID"])
+    app = Spaceship::Tunes::Application.find(ENV["IOS_APP_IDENTIFIER"])
+    liveVersion = app.live_version.version
+    if ENV["IOS_VERSION"] == liveVersion
+      UI.user_error!("Current iOS version (#{ENV['IOS_VERSION']}) is same as #{liveVersion}. You must bump package.json version")
+    end
+  end
+
   error do |lane, exception, options|
     path = "#{ENV['IOS_PROJECT_PATH']}/#{ENV['IOS_PLIST_PATH']}"
     if File.exist?("../#{path}.back")
@@ -60,6 +84,8 @@ platform :ios do
   end
 
   lane :build do |options|
+    check_git_status
+    check_live_version
     plist_full_path = "#{ENV['IOS_PROJECT_PATH']}/#{ENV['IOS_PLIST_PATH']}"
     backup_file(path: plist_full_path)
     xcodeproj = "#{ENV['IOS_PROJECT_PATH']}/#{ENV['IOS_PROJECT_NAME']}.xcodeproj"
@@ -93,12 +119,12 @@ platform :ios do
      )
   end
 
-  private_lane :crashlytics do |options|
-    puts "Upload dsyms: #{lane_context[SharedValues::DSYM_OUTPUT_PATH]}"
+  lane :crashlytics do |options|
+    clean_build_artifacts           # Delete the local dSYM files
+    download_dsyms                  # Download dSYM files from iTC
     upload_symbols_to_crashlytics(
-        dsym_path: lane_context[SharedValues::DSYM_OUTPUT_PATH],
-        gsp_path: ENV['IOS_GSP_PATH'],
-        binary_path: "#{ENV['IOS_PROJECT_PATH']}/Pods/Fabric/upload-symbols"
+      gsp_path: ENV['IOS_GSP_PATH'],
+      binary_path: "#{ENV['IOS_PROJECT_PATH']}/Pods/Fabric/upload-symbols"
     )
   end
 
@@ -118,7 +144,6 @@ platform :ios do
       ipa: ENV['IOS_IPA_PATH'],
       skip_waiting_for_build_processing: true,
     )
-    crashlytics
     code_push
   end
 
@@ -140,7 +165,6 @@ platform :ios do
       skip_screenshots: true,
       skip_metadata: true,
     )
-    crashlytics
     code_push
   end
 
@@ -150,6 +174,7 @@ end
 
 platform :android do
   lane :build do |options|
+    check_git_status
     gradle(
       task: "assemble",
       build_type: ENV['GRADLE_BUILD_TYPE'],

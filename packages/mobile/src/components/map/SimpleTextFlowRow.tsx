@@ -7,12 +7,13 @@ interface Props extends WithI18n {
   flowsText?: string | null;
 }
 
-const SimpleTextFlowRow: React.StatelessComponent<Props> = ({ t, flowsText }) => (
+const SimpleTextFlowRow: React.StatelessComponent<Props> = ({
+  t,
+  flowsText,
+}) => (
   <Row>
     <Subheading>{t('region:map.selectedSection.flows')}</Subheading>
-    <Paragraph>
-      {!!flowsText || t('commons:unknown')}
-    </Paragraph>
+    <Paragraph>{!!flowsText || t('commons:unknown')}</Paragraph>
   </Row>
 );
 

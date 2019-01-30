@@ -10,17 +10,20 @@ interface EnhancerMap<P> {
 /**
  * Choose is like branch from recompose, but with multiple options
  */
-export const choose =
-  <TOuter>(test: Chooser<TOuter>, hocs: EnhancerMap<TOuter>): ChooserEnhancer<TOuter> =>
-    (BaseComponent: ComponentType<any>): ComponentType<TOuter> => {
-      const Choose = (props: TOuter) => {
-        const option = test(props);
-        if (option && hocs[option]) {
-          const hoc = hocs[option];
-          const enhanced = hoc(BaseComponent);
-          return createElement(enhanced, props);
-        }
-        return createElement(BaseComponent, props);
-      };
-      return Choose;
+export const choose = <TOuter>(
+  test: Chooser<TOuter>,
+  hocs: EnhancerMap<TOuter>,
+): ChooserEnhancer<TOuter> => (
+  BaseComponent: ComponentType<any>,
+): ComponentType<TOuter> => {
+  const Choose = (props: TOuter) => {
+    const option = test(props);
+    if (option && hocs[option]) {
+      const hoc = hocs[option];
+      const enhanced = hoc(BaseComponent);
+      return createElement(enhanced, props);
+    }
+    return createElement(BaseComponent, props);
+  };
+  return Choose;
 };

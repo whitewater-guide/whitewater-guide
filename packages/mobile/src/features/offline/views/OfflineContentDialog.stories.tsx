@@ -4,7 +4,7 @@ import { ApolloError } from 'apollo-client';
 import noop from 'lodash/noop';
 import React from 'react';
 import { Dialog } from 'react-native-paper';
-import { NamedNode, RegionMediaSummary } from '../../../ww-commons';
+import { NamedNode, RegionMediaSummary } from '@whitewater-guide/commons';
 import { OfflineProgress } from '../types';
 import OfflineContentDialogView from './OfflineContentDialogView';
 
@@ -61,7 +61,11 @@ storiesOf('Offline dialog', module)
   ))
   .add('Loading summary error', () => (
     <OfflineContentDialogView
-      summary={{ summary, loading: false, error: new ApolloError({ errorMessage: 'Error'}) }}
+      summary={{
+        summary,
+        loading: false,
+        error: new ApolloError({ errorMessage: 'Error' }),
+      }}
       region={region}
       progress={progress}
     />

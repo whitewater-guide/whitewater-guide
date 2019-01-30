@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 import { GaugeFragments } from './gaugeFragments';
 
 export default gql`
-  query viewGaugeQuery($gaugeId: ID ) {
+  query viewGaugeQuery($gaugeId: ID) {
     gauge(id: $gaugeId) {
       ...GaugeCore
       ...GaugeLocation

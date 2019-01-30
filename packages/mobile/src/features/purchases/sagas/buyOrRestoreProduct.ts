@@ -1,9 +1,14 @@
-import { buyProduct as buy, getAvailablePurchases, initConnection, Purchase } from 'react-native-iap';
+import {
+  buyProduct as buy,
+  getAvailablePurchases,
+  initConnection,
+  Purchase,
+} from 'react-native-iap';
 import { call } from 'redux-saga/effects';
 import { trackError } from '../../../core/errors';
 import { BuyProductResult } from '../types';
 
-export function *buyOrRestoreProduct(sku: string) {
+export function* buyOrRestoreProduct(sku: string) {
   const result: BuyProductResult = {};
   try {
     yield call(initConnection);
@@ -31,7 +36,7 @@ export function *buyOrRestoreProduct(sku: string) {
   return result;
 }
 
-export function *restorePurchase(sku: string) {
+export function* restorePurchase(sku: string) {
   const availablePurchases: Purchase[] = yield call(getAvailablePurchases);
   for (const purchase of availablePurchases) {
     if (purchase.productId === sku) {

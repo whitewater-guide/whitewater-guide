@@ -6,7 +6,8 @@ export interface WithCalls<P> {
   cdm: P;
 }
 
-export class Receiver<P> extends React.PureComponent<P> implements WithCalls<P> {
+export class Receiver<P> extends React.PureComponent<P>
+  implements WithCalls<P> {
   public cwrp: P[] = [];
   public cdu: P[] = [];
   public cdm!: P;
@@ -33,5 +34,8 @@ export function genericReceiver<P>(): React.ComponentType<P> {
 }
 
 export function findReceiver<P>(wrapped: ReactWrapper<P>): Receiver<P> {
-  return wrapped.find(Receiver).first().instance() as any;
+  return wrapped
+    .find(Receiver)
+    .first()
+    .instance() as any;
 }

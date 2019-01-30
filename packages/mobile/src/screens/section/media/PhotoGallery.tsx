@@ -4,7 +4,7 @@ import ImageViewer from 'react-native-image-zoom-viewer';
 import { Icon } from '../../../components';
 import { getUri } from '../../../features/media';
 import theme from '../../../theme';
-import { Media } from '../../../ww-commons';
+import { Media } from '@whitewater-guide/commons';
 import LoadableImage from './LoadableImage';
 
 const styles = StyleSheet.create({
@@ -29,8 +29,7 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     backgroundColor: 'rgba(0,0,0,0.32)',
   },
-  footer: {
-  },
+  footer: {},
   indicator: {
     position: 'absolute',
     top: 0,
@@ -63,7 +62,6 @@ interface Props {
 }
 
 class PhotoGallery extends React.PureComponent<Props> {
-
   renderHeader = () => (
     <View style={styles.header}>
       <Icon
@@ -76,7 +74,7 @@ class PhotoGallery extends React.PureComponent<Props> {
   );
 
   renderFooter = (index?: number) => {
-    const { photos} = this.props;
+    const { photos } = this.props;
     if (index === undefined || !photos) {
       return <View />;
     }
@@ -85,7 +83,9 @@ class PhotoGallery extends React.PureComponent<Props> {
       <View style={styles.footer}>
         <Text style={styles.footerDescription}>
           {description}
-          {copyright && <Text style={styles.footerCopyright}>{`\n © ${copyright}`}</Text>}
+          {copyright && (
+            <Text style={styles.footerCopyright}>{`\n © ${copyright}`}</Text>
+          )}
         </Text>
       </View>
     );
@@ -93,15 +93,11 @@ class PhotoGallery extends React.PureComponent<Props> {
 
   renderIndicator = (index: number = 0, total: number = 0) => (
     <View style={styles.indicator}>
-      <Text style={styles.indicatorText}>
-        {`${index}/${total}`}
-      </Text>
+      <Text style={styles.indicatorText}>{`${index}/${total}`}</Text>
     </View>
   );
 
-  renderImage = (props: any) => (
-    <LoadableImage {...props} />
-  );
+  renderImage = (props: any) => <LoadableImage {...props} />;
 
   render() {
     const { photos, index, onClose } = this.props;

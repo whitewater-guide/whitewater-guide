@@ -6,4 +6,6 @@ import 'moment/locale/it';
 import 'moment/locale/pt';
 import 'moment/locale/ru';
 
-export default function configMoment() {/*noop*/}
+export default function configMoment() {
+  /*noop*/
+}

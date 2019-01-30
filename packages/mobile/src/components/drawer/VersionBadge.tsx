@@ -31,8 +31,12 @@ const getPrettyVersion = () => {
   } else {
     // '%d%03d%03d%02d' - from Fastfile
     const regexp = /(\d+)(\d{3})(\d{3})(\d{2})/;
-    const [_, majorStr, minorStr, patchStr, buildStr]: any = build.match(regexp);
-    result = `${parseInt(majorStr)}.${parseInt(minorStr)}.${parseInt(patchStr)}.${parseInt(buildStr)}`;
+    const [_, majorStr, minorStr, patchStr, buildStr]: any = build.match(
+      regexp,
+    );
+    result = `${parseInt(majorStr)}.${parseInt(minorStr)}.${parseInt(
+      patchStr,
+    )}.${parseInt(buildStr)}`;
   }
   return result;
 };
@@ -50,15 +54,21 @@ class VersionBadge extends React.PureComponent<{}, State> {
 
   checkCodePush = async () => {
     try {
-      const localPackage = await CodePush.getUpdateMetadata(CodePush.UpdateState.RUNNING);
-      const pendingPackage = await CodePush.getUpdateMetadata(CodePush.UpdateState.PENDING);
+      const localPackage = await CodePush.getUpdateMetadata(
+        CodePush.UpdateState.RUNNING,
+      );
+      const pendingPackage = await CodePush.getUpdateMetadata(
+        CodePush.UpdateState.PENDING,
+      );
       const remotePackage = await CodePush.checkForUpdate();
       this.setState({
         local: localPackage ? localPackage.label : null,
         pending: pendingPackage ? pendingPackage.label : null,
         remote: remotePackage ? remotePackage.label : null,
       });
-    } catch (e) {/* Ignore */}
+    } catch (e) {
+      /* Ignore */
+    }
   };
 
   render() {
@@ -68,8 +78,14 @@ class VersionBadge extends React.PureComponent<{}, State> {
       <TouchableOpacity onPress={this.checkCodePush}>
         <View style={styles.container}>
           <Caption style={styles.text}>{version}</Caption>
-          {pending && <Caption style={styles.text}>{`${pending} is ready to install`}</Caption>}
-          {remote && <Caption style={styles.text}>{`${remote} is available`}</Caption>}
+          {pending && (
+            <Caption
+              style={styles.text}
+            >{`${pending} is ready to install`}</Caption>
+          )}
+          {remote && (
+            <Caption style={styles.text}>{`${remote} is available`}</Caption>
+          )}
         </View>
       </TouchableOpacity>
     );

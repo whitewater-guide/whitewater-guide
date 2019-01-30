@@ -1,13 +1,17 @@
 import { compose } from 'recompose';
 import { ErrorBoundaryFallback, withLoading } from '../../../components';
-import { Chart, ChartFlowToggle, ChartPeriodToggle } from '../../../components/chart';
+import {
+  Chart,
+  ChartFlowToggle,
+  ChartPeriodToggle,
+} from '../../../components/chart';
 import { trackError } from '../../../core/errors';
 import {
   createInteractiveChart,
   InteractiveChartInnerProps,
   InteractiveChartOuterProps,
   withChart,
-} from '../../../ww-clients/features/charts';
+} from '@whitewater-guide/clients';
 import ChartLayout from './ChartLayout';
 
 const reportChartError = (error: Error, componentStack: string) =>
@@ -21,9 +25,14 @@ const InteractiveChart = createInteractiveChart(
   { FallbackComponent: ErrorBoundaryFallback, onError: reportChartError },
 );
 
-const container = compose<InteractiveChartInnerProps, InteractiveChartOuterProps>(
+const container = compose<
+  InteractiveChartInnerProps,
+  InteractiveChartOuterProps
+>(
   withChart,
-  withLoading<InteractiveChartInnerProps>((props) => props.measurements.loading),
+  withLoading<InteractiveChartInnerProps>(
+    (props) => props.measurements.loading,
+  ),
 );
 
 export default container(InteractiveChart);

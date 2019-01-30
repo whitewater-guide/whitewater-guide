@@ -17,16 +17,11 @@ const region: PremiumRegion = {
 storiesOf('Premium dialog: buy product step', module)
   .addDecorator((story: any) => (
     <Dialog onDismiss={noop} visible dismissable={false}>
-      <DialogBody title="Get Georgia premium">
-        {story()}
-      </DialogBody>
+      <DialogBody title="Get Georgia premium">{story()}</DialogBody>
     </Dialog>
   ))
   .add('Loading product', () => (
-    <BuyProductStep
-      region={region}
-      state={PurchaseState.PRODUCT_LOADING}
-    />
+    <BuyProductStep region={region} state={PurchaseState.PRODUCT_LOADING} />
   ))
   .add('Loading product failed', () => (
     <BuyProductStep
@@ -83,7 +78,10 @@ storiesOf('Premium dialog: buy product step', module)
     <BuyProductStep
       region={region}
       state={PurchaseState.PURCHASE_SAVING_OFFLINE}
-      error={['iap:errors.savePurchaseOffline', { transactionId: '1000000400186472 (1000000400186472)' }]}
+      error={[
+        'iap:errors.savePurchaseOffline',
+        { transactionId: '1000000400186472 (1000000400186472)' },
+      ]}
       price="700 RUB"
     />
   ))
@@ -91,7 +89,10 @@ storiesOf('Premium dialog: buy product step', module)
     <BuyProductStep
       region={region}
       state={PurchaseState.PURCHASE_SAVING_FATAL}
-      error={['iap:errors.alreadyOwned', { transactionId: '1000000400186472 (1000000400186472)' }]}
+      error={[
+        'iap:errors.alreadyOwned',
+        { transactionId: '1000000400186472 (1000000400186472)' },
+      ]}
       price="700 RUB"
     />
   ))
@@ -100,7 +101,10 @@ storiesOf('Premium dialog: buy product step', module)
       region={region}
       cancelable={false}
       state={PurchaseState.PURCHASE_SAVING_FATAL}
-      error={['iap:errors.savePurchase', { transactionId: '1000000400186472 (1000000400186472)' }]}
+      error={[
+        'iap:errors.savePurchase',
+        { transactionId: '1000000400186472 (1000000400186472)' },
+      ]}
       price="700 RUB"
     />
   ));

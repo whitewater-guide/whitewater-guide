@@ -2,16 +2,16 @@ import React from 'react';
 import { Platform } from 'react-native';
 import { Circle, Marker } from 'react-native-maps';
 import { Polygon, Svg } from 'react-native-svg';
-import { SectionComponentProps } from '../../ww-clients/features/maps';
-import { getSectionColor } from '../../ww-clients/features/sections';
-import { computeDistanceBetween } from '../../ww-clients/utils';
+import { SectionComponentProps } from '@whitewater-guide/clients';
+import { getSectionColor } from '@whitewater-guide/clients';
+import { computeDistanceBetween } from '@whitewater-guide/clients';
 import PurePolyline from './PurePolyline';
 
 const Anchor = { x: 0.5, y: 0.5 };
 
 export class SimpleSection extends React.PureComponent<SectionComponentProps> {
   _radius: number;
-  _center: { latitude: number, longitude: number };
+  _center: { latitude: number; longitude: number };
 
   constructor(props: SectionComponentProps) {
     super(props);
@@ -20,7 +20,10 @@ export class SimpleSection extends React.PureComponent<SectionComponentProps> {
       takeOut: { coordinates: takeOut },
     } = props.section;
     this._radius = computeDistanceBetween(putIn, takeOut) * 500;
-    this._center = { latitude: (putIn[1] + takeOut[1]) / 2, longitude: (putIn[0] + takeOut[0]) / 2 };
+    this._center = {
+      latitude: (putIn[1] + takeOut[1]) / 2,
+      longitude: (putIn[0] + takeOut[0]) / 2,
+    };
   }
 
   selectSection = (e: any) => {
@@ -36,13 +39,19 @@ export class SimpleSection extends React.PureComponent<SectionComponentProps> {
   renderArrow = (color: string) => {
     const { section, zoom } = this.props;
     const {
-      putIn: { coordinates: [putInLng, putInLat] },
-      takeOut: { coordinates: [takeOutLng, takeOutLat] },
+      putIn: {
+        coordinates: [putInLng, putInLat],
+      },
+      takeOut: {
+        coordinates: [takeOutLng, takeOutLat],
+      },
     } = section;
     if (zoom < 3) {
       return null;
     }
-    const rotate = 180 * Math.atan2(putInLat - takeOutLat, takeOutLng - putInLng) / Math.PI;
+    const rotate =
+      (180 * Math.atan2(putInLat - takeOutLat, takeOutLng - putInLng)) /
+      Math.PI;
     const scale = Math.min(1, (zoom - 3) / 8);
     // TODO: tracksViewChanges makes markers stick to specific zoom, but is necessary for performance on Android
     return (
@@ -71,13 +80,21 @@ export class SimpleSection extends React.PureComponent<SectionComponentProps> {
   render() {
     const { section, selected, useSectionShapes } = this.props;
     const {
-      putIn: { coordinates: [putInLng, putInLat] },
-      takeOut: { coordinates: [takeOutLng, takeOutLat] },
+      putIn: {
+        coordinates: [putInLng, putInLat],
+      },
+      takeOut: {
+        coordinates: [takeOutLng, takeOutLat],
+      },
       shape,
     } = section;
-    const coordinates = (useSectionShapes && shape) ?
-      shape.map((pt) => ({ latitude: pt[1], longitude: pt[0] })) :
-      [{ latitude: putInLat, longitude: putInLng }, { latitude: takeOutLat, longitude: takeOutLng }];
+    const coordinates =
+      useSectionShapes && shape
+        ? shape.map((pt) => ({ latitude: pt[1], longitude: pt[0] }))
+        : [
+            { latitude: putInLat, longitude: putInLng },
+            { latitude: takeOutLat, longitude: takeOutLng },
+          ];
     const color = getSectionColor(section);
     const fill = color.replace('hsl', 'hsla').replace(')', ',0.3)');
     // if (bindings.approximate) {
@@ -85,10 +102,14 @@ export class SimpleSection extends React.PureComponent<SectionComponentProps> {
     // }
     return (
       <React.Fragment>
-        {
-          selected &&
-          <Circle center={this._center} radius={this._radius} fillColor={fill} strokeWidth={0} />
-        }
+        {selected && (
+          <Circle
+            center={this._center}
+            radius={this._radius}
+            fillColor={fill}
+            strokeWidth={0}
+          />
+        )}
         <PurePolyline
           tappable
           strokeWidth={selected ? 5 : 3}

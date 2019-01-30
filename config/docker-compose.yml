@@ -1,0 +1,106 @@
+version: '3.6'
+
+x-single-host: &ww-single-host
+  deploy:
+    placement:
+      constraints: [node.role == manager]
+  labels:
+    guide.whitewater: ''
+
+services:
+  # Node.js backend
+  backend:
+    <<: *ww-single-host
+    env_file:
+      - ${DOCKER_ENV_FILE}
+      - ../services/backend/${DOCKER_ENV_FILE}
+    environment:
+      - IMAGEPROXY_PATH=images
+    build:
+      context: ../services/backend
+      labels:
+        guide.whitewater: ''
+    depends_on:
+      - db
+      - redis
+      - minio
+      - workers
+
+  # Postgres sql database
+  db:
+    <<: *ww-single-host
+    env_file:
+      - ${DOCKER_ENV_FILE}
+    environment:
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    build:
+      context: ../services/db
+      labels:
+        guide.whitewater: ''
+    read_only: true
+
+  # Minio to store images
+  minio:
+    <<: *ww-single-host
+    image: 'minio/minio:RELEASE.2018-06-29T02-11-29Z'
+    command: server /data
+    env_file:
+      - ${DOCKER_ENV_FILE}
+    read_only: true
+
+  # imageproxy to generate thumbnails
+  imageproxy:
+    <<: *ww-single-host
+    command:
+      - -addr
+      - 0.0.0.0:8080
+      - -whitelist
+      - minio:9000
+      - -baseURL
+      - http://minio:9000/
+    image: 'willnorris/imageproxy:v0.7.0'
+    read_only: true
+
+  # Workers to harvest some data
+  workers:
+    <<: *ww-single-host
+    env_file:
+      - ${DOCKER_ENV_FILE}
+      - ../services/workers/${DOCKER_ENV_FILE}
+    build:
+      context: ../services/workers
+      labels:
+        guide.whitewater: ''
+    read_only: true
+    depends_on:
+      - db
+      - redis
+
+  # Caddy reverse proxy
+  caddy:
+    <<: *ww-single-host
+    env_file:
+      - ${DOCKER_ENV_FILE}
+      - ../services/caddy/${DOCKER_ENV_FILE}
+    build:
+      context: ../services/caddy
+      labels:
+        guide.whitewater: ''
+    read_only: true
+
+  # Redis for sessions and last measurements
+  redis:
+    <<: *ww-single-host
+    env_file:
+      - ${DOCKER_ENV_FILE}
+    image: redis:4-alpine
+    read_only: true
+
+  # Serve static landing
+  landing:
+    <<: *ww-single-host
+    build:
+      context: ../services/landing
+      labels:
+        guide.whitewater: ''
+    read_only: true

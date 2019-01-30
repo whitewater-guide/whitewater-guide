@@ -12,7 +12,7 @@ export interface Source extends NamedNode, Timestamped {
   script: string;
   cron: string | null;
   harvestMode: HarvestMode;
-  url: string | null;
+  url: string | null;
   enabled: boolean | null;
   // --- connections
   regions?: Connection<Region>;
@@ -31,5 +31,7 @@ export interface SourceInput {
   regions: Node[];
 }
 
-export type SourceFormInput<RichText = any> =
-  Overwrite<SourceInput, {termsOfUse: RichText, script: Script}>;
+export type SourceFormInput<RichText = any> = Overwrite<
+  SourceInput,
+  { termsOfUse: RichText; script: Script }
+>;

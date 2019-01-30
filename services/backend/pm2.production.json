@@ -1,0 +1,11 @@
+{
+  "apps": [
+    {
+      "name": "ww_backend",
+      "script": "dist/index.js",
+      "merge_logs": true,
+      "exec_mode": "cluster",
+      "instances": "max"
+    }
+  ]
+}

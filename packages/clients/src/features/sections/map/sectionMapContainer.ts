@@ -1,6 +1,11 @@
+import { Point } from '@whitewater-guide/commons';
 import noop from 'lodash/noop';
-import { compose, StateHandlerMap, withProps, withStateHandlers } from 'recompose';
-import { Point } from '../../../../ww-commons/features/points';
+import {
+  compose,
+  StateHandlerMap,
+  withProps,
+  withStateHandlers,
+} from 'recompose';
 import { MapProps } from '../../maps';
 import { SectionMapProps } from './types';
 
@@ -10,7 +15,9 @@ export const sectionMapContainer = compose<MapProps, SectionMapProps>(
   withStateHandlers<TState, StateHandlerMap<TState>>(
     { selectedPOIId: null },
     {
-      onPOISelected: () => (poi: Point | null) => ({ selectedPOIId: poi ? poi.id : null }),
+      onPOISelected: () => (poi: Point | null) => ({
+        selectedPOIId: poi ? poi.id : null,
+      }),
     },
   ),
   withProps(({ section }: SectionMapProps) => ({

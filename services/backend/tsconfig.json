@@ -1,0 +1,22 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "baseUrl": "./",
+    "paths": {
+      "@apollo": ["src/apollo"],
+      "@auth": ["src/auth"],
+      "@db": ["src/db"],
+      "@db/*": ["src/db/*"],
+      "@features": ["src/features"],
+      "@features/*": ["src/features/*"],
+      "@log": ["src/log"],
+      "@minio": ["src/minio"],
+      "@redis": ["src/redis"],
+      "@seeds/*": ["src/seeds/test/*"],
+      "@test": ["src/test"],
+      "@utils": ["src/utils"]
+    }
+  },
+  "include": ["src/**/*"]
+}

@@ -5,7 +5,7 @@ import { Divider, Drawer } from 'react-native-paper';
 import { NavigationActions, NavigationInjectedProps } from 'react-navigation';
 import { compose } from 'recompose';
 import { isRouteFocused } from '../../utils/navigation';
-import { withMe, WithMe } from '../../ww-clients/features/users';
+import { withMe, WithMe } from '@whitewater-guide/clients';
 import { Spacer } from '../Spacer';
 import DrawerHeader from './DrawerHeader';
 import DrawerItem from './DrawerItem';
@@ -27,29 +27,33 @@ type InnerProps = OuterProps & WithMe & WithI18n;
 class DrawerSidebarView extends React.PureComponent<InnerProps> {
   navigate = (routeName: string, params: any) => {
     this.props.toggleDrawer(false);
-    this.props.navigation.dispatch(NavigationActions.navigate({ routeName, params }));
+    this.props.navigation.dispatch(
+      NavigationActions.navigate({ routeName, params }),
+    );
   };
 
   render() {
-    const { navigation: { state }, me, meLoading, t } = this.props;
+    const {
+      navigation: { state },
+      me,
+      meLoading,
+      t,
+    } = this.props;
 
     return (
       <View style={styles.container}>
         <DrawerHeader me={me} meLoading={meLoading} />
         <Divider />
         <Drawer.Section>
-          {
-            !!me &&
-            (
-              <DrawerItem
-                label={t('drawer:myProfile')}
-                icon="settings"
-                routeName="MyProfile"
-                onPress={this.navigate}
-                focused={isRouteFocused(state, 'MyProfile')}
-              />
-            )
-          }
+          {!!me && (
+            <DrawerItem
+              label={t('drawer:myProfile')}
+              icon="settings"
+              routeName="MyProfile"
+              onPress={this.navigate}
+              focused={isRouteFocused(state, 'MyProfile')}
+            />
+          )}
           <DrawerItem
             label={t('drawer:regions')}
             icon="view-list"
@@ -70,14 +74,22 @@ class DrawerSidebarView extends React.PureComponent<InnerProps> {
         <DrawerItem
           label={t('drawer:termsAndConditions')}
           routeName="Plain"
-          params={{ fixture: 'termsAndConditions', title: t('drawer:termsAndConditions') }}
+          params={{
+            fixture: 'termsAndConditions',
+            title: t('drawer:termsAndConditions'),
+          }}
           onPress={this.navigate}
-          focused={isRouteFocused(state, 'Plain', { fixture: 'termsAndConditions' })}
+          focused={isRouteFocused(state, 'Plain', {
+            fixture: 'termsAndConditions',
+          })}
         />
         <DrawerItem
           label={t('drawer:privacyPolicy')}
           routeName="Plain"
-          params={{ fixture: 'privacyPolicy', title: t('drawer:privacyPolicy') }}
+          params={{
+            fixture: 'privacyPolicy',
+            title: t('drawer:privacyPolicy'),
+          }}
           onPress={this.navigate}
           focused={isRouteFocused(state, 'Plain', { fixture: 'privacyPolicy' })}
         />
@@ -87,7 +99,10 @@ class DrawerSidebarView extends React.PureComponent<InnerProps> {
   }
 }
 
-const DrawerSidebar: React.ComponentType<OuterProps> = compose<InnerProps, OuterProps>(
+const DrawerSidebar: React.ComponentType<OuterProps> = compose<
+  InnerProps,
+  OuterProps
+>(
   withMe,
   withI18n(),
 )(DrawerSidebarView);

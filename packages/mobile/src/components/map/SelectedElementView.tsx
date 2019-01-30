@@ -1,9 +1,19 @@
+import { Coordinate, Point, Section } from '@whitewater-guide/commons';
 import React from 'react';
-import { Animated, LayoutChangeEvent, StyleSheet, TouchableOpacity, View } from 'react-native';
+import {
+  Animated,
+  LayoutChangeEvent,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import Interactable from 'react-native-interactable';
 import theme from '../../theme';
-import { Coordinate, Point, Section } from '../../ww-commons';
-import { NAVIGATE_BUTTON_HEIGHT, NAVIGATE_BUTTON_WIDTH, NavigateButton } from '../NavigateButton';
+import {
+  NAVIGATE_BUTTON_HEIGHT,
+  NAVIGATE_BUTTON_WIDTH,
+  NavigateButton,
+} from '../NavigateButton';
 
 const styles = StyleSheet.create({
   panel: {
@@ -87,10 +97,17 @@ export default class SelectedElementView extends React.Component<Props, State> {
     if (this.props.onLayout) {
       this.props.onLayout(e);
     }
-    const { nativeEvent: { layout: { height } } } = e;
+    const {
+      nativeEvent: {
+        layout: { height },
+      },
+    } = e;
     if (!this.state.laidOut) {
       const deltaY = new Animated.Value(height);
-      const slideAnimated = Animated.multiply(Animated.add(deltaY, -height), -1);
+      const slideAnimated = Animated.multiply(
+        Animated.add(deltaY, -height),
+        -1,
+      );
       this.setState((prevState) => ({
         deltaY,
         slideAnimated,
@@ -105,7 +122,11 @@ export default class SelectedElementView extends React.Component<Props, State> {
     }
   };
 
-  onPanelLayout = ({ nativeEvent: { layout: { height: panelHeight } } }: LayoutChangeEvent) => {
+  onPanelLayout = ({
+    nativeEvent: {
+      layout: { height: panelHeight },
+    },
+  }: LayoutChangeEvent) => {
     this.setState((prevState) => ({
       panelHeight,
       snapPoints: [
@@ -142,7 +163,10 @@ export default class SelectedElementView extends React.Component<Props, State> {
     }
   };
 
-  renderButton = ({ label, coordinates, canNavigate }: NavButtonProps, index: number) => {
+  renderButton = (
+    { label, coordinates, canNavigate }: NavButtonProps,
+    index: number,
+  ) => {
     const numButtons = this.props.buttons.length;
     const step = 66 / numButtons;
     return (
@@ -162,27 +186,34 @@ export default class SelectedElementView extends React.Component<Props, State> {
 
   render() {
     return (
-      <View style={StyleSheet.absoluteFill} onLayout={this.onLayout} pointerEvents="box-none">
-        {
-          this.state.laidOut &&
+      <View
+        style={StyleSheet.absoluteFill}
+        onLayout={this.onLayout}
+        pointerEvents="box-none"
+      >
+        {this.state.laidOut && (
           <Animated.View
             pointerEvents="none"
             style={[
               styles.shade,
               {
-                opacity: this.state.deltaY ? this.state.deltaY.interpolate({
-                  inputRange: [this.state.snapPoints[2].y, this.state.snapPoints[1].y],
-                  outputRange: [0.5, 0],
-                  extrapolate: 'clamp',
-                }) : 0.5,
+                opacity: this.state.deltaY
+                  ? this.state.deltaY.interpolate({
+                      inputRange: [
+                        this.state.snapPoints[2].y,
+                        this.state.snapPoints[1].y,
+                      ],
+                      outputRange: [0.5, 0],
+                      extrapolate: 'clamp',
+                    })
+                  : 0.5,
               },
             ]}
           >
             {this.props.renderBackground && this.props.renderBackground()}
           </Animated.View>
-        }
-        {
-          this.state.laidOut &&
+        )}
+        {this.state.laidOut && (
           <Interactable.View
             ref={this.setInteractable}
             verticalOnly
@@ -195,7 +226,13 @@ export default class SelectedElementView extends React.Component<Props, State> {
             <View style={styles.panel} onLayout={this.onPanelLayout}>
               <TouchableOpacity onPress={this.onHeaderPressed}>
                 <View style={styles.header}>
-                  <View style={{ width: theme.screenWidth - this.props.buttons.length * NAVIGATE_BUTTON_WIDTH }}>
+                  <View
+                    style={{
+                      width:
+                        theme.screenWidth -
+                        this.props.buttons.length * NAVIGATE_BUTTON_WIDTH,
+                    }}
+                  >
                     {this.props.renderHeader()}
                   </View>
                   {this.props.buttons.map(this.renderButton)}
@@ -204,7 +241,7 @@ export default class SelectedElementView extends React.Component<Props, State> {
               {this.props.children}
             </View>
           </Interactable.View>
-        }
+        )}
       </View>
     );
   }

@@ -5,11 +5,16 @@ import isFinite from 'lodash/isFinite';
 import moment from 'moment';
 import React from 'react';
 import { LayoutChangeEvent, StyleSheet, View } from 'react-native';
-import { VictoryAxis, VictoryChart, VictoryLine, VictoryTheme } from 'victory-native';
+import {
+  VictoryAxis,
+  VictoryChart,
+  VictoryLine,
+  VictoryTheme,
+} from 'victory-native';
 import theme from '../../theme';
-import { ChartComponentProps } from '../../ww-clients/features/charts';
-import { Unit } from '../../ww-commons';
-import { Measurement } from '../../ww-commons/features/measurements';
+import { ChartComponentProps } from '@whitewater-guide/clients';
+import { Unit } from '@whitewater-guide/commons';
+import { Measurement } from '@whitewater-guide/commons';
 import HorizontalGridLine from './HorizontalGridLine';
 import { NoChart } from './NoChart';
 import TimeGridLine from './TimeGridLine';
@@ -46,7 +51,6 @@ interface State {
 }
 
 export class Chart extends React.PureComponent<ChartComponentProps, State> {
-
   _xDomain: [Date, Date] = [new Date(), new Date()];
   _yDomain: [number, number] = [0, 0];
   _yTickValues: number[] = [];
@@ -62,7 +66,11 @@ export class Chart extends React.PureComponent<ChartComponentProps, State> {
     this.computeDomain(props);
   }
 
-  onLayout = ({ nativeEvent: { layout: { height } } }: LayoutChangeEvent) => this.setState({ height });
+  onLayout = ({
+    nativeEvent: {
+      layout: { height },
+    },
+  }: LayoutChangeEvent) => this.setState({ height });
 
   componentWillReceiveProps(next: ChartComponentProps) {
     // if (nextProps.domain !== this.props.domain) {
@@ -81,16 +89,26 @@ export class Chart extends React.PureComponent<ChartComponentProps, State> {
       return;
     }
     let result = data.reduce(
-      ([min, max], { [unit]: value }: any) => [Math.min(value, min), Math.max(value, max)],
+      ([min, max], { [unit]: value }: any) => [
+        Math.min(value, min),
+        Math.max(value, max),
+      ],
       [Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY],
     );
     let ticks: number[] = [];
-    const binding = section && (unit === Unit.LEVEL ? section.levels : section.flows);
+    const binding =
+      section && (unit === Unit.LEVEL ? section.levels : section.flows);
     if (binding) {
       const { minimum, maximum, optimum, impossible } = binding;
       result = [
-        Math.min.apply(null, filter([result[0], minimum, maximum, optimum], isFinite)),
-        Math.max.apply(null, filter([result[1], minimum, maximum, optimum], isFinite)),
+        Math.min.apply(
+          null,
+          filter([result[0], minimum, maximum, optimum], isFinite),
+        ),
+        Math.max.apply(
+          null,
+          filter([result[1], minimum, maximum, optimum], isFinite),
+        ),
       ];
       ticks = compact([minimum, maximum, optimum, impossible]);
     }
@@ -98,11 +116,20 @@ export class Chart extends React.PureComponent<ChartComponentProps, State> {
     const delta = (result[1] - result[0]) * (8 / theme.screenWidth);
 
     this._yDomain = [result[0] - delta, result[1] + delta];
-    this._yTickValues = ticks.concat(scaleLinear().domain(this._yDomain).ticks(5));
+    this._yTickValues = ticks.concat(
+      scaleLinear()
+        .domain(this._yDomain)
+        .ticks(5),
+    );
 
     this._xDomain = [data[0].timestamp, data[data.length - 1].timestamp];
     // Cannot set _xDomain on chhart explicitly, so workaround by adding data
-    this._xDomain = [moment().subtract(days, 'days').toDate(), moment().toDate()];
+    this._xDomain = [
+      moment()
+        .subtract(days, 'days')
+        .toDate(),
+      moment().toDate(),
+    ];
 
     if (days > 7) {
       this._period = Period.MONTH;
@@ -112,20 +139,21 @@ export class Chart extends React.PureComponent<ChartComponentProps, State> {
       this._period = Period.DAY;
     }
     const settings = ChartSettings[this._period];
-    this._xTickFormat = (date: Date) => moment(date).format(settings.tickFormat);
+    this._xTickFormat = (date: Date) =>
+      moment(date).format(settings.tickFormat);
     this._xTickCount = settings.tickCount;
   };
 
   render() {
     const { data, unit, section } = this.props;
-    const binding = section && (unit === Unit.LEVEL ? section.levels : section.flows);
+    const binding =
+      section && (unit === Unit.LEVEL ? section.levels : section.flows);
     if (data.length === 0 || !binding) {
-      return (<NoChart noData />);
+      return <NoChart noData />;
     }
     return (
       <View style={styles.container} onLayout={this.onLayout}>
-        {
-          this.state.height > 0 &&
+        {this.state.height > 0 && (
           <VictoryChart
             width={theme.screenWidth}
             height={this.state.height}
@@ -157,7 +185,7 @@ export class Chart extends React.PureComponent<ChartComponentProps, State> {
               style={{ data: { strokeWidth: 2 } }}
             />
           </VictoryChart>
-        }
+        )}
       </View>
     );
   }

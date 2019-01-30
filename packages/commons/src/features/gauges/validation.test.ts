@@ -69,7 +69,7 @@ it('should produce error on incorrect input', () => {
       coordinates: [-190, 800, -123.5],
       kind: 'foo',
     },
-    requestParams: { },
+    requestParams: {},
     cron: '-1 * * * *',
     url: 'http://google.',
     source: {

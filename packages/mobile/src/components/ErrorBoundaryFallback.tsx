@@ -14,11 +14,15 @@ const styles = StyleSheet.create({
   },
 });
 
-const ErrorBoundaryFallbackInner: React.SFC<WithI18n & FallbackProps> = ({ t }) => (
+const ErrorBoundaryFallbackInner: React.SFC<WithI18n & FallbackProps> = ({
+  t,
+}) => (
   <View style={styles.container}>
     <Icon icon="bug" />
     <Subheading>{t('commons:bug')}</Subheading>
   </View>
 );
 
-export const ErrorBoundaryFallback: React.ComponentType<FallbackProps> = withI18n()(ErrorBoundaryFallbackInner);
+export const ErrorBoundaryFallback: React.ComponentType<
+  FallbackProps
+> = withI18n()(ErrorBoundaryFallbackInner);

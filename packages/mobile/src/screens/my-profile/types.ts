@@ -1,6 +1,6 @@
+import { WithMe } from '@whitewater-guide/clients';
+import { UserInput } from '@whitewater-guide/commons';
 import { WithI18n } from 'react-i18next';
-import { WithMe } from '../../ww-clients/features/users';
-import { UserInput } from '../../ww-commons';
 
 export interface WithMutation {
   updateMyProfile: (user: UserInput) => Promise<any>;

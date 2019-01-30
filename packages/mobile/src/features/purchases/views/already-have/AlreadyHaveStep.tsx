@@ -20,7 +20,6 @@ interface Props {
 }
 
 class AlreadyHaveStep extends React.PureComponent<Props & WithI18n> {
-
   render() {
     const { onCancel, region, t } = this.props;
     return (

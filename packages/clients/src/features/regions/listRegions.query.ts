@@ -11,9 +11,15 @@ export default gql`
         hasPremiumAccess
         editable
         sku
-        rivers { count }
-        gauges { count }
-        sections { count }
+        rivers {
+          count
+        }
+        gauges {
+          count
+        }
+        sections {
+          count
+        }
       }
       count
     }

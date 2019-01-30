@@ -1,3 +1,4 @@
+import { RegionProvider } from '@whitewater-guide/clients';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Provider as PaperProvider } from 'react-native-paper';
@@ -24,7 +25,6 @@ import {
   SectionTabs,
 } from './screens';
 import { PaperTheme } from './theme';
-import { RegionProvider } from './ww-clients/features/regions';
 
 const routes = {
   RegionsList: {
@@ -76,8 +76,13 @@ class RootNavigatorView extends React.PureComponent<Props> {
 
   render() {
     const { navigation } = this.props;
-    const regionRoute = navigation!.state.routes.find((route: NavigationRoute) => route.routeName === 'Region');
-    const regionId = (regionRoute && regionRoute.params) ? regionRoute.params.regionId : undefined;
+    const regionRoute = navigation!.state.routes.find(
+      (route: NavigationRoute) => route.routeName === 'Region',
+    );
+    const regionId =
+      regionRoute && regionRoute.params
+        ? regionRoute.params.regionId
+        : undefined;
     // PaperProvider needs to be innermost provider, so dialogs can consume from other providers
     return (
       <RegionProvider regionId={regionId}>

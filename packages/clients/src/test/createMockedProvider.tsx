@@ -1,3 +1,4 @@
+import { HarvestMode, TAG_CATEGORIES } from '@whitewater-guide/commons';
 import { ApolloClient } from 'apollo-client';
 import { SchemaLink } from 'apollo-link-schema';
 import { GraphQLFieldResolver, GraphQLResolveInfo } from 'graphql';
@@ -5,7 +6,6 @@ import { addMockFunctionsToSchema, makeExecutableSchema } from 'graphql-tools';
 import GraphQLJSON from 'graphql-type-json';
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
-import { HarvestMode, TAG_CATEGORIES } from '../../ww-commons';
 import { configureApolloCache } from '../apollo';
 
 export interface QueryMap {
@@ -25,7 +25,10 @@ class CounterMap extends Map<string, number> {
   }
 
   resolveNext(info: GraphQLResolveInfo) {
-    const { fieldName, parentType: { name: parentName } } = info;
+    const {
+      fieldName,
+      parentType: { name: parentName },
+    } = info;
     const key = `${parentName}.${fieldName}`;
     const seq = this.getNext(key);
     return { key, seq };
@@ -40,15 +43,23 @@ export interface MockedProviderOptions {
   };
 }
 
-export const createMockedProvider = (options: MockedProviderOptions = {}): MockedProviderStatic => {
+export const createMockedProvider = (
+  options: MockedProviderOptions = {},
+): MockedProviderStatic => {
   const { Query = {}, Mutation = {}, mocks = {} } = options;
   let typeDefs: any = [];
   try {
-    typeDefs = require('./typedefs').default;
+    // set global.__GRAPHQL_TYPEDEFS_MODULE__ in jest's setupTests file
+    // @ts-ignore
+    const typedefsModule = global.__GRAPHQL_TYPEDEFS_MODULE__;
+    typeDefs = typedefsModule.default;
   } catch {
-    console.error('Please run clients.pretest to load typedefs');
+    throw new Error('Please run clients.pretest to load typedefs');
   }
-  const schema = makeExecutableSchema({ typeDefs, resolvers: { JSON: GraphQLJSON } });
+  const schema = makeExecutableSchema({
+    typeDefs,
+    resolvers: { JSON: GraphQLJSON },
+  });
 
   const counters = new CounterMap();
 
@@ -85,7 +96,7 @@ export const createMockedProvider = (options: MockedProviderOptions = {}): Mocke
       },
       JSON: (_, __, ___, info) => {
         const { key, seq } = counters.resolveNext(info);
-        return  { json: `${key}.${seq}` };
+        return { json: `${key}.${seq}` };
       },
       Date: (_, __, ___, info) => {
         const { seq } = counters.resolveNext(info);
@@ -105,9 +116,7 @@ export const createMockedProvider = (options: MockedProviderOptions = {}): Mocke
   });
 
   const MP: React.SFC = ({ children }) => (
-    <ApolloProvider client={client}>
-      {children}
-    </ApolloProvider>
+    <ApolloProvider client={client}>{children}</ApolloProvider>
   );
 
   // tslint:disable-next-line:prefer-object-spread

@@ -1,7 +1,11 @@
 import get from 'lodash/get';
 import { AnyAction, isType } from 'typescript-fsa';
 import { offlineContentActions } from './actions';
-import { OfflineContentStore, OfflineProgress, OfflineProgressPayload } from './types';
+import {
+  OfflineContentStore,
+  OfflineProgress,
+  OfflineProgressPayload,
+} from './types';
 
 const initialState: OfflineContentStore = {
   dialogRegion: null,
@@ -9,20 +13,23 @@ const initialState: OfflineContentStore = {
   progress: {},
 };
 
-function updateProgress(progress: OfflineProgress, payload: OfflineProgressPayload): OfflineProgress {
-  return Object.entries(payload)
-    .reduce((result, [key, entry]) => {
-        if (Array.isArray(entry)) {
-          return { ...result, [key]: entry };
-        } else {
-          return { ...result, [key]: [entry, get(result, [key, 1], 0)] };
-        }
-      },
-      progress,
-    );
+function updateProgress(
+  progress: OfflineProgress,
+  payload: OfflineProgressPayload,
+): OfflineProgress {
+  return Object.entries(payload).reduce((result, [key, entry]) => {
+    if (Array.isArray(entry)) {
+      return { ...result, [key]: entry };
+    } else {
+      return { ...result, [key]: [entry, get(result, [key, 1], 0)] };
+    }
+  }, progress);
 }
 
-export const offlineContentReducer = (state = initialState, action: AnyAction) => {
+export const offlineContentReducer = (
+  state = initialState,
+  action: AnyAction,
+) => {
   if (isType(action, offlineContentActions.toggleDialog)) {
     return {
       ...state,
@@ -34,7 +41,10 @@ export const offlineContentReducer = (state = initialState, action: AnyAction) =
     const { regionInProgress, ...progress } = action.payload;
     return {
       ...state,
-      regionInProgress: regionInProgress === undefined ? state.regionInProgress : regionInProgress,
+      regionInProgress:
+        regionInProgress === undefined
+          ? state.regionInProgress
+          : regionInProgress,
       progress: updateProgress(state.progress, progress),
     };
   }

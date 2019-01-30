@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import theme from '../../theme';
-import { WithMe } from '../../ww-clients/features/users';
+import { WithMe } from '@whitewater-guide/clients';
 import { AnonHeader } from '../AnonHeader';
 import { Loading } from '../Loading';
 import { UserHeader } from '../UserHeader';
@@ -23,9 +23,7 @@ const DrawerHeader: React.SFC<WithMe> = ({ me, meLoading }) => {
       </View>
     );
   }
-  return (
-    !!me ? <UserHeader user={me} /> : <AnonHeader />
-  );
+  return !!me ? <UserHeader user={me} /> : <AnonHeader />;
 };
 
 export default DrawerHeader;

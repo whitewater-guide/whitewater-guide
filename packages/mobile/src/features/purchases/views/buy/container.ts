@@ -19,16 +19,24 @@ interface MergedProps extends StateProps, OwnProps {
   onConfirm?: () => void;
 }
 
-const container = connect<StateProps, DispatchProp, OwnProps, MergedProps, RootState>(
+const container = connect<
+  StateProps,
+  DispatchProp,
+  OwnProps,
+  MergedProps,
+  RootState
+>(
   (state: RootState) => ({
     region: state.purchase.dialogData!.region,
     error: state.purchase.error,
     state: state.purchase.state,
-    price: state.purchase.product ? state.purchase.product.localizedPrice : undefined,
+    price: state.purchase.product
+      ? state.purchase.product.localizedPrice
+      : undefined,
   }),
   (dispatch) => ({ dispatch }),
   (state, { dispatch }, { cancelable }) => {
-    let onConfirm  = () => {};
+    let onConfirm = () => {};
     switch (state.state) {
       case PurchaseState.IDLE:
         onConfirm = () => dispatch(purchaseActions.buy(state.region.sku!));

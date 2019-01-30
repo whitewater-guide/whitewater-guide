@@ -1,5 +1,5 @@
+import { Tag } from '@whitewater-guide/commons';
 import React from 'react';
-import { Tag } from '../../../../ww-commons';
 
 export interface TagsContext {
   tags: Tag[];

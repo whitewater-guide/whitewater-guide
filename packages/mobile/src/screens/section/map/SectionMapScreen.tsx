@@ -6,7 +6,9 @@ import theme from '../../../theme';
 import { ScreenProps } from '../types';
 import SectionMap from './SectionMap';
 
-export const SectionMapScreen: NavigationScreenComponent = ({ screenProps }) => {
+export const SectionMapScreen: NavigationScreenComponent = ({
+  screenProps,
+}) => {
   const { section }: ScreenProps = screenProps as any;
   return (
     <Screen noScroll>
@@ -17,7 +19,5 @@ export const SectionMapScreen: NavigationScreenComponent = ({ screenProps }) => 
 
 SectionMapScreen.navigationOptions = {
   tabBarLabel: <I18nText>section:map.title</I18nText>,
-  tabBarIcon: () => (
-    <Icon icon="map" color={theme.colors.textLight} />
-  ),
+  tabBarIcon: () => <Icon icon="map" color={theme.colors.textLight} />,
 };
