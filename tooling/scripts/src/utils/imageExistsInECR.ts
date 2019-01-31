@@ -8,12 +8,18 @@ import { ECR } from 'aws-sdk';
 export const imageExistsInECR = async (image: string, version: string) => {
   const ecr = new ECR();
   let imageDetails: any[] | undefined;
-  const response = await ecr
-    .describeImages({
-      repositoryName: `ww/${image}`,
-      imageIds: [{ imageTag: version }],
-    })
-    .promise();
-  imageDetails = response.imageDetails;
+  try {
+    const response = await ecr
+      .describeImages({
+        repositoryName: `ww/${image}`,
+        imageIds: [{ imageTag: version }],
+      })
+      .promise();
+    imageDetails = response.imageDetails;
+  } catch (e) {
+    if (e.code !== 'ImageNotFoundException') {
+      throw e;
+    }
+  }
   return imageDetails && imageDetails.length > 0;
 };

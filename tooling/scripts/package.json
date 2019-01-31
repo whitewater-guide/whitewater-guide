@@ -9,7 +9,8 @@
   "scripts": {
     "prebuild": "rm -rf bin/*",
     "build": "yarn tsc",
-    "prepare": "yarn build"
+    "prepare": "yarn build",
+    "postversion": "./../../node_modules/.bin/conventional-changelog -v --preset angular --infile CHANGELOG.md --same-file --lerna-package @whitewater-guide/scripts --commit-path $PWD && git add CHANGELOG.md"
   },
   "dependencies": {
     "aws-sdk": "^2.395.0",
