@@ -18,7 +18,7 @@
     "madge": "madge --circular --basedir ./src --webpackConfig madge.js src/index.js",
     "prepare": "yarn build",
     "prepublishOnly": "yarn build",
-    "preversion": "yarn build",
+    "preversion": "yarn build && ./../../node_modules/.bin/conventional-changelog -v --preset angular --infile CHANGELOG.md --same-file --lerna-package @whitewater-guide/backend --commit-path $PWD && git add CHANGELOG.md",
     "postpublish:global": "node ../../tooling/scripts/bin/dockerPublish.js"
   },
   "devDependencies": {

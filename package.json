@@ -22,7 +22,6 @@
     "production:deploy": "node tooling/scripts/bin/deploy.js --env=production --machine=ww-production",
     "production:update": "node tooling/scripts/bin/update.js --env=production --machine=ww-production",
     "junk": "yarn trash-junk",
-    "preversion": "yarn changelog",
     "postpublish": "lerna run --concurrency 1 postpublish:global"
   },
   "devDependencies": {
