@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/web",
   "private": true,
-  "version": "0.1.293",
+  "version": "0.1.294",
   "license": "UNLICENSED",
   "homepage": "/admin/",
   "scripts": {
@@ -21,8 +21,8 @@
     "postpublish:global": "./postpublish-global.sh"
   },
   "dependencies": {
-    "@whitewater-guide/clients": "^0.0.189",
-    "@whitewater-guide/commons": "^0.0.113",
+    "@whitewater-guide/clients": "^0.0.190",
+    "@whitewater-guide/commons": "^0.0.114",
     "@whitewater-guide/md-editor": "0.1.8",
     "apollo-cache-inmemory": "^1.4.2",
     "apollo-client": "^2.4.12",

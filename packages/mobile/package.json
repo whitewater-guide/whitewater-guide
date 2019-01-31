@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/mobile",
   "private": true,
-  "version": "1.6.9",
+  "version": "1.6.10",
   "license": "UNLICENSED",
   "scripts": {
     "postinstall": "./postinstall.sh",
@@ -34,8 +34,8 @@
     "preversion": "fastlane bump_build_numbers && git add app.json"
   },
   "dependencies": {
-    "@whitewater-guide/clients": "^0.0.189",
-    "@whitewater-guide/commons": "^0.0.113",
+    "@whitewater-guide/clients": "^0.0.190",
+    "@whitewater-guide/commons": "^0.0.114",
     "apollo-cache-inmemory": "^1.4.2",
     "apollo-cache-persist": "^0.1.1",
     "apollo-client": "^2.4.12",
