@@ -1,9 +1,10 @@
+import { MyProfileConsumer } from '@whitewater-guide/clients';
 import i18next from 'i18next';
 import moment from 'moment';
 import React from 'react';
 import { reactI18nextModule } from 'react-i18next';
+import { crashlytics } from 'react-native-firebase';
 import RNLanguages from 'react-native-languages';
-import { MyProfileConsumer } from '@whitewater-guide/clients';
 import { SUPPORTED_LANGUAGES } from './languages';
 import en from './locales/en';
 import ru from './locales/ru';
@@ -22,6 +23,7 @@ export class I18nProviderInternal extends React.PureComponent<Props, State> {
   private _i18n: i18next.i18n = i18next.use(reactI18nextModule);
 
   async componentDidMount() {
+    crashlytics().setStringValue('rn_language', RNLanguages.language || '??');
     const language = this.props.language || RNLanguages.language || 'en';
     const lng = language.substr(0, 2);
     await this._i18n.init({
@@ -36,7 +38,7 @@ export class I18nProviderInternal extends React.PureComponent<Props, State> {
       },
       resources: { en, ru },
     });
-    moment.locale(lng);
+    moment.locale(this._i18n.languages[0]);
     this._i18n.on('languageChanged', this.onLanguageChange);
     this.setState({ ready: true });
   }
