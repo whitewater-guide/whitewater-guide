@@ -22,12 +22,6 @@ async function dockerPublish() {
   console.info(
     chalk.grey(`Running postpublish-docker for ${service} v${version}`),
   );
-  const alreadyExists = await imageExistsInECR(service, version);
-  if (alreadyExists) {
-    console.info(chalk.grey(`Should not publish ${service} v${version}`));
-    return;
-  }
-  console.info(chalk.green(`Publishing ${service} v${version}`));
   const awsEnvPath = path.resolve(
     process.cwd(),
     '../../',
@@ -35,6 +29,12 @@ async function dockerPublish() {
     '.aws-ecr',
   );
   dotenv.load({ path: awsEnvPath });
+  const alreadyExists = await imageExistsInECR(service, version);
+  if (alreadyExists) {
+    console.info(chalk.grey(`Should not publish ${service} v${version}`));
+    return;
+  }
+  console.info(chalk.green(`Publishing ${service} v${version}`));
   const tag = `${process.env.DOCKER_REGISTRY_PREFIX}${service}:${version}`;
 
   const buildResult = spawnSync(
