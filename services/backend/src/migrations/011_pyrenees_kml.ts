@@ -44,7 +44,7 @@ export const up = async (db: Knex) => {
 };
 
 const parseSection = (filename: string): KMLSection | null => {
-  const [riverName, ...rest] = filename.split(' - ');
+  const [riverName, ...rest] = filename.replace('.kml', '').split(' - ');
   let sectionName = riverName;
   if (rest.length > 0) {
     sectionName = rest.join(' - ');
