@@ -17,7 +17,7 @@
     "storybook": "STORYBOOK_ENABLED=true start-storybook -s ./public/storybook -p 6006 -c .storybook",
     "prepare": "yarn build",
     "prepublishOnly": "yarn build",
-    "preversion": "yarn build",
+    "preversion": "yarn build && ./../../node_modules/.bin/conventional-changelog --preset angular --infile CHANGELOG.md --same-file --lerna-package @whitewater-guide/web --commit-path services/web && git add CHANGELOG.md",
     "postpublish:global": "./postpublish-global.sh"
   },
   "dependencies": {
