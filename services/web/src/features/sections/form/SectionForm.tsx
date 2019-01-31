@@ -1,3 +1,4 @@
+import { Durations, NamedNode } from '@whitewater-guide/commons';
 import { groupBy } from 'lodash';
 import TextField from 'material-ui/TextField';
 import React from 'react';
@@ -8,6 +9,7 @@ import {
   DrawingMapField,
   Form,
   FormTab,
+  KmlUploaderInput,
   POICollection,
   RatingInput,
   SeasonPicker,
@@ -19,7 +21,6 @@ import {
 } from '../../../components/forms';
 import { Row } from '../../../layout';
 import { Styles } from '../../../styles';
-import { Durations, NamedNode } from '@whitewater-guide/commons';
 import { SectionFormData, SectionFormProps } from './types';
 
 const styles: Styles = {
@@ -238,6 +239,7 @@ export default class SectionForm extends React.PureComponent<SectionFormProps> {
                 </div>
               </div>
               <div style={styles.sidebar}>
+                <KmlUploaderInput name="shape" />
                 <ShapeInput name="shape" />
               </div>
             </div>

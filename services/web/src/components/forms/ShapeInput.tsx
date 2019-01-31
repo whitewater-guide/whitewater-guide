@@ -1,3 +1,5 @@
+import { computeDistanceBetween } from '@whitewater-guide/clients';
+import { Coordinate3d } from '@whitewater-guide/commons';
 import Divider from 'material-ui/Divider';
 import IconButton from 'material-ui/IconButton';
 import React from 'react';
@@ -9,13 +11,12 @@ import {
 } from 'redux-form';
 import { Omit } from 'type-zoo';
 import { Styles } from '../../styles';
-import { computeDistanceBetween } from '@whitewater-guide/clients';
-import { Coordinate3d } from '@whitewater-guide/commons';
 import { LatLonAltInput, LLAArrayField } from './LatLonAltInput';
 
 const styles: Styles = {
   container: {
     height: '100%',
+    overflowX: 'hidden',
   },
   header: {
     display: 'flex',

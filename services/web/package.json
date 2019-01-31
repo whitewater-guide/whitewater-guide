@@ -21,6 +21,8 @@
     "postpublish:global": "./postpublish-global.sh"
   },
   "dependencies": {
+    "@mapbox/togeojson": "^0.16.0",
+    "@turf/helpers": "^6.1.4",
     "@whitewater-guide/clients": "^0.0.190",
     "@whitewater-guide/commons": "^0.0.114",
     "@whitewater-guide/md-editor": "0.1.8",

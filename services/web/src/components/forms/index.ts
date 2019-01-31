@@ -3,6 +3,7 @@ export * from './ChipInput';
 export * from './TextareaField';
 export * from './DrawingMapField';
 export * from './ImageUploadField';
+export * from './KmlUploader';
 export * from './PointInput';
 export * from './POICollection';
 export * from './RatingInput';
