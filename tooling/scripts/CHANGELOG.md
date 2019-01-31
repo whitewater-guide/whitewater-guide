@@ -1,3 +1,9 @@
+## [0.0.14](https://github.com/doomsower/whitewater/compare/@whitewater-guide/scripts@0.0.14...@whitewater-guide/scripts@0.0.14) (2019-01-31)
+
+### Bug Fixes
+
+- **scripts:** changelog ([886496d](https://github.com/doomsower/whitewater/commit/886496d))
+
 ## [0.0.12](https://github.com/doomsower/whitewater/compare/@whitewater-guide/scripts@0.0.12...@whitewater-guide/scripts@0.0.12) (2019-01-31)
 
 ### Bug Fixes
