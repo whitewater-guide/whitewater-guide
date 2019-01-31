@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<name>Barranc de Palomeras.kml</name>
+	<StyleMap id="msn_ylw-pushpin1000">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_ylw-pushpin321</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_ylw-pushpin250</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="sh_ylw-pushpin250">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+			</Icon>
+			<hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LineStyle>
+			<color>ff00fffa</color>
+			<width>4</width>
+		</LineStyle>
+	</Style>
+	<Style id="sn_ylw-pushpin321">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+			</Icon>
+			<hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LineStyle>
+			<color>ff00fffa</color>
+			<width>4</width>
+		</LineStyle>
+	</Style>
+	<Placemark>
+		<name>Palomeras</name>
+		<styleUrl>#msn_ylw-pushpin1000</styleUrl>
+		<LineString>
+			<tessellate>1</tessellate>
+			<coordinates>
+				1.230376104867474,42.68566124546629,0 1.230230782323456,42.68541087265544,0 1.230269849633723,42.68517124546236,0 1.230383958184571,42.68497308734348,0 1.230634796508443,42.68485078693005,0 1.231206960069513,42.68433004133848,0 1.231446499087494,42.68414722502804,0 1.231611890005655,42.6840748268248,0 1.231653452359633,42.68399087220075,0 1.231714967847677,42.68384552633516,0 1.232168362875898,42.68346827272467,0 1.232468970080747,42.68294450071541,0 1.232529586106406,42.68274698906621,0 1.232720402296974,42.6825932613166,0 1.233092869364862,42.68246476950181,0 1.233202604051979,42.68243528730562,0 1.233241344153726,42.68245852044138,0 
+			</coordinates>
+		</LineString>
+	</Placemark>
+</Document>
+</kml>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<name>Noguera Pallaresa - Aigüerola Whitewater Park.kml</name>
+	<Style id="sn_ylw-pushpin211">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+			</Icon>
+			<hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LineStyle>
+			<color>ffff6804</color>
+			<width>4</width>
+		</LineStyle>
+	</Style>
+	<StyleMap id="msn_ylw-pushpin150">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_ylw-pushpin211</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_ylw-pushpin110</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="sh_ylw-pushpin110">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+			</Icon>
+			<hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LineStyle>
+			<color>ffff6804</color>
+			<width>4</width>
+		</LineStyle>
+	</Style>
+	<Placemark>
+		<name>Noguera Pallaresa - Aigüerola Whitewater Park</name>
+		<styleUrl>#msn_ylw-pushpin150</styleUrl>
+		<LineString>
+			<tessellate>1</tessellate>
+			<coordinates>
+				1.132845575743406,42.41319300925327,0 1.132314368683147,42.41165302819696,0 1.131836239175581,42.41103914692472,0 1.130979507582273,42.41023225478113,0 1.13037773187201,42.40931980841427,0 1.130057893260075,42.40867945562999,0 1.129986099641485,42.40838693217948,0 1.130102685171954,42.40817559695236,0 
+			</coordinates>
+		</LineString>
+	</Placemark>
+</Document>
+</kml>

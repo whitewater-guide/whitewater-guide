@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<name>Llobregat - La Puda:Barcelona Section.kml</name>
+	<Style id="sh_ylw-pushpin170">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+			</Icon>
+			<hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LineStyle>
+			<color>ff0aff01</color>
+			<width>4</width>
+		</LineStyle>
+	</Style>
+	<StyleMap id="msn_ylw-pushpin15">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_ylw-pushpin6</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_ylw-pushpin170</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="sn_ylw-pushpin6">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+			</Icon>
+			<hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LineStyle>
+			<color>ff0aff01</color>
+			<width>4</width>
+		</LineStyle>
+	</Style>
+	<Placemark>
+		<name>Llobregat - La Puda - Barcelona Section</name>
+		<styleUrl>#msn_ylw-pushpin15</styleUrl>
+		<LineString>
+			<tessellate>1</tessellate>
+			<coordinates>
+				1.864913499222067,41.57091109793274,0 1.86687523552485,41.56940854514277,0 1.868077573341478,41.56918867150404,0 1.870513771299065,41.5698871967632,0 1.872609406305292,41.57067750243635,0 1.873846661140717,41.57087172830673,0 1.874430926892516,41.57048079588745,0 1.875673526297368,41.57058508744423,0 1.876201906993684,41.57062430842112,0 1.876695082198199,41.57046251278479,0 1.876995645690853,41.57040205600011,0 
+			</coordinates>
+		</LineString>
+	</Placemark>
+</Document>
+</kml>
