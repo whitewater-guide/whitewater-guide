@@ -71,6 +71,8 @@
   },
   "dependencies": {
     "@koa/cors": "2.2.3",
+    "@turf/boolean-point-in-polygon": "^6.0.1",
+    "@turf/helpers": "^6.1.4",
     "@whitewater-guide/commons": "^0.0.115",
     "apollo-datasource": "^0.2.2",
     "apollo-server": "^2.1.0",
