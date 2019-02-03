@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/web",
   "private": true,
-  "version": "0.1.297",
+  "version": "0.1.298",
   "license": "UNLICENSED",
   "homepage": "/admin/",
   "scripts": {
@@ -24,8 +24,8 @@
   "dependencies": {
     "@mapbox/togeojson": "^0.16.0",
     "@turf/helpers": "^6.1.4",
-    "@whitewater-guide/clients": "^0.0.191",
-    "@whitewater-guide/commons": "^0.0.115",
+    "@whitewater-guide/clients": "^0.0.192",
+    "@whitewater-guide/commons": "^0.0.116",
     "@whitewater-guide/md-editor": "0.1.8",
     "apollo-cache-inmemory": "^1.4.2",
     "apollo-client": "^2.4.12",

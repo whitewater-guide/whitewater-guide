@@ -1,3 +1,5 @@
+## [0.0.17](https://github.com/doomsower/whitewater/compare/@whitewater-guide/scripts@0.0.16...@whitewater-guide/scripts@0.0.17) (2019-02-03)
+
 ## [0.0.16](https://github.com/doomsower/whitewater/compare/@whitewater-guide/scripts@0.0.16...@whitewater-guide/scripts@0.0.16) (2019-02-03)
 
 ### Bug Fixes

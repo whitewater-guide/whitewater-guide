@@ -1,3 +1,5 @@
+## [1.6.13](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.6.12...@whitewater-guide/mobile@1.6.13) (2019-02-03)
+
 ## [1.6.12](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.6.12...@whitewater-guide/mobile@1.6.12) (2019-02-03)
 
 ### Bug Fixes
