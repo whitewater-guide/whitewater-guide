@@ -1,3 +1,9 @@
+## [0.0.291](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.290...@whitewater-guide/backend@0.0.291) (2019-02-03)
+
+### Features
+
+- **backend:** reanimate graphiql/playground ([b1493d7](https://github.com/doomsower/whitewater/commit/b1493d7)), closes [#326](https://github.com/doomsower/whitewater/issues/326)
+
 ## [0.0.290](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.289...@whitewater-guide/backend@0.0.290) (2019-02-03)
 
 ### Features
