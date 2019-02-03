@@ -9,7 +9,7 @@
   "scripts": {
     "clean": "rm -rf cache/*",
     "start": "./scripts/dev-start.sh",
-    "preversion": "../../tooling/scripts/sh/changelog.sh",
+    "postversion": "../../tooling/scripts/sh/changelog.sh",
     "postpublish:global": "node ../../tooling/scripts/bin/dockerPublish.js"
   }
 }
