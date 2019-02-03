@@ -50,13 +50,17 @@ func (w *workerTirol) Harvest(_ core.HarvestOptions) ([]core.Measurement, error)
   if err != nil {
     return nil, err
   }
-  result := make([]core.Measurement, len(raws)-1)
-  for i, raw := range raws[1:] {
+  var result []core.Measurement
+  for _, raw := range raws[1:] {
     m, err := getMeasurement(raw, w.ScriptName())
     if err != nil {
       return nil, err
     }
-    result[i] = m
+    // special value that indicates broken gauge
+    if m.Level == -777.0 {
+      continue
+    }
+    result = append(result, m)
   }
   return result, nil
 }
