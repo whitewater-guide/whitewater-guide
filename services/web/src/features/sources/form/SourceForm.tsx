@@ -34,7 +34,7 @@ export default class SourceForm extends React.PureComponent<SourceFormProps> {
             <TextInput fullWidth name="cron" title="Cron" />
           </Tab>
           <Tab label="Terms Of Use" value="#terms">
-            <TextareaField name="description" />
+            <TextareaField name="termsOfUse" />
           </Tab>
         </Tabs>
       </Form>
