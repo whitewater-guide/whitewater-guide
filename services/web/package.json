@@ -18,7 +18,7 @@
     "prepare": "yarn build",
     "prepublishOnly": "yarn build",
     "preversion": "yarn build",
-    "postversion": "../../tooling/scripts/sh/changelog.sh",
+    "version": "../../tooling/scripts/sh/changelog.sh",
     "postpublish:global": "./postpublish-global.sh"
   },
   "dependencies": {

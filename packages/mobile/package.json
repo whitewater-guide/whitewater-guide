@@ -31,7 +31,8 @@
     "ios:fix-xcode": "react-native-schemes-manager all",
     "ios:uninstall": "xcrun simctl uninstall booted su.swapp",
     "ios:crashlytics": "fastlane ios crashlytics --env production",
-    "preversion": "fastlane bump_build_numbers && git add app.json && ../../tooling/scripts/sh/changelog.sh"
+    "preversion": "fastlane bump_build_numbers && git add app.json",
+    "version": "../../tooling/scripts/sh/changelog.sh"
   },
   "dependencies": {
     "@whitewater-guide/clients": "^0.0.191",

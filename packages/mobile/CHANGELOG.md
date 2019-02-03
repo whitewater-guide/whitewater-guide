@@ -1,12 +1,4 @@
-## [1.6.11](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.6.11...@whitewater-guide/mobile@1.6.11) (2019-02-03)
-
-### Bug Fixes
-
-- **mobile:** fix unknown locale bug ([a13bf03](https://github.com/doomsower/whitewater/commit/a13bf03))
-
-## [1.6.11](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.6.11...@whitewater-guide/mobile@1.6.11) (2019-01-31)
-
-## 1.6.9 (2019-01-31)
+## [1.6.12](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.6.12...@whitewater-guide/mobile@1.6.12) (2019-02-03)
 
 ### Bug Fixes
 
@@ -16,6 +8,7 @@
 - **mobile:** Fix react-native-fast-image crash when region has no cover image ([6b202a7](https://github.com/doomsower/whitewater/commit/6b202a7))
 - **mobile:** fix russian "buy premium" button in section description ([9cd2d49](https://github.com/doomsower/whitewater/commit/9cd2d49))
 - **mobile:** fix typo ([9ecee1a](https://github.com/doomsower/whitewater/commit/9ecee1a))
+- **mobile:** fix unknown locale bug ([a13bf03](https://github.com/doomsower/whitewater/commit/a13bf03))
 - **mobile:** Move banner from section info to section description ([89ea2be](https://github.com/doomsower/whitewater/commit/89ea2be))
 - **mobile:** set polling query policy to 'network-only', [#316](https://github.com/doomsower/whitewater/issues/316) ([075dd23](https://github.com/doomsower/whitewater/commit/075dd23))
 - **mobile:** Set tracksViewChanges on Markers for performance, related to [#314](https://github.com/doomsower/whitewater/issues/314) ([b5553d7](https://github.com/doomsower/whitewater/commit/b5553d7))

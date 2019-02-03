@@ -10,7 +10,7 @@
     "prebuild": "rm -rf bin/*",
     "build": "yarn tsc",
     "prepare": "yarn build",
-    "preversion": "./sh/changelog.sh"
+    "version": "./sh/changelog.sh"
   },
   "dependencies": {
     "aws-sdk": "^2.395.0",
