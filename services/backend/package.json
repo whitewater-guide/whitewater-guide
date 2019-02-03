@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/backend",
   "private": true,
-  "version": "0.0.288",
+  "version": "0.0.289",
   "main": "index.js",
   "author": "Konstantin Kuznetsov",
   "license": "UNLICENSED",
@@ -71,7 +71,7 @@
   },
   "dependencies": {
     "@koa/cors": "2.2.3",
-    "@whitewater-guide/commons": "^0.0.114",
+    "@whitewater-guide/commons": "^0.0.115",
     "apollo-datasource": "^0.2.2",
     "apollo-server": "^2.1.0",
     "apollo-server-errors": "^2.0.2",
