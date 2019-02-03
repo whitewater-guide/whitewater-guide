@@ -12,7 +12,11 @@ func TestAutofill(t *testing.T) {
 
   infos, err := worker.Autofill()
   if assert.NoError(err) {
-    assert.True(len(infos) > 0, "should return some gauges")
+    if assert.True(len(infos) > 0, "should return some gauges") {
+      for _, info := range infos {
+        assert.NotEqual(info.GaugeId.Code, "Stationsnummer")
+      }
+    }
   }
 }
 

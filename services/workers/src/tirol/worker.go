@@ -25,7 +25,7 @@ func (w *workerTirol) Autofill() (result []core.GaugeInfo, err error) {
     return
   }
   byCode := make(map[string]core.GaugeInfo)
-  for _, raw := range raws {
+  for _, raw := range raws[1:] {
     _, ok := byCode[raw.code]
     if ok {
       continue
