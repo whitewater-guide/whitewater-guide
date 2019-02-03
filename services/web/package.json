@@ -17,7 +17,8 @@
     "storybook": "STORYBOOK_ENABLED=true start-storybook -s ./public/storybook -p 6006 -c .storybook",
     "prepare": "yarn build",
     "prepublishOnly": "yarn build",
-    "preversion": "yarn build && ../../tooling/scripts/sh/changelog.sh",
+    "preversion": "yarn build",
+    "postversion": "../../tooling/scripts/sh/changelog.sh",
     "postpublish:global": "./postpublish-global.sh"
   },
   "dependencies": {
