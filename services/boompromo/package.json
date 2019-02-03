@@ -6,7 +6,7 @@
   "homepage": "/boompromo/",
   "scripts": {
     "prepublishOnly": "yarn build",
-    "preversion": "yarn build",
+    "preversion": "yarn build && ../../tooling/scripts/sh/changelog.sh",
     "postpublish:global": "node ../../tooling/scripts/bin/dockerPublish.js",
     "start": "react-scripts start",
     "build": "react-scripts build",

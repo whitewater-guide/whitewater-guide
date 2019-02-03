@@ -9,6 +9,7 @@
   "scripts": {
     "dump:production": "scripts/refresh_dump.sh --skip-measurements",
     "dump:staging": "scripts/refresh_dump.sh --env staging --skip-measurements",
+    "preversion": "../../tooling/scripts/sh/changelog.sh",
     "postpublish:global": "node ../../tooling/scripts/bin/dockerPublish.js"
   }
 }

@@ -16,6 +16,7 @@
   "scripts": {
     "prebuild": "rm -rf dist/*",
     "build": "tsc --build tsconfig.declarations.json && rollup -c",
+    "preversion": "../../tooling/scripts/sh/changelog.sh",
     "prepare": "yarn build",
     "prepublishOnly": "yarn build",
     "test": "jest"

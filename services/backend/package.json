@@ -18,8 +18,8 @@
     "madge": "madge --circular --basedir ./src --webpackConfig madge.js src/index.js",
     "prepare": "yarn build",
     "prepublishOnly": "yarn build",
-    "preversion": "yarn build",
-    "postpublish:global": "./../../node_modules/.bin/conventional-changelog -r 2 --preset angular --infile CHANGELOG.md --same-file --lerna-package @whitewater-guide/backend --commit-path $PWD && git add CHANGELOG.md && node ../../tooling/scripts/bin/dockerPublish.js"
+    "preversion": "yarn build && ../../tooling/scripts/sh/changelog.sh",
+    "postpublish:global": "node ../../tooling/scripts/bin/dockerPublish.js"
   },
   "devDependencies": {
     "@types/body-parser": "^1.17.0",
