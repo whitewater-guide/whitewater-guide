@@ -1,9 +1,18 @@
-FROM golang:1.11.2-stretch
+FROM golang:1.11.5-stretch
 
-RUN go get github.com/oxequa/realize
+ENV PROJ4_VERSION=4.9.3
 
-COPY /realize /realize
-WORKDIR /realize
+RUN go get github.com/cortesi/modd/cmd/modd
 
-ENTRYPOINT ["/realize/docker-entrypoint.sh"]
+# Install Proj.4 - C library for coordinate system conversion
+RUN curl -SL http://download.osgeo.org/proj/proj-${PROJ4_VERSION}.tar.gz \
+  | tar -xzC /usr/include/
+RUN apt-get update \
+ && apt-get install libproj12=${PROJ4_VERSION}-1 --yes \
+ && ln -s /usr/lib/x86_64-linux-gnu/libproj.so.12 /usr/lib/libproj.so
+ENV CGO_CFLAGS="-I/usr/include/proj-${PROJ4_VERSION}/src"
+
+COPY modd.conf .
+
+ENTRYPOINT ["modd"]
 CMD []

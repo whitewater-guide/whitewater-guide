@@ -29,7 +29,8 @@ Content-Type: application/json
   "script": "norway",
   "code": "6.9",
   "extras": {
-    "html": true
+    "html": true,
+    "version": 1
   }
 }
 

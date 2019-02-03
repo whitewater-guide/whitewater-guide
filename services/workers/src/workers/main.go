@@ -141,9 +141,8 @@ func startWorkers() {
 func main() {
 	logging.ConfigureLogging()
 
-	err := core.InitHttpClient()
-	if err != nil {
-		log.WithError(err).Fatal("failed to initialize http client")
+	if core.Client == nil {
+		log.Fatal("failed to initialize http client")
 		return
 	}
 

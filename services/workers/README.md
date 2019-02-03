@@ -10,29 +10,33 @@ Docker image container two binary files:
 
 ## Development
 
-Develop in docker.  
-Use `yarn start` to spin up docker container with live reloading (with [realize](https://github.com/oxequa/realize)).  
-Use `yarn start --name="cli"` to start cli only and cut compilation time in half  
-You can then use `requests.http` file to execute requests against web-server.  
+Develop in docker.
+Use `yarn start` to spin up docker container with live reloading (with [realize](https://github.com/oxequa/realize)).
+Use `yarn start --name="cli"` to start cli only and cut compilation time in half
+You can then use `requests.http` file to execute requests against web-server.
 Or you can bash into container and work with console.
 **Important**: This dev environment uses inmemory db instead of redis/postgres pair
+
+In dev environment code from https://github.com/nickpresta/chameleon is used cache requests to avoid spamming sources.
 
 ## Env variables
 
 Container makes use of following env variables:
 
-| Name              | Default value | Desription                                                                                        |
-| ----------------- | ------------- | ------------------------------------------------------------------------------------------------- |
-| WORKERS_PORT      | 7080          | Port to listen on                                                                                 |
-| WORKERS_ENDPOINT  | /endpoint     | Path where to accept requests                                                                     |
-| WORKERS_LOG_LEVEL | debug         | Log level string, the one that [logrus](https://github.com/sirupsen/logrus#level-logging) accepts |
-| WORKERS_LOG_JSON  |               | If true, logs are printed as JSON                                                                 |
-| POSTGRES_HOST     |               | (**required**) Postgres connection details - host                                                 |
-| POSTGES_DB        |               | (**required**) Postgres connection details - database name                                        |
-| POSTGRES_PASSWORD |               | (**required**) Postgres connection details - password                                             |
-| REDIS_HOST        | redis         | Redis connection details - host                                                                   |
-| REDIS_PORT        | 6379          | Redis connection details - port                                                                   |
-| RIVERZONE_KEY     |               | riverzone.eu access key                                                                           |
+| Name               | Default value             | Desription                                                                                        |
+| ------------------ | ------------------------- | ------------------------------------------------------------------------------------------------- |
+| WORKERS_PORT       | 7080                      | Port to listen on                                                                                 |
+| WORKERS_ENDPOINT   | /endpoint                 | Path where to accept requests                                                                     |
+| WORKERS_LOG_LEVEL  | debug                     | Log level string, the one that [logrus](https://github.com/sirupsen/logrus#level-logging) accepts |
+| WORKERS_LOG_JSON   |                           | If true, logs are printed as JSON                                                                 |
+| WORKERS_USER_AGENT | whitewater.guide robot    | User agent to set on all requests to sources                                                      |
+| WORKERS_ENV        | development or production | In development mode requests are cached                                                           |
+| POSTGRES_HOST      |                           | (**required**) Postgres connection details - host                                                 |
+| POSTGES_DB         |                           | (**required**) Postgres connection details - database name                                        |
+| POSTGRES_PASSWORD  |                           | (**required**) Postgres connection details - password                                             |
+| REDIS_HOST         | redis                     | Redis connection details - host                                                                   |
+| REDIS_PORT         | 6379                      | Redis connection details - port                                                                   |
+| RIVERZONE_KEY      |                           | riverzone.eu access key                                                                           |
 
 So most likely you should send your requests to `http://workers:7080/endpoint`
 
@@ -64,8 +68,8 @@ Example request body:
 
 ### Errors and successes
 
-Status code `400` in case of bad request (wrong command, etc.)  
-Status code `200` in case of workers failures. For example when upstream for worker start to send garbage and parser breaks.  
+Status code `400` in case of bad request (wrong command, etc.)
+Status code `200` in case of workers failures. For example when upstream for worker start to send garbage and parser breaks.
 In both cases response body will contain string field `error`
 
 #### Examples
@@ -203,7 +207,7 @@ create table measurements
 
 Workers will filter out measurements where both flow and level are 0
 
-For each script, a hash of last values is stored in redis. Key of the hash is script name, fields are gauge codes and values are JSON strings.  
+For each script, a hash of last values is stored in redis. Key of the hash is script name, fields are gauge codes and values are JSON strings.
 Example of stored value:
 
 ```json
@@ -216,7 +220,7 @@ Example of stored value:
 }
 ```
 
-Also, for each script (for all-at-once sources) or script/code pair (for one-by-one sources) a result of last harvest is stored in redis.  
+Also, for each script (for all-at-once sources) or script/code pair (for one-by-one sources) a result of last harvest is stored in redis.
 In is either key (for one-by-one sources) or hash with codes as fields (for all-at-once sources). Values are JSON strings like this:
 
 ```json

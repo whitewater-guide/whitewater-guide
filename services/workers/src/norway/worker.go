@@ -51,6 +51,7 @@ import (
   "golang.org/x/text/encoding/charmap"
   "io/ioutil"
   "math/rand"
+  "os"
   "strings"
   "time"
 )
@@ -172,7 +173,9 @@ func (w *workerNorway) harvestFromJSON(code string, since int64, version int) ([
   url += "&lang=no&chd=ds=htsr,da=29,id=" + paddedCode + ",rt=0"
 
   r := rand.New(rand.NewSource(now.Unix()))
-  url += fmt.Sprintf("&nocache=%d", r.Int31n(1000))
+  if os.Getenv("WORKERS_ENV") == "production" {
+    url += fmt.Sprintf("&nocache=%d", r.Int31n(1000))
+  }
 
   resp, err := core.Client.Get(url)
   if err != nil {

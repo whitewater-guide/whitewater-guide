@@ -113,7 +113,8 @@ services:
     ports:
       - '7080:7080'
     volumes:
-      - type: tmpfs
+      - type: bind
+        source: ../dev-mount/workers
         target: /tmp
 volumes:
   yarn:

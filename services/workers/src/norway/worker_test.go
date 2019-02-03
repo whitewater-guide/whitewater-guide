@@ -41,7 +41,7 @@ func TestHarvestJson(t *testing.T) {
 	options := core.HarvestOptions{
 		Code: code,
 		Extras: map[string]interface{}{
-			"version": 1,
+			"version": 1.0,
 			"html":    false,
 		},
 	}
@@ -84,7 +84,7 @@ func TestHarvestHTML(t *testing.T) {
 	options := core.HarvestOptions{
 		Code: code,
 		Extras: map[string]interface{}{
-			"version": 1,
+			"version": 1.0,
 			"html":    true,
 		},
 	}

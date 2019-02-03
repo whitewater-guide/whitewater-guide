@@ -2,14 +2,17 @@
 
 IMAGE=workers-dev
 
-docker build --no-cache --tag ${IMAGE} --file Dockerfile.development .
+mkdir -p $(pwd)/cookies
+mkdir -p $(pwd)/cache
+
+docker build --tag ${IMAGE} --file Dockerfile.development .
 
 docker run --rm \
             -it \
             -p 7080:7080 \
             -v $(pwd)/src:/go/src/ \
-            -v $(pwd)/realize:/realize \
             -v $(pwd)/cookies:/tmp/cookies \
+            -v $(pwd)/cache:/tmp/cache \
             --env-file .env.development \
             ${IMAGE} \
             "$@"
