@@ -49,7 +49,7 @@ export const transformRiverzoneSection = (
     Category: ${value.category}
     News: ${JSON.stringify(value.news)}
     DurationMin: ${value.durationMin}
-    Gauge Notes: ${value.gauge.notes}
+    Gauge Notes: ${JSON.stringify(value.gauge.notes)}
     `,
     season: null,
     seasonNumeric: [],
