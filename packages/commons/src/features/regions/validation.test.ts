@@ -56,6 +56,8 @@ describe('RegionInput', () => {
       'bad season numeric (too many items)',
       { ...correct, seasonNumeric: Array(30).fill(10) },
     ],
+    ['bad bounds', { ...correct, bounds: [[1, 2, 3], [2, 2, 2]] }],
+    ['null bounds', { ...correct, bounds: null }],
     [
       'bad pois',
       {
@@ -154,6 +156,8 @@ describe('RegionFormInput', () => {
       'bad season numeric (too many items)',
       { ...correct, seasonNumeric: Array(30).fill(10) },
     ],
+    ['bad bounds', { ...correct, bounds: [[1, 2, 3], [2, 2, 2]] }],
+    ['null bounds', { ...correct, bounds: null }],
     [
       'bad pois',
       {

@@ -11,7 +11,7 @@ export interface RegionRaw extends NamedNode, RawTimestamped {
   description: string | null;
   season: string | null;
   season_numeric: number[];
-  bounds: BoundsGeoJson | null;
+  bounds: BoundsGeoJson;
   hidden: boolean | null;
   pois: PointRaw[] | null;
   editable?: boolean; // computed column, not necessary present in db response

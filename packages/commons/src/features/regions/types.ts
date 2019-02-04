@@ -13,7 +13,7 @@ export interface Region extends NamedNode, Timestamped {
   description: string | null;
   season: string | null;
   seasonNumeric: number[];
-  bounds: Array<[number, number, number]> | null;
+  bounds: Array<[number, number, number]>;
   hidden: boolean | null;
   premium: boolean;
   hasPremiumAccess: boolean;

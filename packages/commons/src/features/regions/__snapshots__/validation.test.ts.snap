@@ -38,6 +38,12 @@ Object {
 }
 `;
 
+exports[`RegionFormInput should be invalid for bad bounds 1`] = `
+Object {
+  "bounds": "Minimum length is 3",
+}
+`;
+
 exports[`RegionFormInput should be invalid for bad id 1`] = `
 Object {
   "id": "Incorrect UUID",
@@ -83,6 +89,18 @@ Object {
 }
 `;
 
+exports[`RegionFormInput should be invalid for null bounds 1`] = `
+Object {
+  "bounds": "Minimum length is 3",
+}
+`;
+
+exports[`RegionInput should be invalid for bad bounds 1`] = `
+Object {
+  "bounds": "Minimum length is 3",
+}
+`;
+
 exports[`RegionInput should be invalid for bad id 1`] = `
 Object {
   "id": "Incorrect UUID",
@@ -125,5 +143,11 @@ Object {
 exports[`RegionInput should be invalid for extra fields 1`] = `
 Object {
   "foo": "Expected a value of type \`undefined\` for \`foo\` but received \`\\"bar\\"\`.",
+}
+`;
+
+exports[`RegionInput should be invalid for null bounds 1`] = `
+Object {
+  "bounds": "Minimum length is 3",
 }
 `;
