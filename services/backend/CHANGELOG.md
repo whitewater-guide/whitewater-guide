@@ -1,3 +1,9 @@
+## [0.0.296](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.295...@whitewater-guide/backend@0.0.296) (2019-02-04)
+
+### Bug Fixes
+
+- **backend:** fix gauge bindings in riverzone migration again ([e67d56a](https://github.com/doomsower/whitewater/commit/e67d56a))
+
 ## [0.0.295](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.294...@whitewater-guide/backend@0.0.295) (2019-02-04)
 
 ### Bug Fixes
