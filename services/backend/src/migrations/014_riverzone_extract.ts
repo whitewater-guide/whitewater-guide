@@ -1,7 +1,5 @@
 import { Coordinate3d, parseDifficultyString } from '@whitewater-guide/commons';
-import { writeJSON } from 'fs-extra';
 import Knex from 'knex';
-import path from 'path';
 import {
   getRiverzoneGaugeIds,
   parseRiverzoneDump,
@@ -91,7 +89,7 @@ export const up = async (db: Knex) => {
     `[META] \t total sections with unknown regions: ${unknownRegionCount}`,
   );
   console.log(`[META] \t total sections without gauge: ${gaugeNotFoundCount}`);
-  await writeJSON(path.resolve(__dirname, '014/riverzone_skipped.json'), bad);
+  // await writeJSON(path.resolve(__dirname, '014/riverzone_skipped.json'), bad);
 };
 
 export const down = async (db: Knex) => {
