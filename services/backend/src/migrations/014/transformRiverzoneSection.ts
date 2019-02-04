@@ -14,11 +14,13 @@ export const transformRiverzoneSection = (
   riverId: string,
 ): SectionInput => {
   const unit = value.gauge.unit;
+  // all riverzone gauges are in cm, but bindings are sometimes in m
+  const k = unit === 'm' ? 0.01 : 1;
   const binding: GaugeBinding = {
     approximate: value.gauge.indirect,
-    minimum: value.gauge.min,
-    optimum: value.gauge.med,
-    maximum: value.gauge.max,
+    minimum: value.gauge.min && k * value.gauge.min,
+    optimum: value.gauge.med && k * value.gauge.med,
+    maximum: value.gauge.max && k * value.gauge.max,
   };
   const shape: Coordinate3d[] = [
     [value.putInLatLng![1] / 1000000, value.putInLatLng![0] / 1000000, 0],
