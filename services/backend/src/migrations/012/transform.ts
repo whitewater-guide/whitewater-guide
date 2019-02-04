@@ -13,7 +13,7 @@ export const transformRivermapSection = (
   riverId: string,
 ): SectionInput => ({
   id: null,
-  name: `[Rivermap.ch] ${section.section}`,
+  name: `${section.section} - [RIVERMAP.CH] `,
   altNames: null,
   description: `URL: ${section.url}\nType: ${section.type}`,
   season: null,

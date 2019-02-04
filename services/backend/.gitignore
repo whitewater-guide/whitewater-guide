@@ -8,4 +8,5 @@ src/**/dump.sql
 !.env.*.secret
 /coverage/
 /dist/
-/services/backend/src/migrations/014/riverzone.json
+src/migrations/014/riverzone.json
+src/migrations/014/riverzone_skipped.json
