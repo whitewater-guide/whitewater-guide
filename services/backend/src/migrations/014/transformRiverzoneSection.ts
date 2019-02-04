@@ -15,7 +15,7 @@ export const transformRiverzoneSection = (
 ): SectionInput => {
   const unit = value.gauge.unit;
   // all riverzone gauges are in cm, but bindings are sometimes in m
-  const k = unit === 'm' ? 0.01 : 1;
+  const k = unit === 'm' ? 100 : 1;
   const binding: GaugeBinding = {
     approximate: value.gauge.indirect,
     minimum: value.gauge.min && k * value.gauge.min,
