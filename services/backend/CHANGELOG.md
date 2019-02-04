@@ -1,3 +1,9 @@
+## [0.0.294](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.293...@whitewater-guide/backend@0.0.294) (2019-02-04)
+
+### Bug Fixes
+
+- **backend:** fix riverzone import migration bug ([4b51531](https://github.com/doomsower/whitewater/commit/4b51531))
+
 ## [0.0.293](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.292...@whitewater-guide/backend@0.0.293) (2019-02-04)
 
 ### Features
