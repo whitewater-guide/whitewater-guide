@@ -3,7 +3,7 @@ import { PointRaw } from '@features/points';
 import { Coordinate3d, NamedNode } from '@whitewater-guide/commons';
 
 interface BoundsGeoJson {
-  type: string;
+  type: 'Polygon';
   coordinates: Coordinate3d[][];
 }
 

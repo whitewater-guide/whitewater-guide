@@ -527,10 +527,10 @@
   resolved "https://registry.yarnpkg.com/@types/xmldom/-/xmldom-0.1.29.tgz#c4428b0ca86d3b881475726fd94980b38a27c381"
   integrity sha1-xEKLDKhtO4gUdXJv2UmAs4onw4E=
 
-"@whitewater-guide/commons@^0.0.115":
-  version "0.0.115"
-  resolved "https://registry.yarnpkg.com/@whitewater-guide/commons/-/commons-0.0.115.tgz#dccdb13cb91507c6b656e78cff777353dfb60264"
-  integrity sha512-/91IV+bGYK0Yn/hHExkK33zAzt8hMqzl4/Nea1r6RG+ksLmGEuYy0ugMrjN6y9ytJbshmm6x6ExArr7gAGR2zA==
+"@whitewater-guide/commons@^0.0.116":
+  version "0.0.116"
+  resolved "https://registry.yarnpkg.com/@whitewater-guide/commons/-/commons-0.0.116.tgz#707a9d6606ce4014b25cdcb12a950260ac9c68ed"
+  integrity sha512-KmWIiUdo1tQklUjNdxd0S2WX/NBQgfmCURwiAfWWtD5VFLlGKAZQrByY3wEb+fhpc+b7ByTYE55BWrJBbqphTg==
   dependencies:
     cron-parser "^2.7.3"
     lodash "^4.17.11"
