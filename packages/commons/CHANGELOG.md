@@ -1,3 +1,10 @@
+## [0.0.118](https://github.com/doomsower/whitewater/compare/@whitewater-guide/commons@0.0.117...@whitewater-guide/commons@0.0.118) (2019-02-04)
+
+### Features
+
+- change region.bounds to be not null ([495b57b](https://github.com/doomsower/whitewater/commit/495b57b))
+- **commons:** overload withZeroAlt ([22c2171](https://github.com/doomsower/whitewater/commit/22c2171))
+
 ## [0.0.117](https://github.com/doomsower/whitewater/compare/@whitewater-guide/commons@0.0.116...@whitewater-guide/commons@0.0.117) (2019-02-04)
 
 ### Features
