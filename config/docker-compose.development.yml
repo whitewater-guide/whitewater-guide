@@ -28,6 +28,20 @@ services:
       - type: bind
         source: ../services/backend/pm2.development.json
         target: /opt/app/pm2.development.json
+      # "Symlink" @whitewater-guide/commons into dir "lerna_modules" in NODE_PATH
+      - type: bind
+        source: ../packages/commons/package.json
+        target: /opt/app/lerna_modules/@whitewater-guide/commons/package.json
+        read_only: true
+        volume:
+          nocopy: true
+      # "Symlink" @whitewater-guide/commons into dir "lerna_modules" in NODE_PATH
+      - type: bind
+        source: ../packages/commons/dist
+        target: /opt/app/lerna_modules/@whitewater-guide/commons/dist
+        read_only: true
+        volume:
+          nocopy: true
 
   # Postgres sql database
   db:
