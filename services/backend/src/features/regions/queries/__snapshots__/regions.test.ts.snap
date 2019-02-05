@@ -3,7 +3,23 @@
 exports[`results admin should get all regions 1`] = `
 Array [
   Object {
-    "bounds": null,
+    "bounds": Array [
+      Array [
+        1,
+        0,
+        0,
+      ],
+      Array [
+        0,
+        1,
+        0,
+      ],
+      Array [
+        1,
+        1,
+        0,
+      ],
+    ],
     "coverImage": Object {
       "mobile": "ecuador_mobile_cover.jpg",
     },
@@ -176,7 +192,23 @@ Array [
     "sku": null,
   },
   Object {
-    "bounds": null,
+    "bounds": Array [
+      Array [
+        4,
+        5,
+        0,
+      ],
+      Array [
+        7,
+        8,
+        0,
+      ],
+      Array [
+        5,
+        6,
+        0,
+      ],
+    ],
     "coverImage": Object {
       "mobile": null,
     },

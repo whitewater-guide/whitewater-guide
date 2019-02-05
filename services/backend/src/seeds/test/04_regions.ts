@@ -53,7 +53,7 @@ const regions = [
     premium: true,
     sku: 'region.ecuador',
     season_numeric: [],
-    bounds: null,
+    bounds: getBounds([[1, 0, 0], [0, 1, 0], [1, 1, 0]]),
     cover_image: {
       mobile: 'ecuador_mobile_cover.jpg',
     },
@@ -64,7 +64,7 @@ const regions = [
     premium: true,
     sku: 'region.norway',
     season_numeric: [],
-    bounds: null,
+    bounds: getBounds([[4, 5, 0], [7, 8, 0], [5, 6, 0]]),
   },
   {
     id: REGION_GEORGIA,
