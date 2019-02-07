@@ -1,3 +1,9 @@
+## [0.1.301](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.300...@whitewater-guide/web@0.1.301) (2019-02-07)
+
+### Features
+
+- sections edit log ([ec01155](https://github.com/doomsower/whitewater/commit/ec01155)), closes [#323](https://github.com/doomsower/whitewater/issues/323)
+
 ## [0.1.300](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.299...@whitewater-guide/web@0.1.300) (2019-02-04)
 
 ## [0.1.299](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.298...@whitewater-guide/web@0.1.299) (2019-02-04)

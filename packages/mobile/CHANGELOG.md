@@ -1,3 +1,9 @@
+## [1.6.16](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.6.15...@whitewater-guide/mobile@1.6.16) (2019-02-07)
+
+### Features
+
+- sections edit log ([ec01155](https://github.com/doomsower/whitewater/commit/ec01155)), closes [#323](https://github.com/doomsower/whitewater/issues/323)
+
 ## [1.6.15](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.6.14...@whitewater-guide/mobile@1.6.15) (2019-02-04)
 
 ## [1.6.14](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.6.13...@whitewater-guide/mobile@1.6.14) (2019-02-04)

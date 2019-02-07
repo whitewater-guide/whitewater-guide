@@ -1,3 +1,13 @@
+## [0.0.297](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.296...@whitewater-guide/backend@0.0.297) (2019-02-07)
+
+### Bug Fixes
+
+- **backend:** fix seeds - region bounds NOT NULL ([8c1bb8c](https://github.com/doomsower/whitewater/commit/8c1bb8c))
+
+### Features
+
+- sections edit log ([ec01155](https://github.com/doomsower/whitewater/commit/ec01155)), closes [#323](https://github.com/doomsower/whitewater/issues/323)
+
 ## [0.0.296](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.295...@whitewater-guide/backend@0.0.296) (2019-02-04)
 
 ### Bug Fixes

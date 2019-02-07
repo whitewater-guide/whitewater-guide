@@ -1,3 +1,9 @@
+## [0.0.18](https://github.com/doomsower/whitewater/compare/@whitewater-guide/scripts@0.0.17...@whitewater-guide/scripts@0.0.18) (2019-02-07)
+
+### Features
+
+- sections edit log ([ec01155](https://github.com/doomsower/whitewater/commit/ec01155)), closes [#323](https://github.com/doomsower/whitewater/issues/323)
+
 ## [0.0.17](https://github.com/doomsower/whitewater/compare/@whitewater-guide/scripts@0.0.16...@whitewater-guide/scripts@0.0.17) (2019-02-03)
 
 ## [0.0.16](https://github.com/doomsower/whitewater/compare/@whitewater-guide/scripts@0.0.16...@whitewater-guide/scripts@0.0.16) (2019-02-03)

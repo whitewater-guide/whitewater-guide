@@ -1,3 +1,9 @@
+## [0.0.195](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.194...@whitewater-guide/clients@0.0.195) (2019-02-07)
+
+### Features
+
+- sections edit log ([ec01155](https://github.com/doomsower/whitewater/commit/ec01155)), closes [#323](https://github.com/doomsower/whitewater/issues/323)
+
 ## [0.0.194](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.193...@whitewater-guide/clients@0.0.194) (2019-02-04)
 
 ## [0.0.193](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.192...@whitewater-guide/clients@0.0.193) (2019-02-04)
