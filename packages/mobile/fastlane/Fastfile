@@ -40,8 +40,9 @@ end
 # IOS
 
 platform :ios do
-  private_lane :check_live_version do
+  lane :check_live_version do
     Spaceship::Tunes.login(ENV["IOS_USER_ID"])
+    Spaceship::Tunes.client.team_id = ENV["IOS_ITC_TEAM_ID"]
     app = Spaceship::Tunes::Application.find(ENV["IOS_APP_IDENTIFIER"])
     liveVersion = app.live_version.version
     if ENV["IOS_VERSION"] == liveVersion

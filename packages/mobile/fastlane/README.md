@@ -24,6 +24,11 @@ fastlane bump_build_numbers
 ----
 
 ## iOS
+### ios check_live_version
+```
+fastlane ios check_live_version
+```
+
 ### ios setup
 ```
 fastlane ios setup
