@@ -1,8 +1,8 @@
+import { getColorForValue } from '@whitewater-guide/clients';
+import { GaugeBinding } from '@whitewater-guide/commons';
 import React from 'react';
 import { G, Line, LineProps, Text } from 'react-native-svg';
 import theme from '../../theme';
-import { getColorForValue } from '@whitewater-guide/clients';
-import { GaugeBinding } from '@whitewater-guide/commons';
 
 interface Props {
   x1?: number;
@@ -14,11 +14,11 @@ interface Props {
   binding?: GaugeBinding;
 }
 
-const HorizontalGridLine: React.StatelessComponent<Props> = (props) => {
+const HorizontalGridLine: React.FC<Props> = (props) => {
   const { x1 = 0, x2 = 0, y1 = 0, y2 = 0, datum = 0, binding, style } = props;
   const { minimum = 0, maximum = 0, optimum = 0 } = binding || {};
   const defaultColor =
-    style && style.stroke ? style.stroke : theme.colors.textMain;
+    style && style.stroke ? style.stroke.toString() : theme.colors.textMain;
   const color = getColorForValue(datum, binding, defaultColor);
   const lineStyle = { ...style, stroke: color };
   let label;

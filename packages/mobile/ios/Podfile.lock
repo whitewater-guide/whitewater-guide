@@ -113,7 +113,7 @@ PODS:
     - React
   - react-native-maps (0.23.0):
     - React
-  - react-native-webview (3.2.1):
+  - react-native-webview (5.0.6):
     - React
   - React/Core (0.57.8):
     - yoga (= 0.57.8.React)
@@ -162,7 +162,7 @@ PODS:
     - React/RCTBlob
   - RNFS (2.13.3):
     - React
-  - RNGestureHandler (1.0.12):
+  - RNGestureHandler (1.0.15):
     - React
   - RNScreens (1.0.0-alpha.22):
     - React
@@ -257,7 +257,7 @@ SPEC CHECKSUMS:
   react-native-maps: 066c2afcc89e18726377bcc685315f989ca22449
   react-native-webview: a42108b827082f8f0333529b0772102031d5960d
   RNFS: bbb1a64eb245763daf34aea86f97c97c4e85f74c
-  RNGestureHandler: 282af6ea58ed8483612365159c58a3ca5f55e7da
+  RNGestureHandler: afde2addc517e85cc97a25bfe119acbee779a7ce
   RNScreens: 354046589421edc3d83d5c6212475bf1fb9a731d
   yoga: b1ce48b6cf950b98deae82838f5173ea7cf89e85
 

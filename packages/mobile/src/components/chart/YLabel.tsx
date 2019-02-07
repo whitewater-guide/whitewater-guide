@@ -1,8 +1,8 @@
+import { getColorForValue } from '@whitewater-guide/clients';
+import { GaugeBinding } from '@whitewater-guide/commons';
 import React from 'react';
 import { Text, TextAnchor, TextSpecificProps } from 'react-native-svg';
 import theme from '../../theme';
-import { getColorForValue } from '@whitewater-guide/clients';
-import { GaugeBinding } from '@whitewater-guide/commons';
 
 interface YLabelProps {
   x?: number;
@@ -13,9 +13,10 @@ interface YLabelProps {
   binding?: GaugeBinding;
 }
 
-const YLabel: React.StatelessComponent<YLabelProps> = (props) => {
+const YLabel: React.FC<YLabelProps> = (props) => {
   const { x, y = 0, textAnchor, binding, datum = 0, style } = props;
-  const defaultColor = style && style.fill ? style.fill : theme.colors.textMain;
+  const defaultColor =
+    style && style.fill ? style.fill.toString() : theme.colors.textMain;
   const textStyle = {
     ...style,
     fill: getColorForValue(datum, binding, defaultColor),

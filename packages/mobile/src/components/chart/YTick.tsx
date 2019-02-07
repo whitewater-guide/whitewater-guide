@@ -1,8 +1,8 @@
+import { getColorForValue } from '@whitewater-guide/clients';
+import { GaugeBinding } from '@whitewater-guide/commons';
 import React from 'react';
 import { CommonPathProps, Line } from 'react-native-svg';
 import theme from '../../theme';
-import { getColorForValue } from '@whitewater-guide/clients';
-import { GaugeBinding } from '@whitewater-guide/commons';
 
 interface YTickProps {
   x1?: number;
@@ -14,10 +14,10 @@ interface YTickProps {
   binding: GaugeBinding;
 }
 
-const YTick: React.StatelessComponent<YTickProps> = (props) => {
+const YTick: React.FC<YTickProps> = (props) => {
   const { x1, x2, y1, y2, style, datum = 0, binding } = props;
   const defaultColor =
-    style && style.stroke ? style.stroke : theme.colors.textMain;
+    style && style.stroke ? style.stroke.toString() : theme.colors.textMain;
   const lineStyle = {
     ...style,
     stroke: getColorForValue(datum, binding, defaultColor),
