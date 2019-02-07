@@ -11,6 +11,7 @@ import {
 import {
   NUM_REGIONS,
   REGION_ECUADOR,
+  REGION_GALICIA,
   REGION_GEORGIA,
   REGION_NORWAY,
 } from '@seeds/04_regions';
@@ -170,6 +171,38 @@ describe('results', () => {
     const regions = result.data!.regions.nodes;
     // At least one region should have some sections
     expect(regions.some((r: any) => r.sections.count > 0)).toBe(true);
+  });
+
+  it('should search by name', async () => {
+    const searchQuery = `
+      query listRegions($filter: RegionsFilter, $page: Page){
+        regions(filter: $filter, page: $page) {
+          nodes {
+            id
+            name
+          }
+        }
+      }
+    `;
+
+    const result = await runQuery(
+      searchQuery,
+      { filter: { search: 'Or' } },
+      fakeContext(ADMIN),
+    );
+    expect(result.errors).toBeUndefined();
+    const regions = result.data!.regions;
+    expect(regions.nodes).toHaveLength(3);
+    expect(regions.nodes).toContainEqual(
+      expect.objectContaining({
+        id: REGION_NORWAY,
+      }),
+    );
+    expect(regions.nodes).not.toContainEqual(
+      expect.objectContaining({
+        id: REGION_GALICIA,
+      }),
+    );
   });
 });
 

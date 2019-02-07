@@ -1,5 +1,5 @@
-import { Page, SectionFragments } from '@whitewater-guide/clients';
-import { Connection, Section } from '@whitewater-guide/commons';
+import { SectionFragments } from '@whitewater-guide/clients';
+import { Connection, Page, Section } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
 
 export const OFFLINE_SECTIONS = gql`

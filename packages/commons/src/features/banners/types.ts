@@ -1,8 +1,7 @@
 import { Overwrite } from 'type-zoo';
-import { NamedNode, Node } from '../../core';
+import { Connection, NamedNode, Node } from '../../core';
 import { Group } from '../groups';
 import { Region } from '../regions';
-import { Connection } from '../types';
 
 export enum BannerPlacement {
   MOBILE_SECTION_DESCRIPTION = 'mobileSectionDescription',

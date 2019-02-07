@@ -616,7 +616,7 @@ type-zoo@^3.3.0:
   resolved "https://registry.yarnpkg.com/type-zoo/-/type-zoo-3.3.0.tgz#d5b59393b09a48ac30380c50e2369e828817e9b3"
   integrity sha512-ID2kIg4QMbujPOpphFvSl7yyk0JaN2+5m2cprhxpzJqYWHhozLbYOHCAZqq7j1PPfzLe8XrYeZfPb99v96WVRw==
 
-typescript@^3.2.4:
+typescript@3.2.4:
   version "3.2.4"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.2.4.tgz#c585cb952912263d915b462726ce244ba510ef3d"
   integrity sha512-0RNDbSdEokBeEAkgNbxJ+BLwSManFy9TeXz8uW+48j/xhEXv1ePME60olyzw2XzUqUBNAYFeJadIqAgNqIACwg==

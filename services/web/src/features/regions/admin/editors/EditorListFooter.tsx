@@ -1,10 +1,10 @@
+import { User } from '@whitewater-guide/commons';
 import IconButton from 'material-ui/IconButton';
 import { TableRow, TableRowColumn } from 'material-ui/Table';
 import React from 'react';
 import { Mutation, MutationFn } from 'react-apollo';
-import { User } from '@whitewater-guide/commons';
+import { UserFinder } from '../../../users';
 import ADD_EDITOR_MUTATION from './addEditor.mutation';
-import UserFinder from './UserFinder';
 
 interface Props {
   regionId: string;

@@ -1,8 +1,25 @@
+import db from '@db';
 import { holdTransaction, rollbackTransaction } from '@db';
+import { SectionsEditLogRaw } from '@features/sections';
 import { fileExistsInBucket, MEDIA, resetTestMinio } from '@minio';
-import { ADMIN, EDITOR_GA_EC, EDITOR_NO_EC, TEST_USER } from '@seeds/01_users';
+import {
+  ADMIN,
+  EDITOR_GA_EC,
+  EDITOR_NO_EC,
+  EDITOR_NO_EC_ID,
+  TEST_USER,
+} from '@seeds/01_users';
+import { REGION_NORWAY } from '@seeds/04_regions';
+import { RIVER_SJOA } from '@seeds/07_rivers';
+import { NORWAY_SJOA_AMOT } from '@seeds/09_sections';
 import { PHOTO_1 } from '@seeds/11_media';
-import { anonContext, countRows, fakeContext, runQuery } from '@test';
+import {
+  anonContext,
+  countRows,
+  fakeContext,
+  runQuery,
+  UUID_REGEX,
+} from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
 
 let mBefore: number;
@@ -94,5 +111,26 @@ describe('effects', () => {
   it('should delete file from storage', async () => {
     const exists = await fileExistsInBucket(MEDIA, PHOTO_1);
     expect(exists).toBe(false);
+  });
+
+  it('should log this event', async () => {
+    const entry: SectionsEditLogRaw = await db(false)
+      .table('sections_edit_log')
+      .orderBy('created_at', 'desc')
+      .select('*')
+      .first();
+    expect(entry).toMatchObject({
+      id: expect.stringMatching(UUID_REGEX),
+      section_id: NORWAY_SJOA_AMOT,
+      old_section_name: 'Amot',
+      new_section_name: 'Amot',
+      river_id: RIVER_SJOA,
+      river_name: 'Sjoa',
+      region_id: REGION_NORWAY,
+      region_name: 'Norway',
+      editor_id: EDITOR_NO_EC_ID,
+      action: 'media_delete',
+      created_at: expect.any(Date),
+    });
   });
 });

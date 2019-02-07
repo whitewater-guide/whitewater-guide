@@ -9,6 +9,7 @@
   "files": [
     "dist"
   ],
+  "types": "dist/index.d.ts",
   "publishConfig": {
     "access": "public"
   },

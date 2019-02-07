@@ -32,6 +32,6 @@
     "@types/rimraf": "^2.0.2",
     "@types/yargs": "^12.0.8",
     "type-zoo": "^3.3.0",
-    "typescript": "^3.2.4"
+    "typescript": "3.2.4"
   }
 }

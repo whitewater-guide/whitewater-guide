@@ -1,4 +1,4 @@
-import { Page } from '@apollo';
+import { Page } from '@whitewater-guide/commons';
 import Knex from 'knex';
 import { createConnectors } from './createConnectors';
 

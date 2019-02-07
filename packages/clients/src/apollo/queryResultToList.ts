@@ -1,7 +1,12 @@
-import { Connection, ListType, updateList } from '@whitewater-guide/commons';
+import {
+  Connection,
+  ListType,
+  Page,
+  updateList,
+} from '@whitewater-guide/commons';
 import { NetworkStatus } from 'apollo-client';
 import { ChildProps } from 'react-apollo';
-import { Page, WithList } from './types';
+import { WithList } from './types';
 
 type QueryResult<T, R extends ListType> = { [prop in R]: Connection<T> };
 

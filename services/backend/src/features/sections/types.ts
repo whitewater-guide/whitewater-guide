@@ -1,6 +1,11 @@
 import { RawTimestamped } from '@db';
 import { PointRaw } from '@features/points';
-import { Coordinate3d, NamedNode, Tag } from '@whitewater-guide/commons';
+import {
+  Coordinate3d,
+  NamedNode,
+  SectionEditAction,
+  Tag,
+} from '@whitewater-guide/commons';
 
 export interface GaugeBindingRaw {
   minimum?: number;
@@ -19,9 +24,10 @@ export interface SectionRaw extends NamedNode, RawTimestamped {
   alt_names: string[];
 
   river_id: string;
-  river_name: string;
+  river_name: string; // for embedding
   gauge_id: string | null;
   region_id: string;
+  region_name: string; // for embedding
 
   hidden: boolean;
   demo: boolean;
@@ -53,4 +59,19 @@ export interface SectionsFilter {
   riverId?: string;
   regionId?: string;
   updatedAfter?: Date;
+}
+
+export interface SectionsEditLogRaw {
+  id?: string; // optional for input
+  section_id: string;
+  old_section_name: string;
+  new_section_name: string;
+  river_id: string;
+  river_name: string;
+  region_id: string;
+  region_name: string;
+  editor_id: string;
+  editor_name: string;
+  action: SectionEditAction;
+  created_at: Date;
 }

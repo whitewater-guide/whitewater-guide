@@ -1,4 +1,4 @@
-import { NamedNode, Timestamped } from '../../core';
+import { NamedNode, TextSearchFilter, Timestamped } from '../../core';
 import { Group } from '../groups';
 import { Region } from '../regions';
 
@@ -26,4 +26,8 @@ export interface UserInput {
   avatar?: string | null;
   language?: string;
   imperial?: boolean;
+}
+
+export interface UserFilter extends TextSearchFilter {
+  editorsOnly?: boolean;
 }

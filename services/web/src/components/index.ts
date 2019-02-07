@@ -10,6 +10,7 @@ export * from './IconButtonWithData';
 export * from './lightbox';
 export * from './Loading';
 export * from './MutationToggle';
+export * from './named-node-finder';
 export * from './NumberInput';
 export * from './Rating';
 export * from './tables';

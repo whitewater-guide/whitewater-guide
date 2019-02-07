@@ -1,11 +1,10 @@
 import { Overwrite } from 'type-zoo';
-import { NamedNode, Node, Timestamped } from '../../core';
+import { Connection, NamedNode, Node, Timestamped } from '../../core';
 import { Gauge } from '../gauges';
 import { HarvestMode } from '../harvest-mode';
 import { HarvestStatus } from '../measurements';
 import { Region } from '../regions';
 import { Script } from '../scripts';
-import { Connection } from '../types';
 
 export interface Source extends NamedNode, Timestamped {
   termsOfUse: string | null;

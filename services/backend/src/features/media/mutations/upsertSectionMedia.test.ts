@@ -1,4 +1,5 @@
 import db, { holdTransaction, rollbackTransaction } from '@db';
+import { SectionsEditLogRaw } from '@features/sections';
 import {
   fileExistsInBucket,
   MEDIA,
@@ -14,6 +15,8 @@ import {
   EDITOR_NO_EC_ID,
   TEST_USER,
 } from '@seeds/01_users';
+import { REGION_NORWAY } from '@seeds/04_regions';
+import { RIVER_SJOA } from '@seeds/07_rivers';
 import { GALICIA_R1_S1, NORWAY_SJOA_AMOT } from '@seeds/09_sections';
 import { PHOTO_1, PHOTO_2 } from '@seeds/11_media';
 import {
@@ -23,6 +26,7 @@ import {
   noTimestamps,
   noUnstable,
   runQuery,
+  UUID_REGEX,
 } from '@test';
 import {
   ApolloErrorCodes,
@@ -195,6 +199,28 @@ describe('insert', () => {
       .first();
     expect(created_by).toBe(EDITOR_NO_EC_ID);
   });
+
+  it('should log this event', async () => {
+    await runQuery(mutation, { sectionId, media }, fakeContext(EDITOR_NO_EC));
+    const entry: SectionsEditLogRaw = await db(false)
+      .table('sections_edit_log')
+      .orderBy('created_at', 'desc')
+      .select('*')
+      .first();
+    expect(entry).toMatchObject({
+      id: expect.stringMatching(UUID_REGEX),
+      section_id: NORWAY_SJOA_AMOT,
+      old_section_name: 'Amot',
+      new_section_name: 'Amot',
+      river_id: RIVER_SJOA,
+      river_name: 'Sjoa',
+      region_id: REGION_NORWAY,
+      region_name: 'Norway',
+      editor_id: EDITOR_NO_EC_ID,
+      action: 'media_create',
+      created_at: expect.any(Date),
+    });
+  });
 });
 
 describe('update', () => {
@@ -261,6 +287,32 @@ describe('update', () => {
       .where({ id: uMedia.id })
       .first();
     expect(created_by).toBe(ADMIN_ID);
+  });
+
+  it('should log this event', async () => {
+    await runQuery(
+      mutation,
+      { sectionId, media: uMedia },
+      fakeContext(EDITOR_NO_EC),
+    );
+    const entry: SectionsEditLogRaw = await db(false)
+      .table('sections_edit_log')
+      .orderBy('created_at', 'desc')
+      .select('*')
+      .first();
+    expect(entry).toMatchObject({
+      id: expect.stringMatching(UUID_REGEX),
+      section_id: NORWAY_SJOA_AMOT,
+      old_section_name: 'Amot',
+      new_section_name: 'Amot',
+      river_id: RIVER_SJOA,
+      river_name: 'Sjoa',
+      region_id: REGION_NORWAY,
+      region_name: 'Norway',
+      editor_id: EDITOR_NO_EC_ID,
+      action: 'media_update',
+      created_at: expect.any(Date),
+    });
   });
 });
 

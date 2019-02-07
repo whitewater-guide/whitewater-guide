@@ -24,6 +24,7 @@ const ITEMS = [
   { title: 'Tags', path: '/tags', admin: true },
   { title: 'Region Groups', path: '/groups', admin: true },
   { title: 'Banners', path: '/banners', admin: true },
+  { title: 'History of edits', path: '/history', admin: true },
 ];
 
 interface Props {

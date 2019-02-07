@@ -1,4 +1,5 @@
-import { getListMerger, Page } from '@whitewater-guide/clients';
+import { getListMerger } from '@whitewater-guide/clients';
+import { Page } from '@whitewater-guide/commons';
 import { ObservableQuery } from 'apollo-client';
 import { Result, Vars } from '../../offlineSections.query';
 

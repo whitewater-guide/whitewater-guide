@@ -1,5 +1,4 @@
-import { Page } from '@whitewater-guide/clients';
-import { Connection, Section } from '@whitewater-guide/commons';
+import { Connection, Page, Section } from '@whitewater-guide/commons';
 import { ApolloClient, ObservableQuery } from 'apollo-client';
 import { Channel, END } from 'redux-saga';
 import { call, put } from 'redux-saga/effects';

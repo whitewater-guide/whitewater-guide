@@ -1,6 +1,5 @@
-import { NamedNode } from '../../core';
+import { Connection, NamedNode } from '../../core';
 import { Region } from '../regions';
-import { Connection } from '../types';
 
 export interface Group extends NamedNode {
   sku: string | null;

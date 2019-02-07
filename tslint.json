@@ -19,7 +19,8 @@
       "lodash",
       "validator",
       "redux-saga",
-      "moment"
+      "moment",
+      "material-ui"
     ],
     "object-literal-sort-keys": false,
     "variable-name": [

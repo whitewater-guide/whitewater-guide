@@ -1,6 +1,10 @@
-import { Connection, Section, SectionsFilter } from '@whitewater-guide/commons';
+import {
+  Connection,
+  Page,
+  Section,
+  SectionsFilter,
+} from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
-import { Page } from '../../apollo';
 import { SectionFragments } from './sectionFragments';
 
 export const LIST_SECTIONS = gql`

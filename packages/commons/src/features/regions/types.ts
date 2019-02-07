@@ -1,5 +1,10 @@
 import { Overwrite } from 'type-zoo';
-import { NamedNode, Timestamped } from '../../core';
+import {
+  Connection,
+  NamedNode,
+  TextSearchFilter,
+  Timestamped,
+} from '../../core';
 import { Banner } from '../banners';
 import { Gauge } from '../gauges';
 import { Group } from '../groups';
@@ -7,7 +12,6 @@ import { Coordinate3d, Point, PointInput } from '../points';
 import { River } from '../rivers';
 import { Section } from '../sections';
 import { Source } from '../sources';
-import { Connection } from '../types';
 
 export interface Region extends NamedNode, Timestamped {
   description: string | null;
@@ -64,6 +68,8 @@ export interface RegionMediaSummary {
   video: RegionMediaSummaryItem;
   blog: RegionMediaSummaryItem;
 }
+
+export type RegionsFilter = TextSearchFilter;
 
 export type RegionFormInput<RichText> = Overwrite<
   RegionInput,

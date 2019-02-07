@@ -22,7 +22,7 @@
   "README_endpoints": "A list of GraphQL endpoints that can be queried from '.graphql' files in the IDE",
   "endpoints": [
     {
-      "name": "Default (http://localhost:8080/graphql)",
+      "name": "beta.whitewater.guide",
       "url": "https://beta.whitewater.guide/graphql/schema.json",
       "options": {
         "headers": {

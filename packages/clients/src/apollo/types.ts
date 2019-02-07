@@ -1,11 +1,6 @@
 import { Connection } from '@whitewater-guide/commons';
 import { ApolloError, ApolloQueryResult, NetworkStatus } from 'apollo-client';
 
-export interface Page {
-  limit?: number;
-  offset?: number;
-}
-
 export interface WithList<T> {
   nodes: T[];
   count: number;

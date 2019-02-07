@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { BannersRoute } from '../features/banners';
 import { GroupsRoute } from '../features/groups';
+import { HistoryRoute } from '../features/history';
 import { RegionsRoute } from '../features/regions';
 import { SourcesRoute } from '../features/sources';
 import { TagsRoute } from '../features/tags';
@@ -9,7 +10,7 @@ import LogoutRoute from './LogoutRoute';
 import Page403 from './Page403';
 import Page404 from './Page404';
 
-const ContentLayout: React.StatelessComponent = () => (
+const ContentLayout: React.FC = () => (
   <Switch>
     <Route exact path="/">
       <Redirect from="/" to="/regions" />
@@ -20,6 +21,7 @@ const ContentLayout: React.StatelessComponent = () => (
     <Route path="/tags" component={TagsRoute} />
     <Route path="/groups" component={GroupsRoute} />
     <Route path="/banners" component={BannersRoute} />
+    <Route path="/history" component={HistoryRoute} />
 
     <Route path="/logout">
       <LogoutRoute />

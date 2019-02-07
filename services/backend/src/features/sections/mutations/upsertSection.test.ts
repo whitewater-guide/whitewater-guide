@@ -1,12 +1,15 @@
 import db, { holdTransaction, rollbackTransaction } from '@db';
+import { SectionsEditLogRaw } from '@features/sections';
 import {
   ADMIN,
   ADMIN_ID,
   EDITOR_GA_EC,
+  EDITOR_GA_EC_ID,
   EDITOR_NO_EC,
   EDITOR_NO_EC_ID,
   TEST_USER,
 } from '@seeds/01_users';
+import { REGION_GALICIA, REGION_NORWAY } from '@seeds/04_regions';
 import { RIVER_GAL_1, RIVER_SJOA } from '@seeds/07_rivers';
 import { GALICIA_R1_S1, NORWAY_SJOA_AMOT } from '@seeds/09_sections';
 import {
@@ -15,6 +18,7 @@ import {
   fakeContext,
   noUnstable,
   runQuery,
+  UUID_REGEX,
 } from '@test';
 import {
   ApolloErrorCodes,
@@ -321,6 +325,27 @@ describe('insert', () => {
       .first();
     expect(created_by).toBe(EDITOR_NO_EC_ID);
   });
+
+  it('should log this event', async () => {
+    const entry: SectionsEditLogRaw = await db(false)
+      .table('sections_edit_log')
+      .orderBy('created_at', 'desc')
+      .select('*')
+      .first();
+    expect(entry).toMatchObject({
+      id: expect.stringMatching(UUID_REGEX),
+      section_id: insertedSection.id,
+      old_section_name: existingRiverSection.name,
+      new_section_name: existingRiverSection.name,
+      river_id: existingRiverSection.river.id,
+      river_name: 'Sjoa',
+      region_id: REGION_NORWAY,
+      region_name: 'Norway',
+      editor_id: EDITOR_NO_EC_ID,
+      action: 'create',
+      created_at: expect.any(Date),
+    });
+  });
 });
 
 describe('update', () => {
@@ -433,6 +458,27 @@ describe('update', () => {
       .where({ id: updatedSection.id })
       .first();
     expect(created_by).toBe(ADMIN_ID);
+  });
+
+  it('should log this event', async () => {
+    const entry: SectionsEditLogRaw = await db(false)
+      .table('sections_edit_log')
+      .orderBy('created_at', 'desc')
+      .select('*')
+      .first();
+    expect(entry).toMatchObject({
+      id: expect.stringMatching(UUID_REGEX),
+      section_id: updateData.id,
+      old_section_name: 'Gal_riv_1_sec_1',
+      new_section_name: updateData.name,
+      river_id: updateData.river.id,
+      river_name: 'Gal_Riv_One',
+      region_id: REGION_GALICIA,
+      region_name: 'Galicia',
+      editor_id: EDITOR_GA_EC_ID,
+      action: 'update',
+      created_at: expect.any(Date),
+    });
   });
 });
 

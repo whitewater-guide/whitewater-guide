@@ -18,9 +18,3 @@ export type ListType =
   | 'mediaBySection'
   | 'groups'
   | 'banners';
-
-export interface Connection<T> {
-  __typename?: string;
-  count?: number;
-  nodes?: T[];
-}

@@ -1,5 +1,6 @@
 import { TopLevelResolver } from '@apollo';
 import db from '@db';
+import insertLog from '@features/media/mutations/insertLogs';
 import { MEDIA, minioClient } from '@minio';
 import { MediaKind } from '@whitewater-guide/commons';
 
@@ -10,9 +11,14 @@ interface Vars {
 const removeMedia: TopLevelResolver<Vars> = async (
   root,
   { id },
-  { user, dataSources },
+  { user, language, dataSources },
 ) => {
   await dataSources.media.assertEditorPermissions(id);
+  const { section_id } = await db()
+    .select('section_id')
+    .from('sections_media')
+    .where({ media_id: id })
+    .first();
   const [result] = await db()
     .table('media')
     .del()
@@ -25,6 +31,12 @@ const removeMedia: TopLevelResolver<Vars> = async (
   ) {
     await minioClient.removeObject(MEDIA, result.url);
   }
+  await insertLog(db(), {
+    language,
+    sectionId: section_id,
+    action: 'media_delete',
+    editorId: user!.id,
+  });
   return {
     id: result.id,
     deleted: true,

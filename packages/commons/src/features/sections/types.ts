@@ -1,12 +1,12 @@
 import { Omit, Overwrite } from 'type-zoo';
-import { NamedNode, Node, Timestamped } from '../../core';
+import { Connection, NamedNode, Node, Timestamped } from '../../core';
 import { Gauge } from '../gauges';
 import { Media } from '../media';
 import { Coordinate3d, Point, PointInput } from '../points';
 import { Region } from '../regions';
 import { River } from '../rivers';
 import { Tag, TagInput } from '../tags';
-import { Connection } from '../types';
+import { User } from '../users';
 
 export enum Duration {
   LAPS = 10,
@@ -145,3 +145,23 @@ export type SectionFormInput<RichText> = Overwrite<
   supplyTags: TagInput[];
   miscTags: TagInput[];
 };
+
+export type SectionEditAction =
+  | 'create'
+  | 'update'
+  | 'delete'
+  | 'media_create'
+  | 'media_delete'
+  | 'media_update';
+
+export interface SectionEditLogEntry extends Node {
+  section: Section;
+  editor: User;
+  action: SectionEditAction;
+  createdAt: string;
+}
+
+export interface SectionsEditLogFilter {
+  regionId?: string;
+  editorId?: string;
+}

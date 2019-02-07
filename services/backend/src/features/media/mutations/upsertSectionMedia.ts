@@ -1,5 +1,6 @@
 import { isInputValidResolver, TopLevelResolver } from '@apollo';
 import db, { rawUpsert } from '@db';
+import insertLog from '@features/media/mutations/insertLogs';
 import log from '@log';
 import { MEDIA, minioClient, moveTempImage, TEMP } from '@minio';
 import {
@@ -39,6 +40,13 @@ const resolver: TopLevelResolver<Vars> = async (root, vars, context) => {
       [sectionId, media, language],
     )) as MediaRaw;
     await moveTempImage(result.id, MEDIA);
+    const isCreated = result.created_at === result.updated_at;
+    await insertLog(db(), {
+      language,
+      sectionId,
+      action: isCreated ? 'media_create' : 'media_update',
+      editorId: user!.id,
+    });
     return result;
   } catch (err) {
     // foreign_key_violation - non-existing section id

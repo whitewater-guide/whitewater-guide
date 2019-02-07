@@ -3,8 +3,24 @@ export interface Node {
   id: string;
 }
 
+export interface Page {
+  __typename?: 'Page';
+  limit?: number;
+  offset?: number;
+}
+
+export interface Connection<T> {
+  __typename?: string;
+  count?: number;
+  nodes?: T[];
+}
+
 export interface NamedNode extends Node {
   name: string;
+}
+
+export interface TextSearchFilter {
+  search?: string;
 }
 
 /**

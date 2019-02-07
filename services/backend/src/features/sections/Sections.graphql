@@ -131,9 +131,26 @@ input SectionsFilter {
   updatedAfter: Date
 }
 
+type SectionEditLogEntry {
+  id: ID!
+  section: Section!
+  editor: User!
+  action: String!
+  createdAt: Date!
+}
+
+input SectionsEditLogFilter {
+  regionId: ID
+  editorId: ID
+}
+
 type Query {
   sections(page: Page, filter: SectionsFilter): SectionsList!
   section(id: ID): Section
+  sectionsEditLog(
+    filter: SectionsEditLogFilter
+    page: Page
+  ): [SectionEditLogEntry] @admin
 }
 
 type Mutation {
