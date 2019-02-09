@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-MACHINE_PREFIX=ww-production
+MACHINE_PRODUCTION=ww-production
 MACHINE_STAGING=ww-staging
 STACK_NAME=wwguide
 S3_ACCESS_KEY_ID=$(aws configure get default.aws_access_key_id)
@@ -18,6 +18,7 @@ set +o allexport
 # Step 2: Make ww-production machine produce unscheduled dump.          #
 # It will be uploaded to s3.                                            #
 #########################################################################
+echo "Creating new production dump"
 docker-machine ssh ${MACHINE_PRODUCTION} <<END-OF-BACKUP
     PGDUMP_CONTAINER=\$(docker ps -q --filter name=${STACK_NAME}_pgdump)
     IMAGEDUMP_CONTAINER=\$(docker ps -q --filter name=${STACK_NAME}_imagedump)
@@ -28,6 +29,7 @@ END-OF-BACKUP
 #########################################################################
 # Step 3: Restore this backup on staging machine                        #
 #########################################################################
+echo "Restoring staging DB"
 docker-machine ssh ${MACHINE_STAGING} <<END-OF-DB-RESTORE
     docker run -e S3_ACCESS_KEY_ID=${S3_ACCESS_KEY_ID} \
                -e S3_SECRET_ACCESS_KEY=${S3_SECRET_ACCESS_KEY} \
@@ -45,6 +47,7 @@ END-OF-DB-RESTORE
 #########################################################################
 # Step 4: Run image restore from production to staging                  #
 #########################################################################
+echo "Restoring staging images"
 docker-machine ssh ${MACHINE_STAGING} <<END-OF-IMAGE-RESTORE
     IMAGEDUMP_CONTAINER=\$(docker ps -q --filter name=${STACK_NAME}_imagedump)
     docker exec -e S3_SUBDIR=production \${IMAGEDUMP_CONTAINER} restore.sh
