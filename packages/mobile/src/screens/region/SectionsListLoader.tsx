@@ -1,18 +1,20 @@
 import {
+  getListMerger,
+  LIST_SECTIONS,
+  POLL_REGION_MEASUREMENTS,
+  PollVars,
+  RegionContext,
+  Result,
+  Vars,
+} from '@whitewater-guide/clients';
+import { applySearch } from '@whitewater-guide/commons';
+import {
   ApolloQueryResult,
   NetworkStatus,
   ObservableQuery,
 } from 'apollo-client';
 import React from 'react';
 import { WithApolloClient } from 'react-apollo';
-import { getListMerger } from '@whitewater-guide/clients';
-import {
-  POLL_REGION_MEASUREMENTS,
-  PollVars,
-  RegionContext,
-} from '@whitewater-guide/clients';
-import { LIST_SECTIONS, Result, Vars } from '@whitewater-guide/clients';
-import { applySearch } from '@whitewater-guide/commons';
 import {
   ConnectivityProps,
   InnerState,

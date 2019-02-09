@@ -1,3 +1,4 @@
+import { Section } from '@whitewater-guide/commons';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { TouchableRipple } from 'react-native-paper';
@@ -9,7 +10,6 @@ import {
 } from '../../../../components';
 import { WithTrans } from '../../../../i18n';
 import theme from '../../../../theme';
-import { Section } from '@whitewater-guide/commons';
 
 export const ITEM_HEIGHT = 72;
 
@@ -52,7 +52,7 @@ interface Props extends WithTrans {
   onPress: () => void;
 }
 
-const SectionListBody: React.StatelessComponent<Props> = ({
+const SectionListBody: React.FC<Props> = ({
   onPress,
   hasPremiumAccess,
   section,
@@ -65,9 +65,13 @@ const SectionListBody: React.StatelessComponent<Props> = ({
         difficultyXtra={section.difficultyXtra}
       />
       <View style={styles.body}>
-        <Text style={styles.riverName}>{section.river.name}</Text>
+        <Text style={styles.riverName} numberOfLines={1}>
+          {section.river.name}
+        </Text>
         <View style={styles.row}>
-          <Text style={styles.sectionName}>{section.name}</Text>
+          <Text style={styles.sectionName} numberOfLines={1}>
+            {section.name}
+          </Text>
           {section.demo && !hasPremiumAccess && (
             <View>
               <Icon

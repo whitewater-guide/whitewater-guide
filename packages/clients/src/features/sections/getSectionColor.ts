@@ -328,13 +328,13 @@ export type ColorizeSection = Pick<Section, 'flows' | 'levels'> & {
   gauge: PGauge | null;
 };
 
-export function getSectionColor(section: ColorizeSection): string {
+export function getSectionColorRaw(section: ColorizeSection): color {
   if (!section.gauge || !section.gauge.lastMeasurement) {
-    return Colors.none.string();
+    return Colors.none;
   }
   const { flow, level } = section.gauge.lastMeasurement;
   if (!flow && !level) {
-    return Colors.none.string();
+    return Colors.none;
   }
   let lastValue = 0;
   let binding: GaugeBinding | undefined;
@@ -346,7 +346,7 @@ export function getSectionColor(section: ColorizeSection): string {
     binding = section.levels;
   }
   if (!binding || !lastValue) {
-    return Colors.none.string();
+    return Colors.none;
   }
 
   const dry = getDryLevel(binding);
@@ -355,9 +355,13 @@ export function getSectionColor(section: ColorizeSection): string {
   const col = getCol(dataAndDry, lastValue);
   const result = colorTable[row][col];
   if (result === null) {
-    return mix(col, dataAndDry, lastValue).string();
+    return mix(col, dataAndDry, lastValue);
   } else if (isFunction(result)) {
-    return result(binding, lastValue).string();
+    return result(binding, lastValue);
   }
-  return (result as color).string();
+  return result as color;
+}
+
+export function getSectionColor(section: ColorizeSection): string {
+  return getSectionColorRaw(section).string();
 }

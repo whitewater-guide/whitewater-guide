@@ -1,6 +1,6 @@
+import { toRomanDifficulty } from '@whitewater-guide/clients';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { toRomanDifficulty } from '@whitewater-guide/clients';
 
 const styles = StyleSheet.create({
   container: {

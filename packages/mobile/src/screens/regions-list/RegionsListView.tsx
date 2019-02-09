@@ -1,9 +1,11 @@
+import { queryResultToList, WithList } from '@whitewater-guide/clients';
+import { Region } from '@whitewater-guide/commons';
 import React from 'react';
 import { Query, QueryResult } from 'react-apollo';
 import { FlatList, ListRenderItemInfo } from 'react-native';
+import shallowEqual from 'shallowequal';
 import { WithNetworkError } from '../../components';
-import { queryResultToList, WithList } from '@whitewater-guide/clients';
-import { Region } from '@whitewater-guide/commons';
+import theme from '../../theme';
 import container from './container';
 import { CARD_HEIGHT, RegionCard } from './RegionCard';
 import { REGIONS_LIST_QUERY, Result } from './regionsList.query';
@@ -16,8 +18,13 @@ const getItemLayout = (data: any, index: number) => ({
   offset: index * CARD_HEIGHT,
   index,
 });
+const rowsPerScreen = Math.ceil(theme.screenHeight / CARD_HEIGHT);
 
-class RegionsListView extends React.PureComponent<InnerProps> {
+class RegionsListView extends React.Component<InnerProps> {
+  shouldComponentUpdate(next: InnerProps) {
+    return next.isFocused && !shallowEqual(next, this.props);
+  }
+
   onRegionSelected = (region: Region) =>
     this.props.navigate('Region', { regionId: region.id });
 
@@ -50,6 +57,9 @@ class RegionsListView extends React.PureComponent<InnerProps> {
           keyExtractor={keyExtractor}
           refreshing={loading}
           onRefresh={refetch}
+          removeClippedSubviews={true}
+          windowSize={10}
+          initialNumToRender={rowsPerScreen}
         />
       </WithNetworkError>
     );

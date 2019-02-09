@@ -113,7 +113,7 @@ PODS:
     - React
   - react-native-maps (0.23.0):
     - React
-  - react-native-webview (5.0.6):
+  - react-native-webview (5.0.7):
     - React
   - React/Core (0.58.4):
     - yoga (= 0.58.4.React)

@@ -1,7 +1,7 @@
+import { RegionConsumer } from '@whitewater-guide/clients';
 import React from 'react';
 import { WithNetworkError } from '../../components';
 import { PureScreen } from '../../utils/navigation';
-import { RegionConsumer } from '@whitewater-guide/clients';
 import { Navigator, RegionTabs } from './RegionTabs';
 import RegionTitle from './RegionTitle';
 import { InnerProps, NavParams } from './types';

@@ -1,3 +1,8 @@
+import {
+  getMapView,
+  MapProps,
+  regionMapContainer,
+} from '@whitewater-guide/clients';
 import React from 'react';
 import ErrorBoundary from 'react-error-boundary';
 import { ErrorBoundaryFallback } from '../../../components';
@@ -8,10 +13,8 @@ import {
   SelectedSectionView,
 } from '../../../components/map';
 import { trackError } from '../../../core/errors';
-import { getMapView, MapProps } from '@whitewater-guide/clients';
-import { regionMapContainer } from '@whitewater-guide/clients';
 
-const View: React.ComponentType<MapProps> = getMapView<MapProps>(
+const View = getMapView(
   getMapLayout('region'),
   Map,
   SelectedSectionView,
@@ -21,7 +24,7 @@ const View: React.ComponentType<MapProps> = getMapView<MapProps>(
 const reportError = (error: Error, componentStack: string) =>
   trackError('region_map', error, componentStack);
 
-const RegionMap: React.StatelessComponent<MapProps> = (props) => (
+const RegionMap: React.FC<MapProps> = (props) => (
   <ErrorBoundary
     FallbackComponent={ErrorBoundaryFallback}
     onError={reportError}

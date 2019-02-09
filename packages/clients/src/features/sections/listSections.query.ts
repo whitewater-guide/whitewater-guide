@@ -14,7 +14,6 @@ export const LIST_SECTIONS = gql`
       nodes {
         ...SectionCore
         ...SectionEnds
-        ...SectionShape
         ...SectionMeasurements
         ...SectionTags
         updatedAt
@@ -24,7 +23,6 @@ export const LIST_SECTIONS = gql`
   }
   ${SectionFragments.Core}
   ${SectionFragments.Ends}
-  ${SectionFragments.Shape}
   ${SectionFragments.Measurements}
   ${SectionFragments.Tags}
 `;

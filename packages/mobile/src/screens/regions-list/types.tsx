@@ -10,4 +10,4 @@ export type InnerProps = OuterProps &
     regionsListRefreshToken: number;
     openDownloadDialog: (region: Region) => void;
     regionInProgress: string | null; // region being downloaded for offline use
-  };
+  } & { isFocused: boolean };

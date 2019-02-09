@@ -1,15 +1,24 @@
+import bearing from '@turf/bearing';
+import { bearingToAzimuth } from '@turf/helpers';
+import {
+  computeDistanceBetween,
+  getSectionColorRaw,
+  SectionComponentProps,
+} from '@whitewater-guide/clients';
 import React from 'react';
-import { Platform } from 'react-native';
 import { Circle, Marker } from 'react-native-maps';
-import { Polygon, Svg } from 'react-native-svg';
-import { SectionComponentProps } from '@whitewater-guide/clients';
-import { getSectionColor } from '@whitewater-guide/clients';
-import { computeDistanceBetween } from '@whitewater-guide/clients';
+import Svg, { Polygon } from 'react-native-svg';
 import PurePolyline from './PurePolyline';
 
 const Anchor = { x: 0.5, y: 0.5 };
 
-export class SimpleSection extends React.PureComponent<SectionComponentProps> {
+interface OwnProps {
+  renderArrowhead?: boolean;
+}
+
+type Props = SectionComponentProps & OwnProps;
+
+export class SimpleSection extends React.PureComponent<Props> {
   _radius: number;
   _center: { latitude: number; longitude: number };
 
@@ -50,27 +59,30 @@ export class SimpleSection extends React.PureComponent<SectionComponentProps> {
       return null;
     }
     const rotate =
-      (180 * Math.atan2(putInLat - takeOutLat, takeOutLng - putInLng)) /
-      Math.PI;
+      bearingToAzimuth(
+        bearing([putInLng, putInLat], [takeOutLng, takeOutLat]),
+      ) - 90;
+
     const scale = Math.min(1, (zoom - 3) / 8);
     // TODO: tracksViewChanges makes markers stick to specific zoom, but is necessary for performance on Android
+    //        tracksInfoWindowChanges={false}
+    //         tracksViewChanges={Platform.OS === 'ios'}
     return (
       <Marker
         anchor={Anchor}
         flat={false}
         onPress={this.selectSection}
         coordinate={{ longitude: takeOutLng, latitude: takeOutLat }}
-        tracksInfoWindowChanges={false}
-        tracksViewChanges={Platform.OS === 'ios'}
+        rotation={rotate}
       >
         <Svg width={24} height={24}>
           <Polygon
             originX="12"
             originY="12"
             points="7,6 22,12 7,18"
-            rotation={rotate}
             scale={scale}
             fill={color}
+            stroke={color}
           />
         </Svg>
       </Marker>
@@ -78,7 +90,7 @@ export class SimpleSection extends React.PureComponent<SectionComponentProps> {
   };
 
   render() {
-    const { section, selected, useSectionShapes } = this.props;
+    const { section, selected, useSectionShapes, renderArrowhead } = this.props;
     const {
       putIn: {
         coordinates: [putInLng, putInLat],
@@ -95,8 +107,12 @@ export class SimpleSection extends React.PureComponent<SectionComponentProps> {
             { latitude: putInLat, longitude: putInLng },
             { latitude: takeOutLat, longitude: takeOutLng },
           ];
-    const color = getSectionColor(section);
-    const fill = color.replace('hsl', 'hsla').replace(')', ',0.3)');
+    const color = getSectionColorRaw(section);
+    const fill = color // hsl
+      .string()
+      .replace('hsl', 'hsla')
+      .replace(')', ',0.3)');
+    const rgbColor = color.rgb().string();
     // if (bindings.approximate) {
     //   color = color.replace('hsl', 'hsla').replace(')', ',0.66)');
     // }
@@ -113,11 +129,11 @@ export class SimpleSection extends React.PureComponent<SectionComponentProps> {
         <PurePolyline
           tappable
           strokeWidth={selected ? 5 : 3}
-          strokeColor={color}
+          strokeColor={rgbColor}
           onPress={this.selectSection}
           coordinates={coordinates}
         />
-        {this.renderArrow(color)}
+        {renderArrowhead && this.renderArrow(rgbColor)}
       </React.Fragment>
     );
   }

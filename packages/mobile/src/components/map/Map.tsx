@@ -1,3 +1,13 @@
+import {
+  computeDistanceBetween,
+  computeOffset,
+  getBBox,
+  getBoundsDeltaRegion,
+  getBoundsZoomLevel,
+  MapBody,
+  MapComponentProps,
+} from '@whitewater-guide/clients';
+import { Coordinate } from '@whitewater-guide/commons';
 import React from 'react';
 import {
   InteractionManager,
@@ -8,21 +18,10 @@ import {
   View,
 } from 'react-native';
 import RNMapView, { Region as MapsRegion } from 'react-native-maps';
+import { withNavigationFocus } from 'react-navigation';
 import { connect } from 'react-redux';
+import shallowEqual from 'shallowequal';
 import { RootState } from '../../core/reducers';
-import {
-  MapBody,
-  MapComponentProps,
-  MapProps,
-} from '@whitewater-guide/clients';
-import {
-  computeDistanceBetween,
-  computeOffset,
-  getBBox,
-  getBoundsDeltaRegion,
-  getBoundsZoomLevel,
-} from '@whitewater-guide/clients';
-import { Coordinate } from '@whitewater-guide/commons';
 import LayersIcon from './LayersIcon';
 import { SimplePOI } from './SimplePOI';
 import { SimpleSection } from './SimpleSection';
@@ -39,11 +38,21 @@ interface State {
   showMyLocationAndroidWorkaround: boolean;
 }
 
-interface Props extends MapComponentProps {
+interface OwnProps {
+  renderArrowhead?: boolean;
+}
+
+interface FocusedProps {
+  isFocused: boolean;
+}
+
+interface ConnectProps {
   mapType?: string;
 }
 
-class MapView extends React.PureComponent<Props, State> {
+type Props = OwnProps & MapComponentProps & FocusedProps & ConnectProps;
+
+class MapView extends React.Component<Props, State> {
   _map: RNMapView | null = null;
   _mapLaidOut: boolean = false;
   _mapReady: boolean = false;
@@ -55,9 +64,19 @@ class MapView extends React.PureComponent<Props, State> {
 
   readonly state: State = { showMyLocationAndroidWorkaround: false };
 
-  constructor(props: MapComponentProps) {
+  constructor(props: Props) {
     super(props);
     this._initialRegion = getBoundsDeltaRegion(props.initialBounds);
+  }
+
+  shouldComponentUpdate(nextProps: Props, nextState: State) {
+    if (!nextProps.isFocused) {
+      return false;
+    }
+    return (
+      !shallowEqual(this.props, nextProps) ||
+      !shallowEqual(this.state, nextState)
+    );
   }
 
   async componentDidMount() {
@@ -194,6 +213,7 @@ class MapView extends React.PureComponent<Props, State> {
           showsMyLocationButton
           showsCompass
           showsScale
+          loadingEnabled
           mapType={mapType}
           ref={this.setMapRef}
           rotateEnabled={false}
@@ -218,12 +238,20 @@ class MapView extends React.PureComponent<Props, State> {
   }
 }
 
-const MapViewWithLayer = connect((state: RootState) => ({
-  mapType: state.settings.mapType,
-}))(MapView);
+const MapWithFocus: React.ComponentType<
+  MapComponentProps & ConnectProps & OwnProps
+> = withNavigationFocus(MapView as any) as any;
 
-export const Map: React.ComponentType<MapProps> = MapBody(
+const MapViewWithLayer: React.ComponentType<
+  MapComponentProps & OwnProps
+> = connect((state: RootState) => ({
+  mapType: state.settings.mapType,
+}))(MapWithFocus);
+
+export const Map = MapBody(
   MapViewWithLayer,
   SimpleSection,
   SimplePOI,
+  ({ renderArrowhead }) => ({ renderArrowhead }),
+  () => ({}),
 );

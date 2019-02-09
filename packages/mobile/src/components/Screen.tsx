@@ -18,12 +18,12 @@ const styles = StyleSheet.create({
   },
 });
 
-interface ScreenProps extends ViewProps {
+export interface ScreenProps extends ViewProps {
   noScroll?: boolean;
   noPadding?: boolean;
 }
 
-export const Screen: React.StatelessComponent<ScreenProps> = ({
+export const Screen: React.FC<ScreenProps> = ({
   children,
   style,
   noScroll,

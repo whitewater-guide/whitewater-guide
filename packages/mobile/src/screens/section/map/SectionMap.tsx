@@ -14,7 +14,7 @@ import {
 } from '../../../components/map';
 import { trackError } from '../../../core/errors';
 
-const View: React.ComponentType<MapProps> = getMapView<MapProps>(
+const View = getMapView(
   getMapLayout('section'),
   Map,
   SelectedSectionView,
@@ -24,12 +24,12 @@ const View: React.ComponentType<MapProps> = getMapView<MapProps>(
 const reportError = (error: Error, componentStack: string) =>
   trackError('section_map', error, componentStack);
 
-const SectionMap: React.StatelessComponent<MapProps> = (props) => (
+const SectionMap: React.FC<MapProps> = (props) => (
   <ErrorBoundary
     FallbackComponent={ErrorBoundaryFallback}
     onError={reportError}
   >
-    <View {...props} />
+    <View {...props} renderArrowhead={true} />
   </ErrorBoundary>
 );
 

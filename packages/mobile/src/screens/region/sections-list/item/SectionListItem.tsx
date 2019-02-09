@@ -1,10 +1,10 @@
+import { Coordinate, Section } from '@whitewater-guide/commons';
 import React from 'react';
-import { Animated, InteractionManager, StyleSheet, View } from 'react-native';
+import { Animated, StyleSheet, View } from 'react-native';
 import Interactable from 'react-native-interactable';
 import { NavigateButton } from '../../../../components';
 import { WithTrans } from '../../../../i18n';
 import theme from '../../../../theme';
-import { Coordinate, Section } from '@whitewater-guide/commons';
 import SectionListBody, { ITEM_HEIGHT } from './SectionListBody';
 
 export { ITEM_HEIGHT } from './SectionListBody';
@@ -39,23 +39,26 @@ interface Props extends WithTrans {
   onPress: (section: Section) => void;
   onMaximize?: (index: number) => void;
   canNavigate: (coordinates: Coordinate) => boolean;
-  shouldBounceOnMount: boolean;
 }
 
-export class SectionListItem extends React.PureComponent<Props> {
+export class SectionListItem extends React.Component<Props> {
   _deltaX: Animated.Value = new Animated.Value(0);
   _interactable: any = null;
-  _animatedBounce: boolean = false;
 
-  componentDidMount() {
-    this.animateInitialBounce();
+  shouldComponentUpdate(next: Readonly<Props>): boolean {
+    const props = this.props;
+    return (
+      props.index !== next.index ||
+      props.section.id !== next.section.id ||
+      props.hasPremiumAccess !== next.hasPremiumAccess ||
+      (props.index === props.swipedIndex &&
+        props.swipedIndex !== next.swipedIndex)
+    );
   }
 
   componentDidUpdate(prevProps: Props) {
-    const { shouldBounceOnMount, index, swipedIndex } = this.props;
-    if (shouldBounceOnMount) {
-      this.animateInitialBounce();
-    } else if (
+    const { index, swipedIndex } = this.props;
+    if (
       this._interactable &&
       swipedIndex !== prevProps.swipedIndex &&
       index !== swipedIndex &&
@@ -67,7 +70,6 @@ export class SectionListItem extends React.PureComponent<Props> {
 
   onInteractableMounted = (ref: any) => {
     this._interactable = ref;
-    this.animateInitialBounce();
   };
 
   onPress = () => this.props.onPress(this.props.section);
@@ -79,35 +81,9 @@ export class SectionListItem extends React.PureComponent<Props> {
   };
 
   onSnap = ({ nativeEvent: { index } }: any) => {
-    const { shouldBounceOnMount, onMaximize, index: itemIndex } = this.props;
-    if (
-      index === 1 &&
-      onMaximize &&
-      (this._animatedBounce || !shouldBounceOnMount)
-    ) {
+    const { onMaximize, index: itemIndex } = this.props;
+    if (index === 1 && onMaximize) {
       onMaximize(itemIndex);
-    }
-  };
-
-  animateInitialBounce = () => {
-    if (
-      this._interactable &&
-      !this._animatedBounce &&
-      this.props.shouldBounceOnMount
-    ) {
-      InteractionManager.runAfterInteractions(() => {
-        setTimeout(() => {
-          if (this._interactable) {
-            this._interactable.snapTo({ index: 1 });
-          }
-          setTimeout(() => {
-            if (this._interactable) {
-              this._interactable.snapTo({ index: 0 });
-              this._animatedBounce = true;
-            }
-          }, 700);
-        }, 100);
-      });
     }
   };
 

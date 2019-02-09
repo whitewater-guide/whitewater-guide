@@ -16,7 +16,9 @@ export const MapBody = <
   MapComponent: React.ComponentType<MapComponentProps & MProps>,
   SectionComponent: React.ComponentType<SectionComponentProps & SProps>,
   POIComponent: React.ComponentType<POIComponentProps & PProps>,
-): React.ComponentType<MapProps & MapProps> => {
+  passExtraSectionProps: (props: MapProps & MProps) => SProps,
+  passExtraPOIProps: (props: MapProps & MProps) => PProps,
+): React.ComponentType<MapProps & MProps> => {
   class MapBodyInternal extends React.PureComponent<
     MapProps & MProps,
     MapBodyState
@@ -44,9 +46,8 @@ export const MapBody = <
         onSectionSelected,
         zoom,
       };
-      // This is MapComponent's responsibility to pass extra SProps
-      // to its children which are SectionComponents
-      return <SectionComponent key={section.id} {...props as any} />;
+      const extraProps = passExtraSectionProps(this.props);
+      return <SectionComponent key={section.id} {...props} {...extraProps} />;
     };
 
     renderPOI = (poi: Point) => {
@@ -58,9 +59,8 @@ export const MapBody = <
         selected: selectedPOIId === poi.id,
         zoom,
       };
-      // This is MapComponent's responsibility to pass extra PProps
-      // to its children which are POIComponent
-      return <POIComponent key={poi.id} {...props as any} />;
+      const extraProps = passExtraPOIProps(this.props);
+      return <POIComponent key={poi.id} {...props} {...extraProps} />;
     };
 
     render() {

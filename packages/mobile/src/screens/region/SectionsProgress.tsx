@@ -42,7 +42,11 @@ interface State {
 class SectionsProgress extends React.PureComponent<Props & WithI18n, State> {
   readonly state: State = { status: this.props.status };
 
-  updateState: any = debounce(this.setState, 200);
+  updateState = debounce(this.setState, 200);
+
+  componentWillUnmount() {
+    this.updateState.cancel();
+  }
 
   componentWillReceiveProps(next: Props) {
     if (next.status !== this.props.status) {
