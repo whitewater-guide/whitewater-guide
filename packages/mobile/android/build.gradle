@@ -5,7 +5,7 @@ buildscript {
         compileSdkVersion   = 28
         targetSdkVersion    = 27
         minSdkVersion   = 16
-        buildToolsVersion   = "28.0.2"
+        buildToolsVersion   = "28.0.3"
         supportLibVersion   = "28.0.0"
         androidMapsUtilsVersion = "0.5+"
         googlePlayServicesVersion = "16.0.0"
@@ -18,7 +18,8 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.1'
+        // When upgraded to 3.2.1 as in RN0.58, staging build started to fail
+        classpath 'com.android.tools.build:gradle:3.1.4'
         classpath 'com.google.gms:google-services:4.0.1'
         classpath 'com.google.firebase:firebase-plugins:1.1.5'
         classpath 'io.fabric.tools:gradle:1.25.4'
