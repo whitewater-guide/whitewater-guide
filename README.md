@@ -244,7 +244,7 @@ docker run -e S3_ACCESS_KEY_ID=xxx \
 
 Notes on arguments:
 
-- **S3_ACCESS_KEY_ID** and **S3_SECRET_ACCESS_KEY** must belong to a user who has aws read access ti backups. The access key for dumper has no read permissions.
+- **S3_ACCESS_KEY_ID** and **S3_SECRET_ACCESS_KEY** must belong to a user who has aws read access to backups. The access key for dumper has no read permissions.
 - **S3_PREFIX** is **where from** the backup will be restored. When restoring at staging, set this to `production` (and vice versa)
 - **--network wwguide_default** Network must be attachable, see stack yml file for that
 - **doomsower/postgres-restore-s3:x** replace X with latest version
