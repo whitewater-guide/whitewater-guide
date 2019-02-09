@@ -1,7 +1,6 @@
-import React from 'react';
-import { MapComponentProps } from '@whitewater-guide/clients';
-import { arrayToGmaps } from '@whitewater-guide/clients';
+import { arrayToGmaps, MapComponentProps } from '@whitewater-guide/clients';
 import { Coordinate } from '@whitewater-guide/commons';
+import React from 'react';
 import GoogleMap, { InitialPosition } from './GoogleMap';
 
 export class Map extends React.Component<MapComponentProps> {
