@@ -14,8 +14,7 @@ const removeSection: TopLevelResolver<Vars> = async (
   const deleted = await db()
     .select([
       'sections_view.id as section_id',
-      'sections_view.name as old_section_name',
-      'sections_view.name as new_section_name',
+      'sections_view.name as section_name',
       'sections_view.river_id',
       'sections_view.river_name',
       'sections_view.region_id',

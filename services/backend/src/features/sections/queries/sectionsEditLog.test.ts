@@ -39,6 +39,7 @@ query sectionsEditLog($filter: SectionsEditLogFilter, $page: Page) {
       name
     }
     action
+    diff
     createdAt
   }
 }

@@ -210,14 +210,14 @@ describe('insert', () => {
     expect(entry).toMatchObject({
       id: expect.stringMatching(UUID_REGEX),
       section_id: NORWAY_SJOA_AMOT,
-      old_section_name: 'Amot',
-      new_section_name: 'Amot',
+      section_name: 'Amot',
       river_id: RIVER_SJOA,
       river_name: 'Sjoa',
       region_id: REGION_NORWAY,
       region_name: 'Norway',
       editor_id: EDITOR_NO_EC_ID,
       action: 'media_create',
+      diff: null,
       created_at: expect.any(Date),
     });
   });
@@ -303,14 +303,14 @@ describe('update', () => {
     expect(entry).toMatchObject({
       id: expect.stringMatching(UUID_REGEX),
       section_id: NORWAY_SJOA_AMOT,
-      old_section_name: 'Amot',
-      new_section_name: 'Amot',
+      section_name: 'Amot',
       river_id: RIVER_SJOA,
       river_name: 'Sjoa',
       region_id: REGION_NORWAY,
       region_name: 'Norway',
       editor_id: EDITOR_NO_EC_ID,
       action: 'media_update',
+      diff: expect.any(Object),
       created_at: expect.any(Date),
     });
   });

@@ -21,6 +21,8 @@ interface ShapeRaw {
 }
 
 export interface SectionRaw extends NamedNode, RawTimestamped {
+  language: string;
+
   alt_names: string[];
 
   river_id: string;
@@ -53,6 +55,8 @@ export interface SectionRaw extends NamedNode, RawTimestamped {
   tags: Tag[] | null;
 
   count: number | null; // window function count
+
+  created_by: string | null;
 }
 
 export interface SectionsFilter {
@@ -64,8 +68,7 @@ export interface SectionsFilter {
 export interface SectionsEditLogRaw {
   id?: string; // optional for input
   section_id: string;
-  old_section_name: string;
-  new_section_name: string;
+  section_name: string;
   river_id: string;
   river_name: string;
   region_id: string;
@@ -73,5 +76,6 @@ export interface SectionsEditLogRaw {
   editor_id: string;
   editor_name: string;
   action: SectionEditAction;
+  diff?: any;
   created_at: Date;
 }

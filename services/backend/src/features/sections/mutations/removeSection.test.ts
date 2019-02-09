@@ -104,14 +104,14 @@ describe('effects', () => {
     expect(entry).toMatchObject({
       id: expect.stringMatching(UUID_REGEX),
       section_id: id,
-      old_section_name: 'Gal_riv_1_sec_1',
-      new_section_name: 'Gal_riv_1_sec_1',
+      section_name: 'Gal_riv_1_sec_1',
       river_id: RIVER_GAL_1,
       river_name: 'Gal_Riv_One',
       region_id: REGION_GALICIA,
       region_name: 'Galicia',
       editor_id: EDITOR_GA_EC_ID,
       action: 'delete',
+      diff: null,
       created_at: expect.any(Date),
     });
   });

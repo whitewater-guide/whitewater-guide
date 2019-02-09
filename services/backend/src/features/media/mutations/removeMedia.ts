@@ -36,6 +36,7 @@ const removeMedia: TopLevelResolver<Vars> = async (
     sectionId: section_id,
     action: 'media_delete',
     editorId: user!.id,
+    diff: null,
   });
   return {
     id: result.id,

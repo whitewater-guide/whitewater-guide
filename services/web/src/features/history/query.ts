@@ -26,6 +26,7 @@ export const SECTONS_EDIT_HISTORY_QUERY = gql`
         name
       }
       action
+      diff
       createdAt
     }
   }

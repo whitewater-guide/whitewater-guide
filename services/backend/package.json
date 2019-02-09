@@ -93,6 +93,7 @@
     "graphql-type-json": "^0.2.0",
     "http-shutdown": "^1.2.0",
     "in-app-purchase": "^1.10.1",
+    "jsondiffpatch": "^0.3.11",
     "knex": "^0.16.3",
     "koa": "^2.5.3",
     "koa-bodyparser": "^4.2.1",

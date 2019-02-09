@@ -2,6 +2,7 @@ import { RawTimestamped } from '@db';
 import { MediaKind, Node, UploadLink } from '@whitewater-guide/commons';
 
 export interface MediaRaw extends Node, RawTimestamped {
+  language: string;
   kind: MediaKind;
   description: string | null;
   copyright: string | null;

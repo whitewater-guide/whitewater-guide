@@ -159,6 +159,7 @@ export interface SectionEditLogEntry extends Node {
   editor: User;
   action: SectionEditAction;
   createdAt: string;
+  diff: null | object;
 }
 
 export interface SectionsEditLogFilter {

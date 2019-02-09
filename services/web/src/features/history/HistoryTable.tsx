@@ -20,6 +20,7 @@ import {
 import { Omit } from 'type-zoo';
 import { RegionFinder } from '../regions';
 import { UserFinder } from '../users';
+import { DiffButton } from './DiffButton';
 
 interface OwnProps {
   history: SectionEditLogEntry[];
@@ -27,6 +28,7 @@ interface OwnProps {
   onUserChange: (user: NamedNode | null) => void;
   region: NamedNode | null;
   onRegionChange: (region: NamedNode | null) => void;
+  onDiffOpen: (diff: object | null) => void;
 }
 
 type Props = OwnProps &
@@ -35,7 +37,7 @@ type Props = OwnProps &
 class HistoryTable extends React.PureComponent<Props> {
   rowGetter = ({ index }: Index) => this.props.history[index];
 
-  renderCreatedAt: TableCellRenderer = ({ cellData: { createdAt } }) =>
+  renderCreatedAt: TableCellRenderer = ({ rowData: { createdAt } }) =>
     moment(createdAt).format('DD MMMM YYYY, HH:mm');
 
   renderSection: TableCellRenderer = ({ rowData: { section } }) => {
@@ -65,6 +67,13 @@ class HistoryTable extends React.PureComponent<Props> {
     );
   };
 
+  renderDiff: TableCellRenderer = ({ rowData: { diff } }) => {
+    if (!diff) {
+      return null;
+    }
+    return <DiffButton diff={diff} onDiffOpen={this.props.onDiffOpen} />;
+  };
+
   renderEditorHeader = () => (
     <UserFinder
       user={this.props.user}
@@ -89,6 +98,7 @@ class HistoryTable extends React.PureComponent<Props> {
       onUserChange,
       region,
       onRegionChange,
+      onDiffOpen,
       ...tableProps
     } = this.props;
     return (
@@ -120,6 +130,12 @@ class HistoryTable extends React.PureComponent<Props> {
           cellRenderer={this.renderSection}
         />
         <Column width={100} label="Action" dataKey="action" />
+        <Column
+          width={50}
+          label="Diff"
+          dataKey="diff"
+          cellRenderer={this.renderDiff}
+        />
         <Column
           width={300}
           label="Editor"

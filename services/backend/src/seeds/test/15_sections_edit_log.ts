@@ -20,8 +20,7 @@ const logEntries: Array<Omit<SectionsEditLogRaw, 'editor_name'>> = [
   {
     id: SECTION_EDIT_LOG_ENTRY_1,
     section_id: DELETED_SECTION_ID1,
-    old_section_name: 'deleted_section1_name',
-    new_section_name: 'deleted_section1_name',
+    section_name: 'deleted_section1_name',
     river_id: RIVER_BZHUZHA,
     river_name: 'Bzhuzha',
     region_id: REGION_GEORGIA,
@@ -33,8 +32,7 @@ const logEntries: Array<Omit<SectionsEditLogRaw, 'editor_name'>> = [
   {
     id: SECTION_EDIT_LOG_ENTRY_2,
     section_id: GEORGIA_BZHUZHA_LONG,
-    old_section_name: 'Long Race',
-    new_section_name: 'Long Race',
+    section_name: 'Long Race',
     river_id: RIVER_BZHUZHA,
     river_name: 'Bzhuzha',
     region_id: REGION_GEORGIA,
@@ -46,8 +44,7 @@ const logEntries: Array<Omit<SectionsEditLogRaw, 'editor_name'>> = [
   {
     id: SECTION_EDIT_LOG_ENTRY_3,
     section_id: GEORGIA_BZHUZHA_QUALI,
-    old_section_name: 'До шайбы',
-    new_section_name: 'Квалификация',
+    section_name: 'Квалификация',
     river_id: RIVER_BZHUZHA,
     river_name: 'Бжужа',
     region_id: REGION_GEORGIA,
@@ -59,8 +56,7 @@ const logEntries: Array<Omit<SectionsEditLogRaw, 'editor_name'>> = [
   {
     id: SECTION_EDIT_LOG_ENTRY_4,
     section_id: NORWAY_SJOA_AMOT,
-    old_section_name: 'Amot',
-    new_section_name: 'Amot',
+    section_name: 'Amot',
     river_id: RIVER_SJOA,
     river_name: 'Sjoa',
     region_id: REGION_NORWAY,

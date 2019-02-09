@@ -23,8 +23,7 @@ export const up = async (db: Knex) => {
       .defaultTo(db.raw('uuid_generate_v1mc()'))
       .primary();
     table.uuid('section_id').notNullable();
-    table.string('old_section_name').notNullable();
-    table.string('new_section_name').notNullable();
+    table.string('section_name').notNullable();
     table.uuid('river_id').notNullable();
     table.string('river_name').notNullable();
     table
@@ -38,11 +37,31 @@ export const up = async (db: Knex) => {
       .references('id')
       .inTable('users');
     table.string('action').notNullable();
+    table.json('diff');
     table
       .timestamp('created_at')
       .defaultTo(db.fn.now())
       .index();
   });
+
+  // Load created_by
+  await db.raw(`
+    INSERT INTO sections_edit_log(section_id, section_name, river_id, river_name, region_id, region_name, editor_id, action, created_at)
+    SELECT
+      id,
+      name,
+      river_id,
+      river_name,
+      region_id,
+      region_name,
+      created_by,
+      'create' as action,
+      created_at
+    FROM sections_view
+    WHERE
+      sections_view.created_by IS NOT NULL AND
+      sections_view.language = 'en'
+  `);
 };
 
 export const down = async (db: Knex) => {

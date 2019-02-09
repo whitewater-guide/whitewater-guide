@@ -136,6 +136,7 @@ type SectionEditLogEntry {
   section: Section!
   editor: User!
   action: String!
+  diff: JSON
   createdAt: Date!
 }
 

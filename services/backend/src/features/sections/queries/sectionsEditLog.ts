@@ -33,10 +33,7 @@ const sectionsEditLog: TopLevelResolver<Vars> = async (
     id: entry.id,
     section: {
       id: entry.section_id,
-      name:
-        entry.new_section_name === entry.old_section_name
-          ? entry.old_section_name
-          : `${entry.new_section_name} -> ${entry.old_section_name}`,
+      name: entry.section_name,
       region_id: entry.region_id,
       region_name: entry.region_name,
       river_id: entry.river_id,
@@ -47,6 +44,7 @@ const sectionsEditLog: TopLevelResolver<Vars> = async (
       name: entry.editor_name,
     },
     action: entry.action,
+    diff: entry.diff,
     createdAt: entry.created_at,
   }));
   return result;

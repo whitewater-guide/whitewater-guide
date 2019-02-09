@@ -44,6 +44,7 @@
     "graphql-type-json": "^0.2.1",
     "history": "^4.7.2",
     "immutability-helper": "^2.9.0",
+    "jsondiffpatch": "^0.3.11",
     "localforage": "^1.7.3",
     "lodash": "^4.17.11",
     "material-ui": "^0.20.0",

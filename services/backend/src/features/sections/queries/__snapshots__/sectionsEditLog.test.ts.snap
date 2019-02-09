@@ -6,6 +6,7 @@ Array [
     "__typename": "SectionEditLogEntry",
     "action": "update",
     "createdAt": "2017-02-04T00:00:00.000Z",
+    "diff": null,
     "editor": Object {
       "__typename": "User",
       "id": "bed59990-749d-11e7-8cf7-a6006ad3dba0",
@@ -32,6 +33,7 @@ Array [
     "__typename": "SectionEditLogEntry",
     "action": "update",
     "createdAt": "2017-02-03T00:00:00.000Z",
+    "diff": null,
     "editor": Object {
       "__typename": "User",
       "id": "bed59990-749d-11e7-8cf7-a6006ad3dba0",
@@ -41,7 +43,7 @@ Array [
     "section": Object {
       "__typename": "Section",
       "id": "f73b533c-5db4-11e8-9c2d-fa7ae01bbebc",
-      "name": "Квалификация -> До шайбы",
+      "name": "Квалификация",
       "region": Object {
         "__typename": "Region",
         "id": "8e119768-37f3-11e8-b467-0ed5f89f718b",
@@ -58,6 +60,7 @@ Array [
     "__typename": "SectionEditLogEntry",
     "action": "create",
     "createdAt": "2017-02-02T00:00:00.000Z",
+    "diff": null,
     "editor": Object {
       "__typename": "User",
       "id": "42cf6da0-5dc0-11e8-9c2d-fa7ae01bbebc",
@@ -84,6 +87,7 @@ Array [
     "__typename": "SectionEditLogEntry",
     "action": "delete",
     "createdAt": "2017-02-01T00:00:00.000Z",
+    "diff": null,
     "editor": Object {
       "__typename": "User",
       "id": "42cf6da0-5dc0-11e8-9c2d-fa7ae01bbebc",

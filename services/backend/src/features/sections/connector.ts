@@ -14,7 +14,7 @@ interface GetManyOptions extends ManyBuilderOptions<SectionRaw> {
 const FIELDS_MAP: FieldsMap<Section, SectionRaw> = {
   // premium determines description visibility
   description: ['description', 'premium', 'river_id', 'region_id', 'demo'],
-  region: 'region_id',
+  region: ['region_id', 'region_name'],
   river: ['river_id', 'river_name'],
   gauge: 'gauge_id',
   media: null,

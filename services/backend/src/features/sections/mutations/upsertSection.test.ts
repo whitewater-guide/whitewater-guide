@@ -335,14 +335,14 @@ describe('insert', () => {
     expect(entry).toMatchObject({
       id: expect.stringMatching(UUID_REGEX),
       section_id: insertedSection.id,
-      old_section_name: existingRiverSection.name,
-      new_section_name: existingRiverSection.name,
+      section_name: existingRiverSection.name,
       river_id: existingRiverSection.river.id,
       river_name: 'Sjoa',
       region_id: REGION_NORWAY,
       region_name: 'Norway',
       editor_id: EDITOR_NO_EC_ID,
       action: 'create',
+      diff: null,
       created_at: expect.any(Date),
     });
   });
@@ -469,14 +469,14 @@ describe('update', () => {
     expect(entry).toMatchObject({
       id: expect.stringMatching(UUID_REGEX),
       section_id: updateData.id,
-      old_section_name: 'Gal_riv_1_sec_1',
-      new_section_name: updateData.name,
+      section_name: updateData.name,
       river_id: updateData.river.id,
       river_name: 'Gal_Riv_One',
       region_id: REGION_GALICIA,
       region_name: 'Galicia',
       editor_id: EDITOR_GA_EC_ID,
       action: 'update',
+      diff: expect.any(Object),
       created_at: expect.any(Date),
     });
   });

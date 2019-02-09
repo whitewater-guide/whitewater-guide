@@ -11,7 +11,11 @@ interface State {
   region: NamedNode | null;
 }
 
-class HistoryTableContainer extends React.PureComponent<{}, State> {
+interface Props {
+  onDiffOpen: (diff: object | null) => void;
+}
+
+class HistoryTableContainer extends React.PureComponent<Props, State> {
   readonly state: State = { user: null, region: null };
 
   onUserChange = (user: NamedNode | null) => {
@@ -54,6 +58,7 @@ class HistoryTableContainer extends React.PureComponent<{}, State> {
                   history={history}
                   height={height}
                   width={width}
+                  onDiffOpen={this.props.onDiffOpen}
                 />
               )}
             </AutoSizer>

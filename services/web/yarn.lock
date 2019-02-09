@@ -2193,6 +2193,45 @@
     "@webassemblyjs/wast-parser" "1.7.6"
     "@xtuc/long" "4.2.1"
 
+"@whitewater-guide/clients@^0.0.196":
+  version "0.0.196"
+  resolved "https://registry.yarnpkg.com/@whitewater-guide/clients/-/clients-0.0.196.tgz#28092e95e72d3ae5caf135212b0805f067e0bdd5"
+  integrity sha512-Js6sZzIoz8pjOwk+bTfZ/vLy7/1XOOc+Gyonq/M+k1JRSRurlt2wNN97hmOeARoxi0kXnx2h1RR/vJZcwbAI4A==
+  dependencies:
+    "@whitewater-guide/commons" "^0.0.119"
+    apollo-cache-inmemory "^1.4.2"
+    apollo-client "^2.4.12"
+    apollo-link "^1.2.6"
+    apollo-link-error "^1.1.5"
+    apollo-link-http "^1.5.9"
+    apollo-link-schema "^1.1.4"
+    apollo-utilities "^1.1.2"
+    color "^3.1.0"
+    graphql "^14.1.1"
+    graphql-tag "2.10.1"
+    graphql-tools "^4.0.3"
+    graphql-type-json "^0.2.1"
+    lodash "^4.17.11"
+    moment "^2.24.0"
+    qs "^6.6.0"
+    react-apollo "^2.4.0"
+    react-error-boundary "^1.2.3"
+    recompose "^0.30.0"
+    redux "^4.0.1"
+    shallowequal "^1.1.0"
+    typescript-fsa "^3.0.0-beta-2"
+    url-parse "^1.4.4"
+
+"@whitewater-guide/commons@^0.0.119":
+  version "0.0.119"
+  resolved "https://registry.yarnpkg.com/@whitewater-guide/commons/-/commons-0.0.119.tgz#eb854321a6eaeacef014c1c37570f7c46fd4e26f"
+  integrity sha512-pV7i0+lksTbQJP26EUvWS66ynSp/5sjC11BggfzhiLrlZXD+br+acraiGEk2qgjBXnjo9SukLmWqEUjK72p2DA==
+  dependencies:
+    cron-parser "^2.7.3"
+    lodash "^4.17.11"
+    superstruct "^0.6.0"
+    validator "^10.11.0"
+
 "@whitewater-guide/md-editor@0.1.8":
   version "0.1.8"
   resolved "https://registry.yarnpkg.com/@whitewater-guide/md-editor/-/md-editor-0.1.8.tgz#d1be954a9172602c4e925c2b444f25a24bbe775f"
@@ -3778,7 +3817,7 @@ chalk@^1.1.3:
     strip-ansi "^3.0.0"
     supports-color "^2.0.0"
 
-chalk@^2.0.0, chalk@^2.0.1, chalk@^2.1.0, chalk@^2.4.1, chalk@^2.4.2:
+chalk@^2.0.0, chalk@^2.0.1, chalk@^2.1.0, chalk@^2.3.0, chalk@^2.4.1, chalk@^2.4.2:
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-2.4.2.tgz#cd42541677a54333cf541a49108c1432b44c9424"
   integrity sha512-Mti+f9lpJNcwF4tWV8/OrTTtF1gZi+f8FqlyAdouralcFWFQWF2+NgCHShjkCb+IFBLq9buZwE1xckQU4peSuQ==
@@ -4033,7 +4072,7 @@ color-string@^1.5.2:
     color-name "^1.0.0"
     simple-swizzle "^0.2.2"
 
-color@^3.0.0:
+color@^3.0.0, color@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/color/-/color-3.1.0.tgz#d8e9fb096732875774c84bf922815df0308d0ffc"
   integrity sha512-CwyopLkuRYO5ei2EpzpIh6LqJMt6Mt+jZhO5VI5f/wJLZriXQE32/SSqzmrh+QB+AZT81Cj8yv+7zwToW8ahZg==
@@ -4312,7 +4351,7 @@ create-react-class@^15.5.2, create-react-class@^15.6.0, create-react-class@^15.6
     loose-envify "^1.3.1"
     object-assign "^4.1.1"
 
-cron-parser@^2.6.0:
+cron-parser@^2.6.0, cron-parser@^2.7.3:
   version "2.7.3"
   resolved "https://registry.yarnpkg.com/cron-parser/-/cron-parser-2.7.3.tgz#12603f89f5375af353a9357be2543d3172eac651"
   integrity sha512-t9Kc7HWBWPndBzvbdQ1YG9rpPRB37Tb/tTviziUOh1qs3TARGh3b1p+tnkOHNe1K5iI3oheBPgLqwotMM7+lpg==
@@ -4914,6 +4953,11 @@ detect-port@^1.2.3:
   dependencies:
     address "^1.0.1"
     debug "^2.6.0"
+
+diff-match-patch@^1.0.0:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/diff-match-patch/-/diff-match-patch-1.0.4.tgz#6ac4b55237463761c4daf0dc603eb869124744b1"
+  integrity sha512-Uv3SW8bmH9nAtHKaKSanOQmj2DnlH65fUpcrMdfdaOxUG02QQ4YGZ8AE7kKOMisF7UqvOlGKVYWRvezdncW9lg==
 
 diff@^3.2.0:
   version "3.5.0"
@@ -6459,7 +6503,7 @@ graphql-type-json@^0.2.1:
   resolved "https://registry.yarnpkg.com/graphql-type-json/-/graphql-type-json-0.2.1.tgz#d2c177e2f1b17d87f81072cd05311c0754baa420"
   integrity sha1-0sF34vGxfYf4EHLNBTEcB1S6pCA=
 
-graphql@14.1.1:
+graphql@14.1.1, graphql@^14.1.1:
   version "14.1.1"
   resolved "https://registry.yarnpkg.com/graphql/-/graphql-14.1.1.tgz#d5d77df4b19ef41538d7215d1e7a28834619fac0"
   integrity sha512-C5zDzLqvfPAgTtP8AUPIt9keDabrdRAqSWjj2OPRKrKxI9Fb65I36s1uCs1UUBFnSWTdO7hyHi7z1ZbwKMKF6Q==
@@ -8198,6 +8242,14 @@ json5@^1.0.1:
   dependencies:
     minimist "^1.2.0"
 
+jsondiffpatch@^0.3.11:
+  version "0.3.11"
+  resolved "https://registry.yarnpkg.com/jsondiffpatch/-/jsondiffpatch-0.3.11.tgz#43f9443a0d081b5f79d413fe20f302079e493201"
+  integrity sha512-Xi3Iygdt/BGhml6bdUFhgDki1TgOsp3hG3iiH3KtzP+CahtGcdPfKRLlnZbSw+3b1umZkhmKrqXUgUcKenyhtA==
+  dependencies:
+    chalk "^2.3.0"
+    diff-match-patch "^1.0.0"
+
 jsonfile@^2.1.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/jsonfile/-/jsonfile-2.4.0.tgz#3736a2b428b87bbda0cc83b53fa3d633a35c2ae8"
@@ -9072,7 +9124,7 @@ moment-timezone@^0.5.23:
   dependencies:
     moment ">= 2.9.0"
 
-"moment@>= 2.9.0", moment@>=2.14.0, moment@^2.15.2, moment@^2.23.0:
+"moment@>= 2.9.0", moment@>=2.14.0, moment@^2.15.2, moment@^2.23.0, moment@^2.24.0:
   version "2.24.0"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
   integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
@@ -11134,7 +11186,7 @@ react-dropzone@^8.0.3:
     attr-accept "^1.1.3"
     prop-types "^15.6.2"
 
-react-error-boundary@^1.2.2:
+react-error-boundary@^1.2.2, react-error-boundary@^1.2.3:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/react-error-boundary/-/react-error-boundary-1.2.3.tgz#2b9eb8fbd4b1d90656fe769d9bad9f69a2b7b529"
   integrity sha512-3naGugvlzwcYjiqPr8o89oYHe2R5QxK6ysCQj/GvyenBvruVHu2hRsuWvjQcNbNiiOkEPYKfcMm7tV/Tfle5rA==
@@ -13324,7 +13376,7 @@ typedarray@^0.0.6, typedarray@~0.0.5:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript-fsa@^3.0.0-beta-1:
+typescript-fsa@^3.0.0-beta-1, typescript-fsa@^3.0.0-beta-2:
   version "3.0.0-beta-2"
   resolved "https://registry.yarnpkg.com/typescript-fsa/-/typescript-fsa-3.0.0-beta-2.tgz#1cc1d0c014c025fd51cba097776033ac4b6b753c"
   integrity sha512-qXkHih2XAtpxqd3AEVgFtCDwvBlAMl2miVy1TmS+wXgiRlVw7orf2qIh3C8faANhD34n75Ui8x5ydQ40uzuskA==
@@ -13645,7 +13697,7 @@ validate-npm-package-license@^3.0.1:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
 
-validator@^10.8.0:
+validator@^10.11.0, validator@^10.8.0:
   version "10.11.0"
   resolved "https://registry.yarnpkg.com/validator/-/validator-10.11.0.tgz#003108ea6e9a9874d31ccc9e5006856ccd76b228"
   integrity sha512-X/p3UZerAIsbBfN/IwahhYaBbY68EN/UQBWHtsbXGT5bfrH/p4NQzUCG1kF/rtKaNpnJ7jAu6NGTdSNtyNIXMw==

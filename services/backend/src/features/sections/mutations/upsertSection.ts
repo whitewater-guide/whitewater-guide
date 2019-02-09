@@ -2,7 +2,20 @@ import { isInputValidResolver, TopLevelResolver } from '@apollo';
 import db, { rawUpsert } from '@db';
 import { SectionRaw } from '@features/sections';
 import { SectionInput, SectionInputStruct } from '@whitewater-guide/commons';
+import { DiffPatcher } from 'jsondiffpatch';
 import { struct } from 'superstruct';
+
+const differ = new DiffPatcher({
+  propertyFilter: (name: keyof SectionRaw) => {
+    return (
+      name !== 'created_at' &&
+      name !== 'created_by' &&
+      name !== 'updated_at' &&
+      name !== 'language' &&
+      name !== 'region_name'
+    );
+  },
+});
 
 interface Vars {
   section: SectionInput;
@@ -22,17 +35,7 @@ const resolver: TopLevelResolver<Vars> = async (
     section.id,
     section.river.id,
   );
-  let oldName = 'Not translated';
-  if (section.id) {
-    // get old name for edit log
-    const oldNameRow = await db()
-      .select('name')
-      .from('sections_translations')
-      .where('section_id', section.id)
-      .where('language', language)
-      .first();
-    oldName = oldNameRow ? oldNameRow.name : oldName;
-  }
+  const oldSection = await dataSources.sections.getById(section.id);
   const result: SectionRaw = await rawUpsert(
     db(),
     'SELECT upsert_section(?, ?)',
@@ -42,14 +45,14 @@ const resolver: TopLevelResolver<Vars> = async (
     await db()
       .insert({
         section_id: result.id,
-        old_section_name: section.id ? oldName : result.name,
-        new_section_name: result.name,
+        section_name: result.name,
         river_id: result.river_id,
         river_name: result.river_name,
         region_id: result.region_id,
         region_name: result.region_name,
         action: section.id ? 'update' : 'create',
         editor_id: user!.id,
+        diff: oldSection && differ.diff(oldSection, result),
       })
       .into('sections_edit_log');
   }

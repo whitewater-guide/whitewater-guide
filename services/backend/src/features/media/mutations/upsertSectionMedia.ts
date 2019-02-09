@@ -1,6 +1,5 @@
 import { isInputValidResolver, TopLevelResolver } from '@apollo';
 import db, { rawUpsert } from '@db';
-import insertLog from '@features/media/mutations/insertLogs';
 import log from '@log';
 import { MEDIA, minioClient, moveTempImage, TEMP } from '@minio';
 import {
@@ -9,7 +8,20 @@ import {
   MediaInputStruct,
 } from '@whitewater-guide/commons';
 import { UserInputError } from 'apollo-server';
+import { DiffPatcher } from 'jsondiffpatch';
 import { MediaRaw } from '../types';
+import insertLog from './insertLogs';
+
+const differ = new DiffPatcher({
+  propertyFilter: (name: keyof MediaRaw) => {
+    return (
+      name !== 'created_at' &&
+      name !== 'created_by' &&
+      name !== 'updated_at' &&
+      name !== 'language'
+    );
+  },
+});
 
 interface Vars {
   sectionId: string;
@@ -33,6 +45,7 @@ const resolver: TopLevelResolver<Vars> = async (root, vars, context) => {
     log.error(vars.media, 'Failed to get temp file size');
   }
   const media = { ...vars.media, createdBy: user ? user.id : null, size };
+  const oldMedia = await dataSources.media.getById(media.id);
   try {
     const result: MediaRaw = (await rawUpsert(
       db(),
@@ -40,11 +53,11 @@ const resolver: TopLevelResolver<Vars> = async (root, vars, context) => {
       [sectionId, media, language],
     )) as MediaRaw;
     await moveTempImage(result.id, MEDIA);
-    const isCreated = result.created_at === result.updated_at;
     await insertLog(db(), {
       language,
       sectionId,
-      action: isCreated ? 'media_create' : 'media_update',
+      action: !oldMedia ? 'media_create' : 'media_update',
+      diff: oldMedia && differ.diff(oldMedia, result),
       editorId: user!.id,
     });
     return result;
