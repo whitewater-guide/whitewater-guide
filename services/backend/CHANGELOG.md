@@ -1,3 +1,9 @@
+## [0.0.298](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.297...@whitewater-guide/backend@0.0.298) (2019-02-09)
+
+### Features
+
+- improve sectinos edit log ([dc98194](https://github.com/doomsower/whitewater/commit/dc98194)), closes [#336](https://github.com/doomsower/whitewater/issues/336)
+
 ## [0.0.297](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.296...@whitewater-guide/backend@0.0.297) (2019-02-07)
 
 ### Bug Fixes

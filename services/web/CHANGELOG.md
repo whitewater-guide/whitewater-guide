@@ -1,3 +1,9 @@
+## [0.1.303](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.302...@whitewater-guide/web@0.1.303) (2019-02-09)
+
+### Features
+
+- improve sectinos edit log ([dc98194](https://github.com/doomsower/whitewater/commit/dc98194)), closes [#336](https://github.com/doomsower/whitewater/issues/336)
+
 ## [0.1.302](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.301...@whitewater-guide/web@0.1.302) (2019-02-09)
 
 ### Bug Fixes
