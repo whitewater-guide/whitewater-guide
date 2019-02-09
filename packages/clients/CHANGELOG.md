@@ -1,3 +1,9 @@
+## [0.0.196](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.195...@whitewater-guide/clients@0.0.196) (2019-02-09)
+
+### Performance Improvements
+
+- **mobile:** various performance optimizations ([e5d3cc8](https://github.com/doomsower/whitewater/commit/e5d3cc8))
+
 ## [0.0.195](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.194...@whitewater-guide/clients@0.0.195) (2019-02-07)
 
 ### Features

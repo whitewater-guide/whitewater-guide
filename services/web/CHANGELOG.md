@@ -1,3 +1,9 @@
+## [0.1.302](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.301...@whitewater-guide/web@0.1.302) (2019-02-09)
+
+### Bug Fixes
+
+- **web:** acomodate latest `clients` changes ([b50a426](https://github.com/doomsower/whitewater/commit/b50a426))
+
 ## [0.1.301](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.300...@whitewater-guide/web@0.1.301) (2019-02-07)
 
 ### Features

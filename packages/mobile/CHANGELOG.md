@@ -1,3 +1,9 @@
+## [1.7.1](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.0...@whitewater-guide/mobile@1.7.1) (2019-02-09)
+
+### Performance Improvements
+
+- **mobile:** various performance optimizations ([e5d3cc8](https://github.com/doomsower/whitewater/commit/e5d3cc8))
+
 # [1.7.0](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.6.16...@whitewater-guide/mobile@1.7.0) (2019-02-07)
 
 ## [1.6.16](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.6.15...@whitewater-guide/mobile@1.6.16) (2019-02-07)
