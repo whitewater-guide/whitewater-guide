@@ -19,6 +19,7 @@
     "staging:cleanup": "docker-machine ssh ww-staging < tooling/scripts/sh/staging_machine_cleanup.sh",
     "staging:images": "cat dev-mount/minio/images.tar.gz | docker-machine ssh ww-staging \"cd /var/minio/data; sudo tar xzvf -\"",
     "staging:update": "node tooling/scripts/bin/update.js --env=staging --machine=ww-staging",
+    "staging:sync": "tooling/scripts/sh/staging_sync.sh",
     "production:deploy": "node tooling/scripts/bin/deploy.js --env=production --machine=ww-production",
     "production:update": "node tooling/scripts/bin/update.js --env=production --machine=ww-production",
     "junk": "yarn trash-junk",

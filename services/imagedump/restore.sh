@@ -2,6 +2,8 @@
 
 set -e
 
+echo "Restoring images from ${S3_SUBDIR}"
+
 for bucket in avatars banners covers media; do
 
 #           --dry-run \

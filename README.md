@@ -18,6 +18,7 @@ These things need to be installed:
 - Fastlane
   - It's recommended to install ruby with `rvm` ([guide](https://medium.com/@raymondctc/fastlane-with-rvm-on-macos-147446ce0f09))
 - react-native requirements: [link](https://facebook.github.io/react-native/docs/getting-started)
+- [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/install-macos.html) (for deploying)
 
 ## Overview
 
@@ -155,6 +156,7 @@ Husky is installed in project root to ensure that hooks are properly set up afte
 | staging:cleanup   | Same as `local:cleanup`, but keeps caddy certificates dir                                                                                                                                       |
 | staging:images    | Uploads images from local dump to staging. Intermediate step to migarte images from production to staging.                                                                                      |
 | staging:update    | Updates particular service in stack (uses `docker service update`), uses version from `package.json`<br> pass package names via (mandatory) `--service` flags.                                  |
+| staging:sync      | Copies database and images from production to staging                                                                                                                                           |
 | production:deploy | Same as `staging` but for `production` environment                                                                                                                                              |
 | junk              | Recursively deletes various junk files like `.DS_store` that Mac creates                                                                                                                        |
 | postpublish       | Lerna hook to work around postpublish hook for private packages, more details above                                                                                                             |
@@ -224,6 +226,8 @@ docker-machine create -d generic \
 
 ## From production to staging
 
+Run `staging:sync`, or do it manually using dev environment as transit:
+
 ### Step 1: database
 
 ssh into docker machine and run
@@ -239,7 +243,7 @@ docker run -e S3_ACCESS_KEY_ID=xxx \
            -e POSTGRES_PASSWORD=xxxx \
            -e POSTGRES_HOST=db \
            --network wwguide_default \
-           doomsower/postgres-restore-s3:x
+           doomsower/postgres-restore-s3:latest
 ```
 
 Notes on arguments:
@@ -247,7 +251,6 @@ Notes on arguments:
 - **S3_ACCESS_KEY_ID** and **S3_SECRET_ACCESS_KEY** must belong to a user who has aws read access to backups. The access key for dumper has no read permissions.
 - **S3_PREFIX** is **where from** the backup will be restored. When restoring at staging, set this to `production` (and vice versa)
 - **--network wwguide_default** Network must be attachable, see stack yml file for that
-- **doomsower/postgres-restore-s3:x** replace X with latest version
 
 ### Step 2: images
 
