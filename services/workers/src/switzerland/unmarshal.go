@@ -1,58 +1,47 @@
 package switzerland
 
 import (
-	"encoding/xml"
-	"strconv"
-	"strings"
+  "encoding/xml"
+  "time"
 )
 
-type AKTData struct {
-	XMLName xml.Name `xml:"AKT_Data"`
-	Gauges  []Gauge  `xml:"MesPar"`
+type SwissTime struct {
+  time.Time
 }
 
-type Gauge struct {
-	XMLName  xml.Name  `xml:"MesPar"`
-	Type     string    `xml:"Typ,attr"`
-	Code     string    `xml:"StrNr,attr"`
-	Name     string    `xml:"Name"`
-	Datum    string    `xml:"Datum"`
-	Zeit     string    `xml:"Zeit"`
-	Readings []Reading `xml:"Wert"`
+func (c *SwissTime) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+  var v string
+  d.DecodeElement(&v, &start)
+  t, err := time.Parse("2006-01-02T15:04:05", v)
+  if err != nil {
+    return err
+  }
+  *c = SwissTime{t}
+  return nil
 }
 
-type Reading struct {
-	XMLName xml.Name `xml:"Wert"`
-	Type    string   `xml:"Typ,attr"`
-	Delta   string   `xml:"dt,attr"`
-	Value   float64  `xml:",chardata"`
+type SwissDataRoot struct {
+  XMLName  xml.Name       `xml:"locations"`
+  Stations []SwissStation `xml:"station"`
 }
 
-func (self *Reading) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
-	for _, attr := range start.Attr {
-		switch attr.Name.Local {
-		case "Typ":
-			self.Type = attr.Value
-		case "dt":
-			self.Delta = attr.Value
-		}
-	}
-	for {
-		token, err := d.Token()
-		if token == nil {
-			break
-		}
-		if err != nil {
-			return err
-		}
-		if v, ok := token.(xml.CharData); ok {
-			strVal := strings.Replace(string([]byte(v)), "'", "", -1)
-			f, e := strconv.ParseFloat(strVal, 64)
-			if e != nil {
-				return e
-			}
-			self.Value = f
-		}
-	}
-	return nil
+type SwissStation struct {
+  XMLName       xml.Name         `xml:"station"`
+  Code          string           `xml:"number,attr"`
+  Name          string           `xml:"name,attr"`
+  WaterBodyName string           `xml:"water-body-name,attr"`
+  WaterBodyType string           `xml:"water-body-type,attr"`
+  Easting       int              `xml:"easting,attr"`
+  Northing      int              `xml:"northing,attr"`
+  Parameters    []SwissParameter `xml:"parameter"`
+}
+
+type SwissParameter struct {
+  XMLName  xml.Name  `xml:"parameter"`
+  Type     int       `xml:"type,attr"`
+  Variant  int       `xml:"variant,attr"`
+  Name     string    `xml:"name,attr"`
+  Unit     string    `xml:"unit,attr"`
+  Datetime SwissTime `xml:"datetime"`
+  Value    float64   `xml:"value"`
 }

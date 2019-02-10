@@ -3,6 +3,7 @@ package switzerland
 import (
 	"core"
 	"github.com/spf13/pflag"
+	"math"
 )
 
 type workerSwitzerland struct{}
@@ -25,8 +26,8 @@ func (w *workerSwitzerland) Autofill() (gauges []core.GaugeInfo, err error) {
 		return nil, nil
 	}
 
+	// Workers just parse elevation
 	numGauges := len(gauges)
-	//numGauges := 10
 	numWorkers := 10
 	jobsCh := make(chan *core.GaugeInfo, numGauges)
 	resultsCh := make(chan struct{}, numGauges)
@@ -50,9 +51,12 @@ func (w *workerSwitzerland) Harvest(_ core.HarvestOptions) ([]core.Measurement, 
 	if err != nil {
 		return nil, nil
 	}
-	result := make([]core.Measurement, len(infos))
-	for i, v := range infos {
-		result[i] = v.Measurement
+	var result []core.Measurement
+	for _, m := range infos {
+		if math.IsNaN(m.Measurement.Flow) && math.IsNaN(m.Measurement.Level) {
+			continue
+		}
+		result = append(result, m.Measurement)
 	}
 	return result, nil
 }
