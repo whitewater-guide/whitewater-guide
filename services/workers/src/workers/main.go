@@ -4,6 +4,7 @@ import (
 	"all-at-once"
 	"chile"
 	"core"
+	"ecuador"
 	"flag"
 	"fmt"
 	"galicia"
@@ -134,6 +135,7 @@ func startWorkers() {
 	register(chile.NewWorkerChile)
 	register(tirol.NewWorkerTirol)
 	register(switzerland.NewWorkerSwitzerland)
+	register(ecuador.NewWorkerEcuador)
 
 	log.Info("started workers")
 }

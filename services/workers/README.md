@@ -12,8 +12,7 @@ Docker image container two binary files:
 
 Develop in docker.
 Use `yarn start` to spin up docker container with live reloading (with [realize](https://github.com/oxequa/realize)).
-Use `yarn start --name="cli"` to start cli only and cut compilation time in half
-You can then use `requests.http` file to execute requests against web-server.
+You can then use `requests.http` files to execute requests against web-server.
 Or you can bash into container and work with console.
 **Important**: This dev environment uses inmemory db instead of redis/postgres pair
 
