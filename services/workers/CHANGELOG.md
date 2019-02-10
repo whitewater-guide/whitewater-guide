@@ -1,3 +1,10 @@
+## [0.0.66](https://github.com/doomsower/whitewater/compare/@whitewater-guide/workers@0.0.65...@whitewater-guide/workers@0.0.66) (2019-02-10)
+
+### Bug Fixes
+
+- **workers:** return error when riverzone key is missing ([9a51750](https://github.com/doomsower/whitewater/commit/9a51750))
+- **workers:** skip switzerland gauges without flow or level ([abba70e](https://github.com/doomsower/whitewater/commit/abba70e))
+
 ## [0.0.65](https://github.com/doomsower/whitewater/compare/@whitewater-guide/workers@0.0.64...@whitewater-guide/workers@0.0.65) (2019-02-10)
 
 ### Bug Fixes
