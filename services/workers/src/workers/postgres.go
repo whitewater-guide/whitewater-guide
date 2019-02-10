@@ -6,7 +6,9 @@ import (
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
 	"github.com/sirupsen/logrus"
+	"math"
 	"os"
+	"strconv"
 	"time"
 )
 
@@ -63,7 +65,15 @@ func (self PostgresManager) SaveMeasurements(measurements []core.Measurement) (i
 			continue
 		}
 		count++
-		query = query + fmt.Sprintf(" ('%s', '%s', '%s', %f, %f),", m.Timestamp.Format(time.RFC3339), m.Script, m.Code, m.Flow, m.Level)
+		flowStr := strconv.FormatFloat(m.Flow, 'f', 6, 64)
+		if math.IsNaN(m.Flow) {
+			flowStr = "NULL"
+		}
+		levelStr := strconv.FormatFloat(m.Level, 'f', 6, 64)
+		if math.IsNaN(m.Level) {
+			levelStr = "NULL"
+		}
+		query = query + fmt.Sprintf(" ('%s', '%s', '%s', %s, %s),", m.Timestamp.Format(time.RFC3339), m.Script, m.Code, flowStr, levelStr)
 	}
 	if count == 0 {
 		return 0, nil
