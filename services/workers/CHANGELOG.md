@@ -1,3 +1,13 @@
+## [0.0.64](https://github.com/doomsower/whitewater/compare/@whitewater-guide/workers@0.0.63...@whitewater-guide/workers@0.0.64) (2019-02-10)
+
+### Bug Fixes
+
+- **workers:** postgres should now save NaNs as NULLs ([f9cebb1](https://github.com/doomsower/whitewater/commit/f9cebb1))
+
+### Features
+
+- **workers:** switzerland rewritten ([de92278](https://github.com/doomsower/whitewater/commit/de92278))
+
 ## [0.0.63](https://github.com/doomsower/whitewater/compare/@whitewater-guide/workers@0.0.63...@whitewater-guide/workers@0.0.63) (2019-02-03)
 
 ### Bug Fixes

@@ -1,3 +1,9 @@
+## [0.0.20](https://github.com/doomsower/whitewater/compare/@whitewater-guide/scripts@0.0.19...@whitewater-guide/scripts@0.0.20) (2019-02-10)
+
+### Bug Fixes
+
+- **scripts:** fix staging:sync ([4e32e4d](https://github.com/doomsower/whitewater/commit/4e32e4d))
+
 ## [0.0.19](https://github.com/doomsower/whitewater/compare/@whitewater-guide/scripts@0.0.18...@whitewater-guide/scripts@0.0.19) (2019-02-09)
 
 ## [0.0.18](https://github.com/doomsower/whitewater/compare/@whitewater-guide/scripts@0.0.17...@whitewater-guide/scripts@0.0.18) (2019-02-07)
