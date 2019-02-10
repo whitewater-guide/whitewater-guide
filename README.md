@@ -98,6 +98,10 @@ Env filenames follow this patter `.env.<environment_name>`.
 `.env.<environment_name>` files **are encrypted** with `git secret` and secrets **are checked in** into git.
 The files themselves are **.gitignored**
 
+For `development` environment `.env.development.local` files can be placed near corresponding `.env.development.secret` files.
+They are gitignored too. These `.env.development.local` override `.env.development` variables.
+They are generated using `dev:secrets zip` and distibuted manually when access to `git secret` is not granted.
+
 ### Shared variables
 
 Only variables shared between containers are listed here.
@@ -148,6 +152,7 @@ Husky is installed in project root to ensure that hooks are properly set up afte
 | dev:cleanup       | Deletes all images, volumes, containers so next `dev:start` starts from blank state                                                                                                             |
 | dev:start         | Runs dev environment using `docker-compose up`                                                                                                                                                  |
 | dev:images        | Downloads images from production (default, to download from staging, pass `staging` argument), also compresses them, so they can be uploaded somewhere else. Requires access to docker-machine. |
+| dev:secrets       | Utility to share secrets manually. Run `yarn dev:secrets help` for more info                                                                                                                    |
 | local:start       | creates, starts (if necessary) local machine, prepares all folders in host vm, uploads images. DOES NOT DEPLOY.                                                                                 |
 | local:cleanup     | Stops docker stack and wipes filesystem on `ww-local` docker-machine                                                                                                                            |
 | local:prepare     | Prepares `ww-local` docker machine by creating necessary dirs. Should be run every time docker-machine starts                                                                                   |

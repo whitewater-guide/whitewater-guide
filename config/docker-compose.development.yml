@@ -7,6 +7,9 @@ services:
     image: 'ww-backend:dev'
     build:
       dockerfile: Dockerfile.development
+    env_file:
+      - .env.development.local
+      - ../services/backend/.env.development.local
     ports:
       - '5775:5775'
       - '3333:3333'
@@ -90,6 +93,9 @@ services:
   caddy:
     container_name: ww-caddy
     image: 'ww-caddy:dev'
+    env_file:
+      - .env.development.local
+      - ../services/caddy/.env.development.local
     tmpfs:
       - /tmp/caddy-cache
     volumes:
@@ -124,6 +130,9 @@ services:
   workers:
     container_name: ww-workers
     image: 'ww-workers:dev'
+    env_file:
+      - .env.development.local
+      - ../services/workers/.env.development.local
     ports:
       - '7080:7080'
     volumes:

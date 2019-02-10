@@ -11,6 +11,7 @@
     "dev:cleanup": "tooling/scripts/sh/dev_cleanup.sh",
     "dev:start": "node tooling/scripts/bin/dev_start.js",
     "dev:images": "tooling/scripts/sh/dev_download_images.sh",
+    "dev:secrets": "node tooling/scripts/bin/devSecrets.js",
     "local:start": "tooling/scripts/sh/local_machine_start.sh",
     "local:cleanup": "docker-machine ssh ww-local < tooling/scripts/sh/local_machine_cleanup.sh",
     "local:prepare": "docker-machine ssh ww-local < tooling/scripts/sh/local_machine_prepare.sh",
