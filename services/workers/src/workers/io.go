@@ -68,6 +68,6 @@ func sendSuccess(res http.ResponseWriter, err error, result interface{}, logger 
 
 	encoder := json.NewEncoder(res)
 	if err = encoder.Encode(respBody); err != nil {
-		logger.Error("failed to encode result")
+		logger.WithError(err).Error("failed to encode result")
 	}
 }

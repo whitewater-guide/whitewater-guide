@@ -5,6 +5,7 @@ import (
   "encoding/xml"
   "fmt"
   "github.com/pebbe/go-proj-4/proj"
+  "math"
   "net/http"
   "os"
 )
@@ -55,64 +56,80 @@ func getLocation(station SwissStation) (loc core.Location, err error) {
   return
 }
 
+func stationToGauge(station *SwissStation, script string) (*core.GaugeInfo, error) {
+  name := station.WaterBodyName + " - " + station.Name
+  if station.WaterBodyType != "river" {
+    name += " (" + station.WaterBodyType + ")"
+  }
+
+  // there will be at most one param for flow, and at most one for flow
+  // there is test that proves this
+  var flowParam, levelParam *SwissParameter
+  for _, param := range station.Parameters {
+    switch param.Type {
+    case 10, 22:
+      scoped := param
+      flowParam = &scoped
+    case 1, 2, 28:
+      scoped := param
+      levelParam = &scoped
+    }
+  }
+
+  loc, err := getLocation(*station)
+  if err != nil {
+    return nil, err
+  }
+
+  info := &core.GaugeInfo{
+    GaugeId: core.GaugeId{
+      Code:   station.Code,
+      Script: script,
+    },
+    Name: name,
+    Url: "https://www.hydrodaten.admin.ch/en/" + station.Code + ".html",
+    Measurement: core.Measurement{
+      GaugeId: core.GaugeId{
+        Code: station.Code,
+        Script: script,
+      },
+    },
+    Location: loc,
+  }
+
+  if flowParam != nil {
+    info.FlowUnit = flowParam.Unit
+    info.Measurement.Flow = flowParam.Value
+    if math.IsNaN(info.Measurement.Flow) {
+      info.Measurement.Flow = 0.0
+    }
+    info.Measurement.Timestamp = core.HTime{Time: flowParam.Datetime.Time}
+  }
+  if levelParam != nil {
+    info.LevelUnit = levelParam.Unit
+    info.Measurement.Level = levelParam.Value
+    if math.IsNaN(info.Measurement.Level) {
+      info.Measurement.Level = 0.0
+    }
+    // it's safe to overwrite. Timestamps are equal for all the params (see tests)
+    info.Measurement.Timestamp = core.HTime{Time: levelParam.Datetime.Time}
+  }
+
+  return info, nil
+}
+
 func parseXML(script string) (result []core.GaugeInfo, err error) {
  dataRoot, err := fetchStations()
  if err != nil {
    return
  }
  for _, station := range dataRoot.Stations {
-   name := station.WaterBodyName + " - " + station.Name
-   if station.WaterBodyType != "river" {
-     name += " (" + station.WaterBodyType + ")"
-   }
-
-   // there will be at most one param for flow, and at most one for flow
-   // there is test that proves this
-   var flowParam, levelParam *SwissParameter
-   for _, param := range station.Parameters {
-     switch param.Type {
-     case 10, 22:
-       flowParam = &param
-     case 1, 2, 28:
-       levelParam = &param
-     }
-   }
-
-   var loc core.Location
-   loc, err = getLocation(station)
+   var info *core.GaugeInfo
+   info, err = stationToGauge(&station, script)
    if err != nil {
      return
    }
-
-   info := core.GaugeInfo{
-     GaugeId: core.GaugeId{
-       Code:   station.Code,
-       Script: script,
-     },
-     Name: name,
-     Url: "https://www.hydrodaten.admin.ch/de/" + station.Code + ".html",
-     Measurement: core.Measurement{
-       GaugeId: core.GaugeId{
-         Code: station.Code,
-         Script: script,
-       },
-     },
-     Location: loc,
-   }
-
-   if flowParam != nil {
-     info.FlowUnit = flowParam.Unit
-     info.Measurement.Flow = flowParam.Value
-     info.Measurement.Timestamp = core.HTime{Time: flowParam.Datetime.Time}
-   }
-   if levelParam != nil {
-     info.LevelUnit = levelParam.Unit
-     info.Measurement.Level = levelParam.Value
-     // it's safe to overwrite. Timestamps are equal for all the params (see tests)
-     info.Measurement.Timestamp = core.HTime{Time: levelParam.Datetime.Time}
-   }
-
-   result = append(result, info)
+   result = append(result, *info)
  }
  return
 }
