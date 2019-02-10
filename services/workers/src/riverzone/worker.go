@@ -24,9 +24,13 @@ func (w *workerRiverzone) FlagsToExtras(flags *pflag.FlagSet) map[string]interfa
 }
 
 func fetchStations() (*Stations, error) {
+  key := os.Getenv("RIVERZONE_KEY")
+  if key == "" {
+    return nil, fmt.Errorf("riverzone api key not found")
+  }
   req, _ := http.NewRequest("GET", "https://api.riverzone.eu/v1/stations?status=enabled", nil)
   req.Header.Set("Cache-Control", "no-cache")
-  req.Header.Set("X-Key", os.Getenv("RIVERZONE_KEY"))
+  req.Header.Set("X-Key", key)
   resp, err := core.Client.Do(req)
 
   // Hardcoded example
