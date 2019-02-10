@@ -3,17 +3,22 @@ import simpleGit from 'simple-git/promise';
 
 const preCommitHook = async () => {
   const git = simpleGit();
-  // Encrypt all secrets (only if they change = -m)
-  await git.raw(['secret', 'hide', '-m']);
-  // List all secrets
-  const rawSecrets = await git.raw(['secret', 'list']);
-  // Add secrets dir
-  const secrets = rawSecrets
-    .split('\n')
-    .filter((s) => !!s)
-    .map((s) => `${s}.secret`)
-    .concat('.gitsecret');
-  await git.add(secrets);
+  try {
+    // Encrypt all secrets (only if they change = -m)
+    await git.raw(['secret', 'hide', '-m']);
+    // List all secrets
+    const rawSecrets = await git.raw(['secret', 'list']);
+    // Add secrets dir
+    const secrets = rawSecrets
+      .split('\n')
+      .filter((s) => !!s)
+      .map((s) => `${s}.secret`)
+      .concat('.gitsecret');
+    await git.add(secrets);
+  } catch (e) {
+    console.info('Failed to hide git secrets');
+    console.info(e.message);
+  }
   await spawnSync('yarn', ['pretty-quick', '--staged'], { stdio: 'inherit' });
 };
 
