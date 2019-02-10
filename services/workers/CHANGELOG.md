@@ -1,3 +1,9 @@
+## [0.0.65](https://github.com/doomsower/whitewater/compare/@whitewater-guide/workers@0.0.64...@whitewater-guide/workers@0.0.65) (2019-02-10)
+
+### Bug Fixes
+
+- **workers:** fix switzerland NaNs ([d31ce1a](https://github.com/doomsower/whitewater/commit/d31ce1a))
+
 ## [0.0.64](https://github.com/doomsower/whitewater/compare/@whitewater-guide/workers@0.0.63...@whitewater-guide/workers@0.0.64) (2019-02-10)
 
 ### Bug Fixes
