@@ -116,6 +116,10 @@ func TestParseXML(t *testing.T) {
   assert := assert.New(t)
   result, err := parseXML("switzerland")
   if assert.NoError(err) {
-    assert.True(len(result) > 0, "should return some gauges")
+    if assert.True(len(result) > 0, "should return some gauges") {
+      for _, v := range result {
+        assert.True(v.LevelUnit != "" || v.FlowUnit != "", "gauge %s has neihter flow nor level", v.Code)
+      }
+    }
   }
 }

@@ -129,6 +129,9 @@ func parseXML(script string) (result []core.GaugeInfo, err error) {
    if err != nil {
      return
    }
+   if info.FlowUnit == "" && info.LevelUnit == "" {
+    continue
+   }
    result = append(result, *info)
  }
  return
