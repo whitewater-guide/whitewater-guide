@@ -1,3 +1,9 @@
+## [0.0.67](https://github.com/doomsower/whitewater/compare/@whitewater-guide/workers@0.0.66...@whitewater-guide/workers@0.0.67) (2019-02-10)
+
+### Features
+
+- **workers:** ecuador worker ([a9bb335](https://github.com/doomsower/whitewater/commit/a9bb335))
+
 ## [0.0.66](https://github.com/doomsower/whitewater/compare/@whitewater-guide/workers@0.0.65...@whitewater-guide/workers@0.0.66) (2019-02-10)
 
 ### Bug Fixes

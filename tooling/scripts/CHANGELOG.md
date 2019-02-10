@@ -1,3 +1,9 @@
+## [0.0.21](https://github.com/doomsower/whitewater/compare/@whitewater-guide/scripts@0.0.20...@whitewater-guide/scripts@0.0.21) (2019-02-10)
+
+### Features
+
+- **scripts:** safeguard for `git secret hide` in pre-commit ([bf97477](https://github.com/doomsower/whitewater/commit/bf97477))
+
 ## [0.0.20](https://github.com/doomsower/whitewater/compare/@whitewater-guide/scripts@0.0.19...@whitewater-guide/scripts@0.0.20) (2019-02-10)
 
 ### Bug Fixes
