@@ -1,3 +1,9 @@
+## [0.0.299](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.298...@whitewater-guide/backend@0.0.299) (2019-02-11)
+
+### Features
+
+- pagination for sections edit log ([4104574](https://github.com/doomsower/whitewater/commit/4104574))
+
 ## [0.0.298](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.297...@whitewater-guide/backend@0.0.298) (2019-02-09)
 
 ### Features
