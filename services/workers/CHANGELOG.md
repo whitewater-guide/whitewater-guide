@@ -1,3 +1,9 @@
+## [0.0.68](https://github.com/doomsower/whitewater/compare/@whitewater-guide/workers@0.0.67...@whitewater-guide/workers@0.0.68) (2019-02-11)
+
+### Bug Fixes
+
+- **workers:** fix swiss timezone ([72972ba](https://github.com/doomsower/whitewater/commit/72972ba))
+
 ## [0.0.67](https://github.com/doomsower/whitewater/compare/@whitewater-guide/workers@0.0.66...@whitewater-guide/workers@0.0.67) (2019-02-10)
 
 ### Features
