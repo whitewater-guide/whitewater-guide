@@ -5,14 +5,17 @@ import (
   "time"
 )
 
+var SwissTimezone, _ = time.LoadLocation("CET")
+
 type SwissTime struct {
   time.Time
 }
 
+
 func (c *SwissTime) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
   var v string
   d.DecodeElement(&v, &start)
-  t, err := time.Parse("2006-01-02T15:04:05", v)
+  t, err := time.ParseInLocation("2006-01-02T15:04:05", v, SwissTimezone)
   if err != nil {
     return err
   }
