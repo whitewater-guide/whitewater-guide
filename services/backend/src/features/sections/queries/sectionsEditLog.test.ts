@@ -2,9 +2,9 @@ import { holdTransaction, rollbackTransaction } from '@db';
 import { ADMIN, ADMIN_ID, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
 import { REGION_GEORGIA } from '@seeds/04_regions';
 import {
-  SECTION_EDIT_LOG_ENTRY_3,
   SECTION_EDIT_LOG_ENTRY_1,
   SECTION_EDIT_LOG_ENTRY_2,
+  SECTION_EDIT_LOG_ENTRY_3,
   SECTION_EDIT_LOG_ENTRY_4,
 } from '@seeds/15_sections_edit_log';
 import { anonContext, fakeContext, runQuery } from '@test';
@@ -16,31 +16,34 @@ afterEach(rollbackTransaction);
 const query = `
 query sectionsEditLog($filter: SectionsEditLogFilter, $page: Page) {
   sectionsEditLog(filter: $filter, page: $page) {
-    __typename
-    id
-    section {
+    nodes {
       __typename
       id
-      name
-      river {
+      section {
+        __typename
+        id
+        name
+        river {
+          __typename
+          id
+          name
+        }
+        region {
+          __typename
+          id
+          name
+        }
+      }
+      editor {
         __typename
         id
         name
       }
-      region {
-        __typename
-        id
-        name
-      }
+      action
+      diff
+      createdAt
     }
-    editor {
-      __typename
-      id
-      name
-    }
-    action
-    diff
-    createdAt
+    count
   }
 }
 `;
@@ -76,11 +79,14 @@ describe('data', () => {
       fakeContext(ADMIN),
     );
     expect(result.errors).toBeUndefined();
-    expect(result.data!.sectionsEditLog).toMatchObject([
-      {
-        id: SECTION_EDIT_LOG_ENTRY_3,
-      },
-    ]);
+    expect(result.data!.sectionsEditLog).toMatchObject({
+      count: 4,
+      nodes: [
+        {
+          id: SECTION_EDIT_LOG_ENTRY_3,
+        },
+      ],
+    });
   });
 
   it('should filter by region', async () => {
@@ -90,11 +96,14 @@ describe('data', () => {
       fakeContext(ADMIN),
     );
     expect(result.errors).toBeUndefined();
-    expect(result.data!.sectionsEditLog).toMatchObject([
-      { id: SECTION_EDIT_LOG_ENTRY_3 },
-      { id: SECTION_EDIT_LOG_ENTRY_2 },
-      { id: SECTION_EDIT_LOG_ENTRY_1 },
-    ]);
+    expect(result.data!.sectionsEditLog).toMatchObject({
+      count: 3,
+      nodes: [
+        { id: SECTION_EDIT_LOG_ENTRY_3 },
+        { id: SECTION_EDIT_LOG_ENTRY_2 },
+        { id: SECTION_EDIT_LOG_ENTRY_1 },
+      ],
+    });
   });
 
   it('should filter by editor', async () => {
@@ -104,10 +113,13 @@ describe('data', () => {
       fakeContext(ADMIN),
     );
     expect(result.errors).toBeUndefined();
-    expect(result.data!.sectionsEditLog).toMatchObject([
-      { id: SECTION_EDIT_LOG_ENTRY_4 },
-      { id: SECTION_EDIT_LOG_ENTRY_3 },
-    ]);
+    expect(result.data!.sectionsEditLog).toMatchObject({
+      count: 2,
+      nodes: [
+        { id: SECTION_EDIT_LOG_ENTRY_4 },
+        { id: SECTION_EDIT_LOG_ENTRY_3 },
+      ],
+    });
   });
 
   it('should filter by region AND editor', async () => {
@@ -117,8 +129,9 @@ describe('data', () => {
       fakeContext(ADMIN),
     );
     expect(result.errors).toBeUndefined();
-    expect(result.data!.sectionsEditLog).toMatchObject([
-      { id: SECTION_EDIT_LOG_ENTRY_3 },
-    ]);
+    expect(result.data!.sectionsEditLog).toMatchObject({
+      count: 1,
+      nodes: [{ id: SECTION_EDIT_LOG_ENTRY_3 }],
+    });
   });
 });

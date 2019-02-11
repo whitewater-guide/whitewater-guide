@@ -78,4 +78,5 @@ export interface SectionsEditLogRaw {
   action: SectionEditAction;
   diff?: any;
   created_at: Date;
+  count?: number;
 }

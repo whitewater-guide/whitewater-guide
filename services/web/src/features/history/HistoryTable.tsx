@@ -29,6 +29,7 @@ interface OwnProps {
   region: NamedNode | null;
   onRegionChange: (region: NamedNode | null) => void;
   onDiffOpen: (diff: object | null) => void;
+  registerChild: (registeredChild: any) => void;
 }
 
 type Props = OwnProps &
@@ -99,11 +100,13 @@ class HistoryTable extends React.PureComponent<Props> {
       region,
       onRegionChange,
       onDiffOpen,
+      registerChild,
       ...tableProps
     } = this.props;
     return (
       <Table
         {...tableProps as any}
+        ref={registerChild}
         rowGetter={this.rowGetter}
         rowCount={history.length}
         rowHeight={48}

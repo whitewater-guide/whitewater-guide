@@ -1,4 +1,5 @@
 import {
+  Connection,
   Page,
   SectionEditLogEntry,
   SectionsEditLogFilter,
@@ -7,27 +8,31 @@ import gql from 'graphql-tag';
 
 export const SECTONS_EDIT_HISTORY_QUERY = gql`
   query sectionsEditLog($filter: SectionsEditLogFilter, $page: Page) {
-    history: sectionsEditLog(filter: $filter, page: $page) {
-      id
-      section {
+    history: sectionsEditLog(filter: $filter, page: $page)
+      @connection(key: "history", filter: ["filter"]) {
+      nodes {
         id
-        name
-        river {
+        section {
+          id
+          name
+          river {
+            id
+            name
+          }
+          region {
+            id
+            name
+          }
+        }
+        editor {
           id
           name
         }
-        region {
-          id
-          name
-        }
+        action
+        diff
+        createdAt
       }
-      editor {
-        id
-        name
-      }
-      action
-      diff
-      createdAt
+      count
     }
   }
 `;
@@ -38,5 +43,5 @@ export interface QVars {
 }
 
 export interface QResult {
-  history: SectionEditLogEntry[] | null;
+  history: Connection<SectionEditLogEntry>;
 }

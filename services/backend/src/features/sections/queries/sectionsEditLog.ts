@@ -18,7 +18,11 @@ const sectionsEditLog: TopLevelResolver<Vars> = async (
   let query = db()
     .table('sections_edit_log')
     .innerJoin('users', 'sections_edit_log.editor_id', 'users.id')
-    .select('sections_edit_log.*', 'users.name as editor_name')
+    .select(
+      'sections_edit_log.*',
+      'users.name as editor_name',
+      db().raw('count(*) OVER()'),
+    )
     .orderBy('created_at', 'desc')
     .limit(limit)
     .offset(offset);
@@ -29,7 +33,8 @@ const sectionsEditLog: TopLevelResolver<Vars> = async (
     query = query.where('region_id', regionId);
   }
   const rawResult: SectionsEditLogRaw[] = await query;
-  const result = rawResult.map((entry) => ({
+  const count = rawResult.length ? rawResult[0].count : 0;
+  const nodes = rawResult.map((entry) => ({
     id: entry.id,
     section: {
       id: entry.section_id,
@@ -47,7 +52,7 @@ const sectionsEditLog: TopLevelResolver<Vars> = async (
     diff: entry.diff,
     createdAt: entry.created_at,
   }));
-  return result;
+  return { nodes, count };
 };
 
 export default sectionsEditLog;

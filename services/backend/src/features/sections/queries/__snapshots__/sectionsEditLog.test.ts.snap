@@ -1,114 +1,117 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`data should return all log entries 1`] = `
-Array [
-  Object {
-    "__typename": "SectionEditLogEntry",
-    "action": "update",
-    "createdAt": "2017-02-04T00:00:00.000Z",
-    "diff": null,
-    "editor": Object {
-      "__typename": "User",
-      "id": "bed59990-749d-11e7-8cf7-a6006ad3dba0",
-      "name": "Ivan Ivanov",
-    },
-    "id": "b4d42c34-5a2d-4136-b11e-35fda268f080",
-    "section": Object {
-      "__typename": "Section",
-      "id": "21f2351e-d52a-11e7-9296-cec278b6b50a",
-      "name": "Amot",
-      "region": Object {
-        "__typename": "Region",
-        "id": "b968e2b2-76c5-11e7-b5a5-be2e44b06b34",
-        "name": "Norway",
+Object {
+  "count": 4,
+  "nodes": Array [
+    Object {
+      "__typename": "SectionEditLogEntry",
+      "action": "update",
+      "createdAt": "2017-02-04T00:00:00.000Z",
+      "diff": null,
+      "editor": Object {
+        "__typename": "User",
+        "id": "bed59990-749d-11e7-8cf7-a6006ad3dba0",
+        "name": "Ivan Ivanov",
       },
-      "river": Object {
-        "__typename": "River",
-        "id": "d4396dac-d528-11e7-9296-cec278b6b50a",
-        "name": "Sjoa",
-      },
-    },
-  },
-  Object {
-    "__typename": "SectionEditLogEntry",
-    "action": "update",
-    "createdAt": "2017-02-03T00:00:00.000Z",
-    "diff": null,
-    "editor": Object {
-      "__typename": "User",
-      "id": "bed59990-749d-11e7-8cf7-a6006ad3dba0",
-      "name": "Ivan Ivanov",
-    },
-    "id": "badb7ed1-c43a-4297-842a-7f12a59501a1",
-    "section": Object {
-      "__typename": "Section",
-      "id": "f73b533c-5db4-11e8-9c2d-fa7ae01bbebc",
-      "name": "Квалификация",
-      "region": Object {
-        "__typename": "Region",
-        "id": "8e119768-37f3-11e8-b467-0ed5f89f718b",
-        "name": "Грузия",
-      },
-      "river": Object {
-        "__typename": "River",
-        "id": "b80554ba-5db4-11e8-9c2d-fa7ae01bbebc",
-        "name": "Бжужа",
+      "id": "b4d42c34-5a2d-4136-b11e-35fda268f080",
+      "section": Object {
+        "__typename": "Section",
+        "id": "21f2351e-d52a-11e7-9296-cec278b6b50a",
+        "name": "Amot",
+        "region": Object {
+          "__typename": "Region",
+          "id": "b968e2b2-76c5-11e7-b5a5-be2e44b06b34",
+          "name": "Norway",
+        },
+        "river": Object {
+          "__typename": "River",
+          "id": "d4396dac-d528-11e7-9296-cec278b6b50a",
+          "name": "Sjoa",
+        },
       },
     },
-  },
-  Object {
-    "__typename": "SectionEditLogEntry",
-    "action": "create",
-    "createdAt": "2017-02-02T00:00:00.000Z",
-    "diff": null,
-    "editor": Object {
-      "__typename": "User",
-      "id": "42cf6da0-5dc0-11e8-9c2d-fa7ae01bbebc",
-      "name": "Kaki",
-    },
-    "id": "23d7e919-77e1-412b-87d6-7420fe1c70b6",
-    "section": Object {
-      "__typename": "Section",
-      "id": "e6e0e826-5db4-11e8-9c2d-fa7ae01bbebc",
-      "name": "Long Race",
-      "region": Object {
-        "__typename": "Region",
-        "id": "8e119768-37f3-11e8-b467-0ed5f89f718b",
-        "name": "Georgia",
+    Object {
+      "__typename": "SectionEditLogEntry",
+      "action": "update",
+      "createdAt": "2017-02-03T00:00:00.000Z",
+      "diff": null,
+      "editor": Object {
+        "__typename": "User",
+        "id": "bed59990-749d-11e7-8cf7-a6006ad3dba0",
+        "name": "Ivan Ivanov",
       },
-      "river": Object {
-        "__typename": "River",
-        "id": "b80554ba-5db4-11e8-9c2d-fa7ae01bbebc",
-        "name": "Bzhuzha",
-      },
-    },
-  },
-  Object {
-    "__typename": "SectionEditLogEntry",
-    "action": "delete",
-    "createdAt": "2017-02-01T00:00:00.000Z",
-    "diff": null,
-    "editor": Object {
-      "__typename": "User",
-      "id": "42cf6da0-5dc0-11e8-9c2d-fa7ae01bbebc",
-      "name": "Kaki",
-    },
-    "id": "9ac6562b-91fa-49f2-a765-4efe3a4d2680",
-    "section": Object {
-      "__typename": "Section",
-      "id": "2bc05fa8-34d5-447a-bf55-34a9a7e726e1",
-      "name": "deleted_section1_name",
-      "region": Object {
-        "__typename": "Region",
-        "id": "8e119768-37f3-11e8-b467-0ed5f89f718b",
-        "name": "Georgia",
-      },
-      "river": Object {
-        "__typename": "River",
-        "id": "b80554ba-5db4-11e8-9c2d-fa7ae01bbebc",
-        "name": "Bzhuzha",
+      "id": "badb7ed1-c43a-4297-842a-7f12a59501a1",
+      "section": Object {
+        "__typename": "Section",
+        "id": "f73b533c-5db4-11e8-9c2d-fa7ae01bbebc",
+        "name": "Квалификация",
+        "region": Object {
+          "__typename": "Region",
+          "id": "8e119768-37f3-11e8-b467-0ed5f89f718b",
+          "name": "Грузия",
+        },
+        "river": Object {
+          "__typename": "River",
+          "id": "b80554ba-5db4-11e8-9c2d-fa7ae01bbebc",
+          "name": "Бжужа",
+        },
       },
     },
-  },
-]
+    Object {
+      "__typename": "SectionEditLogEntry",
+      "action": "create",
+      "createdAt": "2017-02-02T00:00:00.000Z",
+      "diff": null,
+      "editor": Object {
+        "__typename": "User",
+        "id": "42cf6da0-5dc0-11e8-9c2d-fa7ae01bbebc",
+        "name": "Kaki",
+      },
+      "id": "23d7e919-77e1-412b-87d6-7420fe1c70b6",
+      "section": Object {
+        "__typename": "Section",
+        "id": "e6e0e826-5db4-11e8-9c2d-fa7ae01bbebc",
+        "name": "Long Race",
+        "region": Object {
+          "__typename": "Region",
+          "id": "8e119768-37f3-11e8-b467-0ed5f89f718b",
+          "name": "Georgia",
+        },
+        "river": Object {
+          "__typename": "River",
+          "id": "b80554ba-5db4-11e8-9c2d-fa7ae01bbebc",
+          "name": "Bzhuzha",
+        },
+      },
+    },
+    Object {
+      "__typename": "SectionEditLogEntry",
+      "action": "delete",
+      "createdAt": "2017-02-01T00:00:00.000Z",
+      "diff": null,
+      "editor": Object {
+        "__typename": "User",
+        "id": "42cf6da0-5dc0-11e8-9c2d-fa7ae01bbebc",
+        "name": "Kaki",
+      },
+      "id": "9ac6562b-91fa-49f2-a765-4efe3a4d2680",
+      "section": Object {
+        "__typename": "Section",
+        "id": "2bc05fa8-34d5-447a-bf55-34a9a7e726e1",
+        "name": "deleted_section1_name",
+        "region": Object {
+          "__typename": "Region",
+          "id": "8e119768-37f3-11e8-b467-0ed5f89f718b",
+          "name": "Georgia",
+        },
+        "river": Object {
+          "__typename": "River",
+          "id": "b80554ba-5db4-11e8-9c2d-fa7ae01bbebc",
+          "name": "Bzhuzha",
+        },
+      },
+    },
+  ],
+}
 `;

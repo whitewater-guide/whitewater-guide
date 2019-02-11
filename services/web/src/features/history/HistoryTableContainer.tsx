@@ -3,7 +3,8 @@ import React from 'react';
 import { Query } from 'react-apollo';
 import { AutoSizer } from 'react-virtualized';
 import { Loading } from '../../components';
-import HistoryTable from './HistoryTable';
+
+import HistoryTableInfinite from './HistoryTableInfinite';
 import { QResult, QVars, SECTONS_EDIT_HISTORY_QUERY } from './query';
 
 interface State {
@@ -35,29 +36,28 @@ class HistoryTableContainer extends React.PureComponent<Props, State> {
     if (region) {
       variables.filter!.regionId = region.id;
     }
-    // TODO: pagination
     return (
       <Query<QResult, QVars>
         fetchPolicy="network-only"
         query={SECTONS_EDIT_HISTORY_QUERY}
         variables={variables}
       >
-        {({ data, loading }) => {
+        {({ data, loading, fetchMore }) => {
           if (loading || !data) {
             return <Loading />;
           }
-          const history = data.history || [];
           return (
             <AutoSizer rowCount={history ? history.length : 0}>
               {({ width, height }) => (
-                <HistoryTable
-                  user={user}
-                  onUserChange={this.onUserChange}
-                  region={region}
-                  onRegionChange={this.onRegionChange}
-                  history={history}
-                  height={height}
+                <HistoryTableInfinite
                   width={width}
+                  height={height}
+                  history={data.history}
+                  fetchMore={fetchMore}
+                  user={user}
+                  region={region}
+                  onUserChange={this.onUserChange}
+                  onRegionChange={this.onRegionChange}
                   onDiffOpen={this.props.onDiffOpen}
                 />
               )}

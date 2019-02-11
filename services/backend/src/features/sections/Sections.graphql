@@ -145,13 +145,18 @@ input SectionsEditLogFilter {
   editorId: ID
 }
 
+type SectionsEditLogList {
+  nodes: [SectionEditLogEntry]!
+  count: Int!
+}
+
 type Query {
   sections(page: Page, filter: SectionsFilter): SectionsList!
   section(id: ID): Section
   sectionsEditLog(
     filter: SectionsEditLogFilter
     page: Page
-  ): [SectionEditLogEntry] @admin
+  ): SectionsEditLogList! @admin
 }
 
 type Mutation {
