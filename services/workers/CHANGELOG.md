@@ -1,3 +1,9 @@
+## [0.0.71](https://github.com/doomsower/whitewater/compare/@whitewater-guide/workers@0.0.70...@whitewater-guide/workers@0.0.71) (2019-02-12)
+
+### Bug Fixes
+
+- **workers:** fix Ecuador client ([8be069b](https://github.com/doomsower/whitewater/commit/8be069b))
+
 ## [0.0.70](https://github.com/doomsower/whitewater/compare/@whitewater-guide/workers@0.0.69...@whitewater-guide/workers@0.0.70) (2019-02-12)
 
 ### Features
