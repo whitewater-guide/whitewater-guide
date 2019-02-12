@@ -20,7 +20,7 @@ func (w *workerEcuador) FlagsToExtras(flags *pflag.FlagSet) map[string]interface
 }
 
 func (w *workerEcuador) Autofill() ([]core.GaugeInfo, error) {
-  return parseList()
+  return parseList2(w.ScriptName())
 }
 
 func (w *workerEcuador) Harvest(options core.HarvestOptions) ([]core.Measurement, error) {

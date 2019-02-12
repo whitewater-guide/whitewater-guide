@@ -19,7 +19,7 @@ func TestParseMeasurement(t *testing.T)  {
         Script: "ecuador",
         Code: "H0064",
       },
-      Timestamp: core.HTime{Time: time.Date(2019, time.February, 10, 17, 0, 0, 0, ECUADOR_TIMEZONE)},
+      Timestamp: core.HTime{Time: time.Date(2019, time.February, 10, 17, 0, 0, 0, time.UTC)},
       Level: 0.35,
     }, m)
   }

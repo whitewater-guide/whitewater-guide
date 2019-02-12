@@ -7,8 +7,6 @@ import (
   "time"
 )
 
-var ECUADOR_TIMEZONE, _ = time.LoadLocation("America/Guayaquil")
-
 func findIndices(response *EcuadorRoot) (int, int, error) {
   dateIndex, valueIndex := -1, -1
   for i, v := range response.Head.Fields {
@@ -50,7 +48,7 @@ func parseMeasurement(raw []interface{}, script, code string, dateInd, valueInd 
     return core.Measurement{}, fmt.Errorf("vals element at value index is not a float")
   }
 
-  t, err := time.ParseInLocation("20060102150405", dateStr, ECUADOR_TIMEZONE)
+  t, err := time.ParseInLocation("20060102150405", dateStr, time.UTC)
   if err != nil {
     return core.Measurement{}, err
   }
@@ -65,7 +63,7 @@ func parseMeasurement(raw []interface{}, script, code string, dateInd, valueInd 
 }
 
 func parseGauge(script, code string) ([]core.Measurement, error) {
-  ts := time.Now().In(ECUADOR_TIMEZONE).UnixNano() / int64(time.Millisecond)
+  ts := time.Now().In(time.UTC).UnixNano() / int64(time.Millisecond)
   url := fmt.Sprintf("http://186.42.174.243:9090/?command=DataQuery&uri=%s%%3Ahora1&format=json&mode=most-recent&p1=1&p2=&headsig=0&order=real-time&_=%d", code, ts)
   bytes, err := fetch(url)
 

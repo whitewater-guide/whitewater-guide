@@ -5,9 +5,9 @@ import (
   "testing"
 )
 
-func TestParseList(t *testing.T)  {
+func TestParseList2(t *testing.T)  {
   assert := assert.New(t)
-  gauges, err := parseList()
+  gauges, err := parseList2("ecuador")
   if assert.NoError(err) {
     assert.True(len(gauges) > 0)
   }

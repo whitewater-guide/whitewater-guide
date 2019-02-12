@@ -113,6 +113,37 @@ const RESPONSE = `
 }
 `
 
+const RESPONSE_INAMHI=`
+[
+  {
+    "esta__id": 34,
+    "puobnomb": "COCA EN SAN SEBASTIAN",
+    "puobcodi": "H1134",
+    "provnomb": "ORELLANA",
+    "coorlati": "-0.339722",
+    "coorlong": "-77.005277",
+    "cooraltu": "320.00",
+    "esteicon": "http:\/\/maps.google.com\/mapfiles\/ms\/micons\/blue-dot.png",
+    "estenomb": "OPERATIVA",
+    "catenomb": "HIDROLOGICA",
+    "proesnomb": "INAMHI"
+  },
+  {
+    "esta__id": 63777,
+    "puobnomb": "I\u00d1AQUITO",
+    "puobcodi": "M0024",
+    "provnomb": "PICHINCHA",
+    "coorlati": "-0.175000",
+    "coorlong": "-78.485278",
+    "cooraltu": "2789.12",
+    "esteicon": "http:\/\/maps.google.com\/mapfiles\/ms\/micons\/blue-dot.png",
+    "estenomb": "OPERATIVA",
+    "catenomb": "METEOROLOGICA",
+    "proesnomb": "INAMHI"
+  }
+]
+`
+
 func TestUnmarshal(t *testing.T) {
   assert := assert.New(t)
   actual := EcuadorRoot{}
@@ -136,5 +167,27 @@ func TestUnmarshal(t *testing.T) {
       Process:  "Smp",
       Settable: false,
     }, actual.Head.Fields[0])
+  }
+}
+
+func TestUnmarshalInamhi(t *testing.T) {
+  assert := assert.New(t)
+  var actual []InamhiEmasItem
+
+  err := json.Unmarshal([]byte(RESPONSE_INAMHI), &actual)
+  if assert.NoError(err) {
+    if assert.Equal(2, len(actual)) {
+      assert.Equal(InamhiEmasItem{
+        Id: 34,
+        Name: "COCA EN SAN SEBASTIAN",
+        Code: "H1134",
+        Lat: -0.339722,
+        Lng: -77.005277,
+        Alt: 320.00,
+        Status: "OPERATIVA",
+        Category: "HIDROLOGICA",
+        Source: "INAMHI",
+      }, actual[0])
+    }
   }
 }

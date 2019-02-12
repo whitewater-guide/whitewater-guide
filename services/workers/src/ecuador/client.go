@@ -48,7 +48,7 @@ func init() {
     log.WithFields(log.Fields{"retry": retries - 1, "header": retriesStr, "proxy": proxyURL.String() }).Debug("choose proxy")
     return proxyURL, nil
   }}
-  log.WithFields(log.Fields{"proxies": proxies}).Info("Ecuador client initialized without proxies")
+  log.WithFields(log.Fields{"proxies": proxies}).Info("Ecuador client initialized with proxies")
 }
 
 func fetch(url string) (body []byte, err error) {
