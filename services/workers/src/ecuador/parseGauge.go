@@ -7,7 +7,7 @@ import (
   "time"
 )
 
-var ECUADOR_TIMEZONE = time.FixedZone("UTC-5", -5*60*60)
+var ECUADOR_TIMEZONE, _ = time.LoadLocation("America/Guayaquil")
 
 func findIndices(response *EcuadorRoot) (int, int, error) {
   dateIndex, valueIndex := -1, -1
