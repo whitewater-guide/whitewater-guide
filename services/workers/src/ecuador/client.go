@@ -20,6 +20,7 @@ func init() {
   proxiesStr := os.Getenv("ECUADOR_PROXIES")
   if proxiesStr == "" {
     client = core.Client
+    log.Info("Ecuador client initialized without proxies")
     return
   }
   proxies = strings.Split(proxiesStr, ",")
@@ -44,9 +45,10 @@ func init() {
     if err != nil {
       return nil, err
     }
-    log.WithFields(log.Fields{"retry": retries - 1, "header": retriesStr, "proxy": proxyURL.String() }).Info("choose proxy")
+    log.WithFields(log.Fields{"retry": retries - 1, "header": retriesStr, "proxy": proxyURL.String() }).Debug("choose proxy")
     return proxyURL, nil
   }}
+  log.WithFields(log.Fields{"proxies": proxies}).Info("Ecuador client initialized without proxies")
 }
 
 func fetch(url string) (body []byte, err error) {
@@ -57,8 +59,7 @@ func fetch(url string) (body []byte, err error) {
       req, _ := http.NewRequest("GET", url, nil)
       req.Header.Set("X-Proxy-Retries", strconv.Itoa(retries))
       retries = retries - 1
-      resp, err := core.Client.Do(req)
-
+      resp, err := client.Do(req)
 
       if err == nil {
         defer func() {
