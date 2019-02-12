@@ -1,3 +1,9 @@
+## [0.0.72](https://github.com/doomsower/whitewater/compare/@whitewater-guide/workers@0.0.71...@whitewater-guide/workers@0.0.72) (2019-02-12)
+
+### Features
+
+- **ecuador:** alternative gauges list ([fcf2527](https://github.com/doomsower/whitewater/commit/fcf2527))
+
 ## [0.0.71](https://github.com/doomsower/whitewater/compare/@whitewater-guide/workers@0.0.70...@whitewater-guide/workers@0.0.71) (2019-02-12)
 
 ### Bug Fixes
