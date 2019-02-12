@@ -30,7 +30,7 @@ export const getApolloClient = async () => {
     apolloClient = new ApolloClient({
       link,
       cache: inMemoryCache,
-      connectToDevTools: process.env.NODE_ENV === 'development',
+      connectToDevTools: __DEV__,
       defaultOptions: {
         mutate: {
           errorPolicy: 'all',
