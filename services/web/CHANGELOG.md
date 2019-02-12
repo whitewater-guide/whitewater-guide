@@ -1,3 +1,9 @@
+## [0.1.305](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.304...@whitewater-guide/web@0.1.305) (2019-02-12)
+
+### Bug Fixes
+
+- **web:** fix generateSourceSchedule ([865309d](https://github.com/doomsower/whitewater/commit/865309d))
+
 ## [0.1.304](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.303...@whitewater-guide/web@0.1.304) (2019-02-11)
 
 ### Features
