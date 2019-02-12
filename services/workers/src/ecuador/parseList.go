@@ -9,12 +9,12 @@ import (
 const LIST_URL = "http://186.42.174.243:9090/RTMCProject.js.jgz"
 
 func parseList() ([]core.GaugeInfo, error) {
-  raw, err := core.Client.GetAsString(LIST_URL)
+  raw, err := fetch(LIST_URL)
   if err != nil {
     return nil, err
   }
   r := regexp.MustCompile(`"(.*)\s(H\d{4})";`)
-  matches := r.FindAllStringSubmatch(raw, -1)
+  matches := r.FindAllStringSubmatch(string(raw), -1)
   var result []core.GaugeInfo
   for _, m := range matches {
     name := strings.Title(strings.ToLower(m[1]))

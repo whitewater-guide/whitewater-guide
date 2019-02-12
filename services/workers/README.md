@@ -22,22 +22,23 @@ In dev environment code from https://github.com/nickpresta/chameleon is used cac
 
 Container makes use of following env variables:
 
-| Name                 | Default value             | Desription                                                                                        |
-| -------------------- | ------------------------- | ------------------------------------------------------------------------------------------------- |
-| WORKERS_PORT         | 7080                      | Port to listen on                                                                                 |
-| WORKERS_ENDPOINT     | /endpoint                 | Path where to accept requests                                                                     |
-| WORKERS_LOG_LEVEL    | debug                     | Log level string, the one that [logrus](https://github.com/sirupsen/logrus#level-logging) accepts |
-| WORKERS_LOG_JSON     |                           | If true, logs are printed as JSON                                                                 |
-| WORKERS_USER_AGENT   | whitewater.guide robot    | User agent to set on all requests to sources                                                      |
-| WORKERS_ENV          | development or production | In development mode requests are cached                                                           |
-| POSTGRES_HOST        |                           | (**required**) Postgres connection details - host                                                 |
-| POSTGES_DB           |                           | (**required**) Postgres connection details - database name                                        |
-| POSTGRES_PASSWORD    |                           | (**required**) Postgres connection details - password                                             |
-| REDIS_HOST           | redis                     | Redis connection details - host                                                                   |
-| REDIS_PORT           | 6379                      | Redis connection details - port                                                                   |
-| RIVERZONE_KEY        |                           | riverzone.eu access key                                                                           |
-| SWITZERLAND_USER     | <username>                | Username for https://www.hydrodaten.admin.ch                                                      |
-| SWITZERLAND_PASSWORD | <password>                | Password for https://www.hydrodaten.admin.ch                                                      |
+| Name                 | Default value             | Desription                                                                                                                                                                                                                                    |
+| -------------------- | ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| WORKERS_PORT         | 7080                      | Port to listen on                                                                                                                                                                                                                             |
+| WORKERS_ENDPOINT     | /endpoint                 | Path where to accept requests                                                                                                                                                                                                                 |
+| WORKERS_LOG_LEVEL    | debug                     | Log level string, the one that [logrus](https://github.com/sirupsen/logrus#level-logging) accepts                                                                                                                                             |
+| WORKERS_LOG_JSON     |                           | If true, logs are printed as JSON                                                                                                                                                                                                             |
+| WORKERS_USER_AGENT   | whitewater.guide robot    | User agent to set on all requests to sources                                                                                                                                                                                                  |
+| WORKERS_ENV          | development or production | In development mode requests are cached                                                                                                                                                                                                       |
+| POSTGRES_HOST        |                           | (**required**) Postgres connection details - host                                                                                                                                                                                             |
+| POSTGES_DB           |                           | (**required**) Postgres connection details - database name                                                                                                                                                                                    |
+| POSTGRES_PASSWORD    |                           | (**required**) Postgres connection details - password                                                                                                                                                                                         |
+| REDIS_HOST           | redis                     | Redis connection details - host                                                                                                                                                                                                               |
+| REDIS_PORT           | 6379                      | Redis connection details - port                                                                                                                                                                                                               |
+| RIVERZONE_KEY        |                           | riverzone.eu access key                                                                                                                                                                                                                       |
+| SWITZERLAND_USER     | <username>                | Username for https://www.hydrodaten.admin.ch                                                                                                                                                                                                  |
+| SWITZERLAND_PASSWORD | <password>                | Password for https://www.hydrodaten.admin.ch                                                                                                                                                                                                  |
+| ECUADOR_PROXIES      | 1.1.1.1:9090,2.2.2.2:9999 | List of HTTP proxies for Ecuador. For some reason traffic is often blocked by intermediate node. <br/> Ecuador has tons of proxies. Check [this](https://proxydb.net/?protocol=http&min_uptime=75&max_response_time=5&country=EC) for example |
 
 So most likely you should send your requests to `http://workers:7080/endpoint`
 

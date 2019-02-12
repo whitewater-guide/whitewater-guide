@@ -67,14 +67,14 @@ func parseMeasurement(raw []interface{}, script, code string, dateInd, valueInd 
 func parseGauge(script, code string) ([]core.Measurement, error) {
   ts := time.Now().In(ECUADOR_TIMEZONE).UnixNano() / int64(time.Millisecond)
   url := fmt.Sprintf("http://186.42.174.243:9090/?command=DataQuery&uri=%s%%3Ahora1&format=json&mode=most-recent&p1=1&p2=&headsig=0&order=real-time&_=%d", code, ts)
-  resp, err := core.Client.Get(url)
+  bytes, err := fetch(url)
 
   if err != nil {
     return nil, err
   }
-  defer resp.Body.Close()
+
   response := &EcuadorRoot{}
-  err = json.NewDecoder(resp.Body).Decode(response)
+  err = json.Unmarshal(bytes, response)
   if err != nil {
     return nil, err
   }
