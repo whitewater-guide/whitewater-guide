@@ -1,3 +1,9 @@
+## [0.0.69](https://github.com/doomsower/whitewater/compare/@whitewater-guide/workers@0.0.68...@whitewater-guide/workers@0.0.69) (2019-02-12)
+
+### Features
+
+- **workers:** proxies for Ecuador ([3d38a5d](https://github.com/doomsower/whitewater/commit/3d38a5d))
+
 ## [0.0.68](https://github.com/doomsower/whitewater/compare/@whitewater-guide/workers@0.0.67...@whitewater-guide/workers@0.0.68) (2019-02-11)
 
 ### Bug Fixes
