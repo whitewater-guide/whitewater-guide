@@ -44,6 +44,7 @@ func init() {
     if err != nil {
       return nil, err
     }
+    log.WithFields(log.Fields{"retry": retries - 1, "header": retriesStr, "proxy": proxyURL.String() }).Info("choose proxy")
     return proxyURL, nil
   }}
 }
