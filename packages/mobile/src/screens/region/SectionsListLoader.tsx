@@ -9,6 +9,7 @@ import {
 } from '@whitewater-guide/clients';
 import { applySearch } from '@whitewater-guide/commons';
 import {
+  ApolloClient,
   ApolloQueryResult,
   NetworkStatus,
   ObservableQuery,
@@ -212,6 +213,9 @@ export class SectionsListLoader extends React.PureComponent<Props, InnerState> {
       pollInterval,
       fetchPolicy: 'network-only',
     });
+    // startPolling uses setInterval internally, therefore query is not fetched immediately
+    // https://github.com/apollographql/apollo-client/issues/4439
+    await this._pollQuery.result();
     await this._pollQuery.startPolling(pollInterval);
   };
 
