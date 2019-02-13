@@ -79,6 +79,8 @@ services:
   # Minio to store images
   minio:
     container_name: ww-minio
+    env_file:
+      - .env.development.local
     ports:
       - '9001:9000'
     volumes:
