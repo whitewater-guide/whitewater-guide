@@ -25,7 +25,10 @@ const listRecursive = (
   for (const item of content) {
     const itemPath = resolve(dir, item);
     const stats = statSync(itemPath);
-    if (stats.isFile() && item === '.env.development') {
+    if (
+      stats.isFile() &&
+      (item === '.env.development' || item === '.env.test')
+    ) {
       envs.set(itemPath, parse(readFileSync(itemPath)));
     }
     if (stats.isDirectory() && depth > 0) {
@@ -40,9 +43,14 @@ const generateEmptiesRecursive = (dir: string, depth: number) => {
     const itemPath = resolve(dir, item);
     const stats = statSync(itemPath);
     if (stats.isFile() && item === '.env.development.secret') {
-      closeSync(openSync(resolve(dir, '.env.development.local'), 'w'));
-    }
-    if (stats.isDirectory() && depth > 0) {
+      const devLocal = resolve(dir, '.env.development.local');
+      console.info(`Generated ${devLocal}`);
+      closeSync(openSync(devLocal, 'w'));
+    } else if (stats.isFile() && item === '.env.test.secret') {
+      const testLocal = resolve(dir, '.env.test.local');
+      console.info(`Generated ${testLocal}`);
+      closeSync(openSync(testLocal, 'w'));
+    } else if (stats.isDirectory() && depth > 0) {
       generateEmptiesRecursive(itemPath, depth - 1);
     }
   }
@@ -92,7 +100,10 @@ const zipRecursive = (dir: string, zip: JSZip, depth: number) => {
   for (const item of content) {
     const itemPath = resolve(dir, item);
     const stats = statSync(itemPath);
-    if (stats.isFile() && item === '.env.development') {
+    if (
+      stats.isFile() &&
+      (item === '.env.development' || item === '.env.test')
+    ) {
       folder.file(item + '.local', wipeSecrets(itemPath));
     }
     if (stats.isDirectory() && depth > 0) {
