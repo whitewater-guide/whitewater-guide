@@ -113,7 +113,7 @@ PODS:
     - React
   - react-native-maps (0.23.0):
     - React
-  - react-native-webview (5.0.7):
+  - react-native-webview (5.2.1):
     - React
   - React/Core (0.58.4):
     - yoga (= 0.58.4.React)
@@ -255,8 +255,8 @@ SPEC CHECKSUMS:
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
   React: 9b873b38b92ed8012d7cdf3b965477095ed364c4
-  react-native-google-maps: b946d62e25dc66097921ed82520e45b0b081768a
-  react-native-maps: 066c2afcc89e18726377bcc685315f989ca22449
+  react-native-google-maps: 77af0fa3b5325c72c107d054677911f6e6170496
+  react-native-maps: bb480348a3fe1e5a811fed1ba3387b329161c5cc
   react-native-webview: a42108b827082f8f0333529b0772102031d5960d
   RNFS: bbb1a64eb245763daf34aea86f97c97c4e85f74c
   RNGestureHandler: afde2addc517e85cc97a25bfe119acbee779a7ce
