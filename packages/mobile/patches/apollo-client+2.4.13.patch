@@ -1,0 +1,24 @@
+diff --git a/node_modules/apollo-client/bundle.umd.js b/node_modules/apollo-client/bundle.umd.js
+index 5982851..5c2da1e 100644
+--- a/node_modules/apollo-client/bundle.umd.js
++++ b/node_modules/apollo-client/bundle.umd.js
+@@ -269,9 +269,10 @@
+                 throw new Error('updateQuery option is required. This function defines how to update the query data with the new results.');
+             }
+             var combinedOptions;
++            var qid;
+             return Promise.resolve()
+                 .then(function () {
+-                var qid = _this.queryManager.generateQueryId();
++                qid = _this.queryManager.generateQueryId();
+                 if (fetchMoreOptions.query) {
+                     combinedOptions = fetchMoreOptions;
+                 }
+@@ -288,6 +289,7 @@
+                         variables: combinedOptions.variables,
+                     });
+                 });
++                _this.queryManager.stopQuery(qid);
+                 return fetchMoreResult;
+             });
+         };
