@@ -7,7 +7,7 @@ import (
 
 func TestParseList(t *testing.T)  {
   assert := assert.New(t)
-  gauges, err := parseList()
+  gauges, err := parseList("ecuador")
   if assert.NoError(err) {
     assert.True(len(gauges) > 0)
   }

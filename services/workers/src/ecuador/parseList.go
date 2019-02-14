@@ -8,7 +8,7 @@ import (
 
 const LIST_URL = "http://186.42.174.243:9090/RTMCProject.js.jgz"
 
-func parseList() ([]core.GaugeInfo, error) {
+func parseList(script string) ([]core.GaugeInfo, error) {
   raw, err := fetch(LIST_URL)
   if err != nil {
     return nil, err
@@ -23,7 +23,7 @@ func parseList() ([]core.GaugeInfo, error) {
       gauge := core.GaugeInfo{
         GaugeId: core.GaugeId{
           Code:   code,
-          Script: "ecuador",
+          Script: script,
         },
         LevelUnit: "m",
         Name:      name,
