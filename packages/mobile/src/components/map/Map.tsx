@@ -53,11 +53,10 @@ interface ConnectProps {
 type Props = OwnProps & MapComponentProps & FocusedProps & ConnectProps;
 
 class MapView extends React.Component<Props, State> {
-  _map: RNMapView | null = null;
+  _map = React.createRef<RNMapView>();
   _mapLaidOut: boolean = false;
   _mapReady: boolean = false;
   _initialUserLocation: { latitude: number; longitude: number } | undefined;
-  _bounds: Coordinate[] = [];
   _dimensions: { width: number; height: number } = { width: 0, height: 0 };
   _initialRegion: any;
   _initialRegionSet: boolean = false;
@@ -101,20 +100,11 @@ class MapView extends React.Component<Props, State> {
     }
   };
 
-  onRegionChange = (region: MapsRegion) => {
-    this._bounds = [
-      [
-        region.longitude - region.longitudeDelta,
-        region.latitude - region.latitudeDelta,
-      ],
-      [
-        region.longitude + region.longitudeDelta,
-        region.latitude + region.latitudeDelta,
-      ],
-    ];
-    const zoomLevel = getBoundsZoomLevel(this._bounds, this._dimensions);
-    this.props.onZoom(zoomLevel);
-    // this.props.onBoundsSelected(this._bounds);
+  onRegionChange = async () => {
+    if (this._map.current) {
+      const camera = await this._map.current.getCamera();
+      this.props.onZoom(camera.zoom);
+    }
   };
 
   onMapLayout = ({
@@ -123,7 +113,7 @@ class MapView extends React.Component<Props, State> {
     },
   }: LayoutChangeEvent) => {
     this._dimensions = { width, height };
-    if (this._map && !this._mapLaidOut) {
+    if (this._map.current && !this._mapLaidOut) {
       this._mapLaidOut = true;
       this.setLocationAndRegion();
     }
@@ -144,15 +134,11 @@ class MapView extends React.Component<Props, State> {
     }
   };
 
-  setMapRef = (ref: RNMapView) => {
-    this._map = ref;
-  };
-
   setLocationAndRegion = () => {
-    if (this._map && this._mapReady && this._mapLaidOut) {
+    if (this._map.current && this._mapReady && this._mapLaidOut) {
       this.setState({ showMyLocationAndroidWorkaround: true }, () => {
         if (this.props.initialBounds) {
-          this._map!.fitToCoordinates(
+          this._map.current!.fitToCoordinates(
             this.props.initialBounds.map(([longitude, latitude]) => ({
               longitude,
               latitude,
@@ -178,17 +164,17 @@ class MapView extends React.Component<Props, State> {
     const { latitude, longitude } = this._initialUserLocation;
     const [minLng, maxLng, minLat, maxLat] = getBBox(this.props.initialBounds);
     if (
-      this._map &&
+      this._map.current &&
       latitude >= minLat &&
       latitude <= maxLat &&
       longitude >= minLng &&
       longitude <= maxLng
     ) {
       if (computeDistanceBetween([minLng, minLat], [maxLng, maxLat]) < 150) {
-        this._map.animateToCoordinate({ latitude, longitude }, 300);
+        this._map.current.animateToCoordinate({ latitude, longitude }, 300);
       } else {
         const corner = computeOffset({ latitude, longitude }, 200, -45);
-        this._map.animateToRegion(
+        this._map.current.animateToRegion(
           {
             latitude,
             longitude,
@@ -215,7 +201,7 @@ class MapView extends React.Component<Props, State> {
           showsScale
           loadingEnabled
           mapType={mapType}
-          ref={this.setMapRef}
+          ref={this._map}
           rotateEnabled={false}
           pitchEnabled={false}
           toolbarEnabled={false}
