@@ -1,3 +1,9 @@
+## [0.0.73](https://github.com/doomsower/whitewater/compare/@whitewater-guide/workers@0.0.72...@whitewater-guide/workers@0.0.73) (2019-02-14)
+
+### Features
+
+- **workers:** merge both ecuadorian lists ([a21091d](https://github.com/doomsower/whitewater/commit/a21091d))
+
 ## [0.0.72](https://github.com/doomsower/whitewater/compare/@whitewater-guide/workers@0.0.71...@whitewater-guide/workers@0.0.72) (2019-02-12)
 
 ### Features

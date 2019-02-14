@@ -1,3 +1,10 @@
+## [1.7.4](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.3...@whitewater-guide/mobile@1.7.4) (2019-02-14)
+
+### Bug Fixes
+
+- **mobile:** kick-start `startPolling` sections ([4c7bbdf](https://github.com/doomsower/whitewater/commit/4c7bbdf)), closes [#316](https://github.com/doomsower/whitewater/issues/316)
+- **mobile:** patch-package for apollo-client ([2964364](https://github.com/doomsower/whitewater/commit/2964364))
+
 ## [1.7.3](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.2...@whitewater-guide/mobile@1.7.3) (2019-02-09)
 
 ## [1.7.2](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.1...@whitewater-guide/mobile@1.7.2) (2019-02-09)
