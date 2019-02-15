@@ -24,8 +24,9 @@
     "production:deploy": "node tooling/scripts/bin/deploy.js --env=production --machine=ww-production",
     "production:update": "node tooling/scripts/bin/update.js --env=production --machine=ww-production",
     "junk": "yarn trash-junk",
+    "preversion": "lerna changed --all --json > lerna-changed.json",
     "postpublish": "lerna run --concurrency 1 postpublish:global",
-    "pub": "yarn lerna publish --concurrency 1"
+    "pub": "lerna publish --concurrency 1"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^7.5.0",
