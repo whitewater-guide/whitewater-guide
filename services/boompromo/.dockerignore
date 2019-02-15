@@ -3,3 +3,9 @@
 /src/
 /public/
 /build/dist/
+CHANGELOG.md
+package.json
+yarn.lock
+yarn-error.log
+README.md
+tsconfig.json

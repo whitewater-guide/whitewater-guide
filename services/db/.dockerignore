@@ -5,3 +5,5 @@ package.json
 /config/*.bak
 /scripts
 /.env
+CHANGELOG.md
+README.md
