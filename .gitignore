@@ -4,3 +4,4 @@ node_modules/
 *.iml
 .gitsecret/keys/random_seed
 /dev-mount/
+/services/backend/merged-schema.graphql
