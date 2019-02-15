@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/web",
   "private": true,
-  "version": "0.1.305",
+  "version": "0.1.306",
   "license": "UNLICENSED",
   "homepage": "/admin/",
   "scripts": {
