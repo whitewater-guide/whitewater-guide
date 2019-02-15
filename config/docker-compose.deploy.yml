@@ -9,7 +9,7 @@ services:
     image: '${DOCKER_REGISTRY_PREFIX}backend:${BACKEND_VERSION}'
     read_only: true
     build:
-      dockerfile: Dockerfile.production
+      dockerfile: Dockerfile
     volumes:
       - type: bind
         source: /var/pm2
