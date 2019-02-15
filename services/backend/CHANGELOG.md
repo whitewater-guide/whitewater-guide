@@ -1,3 +1,9 @@
+## [0.0.305](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.303...@whitewater-guide/backend@0.0.305) (2019-02-15)
+
+### Features
+
+- **backend:** connect to apollo engine ([be2896e](https://github.com/doomsower/whitewater/commit/be2896e))
+
 ## [0.0.304](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.303...@whitewater-guide/backend@0.0.304) (2019-02-15)
 
 ## [0.0.303](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.302...@whitewater-guide/backend@0.0.303) (2019-02-15)
