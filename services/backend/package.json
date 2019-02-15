@@ -14,13 +14,12 @@
     "test": "npm_scripts/test.sh",
     "dev:dump": "npm_scripts/dev-dump.sh",
     "dev:restore": "npm_scripts/dev-restore.sh",
-    "dev:schema": "node npm_scripts/dump-schema.js",
     "madge": "madge --circular --basedir ./src --webpackConfig madge.js src/index.js",
     "prepare": "yarn build",
     "prepublishOnly": "yarn build",
     "preversion": "yarn build",
     "version": "../../tooling/scripts/sh/changelog.sh",
-    "postversion": "yarn dev:schema"
+    "postversion": "node npm_scripts/postversion.js"
   },
   "devDependencies": {
     "@types/body-parser": "^1.17.0",
@@ -55,6 +54,7 @@
     "@types/xmldom": "^0.1.29",
     "apollo": "^2.5.0",
     "chalk": "^2.4.2",
+    "dotenv": "^6.2.0",
     "gulp": "4.0.0",
     "gulp-typescript": "^5.0.0-alpha.3",
     "jest": "^23.6.0",
