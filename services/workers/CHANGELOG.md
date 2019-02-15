@@ -1,3 +1,5 @@
+## [0.0.74](https://github.com/doomsower/whitewater/compare/@whitewater-guide/workers@0.0.73...@whitewater-guide/workers@0.0.74) (2019-02-15)
+
 ## [0.0.73](https://github.com/doomsower/whitewater/compare/@whitewater-guide/workers@0.0.72...@whitewater-guide/workers@0.0.73) (2019-02-14)
 
 ### Features

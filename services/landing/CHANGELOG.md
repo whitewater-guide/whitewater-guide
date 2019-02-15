@@ -1,3 +1,5 @@
+## [0.0.32](https://github.com/doomsower/whitewater/compare/@whitewater-guide/landing@0.0.31...@whitewater-guide/landing@0.0.32) (2019-02-15)
+
 ## [0.0.31](https://github.com/doomsower/whitewater/compare/@whitewater-guide/landing@0.0.30...@whitewater-guide/landing@0.0.31) (2019-02-14)
 
 ### Features
