@@ -18,8 +18,9 @@
     "prepare": "yarn build",
     "prepublishOnly": "yarn build",
     "preversion": "yarn build",
+    "postversion": "./scripts/sentry.sh",
     "version": "../../tooling/scripts/sh/changelog.sh",
-    "postpublish:global": "./postpublish-global.sh"
+    "postpublish:global": "node ../../tooling/scripts/bin/dockerPublish.js"
   },
   "dependencies": {
     "@mapbox/togeojson": "^0.16.0",
