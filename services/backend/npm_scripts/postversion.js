@@ -3,6 +3,7 @@ const { resolve } = require('path');
 const { writeFileSync } = require('fs');
 const { spawnSync } = require('child_process');
 const { config } = require('dotenv');
+const { readJSONSync } = require('fs-extra');
 
 /**
  * Generates GRAPHQL schema and uploads it to Apollo Engine
@@ -20,7 +21,7 @@ const postversion = () => {
   // Step 2. Load ENGINE variables into env
   config({ path: resolve(process.cwd(), '.env.development') });
   // Step 2. Push schema to Apollo Engine
-  const pJson = require('package.json');
+  const pJson = readJSONSync(resolve(process.cwd(), 'package.json'));
   spawnSync(
     'apollo',
     [
