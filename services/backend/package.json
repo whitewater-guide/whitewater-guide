@@ -19,8 +19,7 @@
     "prepare": "yarn build",
     "prepublishOnly": "yarn build",
     "preversion": "yarn build",
-    "version": "../../tooling/scripts/sh/changelog.sh",
-    "postpublish:global": "node ../../tooling/scripts/bin/dockerPublish.js"
+    "version": "../../tooling/scripts/sh/changelog.sh"
   },
   "devDependencies": {
     "@types/body-parser": "^1.17.0",

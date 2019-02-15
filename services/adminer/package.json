@@ -7,7 +7,6 @@
   "main": "index.js",
   "author": "doomsower",
   "scripts": {
-    "version": "../../tooling/scripts/sh/changelog.sh",
-    "postpublish:global": "node ../../tooling/scripts/bin/dockerPublish.js"
+    "version": "../../tooling/scripts/sh/changelog.sh"
   }
 }

@@ -8,7 +8,6 @@
     "prepublishOnly": "yarn build",
     "preversion": "yarn build",
     "version": "../../tooling/scripts/sh/changelog.sh",
-    "postpublish:global": "node ../../tooling/scripts/bin/dockerPublish.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

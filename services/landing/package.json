@@ -6,8 +6,7 @@
   "description": "Static landing pages for whitewater.guide",
   "scripts": {
     "start": "browser-sync start --server 'src' --files 'src' --port 3002",
-    "version": "../../tooling/scripts/sh/changelog.sh",
-    "postpublish:global": "node ../../tooling/scripts/bin/dockerPublish.js"
+    "version": "../../tooling/scripts/sh/changelog.sh"
   },
   "author": "Konstantin Kuznetsov",
   "devDependencies": {
