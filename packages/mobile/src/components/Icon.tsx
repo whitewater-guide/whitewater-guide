@@ -39,7 +39,7 @@ interface IconBaseProps {
   iconStyle?: StyleProp<ViewStyle>;
 }
 
-const IconBase: React.StatelessComponent<IconBaseProps> = (props) => {
+const IconBase = React.forwardRef<any, IconBaseProps>((props, ref) => {
   const {
     icon,
     color,
@@ -63,24 +63,25 @@ const IconBase: React.StatelessComponent<IconBaseProps> = (props) => {
         onPress={onPress}
         onLongPress={onLongPress}
         style={style}
+        ref={ref}
       >
         <MDCommunity name={icon} size={sz} color={clr} style={iconStyle} />
       </TouchableRipple>
     );
   }
   return (
-    <View style={style}>
+    <View style={style} ref={ref}>
       <MDCommunity name={icon} size={sz} color={clr} style={iconStyle} />
     </View>
   );
-};
+});
 
 export interface IconProps extends IconBaseProps {
   wide?: boolean;
   narrow?: boolean;
 }
 
-export const Icon: React.FC<IconProps> = (props) => {
+export const Icon = React.forwardRef<any, IconProps>((props, ref) => {
   const { wide, narrow, style, ...rest } = props;
   let sizeStyle = {};
   if (narrow) {
@@ -88,5 +89,7 @@ export const Icon: React.FC<IconProps> = (props) => {
   } else if (wide) {
     sizeStyle = styles.wide;
   }
-  return <IconBase {...rest} style={[styles.icon, sizeStyle, style]} />;
-};
+  return (
+    <IconBase ref={ref} {...rest} style={[styles.icon, sizeStyle, style]} />
+  );
+});
