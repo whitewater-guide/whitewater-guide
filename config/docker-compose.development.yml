@@ -62,9 +62,7 @@ services:
       - type: tmpfs
         target: /run/postgresql
         # Bind data dir locally, otherwise tmpfs runs out of space on pg_restore
-      - type: bind
-        source: ../dev-mount/db/
-        target: /var/lib/postgresql/data
+      - ww-db-pgdata:/var/lib/postgresql/data
       - type: bind
         source: ../services/db/config/dump.bak
         target: /docker-entrypoint-initdb.d/dump.bak
@@ -79,6 +77,15 @@ services:
   # Minio to store images
   minio:
     container_name: ww-minio
+    image: 'ww-minio:dev'
+    build:
+      context: ../services/minio
+      labels:
+        guide.whitewater: ''
+      args:
+        MINIO_USER: minio
+        MINIO_UID: 1000
+        MINIO_GID: 1000
     env_file:
       - .env.development.local
     ports:
@@ -89,7 +96,7 @@ services:
         target: /data
       - type: bind
         source: ../dev-mount/minio/config
-        target: /root/.minio
+        target: /home/minio/.minio
 
   # Caddy reverse proxy
   caddy:
@@ -143,6 +150,9 @@ services:
         target: /tmp
 volumes:
   yarn:
+    labels:
+      guide.whitewater: ''
+  ww-db-pgdata:
     labels:
       guide.whitewater: ''
 #  Docker-sync is temporary off
