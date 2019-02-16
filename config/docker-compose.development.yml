@@ -62,9 +62,7 @@ services:
       - type: tmpfs
         target: /run/postgresql
         # Bind data dir locally, otherwise tmpfs runs out of space on pg_restore
-      - type: bind
-        source: ../dev-mount/db/
-        target: /var/lib/postgresql/data
+      - ww-db-pgdata:/var/lib/postgresql/data
       - type: bind
         source: ../services/db/config/dump.bak
         target: /docker-entrypoint-initdb.d/dump.bak
@@ -152,6 +150,9 @@ services:
         target: /tmp
 volumes:
   yarn:
+    labels:
+      guide.whitewater: ''
+  ww-db-pgdata:
     labels:
       guide.whitewater: ''
 #  Docker-sync is temporary off

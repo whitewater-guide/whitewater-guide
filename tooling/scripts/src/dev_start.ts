@@ -13,7 +13,11 @@ async function devStart() {
   ensureDirSync('./dev-mount/db');
   ensureDirSync('./dev-mount/workers/cache');
   ensureDirSync('./dev-mount/workers/cookies');
-  rimraf.sync('./dev-mount/db/*');
+
+  // empty the pgdata volume
+  spawnSync('docker volume rm config_ww-db-pgdata');
+  spawnSync('docker volume create config_ww-db-pgdata');
+
   process.on('SIGINT', () => {
     console.info('Terminating dev stack');
     spawnSync('docker-compose', ['-f', stackFile, 'down'], {

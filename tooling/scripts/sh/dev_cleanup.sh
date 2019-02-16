@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-rm -rf dev-mount/db/*
 rm -rf dev-mount/minio/config/*
 rm -rf dev-mount/minio/data/*
 rm -rf dev-mount/workers/cookies/*
