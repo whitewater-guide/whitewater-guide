@@ -79,6 +79,15 @@ services:
   # Minio to store images
   minio:
     container_name: ww-minio
+    image: 'ww-minio:dev'
+    build:
+      context: ../services/minio
+      labels:
+        guide.whitewater: ''
+      args:
+        MINIO_USER: minio
+        MINIO_UID: 1000
+        MINIO_GID: 1000
     env_file:
       - .env.development.local
     ports:
@@ -89,7 +98,7 @@ services:
         target: /data
       - type: bind
         source: ../dev-mount/minio/config
-        target: /root/.minio
+        target: /home/minio/.minio
 
   # Caddy reverse proxy
   caddy:
