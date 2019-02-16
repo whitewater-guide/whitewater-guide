@@ -81,3 +81,4 @@ fastlane/.env.*
 /android/app/src/main/assets/fonts/
 /.jest/
 /coverage/
+/src/test/typedefs.ts

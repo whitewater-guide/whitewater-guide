@@ -1,24 +1,26 @@
-import ApolloClient from 'apollo-client';
-import { mount, ReactWrapper } from 'enzyme';
-import gql from 'graphql-tag';
-import { MockList } from 'graphql-tools';
-import React from 'react';
-import { Overwrite } from 'type-zoo';
-import { dataIdFromObject } from '@whitewater-guide/clients';
-import { POLL_REGION_MEASUREMENTS } from '@whitewater-guide/clients';
-import { LIST_SECTIONS, Result, Vars } from '@whitewater-guide/clients';
 import {
   createFixedProvider,
   createMockedProvider,
+  dataIdFromObject,
   FixedProviderOptions,
   flushPromises,
+  LIST_SECTIONS,
   MockLink,
+  POLL_REGION_MEASUREMENTS,
+  Result,
+  Vars,
 } from '@whitewater-guide/clients';
 import {
   DefaultSectionSearchTerms,
   Section,
   SectionSearchTerms,
 } from '@whitewater-guide/commons';
+import ApolloClient from 'apollo-client';
+import gql from 'graphql-tag';
+import { MockList } from 'graphql-tools';
+import React from 'react';
+import { render, RenderAPI } from 'react-native-testing-library';
+import { Overwrite } from 'type-zoo';
 import { Props, SectionsListLoader } from './SectionsListLoader';
 import { SectionsStatus } from './types';
 
@@ -35,8 +37,8 @@ let seedSections: Section[];
 let seedCount: number;
 let seedData: Result;
 let mockedResponses: any[];
-let wrapper: ReactWrapper<Props>;
 let client: ApolloClient<any>;
+let wrapper: RenderAPI | undefined;
 const children = jest.fn(() => null);
 
 const mockVariables = (offset = 0, limit = PAGE_SIZE, updatedAfter?: Date) => ({
@@ -65,7 +67,11 @@ interface TestOptions
   pollInterval?: number;
 }
 
-const mountInHarness = (options: TestOptions): any => {
+interface Harness {
+  update: (props: Partial<Props>) => void;
+}
+
+const mountInHarness = (options: TestOptions): Harness => {
   const {
     isConnected = true,
     searchTerms = null,
@@ -82,8 +88,9 @@ const mountInHarness = (options: TestOptions): any => {
     },
   });
   // 1 item per page
-  wrapper = mount(
+  wrapper = render(
     <SectionsListLoader
+      key="test_sections_list_loader"
       region={{ node: { id: TEST_REGION_ID } }}
       searchTerms={searchTerms}
       isConnected={isConnected}
@@ -94,7 +101,23 @@ const mountInHarness = (options: TestOptions): any => {
     />,
   );
   client = FixedProvider.client;
-  return null;
+  return {
+    update: (props) => {
+      wrapper!.update(
+        <SectionsListLoader
+          key="test_sections_list_loader"
+          region={{ node: { id: TEST_REGION_ID } }}
+          searchTerms={searchTerms}
+          isConnected={isConnected}
+          client={FixedProvider.client}
+          limit={PAGE_SIZE}
+          pollInterval={pollInterval}
+          children={children}
+          {...props}
+        />,
+      );
+    },
+  };
 };
 
 beforeAll(async () => {
@@ -177,11 +200,7 @@ beforeEach(() => {
 
 afterEach(() => {
   if (wrapper) {
-    try {
-      wrapper.unmount();
-    } catch (e) {
-      // ignore, unmounted in test
-    }
+    wrapper.unmount();
   }
 });
 
@@ -191,7 +210,7 @@ it('seed data should match schema', () => {
 });
 
 it('should read result from cache first', async () => {
-  await mountInHarness({
+  mountInHarness({
     cache: seedData,
     responses: [],
   });
@@ -206,7 +225,7 @@ it('should read result from cache first', async () => {
 });
 
 it('should pass empty list first when cache is empty', async () => {
-  await mountInHarness({
+  mountInHarness({
     responses: [],
   });
 
@@ -221,7 +240,7 @@ it('should pass empty list first when cache is empty', async () => {
 });
 
 it('should load initial data when cache contains no data', async () => {
-  await mountInHarness({
+  mountInHarness({
     responses: mockedResponses,
   });
   await flushPromises(10);
@@ -236,7 +255,7 @@ it('should load initial data when cache contains no data', async () => {
 });
 
 it('should load initial data page by page', async () => {
-  await mountInHarness({
+  mountInHarness({
     responses: mockedResponses,
   });
   await flushPromises(6);
@@ -276,7 +295,7 @@ it('should load initial data page by page', async () => {
 });
 
 it('should continue loading initial data when cache contains partial data', async () => {
-  await mountInHarness({
+  mountInHarness({
     cache: {
       sections: {
         __typename: 'SectionsList',
@@ -322,7 +341,7 @@ it('should continue loading initial data when cache contains partial data', asyn
 });
 
 it('should load updates page by page when cache is full', async () => {
-  await mountInHarness({
+  mountInHarness({
     cache: {
       sections: {
         __typename: 'SectionsList',
@@ -345,7 +364,7 @@ it('should load updates page by page when cache is full', async () => {
 });
 
 it('should change status while loading updates', async () => {
-  await mountInHarness({
+  mountInHarness({
     cache: {
       sections: {
         __typename: 'SectionsList',
@@ -368,7 +387,7 @@ it('should change status while loading updates', async () => {
 });
 
 it('should update count after loading updates', async () => {
-  await mountInHarness({
+  mountInHarness({
     cache: {
       sections: {
         __typename: 'SectionsList',
@@ -392,7 +411,7 @@ it('should update count after loading updates', async () => {
 
 it('should not try to load anything when offline', async () => {
   const spy = jest.spyOn(MockLink.prototype, 'request');
-  await mountInHarness({
+  mountInHarness({
     isConnected: false,
     responses: mockedResponses,
   });
@@ -403,7 +422,7 @@ it('should not try to load anything when offline', async () => {
 });
 
 it('should render cache while offline', async () => {
-  await mountInHarness({
+  mountInHarness({
     cache: {
       sections: {
         __typename: 'SectionsList',
@@ -427,7 +446,7 @@ it('should render cache while offline', async () => {
 });
 
 it('should catch up after coming back online', async () => {
-  await mountInHarness({
+  const harness = mountInHarness({
     cache: {
       sections: {
         __typename: 'SectionsList',
@@ -440,8 +459,10 @@ it('should catch up after coming back online', async () => {
   });
 
   await flushPromises(10);
-  wrapper.setProps({ isConnected: true });
+  harness.update({ isConnected: true });
   await flushPromises(10);
+  // const spy = jest.spyOn(MockLink.prototype, 'request');
+  // expect(spy).toHaveBeenCalledTimes(1);
 
   expect(children).lastCalledWith(
     expect.objectContaining({
@@ -453,19 +474,37 @@ it('should catch up after coming back online', async () => {
 });
 
 it('should release subscription when unmounted', async () => {
-  await mountInHarness({
+  mountInHarness({
     responses: mockedResponses,
   });
   const spy = jest.spyOn(MockLink.prototype, 'request');
-  wrapper.unmount();
+  wrapper!.unmount();
   await flushPromises(10);
   // initial call when subscribing to query
   expect(spy).toHaveBeenCalledTimes(1);
 });
 
+it('should fire polling query immediately', async () => {
+  jest.useFakeTimers();
+  mountInHarness({
+    responses: mockedResponses,
+    pollInterval: POLL_INTERVAL,
+  });
+  await flushPromises(10);
+  const spy = jest.spyOn(MockLink.prototype, 'request');
+  // unwind to point before before first interval
+  jest.runTimersToTime(POLL_INTERVAL * 0.5);
+  expect(spy).toHaveBeenLastCalledWith(
+    expect.objectContaining({
+      operationName: 'pollRegionMeasurements',
+      variables: { regionId: TEST_REGION_ID },
+    }),
+  );
+});
+
 it('should poll lastMeasurements', async () => {
   jest.useFakeTimers();
-  await mountInHarness({
+  mountInHarness({
     responses: mockedResponses,
     pollInterval: POLL_INTERVAL,
   });
@@ -482,7 +521,7 @@ it('should poll lastMeasurements', async () => {
 
 it('should poll lastMeasurements after coming back online', async () => {
   jest.useFakeTimers();
-  await mountInHarness({
+  const harness = mountInHarness({
     cache: {
       sections: {
         __typename: 'SectionsList',
@@ -495,7 +534,7 @@ it('should poll lastMeasurements after coming back online', async () => {
     pollInterval: POLL_INTERVAL,
   });
   await flushPromises(10);
-  wrapper.setProps({ isConnected: true });
+  harness.update({ isConnected: true });
   await flushPromises(10);
   const spy = jest.spyOn(MockLink.prototype, 'request');
   jest.runTimersToTime(POLL_INTERVAL * 2.5);
@@ -509,7 +548,7 @@ it('should poll lastMeasurements after coming back online', async () => {
 
 it('should pass lastMeasurements updated via poll', async () => {
   jest.useFakeTimers();
-  await mountInHarness({
+  mountInHarness({
     responses: mockedResponses,
     pollInterval: POLL_INTERVAL,
   });
@@ -524,7 +563,7 @@ it('should pass lastMeasurements updated via poll', async () => {
 
 it('should pass lastMeasurements updated via poll after coming back online', async () => {
   jest.useFakeTimers();
-  await mountInHarness({
+  const harness = mountInHarness({
     cache: {
       sections: {
         __typename: 'SectionsList',
@@ -537,7 +576,7 @@ it('should pass lastMeasurements updated via poll after coming back online', asy
     pollInterval: POLL_INTERVAL,
   });
   await flushPromises(10);
-  wrapper.setProps({ isConnected: true });
+  harness.update({ isConnected: true });
   await flushPromises(10);
   jest.runTimersToTime(POLL_INTERVAL * 2.5);
   await flushPromises(10);
@@ -548,7 +587,7 @@ it('should pass lastMeasurements updated via poll after coming back online', asy
 });
 
 it('should pass updates when is changed outside the query', async () => {
-  await mountInHarness({
+  mountInHarness({
     responses: mockedResponses,
     pollInterval: POLL_INTERVAL,
   });
@@ -571,7 +610,7 @@ it('should pass updates when is changed outside the query', async () => {
 });
 
 it('should apply filters', async () => {
-  await mountInHarness({
+  mountInHarness({
     responses: mockedResponses,
     searchTerms: {
       ...DefaultSectionSearchTerms,
@@ -589,7 +628,7 @@ it('should apply filters', async () => {
 });
 
 it('should load updates on refresh', async () => {
-  await mountInHarness({
+  mountInHarness({
     responses: mockedResponses,
   });
   await flushPromises(10);
@@ -608,7 +647,7 @@ it('should load updates on refresh', async () => {
 });
 
 it('should not load updates when already loading', async () => {
-  await mountInHarness({
+  mountInHarness({
     responses: mockedResponses,
   });
   await flushPromises(1);
@@ -625,9 +664,4 @@ it('should not load updates when already loading', async () => {
     }),
   );
   await flushPromises();
-});
-
-it('should fire polling query immediately', async () => {
-  // TODO: test for https://github.com/doomsower/whitewater/issues/316#issuecomment-455904189
-  expect(true).toBe(false);
 });

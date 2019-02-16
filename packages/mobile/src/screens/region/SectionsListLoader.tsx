@@ -9,7 +9,6 @@ import {
 } from '@whitewater-guide/clients';
 import { applySearch } from '@whitewater-guide/commons';
 import {
-  ApolloClient,
   ApolloQueryResult,
   NetworkStatus,
   ObservableQuery,
@@ -100,6 +99,7 @@ export class SectionsListLoader extends React.PureComponent<Props, InnerState> {
       const { count, sections } = this.state;
       if (count === 0 || sections.length < count) {
         await this.loadInitial();
+        await this.startPolling();
       }
     }
   }
