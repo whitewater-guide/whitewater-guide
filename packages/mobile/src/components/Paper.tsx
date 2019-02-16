@@ -1,13 +1,12 @@
-import glamorous, { GlamorousComponent } from 'glamorous-native';
-import { StyleProp, StyleSheet, ViewStyle } from 'react-native';
-import { Surface } from 'react-native-paper';
+import React from 'react';
+import { StyleSheet } from 'react-native';
+import { Surface, SurfaceProps } from 'react-native-paper';
 import theme from '../theme';
 
-interface PaperProps {
+interface PaperProps extends SurfaceProps {
   noPad?: boolean;
   doublePad?: boolean;
   gutterBottom?: boolean;
-  style?: StyleProp<ViewStyle>;
 }
 
 const styles = StyleSheet.create({
@@ -26,15 +25,14 @@ const styles = StyleSheet.create({
   },
 });
 
-const paperFactory = glamorous<{}>(Surface);
-
-export const Paper: GlamorousComponent<PaperProps, {}> = paperFactory(
-  styles.base,
-  (props: PaperProps) => {
-    return [
-      props.noPad && styles.noPad,
-      props.doublePad && styles.doublePad,
-      props.gutterBottom && styles.gutterBottom,
-    ];
-  },
-);
+export const Paper: React.FC<PaperProps> = (props) => {
+  const { doublePad, gutterBottom, noPad, style, ...rest } = props;
+  const mergedStyle = [
+    styles.base,
+    noPad && styles.noPad,
+    doublePad && styles.doublePad,
+    gutterBottom && styles.gutterBottom,
+    style,
+  ];
+  return <Surface style={mergedStyle} {...rest} />;
+};

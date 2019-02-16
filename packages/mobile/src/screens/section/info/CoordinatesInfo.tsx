@@ -59,7 +59,7 @@ class CoordinatesInfo extends React.PureComponent<InnerProps> {
         <Left>
           <Subheading>{label}</Subheading>
         </Left>
-        <Right flexDirection="row">
+        <Right row>
           <Paragraph>{prettyCoord}</Paragraph>
           <Icon icon="content-copy" onPress={this.onCopy} />
           <Icon icon="car" onPress={this.onNavigate} />

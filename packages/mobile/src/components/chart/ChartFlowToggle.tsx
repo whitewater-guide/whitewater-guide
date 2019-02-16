@@ -85,11 +85,11 @@ class ChartFlowToggleInternal extends React.PureComponent<Props> {
       : '?';
     return (
       <Row>
-        <Left flexDirection="row">
+        <Left row>
           <Subheading>{`${t('section:chart.lastRecorded.title')} `}</Subheading>
           {this.renderUnit()}
         </Left>
-        <Right flexDirection="row">
+        <Right row>
           <Paragraph>{`${value} ${t('commons:' + unitName)}`}</Paragraph>
           {enabled && (
             <Icon

@@ -1,4 +1,3 @@
-import glamorous, { GlamorousComponent } from 'glamorous-native';
 import React from 'react';
 import {
   GestureResponderEvent,
@@ -12,11 +11,19 @@ import MDCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 import theme from '../theme';
 
 const styles = StyleSheet.create({
-  button: {
+  icon: {
     alignItems: 'center',
     justifyContent: 'center',
     width: 32,
     height: 32,
+  },
+  narrow: {
+    width: undefined,
+    height: undefined,
+  },
+  wide: {
+    width: 45,
+    height: 45,
   },
 });
 
@@ -71,22 +78,15 @@ const IconBase: React.StatelessComponent<IconBaseProps> = (props) => {
 export interface IconProps extends IconBaseProps {
   wide?: boolean;
   narrow?: boolean;
-  width?: number;
-  height?: number;
 }
 
-const iconFactory = glamorous<IconProps>(IconBase, { displayName: 'Icon' });
-
-export const Icon: GlamorousComponent<IconProps, ViewStyle> = iconFactory(
-  styles.button,
-  ({ narrow, wide, width, height }: IconProps) => {
-    if (narrow) {
-      return { width: undefined, height: undefined };
-    } else if (wide) {
-      return { width: 45, height: 45 };
-    } else if (width !== undefined || height !== undefined) {
-      return { width, height };
-    }
-    return null;
-  },
-);
+export const Icon: React.FC<IconProps> = (props) => {
+  const { wide, narrow, style, ...rest } = props;
+  let sizeStyle = {};
+  if (narrow) {
+    sizeStyle = styles.narrow;
+  } else if (wide) {
+    sizeStyle = styles.wide;
+  }
+  return <IconBase {...rest} style={[styles.icon, sizeStyle, style]} />;
+};

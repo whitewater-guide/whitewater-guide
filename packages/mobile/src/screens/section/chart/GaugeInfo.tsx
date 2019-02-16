@@ -82,7 +82,7 @@ class GaugeInfo extends React.PureComponent<InnerProps> {
           <Left>
             <Subheading>{t('commons:gauge')}</Subheading>
           </Left>
-          <Right flexDirection="row">
+          <Right row>
             {approximate && (
               <PopoverController>
                 {({
@@ -123,7 +123,7 @@ class GaugeInfo extends React.PureComponent<InnerProps> {
           <Left>
             <Subheading>{t('section:chart.lastUpdated')}</Subheading>
           </Left>
-          <Right flexDirection="row">
+          <Right row>
             <Paragraph>
               {lastMeasurement
                 ? moment(lastMeasurement.timestamp).fromNow()

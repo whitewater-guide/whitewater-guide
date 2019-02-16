@@ -51,7 +51,6 @@
     "byte-size": "^5.0.1",
     "d3-scale": "^2.2.2",
     "es6-symbol": "^3.1.1",
-    "glamorous-native": "^1.4.2",
     "graphql": "^14.1.1",
     "graphql-tag": "^2.10.1",
     "graphql-tools": "^4.0.3",

@@ -1,3 +1,4 @@
+import { Coordinate } from '@whitewater-guide/commons';
 import React from 'react';
 import {
   Animated,
@@ -9,7 +10,6 @@ import {
 } from 'react-native';
 import theme from '../theme';
 import { openGoogleMaps } from '../utils/maps';
-import { Coordinate } from '@whitewater-guide/commons';
 import { Icon } from './Icon';
 
 export const NAVIGATE_BUTTON_HEIGHT = 72;
