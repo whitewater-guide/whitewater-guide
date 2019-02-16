@@ -15,12 +15,21 @@ interface Props {
 }
 
 const HorizontalGridLine: React.FC<Props> = (props) => {
-  const { x1 = 0, x2 = 0, y1 = 0, y2 = 0, datum = 0, binding, style } = props;
+  const {
+    x1 = 0,
+    x2 = 0,
+    y1 = 0,
+    y2 = 0,
+    datum = 0,
+    binding,
+    style = {},
+  } = props;
   const { minimum = 0, maximum = 0, optimum = 0 } = binding || {};
-  const defaultColor =
-    style && style.stroke ? style.stroke.toString() : theme.colors.textMain;
+  // pointerEvents is 'painted' by default and will break react-native
+  const { stroke, pointerEvents, ...restStyle } = style;
+  const defaultColor = stroke ? stroke.toString() : theme.colors.textMain;
   const color = getColorForValue(datum, binding, defaultColor);
-  const lineStyle = { ...style, stroke: color };
+  const lineStyle = { ...restStyle, stroke: color };
   let label;
   if (datum === minimum) {
     label = 'min';

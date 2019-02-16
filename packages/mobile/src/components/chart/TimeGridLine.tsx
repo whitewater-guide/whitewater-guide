@@ -8,10 +8,7 @@ interface Props extends LineProps {
   datum?: Date;
 }
 
-const TimeGridLine: React.StatelessComponent<Props> = ({
-  period,
-  ...props
-}) => {
+const TimeGridLine: React.FC<Props> = ({ period, ...props }) => {
   const style = { ...props.style };
   if (period === Period.MONTH && moment(props.datum).day() === 0) {
     style.stroke = '#AAA';
