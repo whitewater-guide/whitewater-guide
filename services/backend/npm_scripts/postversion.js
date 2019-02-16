@@ -30,7 +30,7 @@ const postversion = () => {
       pJson.version,
       '--key',
       process.env.ENGINE_API_KEY,
-      'localSchemaFile',
+      '--localSchemaFile',
       schemaFile,
     ],
     { stdio: 'inherit' },
