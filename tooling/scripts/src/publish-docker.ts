@@ -29,9 +29,13 @@ async function publish() {
   }
 
   dockerLogin();
-  const pushResult = spawnSync('docker-compose', ['-f', stackFile, 'push'], {
-    stdio: 'inherit',
-  });
+  const pushResult = spawnSync(
+    'docker-compose',
+    ['-f', stackFile, 'push', ...services],
+    {
+      stdio: 'inherit',
+    },
+  );
   if (pushResult.status !== 0) {
     throw new Error('failed to push docker images');
   }
