@@ -693,16 +693,6 @@
   resolved "https://registry.yarnpkg.com/@types/xmldom/-/xmldom-0.1.29.tgz#c4428b0ca86d3b881475726fd94980b38a27c381"
   integrity sha1-xEKLDKhtO4gUdXJv2UmAs4onw4E=
 
-"@whitewater-guide/commons@^0.0.120":
-  version "0.0.120"
-  resolved "https://registry.yarnpkg.com/@whitewater-guide/commons/-/commons-0.0.120.tgz#68636c025439350c06a2ee3a6a11ec6f55aa06a6"
-  integrity sha512-kGosljUIHhSdqm1aWNQ9XWsYpT69CRI669n1iTQh1xdhI5JUosVLduofKrB3dLB9JJiMHDOYaeAd7GxcYCcq8Q==
-  dependencies:
-    cron-parser "^2.7.3"
-    lodash "^4.17.11"
-    superstruct "^0.6.0"
-    validator "^10.11.0"
-
 abab@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/abab/-/abab-2.0.0.tgz#aba0ab4c5eee2d4c79d3487d85450fb2376ebb0f"
@@ -8752,7 +8742,7 @@ validate-npm-package-license@^3.0.1:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
 
-validator@^10.11.0, validator@^10.8.0:
+validator@^10.8.0:
   version "10.11.0"
   resolved "https://registry.yarnpkg.com/validator/-/validator-10.11.0.tgz#003108ea6e9a9874d31ccc9e5006856ccd76b228"
   integrity sha512-X/p3UZerAIsbBfN/IwahhYaBbY68EN/UQBWHtsbXGT5bfrH/p4NQzUCG1kF/rtKaNpnJ7jAu6NGTdSNtyNIXMw==

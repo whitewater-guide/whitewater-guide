@@ -12,7 +12,7 @@
     "clean-all": "rm -rf $TMPDIR/react-* && watchman watch-del-all && yarn ios:clean && rm -rf node_modules/ && yarn android:clean && yarn cache clean ",
     "fresh-install": "yarn run clean-all && yarn",
     "fresh-start": "yarn run fresh-install && yarn run rc-start",
-    "pretest": "node node_modules/@whitewater-guide/clients/scripts/loadTypedefs.js",
+    "pretest": "mkdir -p src/test && node node_modules/@whitewater-guide/clients/scripts/loadTypedefs.js",
     "test": "jest",
     "prestorybook": "rnstl",
     "storybook": "storybook start -p 7007 --metro-config $PWD/rn-cli.config.js",
