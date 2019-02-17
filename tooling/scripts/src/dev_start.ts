@@ -10,7 +10,6 @@ async function devStart() {
   const stackFile = await generateStackFile(EnvType.DEVELOPMENT);
   ensureDirSync('./dev-mount/minio/data');
   ensureDirSync('./dev-mount/minio/config');
-  ensureDirSync('./dev-mount/db');
   ensureDirSync('./dev-mount/workers/cache');
   ensureDirSync('./dev-mount/workers/cookies');
 
