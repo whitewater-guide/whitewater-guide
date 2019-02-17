@@ -1,3 +1,9 @@
+## [0.0.24](https://github.com/doomsower/whitewater/compare/@whitewater-guide/scripts@0.0.23...@whitewater-guide/scripts@0.0.24) (2019-02-17)
+
+### Bug Fixes
+
+- **db:** use named mount for pgdata to avoid permission errors ([4073459](https://github.com/doomsower/whitewater/commit/4073459)), closes [#343](https://github.com/doomsower/whitewater/issues/343)
+
 ## [0.0.23](https://github.com/doomsower/whitewater/compare/@whitewater-guide/scripts@0.0.22...@whitewater-guide/scripts@0.0.23) (2019-02-15)
 
 ## [0.0.22](https://github.com/doomsower/whitewater/compare/@whitewater-guide/scripts@0.0.21...@whitewater-guide/scripts@0.0.22) (2019-02-14)

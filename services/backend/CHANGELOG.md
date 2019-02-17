@@ -1,3 +1,9 @@
+## [0.0.306](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.305...@whitewater-guide/backend@0.0.306) (2019-02-17)
+
+### Bug Fixes
+
+- **backend:** fix apollo engine schema upload ([3e8b5ee](https://github.com/doomsower/whitewater/commit/3e8b5ee))
+
 ## [0.0.305](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.303...@whitewater-guide/backend@0.0.305) (2019-02-15)
 
 ### Features

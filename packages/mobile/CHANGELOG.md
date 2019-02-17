@@ -1,3 +1,16 @@
+## [1.7.5](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.4...@whitewater-guide/mobile@1.7.5) (2019-02-17)
+
+### Bug Fixes
+
+- **mobile:** fix Icon ref forwarding ([a36e02f](https://github.com/doomsower/whitewater/commit/a36e02f))
+- **mobile:** fix victory + svg pointerEvents bug ([0b92675](https://github.com/doomsower/whitewater/commit/0b92675))
+- **mobile:** workaround for iOS fb login bug ([0ec8049](https://github.com/doomsower/whitewater/commit/0ec8049))
+
+### Features
+
+- **mobile:** improve auth loading indicator ([de730a7](https://github.com/doomsower/whitewater/commit/de730a7))
+- **mobile:** remove borderRadius from section view button ([58f9279](https://github.com/doomsower/whitewater/commit/58f9279))
+
 ## [1.7.4](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.3...@whitewater-guide/mobile@1.7.4) (2019-02-14)
 
 ### Bug Fixes
