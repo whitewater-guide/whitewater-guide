@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Platform } from 'react-native';
 import { AccessToken, LoginManager, LoginResult } from 'react-native-fbsdk';
-import { apply, call, put, takeEvery } from 'redux-saga/effects';
+import { apply, call, delay, put, retry, takeEvery } from 'redux-saga/effects';
 import { BACKEND_URL } from '../../utils/urls';
 import { resetNavigationToHome } from '../actions';
 import { apolloCachePersistor, getApolloClient } from '../apollo';
@@ -56,25 +56,22 @@ function* authWithFbToken(reset?: boolean): any {
       [],
     );
     if (token && token.accessToken) {
-      const result = yield call(
-        axios.get,
-        `${BACKEND_URL}/auth/facebook/token?access_token=${token.accessToken}`,
-      );
+      // On real iOS device first backend login will fail
+      // Probably because of this bug https://github.com/AFNetworking/AFNetworking/issues/4279
+      // The app sends request when before it comes to foreground after fb login screen
+      // Both delay and retry can solve this problem alone
+      // After delay AppState.currentState is still `background`
+      // After 1000ms (one retry) AppState.currentState is `active`
+      // However, I don't want to add state listener, because I'm not 100% sure what causes this error
+      yield delay(500);
+      yield retry(3, 1000, loginToBackend, token.accessToken);
+      // const result = yield call(loginToBackend, token.accessToken);
       if (reset) {
         yield call(resetApolloCache);
       }
     }
     yield put(loginWithFB.done({ params: {}, result: {} }));
   } catch (e) {
-    // For some reason sometimes this request fails without reaching backend
-    if (
-      !e.response &&
-      e.request._response === 'The network connection was lost.'
-    ) {
-      yield call(authWithFbToken, reset);
-      return;
-    }
-
     trackError('auth', e);
     const error: AuthError = {
       title: 'i18 title',
@@ -84,6 +81,14 @@ function* authWithFbToken(reset?: boolean): any {
     yield put(loginWithFB.failed({ params: {}, error }));
     LoginManager.logOut();
   }
+}
+
+export function* loginToBackend(accessToken: string) {
+  const result = yield call(
+    axios.get,
+    `${BACKEND_URL}/auth/facebook/token?access_token=${accessToken}`,
+  );
+  return result;
 }
 
 // See https://github.com/apollographql/apollo-cache-persist/issues/34#issuecomment-371177206 for explanation
