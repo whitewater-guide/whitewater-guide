@@ -1,7 +1,7 @@
 import { ProductPurchase } from 'react-native-iap';
 import { call, put, race, take } from 'redux-saga/effects';
 import { Action, isType } from 'typescript-fsa';
-import { auth } from '../../../core/auth';
+import { authActions } from '../../../core/auth';
 import { purchaseActions } from '../actions';
 import {
   BuyProductResult,
@@ -106,7 +106,7 @@ export function* waitUntilOfflinePurchaseRemoved(purchase: ProductPurchase) {
         isType(a, purchaseActions.removeOfflinePurchase) &&
         a.payload.purchase.transactionId === purchase.transactionId,
     ),
-    logout: take(auth.logout),
+    logout: take(authActions.logout),
   });
   if (saved) {
     if (saved.success) {

@@ -3,7 +3,7 @@ import { put, spawn, take } from 'redux-saga/effects';
 import { offlineContentSaga } from '../../features/offline';
 import { purchasesSaga } from '../../features/purchases';
 import { appStarted, bootstrapped } from '../actions';
-import { auth, authSaga } from '../auth';
+import { authActions, authSaga } from '../auth';
 import { messagingSaga } from './messagingSaga';
 
 export function* appSaga() {
@@ -28,7 +28,7 @@ export function* appSaga() {
   yield spawn(messagingSaga);
   yield spawn(purchasesSaga);
   yield spawn(offlineContentSaga);
-  yield take(auth.initialized.type);
+  yield take(authActions.initialized.type);
   // Wait until init is complete
   // const me = yield take(auth.initialized.type);
 

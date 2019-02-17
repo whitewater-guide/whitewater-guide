@@ -4,7 +4,7 @@ import { graphql } from 'react-apollo';
 import { withI18n } from 'react-i18next';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
-import { auth } from '../../core/auth';
+import { authActions } from '../../core/auth';
 import { InnerProps, WithMutation } from './types';
 import { Result, UPDATE_MY_PROFILE, Vars } from './updateProfile.mutation';
 
@@ -26,7 +26,7 @@ const container = compose<InnerProps, {}>(
   }),
   connect(
     undefined,
-    { logout: auth.logout },
+    { logout: authActions.logout },
   ),
 );
 

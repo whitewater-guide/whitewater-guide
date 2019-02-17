@@ -1,3 +1,4 @@
+import { withMe, WithMe } from '@whitewater-guide/clients';
 import React from 'react';
 import { withI18n, WithI18n } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
@@ -5,7 +6,6 @@ import { Divider, Drawer } from 'react-native-paper';
 import { NavigationActions, NavigationInjectedProps } from 'react-navigation';
 import { compose } from 'recompose';
 import { isRouteFocused } from '../../utils/navigation';
-import { withMe, WithMe } from '@whitewater-guide/clients';
 import { Spacer } from '../Spacer';
 import DrawerHeader from './DrawerHeader';
 import DrawerItem from './DrawerItem';
@@ -91,7 +91,9 @@ class DrawerSidebarView extends React.PureComponent<InnerProps> {
             title: t('drawer:privacyPolicy'),
           }}
           onPress={this.navigate}
-          focused={isRouteFocused(state, 'Plain', { fixture: 'privacyPolicy' })}
+          focused={isRouteFocused(state, 'Plain', {
+            fixture: 'privacyPolicy',
+          })}
         />
         <VersionBadge />
       </View>

@@ -4,14 +4,14 @@ import { Alert } from 'react-native';
 import { channel } from 'redux-saga';
 import { all, call, put, takeEvery } from 'redux-saga/effects';
 import { BACKEND_URL } from '../../utils/urls';
-import { logout, logoutWithFB } from './actions';
+import { authActions } from './actions';
 
 const confirmChannel = channel();
 const confirmButton = { onPress: () => confirmChannel.put('CONFIRM') };
 
 export default function* logoutSaga() {
   yield all([
-    takeEvery(logout.toString(), watchLogout),
+    takeEvery(authActions.logout.toString(), watchLogout),
     takeEvery(confirmChannel, watchLogoutConfirmed),
   ]);
 }
@@ -32,7 +32,7 @@ function* watchLogoutConfirmed() {
   try {
     yield call(axios.get, `${BACKEND_URL}/auth/logout`);
     // Until we don't have any other auth methods, delegate everything to fb saga
-    yield put(logoutWithFB());
+    yield put(authActions.logoutWithFB());
   } catch (e) {
     yield call(
       [Alert, Alert.alert],

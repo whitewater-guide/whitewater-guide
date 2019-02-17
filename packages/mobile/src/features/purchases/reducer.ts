@@ -2,7 +2,7 @@ import { AsyncStorage } from 'react-native';
 import { Reducer } from 'redux';
 import { PersistConfig, persistReducer } from 'redux-persist';
 import { AnyAction, isType } from 'typescript-fsa';
-import { auth } from '../../core/auth';
+import { authActions } from '../../core/auth';
 import { purchaseActions } from './actions';
 import { PurchaseState, PurchaseStore } from './types';
 
@@ -50,7 +50,7 @@ export const basePurchaseReducer = (
     return { ...initialState, offlinePurchases: state.offlinePurchases };
   }
 
-  if (isType(action, auth.logout)) {
+  if (isType(action, authActions.logout)) {
     return { ...initialState };
   }
 

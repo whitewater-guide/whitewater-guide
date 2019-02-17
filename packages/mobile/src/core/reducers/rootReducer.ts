@@ -8,10 +8,12 @@ import {
   OfflineContentStore,
 } from '../../features/offline';
 import { purchaseReducer, PurchaseStore } from '../../features/purchases';
+import { authReducer, AuthState } from '../auth';
 import { appReducer, AppState } from './appReducer';
 import { settingsReducer, SettingsState } from './settingsReducer';
 
 export interface RootState {
+  auth: AuthState;
   app: AppState; // transient app state
   settings: SettingsState; // persistent app state
   purchase: PurchaseStore;
@@ -23,6 +25,7 @@ export interface RootState {
 }
 
 const rootReducer = combineReducers<RootState, Action<any>>({
+  auth: authReducer,
   app: appReducer,
   settings: settingsReducer,
   purchase: purchaseReducer,
@@ -33,10 +36,10 @@ const rootReducer = combineReducers<RootState, Action<any>>({
 const persistConfig: PersistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  blacklist: ['app', 'purchase', 'network', 'offlineContent'],
+  blacklist: ['app', 'auth', 'purchase', 'network', 'offlineContent'],
 };
 
 export const persistedRootReducer: Reducer = persistReducer(
   persistConfig,
-  rootReducer as any,
+  rootReducer,
 );

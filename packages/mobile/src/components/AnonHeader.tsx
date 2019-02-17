@@ -5,7 +5,7 @@ import { Title, TouchableRipple } from 'react-native-paper';
 import Svg, { Path } from 'react-native-svg';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
-import { loginWithFB } from '../core/auth/actions';
+import { authActions } from '../core/auth';
 import theme from '../theme';
 
 const SIZE_REGULAR = 48;
@@ -85,7 +85,7 @@ const AnonHeaderView: React.StatelessComponent<Props> = ({
 const container = compose<Props, OwnProps>(
   connect<{}, DispatchProps>(
     undefined,
-    { onPress: () => loginWithFB.started({}) },
+    { onPress: () => authActions.loginWithFB.started({}) },
   ),
   withI18n(),
 );

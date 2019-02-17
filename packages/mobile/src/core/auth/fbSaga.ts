@@ -7,7 +7,7 @@ import { resetNavigationToHome } from '../actions';
 import { apolloCachePersistor, getApolloClient } from '../apollo';
 import { trackError } from '../errors';
 import { navigationChannel } from '../sagas';
-import { initialized, loginWithFB, logoutWithFB } from './actions';
+import { authActions } from './actions';
 import { AuthError } from './types';
 
 export default function* fbSaga() {
@@ -25,9 +25,9 @@ export default function* fbSaga() {
   } catch (err) {
     /* This will throw error when user open app for the first time, so ignore */
   }
-  yield takeEvery(loginWithFB.started.type, watchLoginWithFb);
-  yield takeEvery(logoutWithFB.type, watchLogoutWithFb);
-  yield put(initialized());
+  yield takeEvery(authActions.loginWithFB.started.type, watchLoginWithFb);
+  yield takeEvery(authActions.logoutWithFB.type, watchLogoutWithFb);
+  yield put(authActions.initialized());
 }
 
 function* watchLoginWithFb() {
@@ -70,7 +70,7 @@ function* authWithFbToken(reset?: boolean): any {
         yield call(resetApolloCache);
       }
     }
-    yield put(loginWithFB.done({ params: {}, result: {} }));
+    yield put(authActions.loginWithFB.done({ params: {}, result: {} }));
   } catch (e) {
     trackError('auth', e);
     const error: AuthError = {
@@ -78,7 +78,7 @@ function* authWithFbToken(reset?: boolean): any {
       description: '18 description',
       error: e,
     };
-    yield put(loginWithFB.failed({ params: {}, error }));
+    yield put(authActions.loginWithFB.failed({ params: {}, error }));
     LoginManager.logOut();
   }
 }
