@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { Platform } from 'react-native';
-import Config from 'react-native-config';
 import { AccessToken, LoginManager, LoginResult } from 'react-native-fbsdk';
 import { apply, call, put, takeEvery } from 'redux-saga/effects';
+import { BACKEND_URL } from '../../utils/urls';
 import { resetNavigationToHome } from '../actions';
 import { apolloCachePersistor, getApolloClient } from '../apollo';
 import { trackError } from '../errors';
@@ -58,9 +58,7 @@ function* authWithFbToken(reset?: boolean): any {
     if (token && token.accessToken) {
       const result = yield call(
         axios.get,
-        `${Config.BACKEND_PROTOCOL}://${
-          Config.BACKEND_HOST
-        }/auth/facebook/token?access_token=${token.accessToken}`,
+        `${BACKEND_URL}/auth/facebook/token?access_token=${token.accessToken}`,
       );
       if (reset) {
         yield call(resetApolloCache);

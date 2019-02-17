@@ -2,8 +2,8 @@ import ApolloClient from 'apollo-client';
 import { ApolloLink } from 'apollo-link';
 import { createHttpLink } from 'apollo-link-http';
 import { RetryLink } from 'apollo-link-retry';
-import Config from 'react-native-config';
 import RNLanguages from 'react-native-languages';
+import { BACKEND_URL } from '../../utils/urls';
 import { assertCachePersistorVersion, inMemoryCache } from './cache';
 
 let apolloClient: ApolloClient<any>;
@@ -11,7 +11,7 @@ let apolloClient: ApolloClient<any>;
 export const getApolloClient = async () => {
   if (!apolloClient) {
     const httpLink = createHttpLink({
-      uri: `${Config.BACKEND_PROTOCOL}://${Config.BACKEND_HOST}/graphql`,
+      uri: `${BACKEND_URL}/graphql`,
       credentials: 'include',
       headers: {
         'Accept-Language': RNLanguages.language,

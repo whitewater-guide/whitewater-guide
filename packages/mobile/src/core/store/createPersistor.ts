@@ -1,11 +1,11 @@
 import { AsyncStorage } from 'react-native';
-import Config from 'react-native-config';
 import {
   checkInternetConnection,
   offlineActionTypes,
 } from 'react-native-offline';
 import { Store } from 'redux';
 import { Persistor, persistStore } from 'redux-persist';
+import { BACKEND_URL } from '../../utils/urls';
 import { bootstrapped } from '../actions';
 
 const STORE_CONFIG = {
@@ -19,10 +19,7 @@ export default async function createPersistor(
   let persistor;
   const makePersitor = () =>
     persistStore(store, {}, async () => {
-      const isConnected = await checkInternetConnection(
-        `${Config.BACKEND_PROTOCOL}://${Config.BACKEND_HOST}`,
-        3000,
-      );
+      const isConnected = await checkInternetConnection(`${BACKEND_URL}`, 3000);
       store.dispatch({
         type: offlineActionTypes.CONNECTION_CHANGE,
         payload: isConnected,

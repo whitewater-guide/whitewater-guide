@@ -7,9 +7,9 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import Config from 'react-native-config';
 import { TouchableRipple } from 'react-native-paper';
 import theme from '../theme';
+import { BACKEND_URL } from '../utils/urls';
 
 const AVATAR_SIZE = 48;
 const AVATAR_SIZE_MEDIUM = 40;
@@ -73,9 +73,7 @@ export const Avatar: React.StatelessComponent<AvatarProps> = ({
   const uri =
     avatar && avatar.startsWith('http')
       ? avatar
-      : `${Config.BACKEND_PROTOCOL}://${
-          Config.BACKEND_HOST
-        }/images/${avatarSize}/avatars/${avatar}`;
+      : `${BACKEND_URL}/images/${avatarSize}/avatars/${avatar}`;
   const result = (
     <View style={[s.container, style]}>
       <View style={s.avatar}>

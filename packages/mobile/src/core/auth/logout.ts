@@ -1,9 +1,9 @@
 import axios from 'axios';
 import i18next from 'i18next';
 import { Alert } from 'react-native';
-import Config from 'react-native-config';
 import { channel } from 'redux-saga';
 import { all, call, put, takeEvery } from 'redux-saga/effects';
+import { BACKEND_URL } from '../../utils/urls';
 import { logout, logoutWithFB } from './actions';
 
 const confirmChannel = channel();
@@ -30,10 +30,7 @@ function* watchLogout() {
 
 function* watchLogoutConfirmed() {
   try {
-    yield call(
-      axios.get,
-      `${Config.BACKEND_PROTOCOL}://${Config.BACKEND_HOST}/auth/logout`,
-    );
+    yield call(axios.get, `${BACKEND_URL}/auth/logout`);
     // Until we don't have any other auth methods, delegate everything to fb saga
     yield put(logoutWithFB());
   } catch (e) {
