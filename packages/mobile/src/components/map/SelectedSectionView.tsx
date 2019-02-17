@@ -93,6 +93,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: -3,
   },
+  button: {
+    borderRadius: 0,
+  },
 });
 
 type Props = SelectedSectionViewProps &
@@ -267,7 +270,7 @@ class SelectedSectionViewInternal extends React.Component<Props, State> {
           <Subheading>{t('commons:season')}</Subheading>
           <Paragraph numberOfLines={seasonNumLines}>{season}</Paragraph>
         </View>
-        <Button mode="contained" onPress={this.onDetails}>
+        <Button mode="contained" onPress={this.onDetails} style={styles.button}>
           {t('region:map.selectedSection.details')}
         </Button>
       </SelectedElementView>
