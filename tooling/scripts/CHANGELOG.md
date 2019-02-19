@@ -1,3 +1,9 @@
+## [0.0.27](https://github.com/doomsower/whitewater/compare/@whitewater-guide/scripts@0.0.26...@whitewater-guide/scripts@0.0.27) (2019-02-19)
+
+### Features
+
+- **scripts:** make pre-commit hook fail on linters ([294b111](https://github.com/doomsower/whitewater/commit/294b111))
+
 ## [0.0.26](https://github.com/doomsower/whitewater/compare/@whitewater-guide/scripts@0.0.25...@whitewater-guide/scripts@0.0.26) (2019-02-19)
 
 ### Features
