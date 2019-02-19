@@ -26,10 +26,10 @@ export class RegionFinder extends React.PureComponent<Props> {
   };
 
   render() {
-    const { region, onChange } = this.props;
+    const { region, onChange, clearSelectionTitle } = this.props;
     return (
       <NamedNodeFinder<QResult, QVars>
-        clearSelectionTitle="Clean selection"
+        clearSelectionTitle={this.props.clearSelectionTitle}
         value={region}
         onChange={onChange}
         query={FIND_REGIONS_QUERY}

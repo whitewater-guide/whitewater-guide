@@ -45,4 +45,5 @@ type Query {
 type Mutation {
   upsertRiver(river: RiverInput!): River
   removeRiver(id: ID!): ID
+  changeRiverRegion(riverId: ID!, regionId: ID!): River
 }
