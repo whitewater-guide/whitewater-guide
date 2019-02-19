@@ -1,4 +1,4 @@
-FROM keymetrics/pm2:8-alpine
+FROM node:8.15.0-alpine
 
 ENV PROJECT_ROOT /opt/app
 WORKDIR $PROJECT_ROOT
@@ -8,6 +8,7 @@ RUN apk --no-cache add --virtual native-deps \
     g++ gcc libgcc libstdc++ linux-headers make python && \
     apk add --no-cache curl
 
+RUN npm install pm2 -g
 RUN chown -R node /opt/app
 
 COPY . /opt/app
