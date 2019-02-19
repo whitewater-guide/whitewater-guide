@@ -1,3 +1,4 @@
+import { ChartComponentProps } from '@whitewater-guide/clients';
 import moment from 'moment';
 import React from 'react';
 import ReactResizeDetector from 'react-resize-detector';
@@ -8,7 +9,6 @@ import {
   VictoryScatter,
   VictoryTheme,
 } from 'victory';
-import { ChartComponentProps } from '@whitewater-guide/clients';
 
 const tickFormat = (date: Date) => {
   return moment(date).format('HH:mm DD/MM/YYYY');
@@ -40,7 +40,7 @@ class Chart extends React.PureComponent<ChartComponentProps, State> {
           theme={VictoryTheme.material}
         >
           <VictoryAxis tickFormat={tickFormat} />
-          <VictoryAxis dependentAxis />
+          <VictoryAxis dependentAxis={true} />
           <VictoryLine
             data={data}
             x="timestamp"
@@ -51,8 +51,8 @@ class Chart extends React.PureComponent<ChartComponentProps, State> {
           <VictoryScatter data={data} x="timestamp" y={unit} />
         </VictoryChart>
         <ReactResizeDetector
-          handleWidth
-          handleHeight
+          handleWidth={true}
+          handleHeight={true}
           onResize={this.onResize}
         />
       </React.Fragment>

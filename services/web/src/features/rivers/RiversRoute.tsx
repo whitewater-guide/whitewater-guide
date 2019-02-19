@@ -14,10 +14,10 @@ export const RiversRoute: React.StatelessComponent<RouteComponentProps<any>> = (
   }
   return path.includes('/regions/') ? (
     <Switch>
-      <EditorRoute exact path={`${path}new`} component={RiverForm} />
+      <EditorRoute exact={true} path={`${path}new`} component={RiverForm} />
       <Route path={`${path}:riverId`} component={RiverRoute} />
     </Switch>
   ) : (
-    <Route exact path={`${path}`} component={RiversList} />
+    <Route exact={true} path={`${path}`} component={RiversList} />
   );
 };

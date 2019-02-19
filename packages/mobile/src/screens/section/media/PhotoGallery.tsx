@@ -1,10 +1,10 @@
+import { Media } from '@whitewater-guide/commons';
 import React from 'react';
 import { Modal, StyleSheet, Text, View } from 'react-native';
 import ImageViewer from 'react-native-image-zoom-viewer';
 import { Icon } from '../../../components';
 import { getUri } from '../../../features/media';
 import theme from '../../../theme';
-import { Media } from '@whitewater-guide/commons';
 import LoadableImage from './LoadableImage';
 
 const styles = StyleSheet.create({
@@ -65,7 +65,7 @@ class PhotoGallery extends React.PureComponent<Props> {
   renderHeader = () => (
     <View style={styles.header}>
       <Icon
-        large
+        large={true}
         icon="close"
         onPress={this.props.onClose}
         color={theme.colors.textLight}

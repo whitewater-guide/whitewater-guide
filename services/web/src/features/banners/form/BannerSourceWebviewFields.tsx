@@ -1,8 +1,8 @@
 import React from 'react';
+import debounceRender from 'react-debounce-render';
+import Iframe from 'react-iframe';
 import { TextInput } from '../../../components/forms';
 import { Styles } from '../../../styles';
-import Iframe from 'react-iframe';
-import debounceRender from 'react-debounce-render';
 
 const DebouncedIframe = debounceRender(Iframe);
 
@@ -36,7 +36,7 @@ export default class BannerSourceWebviewFields extends React.PureComponent<
       <div style={styles.root}>
         <div style={styles.inputs}>
           <TextInput name="source.ratio" type="number" title="Ratio" />
-          <TextInput fullWidth name="source.src" title="URL" />
+          <TextInput fullWidth={true} name="source.src" title="URL" />
         </div>
         <div style={{ ...styles.iframe, height: 512 / ratio }}>
           {!!url && (

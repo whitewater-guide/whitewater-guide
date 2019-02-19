@@ -1,0 +1,13 @@
+{
+  "extends": ["../../tslint.json"],
+  "rules": {
+    "no-submodule-imports": [
+      true,
+      "react-native-vector-icons",
+      "lodash",
+      "redux-saga",
+      "moment",
+      "@storybook/addon-actions"
+    ]
+  }
+}

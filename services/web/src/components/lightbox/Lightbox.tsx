@@ -1,6 +1,6 @@
+import { Media } from '@whitewater-guide/commons';
 import React from 'react';
 import Carousel, { Modal, ModalGateway } from 'react-images';
-import { Media } from '@whitewater-guide/commons';
 import LightboxFooter from './LightboxFooter';
 import LightboxView from './LightboxView';
 

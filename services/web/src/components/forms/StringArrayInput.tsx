@@ -1,4 +1,4 @@
-import { reject } from 'lodash';
+import reject from 'lodash/reject';
 import MUIChipInput from 'material-ui-chip-input';
 import React from 'react';
 import {
@@ -39,7 +39,7 @@ class StringArrayInputComponent extends React.PureComponent<Props> {
     const { input, meta, title } = this.props;
     return (
       <MUIChipInput
-        fullWidth
+        fullWidth={true}
         value={input.value}
         hintText={this.props.title}
         floatingLabelText={this.props.title}

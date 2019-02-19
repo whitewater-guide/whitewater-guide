@@ -14,10 +14,10 @@ export const GaugesRoute: React.StatelessComponent<RouteComponentProps<any>> = (
   }
   return path.includes('/sources/') ? (
     <Switch>
-      <AdminRoute exact path={`${path}new`} component={GaugeForm} />
+      <AdminRoute exact={true} path={`${path}new`} component={GaugeForm} />
       <Route path={`${path}:gaugeId`} component={GaugeRoute} />
     </Switch>
   ) : (
-    <Route exact path={`${path}`} component={GaugesList} />
+    <Route exact={true} path={`${path}`} component={GaugesList} />
   );
 };

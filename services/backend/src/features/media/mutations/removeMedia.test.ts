@@ -1,5 +1,4 @@
-import db from '@db';
-import { holdTransaction, rollbackTransaction } from '@db';
+import db, { holdTransaction, rollbackTransaction } from '@db';
 import { SectionsEditLogRaw } from '@features/sections';
 import { fileExistsInBucket, MEDIA, resetTestMinio } from '@minio';
 import {

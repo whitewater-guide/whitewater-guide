@@ -1,8 +1,8 @@
+import { NamedNode } from '@whitewater-guide/commons';
 import React from 'react';
 import { AutoSizer, Dimensions } from 'react-virtualized';
 import { Table, TableProps } from '../../components';
 import { emitter, POKE_TABLES } from '../../utils';
-import { NamedNode } from '@whitewater-guide/commons';
 
 export class ResourcesList<
   DeleteHandle extends string,

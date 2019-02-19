@@ -46,7 +46,7 @@ storiesOf('SelectRegionStepView', module)
   .addDecorator((story) => (
     <div style={{ width: 400 }}>
       <Stepper orientation="vertical" activeStep={0}>
-        <Step active completed={false}>
+        <Step active={true} completed={false}>
           <StepLabel>Выберите регион</StepLabel>
           {story()}
         </Step>

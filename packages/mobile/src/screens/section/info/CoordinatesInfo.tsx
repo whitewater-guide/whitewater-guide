@@ -1,3 +1,9 @@
+import {
+  arrayToDMSString,
+  consumeRegion,
+  WithRegion,
+} from '@whitewater-guide/clients';
+import { Coordinate, Section } from '@whitewater-guide/commons';
 import React from 'react';
 import { Clipboard } from 'react-native';
 import { Paragraph, Subheading } from 'react-native-paper';
@@ -8,9 +14,6 @@ import {
   WithPremiumDialog,
 } from '../../../features/purchases';
 import { openGoogleMaps } from '../../../utils/maps';
-import { consumeRegion, WithRegion } from '@whitewater-guide/clients';
-import { arrayToDMSString } from '@whitewater-guide/clients';
-import { Coordinate, Section } from '@whitewater-guide/commons';
 
 interface OwnProps {
   label: string;
@@ -59,7 +62,7 @@ class CoordinatesInfo extends React.PureComponent<InnerProps> {
         <Left>
           <Subheading>{label}</Subheading>
         </Left>
-        <Right row>
+        <Right row={true}>
           <Paragraph>{prettyCoord}</Paragraph>
           <Icon icon="content-copy" onPress={this.onCopy} />
           <Icon icon="car" onPress={this.onNavigate} />

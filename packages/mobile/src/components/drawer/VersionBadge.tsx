@@ -34,9 +34,10 @@ const getPrettyVersion = () => {
     const [_, majorStr, minorStr, patchStr, buildStr]: any = build.match(
       regexp,
     );
-    result = `${parseInt(majorStr)}.${parseInt(minorStr)}.${parseInt(
+    result = `${parseInt(majorStr, 10)}.${parseInt(minorStr, 10)}.${parseInt(
       patchStr,
-    )}.${parseInt(buildStr)}`;
+      10,
+    )}.${parseInt(buildStr, 10)}`;
   }
   return result;
 };

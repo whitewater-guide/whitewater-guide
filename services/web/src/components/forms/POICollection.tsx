@@ -1,3 +1,8 @@
+import {
+  Coordinate,
+  Point,
+  PointInput as PointInputType,
+} from '@whitewater-guide/commons';
 import FontIcon from 'material-ui/FontIcon';
 import RaisedButton from 'material-ui/RaisedButton';
 import React from 'react';
@@ -9,11 +14,6 @@ import {
 } from 'redux-form';
 import { Omit } from 'type-zoo';
 import { Styles } from '../../styles';
-import {
-  Coordinate,
-  Point,
-  PointInput as PointInputType,
-} from '@whitewater-guide/commons';
 import { PointInput } from './PointInput';
 
 const styles: Styles = {
@@ -71,7 +71,7 @@ class POICollectionComponent extends React.PureComponent<Props> {
         ))}
         <RaisedButton
           style={styles.addButton}
-          fullWidth
+          fullWidth={true}
           label="Add"
           onClick={this.onAdd}
           icon={

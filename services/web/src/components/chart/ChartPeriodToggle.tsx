@@ -1,7 +1,7 @@
+import { PeriodToggleProps } from '@whitewater-guide/clients';
 import MenuItem from 'material-ui/MenuItem';
 import SelectField from 'material-ui/SelectField';
 import * as React from 'react';
-import { PeriodToggleProps } from '@whitewater-guide/clients';
 
 class ChartPeriodToggle extends React.PureComponent<PeriodToggleProps> {
   onChange = (e: any, i: any, value: number) => this.props.onChange(value);

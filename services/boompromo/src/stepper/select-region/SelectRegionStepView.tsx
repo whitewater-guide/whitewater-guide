@@ -7,11 +7,11 @@ import {
   withStyles,
   WithStyles,
 } from '@material-ui/core/styles';
+import { Region } from '@whitewater-guide/commons';
 import React from 'react';
 import { Query, QueryResult } from 'react-apollo';
 import { Omit } from 'type-zoo';
 import { StepFooter } from '../../components';
-import { Region } from '@whitewater-guide/commons';
 import NoRegions from './NoRegions';
 import { PROMO_REGIONS_QUERY, Result } from './promoRegions.query';
 import RegionSelector from './RegionSelector';

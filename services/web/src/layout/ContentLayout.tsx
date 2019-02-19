@@ -12,7 +12,7 @@ import Page404 from './Page404';
 
 const ContentLayout: React.FC = () => (
   <Switch>
-    <Route exact path="/">
+    <Route exact={true} path="/">
       <Redirect from="/" to="/regions" />
     </Route>
 

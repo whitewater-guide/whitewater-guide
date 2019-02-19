@@ -1,10 +1,14 @@
+import {
+  consumeRegion,
+  WithMe,
+  withMe,
+  WithRegion,
+} from '@whitewater-guide/clients';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Column, Table as RVTable, TableProps } from 'react-virtualized';
 import { compose, mapProps } from 'recompose';
 import { emitter, POKE_TABLES } from '../../utils';
-import { consumeRegion, WithRegion } from '@whitewater-guide/clients';
-import { WithMe, withMe } from '@whitewater-guide/clients';
 import { AdminColumn } from './AdminColumn';
 import { BooleanColumn, renderBoolean } from './BooleanColumn';
 import { EditorColumn } from './EditorColumn';

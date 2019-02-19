@@ -9,6 +9,7 @@ import {
 } from 'react-native-paper';
 import theme from '../theme';
 import { Handle, HandleLeft } from './Handle';
+import RadioDialogItem from './RadioDialogItem';
 
 interface Props {
   handleTitle?: string;
@@ -75,17 +76,11 @@ export class RadioDialog extends React.PureComponent<Props, State> {
                 value={this.state.value}
               >
                 {options.map((option) => (
-                  <TouchableRipple
-                    key={keyExtractor(option)}
-                    onPress={() => this.onValueChange(keyExtractor(option))}
-                  >
-                    <Handle>
-                      <HandleLeft>
-                        <Paragraph>{labelExtractor(option)}</Paragraph>
-                      </HandleLeft>
-                      <RadioButton value={keyExtractor(option)} />
-                    </Handle>
-                  </TouchableRipple>
+                  <RadioDialogItem
+                    onChange={this.onValueChange}
+                    value={keyExtractor(option)}
+                    label={labelExtractor(option)}
+                  />
                 ))}
               </RadioButton.Group>
             </Dialog.Content>

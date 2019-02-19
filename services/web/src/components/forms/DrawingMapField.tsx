@@ -1,3 +1,4 @@
+import { Coordinate } from '@whitewater-guide/commons';
 import React from 'react';
 import ErrorBoundary from 'react-error-boundary';
 import {
@@ -6,7 +7,6 @@ import {
   GenericField,
   WrappedFieldProps,
 } from 'redux-form';
-import { Coordinate } from '@whitewater-guide/commons';
 import { DrawingMap, DrawingMode } from '../maps';
 
 interface CustomFieldProps {

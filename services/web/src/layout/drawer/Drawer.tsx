@@ -1,3 +1,4 @@
+import { withMe, WithMe } from '@whitewater-guide/clients';
 import MuiDrawer from 'material-ui/Drawer';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
@@ -5,7 +6,6 @@ import React from 'react';
 import { matchPath, RouteComponentProps, withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 import { Styles } from '../../styles';
-import { withMe, WithMe } from '@whitewater-guide/clients';
 
 const styles: Styles = {
   drawerContainer: {
@@ -49,7 +49,7 @@ const Drawer = ({
       containerStyle={styles.drawerContainer}
       onRequestChange={onChange}
     >
-      <Menu disableAutoFocus value={value}>
+      <Menu disableAutoFocus={true} value={value}>
         {ITEMS.map(({ path, title, admin }) => {
           if (admin && !(me && me.admin)) {
             return null;

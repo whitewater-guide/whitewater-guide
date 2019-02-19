@@ -1,3 +1,4 @@
+import { ColorStrings } from '@whitewater-guide/clients';
 import Attributes from 'markdown-it-attrs';
 import React from 'react';
 import { Platform, StyleProp, StyleSheet, Text } from 'react-native';
@@ -7,7 +8,6 @@ import SimpleMarkdown, {
   RenderRules,
 } from 'react-native-markdown-renderer';
 import theme from '../theme';
-import { ColorStrings } from '@whitewater-guide/clients';
 
 type TStyle = ReturnType<typeof StyleSheet.create> & { [key: string]: any };
 

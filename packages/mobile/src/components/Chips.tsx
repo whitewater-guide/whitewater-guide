@@ -1,7 +1,7 @@
+import { NamedNode } from '@whitewater-guide/commons';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Chip, Subheading } from 'react-native-paper';
-import { NamedNode } from '@whitewater-guide/commons';
 
 const styles = StyleSheet.create({
   container: {

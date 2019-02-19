@@ -1,5 +1,5 @@
-import { NamedNode, UserFilter } from '../../../../../../packages/commons/dist';
 import gql from 'graphql-tag';
+import { NamedNode, UserFilter } from '../../../../../../packages/commons/dist';
 
 export const FIND_USERS_QUERY = gql`
   query findUsers($filter: UserFilter!) {

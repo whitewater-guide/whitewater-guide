@@ -1,16 +1,16 @@
 import { holdTransaction, rollbackTransaction } from '@db';
 import {
   ADMIN,
-  EDITOR_NO_EC,
-  EDITOR_NO,
   EDITOR_GE,
+  EDITOR_NO,
+  EDITOR_NO_EC,
   TEST_USER,
 } from '@seeds/01_users';
 import { anonContext, fakeContext, runQuery } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
 
-import { RIVER_SJOA } from '@seeds/07_rivers';
 import { REGION_ECUADOR, REGION_NORWAY } from '@seeds/04_regions';
+import { RIVER_SJOA } from '@seeds/07_rivers';
 
 const mutation = `
   mutation changeRiverRegion($riverId: ID!, $regionId: ID!){

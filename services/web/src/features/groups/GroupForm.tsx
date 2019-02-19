@@ -1,3 +1,4 @@
+import { Group, Region } from '@whitewater-guide/commons';
 import get from 'lodash/get';
 import IconButton from 'material-ui/IconButton';
 import { TableRow, TableRowColumn } from 'material-ui/Table';
@@ -5,7 +6,6 @@ import TextField from 'material-ui/TextField';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Overwrite } from 'type-zoo';
-import { Group, Region } from '@whitewater-guide/commons';
 import { WithGroupMutations } from './types';
 
 type State = Overwrite<Group, { id: string | null }>;
@@ -65,7 +65,7 @@ class GroupForm extends React.PureComponent<Props, State> {
       <TableRow>
         <TableRowColumn>
           <TextField
-            fullWidth
+            fullWidth={true}
             value={name}
             hintText="Name"
             onChange={this.onNameChange}
@@ -73,7 +73,7 @@ class GroupForm extends React.PureComponent<Props, State> {
         </TableRowColumn>
         <TableRowColumn>
           <TextField
-            fullWidth
+            fullWidth={true}
             value={sku || ''}
             hintText="SKU"
             onChange={this.onSkuChange}

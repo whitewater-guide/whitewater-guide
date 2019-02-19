@@ -18,7 +18,7 @@ export default class SourceForm extends React.PureComponent<SourceFormProps> {
       <Form {...this.props} resourceType="source">
         <Tabs tabTemplateStyle={tabTemplateStyle}>
           <Tab label="Main" value="#main">
-            <TextInput fullWidth name="name" title="Name" />
+            <TextInput fullWidth={true} name="name" title="Name" />
             <ChipInput
               name="regions"
               title="Regions"
@@ -30,8 +30,8 @@ export default class SourceForm extends React.PureComponent<SourceFormProps> {
               title="Script"
               options={this.props.scripts}
             />
-            <TextInput fullWidth name="url" title="URL" />
-            <TextInput fullWidth name="cron" title="Cron" />
+            <TextInput fullWidth={true} name="url" title="URL" />
+            <TextInput fullWidth={true} name="cron" title="Cron" />
           </Tab>
           <Tab label="Terms Of Use" value="#terms">
             <TextareaField name="termsOfUse" />

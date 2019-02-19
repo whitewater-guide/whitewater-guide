@@ -1,9 +1,9 @@
+import { Section } from '@whitewater-guide/commons';
 import React from 'react';
 import {
   connectPremiumDialog,
   WithPremiumDialog,
 } from '../../../../features/purchases';
-import { Section } from '@whitewater-guide/commons';
 import NoDataPlaceholder from './NoDataPlaceholder';
 import PremiumPlaceholder from './PremiumPlaceholder';
 

@@ -1,9 +1,9 @@
-import React from 'react';
 import {
   StyleRulesCallback,
   WithStyles,
   withStyles,
 } from '@material-ui/core/styles';
+import React from 'react';
 
 const IMAGE_BASE = process.env.STORYBOOK_ENABLED
   ? ''

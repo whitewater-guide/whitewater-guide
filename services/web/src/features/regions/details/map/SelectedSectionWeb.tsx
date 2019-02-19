@@ -1,3 +1,9 @@
+import {
+  renderDifficulty,
+  SelectedSectionViewProps,
+  stringifySeason,
+} from '@whitewater-guide/clients';
+import { Durations } from '@whitewater-guide/commons';
 import { RaisedButton } from 'material-ui';
 import React from 'react';
 import { Col } from 'react-grid-system';
@@ -7,9 +13,6 @@ import { InfoWindow, MapElement } from '../../../../components/maps';
 import { Container, Row, Title } from '../../../../layout/details';
 import { Styles } from '../../../../styles';
 import { paths } from '../../../../utils';
-import { SelectedSectionViewProps } from '@whitewater-guide/clients';
-import { renderDifficulty, stringifySeason } from '@whitewater-guide/clients';
-import { Durations } from '@whitewater-guide/commons';
 
 const styles: Styles = {
   h2: {
@@ -95,8 +98,8 @@ class SelectedSectionWebInner extends React.PureComponent<Props> {
             </Col>
           </Row>
           <RaisedButton
-            fullWidth
-            primary
+            fullWidth={true}
+            primary={true}
             label="More"
             onClick={this.onDetails}
           />

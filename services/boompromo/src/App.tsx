@@ -3,10 +3,10 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import SvgIcon from '@material-ui/core/SvgIcon';
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 import { withStyles, WithStyles } from '@material-ui/core/styles';
+import SvgIcon from '@material-ui/core/SvgIcon';
 import Typography from '@material-ui/core/Typography';
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
@@ -61,10 +61,10 @@ class App extends React.PureComponent<WithStyles<ClassNames>> {
               />
             </CardMedia>
             <CardContent>
-              <Typography gutterBottom variant="title">
+              <Typography gutterBottom={true} variant="title">
                 Привет!
               </Typography>
-              <Typography gutterBottom>
+              <Typography gutterBottom={true}>
                 Cпасибо еще раз что поддержали нас через{' '}
                 <a
                   href="https://boomstarter.ru/projects/866787/whitewaterguide_-_prilozhenie_dlya_kayakerov_i_turistov"
@@ -80,7 +80,7 @@ class App extends React.PureComponent<WithStyles<ClassNames>> {
             </CardContent>
             <CardActions
               className={classes.actions}
-              disableActionSpacing
+              disableActionSpacing={true}
               color="primary"
             >
               <Typography className={classes.copyright}>

@@ -1,9 +1,9 @@
 import { storiesOf } from '@storybook/react-native';
+import { Gauge, HarvestMode, Unit } from '@whitewater-guide/commons';
 import times from 'lodash/times';
 import moment from 'moment';
 import React from 'react';
 import { I18nProvider } from '../../i18n';
-import { Gauge, HarvestMode, Unit } from '@whitewater-guide/commons';
 import { Chart } from './Chart';
 
 function generateData(days: number, step: number) {

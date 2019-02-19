@@ -1,8 +1,8 @@
+import { User } from '@whitewater-guide/commons';
 import { TableRow, TableRowColumn } from 'material-ui/Table';
 import React from 'react';
 import { MutationFn } from 'react-apollo';
 import { DeleteButton } from '../../../../components';
-import { User } from '@whitewater-guide/commons';
 
 interface Props {
   user: User;

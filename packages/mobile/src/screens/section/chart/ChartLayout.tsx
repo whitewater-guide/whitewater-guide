@@ -1,6 +1,6 @@
+import { ChartLayoutProps } from '@whitewater-guide/clients';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { ChartLayoutProps } from '@whitewater-guide/clients';
 import GaugeInfo from './GaugeInfo';
 
 const styles = StyleSheet.create({

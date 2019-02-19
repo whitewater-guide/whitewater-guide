@@ -1,3 +1,4 @@
+import { HarvestStatus } from '@whitewater-guide/commons';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import Popover from 'material-ui/Popover';
@@ -12,7 +13,6 @@ import moment from 'moment';
 import React from 'react';
 import { Col, Container, Row } from 'react-grid-system';
 import { Styles } from '../styles';
-import { HarvestStatus } from '@whitewater-guide/commons';
 
 const styles: Styles = {
   popover: {

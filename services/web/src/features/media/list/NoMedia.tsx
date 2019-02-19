@@ -1,7 +1,7 @@
+import { MediaKind } from '@whitewater-guide/commons';
 import FontIcon from 'material-ui/FontIcon';
 import React from 'react';
 import { Styles } from '../../../styles';
-import { MediaKind } from '@whitewater-guide/commons';
 import { THUMB_HEIGHT } from './constants';
 
 const styles: Styles = {

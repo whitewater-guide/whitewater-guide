@@ -1,10 +1,10 @@
 import { action } from '@storybook/addon-actions';
 import { storiesOf } from '@storybook/react-native';
+import { NamedNode, RegionMediaSummary } from '@whitewater-guide/commons';
 import { ApolloError } from 'apollo-client';
 import noop from 'lodash/noop';
 import React from 'react';
 import { Dialog } from 'react-native-paper';
-import { NamedNode, RegionMediaSummary } from '@whitewater-guide/commons';
 import { OfflineProgress } from '../types';
 import OfflineContentDialogView from './OfflineContentDialogView';
 
@@ -40,7 +40,7 @@ const summary: RegionMediaSummary = {
 
 storiesOf('Offline dialog', module)
   .addDecorator((story: any) => (
-    <Dialog onDismiss={noop} visible dismissable={false}>
+    <Dialog onDismiss={noop} visible={true} dismissable={false}>
       {story()}
     </Dialog>
   ))
@@ -81,7 +81,7 @@ storiesOf('Offline dialog', module)
   ))
   .add('In progress (full)', () => (
     <OfflineContentDialogView
-      inProgress
+      inProgress={true}
       region={region}
       progress={progress}
       summary={{ summary }}
@@ -89,7 +89,7 @@ storiesOf('Offline dialog', module)
   ))
   .add('In progress (partial)', () => (
     <OfflineContentDialogView
-      inProgress
+      inProgress={true}
       region={region}
       progress={progressPartial}
       summary={{ summary }}

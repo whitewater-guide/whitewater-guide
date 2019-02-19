@@ -1,11 +1,11 @@
+import { consumeRegion, WithRegion } from '@whitewater-guide/clients';
+import { Section } from '@whitewater-guide/commons';
 import React from 'react';
 import { translate, withI18n, WithI18n } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Button, Caption } from 'react-native-paper';
 import { compose } from 'recompose';
 import { WithPremiumDialog } from '../../../../features/purchases';
-import { consumeRegion, WithRegion } from '@whitewater-guide/clients';
-import { Section } from '@whitewater-guide/commons';
 
 const styles = StyleSheet.create({
   container: {

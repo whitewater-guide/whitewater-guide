@@ -1,8 +1,8 @@
+import { flushPromises } from '@whitewater-guide/clients';
 import casual from 'casual';
 import { ReactWrapper } from 'enzyme';
 import React from 'react';
 import { FormReceiver, mountForm } from '../../../test';
-import { flushPromises } from '@whitewater-guide/clients';
 import sourceForm from './container';
 import { SourceFormProps } from './types';
 

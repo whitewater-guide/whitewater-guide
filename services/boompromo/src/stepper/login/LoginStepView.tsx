@@ -82,7 +82,11 @@ class LoginStepView extends React.Component<Props> {
         {this.renderUserView()}
         <Divider className={classes.divider} />
         {!!error && (
-          <Typography gutterBottom noWrap style={{ color: red[500] }}>
+          <Typography
+            gutterBottom={true}
+            noWrap={true}
+            style={{ color: red[500] }}
+          >
             {error}
           </Typography>
         )}

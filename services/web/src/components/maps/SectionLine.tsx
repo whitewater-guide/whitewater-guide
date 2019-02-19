@@ -1,6 +1,8 @@
+import {
+  getSectionColor,
+  SectionComponentProps,
+} from '@whitewater-guide/clients';
 import React from 'react';
-import { SectionComponentProps } from '@whitewater-guide/clients';
-import { getSectionColor } from '@whitewater-guide/clients';
 import { MapElement } from './types';
 
 const Line = google.maps.Polyline;

@@ -1,15 +1,15 @@
+import { NamedNode } from '@whitewater-guide/commons';
+import isString from 'lodash/isString';
 import { SelectFieldProps } from 'material-ui';
 import MenuItem from 'material-ui/MenuItem';
 import SelectField from 'material-ui/SelectField';
 import React from 'react';
-import isString from 'lodash/isString';
 import {
   BaseFieldProps,
   Field,
   GenericField,
   WrappedFieldProps,
 } from 'redux-form';
-import { NamedNode } from '@whitewater-guide/commons';
 
 interface SelectComponentProps extends Partial<SelectFieldProps> {
   options: NamedNode[];
@@ -67,7 +67,7 @@ class SelectComponent extends React.PureComponent<Props> {
     return (
       <SelectField
         {...props}
-        fullWidth
+        fullWidth={true}
         value={value}
         onChange={this.onChange}
         floatingLabelText={title}

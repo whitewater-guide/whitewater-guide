@@ -1,10 +1,10 @@
+import { flushPromises } from '@whitewater-guide/clients';
+import { GaugeInput } from '@whitewater-guide/commons';
 import casual from 'casual';
 import { ReactWrapper } from 'enzyme';
 import React from 'react';
 import { InjectedFormProps } from 'redux-form';
 import { FormReceiver, mountForm } from '../../../test';
-import { flushPromises } from '@whitewater-guide/clients';
-import { GaugeInput } from '@whitewater-guide/commons';
 import gaugeForm from './container';
 
 let wrapped: ReactWrapper;

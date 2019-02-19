@@ -1,3 +1,4 @@
+import FlatButton from 'material-ui/FlatButton';
 import React from 'react';
 import { Column, TableCellRenderer } from 'react-virtualized';
 import { ClickBlocker, DeleteButton, IconLink } from '../../../components';
@@ -5,9 +6,8 @@ import { EditorColumn } from '../../../components/tables';
 import { ResourcesList } from '../../../layout';
 import { paths } from '../../../utils';
 import AddSectionButton from './AddSectionButton';
-import { RiversListProps } from './types';
 import ChangeRegionDialog from './ChangeRegionDialog';
-import FlatButton from 'material-ui/FlatButton';
+import { RiversListProps } from './types';
 
 const styles = {
   actions: {

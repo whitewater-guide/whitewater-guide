@@ -1,6 +1,5 @@
+import { MyProfileConsumer, RegionConsumer } from '@whitewater-guide/clients';
 import React from 'react';
-import { RegionConsumer } from '@whitewater-guide/clients';
-import { MyProfileConsumer } from '@whitewater-guide/clients';
 
 /**
  * Component that render its children only if the user (consumed from context) is admin

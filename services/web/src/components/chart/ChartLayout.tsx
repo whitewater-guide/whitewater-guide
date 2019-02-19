@@ -1,6 +1,6 @@
+import { ChartLayoutProps } from '@whitewater-guide/clients';
 import React from 'react';
 import { Styles } from '../../styles';
-import { ChartLayoutProps } from '@whitewater-guide/clients';
 
 const styles: Styles = {
   root: {

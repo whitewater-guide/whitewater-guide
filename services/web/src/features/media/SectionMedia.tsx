@@ -10,12 +10,12 @@ class SectionMedia extends React.PureComponent<RouteComponentProps<any>> {
       <Container>
         <MediaListWithData />
         <Route
-          strict
+          strict={true}
           path={`${this.props.match.path}/media/new`}
           component={MediaForm}
         />
         <Route
-          strict
+          strict={true}
           path={`${this.props.match.path}/media/:mediaId/settings`}
           component={MediaForm}
         />

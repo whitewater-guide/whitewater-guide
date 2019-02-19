@@ -1,5 +1,5 @@
 import { Durations, NamedNode } from '@whitewater-guide/commons';
-import { groupBy } from 'lodash';
+import groupBy from 'lodash/groupBy';
 import TextField from 'material-ui/TextField';
 import React from 'react';
 import { Tabs } from '../../../components';
@@ -91,29 +91,29 @@ export default class SectionForm extends React.PureComponent<SectionFormProps> {
           >
             <div style={{ overflowX: 'hidden', flex: 1 }}>
               <TextField
-                fullWidth
-                disabled
+                fullWidth={true}
+                disabled={true}
                 value={this.props.initialValues.river!.name}
                 floatingLabelText="River"
               />
-              <TextInput fullWidth name="name" title="Name" />
+              <TextInput fullWidth={true} name="name" title="Name" />
               <StringArrayInput name="altNames" title="Alternative names" />
               <Row>
                 <TextInput
-                  fullWidth
+                  fullWidth={true}
                   name="difficulty"
                   type="number"
                   title="Difficulty"
                 />
                 <TextInput
-                  fullWidth
+                  fullWidth={true}
                   name="difficultyXtra"
                   title="Difficulty (extra)"
                 />
                 <RatingInput name="rating" title="Rating" />
               </Row>
               <Select
-                nullable
+                nullable={true}
                 simple={false}
                 format={null}
                 name="gauge"
@@ -122,25 +122,25 @@ export default class SectionForm extends React.PureComponent<SectionFormProps> {
               />
               <Row>
                 <TextInput
-                  fullWidth
+                  fullWidth={true}
                   name="levels.minimum"
                   type="number"
                   title="Minimal level"
                 />
                 <TextInput
-                  fullWidth
+                  fullWidth={true}
                   name="levels.optimum"
                   type="number"
                   title="Optimal level"
                 />
                 <TextInput
-                  fullWidth
+                  fullWidth={true}
                   name="levels.maximum"
                   type="number"
                   title="Maximal level"
                 />
                 <TextInput
-                  fullWidth
+                  fullWidth={true}
                   name="levels.impossible"
                   type="number"
                   title="Absolute maximum"
@@ -149,32 +149,36 @@ export default class SectionForm extends React.PureComponent<SectionFormProps> {
               </Row>
               <Row>
                 <TextInput
-                  fullWidth
+                  fullWidth={true}
                   name="flows.minimum"
                   type="number"
                   title="Minimal flow"
                 />
                 <TextInput
-                  fullWidth
+                  fullWidth={true}
                   name="flows.optimum"
                   type="number"
                   title="Optimal flow"
                 />
                 <TextInput
-                  fullWidth
+                  fullWidth={true}
                   name="flows.maximum"
                   type="number"
                   title="Maximal flow"
                 />
                 <TextInput
-                  fullWidth
+                  fullWidth={true}
                   name="flows.impossible"
                   type="number"
                   title="Absolute maximum"
                 />
                 <Checkbox name="flows.approximate" label="Approximate" />
               </Row>
-              <TextInput fullWidth name="flowsText" title="Flows description" />
+              <TextInput
+                fullWidth={true}
+                name="flowsText"
+                title="Flows description"
+              />
               <Checkbox name="hidden" label="Hidden from users" />
             </div>
           </FormTab>
@@ -187,26 +191,26 @@ export default class SectionForm extends React.PureComponent<SectionFormProps> {
             <div style={{ overflowX: 'hidden', flex: 1 }}>
               <Row>
                 <TextInput
-                  fullWidth
+                  fullWidth={true}
                   name="drop"
                   type="number"
                   title="Drop, m"
                 />
                 <TextInput
-                  fullWidth
+                  fullWidth={true}
                   name="distance"
                   type="number"
                   title="Length, km"
                 />
                 <Select
-                  nullable
+                  nullable={true}
                   format={null}
                   name="duration"
                   options={DURATIONS_OPTIONS}
                   title="Duration"
                 />
               </Row>
-              <TextInput fullWidth name="season" title="Season" />
+              <TextInput fullWidth={true} name="season" title="Season" />
               <SeasonPicker name="seasonNumeric" />
               <ChipInput
                 name="supplyTags"

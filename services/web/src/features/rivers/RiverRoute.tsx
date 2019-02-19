@@ -8,7 +8,11 @@ const RiverRoute: React.StatelessComponent<RouteComponentProps<any>> = ({
   match,
 }) => (
   <Switch>
-    <EditorRoute exact path={`${match.path}/settings`} component={RiverForm} />
+    <EditorRoute
+      exact={true}
+      path={`${match.path}/settings`}
+      component={RiverForm}
+    />
     <Route component={RiverDetails} />
   </Switch>
 );

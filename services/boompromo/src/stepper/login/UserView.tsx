@@ -42,7 +42,7 @@ const UserView: React.SFC<Props> = ({ classes, user, logout }) => (
       <Avatar src={user.picture.data.url} className={classes.avatar} />
       <Typography variant="subheading">{user.name}</Typography>
     </div>
-    <Typography gutterBottom align="justify">
+    <Typography gutterBottom={true} align="justify">
       Вход в приложение whitewater.guide осуществляется через Facebook. Войдите
       через тот же аккаунт Facebook, который вы собираетесь использовать в
       мобильном приложении.

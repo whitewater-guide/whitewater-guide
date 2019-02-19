@@ -1,8 +1,8 @@
 import { TopLevelResolver } from '@apollo';
 import db from '@db';
-import insertLog from '@features/media/mutations/insertLogs';
 import { MEDIA, minioClient } from '@minio';
 import { MediaKind } from '@whitewater-guide/commons';
+import insertLog from './insertLogs';
 
 interface Vars {
   id: string;

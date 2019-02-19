@@ -1,3 +1,4 @@
+import { flushPromises } from '@whitewater-guide/clients';
 import gql from 'graphql-tag';
 import { createMemoryHistory, History } from 'history';
 import React from 'react';
@@ -5,7 +6,6 @@ import { ChildProps, graphql } from 'react-apollo';
 import { ComponentEnhancer, withProps } from 'recompose';
 import { struct } from 'superstruct';
 import { FormReceiver, mountForm } from '../../test';
-import { flushPromises } from '@whitewater-guide/clients';
 import { Loading } from '../Loading';
 import { formContainer, FormContainerOptions } from './formContainer';
 import { validateInput } from './validation';

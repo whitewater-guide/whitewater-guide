@@ -29,11 +29,11 @@ const NoRegions: React.SFC<WithStyles<ClassNames>> = ({ classes }) => (
   <div className={classes.root}>
     <div className={classes.iconRow}>
       <Icon className={classes.icon}>warning</Icon>
-      <Typography variant="subheading" gutterBottom>
+      <Typography variant="subheading" gutterBottom={true}>
         Нет доступных регионов
       </Typography>
     </div>
-    <Typography variant="caption" gutterBottom>
+    <Typography variant="caption" gutterBottom={true}>
       Возможно, вы уже приобрели все доступные премиум-регионы
     </Typography>
   </div>

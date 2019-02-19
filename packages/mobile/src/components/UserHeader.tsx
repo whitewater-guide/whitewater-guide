@@ -1,8 +1,8 @@
+import { User } from '@whitewater-guide/commons';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Title } from 'react-native-paper';
 import theme from '../theme';
-import { User } from '@whitewater-guide/commons';
 import { Avatar } from './Avatar';
 
 const styles = StyleSheet.create({

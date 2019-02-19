@@ -1,8 +1,8 @@
+import { Media } from '@whitewater-guide/commons';
 import { List, ListItem } from 'material-ui/List';
 import React from 'react';
 import { IconButtonWithData } from '../../../components';
 import { Styles } from '../../../styles';
-import { Media } from '@whitewater-guide/commons';
 
 const styles: Styles = {
   list: {

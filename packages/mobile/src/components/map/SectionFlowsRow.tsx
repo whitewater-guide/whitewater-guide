@@ -1,15 +1,15 @@
-import moment from 'moment';
-import React from 'react';
-import { WithI18n } from 'react-i18next';
-import { StyleSheet, Text, View } from 'react-native';
-import { Caption, Subheading } from 'react-native-paper';
-import theme from '../../theme';
 import {
   ColorStrings,
   getSectionColor,
   prettyNumber,
 } from '@whitewater-guide/clients';
 import { Section } from '@whitewater-guide/commons';
+import moment from 'moment';
+import React from 'react';
+import { WithI18n } from 'react-i18next';
+import { StyleSheet, Text, View } from 'react-native';
+import { Caption, Subheading } from 'react-native-paper';
+import theme from '../../theme';
 import { Row } from '../Row';
 import SimpleTextFlowRow from './SimpleTextFlowRow';
 

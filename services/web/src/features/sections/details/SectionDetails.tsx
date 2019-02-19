@@ -1,3 +1,4 @@
+import { WithSection } from '@whitewater-guide/clients';
 import { CardMedia } from 'material-ui/Card';
 import { Tab } from 'material-ui/Tabs';
 import React from 'react';
@@ -7,7 +8,6 @@ import { RouteComponentProps } from 'react-router-dom';
 import { Content, Tabs } from '../../../components';
 import { EditorLanguagePicker } from '../../../components/language';
 import { CardHeader, EditorFooter } from '../../../layout';
-import { WithSection } from '@whitewater-guide/clients';
 import { SectionMedia } from '../../media';
 import SectionInfo from './SectionInfo';
 
@@ -23,13 +23,13 @@ export default class SectionDetails extends React.PureComponent<
       return null;
     }
     return (
-      <Content card>
+      <Content card={true}>
         <CardHeader title={`${section.river.name} - ${section.name}`}>
           <EditorLanguagePicker />
         </CardHeader>
         <CardMedia style={{ height: '100%' }} mediaStyle={{ height: '100%' }}>
           <div style={{ width: '100%', height: '100%' }}>
-            <Tabs fullPathMode>
+            <Tabs fullPathMode={true}>
               <Tab label="Map" value={`${url}#map`}>
                 <span>Map</span>
               </Tab>
@@ -53,10 +53,10 @@ export default class SectionDetails extends React.PureComponent<
           </div>
         </CardMedia>
         <Switch>
-          <Route exact path={`${url}/media`} />
+          <Route exact={true} path={`${url}/media`} />
 
           <Route>
-            <EditorFooter edit administrate />
+            <EditorFooter edit={true} administrate={true} />
           </Route>
         </Switch>
       </Content>

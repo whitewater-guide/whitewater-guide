@@ -1,4 +1,5 @@
-import { groupBy } from 'lodash';
+import { Media, MediaKind } from '@whitewater-guide/commons';
+import groupBy from 'lodash/groupBy';
 import FlatButton from 'material-ui/FlatButton';
 import FontIcon from 'material-ui/FontIcon';
 import React from 'react';
@@ -6,7 +7,6 @@ import { Col } from 'react-grid-system';
 import { ConfirmationDialog, Lightbox } from '../../../components';
 import { Row } from '../../../layout/details';
 import { FileWithPreview } from '../../../utils';
-import { Media, MediaKind } from '@whitewater-guide/commons';
 import BlogsList from './BlogsList';
 import GridGallery from './GridGallery';
 import { MediaListProps } from './types';

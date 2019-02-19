@@ -1,7 +1,7 @@
-import React from 'react';
-import { Styles } from '../../../styles';
 import { BannerKind, BannerSource } from '@whitewater-guide/commons';
+import React from 'react';
 import Iframe from 'react-iframe';
+import { Styles } from '../../../styles';
 
 const styles: Styles = {
   container: {

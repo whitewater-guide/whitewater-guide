@@ -1,6 +1,6 @@
+import { Media, MediaKind } from '@whitewater-guide/commons';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Media, MediaKind } from '@whitewater-guide/commons';
 import NoMedia from './NoMedia';
 import VideoItem from './VideoItem';
 

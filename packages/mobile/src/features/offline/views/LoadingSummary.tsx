@@ -28,7 +28,7 @@ class LoadingSummary extends React.PureComponent<Props> {
         <View style={styles.container}>
           <Icon icon="alert" />
           <Subheading>{t('offline:dialog.summaryError')}</Subheading>
-          <Button color={theme.colors.primary} compact onPress={refetch}>
+          <Button color={theme.colors.primary} compact={true} onPress={refetch}>
             {this.props.t('commons:retry')}
           </Button>
         </View>

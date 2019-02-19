@@ -1,6 +1,6 @@
 import MenuItem from '@material-ui/core/MenuItem';
-import React from 'react';
 import { NamedNode } from '@whitewater-guide/commons';
+import React from 'react';
 
 interface Props {
   highlightedIndex: number | null;

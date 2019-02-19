@@ -7,7 +7,7 @@ import SectionAdminSettingsForm from './settings';
 export class SectionAdmin extends React.Component {
   render() {
     return (
-      <Content card>
+      <Content card={true}>
         <CardHeader title="Administrate section" />
         <CardMedia style={{ height: '100%' }} mediaStyle={{ height: '100%' }}>
           <SectionAdminSettingsForm />

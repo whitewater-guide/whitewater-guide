@@ -10,11 +10,15 @@ const SectionRoute: React.StatelessComponent<RouteComponentProps<any>> = ({
 }) => (
   <Switch>
     <EditorRoute
-      exact
+      exact={true}
       path={`${match.path}/settings`}
       component={SectionForm}
     />
-    <AdminRoute exact path={`${match.path}/admin`} component={SectionAdmin} />
+    <AdminRoute
+      exact={true}
+      path={`${match.path}/admin`}
+      component={SectionAdmin}
+    />
     <Route component={SectionDetails} />
   </Switch>
 );

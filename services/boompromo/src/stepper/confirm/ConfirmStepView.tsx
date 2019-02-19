@@ -1,3 +1,4 @@
+import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import FormHelperText from '@material-ui/core/FormHelperText/FormHelperText';
 import { StepProps } from '@material-ui/core/Step';
@@ -8,13 +9,12 @@ import {
   WithStyles,
 } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import { BoomPromoInfo, Region } from '@whitewater-guide/commons';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { Omit } from 'type-zoo';
 import { StepFooter } from '../../components';
-import Button from '@material-ui/core/Button';
-import { BoomPromoInfo, Region } from '@whitewater-guide/commons';
 import Footer from './Footer';
 import { ConfirmStepStore } from './store';
 import { IConfirmStepStore } from './types';
@@ -84,13 +84,13 @@ class ConfirmStepView extends React.Component<Props> {
 
   renderSuccess = () => (
     <React.Fragment>
-      <Typography gutterBottom variant="headline">
+      <Typography gutterBottom={true} variant="headline">
         Успех!
       </Typography>
-      <Typography gutterBottom variant="subheading">
+      <Typography gutterBottom={true} variant="subheading">
         Промокод был активирован
       </Typography>
-      <Typography gutterBottom>
+      <Typography gutterBottom={true}>
         {`Вознаграждение: `}
         {this.getPrize()}
       </Typography>
@@ -129,7 +129,7 @@ class ConfirmStepView extends React.Component<Props> {
         </Typography>
         {!this.store.loading &&
           (!!this.store.error || this.store.success === false) && (
-            <FormHelperText error>
+            <FormHelperText error={true}>
               {this.store.error || 'Вы уже активировали этот промокод ранее'}
             </FormHelperText>
           )}

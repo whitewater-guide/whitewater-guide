@@ -42,7 +42,7 @@ export const ConfirmationDialog: React.StatelessComponent<Props> = (props) => {
   }
 
   return (
-    <Dialog open modal title={title} actions={actions}>
+    <Dialog open={true} modal={true} title={title} actions={actions}>
       {description}
     </Dialog>
   );

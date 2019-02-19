@@ -1,10 +1,10 @@
+import { AdminOnly } from '@whitewater-guide/clients';
 import React from 'react';
 import { Column, TableCellRenderer } from 'react-virtualized';
 import { ClickBlocker, DeleteButton, IconLink } from '../../../components';
 import { AdminColumn, renderBoolean } from '../../../components/tables';
 import { EditorFooterProps, ResourcesListCard } from '../../../layout';
 import { paths } from '../../../utils';
-import { AdminOnly } from '@whitewater-guide/clients';
 import { RegionsListProps } from './types';
 
 const FooterProps: EditorFooterProps = { adminOnly: true };

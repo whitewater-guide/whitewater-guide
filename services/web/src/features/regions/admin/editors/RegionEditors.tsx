@@ -1,8 +1,8 @@
+import { User } from '@whitewater-guide/commons';
 import Table, { TableBody, TableFooter } from 'material-ui/Table';
 import React from 'react';
 import { Mutation, MutationFn, Query, QueryResult } from 'react-apollo';
 import { Loading } from '../../../../components';
-import { User } from '@whitewater-guide/commons';
 import container from './container';
 import EditorListFooter from './EditorListFooter';
 import EditorListItem from './EditorListItem';

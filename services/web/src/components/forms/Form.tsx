@@ -45,11 +45,11 @@ export class Form extends React.PureComponent<Props> {
         ? `${initialValues.name} settings`
         : `New ${resourceType}`;
     return (
-      <Content card>
+      <Content card={true}>
         <Prompt when={this.shouldBlockNavigation}>
           {({ onConfirm, onCancel }: any) => (
             <ConfirmationDialog
-              invertedAccents
+              invertedAccents={true}
               description="There are some unsaved changes, are sure you don't want to save them?"
               confirmTitle="Leave"
               cancelTitle="Stay"
@@ -68,7 +68,7 @@ export class Form extends React.PureComponent<Props> {
         </CardMedia>
         <CardActions>
           <FlatButton
-            primary
+            primary={true}
             label={submitLabel}
             onClick={this.props.handleSubmit}
           />

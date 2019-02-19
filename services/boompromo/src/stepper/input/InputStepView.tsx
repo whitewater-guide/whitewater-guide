@@ -8,11 +8,11 @@ import {
   withStyles,
   WithStyles,
 } from '@material-ui/core/styles';
+import { BoomPromoInfo } from '@whitewater-guide/commons';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { StepFooter } from '../../components';
-import { BoomPromoInfo } from '@whitewater-guide/commons';
 import { InputStepStore } from './store';
 import { IInputStepStore } from './types';
 

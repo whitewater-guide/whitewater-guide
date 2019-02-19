@@ -1,4 +1,5 @@
 /* tslint:disable:no-var-requires*/
+import { apolloErrorClear, ApolloErrorState } from '@whitewater-guide/clients';
 import IconButton from 'material-ui/IconButton';
 import Snackbar from 'material-ui/Snackbar';
 import { grey100 } from 'material-ui/styles/colors';
@@ -11,7 +12,6 @@ import { Breadcrumbs } from '../components';
 import { UserMenu } from '../features/users';
 import { RootState } from '../redux';
 import { Styles } from '../styles';
-import { apolloErrorClear, ApolloErrorState } from '@whitewater-guide/clients';
 import breadcrumbRoutes from './breadcrumbRoutes';
 import ContentLayout from './ContentLayout';
 import { Drawer } from './drawer';
@@ -76,7 +76,7 @@ class RootLayoutInternal extends React.Component<Props, State> {
     return (
       <div style={styles.root}>
         <Toolbar style={styles.toolbar}>
-          <ToolbarGroup firstChild>
+          <ToolbarGroup firstChild={true}>
             <IconButton
               iconClassName="material-icons"
               onClick={this.toggleDrawer}
@@ -88,7 +88,7 @@ class RootLayoutInternal extends React.Component<Props, State> {
             </Link>
             <Breadcrumbs routes={breadcrumbRoutes} />
           </ToolbarGroup>
-          <ToolbarGroup lastChild>
+          <ToolbarGroup lastChild={true}>
             <UserMenu />
           </ToolbarGroup>
         </Toolbar>

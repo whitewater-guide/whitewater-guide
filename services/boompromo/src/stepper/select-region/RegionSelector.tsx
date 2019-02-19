@@ -5,9 +5,9 @@ import {
   WithStyles,
 } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import { Region } from '@whitewater-guide/commons';
 import Downshift from 'downshift';
 import React from 'react';
-import { Region } from '@whitewater-guide/commons';
 import filterRegions from './filterRegions';
 import RegionItem from './RegionItem';
 
@@ -98,9 +98,9 @@ class RegionSelector extends React.PureComponent<Props, State> {
                 vertical: 'top',
                 horizontal: 'left',
               }}
-              disableRestoreFocus
-              disableAutoFocus
-              disableEnforceFocus
+              disableRestoreFocus={true}
+              disableAutoFocus={true}
+              disableEnforceFocus={true}
             >
               {filterRegions(regions, inputValue).map((region, index) => (
                 <RegionItem

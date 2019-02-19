@@ -8,8 +8,8 @@ import SourceRoute from './SourceRoute';
 
 export const SourcesRoute: React.StatelessComponent = () => (
   <Switch>
-    <Route exact path="/sources" component={SourcesList} />
-    <AdminRoute exact path="/sources/new" component={SourceForm} />
+    <Route exact={true} path="/sources" component={SourcesList} />
+    <AdminRoute exact={true} path="/sources/new" component={SourceForm} />
     <Route path="/sources/:sourceId" component={SourceRoute} />
   </Switch>
 );

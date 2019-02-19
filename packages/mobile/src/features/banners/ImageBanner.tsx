@@ -1,3 +1,4 @@
+import { Banner } from '@whitewater-guide/commons';
 import React from 'react';
 import {
   Linking,
@@ -9,7 +10,6 @@ import {
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import theme from '../../theme';
-import { Banner } from '@whitewater-guide/commons';
 import aspectRatios from './aspectRatios';
 import { getBannerURL } from './getBannerURL';
 

@@ -23,7 +23,7 @@ storiesOf('LoginStepView', module)
   .addDecorator((story) => (
     <div style={{ width: 400 }}>
       <Stepper orientation="vertical" activeStep={0}>
-        <Step active completed={false}>
+        <Step active={true} completed={false}>
           <StepLabel>Войдите</StepLabel>
           {story()}
         </Step>

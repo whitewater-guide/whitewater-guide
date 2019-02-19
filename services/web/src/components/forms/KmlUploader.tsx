@@ -79,8 +79,8 @@ class KmlUploader extends React.PureComponent<Props, State> {
             return (
               <div {...getRootProps()} style={styles.dz}>
                 <RaisedButton
-                  primary
-                  fullWidth
+                  primary={true}
+                  fullWidth={true}
                   label="From KML File"
                   secondary={true}
                   icon={<FontIcon className="material-icons">layers</FontIcon>}

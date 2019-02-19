@@ -22,7 +22,7 @@ interface InnerProps {
 const ToggleAllGaugesButton: React.StatelessComponent<
   InnerProps & OuterProps
 > = ({ label, mutate }) => (
-  <FlatButton secondary label={label} onClick={mutate} />
+  <FlatButton secondary={true} label={label} onClick={mutate} />
 );
 
 const container = graphql<OuterProps, {}, Variables, InnerProps>(

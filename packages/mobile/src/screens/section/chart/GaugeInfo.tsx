@@ -1,3 +1,4 @@
+import { Gauge } from '@whitewater-guide/commons';
 import upperFirst from 'lodash/upperFirst';
 import moment from 'moment';
 import React from 'react';
@@ -10,7 +11,6 @@ import { NavigationInjectedProps, withNavigation } from 'react-navigation';
 import { compose } from 'recompose';
 import { Icon, Left, Right, Row } from '../../../components';
 import theme from '../../../theme';
-import { Gauge } from '@whitewater-guide/commons';
 
 const styles = StyleSheet.create({
   popoverContent: {
@@ -82,7 +82,7 @@ class GaugeInfo extends React.PureComponent<InnerProps> {
           <Left>
             <Subheading>{t('commons:gauge')}</Subheading>
           </Left>
-          <Right row>
+          <Right row={true}>
             {approximate && (
               <PopoverController>
                 {({
@@ -123,7 +123,7 @@ class GaugeInfo extends React.PureComponent<InnerProps> {
           <Left>
             <Subheading>{t('section:chart.lastUpdated')}</Subheading>
           </Left>
-          <Right row>
+          <Right row={true}>
             <Paragraph>
               {lastMeasurement
                 ? moment(lastMeasurement.timestamp).fromNow()

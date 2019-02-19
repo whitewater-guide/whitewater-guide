@@ -30,7 +30,7 @@ storiesOf('OfflineCategory', module)
   ))
   .add('Checked', () => (
     <OfflineCategory
-      selected
+      selected={true}
       type="data"
       label="Detailed sections info"
       onToggle={action('toggle')}
@@ -38,7 +38,7 @@ storiesOf('OfflineCategory', module)
   ))
   .add('Disabled', () => (
     <OfflineCategory
-      disabled
+      disabled={true}
       type="data"
       label="Detailed sections info"
       onToggle={action('toggle')}
@@ -46,8 +46,8 @@ storiesOf('OfflineCategory', module)
   ))
   .add('Checked disabled', () => (
     <OfflineCategory
-      selected
-      disabled
+      selected={true}
+      disabled={true}
       type="data"
       label="Detailed sections info"
       onToggle={action('toggle')}
@@ -55,19 +55,23 @@ storiesOf('OfflineCategory', module)
   ))
   .add('Disabled unavailable', () => (
     <OfflineCategory
-      unavailable
-      disabled
+      unavailable={true}
+      disabled={true}
       type="data"
       label="Detailed sections info"
       onToggle={action('toggle')}
     />
   ))
   .add('In progress without progress', () => (
-    <OfflineCategory inProgress type="data" label="Detailed sections info" />
+    <OfflineCategory
+      inProgress={true}
+      type="data"
+      label="Detailed sections info"
+    />
   ))
   .add('In progress', () => (
     <OfflineCategory
-      inProgress
+      inProgress={true}
       type="data"
       progress={[7, 10]}
       label="Detailed sections info"

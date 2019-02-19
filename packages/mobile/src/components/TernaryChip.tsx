@@ -1,8 +1,8 @@
+import { SelectableTag, TagSelection } from '@whitewater-guide/commons';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Chip } from 'react-native-paper';
 import theme from '../theme';
-import { SelectableTag, TagSelection } from '@whitewater-guide/commons';
 import { Icon } from './Icon';
 
 const styles = StyleSheet.create({
@@ -26,7 +26,7 @@ interface PartialIconProps {
 const Icons = {
   [TagSelection.SELECTED]: ({ size }: PartialIconProps) => (
     <Icon
-      narrow
+      narrow={true}
       icon="check-circle-outline"
       size={size}
       color={theme.colors.enabled}
@@ -34,7 +34,7 @@ const Icons = {
   ),
   [TagSelection.DESELECTED]: ({ size }: PartialIconProps) => (
     <Icon
-      narrow
+      narrow={true}
       icon="close-circle-outline"
       size={size}
       color={theme.colors.error}
@@ -42,7 +42,7 @@ const Icons = {
   ),
   [TagSelection.NONE]: ({ size }: PartialIconProps) => (
     <Icon
-      narrow
+      narrow={true}
       icon="checkbox-blank-circle-outline"
       size={size}
       color={theme.colors.textMain}

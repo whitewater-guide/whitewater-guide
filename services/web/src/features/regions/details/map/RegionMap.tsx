@@ -1,7 +1,7 @@
+import { getMapView, MapProps } from '@whitewater-guide/clients';
 import React from 'react';
 import ErrorBoundary from 'react-error-boundary';
 import { WebMapLayout } from '../../../../components/maps';
-import { getMapView, MapProps } from '@whitewater-guide/clients';
 import RegionMapBody from './RegionMapBody';
 import SelectedSectionWeb from './SelectedSectionWeb';
 

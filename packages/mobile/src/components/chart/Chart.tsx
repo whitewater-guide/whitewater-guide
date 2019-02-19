@@ -1,3 +1,5 @@
+import { ChartComponentProps } from '@whitewater-guide/clients';
+import { Measurement, Unit } from '@whitewater-guide/commons';
 import { scaleLinear } from 'd3-scale';
 import compact from 'lodash/compact';
 import filter from 'lodash/filter';
@@ -12,9 +14,6 @@ import {
   VictoryTheme,
 } from 'victory-native';
 import theme from '../../theme';
-import { ChartComponentProps } from '@whitewater-guide/clients';
-import { Unit } from '@whitewater-guide/commons';
-import { Measurement } from '@whitewater-guide/commons';
 import HorizontalGridLine from './HorizontalGridLine';
 import { NoChart } from './NoChart';
 import TimeGridLine from './TimeGridLine';
@@ -149,7 +148,7 @@ export class Chart extends React.PureComponent<ChartComponentProps, State> {
     const binding =
       section && (unit === Unit.LEVEL ? section.levels : section.flows);
     if (data.length === 0 || !binding) {
-      return <NoChart noData />;
+      return <NoChart noData={true} />;
     }
     return (
       <View style={styles.container} onLayout={this.onLayout}>
@@ -163,15 +162,15 @@ export class Chart extends React.PureComponent<ChartComponentProps, State> {
             theme={VictoryTheme.material}
           >
             <VictoryAxis
-              crossAxis
+              crossAxis={true}
               tickFormat={this._xTickFormat}
               tickCount={this._xTickCount}
               tickLabelComponent={<TimeLabel period={this._period} />}
               gridComponent={<TimeGridLine period={this._period} />}
             />
             <VictoryAxis
-              crossAxis
-              dependentAxis
+              crossAxis={true}
+              dependentAxis={true}
               tickValues={this._yTickValues}
               tickComponent={<YTick binding={binding} />}
               tickLabelComponent={<YLabel binding={binding} />}

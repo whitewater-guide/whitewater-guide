@@ -1,3 +1,4 @@
+import { createMockedProvider, flushPromises } from '@whitewater-guide/clients';
 import { ReactWrapper } from 'enzyme';
 import gql from 'graphql-tag';
 import React from 'react';
@@ -5,7 +6,6 @@ import { graphql } from 'react-apollo';
 import { compose } from 'recompose';
 import { Loading } from '../components';
 import { mountWithMuiContext } from '../test';
-import { createMockedProvider, flushPromises } from '@whitewater-guide/clients';
 import { withDeleteMutation, WithDeleteMutation } from './withDeleteMutation';
 
 const removeRegion = jest.fn(() => 'deleted');

@@ -1,3 +1,9 @@
+import {
+  AdminOnly,
+  getSectionColor,
+  renderDifficulty,
+} from '@whitewater-guide/clients';
+import { Durations, Section } from '@whitewater-guide/commons';
 import FontIcon from 'material-ui/FontIcon';
 import moment from 'moment';
 import React from 'react';
@@ -10,10 +16,6 @@ import {
 } from '../../../components';
 import { ResourcesList } from '../../../layout';
 import { paths } from '../../../utils';
-import { getSectionColor } from '@whitewater-guide/clients';
-import { AdminOnly } from '@whitewater-guide/clients';
-import { renderDifficulty } from '@whitewater-guide/clients';
-import { Durations, Section } from '@whitewater-guide/commons';
 import { SectionsListProps } from './types';
 
 export default class SectionsList extends React.PureComponent<

@@ -1,7 +1,7 @@
+import { sleep } from '@whitewater-guide/clients';
 import CircularProgress from 'material-ui/CircularProgress';
 import Toggle from 'material-ui/Toggle';
 import React from 'react';
-import { sleep } from '@whitewater-guide/clients';
 
 interface Props {
   id: string;

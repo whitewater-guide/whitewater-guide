@@ -1,10 +1,10 @@
+import { BannerPlacement, Section } from '@whitewater-guide/commons';
 import groupBy from 'lodash/groupBy';
 import React from 'react';
 import { withI18n, WithI18n } from 'react-i18next';
 import { StatusBar } from 'react-native';
 import { Title } from 'react-native-paper';
 import { RegionBanners } from '../../../features/banners';
-import { BannerPlacement, Section } from '@whitewater-guide/commons';
 import BlogList from './BlogList';
 import PhotoGallery from './PhotoGallery';
 import PhotoGrid from './PhotoGrid';

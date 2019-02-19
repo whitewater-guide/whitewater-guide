@@ -1,11 +1,11 @@
+import { withMe, WithMe } from '@whitewater-guide/clients';
+import { EditorSettings } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
 import get from 'lodash/get';
 import React from 'react';
 import { graphql, withApollo, WithApolloClient } from 'react-apollo';
 import { compose, mapProps } from 'recompose';
 import { Styles } from '../../styles';
-import { withMe, WithMe } from '@whitewater-guide/clients';
-import { EditorSettings } from '@whitewater-guide/commons';
 import { EditorOnly } from '../EditorOnly';
 import { LanguagePicker, LanguagePickerProps } from './LanguagePicker';
 

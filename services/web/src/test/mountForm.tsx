@@ -1,3 +1,4 @@
+import { createMockedProvider, QueryMap } from '@whitewater-guide/clients';
 import { History } from 'history';
 import React from 'react';
 import { Provider } from 'react-redux';
@@ -5,8 +6,6 @@ import { MemoryRouter, Router } from 'react-router';
 import { ComponentEnhancer } from 'recompose';
 import { combineReducers, createStore } from 'redux';
 import { InjectedFormProps, reducer as formReducer } from 'redux-form';
-import { createMockedProvider } from '@whitewater-guide/clients';
-import { QueryMap } from '@whitewater-guide/clients';
 import { mountWithMuiContext } from './muiTestUtils';
 
 export class FormReceiver extends React.PureComponent<InjectedFormProps<any>> {

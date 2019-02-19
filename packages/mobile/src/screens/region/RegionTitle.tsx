@@ -1,10 +1,10 @@
+import { REGION_NAME } from '@whitewater-guide/clients';
+import { Region } from '@whitewater-guide/commons';
 import get from 'lodash/get';
 import React from 'react';
 import { Query, QueryResult } from 'react-apollo';
 import { Text } from 'react-native';
 import getTitleFontSize from '../../utils/getTitleFontSize';
-import { REGION_NAME } from '@whitewater-guide/clients';
-import { Region } from '@whitewater-guide/commons';
 
 interface Props {
   regionId: string;

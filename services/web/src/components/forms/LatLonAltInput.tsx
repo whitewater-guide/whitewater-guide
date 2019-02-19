@@ -4,7 +4,7 @@ import {
   CoordinateStructLoose,
 } from '@whitewater-guide/commons';
 import Coordinates from 'coordinate-parser';
-import { isEmpty } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 import IconButton from 'material-ui/IconButton';
 import React from 'react';
 import {

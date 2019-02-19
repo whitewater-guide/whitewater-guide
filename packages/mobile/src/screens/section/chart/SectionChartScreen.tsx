@@ -12,7 +12,7 @@ export const SectionChartScreen: NavigationScreenComponent = (props) => {
   const section = screenProps.section.node;
   const gauge = section && section.gauge;
   return (
-    <Screen noScroll noPadding>
+    <Screen noScroll={true} noPadding={true}>
       {section && gauge ? (
         <InteractiveChart section={section} gauge={gauge} />
       ) : (

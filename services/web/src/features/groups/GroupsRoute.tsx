@@ -6,5 +6,5 @@ import GroupsForm from './GroupsForm';
 const GroupsWithData = container(GroupsForm);
 
 export const GroupsRoute: React.StatelessComponent = () => (
-  <AdminRoute exact path="/groups" component={GroupsWithData} />
+  <AdminRoute exact={true} path="/groups" component={GroupsWithData} />
 );

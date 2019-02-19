@@ -1,7 +1,7 @@
+import { Region } from '@whitewater-guide/commons';
 import { WithI18n } from 'react-i18next';
 import { NavigationScreenProp } from 'react-navigation';
 import { WithPremiumDialog } from '../../features/purchases';
-import { Region } from '@whitewater-guide/commons';
 
 export type OuterProps = Pick<NavigationScreenProp<any, any>, 'navigate'>;
 export type InnerProps = OuterProps &

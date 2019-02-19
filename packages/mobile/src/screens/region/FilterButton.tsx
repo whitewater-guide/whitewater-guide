@@ -1,8 +1,8 @@
+import { consumeRegion, RegionState } from '@whitewater-guide/clients';
 import React from 'react';
 import { NavigationSceneRendererProps } from 'react-navigation';
 import { Icon } from '../../components';
 import theme from '../../theme';
-import { consumeRegion, RegionState } from '@whitewater-guide/clients';
 
 type Props = Pick<NavigationSceneRendererProps, 'navigation'> &
   Pick<RegionState, 'searchTerms'>;

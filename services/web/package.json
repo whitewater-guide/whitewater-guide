@@ -15,8 +15,6 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "STORYBOOK_ENABLED=true start-storybook -s ./public/storybook -p 6006 -c .storybook",
-    "prepare": "yarn build",
-    "prepublishOnly": "yarn build",
     "preversion": "yarn build",
     "postversion": "./scripts/sentry.sh",
     "version": "../../tooling/scripts/sh/changelog.sh"
@@ -127,6 +125,7 @@
     "@types/react-dom": "^16.0.11",
     "@types/react-dropzone": "^4.2.2",
     "@types/react-event-listener": "^0.4.5",
+    "@types/react-jss": "^8.6.2",
     "@types/react-redux": "^7.0.0",
     "@types/react-resize-detector": "^3.1.0",
     "@types/react-router": "^4.4.3",

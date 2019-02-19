@@ -1,6 +1,6 @@
+import { WithSection } from '@whitewater-guide/clients';
 import React from 'react';
 import { Markdown } from '../../../components';
-import { WithSection } from '@whitewater-guide/clients';
 import Placeholder from './placeholder';
 
 // Priorities:

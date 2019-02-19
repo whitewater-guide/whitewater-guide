@@ -1,9 +1,9 @@
+import { POIComponentProps } from '@whitewater-guide/clients';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Marker } from 'react-native-maps';
 import { Circle, Svg } from 'react-native-svg';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { POIComponentProps } from '@whitewater-guide/clients';
 
 const styles = StyleSheet.create({
   iconContainer: {

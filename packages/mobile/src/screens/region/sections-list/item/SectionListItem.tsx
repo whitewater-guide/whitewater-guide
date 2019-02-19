@@ -111,8 +111,8 @@ export class SectionListItem extends React.Component<Props> {
         </View>
         <Interactable.View
           ref={this.onInteractableMounted}
-          horizontalOnly
-          animatedNativeDriver
+          horizontalOnly={true}
+          animatedNativeDriver={true}
           snapPoints={[
             { x: 0, damping: 0.6, tension: 300 },
             { x: -136, damping: 0.6, tension: 300 },

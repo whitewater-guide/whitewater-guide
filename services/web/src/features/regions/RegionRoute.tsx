@@ -1,8 +1,8 @@
+import { RegionProvider } from '@whitewater-guide/clients';
 import React from 'react';
 import { Route, RouteComponentProps, Switch } from 'react-router-dom';
 import { Loading } from '../../components';
 import { AdminRoute, EditorRoute } from '../../layout';
-import { RegionProvider } from '@whitewater-guide/clients';
 import RegionAdmin from './admin';
 import RegionDetails from './details';
 import RegionForm from './form';
@@ -22,8 +22,16 @@ class RegionRoute extends React.PureComponent<Props> {
         renderLoading={this.renderLoading}
       >
         <Switch>
-          <EditorRoute exact path={`${path}/settings`} component={RegionForm} />
-          <AdminRoute exact path={`${path}/admin`} component={RegionAdmin} />
+          <EditorRoute
+            exact={true}
+            path={`${path}/settings`}
+            component={RegionForm}
+          />
+          <AdminRoute
+            exact={true}
+            path={`${path}/admin`}
+            component={RegionAdmin}
+          />
           <Route component={RegionDetails} />
         </Switch>
       </RegionProvider>

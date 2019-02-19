@@ -23,7 +23,7 @@ class HistoryMain extends React.PureComponent<{}, State> {
   render(): React.ReactNode {
     const { openDiff } = this.state;
     return (
-      <Content card>
+      <Content card={true}>
         <CardHeader title="History of edits" />
         <CardMedia style={{ height: '100%' }} mediaStyle={{ height: '100%' }}>
           <HistoryTableContainer onDiffOpen={this.onDiffOpen} />

@@ -122,7 +122,7 @@ export default class PlacesAutocomplete extends React.Component<Props, State> {
     return (
       <div style={styles.container}>
         <AutoComplete
-          fullWidth
+          fullWidth={true}
           hintText="Type anything"
           filter={alwaysTrue}
           dataSource={[

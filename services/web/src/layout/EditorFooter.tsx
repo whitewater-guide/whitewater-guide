@@ -1,9 +1,9 @@
+import { AdminOnly } from '@whitewater-guide/clients';
 import { CardActions } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { EditorOnly } from '../components/EditorOnly';
-import { AdminOnly } from '@whitewater-guide/clients';
 
 export interface EditorFooterProps {
   // Not editors, admins only

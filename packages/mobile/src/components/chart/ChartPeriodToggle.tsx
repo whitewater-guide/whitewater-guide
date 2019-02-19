@@ -1,10 +1,10 @@
+import { PeriodToggleProps } from '@whitewater-guide/clients';
 import React from 'react';
 import { withI18n, WithI18n } from 'react-i18next';
 import { ActivityIndicator, StyleSheet } from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
 import { Paragraph, Subheading } from 'react-native-paper';
 import theme from '../../theme';
-import { PeriodToggleProps } from '@whitewater-guide/clients';
 import { Body, Left, Right, Row } from '../Row';
 
 const styles = StyleSheet.create({
@@ -52,10 +52,10 @@ class ChartPeriodToggleInternal extends React.PureComponent<Props> {
     const index = days > 10 ? 'month' : days > 2 ? 'week' : 'day';
     return (
       <Row>
-        <Left row>
+        <Left row={true}>
           <Subheading>{t('section:chart.periodToggle.title')}</Subheading>
         </Left>
-        <Right row>
+        <Right row={true}>
           <Paragraph style={styles.link} onPress={this.onShowActionSheet}>
             {t(`section:chart.periodToggle.${index}`)}
           </Paragraph>

@@ -7,7 +7,11 @@ const BannerRoute: React.StatelessComponent<RouteComponentProps<any>> = ({
   match,
 }) => (
   <Switch>
-    <AdminRoute exact path={`${match.path}/settings`} component={BannerForm} />
+    <AdminRoute
+      exact={true}
+      path={`${match.path}/settings`}
+      component={BannerForm}
+    />
   </Switch>
 );
 

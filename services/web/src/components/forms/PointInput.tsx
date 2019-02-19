@@ -1,15 +1,15 @@
-import { map } from 'lodash';
-import IconButton from 'material-ui/IconButton';
-import Paper from 'material-ui/Paper';
-import React from 'react';
-import { FieldArrayFieldsProps } from 'redux-form';
-import { Styles } from '../../styles';
 import {
   Coordinate,
   NamedNode,
   POINames,
   PointInput as PointInputType,
 } from '@whitewater-guide/commons';
+import map from 'lodash/map';
+import IconButton from 'material-ui/IconButton';
+import Paper from 'material-ui/Paper';
+import React from 'react';
+import { FieldArrayFieldsProps } from 'redux-form';
+import { Styles } from '../../styles';
 import { Select } from './Select';
 import SelectPointDialog from './SelectPointDialog';
 import { TextInput } from './TextInput';
@@ -83,7 +83,7 @@ export class PointInput extends React.PureComponent<Props, State> {
       <Wrapper style={styles.container}>
         {detailed && (
           <div style={styles.row}>
-            <TextInput fullWidth name={`${name}.name`} title="Name" />
+            <TextInput fullWidth={true} name={`${name}.name`} title="Name" />
             <Select name={`${name}.kind`} title="Type" options={POI_OPTIONS} />
             <IconButton
               iconClassName="material-icons"
@@ -96,8 +96,8 @@ export class PointInput extends React.PureComponent<Props, State> {
         )}
         {detailed && (
           <TextInput
-            fullWidth
-            multiLine
+            fullWidth={true}
+            multiLine={true}
             name={`${name}.description`}
             title="Description"
           />
@@ -105,19 +105,19 @@ export class PointInput extends React.PureComponent<Props, State> {
 
         <div style={styles.row}>
           <TextInput
-            fullWidth
+            fullWidth={true}
             type="number"
             name={`${name}.coordinates[1]`}
             title={`${prefix}Latitude`}
           />
           <TextInput
-            fullWidth
+            fullWidth={true}
             type="number"
             name={`${name}.coordinates[0]`}
             title={`${prefix}Longitude`}
           />
           <TextInput
-            fullWidth
+            fullWidth={true}
             type="number"
             name={`${name}.coordinates[2]`}
             title={`${prefix}Altitude`}

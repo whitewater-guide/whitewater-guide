@@ -195,11 +195,11 @@ class MapView extends React.Component<Props, State> {
     return (
       <View style={StyleSheet.absoluteFill} pointerEvents="box-none">
         <RNMapView
-          showsUserLocation
-          showsMyLocationButton
-          showsCompass
-          showsScale
-          loadingEnabled
+          showsUserLocation={true}
+          showsMyLocationButton={true}
+          showsCompass={true}
+          showsScale={true}
+          loadingEnabled={true}
           mapType={mapType}
           ref={this._map}
           rotateEnabled={false}

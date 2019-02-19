@@ -14,7 +14,7 @@ export const Container: React.StatelessComponent<ContainerProps> = ({
   ref,
   ...props
 }) => (
-  <FlexContainer fluid style={styles.container} {...props}>
+  <FlexContainer fluid={true} style={styles.container} {...props}>
     {children}
   </FlexContainer>
 );

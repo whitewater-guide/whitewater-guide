@@ -1,5 +1,5 @@
 // Based on VictoryTheme.material
-import { assign } from 'lodash';
+import assign from 'lodash/assign';
 import { StyleSheet } from 'react-native';
 import theme from '../../theme';
 

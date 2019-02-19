@@ -102,7 +102,7 @@ class SectionsList extends React.Component<InnerProps, State> {
     }
     return (
       <FlatList
-        removeClippedSubviews
+        removeClippedSubviews={true}
         windowSize={31}
         extraData={this.state.swipedItemIndex}
         data={getSectionsWithBanners(sections, region, rowsPerScreen)}

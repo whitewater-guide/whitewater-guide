@@ -1,3 +1,4 @@
+import { SectionAdminSettings } from '@whitewater-guide/commons';
 import { Location } from 'history';
 import { FlatButton } from 'material-ui';
 import { CardActions } from 'material-ui/Card';
@@ -7,7 +8,6 @@ import { InjectedFormProps } from 'redux-form';
 import { ConfirmationDialog } from '../../../../components';
 import { Checkbox } from '../../../../components/forms';
 import { Styles } from '../../../../styles';
-import { SectionAdminSettings } from '@whitewater-guide/commons';
 
 const styles: Styles = {
   container: {
@@ -40,7 +40,7 @@ export default class SectionAdminSettingsForm extends React.PureComponent<
         <Prompt when={this.shouldBlockNavigation}>
           {({ onConfirm, onCancel }: any) => (
             <ConfirmationDialog
-              invertedAccents
+              invertedAccents={true}
               description="There are some unsaved changes, are sure you don't want to save them?"
               confirmTitle="Leave"
               cancelTitle="Stay"

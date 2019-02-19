@@ -1,6 +1,6 @@
+import { NamedNode } from '@whitewater-guide/commons';
 import React from 'react';
 import { Index, TableProps as VTableProps } from 'react-virtualized';
-import { NamedNode } from '@whitewater-guide/commons';
 import { RawTable } from './RawTable';
 
 export type TableProps<TResource extends NamedNode> = Partial<VTableProps> & {

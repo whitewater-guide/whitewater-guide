@@ -1,11 +1,11 @@
+import { getVideoThumb } from '@whitewater-guide/clients';
+import { Media } from '@whitewater-guide/commons';
 import React from 'react';
 import { Clipboard, Linking, StyleSheet, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { Caption, Paragraph, TouchableRipple } from 'react-native-paper';
 import { Row } from '../../../components';
 import { PHOTO_PADDING, PHOTO_SIZE } from '../../../features/media';
-import { getVideoThumb } from '@whitewater-guide/clients';
-import { Media } from '@whitewater-guide/commons';
 import VideoThumbPlaceholder from './VideoThumbPlaceholder';
 
 const styles = StyleSheet.create({

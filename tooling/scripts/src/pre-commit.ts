@@ -20,6 +20,7 @@ const preCommitHook = async () => {
     console.info(e.message);
   }
   await spawnSync('yarn', ['pretty-quick', '--staged'], { stdio: 'inherit' });
+  await spawnSync('yarn', ['lint'], { stdio: 'inherit' });
 };
 
 preCommitHook().catch(() => process.exit(1));

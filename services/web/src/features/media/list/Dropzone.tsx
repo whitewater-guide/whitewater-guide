@@ -1,9 +1,9 @@
+import { MediaKind } from '@whitewater-guide/commons';
 import FontIcon from 'material-ui/FontIcon';
 import React from 'react';
 import Dz, { DropFilesEventHandler } from 'react-dropzone';
 import { Styles } from '../../../styles';
 import { FileWithPreview, withPreview } from '../../../utils';
-import { MediaKind } from '@whitewater-guide/commons';
 import { THUMB_HEIGHT } from './constants';
 
 const styles: Styles = {

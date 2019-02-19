@@ -1,9 +1,9 @@
+import { Tag, TagInput } from '@whitewater-guide/commons';
 import IconButton from 'material-ui/IconButton';
 import TextField from 'material-ui/TextField';
 import React from 'react';
 import { DeleteButton } from '../../components';
 import { Styles } from '../../styles';
-import { Tag, TagInput } from '@whitewater-guide/commons';
 import { WithTagMutations } from './types';
 
 const styles: Styles = {
@@ -47,14 +47,14 @@ class TagForm extends React.PureComponent<Props, TagInput> {
     return (
       <div style={styles.row}>
         <TextField
-          fullWidth
+          fullWidth={true}
           value={id}
           floatingLabelText="id"
           hintText="id"
           onChange={this.onIdChange}
         />
         <TextField
-          fullWidth
+          fullWidth={true}
           value={name}
           floatingLabelText="Name"
           hintText="Name"

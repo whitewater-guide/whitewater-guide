@@ -1,9 +1,9 @@
+import { flushPromises } from '@whitewater-guide/clients';
 import casual from 'casual';
 import { ReactWrapper } from 'enzyme';
 import React from 'react';
 import { Loading } from '../../../components';
 import { FormReceiver, mountForm } from '../../../test';
-import { flushPromises } from '@whitewater-guide/clients';
 import container from './container';
 import { GaugesListInnerProps } from './types';
 

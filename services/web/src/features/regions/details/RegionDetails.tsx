@@ -16,16 +16,20 @@ export class RegionDetails extends React.PureComponent<RegionDetailsProps> {
     const { region, regionId, sections, match } = this.props;
     return (
       <Switch>
-        <Route strict path={`${match.path}/rivers/`} component={RiversRoute} />
+        <Route
+          strict={true}
+          path={`${match.path}/rivers/`}
+          component={RiversRoute}
+        />
 
         <Route
-          strict
+          strict={true}
           path={`${match.path}/sections/`}
           component={SectionsRoute}
         />
 
         <Route>
-          <Content card>
+          <Content card={true}>
             <CardHeader title={region.node!.name}>
               <EditorLanguagePicker />
             </CardHeader>
@@ -34,7 +38,7 @@ export class RegionDetails extends React.PureComponent<RegionDetailsProps> {
               mediaStyle={{ height: '100%' }}
             >
               <div style={{ width: '100%', height: '100%' }}>
-                <Tabs fullPathMode>
+                <Tabs fullPathMode={true}>
                   <Tab label="Info" value={`/regions/${regionId}#main`}>
                     <RegionDetailsMain region={region.node!} />
                   </Tab>
@@ -47,7 +51,7 @@ export class RegionDetails extends React.PureComponent<RegionDetailsProps> {
                   </Tab>
 
                   <Tab label="Rivers" value={`/regions/${regionId}/rivers`}>
-                    <Route exact path={`${match.path}/rivers`}>
+                    <Route exact={true} path={`${match.path}/rivers`}>
                       <div
                         style={{
                           height: '100%',
@@ -61,7 +65,7 @@ export class RegionDetails extends React.PureComponent<RegionDetailsProps> {
                   </Tab>
 
                   <Tab label="Sections" value={`/regions/${regionId}/sections`}>
-                    <Route exact path={`${match.path}/sections`}>
+                    <Route exact={true} path={`${match.path}/sections`}>
                       <div
                         style={{
                           height: '100%',
@@ -77,14 +81,14 @@ export class RegionDetails extends React.PureComponent<RegionDetailsProps> {
               </div>
             </CardMedia>
             <Switch>
-              <Route exact path={`${match.path}/rivers`}>
-                <EditorFooter add />
+              <Route exact={true} path={`${match.path}/rivers`}>
+                <EditorFooter add={true} />
               </Route>
 
-              <Route exact path={`${match.path}/sections`} />
+              <Route exact={true} path={`${match.path}/sections`} />
 
               <Route>
-                <EditorFooter edit administrate />
+                <EditorFooter edit={true} administrate={true} />
               </Route>
             </Switch>
           </Content>

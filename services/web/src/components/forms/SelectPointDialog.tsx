@@ -1,3 +1,4 @@
+import { Coordinate, Coordinate3d } from '@whitewater-guide/commons';
 import React from 'react';
 import {
   BaseFieldProps,
@@ -5,7 +6,6 @@ import {
   GenericField,
   WrappedFieldProps,
 } from 'redux-form';
-import { Coordinate, Coordinate3d } from '@whitewater-guide/commons';
 import { SelectGeometryDialog } from '../maps';
 
 interface CustomFieldProps {

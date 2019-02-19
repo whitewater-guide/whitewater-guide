@@ -24,8 +24,10 @@ export class DiffDialog extends React.PureComponent<Props, State> {
   readonly state: State = { jsondiffpatch: null };
 
   async componentWillMount() {
+    // tslint:disable:no-submodule-imports
     // @ts-ignore
     await import('jsondiffpatch/dist/formatters-styles/html.css');
+    // tslint:enable:no-submodule-imports
     const diffModule = await import('jsondiffpatch');
     this.setState({ jsondiffpatch: diffModule });
     console.dir(diffModule);

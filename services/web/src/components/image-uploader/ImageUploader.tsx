@@ -1,3 +1,5 @@
+import { uploadFile } from '@whitewater-guide/clients';
+import { Media, MediaKind, UploadLink } from '@whitewater-guide/commons';
 import CircularProgress from 'material-ui/CircularProgress';
 import React from 'react';
 import { Styles } from '../../styles';
@@ -7,8 +9,6 @@ import {
   getImageSize,
   isFileWithPreview,
 } from '../../utils';
-import { uploadFile } from '@whitewater-guide/clients';
-import { Media, MediaKind, UploadLink } from '@whitewater-guide/commons';
 import { DeleteButton } from '../DeleteButton';
 import { Lightbox } from '../lightbox';
 import AddFile from './AddFile';

@@ -1,3 +1,4 @@
+import { Gauge, HarvestMode } from '@whitewater-guide/commons';
 import moment from 'moment';
 import React from 'react';
 import { Column, TableCellRenderer } from 'react-virtualized';
@@ -11,7 +12,6 @@ import {
 } from '../../../components';
 import { ResourcesList } from '../../../layout';
 import { emitter, paths, POKE_TABLES } from '../../../utils';
-import { Gauge, HarvestMode } from '@whitewater-guide/commons';
 import { GaugesListInnerProps } from './types';
 
 export default class GaugesList extends React.PureComponent<

@@ -216,8 +216,8 @@ export default class SelectedElementView extends React.Component<Props, State> {
         {this.state.laidOut && (
           <Interactable.View
             ref={this.setInteractable}
-            verticalOnly
-            animatedNativeDriver
+            verticalOnly={true}
+            animatedNativeDriver={true}
             snapPoints={this.state.snapPoints}
             onSnap={this.onSnap}
             initialPosition={this.state.snapPoints[0]}

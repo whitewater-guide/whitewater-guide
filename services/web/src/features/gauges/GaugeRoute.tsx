@@ -8,7 +8,11 @@ const GaugeRoute: React.StatelessComponent<RouteComponentProps<any>> = ({
   match,
 }) => (
   <Switch>
-    <AdminRoute exact path={`${match.path}/settings`} component={GaugeForm} />
+    <AdminRoute
+      exact={true}
+      path={`${match.path}/settings`}
+      component={GaugeForm}
+    />
     <Route component={GaugeDetails} />
   </Switch>
 );

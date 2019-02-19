@@ -1,3 +1,4 @@
+import { HarvestMode } from '@whitewater-guide/commons';
 import React from 'react';
 import { Column, TableCellRenderer } from 'react-virtualized';
 import {
@@ -10,7 +11,6 @@ import {
 import { AdminColumn } from '../../../components/tables';
 import { ResourcesListCard } from '../../../layout';
 import { emitter, paths, POKE_TABLES } from '../../../utils';
-import { HarvestMode } from '@whitewater-guide/commons';
 import { SourceListProps } from './types';
 
 export default class SourcesList extends React.PureComponent<SourceListProps> {

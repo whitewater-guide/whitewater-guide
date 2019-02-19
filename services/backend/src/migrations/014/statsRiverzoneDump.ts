@@ -1,6 +1,6 @@
 import chalk from 'chalk';
-import isArray from 'lodash/isArray';
 import flatMap from 'lodash/flatMap';
+import isArray from 'lodash/isArray';
 import { prettyPrintStats, statsByKeys } from '../../utils';
 import { parseRiverzoneDump } from './parseRiverzoneDump';
 

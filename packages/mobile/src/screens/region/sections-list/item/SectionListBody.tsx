@@ -84,7 +84,7 @@ const SectionListBody: React.FC<Props> = ({
           )}
         </View>
         <View style={styles.starsContainer}>
-          <StarRating disabled value={section.rating || 0} />
+          <StarRating disabled={true} value={section.rating || 0} />
         </View>
       </View>
       <FlowsThumb section={section} t={t} />

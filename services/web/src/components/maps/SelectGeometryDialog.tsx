@@ -1,7 +1,7 @@
+import { Coordinate, Coordinate3d } from '@whitewater-guide/commons';
 import Dialog from 'material-ui/Dialog';
 import RaisedButton from 'material-ui/RaisedButton';
 import React from 'react';
-import { Coordinate, Coordinate3d } from '@whitewater-guide/commons';
 import { DrawingMap } from './DrawingMap';
 import { DrawingMode } from './types';
 
@@ -56,7 +56,7 @@ export class SelectGeometryDialog extends React.PureComponent<Props, State> {
     const actions = [
       <RaisedButton key="cancel" label="Cancel" onClick={this.props.onClose} />,
       <RaisedButton
-        primary
+        primary={true}
         key="submit"
         disabled={disabled}
         label="Submit"
@@ -65,7 +65,7 @@ export class SelectGeometryDialog extends React.PureComponent<Props, State> {
     ];
     return (
       <Dialog
-        open
+        open={true}
         title={`Choose ${this.props.drawingMode.toLowerCase()}`}
         actions={actions}
         autoDetectWindowHeight={false}

@@ -1,9 +1,9 @@
+import { sleep } from '@whitewater-guide/clients';
 import React from 'react';
 import { translate, withI18n, WithI18n } from 'react-i18next';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { Button, Subheading } from 'react-native-paper';
 import theme from '../theme';
-import { sleep } from '@whitewater-guide/clients';
 import { Icon } from './Icon';
 
 const styles = StyleSheet.create({
@@ -65,14 +65,14 @@ class RetryPlaceholderInner extends React.PureComponent<
           {isBusy ? (
             <ActivityIndicator size="small" color={theme.colors.primary} />
           ) : (
-            <Icon narrow icon="alert" />
+            <Icon narrow={true} icon="alert" />
           )}
         </View>
         <Subheading>{t(labelKey)}</Subheading>
         {!!this.props.refetch && (
           <Button
             color={theme.colors.primary}
-            compact
+            compact={true}
             disabled={isBusy}
             onPress={this.onRetry}
           >

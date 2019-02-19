@@ -27,7 +27,7 @@ const NoChartInternal: React.StatelessComponent<Props & WithI18n> = ({
     : t('section:chart.noGauge');
   return (
     <View style={styles.container}>
-      <Icon narrow icon="alert" />
+      <Icon narrow={true} icon="alert" />
       <Subheading>{message}</Subheading>
     </View>
   );

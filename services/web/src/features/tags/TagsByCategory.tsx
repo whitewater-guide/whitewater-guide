@@ -1,6 +1,6 @@
+import { Tag, TagCategory } from '@whitewater-guide/commons';
 import React from 'react';
 import { Styles } from '../../styles';
-import { Tag, TagCategory } from '@whitewater-guide/commons';
 import TagForm from './TagForm';
 import { WithTagMutations } from './types';
 

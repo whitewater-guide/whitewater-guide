@@ -1,10 +1,10 @@
+import { BannerPlacement } from '@whitewater-guide/commons';
 import React from 'react';
 import { NavigationScreenComponent } from 'react-navigation';
 import { Icon, Screen } from '../../../components';
 import { RegionBanners } from '../../../features/banners';
 import { I18nText } from '../../../i18n';
 import theme from '../../../theme';
-import { BannerPlacement } from '@whitewater-guide/commons';
 import { ScreenProps } from '../types';
 import SectionGuideView from './SectionGuideView';
 

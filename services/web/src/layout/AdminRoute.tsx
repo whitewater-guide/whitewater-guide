@@ -1,7 +1,7 @@
+import { withMe, WithMe } from '@whitewater-guide/clients';
 import React from 'react';
 import { Redirect, Route, RouteProps } from 'react-router-dom';
 import { branch, compose, renderComponent } from 'recompose';
-import { withMe, WithMe } from '@whitewater-guide/clients';
 
 const container = compose<any, any>(
   withMe,

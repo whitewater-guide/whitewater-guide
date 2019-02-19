@@ -17,7 +17,7 @@ export const RegionSectionsListScreen: NavigationScreenComponent = ({
     sectionsStatus,
   }: ScreenProps = screenProps as any;
   return (
-    <Screen noScroll noPadding>
+    <Screen noScroll={true} noPadding={true}>
       <SectionsList
         status={sectionsStatus}
         sections={sections}

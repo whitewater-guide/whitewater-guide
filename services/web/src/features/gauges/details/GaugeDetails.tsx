@@ -1,3 +1,5 @@
+import { arrayToDMSString } from '@whitewater-guide/clients';
+import { Gauge } from '@whitewater-guide/commons';
 import { CardMedia } from 'material-ui/Card';
 import moment from 'moment';
 import React from 'react';
@@ -7,8 +9,6 @@ import Chart from '../../../components/chart';
 import { CardHeader, EditorFooter } from '../../../layout';
 import { Container, Row, Title } from '../../../layout/details';
 import { Styles } from '../../../styles';
-import { arrayToDMSString } from '@whitewater-guide/clients';
-import { Gauge } from '@whitewater-guide/commons';
 import { GaugeDetailsProps } from './types';
 
 const styles: Styles = {
@@ -75,7 +75,7 @@ class GaugeDetails extends React.PureComponent<GaugeDetailsProps> {
       gauge: { node },
     } = this.props;
     return (
-      <Content card>
+      <Content card={true}>
         <CardHeader title={node.name} />
         <CardMedia style={{ height: '100%' }} mediaStyle={{ height: '100%' }}>
           <div style={styles.root}>
@@ -100,7 +100,10 @@ class GaugeDetails extends React.PureComponent<GaugeDetailsProps> {
                 <Row>
                   <Title>Status</Title>
                   <Col>
-                    <HarvestStatusIndicator withText status={node.status} />
+                    <HarvestStatusIndicator
+                      withText={true}
+                      status={node.status}
+                    />
                   </Col>
                 </Row>
                 {!!node.flowUnit && (
@@ -122,7 +125,7 @@ class GaugeDetails extends React.PureComponent<GaugeDetailsProps> {
             </div>
           </div>
         </CardMedia>
-        <EditorFooter edit />
+        <EditorFooter edit={true} />
       </Content>
     );
   }

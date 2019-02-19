@@ -1,8 +1,8 @@
+import { Banner } from '@whitewater-guide/commons';
 import React from 'react';
 import { Linking, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import { WebView, WebViewNavigation } from 'react-native-webview';
 import theme from '../../theme';
-import { Banner } from '@whitewater-guide/commons';
 import aspectRatios from './aspectRatios';
 
 const styles = StyleSheet.create({

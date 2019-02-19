@@ -1,6 +1,6 @@
+import { Media } from '@whitewater-guide/commons';
 import React from 'react';
 import { Styles } from '../../styles';
-import { Media } from '@whitewater-guide/commons';
 
 const styles: Styles = {
   container: {

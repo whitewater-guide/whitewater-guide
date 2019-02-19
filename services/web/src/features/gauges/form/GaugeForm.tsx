@@ -1,7 +1,7 @@
+import { GaugeInput } from '@whitewater-guide/commons';
 import React from 'react';
 import { InjectedFormProps } from 'redux-form';
 import { Form, PointInput, TextInput } from '../../../components/forms';
-import { GaugeInput } from '@whitewater-guide/commons';
 
 export default class GaugeForm extends React.PureComponent<
   InjectedFormProps<GaugeInput>
@@ -10,8 +10,8 @@ export default class GaugeForm extends React.PureComponent<
     return (
       <Form {...this.props} resourceType="gauge">
         <div style={{ padding: 8, height: '100%', overflow: 'auto' }}>
-          <TextInput fullWidth name="name" title="Name" />
-          <TextInput fullWidth name="code" title="Code" />
+          <TextInput fullWidth={true} name="name" title="Name" />
+          <TextInput fullWidth={true} name="code" title="Code" />
           <PointInput
             name="location"
             title="Location"
@@ -19,11 +19,15 @@ export default class GaugeForm extends React.PureComponent<
             paper={false}
             detailed={false}
           />
-          <TextInput fullWidth name="levelUnit" title="Level unit" />
-          <TextInput fullWidth name="flowUnit" title="Flow unit" />
-          <TextInput fullWidth name="requestParams" title="Request params" />
-          <TextInput fullWidth name="cron" title="Cron" />
-          <TextInput fullWidth name="url" title="URL" />
+          <TextInput fullWidth={true} name="levelUnit" title="Level unit" />
+          <TextInput fullWidth={true} name="flowUnit" title="Flow unit" />
+          <TextInput
+            fullWidth={true}
+            name="requestParams"
+            title="Request params"
+          />
+          <TextInput fullWidth={true} name="cron" title="Cron" />
+          <TextInput fullWidth={true} name="url" title="URL" />
         </div>
       </Form>
     );

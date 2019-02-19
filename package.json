@@ -23,6 +23,7 @@
     "staging:sync": "tooling/scripts/sh/staging_sync.sh",
     "production:deploy": "node tooling/scripts/bin/deploy.js --env=production --machine=ww-production",
     "production:update": "node tooling/scripts/bin/update.js --env=production --machine=ww-production",
+    "lint": "lerna exec --concurrency 1 --since -- test ! -f \\$PWD/tsconfig.json \\|\\| tslint --project \\$PWD",
     "junk": "yarn trash-junk",
     "preversion": "lerna changed --all --json > lerna-changed.json",
     "postpublish": "node tooling/scripts/bin/publish-docker.js",

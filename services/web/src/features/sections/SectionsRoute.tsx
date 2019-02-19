@@ -14,10 +14,10 @@ export const SectionsRoute: React.StatelessComponent<
   }
   return path.includes('/regions/') ? (
     <Switch>
-      <EditorRoute exact path={`${path}new`} component={SectionForm} />
+      <EditorRoute exact={true} path={`${path}new`} component={SectionForm} />
       <Route path={`${path}:sectionId`} component={SectionRoute} />
     </Switch>
   ) : (
-    <Route exact path={`${path}`} component={SectionsList} />
+    <Route exact={true} path={`${path}`} component={SectionsList} />
   );
 };

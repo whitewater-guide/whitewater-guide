@@ -1,4 +1,5 @@
-import { reject } from 'lodash';
+import { NamedNode } from '@whitewater-guide/commons';
+import reject from 'lodash/reject';
 import React from 'react';
 import {
   BaseFieldProps,
@@ -6,7 +7,6 @@ import {
   GenericField,
   WrappedFieldProps,
 } from 'redux-form';
-import { NamedNode } from '@whitewater-guide/commons';
 import { ChipList } from '../ChipList';
 
 interface ChipInputProps {

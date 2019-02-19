@@ -17,7 +17,7 @@ const user = {
 
 storiesOf('Premium dialog: auth step', module)
   .addDecorator((story: any) => (
-    <Dialog onDismiss={noop} visible dismissable={false}>
+    <Dialog onDismiss={noop} visible={true} dismissable={false}>
       <DialogBody title="Get Georgia premium">
         <Provider store={store}>{story()}</Provider>
       </DialogBody>

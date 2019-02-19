@@ -1,10 +1,9 @@
+import { Group, Region } from '@whitewater-guide/commons';
 import React from 'react';
 import { withI18n, WithI18n } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Caption, Subheading } from 'react-native-paper';
 import theme from '../../../theme';
-import { Group } from '@whitewater-guide/commons';
-import { Region } from '@whitewater-guide/commons';
 
 const styles = StyleSheet.create({
   container: {

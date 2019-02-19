@@ -1,10 +1,10 @@
-import React from 'react';
-import Dialog from 'material-ui/Dialog';
-import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
-import { RegionFinder } from '../../regions';
 import { NamedNode } from '@whitewater-guide/commons';
-import { MutationFn, Mutation } from 'react-apollo';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
+import React from 'react';
+import { Mutation, MutationFn } from 'react-apollo';
+import { RegionFinder } from '../../regions';
 import CHANGE_RIVER_REGION from './changeRiverRegion.mutation';
 
 interface Props {
@@ -55,7 +55,7 @@ class ChangeRegionDialog extends React.PureComponent<MutationProps, State> {
     const actions = [
       <RaisedButton key="cancel" label="Cancel" onClick={this.handleCancel} />,
       <RaisedButton
-        primary
+        primary={true}
         key="submit"
         disabled={disabled}
         label="Submit"

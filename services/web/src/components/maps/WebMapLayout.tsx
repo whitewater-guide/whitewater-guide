@@ -1,6 +1,6 @@
+import { MapLayoutProps } from '@whitewater-guide/clients';
 import React from 'react';
 import { Styles } from '../../styles';
-import { MapLayoutProps } from '@whitewater-guide/clients';
 
 const styles: Styles = {
   container: {

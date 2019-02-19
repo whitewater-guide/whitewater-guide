@@ -1,5 +1,5 @@
 import { NamedNode, ResourceType } from '@whitewater-guide/commons';
-import { upperFirst } from 'lodash';
+import upperFirst from 'lodash/upperFirst';
 import { CardMedia } from 'material-ui/Card';
 import React from 'react';
 import { AutoSizer, Dimensions } from 'react-virtualized';
@@ -33,14 +33,14 @@ export class ResourcesListCard<
   render() {
     const { resourceType, list, footerProps } = this.props;
     return (
-      <Content card>
+      <Content card={true}>
         <CardHeader title={`${upperFirst(resourceType)}s list`}>
           <EditorLanguagePicker />
         </CardHeader>
         <CardMedia style={{ height: '100%' }} mediaStyle={{ height: '100%' }}>
           <AutoSizer rowCount={list ? list.length : 0}>{this.table}</AutoSizer>
         </CardMedia>
-        <EditorFooter add {...footerProps} />
+        <EditorFooter add={true} {...footerProps} />
       </Content>
     );
   }

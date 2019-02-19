@@ -1,4 +1,5 @@
-import { times, xor } from 'lodash';
+import times from 'lodash/times';
+import xor from 'lodash/xor';
 import EnhancedButton from 'material-ui/internal/EnhancedButton';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 import moment from 'moment';

@@ -1,11 +1,11 @@
+import { FlowToggleProps } from '@whitewater-guide/clients';
+import { Unit } from '@whitewater-guide/commons';
 import React from 'react';
 import { WithI18n, withI18n } from 'react-i18next';
 import { StyleSheet, Text } from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
 import * as Animatable from 'react-native-animatable';
 import { Paragraph, Subheading } from 'react-native-paper';
-import { FlowToggleProps } from '@whitewater-guide/clients';
-import { Unit } from '@whitewater-guide/commons';
 import { Icon } from '../Icon';
 import { Left, Right, Row } from '../Row';
 
@@ -85,15 +85,15 @@ class ChartFlowToggleInternal extends React.PureComponent<Props> {
       : '?';
     return (
       <Row>
-        <Left row>
+        <Left row={true}>
           <Subheading>{`${t('section:chart.lastRecorded.title')} `}</Subheading>
           {this.renderUnit()}
         </Left>
-        <Right row>
+        <Right row={true}>
           <Paragraph>{`${value} ${t('commons:' + unitName)}`}</Paragraph>
           {enabled && (
             <Icon
-              primary
+              primary={true}
               icon="dots-vertical"
               onPress={this.onShowActionSheet}
             />

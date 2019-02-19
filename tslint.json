@@ -8,7 +8,7 @@
   "rules": {
     "import-blacklist": [true, "lodash"],
     "interface-name": false,
-    "member-access": [true, "no-public"],
+    "member-access": false,
     "member-ordering": false,
     "no-console": [true, "log", "error"],
     "no-empty": [true, "allow-empty-catch", "allow-empty-functions"],
@@ -19,8 +19,7 @@
       "lodash",
       "validator",
       "redux-saga",
-      "moment",
-      "material-ui"
+      "moment"
     ],
     "object-literal-sort-keys": false,
     "variable-name": [

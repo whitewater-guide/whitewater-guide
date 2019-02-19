@@ -1,4 +1,4 @@
-import { TopLevelResolver, MutationNotAllowedError } from '@apollo';
+import { MutationNotAllowedError, TopLevelResolver } from '@apollo';
 import db from '@db';
 
 interface Vars {

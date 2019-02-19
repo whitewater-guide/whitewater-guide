@@ -87,7 +87,11 @@ class ShapeInputComponent extends React.Component<Props> {
             fields={fields}
           />
         ))}
-        <LatLonAltInput isNew key={`new${fields.length}`} onAdd={this.onAdd} />
+        <LatLonAltInput
+          isNew={true}
+          key={`new${fields.length}`}
+          onAdd={this.onAdd}
+        />
       </div>
     );
   }

@@ -1,5 +1,5 @@
-import React from 'react';
 import { Media, MediaKind } from '@whitewater-guide/commons';
+import React from 'react';
 import LightboxPhotoView from './LightboxPhotoView';
 import LightboxVideoView from './LightboxVideoView';
 

@@ -1,8 +1,8 @@
+import { consumeRegion, WithRegion } from '@whitewater-guide/clients';
+import { BannerPlacement } from '@whitewater-guide/commons';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import theme from '../../theme';
-import { consumeRegion, WithRegion } from '@whitewater-guide/clients';
-import { BannerPlacement } from '@whitewater-guide/commons';
 import { BannerView } from './BannerView';
 import { getBannersForPlacement } from './getBannersForPlacement';
 

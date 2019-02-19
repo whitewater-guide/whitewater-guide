@@ -127,7 +127,7 @@ export class SimpleSection extends React.PureComponent<Props> {
           />
         )}
         <PurePolyline
-          tappable
+          tappable={true}
           strokeWidth={selected ? 5 : 3}
           strokeColor={rgbColor}
           onPress={this.selectSection}

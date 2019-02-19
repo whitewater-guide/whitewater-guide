@@ -17,7 +17,7 @@ export default class GroupsForm extends React.PureComponent<GroupsFormProps> {
   render() {
     const { groups, upsertGroup, removeGroup } = this.props;
     return (
-      <Content card>
+      <Content card={true}>
         <CardHeader title="Groups">
           <EditorLanguagePicker />
         </CardHeader>

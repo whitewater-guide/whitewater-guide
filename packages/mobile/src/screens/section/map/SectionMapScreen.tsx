@@ -11,7 +11,7 @@ export const SectionMapScreen: NavigationScreenComponent = ({
 }) => {
   const { section }: ScreenProps = screenProps as any;
   return (
-    <Screen noScroll>
+    <Screen noScroll={true}>
       <SectionMap section={section} />
     </Screen>
   );

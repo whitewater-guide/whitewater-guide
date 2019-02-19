@@ -1,10 +1,10 @@
+import { getVideoThumb } from '@whitewater-guide/clients';
+import { Media, MediaKind } from '@whitewater-guide/commons';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import React from 'react';
 import injectSheet from 'react-jss';
 import { Styles } from '../../../styles';
-import { getVideoThumb } from '@whitewater-guide/clients';
-import { Media, MediaKind } from '@whitewater-guide/commons';
 import { THUMB_HEIGHT } from './constants';
 
 const styles: Styles = {

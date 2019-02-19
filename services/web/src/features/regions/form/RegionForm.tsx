@@ -28,8 +28,8 @@ export default class RegionForm extends React.PureComponent<Props> {
       <Form {...this.props} resourceType="region">
         <Tabs tabTemplateStyle={tabTemplateStyle}>
           <FormTab form="region" fields={MainFields} label="Main" value="#main">
-            <TextInput fullWidth name="name" title="Name" />
-            <TextInput fullWidth name="season" title="Season" />
+            <TextInput fullWidth={true} name="name" title="Name" />
+            <TextInput fullWidth={true} name="season" title="Season" />
             <SeasonPicker name="seasonNumeric" />
           </FormTab>
           <FormTab

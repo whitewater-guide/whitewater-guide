@@ -1,7 +1,7 @@
+import { NamedNode, ResourceType } from '@whitewater-guide/commons';
 import { DocumentNode } from 'graphql';
 import React from 'react';
 import { ChildProps, graphql } from 'react-apollo';
-import { NamedNode, ResourceType } from '@whitewater-guide/commons';
 
 export interface CreateBreadcrumbOptions<T extends NamedNode> {
   query: DocumentNode; // query to get just enough to display node name

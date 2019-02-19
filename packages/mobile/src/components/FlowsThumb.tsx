@@ -1,10 +1,10 @@
+import { getSectionColor, prettyNumber } from '@whitewater-guide/clients';
+import { Section } from '@whitewater-guide/commons';
 import moment from 'moment';
 import React from 'react';
 import { WithI18n } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
 import { WithTrans } from '../i18n';
-import { getSectionColor, prettyNumber } from '@whitewater-guide/clients';
-import { Section } from '@whitewater-guide/commons';
 
 const styles = StyleSheet.create({
   container: {

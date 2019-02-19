@@ -1,3 +1,4 @@
+import { WithSource } from '@whitewater-guide/clients';
 import { CardMedia } from 'material-ui/Card';
 import { Tab } from 'material-ui/Tabs';
 import React from 'react';
@@ -6,7 +7,6 @@ import { Route, RouteComponentProps, Switch } from 'react-router-dom';
 import { Content, Tabs } from '../../../components';
 import { EditorLanguagePicker } from '../../../components/language';
 import { CardHeader, EditorFooter } from '../../../layout';
-import { WithSource } from '@whitewater-guide/clients';
 import { GaugesList, GaugesRoute } from '../../gauges';
 import AutofillButton from './AutofillButton';
 import GenerateScheduleButton from './GenerateScheduleButton';
@@ -20,10 +20,14 @@ export class SourceDetails extends React.PureComponent<
     const { source, sourceId, match, location } = this.props;
     return (
       <Switch>
-        <Route strict path={`${match.path}/gauges/`} component={GaugesRoute} />
+        <Route
+          strict={true}
+          path={`${match.path}/gauges/`}
+          component={GaugesRoute}
+        />
 
         <Route>
-          <Content card>
+          <Content card={true}>
             <CardHeader title={source.node.name}>
               <EditorLanguagePicker />
             </CardHeader>
@@ -32,7 +36,7 @@ export class SourceDetails extends React.PureComponent<
               mediaStyle={{ height: '100%' }}
             >
               <div style={{ width: '100%', height: '100%' }}>
-                <Tabs fullPathMode>
+                <Tabs fullPathMode={true}>
                   <Tab label="Details" value={`/sources/${sourceId}#main`}>
                     <SourceDetailsMain source={source.node} />
                   </Tab>
@@ -45,7 +49,7 @@ export class SourceDetails extends React.PureComponent<
                   </Tab>
 
                   <Tab label="Gauges" value={`/sources/${sourceId}/gauges`}>
-                    <Route exact path={`${match.path}/gauges`}>
+                    <Route exact={true} path={`${match.path}/gauges`}>
                       <div
                         style={{
                           height: '100%',
@@ -61,22 +65,22 @@ export class SourceDetails extends React.PureComponent<
               </div>
             </CardMedia>
             <Switch>
-              <Route exact path={`${match.path}/gauges`}>
-                <EditorFooter add>
+              <Route exact={true} path={`${match.path}/gauges`}>
+                <EditorFooter add={true}>
                   <AutofillButton
                     sourceId={sourceId}
-                    secondary
+                    secondary={true}
                     label="Autofill"
                   />
                   <GenerateScheduleButton
                     sourceId={sourceId}
-                    secondary
+                    secondary={true}
                     label="Generate schedule"
                   />
                   <ToggleAllGaugesButton
                     sourceId={sourceId}
                     label="Enable All"
-                    enabled
+                    enabled={true}
                   />
                   <ToggleAllGaugesButton
                     sourceId={sourceId}
@@ -87,7 +91,7 @@ export class SourceDetails extends React.PureComponent<
               </Route>
 
               <Route>
-                <EditorFooter edit />
+                <EditorFooter edit={true} />
               </Route>
             </Switch>
           </Content>

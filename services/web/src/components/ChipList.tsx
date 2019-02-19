@@ -1,9 +1,9 @@
+import { NamedNode } from '@whitewater-guide/commons';
 import intersectionBy from 'lodash/intersectionBy';
 import MUIChipInput from 'material-ui-chip-input';
 import React from 'react';
 import { findDOMNode } from 'react-dom';
 import EventListener, { withOptions } from 'react-event-listener';
-import { NamedNode } from '@whitewater-guide/commons';
 
 const MAX_HEIGHT = 250;
 
@@ -97,8 +97,8 @@ export class ChipList extends React.PureComponent<ChipListProps, State> {
         />
         <MUIChipInput
           ref={this.onMount}
-          fullWidth
-          openOnFocus
+          fullWidth={true}
+          openOnFocus={true}
           value={value}
           dataSource={options}
           dataSourceConfig={DATA_SOURCE_CONFIG}

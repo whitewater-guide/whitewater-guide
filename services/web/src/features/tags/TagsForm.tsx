@@ -1,10 +1,10 @@
-import { groupBy } from 'lodash';
+import { TagCategory } from '@whitewater-guide/commons';
+import groupBy from 'lodash/groupBy';
 import { CardMedia } from 'material-ui/Card';
 import React from 'react';
 import { Content } from '../../components';
 import { EditorLanguagePicker } from '../../components/language';
 import { CardHeader } from '../../layout';
-import { TagCategory } from '@whitewater-guide/commons';
 import TagsByCategory from './TagsByCategory';
 import { TagsFormProps } from './types';
 
@@ -13,7 +13,7 @@ export default class TagsForm extends React.PureComponent<TagsFormProps> {
     const { tags, upsertTag, removeTag } = this.props;
     const tagsByCategory = groupBy(tags, 'category');
     return (
-      <Content card>
+      <Content card={true}>
         <CardHeader title="Tags">
           <EditorLanguagePicker />
         </CardHeader>

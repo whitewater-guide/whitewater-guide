@@ -8,7 +8,11 @@ const SourceRoute: React.StatelessComponent<RouteComponentProps<any>> = ({
   match,
 }) => (
   <Switch>
-    <AdminRoute exact path={`${match.path}/settings`} component={SourceForm} />
+    <AdminRoute
+      exact={true}
+      path={`${match.path}/settings`}
+      component={SourceForm}
+    />
     <Route component={SourceDetails} />
   </Switch>
 );

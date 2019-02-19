@@ -1,3 +1,4 @@
+import { MyProfileProvider } from '@whitewater-guide/clients';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
@@ -12,7 +13,6 @@ import { EditorLanguageLink } from './i18n/editors';
 import { RootLayout } from './layout';
 import { configureStore } from './redux';
 import { theme } from './styles';
-import { MyProfileProvider } from '@whitewater-guide/clients';
 
 interface State {
   store?: Store;

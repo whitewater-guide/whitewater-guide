@@ -11,7 +11,6 @@ export const wwLogin = async (accessToken: string): Promise<string | null> => {
     );
     return response.ok ? null : 'Упс! Что-то сломалось.';
   } catch (e) {
-    console.error(e);
     return 'Упс! Что-то сломалось.';
   }
 };

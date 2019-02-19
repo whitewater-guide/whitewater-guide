@@ -1,3 +1,4 @@
+import { RegionAdminSettings } from '@whitewater-guide/commons';
 import { Location } from 'history';
 import { FlatButton } from 'material-ui';
 import { CardActions } from 'material-ui/Card';
@@ -12,7 +13,6 @@ import {
   TextInput,
 } from '../../../../components/forms';
 import { Styles } from '../../../../styles';
-import { RegionAdminSettings } from '@whitewater-guide/commons';
 import { Result } from './regionAdmin.query';
 
 const styles: Styles = {
@@ -49,7 +49,7 @@ export default class RegionAdminSettingsForm extends React.PureComponent<
         <Prompt when={this.shouldBlockNavigation}>
           {({ onConfirm, onCancel }: any) => (
             <ConfirmationDialog
-              invertedAccents
+              invertedAccents={true}
               description="There are some unsaved changes, are sure you don't want to save them?"
               confirmTitle="Leave"
               cancelTitle="Stay"

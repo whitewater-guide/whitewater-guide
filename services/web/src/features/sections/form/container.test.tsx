@@ -1,10 +1,10 @@
+import { flushPromises } from '@whitewater-guide/clients';
+import { SectionInput } from '@whitewater-guide/commons';
 import casual from 'casual';
 import { ReactWrapper } from 'enzyme';
 import React from 'react';
 import { InjectedFormProps } from 'redux-form';
 import { FormReceiver, mountForm } from '../../../test';
-import { flushPromises } from '@whitewater-guide/clients';
-import { SectionInput } from '@whitewater-guide/commons';
 import sectionForm from './container';
 
 jest.mock('draft-js/lib/generateRandomKey', () => () => 'random_key');

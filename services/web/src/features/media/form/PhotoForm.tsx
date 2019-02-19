@@ -1,9 +1,9 @@
-import { get } from 'lodash';
+import { uploadFile } from '@whitewater-guide/clients';
+import get from 'lodash/get';
 import React from 'react';
 import { TextInput } from '../../../components/forms';
 import { Styles } from '../../../styles';
 import { FileWithPreview, getImageSize } from '../../../utils';
-import { uploadFile } from '@whitewater-guide/clients';
 import PhotoFormPreview from './PhotoFormPreview';
 import { MediaFormProps } from './types';
 
@@ -62,29 +62,29 @@ export default class PhotoForm extends React.PureComponent<
       <div style={styles.container}>
         <div style={styles.fields}>
           <TextInput
-            multiLine
-            fullWidth
+            multiLine={true}
+            fullWidth={true}
             name="description"
             title="Description"
           />
-          <TextInput fullWidth name="copyright" title="Copyright" />
-          <TextInput fullWidth disabled name="url" title="URL" />
+          <TextInput fullWidth={true} name="copyright" title="Copyright" />
+          <TextInput fullWidth={true} disabled={true} name="url" title="URL" />
           <TextInput
-            fullWidth
+            fullWidth={true}
             type="number"
             name="weight"
             title="Sort weight"
           />
           <div style={{ display: 'flex', flexDirection: 'row' }}>
             <TextInput
-              fullWidth
-              disabled
+              fullWidth={true}
+              disabled={true}
               name="resolution.0"
               title="Image width"
             />
             <TextInput
-              fullWidth
-              disabled
+              fullWidth={true}
+              disabled={true}
               name="resolution.1"
               title="Image height"
             />

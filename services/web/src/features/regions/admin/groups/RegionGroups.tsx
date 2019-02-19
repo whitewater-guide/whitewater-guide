@@ -1,7 +1,7 @@
+import { NamedNode } from '@whitewater-guide/commons';
 import React from 'react';
 import { ChipList } from '../../../../components';
 import { Styles } from '../../../../styles';
-import { NamedNode } from '@whitewater-guide/commons';
 import { AddGroupProps } from './addRegionToGroup.mutation';
 import { RegionGroupsQueryProps } from './regionGroups.query';
 import { RemoverGroupProps } from './removeRegionFromGroup.mutation';

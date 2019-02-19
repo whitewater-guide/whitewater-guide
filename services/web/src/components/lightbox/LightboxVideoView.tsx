@@ -1,6 +1,3 @@
-import React from 'react';
-import YouTube from 'react-youtube';
-import { Styles } from '../../styles';
 import {
   getVimeoId,
   getYoutubeId,
@@ -8,6 +5,9 @@ import {
   isYoutube,
 } from '@whitewater-guide/clients';
 import { Media } from '@whitewater-guide/commons';
+import React from 'react';
+import YouTube from 'react-youtube';
+import { Styles } from '../../styles';
 
 const styles: Styles = {
   container: {

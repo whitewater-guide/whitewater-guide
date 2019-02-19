@@ -1,7 +1,7 @@
+import { Banner, BannerKind } from '@whitewater-guide/commons';
 import React from 'react';
 import { StyleProp, View, ViewStyle } from 'react-native';
 import { analytics } from 'react-native-firebase';
-import { Banner, BannerKind } from '@whitewater-guide/commons';
 import ImageBanner from './ImageBanner';
 import WebViewBanner from './WebViewBanner';
 

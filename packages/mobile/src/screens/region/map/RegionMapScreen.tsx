@@ -9,7 +9,7 @@ import RegionMap from './RegionMap';
 export const RegionMapScreen: NavigationScreenComponent = ({ screenProps }) => {
   const { region, sections }: ScreenProps = screenProps as any;
   return (
-    <Screen noScroll>
+    <Screen noScroll={true}>
       {region.node && <RegionMap region={region.node} sections={sections} />}
     </Screen>
   );

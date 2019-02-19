@@ -83,7 +83,7 @@ class OfflineContentDialogView extends React.PureComponent<Props, State> {
     return (
       <View style={styles.categoriesContainer}>
         <OfflineCategory
-          disabled
+          disabled={true}
           selected={selection.data}
           type="data"
           inProgress={inProgress}
@@ -101,8 +101,8 @@ class OfflineContentDialogView extends React.PureComponent<Props, State> {
           size={photoSize}
         />
         <OfflineCategory
-          disabled
-          unavailable
+          disabled={true}
+          unavailable={true}
           type="maps"
           selected={selection.maps}
           inProgress={inProgress}

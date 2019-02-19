@@ -1,4 +1,5 @@
-import { isFinite } from 'lodash';
+import { strToFloat } from '@whitewater-guide/clients';
+import isFinite from 'lodash/isFinite';
 import isString from 'lodash/isString';
 import { TextFieldProps } from 'material-ui';
 import TextField from 'material-ui/TextField';
@@ -9,7 +10,6 @@ import {
   GenericField,
   WrappedFieldProps,
 } from 'redux-form';
-import { strToFloat } from '@whitewater-guide/clients';
 
 const SEPARATOR = (0.5).toString()[1];
 const OTHER_SEPARATOR = SEPARATOR === ',' ? /\./ : /,/;

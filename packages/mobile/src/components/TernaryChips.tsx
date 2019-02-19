@@ -1,12 +1,12 @@
-import set from 'lodash/fp/set';
-import map from 'lodash/map';
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
 import {
   SelectableTag,
   TagSelection,
   TagSelections,
 } from '@whitewater-guide/commons';
+import set from 'lodash/fp/set';
+import map from 'lodash/map';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 import { TernaryChip } from './TernaryChip';
 
 const styles = StyleSheet.create({

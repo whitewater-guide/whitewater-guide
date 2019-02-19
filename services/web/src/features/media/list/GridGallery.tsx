@@ -1,7 +1,7 @@
+import { Media, MediaKind } from '@whitewater-guide/commons';
 import React from 'react';
 import { Styles } from '../../../styles';
 import { FileWithPreview } from '../../../utils';
-import { Media, MediaKind } from '@whitewater-guide/commons';
 import Dropzone from './Dropzone';
 import NoMedia from './NoMedia';
 import Thumb from './Thumb';

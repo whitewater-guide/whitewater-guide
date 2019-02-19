@@ -1,9 +1,3 @@
-import { groupBy } from 'lodash';
-import Chip from 'material-ui/Chip';
-import React from 'react';
-import { Col } from 'react-grid-system';
-import { Rating } from '../../../components';
-import { Container, Row, Title } from '../../../layout/details';
 import { renderDifficulty, stringifySeason } from '@whitewater-guide/clients';
 import {
   Durations,
@@ -11,6 +5,12 @@ import {
   Tag,
   TagCategory,
 } from '@whitewater-guide/commons';
+import groupBy from 'lodash/groupBy';
+import Chip from 'material-ui/Chip';
+import React from 'react';
+import { Col } from 'react-grid-system';
+import { Rating } from '../../../components';
+import { Container, Row, Title } from '../../../layout/details';
 
 interface Props {
   section: Section;

@@ -1,5 +1,5 @@
 import { Point, Section } from '@whitewater-guide/commons';
-import { find } from 'lodash';
+import find from 'lodash/find';
 import React from 'react';
 import shallowEqual from 'shallowequal';
 import {

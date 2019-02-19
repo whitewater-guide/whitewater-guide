@@ -7,8 +7,8 @@ import BannersList from './list';
 
 export const BannersRoute: React.StatelessComponent = () => (
   <Switch>
-    <AdminRoute exact path="/banners" component={BannersList} />
-    <AdminRoute exact path="/banners/new" component={BannerForm} />
+    <AdminRoute exact={true} path="/banners" component={BannersList} />
+    <AdminRoute exact={true} path="/banners/new" component={BannerForm} />
     <AdminRoute path="/banners/:bannerId" component={BannerRoute} />
   </Switch>
 );

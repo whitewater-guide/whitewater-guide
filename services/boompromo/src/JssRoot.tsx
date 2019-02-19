@@ -1,7 +1,7 @@
 import { createGenerateClassName, jssPreset } from '@material-ui/core/styles';
 import { create } from 'jss';
 import React from 'react';
-import JssProvider from 'react-jss/lib/JssProvider';
+import { JssProvider } from 'react-jss';
 import App from './App';
 
 const generateClassName = createGenerateClassName();

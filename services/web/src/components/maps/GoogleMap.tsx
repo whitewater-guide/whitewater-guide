@@ -157,8 +157,8 @@ export default class GoogleMap extends React.Component<Props, State> {
     return (
       <div style={styles.container}>
         <ReactResizeDetector
-          handleWidth
-          handleHeight
+          handleWidth={true}
+          handleHeight={true}
           onResize={this.onResize}
         />
         <div style={styles.map} ref={this.setMapRef} />

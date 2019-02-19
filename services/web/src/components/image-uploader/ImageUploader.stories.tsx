@@ -32,7 +32,7 @@ storiesOf('ImageUploader', module)
   .add('uploading', () => {
     return (
       <ImageUploader
-        uploading
+        uploading={true}
         width={120}
         height={87}
         previewScale={1}

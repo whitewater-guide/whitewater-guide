@@ -1,3 +1,9 @@
+import {
+  createInteractiveChart,
+  InteractiveChartInnerProps,
+  InteractiveChartOuterProps,
+  withChart,
+} from '@whitewater-guide/clients';
 import { compose } from 'recompose';
 import { ErrorBoundaryFallback, withLoading } from '../../../components';
 import {
@@ -6,12 +12,6 @@ import {
   ChartPeriodToggle,
 } from '../../../components/chart';
 import { trackError } from '../../../core/errors';
-import {
-  createInteractiveChart,
-  InteractiveChartInnerProps,
-  InteractiveChartOuterProps,
-  withChart,
-} from '@whitewater-guide/clients';
 import ChartLayout from './ChartLayout';
 
 const reportChartError = (error: Error, componentStack: string) =>

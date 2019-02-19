@@ -1,10 +1,10 @@
+import { RegionConsumer } from '@whitewater-guide/clients';
 import { CardMedia } from 'material-ui/Card';
 import { Tab } from 'material-ui/Tabs';
 import React from 'react';
 import { Content, Tabs } from '../../../components';
 import { EditorLanguagePicker } from '../../../components/language';
 import { CardHeader } from '../../../layout';
-import { RegionConsumer } from '@whitewater-guide/clients';
 import RegionEditorsWithData from './editors';
 import RegionGroupsWithData from './groups';
 import RegionAdminSettingsForm from './settings';
@@ -12,7 +12,7 @@ import RegionAdminSettingsForm from './settings';
 export class RegionAdmin extends React.Component {
   render() {
     return (
-      <Content card>
+      <Content card={true}>
         <RegionConsumer>
           {({ region }) => (
             <CardHeader title={region.node!.name}>

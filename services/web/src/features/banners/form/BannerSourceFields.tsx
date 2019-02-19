@@ -58,7 +58,7 @@ class BannerSourceComponent extends React.Component<ComponentProps, State> {
     const { bucket, width, height, previewScale, upload } = this.props;
     return (
       <ImageUploadField
-        hideFileName
+        hideFileName={true}
         name="source.src"
         bucket={bucket}
         width={width}

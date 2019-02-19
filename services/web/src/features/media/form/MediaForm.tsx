@@ -1,10 +1,10 @@
-import { capitalize } from 'lodash';
+import { MediaKind } from '@whitewater-guide/commons';
+import capitalize from 'lodash/capitalize';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import React from 'react';
 import ErrorBoundary from 'react-error-boundary';
 import { Styles } from '../../../styles';
-import { MediaKind } from '@whitewater-guide/commons';
 import NonPhotoForm from './NonPhotoForm';
 import PhotoForm from './PhotoForm';
 import { MediaFormProps } from './types';
@@ -28,15 +28,15 @@ export default class MediaForm extends React.PureComponent<MediaFormProps> {
       <FlatButton key="cancel" label="Cancel" onClick={this.onCancel} />,
       <FlatButton
         key="save"
-        primary
+        primary={true}
         label={submitLabel}
         onClick={this.props.handleSubmit}
       />,
     ];
     return (
       <Dialog
-        open
-        modal
+        open={true}
+        modal={true}
         title={title}
         actions={actions}
         contentStyle={styles.dialog}

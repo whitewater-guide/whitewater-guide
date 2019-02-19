@@ -185,7 +185,7 @@ class SelectedSectionViewInternal extends React.Component<Props, State> {
         <DifficultyThumb
           difficulty={get(section, 'difficulty', 1)}
           difficultyXtra={get(section, 'difficultyXtra', ' ')}
-          noBorder
+          noBorder={true}
         />
       </View>
     );

@@ -1,0 +1,12 @@
+{
+  "extends": ["../../tslint.json"],
+  "rules": {
+    "no-submodule-imports": [
+      true,
+      "material-ui",
+      "redux-persist",
+      "lodash",
+      "moment"
+    ]
+  }
+}

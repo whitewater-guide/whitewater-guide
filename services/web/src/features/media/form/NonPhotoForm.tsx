@@ -6,10 +6,20 @@ export default class NonPhotoForm extends React.PureComponent<MediaFormProps> {
   render() {
     return (
       <React.Fragment>
-        <TextInput multiLine fullWidth name="description" title="Description" />
-        <TextInput fullWidth name="copyright" title="Copyright" />
-        <TextInput fullWidth name="url" title="URL" />
-        <TextInput fullWidth type="number" name="weight" title="Sort weight" />
+        <TextInput
+          multiLine={true}
+          fullWidth={true}
+          name="description"
+          title="Description"
+        />
+        <TextInput fullWidth={true} name="copyright" title="Copyright" />
+        <TextInput fullWidth={true} name="url" title="URL" />
+        <TextInput
+          fullWidth={true}
+          type="number"
+          name="weight"
+          title="Sort weight"
+        />
       </React.Fragment>
     );
   }

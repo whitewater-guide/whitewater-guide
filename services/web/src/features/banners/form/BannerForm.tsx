@@ -1,3 +1,4 @@
+import { BannerPlacement, BannerRatios } from '@whitewater-guide/commons';
 import snakeCase from 'lodash/snakeCase';
 import upperFirst from 'lodash/upperFirst';
 import React from 'react';
@@ -8,7 +9,6 @@ import {
   Select,
   TextInput,
 } from '../../../components/forms';
-import { BannerPlacement, BannerRatios } from '@whitewater-guide/commons';
 import BannerSourceFields from './BannerSourceFields';
 import { BannerFormProps } from './types';
 
@@ -35,15 +35,20 @@ export default class BannerForm extends React.PureComponent<BannerFormProps> {
           }}
         >
           <TextInput
-            fullWidth
+            fullWidth={true}
             name="slug"
             title="Slug"
             disabled={!!initialValues.id}
           />
-          <TextInput fullWidth name="name" title="Name" />
-          <TextInput fullWidth name="priority" type="number" title="Priority" />
+          <TextInput fullWidth={true} name="name" title="Name" />
+          <TextInput
+            fullWidth={true}
+            name="priority"
+            type="number"
+            title="Priority"
+          />
           <Select
-            simple
+            simple={true}
             name="placement"
             title="Placement"
             options={PLACEMENTS}
@@ -57,14 +62,14 @@ export default class BannerForm extends React.PureComponent<BannerFormProps> {
             upload={this.props.bannerFileUpload}
           />
           <Checkbox name="enabled" label="Enabled" />
-          <TextInput fullWidth name="link" title="Link" />
+          <TextInput fullWidth={true} name="link" title="Link" />
           <ChipInput name="groups" title="Groups" options={this.props.groups} />
           <ChipInput
             name="regions"
             title="Regions"
             options={this.props.regions}
           />
-          <TextInput fullWidth name="extras" title="Extras" />
+          <TextInput fullWidth={true} name="extras" title="Extras" />
         </div>
       </Form>
     );

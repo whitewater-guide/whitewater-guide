@@ -1,8 +1,8 @@
+import { FlowToggleProps } from '@whitewater-guide/clients';
+import { Unit } from '@whitewater-guide/commons';
 import capitalize from 'lodash/capitalize';
 import Toggle from 'material-ui/Toggle';
 import * as React from 'react';
-import { FlowToggleProps } from '@whitewater-guide/clients';
-import { Unit } from '@whitewater-guide/commons';
 
 const styles = {
   container: {
