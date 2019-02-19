@@ -83,7 +83,8 @@
   basicauth /puzzle {$ADMINER_USERNAME} {$ADMINER_PASSWORD}
 
   proxy /puzzle adminer:8080 {
-    without /puzzle
+    # https://stackoverflow.com/a/52505235/6212547
+    header_downstream X-Forwarded-Prefix /puzzle
     transparent
   }
 
