@@ -17,19 +17,19 @@ Object {
 
 exports[`SectionFormInput should be invalid for bad difficulty (fraction) 1`] = `
 Object {
-  "difficulty": "Expected a value of type \`0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5\` for \`difficulty\` but received \`4.4\`.",
+  "difficulty": "Expected a value of type \`0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5 | 5.5 | 6\` for \`difficulty\` but received \`4.4\`.",
 }
 `;
 
 exports[`SectionFormInput should be invalid for bad difficulty (max) 1`] = `
 Object {
-  "difficulty": "Expected a value of type \`0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5\` for \`difficulty\` but received \`5.5\`.",
+  "difficulty": "Expected a value of type \`0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5 | 5.5 | 6\` for \`difficulty\` but received \`7.5\`.",
 }
 `;
 
 exports[`SectionFormInput should be invalid for bad difficulty (min) 1`] = `
 Object {
-  "difficulty": "Expected a value of type \`0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5\` for \`difficulty\` but received \`-0.5\`.",
+  "difficulty": "Expected a value of type \`0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5 | 5.5 | 6\` for \`difficulty\` but received \`-0.5\`.",
 }
 `;
 
@@ -177,19 +177,19 @@ Object {
 
 exports[`SectionInput should be invalid for bad difficulty (fraction) 1`] = `
 Object {
-  "difficulty": "Expected a value of type \`0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5\` for \`difficulty\` but received \`4.4\`.",
+  "difficulty": "Expected a value of type \`0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5 | 5.5 | 6\` for \`difficulty\` but received \`4.4\`.",
 }
 `;
 
 exports[`SectionInput should be invalid for bad difficulty (max) 1`] = `
 Object {
-  "difficulty": "Expected a value of type \`0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5\` for \`difficulty\` but received \`5.5\`.",
+  "difficulty": "Expected a value of type \`0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5 | 5.5 | 6\` for \`difficulty\` but received \`7.5\`.",
 }
 `;
 
 exports[`SectionInput should be invalid for bad difficulty (min) 1`] = `
 Object {
-  "difficulty": "Expected a value of type \`0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5\` for \`difficulty\` but received \`-0.5\`.",
+  "difficulty": "Expected a value of type \`0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5 | 5.5 | 6\` for \`difficulty\` but received \`-0.5\`.",
 }
 `;
 

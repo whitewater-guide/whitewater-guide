@@ -18,7 +18,7 @@ export function buildQuery<TGraphql, TSql>(
     if (graphqlField === '__typename') {
       continue;
     }
-    const mapped = fieldsMap[graphqlField];
+    const mapped = (fieldsMap as any)[graphqlField];
     if (mapped === null) {
       continue;
     } else if (!mapped) {

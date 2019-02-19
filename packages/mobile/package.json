@@ -110,8 +110,6 @@
     "shallowequal": "^1.1.0",
     "shortid": "^2.2.14",
     "tslib": "^1.9.0",
-    "type-zoo": "^3.3.0",
-    "typescript": "3.2.4",
     "typescript-fsa": "^3.0.0-beta-1",
     "victory-native": "^31.0.0"
   },
@@ -163,7 +161,9 @@
     "react-native-testing-library": "^1.5.0",
     "react-test-renderer": "16.6.3",
     "redux-mock-store": "^1.5.3",
-    "redux-saga-test-plan": "4.0.0-beta.1"
+    "redux-saga-test-plan": "4.0.0-beta.1",
+    "type-zoo": "^3.3.0",
+    "typescript": "3.3.3"
   },
   "resolutions": {
     "react-native-offline/redux-saga": "^1.0.1",

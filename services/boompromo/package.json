@@ -66,7 +66,7 @@
     "awesome-typescript-loader": "^5.2.1",
     "graphql-ast-tools": "^0.2.3",
     "type-zoo": "^3.3.0",
-    "typescript": "3.2.4"
+    "typescript": "3.3.3"
   },
   "browserslist": [
     ">0.2%",
