@@ -1,4 +1,5 @@
 import { spawnSync } from 'child_process';
+import { argv } from 'yargs';
 import { EnvType } from './types';
 import {
   dockerLogin,
@@ -17,7 +18,12 @@ async function publish() {
   // Merge docker-compose files
   const stackFile = await generateStackFile(EnvType.STAGING);
 
-  const services = getChangedServices();
+  let services = getChangedServices();
+  // it's possible to explicitly list services to publish
+  // via one or many --service arguments
+  if (argv.service) {
+    services = Array.isArray(argv.service) ? argv.service : [argv.service];
+  }
 
   const buildRes = spawnSync(
     'docker-compose',
