@@ -1,3 +1,9 @@
+## [0.0.26](https://github.com/doomsower/whitewater/compare/@whitewater-guide/scripts@0.0.25...@whitewater-guide/scripts@0.0.26) (2019-02-19)
+
+### Features
+
+- **scripts:** publish can now accept list of services ([459c85a](https://github.com/doomsower/whitewater/commit/459c85a))
+
 ## [0.0.25](https://github.com/doomsower/whitewater/compare/@whitewater-guide/scripts@0.0.24...@whitewater-guide/scripts@0.0.25) (2019-02-19)
 
 ### Bug Fixes
