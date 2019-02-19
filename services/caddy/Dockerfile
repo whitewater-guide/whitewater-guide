@@ -1,4 +1,4 @@
-FROM abiosoft/caddy:0.11.2-no-stats
+FROM abiosoft/caddy:0.11.4-no-stats
 
 ENV ACME_AGREE="true"
 
