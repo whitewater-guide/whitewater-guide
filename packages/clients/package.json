@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/clients",
   "private": false,
-  "version": "0.0.198",
+  "version": "0.0.199",
   "description": "shared code for whitewater.guide clients",
   "license": "UNLICENSED",
   "files": [
@@ -24,7 +24,7 @@
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
-    "@whitewater-guide/commons": "^0.0.120",
+    "@whitewater-guide/commons": "^0.0.121",
     "apollo-cache-inmemory": "^1.4.2",
     "apollo-client": "^2.4.12",
     "apollo-link": "^1.2.6",
