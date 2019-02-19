@@ -10,6 +10,7 @@
     "prebuild": "rm -rf bin/*",
     "build": "yarn tsc",
     "prepare": "yarn build",
+    "preversion": "yarn build",
     "version": "./sh/changelog.sh"
   },
   "dependencies": {
