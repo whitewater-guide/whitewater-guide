@@ -1,3 +1,10 @@
+## [0.0.25](https://github.com/doomsower/whitewater/compare/@whitewater-guide/scripts@0.0.24...@whitewater-guide/scripts@0.0.25) (2019-02-19)
+
+### Bug Fixes
+
+- **scripts:** do not ensure `dev-mount/db` dir ([f49b70e](https://github.com/doomsower/whitewater/commit/f49b70e))
+- **scripts:** push only changed images ([6ffe870](https://github.com/doomsower/whitewater/commit/6ffe870))
+
 ## [0.0.24](https://github.com/doomsower/whitewater/compare/@whitewater-guide/scripts@0.0.23...@whitewater-guide/scripts@0.0.24) (2019-02-17)
 
 ### Bug Fixes
