@@ -29,6 +29,9 @@
       "allow-pascal-case",
       "allow-snake-case",
       "allow-leading-underscore"
-    ]
+    ],
+    "jsx-no-lambda": {
+      "severity": "warning"
+    }
   }
 }
