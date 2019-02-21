@@ -1,7 +1,13 @@
 src/
 node_modules
-Dockerfile.*
-tsconfig.json
+Dockerfile*
+*.md
+coverage
+jest.config.js
+madge.js
+merged-schema.graphql
+npm_scripts
+tsconfig.*
 tslint.json
 .gitignore
 yarn-error.log
