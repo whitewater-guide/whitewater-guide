@@ -1,3 +1,9 @@
+## [0.0.33](https://github.com/doomsower/whitewater/compare/@whitewater-guide/landing@0.0.32...@whitewater-guide/landing@0.0.33) (2019-02-23)
+
+### Bug Fixes
+
+- **landing:** update jquery scroll plugins ([ec7e5e3](https://github.com/doomsower/whitewater/commit/ec7e5e3)), closes [#133](https://github.com/doomsower/whitewater/issues/133)
+
 ## [0.0.32](https://github.com/doomsower/whitewater/compare/@whitewater-guide/landing@0.0.31...@whitewater-guide/landing@0.0.32) (2019-02-15)
 
 ## [0.0.31](https://github.com/doomsower/whitewater/compare/@whitewater-guide/landing@0.0.30...@whitewater-guide/landing@0.0.31) (2019-02-14)
