@@ -18,11 +18,15 @@ async function publish() {
   // Merge docker-compose files
   const stackFile = await generateStackFile(EnvType.STAGING);
 
-  let services = getChangedServices();
+  let services: string[] = getChangedServices();
   // it's possible to explicitly list services to publish
   // via one or many --service arguments
   if (argv.service) {
-    services = Array.isArray(argv.service) ? argv.service : [argv.service];
+    services = Array.isArray(argv.service)
+      ? argv.service
+      : argv.service === '*'
+      ? []
+      : [argv.service];
   }
 
   const buildRes = spawnSync(
