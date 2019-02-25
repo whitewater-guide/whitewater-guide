@@ -16,7 +16,8 @@ const regions: TopLevelResolver<Vars> = async (
   if (search) {
     query = query.where('name', 'ilike', `%${search}%`);
   }
-  return query;
+  const result = await query;
+  return result;
 };
 
 export default regions;

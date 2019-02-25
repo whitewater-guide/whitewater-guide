@@ -2,107 +2,103 @@
 
 exports[`should return rivers 1`] = `
 Object {
-  "data": Object {
-    "rivers": Object {
-      "count": 5,
-      "nodes": Array [
-        Object {
-          "altNames": Array [],
-          "id": "b80554ba-5db4-11e8-9c2d-fa7ae01bbebc",
-          "name": "Bzhuzha",
-          "region": Object {
-            "id": "8e119768-37f3-11e8-b467-0ed5f89f718b",
-            "name": "Georgia",
+  "count": 5,
+  "nodes": Array [
+    Object {
+      "altNames": Array [],
+      "id": "b80554ba-5db4-11e8-9c2d-fa7ae01bbebc",
+      "name": "Bzhuzha",
+      "region": Object {
+        "id": "8e119768-37f3-11e8-b467-0ed5f89f718b",
+        "name": "Georgia",
+      },
+      "sections": Object {
+        "count": 3,
+        "nodes": Array [
+          Object {
+            "id": "9e9c0366-84e2-11e8-adc0-fa7ae01bbebc",
+            "name": "Extreme race",
           },
-          "sections": Object {
-            "count": 3,
-            "nodes": Array [
-              Object {
-                "id": "9e9c0366-84e2-11e8-adc0-fa7ae01bbebc",
-                "name": "Extreme race",
-              },
-              Object {
-                "id": "e6e0e826-5db4-11e8-9c2d-fa7ae01bbebc",
-                "name": "Long Race",
-              },
-              Object {
-                "id": "f73b533c-5db4-11e8-9c2d-fa7ae01bbebc",
-                "name": "Qualification",
-              },
-            ],
+          Object {
+            "id": "e6e0e826-5db4-11e8-9c2d-fa7ae01bbebc",
+            "name": "Long Race",
           },
-        },
-        Object {
-          "altNames": Array [],
-          "id": "e7a25ab6-d528-11e7-9296-cec278b6b50a",
-          "name": "Finna",
-          "region": Object {
-            "id": "b968e2b2-76c5-11e7-b5a5-be2e44b06b34",
-            "name": "Norway",
+          Object {
+            "id": "f73b533c-5db4-11e8-9c2d-fa7ae01bbebc",
+            "name": "Qualification",
           },
-          "sections": Object {
-            "count": 0,
-            "nodes": Array [],
-          },
-        },
-        Object {
-          "altNames": Array [],
-          "id": "a8416664-bfe3-11e7-abc4-cec278b6b50a",
-          "name": "Gal_Riv_One",
-          "region": Object {
-            "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
-            "name": "Galicia",
-          },
-          "sections": Object {
-            "count": 2,
-            "nodes": Array [
-              Object {
-                "id": "2b01742c-d443-11e7-9296-cec278b6b50a",
-                "name": "Gal_riv_1_sec_1",
-              },
-              Object {
-                "id": "3a6e3210-d529-11e7-9296-cec278b6b50a",
-                "name": "Gal_riv_1_sec_2",
-              },
-            ],
-          },
-        },
-        Object {
-          "altNames": Array [],
-          "id": "d69dbabc-bfe3-11e7-abc4-cec278b6b50a",
-          "name": "Gal_riv_two",
-          "region": Object {
-            "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
-            "name": "Galicia",
-          },
-          "sections": Object {
-            "count": 0,
-            "nodes": Array [],
-          },
-        },
-        Object {
-          "altNames": Array [
-            "Shoa",
-            "Sjøa",
-          ],
-          "id": "d4396dac-d528-11e7-9296-cec278b6b50a",
-          "name": "Sjoa",
-          "region": Object {
-            "id": "b968e2b2-76c5-11e7-b5a5-be2e44b06b34",
-            "name": "Norway",
-          },
-          "sections": Object {
-            "count": 1,
-            "nodes": Array [
-              Object {
-                "id": "21f2351e-d52a-11e7-9296-cec278b6b50a",
-                "name": "Amot",
-              },
-            ],
-          },
-        },
-      ],
+        ],
+      },
     },
-  },
+    Object {
+      "altNames": Array [],
+      "id": "e7a25ab6-d528-11e7-9296-cec278b6b50a",
+      "name": "Finna",
+      "region": Object {
+        "id": "b968e2b2-76c5-11e7-b5a5-be2e44b06b34",
+        "name": "Norway",
+      },
+      "sections": Object {
+        "count": 0,
+        "nodes": Array [],
+      },
+    },
+    Object {
+      "altNames": Array [],
+      "id": "a8416664-bfe3-11e7-abc4-cec278b6b50a",
+      "name": "Gal_Riv_One",
+      "region": Object {
+        "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
+        "name": "Galicia",
+      },
+      "sections": Object {
+        "count": 2,
+        "nodes": Array [
+          Object {
+            "id": "2b01742c-d443-11e7-9296-cec278b6b50a",
+            "name": "Gal_riv_1_sec_1",
+          },
+          Object {
+            "id": "3a6e3210-d529-11e7-9296-cec278b6b50a",
+            "name": "Gal_riv_1_sec_2",
+          },
+        ],
+      },
+    },
+    Object {
+      "altNames": Array [],
+      "id": "d69dbabc-bfe3-11e7-abc4-cec278b6b50a",
+      "name": "Gal_riv_two",
+      "region": Object {
+        "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
+        "name": "Galicia",
+      },
+      "sections": Object {
+        "count": 0,
+        "nodes": Array [],
+      },
+    },
+    Object {
+      "altNames": Array [
+        "Shoa",
+        "Sjøa",
+      ],
+      "id": "d4396dac-d528-11e7-9296-cec278b6b50a",
+      "name": "Sjoa",
+      "region": Object {
+        "id": "b968e2b2-76c5-11e7-b5a5-be2e44b06b34",
+        "name": "Norway",
+      },
+      "sections": Object {
+        "count": 1,
+        "nodes": Array [
+          Object {
+            "id": "21f2351e-d52a-11e7-9296-cec278b6b50a",
+            "name": "Amot",
+          },
+        ],
+      },
+    },
+  ],
 }
 `;

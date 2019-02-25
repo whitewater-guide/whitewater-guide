@@ -1,7 +1,6 @@
-import { formatError } from '@apollo';
-import { ExecutionResult, graphql } from 'graphql';
-import isEmpty from 'lodash/isEmpty';
-import { getSchema } from '../apollo/server';
+import { createTestClient } from 'apollo-server-testing';
+import { ExecutionResult } from 'graphql';
+import { createTestServer } from '../apollo/server';
 import { anonContext } from './context';
 
 export const runQuery = async (
@@ -9,21 +8,11 @@ export const runQuery = async (
   variables?: any,
   context?: any,
 ): Promise<ExecutionResult> => {
-  const schema = await getSchema();
-  const ctx = context || anonContext();
-  const { errors, ...result } = await graphql(
-    schema,
-    query,
-    undefined,
-    ctx,
-    variables,
-  );
-  const errs = errors && isEmpty(errors) ? undefined : errors;
-  if (errs) {
-    return {
-      ...result,
-      errors: errs.map(formatError),
-    };
+  const server = await createTestServer(context || anonContext());
+  const client = createTestClient(server);
+  if (query.indexOf('mutation') >= 0) {
+    return client.mutate({ mutation: query, variables } as any);
+  } else {
+    return client.query({ query, variables } as any);
   }
-  return result;
 };

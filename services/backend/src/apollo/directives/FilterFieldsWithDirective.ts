@@ -16,7 +16,7 @@ import {
   VisitSchemaKind,
 } from 'graphql-tools/dist/transforms/visitSchema';
 
-export default class FilterFieldsWithDirective implements Transform {
+export class FilterFieldsWithDirective implements Transform {
   private readonly directive: string;
 
   constructor(directive: string) {

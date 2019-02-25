@@ -38,7 +38,7 @@ it('should return rivers', async () => {
   expect(result.errors).toBeUndefined();
   expect(result).toHaveProperty('data.rivers.nodes.length', RIVERS_TOTAL);
   expect(result).toHaveProperty('data.rivers.count', RIVERS_TOTAL);
-  expect(noTimestamps(result)).toMatchSnapshot();
+  expect(noTimestamps(result.data!.rivers)).toMatchSnapshot();
 });
 
 it('should limit', async () => {

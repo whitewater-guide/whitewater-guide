@@ -83,7 +83,7 @@ describe('data', () => {
       fakeContext(ADMIN),
     );
     expect(result).not.toHaveGraphqlError();
-    expect(result).toMatchSnapshot();
+    expect(result.data!.banner).toMatchSnapshot();
   });
 
   it('should return null when id not specified', async () => {

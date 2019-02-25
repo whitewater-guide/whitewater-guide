@@ -3,7 +3,7 @@ import { getIntrospectionQuery, graphql, GraphQLSchema } from 'graphql';
 import { FilterRootFields } from 'graphql-tools';
 // tslint:disable-next-line:no-submodule-imports
 import { RootFilter } from 'graphql-tools/dist/transforms/FilterRootFields';
-import FilterFieldsWithDirective from './FilterFieldsWithDirective';
+import { FilterFieldsWithDirective } from '../directives';
 
 const rootFieldsFilter: RootFilter = (operation, fieldName, field) => {
   if (operation === 'Mutation') {

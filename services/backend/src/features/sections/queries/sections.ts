@@ -5,11 +5,14 @@ interface Vars extends ListQuery {
   filter?: SectionsFilter;
 }
 
-const sections: TopLevelResolver<Vars> = (
+const sections: TopLevelResolver<Vars> = async (
   _,
   { filter, page },
   { dataSources },
   info,
-) => dataSources.sections.getMany(info, { filter, page });
+) => {
+  const result = await dataSources.sections.getMany(info, { filter, page });
+  return result;
+};
 
 export default sections;

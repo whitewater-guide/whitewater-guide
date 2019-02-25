@@ -28,7 +28,7 @@ it('should return media', async () => {
   expect(result.errors).toBeUndefined();
   expect(result).toHaveProperty('data.mediaBySection.nodes.length', 4);
   expect(result).toHaveProperty('data.mediaBySection.count', 4);
-  expect(noTimestamps(result)).toMatchSnapshot();
+  expect(noTimestamps(result.data!.mediaBySection)).toMatchSnapshot();
 });
 
 it('should be able to specify language', async () => {

@@ -200,7 +200,7 @@ describe('insert', () => {
       { gauge: input },
       fakeContext(ADMIN),
     );
-    expect(noUnstable(result)).toMatchSnapshot();
+    expect(noUnstable(result.data!.upsertSection)).toMatchSnapshot();
   });
 
   it('should sanitize input', async () => {
@@ -304,7 +304,7 @@ describe('update', () => {
   });
 
   it('should match snapshot', async () => {
-    expect(noUnstable(updateResult)).toMatchSnapshot();
+    expect(noUnstable(updatedGauge)).toMatchSnapshot();
   });
 });
 

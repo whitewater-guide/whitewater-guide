@@ -2,203 +2,195 @@
 
 exports[`insert should return result 1`] = `
 Object {
-  "data": Object {
-    "upsertSection": Object {
-      "description": "Playrun description",
-      "difficulty": 4,
-      "difficultyXtra": "X",
-      "distance": 2.44,
-      "drop": 101.1,
-      "duration": 10,
-      "flows": null,
-      "flowsText": "Playrun flows",
-      "gauge": Object {
-        "name": "Norway gauge 1",
-      },
-      "hidden": false,
-      "levels": Object {
-        "approximate": false,
-        "impossible": null,
-        "maximum": null,
-        "minimum": 100,
-        "optimum": null,
-      },
-      "name": "Playrun",
-      "pois": Array [
-        Object {
-          "coordinates": Array [
-            10,
-            12,
-            0,
-          ],
-          "name": "playrun pt 1",
-        },
-        Object {
-          "coordinates": Array [
-            33,
-            34,
-            0,
-          ],
-          "name": "playrun pt 2",
-        },
+  "description": "Playrun description",
+  "difficulty": 4,
+  "difficultyXtra": "X",
+  "distance": 2.44,
+  "drop": 101.1,
+  "duration": 10,
+  "flows": null,
+  "flowsText": "Playrun flows",
+  "gauge": Object {
+    "name": "Norway gauge 1",
+  },
+  "hidden": false,
+  "levels": Object {
+    "approximate": false,
+    "impossible": null,
+    "maximum": null,
+    "minimum": 100,
+    "optimum": null,
+  },
+  "name": "Playrun",
+  "pois": Array [
+    Object {
+      "coordinates": Array [
+        10,
+        12,
+        0,
       ],
-      "putIn": Object {
-        "coordinates": Array [
-          33,
-          33,
-          0,
-        ],
-        "name": "Put-in",
-      },
-      "rating": 5,
-      "region": Object {
-        "name": "Norway",
-      },
-      "river": Object {
-        "name": "Sjoa",
-      },
-      "season": "Playrun season",
-      "seasonNumeric": Array [
-        1,
-        2,
-        3,
-      ],
-      "shape": Array [
-        Array [
-          33,
-          33,
-          0,
-        ],
-        Array [
-          34,
-          42,
-          0,
-        ],
-      ],
-      "tags": Array [
-        Object {
-          "name": "Waterfalls",
-        },
-        Object {
-          "name": "Undercuts",
-        },
-      ],
-      "takeOut": Object {
-        "coordinates": Array [
-          34,
-          42,
-          0,
-        ],
-        "name": "Take-out",
-      },
+      "name": "playrun pt 1",
     },
+    Object {
+      "coordinates": Array [
+        33,
+        34,
+        0,
+      ],
+      "name": "playrun pt 2",
+    },
+  ],
+  "putIn": Object {
+    "coordinates": Array [
+      33,
+      33,
+      0,
+    ],
+    "name": "Put-in",
+  },
+  "rating": 5,
+  "region": Object {
+    "name": "Norway",
+  },
+  "river": Object {
+    "name": "Sjoa",
+  },
+  "season": "Playrun season",
+  "seasonNumeric": Array [
+    1,
+    2,
+    3,
+  ],
+  "shape": Array [
+    Array [
+      33,
+      33,
+      0,
+    ],
+    Array [
+      34,
+      42,
+      0,
+    ],
+  ],
+  "tags": Array [
+    Object {
+      "name": "Waterfalls",
+    },
+    Object {
+      "name": "Undercuts",
+    },
+  ],
+  "takeOut": Object {
+    "coordinates": Array [
+      34,
+      42,
+      0,
+    ],
+    "name": "Take-out",
   },
 }
 `;
 
 exports[`update should return result 1`] = `
 Object {
-  "data": Object {
-    "upsertSection": Object {
-      "description": "Playrun description",
-      "difficulty": 4,
-      "difficultyXtra": "X",
-      "distance": 2.44,
-      "drop": 101.1,
-      "duration": 10,
-      "flows": null,
-      "flowsText": "Playrun flows",
-      "gauge": Object {
-        "name": "Galicia gauge 1",
-      },
-      "hidden": false,
-      "levels": Object {
-        "approximate": false,
-        "impossible": null,
-        "maximum": null,
-        "minimum": 100,
-        "optimum": null,
-      },
-      "name": "Playrun",
-      "pois": Array [
-        Object {
-          "coordinates": Array [
-            2.1,
-            2.3,
-            3.4,
-          ],
-          "name": "Updated poi name",
-        },
-        Object {
-          "coordinates": Array [
-            66,
-            77,
-            88,
-          ],
-          "name": "Updated new poi 1 name",
-        },
-        Object {
-          "coordinates": Array [
-            50.1,
-            50.2,
-            333,
-          ],
-          "name": "Updated new poi 2 name",
-        },
+  "description": "Playrun description",
+  "difficulty": 4,
+  "difficultyXtra": "X",
+  "distance": 2.44,
+  "drop": 101.1,
+  "duration": 10,
+  "flows": null,
+  "flowsText": "Playrun flows",
+  "gauge": Object {
+    "name": "Galicia gauge 1",
+  },
+  "hidden": false,
+  "levels": Object {
+    "approximate": false,
+    "impossible": null,
+    "maximum": null,
+    "minimum": 100,
+    "optimum": null,
+  },
+  "name": "Playrun",
+  "pois": Array [
+    Object {
+      "coordinates": Array [
+        2.1,
+        2.3,
+        3.4,
       ],
-      "putIn": Object {
-        "coordinates": Array [
-          33,
-          33,
-          0,
-        ],
-        "name": "Put-in",
-      },
-      "rating": 5,
-      "region": Object {
-        "name": "Galicia",
-      },
-      "river": Object {
-        "name": "Gal_Riv_One",
-      },
-      "season": "Playrun season",
-      "seasonNumeric": Array [
-        1,
-        2,
-        3,
-      ],
-      "shape": Array [
-        Array [
-          33,
-          33,
-          0,
-        ],
-        Array [
-          34,
-          42,
-          0,
-        ],
-      ],
-      "tags": Array [
-        Object {
-          "name": "Creeking",
-        },
-        Object {
-          "name": "Undercuts",
-        },
-        Object {
-          "name": "Snowmelt",
-        },
-      ],
-      "takeOut": Object {
-        "coordinates": Array [
-          34,
-          42,
-          0,
-        ],
-        "name": "Take-out",
-      },
+      "name": "Updated poi name",
     },
+    Object {
+      "coordinates": Array [
+        66,
+        77,
+        88,
+      ],
+      "name": "Updated new poi 1 name",
+    },
+    Object {
+      "coordinates": Array [
+        50.1,
+        50.2,
+        333,
+      ],
+      "name": "Updated new poi 2 name",
+    },
+  ],
+  "putIn": Object {
+    "coordinates": Array [
+      33,
+      33,
+      0,
+    ],
+    "name": "Put-in",
+  },
+  "rating": 5,
+  "region": Object {
+    "name": "Galicia",
+  },
+  "river": Object {
+    "name": "Gal_Riv_One",
+  },
+  "season": "Playrun season",
+  "seasonNumeric": Array [
+    1,
+    2,
+    3,
+  ],
+  "shape": Array [
+    Array [
+      33,
+      33,
+      0,
+    ],
+    Array [
+      34,
+      42,
+      0,
+    ],
+  ],
+  "tags": Array [
+    Object {
+      "name": "Creeking",
+    },
+    Object {
+      "name": "Undercuts",
+    },
+    Object {
+      "name": "Snowmelt",
+    },
+  ],
+  "takeOut": Object {
+    "coordinates": Array [
+      34,
+      42,
+      0,
+    ],
+    "name": "Take-out",
   },
 }
 `;

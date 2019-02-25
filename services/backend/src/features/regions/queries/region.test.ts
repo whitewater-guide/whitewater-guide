@@ -488,7 +488,7 @@ describe('connections', () => {
     it('should get all banners', async () => {
       expect(result.data!.region.banners.count).toBe(5);
       expect(result.data!.region.banners.nodes).toHaveLength(5);
-      expect(result).toMatchSnapshot();
+      expect(result.data!.region).toMatchSnapshot();
     });
 
     it('should get individual banners', async () => {

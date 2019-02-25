@@ -2,35 +2,31 @@
 
 exports[`data should return banner 1`] = `
 Object {
-  "data": Object {
-    "banner": Object {
-      "enabled": true,
-      "extras": null,
-      "groups": Object {
-        "count": 0,
-        "nodes": Array [],
+  "enabled": true,
+  "extras": null,
+  "groups": Object {
+    "count": 0,
+    "nodes": Array [],
+  },
+  "id": "577ef5e8-c66d-11e8-a355-529269fb1459",
+  "link": "http://go.to/galicia_section_row_banner",
+  "name": "galicia section row banner",
+  "placement": "mobileSectionRow",
+  "priority": 1,
+  "regions": Object {
+    "count": 1,
+    "nodes": Array [
+      Object {
+        "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
+        "name": "Galicia",
       },
-      "id": "577ef5e8-c66d-11e8-a355-529269fb1459",
-      "link": "http://go.to/galicia_section_row_banner",
-      "name": "galicia section row banner",
-      "placement": "mobileSectionRow",
-      "priority": 1,
-      "regions": Object {
-        "count": 1,
-        "nodes": Array [
-          Object {
-            "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
-            "name": "Galicia",
-          },
-        ],
-      },
-      "slug": "galicia_section_row_banner",
-      "source": Object {
-        "kind": "WebView",
-        "ratio": 4,
-        "src": "http://whitewater.guide/galicia_section_row_banner",
-      },
-    },
+    ],
+  },
+  "slug": "galicia_section_row_banner",
+  "source": Object {
+    "kind": "WebView",
+    "ratio": 4,
+    "src": "http://whitewater.guide/galicia_section_row_banner",
   },
 }
 `;

@@ -1,50 +1,46 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`effects should return gauges 1`] = `
-Object {
-  "data": Object {
-    "autofillSource": Array [
-      Object {
-        "code": "ru1",
-        "cron": null,
-        "flowUnit": null,
-        "levelUnit": "m",
-        "location": Object {
-          "coordinates": Array [
-            22,
-            11,
-            33,
-          ],
-          "kind": "gauge",
-        },
-        "name": "Russia gauge 1",
-        "requestParams": null,
-        "source": Object {
-          "name": "Russia",
-        },
-        "url": "http://ww.guide/ru1",
-      },
-      Object {
-        "code": "ru2",
-        "cron": null,
-        "flowUnit": "m3/s",
-        "levelUnit": "m",
-        "location": Object {
-          "coordinates": Array [
-            55,
-            44,
-            66,
-          ],
-          "kind": "gauge",
-        },
-        "name": "Russia gauge 2",
-        "requestParams": null,
-        "source": Object {
-          "name": "Russia",
-        },
-        "url": "http://ww.guide/ru2",
-      },
-    ],
+Array [
+  Object {
+    "code": "ru1",
+    "cron": null,
+    "flowUnit": null,
+    "levelUnit": "m",
+    "location": Object {
+      "coordinates": Array [
+        22,
+        11,
+        33,
+      ],
+      "kind": "gauge",
+    },
+    "name": "Russia gauge 1",
+    "requestParams": null,
+    "source": Object {
+      "name": "Russia",
+    },
+    "url": "http://ww.guide/ru1",
   },
-}
+  Object {
+    "code": "ru2",
+    "cron": null,
+    "flowUnit": "m3/s",
+    "levelUnit": "m",
+    "location": Object {
+      "coordinates": Array [
+        55,
+        44,
+        66,
+      ],
+      "kind": "gauge",
+    },
+    "name": "Russia gauge 2",
+    "requestParams": null,
+    "source": Object {
+      "name": "Russia",
+    },
+    "url": "http://ww.guide/ru2",
+  },
+]
 `;

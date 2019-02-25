@@ -85,7 +85,7 @@ it('should return sections', async () => {
   expect(result.errors).toBeUndefined();
   expect(result).toHaveProperty('data.sections.nodes.length', SECTIONS_VISIBLE);
   expect(result).toHaveProperty('data.sections.count', SECTIONS_VISIBLE);
-  expect(noTimestamps(result)).toMatchSnapshot();
+  expect(noTimestamps(result.data!.sections)).toMatchSnapshot();
 });
 
 it('should limit', async () => {
@@ -155,7 +155,7 @@ it('should filter recently updated', async () => {
   expect(result).toHaveProperty('data.sections.nodes.0.rating', 1);
 });
 
-it('should fire two queries for sections->region', async () => {
+it('should fire two queries for sections->region with only region name queried', async () => {
   const regionQuery = `
     query listSections($page: Page, $filter: SectionsFilter){
       sections(page: $page, filter: $filter) {
@@ -175,7 +175,7 @@ it('should fire two queries for sections->region', async () => {
   db().on('query', queryMock);
   await runQuery(regionQuery, { filter: { regionId: REGION_NORWAY } });
   db().removeListener('query', queryMock);
-  expect(queryMock).toHaveBeenCalledTimes(2);
+  expect(queryMock).toHaveBeenCalledTimes(1);
 });
 
 it('should fire one query for sections->river with only river name queried', async () => {

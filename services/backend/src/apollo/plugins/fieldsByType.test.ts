@@ -1,8 +1,5 @@
-import { graphql } from 'graphql';
-import {
-  addSchemaLevelResolveFunction,
-  makeExecutableSchema,
-} from 'graphql-tools';
+import { parse } from 'graphql';
+import { makeExecutableSchema } from 'graphql-tools';
 import { fieldsByType } from './fieldsByType';
 
 const typeDefs = `
@@ -27,17 +24,11 @@ const typeDefs = `
   }
 `;
 
-let result: any;
 const schema = makeExecutableSchema({ typeDefs });
-addSchemaLevelResolveFunction(schema, (source, args, context, info) => {
-  result = fieldsByType(info);
-});
 
-beforeEach(() => {
-  result = null;
-});
+const getFieldsByType = (query: string) => fieldsByType(parse(query), schema);
 
-it('should be correct for simple query', async () => {
+it('should be correct for simple query', () => {
   const query = `{
     me {
       id
@@ -45,8 +36,7 @@ it('should be correct for simple query', async () => {
       __typename
     }
   }`;
-  await graphql(schema, query);
-  expect(result).toEqual(
+  expect(getFieldsByType(query)).toEqual(
     new Map([
       ['Query', new Set(['me'])],
       ['Person', new Set(['id', 'firstName'])],
@@ -54,7 +44,7 @@ it('should be correct for simple query', async () => {
   );
 });
 
-it('should be correct for query with lists', async () => {
+it('should be correct for query with lists', () => {
   const query = `{
     people {
       id
@@ -62,8 +52,7 @@ it('should be correct for query with lists', async () => {
       __typename
     }
   }`;
-  await graphql(schema, query);
-  expect(result).toEqual(
+  expect(getFieldsByType(query)).toEqual(
     new Map([
       ['Query', new Set(['people'])],
       ['Person', new Set(['id', 'firstName'])],
@@ -71,7 +60,7 @@ it('should be correct for query with lists', async () => {
   );
 });
 
-it('should be correct for query with multiple root-level resolvers', async () => {
+it('should be correct for query with multiple root-level resolvers', () => {
   const query = `{
     me {
       id
@@ -84,8 +73,7 @@ it('should be correct for query with multiple root-level resolvers', async () =>
       __typename
     }
   }`;
-  await graphql(schema, query);
-  expect(result).toEqual(
+  expect(getFieldsByType(query)).toEqual(
     new Map([
       ['Query', new Set(['people', 'me'])],
       ['Person', new Set(['id', 'firstName', 'lastName'])],
@@ -93,7 +81,7 @@ it('should be correct for query with multiple root-level resolvers', async () =>
   );
 });
 
-it('should be correct for query with deep nesting', async () => {
+it('should be correct for query with deep nesting', () => {
   const query = `{
     me {
       id
@@ -111,8 +99,7 @@ it('should be correct for query with deep nesting', async () => {
       __typename
     }
   }`;
-  await graphql(schema, query);
-  expect(result).toEqual(
+  expect(getFieldsByType(query)).toEqual(
     new Map([
       ['Query', new Set(['me'])],
       ['Person', new Set(['id', 'firstName', 'lastName', 'books'])],
@@ -121,7 +108,7 @@ it('should be correct for query with deep nesting', async () => {
   );
 });
 
-it('should be correct for query with named fragments', async () => {
+it('should be correct for query with named fragments', () => {
   const query = `{
     me {
       id
@@ -144,8 +131,7 @@ it('should be correct for query with named fragments', async () => {
     lastName
   }
   `;
-  await graphql(schema, query);
-  expect(result).toEqual(
+  expect(getFieldsByType(query)).toEqual(
     new Map([
       ['Query', new Set(['me'])],
       ['Person', new Set(['id', 'firstName', 'lastName', 'books'])],
@@ -154,7 +140,7 @@ it('should be correct for query with named fragments', async () => {
   );
 });
 
-it('should return correct result for simple mutation', async () => {
+it('should return correct result for simple mutation', () => {
   const mutation = `mutation addBook {
     addBook {
       id
@@ -162,9 +148,7 @@ it('should return correct result for simple mutation', async () => {
       __typename
     }
   }`;
-  const { errors } = await graphql(schema, mutation);
-  expect(errors).toBeUndefined();
-  expect(result).toEqual(
+  expect(getFieldsByType(mutation)).toEqual(
     new Map([
       ['Mutation', new Set(['addBook'])],
       ['Person', new Set(['id', 'firstName'])],
@@ -172,7 +156,7 @@ it('should return correct result for simple mutation', async () => {
   );
 });
 
-it('should return correct result for mutation with fragments', async () => {
+it('should return correct result for mutation with fragments', () => {
   const mutation = `mutation addBook {
     addBook {
       ...PersonCore
@@ -186,9 +170,7 @@ it('should return correct result for mutation with fragments', async () => {
     lastName
   }
   `;
-  const { errors } = await graphql(schema, mutation);
-  expect(errors).toBeUndefined();
-  expect(result).toEqual(
+  expect(getFieldsByType(mutation)).toEqual(
     new Map([
       ['Mutation', new Set(['addBook'])],
       ['Person', new Set(['id', 'firstName', 'lastName'])],

@@ -67,7 +67,7 @@ it('should return purchased regions', async () => {
     purchasedRegions: [
       {
         id: REGION_GEORGIA,
-        name: 'Грузия',
+        name: 'Georgia',
       },
     ],
   });

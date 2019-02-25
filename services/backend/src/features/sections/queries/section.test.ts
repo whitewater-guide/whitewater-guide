@@ -334,7 +334,7 @@ describe('premium access', () => {
     expect(result.errors).toBeUndefined();
     expect(result).toHaveProperty(
       'data.section.description',
-      'Бжужа Экстрим описание',
+      'Bzhuzha Extreme race description',
     );
   });
 

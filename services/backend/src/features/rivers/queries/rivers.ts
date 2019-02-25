@@ -5,7 +5,7 @@ interface Vars extends ListQuery {
   filter?: RiversFilter;
 }
 
-const rivers: TopLevelResolver<Vars> = (
+const rivers: TopLevelResolver<Vars> = async (
   _,
   { filter = {}, page },
   { dataSources },
@@ -13,7 +13,8 @@ const rivers: TopLevelResolver<Vars> = (
 ) => {
   const { regionId } = filter;
   const where = regionId ? { region_id: regionId } : undefined;
-  return dataSources.rivers.getMany(info, { where, page });
+  const result = await dataSources.rivers.getMany(info, { where, page });
+  return result;
 };
 
 export default rivers;

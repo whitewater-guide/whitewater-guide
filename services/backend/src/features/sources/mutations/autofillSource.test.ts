@@ -193,6 +193,6 @@ describe('effects', () => {
       { id: SOURCE_RUSSIA },
       fakeContext(ADMIN),
     );
-    expect(noUnstable(result)).toMatchSnapshot();
+    expect(noUnstable(result.data!.autofillSource)).toMatchSnapshot();
   });
 });

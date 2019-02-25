@@ -5,9 +5,11 @@ const sources: TopLevelResolver<ListQuery> = async (
   { page },
   { dataSources },
   info,
-) =>
-  dataSources.sources.getMany(info, {
+) => {
+  const result = await dataSources.sources.getMany(info, {
     page,
   });
+  return result;
+};
 
 export default sources;

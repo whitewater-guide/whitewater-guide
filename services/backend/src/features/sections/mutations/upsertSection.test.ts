@@ -18,6 +18,7 @@ import {
   fakeContext,
   noUnstable,
   runQuery,
+  TIMESTAMP_REGEX,
   UUID_REGEX,
 } from '@test';
 import {
@@ -290,7 +291,7 @@ describe('insert', () => {
 
   it('should return result', () => {
     expect(insertResult.errors).toBeUndefined();
-    expect(noUnstable(insertResult)).toMatchSnapshot();
+    expect(noUnstable(insertedSection)).toMatchSnapshot();
   });
 
   it('should insert into tables', async () => {
@@ -381,7 +382,7 @@ describe('update', () => {
   it('should return result', async () => {
     expect(updateResult.errors).toBeUndefined();
     expect(updatedSection.id).toBe(updateData.id);
-    expect(noUnstable(updateResult)).toMatchSnapshot();
+    expect(noUnstable(updatedSection)).toMatchSnapshot();
   });
 
   it('should not change total number of sections', async () => {

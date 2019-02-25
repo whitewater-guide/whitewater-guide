@@ -2,42 +2,38 @@
 
 exports[`connections banners should get all banners 1`] = `
 Object {
-  "data": Object {
-    "region": Object {
-      "banners": Object {
-        "count": 5,
-        "nodes": Array [
-          Object {
-            "id": "af282b16-c66d-11e8-a355-529269fb1459",
-            "name": "galicia region descr banner 2",
-            "priority": 10,
-          },
-          Object {
-            "id": "577ef5e8-c66d-11e8-a355-529269fb1459",
-            "name": "galicia section row banner",
-            "priority": 1,
-          },
-          Object {
-            "id": "8c89e25c-c66d-11e8-a355-529269fb1459",
-            "name": "galicia region descr banner",
-            "priority": 1,
-          },
-          Object {
-            "id": "79f904c4-c66d-11e8-a355-529269fb1459",
-            "name": "all section row banner disabled",
-            "priority": 20,
-          },
-          Object {
-            "id": "cebb31b2-c66d-11e8-a355-529269fb1459",
-            "name": "all section row banner",
-            "priority": 10,
-          },
-        ],
+  "banners": Object {
+    "count": 5,
+    "nodes": Array [
+      Object {
+        "id": "af282b16-c66d-11e8-a355-529269fb1459",
+        "name": "galicia region descr banner 2",
+        "priority": 10,
       },
-      "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
-      "name": "Галисия",
-    },
+      Object {
+        "id": "577ef5e8-c66d-11e8-a355-529269fb1459",
+        "name": "galicia section row banner",
+        "priority": 1,
+      },
+      Object {
+        "id": "8c89e25c-c66d-11e8-a355-529269fb1459",
+        "name": "galicia region descr banner",
+        "priority": 1,
+      },
+      Object {
+        "id": "79f904c4-c66d-11e8-a355-529269fb1459",
+        "name": "all section row banner disabled",
+        "priority": 20,
+      },
+      Object {
+        "id": "cebb31b2-c66d-11e8-a355-529269fb1459",
+        "name": "all section row banner",
+        "priority": 10,
+      },
+    ],
   },
+  "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
+  "name": "Galicia",
 }
 `;
 

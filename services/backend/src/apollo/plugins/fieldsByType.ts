@@ -1,18 +1,21 @@
 import {
+  DefinitionNode,
+  DocumentNode,
   FieldNode,
   FragmentDefinitionNode,
   FragmentSpreadNode,
   GraphQLNamedType,
   GraphQLOutputType,
-  GraphQLResolveInfo,
+  GraphQLSchema,
   isObjectType,
   isWrappingType,
+  OperationDefinitionNode,
   SelectionNode,
 } from 'graphql';
 import get from 'lodash/get';
 import upperFirst from 'lodash/upperFirst';
+import { FieldsByType } from './types';
 
-type Acc = Map<string, Set<string>>;
 interface Fragments {
   [key: string]: FragmentDefinitionNode;
 }
@@ -21,6 +24,10 @@ const isFieldNode = (node: SelectionNode): node is FieldNode =>
   node.kind === 'Field';
 const isFragmentSpread = (node: SelectionNode): node is FragmentSpreadNode =>
   node.kind === 'FragmentSpread';
+const isOperation = (node: DefinitionNode): node is OperationDefinitionNode =>
+  node.kind === 'OperationDefinition';
+const isFragment = (node: DefinitionNode): node is FragmentDefinitionNode =>
+  node.kind === 'FragmentDefinition';
 
 const unwrap = (type: GraphQLOutputType): GraphQLNamedType =>
   isWrappingType(type) ? unwrap(type.ofType) : type;
@@ -29,7 +36,7 @@ const inspectField = (
   field: FieldNode,
   type: GraphQLNamedType,
   fragments: Fragments,
-  acc: Acc,
+  acc: FieldsByType,
 ) => {
   if (field.name.value === '__typename') {
     return;
@@ -49,7 +56,7 @@ const inspectSelections = (
   selections: SelectionNode[],
   type: GraphQLNamedType,
   fragments: Fragments,
-  acc: Acc,
+  acc: FieldsByType,
 ) => {
   selections.forEach((subField) => {
     if (isFieldNode(subField)) {
@@ -67,25 +74,37 @@ const inspectSelections = (
 };
 
 /**
- * Use this in schema-level resolver
  * Inspects query, and for each type defined in GRAPHQL schema returns
  * set of fields that are selected anywhere in the query
  * @param info
  * @param result = optional map to save result in
  */
-export const fieldsByType = (info: GraphQLResolveInfo, result?: Acc) => {
-  const acc: Acc = result || new Map<string, Set<string>>();
-  const {
-    operation: { operation, selectionSet },
-    schema,
-    fragments,
-  } = info;
-  const typeMap = schema.getTypeMap();
-  const rootType: GraphQLNamedType = typeMap[upperFirst(operation)];
-  selectionSet.selections.forEach((field) => {
-    if (isFieldNode(field)) {
-      inspectField(field, rootType, fragments, acc);
+export const fieldsByType = (
+  { definitions }: DocumentNode,
+  schema: GraphQLSchema,
+  result?: FieldsByType,
+) => {
+  const acc: FieldsByType = result || new Map<string, Set<string>>();
+
+  const ops: OperationDefinitionNode[] = [];
+  const fragments: { [key: string]: FragmentDefinitionNode } = {};
+  definitions.forEach((def) => {
+    if (isOperation(def)) {
+      ops.push(def);
+    } else if (isFragment(def)) {
+      fragments[def.name.value] = def;
     }
   });
+
+  const typeMap = schema.getTypeMap();
+  ops.forEach(({ operation, selectionSet }) => {
+    const rootType: GraphQLNamedType = typeMap[upperFirst(operation)];
+    selectionSet.selections.forEach((field) => {
+      if (isFieldNode(field)) {
+        inspectField(field, rootType, fragments, acc);
+      }
+    });
+  });
+
   return acc;
 };
