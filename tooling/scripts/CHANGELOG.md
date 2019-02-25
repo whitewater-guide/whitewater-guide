@@ -1,3 +1,9 @@
+## [0.0.29](https://github.com/doomsower/whitewater/compare/@whitewater-guide/scripts@0.0.28...@whitewater-guide/scripts@0.0.29) (2019-02-25)
+
+### Features
+
+- **scripts:** allow \* to publish all ([ecff708](https://github.com/doomsower/whitewater/commit/ecff708))
+
 ## [0.0.28](https://github.com/doomsower/whitewater/compare/@whitewater-guide/scripts@0.0.27...@whitewater-guide/scripts@0.0.28) (2019-02-19)
 
 ## [0.0.27](https://github.com/doomsower/whitewater/compare/@whitewater-guide/scripts@0.0.26...@whitewater-guide/scripts@0.0.27) (2019-02-19)
