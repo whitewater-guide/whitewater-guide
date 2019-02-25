@@ -1,7 +1,0 @@
-{
-  "rulesDirectory": "node_modules/tslint-react/rules",
-  "rules": {
-    "ordered-imports": true,
-    "no-duplicate-imports": true
-  }
-}

@@ -20,7 +20,7 @@ const preCommitHook = async () => {
     console.info(e.message);
   }
   execSync('yarn pretty-quick --staged', { stdio: 'inherit' });
-  execSync('yarn lint', { stdio: 'inherit' });
+  execSync('yarn lint-staged', { stdio: 'inherit' });
 };
 
 preCommitHook().catch(() => process.exit(1));
