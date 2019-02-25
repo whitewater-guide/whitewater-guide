@@ -3773,7 +3773,7 @@ graphql-extensions@0.5.4:
   dependencies:
     "@apollographql/apollo-tools" "^0.3.3"
 
-graphql-extensions@0.5.5:
+graphql-extensions@0.5.5, graphql-extensions@^0.5.5:
   version "0.5.5"
   resolved "https://registry.yarnpkg.com/graphql-extensions/-/graphql-extensions-0.5.5.tgz#0293a149bd4074bf350612e708d07f8f28fb18ce"
   integrity sha512-jCUt/WVayiQvmXVPMetmq3wpV3RyzXOXFfssoTz9/YFuoSg1Y7BwzgNuilSybQqMPRdfGAsqf/OIa1DZwrnggw==

@@ -54,6 +54,7 @@
     "apollo-server-testing": "^2.4.6",
     "chalk": "^2.4.2",
     "dotenv": "^6.2.0",
+    "graphql-extensions": "^0.5.5",
     "gulp": "4.0.0",
     "gulp-typescript": "^5.0.0-alpha.3",
     "jest": "^24.1.0",
