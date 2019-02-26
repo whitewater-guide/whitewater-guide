@@ -2,6 +2,7 @@ package main
 
 import (
 	"all-at-once"
+	"catalunya"
 	"chile"
 	"core"
 	"ecuador"
@@ -63,6 +64,7 @@ func main() {
 	register(tirol.NewWorkerTirol, nil)
 	register(switzerland.NewWorkerSwitzerland, nil)
 	register(ecuador.NewWorkerEcuador, nil)
+	register(catalunya.NewWorkerCatalunya, nil)
 
 	rootCmd = &cobra.Command{
 		Use:   "workers-cli [command] [script] [flags]",
