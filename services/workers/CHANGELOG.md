@@ -1,3 +1,9 @@
+## [0.0.76](https://github.com/doomsower/whitewater/compare/@whitewater-guide/workers@0.0.75...@whitewater-guide/workers@0.0.76) (2019-02-26)
+
+### Bug Fixes
+
+- **workers:** omit canals in catalunya ([d4a4402](https://github.com/doomsower/whitewater/commit/d4a4402))
+
 ## [0.0.75](https://github.com/doomsower/whitewater/compare/@whitewater-guide/workers@0.0.74...@whitewater-guide/workers@0.0.75) (2019-02-26)
 
 ### Features
