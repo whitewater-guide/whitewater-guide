@@ -67,7 +67,7 @@ func TestConvert(t *testing.T) {
 				Script: "catalunya",
 				Code:   "431652-001-ANA001",
 			},
-			Name:      "Riu Gaià - Vilabella",
+			Name:      "Riu Gaià - Vilabella (cm)",
 			LevelUnit: "cm",
 			Url:       "http://aca-web.gencat.cat/sentilo-catalog-web/component/AFORAMENT-EST.431652-001/detail",
 			Location: core.Location{

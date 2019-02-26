@@ -50,7 +50,7 @@ func convert(sensor Sensor, script string) (*core.GaugeInfo, error) {
 			Script: script,
 			Code:   sensor.Sensor,
 		},
-		Name:      strings.Title(strings.ToLower(sensor.ComponentAdditionalInfo.Riu)) + " - " + sensor.ComponentDesc,
+		Name:      strings.Title(strings.ToLower(sensor.ComponentAdditionalInfo.Riu)) + " - " + sensor.ComponentDesc + " (" + levelUnit + flowUnit + ")",
 		Url:       "http://aca-web.gencat.cat/sentilo-catalog-web/component/AFORAMENT-EST." + sensor.Component + "/detail",
 		LevelUnit: levelUnit,
 		FlowUnit:  flowUnit,
@@ -68,13 +68,16 @@ func parseList(script string) ([]core.GaugeInfo, error) {
 		return nil, err
 	}
 
-	var result = make([]core.GaugeInfo, len(sensors))
-	for i, sensor := range sensors {
+	var result []core.GaugeInfo
+	for _, sensor := range sensors {
+		if strings.Contains(strings.ToLower(sensor.Description), "canal") {
+			continue
+		}
 		info, err := convert(sensor, script)
 		if err != nil {
 			return nil, err
 		}
-		result[i] = *info
+		result = append(result, *info)
 	}
 
 	return result, nil
