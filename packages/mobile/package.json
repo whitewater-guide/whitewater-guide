@@ -23,7 +23,7 @@
     "android:staging": "fastlane android staging --env staging",
     "android:production": "fastlane android production --env production",
     "android:uninstall": "adb uninstall guide.whitewater",
-    "ios:clean": "rm -rf ios/build/ModuleCache/* && cd ios && pod deintegrate && rm Podfile.lock",
+    "ios:clean": "rm -rf ios/build/* && cd ios && pod deintegrate && rm Podfile.lock",
     "ios:code_push:staging": "fastlane ios code_push --env staging",
     "ios:code_push:production": "fastlane ios code_push --env production",
     "ios:setup_push": "fastlane ios setup_push --env staging",

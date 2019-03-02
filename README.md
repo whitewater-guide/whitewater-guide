@@ -7,7 +7,7 @@ Most likely, it won't work on Windows because of various issues with symlinks, d
 
 These things need to be installed:
 
-- node.js 8.9+
+- node.js 10.15+
   - prefer to install via `n`
   - `ln -s $(which node) /usr/local/bin/node` is recommended in case when you need to debug from xcode
 - Latest docker for mac (tested with `Docker v18.09.1`, `docker-compose v1.23.2`, `docker-machine v0.16.1`)
