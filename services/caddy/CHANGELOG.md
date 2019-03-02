@@ -1,3 +1,9 @@
+## [0.0.94](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.93...@whitewater-guide/caddy@0.0.94) (2019-03-02)
+
+### Bug Fixes
+
+- **caddy:** add legacy redirects for auth and graphql ([0198759](https://github.com/doomsower/whitewater/commit/0198759))
+
 ## [0.0.93](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.91...@whitewater-guide/caddy@0.0.93) (2019-03-02)
 
 ### Bug Fixes
