@@ -1,3 +1,9 @@
+## [0.0.96](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.95...@whitewater-guide/caddy@0.0.96) (2019-03-02)
+
+### Bug Fixes
+
+- **caddy:** redirects for images ([e05c1ee](https://github.com/doomsower/whitewater/commit/e05c1ee))
+
 ## [0.0.95](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.94...@whitewater-guide/caddy@0.0.95) (2019-03-02)
 
 ### Bug Fixes
