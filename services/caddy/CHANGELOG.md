@@ -1,3 +1,9 @@
+## [0.0.95](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.94...@whitewater-guide/caddy@0.0.95) (2019-03-02)
+
+### Bug Fixes
+
+- **caddy:** use 307 redirect for graphql and auth ([e55a3aa](https://github.com/doomsower/whitewater/commit/e55a3aa))
+
 ## [0.0.94](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.93...@whitewater-guide/caddy@0.0.94) (2019-03-02)
 
 ### Bug Fixes
