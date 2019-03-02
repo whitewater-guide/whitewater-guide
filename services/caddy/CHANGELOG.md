@@ -1,3 +1,9 @@
+## [0.0.97](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.96...@whitewater-guide/caddy@0.0.97) (2019-03-02)
+
+### Bug Fixes
+
+- **caddy:** fix wrong env var in config ([723423d](https://github.com/doomsower/whitewater/commit/723423d))
+
 ## [0.0.96](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.95...@whitewater-guide/caddy@0.0.96) (2019-03-02)
 
 ### Bug Fixes
