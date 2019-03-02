@@ -1,3 +1,9 @@
+## [0.0.31](https://github.com/doomsower/whitewater/compare/@whitewater-guide/scripts@0.0.30...@whitewater-guide/scripts@0.0.31) (2019-03-02)
+
+### Bug Fixes
+
+- **scripts:** fix prerelease guardian ([0e1105c](https://github.com/doomsower/whitewater/commit/0e1105c))
+
 ## [0.0.30](https://github.com/doomsower/whitewater/compare/@whitewater-guide/scripts@0.0.29...@whitewater-guide/scripts@0.0.30) (2019-03-02)
 
 ### Features

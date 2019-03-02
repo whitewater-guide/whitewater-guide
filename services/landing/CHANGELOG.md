@@ -1,3 +1,9 @@
+## [0.0.35](https://github.com/doomsower/whitewater/compare/@whitewater-guide/landing@0.0.34...@whitewater-guide/landing@0.0.35) (2019-03-02)
+
+### Bug Fixes
+
+- **landing:** improve scroll to download ([2f37e2a](https://github.com/doomsower/whitewater/commit/2f37e2a)), closes [#291](https://github.com/doomsower/whitewater/issues/291)
+
 ## [0.0.34](https://github.com/doomsower/whitewater/compare/@whitewater-guide/landing@0.0.33...@whitewater-guide/landing@0.0.34) (2019-03-02)
 
 ### Features

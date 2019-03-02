@@ -1,3 +1,9 @@
+## [0.1.314](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.313...@whitewater-guide/web@0.1.314) (2019-03-02)
+
+### Bug Fixes
+
+- **web:** fix api and s3 uris ([c6ff311](https://github.com/doomsower/whitewater/commit/c6ff311))
+
 ## [0.1.313](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.312...@whitewater-guide/web@0.1.313) (2019-03-02)
 
 ### Features
