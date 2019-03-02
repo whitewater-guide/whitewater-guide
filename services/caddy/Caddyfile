@@ -18,6 +18,14 @@ import subdomains/*
 
     / {$API_ADDRESS}{uri}
   }
+  # legacy redirect
+  redir 301 {
+    if {path} starts_with /images
+    if {path} starts_with /uploads
+    if_op or
+
+    / {$S3_ADDRESS}{uri}
+  }
 
   # Root is landing
   rewrite / {
