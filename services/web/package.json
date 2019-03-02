@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/web",
   "private": true,
-  "version": "0.1.313-subdomains.14",
+  "version": "0.1.313",
   "license": "UNLICENSED",
   "scripts": {
     "start": "react-scripts start",

@@ -1,3 +1,9 @@
+## [0.0.30](https://github.com/doomsower/whitewater/compare/@whitewater-guide/scripts@0.0.29...@whitewater-guide/scripts@0.0.30) (2019-03-02)
+
+### Features
+
+- use subdomains for api, minio, adminer, admin ([e1d1f0d](https://github.com/doomsower/whitewater/commit/e1d1f0d))
+
 ## [0.0.30-subdomains.0](https://github.com/doomsower/whitewater/compare/@whitewater-guide/scripts@0.0.29...@whitewater-guide/scripts@0.0.30-subdomains.0) (2019-02-28)
 
 ### Features

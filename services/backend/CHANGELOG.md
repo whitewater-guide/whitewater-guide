@@ -1,3 +1,9 @@
+## [0.0.313](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.312...@whitewater-guide/backend@0.0.313) (2019-03-02)
+
+### Features
+
+- use subdomains for api, minio, adminer, admin ([e1d1f0d](https://github.com/doomsower/whitewater/commit/e1d1f0d))
+
 ## [0.0.313-subdomains.5](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.313-subdomains.4...@whitewater-guide/backend@0.0.313-subdomains.5) (2019-03-01)
 
 ### Bug Fixes

@@ -1,3 +1,9 @@
+## [0.0.128](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.127...@whitewater-guide/boompromo@0.0.128) (2019-03-02)
+
+### Features
+
+- use subdomains for api, minio, adminer, admin ([e1d1f0d](https://github.com/doomsower/whitewater/commit/e1d1f0d))
+
 ## [0.0.128-subdomains.5](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.128-subdomains.4...@whitewater-guide/boompromo@0.0.128-subdomains.5) (2019-03-01)
 
 ### Bug Fixes

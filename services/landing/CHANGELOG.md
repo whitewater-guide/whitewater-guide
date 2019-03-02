@@ -1,3 +1,9 @@
+## [0.0.34](https://github.com/doomsower/whitewater/compare/@whitewater-guide/landing@0.0.33...@whitewater-guide/landing@0.0.34) (2019-03-02)
+
+### Features
+
+- use subdomains for api, minio, adminer, admin ([e1d1f0d](https://github.com/doomsower/whitewater/commit/e1d1f0d))
+
 ## [0.0.34-subdomains.0](https://github.com/doomsower/whitewater/compare/@whitewater-guide/landing@0.0.33...@whitewater-guide/landing@0.0.34-subdomains.0) (2019-03-01)
 
 ### Bug Fixes

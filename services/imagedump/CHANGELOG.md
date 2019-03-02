@@ -1,3 +1,9 @@
+## [0.0.41](https://github.com/doomsower/whitewater/compare/@whitewater-guide/imagedump@0.0.39...@whitewater-guide/imagedump@0.0.41) (2019-03-02)
+
+### Features
+
+- use subdomains for api, minio, adminer, admin ([e1d1f0d](https://github.com/doomsower/whitewater/commit/e1d1f0d))
+
 ## [0.0.41-subdomains.0](https://github.com/doomsower/whitewater/compare/@whitewater-guide/imagedump@0.0.39...@whitewater-guide/imagedump@0.0.41-subdomains.0) (2019-02-28)
 
 ## [0.0.40-subdomains.0](https://github.com/doomsower/whitewater/compare/@whitewater-guide/imagedump@0.0.39...@whitewater-guide/imagedump@0.0.40-subdomains.0) (2019-02-21)
