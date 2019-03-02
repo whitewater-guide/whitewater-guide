@@ -24,7 +24,7 @@ import subdomains/*
     if {path} starts_with /uploads
     if_op or
 
-    / {$S3_ADDRESS}{uri}
+    / {$MINIO_ADDRESS}{uri}
   }
 
   # Root is landing
