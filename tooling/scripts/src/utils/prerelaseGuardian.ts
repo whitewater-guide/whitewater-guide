@@ -19,16 +19,18 @@ export const prerelaseGuardian = async (env: EnvType) => {
     if (!stat.isDirectory()) {
       continue;
     }
-    const pjson = await readJSON(
-      path.resolve(servicesDir, service, 'package.json'),
-    );
-    const pr = prerelease(pjson.version);
-    if (pr !== null && pr.length !== 0) {
-      throw new Error(
-        `prereleases are only allowed in local environment, got ${service}@${
-          pjson.version
-        }`,
+    try {
+      const pjson = await readJSON(
+        path.resolve(servicesDir, service, 'package.json'),
       );
-    }
+      const pr = prerelease(pjson.version);
+      if (pr !== null && pr.length !== 0) {
+        throw new Error(
+          `prereleases are only allowed in local environment, got ${service}@${
+            pjson.version
+          }`,
+        );
+      }
+    } catch {}
   }
 };
