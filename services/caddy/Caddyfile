@@ -10,6 +10,14 @@ import subdomains/*
     if {path} starts_with /admin
     / {$ADMIN_ADDRESS}
   }
+  # legacy redirect
+  redir 301 {
+    if {path} starts_with /graphql
+    if {path} starts_with /auth
+    if_op or
+
+    / {$API_ADDRESS}{uri}
+  }
 
   # Root is landing
   rewrite / {
