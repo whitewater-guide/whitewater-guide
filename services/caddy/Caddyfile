@@ -10,13 +10,13 @@ import subdomains/*
     if {path} starts_with /admin
     / {$ADMIN_ADDRESS}
   }
-  # legacy redirect. 307 to keep POST
+  # legacy backend edirects. 307 to keep POST
   redir 307 {
     if {path} starts_with /graphql
     if {path} starts_with /auth
     if_op or
 
-    / {$API_ADDRESS}{uri}
+    / {$API_ADDRESS}/legacy{uri}
   }
   # legacy redirect
   redir 301 {
