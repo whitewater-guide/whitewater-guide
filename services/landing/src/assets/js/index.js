@@ -6,7 +6,8 @@ $(document).ready( function() {
 
 	$('#navigation').localScroll({
 		duration: 1000,
-		easing: 'easeInOutExpo'
+		easing: 'easeInOutExpo',
+		offset: -100,
 	});
 
 	$(window).on('scroll', function(){
