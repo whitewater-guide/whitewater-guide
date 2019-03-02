@@ -16,6 +16,8 @@ export interface Context {
   // This information is required for query resolution
   // For each GraphQLObjectType from query AST this map stores set of it's field names
   readonly fieldsByType: Map<string, Set<string>>;
+  // Indicates legacy request
+  readonly legacy?: number;
   dataSources: Connectors;
 }
 
@@ -38,7 +40,13 @@ export const newContext = (
   // Side-effect. Set response content-language
   ctx.set!('Content-Language', language);
 
+  // 1: requests redirected from uris before subdomains were introduced
+  let legacy: number | undefined;
+  if (ctx.header['x-legacy-redirect']) {
+    legacy = parseInt(ctx.header['x-legacy-redirect'], 10);
+  }
+
   const fieldsByType = new Map<string, Set<string>>();
   // dataSources are not optional, but they're added later
-  return { user, language, fieldsByType };
+  return { user, language, fieldsByType, legacy };
 };
