@@ -1,3 +1,9 @@
+## [0.0.98](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.97...@whitewater-guide/caddy@0.0.98) (2019-03-02)
+
+### Features
+
+- **caddy:** mark legacy api redirects with special header ([e67d87b](https://github.com/doomsower/whitewater/commit/e67d87b))
+
 ## [0.0.97](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.96...@whitewater-guide/caddy@0.0.97) (2019-03-02)
 
 ### Bug Fixes
