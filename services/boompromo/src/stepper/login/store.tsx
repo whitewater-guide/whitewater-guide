@@ -9,6 +9,7 @@ import {
   logout,
 } from '../../auth/fb';
 import { wwLogin, wwLogout } from '../../auth/ww';
+import { FACEBOOK_APP_ID } from '../../environment';
 import { ILoginStepStore } from './types';
 
 export class LoginStepStore implements ILoginStepStore {
@@ -29,7 +30,7 @@ export class LoginStepStore implements ILoginStepStore {
   init = flow(function* init(this: LoginStepStore) {
     this.facebookLoading = true;
     this.loading = false;
-    yield loadFacebookSDK(process.env.REACT_APP_FACEBOOK_APP_ID!);
+    yield loadFacebookSDK(FACEBOOK_APP_ID);
     yield this.performFbLogin(true);
   }).bind(this);
 

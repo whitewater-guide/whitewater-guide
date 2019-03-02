@@ -1,2 +1,4 @@
 **/*.*
 !Caddyfile
+!caddy-common.conf
+!subdomains

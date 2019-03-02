@@ -19,8 +19,6 @@ interface State {
   persistor?: Persistor;
 }
 
-const BASENAME = process.env.NODE_ENV === 'production' ? '/admin' : undefined;
-
 export default class App extends React.PureComponent<{}, State> {
   private editorLanguageLink: EditorLanguageLink = new EditorLanguageLink();
 
@@ -45,7 +43,7 @@ export default class App extends React.PureComponent<{}, State> {
             <PersistGate loading={null} persistor={persistor}>
               <ApolloProvider client={apolloClient}>
                 <MyProfileProvider renderLoading={this.renderLoading}>
-                  <BrowserRouter basename={BASENAME}>
+                  <BrowserRouter>
                     <RootLayout />
                   </BrowserRouter>
                 </MyProfileProvider>

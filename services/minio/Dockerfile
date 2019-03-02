@@ -1,23 +1,19 @@
 ## dockerfile base: https://github.com/minio/minio/blob/master/Dockerfile.release
 ## https://gist.github.com/justbk/384f41766b787afda84d623c95f4ba10
 
+FROM minio/minio:RELEASE.2019-02-26T19-51-46Z AS upstream
+
 FROM alpine:3.7 AS miniobase
 
 LABEL maintainer="Minio Inc <dev@minio.io>"
 
-COPY dockerscripts/docker-entrypoint.sh dockerscripts/healthcheck.sh /usr/bin/
+COPY --from=upstream /usr/bin/minio /usr/bin/docker-entrypoint.sh /usr/bin/healthcheck /usr/bin/
 
 ENV MINIO_UPDATE off
 ENV MINIO_ACCESS_KEY_FILE=access_key \
     MINIO_SECRET_KEY_FILE=secret_key
 
-RUN \
-     apk add --no-cache ca-certificates 'curl>7.61.0' && \
-     echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf && \
-     curl https://dl.minio.io/server/minio/release/linux-amd64/minio > /usr/bin/minio && \
-     chmod +x /usr/bin/minio  && \
-     chmod +x /usr/bin/docker-entrypoint.sh && \
-     chmod +x /usr/bin/healthcheck.sh
+RUN echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf
 
 EXPOSE 9000
 
@@ -25,8 +21,7 @@ ENTRYPOINT ["/usr/bin/docker-entrypoint.sh"]
 
 #VOLUME ["/data"]
 
-HEALTHCHECK --interval=30s --timeout=5s \
-    CMD /usr/bin/healthcheck.sh
+HEALTHCHECK --interval=1m CMD healthcheck
 
 CMD ["minio"]
 

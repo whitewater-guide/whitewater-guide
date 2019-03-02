@@ -8,6 +8,7 @@ sudo mkdir -p /mnt/sda1/var/pm2
 sudo ln -s /mnt/sda1/var/pm2 /var/pm2
 # DB
 sudo mkdir -p /tmp/postgres
+sudo mkdir -p /tmp/postgres/dump
 sudo mkdir -p /mnt/sda1/var/postgres/data/pgdata
 sudo ln -s /mnt/sda1/var/postgres /var/postgres
 # This fixes boot2docker vm permissions

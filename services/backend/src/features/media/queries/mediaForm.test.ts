@@ -76,7 +76,7 @@ describe('response', () => {
     expect(result.data!.mediaForm).toEqual({
       id: PHOTO_1,
       upload: {
-        postURL: 'http://localhost:6001/uploads/temp',
+        postURL: 'http://localhost:6002/temp',
         formData: {
           'Content-Type': 'image/*',
           bucket: 'temp',
@@ -98,7 +98,7 @@ describe('response', () => {
     expect(result.data!.mediaForm).toEqual({
       id: expect.stringMatching(UUID_REGEX),
       upload: {
-        postURL: 'http://localhost:6001/uploads/temp',
+        postURL: 'http://localhost:6002/temp',
         formData: {
           'Content-Type': 'image/*',
           bucket: 'temp',
@@ -120,7 +120,7 @@ describe('response', () => {
 });
 
 describe('uploads', () => {
-  it('should upload new media', async () => {
+  it('should upload new media with any extension', async () => {
     const result = await runQuery(query, {}, fakeContext(EDITOR_NO_EC));
     const {
       upload: { postURL, formData, key },
@@ -128,7 +128,7 @@ describe('uploads', () => {
     } = result.data!.mediaForm;
 
     const jpgReq = superagent.post(postURL);
-    const jpgData = { ...formData, key };
+    const jpgData = { ...formData, key: `${key}.jpg` };
     Object.entries(jpgData).forEach(([k, v]) => jpgReq.field(k, v as any));
     jpgReq.attach(
       'file',
@@ -138,20 +138,35 @@ describe('uploads', () => {
     const jpgRes = await jpgReq;
 
     expect(jpgRes.status).toBe(204);
-    // URL is `http://localhost:6001/temp/${key}`
-    // and not `http://localhost:6001/uploads/temp/${key}`
-    // because minio doesn't know that it's behind proxy
-    // see https://github.com/minio/minio/issues/3710
-    expect(jpgRes.header.location).toBe(`http://localhost:6001/temp/${key}`);
-    // expect(jpgRes.header.location).toContain(key);
+    expect(jpgRes.header.location).toBe(
+      `http://localhost:6002/temp/${key}.jpg`,
+    );
     expect(jpgRes.header.etag).toBe('"a1c4720fa8526d4a8560dd1cb29c0ea7"');
 
     const exists = await fileExistsInBucket(
       TEMP,
-      id,
+      `${id}.jpg`,
       'a1c4720fa8526d4a8560dd1cb29c0ea7',
     );
     expect(exists).toBe(true);
+  });
+
+  it('should not upload when key does not starts with given prefix', async () => {
+    const result = await runQuery(query, {}, fakeContext(EDITOR_NO_EC));
+    const {
+      upload: { postURL, formData, key },
+      id,
+    } = result.data!.mediaForm;
+
+    const jpgReq = superagent.post(postURL);
+    const jpgData = { ...formData, key: 'upload_me.jpg' };
+    Object.entries(jpgData).forEach(([k, v]) => jpgReq.field(k, v as any));
+    jpgReq.attach(
+      'file',
+      `${__dirname}/__tests__/upload_me.jpg`,
+      'upload_me.jpg',
+    );
+    await expect(jpgReq).rejects.toThrowError('Forbidden');
   });
 
   it('should overwrite existing media', async () => {
@@ -176,12 +191,7 @@ describe('uploads', () => {
     const jpgRes = await jpgReq;
 
     expect(jpgRes.status).toBe(204);
-    // URL is `http://localhost:6001/temp/${key}`
-    // and not `http://localhost:6001/uploads/temp/${key}`
-    // because minio doesn't know that it's behind proxy
-    // see https://github.com/minio/minio/issues/3710
-    expect(jpgRes.header.location).toBe(`http://localhost:6001/temp/${key}`);
-    // expect(jpgRes.header.location).toContain(key);
+    expect(jpgRes.header.location).toBe(`http://localhost:6002/temp/${key}`);
     expect(jpgRes.header.etag).toBe('"a1c4720fa8526d4a8560dd1cb29c0ea7"');
 
     const exists = await fileExistsInBucket(

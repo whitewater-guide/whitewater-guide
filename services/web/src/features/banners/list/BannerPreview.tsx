@@ -1,6 +1,7 @@
 import { BannerKind, BannerSource } from '@whitewater-guide/commons';
 import React from 'react';
 import Iframe from 'react-iframe';
+import { S3_HOST } from '../../../environment';
 import { Styles } from '../../../styles';
 
 const styles: Styles = {
@@ -24,12 +25,7 @@ class BannerPreview extends React.PureComponent<Props> {
     const {
       source: { src },
     } = this.props;
-    return (
-      <img
-        style={styles.image}
-        src={`${process.env.REACT_APP_API_HOST}/uploads/banners/${src}`}
-      />
-    );
+    return <img style={styles.image} src={`${S3_HOST}/banners/${src}`} />;
   };
 
   renderWebView = () => {

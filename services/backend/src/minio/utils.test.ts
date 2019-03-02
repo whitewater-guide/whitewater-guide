@@ -15,7 +15,7 @@ describe('getTempPostPolicy', () => {
         'x-amz-date': expect.stringMatching(/[0-9TZ]+/),
         'x-amz-signature': expect.any(String),
       },
-      postURL: 'http://localhost:6001/uploads/temp',
+      postURL: 'http://localhost:6002/temp',
     });
   });
 
@@ -32,7 +32,7 @@ describe('getTempPostPolicy', () => {
         'x-amz-date': expect.stringMatching(/[0-9TZ]+/),
         'x-amz-signature': expect.any(String),
       },
-      postURL: 'http://localhost:6001/uploads/temp',
+      postURL: 'http://localhost:6002/temp',
     });
   });
 });

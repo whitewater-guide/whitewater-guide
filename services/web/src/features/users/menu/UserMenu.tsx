@@ -6,6 +6,7 @@ import MenuItem from 'material-ui/MenuItem';
 import Popover from 'material-ui/Popover';
 import { ToolbarGroup } from 'material-ui/Toolbar';
 import React from 'react';
+import { API_HOST } from '../../../environment';
 import { InnerProps } from './container';
 
 const styles = {
@@ -51,9 +52,7 @@ export default class UserMenu extends React.PureComponent<InnerProps, State> {
         </IconButton>
       );
     }
-    const href = `${process.env.REACT_APP_API_HOST}/auth/facebook?returnTo=${
-      window.location.href
-    }`;
+    const href = `${API_HOST}/auth/facebook?returnTo=${window.location.href}`;
     return (
       <IconButton style={styles.avatar} href={href}>
         <Avatar>
@@ -73,10 +72,7 @@ export default class UserMenu extends React.PureComponent<InnerProps, State> {
         onRequestClose={this.onPopoverClose}
       >
         <Menu>
-          <MenuItem
-            primaryText="Sign out"
-            href={`${process.env.REACT_APP_API_HOST}/auth/logout`}
-          />
+          <MenuItem primaryText="Sign out" href={`${API_HOST}/auth/logout`} />
         </Menu>
       </Popover>
     );

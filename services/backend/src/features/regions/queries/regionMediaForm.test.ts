@@ -50,7 +50,7 @@ describe('response', () => {
     expect(result.errors).toBeUndefined();
     expect(result.data!.regionMediaForm).toEqual({
       upload: {
-        postURL: 'http://localhost:6001/uploads/temp',
+        postURL: 'http://localhost:6002/temp',
         formData: {
           'Content-Type': 'image/*',
           bucket: 'temp',
@@ -84,12 +84,7 @@ describe('uploads', () => {
     const jpgRes = await jpgReq;
 
     expect(jpgRes.status).toBe(204);
-    // URL is `http://localhost:6001/temp/${key}`
-    // and not `http://localhost:6001/uploads/temp/${key}`
-    // because minio doesn't know that it's behind proxy
-    // see https://github.com/minio/minio/issues/3710
-    expect(jpgRes.header.location).toBe(`http://localhost:6001/temp/qwerty`);
-    // expect(jpgRes.header.location).toContain(key);
+    expect(jpgRes.header.location).toBe(`http://localhost:6002/temp/qwerty`);
     expect(jpgRes.header.etag).toBe('"a1c4720fa8526d4a8560dd1cb29c0ea7"');
 
     const exists = await fileExistsInBucket(

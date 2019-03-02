@@ -1,4 +1,5 @@
 import { spawnSync } from 'child_process';
+import simpleGit from 'simple-git/promise';
 import { argv } from 'yargs';
 import { EnvType } from './types';
 import {
@@ -10,13 +11,17 @@ import {
 } from './utils';
 
 async function publish() {
-  // Images are only published from dev branch
-  await gitGuardian(EnvType.STAGING);
+  const git = simpleGit();
+  const { current } = await git.branchLocal();
+  const env =
+    current === 'dev' || current === 'master' ? EnvType.STAGING : EnvType.LOCAL;
+  // Images can be published from any branch
+  await gitGuardian(env);
 
   // Set environment variables for build-time substitution in compose files
-  setupEnv(EnvType.STAGING);
+  setupEnv(env);
   // Merge docker-compose files
-  const stackFile = await generateStackFile(EnvType.STAGING);
+  const stackFile = await generateStackFile(env);
 
   let services: string[] = getChangedServices();
   // it's possible to explicitly list services to publish

@@ -14,7 +14,7 @@ export const getTempPostPolicy = async (key?: string) => {
   policy.setContentType('image/*');
   policy.setBucket(TEMP);
   if (key) {
-    policy.setKey(key);
+    policy.setKeyStartsWith(key);
   }
   // Only allow content size in range 10KB to 10MB.
   policy.setContentLengthRange(10 * 1024, 10 * 1024 * 1024);
@@ -25,9 +25,7 @@ export const getTempPostPolicy = async (key?: string) => {
     .replace(/https?:\/\//, '')
     .replace(
       `${process.env.MINIO_HOST!}:${process.env.MINIO_PORT!}`,
-      `${process.env.PROTOCOL!}://${process.env.APP_DOMAIN!}/${
-        process.env.MINIO_PROXY_PATH
-      }`,
+      `${process.env.PROTOCOL!}://${process.env.MINIO_DOMAIN}`,
     );
   return { postURL, formData };
 };

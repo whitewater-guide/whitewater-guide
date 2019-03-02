@@ -1,3 +1,9 @@
+## [0.0.34-subdomains.0](https://github.com/doomsower/whitewater/compare/@whitewater-guide/landing@0.0.33...@whitewater-guide/landing@0.0.34-subdomains.0) (2019-03-01)
+
+### Bug Fixes
+
+- use X-Robots-Tag to repel robots ([b312b0e](https://github.com/doomsower/whitewater/commit/b312b0e))
+
 ## [0.0.33](https://github.com/doomsower/whitewater/compare/@whitewater-guide/landing@0.0.32...@whitewater-guide/landing@0.0.33) (2019-02-23)
 
 ### Bug Fixes

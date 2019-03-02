@@ -6,6 +6,7 @@ import { isEnvType, isMachine } from './types';
 import {
   dockerLogin,
   gitGuardian,
+  prerelaseGuardian,
   setDockerMachineEnv,
   setupEnv,
 } from './utils';
@@ -34,6 +35,7 @@ async function update() {
   // ------------- cli arguments parsed
 
   await gitGuardian(environment);
+  await prerelaseGuardian(environment);
   // Set environment variables for build-time substitution in compose files
   setupEnv(environment);
   // Login as docker-image reader

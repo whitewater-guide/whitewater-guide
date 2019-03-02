@@ -8,6 +8,7 @@ import {
   dockerLogin,
   generateStackFile,
   gitGuardian,
+  prerelaseGuardian,
   setDockerMachineEnv,
   setupEnv,
 } from './utils';
@@ -29,6 +30,7 @@ async function deploy() {
   // ------------- cli arguments parsed
 
   await gitGuardian(environment);
+  await prerelaseGuardian(environment);
 
   // Set environment variables for build-time substitution in compose files
   setupEnv(environment);

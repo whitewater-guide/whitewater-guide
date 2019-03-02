@@ -1,17 +1,7 @@
 import Koa from 'koa';
-import getOrigin from './getOrigin';
-import isValidRedirect from './isValidRedirect';
 
-function getLoginRedirect(req: Koa.Request) {
-  const url = req.query.returnTo || (req.body! as any).returnTo || '/';
-  if (!isValidRedirect(url)) {
-    return '/';
-  }
-  if (!getOrigin(url)) {
-    return url;
-  }
-  return url;
-}
+const getLoginRedirect = (req: Koa.Request) =>
+  req.query.returnTo || (req.body! as any).returnTo || '/';
 
 const setReturnTo: Koa.Middleware = async (ctx, next) => {
   if (ctx.session) {

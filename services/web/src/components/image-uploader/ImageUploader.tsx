@@ -2,6 +2,7 @@ import { uploadFile } from '@whitewater-guide/clients';
 import { Media, MediaKind, UploadLink } from '@whitewater-guide/commons';
 import CircularProgress from 'material-ui/CircularProgress';
 import React from 'react';
+import { S3_HOST } from '../../environment';
 import { Styles } from '../../styles';
 import {
   cleanupPreview,
@@ -91,7 +92,7 @@ const getSrc = (value: string, bucket: string) => {
   if (process.env.STORYBOOK_ENABLED === 'true') {
     return value;
   }
-  return `${process.env.REACT_APP_API_HOST}/uploads/${bucket}/${value}`;
+  return `${S3_HOST}/${bucket}/${value}`;
 };
 
 const getFakeMedia = (

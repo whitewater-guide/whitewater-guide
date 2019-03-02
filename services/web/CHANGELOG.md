@@ -1,3 +1,98 @@
+## [0.1.313-subdomains.14](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.313-subdomains.13...@whitewater-guide/web@0.1.313-subdomains.14) (2019-03-01)
+
+### Bug Fixes
+
+- use https ([f20455b](https://github.com/doomsower/whitewater/commit/f20455b))
+
+## [0.1.313-subdomains.13](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.313-subdomains.12...@whitewater-guide/web@0.1.313-subdomains.13) (2019-03-01)
+
+### Bug Fixes
+
+- make facebook app id runtime variable ([8d2c54f](https://github.com/doomsower/whitewater/commit/8d2c54f))
+
+## [0.1.313-subdomains.12](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.313-subdomains.11...@whitewater-guide/web@0.1.313-subdomains.12) (2019-03-01)
+
+### Bug Fixes
+
+- always send cookies ([575b2ee](https://github.com/doomsower/whitewater/commit/575b2ee))
+
+## [0.1.313-subdomains.11](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.313-subdomains.10...@whitewater-guide/web@0.1.313-subdomains.11) (2019-03-01)
+
+### Bug Fixes
+
+- replace ww-local.io with local.whitewater.guide ([d71c112](https://github.com/doomsower/whitewater/commit/d71c112))
+
+## [0.1.313-subdomains.10](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.313-subdomains.9...@whitewater-guide/web@0.1.313-subdomains.10) (2019-03-01)
+
+### Bug Fixes
+
+- update boompromo to support domains ([381d2d0](https://github.com/doomsower/whitewater/commit/381d2d0))
+
+## [0.1.313-subdomains.9](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.313-subdomains.8...@whitewater-guide/web@0.1.313-subdomains.9) (2019-02-28)
+
+### Bug Fixes
+
+- remove basename ([4dceed8](https://github.com/doomsower/whitewater/commit/4dceed8))
+- self replace ([e855fc6](https://github.com/doomsower/whitewater/commit/e855fc6))
+
+## [0.1.313-subdomains.8](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.313-subdomains.7...@whitewater-guide/web@0.1.313-subdomains.8) (2019-02-28)
+
+### Bug Fixes
+
+- different file for template2 ([a1b8b5c](https://github.com/doomsower/whitewater/commit/a1b8b5c))
+
+## [0.1.313-subdomains.7](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.313-subdomains.6...@whitewater-guide/web@0.1.313-subdomains.7) (2019-02-28)
+
+### Bug Fixes
+
+- different file for template ([0b9051a](https://github.com/doomsower/whitewater/commit/0b9051a))
+
+## [0.1.313-subdomains.6](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.313-subdomains.5...@whitewater-guide/web@0.1.313-subdomains.6) (2019-02-28)
+
+### Bug Fixes
+
+- fix template ([f52bce4](https://github.com/doomsower/whitewater/commit/f52bce4))
+
+### Features
+
+- use DOCKERIZE_VERSION ([bc42fe8](https://github.com/doomsower/whitewater/commit/bc42fe8))
+
+## [0.1.313-subdomains.5](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.313-subdomains.4...@whitewater-guide/web@0.1.313-subdomains.5) (2019-02-28)
+
+### Features
+
+- use html as template ([444fe24](https://github.com/doomsower/whitewater/commit/444fe24))
+
+## [0.1.313-subdomains.4](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.313-subdomains.3...@whitewater-guide/web@0.1.313-subdomains.4) (2019-02-28)
+
+### Bug Fixes
+
+- remove homepage from package.json ([cea2d52](https://github.com/doomsower/whitewater/commit/cea2d52))
+
+## [0.1.313-subdomains.3](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.313-subdomains.2...@whitewater-guide/web@0.1.313-subdomains.3) (2019-02-28)
+
+### Bug Fixes
+
+- add env_file to web in compose ([8ce69cc](https://github.com/doomsower/whitewater/commit/8ce69cc))
+
+## [0.1.313-subdomains.2](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.313-subdomains.1...@whitewater-guide/web@0.1.313-subdomains.2) (2019-02-28)
+
+### Bug Fixes
+
+- fix web dockerize ([c252218](https://github.com/doomsower/whitewater/commit/c252218))
+
+## [0.1.313-subdomains.1](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.313-subdomains.0...@whitewater-guide/web@0.1.313-subdomains.1) (2019-02-28)
+
+### Bug Fixes
+
+- fix web dockerfile ([6ee0733](https://github.com/doomsower/whitewater/commit/6ee0733))
+
+## [0.1.313-subdomains.0](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.312...@whitewater-guide/web@0.1.313-subdomains.0) (2019-02-28)
+
+### Bug Fixes
+
+- fix paths ([44388a8](https://github.com/doomsower/whitewater/commit/44388a8))
+
 ## [0.1.312](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.311...@whitewater-guide/web@0.1.312) (2019-02-25)
 
 ## [0.1.311](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.310...@whitewater-guide/web@0.1.311) (2019-02-19)

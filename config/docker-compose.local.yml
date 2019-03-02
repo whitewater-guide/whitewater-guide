@@ -8,6 +8,14 @@ services:
 
   # Postgres sql database
   db:
+    # Two volumes with dump and restore script
+    volumes:
+      - type: bind
+        source: /tmp/postgres/dump/dump.bak
+        target: /docker-entrypoint-initdb.d/dump.bak
+      - type: bind
+        source: /tmp/postgres/dump/x-dev-restore.sh
+        target: /docker-entrypoint-initdb.d/x-dev-restore.sh
     ports:
       - '5432:5432'
 
@@ -19,7 +27,8 @@ services:
   # Caddy reverse proxy
   caddy:
     ports:
-      - '80:2015'
+      - '80:80'
+      - '443:443'
 
   # imageproxy to generate thumbnails
   imageproxy:

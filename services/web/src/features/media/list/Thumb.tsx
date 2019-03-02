@@ -4,6 +4,7 @@ import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import React from 'react';
 import injectSheet from 'react-jss';
+import { S3_HOST } from '../../../environment';
 import { Styles } from '../../../styles';
 import { THUMB_HEIGHT } from './constants';
 
@@ -94,9 +95,7 @@ class Thumb extends React.PureComponent<Props, State> {
     if (kind === MediaKind.photo) {
       this.setState({
         thumb: media.url
-          ? `${process.env.REACT_APP_API_HOST}/images/x${THUMB_HEIGHT}/media/${
-              media.url
-            }`
+          ? `${S3_HOST}/images/x${THUMB_HEIGHT}/media/${media.url}`
           : undefined,
         height: THUMB_HEIGHT,
       });

@@ -1,3 +1,40 @@
+## [0.0.313-subdomains.5](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.313-subdomains.4...@whitewater-guide/backend@0.0.313-subdomains.5) (2019-03-01)
+
+### Bug Fixes
+
+- enforce https in local env ([24b6eb5](https://github.com/doomsower/whitewater/commit/24b6eb5))
+
+## [0.0.313-subdomains.4](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.313-subdomains.3...@whitewater-guide/backend@0.0.313-subdomains.4) (2019-03-01)
+
+### Bug Fixes
+
+- remove checks from login redirect ([03c91da](https://github.com/doomsower/whitewater/commit/03c91da))
+
+## [0.0.313-subdomains.3](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.313-subdomains.2...@whitewater-guide/backend@0.0.313-subdomains.3) (2019-03-01)
+
+### Bug Fixes
+
+- replace ww-local.io with local.whitewater.guide ([d71c112](https://github.com/doomsower/whitewater/commit/d71c112))
+
+## [0.0.313-subdomains.2](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.313-subdomains.1...@whitewater-guide/backend@0.0.313-subdomains.2) (2019-03-01)
+
+### Bug Fixes
+
+- **backend:** keep extension on media uploads ([d7b3cac](https://github.com/doomsower/whitewater/commit/d7b3cac))
+
+## [0.0.313-subdomains.1](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.313-subdomains.0...@whitewater-guide/backend@0.0.313-subdomains.1) (2019-03-01)
+
+## [0.0.313-subdomains.0](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.312...@whitewater-guide/backend@0.0.313-subdomains.0) (2019-02-28)
+
+### Bug Fixes
+
+- **backend:** use production env for apollo engine schema uploading ([8804854](https://github.com/doomsower/whitewater/commit/8804854))
+- fix paths ([44388a8](https://github.com/doomsower/whitewater/commit/44388a8))
+
+### Features
+
+- make backend use new minio subdomain ([1cf7a60](https://github.com/doomsower/whitewater/commit/1cf7a60))
+
 ## [0.0.312](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.311...@whitewater-guide/backend@0.0.312) (2019-02-25)
 
 ## [0.0.311](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.310...@whitewater-guide/backend@0.0.311) (2019-02-23)

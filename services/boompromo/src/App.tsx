@@ -84,7 +84,7 @@ class App extends React.PureComponent<WithStyles<ClassNames>> {
               color="primary"
             >
               <Typography className={classes.copyright}>
-                2016 - 2018 © whitewater.guide
+                2016 - 2019 © whitewater.guide
               </Typography>
               <IconButton
                 style={{ color: '#FFFFFF' }}

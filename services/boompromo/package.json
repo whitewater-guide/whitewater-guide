@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/boompromo",
   "private": true,
-  "version": "0.0.127",
+  "version": "0.0.128-subdomains.5",
   "license": "UNLICENSED",
   "homepage": "/boompromo/",
   "scripts": {
@@ -9,6 +9,8 @@
     "preversion": "yarn build",
     "version": "../../tooling/scripts/sh/changelog.sh",
     "start": "react-scripts start",
+    "start:local": "REACT_APP_API=http://api.local.whitewater.guide react-scripts start",
+    "start:beta": "REACT_APP_API=http://api.beta.whitewater.guide react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

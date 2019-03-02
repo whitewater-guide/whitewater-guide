@@ -1,12 +1,11 @@
+import { API_HOST } from '../../environment';
+
 export const wwLogin = async (accessToken: string): Promise<string | null> => {
   try {
     const response = await fetch(
-      `${
-        process.env.REACT_APP_API_HOST
-      }/auth/facebook/token?access_token=${accessToken}`,
+      `${API_HOST}/auth/facebook/token?access_token=${accessToken}`,
       {
-        credentials:
-          process.env.NODE_ENV === 'production' ? 'same-origin' : 'include',
+        credentials: 'include',
       },
     );
     return response.ok ? null : 'Упс! Что-то сломалось.';

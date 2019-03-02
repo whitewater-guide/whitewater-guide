@@ -7,7 +7,6 @@
   "repository": "https://github.com/doomsower/whitewater.git",
   "author": "doomsower <K.Kuznetcov@gmail.com>",
   "scripts": {
-    "changelog": "./node_modules/.bin/lerna exec --concurrency 1 --no-sort --stream -- conventional-changelog --preset angular --infile CHANGELOG.md --same-file --lerna-package \\$LERNA_PACKAGE_NAME --commit-path \\$PWD",
     "dev:cleanup": "tooling/scripts/sh/dev_cleanup.sh",
     "dev:start": "node tooling/scripts/bin/dev_start.js",
     "dev:images": "tooling/scripts/sh/dev_download_images.sh",
@@ -27,7 +26,8 @@
     "junk": "yarn trash-junk",
     "preversion": "lerna changed --all --json > lerna-changed.json",
     "postpublish": "node tooling/scripts/bin/publish-docker.js",
-    "pub": "lerna publish --concurrency 1"
+    "pub": "lerna publish --concurrency 1",
+    "canary": "lerna version prerelease --preid $(git rev-parse --abbrev-ref HEAD) && yarn postpublish"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^7.5.0",

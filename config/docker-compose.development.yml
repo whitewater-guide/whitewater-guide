@@ -108,9 +108,15 @@ services:
     tmpfs:
       - /tmp/caddy-cache
     volumes:
+      - '../services/caddy/subdomains:/etc/subdomains'
+      - '../services/caddy/caddy-common.conf:/etc/caddy-common.conf'
       - '../services/caddy/Caddyfile:/etc/Caddyfile'
     ports:
-      - '6001:2015'
+      - '6001:2015' # backend
+      - '6002:2016' # minio
+      - '6003:2017' # adminer
+      - '6004:2018' # admin
+      - '6005:2019' # root
 
   # imageproxy to generate thumbnails
   imageproxy:

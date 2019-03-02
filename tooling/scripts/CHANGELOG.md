@@ -1,3 +1,9 @@
+## [0.0.30-subdomains.0](https://github.com/doomsower/whitewater/compare/@whitewater-guide/scripts@0.0.29...@whitewater-guide/scripts@0.0.30-subdomains.0) (2019-02-28)
+
+### Features
+
+- **scrips:** images can now be published from any branch ([0d69adb](https://github.com/doomsower/whitewater/commit/0d69adb))
+
 ## [0.0.29](https://github.com/doomsower/whitewater/compare/@whitewater-guide/scripts@0.0.28...@whitewater-guide/scripts@0.0.29) (2019-02-25)
 
 ### Features

@@ -101,7 +101,8 @@ services:
       labels:
         guide.whitewater: ''
     image: '${DOCKER_REGISTRY_PREFIX}web:${WEB_VERSION}'
-    read_only: true
+    env_file:
+      - ../services/web/${DOCKER_ENV_FILE}
 
   # Serve static boompromo client
   boompromo:
@@ -115,7 +116,8 @@ services:
       labels:
         guide.whitewater: ''
     image: '${DOCKER_REGISTRY_PREFIX}boompromo:${BOOMPROMO_VERSION}'
-    read_only: true
+    env_file:
+      - ../services/boompromo/${DOCKER_ENV_FILE}
 
   # Adminer escape hatch
   adminer:
@@ -133,8 +135,6 @@ services:
         target: /tmp
     image: '${DOCKER_REGISTRY_PREFIX}adminer:${ADMINER_VERSION}'
     read_only: true
-    environment:
-      - ADMINER_DEFAULT_SERVER=db
 
   # Simple postges backup
   pgdump:

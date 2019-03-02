@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/imagedump",
   "private": true,
-  "version": "0.0.39",
+  "version": "0.0.41-subdomains.0",
   "license": "UNLICENSED",
   "description": "imagedump for whitewater.guide stack",
   "repository": "https://github.com/doomsower/whitewater.git",

@@ -19,7 +19,7 @@ const postversion = () => {
   writeFileSync(schemaFile, typeDefs);
 
   // Step 2. Load ENGINE variables into env
-  config({ path: resolve(process.cwd(), '.env.development') });
+  config({ path: resolve(process.cwd(), '.env.production') });
   // Step 2. Push schema to Apollo Engine
   const pJson = readJSONSync(resolve(process.cwd(), 'package.json'));
   spawnSync(

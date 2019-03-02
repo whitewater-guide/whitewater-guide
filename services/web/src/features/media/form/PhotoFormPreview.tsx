@@ -1,5 +1,6 @@
 import CircularProgress from 'material-ui/CircularProgress';
 import React from 'react';
+import { S3_HOST } from '../../../environment';
 import { Styles } from '../../../styles';
 
 const PREVIEW_SIZE = 360;
@@ -41,9 +42,7 @@ const PhotoFormPreview: React.StatelessComponent<Props> = ({
   preview,
   loading,
 }) => {
-  const src = `${
-    process.env.REACT_APP_API_HOST
-  }/images/${PREVIEW_SIZE},fit/media/${url}`;
+  const src = `${S3_HOST}/images/${PREVIEW_SIZE},fit/media/${url}`;
   return (
     <div style={styles.previewWrapper}>
       <img src={preview || src} style={styles.preview} />

@@ -76,7 +76,7 @@ App stack has 4 configurations:
   - can run on any git branch
 - **local** - Runs in virtualbox local docker-machine.
   - NODE_ENV = production.
-  - protocol = HTTP
+  - protocol = HTTPS, self-signed
   - can run on any git branch
 - **staging** - runs on remote docker-machine, `beta.whitewater.guide`
   - NODE_ENV = production.
@@ -113,7 +113,6 @@ For container-specific env variables see packages READMEs
 | POSTGRES_PASSWORD | **\*\*\*\***              | backend, workers, db | Postgres password                                                              |
 | MINIO_ACCESS_KEY  | <random_secret>           | backend, minio       | Minio access key                                                               |
 | MINIO_SECRET_KEY  | <random_secret>           | backend, minio       | Minio secret key                                                               |
-| MINIO_PROXY_PATH  | uploads                   | backend, caddy       | APP_DOMAIN path that will be proxied to minio by caddy                         |
 | WORKERS_HOST      | workers                   | backend, workers     | Host name in docker network, or localhost for testing                          |
 | WORKERS_PORT      | 7080                      | backend, workers     | port on which workers container is listening (see workers README for more)     |
 | WORKERS_ENDPOINT  | /endpoint                 | backend, workers     | endpoint on which workers container is listening (see workers README for more) |
@@ -133,9 +132,8 @@ All environments except `development` use docker swarm node (single host) and us
 They are managed via `docker-machine`. The machine names must be `ww-local`/`ww-staging`/`ww-production`, scripts use these names.
 
 Docker images for stack services are tagged with version numbers from package.json.
-They are automatically built when `lerna publish` is run. This is done using `postpublish:global` in every service's package.json file.
-`postpublish:global` is run on root-level `postpublish` hook. This is because simple `postpublish` hook won't run for private packages,
-and `postversion` hook will fail to build correct images when some common dependencies are bumped together and are not on npm yet.
+They are automatically built when `lerna publish` is run. This is done using combination of `preversion` and `postpublish` hook in root package.
+Such combination is required becuase `publish` hooks do not run inside private packages, so `preversion` is used to obtain list of packages to publish.
 Private AWS container registry is used to publish docker images and then to pull them onto docker-machines.
 
 ## Git hooks
@@ -163,12 +161,17 @@ Husky is installed in project root to ensure that hooks are properly set up afte
 | staging:update    | Updates particular service in stack (uses `docker service update`), uses version from `package.json`<br> pass package names via (mandatory) `--service` flags.                                  |
 | staging:sync      | Copies database and images from production to staging                                                                                                                                           |
 | production:deploy | Same as `staging` but for `production` environment                                                                                                                                              |
+| production:update | Same as `staging` but for `production` environment                                                                                                                                              |
+| lint              | Runs tslint in all relevant packages                                                                                                                                                            |
 | junk              | Recursively deletes various junk files like `.DS_store` that Mac creates                                                                                                                        |
-| postpublish       | Lerna hook to work around postpublish hook for private packages, more details above                                                                                                             |
+| preversion        | Lerna lifecycle hook to get a list of changed services for `postpublish` hook                                                                                                                   |
+| postpublish       | Lerna lifecycle hook to build and publish docker images                                                                                                                                         |
+| pub               | Lerna publish alias                                                                                                                                                                             |
+| canary            | Lerna publish prerelase for `local` stack                                                                                                                                                       |
 
 ## Development
 
-### Step by step guide
+### In `development` environment
 
 1. Checkout project from github
 2. Install the requirements
@@ -178,12 +181,35 @@ Husky is installed in project root to ensure that hooks are properly set up afte
 6. `git secret reveal` to show secrets
 7. Launch backend stack you want to develop client against with `yarn run dev:start` or `yarn run local:start` and then `yarn run local:deploy`
 
-### Local docker-machine
+### In `local` environment
 
-If you run no more than one docker-machine at a time, then ip is stable.
-Get this ip with `docker-machine ip ww-local` and add it to your hosts file as `ww-local.io`.
-Then in web and mobile packages set urls in `env.development` to point to `ww-local.io` as backend.
-This is required, as facebook auth needs stable callback url.
+To make this configuration work, you'll need:
+
+- read access to AWS ECR to get docker images
+- `.env.local` config files obtained via `git secret reveal` or manually distributed
+- (Optional) obtain images dump via `dev:images` or manually distributed
+- (Optional) obtain database dump
+
+Step-by-step guide:
+
+1.  Run `local:start`. This will start and prepare local docker-machine in virtualbox.
+2.  If you run no more than one local docker-machine at a time, then ip is stable.
+    Get this ip with `docker-machine ip ww-local` and add it to your hosts file as `local.whitewater.guide` and subdomains, like this:
+
+        ```
+        192.168.99.100 local.whitewater.guide
+        192.168.99.100 s3.local.whitewater.guide
+        192.168.99.100 api.local.whitewater.guide
+        192.168.99.100 puzzle.local.whitewater.guide
+        192.168.99.100 admin.local.whitewater.guide
+        ```
+
+        It's one-time operation, so no script to automate this (PR welcome)
+
+3.  Run `yarn local:deploy` to deploy wwguide stack onto `ww-local` docker-machine
+4.  From your host machine, you can now use browser to access production environment on `http://local.whitewater.guide`
+5.  (Optional) Then in web and mobile packages set urls in `env.development` to point to `local.whitewater.guide` as backend.
+    This is required, as facebook auth needs stable callback url.
 
 It's recommended to get images dump via `dev:images`, or ask me for archive. `local:start` will copy images to docker-machine
 

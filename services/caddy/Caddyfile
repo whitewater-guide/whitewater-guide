@@ -1,41 +1,14 @@
-{$CADDY_ADDRESS} {
+import subdomains/*
 
-  tls {$CADDY_TLS_EMAIL} {
-    # The line below uses staging certificate
-    # Comment it out to use real certificate
-    # ca https://acme-staging-v02.api.letsencrypt.org/directory
-  }
+{$ROOT_ADDRESS} {
+  import caddy-common.conf
 
-  header / {
-    -Server
-  }
+  gzip
 
-  gzip {
-    ext .css .html .js
-    min_length 2048
-  }
-
-  # All backend URIs
-  rewrite / {
-    if {path} starts_with /graphql
-    if {path} starts_with /graphiql
-    if {path} starts_with /auth
-    if {path} starts_with /ping
-    if {file} is schema.json
-    if {file} is typedefs.txt
-    if_op or
-    to /backend{uri}
-  }
-
-  # admin uris without extensions => react router
-  rewrite /admin {
-    ext /
-    to /web/admin
-  }
-
-  # admin static assets
-  rewrite /admin {
-    to /web{uri}
+  # legacy redirect
+  redir 301 {
+    if {path} starts_with /admin
+    / {$ADMIN_ADDRESS}
   }
 
   # Root is landing
@@ -52,63 +25,13 @@
     to {path} landing_ru.html
   }
 
-  proxy /backend backend:3333 {
-    without /backend
-    transparent
-  }
-
-  proxy /{$MINIO_PROXY_PATH} minio:9000 {
-    without /{$MINIO_PROXY_PATH}
-    header_downstream Access-Control-Expose-Headers Location
-    transparent
-    header_upstream -Authorization
-    header_upstream -Cookie
-  }
-
-  proxy /images imageproxy:8080 {
-    without /images
-    transparent
-  }
-
-  proxy /web web:8043 {
-    without /web/admin
-    transparent
-  }
-
   proxy /boompromo boompromo:8043 {
     without /boompromo
     transparent
   }
 
-  basicauth /puzzle {$ADMINER_USERNAME} {$ADMINER_PASSWORD}
-
-  proxy /puzzle adminer:8080 {
-    # https://stackoverflow.com/a/52505235/6212547
-    header_downstream X-Forwarded-Prefix /puzzle
-    transparent
-  }
-
-  header /banners {
-    Cache-Control "public, max-age=31536000"
-  }
-
   proxy / landing:8043 {
     transparent
   }
-
-  # Cache is temporary disabled, because sometimes it returns empty images: https://github.com/nicolasazrak/caddy-cache/issues/28
-  # Important note:
-  # other paths will be cached to, based on their headers (Cache-control, Expires, Last-Modified)
-  # cache {
-  #   match_path /images
-  #   match_header Content-Type image/jpg image/png image/*
-  #   status_header X-Cache-Status
-  #   default_max_age 24h
-  #   path {$CADDY_CACHE_PATH}
-  # }
-
-  log / stdout "{common} Upstream: {upstream}"
-
-  errors stdout
 
 }

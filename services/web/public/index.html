@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- https://facebook.github.io/create-react-app/docs/title-and-meta-tags#generating-dynamic-meta-tags-on-the-server -->
+    <script>
+      window.RUNTIME_API = '{{ .Env.RUNTIME_API }}';
+      window.RUNTIME_S3 = '{{ .Env.RUNTIME_S3 }}';
+      window.RUNTIME_FACEBOOK_APP_ID = '{{ .Env.RUNTIME_FACEBOOK_APP_ID }}';
+    </script>
     <meta charset="utf-8" />
     <meta
       name="viewport"

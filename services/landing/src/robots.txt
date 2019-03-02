@@ -1,5 +1,2 @@
 User-agent: *
-Disallow: /admin/
 Disallow: /boompromo/
-Disallow: /graphql/
-Disallow: /graphiql/
