@@ -45,6 +45,9 @@ export const newContext = (
   if (ctx.header['x-legacy-redirect']) {
     legacy = parseInt(ctx.header['x-legacy-redirect'], 10);
   }
+  // tslint:disable-next-line
+  console.log('legacy', legacy);
+  console.dir(ctx.header);
 
   const fieldsByType = new Map<string, Set<string>>();
   // dataSources are not optional, but they're added later

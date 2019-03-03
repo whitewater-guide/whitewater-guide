@@ -12,6 +12,8 @@ export const coverImageResolvers: FieldResolvers<
     if (!mobile) {
       return null;
     }
+    // tslint:disable-next-line
+    console.log('Cover legacy', context.legacy);
     if (context.legacy) {
       return mobile;
     }
