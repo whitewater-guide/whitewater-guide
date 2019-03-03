@@ -15,6 +15,8 @@ export interface Media extends Node, Timestamped {
   deleted?: boolean;
   weight: number;
   size: number;
+  image: string | null;
+  thumb?: string | null; // graphql alias for image with arguments
 }
 
 export interface MediaInput {

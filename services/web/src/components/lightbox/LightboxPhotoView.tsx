@@ -22,14 +22,10 @@ interface Props {
   interactionIsIdle: boolean;
 }
 
-const LightboxPhotoView: React.StatelessComponent<Props> = ({ data }) => {
-  const src =
-    process.env.STORYBOOK_ENABLED === 'true' || data.url.includes('/')
-      ? data.url
-      : `${S3_HOST}/media/${data.url}`;
+const LightboxPhotoView: React.FC<Props> = ({ data }) => {
   return (
     <div style={styles.container}>
-      <img src={src} style={styles.img} />
+      <img src={data.image || undefined} style={styles.img} />
     </div>
   );
 };

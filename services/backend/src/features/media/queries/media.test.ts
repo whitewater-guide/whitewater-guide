@@ -1,5 +1,5 @@
 import { holdTransaction, rollbackTransaction } from '@db';
-import { BLOG_1, PHOTO_1, PHOTO_2 } from '@seeds/11_media';
+import { BLOG_1, PHOTO_1, PHOTO_2, VIDEO_1 } from '@seeds/11_media';
 import { anonContext, noTimestamps, runQuery } from '@test';
 
 beforeEach(holdTransaction);
@@ -13,6 +13,8 @@ const query = `
       description
       copyright
       url
+      image
+      thumb: image(width: 100, height: 100)
       resolution
       weight
     }
@@ -24,6 +26,34 @@ it('should return media', async () => {
   expect(result.errors).toBeUndefined();
   const media = result.data!.media;
   expect(noTimestamps(media)).toMatchSnapshot();
+});
+
+it('should return null image and thumb for blogs', async () => {
+  const result = await runQuery(query, { id: BLOG_1 });
+  expect(result.data!.media.image).toBeNull();
+  expect(result.data!.media.thumb).toBeNull();
+});
+
+it('should return null image and thumb for videos', async () => {
+  const result = await runQuery(query, { id: VIDEO_1 });
+  expect(result.data!.media.image).toBeNull();
+  expect(result.data!.media.thumb).toBeNull();
+});
+
+it('should return full image for photos', async () => {
+  const { PROTOCOL, MINIO_DOMAIN } = process.env;
+  const result = await runQuery(query, { id: PHOTO_1 });
+  expect(result.data!.media.image).toEqual(
+    expect.stringContaining(`${PROTOCOL}://${MINIO_DOMAIN}/media/`),
+  );
+});
+
+it('should return thumb for photos', async () => {
+  const { PROTOCOL, MINIO_DOMAIN } = process.env;
+  const result = await runQuery(query, { id: PHOTO_1 });
+  expect(result.data!.media.thumb).toEqual(
+    expect.stringContaining(`${PROTOCOL}://${MINIO_DOMAIN}/thumbs/`),
+  );
 });
 
 it('should return null when id not specified', async () => {

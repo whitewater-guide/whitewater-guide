@@ -57,7 +57,7 @@ Object {
       "source": Object {
         "kind": "Image",
         "ratio": null,
-        "src": "banner_4.jpg",
+        "src": "http://localhost:6002/thumbs/MwQAP5FQfDT2WQvVDkltiW8YEAbMHCyziBVikg2Dlr8/w:1024/czM6Ly9iYW5uZXJzL2Jhbm5lcl80LmpwZw.jpg",
       },
     },
     Object {

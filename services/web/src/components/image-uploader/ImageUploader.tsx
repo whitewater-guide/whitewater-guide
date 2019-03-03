@@ -92,7 +92,7 @@ const getSrc = (value: string, bucket: string) => {
   if (process.env.STORYBOOK_ENABLED === 'true') {
     return value;
   }
-  return `${S3_HOST}/${bucket}/${value}`;
+  return value.startsWith('http') ? value : `${S3_HOST}/${bucket}/${value}`;
 };
 
 const getFakeMedia = (
@@ -106,6 +106,7 @@ const getFakeMedia = (
           id: 'upload',
           // lightbox is will render relative urls from  to media bucket, but can render absolute urls
           url: getSrc(value, useTempBucket ? 'temp' : bucket),
+          image: getSrc(value, useTempBucket ? 'temp' : bucket),
           description: value,
           copyright: '',
           kind: MediaKind.photo,

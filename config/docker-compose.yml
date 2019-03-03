@@ -14,8 +14,6 @@ services:
     env_file:
       - ${DOCKER_ENV_FILE}
       - ../services/backend/${DOCKER_ENV_FILE}
-    environment:
-      - IMAGEPROXY_PATH=images
     build:
       context: ../services/backend
       labels:
@@ -51,14 +49,15 @@ services:
   # imageproxy to generate thumbnails
   imageproxy:
     <<: *ww-single-host
-    command:
-      - -addr
-      - 0.0.0.0:8080
-      - -whitelist
-      - minio:9000
-      - -baseURL
-      - http://minio:9000/
-    image: 'willnorris/imageproxy:v0.7.0'
+    image: 'darthsim/imgproxy:v2.2.6'
+    command: sh -c 'AWS_ACCESS_KEY_ID=$$MINIO_ACCESS_KEY AWS_SECRET_ACCESS_KEY=$$MINIO_SECRET_KEY imgproxy'
+    env_file:
+      - ${DOCKER_ENV_FILE}
+    environment:
+      - IMGPROXY_USE_ETAG=true
+      - IMGPROXY_IGNORE_SSL_VERIFICATION=true
+      - IMGPROXY_USE_S3=true
+      - IMGPROXY_S3_ENDPOINT=http://minio:9000
     read_only: true
 
   # Workers to harvest some data

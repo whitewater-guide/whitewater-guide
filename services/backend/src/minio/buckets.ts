@@ -1,3 +1,5 @@
+export type Bucket = 'temp' | 'media' | 'avatars' | 'covers' | 'banners';
+
 export const TEMP = 'temp';
 export const MEDIA = 'media';
 export const AVATARS = 'avatars';

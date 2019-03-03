@@ -24,6 +24,7 @@ const CHECK_MEDIA_QUERY = `
 
 const FIELDS_MAP: FieldsMap<Media, MediaRaw> = {
   deleted: null,
+  image: null,
 };
 
 interface GetManyOptions extends ManyBuilderOptions<MediaRaw> {

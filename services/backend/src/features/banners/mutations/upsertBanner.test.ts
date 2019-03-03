@@ -332,6 +332,7 @@ describe('files', () => {
   });
 
   it('should store only filenames', async () => {
+    const { PROTOCOL, MINIO_DOMAIN } = process.env;
     const result = await runQuery(
       mutation,
       { banner: newImageBanner },
@@ -344,7 +345,9 @@ describe('files', () => {
       .where({ id: upsertedBanner.id })
       .first();
     expect(source).toEqual(newImageBanner.source);
-    expect(upsertedBanner.source).toEqual(newImageBanner.source);
+    expect(upsertedBanner.source.src).toEqual(
+      `${PROTOCOL}://${MINIO_DOMAIN}/banners/${newImageBanner.source.src}`,
+    );
   });
 
   it('should delete old image when new is uploaded', async () => {

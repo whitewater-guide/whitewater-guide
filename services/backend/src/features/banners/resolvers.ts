@@ -1,10 +1,11 @@
 import { listResolvers } from '@apollo';
-import Banner from './fields';
+import { bannerResolvers, bannerSourceResolvers } from './fields';
 import Mutation from './mutations';
 import Query from './queries';
 
 export const bannersResolvers = {
-  Banner,
+  Banner: bannerResolvers,
+  BannerSource: bannerSourceResolvers,
   Query,
   Mutation,
   BannersList: listResolvers,

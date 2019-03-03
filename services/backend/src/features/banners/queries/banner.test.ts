@@ -2,8 +2,11 @@ import { holdTransaction, rollbackTransaction } from '@db';
 import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
 import { GROUP_ALL } from '@seeds/03_groups';
 import { REGION_GALICIA } from '@seeds/04_regions';
+import { PHOTO_1 } from '@seeds/11_media';
 import {
   ALL_SECTION_ROW_BANNER,
+  GALICIA_REGION_DESCR_BANNER,
+  GALICIA_REGION_DESCR_BANNER2,
   GALICIA_SECTION_ROW_BANNER,
 } from '@seeds/14_banners';
 import { anonContext, fakeContext, runQuery } from '@test';
@@ -24,7 +27,7 @@ const query = `
       source {
         kind
         ratio
-        src
+        src(width: 1000)
       }
       link
       extras
@@ -90,6 +93,41 @@ describe('data', () => {
     const result = await runQuery(query, {}, fakeContext(ADMIN));
     expect(result).not.toHaveGraphqlError();
     expect(result.data!.banner).toBeNull();
+  });
+
+  it('should return thumb', async () => {
+    const { PROTOCOL, MINIO_DOMAIN } = process.env;
+    const result = await runQuery(
+      query,
+      { id: GALICIA_REGION_DESCR_BANNER2 },
+      fakeContext(ADMIN),
+    );
+    expect(result.errors).toBeUndefined();
+    expect(result.data!.banner.source.src).toEqual(
+      expect.stringContaining(`${PROTOCOL}://${MINIO_DOMAIN}/thumbs/`),
+    );
+  });
+
+  it('should return image filename in legacy mode', async () => {
+    const result = await runQuery(
+      query,
+      { id: GALICIA_REGION_DESCR_BANNER2 },
+      { ...fakeContext(ADMIN), legacy: 1 },
+    );
+    expect(result.errors).toBeUndefined();
+    expect(result.data!.banner.source.src).toBe('banner_4.jpg');
+  });
+
+  it('should return webview url in legacy mode', async () => {
+    const result = await runQuery(
+      query,
+      { id: GALICIA_REGION_DESCR_BANNER },
+      { ...fakeContext(ADMIN), legacy: 1 },
+    );
+    expect(result.errors).toBeUndefined();
+    expect(result.data!.banner.source.src).toBe(
+      'http://whitewater.guide/galicia_region_descr_banner',
+    );
   });
 });
 

@@ -14,8 +14,9 @@ type BannerSource {
   kind: BannerKind!
   # Width / height for WebView, null for Image
   ratio: Float
-  # URL for WebView, fielname for Image
-  src: String!
+  # For WebView - URL
+  # For Image - filename in legacy mode and full url in normal mode
+  src(width: Int): String!
 }
 
 type Banner {

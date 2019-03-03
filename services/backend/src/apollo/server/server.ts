@@ -22,7 +22,7 @@ export const createApolloServer = async (app: Koa) => {
     dataSources: createConnectors,
     formatError,
     debug: process.env.NODE_ENV === 'development',
-    introspection: false,
+    introspection: process.env.NODE_ENV === 'development',
     playground,
     // @ts-ignore
     schemaTag: pJson.version,

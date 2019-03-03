@@ -7,6 +7,10 @@ interface BoundsGeoJson {
   coordinates: Coordinate3d[][];
 }
 
+export interface CoverImageRaw {
+  mobile?: string | null;
+}
+
 export interface RegionRaw extends NamedNode, RawTimestamped {
   description: string | null;
   season: string | null;
@@ -16,7 +20,9 @@ export interface RegionRaw extends NamedNode, RawTimestamped {
   pois: PointRaw[] | null;
   editable?: boolean; // computed column, not necessary present in db response
   premium: boolean;
-  cover_image: {
-    mobile?: string;
-  };
+  cover_image: CoverImageRaw;
+}
+
+export interface CoverArgs {
+  width?: number;
 }

@@ -20,7 +20,7 @@ query listBanners {
       source {
         kind
         ratio
-        src
+        src(width: 1000)
       }
       link
       extras

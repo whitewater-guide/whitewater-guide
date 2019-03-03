@@ -18,7 +18,7 @@ export enum BannerKind {
 export interface BannerSource {
   kind: BannerKind;
   ratio: number | null;
-  src: string | null;
+  src: string;
 }
 
 export interface Banner extends NamedNode {
@@ -36,6 +36,12 @@ export interface Banner extends NamedNode {
   deleted?: boolean;
 }
 
+export interface BannerSourceInput {
+  kind: BannerKind;
+  ratio: number | null;
+  src: string | null;
+}
+
 export interface BannerInput {
   id: string | null;
   slug: string;
@@ -43,7 +49,7 @@ export interface BannerInput {
   enabled: boolean;
   priority: number;
   placement: BannerPlacement;
-  source: BannerSource;
+  source: BannerSourceInput;
   link: string | null;
   extras: { [key: string]: any } | null;
   // --- connections

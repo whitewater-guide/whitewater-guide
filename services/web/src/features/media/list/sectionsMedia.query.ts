@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 const SECTIONS_MEDIA = gql`
-  query sectionMedia($sectionId: ID!) {
+  query sectionMedia($sectionId: ID!, $thumbHeight: Int) {
     mediaBySection(sectionId: $sectionId) {
       nodes {
         id
@@ -11,6 +11,8 @@ const SECTIONS_MEDIA = gql`
         createdAt
         weight
         url
+        image
+        thumb: image(height: $thumbHeight)
         resolution
         deleted
       }

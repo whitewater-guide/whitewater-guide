@@ -71,42 +71,6 @@ export default class RegionAdminSettingsForm extends React.PureComponent<
             previewScale={0.2}
             upload={upload}
           />
-          <ImageUploadField
-            title="Banner in region description (2048x682)"
-            name="banners.regionDescriptionMobile"
-            bucket="banners"
-            width={2048}
-            height={682}
-            previewScale={0.2}
-            upload={upload}
-          />
-          <ImageUploadField
-            title="Region loading banner (2048x512 - 2048x1536)"
-            name="banners.regionLoadingMobile"
-            bucket="banners"
-            width={2048}
-            height={[536, 1512]}
-            previewScale={0.2}
-            upload={upload}
-          />
-          <ImageUploadField
-            title="Section row banner (2048x460)"
-            name="banners.sectionRowMobile"
-            bucket="banners"
-            width={2048}
-            height={460}
-            previewScale={0.2}
-            upload={upload}
-          />
-          <ImageUploadField
-            title="Section media banner (2048x682)"
-            name="banners.sectionMediaMobile"
-            bucket="banners"
-            width={2048}
-            height={682}
-            previewScale={0.2}
-            upload={upload}
-          />
         </div>
         <CardActions style={styles.footer}>
           <FlatButton label="Update" onClick={this.props.handleSubmit} />

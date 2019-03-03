@@ -85,7 +85,7 @@ type RegionMediaSummary {
 }
 
 type RegionCoverImage {
-  mobile: String
+  mobile(width: Int): String
 }
 
 input RegionCoverImageInput {

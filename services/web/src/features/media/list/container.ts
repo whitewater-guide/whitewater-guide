@@ -8,6 +8,7 @@ import { withRouter } from 'react-router';
 import { compose } from 'recompose';
 import { withDeleteMutation } from '../../../apollo';
 import { withLoading } from '../../../components';
+import { THUMB_HEIGHT } from './constants';
 import REMOVE_MEDIA from './removeMedia.mutation';
 import SECTIONS_MEDIA from './sectionsMedia.query';
 import {
@@ -23,14 +24,18 @@ export const withSectionMedia = ({
   compose<MediaListProps, {}>(
     withRouter,
     withFeatureIds('section'),
-    graphql<{}, WithMediaListResult, {}, WithMediaList>(SECTIONS_MEDIA, {
-      alias: 'withSectionMedia',
-      options: () => ({
-        fetchPolicy,
-        notifyOnNetworkStatusChange: true,
-      }),
-      props: (props) => queryResultToList(props, 'mediaBySection'),
-    }),
+    graphql<{ sectionId: string }, WithMediaListResult, {}, WithMediaList>(
+      SECTIONS_MEDIA,
+      {
+        alias: 'withSectionMedia',
+        options: ({ sectionId }) => ({
+          fetchPolicy,
+          notifyOnNetworkStatusChange: true,
+          variables: { sectionId, thumbHeight: THUMB_HEIGHT },
+        }),
+        props: (props) => queryResultToList(props, 'mediaBySection'),
+      },
+    ),
     withDeleteMutation({
       mutation: REMOVE_MEDIA,
       propName: 'removeMedia',

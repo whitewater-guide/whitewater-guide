@@ -107,15 +107,18 @@ They are generated using `dev:secrets zip` and distibuted manually when access t
 Only variables shared between containers are listed here.
 For container-specific env variables see packages READMEs
 
-| Variable name     | Value examples (defaults) | Consumers            | Description                                                                    |
-| ----------------- | ------------------------- | -------------------- | ------------------------------------------------------------------------------ |
-| POSTGRES_DB       | wwguide                   | backend, workers, db | Postgres database name                                                         |
-| POSTGRES_PASSWORD | **\*\*\*\***              | backend, workers, db | Postgres password                                                              |
-| MINIO_ACCESS_KEY  | <random_secret>           | backend, minio       | Minio access key                                                               |
-| MINIO_SECRET_KEY  | <random_secret>           | backend, minio       | Minio secret key                                                               |
-| WORKERS_HOST      | workers                   | backend, workers     | Host name in docker network, or localhost for testing                          |
-| WORKERS_PORT      | 7080                      | backend, workers     | port on which workers container is listening (see workers README for more)     |
-| WORKERS_ENDPOINT  | /endpoint                 | backend, workers     | endpoint on which workers container is listening (see workers README for more) |
+| Variable name     | Value examples (defaults) | Consumers                  | Description                                                                                           |
+| ----------------- | ------------------------- | -------------------------- | ----------------------------------------------------------------------------------------------------- |
+| POSTGRES_DB       | wwguide                   | backend, workers, db       | Postgres database name                                                                                |
+| POSTGRES_PASSWORD | **\*\*\*\***              | backend, workers, db       | Postgres password                                                                                     |
+| MINIO_ACCESS_KEY  | <random_secret>           | backend, minio             | Minio access key                                                                                      |
+| MINIO_SECRET_KEY  | <random_secret>           | backend, minio             | Minio secret key                                                                                      |
+| WORKERS_HOST      | workers                   | backend, workers           | Host name in docker network, or localhost for testing                                                 |
+| WORKERS_PORT      | 7080                      | backend, workers           | port on which workers container is listening (see workers README for more)                            |
+| WORKERS_ENDPOINT  | /endpoint                 | backend, workers           | endpoint on which workers container is listening (see workers README for more)                        |
+| IMGPROXY_KEY      | <hash>                    | backend, caddy, imagerpoxy | imgproxy [key](https://github.com/DarthSim/imgproxy/blob/master/docs/configuration.md#url-signature)  |
+| IMGPROXY_SALT     | <hash>                    | backend, caddy, imagerpoxy | imgproxy [salt](https://github.com/DarthSim/imgproxy/blob/master/docs/configuration.md#url-signature) |
+| IMGPROXY_PATH     | thumbs                    | backend, caddy, imagerpoxy | path on minio subdomain that will be proxied to imgproxy                                              |
 
 ## Build process
 

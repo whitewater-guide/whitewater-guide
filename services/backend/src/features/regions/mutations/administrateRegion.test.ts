@@ -2,6 +2,7 @@ import { holdTransaction, rollbackTransaction } from '@db';
 import { COVERS, fileExistsInBucket, resetTestMinio, TEMP } from '@minio';
 import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
 import { REGION_GALICIA } from '@seeds/04_regions';
+import { PHOTO_1 } from '@seeds/11_media';
 import { anonContext, fakeContext, runQuery } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
 
@@ -68,13 +69,14 @@ describe('result', () => {
   });
 
   it('should return result', async () => {
+    const { PROTOCOL, MINIO_DOMAIN } = process.env;
     expect(result.data!.administrateRegion).toMatchObject({
       id: REGION_GALICIA,
       hidden: true,
       premium: true,
       sku: 'region.sku',
       coverImage: {
-        mobile: 'galicia_mobile_cover2.jpg',
+        mobile: `${PROTOCOL}://${MINIO_DOMAIN}/covers/galicia_mobile_cover2.jpg`,
       },
     });
   });

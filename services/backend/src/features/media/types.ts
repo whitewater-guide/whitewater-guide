@@ -18,3 +18,8 @@ export interface MediaUploadForm {
   id: string;
   upload: UploadLink;
 }
+
+export interface ImageArgs {
+  width?: number;
+  height?: number;
+}

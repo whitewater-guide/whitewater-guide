@@ -13,8 +13,12 @@ type Media {
   description: String
   # Copyright
   copyright: String
-  # Full URL for videos and blogs, filename for images
+  # Full URL for videos and blogs,
+  # Filename for images (legacy, use image instead)
+  # TODO: as older versions of mobile clients die out, replace this with full url for images too
   url: String!
+  # Absolute image url (or thumb, when parameters are set)
+  image(width: Int, height: Int): String
   # Mandatory for images - [width, height] array. Makes no sense for blogs and videos (yet)
   resolution: [Int]
   # Image size in bytes. Null for blogs and videos

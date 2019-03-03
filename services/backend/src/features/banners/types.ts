@@ -11,3 +11,7 @@ export interface BannerRaw {
   extras: any;
   source: BannerSource;
 }
+
+export interface BannerSourceArgs {
+  width?: number;
+}

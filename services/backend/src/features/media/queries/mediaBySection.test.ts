@@ -14,6 +14,8 @@ const query = `
         description
         copyright
         url
+        image
+        thumb: image(width: 100, height: 100)
         resolution
         weight
         size

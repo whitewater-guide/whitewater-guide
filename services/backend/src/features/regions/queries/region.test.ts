@@ -14,6 +14,7 @@ import {
   REGION_NORWAY,
 } from '@seeds/04_regions';
 import { GEORGIA_BZHUZHA_LONG } from '@seeds/09_sections';
+import { PHOTO_1 } from '@seeds/11_media';
 import {
   ALL_SECTION_ROW_BANNER,
   ALL_SECTION_ROW_BANNER_DISABLED,
@@ -89,6 +90,20 @@ describe('permissions', () => {
 });
 
 describe('data', () => {
+  const coverQuery = `
+  query regionDetails($id: ID){
+    region(id: $id) {
+      id
+      __typename
+      coverImage {
+        __typename
+        mobile
+        thumb: mobile(width: 640)
+      }
+    }
+  }
+`;
+
   it('should return null when id not specified', async () => {
     const result = await runQuery(query, {}, fakeContext(ADMIN));
     expect(result.errors).toBeUndefined();
@@ -106,6 +121,37 @@ describe('data', () => {
     const region = result.data!.region;
     expect(region.hidden).not.toBeNull();
     expect(noTimestamps(region)).toMatchSnapshot();
+  });
+
+  it('should return full cover and thumb', async () => {
+    const { PROTOCOL, MINIO_DOMAIN } = process.env;
+    const result = await runQuery(
+      coverQuery,
+      { id: REGION_GALICIA },
+      fakeContext(ADMIN),
+    );
+    expect(result.errors).toBeUndefined();
+    expect(result.data!.region.coverImage.mobile).toEqual(
+      expect.stringContaining(`${PROTOCOL}://${MINIO_DOMAIN}/covers/`),
+    );
+    expect(result.data!.region.coverImage.thumb).toEqual(
+      expect.stringContaining(`${PROTOCOL}://${MINIO_DOMAIN}/thumbs/`),
+    );
+  });
+
+  it('should return filename for cover in legacy mode', async () => {
+    const result = await runQuery(
+      coverQuery,
+      { id: REGION_GALICIA },
+      { ...fakeContext(ADMIN), legacy: 1 },
+    );
+    expect(result.errors).toBeUndefined();
+    expect(result.data!.region.coverImage.mobile).toEqual(
+      'galicia_mobile_cover.jpg',
+    );
+    expect(result.data!.region.coverImage.thumb).toEqual(
+      'galicia_mobile_cover.jpg',
+    );
   });
 });
 
