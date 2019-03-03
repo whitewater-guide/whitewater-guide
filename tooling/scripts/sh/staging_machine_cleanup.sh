@@ -15,6 +15,8 @@ sudo sh -c "rm -rf /tmp/postgres/*"
 # Keep certs
 # sudo sh -c "rm -rf /etc/caddycerts/*"
 sudo sh -c "rm -rf /var/caddy/cache/*"
+# Imagecache
+sudo sh -c "rm -rf /var/imagecache/*"
 # Minio
 sudo sh -c "rm -rf /var/minio/data/temp/*"
 sudo sh -c "rm -rf /var/minio/data/avatars/*"

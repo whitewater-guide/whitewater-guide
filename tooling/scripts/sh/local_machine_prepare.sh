@@ -18,6 +18,11 @@ sudo chmod -R 777 /mnt/sda1/var/postgres
 sudo mkdir -p /etc/caddycerts
 sudo mkdir -p /mnt/sda1/var/caddy/cache
 sudo ln -s /mnt/sda1/var/caddy /var/caddy
+# Imagecache
+sudo mkdir -p /mnt/sda1/var/imagecache/cache
+sudo mkdir -p /mnt/sda1/var/imagecache/run
+sudo mkdir -p /mnt/sda1/var/imagecache/proxy_cache
+sudo ln -s /mnt/sda1/var/imagecache /var/imagecache
 # Minio
 sudo mkdir -p /tmp/minio
 sudo mkdir -p /mnt/sda1/var/minio/data/temp

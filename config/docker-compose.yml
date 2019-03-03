@@ -55,10 +55,23 @@ services:
       - ${DOCKER_ENV_FILE}
     environment:
       - IMGPROXY_USE_ETAG=true
+      - IMGPROXY_GZIP_COMPRESSION=0 # why compress images?
       - IMGPROXY_IGNORE_SSL_VERIFICATION=true
       - IMGPROXY_USE_S3=true
       - IMGPROXY_S3_ENDPOINT=http://minio:9000
+      - IMGPROXY_TTL=31536000 # 1 year
     read_only: true
+
+  # cache for imageproxy thumbs
+  imagecache:
+    <<: *ww-single-host
+    build:
+      context: ../services/imagecache
+      labels:
+        guide.whitewater: ''
+    read_only: true
+    depends_on:
+      - imageproxy
 
   # Workers to harvest some data
   workers:

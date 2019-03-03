@@ -140,11 +140,30 @@ services:
       - type: bind
         source: ../dev-mount/workers
         target: /tmp
+
+  # cache for imageproxy thumbs
+  imagecache:
+    volumes:
+      - type: volume
+        source: imagecache-cache
+        target: /var/cache
+      - type: tmpfs
+        target: /run
+      - type: bind
+        source: ../dev-mount/imagecache
+        target: /var/proxy_cache
+      - type: bind
+        source: ../services/imagecache/nginx.conf
+        target: /etc/nginx/nginx.conf
+
 volumes:
   yarn:
     labels:
       guide.whitewater: ''
   ww-db-pgdata:
+    labels:
+      guide.whitewater: ''
+  imagecache-cache:
     labels:
       guide.whitewater: ''
 #  Docker-sync is temporary off

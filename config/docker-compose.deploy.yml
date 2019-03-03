@@ -69,6 +69,19 @@ services:
         source: /var/imageproxy
         target: /tmp/imageproxy
 
+  # cache for imageproxy thumbs
+  imagecache:
+    image: '${DOCKER_REGISTRY_PREFIX}imagecache:${IMAGECACHE_VERSION}'
+    volumes:
+      - type: bind
+        source: /var/imagecache/cache
+        target: /var/cache
+      - type: tmpfs
+        target: /run
+      - type: bind
+        source: /var/imagecache/proxy_cache
+        target: /var/proxy_cache
+
   # Redis for sessions and last measurements
   redis:
     command: ['--appendonly', 'yes', '--aof-use-rdb-preamble', 'yes']

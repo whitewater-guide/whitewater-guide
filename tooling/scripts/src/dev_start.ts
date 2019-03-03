@@ -12,6 +12,7 @@ async function devStart() {
   ensureDirSync('./dev-mount/minio/config');
   ensureDirSync('./dev-mount/workers/cache');
   ensureDirSync('./dev-mount/workers/cookies');
+  ensureDirSync('./dev-mount/imagecache');
 
   // empty the pgdata volume
   spawnSync('docker volume rm config_ww-db-pgdata');
