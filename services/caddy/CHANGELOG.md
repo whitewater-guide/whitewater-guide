@@ -1,3 +1,9 @@
+## [0.0.103](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.102...@whitewater-guide/caddy@0.0.103) (2019-03-03)
+
+### Bug Fixes
+
+- **caddy:** fix default_max_age format ([46606ab](https://github.com/doomsower/whitewater/commit/46606ab))
+
 ## [0.0.102](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.101...@whitewater-guide/caddy@0.0.102) (2019-03-03)
 
 ### Features
