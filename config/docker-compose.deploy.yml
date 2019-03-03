@@ -52,23 +52,6 @@ services:
         source: /var/caddy/cache
         target: /var/caddy/cache
 
-  # imageproxy to generate thumbnails
-  imageproxy:
-    # Adds cache
-    command:
-      - -addr
-      - 0.0.0.0:8080
-      - -whitelist
-      - minio:9000
-      - -baseURL
-      - http://minio:9000/
-      - cache
-      - /tmp/imageproxy
-    volumes:
-      - type: bind
-        source: /var/imageproxy
-        target: /tmp/imageproxy
-
   # cache for imageproxy thumbs
   imagecache:
     image: '${DOCKER_REGISTRY_PREFIX}imagecache:${IMAGECACHE_VERSION}'
