@@ -1,3 +1,9 @@
+## [0.0.101](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.100...@whitewater-guide/caddy@0.0.101) (2019-03-03)
+
+### Bug Fixes
+
+- fix upstream/downstream legacy headers confusion ([13979d7](https://github.com/doomsower/whitewater/commit/13979d7))
+
 ## [0.0.100](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.99...@whitewater-guide/caddy@0.0.100) (2019-03-03)
 
 ### Features

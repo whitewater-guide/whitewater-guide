@@ -1,3 +1,9 @@
+## [0.0.318](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.317...@whitewater-guide/backend@0.0.318) (2019-03-03)
+
+### Bug Fixes
+
+- fix upstream/downstream legacy headers confusion ([13979d7](https://github.com/doomsower/whitewater/commit/13979d7))
+
 ## [0.0.317](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.316...@whitewater-guide/backend@0.0.317) (2019-03-03)
 
 ## [0.0.316](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.315...@whitewater-guide/backend@0.0.316) (2019-03-03)
