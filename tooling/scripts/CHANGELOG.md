@@ -1,3 +1,9 @@
+## [0.0.32](https://github.com/doomsower/whitewater/compare/@whitewater-guide/scripts@0.0.31...@whitewater-guide/scripts@0.0.32) (2019-03-03)
+
+### Features
+
+- caddy cache and cache headers for images ([4069439](https://github.com/doomsower/whitewater/commit/4069439))
+
 ## [0.0.31](https://github.com/doomsower/whitewater/compare/@whitewater-guide/scripts@0.0.30...@whitewater-guide/scripts@0.0.31) (2019-03-02)
 
 ### Bug Fixes
