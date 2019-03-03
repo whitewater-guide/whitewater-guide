@@ -1,3 +1,10 @@
+## [0.0.315](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.314...@whitewater-guide/backend@0.0.315) (2019-03-03)
+
+### Features
+
+- **backend:** mark legacy api redirects in context ([ae8bb48](https://github.com/doomsower/whitewater/commit/ae8bb48))
+- use signed urls for thumbs ([ec3d27f](https://github.com/doomsower/whitewater/commit/ec3d27f))
+
 ## [0.0.314](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.313...@whitewater-guide/backend@0.0.314) (2019-03-02)
 
 ## [0.0.313](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.312...@whitewater-guide/backend@0.0.313) (2019-03-02)

@@ -1,3 +1,9 @@
+## [0.1.315](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.314...@whitewater-guide/web@0.1.315) (2019-03-03)
+
+### Features
+
+- use signed urls for thumbs ([ec3d27f](https://github.com/doomsower/whitewater/commit/ec3d27f))
+
 ## [0.1.314](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.313...@whitewater-guide/web@0.1.314) (2019-03-02)
 
 ### Bug Fixes

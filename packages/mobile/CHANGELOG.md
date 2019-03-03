@@ -1,3 +1,5 @@
+## [1.7.12](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.11...@whitewater-guide/mobile@1.7.12) (2019-03-03)
+
 ## [1.7.11](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.10...@whitewater-guide/mobile@1.7.11) (2019-03-02)
 
 ## [1.7.10](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.9...@whitewater-guide/mobile@1.7.10) (2019-03-02)

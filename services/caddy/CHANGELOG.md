@@ -1,3 +1,9 @@
+## [0.0.99](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.98...@whitewater-guide/caddy@0.0.99) (2019-03-03)
+
+### Features
+
+- use signed urls for thumbs ([ec3d27f](https://github.com/doomsower/whitewater/commit/ec3d27f))
+
 ## [0.0.98](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.97...@whitewater-guide/caddy@0.0.98) (2019-03-02)
 
 ### Features
