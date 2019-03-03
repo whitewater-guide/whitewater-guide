@@ -1,3 +1,9 @@
+## [0.0.100](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.99...@whitewater-guide/caddy@0.0.100) (2019-03-03)
+
+### Features
+
+- **caddy:** set custom header on legacy api responses ([64b2209](https://github.com/doomsower/whitewater/commit/64b2209))
+
 ## [0.0.99](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.98...@whitewater-guide/caddy@0.0.99) (2019-03-03)
 
 ### Features
