@@ -16,7 +16,8 @@ sudo chmod -R 777 /tmp/postgres
 sudo chmod -R 777 /mnt/sda1/var/postgres
 # Caddy
 sudo mkdir -p /etc/caddycerts
-sudo mkdir -p /tmp/caddy
+sudo mkdir -p /mnt/sda1/var/caddy/cache
+sudo ln -s /mnt/sda1/var/caddy /var/caddy
 # Minio
 sudo mkdir -p /tmp/minio
 sudo mkdir -p /mnt/sda1/var/minio/data/temp

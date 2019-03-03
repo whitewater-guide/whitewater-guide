@@ -13,7 +13,7 @@ sudo sh -c "rm -rf /tmp/postgres/*"
 
 # Caddy
 sudo sh -c "rm -rf /etc/caddycerts/*"
-sudo sh -c "rm -rf /tmp/caddy/*"
+sudo sh -c "rm -rf /var/caddy/cache/*"
 # Minio
 sudo sh -c "rm -rf /var/minio/data/*"
 sudo sh -c "rm -rf /var/minio/config/*"

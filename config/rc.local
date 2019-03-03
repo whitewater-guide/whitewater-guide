@@ -13,8 +13,6 @@
 mkdir -p /tmp/postgres
 chmod -R 777 /tmp/postgres
 
-mkdir -p /tmp/caddy
-
 mkdir -p /tmp/minio
 
 mkdir -p /tmp/redis

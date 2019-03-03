@@ -49,8 +49,8 @@ services:
         source: /etc/caddycerts
         target: /etc/caddycerts
       - type: bind
-        source: /tmp/caddy
-        target: /tmp/caddy-cache
+        source: /var/caddy/cache
+        target: /var/caddy/cache
 
   # imageproxy to generate thumbnails
   imageproxy:
