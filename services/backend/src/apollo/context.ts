@@ -42,12 +42,12 @@ export const newContext = (
 
   // 1: requests redirected from uris before subdomains were introduced
   let legacy: number | undefined;
-  if (ctx.header['x-legacy-redirect']) {
-    legacy = parseInt(ctx.header['x-legacy-redirect'], 10);
+  if (ctx.headers['x-legacy-redirect']) {
+    legacy = parseInt(ctx.headers['x-legacy-redirect'], 10);
   }
   // tslint:disable-next-line
-  console.log('legacy', legacy);
-  console.dir(ctx.header);
+  console.log('legacy', legacy, ctx.headers['x-legacy-redirect']);
+  console.dir(ctx.headers);
 
   const fieldsByType = new Map<string, Set<string>>();
   // dataSources are not optional, but they're added later
