@@ -1,3 +1,9 @@
+## [0.0.104](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.103...@whitewater-guide/caddy@0.0.104) (2019-03-03)
+
+### Features
+
+- add nginx service to cache thumbs ([a3d9ccc](https://github.com/doomsower/whitewater/commit/a3d9ccc))
+
 ## [0.0.103](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.102...@whitewater-guide/caddy@0.0.103) (2019-03-03)
 
 ### Bug Fixes

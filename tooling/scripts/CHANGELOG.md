@@ -1,3 +1,9 @@
+## [0.0.33](https://github.com/doomsower/whitewater/compare/@whitewater-guide/scripts@0.0.32...@whitewater-guide/scripts@0.0.33) (2019-03-03)
+
+### Features
+
+- add nginx service to cache thumbs ([a3d9ccc](https://github.com/doomsower/whitewater/commit/a3d9ccc))
+
 ## [0.0.32](https://github.com/doomsower/whitewater/compare/@whitewater-guide/scripts@0.0.31...@whitewater-guide/scripts@0.0.32) (2019-03-03)
 
 ### Features
