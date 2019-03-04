@@ -48,7 +48,7 @@ export default compose<BannerFormProps, {}>(
   mapProps(({ data, ...props }: any) => ({
     regions: data.regions.nodes,
     groups: data.groups.nodes,
-    bannerFileUpload: data.bannerFileUpload,
+    uploadLink: data.uploadLink,
     ...props,
   })),
 );

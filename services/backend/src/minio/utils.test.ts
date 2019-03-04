@@ -35,6 +35,24 @@ describe('getTempPostPolicy', () => {
       postURL: 'http://localhost:6002/temp',
     });
   });
+
+  it('should set uploader in metadata', async () => {
+    const result = await getTempPostPolicy('myfile333.jpg', 'uuid');
+    expect(result).toEqual({
+      formData: {
+        'Content-Type': 'image/*',
+        bucket: 'temp',
+        key: 'myfile333.jpg',
+        policy: expect.any(String),
+        'x-amz-algorithm': 'AWS4-HMAC-SHA256',
+        'x-amz-credential': expect.any(String),
+        'x-amz-date': expect.stringMatching(/[0-9TZ]+/),
+        'x-amz-signature': expect.any(String),
+        'x-amz-meta-uploaded-by': 'uuid',
+      },
+      postURL: 'http://localhost:6002/temp',
+    });
+  });
 });
 
 describe('moveTempImage', () => {

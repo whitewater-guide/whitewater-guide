@@ -13,19 +13,15 @@ export const REGION_ADMIN_SETTINGS_QUERY = gql`
       }
     }
 
-    regionMediaForm(regionId: $regionId) {
-      upload {
-        postURL
-        formData
-        key
-      }
+    uploadLink {
+      postURL
+      formData
+      key
     }
   }
 `;
 
 export interface Result {
   settings: Region;
-  regionMediaForm: {
-    upload: UploadLink;
-  };
+  uploadLink: UploadLink;
 }

@@ -5,10 +5,7 @@ import { InjectedFormProps } from 'redux-form';
 
 export interface MediaFormQueryResult {
   media: Media;
-  mediaForm: {
-    id: string;
-    upload: UploadLink;
-  };
+  uploadLink: UploadLink;
 }
 export type MediaFormInput = MediaInput;
 export type MediaFormProps = InjectedFormProps<MediaFormInput> &

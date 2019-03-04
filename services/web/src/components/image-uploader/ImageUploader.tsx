@@ -176,11 +176,7 @@ export class ImageUploader extends React.PureComponent<
     this.props.onChange(file);
     if (!badSize && this.props.upload) {
       this.setState({ uploading: true });
-      const filename = await uploadFile(
-        file.file,
-        this.props.upload,
-        file.file.name,
-      );
+      const filename = await uploadFile(file.file, this.props.upload);
       this.props.onChange(filename);
       this.setState({ uploading: false, useTempBucket: true });
     }

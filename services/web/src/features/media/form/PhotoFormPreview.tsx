@@ -37,12 +37,8 @@ interface Props {
   loading: boolean;
 }
 
-const PhotoFormPreview: React.StatelessComponent<Props> = ({
-  url,
-  preview,
-  loading,
-}) => {
-  const src = `${S3_HOST}/images/${PREVIEW_SIZE},fit/media/${url}`;
+const PhotoFormPreview: React.FC<Props> = ({ url, preview, loading }) => {
+  const src = `${S3_HOST}/media/${url}`;
   return (
     <div style={styles.previewWrapper}>
       <img src={preview || src} style={styles.preview} />

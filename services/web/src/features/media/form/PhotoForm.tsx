@@ -38,7 +38,7 @@ export default class PhotoForm extends React.PureComponent<
       // Editing existing image
       return;
     }
-    const upload = data!.mediaForm!.upload;
+    const upload = data!.uploadLink;
     const file: FileWithPreview = state.file;
     if (!file) {
       throw new Error('Photo form must have file!');
@@ -46,7 +46,7 @@ export default class PhotoForm extends React.PureComponent<
     this.setState({ uploading: true });
     const { width, height } = await getImageSize(file);
     change('resolution', [width, height]);
-    const filename = await uploadFile(file.file, upload);
+    const filename = await uploadFile(file.file, upload!);
     this.setState({ uploading: false });
     change('url', filename);
   }

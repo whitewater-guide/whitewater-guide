@@ -1,0 +1,9 @@
+type UploadLink {
+  postURL: String!
+  formData: JSON!
+  key: String
+}
+
+type Query {
+  uploadLink: UploadLink
+}

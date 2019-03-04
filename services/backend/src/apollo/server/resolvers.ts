@@ -12,6 +12,7 @@ import { scriptsResolvers } from '@features/scripts';
 import { sectionsResolvers } from '@features/sections';
 import { sourcesResolvers } from '@features/sources';
 import { tagsResolvers } from '@features/tags';
+import { uploadsResolvers } from '@features/uploads';
 import { usersResolvers } from '@features/users';
 import { GraphQLDateTime } from 'graphql-iso-date';
 import GraphQLJSON from 'graphql-type-json';
@@ -33,6 +34,7 @@ export const resolvers = merge(
   usersResolvers,
   mediaResolvers,
   measurementsResolvers,
+  uploadsResolvers,
   {
     Date: GraphQLDateTime,
     JSON: GraphQLJSON,

@@ -11,5 +11,5 @@ export type BannerFormProps = InjectedFormProps<BannerFormInput> &
   RouteComponentProps<any> & {
     groups: Group[];
     regions: Region[];
-    bannerFileUpload: UploadLink;
+    uploadLink: UploadLink;
   };

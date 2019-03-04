@@ -86,6 +86,8 @@ services:
         MINIO_USER: minio
         MINIO_UID: 1000
         MINIO_GID: 1000
+    environment:
+      - MINIO_HTTP_TRACE=/var/log/minio.log
     env_file:
       - .env.development.local
     ports:
@@ -97,6 +99,9 @@ services:
       - type: bind
         source: ../dev-mount/minio/config
         target: /home/minio/.minio
+      - type: bind
+        source: ../dev-mount/minio/log/
+        target: /var/log
 
   # Caddy reverse proxy
   caddy:

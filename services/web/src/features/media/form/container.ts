@@ -9,6 +9,7 @@ import {
   formContainer,
   serializeForm,
 } from '../../../components/forms';
+import { THUMB_HEIGHT } from '../list/constants';
 import SECTIONS_MEDIA from '../list/sectionsMedia.query';
 import MEDIA_FORM_QUERY from './mediaForm.query';
 import { MediaFormInput, MediaFormProps, MediaFormQueryResult } from './types';
@@ -22,7 +23,7 @@ const mediaForm = formContainer({
   propName: 'media',
   backPath: 'media',
   defaultValue: (props: DefaultValueProps): MediaFormInput => ({
-    id: props.data!.mediaForm!.id,
+    id: null,
     description: null,
     copyright: null,
     url: '',
@@ -42,7 +43,10 @@ const mediaForm = formContainer({
     refetchQueries: [
       {
         query: SECTIONS_MEDIA,
-        variables: { sectionId: props.match.params.sectionId },
+        variables: {
+          sectionId: props.match.params.sectionId,
+          thumbHeight: THUMB_HEIGHT,
+        },
       },
     ],
   }),

@@ -18,12 +18,6 @@ input Page {
   offset: Int
 }
 
-type UploadLink {
-  postURL: String!
-  formData: JSON!
-  key: String
-}
-
 schema {
   query: Query
   mutation: Mutation

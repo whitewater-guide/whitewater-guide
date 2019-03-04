@@ -43,7 +43,7 @@ export default class RegionAdminSettingsForm extends React.PureComponent<
   };
 
   render() {
-    const upload = this.props.data!.regionMediaForm!.upload;
+    const upload = this.props.data!.uploadLink;
     return (
       <div style={styles.container}>
         <Prompt when={this.shouldBlockNavigation}>

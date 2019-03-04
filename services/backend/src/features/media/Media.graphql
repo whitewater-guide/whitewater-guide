@@ -47,15 +47,9 @@ type MediaList {
   count: Int!
 }
 
-type MediaUploadForm {
-  id: ID!
-  upload: UploadLink!
-}
-
 type Query {
   mediaBySection(sectionId: ID!, page: Page): MediaList!
   media(id: ID): Media
-  mediaForm(id: ID): MediaUploadForm
 }
 
 type Mutation {

@@ -1,20 +1,37 @@
 import { UploadLink } from '@whitewater-guide/commons';
 
-export const uploadFile = (
-  file: File,
-  link: UploadLink,
-  filename?: string,
-): Promise<string> =>
+const getDotExt = (file: File) => {
+  const parts = file.name.split('.');
+  if (parts.length < 2) {
+    return '';
+  }
+  const ext = parts.pop();
+  if (ext) {
+    return `.${ext}`;
+  } else {
+    switch (file.type) {
+      case 'image/jpeg':
+        return '.jpg';
+      case 'image/png':
+        return '.png';
+      default:
+        return '';
+    }
+  }
+};
+
+export const uploadFile = (file: File, link: UploadLink): Promise<string> =>
   new Promise((resolve, reject) => {
     const formData = new FormData();
+    const filename = file.name;
     if (!link.key && !filename) {
       reject(new Error('If upload key is not provided, filename must be set'));
     }
-    const rawFormData = { ...link.formData, key: (link.key || filename)! };
+    const ext = getDotExt(file);
+    const key = link.key ? `${link.key}${ext}` : filename;
+    const rawFormData = { ...link.formData, key };
     // console.log(JSON.stringify(rawFormData, null, 2));
-    Object.entries(rawFormData).forEach(([key, value]) =>
-      formData.append(key, value),
-    );
+    Object.entries(rawFormData).forEach(([k, v]) => formData.append(k, v));
     formData.append('file', file);
 
     const xhr = new XMLHttpRequest();

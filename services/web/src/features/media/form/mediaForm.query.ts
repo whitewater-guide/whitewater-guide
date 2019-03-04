@@ -12,13 +12,10 @@ const MEDIA_FORM_QUERY = gql`
       resolution
     }
 
-    mediaForm(id: $mediaId) {
-      id
-      upload {
-        formData
-        key
-        postURL
-      }
+    uploadLink {
+      formData
+      key
+      postURL
     }
   }
 `;

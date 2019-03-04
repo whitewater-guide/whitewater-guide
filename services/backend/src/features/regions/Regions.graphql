@@ -115,10 +115,6 @@ type RegionsList {
   count: Int!
 }
 
-type RegionMediaForm {
-  upload: UploadLink!
-}
-
 input RegionsFilter {
   search: String
 }
@@ -127,7 +123,6 @@ type Query {
   regions(filter: RegionsFilter, page: Page): RegionsList!
   region(id: ID): Region
   regionEditors(regionId: ID!): [User!] @admin
-  regionMediaForm(regionId: ID): RegionMediaForm @admin
 }
 
 type Mutation {

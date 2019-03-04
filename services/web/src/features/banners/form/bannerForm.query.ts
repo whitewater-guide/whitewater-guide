@@ -48,7 +48,7 @@ export default gql`
       count
     }
 
-    bannerFileUpload {
+    uploadLink {
       postURL
       formData
       key

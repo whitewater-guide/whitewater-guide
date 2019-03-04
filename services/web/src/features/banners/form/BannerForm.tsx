@@ -59,7 +59,7 @@ export default class BannerForm extends React.PureComponent<BannerFormProps> {
             height={[450, 683]}
             width={2048}
             previewScale={0.25}
-            upload={this.props.bannerFileUpload}
+            upload={this.props.uploadLink}
           />
           <Checkbox name="enabled" label="Enabled" />
           <TextInput fullWidth={true} name="link" title="Link" />

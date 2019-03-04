@@ -5,7 +5,7 @@ import { minioClient } from './client';
 
 const logger = log.child({ module: 'minio' });
 
-export const getTempPostPolicy = async (key?: string) => {
+export const getTempPostPolicy = async (key?: string, uploadedBy?: string) => {
   const policy = minioClient.newPostPolicy();
   const expires = new Date();
   // Policy expires in 24 hours
@@ -16,17 +16,19 @@ export const getTempPostPolicy = async (key?: string) => {
   if (key) {
     policy.setKeyStartsWith(key);
   }
-  // Only allow content size in range 10KB to 10MB.
-  policy.setContentLengthRange(10 * 1024, 10 * 1024 * 1024);
-  const { postURL: url, formData } = await minioClient.presignedPostPolicy(
-    policy,
-  );
-  const postURL = url
+  // Only allow content size in range 10KB to 10MB in production
+  const minSize = process.env.NODE_ENV === 'production' ? 10 * 1024 : 1;
+  policy.setContentLengthRange(minSize, 10 * 1024 * 1024);
+  let { postURL, formData } = await minioClient.presignedPostPolicy(policy);
+  postURL = postURL
     .replace(/https?:\/\//, '')
     .replace(
       `${process.env.MINIO_HOST!}:${process.env.MINIO_PORT!}`,
       `${process.env.PROTOCOL!}://${process.env.MINIO_DOMAIN}`,
     );
+  if (uploadedBy) {
+    formData = { ...formData, 'x-amz-meta-uploaded-by': uploadedBy };
+  }
   return { postURL, formData };
 };
 
