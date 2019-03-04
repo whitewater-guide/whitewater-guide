@@ -1,3 +1,5 @@
+## [0.0.34](https://github.com/doomsower/whitewater/compare/@whitewater-guide/scripts@0.0.33...@whitewater-guide/scripts@0.0.34) (2019-03-04)
+
 ## [0.0.33](https://github.com/doomsower/whitewater/compare/@whitewater-guide/scripts@0.0.32...@whitewater-guide/scripts@0.0.33) (2019-03-03)
 
 ### Features
