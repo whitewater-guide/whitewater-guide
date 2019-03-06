@@ -1,3 +1,9 @@
+## [0.0.320](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.319...@whitewater-guide/backend@0.0.320) (2019-03-06)
+
+### Features
+
+- **backend:** mark current auth as "legacy" ([20716e8](https://github.com/doomsower/whitewater/commit/20716e8))
+
 ## [0.0.319](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.318...@whitewater-guide/backend@0.0.319) (2019-03-04)
 
 ## [0.0.318](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.317...@whitewater-guide/backend@0.0.318) (2019-03-03)
