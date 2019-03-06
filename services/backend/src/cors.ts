@@ -13,14 +13,7 @@ export const getCorsMiddleware = (whitelist: string[], appURL: string) => {
     credentials: true,
     maxAge: 60 * 60 * 24, // this is for OPTIONS requests
     origin: (ctx) => {
-      const originIndex = ctx.req.rawHeaders.indexOf('Origin');
-      if (originIndex === -1) {
-        return true;
-      }
-      const origin = ctx.req.rawHeaders[originIndex + 1];
-      if (!origin) {
-        return true;
-      }
+      const origin = ctx.get('Origin');
       const originDomain =
         parse(origin, { validHosts: ['localhost'] }).domain || '';
       if (appDomain === originDomain) {
@@ -32,7 +25,7 @@ export const getCorsMiddleware = (whitelist: string[], appURL: string) => {
         log.error({ origin }, 'Invalid CORS origin');
         ctx.throw(new Error(`${origin} is not a valid origin`));
       }
-      return false;
+      return '';
     },
   });
 };
