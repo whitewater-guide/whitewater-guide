@@ -1,5 +1,6 @@
 import { holdTransaction, rollbackTransaction } from '@db';
 import { asyncRedis, client } from '@redis';
+import { ADMIN } from '@seeds/01_users';
 import { countRows, UUID_REGEX } from '@test';
 import { CookieAccessInfo } from 'cookiejar';
 import Koa from 'koa';
@@ -112,6 +113,27 @@ describe('new user', async () => {
       expect.stringMatching(UUID_REGEX),
     );
   });
+
+  it('should populate koa context with user', async () => {
+    const spyMiddleware = jest.fn();
+    app.use(spyMiddleware);
+    await testAgent.get('/');
+    expect(spyMiddleware.mock.calls[0][0].state).toMatchObject({
+      user: {
+        id: expect.stringMatching(UUID_REGEX),
+        name: 'New Profile Given Name New Profile Family Name',
+        avatar:
+          'https://platform-lookaside.fbsbx.com/platform/profilepic/mock_new_profile',
+        email: 'new.profile@mail.com',
+        admin: false,
+        language: 'en',
+        editor_settings: { language: 'en' },
+        imperial: false,
+        created_at: expect.any(Date),
+        updated_at: expect.any(Date),
+      },
+    });
+  });
 });
 
 describe('existing user', async () => {
@@ -159,6 +181,15 @@ describe('existing user', async () => {
   it('should set cookie', async () => {
     const cookie = testAgent.jar.getCookie('wwguide', CookieAccessInfo.All);
     expect(cookie.value).toBeTruthy();
+  });
+
+  it('should populate koa context with user', async () => {
+    const spyMiddleware = jest.fn();
+    app.use(spyMiddleware);
+    await testAgent.get('/');
+    expect(spyMiddleware.mock.calls[0][0].state).toMatchObject({
+      user: ADMIN,
+    });
   });
 });
 

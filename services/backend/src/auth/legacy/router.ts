@@ -36,21 +36,23 @@ router.get(
   }),
 );
 
-router.get('/auth/logout', (ctx) => {
+router.get('/auth/logout', async (ctx, next) => {
   if (ctx.session) {
     ctx.logout();
     ctx.cookies.set('wwguide');
     ctx.redirect(getLogoutRedirect(ctx));
     ctx.session = null as any;
   }
+  await next();
 });
 
 if (process.env.NODE_ENV !== 'production') {
-  router.get('/auth/facebook/check', async (ctx) => {
+  router.get('/auth/facebook/check', async (ctx, next) => {
     ctx.body = 'It works!';
+    await next();
   });
 
-  router.get('/', (ctx) => {
+  router.get('/', async (ctx, next) => {
     // tslint:disable-next-line:prefer-conditional-expression
     if (ctx.user) {
       // tslint:disable-next-line:max-line-length
@@ -60,6 +62,7 @@ if (process.env.NODE_ENV !== 'production') {
     } else {
       ctx.body = `<p>Welcome, guest! (<a href="/auth/facebook">log in</a>)</p>`;
     }
+    await next();
   });
 }
 
