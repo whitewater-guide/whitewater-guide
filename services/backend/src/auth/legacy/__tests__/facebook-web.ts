@@ -181,7 +181,7 @@ describe('new user', async () => {
     app.use(spyMiddleware);
     await testAgent.get('/');
     expect(spyMiddleware.mock.calls[0][0].state).toMatchObject({
-      user: {
+      legacyUser: {
         id: expect.stringMatching(UUID_REGEX),
         name: newProfile.name!.givenName + ' ' + newProfile.name!.familyName,
         avatar: newProfile.photos![0].value,
@@ -251,7 +251,7 @@ describe('existing user', async () => {
     app.use(spyMiddleware);
     await testAgent.get('/');
     expect(spyMiddleware.mock.calls[0][0].state).toMatchObject({
-      user: ADMIN,
+      legacyUser: ADMIN,
     });
   });
 });

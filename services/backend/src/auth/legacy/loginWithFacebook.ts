@@ -35,7 +35,7 @@ const loginWithFacebook = async (
 
   // Logged in. But might be logged in via different service (not facebook)
   // For example user is logged in via mail and want to attach facebook account
-  const reqUser = req.user;
+  const reqUser = req.legacyUser;
   if (reqUser) {
     user = await db()
       .table('users')

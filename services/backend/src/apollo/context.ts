@@ -29,7 +29,8 @@ export const newContext = (
   { ctx }: Ctx,
   fixedLanguage?: string,
 ): Omit<Context, 'dataSources'> => {
-  const user: ContextUser | undefined = ctx.state && ctx.state.user;
+  const user: ContextUser | undefined =
+    ctx.state && (ctx.state.user || ctx.state.legacyUser);
   const language =
     fixedLanguage ||
     ctx.headers['x-editor-language'] ||

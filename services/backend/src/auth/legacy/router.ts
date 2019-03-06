@@ -23,7 +23,8 @@ router.get(
     }
   },
   async (ctx, next) => {
-    ctx.status = ctx.state && ctx.state.user ? 200 : 401;
+    ctx.status =
+      ctx.state && (ctx.state.user || ctx.state.legacyUser) ? 200 : 401;
     await next();
   },
 );
