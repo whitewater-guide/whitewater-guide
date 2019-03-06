@@ -1,6 +1,5 @@
 import { RawTimestamped } from '@db';
 import { EditorSettings } from '@whitewater-guide/commons';
-import passport from 'passport';
 
 export interface UserRaw extends RawTimestamped {
   id: string;
@@ -19,5 +18,5 @@ export interface LoginRaw extends RawTimestamped {
   provider: string;
   username: string;
   tokens: { [key: string]: string };
-  profile: passport.Profile;
+  profile: any;
 }

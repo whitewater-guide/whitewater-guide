@@ -24,8 +24,8 @@ const usePassport = () => {
       });
   });
 
-  passport.use(FacebookWebStrategy);
-  passport.use(FacebookMobileStrategy);
+  passport.use('facebook', FacebookWebStrategy);
+  passport.use('facebook-token', FacebookMobileStrategy);
 };
 
 export default usePassport;

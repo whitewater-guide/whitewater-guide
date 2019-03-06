@@ -52,7 +52,6 @@ const resolver: TopLevelResolver<Vars> = async (root, vars, context) => {
       'SELECT upsert_section_media(?, ?, ?)',
       [sectionId, media, language],
     )) as MediaRaw;
-    console.dir(result);
     // TODO: when creating video thumbs, image_file table column should be created
     // it'll be used for video thumbs and for original photo files
     await moveTempImage(result.url, MEDIA);

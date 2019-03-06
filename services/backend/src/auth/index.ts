@@ -1,1 +1,1 @@
-export * from './useAuthMiddleware';
+export * from './legacy';

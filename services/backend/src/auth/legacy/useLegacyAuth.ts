@@ -4,7 +4,7 @@ import usePassport from './passport';
 import router from './router';
 import { useSessions } from './sessions';
 
-export const useAuthMiddleware = (app: Koa) => {
+export const useLegacyAuth = (app: Koa) => {
   useSessions(app);
 
   app.use(passport.initialize());

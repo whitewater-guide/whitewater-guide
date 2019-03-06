@@ -60,7 +60,7 @@ const loginWithFacebook = async (
 
   // Never logged in, register user
   if (!user) {
-    user = (await db()
+    const users = await db()
       .table('users')
       .insert({
         name: profile.displayName,
@@ -69,7 +69,8 @@ const loginWithFacebook = async (
         language,
         editor_settings: { language: 'en' },
       })
-      .returning('*'))[0];
+      .returning('*');
+    user = users[0];
   }
 
   const loginKeys = { user_id: user!.id, provider, id: profile.id };

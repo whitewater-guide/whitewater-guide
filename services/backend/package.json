@@ -54,6 +54,7 @@
     "apollo": "^2.5.3",
     "apollo-server-testing": "^2.4.8",
     "chalk": "^2.4.2",
+    "cookiejar": "^2.1.2",
     "dotenv": "^6.2.0",
     "graphql-extensions": "^0.5.7",
     "gulp": "4.0.0",
@@ -64,10 +65,12 @@
     "jest-summary-reporter": "^0.0.2",
     "leakage": "^0.4.0",
     "madge": "^3.2.0",
+    "passport-mocked": "^1.3.0",
     "redis-mock": "^0.43.0",
     "rimraf": "^2.6.2",
-    "superagent": "^4.0.0-beta.5",
+    "superagent": "^4.1.0",
     "supertest": "^3.4.2",
+    "supertest-koa-agent": "^0.3.2",
     "ts-jest": "^24.0.0",
     "type-zoo": "^3.1.1",
     "typescript": "3.3.3333",
@@ -127,6 +130,9 @@
     "valid-url": "^1.0.9",
     "validator": "^10.8.0",
     "xmldom": "^0.1.27"
+  },
+  "resolutions": {
+    "supertest/superagent": "^4.1.0"
   },
   "_moduleAliases": {
     "@apollo": "dist/apollo",

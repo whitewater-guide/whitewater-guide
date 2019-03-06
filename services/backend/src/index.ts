@@ -7,6 +7,7 @@ import { startupJobs } from '@features/jobs';
 import { initIAP } from '@features/purchases';
 import log from '@log';
 import { initMinio } from '@minio';
+import { createApolloServer } from './apollo/server';
 import { createApp } from './app';
 import startServer from './server';
 
@@ -15,7 +16,8 @@ async function startup() {
   const dbVersion = await db(true).migrate.currentVersion();
   log.info(`Current DB version: ${dbVersion}`);
   await initMinio();
-  const app = await createApp();
+  const app = createApp();
+  await createApolloServer(app);
   startServer(app);
   await startupJobs();
   await initIAP();

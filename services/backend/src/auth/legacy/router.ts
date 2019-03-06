@@ -1,3 +1,4 @@
+import log from '@log';
 import Router from 'koa-router';
 import passport from 'passport';
 import getLogoutRedirect from './getLogoutRedirect';
@@ -13,7 +14,14 @@ router.get(
 
 router.get(
   '/auth/facebook/token',
-  passport.authenticate('facebook-token'),
+  async (ctx, next) => {
+    try {
+      await passport.authenticate('facebook-token')(ctx, next);
+    } catch (err) {
+      log.error(err);
+      await next();
+    }
+  },
   async (ctx, next) => {
     ctx.status = ctx.state && ctx.state.user ? 200 : 401;
     await next();

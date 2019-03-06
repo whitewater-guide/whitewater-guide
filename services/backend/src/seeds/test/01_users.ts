@@ -1,5 +1,6 @@
-import { UserRaw } from '@features/users';
+import { LoginRaw, UserRaw } from '@features/users';
 import Knex from 'knex';
+import { Profile } from 'passport-facebook';
 
 export const ADMIN_ID = 'bed59990-749d-11e7-8cf7-a6006ad3dba0';
 export const EDITOR_GA_EC_ID = '477a0bec-8a78-11e7-b3e6-9beeff45d731';
@@ -10,6 +11,43 @@ export const TEST_USER_ID = 'fa3ce7ba-36ab-11e8-b467-0ed5f89f718b';
 export const TEST_USER2_ID = '65fa3f3a-62a7-11e8-adc0-fa7ae01bbebc';
 export const BOOM_USER_3500_ID = 'cd3c7db8-5cc4-11e8-9c2d-fa7ae01bbebc';
 export const BOOM_USER_1500_ID = 'e8224a5e-5d00-11e8-9c2d-fa7ae01bbebc';
+
+export const ADMIN_FB_PROFILE: Partial<Profile> = {
+  id: '__fb_admin_id__',
+  name: {
+    familyName: 'Ivanov',
+    givenName: 'Ivan',
+  },
+  emails: [
+    {
+      value: 'kaospostage@gmail.com',
+    },
+  ],
+  photos: [
+    {
+      value:
+        'https://scontent.xx.fbcdn.net/v/t1.0-1/c34.34.422.422/s50x50/557311_106591882827406_2013499307_n.jpg?oh=777cb7f306789d5452fb47bc87ba95c7&oe=59FD2267',
+    },
+  ],
+  provider: 'facebook',
+  _raw:
+    '{"last_name": "Ivanov", "first_name": "Ivan", "email": "kaospostage\u0040gmail.com", "picture": {"data": {"height": 50, "is_silhouette": false, "url": "https:\\/\\/scontent.xx.fbcdn.net\\/v\\/t1.0-1\\/c34.34.422.422\\/s50x50\\/557311_106591882827406_2013499307_n.jpg?oh=777cb7f306789d5452fb47bc87ba95c7&oe=59FD2267", "width": 50}}, "id": "__fb_admin_id__"}',
+  _json: {
+    last_name: 'Ivanov',
+    first_name: 'Ivan',
+    email: 'kaospostage@gmail.com',
+    picture: {
+      data: {
+        height: 50,
+        is_silhouette: false,
+        url:
+          'https://scontent.xx.fbcdn.net/v/t1.0-1/c34.34.422.422/s50x50/557311_106591882827406_2013499307_n.jpg?oh=777cb7f306789d5452fb47bc87ba95c7&oe=59FD2267',
+        width: 50,
+      },
+    },
+    id: '__fb_admin_id__',
+  },
+};
 
 export const ADMIN: UserRaw = {
   id: ADMIN_ID,
@@ -22,6 +60,17 @@ export const ADMIN: UserRaw = {
   language: 'en',
   editor_settings: null,
   imperial: false,
+  created_at: new Date(Date.UTC(2017, 1, 1)),
+  updated_at: new Date(Date.UTC(2017, 1, 1)),
+};
+
+export const ADMIN_FB_LOGIN: LoginRaw = {
+  user_id: ADMIN_ID,
+  id: '__fb_admin_id__',
+  provider: 'facebook',
+  username: 'Ivan Ivanov',
+  tokens: { accessToken: '__admin_fb_access_token__' },
+  profile: ADMIN_FB_PROFILE,
   created_at: new Date(Date.UTC(2017, 1, 1)),
   updated_at: new Date(Date.UTC(2017, 1, 1)),
 };
@@ -146,7 +195,9 @@ const users = [
 
 export async function seed(db: Knex) {
   await db.table('users').del();
+  await db.table('logins').del();
   await db.raw('ALTER TABLE users DISABLE TRIGGER ALL');
   await db.table('users').insert(users);
+  await db.table('logins').insert(ADMIN_FB_LOGIN);
   await db.raw('ALTER TABLE users ENABLE TRIGGER ALL');
 }
