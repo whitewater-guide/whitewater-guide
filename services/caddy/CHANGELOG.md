@@ -1,3 +1,9 @@
+## [0.0.107](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.106...@whitewater-guide/caddy@0.0.107) (2019-03-21)
+
+### Features
+
+- **caddy:** add ratelimit ([f89b9e1](https://github.com/doomsower/whitewater/commit/f89b9e1))
+
 ## [0.0.106](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.105...@whitewater-guide/caddy@0.0.106) (2019-03-21)
 
 ### Features
