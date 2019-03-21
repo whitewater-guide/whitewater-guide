@@ -36,7 +36,7 @@ const Struct = baseStruct.object({
 const resolver: TopLevelResolver<Vars> = async (root, vars, context) => {
   const { sectionId } = vars;
   const { language, user, dataSources } = context;
-  await dataSources.media.assertEditorPermissions(undefined, sectionId);
+  await dataSources.users.assertEditorPermissions({ sectionId });
   let size = 0;
   try {
     const stat = await minioClient.statObject(TEMP, vars.media.url);

@@ -1,0 +1,11 @@
+<mj-section>
+  <mj-column>
+    <mj-image
+      width="250px"
+      align="left"
+      alt="whitewater.guide"
+      src="https://s3.beta.whitewater.guide/mail/whitewater.guide_logo_5.png"
+      href="https://whitewater.guide"
+    />
+  </mj-column>
+</mj-section>

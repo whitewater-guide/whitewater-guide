@@ -1,0 +1,14 @@
+<mj-head>
+  <mj-attributes>
+    <mj-text align="left" color="#555" line-height="20px" />
+    <mj-button
+      align="left"
+      background-color="#007ab0"
+      color="#FFF"
+      text-transform="uppercase"
+    />
+  </mj-attributes>
+  <mj-style inline="inline">
+    .link-nostyle { color: inherit; text-decoration: none }
+  </mj-style>
+</mj-head>

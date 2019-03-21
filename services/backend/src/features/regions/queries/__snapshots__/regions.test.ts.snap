@@ -21,7 +21,7 @@ Array [
       ],
     ],
     "coverImage": Object {
-      "mobile": "http://localhost:6002/covers/ecuador_mobile_cover.jpg",
+      "mobile": "http://localhost:9001/covers/ecuador_mobile_cover.jpg",
     },
     "description": null,
     "editable": true,
@@ -70,7 +70,7 @@ Array [
       ],
     ],
     "coverImage": Object {
-      "mobile": "http://localhost:6002/covers/galicia_mobile_cover.jpg",
+      "mobile": "http://localhost:9001/covers/galicia_mobile_cover.jpg",
     },
     "description": "Description of Galicia",
     "editable": true,

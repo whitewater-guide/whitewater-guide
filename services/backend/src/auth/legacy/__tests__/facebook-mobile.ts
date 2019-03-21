@@ -1,9 +1,11 @@
-import { holdTransaction, rollbackTransaction } from '@db';
+import db, { holdTransaction, rollbackTransaction } from '@db';
 import { asyncRedis, client } from '@redis';
-import { ADMIN } from '@seeds/01_users';
+import { ADMIN, ADMIN_FB_PROFILE, NEW_FB_PROFILE } from '@seeds/01_users';
 import { countRows, UUID_REGEX } from '@test';
 import { CookieAccessInfo } from 'cookiejar';
 import Koa from 'koa';
+import get from 'lodash/get';
+import FacebookTokenStrategy from 'passport-facebook-token';
 import superagent from 'superagent';
 import { SuperTest, Test } from 'supertest';
 import agent from 'supertest-koa-agent';
@@ -16,10 +18,10 @@ const LOGOUT_ROUTE = '/auth/logout';
 let app: Koa;
 
 let usersBefore: number;
-let loginsBefore: number;
+let accountsBefore: number;
 
 beforeAll(async () => {
-  [usersBefore, loginsBefore] = await countRows(true, 'users', 'logins');
+  [usersBefore, accountsBefore] = await countRows(true, 'users', 'accounts');
 });
 
 beforeEach(async () => {
@@ -35,37 +37,41 @@ afterEach(async () => {
 });
 
 it('should fail when access token is not provided ', async () => {
-  const req = agent(app).get(ROUTE);
-  await expect(req).rejects.toMatchObject({
+  const resp = await agent(app).get(ROUTE);
+  expect(resp).toMatchObject({
     status: 401,
   });
 });
 
 it('should fail for bad token', async () => {
-  const req = agent(app).get(`${ROUTE}?access_token=__bad_access_token__`);
-  // await expect(req).rejects.toMatchObject({
-  //   status: 401,
-  // });
-  try {
-    const resp = await req;
-  } catch (err) {
-    expect(err.status).toBe(401);
-  }
+  FacebookTokenStrategy.prototype.userProfile = jest
+    .fn()
+    .mockImplementationOnce((accessToken: string, done: any) => {
+      done(new Error('Failed to fetch user profile'));
+    });
+
+  const resp = await agent(app).get(
+    `${ROUTE}?access_token=__bad_access_token__`,
+  );
+  expect(resp.status).toBe(401);
 });
 
-describe('new user', async () => {
+describe('new user', () => {
   let response: superagent.Response | null = null;
   let testAgent: SuperTest<Test>;
 
   beforeEach(async () => {
+    FacebookTokenStrategy.prototype.userProfile = jest
+      .fn()
+      .mockImplementationOnce((accessToken: string, done: any) => {
+        done(null, NEW_FB_PROFILE);
+      });
+
     response = null;
     testAgent = agent(app);
-    const req = testAgent.get(`${ROUTE}?access_token=__new_access_token__`);
-    try {
-      response = await req;
-    } catch (err) {
-      response = err.response;
-    }
+    response = await testAgent.get(
+      `${ROUTE}?access_token=__new_access_token__`,
+    );
   });
 
   it('should respond with 200', async () => {
@@ -76,9 +82,25 @@ describe('new user', async () => {
   });
 
   it('should create new user and login', async () => {
-    const [usersAfter, loginsAfter] = await countRows(false, 'users', 'logins');
+    const [usersAfter, accountsAfter] = await countRows(
+      false,
+      'users',
+      'accounts',
+    );
     expect(usersAfter - usersBefore).toBe(1);
-    expect(loginsAfter - loginsBefore).toBe(1);
+    expect(accountsAfter - accountsBefore).toBe(1);
+  });
+
+  it('should create verified user', async () => {
+    const user = await db(false)
+      .select('*')
+      .from('users')
+      .orderBy('created_at', 'desc')
+      .first();
+    expect(user).toMatchObject({
+      email: get(NEW_FB_PROFILE, 'emails.0.value', null),
+      verified: true,
+    });
   });
 
   it('should create session for user', async () => {
@@ -99,6 +121,11 @@ describe('new user', async () => {
   });
 
   it('should reuse existing session', async () => {
+    FacebookTokenStrategy.prototype.userProfile = jest
+      .fn()
+      .mockImplementationOnce((accessToken: string, done: any) => {
+        done(null, NEW_FB_PROFILE);
+      });
     // Fire second request
     const resp = await testAgent.get(
       `${ROUTE}?access_token=__new_access_token__`,
@@ -121,10 +148,11 @@ describe('new user', async () => {
     expect(spyMiddleware.mock.calls[0][0].state).toMatchObject({
       legacyUser: {
         id: expect.stringMatching(UUID_REGEX),
-        name: 'New Profile Given Name New Profile Family Name',
-        avatar:
-          'https://platform-lookaside.fbsbx.com/platform/profilepic/mock_new_profile',
-        email: 'new.profile@mail.com',
+        name: `${NEW_FB_PROFILE.name!.givenName} ${
+          NEW_FB_PROFILE.name!.familyName
+        }`,
+        avatar: NEW_FB_PROFILE.photos![0].value,
+        email: NEW_FB_PROFILE.emails![0].value,
         admin: false,
         language: 'en',
         editor_settings: { language: 'en' },
@@ -136,21 +164,22 @@ describe('new user', async () => {
   });
 });
 
-describe('existing user', async () => {
+describe('existing user', () => {
   let response: superagent.Response | null = null;
   let testAgent: SuperTest<Test>;
 
   beforeEach(async () => {
+    FacebookTokenStrategy.prototype.userProfile = jest
+      .fn()
+      .mockImplementationOnce((accessToken: string, done: any) => {
+        done(null, ADMIN_FB_PROFILE);
+      });
+
     response = null;
     testAgent = agent(app);
-    const req = testAgent.get(
+    response = await testAgent.get(
       `${ROUTE}?access_token=__existing_access_token__`,
     );
-    try {
-      response = await req;
-    } catch (err) {
-      response = err.response;
-    }
   });
 
   it('should respond with 200', async () => {
@@ -161,9 +190,13 @@ describe('existing user', async () => {
   });
 
   it('should not create new user and login', async () => {
-    const [usersAfter, loginsAfter] = await countRows(false, 'users', 'logins');
+    const [usersAfter, accountsAfter] = await countRows(
+      false,
+      'users',
+      'accounts',
+    );
     expect(usersAfter - usersBefore).toBe(0);
-    expect(loginsAfter - loginsBefore).toBe(0);
+    expect(accountsAfter - accountsBefore).toBe(0);
   });
 
   it('should create session for user', async () => {
@@ -188,7 +221,10 @@ describe('existing user', async () => {
     app.use(spyMiddleware);
     await testAgent.get('/');
     expect(spyMiddleware.mock.calls[0][0].state).toMatchObject({
-      legacyUser: ADMIN,
+      legacyUser: {
+        ...ADMIN,
+        tokens: [],
+      },
     });
   });
 });

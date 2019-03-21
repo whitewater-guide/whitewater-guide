@@ -1,4 +1,5 @@
 import Avatar from 'material-ui/Avatar';
+import CircularProgress from 'material-ui/CircularProgress';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import Menu from 'material-ui/Menu';
@@ -6,7 +7,9 @@ import MenuItem from 'material-ui/MenuItem';
 import Popover from 'material-ui/Popover';
 import { ToolbarGroup } from 'material-ui/Toolbar';
 import React from 'react';
-import { API_HOST } from '../../../environment';
+import { ReactFacebookLoginInfo } from 'react-facebook-login';
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
+import { API_HOST, FACEBOOK_APP_ID } from '../../../environment';
 import { InnerProps } from './container';
 
 const styles = {
@@ -16,6 +19,7 @@ const styles = {
 };
 
 interface State {
+  loggingIn: boolean;
   menuOpen: boolean;
   anchorEl?: IconButton;
 }
@@ -23,6 +27,7 @@ interface State {
 export default class UserMenu extends React.PureComponent<InnerProps, State> {
   state: State = {
     menuOpen: false,
+    loggingIn: false,
   };
 
   onAvatarPress = (event: React.SyntheticEvent<any>) => {
@@ -39,8 +44,23 @@ export default class UserMenu extends React.PureComponent<InnerProps, State> {
     });
   };
 
+  onFacebookLogin = ({ accessToken }: ReactFacebookLoginInfo) => {
+    this.setState({ loggingIn: true }, () => {
+      fetch(
+        `${API_HOST}/auth/facebook/signin?web=true&access_token=${accessToken}`,
+        { credentials: 'include' },
+      )
+        .then(() => this.props.client.resetStore())
+        .finally(() => this.setState({ loggingIn: false }));
+    });
+  };
+
   renderAvatar = () => {
     const { user } = this.props;
+    const { loggingIn } = this.state;
+    if (loggingIn) {
+      return <CircularProgress color="white" size={24} />;
+    }
     if (user) {
       return (
         <IconButton onClick={this.onAvatarPress} style={styles.avatar}>
@@ -52,13 +72,23 @@ export default class UserMenu extends React.PureComponent<InnerProps, State> {
         </IconButton>
       );
     }
-    const href = `${API_HOST}/auth/facebook?returnTo=${window.location.href}`;
     return (
-      <IconButton style={styles.avatar} href={href}>
-        <Avatar>
-          <FontIcon className="fa fa-facebook" />
-        </Avatar>
-      </IconButton>
+      <FacebookLogin
+        appId={FACEBOOK_APP_ID}
+        fields="name,email,picture"
+        callback={this.onFacebookLogin}
+        render={({ onClick, isProcessing }) =>
+          isProcessing ? (
+            <CircularProgress color="white" size={24} />
+          ) : (
+            <IconButton style={styles.avatar} onClick={onClick}>
+              <Avatar>
+                <FontIcon className="fa fa-facebook" />
+              </Avatar>
+            </IconButton>
+          )
+        }
+      />
     );
   };
 

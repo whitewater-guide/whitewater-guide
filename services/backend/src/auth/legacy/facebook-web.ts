@@ -13,7 +13,7 @@ const FacebookWebStrategy = new FacebookStrategy(
   },
   async (req, accessToken, refreshToken, profile, done) => {
     try {
-      const user = await loginWithFacebook(req as any, 'facebook', profile, {
+      const user = await loginWithFacebook(profile, {
         accessToken,
         refreshToken,
       });

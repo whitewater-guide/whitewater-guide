@@ -9,16 +9,21 @@ const test: knex.Config = {
     user: 'postgres',
     password: process.env.POSTGRES_PASSWORD!,
   },
+  pool: {
+    min: 0,
+    max: 1,
+    idleTimeoutMillis: 500,
+  },
   migrations: {
     loadExtensions: ['.js'],
     tableName: 'migrations',
     directory: './dist/migrations',
-  },
+  } as any,
   seeds: {
     loadExtensions: ['.js'],
     directory: './dist/seeds/test',
-  },
+  } as any,
   debug: false, // process.env.DATABASE_DEBUG === 'true',
-} as any;
+};
 
 module.exports = test;

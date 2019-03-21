@@ -1,9 +1,12 @@
 import { withMe } from '@whitewater-guide/clients';
 import { User } from '@whitewater-guide/commons';
+import { ApolloClient } from 'apollo-client';
+import { withApollo } from 'react-apollo';
 import { compose, mapProps } from 'recompose';
 
 export interface InnerProps {
   user: User | null;
+  client: ApolloClient<any>;
 }
 
 export default compose<InnerProps, any>(
@@ -13,4 +16,5 @@ export default compose<InnerProps, any>(
     location,
     ...rest,
   })),
+  withApollo,
 );

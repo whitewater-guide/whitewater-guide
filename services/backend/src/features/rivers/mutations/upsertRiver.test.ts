@@ -8,7 +8,8 @@ import {
   EDITOR_NO_EC,
   TEST_USER,
 } from '@seeds/01_users';
-import { RIVER_GAL_1 } from '@seeds/07_rivers';
+import { REGION_GALICIA, REGION_NORWAY } from '@seeds/04_regions';
+import { RIVER_GAL_1, RIVER_SJOA } from '@seeds/07_rivers';
 import {
   anonContext,
   countRows,
@@ -158,7 +159,14 @@ describe('insert', () => {
 });
 
 describe('update', () => {
-  const update = { ...input, id: RIVER_GAL_1 };
+  const update: RiverInput = {
+    id: RIVER_GAL_1,
+    name: 'Upsert River',
+    altNames: ['upserted', 'oopserted'],
+    region: {
+      id: REGION_GALICIA,
+    },
+  };
   let oldRiver: RiverRaw;
   let updateResult: any;
   let updatedRiver: any;
@@ -307,7 +315,8 @@ describe('alt names', () => {
   it('should update with null altNames', async () => {
     const sjoa = {
       ...riverNullAltNames,
-      id: 'd4396dac-d528-11e7-9296-cec278b6b50a',
+      region: { id: REGION_NORWAY },
+      id: RIVER_SJOA,
     };
     const result = await runQuery(
       upsertQuery,
@@ -321,7 +330,8 @@ describe('alt names', () => {
   it('should update with empty array altNames', async () => {
     const sjoa = {
       ...riverEmptyAltNames,
-      id: 'd4396dac-d528-11e7-9296-cec278b6b50a',
+      region: { id: REGION_NORWAY },
+      id: RIVER_SJOA,
     };
     const result = await runQuery(
       upsertQuery,

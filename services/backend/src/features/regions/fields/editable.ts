@@ -17,7 +17,7 @@ const editableResolver: GraphQLFieldResolver<RegionRaw, Context> = async (
     return editable;
   }
   try {
-    await dataSources.regions.assertEditorPermissions(id);
+    await dataSources.users.assertEditorPermissions({ regionId: id });
   } catch {
     return false;
   }

@@ -1,4 +1,3 @@
-import { UnknownError } from '@apollo';
 import { holdTransaction, rollbackTransaction } from '@db';
 import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
 import {
@@ -15,7 +14,6 @@ import {
 } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
 import { execScript, ScriptGaugeInfo, ScriptResponse } from '../../scripts';
-import Mock = jest.Mock;
 
 jest.mock('../../scripts', () => ({
   execScript: jest.fn(),
@@ -147,9 +145,7 @@ describe('effects', () => {
       success: false,
       error: 'boom!',
     };
-    (execScript as Mock<any>).mockReturnValueOnce(
-      Promise.resolve(scriptsError),
-    );
+    (execScript as any).mockReturnValueOnce(Promise.resolve(scriptsError));
     const result = await runQuery(
       query,
       { id: SOURCE_RUSSIA },
@@ -162,9 +158,7 @@ describe('effects', () => {
   });
 
   it('should insert gauges', async () => {
-    (execScript as Mock<any>).mockReturnValueOnce(
-      Promise.resolve(scriptSuccess),
-    );
+    (execScript as any).mockReturnValueOnce(Promise.resolve(scriptSuccess));
     const result = await runQuery(
       query,
       { id: SOURCE_RUSSIA },
@@ -185,9 +179,7 @@ describe('effects', () => {
   });
 
   it('should return gauges', async () => {
-    (execScript as Mock<any>).mockReturnValueOnce(
-      Promise.resolve(scriptSuccess),
-    );
+    (execScript as any).mockReturnValueOnce(Promise.resolve(scriptSuccess));
     const result = await runQuery(
       query,
       { id: SOURCE_RUSSIA },

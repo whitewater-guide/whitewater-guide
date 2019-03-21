@@ -24,4 +24,7 @@ async function startup() {
   log.info('Startup complete');
 }
 
-startup();
+startup().catch((err) => {
+  log.error(err);
+  process.exit(1);
+});

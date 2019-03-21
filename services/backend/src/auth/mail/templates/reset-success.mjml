@@ -1,0 +1,22 @@
+<mjml>
+  <mj-include path="./head.mjml" />
+
+  <mj-body background-color="#eee">
+    <mj-include path="./header.mjml" />
+
+    <mj-section background-color="#fff">
+      <mj-column>
+        <mj-text>
+          <h2>Hi ${user.name},</h2>
+          Your <b>whitewater.guide</b> password has been successfully changed.
+        </mj-text>
+        <mj-text>
+          If you didn't request to change your password, please
+          <a href="mailto:info@whitewater.guide">contact</a> us.
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-include path="./footer.mjml" />
+  </mj-body>
+</mjml>

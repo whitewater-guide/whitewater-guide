@@ -8,7 +8,7 @@ const region: TopLevelResolver<NodeQuery> = async (
 ) => {
   const result: RegionRaw | null = await dataSources.regions.getById(id);
   if (result && result.hidden) {
-    await dataSources.regions.assertEditorPermissions(result.id);
+    await dataSources.users.assertEditorPermissions({ regionId: result.id });
   }
   return result;
 };

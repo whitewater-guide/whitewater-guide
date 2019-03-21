@@ -7,7 +7,7 @@ const section: TopLevelResolver<NodeQuery> = async (
 ) => {
   const result = await dataSources.sections.getById(id);
   if (result && result.hidden) {
-    await dataSources.sections.assertEditorPermissions(id);
+    await dataSources.users.assertEditorPermissions({ sectionId: id });
   }
   return result;
 };

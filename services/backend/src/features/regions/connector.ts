@@ -1,7 +1,6 @@
 import db from '@db';
 import { BaseConnector, FieldsMap, ManyBuilderOptions } from '@db/connectors';
 import { Region } from '@whitewater-guide/commons';
-import { AuthenticationError, ForbiddenError } from 'apollo-server';
 import { GraphQLResolveInfo } from 'graphql';
 import { QueryBuilder } from 'knex';
 import { RegionRaw } from './types';
@@ -71,27 +70,5 @@ export class RegionsConnector extends BaseConnector<Region, RegionRaw> {
       });
     }
     return query;
-  }
-
-  async assertEditorPermissions(id: string | null) {
-    if (!this._user) {
-      throw new AuthenticationError('must authenticate');
-    }
-    if (this._user.admin) {
-      return true;
-    }
-    if (!id) {
-      // only admin can create regions
-      throw new ForbiddenError('must be admin');
-    }
-    const { count } = await db(true)
-      .table('regions_editors')
-      .where({ region_id: id, user_id: this._user.id })
-      .count()
-      .first();
-    if (Number(count) !== 1) {
-      throw new ForbiddenError('must be editor');
-    }
-    return true;
   }
 }

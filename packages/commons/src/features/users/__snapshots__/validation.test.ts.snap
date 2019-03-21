@@ -1,5 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`should be invalid for bad email 1`] = `
+Object {
+  "email": "Incorrect e-mail address",
+}
+`;
+
 exports[`should be invalid for bad language 1`] = `
 Object {
   "language": "Expected a value of type \`\\"en\\" | \\"ru\\" | \\"es\\" | \\"de\\" | \\"fr\\" | \\"pt\\" | \\"it\\" | undefined\` for \`language\` but received \`\\"xx\\"\`.",

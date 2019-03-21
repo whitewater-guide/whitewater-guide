@@ -1,18 +1,12 @@
 import db from '@db';
 import { UserRaw } from '@features/users';
 import { LANGUAGES } from '@whitewater-guide/commons';
-import { Request } from 'koa';
 import get from 'lodash/get';
 // tslint:disable-next-line:no-submodule-imports
 import { preferredLanguages } from 'negotiator/lib/language';
 import { Profile } from 'passport';
 
-const loginWithFacebook = async (
-  req: Request,
-  provider: string,
-  profile: Profile,
-  tokens: any,
-) => {
+const loginWithFacebook = async (profile: Profile, tokens: any) => {
   profile.username = `${profile.name!.givenName} ${profile.name!.familyName}`;
   profile.displayName = `${profile.name!.givenName} ${
     profile.name!.familyName
@@ -33,22 +27,13 @@ const loginWithFacebook = async (
   const languages = [...preferred, 'en'];
   const language: string = languages[0];
 
-  // Logged in. But might be logged in via different service (not facebook)
-  // For example user is logged in via mail and want to attach facebook account
-  const reqUser = req.legacyUser;
-  if (reqUser) {
-    user = await db()
-      .table('users')
-      .where({ id: reqUser.id })
-      .first();
-  }
   // else not logged-in. Authenticate based on Facebook account.
 
   if (!user) {
     user = await db()
-      .table('logins')
-      .innerJoin('users', 'users.id', 'logins.user_id')
-      .where({ 'logins.provider': provider, 'logins.id': profile.id })
+      .table('accounts')
+      .innerJoin('users', 'users.id', 'accounts.user_id')
+      .where({ 'accounts.provider': 'facebook', 'accounts.id': profile.id })
       .first('users.*');
     if (!user && fbEmail) {
       user = await db()
@@ -68,14 +53,15 @@ const loginWithFacebook = async (
         avatar: fbAvatar,
         language,
         editor_settings: { language: 'en' },
+        verified: true,
       })
       .returning('*');
     user = users[0];
   }
 
-  const loginKeys = { user_id: user!.id, provider, id: profile.id };
+  const loginKeys = { user_id: user!.id, provider: 'facebook', id: profile.id };
   const { count } = await db()
-    .table('logins')
+    .table('accounts')
     .where(loginKeys)
     .count('id')
     .first();
@@ -83,7 +69,7 @@ const loginWithFacebook = async (
   // Connect/update facebook login <-> user association
   if (count === '0') {
     await db()
-      .table('logins')
+      .table('accounts')
       .insert({
         ...loginKeys,
         username: profile.username,
@@ -92,7 +78,7 @@ const loginWithFacebook = async (
       });
   } else {
     await db()
-      .table('logins')
+      .table('accounts')
       .where(loginKeys)
       .update({
         username: profile.username,

@@ -6,7 +6,8 @@
       "material-ui",
       "redux-persist",
       "lodash",
-      "moment"
+      "moment",
+      "react-facebook-login"
     ]
   }
 }

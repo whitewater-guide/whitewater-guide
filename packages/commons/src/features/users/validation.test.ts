@@ -9,7 +9,13 @@ type TestValue = [string, UserInput];
 const correctValues: TestValue[] = [
   [
     'full value',
-    { name: 'foo', avatar: 'bar', imperial: true, language: 'en' },
+    {
+      name: 'foo',
+      avatar: 'bar',
+      imperial: true,
+      language: 'en',
+      email: 'foo@bar.com',
+    },
   ],
   ['empty avatar', { name: 'foo', avatar: '', imperial: true, language: 'en' }],
   [
@@ -20,11 +26,17 @@ const correctValues: TestValue[] = [
   ['no avatar', { name: 'foo', imperial: true, language: 'en' }],
   ['no imperial', { name: 'foo', avatar: 'bar', language: 'en' }],
   ['no language', { name: 'foo', avatar: 'bar', imperial: true }],
+  ['no email', { name: 'foo', avatar: 'bar', imperial: true, language: 'en' }],
+  [
+    'null email',
+    { name: 'foo', avatar: 'bar', imperial: true, language: 'en', email: null },
+  ],
 ];
 
 const incorrectValues: TestValue[] = [
   ['empty name', { name: '' }],
   ['bad language', { language: 'xx' }],
+  ['bad email', { language: 'en', email: 'bar' }],
   ['extra fields', { language: 'en', foo: 'bar' } as any],
 ];
 

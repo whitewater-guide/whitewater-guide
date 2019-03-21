@@ -7,9 +7,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { Store } from 'redux';
 import { Persistor } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
-import { getApolloClient } from './apollo';
+import { client } from './apollo';
 import { Loading } from './components';
-import { EditorLanguageLink } from './i18n/editors';
 import { RootLayout } from './layout';
 import { configureStore } from './redux';
 import { theme } from './styles';
@@ -20,8 +19,6 @@ interface State {
 }
 
 export default class App extends React.PureComponent<{}, State> {
-  private editorLanguageLink: EditorLanguageLink = new EditorLanguageLink();
-
   state: State = {};
 
   async componentDidMount() {
@@ -34,14 +31,11 @@ export default class App extends React.PureComponent<{}, State> {
   render() {
     const { store, persistor } = this.state;
     if (store && persistor) {
-      const apolloClient = getApolloClient(store.dispatch, [
-        this.editorLanguageLink,
-      ]);
       return (
         <MuiThemeProvider muiTheme={theme}>
           <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
-              <ApolloProvider client={apolloClient}>
+              <ApolloProvider client={client}>
                 <MyProfileProvider renderLoading={this.renderLoading}>
                   <BrowserRouter>
                     <RootLayout />

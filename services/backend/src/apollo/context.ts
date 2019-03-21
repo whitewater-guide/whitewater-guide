@@ -7,7 +7,8 @@ import { Omit } from 'type-zoo';
 export interface ContextUser {
   id: string;
   admin: boolean;
-  [key: string]: any;
+  language: string;
+  verified: boolean;
 }
 
 export interface Context {
@@ -25,14 +26,10 @@ interface Ctx {
   ctx: Partial<koa.Context>;
 }
 
-export const newContext = (
-  { ctx }: Ctx,
-  fixedLanguage?: string,
-): Omit<Context, 'dataSources'> => {
-  const user: ContextUser | undefined =
+export const newContext = ({ ctx }: Ctx): Omit<Context, 'dataSources'> => {
+  const user: koa.ContextUser | undefined =
     ctx.state && (ctx.state.user || ctx.state.legacyUser);
   const language =
-    fixedLanguage ||
     ctx.headers['x-editor-language'] ||
     get(user, 'language') ||
     ctx.acceptsLanguages!(LANGUAGES) ||

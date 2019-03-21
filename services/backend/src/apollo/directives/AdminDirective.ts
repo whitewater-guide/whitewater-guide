@@ -11,7 +11,7 @@ import {
   GraphQLObjectType,
 } from 'graphql';
 import { SchemaDirectiveVisitor } from 'graphql-tools';
-import { Context, ContextUser } from '../context';
+import { Context } from '../context';
 
 type Fields = GraphQLField<any, Context>;
 interface Details {
@@ -29,7 +29,7 @@ export class AdminDirective extends SchemaDirectiveVisitor {
         context,
         info,
       ) => {
-        const error = this.checkPermissions(source, context.user);
+        const error = this.checkPermissions(context);
         if (error) {
           throw error;
         }
@@ -45,21 +45,18 @@ export class AdminDirective extends SchemaDirectiveVisitor {
         context,
         info,
       ) => {
-        const error = this.checkPermissions(source, context.user);
+        const error = this.checkPermissions(context);
         return error ? null : oldResolver(source, args, context, info);
       };
       field.resolve = newResolver;
     }
   }
 
-  private checkPermissions(
-    source: any,
-    user?: ContextUser,
-  ): ApolloError | null {
-    if (!user) {
+  private checkPermissions(context: Context): ApolloError | null {
+    if (!context.user) {
       return new AuthenticationError('must authenticate');
     }
-    if (!user.admin) {
+    if (!context.user.admin) {
       return new ForbiddenError('must be admin');
     }
     return null;

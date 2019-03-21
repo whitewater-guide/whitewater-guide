@@ -1,7 +1,3 @@
-import {
-  apolloErrorReducer,
-  ApolloErrorState,
-} from '@whitewater-guide/clients';
 import localForage from 'localforage';
 import { combineReducers } from 'redux';
 import { FormStateMap, reducer as form } from 'redux-form';
@@ -10,12 +6,10 @@ import { PersistConfig, persistReducer } from 'redux-persist';
 import autoMergeLevel2 from 'redux-persist/es/stateReconciler/autoMergeLevel2';
 
 export interface RootState {
-  apolloError: ApolloErrorState;
   form: FormStateMap;
 }
 
 const rootReducer = combineReducers<RootState>({
-  apolloError: apolloErrorReducer,
   form,
 });
 

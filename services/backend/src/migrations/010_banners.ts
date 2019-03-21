@@ -1,5 +1,6 @@
 import { createViews, dropViews, runSqlFile } from '@db';
 import Knex from 'knex';
+import { createTable } from './utils';
 
 const VIEWS = ['sections', 'rivers', 'regions'];
 
@@ -13,7 +14,7 @@ export const up = async (db: Knex) => {
     table.dropColumn('banners');
   });
 
-  await db.schema.createTable('banners', (table) => {
+  await createTable(db, 'banners', (table) => {
     table
       .uuid('id')
       .notNullable()
@@ -37,7 +38,7 @@ export const up = async (db: Knex) => {
     table.text('link');
     table.jsonb('extras');
   });
-  await db.schema.createTable('banners_regions', (table) => {
+  await createTable(db, 'banners_regions', (table) => {
     table
       .uuid('banner_id')
       .notNullable()
@@ -52,7 +53,7 @@ export const up = async (db: Knex) => {
       .onDelete('CASCADE');
     table.primary(['banner_id', 'region_id']);
   });
-  await db.schema.createTable('banners_groups', (table) => {
+  await createTable(db, 'banners_groups', (table) => {
     table
       .uuid('banner_id')
       .notNullable()

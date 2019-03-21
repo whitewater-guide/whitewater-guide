@@ -6,6 +6,7 @@ import isNumber from 'lodash/isNumber';
 import isObject from 'lodash/isObject';
 import isString from 'lodash/isString';
 import { Config, superstruct } from 'superstruct';
+import isEmail from 'validator/lib/isEmail';
 import isJSON from 'validator/lib/isJSON';
 import isURL from 'validator/lib/isURL';
 import isUUID from 'validator/lib/isUUID';
@@ -14,6 +15,10 @@ import matches from 'validator/lib/matches';
 const SLUG_REGEX = /^[0-9a-zA-Z_\-]{3,64}$/;
 
 const types: Config['types'] = {
+  email: (value: any) => {
+    const result = isString(value) && isEmail(value);
+    return result || 'Incorrect e-mail address';
+  },
   cron: (value: any) => {
     if (!isString(value) || value.length > 255) {
       return 'Must be string no longer than 255 characters';

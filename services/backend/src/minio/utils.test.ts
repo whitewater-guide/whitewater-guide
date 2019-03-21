@@ -15,7 +15,7 @@ describe('getTempPostPolicy', () => {
         'x-amz-date': expect.stringMatching(/[0-9TZ]+/),
         'x-amz-signature': expect.any(String),
       },
-      postURL: 'http://localhost:6002/temp',
+      postURL: 'http://localhost:9001/temp',
     });
   });
 
@@ -32,7 +32,7 @@ describe('getTempPostPolicy', () => {
         'x-amz-date': expect.stringMatching(/[0-9TZ]+/),
         'x-amz-signature': expect.any(String),
       },
-      postURL: 'http://localhost:6002/temp',
+      postURL: 'http://localhost:9001/temp',
     });
   });
 
@@ -50,7 +50,7 @@ describe('getTempPostPolicy', () => {
         'x-amz-signature': expect.any(String),
         'x-amz-meta-uploaded-by': 'uuid',
       },
-      postURL: 'http://localhost:6002/temp',
+      postURL: 'http://localhost:9001/temp',
     });
   });
 });

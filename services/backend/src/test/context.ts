@@ -1,14 +1,14 @@
 import { Context } from '@apollo';
-import { UserRaw } from '@features/users';
+import { UserRawInput } from '@features/users';
 import { Omit } from 'type-zoo';
 
 export const fakeContext = (
-  user?: UserRaw,
+  user?: UserRawInput,
   language = 'en',
 ): Omit<Context, 'dataSources'> => {
   const fieldsByType = new Map<string, Set<string>>();
   // dataSources are not optional, but they're added later
-  return { user, language, fieldsByType };
+  return { user: user as any, language, fieldsByType };
 };
 
 export const anonContext = (language = 'en') =>

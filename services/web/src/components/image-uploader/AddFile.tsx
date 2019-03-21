@@ -1,6 +1,6 @@
 import SvgIcon from 'material-ui/SvgIcon';
 import React from 'react';
-import Dropzone, { DropFilesEventHandler } from 'react-dropzone';
+import Dropzone from 'react-dropzone';
 import { Styles } from '../../styles';
 import { FileWithPreview, withPreview } from '../../utils';
 
@@ -22,7 +22,7 @@ interface Props {
 }
 
 class AddFile extends React.PureComponent<Props> {
-  onDrop: DropFilesEventHandler = (acceptedFiles) => {
+  onDrop = (acceptedFiles: File[]) => {
     this.props.onAdd(withPreview(acceptedFiles[0]));
   };
 

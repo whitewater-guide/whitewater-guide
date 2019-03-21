@@ -1,7 +1,6 @@
 import Koa from 'koa';
-import passport from 'koa-passport';
-import usePassport from './passport';
-import router from './router';
+import initRouter from './initRouter';
+import passport from './passport';
 import { useSessions } from './sessions';
 
 export const useLegacyAuth = (app: Koa) => {
@@ -10,7 +9,7 @@ export const useLegacyAuth = (app: Koa) => {
   app.use(passport.initialize({ userProperty: 'legacyUser' }));
   app.use(passport.session());
 
-  usePassport();
+  const router = initRouter(passport);
 
   app.use(router.routes());
 };

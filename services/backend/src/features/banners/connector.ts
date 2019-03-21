@@ -41,12 +41,12 @@ export class BannersConnector extends BaseConnector<Banner, BannerRaw> {
   ) {
     const query = super.getMany(info, options);
     if (regionId) {
-      query.with('region_banners_own', (qb) => {
+      query.with('region_banners_own', (qb: QueryBuilder) => {
         qb.table('banners_regions')
           .select()
           .where({ region_id: regionId });
       });
-      query.with('region_banners_group', (qb) => {
+      query.with('region_banners_group', (qb: QueryBuilder) => {
         qb.table('banners_groups')
           .innerJoin(
             'regions_groups',
@@ -68,7 +68,7 @@ export class BannersConnector extends BaseConnector<Banner, BannerRaw> {
           `CASE WHEN region_banners_own.banner_id IS NOT NULL THEN 1 ELSE 0 END AS group_priority `,
         ),
       );
-      query.where((qb) => {
+      query.where((qb: QueryBuilder) => {
         qb.whereIn('id', function(this: QueryBuilder) {
           return this.select('banner_id').from('region_banners_own');
         }).orWhereIn('id', function(this: QueryBuilder) {

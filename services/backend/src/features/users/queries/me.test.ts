@@ -73,7 +73,7 @@ it('should return purchased regions', async () => {
   });
 });
 
-it('should return purchased regions', async () => {
+it('should return purchased groups', async () => {
   const queryWithRegions = `
   {
     me {

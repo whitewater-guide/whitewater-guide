@@ -1,2 +1,2 @@
-export * from './configureApollo';
+export * from './client';
 export * from './withDeleteMutation';

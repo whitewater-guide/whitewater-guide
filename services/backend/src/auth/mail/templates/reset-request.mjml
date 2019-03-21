@@ -1,0 +1,30 @@
+<mjml>
+  <mj-include path="./head.mjml" />
+
+  <mj-body background-color="#eee">
+    <mj-include path="./header.mjml" />
+
+    <mj-section background-color="#fff" padding-bottom="0px">
+      <mj-column>
+        <mj-text>
+          <h2>Hi ${user.name},</h2>
+          We got a request to reset your <b>whitewater.guide</b> password
+        </mj-text>
+
+        <mj-button
+          href="${baseURL}/auth/reset/callback?id=${user.id}&token=${token.raw}"
+        >
+          Reset Password
+        </mj-button>
+        <mj-text>
+          If you didn't request a password reset, you can ignore this message.
+          Someone probably typed in your email by accident. <br />
+          Please note that this link will expire in 24 hours.
+        </mj-text>
+        <mj-text>Cheers,<br /><b>whitewater.guide team</b></mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-include path="./footer.mjml" />
+  </mj-body>
+</mjml>

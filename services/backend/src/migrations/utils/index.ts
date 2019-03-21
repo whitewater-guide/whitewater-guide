@@ -1,3 +1,4 @@
+export * from './createTable';
 export * from './getRegionsForMatching';
 export * from './groupByRiver';
 export * from './groupByRegion';

@@ -1,8 +1,19 @@
 // tslint:disable:no-submodule-imports no-var-requires
 // @ts-ignore
 require('module-alias/register');
+import db from '@db';
 
-import { reseedDb } from './db-helpers';
+export const reseedDb = async () => {
+  let version = '';
+  do {
+    try {
+      await db(true).migrate.rollback();
+    } catch (e) {}
+    version = await db(true).migrate.currentVersion();
+  } while (version !== 'none');
+  await db(true).migrate.latest();
+  await db(true).seed.run();
+};
 
 reseedDb()
   .then(() => {

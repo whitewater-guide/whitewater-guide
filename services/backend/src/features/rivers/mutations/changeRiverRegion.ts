@@ -16,8 +16,8 @@ const changeRiverRegion: TopLevelResolver<Vars> = async (
     throw new MutationNotAllowedError('Region does not exist');
   }
 
-  await dataSources.regions.assertEditorPermissions(regionId);
-  await dataSources.rivers.assertEditorPermissions(riverId);
+  await dataSources.users.assertEditorPermissions({ regionId });
+  await dataSources.users.assertEditorPermissions({ riverId });
 
   await db()
     .table('rivers')

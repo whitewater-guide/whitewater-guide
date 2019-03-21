@@ -6,7 +6,7 @@ import gauges from './gauges';
 import regions from './regions';
 import status from './status';
 
-const Source: FieldResolvers<SourceRaw, Source> = {
+const sourceResolvers: FieldResolvers<SourceRaw, Source> = {
   harvestMode: (src) => src.harvest_mode,
   termsOfUse: (src) => src.terms_of_use,
   regions,
@@ -15,4 +15,4 @@ const Source: FieldResolvers<SourceRaw, Source> = {
   ...timestampResolvers,
 };
 
-export default Source;
+export default sourceResolvers;

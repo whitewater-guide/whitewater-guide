@@ -11,8 +11,9 @@ export const loadFacebookSDK = (appId: string): Promise<FBSDK> => {
     window.fbAsyncInit = () => {
       FB.init({
         appId,
-        version: 'v3.0',
+        version: 'v3.2',
         xfbml: false,
+        autoLogAppEvents: true,
       });
       resolve(FB);
     };

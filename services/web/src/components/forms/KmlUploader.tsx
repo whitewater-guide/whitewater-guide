@@ -5,7 +5,7 @@ import FontIcon from 'material-ui/FontIcon';
 import RaisedButton from 'material-ui/RaisedButton';
 import Snackbar from 'material-ui/Snackbar';
 import React from 'react';
-import Dropzone, { DropFilesEventHandler } from 'react-dropzone';
+import Dropzone from 'react-dropzone';
 import {
   BaseFieldProps,
   Field,
@@ -67,7 +67,7 @@ class KmlUploader extends React.PureComponent<Props, State> {
     );
   };
 
-  onDrop: DropFilesEventHandler = (acceptedFiles) => {
+  onDrop = (acceptedFiles: File[]) => {
     this._reader.readAsText(acceptedFiles[0]);
   };
 

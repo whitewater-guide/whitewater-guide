@@ -1,17 +1,14 @@
+const { defaults } = require('jest-config');
+
 module.exports = {
+  preset: 'ts-jest',
   globals: {
     'ts-jest': {
       isolatedModules: true,
     },
   },
-  setupFiles: ['<rootDir>/src/test/setupTests.ts'],
-  setupFilesAfterEnv: ['<rootDir>/src/test/setupTestFrameworkScriptFile.ts'],
-  transform: {
-    '^.+\\.ts$': 'ts-jest',
-  },
+  setupFilesAfterEnv: ['<rootDir>/src/test/setupTests.ts'],
   testEnvironment: 'node',
-  testRegex: '(/__tests__/.*|\\.(test|spec))\\.(ts|tsx)$',
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'json'],
   moduleNameMapper: {
     '^@apollo$': '<rootDir>/src/apollo',
     '^@auth$': '<rootDir>/src/auth',
@@ -26,4 +23,8 @@ module.exports = {
   },
   snapshotSerializers: ['jest-serializer-sql'],
   reporters: ['default', 'jest-summary-reporter'],
+  modulePathIgnorePatterns: [...defaults.modulePathIgnorePatterns, '/dist/'],
+  testPathIgnorePatterns: [...defaults.testPathIgnorePatterns, '/dist/'],
+  transformIgnorePatterns: [...defaults.transformIgnorePatterns, '/dist/'],
+  watchPathIgnorePatterns: [...defaults.watchPathIgnorePatterns, '/dist/'],
 };

@@ -31,10 +31,10 @@ const resolver: TopLevelResolver<Vars> = async (
   { user, language, dataSources },
 ) => {
   const section = { ...vars.section, createdBy: user ? user.id : null };
-  await dataSources.sections.assertEditorPermissions(
-    section.id,
-    section.river.id,
-  );
+  await dataSources.users.assertEditorPermissions({
+    sectionId: section.id,
+    riverId: section.river.id,
+  });
   const oldSection = await dataSources.sections.getById(section.id);
   const result: SectionRaw = await rawUpsert(
     db(),

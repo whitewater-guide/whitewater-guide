@@ -19,11 +19,15 @@ const updateProfile = isInputValidResolver<Vars>(
     if (!context.user) {
       throw new AuthenticationError('must be authenticated');
     }
-    const cleanUser = pickBy(user, (v) => v !== undefined);
-    await db()
+    const { email, ...cleanUser } = pickBy(user, (v) => v !== undefined);
+    const query = db()
       .table('users')
       .update(cleanUser)
       .where({ id: context.user.id });
+    if (email) {
+      query.update('email', db().raw(`COALESCE(users.email, ?)`, email));
+    }
+    await query;
     return db()
       .table('users')
       .where({ id: context.user.id })

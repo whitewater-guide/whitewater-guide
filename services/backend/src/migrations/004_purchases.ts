@@ -1,5 +1,6 @@
 import { addUpdatedAtTrigger, createViews, dropViews, runSqlFile } from '@db';
 import Knex from 'knex';
+import { createTable } from './utils';
 
 const VIEWS = ['groups', 'gauges', 'sections', 'rivers', 'regions', 'points'];
 const ALL_REGIONS_GROUP = 'f38c7006-5c4a-11e8-9c2d-fa7ae01bbebc';
@@ -40,7 +41,7 @@ export const up = async (db: Knex) => {
   );
 
   await runSqlFile(db, './dist/migrations/004/platform_type.sql');
-  await db.schema.createTable('transactions', (table) => {
+  await createTable(db, 'transactions', (table) => {
     table
       .uuid('id')
       .notNullable()
@@ -71,7 +72,7 @@ export const up = async (db: Knex) => {
 
   // Generated promocodes for boomstarter promo campaign
   // If group_sku is null, then this promocode is for single region of choice
-  await await db.schema.createTable('boom_promos', (table) => {
+  await await createTable(db, 'boom_promos', (table) => {
     table
       .string('code')
       .notNullable()

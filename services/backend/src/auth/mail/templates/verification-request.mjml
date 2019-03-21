@@ -1,0 +1,39 @@
+<mjml>
+  <mj-include path="./head.mjml" />
+
+  <mj-body background-color="#eee">
+    <mj-include path="./header.mjml" />
+
+    <mj-section background-color="#fff">
+      <mj-column>
+        <mj-text>
+          <h2>Hi ${user.name},</h2>
+          You're receiving this email because you requested email verification
+          in <b>whitewater.guide</b> app.<br />
+          To do so, please confirm your email address:
+        </mj-text>
+
+        <mj-button
+          href="${baseURL}/auth/verification?id=${user.id}&token=${token.raw}"
+        >
+          Confirm
+        </mj-button>
+
+        <mj-text>
+          Can't click the button above? Copy and paste this link into your
+          browser:
+        </mj-text>
+        <mj-text>
+          ${baseURL}/auth/verification?id=${user.id}&token=${token.raw}
+        </mj-text>
+        <mj-text>
+          Please note that this link will expire in 24 hours.
+        </mj-text>
+
+        <mj-text>Cheers,<br /><b>whitewater.guide team</b></mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-include path="./footer.mjml" />
+  </mj-body>
+</mjml>

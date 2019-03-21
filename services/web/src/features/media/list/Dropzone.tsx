@@ -1,7 +1,7 @@
 import { MediaKind } from '@whitewater-guide/commons';
 import FontIcon from 'material-ui/FontIcon';
 import React from 'react';
-import Dz, { DropFilesEventHandler } from 'react-dropzone';
+import Dz from 'react-dropzone';
 import { Styles } from '../../../styles';
 import { FileWithPreview, withPreview } from '../../../utils';
 import { THUMB_HEIGHT } from './constants';
@@ -38,7 +38,7 @@ class Dropzone extends React.PureComponent<Props> {
     }
   };
 
-  onDrop: DropFilesEventHandler = (acceptedFiles) => {
+  onDrop = (acceptedFiles: File[]) => {
     if (this.props.onAdd) {
       this.props.onAdd(this.props.kind, withPreview(acceptedFiles[0]));
     }

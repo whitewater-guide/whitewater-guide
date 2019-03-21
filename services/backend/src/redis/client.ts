@@ -3,7 +3,9 @@ import log from '../log';
 
 const logger = log.child({ module: 'redis' });
 
-export const client = redis.createClient({ host: 'redis' });
+export const client = redis.createClient({
+  host: process.env.REDIS_HOST || 'redis',
+});
 
 client.on('ready', () => logger.info('Redis client ready'));
 client.on('connect', () => logger.info('Redis client connected'));

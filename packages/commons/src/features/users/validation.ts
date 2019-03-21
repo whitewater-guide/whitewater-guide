@@ -6,6 +6,7 @@ export const UserInputStruct = baseStruct.object({
   avatar: 'string?|null',
   language: baseStruct.optional(baseStruct.enum(LANGUAGES)),
   imperial: baseStruct.optional('boolean'),
+  email: 'email?|null',
 });
 
 export const EditorSettingsStruct = baseStruct.object({

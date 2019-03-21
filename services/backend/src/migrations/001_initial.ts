@@ -6,6 +6,7 @@ import {
 } from '@db';
 import { HarvestMode, POITypes } from '@whitewater-guide/commons';
 import Knex from 'knex';
+import { createTable } from './utils';
 
 export const up = async (db: Knex) => {
   await runSqlFile(db, './dist/migrations/001/language_code.sql');
@@ -14,7 +15,7 @@ export const up = async (db: Knex) => {
   await addUpdatedAtFunction(db);
 
   // USERS
-  await db.schema.createTable('users', (table) => {
+  await createTable(db, 'users', (table) => {
     table
       .uuid('id')
       .notNullable()
@@ -40,8 +41,8 @@ export const up = async (db: Knex) => {
   });
   await addUpdatedAtTrigger(db, 'users');
 
-  // External logins with security tokens (e.g. Google, Facebook, Twitter)
-  await db.schema.createTable('logins', (table) => {
+  // External accounts with security tokens (e.g. Google, Facebook, Twitter)
+  await createTable(db, 'logins', (table) => {
     table
       .uuid('user_id')
       .notNullable()
@@ -58,7 +59,7 @@ export const up = async (db: Knex) => {
   });
   await addUpdatedAtTrigger(db, 'logins');
   // SOURCES
-  await db.schema.createTable('sources', (table) => {
+  await createTable(db, 'sources', (table) => {
     table
       .uuid('id')
       .notNullable()
@@ -76,7 +77,7 @@ export const up = async (db: Knex) => {
       .defaultTo(false);
     table.timestamps(false, true);
   });
-  await db.schema.createTable('sources_translations', (table) => {
+  await createTable(db, 'sources_translations', (table) => {
     table
       .uuid('source_id')
       .notNullable()
@@ -100,7 +101,7 @@ export const up = async (db: Knex) => {
   await addUpdatedAtTrigger(db, 'sources_translations');
 
   // Region groups
-  await db.schema.createTable('groups', (table) => {
+  await createTable(db, 'groups', (table) => {
     table
       .uuid('id')
       .notNullable()
@@ -109,7 +110,7 @@ export const up = async (db: Knex) => {
     table.string('sku').index();
     table.timestamps(false, true);
   });
-  await db.schema.createTable('groups_translations', (table) => {
+  await createTable(db, 'groups_translations', (table) => {
     table
       .uuid('group_id')
       .notNullable()
@@ -129,7 +130,7 @@ export const up = async (db: Knex) => {
   });
 
   // Regions
-  await db.schema.createTable('regions', (table) => {
+  await createTable(db, 'regions', (table) => {
     table
       .uuid('id')
       .notNullable()
@@ -145,7 +146,7 @@ export const up = async (db: Knex) => {
     table.specificType('bounds', 'geography(POLYGONZ,4326)');
     table.timestamps(false, true);
   });
-  await db.schema.createTable('regions_translations', (table) => {
+  await createTable(db, 'regions_translations', (table) => {
     table
       .uuid('region_id')
       .notNullable()
@@ -170,7 +171,7 @@ export const up = async (db: Knex) => {
   await addUpdatedAtTrigger(db, 'regions_translations');
 
   // Users (editors) <-> regions many-to-many
-  await db.schema.createTable('regions_editors', (table) => {
+  await createTable(db, 'regions_editors', (table) => {
     table
       .uuid('user_id')
       .notNullable()
@@ -187,7 +188,7 @@ export const up = async (db: Knex) => {
   });
 
   // Groups <-> regions many-to-many
-  await db.schema.createTable('regions_groups', (table) => {
+  await createTable(db, 'regions_groups', (table) => {
     table
       .uuid('group_id')
       .notNullable()
@@ -204,7 +205,7 @@ export const up = async (db: Knex) => {
   });
 
   // Points
-  await db.schema.createTable('points', (table) => {
+  await createTable(db, 'points', (table) => {
     table
       .uuid('id')
       .notNullable()
@@ -213,7 +214,7 @@ export const up = async (db: Knex) => {
     table.enu('kind', POITypes).notNullable();
     table.specificType('coordinates', 'geography(POINTZ,4326)').notNullable();
   });
-  await db.schema.createTable('points_translations', (table) => {
+  await createTable(db, 'points_translations', (table) => {
     table
       .uuid('point_id')
       .notNullable()
@@ -231,7 +232,7 @@ export const up = async (db: Knex) => {
   });
 
   // GAUGES
-  await db.schema.createTable('gauges', (table) => {
+  await createTable(db, 'gauges', (table) => {
     table
       .uuid('id')
       .notNullable()
@@ -265,7 +266,7 @@ export const up = async (db: Knex) => {
       .defaultTo(false);
     table.timestamps(false, true);
   });
-  await db.schema.createTable('gauges_translations', (table) => {
+  await createTable(db, 'gauges_translations', (table) => {
     table
       .uuid('gauge_id')
       .notNullable()
@@ -288,7 +289,7 @@ export const up = async (db: Knex) => {
   await addUpdatedAtTrigger(db, 'gauges_translations');
 
   // Rivers
-  await db.schema.createTable('rivers', (table) => {
+  await createTable(db, 'rivers', (table) => {
     table
       .uuid('id')
       .notNullable()
@@ -308,7 +309,7 @@ export const up = async (db: Knex) => {
       .onDelete('SET NULL');
     table.timestamps(false, true);
   });
-  await db.schema.createTable('rivers_translations', (table) => {
+  await createTable(db, 'rivers_translations', (table) => {
     table
       .uuid('river_id')
       .notNullable()
@@ -335,7 +336,7 @@ export const up = async (db: Knex) => {
   await addUpdatedAtTrigger(db, 'rivers_translations');
 
   // Points <-> regions many-to-many
-  await db.schema.createTable('regions_points', (table) => {
+  await createTable(db, 'regions_points', (table) => {
     table
       .uuid('point_id')
       .notNullable()
@@ -352,7 +353,7 @@ export const up = async (db: Knex) => {
   });
 
   // Sources <-> regions many-to-many
-  await db.schema.createTable('sources_regions', (table) => {
+  await createTable(db, 'sources_regions', (table) => {
     table
       .uuid('source_id')
       .notNullable()
@@ -369,14 +370,14 @@ export const up = async (db: Knex) => {
   });
 
   // Tags
-  await db.schema.createTable('tags', (table) => {
+  await createTable(db, 'tags', (table) => {
     table.string('id').primary();
     table
       .specificType('category', 'tag_category')
       .notNullable()
       .index();
   });
-  await db.schema.createTable('tags_translations', (table) => {
+  await createTable(db, 'tags_translations', (table) => {
     table
       .string('tag_id')
       .notNullable()
@@ -396,7 +397,7 @@ export const up = async (db: Knex) => {
   });
 
   // Sections
-  await db.schema.createTable('sections', (table) => {
+  await createTable(db, 'sections', (table) => {
     table
       .uuid('id')
       .notNullable()
@@ -435,7 +436,7 @@ export const up = async (db: Knex) => {
 
     table.timestamps(false, true);
   });
-  await db.schema.createTable('sections_translations', (table) => {
+  await createTable(db, 'sections_translations', (table) => {
     table
       .uuid('section_id')
       .notNullable()
@@ -466,7 +467,7 @@ export const up = async (db: Knex) => {
   await addUpdatedAtTrigger(db, 'sections');
   await addUpdatedAtTrigger(db, 'sections_translations');
   // Points <-> sections POIS many-to-many
-  await db.schema.createTable('sections_points', (table) => {
+  await createTable(db, 'sections_points', (table) => {
     table
       .uuid('point_id')
       .notNullable()
@@ -482,7 +483,7 @@ export const up = async (db: Knex) => {
     table.primary(['point_id', 'section_id']);
   });
   // Tags <-> sections many-to-many
-  await db.schema.createTable('sections_tags', (table) => {
+  await createTable(db, 'sections_tags', (table) => {
     table
       .string('tag_id')
       .notNullable()
@@ -515,7 +516,7 @@ export const up = async (db: Knex) => {
   await db.schema.raw("SELECT create_hypertable('measurements', 'timestamp');");
 
   // Media
-  await db.schema.createTable('media', (table) => {
+  await createTable(db, 'media', (table) => {
     table
       .uuid('id')
       .notNullable()
@@ -538,7 +539,7 @@ export const up = async (db: Knex) => {
       .inTable('users')
       .onDelete('SET NULL');
   });
-  await db.schema.createTable('media_translations', (table) => {
+  await createTable(db, 'media_translations', (table) => {
     table
       .uuid('media_id')
       .notNullable()
@@ -558,7 +559,7 @@ export const up = async (db: Knex) => {
   await addUpdatedAtTrigger(db, 'media');
   await addUpdatedAtTrigger(db, 'media_translations');
   // Media <-> sections
-  await db.schema.createTable('sections_media', (table) => {
+  await createTable(db, 'sections_media', (table) => {
     table
       .uuid('media_id')
       .notNullable()
@@ -576,13 +577,13 @@ export const up = async (db: Knex) => {
   });
 
   if (process.env.AUTO_SEED === 'true') {
-    await db.schema.createTable('seeds_lock', (table) => {
+    await createTable(db, 'seeds_lock', (table) => {
       table.boolean('locked');
     });
     await db.into('seeds_lock').insert({ locked: false });
   }
 
-  await db.schema.createTable('purchases', (table) => {
+  await createTable(db, 'purchases', (table) => {
     table
       .uuid('user_id')
       .notNullable()

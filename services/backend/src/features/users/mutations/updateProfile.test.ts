@@ -1,5 +1,10 @@
 import { holdTransaction, rollbackTransaction } from '@db';
-import { ADMIN, ADMIN_ID } from '@seeds/01_users';
+import {
+  ADMIN,
+  ADMIN_ID,
+  UNVERIFIED_USER2,
+  UNVERIFIED_USER2_ID,
+} from '@seeds/01_users';
 import { anonContext, fakeContext, runQuery } from '@test';
 import { ApolloErrorCodes, UserInput } from '@whitewater-guide/commons';
 
@@ -14,6 +19,7 @@ const mutation = `
       avatar
       language
       imperial
+      email
     }
   }
 `;
@@ -48,6 +54,7 @@ it('should work for partial data', async () => {
       'https://scontent.xx.fbcdn.net/v/t1.0-1/c34.34.422.422/s50x50/557311_106591882827406_2013499307_n.jpg?oh=777cb7f306789d5452fb47bc87ba95c7&oe=59FD2267',
     language: 'en',
     imperial: false,
+    email: ADMIN.email,
   });
 });
 
@@ -62,6 +69,35 @@ it('should return update profile', async () => {
   expect(result.errors).toBeUndefined();
   expect(result.data!.updateProfile).toEqual({
     id: ADMIN_ID,
+    email: ADMIN.email,
     ...user,
+  });
+});
+
+it('should not update email when user already has one', async () => {
+  const user: UserInput = {
+    email: 'foo@bar.com',
+  };
+  const result = await runQuery(mutation, { user }, fakeContext(ADMIN));
+  expect(result.errors).toBeUndefined();
+  expect(result.data!.updateProfile).toMatchObject({
+    id: ADMIN_ID,
+    email: ADMIN.email,
+  });
+});
+
+it('should update email when it is null', async () => {
+  const user: UserInput = {
+    email: 'foo@bar.com',
+  };
+  const result = await runQuery(
+    mutation,
+    { user },
+    fakeContext(UNVERIFIED_USER2),
+  );
+  expect(result.errors).toBeUndefined();
+  expect(result.data!.updateProfile).toMatchObject({
+    id: UNVERIFIED_USER2_ID,
+    email: 'foo@bar.com',
   });
 });

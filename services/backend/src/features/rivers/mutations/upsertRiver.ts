@@ -17,7 +17,10 @@ const resolver: TopLevelResolver<Vars> = async (
   { user, language, dataSources },
 ) => {
   const river = { ...vars.river, createdBy: user ? user.id : null };
-  await dataSources.rivers.assertEditorPermissions(river.id, river.region.id);
+  await dataSources.users.assertEditorPermissions({
+    riverId: river.id,
+    regionId: river.region.id,
+  });
   return rawUpsert(db(), 'SELECT upsert_river(?, ?)', [river, language]);
 };
 

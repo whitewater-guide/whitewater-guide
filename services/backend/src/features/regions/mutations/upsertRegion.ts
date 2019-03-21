@@ -14,9 +14,11 @@ const Struct = struct.object({
 const resolver: TopLevelResolver<Vars> = async (
   _,
   { region },
-  { language, user, dataSources },
+  { language, dataSources },
 ) => {
-  await dataSources.regions.assertEditorPermissions(region.id);
+  await dataSources.users.assertEditorPermissions({
+    regionId: region.id,
+  });
   const result: any = await rawUpsert(db(), 'SELECT upsert_region(?, ?)', [
     region,
     language,

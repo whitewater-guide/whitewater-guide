@@ -8,9 +8,9 @@ interface Vars {
 const removeRiver: TopLevelResolver<Vars> = async (
   root,
   { id }: Vars,
-  { user, dataSources },
+  { dataSources },
 ) => {
-  await dataSources.rivers.assertEditorPermissions(id);
+  await dataSources.users.assertEditorPermissions({ riverId: id });
   const { count: sectionsCount } = await db()
     .table('sections')
     .where({ river_id: id })

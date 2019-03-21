@@ -2,6 +2,7 @@ import { holdTransaction, rollbackTransaction } from '@db';
 import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
 import { anonContext, fakeContext, runQuery } from '@test';
 import { ApolloErrorCodes, HarvestMode } from '@whitewater-guide/commons';
+jest.mock('../execScript');
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);

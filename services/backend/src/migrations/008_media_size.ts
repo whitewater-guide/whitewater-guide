@@ -44,7 +44,8 @@ function readFiles(): Promise<BucketFile[]> {
     minioClient
       .listObjectsV2(MEDIA)
       .on('data', ({ name, size }: BucketItem) => files.push({ name, size }))
-      .on('end' as any, () => resolve(files));
+      .on('end' as any, () => resolve(files))
+      .on('error', () => resolve([]));
   });
 }
 

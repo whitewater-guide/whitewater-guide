@@ -1,3 +1,5 @@
+import { UsersConnector } from '@features/users';
+
 export function createConnectors() {
   // Dynamically load modules to avoid cyclic dependency
   const { BannersConnector } = require('@features/banners');
@@ -23,5 +25,6 @@ export function createConnectors() {
     sections: new SectionsConnector(),
     sources: new SourcesConnector(),
     tags: new TagsConnector(),
+    users: new UsersConnector(),
   };
 }

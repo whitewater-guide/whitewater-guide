@@ -1,5 +1,6 @@
 import { createViews, dropViews } from '@db';
 import Knex from 'knex';
+import { createTable } from './utils';
 
 const VIEWS = ['sections'];
 /**
@@ -16,7 +17,7 @@ export const up = async (db: Knex) => {
   // Store names and ids as strings, not as references, because
   // they might change with time, but we want to know their values
   // at the moment of action
-  await db.schema.createTable('sections_edit_log', (table) => {
+  await createTable(db, 'sections_edit_log', (table) => {
     table
       .uuid('id')
       .notNullable()

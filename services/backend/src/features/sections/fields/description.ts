@@ -12,7 +12,10 @@ const descriptionResolver: GraphQLFieldResolver<SectionRaw, Context> = async (
     return '';
   }
   try {
-    await dataSources.sections.assertEditorPermissions(id, river_id);
+    await dataSources.users.assertEditorPermissions({
+      sectionId: id,
+      riverId: river_id,
+    });
     return description;
   } catch (e) {
     /* Continue execution, user is not admin or editor */

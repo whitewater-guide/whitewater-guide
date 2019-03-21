@@ -1,11 +1,12 @@
 import db from '@db';
 import { UserRaw } from '@features/users';
 import log from '@log';
-import passport from 'koa-passport';
+import { KoaPassport } from '../types';
 import FacebookMobileStrategy from './facebook-mobile';
 import FacebookWebStrategy from './facebook-web';
 
-const usePassport = () => {
+const initPassport = () => {
+  const passport = new KoaPassport();
   // Which data of user should be stored in session
   passport.serializeUser((user: UserRaw, done) => {
     done(null, user.id);
@@ -24,8 +25,10 @@ const usePassport = () => {
       });
   });
 
-  passport.use('facebook', FacebookWebStrategy);
-  passport.use('facebook-token', FacebookMobileStrategy);
+  passport.use('facebook-legacy', FacebookWebStrategy);
+  passport.use('facebook-legacy-token', FacebookMobileStrategy);
+
+  return passport;
 };
 
-export default usePassport;
+export default initPassport();

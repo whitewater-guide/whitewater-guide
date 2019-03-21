@@ -1,4 +1,5 @@
 import { Connection } from '@whitewater-guide/commons';
+import { ApolloCache } from 'apollo-cache';
 import { ApolloError, ApolloQueryResult, NetworkStatus } from 'apollo-client';
 
 export interface WithList<T> {
@@ -18,3 +19,16 @@ export interface WithNode<T> {
   refetch: () => Promise<ApolloQueryResult<Connection<T>>>;
   error?: ApolloError;
 }
+
+// Apollo-client does not export anything like this atm
+export interface LocalContext {
+  cache: ApolloCache<any>;
+  getCacheKey: (obj: any) => string;
+}
+
+export type LocalResolver<Vars = {}> = (
+  rootValue: any,
+  vars: Vars,
+  context: LocalContext,
+  info: any,
+) => any;

@@ -3,7 +3,7 @@ const ts = require('gulp-typescript');
 const rimraf = require('rimraf');
 
 const tsProject = ts.createProject('tsconfig.build.json');
-const ASSETS = 'src/**/*.{graphql,sql,json,kml}';
+const ASSETS = 'src/**/*.{graphql,sql,json,kml,mjml}';
 
 function clean(done) {
   rimraf('dist/*', done);

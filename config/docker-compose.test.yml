@@ -1,0 +1,65 @@
+version: '3.6'
+
+services:
+  # Postgres sql database
+  db:
+    labels:
+      guide.whitewater: ''
+    container_name: ww-db
+    build:
+      context: ../services/db
+      labels:
+        guide.whitewater: ''
+    image: 'ww-db:test'
+    command:
+      # Speeding Up Integration Tests with PostgreSQL
+      # https://www.endpoint.com/blog/2012/06/22/speeding-up-integration-tests-with
+      - postgres
+      - -cfsync=off
+      - -csynchronous_commit=off
+      - -cfull_page_writes=off
+    env_file:
+      - .env.test
+      - .env.test.local
+    volumes:
+      - type: tmpfs
+        target: /tmp
+      - type: tmpfs
+        target: /run/postgresql
+      - type: tmpfs
+        target: /var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    read_only: true
+
+  # Minio to store images
+  minio:
+    labels:
+      guide.whitewater: ''
+    container_name: ww-minio
+    image: 'ww-minio:test'
+    build:
+      context: ../services/minio
+      labels:
+        guide.whitewater: ''
+      args:
+        MINIO_USER: minio
+        MINIO_UID: 1000
+        MINIO_GID: 1000
+    command: server /data
+    env_file:
+      - .env.test
+      - .env.test.local
+    ports:
+      - '9001:9000'
+    volumes:
+      - type: bind
+        source: ../dev-mount/minio/data
+        target: /data
+      - type: bind
+        source: ../dev-mount/minio/config
+        target: /home/minio/.minio
+      - type: bind
+        source: ../dev-mount/minio/log/
+        target: /var/log
+    read_only: true

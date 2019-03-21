@@ -1,66 +1,33 @@
 import { holdTransaction, rollbackTransaction } from '@db';
 import { asyncRedis, client } from '@redis';
-import { ADMIN, ADMIN_FB_PROFILE, ADMIN_ID } from '@seeds/01_users';
+import {
+  ADMIN,
+  ADMIN_FB_PROFILE,
+  ADMIN_ID,
+  NEW_FB_PROFILE,
+} from '@seeds/01_users';
 import { countRows, UUID_REGEX } from '@test';
 import { CookieAccessInfo } from 'cookiejar';
 import Koa from 'koa';
 import get from 'lodash/get';
-import passport from 'passport';
-import { Profile } from 'passport-facebook';
 import superagent from 'superagent';
 import { SuperTest, Test } from 'supertest';
 import agent from 'supertest-koa-agent';
 import { createApp } from '../../../app';
+import passport from '../passport';
 import { extractSessionId } from '../sessions';
 
 const ROUTE = '/auth/facebook';
 const CALLBACK_ROUTE = '/auth/facebook/callback?__mock_strategy_callback=true';
 const LOGOUT_ROUTE = '/auth/logout';
 
-const newProfile: Partial<Profile> = {
-  id: '__mock_new_profile_id__',
-  name: {
-    familyName: 'New Profile Family Name',
-    givenName: 'New Profile Given Name',
-  },
-  emails: [
-    {
-      value: 'new.profile@mail.com',
-    },
-  ],
-  photos: [
-    {
-      value:
-        'https://platform-lookaside.fbsbx.com/platform/profilepic/mock_new_profile',
-    },
-  ],
-  provider: 'facebook',
-  _raw:
-    '{"last_name": "New Profile Family Name", "first_name": "New Profile Given Name", "email": "new.profile\u0040mail.com", "picture": {"data": {"height": 50, "is_silhouette": false, "url": "https:\\/\\/platform-lookaside.fbsbx.com\\/platform\\/profilepic\\/mock_new_profile", "width": 50}}, "id": "__mock_new_profile_id__"}',
-  _json: {
-    last_name: 'New Profile Family Name',
-    first_name: 'New Profile Given Name',
-    email: 'new.profile@mail.com',
-    picture: {
-      data: {
-        height: 50,
-        is_silhouette: false,
-        url:
-          'https://platform-lookaside.fbsbx.com/platform/profilepic/mock_new_profile',
-        width: 50,
-      },
-    },
-    id: '__mock_new_profile_id__',
-  },
-};
-
 let app: Koa;
 
 let usersBefore: number;
-let loginsBefore: number;
+let accountsBefore: number;
 
 beforeAll(async () => {
-  [usersBefore, loginsBefore] = await countRows(true, 'users', 'logins');
+  [usersBefore, accountsBefore] = await countRows(true, 'users', 'accounts');
 });
 
 beforeEach(async () => {
@@ -76,45 +43,38 @@ afterEach(async () => {
 });
 
 it('should redirect on call from web-client', async () => {
-  const req = agent(app).get(`${ROUTE}?returnTo=/test_return_to`);
-  await expect(req).rejects.toMatchObject({
+  const resp = await agent(app).get(`${ROUTE}?returnTo=/test_return_to`);
+  expect(resp).toMatchObject({
     status: 302,
   });
 });
 
 it('should redirect to login when auth failed on fb side', async () => {
-  const strategy = get(passport, '_strategies.facebook');
+  const strategy = get(passport, '_strategies.facebook-legacy');
   strategy._error = new Error('facebook error');
 
-  const req = agent(app).get(CALLBACK_ROUTE);
-  await expect(req).rejects.toMatchObject({
+  const resp = await agent(app).get(CALLBACK_ROUTE);
+  expect(resp).toMatchObject({
     status: 302,
-    response: {
-      headers: {
-        location: '/login',
-      },
+    headers: {
+      location: '/login',
     },
   });
 });
 
-describe('new user', async () => {
+describe('new user', () => {
   let response: superagent.Response | null = null;
   let testAgent: SuperTest<Test>;
 
   beforeEach(async () => {
     response = null;
-    const strategy = get(passport, '_strategies.facebook');
-    strategy._profile = newProfile;
+    const strategy = get(passport, '_strategies.facebook-legacy');
+    strategy._profile = NEW_FB_PROFILE;
     strategy._token_response = {
       access_token: '__mock_access_token__',
     };
     testAgent = agent(app);
-    const req = testAgent.get(CALLBACK_ROUTE);
-    try {
-      response = await req;
-    } catch (err) {
-      response = err.response;
-    }
+    response = await testAgent.get(CALLBACK_ROUTE);
   });
 
   it('should redirect', async () => {
@@ -127,9 +87,13 @@ describe('new user', async () => {
   });
 
   it('should create new user and login', async () => {
-    const [usersAfter, loginsAfter] = await countRows(false, 'users', 'logins');
+    const [usersAfter, accountsAfter] = await countRows(
+      false,
+      'users',
+      'accounts',
+    );
     expect(usersAfter - usersBefore).toBe(1);
-    expect(loginsAfter - loginsBefore).toBe(1);
+    expect(accountsAfter - accountsBefore).toBe(1);
   });
 
   it('should create session', async () => {
@@ -152,18 +116,13 @@ describe('new user', async () => {
   it('should use existing session', async () => {
     // Fire second request
     response = null;
-    const strategy = get(passport, '_strategies.facebook');
-    strategy._profile = newProfile;
+    const strategy = get(passport, '_strategies.facebook-legacy');
+    strategy._profile = NEW_FB_PROFILE;
     strategy._token_response = {
       access_token: '__mock_access_token__',
     };
     // use same agent (should have cookies from first request)
-    const req = testAgent.get(CALLBACK_ROUTE);
-    try {
-      response = await req;
-    } catch (err) {
-      response = err.response;
-    }
+    response = await testAgent.get(CALLBACK_ROUTE);
 
     const sessionId = extractSessionId(response);
     expect(sessionId).toBeDefined();
@@ -183,9 +142,11 @@ describe('new user', async () => {
     expect(spyMiddleware.mock.calls[0][0].state).toMatchObject({
       legacyUser: {
         id: expect.stringMatching(UUID_REGEX),
-        name: newProfile.name!.givenName + ' ' + newProfile.name!.familyName,
-        avatar: newProfile.photos![0].value,
-        email: newProfile.emails![0].value,
+        name: `${NEW_FB_PROFILE.name!.givenName} ${
+          NEW_FB_PROFILE.name!.familyName
+        }`,
+        avatar: NEW_FB_PROFILE.photos![0].value,
+        email: NEW_FB_PROFILE.emails![0].value,
         admin: false,
         language: 'en',
         editor_settings: { language: 'en' },
@@ -197,24 +158,19 @@ describe('new user', async () => {
   });
 });
 
-describe('existing user', async () => {
+describe('existing user', () => {
   let response: superagent.Response | null = null;
   let testAgent: SuperTest<Test>;
 
   beforeEach(async () => {
     response = null;
-    const strategy = get(passport, '_strategies.facebook');
+    const strategy = get(passport, '_strategies.facebook-legacy');
     strategy._profile = ADMIN_FB_PROFILE;
     strategy._token_response = {
       access_token: '__admin_fb_access_token__',
     };
     testAgent = agent(app);
-    const req = testAgent.get(CALLBACK_ROUTE);
-    try {
-      response = await req;
-    } catch (err) {
-      response = err.response;
-    }
+    response = await testAgent.get(CALLBACK_ROUTE);
   });
 
   it('should redirect', async () => {
@@ -227,9 +183,13 @@ describe('existing user', async () => {
   });
 
   it('should not create new user and login', async () => {
-    const [usersAfter, loginsAfter] = await countRows(false, 'users', 'logins');
+    const [usersAfter, accountsAfter] = await countRows(
+      false,
+      'users',
+      'accounts',
+    );
     expect(usersAfter - usersBefore).toBe(0);
-    expect(loginsAfter - loginsBefore).toBe(0);
+    expect(accountsAfter - accountsBefore).toBe(0);
   });
 
   it('should create session', async () => {
@@ -251,7 +211,10 @@ describe('existing user', async () => {
     app.use(spyMiddleware);
     await testAgent.get('/');
     expect(spyMiddleware.mock.calls[0][0].state).toMatchObject({
-      legacyUser: ADMIN,
+      legacyUser: {
+        ...ADMIN,
+        tokens: [],
+      },
     });
   });
 });
@@ -260,44 +223,32 @@ describe('logout', () => {
   let testAgent: SuperTest<Test>;
 
   beforeEach(async () => {
-    const strategy = get(passport, '_strategies.facebook');
+    const strategy = get(passport, '_strategies.facebook-legacy');
     strategy._profile = ADMIN_FB_PROFILE;
     strategy._token_response = {
       access_token: '__admin_fb_access_token__',
     };
     testAgent = agent(app);
-    const req = testAgent.get(CALLBACK_ROUTE);
-    try {
-      await req;
-    } catch {}
+    await testAgent.get(CALLBACK_ROUTE);
   });
 
   it('should redirect to referrer', async () => {
-    try {
-      await testAgent.get(LOGOUT_ROUTE).set('Referer', 'https://referer.com');
-    } catch (err) {
-      const resp = err.response;
-      expect(resp.status).toBe(302);
-      expect(resp.header.location).toBe('https://referer.com');
-    }
+    const resp = await testAgent
+      .get(LOGOUT_ROUTE)
+      .set('Referer', 'https://referer.com');
+    expect(resp.status).toBe(302);
+    expect(resp.header.location).toBe('https://referer.com');
   });
 
   it('should remove session', async () => {
-    // existence of session before logout call is tested in different test above
-    try {
-      await testAgent.get(LOGOUT_ROUTE);
-    } catch {
-      /* redirect is here */
-    }
+    await testAgent.get(LOGOUT_ROUTE);
     const keys = await asyncRedis.keys('*');
     expect(keys).toHaveLength(0);
   });
 
   it('should remove session from cookie', async () => {
     // existence of session before logout call is tested in different test above
-    try {
-      await testAgent.get(LOGOUT_ROUTE);
-    } catch {}
+    await testAgent.get(LOGOUT_ROUTE);
     const cookie = testAgent.jar.getCookie('wwguide', CookieAccessInfo.All);
     expect(cookie.value).toBe('');
   });

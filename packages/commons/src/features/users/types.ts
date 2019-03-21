@@ -26,6 +26,7 @@ export interface UserInput {
   avatar?: string | null;
   language?: string;
   imperial?: boolean;
+  email?: string | null;
 }
 
 export interface UserFilter extends TextSearchFilter {

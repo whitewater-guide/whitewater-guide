@@ -19,6 +19,8 @@ type User {
   imperial: Boolean!
   # Special settings for editors
   editorSettings: EditorSettings
+  # If user is verified
+  verified: Boolean!
 
   # Which regions current user has purchased
   purchasedRegions: [Region]!
@@ -36,6 +38,7 @@ input UserInput {
   avatar: String
   language: String
   imperial: Boolean
+  email: String
 }
 
 input EditorSettingsInput {

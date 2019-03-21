@@ -13,7 +13,7 @@ const removeMedia: TopLevelResolver<Vars> = async (
   { id },
   { user, language, dataSources },
 ) => {
-  await dataSources.media.assertEditorPermissions(id);
+  await dataSources.users.assertEditorPermissions({ mediaId: id });
   const { section_id } = await db()
     .select('section_id')
     .from('sections_media')

@@ -69,8 +69,6 @@ services:
       - type: bind
         source: ../services/db/config/x-dev-restore.sh
         target: /docker-entrypoint-initdb.d/x-dev-restore.sh
-    environment:
-      - NODE_ENV=development # This is needed to created test db
     ports:
       - '5432:5432'
 
