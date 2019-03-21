@@ -1,3 +1,9 @@
+## [0.0.106](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.105...@whitewater-guide/caddy@0.0.106) (2019-03-21)
+
+### Features
+
+- new authentication system ([bd3f2b9](https://github.com/doomsower/whitewater/commit/bd3f2b9))
+
 ## [0.0.105](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.104...@whitewater-guide/caddy@0.0.105) (2019-03-04)
 
 ## [0.0.104](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.103...@whitewater-guide/caddy@0.0.104) (2019-03-03)

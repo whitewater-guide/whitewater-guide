@@ -1,3 +1,9 @@
+## [0.1.317](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.316...@whitewater-guide/web@0.1.317) (2019-03-21)
+
+### Features
+
+- new authentication system ([bd3f2b9](https://github.com/doomsower/whitewater/commit/bd3f2b9))
+
 ## [0.1.316](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.315...@whitewater-guide/web@0.1.316) (2019-03-04)
 
 ## [0.1.315](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.314...@whitewater-guide/web@0.1.315) (2019-03-03)

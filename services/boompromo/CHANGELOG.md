@@ -1,3 +1,9 @@
+## [0.0.129](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.128...@whitewater-guide/boompromo@0.0.129) (2019-03-21)
+
+### Features
+
+- new authentication system ([bd3f2b9](https://github.com/doomsower/whitewater/commit/bd3f2b9))
+
 ## [0.0.128](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.127...@whitewater-guide/boompromo@0.0.128) (2019-03-02)
 
 ### Features

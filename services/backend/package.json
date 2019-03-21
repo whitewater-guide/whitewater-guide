@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/backend",
   "private": true,
-  "version": "0.0.321",
+  "version": "0.0.322",
   "main": "index.js",
   "author": "Konstantin Kuznetsov",
   "license": "UNLICENSED",
@@ -93,7 +93,7 @@
     "@koa/cors": "3.0.0",
     "@turf/boolean-point-in-polygon": "^6.0.1",
     "@turf/helpers": "^6.1.4",
-    "@whitewater-guide/commons": "^0.0.122",
+    "@whitewater-guide/commons": "^0.0.123",
     "apollo-datasource": "^0.3.1",
     "apollo-server": "^2.4.8",
     "apollo-server-errors": "^2.0.2",

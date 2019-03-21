@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/scripts",
   "private": true,
-  "version": "0.0.34",
+  "version": "0.0.35",
   "license": "UNLICENSED",
   "description": "build scripts for whitewater.guide",
   "repository": "https://github.com/doomsower/whitewater.git",
