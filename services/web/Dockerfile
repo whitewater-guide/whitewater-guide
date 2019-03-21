@@ -3,7 +3,7 @@ FROM ubuntu:18.04 AS dockerizer
 RUN apt-get update && apt-get install -y curl
 
 ENV DOCKERIZE_VERSION v0.11.0
-RUN curl -sfL https://github.com/powerman/dockerize/releases/download/${DOCKERIZE_VERSION}/dockerize-`uname -s`-`uname -m` | install /dev/stdin /usr/local/bin/dockerize
+RUN curl -sfL https://github.com/powerman/dockerize/releases/download/${DOCKERIZE_VERSION}/dockerize-$(uname -s)-$(uname -m) | install /dev/stdin /usr/local/bin/dockerize
 
 FROM pierrezemb/gostatic
 
