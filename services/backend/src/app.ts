@@ -14,6 +14,7 @@ export type App = Koa & {
 export const createApp = (): App => {
   const app = new Koa();
   app.silent = true;
+  app.proxy = process.env.NODE_ENV === 'production';
   app.on('error', (err) => log.error(err));
 
   app.use(corsMiddleware);
