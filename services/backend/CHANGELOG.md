@@ -1,3 +1,9 @@
+## [0.0.323](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.322...@whitewater-guide/backend@0.0.323) (2019-03-21)
+
+### Bug Fixes
+
+- **backend:** koa proxy=true in production ([ec8b4ab](https://github.com/doomsower/whitewater/commit/ec8b4ab))
+
 ## [0.0.322](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.321...@whitewater-guide/backend@0.0.322) (2019-03-21)
 
 ### Features
