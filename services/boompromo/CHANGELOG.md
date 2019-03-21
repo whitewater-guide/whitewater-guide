@@ -1,3 +1,9 @@
+## [0.0.130](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.129...@whitewater-guide/boompromo@0.0.130) (2019-03-21)
+
+### Bug Fixes
+
+- fix dockerize images ([4182cbd](https://github.com/doomsower/whitewater/commit/4182cbd))
+
 ## [0.0.129](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.128...@whitewater-guide/boompromo@0.0.129) (2019-03-21)
 
 ### Features

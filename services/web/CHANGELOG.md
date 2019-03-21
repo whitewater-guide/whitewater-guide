@@ -1,3 +1,9 @@
+## [0.1.318](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.317...@whitewater-guide/web@0.1.318) (2019-03-21)
+
+### Bug Fixes
+
+- fix dockerize images ([4182cbd](https://github.com/doomsower/whitewater/commit/4182cbd))
+
 ## [0.1.317](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.316...@whitewater-guide/web@0.1.317) (2019-03-21)
 
 ### Features
