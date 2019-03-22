@@ -28,7 +28,7 @@
 | MAIL_PASSWORD                | <random_secret>                                            | Password from noreply box                                                                                             |
 | ACCESS_TOKEN_SECRET          | <random_secret>                                            | Secret for access JWT signing                                                                                         |
 | REFRESH_TOKEN_SECRET         | <random_secret>                                            | Secret for refresh JWT signing                                                                                        |
-| ACCESS_TOKEN_EXPIRES         | [Zeit/ms](https://github.com/zeit/ms) format ("10m")       | Password from noreply box                                                                                             |
+| ACCESS_TOKEN_EXPIRES         | num seconds (600)                                          | JWT access token lifespan                                                                                             |
 
 # Testing
 

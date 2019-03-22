@@ -4,7 +4,7 @@ import { AccessTokenPayload, RefreshTokenPayload } from './types';
 export const getAccessToken = (userId: string) => {
   const payload: AccessTokenPayload = { id: userId };
   return jsonwebtoken.sign(payload, process.env.ACCESS_TOKEN_SECRET!, {
-    expiresIn: process.env.ACCESS_TOKEN_EXPIRES,
+    expiresIn: parseInt(process.env.ACCESS_TOKEN_EXPIRES!, 10),
   });
 };
 
