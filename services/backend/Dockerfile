@@ -1,4 +1,4 @@
-FROM node:10.15.2-alpine
+FROM node:10.15.3-alpine
 
 ENV PROJECT_ROOT /opt/app
 WORKDIR $PROJECT_ROOT
