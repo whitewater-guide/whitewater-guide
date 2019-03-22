@@ -1,7 +1,7 @@
 ## dockerfile base: https://github.com/minio/minio/blob/master/Dockerfile.release
 ## https://gist.github.com/justbk/384f41766b787afda84d623c95f4ba10
 
-FROM minio/minio:RELEASE.2019-02-26T19-51-46Z AS upstream
+FROM minio/minio:RELEASE.2019-03-20T22-38-47Z AS upstream
 
 FROM alpine:3.7 AS miniobase
 
