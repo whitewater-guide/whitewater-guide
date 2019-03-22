@@ -1,3 +1,9 @@
+## [0.1.319](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.318...@whitewater-guide/web@0.1.319) (2019-03-22)
+
+### Bug Fixes
+
+- **web:** try to refresh jwt on app startup ([c40d4e0](https://github.com/doomsower/whitewater/commit/c40d4e0))
+
 ## [0.1.318](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.317...@whitewater-guide/web@0.1.318) (2019-03-21)
 
 ### Bug Fixes
