@@ -7,7 +7,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Store } from 'redux';
 import { Persistor } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
-import { client } from './apollo';
+import { client, refreshJWT } from './apollo';
 import { Loading } from './components';
 import { RootLayout } from './layout';
 import { configureStore } from './redux';
@@ -16,20 +16,32 @@ import { theme } from './styles';
 interface State {
   store?: Store;
   persistor?: Persistor;
+  isRefreshingJwt: boolean;
 }
 
 export default class App extends React.PureComponent<{}, State> {
-  state: State = {};
+  state: State = { isRefreshingJwt: true };
 
-  async componentDidMount() {
-    const state = await configureStore();
-    this.setState(state);
+  async componentWillMount() {
+    const [{ store, persistor }] = await Promise.all([
+      configureStore(),
+      refreshJWT().catch(),
+    ]);
+
+    this.setState({ store, persistor, isRefreshingJwt: false });
   }
 
   renderLoading = () => <Loading />;
 
   render() {
-    const { store, persistor } = this.state;
+    const { store, persistor, isRefreshingJwt } = this.state;
+    if (isRefreshingJwt) {
+      return (
+        <MuiThemeProvider muiTheme={theme}>
+          {this.renderLoading()}
+        </MuiThemeProvider>
+      );
+    }
     if (store && persistor) {
       return (
         <MuiThemeProvider muiTheme={theme}>
