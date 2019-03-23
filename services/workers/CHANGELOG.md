@@ -1,3 +1,9 @@
+## [0.0.77](https://github.com/doomsower/whitewater/compare/@whitewater-guide/workers@0.0.76...@whitewater-guide/workers@0.0.77) (2019-03-23)
+
+### Features
+
+- **workers:** added Cantabria ([8a8333b](https://github.com/doomsower/whitewater/commit/8a8333b))
+
 ## [0.0.76](https://github.com/doomsower/whitewater/compare/@whitewater-guide/workers@0.0.75...@whitewater-guide/workers@0.0.76) (2019-02-26)
 
 ### Bug Fixes
