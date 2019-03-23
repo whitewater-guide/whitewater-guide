@@ -1,3 +1,9 @@
+## [0.0.109](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.108...@whitewater-guide/caddy@0.0.109) (2019-03-23)
+
+### Bug Fixes
+
+- **caddy:** legacy backend rewrite take 2 ([842add9](https://github.com/doomsower/whitewater/commit/842add9))
+
 ## [0.0.108](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.107...@whitewater-guide/caddy@0.0.108) (2019-03-23)
 
 ### Bug Fixes
