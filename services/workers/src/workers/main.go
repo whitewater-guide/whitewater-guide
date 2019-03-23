@@ -2,6 +2,7 @@ package main
 
 import (
 	"all-at-once"
+	"cantabria"
 	"catalunya"
 	"chile"
 	"core"
@@ -138,6 +139,7 @@ func startWorkers() {
 	register(switzerland.NewWorkerSwitzerland)
 	register(ecuador.NewWorkerEcuador)
 	register(catalunya.NewWorkerCatalunya)
+	register(cantabria.NewWorkerCantabria)
 
 	log.Info("started workers")
 }
