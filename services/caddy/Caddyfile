@@ -11,10 +11,21 @@ import subdomains/*
     / {$ADMIN_ADDRESS}
   }
   # legacy backend rewrites.
-  rewrite /graphql {$API_ADDRESS}/legacy/graphql
-  rewrite /auth {
-    r  (.*)
-    to {$API_ADDRESS}/legacy/auth{1}
+  rewrite / {
+    if {path} starts_with /graphql
+    if {path} starts_with /graphiql
+    if {path} starts_with /auth
+    if {path} starts_with /ping
+    if {file} is schema.json
+    if {file} is typedefs.txt
+    if_op or
+    to /backend{uri}
+  }
+  proxy /backend backend:3333 {
+    without /backend
+    header_downstream X-Legacy-Response 1
+    header_upstream X-Legacy-Redirect 1
+    transparent
   }
   # legacy redirect
   redir 301 {
