@@ -1,3 +1,9 @@
+## [0.0.108](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.107...@whitewater-guide/caddy@0.0.108) (2019-03-23)
+
+### Bug Fixes
+
+- **caddy:** user rewrite instead of 307 redirect for legacy ([b8ceae1](https://github.com/doomsower/whitewater/commit/b8ceae1))
+
 ## [0.0.107](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.106...@whitewater-guide/caddy@0.0.107) (2019-03-21)
 
 ### Features
