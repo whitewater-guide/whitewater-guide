@@ -14,8 +14,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "STORYBOOK_ENABLED=true start-storybook -s ./public/storybook -p 6006 -c .storybook",
-    "preversion": "yarn build",
-    "postversion": "./scripts/sentry.sh",
+    "postversion": "./scripts/postversion.sh",
     "version": "../../tooling/scripts/sh/changelog.sh"
   },
   "dependencies": {
