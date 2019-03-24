@@ -5,7 +5,7 @@
 #
 FROM abiosoft/caddy:builder as builder
 
-ARG version="0.11.4"
+ARG version="0.11.5"
 ARG plugins="ratelimit"
 
 # process wrapper
@@ -18,7 +18,7 @@ RUN VERSION=${version} PLUGINS=${plugins} ENABLE_TELEMETRY=false /bin/sh /usr/bi
 #
 FROM alpine:3.8
 
-ARG version="0.11.4"
+ARG version="0.11.5"
 LABEL caddy_version="$version"
 
 # Let's Encrypt Agreement
