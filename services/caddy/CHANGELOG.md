@@ -1,3 +1,10 @@
+## [0.0.111](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.110...@whitewater-guide/caddy@0.0.111) (2019-03-24)
+
+### Bug Fixes
+
+- **caddy:** add git ([04a6c46](https://github.com/doomsower/whitewater/commit/04a6c46))
+- **caddy:** temp staging ([a38c2f7](https://github.com/doomsower/whitewater/commit/a38c2f7))
+
 ## [0.0.110](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.109...@whitewater-guide/caddy@0.0.110) (2019-03-24)
 
 ### Bug Fixes
