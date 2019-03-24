@@ -1,3 +1,9 @@
+## [0.0.116](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.115...@whitewater-guide/caddy@0.0.116) (2019-03-24)
+
+### Bug Fixes
+
+- **caddy:** run as non-root ([bf57753](https://github.com/doomsower/whitewater/commit/bf57753))
+
 ## [0.0.115](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.114...@whitewater-guide/caddy@0.0.115) (2019-03-24)
 
 ### Bug Fixes
