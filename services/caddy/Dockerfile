@@ -24,9 +24,6 @@ ENV ACME_AGREE="true"
 ENV ENABLE_TELEMETRY="false"
 
 RUN apk add --no-cache openssh-client ca-certificates
-# 1001 matches dockeradmin
-RUN addgroup -g 1001 caddy \
- && adduser -D -u 1001 -G caddy caddy
 
 # install caddy
 COPY --from=builder /install/caddy /usr/bin/caddy
@@ -38,8 +35,6 @@ COPY subdomains /etc/subdomains
 
 # install process wrapper
 COPY --from=builder /go/bin/parent /bin/parent
-
-USER caddy
 
 ENTRYPOINT ["/bin/parent", "caddy"]
 CMD ["--conf", "/etc/Caddyfile", "--log", "stdout", "--agree=$ACME_AGREE"]
