@@ -19,15 +19,14 @@ RUN VERSION=${version} PLUGINS=${plugins} ENABLE_TELEMETRY=false /bin/sh /usr/bi
 FROM alpine:3.8
 
 ARG version="0.11.5"
-LABEL caddy_version="$version"
 
-# Let's Encrypt Agreement
 ENV ACME_AGREE="true"
-
-# Telemetry Stats
 ENV ENABLE_TELEMETRY="false"
 
+# 1001 matches dockeradmin
 RUN apk add --no-cache openssh-client ca-certificates
+RUN addgroup --gid 1001 --system caddy \
+ && adduser --uid 1001 --system caddy --gid 1001 \
 
 # install caddy
 COPY --from=builder /install/caddy /usr/bin/caddy
@@ -39,6 +38,8 @@ COPY subdomains /etc/subdomains
 
 # install process wrapper
 COPY --from=builder /go/bin/parent /bin/parent
+
+USER caddy
 
 ENTRYPOINT ["/bin/parent", "caddy"]
 CMD ["--conf", "/etc/Caddyfile", "--log", "stdout", "--agree=$ACME_AGREE"]
