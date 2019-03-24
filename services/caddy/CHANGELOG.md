@@ -1,3 +1,9 @@
+## [0.0.112](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.111...@whitewater-guide/caddy@0.0.112) (2019-03-24)
+
+### Bug Fixes
+
+- **caddy:** revert to 0.11.4 ([7038d63](https://github.com/doomsower/whitewater/commit/7038d63))
+
 ## [0.0.111](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.110...@whitewater-guide/caddy@0.0.111) (2019-03-24)
 
 ### Bug Fixes
