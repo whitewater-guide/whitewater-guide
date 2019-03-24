@@ -23,10 +23,10 @@ ARG version="0.11.5"
 ENV ACME_AGREE="true"
 ENV ENABLE_TELEMETRY="false"
 
-# 1001 matches dockeradmin
 RUN apk add --no-cache openssh-client ca-certificates
-RUN addgroup --gid 1001 --system caddy \
- && adduser --uid 1001 --system caddy --gid 1001 \
+# 1001 matches dockeradmin
+RUN addgroup -g 1001 caddy \
+ && adduser -D -u 1001 -G caddy caddy
 
 # install caddy
 COPY --from=builder /install/caddy /usr/bin/caddy
