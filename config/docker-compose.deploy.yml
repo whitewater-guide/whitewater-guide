@@ -46,7 +46,7 @@ services:
     image: '${DOCKER_REGISTRY_PREFIX}caddy:${CADDY_VERSION}'
     volumes:
       - type: bind
-        source: /etc/caddycerts
+        source: /root/caddycerts
         target: /etc/caddycerts
       - type: bind
         source: /var/caddy/cache
