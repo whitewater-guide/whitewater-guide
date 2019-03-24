@@ -1,3 +1,9 @@
+## [0.0.114](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.113...@whitewater-guide/caddy@0.0.114) (2019-03-24)
+
+### Bug Fixes
+
+- **caddy:** disable staging ([6863d7d](https://github.com/doomsower/whitewater/commit/6863d7d))
+
 ## [0.0.113](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.111...@whitewater-guide/caddy@0.0.113) (2019-03-24)
 
 ### Bug Fixes
