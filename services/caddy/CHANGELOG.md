@@ -1,3 +1,9 @@
+## [0.0.110](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.109...@whitewater-guide/caddy@0.0.110) (2019-03-24)
+
+### Bug Fixes
+
+- **caddy:** add ca-certificates ([5814729](https://github.com/doomsower/whitewater/commit/5814729))
+
 ## [0.0.109](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.108...@whitewater-guide/caddy@0.0.109) (2019-03-23)
 
 ### Bug Fixes
