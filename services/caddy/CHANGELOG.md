@@ -1,3 +1,9 @@
+## [0.0.122](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.121...@whitewater-guide/caddy@0.0.122) (2019-03-26)
+
+### Features
+
+- **caddy:** add cache-control to admin ([85c9b1f](https://github.com/doomsower/whitewater/commit/85c9b1f))
+
 ## [0.0.121](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.120...@whitewater-guide/caddy@0.0.121) (2019-03-24)
 
 ### Bug Fixes
