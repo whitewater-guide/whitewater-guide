@@ -1,6 +1,7 @@
 import { ApolloCache } from 'apollo-cache';
 import { onError } from 'apollo-link-error';
 import { ServerError } from 'apollo-link-http-common';
+import get from 'lodash/get';
 import { APOLLO_ERROR_QUERY } from './apolloError.query';
 
 export const isApolloServerError = (err: any): err is ServerError =>
@@ -36,6 +37,18 @@ export const errorLink = (
           data: { apolloError: { networkError, graphQLErrors } },
         });
       }
+    } else if (
+      graphQLErrors &&
+      graphQLErrors.some(
+        (ge) => get(ge, 'extensions.code') === 'UNAUTHENTICATED',
+      )
+    ) {
+      operation.setContext({
+        [JWT_EXPIRED_CTX_KEY]: true,
+      });
+      // Retry forward
+      // https://www.apollographql.com/docs/link/links/error.html#retry-request
+      return forward(operation);
     } else if (networkError || (graphQLErrors && graphQLErrors.length)) {
       cache.writeQuery({
         query: APOLLO_ERROR_QUERY,

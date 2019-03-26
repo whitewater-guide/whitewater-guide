@@ -1,3 +1,9 @@
+## [1.7.15](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.14...@whitewater-guide/mobile@1.7.15) (2019-03-26)
+
+### Features
+
+- **clients:** refresh jwt on graphql unauthenticated error ([b3cb3d5](https://github.com/doomsower/whitewater/commit/b3cb3d5))
+
 ## [1.7.14](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.13...@whitewater-guide/mobile@1.7.14) (2019-03-21)
 
 ## [1.7.13](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.12...@whitewater-guide/mobile@1.7.13) (2019-03-04)
