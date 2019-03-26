@@ -1,3 +1,9 @@
+## [0.0.204](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.203...@whitewater-guide/clients@0.0.204) (2019-03-26)
+
+### Features
+
+- **clients:** refresh jwt on graphql unauthenticated error ([b3cb3d5](https://github.com/doomsower/whitewater/commit/b3cb3d5))
+
 ## [0.0.203](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.202...@whitewater-guide/clients@0.0.203) (2019-03-21)
 
 ### Features

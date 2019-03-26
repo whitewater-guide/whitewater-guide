@@ -1,3 +1,9 @@
+## [0.0.326](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.325...@whitewater-guide/backend@0.0.326) (2019-03-26)
+
+### Features
+
+- **backend:** make accessToken cookie last 24 hours ([69dca80](https://github.com/doomsower/whitewater/commit/69dca80))
+
 ## [0.0.325](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.324...@whitewater-guide/backend@0.0.325) (2019-03-22)
 
 ### Bug Fixes
