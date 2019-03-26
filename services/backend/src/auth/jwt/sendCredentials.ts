@@ -27,8 +27,7 @@ export const sendCredentials = (
     ctx.cookies.set(ACCESS_TOKEN_COOKIE, accessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      // Make cookie last a bit more than jwt it carries
-      maxAge: parseInt(process.env.ACCESS_TOKEN_EXPIRES!, 10) * 1000 * 1.2,
+      maxAge: 24 * 60 * 60 * 1000,
       signed: false,
     });
     ctx.cookies.set(REFRESH_TOKEN_COOKIE, refreshToken, {
