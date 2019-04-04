@@ -1,8 +1,9 @@
 import { AuthPayload, RefreshPayload } from '@whitewater-guide/commons';
+import { fetchRetry } from '../utils';
 import { AuthResponse } from './types';
 
 export const fetchAccessToken = (baseUrl: string, payload?: RefreshPayload) =>
-  fetch(`${baseUrl}/auth/jwt/refresh`, {
+  fetchRetry(`${baseUrl}/auth/jwt/refresh`, {
     method: 'POST',
     credentials: !!payload ? 'omit' : 'include',
     headers: {

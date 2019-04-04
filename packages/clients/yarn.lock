@@ -852,6 +852,13 @@
   resolved "https://registry.yarnpkg.com/@sheerun/mutationobserver-shim/-/mutationobserver-shim-0.3.2.tgz#8013f2af54a2b7d735f71560ff360d3a8176a87b"
   integrity sha512-vTCdPp/T/Q3oSqwHmZ5Kpa9oI7iLtGl3RQaA/NyLHikvcrPxACkkKVr/XzkSPJWXHRhKGzVvb0urJsbMlRxi1Q==
 
+"@types/async-retry@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@types/async-retry/-/async-retry-1.4.0.tgz#4c52040183941c6f5e7b404538cd5687f9ea7b2a"
+  integrity sha512-6bF24iEEM8ApmvJYpUjUW/w5Ud9q8KV8c25T5ClSxTmgeM7vtJZIKwYwQ0rWQmKCwPVkbwfxIJ8sgXQC4XzAlw==
+  dependencies:
+    "@types/retry" "*"
+
 "@types/babel__core@^7.1.0":
   version "7.1.0"
   resolved "https://registry.yarnpkg.com/@types/babel__core/-/babel__core-7.1.0.tgz#710f2487dda4dcfd010ca6abb2b4dc7394365c51"
@@ -1019,6 +1026,11 @@
   dependencies:
     "@types/react" "*"
 
+"@types/retry@*":
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/@types/retry/-/retry-0.12.0.tgz#2b35eccfcee7d38cd72ad99232fbd58bffb3c84d"
+  integrity sha512-wWKOClTTiizcZhXnPY4wikVAwmdYHp8q6DmC+EJUzAMsycb7HB32Kh9RN4+0gExjmPmZSAQjgURXIGATPegAvA==
+
 "@types/shallowequal@^1.1.0":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@types/shallowequal/-/shallowequal-1.1.1.tgz#aad262bb3f2b1257d94c71d545268d592575c9b1"
@@ -1054,10 +1066,10 @@
   resolved "https://registry.yarnpkg.com/@types/zen-observable/-/zen-observable-0.8.0.tgz#8b63ab7f1aa5321248aad5ac890a485656dcea4d"
   integrity sha512-te5lMAWii1uEJ4FwLjzdlbw3+n0FZNOvFXHxQDKeT0dilh7HOzdMzV2TrJVUzq8ep7J4Na8OUYPRLSQkJHAlrg==
 
-"@whitewater-guide/commons@^0.0.124-mobile.0":
-  version "0.0.124-mobile.0"
-  resolved "https://registry.yarnpkg.com/@whitewater-guide/commons/-/commons-0.0.124-mobile.0.tgz#b331884e25075b82e371fe90ffb2519d7d05ecda"
-  integrity sha512-a4s7bIdpF2tglugKkNg1nZUZplWBfVSSyvjKIHz7RPC3DI4uAFURVMr4M9F2GYZxljxQ4kMh3IFVYAz1wlAxUQ==
+"@whitewater-guide/commons@^0.0.125":
+  version "0.0.125"
+  resolved "https://registry.yarnpkg.com/@whitewater-guide/commons/-/commons-0.0.125.tgz#ea9ba057a383a0dcbe5b2abe92d4dc2bc3bdfb60"
+  integrity sha512-f/8SylrJdyhiCBbF8GFgOWdlz9oIB3LrzHEQCQdmktwuNpk29LF3DhLpNQklz5HyVEEUUMnSPt9nGnY7PELm1g==
   dependencies:
     cron-parser "^2.7.3"
     lodash "^4.17.11"
@@ -1322,6 +1334,13 @@ async-limiter@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/async-limiter/-/async-limiter-1.0.0.tgz#78faed8c3d074ab81f22b4e985d79e8738f720f8"
   integrity sha512-jp/uFnooOiO+L211eZOoSyzpOITMXx1rBITauYykG3BRYPu8h0UcxsPNB04RR5vo4Tyz3+ay17tR6JVf9qzYWg==
+
+async-retry@^1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/async-retry/-/async-retry-1.2.3.tgz#a6521f338358d322b1a0012b79030c6f411d1ce0"
+  integrity sha512-tfDb02Th6CE6pJUF2gjW5ZVjsgwlucVXOEQMvEX9JgSJMs9gAX+Nz3xRuJBKuUYjTSYORqvDBORdAQ3LU59g7Q==
+  dependencies:
+    retry "0.12.0"
 
 async@^2.6.1:
   version "2.6.2"
@@ -4355,6 +4374,11 @@ ret@~0.1.10:
   version "0.1.15"
   resolved "https://registry.yarnpkg.com/ret/-/ret-0.1.15.tgz#b8a4825d5bdb1fc3f6f53c2bc33f81388681c7bc"
   integrity sha512-TTlYpa+OL+vMMNG24xSlQGEJ3B/RzEfUlLct7b5G/ytav+wPrplCpVMFuwzXbkecJrb6IYo1iFb0S9v37754mg==
+
+retry@0.12.0:
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/retry/-/retry-0.12.0.tgz#1b42a6266a21f07421d1b0b54b7dc167b01c013b"
+  integrity sha1-G0KmJmoh8HQh0bC1S33BZ7AcATs=
 
 rimraf@^2.5.4, rimraf@^2.6.2:
   version "2.6.3"
