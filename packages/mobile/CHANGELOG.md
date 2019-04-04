@@ -1,3 +1,9 @@
+## [1.7.20](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.19...@whitewater-guide/mobile@1.7.20) (2019-04-04)
+
+### Bug Fixes
+
+- **mobile:** temp alert on error ([989c6c0](https://github.com/doomsower/whitewater/commit/989c6c0))
+
 ## [1.7.19](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.18...@whitewater-guide/mobile@1.7.19) (2019-04-04)
 
 ### Features
