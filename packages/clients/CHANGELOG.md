@@ -1,3 +1,9 @@
+## [0.0.207](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.206...@whitewater-guide/clients@0.0.207) (2019-04-04)
+
+### Features
+
+- **clients:** add fetchRetry utility ([d521900](https://github.com/doomsower/whitewater/commit/d521900))
+
 ## [0.0.206](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.204...@whitewater-guide/clients@0.0.206) (2019-04-04)
 
 ### Features
