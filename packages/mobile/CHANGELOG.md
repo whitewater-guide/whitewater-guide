@@ -1,3 +1,14 @@
+## [1.7.17](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.16...@whitewater-guide/mobile@1.7.17) (2019-04-04)
+
+### Bug Fixes
+
+- **mobile:** fix RadioDialog keys ([2230c56](https://github.com/doomsower/whitewater/commit/2230c56))
+- **mobile:** fix sign out + myPurchases bug ([3f49166](https://github.com/doomsower/whitewater/commit/3f49166))
+
+### Features
+
+- **mobile:** show alert dialog on sign out ([6f350b0](https://github.com/doomsower/whitewater/commit/6f350b0))
+
 ## [1.7.16](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.15...@whitewater-guide/mobile@1.7.16) (2019-04-04)
 
 ### Features
