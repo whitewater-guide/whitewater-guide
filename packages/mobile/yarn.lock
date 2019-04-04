@@ -2268,10 +2268,10 @@
     "@webassemblyjs/wast-parser" "1.8.5"
     "@xtuc/long" "4.2.2"
 
-"@whitewater-guide/clients@^0.0.206":
-  version "0.0.206"
-  resolved "https://registry.yarnpkg.com/@whitewater-guide/clients/-/clients-0.0.206.tgz#8a50e1ae522027a51720c5337df8e471be316166"
-  integrity sha512-mRj1/3DfASAKXNg+pNCa3RCLQ0Ce3VVRaGHyB0snkpv6aFrzxP3JkPXcTRhr3u9EDcZEsSUdnpYX8AU3h53/rw==
+"@whitewater-guide/clients@^0.0.207":
+  version "0.0.207"
+  resolved "https://registry.yarnpkg.com/@whitewater-guide/clients/-/clients-0.0.207.tgz#7823f17c70fc11d40bfdbf9d0f61316ef99e8fc9"
+  integrity sha512-lXA4MRSRAOdx56tFlIxwfDoNs/cDTFV9eloHzYFfm2/GWmTy7h+Z0q01+3f5TdWCobugFjK8RT86FfeR3YUEVA==
   dependencies:
     "@types/jest" "^24.0.11"
     "@whitewater-guide/commons" "^0.0.125"
@@ -2284,6 +2284,7 @@
     apollo-link-http-common "^0.2.13"
     apollo-link-schema "^1.2.2"
     apollo-utilities "^1.2.1"
+    async-retry "^1.2.3"
     color "^3.1.0"
     graphql "^14.2.0"
     graphql-tag "2.10.1"
@@ -3008,6 +3009,13 @@ async-limiter@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/async-limiter/-/async-limiter-1.0.0.tgz#78faed8c3d074ab81f22b4e985d79e8738f720f8"
   integrity sha512-jp/uFnooOiO+L211eZOoSyzpOITMXx1rBITauYykG3BRYPu8h0UcxsPNB04RR5vo4Tyz3+ay17tR6JVf9qzYWg==
+
+async-retry@^1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/async-retry/-/async-retry-1.2.3.tgz#a6521f338358d322b1a0012b79030c6f411d1ce0"
+  integrity sha512-tfDb02Th6CE6pJUF2gjW5ZVjsgwlucVXOEQMvEX9JgSJMs9gAX+Nz3xRuJBKuUYjTSYORqvDBORdAQ3LU59g7Q==
+  dependencies:
+    retry "0.12.0"
 
 async-validator@~1.8.5:
   version "1.8.5"
@@ -13334,6 +13342,11 @@ ret@~0.1.10:
   version "0.1.15"
   resolved "https://registry.yarnpkg.com/ret/-/ret-0.1.15.tgz#b8a4825d5bdb1fc3f6f53c2bc33f81388681c7bc"
   integrity sha512-TTlYpa+OL+vMMNG24xSlQGEJ3B/RzEfUlLct7b5G/ytav+wPrplCpVMFuwzXbkecJrb6IYo1iFb0S9v37754mg==
+
+retry@0.12.0:
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/retry/-/retry-0.12.0.tgz#1b42a6266a21f07421d1b0b54b7dc167b01c013b"
+  integrity sha1-G0KmJmoh8HQh0bC1S33BZ7AcATs=
 
 reusify@^1.0.0:
   version "1.0.4"

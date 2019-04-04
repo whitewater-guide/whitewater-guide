@@ -2,6 +2,7 @@ import {
   AuthService,
   AuthType,
   Credentials,
+  fetchRetry,
   refreshAccessToken,
 } from '@whitewater-guide/clients';
 import { AuthPayload } from '@whitewater-guide/commons';
@@ -79,10 +80,9 @@ export class MobileAuthService implements AuthService, Emitter {
       // On real iOS device first backend login will fail
       // Probably because of this bug https://github.com/AFNetworking/AFNetworking/issues/4279
       // The app sends request when before it comes to foreground after fb login screen
-      // Both delay and retry can solve this problem alone
+      // Both initial delay and retry can solve this problem alone
       // After delay AppState.currentState is still `background`
       // After 1000ms (one retry) AppState.currentState is `active`
-      // However, I don't want to add state listener, because I'm not 100% sure what causes this error
       await waitUntilActive();
       const at = await AccessToken.getCurrentAccessToken();
       if (!at) {
@@ -94,7 +94,7 @@ export class MobileAuthService implements AuthService, Emitter {
       options = { credentials: 'omit' };
     }
     try {
-      const resp = await fetch(url, options);
+      const resp = await fetchRetry(url, options);
       const { accessToken, refreshToken }: AuthPayload = await resp.json();
       if (accessToken && refreshToken) {
         await tokenStorage.setAccessToken(accessToken);
