@@ -88,17 +88,6 @@ export class MobileAuthService implements AuthService, Emitter {
     } catch {}
   }
   async signOut(force = false) {
-    /**
-     *   yield call(
-     * [Alert, Alert.alert],
-     * i18next.t('auth:logoutDialogTitle'),
-     * i18next.t('auth:logoutDialogMessage'),
-     * [
-     * { text: i18next.t('commons:no') },
-     * { text: i18next.t('commons:yes'), ...confirmButton },
-     * ],
-     * );
-     */
     await tokenStorage.setAccessToken(null);
     await tokenStorage.setRefreshToken(null);
     LoginManager.logOut();

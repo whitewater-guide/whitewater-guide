@@ -13,6 +13,7 @@ import {
 import { LANGUAGE_NAMES, SUPPORTED_LANGUAGES } from '../../i18n';
 import theme from '../../theme';
 import { PurchasesListView } from './purchases';
+import { SignOutButton } from './SignOutButton';
 import { InnerProps } from './types';
 
 const styles = StyleSheet.create({
@@ -76,13 +77,7 @@ class MyProfileView extends React.PureComponent<InnerProps> {
           </Paper>
           <PurchasesListView />
         </ScrollView>
-        <AuthContext.Consumer>
-          {({ signOut }) => (
-            <Button mode="contained" onPress={() => signOut}>
-              {t('myProfile:logout')}
-            </Button>
-          )}
-        </AuthContext.Consumer>
+        <SignOutButton />
       </Screen>
     );
   }
