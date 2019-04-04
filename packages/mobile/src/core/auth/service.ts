@@ -6,8 +6,10 @@ import {
 } from '@whitewater-guide/clients';
 import { AuthPayload } from '@whitewater-guide/commons';
 import mitt from 'mitt';
+import { Platform } from 'react-native';
 import { AccessToken, LoginManager, LoginResult } from 'react-native-fbsdk';
 import { BACKEND_URL } from '../../utils/urls';
+import waitUntilActive from '../../utils/waitUntilActive';
 import { tokenStorage } from './tokens';
 
 type AuthEvent = 'signOut' | 'signIn' | 'forceSignOut';
@@ -26,6 +28,12 @@ export class MobileAuthService implements AuthService, Emitter {
   // ts in npm outdated, see github for correct ones
   // @ts-ignore
   private _emitter = mitt();
+
+  constructor() {
+    LoginManager.setLoginBehavior(
+      Platform.OS === 'ios' ? 'native' : 'native_with_fallback',
+    );
+  }
 
   on(type: AuthEvent, handler: any) {
     this._emitter.on(type, handler);
@@ -68,6 +76,14 @@ export class MobileAuthService implements AuthService, Emitter {
       if (result.error || result.isCancelled) {
         return;
       }
+      // On real iOS device first backend login will fail
+      // Probably because of this bug https://github.com/AFNetworking/AFNetworking/issues/4279
+      // The app sends request when before it comes to foreground after fb login screen
+      // Both delay and retry can solve this problem alone
+      // After delay AppState.currentState is still `background`
+      // After 1000ms (one retry) AppState.currentState is `active`
+      // However, I don't want to add state listener, because I'm not 100% sure what causes this error
+      await waitUntilActive();
       const at = await AccessToken.getCurrentAccessToken();
       if (!at) {
         return;

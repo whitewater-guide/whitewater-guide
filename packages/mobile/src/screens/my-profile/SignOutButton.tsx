@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
 });
 
 export const SignOutButton: React.FC = () => {
-  const { signOut } = useAuth();
+  const { signOut, loading } = useAuth();
   const [t] = useTranslation();
   const onPress = useCallback(() => {
     Alert.alert(t('auth:logoutDialogTitle'), t('auth:logoutDialogMessage'), [
@@ -20,7 +20,12 @@ export const SignOutButton: React.FC = () => {
     ]);
   }, [t, signOut]);
   return (
-    <Button mode="contained" onPress={onPress} style={styles.button}>
+    <Button
+      mode="contained"
+      loading={loading}
+      onPress={onPress}
+      style={styles.button}
+    >
       {t('myProfile:logout')}
     </Button>
   );

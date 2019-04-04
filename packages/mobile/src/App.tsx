@@ -71,19 +71,23 @@ class App extends React.Component<{}, State> {
   };
 
   onSignOut = async () => {
-    await this.resetApolloCache();
+    navigationChannel.put(resetNavigationToHome());
     if (this._store) {
       this._store.dispatch(purchaseActions.logout());
     }
-    navigationChannel.put(resetNavigationToHome());
+    // because of some bug with unmounted queries resetStore will never resolve
+    // if myPurchases query is unmounted while resettingStore
+    // resetApolloCache cannot be before resetNavigationToHome
+    await this.resetApolloCache();
   };
 
   onForceSignOut = async () => {
-    await this.resetApolloCache();
+    navigationChannel.put(resetNavigationToHome());
     if (this._store) {
       this._store.dispatch(purchaseActions.logout());
     }
-    navigationChannel.put(resetNavigationToHome());
+    // resetApolloCache cannot be before resetNavigationToHome
+    await this.resetApolloCache();
   };
 
   // See https://github.com/apollographql/apollo-cache-persist/issues/34#issuecomment-371177206 for explanation
