@@ -1,3 +1,9 @@
+## [0.0.327](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.326...@whitewater-guide/backend@0.0.327) (2019-04-04)
+
+### Features
+
+- mobile app now uses jwt auth ([57ef553](https://github.com/doomsower/whitewater/commit/57ef553))
+
 ## [0.0.326](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.325...@whitewater-guide/backend@0.0.326) (2019-03-26)
 
 ### Features

@@ -1,3 +1,9 @@
+## [0.0.132](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.131...@whitewater-guide/boompromo@0.0.132) (2019-04-04)
+
+### Features
+
+- mobile app now uses jwt auth ([57ef553](https://github.com/doomsower/whitewater/commit/57ef553))
+
 ## [0.0.131](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.130...@whitewater-guide/boompromo@0.0.131) (2019-03-26)
 
 ## [0.0.130](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.129...@whitewater-guide/boompromo@0.0.130) (2019-03-21)
