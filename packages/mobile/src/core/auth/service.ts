@@ -7,7 +7,7 @@ import {
 } from '@whitewater-guide/clients';
 import { AuthPayload } from '@whitewater-guide/commons';
 import mitt from 'mitt';
-import { Platform } from 'react-native';
+import { Alert, Platform } from 'react-native';
 import { AccessToken, LoginManager, LoginResult } from 'react-native-fbsdk';
 import { BACKEND_URL } from '../../utils/urls';
 import waitUntilActive from '../../utils/waitUntilActive';
@@ -101,7 +101,9 @@ export class MobileAuthService implements AuthService, Emitter {
         await tokenStorage.setRefreshToken(refreshToken);
         this.emit('signIn');
       }
-    } catch {}
+    } catch (e) {
+      Alert.alert(e.message, JSON.stringify(e, null, 2));
+    }
   }
   async signOut(force = false) {
     await tokenStorage.setAccessToken(null);
