@@ -1,5 +1,5 @@
 import { Omit, Overwrite } from 'type-zoo';
-import { Connection, NamedNode, Node, Timestamped } from '../../core';
+import { Connection, NamedNode, Node, Timestamped } from '../../apollo';
 import { Gauge } from '../gauges';
 import { Media } from '../media';
 import { Coordinate3d, Point, PointInput } from '../points';

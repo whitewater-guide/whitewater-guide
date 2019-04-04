@@ -1,5 +1,6 @@
 import { Connection, Region } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
+import theme from '../../theme';
 
 export const REGIONS_LIST_QUERY = gql`
   query regionsList($page: Page) {
@@ -17,7 +18,7 @@ export const REGIONS_LIST_QUERY = gql`
           count
         }
         coverImage {
-          mobile
+          mobile(width: ${theme.screenWidthPx})
         }
       }
       count

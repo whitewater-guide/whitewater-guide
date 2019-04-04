@@ -28,4 +28,5 @@ export const purchaseActions = {
   ),
   // Retry save offline purchases
   retryOfflinePurchases: factory('RETRY_OFFLINE_PURCHASES'),
+  logout: factory('LOGOUT'),
 };

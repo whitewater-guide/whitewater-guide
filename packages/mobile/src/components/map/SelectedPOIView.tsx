@@ -7,7 +7,7 @@ import { Coordinate, Point } from '@whitewater-guide/commons';
 import get from 'lodash/get';
 import noop from 'lodash/noop';
 import React from 'react';
-import { withI18n, WithI18n } from 'react-i18next';
+import { withTranslation, WithTranslation } from 'react-i18next';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { Caption, Paragraph } from 'react-native-paper';
 import { compose } from 'recompose';
@@ -33,7 +33,10 @@ const styles = StyleSheet.create({
   },
 });
 
-type Props = SelectedPOIViewProps & WithI18n & WithRegion & WithPremiumDialog;
+type Props = SelectedPOIViewProps &
+  WithTranslation &
+  WithRegion &
+  WithPremiumDialog;
 
 interface State {
   poi: Point | null;
@@ -109,7 +112,7 @@ class SelectedPOIViewInternal extends React.Component<Props, State> {
 export const SelectedPOIView: React.ComponentType<
   SelectedPOIViewProps
 > = compose<Props, SelectedPOIViewProps>(
-  withI18n(),
+  withTranslation(),
   consumeRegion(),
   connectPremiumDialog,
 )(SelectedPOIViewInternal);

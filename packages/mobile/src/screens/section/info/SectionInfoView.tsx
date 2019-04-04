@@ -8,18 +8,13 @@ import capitalize from 'lodash/capitalize';
 import groupBy from 'lodash/groupBy';
 import trim from 'lodash/trim';
 import React from 'react';
-import { withI18n, WithI18n } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { Paragraph, Subheading } from 'react-native-paper';
 import { Body, Chips, Left, Right, Row, StarRating } from '../../../components';
 import CoordinatesInfo from './CoordinatesInfo';
 
-type Props = WithSection & WithI18n;
-
-const SectionInfoView: React.StatelessComponent<Props> = ({
-  section: { node },
-  i18n,
-  t,
-}) => {
+const SectionInfoView: React.FC<WithSection> = ({ section: { node } }) => {
+  const [t, i18n] = useTranslation();
   if (!node) {
     return null;
   }
@@ -160,4 +155,4 @@ const SectionInfoView: React.StatelessComponent<Props> = ({
   );
 };
 
-export default withI18n()(SectionInfoView);
+export default SectionInfoView;

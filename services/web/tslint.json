@@ -7,7 +7,8 @@
       "redux-persist",
       "lodash",
       "moment",
-      "react-facebook-login"
+      "react-facebook-login",
+      "@whitewater-guide/clients"
     ]
   }
 }

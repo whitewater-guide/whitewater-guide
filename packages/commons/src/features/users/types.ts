@@ -1,4 +1,4 @@
-import { NamedNode, TextSearchFilter, Timestamped } from '../../core';
+import { NamedNode, TextSearchFilter, Timestamped } from '../../apollo';
 import { Group } from '../groups';
 import { Region } from '../regions';
 

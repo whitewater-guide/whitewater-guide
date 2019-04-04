@@ -8,7 +8,6 @@ import {
   Icon,
   StarRating,
 } from '../../../../components';
-import { WithTrans } from '../../../../i18n';
 import theme from '../../../../theme';
 
 export const ITEM_HEIGHT = 72;
@@ -46,7 +45,7 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Props extends WithTrans {
+interface Props {
   section: Section;
   hasPremiumAccess: boolean;
   onPress: () => void;
@@ -56,7 +55,6 @@ const SectionListBody: React.FC<Props> = ({
   onPress,
   hasPremiumAccess,
   section,
-  t,
 }) => (
   <TouchableRipple onPress={onPress}>
     <View style={styles.container}>
@@ -87,7 +85,7 @@ const SectionListBody: React.FC<Props> = ({
           <StarRating disabled={true} value={section.rating || 0} />
         </View>
       </View>
-      <FlowsThumb section={section} t={t} />
+      <FlowsThumb section={section} />
     </View>
   </TouchableRipple>
 );

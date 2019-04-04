@@ -5,6 +5,9 @@ import android.support.multidex.MultiDexApplication;
 
 import com.airbnb.android.react.maps.MapsPackage;
 import com.facebook.react.ReactApplication;
+import br.com.classapp.RNSensitiveInfo.RNSensitiveInfoPackage;
+import com.reactcommunity.rnlocalize.RNLocalizePackage;
+import com.swmansion.reanimated.ReanimatedPackage;
 import com.swmansion.rnscreens.RNScreensPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
@@ -17,9 +20,7 @@ import io.invertase.firebase.fabric.crashlytics.RNFirebaseCrashlyticsPackage;
 import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
 import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage;
 import io.invertase.firebase.analytics.RNFirebaseAnalyticsPackage;
-import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.dylanvann.fastimage.FastImageViewPackage;
-import com.reactcommunity.rnlanguages.RNLanguagesPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
@@ -60,6 +61,9 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNSensitiveInfoPackage(),
+            new RNLocalizePackage(),
+            new ReanimatedPackage(),
             new RNScreensPackage(),
             new RNGestureHandlerPackage(),
             new RNCWebViewPackage(),
@@ -72,9 +76,7 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
             new RNFirebaseMessagingPackage(),
             new RNFirebaseNotificationsPackage(),
             new RNFirebaseAnalyticsPackage(),
-            new RNDeviceInfo(),
             new FastImageViewPackage(),
-            new RNLanguagesPackage(),
             new FBSDKPackage(mCallbackManager),
             new SvgPackage(),
             new SplashScreenReactPackage(),

@@ -116,7 +116,11 @@ def _versionName = System.getenv("ANDROID_VERSION_NAME") ?: "1.0.0"
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 
     defaultConfig {
         applicationId "guide.whitewater"
@@ -132,7 +136,7 @@ android {
             reset()
             enable enableSeparateBuildPerCPUArchitecture
             universalApk false  // If true, also generate a universal APK
-            include "armeabi-v7a", "x86", "arm64-v8a"
+            include "armeabi-v7a", "x86", "arm64-v8a", "x86_64"
         }
     }
     signingConfigs {
@@ -168,7 +172,7 @@ android {
         variant.outputs.each { output ->
             // For each separate APK per architecture, set a unique version code as described here:
             // http://tools.android.com/tech-docs/new-build-system/user-guide/apk-splits
-            def versionCodes = ["armeabi-v7a":1, "x86":2, "arm64-v8a": 3]
+            def versionCodes = ["armeabi-v7a":1, "x86":2, "arm64-v8a": 3, "x86_64": 4]
             def abi = output.getFilter(OutputFile.ABI)
             if (abi != null) {  // null for the universal-debug, universal-release variants
                 output.versionCodeOverride =
@@ -179,6 +183,9 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-sensitive-info')
+    implementation project(':react-native-localize')
+    implementation project(':react-native-reanimated')
     compile project(':react-native-screens')
     compile project(':react-native-gesture-handler')
     compile 'com.android.support:multidex:1.0.3'
@@ -199,9 +206,7 @@ dependencies {
     implementation "com.google.firebase:firebase-messaging:17.3.4"
     implementation "com.google.firebase:firebase-core:16.0.6"
     implementation 'com.google.android.gms:play-services-maps:16.0.0'
-    compile project(':react-native-device-info')
     compile project(':react-native-fast-image')
-    compile project(':react-native-languages')
     compile project(':react-native-fbsdk')
     compile project(':react-native-svg')
     compile project(':react-native-splash-screen')

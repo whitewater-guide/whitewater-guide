@@ -1,7 +1,7 @@
 import { FlowToggleProps } from '@whitewater-guide/clients';
 import { Unit } from '@whitewater-guide/commons';
 import React from 'react';
-import { WithI18n, withI18n } from 'react-i18next';
+import { withTranslation, WithTranslation } from 'react-i18next';
 import { StyleSheet, Text } from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
 import * as Animatable from 'react-native-animatable';
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   },
 });
 
-type Props = FlowToggleProps & WithI18n;
+type Props = FlowToggleProps & WithTranslation;
 
 class ChartFlowToggleInternal extends React.PureComponent<Props> {
   _actionSheetOptions: string[];
@@ -113,4 +113,4 @@ class ChartFlowToggleInternal extends React.PureComponent<Props> {
   }
 }
 
-export const ChartFlowToggle = withI18n()(ChartFlowToggleInternal);
+export const ChartFlowToggle = withTranslation()(ChartFlowToggleInternal);

@@ -1,9 +1,9 @@
 import db from '@db';
+import { AccessTokenPayload } from '@whitewater-guide/commons';
 import { TokenExpiredError } from 'jsonwebtoken';
 import get from 'lodash/get';
 import { MiddlewareFactory } from '../types';
 import logger from './logger';
-import { AccessTokenPayload } from './types';
 
 export const authenticateWithJWT: MiddlewareFactory = (passport) => async (
   ctx,

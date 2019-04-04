@@ -1,39 +1,28 @@
 import React from 'react';
+import { Platform } from 'react-native';
 import { useScreens } from 'react-native-screens';
 import NativeSplashScreen from 'react-native-splash-screen';
-import { connect } from 'react-redux';
-import { splashRemoved } from '../core/actions';
+import { enablePushNotifications } from '../core/pushNotifications';
 
-interface OuterProps {
+interface Props {
   onHide?: () => void;
 }
 
-interface InnerProps {
-  splashRemoved: () => void;
-}
-
-class SplashScreenInner extends React.PureComponent<InnerProps & OuterProps> {
+export class SplashScreen extends React.PureComponent<Props> {
   componentWillUnmount() {
+    NativeSplashScreen.hide();
     // TODO: possible react-native-screens and react-native-splash-screen conflict causing crashes
     // https://github.com/kmagiera/react-native-screens/issues/54
-    NativeSplashScreen.hide();
-    useScreens();
+    if (Platform.OS === 'ios') {
+      useScreens();
+    }
     if (this.props.onHide) {
       this.props.onHide();
     }
-    this.props.splashRemoved();
+    enablePushNotifications();
   }
 
   render() {
     return null;
   }
 }
-
-export const SplashScreen: React.ComponentType<OuterProps> = connect<
-  {},
-  InnerProps,
-  OuterProps
->(
-  undefined,
-  { splashRemoved },
-)(SplashScreenInner);

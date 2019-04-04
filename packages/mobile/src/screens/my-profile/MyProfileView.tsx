@@ -1,3 +1,4 @@
+import { AuthContext } from '@whitewater-guide/clients';
 import identity from 'lodash/identity';
 import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
@@ -75,9 +76,13 @@ class MyProfileView extends React.PureComponent<InnerProps> {
           </Paper>
           <PurchasesListView />
         </ScrollView>
-        <Button mode="contained" onPress={this.props.logout}>
-          {t('myProfile:logout')}
-        </Button>
+        <AuthContext.Consumer>
+          {({ signOut }) => (
+            <Button mode="contained" onPress={() => signOut}>
+              {t('myProfile:logout')}
+            </Button>
+          )}
+        </AuthContext.Consumer>
       </Screen>
     );
   }

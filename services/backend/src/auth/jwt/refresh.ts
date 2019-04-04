@@ -1,10 +1,10 @@
 import db from '@db';
+import { RefreshTokenPayload } from '@whitewater-guide/commons';
 import { decode, verify } from 'jsonwebtoken';
 import { Middleware } from 'koa';
 import { REFRESH_TOKEN_COOKIE } from '../constants';
 import cookieJWTExtractor from './cookie-jwt-extractor';
 import { sendCredentials } from './sendCredentials';
-import { RefreshTokenPayload } from './types';
 
 const extractor = cookieJWTExtractor(REFRESH_TOKEN_COOKIE);
 

@@ -1,7 +1,7 @@
 import { BannerPlacement, Section } from '@whitewater-guide/commons';
 import groupBy from 'lodash/groupBy';
 import React from 'react';
-import { withI18n, WithI18n } from 'react-i18next';
+import { WithTranslation, withTranslation } from 'react-i18next';
 import { StatusBar } from 'react-native';
 import { Title } from 'react-native-paper';
 import { RegionBanners } from '../../../features/banners';
@@ -19,7 +19,7 @@ interface State {
 }
 
 class SectionMediaScreenContent extends React.PureComponent<
-  Props & WithI18n,
+  Props & WithTranslation,
   State
 > {
   state: State = {
@@ -55,4 +55,4 @@ class SectionMediaScreenContent extends React.PureComponent<
   }
 }
 
-export default withI18n()(SectionMediaScreenContent);
+export default withTranslation()(SectionMediaScreenContent);

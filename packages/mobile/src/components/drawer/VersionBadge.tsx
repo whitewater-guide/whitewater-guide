@@ -2,7 +2,6 @@ import React from 'react';
 import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import CodePush from 'react-native-code-push';
 import Config from 'react-native-config';
-import DeviceInfo from 'react-native-device-info';
 import { Caption } from 'react-native-paper';
 
 const styles = StyleSheet.create({
@@ -23,23 +22,13 @@ interface State {
 }
 
 const getPrettyVersion = () => {
-  const version = DeviceInfo.getVersion();
-  const build = DeviceInfo.getBuildNumber().toString();
-  let result: string;
-  if (Platform.OS === 'ios' || build.length < 9) {
-    result = `${version}.${build}.`;
-  } else {
-    // '%d%03d%03d%02d' - from Fastfile
-    const regexp = /(\d+)(\d{3})(\d{3})(\d{2})/;
-    const [_, majorStr, minorStr, patchStr, buildStr]: any = build.match(
-      regexp,
-    );
-    result = `${parseInt(majorStr, 10)}.${parseInt(minorStr, 10)}.${parseInt(
-      patchStr,
-      10,
-    )}.${parseInt(buildStr, 10)}`;
-  }
-  return result;
+  const pjson = require('../../../package.json');
+  const ajson = require('../../../app.json');
+  return (
+    pjson.version +
+    '.' +
+    (Platform.OS === 'ios' ? ajson.iosBuildNumber : ajson.androidBuildNumber)
+  );
 };
 
 class VersionBadge extends React.PureComponent<{}, State> {
@@ -74,7 +63,8 @@ class VersionBadge extends React.PureComponent<{}, State> {
 
   render() {
     const { local, pending, remote } = this.state;
-    const version = `${getPrettyVersion()}${local || 'v0'} ${Config.ENV_NAME}`;
+    const jsVersion = getPrettyVersion();
+    const version = `${jsVersion}${local || 'v0'} ${Config.ENV_NAME}`;
     return (
       <TouchableOpacity onPress={this.checkCodePush}>
         <View style={styles.container}>

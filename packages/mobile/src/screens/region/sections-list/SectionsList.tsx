@@ -1,6 +1,6 @@
 import { Banner, isBanner, Region, Section } from '@whitewater-guide/commons';
 import React from 'react';
-import { withI18n, WithI18n } from 'react-i18next';
+import { withTranslation, WithTranslation } from 'react-i18next';
 import { FlatList, ListRenderItemInfo } from 'react-native';
 import { NavigationScreenProp, withNavigationFocus } from 'react-navigation';
 import { compose } from 'recompose';
@@ -32,7 +32,7 @@ interface OuterProps extends Pick<NavigationScreenProp<any, any>, 'navigate'> {
 }
 
 type InnerProps = OuterProps &
-  WithI18n &
+  WithTranslation &
   WithPremiumDialog & { isFocused: boolean };
 
 interface State {
@@ -119,6 +119,6 @@ class SectionsList extends React.Component<InnerProps, State> {
 
 export default compose<InnerProps, OuterProps>(
   withNavigationFocus,
-  withI18n(),
+  withTranslation(),
   connectPremiumDialog,
 )(SectionsList);

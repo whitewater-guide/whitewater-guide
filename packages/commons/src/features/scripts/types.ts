@@ -1,4 +1,4 @@
-import { NamedNode } from '../../core';
+import { NamedNode } from '../../apollo';
 import { HarvestMode } from '../harvest-mode';
 
 export interface Script extends NamedNode {

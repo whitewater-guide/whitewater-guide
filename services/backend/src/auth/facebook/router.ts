@@ -1,7 +1,8 @@
+import { AuthPayload } from '@whitewater-guide/commons';
 import Koa from 'koa';
 import Router from 'koa-router';
 import { sendCredentials } from '../jwt';
-import { KoaPassport, SignInResponseBody } from '../types';
+import { KoaPassport } from '../types';
 import { setReturnTo } from '../utils';
 import logger from './logger';
 
@@ -12,7 +13,7 @@ export const initFacebookRouter = (passport: KoaPassport) => {
 
   const fail = (ctx: Partial<Koa.Context>, error: string) => {
     ctx.status = 401;
-    const body: SignInResponseBody = {
+    const body: AuthPayload = {
       success: false,
       error,
     };

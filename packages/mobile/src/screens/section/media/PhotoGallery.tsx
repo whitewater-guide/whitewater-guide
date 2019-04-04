@@ -3,7 +3,6 @@ import React from 'react';
 import { Modal, StyleSheet, Text, View } from 'react-native';
 import ImageViewer from 'react-native-image-zoom-viewer';
 import { Icon } from '../../../components';
-import { getUri } from '../../../features/media';
 import theme from '../../../theme';
 import LoadableImage from './LoadableImage';
 
@@ -104,10 +103,14 @@ class PhotoGallery extends React.PureComponent<Props> {
     if (!photos) {
       return null;
     }
-    const imageUrls = photos.map(({ url, resolution }) => {
+    const imageUrls = photos.map(({ image, resolution }) => {
       const width = resolution ? resolution[0] : 0;
       const height = resolution ? resolution[1] : 0;
-      return getUri(url, width, height);
+      return {
+        url: image!,
+        width,
+        height,
+      };
     });
     return (
       <Modal visible={index >= 0} onRequestClose={onClose}>

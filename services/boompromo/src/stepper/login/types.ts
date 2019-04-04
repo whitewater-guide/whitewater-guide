@@ -1,4 +1,4 @@
-import { FacebookProfile } from '../../auth/fb';
+import { FacebookProfile } from '@whitewater-guide/clients/dist/web';
 
 export interface ILoginStepStore {
   error: string | null;

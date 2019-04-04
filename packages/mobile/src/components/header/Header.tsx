@@ -1,6 +1,6 @@
 import get from 'lodash/get';
 import React from 'react';
-import { withI18n, WithI18n } from 'react-i18next';
+import { withTranslation, WithTranslation } from 'react-i18next';
 import { Appbar } from 'react-native-paper';
 import { HeaderProps, NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
@@ -8,7 +8,7 @@ import { compose } from 'recompose';
 import { toggleDrawer } from '../../core/actions';
 import { HeaderRight } from '../../screens';
 
-type Props = HeaderProps & WithI18n & { openDrawer: () => void };
+type Props = HeaderProps & WithTranslation & { openDrawer: () => void };
 
 class Header extends React.PureComponent<Props> {
   goBack = () => this.props.navigation.dispatch(NavigationActions.back());
@@ -43,7 +43,7 @@ const container = compose<Props, HeaderProps>(
     undefined,
     { openDrawer: () => toggleDrawer(null) },
   ),
-  withI18n(),
+  withTranslation(),
 );
 
 export default container(Header);

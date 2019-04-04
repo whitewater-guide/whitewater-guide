@@ -1,6 +1,7 @@
 import { SectionFragments } from '@whitewater-guide/clients';
 import { Section } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
+import { PHOTO_SIZE_PX } from '../../features/media';
 
 export const SECTION_DETAILS = gql`
   query sectionDetails($sectionId: ID) {
@@ -24,7 +25,7 @@ export const SECTION_DETAILS = gql`
   ${SectionFragments.Meta}
   ${SectionFragments.POIs}
   ${SectionFragments.Tags}
-  ${SectionFragments.Media}
+  ${SectionFragments.Media(PHOTO_SIZE_PX, PHOTO_SIZE_PX)}
 `;
 
 export interface Result {

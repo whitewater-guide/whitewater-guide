@@ -24,7 +24,7 @@ import {
   RegionsListScreen,
   SectionTabs,
 } from './screens';
-import { PaperTheme } from './theme';
+import theme, { PaperTheme } from './theme';
 
 const routes = {
   RegionsList: {
@@ -85,7 +85,7 @@ class RootNavigatorView extends React.PureComponent<Props> {
         : undefined;
     // PaperProvider needs to be innermost provider, so dialogs can consume from other providers
     return (
-      <RegionProvider regionId={regionId}>
+      <RegionProvider regionId={regionId} bannerWidth={theme.screenWidthPx}>
         <PaperProvider theme={PaperTheme}>
           <Drawer navigation={navigation as any}>
             <View style={StyleSheet.absoluteFill}>

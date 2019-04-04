@@ -1,4 +1,4 @@
-import { MyProfileProvider, TagsProvider } from '@whitewater-guide/clients';
+import { AuthProvider, TagsProvider } from '@whitewater-guide/clients';
 import ApolloClient from 'apollo-client';
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
@@ -7,12 +7,16 @@ import { PortalProvider } from 'react-native-portal';
 import { Provider } from 'react-redux';
 import { Store, Unsubscribe } from 'redux';
 import { Screen, SplashScreen } from './components';
-import { getApolloClient, offlineLink } from './core/apollo';
+import { resetNavigationToHome } from './core/actions';
+import { apolloCachePersistor, initApolloClient } from './core/apollo';
+import { MobileAuthService } from './core/auth';
 import configMisc from './core/config/configMisc';
 import configMoment from './core/config/configMoment';
 import { configErrors } from './core/errors';
 import { RootState } from './core/reducers';
+import { navigationChannel } from './core/sagas';
 import configureStore from './core/store/configureStore';
+import { purchaseActions } from './features/purchases';
 import { I18nProvider } from './i18n';
 import RootNavigator from './RootNavigator';
 import { trackScreenChange } from './utils/navigation';
@@ -25,24 +29,32 @@ interface State {
   initialized: boolean;
 }
 
-const navigationPersistenceKey = __DEV__ ? 'NavigationStateDEV' : null;
+const NAVIGATION_VERSION = '1';
 
 class App extends React.Component<{}, State> {
   state: State = { initialized: false };
-  store?: Store<RootState>;
-  apolloClient?: ApolloClient<any>;
-  storeSubscription?: Unsubscribe;
-  showSplash: boolean = true;
+  private _store?: Store<RootState>;
+  private _apolloClient?: ApolloClient<any>;
+  private _storeSubscription?: Unsubscribe;
+  private _authService = new MobileAuthService();
 
   async componentDidMount() {
-    this.store = await configureStore();
-    offlineLink.store = this.store;
-    this.apolloClient = await getApolloClient();
-    const initialized = this.store.getState().app.initialized;
+    this._store = await configureStore();
+    this._apolloClient = await initApolloClient(this._authService);
+    this._authService.on('signIn', this.onSignIn);
+    this._authService.on('signOut', this.onSignOut);
+    this._authService.on('forceSignOut', this.onForceSignOut);
+    const initialized = this._store.getState().app.initialized;
     if (!initialized) {
-      this.storeSubscription = this.store.subscribe(this.listenForInitialize);
+      this._storeSubscription = this._store.subscribe(this.listenForInitialize);
     }
     this.setState({ initialized });
+  }
+
+  componentWillUnmount(): void {
+    if (this._storeSubscription) {
+      this._storeSubscription();
+    }
   }
 
   shouldComponentUpdate(nextProps: any, nextState: State) {
@@ -50,37 +62,56 @@ class App extends React.Component<{}, State> {
   }
 
   listenForInitialize = () => {
-    const initialized = this.store!.getState().app.initialized;
+    const initialized = this._store!.getState().app.initialized;
     this.setState({ initialized });
   };
 
-  onHideSplash = () => {
-    this.showSplash = false;
+  onSignIn = async () => {
+    await this.resetApolloCache();
   };
 
-  renderProfileLoading = () =>
-    __DEV__ || !this.showSplash ? null : (
-      <SplashScreen onHide={this.onHideSplash} />
-    );
+  onSignOut = async () => {
+    await this.resetApolloCache();
+    if (this._store) {
+      this._store.dispatch(purchaseActions.logout());
+    }
+    navigationChannel.put(resetNavigationToHome());
+  };
 
-  renderLoadingExperimental = () => (__DEV__ ? <SplashScreen /> : null);
+  onForceSignOut = async () => {
+    await this.resetApolloCache();
+    if (this._store) {
+      this._store.dispatch(purchaseActions.logout());
+    }
+    navigationChannel.put(resetNavigationToHome());
+  };
+
+  // See https://github.com/apollographql/apollo-cache-persist/issues/34#issuecomment-371177206 for explanation
+  resetApolloCache = async () => {
+    apolloCachePersistor.pause();
+    await apolloCachePersistor.purge();
+    await this._apolloClient!.resetStore();
+    apolloCachePersistor.resume();
+  };
+
+  renderLoadingExperimental = () => <SplashScreen />;
 
   render() {
-    if (this.store && this.state.initialized) {
+    if (this._store && this.state.initialized) {
       return (
-        <Provider store={this.store}>
-          <ApolloProvider client={this.apolloClient!}>
+        <Provider store={this._store}>
+          <ApolloProvider client={this._apolloClient!}>
             <PortalProvider>
               <TagsProvider>
-                <MyProfileProvider renderLoading={this.renderProfileLoading}>
+                <AuthProvider service={this._authService}>
                   <I18nProvider>
                     <RootNavigator
-                      persistenceKey={navigationPersistenceKey}
+                      persistenceKey={NAVIGATION_VERSION}
                       onNavigationStateChange={trackScreenChange}
                       renderLoadingExperimental={this.renderLoadingExperimental}
                     />
                   </I18nProvider>
-                </MyProfileProvider>
+                </AuthProvider>
               </TagsProvider>
             </PortalProvider>
           </ApolloProvider>

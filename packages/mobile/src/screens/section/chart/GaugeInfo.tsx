@@ -2,7 +2,7 @@ import { Gauge } from '@whitewater-guide/commons';
 import upperFirst from 'lodash/upperFirst';
 import moment from 'moment';
 import React from 'react';
-import { withI18n, WithI18n } from 'react-i18next';
+import { withTranslation, WithTranslation } from 'react-i18next';
 import { Linking, StyleSheet } from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
 import { Popover, PopoverController } from 'react-native-modal-popover';
@@ -28,7 +28,7 @@ interface OuterProps {
   approximate: boolean;
 }
 
-type InnerProps = OuterProps & WithI18n & NavigationInjectedProps;
+type InnerProps = OuterProps & WithTranslation & NavigationInjectedProps;
 
 class GaugeInfo extends React.PureComponent<InnerProps> {
   _actionSheet: ActionSheet | null = null;
@@ -176,5 +176,5 @@ class GaugeInfo extends React.PureComponent<InnerProps> {
 
 export default compose<InnerProps, OuterProps>(
   withNavigation,
-  withI18n(),
+  withTranslation(),
 )(GaugeInfo);

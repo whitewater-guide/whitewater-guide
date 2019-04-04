@@ -1,13 +1,9 @@
-import noop from 'lodash/noop';
-import { computed, flow, observable } from 'mobx';
 import {
   FacebookProfile,
-  getLoginStatus,
-  getMyFacebookProfile,
-  loadFacebookSDK,
-  login,
-  logout,
-} from '../../auth/fb';
+  fbWebService,
+} from '@whitewater-guide/clients/dist/web';
+import noop from 'lodash/noop';
+import { computed, flow, observable } from 'mobx';
 import { wwLogin, wwLogout } from '../../auth/ww';
 import { FACEBOOK_APP_ID } from '../../environment';
 import { ILoginStepStore } from './types';
@@ -30,7 +26,7 @@ export class LoginStepStore implements ILoginStepStore {
   init = flow(function* init(this: LoginStepStore) {
     this.facebookLoading = true;
     this.loading = false;
-    yield loadFacebookSDK(FACEBOOK_APP_ID);
+    yield fbWebService.loadSDK(FACEBOOK_APP_ID, 'ru_RU');
     yield this.performFbLogin(true);
   }).bind(this);
 
@@ -39,10 +35,12 @@ export class LoginStepStore implements ILoginStepStore {
     this: LoginStepStore,
     initial: boolean,
   ) {
-    const loginFunction = initial ? getLoginStatus : login;
+    const loginFunction = initial
+      ? fbWebService.getLoginStatus
+      : fbWebService.login;
     const { authResponse, status } = yield loginFunction();
     if (status === 'connected') {
-      this.me = yield getMyFacebookProfile();
+      this.me = yield fbWebService.getMyProfile();
       this.accessToken = authResponse.accessToken;
     } else {
       this.me = null;
@@ -59,7 +57,7 @@ export class LoginStepStore implements ILoginStepStore {
   // tslint:disable-next-line:typedef
   fbLogout = flow(function* fbLogout(this: LoginStepStore) {
     this.facebookLoading = true;
-    yield logout();
+    yield fbWebService.logout();
     this.facebookLoading = false;
     yield wwLogout();
     this.me = null;

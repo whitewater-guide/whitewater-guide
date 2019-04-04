@@ -1,11 +1,9 @@
+import { useAuth } from '@whitewater-guide/clients';
 import React from 'react';
-import { withI18n, WithI18n } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Title, TouchableRipple } from 'react-native-paper';
 import Svg, { Path } from 'react-native-svg';
-import { connect } from 'react-redux';
-import { compose } from 'recompose';
-import { authActions } from '../core/auth';
 import theme from '../theme';
 
 const SIZE_REGULAR = 48;
@@ -42,26 +40,17 @@ const styles = StyleSheet.create({
   },
 });
 
-interface OwnProps {
+interface Props {
   medium?: boolean;
   padded?: boolean;
 }
 
-interface DispatchProps {
-  onPress: () => void;
-}
-
-type Props = DispatchProps & WithI18n & OwnProps;
-
-const AnonHeaderView: React.StatelessComponent<Props> = ({
-  onPress,
-  medium,
-  t,
-  padded = true,
-}) => {
+export const AnonHeader: React.FC<Props> = ({ medium, padded = true }) => {
+  const [t] = useTranslation();
   const svgSize = medium ? 26 : 32;
+  const { signIn } = useAuth();
   return (
-    <TouchableRipple onPress={onPress}>
+    <TouchableRipple onPress={() => signIn('facebook')}>
       <View style={[styles.container, padded && styles.containerPadding]}>
         <View
           style={[styles.icon, medium ? styles.iconMedium : styles.iconRegular]}
@@ -81,13 +70,3 @@ const AnonHeaderView: React.StatelessComponent<Props> = ({
     </TouchableRipple>
   );
 };
-
-const container = compose<Props, OwnProps>(
-  connect<{}, DispatchProps>(
-    undefined,
-    { onPress: () => authActions.loginWithFB.started({}) },
-  ),
-  withI18n(),
-);
-
-export const AnonHeader = container(AnonHeaderView);

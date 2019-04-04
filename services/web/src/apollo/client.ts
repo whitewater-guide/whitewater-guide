@@ -6,13 +6,11 @@ import {
 import { ApolloClient } from 'apollo-client';
 import { ApolloLink } from 'apollo-link';
 import { createHttpLink } from 'apollo-link-http';
-import { createBrowserHistory } from 'history';
 import { API_HOST } from '../environment';
+import { history } from '../history';
 import { EditorLanguageLink } from '../i18n/editors';
 import { initLocalState } from './initLocalState';
 import { refreshJwtLink } from './refreshJwtLink';
-
-const history = createBrowserHistory();
 
 const editorLanguageLink = new EditorLanguageLink();
 

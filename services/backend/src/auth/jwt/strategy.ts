@@ -1,8 +1,8 @@
+import { AccessTokenPayload } from '@whitewater-guide/commons';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { ACCESS_TOKEN_COOKIE } from '../constants';
 import cookieJWTExtractor from './cookie-jwt-extractor';
 import logger from './logger';
-import { AccessTokenPayload } from './types';
 
 export const jwtStrategy = new Strategy(
   {

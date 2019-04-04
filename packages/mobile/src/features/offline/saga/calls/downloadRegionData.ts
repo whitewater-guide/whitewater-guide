@@ -1,10 +1,10 @@
 import { REGION_DETAILS } from '@whitewater-guide/clients';
-import { getApolloClient } from '../../../../core/apollo';
+import { apolloClient } from '../../../../core/apollo';
+import theme from '../../../../theme';
 
 export default async function downloadRegionData(regionId: string) {
-  const client = await getApolloClient();
-  await client.query({
-    query: REGION_DETAILS,
+  await apolloClient.query({
+    query: REGION_DETAILS(theme.screenWidthPx),
     variables: { regionId },
     fetchPolicy: 'network-only',
   });

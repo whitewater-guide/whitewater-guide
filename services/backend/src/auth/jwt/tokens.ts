@@ -1,5 +1,8 @@
+import {
+  AccessTokenPayload,
+  RefreshTokenPayload,
+} from '@whitewater-guide/commons';
 import jsonwebtoken from 'jsonwebtoken';
-import { AccessTokenPayload, RefreshTokenPayload } from './types';
 
 export const getAccessToken = (userId: string) => {
   const payload: AccessTokenPayload = { id: userId };

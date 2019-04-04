@@ -1,3 +1,9 @@
+## [0.0.124-mobile.0](https://github.com/doomsower/whitewater/compare/@whitewater-guide/commons@0.0.123...@whitewater-guide/commons@0.0.124-mobile.0) (2019-03-30)
+
+### Features
+
+- new auth provider with hooks ([0476106](https://github.com/doomsower/whitewater/commit/0476106))
+
 ## [0.0.123](https://github.com/doomsower/whitewater/compare/@whitewater-guide/commons@0.0.122...@whitewater-guide/commons@0.0.123) (2019-03-21)
 
 ### Features

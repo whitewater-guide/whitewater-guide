@@ -2,9 +2,8 @@ import { getSectionColor, prettyNumber } from '@whitewater-guide/clients';
 import { Section } from '@whitewater-guide/commons';
 import moment from 'moment';
 import React from 'react';
-import { WithI18n } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
-import { WithTrans } from '../i18n';
 
 const styles = StyleSheet.create({
   container: {
@@ -29,11 +28,12 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Props extends WithTrans {
+interface Props {
   section: Section;
 }
 
-export const FlowsThumb: React.StatelessComponent<Props> = ({ section, t }) => {
+export const FlowsThumb: React.FC<Props> = ({ section }) => {
+  const [t] = useTranslation();
   const { levels, flows, gauge } = section;
   if (!gauge) {
     return null;

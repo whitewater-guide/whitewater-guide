@@ -1,8 +1,8 @@
 import { Connection, Page, Section } from '@whitewater-guide/commons';
-import { ApolloClient, ObservableQuery } from 'apollo-client';
+import { ObservableQuery } from 'apollo-client';
 import { Channel, END } from 'redux-saga';
 import { call, put } from 'redux-saga/effects';
-import { getApolloClient } from '../../../core/apollo';
+import { apolloClient } from '../../../core/apollo';
 import { offlineContentActions } from '../actions';
 import { OFFLINE_SECTIONS, Result, Vars } from '../offlineSections.query';
 import fetchMoreSections from './calls/fetchMoreSections';
@@ -13,9 +13,11 @@ export default function* downloadSections(
   regionId: string,
   mediaChannel?: Channel<string[]>,
 ) {
-  const client: ApolloClient<any> = yield call(getApolloClient);
   yield call(resetOfflineSections, regionId);
-  const query: ObservableQuery<Result, Vars> = client.watchQuery<Result, Vars>({
+  const query: ObservableQuery<Result, Vars> = apolloClient.watchQuery<
+    Result,
+    Vars
+  >({
     query: OFFLINE_SECTIONS,
     fetchPolicy: 'cache-only', // so the query is not fired right away
     variables: { regionId },

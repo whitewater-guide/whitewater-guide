@@ -9,7 +9,7 @@ import agent from 'supertest-koa-agent';
 import { createApp } from '../../../app';
 import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from '../../constants';
 import { sendMail } from '../../mail';
-import { SignInResponseBody } from '../../types';
+import { AuthResponse } from '../../types';
 
 jest.mock('../../mail');
 
@@ -148,7 +148,7 @@ describe('mobile', () => {
   });
 
   it('should respond with access and refresh tokens', async () => {
-    const body: SignInResponseBody = {
+    const body: AuthResponse = {
       success: true,
       id: expect.stringMatching(UUID_REGEX),
       accessToken: expect.any(String),
@@ -205,7 +205,7 @@ describe('web', () => {
   });
 
   it('should respond with success body', async () => {
-    const body: SignInResponseBody = {
+    const body: AuthResponse = {
       success: true,
       id: expect.stringMatching(UUID_REGEX),
     };

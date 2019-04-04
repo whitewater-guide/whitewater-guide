@@ -7,8 +7,10 @@ export const purchaseToGraphqlInput = (
   purchase: ProductPurchase,
 ): PurchaseInput => {
   const unixEpoch =
-    Date.parse(purchase.transactionDate) ||
-    parseInt(purchase.transactionDate, 10);
+    typeof purchase.transactionDate === 'number'
+      ? purchase.transactionDate
+      : Date.parse(purchase.transactionDate) ||
+        parseInt(purchase.transactionDate, 10);
   const transactionDate = new Date(unixEpoch);
   if (!isValidDate(transactionDate)) {
     throw new Error(`Invalid transaction date: '${purchase.transactionDate}'`);

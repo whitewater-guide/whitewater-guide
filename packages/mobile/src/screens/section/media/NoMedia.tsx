@@ -1,6 +1,6 @@
 import { MediaKind } from '@whitewater-guide/commons';
 import React from 'react';
-import { withI18n, WithI18n } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Subheading } from 'react-native-paper';
 import { PHOTO_SIZE } from '../../../features/media';
@@ -18,7 +18,8 @@ interface Props {
   kind: MediaKind;
 }
 
-const NoMedia: React.SFC<Props & WithI18n> = ({ kind, t }) => {
+const NoMedia: React.FC<Props> = ({ kind }) => {
+  const [t] = useTranslation();
   const text = t(`section:media.noMedia.${kind}`);
   return (
     <View style={styles.container}>
@@ -27,4 +28,4 @@ const NoMedia: React.SFC<Props & WithI18n> = ({ kind, t }) => {
   );
 };
 
-export default withI18n()(NoMedia);
+export default NoMedia;

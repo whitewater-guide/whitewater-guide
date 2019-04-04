@@ -106,29 +106,56 @@ const Meta = gql`
   }
 `;
 
-const MediaCore = gql`
-  fragment MediaCore on Media {
-    id
-    description
-    copyright
-    url
-    kind
-    resolution
-    size
-  }
-`;
-
-const Media = gql`
-  fragment SectionMedia on Section {
-    media {
-      nodes {
-        ...MediaCore
+const MediaCore = (thumbWidth?: number, thumbHeight?: number) => {
+  if (!thumbWidth && !thumbHeight) {
+    return gql`
+      fragment MediaCore on Media {
+        id
+        description
+        copyright
+        url
+        kind
+        resolution
+        size
+        image
       }
-      count
-    }
+    `;
   }
-  ${MediaCore}
-`;
+  const thumbParams: string[] = [];
+  if (thumbWidth) {
+    thumbParams.push(`width: ${thumbWidth}`);
+  }
+  if (thumbHeight) {
+    thumbParams.push(`height: ${thumbHeight}`);
+  }
+  const thumbParamsStr = thumbParams.join(', ');
+  return gql`
+    fragment MediaCore on Media {
+      id
+      description
+      copyright
+      url
+      kind
+      resolution
+      size
+      image
+      thumb: image(${thumbParamsStr})
+    }
+  `;
+};
+
+const Media = (thumbWidth?: number, thumbHeight?: number) =>
+  gql`
+    fragment SectionMedia on Section {
+      media {
+        nodes {
+          ...MediaCore
+        }
+        count
+      }
+    }
+    ${MediaCore(thumbWidth, thumbHeight)}
+  `;
 
 const POIs = gql`
   fragment SectionPOIs on Section {

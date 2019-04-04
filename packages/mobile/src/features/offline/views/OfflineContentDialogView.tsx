@@ -1,5 +1,5 @@
 import React from 'react';
-import { translate, withI18n, WithI18n } from 'react-i18next';
+import { WithTranslation, withTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { analytics } from 'react-native-firebase';
 import { Button, Caption, Dialog, Subheading } from 'react-native-paper';
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   },
 });
 
-type Props = InnerProps & WithI18n;
+type Props = InnerProps & WithTranslation;
 
 interface State {
   selection: OfflineCategorySelection;
@@ -117,11 +117,6 @@ class OfflineContentDialogView extends React.PureComponent<Props, State> {
     );
   };
 
-  renderLoadingSummary = () => {
-    const { t, summary, i18n } = this.props;
-    return <LoadingSummary t={t} summary={summary} i18n={i18n} />;
-  };
-
   renderOffline = () => (
     <View style={styles.offlinePlaceholderContainer}>
       <RetryPlaceholder />
@@ -164,7 +159,7 @@ class OfflineContentDialogView extends React.PureComponent<Props, State> {
       return this.renderOffline();
     }
     if (summary.loading || summary.error) {
-      return this.renderLoadingSummary();
+      return <LoadingSummary summary={summary} />;
     }
     return this.renderCategories();
   };
@@ -191,4 +186,4 @@ class OfflineContentDialogView extends React.PureComponent<Props, State> {
   }
 }
 
-export default withI18n()(OfflineContentDialogView);
+export default withTranslation()(OfflineContentDialogView);

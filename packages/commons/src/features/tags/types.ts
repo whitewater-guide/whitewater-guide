@@ -1,4 +1,4 @@
-import { NamedNode } from '../../core';
+import { NamedNode } from '../../apollo';
 
 export enum TagCategory {
   kayaking = 'kayaking',

@@ -1,32 +1,11 @@
-import { withMe, WithMe } from '@whitewater-guide/clients';
+import { useAuth } from '@whitewater-guide/clients';
 import React from 'react';
 import { Redirect, Route, RouteProps } from 'react-router-dom';
-import { branch, compose, renderComponent } from 'recompose';
 
-const container = compose<any, any>(
-  withMe,
-  branch<WithMe>(
-    (props) => !(props.me && props.me.admin),
-    renderComponent(() => <Redirect to="/403" />),
-  ),
-);
-
-export class AdminRoute extends React.PureComponent<RouteProps> {
-  wrappedComponent: React.ComponentType;
-
-  constructor(props: RouteProps) {
-    super(props);
-    this.wrappedComponent = container(props.component!);
+export const AdminRoute: React.FC<RouteProps> = ({ component, ...props }) => {
+  const { me } = useAuth();
+  if (!me || !me.admin) {
+    return <Redirect to="/403" />;
   }
-
-  componentWillReceiveProps(next: RouteProps) {
-    if (this.props.component !== next.component) {
-      this.wrappedComponent = container(next.component!);
-    }
-  }
-
-  render() {
-    const { component, ...rest } = this.props;
-    return <Route {...rest} component={this.wrappedComponent} />;
-  }
-}
+  return <Route {...props} component={component} />;
+};

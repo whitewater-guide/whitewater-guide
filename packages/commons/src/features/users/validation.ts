@@ -1,4 +1,4 @@
-import { LANGUAGES } from '../../core';
+import { LANGUAGES } from '../../i18n';
 import { baseStruct } from '../../utils/validation';
 
 export const UserInputStruct = baseStruct.object({

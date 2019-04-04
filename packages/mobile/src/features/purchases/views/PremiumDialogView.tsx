@@ -1,5 +1,5 @@
 import React from 'react';
-import { WithI18n } from 'react-i18next';
+import { WithTranslation } from 'react-i18next';
 import { NavigationState, Scene, TabView } from 'react-native-tab-view';
 import theme from '../../../theme';
 import { PremiumRegion, PurchaseDialogStep } from '../types';
@@ -29,7 +29,7 @@ interface Props {
 }
 
 export class PremiumDialogView extends React.PureComponent<
-  Props & WithI18n,
+  Props & WithTranslation,
   State
 > {
   readonly state: State = {

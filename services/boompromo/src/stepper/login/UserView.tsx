@@ -5,8 +5,8 @@ import {
   withStyles,
 } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import { FacebookProfile } from '@whitewater-guide/clients/dist/web';
 import React from 'react';
-import { FacebookProfile } from '../../auth/fb';
 import FacebookButton from './FacebookButton';
 
 type ClassNames = 'root' | 'row' | 'avatar';

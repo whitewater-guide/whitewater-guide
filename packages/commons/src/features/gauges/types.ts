@@ -1,4 +1,4 @@
-import { NamedNode, Node, Timestamped } from '../../core';
+import { NamedNode, Node, Timestamped } from '../../apollo';
 import { HarvestStatus, Measurement } from '../measurements';
 import { Point, PointInput } from '../points';
 import { Source } from '../sources';

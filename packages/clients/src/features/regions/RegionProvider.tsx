@@ -4,6 +4,7 @@ import {
   Section,
   SectionSearchTerms,
 } from '@whitewater-guide/commons';
+import { DocumentNode } from 'graphql';
 import React from 'react';
 import { Query, QueryResult } from 'react-apollo';
 import { queryResultToNode } from '../../apollo';
@@ -13,6 +14,7 @@ import { RegionContext, RegionState } from './types';
 
 interface Props {
   regionId?: string;
+  bannerWidth?: number;
   renderLoading?: () => React.ReactElement<any>;
 }
 
@@ -34,6 +36,13 @@ export class RegionProvider extends React.PureComponent<Props, RegionState> {
     selectedBounds: null,
   };
 
+  private _query: DocumentNode;
+
+  constructor(props: Props) {
+    super(props);
+    this._query = REGION_DETAILS(props.bannerWidth);
+  }
+
   onSectionSelected = (section: Section | null) =>
     this.setState({
       selectedSectionId: section ? section.id : null,
@@ -52,11 +61,11 @@ export class RegionProvider extends React.PureComponent<Props, RegionState> {
     this.setState({ searchTerms });
 
   render() {
-    const { regionId, renderLoading } = this.props;
+    const { regionId, renderLoading, bannerWidth } = this.props;
     const variables = { regionId };
     return (
       <Query
-        query={REGION_DETAILS}
+        query={this._query}
         variables={variables}
         fetchPolicy="cache-and-network"
       >

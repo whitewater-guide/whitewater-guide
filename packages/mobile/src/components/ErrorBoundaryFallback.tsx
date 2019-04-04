@@ -1,6 +1,6 @@
 import React from 'react';
 import { FallbackProps } from 'react-error-boundary';
-import { withI18n, WithI18n } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Subheading } from 'react-native-paper';
 import { Icon } from './Icon';
@@ -14,15 +14,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const ErrorBoundaryFallbackInner: React.SFC<WithI18n & FallbackProps> = ({
-  t,
-}) => (
-  <View style={styles.container}>
-    <Icon icon="bug" />
-    <Subheading>{t('commons:bug')}</Subheading>
-  </View>
-);
-
-export const ErrorBoundaryFallback: React.ComponentType<
-  FallbackProps
-> = withI18n()(ErrorBoundaryFallbackInner);
+export const ErrorBoundaryFallback: React.FC<FallbackProps> = () => {
+  const [t] = useTranslation();
+  return (
+    <View style={styles.container}>
+      <Icon icon="bug" />
+      <Subheading>{t('commons:bug')}</Subheading>
+    </View>
+  );
+};

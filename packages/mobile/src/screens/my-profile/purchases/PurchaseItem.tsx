@@ -1,6 +1,6 @@
 import { Group, Region } from '@whitewater-guide/commons';
 import React from 'react';
-import { withI18n, WithI18n } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Caption, Subheading } from 'react-native-paper';
 import theme from '../../../theme';
@@ -24,12 +24,8 @@ interface Props {
   last: boolean;
 }
 
-const PurchaseItem: React.SFC<Props & WithI18n> = ({
-  last,
-  region,
-  group,
-  t,
-}) => {
+const PurchaseItem: React.FC<Props> = ({ last, region, group }) => {
+  const [t] = useTranslation();
   if (!region && !group) {
     return null;
   }
@@ -45,4 +41,4 @@ const PurchaseItem: React.SFC<Props & WithI18n> = ({
   );
 };
 
-export default withI18n()(PurchaseItem);
+export default PurchaseItem;

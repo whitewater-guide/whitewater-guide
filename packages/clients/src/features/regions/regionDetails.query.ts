@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 import { RegionFragments } from './regionFraments';
 
-export const REGION_DETAILS = gql`
+export const REGION_DETAILS = (width?: number) => gql`
   query regionDetails($regionId: ID) {
     region(id: $regionId) {
       ...RegionCore
@@ -18,5 +18,5 @@ export const REGION_DETAILS = gql`
   ${RegionFragments.POIs}
   ${RegionFragments.Bounds}
   ${RegionFragments.Flags}
-  ${RegionFragments.Banners}
+  ${RegionFragments.Banners(width)}
 `;

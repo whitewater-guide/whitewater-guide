@@ -11,7 +11,6 @@ import {
 import FastImage from 'react-native-fast-image';
 import theme from '../../theme';
 import aspectRatios from './aspectRatios';
-import { getBannerURL } from './getBannerURL';
 
 const styles = StyleSheet.create({
   container: {
@@ -55,7 +54,6 @@ export default class ImageBanner extends React.PureComponent<Props> {
   render() {
     const { banner, style } = this.props;
     const { placement, extras, source } = banner;
-    const uri = getBannerURL(source.src!);
     return (
       <View
         style={[
@@ -67,7 +65,7 @@ export default class ImageBanner extends React.PureComponent<Props> {
       >
         <TouchableWithoutFeedback onPress={this.onPress}>
           <FastImage
-            source={{ uri }}
+            source={{ uri: source.src }}
             style={[styles.image, aspectRatios[placement]]}
           />
         </TouchableWithoutFeedback>

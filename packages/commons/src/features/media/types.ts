@@ -1,4 +1,4 @@
-import { Node, Timestamped } from '../../core';
+import { Node, Timestamped } from '../../apollo';
 
 export enum MediaKind {
   photo = 'photo',
