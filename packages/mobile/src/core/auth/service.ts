@@ -7,7 +7,7 @@ import {
 } from '@whitewater-guide/clients';
 import { AuthPayload } from '@whitewater-guide/commons';
 import mitt from 'mitt';
-import { Alert, Platform } from 'react-native';
+import { Platform } from 'react-native';
 import { AccessToken, LoginManager, LoginResult } from 'react-native-fbsdk';
 import { BACKEND_URL } from '../../utils/urls';
 import waitUntilActive from '../../utils/waitUntilActive';
@@ -74,7 +74,6 @@ export class MobileAuthService implements AuthService, Emitter {
         'public_profile',
         'email',
       ]);
-      Alert.alert('fb done', JSON.stringify(result, null, 2));
       if (result.error || result.isCancelled) {
         return;
       }
@@ -84,7 +83,7 @@ export class MobileAuthService implements AuthService, Emitter {
       // Both initial delay and retry can solve this problem alone
       // After delay AppState.currentState is still `background`
       // After 1000ms (one retry) AppState.currentState is `active`
-      await waitUntilActive();
+      await waitUntilActive(600);
       const at = await AccessToken.getCurrentAccessToken();
       if (!at) {
         return;
@@ -95,7 +94,6 @@ export class MobileAuthService implements AuthService, Emitter {
       options = { credentials: 'omit' };
     }
     try {
-      Alert.alert('fetching', url);
       const resp = await fetchRetry(url, options);
       const { accessToken, refreshToken }: AuthPayload = await resp.json();
       if (accessToken && refreshToken) {
@@ -103,9 +101,9 @@ export class MobileAuthService implements AuthService, Emitter {
         await tokenStorage.setRefreshToken(refreshToken);
         this.emit('signIn');
       }
-      Alert.alert('fetching done', accessToken);
+      // Alert.alert('fetching done', accessToken);
     } catch (e) {
-      Alert.alert(e.message, JSON.stringify(e, null, 2));
+      // Alert.alert(e.message, JSON.stringify(e, null, 2));
     }
   }
   async signOut(force = false) {
