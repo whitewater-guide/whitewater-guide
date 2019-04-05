@@ -74,6 +74,7 @@ export class MobileAuthService implements AuthService, Emitter {
         'public_profile',
         'email',
       ]);
+      Alert.alert('fb done', JSON.stringify(result, null, 2));
       if (result.error || result.isCancelled) {
         return;
       }
@@ -94,6 +95,7 @@ export class MobileAuthService implements AuthService, Emitter {
       options = { credentials: 'omit' };
     }
     try {
+      Alert.alert('fetching', url);
       const resp = await fetchRetry(url, options);
       const { accessToken, refreshToken }: AuthPayload = await resp.json();
       if (accessToken && refreshToken) {
@@ -101,6 +103,7 @@ export class MobileAuthService implements AuthService, Emitter {
         await tokenStorage.setRefreshToken(refreshToken);
         this.emit('signIn');
       }
+      Alert.alert('fetching done', accessToken);
     } catch (e) {
       Alert.alert(e.message, JSON.stringify(e, null, 2));
     }
