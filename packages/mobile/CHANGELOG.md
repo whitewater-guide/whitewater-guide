@@ -1,3 +1,9 @@
+## [1.7.22](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.21...@whitewater-guide/mobile@1.7.22) (2019-04-05)
+
+### Bug Fixes
+
+- **mobile:** fix waitUntilActive ([17f23ca](https://github.com/doomsower/whitewater/commit/17f23ca))
+
 ## [1.7.21](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.20...@whitewater-guide/mobile@1.7.21) (2019-04-05)
 
 ### Bug Fixes
