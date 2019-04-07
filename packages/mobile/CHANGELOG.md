@@ -1,3 +1,13 @@
+## [1.7.23](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.22...@whitewater-guide/mobile@1.7.23) (2019-04-07)
+
+### Bug Fixes
+
+- **mobile:** fix error link ([b78ab80](https://github.com/doomsower/whitewater/commit/b78ab80))
+
+### Features
+
+- **mobile:** copy region/section descriptions ([1ccdace](https://github.com/doomsower/whitewater/commit/1ccdace)), closes [#352](https://github.com/doomsower/whitewater/issues/352)
+
 ## [1.7.22](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.21...@whitewater-guide/mobile@1.7.22) (2019-04-05)
 
 ### Bug Fixes
