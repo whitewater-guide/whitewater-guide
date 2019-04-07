@@ -10,6 +10,7 @@ import { createLink } from '../createLink';
 jest.mock('../../auth/tokens');
 jest.mock('react-native-fbsdk', () => ({
   LoginManager: {
+    setLoginBehavior: jest.fn(),
     logOut: jest.fn(),
   },
 }));
@@ -32,15 +33,16 @@ const atExpired = sign(
   JWT_SECRET,
   { expiresIn: 10 }, // 10 seconds
 );
-const atFresh = sign(
+const atFreshStored = sign(
   { id: UID },
   JWT_SECRET,
   { expiresIn: 10 }, // 10 seconds
 );
+const atFreshReturned = sign({ id: UID }, JWT_SECRET, { expiresIn: 20 });
 const refreshToken = sign({ id: UID, refresh: true }, JWT_SECRET);
 const refreshSuccess: AuthPayload = {
   success: true,
-  accessToken: atFresh,
+  accessToken: atFreshReturned,
   id: UID,
 };
 const refreshFail: AuthPayload = {
@@ -102,7 +104,7 @@ describe('anonymous', () => {
 
 describe('good token', () => {
   beforeEach(async () => {
-    await tokenStorage.setAccessToken(atFresh);
+    await tokenStorage.setAccessToken(atFreshStored);
     await tokenStorage.setRefreshToken(refreshToken);
   });
 
@@ -121,7 +123,7 @@ describe('good token', () => {
     await toPromise(execute(link, { query }));
     expect(fetchMock).toHaveProperty(
       'mock.calls.0.1.headers.authorization',
-      `Bearer ${atFresh}`,
+      `Bearer ${atFreshStored}`,
     );
   });
 
@@ -231,13 +233,49 @@ describe('token expired locally', () => {
     // refresh, failed query, successful query
     expect(fetchMock.mock.calls).toHaveLength(3);
   });
+
+  it('should perform next requests with new token', async () => {
+    fetchMock
+      .mockResponseOnce(
+        () =>
+          new Promise((resolve) =>
+            setTimeout(
+              () => resolve({ body: JSON.stringify(refreshSuccess) }),
+              50,
+            ),
+          ),
+      )
+      .mockResponseOnce(JSON.stringify({ data: ME_RESPONSE }))
+      .mockResponseOnce(JSON.stringify({ data: ME_RESPONSE }));
+    const service = new MobileAuthService();
+    const link = createLink(service);
+    await Promise.all([
+      toPromise(execute(link, { query })),
+      toPromise(execute(link, { query })),
+    ]);
+    // refresh, then 2 queries
+    expect(fetchMock.mock.calls[1][1].headers.authorization).toBe(
+      `Bearer ${atFreshReturned}`,
+    );
+    expect(fetchMock.mock.calls[2][1].headers.authorization).toBe(
+      `Bearer ${atFreshReturned}`,
+    );
+  });
 });
 
 describe('token expired remotely', () => {
   beforeEach(async () => {
-    await tokenStorage.setAccessToken(atFresh);
+    await tokenStorage.setAccessToken(atFreshStored);
     await tokenStorage.setRefreshToken(refreshToken);
-    fetchMock.mockResponseOnce(JSON.stringify(respExpired), { status: 401 });
+    fetchMock.mockResponseOnce(
+      () =>
+        new Promise((resolve) =>
+          setTimeout(
+            () => resolve({ body: JSON.stringify(respExpired), status: 401 }),
+            50,
+          ),
+        ),
+    );
   });
 
   it('should refresh access token data', async () => {
@@ -255,7 +293,7 @@ describe('token expired remotely', () => {
 
 describe('bad local token', () => {
   beforeEach(async () => {
-    await tokenStorage.setAccessToken(atFresh);
+    await tokenStorage.setAccessToken(atFreshStored);
     await tokenStorage.setRefreshToken(refreshToken);
     fetchMock.mockResponseOnce(JSON.stringify(respUnauthenticated), {
       status: 401,

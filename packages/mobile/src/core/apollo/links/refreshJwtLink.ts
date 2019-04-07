@@ -11,7 +11,7 @@ import { ServerError } from 'apollo-link-http-common';
 import { OperationQueuing } from 'apollo-link-token-refresh';
 import decode from 'jwt-decode';
 import { MobileAuthService } from '../../auth';
-import { ACCESS_TOKEN_CTX_KEY } from './acessTokenLink';
+import { ACCESS_TOKEN_CTX_KEY, getAccessTokenContext } from './acessTokenLink';
 
 const CLOCK_TOLERANCE = -1; // 1 second
 
@@ -71,6 +71,13 @@ export class TokenRefreshLink extends ApolloLink {
           .refreshAccessToken()
           .then((resp) => {
             this._fetching = false;
+            const { success, accessToken } = resp;
+            if (success && accessToken) {
+              operation.setContext(getAccessTokenContext(accessToken));
+              this._queue.queuedRequests.forEach(({ operation: op }) => {
+                op.setContext(getAccessTokenContext(accessToken));
+              });
+            }
             this._queue.consumeQueue();
             return resp;
           })
