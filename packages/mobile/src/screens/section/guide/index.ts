@@ -1,3 +1,2 @@
-import { SectionGuideScreen } from './SectionGuideScreen';
-
-export default SectionGuideScreen;
+export * from './SectionGuideScreen';
+export * from './SectionGuideMenu';

@@ -5,7 +5,7 @@ import { NavigationRouteConfigMap, TabNavigatorConfig } from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import theme from '../../theme';
 import container from './container';
-import RegionInfoScreen from './info';
+import { RegionInfoScreen } from './info';
 import RegionMapScreen from './map';
 import RegionSectionsListScreen from './sections-list';
 import { SectionsListLoader } from './SectionsListLoader';

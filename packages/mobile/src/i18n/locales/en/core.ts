@@ -70,6 +70,10 @@ export default {
     info: {
       title: 'About region',
       noData: 'No description for this region',
+      menu: {
+        title: 'Actions',
+        clipboard: 'Copy to clipboard',
+      },
     },
     map: {
       title: 'Map',
@@ -122,6 +126,10 @@ export default {
     guide: {
       title: 'Description',
       noData: 'No guide for this section yet...',
+      menu: {
+        title: 'Actions',
+        clipboard: 'Copy to clipboard',
+      },
     },
     media: {
       title: 'Media',

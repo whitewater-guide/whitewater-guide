@@ -70,6 +70,10 @@ export default {
     info: {
       title: 'О регионе',
       noData: 'Информация отсутствует',
+      menu: {
+        title: 'Действия',
+        clipboard: 'Скопировать',
+      },
     },
     map: {
       title: 'Карта',
@@ -122,6 +126,10 @@ export default {
     guide: {
       title: 'Описание',
       noData: 'Для этой секции описание пока не добавлено',
+      menu: {
+        title: 'Действия',
+        clipboard: 'Скопировать',
+      },
     },
     media: {
       title: 'Медиа',

@@ -6,7 +6,10 @@ import theme from '../../../theme';
 import { ScreenProps } from '../types';
 import RegionMap from './RegionMap';
 
-export const RegionMapScreen: NavigationScreenComponent = ({ screenProps }) => {
+export const RegionMapScreen: NavigationScreenComponent = ({
+  navigation,
+  screenProps,
+}) => {
   const { region, sections }: ScreenProps = screenProps as any;
   return (
     <Screen noScroll={true}>

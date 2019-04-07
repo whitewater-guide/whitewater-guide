@@ -12,6 +12,7 @@ declare module 'react-native-actionsheet' {
     cancelButtonIndex?: number;
     destructiveButtonIndex?: number;
     onPress: (index: number) => void;
+    testID?: string;
   }
 
   export interface ActionSheetStyles {

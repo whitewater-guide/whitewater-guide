@@ -6,7 +6,6 @@ import { HeaderProps, NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { toggleDrawer } from '../../core/actions';
-import { HeaderRight } from '../../screens';
 
 type Props = HeaderProps & WithTranslation & { openDrawer: () => void };
 
@@ -24,6 +23,11 @@ class Header extends React.PureComponent<Props> {
 
   render() {
     const title = get(this.props, 'scene.descriptor.options.headerTitle', null);
+    const headerRight = get(
+      this.props,
+      'scene.descriptor.options.headerRight',
+      null,
+    );
     let titleNode: React.ReactNode = null;
     if (title) {
       titleNode = typeof title === 'string' ? this.props.t(title) : title;
@@ -32,7 +36,7 @@ class Header extends React.PureComponent<Props> {
       <Appbar.Header>
         {this.renderLeftButton()}
         <Appbar.Content title={titleNode} />
-        <HeaderRight navigation={this.props.navigation} />
+        {headerRight}
       </Appbar.Header>
     );
   }

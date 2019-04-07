@@ -6,9 +6,9 @@ import { NavigationSceneRendererProps } from 'react-navigation';
 import { compose } from 'recompose';
 import theme from '../../theme';
 
-type Props = WithTranslation &
-  Pick<NavigationSceneRendererProps, 'navigation'> &
-  Pick<RegionContext, 'resetSearchTerms'>;
+type Props = WithTranslation & {
+  navigation: any;
+} & Pick<RegionContext, 'resetSearchTerms'>;
 
 class ResetFilterButton extends React.PureComponent<Props> {
   onPress = () => {
