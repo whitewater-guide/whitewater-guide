@@ -18,6 +18,7 @@ import (
 	"one-by-one"
 	"os"
 	"riverzone"
+	"sepa"
 	"strings"
 	"switzerland"
 	"tirol"
@@ -67,6 +68,7 @@ func main() {
 	register(ecuador.NewWorkerEcuador, nil)
 	register(catalunya.NewWorkerCatalunya, nil)
 	register(cantabria.NewWorkerCantabria, nil)
+	register(sepa.NewWorkerSepa, nil)
 
 	rootCmd = &cobra.Command{
 		Use:   "workers-cli [command] [script] [flags]",
