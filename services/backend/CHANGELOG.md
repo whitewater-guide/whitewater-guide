@@ -1,3 +1,9 @@
+## [0.0.328](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.327...@whitewater-guide/backend@0.0.328) (2019-04-09)
+
+### Features
+
+- **backend:** generate unique errorId for auth errors ([e7680aa](https://github.com/doomsower/whitewater/commit/e7680aa))
+
 ## [0.0.327](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.326...@whitewater-guide/backend@0.0.327) (2019-04-04)
 
 ### Features

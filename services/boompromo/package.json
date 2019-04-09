@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/boompromo",
   "private": true,
-  "version": "0.0.133",
+  "version": "0.0.134",
   "license": "UNLICENSED",
   "homepage": "/boompromo/",
   "scripts": {
@@ -18,8 +18,8 @@
   },
   "dependencies": {
     "@material-ui/core": "^1.5.1",
-    "@whitewater-guide/clients": "^0.0.207",
-    "@whitewater-guide/commons": "^0.0.125",
+    "@whitewater-guide/clients": "^0.0.208",
+    "@whitewater-guide/commons": "^0.0.126",
     "apollo-cache-inmemory": "^1.5.1",
     "apollo-client": "^2.5.1",
     "apollo-link": "^1.2.11",
