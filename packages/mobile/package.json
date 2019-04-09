@@ -84,6 +84,7 @@
     "react-native-iap": "^2.4.7",
     "react-native-image-zoom-viewer": "^2.2.25",
     "react-native-interactable": "^0.1.10",
+    "react-native-iphone-x-helper": "^1.2.0",
     "react-native-keyboard-aware-scroll-view": "^0.8.0",
     "react-native-linear-gradient": "^2.5.4",
     "react-native-localize": "^1.1.2",

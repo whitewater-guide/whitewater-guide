@@ -1,7 +1,7 @@
 import { useAuth } from '@whitewater-guide/clients';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet, View } from 'react-native';
+import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { Divider, Drawer } from 'react-native-paper';
 import { NavigationActions, NavigationInjectedProps } from 'react-navigation';
 import { isRouteFocused } from '../../utils/navigation';
@@ -14,7 +14,7 @@ import VersionBadge from './VersionBadge';
 const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'white',
+    // backgroundColor: 'white',
     padding: 4,
     paddingTop: 32,
   },
@@ -35,6 +35,7 @@ const DrawerSidebar: React.FC<Props> = ({ navigation, toggleDrawer }) => {
   const { me } = useAuth();
   return (
     <View style={styles.container}>
+      <SafeAreaView />
       <DrawerHeader />
       <Divider />
       <Drawer.Section>
@@ -89,6 +90,7 @@ const DrawerSidebar: React.FC<Props> = ({ navigation, toggleDrawer }) => {
         })}
       />
       <VersionBadge />
+      <SafeAreaView />
     </View>
   );
 };

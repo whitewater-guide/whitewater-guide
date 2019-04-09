@@ -1,23 +1,26 @@
 import { Media } from '@whitewater-guide/commons';
 import React from 'react';
-import { Modal, StyleSheet, Text, View } from 'react-native';
+import { Modal, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import ImageViewer from 'react-native-image-zoom-viewer';
+import { getBottomSpace } from 'react-native-iphone-x-helper';
 import { Icon } from '../../../components';
 import theme from '../../../theme';
 import LoadableImage from './LoadableImage';
 
 const styles = StyleSheet.create({
-  header: {
+  headerOuter: {
     position: 'absolute',
     top: 0,
     left: 0,
     right: 0,
+    zIndex: 10,
+    backgroundColor: 'rgba(0,0,0,0.32)',
+  },
+  headerInner: {
     height: 32,
     alignItems: 'flex-end',
     justifyContent: 'center',
     paddingRight: 8,
-    backgroundColor: 'rgba(0,0,0,0.32)',
-    zIndex: 10,
   },
   footerContainer: {
     position: 'absolute',
@@ -25,10 +28,10 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     padding: 4,
+    paddingBottom: 4 + getBottomSpace(),
     alignItems: 'stretch',
     backgroundColor: 'rgba(0,0,0,0.32)',
   },
-  footer: {},
   indicator: {
     position: 'absolute',
     top: 0,
@@ -62,13 +65,16 @@ interface Props {
 
 class PhotoGallery extends React.PureComponent<Props> {
   renderHeader = () => (
-    <View style={styles.header}>
-      <Icon
-        large={true}
-        icon="close"
-        onPress={this.props.onClose}
-        color={theme.colors.textLight}
-      />
+    <View style={styles.headerOuter}>
+      <SafeAreaView />
+      <View style={styles.headerInner}>
+        <Icon
+          large={true}
+          icon="close"
+          onPress={this.props.onClose}
+          color={theme.colors.textLight}
+        />
+      </View>
     </View>
   );
 
@@ -79,7 +85,7 @@ class PhotoGallery extends React.PureComponent<Props> {
     }
     const { description, copyright } = photos[index];
     return (
-      <View style={styles.footer}>
+      <View>
         <Text style={styles.footerDescription}>
           {description}
           {copyright && (
