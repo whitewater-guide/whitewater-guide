@@ -30,23 +30,21 @@ const request = (email: string) =>
 describe('errors', () => {
   it('should fail on invalid email', async () => {
     const resp = await request('foo');
-    expect(resp).toMatchObject({
-      status: 400,
-      body: {
-        success: false,
-        error: 'reset.request.invalid.email',
-      },
+    expect(resp.status).toBe(400);
+    expect(resp.body).toEqual({
+      success: false,
+      error: 'reset.request.invalid.email',
+      errorId: expect.any(String),
     });
   });
 
   it('should fail when email is not in db', async () => {
     const resp = await request('foo@bar.com');
-    expect(resp).toMatchObject({
-      status: 400,
-      body: {
-        success: false,
-        error: 'reset.request.email.not.found',
-      },
+    expect(resp.status).toBe(400);
+    expect(resp.body).toEqual({
+      success: false,
+      error: 'reset.request.email.not.found',
+      errorId: expect.any(String),
     });
   });
 
@@ -55,12 +53,11 @@ describe('errors', () => {
       throw new Error('sendMail failed');
     });
     const resp = await request('boom_backer_3500@gmail.com');
-    expect(resp).toMatchObject({
-      status: 400,
-      body: {
-        success: false,
-        error: 'reset.request.send.failed',
-      },
+    expect(resp.status).toBe(400);
+    expect(resp.body).toEqual({
+      success: false,
+      error: 'reset.request.send.failed',
+      errorId: expect.any(String),
     });
   });
 });

@@ -35,56 +35,51 @@ const request = (id: string) =>
 describe('errors', () => {
   it('should fail on missing id', async () => {
     const resp = await request('');
-    expect(resp).toMatchObject({
-      status: 400,
-      body: {
-        success: false,
-        error: 'verification.request.id.missing',
-      },
+    expect(resp.status).toBe(400);
+    expect(resp.body).toEqual({
+      success: false,
+      error: 'verification.request.id.missing',
+      errorId: expect.any(String),
     });
   });
 
   it('should fail on incorrect id', async () => {
     const resp = await request('foobar');
-    expect(resp).toMatchObject({
-      status: 400,
-      body: {
-        success: false,
-        error: 'verification.request.id.incorrect',
-      },
+    expect(resp.status).toBe(400);
+    expect(resp.body).toEqual({
+      success: false,
+      error: 'verification.request.id.incorrect',
+      errorId: expect.any(String),
     });
   });
 
   it('should fail on nonexisting id', async () => {
     const resp = await request('50486bf4-44f5-11e9-b210-d663bd873d93');
-    expect(resp).toMatchObject({
-      status: 400,
-      body: {
-        success: false,
-        error: 'verification.request.user.not.found',
-      },
+    expect(resp.status).toBe(400);
+    expect(resp.body).toEqual({
+      success: false,
+      error: 'verification.request.user.not.found',
+      errorId: expect.any(String),
     });
   });
 
   it('should fail on nonexisting id', async () => {
     const resp = await request(ADMIN_ID);
-    expect(resp).toMatchObject({
-      status: 400,
-      body: {
-        success: false,
-        error: 'verification.request.unnecessary',
-      },
+    expect(resp.status).toBe(400);
+    expect(resp.body).toEqual({
+      success: false,
+      error: 'verification.request.unnecessary',
+      errorId: expect.any(String),
     });
   });
 
   it('should fail on absent email', async () => {
     const resp = await request(UNVERIFIED_USER2_ID);
-    expect(resp).toMatchObject({
-      status: 400,
-      body: {
-        success: false,
-        error: 'verification.request.email.missing',
-      },
+    expect(resp.status).toBe(400);
+    expect(resp.body).toEqual({
+      success: false,
+      error: 'verification.request.email.missing',
+      errorId: expect.any(String),
     });
   });
 
@@ -93,12 +88,11 @@ describe('errors', () => {
       throw new Error('sendMail failed');
     });
     const resp = await request(UNVERIFIED_USER_ID);
-    expect(resp).toMatchObject({
-      status: 400,
-      body: {
-        success: false,
-        error: 'verification.request.send.failed',
-      },
+    expect(resp.status).toBe(400);
+    expect(resp.body).toEqual({
+      success: false,
+      error: 'verification.request.send.failed',
+      errorId: expect.any(String),
     });
   });
 });

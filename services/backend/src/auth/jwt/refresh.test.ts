@@ -32,12 +32,11 @@ describe('mobile', () => {
 
   it('should fail if refresh token is missing', async () => {
     const resp = await request('');
-    expect(resp).toMatchObject({
-      status: 400,
-      body: {
-        success: false,
-        error: 'refresh.jwt.not.found',
-      },
+    expect(resp.status).toBe(400);
+    expect(resp.body).toEqual({
+      success: false,
+      error: 'refresh.jwt.not.found',
+      errorId: expect.any(String),
     });
   });
 
@@ -47,12 +46,11 @@ describe('mobile', () => {
       'ajsdhflksdhf',
     );
     const resp = await request(refreshToken);
-    expect(resp).toMatchObject({
-      status: 400,
-      body: {
-        success: false,
-        error: 'refresh.jwt.bad.token',
-      },
+    expect(resp.status).toBe(400);
+    expect(resp.body).toEqual({
+      success: false,
+      error: 'refresh.jwt.bad.token',
+      errorId: expect.any(String),
     });
   });
 
@@ -60,12 +58,11 @@ describe('mobile', () => {
     const accessToken = getAccessToken(ADMIN_ID);
 
     const resp = await request(accessToken);
-    expect(resp).toMatchObject({
-      status: 400,
-      body: {
-        success: false,
-        error: 'refresh.jwt.bad.token',
-      },
+    expect(resp.status).toBe(400);
+    expect(resp.body).toEqual({
+      success: false,
+      error: 'refresh.jwt.bad.token',
+      errorId: expect.any(String),
     });
   });
 
@@ -73,12 +70,11 @@ describe('mobile', () => {
     const accessToken = getAccessToken(ADMIN_ID);
 
     const resp = await request(accessToken);
-    expect(resp).toMatchObject({
-      status: 400,
-      body: {
-        success: false,
-        error: 'refresh.jwt.bad.token',
-      },
+    expect(resp.status).toBe(400);
+    expect(resp.body).toEqual({
+      success: false,
+      error: 'refresh.jwt.bad.token',
+      errorId: expect.any(String),
     });
   });
 
@@ -89,23 +85,21 @@ describe('mobile', () => {
     );
 
     const resp = await request(refreshToken);
-    expect(resp).toMatchObject({
-      status: 400,
-      body: {
-        success: false,
-        error: 'refresh.jwt.bad.token',
-      },
+    expect(resp.status).toBe(400);
+    expect(resp.body).toEqual({
+      success: false,
+      error: 'refresh.jwt.bad.token',
+      errorId: expect.any(String),
     });
   });
 
   it('should fail if token is blacklisted', async () => {
     const resp = await request(BLACKLISTED_REFRESH_TOKEN);
-    expect(resp).toMatchObject({
-      status: 400,
-      body: {
-        success: false,
-        error: 'refresh.jwt.bad.token',
-      },
+    expect(resp.status).toBe(400);
+    expect(resp.body).toEqual({
+      success: false,
+      error: 'refresh.jwt.bad.token',
+      errorId: expect.any(String),
     });
   });
 

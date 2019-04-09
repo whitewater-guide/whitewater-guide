@@ -47,34 +47,31 @@ const request = (payload: Payload) =>
 describe('errors', () => {
   it('should fail when token is missing', async () => {
     const resp = await request({ id: ADMIN_ID, password: PASSWORD });
-    expect(resp).toMatchObject({
-      status: 400,
-      body: {
-        success: false,
-        error: 'reset.missing.arguments',
-      },
+    expect(resp.status).toBe(400);
+    expect(resp.body).toEqual({
+      success: false,
+      error: 'reset.missing.arguments',
+      errorId: expect.any(String),
     });
   });
 
   it('should fail when id is missing', async () => {
     const resp = await request({ token: TOKEN, password: PASSWORD });
-    expect(resp).toMatchObject({
-      status: 400,
-      body: {
-        success: false,
-        error: 'reset.missing.arguments',
-      },
+    expect(resp.status).toBe(400);
+    expect(resp.body).toEqual({
+      success: false,
+      error: 'reset.missing.arguments',
+      errorId: expect.any(String),
     });
   });
 
   it('should fail when password is missing', async () => {
     const resp = await request({ token: TOKEN, id: ADMIN_ID });
-    expect(resp).toMatchObject({
-      status: 400,
-      body: {
-        success: false,
-        error: 'reset.missing.arguments',
-      },
+    expect(resp.status).toBe(400);
+    expect(resp.body).toEqual({
+      success: false,
+      error: 'reset.missing.arguments',
+      errorId: expect.any(String),
     });
   });
 
@@ -84,23 +81,21 @@ describe('errors', () => {
       id: 'qwerty',
       password: PASSWORD,
     });
-    expect(resp).toMatchObject({
-      status: 400,
-      body: {
-        success: false,
-        error: 'reset.id.invalid',
-      },
+    expect(resp.status).toBe(400);
+    expect(resp.body).toEqual({
+      success: false,
+      error: 'reset.id.invalid',
+      errorId: expect.any(String),
     });
   });
 
   it('should fail when password is weak', async () => {
     const resp = await request({ token: TOKEN, id: ADMIN_ID, password: '123' });
-    expect(resp).toMatchObject({
-      status: 400,
-      body: {
-        success: false,
-        error: 'reset.weak.password',
-      },
+    expect(resp.status).toBe(400);
+    expect(resp.body).toEqual({
+      success: false,
+      error: 'reset.weak.password',
+      errorId: expect.any(String),
     });
   });
 
@@ -110,12 +105,11 @@ describe('errors', () => {
       id: '1fe442f2-467c-11e9-b210-d663bd873d93',
       password: PASSWORD,
     });
-    expect(resp).toMatchObject({
-      status: 400,
-      body: {
-        success: false,
-        error: 'reset.id.invalid',
-      },
+    expect(resp.status).toBe(400);
+    expect(resp.body).toEqual({
+      success: false,
+      error: 'reset.id.invalid',
+      errorId: expect.any(String),
     });
   });
 
@@ -125,12 +119,11 @@ describe('errors', () => {
       id: ADMIN_ID,
       password: PASSWORD,
     });
-    expect(resp).toMatchObject({
-      status: 400,
-      body: {
-        success: false,
-        error: 'reset.not.local',
-      },
+    expect(resp.status).toBe(400);
+    expect(resp.body).toEqual({
+      success: false,
+      error: 'reset.not.local',
+      errorId: expect.any(String),
     });
   });
 
@@ -140,12 +133,11 @@ describe('errors', () => {
       id: EDITOR_GA_EC_ID,
       password: PASSWORD,
     });
-    expect(resp).toMatchObject({
-      status: 400,
-      body: {
-        success: false,
-        error: 'reset.unexpected',
-      },
+    expect(resp.status).toBe(400);
+    expect(resp.body).toEqual({
+      success: false,
+      error: 'reset.unexpected',
+      errorId: expect.any(String),
     });
   });
 
@@ -155,12 +147,11 @@ describe('errors', () => {
       id: TEST_USER_ID,
       password: PASSWORD,
     });
-    expect(resp).toMatchObject({
-      status: 400,
-      body: {
-        success: false,
-        error: 'reset.expired',
-      },
+    expect(resp.status).toBe(400);
+    expect(resp.body).toEqual({
+      success: false,
+      error: 'reset.expired',
+      errorId: expect.any(String),
     });
   });
 
@@ -170,12 +161,11 @@ describe('errors', () => {
       id: EDITOR_NO_ID,
       password: PASSWORD,
     });
-    expect(resp).toMatchObject({
-      status: 400,
-      body: {
-        success: false,
-        error: 'reset.token.mismatch',
-      },
+    expect(resp.status).toBe(400);
+    expect(resp.body).toEqual({
+      success: false,
+      error: 'reset.token.mismatch',
+      errorId: expect.any(String),
     });
   });
 });

@@ -2,6 +2,7 @@ import db from '@db';
 import { AccessTokenPayload } from '@whitewater-guide/commons';
 import { TokenExpiredError } from 'jsonwebtoken';
 import get from 'lodash/get';
+import shortid from 'shortid';
 import { MiddlewareFactory } from '../types';
 import logger from './logger';
 
@@ -20,16 +21,18 @@ export const authenticateWithJWT: MiddlewareFactory = (passport) => async (
           return;
         }
         if (err || (info && info.message !== 'No auth token')) {
+          const errorId = shortid.generate();
           logger.error(
-            { strategy: 'jwt', ...payload },
+            { strategy: 'jwt', ...payload, errorId },
             get(err, 'message') || get(info, 'message'),
           );
-          ctx.body = { success: false, error: 'unauthenticated' };
+          ctx.body = { success: false, error: 'unauthenticated', errorId };
           ctx.status = 401;
           return;
         }
 
         if (payload) {
+          const errorId = shortid.generate();
           // TODO: cache context user in redis
           const user = await db()
             .select('id', 'admin', 'language', 'verified')
@@ -39,7 +42,11 @@ export const authenticateWithJWT: MiddlewareFactory = (passport) => async (
           if (user) {
             ctx.state.user = user;
           } else {
-            ctx.body = { success: false, error: 'unauthenticated' };
+            logger.error(
+              { strategy: 'jwt', ...payload, errorId },
+              'user not found',
+            );
+            ctx.body = { success: false, error: 'unauthenticated', errorId };
             ctx.status = 401;
             return;
           }

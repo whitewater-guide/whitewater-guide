@@ -1,5 +1,5 @@
 import Router from 'koa-router';
-import { errorBodyMiddleware } from '../local/utils';
+import { errorBodyMiddleware } from '../utils';
 import { refreshJWT } from './refresh';
 
 export const initJwtRouter = () => {

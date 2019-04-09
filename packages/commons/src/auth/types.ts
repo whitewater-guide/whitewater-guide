@@ -10,6 +10,8 @@ export interface RefreshTokenPayload {
 export interface AuthPayload {
   success: boolean;
   error?: string;
+  // Unique id to match server logs with client errors
+  errorId?: string;
   // user id
   id?: string;
   // for mobile clients

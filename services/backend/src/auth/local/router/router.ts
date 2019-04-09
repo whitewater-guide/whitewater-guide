@@ -1,6 +1,6 @@
 import Router from 'koa-router';
 import { KoaPassport } from '../../types';
-import { errorBodyMiddleware } from '../utils';
+import { errorBodyMiddleware } from '../../utils';
 import reset from './reset';
 import resetRequest from './resetRequest';
 import signIn from './signin';
