@@ -1,8 +1,7 @@
-import { AuthContext } from '@whitewater-guide/clients';
 import identity from 'lodash/identity';
 import React from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
-import { Button, Divider, Title } from 'react-native-paper';
+import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
+import { Divider, Title } from 'react-native-paper';
 import {
   Avatar,
   Paper,
@@ -29,6 +28,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: theme.margin.single,
     marginBottom: theme.margin.single,
+  },
+  safeArea: {
+    backgroundColor: theme.colors.primary,
   },
 });
 
@@ -78,6 +80,7 @@ class MyProfileView extends React.PureComponent<InnerProps> {
           <PurchasesListView />
         </ScrollView>
         <SignOutButton />
+        <SafeAreaView style={styles.safeArea} />
       </Screen>
     );
   }
