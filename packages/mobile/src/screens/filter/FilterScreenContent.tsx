@@ -11,10 +11,11 @@ import groupBy from 'lodash/groupBy';
 import memoize from 'lodash/memoize';
 import React from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
-import { Button, Subheading } from 'react-native-paper';
+import { Subheading } from 'react-native-paper';
 import { Omit } from 'type-zoo';
 import { MultiSlider, StarRating, TernaryChips } from '../../components';
 import theme from '../../theme';
+import { FindButton } from './FindButton';
 import { InnerProps } from './types';
 
 const DIFFICULTY_RANGE: [number, number] = [1, 6];
@@ -29,9 +30,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingTop: 16,
     paddingBottom: 16,
-  },
-  button: {
-    borderRadius: 0,
   },
   safeArea: {
     backgroundColor: theme.colors.primary,
@@ -99,8 +97,8 @@ export default class FilterScreenContent extends React.PureComponent<
     this.setState({ [key]: value } as any),
   );
 
-  onApply = () => {
-    this.props.setSearchTerms(stateToSearchTerms(this.state));
+  onApply = (terms: SectionSearchTerms) => {
+    this.props.setSearchTerms(terms);
     this.props.navigation.goBack();
   };
 
@@ -185,9 +183,10 @@ export default class FilterScreenContent extends React.PureComponent<
             onChange={this.onChange('misc')}
           />
         </ScrollView>
-        <Button mode="contained" onPress={this.onApply} style={styles.button}>
-          {t('filter:search')}
-        </Button>
+        <FindButton
+          onApply={this.onApply}
+          terms={stateToSearchTerms(this.state)}
+        />
         <SafeAreaView style={styles.safeArea} />
       </View>
     );

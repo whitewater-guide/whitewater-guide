@@ -1,4 +1,5 @@
 import auth from './auth';
+import filter from './filter';
 import iap from './iap';
 import offline from './offline';
 
@@ -6,6 +7,7 @@ export default {
   auth,
   iap,
   offline,
+  filter,
   commons: {
     putIn: 'Старт',
     takeOut: 'Финиш',
@@ -148,16 +150,6 @@ export default {
     info: {
       title: 'Инфо',
     },
-  },
-  filter: {
-    title: 'Фильтры',
-    reset: 'Сбросить',
-    difficultyValue: 'Сложность: {{minDiff}}',
-    difficultyRange: 'Сложность: от {{minDiff}} до {{maxDiff}}',
-    durationValue: 'Время: {{minDuration}}',
-    durationRange: 'Время: от {{minDuration}} до {{maxDuration}}',
-    rating: 'Минимальный рейтинг',
-    search: 'Искать',
   },
   durations: {
     10: 'Много раз в день',

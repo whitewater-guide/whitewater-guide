@@ -1,4 +1,5 @@
 import auth from './auth';
+import filter from './filter';
 import iap from './iap';
 import offline from './offline';
 
@@ -6,6 +7,7 @@ export default {
   auth,
   iap,
   offline,
+  filter,
   commons: {
     putIn: 'Put-in',
     takeOut: 'Take-out',
@@ -148,16 +150,6 @@ export default {
     info: {
       title: 'Info',
     },
-  },
-  filter: {
-    title: 'Filters',
-    reset: 'Reset',
-    difficultyValue: 'Difficulty: {{minDiff}}',
-    difficultyRange: 'Difficulty: from {{minDiff}} to {{maxDiff}}',
-    durationValue: 'Duration: {{minDuration}}',
-    durationRange: 'Duration: from {{minDuration}} to {{maxDuration}}',
-    rating: 'Minimal rating',
-    search: 'Find',
   },
   durations: {
     10: 'Laps',
