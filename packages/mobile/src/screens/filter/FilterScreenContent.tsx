@@ -10,7 +10,7 @@ import {
 import groupBy from 'lodash/groupBy';
 import memoize from 'lodash/memoize';
 import React from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 import { Button, Subheading } from 'react-native-paper';
 import { Omit } from 'type-zoo';
 import { MultiSlider, StarRating, TernaryChips } from '../../components';
@@ -29,6 +29,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingTop: 16,
     paddingBottom: 16,
+  },
+  button: {
+    borderRadius: 0,
+  },
+  safeArea: {
+    backgroundColor: theme.colors.primary,
   },
 });
 
@@ -179,9 +185,10 @@ export default class FilterScreenContent extends React.PureComponent<
             onChange={this.onChange('misc')}
           />
         </ScrollView>
-        <Button mode="contained" onPress={this.onApply}>
+        <Button mode="contained" onPress={this.onApply} style={styles.button}>
           {t('filter:search')}
         </Button>
+        <SafeAreaView style={styles.safeArea} />
       </View>
     );
   }
