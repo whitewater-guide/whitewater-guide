@@ -8,6 +8,7 @@ import {
   View,
 } from 'react-native';
 import Interactable from 'react-native-interactable';
+import { getBottomSpace } from 'react-native-iphone-x-helper';
 import theme from '../../theme';
 import {
   NAVIGATE_BUTTON_HEIGHT,
@@ -31,6 +32,10 @@ const styles = StyleSheet.create({
   shade: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: '#000000',
+  },
+  safeArea: {
+    height: getBottomSpace(),
+    backgroundColor: theme.colors.primary,
   },
 });
 
@@ -108,6 +113,7 @@ export default class SelectedElementView extends React.Component<Props, State> {
         Animated.add(deltaY, -height),
         -1,
       );
+      const bottom = getBottomSpace();
       this.setState((prevState) => ({
         deltaY,
         slideAnimated,
@@ -115,8 +121,8 @@ export default class SelectedElementView extends React.Component<Props, State> {
         height,
         snapPoints: [
           { y: height },
-          { y: height - NAVIGATE_BUTTON_HEIGHT },
-          { y: height - prevState.panelHeight },
+          { y: height - 2 * bottom - NAVIGATE_BUTTON_HEIGHT },
+          { y: height - 2 * bottom - prevState.panelHeight },
         ],
       }));
     }
@@ -127,12 +133,13 @@ export default class SelectedElementView extends React.Component<Props, State> {
       layout: { height: panelHeight },
     },
   }: LayoutChangeEvent) => {
+    const bottom = getBottomSpace();
     this.setState((prevState) => ({
       panelHeight,
       snapPoints: [
         { y: prevState.height },
-        { y: prevState.height - NAVIGATE_BUTTON_HEIGHT },
-        { y: prevState.height - panelHeight },
+        { y: prevState.height - 2 * bottom - NAVIGATE_BUTTON_HEIGHT },
+        { y: prevState.height - 2 * bottom - panelHeight },
       ],
     }));
   };
