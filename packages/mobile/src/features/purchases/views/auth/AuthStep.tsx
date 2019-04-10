@@ -13,6 +13,9 @@ const styles = StyleSheet.create({
   subheading: {
     marginBottom: theme.margin.single,
   },
+  cancelButton: {
+    marginRight: theme.margin.half,
+  },
 });
 
 type Props = InnerProps & OuterProps;
@@ -41,7 +44,11 @@ const AuthStep: React.FC<Props> = (props) => {
       </Dialog.Content>
       <Dialog.Actions>
         {cancelable && (
-          <Button mode="outlined" onPress={onCancel}>
+          <Button
+            mode="outlined"
+            onPress={onCancel}
+            style={styles.cancelButton}
+          >
             Cancel
           </Button>
         )}

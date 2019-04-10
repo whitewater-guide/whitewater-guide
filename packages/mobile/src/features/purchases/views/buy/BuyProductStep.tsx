@@ -36,6 +36,9 @@ const styles = StyleSheet.create({
     }),
     marginRight: theme.margin.single,
   },
+  cancelButton: {
+    marginRight: theme.margin.half,
+  },
 });
 
 interface Props {
@@ -85,7 +88,11 @@ const BuyProductStep: React.FC<Props> = (props) => {
       </Dialog.Content>
       <Dialog.Actions>
         {renderCancelButton && (
-          <Button mode="outlined" onPress={onCancel}>
+          <Button
+            mode="outlined"
+            onPress={onCancel}
+            style={styles.cancelButton}
+          >
             {t('commons:cancel')}
           </Button>
         )}
