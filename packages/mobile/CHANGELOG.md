@@ -1,3 +1,9 @@
+## [1.7.26](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.25...@whitewater-guide/mobile@1.7.26) (2019-04-11)
+
+### Bug Fixes
+
+- **mobile:** fix ErrorSnackbar ([163bab7](https://github.com/doomsower/whitewater/commit/163bab7))
+
 ## [1.7.25](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.24...@whitewater-guide/mobile@1.7.25) (2019-04-11)
 
 ### Bug Fixes
