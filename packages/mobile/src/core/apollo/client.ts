@@ -27,6 +27,8 @@ export const initApolloClient = async (auth: MobileAuthService) => {
       },
     });
 
+    initLocalState(apolloClient.cache);
+
     apolloClient.onClearStore(() => {
       initLocalState(inMemoryCache);
       return Promise.resolve();

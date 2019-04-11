@@ -13,7 +13,8 @@ export const ErrorSnackbar = () => (
       <Mutation mutation={APOLLO_ERROR_MUTATION}>
         {(setApolloError: MutationFn) => (
           <Snackbar
-            visible={!!data.apolloError}
+            visible={!!data && !!data.apolloError}
+            duration={Snackbar.DURATION_MEDIUM}
             onDismiss={() => setApolloError({ variables: { error: null } })}
           >
             {apolloErrorToString(data.apolloError)}
