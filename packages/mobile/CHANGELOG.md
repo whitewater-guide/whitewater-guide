@@ -1,3 +1,19 @@
+## [1.7.25](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.24...@whitewater-guide/mobile@1.7.25) (2019-04-11)
+
+### Bug Fixes
+
+- **mobile:** fix filter screen safe area ([91120cb](https://github.com/doomsower/whitewater/commit/91120cb)), closes [#357](https://github.com/doomsower/whitewater/issues/357)
+- **mobile:** fix premium dialog layout ([68f4b18](https://github.com/doomsower/whitewater/commit/68f4b18))
+- **mobile:** fix profile screen safe area ([5e95e39](https://github.com/doomsower/whitewater/commit/5e95e39)), closes [#357](https://github.com/doomsower/whitewater/issues/357)
+- **mobile:** fix SelectedElementView on iPhone X ([cf81152](https://github.com/doomsower/whitewater/commit/cf81152)), closes [#357](https://github.com/doomsower/whitewater/issues/357)
+- **mobile:** fix StatusBar + gallery Modal on Android ([e3526aa](https://github.com/doomsower/whitewater/commit/e3526aa)), closes [#365](https://github.com/doomsower/whitewater/issues/365)
+- **mobile:** improve iPhone X UI ([6901153](https://github.com/doomsower/whitewater/commit/6901153)), closes [#357](https://github.com/doomsower/whitewater/issues/357)
+
+### Features
+
+- **mobile:** added ErrorSnackbar ([0bed2b2](https://github.com/doomsower/whitewater/commit/0bed2b2))
+- **mobile:** live counter for filters ([aa3e222](https://github.com/doomsower/whitewater/commit/aa3e222)), closes [#120](https://github.com/doomsower/whitewater/issues/120)
+
 ## [1.7.24](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.23...@whitewater-guide/mobile@1.7.24) (2019-04-09)
 
 ## [1.7.23](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.22...@whitewater-guide/mobile@1.7.23) (2019-04-07)
