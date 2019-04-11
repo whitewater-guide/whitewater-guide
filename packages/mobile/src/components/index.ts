@@ -3,6 +3,7 @@ export * from './Avatar';
 export * from './Chips';
 export * from './DifficultyThumb';
 export * from './ErrorBoundaryFallback';
+export * from './ErrorSnackbar';
 export * from './drawer';
 export * from './FlowsThumb';
 export * from './Handle';

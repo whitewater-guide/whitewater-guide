@@ -6,7 +6,7 @@ import codePush from 'react-native-code-push';
 import { PortalProvider } from 'react-native-portal';
 import { Provider } from 'react-redux';
 import { Store, Unsubscribe } from 'redux';
-import { Screen, SplashScreen } from './components';
+import { ErrorSnackbar, Screen, SplashScreen } from './components';
 import { resetNavigationToHome } from './core/actions';
 import { apolloCachePersistor, initApolloClient } from './core/apollo';
 import { MobileAuthService } from './core/auth';
@@ -114,6 +114,7 @@ class App extends React.Component<{}, State> {
                       onNavigationStateChange={trackScreenChange}
                       renderLoadingExperimental={this.renderLoadingExperimental}
                     />
+                    <ErrorSnackbar />
                   </I18nProvider>
                 </AuthProvider>
               </TagsProvider>
