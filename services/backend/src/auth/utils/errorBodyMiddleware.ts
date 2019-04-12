@@ -12,9 +12,9 @@ export const errorBodyMiddleware = (
     const { status, message, payload } = err;
     if (status >= 400 && status < 500) {
       ctx.status = status;
-      const errorId = shortid.generate();
-      const body: AuthPayload = { success: false, error: message, errorId };
-      logger.warn({ strategy, ...payload, errorId }, message);
+      const error_id = shortid.generate();
+      const body: AuthPayload = { success: false, error: message, error_id };
+      logger.warn({ strategy, ...payload, error_id }, message);
       ctx.body = body;
     } else {
       throw err;

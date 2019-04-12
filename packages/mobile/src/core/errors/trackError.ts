@@ -7,7 +7,7 @@ export const trackError = (
   componentStack?: string,
   isFatal?: boolean,
 ) => {
-  const errorId = shortid();
+  const error_id = shortid();
   if (__DEV__) {
     try {
       console.dir(error);
@@ -23,5 +23,5 @@ export const trackError = (
     Firebase.crashlytics().setStringValue('componentStack', componentStack);
   }
   Firebase.crashlytics().recordError(1, error.message);
-  return errorId;
+  return error_id;
 };

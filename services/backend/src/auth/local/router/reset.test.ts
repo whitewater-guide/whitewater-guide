@@ -51,7 +51,7 @@ describe('errors', () => {
     expect(resp.body).toEqual({
       success: false,
       error: 'reset.missing.arguments',
-      errorId: expect.any(String),
+      error_id: expect.any(String),
     });
   });
 
@@ -61,7 +61,7 @@ describe('errors', () => {
     expect(resp.body).toEqual({
       success: false,
       error: 'reset.missing.arguments',
-      errorId: expect.any(String),
+      error_id: expect.any(String),
     });
   });
 
@@ -71,7 +71,7 @@ describe('errors', () => {
     expect(resp.body).toEqual({
       success: false,
       error: 'reset.missing.arguments',
-      errorId: expect.any(String),
+      error_id: expect.any(String),
     });
   });
 
@@ -85,7 +85,7 @@ describe('errors', () => {
     expect(resp.body).toEqual({
       success: false,
       error: 'reset.id.invalid',
-      errorId: expect.any(String),
+      error_id: expect.any(String),
     });
   });
 
@@ -95,7 +95,7 @@ describe('errors', () => {
     expect(resp.body).toEqual({
       success: false,
       error: 'reset.weak.password',
-      errorId: expect.any(String),
+      error_id: expect.any(String),
     });
   });
 
@@ -109,7 +109,7 @@ describe('errors', () => {
     expect(resp.body).toEqual({
       success: false,
       error: 'reset.id.invalid',
-      errorId: expect.any(String),
+      error_id: expect.any(String),
     });
   });
 
@@ -123,7 +123,7 @@ describe('errors', () => {
     expect(resp.body).toEqual({
       success: false,
       error: 'reset.not.local',
-      errorId: expect.any(String),
+      error_id: expect.any(String),
     });
   });
 
@@ -137,7 +137,7 @@ describe('errors', () => {
     expect(resp.body).toEqual({
       success: false,
       error: 'reset.unexpected',
-      errorId: expect.any(String),
+      error_id: expect.any(String),
     });
   });
 
@@ -151,7 +151,7 @@ describe('errors', () => {
     expect(resp.body).toEqual({
       success: false,
       error: 'reset.expired',
-      errorId: expect.any(String),
+      error_id: expect.any(String),
     });
   });
 
@@ -165,7 +165,7 @@ describe('errors', () => {
     expect(resp.body).toEqual({
       success: false,
       error: 'reset.token.mismatch',
-      errorId: expect.any(String),
+      error_id: expect.any(String),
     });
   });
 });

@@ -52,7 +52,7 @@ describe('errors', () => {
     expect(resp.body).toEqual({
       success: false,
       error: 'verification.token.missing',
-      errorId: expect.any(String),
+      error_id: expect.any(String),
     });
   });
 
@@ -62,7 +62,7 @@ describe('errors', () => {
     expect(resp.body).toEqual({
       success: false,
       error: 'verification.id.missing',
-      errorId: expect.any(String),
+      error_id: expect.any(String),
     });
   });
 
@@ -75,7 +75,7 @@ describe('errors', () => {
     expect(resp.body).toEqual({
       success: false,
       error: 'verification.token.invalid',
-      errorId: expect.any(String),
+      error_id: expect.any(String),
     });
   });
 
@@ -88,7 +88,7 @@ describe('errors', () => {
     expect(resp.body).toEqual({
       success: false,
       error: 'verification.unexpected',
-      errorId: expect.any(String),
+      error_id: expect.any(String),
     });
   });
 
@@ -102,7 +102,7 @@ describe('errors', () => {
     expect(resp.body).toEqual({
       success: false,
       error: 'verification.expired',
-      errorId: expect.any(String),
+      error_id: expect.any(String),
     });
   });
 
@@ -116,7 +116,7 @@ describe('errors', () => {
     expect(resp.body).toEqual({
       success: false,
       error: 'verification.token.mismatch',
-      errorId: expect.any(String),
+      error_id: expect.any(String),
     });
   });
 });

@@ -21,18 +21,18 @@ export const authenticateWithJWT: MiddlewareFactory = (passport) => async (
           return;
         }
         if (err || (info && info.message !== 'No auth token')) {
-          const errorId = shortid.generate();
+          const error_id = shortid.generate();
           logger.error(
-            { strategy: 'jwt', ...payload, errorId },
+            { strategy: 'jwt', ...payload, error_id },
             get(err, 'message') || get(info, 'message'),
           );
-          ctx.body = { success: false, error: 'unauthenticated', errorId };
+          ctx.body = { success: false, error: 'unauthenticated', error_id };
           ctx.status = 401;
           return;
         }
 
         if (payload) {
-          const errorId = shortid.generate();
+          const error_id = shortid.generate();
           // TODO: cache context user in redis
           const user = await db()
             .select('id', 'admin', 'language', 'verified')
@@ -43,10 +43,10 @@ export const authenticateWithJWT: MiddlewareFactory = (passport) => async (
             ctx.state.user = user;
           } else {
             logger.error(
-              { strategy: 'jwt', ...payload, errorId },
+              { strategy: 'jwt', ...payload, error_id },
               'user not found',
             );
-            ctx.body = { success: false, error: 'unauthenticated', errorId };
+            ctx.body = { success: false, error: 'unauthenticated', error_id };
             ctx.status = 401;
             return;
           }

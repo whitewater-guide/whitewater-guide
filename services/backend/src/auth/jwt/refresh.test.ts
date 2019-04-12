@@ -36,7 +36,7 @@ describe('mobile', () => {
     expect(resp.body).toEqual({
       success: false,
       error: 'refresh.jwt.not.found',
-      errorId: expect.any(String),
+      error_id: expect.any(String),
     });
   });
 
@@ -50,7 +50,7 @@ describe('mobile', () => {
     expect(resp.body).toEqual({
       success: false,
       error: 'refresh.jwt.bad.token',
-      errorId: expect.any(String),
+      error_id: expect.any(String),
     });
   });
 
@@ -62,7 +62,7 @@ describe('mobile', () => {
     expect(resp.body).toEqual({
       success: false,
       error: 'refresh.jwt.bad.token',
-      errorId: expect.any(String),
+      error_id: expect.any(String),
     });
   });
 
@@ -74,7 +74,7 @@ describe('mobile', () => {
     expect(resp.body).toEqual({
       success: false,
       error: 'refresh.jwt.bad.token',
-      errorId: expect.any(String),
+      error_id: expect.any(String),
     });
   });
 
@@ -89,7 +89,7 @@ describe('mobile', () => {
     expect(resp.body).toEqual({
       success: false,
       error: 'refresh.jwt.bad.token',
-      errorId: expect.any(String),
+      error_id: expect.any(String),
     });
   });
 
@@ -99,7 +99,7 @@ describe('mobile', () => {
     expect(resp.body).toEqual({
       success: false,
       error: 'refresh.jwt.bad.token',
-      errorId: expect.any(String),
+      error_id: expect.any(String),
     });
   });
 

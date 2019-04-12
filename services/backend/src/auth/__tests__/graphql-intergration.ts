@@ -192,7 +192,7 @@ it('should not work when refresh token is used as access token', async () => {
   expect(response.body).toEqual({
     success: false,
     error: 'unauthenticated',
-    errorId: expect.any(String),
+    error_id: expect.any(String),
   });
 });
 

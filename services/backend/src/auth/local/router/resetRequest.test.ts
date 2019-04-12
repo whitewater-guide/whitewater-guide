@@ -34,7 +34,7 @@ describe('errors', () => {
     expect(resp.body).toEqual({
       success: false,
       error: 'reset.request.invalid.email',
-      errorId: expect.any(String),
+      error_id: expect.any(String),
     });
   });
 
@@ -44,7 +44,7 @@ describe('errors', () => {
     expect(resp.body).toEqual({
       success: false,
       error: 'reset.request.email.not.found',
-      errorId: expect.any(String),
+      error_id: expect.any(String),
     });
   });
 
@@ -57,7 +57,7 @@ describe('errors', () => {
     expect(resp.body).toEqual({
       success: false,
       error: 'reset.request.send.failed',
-      errorId: expect.any(String),
+      error_id: expect.any(String),
     });
   });
 });

@@ -39,7 +39,7 @@ describe('errors', () => {
     expect(resp.body).toEqual({
       success: false,
       error: 'verification.request.id.missing',
-      errorId: expect.any(String),
+      error_id: expect.any(String),
     });
   });
 
@@ -49,7 +49,7 @@ describe('errors', () => {
     expect(resp.body).toEqual({
       success: false,
       error: 'verification.request.id.incorrect',
-      errorId: expect.any(String),
+      error_id: expect.any(String),
     });
   });
 
@@ -59,7 +59,7 @@ describe('errors', () => {
     expect(resp.body).toEqual({
       success: false,
       error: 'verification.request.user.not.found',
-      errorId: expect.any(String),
+      error_id: expect.any(String),
     });
   });
 
@@ -69,7 +69,7 @@ describe('errors', () => {
     expect(resp.body).toEqual({
       success: false,
       error: 'verification.request.unnecessary',
-      errorId: expect.any(String),
+      error_id: expect.any(String),
     });
   });
 
@@ -79,7 +79,7 @@ describe('errors', () => {
     expect(resp.body).toEqual({
       success: false,
       error: 'verification.request.email.missing',
-      errorId: expect.any(String),
+      error_id: expect.any(String),
     });
   });
 
@@ -92,7 +92,7 @@ describe('errors', () => {
     expect(resp.body).toEqual({
       success: false,
       error: 'verification.request.send.failed',
-      errorId: expect.any(String),
+      error_id: expect.any(String),
     });
   });
 });
