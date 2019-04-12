@@ -99,6 +99,5 @@
     "type-zoo": "^3.3.0",
     "typescript": "3.3.4000",
     "wait-for-observables": "^1.0.3"
-  },
-  "gitHead": "b8a3611fe3c00d3b218591817913e7469806bdd1"
+  }
 }

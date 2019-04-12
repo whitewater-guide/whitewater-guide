@@ -3,5 +3,10 @@
   "compilerOptions": {
     "emitDeclarationOnly": true
   },
-  "exclude": ["**/*.test.ts", "**/__mocks__/**/*", "src/test/typedefs.ts"]
+  "exclude": [
+    "**/*.test.ts",
+    "**/__mocks__/**/*",
+    "**/__tests__/**/*",
+    "src/test/typedefs.ts"
+  ]
 }
