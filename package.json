@@ -25,7 +25,7 @@
     "test:env": "node tooling/scripts/bin/test_start.js",
     "lint": "lerna exec --since -- test ! -f \\$PWD/tsconfig.json \\|\\| tslint --project \\$PWD",
     "junk": "yarn trash-junk",
-    "preinstall": "tooling/scripts/sh/clean_yarn_error_log.sh && lerna exec -- \\$LERNA_ROOT_PATH/tooling/scripts/sh/clean_yarn_error_log.sh",
+    "preinstall": "tooling/scripts/sh/clean_yarn_error_log.sh && lerna exec -- \\$LERNA_ROOT_PATH/tooling/scripts/sh/clean_yarn_error_log.sh || true",
     "preversion": "lerna changed --all --json > lerna-changed.json",
     "postpublish": "node tooling/scripts/bin/publish-docker.js",
     "pub": "lerna publish --concurrency 1",
@@ -47,7 +47,7 @@
     "tslint-eslint-rules": "^5.4.0",
     "tslint-react": "^4.0.0",
     "tslint-react-hooks": "^2.0.0",
-    "typescript": "3.3.4000"
+    "typescript": "3.4.3"
   },
   "dependencies": {}
 }
