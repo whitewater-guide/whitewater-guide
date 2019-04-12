@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { Breadcrumbs } from '../components';
 import { UserMenu } from '../features/users';
 import { Styles } from '../styles';
-import ApolloErrorSnackbar from './ApolloErrorSnackbar';
+import AppErrorSnackbar from './AppErrorSnackbar';
 import breadcrumbRoutes from './breadcrumbRoutes';
 import ContentLayout from './ContentLayout';
 import { Drawer } from './drawer';
@@ -66,7 +66,7 @@ export class RootLayout extends React.Component<{}, State> {
         </Toolbar>
         <ContentLayout />
         <Drawer isOpen={this.state.drawerOpen} onChange={this.onDrawerToggle} />
-        <ApolloErrorSnackbar />
+        <AppErrorSnackbar />
       </div>
     );
   }

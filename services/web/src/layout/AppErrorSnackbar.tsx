@@ -1,15 +1,15 @@
 import {
-  APOLLO_ERROR_MUTATION,
-  APOLLO_ERROR_QUERY,
   apolloErrorToString,
+  APP_ERROR_MUTATION,
+  APP_ERROR_QUERY,
 } from '@whitewater-guide/clients';
 import Snackbar from 'material-ui/Snackbar';
 import React from 'react';
 import { Mutation, Query } from 'react-apollo';
 import CopyToClipboard from 'react-copy-to-clipboard';
 
-const ApolloErrorSnackbar = () => (
-  <Query query={APOLLO_ERROR_QUERY}>
+const AppErrorSnackbar = () => (
+  <Query query={APP_ERROR_QUERY}>
     {({ data }) => {
       const action = (
         <CopyToClipboard text={JSON.stringify(data.apolloError, null, 2)}>
@@ -17,15 +17,15 @@ const ApolloErrorSnackbar = () => (
         </CopyToClipboard>
       );
       return (
-        <Mutation mutation={APOLLO_ERROR_MUTATION}>
-          {(setApolloError) => {
+        <Mutation mutation={APP_ERROR_MUTATION}>
+          {(setAppError) => {
             return (
               <Snackbar
                 action={action}
                 open={!!data.apolloError}
                 message={apolloErrorToString(data.apolloError)}
                 onRequestClose={() =>
-                  setApolloError({ variables: { error: null } })
+                  setAppError({ variables: { error: null } })
                 }
                 autoHideDuration={0}
               />
@@ -37,4 +37,4 @@ const ApolloErrorSnackbar = () => (
   </Query>
 );
 
-export default ApolloErrorSnackbar;
+export default AppErrorSnackbar;

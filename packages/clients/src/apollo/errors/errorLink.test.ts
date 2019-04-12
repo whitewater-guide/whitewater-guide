@@ -2,7 +2,8 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloLink, execute, Observable } from 'apollo-link';
 import { throwServerError } from 'apollo-link-http-common';
 import gql from 'graphql-tag';
-import { APOLLO_ERROR_QUERY } from './apolloError.query';
+import { AppError } from './AppError';
+import { APP_ERROR_QUERY, AppErrorQueryResult } from './appError.query';
 import { errorLink, JWT_EXPIRED_CTX_KEY } from './errorLink';
 
 const query = gql`
@@ -19,7 +20,7 @@ describe('network errors', () => {
   it('should forward with context when jwt expired', (done) => {
     let timesCalled = 0;
     let forwarded = false;
-    const onUnauthenticated = jest.fn();
+    const handleError = jest.fn();
 
     const link = ApolloLink.from([
       errorLink(new InMemoryCache()),
@@ -51,17 +52,17 @@ describe('network errors', () => {
     execute(link, { query }).subscribe({
       complete() {
         expect(forwarded).toBe(true);
-        expect(onUnauthenticated).not.toHaveBeenCalled();
+        expect(handleError).not.toHaveBeenCalled();
         done();
       },
     });
   });
 
-  it('should call onUnauthenticated in case of other 401 errors', (done) => {
-    const onUnauthenticated = jest.fn();
+  it('should call handleError in case of other 401 errors', (done) => {
+    const handleError = jest.fn();
 
     const link = ApolloLink.from([
-      errorLink(new InMemoryCache(), onUnauthenticated),
+      errorLink(new InMemoryCache(), handleError),
       new ApolloLink(() => {
         return new Observable(() => {
           throwServerError(
@@ -75,10 +76,10 @@ describe('network errors', () => {
 
     execute(link, { query }).subscribe({
       error() {
-        expect(onUnauthenticated).toHaveBeenCalledWith({
-          success: false,
-          error: 'unauthenticated',
-        });
+        expect(handleError).toHaveBeenCalled();
+        const appError = handleError.mock.calls[0][0];
+        expect(appError).toBeInstanceOf(AppError);
+        expect(appError.type).toBe('auth');
         done();
       },
       complete() {
@@ -104,8 +105,10 @@ describe('network errors', () => {
 
     execute(link, { query }).subscribe({
       error() {
-        const readQuery = cache.readQuery({ query: APOLLO_ERROR_QUERY });
-        expect(readQuery).toHaveProperty('apolloError');
+        const readQuery = cache.readQuery<AppErrorQueryResult>({
+          query: APP_ERROR_QUERY,
+        });
+        expect(readQuery).toHaveProperty('appError');
         done();
       },
       complete() {
@@ -115,10 +118,10 @@ describe('network errors', () => {
   });
 
   it('should save error in case of 500 error', (done) => {
-    const onUnauthenticated = jest.fn();
+    const handleError = jest.fn();
     const cache = new InMemoryCache();
     const link = ApolloLink.from([
-      errorLink(cache, onUnauthenticated),
+      errorLink(cache, handleError),
       new ApolloLink(() => {
         return new Observable((observer) => {
           throwServerError(
@@ -132,9 +135,13 @@ describe('network errors', () => {
 
     execute(link, { query }).subscribe({
       error() {
-        const readQuery = cache.readQuery({ query: APOLLO_ERROR_QUERY });
-        expect(onUnauthenticated).not.toHaveBeenCalled();
-        expect(readQuery).toHaveProperty('apolloError');
+        const readQuery = cache.readQuery<AppErrorQueryResult>({
+          query: APP_ERROR_QUERY,
+        });
+        expect(handleError).toHaveBeenCalledWith(
+          expect.objectContaining({ type: 'default' }),
+        );
+        expect(readQuery).toHaveProperty('appError');
         done();
       },
       complete() {
@@ -144,10 +151,10 @@ describe('network errors', () => {
   });
 
   it('should save error in case of fetch error', (done) => {
-    const onUnauthenticated = jest.fn();
+    const handleError = jest.fn();
     const cache = new InMemoryCache();
     const link = ApolloLink.from([
-      errorLink(cache, onUnauthenticated),
+      errorLink(cache, handleError),
       new ApolloLink(() => {
         return new Observable((observer) => {
           throw new Error('fetch failed');
@@ -157,10 +164,15 @@ describe('network errors', () => {
 
     execute(link, { query }).subscribe({
       error() {
-        const readQuery = cache.readQuery({ query: APOLLO_ERROR_QUERY });
-        expect(onUnauthenticated).not.toHaveBeenCalled();
+        const readQuery = cache.readQuery<AppErrorQueryResult>({
+          query: APP_ERROR_QUERY,
+        });
+        expect(handleError).toHaveBeenCalledWith(expect.any(AppError));
+        expect(handleError).toHaveBeenCalledWith(
+          expect.objectContaining({ type: 'default' }),
+        );
         expect(readQuery).toHaveProperty(
-          'apolloError.networkError.message',
+          'appError.original.networkError.message',
           'fetch failed',
         );
         done();
@@ -174,7 +186,7 @@ describe('network errors', () => {
 
 describe('graphql errors', () => {
   it('forwards unauthenticated GRAPHQL errors', (done) => {
-    const onUnauthenticated = jest.fn();
+    const handleError = jest.fn();
     let timesCalled = 0;
     let forwarded = false;
     const cache = new InMemoryCache();
@@ -211,14 +223,14 @@ describe('graphql errors', () => {
     execute(link, { query }).subscribe({
       complete() {
         expect(forwarded).toBe(true);
-        expect(onUnauthenticated).not.toHaveBeenCalled();
+        expect(handleError).not.toHaveBeenCalled();
         done();
       },
     });
   });
 
-  it('saves other GRAPHQL errors', (done) => {
-    const onUnauthenticated = jest.fn();
+  it('should save other GRAPHQL errors', (done) => {
+    const handleError = jest.fn();
     let timesCalled = 0;
     let forwarded = false;
     const cache = new InMemoryCache();
@@ -254,10 +266,12 @@ describe('graphql errors', () => {
       },
       complete() {
         expect(forwarded).toBe(false);
-        const readQuery = cache.readQuery({ query: APOLLO_ERROR_QUERY });
-        expect(onUnauthenticated).not.toHaveBeenCalled();
+        const readQuery = cache.readQuery<AppErrorQueryResult>({
+          query: APP_ERROR_QUERY,
+        });
+        expect(handleError).not.toHaveBeenCalled();
         expect(readQuery).toHaveProperty(
-          'apolloError.graphQLErrors.0.message',
+          'appError.original.graphQLErrors.0.message',
           'unauthorized',
         );
         done();

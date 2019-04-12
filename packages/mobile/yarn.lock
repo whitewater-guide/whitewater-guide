@@ -5044,9 +5044,9 @@ create-react-context@^0.2.1, create-react-context@^0.2.3:
     gud "^1.0.0"
 
 cron-parser@^2.7.3:
-  version "2.10.0"
-  resolved "https://registry.yarnpkg.com/cron-parser/-/cron-parser-2.10.0.tgz#d6bed39cfa6163930f89b1ade82df7b46f52b82b"
-  integrity sha512-E181Gbg+wYT0hSikwBOokL7VHgJDYUlFsRFHIlnTP8GGefhcIyf8PSc2IXztmghj5mhAZupU0n3jKfEpZVEmVg==
+  version "2.11.0"
+  resolved "https://registry.yarnpkg.com/cron-parser/-/cron-parser-2.11.0.tgz#c3bf477e01de6a56938d6625b92efd6cec30a8a5"
+  integrity sha512-L5LAGlvq2xmCLErhjQRX8IL5v72y8jhGOaxrarYOhse0kJjJGb/vY/0sV/c7F/SylJGkUIY2iZPPJXZD3glZqA==
   dependencies:
     is-nan "^1.2.1"
     moment-timezone "^0.5.23"
@@ -14666,10 +14666,18 @@ url-parse-lax@^1.0.0:
   dependencies:
     prepend-http "^1.0.1"
 
-url-parse@^1.1.8, url-parse@^1.4.3, url-parse@^1.4.4:
+url-parse@^1.1.8, url-parse@^1.4.3:
   version "1.4.4"
   resolved "https://registry.yarnpkg.com/url-parse/-/url-parse-1.4.4.tgz#cac1556e95faa0303691fec5cf9d5a1bc34648f8"
   integrity sha512-/92DTTorg4JjktLNLe6GPS2/RvAd/RGr6LuktmWSMLEOa6rjnlrFXNgSbSmkNvCoL2T028A0a1JaJLzRMlFoHg==
+  dependencies:
+    querystringify "^2.0.0"
+    requires-port "^1.0.0"
+
+url-parse@^1.4.4:
+  version "1.4.5"
+  resolved "https://registry.yarnpkg.com/url-parse/-/url-parse-1.4.5.tgz#04cbb6ba2be682a18e4417fa2245aa7e3dfdcc50"
+  integrity sha512-4XDvC5vZRjEpjP0L4znrWeoH8P8F0XGBlfLdABi/6oV4o8xUVbTpyrxWHxkK2bT0pSIpcjdIzSoWUhlUfawCAQ==
   dependencies:
     querystringify "^2.0.0"
     requires-port "^1.0.0"

@@ -2273,47 +2273,6 @@
     "@webassemblyjs/wast-parser" "1.8.5"
     "@xtuc/long" "4.2.2"
 
-"@whitewater-guide/clients@^0.0.205-mobile.9":
-  version "0.0.205-mobile.9"
-  resolved "https://registry.yarnpkg.com/@whitewater-guide/clients/-/clients-0.0.205-mobile.9.tgz#3691ce2ba92c2c9d761383fdd709a7dcb32a693b"
-  integrity sha512-HDgvNLY1Z9TRf8weCMqIFgpicCPprJBNfhK8S/J4Fgw/GQKc7IBqyzCYKyRm1z8P7fSOXHZwj1b+SrIMW0K3tg==
-  dependencies:
-    "@types/jest" "^24.0.11"
-    "@whitewater-guide/commons" "^0.0.124-mobile.0"
-    apollo-cache "^1.2.1"
-    apollo-cache-inmemory "^1.5.1"
-    apollo-client "^2.5.1"
-    apollo-link "^1.2.11"
-    apollo-link-error "^1.1.10"
-    apollo-link-http "^1.5.14"
-    apollo-link-http-common "^0.2.13"
-    apollo-link-schema "^1.2.2"
-    apollo-utilities "^1.2.1"
-    color "^3.1.0"
-    graphql "^14.2.0"
-    graphql-tag "2.10.1"
-    graphql-tools "^4.0.3"
-    graphql-type-json "^0.2.2"
-    lodash "^4.17.11"
-    moment "^2.24.0"
-    qs "^6.7.0"
-    react-apollo "^2.5.3"
-    react-error-boundary "^1.2.3"
-    recompose "^0.30.0"
-    shallowequal "^1.1.0"
-    typescript-fsa "^3.0.0-beta-2"
-    url-parse "^1.4.4"
-
-"@whitewater-guide/commons@^0.0.124-mobile.0":
-  version "0.0.124-mobile.0"
-  resolved "https://registry.yarnpkg.com/@whitewater-guide/commons/-/commons-0.0.124-mobile.0.tgz#b331884e25075b82e371fe90ffb2519d7d05ecda"
-  integrity sha512-a4s7bIdpF2tglugKkNg1nZUZplWBfVSSyvjKIHz7RPC3DI4uAFURVMr4M9F2GYZxljxQ4kMh3IFVYAz1wlAxUQ==
-  dependencies:
-    cron-parser "^2.7.3"
-    lodash "^4.17.11"
-    superstruct "^0.6.0"
-    validator "^10.11.0"
-
 "@whitewater-guide/md-editor@0.1.8":
   version "0.1.8"
   resolved "https://registry.yarnpkg.com/@whitewater-guide/md-editor/-/md-editor-0.1.8.tgz#d1be954a9172602c4e925c2b444f25a24bbe775f"
@@ -2597,7 +2556,7 @@ apollo-link-http@^1.5.14:
     apollo-link-http-common "^0.2.13"
     tslib "^1.9.3"
 
-apollo-link-schema@^1.1.4, apollo-link-schema@^1.2.2:
+apollo-link-schema@^1.1.4:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/apollo-link-schema/-/apollo-link-schema-1.2.2.tgz#9938340c8044f6f5de4c6957f2dab75ed361b35a"
   integrity sha512-tOXhs3w15qSM9I/kqijiB+9kzJndbszhF+uXmiJ88P6H0ptncrr/9+3EYlnuYoqdEtiVWNj61K83E+7jc8xcYQ==
@@ -4180,7 +4139,7 @@ color-string@^1.5.2:
     color-name "^1.0.0"
     simple-swizzle "^0.2.2"
 
-color@^3.0.0, color@^3.1.0:
+color@^3.0.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/color/-/color-3.1.0.tgz#d8e9fb096732875774c84bf922815df0308d0ffc"
   integrity sha512-CwyopLkuRYO5ei2EpzpIh6LqJMt6Mt+jZhO5VI5f/wJLZriXQE32/SSqzmrh+QB+AZT81Cj8yv+7zwToW8ahZg==
@@ -4477,7 +4436,7 @@ create-react-context@^0.2.2:
     fbjs "^0.8.0"
     gud "^1.0.0"
 
-cron-parser@^2.6.0, cron-parser@^2.7.3:
+cron-parser@^2.6.0:
   version "2.10.0"
   resolved "https://registry.yarnpkg.com/cron-parser/-/cron-parser-2.10.0.tgz#d6bed39cfa6163930f89b1ade82df7b46f52b82b"
   integrity sha512-E181Gbg+wYT0hSikwBOokL7VHgJDYUlFsRFHIlnTP8GGefhcIyf8PSc2IXztmghj5mhAZupU0n3jKfEpZVEmVg==
@@ -6638,7 +6597,7 @@ graphql-tools@^4.0.3:
     iterall "^1.1.3"
     uuid "^3.1.0"
 
-graphql-type-json@^0.2.1, graphql-type-json@^0.2.2:
+graphql-type-json@^0.2.1:
   version "0.2.4"
   resolved "https://registry.yarnpkg.com/graphql-type-json/-/graphql-type-json-0.2.4.tgz#545af27903e40c061edd30840a272ea0a49992f9"
   integrity sha512-/tq02ayMQjrG4oDFDRLLrPk0KvJXue0nVXoItBe7uAdbNXjQUu+HYCBdAmPLQoseVzUKKMzrhq2P/sfI76ON6w==
@@ -6647,13 +6606,6 @@ graphql@14.2.1:
   version "14.2.1"
   resolved "https://registry.yarnpkg.com/graphql/-/graphql-14.2.1.tgz#779529bf9a01e7207b977a54c20670b48ca6e95c"
   integrity sha512-2PL1UbvKeSjy/lUeJqHk+eR9CvuErXoCNwJI4jm3oNFEeY+9ELqHNKO1ZuSxAkasPkpWbmT/iMRMFxd3cEL3tQ==
-  dependencies:
-    iterall "^1.2.2"
-
-graphql@^14.2.0:
-  version "14.2.0"
-  resolved "https://registry.yarnpkg.com/graphql/-/graphql-14.2.0.tgz#ff25813ad6d186f3975977d56bc2d2434871f3b9"
-  integrity sha512-dlFHRtxsL4sBy1C1e3v64IUd5ndZhAOHZ/z3Dr4Nm6+cvr9elrnz4BhMF9h9mRBBnhUCGLc4GH4xvPbKG6sUeA==
   dependencies:
     iterall "^1.2.2"
 
@@ -9262,7 +9214,7 @@ moment-timezone@^0.5.23:
   dependencies:
     moment ">= 2.9.0"
 
-"moment@>= 2.9.0", moment@>=2.14.0, moment@^2.15.2, moment@^2.23.0, moment@^2.24.0:
+"moment@>= 2.9.0", moment@>=2.14.0, moment@^2.15.2, moment@^2.23.0:
   version "2.24.0"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
   integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
@@ -11360,7 +11312,7 @@ react-dropzone@^10.1.0:
     file-selector "^0.1.11"
     prop-types "^15.7.2"
 
-react-error-boundary@^1.2.2, react-error-boundary@^1.2.3:
+react-error-boundary@^1.2.2:
   version "1.2.5"
   resolved "https://registry.yarnpkg.com/react-error-boundary/-/react-error-boundary-1.2.5.tgz#a362cb799d2e58ff8f114f7c4bc25677ce4e4149"
   integrity sha512-5CPSeLJA2igJNppAgFRwnTL9aK3ojenk65enNzhVyoxYNbHpIJXnChUO7+4vPhkncRA9wvQMXq6Azp2XeXd+iQ==
@@ -13108,7 +13060,7 @@ stylehacks@^4.0.0:
     postcss "^7.0.0"
     postcss-selector-parser "^3.0.0"
 
-superstruct@^0.6.0, superstruct@^0.6.1:
+superstruct@^0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/superstruct/-/superstruct-0.6.1.tgz#148fc3d627bb59fcfe24aa1bd2a1b8c51b1db072"
   integrity sha512-LDbOKL5sNbOJ00Q36iYRhSexKIptZje0/mhNznnz04wT9CmsPDZg/K/UV1dgYuCwNMuOBHTbVROZsGB9EhhK4w==
@@ -13540,7 +13492,7 @@ typedarray@^0.0.6, typedarray@~0.0.5:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript-fsa@^3.0.0-beta-1, typescript-fsa@^3.0.0-beta-2:
+typescript-fsa@^3.0.0-beta-1:
   version "3.0.0-beta-2"
   resolved "https://registry.yarnpkg.com/typescript-fsa/-/typescript-fsa-3.0.0-beta-2.tgz#1cc1d0c014c025fd51cba097776033ac4b6b753c"
   integrity sha512-qXkHih2XAtpxqd3AEVgFtCDwvBlAMl2miVy1TmS+wXgiRlVw7orf2qIh3C8faANhD34n75Ui8x5ydQ40uzuskA==
@@ -13833,7 +13785,7 @@ validate-npm-package-license@^3.0.1:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
 
-validator@^10.11.0, validator@^10.8.0:
+validator@^10.8.0:
   version "10.11.0"
   resolved "https://registry.yarnpkg.com/validator/-/validator-10.11.0.tgz#003108ea6e9a9874d31ccc9e5006856ccd76b228"
   integrity sha512-X/p3UZerAIsbBfN/IwahhYaBbY68EN/UQBWHtsbXGT5bfrH/p4NQzUCG1kF/rtKaNpnJ7jAu6NGTdSNtyNIXMw==
