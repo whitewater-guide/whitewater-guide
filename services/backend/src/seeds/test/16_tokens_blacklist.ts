@@ -1,7 +1,11 @@
+import jsonwebtoken from 'jsonwebtoken';
 import Knex from 'knex';
+import { ADMIN_ID } from './01_users';
 
-export const BLACKLISTED_REFRESH_TOKEN =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJlZDU5OTkwLTc0OWQtMTFlNy04Y2Y3LWE2MDA2YWQzZGJhMCIsInJlZnJlc2giOnRydWUsImlhdCI6MTU1MjQwNTM4NX0.TjbL4gcNjU89yY_sWJCn1aYxYDG7lXuE9qiQVvp7Xw0';
+export const BLACKLISTED_REFRESH_TOKEN = jsonwebtoken.sign(
+  { id: ADMIN_ID, refresh: true, iat: new Date(2010, 1, 1).valueOf() / 1000 },
+  process.env.REFRESH_TOKEN_SECRET!,
+);
 
 export async function seed(db: Knex) {
   await db.table('tokens_blacklist').del();

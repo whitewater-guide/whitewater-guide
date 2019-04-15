@@ -5,6 +5,7 @@ import { BLACKLISTED_REFRESH_TOKEN } from '@seeds/16_tokens_blacklist';
 import { CookieAccessInfo } from 'cookiejar';
 import jsonwebtoken from 'jsonwebtoken';
 import Koa from 'koa';
+import { SuperTest, Test } from 'supertest';
 import agent from 'supertest-koa-agent';
 import { createApp } from '../../app';
 import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from '../constants';
@@ -46,18 +47,6 @@ describe('mobile', () => {
       'ajsdhflksdhf',
     );
     const resp = await request(refreshToken);
-    expect(resp.status).toBe(400);
-    expect(resp.body).toEqual({
-      success: false,
-      error: 'refresh.jwt.bad.token',
-      error_id: expect.any(String),
-    });
-  });
-
-  it('should fail if refresh token is corrupt', async () => {
-    const accessToken = getAccessToken(ADMIN_ID);
-
-    const resp = await request(accessToken);
     expect(resp.status).toBe(400);
     expect(resp.body).toEqual({
       success: false,
@@ -121,16 +110,135 @@ describe('mobile', () => {
 });
 
 describe('web', () => {
+  it('should clear cookies if refresh token is corrupt', async () => {
+    const testAgent = agent(app);
+    const refreshToken = jsonwebtoken.sign(
+      { id: ADMIN_ID, refresh: true },
+      'ajsdhflksdhf',
+    );
+    testAgent.jar.setCookie(
+      `${REFRESH_TOKEN_COOKIE}=${refreshToken}`,
+      undefined,
+      '/auth/jwt/refresh',
+    );
+    const resp = await testAgent.post('/auth/jwt/refresh?web=true');
+    expect(resp.status).toBe(400);
+    expect(resp.body).toEqual({
+      success: false,
+      error: 'refresh.jwt.bad.token',
+      error_id: expect.any(String),
+    });
+    const atCookie = testAgent.jar.getCookie(
+      ACCESS_TOKEN_COOKIE,
+      CookieAccessInfo.All,
+    );
+    const rtCookie = testAgent.jar.getCookie(
+      REFRESH_TOKEN_COOKIE,
+      CookieAccessInfo.All,
+    );
+    expect(atCookie).toBeUndefined();
+    expect(rtCookie).toBeUndefined();
+  });
+
+  it('should fail if refresh claim is missing', async () => {
+    const accessToken = getAccessToken(ADMIN_ID);
+    const testAgent = agent(app);
+    testAgent.jar.setCookie(
+      `${REFRESH_TOKEN_COOKIE}=${accessToken}`,
+      undefined,
+      '/auth/jwt/refresh',
+    );
+    const resp = await testAgent.post('/auth/jwt/refresh?web=true');
+
+    expect(resp.status).toBe(400);
+    expect(resp.body).toEqual({
+      success: false,
+      error: 'refresh.jwt.bad.token',
+      error_id: expect.any(String),
+    });
+    const atCookie = testAgent.jar.getCookie(
+      ACCESS_TOKEN_COOKIE,
+      CookieAccessInfo.All,
+    );
+    const rtCookie = testAgent.jar.getCookie(
+      REFRESH_TOKEN_COOKIE,
+      CookieAccessInfo.All,
+    );
+    expect(atCookie).toBeUndefined();
+    expect(rtCookie).toBeUndefined();
+  });
+
+  it('should fail if id is missing', async () => {
+    const testAgent = agent(app);
+    const refreshToken = jsonwebtoken.sign(
+      { refresh: true },
+      process.env.REFRESH_TOKEN_SECRET!,
+    );
+
+    testAgent.jar.setCookie(
+      `${REFRESH_TOKEN_COOKIE}=${refreshToken}`,
+      undefined,
+      '/auth/jwt/refresh',
+    );
+    const resp = await testAgent.post('/auth/jwt/refresh?web=true');
+    expect(resp.status).toBe(400);
+    expect(resp.body).toEqual({
+      success: false,
+      error: 'refresh.jwt.bad.token',
+      error_id: expect.any(String),
+    });
+    const atCookie = testAgent.jar.getCookie(
+      ACCESS_TOKEN_COOKIE,
+      CookieAccessInfo.All,
+    );
+    const rtCookie = testAgent.jar.getCookie(
+      REFRESH_TOKEN_COOKIE,
+      CookieAccessInfo.All,
+    );
+    expect(atCookie).toBeUndefined();
+    expect(rtCookie).toBeUndefined();
+  });
+
+  it('should fail if token is blacklisted', async () => {
+    const testAgent = agent(app);
+
+    testAgent.jar.setCookie(
+      `${REFRESH_TOKEN_COOKIE}=${BLACKLISTED_REFRESH_TOKEN}`,
+      undefined,
+      '/auth/jwt/refresh',
+    );
+    const resp = await testAgent.post('/auth/jwt/refresh?web=true');
+    expect(resp.status).toBe(400);
+    expect(resp.body).toEqual({
+      success: false,
+      error: 'refresh.jwt.bad.token',
+      error_id: expect.any(String),
+    });
+    const atCookie = testAgent.jar.getCookie(
+      ACCESS_TOKEN_COOKIE,
+      CookieAccessInfo.All,
+    );
+    const rtCookie = testAgent.jar.getCookie(
+      REFRESH_TOKEN_COOKIE,
+      CookieAccessInfo.All,
+    );
+    expect(atCookie).toBeUndefined();
+    expect(rtCookie).toBeUndefined();
+  });
+
   it('should send new access token on success', async () => {
+    const testAgent = agent(app);
     const refreshToken = jsonwebtoken.sign(
       { id: ADMIN_ID, refresh: true },
       process.env.REFRESH_TOKEN_SECRET!,
     );
+    testAgent.jar.setCookie(
+      `${REFRESH_TOKEN_COOKIE}=${refreshToken}`,
+      undefined,
+      '/auth/jwt/refresh',
+    );
 
-    const testAgent = agent(app);
-    const resp = await testAgent
-      .post('/auth/jwt/refresh?web=true')
-      .set('Cookie', [`${REFRESH_TOKEN_COOKIE}=${refreshToken}`]);
+    const resp = await testAgent.post('/auth/jwt/refresh?web=true');
 
     expect(resp).toMatchObject({
       status: 200,
