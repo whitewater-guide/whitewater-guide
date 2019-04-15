@@ -2202,13 +2202,13 @@
     "@webassemblyjs/wast-parser" "1.8.5"
     "@xtuc/long" "4.2.2"
 
-"@whitewater-guide/clients@^0.0.208":
-  version "0.0.208"
-  resolved "https://registry.yarnpkg.com/@whitewater-guide/clients/-/clients-0.0.208.tgz#4a1c2f7c1e7607642cead23ad03f7ba697de859a"
-  integrity sha512-PWIGfSuP9tzCGaVY6+mh1b1fMhlH8/yrH47REg4vg5P0AtI2TcWIAoYdwQV4KIGYgFWn/kw/LhXiy3u2/q6Jvg==
+"@whitewater-guide/clients@^0.0.211":
+  version "0.0.211"
+  resolved "https://registry.yarnpkg.com/@whitewater-guide/clients/-/clients-0.0.211.tgz#3db0ddc7ddd659b82d31fc2e31cee1de00883142"
+  integrity sha512-Vn45Od6gMfhDn1M0SB80W1emXUNi+GQulBa/9wOzSaV3BqEncg7ILn3hHGeD7LZhDSnkl+q9aOX5zgG8ivWrQg==
   dependencies:
     "@types/jest" "^24.0.11"
-    "@whitewater-guide/commons" "^0.0.126"
+    "@whitewater-guide/commons" "^0.0.127"
     apollo-cache "^1.2.1"
     apollo-cache-inmemory "^1.5.1"
     apollo-client "^2.5.1"
@@ -2231,13 +2231,14 @@
     react-error-boundary "^1.2.3"
     recompose "^0.30.0"
     shallowequal "^1.1.0"
+    shortid "^2.2.14"
     typescript-fsa "^3.0.0-beta-2"
     url-parse "^1.4.4"
 
-"@whitewater-guide/commons@^0.0.126":
-  version "0.0.126"
-  resolved "https://registry.yarnpkg.com/@whitewater-guide/commons/-/commons-0.0.126.tgz#835135e237bf7b21bddf221eaba96b1aaf317cb7"
-  integrity sha512-gGksLhF628DtdHMjAMthEootif3cy5oW8Iopd78U6kdQDagPu7twryN+j0jVClu74RxDUfWUSJUnwi9+uvVjBQ==
+"@whitewater-guide/commons@^0.0.127":
+  version "0.0.127"
+  resolved "https://registry.yarnpkg.com/@whitewater-guide/commons/-/commons-0.0.127.tgz#b6d63c9e796eff6667b6f75f54916c8c020c3ac2"
+  integrity sha512-gGIkk3+OEDZABEMR3JuF0ra+MQpqjO0hANBuV3Yrho0YCpZoxAvZt2ij880evAft1oG1HG7NhJ3F+kHpmZPGGA==
   dependencies:
     cron-parser "^2.7.3"
     lodash "^4.17.11"
@@ -14675,9 +14676,9 @@ url-parse@^1.1.8, url-parse@^1.4.3:
     requires-port "^1.0.0"
 
 url-parse@^1.4.4:
-  version "1.4.5"
-  resolved "https://registry.yarnpkg.com/url-parse/-/url-parse-1.4.5.tgz#04cbb6ba2be682a18e4417fa2245aa7e3dfdcc50"
-  integrity sha512-4XDvC5vZRjEpjP0L4znrWeoH8P8F0XGBlfLdABi/6oV4o8xUVbTpyrxWHxkK2bT0pSIpcjdIzSoWUhlUfawCAQ==
+  version "1.4.6"
+  resolved "https://registry.yarnpkg.com/url-parse/-/url-parse-1.4.6.tgz#baf91d6e6783c8a795eb476892ffef2737fc0456"
+  integrity sha512-/B8AD9iQ01seoXmXf9z/MjLZQIdOoYl/+gvsQF6+mpnxaTfG9P7srYaiqaDMyKkR36XMXfhqSHss5MyFAO8lew==
   dependencies:
     querystringify "^2.0.0"
     requires-port "^1.0.0"
