@@ -1,3 +1,9 @@
+## [0.1.327](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.326...@whitewater-guide/web@0.1.327) (2019-04-15)
+
+### Features
+
+- improve auth error handling ([11008d6](https://github.com/doomsower/whitewater/commit/11008d6))
+
 ## [0.1.326](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.325...@whitewater-guide/web@0.1.326) (2019-04-12)
 
 ## [0.1.325](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.324...@whitewater-guide/web@0.1.325) (2019-04-12)
