@@ -2273,10 +2273,10 @@
     "@webassemblyjs/wast-parser" "1.8.5"
     "@xtuc/long" "4.2.2"
 
-"@whitewater-guide/clients@^0.0.210":
-  version "0.0.210"
-  resolved "https://registry.yarnpkg.com/@whitewater-guide/clients/-/clients-0.0.210.tgz#8ba05ba8f0da86d9ba8aa7752b0a2d76e6d039c9"
-  integrity sha512-ADSUf2s7fX1bmHnbnxzK7sWW94wK9JnZL/JnwZNK8ResHghg3Imv2amHc0KpwFTcTTgCGcVMMcSvbWOrfIOWeQ==
+"@whitewater-guide/clients@^0.0.211":
+  version "0.0.211"
+  resolved "https://registry.yarnpkg.com/@whitewater-guide/clients/-/clients-0.0.211.tgz#3db0ddc7ddd659b82d31fc2e31cee1de00883142"
+  integrity sha512-Vn45Od6gMfhDn1M0SB80W1emXUNi+GQulBa/9wOzSaV3BqEncg7ILn3hHGeD7LZhDSnkl+q9aOX5zgG8ivWrQg==
   dependencies:
     "@types/jest" "^24.0.11"
     "@whitewater-guide/commons" "^0.0.127"
