@@ -1,3 +1,9 @@
+## [0.0.332](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.331...@whitewater-guide/backend@0.0.332) (2019-04-16)
+
+### Bug Fixes
+
+- **backend:** pm2 save ([699495c](https://github.com/doomsower/whitewater/commit/699495c))
+
 ## [0.0.331](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.330...@whitewater-guide/backend@0.0.331) (2019-04-16)
 
 ### Features
