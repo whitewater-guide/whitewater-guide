@@ -12,7 +12,10 @@ RUN npm install pm2 -g
 RUN chown -R node /opt/app
 
 COPY . /opt/app
-RUN cd /opt/app/ && rm -rf node_modules && yarn install --production=true
+RUN cd /opt/app/ \
+ && rm -rf node_modules \
+ && yarn install --production=true \
+ && pm2 install pm2-logrotate
 
 # Expose pm2 health endpoint
 # http://pm2.keymetrics.io/docs/usage/docker-pm2-nodejs/#expose-health-endpoint
