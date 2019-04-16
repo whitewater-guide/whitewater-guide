@@ -1,3 +1,9 @@
+## [0.0.333](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.332...@whitewater-guide/backend@0.0.333) (2019-04-16)
+
+### Bug Fixes
+
+- **backend:** fix pm2 modules ([1d14dbc](https://github.com/doomsower/whitewater/commit/1d14dbc))
+
 ## [0.0.332](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.331...@whitewater-guide/backend@0.0.332) (2019-04-16)
 
 ### Bug Fixes
