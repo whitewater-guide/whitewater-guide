@@ -1,3 +1,9 @@
+## [0.0.336](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.335...@whitewater-guide/backend@0.0.336) (2019-04-16)
+
+### Bug Fixes
+
+- **backend:** fix pino-raven ([471f74d](https://github.com/doomsower/whitewater/commit/471f74d))
+
 ## [0.0.335](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.334...@whitewater-guide/backend@0.0.335) (2019-04-16)
 
 ### Bug Fixes
