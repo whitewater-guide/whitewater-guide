@@ -1,3 +1,9 @@
+## [0.0.335](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.334...@whitewater-guide/backend@0.0.335) (2019-04-16)
+
+### Bug Fixes
+
+- **backend:** add git ([18081e0](https://github.com/doomsower/whitewater/commit/18081e0))
+
 ## [0.0.334](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.333...@whitewater-guide/backend@0.0.334) (2019-04-16)
 
 ### Features
