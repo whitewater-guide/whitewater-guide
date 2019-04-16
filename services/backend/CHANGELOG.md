@@ -1,3 +1,10 @@
+## [0.0.331](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.330...@whitewater-guide/backend@0.0.331) (2019-04-16)
+
+### Features
+
+- **backend:** add logrotate ([90d337b](https://github.com/doomsower/whitewater/commit/90d337b))
+- **backend:** run pm2 with --raw ([5583592](https://github.com/doomsower/whitewater/commit/5583592))
+
 ## [0.0.330](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.329...@whitewater-guide/backend@0.0.330) (2019-04-15)
 
 ### Features
