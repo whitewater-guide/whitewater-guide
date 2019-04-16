@@ -1,3 +1,9 @@
+## [0.0.334](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.333...@whitewater-guide/backend@0.0.334) (2019-04-16)
+
+### Features
+
+- **backend:** pipe pm2 logs to sentry ([b1da706](https://github.com/doomsower/whitewater/commit/b1da706))
+
 ## [0.0.333](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.332...@whitewater-guide/backend@0.0.333) (2019-04-16)
 
 ### Bug Fixes
