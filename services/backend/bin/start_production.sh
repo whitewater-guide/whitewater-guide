@@ -15,6 +15,7 @@ until node /opt/bin/check_minio.js; do
   sleep 1
 done
 
+# copy pm2-logrotate config
 cp -rf /tmp/.pm2/* /root/.pm2
 
-pm2-runtime start pm2.production.json --web --raw
+pm2-runtime start pm2.production.json --web --raw  | pino-raven --dsn=${SENTRY_DSN}

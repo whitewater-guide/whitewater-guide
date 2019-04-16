@@ -16,6 +16,7 @@ RUN cd /opt/app/ \
  && rm -rf node_modules \
  && yarn install --production=true
 
+# pm2 modules config needs to be copied on startup, becuase it interferes with mounted volume
 RUN pm2 install pm2-logrotate \
  && mkdir -p /tmp/.pm2 \
  && cp -R /root/.pm2/modules /tmp/.pm2 \
