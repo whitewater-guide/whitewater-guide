@@ -1,3 +1,9 @@
+## [0.0.338](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.337...@whitewater-guide/backend@0.0.338) (2019-04-17)
+
+### Bug Fixes
+
+- **backend:** fix sentry imports ([0ae3523](https://github.com/doomsower/whitewater/commit/0ae3523))
+
 ## [0.0.337](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.336...@whitewater-guide/backend@0.0.337) (2019-04-17)
 
 ### Features
