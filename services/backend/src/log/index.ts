@@ -1,4 +1,9 @@
-import Sentry, { Severity } from '@sentry/node';
+import {
+  captureEvent,
+  captureException,
+  Severity,
+  withScope,
+} from '@sentry/node';
 import pickBy from 'lodash/pickBy';
 import pino, { LogFn } from 'pino';
 
@@ -47,7 +52,7 @@ class Logger {
       return;
     }
     if (error) {
-      Sentry.withScope((scope) => {
+      withScope((scope) => {
         scope.setLevel(level);
         scope.setExtras(extra);
         if (tags) {
@@ -59,10 +64,10 @@ class Logger {
         if (message) {
           scope.setTag('code', message);
         }
-        Sentry.captureException(error);
+        captureException(error);
       });
     } else {
-      Sentry.captureEvent({
+      captureEvent({
         level,
         message,
         extra,

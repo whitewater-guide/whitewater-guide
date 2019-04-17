@@ -7,7 +7,7 @@ import { startupJobs } from '@features/jobs';
 import { initIAP } from '@features/purchases';
 import log from '@log';
 import { initMinio } from '@minio';
-import Sentry from '@sentry/node';
+import { init as initSentry } from '@sentry/node';
 import { createApolloServer } from './apollo/server';
 import { createApp } from './app';
 import startServer from './server';
@@ -15,7 +15,7 @@ import startServer from './server';
 async function startup() {
   if (process.env.SENTRY_DSN) {
     const pjson = require('../package.json');
-    Sentry.init({
+    initSentry({
       dsn: process.env.SENTRY_DSN,
       release: pjson.version,
     });
