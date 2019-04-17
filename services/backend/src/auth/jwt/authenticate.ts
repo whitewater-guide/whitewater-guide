@@ -22,10 +22,11 @@ export const authenticateWithJWT: MiddlewareFactory = (passport) => async (
         }
         if (err || (info && info.message !== 'No auth token')) {
           const error_id = shortid.generate();
-          logger.error(
-            { strategy: 'jwt', ...payload, error_id },
-            get(err, 'message') || get(info, 'message'),
-          );
+          logger.error({
+            message: get(err, 'message') || get(info, 'message'),
+            tags: { strategy: 'jwt', error_id },
+            extra: payload,
+          });
           ctx.body = { success: false, error: 'unauthenticated', error_id };
           ctx.status = 401;
           return;
@@ -42,10 +43,11 @@ export const authenticateWithJWT: MiddlewareFactory = (passport) => async (
           if (user) {
             ctx.state.user = user;
           } else {
-            logger.error(
-              { strategy: 'jwt', ...payload, error_id },
-              'user not found',
-            );
+            logger.error({
+              message: 'user not found',
+              tags: { strategy: 'jwt', error_id },
+              extra: payload,
+            });
             ctx.body = { success: false, error: 'unauthenticated', error_id };
             ctx.status = 401;
             return;

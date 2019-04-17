@@ -18,15 +18,15 @@ export async function startJobs(sourceId: string, gaugeId?: string) {
   }
   if (source.harvest_mode === HarvestMode.ALL_AT_ONCE) {
     if (gaugeId) {
-      logger.warn(
-        `Attempt to start job for allAtOnce source '${sourceId}' with gauge '${gaugeId}'`,
-      );
+      logger.warn({
+        message: `Attempt to start job for allAtOnce source '${sourceId}' with gauge '${gaugeId}'`,
+      });
       return;
     }
     if (!source.cron) {
-      logger.warn(
-        `Attempt to start job for allAtOnce source '${sourceId}' without cron specified`,
-      );
+      logger.warn({
+        message: `Attempt to start job for allAtOnce source '${sourceId}' without cron specified`,
+      });
       return;
     }
     safeScheduleJob(source.id, source.cron, createJob(source));

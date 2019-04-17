@@ -14,7 +14,10 @@ export const jwtStrategy = new Strategy(
   },
   (token: AccessTokenPayload, done) => {
     if ((token as any).refresh) {
-      logger.error(token, 'cannot use refresh token as access token');
+      logger.error({
+        message: 'cannot use refresh token as access token',
+        extra: { token },
+      });
       return done(new Error('cannot use refresh token as access token'));
     }
     try {

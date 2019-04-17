@@ -82,9 +82,9 @@ export class MeasurementsConnector implements DataSource<Context> {
       }
     } catch (err) {
       log.error({
-        msg: `failed to get last measurements: ${err}`,
-        script,
-        code,
+        error: err,
+        message: `last.measurements.failed`,
+        tags: { script, code },
       });
       return null;
     }

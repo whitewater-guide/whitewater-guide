@@ -53,6 +53,10 @@ export const moveTempImage = async (
     );
     await minioClient.removeObject(TEMP, filename!);
   } catch (e) {
-    logger.error(`Error while moving file ${filename}: ${e.message}`);
+    logger.error({
+      error: e,
+      message: 'Error while moving file',
+      extra: { filename },
+    });
   }
 };

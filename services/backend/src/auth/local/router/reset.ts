@@ -70,10 +70,12 @@ const reset: Middleware<any, any> = async (ctx, next) => {
       user: { id: user.id, name: user.name || '' },
     });
   } catch (err) {
-    logger.warn(
-      { id, email: user.email!, error: err.message },
-      'reset.send.success.failed',
-    );
+    logger.warn({
+      userId: id,
+      error: err,
+      message: 'reset.send.success.failed',
+      extra: { email: user.email },
+    });
   }
 
   ctx.status = 200;

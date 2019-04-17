@@ -42,7 +42,11 @@ const resolver: TopLevelResolver<Vars> = async (root, vars, context) => {
     const stat = await minioClient.statObject(TEMP, vars.media.url);
     size = stat.size;
   } catch (e) {
-    log.error(vars.media, 'Failed to get temp file size');
+    log.error({
+      message: 'Failed to get temp file size',
+      error: e,
+      extra: { media: vars.media },
+    });
   }
   const media = { ...vars.media, createdBy: user ? user.id : null, size };
   const oldMedia = await dataSources.media.getById(media.id);

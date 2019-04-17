@@ -14,7 +14,11 @@ export const errorBodyMiddleware = (
       ctx.status = status;
       const error_id = shortid.generate();
       const body: AuthPayload = { success: false, error: message, error_id };
-      logger.warn({ strategy, ...payload, error_id }, message);
+      logger.warn({
+        message,
+        tags: { strategy, error_id },
+        extra: payload,
+      });
       ctx.body = body;
     } else {
       throw err;

@@ -100,10 +100,14 @@ const addPurchase = isInputValidResolver<Vars>(
 
     if (transaction) {
       const sameUser = transaction.user_id === user.id;
-      logger.warn(
-        { platform, transactionId, sameUser },
-        'Duplicate transaction',
-      );
+      logger.warn({
+        extra: {
+          platform,
+          transactionId,
+          sameUser,
+        },
+        message: 'Duplicate transaction',
+      });
       if (sameUser) {
         return false;
       }
@@ -117,7 +121,7 @@ const addPurchase = isInputValidResolver<Vars>(
         return processIAP(purchase, context);
       }
     } catch (e) {
-      logger.warn({ platform, transactionId }, e.message);
+      logger.warn({ extra: { platform, transactionId }, error: e });
       throw e;
     }
   },

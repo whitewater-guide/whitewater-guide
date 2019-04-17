@@ -9,7 +9,7 @@ export const formatError = (error: any) => {
   // It should be in extensions and not on the root level: https://facebook.github.io/graphql/June2018/#example-9008d
   const id = shortid.generate();
   set(apolloError, 'extensions.id', id);
-  logger.error(apolloError);
+  logger.error({ error: apolloError });
 
   set(apolloError, 'extensions.exception.stacktrace', undefined);
   apolloError.stack = undefined;
