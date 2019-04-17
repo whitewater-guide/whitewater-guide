@@ -1,3 +1,9 @@
+## [0.0.337](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.336...@whitewater-guide/backend@0.0.337) (2019-04-17)
+
+### Features
+
+- **backend:** send errors to sentry ([b434f7f](https://github.com/doomsower/whitewater/commit/b434f7f))
+
 ## [0.0.336](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.335...@whitewater-guide/backend@0.0.336) (2019-04-16)
 
 ### Bug Fixes
