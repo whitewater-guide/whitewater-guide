@@ -1,4 +1,5 @@
 import auth from './auth';
+import errors from './errors';
 import filter from './filter';
 import iap from './iap';
 import offline from './offline';
@@ -8,6 +9,7 @@ export default {
   iap,
   offline,
   filter,
+  errors,
   commons: {
     putIn: 'Put-in',
     takeOut: 'Take-out',

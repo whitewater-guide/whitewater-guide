@@ -25,15 +25,15 @@ target 'whitewater' do
       'RCTWebSocket',
   ]
 
-  pod 'Firebase/Core', '~> 5.15.0'
-  pod 'Firebase/Messaging', '~> 5.15.0'
+  pod 'Firebase/Core', '~> 5.20.1'
+  pod 'Firebase/Messaging', '~> 5.20.1'
 
   pod 'FBSDKCoreKit', '~> 4.40.0'
   pod 'FBSDKLoginKit', '~> 4.40.0'
   pod 'FBSDKShareKit', '~> 4.40.0'
 
-  pod 'Fabric', '~> 1.7.11'
-  pod 'Crashlytics', '~> 3.10.7'
+  pod 'Fabric', '~> 1.9.0'
+  pod 'Crashlytics', '~> 3.12.0'
 
   # React Native third party dependencies podspecs
   pod 'DoubleConversion', :podspec => "#{rn_path}/third-party-podspecs/DoubleConversion.podspec"

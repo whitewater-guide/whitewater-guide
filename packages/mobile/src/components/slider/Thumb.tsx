@@ -35,9 +35,6 @@ export default class Thumb extends React.PureComponent<Props> {
       bottom: touchPadding,
       right: touchPadding,
     };
-  }
-
-  componentWillMount() {
     this._panResponder = PanResponder.create({
       onStartShouldSetPanResponder: () => true,
       onStartShouldSetPanResponderCapture: () => true,
@@ -46,10 +43,10 @@ export default class Thumb extends React.PureComponent<Props> {
       onPanResponderTerminationRequest: () => false,
       onShouldBlockNativeResponder: () => true,
 
-      onPanResponderGrant: (e) => this.props.onGrant(this, e),
-      onPanResponderMove: (e) => this.props.onMove(this, e),
-      onPanResponderRelease: (e) => this.props.onEnd(this, e),
-      onPanResponderTerminate: (e) => this.props.onEnd(this, e),
+      onPanResponderGrant: (e) => props.onGrant(this, e),
+      onPanResponderMove: (e) => props.onMove(this, e),
+      onPanResponderRelease: (e) => props.onEnd(this, e),
+      onPanResponderTerminate: (e) => props.onEnd(this, e),
     });
   }
 

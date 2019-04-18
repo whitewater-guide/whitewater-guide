@@ -51,9 +51,9 @@ class SectionsProgress extends React.PureComponent<
     this.updateState.cancel();
   }
 
-  componentWillReceiveProps(next: Props) {
-    if (next.status !== this.props.status) {
-      this.updateState({ status: next.status });
+  componentDidUpdate(prevProps: Props) {
+    if (prevProps.status !== this.props.status) {
+      this.updateState({ status: this.props.status });
     }
   }
 

@@ -48,10 +48,10 @@ export class I18nProviderInternal extends React.PureComponent<Props, State> {
     this._i18n.off('languageChanged', this.onLanguageChange);
   }
 
-  componentWillReceiveProps(nextProps: Props) {
-    if (this.props.language !== nextProps.language) {
+  componentDidUpdate(prevProps: Props) {
+    if (this.props.language !== prevProps.language) {
       const [{ languageCode }] = getLocales();
-      const language = (nextProps.language || languageCode || 'en').substr(
+      const language = (this.props.language || languageCode || 'en').substr(
         0,
         2,
       );
