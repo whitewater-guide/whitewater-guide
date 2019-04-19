@@ -1,6 +1,8 @@
 fastlane_require 'json'
 fastlane_require 'spaceship'
 
+skip_docs
+
 lane :bump_build_numbers do
   appJsonFile = File.read("../app.json")
   appJson = JSON.parse(appJsonFile)
