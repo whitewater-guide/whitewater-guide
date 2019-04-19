@@ -1,3 +1,9 @@
+## [0.0.36](https://github.com/doomsower/whitewater/compare/@whitewater-guide/scripts@0.0.35...@whitewater-guide/scripts@0.0.36) (2019-04-19)
+
+### Bug Fixes
+
+- **scripts:** fix mobile-only publishing ([4b493ef](https://github.com/doomsower/whitewater/commit/4b493ef))
+
 ## [0.0.35](https://github.com/doomsower/whitewater/compare/@whitewater-guide/scripts@0.0.34...@whitewater-guide/scripts@0.0.35) (2019-03-21)
 
 ### Features

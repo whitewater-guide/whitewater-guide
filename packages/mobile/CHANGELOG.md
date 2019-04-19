@@ -1,3 +1,9 @@
+## [1.7.34](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.33...@whitewater-guide/mobile@1.7.34) (2019-04-19)
+
+### Features
+
+- **mobile:** remove flavorAware ([cbc8976](https://github.com/doomsower/whitewater/commit/cbc8976))
+
 ## [1.7.33](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.32...@whitewater-guide/mobile@1.7.33) (2019-04-19)
 
 ### Features
