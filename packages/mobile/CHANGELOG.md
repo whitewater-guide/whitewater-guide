@@ -1,3 +1,9 @@
+## [1.7.35](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.34...@whitewater-guide/mobile@1.7.35) (2019-04-19)
+
+### Bug Fixes
+
+- **mobile:** fix ios sentry sourcemaps ([c7932e0](https://github.com/doomsower/whitewater/commit/c7932e0))
+
 ## [1.7.34](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.33...@whitewater-guide/mobile@1.7.34) (2019-04-19)
 
 ### Features
