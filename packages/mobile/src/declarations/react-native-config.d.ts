@@ -5,6 +5,7 @@ declare module 'react-native-config' {
     BACKEND_HOST: string;
     FACEBOOK_APP_ID: string;
     ENV_NAME: string;
+    SENTRY_DSN: string;
   }
 
   const Config: IConfig;

@@ -49,11 +49,6 @@ fastlane ios build
 fastlane ios code_push
 ```
 
-### ios crashlytics
-```
-fastlane ios crashlytics
-```
-
 ### ios staging
 ```
 fastlane ios staging

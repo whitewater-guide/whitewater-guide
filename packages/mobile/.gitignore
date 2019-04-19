@@ -82,3 +82,4 @@ fastlane/.env.*
 /.jest/
 /coverage/
 /src/test/typedefs.ts
+/*/sentry.properties

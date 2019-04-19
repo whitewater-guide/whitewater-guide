@@ -17,6 +17,7 @@
 #import <Firebase.h>
 #import "RNFirebaseNotifications.h"
 #import "RNFirebaseMessaging.h"
+#import "RNSentry.h"
 
 #import "ReactNativeConfig.h"
 #import "RNSplashScreen.h"
@@ -33,6 +34,7 @@
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
                                                moduleName:@"whitewater"
                                                initialProperties:nil];
+  [RNSentry installWithRootView:rootView];
 
   rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
 

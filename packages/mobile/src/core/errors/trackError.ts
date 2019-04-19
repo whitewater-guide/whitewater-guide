@@ -1,5 +1,4 @@
-import Firebase from 'react-native-firebase';
-import shortid from 'shortid';
+import { Sentry } from 'react-native-sentry';
 
 export const trackError = (
   origin: string,
@@ -7,7 +6,6 @@ export const trackError = (
   componentStack?: string,
   isFatal?: boolean,
 ) => {
-  const error_id = shortid();
   if (__DEV__) {
     try {
       console.dir(error);
@@ -16,12 +14,5 @@ export const trackError = (
       console.log(error);
     }
   }
-  Firebase.crashlytics().setStringValue('origin', origin);
-  Firebase.crashlytics().setStringValue('stack', error.stack || '');
-  Firebase.crashlytics().setBoolValue('isFatal', !!isFatal);
-  if (componentStack) {
-    Firebase.crashlytics().setStringValue('componentStack', componentStack);
-  }
-  Firebase.crashlytics().recordError(1, error.message);
-  return error_id;
+  Sentry.captureException(error, { origin, isFatal, componentStack });
 };

@@ -1,9 +1,11 @@
 import { AuthProvider, TagsProvider } from '@whitewater-guide/clients';
+import { AuthPayload } from '@whitewater-guide/commons';
 import ApolloClient from 'apollo-client';
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import codePush from 'react-native-code-push';
 import { PortalProvider } from 'react-native-portal';
+import { Sentry } from 'react-native-sentry';
 import { Provider } from 'react-redux';
 import { Store, Unsubscribe } from 'redux';
 import { ErrorSnackbar, Screen, SplashScreen } from './components';
@@ -66,11 +68,13 @@ class App extends React.Component<{}, State> {
     this.setState({ initialized });
   };
 
-  onSignIn = async () => {
+  onSignIn = async ({ id }: AuthPayload) => {
+    Sentry.setUserContext({ id });
     await this.resetApolloCache();
   };
 
   onSignOut = async () => {
+    Sentry.setUserContext({});
     navigationChannel.put(resetNavigationToHome());
     if (this._store) {
       this._store.dispatch(purchaseActions.logout());
@@ -82,6 +86,7 @@ class App extends React.Component<{}, State> {
   };
 
   onForceSignOut = async () => {
+    Sentry.setUserContext({});
     navigationChannel.put(resetNavigationToHome());
     if (this._store) {
       this._store.dispatch(purchaseActions.logout());

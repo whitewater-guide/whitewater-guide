@@ -3,7 +3,6 @@ import i18next from 'i18next';
 import moment from 'moment';
 import React from 'react';
 import { initReactI18next } from 'react-i18next';
-import { crashlytics } from 'react-native-firebase';
 import { getLocales } from 'react-native-localize';
 import { SUPPORTED_LANGUAGES } from './languages';
 import en from './locales/en';
@@ -24,7 +23,6 @@ export class I18nProviderInternal extends React.PureComponent<Props, State> {
 
   async componentDidMount() {
     const [{ languageCode }] = getLocales();
-    crashlytics().setStringValue('rn_language', languageCode || '??');
     const language = this.props.language || languageCode || 'en';
     const lng = language.substr(0, 2);
     await this._i18n.init({

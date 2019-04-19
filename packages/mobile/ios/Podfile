@@ -32,9 +32,6 @@ target 'whitewater' do
   pod 'FBSDKLoginKit', '~> 4.40.0'
   pod 'FBSDKShareKit', '~> 4.40.0'
 
-  pod 'Fabric', '~> 1.9.0'
-  pod 'Crashlytics', '~> 3.12.0'
-
   # React Native third party dependencies podspecs
   pod 'DoubleConversion', :podspec => "#{rn_path}/third-party-podspecs/DoubleConversion.podspec"
   pod 'glog', :podspec => "#{rn_path}/third-party-podspecs/glog.podspec"
@@ -60,6 +57,8 @@ target 'whitewater' do
   pod 'RNLocalize', :path => '../node_modules/react-native-localize'
 
   pod 'react-native-sensitive-info', :path => '../node_modules/react-native-sensitive-info'
+
+  pod 'SentryReactNative', :path => '../node_modules/react-native-sentry'
 
 end
 

@@ -120,13 +120,10 @@ platform :ios do
      )
   end
 
-  lane :crashlytics do |options|
-    clean_build_artifacts           # Delete the local dSYM files
-    download_dsyms                  # Download dSYM files from iTC
-    upload_symbols_to_crashlytics(
-      gsp_path: ENV['IOS_GSP_PATH'],
-      binary_path: "#{ENV['IOS_PROJECT_PATH']}/Pods/Fabric/upload-symbols"
-    )
+  lane :sentry do |options|
+    ENV["SENTRY_PROPERTIES"] = "#{ENV['IOS_PROJECT_PATH']}/sentry.properties"
+    download_dsyms(version: ENV["IOS_VERSION"], build_number: ENV["IOS_VERSION_BUILD_NUMBER"])
+    sh("yarn", "sentry-cli", "upload-dsym")
   end
 
   lane :staging do |options|

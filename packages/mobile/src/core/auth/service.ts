@@ -9,6 +9,7 @@ import { AuthPayload } from '@whitewater-guide/commons';
 import mitt from 'mitt';
 import { Platform } from 'react-native';
 import { AccessToken, LoginManager, LoginResult } from 'react-native-fbsdk';
+import { Sentry } from 'react-native-sentry';
 import { BACKEND_URL } from '../../utils/urls';
 import waitUntilActive from '../../utils/waitUntilActive';
 import { tokenStorage } from './tokens';
@@ -16,9 +17,7 @@ import { tokenStorage } from './tokens';
 type AuthEvent = 'signOut' | 'signIn' | 'forceSignOut';
 
 interface Emitter {
-  on(type: 'signOut' | 'signIn', handler: () => void): void;
-  on(type: 'forceSignOut', handler: (payload: AuthPayload) => void): void;
-  on(type: AuthEvent, handler: any): void;
+  on(type: AuthEvent, handler: (payload: AuthPayload) => void): void;
   off(type: AuthEvent, handler: any): void;
   emit(type: 'signOut' | 'signIn'): void;
   emit(type: 'forceSignOut', payload: AuthPayload): void;
@@ -56,10 +55,11 @@ export class MobileAuthService implements AuthService, Emitter {
     const resp = await refreshAccessToken(BACKEND_URL, {
       refreshToken,
     });
-    const { success, accessToken, status } = resp;
+    const { success, accessToken, status, error, error_id } = resp;
     if (success && accessToken) {
       await tokenStorage.setAccessToken(accessToken);
     } else if (status === 400) {
+      Sentry.captureMessage('token refresh failed', { error, error_id });
       await this.signOut(true);
     }
     return resp;
@@ -74,7 +74,13 @@ export class MobileAuthService implements AuthService, Emitter {
         'public_profile',
         'email',
       ]);
-      if (result.error || result.isCancelled) {
+      if (result.isCancelled) {
+        return;
+      }
+      if (result.error) {
+        Sentry.captureMessage('facebook sign in failed', {
+          error: result.error,
+        });
         return;
       }
       // On real iOS device first backend login will fail
@@ -95,14 +101,18 @@ export class MobileAuthService implements AuthService, Emitter {
     }
     try {
       const resp = await fetchRetry(url, options);
-      const { accessToken, refreshToken }: AuthPayload = await resp.json();
+      const payload: AuthPayload = await resp.json();
+      const { accessToken, refreshToken } = payload;
       if (accessToken && refreshToken) {
         await tokenStorage.setAccessToken(accessToken);
         await tokenStorage.setRefreshToken(refreshToken);
-        this.emit('signIn');
+        this.emit('signIn', payload);
+      } else {
+        Sentry.captureMessage('facebook sign in failed', payload);
       }
       // Alert.alert('fetching done', accessToken);
     } catch (e) {
+      Sentry.captureException(e);
       // Alert.alert(e.message, JSON.stringify(e, null, 2));
     }
   }

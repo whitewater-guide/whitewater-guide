@@ -1,5 +1,4 @@
 apply plugin: "com.android.application"
-apply plugin: "io.fabric"
 
 project.ext.envConfigFiles = [
         debug: ".env.development",
@@ -94,6 +93,7 @@ project.ext.react = [
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
+apply from: "../../node_modules/react-native-sentry/sentry.gradle"
 apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
 
 /**
@@ -183,6 +183,7 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-sentry')
     implementation project(':react-native-sensitive-info')
     implementation project(':react-native-localize')
     implementation project(':react-native-reanimated')
@@ -198,9 +199,6 @@ dependencies {
     implementation(project(':react-native-maps')){
         exclude group: 'com.google.android.gms', module: 'play-services-base'
         exclude group: 'com.google.android.gms', module: 'play-services-maps'
-    }
-    implementation('com.crashlytics.sdk.android:crashlytics:2.9.5@aar') {
-        transitive = true
     }
     implementation "com.google.android.gms:play-services-base:16.1.0"
     implementation "com.google.firebase:firebase-messaging:17.5.0"
