@@ -1,3 +1,10 @@
+## [1.7.33](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.32...@whitewater-guide/mobile@1.7.33) (2019-04-19)
+
+### Features
+
+- **mobile:** always prefer ios build number ([49e2c8f](https://github.com/doomsower/whitewater/commit/49e2c8f))
+- **mobile:** make sentry flavorAware ([65cf69b](https://github.com/doomsower/whitewater/commit/65cf69b))
+
 ## [1.7.32](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.31...@whitewater-guide/mobile@1.7.32) (2019-04-19)
 
 ### Bug Fixes
