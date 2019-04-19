@@ -1,4 +1,3 @@
-import { Platform } from 'react-native';
 import CodePush from 'react-native-code-push';
 
 export interface CodePushVersion {
@@ -15,12 +14,8 @@ class Versioning {
     if (!this._jsVersion) {
       const pjson = require('../../package.json');
       const ajson = require('../../app.json');
-      this._jsVersion =
-        pjson.version +
-        '.' +
-        (Platform.OS === 'ios'
-          ? ajson.iosBuildNumber
-          : ajson.androidBuildNumber);
+      // always prefer ios build number
+      this._jsVersion = pjson.version + '.' + ajson.iosBuildNumber;
     }
     return this._jsVersion;
   }
