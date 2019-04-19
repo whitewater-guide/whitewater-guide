@@ -1,3 +1,13 @@
+## [1.7.32](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.31...@whitewater-guide/mobile@1.7.32) (2019-04-19)
+
+### Bug Fixes
+
+- **mobile:** downgrade rn ([4587a0c](https://github.com/doomsower/whitewater/commit/4587a0c))
+
+### Features
+
+- **mobile:** use sentry instead of crashlytics ([daf5548](https://github.com/doomsower/whitewater/commit/daf5548))
+
 ## [1.7.31](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.30...@whitewater-guide/mobile@1.7.31) (2019-04-18)
 
 ## [1.7.30](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.29...@whitewater-guide/mobile@1.7.30) (2019-04-15)
