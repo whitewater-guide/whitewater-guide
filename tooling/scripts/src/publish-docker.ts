@@ -24,6 +24,9 @@ async function publish() {
   const stackFile = await generateStackFile(env);
 
   let services: string[] = getChangedServices();
+  if (services.length === 0 && !argv.service) {
+    return;
+  }
   // it's possible to explicitly list services to publish
   // via one or many --service arguments
   if (argv.service) {
