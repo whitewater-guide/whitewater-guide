@@ -91,10 +91,6 @@ project.ext.react = [
     bundleInReleaseStaging: true,
     devDisabledInReleaseStaging: true,
 ]
-project.ext.sentryCli = [
-    logLevel: "debug",
-    flavorAware: true
-]
 
 apply from: "../../node_modules/react-native/react.gradle"
 apply from: "../../node_modules/react-native-sentry/sentry.gradle"
