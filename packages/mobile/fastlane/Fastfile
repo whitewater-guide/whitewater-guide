@@ -131,7 +131,7 @@ platform :ios do
       output_directory: "#{Dir.pwd}/#{ENV['IOS_PROJECT_PATH']}",
       )
     sh("yarn", "sentry-cli", "upload-dsym", ENV['IOS_PROJECT_PATH'])
-    sh("node", "scripts/uploadToSentry.js", "--platform", "ios", "--deployment", ENV["CODEPUSH_DEPLOYMENT"])
+    sh("node", "../scripts/uploadToSentry.js", "--platform", "ios", "--deployment", ENV["CODEPUSH_DEPLOYMENT"])
   end
 
   lane :staging do |options|
