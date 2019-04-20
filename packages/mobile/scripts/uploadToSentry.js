@@ -54,11 +54,13 @@ async function run() {
   });
   const appCenterVersion = await getAppcenterVersion(platform, deployment);
   const jsVersion = getJsVersion();
+  const sentryVersion = `${jsVersion}${appCenterVersion}`;
 
   const sentry = new SentryCli(resolve(__dirname, '../ios/sentry.properties'));
-  await sentry.releases.uploadSourceMaps(`${jsVersion}${appCenterVersion}`, {
+  await sentry.releases.uploadSourceMaps(sentryVersion, {
     include: [`build/${platform}/CodePush`],
   });
+  console.info(`Uploaded release ${sentryVersion} to sentry`);
 }
 
 run().catch((e) => {

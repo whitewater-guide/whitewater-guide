@@ -193,7 +193,7 @@ platform :android do
       "--token", ENV['APPCENTER_API_TOKEN'],
       "--output-dir", "./build/android",
     )
-    sh("node", "scripts/uploadToSentry.js", "--platform", "android", "--deployment", ENV["CODEPUSH_DEPLOYMENT"])
+    sh("node", "../scripts/uploadToSentry.js", "--platform", "android", "--deployment", ENV["CODEPUSH_DEPLOYMENT"])
   end
 
   lane :staging do |options|
