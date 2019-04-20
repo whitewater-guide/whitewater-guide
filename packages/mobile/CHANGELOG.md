@@ -1,3 +1,9 @@
+## [1.7.42](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.41...@whitewater-guide/mobile@1.7.42) (2019-04-20)
+
+### Bug Fixes
+
+- **mobile:** sentry setRelease ([0811c13](https://github.com/doomsower/whitewater/commit/0811c13))
+
 ## [1.7.41](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.40...@whitewater-guide/mobile@1.7.41) (2019-04-20)
 
 ### Bug Fixes
