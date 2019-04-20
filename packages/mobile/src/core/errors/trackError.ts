@@ -14,5 +14,7 @@ export const trackError = (
       console.log(error);
     }
   }
-  Sentry.captureException(error, { origin, isFatal, componentStack });
+  if (!__DEV__) {
+    Sentry.captureException(error, { origin, isFatal, componentStack });
+  }
 };

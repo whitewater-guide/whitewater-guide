@@ -1,4 +1,5 @@
 import CodePush from 'react-native-code-push';
+import Config from 'react-native-config';
 
 export interface CodePushVersion {
   local: string | null;
@@ -41,6 +42,12 @@ class Versioning {
       this._codePushVersion = { local: null, pending: null, remote: null };
     }
     return this._codePushVersion;
+  }
+
+  async getSentryVersion() {
+    const jsVersion = this.getJsVersion();
+    const { local, pending } = await this.getCodePushVersion();
+    return `${jsVersion}${local || pending || 'v0'}`;
   }
 }
 

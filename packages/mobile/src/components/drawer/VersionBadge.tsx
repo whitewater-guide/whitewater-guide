@@ -15,22 +15,31 @@ const styles = StyleSheet.create({
   },
 });
 
-class VersionBadge extends React.PureComponent<{}, CodePushVersion> {
-  state: CodePushVersion = {
-    local: null,
-    pending: null,
-    remote: null,
+interface State {
+  codePushVersion: CodePushVersion;
+  sentryVersion: string;
+}
+
+class VersionBadge extends React.PureComponent<{}, State> {
+  state: State = {
+    codePushVersion: {
+      local: null,
+      pending: null,
+      remote: null,
+    },
+    sentryVersion: '',
   };
 
   async componentDidMount() {
-    const version = await versioning.getCodePushVersion();
-    this.setState(version);
+    const codePushVersion = await versioning.getCodePushVersion();
+    const sentryVersion = await versioning.getSentryVersion();
+    this.setState({ sentryVersion, codePushVersion });
   }
 
   render() {
-    const { local, pending, remote } = this.state;
-    const jsVersion = versioning.getJsVersion();
-    const version = `${jsVersion}${local || 'v0'} ${Config.ENV_NAME}`;
+    const { sentryVersion, codePushVersion } = this.state;
+    const { pending, remote } = codePushVersion;
+    const version = `${sentryVersion} ${Config.ENV_NAME}`;
     return (
       <View style={styles.container}>
         <Caption style={styles.text}>{version}</Caption>

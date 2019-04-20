@@ -8,7 +8,7 @@ lane :bump_build_numbers do
   appJson = JSON.parse(appJsonFile)
   appJson["androidBuildNumber"] = appJson["androidBuildNumber"] + 1
   appJson["iosBuildNumber"] = appJson["iosBuildNumber"] + 1
-  File.open("../app.json","w") do |f|
+  File.open("../app.json", "w") do |f|
     f.write(JSON.pretty_generate(appJson) + "\n")
   end
 end
@@ -76,8 +76,8 @@ platform :ios do
   lane :setup_push do |options|
     if options[:development]
       pem(
-          output_path: "#{ENV['IOS_PROJECT_PATH']}/pem/dev",
-          development: true
+        output_path: "#{ENV['IOS_PROJECT_PATH']}/pem/dev",
+        development: true
       )
     else
       pem(
@@ -96,7 +96,7 @@ platform :ios do
     update_info_plist(
       xcodeproj: xcodeproj,
       plist_path: ENV['IOS_PLIST_PATH'],
-      block: lambda { |plist|
+      block: lambda {|plist|
         plist['CFBundleIdentifier'] = ENV['IOS_APP_IDENTIFIER']
         plist['CFBundleName'] = ENV['IOS_APP_NAME']
         plist['CFBundleDisplayName'] = ENV['IOS_APP_DISPLAY_NAME']
@@ -105,10 +105,10 @@ platform :ios do
       },
     )
     gym(
-        workspace: xcworkspace,
-        configuration: options[:configuration],
-        scheme: ENV['IOS_PROJECT_NAME'],
-        output_directory: ENV['IOS_PROJECT_PATH']
+      workspace: xcworkspace,
+      configuration: options[:configuration],
+      scheme: ENV['IOS_PROJECT_NAME'],
+      output_directory: ENV['IOS_PROJECT_PATH']
     )
     restore_file(path: plist_full_path)
   end
@@ -119,13 +119,19 @@ platform :ios do
        "-t", ENV['IOS_VERSION'],
        "-d", ENV['CODEPUSH_DEPLOYMENT'],
        "--token", ENV['APPCENTER_API_TOKEN'],
-     )
-  end
-
-  lane :sentry do |options|
+       "--output-dir", "./build/ios",
+    )
     ENV["SENTRY_PROPERTIES"] = "#{ENV['IOS_PROJECT_PATH']}/sentry.properties"
-    download_dsyms(version: ENV["IOS_VERSION"], build_number: ENV["IOS_VERSION_BUILD_NUMBER"])
-    sh("yarn", "sentry-cli", "upload-dsym")
+    download_dsyms(
+      version: ENV["IOS_VERSION"],
+      build_number: ENV["IOS_VERSION_BUILD_NUMBER"],
+      username: ENV["IOS_USER_ID"],
+      team_id: ENV["IOS_ITC_TEAM_ID"],
+      app_identifier: ENV["IOS_APP_IDENTIFIER"],
+      output_directory: "#{Dir.pwd}/#{ENV['IOS_PROJECT_PATH']}",
+      )
+    sh("yarn", "sentry-cli", "upload-dsym", ENV['IOS_PROJECT_PATH'])
+    sh("node", "scripts/uploadToSentry.js", "--platform", "ios", "--deployment", ENV["CODEPUSH_DEPLOYMENT"])
   end
 
   lane :staging do |options|
@@ -142,7 +148,6 @@ platform :ios do
     end
     pilot(
       ipa: ENV['IOS_IPA_PATH'],
-      skip_waiting_for_build_processing: true,
     )
     code_push
   end
@@ -159,11 +164,8 @@ platform :ios do
         configuration: 'Release'
       )
     end
-    deliver(
+    pilot(
       ipa: ENV['IOS_IPA_PATH'],
-      submit_for_review: false,
-      skip_screenshots: true,
-      skip_metadata: true,
     )
     code_push
   end
@@ -184,30 +186,33 @@ platform :android do
 
   lane :code_push do |options|
     sh(
-       "yarn", "run", "appcenter", "codepush", "release-react",
-       "-a", "#{ENV['APPCENTER_OWNER_NAME']}/#{ENV['APPCENTER_APP_NAME_ANDROID']}",
-       "-t", ENV['ANDROID_VERSION_NAME'],
-       "-d", ENV['CODEPUSH_DEPLOYMENT'],
-       "--token", ENV['APPCENTER_API_TOKEN'],
-     )
+      "yarn", "run", "appcenter", "codepush", "release-react",
+      "-a", "#{ENV['APPCENTER_OWNER_NAME']}/#{ENV['APPCENTER_APP_NAME_ANDROID']}",
+      "-t", ENV['ANDROID_VERSION_NAME'],
+      "-d", ENV['CODEPUSH_DEPLOYMENT'],
+      "--token", ENV['APPCENTER_API_TOKEN'],
+      "--output-dir", "./build/android",
+    )
+    sh("node", "scripts/uploadToSentry.js", "--platform", "android", "--deployment", ENV["CODEPUSH_DEPLOYMENT"])
   end
 
   lane :staging do |options|
-    # TODO: use minio
     ENV['ENVFILE'] = '.env.staging' # for some reason react-native-config isn't picked from gradle
     unless options[:skipBuild]
       build
     end
+    # TODO: use minio
     aws_s3(
-        aws_profile: 'default',
-        bucket: ENV['S3_BUCKET'],
-        region: ENV['S3_REGION'],
-        apk: ENV['ANDROID_APK_PATH'],
-        app_directory: 'android',
-        # path: 'v{CFBundleShortVersionString}_b{CFBundleVersion}/', # This is actually the default.
-        upload_metadata: true,
-        version_file_name: '../app.json',
+      aws_profile: 'default',
+      bucket: ENV['S3_BUCKET'],
+      region: ENV['S3_REGION'],
+      apk: ENV['ANDROID_APK_PATH'],
+      app_directory: 'android',
+      # path: 'v{CFBundleShortVersionString}_b{CFBundleVersion}/', # This is actually the default.
+      upload_metadata: true,
+      version_file_name: '../app.json',
     )
+    code_push
   end
 
   lane :production do |options|

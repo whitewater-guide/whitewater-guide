@@ -4,20 +4,20 @@ import { versioning } from '../../utils/versioning';
 import { trackError } from './trackError';
 
 export const configErrors = () => {
+  if (__DEV__) {
+    return;
+  }
+
   Sentry.config(Config.SENTRY_DSN)
     .install()
     .then(() => {
       Sentry.setTagsContext({ environment: Config.ENV_NAME });
     })
-    .then(versioning.getCodePushVersion)
-    .then(({ local }) => {
-      const jsVersion = versioning.getJsVersion();
-      Sentry.setVersion(`${jsVersion}${local || 'v0'}`);
+    .then(versioning.getSentryVersion)
+    .then((version) => {
+      Sentry.setVersion(version);
     });
 
-  if (__DEV__) {
-    return;
-  }
   const ErrorUtils = (global as any).ErrorUtils;
   const defaultHandler = ErrorUtils.getGlobalHandler();
 
