@@ -73,9 +73,7 @@ const DrawerSidebar: React.FC<Props> = ({ navigation, toggleDrawer }) => {
           fixture: 'termsAndConditions',
           title: t('drawer:termsAndConditions'),
         }}
-        onPress={() => {
-          throw new Error('Test sentry');
-        }}
+        onPress={Sentry.crash}
         focused={isRouteFocused(state, 'Plain', {
           fixture: 'termsAndConditions',
         })}
@@ -87,9 +85,7 @@ const DrawerSidebar: React.FC<Props> = ({ navigation, toggleDrawer }) => {
           fixture: 'privacyPolicy',
           title: t('drawer:privacyPolicy'),
         }}
-        onPress={() => {
-          Sentry.nativeCrash();
-        }}
+        onPress={Sentry.nativeCrash}
         focused={isRouteFocused(state, 'Plain', {
           fixture: 'privacyPolicy',
         })}

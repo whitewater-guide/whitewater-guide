@@ -16,10 +16,6 @@ export const configErrors = () => {
     .then(() => versioning.getSentryVersion())
     .then((version) => {
       Sentry.setRelease(version);
-      Sentry.setEventSentSuccessfully((event: any) => {
-        // tslint:disable-next-line:no-console
-        console.log('[SENTRY]', event);
-      });
     });
 
   const ErrorUtils = (global as any).ErrorUtils;
