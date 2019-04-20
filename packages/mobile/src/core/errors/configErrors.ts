@@ -16,6 +16,7 @@ export const configErrors = () => {
     .then(() => versioning.getSentryVersion())
     .then((version) => {
       Sentry.setVersion(version);
+      Sentry.setRelease(version);
     });
 
   const ErrorUtils = (global as any).ErrorUtils;
