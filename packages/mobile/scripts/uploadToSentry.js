@@ -28,7 +28,7 @@ async function getAppcenterVersion(platform, deployment) {
   const packages = await codePush.getDeploymentHistory(app, deployment);
 
   const nativeVersion = getNativeVersion();
-  for (let i = packages.length - 1; i--; i >= 0) {
+  for (let i = packages.length; i--; i >= 0) {
     if (packages[i].appVersion === nativeVersion) {
       return packages[i].label;
     }
