@@ -1,3 +1,9 @@
+## [1.7.41](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.40...@whitewater-guide/mobile@1.7.41) (2019-04-20)
+
+### Bug Fixes
+
+- **mobile:** fix sentry version ([9552142](https://github.com/doomsower/whitewater/commit/9552142))
+
 ## [1.7.40](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.39...@whitewater-guide/mobile@1.7.40) (2019-04-20)
 
 ### Bug Fixes
