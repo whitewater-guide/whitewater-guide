@@ -13,8 +13,10 @@ export const configErrors = () => {
     .then(() => {
       Sentry.setTagsContext({ environment: Config.ENV_NAME });
     })
-    .then(versioning.getSentryVersion)
+    .then(() => versioning.getSentryVersion())
     .then((version) => {
+      // tslint:disable-next-line:no-console
+      console.log('[CODE PUSH SENTRY]', version);
       Sentry.setVersion(version);
     });
 

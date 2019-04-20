@@ -38,6 +38,8 @@ class Versioning {
         remote: remotePackage ? remotePackage.label : null,
       };
     } catch (e) {
+      // tslint:disable-next-line:no-console
+      console.log('[CODE PUSH ERROR]', e);
       this._codePushVersion = { local: null, pending: null, remote: null };
     }
     return this._codePushVersion;
@@ -46,6 +48,8 @@ class Versioning {
   getSentryVersion = async () => {
     const jsVersion = this.getJsVersion();
     const { local, pending } = await this.getCodePushVersion();
+    // tslint:disable-next-line:no-console
+    console.log('[CODE PUSH]', local, pending);
     return `${jsVersion}${local || pending || 'v0'}`;
   };
 }
