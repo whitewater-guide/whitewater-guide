@@ -38,10 +38,8 @@ class VersionBadge extends React.PureComponent<{}, State> {
 
   render() {
     const { sentryVersion, codePushVersion } = this.state;
-    const { local, pending, remote } = codePushVersion;
-    const version = `${sentryVersion} ${
-      Config.ENV_NAME
-    } (${local}) (${pending})`;
+    const { pending, remote } = codePushVersion;
+    const version = `${sentryVersion} ${Config.ENV_NAME}`;
     return (
       <View style={styles.container}>
         <Caption style={styles.text}>{version}</Caption>

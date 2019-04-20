@@ -15,8 +15,6 @@ export const configErrors = () => {
     })
     .then(() => versioning.getSentryVersion())
     .then((version) => {
-      // tslint:disable-next-line:no-console
-      console.log('[CODE PUSH SENTRY]', version);
       Sentry.setVersion(version);
     });
 
