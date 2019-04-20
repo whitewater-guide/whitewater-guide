@@ -1,5 +1,4 @@
 import CodePush from 'react-native-code-push';
-import Config from 'react-native-config';
 
 export interface CodePushVersion {
   local: string | null;
@@ -11,7 +10,7 @@ class Versioning {
   private _codePushVersion!: CodePushVersion;
   private _jsVersion!: string;
 
-  getJsVersion() {
+  getJsVersion = () => {
     if (!this._jsVersion) {
       const pjson = require('../../package.json');
       const ajson = require('../../app.json');
@@ -19,9 +18,9 @@ class Versioning {
       this._jsVersion = pjson.version + '.' + ajson.iosBuildNumber;
     }
     return this._jsVersion;
-  }
+  };
 
-  async getCodePushVersion() {
+  getCodePushVersion = async () => {
     if (this._codePushVersion) {
       return Promise.resolve(this._codePushVersion);
     }
@@ -42,13 +41,13 @@ class Versioning {
       this._codePushVersion = { local: null, pending: null, remote: null };
     }
     return this._codePushVersion;
-  }
+  };
 
-  async getSentryVersion() {
+  getSentryVersion = async () => {
     const jsVersion = this.getJsVersion();
     const { local, pending } = await this.getCodePushVersion();
     return `${jsVersion}${local || pending || 'v0'}`;
-  }
+  };
 }
 
 export const versioning = new Versioning();

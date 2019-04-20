@@ -114,13 +114,6 @@ platform :ios do
   end
 
   lane :code_push do |options|
-    sh("yarn", "run", "appcenter", "codepush", "release-react",
-       "-a", "#{ENV['APPCENTER_OWNER_NAME']}/#{ENV['APPCENTER_APP_NAME_IOS']}",
-       "-t", ENV['IOS_VERSION'],
-       "-d", ENV['CODEPUSH_DEPLOYMENT'],
-       "--token", ENV['APPCENTER_API_TOKEN'],
-       "--output-dir", "./build/ios",
-    )
     ENV["SENTRY_PROPERTIES"] = "#{ENV['IOS_PROJECT_PATH']}/sentry.properties"
     download_dsyms(
       version: ENV["IOS_VERSION"],
@@ -128,9 +121,17 @@ platform :ios do
       username: ENV["IOS_USER_ID"],
       team_id: ENV["IOS_ITC_TEAM_ID"],
       app_identifier: ENV["IOS_APP_IDENTIFIER"],
-      output_directory: "#{Dir.pwd}/#{ENV['IOS_PROJECT_PATH']}",
-      )
+      output_directory: "#{Dir.pwd}/../#{ENV['IOS_PROJECT_PATH']}",
+    )
     sh("yarn", "sentry-cli", "upload-dsym", ENV['IOS_PROJECT_PATH'])
+    sh("yarn", "run", "appcenter", "codepush", "release-react",
+       "-a", "#{ENV['APPCENTER_OWNER_NAME']}/#{ENV['APPCENTER_APP_NAME_IOS']}",
+       "-t", ENV['IOS_VERSION'],
+       "-d", ENV['CODEPUSH_DEPLOYMENT'],
+       "--token", ENV['APPCENTER_API_TOKEN'],
+       "--output-dir", "./build/ios",
+       "--disable-duplicate-release-error",
+    )
     sh("node", "../scripts/uploadToSentry.js", "--platform", "ios", "--deployment", ENV["CODEPUSH_DEPLOYMENT"])
   end
 
@@ -192,6 +193,7 @@ platform :android do
       "-d", ENV['CODEPUSH_DEPLOYMENT'],
       "--token", ENV['APPCENTER_API_TOKEN'],
       "--output-dir", "./build/android",
+      "--disable-duplicate-release-error",
     )
     sh("node", "../scripts/uploadToSentry.js", "--platform", "android", "--deployment", ENV["CODEPUSH_DEPLOYMENT"])
   end

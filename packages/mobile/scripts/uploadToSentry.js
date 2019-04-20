@@ -58,7 +58,8 @@ async function run() {
 
   const sentry = new SentryCli(resolve(__dirname, '../ios/sentry.properties'));
   await sentry.releases.uploadSourceMaps(sentryVersion, {
-    include: [`build/${platform}/CodePush`],
+    include: [resolve(__dirname, `../build/${platform}/CodePush`)],
+    rewrite: true,
   });
   console.info(`Uploaded release ${sentryVersion} to sentry`);
 }
