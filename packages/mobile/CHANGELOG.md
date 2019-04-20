@@ -1,3 +1,9 @@
+## [1.7.44](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.43...@whitewater-guide/mobile@1.7.44) (2019-04-20)
+
+### Bug Fixes
+
+- **mobile:** fix sentry react-native-sentry android ([fe5c226](https://github.com/doomsower/whitewater/commit/fe5c226))
+
 ## [1.7.43](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.42...@whitewater-guide/mobile@1.7.43) (2019-04-20)
 
 ### Bug Fixes
