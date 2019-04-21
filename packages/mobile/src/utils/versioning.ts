@@ -43,7 +43,10 @@ class Versioning {
 
   getDist = () => {
     const { androidBuildNumber, iosBuildNumber } = require('../../app.json');
-    return Platform.OS === 'ios' ? iosBuildNumber : androidBuildNumber;
+    return (Platform.OS === 'ios'
+      ? iosBuildNumber
+      : androidBuildNumber
+    ).toString();
   };
 
   getSentryVersion = async () => {
