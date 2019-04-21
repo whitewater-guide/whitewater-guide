@@ -11,13 +11,13 @@ class ErrorTracker {
   private _queue: Trace[] = [];
   private _ready = false;
 
-  ready() {
+  ready = () => {
     this._ready = true;
     this._queue.forEach(this.track);
     this._queue = [];
-  }
+  };
 
-  track(trace: Trace) {
+  track = (trace: Trace) => {
     const { logger, error, componentStack, isFatal } = trace;
     if (__DEV__) {
       try {
@@ -34,7 +34,7 @@ class ErrorTracker {
     if (!__DEV__) {
       Sentry.captureException(error, { logger, isFatal, componentStack });
     }
-  }
+  };
 }
 
 export const tracker = new ErrorTracker();
