@@ -1,3 +1,10 @@
+## [1.7.46](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.45...@whitewater-guide/mobile@1.7.46) (2019-04-21)
+
+### Bug Fixes
+
+- **mobile:** fix dev track ([45b4352](https://github.com/doomsower/whitewater/commit/45b4352))
+- **mobile:** use gzip of forked react-native-sentry ([e3119f7](https://github.com/doomsower/whitewater/commit/e3119f7))
+
 ## [1.7.45](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.44...@whitewater-guide/mobile@1.7.45) (2019-04-21)
 
 ### Bug Fixes
