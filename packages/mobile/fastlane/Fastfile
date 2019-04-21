@@ -138,7 +138,7 @@ platform :ios do
     )
     sh(
       "node",
-      "./scripts/uploadToSentry.js",
+      "../scripts/uploadToSentry.js",
       "--platform",
       "android",
       "--deployment",
@@ -209,7 +209,7 @@ platform :android do
     )
     sh(
       "node",
-      "./scripts/uploadToSentry.js",
+      "../scripts/uploadToSentry.js",
       "--platform",
       "android",
       "--deployment",
