@@ -1,3 +1,10 @@
+## [1.7.51](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.50...@whitewater-guide/mobile@1.7.51) (2019-04-21)
+
+### Bug Fixes
+
+- **mobile:** fix fastfile ([38c95cc](https://github.com/doomsower/whitewater/commit/38c95cc))
+- **mobile:** fix getDist ([ca1e064](https://github.com/doomsower/whitewater/commit/ca1e064))
+
 ## [1.7.50](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.49...@whitewater-guide/mobile@1.7.50) (2019-04-21)
 
 ### Bug Fixes
