@@ -108,7 +108,6 @@ platform :ios do
   lane :build do |options|
     check_git_status
     check_live_version
-    plist_full_path = "#{ENV['IOS_PROJECT_PATH']}/#{ENV['IOS_PLIST_PATH']}"
     xcworkspace = "#{ENV['IOS_PROJECT_PATH']}/#{ENV['IOS_PROJECT_NAME']}.xcworkspace"
     gym(
       workspace: xcworkspace,
@@ -116,7 +115,6 @@ platform :ios do
       scheme: ENV['IOS_PROJECT_NAME'],
       output_directory: ENV['IOS_PROJECT_PATH']
     )
-    restore_file(path: plist_full_path)
   end
 
   lane :code_push do |options|
@@ -145,9 +143,9 @@ platform :ios do
       "appcenter",
       "--deployment",
       ENV["CODEPUSH_DEPLOYMENT"],
-      ENV["APPCENTER_APP_NAME_IOS"],
+      "#{ENV['APPCENTER_OWNER_NAME']}/#{ENV['APPCENTER_APP_NAME_IOS']}",
       "ios",
-      "build/ios/"
+      "build/ios/CodePush"
     )
   end
 
@@ -222,8 +220,8 @@ platform :android do
       "--bundle-id",
       ENV["ANDROID_PACKAGE_NAME"],
       "#{ENV['APPCENTER_OWNER_NAME']}/#{ENV['APPCENTER_APP_NAME_ANDROID']}",
-      "ios",
-      "build/android"
+      "android",
+      "./build/android/CodePush"
     )
   end
 
