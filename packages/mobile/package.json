@@ -96,7 +96,7 @@
     "react-native-reanimated": "^1.0.1",
     "react-native-screens": "^1.0.0-alpha.22",
     "react-native-sensitive-info": "^5.3.0",
-    "react-native-sentry": "https://github.com/doomsower/react-native-sentry#extra-map-fix",
+    "react-native-sentry": "https://github.com/doomsower/react-native-sentry/releases/download/0.42-map-fix/react-native-sentry-0.42.0-map-fix.tgz",
     "react-native-splash-screen": "^3.2.0",
     "react-native-star-rating": "^1.1.0",
     "react-native-svg": "^9.4.0",
