@@ -1,3 +1,9 @@
+## [1.7.45](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.44...@whitewater-guide/mobile@1.7.45) (2019-04-21)
+
+### Bug Fixes
+
+- **mobile:** use forked react-native-sentry ([f445988](https://github.com/doomsower/whitewater/commit/f445988))
+
 ## [1.7.44](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.43...@whitewater-guide/mobile@1.7.44) (2019-04-20)
 
 ### Bug Fixes
