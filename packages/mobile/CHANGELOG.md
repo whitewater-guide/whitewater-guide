@@ -1,3 +1,9 @@
+## [1.7.48](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.47...@whitewater-guide/mobile@1.7.48) (2019-04-21)
+
+### Bug Fixes
+
+- **mobile:** use sentry appcenter versioning ([dc80b22](https://github.com/doomsower/whitewater/commit/dc80b22))
+
 ## [1.7.47](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.46...@whitewater-guide/mobile@1.7.47) (2019-04-21)
 
 ### Bug Fixes
