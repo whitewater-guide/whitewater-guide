@@ -140,7 +140,7 @@ platform :ios do
       "node",
       "../scripts/uploadToSentry.js",
       "--platform",
-      "android",
+      "ios",
       "--deployment",
       ENV["CODEPUSH_DEPLOYMENT"],
     )
