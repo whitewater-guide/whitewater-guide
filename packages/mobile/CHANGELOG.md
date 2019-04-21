@@ -1,3 +1,11 @@
+## [1.7.50](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.49...@whitewater-guide/mobile@1.7.50) (2019-04-21)
+
+### Bug Fixes
+
+- **mobile:** fix codepush + sentry ([6355b7f](https://github.com/doomsower/whitewater/commit/6355b7f))
+- **mobile:** fix version script ([b75efe5](https://github.com/doomsower/whitewater/commit/b75efe5))
+- **mobile:** sentry set dist ([acb5cd7](https://github.com/doomsower/whitewater/commit/acb5cd7))
+
 ## [1.7.48](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.47...@whitewater-guide/mobile@1.7.48) (2019-04-21)
 
 ### Bug Fixes
