@@ -16,6 +16,7 @@ export const configErrors = () => {
     })
     .then(() => versioning.getSentryVersion())
     .then((version) => {
+      Sentry.setTagsContext({ buildNumber: versioning.getBuildNumber() });
       Sentry.setRelease(version);
       tracker.ready();
     });

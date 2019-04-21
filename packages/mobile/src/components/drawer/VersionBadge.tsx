@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
 
 interface State {
   codePushVersion: CodePushVersion;
-  sentryVersion: string;
+  humanVersion: string;
 }
 
 class VersionBadge extends React.PureComponent<{}, State> {
@@ -27,19 +27,19 @@ class VersionBadge extends React.PureComponent<{}, State> {
       pending: null,
       remote: null,
     },
-    sentryVersion: '',
+    humanVersion: '',
   };
 
   async componentDidMount() {
     const codePushVersion = await versioning.getCodePushVersion();
-    const sentryVersion = await versioning.getSentryVersion();
-    this.setState({ sentryVersion, codePushVersion });
+    const humanVersion = await versioning.getHumanVersion();
+    this.setState({ humanVersion, codePushVersion });
   }
 
   render() {
-    const { sentryVersion, codePushVersion } = this.state;
+    const { humanVersion, codePushVersion } = this.state;
     const { pending, remote } = codePushVersion;
-    const version = `${sentryVersion} ${Config.ENV_NAME}`;
+    const version = `${humanVersion} ${Config.ENV_NAME}`;
     return (
       <View style={styles.container}>
         <Caption style={styles.text}>{version}</Caption>

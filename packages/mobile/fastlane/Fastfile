@@ -132,7 +132,17 @@ platform :ios do
        "--output-dir", "./build/ios",
        "--disable-duplicate-release-error",
     )
-    sh("node", "../scripts/uploadToSentry.js", "--platform", "ios", "--deployment", ENV["CODEPUSH_DEPLOYMENT"])
+    sh(
+      "yarn",
+      "sentry-cli",
+      "react-native",
+      "appcenter",
+      "--deployment",
+      ENV["CODEPUSH_DEPLOYMENT"],
+      ENV["APPCENTER_APP_NAME_IOS"],
+      "ios",
+      "build/ios/"
+    )
   end
 
   lane :staging do |options|
@@ -195,7 +205,19 @@ platform :android do
       "--output-dir", "./build/android",
       "--disable-duplicate-release-error",
     )
-    sh("node", "../scripts/uploadToSentry.js", "--platform", "android", "--deployment", ENV["CODEPUSH_DEPLOYMENT"])
+    sh(
+      "yarn",
+      "sentry-cli",
+      "react-native",
+      "appcenter",
+      "--deployment",
+      ENV["CODEPUSH_DEPLOYMENT"],
+      "--bundle-id",
+      ENV["ANDROID_PACKAGE_NAME"],
+      ENV["APPCENTER_APP_NAME_ANDROID"],
+      "ios",
+      "build/android"
+    )
   end
 
   lane :staging do |options|

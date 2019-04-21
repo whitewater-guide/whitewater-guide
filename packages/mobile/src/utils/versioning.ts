@@ -8,17 +8,6 @@ export interface CodePushVersion {
 
 class Versioning {
   private _codePushVersion!: CodePushVersion;
-  private _jsVersion!: string;
-
-  getJsVersion = () => {
-    if (!this._jsVersion) {
-      const pjson = require('../../package.json');
-      const ajson = require('../../app.json');
-      // always prefer ios build number
-      this._jsVersion = pjson.version + '.' + ajson.iosBuildNumber;
-    }
-    return this._jsVersion;
-  };
 
   getCodePushVersion = async () => {
     if (this._codePushVersion) {
@@ -43,10 +32,23 @@ class Versioning {
     return this._codePushVersion;
   };
 
-  getSentryVersion = async () => {
-    const jsVersion = this.getJsVersion();
+  getHumanVersion = async () => {
+    const { version } = require('../../package.json');
+    // prefer ios build number, because they're incremented together but ios one looks better
+    const { iosBuildNumber } = require('../../app.json');
     const { local, pending, remote } = await this.getCodePushVersion();
-    return `${jsVersion}${local || pending || remote || 'v0'}`;
+    return `${version}.${iosBuildNumber}${local || pending || remote || 'v0'}`;
+  };
+
+  getBuildNumber = () => {
+    const { iosBuildNumber } = require('../../app.json');
+    return iosBuildNumber;
+  };
+
+  getSentryVersion = async () => {
+    const { version } = require('../../package.json');
+    const { local, pending, remote } = await this.getCodePushVersion();
+    return `${version}-codepush:${local || pending || remote || 'v0'}`;
   };
 }
 
