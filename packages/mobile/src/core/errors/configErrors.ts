@@ -15,9 +15,9 @@ export const configErrors = () => {
       Sentry.setTagsContext({ environment: Config.ENV_NAME });
     })
     .then(() => versioning.getSentryVersion())
-    .then((version) => {
-      Sentry.setTagsContext({ buildNumber: versioning.getBuildNumber() });
-      Sentry.setRelease(version);
+    .then((sentryVersion) => {
+      Sentry.setRelease(sentryVersion);
+      Sentry.setDist(versioning.getDist());
       tracker.ready();
     });
 

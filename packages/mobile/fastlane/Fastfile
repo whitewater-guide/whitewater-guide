@@ -137,15 +137,12 @@ platform :ios do
        "--disable-duplicate-release-error",
     )
     sh(
-      "yarn",
-      "sentry-cli",
-      "react-native",
-      "appcenter",
+      "node",
+      "./scripts/uploadToSentry.js",
+      "--platform",
+      "android",
       "--deployment",
       ENV["CODEPUSH_DEPLOYMENT"],
-      "#{ENV['APPCENTER_OWNER_NAME']}/#{ENV['APPCENTER_APP_NAME_IOS']}",
-      "ios",
-      "build/ios/CodePush"
     )
   end
 
@@ -211,17 +208,12 @@ platform :android do
       "--disable-duplicate-release-error",
     )
     sh(
-      "yarn",
-      "sentry-cli",
-      "react-native",
-      "appcenter",
+      "node",
+      "./scripts/uploadToSentry.js",
+      "--platform",
+      "android",
       "--deployment",
       ENV["CODEPUSH_DEPLOYMENT"],
-      "--bundle-id",
-      ENV["ANDROID_PACKAGE_NAME"],
-      "#{ENV['APPCENTER_OWNER_NAME']}/#{ENV['APPCENTER_APP_NAME_ANDROID']}",
-      "android",
-      "./build/android/CodePush"
     )
   end
 

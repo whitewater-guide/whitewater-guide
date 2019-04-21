@@ -1,3 +1,4 @@
+import { Platform } from 'react-native';
 import CodePush from 'react-native-code-push';
 
 export interface CodePushVersion {
@@ -40,9 +41,9 @@ class Versioning {
     return `${version}.${iosBuildNumber}${local || pending || remote || 'v0'}`;
   };
 
-  getBuildNumber = () => {
-    const { iosBuildNumber } = require('../../app.json');
-    return iosBuildNumber;
+  getDist = () => {
+    const { androidBuildNumber, iosBuildNumber } = require('../../app.json');
+    return Platform.OS === 'ios' ? iosBuildNumber : androidBuildNumber;
   };
 
   getSentryVersion = async () => {
