@@ -1,3 +1,10 @@
+## [1.7.52](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.51...@whitewater-guide/mobile@1.7.52) (2019-04-21)
+
+### Bug Fixes
+
+- **mobile:** change versioning scheme for sentry ([2957f2f](https://github.com/doomsower/whitewater/commit/2957f2f))
+- **mobile:** fix fastlane ([1f61a26](https://github.com/doomsower/whitewater/commit/1f61a26))
+
 ## [1.7.51](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.50...@whitewater-guide/mobile@1.7.51) (2019-04-21)
 
 ### Bug Fixes
