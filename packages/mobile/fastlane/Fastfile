@@ -3,16 +3,6 @@ fastlane_require 'spaceship'
 
 skip_docs
 
-lane :bump_build_numbers do
-  appJsonFile = File.read("../app.json")
-  appJson = JSON.parse(appJsonFile)
-  appJson["androidBuildNumber"] = appJson["androidBuildNumber"] + 1
-  appJson["iosBuildNumber"] = appJson["iosBuildNumber"] + 1
-  File.open("../app.json", "w") do |f|
-    f.write(JSON.pretty_generate(appJson) + "\n")
-  end
-end
-
 # Check Git Status
 private_lane :check_git_status do
   ensure_git_status_clean
@@ -31,12 +21,41 @@ private_lane :parse_package_json do
 
   ENV["IOS_VERSION"] = version
   ENV["ANDROID_VERSION_NAME"] = version
-  ENV["IOS_VERSION_BUILD_NUMBER"] = appJson["iosBuildNumber"].to_s
+  ENV["IOS_BUILD_NUMBER"] = appJson["iosBuildNumber"].to_s
   ENV["ANDROID_VERSION_CODE"] = appJson["androidBuildNumber"].to_s
 end
 
 before_all do |lane, options|
   parse_package_json
+end
+
+lane :bump_build_numbers do
+  appJsonFile = File.read("../app.json")
+  appJson = JSON.parse(appJsonFile)
+  appJson["androidBuildNumber"] = appJson["androidBuildNumber"] + 1
+  appJson["iosBuildNumber"] = appJson["iosBuildNumber"] + 1
+  File.open("../app.json", "w") do |f|
+    f.write(JSON.pretty_generate(appJson) + "\n")
+  end
+end
+
+lane :version do
+  android_set_version_code(
+    gradle_file: "#{ENV['ANDROID_PROJECT_DIR']}/app/build.gradle",
+    version_code: ENV["ANDROID_VERSION_CODE"],
+  )
+  android_set_version_name(
+    gradle_file: "#{ENV['ANDROID_PROJECT_DIR']}/app/build.gradle",
+    version_name: ENV["ANDROID_VERSION_NAME"],
+  )
+  ios_set_version(
+    version: ENV["IOS_VERSION"],
+    xcodeproj: "#{ENV['IOS_PROJECT_PATH']}/whitewater.xcodeproj",
+  )
+  ios_set_build_number(
+    build_number: ENV["IOS_BUILD_NUMBER"],
+    xcodeproj: "#{ENV['IOS_PROJECT_PATH']}/whitewater.xcodeproj",
+  )
 end
 
 # IOS
@@ -90,20 +109,7 @@ platform :ios do
     check_git_status
     check_live_version
     plist_full_path = "#{ENV['IOS_PROJECT_PATH']}/#{ENV['IOS_PLIST_PATH']}"
-    backup_file(path: plist_full_path)
-    xcodeproj = "#{ENV['IOS_PROJECT_PATH']}/#{ENV['IOS_PROJECT_NAME']}.xcodeproj"
     xcworkspace = "#{ENV['IOS_PROJECT_PATH']}/#{ENV['IOS_PROJECT_NAME']}.xcworkspace"
-    update_info_plist(
-      xcodeproj: xcodeproj,
-      plist_path: ENV['IOS_PLIST_PATH'],
-      block: lambda {|plist|
-        plist['CFBundleIdentifier'] = ENV['IOS_APP_IDENTIFIER']
-        plist['CFBundleName'] = ENV['IOS_APP_NAME']
-        plist['CFBundleDisplayName'] = ENV['IOS_APP_DISPLAY_NAME']
-        plist['CFBundleShortVersionString'] = ENV['IOS_VERSION']
-        plist['CFBundleVersion'] = ENV['IOS_VERSION_BUILD_NUMBER']
-      },
-    )
     gym(
       workspace: xcworkspace,
       configuration: options[:configuration],
@@ -117,7 +123,7 @@ platform :ios do
     ENV["SENTRY_PROPERTIES"] = "#{ENV['IOS_PROJECT_PATH']}/sentry.properties"
     download_dsyms(
       version: ENV["IOS_VERSION"],
-      build_number: ENV["IOS_VERSION_BUILD_NUMBER"],
+      build_number: ENV["IOS_BUILD_NUMBER"],
       username: ENV["IOS_USER_ID"],
       team_id: ENV["IOS_ITC_TEAM_ID"],
       app_identifier: ENV["IOS_APP_IDENTIFIER"],
