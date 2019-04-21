@@ -51,7 +51,7 @@ async function run() {
     path: resolve(__dirname, '../fastlane/.env.' + deployment.toLowerCase()),
   });
   const appCenterVersion = await getAppcenterVersion(platform, deployment);
-  const sentryVersion = `${getNativeVersion()}-codepush:${appCenterVersion}`;
+  const sentryVersion = `${getNativeVersion()}-${deployment.toLowerCase()}-${appCenterVersion}`;
 
   spawnSync(
     'yarn',
@@ -59,13 +59,13 @@ async function run() {
       'sentry-cli',
       'releases',
       'files',
-      sentryVersion,
+      sentryVersion, // must match `Sentry.setRelease` on client
       'upload-sourcemaps',
       `build/${platform}/CodePush`,
       '--rewrite',
       '--strip-common-prefix',
       '--dist',
-      getDist(platform),
+      getDist(platform), // must match `Sentry.setDist` on client
     ],
     {
       stdio: 'inherit',

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Alert, Clipboard, StyleSheet, View } from 'react-native';
 import Config from 'react-native-config';
 import { Caption } from 'react-native-paper';
 import { CodePushVersion, versioning } from '../../utils/versioning';
@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
 interface State {
   codePushVersion: CodePushVersion;
   humanVersion: string;
+  sentryVersion: string;
 }
 
 class VersionBadge extends React.PureComponent<{}, State> {
@@ -28,29 +29,45 @@ class VersionBadge extends React.PureComponent<{}, State> {
       remote: null,
     },
     humanVersion: '',
+    sentryVersion: '',
   };
 
   async componentDidMount() {
     const codePushVersion = await versioning.getCodePushVersion();
     const humanVersion = await versioning.getHumanVersion();
-    this.setState({ humanVersion, codePushVersion });
+    const sentryVersion = await versioning.getSentryVersion();
+    this.setState({ humanVersion, codePushVersion, sentryVersion });
   }
 
+  showDetails = () => {
+    const { codePushVersion, sentryVersion } = this.state;
+    const { local, pending, remote } = codePushVersion;
+    const { version } = require('../../../package.json');
+    const { androidBuildNumber, iosBuildNumber } = require('../../../app.json');
+
+    const info = `Version: ${version}
+Build: ${iosBuildNumber} / ${androidBuildNumber}
+Environment: ${Config.ENV_NAME}
+Sentry: ${sentryVersion}
+CodePush local: ${local}
+CodePush pending: ${pending}
+CodePush remote: ${remote}`;
+
+    Alert.alert('Version info', info, [
+      { text: 'Copy', onPress: () => Clipboard.setString(info) },
+      { text: 'OK' },
+    ]);
+  };
+
   render() {
-    const { humanVersion, codePushVersion } = this.state;
-    const { pending, remote } = codePushVersion;
+    const { humanVersion } = this.state;
     const version = `${humanVersion} ${Config.ENV_NAME}`;
     return (
       <View style={styles.container}>
-        <Caption style={styles.text}>{version}</Caption>
-        {pending && (
-          <Caption
-            style={styles.text}
-          >{`${pending} is ready to install`}</Caption>
-        )}
-        {remote && (
-          <Caption style={styles.text}>{`${remote} is available`}</Caption>
-        )}
+        <Caption
+          style={styles.text}
+          onPress={this.showDetails}
+        >{`${version} (details)`}</Caption>
       </View>
     );
   }

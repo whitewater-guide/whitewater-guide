@@ -1,5 +1,6 @@
 import { Platform } from 'react-native';
 import CodePush from 'react-native-code-push';
+import Config from 'react-native-config';
 
 export interface CodePushVersion {
   local: string | null;
@@ -36,9 +37,8 @@ class Versioning {
   getHumanVersion = async () => {
     const { version } = require('../../package.json');
     // prefer ios build number, because they're incremented together but ios one looks better
-    const { iosBuildNumber } = require('../../app.json');
     const { local, pending, remote } = await this.getCodePushVersion();
-    return `${version}.${iosBuildNumber}${local || pending || remote || 'v0'}`;
+    return `${version} ${local || pending || remote || 'v0'}`;
   };
 
   getDist = () => {
@@ -52,7 +52,10 @@ class Versioning {
   getSentryVersion = async () => {
     const { version } = require('../../package.json');
     const { local, pending, remote } = await this.getCodePushVersion();
-    return `${version}-codepush:${local || pending || remote || 'v0'}`;
+    return `${version}-${Config.ENV_NAME}-${local ||
+      pending ||
+      remote ||
+      'v0'}`;
   };
 }
 
