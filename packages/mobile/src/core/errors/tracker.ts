@@ -18,10 +18,6 @@ class ErrorTracker {
   }
 
   track(trace: Trace) {
-    if (!this._ready) {
-      this._queue.push(trace);
-      return;
-    }
     const { logger, error, componentStack, isFatal } = trace;
     if (__DEV__) {
       try {
@@ -30,6 +26,10 @@ class ErrorTracker {
         // tslint:disable-next-line:no-console
         console.log(error);
       }
+    }
+    if (!this._ready) {
+      this._queue.push(trace);
+      return;
     }
     if (!__DEV__) {
       Sentry.captureException(error, { logger, isFatal, componentStack });
