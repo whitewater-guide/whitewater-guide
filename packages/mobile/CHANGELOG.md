@@ -1,3 +1,9 @@
+## [1.7.47](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.46...@whitewater-guide/mobile@1.7.47) (2019-04-21)
+
+### Bug Fixes
+
+- **mobile:** fix tracker this ([f1b870f](https://github.com/doomsower/whitewater/commit/f1b870f))
+
 ## [1.7.46](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.45...@whitewater-guide/mobile@1.7.46) (2019-04-21)
 
 ### Bug Fixes
