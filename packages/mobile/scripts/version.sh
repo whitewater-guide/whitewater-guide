@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-../../../tooling/scripts/sh/changelog.sh
+sh ../../tooling/scripts/sh/changelog.sh
 fastlane version
 # these files are changed by fastlane version
 git add android/app/build.gradle
