@@ -1,6 +1,7 @@
 import Config from 'react-native-config';
 import { Sentry } from 'react-native-sentry';
 import { versioning } from '../../utils/versioning';
+import { tracker } from './tracker';
 import { trackError } from './trackError';
 
 export const configErrors = () => {
@@ -16,6 +17,7 @@ export const configErrors = () => {
     .then(() => versioning.getSentryVersion())
     .then((version) => {
       Sentry.setRelease(version);
+      tracker.ready();
     });
 
   const ErrorUtils = (global as any).ErrorUtils;

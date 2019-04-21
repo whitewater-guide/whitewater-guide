@@ -12322,10 +12322,9 @@ react-native-sensitive-info@^5.3.0:
   resolved "https://registry.yarnpkg.com/react-native-sensitive-info/-/react-native-sensitive-info-5.3.0.tgz#dab9f346a6f7cc6d4c520c4973e60854b7a82ef8"
   integrity sha512-bAY05Tye8QDr1Bytv950P7ToxQjan6ZzVdF34Y/RWz7O5b2wvfRLJIafmuY/XN5DboQF+ShIUPxIuBf09vVBAg==
 
-react-native-sentry@^0.42.0:
+"react-native-sentry@https://github.com/doomsower/react-native-sentry#extra-map-fix":
   version "0.42.0"
-  resolved "https://registry.yarnpkg.com/react-native-sentry/-/react-native-sentry-0.42.0.tgz#9cd59659d9b6cd36d6fc4c48f50613cd82cde25f"
-  integrity sha512-Nt3/yDSiK0QCtuWMEX04e4DJ3sWyMbjUPiiRNs3omD0rCzt51i4F5/fORDz7aMuYH2tSUw6RWCfJmxc3ILvx7Q==
+  resolved "https://github.com/doomsower/react-native-sentry#675ce9b3239c7fd2b65f878572a8953f3f19af66"
   dependencies:
     "@sentry/wizard" "^0.12.1"
     raven-js "^3.24.2"

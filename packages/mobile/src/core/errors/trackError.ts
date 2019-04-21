@@ -1,20 +1,10 @@
-import { Sentry } from 'react-native-sentry';
+import { tracker } from './tracker';
 
 export const trackError = (
-  origin: string,
+  logger: string,
   error: Error,
   componentStack?: string,
   isFatal?: boolean,
 ) => {
-  if (__DEV__) {
-    try {
-      console.dir(error);
-    } catch {
-      // tslint:disable-next-line:no-console
-      console.log(error);
-    }
-  }
-  if (!__DEV__) {
-    Sentry.captureException(error, { origin, isFatal, componentStack });
-  }
+  tracker.track({ error, logger, isFatal, componentStack });
 };
