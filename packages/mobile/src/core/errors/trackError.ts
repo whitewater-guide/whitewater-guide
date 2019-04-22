@@ -1,3 +1,4 @@
+import { AppError } from '@whitewater-guide/clients';
 import { tracker } from './tracker';
 
 export const trackError = (
@@ -6,5 +7,18 @@ export const trackError = (
   componentStack?: string,
   isFatal?: boolean,
 ) => {
-  tracker.track({ error, logger, isFatal, componentStack });
+  if (error instanceof AppError) {
+    tracker.track({
+      error,
+      logger,
+      extra: {
+        isFatal,
+        componentStack,
+        original: error.original,
+        error_id: error.id,
+      },
+    });
+  } else {
+    tracker.track({ error, logger, extra: { isFatal, componentStack } });
+  }
 };

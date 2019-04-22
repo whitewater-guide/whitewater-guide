@@ -3,8 +3,7 @@ import { Sentry } from 'react-native-sentry';
 interface Trace {
   logger: string;
   error: Error;
-  componentStack?: string;
-  isFatal?: boolean;
+  extra: { [key: string]: any };
 }
 
 class ErrorTracker {
@@ -18,7 +17,7 @@ class ErrorTracker {
   };
 
   track = (trace: Trace) => {
-    const { logger, error, componentStack, isFatal } = trace;
+    const { logger, error, extra } = trace;
     if (__DEV__) {
       try {
         console.dir(error);
@@ -32,7 +31,7 @@ class ErrorTracker {
       return;
     }
     if (!__DEV__) {
-      Sentry.captureException(error, { logger, isFatal, componentStack });
+      Sentry.captureException(error, { logger, ...extra });
     }
   };
 }

@@ -1,4 +1,5 @@
 import { TokenStorage } from '@whitewater-guide/clients';
+import Config from 'react-native-config';
 import {
   deleteItem,
   getItem,
@@ -6,8 +7,8 @@ import {
   setItem,
 } from 'react-native-sensitive-info';
 
-const KEYCHAIN_SERVICE = 'wwguide';
-const SHARED_PREFERENCES = 'wwguide';
+const KEYCHAIN_SERVICE = `wwguide_${Config.ENV_NAME}`;
+const SHARED_PREFERENCES = `wwguide_${Config.ENV_NAME}`;
 const ACEESS_TOKEN_KEY = '@accessToken';
 const REFRESH_TOKEN_KEY = '@refreshToken';
 

@@ -16,7 +16,7 @@ export const ErrorSnackbar: React.FC = () => {
       {({ data }) => {
         let errorStr = '';
         if (data && data.appError) {
-          errorStr = t(`errors.${data.appError.type}`, {
+          errorStr = t(`errors:${data.appError.type}`, {
             id: data.appError.id,
           });
         }
