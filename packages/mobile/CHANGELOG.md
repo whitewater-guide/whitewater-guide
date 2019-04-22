@@ -1,3 +1,14 @@
+## [1.7.55](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.54...@whitewater-guide/mobile@1.7.55) (2019-04-22)
+
+### Bug Fixes
+
+- **mobile:** add env to secure storage name ([161c664](https://github.com/doomsower/whitewater/commit/161c664))
+- **mobile:** fix error snackbar translation ([91831df](https://github.com/doomsower/whitewater/commit/91831df))
+
+### Features
+
+- **mobile:** improve app error tracking ([0535f82](https://github.com/doomsower/whitewater/commit/0535f82))
+
 ## [1.7.54](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.53...@whitewater-guide/mobile@1.7.54) (2019-04-22)
 
 ### Bug Fixes
