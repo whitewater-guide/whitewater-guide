@@ -1,6 +1,7 @@
-// declarations for network debugging
+// tslint:disable:no-namespace
+import { FetchMock } from 'jest-fetch-mock';
 
-// tslint:disable-next-line:no-namespace
+// declarations for network debugging
 declare namespace NodeJS {
   export interface Global {
     XMLHttpRequest: any;
@@ -17,3 +18,6 @@ declare namespace NodeJS {
 interface Window {
   __FETCH_SUPPORT__: any;
 }
+
+declare const fetch: FetchMock;
+declare const fetchMock: FetchMock;

@@ -1,3 +1,208 @@
+## [1.7.52](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.51...@whitewater-guide/mobile@1.7.52) (2019-04-21)
+
+### Bug Fixes
+
+- **mobile:** change versioning scheme for sentry ([2957f2f](https://github.com/doomsower/whitewater/commit/2957f2f))
+- **mobile:** fix fastlane ([1f61a26](https://github.com/doomsower/whitewater/commit/1f61a26))
+
+## [1.7.51](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.50...@whitewater-guide/mobile@1.7.51) (2019-04-21)
+
+### Bug Fixes
+
+- **mobile:** fix fastfile ([38c95cc](https://github.com/doomsower/whitewater/commit/38c95cc))
+- **mobile:** fix getDist ([ca1e064](https://github.com/doomsower/whitewater/commit/ca1e064))
+
+## [1.7.50](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.49...@whitewater-guide/mobile@1.7.50) (2019-04-21)
+
+### Bug Fixes
+
+- **mobile:** fix codepush + sentry ([6355b7f](https://github.com/doomsower/whitewater/commit/6355b7f))
+- **mobile:** fix version script ([b75efe5](https://github.com/doomsower/whitewater/commit/b75efe5))
+- **mobile:** sentry set dist ([acb5cd7](https://github.com/doomsower/whitewater/commit/acb5cd7))
+
+## [1.7.48](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.47...@whitewater-guide/mobile@1.7.48) (2019-04-21)
+
+### Bug Fixes
+
+- **mobile:** use sentry appcenter versioning ([dc80b22](https://github.com/doomsower/whitewater/commit/dc80b22))
+
+## [1.7.47](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.46...@whitewater-guide/mobile@1.7.47) (2019-04-21)
+
+### Bug Fixes
+
+- **mobile:** fix tracker this ([f1b870f](https://github.com/doomsower/whitewater/commit/f1b870f))
+
+## [1.7.46](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.45...@whitewater-guide/mobile@1.7.46) (2019-04-21)
+
+### Bug Fixes
+
+- **mobile:** fix dev track ([45b4352](https://github.com/doomsower/whitewater/commit/45b4352))
+- **mobile:** use gzip of forked react-native-sentry ([e3119f7](https://github.com/doomsower/whitewater/commit/e3119f7))
+
+## [1.7.45](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.44...@whitewater-guide/mobile@1.7.45) (2019-04-21)
+
+### Bug Fixes
+
+- **mobile:** use forked react-native-sentry ([f445988](https://github.com/doomsower/whitewater/commit/f445988))
+
+## [1.7.44](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.43...@whitewater-guide/mobile@1.7.44) (2019-04-20)
+
+### Bug Fixes
+
+- **mobile:** fix sentry react-native-sentry android ([fe5c226](https://github.com/doomsower/whitewater/commit/fe5c226))
+
+## [1.7.43](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.42...@whitewater-guide/mobile@1.7.43) (2019-04-20)
+
+### Bug Fixes
+
+- **mobile:** sentry setRelease ([87fe60b](https://github.com/doomsower/whitewater/commit/87fe60b))
+
+## [1.7.42](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.41...@whitewater-guide/mobile@1.7.42) (2019-04-20)
+
+### Bug Fixes
+
+- **mobile:** sentry setRelease ([0811c13](https://github.com/doomsower/whitewater/commit/0811c13))
+
+## [1.7.41](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.40...@whitewater-guide/mobile@1.7.41) (2019-04-20)
+
+### Bug Fixes
+
+- **mobile:** fix sentry version ([9552142](https://github.com/doomsower/whitewater/commit/9552142))
+
+## [1.7.40](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.39...@whitewater-guide/mobile@1.7.40) (2019-04-20)
+
+### Bug Fixes
+
+- **mobile:** temp debug ([dd0e352](https://github.com/doomsower/whitewater/commit/dd0e352))
+
+## [1.7.39](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.38...@whitewater-guide/mobile@1.7.39) (2019-04-20)
+
+### Bug Fixes
+
+- **mobile:** show local version ([0b414c7](https://github.com/doomsower/whitewater/commit/0b414c7))
+
+## [1.7.38](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.37...@whitewater-guide/mobile@1.7.38) (2019-04-20)
+
+## [1.7.37](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.36...@whitewater-guide/mobile@1.7.37) (2019-04-20)
+
+## [1.7.36](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.35...@whitewater-guide/mobile@1.7.36) (2019-04-20)
+
+## [1.7.35](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.34...@whitewater-guide/mobile@1.7.35) (2019-04-19)
+
+### Bug Fixes
+
+- **mobile:** fix ios sentry sourcemaps ([c7932e0](https://github.com/doomsower/whitewater/commit/c7932e0))
+
+## [1.7.34](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.33...@whitewater-guide/mobile@1.7.34) (2019-04-19)
+
+### Features
+
+- **mobile:** remove flavorAware ([cbc8976](https://github.com/doomsower/whitewater/commit/cbc8976))
+
+## [1.7.33](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.32...@whitewater-guide/mobile@1.7.33) (2019-04-19)
+
+### Features
+
+- **mobile:** always prefer ios build number ([49e2c8f](https://github.com/doomsower/whitewater/commit/49e2c8f))
+- **mobile:** make sentry flavorAware ([65cf69b](https://github.com/doomsower/whitewater/commit/65cf69b))
+
+## [1.7.32](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.31...@whitewater-guide/mobile@1.7.32) (2019-04-19)
+
+### Bug Fixes
+
+- **mobile:** downgrade rn ([4587a0c](https://github.com/doomsower/whitewater/commit/4587a0c))
+
+### Features
+
+- **mobile:** use sentry instead of crashlytics ([daf5548](https://github.com/doomsower/whitewater/commit/daf5548))
+
+## [1.7.31](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.30...@whitewater-guide/mobile@1.7.31) (2019-04-18)
+
+## [1.7.30](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.29...@whitewater-guide/mobile@1.7.30) (2019-04-15)
+
+## [1.7.29](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.28...@whitewater-guide/mobile@1.7.29) (2019-04-15)
+
+## [1.7.28](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.27...@whitewater-guide/mobile@1.7.28) (2019-04-12)
+
+## [1.7.27](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.26...@whitewater-guide/mobile@1.7.27) (2019-04-12)
+
+## [1.7.26](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.25...@whitewater-guide/mobile@1.7.26) (2019-04-11)
+
+### Bug Fixes
+
+- **mobile:** fix ErrorSnackbar ([163bab7](https://github.com/doomsower/whitewater/commit/163bab7))
+
+## [1.7.25](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.24...@whitewater-guide/mobile@1.7.25) (2019-04-11)
+
+### Bug Fixes
+
+- **mobile:** fix filter screen safe area ([91120cb](https://github.com/doomsower/whitewater/commit/91120cb)), closes [#357](https://github.com/doomsower/whitewater/issues/357)
+- **mobile:** fix premium dialog layout ([68f4b18](https://github.com/doomsower/whitewater/commit/68f4b18))
+- **mobile:** fix profile screen safe area ([5e95e39](https://github.com/doomsower/whitewater/commit/5e95e39)), closes [#357](https://github.com/doomsower/whitewater/issues/357)
+- **mobile:** fix SelectedElementView on iPhone X ([cf81152](https://github.com/doomsower/whitewater/commit/cf81152)), closes [#357](https://github.com/doomsower/whitewater/issues/357)
+- **mobile:** fix StatusBar + gallery Modal on Android ([e3526aa](https://github.com/doomsower/whitewater/commit/e3526aa)), closes [#365](https://github.com/doomsower/whitewater/issues/365)
+- **mobile:** improve iPhone X UI ([6901153](https://github.com/doomsower/whitewater/commit/6901153)), closes [#357](https://github.com/doomsower/whitewater/issues/357)
+
+### Features
+
+- **mobile:** added ErrorSnackbar ([0bed2b2](https://github.com/doomsower/whitewater/commit/0bed2b2))
+- **mobile:** live counter for filters ([aa3e222](https://github.com/doomsower/whitewater/commit/aa3e222)), closes [#120](https://github.com/doomsower/whitewater/issues/120)
+
+## [1.7.24](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.23...@whitewater-guide/mobile@1.7.24) (2019-04-09)
+
+## [1.7.23](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.22...@whitewater-guide/mobile@1.7.23) (2019-04-07)
+
+### Bug Fixes
+
+- **mobile:** fix error link ([b78ab80](https://github.com/doomsower/whitewater/commit/b78ab80))
+
+### Features
+
+- **mobile:** copy region/section descriptions ([1ccdace](https://github.com/doomsower/whitewater/commit/1ccdace)), closes [#352](https://github.com/doomsower/whitewater/issues/352)
+
+## [1.7.22](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.21...@whitewater-guide/mobile@1.7.22) (2019-04-05)
+
+### Bug Fixes
+
+- **mobile:** fix waitUntilActive ([17f23ca](https://github.com/doomsower/whitewater/commit/17f23ca))
+
+## [1.7.21](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.20...@whitewater-guide/mobile@1.7.21) (2019-04-05)
+
+### Bug Fixes
+
+- **mobile:** temp alert on error2 ([5664429](https://github.com/doomsower/whitewater/commit/5664429))
+
+## [1.7.20](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.19...@whitewater-guide/mobile@1.7.20) (2019-04-04)
+
+### Bug Fixes
+
+- **mobile:** temp alert on error ([989c6c0](https://github.com/doomsower/whitewater/commit/989c6c0))
+
+## [1.7.19](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.18...@whitewater-guide/mobile@1.7.19) (2019-04-04)
+
+### Features
+
+- **mobile:** use fetchRetry for sign in ([fc41668](https://github.com/doomsower/whitewater/commit/fc41668))
+
+## [1.7.18](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.17...@whitewater-guide/mobile@1.7.18) (2019-04-04)
+
+## [1.7.17](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.16...@whitewater-guide/mobile@1.7.17) (2019-04-04)
+
+### Bug Fixes
+
+- **mobile:** fix RadioDialog keys ([2230c56](https://github.com/doomsower/whitewater/commit/2230c56))
+- **mobile:** fix sign out + myPurchases bug ([3f49166](https://github.com/doomsower/whitewater/commit/3f49166))
+
+### Features
+
+- **mobile:** show alert dialog on sign out ([6f350b0](https://github.com/doomsower/whitewater/commit/6f350b0))
+
+## [1.7.16](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.15...@whitewater-guide/mobile@1.7.16) (2019-04-04)
+
+### Features
+
+- mobile app now uses jwt auth ([57ef553](https://github.com/doomsower/whitewater/commit/57ef553))
+
 ## [1.7.15](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.14...@whitewater-guide/mobile@1.7.15) (2019-03-26)
 
 ### Features

@@ -1,4 +1,4 @@
-import { MyProfileProvider } from '@whitewater-guide/clients';
+import { AuthProvider } from '@whitewater-guide/clients';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
@@ -8,6 +8,7 @@ import { Store } from 'redux';
 import { Persistor } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import { client, refreshJWT } from './apollo';
+import { webAuthService } from './auth';
 import { Loading } from './components';
 import { RootLayout } from './layout';
 import { configureStore } from './redux';
@@ -48,11 +49,11 @@ export default class App extends React.PureComponent<{}, State> {
           <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
               <ApolloProvider client={client}>
-                <MyProfileProvider renderLoading={this.renderLoading}>
+                <AuthProvider service={webAuthService}>
                   <BrowserRouter>
                     <RootLayout />
                   </BrowserRouter>
-                </MyProfileProvider>
+                </AuthProvider>
               </ApolloProvider>
             </PersistGate>
           </Provider>

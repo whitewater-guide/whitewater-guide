@@ -1,9 +1,8 @@
 import React from 'react';
-import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
-import CodePush from 'react-native-code-push';
+import { Alert, Clipboard, StyleSheet, View } from 'react-native';
 import Config from 'react-native-config';
-import DeviceInfo from 'react-native-device-info';
 import { Caption } from 'react-native-paper';
+import { CodePushVersion, versioning } from '../../utils/versioning';
 
 const styles = StyleSheet.create({
   container: {
@@ -17,78 +16,59 @@ const styles = StyleSheet.create({
 });
 
 interface State {
-  local: string | null;
-  pending: string | null;
-  remote: string | null;
+  codePushVersion: CodePushVersion;
+  humanVersion: string;
+  sentryVersion: string;
 }
-
-const getPrettyVersion = () => {
-  const version = DeviceInfo.getVersion();
-  const build = DeviceInfo.getBuildNumber().toString();
-  let result: string;
-  if (Platform.OS === 'ios' || build.length < 9) {
-    result = `${version}.${build}.`;
-  } else {
-    // '%d%03d%03d%02d' - from Fastfile
-    const regexp = /(\d+)(\d{3})(\d{3})(\d{2})/;
-    const [_, majorStr, minorStr, patchStr, buildStr]: any = build.match(
-      regexp,
-    );
-    result = `${parseInt(majorStr, 10)}.${parseInt(minorStr, 10)}.${parseInt(
-      patchStr,
-      10,
-    )}.${parseInt(buildStr, 10)}`;
-  }
-  return result;
-};
 
 class VersionBadge extends React.PureComponent<{}, State> {
   state: State = {
-    local: null,
-    pending: null,
-    remote: null,
+    codePushVersion: {
+      local: null,
+      pending: null,
+      remote: null,
+    },
+    humanVersion: '',
+    sentryVersion: '',
   };
 
   async componentDidMount() {
-    await this.checkCodePush();
+    const codePushVersion = await versioning.getCodePushVersion();
+    const humanVersion = await versioning.getHumanVersion();
+    const sentryVersion = await versioning.getSentryVersion();
+    this.setState({ humanVersion, codePushVersion, sentryVersion });
   }
 
-  checkCodePush = async () => {
-    try {
-      const localPackage = await CodePush.getUpdateMetadata(
-        CodePush.UpdateState.RUNNING,
-      );
-      const pendingPackage = await CodePush.getUpdateMetadata(
-        CodePush.UpdateState.PENDING,
-      );
-      const remotePackage = await CodePush.checkForUpdate();
-      this.setState({
-        local: localPackage ? localPackage.label : null,
-        pending: pendingPackage ? pendingPackage.label : null,
-        remote: remotePackage ? remotePackage.label : null,
-      });
-    } catch (e) {
-      /* Ignore */
-    }
+  showDetails = () => {
+    const { codePushVersion, sentryVersion } = this.state;
+    const { local, pending, remote } = codePushVersion;
+    const { version } = require('../../../package.json');
+    const { androidBuildNumber, iosBuildNumber } = require('../../../app.json');
+
+    const info = `Version: ${version}
+Build: ${iosBuildNumber} / ${androidBuildNumber}
+Environment: ${Config.ENV_NAME}
+Sentry: ${sentryVersion}
+CodePush local: ${local}
+CodePush pending: ${pending}
+CodePush remote: ${remote}`;
+
+    Alert.alert('Version info', info, [
+      { text: 'Copy', onPress: () => Clipboard.setString(info) },
+      { text: 'OK' },
+    ]);
   };
 
   render() {
-    const { local, pending, remote } = this.state;
-    const version = `${getPrettyVersion()}${local || 'v0'} ${Config.ENV_NAME}`;
+    const { humanVersion } = this.state;
+    const version = `${humanVersion} ${Config.ENV_NAME}`;
     return (
-      <TouchableOpacity onPress={this.checkCodePush}>
-        <View style={styles.container}>
-          <Caption style={styles.text}>{version}</Caption>
-          {pending && (
-            <Caption
-              style={styles.text}
-            >{`${pending} is ready to install`}</Caption>
-          )}
-          {remote && (
-            <Caption style={styles.text}>{`${remote} is available`}</Caption>
-          )}
-        </View>
-      </TouchableOpacity>
+      <View style={styles.container}>
+        <Caption
+          style={styles.text}
+          onPress={this.showDetails}
+        >{`${version} (details)`}</Caption>
+      </View>
     );
   }
 }

@@ -1,9 +1,10 @@
 import db from '@db';
+import { AccessTokenPayload } from '@whitewater-guide/commons';
 import { TokenExpiredError } from 'jsonwebtoken';
 import get from 'lodash/get';
+import shortid from 'shortid';
 import { MiddlewareFactory } from '../types';
 import logger from './logger';
-import { AccessTokenPayload } from './types';
 
 export const authenticateWithJWT: MiddlewareFactory = (passport) => async (
   ctx,
@@ -20,16 +21,19 @@ export const authenticateWithJWT: MiddlewareFactory = (passport) => async (
           return;
         }
         if (err || (info && info.message !== 'No auth token')) {
-          logger.error(
-            { strategy: 'jwt', ...payload },
-            get(err, 'message') || get(info, 'message'),
-          );
-          ctx.body = { success: false, error: 'unauthenticated' };
+          const error_id = shortid.generate();
+          logger.error({
+            message: get(err, 'message') || get(info, 'message'),
+            tags: { strategy: 'jwt', error_id },
+            extra: payload,
+          });
+          ctx.body = { success: false, error: 'unauthenticated', error_id };
           ctx.status = 401;
           return;
         }
 
         if (payload) {
+          const error_id = shortid.generate();
           // TODO: cache context user in redis
           const user = await db()
             .select('id', 'admin', 'language', 'verified')
@@ -39,7 +43,12 @@ export const authenticateWithJWT: MiddlewareFactory = (passport) => async (
           if (user) {
             ctx.state.user = user;
           } else {
-            ctx.body = { success: false, error: 'unauthenticated' };
+            logger.error({
+              message: 'user not found',
+              tags: { strategy: 'jwt', error_id },
+              extra: payload,
+            });
+            ctx.body = { success: false, error: 'unauthenticated', error_id };
             ctx.status = 401;
             return;
           }

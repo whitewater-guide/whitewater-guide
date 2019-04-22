@@ -16,7 +16,12 @@ export const apolloErrorToString = (e?: ApolloError): string => {
     return `${result}: ${message}`;
   }
   if (networkError) {
-    return `Network error: ${networkError.message}`;
+    const id = get(networkError, 'result.error_d');
+    let result = 'Network error';
+    if (id) {
+      result = `${result} (${id})`;
+    }
+    return `${result}: ${networkError.message}`;
   }
   return 'Something bad happened';
 };

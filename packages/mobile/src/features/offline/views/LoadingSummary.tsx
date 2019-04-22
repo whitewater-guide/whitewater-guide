@@ -1,5 +1,5 @@
 import React from 'react';
-import { WithI18n } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { Button, Caption, Subheading } from 'react-native-paper';
 import { Icon } from '../../../components';
@@ -15,32 +15,30 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Props extends WithI18n {
+interface Props {
   summary: GraphqlProps['summary'];
 }
 
-class LoadingSummary extends React.PureComponent<Props> {
-  render() {
-    const { summary, t } = this.props;
-    const { error, refetch } = summary;
-    if (error) {
-      return (
-        <View style={styles.container}>
-          <Icon icon="alert" />
-          <Subheading>{t('offline:dialog.summaryError')}</Subheading>
-          <Button color={theme.colors.primary} compact={true} onPress={refetch}>
-            {this.props.t('commons:retry')}
-          </Button>
-        </View>
-      );
-    }
+const LoadingSummary: React.FC<Props> = ({ summary }) => {
+  const [t] = useTranslation();
+  const { error, refetch } = summary;
+  if (error) {
     return (
       <View style={styles.container}>
-        <ActivityIndicator color={theme.colors.primary} />
-        <Caption>{t('offline:dialog.loadingSummary')}</Caption>
+        <Icon icon="alert" />
+        <Subheading>{t('offline:dialog.summaryError')}</Subheading>
+        <Button color={theme.colors.primary} compact={true} onPress={refetch}>
+          {t('commons:retry')}
+        </Button>
       </View>
     );
   }
-}
+  return (
+    <View style={styles.container}>
+      <ActivityIndicator color={theme.colors.primary} />
+      <Caption>{t('offline:dialog.loadingSummary')}</Caption>
+    </View>
+  );
+};
 
 export default LoadingSummary;

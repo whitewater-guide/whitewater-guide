@@ -1,5 +1,5 @@
 import React from 'react';
-import { translate, withI18n, WithI18n } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 import { Button, Dialog, Subheading } from 'react-native-paper';
 import { AnonHeader, UserHeader } from '../../../../components';
@@ -13,49 +13,51 @@ const styles = StyleSheet.create({
   subheading: {
     marginBottom: theme.margin.single,
   },
+  cancelButton: {
+    marginRight: theme.margin.half,
+  },
 });
 
-type Props = InnerProps & OuterProps & WithI18n;
+type Props = InnerProps & OuterProps;
 
-class AuthStep extends React.PureComponent<Props> {
-  renderAnon = () => (
+const AuthStep: React.FC<Props> = (props) => {
+  const { me, onCancel, onContinue, cancelable = true } = props;
+  const [t] = useTranslation();
+  return (
     <React.Fragment>
-      <Subheading style={styles.subheading}>
-        {this.props.t('iap:auth.anon')}
-      </Subheading>
-      <AnonHeader medium={true} padded={false} />
-    </React.Fragment>
-  );
-
-  renderUser = () => (
-    <React.Fragment>
-      <UserHeader user={this.props.me!} medium={true} padded={false} />
-      <Subheading style={styles.subheading}>
-        {this.props.t('iap:auth.user')}
-      </Subheading>
-    </React.Fragment>
-  );
-
-  render() {
-    const { me, onCancel, onContinue, cancelable = true } = this.props;
-    return (
-      <React.Fragment>
-        <Dialog.Content style={styles.dialogContent}>
-          {me ? this.renderUser() : this.renderAnon()}
-        </Dialog.Content>
-        <Dialog.Actions>
-          {cancelable && (
-            <Button mode="outlined" onPress={onCancel}>
-              Cancel
-            </Button>
-          )}
-          <Button mode="contained" onPress={onContinue} disabled={!me}>
-            Continue
+      <Dialog.Content style={styles.dialogContent}>
+        {me ? (
+          <React.Fragment>
+            <UserHeader user={me!} medium={true} padded={false} />
+            <Subheading style={styles.subheading}>
+              {t('iap:auth.user')}
+            </Subheading>
+          </React.Fragment>
+        ) : (
+          <React.Fragment>
+            <Subheading style={styles.subheading}>
+              {t('iap:auth.anon')}
+            </Subheading>
+            <AnonHeader medium={true} padded={false} />
+          </React.Fragment>
+        )}
+      </Dialog.Content>
+      <Dialog.Actions>
+        {cancelable && (
+          <Button
+            mode="outlined"
+            onPress={onCancel}
+            style={styles.cancelButton}
+          >
+            Cancel
           </Button>
-        </Dialog.Actions>
-      </React.Fragment>
-    );
-  }
-}
+        )}
+        <Button mode="contained" onPress={onContinue} disabled={!me}>
+          Continue
+        </Button>
+      </Dialog.Actions>
+    </React.Fragment>
+  );
+};
 
-export default withI18n()(AuthStep);
+export default AuthStep;

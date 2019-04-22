@@ -1,4 +1,5 @@
 export * from './apollo';
+export * from './auth';
 export * from './core';
 export * from './test';
 export * from './utils';

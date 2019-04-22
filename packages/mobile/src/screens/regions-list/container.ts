@@ -1,4 +1,4 @@
-import { withI18n } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { withNavigationFocus } from 'react-navigation';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
@@ -9,7 +9,7 @@ import { InnerProps, OuterProps } from './types';
 
 const container = compose<InnerProps, OuterProps>(
   withNavigationFocus,
-  withI18n(),
+  withTranslation(),
   connectPremiumDialog,
   connect(
     (state: RootState) => ({

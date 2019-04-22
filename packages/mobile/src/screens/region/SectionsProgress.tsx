@@ -1,6 +1,6 @@
 import debounce from 'lodash/debounce';
 import React from 'react';
-import { withI18n, WithI18n } from 'react-i18next';
+import { withTranslation, WithTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Caption } from 'react-native-paper';
 import theme from '../../theme';
@@ -39,7 +39,10 @@ interface State {
   status: SectionsStatus;
 }
 
-class SectionsProgress extends React.PureComponent<Props & WithI18n, State> {
+class SectionsProgress extends React.PureComponent<
+  Props & WithTranslation,
+  State
+> {
   readonly state: State = { status: this.props.status };
 
   updateState = debounce(this.setState, 200);
@@ -48,9 +51,9 @@ class SectionsProgress extends React.PureComponent<Props & WithI18n, State> {
     this.updateState.cancel();
   }
 
-  componentWillReceiveProps(next: Props) {
-    if (next.status !== this.props.status) {
-      this.updateState({ status: next.status });
+  componentDidUpdate(prevProps: Props) {
+    if (prevProps.status !== this.props.status) {
+      this.updateState({ status: this.props.status });
     }
   }
 
@@ -73,4 +76,4 @@ class SectionsProgress extends React.PureComponent<Props & WithI18n, State> {
   }
 }
 
-export default withI18n()(SectionsProgress);
+export default withTranslation()(SectionsProgress);

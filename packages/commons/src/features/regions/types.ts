@@ -4,7 +4,7 @@ import {
   NamedNode,
   TextSearchFilter,
   Timestamped,
-} from '../../core';
+} from '../../apollo';
 import { Banner } from '../banners';
 import { Gauge } from '../gauges';
 import { Group } from '../groups';

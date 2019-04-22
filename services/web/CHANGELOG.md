@@ -1,3 +1,25 @@
+## [0.1.328](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.327...@whitewater-guide/web@0.1.328) (2019-04-15)
+
+## [0.1.327](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.326...@whitewater-guide/web@0.1.327) (2019-04-15)
+
+### Features
+
+- improve auth error handling ([11008d6](https://github.com/doomsower/whitewater/commit/11008d6))
+
+## [0.1.326](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.325...@whitewater-guide/web@0.1.326) (2019-04-12)
+
+## [0.1.325](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.324...@whitewater-guide/web@0.1.325) (2019-04-12)
+
+## [0.1.324](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.323...@whitewater-guide/web@0.1.324) (2019-04-09)
+
+## [0.1.323](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.322...@whitewater-guide/web@0.1.323) (2019-04-04)
+
+## [0.1.322](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.321...@whitewater-guide/web@0.1.322) (2019-04-04)
+
+### Features
+
+- mobile app now uses jwt auth ([57ef553](https://github.com/doomsower/whitewater/commit/57ef553))
+
 ## [0.1.321](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.320...@whitewater-guide/web@0.1.321) (2019-03-26)
 
 ## [0.1.320](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.319...@whitewater-guide/web@0.1.320) (2019-03-24)

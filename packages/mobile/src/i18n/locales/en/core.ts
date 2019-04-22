@@ -1,4 +1,6 @@
 import auth from './auth';
+import errors from './errors';
+import filter from './filter';
 import iap from './iap';
 import offline from './offline';
 
@@ -6,6 +8,8 @@ export default {
   auth,
   iap,
   offline,
+  filter,
+  errors,
   commons: {
     putIn: 'Put-in',
     takeOut: 'Take-out',
@@ -70,6 +74,10 @@ export default {
     info: {
       title: 'About region',
       noData: 'No description for this region',
+      menu: {
+        title: 'Actions',
+        clipboard: 'Copy to clipboard',
+      },
     },
     map: {
       title: 'Map',
@@ -122,6 +130,10 @@ export default {
     guide: {
       title: 'Description',
       noData: 'No guide for this section yet...',
+      menu: {
+        title: 'Actions',
+        clipboard: 'Copy to clipboard',
+      },
     },
     media: {
       title: 'Media',
@@ -140,16 +152,6 @@ export default {
     info: {
       title: 'Info',
     },
-  },
-  filter: {
-    title: 'Filters',
-    reset: 'Reset',
-    difficultyValue: 'Difficulty: {{minDiff}}',
-    difficultyRange: 'Difficulty: from {{minDiff}} to {{maxDiff}}',
-    durationValue: 'Duration: {{minDuration}}',
-    durationRange: 'Duration: from {{minDuration}} to {{maxDuration}}',
-    rating: 'Minimal rating',
-    search: 'Find',
   },
   durations: {
     10: 'Laps',

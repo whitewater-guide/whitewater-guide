@@ -1,6 +1,6 @@
 import { sleep } from '@whitewater-guide/clients';
 import React from 'react';
-import { translate, withI18n, WithI18n } from 'react-i18next';
+import { WithTranslation, withTranslation } from 'react-i18next';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { Button, Subheading } from 'react-native-paper';
 import theme from '../theme';
@@ -34,7 +34,7 @@ interface State {
 }
 
 class RetryPlaceholderInner extends React.PureComponent<
-  Props & WithI18n,
+  Props & WithTranslation,
   State
 > {
   readonly state: State = { refetching: false };
@@ -84,4 +84,4 @@ class RetryPlaceholderInner extends React.PureComponent<
   }
 }
 
-export const RetryPlaceholder = withI18n()(RetryPlaceholderInner);
+export const RetryPlaceholder = withTranslation()(RetryPlaceholderInner);

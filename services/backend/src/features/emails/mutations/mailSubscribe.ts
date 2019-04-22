@@ -21,7 +21,7 @@ const mailSubscribe: TopLevelResolver<Vars> = async (_, { mail }) => {
       'mailchimp subscription',
     );
   } catch (err) {
-    logger.error({ mail, error: err }, 'Mailchimp failed');
+    logger.error({ message: 'mailchimp.failed', extra: { mail }, error: err });
     return false;
   }
   return true;

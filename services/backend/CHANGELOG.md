@@ -1,3 +1,72 @@
+## [0.0.338](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.337...@whitewater-guide/backend@0.0.338) (2019-04-17)
+
+### Bug Fixes
+
+- **backend:** fix sentry imports ([0ae3523](https://github.com/doomsower/whitewater/commit/0ae3523))
+
+## [0.0.337](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.336...@whitewater-guide/backend@0.0.337) (2019-04-17)
+
+### Features
+
+- **backend:** send errors to sentry ([b434f7f](https://github.com/doomsower/whitewater/commit/b434f7f))
+
+## [0.0.336](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.335...@whitewater-guide/backend@0.0.336) (2019-04-16)
+
+### Bug Fixes
+
+- **backend:** fix pino-raven ([471f74d](https://github.com/doomsower/whitewater/commit/471f74d))
+
+## [0.0.335](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.334...@whitewater-guide/backend@0.0.335) (2019-04-16)
+
+### Bug Fixes
+
+- **backend:** add git ([18081e0](https://github.com/doomsower/whitewater/commit/18081e0))
+
+## [0.0.334](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.333...@whitewater-guide/backend@0.0.334) (2019-04-16)
+
+### Features
+
+- **backend:** pipe pm2 logs to sentry ([b1da706](https://github.com/doomsower/whitewater/commit/b1da706))
+
+## [0.0.333](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.332...@whitewater-guide/backend@0.0.333) (2019-04-16)
+
+### Bug Fixes
+
+- **backend:** fix pm2 modules ([1d14dbc](https://github.com/doomsower/whitewater/commit/1d14dbc))
+
+## [0.0.332](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.331...@whitewater-guide/backend@0.0.332) (2019-04-16)
+
+### Bug Fixes
+
+- **backend:** pm2 save ([699495c](https://github.com/doomsower/whitewater/commit/699495c))
+
+## [0.0.331](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.330...@whitewater-guide/backend@0.0.331) (2019-04-16)
+
+### Features
+
+- **backend:** add logrotate ([90d337b](https://github.com/doomsower/whitewater/commit/90d337b))
+- **backend:** run pm2 with --raw ([5583592](https://github.com/doomsower/whitewater/commit/5583592))
+
+## [0.0.330](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.329...@whitewater-guide/backend@0.0.330) (2019-04-15)
+
+### Features
+
+- improve auth error handling ([11008d6](https://github.com/doomsower/whitewater/commit/11008d6))
+
+## [0.0.329](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.328...@whitewater-guide/backend@0.0.329) (2019-04-12)
+
+## [0.0.328](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.327...@whitewater-guide/backend@0.0.328) (2019-04-09)
+
+### Features
+
+- **backend:** generate unique errorId for auth errors ([e7680aa](https://github.com/doomsower/whitewater/commit/e7680aa))
+
+## [0.0.327](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.326...@whitewater-guide/backend@0.0.327) (2019-04-04)
+
+### Features
+
+- mobile app now uses jwt auth ([57ef553](https://github.com/doomsower/whitewater/commit/57ef553))
+
 ## [0.0.326](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.325...@whitewater-guide/backend@0.0.326) (2019-03-26)
 
 ### Features

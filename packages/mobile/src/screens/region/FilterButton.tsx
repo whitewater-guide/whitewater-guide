@@ -1,11 +1,10 @@
 import { consumeRegion, RegionState } from '@whitewater-guide/clients';
 import React from 'react';
-import { NavigationSceneRendererProps } from 'react-navigation';
+import { NavigationInjectedProps } from 'react-navigation';
 import { Icon } from '../../components';
 import theme from '../../theme';
 
-type Props = Pick<NavigationSceneRendererProps, 'navigation'> &
-  Pick<RegionState, 'searchTerms'>;
+type Props = NavigationInjectedProps & Pick<RegionState, 'searchTerms'>;
 
 class FilterButton extends React.PureComponent<Props> {
   onPress = () => this.props.navigation.navigate('Filter');

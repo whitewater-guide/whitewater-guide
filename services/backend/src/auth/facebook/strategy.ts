@@ -27,13 +27,15 @@ export const facebookStrategy = new FacebookTokenStrategy(
             user: { id: user.id, name: user.name || '' },
           });
         } catch (e) {
-          logger.error(
-            {
+          logger.error({
+            extra: {
               email: user.email,
               error: e.message,
             },
-            'signup.send.verification.error',
-          );
+            tags: {
+              code: 'signup.send.verification.error',
+            },
+          });
         }
       }
       done(null, user);

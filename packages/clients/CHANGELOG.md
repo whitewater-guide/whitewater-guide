@@ -1,3 +1,23 @@
+## [0.0.211](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.210...@whitewater-guide/clients@0.0.211) (2019-04-15)
+
+## [0.0.210](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.209...@whitewater-guide/clients@0.0.210) (2019-04-12)
+
+## [0.0.209](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.208...@whitewater-guide/clients@0.0.209) (2019-04-12)
+
+## [0.0.208](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.207...@whitewater-guide/clients@0.0.208) (2019-04-09)
+
+## [0.0.207](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.206...@whitewater-guide/clients@0.0.207) (2019-04-04)
+
+### Features
+
+- **clients:** add fetchRetry utility ([d521900](https://github.com/doomsower/whitewater/commit/d521900))
+
+## [0.0.206](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.204...@whitewater-guide/clients@0.0.206) (2019-04-04)
+
+### Features
+
+- mobile app now uses jwt auth ([57ef553](https://github.com/doomsower/whitewater/commit/57ef553))
+
 ## [0.0.204](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.203...@whitewater-guide/clients@0.0.204) (2019-03-26)
 
 ### Features

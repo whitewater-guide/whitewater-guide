@@ -1,7 +1,7 @@
 import { consumeRegion, WithRegion } from '@whitewater-guide/clients';
 import { Section } from '@whitewater-guide/commons';
 import React from 'react';
-import { translate, withI18n, WithI18n } from 'react-i18next';
+import { WithTranslation, withTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Button, Caption } from 'react-native-paper';
 import { compose } from 'recompose';
@@ -20,7 +20,7 @@ interface OuterProps extends WithPremiumDialog {
   section: Section;
 }
 
-type InnerProps = OuterProps & WithRegion & WithI18n;
+type InnerProps = OuterProps & WithRegion & WithTranslation;
 
 class PremiumPlaceholder extends React.PureComponent<InnerProps> {
   onBuy = () => {
@@ -51,7 +51,7 @@ class PremiumPlaceholder extends React.PureComponent<InnerProps> {
 
 const container = compose<InnerProps, OuterProps>(
   consumeRegion(),
-  withI18n(),
+  withTranslation(),
 );
 
 export default container(PremiumPlaceholder);

@@ -1,10 +1,9 @@
-import { withMe, WithMe } from '@whitewater-guide/clients';
+import { useAuth } from '@whitewater-guide/clients';
 import MuiDrawer from 'material-ui/Drawer';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import React from 'react';
 import { matchPath, RouteComponentProps, withRouter } from 'react-router-dom';
-import { compose } from 'recompose';
 import { Styles } from '../../styles';
 
 const styles: Styles = {
@@ -32,16 +31,16 @@ interface Props {
   onChange: (open: boolean) => void;
 }
 
-type InnerProps = Props & RouteComponentProps<any> & WithMe;
+type InnerProps = Props & RouteComponentProps<any>;
 
 const Drawer = ({
   onChange,
   isOpen,
   location,
   history: { push },
-  me,
 }: InnerProps) => {
   const value = '/' + location.pathname.split('/')[1];
+  const { me } = useAuth();
   return (
     <MuiDrawer
       docked={false}
@@ -78,7 +77,4 @@ const Drawer = ({
   );
 };
 
-export default compose<InnerProps, Props>(
-  withRouter,
-  withMe,
-)(Drawer);
+export default withRouter(Drawer);

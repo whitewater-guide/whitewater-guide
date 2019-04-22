@@ -1,9 +1,8 @@
+import { AccessTokenPayload, AuthPayload } from '@whitewater-guide/commons';
 import { ParameterizedContext } from 'koa';
 import { IRouterParamContext } from 'koa-router';
 import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from '../constants';
-import { SignInResponseBody } from '../types';
 import { getAccessToken, getRefreshToken } from './tokens';
-import { AccessTokenPayload } from './types';
 
 type Ctx = ParameterizedContext<any, IRouterParamContext<any, {}>>;
 
@@ -18,7 +17,7 @@ export const sendCredentials = (
   const accessToken = getAccessToken(user.id);
   const refreshToken = rfrshToken || getRefreshToken(user.id);
 
-  const body: SignInResponseBody = {
+  const body: AuthPayload = {
     success: true,
     id: user.id,
   };

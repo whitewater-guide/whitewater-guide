@@ -1,3 +1,2 @@
-import { RegionInfoScreen } from './RegionInfoScreen';
-
-export default RegionInfoScreen;
+export * from './RegionInfoScreen';
+export * from './RegionInfoMenu';

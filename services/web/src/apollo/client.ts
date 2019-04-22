@@ -1,18 +1,16 @@
 import {
+  appErrorResolver,
   configureApolloCache,
   errorLink,
-  setApolloErrorClientResolver,
 } from '@whitewater-guide/clients';
 import { ApolloClient } from 'apollo-client';
 import { ApolloLink } from 'apollo-link';
 import { createHttpLink } from 'apollo-link-http';
-import { createBrowserHistory } from 'history';
 import { API_HOST } from '../environment';
+import { history } from '../history';
 import { EditorLanguageLink } from '../i18n/editors';
 import { initLocalState } from './initLocalState';
 import { refreshJwtLink } from './refreshJwtLink';
-
-const history = createBrowserHistory();
 
 const editorLanguageLink = new EditorLanguageLink();
 
@@ -27,7 +25,11 @@ initLocalState(cache);
 export const client = new ApolloClient({
   link: ApolloLink.from([
     editorLanguageLink,
-    errorLink(cache, () => history.replace('/regions')),
+    errorLink(cache, (err) => {
+      if (err.type === 'auth') {
+        history.replace('/regions');
+      }
+    }),
     refreshJwtLink,
     httpLink,
   ]),
@@ -35,7 +37,7 @@ export const client = new ApolloClient({
   connectToDevTools: process.env.NODE_ENV === 'development',
   resolvers: {
     Mutation: {
-      setApolloError: setApolloErrorClientResolver,
+      ...appErrorResolver,
     },
   },
 });

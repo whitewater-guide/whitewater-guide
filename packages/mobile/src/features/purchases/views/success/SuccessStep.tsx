@@ -1,5 +1,5 @@
 import React from 'react';
-import { withI18n, WithI18n } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 import { Button, Dialog, Paragraph, Subheading } from 'react-native-paper';
 import theme from '../../../../theme';
@@ -19,27 +19,23 @@ interface Props {
   onComplete?: () => void;
 }
 
-class SuccessStep extends React.PureComponent<Props & WithI18n> {
-  render() {
-    const { t, region, onComplete } = this.props;
-    return (
-      <React.Fragment>
-        <Dialog.Content style={styles.dialogContent}>
-          <Subheading style={styles.subheading}>
-            {t('iap:success.subheading')}
-          </Subheading>
-          <Paragraph>
-            {t('iap:success.body', { region: region.name })}
-          </Paragraph>
-        </Dialog.Content>
-        <Dialog.Actions>
-          <Button mode="contained" onPress={onComplete}>
-            {t('commons:ok')}
-          </Button>
-        </Dialog.Actions>
-      </React.Fragment>
-    );
-  }
-}
+const SuccessStep: React.FC<Props> = ({ region, onComplete }) => {
+  const [t] = useTranslation();
+  return (
+    <React.Fragment>
+      <Dialog.Content style={styles.dialogContent}>
+        <Subheading style={styles.subheading}>
+          {t('iap:success.subheading')}
+        </Subheading>
+        <Paragraph>{t('iap:success.body', { region: region.name })}</Paragraph>
+      </Dialog.Content>
+      <Dialog.Actions>
+        <Button mode="contained" onPress={onComplete}>
+          {t('commons:ok')}
+        </Button>
+      </Dialog.Actions>
+    </React.Fragment>
+  );
+};
 
-export default withI18n()(SuccessStep);
+export default SuccessStep;

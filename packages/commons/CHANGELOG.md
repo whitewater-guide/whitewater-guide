@@ -1,3 +1,23 @@
+## [0.0.127](https://github.com/doomsower/whitewater/compare/@whitewater-guide/commons@0.0.126...@whitewater-guide/commons@0.0.127) (2019-04-12)
+
+## [0.0.126](https://github.com/doomsower/whitewater/compare/@whitewater-guide/commons@0.0.125...@whitewater-guide/commons@0.0.126) (2019-04-09)
+
+### Features
+
+- **backend:** generate unique errorId for auth errors ([e7680aa](https://github.com/doomsower/whitewater/commit/e7680aa))
+
+## [0.0.125](https://github.com/doomsower/whitewater/compare/@whitewater-guide/commons@0.0.123...@whitewater-guide/commons@0.0.125) (2019-04-04)
+
+### Features
+
+- mobile app now uses jwt auth ([57ef553](https://github.com/doomsower/whitewater/commit/57ef553))
+
+## [0.0.124-mobile.0](https://github.com/doomsower/whitewater/compare/@whitewater-guide/commons@0.0.123...@whitewater-guide/commons@0.0.124-mobile.0) (2019-03-30)
+
+### Features
+
+- new auth provider with hooks ([0476106](https://github.com/doomsower/whitewater/commit/0476106))
+
 ## [0.0.123](https://github.com/doomsower/whitewater/compare/@whitewater-guide/commons@0.0.122...@whitewater-guide/commons@0.0.123) (2019-03-21)
 
 ### Features

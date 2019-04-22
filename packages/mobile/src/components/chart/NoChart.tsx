@@ -1,5 +1,5 @@
 import React from 'react';
-import { withI18n, WithI18n } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Subheading } from 'react-native-paper';
 import theme from '../../theme';
@@ -18,10 +18,8 @@ interface Props {
   noData?: boolean;
 }
 
-const NoChartInternal: React.StatelessComponent<Props & WithI18n> = ({
-  noData,
-  t,
-}) => {
+export const NoChart: React.FC<Props> = ({ noData }) => {
+  const [t] = useTranslation();
   const message = noData
     ? t('section:chart.noData')
     : t('section:chart.noGauge');
@@ -32,5 +30,3 @@ const NoChartInternal: React.StatelessComponent<Props & WithI18n> = ({
     </View>
   );
 };
-
-export const NoChart = withI18n()(NoChartInternal);

@@ -10,6 +10,7 @@ export const MY_PROFILE_QUERY = gql`
       admin
       language
       imperial
+      verified
       editorSettings {
         language
       }

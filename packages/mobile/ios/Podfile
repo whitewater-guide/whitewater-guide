@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '9.0'
+platform :ios, '9.1'
 
 target 'whitewater' do
   rn_path = '../node_modules/react-native'
@@ -25,14 +25,12 @@ target 'whitewater' do
       'RCTWebSocket',
   ]
 
-  pod 'Firebase/Core', '~> 5.15.0'
-  pod 'Firebase/Messaging', '~> 5.15.0'
+  pod 'Firebase/Core', '~> 5.20.1'
+  pod 'Firebase/Messaging', '~> 5.20.1'
 
-  pod 'FBSDKLoginKit'
-  pod 'FBSDKShareKit'
-
-  pod 'Fabric', '~> 1.7.11'
-  pod 'Crashlytics', '~> 3.10.7'
+  pod 'FBSDKCoreKit', '~> 4.40.0'
+  pod 'FBSDKLoginKit', '~> 4.40.0'
+  pod 'FBSDKShareKit', '~> 4.40.0'
 
   # React Native third party dependencies podspecs
   pod 'DoubleConversion', :podspec => "#{rn_path}/third-party-podspecs/DoubleConversion.podspec"
@@ -53,6 +51,14 @@ target 'whitewater' do
   pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
 
   pod 'RNScreens', :path => '../node_modules/react-native-screens'
+
+  pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
+
+  pod 'RNLocalize', :path => '../node_modules/react-native-localize'
+
+  pod 'react-native-sensitive-info', :path => '../node_modules/react-native-sensitive-info'
+
+  pod 'SentryReactNative', :path => '../node_modules/react-native-sentry'
 
 end
 

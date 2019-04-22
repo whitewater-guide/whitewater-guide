@@ -10,5 +10,8 @@ module.exports = {
   },
   testRegex: '(/__tests__/.*|\\.(test|spec))\\.(ts|tsx)$',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'json'],
-  setupTestFrameworkScriptFile: '<rootDir>/jest.setup.ts',
+  setupFilesAfterEnv: [
+    '<rootDir>/jest.setup.ts',
+    'react-testing-library/cleanup-after-each',
+  ],
 };

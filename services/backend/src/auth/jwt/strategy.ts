@@ -1,8 +1,8 @@
+import { AccessTokenPayload } from '@whitewater-guide/commons';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { ACCESS_TOKEN_COOKIE } from '../constants';
 import cookieJWTExtractor from './cookie-jwt-extractor';
 import logger from './logger';
-import { AccessTokenPayload } from './types';
 
 export const jwtStrategy = new Strategy(
   {
@@ -14,7 +14,10 @@ export const jwtStrategy = new Strategy(
   },
   (token: AccessTokenPayload, done) => {
     if ((token as any).refresh) {
-      logger.error(token, 'cannot use refresh token as access token');
+      logger.error({
+        message: 'cannot use refresh token as access token',
+        extra: { token },
+      });
       return done(new Error('cannot use refresh token as access token'));
     }
     try {

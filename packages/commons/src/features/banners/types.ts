@@ -1,5 +1,5 @@
 import { Overwrite } from 'type-zoo';
-import { Connection, NamedNode, Node } from '../../core';
+import { Connection, NamedNode, Node } from '../../apollo';
 import { Group } from '../groups';
 import { Region } from '../regions';
 

@@ -48,23 +48,21 @@ const request = (params: FetchParams) => {
 describe('errors', () => {
   it('should 400 when token is missing', async () => {
     const resp = await request({ id: ADMIN_ID });
-    expect(resp).toMatchObject({
-      status: 400,
-      body: {
-        success: false,
-        error: 'verification.token.missing',
-      },
+    expect(resp.status).toBe(400);
+    expect(resp.body).toEqual({
+      success: false,
+      error: 'verification.token.missing',
+      error_id: expect.any(String),
     });
   });
 
   it('should 400 when user id is missing', async () => {
     const resp = await request({ token: ADMIN_ID });
-    expect(resp).toMatchObject({
-      status: 400,
-      body: {
-        success: false,
-        error: 'verification.id.missing',
-      },
+    expect(resp.status).toBe(400);
+    expect(resp.body).toEqual({
+      success: false,
+      error: 'verification.id.missing',
+      error_id: expect.any(String),
     });
   });
 
@@ -73,12 +71,11 @@ describe('errors', () => {
       id: 'fb9af3d0-4367-11e9-b210-d663bd873d93',
       token: ADMIN_ID,
     });
-    expect(resp).toMatchObject({
-      status: 400,
-      body: {
-        success: false,
-        error: 'verification.token.invalid',
-      },
+    expect(resp.status).toBe(400);
+    expect(resp.body).toEqual({
+      success: false,
+      error: 'verification.token.invalid',
+      error_id: expect.any(String),
     });
   });
 
@@ -87,12 +84,11 @@ describe('errors', () => {
       id: UNVERIFIED_USER2_ID,
       token: TOKEN,
     });
-    expect(resp).toMatchObject({
-      status: 400,
-      body: {
-        success: false,
-        error: 'verification.unexpected',
-      },
+    expect(resp.status).toBe(400);
+    expect(resp.body).toEqual({
+      success: false,
+      error: 'verification.unexpected',
+      error_id: expect.any(String),
     });
   });
 
@@ -102,12 +98,11 @@ describe('errors', () => {
       token: TOKEN,
     });
     // Maybe it should be redirect?
-    expect(resp).toMatchObject({
-      status: 400,
-      body: {
-        success: false,
-        error: 'verification.expired',
-      },
+    expect(resp.status).toBe(400);
+    expect(resp.body).toEqual({
+      success: false,
+      error: 'verification.expired',
+      error_id: expect.any(String),
     });
   });
 
@@ -117,12 +112,11 @@ describe('errors', () => {
       token: 'foobar',
     });
     // Maybe it should be redirect?
-    expect(resp).toMatchObject({
-      status: 400,
-      body: {
-        success: false,
-        error: 'verification.token.mismatch',
-      },
+    expect(resp.status).toBe(400);
+    expect(resp.body).toEqual({
+      success: false,
+      error: 'verification.token.mismatch',
+      error_id: expect.any(String),
     });
   });
 });

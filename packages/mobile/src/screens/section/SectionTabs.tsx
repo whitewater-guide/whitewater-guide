@@ -13,7 +13,8 @@ import theme from '../../theme';
 import { PureScreen } from '../../utils/navigation';
 import { SectionChartScreen } from './chart';
 import container from './container';
-import { SectionGuideScreen } from './guide/SectionGuideScreen';
+import { SectionGuideScreen } from './guide';
+import HeaderRight from './HeaderRight';
 import SectionInfoScreen from './info';
 import { SectionMapScreen } from './map';
 import { SectionMediaScreen } from './media';
@@ -85,6 +86,8 @@ SectionTabs.router = Navigator.router;
 
 SectionTabs.navigationOptions = ({
   navigation,
+  screenProps,
 }: NavigationScreenConfigProps) => ({
   headerTitle: <SectionTitle sectionId={navigation.getParam('sectionId')} />,
+  headerRight: <HeaderRight navigation={navigation} />,
 });

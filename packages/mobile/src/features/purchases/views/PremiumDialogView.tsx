@@ -1,18 +1,12 @@
 import React from 'react';
-import { WithI18n } from 'react-i18next';
+import { WithTranslation } from 'react-i18next';
 import { NavigationState, Scene, TabView } from 'react-native-tab-view';
-import theme from '../../../theme';
 import { PremiumRegion, PurchaseDialogStep } from '../types';
 import AlreadyHaveStep from './already-have';
 import AuthStep from './auth';
 import BuyProductStep from './buy';
 import DialogBody from './DialogBody';
 import SuccessStep from './success';
-
-const initialLayout = {
-  width: theme.screenWidth,
-  height: 0,
-};
 
 interface Key {
   key: PurchaseDialogStep;
@@ -29,7 +23,7 @@ interface Props {
 }
 
 export class PremiumDialogView extends React.PureComponent<
-  Props & WithI18n,
+  Props & WithTranslation,
   State
 > {
   readonly state: State = {
@@ -84,7 +78,6 @@ export class PremiumDialogView extends React.PureComponent<
           navigationState={this.state}
           renderScene={this.renderScene}
           onIndexChange={this.onIndexChange}
-          initialLayout={initialLayout}
           renderTabBar={this.renderTabBar}
           swipeEnabled={false}
         />

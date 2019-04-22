@@ -188,12 +188,11 @@ it('should not work when refresh token is used as access token', async () => {
     .post('/graphql')
     .set('authorization', `bearer ${refreshToken}`)
     .send(TEST_QUERY);
-  expect(response).toMatchObject({
-    status: 401,
-    body: {
-      success: false,
-      error: 'unauthenticated',
-    },
+  expect(response.status).toBe(401);
+  expect(response.body).toEqual({
+    success: false,
+    error: 'unauthenticated',
+    error_id: expect.any(String),
   });
 });
 
@@ -208,11 +207,9 @@ it('should not work when access token expired', async () => {
     .post('/graphql')
     .set('authorization', `bearer ${accessToken}`)
     .send(TEST_QUERY);
-  expect(response).toMatchObject({
-    status: 401,
-    body: {
-      success: false,
-      error: 'jwt.expired',
-    },
+  expect(response.status).toBe(401);
+  expect(response.body).toEqual({
+    success: false,
+    error: 'jwt.expired',
   });
 });

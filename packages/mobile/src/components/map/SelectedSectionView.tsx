@@ -10,7 +10,7 @@ import get from 'lodash/get';
 import noop from 'lodash/noop';
 import trim from 'lodash/trim';
 import React from 'react';
-import { withI18n, WithI18n } from 'react-i18next';
+import { withTranslation, WithTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Button, Paragraph, Subheading } from 'react-native-paper';
 import Svg, { Path } from 'react-native-svg';
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
 });
 
 type Props = SelectedSectionViewProps &
-  WithI18n &
+  WithTranslation &
   NavigationInjectedProps &
   WithRegion &
   WithPremiumDialog;
@@ -264,7 +264,7 @@ class SelectedSectionViewInternal extends React.Component<Props, State> {
           </View>
         </View>
 
-        <SectionFlowsRow section={section} t={t} i18n={i18n} />
+        <SectionFlowsRow section={section} />
 
         <View style={styles.listItem}>
           <Subheading>{t('commons:season')}</Subheading>
@@ -281,7 +281,7 @@ class SelectedSectionViewInternal extends React.Component<Props, State> {
 export const SelectedSectionView: React.ComponentType<
   SelectedSectionViewProps
 > = compose<Props, SelectedSectionViewProps>(
-  withI18n(),
+  withTranslation(),
   consumeRegion(),
   withNavigation,
   connectPremiumDialog,

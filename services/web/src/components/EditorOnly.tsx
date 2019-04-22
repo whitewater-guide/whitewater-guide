@@ -1,4 +1,4 @@
-import { MyProfileConsumer, RegionConsumer } from '@whitewater-guide/clients';
+import { RegionConsumer, useAuth } from '@whitewater-guide/clients';
 import React from 'react';
 
 /**
@@ -8,25 +8,22 @@ import React from 'react';
  * @returns {any}
  * @constructor
  */
-export const EditorOnly: React.StatelessComponent = ({ children }) => (
-  <MyProfileConsumer>
-    {({ me }) => {
-      if (!me) {
-        return null;
-      }
-      if (me.admin) {
-        return children;
-      }
-      return (
-        <RegionConsumer>
-          {({ region }) => {
-            if (!region.node) {
-              return null;
-            }
-            return region.node.editable ? children : null;
-          }}
-        </RegionConsumer>
-      );
-    }}
-  </MyProfileConsumer>
-);
+export const EditorOnly: React.FC = ({ children }) => {
+  const { me } = useAuth();
+  if (!me) {
+    return null;
+  }
+  if (me.admin) {
+    return children as any;
+  }
+  return (
+    <RegionConsumer>
+      {({ region }) => {
+        if (!region.node) {
+          return null;
+        }
+        return region.node.editable ? children : null;
+      }}
+    </RegionConsumer>
+  );
+};

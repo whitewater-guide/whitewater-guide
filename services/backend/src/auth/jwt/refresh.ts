@@ -1,10 +1,11 @@
 import db from '@db';
+import { RefreshTokenPayload } from '@whitewater-guide/commons';
 import { decode, verify } from 'jsonwebtoken';
 import { Middleware } from 'koa';
 import { REFRESH_TOKEN_COOKIE } from '../constants';
+import { clearCookies } from '../utils';
 import cookieJWTExtractor from './cookie-jwt-extractor';
 import { sendCredentials } from './sendCredentials';
-import { RefreshTokenPayload } from './types';
 
 const extractor = cookieJWTExtractor(REFRESH_TOKEN_COOKIE);
 
@@ -26,6 +27,7 @@ export const refreshJWT: Middleware<any, any> = async (ctx, next) => {
       payload = decode(token) as any;
       id = payload.id;
     } catch {}
+    clearCookies(ctx);
     ctx.throw(400, 'refresh.jwt.bad.token', {
       payload: { corrupt: true, id },
     });
@@ -33,6 +35,7 @@ export const refreshJWT: Middleware<any, any> = async (ctx, next) => {
   }
 
   if (!payload.refresh || !payload.id) {
+    clearCookies(ctx);
     ctx.throw(400, 'refresh.jwt.bad.token', {
       payload: { refresh: !!payload.refresh, id: payload.id },
     });
@@ -46,6 +49,7 @@ export const refreshJWT: Middleware<any, any> = async (ctx, next) => {
     .first();
 
   if (!!blacklisted) {
+    clearCookies(ctx);
     ctx.throw(400, 'refresh.jwt.bad.token', {
       payload: { blacklisted: true, id: payload.id },
     });

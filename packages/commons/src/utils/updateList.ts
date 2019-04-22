@@ -1,4 +1,4 @@
-import { Node } from '../core';
+import { Node } from '../apollo';
 /**
  * Given two arrays, A and B, updates all items in A with newer items in B, and adds items that are not present in A
  * @param a

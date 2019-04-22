@@ -1,5 +1,5 @@
 import { RegionMediaSummary } from '@whitewater-guide/commons';
-import { getApolloClient } from '../../../../core/apollo';
+import { apolloClient } from '../../../../core/apollo';
 import {
   REGION_MEDIA_SUMMARY,
   Result,
@@ -14,8 +14,7 @@ interface Summary {
 export default async function readCachedRegionSummary(
   regionId: string,
 ): Promise<Summary> {
-  const client = await getApolloClient();
-  const mediaQueryResult = client.readQuery<Result, Vars>({
+  const mediaQueryResult = apolloClient.readQuery<Result, Vars>({
     query: REGION_MEDIA_SUMMARY,
     variables: { regionId },
   });

@@ -1,6 +1,7 @@
 import { SectionFragments } from '@whitewater-guide/clients';
 import { Connection, Page, Section } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
+import { PHOTO_SIZE_PX } from '../media';
 
 export const OFFLINE_SECTIONS = gql`
   query listSections($page: Page, $regionId: ID) {
@@ -28,7 +29,7 @@ export const OFFLINE_SECTIONS = gql`
   ${SectionFragments.Meta}
   ${SectionFragments.POIs}
   ${SectionFragments.Tags}
-  ${SectionFragments.Media}
+  ${SectionFragments.Media(PHOTO_SIZE_PX, PHOTO_SIZE_PX)}
 `;
 
 export interface Vars {

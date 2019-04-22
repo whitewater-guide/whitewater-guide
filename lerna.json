@@ -2,7 +2,6 @@
   "version": "independent",
   "command": {
     "publish": {
-      "allowBranch": ["dev", "master"],
       "ignoreChanges": ["*.md"],
       "message": "chore(release): publish new packages"
     },

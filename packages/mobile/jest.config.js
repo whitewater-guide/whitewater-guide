@@ -13,10 +13,10 @@ const notIgnoredModules = [
 module.exports = {
   preset: 'react-native',
   verbose: true,
-  transform: {
-    '^.+\\.(j|t)sx?$':
-      '<rootDir>/node_modules/react-native/jest/preprocessor.js',
-  },
+  // transform: {
+  //   '^.+\\.(j|t)sx?$':
+  //     '<rootDir>/node_modules/react-native/jest/preprocessor.js',
+  // },
   transformIgnorePatterns: [`node_modules/(?!(${notIgnoredModules})/)`],
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
 };

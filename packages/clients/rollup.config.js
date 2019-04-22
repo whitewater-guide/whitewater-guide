@@ -11,9 +11,7 @@ const deps = [
 
 const extensions = ['.ts', '.tsx', '.js', '.jsx'];
 
-export default {
-  input: 'src/index.ts',
-  output: [{ file: pkg.main, format: 'cjs', sourcemap: true }],
+const commons = () => ({
   external: (id) =>
     deps.some((dep) => dep === id || id.indexOf(`${dep}/`) === 0),
   plugins: [
@@ -26,4 +24,17 @@ export default {
       extensions,
     }),
   ],
-};
+});
+
+export default [
+  {
+    input: 'src/index.ts',
+    output: [{ file: pkg.main, format: 'cjs', sourcemap: true }],
+    ...commons(),
+  },
+  {
+    input: 'src/web/index.ts',
+    output: [{ file: 'dist/web/index.js', format: 'cjs', sourcemap: true }],
+    ...commons(),
+  },
+];

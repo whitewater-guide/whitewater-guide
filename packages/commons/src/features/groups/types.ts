@@ -1,4 +1,4 @@
-import { Connection, NamedNode } from '../../core';
+import { Connection, NamedNode } from '../../apollo';
 import { Region } from '../regions';
 
 export interface Group extends NamedNode {

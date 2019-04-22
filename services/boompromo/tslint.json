@@ -1,6 +1,11 @@
 {
   "extends": ["../../tslint.json"],
   "rules": {
-    "no-submodule-imports": [true, "@material-ui/core", "lodash"]
+    "no-submodule-imports": [
+      true,
+      "@material-ui/core",
+      "lodash",
+      "@whitewater-guide/clients"
+    ]
   }
 }

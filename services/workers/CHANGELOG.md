@@ -1,3 +1,9 @@
+## [0.0.78](https://github.com/doomsower/whitewater/compare/@whitewater-guide/workers@0.0.77...@whitewater-guide/workers@0.0.78) (2019-04-07)
+
+### Features
+
+- **workers:** sepa script ([1b54f7d](https://github.com/doomsower/whitewater/commit/1b54f7d))
+
 ## [0.0.77](https://github.com/doomsower/whitewater/compare/@whitewater-guide/workers@0.0.76...@whitewater-guide/workers@0.0.77) (2019-03-23)
 
 ### Features

@@ -10,15 +10,18 @@ import SectionGuideView from './SectionGuideView';
 
 export const SectionGuideScreen: NavigationScreenComponent = ({
   screenProps,
-}) => (
-  <Screen>
-    <SectionGuideView section={(screenProps as ScreenProps).section} />
-    <RegionBanners
-      placement={BannerPlacement.MOBILE_SECTION_DESCRIPTION}
-      count={10}
-    />
-  </Screen>
-);
+}) => {
+  const { section }: ScreenProps = screenProps as any;
+  return (
+    <Screen>
+      <SectionGuideView section={section} />
+      <RegionBanners
+        placement={BannerPlacement.MOBILE_SECTION_DESCRIPTION}
+        count={10}
+      />
+    </Screen>
+  );
+};
 
 SectionGuideScreen.navigationOptions = {
   tabBarLabel: <I18nText>section:guide.title</I18nText>,

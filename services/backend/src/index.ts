@@ -7,11 +7,19 @@ import { startupJobs } from '@features/jobs';
 import { initIAP } from '@features/purchases';
 import log from '@log';
 import { initMinio } from '@minio';
+import { init as initSentry } from '@sentry/node';
 import { createApolloServer } from './apollo/server';
 import { createApp } from './app';
 import startServer from './server';
 
 async function startup() {
+  if (process.env.SENTRY_DSN) {
+    const pjson = require('../package.json');
+    initSentry({
+      dsn: process.env.SENTRY_DSN,
+      release: pjson.version,
+    });
+  }
   await db(true).migrate.latest();
   const dbVersion = await db(true).migrate.currentVersion();
   log.info(`Current DB version: ${dbVersion}`);

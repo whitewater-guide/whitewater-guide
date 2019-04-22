@@ -20,7 +20,11 @@ const initPassport = () => {
       .first()
       .then((user: UserRaw) => done(null, user))
       .catch((error) => {
-        log.error({ id, error }, 'Failed to deserialize user');
+        log.error({
+          message: 'Failed to deserialize user',
+          extra: { id },
+          error,
+        });
         done(error);
       });
   });

@@ -1,7 +1,7 @@
 import identity from 'lodash/identity';
 import React from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
-import { Button, Divider, Title } from 'react-native-paper';
+import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
+import { Divider, Title } from 'react-native-paper';
 import {
   Avatar,
   Paper,
@@ -12,6 +12,7 @@ import {
 import { LANGUAGE_NAMES, SUPPORTED_LANGUAGES } from '../../i18n';
 import theme from '../../theme';
 import { PurchasesListView } from './purchases';
+import { SignOutButton } from './SignOutButton';
 import { InnerProps } from './types';
 
 const styles = StyleSheet.create({
@@ -27,6 +28,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: theme.margin.single,
     marginBottom: theme.margin.single,
+  },
+  safeArea: {
+    backgroundColor: theme.colors.primary,
   },
 });
 
@@ -75,9 +79,8 @@ class MyProfileView extends React.PureComponent<InnerProps> {
           </Paper>
           <PurchasesListView />
         </ScrollView>
-        <Button mode="contained" onPress={this.props.logout}>
-          {t('myProfile:logout')}
-        </Button>
+        <SignOutButton />
+        <SafeAreaView style={styles.safeArea} />
       </Screen>
     );
   }

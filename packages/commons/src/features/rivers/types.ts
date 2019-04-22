@@ -1,4 +1,4 @@
-import { Connection, NamedNode, Node, Timestamped } from '../../core';
+import { Connection, NamedNode, Node, Timestamped } from '../../apollo';
 import { Region } from '../regions';
 import { Section } from '../sections';
 

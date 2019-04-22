@@ -1,5 +1,5 @@
 import React from 'react';
-import { withI18n, WithI18n } from 'react-i18next';
+import { withTranslation, WithTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
 import { connect } from 'react-redux';
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Props extends WithI18n {
+interface Props extends WithTranslation {
   onLayerChange: (layer: string) => void;
 }
 
@@ -80,7 +80,7 @@ class LayersIcon extends React.PureComponent<Props> {
 }
 
 export default compose<Props, {}>(
-  withI18n(),
+  withTranslation(),
   connect(
     undefined,
     { onLayerChange: settings.setMapType },

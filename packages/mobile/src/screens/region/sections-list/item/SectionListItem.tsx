@@ -1,9 +1,9 @@
 import { Coordinate, Section } from '@whitewater-guide/commons';
 import React from 'react';
+import { WithTranslation } from 'react-i18next';
 import { Animated, StyleSheet, View } from 'react-native';
 import Interactable from 'react-native-interactable';
 import { NavigateButton } from '../../../../components';
-import { WithTrans } from '../../../../i18n';
 import theme from '../../../../theme';
 import SectionListBody, { ITEM_HEIGHT } from './SectionListBody';
 
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
 
 const BOUNDS = { left: -136, right: 30, bounce: 0.5 };
 
-interface Props extends WithTrans {
+interface OwnProps {
   hasPremiumAccess: boolean;
   index: number;
   swipedIndex: number;
@@ -40,6 +40,8 @@ interface Props extends WithTrans {
   onMaximize?: (index: number) => void;
   canNavigate: (coordinates: Coordinate) => boolean;
 }
+
+type Props = OwnProps & Pick<WithTranslation, 't'>;
 
 export class SectionListItem extends React.Component<Props> {
   _deltaX: Animated.Value = new Animated.Value(0);
@@ -127,7 +129,6 @@ export class SectionListItem extends React.Component<Props> {
               hasPremiumAccess={hasPremiumAccess}
               section={section}
               onPress={this.onPress}
-              t={t}
             />
           </View>
         </Interactable.View>

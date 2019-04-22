@@ -78,6 +78,7 @@ export class RadioDialog extends React.PureComponent<Props, State> {
                 {options.map((option) => (
                   <RadioDialogItem
                     onChange={this.onValueChange}
+                    key={keyExtractor(option)}
                     value={keyExtractor(option)}
                     label={labelExtractor(option)}
                   />

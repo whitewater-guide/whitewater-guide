@@ -17,26 +17,23 @@ export const createJob = (
     if (success) {
       if (data === 0) {
         logger.warn({
-          msg: 'Harvest returned 0 measurements',
-          error,
-          script,
-          gauge: gauge && gauge.code,
+          message: 'Harvest returned 0 measurements',
+          tags: { script, gauge: gauge && gauge.code },
+          extra: { error },
         });
       }
     } else {
       logger.error({
-        msg: 'Harvest failed',
-        error,
-        script,
-        gauge: gauge && gauge.code,
+        message: 'Harvest failed',
+        tags: { script, gauge: gauge && gauge.code },
+        extra: { error },
       });
     }
   } catch (err) {
     logger.error({
-      msg: 'Failed to run worker',
-      error: err.message,
-      script,
-      gauge: gauge && gauge.code,
+      message: 'Failed to run worker',
+      tags: { script, gauge: gauge && gauge.code },
+      extra: { error: err },
     });
   }
 };

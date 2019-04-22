@@ -59,14 +59,12 @@ export const localSignUpStrategy = new Strategy(
           user: { id: user.id, name: user.name || '' },
           token: verificationToken,
         });
-      } catch (e) {
-        logger.error(
-          {
-            email,
-            error: e.message,
-          },
-          'signup.send.verification.error',
-        );
+      } catch (error) {
+        logger.error({
+          message: 'signup.send.verification.error',
+          error,
+          extra: { email },
+        });
       }
       return done(null, user);
     }

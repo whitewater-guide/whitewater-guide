@@ -1,14 +1,13 @@
 import { Region } from '@whitewater-guide/commons';
 import React from 'react';
+import { WithTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import Image from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
 import { Caption, Title, TouchableRipple } from 'react-native-paper';
 import { Icon, Paper } from '../../components';
-import { WithTrans } from '../../i18n';
 import theme from '../../theme';
 import DownloadButton from './DownloadButton';
-import getCoverImage from './getCoverImage';
 
 const FOOTER_HEIGHT = 40;
 
@@ -64,7 +63,7 @@ export const CARD_HEIGHT =
 
 const PREMIUM_HIT_SLOP = { left: 16, right: 8, top: 0, bottom: 0 };
 
-interface Props extends WithTrans {
+interface OwnProps {
   region: Region;
   onPress: (region: Region) => void;
   onPremiumPress: (region: Region) => void;
@@ -72,6 +71,8 @@ interface Props extends WithTrans {
   openDownloadDialog: (region: Region) => void;
   regionInProgress: string | null;
 }
+
+type Props = OwnProps & Pick<WithTranslation, 't'>;
 
 export class RegionCard extends React.PureComponent<Props> {
   onPress = () => this.props.onPress(this.props.region);
@@ -139,7 +140,7 @@ export class RegionCard extends React.PureComponent<Props> {
 
   render() {
     const { region, t } = this.props;
-    const uri: any = getCoverImage(region.coverImage.mobile);
+    const uri = region.coverImage.mobile || undefined;
     return (
       <TouchableRipple onPress={this.onPress}>
         <Paper style={styles.root}>

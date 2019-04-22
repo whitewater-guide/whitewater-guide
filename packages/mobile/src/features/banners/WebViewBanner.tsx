@@ -1,7 +1,7 @@
 import { Banner } from '@whitewater-guide/commons';
 import React from 'react';
 import { Linking, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
-import { WebView, WebViewNavigation } from 'react-native-webview';
+import { WebView } from 'react-native-webview';
 import theme from '../../theme';
 import aspectRatios from './aspectRatios';
 
@@ -30,7 +30,7 @@ class WebViewBanner extends React.PureComponent<Props> {
     this._webView = ref;
   };
 
-  onNavigationStateChange = ({ url }: WebViewNavigation) => {
+  onNavigationStateChange = ({ url }: any) => {
     const { banner, onPress } = this.props;
     if (this._webView && url !== banner.source.src) {
       this._webView.stopLoading();

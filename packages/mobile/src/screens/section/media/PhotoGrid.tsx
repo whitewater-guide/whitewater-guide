@@ -32,8 +32,14 @@ const PhotoGrid: React.SFC<Props> = ({ photos, onPress }) => {
   }
   return (
     <View style={styles.grid}>
-      {photos.map(({ url }, index) => (
-        <PhotoGridItem key={index} url={url} index={index} onPress={onPress} />
+      {photos.map(({ image, thumb }, index) => (
+        <PhotoGridItem
+          key={index}
+          image={image!}
+          thumb={thumb!}
+          index={index}
+          onPress={onPress}
+        />
       ))}
     </View>
   );

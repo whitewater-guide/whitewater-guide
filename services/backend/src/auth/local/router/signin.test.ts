@@ -9,7 +9,7 @@ import { SuperTest, Test } from 'supertest';
 import agent from 'supertest-koa-agent';
 import { createApp } from '../../../app';
 import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from '../../constants';
-import { SignInResponseBody } from '../../types';
+import { AuthResponse } from '../../types';
 
 const ROUTE = '/auth/local/signin';
 
@@ -95,7 +95,7 @@ describe('mobile', () => {
   });
 
   it('should respond with access and refresh tokens', async () => {
-    const body: SignInResponseBody = {
+    const body: AuthResponse = {
       success: true,
       id: EDITOR_GA_EC_ID,
       accessToken: expect.any(String),
@@ -148,7 +148,7 @@ describe('web', () => {
   });
 
   it('should respond with success body', async () => {
-    const body: SignInResponseBody = {
+    const body: AuthResponse = {
       success: true,
       id: EDITOR_GA_EC_ID,
     };

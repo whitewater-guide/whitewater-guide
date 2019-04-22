@@ -1,3 +1,19 @@
+## [0.0.137](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.136...@whitewater-guide/boompromo@0.0.137) (2019-04-15)
+
+## [0.0.136](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.135...@whitewater-guide/boompromo@0.0.136) (2019-04-12)
+
+## [0.0.135](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.134...@whitewater-guide/boompromo@0.0.135) (2019-04-12)
+
+## [0.0.134](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.133...@whitewater-guide/boompromo@0.0.134) (2019-04-09)
+
+## [0.0.133](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.132...@whitewater-guide/boompromo@0.0.133) (2019-04-04)
+
+## [0.0.132](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.131...@whitewater-guide/boompromo@0.0.132) (2019-04-04)
+
+### Features
+
+- mobile app now uses jwt auth ([57ef553](https://github.com/doomsower/whitewater/commit/57ef553))
+
 ## [0.0.131](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.130...@whitewater-guide/boompromo@0.0.131) (2019-03-26)
 
 ## [0.0.130](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.129...@whitewater-guide/boompromo@0.0.130) (2019-03-21)

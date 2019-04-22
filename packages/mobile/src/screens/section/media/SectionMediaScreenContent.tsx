@@ -1,8 +1,8 @@
 import { BannerPlacement, Section } from '@whitewater-guide/commons';
 import groupBy from 'lodash/groupBy';
 import React from 'react';
-import { withI18n, WithI18n } from 'react-i18next';
-import { StatusBar } from 'react-native';
+import { WithTranslation, withTranslation } from 'react-i18next';
+import { Platform, StatusBar } from 'react-native';
 import { Title } from 'react-native-paper';
 import { RegionBanners } from '../../../features/banners';
 import BlogList from './BlogList';
@@ -19,7 +19,7 @@ interface State {
 }
 
 class SectionMediaScreenContent extends React.PureComponent<
-  Props & WithI18n,
+  Props & WithTranslation,
   State
 > {
   state: State = {
@@ -35,9 +35,14 @@ class SectionMediaScreenContent extends React.PureComponent<
     const { section, t } = this.props;
     const nodes = section && section.media ? section.media.nodes : [];
     const groups = groupBy(nodes, 'kind');
+    const { openPhotoIndex } = this.state;
+    // TODO: There's a known bug on Android that prevents hiding of StatusBar with Modal
+    // https://github.com/react-native-community/react-native-modal/issues/50
+    // https://github.com/react-native-community/react-native-statusbar/issues/6
+    // https://github.com/facebook/react-native/issues/9090#issuecomment-337624981
     return (
       <React.Fragment>
-        <StatusBar hidden={this.state.openPhotoIndex >= 0} />
+        <StatusBar hidden={Platform.OS === 'ios' && openPhotoIndex >= 0} />
         <Title>{t('section:media.photo')}</Title>
         <PhotoGrid photos={groups.photo} onPress={this.onPhotoIndexChanged} />
         <Title>{t('section:media.video')}</Title>
@@ -55,4 +60,4 @@ class SectionMediaScreenContent extends React.PureComponent<
   }
 }
 
-export default withI18n()(SectionMediaScreenContent);
+export default withTranslation()(SectionMediaScreenContent);

@@ -1,10 +1,10 @@
 import { RegionContext } from '@whitewater-guide/clients';
 import { WithTags } from '@whitewater-guide/commons';
-import { WithI18n } from 'react-i18next';
+import { WithTranslation } from 'react-i18next';
 import { NavigationInjectedProps } from 'react-navigation';
 
 export type InnerProps = NavigationInjectedProps &
-  WithI18n &
+  WithTranslation &
   WithTags &
   Pick<RegionContext, 'searchTerms' | 'setSearchTerms' | 'resetSearchTerms'>;
 

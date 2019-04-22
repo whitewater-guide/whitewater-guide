@@ -43,26 +43,50 @@ const Bounds = gql`
   }
 `;
 
-const Banners = gql`
-  fragment RegionBanners on Region {
-    banners {
-      nodes {
-        id
-        slug
-        priority
-        placement
-        enabled
-        source {
-          kind
-          ratio
-          src
+const Banners = (width?: number) => {
+  if (width) {
+    return gql`
+      fragment RegionBanners on Region {
+        banners {
+          nodes {
+            id
+            slug
+            priority
+            placement
+            enabled
+            source {
+              kind
+              ratio
+              src(width: ${width})
+            }
+            link
+            extras
+          }
         }
-        link
-        extras
+      }
+    `;
+  }
+  return gql`
+    fragment RegionBanners on Region {
+      banners {
+        nodes {
+          id
+          slug
+          priority
+          placement
+          enabled
+          source {
+            kind
+            ratio
+            src
+          }
+          link
+          extras
+        }
       }
     }
-  }
-`;
+  `;
+};
 
 export const RegionFragments = {
   Bounds,

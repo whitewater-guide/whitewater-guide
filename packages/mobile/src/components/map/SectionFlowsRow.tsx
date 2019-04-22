@@ -6,7 +6,7 @@ import {
 import { Section } from '@whitewater-guide/commons';
 import moment from 'moment';
 import React from 'react';
-import { WithI18n } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
 import { Caption, Subheading } from 'react-native-paper';
 import theme from '../../theme';
@@ -55,21 +55,18 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Props extends WithI18n {
+interface Props {
   section: Section | null;
 }
 
-const SectionFlowsRow: React.StatelessComponent<Props> = ({
-  section,
-  t,
-  i18n,
-}) => {
+const SectionFlowsRow: React.FC<Props> = ({ section }) => {
+  const [t] = useTranslation();
   if (!section) {
-    return <SimpleTextFlowRow t={t} i18n={i18n} />;
+    return <SimpleTextFlowRow />;
   }
   const { flows, levels, gauge, flowsText } = section;
   if (!gauge || !gauge.lastMeasurement || (!flows && !levels)) {
-    return <SimpleTextFlowRow flowsText={flowsText} t={t} i18n={i18n} />;
+    return <SimpleTextFlowRow flowsText={flowsText} />;
   }
   const color = getSectionColor(section);
   const preferFlow = flows && gauge.lastMeasurement.flow;
