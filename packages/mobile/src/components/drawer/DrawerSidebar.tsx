@@ -3,7 +3,6 @@ import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { Divider, Drawer } from 'react-native-paper';
-import { Sentry } from 'react-native-sentry';
 import { NavigationActions, NavigationInjectedProps } from 'react-navigation';
 import { isRouteFocused } from '../../utils/navigation';
 import { Spacer } from '../Spacer';
@@ -73,7 +72,7 @@ const DrawerSidebar: React.FC<Props> = ({ navigation, toggleDrawer }) => {
           fixture: 'termsAndConditions',
           title: t('drawer:termsAndConditions'),
         }}
-        onPress={Sentry.crash}
+        onPress={navigate}
         focused={isRouteFocused(state, 'Plain', {
           fixture: 'termsAndConditions',
         })}
@@ -85,7 +84,7 @@ const DrawerSidebar: React.FC<Props> = ({ navigation, toggleDrawer }) => {
           fixture: 'privacyPolicy',
           title: t('drawer:privacyPolicy'),
         }}
-        onPress={Sentry.nativeCrash}
+        onPress={navigate}
         focused={isRouteFocused(state, 'Plain', {
           fixture: 'privacyPolicy',
         })}
