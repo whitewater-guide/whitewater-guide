@@ -1,3 +1,9 @@
+## [1.7.54](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.53...@whitewater-guide/mobile@1.7.54) (2019-04-22)
+
+### Bug Fixes
+
+- **mobile:** remove test crashes ([76be2c7](https://github.com/doomsower/whitewater/commit/76be2c7))
+
 ## [1.7.53](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.52...@whitewater-guide/mobile@1.7.53) (2019-04-22)
 
 ## [1.7.52](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.51...@whitewater-guide/mobile@1.7.52) (2019-04-21)
