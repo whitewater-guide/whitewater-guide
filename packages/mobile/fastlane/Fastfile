@@ -78,17 +78,21 @@ platform :ios do
     end
   end
 
-  lane :setup do |options|
-    produce(
-      app_name: ENV['IOS_APP_NAME'],
-      app_identifier: ENV['IOS_APP_IDENTIFIER'],
-      skip_itc: true
-    )
+  lane :prepare do |options|
+    # run nuke then run this
     match(
-      type: 'adhoc',
+      type: 'development',
       shallow_clone: true,
       clone_branch_directly: true,
-      force_for_new_devices: true
+      force_for_new_devices: true,
+      force: true,
+    )
+    match(
+      type: 'appstore',
+      shallow_clone: true,
+      clone_branch_directly: true,
+      force_for_new_devices: true,
+      force: true,
     )
   end
 
