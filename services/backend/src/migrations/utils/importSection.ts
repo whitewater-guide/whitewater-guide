@@ -24,7 +24,7 @@ export const importSection = async <S>(
         .where({ id: result.id });
     }
   } catch (e) {
-    console.log('Import failed');
+    console.log('Import failed: ' + e.message);
     console.dir(input);
   }
 };

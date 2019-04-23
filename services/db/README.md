@@ -18,3 +18,5 @@ To produce dump file, use script `scripts/refresh_dump.sh`. This script has two 
 It'll use AWS credentials from dev machine, because I'm lazy to pass read-only credentials via same secret file
 
 There are npm scripts that are shortcuts to `refresh_dump.sh`
+
+**Important**: during development, db files are stored on named volume. So `postgres-initdb` and `x-dev-restore` restore will run only if volume is blank. If you want to refresh your dump, you have to remove the named volume and restart db container;
