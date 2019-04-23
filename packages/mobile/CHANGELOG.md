@@ -1,3 +1,10 @@
+## [1.7.56](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.55...@whitewater-guide/mobile@1.7.56) (2019-04-23)
+
+### Bug Fixes
+
+- **mobile:** downgrade play-services-maps and use only implementations ([4a575f5](https://github.com/doomsower/whitewater/commit/4a575f5))
+- **mobile:** fix appError mutation resolver ([9b82022](https://github.com/doomsower/whitewater/commit/9b82022))
+
 ## [1.7.55](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.54...@whitewater-guide/mobile@1.7.55) (2019-04-22)
 
 ### Bug Fixes

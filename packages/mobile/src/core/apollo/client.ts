@@ -1,3 +1,4 @@
+import { appErrorResolver } from '@whitewater-guide/clients';
 import ApolloClient from 'apollo-client';
 import { MobileAuthService } from '../auth';
 import { assertCachePersistorVersion, inMemoryCache } from './cache';
@@ -23,6 +24,11 @@ export const initApolloClient = async (auth: MobileAuthService) => {
         },
         watchQuery: {
           errorPolicy: 'all',
+        },
+      },
+      resolvers: {
+        Mutation: {
+          ...appErrorResolver,
         },
       },
     });
