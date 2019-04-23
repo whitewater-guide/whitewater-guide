@@ -1,3 +1,9 @@
+## [0.0.339](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.338...@whitewater-guide/backend@0.0.339) (2019-04-23)
+
+### Features
+
+- **backend:** import Scotland dataset ([f8be3fc](https://github.com/doomsower/whitewater/commit/f8be3fc))
+
 ## [0.0.338](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.337...@whitewater-guide/backend@0.0.338) (2019-04-17)
 
 ### Bug Fixes
