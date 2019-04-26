@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/web",
   "private": true,
-  "version": "0.1.331",
+  "version": "0.1.332",
   "license": "UNLICENSED",
   "scripts": {
     "start": "react-scripts start",
@@ -21,8 +21,8 @@
     "@mapbox/togeojson": "^0.16.0",
     "@turf/helpers": "^6.1.4",
     "@types/react-facebook-login": "^4.1.0",
-    "@whitewater-guide/clients": "^0.0.214",
-    "@whitewater-guide/commons": "^0.0.129",
+    "@whitewater-guide/clients": "^0.0.215",
+    "@whitewater-guide/commons": "^0.0.130",
     "@whitewater-guide/md-editor": "0.1.8",
     "apollo-cache": "^1.2.1",
     "apollo-cache-inmemory": "^1.5.1",

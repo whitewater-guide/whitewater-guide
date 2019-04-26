@@ -1,3 +1,9 @@
+## [0.0.130](https://github.com/doomsower/whitewater/compare/@whitewater-guide/commons@0.0.129...@whitewater-guide/commons@0.0.130) (2019-04-26)
+
+### Features
+
+- **web:** add request params to source ([872cf16](https://github.com/doomsower/whitewater/commit/872cf16))
+
 ## [0.0.129](https://github.com/doomsower/whitewater/compare/@whitewater-guide/commons@0.0.128...@whitewater-guide/commons@0.0.129) (2019-04-26)
 
 ### Features
