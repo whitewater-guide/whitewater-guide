@@ -1,3 +1,9 @@
+## [1.7.59](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.58...@whitewater-guide/mobile@1.7.59) (2019-04-26)
+
+### Bug Fixes
+
+- **mobile:** fix video thumb error ([3b55b52](https://github.com/doomsower/whitewater/commit/3b55b52))
+
 ## [1.7.58](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.57...@whitewater-guide/mobile@1.7.58) (2019-04-26)
 
 ## [1.7.57](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.56...@whitewater-guide/mobile@1.7.57) (2019-04-26)
