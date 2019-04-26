@@ -13,7 +13,12 @@ export class AppError<T = any> extends Error {
   public original?: T;
 
   constructor(original?: T, type?: AppErrorType, id?: string) {
-    super(type || 'default');
+    const message =
+      get(original, 'message') ||
+      get(original, 'networkError.message') ||
+      get(original, 'graphQLErrors.0.message') ||
+      'unknown error';
+    super(message);
     this.type = type || 'default';
     this.id =
       id ||
