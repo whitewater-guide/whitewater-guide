@@ -34,10 +34,12 @@ export const FindButton: React.FC<Props> = ({ terms, onApply }) => {
       {(client) => (
         <RegionConsumer>
           {({ region }) => {
-            const result: Result | null = client.cache.readQuery({
-              query: LIST_SECTIONS,
-              variables: { filter: { regionId: region.node!.id } },
-            });
+            const result: Result | null = region.node
+              ? client.cache.readQuery({
+                  query: LIST_SECTIONS,
+                  variables: { filter: { regionId: region.node.id } },
+                })
+              : null;
             let count = 0;
             if (result) {
               const filteredSections = applySearch(
