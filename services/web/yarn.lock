@@ -2273,13 +2273,13 @@
     "@webassemblyjs/wast-parser" "1.8.5"
     "@xtuc/long" "4.2.2"
 
-"@whitewater-guide/clients@^0.0.214":
-  version "0.0.214"
-  resolved "https://registry.yarnpkg.com/@whitewater-guide/clients/-/clients-0.0.214.tgz#5c10abeefdd11a4cc409634ba86924e905b28fb5"
-  integrity sha512-hakNvZCpSY87FCfh+uA4o2xNXMbZfNLAARZHFq2+F6B7cgXHikPNn+gUg+jiraPbj2YA35wxkpKDl5eWY1GGmQ==
+"@whitewater-guide/clients@^0.0.215":
+  version "0.0.215"
+  resolved "https://registry.yarnpkg.com/@whitewater-guide/clients/-/clients-0.0.215.tgz#84d1bc70638314e3920923d6149486602cd2d59b"
+  integrity sha512-pGJnqGOBJyKc5OQ8MHChy0qSa1BpvVQccWAhWzidvj5kR3ROo5yQvYcxMSpU9WaW+EsZepPp6MMW9jrdhsNBTw==
   dependencies:
     "@types/jest" "^24.0.11"
-    "@whitewater-guide/commons" "^0.0.129"
+    "@whitewater-guide/commons" "^0.0.130"
     apollo-cache "^1.2.1"
     apollo-cache-inmemory "^1.5.1"
     apollo-client "^2.5.1"
@@ -2306,10 +2306,10 @@
     typescript-fsa "^3.0.0-beta-2"
     url-parse "^1.4.4"
 
-"@whitewater-guide/commons@^0.0.129":
-  version "0.0.129"
-  resolved "https://registry.yarnpkg.com/@whitewater-guide/commons/-/commons-0.0.129.tgz#d651eff2568f8d187cc44f222a3edb8d267ea297"
-  integrity sha512-iZpF5bRsq8eK+jRr0fAuSkKY3RQ0WOGRAUHw/Xoir/dWm0fsgMZYpkb3WgmRDMPuqLxRRJL8N/Eh4SbtDjrBvg==
+"@whitewater-guide/commons@^0.0.130":
+  version "0.0.130"
+  resolved "https://registry.yarnpkg.com/@whitewater-guide/commons/-/commons-0.0.130.tgz#6456f81d81ee9fa8f257dd4bfbcb5229b37059c8"
+  integrity sha512-a46jALeyyQpcqdBi7q6AyZL/aX78aaeTH2+tdmIdyBKIDEp67Fyr6kyBSbElH5qQRqE0ibikzz5oJKQNP2QRIA==
   dependencies:
     cron-parser "^2.7.3"
     lodash "^4.17.11"
