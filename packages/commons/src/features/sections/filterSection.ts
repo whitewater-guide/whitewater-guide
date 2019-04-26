@@ -40,7 +40,7 @@ export const getFilter = (terms: SectionSearchTerms | null) => (
   ) {
     return false;
   }
-  if (section.rating !== null && section.rating < rating) {
+  if (!!section.rating && section.rating < rating) {
     return false;
   }
   if (withTags && withTags.length) {
