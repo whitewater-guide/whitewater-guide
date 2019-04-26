@@ -1,3 +1,9 @@
+## [0.0.342](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.341...@whitewater-guide/backend@0.0.342) (2019-04-26)
+
+### Features
+
+- **backend:** add request params to source ([cb89761](https://github.com/doomsower/whitewater/commit/cb89761))
+
 ## [0.0.341](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.340...@whitewater-guide/backend@0.0.341) (2019-04-26)
 
 ## [0.0.340](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.339...@whitewater-guide/backend@0.0.340) (2019-04-26)
