@@ -2238,13 +2238,13 @@
     "@webassemblyjs/wast-parser" "1.8.5"
     "@xtuc/long" "4.2.2"
 
-"@whitewater-guide/clients@^0.0.212":
-  version "0.0.212"
-  resolved "https://registry.yarnpkg.com/@whitewater-guide/clients/-/clients-0.0.212.tgz#9e4c7f842e5fd249032c3bcaa4c41af5c033e829"
-  integrity sha512-BzpoeBto8E8SVCJ3VKpjHcmM2VLoEKyJzwlToXcv9JgtYW5R+3QJDijth+Oi+lIHwD25R0zgBJrDennw6dR2IQ==
+"@whitewater-guide/clients@^0.0.213":
+  version "0.0.213"
+  resolved "https://registry.yarnpkg.com/@whitewater-guide/clients/-/clients-0.0.213.tgz#5f6acb850e9127a585313c7eef535ad7ebc72d4b"
+  integrity sha512-TaL98Yds0ljw3wyO6UpTwuuM3Tp4q/jCTM2Jminx6LJE1gK6p7htF6zw8VaiN4VAAFpEEbmykNLZH4Sn2JKYuA==
   dependencies:
     "@types/jest" "^24.0.11"
-    "@whitewater-guide/commons" "^0.0.127"
+    "@whitewater-guide/commons" "^0.0.128"
     apollo-cache "^1.2.1"
     apollo-cache-inmemory "^1.5.1"
     apollo-client "^2.5.1"
@@ -2271,10 +2271,10 @@
     typescript-fsa "^3.0.0-beta-2"
     url-parse "^1.4.4"
 
-"@whitewater-guide/commons@^0.0.127":
-  version "0.0.127"
-  resolved "https://registry.yarnpkg.com/@whitewater-guide/commons/-/commons-0.0.127.tgz#b6d63c9e796eff6667b6f75f54916c8c020c3ac2"
-  integrity sha512-gGIkk3+OEDZABEMR3JuF0ra+MQpqjO0hANBuV3Yrho0YCpZoxAvZt2ij880evAft1oG1HG7NhJ3F+kHpmZPGGA==
+"@whitewater-guide/commons@^0.0.128":
+  version "0.0.128"
+  resolved "https://registry.yarnpkg.com/@whitewater-guide/commons/-/commons-0.0.128.tgz#e1dbecd7c4cbb77f96c9d6146b73a1e686da9644"
+  integrity sha512-MI80X2vLk72eyONOpewWRAkvhmEr6TbbrpM+1tAEXLvWUkHzMn739UUAVN27evacBDp/t/56Eo4S08Ajvm+zog==
   dependencies:
     cron-parser "^2.7.3"
     lodash "^4.17.11"
@@ -15596,9 +15596,9 @@ xcode@^2.0.0:
     simple-plist "^1.0.0"
     uuid "^3.3.2"
 
-"xcode@git+https://github.com/apache/cordova-node-xcode.git#e7646f0680d509b590b839e567c217590451505b":
+"xcode@https://github.com/apache/cordova-node-xcode#e7646f0680d509b590b839e567c217590451505b":
   version "1.0.1-dev"
-  resolved "git+https://github.com/apache/cordova-node-xcode.git#e7646f0680d509b590b839e567c217590451505b"
+  resolved "https://github.com/apache/cordova-node-xcode#e7646f0680d509b590b839e567c217590451505b"
   dependencies:
     simple-plist "^0.2.1"
     uuid "3.0.1"
