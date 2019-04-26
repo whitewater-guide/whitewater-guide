@@ -16,6 +16,7 @@ const query = `
       url
       script
       harvestMode
+      requestParams
       cron
       enabled
       createdAt
@@ -37,6 +38,7 @@ describe('permissions', () => {
       script: null,
       harvestMode: null,
       cron: null,
+      requestParams: null,
     });
   });
 
@@ -51,6 +53,7 @@ describe('permissions', () => {
       script: null,
       harvestMode: null,
       cron: null,
+      requestParams: null,
     });
   });
 
@@ -65,6 +68,7 @@ describe('permissions', () => {
       script: null,
       harvestMode: null,
       cron: null,
+      requestParams: null,
     });
   });
 });

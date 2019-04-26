@@ -8,6 +8,7 @@ const SourceInputFields = {
   name: 'nonEmptyString',
   termsOfUse: 'string|null',
   script: 'script',
+  requestParams: 'object|null',
   cron: baseStruct.union(['cron', 'null', baseStruct.literal('')]),
   harvestMode: HarvestModeStruct,
   url: baseStruct.union(['url', 'null', baseStruct.literal('')]),

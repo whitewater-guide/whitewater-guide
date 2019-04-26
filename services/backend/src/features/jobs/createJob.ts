@@ -4,15 +4,18 @@ import { SourceRaw } from '@features/sources';
 import logger from './logger';
 
 export const createJob = (
-  { script }: SourceRaw,
+  { script, request_params }: SourceRaw,
   gauge?: GaugeRaw,
 ) => async () => {
   try {
+    const reqParams = request_params || {};
+    const gaugeReqParams = gauge ? gauge.request_params : {};
+    const extras = { ...reqParams, ...gaugeReqParams };
     const { data, success, error } = await execScript<number>({
       command: ScriptCommand.HARVEST,
       script,
       code: gauge ? gauge.code : '',
-      extras: gauge ? gauge.request_params : {},
+      extras,
     });
     if (success) {
       if (data === 0) {

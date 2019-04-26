@@ -9,6 +9,7 @@ import { Script } from '../scripts';
 export interface Source extends NamedNode, Timestamped {
   termsOfUse: string | null;
   script: string;
+  requestParams: any;
   cron: string | null;
   harvestMode: HarvestMode;
   url: string | null;
@@ -25,6 +26,7 @@ export interface SourceInput {
   termsOfUse: string | null;
   script: string;
   cron: string | null;
+  requestParams: any;
   harvestMode: HarvestMode;
   url: string | null;
   regions: Node[];

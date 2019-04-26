@@ -49,6 +49,7 @@ const sources = [
     id: SOURCE_RUSSIA,
     script: 'one_by_one',
     harvest_mode: HarvestMode.ONE_BY_ONE,
+    request_params: JSON.stringify({ foo: 'bar' }),
     enabled: false,
   },
 ];

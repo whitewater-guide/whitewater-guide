@@ -12,6 +12,8 @@ type Source {
   termsOfUse: String
   # Non-nullablle for admin
   script: String @admin
+  # Arbitrary upstream request params
+  requestParams: JSON @admin
   # Cron schedule
   cron: String @admin
   # Non-nullable for admin
@@ -48,6 +50,7 @@ input SourceInput {
   name: String!
   termsOfUse: String
   script: String!
+  requestParams: JSON
   cron: String
   harvestMode: HarvestMode!
   regions: [RefInput]

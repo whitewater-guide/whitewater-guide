@@ -8,6 +8,7 @@ import { HarvestMode, NamedNode } from '@whitewater-guide/commons';
 export interface SourceRaw extends NamedNode, RawTimestamped, WithLanguage {
   terms_of_use: string | null;
   script: string;
+  request_params: any;
   cron: string | null;
   harvest_mode: HarvestMode;
   url: string | null;

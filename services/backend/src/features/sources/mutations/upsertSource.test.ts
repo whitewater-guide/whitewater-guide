@@ -41,6 +41,7 @@ const requiredSource: SourceInput = {
   script: 'newScript',
   url: null,
   termsOfUse: null,
+  requestParams: { foo: 'bar' },
   cron: null,
   regions: [{ id: '2caf75ca-7625-11e7-b5a5-be2e44b06b34' }],
 };
@@ -49,6 +50,7 @@ const optionalSource: SourceInput = {
   id: SOURCE_GALICIA_1,
   name: 'Updated source',
   script: 'updatedScript',
+  requestParams: { foo: 'bar' },
   cron: '1 1 * * *',
   harvestMode: HarvestMode.ONE_BY_ONE,
   url: 'http://google.com',
@@ -63,6 +65,7 @@ const mutation = `
       name
       termsOfUse
       script
+      requestParams
       cron
       harvestMode
       url
@@ -109,6 +112,7 @@ describe('resolvers chain', () => {
       cron: '300 1 * * *',
       harvestMode: HarvestMode.ONE_BY_ONE,
       url: 'not url',
+      requestParams: null,
       termsOfUse: 'New terms of use',
       regions: [{ id: 'aaaa' }],
     };
@@ -266,6 +270,7 @@ describe('i18n', () => {
     name: 'Грузия',
     termsOfUse: 'Правила пользования Грузией',
     cron: '0 * * * *',
+    requestParams: null,
     harvestMode: HarvestMode.ONE_BY_ONE,
     url: 'http://georgia.ge',
     regions: [],
@@ -275,6 +280,7 @@ describe('i18n', () => {
     id: '6d0d717e-aa9d-11e7-abc4-cec278b6b50a',
     script: 'galicia',
     cron: '0 * * * *',
+    requestParams: null,
     harvestMode: HarvestMode.ALL_AT_ONCE,
     url: 'http://ya.ru',
     name: 'Новая Галисия',
