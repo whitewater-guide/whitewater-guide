@@ -1,3 +1,9 @@
+## [0.0.123](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.122...@whitewater-guide/caddy@0.0.123) (2019-04-26)
+
+### Features
+
+- caddy 1.0 ([c75c464](https://github.com/doomsower/whitewater/commit/c75c464))
+
 ## [0.0.122](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.121...@whitewater-guide/caddy@0.0.122) (2019-03-26)
 
 ### Features

@@ -1,3 +1,11 @@
+## [0.0.213](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.212...@whitewater-guide/clients@0.0.213) (2019-04-26)
+
+## [0.0.212](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.211...@whitewater-guide/clients@0.0.212) (2019-04-26)
+
+### Features
+
+- **clients:** improve AppError message ([b1be444](https://github.com/doomsower/whitewater/commit/b1be444))
+
 ## [0.0.211](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.210...@whitewater-guide/clients@0.0.211) (2019-04-15)
 
 ## [0.0.210](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.209...@whitewater-guide/clients@0.0.210) (2019-04-12)

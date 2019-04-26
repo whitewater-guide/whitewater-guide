@@ -1,3 +1,7 @@
+## [0.0.341](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.340...@whitewater-guide/backend@0.0.341) (2019-04-26)
+
+## [0.0.340](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.339...@whitewater-guide/backend@0.0.340) (2019-04-26)
+
 ## [0.0.339](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.338...@whitewater-guide/backend@0.0.339) (2019-04-23)
 
 ### Features

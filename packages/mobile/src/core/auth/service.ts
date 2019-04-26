@@ -7,7 +7,7 @@ import {
 } from '@whitewater-guide/clients';
 import { AuthPayload } from '@whitewater-guide/commons';
 import mitt from 'mitt';
-import { Platform } from 'react-native';
+import { AppState, AppStateStatus, Platform } from 'react-native';
 import { AccessToken, LoginManager, LoginResult } from 'react-native-fbsdk';
 import { Sentry } from 'react-native-sentry';
 import { BACKEND_URL } from '../../utils/urls';
@@ -15,6 +15,9 @@ import waitUntilActive from '../../utils/waitUntilActive';
 import { tokenStorage } from './tokens';
 
 type AuthEvent = 'signOut' | 'signIn' | 'forceSignOut';
+
+const getFbRoute = ({ accessToken }: AccessToken) =>
+  `${BACKEND_URL}/auth/facebook/signin?access_token=${accessToken}`;
 
 interface Emitter {
   on(type: AuthEvent, handler: (payload: AuthPayload) => void): void;
@@ -28,12 +31,35 @@ export class MobileAuthService implements AuthService, Emitter {
   // ts in npm outdated, see github for correct ones
   // @ts-ignore
   private _emitter = mitt();
+  private _refreshing = false;
 
   constructor() {
     LoginManager.setLoginBehavior(
       Platform.OS === 'ios' ? 'native' : 'native_with_fallback',
     );
+    AppState.addEventListener('change', this.onAppStateChange);
   }
+
+  async init() {
+    // Legacy check. If user is logged in via FB, but has no access token, then
+    // most likely he logged in via legacy auth in older app version
+    let fbToken: AccessToken | null = null;
+    try {
+      fbToken = await AccessToken.getCurrentAccessToken();
+    } catch {}
+    const refreshToken = await tokenStorage.getRefreshToken();
+    if (!refreshToken && !!fbToken) {
+      await this.signInInternal(getFbRoute(fbToken));
+    } else if (!!refreshToken) {
+      await this.refreshAccessToken();
+    }
+  }
+
+  onAppStateChange = (state: AppStateStatus) => {
+    if (state === 'active' && !this._refreshing) {
+      this.refreshAccessToken().catch();
+    }
+  };
 
   on(type: AuthEvent, handler: any) {
     this._emitter.on(type, handler);
@@ -48,6 +74,7 @@ export class MobileAuthService implements AuthService, Emitter {
   }
 
   async refreshAccessToken() {
+    this._refreshing = true;
     const refreshToken = await tokenStorage.getRefreshToken();
     if (!refreshToken) {
       return { success: false, status: 400 };
@@ -62,13 +89,13 @@ export class MobileAuthService implements AuthService, Emitter {
       Sentry.captureMessage('token refresh failed', { error, error_id });
       await this.signOut(true);
     }
+    this._refreshing = false;
     return resp;
   }
   signIn(type: 'local', credentials: Credentials): Promise<void>;
   signIn(type: 'facebook'): Promise<void>;
   async signIn(type: AuthType, credentials?: Credentials): Promise<void> {
     let url!: string;
-    let options!: RequestInit;
     if (type === 'facebook') {
       const result: LoginResult = await LoginManager.logInWithReadPermissions([
         'public_profile',
@@ -94,13 +121,14 @@ export class MobileAuthService implements AuthService, Emitter {
       if (!at) {
         return;
       }
-      url = `${BACKEND_URL}/auth/facebook/signin?access_token=${
-        at.accessToken
-      }`;
-      options = { credentials: 'omit' };
+      url = getFbRoute(at);
     }
+    await this.signInInternal(url);
+  }
+
+  private async signInInternal(url: string, options?: RequestInit) {
     try {
-      const resp = await fetchRetry(url, options);
+      const resp = await fetchRetry(url, { credentials: 'omit', ...options });
       const payload: AuthPayload = await resp.json();
       const { accessToken, refreshToken } = payload;
       if (accessToken && refreshToken) {
@@ -116,6 +144,7 @@ export class MobileAuthService implements AuthService, Emitter {
       // Alert.alert(e.message, JSON.stringify(e, null, 2));
     }
   }
+
   async signOut(force = false) {
     await tokenStorage.setAccessToken(null);
     await tokenStorage.setRefreshToken(null);

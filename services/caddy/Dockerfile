@@ -5,8 +5,8 @@
 #
 FROM abiosoft/caddy:builder as builder
 
-ARG version="0.11.5"
-ARG plugins="ratelimit"
+ARG version="1.0.0"
+ARG plugins="git,ratelimit"
 
 # process wrapper
 RUN go get -v github.com/abiosoft/parent
@@ -18,7 +18,7 @@ RUN VERSION=${version} PLUGINS=${plugins} ENABLE_TELEMETRY=false /bin/sh /usr/bi
 #
 FROM alpine:3.8
 
-ARG version="0.11.5"
+ARG version="1.0.0"
 
 ENV ACME_AGREE="true"
 ENV ENABLE_TELEMETRY="false"

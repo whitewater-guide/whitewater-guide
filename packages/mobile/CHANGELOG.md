@@ -1,3 +1,22 @@
+## [1.7.59](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.58...@whitewater-guide/mobile@1.7.59) (2019-04-26)
+
+### Bug Fixes
+
+- **mobile:** fix video thumb error ([3b55b52](https://github.com/doomsower/whitewater/commit/3b55b52))
+
+## [1.7.58](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.57...@whitewater-guide/mobile@1.7.58) (2019-04-26)
+
+## [1.7.57](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.56...@whitewater-guide/mobile@1.7.57) (2019-04-26)
+
+### Bug Fixes
+
+- **mobile:** fix FindButton crash ([dff47e1](https://github.com/doomsower/whitewater/commit/dff47e1)), closes [#369](https://github.com/doomsower/whitewater/issues/369)
+- **mobile:** fix maps crash on android 9 ([7472867](https://github.com/doomsower/whitewater/commit/7472867))
+
+### Features
+
+- **mobile:** pick up legacy auth, refresh token on startup ([e7a43ea](https://github.com/doomsower/whitewater/commit/e7a43ea))
+
 ## [1.7.56](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.55...@whitewater-guide/mobile@1.7.56) (2019-04-23)
 
 ### Bug Fixes

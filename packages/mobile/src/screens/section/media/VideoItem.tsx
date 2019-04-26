@@ -1,10 +1,11 @@
-import { getVideoThumb } from '@whitewater-guide/clients';
+import { getVideoThumb, VideoThumb } from '@whitewater-guide/clients';
 import { Media } from '@whitewater-guide/commons';
 import React from 'react';
 import { Clipboard, Linking, StyleSheet, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { Caption, Paragraph, TouchableRipple } from 'react-native-paper';
 import { Row } from '../../../components';
+import { trackError } from '../../../core/errors';
 import { PHOTO_PADDING, PHOTO_SIZE } from '../../../features/media';
 import VideoThumbPlaceholder from './VideoThumbPlaceholder';
 
@@ -41,7 +42,12 @@ class VideoItem extends React.PureComponent<Props, State> {
   state: State = { thumb: null };
 
   async componentDidMount() {
-    const thumb = await getVideoThumb(this.props.video.url, PHOTO_SIZE);
+    let thumb: VideoThumb | null = null;
+    try {
+      thumb = await getVideoThumb(this.props.video.url, PHOTO_SIZE);
+    } catch (e) {
+      trackError('VideoItem', e);
+    }
     this.setState({ thumb: thumb ? thumb.thumb : null });
   }
 

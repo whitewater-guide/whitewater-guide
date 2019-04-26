@@ -41,6 +41,7 @@ class App extends React.Component<{}, State> {
   private _authService = new MobileAuthService();
 
   async componentDidMount() {
+    await this._authService.init();
     this._store = await configureStore();
     this._apolloClient = await initApolloClient(this._authService);
     this._authService.on('signIn', this.onSignIn);
