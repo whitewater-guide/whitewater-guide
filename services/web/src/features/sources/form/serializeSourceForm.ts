@@ -4,8 +4,11 @@ import { SourceFormData } from './types';
 
 const serializeSourceForm = (data: SourceFormData): SourceInput => {
   const result = serializeForm(['termsOfUse'], [], ['regions'])(data);
+  const requestParams =
+    result && result.requestParams ? JSON.parse(result.requestParams) : null;
   return {
     ...result,
+    requestParams,
     script: data.script.id,
     harvestMode: data.script.harvestMode,
   } as any;

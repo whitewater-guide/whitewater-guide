@@ -22,4 +22,5 @@ export const SourceFormStruct = (richTextStruct?: Type) =>
     ...SourceInputFields,
     termsOfUse: richTextStruct || 'any',
     script: ScriptStruct,
+    requestParams: baseStruct.union(['jsonString', 'null']),
   });

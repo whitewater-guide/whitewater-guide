@@ -31,6 +31,11 @@ export default class SourceForm extends React.PureComponent<SourceFormProps> {
               options={this.props.scripts}
             />
             <TextInput fullWidth={true} name="url" title="URL" />
+            <TextInput
+              fullWidth={true}
+              name="requestParams"
+              title="Request params"
+            />
             <TextInput fullWidth={true} name="cron" title="Cron" />
           </Tab>
           <Tab label="Terms Of Use" value="#terms">
