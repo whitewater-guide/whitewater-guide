@@ -9,7 +9,7 @@ Content-Type: application/json
 }
 
 ###
-# Autofill Quebec
+# Autofill Quebec & BC
 POST http://localhost:7080/endpoint
 Cache-Control: no-cache
 Content-Type: application/json
@@ -18,12 +18,12 @@ Content-Type: application/json
   "command": "autofill",
   "script": "canada",
   "extras": {
-    "province": "QC"
+    "provinces": "QC,BC"
   }
 }
 
 ###
-# Harvest Quebec
+# Harvest Quebec & BC
 POST http://localhost:7080/endpoint
 Cache-Control: no-cache
 Content-Type: application/json
@@ -32,7 +32,7 @@ Content-Type: application/json
   "command": "harvest",
   "script": "canada",
   "extras": {
-    "province": "QC"
+    "provinces": "QC,BC"
   }
 }
 

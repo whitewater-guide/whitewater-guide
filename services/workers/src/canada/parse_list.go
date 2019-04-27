@@ -61,6 +61,8 @@ func fetchStationList() ([]station, error) {
 		line, err := reader.Read()
 		if err == io.EOF {
 			break
+		} else if e, ok := err.(*csv.ParseError); ok && e.Err == csv.ErrFieldCount {
+			continue
 		} else if err != nil {
 			return nil, err
 		}

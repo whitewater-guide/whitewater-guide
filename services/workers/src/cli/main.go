@@ -71,7 +71,7 @@ func main() {
 	register(cantabria.NewWorkerCantabria, nil)
 	register(sepa.NewWorkerSepa, nil)
 	register(canada.NewWorkerCanada, func(cmd *cobra.Command) {
-		cmd.Flags().String("province", "", "Set province/territory")
+		cmd.Flags().String("provinces", "", "List of province/territory codes, comma separated")
 	})
 
 	rootCmd = &cobra.Command{
