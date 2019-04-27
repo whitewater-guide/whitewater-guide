@@ -1,3 +1,9 @@
+## [0.1.333](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.332...@whitewater-guide/web@0.1.333) (2019-04-27)
+
+### Bug Fixes
+
+- **web:** fix add request params to source ([b6fea47](https://github.com/doomsower/whitewater/commit/b6fea47))
+
 ## [0.1.332](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.331...@whitewater-guide/web@0.1.332) (2019-04-26)
 
 ### Features
