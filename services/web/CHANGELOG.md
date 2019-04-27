@@ -1,3 +1,9 @@
+## [0.1.335](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.334...@whitewater-guide/web@0.1.335) (2019-04-27)
+
+### Bug Fixes
+
+- **web:** temporary pin babel-loader ([b16796d](https://github.com/doomsower/whitewater/commit/b16796d))
+
 ## [0.1.334](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.333...@whitewater-guide/web@0.1.334) (2019-04-27)
 
 ## [0.1.333](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.332...@whitewater-guide/web@0.1.333) (2019-04-27)
