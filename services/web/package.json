@@ -170,7 +170,8 @@
   },
   "resolutions": {
     "**/react": "^16.8.6",
-    "**/react-dom": "^16.8.6"
+    "**/react-dom": "^16.8.6",
+    "**/babel-loader": "8.0.5"
   },
   "browserslist": [
     ">0.2%",
