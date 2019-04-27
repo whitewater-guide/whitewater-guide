@@ -24,9 +24,9 @@ const autofillSource: TopLevelResolver<Vars> = async (root, { id }) => {
       'Cannot autofill source that already has gauges',
     );
   }
-  const { enabled, script }: SourceRaw = await db()
+  const { enabled, script, request_params }: SourceRaw = await db()
     .table('sources')
-    .select(['script', 'enabled'])
+    .select(['script', 'enabled', 'request_params'])
     .where({ id })
     .first();
   if (enabled) {
@@ -35,6 +35,7 @@ const autofillSource: TopLevelResolver<Vars> = async (root, { id }) => {
   const { success, error, data } = await execScript<ScriptGaugeInfo[]>({
     command: 'autofill' as ScriptCommand,
     script,
+    extras: request_params || {},
   });
   if (!success) {
     throw new UnknownError(`Autofill failed: ${error}`);
