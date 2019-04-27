@@ -86,7 +86,7 @@ describe('SourceForm', () => {
   const correct: SFI = {
     id: 'fd78e364-c2e4-11e8-a355-529269fb1459',
     name: 'src',
-    requestParams: { foo: 'bar' },
+    requestParams: '{ "foo": "bar" }',
     cron: '10 * * * *',
     harvestMode: HarvestMode.ALL_AT_ONCE,
     regions: [{ id: '1750c41e-c2e5-11e8-a355-529269fb1459' }],
