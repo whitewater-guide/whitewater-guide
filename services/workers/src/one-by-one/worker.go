@@ -26,7 +26,7 @@ func (w *workerOneByOne) FlagsToExtras(flags *pflag.FlagSet) map[string]interfac
 	}
 }
 
-func (w *workerOneByOne) Autofill() ([]core.GaugeInfo, error) {
+func (w *workerOneByOne) Autofill(options map[string]interface{}) ([]core.GaugeInfo, error) {
 	const numGauges = 60
 	res := make([]core.GaugeInfo, numGauges)
 	for i := 0; i < numGauges; i++ {

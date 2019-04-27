@@ -66,7 +66,7 @@ type HarvestOptions struct {
 type Worker interface {
 	ScriptName() string
 	HarvestMode() string
-	Autofill() ([]GaugeInfo, error)
+	Autofill(options map[string]interface{}) ([]GaugeInfo, error)
 	Harvest(options HarvestOptions) ([]Measurement, error)
 	FlagsToExtras(flags *pflag.FlagSet) map[string]interface{}
 }

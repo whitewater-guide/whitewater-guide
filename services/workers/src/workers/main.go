@@ -2,6 +2,7 @@ package main
 
 import (
 	"all-at-once"
+	"canada"
 	"cantabria"
 	"catalunya"
 	"chile"
@@ -112,7 +113,7 @@ func handler(res http.ResponseWriter, req *http.Request) {
 		result = list()
 	case "autofill":
 		worker := workerFactories[payload.Script]()
-		result, err = worker.Autofill()
+		result, err = worker.Autofill(payload.Extras)
 	case "harvest":
 		worker := workerFactories[payload.Script]()
 		result, err = harvest(&database, &cache, &worker, &payload)
@@ -142,6 +143,7 @@ func startWorkers() {
 	register(catalunya.NewWorkerCatalunya)
 	register(cantabria.NewWorkerCantabria)
 	register(sepa.NewWorkerSepa)
+	register(canada.NewWorkerCanada)
 
 	log.Info("started workers")
 }

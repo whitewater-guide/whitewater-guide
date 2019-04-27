@@ -19,7 +19,7 @@ func (w *workerCatalunya) FlagsToExtras(flags *pflag.FlagSet) map[string]interfa
 	return nil
 }
 
-func (w *workerCatalunya) Autofill() (gauges []core.GaugeInfo, err error) {
+func (w *workerCatalunya) Autofill(options map[string]interface{}) (gauges []core.GaugeInfo, err error) {
 	return parseList(w.ScriptName())
 }
 

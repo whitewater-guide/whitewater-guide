@@ -1,70 +1,70 @@
 package tirol
 
 import (
-  "core"
-  "github.com/spf13/pflag"
+	"core"
+	"github.com/spf13/pflag"
 )
 
 type workerTirol struct{}
 
 func (w *workerTirol) ScriptName() string {
-  return "tirol"
+	return "tirol"
 }
 
 func (w *workerTirol) HarvestMode() string {
-  return core.AllAtOnce
+	return core.AllAtOnce
 }
 
 func (w *workerTirol) FlagsToExtras(flags *pflag.FlagSet) map[string]interface{} {
-  return nil
+	return nil
 }
 
-func (w *workerTirol) Autofill() (result []core.GaugeInfo, err error) {
-  raws, err := parseRawCsv()
-  if err != nil {
-    return
-  }
-  byCode := make(map[string]core.GaugeInfo)
-  for _, raw := range raws[1:] {
-    _, ok := byCode[raw.code]
-    if ok {
-      continue
-    }
-    info, err := getGaugeInfo(raw, w.ScriptName())
-    if err != nil {
-      return nil, err
-    }
-    byCode[raw.code] = info;
-  }
-  result = make([]core.GaugeInfo, len(byCode))
-  i := 0
-  for _, v := range byCode {
-    result[i] = v
-    i++
-  }
-  return
+func (w *workerTirol) Autofill(options map[string]interface{}) (result []core.GaugeInfo, err error) {
+	raws, err := parseRawCsv()
+	if err != nil {
+		return
+	}
+	byCode := make(map[string]core.GaugeInfo)
+	for _, raw := range raws[1:] {
+		_, ok := byCode[raw.code]
+		if ok {
+			continue
+		}
+		info, err := getGaugeInfo(raw, w.ScriptName())
+		if err != nil {
+			return nil, err
+		}
+		byCode[raw.code] = info
+	}
+	result = make([]core.GaugeInfo, len(byCode))
+	i := 0
+	for _, v := range byCode {
+		result[i] = v
+		i++
+	}
+	return
 }
 
 func (w *workerTirol) Harvest(_ core.HarvestOptions) ([]core.Measurement, error) {
-  raws, err := parseRawCsv()
-  if err != nil {
-    return nil, err
-  }
-  var result []core.Measurement
-  for _, raw := range raws[1:] {
-    m, err := getMeasurement(raw, w.ScriptName())
-    if err != nil {
-      return nil, err
-    }
-    // special value that indicates broken gauge
-    if m.Level == -777.0 {
-      continue
-    }
-    result = append(result, m)
-  }
-  return result, nil
+	raws, err := parseRawCsv()
+	if err != nil {
+		return nil, err
+	}
+	var result []core.Measurement
+	for _, raw := range raws[1:] {
+		m, err := getMeasurement(raw, w.ScriptName())
+		if err != nil {
+			return nil, err
+		}
+		// special value that indicates broken gauge
+		if m.Level == -777.0 {
+			continue
+		}
+		result = append(result, m)
+	}
+	return result, nil
 }
 
 func NewWorkerTirol() core.Worker {
-  return &workerTirol{}
+	return &workerTirol{}
 }
