@@ -90,6 +90,13 @@ export class TokenRefreshLink extends ApolloLink {
               error: observer.error.bind(observer),
               complete: observer.complete.bind(observer),
             });
+          })
+          .catch((err) => {
+            handle = fromError(err).subscribe({
+              next: observer.next.bind(observer),
+              error: observer.error.bind(observer),
+              complete: observer.complete.bind(observer),
+            });
           });
         return () => {
           if (handle) {

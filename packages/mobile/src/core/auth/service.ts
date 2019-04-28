@@ -51,7 +51,7 @@ export class MobileAuthService implements AuthService, Emitter {
     if (!refreshToken && !!fbToken) {
       await this.signInInternal(getFbRoute(fbToken));
     } else if (!!refreshToken) {
-      await this.refreshAccessToken();
+      await this.refreshAccessToken().catch(() => {});
     }
   }
 
