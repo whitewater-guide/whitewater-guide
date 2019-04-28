@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/olekukonko/tablewriter"
 	"github.com/spf13/cobra"
+	"github.com/spf13/pflag"
 	"os"
 )
 
@@ -12,13 +13,15 @@ func initAutofill(worker core.Worker) *cobra.Command {
 	return &cobra.Command{
 		Use: worker.ScriptName(),
 		Run: func(cmd *cobra.Command, args []string) {
-			autofill(worker)
+			flags := cmd.Flags()
+			autofill(worker, flags)
 		},
 	}
 }
 
-func autofill(worker core.Worker) {
-	gauges, err := worker.Autofill()
+func autofill(worker core.Worker, flags *pflag.FlagSet) {
+	extras := worker.FlagsToExtras(flags)
+	gauges, err := worker.Autofill(extras)
 	if err != nil {
 		fmt.Printf("Error while autofill: %s", err)
 	} else {

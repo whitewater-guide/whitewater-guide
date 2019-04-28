@@ -6,6 +6,9 @@ Object {
   "enabled": false,
   "harvestMode": "allAtOnce",
   "name": "New Source",
+  "requestParams": Object {
+    "foo": "bar",
+  },
   "script": "newScript",
   "termsOfUse": null,
   "url": null,
@@ -19,6 +22,9 @@ Object {
   "harvestMode": "oneByOne",
   "id": "6d0d717e-aa9d-11e7-abc4-cec278b6b50a",
   "name": "Updated source",
+  "requestParams": Object {
+    "foo": "bar",
+  },
   "script": "updatedScript",
   "termsOfUse": "New terms of use",
   "url": "http://google.com",

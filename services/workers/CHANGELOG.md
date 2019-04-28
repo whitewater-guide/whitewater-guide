@@ -1,3 +1,11 @@
+## [0.0.80](https://github.com/doomsower/whitewater/compare/@whitewater-guide/workers@0.0.79...@whitewater-guide/workers@0.0.80) (2019-04-28)
+
+## [0.0.79](https://github.com/doomsower/whitewater/compare/@whitewater-guide/workers@0.0.78...@whitewater-guide/workers@0.0.79) (2019-04-27)
+
+### Features
+
+- **workers:** harvest canada and allow autofill options ([b3aeb95](https://github.com/doomsower/whitewater/commit/b3aeb95))
+
 ## [0.0.78](https://github.com/doomsower/whitewater/compare/@whitewater-guide/workers@0.0.77...@whitewater-guide/workers@0.0.78) (2019-04-07)
 
 ### Features

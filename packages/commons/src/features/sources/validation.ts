@@ -8,6 +8,7 @@ const SourceInputFields = {
   name: 'nonEmptyString',
   termsOfUse: 'string|null',
   script: 'script',
+  requestParams: 'object|null',
   cron: baseStruct.union(['cron', 'null', baseStruct.literal('')]),
   harvestMode: HarvestModeStruct,
   url: baseStruct.union(['url', 'null', baseStruct.literal('')]),
@@ -21,4 +22,5 @@ export const SourceFormStruct = (richTextStruct?: Type) =>
     ...SourceInputFields,
     termsOfUse: richTextStruct || 'any',
     script: ScriptStruct,
+    requestParams: baseStruct.union(['jsonString', 'null']),
   });

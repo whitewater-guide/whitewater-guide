@@ -1,3 +1,25 @@
+## [0.1.335](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.334...@whitewater-guide/web@0.1.335) (2019-04-27)
+
+### Bug Fixes
+
+- **web:** temporary pin babel-loader ([b16796d](https://github.com/doomsower/whitewater/commit/b16796d))
+
+## [0.1.334](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.333...@whitewater-guide/web@0.1.334) (2019-04-27)
+
+## [0.1.333](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.332...@whitewater-guide/web@0.1.333) (2019-04-27)
+
+### Bug Fixes
+
+- **web:** fix add request params to source ([b6fea47](https://github.com/doomsower/whitewater/commit/b6fea47))
+
+## [0.1.332](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.331...@whitewater-guide/web@0.1.332) (2019-04-26)
+
+### Features
+
+- **web:** add request params to source ([872cf16](https://github.com/doomsower/whitewater/commit/872cf16))
+
+## [0.1.331](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.330...@whitewater-guide/web@0.1.331) (2019-04-26)
+
 ## [0.1.330](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.329...@whitewater-guide/web@0.1.330) (2019-04-26)
 
 ## [0.1.329](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.328...@whitewater-guide/web@0.1.329) (2019-04-26)

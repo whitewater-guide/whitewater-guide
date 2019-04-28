@@ -16,6 +16,7 @@ describe('SourceInput', () => {
     regions: [{ id: '1750c41e-c2e5-11e8-a355-529269fb1459' }],
     script: 'script',
     termsOfUse: 'terms of use',
+    requestParams: { foo: 'bar' },
     url: 'http://ya.ru',
   };
 
@@ -31,6 +32,7 @@ describe('SourceInput', () => {
         regions: [],
         script: 'script',
         termsOfUse: null,
+        requestParams: null,
         url: null,
       },
     ],
@@ -84,6 +86,7 @@ describe('SourceForm', () => {
   const correct: SFI = {
     id: 'fd78e364-c2e4-11e8-a355-529269fb1459',
     name: 'src',
+    requestParams: '{ "foo": "bar" }',
     cron: '10 * * * *',
     harvestMode: HarvestMode.ALL_AT_ONCE,
     regions: [{ id: '1750c41e-c2e5-11e8-a355-529269fb1459' }],
@@ -109,6 +112,7 @@ describe('SourceForm', () => {
         id: null,
         cron: null,
         termsOfUse: null,
+        requestParams: null,
         url: null,
       },
     ],

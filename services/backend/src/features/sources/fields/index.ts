@@ -9,6 +9,7 @@ import status from './status';
 const sourceResolvers: FieldResolvers<SourceRaw, Source> = {
   harvestMode: (src) => src.harvest_mode,
   termsOfUse: (src) => src.terms_of_use,
+  requestParams: (src) => src.request_params,
   regions,
   gauges,
   status,

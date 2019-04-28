@@ -9,6 +9,7 @@ export default gql`
       script
       cron
       harvestMode
+      requestParams
       url
       regions {
         nodes {

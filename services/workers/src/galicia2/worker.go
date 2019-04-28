@@ -19,7 +19,7 @@ func (w *workerGalicia2) FlagsToExtras(flags *pflag.FlagSet) map[string]interfac
 	return nil
 }
 
-func (w *workerGalicia2) Autofill() ([]core.GaugeInfo, error) {
+func (w *workerGalicia2) Autofill(options map[string]interface{}) ([]core.GaugeInfo, error) {
 	gauges, err := w.parseTable()
 	if err != nil {
 		return gauges, err

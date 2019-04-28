@@ -19,7 +19,7 @@ func (w *workerGeorgia) FlagsToExtras(flags *pflag.FlagSet) map[string]interface
 	return nil
 }
 
-func (w *workerGeorgia) Autofill() ([]core.GaugeInfo, error) {
+func (w *workerGeorgia) Autofill(options map[string]interface{}) ([]core.GaugeInfo, error) {
 	return w.parseTable()
 }
 

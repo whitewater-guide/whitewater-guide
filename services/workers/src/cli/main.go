@@ -2,6 +2,7 @@ package main
 
 import (
 	"all-at-once"
+	"canada"
 	"cantabria"
 	"catalunya"
 	"chile"
@@ -69,6 +70,9 @@ func main() {
 	register(catalunya.NewWorkerCatalunya, nil)
 	register(cantabria.NewWorkerCantabria, nil)
 	register(sepa.NewWorkerSepa, nil)
+	register(canada.NewWorkerCanada, func(cmd *cobra.Command) {
+		cmd.Flags().String("provinces", "", "List of province/territory codes, comma separated")
+	})
 
 	rootCmd = &cobra.Command{
 		Use:   "workers-cli [command] [script] [flags]",
@@ -99,9 +103,13 @@ func main() {
 		if addFlags != nil {
 			addFlags(harvestCmd)
 		}
+		autofillCmd := initAutofill(worker)
+		if addFlags != nil {
+			addFlags(autofillCmd)
+		}
 
 		describe.AddCommand(initDescribe(worker))
-		autofill.AddCommand(initAutofill(worker))
+		autofill.AddCommand(autofillCmd)
 		harvest.AddCommand(harvestCmd)
 	}
 

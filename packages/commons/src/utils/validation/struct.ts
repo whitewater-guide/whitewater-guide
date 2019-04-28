@@ -43,7 +43,8 @@ const types: Config['types'] = {
     return result || 'Incorrect UUID';
   },
   node: (value: any) =>
-    (isObject(value) && isUUID(value.id)) || 'Value must be node with id',
+    (isObject(value) && isUUID((value as any).id)) ||
+    'Value must be node with id',
   url: (v: any) => (isString(v) && isURL(v)) || 'Value must be valid URL',
   https: (v: any) =>
     (isString(v) && isURL(v, { protocols: ['https'] })) ||

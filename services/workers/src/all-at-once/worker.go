@@ -29,7 +29,7 @@ func (w *workerAllAtOnce) FlagsToExtras(flags *pflag.FlagSet) map[string]interfa
 	}
 }
 
-func (w *workerAllAtOnce) Autofill() ([]core.GaugeInfo, error) {
+func (w *workerAllAtOnce) Autofill(options map[string]interface{}) ([]core.GaugeInfo, error) {
 	res := make([]core.GaugeInfo, numGauges)
 	for i := 0; i < numGauges; i++ {
 		res[i] = core.GenerateRandGauge(w.ScriptName(), i)

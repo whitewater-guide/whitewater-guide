@@ -9,7 +9,14 @@ import safeScheduleJob from './safeScheduleJob';
 export async function startJobs(sourceId: string, gaugeId?: string) {
   const source: SourceRaw = await db()
     .table('sources')
-    .select(['id', 'script', 'cron', 'enabled', 'harvest_mode'])
+    .select([
+      'id',
+      'script',
+      'cron',
+      'enabled',
+      'harvest_mode',
+      'request_params',
+    ])
     .where({ id: sourceId })
     .limit(1)
     .first();

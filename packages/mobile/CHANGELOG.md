@@ -1,3 +1,15 @@
+## [1.7.63](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.62...@whitewater-guide/mobile@1.7.63) (2019-04-28)
+
+### Bug Fixes
+
+- **mobile:** fix crash when starting offline ([5b36257](https://github.com/doomsower/whitewater/commit/5b36257))
+
+## [1.7.62](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.61...@whitewater-guide/mobile@1.7.62) (2019-04-27)
+
+## [1.7.61](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.60...@whitewater-guide/mobile@1.7.61) (2019-04-26)
+
+## [1.7.60](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.59...@whitewater-guide/mobile@1.7.60) (2019-04-26)
+
 ## [1.7.59](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.58...@whitewater-guide/mobile@1.7.59) (2019-04-26)
 
 ### Bug Fixes

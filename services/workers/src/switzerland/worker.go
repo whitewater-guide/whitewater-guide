@@ -20,7 +20,7 @@ func (w *workerSwitzerland) FlagsToExtras(flags *pflag.FlagSet) map[string]inter
 	return nil
 }
 
-func (w *workerSwitzerland) Autofill() (gauges []core.GaugeInfo, err error) {
+func (w *workerSwitzerland) Autofill(options map[string]interface{}) (gauges []core.GaugeInfo, err error) {
 	gauges, err = parseXML(w.ScriptName())
 	if err != nil {
 		return nil, nil

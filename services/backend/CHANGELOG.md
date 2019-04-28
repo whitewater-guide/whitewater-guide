@@ -1,3 +1,21 @@
+## [0.0.346](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.345...@whitewater-guide/backend@0.0.346) (2019-04-27)
+
+### Bug Fixes
+
+- **backend:** pass source request_params to autofill ([eed37d2](https://github.com/doomsower/whitewater/commit/eed37d2))
+
+## [0.0.345](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.344...@whitewater-guide/backend@0.0.345) (2019-04-27)
+
+## [0.0.344](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.343...@whitewater-guide/backend@0.0.344) (2019-04-27)
+
+## [0.0.343](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.342...@whitewater-guide/backend@0.0.343) (2019-04-26)
+
+## [0.0.342](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.341...@whitewater-guide/backend@0.0.342) (2019-04-26)
+
+### Features
+
+- **backend:** add request params to source ([cb89761](https://github.com/doomsower/whitewater/commit/cb89761))
+
 ## [0.0.341](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.340...@whitewater-guide/backend@0.0.341) (2019-04-26)
 
 ## [0.0.340](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.339...@whitewater-guide/backend@0.0.340) (2019-04-26)
