@@ -14,7 +14,7 @@ func (w *workerQuebec) ScriptName() string {
 }
 
 func (w *workerQuebec) HarvestMode() string {
-	return core.AllAtOnce
+	return core.OneByOne
 }
 
 func (w *workerQuebec) FlagsToExtras(flags *pflag.FlagSet) map[string]interface{} {
