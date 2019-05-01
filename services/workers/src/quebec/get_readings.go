@@ -47,14 +47,16 @@ func parseReadings(r io.Reader, tz *time.Location, script, code string) ([]core.
 		}
 		var level, flow float64
 		if levelInd != -1 {
-			levelStr := line[levelInd]
-			level, err = strconv.ParseFloat(strings.Replace(levelStr, ",", ".", -1), 64)
+			levelStr := strings.Replace(line[levelInd], ",", ".", -1)
+			levelStr = strings.Replace(levelStr, "*", "", -1)
+			level, err = strconv.ParseFloat(levelStr, 64)
 			if err != nil {
 				return nil, err
 			}
 		}
 		if flowInd != -1 {
-			flowStr := line[flowInd]
+			flowStr := strings.Replace(line[flowInd], ",", ".", -1)
+			flowStr = strings.Replace(flowStr, "*", "", -1)
 			flow, err = strconv.ParseFloat(strings.Replace(flowStr, ",", ".", -1), 64)
 			if err != nil {
 				return nil, err
