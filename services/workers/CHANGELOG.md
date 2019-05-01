@@ -1,3 +1,9 @@
+## [0.0.82](https://github.com/doomsower/whitewater/compare/@whitewater-guide/workers@0.0.81...@whitewater-guide/workers@0.0.82) (2019-05-01)
+
+### Bug Fixes
+
+- **workers:** fix quebec harvest mode ([fde98e3](https://github.com/doomsower/whitewater/commit/fde98e3))
+
 ## [0.0.81](https://github.com/doomsower/whitewater/compare/@whitewater-guide/workers@0.0.80...@whitewater-guide/workers@0.0.81) (2019-05-01)
 
 ### Features
