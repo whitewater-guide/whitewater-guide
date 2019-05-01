@@ -88,7 +88,7 @@ func fetchStationList() ([]station, error) {
 
 		result = append(result, station{
 			id:        line[0],
-			name:      line[1],
+			name:      fmt.Sprintf("[%s] %s", line[4], line[1]),
 			latitude:  lat,
 			longitude: lon,
 			province:  line[4],
