@@ -4,6 +4,8 @@ import (
 	"core"
 	"encoding/csv"
 	"fmt"
+	"golang.org/x/text/encoding/charmap"
+	"golang.org/x/text/transform"
 	"io"
 	"strconv"
 	"strings"
@@ -81,5 +83,6 @@ func getReadings(script, code string) ([]core.Measurement, error) {
 		return nil, err
 	}
 	defer resp.Body.Close()
-	return parseReadings(resp.Body, est, script, code)
+	reader := transform.NewReader(resp.Body, charmap.Windows1252.NewDecoder())
+	return parseReadings(reader, est, script, code)
 }
