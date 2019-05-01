@@ -1,3 +1,9 @@
+## [0.0.83](https://github.com/doomsower/whitewater/compare/@whitewater-guide/workers@0.0.82...@whitewater-guide/workers@0.0.83) (2019-05-01)
+
+### Bug Fixes
+
+- **workers:** fix quebec encoding ([12b21e7](https://github.com/doomsower/whitewater/commit/12b21e7))
+
 ## [0.0.82](https://github.com/doomsower/whitewater/compare/@whitewater-guide/workers@0.0.81...@whitewater-guide/workers@0.0.82) (2019-05-01)
 
 ### Bug Fixes
