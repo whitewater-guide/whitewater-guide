@@ -4,7 +4,10 @@ import {
   UnknownError,
 } from '@apollo';
 import db, { rawUpsert } from '@db';
+import { GaugeRaw } from '@features/gauges';
+import { PointRaw } from '@features/points';
 import { GaugeInput, PointInput } from '@whitewater-guide/commons';
+import keyBy from 'lodash/keyBy';
 import { execScript, ScriptCommand, ScriptGaugeInfo } from '../../scripts';
 import { SourceRaw } from '../types';
 
@@ -12,18 +15,30 @@ interface Vars {
   id: string;
 }
 
-const autofillSource: TopLevelResolver<Vars> = async (root, { id }) => {
-  const { count } = await db()
-    .table('gauges')
-    .where({ source_id: id })
-    .count()
-    .first();
+const convertLocation = (
+  info: ScriptGaugeInfo,
+  locationId: string | null,
+): PointInput | null => {
+  const { location, name } = info;
+  const { latitude, longitude, altitude } = location;
+  return latitude && longitude
+    ? {
+        id: locationId,
+        name: `Gauge ${name}`,
+        description: null,
+        kind: 'gauge',
+        coordinates: [longitude, latitude, altitude],
+      }
+    : null;
+};
 
-  if (count > 0) {
-    throw new MutationNotAllowedError(
-      'Cannot autofill source that already has gauges',
-    );
-  }
+const autofillSource: TopLevelResolver<Vars> = async (root, { id }) => {
+  const gauges: GaugeRaw[] = await db()
+    .select(['id', 'code', 'location_id'])
+    .from('gauges')
+    .where({ source_id: id });
+  const codes = keyBy(gauges, 'code');
+
   const { enabled, script, request_params }: SourceRaw = await db()
     .table('sources')
     .select(['script', 'enabled', 'request_params'])
@@ -44,22 +59,12 @@ const autofillSource: TopLevelResolver<Vars> = async (root, { id }) => {
   const gaugesIn: ScriptGaugeInfo[] = data || [];
   const gaugesOut = [];
   for (const g of gaugesIn) {
-    const { latitude, longitude, altitude } = g.location;
-    const location: PointInput | null =
-      latitude && longitude
-        ? {
-            id: null,
-            name: `Gauge ${g.name}`,
-            description: null,
-            kind: 'gauge',
-            coordinates: [longitude, latitude, altitude],
-          }
-        : null;
+    const existing = codes[g.code];
     const input: GaugeInput = {
-      id: null,
+      id: existing ? existing.id : null,
       name: g.name,
       source: { id },
-      location,
+      location: convertLocation(g, existing ? existing.location_id : null),
       code: g.code,
       levelUnit: g.levelUnit || null,
       flowUnit: g.flowUnit || null,

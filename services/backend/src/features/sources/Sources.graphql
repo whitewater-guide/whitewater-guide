@@ -72,5 +72,5 @@ type Mutation {
   removeSource(id: ID!): ID @admin
   toggleSource(id: ID!, enabled: Boolean!): Source @admin
   autofillSource(id: ID!): [Gauge] @admin
-  generateSourceSchedule(id: ID!): [Gauge] @admin
+  generateSourceSchedule(id: ID!, linkedOnly: Boolean): [Gauge] @admin
 }

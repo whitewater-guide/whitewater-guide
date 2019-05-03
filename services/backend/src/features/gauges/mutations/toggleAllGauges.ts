@@ -7,11 +7,12 @@ import { HarvestMode } from '@whitewater-guide/commons';
 interface Vars {
   sourceId: string;
   enabled: boolean;
+  linkedOnly: boolean;
 }
 
 const toggleAllGauges: TopLevelResolver<Vars> = async (
   root,
-  { sourceId, enabled },
+  { sourceId, enabled, linkedOnly },
 ) => {
   const { harvest_mode }: Partial<SourceRaw> = await db()
     .table('sources')
@@ -29,16 +30,23 @@ const toggleAllGauges: TopLevelResolver<Vars> = async (
   if (enabled) {
     query = query.whereNotNull('cron');
   }
+  if (linkedOnly) {
+    query = query.whereExists((qb) =>
+      qb
+        .select(db().raw('1'))
+        .from('sections')
+        .whereRaw('sections.gauge_id = gauges.id'),
+    );
+  }
   const toggledGauges = await query;
 
-  // TODO: should be in transaction
   if (enabled) {
     await startJobs(sourceId);
   } else {
     await stopJobs(sourceId);
   }
 
-  return toggledGauges.map((gauge: any) => ({ ...gauge }));
+  return toggledGauges;
 };
 
 export default toggleAllGauges;

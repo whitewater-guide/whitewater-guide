@@ -1,8 +1,17 @@
 import { holdTransaction, rollbackTransaction } from '@db';
 import { startJobs, stopJobs } from '@features/jobs';
 import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
-import { SOURCE_GALICIA_1, SOURCE_NORWAY } from '@seeds/05_sources';
-import { GAUGE_NOR_1, GAUGE_NOR_3, GAUGE_NOR_4 } from '@seeds/06_gauges';
+import {
+  SOURCE_GALICIA_1,
+  SOURCE_GEORGIA,
+  SOURCE_NORWAY,
+} from '@seeds/05_sources';
+import {
+  GAUGE_GEO_4,
+  GAUGE_NOR_1,
+  GAUGE_NOR_3,
+  GAUGE_NOR_4,
+} from '@seeds/06_gauges';
 import { anonContext, fakeContext, runQuery } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
 
@@ -12,8 +21,8 @@ jest.mock('@features/jobs', () => ({
 }));
 
 const mutation = `
-  mutation toggleAllGauges($sourceId: ID!, $enabled: Boolean!){
-    toggleAllGauges(sourceId: $sourceId, enabled: $enabled) {
+  mutation toggleAllGauges($sourceId: ID!, $enabled: Boolean!, $linkedOnly: Boolean){
+    toggleAllGauges(sourceId: $sourceId, enabled: $enabled, linkedOnly: $linkedOnly) {
       id
       enabled
     }
@@ -84,6 +93,18 @@ describe('effects', () => {
     expect(result.data!.toggleAllGauges).toMatchObject([
       { id: GAUGE_NOR_1, enabled: false },
       { id: GAUGE_NOR_3, enabled: false },
+    ]);
+  });
+
+  it('should disable linked only and return only toggled', async () => {
+    const result = await runQuery(
+      mutation,
+      { sourceId: SOURCE_GEORGIA, enabled: false, linkedOnly: true },
+      fakeContext(ADMIN),
+    );
+    expect(result.errors).toBeUndefined();
+    expect(result.data!.toggleAllGauges).toEqual([
+      { id: GAUGE_GEO_4, enabled: false },
     ]);
   });
 

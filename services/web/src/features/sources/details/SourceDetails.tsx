@@ -9,7 +9,9 @@ import { EditorLanguagePicker } from '../../../components/language';
 import { CardHeader, EditorFooter } from '../../../layout';
 import { GaugesList, GaugesRoute } from '../../gauges';
 import AutofillButton from './AutofillButton';
+import EnableButton from './EnableButton';
 import GenerateScheduleButton from './GenerateScheduleButton';
+import RemoveAllGaugesButton from './RemoveAllGaugesButton';
 import SourceDetailsMain from './SourceDetailsMain';
 import ToggleAllGaugesButton from './ToggleAllGaugesButton';
 
@@ -72,21 +74,14 @@ export class SourceDetails extends React.PureComponent<
                     secondary={true}
                     label="Autofill"
                   />
-                  <GenerateScheduleButton
-                    sourceId={sourceId}
-                    secondary={true}
-                    label="Generate schedule"
-                  />
-                  <ToggleAllGaugesButton
-                    sourceId={sourceId}
-                    label="Enable All"
-                    enabled={true}
-                  />
+                  <GenerateScheduleButton sourceId={sourceId} />
+                  <EnableButton sourceId={sourceId} />
                   <ToggleAllGaugesButton
                     sourceId={sourceId}
                     label="Disable All"
                     enabled={false}
                   />
+                  <RemoveAllGaugesButton sourceId={sourceId} />
                 </EditorFooter>
               </Route>
 

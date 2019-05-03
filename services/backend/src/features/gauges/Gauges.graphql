@@ -60,6 +60,11 @@ type Query {
 type Mutation {
   upsertGauge(gauge: GaugeInput!): Gauge @admin
   removeGauge(id: ID!): ID @admin
+  removeGauges(sourceId: ID!): [ID] @admin
   toggleGauge(id: ID!, enabled: Boolean!): Gauge @admin
-  toggleAllGauges(sourceId: ID!, enabled: Boolean!): [Gauge] @admin
+  toggleAllGauges(
+    sourceId: ID!
+    enabled: Boolean!
+    linkedOnly: Boolean
+  ): [Gauge] @admin
 }
