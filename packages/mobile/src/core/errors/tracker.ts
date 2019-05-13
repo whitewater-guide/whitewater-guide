@@ -31,7 +31,7 @@ class ErrorTracker {
       return;
     }
     if (!__DEV__) {
-      Sentry.captureException(error, { logger, ...extra });
+      Sentry.captureException(error, { logger, extra });
     }
   };
 }
