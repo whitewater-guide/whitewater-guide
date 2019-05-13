@@ -112,6 +112,8 @@ PODS:
     - React
   - react-native-maps (0.24.0):
     - React
+  - react-native-netinfo (2.0.10):
+    - React
   - react-native-sensitive-info (5.4.1):
     - React
   - react-native-webview (5.8.2):
@@ -201,6 +203,7 @@ DEPENDENCIES:
   - GoogleMaps
   - react-native-google-maps (from `../node_modules/react-native-maps`)
   - react-native-maps (from `../node_modules/react-native-maps`)
+  - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-sensitive-info (from `../node_modules/react-native-sensitive-info`)
   - react-native-webview (from `../node_modules/react-native-webview`)
   - React/Core (from `../node_modules/react-native`)
@@ -260,6 +263,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-maps"
   react-native-maps:
     :path: "../node_modules/react-native-maps"
+  react-native-netinfo:
+    :path: "../node_modules/@react-native-community/netinfo"
   react-native-sensitive-info:
     :path: "../node_modules/react-native-sensitive-info"
   react-native-webview:
@@ -304,6 +309,7 @@ SPEC CHECKSUMS:
   React: 1d605e098d69bdf08960787f3446f0a9dc2e2ccf
   react-native-google-maps: 9343f45ca76faa84238635133ea2fe2bc2cc5c70
   react-native-maps: bb480348a3fe1e5a811fed1ba3387b329161c5cc
+  react-native-netinfo: f4039dc64d3a55da59d6d03d4bd667d0a9f5450e
   react-native-sensitive-info: f78f6471a8ee7de67e11ffccc7060eb93b969ef5
   react-native-webview: a42108b827082f8f0333529b0772102031d5960d
   RNFS: bbb1a64eb245763daf34aea86f97c97c4e85f74c
@@ -315,6 +321,6 @@ SPEC CHECKSUMS:
   SentryReactNative: fc630be25b30c1a494b478ba1fa38f761cc6da20
   yoga: 128daf064cacaede0c3bb27424b6b4c71052e6cd
 
-PODFILE CHECKSUM: d8d4b7c8d7ad87bfcc796b596435994837b16f47
+PODFILE CHECKSUM: 3eef951074fe711752615fa7d74adae02f2a08b9
 
 COCOAPODS: 1.5.3

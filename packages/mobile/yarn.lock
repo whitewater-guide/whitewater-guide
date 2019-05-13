@@ -1322,6 +1322,11 @@
     xcode "^2.0.0"
     xmldoc "^0.4.0"
 
+"@react-native-community/netinfo@^2.0.10":
+  version "2.0.10"
+  resolved "https://registry.yarnpkg.com/@react-native-community/netinfo/-/netinfo-2.0.10.tgz#d28a446352e75754b78509557988359133cdbcca"
+  integrity sha512-NrIzyLe0eSbhgMnHl2QdSEhaA7yXh6p9jzMomfUa//hoTXE+xbObGDdiWWSQm2bnXnZJg8XCU3AB9qzvqcuLnA==
+
 "@react-navigation/core@~3.4.1":
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/@react-navigation/core/-/core-3.4.1.tgz#8c7e0e53cfb8ccaf87afb76a2733f5e5fde20cd8"
@@ -2255,10 +2260,10 @@
     "@webassemblyjs/wast-parser" "1.8.5"
     "@xtuc/long" "4.2.2"
 
-"@whitewater-guide/clients@^0.0.216":
-  version "0.0.216"
-  resolved "https://registry.yarnpkg.com/@whitewater-guide/clients/-/clients-0.0.216.tgz#6a5d665da80fbcf0b34bc2846d4b9874f13ca50f"
-  integrity sha512-88apOgYpAQhxlL0IIWnCMsVVf3OuKLoVnL+nmbhtMnR2skwqwbzVwclFsmoMcLKchFMblHbmEzR9gv0O2frRwg==
+"@whitewater-guide/clients@^0.0.217":
+  version "0.0.217"
+  resolved "https://registry.yarnpkg.com/@whitewater-guide/clients/-/clients-0.0.217.tgz#032854f360b13ba596776f5cc41992cccdf795ec"
+  integrity sha512-kxhWwf97HmWuhkJI79SiJstZW1bTFnls07M0kzxtlSA66Xc7Pd2y2UJ0BxIEJBHY+O3faUSbz2rLzM9AIHbpRg==
   dependencies:
     "@types/jest" "^24.0.11"
     "@whitewater-guide/commons" "^0.0.131"
@@ -15616,9 +15621,9 @@ xcode@^2.0.0:
     simple-plist "^1.0.0"
     uuid "^3.3.2"
 
-"xcode@git+https://github.com/apache/cordova-node-xcode.git#e7646f0680d509b590b839e567c217590451505b":
+"xcode@https://github.com/apache/cordova-node-xcode#e7646f0680d509b590b839e567c217590451505b":
   version "1.0.1-dev"
-  resolved "git+https://github.com/apache/cordova-node-xcode.git#e7646f0680d509b590b839e567c217590451505b"
+  resolved "https://github.com/apache/cordova-node-xcode#e7646f0680d509b590b839e567c217590451505b"
   dependencies:
     simple-plist "^0.2.1"
     uuid "3.0.1"

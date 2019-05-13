@@ -35,6 +35,7 @@
     "version": "./scripts/version.sh"
   },
   "dependencies": {
+    "@react-native-community/netinfo": "^2.0.10",
     "@turf/bearing": "^6.0.1",
     "@turf/helpers": "^6.1.4",
     "@whitewater-guide/clients": "^0.0.217",
