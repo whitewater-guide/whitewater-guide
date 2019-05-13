@@ -27,6 +27,8 @@ export const errorLink = (
       } else {
         appErrorMessage = 'auth';
       }
+    } else if (networkError && (networkError as any).statusCode === undefined) {
+      appErrorMessage = 'fetch';
     } else if (
       graphQLErrors &&
       graphQLErrors.some(

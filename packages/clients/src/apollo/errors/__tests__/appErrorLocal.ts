@@ -49,12 +49,10 @@ it('should set some value and then read it initial state', async () => {
     query: APP_ERROR_QUERY,
   });
   expect(errors).toBeUndefined();
-  expect(data.appError).toEqual(
-    new AppError({
-      networkError: expect.any(Error),
-      graphQLErrors: [expect.any(Error), expect.any(Error)],
-    }),
-  );
+  expect(data.appError!.original).toEqual({
+    networkError: expect.any(Error),
+    graphQLErrors: [expect.any(Error), expect.any(Error)],
+  });
 });
 
 it('should set null', async () => {

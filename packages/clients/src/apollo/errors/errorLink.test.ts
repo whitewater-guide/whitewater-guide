@@ -169,7 +169,7 @@ describe('network errors', () => {
         });
         expect(handleError).toHaveBeenCalledWith(expect.any(AppError));
         expect(handleError).toHaveBeenCalledWith(
-          expect.objectContaining({ type: 'default' }),
+          expect.objectContaining({ type: 'fetch' }),
         );
         expect(readQuery).toHaveProperty(
           'appError.original.networkError.message',
