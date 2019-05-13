@@ -1,3 +1,13 @@
+## [1.7.64](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.63...@whitewater-guide/mobile@1.7.64) (2019-05-13)
+
+### Bug Fixes
+
+- **mobile:** improve chips ui ([ffbea6c](https://github.com/doomsower/whitewater/commit/ffbea6c))
+
+### Features
+
+- **clients:** add fetch type to AppError ([df36d05](https://github.com/doomsower/whitewater/commit/df36d05))
+
 ## [1.7.63](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.62...@whitewater-guide/mobile@1.7.63) (2019-04-28)
 
 ### Bug Fixes

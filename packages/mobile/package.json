@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/mobile",
   "private": true,
-  "version": "1.7.63",
+  "version": "1.7.64",
   "license": "UNLICENSED",
   "scripts": {
     "postinstall": "./scripts/postinstall.sh",
@@ -37,7 +37,7 @@
   "dependencies": {
     "@turf/bearing": "^6.0.1",
     "@turf/helpers": "^6.1.4",
-    "@whitewater-guide/clients": "^0.0.216",
+    "@whitewater-guide/clients": "^0.0.217",
     "@whitewater-guide/commons": "^0.0.131",
     "apollo-cache": "^1.2.1",
     "apollo-cache-inmemory": "^1.5.1",
