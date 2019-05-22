@@ -1109,14 +1109,14 @@
   resolved "https://registry.yarnpkg.com/@types/zen-observable/-/zen-observable-0.8.0.tgz#8b63ab7f1aa5321248aad5ac890a485656dcea4d"
   integrity sha512-te5lMAWii1uEJ4FwLjzdlbw3+n0FZNOvFXHxQDKeT0dilh7HOzdMzV2TrJVUzq8ep7J4Na8OUYPRLSQkJHAlrg==
 
-"@whitewater-guide/commons@^0.0.130":
-  version "0.0.130"
-  resolved "https://registry.yarnpkg.com/@whitewater-guide/commons/-/commons-0.0.130.tgz#6456f81d81ee9fa8f257dd4bfbcb5229b37059c8"
-  integrity sha512-a46jALeyyQpcqdBi7q6AyZL/aX78aaeTH2+tdmIdyBKIDEp67Fyr6kyBSbElH5qQRqE0ibikzz5oJKQNP2QRIA==
+"@whitewater-guide/commons@^0.0.131":
+  version "0.0.131"
+  resolved "https://registry.yarnpkg.com/@whitewater-guide/commons/-/commons-0.0.131.tgz#0af4324e02918e7d619b6577ef4913a7307ad759"
+  integrity sha512-jJ0+fcfsf/zOaEYTbvQs/ZtLcIMElGVouAic/7xY3iRrW156phWUXHDAM0EoNbBm2saHOe8gXd/Yiw6S8JaQeg==
   dependencies:
-    cron-parser "^2.7.3"
+    cron-parser "^2.11.0"
     lodash "^4.17.11"
-    superstruct "^0.6.0"
+    superstruct "^0.6.1"
     validator "^10.11.0"
 
 abab@^2.0.0:
@@ -1822,7 +1822,7 @@ core-util-is@1.0.2, core-util-is@~1.0.0:
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
   integrity sha1-tf1UIgqivFq1eqtxQMlAdUUDwac=
 
-cron-parser@^2.7.3:
+cron-parser@^2.11.0:
   version "2.11.0"
   resolved "https://registry.yarnpkg.com/cron-parser/-/cron-parser-2.11.0.tgz#c3bf477e01de6a56938d6625b92efd6cec30a8a5"
   integrity sha512-L5LAGlvq2xmCLErhjQRX8IL5v72y8jhGOaxrarYOhse0kJjJGb/vY/0sV/c7F/SylJGkUIY2iZPPJXZD3glZqA==
@@ -5102,7 +5102,7 @@ strip-json-comments@~2.0.1:
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
   integrity sha1-PFMZQukIwml8DsNEhYwobHygpgo=
 
-superstruct@^0.6.0:
+superstruct@^0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/superstruct/-/superstruct-0.6.1.tgz#148fc3d627bb59fcfe24aa1bd2a1b8c51b1db072"
   integrity sha512-LDbOKL5sNbOJ00Q36iYRhSexKIptZje0/mhNznnz04wT9CmsPDZg/K/UV1dgYuCwNMuOBHTbVROZsGB9EhhK4w==
