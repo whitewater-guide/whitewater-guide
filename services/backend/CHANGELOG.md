@@ -1,3 +1,9 @@
+## [0.0.348](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.347...@whitewater-guide/backend@0.0.348) (2019-05-22)
+
+### Bug Fixes
+
+- **backend:** add OPTIONS to cors methods ([232f52e](https://github.com/doomsower/whitewater/commit/232f52e))
+
 ## [0.0.347](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.346...@whitewater-guide/backend@0.0.347) (2019-05-03)
 
 ### Features
