@@ -123,8 +123,8 @@ android {
         resValue "string", "build_config_package", "guide.whitewater"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 100600987
-        versionName "1.7.65"
+        versionCode 100600988
+        versionName "1.7.66"
         multiDexEnabled true
     }
     splits {

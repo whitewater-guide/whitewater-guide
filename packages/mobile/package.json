@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/mobile",
   "private": true,
-  "version": "1.7.65",
+  "version": "1.7.66",
   "license": "UNLICENSED",
   "scripts": {
     "postinstall": "./scripts/postinstall.sh",
@@ -38,7 +38,7 @@
     "@react-native-community/netinfo": "^2.0.10",
     "@turf/bearing": "^6.0.1",
     "@turf/helpers": "^6.1.4",
-    "@whitewater-guide/clients": "^0.0.217",
+    "@whitewater-guide/clients": "^0.0.218",
     "@whitewater-guide/commons": "^0.0.131",
     "apollo-cache": "^1.2.1",
     "apollo-cache-inmemory": "^1.5.1",
