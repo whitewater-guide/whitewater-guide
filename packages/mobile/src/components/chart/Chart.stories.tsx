@@ -42,6 +42,7 @@ const gauge: Gauge = {
     url: 'http://yandex.ru',
     createdAt: '2017-01-01',
     updatedAt: '2017-01-01',
+    requestParams: null,
   },
   createdAt: '2017-01-01',
   updatedAt: '2017-01-01',

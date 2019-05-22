@@ -1,3 +1,4 @@
+import { useNetInfo } from '@react-native-community/netinfo';
 import {
   APP_ERROR_MUTATION,
   APP_ERROR_QUERY,
@@ -8,11 +9,10 @@ import React from 'react';
 import { Mutation, MutationFn, Query } from 'react-apollo';
 import { useTranslation } from 'react-i18next';
 import { Snackbar } from 'react-native-paper';
-import { useNetInfo } from '../utils/useNetInfo';
 
 export const ErrorSnackbar: React.FC = () => {
   const [t] = useTranslation();
-  const isConnected = useNetInfo();
+  const { isConnected } = useNetInfo();
   return (
     <Query<AppErrorQueryResult> query={APP_ERROR_QUERY}>
       {({ data }) => {

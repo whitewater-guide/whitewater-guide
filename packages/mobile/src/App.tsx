@@ -3,9 +3,11 @@ import { AuthPayload } from '@whitewater-guide/commons';
 import ApolloClient from 'apollo-client';
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
+import { AsyncStorage } from 'react-native';
 import codePush from 'react-native-code-push';
 import { PortalProvider } from 'react-native-portal';
 import { Sentry } from 'react-native-sentry';
+import { NavigationState } from 'react-navigation';
 import { Provider } from 'react-redux';
 import { Store, Unsubscribe } from 'redux';
 import { ErrorSnackbar, Screen, SplashScreen } from './components';
@@ -31,7 +33,7 @@ interface State {
   initialized: boolean;
 }
 
-const NAVIGATION_VERSION = '1';
+const NAVIGATION_PERSISTENCE_KEY = 'ww_nav_1';
 
 class App extends React.Component<{}, State> {
   state: State = { initialized: false };
@@ -104,6 +106,18 @@ class App extends React.Component<{}, State> {
     apolloCachePersistor.resume();
   };
 
+  persistNavigationState = async (state: NavigationState) => {
+    await AsyncStorage.setItem(
+      NAVIGATION_PERSISTENCE_KEY,
+      JSON.stringify(state),
+    );
+  };
+
+  loadNavigationState = async () => {
+    const jsonString = await AsyncStorage.getItem(NAVIGATION_PERSISTENCE_KEY);
+    return jsonString === null ? null : JSON.parse(jsonString);
+  };
+
   renderLoadingExperimental = () => <SplashScreen />;
 
   render() {
@@ -116,8 +130,9 @@ class App extends React.Component<{}, State> {
                 <AuthProvider service={this._authService}>
                   <I18nProvider>
                     <RootNavigator
-                      persistenceKey={NAVIGATION_VERSION}
                       onNavigationStateChange={trackScreenChange}
+                      persistNavigationState={this.persistNavigationState}
+                      loadNavigationState={this.loadNavigationState}
                       renderLoadingExperimental={this.renderLoadingExperimental}
                     />
                     <ErrorSnackbar />

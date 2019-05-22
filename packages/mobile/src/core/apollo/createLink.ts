@@ -16,9 +16,8 @@ export const createLink = (auth: MobileAuthService) =>
     accessTokenLink,
     errorLink(inMemoryCache, (error) => {
       if (error.type === 'fetch') {
-        NetInfo.isConnected
-          .fetch()
-          .then((isConnected) => {
+        NetInfo.fetch()
+          .then(({ isConnected }) => {
             if (isConnected) {
               trackError('errorLink', error);
             }

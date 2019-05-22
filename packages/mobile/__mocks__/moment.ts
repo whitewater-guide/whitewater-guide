@@ -15,7 +15,7 @@ const MONTHS = [
   'dec',
 ];
 
-const actual = require.requireActual('moment');
+const actual = jest.requireActual('moment');
 
 const mock = function moment() {
   const instance = actual();
@@ -31,4 +31,4 @@ const mock = function moment() {
   };
 };
 
-module.exports = Object.assign(mock, actual);
+module.exports = { ...mock, ...actual };

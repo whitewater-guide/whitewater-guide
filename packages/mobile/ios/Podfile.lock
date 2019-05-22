@@ -30,7 +30,7 @@ PODS:
     - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
     - GoogleUtilities/MethodSwizzler (~> 5.2)
     - GoogleUtilities/Network (~> 5.2)
-    - "GoogleUtilities/NSData+zlib (~> 5.2)"
+    - GoogleUtilities/NSData+zlib (~> 5.2)
     - nanopb (~> 0.3)
   - FirebaseAnalyticsInterop (1.2.0)
   - FirebaseCore (5.4.1):
@@ -73,7 +73,7 @@ PODS:
     - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
     - GoogleUtilities/MethodSwizzler (~> 5.2)
     - GoogleUtilities/Network (~> 5.2)
-    - "GoogleUtilities/NSData+zlib (~> 5.2)"
+    - GoogleUtilities/NSData+zlib (~> 5.2)
     - nanopb (~> 0.3)
   - GoogleMaps (3.0.3):
     - GoogleMaps/Maps (= 3.0.3)
@@ -91,9 +91,9 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/Network (5.8.0):
     - GoogleUtilities/Logger
-    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/NSData+zlib
     - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (5.8.0)"
+  - GoogleUtilities/NSData+zlib (5.8.0)
   - GoogleUtilities/Reachability (5.8.0):
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (5.8.0):
@@ -112,11 +112,11 @@ PODS:
     - React
   - react-native-maps (0.24.0):
     - React
-  - react-native-netinfo (2.0.10):
+  - react-native-netinfo (3.1.0):
     - React
   - react-native-sensitive-info (5.4.1):
     - React
-  - react-native-webview (5.8.2):
+  - react-native-webview (5.10.0):
     - React
   - React/Core (0.59.8):
     - yoga (= 0.59.8.React)
@@ -184,7 +184,7 @@ PODS:
   - Sentry (4.1.3):
     - Sentry/Core (= 4.1.3)
   - Sentry/Core (4.1.3)
-  - SentryReactNative (0.42.0):
+  - SentryReactNative (0.43.1):
     - React
     - Sentry (~> 4.1.3)
   - yoga (0.59.8.React)
@@ -203,7 +203,7 @@ DEPENDENCIES:
   - GoogleMaps
   - react-native-google-maps (from `../node_modules/react-native-maps`)
   - react-native-maps (from `../node_modules/react-native-maps`)
-  - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
+  - react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)
   - react-native-sensitive-info (from `../node_modules/react-native-sensitive-info`)
   - react-native-webview (from `../node_modules/react-native-webview`)
   - React/Core (from `../node_modules/react-native`)
@@ -227,62 +227,41 @@ DEPENDENCIES:
   - SentryReactNative (from `../node_modules/react-native-sentry`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga/yoga.podspec`)
 
-SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
-    - Bolts
-    - boost-for-react-native
-    - FBSDKCoreKit
-    - FBSDKLoginKit
-    - FBSDKShareKit
-    - Firebase
-    - FirebaseAnalytics
-    - FirebaseAnalyticsInterop
-    - FirebaseCore
-    - FirebaseInstanceID
-    - FirebaseMessaging
-    - Google-Maps-iOS-Utils
-    - GoogleAppMeasurement
-    - GoogleMaps
-    - GoogleUtilities
-    - nanopb
-    - Protobuf
-    - Sentry
-
 EXTERNAL SOURCES:
   BVLinearGradient:
-    :path: "../node_modules/react-native-linear-gradient"
+    :path: ../node_modules/react-native-linear-gradient
   DoubleConversion:
-    :podspec: "../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec"
+    :podspec: ../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec
   Folly:
-    :podspec: "../node_modules/react-native/third-party-podspecs/Folly.podspec"
+    :podspec: ../node_modules/react-native/third-party-podspecs/Folly.podspec
   glog:
-    :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
+    :podspec: ../node_modules/react-native/third-party-podspecs/glog.podspec
   React:
-    :path: "../node_modules/react-native"
+    :path: ../node_modules/react-native
   react-native-google-maps:
-    :path: "../node_modules/react-native-maps"
+    :path: ../node_modules/react-native-maps
   react-native-maps:
-    :path: "../node_modules/react-native-maps"
+    :path: ../node_modules/react-native-maps
   react-native-netinfo:
-    :path: "../node_modules/@react-native-community/netinfo"
+    :path: ../node_modules/@react-native-community/netinfo
   react-native-sensitive-info:
-    :path: "../node_modules/react-native-sensitive-info"
+    :path: ../node_modules/react-native-sensitive-info
   react-native-webview:
-    :path: "../node_modules/react-native-webview"
+    :path: ../node_modules/react-native-webview
   RNFS:
-    :path: "../node_modules/react-native-fs"
+    :path: ../node_modules/react-native-fs
   RNGestureHandler:
-    :path: "../node_modules/react-native-gesture-handler"
+    :path: ../node_modules/react-native-gesture-handler
   RNLocalize:
-    :path: "../node_modules/react-native-localize"
+    :path: ../node_modules/react-native-localize
   RNReanimated:
-    :path: "../node_modules/react-native-reanimated"
+    :path: ../node_modules/react-native-reanimated
   RNScreens:
-    :path: "../node_modules/react-native-screens"
+    :path: ../node_modules/react-native-screens
   SentryReactNative:
-    :path: "../node_modules/react-native-sentry"
+    :path: ../node_modules/react-native-sentry
   yoga:
-    :path: "../node_modules/react-native/ReactCommon/yoga/yoga.podspec"
+    :path: ../node_modules/react-native/ReactCommon/yoga/yoga.podspec
 
 SPEC CHECKSUMS:
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
@@ -323,4 +302,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 3eef951074fe711752615fa7d74adae02f2a08b9
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.4.0

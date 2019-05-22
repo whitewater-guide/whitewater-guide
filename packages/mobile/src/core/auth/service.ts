@@ -86,7 +86,9 @@ export class MobileAuthService implements AuthService, Emitter {
     if (success && accessToken) {
       await tokenStorage.setAccessToken(accessToken);
     } else if (status === 400) {
-      Sentry.captureMessage('token refresh failed', { error, error_id });
+      Sentry.captureMessage('token refresh failed', {
+        extra: { error, error_id },
+      });
       await this.signOut(true);
     }
     this._refreshing = false;
@@ -105,9 +107,7 @@ export class MobileAuthService implements AuthService, Emitter {
         return;
       }
       if (result.error) {
-        Sentry.captureMessage('facebook sign in failed', {
-          error: result.error,
-        });
+        Sentry.captureException(new Error('facebook sign in failed'));
         return;
       }
       // On real iOS device first backend login will fail
@@ -136,7 +136,7 @@ export class MobileAuthService implements AuthService, Emitter {
         await tokenStorage.setRefreshToken(refreshToken);
         this.emit('signIn', payload);
       } else {
-        Sentry.captureMessage('facebook sign in failed', payload);
+        Sentry.captureMessage('facebook sign in failed', { extra: payload });
       }
       // Alert.alert('fetching done', accessToken);
     } catch (e) {
