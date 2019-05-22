@@ -32,6 +32,28 @@ async function getAppcenterVersion(platform, deployment) {
   );
 }
 
+function uploadToSentry(platform, version, dist) {
+  spawnSync(
+    'yarn',
+    [
+      'sentry-cli',
+      'releases',
+      'files',
+      version, // must match `Sentry.setRelease` on client
+      'upload-sourcemaps',
+      `build/${platform}/CodePush`,
+      '--rewrite',
+      '--strip-common-prefix',
+      '--dist',
+      dist, // must match `Sentry.setDist` on client
+    ],
+    {
+      stdio: 'inherit',
+      env: process.env,
+    },
+  );
+}
+
 async function run() {
   const { platform, deployment } = require('yargs').argv;
   if (platform !== 'ios' && platform !== 'android') {
@@ -52,26 +74,15 @@ async function run() {
   });
   const appCenterVersion = await getAppcenterVersion(platform, deployment);
   const sentryVersion = `${getNativeVersion()}-${deployment.toLowerCase()}-${appCenterVersion}`;
+  const dist = getDist(platform);
 
-  spawnSync(
-    'yarn',
-    [
-      'sentry-cli',
-      'releases',
-      'files',
-      sentryVersion, // must match `Sentry.setRelease` on client
-      'upload-sourcemaps',
-      `build/${platform}/CodePush`,
-      '--rewrite',
-      '--strip-common-prefix',
-      '--dist',
-      getDist(platform), // must match `Sentry.setDist` on client
-    ],
-    {
-      stdio: 'inherit',
-      env: process.env,
-    },
+  uploadToSentry(platform, sentryVersion, dist);
+  uploadToSentry(
+    platform,
+    `${getNativeVersion()}-${deployment.toLowerCase()}-v0`,
+    dist,
   );
+  uploadToSentry(platform, `guide.whitewater-${getNativeVersion()}`, dist);
 
   console.info(`Uploaded release ${sentryVersion} to sentry`);
 }

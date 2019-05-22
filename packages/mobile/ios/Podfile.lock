@@ -104,74 +104,76 @@ PODS:
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
   - Protobuf (3.7.0)
-  - React (0.59.5):
-    - React/Core (= 0.59.5)
+  - React (0.59.8):
+    - React/Core (= 0.59.8)
   - react-native-google-maps (0.24.0):
     - Google-Maps-iOS-Utils (= 2.1.0)
     - GoogleMaps (= 3.0.3)
     - React
   - react-native-maps (0.24.0):
     - React
-  - react-native-sensitive-info (5.3.0):
+  - react-native-netinfo (2.0.10):
     - React
-  - react-native-webview (5.7.1):
+  - react-native-sensitive-info (5.4.1):
     - React
-  - React/Core (0.59.5):
-    - yoga (= 0.59.5.React)
-  - React/CxxBridge (0.59.5):
+  - react-native-webview (5.8.2):
+    - React
+  - React/Core (0.59.8):
+    - yoga (= 0.59.8.React)
+  - React/CxxBridge (0.59.8):
     - Folly (= 2018.10.22.00)
     - React/Core
     - React/cxxreact
     - React/jsiexecutor
-  - React/cxxreact (0.59.5):
+  - React/cxxreact (0.59.8):
     - boost-for-react-native (= 1.63.0)
     - DoubleConversion
     - Folly (= 2018.10.22.00)
     - glog
     - React/jsinspector
-  - React/DevSupport (0.59.5):
+  - React/DevSupport (0.59.8):
     - React/Core
     - React/RCTWebSocket
-  - React/fishhook (0.59.5)
-  - React/jsi (0.59.5):
+  - React/fishhook (0.59.8)
+  - React/jsi (0.59.8):
     - DoubleConversion
     - Folly (= 2018.10.22.00)
     - glog
-  - React/jsiexecutor (0.59.5):
+  - React/jsiexecutor (0.59.8):
     - DoubleConversion
     - Folly (= 2018.10.22.00)
     - glog
     - React/cxxreact
     - React/jsi
-  - React/jsinspector (0.59.5)
-  - React/RCTActionSheet (0.59.5):
+  - React/jsinspector (0.59.8)
+  - React/RCTActionSheet (0.59.8):
     - React/Core
-  - React/RCTAnimation (0.59.5):
+  - React/RCTAnimation (0.59.8):
     - React/Core
-  - React/RCTBlob (0.59.5):
+  - React/RCTBlob (0.59.8):
     - React/Core
-  - React/RCTGeolocation (0.59.5):
+  - React/RCTGeolocation (0.59.8):
     - React/Core
-  - React/RCTImage (0.59.5):
+  - React/RCTImage (0.59.8):
     - React/Core
     - React/RCTNetwork
-  - React/RCTLinkingIOS (0.59.5):
+  - React/RCTLinkingIOS (0.59.8):
     - React/Core
-  - React/RCTNetwork (0.59.5):
+  - React/RCTNetwork (0.59.8):
     - React/Core
-  - React/RCTSettings (0.59.5):
+  - React/RCTSettings (0.59.8):
     - React/Core
-  - React/RCTText (0.59.5):
+  - React/RCTText (0.59.8):
     - React/Core
-  - React/RCTVibration (0.59.5):
+  - React/RCTVibration (0.59.8):
     - React/Core
-  - React/RCTWebSocket (0.59.5):
+  - React/RCTWebSocket (0.59.8):
     - React/Core
     - React/fishhook
     - React/RCTBlob
   - RNFS (2.13.3):
     - React
-  - RNGestureHandler (1.1.0):
+  - RNGestureHandler (1.2.1):
     - React
   - RNLocalize (1.1.2):
     - React
@@ -185,7 +187,7 @@ PODS:
   - SentryReactNative (0.42.0):
     - React
     - Sentry (~> 4.1.3)
-  - yoga (0.59.5.React)
+  - yoga (0.59.8.React)
 
 DEPENDENCIES:
   - BVLinearGradient (from `../node_modules/react-native-linear-gradient`)
@@ -201,6 +203,7 @@ DEPENDENCIES:
   - GoogleMaps
   - react-native-google-maps (from `../node_modules/react-native-maps`)
   - react-native-maps (from `../node_modules/react-native-maps`)
+  - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-sensitive-info (from `../node_modules/react-native-sensitive-info`)
   - react-native-webview (from `../node_modules/react-native-webview`)
   - React/Core (from `../node_modules/react-native`)
@@ -260,6 +263,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-maps"
   react-native-maps:
     :path: "../node_modules/react-native-maps"
+  react-native-netinfo:
+    :path: "../node_modules/@react-native-community/netinfo"
   react-native-sensitive-info:
     :path: "../node_modules/react-native-sensitive-info"
   react-native-webview:
@@ -304,10 +309,11 @@ SPEC CHECKSUMS:
   React: 1d605e098d69bdf08960787f3446f0a9dc2e2ccf
   react-native-google-maps: 9343f45ca76faa84238635133ea2fe2bc2cc5c70
   react-native-maps: bb480348a3fe1e5a811fed1ba3387b329161c5cc
+  react-native-netinfo: f4039dc64d3a55da59d6d03d4bd667d0a9f5450e
   react-native-sensitive-info: f78f6471a8ee7de67e11ffccc7060eb93b969ef5
   react-native-webview: a42108b827082f8f0333529b0772102031d5960d
   RNFS: bbb1a64eb245763daf34aea86f97c97c4e85f74c
-  RNGestureHandler: afde2addc517e85cc97a25bfe119acbee779a7ce
+  RNGestureHandler: 7ccf2f3f60458e084f9ada01fbaf610f6fef073c
   RNLocalize: fb8f1e17914d7251dc221374b486f4cb532aa7de
   RNReanimated: 45d9313b7a62318ed00d60a811937321e43e076e
   RNScreens: 354046589421edc3d83d5c6212475bf1fb9a731d
@@ -315,6 +321,6 @@ SPEC CHECKSUMS:
   SentryReactNative: fc630be25b30c1a494b478ba1fa38f761cc6da20
   yoga: 128daf064cacaede0c3bb27424b6b4c71052e6cd
 
-PODFILE CHECKSUM: d8d4b7c8d7ad87bfcc796b596435994837b16f47
+PODFILE CHECKSUM: 3eef951074fe711752615fa7d74adae02f2a08b9
 
 COCOAPODS: 1.5.3

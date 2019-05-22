@@ -1,3 +1,27 @@
+## [0.0.84](https://github.com/doomsower/whitewater/compare/@whitewater-guide/workers@0.0.83...@whitewater-guide/workers@0.0.84) (2019-05-01)
+
+### Bug Fixes
+
+- **workers:** fix quebec asterisks ([00fd419](https://github.com/doomsower/whitewater/commit/00fd419))
+
+## [0.0.83](https://github.com/doomsower/whitewater/compare/@whitewater-guide/workers@0.0.82...@whitewater-guide/workers@0.0.83) (2019-05-01)
+
+### Bug Fixes
+
+- **workers:** fix quebec encoding ([12b21e7](https://github.com/doomsower/whitewater/commit/12b21e7))
+
+## [0.0.82](https://github.com/doomsower/whitewater/compare/@whitewater-guide/workers@0.0.81...@whitewater-guide/workers@0.0.82) (2019-05-01)
+
+### Bug Fixes
+
+- **workers:** fix quebec harvest mode ([fde98e3](https://github.com/doomsower/whitewater/commit/fde98e3))
+
+## [0.0.81](https://github.com/doomsower/whitewater/compare/@whitewater-guide/workers@0.0.80...@whitewater-guide/workers@0.0.81) (2019-05-01)
+
+### Features
+
+- **workers:** quebec workers ([72d52e8](https://github.com/doomsower/whitewater/commit/72d52e8))
+
 ## [0.0.80](https://github.com/doomsower/whitewater/compare/@whitewater-guide/workers@0.0.79...@whitewater-guide/workers@0.0.80) (2019-04-28)
 
 ## [0.0.79](https://github.com/doomsower/whitewater/compare/@whitewater-guide/workers@0.0.78...@whitewater-guide/workers@0.0.79) (2019-04-27)

@@ -1,4 +1,4 @@
-import { Sentry } from 'react-native-sentry';
+import { Sentry, SentrySeverity } from 'react-native-sentry';
 
 interface Trace {
   logger: string;
@@ -31,7 +31,17 @@ class ErrorTracker {
       return;
     }
     if (!__DEV__) {
-      Sentry.captureException(error, { logger, ...extra });
+      Sentry.captureException(error, { logger, extra });
+    }
+  };
+
+  setScreen = (screen: string) => {
+    if (!__DEV__) {
+      Sentry.captureBreadcrumb({
+        category: 'navigation',
+        level: SentrySeverity.Info,
+        message: screen,
+      });
     }
   };
 }

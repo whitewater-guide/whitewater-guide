@@ -15,8 +15,8 @@ import { anonContext, fakeContext, runQuery } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
 
 const query = `
-  mutation generateSourceSchedule($id: ID!){
-    generateSourceSchedule(id: $id) {
+  mutation generateSourceSchedule($id: ID!, $linkedOnly: Boolean){
+    generateSourceSchedule(id: $id, linkedOnly: $linkedOnly) {
       id
       cron
     }
@@ -83,15 +83,49 @@ describe('effects', () => {
   it('should return gauges with crons', async () => {
     const result = await runQuery(
       query,
-      { id: SOURCE_GEORGIA },
+      { id: SOURCE_GEORGIA, linkedOnly: false },
       fakeContext(ADMIN),
     );
     expect(result.errors).toBeUndefined();
-    expect(result.data!.generateSourceSchedule).toMatchObject([
+    expect(result.data!.generateSourceSchedule).toEqual([
       { id: GAUGE_GEO_1, cron: '0 * * * *' },
       { id: GAUGE_GEO_2, cron: '15 * * * *' },
       { id: GAUGE_GEO_3, cron: '30 * * * *' },
       { id: GAUGE_GEO_4, cron: '45 * * * *' },
+    ]);
+  });
+
+  it('should generate for linked only', async () => {
+    const result = await runQuery(
+      query,
+      { id: SOURCE_GEORGIA, linkedOnly: true },
+      fakeContext(ADMIN),
+    );
+    expect(result.errors).toBeUndefined();
+    expect(result.data!.generateSourceSchedule).toEqual([
+      { id: GAUGE_GEO_1, cron: '0 * * * *' },
+      { id: GAUGE_GEO_2, cron: null },
+      { id: GAUGE_GEO_3, cron: null },
+      { id: GAUGE_GEO_4, cron: '30 * * * *' },
+    ]);
+  });
+
+  it('should overwrite linked only', async () => {
+    await runQuery(
+      query,
+      { id: SOURCE_GEORGIA, linkedOnly: false },
+      fakeContext(ADMIN),
+    );
+    const result = await runQuery(
+      query,
+      { id: SOURCE_GEORGIA, linkedOnly: true },
+      fakeContext(ADMIN),
+    );
+    expect(result.data!.generateSourceSchedule).toEqual([
+      { id: GAUGE_GEO_1, cron: '0 * * * *' },
+      { id: GAUGE_GEO_2, cron: null },
+      { id: GAUGE_GEO_3, cron: null },
+      { id: GAUGE_GEO_4, cron: '30 * * * *' },
     ]);
   });
 });

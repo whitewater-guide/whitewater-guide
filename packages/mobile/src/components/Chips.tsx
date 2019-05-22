@@ -2,6 +2,7 @@ import { NamedNode } from '@whitewater-guide/commons';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Chip, Subheading } from 'react-native-paper';
+import theme from '../theme';
 
 const styles = StyleSheet.create({
   container: {
@@ -14,6 +15,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  chip: {
+    marginRight: theme.margin.half,
+    marginBottom: theme.margin.half,
+  },
 });
 
 interface Props {
@@ -21,7 +26,7 @@ interface Props {
   label?: string;
 }
 
-export const Chips: React.StatelessComponent<Props> = ({ items, label }) => {
+export const Chips: React.FC<Props> = ({ items, label }) => {
   return (
     <View style={styles.container}>
       {!!label && (
@@ -29,7 +34,12 @@ export const Chips: React.StatelessComponent<Props> = ({ items, label }) => {
           <Subheading>{label}</Subheading>
         </View>
       )}
-      {items && items.map(({ id, name }) => <Chip key={id}>{name}</Chip>)}
+      {items &&
+        items.map(({ id, name }) => (
+          <Chip key={id} style={styles.chip}>
+            {name}
+          </Chip>
+        ))}
     </View>
   );
 };

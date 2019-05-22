@@ -2514,10 +2514,10 @@
     "@webassemblyjs/wast-parser" "1.8.5"
     "@xtuc/long" "4.2.2"
 
-"@whitewater-guide/clients@^0.0.216":
-  version "0.0.216"
-  resolved "https://registry.yarnpkg.com/@whitewater-guide/clients/-/clients-0.0.216.tgz#6a5d665da80fbcf0b34bc2846d4b9874f13ca50f"
-  integrity sha512-88apOgYpAQhxlL0IIWnCMsVVf3OuKLoVnL+nmbhtMnR2skwqwbzVwclFsmoMcLKchFMblHbmEzR9gv0O2frRwg==
+"@whitewater-guide/clients@^0.0.217":
+  version "0.0.217"
+  resolved "https://registry.yarnpkg.com/@whitewater-guide/clients/-/clients-0.0.217.tgz#032854f360b13ba596776f5cc41992cccdf795ec"
+  integrity sha512-kxhWwf97HmWuhkJI79SiJstZW1bTFnls07M0kzxtlSA66Xc7Pd2y2UJ0BxIEJBHY+O3faUSbz2rLzM9AIHbpRg==
   dependencies:
     "@types/jest" "^24.0.11"
     "@whitewater-guide/commons" "^0.0.131"
@@ -6829,10 +6829,17 @@ graphql-type-json@^0.3.0:
   resolved "https://registry.yarnpkg.com/graphql-type-json/-/graphql-type-json-0.3.0.tgz#bb32e1b74bf52ebc690f9df12b4067bc061f818a"
   integrity sha512-lnxg5HiB95yxy+/5cDKtP6pZo0zgntsOmqsjeCBXFGJ4YoMF3+1YaSEKWJntNTu+VsAm3zf6lPxFpp1kxzofLA==
 
-graphql@14.2.1, graphql@^14.2.1:
+graphql@14.2.1:
   version "14.2.1"
   resolved "https://registry.yarnpkg.com/graphql/-/graphql-14.2.1.tgz#779529bf9a01e7207b977a54c20670b48ca6e95c"
   integrity sha512-2PL1UbvKeSjy/lUeJqHk+eR9CvuErXoCNwJI4jm3oNFEeY+9ELqHNKO1ZuSxAkasPkpWbmT/iMRMFxd3cEL3tQ==
+  dependencies:
+    iterall "^1.2.2"
+
+graphql@^14.2.1:
+  version "14.3.0"
+  resolved "https://registry.yarnpkg.com/graphql/-/graphql-14.3.0.tgz#34dd36faa489ff642bcd25df6c3b4f988a1a2f3e"
+  integrity sha512-MdfI4v7kSNC3NhB7cF8KNijDsifuWO2XOtzpyququqaclO8wVuChYv+KogexDwgP5sp7nFI9Z6N4QHgoLkfjrg==
   dependencies:
     iterall "^1.2.2"
 
@@ -9411,9 +9418,9 @@ nan@^2.12.1:
   integrity sha512-TghvYc72wlMGMVMluVo9WRJc0mB8KxxF/gZ4YYFy7V2ZQX9l7rgbPg7vjS9mt6U5HXODVFVI2bOduCzwOMv/lw==
 
 nanoid@^2.0.0:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-2.0.1.tgz#deb55cac196e3f138071911dabbc3726eb048864"
-  integrity sha512-k1u2uemjIGsn25zmujKnotgniC/gxQ9sdegdezeDiKdkDW56THUMqlz3urndKCXJxA6yPzSZbXx/QCMe/pxqsA==
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-2.0.3.tgz#dde999e173bc9d7bd2ee2746b89909ade98e075e"
+  integrity sha512-NbaoqdhIYmY6FXDRB4eYtDVC9Z9eCbn8TyaiC16LNKtpPv/aqa0tOPD8y6gNE4yUNnaZ7LLhYtXOev/6+cBtfw==
 
 nanomatch@^1.2.9:
   version "1.2.13"

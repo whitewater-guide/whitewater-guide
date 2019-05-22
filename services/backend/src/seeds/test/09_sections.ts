@@ -2,7 +2,7 @@ import { Coordinate3d, Duration } from '@whitewater-guide/commons';
 import Knex from 'knex';
 import { LineString, Point } from 'wkx';
 import { ADMIN_ID } from './01_users';
-import { GAUGE_GAL_1_1 } from './06_gauges';
+import { GAUGE_GAL_1_1, GAUGE_GEO_1, GAUGE_GEO_4 } from './06_gauges';
 import { RIVER_BZHUZHA, RIVER_FINNA, RIVER_GAL_1 } from './07_rivers';
 
 function getLineString(shape: Coordinate3d[] | null) {
@@ -112,6 +112,7 @@ const sections = [
   {
     id: GEORGIA_BZHUZHA_LONG,
     river_id: RIVER_BZHUZHA,
+    gauge_id: GAUGE_GEO_1,
     season_numeric: [
       8,
       9,
@@ -143,6 +144,7 @@ const sections = [
   {
     id: GEORGIA_BZHUZHA_EXTREME,
     river_id: RIVER_BZHUZHA,
+    gauge_id: GAUGE_GEO_4,
     season_numeric: [
       8,
       9,

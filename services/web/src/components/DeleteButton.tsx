@@ -3,9 +3,13 @@ import React from 'react';
 import { ConfirmationDialog } from './ConfirmationDialog';
 
 interface Props {
-  id: string;
-  deleteHandler: (id: string) => void;
+  id?: string;
+  deleteHandler: (id?: string) => void;
   disabled?: boolean;
+  renderButton?: (
+    onClick: React.MouseEventHandler<{}>,
+    disabled?: boolean,
+  ) => React.ReactNode;
 }
 
 interface State {
@@ -25,16 +29,26 @@ export class DeleteButton extends React.PureComponent<Props, State> {
     deleteHandler(id);
   };
 
+  renderButton = () => {
+    const { renderButton, disabled } = this.props;
+    if (renderButton) {
+      return renderButton(this.openDialog, disabled);
+    }
+    return (
+      <IconButton
+        disabled={disabled}
+        iconClassName="material-icons"
+        onClick={this.openDialog}
+      >
+        delete_forever
+      </IconButton>
+    );
+  };
+
   render() {
     return (
       <React.Fragment>
-        <IconButton
-          disabled={this.props.disabled}
-          iconClassName="material-icons"
-          onClick={this.openDialog}
-        >
-          delete_forever
-        </IconButton>
+        {this.renderButton()}
         {this.state.dialogOpen && (
           <ConfirmationDialog
             title="Delete object?"

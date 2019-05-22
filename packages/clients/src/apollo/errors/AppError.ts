@@ -1,7 +1,7 @@
 import get from 'lodash/get';
 import { generate } from 'shortid';
 
-export type AppErrorType = 'auth' | 'default';
+export type AppErrorType = 'auth' | 'default' | 'fetch';
 
 /**
  * Client-side error intended to be displayed to end user and sent to sentry

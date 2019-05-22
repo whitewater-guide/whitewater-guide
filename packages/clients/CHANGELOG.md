@@ -1,3 +1,11 @@
+## [0.0.218](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.217...@whitewater-guide/clients@0.0.218) (2019-05-22)
+
+## [0.0.217](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.216...@whitewater-guide/clients@0.0.217) (2019-05-13)
+
+### Features
+
+- **clients:** add fetch type to AppError ([df36d05](https://github.com/doomsower/whitewater/commit/df36d05))
+
 ## [0.0.216](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.215...@whitewater-guide/clients@0.0.216) (2019-04-27)
 
 ## [0.0.215](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.214...@whitewater-guide/clients@0.0.215) (2019-04-26)

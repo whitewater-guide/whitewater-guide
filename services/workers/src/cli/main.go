@@ -18,6 +18,7 @@ import (
 	"norway"
 	"one-by-one"
 	"os"
+	"quebec"
 	"riverzone"
 	"sepa"
 	"strings"
@@ -70,6 +71,7 @@ func main() {
 	register(catalunya.NewWorkerCatalunya, nil)
 	register(cantabria.NewWorkerCantabria, nil)
 	register(sepa.NewWorkerSepa, nil)
+	register(quebec.NewWorkerQuebec, nil)
 	register(canada.NewWorkerCanada, func(cmd *cobra.Command) {
 		cmd.Flags().String("provinces", "", "List of province/territory codes, comma separated")
 	})

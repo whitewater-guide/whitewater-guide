@@ -12,6 +12,7 @@ export const getCorsMiddleware = (whitelist: string[], appURL: string) => {
   return cors({
     credentials: true,
     maxAge: 60 * 60 * 24, // this is for OPTIONS requests
+    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS',
     origin: (ctx) => {
       const origin = ctx.get('Origin');
       const originDomain =

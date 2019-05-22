@@ -5,6 +5,7 @@ import android.support.multidex.MultiDexApplication;
 
 import com.airbnb.android.react.maps.MapsPackage;
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.netinfo.NetInfoPackage;
 import io.sentry.RNSentryPackage;
 import br.com.classapp.RNSensitiveInfo.RNSensitiveInfoPackage;
 import com.reactcommunity.rnlocalize.RNLocalizePackage;
@@ -61,6 +62,7 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new NetInfoPackage(),
             new RNSentryPackage(),
             new RNSensitiveInfoPackage(),
             new RNLocalizePackage(),

@@ -1,6 +1,51 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`effects should return gauges 1`] = `
+exports[`source with gauges should return gauges 1`] = `
+Array [
+  Object {
+    "code": "gal1",
+    "cron": null,
+    "flowUnit": null,
+    "levelUnit": "m",
+    "location": Object {
+      "coordinates": Array [
+        22,
+        11,
+        33,
+      ],
+      "kind": "gauge",
+    },
+    "name": "Galicia GAUGE 1",
+    "requestParams": null,
+    "source": Object {
+      "name": "Galicia",
+    },
+    "url": "http://ww.guide/gal1",
+  },
+  Object {
+    "code": "gal3",
+    "cron": null,
+    "flowUnit": null,
+    "levelUnit": "m",
+    "location": Object {
+      "coordinates": Array [
+        44,
+        33,
+        55,
+      ],
+      "kind": "gauge",
+    },
+    "name": "Galicia gauge 3",
+    "requestParams": null,
+    "source": Object {
+      "name": "Galicia",
+    },
+    "url": "http://ww.guide/gal3",
+  },
+]
+`;
+
+exports[`source without gauges should return gauges 1`] = `
 Array [
   Object {
     "code": "ru1",

@@ -1,3 +1,13 @@
+## [0.1.339](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.338...@whitewater-guide/web@0.1.339) (2019-05-22)
+
+## [0.1.338](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.337...@whitewater-guide/web@0.1.338) (2019-05-13)
+
+## [0.1.337](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.335...@whitewater-guide/web@0.1.337) (2019-05-03)
+
+### Features
+
+- improve gauges scheduling and handling ([d223566](https://github.com/doomsower/whitewater/commit/d223566))
+
 ## [0.1.335](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.334...@whitewater-guide/web@0.1.335) (2019-04-27)
 
 ### Bug Fixes

@@ -60,6 +60,8 @@ target 'whitewater' do
 
   pod 'SentryReactNative', :path => '../node_modules/react-native-sentry'
 
+  pod 'react-native-netinfo', :path => '../node_modules/@react-native-community/netinfo'
+
 end
 
 post_install do |installer|
