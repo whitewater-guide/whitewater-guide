@@ -1,3 +1,9 @@
+## [0.0.87](https://github.com/doomsower/whitewater/compare/@whitewater-guide/workers@0.0.85...@whitewater-guide/workers@0.0.87) (2019-06-07)
+
+### Bug Fixes
+
+- add ids to Quebec gauges ([2e33760](https://github.com/doomsower/whitewater/commit/2e33760)), closes [#375](https://github.com/doomsower/whitewater/issues/375)
+
 ## [0.0.86](https://github.com/doomsower/whitewater/compare/@whitewater-guide/workers@0.0.85...@whitewater-guide/workers@0.0.86) (2019-06-07)
 
 ## [0.0.85](https://github.com/doomsower/whitewater/compare/@whitewater-guide/workers@0.0.84...@whitewater-guide/workers@0.0.85) (2019-06-07)

@@ -1,3 +1,5 @@
+## [0.0.148](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.146...@whitewater-guide/boompromo@0.0.148) (2019-06-07)
+
 ## [0.0.147](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.146...@whitewater-guide/boompromo@0.0.147) (2019-06-07)
 
 ## [0.0.146](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.144...@whitewater-guide/boompromo@0.0.146) (2019-06-07)

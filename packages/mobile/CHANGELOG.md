@@ -1,3 +1,9 @@
+## [1.7.70](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.68...@whitewater-guide/mobile@1.7.70) (2019-06-07)
+
+### Bug Fixes
+
+- russian faq fix ([c9e7717](https://github.com/doomsower/whitewater/commit/c9e7717)), closes [#376](https://github.com/doomsower/whitewater/issues/376)
+
 ## [1.7.69](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.68...@whitewater-guide/mobile@1.7.69) (2019-06-07)
 
 ## [1.7.68](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.66...@whitewater-guide/mobile@1.7.68) (2019-06-07)

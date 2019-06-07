@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/sentry",
   "private": true,
-  "version": "0.0.4",
+  "version": "0.0.5",
   "license": "UNLICENSED",
   "description": "sentry stack from for whitewater.guide",
   "repository": "https://github.com/doomsower/whitewater.git",
