@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/commons",
   "private": false,
-  "version": "0.0.133",
+  "version": "0.0.134",
   "license": "UNLICENSED",
   "description": "shared code for whitewater.guide backend and frontend",
   "main": "dist/index.js",

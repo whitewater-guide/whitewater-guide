@@ -1,3 +1,9 @@
+## [0.0.35](https://github.com/doomsower/whitewater/compare/@whitewater-guide/landing@0.0.35...@whitewater-guide/landing@0.0.35) (2019-06-07)
+
+### Features
+
+- email/password auth ([6d414b8](https://github.com/doomsower/whitewater/commit/6d414b8))
+
 ## [0.0.35](https://github.com/doomsower/whitewater/compare/@whitewater-guide/landing@0.0.34...@whitewater-guide/landing@0.0.35) (2019-03-02)
 
 ### Bug Fixes

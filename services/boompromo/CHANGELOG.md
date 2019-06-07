@@ -1,3 +1,9 @@
+## [0.0.146](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.144...@whitewater-guide/boompromo@0.0.146) (2019-06-07)
+
+### Features
+
+- email/password auth ([6d414b8](https://github.com/doomsower/whitewater/commit/6d414b8))
+
 ## [0.0.145-auth.0](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.144...@whitewater-guide/boompromo@0.0.145-auth.0) (2019-05-28)
 
 ## [0.0.144](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.143...@whitewater-guide/boompromo@0.0.144) (2019-05-22)

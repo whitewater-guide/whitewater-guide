@@ -1,3 +1,9 @@
+## [0.0.222](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.218...@whitewater-guide/clients@0.0.222) (2019-06-07)
+
+### Features
+
+- email/password auth ([6d414b8](https://github.com/doomsower/whitewater/commit/6d414b8))
+
 ## [0.0.219-auth.0](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.218...@whitewater-guide/clients@0.0.219-auth.0) (2019-05-28)
 
 ### Features

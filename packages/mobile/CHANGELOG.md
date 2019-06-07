@@ -1,3 +1,9 @@
+## [1.7.68](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.66...@whitewater-guide/mobile@1.7.68) (2019-06-07)
+
+### Features
+
+- email/password auth ([6d414b8](https://github.com/doomsower/whitewater/commit/6d414b8))
+
 ## [1.7.67-auth.0](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.66...@whitewater-guide/mobile@1.7.67-auth.0) (2019-05-28)
 
 ### Bug Fixes

@@ -1,3 +1,9 @@
+## [0.0.350](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.348...@whitewater-guide/backend@0.0.350) (2019-06-07)
+
+### Features
+
+- email/password auth ([6d414b8](https://github.com/doomsower/whitewater/commit/6d414b8))
+
 ## [0.0.348](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.347...@whitewater-guide/backend@0.0.348) (2019-05-22)
 
 ### Bug Fixes
