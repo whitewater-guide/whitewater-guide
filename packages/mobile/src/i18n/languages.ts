@@ -1,4 +1,6 @@
-export const SUPPORTED_LANGUAGES = ['en', 'ru', 'es', 'de', 'fr'];
+import resources from './resources';
+
+export const SUPPORTED_LANGUAGES = Object.keys(resources);
 
 export const LANGUAGE_NAMES: { [key: string]: string } = {
   en: 'English',

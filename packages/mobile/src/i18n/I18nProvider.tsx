@@ -6,8 +6,7 @@ import { initReactI18next } from 'react-i18next';
 import { getLocales } from 'react-native-localize';
 import * as yup from 'yup';
 import { SUPPORTED_LANGUAGES } from './languages';
-import en from './locales/en';
-import ru from './locales/ru';
+import resources from './resources';
 import yupLocale from './yup-locale';
 
 interface Props {
@@ -38,7 +37,7 @@ export class I18nProviderInternal extends React.PureComponent<Props, State> {
       react: {
         nsMode: 'fallback',
       },
-      resources: { en, ru },
+      resources,
     });
     moment.locale(this._i18n.languages[0]);
     this._i18n.on('languageChanged', this.onLanguageChange);
