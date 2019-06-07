@@ -3,14 +3,13 @@ import { useNavigation } from '@zhigang1992/react-navigation-hooks';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
-import { Divider, Drawer } from 'react-native-paper';
+import { Divider } from 'react-native-paper';
 import { NavigationActions } from 'react-navigation';
 import theme from '../../theme';
 import { isRouteFocused } from '../../utils/navigation';
 import { Logo } from '../Logo';
 import { Spacer } from '../Spacer';
 import { useDrawer } from './DrawerContext';
-import DrawerHeader from './DrawerHeader';
 import DrawerItem from './DrawerItem';
 import VersionBadge from './VersionBadge';
 

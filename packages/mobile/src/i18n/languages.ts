@@ -1,6 +1,4 @@
-// import { LANGUAGES } from '@whitewater-guide/commons';
-// export const SUPPORTED_LANGUAGES = LANGUAGES;
-export const SUPPORTED_LANGUAGES = ['en', 'ru'];
+export const SUPPORTED_LANGUAGES = ['en', 'ru', 'es', 'de', 'fr'];
 
 export const LANGUAGE_NAMES: { [key: string]: string } = {
   en: 'English',
