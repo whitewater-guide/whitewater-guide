@@ -1,3 +1,9 @@
+## [0.0.224](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.222...@whitewater-guide/clients@0.0.224) (2019-06-07)
+
+### Bug Fixes
+
+- **clients:** fix unknown locales in stringify season ([22a5a2a](https://github.com/doomsower/whitewater/commit/22a5a2a))
+
 ## [0.0.223](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.222...@whitewater-guide/clients@0.0.223) (2019-06-07)
 
 ## [0.0.222](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.218...@whitewater-guide/clients@0.0.222) (2019-06-07)
