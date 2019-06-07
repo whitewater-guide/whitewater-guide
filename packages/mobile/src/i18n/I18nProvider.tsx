@@ -1,7 +1,7 @@
 import { useAuth } from '@whitewater-guide/clients';
 import i18next from 'i18next';
 import moment from 'moment';
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { initReactI18next } from 'react-i18next';
 import { getLocales } from 'react-native-localize';
 import * as yup from 'yup';
@@ -9,72 +9,68 @@ import { SUPPORTED_LANGUAGES } from './languages';
 import resources from './resources';
 import yupLocale from './yup-locale';
 
-interface Props {
-  language?: string;
+interface OuterProps {
+  onLanguageChange: (language: string) => void;
 }
 
-interface State {
-  ready: boolean;
-}
+const _i18n = i18next.use(initReactI18next);
 
-export class I18nProviderInternal extends React.PureComponent<Props, State> {
-  readonly state: State = { ready: false };
-
-  private _i18n: i18next.i18n = i18next.use(initReactI18next);
-
-  async componentDidMount() {
-    yup.setLocale(yupLocale);
-    const [{ languageCode }] = getLocales();
-    const language = this.props.language || languageCode || 'en';
-    const lng = language.substr(0, 2);
-    await this._i18n.init({
-      lng,
-      fallbackLng: 'en',
-      whitelist: SUPPORTED_LANGUAGES,
-      interpolation: {
-        escapeValue: false, // not needed for react!!
-      },
-      react: {
-        nsMode: 'fallback',
-      },
-      resources,
-    });
-    moment.locale(this._i18n.languages[0]);
-    this._i18n.on('languageChanged', this.onLanguageChange);
-    this.setState({ ready: true });
-  }
-
-  componentWillUnmount() {
-    this._i18n.off('languageChanged', this.onLanguageChange);
-  }
-
-  componentDidUpdate(prevProps: Props) {
-    if (this.props.language !== prevProps.language) {
-      const [{ languageCode }] = getLocales();
-      const language = (this.props.language || languageCode || 'en').substr(
-        0,
-        2,
-      );
-      this._i18n.changeLanguage(language);
-    }
-  }
-
-  onLanguageChange = (language: string) => {
-    if (language) {
-      moment.locale(this._i18n.languages[0]);
-    }
-  };
-
-  render() {
-    return this.state.ready ? this.props.children : null;
-  }
-}
-
-export const I18nProvider: React.FC = ({ children }) => {
+export const I18nProvider: React.FC<OuterProps> = ({
+  onLanguageChange,
+  children,
+}) => {
+  const [ready, setReady] = useState(false);
   const { me } = useAuth();
-  return (
-    <I18nProviderInternal language={me ? me.language : undefined}>
-      {children}
-    </I18nProviderInternal>
+
+  const handleLanguageChange = useCallback(
+    (language: string) => {
+      if (!language) {
+        return;
+      }
+      moment.locale(_i18n.languages[0]);
+      onLanguageChange(language);
+    },
+    [onLanguageChange],
   );
+
+  useEffect(() => {
+    const onMount = async () => {
+      yup.setLocale(yupLocale);
+      const [{ languageCode }] = getLocales();
+      const language = (me && me.language) || languageCode || 'en';
+      const lng = language.substr(0, 2);
+      await _i18n.init({
+        lng,
+        fallbackLng: 'en',
+        whitelist: SUPPORTED_LANGUAGES,
+        interpolation: {
+          escapeValue: false, // not needed for react!!
+        },
+        react: {
+          nsMode: 'fallback',
+        },
+        resources,
+      });
+      moment.locale(_i18n.languages[0]);
+      _i18n.on('languageChanged', handleLanguageChange);
+      setReady(true);
+      return;
+    };
+
+    onMount();
+
+    return () => {
+      _i18n.off('languageChanged', handleLanguageChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    const [{ languageCode }] = getLocales();
+    const language = ((me && me.language) || languageCode || 'en').substr(0, 2);
+    _i18n.changeLanguage(language);
+  }, [me && me.language]);
+
+  return (ready ? children : null) as any;
 };
+
+I18nProvider.displayName = 'I18nProvider';
