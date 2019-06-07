@@ -1,3 +1,9 @@
+## [1.7.71](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.70...@whitewater-guide/mobile@1.7.71) (2019-06-07)
+
+### Features
+
+- **mobile:** add es, de, fr ([5d4313c](https://github.com/doomsower/whitewater/commit/5d4313c))
+
 ## [1.7.70](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.68...@whitewater-guide/mobile@1.7.70) (2019-06-07)
 
 ### Bug Fixes

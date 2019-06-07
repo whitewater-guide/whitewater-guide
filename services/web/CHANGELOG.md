@@ -1,3 +1,9 @@
+## [0.1.344](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.343...@whitewater-guide/web@0.1.344) (2019-06-07)
+
+### Features
+
+- **mobile:** add es, de, fr ([5d4313c](https://github.com/doomsower/whitewater/commit/5d4313c))
+
 ## [0.1.343](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.341...@whitewater-guide/web@0.1.343) (2019-06-07)
 
 ## [0.1.342](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.341...@whitewater-guide/web@0.1.342) (2019-06-07)
