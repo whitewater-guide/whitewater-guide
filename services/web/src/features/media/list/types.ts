@@ -1,11 +1,11 @@
 import { WithList, WithRegion } from '@whitewater-guide/clients';
 import { Connection, Media } from '@whitewater-guide/commons';
-import { FetchPolicy } from 'apollo-client';
+import { FetchPolicy, WatchQueryFetchPolicy } from 'apollo-client';
 import { RouteComponentProps } from 'react-router';
 import { WithDeleteMutation } from '../../../apollo';
 
 export interface WithMediaListOptions {
-  fetchPolicy?: FetchPolicy;
+  fetchPolicy?: WatchQueryFetchPolicy;
 }
 
 export interface WithMediaListResult {

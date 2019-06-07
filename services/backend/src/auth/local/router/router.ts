@@ -17,6 +17,12 @@ export const initLocalRouter = (passport: KoaPassport) => {
   router.post('/signin', signIn(passport));
   router.post('/signup', signUp(passport));
   router.post('/reset/request', resetRequest);
+  router.get('/reset/callback', async (ctx, next) => {
+    // TODO: implement proper password reset form, see #379
+    ctx.body =
+      'Please open this link on mobile device where whitewater.guide app is installed';
+    await next();
+  });
   router.post('/reset', reset);
   router.post('/verification/request', verificationRequest);
   // Links from emails are GET

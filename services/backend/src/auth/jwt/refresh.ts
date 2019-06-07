@@ -14,7 +14,7 @@ export const refreshJWT: Middleware<any, any> = async (ctx, next) => {
     (ctx.request.body && ctx.request.body.refreshToken) ||
     extractor(ctx.request);
   if (!token) {
-    ctx.throw(400, 'refresh.jwt.not.found');
+    ctx.throw(400, 'refresh.jwt.not_found');
     return;
   }
 
@@ -28,7 +28,7 @@ export const refreshJWT: Middleware<any, any> = async (ctx, next) => {
       id = payload.id;
     } catch {}
     clearCookies(ctx);
-    ctx.throw(400, 'refresh.jwt.bad.token', {
+    ctx.throw(400, 'refresh.jwt.bad_token', {
       payload: { corrupt: true, id },
     });
     return;
@@ -36,7 +36,7 @@ export const refreshJWT: Middleware<any, any> = async (ctx, next) => {
 
   if (!payload.refresh || !payload.id) {
     clearCookies(ctx);
-    ctx.throw(400, 'refresh.jwt.bad.token', {
+    ctx.throw(400, 'refresh.jwt.bad_token', {
       payload: { refresh: !!payload.refresh, id: payload.id },
     });
     return;
@@ -50,12 +50,12 @@ export const refreshJWT: Middleware<any, any> = async (ctx, next) => {
 
   if (!!blacklisted) {
     clearCookies(ctx);
-    ctx.throw(400, 'refresh.jwt.bad.token', {
+    ctx.throw(400, 'refresh.jwt.bad_token', {
       payload: { blacklisted: true, id: payload.id },
     });
     return;
   }
 
-  await sendCredentials(ctx, { id: payload.id }, token);
+  await sendCredentials(ctx, { id: payload.id }, undefined, token);
   await next();
 };

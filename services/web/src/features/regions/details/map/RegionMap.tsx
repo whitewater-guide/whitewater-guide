@@ -8,11 +8,11 @@ import SelectedSectionWeb from './SelectedSectionWeb';
 const View: React.ComponentType<MapProps> = getMapView(
   WebMapLayout,
   RegionMapBody,
-  SelectedSectionWeb,
+  SelectedSectionWeb as any,
   () => null,
-);
+) as any;
 
-const RegionMap: React.StatelessComponent<MapProps> = (props) => (
+const RegionMap: React.FC<MapProps> = (props) => (
   <ErrorBoundary>
     <View {...props} />
   </ErrorBoundary>

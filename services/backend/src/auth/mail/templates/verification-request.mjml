@@ -24,7 +24,7 @@
           browser:
         </mj-text>
         <mj-text>
-          ${baseURL}/auth/verification?id=${user.id}&token=${token.raw}
+          ${baseURL}/auth/local/verification?id=${user.id}&token=${token.raw}
         </mj-text>
         <mj-text>
           Please note that this link will expire in 24 hours.

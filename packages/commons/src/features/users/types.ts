@@ -11,6 +11,7 @@ export interface User extends NamedNode, Timestamped {
   admin: boolean;
   language: string;
   imperial: boolean;
+  verified: boolean;
   editorSettings: EditorSettings | null;
 
   purchasedRegions: Region[];

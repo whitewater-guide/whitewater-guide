@@ -1,3 +1,9 @@
+## [0.0.219-auth.0](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.218...@whitewater-guide/clients@0.0.219-auth.0) (2019-05-28)
+
+### Features
+
+- **clients:** make signIn return AuthResponse ([f3cab4c](https://github.com/doomsower/whitewater/commit/f3cab4c))
+
 ## [0.0.218](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.217...@whitewater-guide/clients@0.0.218) (2019-05-22)
 
 ## [0.0.217](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.216...@whitewater-guide/clients@0.0.217) (2019-05-13)

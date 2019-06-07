@@ -1,8 +1,11 @@
 import auth from './auth';
+import components from './components';
 import errors from './errors';
+import features from './features';
 import filter from './filter';
 import iap from './iap';
 import offline from './offline';
+import yup from './yup.json';
 
 export default {
   auth,
@@ -10,6 +13,9 @@ export default {
   offline,
   filter,
   errors,
+  components,
+  yup,
+  features,
   commons: {
     putIn: 'Старт',
     takeOut: 'Финиш',
@@ -39,13 +45,18 @@ export default {
     cancel: 'Отмена',
     yes: 'Да',
     no: 'Нет',
+    and: 'и',
+    or: 'или',
     offline: 'Похоже что вы не онлайн...',
     retry: 'Повторить',
     bug: 'Упс! Что-то сломалось',
     premium: 'Премиум',
+    email: 'e-mail',
+    password: 'Пароль',
   },
   drawer: {
-    myProfile: 'Мои настройки',
+    myProfile: 'Мой аккаунт',
+    signIn: 'Войти',
     facebookLogin: 'Войти через Facebook',
     regions: 'Регионы',
     faq: 'FAQ',

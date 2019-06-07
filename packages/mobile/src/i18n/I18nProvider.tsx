@@ -4,9 +4,11 @@ import moment from 'moment';
 import React from 'react';
 import { initReactI18next } from 'react-i18next';
 import { getLocales } from 'react-native-localize';
+import * as yup from 'yup';
 import { SUPPORTED_LANGUAGES } from './languages';
 import en from './locales/en';
 import ru from './locales/ru';
+import yupLocale from './yup-locale';
 
 interface Props {
   language?: string;
@@ -22,6 +24,7 @@ export class I18nProviderInternal extends React.PureComponent<Props, State> {
   private _i18n: i18next.i18n = i18next.use(initReactI18next);
 
   async componentDidMount() {
+    yup.setLocale(yupLocale);
     const [{ languageCode }] = getLocales();
     const language = this.props.language || languageCode || 'en';
     const lng = language.substr(0, 2);

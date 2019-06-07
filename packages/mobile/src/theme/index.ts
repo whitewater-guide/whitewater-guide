@@ -53,43 +53,6 @@ const theme = {
     regular: 24,
     large: 32,
   },
-  fonts: {
-    regular: {
-      fontSize: 16,
-      lineHeight: 20,
-      color: colors.textMain,
-    },
-    large: {
-      fontSize: 18,
-      lineHeight: 24,
-    },
-    medium: {
-      fontSize: 14,
-      lineHeight: 17,
-    },
-    small: {
-      fontSize: 10,
-      lineHeight: 12,
-    },
-    underline: {
-      textDecorationLine: 'underline',
-    },
-    bold: {
-      fontWeight: 'bold',
-    },
-    note: {
-      color: colors.textNote,
-    },
-    primary: {
-      color: colors.primary,
-    },
-    light: {
-      color: colors.textLight,
-    },
-    error: {
-      color: colors.error,
-    },
-  },
   rounding: {
     single: 4,
     double: 8,
@@ -118,5 +81,9 @@ export const PaperTheme: Theme = {
     ...DefaultTheme.colors,
     primary: colors.primary,
     accent: colors.accent,
+    background: theme.colors.primaryBackground,
+    text: theme.colors.textMain,
+    placeholder: theme.colors.componentBorder,
+    disabled: theme.colors.border,
   },
 };

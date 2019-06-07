@@ -1,4 +1,8 @@
-import { AccessTokenPayload, AuthPayload } from '@whitewater-guide/commons';
+import {
+  AccessTokenPayload,
+  AuthBody,
+  SignInBody,
+} from '@whitewater-guide/commons';
 import { ParameterizedContext } from 'koa';
 import { IRouterParamContext } from 'koa-router';
 import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from '../constants';
@@ -9,6 +13,7 @@ type Ctx = ParameterizedContext<any, IRouterParamContext<any, {}>>;
 export const sendCredentials = (
   ctx: Ctx,
   user: AccessTokenPayload,
+  isNew?: boolean,
   rfrshToken?: string,
 ) => {
   // there's no session, so do not call ctx.login
@@ -17,10 +22,13 @@ export const sendCredentials = (
   const accessToken = getAccessToken(user.id);
   const refreshToken = rfrshToken || getRefreshToken(user.id);
 
-  const body: AuthPayload = {
+  const body: AuthBody<SignInBody> = {
     success: true,
     id: user.id,
   };
+  if (isNew !== undefined) {
+    body.isNew = isNew;
+  }
 
   if (ctx.query.web || (ctx.request.body && ctx.request.body.web)) {
     ctx.cookies.set(ACCESS_TOKEN_COOKIE, accessToken, {

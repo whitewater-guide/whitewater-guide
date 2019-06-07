@@ -52,14 +52,8 @@ interface AvatarProps {
   style?: StyleProp<ViewStyle>;
 }
 
-export const Avatar: React.StatelessComponent<AvatarProps> = ({
-  name,
-  avatar,
-  onPress,
-  small,
-  medium,
-  style,
-}) => {
+export const Avatar: React.FC<AvatarProps> = (props) => {
+  const { name, avatar, onPress, small, medium, style } = props;
   const s = small ? stylesSmall : medium ? stylesMedium : styles;
   const initials = (name || '?')
     .split(' ')
@@ -79,7 +73,7 @@ export const Avatar: React.StatelessComponent<AvatarProps> = ({
       <View style={s.avatar}>
         <Text style={s.text}>{initials}</Text>
       </View>
-      {avatar && (
+      {!!avatar && (
         <Image source={{ uri }} style={s.avatar} resizeMode="contain" />
       )}
     </View>

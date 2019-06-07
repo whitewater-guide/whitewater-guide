@@ -1,0 +1,15 @@
+{
+  "facebook": " Sign in with Facebook",
+  "noAccount": "Don't have an account?",
+  "register": "Register",
+  "forgot": "Forgot your password?",
+  "submit": "Sign in",
+  "email": {
+    "not_found": "e-mail was not found",
+    "not_local": "This e-mail cannot be used to sign-in"
+  },
+  "password": {
+    "mismatch": "Wrong password",
+    "error": "Failed to sign in"
+  }
+}

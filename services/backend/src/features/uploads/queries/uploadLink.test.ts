@@ -88,7 +88,7 @@ describe('uploads', () => {
       status: 204,
       header: {
         location: `${PROTOCOL}://${MINIO_DOMAIN}/temp/${key}${extension}`,
-        etag: `"${etag}"`,
+        etag: expect.any(String),
       },
     });
 

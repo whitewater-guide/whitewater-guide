@@ -7,7 +7,6 @@ const notIgnoredModules = [
   ...reactNativeModules,
   'apollo-client',
   'redux-persist-fs-storage',
-  'glamorous-native',
 ].join('|');
 
 module.exports = {

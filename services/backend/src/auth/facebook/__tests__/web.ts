@@ -2,6 +2,7 @@ import { holdTransaction, rollbackTransaction } from '@db';
 import { asyncRedis, client } from '@redis';
 import { ADMIN_FB_PROFILE, ADMIN_ID, NEW_FB_PROFILE } from '@seeds/01_users';
 import { countRows, UUID_REGEX } from '@test';
+import { AuthBody, SignInBody } from '@whitewater-guide/commons';
 import { CookieAccessInfo } from 'cookiejar';
 import Koa from 'koa';
 import FacebookTokenStrategy from 'passport-facebook-token';
@@ -62,6 +63,18 @@ describe('new user', () => {
     );
     expect(atCookie.value).toBeTruthy();
     expect(rtCookie.value).toBeTruthy();
+  });
+
+  it('should respond id and isNew in body', async () => {
+    const body: AuthBody<SignInBody> = {
+      success: true,
+      id: expect.any(String),
+      isNew: true,
+    };
+    expect(response).toMatchObject({
+      status: 200,
+      body,
+    });
   });
 
   it('should create new user and login', async () => {
@@ -130,6 +143,18 @@ describe('existing user', () => {
     );
     expect(atCookie.value).toBeTruthy();
     expect(rtCookie.value).toBeTruthy();
+  });
+
+  it('should respond id and isNew in body', async () => {
+    const body: AuthBody<SignInBody> = {
+      success: true,
+      id: ADMIN_ID,
+      isNew: false,
+    };
+    expect(response).toMatchObject({
+      status: 200,
+      body,
+    });
   });
 
   it('should not create new user and login', async () => {

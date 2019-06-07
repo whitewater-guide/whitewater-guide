@@ -2,7 +2,7 @@ import FlatButton from 'material-ui/FlatButton';
 import React from 'react';
 import { graphql } from 'react-apollo';
 import { emitter, POKE_TABLES } from '../../../utils';
-import TOGGLE_All_GAUGES from './toggleAllGauges.mutation';
+import { TOGGLE_ALL_GAUGES } from './toggleAllGauges.mutation';
 
 interface OuterProps {
   label: string;
@@ -19,14 +19,13 @@ interface InnerProps {
   mutate: () => Promise<any>;
 }
 
-const ToggleAllGaugesButton: React.StatelessComponent<
-  InnerProps & OuterProps
-> = ({ label, mutate }) => (
-  <FlatButton secondary={true} label={label} onClick={mutate} />
-);
+const ToggleAllGaugesButton: React.FC<InnerProps & OuterProps> = ({
+  label,
+  mutate,
+}) => <FlatButton secondary={true} label={label} onClick={mutate} />;
 
 const container = graphql<OuterProps, {}, Variables, InnerProps>(
-  TOGGLE_All_GAUGES,
+  TOGGLE_ALL_GAUGES,
   {
     options: ({ sourceId, enabled }) => ({
       variables: { sourceId, enabled },

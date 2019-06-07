@@ -11,11 +11,5 @@ export const fetchRetry = (
     minTimeout: 300,
     ...retryOpts,
   };
-  return retry(async () => {
-    const res = await fetch(url, opts);
-    if (res.status >= 500) {
-      throw new Error(`fetch returned ${res.status}`);
-    }
-    return res;
-  }, rOpts);
+  return retry(async () => fetch(url, opts), rOpts);
 };

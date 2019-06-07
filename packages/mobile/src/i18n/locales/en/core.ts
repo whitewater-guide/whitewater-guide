@@ -1,8 +1,12 @@
 import auth from './auth';
+import components from './components';
 import errors from './errors';
+import features from './features';
 import filter from './filter';
 import iap from './iap';
 import offline from './offline';
+import screens from './screens';
+import yup from './yup.json';
 
 export default {
   auth,
@@ -10,6 +14,10 @@ export default {
   offline,
   filter,
   errors,
+  components,
+  yup,
+  screens,
+  features,
   commons: {
     putIn: 'Put-in',
     takeOut: 'Take-out',
@@ -39,13 +47,18 @@ export default {
     cancel: 'Cancel',
     yes: 'Yes',
     no: 'No',
+    and: 'and',
+    or: 'or',
     offline: "It appears that you're offline...",
     retry: 'Retry',
     bug: 'Oops! Something is broken',
     premium: 'Premium',
+    email: 'e-mail',
+    password: 'Password',
   },
   drawer: {
-    myProfile: 'My Settings',
+    myProfile: 'My Account',
+    signIn: 'Sign In',
     facebookLogin: 'Login with Facebook',
     regions: 'Regions',
     faq: 'FAQ',
@@ -56,7 +69,7 @@ export default {
     title: 'My Profile',
     general: 'General',
     language: 'Language',
-    logout: 'Log out',
+    logout: 'Sign out',
     purchases: {
       title: 'My purchases',
       region: 'Region',

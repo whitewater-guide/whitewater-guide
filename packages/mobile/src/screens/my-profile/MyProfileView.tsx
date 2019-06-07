@@ -1,19 +1,20 @@
-import identity from 'lodash/identity';
-import React from 'react';
-import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
-import { Divider, Title } from 'react-native-paper';
+import { useAuth } from '@whitewater-guide/clients';
+
+import React, { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
-  Avatar,
-  Paper,
-  RadioDialog,
-  RetryPlaceholder,
-  Screen,
-} from '../../components';
-import { LANGUAGE_NAMES, SUPPORTED_LANGUAGES } from '../../i18n';
+  RefreshControl,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+} from 'react-native';
+import { Divider, Title } from 'react-native-paper';
+import { Paper, RetryPlaceholder, Screen } from '../../components';
 import theme from '../../theme';
+import MyLanguage from './MyLanguage';
 import { PurchasesListView } from './purchases';
 import { SignOutButton } from './SignOutButton';
-import { InnerProps } from './types';
+import VerificationStatus from './VerificationStatus';
 
 const styles = StyleSheet.create({
   scroll: {
@@ -24,8 +25,6 @@ const styles = StyleSheet.create({
     marginRight: theme.margin.single,
   },
   userHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
     padding: theme.margin.single,
     marginBottom: theme.margin.single,
   },
@@ -34,56 +33,42 @@ const styles = StyleSheet.create({
   },
 });
 
-const labelExtractor = (code: string) => LANGUAGE_NAMES[code];
-
-class MyProfileView extends React.PureComponent<InnerProps> {
-  constructor(props: InnerProps) {
-    super(props);
+const MyProfileView: React.FC = React.memo(() => {
+  const { t } = useTranslation();
+  const { me, refreshProfile } = useAuth();
+  if (!me) {
+    return <RetryPlaceholder labelKey={'myProfile:notLoggedIn'} />;
   }
-
-  onChangeLanguage = async (language: string) => {
-    try {
-      await this.props.updateMyProfile({ language });
-    } catch (e) {
-      // ignore
-    }
-  };
-
-  render() {
-    const { t, me } = this.props;
-    if (!me) {
-      return <RetryPlaceholder labelKey={'myProfile:notLoggedIn'} />;
-    }
-    const language = me.language || 'en';
-    const avatar = me.avatar || '';
-    const username = me.name || '';
-    return (
-      <Screen noScroll={true} noPadding={true}>
-        <ScrollView style={{ flex: 1 }} contentContainerStyle={styles.scroll}>
-          <Paper gutterBottom={true} style={styles.userHeader}>
-            <Avatar avatar={avatar} name={username} style={styles.avatar} />
-            <Title>{username}</Title>
-          </Paper>
-          <Paper gutterBottom={true}>
-            <Title>{t('myProfile:general')}</Title>
-            <Divider style={{ marginBottom: theme.margin.single }} />
-            <RadioDialog
-              handleTitle={t('myProfile:language') as string}
-              cancelLabel={t('commons:cancel') as string}
-              value={language}
-              options={SUPPORTED_LANGUAGES}
-              onChange={this.onChangeLanguage}
-              keyExtractor={identity}
-              labelExtractor={labelExtractor}
-            />
-          </Paper>
-          <PurchasesListView />
-        </ScrollView>
-        <SignOutButton />
-        <SafeAreaView style={styles.safeArea} />
-      </Screen>
-    );
-  }
-}
+  const [refreshing, setRefreshing] = useState(false);
+  const refresh = useCallback(() => {
+    setRefreshing(true);
+    refreshProfile().finally(() => setRefreshing(false));
+  }, [refreshProfile, setRefreshing]);
+  const username = me.name || '';
+  return (
+    <Screen noScroll={true} noPadding={true}>
+      <ScrollView
+        style={{ flex: 1 }}
+        contentContainerStyle={styles.scroll}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={refresh} />
+        }
+      >
+        <Paper gutterBottom={true} style={styles.userHeader}>
+          <Title>{username}</Title>
+          <VerificationStatus />
+        </Paper>
+        <Paper gutterBottom={true}>
+          <Title>{t('myProfile:general')}</Title>
+          <Divider style={{ marginBottom: theme.margin.single }} />
+          <MyLanguage me={me} />
+        </Paper>
+        <PurchasesListView />
+      </ScrollView>
+      <SignOutButton />
+      <SafeAreaView style={styles.safeArea} />
+    </Screen>
+  );
+});
 
 export default MyProfileView;

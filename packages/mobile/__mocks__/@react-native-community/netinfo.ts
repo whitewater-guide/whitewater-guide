@@ -17,3 +17,8 @@ export function useNetInfo() {
     },
   };
 }
+
+export default {
+  fetch,
+  useNetInfo,
+};

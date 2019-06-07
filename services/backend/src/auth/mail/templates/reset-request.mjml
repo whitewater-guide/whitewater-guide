@@ -12,10 +12,14 @@
         </mj-text>
 
         <mj-button
-          href="${baseURL}/auth/reset/callback?id=${user.id}&token=${token.raw}"
+          href="${baseURL}/auth/local/reset/callback?id=${user.id}&token=${token.raw}"
         >
           Reset Password
         </mj-button>
+        <mj-text>
+          Please note that you should open this link on mobile device with
+          whitewater.guide app installed.
+        </mj-text>
         <mj-text>
           If you didn't request a password reset, you can ignore this message.
           Someone probably typed in your email by accident. <br />

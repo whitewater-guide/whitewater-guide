@@ -5,7 +5,7 @@ import Popover from 'material-ui/Popover';
 import React from 'react';
 import { Mutation } from 'react-apollo';
 import { emitter, POKE_TABLES } from '../../../utils';
-import TOGGLE_ALL_GAUGES from './toggleAllGauges.mutation';
+import { Result, TOGGLE_ALL_GAUGES, Vars } from './toggleAllGauges.mutation';
 
 interface Props {
   sourceId: string;
@@ -82,7 +82,7 @@ class EnableButtonInner extends React.PureComponent<InnerProps, State> {
 }
 
 const EnableButton: React.FC<Props> = ({ sourceId }) => (
-  <Mutation
+  <Mutation<Result, Vars>
     mutation={TOGGLE_ALL_GAUGES}
     variables={{ sourceId, enabled: true }}
   >

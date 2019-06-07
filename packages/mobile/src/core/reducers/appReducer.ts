@@ -1,15 +1,13 @@
 import { Action } from 'typescript-fsa';
-import { appStarted, refreshRegionsList, toggleDrawer } from '../actions';
+import { appStarted, refreshRegionsList } from '../actions';
 
 export interface AppState {
   initialized: boolean;
-  drawerOpen: boolean;
   regionsListRefreshToken: number;
 }
 
 const initialState: AppState = {
   initialized: false,
-  drawerOpen: false,
   regionsListRefreshToken: 1, // Used to refresh RN FlatList via extraData
 };
 
@@ -26,9 +24,6 @@ export function appReducer(
         ...state,
         regionsListRefreshToken: state.regionsListRefreshToken + 1,
       };
-    case toggleDrawer.type:
-      const drawerOpen = payload === null ? !state.drawerOpen : !!payload;
-      return { ...state, drawerOpen };
     default:
       return state;
   }

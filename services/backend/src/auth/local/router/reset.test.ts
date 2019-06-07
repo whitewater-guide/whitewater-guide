@@ -50,7 +50,7 @@ describe('errors', () => {
     expect(resp.status).toBe(400);
     expect(resp.body).toEqual({
       success: false,
-      error: 'reset.missing.arguments',
+      error: 'reset.errors.form.missing_arguments',
       error_id: expect.any(String),
     });
   });
@@ -60,7 +60,7 @@ describe('errors', () => {
     expect(resp.status).toBe(400);
     expect(resp.body).toEqual({
       success: false,
-      error: 'reset.missing.arguments',
+      error: 'reset.errors.form.missing_arguments',
       error_id: expect.any(String),
     });
   });
@@ -70,7 +70,7 @@ describe('errors', () => {
     expect(resp.status).toBe(400);
     expect(resp.body).toEqual({
       success: false,
-      error: 'reset.missing.arguments',
+      error: 'reset.errors.form.missing_arguments',
       error_id: expect.any(String),
     });
   });
@@ -84,7 +84,7 @@ describe('errors', () => {
     expect(resp.status).toBe(400);
     expect(resp.body).toEqual({
       success: false,
-      error: 'reset.id.invalid',
+      error: 'reset.errors.form.invalid_id',
       error_id: expect.any(String),
     });
   });
@@ -94,7 +94,7 @@ describe('errors', () => {
     expect(resp.status).toBe(400);
     expect(resp.body).toEqual({
       success: false,
-      error: 'reset.weak.password',
+      error: 'reset.errors.password.weak',
       error_id: expect.any(String),
     });
   });
@@ -108,7 +108,7 @@ describe('errors', () => {
     expect(resp.status).toBe(400);
     expect(resp.body).toEqual({
       success: false,
-      error: 'reset.id.invalid',
+      error: 'reset.errors.form.invalid_id',
       error_id: expect.any(String),
     });
   });
@@ -122,7 +122,7 @@ describe('errors', () => {
     expect(resp.status).toBe(400);
     expect(resp.body).toEqual({
       success: false,
-      error: 'reset.not.local',
+      error: 'reset.errors.form.not_local',
       error_id: expect.any(String),
     });
   });
@@ -136,7 +136,7 @@ describe('errors', () => {
     expect(resp.status).toBe(400);
     expect(resp.body).toEqual({
       success: false,
-      error: 'reset.unexpected',
+      error: 'reset.errors.form.unexpected',
       error_id: expect.any(String),
     });
   });
@@ -150,7 +150,7 @@ describe('errors', () => {
     expect(resp.status).toBe(400);
     expect(resp.body).toEqual({
       success: false,
-      error: 'reset.expired',
+      error: 'reset.errors.form.expired',
       error_id: expect.any(String),
     });
   });
@@ -164,7 +164,7 @@ describe('errors', () => {
     expect(resp.status).toBe(400);
     expect(resp.body).toEqual({
       success: false,
-      error: 'reset.token.mismatch',
+      error: 'reset.errors.form.token_mismatch',
       error_id: expect.any(String),
     });
   });
@@ -212,4 +212,12 @@ describe('success', () => {
       { user: { id: EDITOR_NO_ID, name: 'Norwegian Dude' } },
     );
   });
+});
+
+it('should display temporary placeholder instead of password reset form', async () => {
+  const testAgent = agent(app);
+  const resp = await testAgent.get('/auth/local/reset/callback');
+  expect(resp.status).toBe(200);
+  expect(resp.header['content-type']).toBe('text/plain; charset=utf-8');
+  expect(resp.text).toEqual(expect.stringContaining('whitewater'));
 });

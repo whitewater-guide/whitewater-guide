@@ -23,6 +23,7 @@
       "moment"
     ],
     "object-literal-sort-keys": false,
+    "prefer-const": [true, { "destructuring": "all" }],
     "variable-name": [
       true,
       "ban-keywords",

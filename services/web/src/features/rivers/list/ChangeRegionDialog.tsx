@@ -1,11 +1,14 @@
 import { NamedNode } from '@whitewater-guide/commons';
 import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import React from 'react';
 import { Mutation, MutationFn } from 'react-apollo';
 import { RegionFinder } from '../../regions';
-import CHANGE_RIVER_REGION from './changeRiverRegion.mutation';
+import {
+  CHANGE_RIVER_REGION,
+  Result,
+  Vars,
+} from './changeRiverRegion.mutation';
 
 interface Props {
   riverId: string | null;
@@ -82,12 +85,15 @@ class ChangeRegionDialog extends React.PureComponent<MutationProps, State> {
   }
 }
 
-const ChangeRegionDialogWithMutation: React.StatelessComponent<Props> = ({
+const ChangeRegionDialogWithMutation: React.FC<Props> = ({
   riverId,
   dialogOpen,
   handleCancel,
 }) => (
-  <Mutation mutation={CHANGE_RIVER_REGION} refetchQueries={['listRivers']}>
+  <Mutation<Result, Vars>
+    mutation={CHANGE_RIVER_REGION}
+    refetchQueries={['listRivers']}
+  >
     {(changeRiverRegion, { loading }) => (
       <ChangeRegionDialog
         changeRiverRegion={changeRiverRegion}

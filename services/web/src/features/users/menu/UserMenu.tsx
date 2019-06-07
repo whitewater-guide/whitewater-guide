@@ -41,14 +41,14 @@ export class UserMenu extends React.PureComponent<{}, State> {
   };
 
   signIn = () => {
-    const { signIn }: AuthState = this.context;
-    signIn('facebook');
+    const { service }: AuthState = this.context;
+    service.signIn('facebook');
   };
 
   signOut = () => {
     this.setState({ menuOpen: false });
-    const { signOut }: AuthState = this.context;
-    signOut();
+    const { service }: AuthState = this.context;
+    service.signOut();
   };
 
   renderAvatar = () => {

@@ -1,4 +1,4 @@
-import { AuthPayload } from '@whitewater-guide/commons';
+import { AuthBody } from '@whitewater-guide/commons';
 import { Middleware } from 'koa';
 import shortid from 'shortid';
 import logger from '../local/logger';
@@ -13,7 +13,7 @@ export const errorBodyMiddleware = (
     if (status >= 400 && status < 500) {
       ctx.status = status;
       const error_id = shortid.generate();
-      const body: AuthPayload = { success: false, error: message, error_id };
+      const body: AuthBody = { success: false, error: message, error_id };
       logger.warn({
         message,
         tags: { strategy, error_id },

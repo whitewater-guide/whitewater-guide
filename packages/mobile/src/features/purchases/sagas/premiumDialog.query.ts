@@ -13,6 +13,7 @@ export const PREMIUM_DIALOG_QUERY = gql`
     }
     me {
       id
+      verified
       purchasedRegions {
         id
         name
@@ -33,5 +34,5 @@ export interface Vars {
 export interface Result {
   region: Pick<Region, 'id' | 'hasPremiumAccess'> | null;
   section: Pick<Section, 'id' | 'description'> | null;
-  me: Pick<User, 'purchasedRegions' | 'purchasedGroups'> | null;
+  me: Pick<User, 'purchasedRegions' | 'purchasedGroups' | 'verified'> | null;
 }

@@ -1,3 +1,5 @@
+## [0.1.340-auth.0](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.339...@whitewater-guide/web@0.1.340-auth.0) (2019-05-28)
+
 ## [0.1.339](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.338...@whitewater-guide/web@0.1.339) (2019-05-22)
 
 ## [0.1.338](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.337...@whitewater-guide/web@0.1.338) (2019-05-13)

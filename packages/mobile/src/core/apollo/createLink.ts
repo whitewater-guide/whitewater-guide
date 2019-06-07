@@ -1,7 +1,6 @@
 import NetInfo from '@react-native-community/netinfo';
-import { errorLink } from '@whitewater-guide/clients';
+import { AuthService, errorLink } from '@whitewater-guide/clients';
 import { ApolloLink } from 'apollo-link';
-import { MobileAuthService } from '../auth';
 import { trackError } from '../errors';
 import { inMemoryCache } from './cache';
 import {
@@ -11,23 +10,20 @@ import {
   TokenRefreshLink,
 } from './links';
 
-export const createLink = (auth: MobileAuthService) =>
+export const createLink = (auth: AuthService) =>
   ApolloLink.from([
     accessTokenLink,
-    errorLink(inMemoryCache, (error) => {
+    errorLink(inMemoryCache, async (error) => {
       if (error.type === 'fetch') {
-        NetInfo.fetch()
-          .then(({ isConnected }) => {
-            if (isConnected) {
-              trackError('errorLink', error);
-            }
-          })
-          .catch(() => {});
+        const { isConnected } = await NetInfo.fetch();
+        if (isConnected) {
+          trackError('errorLink', error);
+        }
       } else {
         trackError('errorLink', error);
       }
       if (error.type === 'auth') {
-        auth.signOut(true);
+        await auth.signOut(true);
       }
     }),
     new TokenRefreshLink(auth),

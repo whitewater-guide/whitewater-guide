@@ -1,0 +1,23 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "guide.whitewater.staging",
+      "sha256_cert_fingerprints": [
+        "A4:74:9D:5B:7D:22:AB:DB:42:C8:1B:09:46:CD:85:2E:74:3D:4E:F1:F2:1B:2C:35:71:1E:DC:43:3F:E3:07:B5",
+        "0C:8B:2A:1C:08:83:4A:F5:67:4C:30:BB:2C:6E:B5:80:9C:90:6C:6F:82:C5:7C:97:92:05:58:9A:E1:7C:B2:83"
+      ]
+    }
+  },
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "whitewater.staging",
+      "sha256_cert_fingerprints": [
+        "0C:8B:2A:1C:08:83:4A:F5:67:4C:30:BB:2C:6E:B5:80:9C:90:6C:6F:82:C5:7C:97:92:05:58:9A:E1:7C:B2:83"
+      ]
+    }
+  }
+]

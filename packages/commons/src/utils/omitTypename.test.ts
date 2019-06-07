@@ -6,7 +6,7 @@ it.each([
   ['string', 'string'],
   ['number', 111],
   ['boolean', true],
-])('should handle primitive: %s', (_, value) => {
+])('should handle primitive: %s', (_, value: any) => {
   expect(omitTypename(value)).toBe(value);
 });
 

@@ -38,7 +38,7 @@ export const facebookStrategy = new FacebookTokenStrategy(
           });
         }
       }
-      done(null, user);
+      done(null, user, { isNew });
     } catch (err) {
       done(err);
     }

@@ -1,0 +1,19 @@
+{
+  "auth": {
+    "anon": {
+      "header": "Hi there!",
+      "description": "In order to purchase premium region you must sign in first.",
+      "button": "Sign In"
+    },
+    "unverified": {
+      "header": "Hi {{ name }}!",
+      "description": "In order to purchase premium region you must verify your account.\n\nAfter you registered, we've sent you an e-mail with verification link. In case you haven't received it, you can request another e-mail.",
+      "refresh": "Refresh",
+      "email": "Send another e-mail"
+    },
+    "verified": {
+      "header": "Hi {{ name }}!",
+      "description": "Your account is verified. You can now proceed to your purchase."
+    }
+  }
+}

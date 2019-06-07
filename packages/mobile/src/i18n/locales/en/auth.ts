@@ -1,9 +1,9 @@
 const auth = {
-  logoutDialogTitle: 'Log Out',
-  logoutDialogMessage: 'Are you sure want to log out?',
+  logoutDialogTitle: 'Sign Out',
+  logoutDialogMessage: 'Are you sure want to sign out?',
   logoutErrorTitle: 'Error',
   logoutErrorMessage:
-    'Could not log out. Please check your internet connection.',
+    'Could not sign out. Please check your internet connection.',
 };
 
 export default auth;

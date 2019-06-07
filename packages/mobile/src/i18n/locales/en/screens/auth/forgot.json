@@ -1,0 +1,12 @@
+{
+  "title": "Forgot your password?",
+  "description": "Enter your email and we will send you instructions on how to recover it",
+  "success": "Success! Please check your e-mail.",
+  "goBack": "Go back",
+  "submit": "Send!",
+  "email": {
+    "invalid": "Invalid e-mail",
+    "not_found": "Cannot find user with this e-mail",
+    "send_failed": "Could'n send an e-mail. Please try again"
+  }
+}

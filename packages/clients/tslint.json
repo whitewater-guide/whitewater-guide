@@ -1,6 +1,12 @@
 {
   "extends": ["../../tslint.json"],
   "rules": {
-    "no-submodule-imports": [true, "react-apollo", "lodash", "moment"]
+    "no-submodule-imports": [
+      true,
+      "react-apollo",
+      "lodash",
+      "moment",
+      "jest-dom"
+    ]
   }
 }

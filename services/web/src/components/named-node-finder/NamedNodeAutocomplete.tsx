@@ -88,8 +88,8 @@ class NamedNodeAutocomplete<QResult, QVars> extends React.PureComponent<
     } = this.props;
     const variables = getVariables(inputValue);
     return (
-      <Query<QResult, QVars> query={query} variables={variables as any}>
-        {(result) => {
+      <Query query={query} variables={variables}>
+        {(result: QueryResult<QResult, QVars>) => {
           return (
             <AutoComplete
               hintText={hintText}

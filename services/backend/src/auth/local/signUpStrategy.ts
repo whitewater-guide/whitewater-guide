@@ -4,6 +4,7 @@ import { LANGUAGES } from '@whitewater-guide/commons';
 import { hash } from 'bcrypt';
 import Negotiator from 'negotiator';
 import { Strategy } from 'passport-local';
+import isEmail from 'validator/lib/isEmail';
 import { SALT_ROUNDS } from '../constants';
 import { MailType, sendMail } from '../mail';
 import logger from './logger';
@@ -16,11 +17,16 @@ export const localSignUpStrategy = new Strategy(
     const email = username.toLowerCase();
     if (!email || !password) {
       return done(null, false, {
-        message: 'signup.missing.credentials',
+        message: 'signup.errors.email.missing',
+      });
+    } else if (!isEmail(email)) {
+      return done(null, false, {
+        message: 'signup.errors.email.invalid',
+        payload: { email },
       });
     } else if (isPasswordWeak(password)) {
       return done(null, false, {
-        message: 'signup.weak.password',
+        message: 'signup.errors.password.weak',
         payload: { email },
       });
     } else {
@@ -49,7 +55,7 @@ export const localSignUpStrategy = new Strategy(
           .returning('*');
       } catch (e) {
         return done(null, false, {
-          message: 'signup.email.unavailable',
+          message: 'signup.errors.email.unavailable',
           payload: { email, code: e.code },
         });
       }

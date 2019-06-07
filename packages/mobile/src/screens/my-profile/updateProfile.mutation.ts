@@ -16,5 +16,5 @@ export interface Vars {
 
 export interface Result {
   __typename?: 'Mutation';
-  updateProfile: Partial<User>;
+  updateProfile: Pick<User, '__typename' | 'id' | 'language'>;
 }

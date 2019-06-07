@@ -36,6 +36,15 @@ import subdomains/*
     / {$MINIO_ADDRESS}{uri}
   }
 
+  rewrite /.well-known/assetlinks.json /well-known/assetlinks.json
+  header /well-known/assetlinks.json Content-Type application/json
+  header /well-known/assetlinks.json Cache-Control public
+  header /well-known/assetlinks.json Cache-Control max-age=86400
+  rewrite /.well-known/apple-app-site-association /well-known/apple-app-site-association
+  header /well-known/apple-app-site-association Content-Type application/json
+  header /well-known/apple-app-site-association Cache-Control public
+  header /well-known/apple-app-site-association Cache-Control max-age=86400
+
   # Root is landing
   rewrite / {
     if {path} is /

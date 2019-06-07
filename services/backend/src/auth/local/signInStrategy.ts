@@ -14,14 +14,14 @@ export const localSignInStrategy = new Strategy(
       .first();
     if (!user) {
       return done(null, false, {
-        message: 'signin.no.user',
+        message: 'signin.errors.email.not_found',
         payload: { email },
       });
     }
     if (!user.password) {
       // user only logged in via facebook before and has no password
       return done(null, false, {
-        message: 'signin.no.local.login',
+        message: 'signin.errors.email.not_local',
         payload: { email, id: user.id },
       });
     }
@@ -31,13 +31,13 @@ export const localSignInStrategy = new Strategy(
         return done(null, user);
       } else {
         return done(null, false, {
-          message: 'signin.password.fail',
+          message: 'signin.errors.password.mismatch',
           payload: { email, id: user.id },
         });
       }
     } catch (e) {
       return done(null, false, {
-        message: 'signin.password.error',
+        message: 'signin.errors.password.error',
         payload: { email, id: user.id },
       });
     }

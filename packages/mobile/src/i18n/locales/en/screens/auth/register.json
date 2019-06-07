@@ -1,0 +1,13 @@
+{
+  "title": "Registration",
+  "name": "Username",
+  "submit": "Register",
+  "email": {
+    "missing": "e-mail is required",
+    "invalid": "Invalid e-mail address",
+    "unavailable": "This e-mail is already taken"
+  },
+  "password": {
+    "weak": "Password is too weak"
+  }
+}

@@ -1,12 +1,14 @@
-import { AuthProvider, TagsProvider } from '@whitewater-guide/clients';
-import { AuthPayload } from '@whitewater-guide/commons';
+import {
+  AuthProvider,
+  AuthService,
+  TagsProvider,
+} from '@whitewater-guide/clients';
 import ApolloClient from 'apollo-client';
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import { AsyncStorage } from 'react-native';
 import codePush from 'react-native-code-push';
 import { PortalProvider } from 'react-native-portal';
-import { Sentry } from 'react-native-sentry';
 import { NavigationState } from 'react-navigation';
 import { Provider } from 'react-redux';
 import { Store, Unsubscribe } from 'redux';
@@ -40,15 +42,16 @@ class App extends React.Component<{}, State> {
   private _store?: Store<RootState>;
   private _apolloClient?: ApolloClient<any>;
   private _storeSubscription?: Unsubscribe;
-  private _authService = new MobileAuthService();
+  private _authService!: AuthService;
 
   async componentDidMount() {
+    this._authService = new MobileAuthService(
+      this.resetApolloCache,
+      this.onSignOut,
+    );
     await this._authService.init();
     this._store = await configureStore();
     this._apolloClient = await initApolloClient(this._authService);
-    this._authService.on('signIn', this.onSignIn);
-    this._authService.on('signOut', this.onSignOut);
-    this._authService.on('forceSignOut', this.onForceSignOut);
     const initialized = this._store.getState().app.initialized;
     if (!initialized) {
       this._storeSubscription = this._store.subscribe(this.listenForInitialize);
@@ -71,31 +74,11 @@ class App extends React.Component<{}, State> {
     this.setState({ initialized });
   };
 
-  onSignIn = async ({ id }: AuthPayload) => {
-    Sentry.setUserContext({ id });
-    await this.resetApolloCache();
-  };
-
-  onSignOut = async () => {
-    Sentry.setUserContext({});
+  onSignOut = () => {
     navigationChannel.put(resetNavigationToHome());
     if (this._store) {
       this._store.dispatch(purchaseActions.logout());
     }
-    // because of some bug with unmounted queries resetStore will never resolve
-    // if myPurchases query is unmounted while resettingStore
-    // resetApolloCache cannot be before resetNavigationToHome
-    await this.resetApolloCache();
-  };
-
-  onForceSignOut = async () => {
-    Sentry.setUserContext({});
-    navigationChannel.put(resetNavigationToHome());
-    if (this._store) {
-      this._store.dispatch(purchaseActions.logout());
-    }
-    // resetApolloCache cannot be before resetNavigationToHome
-    await this.resetApolloCache();
   };
 
   // See https://github.com/apollographql/apollo-cache-persist/issues/34#issuecomment-371177206 for explanation

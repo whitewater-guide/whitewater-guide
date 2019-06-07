@@ -1,3 +1,23 @@
+## [1.7.67-auth.0](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.66...@whitewater-guide/mobile@1.7.67-auth.0) (2019-05-28)
+
+### Bug Fixes
+
+- fix fb button ([4e460e9](https://github.com/doomsower/whitewater/commit/4e460e9))
+- improve logo layout ([d0b9c0d](https://github.com/doomsower/whitewater/commit/d0b9c0d))
+
+### Features
+
+- create password input ([11b2c52](https://github.com/doomsower/whitewater/commit/11b2c52))
+- forgot and reset password screens ([6258b46](https://github.com/doomsower/whitewater/commit/6258b46))
+- improve logo ([5f722c4](https://github.com/doomsower/whitewater/commit/5f722c4))
+- login routes ([24dd72f](https://github.com/doomsower/whitewater/commit/24dd72f))
+- make sign in with facebook work ([c760cec](https://github.com/doomsower/whitewater/commit/c760cec))
+- register screen ([b66948c](https://github.com/doomsower/whitewater/commit/b66948c))
+- registration form (no submit) ([23d2f79](https://github.com/doomsower/whitewater/commit/23d2f79))
+- sign in screen ([fa2c6f4](https://github.com/doomsower/whitewater/commit/fa2c6f4))
+- simplify login routes ([9943780](https://github.com/doomsower/whitewater/commit/9943780))
+- strength indicator for password input ([51f3e40](https://github.com/doomsower/whitewater/commit/51f3e40))
+
 ## [1.7.66](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.65...@whitewater-guide/mobile@1.7.66) (2019-05-22)
 
 ## [1.7.65](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.64...@whitewater-guide/mobile@1.7.65) (2019-05-13)

@@ -3,7 +3,7 @@ import { deserializeForm } from '../../../components/forms';
 import { SourceFormData } from './types';
 
 const deserializeSourceForm = (data: Source): SourceFormData => {
-  const result = deserializeForm(['termsOfUse'], [], ['regions'])(data);
+  const result: any = deserializeForm(['termsOfUse'], [], ['regions'])(data);
   const requestParams =
     result && result.requestParams
       ? JSON.stringify(result.requestParams)

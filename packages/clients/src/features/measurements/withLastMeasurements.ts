@@ -24,9 +24,7 @@ export interface WithMeasurements {
   };
 }
 
-export const withLastMeasurements = (
-  fetchPolicy: FetchPolicy = 'cache-and-network',
-) =>
+export const withLastMeasurements = (fetchPolicy?: FetchPolicy) =>
   graphql<TVars, Result, TVars, WithMeasurements>(LAST_MEASUREMENTS_QUERY, {
     alias: 'withLastMeasurements',
     options: () => ({ fetchPolicy, notifyOnNetworkStatusChange: true }),

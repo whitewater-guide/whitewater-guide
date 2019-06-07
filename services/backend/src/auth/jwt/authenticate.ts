@@ -27,7 +27,7 @@ export const authenticateWithJWT: MiddlewareFactory = (passport) => async (
             tags: { strategy: 'jwt', error_id },
             extra: payload,
           });
-          ctx.body = { success: false, error: 'unauthenticated', error_id };
+          ctx.body = { success: false, error: 'jwt.unauthenticated', error_id };
           ctx.status = 401;
           return;
         }
@@ -48,7 +48,11 @@ export const authenticateWithJWT: MiddlewareFactory = (passport) => async (
               tags: { strategy: 'jwt', error_id },
               extra: payload,
             });
-            ctx.body = { success: false, error: 'unauthenticated', error_id };
+            ctx.body = {
+              success: false,
+              error: 'jwt.unauthenticated',
+              error_id,
+            };
             ctx.status = 401;
             return;
           }

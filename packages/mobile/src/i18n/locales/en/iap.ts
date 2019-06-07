@@ -44,7 +44,7 @@ const iap = {
     savePurchaseOffline:
       'Failed to save your purchase. Please check your internet connection. Your transaction id was {{transactionId}}.',
     alreadyOwned:
-      'It appears that you have already purchased this region. Please log out and log in under account that you used to purchase it. Your transaction id was {{transactionId}}.',
+      'It appears that you have already purchased this region. Please sign out and then sign in under account that you used to purchase it. Your transaction id was {{transactionId}}.',
   },
   section: {
     message:

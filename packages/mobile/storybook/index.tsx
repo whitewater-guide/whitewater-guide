@@ -7,12 +7,15 @@ import React from 'react';
 import { Provider as PaperProvider } from 'react-native-paper';
 import SplashScreen from 'react-native-splash-screen';
 import { I18nProvider } from '../src/i18n';
+import { PaperTheme } from '../src/theme';
 // @ts-ignore
 import { loadStories } from './storyLoader';
 
+console.disableYellowBox = true;
+
 addDecorator((story: any) => (
   <I18nProvider>
-    <PaperProvider>{story()}</PaperProvider>
+    <PaperProvider theme={PaperTheme}>{story()}</PaperProvider>
   </I18nProvider>
 ));
 

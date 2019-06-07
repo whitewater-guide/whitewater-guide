@@ -38,7 +38,7 @@ describe('errors', () => {
     expect(resp.status).toBe(400);
     expect(resp.body).toEqual({
       success: false,
-      error: 'verification.request.id.missing',
+      error: 'verification_request.errors.form.id_missing',
       error_id: expect.any(String),
     });
   });
@@ -48,7 +48,7 @@ describe('errors', () => {
     expect(resp.status).toBe(400);
     expect(resp.body).toEqual({
       success: false,
-      error: 'verification.request.id.incorrect',
+      error: 'verification_request.errors.form.id_invalid',
       error_id: expect.any(String),
     });
   });
@@ -58,17 +58,17 @@ describe('errors', () => {
     expect(resp.status).toBe(400);
     expect(resp.body).toEqual({
       success: false,
-      error: 'verification.request.user.not.found',
+      error: 'verification_request.errors.form.user_not_found',
       error_id: expect.any(String),
     });
   });
 
-  it('should fail on nonexisting id', async () => {
+  it('should fail on already verified users', async () => {
     const resp = await request(ADMIN_ID);
     expect(resp.status).toBe(400);
     expect(resp.body).toEqual({
       success: false,
-      error: 'verification.request.unnecessary',
+      error: 'verification_request.errors.form.already_verified',
       error_id: expect.any(String),
     });
   });
@@ -78,7 +78,7 @@ describe('errors', () => {
     expect(resp.status).toBe(400);
     expect(resp.body).toEqual({
       success: false,
-      error: 'verification.request.email.missing',
+      error: 'verification_request.errors.form.not_local',
       error_id: expect.any(String),
     });
   });
@@ -91,7 +91,7 @@ describe('errors', () => {
     expect(resp.status).toBe(400);
     expect(resp.body).toEqual({
       success: false,
-      error: 'verification.request.send.failed',
+      error: 'verification_request.errors.form.send_failed',
       error_id: expect.any(String),
     });
   });

@@ -1,9 +1,15 @@
 import gql from 'graphql-tag';
 
-const REMOVE_ALL_GAUGES = gql`
+export const REMOVE_ALL_GAUGES = gql`
   mutation removeGauges($sourceId: ID!) {
     removeGauges(sourceId: $sourceId)
   }
 `;
 
-export default REMOVE_ALL_GAUGES;
+export interface Vars {
+  sourceId: string;
+}
+
+export interface Result {
+  removeGauges: string[];
+}

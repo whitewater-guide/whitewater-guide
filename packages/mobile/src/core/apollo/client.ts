@@ -1,13 +1,12 @@
-import { appErrorResolver } from '@whitewater-guide/clients';
+import { appErrorResolver, AuthService } from '@whitewater-guide/clients';
 import ApolloClient from 'apollo-client';
-import { MobileAuthService } from '../auth';
 import { assertCachePersistorVersion, inMemoryCache } from './cache';
 import { createLink } from './createLink';
 import { initLocalState } from './initLocalState';
 
 export let apolloClient: ApolloClient<any>;
 
-export const initApolloClient = async (auth: MobileAuthService) => {
+export const initApolloClient = async (auth: AuthService) => {
   if (!apolloClient) {
     await assertCachePersistorVersion();
 
