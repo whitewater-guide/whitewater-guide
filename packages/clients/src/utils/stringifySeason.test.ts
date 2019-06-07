@@ -45,3 +45,7 @@ test('should handle ranges', () => {
   expect(stringifySeason([0, 5], true)).toBe('jan - mar');
   expect(stringifySeason([22, 1], true)).toBe('dec - jan');
 });
+
+test('should fallback on unknown languages', () => {
+  expect(stringifySeason([0, 23], true, 'kr')).toBe('all year around');
+});

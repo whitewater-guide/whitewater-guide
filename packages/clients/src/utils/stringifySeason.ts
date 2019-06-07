@@ -11,6 +11,7 @@ interface Locales {
   };
 }
 
+// TODO: do not localize here. Instead, return keys and options to localize in i18n
 const locales: Locales = {
   en: {
     late: (n) =>
@@ -90,7 +91,8 @@ function loopAroundNewYear(seasons: number[]): number[] {
  * @range - If true, seasonNumeric is considered to be a range (possibly, looping around new year, like (e.g. [22, 3])
  * @lang - Language
  * otherwise - just set of half-months
- */ export function stringifySeason(
+ */
+export function stringifySeason(
   seasonNumeric?: number[],
   range: boolean = false,
   lang: string = 'en',
@@ -111,7 +113,8 @@ function loopAroundNewYear(seasons: number[]): number[] {
           );
   }
   if (seasons.length === 24) {
-    return locales[lang].all;
+    const locale = locales[lang] || locales.en;
+    return locale.all;
   }
   // Loop around new year
   if (seasons.indexOf(0) === 0 && seasons.indexOf(23) >= 0) {
