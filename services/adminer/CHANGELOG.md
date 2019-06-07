@@ -1,3 +1,5 @@
+## [0.0.19](https://github.com/doomsower/whitewater/compare/@whitewater-guide/adminer@0.0.18...@whitewater-guide/adminer@0.0.19) (2019-06-07)
+
 ## [0.0.18](https://github.com/doomsower/whitewater/compare/@whitewater-guide/adminer@0.0.17...@whitewater-guide/adminer@0.0.18) (2019-06-07)
 
 ## [0.0.17](https://github.com/doomsower/whitewater/compare/@whitewater-guide/adminer@0.0.16...@whitewater-guide/adminer@0.0.17) (2019-02-19)

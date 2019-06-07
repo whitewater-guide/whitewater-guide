@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/postgres-backup-s3",
   "private": true,
-  "version": "3.0.8",
+  "version": "3.0.9",
   "license": "UNLICENSED",
   "description": "postgres backup to s3 for whitewater.guide",
   "repository": "https://github.com/doomsower/whitewater.git",

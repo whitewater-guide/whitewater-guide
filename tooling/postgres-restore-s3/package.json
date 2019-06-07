@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/postgres-restore-s3",
   "private": true,
-  "version": "0.0.12",
+  "version": "0.0.13",
   "license": "UNLICENSED",
   "description": "restore postgres from for whitewater.guide",
   "repository": "https://github.com/doomsower/whitewater.git",

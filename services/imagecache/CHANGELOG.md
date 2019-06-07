@@ -1,3 +1,5 @@
+## [0.0.4](https://github.com/doomsower/whitewater/compare/@whitewater-guide/imagecache@0.0.3...@whitewater-guide/imagecache@0.0.4) (2019-06-07)
+
 ## [0.0.3](https://github.com/doomsower/whitewater/compare/@whitewater-guide/imagecache@0.0.2...@whitewater-guide/imagecache@0.0.3) (2019-06-07)
 
 ## 0.0.2 (2019-03-03)
