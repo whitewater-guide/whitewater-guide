@@ -1,3 +1,9 @@
+## [1.7.72](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.71...@whitewater-guide/mobile@1.7.72) (2019-06-07)
+
+### Features
+
+- reset apollo cache on language change ([f8321d1](https://github.com/doomsower/whitewater/commit/f8321d1))
+
 ## [1.7.71](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.70...@whitewater-guide/mobile@1.7.71) (2019-06-07)
 
 ### Features
