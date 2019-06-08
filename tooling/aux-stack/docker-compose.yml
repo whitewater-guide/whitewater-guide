@@ -44,6 +44,8 @@ services:
     ports:
       - '80:80'
       - '443:443'
+    volumes:
+      - caddy-certs:/etc/caddycerts
 
   weblate:
     image: weblate/weblate:3.6.1-2
@@ -86,4 +88,6 @@ volumes:
   sentry-data:
     external: true
   sentry-postgres:
+    external: true
+  caddy-certs:
     external: true
