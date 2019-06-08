@@ -1,3 +1,9 @@
+## [0.0.353](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.352...@whitewater-guide/backend@0.0.353) (2019-06-08)
+
+### Bug Fixes
+
+- **backend:** fixed verification links in emails ([1805baf](https://github.com/doomsower/whitewater/commit/1805baf))
+
 ## [0.0.352](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.350...@whitewater-guide/backend@0.0.352) (2019-06-07)
 
 ## [0.0.351](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.350...@whitewater-guide/backend@0.0.351) (2019-06-07)
