@@ -4,10 +4,12 @@ import es from './es';
 import fr from './fr';
 import ru from './ru';
 
-export default {
+const resources = {
   de,
   en,
   es,
   fr,
   ru,
 };
+
+export default resources;

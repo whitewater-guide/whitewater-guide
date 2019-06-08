@@ -1,6 +1,0 @@
-{
-  "title": "Hi {{ user }}!",
-  "description_verified": "You're ready to go.",
-  "description_unverified": "We've sent you a verification e-mail. Verification is only required if you want to purchase premium regions or create content. You can always send new verification e-mail from your account screen.",
-  "submit": "Let's go boating!"
-}

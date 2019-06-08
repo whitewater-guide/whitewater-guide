@@ -1,5 +1,7 @@
-import core from './core';
+import commons from './commons.json';
+import main from './main.json';
 
 export default {
-  ...core,
+  ...main,
+  commons,
 };

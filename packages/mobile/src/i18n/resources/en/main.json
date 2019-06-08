@@ -1,0 +1,373 @@
+{
+  "auth": {
+    "logoutDialogTitle": "Sign Out",
+    "logoutDialogMessage": "Are you sure want to sign out?",
+    "logoutErrorTitle": "Error",
+    "logoutErrorMessage": "Could not sign out. Please check your internet connection."
+  },
+  "iap": {
+    "dialog": {
+      "title": "Get {{region}} premium"
+    },
+    "buy": {
+      "confirmButton": {
+        "REFRESHING_PREMIUM": "Buy for {{price}}",
+        "REFRESHING_PREMIUM_FAILED": "Retry",
+        "PRODUCT_LOADING": "Buy",
+        "PRODUCT_LOADING_FAILED": "Retry",
+        "IDLE": "Buy for {{price}}",
+        "PRODUCT_PURCHASING": "Buy for {{price}}",
+        "PRODUCT_PURCHASING_FAILED": "Retry",
+        "PURCHASE_SAVING": "Buy for {{price}}",
+        "PURCHASE_SAVING_OFFLINE": "Retry",
+        "PURCHASE_SAVING_FATAL": "OK"
+      },
+      "descriptionMd": "Take the full advantage of the whitewater.guide for {{region}}\n- Detailed sections descriptions\n- Navigate to put-ins/take-outs with just one tap\n- Copy coordinates of put-ins, take-outs and extra points\n- Download data for offline use\n"
+    },
+    "alreadyHave": {
+      "message": "It seems that you already have your premium access to {{region}}"
+    },
+    "auth": {
+      "anon": "Please authenticate to proceed",
+      "user": "Success! Please continue to your purchase"
+    },
+    "success": {
+      "subheading": "Success!",
+      "body": "Now you have access to all premium features in {{region}}"
+    },
+    "errors": {
+      "refreshPremium": "Failed to check product availability. Please check your internet connection.",
+      "fetchProduct": "Failed to fetch product price. Please check your internet connection.",
+      "buyProduct": "Failed to buy product. Please check your internet connection.",
+      "savePurchase": "Failed to save your purchase. Please contact us. Your transaction id was {{transactionId}}.",
+      "savePurchaseOffline": "Failed to save your purchase. Please check your internet connection. Your transaction id was {{transactionId}}.",
+      "alreadyOwned": "It appears that you have already purchased this region. Please sign out and then sign in under account that you used to purchase it. Your transaction id was {{transactionId}}."
+    },
+    "section": {
+      "message": "{{region}} is a premium region. Full description of this section is a premium feature",
+      "button": "Get premium"
+    }
+  },
+  "offline": {
+    "dialog": {
+      "title": "Download for offline use",
+      "subtitle": "Selected region: {{region}}",
+      "categories": {
+        "data": "Detailed sections info *",
+        "media": "Photos",
+        "maps": "Maps (coming soon)"
+      },
+      "cacheWarning": "* This data will be lost when you logout or change language",
+      "loadingSummary": "Loading metadata",
+      "inBackground": "Continue in background",
+      "summaryError": "Error while loading metadata",
+      "download": "Download"
+    }
+  },
+  "filter": {
+    "title": "Filters",
+    "reset": "Reset",
+    "difficultyValue": "Difficulty: {{minDiff}}",
+    "difficultyRange": "Difficulty: from {{minDiff}} to {{maxDiff}}",
+    "durationValue": "Duration: {{minDuration}}",
+    "durationRange": "Duration: from {{minDuration}} to {{maxDuration}}",
+    "rating": "Minimal rating",
+    "search": "Show {{count}} section",
+    "search_plural": "Show {{count}} sections"
+  },
+  "errors": {
+    "auth": "Authentication error ({{ id }})",
+    "default": "Something bad happened ({{ id }})",
+    "fetch": "Internet connection error"
+  },
+  "components": {
+    "PasswordStrengthIndicator": {
+      "strength0": "too weak",
+      "strength1": "too weak",
+      "strength2": "fair",
+      "strength3": "good",
+      "strength4": "strong"
+    }
+  },
+  "yup": {
+    "mixed": {
+      "default": "Invalid value",
+      "required": "This field is required",
+      "oneOf": "Must be one of following: {{ values }}",
+      "notOneOf": "Must not be one of following: {{ values }}",
+      "noType": "Must not be {{ type }}"
+    },
+    "string": {
+      "length": "Must be exactly {{ length }} symbols long",
+      "min": "Must be at least {{ min }} symbols long",
+      "max": "Must be at most {{ max }} symbols long",
+      "matches": "Invalid string",
+      "email": "Invalid e-mail address",
+      "url": "Invalid URL",
+      "trim": "Must not start or end with spaces",
+      "lowercase": "Must be a lowercase string",
+      "uppercase": "Must be an uppercase string",
+      "weak_password": "Password is too weak"
+    },
+    "number": {
+      "min": "Must be greater than or equal to {{ min }}",
+      "max": "Must be less than or equal to {{ max }}",
+      "lessThan": "Must be less than {{ less }}",
+      "moreThan": "Must be greater than {{ more }}",
+      "notEqual": "Must not be equal to {{ notEqual }}",
+      "positive": "Must be a positive number",
+      "negative": "Must be a negative number",
+      "integer": "Must be an integer"
+    },
+    "date": {
+      "min": "Must be later than {{ min }}",
+      "max": "Must be earlier than {{ max }}"
+    },
+    "object": {
+      "noUnknown": "Cannot have keys not specified in the object shape"
+    },
+    "array": {
+      "min": "Must have at least {{ min }} items",
+      "max": "Must have at most to {{ max }} items"
+    }
+  },
+  "screens": {
+    "auth": {
+      "forgot": {
+        "title": "Forgot your password?",
+        "description": "Enter your email and we will send you instructions on how to recover it",
+        "success": "Success! Please check your e-mail.",
+        "goBack": "Go back",
+        "submit": "Send!",
+        "email": {
+          "invalid": "Invalid e-mail",
+          "not_found": "Cannot find user with this e-mail",
+          "send_failed": "Could'n send an e-mail. Please try again"
+        }
+      },
+      "register": {
+        "title": "Registration",
+        "name": "Username",
+        "submit": "Register",
+        "email": {
+          "missing": "e-mail is required",
+          "invalid": "Invalid e-mail address",
+          "unavailable": "This e-mail is already taken"
+        },
+        "password": {
+          "weak": "Password is too weak"
+        }
+      },
+      "reset": {
+        "title": "Password reset",
+        "description": "Please enter new password",
+        "missingParams": "Some parameters are missing. We have no idea how you got there without them.",
+        "goBack": "Go back",
+        "submit": "Change password",
+        "newPassword": "New password",
+        "success": "Success! You may now sign in using your new password!",
+        "form": {
+          "invalid_id": "Invalid user id",
+          "not_local": "User registered via social authentication",
+          "unexpected": "No password reset was requested",
+          "expired": "Expired. Please request new password reset e-mail",
+          "token_mismatch": "That was not intended for you"
+        },
+        "password": {
+          "weak": "Password is too weak"
+        }
+      },
+      "signin": {
+        "facebook": " Sign in with Facebook",
+        "noAccount": "Don't have an account?",
+        "register": "Register",
+        "forgot": "Forgot your password?",
+        "submit": "Sign in",
+        "email": {
+          "not_found": "e-mail was not found",
+          "not_local": "This e-mail cannot be used to sign-in"
+        },
+        "password": {
+          "mismatch": "Wrong password",
+          "error": "Failed to sign in"
+        }
+      },
+      "welcome": {
+        "title": "Hi {{ user }}!",
+        "description_verified": "You're ready to go.",
+        "description_unverified": "We've sent you a verification e-mail. Verification is only required if you want to purchase premium regions or create content. You can always send new verification e-mail from your account screen.",
+        "submit": "Let's go boating!"
+      }
+    },
+    "myprofile": {
+      "verified": "Verified",
+      "unverified": "Not verified",
+      "verification": {
+        "showMenu": "What's this?",
+        "menuTitle": "Account verification",
+        "menuMessage": "You need to verify your account in order to purchase regions and create content",
+        "requestButton": "Send verification e-mail"
+      }
+    }
+  },
+  "features": {
+    "purchases": {
+      "auth": {
+        "anon": {
+          "header": "Hi there!",
+          "description": "In order to purchase premium region you must sign in first.",
+          "button": "Sign In"
+        },
+        "unverified": {
+          "header": "Hi {{ name }}!",
+          "description": "In order to purchase premium region you must verify your account.\n\nAfter you registered, we've sent you an e-mail with verification link. In case you haven't received it, you can request another e-mail.",
+          "refresh": "Refresh",
+          "email": "Send another e-mail"
+        },
+        "verified": {
+          "header": "Hi {{ name }}!",
+          "description": "Your account is verified. You can now proceed to your purchase."
+        }
+      }
+    }
+  },
+  "drawer": {
+    "myProfile": "My Account",
+    "signIn": "Sign In",
+    "facebookLogin": "Login with Facebook",
+    "regions": "Regions",
+    "faq": "FAQ",
+    "termsAndConditions": "Terms and conditions",
+    "privacyPolicy": "Privacy policy"
+  },
+  "myProfile": {
+    "title": "My Profile",
+    "general": "General",
+    "language": "Language",
+    "logout": "Sign out",
+    "purchases": {
+      "title": "My purchases",
+      "region": "Region",
+      "group": "Regions pack"
+    },
+    "notLoggedIn": "You're not logged in"
+  },
+  "regionsList": {
+    "title": "Regions",
+    "riversCount": "Rivers",
+    "sectionsCount": "Sections",
+    "gaugesCount": "Gauges"
+  },
+  "region": {
+    "info": {
+      "title": "About region",
+      "noData": "No description for this region",
+      "menu": {
+        "title": "Actions",
+        "clipboard": "Copy to clipboard"
+      }
+    },
+    "map": {
+      "title": "Map",
+      "selectedSection": {
+        "swipeUpTip": "Swipe up to see more",
+        "details": "Details",
+        "flows": "Flows"
+      },
+      "layers": {
+        "prompt": "Please select layer",
+        "standard": "Standard",
+        "terrain": "Terrain",
+        "satellite": "Satellite",
+        "hybrid": "Hybrid"
+      }
+    },
+    "sections": {
+      "title": "Sections",
+      "loading": "Loading sections: {{loaded}}/{{count}}",
+      "loadingUpdates": "Loading updates"
+    }
+  },
+  "section": {
+    "chart": {
+      "title": "Flows",
+      "periodToggle": {
+        "title": "Select period",
+        "day": "Day",
+        "week": "Week",
+        "month": "Month"
+      },
+      "flowToggle": "Select measurement",
+      "lastRecorded": {
+        "title": "Last recorded",
+        "flow": "flow",
+        "level": "level"
+      },
+      "lastUpdated": "Last updated",
+      "approximateWarning": "This gauge gives very approximate\ndata for this river!",
+      "gaugeMenu": {
+        "title": "Gauge information",
+        "aboutSource": "About the data source",
+        "webPage": "Open gauge web page"
+      },
+      "outdatedWarning": "This data is probably outdated :(",
+      "noData": "There is no data for this period",
+      "noGauge": "There is no gauge for this section"
+    },
+    "guide": {
+      "title": "Description",
+      "noData": "No guide for this section yet...",
+      "menu": {
+        "title": "Actions",
+        "clipboard": "Copy to clipboard"
+      }
+    },
+    "media": {
+      "title": "Media",
+      "photo": "Photos",
+      "video": "Videos",
+      "blog": "Blogs",
+      "noMedia": {
+        "photo": "No photos for this section yet :(",
+        "video": "No videos for this section yet :(",
+        "blog": "No blogs for this section yet :("
+      }
+    },
+    "map": {
+      "title": "Map"
+    },
+    "info": {
+      "title": "Info"
+    }
+  },
+  "durations": {
+    "10": "Laps",
+    "20": "Twice a day",
+    "30": "Whole day",
+    "40": "Overnighter",
+    "50": "Multiday"
+  },
+  "poiTypes": {
+    "put-in": "Put-in",
+    "put-in-alt": "Alternative put-in",
+    "put-in-road": "End of road to put-in",
+    "take-out": "Take-out",
+    "take-out-alt": "Alternative take-out",
+    "take-out-road": "End of road to take-out",
+    "waterfall": "Waterfall",
+    "rapid": "Rapid",
+    "portage": "Portage",
+    "playspot": "Playspot",
+    "hazard": "Hazard",
+    "river-campsite": "River campsite",
+    "wild-camping": "Wild camping",
+    "paid-camping": "Paid camping",
+    "gauge": "Gauge",
+    "hike-waypoint": "Hiking trail waypoint",
+    "bridge": "Bridge",
+    "dam": "dam",
+    "power-plant": "Power plant (water release)",
+    "kayak-shop": "kayak-shop",
+    "other": "Other"
+  }
+}

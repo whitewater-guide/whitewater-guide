@@ -10,7 +10,7 @@ import resources from './resources';
 import yupLocale from './yup-locale';
 
 interface OuterProps {
-  onLanguageChange: (language: string) => void;
+  onLanguageChange?: (language: string) => void;
 }
 
 const _i18n = i18next.use(initReactI18next);
@@ -28,7 +28,9 @@ export const I18nProvider: React.FC<OuterProps> = ({
         return;
       }
       moment.locale(_i18n.languages[0]);
-      onLanguageChange(language);
+      if (onLanguageChange) {
+        onLanguageChange(language);
+      }
     },
     [onLanguageChange],
   );
