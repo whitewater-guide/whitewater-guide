@@ -14,6 +14,7 @@ import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 import { Subheading } from 'react-native-paper';
 import { Omit } from 'type-zoo';
 import { MultiSlider, StarRating, TernaryChips } from '../../components';
+import { getSeasonLocalizer } from '../../i18n';
 import theme from '../../theme';
 import { FindButton } from './FindButton';
 import { InnerProps } from './types';
@@ -103,7 +104,7 @@ export default class FilterScreenContent extends React.PureComponent<
   };
 
   render() {
-    const { i18n, t } = this.props;
+    const { t } = this.props;
     const { duration, difficulty } = this.state;
     const [minDiff, maxDiff] = difficulty.map(toRomanDifficulty);
     const [minDuration, maxDuration] = duration.map(
@@ -144,7 +145,7 @@ export default class FilterScreenContent extends React.PureComponent<
             label={`${t('commons:season')}: ${stringifySeason(
               this.state.seasonNumeric,
               true,
-              i18n!.languages[0],
+              getSeasonLocalizer(t),
             )}`}
             range={SEASON_RANGE}
             step={1}

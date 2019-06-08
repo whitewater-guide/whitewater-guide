@@ -142,7 +142,7 @@
         "email": {
           "invalid": "Invalid e-mail",
           "not_found": "Cannot find user with this e-mail",
-          "send_failed": "Could'n send an e-mail. Please try again"
+          "send_failed": "Couldn't send an e-mail. Please try again."
         }
       },
       "register": {

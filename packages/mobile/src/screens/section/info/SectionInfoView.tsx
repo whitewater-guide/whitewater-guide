@@ -4,22 +4,25 @@ import {
   WithSection,
 } from '@whitewater-guide/clients';
 import { TagCategory } from '@whitewater-guide/commons';
-import capitalize from 'lodash/capitalize';
 import groupBy from 'lodash/groupBy';
 import trim from 'lodash/trim';
+import upperFirst from 'lodash/upperFirst';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Paragraph, Subheading } from 'react-native-paper';
 import { Body, Chips, Left, Right, Row, StarRating } from '../../../components';
+import { getSeasonLocalizer } from '../../../i18n';
 import CoordinatesInfo from './CoordinatesInfo';
 
 const SectionInfoView: React.FC<WithSection> = ({ section: { node } }) => {
-  const [t, i18n] = useTranslation();
+  const [t] = useTranslation();
   if (!node) {
     return null;
   }
-  let season = capitalize(
-    trim(`${stringifySeason(node.seasonNumeric, false, i18n!.languages[0])}`),
+  let season = upperFirst(
+    trim(
+      `${stringifySeason(node.seasonNumeric, false, getSeasonLocalizer(t))}`,
+    ),
   );
   if (node.season) {
     season = `${season}\n${node.season}`;

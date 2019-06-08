@@ -34,5 +34,8 @@
   "bug": "Oops! Something is broken",
   "premium": "Premium",
   "email": "e-mail",
-  "password": "Password"
+  "password": "Password",
+  "allYear": "All year around",
+  "earlyMonth": "early {{month, month}}",
+  "lateMonth": "late {{month, month}}"
 }

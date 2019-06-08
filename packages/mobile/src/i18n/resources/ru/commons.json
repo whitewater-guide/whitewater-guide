@@ -34,5 +34,8 @@
   "bug": "Упс! Что-то сломалось",
   "premium": "Премиум",
   "email": "e-mail",
-  "password": "Пароль"
+  "password": "Пароль",
+  "allYear": "Круглый год",
+  "earlyMonth": "начало {{month, month}}",
+  "lateMonth": "конец {{month, month}}"
 }

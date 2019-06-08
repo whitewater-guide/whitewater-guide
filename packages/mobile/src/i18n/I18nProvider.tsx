@@ -47,6 +47,15 @@ export const I18nProvider: React.FC<OuterProps> = ({
         whitelist: SUPPORTED_LANGUAGES,
         interpolation: {
           escapeValue: false, // not needed for react!!
+          format: (value, format) => {
+            if (format === 'month') {
+              return moment()
+                .month(value)
+                .format('DD MMMM')
+                .split(' ')[1];
+            }
+            return value;
+          },
         },
         react: {
           nsMode: 'fallback',
