@@ -390,6 +390,13 @@
 			remoteGlobalIDString = 9350E0F11CE3B0920041D815;
 			remoteInfo = RCTFBSDK;
 		};
+		75CCED5822AC20550000AD09 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A12AA020931F49D4AA0935A8 /* Interactable.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CC0127971E3ACC3900B23C9F;
+			remoteInfo = Interactable;
+		};
 		75D42673229FC0090011B53D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7085CC4FF7A84BDB974B4E0E /* RNTextSize.xcodeproj */;
@@ -467,11 +474,11 @@
 		933AA87847E9467482693F74 /* ReactNativeConfig.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeConfig.xcodeproj; path = "../node_modules/react-native-config/ios/ReactNativeConfig.xcodeproj"; sourceTree = "<group>"; };
 		963C0A01203448D9B731CF49 /* libRNSVG.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSVG.a; sourceTree = "<group>"; };
 		9CAD0404C3FC4B4283E98E3D /* RNSVG.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSVG.xcodeproj; path = "../node_modules/react-native-svg/ios/RNSVG.xcodeproj"; sourceTree = "<group>"; };
-		A12AA020931F49D4AA0935A8 /* Interactable.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = Interactable.xcodeproj; path = "../node_modules/react-native-interactable/lib/ios/Interactable.xcodeproj"; sourceTree = "<group>"; };
+		A12AA020931F49D4AA0935A8 /* Interactable.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = Interactable.xcodeproj; path = "../node_modules/react-native-interactable/lib/ios/Interactable.xcodeproj"; sourceTree = "<group>"; };
 		A269E46E8AEE44F098882919 /* libz.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		ABE5CCD4F698C6E54CD90DEF /* Pods-whitewater.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-whitewater.debug.xcconfig"; path = "Target Support Files/Pods-whitewater/Pods-whitewater.debug.xcconfig"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
-		B5E8F13784D74C218383E859 /* libInteractable.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = archive.ar; name = libInteractable.a; path = libInteractable.a; sourceTree = "<group>"; };
+		B5E8F13784D74C218383E859 /* libInteractable.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libInteractable.a; sourceTree = "<group>"; };
 		BFB9A716A81942B19F7FBD67 /* SplashScreen.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SplashScreen.xcodeproj; path = "../node_modules/react-native-splash-screen/ios/SplashScreen.xcodeproj"; sourceTree = "<group>"; };
 		C117375E4F66401FABFD906F /* CodePush.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = CodePush.xcodeproj; path = "../node_modules/react-native-code-push/ios/CodePush.xcodeproj"; sourceTree = "<group>"; };
 		DA1DB293E2EE23E9E7AF6850 /* Pods-whitewater.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-whitewater.staging.xcconfig"; path = "Target Support Files/Pods-whitewater/Pods-whitewater.staging.xcconfig"; sourceTree = "<group>"; };
@@ -693,7 +700,6 @@
 				ED562A46FBBA6B67400D9403 /* Pods-whitewater.release.xcconfig */,
 				DA1DB293E2EE23E9E7AF6850 /* Pods-whitewater.staging.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -754,6 +760,7 @@
 				2C0125A92A8B48F3A0A00D1E /* libCodePush.a */,
 				32FCD85C42BD4D6D9B85C62A /* libRNIap.a */,
 				DD16C666A3474C329DE3F1D2 /* libRNTextSize.a */,
+				B5E8F13784D74C218383E859 /* libInteractable.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -796,6 +803,14 @@
 			isa = PBXGroup;
 			children = (
 				75C39063207D26E8002EE2B3 /* libRCTFBSDK.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		75CCED5522AC20550000AD09 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				75CCED5922AC20550000AD09 /* libInteractable.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1032,6 +1047,10 @@
 				{
 					ProductGroup = 752DBEFF20ACAAB50036D911 /* Products */;
 					ProjectRef = 554B0311596D42A59D2DDD20 /* FastImage.xcodeproj */;
+				},
+				{
+					ProductGroup = 75CCED5522AC20550000AD09 /* Products */;
+					ProjectRef = A12AA020931F49D4AA0935A8 /* Interactable.xcodeproj */;
 				},
 				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
@@ -1434,6 +1453,13 @@
 			fileType = archive.ar;
 			path = libRCTFBSDK.a;
 			remoteRef = 75C39062207D26E8002EE2B3 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		75CCED5922AC20550000AD09 /* libInteractable.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libInteractable.a;
+			remoteRef = 75CCED5822AC20550000AD09 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		75D42674229FC0090011B53D /* libRNTextSize.a */ = {

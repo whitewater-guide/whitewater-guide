@@ -111,7 +111,7 @@ class App extends React.Component<{}, State> {
             <PortalProvider>
               <TagsProvider>
                 <AuthProvider service={this._authService}>
-                  <I18nProvider onLanguageChange={this.resetApolloCache}>
+                  <I18nProvider onUserLanguageChange={this.resetApolloCache}>
                     <RootNavigator
                       onNavigationStateChange={trackScreenChange}
                       persistNavigationState={this.persistNavigationState}
