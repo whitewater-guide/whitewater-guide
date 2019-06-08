@@ -14,7 +14,7 @@
         </mj-text>
 
         <mj-button
-          href="${baseURL}/auth/verification?id=${user.id}&token=${token.raw}"
+          href="${baseURL}/auth/local/verification?id=${user.id}&token=${token.raw}"
         >
           Confirm
         </mj-button>
