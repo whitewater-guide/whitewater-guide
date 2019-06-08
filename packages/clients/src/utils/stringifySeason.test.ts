@@ -1,4 +1,4 @@
-import { stringifySeason } from './stringifySeason';
+import { SeasonLocalizer, stringifySeason } from './stringifySeason';
 
 jest.mock('moment');
 
@@ -46,6 +46,15 @@ test('should handle ranges', () => {
   expect(stringifySeason([22, 1], true)).toBe('dec - jan');
 });
 
-test('should fallback on unknown languages', () => {
-  expect(stringifySeason([0, 23], true, 'kr')).toBe('all year around');
+test('should support custom localize function', () => {
+  const localizer: SeasonLocalizer = (key: any, halfMonth?: any) => {
+    if (key === 'all') {
+      return 'ALL YEAR';
+    }
+    return `${key} ${halfMonth}`.toUpperCase();
+  };
+  expect(stringifySeason([0, 23], true, localizer)).toBe('ALL YEAR');
+  expect(stringifySeason([1, 2, 3, 4], false, localizer)).toBe(
+    'LATE 1 - EARLY 4',
+  );
 });

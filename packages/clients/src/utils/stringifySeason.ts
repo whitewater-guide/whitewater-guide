@@ -3,55 +3,41 @@ import moment from 'moment';
 
 type Range = [number, number];
 
-interface Locales {
-  [key: string]: {
-    late: (halfMonth: number) => string;
-    early: (halfMonth: number) => string;
-    all: string;
-  };
+export interface SeasonLocalizer {
+  (key: 'all'): string;
+  (key: 'early' | 'late', halfMonth: number): string;
 }
 
-// TODO: do not localize here. Instead, return keys and options to localize in i18n
-const locales: Locales = {
-  en: {
-    late: (n) =>
-      'late ' +
-      moment()
-        .month(Math.floor(n / 2))
-        .format('MMMM'),
-    early: (n) =>
+const defaultLocalize: SeasonLocalizer = (key: any, hm?: any) => {
+  if (key === 'early') {
+    return (
       'early ' +
       moment()
-        .month(Math.floor(n / 2))
-        .format('MMMM'),
-    all: 'all year around',
-  },
-  ru: {
-    late: (n) =>
+        .month(Math.floor(hm / 2))
+        .format('MMMM')
+    );
+  }
+  if (key === 'late') {
+    return (
+      'late ' +
       moment()
-        .month(Math.floor(n / 2))
-        .format('DD MMMM')
-        .replace(/\d+/, 'конец'),
-    early: (n) =>
-      moment()
-        .month(Math.floor(n / 2))
-        .format('DD MMMM')
-        .replace(/\d+/, 'начало'),
-    all: 'круглый год',
-  },
+        .month(Math.floor(hm / 2))
+        .format('MMMM')
+    );
+  }
+  return 'all year around';
 };
 
-function halfMonth(n: number, lang: string): string {
+function halfMonth(n: number, localize: SeasonLocalizer): string {
   const isEarly = n % 2 === 0;
-  const locale = locales[lang];
-  return isEarly ? locale.early(n) : locale.late(n);
+  return isEarly ? localize('early', n) : localize('late', n);
 }
 
-function rangeToStr(range: Range, lang: string): string {
+function rangeToStr(range: Range, localize: SeasonLocalizer): string {
   const start = range[0] % 24;
   const end = range[1] % 24;
   if (isNaN(end)) {
-    return halfMonth(start, lang);
+    return halfMonth(start, localize);
   } else if (start % 2 === 0 && end === start + 1) {
     return moment()
       .month(start / 2)
@@ -64,10 +50,10 @@ function rangeToStr(range: Range, lang: string): string {
     .month(Math.floor(end / 2))
     .format('MMMM');
   if (start % 2 !== 0) {
-    startName = halfMonth(start, lang);
+    startName = halfMonth(start, localize);
   }
   if (end % 2 !== 1) {
-    endName = halfMonth(end, lang);
+    endName = halfMonth(end, localize);
   }
   return `${startName} - ${endName}`;
 }
@@ -89,13 +75,13 @@ function loopAroundNewYear(seasons: number[]): number[] {
  * Stringifies season
  * @seasonNumeric - array of numeric half-months
  * @range - If true, seasonNumeric is considered to be a range (possibly, looping around new year, like (e.g. [22, 3])
- * @lang - Language
+ * @localize - Localization function
  * otherwise - just set of half-months
  */
 export function stringifySeason(
   seasonNumeric?: number[],
   range: boolean = false,
-  lang: string = 'en',
+  localize: (key: string) => string = defaultLocalize,
 ): string {
   if (!seasonNumeric || seasonNumeric.length === 0) {
     return '';
@@ -113,8 +99,7 @@ export function stringifySeason(
           );
   }
   if (seasons.length === 24) {
-    const locale = locales[lang] || locales.en;
-    return locale.all;
+    return localize('all');
   }
   // Loop around new year
   if (seasons.indexOf(0) === 0 && seasons.indexOf(23) >= 0) {
@@ -144,5 +129,5 @@ export function stringifySeason(
     ranges.push(currentRange as Range);
   }
   // Now we have array of single half-months or half-month pairs
-  return ranges.map((r) => rangeToStr(r, lang)).join(', ');
+  return ranges.map((r) => rangeToStr(r, localize)).join(', ');
 }
