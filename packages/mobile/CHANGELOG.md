@@ -1,3 +1,14 @@
+## [1.7.76](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.75...@whitewater-guide/mobile@1.7.76) (2019-06-08)
+
+### Bug Fixes
+
+- fully localize seasons ([59fe22f](https://github.com/doomsower/whitewater/commit/59fe22f))
+- prevent double cache reset on sign in/out ([d60dd56](https://github.com/doomsower/whitewater/commit/d60dd56)), closes [#381](https://github.com/doomsower/whitewater/issues/381)
+
+### Features
+
+- effectively disable drawer gestures ([b1022a9](https://github.com/doomsower/whitewater/commit/b1022a9))
+
 ## [1.7.75](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.74...@whitewater-guide/mobile@1.7.75) (2019-06-08)
 
 ## [1.7.74](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.73...@whitewater-guide/mobile@1.7.74) (2019-06-08)
