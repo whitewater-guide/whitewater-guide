@@ -48,6 +48,7 @@ Directory layout:
 |    ├──────── /web/                 # create-react-app web client (currently for admins and editors)
 |    └──────── /workers/             # Service to harvest data from various gauge sources
 ├─── /tooling/                       # Auxiliary packages to automate build/deploy
+|    ├──────── /aux-stack/           # docker compose stack to host auxiliary services, like Senty, Weblate
 |    ├──────── /postgres-backup-s3/  # public docker image for one-time db backups
 |    ├──────── /postgres-restore-s3/ # public docker image for one-time db restores
 |    └──────── /scripts/             # bash and node scripts to automate build/deploy/versioning/etc

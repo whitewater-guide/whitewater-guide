@@ -19,11 +19,13 @@ x-defaults: &defaults
     - postgres
     - memcached
     - smtp
-  env_file: .env
+  env_file: ./sentry/.env
   environment:
     SENTRY_MEMCACHED_HOST: memcached
     SENTRY_REDIS_HOST: redis
     SENTRY_POSTGRES_HOST: postgres
+    SENTRY_DB_NAME: sentry
+    SENTRY_DB_USER: sentry
     SENTRY_EMAIL_HOST: smtp
     SENTRY_USE_SSL: 'true'
   labels:
@@ -38,10 +40,17 @@ services:
       context: ./caddy
       labels:
         guide.whitewater.sentry: ''
-    env_file: .env
+    env_file: ./caddy/.env
     ports:
       - '80:80'
       - '443:443'
+
+  weblate:
+    image: weblate/weblate:3.6.1-2
+    restart: unless-stopped
+    env_file: ./weblate/.env
+    labels:
+      guide.whitewater.sentry: ''
 
   smtp:
     restart: unless-stopped
