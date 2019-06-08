@@ -1,3 +1,9 @@
+## [0.0.225](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.224...@whitewater-guide/clients@0.0.225) (2019-06-08)
+
+### Features
+
+- **clients:** custom localize function for stringify season ([3db6208](https://github.com/doomsower/whitewater/commit/3db6208))
+
 ## [0.0.224](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.222...@whitewater-guide/clients@0.0.224) (2019-06-07)
 
 ### Bug Fixes
