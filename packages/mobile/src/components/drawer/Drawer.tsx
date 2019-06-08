@@ -31,6 +31,7 @@ export const Drawer: React.FC = ({ children }) => {
         renderNavigationView={renderDrawer}
         drawerPosition="left"
         useNativeAnimations={true}
+        edgeWidth={0}
       >
         <View style={StyleSheet.absoluteFill}>{children}</View>
       </DrawerLayout>
