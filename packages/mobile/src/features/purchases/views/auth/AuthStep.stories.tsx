@@ -10,6 +10,7 @@ import AuthStep from './AuthStep';
 const store = createMockStore()({});
 
 const verifiedUser = {
+  id: '111',
   avatar:
     'https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-1/p160x160/1780622_1380926282175020_67535950_n.jpg?_nc_cat=0&oh=6c40b79c5d47773187ce5e33e93e3f5f&oe=5BE3D1F0',
   name: 'Konstantin Kuznetsov',
@@ -17,6 +18,7 @@ const verifiedUser = {
 };
 
 const unverifiedUser = {
+  id: '111',
   avatar:
     'https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-1/p160x160/1780622_1380926282175020_67535950_n.jpg?_nc_cat=0&oh=6c40b79c5d47773187ce5e33e93e3f5f&oe=5BE3D1F0',
   name: 'Konstantin Kuznetsov',

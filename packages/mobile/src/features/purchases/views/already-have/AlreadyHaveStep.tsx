@@ -12,6 +12,9 @@ const styles = StyleSheet.create({
   subheading: {
     marginBottom: theme.margin.single,
   },
+  okButton: {
+    minWidth: 100,
+  },
 });
 
 interface Props {
@@ -29,7 +32,7 @@ const AlreadyHaveStep: React.FC<Props> = ({ onCancel, region }) => {
         </Subheading>
       </Dialog.Content>
       <Dialog.Actions>
-        <Button mode="contained" onPress={onCancel}>
+        <Button mode="contained" onPress={onCancel} style={styles.okButton}>
           {t('commons:ok')}
         </Button>
       </Dialog.Actions>

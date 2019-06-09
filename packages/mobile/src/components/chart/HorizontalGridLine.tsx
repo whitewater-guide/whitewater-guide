@@ -11,7 +11,7 @@ interface Props {
   y2?: number;
   datum?: number;
   style?: LineProps;
-  binding?: GaugeBinding;
+  binding?: GaugeBinding | null;
 }
 
 const HorizontalGridLine: React.FC<Props> = (props) => {

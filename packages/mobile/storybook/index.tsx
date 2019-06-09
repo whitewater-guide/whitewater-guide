@@ -6,6 +6,7 @@ import {
 import React from 'react';
 import { Provider as PaperProvider } from 'react-native-paper';
 import SplashScreen from 'react-native-splash-screen';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { I18nProvider } from '../src/i18n';
 import { PaperTheme } from '../src/theme';
 // @ts-ignore
@@ -13,11 +14,18 @@ import { loadStories } from './storyLoader';
 
 console.disableYellowBox = true;
 
-addDecorator((story: any) => (
-  <I18nProvider>
-    <PaperProvider theme={PaperTheme}>{story()}</PaperProvider>
-  </I18nProvider>
-));
+addDecorator((story: any) => {
+  const Screen = () => story();
+  const Navigator = createAppContainer(createSwitchNavigator({ Screen }));
+
+  return (
+    <I18nProvider>
+      <PaperProvider theme={PaperTheme}>
+        <Navigator />
+      </PaperProvider>
+    </I18nProvider>
+  );
+});
 
 // import stories
 configure(() => loadStories(), module);

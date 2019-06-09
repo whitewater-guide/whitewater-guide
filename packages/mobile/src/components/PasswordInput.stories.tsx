@@ -11,7 +11,7 @@ const StatefulInput: React.FC<Props> = (props) => {
 };
 
 storiesOf('PasswordInput', module)
-  .addDecorator((story) => (
+  .addDecorator((story: any) => (
     <View style={{ ...StyleSheet.absoluteFillObject, padding: 8 }}>
       {story()}
     </View>

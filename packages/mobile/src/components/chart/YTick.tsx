@@ -11,7 +11,7 @@ interface YTickProps {
   y2?: number;
   datum?: number;
   style?: CommonPathProps;
-  binding: GaugeBinding;
+  binding?: GaugeBinding | null;
 }
 
 const YTick: React.FC<YTickProps> = (props) => {

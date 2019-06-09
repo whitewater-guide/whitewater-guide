@@ -2,7 +2,7 @@ import { useAuth } from '@whitewater-guide/clients';
 import { User } from '@whitewater-guide/commons';
 import i18next from 'i18next';
 import moment from 'moment';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { initReactI18next } from 'react-i18next';
 import { getLocales } from 'react-native-localize';
 import * as yup from 'yup';
