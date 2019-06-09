@@ -47,7 +47,7 @@
     "in-app-purchase": "^1.11.4",
     "jsondiffpatch": "^0.3.11",
     "jsonwebtoken": "^8.5.1",
-    "knex": "^0.16.5",
+    "knex": "^0.17.5",
     "koa": "^2.5.3",
     "koa-bodyparser": "^4.2.1",
     "koa-passport": "^4.1.3",
