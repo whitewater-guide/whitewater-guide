@@ -63,8 +63,8 @@ export const ResetForm: React.FC<ResetParams> = ({ id, token }) => {
             }
           >
             {isSuccessful
-              ? t('screens:auth.forgot.goBack')
-              : t('screens:auth.forgot.submit')}
+              ? t('screens:auth.reset.goBack')
+              : t('screens:auth.reset.submit')}
           </Button>
         </React.Fragment>
       )}

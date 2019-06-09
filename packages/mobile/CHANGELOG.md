@@ -1,3 +1,9 @@
+## [1.7.79](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.78...@whitewater-guide/mobile@1.7.79) (2019-06-09)
+
+### Bug Fixes
+
+- fix reset screen button ([f0b4bcc](https://github.com/doomsower/whitewater/commit/f0b4bcc))
+
 ## [1.7.78](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.77...@whitewater-guide/mobile@1.7.78) (2019-06-09)
 
 ### Bug Fixes
