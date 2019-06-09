@@ -1,3 +1,5 @@
+## [0.0.227](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.227...@whitewater-guide/clients@0.0.227) (2019-06-09)
+
 ## [0.0.227](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.226...@whitewater-guide/clients@0.0.227) (2019-06-09)
 
 ## [0.0.226](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.225...@whitewater-guide/clients@0.0.226) (2019-06-09)

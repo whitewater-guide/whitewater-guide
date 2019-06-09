@@ -1,3 +1,9 @@
+## [0.0.356](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.355...@whitewater-guide/backend@0.0.356) (2019-06-09)
+
+### Features
+
+- rainchasers import ([24852a3](https://github.com/doomsower/whitewater/commit/24852a3))
+
 ## [0.0.355](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.354...@whitewater-guide/backend@0.0.355) (2019-06-09)
 
 ## [0.0.354](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.353...@whitewater-guide/backend@0.0.354) (2019-06-08)
