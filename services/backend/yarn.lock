@@ -1153,10 +1153,10 @@
     lodash.unescape "4.0.1"
     semver "5.5.0"
 
-"@whitewater-guide/commons@^0.0.136":
-  version "0.0.136"
-  resolved "https://registry.yarnpkg.com/@whitewater-guide/commons/-/commons-0.0.136.tgz#8aa4be48a74389ba825ed2d65748ffa5e3048031"
-  integrity sha512-duOWWHI9aN0F3MDnJoRlUqyl6X/YQyR3RonntMhUU3ta2GXDJz0pSAMsHFNTA0aw9fg/oemWRSuevWDRVT/wiQ==
+"@whitewater-guide/commons@^0.0.137":
+  version "0.0.137"
+  resolved "https://registry.yarnpkg.com/@whitewater-guide/commons/-/commons-0.0.137.tgz#0f687d51261eef7422598919b01626978615e16d"
+  integrity sha512-6+79BoFx7/5lGRB4+QRZ5cB1+2YyS22Nv22Uhl9DZvEeGNq4MjlTKUmuodNUvkQcsFOw3bSCn1tqmpjqVn6mvA==
   dependencies:
     cron-parser "^2.11.0"
     lodash "^4.17.11"

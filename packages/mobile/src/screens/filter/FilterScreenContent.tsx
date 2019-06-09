@@ -1,4 +1,4 @@
-import { stringifySeason, toRomanDifficulty } from '@whitewater-guide/clients';
+import { stringifySeason } from '@whitewater-guide/clients';
 import {
   DefaultSectionSearchTerms,
   Duration,
@@ -6,6 +6,7 @@ import {
   SelectableTag,
   Tag,
   TagSelection,
+  toRomanDifficulty,
 } from '@whitewater-guide/commons';
 import groupBy from 'lodash/groupBy';
 import memoize from 'lodash/memoize';
