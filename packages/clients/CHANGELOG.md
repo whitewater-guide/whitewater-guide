@@ -1,3 +1,9 @@
+## [0.0.226](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.225...@whitewater-guide/clients@0.0.226) (2019-06-09)
+
+### Bug Fixes
+
+- improve storybooks ([6a51e35](https://github.com/doomsower/whitewater/commit/6a51e35))
+
 ## [0.0.225](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.224...@whitewater-guide/clients@0.0.225) (2019-06-08)
 
 ### Features

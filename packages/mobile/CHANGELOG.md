@@ -1,3 +1,9 @@
+## [1.7.77](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.76...@whitewater-guide/mobile@1.7.77) (2019-06-09)
+
+### Bug Fixes
+
+- improve storybooks ([6a51e35](https://github.com/doomsower/whitewater/commit/6a51e35))
+
 ## [1.7.76](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.75...@whitewater-guide/mobile@1.7.76) (2019-06-08)
 
 ### Bug Fixes
