@@ -1,76 +1,40 @@
-import React from 'react';
+import React, { useCallback, useRef } from 'react';
 import { StyleSheet, View } from 'react-native';
-import DrawerLayout from 'react-native-drawer-layout';
-import { NavigationInjectedProps } from 'react-navigation';
-import { connect } from 'react-redux';
-import { toggleDrawer } from '../../core/actions';
-import { RootState } from '../../core/reducers';
+import DrawerLayout from 'react-native-gesture-handler/DrawerLayout';
 import theme from '../../theme';
+import { DrawerContext } from './DrawerContext';
 import DrawerSidebar from './DrawerSidebar';
-import { WithToggle } from './types';
 
-interface StateProps {
-  drawerOpen: boolean;
-}
-
-type OwnProps = NavigationInjectedProps;
-
-type DispatchProps = WithToggle;
-
-type Props = StateProps & DispatchProps & OwnProps;
-
-class DrawerView extends React.PureComponent<Props> {
-  drawer?: DrawerLayout;
-
-  componentDidUpdate(prevProps: Props) {
-    if (!this.drawer) {
-      return;
-    }
-    if (this.props.drawerOpen && !prevProps.drawerOpen) {
-      this.drawer.openDrawer();
-    } else if (!this.props.drawerOpen && prevProps.drawerOpen) {
-      this.drawer.closeDrawer();
-    }
-  }
-
-  onDrawerMounted = (drawer: DrawerLayout) => {
-    this.drawer = drawer;
-  };
-
-  onDrawerClose = () => this.props.toggleDrawer(false);
-
-  renderDrawer = () => (
-    <DrawerSidebar
-      navigation={this.props.navigation}
-      toggleDrawer={this.props.toggleDrawer}
-    />
+export const Drawer: React.FC = ({ children }) => {
+  const ref = useRef<DrawerLayout>(null);
+  const toggle = useCallback(
+    (open: boolean) => {
+      if (!ref.current) {
+        return;
+      }
+      if (open) {
+        ref.current.openDrawer();
+      } else {
+        ref.current.closeDrawer();
+      }
+    },
+    [ref],
   );
-
-  render() {
-    return (
+  const renderDrawer = useCallback(() => <DrawerSidebar />, []);
+  return (
+    <DrawerContext.Provider value={toggle}>
       <DrawerLayout
-        ref={this.onDrawerMounted}
+        ref={ref}
         drawerBackgroundColor={theme.colors.primaryBackground}
         drawerWidth={300}
-        drawerLockMode="locked-closed"
-        onDrawerClose={this.onDrawerClose}
         keyboardDismissMode="on-drag"
-        statusBarBackgroundColor="white"
-        renderNavigationView={this.renderDrawer}
+        renderNavigationView={renderDrawer}
         drawerPosition="left"
+        useNativeAnimations={true}
+        edgeWidth={0}
       >
-        <View style={StyleSheet.absoluteFill}>{this.props.children}</View>
+        <View style={StyleSheet.absoluteFill}>{children}</View>
       </DrawerLayout>
-    );
-  }
-}
-
-export const Drawer: React.ComponentType<OwnProps> = connect<
-  StateProps,
-  DispatchProps,
-  OwnProps,
-  RootState
->(
-  ({ app }: RootState) => ({ drawerOpen: app.drawerOpen }),
-  { toggleDrawer },
-)(DrawerView);
+    </DrawerContext.Provider>
+  );
+};

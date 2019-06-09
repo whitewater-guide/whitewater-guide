@@ -7,7 +7,8 @@
       "lodash",
       "redux-saga",
       "moment",
-      "@storybook/addon-actions"
+      "@storybook/addon-actions",
+      "react-native-gesture-handler"
     ]
   }
 }

@@ -38,7 +38,7 @@ export const ColorStrings = mapValues(Colors, (clr) => clr.hsl().string());
  */
 export const getColorForValue = (
   value: number,
-  binding: GaugeBinding | undefined,
+  binding: GaugeBinding | undefined | null,
   defaultColor: string,
 ) => {
   if (!binding) {

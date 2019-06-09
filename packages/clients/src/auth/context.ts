@@ -5,13 +5,13 @@ import { AuthService } from './service';
 export interface AuthState {
   me: User | null;
   loading: boolean;
-  signIn: AuthService['signIn'];
-  signOut: () => Promise<void>;
+  service: AuthService;
+  refreshProfile: () => Promise<any>;
 }
 
 export const AuthContext = React.createContext<AuthState>({
   me: null,
   loading: false,
-  signIn: () => Promise.resolve(),
-  signOut: () => Promise.resolve(),
+  service: {} as any, // Provider always exists
+  refreshProfile: () => Promise.resolve(),
 });

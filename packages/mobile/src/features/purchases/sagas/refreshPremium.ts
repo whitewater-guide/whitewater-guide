@@ -37,7 +37,7 @@ export function* refreshPremium() {
       return RefreshPremiumResult.ERROR;
     } else if (data.region.hasPremiumAccess) {
       return RefreshPremiumResult.PURCHASED;
-    } else if (!data.me) {
+    } else if (!data.me || !data.me.verified) {
       return RefreshPremiumResult.NOT_LOGGED_IN;
     }
   } catch (e) {

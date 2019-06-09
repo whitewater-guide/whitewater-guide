@@ -11,17 +11,17 @@ import { isPasswordWeak } from '../utils';
 const reset: Middleware<any, any> = async (ctx, next) => {
   const { id, token, password } = ctx.request.body;
   if (!id || !token || !password) {
-    ctx.throw(400, 'reset.missing.arguments', {
+    ctx.throw(400, 'reset.errors.form.missing_arguments', {
       payload: { id, token: !!token, password: !!password },
     });
     return;
   }
   if (!isUUID(id)) {
-    ctx.throw(400, 'reset.id.invalid', { payload: { id } });
+    ctx.throw(400, 'reset.errors.form.invalid_id', { payload: { id } });
     return;
   }
   if (isPasswordWeak(password)) {
-    ctx.throw(400, 'reset.weak.password', { payload: { id } });
+    ctx.throw(400, 'reset.errors.password.weak', { payload: { id } });
     return;
   }
 
@@ -31,26 +31,26 @@ const reset: Middleware<any, any> = async (ctx, next) => {
     .where({ id })
     .first();
   if (!user) {
-    ctx.throw(400, 'reset.id.invalid', { payload: { id } });
+    ctx.throw(400, 'reset.errors.form.invalid_id', { payload: { id } });
     return;
   }
   if (!user.password) {
-    ctx.throw(400, 'reset.not.local', { payload: { id } });
+    ctx.throw(400, 'reset.errors.form.not_local', { payload: { id } });
     return;
   }
 
   const resetToken = user.tokens.find((t) => t.claim === 'passwordReset');
   if (!resetToken) {
-    ctx.throw(400, 'reset.unexpected', { payload: { id } });
+    ctx.throw(400, 'reset.errors.form.unexpected', { payload: { id } });
     return;
   }
   if (new Date().valueOf() > resetToken.expires) {
-    ctx.throw(400, 'reset.expired', { payload: { id } });
+    ctx.throw(400, 'reset.errors.form.expired', { payload: { id } });
     return;
   }
   const tokenMatches = await compare(token, resetToken.value);
   if (!tokenMatches) {
-    ctx.throw(400, 'reset.token.mismatch', { payload: { id } });
+    ctx.throw(400, 'reset.errors.form.token_mismatch', { payload: { id } });
     return;
   }
 

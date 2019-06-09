@@ -4,73 +4,48 @@ import { Query } from 'react-apollo';
 import { MY_PROFILE_QUERY, WithMe } from '../features/users';
 import { AuthContext } from './context';
 import { AuthService } from './service';
-import { AuthType, Credentials } from './types';
 
 interface Props {
   query?: DocumentNode;
   service: AuthService;
 }
 
-export const AuthProvider: React.FC<Props> = (props) => {
+export const AuthProvider: React.FC<Props> = React.memo((props) => {
   const { query = MY_PROFILE_QUERY, service, children } = props;
-  const [isTokenRefreshing, setTokenRefreshing] = useState(true);
-  const [isSigningIn, setIsSigningIn] = useState(false);
-  const [isSigningOut, setIsSigningOut] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    service.listener = setLoading;
+  }, [setLoading]);
 
   // try to refresh token when mounted
   useEffect(() => {
-    (async function refreshAccessToken() {
-      setTokenRefreshing(true);
-      await service.refreshAccessToken();
-      setTokenRefreshing(false);
-    })();
+    service.refreshAccessToken();
+    return () => {
+      service.listener = null;
+    };
   }, []);
-
-  const signIn = async (type: AuthType, credentials?: Credentials) => {
-    if (isTokenRefreshing || isSigningIn || isSigningOut) {
-      return;
-    }
-    setIsSigningIn(true);
-    await service.signIn(type, credentials);
-    setIsSigningIn(false);
-  };
-
-  const signOut = async () => {
-    if (isTokenRefreshing || isSigningIn || isSigningOut) {
-      return;
-    }
-    setIsSigningOut(true);
-    await service.signOut(false);
-    setIsSigningOut(false);
-  };
-
-  // if (isTokenRefreshing || isSigningIn) {
-  //   return (
-  //     <AuthContext.Provider
-  //       value={{ me: null, loading: true, signIn, signOut }}
-  //     >
-  //       {children}
-  //     </AuthContext.Provider>
-  //   );
-  // }
 
   return (
     <Query<WithMe> query={query} fetchPolicy="cache-and-network">
       {(queryProps) => {
-        const me = (queryProps.data && queryProps.data.me) || null;
-        const loading =
-          queryProps.loading ||
-          isTokenRefreshing ||
-          isSigningIn ||
-          isSigningOut;
+        const { data, refetch } = queryProps;
+        const me = (data && data.me) || null;
         return (
-          <AuthContext.Provider value={{ me, loading, signIn, signOut }}>
+          <AuthContext.Provider
+            value={{
+              me,
+              loading: queryProps.loading || loading,
+              service,
+              refreshProfile: refetch,
+            }}
+          >
             {children}
           </AuthContext.Provider>
         );
       }}
     </Query>
   );
-};
+});
 
 AuthProvider.displayName = 'AuthProvider';

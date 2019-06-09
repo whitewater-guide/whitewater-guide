@@ -1,3 +1,72 @@
+## [1.7.77](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.76...@whitewater-guide/mobile@1.7.77) (2019-06-09)
+
+### Bug Fixes
+
+- improve storybooks ([6a51e35](https://github.com/doomsower/whitewater/commit/6a51e35))
+
+## [1.7.76](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.75...@whitewater-guide/mobile@1.7.76) (2019-06-08)
+
+### Bug Fixes
+
+- fully localize seasons ([59fe22f](https://github.com/doomsower/whitewater/commit/59fe22f))
+- prevent double cache reset on sign in/out ([d60dd56](https://github.com/doomsower/whitewater/commit/d60dd56)), closes [#381](https://github.com/doomsower/whitewater/issues/381)
+
+### Features
+
+- effectively disable drawer gestures ([b1022a9](https://github.com/doomsower/whitewater/commit/b1022a9))
+
+## [1.7.75](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.74...@whitewater-guide/mobile@1.7.75) (2019-06-08)
+
+## [1.7.74](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.73...@whitewater-guide/mobile@1.7.74) (2019-06-08)
+
+## [1.7.73](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.72...@whitewater-guide/mobile@1.7.73) (2019-06-07)
+
+## [1.7.72](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.71...@whitewater-guide/mobile@1.7.72) (2019-06-07)
+
+### Features
+
+- reset apollo cache on language change ([f8321d1](https://github.com/doomsower/whitewater/commit/f8321d1))
+
+## [1.7.71](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.70...@whitewater-guide/mobile@1.7.71) (2019-06-07)
+
+### Features
+
+- **mobile:** add es, de, fr ([5d4313c](https://github.com/doomsower/whitewater/commit/5d4313c))
+
+## [1.7.70](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.68...@whitewater-guide/mobile@1.7.70) (2019-06-07)
+
+### Bug Fixes
+
+- russian faq fix ([c9e7717](https://github.com/doomsower/whitewater/commit/c9e7717)), closes [#376](https://github.com/doomsower/whitewater/issues/376)
+
+## [1.7.69](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.68...@whitewater-guide/mobile@1.7.69) (2019-06-07)
+
+## [1.7.68](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.66...@whitewater-guide/mobile@1.7.68) (2019-06-07)
+
+### Features
+
+- email/password auth ([6d414b8](https://github.com/doomsower/whitewater/commit/6d414b8))
+
+## [1.7.67-auth.0](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.66...@whitewater-guide/mobile@1.7.67-auth.0) (2019-05-28)
+
+### Bug Fixes
+
+- fix fb button ([4e460e9](https://github.com/doomsower/whitewater/commit/4e460e9))
+- improve logo layout ([d0b9c0d](https://github.com/doomsower/whitewater/commit/d0b9c0d))
+
+### Features
+
+- create password input ([11b2c52](https://github.com/doomsower/whitewater/commit/11b2c52))
+- forgot and reset password screens ([6258b46](https://github.com/doomsower/whitewater/commit/6258b46))
+- improve logo ([5f722c4](https://github.com/doomsower/whitewater/commit/5f722c4))
+- login routes ([24dd72f](https://github.com/doomsower/whitewater/commit/24dd72f))
+- make sign in with facebook work ([c760cec](https://github.com/doomsower/whitewater/commit/c760cec))
+- register screen ([b66948c](https://github.com/doomsower/whitewater/commit/b66948c))
+- registration form (no submit) ([23d2f79](https://github.com/doomsower/whitewater/commit/23d2f79))
+- sign in screen ([fa2c6f4](https://github.com/doomsower/whitewater/commit/fa2c6f4))
+- simplify login routes ([9943780](https://github.com/doomsower/whitewater/commit/9943780))
+- strength indicator for password input ([51f3e40](https://github.com/doomsower/whitewater/commit/51f3e40))
+
 ## [1.7.66](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.65...@whitewater-guide/mobile@1.7.66) (2019-05-22)
 
 ## [1.7.65](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.64...@whitewater-guide/mobile@1.7.65) (2019-05-13)

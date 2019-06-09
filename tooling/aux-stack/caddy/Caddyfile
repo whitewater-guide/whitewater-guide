@@ -1,0 +1,43 @@
+{$SENTRY_URL_PREFIX} {
+
+  tls {$ADMIN_EMAIL} {
+    # The line below uses staging certificate
+    # Comment it out to use real certificate
+    # ca https://acme-staging-v02.api.letsencrypt.org/directory
+  }
+
+  header / {
+    -Server
+  }
+
+  gzip
+
+  proxy / web:9000 {
+    transparent
+  }
+
+  errors stdout
+
+}
+
+{$WEBLATE_URL_PREFIX} {
+
+  tls {$ADMIN_EMAIL} {
+    # The line below uses staging certificate
+    # Comment it out to use real certificate
+    # ca https://acme-staging-v02.api.letsencrypt.org/directory
+  }
+
+  header / {
+    -Server
+  }
+
+  gzip
+
+  proxy / weblate:80 {
+    transparent
+  }
+
+  errors stdout
+
+}

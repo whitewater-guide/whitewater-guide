@@ -23,6 +23,7 @@ export class LanguagePicker extends React.PureComponent<LanguagePickerProps> {
         <MenuItem value="fr" primaryText="French" />
         <MenuItem value="de" primaryText="German" />
         <MenuItem value="pt" primaryText="Portuguese" />
+        <MenuItem value="it" primaryText="Italian" />
       </SelectField>
     );
   }

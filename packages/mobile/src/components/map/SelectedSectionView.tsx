@@ -5,10 +5,10 @@ import {
   WithRegion,
 } from '@whitewater-guide/clients';
 import { Section } from '@whitewater-guide/commons';
-import capitalize from 'lodash/capitalize';
 import get from 'lodash/get';
 import noop from 'lodash/noop';
 import trim from 'lodash/trim';
+import upperFirst from 'lodash/upperFirst';
 import React from 'react';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
@@ -20,6 +20,7 @@ import {
   connectPremiumDialog,
   WithPremiumDialog,
 } from '../../features/purchases';
+import { getSeasonLocalizer } from '../../i18n';
 import theme from '../../theme';
 import { DifficultyThumb } from '../DifficultyThumb';
 import { Icon } from '../Icon';
@@ -192,9 +193,8 @@ class SelectedSectionViewInternal extends React.Component<Props, State> {
   };
 
   render() {
-    const { i18n, t } = this.props;
+    const { t } = this.props;
     const { section } = this.state;
-    const language = i18n ? i18n.languages[0] : undefined;
     const buttons = [
       {
         label: t('commons:putIn') as string,
@@ -210,8 +210,14 @@ class SelectedSectionViewInternal extends React.Component<Props, State> {
     let season = ' ';
     if (section) {
       season = [
-        capitalize(
-          trim(stringifySeason(section.seasonNumeric, false, language)),
+        upperFirst(
+          trim(
+            stringifySeason(
+              section.seasonNumeric,
+              false,
+              getSeasonLocalizer(t),
+            ),
+          ),
         ),
         trim(section.season || ''),
       ]

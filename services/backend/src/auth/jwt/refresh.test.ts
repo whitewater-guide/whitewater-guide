@@ -5,7 +5,6 @@ import { BLACKLISTED_REFRESH_TOKEN } from '@seeds/16_tokens_blacklist';
 import { CookieAccessInfo } from 'cookiejar';
 import jsonwebtoken from 'jsonwebtoken';
 import Koa from 'koa';
-import { SuperTest, Test } from 'supertest';
 import agent from 'supertest-koa-agent';
 import { createApp } from '../../app';
 import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from '../constants';
@@ -36,7 +35,7 @@ describe('mobile', () => {
     expect(resp.status).toBe(400);
     expect(resp.body).toEqual({
       success: false,
-      error: 'refresh.jwt.not.found',
+      error: 'refresh.jwt.not_found',
       error_id: expect.any(String),
     });
   });
@@ -50,7 +49,7 @@ describe('mobile', () => {
     expect(resp.status).toBe(400);
     expect(resp.body).toEqual({
       success: false,
-      error: 'refresh.jwt.bad.token',
+      error: 'refresh.jwt.bad_token',
       error_id: expect.any(String),
     });
   });
@@ -62,7 +61,7 @@ describe('mobile', () => {
     expect(resp.status).toBe(400);
     expect(resp.body).toEqual({
       success: false,
-      error: 'refresh.jwt.bad.token',
+      error: 'refresh.jwt.bad_token',
       error_id: expect.any(String),
     });
   });
@@ -77,7 +76,7 @@ describe('mobile', () => {
     expect(resp.status).toBe(400);
     expect(resp.body).toEqual({
       success: false,
-      error: 'refresh.jwt.bad.token',
+      error: 'refresh.jwt.bad_token',
       error_id: expect.any(String),
     });
   });
@@ -87,7 +86,7 @@ describe('mobile', () => {
     expect(resp.status).toBe(400);
     expect(resp.body).toEqual({
       success: false,
-      error: 'refresh.jwt.bad.token',
+      error: 'refresh.jwt.bad_token',
       error_id: expect.any(String),
     });
   });
@@ -125,7 +124,7 @@ describe('web', () => {
     expect(resp.status).toBe(400);
     expect(resp.body).toEqual({
       success: false,
-      error: 'refresh.jwt.bad.token',
+      error: 'refresh.jwt.bad_token',
       error_id: expect.any(String),
     });
     const atCookie = testAgent.jar.getCookie(
@@ -153,7 +152,7 @@ describe('web', () => {
     expect(resp.status).toBe(400);
     expect(resp.body).toEqual({
       success: false,
-      error: 'refresh.jwt.bad.token',
+      error: 'refresh.jwt.bad_token',
       error_id: expect.any(String),
     });
     const atCookie = testAgent.jar.getCookie(
@@ -184,7 +183,7 @@ describe('web', () => {
     expect(resp.status).toBe(400);
     expect(resp.body).toEqual({
       success: false,
-      error: 'refresh.jwt.bad.token',
+      error: 'refresh.jwt.bad_token',
       error_id: expect.any(String),
     });
     const atCookie = testAgent.jar.getCookie(
@@ -211,7 +210,7 @@ describe('web', () => {
     expect(resp.status).toBe(400);
     expect(resp.body).toEqual({
       success: false,
-      error: 'refresh.jwt.bad.token',
+      error: 'refresh.jwt.bad_token',
       error_id: expect.any(String),
     });
     const atCookie = testAgent.jar.getCookie(

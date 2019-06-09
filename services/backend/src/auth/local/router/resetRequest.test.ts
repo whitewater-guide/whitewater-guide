@@ -33,7 +33,7 @@ describe('errors', () => {
     expect(resp.status).toBe(400);
     expect(resp.body).toEqual({
       success: false,
-      error: 'reset.request.invalid.email',
+      error: 'reset_request.errors.email.invalid',
       error_id: expect.any(String),
     });
   });
@@ -43,7 +43,7 @@ describe('errors', () => {
     expect(resp.status).toBe(400);
     expect(resp.body).toEqual({
       success: false,
-      error: 'reset.request.email.not.found',
+      error: 'reset_request.errors.email.not_found',
       error_id: expect.any(String),
     });
   });
@@ -56,7 +56,7 @@ describe('errors', () => {
     expect(resp.status).toBe(400);
     expect(resp.body).toEqual({
       success: false,
-      error: 'reset.request.send.failed',
+      error: 'reset_request.errors.email.send_failed',
       error_id: expect.any(String),
     });
   });

@@ -7,5 +7,5 @@ export interface OuterProps {
 export interface InnerProps {
   onContinue?: () => void;
   onCancel?: () => void;
-  me: Pick<User, 'name' | 'avatar'> | null;
+  me: Pick<User, 'id' | 'name' | 'avatar' | 'verified'> | null;
 }

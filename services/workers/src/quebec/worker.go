@@ -54,7 +54,7 @@ func (w *workerQuebec) Autofill(options map[string]interface{}) (result []core.G
 		var gaugeInfo core.GaugeInfo
 		if fedInfo, ok := federal[info.federalCode]; ok {
 			gaugeInfo = fedInfo
-			gaugeInfo.Name = info.name
+			gaugeInfo.Name = info.name + " (" + info.code + ")"
 			gaugeInfo.Code = info.code
 			gaugeInfo.Url = "https://www.cehq.gouv.qc.ca/suivihydro/graphique.asp?NoStation=" + info.code
 		} else {
@@ -69,7 +69,7 @@ func (w *workerQuebec) Autofill(options map[string]interface{}) (result []core.G
 					Code:   info.code,
 					Script: w.ScriptName(),
 				},
-				Name:      info.name,
+				Name:      info.name + " (" + info.code + ")",
 				FlowUnit:  "m3/s",
 				LevelUnit: "m",
 				Url:       "https://www.cehq.gouv.qc.ca/suivihydro/graphique.asp?NoStation=" + info.code,

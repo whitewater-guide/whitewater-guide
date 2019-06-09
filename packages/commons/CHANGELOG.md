@@ -1,3 +1,13 @@
+## [0.0.136](https://github.com/doomsower/whitewater/compare/@whitewater-guide/commons@0.0.134...@whitewater-guide/commons@0.0.136) (2019-06-08)
+
+## [0.0.135](https://github.com/doomsower/whitewater/compare/@whitewater-guide/commons@0.0.134...@whitewater-guide/commons@0.0.135) (2019-06-07)
+
+## [0.0.134](https://github.com/doomsower/whitewater/compare/@whitewater-guide/commons@0.0.131...@whitewater-guide/commons@0.0.134) (2019-06-07)
+
+### Features
+
+- email/password auth ([6d414b8](https://github.com/doomsower/whitewater/commit/6d414b8))
+
 ## [0.0.131](https://github.com/doomsower/whitewater/compare/@whitewater-guide/commons@0.0.130...@whitewater-guide/commons@0.0.131) (2019-04-27)
 
 ## [0.0.130](https://github.com/doomsower/whitewater/compare/@whitewater-guide/commons@0.0.129...@whitewater-guide/commons@0.0.130) (2019-04-26)

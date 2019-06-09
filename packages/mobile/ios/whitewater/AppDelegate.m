@@ -11,6 +11,7 @@
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+#import <React/RCTLinkingManager.h>
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
@@ -63,8 +64,18 @@
     sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
     annotation:options[UIApplicationOpenURLOptionsAnnotationKey]
   ];
-  // Add any custom logic here.
+  if (!handled) {
+    handled = [RCTLinkingManager application:application openURL:url options:options];
+  }
   return handled;
+}
+
+- (BOOL)application:(UIApplication *)application continueUserActivity:(nonnull NSUserActivity *)userActivity
+ restorationHandler:(nonnull void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler
+{
+ return [RCTLinkingManager application:application
+                  continueUserActivity:userActivity
+                    restorationHandler:restorationHandler];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {

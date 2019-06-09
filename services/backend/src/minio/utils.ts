@@ -19,6 +19,17 @@ export const getTempPostPolicy = async (key?: string, uploadedBy?: string) => {
   // Only allow content size in range 10KB to 10MB in production
   const minSize = process.env.NODE_ENV === 'production' ? 10 * 1024 : 1;
   policy.setContentLengthRange(minSize, 10 * 1024 * 1024);
+  if (uploadedBy) {
+    // @ts-ignore
+    policy.policy.conditions.push([
+      'eq',
+      '$x-amz-meta-uploaded-by',
+      uploadedBy,
+    ]);
+    // @ts-ignore
+    policy.formData['x-amz-meta-uploaded-by'] = uploadedBy;
+  }
+  // console.log(JSON.stringify(policy, null, 2))
   let { postURL, formData } = await minioClient.presignedPostPolicy(policy);
   postURL = postURL
     .replace(/https?:\/\//, '')
@@ -26,9 +37,6 @@ export const getTempPostPolicy = async (key?: string, uploadedBy?: string) => {
       `${process.env.MINIO_HOST!}:${process.env.MINIO_PORT!}`,
       `${process.env.PROTOCOL!}://${process.env.MINIO_DOMAIN}`,
     );
-  if (uploadedBy) {
-    formData = { ...formData, 'x-amz-meta-uploaded-by': uploadedBy };
-  }
   return { postURL, formData };
 };
 

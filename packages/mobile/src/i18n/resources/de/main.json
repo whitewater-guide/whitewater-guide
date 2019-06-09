@@ -1,0 +1,207 @@
+{
+  "auth": {
+    "logoutDialogTitle": "Ausloggen",
+    "logoutDialogMessage": "Bist du sicher das du dich ausloggen willst?",
+    "logoutErrorTitle": "Fehler",
+    "logoutErrorMessage": "Ausloggen fehlgeschlagen. Bitte überprüfe deine Internetverbindung."
+  },
+  "iap": {
+    "dialog": {
+      "title": "Hol dir {{region}} als Premium"
+    },
+    "buy": {
+      "confirmButton": {
+        "REFRESHING_PREMIUM": "Kaufen für {{price}}",
+        "REFRESHING_PREMIUM_FAILED": "Erneut versuchen",
+        "PRODUCT_LOADING": "Kaufen",
+        "PRODUCT_LOADING_FAILED": "Erneut versuchen",
+        "IDLE": "Kaufen für {{price}}",
+        "PRODUCT_PURCHASING": "Kaufen für {{price}}",
+        "PRODUCT_PURCHASING_FAILED": "Erneut versuchen",
+        "PURCHASE_SAVING": "Kaufen für {{price}}",
+        "PURCHASE_SAVING_OFFLINE": "Erneut versuchen",
+        "PURCHASE_SAVING_FATAL": "OK"
+      },
+      "descriptionMd": "Erhalte die kompletten Vorteile des whitewater.guide für {{region}}\n-Detallierte Streckenbeschreibungen\n-mit einem Klick zu den Ein- und Ausstiegen navigieren\n-kopiere die Koordinaten der Ein- und Ausstiege und anderen Stellen\n-lade dir die Daten runter für den Offline-Gebrauch\n"
+    },
+    "alreadyHave": {
+      "message": "Es scheint als hättest du bereits Premium-Zugang für {{region}}"
+    },
+    "auth": {
+      "anon": "Bitte authentifiziere dich um fortzufahren",
+      "user": "Erfolgreich! Bitte fahre fort mit deinem Kauf"
+    },
+    "success": {
+      "subheading": "Erfolgreich!",
+      "body": "Du hast jetzt Premium-Zugang zu allen Features in {{region}}"
+    },
+    "errors": {
+      "refreshPremium": "Verfügbarkeits-Check fehlgeschlagen. Bitte Internetverbindung überprüfen.",
+      "fetchProduct": "Abrufen des Produkt-Preises fehlgeschlagen. Bitte Internetverbindung überprüfen.",
+      "buyProduct": "Produkt-Kauf fehlgeschlagen. Bitten Internetverbindung überprüfen.",
+      "savePurchase": "Speichern des Kaufes fehlgeschlagen. Bitte kontaktiere uns. Deine Transaktions-ID war {{transactionId}}.",
+      "savePurchaseOffline": "Speichern des Kaufes fehlgeschlagen. Bitte Internetverbindung überprüfen. Deine Transaktions-ID war {{transactionId}}.",
+      "alreadyOwned": "Scheinbar hast du diese Region schon freigeschaltet. Bitte Ausloggen und dann Einloggen mit dem Account mit dem du diese erworben hast. Deinse Transaktions-ID war {{transactionId}}"
+    },
+    "section": {
+      "message": "{{region}} ist eine Premium-Region. Die ganze Beschreibung dieser Strecke ist ein Premium-Feature.",
+      "button": "Hol dir Premium-Zugang"
+    }
+  },
+  "offline": {
+    "dialog": {
+      "title": "Download für den Offline-Gebrauch",
+      "subtitle": "Ausgewählte Region: {{region}}",
+      "categories": {
+        "data": "Detallierte Strecken-Information *",
+        "media": "Fotos",
+        "maps": "Karten (bald verfügbar)"
+      },
+      "cacheWarning": "* Diese Daten gehen verloren wenn du dich ausloggst oder die Spracheinstellung änderst",
+      "loadingSummary": "Lade Metadaten",
+      "inBackground": "Im Hintergrund fortsetzen",
+      "summaryError": "Fehler beim laden der Metadaten",
+      "download": "Download"
+    }
+  },
+  "filter": {
+    "title": "Filter",
+    "reset": "Zurücksetzen",
+    "difficultyValue": "Schwierigkeit: {{minDiff}}",
+    "difficultyRange": "Schwierigkeit: von {{minDiff}} bis {{maxDiff}}",
+    "durationValue": "Dauer: {{minDuration}}",
+    "durationRange": "Dauer: von {{minDuration}} bis {{maxDuration}}",
+    "rating": "Mindestwertung",
+    "search": "Suchen"
+  },
+  "drawer": {
+    "myProfile": "Meine Einstellungen",
+    "facebookLogin": "Login via Facebook",
+    "regions": "Regionen",
+    "faq": "FAQ",
+    "termsAndConditions": "Geschäftsbedingungen",
+    "privacyPolicy": "Datenschutzrichtlinie"
+  },
+  "myProfile": {
+    "title": "Mein Profil",
+    "general": "Allgemein",
+    "language": "Sprache",
+    "logout": "Ausloggen",
+    "purchases": {
+      "title": "Meine Käufe",
+      "region": "Region",
+      "group": "Regions-Paket"
+    },
+    "notLoggedIn": "Du bist nicht eingeloggt"
+  },
+  "regionsList": {
+    "title": "Regionen",
+    "riversCount": "Flüsse",
+    "sectionsCount": "Strecken",
+    "gaugesCount": "Pegelstationen"
+  },
+  "region": {
+    "info": {
+      "title": "Über die Region",
+      "noData": "Keine Beschreibung für diese Region"
+    },
+    "map": {
+      "title": "Karte",
+      "selectedSection": {
+        "swipeUpTip": "Nach oben wischen für mehr",
+        "details": "Details",
+        "flows": "Wasserstände"
+      },
+      "layers": {
+        "prompt": "Bitte einen Layer auswählen",
+        "standard": "Standard",
+        "terrain": "Gelände",
+        "satellite": "Satellit",
+        "hybrid": "Hybride"
+      }
+    },
+    "sections": {
+      "title": "Strecken",
+      "loading": "Lade Strecken: {{loaded}}/{{count}}",
+      "loadingUpdates": "Lade Updates"
+    }
+  },
+  "section": {
+    "chart": {
+      "title": "Wasserstände",
+      "periodToggle": {
+        "title": "Wähle einen Zeitraum",
+        "day": "Tag",
+        "week": "Woche",
+        "month": "Monat"
+      },
+      "flowToggle": "Wähle eine Mess-Art",
+      "lastRecorded": {
+        "title": "Zuletzt aufgezeichnet",
+        "flow": "Durchfluss",
+        "level": "Pegel"
+      },
+      "lastUpdated": "Zuletzt Upgedated",
+      "approximateWarning": "Der Pegel liefert nur sehr ungenaue \ndata für diesen Fluss!",
+      "gaugeMenu": {
+        "title": "Pegel-Informationen",
+        "aboutSource": "Über die Datenquelle",
+        "webPage": "Öffne die Pegel-Website"
+      },
+      "outdatedWarning": "Diese Daten sind wahrscheinlich veraltet :(",
+      "noData": "Keine Daten für diesen Zeitraum verfügbar",
+      "noGauge": "Kein Pegel für diese Strecke verfügbar"
+    },
+    "guide": {
+      "title": "Beschreibung",
+      "noData": "Zurzeit noch keine Beschreibung für diese Strecke,..."
+    },
+    "media": {
+      "title": "Medien",
+      "photo": "Fotos",
+      "video": "Videos",
+      "blog": "Blogs",
+      "noMedia": {
+        "photo": "noch keine Fotos für diese Strecke :(",
+        "video": "noch keine Videos für diese Strecke :(",
+        "blog": "noch keine Blogs für diese Strecke :("
+      }
+    },
+    "map": {
+      "title": "Karte"
+    },
+    "info": {
+      "title": "Info"
+    }
+  },
+  "durations": {
+    "10": "mehrere Laps",
+    "20": "zwei Fahrten am Tag",
+    "30": "ganzer Tag",
+    "40": "Übernacht",
+    "50": "Multiday"
+  },
+  "poiTypes": {
+    "put-in": "Einstieg",
+    "put-in-alt": "Alternativer Einstieg",
+    "put-in-road": "Einstieg am Ende der Strasse",
+    "take-out": "Ausstieg",
+    "take-out-alt": "Alternativer Ausstieg",
+    "take-out-road": "Ausstieg am Ende der Strasse",
+    "waterfall": "Wasserfall",
+    "rapid": "Katarakt",
+    "portage": "Umtrager",
+    "playspot": "Playspot",
+    "hazard": "Gefahr",
+    "river-campsite": "Fluss Campingplatz",
+    "wild-camping": "Wild-Campen",
+    "paid-camping": "gewerbl. Campingplatz",
+    "gauge": "Pegelstation",
+    "hike-waypoint": "Wanderweg Wegpunkt",
+    "bridge": "Brücke",
+    "dam": "Damm",
+    "power-plant": "Kraftwerk (Wasserauslass)",
+    "kayak-shop": "Kajak-Shop",
+    "other": "Sonstiges"
+  }
+}

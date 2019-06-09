@@ -33,7 +33,6 @@ exports[`should generate correct query 1`] = `
           coordinates
           kind
         }
-        shape
         gauge {
           ... on Gauge {
             id

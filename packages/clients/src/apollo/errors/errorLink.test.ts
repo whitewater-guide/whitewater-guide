@@ -88,6 +88,44 @@ describe('network errors', () => {
     });
   });
 
+  it('should call support async handlers', (done) => {
+    const handleError = jest.fn();
+    const asyncHandleError = async (err: AppError) => {
+      return new Promise<void>((resolve) => {
+        setTimeout(() => {
+          handleError(err);
+          resolve();
+        }, 0);
+      });
+    };
+
+    const link = ApolloLink.from([
+      errorLink(new InMemoryCache(), asyncHandleError),
+      new ApolloLink(() => {
+        return new Observable(() => {
+          throwServerError(
+            { status: 401 },
+            { success: false, error: 'unauthenticated' },
+            'server error',
+          );
+        });
+      }),
+    ]);
+
+    execute(link, { query }).subscribe({
+      error() {
+        expect(handleError).toHaveBeenCalled();
+        const appError = handleError.mock.calls[0][0];
+        expect(appError).toBeInstanceOf(AppError);
+        expect(appError.type).toBe('auth');
+        done();
+      },
+      complete() {
+        done.fail('Should not forward');
+      },
+    });
+  });
+
   it('should save error in case of other 401 errors', (done) => {
     const cache = new InMemoryCache();
     const link = ApolloLink.from([

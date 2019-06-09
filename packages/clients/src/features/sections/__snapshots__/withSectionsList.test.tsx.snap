@@ -94,16 +94,6 @@ Object {
         1,
         2,
       ],
-      "shape": Array [
-        Array [
-          1.5,
-          2.5,
-        ],
-        Array [
-          3.5,
-          4.5,
-        ],
-      ],
       "tags": Array [
         Object {
           "__typename": "Tag",
@@ -214,16 +204,6 @@ Object {
       "seasonNumeric": Array [
         3,
         4,
-      ],
-      "shape": Array [
-        Array [
-          5.5,
-          6.5,
-        ],
-        Array [
-          7.5,
-          8.5,
-        ],
       ],
       "tags": Array [
         Object {

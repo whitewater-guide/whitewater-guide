@@ -2,7 +2,7 @@ import FlatButton from 'material-ui/FlatButton';
 import React from 'react';
 import { Mutation } from 'react-apollo';
 import { DeleteButton } from '../../../components';
-import REMOVE_ALL_GAUGES from './removeAllGauges.mutation';
+import { REMOVE_ALL_GAUGES, Result, Vars } from './removeAllGauges.mutation';
 
 interface Props {
   sourceId: string;
@@ -21,7 +21,7 @@ const renderButton = (
 );
 
 const RemoveAllGaugesButton: React.FC<Props> = ({ sourceId }) => (
-  <Mutation
+  <Mutation<Result, Vars>
     mutation={REMOVE_ALL_GAUGES}
     variables={{ sourceId }}
     refetchQueries={['listGauges']}

@@ -191,7 +191,7 @@ it('should not work when refresh token is used as access token', async () => {
   expect(response.status).toBe(401);
   expect(response.body).toEqual({
     success: false,
-    error: 'unauthenticated',
+    error: 'jwt.unauthenticated',
     error_id: expect.any(String),
   });
 });

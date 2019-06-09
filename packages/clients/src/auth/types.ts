@@ -1,4 +1,5 @@
-import { AuthPayload } from '@whitewater-guide/commons';
+import { AuthBody } from '@whitewater-guide/commons';
+import { Overwrite } from 'type-zoo';
 
 export interface TokenStorage {
   setAccessToken: (value: string | null) => Promise<void>;
@@ -14,6 +15,33 @@ export interface Credentials {
   password: string;
 }
 
-export interface AuthResponse extends AuthPayload {
-  status: number;
+export interface RegisterPayload {
+  email: string;
+  name: string;
+  password: string;
+  imperial?: boolean;
+  language?: string;
 }
+
+export interface RequestResetPayload {
+  email: string;
+}
+
+export interface RequestVerificationPayload {
+  id: string;
+}
+
+export interface ResetPayload {
+  id: string;
+  token: string;
+  password: string;
+}
+
+export type AuthResponse<T = {}> = Overwrite<
+  AuthBody<T>,
+  // this is for forms
+  {
+    error?: { [key: string]: any };
+    status: number; // 0 indicates network error (fetch throws)
+  }
+>;

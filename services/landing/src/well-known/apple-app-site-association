@@ -1,0 +1,11 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "922TKPGBXZ.guide.whitewater",
+        "paths": ["/auth/local/reset*", "/verified*"]
+      }
+    ]
+  }
+}

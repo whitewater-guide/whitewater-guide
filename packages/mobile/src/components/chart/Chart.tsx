@@ -7,6 +7,7 @@ import isFinite from 'lodash/isFinite';
 import moment from 'moment';
 import React from 'react';
 import { LayoutChangeEvent, StyleSheet, View } from 'react-native';
+import { ActivityIndicator } from 'react-native-paper';
 import {
   VictoryAxis,
   VictoryChart,
@@ -27,6 +28,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     flex: 1,
     alignSelf: 'stretch',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 
@@ -144,10 +147,17 @@ export class Chart extends React.PureComponent<ChartComponentProps, State> {
   };
 
   render() {
-    const { data, unit, section } = this.props;
+    const { data, unit, section, loading } = this.props;
+    if (loading) {
+      return (
+        <View style={styles.container}>
+          <ActivityIndicator />
+        </View>
+      );
+    }
     const binding =
       section && (unit === Unit.LEVEL ? section.levels : section.flows);
-    if (data.length === 0 || !binding) {
+    if (data.length === 0) {
       return <NoChart noData={true} />;
     }
     return (

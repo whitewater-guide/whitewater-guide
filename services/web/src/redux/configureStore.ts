@@ -5,10 +5,9 @@ import {
   Middleware,
   StoreEnhancer,
 } from 'redux';
-import createPersistor from './createPersistor';
 import rootReducer from './rootReducer';
 
-export async function configureStore() {
+function configureStore() {
   // Nothing here, just stub
   const middleware: Middleware[] = [];
   const enhancers: Array<StoreEnhancer<any>> = [];
@@ -19,9 +18,7 @@ export async function configureStore() {
     enhancers.push((window as any).__REDUX_DEVTOOLS_EXTENSION__());
   }
 
-  const store = createStore(rootReducer, compose(...enhancers));
-
-  const persistor = await createPersistor(store);
-
-  return { persistor, store };
+  return createStore(rootReducer, compose(...enhancers));
 }
+
+export const store = configureStore();

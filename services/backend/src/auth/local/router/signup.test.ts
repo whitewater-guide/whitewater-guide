@@ -9,7 +9,6 @@ import agent from 'supertest-koa-agent';
 import { createApp } from '../../../app';
 import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from '../../constants';
 import { sendMail } from '../../mail';
-import { AuthResponse } from '../../types';
 
 jest.mock('../../mail');
 
@@ -47,7 +46,7 @@ describe('errors', () => {
     expect(resp).toMatchObject({
       status: 401,
       body: {
-        error: 'signup.missing.credentials',
+        error: 'signup.errors.email.missing',
       },
     });
   });
@@ -62,7 +61,22 @@ describe('errors', () => {
     expect(resp).toMatchObject({
       status: 401,
       body: {
-        error: 'signup.email.unavailable',
+        error: 'signup.errors.email.unavailable',
+      },
+    });
+  });
+
+  it('should fail if email is invalid', async () => {
+    const resp = await agent(app)
+      .post(ROUTE)
+      .send({
+        email: 'fish.munga@yandex',
+        password: 'qwErty__u1',
+      });
+    expect(resp).toMatchObject({
+      status: 401,
+      body: {
+        error: 'signup.errors.email.invalid',
       },
     });
   });
@@ -77,7 +91,7 @@ describe('errors', () => {
     expect(resp).toMatchObject({
       status: 401,
       body: {
-        error: 'signup.weak.password',
+        error: 'signup.errors.password.weak',
       },
     });
   });
@@ -148,7 +162,7 @@ describe('mobile', () => {
   });
 
   it('should respond with access and refresh tokens', async () => {
-    const body: AuthResponse = {
+    const body = {
       success: true,
       id: expect.stringMatching(UUID_REGEX),
       accessToken: expect.any(String),
@@ -205,7 +219,7 @@ describe('web', () => {
   });
 
   it('should respond with success body', async () => {
-    const body: AuthResponse = {
+    const body = {
       success: true,
       id: expect.stringMatching(UUID_REGEX),
     };

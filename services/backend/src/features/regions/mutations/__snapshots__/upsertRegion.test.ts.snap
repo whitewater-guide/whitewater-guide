@@ -77,16 +77,6 @@ Object {
   "pois": Array [
     Object {
       "coordinates": Array [
-        1,
-        2,
-        3,
-      ],
-      "description": "r1p2 d",
-      "kind": "put-in",
-      "name": "r 1 p 2",
-    },
-    Object {
-      "coordinates": Array [
         10,
         12,
         0,
@@ -104,6 +94,16 @@ Object {
       "description": "pt 2 upd",
       "kind": "take-out",
       "name": "pt 2 u",
+    },
+    Object {
+      "coordinates": Array [
+        1,
+        2,
+        3,
+      ],
+      "description": "r1p2 d",
+      "kind": "put-in",
+      "name": "r 1 p 2",
     },
   ],
   "season": "season description",

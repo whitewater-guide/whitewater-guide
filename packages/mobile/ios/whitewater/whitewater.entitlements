@@ -4,5 +4,12 @@
 <dict>
 	<key>aps-environment</key>
 	<string>development</string>
+	<key>com.apple.developer.associated-domains</key>
+	<array>
+		<string>applinks:whitewater.guide</string>
+		<string>applinks:beta.whitewater.guide</string>
+		<string>applinks:api.beta.whitewater.guide</string>
+		<string>applinks:api.whitewater.guide</string>
+	</array>
 </dict>
 </plist>

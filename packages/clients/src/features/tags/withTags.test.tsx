@@ -22,8 +22,8 @@ beforeEach(async () => {
 });
 
 it('should have loading state', async () => {
-  expect(receiver.cdm.tagsLoading).toBe(true);
-  expect(receiver.cwrp[0].tagsLoading).toBe(false);
+  expect(receiver.cwrp[0].tagsLoading).toBe(true);
+  expect(receiver.cwrp[1].tagsLoading).toBe(false);
 });
 
 it('should match snapshot', () => {

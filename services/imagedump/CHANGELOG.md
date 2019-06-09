@@ -1,3 +1,9 @@
+## [0.0.44](https://github.com/doomsower/whitewater/compare/@whitewater-guide/imagedump@0.0.42...@whitewater-guide/imagedump@0.0.44) (2019-06-07)
+
+## [0.0.43](https://github.com/doomsower/whitewater/compare/@whitewater-guide/imagedump@0.0.42...@whitewater-guide/imagedump@0.0.43) (2019-06-07)
+
+## [0.0.42](https://github.com/doomsower/whitewater/compare/@whitewater-guide/imagedump@0.0.41...@whitewater-guide/imagedump@0.0.42) (2019-06-07)
+
 ## [0.0.41](https://github.com/doomsower/whitewater/compare/@whitewater-guide/imagedump@0.0.39...@whitewater-guide/imagedump@0.0.41) (2019-03-02)
 
 ### Features

@@ -1,6 +1,7 @@
+import { Gauge } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
 
-const TOGGLE_ALL_GAUGES = gql`
+export const TOGGLE_ALL_GAUGES = gql`
   mutation toggleAllGauges(
     $sourceId: ID!
     $enabled: Boolean!
@@ -17,4 +18,12 @@ const TOGGLE_ALL_GAUGES = gql`
   }
 `;
 
-export default TOGGLE_ALL_GAUGES;
+export interface Vars {
+  sourceId: string;
+  enabled: boolean;
+  linkedOnly?: boolean;
+}
+
+export interface Result {
+  toggleAllGauges: Array<Pick<Gauge, 'id' | 'enabled'>>;
+}

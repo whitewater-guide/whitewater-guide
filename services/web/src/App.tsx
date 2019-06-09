@@ -4,65 +4,29 @@ import React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import { Store } from 'redux';
-import { Persistor } from 'redux-persist';
-import { PersistGate } from 'redux-persist/integration/react';
-import { client, refreshJWT } from './apollo';
+import { client } from './apollo';
 import { webAuthService } from './auth';
-import { Loading } from './components';
 import { RootLayout } from './layout';
-import { configureStore } from './redux';
+import { store } from './redux';
 import { theme } from './styles';
 
-interface State {
-  store?: Store;
-  persistor?: Persistor;
-  isRefreshingJwt: boolean;
-}
-
-export default class App extends React.PureComponent<{}, State> {
-  state: State = { isRefreshingJwt: true };
-
+export default class App extends React.PureComponent {
   async componentWillMount() {
-    const [{ store, persistor }] = await Promise.all([
-      configureStore(),
-      refreshJWT().catch(),
-    ]);
-
-    this.setState({ store, persistor, isRefreshingJwt: false });
+    await webAuthService.init();
   }
 
-  renderLoading = () => <Loading />;
-
   render() {
-    const { store, persistor, isRefreshingJwt } = this.state;
-    if (isRefreshingJwt) {
-      return (
-        <MuiThemeProvider muiTheme={theme}>
-          {this.renderLoading()}
-        </MuiThemeProvider>
-      );
-    }
-    if (store && persistor) {
-      return (
-        <MuiThemeProvider muiTheme={theme}>
-          <Provider store={store}>
-            <PersistGate loading={null} persistor={persistor}>
-              <ApolloProvider client={client}>
-                <AuthProvider service={webAuthService}>
-                  <BrowserRouter>
-                    <RootLayout />
-                  </BrowserRouter>
-                </AuthProvider>
-              </ApolloProvider>
-            </PersistGate>
-          </Provider>
-        </MuiThemeProvider>
-      );
-    }
     return (
       <MuiThemeProvider muiTheme={theme}>
-        <Loading />
+        <Provider store={store}>
+          <ApolloProvider client={client}>
+            <AuthProvider service={webAuthService}>
+              <BrowserRouter>
+                <RootLayout />
+              </BrowserRouter>
+            </AuthProvider>
+          </ApolloProvider>
+        </Provider>
       </MuiThemeProvider>
     );
   }

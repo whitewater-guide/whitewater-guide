@@ -1,6 +1,8 @@
 import React from 'react';
 import { WithTranslation } from 'react-i18next';
-import { NavigationState, Scene, TabView } from 'react-native-tab-view';
+import { NavigationState, TabView } from 'react-native-tab-view';
+// tslint:disable-next-line:no-submodule-imports
+import { Scene } from 'react-native-tab-view/src/types';
 import { PremiumRegion, PurchaseDialogStep } from '../types';
 import AlreadyHaveStep from './already-have';
 import AuthStep from './auth';

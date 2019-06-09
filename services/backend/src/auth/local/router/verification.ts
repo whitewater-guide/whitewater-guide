@@ -3,7 +3,7 @@ import { UserRaw } from '@features/users';
 import { compare } from 'bcrypt';
 import { Middleware } from 'koa';
 
-const VERIFIED_URL = '/verified'; // TODO: static page
+const VERIFIED_URL = `${process.env.PROTOCOL}://${process.env.ROOT_DOMAIN}/verified.html`;
 
 const verification: Middleware<any, any> = async (ctx) => {
   const { id, token } = ctx.request.query;
@@ -25,8 +25,9 @@ const verification: Middleware<any, any> = async (ctx) => {
     ctx.throw(400, 'verification.token.invalid', { payload: { id } });
     return;
   }
+  const redirectURL = `${VERIFIED_URL}?name=${encodeURIComponent(user.name)}`;
   if (user.verified) {
-    ctx.redirect(VERIFIED_URL);
+    ctx.redirect(redirectURL);
     return;
   }
   const verificationToken = user.tokens.find((t) => t.claim === 'verification');
@@ -54,7 +55,7 @@ const verification: Middleware<any, any> = async (ctx) => {
     })
     .where({ id });
 
-  ctx.redirect(VERIFIED_URL);
+  ctx.redirect(redirectURL);
 };
 
 export default verification;

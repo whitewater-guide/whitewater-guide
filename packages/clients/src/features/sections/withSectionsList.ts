@@ -1,5 +1,5 @@
 import { Connection, Section } from '@whitewater-guide/commons';
-import { FetchPolicy } from 'apollo-client';
+import { WatchQueryFetchPolicy } from 'apollo-client';
 import { graphql } from 'react-apollo';
 import { compose } from 'recompose';
 import { queryResultToList, WithList } from '../../apollo';
@@ -7,7 +7,7 @@ import { withFeatureIds } from '../../core';
 import { LIST_SECTIONS } from './listSections.query';
 
 interface Options {
-  fetchPolicy?: FetchPolicy;
+  fetchPolicy?: WatchQueryFetchPolicy;
 }
 
 type OptionsFunc = (props: any) => Options;

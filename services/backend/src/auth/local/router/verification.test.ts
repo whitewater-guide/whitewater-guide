@@ -136,7 +136,7 @@ describe('success', () => {
     expect(response).toMatchObject({
       status: 302,
       headers: {
-        location: '/verified',
+        location: expect.stringContaining('/verified'),
       },
     });
   });
@@ -149,7 +149,7 @@ describe('success', () => {
     expect(response2).toMatchObject({
       status: 302,
       headers: {
-        location: '/verified',
+        location: expect.stringContaining('/verified'),
       },
     });
   });

@@ -1,9 +1,10 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
-import { Button, Dialog, Subheading } from 'react-native-paper';
-import { AnonHeader, UserHeader } from '../../../../components';
+import { Button, Dialog } from 'react-native-paper';
 import theme from '../../../../theme';
+import AuthStepAnon from './AuthStepAnon';
+import AuthStepUnverified from './AuthStepUnverified';
+import AuthStepVerified from './AuthStepVerified';
 import { InnerProps, OuterProps } from './types';
 
 const styles = StyleSheet.create({
@@ -22,24 +23,17 @@ type Props = InnerProps & OuterProps;
 
 const AuthStep: React.FC<Props> = (props) => {
   const { me, onCancel, onContinue, cancelable = true } = props;
-  const [t] = useTranslation();
   return (
     <React.Fragment>
       <Dialog.Content style={styles.dialogContent}>
         {me ? (
-          <React.Fragment>
-            <UserHeader user={me!} medium={true} padded={false} />
-            <Subheading style={styles.subheading}>
-              {t('iap:auth.user')}
-            </Subheading>
-          </React.Fragment>
+          me.verified ? (
+            <AuthStepVerified me={me} />
+          ) : (
+            <AuthStepUnverified me={me} />
+          )
         ) : (
-          <React.Fragment>
-            <Subheading style={styles.subheading}>
-              {t('iap:auth.anon')}
-            </Subheading>
-            <AnonHeader medium={true} padded={false} />
-          </React.Fragment>
+          <AuthStepAnon onCancel={onCancel} />
         )}
       </Dialog.Content>
       <Dialog.Actions>
@@ -52,7 +46,11 @@ const AuthStep: React.FC<Props> = (props) => {
             Cancel
           </Button>
         )}
-        <Button mode="contained" onPress={onContinue} disabled={!me}>
+        <Button
+          mode="contained"
+          onPress={onContinue}
+          disabled={!me || !me.verified}
+        >
           Continue
         </Button>
       </Dialog.Actions>

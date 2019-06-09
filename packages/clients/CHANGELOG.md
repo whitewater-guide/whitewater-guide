@@ -1,3 +1,35 @@
+## [0.0.226](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.225...@whitewater-guide/clients@0.0.226) (2019-06-09)
+
+### Bug Fixes
+
+- improve storybooks ([6a51e35](https://github.com/doomsower/whitewater/commit/6a51e35))
+
+## [0.0.225](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.224...@whitewater-guide/clients@0.0.225) (2019-06-08)
+
+### Features
+
+- **clients:** custom localize function for stringify season ([3db6208](https://github.com/doomsower/whitewater/commit/3db6208))
+
+## [0.0.224](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.222...@whitewater-guide/clients@0.0.224) (2019-06-07)
+
+### Bug Fixes
+
+- **clients:** fix unknown locales in stringify season ([22a5a2a](https://github.com/doomsower/whitewater/commit/22a5a2a))
+
+## [0.0.223](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.222...@whitewater-guide/clients@0.0.223) (2019-06-07)
+
+## [0.0.222](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.218...@whitewater-guide/clients@0.0.222) (2019-06-07)
+
+### Features
+
+- email/password auth ([6d414b8](https://github.com/doomsower/whitewater/commit/6d414b8))
+
+## [0.0.219-auth.0](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.218...@whitewater-guide/clients@0.0.219-auth.0) (2019-05-28)
+
+### Features
+
+- **clients:** make signIn return AuthResponse ([f3cab4c](https://github.com/doomsower/whitewater/commit/f3cab4c))
+
 ## [0.0.218](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.217...@whitewater-guide/clients@0.0.218) (2019-05-22)
 
 ## [0.0.217](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.216...@whitewater-guide/clients@0.0.217) (2019-05-13)

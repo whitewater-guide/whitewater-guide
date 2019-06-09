@@ -1,6 +1,6 @@
-// import { LANGUAGES } from '@whitewater-guide/commons';
-// export const SUPPORTED_LANGUAGES = LANGUAGES;
-export const SUPPORTED_LANGUAGES = ['en', 'ru'];
+import resources from './resources';
+
+export const SUPPORTED_LANGUAGES = Object.keys(resources);
 
 export const LANGUAGE_NAMES: { [key: string]: string } = {
   en: 'English',

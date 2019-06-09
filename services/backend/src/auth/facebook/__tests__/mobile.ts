@@ -8,7 +8,7 @@ import {
   NEW_FB_PROFILE_W_LOCALE,
 } from '@seeds/01_users';
 import { countRows, UUID_REGEX } from '@test';
-import { AuthPayload } from '@whitewater-guide/commons';
+import { AuthBody, SignInBody } from '@whitewater-guide/commons';
 import Koa from 'koa';
 import get from 'lodash/get';
 import { Profile } from 'passport-facebook';
@@ -86,11 +86,12 @@ describe.each([
   });
 
   it('should respond with access and refresh tokens', async () => {
-    const body: AuthPayload = {
+    const body: AuthBody<SignInBody> = {
       success: true,
       id: expect.stringMatching(UUID_REGEX),
       accessToken: expect.any(String),
       refreshToken: expect.any(String),
+      isNew: true,
     };
     expect(response).toMatchObject({
       status: 200,
@@ -237,11 +238,12 @@ describe('existing user', () => {
   });
 
   it('should respond with access and refresh tokens', async () => {
-    const body: AuthPayload = {
+    const body: AuthBody<SignInBody> = {
       success: true,
       id: ADMIN_ID,
       accessToken: expect.any(String),
       refreshToken: expect.any(String),
+      isNew: false,
     };
     expect(response).toMatchObject({
       status: 200,

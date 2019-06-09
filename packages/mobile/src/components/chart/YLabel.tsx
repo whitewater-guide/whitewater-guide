@@ -10,7 +10,7 @@ interface YLabelProps {
   textAnchor?: TextAnchor;
   datum?: number;
   style?: TextSpecificProps;
-  binding?: GaugeBinding;
+  binding?: GaugeBinding | null;
 }
 
 const YLabel: React.FC<YLabelProps> = (props) => {

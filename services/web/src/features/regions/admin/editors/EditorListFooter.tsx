@@ -4,14 +4,14 @@ import { TableRow, TableRowColumn } from 'material-ui/Table';
 import React from 'react';
 import { Mutation, MutationFn } from 'react-apollo';
 import { UserFinder } from '../../../users';
-import ADD_EDITOR_MUTATION from './addEditor.mutation';
+import { ADD_EDITOR_MUTATION, Result, Vars } from './addEditor.mutation';
 
 interface Props {
   regionId: string;
 }
 
 interface InnerProps extends Props {
-  addEditor: MutationFn<any, { userId: string; regionId: string }>;
+  addEditor: MutationFn<Result, Vars>;
   loading: boolean;
 }
 
@@ -56,10 +56,11 @@ class EditorListFooter extends React.PureComponent<InnerProps, State> {
   }
 }
 
-const EditorListFooterWithMutation: React.StatelessComponent<Props> = ({
-  regionId,
-}) => (
-  <Mutation mutation={ADD_EDITOR_MUTATION} refetchQueries={['regionEditors']}>
+const EditorListFooterWithMutation: React.FC<Props> = ({ regionId }) => (
+  <Mutation<Result, Vars>
+    mutation={ADD_EDITOR_MUTATION}
+    refetchQueries={['regionEditors']}
+  >
     {(addEditor, { loading }) => (
       <EditorListFooter
         addEditor={addEditor}

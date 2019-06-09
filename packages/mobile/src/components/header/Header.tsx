@@ -1,53 +1,34 @@
+import { useNavigation } from '@zhigang1992/react-navigation-hooks';
 import get from 'lodash/get';
-import React from 'react';
-import { withTranslation, WithTranslation } from 'react-i18next';
+import React, { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Appbar } from 'react-native-paper';
-import { HeaderProps, NavigationActions } from 'react-navigation';
-import { connect } from 'react-redux';
-import { compose } from 'recompose';
-import { toggleDrawer } from '../../core/actions';
+import { HeaderProps } from 'react-navigation';
+import { useDrawer } from '../drawer/DrawerContext';
 
-type Props = HeaderProps & WithTranslation & { openDrawer: () => void };
-
-class Header extends React.PureComponent<Props> {
-  goBack = () => this.props.navigation.dispatch(NavigationActions.back());
-
-  renderLeftButton = () => {
-    const { index, openDrawer } = this.props;
-    return index ? (
-      <Appbar.Action icon="chevron-left" size={36} onPress={this.goBack} />
-    ) : (
-      <Appbar.Action icon="menu" onPress={openDrawer} />
-    );
-  };
-
-  render() {
-    const title = get(this.props, 'scene.descriptor.options.headerTitle', null);
-    const headerRight = get(
-      this.props,
-      'scene.descriptor.options.headerRight',
-      null,
-    );
-    let titleNode: React.ReactNode = null;
-    if (title) {
-      titleNode = typeof title === 'string' ? this.props.t(title) : title;
-    }
-    return (
-      <Appbar.Header>
-        {this.renderLeftButton()}
-        <Appbar.Content title={titleNode} />
-        {headerRight}
-      </Appbar.Header>
-    );
+const Header: React.FC<HeaderProps> = (props) => {
+  const nav = useNavigation();
+  const goBack = useCallback(() => nav.goBack(), [nav.goBack]);
+  const { t } = useTranslation();
+  const toggleDrawer = useDrawer();
+  const openDrawer = useCallback(() => toggleDrawer(true), [toggleDrawer]);
+  const title = get(props, 'scene.descriptor.options.headerTitle', null);
+  const headerRight = get(props, 'scene.descriptor.options.headerRight', null);
+  let titleNode: React.ReactNode = null;
+  if (title) {
+    titleNode = typeof title === 'string' ? t(title) : title;
   }
-}
+  return (
+    <Appbar.Header>
+      {props.index ? (
+        <Appbar.Action icon="chevron-left" size={36} onPress={goBack} />
+      ) : (
+        <Appbar.Action icon="menu" onPress={openDrawer} />
+      )}
+      <Appbar.Content title={titleNode} />
+      {headerRight}
+    </Appbar.Header>
+  );
+};
 
-const container = compose<Props, HeaderProps>(
-  connect(
-    undefined,
-    { openDrawer: () => toggleDrawer(null) },
-  ),
-  withTranslation(),
-);
-
-export default container(Header);
+export default Header;

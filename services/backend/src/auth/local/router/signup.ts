@@ -4,10 +4,10 @@ import { MiddlewareFactory } from '../../types';
 const signUp: MiddlewareFactory = (passport) => async (ctx, next) => {
   await passport.authenticate(
     'local-signup',
-    { badRequestMessage: 'signup.missing.credentials' },
+    { badRequestMessage: 'signup.errors.email.missing' },
     async (error, user, info) => {
       if (user) {
-        sendCredentials(ctx, user);
+        sendCredentials(ctx, user, true);
       } else {
         ctx.throw(401, info);
       }

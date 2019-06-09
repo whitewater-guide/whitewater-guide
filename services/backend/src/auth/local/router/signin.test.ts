@@ -45,7 +45,7 @@ describe('errors', () => {
     expect(resp).toMatchObject({
       status: 401,
       body: {
-        error: 'signin.no.user',
+        error: 'signin.errors.email.not_found',
       },
     });
   });
@@ -60,7 +60,7 @@ describe('errors', () => {
     expect(resp).toMatchObject({
       status: 401,
       body: {
-        error: 'signin.password.fail',
+        error: 'signin.errors.password.mismatch',
       },
     });
   });
@@ -75,7 +75,7 @@ describe('errors', () => {
     expect(resp).toMatchObject({
       status: 401,
       body: {
-        error: 'signin.no.local.login',
+        error: 'signin.errors.email.not_local',
       },
     });
   });

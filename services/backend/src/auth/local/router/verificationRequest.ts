@@ -9,11 +9,13 @@ import { randomToken } from '../utils';
 const verificationRequest: Middleware<any, any> = async (ctx, next) => {
   const id: string | undefined = ctx.request.body && ctx.request.body.id;
   if (!id) {
-    ctx.throw(400, 'verification.request.id.missing');
+    ctx.throw(400, 'verification_request.errors.form.id_missing');
     return;
   }
   if (!isUUID(id)) {
-    ctx.throw(400, 'verification.request.id.incorrect', { payload: { id } });
+    ctx.throw(400, 'verification_request.errors.form.id_invalid', {
+      payload: { id },
+    });
     return;
   }
   const user: UserRaw | undefined = await db()
@@ -22,15 +24,21 @@ const verificationRequest: Middleware<any, any> = async (ctx, next) => {
     .where({ id })
     .first();
   if (!user) {
-    ctx.throw(400, 'verification.request.user.not.found', { payload: { id } });
+    ctx.throw(400, 'verification_request.errors.form.user_not_found', {
+      payload: { id },
+    });
     return;
   }
   if (user.verified) {
-    ctx.throw(400, 'verification.request.unnecessary', { payload: { id } });
+    ctx.throw(400, 'verification_request.errors.form.already_verified', {
+      payload: { id },
+    });
     return;
   }
   if (!user.email) {
-    ctx.throw(400, 'verification.request.email.missing', { payload: { id } });
+    ctx.throw(400, 'verification_request.errors.form.not_local', {
+      payload: { id },
+    });
     return;
   }
 
@@ -53,7 +61,7 @@ const verificationRequest: Middleware<any, any> = async (ctx, next) => {
       token,
     });
   } catch {
-    ctx.throw(400, 'verification.request.send.failed', {
+    ctx.throw(400, 'verification_request.errors.form.send_failed', {
       payload: { email: user.email, id },
     });
     return;

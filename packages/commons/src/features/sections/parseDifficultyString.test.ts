@@ -1,7 +1,7 @@
 import { parseDifficultyString } from './parseDifficultyString';
 
 // human-checked data from other sources
-const difficulties = [
+const difficulties: Array<[string, number]> = [
   ['IV-V', 4.5],
   ['III-IV', 3.5],
   ['II', 2],

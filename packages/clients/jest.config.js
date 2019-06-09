@@ -12,6 +12,6 @@ module.exports = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'json'],
   setupFilesAfterEnv: [
     '<rootDir>/jest.setup.ts',
-    'react-testing-library/cleanup-after-each',
+    '@testing-library/react/cleanup-after-each',
   ],
 };

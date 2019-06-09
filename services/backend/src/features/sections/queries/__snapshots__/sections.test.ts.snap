@@ -5,7 +5,10 @@ Object {
   "count": 6,
   "nodes": Array [
     Object {
-      "gauge": null,
+      "gauge": Object {
+        "id": "53af2e2c-19fe-11e8-accf-0ed5f89f718b",
+        "name": "Georgian gauge 4",
+      },
       "hidden": false,
       "id": "9e9c0366-84e2-11e8-adc0-fa7ae01bbebc",
       "name": "Extreme race",
@@ -20,7 +23,10 @@ Object {
       },
     },
     Object {
-      "gauge": null,
+      "gauge": Object {
+        "id": "53af2530-19fe-11e8-accf-0ed5f89f718b",
+        "name": "Georgian gauge 1",
+      },
       "hidden": false,
       "id": "e6e0e826-5db4-11e8-9c2d-fa7ae01bbebc",
       "name": "Long Race",
