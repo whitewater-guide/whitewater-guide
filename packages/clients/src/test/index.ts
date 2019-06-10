@@ -1,3 +1,4 @@
+export * from './continuouslyAdvanceTimers';
 export * from './createFixedProvider';
 export * from './createMockedProvider';
 export * from './flushPromises';
