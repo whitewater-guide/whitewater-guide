@@ -1,3 +1,9 @@
+## [1.7.81](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.80...@whitewater-guide/mobile@1.7.81) (2019-06-10)
+
+### Features
+
+- more mobile auth service tests ([3376164](https://github.com/doomsower/whitewater/commit/3376164))
+
 ## [1.7.80](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.80...@whitewater-guide/mobile@1.7.80) (2019-06-09)
 
 ## [1.7.80](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.79...@whitewater-guide/mobile@1.7.80) (2019-06-09)

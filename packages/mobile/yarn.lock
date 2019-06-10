@@ -1897,10 +1897,10 @@
   resolved "https://registry.yarnpkg.com/@types/zxcvbn/-/zxcvbn-4.4.0.tgz#fbc1d941cc6d9d37d18405c513ba6b294f89b609"
   integrity sha512-GQLOT+SN20a+AI51y3fAimhyTF4Y0RG+YP3gf91OibIZ7CJmPFgoZi+ZR5a+vRbS01LbQosITWum4ATmJ1Z6Pg==
 
-"@whitewater-guide/clients@^0.0.227":
-  version "0.0.227"
-  resolved "https://registry.yarnpkg.com/@whitewater-guide/clients/-/clients-0.0.227.tgz#3816c4dec495ff4ce3ce3f5101fd4de2791d0160"
-  integrity sha512-cixgaY0YyFCwG67QQVVOTOsjucR3Hlgccqa5GhO82esbvVlD+2kZCNo2ufcFeoxsXYztipRqAuJXmmjELp5vgA==
+"@whitewater-guide/clients@^0.0.228":
+  version "0.0.228"
+  resolved "https://registry.yarnpkg.com/@whitewater-guide/clients/-/clients-0.0.228.tgz#f402e2e75bfb5b7c6e65d98842da65f8a14c045b"
+  integrity sha512-/wpDDXrszX6TaPdVIukhAv+MZw3pTKTH96+UttAhedgXjy6JCkhqJiVZ5IJtcqYSU9VtfzOggK9VBtH2wmcNdA==
   dependencies:
     "@testing-library/react" "^8.0.1"
     "@types/jest" "^24.0.13"
