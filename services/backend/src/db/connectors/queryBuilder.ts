@@ -2,29 +2,33 @@ import db from '@db';
 import DataLoader from 'dataloader';
 import { GraphQLResolveInfo } from 'graphql';
 import gqf from 'graphql-fields';
-import Knex from 'knex';
+import Knex, { QueryBuilder } from 'knex';
 import snakeCase from 'lodash/snakeCase';
 import { Omit } from 'type-zoo';
-import { BuilderOptions, ManyBuilderOptions } from './types';
+import { BuilderOptions, FieldsMap, ManyBuilderOptions } from './types';
 
 export function buildQuery<TGraphql, TSql>(
   tableName: string,
   options: BuilderOptions<TGraphql, TSql>,
-) {
-  const { fields, fieldsMap = {}, sqlFields = [], language } = options;
+): QueryBuilder<TSql> {
+  const defaultMap: FieldsMap<TGraphql, TSql> = {};
+  const { fields, fieldsMap = defaultMap, sqlFields = [], language } = options;
 
   const sqlFieldsSet: Set<keyof TSql> = new Set<keyof TSql>(sqlFields);
   for (const graphqlField of fields.values()) {
+    if (typeof graphqlField !== 'string') {
+      continue;
+    }
     if (graphqlField === '__typename') {
       continue;
     }
-    const mapped = (fieldsMap as any)[graphqlField];
+    const mapped = fieldsMap[graphqlField];
     if (mapped === null) {
       continue;
     } else if (!mapped) {
-      sqlFieldsSet.add(snakeCase(graphqlField as any) as any);
+      sqlFieldsSet.add(snakeCase(graphqlField) as any);
     } else if (Array.isArray(mapped)) {
-      mapped.forEach((f) => sqlFieldsSet.add(f as any));
+      mapped.forEach((f) => sqlFieldsSet.add(f));
     } else {
       sqlFieldsSet.add(mapped as any);
     }
@@ -32,13 +36,13 @@ export function buildQuery<TGraphql, TSql>(
 
   const query = db()
     .table(tableName)
-    .select(Array.from(sqlFieldsSet) as any);
+    .select(Array.from(sqlFieldsSet));
 
   if (language) {
     query.where({ language });
   }
 
-  return query;
+  return query as any;
 }
 
 export function buildOneQuery<TGraphql, TSql>(
@@ -63,7 +67,7 @@ export function buildManyQuery<TGraphql, TSql>(
   tableName: string,
   options: BuilderOptions<TGraphql, TSql>,
   { page, count, orderBy, where }: ManyBuilderOptions<TSql>,
-) {
+): QueryBuilder<TSql & { count?: number }> {
   const query = buildQuery(tableName, options);
 
   // Filtering
@@ -99,7 +103,7 @@ export function buildConnectionQuery<TGraphql, TSql>(
   options: Omit<BuilderOptions<TGraphql, TSql>, 'fields'>,
   manyOptions: ManyBuilderOptions<TSql>,
   info: GraphQLResolveInfo,
-) {
+): QueryBuilder<TSql & { count?: number }> {
   const tree = gqf(info);
   const { nodes, count } = tree;
   const manyNodes = nodes || tree;
@@ -115,7 +119,7 @@ export function buildConnectionQuery<TGraphql, TSql>(
       query.where(manyOptions.where);
     }
 
-    return query;
+    return query as any;
   }
   return buildManyQuery(
     tableName,

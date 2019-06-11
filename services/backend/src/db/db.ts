@@ -9,7 +9,7 @@ const knexInstance = knex(config);
 let testTransaction: knex.Transaction | null = null;
 
 // tslint:disable-next-line:no-inferrable-types
-export function db(getKnexInstance: boolean = false) {
+export function db(getKnexInstance: boolean = false): knex<any, any> {
   if (env === 'test' && !getKnexInstance) {
     if (testTransaction) {
       return testTransaction;

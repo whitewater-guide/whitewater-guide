@@ -109,7 +109,7 @@ export class MobileAuthService extends BaseAuthService {
       }
       if (result.error) {
         Sentry.captureException(new Error('facebook sign in failed'));
-        return { success: false, error: result.error, status: 400 };
+        return { success: false, error: { form: result.error }, status: 400 };
       }
       // On real iOS device first backend login will fail
       // Probably because of this bug https://github.com/AFNetworking/AFNetworking/issues/4279

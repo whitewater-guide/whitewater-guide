@@ -1,5 +1,5 @@
-import commons from '../es/commons.json';
-import main from '../es/main.json';
+import commons from './commons.json';
+import main from './main.json';
 
 export default {
   ...main,

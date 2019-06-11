@@ -1,4 +1,4 @@
-import { toRomanDifficulty } from '@whitewater-guide/clients';
+import { toRomanDifficulty } from '@whitewater-guide/commons';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
