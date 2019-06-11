@@ -1,28 +1,48 @@
-import { AuthResponse, AuthService } from '@whitewater-guide/clients';
+import {
+  AuthResponse,
+  AuthService,
+  continuouslyAdvanceTimers,
+  flushPromises,
+} from '@whitewater-guide/clients';
 import { RefreshBody, SignInBody } from '@whitewater-guide/commons';
-import { MockResponse } from 'fetch-mock';
+import { AppState } from 'react-native';
+import { AccessToken, LoginManager } from 'react-native-fbsdk';
 import { AuthBody } from '../../../../commons/src/auth';
 import { fetchMock } from '../../test';
 import { MobileAuthService } from './service';
 import { tokenStorage } from './tokens';
 
 jest.mock('./tokens');
+jest.mock('AppState', () => ({
+  currentState: 'active ',
+  addEventListener: jest.fn(),
+  removeEventListener: jest.fn(),
+}));
 
 const UID = '__user_id__';
 const ACCESS_TOKEN = '__accessToken__';
 const REFRESH_TOKEN = '__refreshToken__';
 
-const resetApolloCache = jest.fn();
+const resetApolloCache = jest.fn().mockResolvedValue({});
 const onSignOut = jest.fn();
 let service: AuthService;
 
+jest.mock('../../utils/waitUntilActive', () => () => Promise.resolve());
+
 beforeEach(async () => {
+  jest.useFakeTimers();
   await tokenStorage.setAccessToken(null);
   await tokenStorage.setRefreshToken(null);
   jest.clearAllMocks();
   fetchMock.reset();
   service = new MobileAuthService(resetApolloCache, onSignOut);
+  // for init()
+  (AccessToken.getCurrentAccessToken as any).mockResolvedValueOnce(null);
   await service.init();
+});
+
+afterEach(() => {
+  jest.useRealTimers();
 });
 
 describe('refresh access token', () => {
@@ -90,7 +110,10 @@ describe('refresh access token', () => {
     it('should not force sign out in case of network error', async () => {
       const signOut = jest.spyOn(service, 'signOut');
       fetchMock.mock('end:refresh', { throws: new Error('network error') });
-      const resp = await service.refreshAccessToken();
+      const cancelAdvance = continuouslyAdvanceTimers();
+      const promise = service.refreshAccessToken();
+      const resp = await promise;
+      cancelAdvance();
       expect(resp).toEqual({
         success: false,
         error: {
@@ -121,14 +144,14 @@ describe('sign in', () => {
         resp = await service.signIn('local', { email: 'foo', password: 'bar' });
       });
 
-      it('should sign in locally', async () => {
+      it('should sign in locally', () => {
         expect(resp).toEqual({
           ...success,
           status: 200,
         });
       });
 
-      it('should reset apollo cache', async () => {
+      it('should reset apollo cache', () => {
         expect(resetApolloCache).toHaveBeenCalledTimes(1);
       });
 
@@ -169,13 +192,14 @@ describe('sign in', () => {
       let resp: AuthResponse;
 
       beforeEach(async () => {
-        jest.useFakeTimers();
         fetchMock.mock('end:signin', mock);
-        resp = await service.signIn('local', { email: 'foo', password: 'bar' });
-        for (let i = 0; i < 18; i++) {
-          jest.advanceTimersByTime(1000);
-          await Promise.resolve(); // allow any pending jobs in the PromiseJobs queue to run
-        }
+        const promise = service.signIn('local', {
+          email: 'foo',
+          password: 'bar',
+        });
+        const cancelAdvance = continuouslyAdvanceTimers();
+        resp = await promise;
+        cancelAdvance();
       });
 
       it('should not sign in', () => {
@@ -189,6 +213,97 @@ describe('sign in', () => {
       it('should not save any tokens', async () => {
         await expect(tokenStorage.getAccessToken()).resolves.toBeNull();
         await expect(tokenStorage.getRefreshToken()).resolves.toBeNull();
+      });
+    });
+  });
+
+  describe('facebook', () => {
+    describe('success', () => {
+      const success: AuthBody<SignInBody> = {
+        success: true,
+        accessToken: ACCESS_TOKEN,
+        refreshToken: REFRESH_TOKEN,
+        id: UID,
+      };
+      let resp: AuthResponse;
+
+      beforeEach(async () => {
+        resp = undefined;
+        fetchMock.mock('glob:*facebook/signin*', success);
+        (LoginManager.logInWithReadPermissions as any).mockResolvedValue({});
+        (AccessToken.getCurrentAccessToken as any).mockResolvedValue({
+          accessToken: '__fb_access_token__',
+        });
+        const promise = service.signIn('facebook');
+        await Promise.resolve().then(() => jest.advanceTimersByTime(5000));
+        resp = await promise;
+      });
+
+      it('should sign via fb', () => {
+        expect(resp).toEqual({
+          ...success,
+          status: 200,
+        });
+      });
+
+      it('should reset apollo cache', () => {
+        expect(resetApolloCache).toHaveBeenCalledTimes(1);
+      });
+
+      it('should save tokens', async () => {
+        await expect(tokenStorage.getAccessToken()).resolves.toBe(ACCESS_TOKEN);
+        await expect(tokenStorage.getRefreshToken()).resolves.toBe(
+          REFRESH_TOKEN,
+        );
+      });
+    });
+
+    describe('errors', () => {
+      it('should return error when user canceled', async () => {
+        (LoginManager.logInWithReadPermissions as any).mockResolvedValue({
+          isCancelled: true,
+        });
+        const resp = await service.signIn('facebook');
+        expect(resp.success).toBe(false);
+      });
+      it('should not hit backend when user canceled', async () => {
+        (LoginManager.logInWithReadPermissions as any).mockResolvedValue({
+          isCancelled: true,
+        });
+        await service.signIn('facebook');
+        expect(fetchMock.calls()).toHaveLength(0);
+      });
+      it('should not reset cache when user canceled', async () => {
+        (LoginManager.logInWithReadPermissions as any).mockResolvedValue({
+          isCancelled: true,
+        });
+        await service.signIn('facebook');
+        expect(resetApolloCache).not.toHaveBeenCalled();
+      });
+
+      it('should return fb error', async () => {
+        (LoginManager.logInWithReadPermissions as any).mockResolvedValue({
+          error: 'fb_error',
+        });
+        const resp = await service.signIn('facebook');
+        expect(resp).toEqual({
+          success: false,
+          error: { form: 'fb_error' },
+          status: 400,
+        });
+      });
+
+      it('should return fb error when access token is unavailable', async () => {
+        (LoginManager.logInWithReadPermissions as any).mockReturnValue({});
+        (AccessToken.getCurrentAccessToken as any).mockResolvedValue(null);
+        const promise = service.signIn('facebook');
+        await Promise.resolve().then(() => jest.advanceTimersByTime(2000));
+        const resp = await promise;
+        expect(resp).toEqual({
+          success: false,
+          error: { form: 'fb_access_token_not_found' },
+          status: 400,
+        });
       });
     });
   });
