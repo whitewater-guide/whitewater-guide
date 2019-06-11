@@ -3990,6 +3990,9 @@ div.mc-image {
 }
 
 /****************** HOW IT WORKS SECTION **********************/
+section.how-it-works {
+  background-color: #eee;
+}
 .how-it-works p {
   font-size: 21px;
   font-weight: 200;
@@ -4044,6 +4047,12 @@ div.mc-image {
   }
 }
 
+/****************** IndieGoGo **********************/
+
+.indiegogo p {
+  font-size: 21px;
+  font-weight: 200;
+}
 /****************** FEATURES **********************/
 .features p {
   font-size: 21px;
@@ -4294,6 +4303,11 @@ ul.social-icons li a i {
   }
 }
 /****************** About US **********************/
+section.crew {
+  background-color: #eee;
+  margin-bottom: 0px;
+  padding-bottom: 100px;
+}
 .crew-img {
   border-radius: 50%;
   height: 240px;
