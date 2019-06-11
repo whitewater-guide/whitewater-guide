@@ -1293,10 +1293,10 @@
     react-native-safe-area-view "^0.14.1"
     react-native-screens "^1.0.0 || ^1.0.0-alpha"
 
-"@redux-saga/core@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@redux-saga/core/-/core-1.0.2.tgz#4336a5bb4253e5ca69681c25a863fbbc03ea6d88"
-  integrity sha512-AsJYcpuYfM1cmxJvfhXs9HAFSZVEG17TMsLPlXH7+Hq5a5ZP4GqcbtijEmS2AC7NR5lLJHy8csxpqz22PeW5dw==
+"@redux-saga/core@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@redux-saga/core/-/core-1.0.3.tgz#c29ec7ae3d7dfcbcb8dc93177f2b3edc798c5d85"
+  integrity sha512-zf8h5N0oTzaNeSMxOWH9GJMB9IRSM8JubDsrZVsvVltXjzFFSR8DNt7tbPoRJUK0hFfQB1it+bL+dEMWpD7wXA==
   dependencies:
     "@babel/runtime" "^7.0.0"
     "@redux-saga/deferred" "^1.0.1"
@@ -1796,10 +1796,18 @@
     "@types/react" "*"
     "@types/react-native" "*"
 
-"@types/react-native@*", "@types/react-native@>=0.50.0", "@types/react-native@^0.57.60":
+"@types/react-native@*", "@types/react-native@>=0.50.0":
   version "0.57.60"
   resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.57.60.tgz#61e97a84e2f64ed971e7d238bb30cec188898235"
   integrity sha512-zObrnRsCbpM7qDm97d8+5qiSIMMYRaWgpqu6orjbjzLUAcJaKnpBMXgW6bRXWkFBjHgm3hjDAdVVGMWlrYJBdw==
+  dependencies:
+    "@types/prop-types" "*"
+    "@types/react" "*"
+
+"@types/react-native@^0.57.61":
+  version "0.57.61"
+  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.57.61.tgz#126580a9bb9c5dcb0150bdce816aefafe24be12e"
+  integrity sha512-w4hEbLfRSmQaiaDxwZKxm3BtvOf+IC3iCtq/QXT/67yTdV2EXiIiMco2lSs/rJO2T/cr9K68OCnzfv7KQ7rlZw==
   dependencies:
     "@types/prop-types" "*"
     "@types/react" "*"
@@ -1882,10 +1890,10 @@
   resolved "https://registry.yarnpkg.com/@types/yargs/-/yargs-12.0.12.tgz#45dd1d0638e8c8f153e87d296907659296873916"
   integrity sha512-SOhuU4wNBxhhTHxYaiG5NY4HBhDIDnJF60GU+2LqHAdKKer86//e4yg69aENCtQ04n0ovz+tq2YPME5t5yp4pw==
 
-"@types/yup@^0.26.14":
-  version "0.26.14"
-  resolved "https://registry.yarnpkg.com/@types/yup/-/yup-0.26.14.tgz#d31f3b9a04039cca70ebb4db4d6c7fc3f694e80b"
-  integrity sha512-OcBtVLHvYULVSltpuBdhFiVOKoSsOS58D872HydO93oBf3OdGq5zb+LnqGo18TNNSV2aW8hjIdS6H+wp68zFtQ==
+"@types/yup@^0.26.15":
+  version "0.26.15"
+  resolved "https://registry.yarnpkg.com/@types/yup/-/yup-0.26.15.tgz#7ca57421bcd45bb0ce514a7a9eef82aa4b7b77b8"
+  integrity sha512-YFNqtrYC7/FUcD8OLiRaqGbMdwh/ctRRfWFm4k4dEYBliPP9vKJAttWvnhpEv+dSV/6K3MBkvIUHQUo+8dykcA==
 
 "@types/zen-observable@0.8.0", "@types/zen-observable@^0.8.0":
   version "0.8.0"
@@ -1897,10 +1905,10 @@
   resolved "https://registry.yarnpkg.com/@types/zxcvbn/-/zxcvbn-4.4.0.tgz#fbc1d941cc6d9d37d18405c513ba6b294f89b609"
   integrity sha512-GQLOT+SN20a+AI51y3fAimhyTF4Y0RG+YP3gf91OibIZ7CJmPFgoZi+ZR5a+vRbS01LbQosITWum4ATmJ1Z6Pg==
 
-"@whitewater-guide/clients@^0.0.228":
-  version "0.0.228"
-  resolved "https://registry.yarnpkg.com/@whitewater-guide/clients/-/clients-0.0.228.tgz#f402e2e75bfb5b7c6e65d98842da65f8a14c045b"
-  integrity sha512-/wpDDXrszX6TaPdVIukhAv+MZw3pTKTH96+UttAhedgXjy6JCkhqJiVZ5IJtcqYSU9VtfzOggK9VBtH2wmcNdA==
+"@whitewater-guide/clients@^0.0.229":
+  version "0.0.229"
+  resolved "https://registry.yarnpkg.com/@whitewater-guide/clients/-/clients-0.0.229.tgz#a7e26f7667d881d9643797ffe73c0d2a9fb246e5"
+  integrity sha512-SMHtrdIshEtKNhEWyMo/j5IScv7dx9npIXwkOVyGxAaNOsm8aOvdLZaA0kz+d4gxBAsnopUPgoYBaTRNtd5KOg==
   dependencies:
     "@testing-library/react" "^8.0.1"
     "@types/jest" "^24.0.13"
@@ -9722,10 +9730,10 @@ react-native-storybook-loader@^1.8.0:
     glob "^7.1.1"
     yargs "^8.0.2"
 
-react-native-svg@^9.4.0:
-  version "9.4.0"
-  resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-9.4.0.tgz#e428e0eae55aebd2355f1ff4f22675dad4611960"
-  integrity sha512-IVJlVbS2dAPerPr927fEi4uXzrPXzlra5ddgyJXZZ2IKA2ZygyYWFZDM+vsQs+Vj20CfL8nOWszQQV57vdQgFg==
+react-native-svg@^9.5.1:
+  version "9.5.1"
+  resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-9.5.1.tgz#eb21fa7eb5d71649620541e6549c6ed425d80240"
+  integrity sha512-cRGfomzG/5LEwuJ6ct3m5yccckeI9aj8BNYwDPVxOeJ84LuJuvk5OqcjlYNeEzOWmWiH+QrFXfpLH1ag04bUeQ==
 
 react-native-swipe-gestures@^1.0.3:
   version "1.0.3"
@@ -9744,10 +9752,10 @@ react-native-tab-view@^2.5.0:
   resolved "https://registry.yarnpkg.com/react-native-tab-view/-/react-native-tab-view-2.5.0.tgz#b13ac4d9e0666db58c1a55af62f12dee8a6e4bfa"
   integrity sha512-nU/zTUA3WFV7wZN3lw0xCJmXvFzBjxHMCJXmTNPQeoQNsmwapNNgpbyZ6CgjfTVTXsv14vOYxx3HwQCy0i1gbA==
 
-react-native-testing-library@^1.8.0:
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/react-native-testing-library/-/react-native-testing-library-1.8.0.tgz#2c79ff20551be11b4e645745397cdaceff6d2e69"
-  integrity sha512-8N0gPJeeyGEZj4z8/feshUjC9rpTHUkwiTXSZJX3AXxs7cBybOZyxhloCvd+X3UrGd3LYEUWp/RxzlUonbBmWg==
+react-native-testing-library@^1.9.1:
+  version "1.9.1"
+  resolved "https://registry.yarnpkg.com/react-native-testing-library/-/react-native-testing-library-1.9.1.tgz#458f32ffa86b4f767f05d90475edd04c119f4595"
+  integrity sha512-8yOKu47096p/nl6riIXToidWzmvvoYxVFOG84vb7huT4/HBpfq8FqQJlg7Ck+7Uyq//xBK9c26uAKRsNgTQZWQ==
   dependencies:
     pretty-format "^24.0.0"
 
@@ -10210,12 +10218,12 @@ redux-saga-test-plan@^4.0.0-beta.3:
     object-assign "^4.1.0"
     util-inspect "^0.1.8"
 
-redux-saga@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/redux-saga/-/redux-saga-1.0.2.tgz#0599703f975438f1b2f9d2b9a965ec58f0fdfcd7"
-  integrity sha512-dHV256by3eF2AnBPx1l3HqazQFkErZ82HDXgh4jSRpT72OrX31wyg8DA1q8+0HvENRfJAyhT/4qT5yH/vVqFfw==
+redux-saga@^1.0.2, redux-saga@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/redux-saga/-/redux-saga-1.0.3.tgz#23e1c71fca6752ce52db3aaba4ecca657d7a9a1f"
+  integrity sha512-ORo16st4cvrS+tpthMi6mJz1mMIuM//0EKFPAZjKTvDglRDebc7vTOJa0oeqT0iAZeYupusAstprFb0+3YDw/w==
   dependencies:
-    "@redux-saga/core" "^1.0.2"
+    "@redux-saga/core" "^1.0.3"
 
 redux@4.x, "redux@>=0.10 <5", redux@^4.0.0:
   version "4.0.1"
@@ -11543,6 +11551,11 @@ ts-invariant@^0.4.0, ts-invariant@^0.4.2:
   integrity sha512-uEtWkFM/sdZvRNNDL3Ehu4WVpwaulhwQszV8mrtcdeE8nN00BV9mAmQ88RkrBhFgl9gMgvjJLAQcZbnPXI9mlA==
   dependencies:
     tslib "^1.9.3"
+
+tslib@^1.10.0:
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.10.0.tgz#c3c19f95973fb0a62973fb09d90d961ee43e5c8a"
+  integrity sha512-qOebF53frne81cf0S9B41ByenJ3/IuH8yJKngAX35CmiZySA0khhkovshKK+jGCaMnVomla7gVlIcc3EvKPbTQ==
 
 tslib@^1.9.0, tslib@^1.9.3:
   version "1.9.3"
