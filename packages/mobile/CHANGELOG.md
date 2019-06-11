@@ -1,3 +1,9 @@
+## [1.7.83](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.82...@whitewater-guide/mobile@1.7.83) (2019-06-11)
+
+### Features
+
+- **mobile:** update privacy policy ([993f64c](https://github.com/doomsower/whitewater/commit/993f64c))
+
 ## [1.7.82](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.80...@whitewater-guide/mobile@1.7.82) (2019-06-11)
 
 ### Bug Fixes
