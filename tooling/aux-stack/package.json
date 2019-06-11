@@ -1,9 +1,9 @@
 {
-  "name": "@whitewater-guide/sentry",
+  "name": "@whitewater-guide/aux-stack",
   "private": true,
   "version": "0.0.6",
   "license": "UNLICENSED",
-  "description": "sentry stack from for whitewater.guide",
+  "description": "aux stack from for whitewater.guide",
   "repository": "https://github.com/doomsower/whitewater.git",
   "author": "doomsower <K.Kuznetcov@gmail.com>",
   "scripts": {
