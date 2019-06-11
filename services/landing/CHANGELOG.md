@@ -1,3 +1,9 @@
+## [0.0.38](https://github.com/doomsower/whitewater/compare/@whitewater-guide/landing@0.0.37...@whitewater-guide/landing@0.0.38) (2019-06-11)
+
+### Features
+
+- **landing:** crowdfunding and privacy policy updates ([8bab5bb](https://github.com/doomsower/whitewater/commit/8bab5bb))
+
 ## [0.0.37](https://github.com/doomsower/whitewater/compare/@whitewater-guide/landing@0.0.35...@whitewater-guide/landing@0.0.37) (2019-06-07)
 
 ### Features

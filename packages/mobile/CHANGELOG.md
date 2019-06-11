@@ -1,3 +1,13 @@
+## [1.7.82](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.80...@whitewater-guide/mobile@1.7.82) (2019-06-11)
+
+### Bug Fixes
+
+- **mobile:** fix languages confusion ([526d97a](https://github.com/doomsower/whitewater/commit/526d97a))
+
+### Features
+
+- more mobile auth service tests ([3376164](https://github.com/doomsower/whitewater/commit/3376164))
+
 ## [1.7.81](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.80...@whitewater-guide/mobile@1.7.81) (2019-06-10)
 
 ### Features

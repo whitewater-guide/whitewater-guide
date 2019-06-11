@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/aux-stack",
   "private": true,
-  "version": "0.0.6",
+  "version": "0.0.7",
   "license": "UNLICENSED",
   "description": "aux stack from for whitewater.guide",
   "repository": "https://github.com/doomsower/whitewater.git",
