@@ -313,4 +313,21 @@ describe('other fields', () => {
       .first();
     expect(user).toHaveProperty('language', 'fr');
   });
+
+  it('should use en for not supported languages (explicit)', async () => {
+    const resp = await agent(app)
+      .post(ROUTE)
+      .send({
+        email: 'foo@bar.com',
+        password: 'L0ng___p@ssW0rD',
+        language: 'ar',
+      });
+    const id = resp.body.id;
+    const user = await db(false)
+      .select('*')
+      .from('users')
+      .where({ id })
+      .first();
+    expect(user).toHaveProperty('language', 'en');
+  });
 });

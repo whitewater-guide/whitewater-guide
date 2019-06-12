@@ -1,3 +1,9 @@
+## [0.0.357](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.356...@whitewater-guide/backend@0.0.357) (2019-06-12)
+
+### Bug Fixes
+
+- **backend:** fixed signup lang bug ([c7324e2](https://github.com/doomsower/whitewater/commit/c7324e2))
+
 ## [0.0.356](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.355...@whitewater-guide/backend@0.0.356) (2019-06-09)
 
 ### Features
