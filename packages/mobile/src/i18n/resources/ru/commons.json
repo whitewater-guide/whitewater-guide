@@ -37,5 +37,7 @@
   "password": "Пароль",
   "allYear": "Круглый год",
   "earlyMonth": "начало {{month, month}}",
-  "lateMonth": "конец {{month, month}}"
+  "lateMonth": "конец {{month, month}}",
+  "privacyPolicy": "Политика Конфиденциальности",
+  "termsOfService": "Пользовательское соглашение"
 }
