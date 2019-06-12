@@ -150,7 +150,10 @@
         "facebook": "Sign up with Facebook",
         "gotAccount": "Already have an account?",
         "signin": "Sign In",
-        "legalNotice": "By creating an account, I accept whitewater.guide's"
+        "privacyPolicy": "Privacy Policy",
+        "termsOfService": "Terms Of Service",
+        "legalNotice": "By creating an account, I accept whitewater.guide's",
+        "legalNotice2": "."
       },
       "register": {
         "title": "Registration",

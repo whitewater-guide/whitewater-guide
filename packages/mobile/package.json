@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/mobile",
   "private": true,
-  "version": "1.7.84",
+  "version": "1.7.85",
   "license": "UNLICENSED",
   "scripts": {
     "postinstall": "./scripts/postinstall.sh",

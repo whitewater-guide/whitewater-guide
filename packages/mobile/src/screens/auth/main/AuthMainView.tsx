@@ -45,12 +45,13 @@ export const AuthMainView: React.FC = () => {
         <Caption style={styles.caption}>
           {t('screens:auth.main.legalNotice') + ' '}
           <Text style={styles.link} onPress={showPolicy}>
-            {t('commons:privacyPolicy')}
+            {t('screens:auth.main.privacyPolicy')}
           </Text>
           {' ' + t('commons:and') + ' '}
           <Text style={styles.link} onPress={showTerms}>
-            {t('commons:termsOfService')}
+            {t('screens:auth.main.termsOfService')}
           </Text>
+          {t('screens:auth.main.legalNotice2')}
         </Caption>
       </View>
       <View>

@@ -1,3 +1,9 @@
+## [1.7.85](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.84...@whitewater-guide/mobile@1.7.85) (2019-06-12)
+
+### Features
+
+- **mobile:** improve translaion ([7dc2770](https://github.com/doomsower/whitewater/commit/7dc2770))
+
 ## [1.7.84](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.83...@whitewater-guide/mobile@1.7.84) (2019-06-12)
 
 ### Features
