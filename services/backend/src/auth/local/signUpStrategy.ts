@@ -3,6 +3,8 @@ import { UserRaw, UserRawInput } from '@features/users';
 import { LANGUAGES } from '@whitewater-guide/commons';
 import { hash } from 'bcrypt';
 import Negotiator from 'negotiator';
+// tslint:disable-next-line:no-submodule-imports
+import { preferredLanguages } from 'negotiator/lib/language';
 import { Strategy } from 'passport-local';
 import isEmail from 'validator/lib/isEmail';
 import { SALT_ROUNDS } from '../constants';
@@ -33,6 +35,14 @@ export const localSignUpStrategy = new Strategy(
       const negotiator = new Negotiator(req);
       const hashedPassword = await hash(password, SALT_ROUNDS);
       const verificationToken = await randomToken();
+      const explicitLangs = language
+        ? preferredLanguages(`${language.replace('_', '-')};q=1.0`, LANGUAGES)
+        : [];
+      const bestLanguage = [
+        ...explicitLangs,
+        ...negotiator.languages(LANGUAGES),
+        'en',
+      ][0];
       const userInput: Partial<UserRawInput> = {
         email,
         password: hashedPassword,
@@ -44,7 +54,7 @@ export const localSignUpStrategy = new Strategy(
           },
         ]),
         name,
-        language: language || negotiator.language(LANGUAGES),
+        language: bestLanguage,
         imperial,
       };
       let user: UserRaw;
