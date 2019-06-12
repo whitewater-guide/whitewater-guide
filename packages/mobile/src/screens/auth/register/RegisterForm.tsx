@@ -7,6 +7,7 @@ import { StyleSheet, View } from 'react-native';
 import { Button, TextInput, Title } from 'react-native-paper';
 import { PasswordField, TextField } from '../../../components/forms';
 import theme from '../../../theme';
+import Screens from '../../screen-names';
 import { useAuthSubmit } from '../useAuthSubmit';
 import getValidationSchema from './getValidationSchema';
 
@@ -30,7 +31,9 @@ export const RegisterForm: React.FC = React.memo(() => {
   );
   const { service } = useAuth();
   const { navigate } = useNavigation();
-  const onSuccess = useCallback(() => navigate('AuthWelcome'), [navigate]);
+  const onSuccess = useCallback(() => navigate(Screens.Auth.Welcome), [
+    navigate,
+  ]);
   const [submit] = useAuthSubmit(
     'screens:auth.register.',
     service.signUp,

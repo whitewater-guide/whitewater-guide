@@ -11,6 +11,7 @@ import { NavigationInjectedProps, withNavigation } from 'react-navigation';
 import { compose } from 'recompose';
 import { Icon, Left, Right, Row } from '../../../components';
 import theme from '../../../theme';
+import Screens from '../../screen-names';
 
 const styles = StyleSheet.create({
   popoverContent: {
@@ -51,7 +52,7 @@ class GaugeInfo extends React.PureComponent<InnerProps> {
       }
     } else if (index === 0) {
       navigation.navigate({
-        routeName: 'Plain',
+        routeName: Screens.Plain,
         params: {
           title: t('section:chart.gaugeMenu.aboutSource'),
           text: gauge.source.termsOfUse,

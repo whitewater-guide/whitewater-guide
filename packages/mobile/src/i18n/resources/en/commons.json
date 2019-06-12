@@ -37,5 +37,7 @@
   "password": "Password",
   "allYear": "All year around",
   "earlyMonth": "early {{month, month}}",
-  "lateMonth": "late {{month, month}}"
+  "lateMonth": "late {{month, month}}",
+  "privacyPolicy": "Privacy Policy",
+  "termsOfService": "Terms Of Service"
 }

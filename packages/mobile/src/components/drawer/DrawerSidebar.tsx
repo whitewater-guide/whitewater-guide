@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { Divider } from 'react-native-paper';
 import { NavigationActions } from 'react-navigation';
+import Screens from '../../screens/screen-names';
 import theme from '../../theme';
 import { isRouteFocused } from '../../utils/navigation';
 import { Logo } from '../Logo';
@@ -60,9 +61,9 @@ const DrawerSidebar: React.FC = () => {
         <DrawerItem
           label={t('drawer:signIn')}
           icon="exit-to-app"
-          routeName="AuthSignIn"
+          routeName={Screens.Auth.Main}
           onPress={navigate}
-          focused={isRouteFocused(state, 'AuthSignIn')}
+          focused={isRouteFocused(state, Screens.Auth.Main)}
         />
       )}
       <DrawerItem
@@ -75,33 +76,33 @@ const DrawerSidebar: React.FC = () => {
       <DrawerItem
         label={t('drawer:faq')}
         icon="help"
-        routeName="Plain"
+        routeName={Screens.Plain}
         params={{ fixture: 'faq', title: t('drawer:faq') }}
         onPress={navigate}
-        focused={isRouteFocused(state, 'Plain', { fixture: 'faq' })}
+        focused={isRouteFocused(state, Screens.Plain, { fixture: 'faq' })}
       />
       <Spacer />
       <DrawerItem
-        label={t('drawer:termsAndConditions')}
-        routeName="Plain"
+        label={t('commons:termsOfService')}
+        routeName={Screens.Plain}
         params={{
           fixture: 'termsAndConditions',
-          title: t('drawer:termsAndConditions'),
+          title: t('commons:termsOfService'),
         }}
         onPress={navigate}
-        focused={isRouteFocused(state, 'Plain', {
+        focused={isRouteFocused(state, Screens.Plain, {
           fixture: 'termsAndConditions',
         })}
       />
       <DrawerItem
-        label={t('drawer:privacyPolicy')}
-        routeName="Plain"
+        label={t('commons:privacyPolicy')}
+        routeName={Screens.Plain}
         params={{
           fixture: 'privacyPolicy',
-          title: t('drawer:privacyPolicy'),
+          title: t('commons:privacyPolicy'),
         }}
         onPress={navigate}
-        focused={isRouteFocused(state, 'Plain', {
+        focused={isRouteFocused(state, Screens.Plain, {
           fixture: 'privacyPolicy',
         })}
       />

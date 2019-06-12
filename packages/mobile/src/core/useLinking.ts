@@ -3,6 +3,7 @@ import { useCallback, useEffect } from 'react';
 import { Linking } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 import urlParse from 'url-parse';
+import Screens from '../screens/screen-names';
 import { BACKEND_URL } from '../utils/urls';
 import { apolloClient } from './apollo';
 
@@ -37,7 +38,7 @@ export const useLinking = ({ navigate }: NavigationScreenProp<any>) => {
     (url: URLish) => {
       const parts = parseURL(url);
       if (parts && isReset(parts)) {
-        navigate('AuthReset', parts.query);
+        navigate(Screens.Auth.Reset, parts.query);
       } else if (parts && isVerified(parts)) {
         apolloClient.query({ query: MY_PROFILE_QUERY }).catch(() => {});
       }

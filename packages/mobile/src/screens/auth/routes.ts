@@ -1,6 +1,8 @@
 import { NavigationRouteConfigMap } from 'react-navigation';
 import theme from '../../theme';
+import Screens from '../screen-names';
 import { ForgotScreen } from './forgot';
+import { AuthMainScreen } from './main';
 import { RegisterScreen } from './register';
 import { ResetScreen } from './reset';
 import { SignInScreen } from './signin';
@@ -17,23 +19,27 @@ const navigationOptions = {
 };
 
 export const AuthRoutes: NavigationRouteConfigMap = {
-  AuthSignIn: {
+  [Screens.Auth.Main]: {
+    screen: AuthMainScreen,
+    navigationOptions,
+  },
+  [Screens.Auth.SignIn]: {
     screen: SignInScreen,
     navigationOptions,
   },
-  AuthRegister: {
+  [Screens.Auth.Register]: {
     screen: RegisterScreen,
     navigationOptions,
   },
-  AuthForgot: {
+  [Screens.Auth.Forgot]: {
     screen: ForgotScreen,
     navigationOptions,
   },
-  AuthReset: {
+  [Screens.Auth.Reset]: {
     screen: ResetScreen,
     navigationOptions,
   },
-  AuthWelcome: {
+  [Screens.Auth.Welcome]: {
     screen: WelcomeScreen,
     navigationOptions: {
       ...navigationOptions,

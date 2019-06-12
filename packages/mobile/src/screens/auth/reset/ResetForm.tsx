@@ -10,6 +10,7 @@ import {
   PasswordField,
   SuccessText,
 } from '../../../components/forms';
+import Screens from '../../screen-names';
 import { useAuthSubmit } from '../useAuthSubmit';
 import getValidationSchema from './getValidationSchema';
 import { ResetParams } from './types';
@@ -25,7 +26,7 @@ export const ResetForm: React.FC<ResetParams> = ({ id, token }) => {
   );
   const { t } = useTranslation();
   const { navigate } = useNavigation();
-  const back = useCallback(() => navigate('AuthSignIn'), [navigate]);
+  const back = useCallback(() => navigate(Screens.Auth.SignIn), [navigate]);
   const { service } = useAuth();
   const [submit, isSuccessful] = useAuthSubmit(
     'screens:auth.reset.',
