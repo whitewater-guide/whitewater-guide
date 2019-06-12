@@ -1,3 +1,9 @@
+## [1.7.84](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.83...@whitewater-guide/mobile@1.7.84) (2019-06-12)
+
+### Features
+
+- **mobile:** add main auth screen ([38d85a4](https://github.com/doomsower/whitewater/commit/38d85a4))
+
 ## [1.7.83](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.82...@whitewater-guide/mobile@1.7.83) (2019-06-11)
 
 ### Features

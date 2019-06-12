@@ -145,6 +145,13 @@
           "send_failed": "Couldn't send an e-mail. Please try again."
         }
       },
+      "main": {
+        "local": "Sign up with email",
+        "facebook": "Sign up with Facebook",
+        "gotAccount": "Already have an account?",
+        "signin": "Sign In",
+        "legalNotice": "By creating an account, I accept whitewater.guide's"
+      },
       "register": {
         "title": "Registration",
         "name": "Username",
@@ -236,9 +243,7 @@
     "signIn": "Sign In",
     "facebookLogin": "Login with Facebook",
     "regions": "Regions",
-    "faq": "FAQ",
-    "termsAndConditions": "Terms and conditions",
-    "privacyPolicy": "Privacy policy"
+    "faq": "FAQ"
   },
   "myProfile": {
     "title": "My Profile",

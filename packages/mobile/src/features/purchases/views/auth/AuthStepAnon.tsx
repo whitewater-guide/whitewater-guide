@@ -3,6 +3,7 @@ import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 import { Button, Paragraph, Subheading } from 'react-native-paper';
+import Screens from '../../../../screens/screen-names';
 import theme from '../../../../theme';
 
 const styles = StyleSheet.create({
@@ -21,7 +22,7 @@ const AuthStepAnon: React.FC<Props> = ({ onCancel }) => {
     if (onCancel) {
       onCancel();
     }
-    navigation.navigate('AuthSignIn');
+    navigation.navigate(Screens.Auth.Main);
   }, [navigation, onCancel]);
   const { t } = useTranslation();
   return (

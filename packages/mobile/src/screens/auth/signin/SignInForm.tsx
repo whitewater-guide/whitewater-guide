@@ -1,5 +1,4 @@
-import { AuthResponse, Credentials, useAuth } from '@whitewater-guide/clients';
-import { SignInBody } from '@whitewater-guide/commons';
+import { Credentials, useAuth } from '@whitewater-guide/clients';
 import { useNavigation } from '@zhigang1992/react-navigation-hooks';
 import { Formik } from 'formik';
 import React, { createRef, useCallback } from 'react';
@@ -8,6 +7,7 @@ import { StyleSheet } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 import { PasswordField, TextField } from '../../../components/forms';
 import theme from '../../../theme';
+import Screens from '../../screen-names';
 import { useAuthSubmit } from '../useAuthSubmit';
 import getValidationSchema from './getValidationSchema';
 
@@ -27,7 +27,7 @@ export const SignInForm: React.FC = () => {
   const { loading } = useAuth();
   const { t } = useTranslation();
   const { navigate, popToTop } = useNavigation();
-  const forgot = useCallback(() => navigate('AuthForgot'), [navigate]);
+  const forgot = useCallback(() => navigate(Screens.Auth.Forgot), [navigate]);
   const { service } = useAuth();
   const localSignIn = useCallback(
     (values: Credentials) => service.signIn('local', values),
@@ -39,16 +39,9 @@ export const SignInForm: React.FC = () => {
       passwordField.current.focus();
     }
   }, [passwordField]);
-  const onSuccess = useCallback(
-    (resp: AuthResponse<SignInBody>) => {
-      if (resp.isNew) {
-        navigate('AuthWelcome', { verified: true });
-      } else {
-        popToTop();
-      }
-    },
-    [popToTop, navigate],
-  );
+  const onSuccess = useCallback(() => {
+    popToTop();
+  }, [popToTop]);
   const [submit] = useAuthSubmit(
     'screens:auth.signin.',
     localSignIn,
