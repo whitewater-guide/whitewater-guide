@@ -1,3 +1,10 @@
+## [0.0.157](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.156...@whitewater-guide/boompromo@0.0.157) (2019-06-14)
+
+### Features
+
+- **boompromo:** various fixes ([829eedf](https://github.com/doomsower/whitewater/commit/829eedf))
+- rename url 'boompromo' to just 'promo' ([8e4a383](https://github.com/doomsower/whitewater/commit/8e4a383))
+
 ## [0.0.156](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.155...@whitewater-guide/boompromo@0.0.156) (2019-06-14)
 
 ## [0.0.155](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.154...@whitewater-guide/boompromo@0.0.155) (2019-06-14)

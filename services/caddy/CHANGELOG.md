@@ -1,3 +1,9 @@
+## [0.0.130](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.129...@whitewater-guide/caddy@0.0.130) (2019-06-14)
+
+### Features
+
+- rename url 'boompromo' to just 'promo' ([8e4a383](https://github.com/doomsower/whitewater/commit/8e4a383))
+
 ## [0.0.129](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.127...@whitewater-guide/caddy@0.0.129) (2019-06-07)
 
 ## [0.0.128](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.127...@whitewater-guide/caddy@0.0.128) (2019-06-07)
