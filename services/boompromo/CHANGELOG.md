@@ -1,3 +1,9 @@
+## [0.0.155](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.154...@whitewater-guide/boompromo@0.0.155) (2019-06-14)
+
+### Features
+
+- update boompromo page ([78fa270](https://github.com/doomsower/whitewater/commit/78fa270))
+
 ## [0.0.154](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.152...@whitewater-guide/boompromo@0.0.154) (2019-06-11)
 
 ## [0.0.153](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.152...@whitewater-guide/boompromo@0.0.153) (2019-06-10)
