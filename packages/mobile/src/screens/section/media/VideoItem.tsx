@@ -39,16 +39,25 @@ interface State {
 }
 
 class VideoItem extends React.PureComponent<Props, State> {
+  private _mounted = false;
+
   state: State = { thumb: null };
 
   async componentDidMount() {
+    this._mounted = true;
     let thumb: VideoThumb | null = null;
     try {
       thumb = await getVideoThumb(this.props.video.url, PHOTO_SIZE);
     } catch (e) {
       trackError('VideoItem', e);
     }
-    this.setState({ thumb: thumb ? thumb.thumb : null });
+    if (this._mounted) {
+      this.setState({ thumb: thumb ? thumb.thumb : null });
+    }
+  }
+
+  componentWillUnmount() {
+    this._mounted = false;
   }
 
   onPress = () => Linking.openURL(this.props.video.url).catch(() => {});

@@ -83,7 +83,8 @@ class PhotoGallery extends React.PureComponent<Props> {
     if (index === undefined || !photos) {
       return <View />;
     }
-    const { description, copyright } = photos[index];
+    // There's a bug in react-native-image-viewer where it returns -1 index
+    const { description, copyright } = photos[Math.max(0, index)];
     return (
       <View>
         <Text style={styles.footerDescription}>

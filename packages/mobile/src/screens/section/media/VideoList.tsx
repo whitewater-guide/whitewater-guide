@@ -14,7 +14,7 @@ interface Props {
   videos?: Media[];
 }
 
-const VideoList: React.SFC<Props> = ({ videos }) => {
+const VideoList: React.FC<Props> = ({ videos }) => {
   if (!videos || videos.length === 0) {
     return <NoMedia kind={MediaKind.video} />;
   }
