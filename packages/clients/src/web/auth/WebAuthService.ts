@@ -70,7 +70,10 @@ export class WebAuthService extends BaseAuthService {
         web: true,
       });
     } else {
-      resp = await this._post('/auth/local/signin', credentials);
+      resp = await this._post('/auth/local/signin', {
+        ...credentials,
+        web: true,
+      });
     }
     if (this._onSignIn) {
       await this._onSignIn(resp);
@@ -79,7 +82,10 @@ export class WebAuthService extends BaseAuthService {
   }
 
   async signUp(payload: RegisterPayload): Promise<AuthResponse<SignInBody>> {
-    const resp = await this._post('/auth/local/signup', payload);
+    const resp = await this._post('/auth/local/signup', {
+      ...payload,
+      web: true,
+    });
     if (this._onSignIn) {
       await this._onSignIn(resp);
     }
@@ -87,9 +93,13 @@ export class WebAuthService extends BaseAuthService {
   }
 
   async signOut(force = false) {
-    await this._get(`/auth/logout`, undefined, {
-      mode: 'no-cors',
-    });
+    await this._get(
+      `/auth/logout`,
+      { web: true },
+      {
+        mode: 'no-cors',
+      },
+    );
     await this._fbSdkPromise;
     try {
       //
