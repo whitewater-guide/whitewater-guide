@@ -59,8 +59,9 @@ import subdomains/*
     to {path} landing_ru.html
   }
 
-  proxy /boompromo boompromo:8043 {
-    without /boompromo
+  rewrite /boompromo /promo
+  proxy /promo boompromo:8043 {
+    without /promo
     transparent
   }
 

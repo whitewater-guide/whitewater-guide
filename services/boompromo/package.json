@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.156",
   "license": "UNLICENSED",
-  "homepage": "/boompromo/",
+  "homepage": "/promo/",
   "scripts": {
     "prepublishOnly": "yarn build",
     "preversion": "yarn build",
