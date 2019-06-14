@@ -1,6 +1,7 @@
 import {
   AuthResponse,
   AuthService,
+  createApolloServerError,
   JWT_EXPIRED_CTX_KEY,
 } from '@whitewater-guide/clients';
 import {
@@ -11,24 +12,11 @@ import {
   Observable,
   Operation,
 } from 'apollo-link';
-import { ServerError } from 'apollo-link-http-common';
 import { OperationQueuing } from 'apollo-link-token-refresh';
 import decode from 'jwt-decode';
 import { ACCESS_TOKEN_CTX_KEY, getAccessTokenContext } from './acessTokenLink';
 
 const CLOCK_TOLERANCE = -1; // 1 second
-
-const createServerError = (resp: AuthResponse) => {
-  const errorString = resp.error
-    ? Object.entries(resp.error)[0].join('.')
-    : 'form.unknown_error';
-  const error = new Error(errorString) as ServerError;
-
-  error.name = 'ServerError';
-  error.statusCode = resp.status;
-  error.result = resp;
-  return error;
-};
 
 export class TokenRefreshLink extends ApolloLink {
   private _fetching = false;
@@ -90,7 +78,7 @@ export class TokenRefreshLink extends ApolloLink {
           .then((resp) => {
             const result = resp.success
               ? forward(operation)
-              : fromError(createServerError(resp));
+              : fromError(createApolloServerError(resp));
             handle = result.subscribe({
               next: observer.next.bind(observer),
               error: observer.error.bind(observer),

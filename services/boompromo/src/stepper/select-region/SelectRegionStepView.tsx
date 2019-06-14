@@ -1,39 +1,33 @@
-import Divider from '@material-ui/core/es/Divider';
+import { createStyles, Divider, Theme } from '@material-ui/core';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { StepProps } from '@material-ui/core/Step';
 import StepContent from '@material-ui/core/StepContent';
-import {
-  StyleRulesCallback,
-  withStyles,
-  WithStyles,
-} from '@material-ui/core/styles';
+import { withStyles, WithStyles } from '@material-ui/core/styles';
 import { Region } from '@whitewater-guide/commons';
 import React from 'react';
 import { Query, QueryResult } from 'react-apollo';
-import { Omit } from 'type-zoo';
 import { StepFooter } from '../../components';
 import NoRegions from './NoRegions';
 import { PROMO_REGIONS_QUERY, Result } from './promoRegions.query';
 import RegionSelector from './RegionSelector';
 
-type ClassNames = 'button' | 'progress' | 'divider';
-
-const styles: StyleRulesCallback<ClassNames> = (theme) => ({
-  progress: {
-    margin: theme.spacing.unit * 2,
-  },
-  button: {
-    marginTop: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-  },
-  divider: {
-    marginBottom: theme.spacing.unit * 2,
-    marginTop: theme.spacing.unit * 2,
-  },
-});
+const styles = (theme: Theme) =>
+  createStyles({
+    progress: {
+      margin: theme.spacing(2),
+    },
+    button: {
+      marginTop: theme.spacing(),
+      marginRight: theme.spacing(),
+    },
+    divider: {
+      marginBottom: theme.spacing(2),
+      marginTop: theme.spacing(2),
+    },
+  });
 
 type Props = Omit<StepProps, 'classes'> &
-  WithStyles<ClassNames> & {
+  WithStyles<typeof styles> & {
     prev: () => void;
     next: (region: Region) => void;
   };

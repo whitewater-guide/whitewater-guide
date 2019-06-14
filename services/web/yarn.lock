@@ -2573,10 +2573,10 @@
     "@webassemblyjs/wast-parser" "1.8.5"
     "@xtuc/long" "4.2.2"
 
-"@whitewater-guide/clients@^0.0.227":
-  version "0.0.227"
-  resolved "https://registry.yarnpkg.com/@whitewater-guide/clients/-/clients-0.0.227.tgz#3816c4dec495ff4ce3ce3f5101fd4de2791d0160"
-  integrity sha512-cixgaY0YyFCwG67QQVVOTOsjucR3Hlgccqa5GhO82esbvVlD+2kZCNo2ufcFeoxsXYztipRqAuJXmmjELp5vgA==
+"@whitewater-guide/clients@0.0.230-promo.11":
+  version "0.0.230-promo.11"
+  resolved "https://registry.yarnpkg.com/@whitewater-guide/clients/-/clients-0.0.230-promo.11.tgz#d0161bfe77d9ec1eba6f6a25fd36e91574974e61"
+  integrity sha512-oSN5KKMotTz+k29uX6TS3kLQgE3KXUAwdgNl+/fx5Pectvz2Xg4ut1C/FwOsLR3w2RJu/98jsqXxsrQ3WrTvgQ==
   dependencies:
     "@testing-library/react" "^8.0.1"
     "@types/jest" "^24.0.13"

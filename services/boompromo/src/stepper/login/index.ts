@@ -1,3 +1,3 @@
-import LoginStep from './LoginStepView';
+import LoginStepForm from './LoginStepForm';
 
-export default LoginStep;
+export default LoginStepForm;

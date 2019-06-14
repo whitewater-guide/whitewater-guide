@@ -1,79 +1,82 @@
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-import Stepper from '@material-ui/core/Stepper';
+import MUIStepper from '@material-ui/core/Stepper';
 import {
-  StyleRulesCallback,
+  createStyles,
+  Theme,
   withStyles,
   WithStyles,
 } from '@material-ui/core/styles';
-import { observable } from 'mobx';
-import { observer } from 'mobx-react';
 import React from 'react';
-import ConfirmStepView from './confirm/ConfirmStepView';
-import InputStep from './input';
+import { useTranslation } from 'react-i18next';
+import ConfirmStep from './confirm';
+import EnterCodeStep from './enter-code';
 import LoginStep from './login';
 import SelectRegionStep from './select-region';
-import { StepperStore } from './store';
+import { Steps } from './Steps';
+import { useStepper } from './useStepper';
 
-const styles: StyleRulesCallback<any> = (theme) => ({
-  root: {
-    alignItems: 'center',
-  },
-  button: {
-    marginRight: theme.spacing.unit,
-  },
-  completed: {
-    display: 'inline-block',
-  },
-  instructions: {
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit,
-  },
-});
+const styles = (theme: Theme) =>
+  createStyles({
+    root: {
+      alignItems: 'center',
+    },
+    button: {
+      marginRight: theme.spacing(),
+    },
+    completed: {
+      display: 'inline-block',
+    },
+    instructions: {
+      marginTop: theme.spacing(),
+      marginBottom: theme.spacing(),
+    },
+  });
 
-@observer
-class HorizontalNonLinearStepper extends React.Component<WithStyles<any>> {
-  @observable store: StepperStore = new StepperStore();
+const Stepper: React.FC<WithStyles<typeof styles>> = ({ classes }) => {
+  const {
+    activeStep,
+    completedSteps,
+    nextStep,
+    prevStep,
+    promo,
+    region,
+  } = useStepper();
+  const { t } = useTranslation();
+  return (
+    <div className={classes.root}>
+      <MUIStepper orientation="vertical" activeStep={activeStep}>
+        <Step
+          active={activeStep === Steps.LOGIN}
+          completed={completedSteps[Steps.LOGIN]}
+        >
+          <StepLabel>{t(`main:step${Steps.LOGIN}`)}</StepLabel>
+          <LoginStep next={nextStep} />
+        </Step>
+        <Step
+          active={activeStep === Steps.ENTER_CODE}
+          completed={completedSteps[Steps.ENTER_CODE]}
+        >
+          <StepLabel>{t(`main:step${Steps.ENTER_CODE}`)}</StepLabel>
+          <EnterCodeStep next={nextStep} prev={prevStep} />
+        </Step>
+        <Step
+          active={activeStep === Steps.SELECT_REGION}
+          completed={completedSteps[Steps.SELECT_REGION]}
+        >
+          <StepLabel>{t(`main:step${Steps.SELECT_REGION}`)}</StepLabel>
+          <SelectRegionStep next={nextStep} prev={prevStep} />
+        </Step>
+        <Step
+          active={activeStep === Steps.CONFIRM}
+          completed={completedSteps[Steps.CONFIRM]}
+        >
+          <StepLabel>{t(`main:step${Steps.CONFIRM}`)}</StepLabel>
+          <ConfirmStep prev={prevStep} region={region} promo={promo!} />
+        </Step>
+      </MUIStepper>
+    </div>
+  );
+};
 
-  render() {
-    const { classes } = this.props;
-    const {
-      activeStep,
-      completed,
-      nextStep,
-      prevStep,
-      username,
-      promoInfo,
-      region,
-    } = this.store;
-    return (
-      <div className={classes.root}>
-        <Stepper orientation="vertical" activeStep={activeStep}>
-          <Step active={activeStep === 0} completed={completed.get(0)}>
-            <StepLabel>Войдите</StepLabel>
-            <LoginStep next={nextStep} />
-          </Step>
-          <Step active={activeStep === 1} completed={completed.get(1)}>
-            <StepLabel>Введите промокод</StepLabel>
-            <InputStep next={nextStep} prev={prevStep} />
-          </Step>
-          <Step active={activeStep === 2} completed={completed.get(2)}>
-            <StepLabel>Выберите регион</StepLabel>
-            <SelectRegionStep next={nextStep} prev={prevStep} />
-          </Step>
-          <Step active={activeStep === 3} completed={completed.get(3)}>
-            <StepLabel>Активируйте промокод</StepLabel>
-            <ConfirmStepView
-              prev={prevStep}
-              region={region}
-              promo={promoInfo!}
-              username={username}
-            />
-          </Step>
-        </Stepper>
-      </div>
-    );
-  }
-}
-
-export default withStyles(styles)(HorizontalNonLinearStepper);
+export default withStyles(styles)(Stepper);

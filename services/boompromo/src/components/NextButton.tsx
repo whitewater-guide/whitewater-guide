@@ -1,55 +1,58 @@
-import Button from '@material-ui/core/Button';
+import Button, { ButtonProps } from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import {
-  StyleRulesCallback,
-  WithStyles,
-  withStyles,
-} from '@material-ui/core/styles';
+import { createStyles, WithStyles, withStyles } from '@material-ui/core/styles';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-type ClassNames = 'buttonProgress' | 'wrapper';
+const styles = () =>
+  createStyles({
+    buttonProgress: {
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      marginTop: -12,
+      marginLeft: -12,
+    },
+    wrapper: {
+      display: 'inline',
+      position: 'relative',
+    },
+  });
 
-const styles: StyleRulesCallback<ClassNames> = () => ({
-  buttonProgress: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    marginTop: -12,
-    marginLeft: -12,
-  },
-  wrapper: {
-    display: 'inline',
-    position: 'relative',
-  },
-});
-
-interface Props extends WithStyles<ClassNames> {
+interface Props
+  extends WithStyles<typeof styles>,
+    Omit<ButtonProps, 'classes'> {
   disabled: boolean;
   loading: boolean;
-  onClick: () => void;
+  onClick?: () => void;
   label?: string;
 }
 
-const NextButtonInner: React.SFC<Props> = ({
+const NextButtonInner: React.FC<Props> = ({
   classes,
   loading,
   disabled,
   onClick,
-  label = 'Продолжить',
-}) => (
-  <div className={classes.wrapper}>
-    <Button
-      variant="raised"
-      color="primary"
-      disabled={disabled || loading}
-      onClick={onClick}
-    >
-      {label}
-    </Button>
-    {loading && (
-      <CircularProgress size={24} className={classes.buttonProgress} />
-    )}
-  </div>
-);
+  label,
+  ...props
+}) => {
+  const { t } = useTranslation();
+  return (
+    <div className={classes.wrapper}>
+      <Button
+        {...props}
+        variant="contained"
+        color="primary"
+        disabled={disabled || loading}
+        onClick={loading ? undefined : onClick}
+      >
+        {label || t('main:nextStepButton')}
+      </Button>
+      {loading && (
+        <CircularProgress size={24} className={classes.buttonProgress} />
+      )}
+    </div>
+  );
+};
 
 export const NextButton = withStyles(styles)(NextButtonInner);
