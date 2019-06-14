@@ -1,6 +1,11 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { hydrate, render } from 'react-dom';
 import './i18n';
 import JssRoot from './JssRoot';
 
-ReactDOM.render(<JssRoot />, document.getElementById('root'));
+const rootElement = document.getElementById('root');
+if (rootElement && rootElement.hasChildNodes()) {
+  hydrate(<JssRoot />, rootElement);
+} else {
+  render(<JssRoot />, rootElement);
+}
