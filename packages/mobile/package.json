@@ -129,9 +129,9 @@
   "devDependencies": {
     "@babel/core": "^7.4.5",
     "@babel/runtime": "^7.4.5",
-    "@storybook/addon-actions": "^5.1.7",
-    "@storybook/addon-storyshots": "^5.1.7",
-    "@storybook/react-native": "5.1.7",
+    "@storybook/addon-actions": "^5.1.8",
+    "@storybook/addon-storyshots": "^5.1.8",
+    "@storybook/react-native": "5.1.8",
     "@types/d3-scale": "^2.1.1",
     "@types/dotenv": "^6.1.1",
     "@types/fetch-mock": "^7.3.0",
