@@ -1,3 +1,9 @@
+## [1.7.86](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.85...@whitewater-guide/mobile@1.7.86) (2019-06-14)
+
+### Bug Fixes
+
+- **mobile:** fixed photo gallery bug ([f0b70d5](https://github.com/doomsower/whitewater/commit/f0b70d5))
+
 ## [1.7.85](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.84...@whitewater-guide/mobile@1.7.85) (2019-06-12)
 
 ### Features
