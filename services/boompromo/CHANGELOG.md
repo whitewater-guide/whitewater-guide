@@ -1,3 +1,9 @@
+## [0.0.159](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.158...@whitewater-guide/boompromo@0.0.159) (2019-06-14)
+
+### Bug Fixes
+
+- **boompromo:** fix html page lang ([7576d73](https://github.com/doomsower/whitewater/commit/7576d73))
+
 ## [0.0.158](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.157...@whitewater-guide/boompromo@0.0.158) (2019-06-14)
 
 ### Features
