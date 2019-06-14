@@ -4,6 +4,9 @@ export async function flushPromises(ticks: number = 1) {
   }
 }
 
+// function flushPromise() {
+//   return new Promise((resolve) => setTimeout(resolve, 0));
+// }
 function flushPromise() {
-  return new Promise((resolve) => setTimeout(resolve, 0));
+  return new Promise((resolve) => setImmediate(resolve));
 }

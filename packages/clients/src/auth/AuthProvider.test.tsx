@@ -87,7 +87,7 @@ it('should refresh token', () => {
 });
 
 it('should render profile after initial loading', async () => {
-  await flushPromises();
+  await flushPromises(2);
   expect(utils.getByTestId('username')).toHaveTextContent('Test User');
   expect(utils.getByTestId('loading')).toHaveTextContent('Ready');
 });
