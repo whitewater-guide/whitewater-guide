@@ -11,6 +11,7 @@ import SvgIcon from '@material-ui/core/SvgIcon';
 import Typography from '@material-ui/core/Typography';
 import { AuthProvider, AuthService } from '@whitewater-guide/clients';
 import { WebAuthService } from '@whitewater-guide/clients/dist/web';
+import { ApolloClient } from 'apollo-client';
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import { Trans, WithTranslation, withTranslation } from 'react-i18next';
@@ -67,13 +68,28 @@ class App extends React.PureComponent<
 > {
   readonly state: State = { ready: false };
 
-  private _auth: AuthService = new WebAuthService(API_HOST, FACEBOOK_APP_ID);
-  private _apollo = initApolloClient(this._auth);
+  private readonly _auth: AuthService;
+  private readonly _apollo: ApolloClient<any>;
+
+  constructor(props: any) {
+    super(props);
+    this._auth = new WebAuthService(
+      API_HOST,
+      FACEBOOK_APP_ID,
+      this.resetApolloStore,
+      this.resetApolloStore,
+    );
+    this._apollo = initApolloClient(this._auth);
+  }
 
   async componentWillMount() {
     await this._auth.init();
     this.setState({ ready: true });
   }
+
+  resetApolloStore = async () => {
+    await this._apollo.resetStore();
+  };
 
   renderStepper = () => {
     const { classes } = this.props;

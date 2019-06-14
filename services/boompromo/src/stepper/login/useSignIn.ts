@@ -2,6 +2,7 @@ import { AuthResponse } from '@whitewater-guide/clients';
 import { FormikConfig, FormikHelpers } from 'formik';
 import mapValues from 'lodash/mapValues';
 import { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 type ApiCall<Values> = (v: Values) => Promise<AuthResponse>;
 type SuccessCallback = (resp: AuthResponse<any>) => void;
@@ -9,10 +10,10 @@ type SuccessCallback = (resp: AuthResponse<any>) => void;
 export type UseAuthSubmit<Values> = [FormikConfig<Values>['onSubmit'], boolean];
 
 const useSignIn = <Values>(
-  errorPrefix: string,
   apiCall: ApiCall<Values>,
   onSuccess?: SuccessCallback,
 ): UseAuthSubmit<Values> => {
+  const { t } = useTranslation();
   const [isSuccessful, setIsSuccessful] = useState(false);
 
   const submit = useCallback(
@@ -28,21 +29,22 @@ const useSignIn = <Values>(
             }
           } else {
             if (error) {
-              actions.setErrors(mapValues(
-                error,
-                (v, k) => `${errorPrefix}${k}.${v}`,
+              actions.setErrors(mapValues(error, (v, k) =>
+                t(`login:errors.${k}.${v}`),
               ) as any);
             }
           }
         })
         .catch(() => {
-          actions.setErrors({ form: `${errorPrefix}form.fetch_error` } as any);
+          actions.setErrors({
+            form: t(`login:errors.form.fetch_error`),
+          } as any);
         })
         .finally(() => {
           actions.setSubmitting(false);
         });
     },
-    [apiCall, errorPrefix, onSuccess, setIsSuccessful],
+    [apiCall, onSuccess, setIsSuccessful, t],
   );
 
   return [submit, isSuccessful];

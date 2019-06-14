@@ -44,7 +44,7 @@ const LoginStepForm: React.FC<Props> = (props) => {
     (values: Credentials) => service.signIn('local', values),
     [service],
   );
-  const [submit] = useSignIn('default:login.errors.', localSignIn, next);
+  const [submit] = useSignIn(localSignIn, next);
   const onPressFB = useCallback(
     () =>
       service.signIn('facebook').then(({ success }) => {

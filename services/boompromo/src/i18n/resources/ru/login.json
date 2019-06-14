@@ -1,4 +1,17 @@
 {
   "facebookButton": "Продолжить через Facebook",
-  "password": "Пароль"
+  "password": "Пароль",
+  "errors": {
+    "email": {
+      "not_found": "e-mail не найден",
+      "not_local": "Этот e-mail не может быть использован для входа с паролем"
+    },
+    "password": {
+      "mismatch": "Неверный пароль",
+      "error": "Что-то пошло не так"
+    },
+    "form": {
+      "fetch_error": "Ошибка соединения с Интернет"
+    }
+  }
 }

@@ -39,19 +39,19 @@ const PromptView: React.FC<PromptViewProps & WithStyles<typeof styles>> = (
     onNext,
     onPrev,
   } = props;
-  if (!promo) {
-    return null;
-  }
   const { i18nKey, values } = useMemo(
     () => ({
       i18nKey: 'confirm:prompt.list.' + (region ? 'region' : 'group'),
       values: {
-        name: region ? region.name : promo.groupName,
+        name: region ? region.name : promo && promo.groupName,
         username,
       },
     }),
     [region, promo, username],
   );
+  if (!promo) {
+    return null;
+  }
   return (
     <React.Fragment>
       <Typography variant="subtitle1">
