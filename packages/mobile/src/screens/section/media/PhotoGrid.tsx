@@ -26,7 +26,7 @@ interface Props {
   onPress: (index: number) => void;
 }
 
-const PhotoGrid: React.SFC<Props> = ({ photos, onPress }) => {
+const PhotoGrid: React.FC<Props> = ({ photos, onPress }) => {
   if (!photos || photos.length === 0) {
     return <NoMedia kind={MediaKind.photo} />;
   }
