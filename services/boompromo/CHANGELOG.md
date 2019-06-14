@@ -1,3 +1,9 @@
+## [0.0.158](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.157...@whitewater-guide/boompromo@0.0.158) (2019-06-14)
+
+### Features
+
+- add react-snap ([1477796](https://github.com/doomsower/whitewater/commit/1477796))
+
 ## [0.0.157](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.156...@whitewater-guide/boompromo@0.0.157) (2019-06-14)
 
 ### Features
