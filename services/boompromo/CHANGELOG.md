@@ -1,3 +1,32 @@
+## [0.0.160](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.159...@whitewater-guide/boompromo@0.0.160) (2019-06-14)
+
+## [0.0.159](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.158...@whitewater-guide/boompromo@0.0.159) (2019-06-14)
+
+### Bug Fixes
+
+- **boompromo:** fix html page lang ([7576d73](https://github.com/doomsower/whitewater/commit/7576d73))
+
+## [0.0.158](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.157...@whitewater-guide/boompromo@0.0.158) (2019-06-14)
+
+### Features
+
+- add react-snap ([1477796](https://github.com/doomsower/whitewater/commit/1477796))
+
+## [0.0.157](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.156...@whitewater-guide/boompromo@0.0.157) (2019-06-14)
+
+### Features
+
+- **boompromo:** various fixes ([829eedf](https://github.com/doomsower/whitewater/commit/829eedf))
+- rename url 'boompromo' to just 'promo' ([8e4a383](https://github.com/doomsower/whitewater/commit/8e4a383))
+
+## [0.0.156](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.155...@whitewater-guide/boompromo@0.0.156) (2019-06-14)
+
+## [0.0.155](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.154...@whitewater-guide/boompromo@0.0.155) (2019-06-14)
+
+### Features
+
+- update boompromo page ([78fa270](https://github.com/doomsower/whitewater/commit/78fa270))
+
 ## [0.0.154](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.152...@whitewater-guide/boompromo@0.0.154) (2019-06-11)
 
 ## [0.0.153](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.152...@whitewater-guide/boompromo@0.0.153) (2019-06-10)

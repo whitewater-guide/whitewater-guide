@@ -1,1 +1,1 @@
-export * from './configureApollo';
+export * from './initApolloClient';

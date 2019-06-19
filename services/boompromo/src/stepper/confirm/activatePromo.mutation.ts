@@ -10,3 +10,7 @@ export const ACTIVATE_PROMO_MUTATION = gql`
 export interface Vars {
   purchase: PurchaseInput;
 }
+
+export interface Result {
+  addPurchase: boolean;
+}

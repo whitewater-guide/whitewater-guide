@@ -1,3 +1,17 @@
+## [0.0.232](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.231...@whitewater-guide/clients@0.0.232) (2019-06-14)
+
+## [0.0.231](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.230...@whitewater-guide/clients@0.0.231) (2019-06-14)
+
+### Bug Fixes
+
+- **clients:** fix web auth ([15cb901](https://github.com/doomsower/whitewater/commit/15cb901))
+
+## [0.0.230](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.229...@whitewater-guide/clients@0.0.230) (2019-06-14)
+
+### Features
+
+- update boompromo page ([78fa270](https://github.com/doomsower/whitewater/commit/78fa270))
+
 ## [0.0.229](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.227...@whitewater-guide/clients@0.0.229) (2019-06-11)
 
 ## [0.0.228](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.227...@whitewater-guide/clients@0.0.228) (2019-06-10)

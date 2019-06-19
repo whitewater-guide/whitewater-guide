@@ -1,12 +1,18 @@
+import { callWithTimeout } from '../../../utils';
 import { FacebookProfile, FBSDK } from './types';
 
 const FB_ELEMENT_ID = 'facebook-jssdk';
 
+// In dev environment some promises fb api callbacks are never called, hence timeouts
 export const fbWebService = {
-  getLoginStatus: (): Promise<facebook.StatusResponse> =>
-    new Promise((resolve) => {
-      FB.getLoginStatus(resolve);
-    }),
+  getLoginStatus: (roundtrip?: boolean): Promise<facebook.StatusResponse> =>
+    callWithTimeout(
+      () =>
+        new Promise((resolve) => {
+          FB.getLoginStatus(resolve, roundtrip);
+        }),
+      1000,
+    ),
   getMyProfile: (): Promise<FacebookProfile> =>
     new Promise((resolve) => {
       FB.api('/me?fields=id,name,picture', resolve);
@@ -20,7 +26,7 @@ export const fbWebService = {
       window.fbAsyncInit = () => {
         FB.init({
           appId,
-          version: 'v3.2',
+          version: 'v3.3',
           xfbml: false,
           autoLogAppEvents: true,
         });
@@ -39,7 +45,11 @@ export const fbWebService = {
       FB.login(resolve, { scope: 'public_profile, email' });
     }),
   logout: (): Promise<facebook.StatusResponse> =>
-    new Promise((resolve) => {
-      FB.logout(resolve);
-    }),
+    callWithTimeout(
+      () =>
+        new Promise((resolve) => {
+          FB.logout(resolve);
+        }),
+      1000,
+    ),
 };

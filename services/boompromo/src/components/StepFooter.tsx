@@ -1,25 +1,25 @@
 import Button from '@material-ui/core/Button';
 import {
-  StyleRulesCallback,
+  createStyles,
+  Theme,
   withStyles,
   WithStyles,
 } from '@material-ui/core/styles';
-import React, { Component } from 'react';
+import React, { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { NextButton } from './NextButton';
 
-type ClassNames = 'prevButton' | 'actionsContainer';
+const styles = (theme: Theme) =>
+  createStyles({
+    prevButton: {
+      marginRight: theme.spacing(),
+    },
+    actionsContainer: {
+      marginBottom: theme.spacing(2),
+    },
+  });
 
-const styles: StyleRulesCallback<ClassNames> = (theme) => ({
-  prevButton: {
-    marginTop: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-  },
-  actionsContainer: {
-    marginBottom: theme.spacing.unit * 2,
-  },
-});
-
-interface Props extends WithStyles<ClassNames> {
+interface Props extends WithStyles<typeof styles> {
   nextData?: any;
   nextDisabled: boolean;
   nextLoading: boolean;
@@ -29,37 +29,37 @@ interface Props extends WithStyles<ClassNames> {
   onPrev?: () => void;
 }
 
-class StepFooterInner extends Component<Props> {
-  onClick = () => {
-    const { onNext, nextData } = this.props;
-    if (onNext) {
-      onNext(nextData);
-    }
-  };
-
-  render() {
+const StepFooterInner: React.FC<Props> = (props) => {
+  {
     const {
       classes,
       nextDisabled,
       nextLabel,
+      nextData,
       nextLoading,
       onNext,
-      prevLabel = 'Назад',
+      prevLabel,
       onPrev,
-    } = this.props;
+    } = props;
+    const onClick = useCallback(() => {
+      if (onNext) {
+        onNext(nextData);
+      }
+    }, [onNext, nextData]);
+    const { t } = useTranslation();
     return (
       <div className={classes.actionsContainer}>
         <div>
           {onPrev && (
             <Button onClick={onPrev} className={classes.prevButton}>
-              {prevLabel}
+              {prevLabel || t('main:prevStepButton')}
             </Button>
           )}
           {!!onNext && (
             <NextButton
               loading={nextLoading}
               disabled={nextDisabled}
-              onClick={this.onClick}
+              onClick={onClick}
               label={nextLabel}
             />
           )}
@@ -67,6 +67,6 @@ class StepFooterInner extends Component<Props> {
       </div>
     );
   }
-}
+};
 
 export const StepFooter = withStyles(styles)(StepFooterInner);

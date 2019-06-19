@@ -28,7 +28,7 @@ export class MobileAuthService extends BaseAuthService {
   ) {
     super(BACKEND_URL);
     LoginManager.setLoginBehavior(
-      Platform.OS === 'ios' ? 'native' : 'native_with_fallback',
+      Platform.OS === 'ios' ? 'browser' : 'native_with_fallback',
     );
     AppState.addEventListener('change', this.onAppStateChange);
   }
@@ -96,7 +96,7 @@ export class MobileAuthService extends BaseAuthService {
   ): Promise<AuthResponse<SignInBody>> {
     let resp: AuthResponse<SignInBody>;
     if (type === 'facebook') {
-      const result: LoginResult = await LoginManager.logInWithReadPermissions([
+      const result: LoginResult = await LoginManager.logInWithPermissions([
         'public_profile',
         'email',
       ]);

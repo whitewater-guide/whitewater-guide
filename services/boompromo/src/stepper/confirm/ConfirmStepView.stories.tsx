@@ -5,7 +5,6 @@ import { action } from '@storybook/addon-actions';
 import { storiesOf } from '@storybook/react';
 import React from 'react';
 import ConfirmStepView from './ConfirmStepView';
-import { getMockStore } from './store';
 
 storiesOf('ConfirmStepView', module)
   .addDecorator((story) => (
@@ -30,7 +29,8 @@ storiesOf('ConfirmStepView', module)
           redeemed: false,
         }}
         region={null}
-        prev={action('prev')}
+        onPrev={action('prev')}
+        onNext={action('next')}
       />
     );
   })
@@ -46,13 +46,12 @@ storiesOf('ConfirmStepView', module)
           redeemed: false,
         }}
         region={{ id: 'aa', name: 'Грузия', ski: 'region.georgia' } as any}
-        prev={action('prev')}
+        onPrev={action('prev')}
+        onNext={action('next')}
       />
     );
   })
   .add('error', () => {
-    const store = getMockStore();
-    store.error = 'Похоже этот промокод уже активирован';
     return (
       <ConfirmStepView
         username="Вася Пупкин"
@@ -64,15 +63,13 @@ storiesOf('ConfirmStepView', module)
           redeemed: false,
         }}
         region={{ id: 'aa', name: 'Грузия', ski: 'region.georgia' } as any}
-        prev={action('prev')}
-        store={store}
+        onPrev={action('prev')}
+        onNext={action('next')}
+        error="Похоже этот промокод уже активирован"
       />
     );
   })
   .add('loading', () => {
-    const store = getMockStore();
-    store.loading = true;
-    store.error = 'Похоже этот промокод уже активирован';
     return (
       <ConfirmStepView
         username="Вася Пупкин"
@@ -84,16 +81,16 @@ storiesOf('ConfirmStepView', module)
           redeemed: false,
         }}
         region={{ id: 'aa', name: 'Грузия', ski: 'region.georgia' } as any}
-        prev={action('prev')}
-        store={store}
+        loading={true}
+        onPrev={action('prev')}
+        onNext={action('next')}
       />
     );
   })
   .add('success - single region', () => {
-    const store = getMockStore();
-    store.success = true;
     return (
       <ConfirmStepView
+        success={true}
         username="Вася Пупкин"
         promo={{
           id: 'x',
@@ -103,16 +100,15 @@ storiesOf('ConfirmStepView', module)
           redeemed: false,
         }}
         region={{ id: 'aa', name: 'Грузия', ski: 'region.georgia' } as any}
-        prev={action('prev')}
-        store={store}
+        onPrev={action('prev')}
+        onNext={action('next')}
       />
     );
   })
   .add('success - group all', () => {
-    const store = getMockStore();
-    store.success = true;
     return (
       <ConfirmStepView
+        success={true}
         username="Вася Пупкин"
         promo={{
           id: 'x',
@@ -122,16 +118,15 @@ storiesOf('ConfirmStepView', module)
           redeemed: false,
         }}
         region={null}
-        prev={action('prev')}
-        store={store}
+        onPrev={action('prev')}
+        onNext={action('next')}
       />
     );
   })
   .add('success - group eu cis', () => {
-    const store = getMockStore();
-    store.success = true;
     return (
       <ConfirmStepView
+        success={true}
         username="Вася Пупкин"
         promo={{
           id: 'x',
@@ -141,27 +136,8 @@ storiesOf('ConfirmStepView', module)
           redeemed: false,
         }}
         region={null}
-        prev={action('prev')}
-        store={store}
-      />
-    );
-  })
-  .add('failure', () => {
-    const store = getMockStore();
-    store.success = false;
-    return (
-      <ConfirmStepView
-        username="Вася Пупкин"
-        promo={{
-          id: 'x',
-          groupSku: null,
-          groupName: null,
-          code: 'qwertyui',
-          redeemed: false,
-        }}
-        region={{ id: 'aa', name: 'Грузия', ski: 'region.georgia' } as any}
-        prev={action('prev')}
-        store={store}
+        onPrev={action('prev')}
+        onNext={action('next')}
       />
     );
   });

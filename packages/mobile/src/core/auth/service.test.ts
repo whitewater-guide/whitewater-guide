@@ -230,7 +230,7 @@ describe('sign in', () => {
       beforeEach(async () => {
         resp = undefined;
         fetchMock.mock('glob:*facebook/signin*', success);
-        (LoginManager.logInWithReadPermissions as any).mockResolvedValue({});
+        (LoginManager.logInWithPermissions as any).mockResolvedValue({});
         (AccessToken.getCurrentAccessToken as any).mockResolvedValue({
           accessToken: '__fb_access_token__',
         });
@@ -260,21 +260,21 @@ describe('sign in', () => {
 
     describe('errors', () => {
       it('should return error when user canceled', async () => {
-        (LoginManager.logInWithReadPermissions as any).mockResolvedValue({
+        (LoginManager.logInWithPermissions as any).mockResolvedValue({
           isCancelled: true,
         });
         const resp = await service.signIn('facebook');
         expect(resp.success).toBe(false);
       });
       it('should not hit backend when user canceled', async () => {
-        (LoginManager.logInWithReadPermissions as any).mockResolvedValue({
+        (LoginManager.logInWithPermissions as any).mockResolvedValue({
           isCancelled: true,
         });
         await service.signIn('facebook');
         expect(fetchMock.calls()).toHaveLength(0);
       });
       it('should not reset cache when user canceled', async () => {
-        (LoginManager.logInWithReadPermissions as any).mockResolvedValue({
+        (LoginManager.logInWithPermissions as any).mockResolvedValue({
           isCancelled: true,
         });
         await service.signIn('facebook');
@@ -282,7 +282,7 @@ describe('sign in', () => {
       });
 
       it('should return fb error', async () => {
-        (LoginManager.logInWithReadPermissions as any).mockResolvedValue({
+        (LoginManager.logInWithPermissions as any).mockResolvedValue({
           error: 'fb_error',
         });
         const resp = await service.signIn('facebook');
@@ -294,7 +294,7 @@ describe('sign in', () => {
       });
 
       it('should return fb error when access token is unavailable', async () => {
-        (LoginManager.logInWithReadPermissions as any).mockReturnValue({});
+        (LoginManager.logInWithPermissions as any).mockReturnValue({});
         (AccessToken.getCurrentAccessToken as any).mockResolvedValue(null);
         const promise = service.signIn('facebook');
         await Promise.resolve().then(() => jest.advanceTimersByTime(2000));

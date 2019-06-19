@@ -1,3 +1,15 @@
+## [0.0.40](https://github.com/doomsower/whitewater/compare/@whitewater-guide/landing@0.0.39...@whitewater-guide/landing@0.0.40) (2019-06-14)
+
+### Features
+
+- rename url 'boompromo' to just 'promo' ([8e4a383](https://github.com/doomsower/whitewater/commit/8e4a383))
+
+## [0.0.39](https://github.com/doomsower/whitewater/compare/@whitewater-guide/landing@0.0.38...@whitewater-guide/landing@0.0.39) (2019-06-14)
+
+### Features
+
+- **landing:** add boompromo link ([e446111](https://github.com/doomsower/whitewater/commit/e446111))
+
 ## [0.0.38](https://github.com/doomsower/whitewater/compare/@whitewater-guide/landing@0.0.37...@whitewater-guide/landing@0.0.38) (2019-06-11)
 
 ### Features

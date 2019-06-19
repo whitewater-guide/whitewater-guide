@@ -1,6 +1,7 @@
 import React from 'react';
 import { addDecorator, configure } from '@storybook/react';
 import { withRoot } from '../src/theme';
+import '../src/i18n';
 
 const Root = withRoot('div');
 

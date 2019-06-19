@@ -1,0 +1,9 @@
+{
+  "errors": {
+    "redeemed": "This promo code has been activated before",
+    "graphqlErrors": "Oops! Something is broken. Please try again",
+    "badCode": "Invalid promo code",
+    "network": "Oops! Something is broken. Please try again"
+  },
+  "code": "Promo code"
+}
