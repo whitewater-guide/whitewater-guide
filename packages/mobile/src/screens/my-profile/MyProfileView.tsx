@@ -1,5 +1,4 @@
 import { useAuth } from '@whitewater-guide/clients';
-
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
@@ -36,14 +35,14 @@ const styles = StyleSheet.create({
 const MyProfileView: React.FC = React.memo(() => {
   const { t } = useTranslation();
   const { me, refreshProfile } = useAuth();
-  if (!me) {
-    return <RetryPlaceholder labelKey={'myProfile:notLoggedIn'} />;
-  }
   const [refreshing, setRefreshing] = useState(false);
   const refresh = useCallback(() => {
     setRefreshing(true);
     refreshProfile().finally(() => setRefreshing(false));
   }, [refreshProfile, setRefreshing]);
+  if (!me) {
+    return <RetryPlaceholder labelKey={'myProfile:notLoggedIn'} />;
+  }
   const username = me.name || '';
   return (
     <Screen noScroll={true} noPadding={true}>
