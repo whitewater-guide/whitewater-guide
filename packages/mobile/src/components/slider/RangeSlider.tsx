@@ -244,12 +244,16 @@ export class RangeSlider extends React.PureComponent<RangeSliderProps> {
       selectedTrackColor,
       backgroundTrackColor,
       thumbRadius,
+      defaultTrackWidth,
+      defaultTrackPageX,
     } = this.props;
+    const onTrackLayout =
+      defaultTrackWidth && defaultTrackPageX ? undefined : this.onTrackLayout;
     return (
       <View>
         <View
           ref={this.setTrack}
-          onLayout={this.onTrackLayout}
+          onLayout={onTrackLayout}
           collapsable={false}
           style={this._trackStyle.track}
         >
