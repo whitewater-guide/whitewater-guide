@@ -6,7 +6,7 @@
   "scripts": {
     "start": "craco start",
     "start:local": "REACT_APP_API=http://api.local.whitewater.guide REACT_APP_S3=http://s3.local.whitewater.guide craco start",
-    "start:beta": "REACT_APP_API=http://api.beta.whitewater.guide REACT_APP_S3=http://s3.beta.whitewater.guide craco start",
+    "start:beta": "HTTPS=true REACT_APP_API=http://api.beta.whitewater.guide REACT_APP_S3=http://s3.beta.whitewater.guide craco start",
     "build": "craco build",
     "analyze": "source-map-explorer build/static/js/main.*",
     "tsc": "tsc",
@@ -100,6 +100,7 @@
     "victory": "^32.3.0"
   },
   "devDependencies": {
+    "@sentry/browser": "^5.4.3",
     "@sentry/cli": "^1.45.0",
     "@storybook/addon-actions": "5.1.9",
     "@storybook/react": "5.1.9",
@@ -120,7 +121,6 @@
     "@types/prop-types": "^15.7.1",
     "@types/prosemirror-state": "^1.2.1",
     "@types/qs": "^6.5.3",
-    "@types/raven": "^2.5.2",
     "@types/react": "16.8.22",
     "@types/react-copy-to-clipboard": "^4.2.5",
     "@types/react-dom": "^16.8.4",

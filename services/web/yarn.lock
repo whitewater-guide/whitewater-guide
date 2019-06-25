@@ -1262,6 +1262,16 @@
     react-lifecycles-compat "^3.0.4"
     warning "^3.0.0"
 
+"@sentry/browser@^5.4.3":
+  version "5.4.3"
+  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-5.4.3.tgz#c9b56611c6b7de624962d2ea3fc0a9318f44a853"
+  integrity sha512-5fPlco0/65RpyNy9LMURrZhX1RT1+CAoR06yU65ZB81N3oRuAGDYE85Hs62t0T3EEGTKrMundINHcq8UD1V0xw==
+  dependencies:
+    "@sentry/core" "5.4.3"
+    "@sentry/types" "5.4.2"
+    "@sentry/utils" "5.4.2"
+    tslib "^1.9.3"
+
 "@sentry/cli@^1.45.0":
   version "1.45.0"
   resolved "https://registry.yarnpkg.com/@sentry/cli/-/cli-1.45.0.tgz#a330ce2c6877ab7a61ead7cd22456a2e22a8062c"
@@ -1273,6 +1283,48 @@
     node-fetch "^2.1.2"
     progress "2.0.0"
     proxy-from-env "^1.0.0"
+
+"@sentry/core@5.4.3":
+  version "5.4.3"
+  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-5.4.3.tgz#c9e3a6cc9f5e296c5a5e19a7a925d9ee9125a95f"
+  integrity sha512-VjRv9BXip2BtCSohi/WQra+Ep4B8ajer1nU1VpKy5tUCjpVfXRpitY23EdEl+MVJH7h6YPZ45JsuFiKGgrtaFQ==
+  dependencies:
+    "@sentry/hub" "5.4.3"
+    "@sentry/minimal" "5.4.3"
+    "@sentry/types" "5.4.2"
+    "@sentry/utils" "5.4.2"
+    tslib "^1.9.3"
+
+"@sentry/hub@5.4.3":
+  version "5.4.3"
+  resolved "https://registry.yarnpkg.com/@sentry/hub/-/hub-5.4.3.tgz#d6936f976435dd552e06a6a3e9f8cd643e9b9b3f"
+  integrity sha512-97bnk2dDuCdFv2xhujogqPiDDpKOsHxBXH1jOJ5ezr3/uZNsMRr450FDxxJJYDLuSx+qZ/+vUFfdVNjprBsuSg==
+  dependencies:
+    "@sentry/types" "5.4.2"
+    "@sentry/utils" "5.4.2"
+    tslib "^1.9.3"
+
+"@sentry/minimal@5.4.3":
+  version "5.4.3"
+  resolved "https://registry.yarnpkg.com/@sentry/minimal/-/minimal-5.4.3.tgz#afaa8f7a3b5074efa8d70a2edac920b2e0cdbe15"
+  integrity sha512-xSCcKDtVtlmJIGmnlNH2fL++4l7iORJ+pOOfTz1Yjm/Il7Tz9wLVodbEfplXmAbOvgG/x9oilbW0MBSnrwKPfQ==
+  dependencies:
+    "@sentry/hub" "5.4.3"
+    "@sentry/types" "5.4.2"
+    tslib "^1.9.3"
+
+"@sentry/types@5.4.2":
+  version "5.4.2"
+  resolved "https://registry.yarnpkg.com/@sentry/types/-/types-5.4.2.tgz#4ab327bced2cfd961dc7a29f0ff43398f913f6a6"
+  integrity sha512-yh1fd7x5lLOIZ8W3A1I792B3jowJVCWp4HcTRikjTsjbF8lcURY62m+hiLYUFPTIX99AlFRIPiApDkWiwMGYMA==
+
+"@sentry/utils@5.4.2":
+  version "5.4.2"
+  resolved "https://registry.yarnpkg.com/@sentry/utils/-/utils-5.4.2.tgz#c88c6c08d635e1744a443cfefe9e2ed7fa250e4e"
+  integrity sha512-AW7/TGt2HiPQB8lJ8NgMgaFAIDQpKDF+wV8nENRbC1CP1zzcvb1QBF4zBL2auDT4fhkhVa817064s7vlDiJVLQ==
+  dependencies:
+    "@sentry/types" "5.4.2"
+    tslib "^1.9.3"
 
 "@sheerun/mutationobserver-shim@^0.3.2":
   version "0.3.2"
@@ -1962,13 +2014,6 @@
   resolved "https://registry.yarnpkg.com/@types/qs/-/qs-6.5.3.tgz#1c3b71b091eaeaf5924538006b7f70603ce63d38"
   integrity sha512-Jugo5V/1bS0fRhy2z8+cUAHEyWOATaz4rbyLVvcFs7+dXp5HfwpEwzF1Q11bB10ApUqHf+yTauxI0UXQDwGrbA==
 
-"@types/raven@^2.5.2":
-  version "2.5.3"
-  resolved "https://registry.yarnpkg.com/@types/raven/-/raven-2.5.3.tgz#bd4bed667dd9cfda39452f8ed64a87f45233bc3a"
-  integrity sha512-k6vxiX5I6/GEqJS9mMYPVIgMJf/X26n09NfzuqBpdcEp684RIwpdrwCgSyJGuy8EaSG1wc2rFP7xVEAixPzw7Q==
-  dependencies:
-    "@types/node" "*"
-
 "@types/react-addons-linked-state-mixin@*":
   version "0.14.20"
   resolved "https://registry.yarnpkg.com/@types/react-addons-linked-state-mixin/-/react-addons-linked-state-mixin-0.14.20.tgz#5f0cd884ace049d538982a3b254f4807b9395eb6"
@@ -2371,14 +2416,14 @@
     "@webassemblyjs/wast-parser" "1.8.5"
     "@xtuc/long" "4.2.2"
 
-"@whitewater-guide/clients@0.0.233":
-  version "0.0.233"
-  resolved "https://registry.yarnpkg.com/@whitewater-guide/clients/-/clients-0.0.233.tgz#b9e272e300793fa60ec91d93c64f56039deb95f4"
-  integrity sha512-kDobs2DmB4oDm+AUFOmsQRtKQt7GKubtNruPzhC7/CBI7glEZpSYVG9TR2EM3ENHL6FJUMtCez9oG8J4tvpF2w==
+"@whitewater-guide/clients@^0.0.234":
+  version "0.0.234"
+  resolved "https://registry.yarnpkg.com/@whitewater-guide/clients/-/clients-0.0.234.tgz#922be632fb142d42df85df57c178a11f9edaeaff"
+  integrity sha512-HIOzz5ko+QIPUAfa0csUa6M32O+Hrx1dj7pw1YaE2IsqBRSFGWRZ47Of1m7gTk2ga+JXUQqGjICQ5knYReUjiw==
   dependencies:
     "@testing-library/react" "^8.0.1"
     "@types/jest" "^24.0.13"
-    "@whitewater-guide/commons" "^0.0.138"
+    "@whitewater-guide/commons" "^0.0.139"
     apollo-cache "^1.3.2"
     apollo-cache-inmemory "^1.6.2"
     apollo-client "^2.6.2"
@@ -2405,10 +2450,10 @@
     typescript-fsa "^3.0.0-beta-2"
     url-parse "^1.4.7"
 
-"@whitewater-guide/commons@^0.0.138":
-  version "0.0.138"
-  resolved "https://registry.yarnpkg.com/@whitewater-guide/commons/-/commons-0.0.138.tgz#2dc1123e6cd2d54f8663a4757360137e80c80cad"
-  integrity sha512-mqItt37Mg0Xigbyh3hIolh1lW2yZwtuIuLovnt9KEZAjS+dnopBbkm9JgIAEhY2qy7FgDjNPR6D2Gp4jEzwbdg==
+"@whitewater-guide/commons@^0.0.139":
+  version "0.0.139"
+  resolved "https://registry.yarnpkg.com/@whitewater-guide/commons/-/commons-0.0.139.tgz#14b885f19b557c4ddf6924e623ac1be6f1188330"
+  integrity sha512-cFlJxYzVBB/eAxCkzer3761aoeB8fGRJuev7hNefbWKv+QRzcCG9dW7yY5vX6VPSXh0Jp20DvFnyTc+VUM4gTA==
   dependencies:
     cron-parser "^2.11.0"
     lodash "^4.17.11"
