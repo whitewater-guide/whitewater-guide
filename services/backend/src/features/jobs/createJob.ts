@@ -26,7 +26,7 @@ export const createJob = (
         });
       }
     } else {
-      logger.error({
+      logger.warn({
         message: 'Harvest failed',
         tags: { script, gauge: gauge && gauge.code },
         extra: { error },
