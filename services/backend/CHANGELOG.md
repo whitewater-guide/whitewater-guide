@@ -1,3 +1,9 @@
+## [0.0.360](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.359...@whitewater-guide/backend@0.0.360) (2019-06-25)
+
+### Features
+
+- improve backend sentry ([f40bb22](https://github.com/doomsower/whitewater/commit/f40bb22))
+
 ## [0.0.359](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.357...@whitewater-guide/backend@0.0.359) (2019-06-25)
 
 ## [0.0.358](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.357...@whitewater-guide/backend@0.0.358) (2019-06-25)

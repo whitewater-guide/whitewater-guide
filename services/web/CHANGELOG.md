@@ -1,3 +1,9 @@
+## [0.1.357](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.356...@whitewater-guide/web@0.1.357) (2019-06-25)
+
+### Bug Fixes
+
+- remove test button ([4e64156](https://github.com/doomsower/whitewater/commit/4e64156))
+
 ## [0.1.356](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.355...@whitewater-guide/web@0.1.356) (2019-06-25)
 
 ### Bug Fixes
