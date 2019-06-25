@@ -1,3 +1,4 @@
+import { MenuList } from '@material-ui/core';
 import Popover from '@material-ui/core/Popover';
 import {
   createStyles,
@@ -96,16 +97,18 @@ const RegionSelector: React.FC<Props> = (props) => {
             disableAutoFocus={true}
             disableEnforceFocus={true}
           >
-            {filterRegions(regions, inputValue).map((region, index) => (
-              <RegionItem
-                key={region.id}
-                region={region}
-                index={index}
-                itemProps={getItemProps({ item: region })}
-                highlightedIndex={highlightedIndex}
-                selectedItem={selectedItem}
-              />
-            ))}
+            <MenuList>
+              {filterRegions(regions, inputValue).map((region, index) => (
+                <RegionItem
+                  key={region.id}
+                  region={region}
+                  index={index}
+                  itemProps={getItemProps({ item: region })}
+                  highlightedIndex={highlightedIndex}
+                  selectedItem={selectedItem}
+                />
+              ))}
+            </MenuList>
           </Popover>
         </div>
       )}
