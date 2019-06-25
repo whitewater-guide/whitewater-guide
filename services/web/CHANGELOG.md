@@ -1,3 +1,9 @@
+## [0.1.356](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.355...@whitewater-guide/web@0.1.356) (2019-06-25)
+
+### Bug Fixes
+
+- fix REACT_APP_SENTRY_DSN ([4883b66](https://github.com/doomsower/whitewater/commit/4883b66))
+
 ## [0.1.355](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.354...@whitewater-guide/web@0.1.355) (2019-06-25)
 
 ## [0.1.354](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.353...@whitewater-guide/web@0.1.354) (2019-06-25)
