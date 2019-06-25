@@ -2,8 +2,8 @@
   "success": {
     "title": "Success!",
     "description": {
-      "region": "The promo code has been activated<br/><br/>Your reward is: one region of a choice - <4>{{name}}</4><br/><br/>Premium content is now available in the app under your account",
-      "group": "The promo code has been activated<br/><br/>Your reward is: a group of regions - <4>{{name}}</4><br/><br/>Premium content is now available in the app under your account"
+      "region": "The promo code has been activated<br/><br/>Your perk is: one region of a choice - <4>{{name}}</4><br/><br/>Premium content is now available in the app under your account",
+      "group": "The promo code has been activated<br/><br/>Your perk is: a group of regions - <4>{{name}}</4><br/><br/>Premium content is now available in the app under your account"
     },
     "restart": "Start again"
   },
@@ -11,8 +11,8 @@
     "subtitle": "You've almost activated your promo code <strong>{{code}}</strong>",
     "check": "Double check this:",
     "list": {
-      "region": "<0>Your reward is: one region of a choice - <strong>{{name}}</strong></0><1>Your account: <strong>{{username}}</strong></1>",
-      "group": "<0>Your reward is: a group of regions - <strong>{{name}}</strong></0><1>Your account: <strong>{{username}}</strong></1>"
+      "region": "<0>Your perk is: one region of a choice - <strong>{{name}}</strong></0><1>Your account: <strong>{{username}}</strong></1>",
+      "group": "<0>Your perk is: a group of regions - <strong>{{name}}</strong></0><1>Your account: <strong>{{username}}</strong></1>"
     },
     "activateButton": "Activate!"
   },
