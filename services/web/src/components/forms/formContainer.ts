@@ -14,7 +14,6 @@ import {
   SubmissionError,
 } from 'redux-form';
 import { Kind } from 'superstruct';
-import { Omit } from 'type-zoo';
 import { withLoading } from '../withLoading';
 import { validateInput } from './validation';
 

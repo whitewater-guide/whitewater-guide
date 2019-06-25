@@ -1,6 +1,5 @@
 import { Context } from '@apollo';
 import { UserRawInput } from '@features/users';
-import { Omit } from 'type-zoo';
 
 export const fakeContext = (
   user?: UserRawInput,

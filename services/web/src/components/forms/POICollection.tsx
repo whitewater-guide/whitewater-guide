@@ -12,7 +12,6 @@ import {
   GenericFieldArray,
   WrappedFieldArrayProps,
 } from 'redux-form';
-import { Omit } from 'type-zoo';
 import { Styles } from '../../styles';
 import { PointInput } from './PointInput';
 

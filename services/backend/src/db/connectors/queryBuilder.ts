@@ -4,7 +4,6 @@ import { GraphQLResolveInfo } from 'graphql';
 import gqf from 'graphql-fields';
 import Knex, { QueryBuilder } from 'knex';
 import snakeCase from 'lodash/snakeCase';
-import { Omit } from 'type-zoo';
 import { BuilderOptions, FieldsMap, ManyBuilderOptions } from './types';
 
 export function buildQuery<TGraphql, TSql>(

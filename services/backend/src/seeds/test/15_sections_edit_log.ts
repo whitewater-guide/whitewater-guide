@@ -1,5 +1,4 @@
 import Knex from 'knex';
-import { Omit } from 'type-zoo';
 import { SectionsEditLogRaw } from '../../features/sections';
 import { ADMIN_ID, EDITOR_GE_ID } from './01_users';
 import { REGION_GEORGIA, REGION_NORWAY } from './04_regions';

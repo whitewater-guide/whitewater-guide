@@ -17,7 +17,6 @@ import {
   TableCellRenderer,
   TableProps,
 } from 'react-virtualized';
-import { Omit } from 'type-zoo';
 import { RegionFinder } from '../regions';
 import { UserFinder } from '../users';
 import { DiffButton } from './DiffButton';
@@ -44,9 +43,9 @@ class HistoryTable extends React.PureComponent<Props> {
   renderSection: TableCellRenderer = ({ rowData: { section } }) => {
     const { id, name, river, region } = section as Section;
     return (
-      <Link to={`/regions/${region.id}/sections/${id}#main`}>{`${
-        river.name
-      } -- ${name}`}</Link>
+      <Link
+        to={`/regions/${region.id}/sections/${id}#main`}
+      >{`${river.name} -- ${name}`}</Link>
     );
   };
 
@@ -105,7 +104,7 @@ class HistoryTable extends React.PureComponent<Props> {
     } = this.props;
     return (
       <Table
-        {...tableProps as any}
+        {...(tableProps as any)}
         ref={registerChild}
         rowGetter={this.rowGetter}
         rowCount={history.length}

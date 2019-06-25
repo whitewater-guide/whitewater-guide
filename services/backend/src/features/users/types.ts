@@ -1,6 +1,5 @@
 import { RawTimestamped } from '@db';
-import { EditorSettings } from '@whitewater-guide/commons';
-import { Overwrite } from 'type-zoo';
+import { EditorSettings, Overwrite } from '@whitewater-guide/commons';
 
 export type TokenClaim = 'verification' | 'passwordReset';
 
