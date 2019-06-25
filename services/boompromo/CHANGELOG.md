@@ -1,3 +1,10 @@
+## [0.0.161](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.160...@whitewater-guide/boompromo@0.0.161) (2019-06-25)
+
+### Bug Fixes
+
+- **boompromo:** rename reward -> perk and fix typo ([21b0564](https://github.com/doomsower/whitewater/commit/21b0564))
+- add menu list ([aefdaee](https://github.com/doomsower/whitewater/commit/aefdaee))
+
 ## [0.0.160](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.159...@whitewater-guide/boompromo@0.0.160) (2019-06-14)
 
 ## [0.0.159](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.158...@whitewater-guide/boompromo@0.0.159) (2019-06-14)
