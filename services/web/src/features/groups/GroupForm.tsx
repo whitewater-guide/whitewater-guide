@@ -1,11 +1,10 @@
-import { Group, Region } from '@whitewater-guide/commons';
+import { Group, Overwrite, Region } from '@whitewater-guide/commons';
 import get from 'lodash/get';
 import IconButton from 'material-ui/IconButton';
 import { TableRow, TableRowColumn } from 'material-ui/Table';
 import TextField from 'material-ui/TextField';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Overwrite } from 'type-zoo';
 import { WithGroupMutations } from './types';
 
 type State = Overwrite<Group, { id: string | null }>;
@@ -44,10 +43,8 @@ class GroupForm extends React.PureComponent<Props, State> {
       <div style={{ flex: 1 }}>
         <ul>
           {nodes.map((r) => (
-            <li>
-              <Link key={r.id} to={`/regions/${r.id}`}>
-                {r.name}
-              </Link>
+            <li key={r.id}>
+              <Link to={`/regions/${r.id}`}>{r.name}</Link>
             </li>
           ))}
         </ul>

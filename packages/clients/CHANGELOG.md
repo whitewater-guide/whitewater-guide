@@ -1,3 +1,17 @@
+## [0.0.234](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.232...@whitewater-guide/clients@0.0.234) (2019-06-25)
+
+### Bug Fixes
+
+- fix MyProfile screen crash, update fbsdk ([f621920](https://github.com/doomsower/whitewater/commit/f621920))
+- use own overwrite ([149fba0](https://github.com/doomsower/whitewater/commit/149fba0))
+
+## [0.0.233](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.232...@whitewater-guide/clients@0.0.233) (2019-06-25)
+
+### Bug Fixes
+
+- fix MyProfile screen crash, update fbsdk ([f621920](https://github.com/doomsower/whitewater/commit/f621920))
+- use own overwrite ([149fba0](https://github.com/doomsower/whitewater/commit/149fba0))
+
 ## [0.0.232](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.231...@whitewater-guide/clients@0.0.232) (2019-06-14)
 
 ## [0.0.231](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.230...@whitewater-guide/clients@0.0.231) (2019-06-14)

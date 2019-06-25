@@ -5,7 +5,6 @@ import {
   GenericField,
   WrappedFieldProps,
 } from 'redux-form';
-import { Omit } from 'type-zoo';
 import { ImageUploader, ImageUploaderProps } from '../image-uploader';
 
 type OwnProps = Omit<ImageUploaderProps, 'value' | 'onChange'>;

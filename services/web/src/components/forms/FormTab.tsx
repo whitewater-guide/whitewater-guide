@@ -21,7 +21,7 @@ const styles: Styles = {
 
 interface Props extends TabProps {
   form: string;
-  fields: string[];
+  fields: Array<string | number | symbol>;
 }
 
 interface FakeMui {

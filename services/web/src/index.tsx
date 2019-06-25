@@ -5,15 +5,26 @@ import 'react-virtualized/styles.css';
 // tslint:disable-next-line:no-import-side-effect
 import 'reflect-metadata';
 import App from './App';
+import { API_HOST } from './environment';
 import './index.css';
 import './styles/react-virtualized-override.css';
 
-declare const Raven: any;
-
-if (process.env.REACT_APP_RAVEN) {
-  Raven.config(process.env.REACT_APP_RAVEN, {
+if (process.env.REACT_APP_SENTRY_DSN) {
+  Sentry.init({
+    dsn: process.env.REACT_APP_SENTRY_DSN,
     release: `v${process.env.REACT_APP_VERSION}`,
-  }).install();
+    environment: API_HOST.includes('local')
+      ? 'local'
+      : API_HOST.includes('beta')
+      ? 'staging'
+      : 'production',
+    integrations: (integrations) => {
+      // integrations will be all default integrations
+      return integrations.filter(
+        (integration) => integration.name !== 'Breadcrumbs',
+      );
+    },
+  });
 }
 
 ReactDOM.render(<App />, document.getElementById('root') as HTMLElement);

@@ -1,3 +1,21 @@
+## [1.7.92](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.89...@whitewater-guide/mobile@1.7.92) (2019-06-25)
+
+### Bug Fixes
+
+- fix MyProfile screen crash, update fbsdk ([f621920](https://github.com/doomsower/whitewater/commit/f621920))
+- **mobile:** fix range slider layout ([1261e9f](https://github.com/doomsower/whitewater/commit/1261e9f))
+- **mobile:** fix tests ([c2529a8](https://github.com/doomsower/whitewater/commit/c2529a8))
+- use own overwrite ([149fba0](https://github.com/doomsower/whitewater/commit/149fba0))
+
+## [1.7.91](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.89...@whitewater-guide/mobile@1.7.91) (2019-06-25)
+
+### Bug Fixes
+
+- fix MyProfile screen crash, update fbsdk ([f621920](https://github.com/doomsower/whitewater/commit/f621920))
+- **mobile:** fix range slider layout ([1261e9f](https://github.com/doomsower/whitewater/commit/1261e9f))
+- **mobile:** fix tests ([c2529a8](https://github.com/doomsower/whitewater/commit/c2529a8))
+- use own overwrite ([149fba0](https://github.com/doomsower/whitewater/commit/149fba0))
+
 ## [1.7.89](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.89...@whitewater-guide/mobile@1.7.89) (2019-06-14)
 
 ## [1.7.89](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.88...@whitewater-guide/mobile@1.7.89) (2019-06-14)

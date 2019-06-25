@@ -18,6 +18,12 @@ async function startup() {
     initSentry({
       dsn: process.env.SENTRY_DSN,
       release: pjson.version,
+      integrations: (integrations) => {
+        // integrations will be all default integrations
+        return integrations.filter(
+          (integration) => integration.name !== 'Breadcrumbs',
+        );
+      },
     });
   }
   await db(true).migrate.latest();

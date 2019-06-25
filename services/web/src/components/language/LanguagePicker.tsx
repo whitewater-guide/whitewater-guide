@@ -2,7 +2,6 @@ import { SelectFieldProps } from 'material-ui';
 import MenuItem from 'material-ui/MenuItem';
 import SelectField from 'material-ui/SelectField';
 import React from 'react';
-import { Omit } from 'type-zoo';
 
 export type LanguagePickerProps = {
   language: string;

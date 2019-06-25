@@ -1,5 +1,4 @@
-import { AuthBody } from '@whitewater-guide/commons';
-import { Overwrite } from 'type-zoo';
+import { AuthBody, Overwrite } from '@whitewater-guide/commons';
 
 export interface TokenStorage {
   setAccessToken: (value: string | null) => Promise<void>;

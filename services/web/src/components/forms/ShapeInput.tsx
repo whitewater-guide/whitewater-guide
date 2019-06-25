@@ -9,7 +9,6 @@ import {
   GenericFieldArray,
   WrappedFieldArrayProps,
 } from 'redux-form';
-import { Omit } from 'type-zoo';
 import { Styles } from '../../styles';
 import { LatLonAltInput, LLAArrayField } from './LatLonAltInput';
 

@@ -3,7 +3,6 @@ import get from 'lodash/get';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import React from 'react';
 import { Fields, WrappedFieldProps } from 'redux-form';
-import { Omit } from 'type-zoo';
 import { ImageUploadField } from '../../../components/forms';
 import { ImageUploaderProps } from '../../../components/image-uploader';
 import { Styles } from '../../../styles';

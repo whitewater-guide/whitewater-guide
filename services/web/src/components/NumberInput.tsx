@@ -1,8 +1,8 @@
 import { strToFloat } from '@whitewater-guide/clients';
+import { Overwrite } from '@whitewater-guide/commons';
 import { TextFieldProps } from 'material-ui';
 import TextField from 'material-ui/TextField';
 import React from 'react';
-import { Overwrite } from 'type-zoo';
 
 interface State {
   value: string;

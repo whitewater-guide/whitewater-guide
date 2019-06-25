@@ -1,3 +1,23 @@
+## [0.1.357](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.356...@whitewater-guide/web@0.1.357) (2019-06-25)
+
+### Bug Fixes
+
+- remove test button ([4e64156](https://github.com/doomsower/whitewater/commit/4e64156))
+
+## [0.1.356](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.355...@whitewater-guide/web@0.1.356) (2019-06-25)
+
+### Bug Fixes
+
+- fix REACT_APP_SENTRY_DSN ([4883b66](https://github.com/doomsower/whitewater/commit/4883b66))
+
+## [0.1.355](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.354...@whitewater-guide/web@0.1.355) (2019-06-25)
+
+## [0.1.354](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.353...@whitewater-guide/web@0.1.354) (2019-06-25)
+
+## [0.1.353](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.351...@whitewater-guide/web@0.1.353) (2019-06-25)
+
+## [0.1.352](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.351...@whitewater-guide/web@0.1.352) (2019-06-25)
+
 ## [0.1.351](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.350...@whitewater-guide/web@0.1.351) (2019-06-14)
 
 ### Features

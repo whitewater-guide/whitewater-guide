@@ -24,9 +24,10 @@ Build-time variables have precedence over runtime variables (see `environment.ts
 | RUNTIME_FACEBOOK_APP_ID   | Runtime facebook app id                                         |
 | REACT_APP_GOOGLE_API_KEY  | google api key                                                  |
 | REACT_APP_FACEBOOK_APP_ID | Build-time facebook app id                                      |
-| REACT_APP_RAVEN           | sentry endpoint for error tracking                              |
 | REACT_APP_API             | Build-time backend API url, e.g. `https://api.whitewater.guide` |
 | REACT_APP_S3              | Build-time minio/s3 url, e.g. `https://s3.whitewater.guide`     |
+| REACT_APP_SENTRY_DSN      | sentry endpoint for error tracking                              |
+| SENTRY_URL                | URL of our own hosted sentry                                    |
 | SENTRY_AUTH_TOKEN         | token to upload sourcemap to sentry                             |
 | SENTRY_ORG                | org name to upload sourcemap to sentry                          |
 | SENTRY_PROJECT            | project name to upload sourcemap to sentry                      |

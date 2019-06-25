@@ -1,3 +1,15 @@
+## [0.0.139](https://github.com/doomsower/whitewater/compare/@whitewater-guide/commons@0.0.137...@whitewater-guide/commons@0.0.139) (2019-06-25)
+
+### Bug Fixes
+
+- use own overwrite ([149fba0](https://github.com/doomsower/whitewater/commit/149fba0))
+
+## [0.0.138](https://github.com/doomsower/whitewater/compare/@whitewater-guide/commons@0.0.137...@whitewater-guide/commons@0.0.138) (2019-06-25)
+
+### Bug Fixes
+
+- use own overwrite ([149fba0](https://github.com/doomsower/whitewater/commit/149fba0))
+
 ## [0.0.137](https://github.com/doomsower/whitewater/compare/@whitewater-guide/commons@0.0.136...@whitewater-guide/commons@0.0.137) (2019-06-09)
 
 ## [0.0.136](https://github.com/doomsower/whitewater/compare/@whitewater-guide/commons@0.0.134...@whitewater-guide/commons@0.0.136) (2019-06-08)

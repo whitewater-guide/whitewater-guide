@@ -3,7 +3,6 @@ import { ApolloServer } from 'apollo-server-koa';
 import { readJSON } from 'fs-extra';
 import * as Koa from 'koa';
 import { resolve } from 'path';
-import { Omit } from 'type-zoo';
 import { Context, newContext } from '../context';
 import { formatError } from '../formatError';
 import { logger } from '../logger';
