@@ -12,7 +12,6 @@
     "start:local": "REACT_APP_API=http://api.local.whitewater.guide craco start",
     "start:beta": "HTTPS=true REACT_APP_API=https://api.beta.whitewater.guide craco start",
     "build": "craco build",
-    "postbuild": "react-snap",
     "test": "craco test",
     "eject": "craco eject",
     "storybook": "STORYBOOK_ENABLED=true start-storybook -s ./public/static -p 6006 -c .storybook"
@@ -73,7 +72,6 @@
     "babel-loader": "8.0.5",
     "graphql-ast-tools": "^0.2.3",
     "react-hooks-testing-library": "^0.6.0",
-    "react-snap": "^1.23.0",
     "react-test-renderer": "^16.8.6",
     "typescript": "3.5.2"
   },

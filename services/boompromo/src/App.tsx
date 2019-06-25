@@ -26,6 +26,7 @@ const styles = (theme: Theme) =>
       width: '100%',
       height: '100%',
       display: 'flex',
+      flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
     },
@@ -55,6 +56,10 @@ const styles = (theme: Theme) =>
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
+    },
+    version: {
+      fontSize: 10,
+      color: 'rgba(0,0,0,0.5)',
     },
   });
 
@@ -197,6 +202,9 @@ class App extends React.PureComponent<
             </IconButton>
           </CardActions>
         </Card>
+        <div className={classes.version}>{`v${
+          require('../package.json').version
+        }`}</div>
       </div>
     );
   };
