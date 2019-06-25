@@ -9,9 +9,9 @@ import { API_HOST } from './environment';
 import './index.css';
 import './styles/react-virtualized-override.css';
 
-if (process.env.SENTRY_DSN) {
+if (process.env.REACT_APP_SENTRY_DSN) {
   Sentry.init({
-    dsn: process.env.SENTRY_DSN,
+    dsn: process.env.REACT_APP_SENTRY_DSN,
     release: `v${process.env.REACT_APP_VERSION}`,
     environment: API_HOST.includes('local')
       ? 'local'
