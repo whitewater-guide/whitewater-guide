@@ -56,6 +56,12 @@ class EditorFooterInternal extends React.PureComponent<InnerProps> {
               <FlatButton label="Administrate" onClick={this.onAdmin} />
             </AdminOnly>
           )}
+          <FlatButton
+            label="Administrate"
+            onClick={() => {
+              throw new Error('Hello sentry!');
+            }}
+          />
           {children}
         </CardActions>
       </Guard>
