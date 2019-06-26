@@ -1,3 +1,11 @@
+## [0.1.360](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.359...@whitewater-guide/web@0.1.360) (2019-06-26)
+
+### Features
+
+- **commons:** add min/max file size constants ([0f8e996](https://github.com/doomsower/whitewater/commit/0f8e996))
+- **web:** add error message when uploaded file violates size limits ([60d0066](https://github.com/doomsower/whitewater/commit/60d0066))
+- **web:** use autocomplete in gauge selector ([b9a0ee3](https://github.com/doomsower/whitewater/commit/b9a0ee3))
+
 ## [0.1.359](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.358...@whitewater-guide/web@0.1.359) (2019-06-26)
 
 ### Features

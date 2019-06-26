@@ -1,3 +1,9 @@
+## [0.0.166](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.165...@whitewater-guide/boompromo@0.0.166) (2019-06-26)
+
+### Features
+
+- **commons:** add min/max file size constants ([0f8e996](https://github.com/doomsower/whitewater/commit/0f8e996))
+
 ## [0.0.165](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.164...@whitewater-guide/boompromo@0.0.165) (2019-06-26)
 
 ## [0.0.164](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.163...@whitewater-guide/boompromo@0.0.164) (2019-06-26)

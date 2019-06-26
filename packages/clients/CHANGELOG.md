@@ -1,3 +1,9 @@
+## [0.0.238](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.236...@whitewater-guide/clients@0.0.238) (2019-06-26)
+
+### Features
+
+- **commons:** add min/max file size constants ([0f8e996](https://github.com/doomsower/whitewater/commit/0f8e996))
+
 ## [0.0.237](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.236...@whitewater-guide/clients@0.0.237) (2019-06-26)
 
 ## [0.0.236](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.235...@whitewater-guide/clients@0.0.236) (2019-06-26)

@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/web",
   "private": true,
-  "version": "0.1.359",
+  "version": "0.1.360",
   "license": "UNLICENSED",
   "scripts": {
     "start": "craco start",
@@ -23,8 +23,8 @@
     "@sentry/types": "^5.4.2",
     "@turf/helpers": "^6.1.4",
     "@types/react-facebook-login": "^4.1.0",
-    "@whitewater-guide/clients": "^0.0.237",
-    "@whitewater-guide/commons": "^0.0.140",
+    "@whitewater-guide/clients": "^0.0.238",
+    "@whitewater-guide/commons": "^0.0.141",
     "@whitewater-guide/md-editor": "0.1.8",
     "apollo-cache": "^1.2.1",
     "apollo-cache-inmemory": "^1.5.1",
