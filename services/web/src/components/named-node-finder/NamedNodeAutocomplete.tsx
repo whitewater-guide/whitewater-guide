@@ -78,34 +78,39 @@ class NamedNodeAutocomplete<QResult, QVars> extends React.PureComponent<
 
   onFocus = () => this.props.openMenu();
 
-  render() {
-    const {
-      inputValue,
-      isOpen,
-      query,
-      getVariables,
-      hintText = 'Select item',
-    } = this.props;
-    const variables = getVariables(inputValue);
+  renderAutocomplete = (dataSource: QueryResult<QResult, QVars>) => {
+    const { inputValue, isOpen, hintText = 'Select item' } = this.props;
     return (
-      <Query query={query} variables={variables}>
-        {(result: QueryResult<QResult, QVars>) => {
-          return (
-            <AutoComplete
-              hintText={hintText}
-              searchText={inputValue || ''}
-              filter={this.filterFunction}
-              onUpdateInput={this.onUpdateInput}
-              onNewRequest={this.onNewRequest}
-              dataSourceConfig={DATA_SOURCE_CONFIG}
-              dataSource={this.getDataSource(result, this.props)}
-              open={isOpen}
-              onClose={this.onClose}
-              onFocus={this.onFocus}
-            />
-          );
-        }}
-      </Query>
+      <AutoComplete
+        hintText={hintText}
+        searchText={inputValue || ''}
+        filter={this.filterFunction}
+        onUpdateInput={this.onUpdateInput}
+        onNewRequest={this.onNewRequest}
+        dataSourceConfig={DATA_SOURCE_CONFIG}
+        dataSource={this.getDataSource(dataSource, this.props)}
+        open={isOpen}
+        onClose={this.onClose}
+        onFocus={this.onFocus}
+      />
+    );
+  };
+
+  render() {
+    const { query, dataSource, getVariables, inputValue } = this.props;
+    if (dataSource) {
+      return this.renderAutocomplete(dataSource);
+    }
+    if (query && getVariables) {
+      const variables = getVariables(inputValue);
+      return (
+        <Query query={query} variables={variables}>
+          {this.renderAutocomplete}
+        </Query>
+      );
+    }
+    throw new Error(
+      'Either query + getVariables or dataSource must be provided',
     );
   }
 }
