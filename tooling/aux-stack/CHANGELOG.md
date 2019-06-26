@@ -1,3 +1,5 @@
+## [0.0.8](https://github.com/doomsower/whitewater/compare/@whitewater-guide/aux-stack@0.0.7...@whitewater-guide/aux-stack@0.0.8) (2019-06-26)
+
 ## 0.0.7 (2019-06-11)
 
 ### Features

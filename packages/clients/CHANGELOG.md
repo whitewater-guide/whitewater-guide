@@ -1,3 +1,9 @@
+## [0.0.235](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.234...@whitewater-guide/clients@0.0.235) (2019-06-26)
+
+### Features
+
+- add usePrevious hook ([dbf3204](https://github.com/doomsower/whitewater/commit/dbf3204))
+
 ## [0.0.234](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.232...@whitewater-guide/clients@0.0.234) (2019-06-25)
 
 ### Bug Fixes
