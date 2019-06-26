@@ -1313,7 +1313,7 @@
     "@sentry/types" "5.4.2"
     tslib "^1.9.3"
 
-"@sentry/types@5.4.2":
+"@sentry/types@5.4.2", "@sentry/types@^5.4.2":
   version "5.4.2"
   resolved "https://registry.yarnpkg.com/@sentry/types/-/types-5.4.2.tgz#4ab327bced2cfd961dc7a29f0ff43398f913f6a6"
   integrity sha512-yh1fd7x5lLOIZ8W3A1I792B3jowJVCWp4HcTRikjTsjbF8lcURY62m+hiLYUFPTIX99AlFRIPiApDkWiwMGYMA==
@@ -2416,10 +2416,10 @@
     "@webassemblyjs/wast-parser" "1.8.5"
     "@xtuc/long" "4.2.2"
 
-"@whitewater-guide/clients@^0.0.234":
-  version "0.0.234"
-  resolved "https://registry.yarnpkg.com/@whitewater-guide/clients/-/clients-0.0.234.tgz#922be632fb142d42df85df57c178a11f9edaeaff"
-  integrity sha512-HIOzz5ko+QIPUAfa0csUa6M32O+Hrx1dj7pw1YaE2IsqBRSFGWRZ47Of1m7gTk2ga+JXUQqGjICQ5knYReUjiw==
+"@whitewater-guide/clients@^0.0.235":
+  version "0.0.235"
+  resolved "https://registry.yarnpkg.com/@whitewater-guide/clients/-/clients-0.0.235.tgz#7a6d2a31018c7b21bf27d8d4aac2ee4454b2967a"
+  integrity sha512-xGaSrLoTf3m7EzS7mKwjqxYcazhpaNkhXJHT7XaJGcOWEbey/7Sb5fZ8HBZscI4afwX6CmGcHXxCPubPcSzhEg==
   dependencies:
     "@testing-library/react" "^8.0.1"
     "@types/jest" "^24.0.13"

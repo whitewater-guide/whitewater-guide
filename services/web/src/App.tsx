@@ -13,6 +13,7 @@ import { history } from './history';
 import { RootLayout } from './layout';
 import { store } from './redux';
 import { theme } from './styles';
+import { SentryRouterBreadcrumbs } from './utils';
 
 interface State {
   ready: boolean;
@@ -54,6 +55,7 @@ class App extends React.PureComponent {
             {ready ? (
               <AuthProvider service={this._auth}>
                 <BrowserRouter>
+                  <SentryRouterBreadcrumbs />
                   <RootLayout />
                 </BrowserRouter>
               </AuthProvider>
