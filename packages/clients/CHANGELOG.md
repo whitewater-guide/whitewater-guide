@@ -1,3 +1,25 @@
+## [0.0.239](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.238...@whitewater-guide/clients@0.0.239) (2019-06-26)
+
+## [0.0.238](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.236...@whitewater-guide/clients@0.0.238) (2019-06-26)
+
+### Features
+
+- **commons:** add min/max file size constants ([0f8e996](https://github.com/doomsower/whitewater/commit/0f8e996))
+
+## [0.0.237](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.236...@whitewater-guide/clients@0.0.237) (2019-06-26)
+
+## [0.0.236](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.235...@whitewater-guide/clients@0.0.236) (2019-06-26)
+
+### Features
+
+- **clients:** better error message for upload file ([48bc34f](https://github.com/doomsower/whitewater/commit/48bc34f))
+
+## [0.0.235](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.234...@whitewater-guide/clients@0.0.235) (2019-06-26)
+
+### Features
+
+- add usePrevious hook ([dbf3204](https://github.com/doomsower/whitewater/commit/dbf3204))
+
 ## [0.0.234](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.232...@whitewater-guide/clients@0.0.234) (2019-06-25)
 
 ### Bug Fixes

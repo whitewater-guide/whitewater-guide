@@ -1,4 +1,4 @@
-import { init } from '@sentry/browser';
+import { addBreadcrumb, init } from '@sentry/browser';
 
 declare global {
   interface Window {
@@ -9,6 +9,7 @@ declare global {
 
   interface SentryLike {
     init: typeof init;
+    addBreadcrumb: typeof addBreadcrumb;
   }
 
   declare const Sentry: SentryLike;

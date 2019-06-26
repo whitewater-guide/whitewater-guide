@@ -10,6 +10,7 @@ import {
   Form,
   FormTab,
   KmlUploaderInput,
+  NodeFinderField,
   POICollection,
   RatingInput,
   SeasonPicker,
@@ -112,13 +113,14 @@ export default class SectionForm extends React.PureComponent<SectionFormProps> {
                 />
                 <RatingInput name="rating" title="Rating" />
               </Row>
-              <Select
-                nullable={true}
-                simple={false}
-                format={null}
+              <NodeFinderField
                 name="gauge"
-                options={this.props.region.gauges!.nodes!}
-                title="Gauge"
+                clearSelectionTitle="Clear selection"
+                hintText="Gauge"
+                dataSource={this.props.region.gauges!.nodes}
+                format={null}
+                fullWidth={true}
+                showListWhenInputIsEmpty={true}
               />
               <Row>
                 <TextInput

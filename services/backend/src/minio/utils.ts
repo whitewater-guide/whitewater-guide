@@ -1,4 +1,5 @@
 import log from '@log';
+import { MAX_FILE_SIZE, MIN_FILE_SIZE } from '@whitewater-guide/commons';
 import { CopyConditions } from 'minio';
 import { TEMP } from './buckets';
 import { minioClient } from './client';
@@ -17,8 +18,8 @@ export const getTempPostPolicy = async (key?: string, uploadedBy?: string) => {
     policy.setKeyStartsWith(key);
   }
   // Only allow content size in range 10KB to 10MB in production
-  const minSize = process.env.NODE_ENV === 'production' ? 10 * 1024 : 1;
-  policy.setContentLengthRange(minSize, 10 * 1024 * 1024);
+  const minSize = process.env.NODE_ENV === 'production' ? MIN_FILE_SIZE : 1;
+  policy.setContentLengthRange(minSize, MAX_FILE_SIZE);
   if (uploadedBy) {
     // @ts-ignore
     policy.policy.conditions.push([

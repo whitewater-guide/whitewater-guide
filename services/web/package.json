@@ -1,12 +1,12 @@
 {
   "name": "@whitewater-guide/web",
   "private": true,
-  "version": "0.1.357",
+  "version": "0.1.362",
   "license": "UNLICENSED",
   "scripts": {
     "start": "craco start",
     "start:local": "REACT_APP_API=http://api.local.whitewater.guide REACT_APP_S3=http://s3.local.whitewater.guide craco start",
-    "start:beta": "HTTPS=true REACT_APP_API=http://api.beta.whitewater.guide REACT_APP_S3=http://s3.beta.whitewater.guide craco start",
+    "start:beta": "HTTPS=true REACT_APP_API=https://api.beta.whitewater.guide REACT_APP_S3=https://s3.beta.whitewater.guide craco start",
     "build": "craco build",
     "analyze": "source-map-explorer build/static/js/main.*",
     "tsc": "tsc",
@@ -20,10 +20,11 @@
   "dependencies": {
     "@craco/craco": "^5.2.3",
     "@mapbox/togeojson": "^0.16.0",
+    "@sentry/types": "^5.4.2",
     "@turf/helpers": "^6.1.4",
     "@types/react-facebook-login": "^4.1.0",
-    "@whitewater-guide/clients": "^0.0.234",
-    "@whitewater-guide/commons": "^0.0.139",
+    "@whitewater-guide/clients": "^0.0.239",
+    "@whitewater-guide/commons": "^0.0.142",
     "@whitewater-guide/md-editor": "0.1.8",
     "apollo-cache": "^1.2.1",
     "apollo-cache-inmemory": "^1.5.1",
