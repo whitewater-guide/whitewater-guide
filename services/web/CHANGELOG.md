@@ -1,3 +1,9 @@
+## [0.1.359](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.358...@whitewater-guide/web@0.1.359) (2019-06-26)
+
+### Features
+
+- **web:** add SentryRouterBreadcrumbs ([9eb25ee](https://github.com/doomsower/whitewater/commit/9eb25ee))
+
 ## [0.1.358](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.357...@whitewater-guide/web@0.1.358) (2019-06-26)
 
 ## [0.1.357](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.356...@whitewater-guide/web@0.1.357) (2019-06-25)

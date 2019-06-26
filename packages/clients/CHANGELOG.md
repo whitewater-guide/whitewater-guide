@@ -1,3 +1,9 @@
+## [0.0.236](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.235...@whitewater-guide/clients@0.0.236) (2019-06-26)
+
+### Features
+
+- **clients:** better error message for upload file ([48bc34f](https://github.com/doomsower/whitewater/commit/48bc34f))
+
 ## [0.0.235](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.234...@whitewater-guide/clients@0.0.235) (2019-06-26)
 
 ### Features
