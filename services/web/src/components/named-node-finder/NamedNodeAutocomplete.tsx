@@ -37,14 +37,20 @@ class NamedNodeAutocomplete<QResult, QVars> extends React.PureComponent<
 > {
   getDataSource = memoize(
     (
-      { data, loading }: QueryResult<QResult, QVars>,
+      queryOrData: QueryResult<QResult, QVars> | NamedNode[],
       { clearSelectionTitle, getNodes }: Props<QResult, QVars>,
     ) => {
-      if (loading) {
-        return LOADING_DATA_SOURCE;
+      let dataSource: any[] = [];
+      if (Array.isArray(queryOrData)) {
+        dataSource = queryOrData;
+      } else {
+        const { data, loading } = queryOrData;
+        if (loading) {
+          return LOADING_DATA_SOURCE;
+        }
+        const nodes = getNodes!(data);
+        dataSource = nodes.length ? nodes : EMPTY_DATA_SOURCE;
       }
-      const nodes = getNodes(data);
-      const dataSource = nodes.length ? nodes : EMPTY_DATA_SOURCE;
       if (clearSelectionTitle) {
         return [{ name: clearSelectionTitle, value: null }, ...dataSource];
       }
@@ -53,10 +59,10 @@ class NamedNodeAutocomplete<QResult, QVars> extends React.PureComponent<
   );
 
   filterFunction = (searchText: string, key: string) => {
-    const { clearSelectionTitle } = this.props;
+    const { clearSelectionTitle, showListWhenInputIsEmpty } = this.props;
     return (
       (clearSelectionTitle !== undefined && key === clearSelectionTitle) ||
-      (searchText !== '' &&
+      ((searchText !== '' || !!showListWhenInputIsEmpty) &&
         key.toLowerCase().indexOf(searchText.toLowerCase()) !== -1)
     );
   };
@@ -78,8 +84,15 @@ class NamedNodeAutocomplete<QResult, QVars> extends React.PureComponent<
 
   onFocus = () => this.props.openMenu();
 
-  renderAutocomplete = (dataSource: QueryResult<QResult, QVars>) => {
-    const { inputValue, isOpen, hintText = 'Select item' } = this.props;
+  renderAutocomplete = (
+    dataSource: QueryResult<QResult, QVars> | NamedNode[],
+  ) => {
+    const {
+      inputValue,
+      isOpen,
+      hintText = 'Select item',
+      fullWidth,
+    } = this.props;
     return (
       <AutoComplete
         hintText={hintText}
@@ -92,25 +105,33 @@ class NamedNodeAutocomplete<QResult, QVars> extends React.PureComponent<
         open={isOpen}
         onClose={this.onClose}
         onFocus={this.onFocus}
+        fullWidth={fullWidth}
+        listStyle={{ maxHeight: 300, overflow: 'auto' }}
       />
     );
   };
 
   render() {
-    const { query, dataSource, getVariables, inputValue } = this.props;
+    const {
+      query,
+      dataSource,
+      getVariables,
+      getNodes,
+      inputValue,
+    } = this.props;
     if (dataSource) {
       return this.renderAutocomplete(dataSource);
     }
-    if (query && getVariables) {
+    if (query && getVariables && getNodes) {
       const variables = getVariables(inputValue);
       return (
         <Query query={query} variables={variables}>
-          {this.renderAutocomplete}
+          {this.renderAutocomplete as any}
         </Query>
       );
     }
     throw new Error(
-      'Either query + getVariables or dataSource must be provided',
+      'Either (query + getVariables + getNodes) or dataSource must be provided',
     );
   }
 }
