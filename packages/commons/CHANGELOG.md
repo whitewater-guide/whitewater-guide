@@ -1,3 +1,9 @@
+## [0.0.142](https://github.com/doomsower/whitewater/compare/@whitewater-guide/commons@0.0.141...@whitewater-guide/commons@0.0.142) (2019-06-26)
+
+### Features
+
+- **commons:** lower max image size to 3Mb ([9788717](https://github.com/doomsower/whitewater/commit/9788717))
+
 ## [0.0.141](https://github.com/doomsower/whitewater/compare/@whitewater-guide/commons@0.0.139...@whitewater-guide/commons@0.0.141) (2019-06-26)
 
 ### Features
