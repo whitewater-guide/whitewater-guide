@@ -1,3 +1,9 @@
+## [0.0.365](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.364...@whitewater-guide/backend@0.0.365) (2019-06-29)
+
+### Bug Fixes
+
+- **backend:** fix administrate region cover images ([bd8d8ff](https://github.com/doomsower/whitewater/commit/bd8d8ff))
+
 ## [0.0.364](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.363...@whitewater-guide/backend@0.0.364) (2019-06-29)
 
 ### Features

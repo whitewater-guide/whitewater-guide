@@ -1,5 +1,11 @@
 # [1.8.0](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.8.0...@whitewater-guide/mobile@1.8.0) (2019-06-29)
 
+### Bug Fixes
+
+- update region media summary query ([a0beca6](https://github.com/doomsower/whitewater/commit/a0beca6))
+
+# [1.8.0](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.8.0...@whitewater-guide/mobile@1.8.0) (2019-06-29)
+
 # [1.8.0](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.8.0...@whitewater-guide/mobile@1.8.0) (2019-06-29)
 
 # [1.8.0](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.94...@whitewater-guide/mobile@1.8.0) (2019-06-29)
