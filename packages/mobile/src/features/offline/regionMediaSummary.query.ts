@@ -18,6 +18,10 @@ export const REGION_MEDIA_SUMMARY = gql`
           count
           size
         }
+        maps {
+          count
+          size
+        }
       }
       sections {
         count
