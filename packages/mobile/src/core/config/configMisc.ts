@@ -1,4 +1,6 @@
+import Mapbox from '@react-native-mapbox-gl/maps';
 import { UIManager, YellowBox } from 'react-native';
+import Config from 'react-native-config';
 
 const configMisc = () => {
   YellowBox.ignoreWarnings(['Setting a timer']);
@@ -6,6 +8,9 @@ const configMisc = () => {
   if (UIManager.setLayoutAnimationEnabledExperimental) {
     UIManager.setLayoutAnimationEnabledExperimental(true);
   }
+
+  Mapbox.setAccessToken(Config.MAPBOX_ACCESS_TOKEN);
+  Mapbox.setTelemetryEnabled(false);
 
   // https://github.com/jhen0409/react-native-debugger/blob/master/docs/network-inspect-of-chrome-devtools.md#how-it-works
   // uncomment for network inspection

@@ -1,5 +1,5 @@
-import { Omit, Overwrite } from 'type-zoo';
 import { Connection, NamedNode, Node, Timestamped } from '../../apollo';
+import { Overwrite } from '../../utils';
 import { Gauge } from '../gauges';
 import { Media } from '../media';
 import { Coordinate3d, Point, PointInput } from '../points';
@@ -67,6 +67,9 @@ export interface Section extends NamedNode, Timestamped {
   // --- connections
   media?: Connection<Media>;
 }
+
+export const isSection = (node?: Node | null): node is Section =>
+  !!node && node.__typename === 'Section';
 
 export interface SectionInput {
   id: string | null;

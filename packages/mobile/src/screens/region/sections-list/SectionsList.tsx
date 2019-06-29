@@ -10,6 +10,7 @@ import {
   WithPremiumDialog,
 } from '../../../features/purchases';
 import theme from '../../../theme';
+import Screens from '../../screen-names';
 import { SectionsStatus } from '../types';
 import getSectionsWithBanners from './getSectionsWithBanners';
 import { ITEM_HEIGHT, SectionListBanner, SectionListItem } from './item';
@@ -52,8 +53,15 @@ class SectionsList extends React.Component<InnerProps, State> {
     );
   }
 
-  onSectionSelected = (section: Section) =>
-    this.props.navigate('Section', { sectionId: section.id });
+  onSectionSelected = (section: Section) => {
+    const { navigate, region } = this.props;
+    if (region) {
+      navigate(Screens.Section.Root, {
+        sectionId: section.id,
+        regionId: region.id,
+      });
+    }
+  };
 
   onRefresh = () => {
     this.props.refresh().catch(() => {});

@@ -1,6 +1,6 @@
 export * from './callWithTimeout';
 export * from './choose';
-export * from './GeoUtils';
+export * from './geo';
 export * from './fetchRetry';
 export * from './hooks';
 export * from './video';

@@ -20,9 +20,7 @@
 #import "RNFirebaseMessaging.h"
 #import "RNSentry.h"
 
-#import "ReactNativeConfig.h"
 #import "RNSplashScreen.h"
-@import GoogleMaps;
 
 @implementation AppDelegate
 
@@ -46,9 +44,6 @@
   [self.window makeKeyAndVisible];
 
   [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
-
-  NSString *googelApiKey = [ReactNativeConfig envFor:@"GOOGLE_API_KEY"];
-  [GMSServices provideAPIKey:googelApiKey];
 
   [RNSplashScreen show];
 
@@ -103,5 +98,13 @@
     return [CodePush bundleURL];
   #endif
 }
+
+// TODO: workaround https://github.com/facebook/react-native/issues/23235#issuecomment-464030357
+// should be fixed in 0.60 https://github.com/facebook/react-native/commit/a9dd828c68338dbf0e55ffa1838bf8ff574f317d
+#if RCT_DEV
+- (BOOL)bridge:(RCTBridge *)bridge didNotFindModule:(NSString *)moduleName {
+  return YES;
+}
+#endif
 
 @end

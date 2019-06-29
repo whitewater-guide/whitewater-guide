@@ -1,83 +1,82 @@
-import {
-  getSectionColor,
-  SectionComponentProps,
-} from '@whitewater-guide/clients';
-import React from 'react';
-import { MapElement } from './types';
+import { getSectionColor, useMapSelection } from '@whitewater-guide/clients';
+import { Point, Section } from '@whitewater-guide/commons';
+import React, { useEffect, useRef } from 'react';
+import { MapElementProps } from './types';
 
 const Line = google.maps.Polyline;
 type Line = google.maps.Polyline;
 
-type Props = SectionComponentProps & MapElement;
-
-export class SectionLine extends React.PureComponent<Props> {
-  line: Line | null = null;
-
-  componentDidMount() {
-    const { map } = this.props;
-    this.line = new Line({ path: this.getPaths(), map, ...this.getStyle() });
-    this.setupListeners(true);
-  }
-
-  componentDidUpdate(prevProps: Props) {
-    if (
-      this.line &&
-      (this.props.zoom !== prevProps.zoom ||
-        this.props.selected !== prevProps.selected)
-    ) {
-      this.line.setOptions(this.getStyle());
-    }
-  }
-
-  componentWillUnmount() {
-    if (this.line) {
-      this.line.setMap(null);
-    }
-    this.setupListeners(false);
-  }
-
-  getPaths() {
-    const { putIn, takeOut } = this.props.section;
-    return [
-      { lat: putIn.coordinates[1], lng: putIn.coordinates[0] },
-      { lat: takeOut.coordinates[1], lng: takeOut.coordinates[0] },
-    ];
-  }
-
-  getStyle() {
-    const { selected, zoom, section } = this.props;
-    const color = getSectionColor(section);
-    return {
-      geodesic: true,
-      strokeColor: color,
-      strokeOpacity: 1,
-      strokeWeight: selected ? 6 : 4,
-      icons: [
-        {
-          icon: {
-            path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-            scale: Math.min(3, zoom / 3),
-          },
-          offset: '100%',
+const getStyle = (
+  section: Section,
+  selection: Section | Point | null,
+  zoom = 1,
+) => {
+  const color = getSectionColor(section);
+  const isSelected = !!selection && section.id === selection.id;
+  return {
+    geodesic: true,
+    strokeColor: color,
+    strokeOpacity: 1,
+    strokeWeight: isSelected ? 6 : 4,
+    icons: [
+      {
+        icon: {
+          path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+          scale: Math.min(3, zoom / 3),
         },
-      ],
-    };
-  }
-
-  setupListeners = (on: boolean) => {
-    if (!this.line) {
-      return;
-    }
-    if (on) {
-      this.line.addListener('click', () =>
-        this.props.onSectionSelected(this.props.section),
-      );
-    } else {
-      google.maps.event.clearListeners(this.line, 'click');
-    }
+        offset: '100%',
+      },
+    ],
   };
+};
 
-  render() {
-    return null;
-  }
+const getPaths = ({ putIn, takeOut, shape }: Section, detailed?: boolean) => {
+  const coords =
+    detailed && shape ? shape : [putIn.coordinates, takeOut.coordinates];
+  return coords.map(([lng, lat]) => ({ lat, lng }));
+};
+
+interface Props extends MapElementProps {
+  section: Section;
+  detailed?: boolean;
 }
+
+const SectionLine: React.FC<Props> = React.memo(
+  ({ section, map, zoom, bounds, detailed }) => {
+    const { selection, onSelected } = useMapSelection();
+    const lineRef = useRef<Line | null>(null);
+
+    useEffect(() => {
+      if (lineRef.current) {
+        return;
+      }
+      lineRef.current = new Line({
+        path: getPaths(section, detailed),
+        map,
+        ...getStyle(section, selection, zoom),
+        clickable: !detailed,
+      });
+      google.maps.event.addListener(lineRef.current, 'click', () => {
+        onSelected(section);
+      });
+      return () => {
+        if (lineRef.current) {
+          google.maps.event.clearListeners(lineRef.current, 'click');
+          lineRef.current.setMap(null);
+        }
+      };
+    }, [map]);
+
+    useEffect(() => {
+      if (lineRef.current) {
+        lineRef.current.setOptions(getStyle(section, selection, zoom));
+      }
+    }, [section, zoom, selection, lineRef]);
+
+    return null;
+  },
+);
+
+SectionLine.displayName = 'SectionLine';
+
+export default SectionLine;

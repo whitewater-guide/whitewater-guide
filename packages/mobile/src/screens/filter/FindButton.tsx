@@ -1,15 +1,18 @@
-import { LIST_SECTIONS, RegionConsumer } from '@whitewater-guide/clients';
 import {
-  applySearch,
-  Connection,
-  Section,
-  SectionSearchTerms,
-} from '@whitewater-guide/commons';
-import React, { useCallback } from 'react';
-import { ApolloConsumer } from 'react-apollo';
+  LIST_SECTIONS,
+  ListSectionsResult,
+  ListSectionsVars,
+  useFilterSetteer,
+} from '@whitewater-guide/clients';
+import { applySearch } from '@whitewater-guide/commons';
+import { useNavigation } from '@zhigang1992/react-navigation-hooks';
+import React, { useCallback, useMemo } from 'react';
+import { Query } from 'react-apollo';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
+import { SearchState } from './types';
+import { stateToSearchTerms } from './utils';
 
 const styles = StyleSheet.create({
   button: {
@@ -17,45 +20,38 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Result {
-  sections: Required<Connection<Section>>;
-}
-
 interface Props {
-  terms: SectionSearchTerms;
-  onApply: (terms: SectionSearchTerms) => void;
+  searchState: SearchState;
+  regionId: string;
 }
 
-export const FindButton: React.FC<Props> = ({ terms, onApply }) => {
+export const FindButton: React.FC<Props> = ({ searchState, regionId }) => {
+  const terms = useMemo(() => stateToSearchTerms(searchState), [searchState]);
   const [t] = useTranslation();
-  const onPress = useCallback(() => onApply(terms), [terms, onApply]);
+  const { goBack } = useNavigation();
+  const setSearchState = useFilterSetteer();
+  const onPress = useCallback(() => {
+    setSearchState(terms);
+    goBack();
+  }, [terms, setSearchState]);
+  const variables = useMemo(() => ({ filter: { regionId } }), [regionId]);
   return (
-    <ApolloConsumer>
-      {(client) => (
-        <RegionConsumer>
-          {({ region }) => {
-            const result: Result | null = region.node
-              ? client.cache.readQuery({
-                  query: LIST_SECTIONS,
-                  variables: { filter: { regionId: region.node.id } },
-                })
-              : null;
-            let count = 0;
-            if (result) {
-              const filteredSections = applySearch(
-                result.sections.nodes,
-                terms,
-              );
-              count = filteredSections.length;
-            }
-            return (
-              <Button mode="contained" onPress={onPress} style={styles.button}>
-                {t('filter:search', { count })}
-              </Button>
-            );
-          }}
-        </RegionConsumer>
-      )}
-    </ApolloConsumer>
+    <Query<ListSectionsResult, ListSectionsVars>
+      query={LIST_SECTIONS}
+      variables={variables}
+    >
+      {({ data }) => {
+        let count = 0;
+        if (data) {
+          const filteredSections = applySearch(data.sections.nodes, terms);
+          count = filteredSections.length;
+        }
+        return (
+          <Button mode="contained" onPress={onPress} style={styles.button}>
+            {t('filter:search', { count })}
+          </Button>
+        );
+      }}
+    </Query>
   );
 };

@@ -1,7 +1,6 @@
 import { GaugeBinding } from '@whitewater-guide/commons';
 import color from 'color';
 import mapValues from 'lodash/mapValues';
-import { Omit } from 'type-zoo';
 import {
   ColorizeSection,
   Colors,

@@ -4,10 +4,10 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Content, Tabs } from '../../../components';
 import { EditorLanguagePicker } from '../../../components/language';
+import { Map } from '../../../components/maps';
 import { CardHeader, EditorFooter } from '../../../layout';
 import { RiversList, RiversRoute } from '../../rivers';
 import { SectionsList, SectionsRoute } from '../../sections';
-import RegionMap from './map';
 import RegionDetailsMain from './RegionDetailsMain';
 import { RegionDetailsProps } from './types';
 
@@ -44,9 +44,11 @@ export class RegionDetails extends React.PureComponent<RegionDetailsProps> {
                   </Tab>
 
                   <Tab label="Map" value={`/regions/${regionId}#map`}>
-                    <RegionMap
-                      region={region.node!}
+                    <Map
+                      detailed={false}
                       sections={sections.nodes}
+                      initialBounds={region.node!.bounds}
+                      pois={region.node!.pois}
                     />
                   </Tab>
 

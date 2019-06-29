@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { RootState } from '../../../../core/reducers';
+import { RootState } from '../../../../core/redux/reducers';
 import { purchaseActions } from '../../actions';
 import { PremiumRegion } from '../../types';
 import SuccessStep from './SuccessStep';

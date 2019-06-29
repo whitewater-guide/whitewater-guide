@@ -30,6 +30,7 @@
   "and": "and",
   "or": "or",
   "offline": "It appears that you're offline...",
+  "checkConnection": "Please check your Internet connection",
   "retry": "Retry",
   "bug": "Oops! Something is broken",
   "premium": "Premium",

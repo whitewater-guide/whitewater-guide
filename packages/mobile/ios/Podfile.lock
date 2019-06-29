@@ -51,33 +51,12 @@ PODS:
     - DoubleConversion
     - glog
   - glog (0.3.5)
-  - Google-Maps-iOS-Utils (2.1.0):
-    - Google-Maps-iOS-Utils/Clustering (= 2.1.0)
-    - Google-Maps-iOS-Utils/Geometry (= 2.1.0)
-    - Google-Maps-iOS-Utils/Heatmap (= 2.1.0)
-    - Google-Maps-iOS-Utils/QuadTree (= 2.1.0)
-    - GoogleMaps
-  - Google-Maps-iOS-Utils/Clustering (2.1.0):
-    - Google-Maps-iOS-Utils/QuadTree
-    - GoogleMaps
-  - Google-Maps-iOS-Utils/Geometry (2.1.0):
-    - GoogleMaps
-  - Google-Maps-iOS-Utils/Heatmap (2.1.0):
-    - Google-Maps-iOS-Utils/QuadTree
-    - GoogleMaps
-  - Google-Maps-iOS-Utils/QuadTree (2.1.0):
-    - GoogleMaps
   - GoogleAppMeasurement (5.8.1):
     - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
     - GoogleUtilities/MethodSwizzler (~> 5.2)
     - GoogleUtilities/Network (~> 5.2)
     - "GoogleUtilities/NSData+zlib (~> 5.2)"
     - nanopb (~> 0.3)
-  - GoogleMaps (3.1.0):
-    - GoogleMaps/Maps (= 3.1.0)
-  - GoogleMaps/Base (3.1.0)
-  - GoogleMaps/Maps (3.1.0):
-    - GoogleMaps/Base
   - GoogleUtilities/AppDelegateSwizzler (5.8.0):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
@@ -104,11 +83,7 @@ PODS:
   - Protobuf (3.8.0)
   - React (0.59.9):
     - React/Core (= 0.59.9)
-  - react-native-google-maps (0.24.0):
-    - Google-Maps-iOS-Utils (= 2.1.0)
-    - GoogleMaps (= 3.1.0)
-    - React
-  - react-native-maps (0.24.0):
+  - react-native-mapbox-gl (7.0.0-rc3):
     - React
   - react-native-netinfo (3.2.1):
     - React
@@ -197,10 +172,7 @@ DEPENDENCIES:
   - Firebase/Messaging (~> 5.20.1)
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
-  - Google-Maps-iOS-Utils
-  - GoogleMaps
-  - react-native-google-maps (from `../node_modules/react-native-maps`)
-  - react-native-maps (from `../node_modules/react-native-maps`)
+  - "react-native-mapbox-gl (from `../node_modules/@react-native-mapbox-gl/maps`)"
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-sensitive-info (from `../node_modules/react-native-sensitive-info`)
   - react-native-webview (from `../node_modules/react-native-webview`)
@@ -237,9 +209,7 @@ SPEC REPOS:
     - FirebaseCore
     - FirebaseInstanceID
     - FirebaseMessaging
-    - Google-Maps-iOS-Utils
     - GoogleAppMeasurement
-    - GoogleMaps
     - GoogleUtilities
     - nanopb
     - Protobuf
@@ -256,10 +226,8 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
   React:
     :path: "../node_modules/react-native"
-  react-native-google-maps:
-    :path: "../node_modules/react-native-maps"
-  react-native-maps:
-    :path: "../node_modules/react-native-maps"
+  react-native-mapbox-gl:
+    :path: "../node_modules/@react-native-mapbox-gl/maps"
   react-native-netinfo:
     :path: "../node_modules/@react-native-community/netinfo"
   react-native-sensitive-info:
@@ -296,15 +264,12 @@ SPEC CHECKSUMS:
   FirebaseMessaging: 4235f949ce1c4e827aeb19705ba5c53f9b85aa10
   Folly: de497beb10f102453a1afa9edbf8cf8a251890de
   glog: aefd1eb5dda2ab95ba0938556f34b98e2da3a60d
-  Google-Maps-iOS-Utils: c32891ff472eaaa1fca032beedafa1a013af7875
   GoogleAppMeasurement: ffe513e90551844a739e7bcbb1d2aca1c28a4338
-  GoogleMaps: 5c13302e6fe6bb6e686b267196586b91cd594225
   GoogleUtilities: 04fce34bcd5620c1ee76fb79172105c74a4df335
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   Protobuf: 3f617b9a6e73605565086864c9bc26b2bf2dd5a3
   React: a86b92f00edbe1873a63e4a212c29b7a7ad5224f
-  react-native-google-maps: 3e89f89243a11dfb25bb33a2fc39f13b9c0db538
-  react-native-maps: d87d8ed456d4132112fb1d2ee9baf3470c0f211d
+  react-native-mapbox-gl: 26cabddce8bf6f39164c7be4dceb781e6fab0fdc
   react-native-netinfo: 0da34082d2cec3100c9b5073bb217e35f1142bdd
   react-native-sensitive-info: ebe100d2ed408800397c8f1f224c77d3f507f4c5
   react-native-webview: 8b2761a9bf84bbbbe7f90f49743b9b74c7cb11e7
@@ -317,6 +282,6 @@ SPEC CHECKSUMS:
   SentryReactNative: 07237139c00366ea2e75ae3e5c566e7a71c27a90
   yoga: 03ff42a6f223fb88deeaed60249020d80c3091ee
 
-PODFILE CHECKSUM: fa8c09e8e89eb843ae83acce9cf4cc449ca8f72c
+PODFILE CHECKSUM: 205df6b8cc5d7d2e01a90bb49d58bc4b9d5292ad
 
 COCOAPODS: 1.7.2

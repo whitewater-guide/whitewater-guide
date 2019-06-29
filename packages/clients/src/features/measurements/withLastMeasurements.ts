@@ -1,7 +1,6 @@
-import { Measurement } from '@whitewater-guide/commons';
+import { Measurement, Overwrite } from '@whitewater-guide/commons';
 import { FetchPolicy } from 'apollo-client';
 import { graphql } from 'react-apollo';
-import { Overwrite } from 'type-zoo';
 import { LAST_MEASUREMENTS_QUERY } from './lastMeasurements.query';
 
 interface TVars {

@@ -4,19 +4,24 @@ import { offlineContentActions } from '../actions';
 import createPhotoChannel from './createPhotoChannel';
 
 export default function* downloadPhotos(channel: Channel<string[]>) {
+  let offset = 0;
   try {
-    let offset = 0;
     while (true) {
       const photos: string[] = yield take(channel);
       yield call(downloadPhotosWorker, photos, offset);
       offset += photos.length;
     }
   } finally {
-    // console.log('Done loading photos');
+    // console.log('Done loading photos', offset);
+    // Return number of downloaded photos, for test purposes only
+    // tslint:disable-next-line:no-unsafe-finally
+    return offset;
   }
+  // Return number of downloaded photos, for test purposes only
+  return offset;
 }
 
-export function* downloadPhotosWorker(photos: string[], offset: number) {
+function* downloadPhotosWorker(photos: string[], offset: number) {
   if (photos.length === 0) {
     return;
   }

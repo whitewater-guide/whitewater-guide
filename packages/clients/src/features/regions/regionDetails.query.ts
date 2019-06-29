@@ -1,3 +1,4 @@
+import { Region } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
 import { RegionFragments } from './regionFraments';
 
@@ -20,3 +21,11 @@ export const REGION_DETAILS = (width?: number) => gql`
   ${RegionFragments.Flags}
   ${RegionFragments.Banners(width)}
 `;
+
+export interface RegionDetailsVars {
+  regionId?: string;
+}
+
+export interface RegionDetailsResult {
+  region: Region | null;
+}

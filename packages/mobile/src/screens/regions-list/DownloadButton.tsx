@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     ...theme.shadow,
   },
   iconDisabled: {
-    opacity: 0.85,
+    opacity: 0.65,
   },
 });
 

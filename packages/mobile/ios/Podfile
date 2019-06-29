@@ -2,8 +2,9 @@
 platform :ios, '9.1'
 
 target 'whitewater' do
+  inhibit_all_warnings!
+
   rn_path = '../node_modules/react-native'
-  rn_maps_path = '../node_modules/react-native-maps'
 
   # Pods for whitewater
 
@@ -37,11 +38,6 @@ target 'whitewater' do
   pod 'glog', :podspec => "#{rn_path}/third-party-podspecs/glog.podspec"
   pod 'Folly', :podspec => "#{rn_path}/third-party-podspecs/Folly.podspec"
 
-  # react-native-maps dependencies
-  pod 'react-native-maps', path: rn_maps_path
-  pod 'react-native-google-maps', path: rn_maps_path  # Remove this line if you don't want to support GoogleMaps on iOS
-  pod 'GoogleMaps'  # Remove this line if you don't want to support GoogleMaps on iOS
-  pod 'Google-Maps-iOS-Utils' # Remove this line if you don't want to support GoogleMaps on iOS
   pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
 
   pod 'RNFS', :path => '../node_modules/react-native-fs'
@@ -62,15 +58,12 @@ target 'whitewater' do
 
   pod 'react-native-netinfo', :path => '../node_modules/@react-native-community/netinfo'
 
+  pod 'react-native-mapbox-gl', :path => '../node_modules/@react-native-mapbox-gl/maps'
+
 end
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|
-    if target.name == 'react-native-google-maps'
-      target.build_configurations.each do |config|
-        config.build_settings['CLANG_ENABLE_MODULES'] = 'No'
-      end
-    end
     if target.name == "React"
       target.remove_from_project
     end

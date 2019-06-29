@@ -1,12 +1,12 @@
 import { mount } from 'enzyme';
 import React from 'react';
-import { createMockedProvider, flushPromises, Receiver } from '../../test';
+import { flushPromises, mockApolloProvider, Receiver } from '../../test';
 import { withGaugesList, WithGaugesList } from './withGaugesList';
 
 let receiver: Receiver<WithGaugesList>;
 
 beforeEach(async () => {
-  const MockedProvider = createMockedProvider();
+  const MockedProvider = mockApolloProvider();
   const WithData = withGaugesList(Receiver as any);
   const wrapped = mount(
     <MockedProvider>

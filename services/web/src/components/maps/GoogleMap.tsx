@@ -2,6 +2,7 @@ import React from 'react';
 import { findDOMNode } from 'react-dom';
 import ReactResizeDetector from 'react-resize-detector';
 import { Styles } from '../../styles';
+import { MapElementProps } from './types';
 import { addZoomToFit } from './ZoomToFitControl';
 
 const styles: Styles = {
@@ -25,35 +26,34 @@ export interface InitialPosition {
   zoom?: number;
 }
 
-interface Props {
+interface GoogleMapProps {
   onLoaded?: (map: google.maps.Map) => void;
   onZoom?: (zoom: number) => void;
   onBoundsChanged?: (bounds: google.maps.LatLngBounds) => void;
   onClick?: (point: google.maps.LatLngLiteral) => void;
   initialPosition?: InitialPosition;
+  children:
+    | React.ReactElement<MapElementProps>
+    | Array<React.ReactElement<MapElementProps>>;
 }
 
 interface State {
   loaded: boolean;
-  zoom: number;
-  bounds: google.maps.LatLngBounds | null;
+  zoom?: number;
+  bounds?: google.maps.LatLngBounds;
 }
 
-export default class GoogleMap extends React.Component<Props, State> {
+export default class GoogleMap extends React.Component<GoogleMapProps, State> {
   state: State = {
     loaded: false,
     zoom: DEFAULT_ZOOM,
-    bounds: null,
+    bounds: undefined,
   };
 
-  map: google.maps.Map | null = null;
-  mapRef: React.ReactInstance | null = null;
+  map?: google.maps.Map;
 
-  // tslint:disable-next-line:no-inferrable-types
   width: number = 0;
-  // tslint:disable-next-line:no-inferrable-types
   height: number = 0;
-  // tslint:disable-next-line:no-inferrable-types
   initialized: boolean = false;
 
   initialize = () => {
@@ -163,12 +163,14 @@ export default class GoogleMap extends React.Component<Props, State> {
         />
         <div style={styles.map} ref={this.setMapRef} />
         {this.state.loaded &&
-          React.Children.map(this.props.children, (child) =>
-            React.cloneElement(child as any, {
-              map: this.map,
-              zoom: this.state.zoom,
-              bounds: this.state.bounds,
-            }),
+          React.Children.map(
+            this.props.children,
+            (child: React.ReactElement<MapElementProps>) =>
+              React.cloneElement(child, {
+                map: this.map,
+                zoom: this.state.zoom,
+                bounds: this.state.bounds,
+              }),
           )}
       </div>
     );

@@ -1,20 +1,19 @@
+import { useSection } from '@whitewater-guide/clients';
 import React from 'react';
 import { NavigationScreenComponent } from 'react-navigation';
 import { Icon, Screen } from '../../../components';
 import { NoChart } from '../../../components/chart/NoChart';
 import { I18nText } from '../../../i18n';
 import theme from '../../../theme';
-import { ScreenProps } from '../types';
 import InteractiveChart from './InteractiveChart';
 
-export const SectionChartScreen: NavigationScreenComponent = (props) => {
-  const screenProps: ScreenProps = props.screenProps as any;
-  const section = screenProps.section.node;
-  const gauge = section && section.gauge;
+export const SectionChartScreen: NavigationScreenComponent = () => {
+  const { node } = useSection();
+  const gauge = node && node.gauge;
   return (
     <Screen noScroll={true} noPadding={true}>
-      {section && gauge ? (
-        <InteractiveChart section={section} gauge={gauge} />
+      {node && gauge ? (
+        <InteractiveChart section={node} gauge={gauge} />
       ) : (
         <NoChart />
       )}

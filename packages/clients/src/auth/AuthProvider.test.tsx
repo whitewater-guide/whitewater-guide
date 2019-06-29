@@ -2,11 +2,11 @@ import { fireEvent, render, RenderResult } from '@testing-library/react';
 import 'jest-dom/extend-expect';
 import React from 'react';
 import { MockedProvider, MockedResponse } from 'react-apollo/test-utils';
-import { MY_PROFILE_QUERY } from '../features/users';
 import { flushPromises } from '../test';
 import { AuthProvider } from './AuthProvider';
 import { AuthContext } from './context';
 import { MockAuthService } from './mockService';
+import { MY_PROFILE_QUERY } from './myProfile.query';
 
 const mockUser: MockedResponse = {
   request: {

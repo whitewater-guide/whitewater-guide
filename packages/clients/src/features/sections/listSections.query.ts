@@ -27,11 +27,11 @@ export const LIST_SECTIONS = gql`
   ${SectionFragments.Tags}
 `;
 
-export interface Vars {
+export interface ListSectionsVars {
   page?: Page;
   filter?: SectionsFilter;
 }
 
-export interface Result {
+export interface ListSectionsResult {
   sections: Required<Connection<Section>>;
 }

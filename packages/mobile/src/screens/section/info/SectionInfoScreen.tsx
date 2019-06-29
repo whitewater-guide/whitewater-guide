@@ -1,16 +1,16 @@
+import { useSection } from '@whitewater-guide/clients';
 import React from 'react';
 import { NavigationScreenComponent } from 'react-navigation';
 import { Icon, Screen } from '../../../components';
 import { I18nText } from '../../../i18n';
 import theme from '../../../theme';
-import { ScreenProps } from '../types';
 import SectionInfoView from './SectionInfoView';
 
-export const SectionInfoScreen: NavigationScreenComponent = (props) => {
-  const screenProps: ScreenProps = props.screenProps as any;
+export const SectionInfoScreen: NavigationScreenComponent = () => {
+  const node = useSection();
   return (
     <Screen>
-      <SectionInfoView section={screenProps.section} />
+      <SectionInfoView section={node} />
     </Screen>
   );
 };

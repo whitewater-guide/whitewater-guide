@@ -1,6 +1,6 @@
 import {
   arrayToDMSString,
-  consumeRegion,
+  withRegion,
   WithRegion,
 } from '@whitewater-guide/clients';
 import { Coordinate, Section } from '@whitewater-guide/commons';
@@ -73,6 +73,6 @@ class CoordinatesInfo extends React.PureComponent<InnerProps> {
 }
 
 export default compose<InnerProps, OwnProps>(
-  consumeRegion(),
+  withRegion,
   connectPremiumDialog,
 )(CoordinatesInfo);

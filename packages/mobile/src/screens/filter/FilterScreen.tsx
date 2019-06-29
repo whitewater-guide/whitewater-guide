@@ -1,16 +1,14 @@
 import React from 'react';
 import { NavigationScreenComponent } from 'react-navigation';
-import container from './container';
-import FilterScreenContent from './FilterScreenContent';
+import FilterScreenView from './FilterScreenView';
 import ResetFilterButton from './ResetFilterButton';
+import { NavParams } from './types';
 
-const FilterWithData = container(FilterScreenContent);
+export const FilterScreen: NavigationScreenComponent<NavParams> = ({
+  navigation,
+}) => <FilterScreenView regionId={navigation.getParam('regionId')} />;
 
-export const FilterScreen: NavigationScreenComponent = ({ navigation }) => (
-  <FilterWithData navigation={navigation as any} />
-);
-
-FilterScreen.navigationOptions = ({ navigation }) => ({
+FilterScreen.navigationOptions = () => ({
   headerTitle: 'filter:title',
-  headerRight: <ResetFilterButton navigation={navigation} />,
+  headerRight: <ResetFilterButton />,
 });

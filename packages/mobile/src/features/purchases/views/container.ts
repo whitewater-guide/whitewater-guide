@@ -1,7 +1,7 @@
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { connect, DispatchProp } from 'react-redux';
 import { compose } from 'recompose';
-import { RootState } from '../../../core/reducers';
+import { RootState } from '../../../core/redux/reducers';
 import { purchaseActions } from '../actions';
 import { PremiumRegion, PurchaseDialogStep } from '../types';
 

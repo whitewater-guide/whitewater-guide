@@ -1,3 +1,4 @@
+import { useSection } from '@whitewater-guide/clients';
 import { BannerPlacement } from '@whitewater-guide/commons';
 import React from 'react';
 import { NavigationScreenComponent } from 'react-navigation';
@@ -5,13 +6,10 @@ import { Icon, Screen } from '../../../components';
 import { RegionBanners } from '../../../features/banners';
 import { I18nText } from '../../../i18n';
 import theme from '../../../theme';
-import { ScreenProps } from '../types';
 import SectionGuideView from './SectionGuideView';
 
-export const SectionGuideScreen: NavigationScreenComponent = ({
-  screenProps,
-}) => {
-  const { section }: ScreenProps = screenProps as any;
+export const SectionGuideScreen: NavigationScreenComponent = () => {
+  const section = useSection();
   return (
     <Screen>
       <SectionGuideView section={section} />

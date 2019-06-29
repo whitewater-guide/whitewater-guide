@@ -1,4 +1,4 @@
-import { AuthBody, Overwrite } from '@whitewater-guide/commons';
+import { AuthBody, Overwrite, User } from '@whitewater-guide/commons';
 
 export interface TokenStorage {
   setAccessToken: (value: string | null) => Promise<void>;
@@ -44,3 +44,7 @@ export type AuthResponse<T = {}> = Overwrite<
     status: number; // 0 indicates network error (fetch throws)
   }
 >;
+
+export interface WithMe {
+  me: User | null;
+}

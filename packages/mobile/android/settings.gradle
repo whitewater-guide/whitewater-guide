@@ -1,4 +1,6 @@
 rootProject.name = 'whitewater'
+include ':@react-native-mapbox-gl_maps'
+project(':@react-native-mapbox-gl_maps').projectDir = new File(rootProject.projectDir, '../node_modules/@react-native-mapbox-gl/maps/android/rctmgl')
 include ':react-native-text-size'
 project(':react-native-text-size').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-text-size/android')
 include ':@react-native-community_netinfo'
@@ -39,7 +41,5 @@ include ':react-native-interactable'
 project(':react-native-interactable').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-interactable/lib/android')
 include ':react-native-config'
 project(':react-native-config').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-config/android')
-include ':react-native-maps'
-project(':react-native-maps').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-maps/lib/android')
 
 include ':app'

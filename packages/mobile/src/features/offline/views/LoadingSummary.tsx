@@ -1,10 +1,11 @@
+import { useNetInfo } from '@react-native-community/netinfo';
+import { ApolloError } from 'apollo-client';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { Button, Caption, Subheading } from 'react-native-paper';
 import { Icon } from '../../../components';
 import theme from '../../../theme';
-import { GraphqlProps } from './types';
 
 const styles = StyleSheet.create({
   container: {
@@ -12,21 +13,28 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: theme.margin.double,
+    marginHorizontal: theme.margin.double,
   },
 });
 
 interface Props {
-  summary: GraphqlProps['summary'];
+  error?: ApolloError;
+  refetch?: () => Promise<any>;
 }
 
-const LoadingSummary: React.FC<Props> = ({ summary }) => {
-  const [t] = useTranslation();
-  const { error, refetch } = summary;
+const LoadingSummary: React.FC<Props> = ({ error, refetch }) => {
+  const { t } = useTranslation();
+  const { isConnected } = useNetInfo();
   if (error) {
     return (
       <View style={styles.container}>
         <Icon icon="alert" />
-        <Subheading>{t('offline:dialog.summaryError')}</Subheading>
+        <Subheading>
+          {t('offline:dialog.summaryError')}{' '}
+          {!isConnected && (
+            <Subheading>{t('commons:checkConnection')}</Subheading>
+          )}
+        </Subheading>
         <Button color={theme.colors.primary} compact={true} onPress={refetch}>
           {t('commons:retry')}
         </Button>

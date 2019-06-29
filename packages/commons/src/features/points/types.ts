@@ -1,3 +1,5 @@
+import { Node } from '../../apollo';
+
 export type Coordinate2d = [number, number];
 export type Coordinate3d = [number, number, number];
 export type Coordinate = Coordinate2d | Coordinate3d;
@@ -19,14 +21,15 @@ export function withZeroAlt(coordinates: any): any {
   }
 }
 
-export interface Point {
-  __typename: 'Point';
-  id: string;
+export interface Point extends Node {
   name: string | null;
   description: string | null;
   coordinates: Coordinate3d;
   kind: string;
 }
+
+export const isPoint = (node?: Node | null): node is Point =>
+  !!node && node.__typename === 'Point';
 
 export interface PointInput {
   id: string | null;

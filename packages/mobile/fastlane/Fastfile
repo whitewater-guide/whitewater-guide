@@ -6,9 +6,11 @@ skip_docs
 # Check Git Status
 private_lane :check_git_status do
   ensure_git_status_clean
-  ensure_git_branch(
-    branch: ENV["BRANCH"]
-  )
+  if ENV["ENV"] == "production"
+    ensure_git_branch(
+      branch: ENV["BRANCH"]
+    )
+  end
 end
 
 private_lane :parse_package_json do
@@ -164,6 +166,8 @@ platform :ios do
     end
     pilot(
       ipa: ENV['IOS_IPA_PATH'],
+      skip_submission: true,
+      skip_waiting_for_build_processing: true,
     )
     code_push
   end
@@ -182,6 +186,8 @@ platform :ios do
     end
     pilot(
       ipa: ENV['IOS_IPA_PATH'],
+      skip_submission: true,
+      skip_waiting_for_build_processing: true,
     )
     code_push
   end

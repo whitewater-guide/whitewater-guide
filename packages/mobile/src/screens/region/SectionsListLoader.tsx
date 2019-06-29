@@ -1,13 +1,17 @@
 import {
   getListMerger,
   LIST_SECTIONS,
+  ListSectionsResult,
+  ListSectionsVars,
   POLL_REGION_MEASUREMENTS,
   PollVars,
-  RegionContext,
-  Result,
-  Vars,
+  WithNode,
 } from '@whitewater-guide/clients';
-import { applySearch } from '@whitewater-guide/commons';
+import {
+  applySearch,
+  Node,
+  SectionSearchTerms,
+} from '@whitewater-guide/commons';
 import {
   ApolloQueryResult,
   NetworkStatus,
@@ -23,15 +27,14 @@ import {
 } from './types';
 
 interface OwnProps {
+  searchTerms: SectionSearchTerms | null;
+  region: WithNode<Node | null>;
   limit?: number;
   pollInterval?: number;
   children: (props: RenderProps) => any;
 }
 
-export type Props = Pick<RegionContext, 'region' | 'searchTerms'> &
-  OwnProps &
-  ConnectivityProps &
-  WithApolloClient<any>;
+export type Props = WithApolloClient<OwnProps & ConnectivityProps>;
 
 export class SectionsListLoader extends React.PureComponent<Props, InnerState> {
   static defaultProps: Partial<Props> = {
@@ -39,7 +42,7 @@ export class SectionsListLoader extends React.PureComponent<Props, InnerState> {
     pollInterval: 5 * 60 * 1000,
   };
 
-  _query!: ObservableQuery<Result, Vars>;
+  _query!: ObservableQuery<ListSectionsResult, ListSectionsVars>;
   _pollQuery!: ObservableQuery<any, PollVars>;
   _subscription: ZenObservable.Subscription | undefined;
   _mounted: boolean = false;
@@ -53,7 +56,7 @@ export class SectionsListLoader extends React.PureComponent<Props, InnerState> {
       return;
     }
 
-    let fromCache: Result | null = null;
+    let fromCache: ListSectionsResult | null = null;
     try {
       fromCache = client.readQuery({
         query: LIST_SECTIONS,
@@ -114,7 +117,7 @@ export class SectionsListLoader extends React.PureComponent<Props, InnerState> {
     }
   }
 
-  onUpdate = (props: ApolloQueryResult<Result>) => {
+  onUpdate = (props: ApolloQueryResult<ListSectionsResult>) => {
     const { data, networkStatus } = props;
     if (networkStatus !== NetworkStatus.ready) {
       return;
@@ -204,7 +207,7 @@ export class SectionsListLoader extends React.PureComponent<Props, InnerState> {
 
   startPolling = async () => {
     const { client, region, pollInterval } = this.props;
-    if (!region.node || pollInterval === 0) {
+    if (!region.node || !pollInterval) {
       return;
     }
     this._pollQuery = client.watchQuery({

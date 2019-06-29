@@ -54,14 +54,17 @@
       "subtitle": "Selected region: {{region}}",
       "categories": {
         "data": "Detailed sections info *",
-        "media": "Photos",
-        "maps": "Maps (coming soon)"
+        "media": "Photos {{size, brackets}}",
+        "maps": "Maps {{size, brackets}}"
       },
       "cacheWarning": "* This data will be lost when you logout or change language",
       "loadingSummary": "Loading metadata",
       "inBackground": "Continue in background",
-      "summaryError": "Error while loading metadata",
-      "download": "Download"
+      "summaryError": "Error while loading metadata.",
+      "download": "Download",
+      "tiles": "tiles",
+      "mapsError": "Error while downloading maps. Try to free some space by deleting other offline maps.",
+      "fatalError": "Error while downloading content."
     }
   },
   "filter": {

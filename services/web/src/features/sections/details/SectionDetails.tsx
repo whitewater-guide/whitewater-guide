@@ -7,6 +7,7 @@ import { Route, Switch } from 'react-router';
 import { RouteComponentProps } from 'react-router-dom';
 import { Content, Tabs } from '../../../components';
 import { EditorLanguagePicker } from '../../../components/language';
+import { Map } from '../../../components/maps';
 import { CardHeader, EditorFooter } from '../../../layout';
 import { SectionMedia } from '../../media';
 import SectionInfo from './SectionInfo';
@@ -31,7 +32,12 @@ export default class SectionDetails extends React.PureComponent<
           <div style={{ width: '100%', height: '100%' }}>
             <Tabs fullPathMode={true}>
               <Tab label="Map" value={`${url}#map`}>
-                <span>Map</span>
+                <Map
+                  detailed={true}
+                  sections={[section]}
+                  initialBounds={section.shape}
+                  pois={section.pois}
+                />
               </Tab>
 
               <Tab label="Flow Info" value={`${url}#flow`}>

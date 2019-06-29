@@ -2,6 +2,7 @@ import AutoComplete from 'material-ui/AutoComplete';
 import React from 'react';
 import { findDOMNode } from 'react-dom';
 import { Styles } from '../../styles';
+import { MapElementProps } from './types';
 type AutocompletePrediction = google.maps.places.AutocompletePrediction;
 type PlacesServiceStatus = google.maps.places.PlacesServiceStatus;
 const PlacesServiceStatus = google.maps.places.PlacesServiceStatus;
@@ -21,26 +22,24 @@ interface SearchResult {
   value: PlaceResult | AutocompletePrediction;
 }
 
-interface Props {
-  map: google.maps.Map;
-  bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral;
-}
-
 interface State {
   searchText: string;
   autocompleteResult: SearchResult[];
   placesResult: SearchResult[];
 }
 
-export default class PlacesAutocomplete extends React.Component<Props, State> {
+export default class PlacesAutocomplete extends React.Component<
+  MapElementProps,
+  State
+> {
   autocompleteService: google.maps.places.AutocompleteService;
   placesService: google.maps.places.PlacesService;
   state: State;
 
-  constructor(props: Props) {
+  constructor(props: MapElementProps) {
     super(props);
     this.autocompleteService = new google.maps.places.AutocompleteService();
-    this.placesService = new google.maps.places.PlacesService(props.map);
+    this.placesService = new google.maps.places.PlacesService(props.map!);
     this.state = {
       searchText: '',
       autocompleteResult: [],
@@ -49,7 +48,7 @@ export default class PlacesAutocomplete extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    this.props.map.controls[google.maps.ControlPosition.TOP_LEFT].push(
+    this.props.map!.controls[google.maps.ControlPosition.TOP_LEFT].push(
       findDOMNode(this) as Element,
     );
   }
@@ -114,8 +113,8 @@ export default class PlacesAutocomplete extends React.Component<Props, State> {
   };
 
   panZoomTo = (place: PlaceResult) => {
-    this.props.map.panTo(place.geometry!.location);
-    this.props.map.setZoom(11);
+    this.props.map!.panTo(place.geometry!.location);
+    this.props.map!.setZoom(11);
   };
 
   render() {

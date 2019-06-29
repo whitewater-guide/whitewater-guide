@@ -1,14 +1,14 @@
 import {
   createFixedProvider,
-  createMockedProvider,
   dataIdFromObject,
   FixedProviderOptions,
   flushPromises,
   LIST_SECTIONS,
+  ListSectionsResult,
+  ListSectionsVars,
+  mockApolloProvider,
   MockLink,
   POLL_REGION_MEASUREMENTS,
-  Result,
-  Vars,
 } from '@whitewater-guide/clients';
 import {
   DefaultSectionSearchTerms,
@@ -35,7 +35,7 @@ const TEST_REGION_ID = 'test_region_id';
 
 let seedSections: Section[];
 let seedCount: number;
-let seedData: Result;
+let seedData: ListSectionsResult;
 let mockedResponses: any[];
 let client: ApolloClient<any>;
 let wrapper: RenderAPI | undefined;
@@ -61,7 +61,10 @@ const mockResult = (
 });
 
 interface TestOptions
-  extends Overwrite<FixedProviderOptions<Result, Vars>, { cache?: Result }> {
+  extends Overwrite<
+    FixedProviderOptions<ListSectionsResult, ListSectionsVars>,
+    { cache?: ListSectionsResult }
+  > {
   isConnected?: boolean;
   searchTerms?: SectionSearchTerms;
   pollInterval?: number;
@@ -91,7 +94,7 @@ const mountInHarness = (options: TestOptions): Harness => {
   wrapper = render(
     <SectionsListLoader
       key="test_sections_list_loader"
-      region={{ node: { id: TEST_REGION_ID } }}
+      region={{ node: { id: TEST_REGION_ID } } as any}
       searchTerms={searchTerms}
       isConnected={isConnected}
       client={FixedProvider.client}
@@ -106,7 +109,7 @@ const mountInHarness = (options: TestOptions): Harness => {
       wrapper!.update(
         <SectionsListLoader
           key="test_sections_list_loader"
-          region={{ node: { id: TEST_REGION_ID } }}
+          region={{ node: { id: TEST_REGION_ID } } as any}
           searchTerms={searchTerms}
           isConnected={isConnected}
           client={FixedProvider.client}
@@ -121,7 +124,7 @@ const mountInHarness = (options: TestOptions): Harness => {
 };
 
 beforeAll(async () => {
-  const provider = createMockedProvider({
+  const provider = mockApolloProvider({
     mocks: {
       SectionsList: () => ({
         nodes: () => new MockList(SEED_COUNT),
@@ -129,7 +132,10 @@ beforeAll(async () => {
       }),
     },
   });
-  const result = await provider.client.query<Result, Vars>({
+  const result = await provider.client.query<
+    ListSectionsResult,
+    ListSectionsVars
+  >({
     query: LIST_SECTIONS,
   });
   seedData = result.data;

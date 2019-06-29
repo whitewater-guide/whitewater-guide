@@ -1,5 +1,5 @@
 import { connect, DispatchProp } from 'react-redux';
-import { RootState } from '../../../../core/reducers';
+import { RootState } from '../../../../core/redux/reducers';
 import { purchaseActions } from '../../actions';
 import { PremiumRegion, PurchaseState } from '../../types';
 

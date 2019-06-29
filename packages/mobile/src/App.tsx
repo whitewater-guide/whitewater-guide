@@ -1,6 +1,7 @@
 import {
   AuthProvider,
   AuthService,
+  FilterProvider,
   TagsProvider,
 } from '@whitewater-guide/clients';
 import ApolloClient from 'apollo-client';
@@ -8,20 +9,20 @@ import React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import { AsyncStorage } from 'react-native';
 import codePush from 'react-native-code-push';
-import { PortalProvider } from 'react-native-portal';
+import NativeSplashScreen from 'react-native-splash-screen';
 import { NavigationState } from 'react-navigation';
 import { Provider } from 'react-redux';
-import { Store, Unsubscribe } from 'redux';
-import { ErrorSnackbar, Screen, SplashScreen } from './components';
-import { resetNavigationToHome } from './core/actions';
+import { Store } from 'redux';
+import { Persistor } from 'redux-persist';
+import { PersistGate } from 'redux-persist/integration/react';
+import { ErrorSnackbar, Loading, SplashScreen } from './components';
 import { apolloCachePersistor, initApolloClient } from './core/apollo';
 import { MobileAuthService } from './core/auth';
 import configMisc from './core/config/configMisc';
 import configMoment from './core/config/configMoment';
 import { configErrors } from './core/errors';
-import { RootState } from './core/reducers';
+import { configureStore, resetNavigationToHome } from './core/redux';
 import { navigationChannel } from './core/sagas';
-import configureStore from './core/store/configureStore';
 import { purchaseActions } from './features/purchases';
 import { I18nProvider } from './i18n';
 import RootNavigator from './RootNavigator';
@@ -31,18 +32,20 @@ configErrors();
 configMoment();
 configMisc();
 
-interface State {
-  initialized: boolean;
-}
+const NAVIGATION_PERSISTENCE_KEY = 'ww_nav_2';
 
-const NAVIGATION_PERSISTENCE_KEY = 'ww_nav_1';
-
-class App extends React.Component<{}, State> {
-  state: State = { initialized: false };
-  private _store?: Store<RootState>;
+class App extends React.PureComponent {
   private _apolloClient?: ApolloClient<any>;
-  private _storeSubscription?: Unsubscribe;
   private _authService!: AuthService;
+  private _store: Store<any>;
+  private _persistor: Persistor;
+
+  constructor(props: any) {
+    super(props);
+    const { store, persistor } = configureStore();
+    this._persistor = persistor;
+    this._store = store;
+  }
 
   async componentDidMount() {
     this._authService = new MobileAuthService(
@@ -50,35 +53,18 @@ class App extends React.Component<{}, State> {
       this.onSignOut,
     );
     await this._authService.init();
-    this._store = await configureStore();
     this._apolloClient = await initApolloClient(this._authService);
-    const initialized = this._store.getState().app.initialized;
-    if (!initialized) {
-      this._storeSubscription = this._store.subscribe(this.listenForInitialize);
-    }
-    this.setState({ initialized });
+    this.forceUpdate();
   }
 
-  componentWillUnmount(): void {
-    if (this._storeSubscription) {
-      this._storeSubscription();
-    }
+  componentDidCatch(error: Error) {
+    NativeSplashScreen.hide();
+    throw error;
   }
-
-  shouldComponentUpdate(nextProps: any, nextState: State) {
-    return !this.state.initialized && nextState.initialized;
-  }
-
-  listenForInitialize = () => {
-    const initialized = this._store!.getState().app.initialized;
-    this.setState({ initialized });
-  };
 
   onSignOut = () => {
     navigationChannel.put(resetNavigationToHome());
-    if (this._store) {
-      this._store.dispatch(purchaseActions.logout());
-    }
+    this._store.dispatch(purchaseActions.logout());
   };
 
   // See https://github.com/apollographql/apollo-cache-persist/issues/34#issuecomment-371177206 for explanation
@@ -104,30 +90,33 @@ class App extends React.Component<{}, State> {
   renderLoadingExperimental = () => <SplashScreen />;
 
   render() {
-    if (this._store && this.state.initialized) {
-      return (
-        <Provider store={this._store}>
-          <ApolloProvider client={this._apolloClient!}>
-            <PortalProvider>
+    return (
+      <Provider store={this._store}>
+        <PersistGate loading={<Loading />} persistor={this._persistor}>
+          {this._apolloClient ? (
+            <ApolloProvider client={this._apolloClient}>
               <TagsProvider>
-                <AuthProvider service={this._authService}>
-                  <I18nProvider onUserLanguageChange={this.resetApolloCache}>
-                    <RootNavigator
-                      onNavigationStateChange={trackScreenChange}
-                      persistNavigationState={this.persistNavigationState}
-                      loadNavigationState={this.loadNavigationState}
-                      renderLoadingExperimental={this.renderLoadingExperimental}
-                    />
-                    <ErrorSnackbar />
-                  </I18nProvider>
-                </AuthProvider>
+                <FilterProvider>
+                  <AuthProvider service={this._authService}>
+                    <I18nProvider onUserLanguageChange={this.resetApolloCache}>
+                      <RootNavigator
+                        onNavigationStateChange={trackScreenChange}
+                        persistNavigationState={this.persistNavigationState}
+                        loadNavigationState={this.loadNavigationState}
+                        renderLoadingExperimental={
+                          this.renderLoadingExperimental
+                        }
+                      />
+                      <ErrorSnackbar />
+                    </I18nProvider>
+                  </AuthProvider>
+                </FilterProvider>
               </TagsProvider>
-            </PortalProvider>
-          </ApolloProvider>
-        </Provider>
-      );
-    }
-    return <Screen />;
+            </ApolloProvider>
+          ) : null}
+        </PersistGate>
+      </Provider>
+    );
   }
 }
 

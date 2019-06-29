@@ -1,18 +1,39 @@
-import React from 'react';
+import { getSectionContentBounds, useSection } from '@whitewater-guide/clients';
+import React, { useMemo } from 'react';
 import { NavigationScreenComponent } from 'react-navigation';
 import { Icon, Screen } from '../../../components';
+import { MapLayout } from '../../../components/map';
 import { I18nText } from '../../../i18n';
 import theme from '../../../theme';
-import { ScreenProps } from '../types';
-import SectionMap from './SectionMap';
 
-export const SectionMapScreen: NavigationScreenComponent = ({
-  screenProps,
-}) => {
-  const { section }: ScreenProps = screenProps as any;
+export const SectionMapScreen: NavigationScreenComponent = () => {
+  const section = useSection();
+  const initialBounds = useMemo(() => getSectionContentBounds(section.node), [
+    section,
+  ]);
+  const pois = useMemo(() => {
+    if (!section.node) {
+      return [];
+    }
+
+    const result = [...section.node.pois];
+    const gauge = section.node.gauge && section.node.gauge.location;
+    if (gauge) {
+      const gaugePt = { ...gauge, name: `Gauge ${gauge.name}` };
+      result.push(gaugePt);
+    }
+    return result;
+  }, [section]);
   return (
     <Screen noScroll={true}>
-      <SectionMap section={section} />
+      {section.node && (
+        <MapLayout
+          sections={[section.node]}
+          initialBounds={initialBounds!}
+          pois={pois}
+          detailed={true}
+        />
+      )}
     </Screen>
   );
 };
