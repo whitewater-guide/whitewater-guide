@@ -1,7 +1,7 @@
 import {
-  consumeRegion,
   WithMe,
   withMe,
+  withRegion,
   WithRegion,
 } from '@whitewater-guide/clients';
 import PropTypes from 'prop-types';
@@ -38,7 +38,7 @@ const columnMapper = (isAdmin: boolean, isEditor: boolean) => (
 
 const enhancer = compose<TableProps, TableProps>(
   withMe,
-  consumeRegion(),
+  withRegion,
   mapProps(
     ({ me, children, region, ...props }: WithMe & WithRegion & TableProps) => {
       const isEditor = !!region && !!region.node && region.node.editable;

@@ -1,7 +1,7 @@
 import {
-  consumeRegion,
   queryResultToList,
   withFeatureIds,
+  withRegion,
 } from '@whitewater-guide/clients';
 import { graphql } from 'react-apollo';
 import { withRouter } from 'react-router';
@@ -41,7 +41,7 @@ export const withSectionMedia = ({
       propName: 'removeMedia',
     }),
     withLoading<WithMediaList>(({ mediaBySection }) => mediaBySection.loading),
-    consumeRegion(),
+    withRegion,
   );
 
 export default withSectionMedia;
