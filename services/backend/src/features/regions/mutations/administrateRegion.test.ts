@@ -2,9 +2,9 @@ import { holdTransaction, rollbackTransaction } from '@db';
 import { COVERS, fileExistsInBucket, resetTestMinio, TEMP } from '@minio';
 import { ADMIN, EDITOR_GA_EC, TEST_USER } from '@seeds/01_users';
 import { REGION_GALICIA } from '@seeds/04_regions';
-import { PHOTO_1 } from '@seeds/11_media';
 import { anonContext, fakeContext, runQuery } from '@test';
 import { ApolloErrorCodes } from '@whitewater-guide/commons';
+import set from 'lodash/fp/set';
 
 const mutation = `
   mutation administrateRegion($settings: RegionAdminSettings!){
@@ -100,5 +100,34 @@ describe('result', () => {
     ])) as any;
     expect(tempExists.every((v: boolean) => !v)).toBe(true);
     expect(newExists.every((v: boolean) => v)).toBe(true);
+  });
+});
+
+it('should correctly handle absolute cover urls', async () => {
+  const { PROTOCOL, MINIO_DOMAIN } = process.env;
+  const vars = set(
+    'settings.coverImage.mobile',
+    `${PROTOCOL}://${MINIO_DOMAIN}/covers/galicia_mobile_cover2.jpg`,
+    variables,
+  );
+
+  const result = await runQuery(mutation, vars, fakeContext(ADMIN));
+  expect(result.errors).toBeUndefined();
+  expect(result.data!.administrateRegion).toMatchObject({
+    coverImage: {
+      mobile: `${PROTOCOL}://${MINIO_DOMAIN}/covers/galicia_mobile_cover2.jpg`,
+    },
+  });
+});
+
+it('should correctly handle null cover urls', async () => {
+  const vars = set('settings.coverImage.mobile', null, variables);
+
+  const result = await runQuery(mutation, vars, fakeContext(ADMIN));
+  expect(result.errors).toBeUndefined();
+  expect(result.data!.administrateRegion).toMatchObject({
+    coverImage: {
+      mobile: null,
+    },
   });
 });
