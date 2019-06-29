@@ -1,3 +1,10 @@
+## [0.1.364](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.363...@whitewater-guide/web@0.1.364) (2019-06-29)
+
+### Features
+
+- **web:** add region map size admin field ([743dd44](https://github.com/doomsower/whitewater/commit/743dd44))
+- **web:** use latest clients lib ([5037ff3](https://github.com/doomsower/whitewater/commit/5037ff3))
+
 ## [0.1.363](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.362...@whitewater-guide/web@0.1.363) (2019-06-29)
 
 ### Features
