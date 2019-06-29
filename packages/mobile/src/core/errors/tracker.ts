@@ -35,12 +35,13 @@ class ErrorTracker {
     }
   };
 
-  setScreen = (screen: string) => {
+  setScreen = (screen: string, params: any) => {
     if (!__DEV__) {
       Sentry.captureBreadcrumb({
         category: 'navigation',
         level: SentrySeverity.Info,
         message: screen,
+        data: params,
       });
     }
   };
