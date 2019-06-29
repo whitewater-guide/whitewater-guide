@@ -1,5 +1,7 @@
 # [1.8.0](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.8.0...@whitewater-guide/mobile@1.8.0) (2019-06-29)
 
+# [1.8.0](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.8.0...@whitewater-guide/mobile@1.8.0) (2019-06-29)
+
 # [1.8.0](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.94...@whitewater-guide/mobile@1.8.0) (2019-06-29)
 
 ### Features

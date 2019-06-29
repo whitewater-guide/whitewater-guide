@@ -1,3 +1,11 @@
+## [0.1.366](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.364...@whitewater-guide/web@0.1.366) (2019-06-29)
+
+### Bug Fixes
+
+- **web:** fix AdminRoute refresh ([68f01e4](https://github.com/doomsower/whitewater/commit/68f01e4))
+
+## 0.1.365 (2019-06-29)
+
 ## [0.1.365](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.364...@whitewater-guide/web@0.1.365) (2019-06-29)
 
 ## [0.1.364](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.363...@whitewater-guide/web@0.1.364) (2019-06-29)
