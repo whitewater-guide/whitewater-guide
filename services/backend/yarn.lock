@@ -1153,12 +1153,12 @@
     lodash.unescape "4.0.1"
     semver "5.5.0"
 
-"@whitewater-guide/commons@^0.0.142":
-  version "0.0.142"
-  resolved "https://registry.yarnpkg.com/@whitewater-guide/commons/-/commons-0.0.142.tgz#8f4df26ac63ca3b9f95bd9c216e98eeecbd33a30"
-  integrity sha512-OVC+2F5YK4u4QK/TFTiOQ1NUGBHFnmEyBz2W0fudCqVHxKR61GYoXtvZVdKfhXZAd8pCFJCMNXT0RG1Z5mLGng==
+"@whitewater-guide/commons@^0.0.143":
+  version "0.0.143"
+  resolved "https://registry.yarnpkg.com/@whitewater-guide/commons/-/commons-0.0.143.tgz#27befbc5a3bb507ad749c78081fdac56d0da023a"
+  integrity sha512-zVhO0kMytB25qm2se8budbuIb3MwtfcgdPVeStebsgHooNEW1KaBatHt0gQwGiVxkY7575A7KwvKVXf5DxVYNg==
   dependencies:
-    cron-parser "^2.11.0"
+    cron-parser "^2.12.0"
     lodash "^4.17.11"
     superstruct "^0.6.1"
     validator "^11.0.0"
@@ -2834,6 +2834,14 @@ cron-parser@^2.11.0, cron-parser@^2.7.3:
   dependencies:
     is-nan "^1.2.1"
     moment-timezone "^0.5.23"
+
+cron-parser@^2.12.0:
+  version "2.12.0"
+  resolved "https://registry.yarnpkg.com/cron-parser/-/cron-parser-2.12.0.tgz#05ae8c008025cecdd8778746626a183249ca300b"
+  integrity sha512-1GU6CQJ6gT9XDEGeTuzfhZgFMf82BSs3ihFA3i2wr4qGKJLhO1kOvaIF9biIo39CaPgzZ17U8FgYxRv/+UR50A==
+  dependencies:
+    is-nan "^1.2.1"
+    moment-timezone "^0.5.25"
 
 cross-spawn@^5.0.1, cross-spawn@^5.1.0:
   version "5.1.0"
@@ -6948,7 +6956,7 @@ module-lookup-amd@^6.1.0:
     requirejs "^2.3.5"
     requirejs-config-file "^3.1.1"
 
-moment-timezone@^0.5.23:
+moment-timezone@^0.5.23, moment-timezone@^0.5.25:
   version "0.5.25"
   resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.25.tgz#a11bfa2f74e088327f2cd4c08b3e7bdf55957810"
   integrity sha512-DgEaTyN/z0HFaVcVbSyVCUU6HeFdnNC3vE4c9cgu2dgMTvjBUBdBzWfasTBmAW45u5OIMeCJtU8yNjM22DHucw==
