@@ -1,3 +1,9 @@
+## [0.0.143](https://github.com/doomsower/whitewater/compare/@whitewater-guide/commons@0.0.142...@whitewater-guide/commons@0.0.143) (2019-06-29)
+
+### Features
+
+- new mobile maps ([6daacf6](https://github.com/doomsower/whitewater/commit/6daacf6))
+
 ## [0.0.142](https://github.com/doomsower/whitewater/compare/@whitewater-guide/commons@0.0.141...@whitewater-guide/commons@0.0.142) (2019-06-26)
 
 ### Features

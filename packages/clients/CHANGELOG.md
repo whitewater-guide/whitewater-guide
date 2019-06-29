@@ -1,3 +1,9 @@
+## [0.0.240](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.239...@whitewater-guide/clients@0.0.240) (2019-06-29)
+
+### Features
+
+- new mobile maps ([6daacf6](https://github.com/doomsower/whitewater/commit/6daacf6))
+
 ## [0.0.239](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.238...@whitewater-guide/clients@0.0.239) (2019-06-26)
 
 ## [0.0.238](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.236...@whitewater-guide/clients@0.0.238) (2019-06-26)

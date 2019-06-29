@@ -1,3 +1,9 @@
+## [0.0.168](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.167...@whitewater-guide/boompromo@0.0.168) (2019-06-29)
+
+### Features
+
+- new mobile maps ([6daacf6](https://github.com/doomsower/whitewater/commit/6daacf6))
+
 ## [0.0.167](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.166...@whitewater-guide/boompromo@0.0.167) (2019-06-26)
 
 ## [0.0.166](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.165...@whitewater-guide/boompromo@0.0.166) (2019-06-26)

@@ -1,3 +1,9 @@
+# [1.8.0](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.94...@whitewater-guide/mobile@1.8.0) (2019-06-29)
+
+### Features
+
+- new mobile maps ([6daacf6](https://github.com/doomsower/whitewater/commit/6daacf6))
+
 ## [1.7.94](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.93...@whitewater-guide/mobile@1.7.94) (2019-06-26)
 
 ## [1.7.93](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.92...@whitewater-guide/mobile@1.7.93) (2019-06-26)
