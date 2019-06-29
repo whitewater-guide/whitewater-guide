@@ -8,6 +8,7 @@ export const REGION_ADMIN_SETTINGS_QUERY = gql`
       hidden
       premium
       sku
+      mapsSize
       coverImage {
         mobile
       }
