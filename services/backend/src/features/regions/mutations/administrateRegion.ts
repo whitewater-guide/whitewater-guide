@@ -38,12 +38,7 @@ const updateImageFile = async (
   }
 };
 
-const resolver: TopLevelResolver<Vars> = async (
-  _,
-  { settings },
-  context,
-  info,
-) => {
+const resolver: TopLevelResolver<Vars> = async (_, { settings }, context) => {
   const oldRegion: RegionRaw = await db()
     .table('regions')
     .select(['id', 'cover_image'])
@@ -66,6 +61,7 @@ const resolver: TopLevelResolver<Vars> = async (
       premium: settings.premium,
       sku: settings.sku || null,
       cover_image: settings.coverImage,
+      maps_size: settings.mapsSize,
     })
     .where({ id: settings.id });
   return context.dataSources.regions.getById(settings.id);

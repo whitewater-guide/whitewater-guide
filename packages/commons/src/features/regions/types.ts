@@ -19,6 +19,7 @@ export interface Region extends NamedNode, Timestamped {
   seasonNumeric: number[];
   bounds: Array<[number, number, number]>;
   hidden: boolean | null;
+  mapsSize?: number;
   premium: boolean;
   hasPremiumAccess: boolean;
   editable: boolean;
@@ -51,6 +52,7 @@ export interface RegionAdminSettings {
   premium: boolean;
   sku: string | null;
   coverImage: RegionCoverImage;
+  mapsSize: number;
 }
 
 export interface RegionCoverImage {

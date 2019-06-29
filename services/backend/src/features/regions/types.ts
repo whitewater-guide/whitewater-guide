@@ -21,6 +21,7 @@ export interface RegionRaw extends NamedNode, RawTimestamped {
   editable?: boolean; // computed column, not necessary present in db response
   premium: boolean;
   cover_image: CoverImageRaw;
+  maps_size: number;
 }
 
 export interface CoverArgs {

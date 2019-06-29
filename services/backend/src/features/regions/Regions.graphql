@@ -33,6 +33,8 @@ type Region {
 
   # Only admins can see this
   hidden: Boolean @admin
+  # This is for admin to edit manually, users should get this via mediaSummary field
+  mapsSize: Int @admin
   # True if region has some premium content
   premium: Boolean
   # SKU
@@ -82,6 +84,7 @@ type RegionMediaSummary {
   photo: RegionMediaSummaryItem!
   video: RegionMediaSummaryItem!
   blog: RegionMediaSummaryItem!
+  maps: RegionMediaSummaryItem!
 }
 
 type RegionCoverImage {
@@ -108,6 +111,7 @@ input RegionAdminSettings {
   premium: Boolean!
   sku: String
   coverImage: RegionCoverImageInput!
+  mapsSize: Int!
 }
 
 type RegionsList {

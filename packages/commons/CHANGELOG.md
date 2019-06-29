@@ -1,3 +1,9 @@
+## [0.0.144](https://github.com/doomsower/whitewater/compare/@whitewater-guide/commons@0.0.143...@whitewater-guide/commons@0.0.144) (2019-06-29)
+
+### Features
+
+- mapsSize field of Region ([d1df8b9](https://github.com/doomsower/whitewater/commit/d1df8b9))
+
 ## [0.0.143](https://github.com/doomsower/whitewater/compare/@whitewater-guide/commons@0.0.142...@whitewater-guide/commons@0.0.143) (2019-06-29)
 
 ### Features

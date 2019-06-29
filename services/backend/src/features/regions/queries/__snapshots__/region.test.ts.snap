@@ -77,6 +77,10 @@ Object {
       "count": 1,
       "size": 0,
     },
+    "maps": Object {
+      "count": 0,
+      "size": 123456789,
+    },
     "photo": Object {
       "count": 2,
       "size": 433333,
@@ -166,6 +170,7 @@ Object {
   "editable": true,
   "hidden": false,
   "id": "bd3e10b6-7624-11e7-b5a5-be2e44b06b34",
+  "mapsSize": 0,
   "name": "Galicia",
   "pois": Array [
     Object {

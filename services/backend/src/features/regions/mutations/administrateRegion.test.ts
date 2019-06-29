@@ -13,6 +13,7 @@ const mutation = `
       hidden
       premium
       sku
+      mapsSize
       coverImage {
         mobile
       }
@@ -33,6 +34,7 @@ const variables = {
     hidden: true,
     premium: true,
     sku: 'region.sku',
+    mapsSize: 333333,
     coverImage: {
       mobile: 'galicia_mobile_cover2.jpg',
     },
@@ -75,6 +77,7 @@ describe('result', () => {
       hidden: true,
       premium: true,
       sku: 'region.sku',
+      mapsSize: 333333,
       coverImage: {
         mobile: `${PROTOCOL}://${MINIO_DOMAIN}/covers/galicia_mobile_cover2.jpg`,
       },
