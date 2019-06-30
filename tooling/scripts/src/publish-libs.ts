@@ -41,7 +41,7 @@ const publishLibs = async () => {
 
   await installRecursive(libs, ['packages/mobile', 'services/*']);
 
-  await git.commit('chore: publish' + libs.join(', '), undefined, {
+  await git.commit('chore: publish ' + libs.join(', '), undefined, {
     '--no-verify': null,
   });
 

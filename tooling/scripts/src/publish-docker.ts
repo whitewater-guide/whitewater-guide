@@ -70,7 +70,7 @@ async function publish() {
     throw new Error('failed to push docker images');
   }
 
-  await git.commit('chore: publish' + packages.join(', '), undefined, {
+  await git.commit('chore: publish ' + packages.join(', '), undefined, {
     '--no-verify': null,
   });
 
