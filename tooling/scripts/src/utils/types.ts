@@ -1,3 +1,5 @@
+import chalk from 'chalk';
+
 interface Version {
   hash: string;
   version: string;
@@ -25,5 +27,11 @@ export class Package {
 
   toString = () => {
     return this.name + '@' + this.version;
+  };
+
+  pretty = () => {
+    return (
+      chalk.green(this.name) + chalk.yellow('@') + chalk.green(this.version)
+    );
   };
 }

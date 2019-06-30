@@ -1,8 +1,8 @@
-import chalk from 'chalk';
 import { spawnSync } from 'child_process';
 import { readJsonSync } from 'fs-extra';
 import { resolve } from 'path';
 import simpleGit from 'simple-git/promise';
+import { Package } from './types';
 
 export const npmPublish = async (path: string) => {
   const git = simpleGit();
@@ -12,13 +12,8 @@ export const npmPublish = async (path: string) => {
     throw new Error('bumping packages is not allowed on master branch!');
   }
   const { version, name } = readJsonSync(resolve(path, 'package.json'));
-  console.info(
-    'Publishing ' +
-      chalk.white(name) +
-      chalk.yellow('@') +
-      chalk.white(version) +
-      ' ...',
-  );
+  const pkg = new Package(name, version);
+  console.info('Publishing ' + pkg.pretty() + ' ...');
   const args = branch === 'dev' ? [] : ['--tag', 'next'];
   // set always-auth=true in ~/.npmrc
   const { status, stderr } = spawnSync(
@@ -31,9 +26,7 @@ export const npmPublish = async (path: string) => {
   );
 
   if (status !== 0) {
-    throw new Error(`failed to publish ${name}@${version}: ${stderr}`);
+    throw new Error(`failed to publish ${pkg}: ${stderr}`);
   }
-  console.info(
-    'Published ' + chalk.white(name) + chalk.yellow('@') + chalk.white(version),
-  );
+  console.info('Published ' + pkg.pretty());
 };

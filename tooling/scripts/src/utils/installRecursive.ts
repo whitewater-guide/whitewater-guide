@@ -1,4 +1,3 @@
-import chalk from 'chalk';
 import { spawnSync } from 'child_process';
 import { readJsonSync } from 'fs-extra';
 import glob from 'glob';
@@ -18,23 +17,26 @@ export const installRecursive = async (what: Package[], where: string[]) => {
     if (!pJson || !pJson.dependencies) {
       continue;
     }
-    const toInstall = what
-      .filter(({ name }) => !!pJson.dependencies[name])
-      .map((pkg) => pkg.toString());
+    const toInstall = what.filter(({ name }) => !!pJson.dependencies[name]);
+    const toInstallStr = toInstall.map((pkg) => pkg.toString());
     if (toInstall.length === 0) {
       continue;
     }
     console.info(
       'Installing ' +
-        chalk.white(toInstall.join(', ')) +
+        toInstall.map((p) => p.pretty()).join(', ') +
         ' in ' +
-        chalk.white(pJson.name) +
+        new Package(pJson.name, pJson.version).pretty() +
         ' ...',
     );
-    const { status } = spawnSync('yarn', ['add', ...toInstall], {
-      cwd: dest,
-      env: process.env,
-    });
+    const { status } = spawnSync(
+      'yarn',
+      ['add', ...toInstallStr, '--ignore-scripts'],
+      {
+        cwd: dest,
+        env: process.env,
+      },
+    );
     await git.add([resolve(dest, 'package.json'), resolve(dest, 'yarn.lock')]);
 
     if (status !== 0) {
