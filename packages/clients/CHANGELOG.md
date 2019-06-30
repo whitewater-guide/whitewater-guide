@@ -1,3 +1,12 @@
+## [0.0.249](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.241...@whitewater-guide/clients@0.0.249) (2019-06-30)
+
+
+### Features
+
+* fix publish-libs ([2eb266a](https://github.com/doomsower/whitewater/commit/2eb266a))
+
+
+
 ## [0.0.248](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.241...@whitewater-guide/clients@0.0.248) (2019-06-30)
 
 ### Features
