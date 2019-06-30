@@ -5,6 +5,7 @@ export * from './getChangedServices';
 export * from './gitGuardian';
 export * from './hasPackageChanged';
 export * from './imageExistsInECR';
+export * from './info';
 export * from './installRecursive';
 export * from './npmPublish';
 export * from './prerelaseGuardian';

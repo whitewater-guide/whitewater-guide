@@ -3,6 +3,7 @@ import { readJsonSync } from 'fs-extra';
 import { resolve } from 'path';
 import { inc } from 'semver';
 import simpleGit from 'simple-git/promise';
+import { info } from './info';
 import { Package } from './types';
 
 /**
@@ -31,8 +32,11 @@ export const bumpPackage = async (path: string): Promise<Package | null> => {
     false,
     branch,
   );
+  const pkg = new Package(name, newVersion!);
+  info(`Bumping: ${pkg.pretty()}`);
   const { status } = spawnSync('npm', ['version', newVersion!], {
     cwd: resolve(path),
+    stdio: 'inherit',
     env: process.env,
   });
 
@@ -42,5 +46,5 @@ export const bumpPackage = async (path: string): Promise<Package | null> => {
 
   await git.add(pJsonPath);
 
-  return new Package(name, newVersion!);
+  return pkg;
 };

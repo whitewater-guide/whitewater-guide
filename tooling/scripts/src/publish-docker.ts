@@ -8,6 +8,7 @@ import {
   generateStackFile,
   getChangedServices,
   gitGuardian,
+  info,
   setupEnv,
   updateMeta,
 } from './utils';
@@ -28,6 +29,7 @@ async function publish() {
 
   let services: string[] = await getChangedServices();
   if (services.length === 0 && !argv.service) {
+    info('No services has been changed and no --service arg provided');
     return;
   }
   // it's possible to explicitly list services to publish

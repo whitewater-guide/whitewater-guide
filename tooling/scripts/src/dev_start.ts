@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { spawn, spawnSync } from 'child_process';
 import { EnvType } from './types';
-import { generateStackFile, preStart, setupEnv } from './utils';
+import { generateStackFile, info, preStart, setupEnv } from './utils';
 
 async function devStart() {
   preStart();
@@ -10,7 +10,7 @@ async function devStart() {
   const stackFile = await generateStackFile(EnvType.DEVELOPMENT);
 
   process.on('SIGINT', () => {
-    console.info('Terminating dev stack');
+    info('Terminating dev stack');
     spawnSync('docker-compose', ['-f', stackFile, 'down'], {
       shell: true,
       stdio: 'inherit',

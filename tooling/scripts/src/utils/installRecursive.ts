@@ -3,6 +3,7 @@ import { readJsonSync } from 'fs-extra';
 import glob from 'glob';
 import { resolve } from 'path';
 import simpleGit from 'simple-git/promise';
+import { info } from './info';
 import { Package } from './types';
 
 /**
@@ -27,7 +28,7 @@ export const installRecursive = async (what: Package[], where: string[]) => {
     if (toInstall.length === 0) {
       continue;
     }
-    console.info(
+    info(
       'Installing ' +
         toInstall.map((p) => p.pretty()).join(', ') +
         ' in ' +
@@ -39,6 +40,7 @@ export const installRecursive = async (what: Package[], where: string[]) => {
       ['add', ...toInstallStr, '--ignore-scripts'],
       {
         cwd: dest,
+        stdio: 'inherit',
         env: process.env,
       },
     );
