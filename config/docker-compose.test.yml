@@ -37,16 +37,6 @@ services:
     labels:
       guide.whitewater: ''
     container_name: ww-minio
-    image: 'ww-minio:test'
-    build:
-      context: ../services/minio
-      labels:
-        guide.whitewater: ''
-      args:
-        MINIO_USER: minio
-        MINIO_UID: 1000
-        MINIO_GID: 1000
-    command: server /data
     env_file:
       - .env.test
       - .env.test.local

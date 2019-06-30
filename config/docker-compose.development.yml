@@ -75,15 +75,6 @@ services:
   # Minio to store images
   minio:
     container_name: ww-minio
-    image: 'ww-minio:dev'
-    build:
-      context: ../services/minio
-      labels:
-        guide.whitewater: ''
-      args:
-        MINIO_USER: minio
-        MINIO_UID: 1000
-        MINIO_GID: 1000
     environment:
       - MINIO_HTTP_TRACE=/var/log/minio.log
     env_file:
