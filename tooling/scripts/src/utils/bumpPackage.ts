@@ -1,0 +1,33 @@
+import { spawnSync } from 'child_process';
+import { readJsonSync } from 'fs-extra';
+import { resolve } from 'path';
+import { inc } from 'semver';
+import simpleGit from 'simple-git/promise';
+
+export const bumpPackage = async (path: string) => {
+  const pJsonPath = resolve(path, 'package.json');
+  const pJson = readJsonSync(pJsonPath);
+  const { name, version } = pJson;
+  const git = simpleGit();
+  const { current: branch } = await git.status();
+
+  if (branch === 'master') {
+    throw new Error('bumping packages is not allowed on master branch!');
+  }
+  const newVersion = inc(
+    version,
+    branch === 'dev' ? 'patch' : 'prerelease',
+    false,
+    branch,
+  );
+  const { status } = spawnSync('npm', ['version', newVersion!], {
+    stdio: 'inherit',
+    cwd: resolve(path),
+  });
+
+  if (status !== 0) {
+    throw new Error(`failed to bump ${name} version to ${newVersion}!`);
+  }
+
+  return `${name}@${newVersion}`;
+};

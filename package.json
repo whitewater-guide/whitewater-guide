@@ -22,6 +22,7 @@
     "staging:sync": "tooling/scripts/sh/staging_sync.sh",
     "production:deploy": "node tooling/scripts/bin/deploy.js --env=production --machine=ww-production",
     "production:update": "node tooling/scripts/bin/update.js --env=production --machine=ww-production",
+    "libs": "node tooling/scripts/bin/publish-libs.js",
     "test:env": "node tooling/scripts/bin/test_start.js",
     "lint": "lerna exec --since -- test ! -f \\$PWD/tsconfig.json \\|\\| tslint --project \\$PWD",
     "junk": "yarn trash-junk",

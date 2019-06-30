@@ -14,29 +14,30 @@
     "version": "./sh/changelog.sh"
   },
   "dependencies": {
-    "aws-sdk": "^2.395.0",
+    "aws-sdk": "^2.485.0",
     "chalk": "^2.4.2",
-    "dotenv": "^6.2.0",
-    "fs-extra": "^7.0.1",
-    "jszip": "^3.1.5",
+    "dotenv": "^8.0.0",
+    "fs-extra": "^8.1.0",
+    "glob": "^7.1.4",
+    "jszip": "^3.2.1",
     "lodash": "^4.17.11",
     "rimraf": "^2.6.3",
-    "semver": "^5.6.0",
-    "simple-git": "^1.107.0",
+    "semver": "^6.1.2",
+    "simple-git": "^1.116.0",
     "string-entropy": "^0.0.2",
-    "tslib": "^1.9.3",
-    "yargs": "^12.0.5"
+    "tslib": "^1.10.0",
+    "yargs": "^13.2.4"
   },
   "devDependencies": {
-    "@types/dotenv": "^6.1.0",
-    "@types/fs-extra": "^5.0.4",
-    "@types/jszip": "^3.1.4",
-    "@types/lodash": "^4.14.120",
-    "@types/node": "^10.12.18",
+    "@types/dotenv": "^6.1.1",
+    "@types/fs-extra": "^8.0.0",
+    "@types/jszip": "^3.1.6",
+    "@types/lodash": "^4.14.135",
+    "@types/node": "^12.0.10",
     "@types/rimraf": "^2.0.2",
-    "@types/semver": "^5.5.0",
-    "@types/yargs": "^12.0.8",
+    "@types/semver": "^6.0.1",
+    "@types/yargs": "^13.0.0",
     "type-zoo": "^3.3.0",
-    "typescript": "3.3.3"
+    "typescript": "3.5.2"
   }
 }
