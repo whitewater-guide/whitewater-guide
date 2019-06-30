@@ -13,3 +13,17 @@ export interface WWMeta {
     [key: string]: WWMetaBranch;
   };
 }
+
+export class Package {
+  name: string;
+  version: string;
+
+  constructor(name: string, version: string) {
+    this.name = name;
+    this.version = version;
+  }
+
+  toString = () => {
+    return this.name + '@' + this.version;
+  };
+}

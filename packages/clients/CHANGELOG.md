@@ -1,3 +1,29 @@
+## [0.0.248](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.241...@whitewater-guide/clients@0.0.248) (2019-06-30)
+
+### Features
+
+- fix publish-libs ([7346636](https://github.com/doomsower/whitewater/commit/7346636))
+
+## [0.0.247](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.241...@whitewater-guide/clients@0.0.247) (2019-06-30)
+
+### Features
+
+- fix publish-libs ([8a722aa](https://github.com/doomsower/whitewater/commit/8a722aa))
+
+## [0.0.246](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.241...@whitewater-guide/clients@0.0.246) (2019-06-30)
+
+### Features
+
+- fix publish-libs ([6033d8b](https://github.com/doomsower/whitewater/commit/6033d8b))
+
+## [0.0.245](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.241...@whitewater-guide/clients@0.0.245) (2019-06-30)
+
+### Features
+
+- fix publish-libs ([0a4d08f](https://github.com/doomsower/whitewater/commit/0a4d08f))
+
+## [0.0.244](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.241...@whitewater-guide/clients@0.0.244) (2019-06-30)
+
 ## [0.0.243](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.241...@whitewater-guide/clients@0.0.243) (2019-06-30)
 
 ## [0.0.242](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.241...@whitewater-guide/clients@0.0.242) (2019-06-30)

@@ -4,7 +4,9 @@ import {
   hasPackageChanged,
   installRecursive,
   npmPublish,
+  updateMeta,
 } from './utils';
+import { Package } from './utils/types';
 
 const publishLibs = async () => {
   const git = simpleGit();
@@ -22,21 +24,30 @@ const publishLibs = async () => {
     clientsChanged = await hasPackageChanged('packages/clients', 'published');
   }
 
-  let commonsVersion: string;
-  let libsVersions: string[] = [];
+  let commons: Package;
+  let libs: Package[] = [];
   if (commonsChanged) {
-    commonsVersion = await bumpPackage('packages/commons');
-    libsVersions = [commonsVersion];
+    commons = await bumpPackage('packages/commons');
+    libs = [commons];
     await npmPublish('packages/commons');
-    await installRecursive([commonsVersion], ['packages/clients']);
+    await installRecursive([commons], ['packages/clients']);
   }
   if (clientsChanged) {
     const clientsVersion = await bumpPackage('packages/clients');
-    libsVersions = [...libsVersions, clientsVersion];
+    libs = [...libs, clientsVersion];
     await npmPublish('packages/clients');
   }
 
-  await installRecursive(libsVersions, ['packages/mobile', 'services/*']);
+  await installRecursive(libs, ['packages/mobile', 'services/*']);
+
+  await git.commit('chore: publish' + libs.join(', '));
+
+  if (commonsChanged) {
+    await updateMeta('packages/commons', 'published');
+  }
+  if (clientsChanged) {
+    await updateMeta('packages/clients', 'published');
+  }
 };
 
 publishLibs().catch((e) => {

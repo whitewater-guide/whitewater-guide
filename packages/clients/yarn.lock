@@ -1165,10 +1165,10 @@
   resolved "https://registry.yarnpkg.com/@types/zen-observable/-/zen-observable-0.8.0.tgz#8b63ab7f1aa5321248aad5ac890a485656dcea4d"
   integrity sha512-te5lMAWii1uEJ4FwLjzdlbw3+n0FZNOvFXHxQDKeT0dilh7HOzdMzV2TrJVUzq8ep7J4Na8OUYPRLSQkJHAlrg==
 
-"@whitewater-guide/commons@^0.0.144":
-  version "0.0.144"
-  resolved "https://registry.yarnpkg.com/@whitewater-guide/commons/-/commons-0.0.144.tgz#6bbd298361f5d22e14bda8db618590e2f70f956b"
-  integrity sha512-oiiskGwXAqgv4zQ+ebW2BJEcu48zPOKWQNDIfIF/29SjXVQiSjvsbr1XZzR3cin82XDZc/z8/MB3MwCCrOc+xA==
+"@whitewater-guide/commons@0.0.152":
+  version "0.0.152"
+  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.152.tgz#0d7f2fbb4dddced812fa6dd46569b7c1b99fae42"
+  integrity sha512-bdGRCNzIQG0GzvBuyRy8IvgJY9P1/yCFE2vyvhCQElwjyE2E8lb1FhckdJGNpIu1JKsHkXuAsUgeN1+CpnR50A==
   dependencies:
     cron-parser "^2.12.0"
     lodash "^4.17.11"

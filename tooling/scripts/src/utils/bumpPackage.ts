@@ -3,8 +3,9 @@ import { readJsonSync } from 'fs-extra';
 import { resolve } from 'path';
 import { inc } from 'semver';
 import simpleGit from 'simple-git/promise';
+import { Package } from './types';
 
-export const bumpPackage = async (path: string) => {
+export const bumpPackage = async (path: string): Promise<Package> => {
   const pJsonPath = resolve(path, 'package.json');
   const pJson = readJsonSync(pJsonPath);
   const { name, version } = pJson;
@@ -21,13 +22,13 @@ export const bumpPackage = async (path: string) => {
     branch,
   );
   const { status } = spawnSync('npm', ['version', newVersion!], {
-    stdio: 'inherit',
     cwd: resolve(path),
+    env: process.env,
   });
 
   if (status !== 0) {
     throw new Error(`failed to bump ${name} version to ${newVersion}!`);
   }
 
-  return `${name}@${newVersion}`;
+  return new Package(name, newVersion!);
 };
