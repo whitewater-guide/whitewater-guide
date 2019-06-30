@@ -19,7 +19,10 @@ export const updateMeta = async (path: string) => {
   const mJsonPath = resolve(path, 'ww-meta.json');
   const pJsonPath = resolve(path, 'package.json');
   let meta: WWMeta = { branches: {} };
-  const pJson = readJsonSync(pJsonPath);
+  const pJson = readJsonSync(pJsonPath, { throws: false });
+  if (!pJson) {
+    return;
+  }
   try {
     meta = readJsonSync(mJsonPath);
   } catch {}

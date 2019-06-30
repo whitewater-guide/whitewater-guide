@@ -12,9 +12,12 @@ import { Package } from './types';
  *
  * @param path
  */
-export const bumpPackage = async (path: string): Promise<Package> => {
+export const bumpPackage = async (path: string): Promise<Package | null> => {
   const pJsonPath = resolve(path, 'package.json');
-  const pJson = readJsonSync(pJsonPath);
+  const pJson = readJsonSync(pJsonPath, { throws: false });
+  if (!pJson) {
+    return null;
+  }
   const { name, version } = pJson;
   const git = simpleGit();
   const { current: branch } = await git.status();

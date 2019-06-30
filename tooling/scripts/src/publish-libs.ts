@@ -26,17 +26,16 @@ const publishLibs = async () => {
     clientsChanged = await hasPackageChanged('packages/clients');
   }
 
-  let commons: Package;
   let libs: Package[] = [];
   if (commonsChanged) {
-    commons = await bumpPackage('packages/commons');
-    libs = [commons];
+    const commons = await bumpPackage('packages/commons');
+    libs = [commons!];
     await npmPublish('packages/commons');
-    await installRecursive([commons], ['packages/clients']);
+    await installRecursive([commons!], ['packages/clients']);
   }
   if (clientsChanged) {
-    const clientsVersion = await bumpPackage('packages/clients');
-    libs = [...libs, clientsVersion];
+    const clients = await bumpPackage('packages/clients');
+    libs = [...libs, clients!];
     await npmPublish('packages/clients');
   }
 

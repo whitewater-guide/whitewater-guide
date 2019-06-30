@@ -6,7 +6,5 @@
   "description": "adminer for whitewater.guide stack",
   "main": "index.js",
   "author": "doomsower",
-  "scripts": {
-    "version": "../../tooling/scripts/sh/changelog.sh"
-  }
+  "scripts": {}
 }

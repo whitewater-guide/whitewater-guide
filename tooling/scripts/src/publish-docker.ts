@@ -3,12 +3,15 @@ import simpleGit from 'simple-git/promise';
 import { argv } from 'yargs';
 import { EnvType } from './types';
 import {
+  bumpPackage,
   dockerLogin,
   generateStackFile,
   getChangedServices,
   gitGuardian,
   setupEnv,
+  updateMeta,
 } from './utils';
+import { Package } from './utils/types';
 
 async function publish() {
   const git = simpleGit();
@@ -23,7 +26,7 @@ async function publish() {
   // Merge docker-compose files
   const stackFile = await generateStackFile(env);
 
-  let services: string[] = getChangedServices();
+  let services: string[] = await getChangedServices();
   if (services.length === 0 && !argv.service) {
     return;
   }
@@ -35,6 +38,15 @@ async function publish() {
       : argv.service === '*'
       ? []
       : [argv.service];
+  }
+
+  const packages: Package[] = [];
+  for (const service of services) {
+    // this will also run preversion/postversion scripts
+    const pkg = await bumpPackage(`services/${service}`);
+    if (pkg) {
+      packages.push(pkg);
+    }
   }
 
   const buildRes = spawnSync(
@@ -56,6 +68,14 @@ async function publish() {
   );
   if (pushResult.status !== 0) {
     throw new Error('failed to push docker images');
+  }
+
+  await git.commit('chore: publish' + packages.join(', '), undefined, {
+    '--no-verify': null,
+  });
+
+  for (const service of services) {
+    await updateMeta(`services/${service}`);
   }
 }
 

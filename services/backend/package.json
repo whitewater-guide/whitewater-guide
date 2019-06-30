@@ -16,7 +16,6 @@
     "dev:restore": "npm_scripts/dev-restore.sh",
     "madge": "madge --circular --basedir ./src --webpackConfig madge.js src/index.js",
     "preversion": "yarn build",
-    "version": "../../tooling/scripts/sh/changelog.sh",
     "postversion": "node npm_scripts/postversion.js"
   },
   "dependencies": {

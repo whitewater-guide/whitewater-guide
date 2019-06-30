@@ -33,8 +33,7 @@
     "ios:fix-xcode": "react-native-schemes-manager all",
     "ios:uninstall": "xcrun simctl uninstall booted su.swapp",
     "ios:linking": "xcrun simctl openurl booted",
-    "preversion": "fastlane bump_build_numbers && git add app.json",
-    "version": "./scripts/version.sh"
+    "preversion": "fastlane bump_build_numbers && git add app.json"
   },
   "dependencies": {
     "@react-native-community/netinfo": "^3.2.1",

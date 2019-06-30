@@ -19,7 +19,6 @@
     "build": "tsc --build tsconfig.declarations.json && rollup -c",
     "pretest": "node ./scripts/loadTypedefs.js",
     "test": "jest",
-    "version": "../../tooling/scripts/sh/changelog.sh",
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
