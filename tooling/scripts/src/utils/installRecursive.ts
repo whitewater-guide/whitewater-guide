@@ -5,6 +5,11 @@ import { resolve } from 'path';
 import simpleGit from 'simple-git/promise';
 import { Package } from './types';
 
+/**
+ * Installs given packages in given paths
+ * @param what array of packages with versions
+ * @param where array of globs for directories to install in (e.g. ['packages/mobile', 'services/*'])
+ */
 export const installRecursive = async (what: Package[], where: string[]) => {
   const git = simpleGit();
   const destinations: string[] = where.reduce(

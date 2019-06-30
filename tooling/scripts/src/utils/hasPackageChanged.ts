@@ -9,15 +9,17 @@ const hasChangedSinceCommit = (path: string, hash: string) => {
   return status !== 0;
 };
 
-export const hasPackageChanged = async (
-  path: string,
-  type: 'published' | 'deployed',
-) => {
+/**
+ * Checks if packages has been changed since last time it was published
+ * The moment of last publication is determined by commit hash in ww-meta.json
+ * @param path
+ */
+export const hasPackageChanged = async (path: string) => {
   try {
     const git = simpleGit();
     const { current: branch } = await git.status();
     const meta: WWMeta = readJsonSync(resolve(path, 'ww-meta.json'));
-    const { hash } = meta.branches[branch][type]!;
+    const { hash } = meta.branches[branch]!;
     return hash ? hasChangedSinceCommit(path, hash) : true;
   } catch {
     return true;

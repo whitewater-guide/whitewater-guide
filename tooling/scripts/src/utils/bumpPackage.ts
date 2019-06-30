@@ -5,6 +5,13 @@ import { inc } from 'semver';
 import simpleGit from 'simple-git/promise';
 import { Package } from './types';
 
+/**
+ * Increases the version of package at given path
+ * Increments patch version (0.0.xxx) on dev branch
+ * Increments prerelease version on other dev branches (0.0.1-branch.xxx)
+ *
+ * @param path
+ */
 export const bumpPackage = async (path: string): Promise<Package> => {
   const pJsonPath = resolve(path, 'package.json');
   const pJson = readJsonSync(pJsonPath);

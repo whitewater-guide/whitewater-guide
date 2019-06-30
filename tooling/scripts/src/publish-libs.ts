@@ -8,6 +8,11 @@ import {
 } from './utils';
 import { Package } from './utils/types';
 
+/**
+ * Publishes @whitewater-guide/commons and @whitewater-guide/clients on npm
+ * Then installs latest versions of these libs in all their consumers
+ * Then commits everything and updates ww-meta.json files
+ */
 const publishLibs = async () => {
   const git = simpleGit();
   const status = await git.status();
@@ -15,13 +20,10 @@ const publishLibs = async () => {
     throw new Error('working tree is dirty');
   }
 
-  const commonsChanged = await hasPackageChanged(
-    'packages/commons',
-    'published',
-  );
+  const commonsChanged = await hasPackageChanged('packages/commons');
   let clientsChanged = commonsChanged;
   if (!clientsChanged) {
-    clientsChanged = await hasPackageChanged('packages/clients', 'published');
+    clientsChanged = await hasPackageChanged('packages/clients');
   }
 
   let commons: Package;
@@ -45,10 +47,10 @@ const publishLibs = async () => {
   });
 
   if (commonsChanged) {
-    await updateMeta('packages/commons', 'published');
+    await updateMeta('packages/commons');
   }
   if (clientsChanged) {
-    await updateMeta('packages/clients', 'published');
+    await updateMeta('packages/clients');
   }
 };
 

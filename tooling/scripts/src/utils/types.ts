@@ -5,14 +5,9 @@ interface Version {
   version: string;
 }
 
-interface WWMetaBranch {
-  published?: Version;
-  deployed?: Version;
-}
-
 export interface WWMeta {
   branches: {
-    [key: string]: WWMetaBranch;
+    [key: string]: Version;
   };
 }
 

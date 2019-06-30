@@ -4,6 +4,10 @@ import { resolve } from 'path';
 import simpleGit from 'simple-git/promise';
 import { Package } from './types';
 
+/**
+ * Publishes given package on NPM
+ * @param path e.g. packages/commons
+ */
 export const npmPublish = async (path: string) => {
   const git = simpleGit();
   const { current: branch } = await git.status();

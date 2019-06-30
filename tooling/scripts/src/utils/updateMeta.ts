@@ -3,12 +3,17 @@ import { resolve } from 'path';
 import simpleGit from 'simple-git/promise';
 import { WWMeta } from './types';
 
-export const updateMeta = async (
-  path: string,
-  type: 'published' | 'deployed',
-) => {
+/**
+ * Updates metadata in package after it has been published
+ * @param path
+ */
+export const updateMeta = async (path: string) => {
   const git = simpleGit();
-  const { current: branch } = await git.status();
+  const status = await git.status();
+  if (!status.isClean()) {
+    throw new Error(`failed to update meta at ${path}: working tree is dirty`);
+  }
+  const branch = status.current;
   const hash = await git.revparse(['HEAD']);
 
   const mJsonPath = resolve(path, 'ww-meta.json');
@@ -19,11 +24,8 @@ export const updateMeta = async (
     meta = readJsonSync(mJsonPath);
   } catch {}
   meta.branches[branch] = {
-    ...meta.branches[branch],
-    [type]: {
-      version: pJson.version,
-      hash,
-    },
+    version: pJson.version,
+    hash,
   };
   writeJsonSync(mJsonPath, meta, { spaces: 2 });
 };
