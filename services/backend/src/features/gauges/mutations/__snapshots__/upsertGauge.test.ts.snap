@@ -2,8 +2,6 @@
 
 exports[`insert should match snapshot 1`] = `undefined`;
 
-exports[`insert should sanitize input 1`] = `undefined`;
-
 exports[`update should match snapshot 1`] = `
 Object {
   "code": "gal1",
