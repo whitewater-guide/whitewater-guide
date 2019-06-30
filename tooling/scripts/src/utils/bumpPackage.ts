@@ -30,5 +30,7 @@ export const bumpPackage = async (path: string): Promise<Package> => {
     throw new Error(`failed to bump ${name} version to ${newVersion}!`);
   }
 
+  await git.add(pJsonPath);
+
   return new Package(name, newVersion!);
 };
