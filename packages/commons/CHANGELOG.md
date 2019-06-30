@@ -1,3 +1,13 @@
+## [0.0.154](https://github.com/doomsower/whitewater/compare/@whitewater-guide/commons@0.0.144...@whitewater-guide/commons@0.0.154) (2019-06-30)
+
+
+### Features
+
+* fix publish-libs ([64c6829](https://github.com/doomsower/whitewater/commit/64c6829))
+* fix publish-libs ([2eb266a](https://github.com/doomsower/whitewater/commit/2eb266a))
+
+
+
 ## [0.0.153](https://github.com/doomsower/whitewater/compare/@whitewater-guide/commons@0.0.144...@whitewater-guide/commons@0.0.153) (2019-06-30)
 
 
