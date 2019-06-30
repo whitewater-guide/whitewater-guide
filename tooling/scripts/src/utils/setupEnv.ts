@@ -15,7 +15,7 @@ export const setupEnv = (configName: EnvType) => {
 
   // This sets DOCKER_REGISTRY_PREFIX
   const awsEnvPath = path.resolve(process.cwd(), `${CONFIG_DIR}/.aws-ecr`);
-  dotenv.load({ path: awsEnvPath });
+  dotenv.config({ path: awsEnvPath });
 
   const servicesDir = path.resolve(process.cwd(), 'services');
   const serviceNames = fs.readdirSync(servicesDir);
