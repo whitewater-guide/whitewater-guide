@@ -1,4 +1,5 @@
-import { Platform } from 'react-native';
+import { useEffect } from 'react';
+import { AsyncStorage, Platform } from 'react-native';
 import CodePush from 'react-native-code-push';
 import Config from 'react-native-config';
 
@@ -58,5 +59,14 @@ class Versioning {
       'v0'}`;
   };
 }
+
+// TODO: component can later be used to notify users of what's new
+export const PreviousVersion: React.FC = () => {
+  useEffect(() => {
+    const { version } = require('../../package.json');
+    AsyncStorage.setItem('@whitewater-guide/version', version).catch(() => {});
+  }, []);
+  return null;
+};
 
 export const versioning = new Versioning();

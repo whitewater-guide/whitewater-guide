@@ -9,6 +9,7 @@ import React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import { AsyncStorage } from 'react-native';
 import codePush from 'react-native-code-push';
+import { Provider as PaperProvider } from 'react-native-paper';
 import NativeSplashScreen from 'react-native-splash-screen';
 import { NavigationState } from 'react-navigation';
 import { Provider } from 'react-redux';
@@ -26,7 +27,9 @@ import { navigationChannel } from './core/sagas';
 import { purchaseActions } from './features/purchases';
 import { I18nProvider } from './i18n';
 import RootNavigator from './RootNavigator';
+import { PaperTheme } from './theme';
 import { trackScreenChange } from './utils/navigation';
+import { PreviousVersion } from './utils/versioning';
 
 configErrors();
 configMoment();
@@ -99,15 +102,18 @@ class App extends React.PureComponent {
                 <FilterProvider>
                   <AuthProvider service={this._authService}>
                     <I18nProvider onUserLanguageChange={this.resetApolloCache}>
-                      <RootNavigator
-                        onNavigationStateChange={trackScreenChange}
-                        persistNavigationState={this.persistNavigationState}
-                        loadNavigationState={this.loadNavigationState}
-                        renderLoadingExperimental={
-                          this.renderLoadingExperimental
-                        }
-                      />
-                      <ErrorSnackbar />
+                      <PaperProvider theme={PaperTheme}>
+                        <PreviousVersion />
+                        <RootNavigator
+                          onNavigationStateChange={trackScreenChange}
+                          persistNavigationState={this.persistNavigationState}
+                          loadNavigationState={this.loadNavigationState}
+                          renderLoadingExperimental={
+                            this.renderLoadingExperimental
+                          }
+                        />
+                        <ErrorSnackbar />
+                      </PaperProvider>
                     </I18nProvider>
                   </AuthProvider>
                 </FilterProvider>

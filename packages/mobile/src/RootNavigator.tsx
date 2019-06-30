@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Provider as PaperProvider } from 'react-native-paper';
 import {
   createAppContainer,
   createStackNavigator,
@@ -23,7 +22,6 @@ import {
   SectionTabs,
 } from './screens';
 import Screens from './screens/screen-names';
-import { PaperTheme } from './theme';
 
 const routes = {
   [Screens.RegionsList]: {
@@ -65,17 +63,14 @@ const RootNavigatorView: NavigationNavigator<any, any, any> = ({
   useEffect(() => {
     navigationChannel.dispatch = navigation.dispatch;
   }, [navigation.dispatch]);
-  // PaperProvider needs to be innermost provider, so dialogs can consume from other providers
   return (
-    <PaperProvider theme={PaperTheme}>
-      <Drawer>
-        <View style={StyleSheet.absoluteFill}>
-          <Navigator navigation={navigation} />
-          <PremiumDialog />
-          <OfflineContentDialog />
-        </View>
-      </Drawer>
-    </PaperProvider>
+    <Drawer>
+      <View style={StyleSheet.absoluteFill}>
+        <Navigator navigation={navigation} />
+        <PremiumDialog />
+        <OfflineContentDialog />
+      </View>
+    </Drawer>
   );
 };
 
