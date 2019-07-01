@@ -22,11 +22,6 @@ async function publish() {
   // Images can be published from any branch
   await gitGuardian(env);
 
-  // Set environment variables for build-time substitution in compose files
-  setupEnv(env);
-  // Merge docker-compose files
-  const stackFile = await generateStackFile(env);
-
   let services: string[] = await getChangedServices();
   if (services.length === 0 && !argv.service) {
     info('No services has been changed and no --service arg provided');
@@ -50,6 +45,11 @@ async function publish() {
       packages.push(pkg);
     }
   }
+
+  // Set environment variables for build-time substitution in compose files
+  setupEnv(env);
+  // Merge docker-compose files
+  const stackFile = await generateStackFile(env);
 
   const buildRes = spawnSync(
     'docker-compose',
