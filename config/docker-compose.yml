@@ -45,6 +45,9 @@ services:
     command: server /data
     env_file:
       - ${DOCKER_ENV_FILE}
+    environment:
+      - MINIO_USERNAME=minio
+      - MINIO_GROUPNAME=minio
     read_only: true
 
   # imageproxy to generate thumbnails

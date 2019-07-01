@@ -23,6 +23,7 @@ Object {
       "flows": Object {
         "__typename": "GaugeBinding",
         "approximate": true,
+        "formula": "GaugeBinding.formula.2",
         "impossible": 2.5,
         "maximum": 2.5,
         "minimum": 2.5,
@@ -64,6 +65,7 @@ Object {
       "levels": Object {
         "__typename": "GaugeBinding",
         "approximate": false,
+        "formula": "GaugeBinding.formula.1",
         "impossible": 1.5,
         "maximum": 1.5,
         "minimum": 1.5,
@@ -134,6 +136,7 @@ Object {
       "flows": Object {
         "__typename": "GaugeBinding",
         "approximate": true,
+        "formula": "GaugeBinding.formula.4",
         "impossible": 4.5,
         "maximum": 4.5,
         "minimum": 4.5,
@@ -175,6 +178,7 @@ Object {
       "levels": Object {
         "__typename": "GaugeBinding",
         "approximate": false,
+        "formula": "GaugeBinding.formula.3",
         "impossible": 3.5,
         "maximum": 3.5,
         "minimum": 3.5,

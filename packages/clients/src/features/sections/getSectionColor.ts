@@ -3,6 +3,7 @@ import { Gauge, GaugeBinding, Section } from '@whitewater-guide/commons';
 import color from 'color';
 import isFunction from 'lodash/isFunction';
 import mapValues from 'lodash/mapValues';
+import { getBindingFormula } from './formulas';
 
 interface DryBinding extends GaugeBinding {
   dry: number;
@@ -339,9 +340,10 @@ export function getSectionColorRaw(section: ColorizeSection): color {
   let lastValue = 0;
   let binding: GaugeBinding | undefined;
   if (flow && section.flows) {
-    lastValue = flow;
+    lastValue = getBindingFormula(section.flows)(flow);
     binding = section.flows;
   } else if (level && section.levels) {
+    // it makes no sense to use formulas for levels...
     lastValue = level;
     binding = section.levels;
   }

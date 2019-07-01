@@ -31,6 +31,7 @@ export interface GaugeBinding {
   maximum?: number | null;
   impossible?: number | null;
   approximate?: boolean | null;
+  formula?: string | null;
 }
 
 export interface Section extends NamedNode, Timestamped {

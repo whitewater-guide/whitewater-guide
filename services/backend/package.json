@@ -8,6 +8,7 @@
   "scripts": {
     "clean": "yarn gulp clean",
     "build": "yarn gulp build",
+    "postbuild": "node npm_scripts/postbuild.js",
     "tsc": "tsc -p tsconfig.build.json",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "pretest": "npm_scripts/pretest.sh",
@@ -23,7 +24,7 @@
     "@sentry/node": "^5.4.3",
     "@turf/boolean-point-in-polygon": "^6.0.1",
     "@turf/helpers": "^6.1.4",
-    "@whitewater-guide/commons": "0.0.154",
+    "@whitewater-guide/commons": "0.0.155-factor.0",
     "apollo-datasource": "^0.5.0",
     "apollo-server": "^2.6.7",
     "apollo-server-errors": "^2.3.0",

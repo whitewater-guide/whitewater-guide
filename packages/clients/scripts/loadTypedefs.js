@@ -5,9 +5,23 @@ const path = require('path');
 
 const typedefsPath =
   process.argv.length > 2 ? process.argv[2] : 'src/test/typedefs.ts';
-const writer = fs.createWriteStream(path.resolve(typedefsPath));
+
+function copyLocalDefs() {
+  const schemaPath = path.resolve(
+    '../../services/backend/',
+    'merged-schema.graphql',
+  );
+  const exists = fs.existsSync(schemaPath);
+  if (exists) {
+    const stream = fs.createReadStream(schemaPath);
+    saveTypedefs(stream);
+    return true;
+  }
+  return false;
+}
 
 function saveTypedefs(response) {
+  const writer = fs.createWriteStream(path.resolve(typedefsPath));
   writer.write('/* tslint:disable */\n');
   writer.write(
     '// this file contains GRAPHQL typedefs and it was automatically downloaded from server\n',
@@ -35,10 +49,12 @@ function fetch(url, successCallback, errorCallback) {
   });
 }
 
-fetch('http://localhost:3333/graphql/typedefs.txt', saveTypedefs, () => {
-  fetch(
-    'https://beta.whitewater.guide/graphql/typedefs.txt',
-    saveTypedefs,
-    console.error,
-  );
-});
+if (!copyLocalDefs()) {
+  fetch('http://localhost:3333/graphql/typedefs.txt', saveTypedefs, () => {
+    fetch(
+      'https://beta.whitewater.guide/graphql/typedefs.txt',
+      saveTypedefs,
+      console.error,
+    );
+  });
+}

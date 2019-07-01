@@ -9,7 +9,7 @@ import times from 'lodash/times';
 import moment from 'moment';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Chart } from './Chart';
+import PureChart from './PureChart';
 
 function generateData(days: number, step: number): Measurement[] {
   const count = days * (24 / step);
@@ -76,10 +76,16 @@ storiesOf('Chart', module)
     <View style={StyleSheet.absoluteFill}>{story()}</View>
   ))
   .add('With empty data', () => (
-    <Chart days={1} loading={false} data={[]} unit={Unit.LEVEL} gauge={gauge} />
+    <PureChart
+      days={1}
+      loading={false}
+      data={[]}
+      unit={Unit.LEVEL}
+      gauge={gauge}
+    />
   ))
   .add('Loading', () => (
-    <Chart
+    <PureChart
       days={1}
       loading={true}
       data={daily}
@@ -88,7 +94,7 @@ storiesOf('Chart', module)
     />
   ))
   .add('With daily data', () => (
-    <Chart
+    <PureChart
       days={1}
       loading={false}
       data={daily}
@@ -97,7 +103,7 @@ storiesOf('Chart', module)
     />
   ))
   .add('With weekly data', () => (
-    <Chart
+    <PureChart
       days={7}
       loading={false}
       data={weekly}
@@ -106,7 +112,7 @@ storiesOf('Chart', module)
     />
   ))
   .add('With monthly data', () => (
-    <Chart
+    <PureChart
       days={31}
       loading={false}
       data={monthly}
@@ -115,7 +121,7 @@ storiesOf('Chart', module)
     />
   ))
   .add('With close bindings', () => (
-    <Chart
+    <PureChart
       days={7}
       loading={false}
       data={weekly}
@@ -125,7 +131,7 @@ storiesOf('Chart', module)
     />
   ))
   .add('With distant bindings', () => (
-    <Chart
+    <PureChart
       loading={false}
       days={7}
       data={weekly}

@@ -24,4 +24,5 @@ export * from './Spacer';
 export * from './SplashScreen';
 export * from './StarRating';
 export * from './TernaryChips';
+export * from './useActionSheet';
 export * from './WithNetworkError';

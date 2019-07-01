@@ -6,6 +6,7 @@ import ReactMarkdown from 'react-markdown';
 import { Route, Switch } from 'react-router';
 import { RouteComponentProps } from 'react-router-dom';
 import { Content, Tabs } from '../../../components';
+import { Chart } from '../../../components/chart';
 import { EditorLanguagePicker } from '../../../components/language';
 import { Map } from '../../../components/maps';
 import { CardHeader, EditorFooter } from '../../../layout';
@@ -38,7 +39,7 @@ const SectionDetails: React.FC<RouteComponentProps> = React.memo((props) => {
             </Tab>
 
             <Tab label="Flow Info" value={`${url}#flow`}>
-              <span>Flow</span>
+              <Chart gauge={section.gauge!} section={section} />
             </Tab>
 
             <Tab label="Info" value={`${url}#main`}>

@@ -1,6 +1,7 @@
 export * from './getSectionColor';
 export * from './getSectionContentBounds';
 export * from './getSectionPOIs';
+export * from './formulas';
 export * from './listSections.query';
 export * from './prettyNumber';
 export * from './SectionContext';
@@ -8,4 +9,5 @@ export * from './sectionFragments';
 export * from './sectionName.query';
 export * from './sectionDetails.query';
 export * from './toGeoJson';
+export * from './types';
 export * from './withSectionsList';

@@ -1,11 +1,12 @@
 import sortBy from 'lodash/sortBy';
-import React, { useCallback, useMemo, useRef } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
 import { useMapType } from '../../features/settings';
 import theme from '../../theme';
 import { Icon } from '../Icon';
+import { useActionSheet } from '../useActionSheet';
 import Layers from './layers';
 
 const styles = StyleSheet.create({
@@ -28,7 +29,7 @@ const LAYERS_ARRAY = sortBy(Object.values(Layers), 'order');
 const NUM_LAYERS = LAYERS_ARRAY.length;
 
 const LayersSelector: React.FC = React.memo(() => {
-  const actionSheet = useRef<ActionSheet | null>(null);
+  const [actionSheet, showMenu] = useActionSheet();
 
   const { t } = useTranslation();
   const options = useMemo(
@@ -37,12 +38,6 @@ const LayersSelector: React.FC = React.memo(() => {
   );
 
   const { mapType, setMapType } = useMapType();
-
-  const showMenu = useCallback(() => {
-    if (actionSheet.current) {
-      actionSheet.current.show();
-    }
-  }, []);
 
   const onMenu = useCallback(
     (index: number) => {

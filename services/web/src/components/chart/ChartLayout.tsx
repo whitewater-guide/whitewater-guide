@@ -1,6 +1,13 @@
-import { ChartLayoutProps } from '@whitewater-guide/clients';
+import { useChart } from '@whitewater-guide/clients';
 import React from 'react';
+import ReactResizeDetector from 'react-resize-detector';
+import { VictoryScatter, VictoryTheme, VictoryTooltip } from 'victory';
 import { Styles } from '../../styles';
+import { Loading } from '../Loading';
+import ChartFlowToggle from './ChartFlowToggle';
+import ChartPeriodToggle from './ChartPeriodToggle';
+import ChartView from './ChartView';
+import NoData from './NoData';
 
 const styles: Styles = {
   root: {
@@ -24,17 +31,49 @@ const styles: Styles = {
   },
 };
 
-const ChartLayout: React.StatelessComponent<ChartLayoutProps> = (props) => {
-  const { chart, flowToggle, periodToggle } = props;
+const ChartLayout: React.FC = () => {
+  const {
+    measurements: { loading, data },
+    unit,
+    gauge,
+    section,
+    days,
+  } = useChart();
+  if (loading) {
+    return <Loading />;
+  }
+  if (!data || data.length === 0) {
+    return <NoData hasGauge={true} />;
+  }
   return (
     <div style={styles.root}>
-      <div style={styles.chartContainer}>{chart}</div>
+      <div style={styles.chartContainer}>
+        <ReactResizeDetector handleHeight={true} handleWidth={true}>
+          <ChartView
+            data={data}
+            days={days}
+            gauge={gauge}
+            unit={unit}
+            section={section}
+            theme={VictoryTheme.material}
+          >
+            <VictoryScatter
+              data={data}
+              x="timestamp"
+              y={unit}
+              labelComponent={<VictoryTooltip />}
+            />
+          </ChartView>
+        </ReactResizeDetector>
+      </div>
       <div style={styles.toggles}>
-        {flowToggle}
-        {periodToggle}
+        <ChartFlowToggle />
+        <ChartPeriodToggle />
       </div>
     </div>
   );
 };
+
+ChartLayout.displayName = 'ChartLayout';
 
 export default ChartLayout;

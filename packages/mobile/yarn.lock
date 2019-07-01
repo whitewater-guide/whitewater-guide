@@ -2372,16 +2372,16 @@
     "@webassemblyjs/wast-parser" "1.8.5"
     "@xtuc/long" "4.2.2"
 
-"@whitewater-guide/clients@0.0.250":
-  version "0.0.250"
-  resolved "https://registry.npmjs.org/@whitewater-guide/clients/-/clients-0.0.250.tgz#2cc5e440d52437db65febe3cf4bcc5a0f7553e00"
-  integrity sha512-MPkypsWg/1senlTPGMwdHJ5Nv1v8F9bx4a8QMr5KDG5MDZTchJt5T05q+lz1svkLihEUNxD3cbdwku2B2Ltz8g==
+"@whitewater-guide/clients@0.0.251-factor.9":
+  version "0.0.251-factor.9"
+  resolved "https://registry.npmjs.org/@whitewater-guide/clients/-/clients-0.0.251-factor.9.tgz#bb000d612e53b94321ce471cd32a6ffba7ccb117"
+  integrity sha512-iQ8S4Nx2g1JTSS9CPZSYz8dunJ8+2BKe0wwesM0fRJyV2D/eEjccMkn5n9Awh92+okSCFxsCL4MM8ty/mAFN9A==
   dependencies:
     "@testing-library/react" "^8.0.4"
     "@turf/bearing" "^6.0.1"
     "@turf/helpers" "^6.1.4"
     "@types/jest" "^24.0.15"
-    "@whitewater-guide/commons" "0.0.154"
+    "@whitewater-guide/commons" "0.0.155-factor.0"
     apollo-cache "^1.3.2"
     apollo-cache-inmemory "^1.6.2"
     apollo-client "^2.6.3"
@@ -2393,6 +2393,8 @@
     apollo-utilities "^1.3.2"
     async-retry "^1.2.3"
     color "^3.1.1"
+    d3-scale "^3.0.0"
+    expr-eval "^1.2.2"
     graphql "^14.3.1"
     graphql-tag "2.10.1"
     graphql-tools "^4.0.5"
@@ -2408,10 +2410,10 @@
     typescript-fsa "^3.0.0-beta-2"
     url-parse "^1.4.7"
 
-"@whitewater-guide/commons@0.0.154":
-  version "0.0.154"
-  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.154.tgz#3760ca5ddcece990866bc8235e55a5ef12f02049"
-  integrity sha512-8IwibdK9oGZV1JB8xY9OCRISKYlwztueh5DmXLzu2fHz2lTs4uNMcXgD5J60Ztwzl73ZyE+WZTGk2FHY4Y7+9g==
+"@whitewater-guide/commons@0.0.155-factor.0":
+  version "0.0.155-factor.0"
+  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.155-factor.0.tgz#80ae1aa80c560a696d735aa43df42262f78f16cf"
+  integrity sha512-aarv593/SmsmLBACrnxSm225fpOlZoffMCC5WRQX6PHlpeMUyGt2/YIfwdHNrDqawDBEIqlEv3AYeRbdqYEKdg==
   dependencies:
     cron-parser "^2.12.0"
     lodash "^4.17.11"
@@ -5819,6 +5821,11 @@ expect@^24.8.0:
     jest-matcher-utils "^24.8.0"
     jest-message-util "^24.8.0"
     jest-regex-util "^24.3.0"
+
+expr-eval@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.npmjs.org/expr-eval/-/expr-eval-1.2.2.tgz#8b1a160b814e67da7652007e2693714895221ea0"
+  integrity sha1-ixoWC4FOZ9p2UgB+JpNxSJUiHqA=
 
 express@^4.17.0:
   version "4.17.1"

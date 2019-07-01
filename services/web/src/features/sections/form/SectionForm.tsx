@@ -174,6 +174,11 @@ export default class SectionForm extends React.PureComponent<SectionFormProps> {
                   type="number"
                   title="Absolute maximum"
                 />
+                <TextInput
+                  fullWidth={true}
+                  name="flows.formula"
+                  title="Formula"
+                />
                 <Checkbox name="flows.approximate" label="Approximate" />
               </Row>
               <TextInput

@@ -27,6 +27,7 @@ describe('GaugeBinding', () => {
         optimum: 10,
         impossible: 10,
         approximate: true,
+        formula: 'x + 10',
       },
     ],
     [
@@ -37,6 +38,7 @@ describe('GaugeBinding', () => {
         optimum: null,
         impossible: null,
         approximate: null,
+        formula: null,
       },
     ],
     ['empty value', {}],

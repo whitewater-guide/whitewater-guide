@@ -1,11 +1,12 @@
-import { PeriodToggleProps } from '@whitewater-guide/clients';
-import React from 'react';
-import { withTranslation, WithTranslation } from 'react-i18next';
+import { useChart } from '@whitewater-guide/clients';
+import React, { useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, StyleSheet } from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
 import { Paragraph, Subheading } from 'react-native-paper';
 import theme from '../../theme';
 import { Body, Left, Right, Row } from '../Row';
+import { useActionSheet } from '../useActionSheet';
 
 const styles = StyleSheet.create({
   link: {
@@ -14,74 +15,62 @@ const styles = StyleSheet.create({
   },
 });
 
-type Props = PeriodToggleProps & WithTranslation;
+const DAYS = [1, 7, 31];
 
-class ChartPeriodToggleInternal extends React.PureComponent<Props> {
-  _actionSheet: ActionSheet | null = null;
-  _actionSheetOptions: string[];
-
-  constructor(props: Props) {
-    super(props);
-    this._actionSheetOptions = [
-      props.t('section:chart.periodToggle.day'),
-      props.t('section:chart.periodToggle.week'),
-      props.t('section:chart.periodToggle.month'),
-      props.t('commons:cancel'),
-    ];
-  }
-
-  onShowActionSheet = () => {
-    if (this._actionSheet) {
-      this._actionSheet.show();
-    }
-  };
-
-  onSelect = (index: number) => {
-    const days = [1, 7, 31];
-    if (index < 3) {
-      this.props.onChange(days[index]);
-    }
-  };
-
-  setActionSheet = (ref: ActionSheet | null) => {
-    this._actionSheet = ref;
-  };
-
-  renderLoaded = () => {
-    const { days, t } = this.props;
-    const index = days > 10 ? 'month' : days > 2 ? 'week' : 'day';
+export const ChartPeriodToggle: React.FC = React.memo(() => {
+  const { t } = useTranslation();
+  const [actionSheet, showActionSheet] = useActionSheet();
+  const {
+    measurements: { loading },
+    days,
+    onChangeDays,
+  } = useChart();
+  const onSelect = useCallback(
+    (i: number) => {
+      if (i < 3) {
+        onChangeDays(DAYS[i]);
+      }
+    },
+    [onChangeDays],
+  );
+  const options = useMemo(
+    () => [
+      t('section:chart.periodToggle.day'),
+      t('section:chart.periodToggle.week'),
+      t('section:chart.periodToggle.month'),
+      t('commons:cancel'),
+    ],
+    [t],
+  );
+  if (loading) {
     return (
       <Row>
-        <Left row={true}>
-          <Subheading>{t('section:chart.periodToggle.title')}</Subheading>
-        </Left>
-        <Right row={true}>
-          <Paragraph style={styles.link} onPress={this.onShowActionSheet}>
-            {t(`section:chart.periodToggle.${index}`)}
-          </Paragraph>
-        </Right>
-        <ActionSheet
-          ref={this.setActionSheet}
-          title={t('section:chart.periodToggle.title')}
-          options={this._actionSheetOptions}
-          cancelButtonIndex={3}
-          onPress={this.onSelect}
-        />
+        <Body>
+          <ActivityIndicator color={theme.colors.primary} />
+        </Body>
       </Row>
     );
-  };
-
-  renderLoading = () => (
+  }
+  const index = days > 10 ? 'month' : days > 2 ? 'week' : 'day';
+  return (
     <Row>
-      <Body>
-        <ActivityIndicator color={theme.colors.primary} />
-      </Body>
+      <Left row={true}>
+        <Subheading>{t('section:chart.periodToggle.title')}</Subheading>
+      </Left>
+      <Right row={true}>
+        <Paragraph style={styles.link} onPress={showActionSheet}>
+          {t(`section:chart.periodToggle.${index}`)}
+        </Paragraph>
+      </Right>
+      <ActionSheet
+        ref={actionSheet}
+        title={t('section:chart.periodToggle.title')}
+        options={options}
+        cancelButtonIndex={3}
+        onPress={onSelect}
+      />
     </Row>
   );
+});
 
-  render() {
-    return this.props.loading ? this.renderLoading() : this.renderLoaded();
-  }
-}
-
-export const ChartPeriodToggle = withTranslation()(ChartPeriodToggleInternal);
+ChartPeriodToggle.displayName = 'ChartPeriodToggle';

@@ -2,10 +2,10 @@ import { useSection } from '@whitewater-guide/clients';
 import React from 'react';
 import { NavigationScreenComponent } from 'react-navigation';
 import { Icon, Screen } from '../../../components';
-import { NoChart } from '../../../components/chart/NoChart';
+import { NoChart } from '../../../components/chart';
 import { I18nText } from '../../../i18n';
 import theme from '../../../theme';
-import InteractiveChart from './InteractiveChart';
+import ChartLayout from './ChartLayout';
 
 export const SectionChartScreen: NavigationScreenComponent = () => {
   const { node } = useSection();
@@ -13,7 +13,7 @@ export const SectionChartScreen: NavigationScreenComponent = () => {
   return (
     <Screen noScroll={true} noPadding={true}>
       {node && gauge ? (
-        <InteractiveChart section={node} gauge={gauge} />
+        <ChartLayout section={node} gauge={gauge} />
       ) : (
         <NoChart />
       )}

@@ -5,7 +5,7 @@ import moment from 'moment';
 import React from 'react';
 import { Col } from 'react-grid-system';
 import { Content, HarvestStatusIndicator } from '../../../components';
-import Chart from '../../../components/chart';
+import { Chart } from '../../../components/chart';
 import { CardHeader, EditorFooter } from '../../../layout';
 import { Container, Row, Title } from '../../../layout/details';
 import { Styles } from '../../../styles';

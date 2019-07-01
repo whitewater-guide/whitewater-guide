@@ -758,3 +758,17 @@ test('Should handle sections without value', () => {
   };
   expect(getSectionColor(makeSection(binding))).toBe(ColorStrings.none);
 });
+
+test('Should handle sections with formulas', () => {
+  const binding = {
+    minimum: 20,
+    optimum: 40,
+    maximum: 60,
+    impossible: 80,
+    approximate: false,
+    formula: '(x + 20) * 3',
+  };
+  expect(getSectionColor(makeSection(binding, 20))).toBe(
+    ColorStrings.impossible,
+  );
+});
