@@ -42,6 +42,9 @@ export const createChartView = (
     const binding =
       section && (unit === Unit.LEVEL ? section.levels : section.flows);
     const meta = useMemo(() => computeChartMeta(props, metaSettings), [props]);
+    if (!victoryProps.width || !victoryProps.height) {
+      return null;
+    }
 
     return (
       <ChartComponent {...victoryProps} scale={SCALE} domain={meta.domain}>
