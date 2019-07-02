@@ -3,7 +3,7 @@ import { Linking, Platform } from 'react-native';
 import Firebase from 'react-native-firebase';
 
 export const openGoogleMaps = async ([lng, lat]: Coordinate) => {
-  let directionsURL = `geo:${lat},${lng}`;
+  let directionsURL = `geo:0,0?q=${lat},${lng}`;
   if (Platform.OS === 'ios') {
     const canOpenGoogleMaps = await Linking.canOpenURL('comgooglemaps://');
     directionsURL = canOpenGoogleMaps
