@@ -1,4 +1,4 @@
-import { useChart } from '@whitewater-guide/clients';
+import { useChart, useFormulas } from '@whitewater-guide/clients';
 import { Unit } from '@whitewater-guide/commons';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -11,7 +11,9 @@ import ChartFlowToggleUnit from './ChartFlowToggleUnit';
 
 export const ChartFlowToggle: React.FC = React.memo(() => {
   const { t } = useTranslation();
-  const { unit, onChangeUnit, unitChangeable, gauge } = useChart();
+  const { unit, onChangeUnit, unitChangeable, gauge, section } = useChart();
+  const { lastMeasurement, flowUnit, levelUnit } = gauge;
+  const formulas = useFormulas(section);
   const options = useMemo(
     () => [t('commons:flow'), t('commons:level'), t('commons:cancel')],
     [t],
@@ -25,11 +27,15 @@ export const ChartFlowToggle: React.FC = React.memo(() => {
     },
     [onChangeUnit],
   );
-  // TODO: apply formula here
-  const value = gauge.lastMeasurement
-    ? gauge.lastMeasurement[unit].toFixed(2)
-    : '?';
-  const unitName = unit === Unit.FLOW ? gauge.flowUnit! : gauge.levelUnit!;
+  let value: string = '?';
+  if (lastMeasurement) {
+    const numeric =
+      unit === Unit.FLOW
+        ? formulas.flows(lastMeasurement.flow)
+        : formulas.levels(lastMeasurement.level);
+    value = numeric.toFixed(2);
+  }
+  const unitName = unit === Unit.FLOW ? flowUnit! : levelUnit!;
   return (
     <Row>
       <Left row={true}>

@@ -30,6 +30,7 @@ export const initApolloClient = async (auth: AuthService) => {
           ...appErrorResolver,
         },
       },
+      assumeImmutableResults: true,
     });
 
     initLocalState(apolloClient.cache);

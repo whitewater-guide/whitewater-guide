@@ -1,4 +1,7 @@
-import { MapSelectionProvider } from '@whitewater-guide/clients';
+import {
+  MapSelectionProvider,
+  SectionsListLoader,
+} from '@whitewater-guide/clients';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { NavigationRouteConfigMap, TabNavigatorConfig } from 'react-navigation';
@@ -10,7 +13,6 @@ import container from './container';
 import { RegionInfoScreen } from './info';
 import RegionMapScreen from './map';
 import RegionSectionsListScreen from './sections-list';
-import { SectionsListLoader } from './SectionsListLoader';
 import SectionsProgress from './SectionsProgress';
 import { InnerProps, RenderProps, ScreenProps } from './types';
 

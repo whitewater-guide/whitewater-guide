@@ -2,6 +2,7 @@ import {
   ColorStrings,
   getSectionColor,
   prettyNumber,
+  useFormulas,
 } from '@whitewater-guide/clients';
 import { Section } from '@whitewater-guide/commons';
 import moment from 'moment';
@@ -64,6 +65,7 @@ const propsAreEqual = (a: Props, b: Props): boolean =>
 
 const SectionFlowsRow: React.FC<Props> = React.memo(({ section }) => {
   const [t] = useTranslation();
+  const formulas = useFormulas(section || undefined);
   if (!section) {
     return <SimpleTextFlowRow />;
   }
@@ -77,8 +79,8 @@ const SectionFlowsRow: React.FC<Props> = React.memo(({ section }) => {
   const label = preferFlow ? t('commons:flow') : t('commons:level');
   const unitName = preferFlow ? gauge.flowUnit : gauge.levelUnit;
   const value = preferFlow
-    ? gauge.lastMeasurement.flow
-    : gauge.lastMeasurement.level;
+    ? formulas.flows(gauge.lastMeasurement.flow)
+    : formulas.levels(gauge.lastMeasurement.level);
   return (
     <Row>
       <Subheading>{label}</Subheading>
