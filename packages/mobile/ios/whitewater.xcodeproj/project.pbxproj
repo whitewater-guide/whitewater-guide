@@ -938,6 +938,7 @@
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				2C2408DD0F79C88B060B0D64 /* [CP] Copy Pods Resources */,
+				41D0207EA764FB994B5CAC8B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1576,6 +1577,24 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
+		41D0207EA764FB994B5CAC8B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-whitewater/Pods-whitewater-frameworks.sh",
+				"${PODS_ROOT}/../../node_modules/@react-native-mapbox-gl/maps/ios/Mapbox.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mapbox.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-whitewater/Pods-whitewater-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		9C9BAA4AE9A6C711EFA91DFE /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1751,7 +1770,7 @@
 				CODE_SIGN_ENTITLEMENTS = whitewater/whitewater.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 142;
+				CURRENT_PROJECT_VERSION = 143;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 922TKPGBXZ;
 				HEADER_SEARCH_PATHS = (
@@ -1794,7 +1813,7 @@
 				CODE_SIGN_ENTITLEMENTS = whitewater/whitewater.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 142;
+				CURRENT_PROJECT_VERSION = 143;
 				DEVELOPMENT_TEAM = 922TKPGBXZ;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2042,7 +2061,7 @@
 				CODE_SIGN_ENTITLEMENTS = whitewater/whitewater.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 142;
+				CURRENT_PROJECT_VERSION = 143;
 				DEVELOPMENT_TEAM = 922TKPGBXZ;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",

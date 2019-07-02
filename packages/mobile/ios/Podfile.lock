@@ -89,7 +89,7 @@ PODS:
     - React
   - react-native-sensitive-info (5.4.1):
     - React
-  - react-native-webview (6.3.1):
+  - react-native-webview (5.12.1):
     - React
   - React/Core (0.59.10):
     - yoga (= 0.59.10.React)
@@ -272,7 +272,7 @@ SPEC CHECKSUMS:
   react-native-mapbox-gl: 26cabddce8bf6f39164c7be4dceb781e6fab0fdc
   react-native-netinfo: 0da34082d2cec3100c9b5073bb217e35f1142bdd
   react-native-sensitive-info: ebe100d2ed408800397c8f1f224c77d3f507f4c5
-  react-native-webview: 830d41c90141f3e997ddb271fa93c19f3a619ccc
+  react-native-webview: 5036ed4a973ad1deeeff118262d2df7b60b3419d
   RNFS: c9bbde46b0d59619f8e7b735991c60e0f73d22c1
   RNGestureHandler: 5329a942fce3d41c68b84c2c2276ce06a696d8b0
   RNLocalize: c3bc4ed498b008d6e2e172638f546129ef307b21
