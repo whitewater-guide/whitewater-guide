@@ -98,7 +98,7 @@ export default class SectionsList extends React.PureComponent<
   render() {
     return (
       <ResourcesList
-        list={this.props.sections.nodes}
+        list={this.props.sections}
         onResourceClick={this.onSectionClick}
       >
         <Column

@@ -4,7 +4,7 @@ import { Route, RouteComponentProps, Switch } from 'react-router-dom';
 import { Loading } from '../../components';
 import { AdminRoute, EditorRoute } from '../../layout';
 import RegionAdmin from './admin';
-import RegionDetails from './details';
+import RegionDetailsRouter from './details';
 import RegionForm from './form';
 
 type Props = RouteComponentProps<{ regionId: string }>;
@@ -31,7 +31,7 @@ const RegionRoute: React.FC<Props> = React.memo((props) => {
               path={`${path}/admin`}
               component={RegionAdmin}
             />
-            <Route component={RegionDetails} />
+            <Route component={RegionDetailsRouter} />
           </Switch>
         );
       }}

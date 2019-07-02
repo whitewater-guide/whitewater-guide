@@ -44,6 +44,7 @@ export const initApolloClient = (auth: AuthService) => {
         ...appErrorResolver,
       },
     },
+    assumeImmutableResults: true,
   });
   client.onClearStore(() => {
     initLocalState(cache);
