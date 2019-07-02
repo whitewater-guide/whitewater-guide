@@ -49,21 +49,27 @@ const ChartLayout: React.FC = () => {
     <div style={styles.root}>
       <div style={styles.chartContainer}>
         <ReactResizeDetector handleHeight={true} handleWidth={true}>
-          <ChartView
-            data={data}
-            days={days}
-            gauge={gauge}
-            unit={unit}
-            section={section}
-            theme={VictoryTheme.material}
-          >
-            <VictoryScatter
-              data={data}
-              x="timestamp"
-              y={unit}
-              labelComponent={<VictoryTooltip />}
-            />
-          </ChartView>
+          {({ width, height }: any) => (
+            <div>
+              <ChartView
+                width={width}
+                height={height}
+                data={data}
+                days={days}
+                gauge={gauge}
+                unit={unit}
+                section={section}
+                theme={VictoryTheme.material}
+              >
+                <VictoryScatter
+                  data={data}
+                  x="timestamp"
+                  y={unit}
+                  labelComponent={<VictoryTooltip />}
+                />
+              </ChartView>
+            </div>
+          )}
         </ReactResizeDetector>
       </div>
       <div style={styles.toggles}>
