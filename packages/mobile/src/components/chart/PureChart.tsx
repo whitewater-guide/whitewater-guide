@@ -42,7 +42,7 @@ const PureChart: React.FC<Props> = React.memo((props) => {
   }
   return (
     <View style={styles.container} onLayout={onLayout}>
-      {!!layout && (
+      {!!layout && layout.width !== 0 && layout.height !== 0 && (
         <ChartView
           unit={unit}
           gauge={gauge}
