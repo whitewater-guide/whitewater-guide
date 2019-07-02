@@ -2372,10 +2372,10 @@
     "@webassemblyjs/wast-parser" "1.8.5"
     "@xtuc/long" "4.2.2"
 
-"@whitewater-guide/clients@0.0.251":
-  version "0.0.251"
-  resolved "https://registry.npmjs.org/@whitewater-guide/clients/-/clients-0.0.251.tgz#93c06b9f49e5e46bcb69a0be558598844ba7971d"
-  integrity sha512-09JKoY3t4t9xNyXHTdAGKSpoRO5YP0n+7opuIGlYIQME/i8em9CESNZ6m4GhaaBSrlM6/ZER6a82BIfknjBCkw==
+"@whitewater-guide/clients@0.0.252":
+  version "0.0.252"
+  resolved "https://registry.npmjs.org/@whitewater-guide/clients/-/clients-0.0.252.tgz#b3ef95d9cfa0a7ffbfd089e8e200be34a21e5bed"
+  integrity sha512-AguOTduwDq27brylBqq4ceD744Sto/0JPZOSHC/ScCITAiXx8RaW+WRL3a7LXLZY5XuTWtqEBaTMN19rWZe1Tg==
   dependencies:
     "@testing-library/react" "^8.0.4"
     "@turf/bearing" "^6.0.1"
