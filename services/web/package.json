@@ -23,7 +23,7 @@
     "@sentry/types": "^5.4.2",
     "@turf/helpers": "^6.1.4",
     "@types/react-facebook-login": "^4.1.0",
-    "@whitewater-guide/clients": "0.0.252",
+    "@whitewater-guide/clients": "0.0.253",
     "@whitewater-guide/commons": "0.0.155",
     "@whitewater-guide/md-editor": "0.1.8",
     "apollo-cache": "^1.2.1",
