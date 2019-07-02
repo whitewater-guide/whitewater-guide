@@ -33,6 +33,7 @@
   "checkConnection": "Please check your Internet connection",
   "retry": "Retry",
   "bug": "Oops! Something is broken",
+  "copyBugReport": "copy bug report",
   "premium": "Premium",
   "email": "e-mail",
   "password": "Password",

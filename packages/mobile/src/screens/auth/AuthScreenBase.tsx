@@ -8,7 +8,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import { Logo } from '../../components';
+import { ErrorBoundary, Logo } from '../../components';
 import theme from '../../theme';
 
 const styles = StyleSheet.create({
@@ -37,20 +37,22 @@ const styles = StyleSheet.create({
 
 export const AuthScreenBase: React.FC = ({ children }) => {
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      style={styles.root}
-    >
-      <SafeAreaView style={styles.root}>
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={styles.body}>
-            <View style={styles.logoWrapper}>
-              <Logo style={styles.logo} />
+    <ErrorBoundary>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        style={styles.root}
+      >
+        <SafeAreaView style={styles.root}>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={styles.body}>
+              <View style={styles.logoWrapper}>
+                <Logo style={styles.logo} />
+              </View>
+              {children}
             </View>
-            {children}
-          </View>
-        </TouchableWithoutFeedback>
-      </SafeAreaView>
-    </KeyboardAvoidingView>
+          </TouchableWithoutFeedback>
+        </SafeAreaView>
+      </KeyboardAvoidingView>
+    </ErrorBoundary>
   );
 };

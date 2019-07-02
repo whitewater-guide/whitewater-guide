@@ -12,7 +12,7 @@ import {
   TabNavigatorConfig,
 } from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
-import { WithNetworkError } from '../../components';
+import { ErrorBoundary, WithNetworkError } from '../../components';
 import { SelectedPOIView } from '../../components/map';
 import theme from '../../theme';
 import Screens from '../screen-names';
@@ -72,29 +72,31 @@ export const SectionTabs: NavigationScreenComponent<NavParams> & {
     return null;
   }
   return (
-    <RegionProvider
-      regionId={regionId}
-      bannerWidth={theme.screenWidthPx}
-      fetchPolicy="cache-only"
-    >
-      <SectionProvider sectionId={sectionId} query={SECTION_DETAILS}>
-        {({ node, error, loading, refetch }) => (
-          <WithNetworkError
-            data={node}
-            error={error}
-            loading={loading}
-            refetch={refetch}
-          >
-            <MapSelectionProvider>
-              <Navigator navigation={navigation} />
-              <View style={StyleSheet.absoluteFill} pointerEvents="box-none">
-                <SelectedPOIView />
-              </View>
-            </MapSelectionProvider>
-          </WithNetworkError>
-        )}
-      </SectionProvider>
-    </RegionProvider>
+    <ErrorBoundary>
+      <RegionProvider
+        regionId={regionId}
+        bannerWidth={theme.screenWidthPx}
+        fetchPolicy="cache-only"
+      >
+        <SectionProvider sectionId={sectionId} query={SECTION_DETAILS}>
+          {({ node, error, loading, refetch }) => (
+            <WithNetworkError
+              data={node}
+              error={error}
+              loading={loading}
+              refetch={refetch}
+            >
+              <MapSelectionProvider>
+                <Navigator navigation={navigation} />
+                <View style={StyleSheet.absoluteFill} pointerEvents="box-none">
+                  <SelectedPOIView />
+                </View>
+              </MapSelectionProvider>
+            </WithNetworkError>
+          )}
+        </SectionProvider>
+      </RegionProvider>
+    </ErrorBoundary>
   );
 };
 

@@ -3,7 +3,7 @@ export * from './Chips';
 export * from './DifficultyThumb';
 export * from './Divider';
 export * from './drawer';
-export * from './ErrorBoundaryFallback';
+export * from './ErrorBoundary';
 export * from './ErrorSnackbar';
 export * from './FlowsThumb';
 export * from './Handle';

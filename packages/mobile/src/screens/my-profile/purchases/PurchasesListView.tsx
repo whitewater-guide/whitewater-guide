@@ -1,16 +1,15 @@
 import React from 'react';
 import { Query, QueryResult } from 'react-apollo';
-import ErrorBoundary from 'react-error-boundary';
 import { useTranslation } from 'react-i18next';
 import { Divider, Title } from 'react-native-paper';
-import { ErrorBoundaryFallback, Loading, Paper } from '../../../components';
+import { ErrorBoundary, Loading, Paper } from '../../../components';
 import { MY_PURCHASES_QUERY, Result } from './myPurchases.query';
 import PurchaseItem from './PurchaseItem';
 
 const PurchasesListView: React.FC = () => {
   const [t] = useTranslation();
   return (
-    <ErrorBoundary FallbackComponent={ErrorBoundaryFallback}>
+    <ErrorBoundary>
       <Paper>
         <Title>{t('myProfile:purchases.title')}</Title>
         <Divider />
