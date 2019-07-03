@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     minHeight: theme.rowHeight,
+    overflow: 'hidden',
   },
   flexRow: {
     flexDirection: 'row',

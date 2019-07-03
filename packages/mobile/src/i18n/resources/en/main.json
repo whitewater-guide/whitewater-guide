@@ -315,7 +315,11 @@
         "level": "level"
       },
       "lastUpdated": "Last updated",
-      "approximateWarning": "This gauge gives very approximate\ndata for this river!",
+      "baseGauge": "Based on gauge",
+      "approximateWarning": "This gauge gives very approximate data for this river!",
+      "formulaWarning": "The values displayed here are derived from gauge values using this formula:",
+      "formulaWarning2": "where",
+      "formulaWarning3": "is the raw gauge value",
       "gaugeMenu": {
         "title": "Gauge information",
         "aboutSource": "About the data source",
