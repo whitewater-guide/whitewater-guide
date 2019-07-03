@@ -1141,12 +1141,13 @@
     lodash.unescape "4.0.1"
     semver "5.5.0"
 
-"@whitewater-guide/commons@0.0.155":
-  version "0.0.155"
-  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.155.tgz#d5dae3dbfd38e06d8416151b294a10399e6dc4cf"
-  integrity sha512-6k8BJDuNvt/Pxgeg381x6hhdA3t8g5m0UjCRc2aFNI5a+IvWi3zMIxQsRyUBBQZ2p/NQRH0dPHg/OGSfL+bk2g==
+"@whitewater-guide/commons@0.0.156":
+  version "0.0.156"
+  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.156.tgz#13f69cfcacb995addc36a954d6cfce16de3c5740"
+  integrity sha512-ww7Wc0sNvbcRgx8GMn86qdoBI/mTtZsxvljs/ya/pUZYA5U87j953QzZsi+xUeDxt+vbMZddyZPsi17XRcOVKw==
   dependencies:
     cron-parser "^2.12.0"
+    expr-eval "^1.2.2"
     lodash "^4.17.11"
     superstruct "^0.6.1"
     validator "^11.0.0"
@@ -3599,6 +3600,11 @@ expect@^24.8.0:
     jest-matcher-utils "^24.8.0"
     jest-message-util "^24.8.0"
     jest-regex-util "^24.3.0"
+
+expr-eval@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.npmjs.org/expr-eval/-/expr-eval-1.2.2.tgz#8b1a160b814e67da7652007e2693714895221ea0"
+  integrity sha1-ixoWC4FOZ9p2UgB+JpNxSJUiHqA=
 
 express@^4.0.0:
   version "4.17.1"

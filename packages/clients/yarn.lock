@@ -1184,12 +1184,13 @@
   resolved "https://registry.yarnpkg.com/@types/zen-observable/-/zen-observable-0.8.0.tgz#8b63ab7f1aa5321248aad5ac890a485656dcea4d"
   integrity sha512-te5lMAWii1uEJ4FwLjzdlbw3+n0FZNOvFXHxQDKeT0dilh7HOzdMzV2TrJVUzq8ep7J4Na8OUYPRLSQkJHAlrg==
 
-"@whitewater-guide/commons@0.0.155":
-  version "0.0.155"
-  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.155.tgz#d5dae3dbfd38e06d8416151b294a10399e6dc4cf"
-  integrity sha512-6k8BJDuNvt/Pxgeg381x6hhdA3t8g5m0UjCRc2aFNI5a+IvWi3zMIxQsRyUBBQZ2p/NQRH0dPHg/OGSfL+bk2g==
+"@whitewater-guide/commons@0.0.156":
+  version "0.0.156"
+  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.156.tgz#13f69cfcacb995addc36a954d6cfce16de3c5740"
+  integrity sha512-ww7Wc0sNvbcRgx8GMn86qdoBI/mTtZsxvljs/ya/pUZYA5U87j953QzZsi+xUeDxt+vbMZddyZPsi17XRcOVKw==
   dependencies:
     cron-parser "^2.12.0"
+    expr-eval "^1.2.2"
     lodash "^4.17.11"
     superstruct "^0.6.1"
     validator "^11.0.0"
