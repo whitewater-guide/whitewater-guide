@@ -1,11 +1,11 @@
 import { useChart } from '@whitewater-guide/clients';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ActivityIndicator, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
 import { Paragraph, Subheading } from 'react-native-paper';
 import theme from '../../theme';
-import { Body, Left, Right, Row } from '../Row';
+import { Left, Right, Row } from '../Row';
 import { useActionSheet } from '../useActionSheet';
 
 const styles = StyleSheet.create({
@@ -43,13 +43,7 @@ export const ChartPeriodToggle: React.FC = React.memo(() => {
     [t],
   );
   if (loading) {
-    return (
-      <Row>
-        <Body>
-          <ActivityIndicator color={theme.colors.primary} />
-        </Body>
-      </Row>
-    );
+    return <Row />;
   }
   const index = days > 10 ? 'month' : days > 2 ? 'week' : 'day';
   return (

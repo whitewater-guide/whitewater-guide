@@ -28,6 +28,15 @@ const styles = StyleSheet.create({
   x: {
     fontWeight: 'bold',
   },
+  gaugeRow: {
+    height: theme.rowHeight,
+    paddingVertical: 0,
+  },
+  gaugeRowRight: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
 });
 
 interface Props {
@@ -48,7 +57,7 @@ const GaugeInfo: React.FC<Props> = (props) => {
     : false;
   return (
     <React.Fragment>
-      <Row>
+      <Row style={styles.gaugeRow}>
         <Left>
           <Subheading>
             {approximate || !!formula
@@ -56,7 +65,7 @@ const GaugeInfo: React.FC<Props> = (props) => {
               : t('commons:gauge')}
           </Subheading>
         </Left>
-        <Right row={true}>
+        <Right row={true} style={styles.gaugeRowRight}>
           {(approximate || !!formula) && (
             <GaugeWarning>
               <View style={styles.approximatePopover}>
@@ -78,7 +87,7 @@ const GaugeInfo: React.FC<Props> = (props) => {
               </View>
             </GaugeWarning>
           )}
-          <Paragraph style={styles.link} onPress={showSheet} numberOfLines={1}>
+          <Paragraph style={styles.link} onPress={showSheet}>
             {upperFirst(name)}
           </Paragraph>
         </Right>

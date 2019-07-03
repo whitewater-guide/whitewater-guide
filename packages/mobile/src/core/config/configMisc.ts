@@ -3,7 +3,7 @@ import { UIManager, YellowBox } from 'react-native';
 import Config from 'react-native-config';
 
 const configMisc = () => {
-  YellowBox.ignoreWarnings(['Setting a timer']);
+  YellowBox.ignoreWarnings(['Setting a timer', 'Warning: NetInfo']);
 
   if (UIManager.setLayoutAnimationEnabledExperimental) {
     UIManager.setLayoutAnimationEnabledExperimental(true);
