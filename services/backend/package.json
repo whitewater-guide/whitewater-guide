@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/backend",
   "private": true,
-  "version": "0.0.368",
+  "version": "0.0.369",
   "main": "index.js",
   "author": "Konstantin Kuznetsov",
   "license": "UNLICENSED",
