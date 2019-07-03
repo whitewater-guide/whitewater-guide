@@ -1,5 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`GaugeBinding should be invalid for bad variable 1`] = `
+Object {
+  "formula": "Formula must contain exactly on variable \`x\`",
+}
+`;
+
+exports[`GaugeBinding should be invalid for incorrect formula 1`] = `
+Object {
+  "formula": "Incorrect formula",
+}
+`;
+
+exports[`GaugeBinding should be invalid for too many variables 1`] = `
+Object {
+  "formula": "Formula must contain exactly on variable \`x\`",
+}
+`;
+
 exports[`SectionAdminSettings should be invalid for extra fields 1`] = `
 Object {
   "foo": "Expected a value of type \`undefined\` for \`foo\` but received \`\\"bar\\"\`.",
