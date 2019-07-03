@@ -71,15 +71,18 @@ class SelectedSectionViewInternal extends React.Component<Props, State> {
   render() {
     const { selection, t, onSelected } = this.props;
     const { section } = this.state;
+    const name = section ? section.river.name + ' - ' + section.name : '';
     const buttons = [
       {
         label: t('commons:putIn') as string,
         coordinates: get(section, 'putIn.coordinates', [0, 0]),
+        coordinateLabel: `${name}: ${t('commons:putIn')}`,
         canNavigate: this.canNavigate,
       },
       {
         label: t('commons:takeOut') as string,
         coordinates: get(section, 'takeOut.coordinates', [0, 0]),
+        coordinateLabel: `${name}: ${t('commons:takeOut')}`,
         canNavigate: this.canNavigate,
       },
     ];

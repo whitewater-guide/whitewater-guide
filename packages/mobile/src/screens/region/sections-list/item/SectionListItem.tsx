@@ -91,11 +91,13 @@ export class SectionListItem extends React.Component<Props> {
 
   render() {
     const { section, hasPremiumAccess, t, canNavigate } = this.props;
+    const name = section.river.name + ' - ' + section.name;
     return (
       <View style={styles.background}>
         <View style={styles.buttonsWrapper}>
           <NavigateButton
             label={t('commons:putIn')}
+            coordinateLabel={`${name}: ${t('commons:putIn')}`}
             driver={this._deltaX}
             inputRange={[-136, -72]}
             canNavigate={canNavigate}
@@ -103,6 +105,7 @@ export class SectionListItem extends React.Component<Props> {
             onPress={this.onNavigate}
           />
           <NavigateButton
+            coordinateLabel={`${name}: ${t('commons:takeOut')}`}
             label={t('commons:takeOut')}
             driver={this._deltaX}
             inputRange={[-72, -8]}

@@ -85,6 +85,7 @@ class SelectedPOIViewInternal extends React.Component<Props, State> {
       {
         label: t('commons:navigate') as string,
         coordinates: get(poi, 'coordinates', [0, 0]) as Coordinate,
+        coordinateLabel: poi ? poi.name : '',
         canNavigate: this.canNavigate,
       },
     ];

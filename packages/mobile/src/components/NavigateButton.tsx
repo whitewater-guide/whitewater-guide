@@ -89,6 +89,7 @@ const slideStyle = (
 
 interface Props {
   label: string;
+  coordinateLabel?: string | null;
   driver?: Animated.AnimatedInterpolation;
   inputRange: [number, number];
   coordinates: Coordinate;
@@ -101,9 +102,9 @@ interface Props {
 
 export class NavigateButton extends React.PureComponent<Props> {
   onPress = async () => {
-    const { coordinates, onPress, canNavigate } = this.props;
+    const { coordinates, coordinateLabel, onPress, canNavigate } = this.props;
     if (canNavigate(coordinates)) {
-      await openGoogleMaps(coordinates);
+      await openGoogleMaps(coordinates, coordinateLabel);
     }
     if (onPress) {
       onPress();

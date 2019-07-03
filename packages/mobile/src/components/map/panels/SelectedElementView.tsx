@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
 interface NavButtonProps {
   label: string;
   coordinates: Coordinate;
+  coordinateLabel?: string | null;
   canNavigate: (coordinates: Coordinate) => boolean;
 }
 
@@ -171,7 +172,7 @@ export default class SelectedElementView extends React.Component<Props, State> {
   };
 
   renderButton = (
-    { label, coordinates, canNavigate }: NavButtonProps,
+    { label, coordinates, canNavigate, coordinateLabel }: NavButtonProps,
     index: number,
   ) => {
     const numButtons = this.props.buttons.length;
@@ -180,6 +181,7 @@ export default class SelectedElementView extends React.Component<Props, State> {
       <NavigateButton
         key={`nav_button_${index}`}
         label={label}
+        coordinateLabel={coordinateLabel}
         driver={this.state.slideAnimated}
         animationType="slide"
         inputRange={[34 + step * index, 34 + step * (index - 1)]}

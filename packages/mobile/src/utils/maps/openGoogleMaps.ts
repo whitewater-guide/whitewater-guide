@@ -2,7 +2,10 @@ import { Coordinate } from '@whitewater-guide/commons';
 import { Linking, Platform } from 'react-native';
 import Firebase from 'react-native-firebase';
 
-export const openGoogleMaps = async ([lng, lat]: Coordinate) => {
+export const openGoogleMaps = async (
+  [lng, lat]: Coordinate,
+  label?: string | null,
+) => {
   let directionsURL = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
   if (Platform.OS === 'ios') {
     const canOpenGoogleMaps = await Linking.canOpenURL('comgooglemaps://');
@@ -14,11 +17,13 @@ export const openGoogleMaps = async ([lng, lat]: Coordinate) => {
       canOpenGoogleMaps ? 'true' : 'false',
     );
   } else {
-    const canOpenGoogleMaps = await Linking.canOpenURL(
-      `geo:0,0?q=${lat},${lng}`,
-    );
+    let geoURI = `geo:${lat},${lng}?q=${lat},${lng}`;
+    if (label) {
+      geoURI = `${geoURI}(${label})`;
+    }
+    const canOpenGoogleMaps = await Linking.canOpenURL(geoURI);
     if (canOpenGoogleMaps) {
-      directionsURL = `geo:0,0?q=${lat},${lng}`;
+      directionsURL = geoURI;
     }
   }
   Linking.openURL(directionsURL).catch(() => {
