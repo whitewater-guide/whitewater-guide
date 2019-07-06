@@ -6,9 +6,14 @@ import { StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
 import Screens from '../../../screens/screen-names';
 
+export const SECTION_DETAILS_BUTTON_HEIGHT = 36;
+
 const styles = StyleSheet.create({
   button: {
     borderRadius: 0,
+    height: SECTION_DETAILS_BUTTON_HEIGHT,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 
@@ -16,7 +21,7 @@ interface Props {
   sectionId: string | null;
 }
 
-const SectionDetailsButton: React.FC<Props> = memo(({ sectionId }) => {
+export const SectionDetailsButton: React.FC<Props> = memo(({ sectionId }) => {
   const { t } = useTranslation();
   const { navigate } = useNavigation();
   const { node } = useRegion();
@@ -36,5 +41,3 @@ const SectionDetailsButton: React.FC<Props> = memo(({ sectionId }) => {
 });
 
 SectionDetailsButton.displayName = 'SectionDetailsButton';
-
-export default SectionDetailsButton;

@@ -1,31 +1,44 @@
 import {
   MapSelection,
   withMapSelection,
-  withRegion,
   WithRegion,
+  withRegion,
 } from '@whitewater-guide/clients';
 import { isSection, Section } from '@whitewater-guide/commons';
-import get from 'lodash/get';
-import noop from 'lodash/noop';
 import React from 'react';
-import { WithTranslation, withTranslation } from 'react-i18next';
+import Animated from 'react-native-reanimated';
 import { compose, pure } from 'recompose';
 import {
   connectPremiumDialog,
   WithPremiumDialog,
 } from '../../../features/purchases';
-import SectionDetailsButton from './SectionDetailsButton';
+import theme from '../../../theme';
+import { NAVIGATE_BUTTON_HEIGHT, NavigateButton } from '../../NavigateButton';
+import {
+  SECTION_DETAILS_BUTTON_HEIGHT,
+  SectionDetailsButton,
+} from './SectionDetailsButton';
+import { FLOWS_ROW_HEIGHT } from './SectionFlowsRow';
 import SelectedElementView from './SelectedElementView';
 import SelectedSectionHeader from './SelectedSectionHeader';
 import SelectedSectionTable from './SelectedSectionTable';
 
-type Props = WithRegion & WithPremiumDialog & MapSelection & WithTranslation;
+const SNAP_POINTS: [number, number, number] = [
+  NAVIGATE_BUTTON_HEIGHT +
+    theme.rowHeight * 2 +
+    FLOWS_ROW_HEIGHT +
+    SECTION_DETAILS_BUTTON_HEIGHT,
+  NAVIGATE_BUTTON_HEIGHT,
+  0,
+];
+
+type Props = WithRegion & WithPremiumDialog & MapSelection;
 
 interface State {
   section: Section | null;
 }
 
-class SelectedSectionViewInternal extends React.Component<Props, State> {
+class SelectedSectionViewInternal extends React.PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -41,15 +54,9 @@ class SelectedSectionViewInternal extends React.Component<Props, State> {
     return prevState;
   }
 
-  shouldComponentUpdate(next: Props) {
-    const oldId = this.props.selection && this.props.selection.id;
-    const newId = next.selection && next.selection.id;
-    return oldId !== newId;
-  }
-
   canNavigate = () => {
-    const { section } = this.state;
     const { region, buyRegion, canMakePayments } = this.props;
+    const { section } = this.state;
     const result =
       !canMakePayments ||
       (section && section.demo) ||
@@ -62,49 +69,60 @@ class SelectedSectionViewInternal extends React.Component<Props, State> {
     return result;
   };
 
-  renderHeader = () => {
+  renderContent = () => {
     const { section } = this.state;
+    return (
+      <React.Fragment>
+        <SelectedSectionTable section={section} />
+        <SectionDetailsButton sectionId={section && section.id} />
+      </React.Fragment>
+    );
+  };
+
+  renderHeader = () => {
     const { region } = this.props;
+    const { section } = this.state;
     return <SelectedSectionHeader section={section} region={region} />;
   };
 
-  render() {
-    const { selection, t, onSelected } = this.props;
+  renderButtons = (scale?: Animated.Node<number>) => {
     const { section } = this.state;
-    const name = section ? section.river.name + ' - ' + section.name : '';
-    const buttons = [
-      {
-        label: t('commons:putIn') as string,
-        coordinates: get(section, 'putIn.coordinates', [0, 0]),
-        coordinateLabel: `${name}: ${t('commons:putIn')}`,
-        canNavigate: this.canNavigate,
-      },
-      {
-        label: t('commons:takeOut') as string,
-        coordinates: get(section, 'takeOut.coordinates', [0, 0]),
-        coordinateLabel: `${name}: ${t('commons:takeOut')}`,
-        canNavigate: this.canNavigate,
-      },
-    ];
+    return (
+      <React.Fragment>
+        <NavigateButton
+          labelKey="commons:putIn"
+          point={section ? section.putIn : null}
+          canNavigate={this.canNavigate}
+          scale={scale}
+        />
+        <NavigateButton
+          point={section ? section.takeOut : null}
+          labelKey="commons:takeOut"
+          canNavigate={this.canNavigate}
+          scale={scale}
+        />
+      </React.Fragment>
+    );
+  };
 
+  render() {
+    const { selection, onSelected } = this.props;
+    const section = isSection(selection) ? selection : null;
     return (
       <SelectedElementView
+        snapPoints={SNAP_POINTS}
         renderHeader={this.renderHeader}
-        buttons={buttons}
-        selected={isSection(selection)}
-        onSectionSelected={onSelected}
-        onPOISelected={noop}
-      >
-        <SelectedSectionTable section={section} />
-        <SectionDetailsButton sectionId={selection && selection.id} />
-      </SelectedElementView>
+        renderButtons={this.renderButtons}
+        renderContent={this.renderContent}
+        selection={section}
+        onSelected={onSelected}
+      />
     );
   }
 }
 
 export const SelectedSectionView = compose<Props, {}>(
   pure,
-  withTranslation(),
   withMapSelection,
   withRegion,
   connectPremiumDialog,

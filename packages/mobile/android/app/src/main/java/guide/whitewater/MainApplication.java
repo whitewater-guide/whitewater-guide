@@ -29,7 +29,6 @@ import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.horcrux.svg.SvgPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
-import com.wix.interactable.Interactable;
 import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -85,7 +84,6 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
             new FBSDKPackage(mCallbackManager),
             new SvgPackage(),
             new SplashScreenReactPackage(),
-            new Interactable(),
             new ReactNativeConfigPackage()
       );
     }

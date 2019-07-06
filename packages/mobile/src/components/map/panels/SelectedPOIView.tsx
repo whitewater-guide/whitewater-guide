@@ -1,69 +1,67 @@
 import {
   MapSelection,
   withMapSelection,
-  withRegion,
   WithRegion,
+  withRegion,
 } from '@whitewater-guide/clients';
-import { Coordinate, isPoint, Point } from '@whitewater-guide/commons';
+import { isPoint, Point } from '@whitewater-guide/commons';
 import get from 'lodash/get';
-import noop from 'lodash/noop';
 import React from 'react';
-import { withTranslation, WithTranslation } from 'react-i18next';
-import { ScrollView, StyleSheet, View } from 'react-native';
-import { Caption, Paragraph } from 'react-native-paper';
+import { StyleSheet } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
+import { Paragraph } from 'react-native-paper';
+import Animated from 'react-native-reanimated';
 import { compose, pure } from 'recompose';
 import {
   connectPremiumDialog,
   WithPremiumDialog,
 } from '../../../features/purchases';
 import theme from '../../../theme';
+import { NAVIGATE_BUTTON_HEIGHT, NavigateButton } from '../../NavigateButton';
 import SelectedElementView from './SelectedElementView';
+import SelectedPOIHeader from './SelectedPOIHeader';
 
 const styles = StyleSheet.create({
-  header: {
-    flex: 1,
-    padding: 8,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: theme.colors.border,
+  scroll: {
+    backgroundColor: theme.colors.primaryBackground,
+    height: theme.rowHeight * 3,
   },
-  body: {
-    maxHeight: theme.screenHeight / 2,
-  },
-  bodyContent: {
-    padding: 8,
+  scrollContent: {
+    padding: theme.margin.single,
   },
 });
 
-type Props = WithTranslation & WithRegion & WithPremiumDialog & MapSelection;
+const SNAP_POINTS: [number, number, number] = [
+  NAVIGATE_BUTTON_HEIGHT + theme.rowHeight * 3,
+  NAVIGATE_BUTTON_HEIGHT,
+  0,
+];
+
+type Props = WithRegion & WithPremiumDialog & MapSelection;
 
 interface State {
   poi: Point | null;
 }
 
-class SelectedPOIViewInternal extends React.Component<Props, State> {
-  readonly state: State = { poi: null };
+class SelectedPOIViewInternal extends React.PureComponent<Props, State> {
+  private _scroll = React.createRef<ScrollView>();
 
-  static getDerivedStateFromProps(props: Props, prevState: State): State {
-    if (isPoint(props.selection)) {
-      return { poi: props.selection };
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      poi: isPoint(props.selection) ? props.selection : null,
+    };
+  }
+
+  static getDerivedStateFromProps(nextProps: Props, prevState: State): State {
+    // Keep poi as state to prevent flash of empty content before panel hides
+    if (isPoint(nextProps.selection)) {
+      return {
+        poi: nextProps.selection,
+      };
     }
     return prevState;
   }
-
-  shouldComponentUpdate(nextProps: Props) {
-    const oldId = this.props.selection && this.props.selection.id;
-    const newId = nextProps.selection && nextProps.selection.id;
-    return oldId !== newId;
-  }
-
-  renderHeader = () => (
-    <View style={styles.header}>
-      <Paragraph>{get(this.state.poi, 'name', ' ')}</Paragraph>
-      <Caption>
-        {this.props.t('poiTypes:' + get(this.state.poi, 'kind', 'other'))}
-      </Caption>
-    </View>
-  );
 
   canNavigate = () => {
     const { buyRegion, region, canMakePayments } = this.props;
@@ -78,32 +76,50 @@ class SelectedPOIViewInternal extends React.Component<Props, State> {
     return result;
   };
 
-  render() {
-    const { t, selection } = this.props;
+  renderContent = () => {
     const { poi } = this.state;
-    const buttons = [
-      {
-        label: t('commons:navigate') as string,
-        coordinates: get(poi, 'coordinates', [0, 0]) as Coordinate,
-        coordinateLabel: poi ? poi.name : '',
-        canNavigate: this.canNavigate,
-      },
-    ];
+    return (
+      <ScrollView
+        style={styles.scroll}
+        contentContainerStyle={styles.scrollContent}
+        ref={this._scroll}
+        bounces={false}
+      >
+        <Paragraph>{get(poi, 'description', ' ')}</Paragraph>
+      </ScrollView>
+    );
+  };
+
+  renderHeader = () => {
+    const { poi } = this.state;
+    return <SelectedPOIHeader poi={poi} />;
+  };
+
+  renderButtons = (scale?: Animated.Node<number>) => {
+    const { poi } = this.state;
+    return (
+      <NavigateButton
+        labelKey="commons:navigate"
+        point={poi}
+        canNavigate={this.canNavigate}
+        scale={scale}
+      />
+    );
+  };
+
+  render() {
+    const { selection, onSelected } = this.props;
+    const poi = isPoint(selection) ? selection : null;
     return (
       <SelectedElementView
+        snapPoints={SNAP_POINTS}
         renderHeader={this.renderHeader}
-        buttons={buttons}
-        selected={isPoint(selection)}
-        onSectionSelected={noop}
-        onPOISelected={noop}
-      >
-        <ScrollView
-          contentContainerStyle={styles.bodyContent}
-          style={styles.body}
-        >
-          <Paragraph>{get(poi, 'description', ' ')}</Paragraph>
-        </ScrollView>
-      </SelectedElementView>
+        renderButtons={this.renderButtons}
+        renderContent={this.renderContent}
+        selection={poi}
+        onSelected={onSelected}
+        simultaneousHandlers={this._scroll}
+      />
     );
   }
 }
@@ -111,7 +127,6 @@ class SelectedPOIViewInternal extends React.Component<Props, State> {
 export const SelectedPOIView = compose<Props, {}>(
   pure,
   withMapSelection,
-  withTranslation(),
   withRegion,
   connectPremiumDialog,
 )(SelectedPOIViewInternal);

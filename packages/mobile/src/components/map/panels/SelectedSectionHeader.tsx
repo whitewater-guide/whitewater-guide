@@ -7,6 +7,7 @@ import { Paragraph, Subheading } from 'react-native-paper';
 import theme from '../../../theme';
 import { DifficultyThumb } from '../../DifficultyThumb';
 import { Icon } from '../../Icon';
+import { NAVIGATE_BUTTON_HEIGHT } from '../../NavigateButton';
 import { StarRating } from '../../StarRating';
 
 const styles = StyleSheet.create({
@@ -16,6 +17,8 @@ const styles = StyleSheet.create({
     paddingLeft: theme.margin.single,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: theme.colors.border,
+    backgroundColor: theme.colors.primaryBackground,
+    height: NAVIGATE_BUTTON_HEIGHT,
     flex: 1,
   },
   body: {
@@ -44,15 +47,17 @@ interface Props {
 
 const SelectedSectionHeader: React.FC<Props> = React.memo(
   ({ section, region }) => {
+    const sectionName = (section && section.name) || '';
+    const riverName = (section && section.river && section.river.name) || '';
     return (
       <View style={styles.header}>
         <View style={styles.body}>
           <Paragraph numberOfLines={1} style={styles.title}>
-            {get(section, 'river.name', ' ')}
+            {riverName}
           </Paragraph>
           <View style={styles.row}>
             <Subheading numberOfLines={1} style={styles.title}>
-              {get(section, 'name', ' ')}
+              {sectionName}
             </Subheading>
             {section &&
               section.demo &&
@@ -82,5 +87,7 @@ const SelectedSectionHeader: React.FC<Props> = React.memo(
     );
   },
 );
+
+SelectedSectionHeader.displayName = 'SelectedSectionHeader';
 
 export default SelectedSectionHeader;

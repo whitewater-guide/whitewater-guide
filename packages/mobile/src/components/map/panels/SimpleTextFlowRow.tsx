@@ -1,18 +1,22 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { StyleProp, ViewStyle } from 'react-native';
 import { Paragraph, Subheading } from 'react-native-paper';
 import { Row } from '../../Row';
 
 interface Props {
   flowsText?: string | null;
+  style?: StyleProp<ViewStyle>;
 }
 
-const SimpleTextFlowRow: React.FC<Props> = ({ flowsText }) => {
+const SimpleTextFlowRow: React.FC<Props> = ({ flowsText, style }) => {
   const [t] = useTranslation();
   return (
-    <Row>
+    <Row style={style}>
       <Subheading>{t('region:map.selectedSection.flows')}</Subheading>
-      <Paragraph>{!!flowsText || t('commons:unknown')}</Paragraph>
+      <Paragraph adjustsFontSizeToFit={true}>
+        {!!flowsText || t('commons:unknown')}
+      </Paragraph>
     </Row>
   );
 };

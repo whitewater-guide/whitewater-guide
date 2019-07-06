@@ -202,7 +202,6 @@ dependencies {
     implementation project(':react-native-fbsdk')
     implementation project(':react-native-svg')
     implementation project(':react-native-splash-screen')
-    implementation project(':react-native-interactable')
     implementation project(':react-native-config')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"

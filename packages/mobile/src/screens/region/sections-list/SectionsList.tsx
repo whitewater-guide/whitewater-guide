@@ -1,7 +1,8 @@
 import { Banner, isBanner, Region, Section } from '@whitewater-guide/commons';
 import React from 'react';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import { FlatList, ListRenderItemInfo } from 'react-native';
+import { ListRenderItemInfo } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
 import { NavigationScreenProp, withNavigationFocus } from 'react-navigation';
 import { compose } from 'recompose';
 import shallowEqual from 'shallowequal';
@@ -98,7 +99,6 @@ class SectionsList extends React.Component<InnerProps, State> {
         section={item}
         onPress={this.onSectionSelected}
         onMaximize={this.onItemMaximized}
-        t={this.props.t}
       />
     );
   };

@@ -4,6 +4,7 @@ import { DefaultTheme, Theme } from 'react-native-paper';
 const colors = {
   primary: '#2196f3', // Blue 500
   accent: '#FF9900',
+  lightBackground: '#FFFFFF',
   primaryBackground: '#FAFAFA', // Grey 50,
   border: '#e0e0e0', // Grey 300
   componentBorder: '#9E9E9E', // Grey 500

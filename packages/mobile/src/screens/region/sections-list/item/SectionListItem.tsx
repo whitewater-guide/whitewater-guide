@@ -1,37 +1,33 @@
 import { Coordinate, Section } from '@whitewater-guide/commons';
 import React from 'react';
-import { WithTranslation } from 'react-i18next';
-import { Animated, StyleSheet, View } from 'react-native';
-import Interactable from 'react-native-interactable';
-import { NavigateButton } from '../../../../components';
+import { StyleSheet, View } from 'react-native';
+import { PanGestureHandler } from 'react-native-gesture-handler';
+import Reanimated from 'react-native-reanimated';
+import {
+  NAVIGATE_BUTTON_HEIGHT,
+  NAVIGATE_BUTTON_WIDTH,
+  NavigateButton,
+} from '../../../../components';
 import theme from '../../../../theme';
-import SectionListBody, { ITEM_HEIGHT } from './SectionListBody';
-
-export { ITEM_HEIGHT } from './SectionListBody';
+import { runAnimation, SwipeableAnimation } from './animations';
+import SectionListBody from './SectionListBody';
 
 const styles = StyleSheet.create({
-  buttonsWrapper: {
-    position: 'absolute',
-    right: 0,
-    height: ITEM_HEIGHT,
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingRight: 8,
-  },
-  background: {
+  container: {
+    width: theme.screenWidth,
+    height: NAVIGATE_BUTTON_HEIGHT,
     backgroundColor: theme.colors.primary,
   },
-  bodyWrapper: {
-    left: 0,
+  right: {
+    position: 'absolute',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    height: NAVIGATE_BUTTON_HEIGHT,
     right: 0,
-    height: ITEM_HEIGHT,
-    backgroundColor: theme.colors.textLight,
   },
 });
 
-const BOUNDS = { left: -136, right: 30, bounce: 0.5 };
-
-interface OwnProps {
+interface Props {
   hasPremiumAccess: boolean;
   index: number;
   swipedIndex: number;
@@ -41,11 +37,25 @@ interface OwnProps {
   canNavigate: (coordinates: Coordinate) => boolean;
 }
 
-type Props = OwnProps & Pick<WithTranslation, 't'>;
-
 export class SectionListItem extends React.Component<Props> {
-  _deltaX: Animated.Value = new Animated.Value(0);
-  _interactable: any = null;
+  private readonly _animation: SwipeableAnimation;
+  private readonly _scalePI: Reanimated.Node<number>;
+  private readonly _scaleTO: Reanimated.Node<number>;
+
+  constructor(props: Props) {
+    super(props);
+    this._animation = runAnimation(-2 * NAVIGATE_BUTTON_WIDTH, this.onOpen);
+    this._scaleTO = Reanimated.interpolate(this._animation.position, {
+      inputRange: [-NAVIGATE_BUTTON_WIDTH, 0],
+      outputRange: [1, 0],
+      extrapolate: Reanimated.Extrapolate.CLAMP,
+    });
+    this._scalePI = Reanimated.interpolate(this._animation.position, {
+      inputRange: [-2 * NAVIGATE_BUTTON_WIDTH, -NAVIGATE_BUTTON_WIDTH],
+      outputRange: [1, 0],
+      extrapolate: Reanimated.Extrapolate.CLAMP,
+    });
+  }
 
   shouldComponentUpdate(next: Readonly<Props>): boolean {
     const props = this.props;
@@ -61,80 +71,61 @@ export class SectionListItem extends React.Component<Props> {
   componentDidUpdate(prevProps: Props) {
     const { index, swipedIndex } = this.props;
     if (
-      this._interactable &&
       swipedIndex !== prevProps.swipedIndex &&
       index !== swipedIndex &&
       prevProps.swipedIndex !== -1
     ) {
-      this._interactable.snapTo({ index: 0 });
+      this._animation.close();
     }
   }
 
-  onInteractableMounted = (ref: any) => {
-    this._interactable = ref;
-  };
-
   onPress = () => this.props.onPress(this.props.section);
 
-  onNavigate = () => {
-    if (this._interactable) {
-      this._interactable.snapTo({ index: 0 });
-    }
-  };
-
-  onSnap = ({ nativeEvent: { index } }: any) => {
-    const { onMaximize, index: itemIndex } = this.props;
-    if (index === 1 && onMaximize) {
-      onMaximize(itemIndex);
+  onOpen = () => {
+    const { onMaximize, index } = this.props;
+    if (onMaximize) {
+      onMaximize(index);
     }
   };
 
   render() {
-    const { section, hasPremiumAccess, t, canNavigate } = this.props;
-    const name = section.river.name + ' - ' + section.name;
+    const { section, hasPremiumAccess, canNavigate } = this.props;
     return (
-      <View style={styles.background}>
-        <View style={styles.buttonsWrapper}>
+      <View style={styles.container}>
+        <View style={styles.right}>
           <NavigateButton
-            label={t('commons:putIn')}
-            coordinateLabel={`${name}: ${t('commons:putIn')}`}
-            driver={this._deltaX}
-            inputRange={[-136, -72]}
+            labelKey="commons:putIn"
+            point={section.putIn}
             canNavigate={canNavigate}
-            coordinates={this.props.section.putIn.coordinates}
-            onPress={this.onNavigate}
+            onPress={this._animation.close}
+            scale={this._scalePI}
           />
           <NavigateButton
-            coordinateLabel={`${name}: ${t('commons:takeOut')}`}
-            label={t('commons:takeOut')}
-            driver={this._deltaX}
-            inputRange={[-72, -8]}
+            labelKey="commons:takeOut"
+            point={section.takeOut}
             canNavigate={canNavigate}
-            coordinates={this.props.section.takeOut.coordinates}
-            onPress={this.onNavigate}
+            onPress={this._animation.close}
+            scale={this._scaleTO}
           />
         </View>
-        <Interactable.View
-          ref={this.onInteractableMounted}
-          horizontalOnly={true}
-          animatedNativeDriver={true}
-          snapPoints={[
-            { x: 0, damping: 0.6, tension: 300 },
-            { x: -136, damping: 0.6, tension: 300 },
-          ]}
-          dragToss={0.01}
-          boundaries={BOUNDS}
-          animatedValueX={this._deltaX}
-          onSnap={this.onSnap}
+        <Reanimated.Code exec={this._animation.watchOnOpen} />
+        <PanGestureHandler
+          minDeltaX={5}
+          onGestureEvent={this._animation.gestureHandler}
+          onHandlerStateChange={this._animation.gestureHandler}
         >
-          <View style={styles.bodyWrapper}>
+          <Reanimated.View
+            style={
+              { transform: [{ translateX: this._animation.position }] } as any
+            }
+          >
             <SectionListBody
               hasPremiumAccess={hasPremiumAccess}
               section={section}
               onPress={this.onPress}
             />
-          </View>
-        </Interactable.View>
+          </Reanimated.View>
+        </PanGestureHandler>
       </View>
     );
   }

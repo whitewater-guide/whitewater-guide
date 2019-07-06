@@ -14,12 +14,11 @@ import theme from '../../../theme';
 import { Row } from '../../Row';
 import SimpleTextFlowRow from './SimpleTextFlowRow';
 
+export const FLOWS_ROW_HEIGHT = 64;
+
 const styles = StyleSheet.create({
   container: {
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderColor: theme.colors.border,
-    alignItems: 'center',
-    minHeight: 48,
+    height: FLOWS_ROW_HEIGHT,
   },
   flowContainer: {
     flex: 1,
@@ -67,11 +66,11 @@ const SectionFlowsRow: React.FC<Props> = React.memo(({ section }) => {
   const [t] = useTranslation();
   const formulas = useFormulas(section || undefined);
   if (!section) {
-    return <SimpleTextFlowRow />;
+    return <SimpleTextFlowRow style={styles.container} />;
   }
   const { flows, levels, gauge, flowsText } = section;
   if (!gauge || !gauge.lastMeasurement || (!flows && !levels)) {
-    return <SimpleTextFlowRow flowsText={flowsText} />;
+    return <SimpleTextFlowRow flowsText={flowsText} style={styles.container} />;
   }
   const color = getSectionColor(section);
   const preferFlow = flows && gauge.lastMeasurement.flow;
@@ -82,7 +81,7 @@ const SectionFlowsRow: React.FC<Props> = React.memo(({ section }) => {
     ? formulas.flows(gauge.lastMeasurement.flow)
     : formulas.levels(gauge.lastMeasurement.level);
   return (
-    <Row>
+    <Row style={styles.container}>
       <Subheading>{label}</Subheading>
       <View style={styles.flowContainer}>
         <Text style={[styles.mainLine, { color }]}>

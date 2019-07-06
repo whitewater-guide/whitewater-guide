@@ -1,257 +1,160 @@
-import { Coordinate, Point, Section } from '@whitewater-guide/commons';
+import { MapSelection } from '@whitewater-guide/clients';
 import React from 'react';
-import {
-  Animated,
-  LayoutChangeEvent,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import Interactable from 'react-native-interactable';
-import { getBottomSpace } from 'react-native-iphone-x-helper';
+import { StyleSheet, View } from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import Animated from 'react-native-reanimated';
+
+import BottomSheet from 'reanimated-bottom-sheet';
 import theme from '../../../theme';
-import {
-  NAVIGATE_BUTTON_HEIGHT,
-  NAVIGATE_BUTTON_WIDTH,
-  NavigateButton,
-} from '../../NavigateButton';
 
 const styles = StyleSheet.create({
-  panel: {
-    width: theme.screenWidth,
-    paddingBottom: 0,
-    backgroundColor: '#ffffff',
-    borderWidth: 0,
-  },
   header: {
-    width: theme.screenWidth,
-    height: NAVIGATE_BUTTON_HEIGHT,
     flexDirection: 'row',
-    backgroundColor: '#ffffff',
+    alignItems: 'center',
+    backgroundColor: theme.colors.primaryBackground,
   },
-  shade: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: '#000000',
-  },
-  safeArea: {
-    height: getBottomSpace(),
-    backgroundColor: theme.colors.primary,
+  headerTouchable: {
+    flex: 1,
   },
 });
 
-interface NavButtonProps {
-  label: string;
-  coordinates: Coordinate;
-  coordinateLabel?: string | null;
-  canNavigate: (coordinates: Coordinate) => boolean;
+// Value to compensate springiness when detecting open/closed state
+const HIDE_THRESHOLD_OVERSHOOT = 10;
+
+const {
+  Value,
+  Extrapolate,
+  block,
+  call,
+  greaterOrEq,
+  color,
+  interpolate,
+  onChange,
+} = Animated;
+
+interface Props extends MapSelection {
+  snapPoints: [number, number, number];
+  renderHeader: () => React.ReactNode;
+  renderButtons: (scale?: Animated.Node<number>) => React.ReactNode;
+  renderContent: () => React.ReactNode;
+  innerGestureHandlerRefs?: React.ComponentProps<
+    typeof BottomSheet
+  >['innerGestureHandlerRefs'];
+  simultaneousHandlers?: React.ComponentProps<
+    typeof BottomSheet
+  >['simultaneousHandlers'];
 }
 
-interface Props {
-  buttons: NavButtonProps[];
-  renderHeader: () => React.ReactElement<{}>;
-  renderBackground?: () => React.ReactElement<{}>;
-  selected: boolean;
-  onLayout?: (e: LayoutChangeEvent) => void;
-  onSectionSelected: (section: Section | null) => void;
-  onPOISelected: (point: Point | null) => void;
-  onMaximize?: () => void;
-  onMinimize?: () => void;
-}
+class SelectedElementView extends React.PureComponent<Props> {
+  private readonly _sheet = React.createRef<BottomSheet>();
+  private readonly _headerPosition: Animated.Value<number>;
+  private readonly _overlayBackground: Animated.Node<number>;
+  private readonly _watchHide: Animated.Node<number>;
+  private readonly _buttonsScale: Animated.Node<number>;
 
-interface State {
-  laidOut: boolean;
-  height: number;
-  panelHeight: number;
-  snapPoints: any[];
-  deltaY?: Animated.Value;
-  slideAnimated?: Animated.AnimatedInterpolation;
-}
-
-export default class SelectedElementView extends React.Component<Props, State> {
-  _interactable: any = null;
-  _muteSnapEvent: boolean = false;
-  _snapIndex: number = 0;
-
-  state: State = {
-    laidOut: false,
-    height: 0,
-    panelHeight: NAVIGATE_BUTTON_HEIGHT + 10,
-    snapPoints: [],
-  };
+  constructor(props: Props) {
+    super(props);
+    const { snapPoints } = props;
+    this._headerPosition = new Value(
+      snapPoints[0] - snapPoints[1] + HIDE_THRESHOLD_OVERSHOOT,
+    );
+    this._overlayBackground = color(
+      0,
+      0,
+      0,
+      interpolate(this._headerPosition, {
+        inputRange: [0, snapPoints[0] - snapPoints[1]],
+        outputRange: [0.5, 0.0],
+        extrapolate: Extrapolate.CLAMP,
+      }),
+    );
+    const hideThreshold = greaterOrEq(
+      this._headerPosition,
+      snapPoints[0] - snapPoints[1] + HIDE_THRESHOLD_OVERSHOOT,
+    );
+    this._watchHide = block([
+      onChange(hideThreshold, call([hideThreshold], this.onHide)),
+    ]);
+    this._buttonsScale = interpolate(this._headerPosition, {
+      inputRange: [
+        snapPoints[0] - snapPoints[1],
+        snapPoints[0] - snapPoints[2],
+      ],
+      outputRange: [1.0, 0.0],
+      extrapolate: Extrapolate.CLAMP,
+    });
+  }
 
   componentDidUpdate(prevProps: Props) {
-    if (!this._interactable) {
+    if (!this._sheet.current) {
       return;
     }
-    if (this.props.selected) {
-      // If it is open wide, keep it open wide
-      this._interactable.snapTo({ index: Math.max(1, this._snapIndex) });
-      this._muteSnapEvent = true;
-    } else if (!this.props.selected && prevProps.selected) {
-      this._interactable.snapTo({ index: 0 });
-      this._muteSnapEvent = true;
+    if (!prevProps.selection && this.props.selection) {
+      this._sheet.current.snapTo(1);
+    }
+    if (prevProps.selection && !this.props.selection) {
+      this._sheet.current.snapTo(2);
     }
   }
 
-  componentWillUnmount() {
-    if (this._interactable) {
-      this._interactable.snapTo({ index: 0 });
-    }
-  }
-
-  onLayout = (e: LayoutChangeEvent) => {
-    if (this.props.onLayout) {
-      this.props.onLayout(e);
-    }
-    const {
-      nativeEvent: {
-        layout: { height },
-      },
-    } = e;
-    if (!this.state.laidOut) {
-      const deltaY = new Animated.Value(height);
-      const slideAnimated = Animated.multiply(
-        Animated.add(deltaY, -height),
-        -1,
-      );
-      const bottom = getBottomSpace();
-      this.setState((prevState) => ({
-        deltaY,
-        slideAnimated,
-        laidOut: true,
-        height,
-        snapPoints: [
-          { y: height },
-          { y: height - 2 * bottom - NAVIGATE_BUTTON_HEIGHT },
-          { y: height - 2 * bottom - prevState.panelHeight },
-        ],
-      }));
+  onHide = ([hidden]: any) => {
+    if (hidden && !!this.props.selection) {
+      this.props.onSelected(null);
     }
   };
 
-  onPanelLayout = ({
-    nativeEvent: {
-      layout: { height: panelHeight },
-    },
-  }: LayoutChangeEvent) => {
-    const bottom = getBottomSpace();
-    this.setState((prevState) => ({
-      panelHeight,
-      snapPoints: [
-        { y: prevState.height },
-        { y: prevState.height - 2 * bottom - NAVIGATE_BUTTON_HEIGHT },
-        { y: prevState.height - 2 * bottom - panelHeight },
-      ],
-    }));
-  };
-
-  onSnap = ({ nativeEvent: { index } }: any) => {
-    this._snapIndex = index;
-    if (!this._muteSnapEvent && index === 0) {
-      this.props.onSectionSelected(null);
-      this.props.onPOISelected(null);
-    }
-    this._muteSnapEvent = false;
-    if (this._snapIndex === 2 && this.props.onMaximize) {
-      this.props.onMaximize();
-    } else if (this._snapIndex === 0 && this.props.onMinimize) {
-      this.props.onMinimize();
+  onMaximize = () => {
+    if (this._sheet.current) {
+      this._sheet.current.snapTo(0);
     }
   };
 
-  onHeaderPressed = () => {
-    this._interactable.snapTo({ index: 2 });
-  };
-
-  setInteractable = (interactable: any) => {
-    this._interactable = interactable;
-    if (interactable && this.props.selected) {
-      this._interactable.snapTo({ index: 1 });
-      this._muteSnapEvent = true;
-    }
-  };
-
-  renderButton = (
-    { label, coordinates, canNavigate, coordinateLabel }: NavButtonProps,
-    index: number,
-  ) => {
-    const numButtons = this.props.buttons.length;
-    const step = 66 / numButtons;
+  renderHeader = () => {
+    const { renderHeader, renderButtons } = this.props;
     return (
-      <NavigateButton
-        key={`nav_button_${index}`}
-        label={label}
-        coordinateLabel={coordinateLabel}
-        driver={this.state.slideAnimated}
-        animationType="slide"
-        inputRange={[34 + step * index, 34 + step * (index - 1)]}
-        style={{ zIndex: numButtons - index }}
-        position={index}
-        coordinates={coordinates}
-        canNavigate={canNavigate}
-      />
+      <View style={styles.header}>
+        <View style={styles.headerTouchable}>
+          <TouchableWithoutFeedback onPress={this.onMaximize}>
+            {renderHeader()}
+          </TouchableWithoutFeedback>
+        </View>
+        {renderButtons(this._buttonsScale)}
+      </View>
     );
   };
 
   render() {
+    const {
+      snapPoints,
+      renderContent,
+      innerGestureHandlerRefs,
+      simultaneousHandlers,
+    } = this.props;
     return (
-      <View
-        style={StyleSheet.absoluteFill}
-        onLayout={this.onLayout}
+      <Animated.View
+        style={[
+          StyleSheet.absoluteFill,
+          {
+            backgroundColor: this._overlayBackground,
+          } as any,
+        ]}
         pointerEvents="box-none"
       >
-        {this.state.laidOut && (
-          <Animated.View
-            pointerEvents="none"
-            style={[
-              styles.shade,
-              {
-                opacity: this.state.deltaY
-                  ? this.state.deltaY.interpolate({
-                      inputRange: [
-                        this.state.snapPoints[2].y,
-                        this.state.snapPoints[1].y,
-                      ],
-                      outputRange: [0.5, 0],
-                      extrapolate: 'clamp',
-                    })
-                  : 0.5,
-              },
-            ]}
-          >
-            {this.props.renderBackground && this.props.renderBackground()}
-          </Animated.View>
-        )}
-        {this.state.laidOut && (
-          <Interactable.View
-            ref={this.setInteractable}
-            verticalOnly={true}
-            animatedNativeDriver={true}
-            snapPoints={this.state.snapPoints}
-            onSnap={this.onSnap}
-            initialPosition={this.state.snapPoints[0]}
-            animatedValueY={this.state.deltaY}
-          >
-            <View style={styles.panel} onLayout={this.onPanelLayout}>
-              <TouchableOpacity onPress={this.onHeaderPressed}>
-                <View style={styles.header}>
-                  <View
-                    style={{
-                      width:
-                        theme.screenWidth -
-                        this.props.buttons.length * NAVIGATE_BUTTON_WIDTH,
-                    }}
-                  >
-                    {this.props.renderHeader()}
-                  </View>
-                  {this.props.buttons.map(this.renderButton)}
-                </View>
-              </TouchableOpacity>
-              {this.props.children}
-            </View>
-          </Interactable.View>
-        )}
-      </View>
+        <Animated.Code exec={this._watchHide} />
+        <BottomSheet
+          ref={this._sheet}
+          initialSnap={2}
+          snapPoints={snapPoints}
+          renderContent={renderContent}
+          renderHeader={this.renderHeader}
+          headerPosition={this._headerPosition}
+          innerGestureHandlerRefs={innerGestureHandlerRefs}
+          simultaneousHandlers={simultaneousHandlers}
+          enabledInnerScrolling={false}
+        />
+      </Animated.View>
     );
   }
 }
+
+export default SelectedElementView;
