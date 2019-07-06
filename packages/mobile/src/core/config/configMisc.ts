@@ -1,9 +1,16 @@
 import Mapbox from '@react-native-mapbox-gl/maps';
-import { UIManager, YellowBox } from 'react-native';
+import { Platform, UIManager, YellowBox } from 'react-native';
 import Config from 'react-native-config';
+import { useScreens } from 'react-native-screens';
 
 const configMisc = () => {
   YellowBox.ignoreWarnings(['Setting a timer', 'Warning: NetInfo']);
+
+  // TODO: possible react-native-screens and react-native-splash-screen conflict causing crashes
+  // https://github.com/kmagiera/react-native-screens/issues/54
+  if (Platform.OS === 'ios') {
+    useScreens();
+  }
 
   if (UIManager.setLayoutAnimationEnabledExperimental) {
     UIManager.setLayoutAnimationEnabledExperimental(true);
