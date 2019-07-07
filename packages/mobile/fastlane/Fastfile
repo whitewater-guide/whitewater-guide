@@ -142,7 +142,10 @@ platform :ios do
     )
     git_add
     unless options[:skipCommit]
-      git_commit("*", "chore(mobile): iOS staging #{ENV['IOS_VERSION']}@#{ENV['IOS_BUILD_NUMBER']}")
+      git_commit(
+        path: "*",
+        message: "chore(mobile): iOS staging #{ENV['IOS_VERSION']}@#{ENV['IOS_BUILD_NUMBER']}",
+      )
     end
   end
 
@@ -220,7 +223,10 @@ platform :android do
     )
     git_add
     unless options[:skipCommit]
-      git_commit("*", "chore(mobile): android staging #{ENV['ANDROID_VERSION_NAME']}@#{ENV['ANDROID_VERSION_CODE']}")
+      git_commit(
+        path: "*",
+        message: "chore(mobile): android staging #{ENV['ANDROID_VERSION_NAME']}@#{ENV['ANDROID_VERSION_CODE']}",
+      )
     end
   end
 
