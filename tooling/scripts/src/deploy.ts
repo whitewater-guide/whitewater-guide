@@ -80,12 +80,12 @@ async function deploy() {
     }
     const git = simpleGit();
     const commitMsg =
-      'Deployed ' +
+      'deploy services\n\n' +
       services
-        .map((s) => process.env[`${s.toUpperCase()}_VERSION`])
+        .map((s) => s + '@' + process.env[`${s.toUpperCase()}_VERSION`])
         .filter((s) => !!s)
         .join(', ');
-    await git.commit(commitMsg);
+    await git.commit(commitMsg, undefined);
   }
 }
 
