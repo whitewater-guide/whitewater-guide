@@ -1,4 +1,5 @@
 import { useSection } from '@whitewater-guide/clients';
+import { sectionName } from '@whitewater-guide/commons';
 import { CardMedia } from 'material-ui/Card';
 import { Tab } from 'material-ui/Tabs';
 import React from 'react';
@@ -23,7 +24,7 @@ const SectionDetails: React.FC<RouteComponentProps> = React.memo((props) => {
   }
   return (
     <Content card={true}>
-      <CardHeader title={`${section.river.name} - ${section.name}`}>
+      <CardHeader title={sectionName(section)}>
         <EditorLanguagePicker />
       </CardHeader>
       <CardMedia style={{ height: '100%' }} mediaStyle={{ height: '100%' }}>

@@ -3,7 +3,7 @@ import {
   stringifySeason,
   useMapSelection,
 } from '@whitewater-guide/clients';
-import { Durations, isSection } from '@whitewater-guide/commons';
+import { Durations, isSection, sectionName } from '@whitewater-guide/commons';
 import { RaisedButton } from 'material-ui';
 import React, { useCallback } from 'react';
 import { Col, Container, Row } from 'react-grid-system';
@@ -48,9 +48,7 @@ const SelectedSectionWeb: React.FC<MapElementProps> = (props) => {
       <Container style={{ minWidth: 500 }}>
         <Row>
           <Col sm={9}>
-            <div
-              style={styles.h2}
-            >{`${selection.river.name} - ${selection.name}`}</div>
+            <div style={styles.h2}>{sectionName(selection)}</div>
             <Rating fontSize={16} value={selection.rating!} />
           </Col>
           <Col style={{ display: 'flex', justifyContent: 'flex-end' }}>
