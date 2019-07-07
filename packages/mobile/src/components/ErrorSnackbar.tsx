@@ -1,4 +1,3 @@
-import { useNetInfo } from '@react-native-community/netinfo';
 import {
   APP_ERROR_MUTATION,
   APP_ERROR_QUERY,
@@ -12,7 +11,6 @@ import { Snackbar } from 'react-native-paper';
 
 export const ErrorSnackbar: React.FC = () => {
   const [t] = useTranslation();
-  const { isConnected } = useNetInfo();
   return (
     <Query<AppErrorQueryResult> query={APP_ERROR_QUERY}>
       {({ data }) => {
@@ -23,9 +21,7 @@ export const ErrorSnackbar: React.FC = () => {
           });
         }
         const visible =
-          !!data &&
-          !!data.appError &&
-          (data.appError.type === 'fetch' ? isConnected : true);
+          !!data && !!data.appError && data.appError.type !== 'fetch';
         return (
           <Mutation<AppErrorMutationVars> mutation={APP_ERROR_MUTATION}>
             {(setApolloError: MutationFn) => (
