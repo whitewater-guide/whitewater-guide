@@ -1,3 +1,13 @@
+## [0.0.131](https://github.com/doomsower/whitewater/compare/a3919143d5e44c7d04ac51ea7ab196b2746d582b...3cca73cde4d76c837d2f1812e351c63a6d9ef700) (2019-07-07)
+
+### Features
+
+- rename url 'boompromo' to just 'promo' ([8e4a3835969d29be796de3722b05ee0506939d4a](https://github.com/doomsower/whitewater/commit/8e4a3835969d29be796de3722b05ee0506939d4a))
+
+### Other
+
+- remove lerna, use own script for service publication ([843c870f0330aa02c7f8bea94608407936d19326](https://github.com/doomsower/whitewater/commit/843c870f0330aa02c7f8bea94608407936d19326))
+
 ## [0.0.130](https://github.com/doomsower/whitewater/compare/@whitewater-guide/caddy@0.0.129...@whitewater-guide/caddy@0.0.130) (2019-06-14)
 
 ### Features

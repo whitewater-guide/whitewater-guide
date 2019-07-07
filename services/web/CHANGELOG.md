@@ -1,3 +1,46 @@
+## [0.1.371](https://github.com/doomsower/whitewater/compare/a3919143d5e44c7d04ac51ea7ab196b2746d582b...3cca73cde4d76c837d2f1812e351c63a6d9ef700) (2019-07-07)
+
+### Features
+
+- fix publish-libs ([2eb266a090904810c4c232cddd8d29c0c74c8750](https://github.com/doomsower/whitewater/commit/2eb266a090904810c4c232cddd8d29c0c74c8750))
+- formulas for gauge bindings ([b8fb934f942526069d3f99bccf0ea9a1ac21290c](https://github.com/doomsower/whitewater/commit/b8fb934f942526069d3f99bccf0ea9a1ac21290c))
+- move SectionsListLoader to clients ([e689ee3552f154357cf4fe82cf662b9149ca201a](https://github.com/doomsower/whitewater/commit/e689ee3552f154357cf4fe82cf662b9149ca201a))
+- use SectionsListLoader ([e620ba8c92aade6edf629367c28ef95b1f1c18ed](https://github.com/doomsower/whitewater/commit/e620ba8c92aade6edf629367c28ef95b1f1c18ed))
+
+### Bug Fixes
+
+- fix AdminRoute refresh ([68f01e43b2e67baa0e2c2ba2d9082ab963157dbe](https://github.com/doomsower/whitewater/commit/68f01e43b2e67baa0e2c2ba2d9082ab963157dbe))
+- fix chart resize detector ([f82716820ae24d06691354639abc3e33f79b50e6](https://github.com/doomsower/whitewater/commit/f82716820ae24d06691354639abc3e33f79b50e6))
+
+### Other
+
+- remove lerna, use own script for service publication ([843c870f0330aa02c7f8bea94608407936d19326](https://github.com/doomsower/whitewater/commit/843c870f0330aa02c7f8bea94608407936d19326))
+- use commons.sectionName where possible ([4cb912eb42ea16af191f0127f472f4dab1f37eea](https://github.com/doomsower/whitewater/commit/4cb912eb42ea16af191f0127f472f4dab1f37eea))
+
+## [0.1.365](https://github.com/doomsower/whitewater/compare/a3919143d5e44c7d04ac51ea7ab196b2746d582b...3cca73cde4d76c837d2f1812e351c63a6d9ef700) (2019-06-29)
+
+### Features
+
+- add error message when uploaded file violates size limits ([60d00669a98b7e0fe1174fa3f311e6032ff256b2](https://github.com/doomsower/whitewater/commit/60d00669a98b7e0fe1174fa3f311e6032ff256b2))
+- add min/max file size constants ([0f8e9966bad324bc737586919c77ee42fcb55cbf](https://github.com/doomsower/whitewater/commit/0f8e9966bad324bc737586919c77ee42fcb55cbf))
+- add region map size admin field ([743dd442ce628e7d40edd305aaee2dae8ce4e8f2](https://github.com/doomsower/whitewater/commit/743dd442ce628e7d40edd305aaee2dae8ce4e8f2))
+- add SentryRouterBreadcrumbs ([9eb25ee32fc008dc788948eddfeb9f63f001b55c](https://github.com/doomsower/whitewater/commit/9eb25ee32fc008dc788948eddfeb9f63f001b55c))
+- new mobile maps ([6daacf6b87cc8b55767c57e36bddb079fc126b59](https://github.com/doomsower/whitewater/commit/6daacf6b87cc8b55767c57e36bddb079fc126b59))
+- update boompromo page ([78fa27047042e586c028630f4f6ea7a05b2ae423](https://github.com/doomsower/whitewater/commit/78fa27047042e586c028630f4f6ea7a05b2ae423))
+- use autocomplete in gauge selector ([b9a0ee3830be89c069e88e99aa5ffc0571c46fb6](https://github.com/doomsower/whitewater/commit/b9a0ee3830be89c069e88e99aa5ffc0571c46fb6))
+- use latest clients lib ([5037ff33e7792da4d5388f291498509b0fb5e827](https://github.com/doomsower/whitewater/commit/5037ff33e7792da4d5388f291498509b0fb5e827))
+
+### Bug Fixes
+
+- fix REACT_APP_SENTRY_DSN ([4883b66ef55a3c34ab502533f0981a3518e9825d](https://github.com/doomsower/whitewater/commit/4883b66ef55a3c34ab502533f0981a3518e9825d))
+- remove test button ([4e641564f4623e4b82ce7a0d6b145666c9beea80](https://github.com/doomsower/whitewater/commit/4e641564f4623e4b82ce7a0d6b145666c9beea80))
+
+### Other
+
+- allow named node finder to take fixed values ([748ea010b2103ef5c3c2c89b1b2943ad207d5eba](https://github.com/doomsower/whitewater/commit/748ea010b2103ef5c3c2c89b1b2943ad207d5eba))
+- test sentry ([d4813f5ccdaa1cf646f210337a12ca5adc5e8fa5](https://github.com/doomsower/whitewater/commit/d4813f5ccdaa1cf646f210337a12ca5adc5e8fa5))
+- use own sentry for admin ([8495db98ca8f7746ccaec43ad5b4531dfddba497](https://github.com/doomsower/whitewater/commit/8495db98ca8f7746ccaec43ad5b4531dfddba497))
+
 ## [0.1.366](https://github.com/doomsower/whitewater/compare/@whitewater-guide/web@0.1.364...@whitewater-guide/web@0.1.366) (2019-06-29)
 
 ### Bug Fixes
