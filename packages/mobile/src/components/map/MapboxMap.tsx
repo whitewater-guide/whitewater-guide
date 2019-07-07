@@ -57,7 +57,7 @@ const layerStyles: Record<
   },
 };
 
-const HIT_BOX = { width: 24, height: 24 };
+const HIT_BOX = { width: 44, height: 44 };
 const POI_FILTER = ['==', '$type', 'Point'];
 // line-dasharray is not data-driven, split into 2 layers with filters
 const APPROXIMATE_FILTER = ['==', ['get', 'approximate'], true];
