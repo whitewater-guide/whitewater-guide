@@ -9,6 +9,7 @@ export interface WWMeta {
   branches: {
     [key: string]: Version;
   };
+  changelog: string;
 }
 
 export class Package {

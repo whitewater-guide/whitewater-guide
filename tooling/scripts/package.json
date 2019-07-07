@@ -13,8 +13,10 @@
     "preversion": "yarn build"
   },
   "dependencies": {
+    "add-stream": "^1.0.0",
     "aws-sdk": "^2.485.0",
     "chalk": "^2.4.2",
+    "conventional-changelog": "^3.1.8",
     "dotenv": "^8.0.0",
     "fs-extra": "^8.1.0",
     "glob": "^7.1.4",
@@ -24,6 +26,7 @@
     "semver": "^6.1.2",
     "simple-git": "^1.116.0",
     "string-entropy": "^0.0.2",
+    "tempfile": "^3.0.0",
     "tslib": "^1.10.0",
     "yargs": "^13.2.4"
   },

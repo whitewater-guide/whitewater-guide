@@ -1,11 +1,15 @@
 #!/usr/bin/env node
 
 import { spawnSync } from 'child_process';
+import { readdirSync } from 'fs';
+import simpleGit from 'simple-git/promise';
 import { argv } from 'yargs';
 import { STACK_NAME } from './constants';
-import { isEnvType, isMachine } from './types';
+import { EnvType, isEnvType, isMachine } from './types';
 import {
+  bumpPackage,
   dockerLogin,
+  generateChangelog,
   generateStackFile,
   gitGuardian,
   prerelaseGuardian,
@@ -65,6 +69,22 @@ async function deploy() {
     ['stack', 'deploy', '--with-registry-auth', '-c', stackFile, STACK_NAME],
     { stdio: 'inherit' },
   );
+
+  if (environment === EnvType.STAGING) {
+    const services = readdirSync('services');
+    for (const service of services) {
+      await generateChangelog(`services/${service}`);
+    }
+    await bumpPackage('');
+    const git = simpleGit();
+    const commitMsg =
+      'Deployed ' +
+      services
+        .map((s) => process.env[`${s.toUpperCase()}_VERSION`])
+        .filter((s) => !!s)
+        .join(', ');
+    await git.commit(commitMsg);
+  }
 }
 
 deploy();

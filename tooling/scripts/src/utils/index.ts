@@ -1,6 +1,7 @@
 export * from './bumpPackage';
 export * from './dockerLogin';
 export * from './generateStackFile';
+export * from './generateChangelog';
 export * from './getChangedServices';
 export * from './gitGuardian';
 export * from './hasPackageChanged';

@@ -675,7 +675,7 @@ conventional-changelog-writer@^4.0.5:
 
 conventional-changelog@^3.1.8:
   version "3.1.8"
-  resolved "https://registry.yarnpkg.com/conventional-changelog/-/conventional-changelog-3.1.8.tgz#091382b5a0820bf8ec8e75ad2664a3688c31b07d"
+  resolved "https://registry.npmjs.org/conventional-changelog/-/conventional-changelog-3.1.8.tgz#091382b5a0820bf8ec8e75ad2664a3688c31b07d"
   integrity sha512-fb3/DOLLrQdNqN0yYn/lT6HcNsAa9A+VTDBqlZBMQcEPPIeJIMI+DBs3yu+eiYOLi22w9oShq3nn/zN6qm1Hmw==
   dependencies:
     conventional-changelog-angular "^5.0.3"
