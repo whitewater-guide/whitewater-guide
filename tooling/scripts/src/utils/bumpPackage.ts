@@ -34,11 +34,15 @@ export const bumpPackage = async (path: string): Promise<Package | null> => {
   );
   const pkg = new Package(name, newVersion!);
   info(`Bumping: ${pkg.pretty()}`);
-  const { status } = spawnSync('npm', ['version', newVersion!], {
-    cwd: resolve(path),
-    stdio: 'inherit',
-    env: process.env,
-  });
+  const { status } = spawnSync(
+    'npm',
+    ['version', '--no-git-tag-version', newVersion!],
+    {
+      cwd: resolve(path),
+      stdio: 'inherit',
+      env: process.env,
+    },
+  );
 
   if (status !== 0) {
     throw new Error(`failed to bump ${name} version to ${newVersion}!`);

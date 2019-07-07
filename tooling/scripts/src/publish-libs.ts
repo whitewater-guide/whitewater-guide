@@ -41,9 +41,7 @@ const publishLibs = async () => {
 
   await installRecursive(libs, ['packages/mobile', 'services/*']);
 
-  await git.commit('chore: publish ' + libs.join(', '), undefined, {
-    '--no-verify': null,
-  });
+  await git.commit('chore(release): publish libs\n\n' + libs.join(', '));
 
   if (commonsChanged) {
     await updateMeta('packages/commons');

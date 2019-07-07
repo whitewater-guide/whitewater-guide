@@ -80,7 +80,7 @@ async function deploy() {
     }
     const git = simpleGit();
     const commitMsg =
-      'deploy services\n\n' +
+      'chore(release): deploy services\n\n' +
       services
         .map((s) => s + '@' + process.env[`${s.toUpperCase()}_VERSION`])
         .filter((s) => !!s)
