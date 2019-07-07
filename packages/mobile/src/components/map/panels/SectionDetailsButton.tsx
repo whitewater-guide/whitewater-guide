@@ -2,7 +2,7 @@ import { useRegion } from '@whitewater-guide/clients';
 import { useNavigation } from '@zhigang1992/react-navigation-hooks';
 import React, { memo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import { Button } from 'react-native-paper';
 import Screens from '../../../screens/screen-names';
@@ -34,12 +34,20 @@ export const SectionDetailsButton: React.FC<Props> = memo(({ sectionId }) => {
       });
     }
   }, [sectionId, navigate]);
+  // TODO: works on android only: https://github.com/kmagiera/react-native-gesture-handler/pull/537
+  if (Platform.OS === 'android') {
+    return (
+      <RectButton onPress={onPress}>
+        <Button mode="contained" style={styles.button}>
+          {t('region:map.selectedSection.details')}
+        </Button>
+      </RectButton>
+    );
+  }
   return (
-    <RectButton onPress={onPress}>
-      <Button mode="contained" style={styles.button}>
-        {t('region:map.selectedSection.details')}
-      </Button>
-    </RectButton>
+    <Button mode="contained" style={styles.button} onPress={onPress}>
+      {t('region:map.selectedSection.details')}
+    </Button>
   );
 });
 
