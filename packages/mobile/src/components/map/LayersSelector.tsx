@@ -23,6 +23,13 @@ const styles = StyleSheet.create({
     paddingBottom: 3,
     paddingHorizontal: 3,
     ...theme.shadow,
+    elevation: theme.elevation,
+  },
+  rectButton: {
+    width: 32,
+    height: 32,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 
@@ -55,7 +62,7 @@ const LayersSelector: React.FC = React.memo(() => {
     Platform.OS === 'ios' ? (
       <Icon icon="layers" style={styles.icon} onPress={showMenu} />
     ) : (
-      <RectButton onPress={showMenu} style={styles.icon}>
+      <RectButton onPress={showMenu} style={[styles.icon, styles.rectButton]}>
         <Icon icon="layers" />
       </RectButton>
     );

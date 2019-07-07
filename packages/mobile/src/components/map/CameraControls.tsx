@@ -2,7 +2,8 @@ import Mapbox from '@react-native-mapbox-gl/maps';
 import { getBBox } from '@whitewater-guide/clients';
 import { Coordinate3d } from '@whitewater-guide/commons';
 import React, { useCallback } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
+import { RectButton } from 'react-native-gesture-handler';
 import theme from '../../theme';
 import { Icon } from '../Icon';
 import { useCamera } from './hooks';
@@ -22,9 +23,16 @@ const styles = StyleSheet.create({
     paddingBottom: 3,
     paddingHorizontal: 3,
     ...theme.shadow,
+    elevation: theme.elevation,
   },
   secondIcon: {
     marginTop: theme.margin.single,
+  },
+  rectButton: {
+    width: 32,
+    height: 32,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 
@@ -58,18 +66,41 @@ const CameraControls: React.FC<Props> = React.memo(
         camera.fitBounds(ne, sw, theme.margin.single, 600);
       }
     }, [camera]);
+    if (Platform.OS === 'ios') {
+      return (
+        <View style={styles.container}>
+          <Icon
+            icon="crosshairs-gps"
+            style={styles.icon}
+            onPress={onLocationPress}
+          />
+          <Icon
+            icon="crop-free"
+            style={[styles.icon, showUserLocation && styles.secondIcon]}
+            onPress={onBoundsPress}
+          />
+        </View>
+      );
+    }
+    // TODO: works on android only: https://github.com/kmagiera/react-native-gesture-handler/pull/537
     return (
       <View style={styles.container}>
-        <Icon
-          icon="crosshairs-gps"
-          style={styles.icon}
+        <RectButton
+          style={[styles.rectButton, styles.icon]}
           onPress={onLocationPress}
-        />
-        <Icon
-          icon="crop-free"
-          style={[styles.icon, showUserLocation && styles.secondIcon]}
+        >
+          <Icon icon="crosshairs-gps" />
+        </RectButton>
+        <RectButton
+          style={[
+            styles.rectButton,
+            styles.icon,
+            showUserLocation && styles.secondIcon,
+          ]}
           onPress={onBoundsPress}
-        />
+        >
+          <Icon icon="crop-free" />
+        </RectButton>
       </View>
     );
   },
