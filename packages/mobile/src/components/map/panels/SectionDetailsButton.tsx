@@ -3,6 +3,7 @@ import { useNavigation } from '@zhigang1992/react-navigation-hooks';
 import React, { memo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
+import { RectButton } from 'react-native-gesture-handler';
 import { Button } from 'react-native-paper';
 import Screens from '../../../screens/screen-names';
 
@@ -34,9 +35,11 @@ export const SectionDetailsButton: React.FC<Props> = memo(({ sectionId }) => {
     }
   }, [sectionId, navigate]);
   return (
-    <Button mode="contained" onPress={onPress} style={styles.button}>
-      {t('region:map.selectedSection.details')}
-    </Button>
+    <RectButton onPress={onPress}>
+      <Button mode="contained" style={styles.button}>
+        {t('region:map.selectedSection.details')}
+      </Button>
+    </RectButton>
   );
 });
 

@@ -88,9 +88,7 @@ export const SectionTabs: NavigationScreenComponent<NavParams> & {
             >
               <MapSelectionProvider>
                 <Navigator navigation={navigation} />
-                <View style={StyleSheet.absoluteFill} pointerEvents="box-none">
-                  <SelectedPOIView />
-                </View>
+                <SelectedPOIView />
               </MapSelectionProvider>
             </WithNetworkError>
           )}

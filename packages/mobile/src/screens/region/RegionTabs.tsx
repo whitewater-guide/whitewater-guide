@@ -67,10 +67,8 @@ class RegionTabsContent extends React.PureComponent<InnerProps> {
           return (
             <MapSelectionProvider>
               <Navigator navigation={navigation} screenProps={screenProps} />
-              <View style={StyleSheet.absoluteFill} pointerEvents="box-none">
-                <SelectedPOIView />
-                <SelectedSectionView />
-              </View>
+              <SelectedPOIView />
+              <SelectedSectionView />
               <SectionsProgress
                 status={status}
                 loaded={sections.length}

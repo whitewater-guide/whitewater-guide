@@ -3,9 +3,8 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import Animated from 'react-native-reanimated';
-
-import BottomSheet from 'reanimated-bottom-sheet';
 import theme from '../../../theme';
+import { BottomSheet } from '../../BottomSheet';
 
 const styles = StyleSheet.create({
   header: {
@@ -24,7 +23,6 @@ const HIDE_THRESHOLD_OVERSHOOT = 10;
 const {
   Value,
   Extrapolate,
-  block,
   call,
   greaterOrEq,
   color,
@@ -72,9 +70,10 @@ class SelectedElementView extends React.PureComponent<Props> {
       this._headerPosition,
       snapPoints[0] - snapPoints[1] + HIDE_THRESHOLD_OVERSHOOT,
     );
-    this._watchHide = block([
-      onChange(hideThreshold, call([hideThreshold], this.onHide)),
-    ]);
+    this._watchHide = onChange(
+      hideThreshold,
+      call([hideThreshold], this.onHide),
+    );
     this._buttonsScale = interpolate(this._headerPosition, {
       inputRange: [
         snapPoints[0] - snapPoints[1],
@@ -130,16 +129,18 @@ class SelectedElementView extends React.PureComponent<Props> {
       innerGestureHandlerRefs,
       simultaneousHandlers,
     } = this.props;
+    // TODO: use custom bottom sheet because of Cancelled state hack
     return (
-      <Animated.View
-        style={[
-          StyleSheet.absoluteFill,
-          {
-            backgroundColor: this._overlayBackground,
-          } as any,
-        ]}
-        pointerEvents="box-none"
-      >
+      <React.Fragment>
+        <Animated.View
+          style={[
+            StyleSheet.absoluteFill,
+            {
+              backgroundColor: this._overlayBackground,
+            } as any,
+          ]}
+          pointerEvents="none"
+        />
         <Animated.Code exec={this._watchHide} />
         <BottomSheet
           ref={this._sheet}
@@ -152,7 +153,7 @@ class SelectedElementView extends React.PureComponent<Props> {
           simultaneousHandlers={simultaneousHandlers}
           enabledInnerScrolling={false}
         />
-      </Animated.View>
+      </React.Fragment>
     );
   }
 }
