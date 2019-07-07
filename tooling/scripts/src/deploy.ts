@@ -71,11 +71,13 @@ async function deploy() {
   );
 
   if (environment === EnvType.STAGING) {
+    await bumpPackage('');
     const services = readdirSync('services');
     for (const service of services) {
-      await generateChangelog(`services/${service}`);
+      try {
+        await generateChangelog(`services/${service}`);
+      } catch (e) {}
     }
-    await bumpPackage('');
     const git = simpleGit();
     const commitMsg =
       'Deployed ' +

@@ -87,9 +87,5 @@ export const generateChangelog = async (path: string) => {
   );
   await pipeline(createReadStream(tmp), createWriteStream(changelogPath));
   await git.add(changelogPath);
-  writeJsonSync(
-    resolve(process.cwd(), path),
-    { ...meta, changelog: currentHash },
-    { spaces: 2 },
-  );
+  writeJsonSync(mJsonPath, { ...meta, changelog: currentHash }, { spaces: 2 });
 };
