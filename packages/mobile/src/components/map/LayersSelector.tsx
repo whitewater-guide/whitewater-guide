@@ -1,8 +1,9 @@
 import sortBy from 'lodash/sortBy';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
+import { RectButton } from 'react-native-gesture-handler';
 import { useMapType } from '../../features/settings';
 import theme from '../../theme';
 import { Icon } from '../Icon';
@@ -49,9 +50,19 @@ const LayersSelector: React.FC = React.memo(() => {
     [setMapType],
   );
 
+  // TODO: works on android only: https://github.com/kmagiera/react-native-gesture-handler/pull/537
+  const icon =
+    Platform.OS === 'ios' ? (
+      <Icon icon="layers" style={styles.icon} onPress={showMenu} />
+    ) : (
+      <RectButton onPress={showMenu} style={styles.icon}>
+        <Icon icon="layers" />
+      </RectButton>
+    );
+
   return (
     <React.Fragment>
-      <Icon icon="layers" style={styles.icon} onPress={showMenu} />
+      {icon}
       <ActionSheet
         ref={actionSheet}
         title={t('region:map.layers.prompt')}
