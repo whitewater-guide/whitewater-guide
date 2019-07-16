@@ -260,6 +260,11 @@ array-differ@^2.0.3:
   resolved "https://registry.yarnpkg.com/array-differ/-/array-differ-2.1.0.tgz#4b9c1c3f14b906757082925769e8ab904f4801b1"
   integrity sha512-KbUpJgx909ZscOc/7CLATBFam7P1Z1QRQInvgT0UztM9Q72aGKCunKASAl7WNW0tnPmPyEMeMhdsfWhfmW037w==
 
+array-filter@~0.0.0:
+  version "0.0.1"
+  resolved "https://registry.npmjs.org/array-filter/-/array-filter-0.0.1.tgz#7da8cf2e26628ed732803581fd21f67cacd2eeec"
+  integrity sha1-fajPLiZijtcygDWB/SH2fKzS7uw=
+
 array-find-index@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/array-find-index/-/array-find-index-1.0.2.tgz#df010aa1287e164bbda6f9723b0a96a1ec4187a1"
@@ -269,6 +274,16 @@ array-ify@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/array-ify/-/array-ify-1.0.0.tgz#9e528762b4a9066ad163a6962a364418e9626ece"
   integrity sha1-nlKHYrSpBmrRY6aWKjZEGOlibs4=
+
+array-map@~0.0.0:
+  version "0.0.0"
+  resolved "https://registry.npmjs.org/array-map/-/array-map-0.0.0.tgz#88a2bab73d1cf7bcd5c1b118a003f66f665fa662"
+  integrity sha1-iKK6tz0c97zVwbEYoAP2b2ZfpmI=
+
+array-reduce@~0.0.0:
+  version "0.0.0"
+  resolved "https://registry.npmjs.org/array-reduce/-/array-reduce-0.0.0.tgz#173899d3ffd1c7d9383e4479525dbe278cab5f2b"
+  integrity sha1-FziZ0//Rx9k4PkR5Ul2+J4yrXys=
 
 array-union@^1.0.1, array-union@^1.0.2:
   version "1.0.2"
@@ -365,6 +380,16 @@ builtin-modules@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/builtin-modules/-/builtin-modules-1.1.1.tgz#270f076c5a72c02f5b65a47df94c5fe3a278892f"
   integrity sha1-Jw8HbFpywC9bZaR9+Uxf46J4iS8=
+
+bulk@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.npmjs.org/bulk/-/bulk-2.0.1.tgz#80280de909791ae6d1c43b8321e6e00a516c8611"
+  integrity sha1-gCgN6Ql5GubRxDuDIebgClFshhE=
+  dependencies:
+    minimist "^1.2.0"
+    shell-quote "^1.6.1"
+    split "^1.0.0"
+    through2 "^2.0.1"
 
 cache-base@^1.0.1:
   version "1.0.1"
@@ -1661,6 +1686,11 @@ jsonfile@^2.1.0:
   optionalDependencies:
     graceful-fs "^4.1.6"
 
+jsonify@~0.0.0:
+  version "0.0.0"
+  resolved "https://registry.npmjs.org/jsonify/-/jsonify-0.0.0.tgz#2c74b6ee41d93ca51b7b5aaee8f503631d252a73"
+  integrity sha1-LHS27kHZPKUbe1qu6PUDYx0lKnM=
+
 jsonparse@^1.2.0:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/jsonparse/-/jsonparse-1.3.1.tgz#3f4dae4a91fac315f71062f8521cc239f1366280"
@@ -2008,7 +2038,7 @@ minimist@0.0.8:
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-0.0.8.tgz#857fcabfc3397d2625b8228262e86aa7a011b05d"
   integrity sha1-hX/Kv8M5fSYluCKCYuhqp6ARsF0=
 
-minimist@^1.1.3:
+minimist@^1.1.3, minimist@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.0.tgz#a35008b20f41383eec1fb914f4cd5df79a264284"
   integrity sha1-o1AIsg9BOD7sH7kU9M1d95omQoQ=
@@ -2706,6 +2736,16 @@ shebang-regex@^1.0.0:
   resolved "https://registry.yarnpkg.com/shebang-regex/-/shebang-regex-1.0.0.tgz#da42f49740c0b42db2ca9728571cb190c98efea3"
   integrity sha1-2kL0l0DAtC2yypcoVxyxkMmO/qM=
 
+shell-quote@^1.6.1:
+  version "1.6.1"
+  resolved "https://registry.npmjs.org/shell-quote/-/shell-quote-1.6.1.tgz#f4781949cce402697127430ea3b3c5476f481767"
+  integrity sha1-9HgZSczkAmlxJ0MOo7PFR29IF2c=
+  dependencies:
+    array-filter "~0.0.0"
+    array-map "~0.0.0"
+    array-reduce "~0.0.0"
+    jsonify "~0.0.0"
+
 signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
@@ -2982,7 +3022,7 @@ text-extensions@^2.0.0:
   resolved "https://registry.yarnpkg.com/text-extensions/-/text-extensions-2.0.0.tgz#43eabd1b495482fae4a2bf65e5f56c29f69220f6"
   integrity sha512-F91ZqLgvi1E0PdvmxMgp+gcf6q8fMH7mhdwWfzXnl1k+GbpQDmi8l7DzLC5JTASKbwpY3TfxajAUzAXcv2NmsQ==
 
-through2@^2.0.0, through2@^2.0.2:
+through2@^2.0.0, through2@^2.0.1, through2@^2.0.2:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/through2/-/through2-2.0.5.tgz#01c1e39eb31d07cb7d03a96a70823260b23132cd"
   integrity sha512-/mrRod8xqpA+IHSLyGCQ2s8SPHiCDEeQJSep1jqLYeEUClOFG2Qsh+4FU6G9VeqpZnGW/Su8LQGc4YKni5rYSQ==
