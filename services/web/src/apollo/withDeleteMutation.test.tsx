@@ -1,4 +1,4 @@
-import { createMockedProvider, flushPromises } from '@whitewater-guide/clients';
+import { flushPromises, mockApolloProvider } from '@whitewater-guide/clients';
 import { ReactWrapper } from 'enzyme';
 import gql from 'graphql-tag';
 import React from 'react';
@@ -10,7 +10,7 @@ import { withDeleteMutation, WithDeleteMutation } from './withDeleteMutation';
 
 const removeRegion = jest.fn(() => 'deleted');
 const regions = jest.fn(() => []);
-const MockedProvider = createMockedProvider({
+const MockedProvider = mockApolloProvider({
   Query: { regions },
   Mutation: { removeRegion },
 });

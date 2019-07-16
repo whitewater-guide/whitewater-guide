@@ -7,6 +7,7 @@ import { initReactI18next } from 'react-i18next';
 import { getLocales } from 'react-native-localize';
 import * as yup from 'yup';
 import { usePrevious } from '../utils/usePrevious';
+import formatters from './formatters';
 import { SUPPORTED_LANGUAGES } from './languages';
 import resources from './resources';
 import yupLocale from './yup-locale';
@@ -48,11 +49,8 @@ export const I18nProvider: React.FC<Props> = ({
         interpolation: {
           escapeValue: false, // not needed for react!!
           format: (value, format) => {
-            if (format === 'month') {
-              return moment()
-                .month(value)
-                .format('DD MMMM')
-                .split(' ')[1];
+            if (format && formatters[format]) {
+              return formatters[format](value, format);
             }
             return value;
           },
@@ -76,8 +74,9 @@ export const I18nProvider: React.FC<Props> = ({
     if (language === prevLang) {
       return;
     }
-    moment.locale(language);
-    i18next.changeLanguage(language);
+    i18next.changeLanguage(language).then(() => {
+      moment.locale(_i18n.languages[0]);
+    });
     // should not fire on login or logout, only on change
     if (onUserLanguageChange && !!me && !!prevMe) {
       onUserLanguageChange(language);

@@ -6,9 +6,11 @@
       "react-native-vector-icons",
       "lodash",
       "redux-saga",
+      "redux-persist",
       "moment",
       "@storybook/addon-actions",
-      "react-native-gesture-handler"
+      "react-native-gesture-handler",
+      "redux-saga-test-plan/matchers"
     ]
   }
 }

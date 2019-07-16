@@ -2,12 +2,9 @@ import React from 'react';
 import { Route, RouteComponentProps, Switch } from 'react-router-dom';
 import { EditorRoute } from '../../layout';
 import { SectionForm } from './form';
-import { SectionsList } from './list';
 import SectionRoute from './SectionRoute';
 
-export const SectionsRoute: React.StatelessComponent<
-  RouteComponentProps<any>
-> = (props) => {
+export const SectionsRoute: React.FC<RouteComponentProps<any>> = (props) => {
   let path = props.match.path;
   if (!path.endsWith('/')) {
     path = path + '/';
@@ -17,7 +14,5 @@ export const SectionsRoute: React.StatelessComponent<
       <EditorRoute exact={true} path={`${path}new`} component={SectionForm} />
       <Route path={`${path}:sectionId`} component={SectionRoute} />
     </Switch>
-  ) : (
-    <Route exact={true} path={`${path}`} component={SectionsList} />
-  );
+  ) : null;
 };

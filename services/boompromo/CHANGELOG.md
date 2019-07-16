@@ -1,3 +1,46 @@
+## [0.0.175](https://github.com/doomsower/whitewater/compare/a3919143d5e44c7d04ac51ea7ab196b2746d582b...3cca73cde4d76c837d2f1812e351c63a6d9ef700) (2019-07-07)
+
+### Features
+
+- fix publish-libs ([2eb266a090904810c4c232cddd8d29c0c74c8750](https://github.com/doomsower/whitewater/commit/2eb266a090904810c4c232cddd8d29c0c74c8750))
+- formulas for gauge bindings ([b8fb934f942526069d3f99bccf0ea9a1ac21290c](https://github.com/doomsower/whitewater/commit/b8fb934f942526069d3f99bccf0ea9a1ac21290c))
+
+### Other
+
+- remove lerna, use own script for service publication ([843c870f0330aa02c7f8bea94608407936d19326](https://github.com/doomsower/whitewater/commit/843c870f0330aa02c7f8bea94608407936d19326))
+
+## [0.0.170](https://github.com/doomsower/whitewater/compare/a3919143d5e44c7d04ac51ea7ab196b2746d582b...3cca73cde4d76c837d2f1812e351c63a6d9ef700) (2019-06-29)
+
+### Features
+
+- add min/max file size constants ([0f8e9966bad324bc737586919c77ee42fcb55cbf](https://github.com/doomsower/whitewater/commit/0f8e9966bad324bc737586919c77ee42fcb55cbf))
+- add react-snap ([1477796c5d7c6ffc620e9ec34077bd4a79faa1cd](https://github.com/doomsower/whitewater/commit/1477796c5d7c6ffc620e9ec34077bd4a79faa1cd))
+- new mobile maps ([6daacf6b87cc8b55767c57e36bddb079fc126b59](https://github.com/doomsower/whitewater/commit/6daacf6b87cc8b55767c57e36bddb079fc126b59))
+- rename url 'boompromo' to just 'promo' ([8e4a3835969d29be796de3722b05ee0506939d4a](https://github.com/doomsower/whitewater/commit/8e4a3835969d29be796de3722b05ee0506939d4a))
+- update boompromo page ([78fa27047042e586c028630f4f6ea7a05b2ae423](https://github.com/doomsower/whitewater/commit/78fa27047042e586c028630f4f6ea7a05b2ae423))
+- various fixes ([829eedfe78b012d57dc82d9e54c407bf5c8be6a4](https://github.com/doomsower/whitewater/commit/829eedfe78b012d57dc82d9e54c407bf5c8be6a4))
+
+### Bug Fixes
+
+- add menu list ([aefdaee85064283de98d7a96fe0158d9d7d1ab22](https://github.com/doomsower/whitewater/commit/aefdaee85064283de98d7a96fe0158d9d7d1ab22))
+- fix html page lang ([7576d730c7409cbc841c0d3a43197f16bf2e565f](https://github.com/doomsower/whitewater/commit/7576d730c7409cbc841c0d3a43197f16bf2e565f))
+- rename reward -> perk and fix typo ([21b05640041f7ec0576b25ad438fc1d328dc2ded](https://github.com/doomsower/whitewater/commit/21b05640041f7ec0576b25ad438fc1d328dc2ded))
+- styles ([3ed84aa20d1f971e470bbbd94f8dc94ee7cba34c](https://github.com/doomsower/whitewater/commit/3ed84aa20d1f971e470bbbd94f8dc94ee7cba34c))
+
+### Other
+
+- remove react-snap from boompromo ([badd52d54587b718465878efebdda7c2dbb72b20](https://github.com/doomsower/whitewater/commit/badd52d54587b718465878efebdda7c2dbb72b20))
+
+## [0.0.170](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.169...@whitewater-guide/boompromo@0.0.170) (2019-06-29)
+
+## [0.0.169](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.168...@whitewater-guide/boompromo@0.0.169) (2019-06-29)
+
+## [0.0.168](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.167...@whitewater-guide/boompromo@0.0.168) (2019-06-29)
+
+### Features
+
+- new mobile maps ([6daacf6](https://github.com/doomsower/whitewater/commit/6daacf6))
+
 ## [0.0.167](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.166...@whitewater-guide/boompromo@0.0.167) (2019-06-26)
 
 ## [0.0.166](https://github.com/doomsower/whitewater/compare/@whitewater-guide/boompromo@0.0.165...@whitewater-guide/boompromo@0.0.166) (2019-06-26)

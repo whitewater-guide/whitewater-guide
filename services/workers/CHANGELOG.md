@@ -1,3 +1,9 @@
+## [0.0.88](https://github.com/doomsower/whitewater/compare/a3919143d5e44c7d04ac51ea7ab196b2746d582b...3cca73cde4d76c837d2f1812e351c63a6d9ef700) (2019-07-07)
+
+### Other
+
+- remove lerna, use own script for service publication ([843c870f0330aa02c7f8bea94608407936d19326](https://github.com/doomsower/whitewater/commit/843c870f0330aa02c7f8bea94608407936d19326))
+
 ## [0.0.87](https://github.com/doomsower/whitewater/compare/@whitewater-guide/workers@0.0.85...@whitewater-guide/workers@0.0.87) (2019-06-07)
 
 ### Bug Fixes

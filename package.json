@@ -1,12 +1,14 @@
 {
   "name": "@whitewater-guide/root",
   "private": true,
-  "version": "0.0.1163",
+  "version": "0.0.1166",
   "license": "UNLICENSED",
   "description": "whitewater.guide monorepo",
   "repository": "https://github.com/doomsower/whitewater.git",
   "author": "doomsower <K.Kuznetcov@gmail.com>",
   "scripts": {
+    "clear": "echo ./packages/* ./services/* ./tooling/* | bulk -c \"rm -rf node_modules\" && rm -rf node_modules",
+    "bootstrap": "yarn install && echo ./packages/* ./services/* ./tooling/* | bulk -c \"yarn install\" -e",
     "dev:cleanup": "tooling/scripts/sh/dev_cleanup.sh",
     "dev:start": "node tooling/scripts/bin/dev_start.js",
     "dev:images": "tooling/scripts/sh/dev_download_images.sh",
@@ -22,32 +24,27 @@
     "staging:sync": "tooling/scripts/sh/staging_sync.sh",
     "production:deploy": "node tooling/scripts/bin/deploy.js --env=production --machine=ww-production",
     "production:update": "node tooling/scripts/bin/update.js --env=production --machine=ww-production",
+    "libs": "node tooling/scripts/bin/publish-libs.js",
+    "services": "node tooling/scripts/bin/publish-docker.js",
     "test:env": "node tooling/scripts/bin/test_start.js",
-    "lint": "lerna exec --since -- test ! -f \\$PWD/tsconfig.json \\|\\| tslint --project \\$PWD",
-    "junk": "yarn trash-junk",
-    "preinstall": "tooling/scripts/sh/clean_yarn_error_log.sh && lerna exec -- \\$LERNA_ROOT_PATH/tooling/scripts/sh/clean_yarn_error_log.sh || true",
-    "preversion": "lerna changed --all --json > lerna-changed.json",
-    "pub": "lerna publish --concurrency 1",
-    "postpub": "node tooling/scripts/bin/publish-docker.js",
-    "canary": "lerna version prerelease --preid $(git rev-parse --abbrev-ref HEAD) && yarn postpublish",
-    "canary:npm": "lerna publish prerelease --preid $(git rev-parse --abbrev-ref HEAD) --dist-tag $(git rev-parse --abbrev-ref HEAD)"
+    "junk": "yarn trash-junk"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^8.0.0",
+    "bulk": "^2.0.1",
     "commitlint": "^8.0.0",
     "conventional-changelog-cli": "^2.0.21",
     "husky": "^2.4.0",
-    "lerna": "^3.14.1",
     "lint-staged": "^8.2.0",
     "prettier": "^1.18.0",
     "pretty-quick": "^1.11.0",
     "trash-junk-cli": "^1.0.3",
-    "tslint": "^5.17.0",
+    "tslint": "^5.18.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-eslint-rules": "^5.4.0",
     "tslint-react": "^4.0.0",
     "tslint-react-hooks": "^2.1.0",
-    "typescript": "3.5.1"
+    "typescript": "3.5.2"
   },
   "dependencies": {}
 }

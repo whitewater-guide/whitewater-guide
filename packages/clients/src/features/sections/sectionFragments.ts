@@ -69,6 +69,7 @@ const GaugeBinding = {
       optimum
       impossible
       approximate
+      formula
     }
   `,
 };

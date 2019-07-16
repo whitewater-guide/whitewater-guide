@@ -1,10 +1,10 @@
-import { Overwrite } from 'type-zoo';
 import {
   Connection,
   NamedNode,
   TextSearchFilter,
   Timestamped,
 } from '../../apollo';
+import { Overwrite } from '../../utils';
 import { Banner } from '../banners';
 import { Gauge } from '../gauges';
 import { Group } from '../groups';
@@ -19,6 +19,7 @@ export interface Region extends NamedNode, Timestamped {
   seasonNumeric: number[];
   bounds: Array<[number, number, number]>;
   hidden: boolean | null;
+  mapsSize?: number;
   premium: boolean;
   hasPremiumAccess: boolean;
   editable: boolean;
@@ -51,6 +52,7 @@ export interface RegionAdminSettings {
   premium: boolean;
   sku: string | null;
   coverImage: RegionCoverImage;
+  mapsSize: number;
 }
 
 export interface RegionCoverImage {
@@ -67,6 +69,7 @@ export interface RegionMediaSummary {
   photo: RegionMediaSummaryItem;
   video: RegionMediaSummaryItem;
   blog: RegionMediaSummaryItem;
+  maps: RegionMediaSummaryItem;
 }
 
 export type RegionsFilter = TextSearchFilter;

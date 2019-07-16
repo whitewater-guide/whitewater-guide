@@ -209,6 +209,7 @@ describe('RegionAdminSettings', () => {
     hidden: false,
     premium: false,
     sku: 'region.sku',
+    mapsSize: 123456789,
     coverImage: {
       mobile: 'cover.jpg',
     },
@@ -234,6 +235,7 @@ describe('RegionAdminSettings', () => {
     ['bad sku 1', { ...correct, sku: 'region.x' }],
     ['bad sku 2', { ...correct, sku: 'region.g@licia' }],
     ['empty cover image', { ...correct, coverImage: { mobile: '' } }],
+    ['float size', { ...correct, mapsSize: 1.5 }],
     ['extra fields', { ...correct, foo: 'bar' } as any],
   ];
 

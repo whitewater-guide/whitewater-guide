@@ -15,7 +15,7 @@ export const trackScreenChange = (
     prevScreenName !== currentScreenName &&
     currentScreen
   ) {
-    tracker.setScreen(currentScreenName);
+    tracker.setScreen(currentScreenName, currentScreen.params);
     Firebase.analytics().setCurrentScreen(currentScreenName);
     Firebase.analytics().logEvent(
       `Screen_${currentScreenName}`,

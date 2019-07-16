@@ -66,6 +66,7 @@ exports[`should generate correct query 1`] = `
           optimum
           impossible
           approximate
+          formula
         }
       }
       flows {
@@ -75,6 +76,7 @@ exports[`should generate correct query 1`] = `
           optimum
           impossible
           approximate
+          formula
         }
       }
       flowsText

@@ -1,13 +1,13 @@
 import { WithTags } from '@whitewater-guide/commons';
 import { mount } from 'enzyme';
 import React from 'react';
-import { createMockedProvider, flushPromises, Receiver } from '../../test';
+import { flushPromises, mockApolloProvider, Receiver } from '../../test';
 import { withTags } from './withTags';
 
 let receiver: Receiver<WithTags>;
 
 beforeEach(async () => {
-  const MockedProvider = createMockedProvider();
+  const MockedProvider = mockApolloProvider();
   const WithData = withTags(false)(Receiver as any);
   const wrapped = mount(
     <MockedProvider>

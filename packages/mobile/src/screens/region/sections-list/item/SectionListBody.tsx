@@ -1,7 +1,7 @@
 import { Section } from '@whitewater-guide/commons';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { TouchableRipple } from 'react-native-paper';
+import { RectButton } from 'react-native-gesture-handler';
 import {
   DifficultyThumb,
   FlowsThumb,
@@ -9,14 +9,14 @@ import {
   StarRating,
 } from '../../../../components';
 import theme from '../../../../theme';
-
-export const ITEM_HEIGHT = 72;
+import { ITEM_HEIGHT } from './constants';
 
 const styles = StyleSheet.create({
   container: {
     height: ITEM_HEIGHT,
     flexDirection: 'row',
     padding: 8,
+    backgroundColor: theme.colors.primaryBackground,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderColor: theme.colors.border,
     alignItems: 'center',
@@ -51,43 +51,43 @@ interface Props {
   onPress: () => void;
 }
 
-const SectionListBody: React.FC<Props> = ({
-  onPress,
-  hasPremiumAccess,
-  section,
-}) => (
-  <TouchableRipple onPress={onPress}>
-    <View style={styles.container}>
-      <DifficultyThumb
-        difficulty={section.difficulty}
-        difficultyXtra={section.difficultyXtra}
-      />
-      <View style={styles.body}>
-        <Text style={styles.riverName} numberOfLines={1}>
-          {section.river.name}
-        </Text>
-        <View style={styles.row}>
-          <Text style={styles.sectionName} numberOfLines={1}>
-            {section.name}
+const SectionListBody: React.FC<Props> = React.memo(
+  ({ onPress, hasPremiumAccess, section }) => (
+    <RectButton onPress={onPress}>
+      <View style={styles.container}>
+        <DifficultyThumb
+          difficulty={section.difficulty}
+          difficultyXtra={section.difficultyXtra}
+        />
+        <View style={styles.body}>
+          <Text style={styles.riverName} numberOfLines={1}>
+            {section.river.name}
           </Text>
-          {section.demo && !hasPremiumAccess && (
-            <View>
-              <Icon
-                style={styles.unlocked}
-                icon="lock-open-outline"
-                color={theme.colors.textMain}
-                size={16}
-              />
-            </View>
-          )}
+          <View style={styles.row}>
+            <Text style={styles.sectionName} numberOfLines={1}>
+              {section.name}
+            </Text>
+            {section.demo && !hasPremiumAccess && (
+              <View>
+                <Icon
+                  style={styles.unlocked}
+                  icon="lock-open-outline"
+                  color={theme.colors.textMain}
+                  size={16}
+                />
+              </View>
+            )}
+          </View>
+          <View style={styles.starsContainer}>
+            <StarRating disabled={true} value={section.rating || 0} />
+          </View>
         </View>
-        <View style={styles.starsContainer}>
-          <StarRating disabled={true} value={section.rating || 0} />
-        </View>
+        <FlowsThumb section={section} />
       </View>
-      <FlowsThumb section={section} />
-    </View>
-  </TouchableRipple>
+    </RectButton>
+  ),
 );
+
+SectionListBody.displayName = 'SectionListBody';
 
 export default SectionListBody;

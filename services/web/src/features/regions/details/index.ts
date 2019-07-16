@@ -1,4 +1,3 @@
-import container from './container';
-import { RegionDetails } from './RegionDetails';
+import { RegionDetailsRouter } from './RegionDetailsRouter';
 
-export default container(RegionDetails);
+export default RegionDetailsRouter;

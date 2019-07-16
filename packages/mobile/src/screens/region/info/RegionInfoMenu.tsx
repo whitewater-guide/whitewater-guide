@@ -1,6 +1,7 @@
-import { WithNode } from '@whitewater-guide/clients';
+import { dataIdFromObject, RegionFragments } from '@whitewater-guide/clients';
 import { Region } from '@whitewater-guide/commons';
 import React, { useCallback, useRef } from 'react';
+import { withApollo, WithApolloClient } from 'react-apollo';
 import { useTranslation } from 'react-i18next';
 import { Clipboard, Platform } from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
@@ -8,10 +9,13 @@ import { IconButton } from 'react-native-paper';
 import theme from '../../../theme';
 
 interface Props {
-  region: WithNode<Region | null>;
+  regionId?: string;
 }
 
-export const RegionInfoMenu: React.FC<Props> = ({ region }) => {
+export const RegionInfoMenu: React.FC<WithApolloClient<Props>> = ({
+  regionId,
+  client,
+}) => {
   const actionSheet = useRef<ActionSheet>(null);
   const [t] = useTranslation();
   const showMenu = useCallback(() => {
@@ -21,11 +25,18 @@ export const RegionInfoMenu: React.FC<Props> = ({ region }) => {
   }, []);
   const onMenu = useCallback(
     (index: number) => {
-      if (index === 0 && region.node && region.node.description) {
-        Clipboard.setString(region.node.description);
+      if (index !== 0 || !regionId) {
+        return;
+      }
+      const region = client.readFragment<Pick<Region, 'description'>>({
+        fragment: RegionFragments.Description,
+        id: dataIdFromObject({ __typename: 'Region', id: regionId })!,
+      });
+      if (region && region.description) {
+        Clipboard.setString(region.description);
       }
     },
-    [region.node],
+    [client, regionId],
   );
   const options = [t('region:info.menu.clipboard'), t('commons:cancel')];
   return (
@@ -47,3 +58,5 @@ export const RegionInfoMenu: React.FC<Props> = ({ region }) => {
     </React.Fragment>
   );
 };
+
+export default withApollo(RegionInfoMenu);

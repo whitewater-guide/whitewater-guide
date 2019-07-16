@@ -1,7 +1,6 @@
 import { GaugeBinding } from '@whitewater-guide/commons';
 import color from 'color';
 import mapValues from 'lodash/mapValues';
-import { Omit } from 'type-zoo';
 import {
   ColorizeSection,
   Colors,
@@ -758,4 +757,18 @@ test('Should handle sections without value', () => {
     approximate: false,
   };
   expect(getSectionColor(makeSection(binding))).toBe(ColorStrings.none);
+});
+
+test('Should handle sections with formulas', () => {
+  const binding = {
+    minimum: 20,
+    optimum: 40,
+    maximum: 60,
+    impossible: 80,
+    approximate: false,
+    formula: '(x + 20) * 3',
+  };
+  expect(getSectionColor(makeSection(binding, 20))).toBe(
+    ColorStrings.impossible,
+  );
 });

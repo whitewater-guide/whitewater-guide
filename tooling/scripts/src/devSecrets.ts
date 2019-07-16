@@ -11,6 +11,7 @@ import JSZip from 'jszip';
 import { basename, resolve } from 'path';
 // @ts-ignore
 import entropy from 'string-entropy';
+import { info } from './utils';
 
 // tslint:disable:no-console
 
@@ -44,11 +45,11 @@ const generateEmptiesRecursive = (dir: string, depth: number) => {
     const stats = statSync(itemPath);
     if (stats.isFile() && item === '.env.development.secret') {
       const devLocal = resolve(dir, '.env.development.local');
-      console.info(`Generated ${devLocal}`);
+      info(`Generated ${devLocal}`);
       closeSync(openSync(devLocal, 'w'));
     } else if (stats.isFile() && item === '.env.test.secret') {
       const testLocal = resolve(dir, '.env.test.local');
-      console.info(`Generated ${testLocal}`);
+      info(`Generated ${testLocal}`);
       closeSync(openSync(testLocal, 'w'));
     } else if (stats.isDirectory() && depth > 0) {
       generateEmptiesRecursive(itemPath, depth - 1);
@@ -147,9 +148,9 @@ require('yargs')
         listRecursive(resolve(process.cwd(), tld), allEnvs, 1);
       }
       for (const [file, env] of allEnvs) {
-        console.log(file);
+        info(file);
         for (const [key, val] of Object.entries(env)) {
-          console.log(`\t${key}=${val}\t${entropy(val)}`);
+          info(`\t${key}=${val}\t${entropy(val)}`);
         }
       }
     },

@@ -1,12 +1,10 @@
 {
   "name": "@whitewater-guide/adminer",
   "private": true,
-  "version": "0.0.20",
+  "version": "0.0.21",
   "license": "UNLICENSED",
   "description": "adminer for whitewater.guide stack",
   "main": "index.js",
   "author": "doomsower",
-  "scripts": {
-    "version": "../../tooling/scripts/sh/changelog.sh"
-  }
+  "scripts": {}
 }

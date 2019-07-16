@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/commons",
   "private": false,
-  "version": "0.0.142",
+  "version": "0.0.157",
   "license": "UNLICENSED",
   "description": "shared code for whitewater.guide backend and frontend",
   "main": "dist/index.js",
@@ -17,13 +17,12 @@
   "scripts": {
     "prebuild": "rm -rf dist/*",
     "build": "tsc --build tsconfig.declarations.json && rollup -c",
-    "version": "../../tooling/scripts/sh/changelog.sh",
-    "prepare": "yarn build",
     "prepublishOnly": "yarn build",
     "test": "jest"
   },
   "dependencies": {
-    "cron-parser": "^2.11.0",
+    "cron-parser": "^2.12.0",
+    "expr-eval": "^1.2.2",
     "lodash": "^4.17.11",
     "superstruct": "^0.6.1",
     "validator": "^11.0.0"
@@ -34,18 +33,17 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.4.4",
     "@babel/preset-env": "^7.4.5",
     "@babel/preset-typescript": "^7.1.0",
-    "@types/jest": "^24.0.13",
-    "@types/lodash": "^4.14.132",
+    "@types/jest": "^24.0.15",
+    "@types/lodash": "^4.14.134",
     "@types/superstruct": "^0.5.0",
-    "@types/validator": "^10.11.0",
+    "@types/validator": "^10.11.1",
     "jest": "^24.8.0",
-    "rollup": "^1.12.5",
-    "rollup-plugin-babel": "^4.3.2",
+    "rollup": "^1.16.2",
+    "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-commonjs": "^10.0.0",
-    "rollup-plugin-node-resolve": "^5.0.0",
+    "rollup-plugin-node-resolve": "^5.1.0",
     "ts-jest": "^24.0.2",
-    "tslib": "^1.9.3",
-    "type-zoo": "^3.3.0",
-    "typescript": "3.5.1"
+    "tslib": "^1.10.0",
+    "typescript": "3.5.2"
   }
 }

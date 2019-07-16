@@ -11,6 +11,7 @@ const notIgnoredModules = [
   ...excludedModules,
   'apollo-client',
   'redux-persist-fs-storage',
+  '@react-native-mapbox-gl/maps',
 ].join('|');
 
 module.exports = {
@@ -24,6 +25,7 @@ module.exports = {
   setupFilesAfterEnv: [
     '<rootDir>/jest.setup.ts',
     '<rootDir>/node_modules/react-native-gesture-handler/jestSetup.js',
+    '<rootDir>/node_modules/@react-native-mapbox-gl/maps/__tests__/__mocks__/react-native-mapbox-gl.mock.js',
   ],
   testPathIgnorePatterns: ['<rootDir>/build/', '<rootDir>/node_modules/'],
 };

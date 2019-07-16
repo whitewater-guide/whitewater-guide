@@ -1,3 +1,74 @@
+# [1.8.0](https://github.com/doomsower/whitewater/compare/a3919143d5e44c7d04ac51ea7ab196b2746d582b...307c4b03a946d38f75ecd6c4e7798d3d02709eb4) (2019-07-16)
+
+### Features
+
+- add main auth screen ([38d85a4a6e4a9bfb6ea11e3360ddd6bca4ce09dc](https://github.com/doomsower/whitewater/commit/38d85a4a6e4a9bfb6ea11e3360ddd6bca4ce09dc))
+- add previous version tracker ([56f856e08e301938f749915ada5c727891486834](https://github.com/doomsower/whitewater/commit/56f856e08e301938f749915ada5c727891486834))
+- fix publish-libs ([2eb266a090904810c4c232cddd8d29c0c74c8750](https://github.com/doomsower/whitewater/commit/2eb266a090904810c4c232cddd8d29c0c74c8750))
+- formulas for gauge bindings ([b8fb934f942526069d3f99bccf0ea9a1ac21290c](https://github.com/doomsower/whitewater/commit/b8fb934f942526069d3f99bccf0ea9a1ac21290c))
+- improve chart screen design a bit ([5541a966e76e34fb974140afdf0e70235c7ec0fd](https://github.com/doomsower/whitewater/commit/5541a966e76e34fb974140afdf0e70235c7ec0fd))
+- improve display of sections with formulas ([096427303619022f2eda1f0fd58507ab86338b2b](https://github.com/doomsower/whitewater/commit/096427303619022f2eda1f0fd58507ab86338b2b))
+- improve error boundaries ([ac123a4d3f102672f5d629294643bd984869dce5](https://github.com/doomsower/whitewater/commit/ac123a4d3f102672f5d629294643bd984869dce5))
+- improve translaion ([7dc2770dd18f1b7acfbd132a65d11c8b7caed4a8](https://github.com/doomsower/whitewater/commit/7dc2770dd18f1b7acfbd132a65d11c8b7caed4a8))
+- more mobile auth service tests ([337616402081b80c725c061d17c327e371bab447](https://github.com/doomsower/whitewater/commit/337616402081b80c725c061d17c327e371bab447))
+- new mobile maps ([6daacf6b87cc8b55767c57e36bddb079fc126b59](https://github.com/doomsower/whitewater/commit/6daacf6b87cc8b55767c57e36bddb079fc126b59))
+- new navigate button urls ([42c5740742eebaf383417b7dc89bd658548ea2c3](https://github.com/doomsower/whitewater/commit/42c5740742eebaf383417b7dc89bd658548ea2c3))
+- replace interactable with reanimated ([00f0461907d079ed189c7237c604585c26bd20b1](https://github.com/doomsower/whitewater/commit/00f0461907d079ed189c7237c604585c26bd20b1))
+- track screen params in sentry breadcrumbs ([24cb0389d802fe1e2b20ae870af8d7b1bc656a6f](https://github.com/doomsower/whitewater/commit/24cb0389d802fe1e2b20ae870af8d7b1bc656a6f))
+- update boompromo page ([78fa27047042e586c028630f4f6ea7a05b2ae423](https://github.com/doomsower/whitewater/commit/78fa27047042e586c028630f4f6ea7a05b2ae423))
+- update privacy policy ([993f64cbb55b13cfff0235b3c145a297d3a5d200](https://github.com/doomsower/whitewater/commit/993f64cbb55b13cfff0235b3c145a297d3a5d200))
+- use formulas to display flow values ([a95ccfec6bd1be9101ee78f2fd613971b9ea6935](https://github.com/doomsower/whitewater/commit/a95ccfec6bd1be9101ee78f2fd613971b9ea6935))
+- various fixes ([829eedfe78b012d57dc82d9e54c407bf5c8be6a4](https://github.com/doomsower/whitewater/commit/829eedfe78b012d57dc82d9e54c407bf5c8be6a4))
+
+### Bug Fixes
+
+- do not show network errors in snackbar ([da43816f9538068f22690e5390c29fded58ba0c2](https://github.com/doomsower/whitewater/commit/da43816f9538068f22690e5390c29fded58ba0c2))
+- fix gh cancelled state ([45c9ca77ebbd6d8cdb81cc8ca9227c1dc3484da0](https://github.com/doomsower/whitewater/commit/45c9ca77ebbd6d8cdb81cc8ca9227c1dc3484da0))
+- fix languages confusion ([526d97ae30429740298f5fdb2d95711ac35e4a65](https://github.com/doomsower/whitewater/commit/526d97ae30429740298f5fdb2d95711ac35e4a65))
+- fix layers button ([779c14e723a488b33ef58c4287e8c3896a94763f](https://github.com/doomsower/whitewater/commit/779c14e723a488b33ef58c4287e8c3896a94763f))
+- fix MyProfile screen crash, update fbsdk ([f621920f7a9ccd412139d808a28b5e43e83cf850](https://github.com/doomsower/whitewater/commit/f621920f7a9ccd412139d808a28b5e43e83cf850))
+- fix open maps url Android ([9cca06a320b6a21fd215e495aafa6af9106c8ebe](https://github.com/doomsower/whitewater/commit/9cca06a320b6a21fd215e495aafa6af9106c8ebe))
+- fix open maps url Android 2 ([a903b0b7c85fc1722fc7749e0476650c9d3d8f43](https://github.com/doomsower/whitewater/commit/a903b0b7c85fc1722fc7749e0476650c9d3d8f43))
+- fix range slider layout ([1261e9ffa8fdbb2be5acecea9f3888dc66584f59](https://github.com/doomsower/whitewater/commit/1261e9ffa8fdbb2be5acecea9f3888dc66584f59))
+- fix tests ([c2529a89008f48ab6d433aa9f135130ae69a9e23](https://github.com/doomsower/whitewater/commit/c2529a89008f48ab6d433aa9f135130ae69a9e23))
+- fix useScreens causing remounting ([9447067872a74a6d3a9c15d2b9c173a4d136f243](https://github.com/doomsower/whitewater/commit/9447067872a74a6d3a9c15d2b9c173a4d136f243))
+- fixed photo gallery bug ([f0b70d53abea3ccf8670ffdb031f6ce27945e470](https://github.com/doomsower/whitewater/commit/f0b70d53abea3ccf8670ffdb031f6ce27945e470))
+- increase hitbox ([6d28ce9d5e0f3355ffae9c1bcf3084bda717ed80](https://github.com/doomsower/whitewater/commit/6d28ce9d5e0f3355ffae9c1bcf3084bda717ed80))
+- make details button work on both iOS and Android ([7e341a9ca23003e4ae008a56959709d59576353b](https://github.com/doomsower/whitewater/commit/7e341a9ca23003e4ae008a56959709d59576353b))
+- probably fix chart resize crash ([abc40597e70852e63ef652c2d9970f05ef31bbdd](https://github.com/doomsower/whitewater/commit/abc40597e70852e63ef652c2d9970f05ef31bbdd))
+- probably fix new google maps intent uri ([56594280b4df8c2fc2d58f9f625289ad78244eef](https://github.com/doomsower/whitewater/commit/56594280b4df8c2fc2d58f9f625289ad78244eef))
+- update region media summary query ([a0beca61c3d3b711080565efec8dd7e250b335b9](https://github.com/doomsower/whitewater/commit/a0beca61c3d3b711080565efec8dd7e250b335b9))
+- use own overwrite ([149fba05e241801ec8be8ca915f0464b47ec6b6c](https://github.com/doomsower/whitewater/commit/149fba05e241801ec8be8ca915f0464b47ec6b6c))
+- wrap all map buttons in gesture handlers ([e973d68fd713bc19570a4df73d44839d82a2d062](https://github.com/doomsower/whitewater/commit/e973d68fd713bc19570a4df73d44839d82a2d062))
+
+### Other
+
+- disable symlinks in metro config ([4870acaf2f529a1cd80a6ea15cb3fc8e3ba921c2](https://github.com/doomsower/whitewater/commit/4870acaf2f529a1cd80a6ea15cb3fc8e3ba921c2))
+- fix mobile script ([307c4b03a946d38f75ecd6c4e7798d3d02709eb4](https://github.com/doomsower/whitewater/commit/307c4b03a946d38f75ecd6c4e7798d3d02709eb4))
+- improve changelog generation for services & mobile ([5054fb797effccf98e9947556cda7168aaa72db8](https://github.com/doomsower/whitewater/commit/5054fb797effccf98e9947556cda7168aaa72db8))
+- more service tests ([a5851ed48302fb2c447274799661ff30f3e8d63b](https://github.com/doomsower/whitewater/commit/a5851ed48302fb2c447274799661ff30f3e8d63b))
+- move toRomanDifficulty to commons ([9337d9bf7f9afae1758a8743a4b681fc1925ecf0](https://github.com/doomsower/whitewater/commit/9337d9bf7f9afae1758a8743a4b681fc1925ecf0))
+- proj ([146c5419dbe443d143bcd526a330eda1ea005db7](https://github.com/doomsower/whitewater/commit/146c5419dbe443d143bcd526a330eda1ea005db7))
+- remove lerna, use own script for service publication ([843c870f0330aa02c7f8bea94608407936d19326](https://github.com/doomsower/whitewater/commit/843c870f0330aa02c7f8bea94608407936d19326))
+- update release script ([2bdb95c7f35174f032709854e112d1c6d08eaecb](https://github.com/doomsower/whitewater/commit/2bdb95c7f35174f032709854e112d1c6d08eaecb))
+- use commons.sectionName where possible ([4cb912eb42ea16af191f0127f472f4dab1f37eea](https://github.com/doomsower/whitewater/commit/4cb912eb42ea16af191f0127f472f4dab1f37eea))
+
+# [1.8.0](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.8.0...@whitewater-guide/mobile@1.8.0) (2019-06-29)
+
+### Bug Fixes
+
+- update region media summary query ([a0beca6](https://github.com/doomsower/whitewater/commit/a0beca6))
+
+# [1.8.0](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.8.0...@whitewater-guide/mobile@1.8.0) (2019-06-29)
+
+# [1.8.0](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.8.0...@whitewater-guide/mobile@1.8.0) (2019-06-29)
+
+# [1.8.0](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.94...@whitewater-guide/mobile@1.8.0) (2019-06-29)
+
+### Features
+
+- new mobile maps ([6daacf6](https://github.com/doomsower/whitewater/commit/6daacf6))
+
 ## [1.7.94](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.93...@whitewater-guide/mobile@1.7.94) (2019-06-26)
 
 ## [1.7.93](https://github.com/doomsower/whitewater/compare/@whitewater-guide/mobile@1.7.92...@whitewater-guide/mobile@1.7.93) (2019-06-26)

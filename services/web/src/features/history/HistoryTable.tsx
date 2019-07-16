@@ -2,6 +2,7 @@ import {
   NamedNode,
   Section,
   SectionEditLogEntry,
+  sectionName,
 } from '@whitewater-guide/commons';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
@@ -41,11 +42,11 @@ class HistoryTable extends React.PureComponent<Props> {
     moment(createdAt).format('DD MMMM YYYY, HH:mm');
 
   renderSection: TableCellRenderer = ({ rowData: { section } }) => {
-    const { id, name, river, region } = section as Section;
+    const { id, region } = section as Section;
     return (
-      <Link
-        to={`/regions/${region.id}/sections/${id}#main`}
-      >{`${river.name} -- ${name}`}</Link>
+      <Link to={`/regions/${region.id}/sections/${id}#main`}>
+        {sectionName(section)}
+      </Link>
     );
   };
 

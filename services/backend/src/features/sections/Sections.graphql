@@ -9,6 +9,8 @@ type GaugeBinding {
   impossible: Float
   # If true, then the gauge gives very vague idea of actual section flows (e.g. the gauge is on other tributary)
   approximate: Boolean
+  # Optional formula to compute section flow from gauge value, e.g '(x + 10) * 2' where x is gauge value
+  formula: String
 }
 
 input GaugeBindingInput {
@@ -17,6 +19,7 @@ input GaugeBindingInput {
   optimum: Float
   impossible: Float
   approximate: Boolean
+  formula: String
 }
 
 type Section {

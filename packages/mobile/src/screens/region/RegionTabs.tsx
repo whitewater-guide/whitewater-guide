@@ -1,31 +1,35 @@
+import {
+  MapSelectionProvider,
+  SectionsListLoader,
+} from '@whitewater-guide/clients';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { WhitePortal } from 'react-native-portal';
 import { NavigationRouteConfigMap, TabNavigatorConfig } from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
+import { SelectedPOIView, SelectedSectionView } from '../../components/map';
 import theme from '../../theme';
+import Screens from '../screen-names';
 import container from './container';
 import { RegionInfoScreen } from './info';
 import RegionMapScreen from './map';
 import RegionSectionsListScreen from './sections-list';
-import { SectionsListLoader } from './SectionsListLoader';
 import SectionsProgress from './SectionsProgress';
 import { InnerProps, RenderProps, ScreenProps } from './types';
 
 const routes: NavigationRouteConfigMap = {
-  RegionMap: {
+  [Screens.Region.Map]: {
     screen: RegionMapScreen,
   },
-  RegionSectionsList: {
+  [Screens.Region.SectionsList]: {
     screen: RegionSectionsListScreen,
   },
-  RegionInfo: {
+  [Screens.Region.Info]: {
     screen: RegionInfoScreen,
   },
 };
 
 const config: TabNavigatorConfig = {
-  initialRouteName: 'RegionMap',
+  initialRouteName: Screens.Region.Map,
   backBehavior: 'none',
   swipeEnabled: false,
   animationEnabled: false,
@@ -61,17 +65,16 @@ class RegionTabsContent extends React.PureComponent<InnerProps> {
             sectionsStatus: status,
           };
           return (
-            <React.Fragment>
+            <MapSelectionProvider>
               <Navigator navigation={navigation} screenProps={screenProps} />
-              <View style={StyleSheet.absoluteFill} pointerEvents="box-none">
-                <WhitePortal name="region" />
-              </View>
+              <SelectedPOIView />
+              <SelectedSectionView />
               <SectionsProgress
                 status={status}
                 loaded={sections.length}
                 count={count}
               />
-            </React.Fragment>
+            </MapSelectionProvider>
           );
         }}
       </SectionsListLoader>

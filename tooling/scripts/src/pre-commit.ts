@@ -1,5 +1,6 @@
 import { execSync } from 'child_process';
 import simpleGit from 'simple-git/promise';
+import { info } from './utils';
 
 const preCommitHook = async () => {
   const git = simpleGit();
@@ -16,8 +17,8 @@ const preCommitHook = async () => {
       .concat('.gitsecret');
     await git.add(secrets);
   } catch (e) {
-    console.info('Failed to hide git secrets');
-    console.info(e.message);
+    info('Failed to hide git secrets');
+    info(e.message);
   }
   execSync('yarn pretty-quick --staged', { stdio: 'inherit' });
   execSync('yarn lint-staged', { stdio: 'inherit' });

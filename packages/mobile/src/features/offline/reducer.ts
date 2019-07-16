@@ -1,6 +1,6 @@
 import get from 'lodash/get';
-import { AnyAction, isType } from 'typescript-fsa';
-import { offlineContentActions } from './actions';
+import { isType } from 'typescript-fsa';
+import { OfflineContentAction, offlineContentActions } from './actions';
 import {
   OfflineContentStore,
   OfflineProgress,
@@ -11,6 +11,7 @@ const initialState: OfflineContentStore = {
   dialogRegion: null,
   regionInProgress: null,
   progress: {},
+  error: null,
 };
 
 function updateProgress(
@@ -28,33 +29,52 @@ function updateProgress(
 
 export const offlineContentReducer = (
   state = initialState,
-  action: AnyAction,
-) => {
+  action: OfflineContentAction,
+): OfflineContentStore => {
   if (isType(action, offlineContentActions.toggleDialog)) {
     return {
       ...state,
       dialogRegion: action.payload,
+      error: null,
+    };
+  }
+
+  if (isType(action, offlineContentActions.startDownload)) {
+    return {
+      ...state,
+      regionInProgress: action.payload.regionId,
+      error: null,
     };
   }
 
   if (isType(action, offlineContentActions.updateProgress)) {
-    const { regionInProgress, ...progress } = action.payload;
     return {
       ...state,
-      regionInProgress:
-        regionInProgress === undefined
-          ? state.regionInProgress
-          : regionInProgress,
-      progress: updateProgress(state.progress, progress),
+      progress: updateProgress(state.progress, action.payload),
+    };
+  }
+
+  if (isType(action, offlineContentActions.failDownload)) {
+    const { message, fatal } = action.payload;
+    if (!fatal) {
+      return { ...state, error: message };
+    }
+    return {
+      ...state,
+      progress: {},
+      regionInProgress: null,
+      error: message,
     };
   }
 
   if (isType(action, offlineContentActions.finishDownload)) {
-    return { dialogRegion: null, progress: {}, regionInProgress: null };
+    return {
+      dialogRegion: null,
+      progress: {},
+      regionInProgress: null,
+      error: null,
+    };
   }
 
   return state;
 };
-
-// re-export
-export { OfflineContentStore } from './types';

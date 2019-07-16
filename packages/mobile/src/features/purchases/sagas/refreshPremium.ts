@@ -1,9 +1,9 @@
 import { ApolloQueryResult, QueryOptions } from 'apollo-client';
 import { apply, put, select } from 'redux-saga/effects';
-import { refreshRegionsList } from '../../../core/actions';
 import { apolloClient } from '../../../core/apollo';
 import { trackError } from '../../../core/errors';
-import { RootState } from '../../../core/reducers';
+import { refreshRegionsList } from '../../../core/redux/actions';
+import { RootState } from '../../../core/redux/reducers';
 import { PurchaseDialogData, RefreshPremiumResult } from '../types';
 import { PREMIUM_DIALOG_QUERY, Result, Vars } from './premiumDialog.query';
 

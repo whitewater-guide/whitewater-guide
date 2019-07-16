@@ -17,20 +17,18 @@ interface Props {
 export const PlainText: React.FC<Props> = ({ text, fixture }) => {
   const [t] = useTranslation('markdown');
   const markdown = text || (fixture ? t(fixture) : 'Text not found');
-  return (
-    <Screen>
-      <Markdown>{markdown}</Markdown>
-    </Screen>
-  );
+  return <Markdown>{markdown}</Markdown>;
 };
 
 export const PlainTextScreen: NavigationScreenComponent<NavParams> = ({
   navigation,
 }) => (
-  <PlainText
-    fixture={navigation.getParam('fixture')}
-    text={navigation.getParam('text')}
-  />
+  <Screen>
+    <PlainText
+      fixture={navigation.getParam('fixture')}
+      text={navigation.getParam('text')}
+    />
+  </Screen>
 );
 
 PlainTextScreen.navigationOptions = ({ navigation }) => {

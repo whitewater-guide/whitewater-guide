@@ -31,20 +31,6 @@ services:
       - type: bind
         source: ../services/backend/pm2.development.json
         target: /opt/app/pm2.development.json
-      # "Symlink" @whitewater-guide/commons into dir "lerna_modules" in NODE_PATH
-      - type: bind
-        source: ../packages/commons/package.json
-        target: /opt/app/lerna_modules/@whitewater-guide/commons/package.json
-        read_only: true
-        volume:
-          nocopy: true
-      # "Symlink" @whitewater-guide/commons into dir "lerna_modules" in NODE_PATH
-      - type: bind
-        source: ../packages/commons/dist
-        target: /opt/app/lerna_modules/@whitewater-guide/commons/dist
-        read_only: true
-        volume:
-          nocopy: true
 
   # Postgres sql database
   db:
@@ -75,15 +61,6 @@ services:
   # Minio to store images
   minio:
     container_name: ww-minio
-    image: 'ww-minio:dev'
-    build:
-      context: ../services/minio
-      labels:
-        guide.whitewater: ''
-      args:
-        MINIO_USER: minio
-        MINIO_UID: 1000
-        MINIO_GID: 1000
     environment:
       - MINIO_HTTP_TRACE=/var/log/minio.log
     env_file:
@@ -96,7 +73,7 @@ services:
         target: /data
       - type: bind
         source: ../dev-mount/minio/config
-        target: /home/minio/.minio
+        target: /root/.minio
       - type: bind
         source: ../dev-mount/minio/log/
         target: /var/log

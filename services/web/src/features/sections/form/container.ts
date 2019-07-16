@@ -1,7 +1,7 @@
 import {
   LIST_SECTIONS,
+  ListSectionsResult,
   withFeatureIds,
-  WithSectionsList,
 } from '@whitewater-guide/clients';
 import { SectionFormStruct } from '@whitewater-guide/commons';
 import { MutationUpdaterFn } from 'apollo-client';
@@ -20,7 +20,7 @@ const addToList = ({
   if (!section) {
     return;
   }
-  const queryResult: WithSectionsList | null = store.readQuery({
+  const queryResult: ListSectionsResult | null = store.readQuery({
     query: LIST_SECTIONS,
     variables: { filter: { regionId } },
   });

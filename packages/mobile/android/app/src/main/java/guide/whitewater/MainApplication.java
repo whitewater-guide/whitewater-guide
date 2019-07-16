@@ -3,8 +3,8 @@ package guide.whitewater;
 import android.app.Application;
 import android.support.multidex.MultiDexApplication;
 
-import com.airbnb.android.react.maps.MapsPackage;
 import com.facebook.react.ReactApplication;
+import com.mapbox.rctmgl.RCTMGLPackage;
 import com.github.amarcruz.rntextsize.RNTextSizePackage;
 import com.reactnativecommunity.netinfo.NetInfoPackage;
 import io.sentry.RNSentryPackage;
@@ -29,7 +29,6 @@ import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.horcrux.svg.SvgPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
-import com.wix.interactable.Interactable;
 import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -63,6 +62,7 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RCTMGLPackage(),
             new RNTextSizePackage(),
             new NetInfoPackage(),
             new RNSentryPackage(),
@@ -84,8 +84,6 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
             new FBSDKPackage(mCallbackManager),
             new SvgPackage(),
             new SplashScreenReactPackage(),
-            new Interactable(),
-            new MapsPackage(),
             new ReactNativeConfigPackage()
       );
     }

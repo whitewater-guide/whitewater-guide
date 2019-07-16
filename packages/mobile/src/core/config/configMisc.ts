@@ -1,11 +1,23 @@
-import { UIManager, YellowBox } from 'react-native';
+import Mapbox from '@react-native-mapbox-gl/maps';
+import { Platform, UIManager, YellowBox } from 'react-native';
+import Config from 'react-native-config';
+import { useScreens } from 'react-native-screens';
 
 const configMisc = () => {
-  YellowBox.ignoreWarnings(['Setting a timer']);
+  YellowBox.ignoreWarnings(['Setting a timer', 'Warning: NetInfo']);
+
+  // TODO: possible react-native-screens and react-native-splash-screen conflict causing crashes
+  // https://github.com/kmagiera/react-native-screens/issues/54
+  if (Platform.OS === 'ios') {
+    useScreens();
+  }
 
   if (UIManager.setLayoutAnimationEnabledExperimental) {
     UIManager.setLayoutAnimationEnabledExperimental(true);
   }
+
+  Mapbox.setAccessToken(Config.MAPBOX_ACCESS_TOKEN);
+  Mapbox.setTelemetryEnabled(false);
 
   // https://github.com/jhen0409/react-native-debugger/blob/master/docs/network-inspect-of-chrome-devtools.md#how-it-works
   // uncomment for network inspection

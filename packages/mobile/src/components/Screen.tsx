@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View, ViewProps } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import theme from '../theme';
+import { ErrorBoundary } from './ErrorBoundary';
 
 const TOP_LEFT = { x: 0, y: 0 };
 
@@ -36,16 +37,22 @@ export const Screen: React.FC<ScreenProps> = ({
   }
   screenStyles = [...screenStyles, style];
   if (noScroll) {
-    return <View style={[styles.noScroll, ...screenStyles]}>{children}</View>;
+    return (
+      <ErrorBoundary>
+        <View style={[styles.noScroll, ...screenStyles]}>{children}</View>
+      </ErrorBoundary>
+    );
   }
   return (
-    <KeyboardAwareScrollView
-      style={styles.screen}
-      contentContainerStyle={screenStyles}
-      automaticallyAdjustContentInsets={false}
-      resetScrollToCoords={TOP_LEFT}
-    >
-      {children}
-    </KeyboardAwareScrollView>
+    <ErrorBoundary>
+      <KeyboardAwareScrollView
+        style={styles.screen}
+        contentContainerStyle={screenStyles}
+        automaticallyAdjustContentInsets={false}
+        resetScrollToCoords={TOP_LEFT}
+      >
+        {children}
+      </KeyboardAwareScrollView>
+    </ErrorBoundary>
   );
 };

@@ -1,4 +1,4 @@
-import { createMockedProvider, QueryMap } from '@whitewater-guide/clients';
+import { mockApolloProvider, QueryMap } from '@whitewater-guide/clients';
 import { History } from 'history';
 import React from 'react';
 import { Provider } from 'react-redux';
@@ -37,7 +37,7 @@ export const mountForm = (options: MountFormOptions) => {
     </MemoryRouter>
   );
   if (mockApollo) {
-    const MockedProvider = createMockedProvider({
+    const MockedProvider = mockApolloProvider({
       Query: queries,
       Mutation: mutations,
     });

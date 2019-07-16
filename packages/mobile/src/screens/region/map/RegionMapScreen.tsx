@@ -1,19 +1,22 @@
 import React from 'react';
 import { NavigationScreenComponent } from 'react-navigation';
 import { Icon, Screen } from '../../../components';
+import { MapLayout } from '../../../components/map';
 import { I18nText } from '../../../i18n';
 import theme from '../../../theme';
 import { ScreenProps } from '../types';
-import RegionMap from './RegionMap';
 
-export const RegionMapScreen: NavigationScreenComponent = ({
-  navigation,
-  screenProps,
-}) => {
+export const RegionMapScreen: NavigationScreenComponent = ({ screenProps }) => {
   const { region, sections }: ScreenProps = screenProps as any;
   return (
     <Screen noScroll={true}>
-      {region.node && <RegionMap region={region.node} sections={sections} />}
+      {region.node && (
+        <MapLayout
+          pois={region.node.pois}
+          sections={sections}
+          initialBounds={region.node.bounds}
+        />
+      )}
     </Screen>
   );
 };

@@ -25,6 +25,7 @@ export const GaugeBindingStruct = struct.object({
   optimum: 'number?|null',
   impossible: 'number?|null',
   approximate: 'boolean?|null',
+  formula: 'formula?|null',
 });
 
 const SimpleTagStruct = struct.object({

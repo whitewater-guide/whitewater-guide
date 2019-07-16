@@ -38,6 +38,12 @@ Object {
 }
 `;
 
+exports[`RegionAdminSettings should be invalid for float size 1`] = `
+Object {
+  "mapsSize": "Value must be integer",
+}
+`;
+
 exports[`RegionFormInput should be invalid for bad bounds 1`] = `
 Object {
   "bounds": "Minimum length is 3",

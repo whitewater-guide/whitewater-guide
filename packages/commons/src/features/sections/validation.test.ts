@@ -18,17 +18,17 @@ describe('GaugeBinding', () => {
   const validator = createValidator(GaugeBindingStruct);
   type TestValue = [string, GaugeBinding];
 
+  const correct: GaugeBinding = {
+    minimum: -10,
+    maximum: 10,
+    optimum: 10,
+    impossible: 10,
+    approximate: true,
+    formula: 'x + 10',
+  };
+
   const correctValues: TestValue[] = [
-    [
-      'full value',
-      {
-        minimum: -10,
-        maximum: 10,
-        optimum: 10,
-        impossible: 10,
-        approximate: true,
-      },
-    ],
+    ['full value', correct],
     [
       'null value',
       {
@@ -37,13 +37,25 @@ describe('GaugeBinding', () => {
         optimum: null,
         impossible: null,
         approximate: null,
+        formula: null,
       },
     ],
     ['empty value', {}],
   ];
 
+  const incorrectValues: TestValue[] = [
+    ['incorrect formula', { ...correct, formula: 'x *' }],
+    ['too many variables', { ...correct, formula: 'x * y + 2' }],
+    ['bad variable', { ...correct, formula: 'X + 10' }],
+  ];
+
   it.each(correctValues)('should be valid for %s', (_, value) => {
     expect(validator(value)).toBeNull();
+  });
+
+  it.each(incorrectValues)('should be invalid for %s', (_, value) => {
+    expect(validator(value)).not.toBeNull();
+    expect(validator(value)).toMatchSnapshot();
   });
 });
 

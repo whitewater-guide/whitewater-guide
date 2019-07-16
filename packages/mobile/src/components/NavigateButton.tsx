@@ -1,13 +1,9 @@
-import { Coordinate } from '@whitewater-guide/commons';
-import React from 'react';
-import {
-  Animated,
-  StyleProp,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  ViewStyle,
-} from 'react-native';
+import { Coordinate, Point } from '@whitewater-guide/commons';
+import React, { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
+import { StyleSheet, Text } from 'react-native';
+import { RectButton } from 'react-native-gesture-handler';
+import Animated from 'react-native-reanimated';
 import theme from '../theme';
 import { openGoogleMaps } from '../utils/maps';
 import { Icon } from './Icon';
@@ -23,6 +19,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: theme.colors.primary,
   },
+  wrapper: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   label: {
     fontSize: 14,
     fontWeight: '500',
@@ -30,106 +30,41 @@ const styles = StyleSheet.create({
   },
 });
 
-const fadeStyle = (
-  driver: Animated.AnimatedInterpolation | undefined,
-  inputRange: number[],
-) => {
-  const opacityOutput = inputRange[0] <= inputRange[1] ? [1, 0] : [0, 1];
-  const scaleOutput = inputRange[0] <= inputRange[1] ? [1, 0.7] : [0.7, 1];
-  const inpRange =
-    inputRange[0] <= inputRange[1] ? inputRange : inputRange.reverse();
-  return {
-    opacity: driver
-      ? driver.interpolate({
-          inputRange: inpRange,
-          outputRange: opacityOutput,
-          extrapolate: 'clamp',
-        })
-      : opacityOutput[0],
-    transform: [
-      {
-        scale: driver
-          ? driver.interpolate({
-              inputRange: inpRange,
-              outputRange: scaleOutput,
-              extrapolate: 'clamp',
-            })
-          : scaleOutput[0],
-      },
-    ],
-  };
-};
-
-const slideStyle = (
-  driver: Animated.AnimatedInterpolation | undefined,
-  inputRange: number[],
-  position: number,
-) => {
-  const inpRange =
-    inputRange[0] <= inputRange[1] ? inputRange : inputRange.reverse();
-  return {
-    position: 'absolute',
-    top: 0,
-    transform: [
-      {
-        translateX: driver
-          ? driver.interpolate({
-              inputRange: inpRange,
-              outputRange: [
-                theme.screenWidth + NAVIGATE_BUTTON_WIDTH,
-                theme.screenWidth - (position + 1) * NAVIGATE_BUTTON_WIDTH,
-              ],
-              extrapolate: 'clamp',
-            })
-          : theme.screenWidth + NAVIGATE_BUTTON_WIDTH,
-      },
-    ],
-  };
-};
-
 interface Props {
-  label: string;
-  driver?: Animated.AnimatedInterpolation;
-  inputRange: [number, number];
-  coordinates: Coordinate;
-  animationType?: 'fade' | 'slide';
-  position?: number;
-  style?: StyleProp<ViewStyle>;
+  labelKey: string;
+  point: Point | null;
   canNavigate: (coordinates: Coordinate) => boolean;
   onPress?: () => void;
+  scale?: Animated.Node<number>;
 }
 
-export class NavigateButton extends React.PureComponent<Props> {
-  onPress = async () => {
-    const { coordinates, onPress, canNavigate } = this.props;
-    if (canNavigate(coordinates)) {
-      await openGoogleMaps(coordinates);
-    }
+export const NavigateButton: React.FC<Props> = React.memo((props) => {
+  const {
+    labelKey,
+    point,
+    onPress,
+    canNavigate,
+    scale = new Animated.Value(1),
+  } = props;
+  const { t } = useTranslation();
+  const onTouch = useCallback(() => {
     if (onPress) {
       onPress();
     }
-  };
-
-  render() {
-    const {
-      driver,
-      label,
-      inputRange,
-      animationType = 'fade',
-      position = 0,
-      style,
-    } = this.props;
-    const animatedStyle =
-      animationType === 'fade'
-        ? fadeStyle(driver, inputRange)
-        : slideStyle(driver, inputRange, position);
-    return (
-      <Animated.View style={[animatedStyle, style]}>
-        <TouchableOpacity onPress={this.onPress} style={styles.button}>
-          <Icon icon="car" size={28} />
-          <Text style={styles.label}>{label}</Text>
-        </TouchableOpacity>
+    if (point && canNavigate(point.coordinates)) {
+      openGoogleMaps(point.coordinates, point.name).catch(() => {});
+    }
+  }, [point, onPress]);
+  return (
+    <RectButton onPress={onTouch} style={styles.button}>
+      <Animated.View
+        style={[styles.wrapper, { transform: [{ scale }] } as any]}
+      >
+        <Icon icon="car" size={28} />
+        <Text style={styles.label}>{t(labelKey)}</Text>
       </Animated.View>
-    );
-  }
-}
+    </RectButton>
+  );
+});
+
+NavigateButton.displayName = 'NavigateButton';

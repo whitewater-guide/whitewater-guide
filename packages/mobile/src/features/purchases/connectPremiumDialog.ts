@@ -1,6 +1,6 @@
 import { Region } from '@whitewater-guide/commons';
 import { connect } from 'react-redux';
-import { RootState } from '../../core/reducers';
+import { RootState } from '../../core/redux/reducers';
 import { purchaseActions } from './index';
 
 interface StateProps {

@@ -1,9 +1,10 @@
 import { DocumentNode } from 'graphql';
 import React, { useEffect, useState } from 'react';
 import { Query } from 'react-apollo';
-import { MY_PROFILE_QUERY, WithMe } from '../features/users';
-import { AuthContext } from './context';
+import { AuthContext, AuthState } from './context';
+import { MY_PROFILE_QUERY } from './myProfile.query';
 import { AuthService } from './service';
+import { WithMe } from './types';
 
 interface Props {
   query?: DocumentNode;
@@ -31,17 +32,14 @@ export const AuthProvider: React.FC<Props> = React.memo((props) => {
       {(queryProps) => {
         const { data, refetch } = queryProps;
         const me = (data && data.me) || null;
+        const value: AuthState = {
+          me,
+          loading: queryProps.loading || loading,
+          service,
+          refreshProfile: refetch,
+        };
         return (
-          <AuthContext.Provider
-            value={{
-              me,
-              loading: queryProps.loading || loading,
-              service,
-              refreshProfile: refetch,
-            }}
-          >
-            {children}
-          </AuthContext.Provider>
+          <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
         );
       }}
     </Query>

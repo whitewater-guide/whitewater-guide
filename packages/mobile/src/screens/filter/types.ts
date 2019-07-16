@@ -1,11 +1,13 @@
-import { RegionContext } from '@whitewater-guide/clients';
-import { WithTags } from '@whitewater-guide/commons';
-import { WithTranslation } from 'react-i18next';
-import { NavigationInjectedProps } from 'react-navigation';
+import { SectionSearchTerms, SelectableTag } from '@whitewater-guide/commons';
 
-export type InnerProps = NavigationInjectedProps &
-  WithTranslation &
-  WithTags &
-  Pick<RegionContext, 'searchTerms' | 'setSearchTerms' | 'resetSearchTerms'>;
+export interface SearchState
+  extends Omit<SectionSearchTerms, 'withTags' | 'withoutTags'> {
+  kayaking: SelectableTag[];
+  hazards: SelectableTag[];
+  supply: SelectableTag[];
+  misc: SelectableTag[];
+}
 
-export type OuterProps = NavigationInjectedProps;
+export interface NavParams {
+  regionId: string;
+}

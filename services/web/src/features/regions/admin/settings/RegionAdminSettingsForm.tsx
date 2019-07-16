@@ -62,6 +62,12 @@ export default class RegionAdminSettingsForm extends React.PureComponent<
           <Checkbox name="hidden" label="Hidden" />
           <Checkbox name="premium" label="Premium" />
           <TextInput name="sku" title="SKU" />
+          <TextInput
+            name="mapsSize"
+            title="Maps size (bytes)"
+            type="number"
+            style={{ display: 'block' }}
+          />
           <ImageUploadField
             title="Cover image for mobile (2048x682)"
             name="coverImage.mobile"

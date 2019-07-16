@@ -1,3 +1,43 @@
+## [0.0.370](https://github.com/doomsower/whitewater/compare/a3919143d5e44c7d04ac51ea7ab196b2746d582b...3cca73cde4d76c837d2f1812e351c63a6d9ef700) (2019-07-07)
+
+### Features
+
+- add min/max file size constants ([0f8e9966bad324bc737586919c77ee42fcb55cbf](https://github.com/doomsower/whitewater/commit/0f8e9966bad324bc737586919c77ee42fcb55cbf))
+- fix publish-libs ([2eb266a090904810c4c232cddd8d29c0c74c8750](https://github.com/doomsower/whitewater/commit/2eb266a090904810c4c232cddd8d29c0c74c8750))
+- formulas for gauge bindings ([b8fb934f942526069d3f99bccf0ea9a1ac21290c](https://github.com/doomsower/whitewater/commit/b8fb934f942526069d3f99bccf0ea9a1ac21290c))
+- improve backend sentry ([f40bb224c8fddacba60b1769a112e63558ac091b](https://github.com/doomsower/whitewater/commit/f40bb224c8fddacba60b1769a112e63558ac091b))
+- mapsSize field of Region ([9744db0dc157d5e7f79db53c3918f097ee5ee77a](https://github.com/doomsower/whitewater/commit/9744db0dc157d5e7f79db53c3918f097ee5ee77a))
+- new mobile maps ([6daacf6b87cc8b55767c57e36bddb079fc126b59](https://github.com/doomsower/whitewater/commit/6daacf6b87cc8b55767c57e36bddb079fc126b59))
+- rainchasers import ([24852a3e39eab87136edfbcede15f98d8b0fc310](https://github.com/doomsower/whitewater/commit/24852a3e39eab87136edfbcede15f98d8b0fc310))
+
+### Bug Fixes
+
+- fix administrate region cover images ([bd8d8ff76ed11d173377d1d2681646657a9dae4f](https://github.com/doomsower/whitewater/commit/bd8d8ff76ed11d173377d1d2681646657a9dae4f))
+- fixed signup lang bug ([c7324e2f0272d9ada29b2cdc25d29f3239ea8303](https://github.com/doomsower/whitewater/commit/c7324e2f0272d9ada29b2cdc25d29f3239ea8303))
+
+### Other
+
+- remove lerna, use own script for service publication ([843c870f0330aa02c7f8bea94608407936d19326](https://github.com/doomsower/whitewater/commit/843c870f0330aa02c7f8bea94608407936d19326))
+- use commons.sectionName where possible ([4cb912eb42ea16af191f0127f472f4dab1f37eea](https://github.com/doomsower/whitewater/commit/4cb912eb42ea16af191f0127f472f4dab1f37eea))
+
+## [0.0.365](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.364...@whitewater-guide/backend@0.0.365) (2019-06-29)
+
+### Bug Fixes
+
+- **backend:** fix administrate region cover images ([bd8d8ff](https://github.com/doomsower/whitewater/commit/bd8d8ff))
+
+## [0.0.364](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.363...@whitewater-guide/backend@0.0.364) (2019-06-29)
+
+### Features
+
+- mapsSize field of Region ([9744db0](https://github.com/doomsower/whitewater/commit/9744db0))
+
+## [0.0.363](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.362...@whitewater-guide/backend@0.0.363) (2019-06-29)
+
+### Features
+
+- new mobile maps ([6daacf6](https://github.com/doomsower/whitewater/commit/6daacf6))
+
 ## [0.0.362](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.361...@whitewater-guide/backend@0.0.362) (2019-06-26)
 
 ## [0.0.361](https://github.com/doomsower/whitewater/compare/@whitewater-guide/backend@0.0.360...@whitewater-guide/backend@0.0.361) (2019-06-26)

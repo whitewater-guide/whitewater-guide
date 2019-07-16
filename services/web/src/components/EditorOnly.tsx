@@ -1,4 +1,4 @@
-import { RegionConsumer, useAuth } from '@whitewater-guide/clients';
+import { useAuth, useRegion } from '@whitewater-guide/clients';
 import React from 'react';
 
 /**
@@ -10,20 +10,15 @@ import React from 'react';
  */
 export const EditorOnly: React.FC = ({ children }) => {
   const { me } = useAuth();
+  const { node } = useRegion();
   if (!me) {
     return null;
   }
   if (me.admin) {
     return children as any;
   }
-  return (
-    <RegionConsumer>
-      {({ region }) => {
-        if (!region.node) {
-          return null;
-        }
-        return region.node.editable ? children : null;
-      }}
-    </RegionConsumer>
-  );
+  if (!node || !node.editable) {
+    return null;
+  }
+  return children as any;
 };

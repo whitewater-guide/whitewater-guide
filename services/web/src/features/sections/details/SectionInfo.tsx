@@ -2,6 +2,7 @@ import { renderDifficulty, stringifySeason } from '@whitewater-guide/clients';
 import {
   Durations,
   Section,
+  sectionName,
   Tag,
   TagCategory,
 } from '@whitewater-guide/commons';
@@ -36,8 +37,8 @@ const renderTags = (tags?: Tag[]) => (
   </div>
 );
 
-const SectionInfo: React.StatelessComponent<Props> = ({ section }) => {
-  let fullName = `${section.river.name} - ${section.name}`;
+const SectionInfo: React.FC<Props> = ({ section }) => {
+  let fullName = sectionName(section);
   if (section.altNames.length) {
     fullName += ` (also known as ${section.altNames.join(', ')})`;
   }

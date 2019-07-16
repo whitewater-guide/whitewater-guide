@@ -1,8 +1,8 @@
-import { FlowToggleProps } from '@whitewater-guide/clients';
+import { useChart } from '@whitewater-guide/clients';
 import { Unit } from '@whitewater-guide/commons';
 import capitalize from 'lodash/capitalize';
 import Toggle from 'material-ui/Toggle';
-import * as React from 'react';
+import React, { useCallback } from 'react';
 
 const styles = {
   container: {
@@ -10,23 +10,24 @@ const styles = {
   },
 };
 
-class ChartFlowToggle extends React.PureComponent<FlowToggleProps> {
-  onChange = (event: any, isFlow: boolean) =>
-    this.props.onChange(isFlow ? Unit.FLOW : Unit.LEVEL);
+const ChartFlowToggle: React.FC = () => {
+  const { unit, onChangeUnit, unitChangeable } = useChart();
+  const onToggle = useCallback(
+    (_: any, isFlow: boolean) => onChangeUnit(isFlow ? Unit.FLOW : Unit.LEVEL),
+    [onChangeUnit],
+  );
+  return (
+    <div style={styles.container}>
+      <Toggle
+        disabled={!unitChangeable}
+        toggled={unit === Unit.FLOW}
+        label={capitalize(unit)}
+        onToggle={onToggle}
+      />
+    </div>
+  );
+};
 
-  render() {
-    const { enabled, unit } = this.props;
-    return (
-      <div style={styles.container}>
-        <Toggle
-          disabled={!enabled}
-          toggled={unit === Unit.FLOW}
-          label={capitalize(unit)}
-          onToggle={this.onChange}
-        />
-      </div>
-    );
-  }
-}
+ChartFlowToggle.displayName = 'ChartFlowToggle';
 
 export default ChartFlowToggle;

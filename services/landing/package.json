@@ -1,12 +1,11 @@
 {
   "name": "@whitewater-guide/landing",
   "private": true,
-  "version": "0.0.40",
+  "version": "0.0.41",
   "license": "UNLICENSED",
   "description": "Static landing pages for whitewater.guide",
   "scripts": {
-    "start": "browser-sync start --server 'src' --files 'src' --port 3002",
-    "version": "../../tooling/scripts/sh/changelog.sh"
+    "start": "browser-sync start --server 'src' --files 'src' --port 3002"
   },
   "author": "Konstantin Kuznetsov",
   "devDependencies": {

@@ -1,5 +1,5 @@
 import { purchaseActions } from './actions';
-import { basePurchaseReducer, initialState } from './reducer';
+import { initialState, purchaseReducer } from './reducer';
 import { PremiumRegion } from './types';
 
 const region: PremiumRegion = {
@@ -11,7 +11,7 @@ const region: PremiumRegion = {
 };
 
 it('should open dialog', () => {
-  const newState = basePurchaseReducer(
+  const newState = purchaseReducer(
     initialState,
     purchaseActions.openDialog({ region, sectionId: 'section_id' }),
   );

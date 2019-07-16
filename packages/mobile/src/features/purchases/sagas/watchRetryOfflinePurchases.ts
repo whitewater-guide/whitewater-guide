@@ -1,6 +1,6 @@
 import { ProductPurchase } from 'react-native-iap';
 import { call, put, select } from 'redux-saga/effects';
-import { RootState } from '../../../core/reducers';
+import { RootState } from '../../../core/redux/reducers';
 import { purchaseActions } from '../actions';
 import { SavePurchaseResult } from '../types';
 import savePurchase from './savePurchase';

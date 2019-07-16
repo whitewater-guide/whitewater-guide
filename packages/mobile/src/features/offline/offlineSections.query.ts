@@ -1,11 +1,16 @@
 import { SectionFragments } from '@whitewater-guide/clients';
-import { Connection, Page, Section } from '@whitewater-guide/commons';
+import {
+  Connection,
+  Page,
+  Section,
+  SectionsFilter,
+} from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
 import { PHOTO_SIZE_PX } from '../media';
 
 export const OFFLINE_SECTIONS = gql`
-  query listSections($page: Page, $regionId: ID) {
-    sections(page: $page, filter: { regionId: $regionId })
+  query listSections($page: Page, $filter: SectionsFilter) {
+    sections(page: $page, filter: $filter)
       @connection(key: "offline_sections", filter: ["filter"]) {
       nodes {
         ...SectionCore
@@ -34,7 +39,7 @@ export const OFFLINE_SECTIONS = gql`
 
 export interface Vars {
   page?: Page;
-  regionId: string;
+  filter?: SectionsFilter;
 }
 
 export interface Result {

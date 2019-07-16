@@ -1,10 +1,8 @@
-export * from './consumeRegion';
+export * from './FilterContext';
 export * from './regionDetails.query';
 export * from './regionFraments';
-export * from './map';
 export * from './pollMeasurements.query';
-export * from './RegionProvider';
+export * from './RegionContext';
 export * from './withRegionsList';
 export * from './regionName.query';
 export * from './types';
-export { RegionConsumer } from './RegionContext';

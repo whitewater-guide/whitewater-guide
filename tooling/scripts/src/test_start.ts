@@ -1,6 +1,6 @@
 import { spawn, spawnSync } from 'child_process';
 import { CONFIG_DIR } from './constants';
-import { preStart } from './utils';
+import { info, preStart } from './utils';
 
 function testStart() {
   preStart();
@@ -8,7 +8,7 @@ function testStart() {
   const stackFile = `${CONFIG_DIR}/docker-compose.test.yml`;
 
   process.on('SIGINT', () => {
-    console.info('Terminating dev stack');
+    info('Terminating dev stack');
     spawnSync('docker-compose', ['-f', stackFile, 'down'], {
       shell: true,
       stdio: 'inherit',

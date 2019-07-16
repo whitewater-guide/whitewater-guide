@@ -1,3 +1,66 @@
+## [0.0.250](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.241...@whitewater-guide/clients@0.0.250) (2019-06-30)
+
+
+### Features
+
+* fix publish-libs ([64c6829](https://github.com/doomsower/whitewater/commit/64c6829))
+* fix publish-libs ([2eb266a](https://github.com/doomsower/whitewater/commit/2eb266a))
+
+
+
+## [0.0.249](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.241...@whitewater-guide/clients@0.0.249) (2019-06-30)
+
+
+### Features
+
+* fix publish-libs ([2eb266a](https://github.com/doomsower/whitewater/commit/2eb266a))
+
+
+
+## [0.0.248](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.241...@whitewater-guide/clients@0.0.248) (2019-06-30)
+
+### Features
+
+- fix publish-libs ([7346636](https://github.com/doomsower/whitewater/commit/7346636))
+
+## [0.0.247](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.241...@whitewater-guide/clients@0.0.247) (2019-06-30)
+
+### Features
+
+- fix publish-libs ([8a722aa](https://github.com/doomsower/whitewater/commit/8a722aa))
+
+## [0.0.246](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.241...@whitewater-guide/clients@0.0.246) (2019-06-30)
+
+### Features
+
+- fix publish-libs ([6033d8b](https://github.com/doomsower/whitewater/commit/6033d8b))
+
+## [0.0.245](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.241...@whitewater-guide/clients@0.0.245) (2019-06-30)
+
+### Features
+
+- fix publish-libs ([0a4d08f](https://github.com/doomsower/whitewater/commit/0a4d08f))
+
+## [0.0.244](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.241...@whitewater-guide/clients@0.0.244) (2019-06-30)
+
+## [0.0.243](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.241...@whitewater-guide/clients@0.0.243) (2019-06-30)
+
+## [0.0.242](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.241...@whitewater-guide/clients@0.0.242) (2019-06-30)
+
+## [0.0.241](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.240...@whitewater-guide/clients@0.0.241) (2019-06-29)
+
+### Features
+
+- mapsSize field of Region ([9744db0](https://github.com/doomsower/whitewater/commit/9744db0))
+
+## [0.0.241](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.240...@whitewater-guide/clients@0.0.241) (2019-06-29)
+
+## [0.0.240](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.239...@whitewater-guide/clients@0.0.240) (2019-06-29)
+
+### Features
+
+- new mobile maps ([6daacf6](https://github.com/doomsower/whitewater/commit/6daacf6))
+
 ## [0.0.239](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.238...@whitewater-guide/clients@0.0.239) (2019-06-26)
 
 ## [0.0.238](https://github.com/doomsower/whitewater/compare/@whitewater-guide/clients@0.0.236...@whitewater-guide/clients@0.0.238) (2019-06-26)

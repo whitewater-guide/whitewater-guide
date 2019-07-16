@@ -1,12 +1,9 @@
-import { RegionProvider } from '@whitewater-guide/clients';
 import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Provider as PaperProvider } from 'react-native-paper';
 import {
   createAppContainer,
   createStackNavigator,
   NavigationNavigator,
-  NavigationRoute,
   StackNavigatorConfig,
 } from 'react-navigation';
 import { Drawer } from './components';
@@ -24,32 +21,32 @@ import {
   RegionsListScreen,
   SectionTabs,
 } from './screens';
-import theme, { PaperTheme } from './theme';
+import Screens from './screens/screen-names';
 
 const routes = {
-  RegionsList: {
+  [Screens.RegionsList]: {
     screen: RegionsListScreen,
   },
-  Region: {
+  [Screens.Region.Root]: {
     screen: RegionScreen,
   },
-  Section: {
+  [Screens.Section.Root]: {
     screen: SectionTabs,
   },
-  Plain: {
+  [Screens.Plain]: {
     screen: PlainTextScreen,
   },
-  MyProfile: {
+  [Screens.MyProfile]: {
     screen: MyProfileScreen,
   },
-  Filter: {
+  [Screens.Filter]: {
     screen: FilterScreen,
   },
   ...AuthRoutes,
 };
 
 const config: StackNavigatorConfig = {
-  initialRouteName: 'RegionsList',
+  initialRouteName: Screens.RegionsList,
   defaultNavigationOptions: () => ({
     header: renderHeader,
     headerBackTitle: null,
@@ -66,24 +63,14 @@ const RootNavigatorView: NavigationNavigator<any, any, any> = ({
   useEffect(() => {
     navigationChannel.dispatch = navigation.dispatch;
   }, [navigation.dispatch]);
-  const regionRoute = navigation!.state.routes.find(
-    (route: NavigationRoute) => route.routeName === 'Region',
-  );
-  const regionId =
-    regionRoute && regionRoute.params ? regionRoute.params.regionId : undefined;
-  // PaperProvider needs to be innermost provider, so dialogs can consume from other providers
   return (
-    <RegionProvider regionId={regionId} bannerWidth={theme.screenWidthPx}>
-      <PaperProvider theme={PaperTheme}>
-        <Drawer>
-          <View style={StyleSheet.absoluteFill}>
-            <Navigator navigation={navigation} />
-            <PremiumDialog />
-            <OfflineContentDialog />
-          </View>
-        </Drawer>
-      </PaperProvider>
-    </RegionProvider>
+    <Drawer>
+      <View style={StyleSheet.absoluteFill}>
+        <Navigator navigation={navigation} />
+        <PremiumDialog />
+        <OfflineContentDialog />
+      </View>
+    </Drawer>
   );
 };
 

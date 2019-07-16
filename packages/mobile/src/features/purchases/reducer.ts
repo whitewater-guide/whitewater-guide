@@ -1,17 +1,10 @@
 import { AsyncStorage } from 'react-native';
 import { Reducer } from 'redux';
-import { PersistConfig, persistReducer } from 'redux-persist';
 import { AnyAction, isType } from 'typescript-fsa';
 import { purchaseActions } from './actions';
 import { PurchaseState, PurchaseStore } from './types';
 
 export const PURCHASE_REDUCER_KEY = 'purchase';
-
-const persistConfig: PersistConfig = {
-  key: PURCHASE_REDUCER_KEY,
-  storage: AsyncStorage,
-  whitelist: ['offlinePurchases'],
-};
 
 export const initialState: PurchaseStore = {
   canMakePayments: true,
@@ -24,7 +17,7 @@ export const initialState: PurchaseStore = {
   offlinePurchases: [],
 };
 
-export const basePurchaseReducer = (
+export const purchaseReducer = (
   state: PurchaseStore = initialState,
   action: AnyAction,
 ): PurchaseStore => {
@@ -74,8 +67,3 @@ export const basePurchaseReducer = (
 
   return state;
 };
-
-export const purchaseReducer: Reducer = persistReducer(
-  persistConfig,
-  basePurchaseReducer,
-);

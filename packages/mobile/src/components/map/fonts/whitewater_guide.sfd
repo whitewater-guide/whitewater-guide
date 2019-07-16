@@ -1,0 +1,111 @@
+SplineFontDB: 3.0
+FontName: whitewater_guide
+FullName: whitewater guide
+FamilyName: whitewater guide
+Weight: Regular
+Copyright: Copyright (c) 2019 whitewater.guide
+UComments: "2019-6-22: Created with FontForge (http://fontforge.org)"
+Version: 003.000
+ItalicAngle: 0
+UnderlinePosition: -1073
+UnderlineWidth: 428
+Ascent: 1638
+Descent: 410
+InvalidEm: 0
+LayerCount: 2
+Layer: 0 0 "Back" 1
+Layer: 1 0 "Fore" 0
+XUID: [1021 105 -1082043050 5057761]
+OS2Version: 0
+OS2_WeightWidthSlopeOnly: 0
+OS2_UseTypoMetrics: 1
+CreationTime: 1561211540
+ModificationTime: 1561215521
+OS2TypoAscent: 0
+OS2TypoAOffset: 1
+OS2TypoDescent: 0
+OS2TypoDOffset: 1
+OS2TypoLinegap: 0
+OS2WinAscent: 0
+OS2WinAOffset: 1
+OS2WinDescent: 0
+OS2WinDOffset: 1
+HheadAscent: 0
+HheadAOffset: 1
+HheadDescent: 0
+HheadDOffset: 1
+OS2Vendor: 'PfEd'
+MarkAttachClasses: 1
+DEI: 91125
+Encoding: ISO8859-1
+UnicodeInterp: none
+NameList: AGL For New Fonts
+DisplaySize: -48
+AntiAlias: 1
+FitToEm: 0
+WinInfo: 0 34 14
+BeginPrivate: 0
+EndPrivate
+BeginChars: 256 4
+
+StartChar: greater
+Encoding: 62 62 0
+Width: 1184
+VWidth: 1128
+Flags: HW
+LayerCount: 2
+Fore
+SplineSet
+0 420 m 1
+ 1184 -100 l 29
+ 0 -620 l 1
+ 0 420 l 1
+EndSplineSet
+EndChar
+
+StartChar: a
+Encoding: 97 97 1
+Width: 1184
+VWidth: 1128
+Flags: HW
+LayerCount: 2
+Fore
+SplineSet
+0 420 m 1
+ 1184 -100 l 29
+ 0 -620 l 1
+ 0 420 l 1
+EndSplineSet
+EndChar
+
+StartChar: b
+Encoding: 98 98 2
+Width: 1184
+VWidth: 1128
+Flags: HW
+LayerCount: 2
+Fore
+SplineSet
+0 420 m 1
+ 1184 -100 l 29
+ 0 -620 l 1
+ 0 420 l 1
+EndSplineSet
+EndChar
+
+StartChar: c
+Encoding: 99 99 3
+Width: 1184
+VWidth: 1128
+Flags: HW
+LayerCount: 2
+Fore
+SplineSet
+0 420 m 1
+ 1184 -100 l 29
+ 0 -620 l 1
+ 0 420 l 1
+EndSplineSet
+EndChar
+EndChars
+EndSplineFont

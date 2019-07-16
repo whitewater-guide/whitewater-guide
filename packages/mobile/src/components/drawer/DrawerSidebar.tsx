@@ -52,9 +52,9 @@ const DrawerSidebar: React.FC = () => {
         <DrawerItem
           label={t('drawer:myProfile')}
           icon="account-circle"
-          routeName="MyProfile"
+          routeName={Screens.MyProfile}
           onPress={navigate}
-          focused={isRouteFocused(state, 'MyProfile')}
+          focused={isRouteFocused(state, Screens.MyProfile)}
         />
       )}
       {!me && (
@@ -69,9 +69,9 @@ const DrawerSidebar: React.FC = () => {
       <DrawerItem
         label={t('drawer:regions')}
         icon="view-list"
-        routeName="RegionsList"
+        routeName={Screens.RegionsList}
         onPress={navigate}
-        focused={isRouteFocused(state, 'RegionsList')}
+        focused={isRouteFocused(state, Screens.RegionsList)}
       />
       <DrawerItem
         label={t('drawer:faq')}

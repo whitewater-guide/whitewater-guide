@@ -14,7 +14,6 @@ interface Props {
   me: User;
 }
 
-// TODO: reset apollo cache after language change
 const getChangeHandler = memoize(
   (mutate: MutationFn<Result, Vars>, me: User) => (language: string) => {
     mutate({

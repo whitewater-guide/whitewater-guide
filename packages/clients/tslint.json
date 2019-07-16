@@ -1,6 +1,7 @@
 {
   "extends": ["../../tslint.json"],
   "rules": {
+    "no-implicit-dependencies": [true, "dev", ["victory"]],
     "no-submodule-imports": [
       true,
       "react-apollo",

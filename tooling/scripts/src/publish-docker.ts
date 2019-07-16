@@ -3,12 +3,16 @@ import simpleGit from 'simple-git/promise';
 import { argv } from 'yargs';
 import { EnvType } from './types';
 import {
+  bumpPackage,
   dockerLogin,
   generateStackFile,
   getChangedServices,
   gitGuardian,
+  info,
   setupEnv,
+  updateMeta,
 } from './utils';
+import { Package } from './utils/types';
 
 async function publish() {
   const git = simpleGit();
@@ -18,13 +22,9 @@ async function publish() {
   // Images can be published from any branch
   await gitGuardian(env);
 
-  // Set environment variables for build-time substitution in compose files
-  setupEnv(env);
-  // Merge docker-compose files
-  const stackFile = await generateStackFile(env);
-
-  let services: string[] = getChangedServices();
+  let services: string[] = await getChangedServices();
   if (services.length === 0 && !argv.service) {
+    info('No services has been changed and no --service arg provided');
     return;
   }
   // it's possible to explicitly list services to publish
@@ -36,6 +36,20 @@ async function publish() {
       ? []
       : [argv.service];
   }
+
+  const packages: Package[] = [];
+  for (const service of services) {
+    // this will also run preversion/postversion scripts
+    const pkg = await bumpPackage(`services/${service}`);
+    if (pkg) {
+      packages.push(pkg);
+    }
+  }
+
+  // Set environment variables for build-time substitution in compose files
+  setupEnv(env);
+  // Merge docker-compose files
+  const stackFile = await generateStackFile(env);
 
   const buildRes = spawnSync(
     'docker-compose',
@@ -56,6 +70,14 @@ async function publish() {
   );
   if (pushResult.status !== 0) {
     throw new Error('failed to push docker images');
+  }
+
+  await git.commit('chore: publish ' + packages.join(', '), undefined, {
+    '--no-verify': null,
+  });
+
+  for (const service of services) {
+    await updateMeta(`services/${service}`);
   }
 }
 

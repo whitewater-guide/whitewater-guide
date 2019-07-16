@@ -41,7 +41,7 @@ services:
   # Minio to store images
   minio:
     <<: *ww-single-host
-    image: 'minio/minio:RELEASE.2019-05-23T00-29-34Z'
+    image: 'minio/minio:latest' # TODO: latest mino releases are not tagged on docker hub for some reason
     command: server /data
     env_file:
       - ${DOCKER_ENV_FILE}

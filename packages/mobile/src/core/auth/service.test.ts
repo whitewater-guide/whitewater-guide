@@ -225,7 +225,7 @@ describe('sign in', () => {
         refreshToken: REFRESH_TOKEN,
         id: UID,
       };
-      let resp: AuthResponse;
+      let resp: AuthResponse | undefined;
 
       beforeEach(async () => {
         resp = undefined;

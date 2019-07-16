@@ -3,7 +3,7 @@ import { apolloClient } from '../../../../core/apollo';
 import theme from '../../../../theme';
 
 export default async function downloadRegionData(regionId: string) {
-  await apolloClient.query({
+  return apolloClient.query({
     query: REGION_DETAILS(theme.screenWidthPx),
     variables: { regionId },
     fetchPolicy: 'network-only',

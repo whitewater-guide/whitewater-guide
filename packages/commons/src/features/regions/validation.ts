@@ -47,5 +47,6 @@ export const RegionAdminSettingsStruct = struct.object({
   hidden: 'boolean',
   premium: 'boolean',
   sku: 'sku|null',
+  mapsSize: 'integer',
   coverImage: RegionCoverImageStruct,
 });

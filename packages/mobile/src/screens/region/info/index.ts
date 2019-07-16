@@ -1,2 +1,2 @@
 export * from './RegionInfoScreen';
-export * from './RegionInfoMenu';
+export { default as RegionInfoMenu } from './RegionInfoMenu';

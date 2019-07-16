@@ -1,5 +1,6 @@
 import log from '@log';
 import { MAX_FILE_SIZE, MIN_FILE_SIZE } from '@whitewater-guide/commons';
+import { UserInputError } from 'apollo-server-errors';
 import { CopyConditions } from 'minio';
 import { TEMP } from './buckets';
 import { minioClient } from './client';
@@ -68,4 +69,18 @@ export const moveTempImage = async (
       extra: { filename },
     });
   }
+};
+
+export const getLocalFileName = (url?: string | null): string | null => {
+  if (!url) {
+    return null;
+  }
+  const { PROTOCOL, MINIO_DOMAIN } = process.env;
+  if (url.startsWith('http://') || url.startsWith('https://')) {
+    if (url.startsWith(`${PROTOCOL}://${MINIO_DOMAIN}/`)) {
+      return url.split('/').pop() || null;
+    }
+    throw new UserInputError('incorrect file url', { url });
+  }
+  return url;
 };

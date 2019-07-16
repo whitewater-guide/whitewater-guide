@@ -2,7 +2,7 @@ import noop from 'lodash/noop';
 import React from 'react';
 import { Dialog } from 'react-native-paper';
 import { connect } from 'react-redux';
-import { RootState } from '../../../core/reducers';
+import { RootState } from '../../../core/redux/reducers';
 import container from './container';
 import { PremiumDialogView } from './PremiumDialogView';
 

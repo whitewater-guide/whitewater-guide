@@ -4,12 +4,13 @@ import {
   TopLevelResolver,
 } from '@apollo';
 import db from '@db';
-import { COVERS, minioClient, moveTempImage } from '@minio';
+import { COVERS, getLocalFileName, minioClient, moveTempImage } from '@minio';
 import {
   RegionAdminSettings,
   RegionAdminSettingsStruct,
 } from '@whitewater-guide/commons';
 import get from 'lodash/get';
+import mapValues from 'lodash/mapValues';
 import { struct } from 'superstruct';
 import { RegionRaw } from '../types';
 
@@ -38,12 +39,7 @@ const updateImageFile = async (
   }
 };
 
-const resolver: TopLevelResolver<Vars> = async (
-  _,
-  { settings },
-  context,
-  info,
-) => {
+const resolver: TopLevelResolver<Vars> = async (_, { settings }, context) => {
   const oldRegion: RegionRaw = await db()
     .table('regions')
     .select(['id', 'cover_image'])
@@ -65,7 +61,8 @@ const resolver: TopLevelResolver<Vars> = async (
       hidden: settings.hidden,
       premium: settings.premium,
       sku: settings.sku || null,
-      cover_image: settings.coverImage,
+      cover_image: mapValues(settings.coverImage, getLocalFileName),
+      maps_size: settings.mapsSize,
     })
     .where({ id: settings.id });
   return context.dataSources.regions.getById(settings.id);

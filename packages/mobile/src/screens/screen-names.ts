@@ -1,4 +1,21 @@
 const Screens = {
+  RegionsList: 'RegionsList',
+  Region: {
+    Root: 'Region',
+    Map: 'RegionMap',
+    SectionsList: 'RegionSectionsList',
+    Info: 'RegionInfo',
+  },
+  Section: {
+    Root: 'Section',
+    Map: 'SectionMap',
+    Chart: 'SectionChart',
+    Info: 'SectionInfo',
+    Guide: 'SectionGuide',
+    Media: 'SectionMedia',
+  },
+  MyProfile: 'MyProfile',
+  Filter: 'Filter',
   Auth: {
     Main: 'AuthMain',
     SignIn: 'AuthSignIn',

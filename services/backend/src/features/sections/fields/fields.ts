@@ -16,19 +16,19 @@ export const sectionFieldResolvers: FieldResolvers<SectionRaw, Section> = {
   description,
   seasonNumeric: (section) => section.season_numeric,
   difficultyXtra: (section) => section.difficulty_xtra,
-  putIn: ({ id, put_in }) => {
+  putIn: ({ id, put_in, name, river_name }) => {
     return {
       id: `${id}_putIn`,
-      name: 'Put-in',
+      name: `${river_name} - ${name}: Put-in`,
       description: null,
       kind: 'put-in',
       coordinates: put_in, // Will be parsed in Point resolver
     };
   },
-  takeOut: ({ id, take_out }) => {
+  takeOut: ({ id, take_out, name, river_name }) => {
     return {
       id: `${id}_takeOut`,
-      name: 'Take-out',
+      name: `${river_name} - ${name}: Take-out`,
       description: null,
       kind: 'take-out',
       coordinates: take_out,

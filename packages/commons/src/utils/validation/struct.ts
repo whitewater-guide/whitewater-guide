@@ -1,4 +1,5 @@
 import cronParser from 'cron-parser';
+import { Parser } from 'expr-eval';
 import isArray from 'lodash/isArray';
 import isFinite from 'lodash/isFinite';
 import isInteger from 'lodash/isInteger';
@@ -28,6 +29,21 @@ const types: Config['types'] = {
       return true;
     } catch (e) {
       return `Incorrect cron expression`;
+    }
+  },
+  formula: (value: any) => {
+    if (!isString(value)) {
+      return 'Must be string';
+    }
+    try {
+      const expression = Parser.parse(value);
+      const variables = expression.variables({ withMembers: true });
+      if (variables.length !== 1 || variables.indexOf('x') !== 0) {
+        return 'Formula must contain exactly on variable `x`';
+      }
+      return true;
+    } catch (e) {
+      return 'Incorrect formula';
     }
   },
   longitude: (value: any) => {

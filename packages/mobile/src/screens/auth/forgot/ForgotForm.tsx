@@ -7,6 +7,7 @@ import { Button } from 'react-native-paper';
 import { RequestResetPayload } from '../../../../../clients/src/auth';
 import { Spacer } from '../../../components';
 import { ErrorText, SuccessText, TextField } from '../../../components/forms';
+import Screens from '../../screen-names';
 import { useAuthSubmit } from '../useAuthSubmit';
 import getValidationSchema from './getValidationSchema';
 
@@ -19,7 +20,7 @@ export const ForgotForm: React.FC = () => {
   const { service } = useAuth();
   const { navigate } = useNavigation();
   const goBack = useCallback(() => {
-    navigate('RegionsList');
+    navigate(Screens.RegionsList);
   }, [navigate]);
   const [submit, isSuccessful] = useAuthSubmit<RequestResetPayload>(
     'screens:auth.forgot.',

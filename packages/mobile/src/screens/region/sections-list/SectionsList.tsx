@@ -1,7 +1,8 @@
 import { Banner, isBanner, Region, Section } from '@whitewater-guide/commons';
 import React from 'react';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import { FlatList, ListRenderItemInfo } from 'react-native';
+import { ListRenderItemInfo } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
 import { NavigationScreenProp, withNavigationFocus } from 'react-navigation';
 import { compose } from 'recompose';
 import shallowEqual from 'shallowequal';
@@ -10,6 +11,7 @@ import {
   WithPremiumDialog,
 } from '../../../features/purchases';
 import theme from '../../../theme';
+import Screens from '../../screen-names';
 import { SectionsStatus } from '../types';
 import getSectionsWithBanners from './getSectionsWithBanners';
 import { ITEM_HEIGHT, SectionListBanner, SectionListItem } from './item';
@@ -52,8 +54,15 @@ class SectionsList extends React.Component<InnerProps, State> {
     );
   }
 
-  onSectionSelected = (section: Section) =>
-    this.props.navigate('Section', { sectionId: section.id });
+  onSectionSelected = (section: Section) => {
+    const { navigate, region } = this.props;
+    if (region) {
+      navigate(Screens.Section.Root, {
+        sectionId: section.id,
+        regionId: region.id,
+      });
+    }
+  };
 
   onRefresh = () => {
     this.props.refresh().catch(() => {});
@@ -90,7 +99,6 @@ class SectionsList extends React.Component<InnerProps, State> {
         section={item}
         onPress={this.onSectionSelected}
         onMaximize={this.onItemMaximized}
-        t={this.props.t}
       />
     );
   };

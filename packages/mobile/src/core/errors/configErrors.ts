@@ -9,13 +9,14 @@ export const configErrors = () => {
     return;
   }
 
-  Sentry.config(Config.SENTRY_DSN)
+  // @ts-ignore
+  Sentry.config(Config.SENTRY_DSN, { autoBreadcrumbs: false })
     .install()
     .then(() => {
       Sentry.setTagsContext({ environment: Config.ENV_NAME });
     })
     .then(() => versioning.getSentryVersion())
-    .then((sentryVersion) => {
+    .then((sentryVersion: any) => {
       Sentry.setRelease(sentryVersion);
       Sentry.setDist(versioning.getDist());
       tracker.ready();

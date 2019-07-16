@@ -6,6 +6,7 @@ import { FlatList, ListRenderItemInfo } from 'react-native';
 import shallowEqual from 'shallowequal';
 import { WithNetworkError } from '../../components';
 import theme from '../../theme';
+import Screens from '../screen-names';
 import container from './container';
 import { CARD_HEIGHT, RegionCard } from './RegionCard';
 import { REGIONS_LIST_QUERY, Result } from './regionsList.query';
@@ -26,7 +27,7 @@ class RegionsListView extends React.Component<InnerProps> {
   }
 
   onRegionSelected = (region: Region) =>
-    this.props.navigate('Region', { regionId: region.id });
+    this.props.navigate(Screens.Region.Root, { regionId: region.id });
 
   renderItem = ({ item }: ListRenderItemInfo<Region>) => (
     <RegionCard

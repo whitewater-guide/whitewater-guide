@@ -1,12 +1,10 @@
 {
   "name": "@whitewater-guide/imagedump",
   "private": true,
-  "version": "0.0.44",
+  "version": "0.0.45",
   "license": "UNLICENSED",
   "description": "imagedump for whitewater.guide stack",
   "repository": "https://github.com/doomsower/whitewater.git",
   "author": "doomsower <K.Kuznetcov@gmail.com>",
-  "scripts": {
-    "version": "../../tooling/scripts/sh/changelog.sh"
-  }
+  "scripts": {}
 }

@@ -1,5 +1,6 @@
 import {
   AdminOnly,
+  getBindingFormula,
   getSectionColor,
   renderDifficulty,
 } from '@whitewater-guide/clients';
@@ -44,7 +45,7 @@ export default class SectionsList extends React.PureComponent<
   );
 
   renderValue: TableCellRenderer = ({ rowData }) => {
-    const { gauge }: Section = rowData;
+    const { gauge, flows, levels }: Section = rowData;
     if (!gauge) {
       return null;
     }
@@ -53,9 +54,10 @@ export default class SectionsList extends React.PureComponent<
       const { timestamp, flow, level } = lastMeasurement;
       const v = flow ? flow : level;
       const unit = flow ? flowUnit : levelUnit;
+      const formula = getBindingFormula(flow ? flows : levels);
       return (
         <span>
-          <b>{v.toPrecision(3)}</b>
+          <b>{formula(v).toPrecision(3)}</b>
           {` ${unit} ${moment(timestamp).fromNow()}`}
         </span>
       );
@@ -96,7 +98,7 @@ export default class SectionsList extends React.PureComponent<
   render() {
     return (
       <ResourcesList
-        list={this.props.sections.nodes}
+        list={this.props.sections}
         onResourceClick={this.onSectionClick}
       >
         <Column

@@ -38,6 +38,7 @@ const query = `
       seasonNumeric
       bounds
       hidden
+      mapsSize
       editable
       premium
       sku
@@ -454,6 +455,10 @@ describe('connections', () => {
               count
               size
             }
+            maps {
+              count
+              size
+            }
           }
         }
       }
@@ -486,6 +491,10 @@ describe('connections', () => {
               count
               size
             }
+            maps {
+              count
+              size
+            }
           }
         }
       }
@@ -500,6 +509,7 @@ describe('connections', () => {
       photo: { count: 0, size: 0 },
       video: { count: 0, size: 0 },
       blog: { count: 0, size: 0 },
+      maps: { count: 0, size: 2222222 },
     });
   });
 

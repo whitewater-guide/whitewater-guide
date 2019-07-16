@@ -1,26 +1,43 @@
+import { SectionProvider } from '@whitewater-guide/clients';
 import React from 'react';
 import { Route, RouteComponentProps, Switch } from 'react-router-dom';
+import { Loading } from '../../components';
 import { AdminRoute, EditorRoute } from '../../layout';
 import SectionAdmin from './admin';
 import SectionDetails from './details';
 import { SectionForm } from './form';
 
-const SectionRoute: React.StatelessComponent<RouteComponentProps<any>> = ({
-  match,
-}) => (
-  <Switch>
-    <EditorRoute
-      exact={true}
-      path={`${match.path}/settings`}
-      component={SectionForm}
-    />
-    <AdminRoute
-      exact={true}
-      path={`${match.path}/admin`}
-      component={SectionAdmin}
-    />
-    <Route component={SectionDetails} />
-  </Switch>
-);
+type Props = RouteComponentProps<{ sectionId: string }>;
+
+const SectionRoute: React.FC<Props> = (props) => {
+  const {
+    match: { path, params },
+  } = props;
+
+  return (
+    <SectionProvider sectionId={params.sectionId}>
+      {({ loading }) => {
+        if (loading) {
+          return <Loading />;
+        }
+        return (
+          <Switch>
+            <EditorRoute
+              exact={true}
+              path={`${path}/settings`}
+              component={SectionForm}
+            />
+            <AdminRoute
+              exact={true}
+              path={`${path}/admin`}
+              component={SectionAdmin}
+            />
+            <Route component={SectionDetails} />
+          </Switch>
+        );
+      }}
+    </SectionProvider>
+  );
+};
 
 export default SectionRoute;

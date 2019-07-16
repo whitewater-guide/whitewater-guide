@@ -31,7 +31,7 @@ export const FacebookButton: React.FC<Props> = React.memo(({ label }) => {
       if (isNew) {
         navigate(Screens.Auth.Welcome, { verified: true });
       } else {
-        navigate('RegionsList');
+        navigate(Screens.RegionsList);
       }
     });
   }, [service.signIn, navigate, setFbPressed]);

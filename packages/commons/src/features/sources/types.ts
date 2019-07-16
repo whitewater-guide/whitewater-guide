@@ -1,5 +1,5 @@
-import { Overwrite } from 'type-zoo';
 import { Connection, NamedNode, Node, Timestamped } from '../../apollo';
+import { Overwrite } from '../../utils';
 import { Gauge } from '../gauges';
 import { HarvestMode } from '../harvest-mode';
 import { HarvestStatus } from '../measurements';

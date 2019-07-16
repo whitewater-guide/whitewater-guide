@@ -8,6 +8,7 @@ interface GaugeBindingRaw {
   maximum: number | null | undefined;
   impossible: number | null | undefined;
   approximate: boolean | null | undefined;
+  formula: string | null | undefined;
 }
 
 export const gaugeBindingResolver: FieldResolvers<
@@ -19,4 +20,5 @@ export const gaugeBindingResolver: FieldResolvers<
   maximum: ({ maximum }) => maximum || null,
   impossible: ({ impossible }) => impossible || null,
   approximate: ({ approximate }) => !!approximate,
+  formula: ({ formula }) => formula || null,
 };

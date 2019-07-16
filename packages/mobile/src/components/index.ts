@@ -1,9 +1,10 @@
 export * from './Avatar';
+export * from './BottomSheet';
 export * from './Chips';
 export * from './DifficultyThumb';
 export * from './Divider';
 export * from './drawer';
-export * from './ErrorBoundaryFallback';
+export * from './ErrorBoundary';
 export * from './ErrorSnackbar';
 export * from './FlowsThumb';
 export * from './Handle';
@@ -24,4 +25,5 @@ export * from './Spacer';
 export * from './SplashScreen';
 export * from './StarRating';
 export * from './TernaryChips';
+export * from './useActionSheet';
 export * from './WithNetworkError';

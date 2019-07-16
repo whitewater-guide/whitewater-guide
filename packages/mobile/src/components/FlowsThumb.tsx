@@ -1,4 +1,8 @@
-import { getSectionColor, prettyNumber } from '@whitewater-guide/clients';
+import {
+  getSectionColor,
+  prettyNumber,
+  useFormulas,
+} from '@whitewater-guide/clients';
 import { Section } from '@whitewater-guide/commons';
 import moment from 'moment';
 import React from 'react';
@@ -34,6 +38,7 @@ interface Props {
 
 export const FlowsThumb: React.FC<Props> = ({ section }) => {
   const [t] = useTranslation();
+  const formulas = useFormulas(section);
   const { levels, flows, gauge } = section;
   if (!gauge) {
     return null;
@@ -52,12 +57,12 @@ export const FlowsThumb: React.FC<Props> = ({ section }) => {
       ? {
           label: t('commons:flow'),
           unit: flowUnit,
-          value: lastMeasurement.flow,
+          value: formulas.flows(lastMeasurement.flow),
         }
       : {
           label: t('commons:level'),
           unit: levelUnit,
-          value: lastMeasurement.level,
+          value: formulas.levels(lastMeasurement.level),
         };
   return (
     <View style={styles.container}>

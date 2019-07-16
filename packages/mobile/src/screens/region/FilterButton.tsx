@@ -1,22 +1,18 @@
-import { consumeRegion, RegionState } from '@whitewater-guide/clients';
-import React from 'react';
+import { useFilterState } from '@whitewater-guide/clients';
+import React, { useCallback } from 'react';
 import { NavigationInjectedProps } from 'react-navigation';
 import { Icon } from '../../components';
 import theme from '../../theme';
+import Screens from '../screen-names';
 
-type Props = NavigationInjectedProps & Pick<RegionState, 'searchTerms'>;
+const FilterButton: React.FC<NavigationInjectedProps> = ({ navigation }) => {
+  const searchTerms = useFilterState();
+  const onPress = useCallback(
+    () => navigation.navigate(Screens.Filter, navigation.state.params),
+    [navigation.navigate],
+  );
+  const icon = searchTerms ? 'filter' : 'filter-outline';
+  return <Icon icon={icon} color={theme.colors.textLight} onPress={onPress} />;
+};
 
-class FilterButton extends React.PureComponent<Props> {
-  onPress = () => this.props.navigation.navigate('Filter');
-
-  render() {
-    const icon = this.props.searchTerms ? 'filter' : 'filter-outline';
-    return (
-      <Icon icon={icon} color={theme.colors.textLight} onPress={this.onPress} />
-    );
-  }
-}
-
-export default consumeRegion(({ searchTerms }) => ({ searchTerms }))(
-  FilterButton,
-);
+export default FilterButton;

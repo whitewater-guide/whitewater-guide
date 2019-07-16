@@ -1,46 +1,51 @@
+import {
+  MapSelectionProvider,
+  RegionProvider,
+  SectionProvider,
+} from '@whitewater-guide/clients';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { WhitePortal } from 'react-native-portal';
 import {
-  NavigationComponent,
   NavigationRouteConfigMap,
-  NavigationScreenConfigProps,
+  NavigationRouter,
+  NavigationScreenComponent,
   TabNavigatorConfig,
 } from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
-import { WithNetworkError } from '../../components';
+import { ErrorBoundary, WithNetworkError } from '../../components';
+import { SelectedPOIView } from '../../components/map';
 import theme from '../../theme';
-import { PureScreen } from '../../utils/navigation';
+import Screens from '../screen-names';
 import { SectionChartScreen } from './chart';
-import container from './container';
 import { SectionGuideScreen } from './guide';
 import HeaderRight from './HeaderRight';
 import SectionInfoScreen from './info';
 import { SectionMapScreen } from './map';
 import { SectionMediaScreen } from './media';
+import { SECTION_DETAILS } from './sectionDetails.query';
 import SectionTitle from './SectionTitle';
-import { InnerProps, NavParams, ScreenProps } from './types';
+import { NavParams } from './types';
 
 const routes: NavigationRouteConfigMap = {
-  SectionMap: {
+  [Screens.Section.Map]: {
     screen: SectionMapScreen,
   },
-  SectionChart: {
+  [Screens.Section.Chart]: {
     screen: SectionChartScreen,
   },
-  SectionInfo: {
+  [Screens.Section.Info]: {
     screen: SectionInfoScreen,
   },
-  SectionGuide: {
+  [Screens.Section.Guide]: {
     screen: SectionGuideScreen,
   },
-  SectionMedia: {
+  [Screens.Section.Media]: {
     screen: SectionMediaScreen,
   },
 };
 
 const config: TabNavigatorConfig = {
-  initialRouteName: 'SectionInfo',
+  initialRouteName: Screens.Section.Info,
   backBehavior: 'none',
   swipeEnabled: false,
   animationEnabled: false,
@@ -58,36 +63,44 @@ const config: TabNavigatorConfig = {
 
 const Navigator = createMaterialBottomTabNavigator(routes, config);
 
-class SectionTabsView extends PureScreen<InnerProps, NavParams> {
-  render() {
-    const { navigation, section } = this.props;
-    const screenProps: ScreenProps = { section };
-    const { node, loading, error, refetch } = section;
-    return (
-      <WithNetworkError
-        data={node}
-        error={error}
-        loading={loading}
-        refetch={refetch}
-      >
-        <Navigator navigation={navigation} screenProps={screenProps} />
-        <View style={StyleSheet.absoluteFill} pointerEvents="box-none">
-          <WhitePortal name="section" />
-        </View>
-      </WithNetworkError>
-    );
+export const SectionTabs: NavigationScreenComponent<NavParams> & {
+  router: NavigationRouter;
+} = ({ navigation }) => {
+  const regionId = navigation.getParam('regionId');
+  const sectionId = navigation.getParam('sectionId');
+  if (!regionId || !sectionId) {
+    return null;
   }
-}
+  return (
+    <ErrorBoundary>
+      <RegionProvider
+        regionId={regionId}
+        bannerWidth={theme.screenWidthPx}
+        fetchPolicy="cache-only"
+      >
+        <SectionProvider sectionId={sectionId} query={SECTION_DETAILS}>
+          {({ node, error, loading, refetch }) => (
+            <WithNetworkError
+              data={node}
+              error={error}
+              loading={loading}
+              refetch={refetch}
+            >
+              <MapSelectionProvider>
+                <Navigator navigation={navigation} />
+                <SelectedPOIView />
+              </MapSelectionProvider>
+            </WithNetworkError>
+          )}
+        </SectionProvider>
+      </RegionProvider>
+    </ErrorBoundary>
+  );
+};
 
-export const SectionTabs: NavigationComponent & { router?: any } = container(
-  SectionTabsView,
-);
 SectionTabs.router = Navigator.router;
 
-SectionTabs.navigationOptions = ({
-  navigation,
-  screenProps,
-}: NavigationScreenConfigProps) => ({
+SectionTabs.navigationOptions = ({ navigation }) => ({
   headerTitle: <SectionTitle sectionId={navigation.getParam('sectionId')} />,
   headerRight: <HeaderRight navigation={navigation} />,
 });

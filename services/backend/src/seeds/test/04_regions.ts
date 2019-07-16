@@ -64,6 +64,7 @@ const regions = [
     premium: true,
     sku: 'region.norway',
     season_numeric: [],
+    maps_size: 123456789,
     bounds: getBounds([[4, 5, 0], [7, 8, 0], [5, 6, 0]]),
   },
   {
@@ -85,6 +86,7 @@ const regions = [
     premium: false,
     sku: null,
     season_numeric: [3, 4, 5, 6],
+    maps_size: 2222222,
     bounds: getBounds([
       [20.72, 99.62, 0],
       [14.2, 105.42, 0],

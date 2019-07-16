@@ -1,33 +1,58 @@
-import { arrayToGmaps, MapComponentProps } from '@whitewater-guide/clients';
-import { Coordinate } from '@whitewater-guide/commons';
-import React from 'react';
+import {
+  arrayToGmaps,
+  MapProps,
+  MapSelectionProvider,
+} from '@whitewater-guide/clients';
+import { Coordinate, Coordinate3d } from '@whitewater-guide/commons';
+import React, { useMemo } from 'react';
+import { Styles } from '../../styles';
 import GoogleMap, { InitialPosition } from './GoogleMap';
+import POIMarker from './POIMarker';
+import SectionLine from './SectionLine';
+import SelectedPOIWeb from './SelectedPOIWeb';
+import SelectedSectionWeb from './SelectedSectionWeb';
 
-export class Map extends React.Component<MapComponentProps> {
-  initialPosition?: InitialPosition;
+const styles: Styles = {
+  container: {
+    display: 'flex',
+    flex: 1,
+    flexDirection: 'row',
+  },
+};
 
-  constructor(props: MapComponentProps) {
-    super(props);
-    const { initialBounds, contentBounds } = props;
-    const startingBounds = initialBounds || contentBounds;
-    if (startingBounds) {
+interface Props extends MapProps {
+  initialBounds: Coordinate3d[];
+  detailed?: boolean;
+}
+
+export const Map: React.FC<Props> = React.memo(
+  ({ initialBounds, sections, pois, detailed }) => {
+    const initialPosition: InitialPosition = useMemo(() => {
       const bounds = new google.maps.LatLngBounds();
-      startingBounds.forEach((point: Coordinate) =>
+      initialBounds.forEach((point: Coordinate) =>
         bounds.extend(arrayToGmaps(point)!),
       );
-      this.initialPosition = {
+      return {
         center: bounds.getCenter(),
         bounds,
         zoom: -1,
       };
-    }
-  }
-
-  render() {
+    }, [initialBounds]);
     return (
-      <GoogleMap initialPosition={this.initialPosition}>
-        {this.props.children}
-      </GoogleMap>
+      <div style={styles.container}>
+        <MapSelectionProvider>
+          <GoogleMap initialPosition={initialPosition}>
+            {
+              sections.map((s) => (
+                <SectionLine key={s.id} section={s} detailed={detailed} />
+              )) as any
+            }
+            {pois.map((p) => <POIMarker key={p.id} poi={p} />) as any}
+            <SelectedSectionWeb />
+            <SelectedPOIWeb />
+          </GoogleMap>
+        </MapSelectionProvider>
+      </div>
     );
-  }
-}
+  },
+);

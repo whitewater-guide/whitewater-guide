@@ -1,14 +1,13 @@
 {
   "name": "@whitewater-guide/workers",
   "private": true,
-  "version": "0.0.87",
+  "version": "0.0.88",
   "license": "UNLICENSED",
   "description": "workers for whitewater.guide stack",
   "repository": "https://github.com/doomsower/whitewater.git",
   "author": "doomsower <K.Kuznetcov@gmail.com>",
   "scripts": {
     "clean": "rm -rf cache/*",
-    "start": "./scripts/dev-start.sh",
-    "version": "../../tooling/scripts/sh/changelog.sh"
+    "start": "./scripts/dev-start.sh"
   }
 }

@@ -15,6 +15,7 @@ import sources from './sources';
 export const regionFieldResolvers: FieldResolvers<RegionRaw, Region> = {
   seasonNumeric: (region) => region.season_numeric,
   coverImage: (region) => region.cover_image,
+  mapsSize: (region) => region.maps_size,
   pois: (region) => region.pois || [],
   banners,
   bounds,

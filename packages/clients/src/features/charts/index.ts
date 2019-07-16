@@ -1,3 +1,4 @@
-export * from './createInteractiveChart';
+export * from './ChartProvider';
 export * from './types';
-export * from './withChart';
+export * from './useChart';
+export * from './views';

@@ -1,10 +1,10 @@
-import { consumeRegion, WithRegion } from '@whitewater-guide/clients';
+import { withRegion, WithRegion } from '@whitewater-guide/clients';
 import React from 'react';
 import { Redirect, Route, RouteProps } from 'react-router-dom';
 import { branch, compose, renderComponent } from 'recompose';
 
 const container = compose<any, any>(
-  consumeRegion(),
+  withRegion,
   branch<WithRegion>(
     (props) => !(props.region && props.region.node!.editable),
     renderComponent(() => <Redirect to="/403" />),
