@@ -20,7 +20,8 @@ interface Props extends MapProps {
 export const MapLayout: React.FC<Props> = React.memo((props) => {
   const { mapType } = useMapType();
   const permissionStatus = useLocationPermission();
-  const showUserLocation = permissionStatus === LocationPermission.GRANTED;
+  const locationPermissionGranted =
+    permissionStatus === LocationPermission.GRANTED;
 
   return (
     <View style={StyleSheet.absoluteFill} pointerEvents="box-none">
@@ -31,11 +32,11 @@ export const MapLayout: React.FC<Props> = React.memo((props) => {
           <MapboxMap
             {...props}
             mapType={mapType || Layers.TERRAIN.url}
-            showUserLocation={showUserLocation}
+            locationPermissionGranted={locationPermissionGranted}
           />
           <LayersSelector />
           <CameraControls
-            showUserLocation={showUserLocation}
+            locationPermissionGranted={locationPermissionGranted}
             initialBounds={props.initialBounds}
           />
         </CameraProvider>

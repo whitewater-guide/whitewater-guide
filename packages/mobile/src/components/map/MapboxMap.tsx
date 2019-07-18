@@ -1,7 +1,6 @@
 import Mapbox, {
   CircleLayerStyle,
   LineLayerStyle,
-  RegionChangeEvent,
   SymbolLayerStyle,
 } from '@react-native-mapbox-gl/maps';
 import { MapProps } from '@whitewater-guide/clients';
@@ -66,11 +65,11 @@ const NON_APPROXIMATE_FILTER = ['==', ['get', 'approximate'], false];
 interface Props extends MapProps {
   mapType: string;
   detailed?: boolean;
-  showUserLocation: boolean;
+  locationPermissionGranted: boolean;
 }
 
 const MapboxMap: React.FC<Props> = React.memo((props) => {
-  const { mapType, detailed, showUserLocation, initialBounds } = props;
+  const { mapType, detailed, locationPermissionGranted, initialBounds } = props;
   const [visibleBounds, onRegionDidChange] = useBoundsRef(initialBounds);
   const setCamera = useCameraSetter();
   const onPress = useSelectionHandler(
@@ -85,7 +84,7 @@ const MapboxMap: React.FC<Props> = React.memo((props) => {
   );
   if (!detailed) {
     // detailed should not change during map existence
-    useInRegionLocation(initialBounds);
+    useInRegionLocation(initialBounds, locationPermissionGranted);
   }
   const idFilter = useMapboxSelectionFilter();
   return (
@@ -94,7 +93,7 @@ const MapboxMap: React.FC<Props> = React.memo((props) => {
       pitchEnabled={false}
       rotateEnabled={false}
       compassEnabled={false}
-      showUserLocation={showUserLocation}
+      showUserLocation={locationPermissionGranted}
       styleURL={mapType}
       style={StyleSheet.absoluteFill}
       onPress={onPress}
@@ -107,7 +106,7 @@ const MapboxMap: React.FC<Props> = React.memo((props) => {
         animationMode="moveTo"
       />
 
-      <Mapbox.UserLocation visible={showUserLocation} />
+      <Mapbox.UserLocation visible={locationPermissionGranted} />
 
       <Mapbox.ShapeSource
         id="sectionsSource"

@@ -7,10 +7,13 @@ import { Coordinate } from '@whitewater-guide/commons';
 import { useEffect } from 'react';
 import { useCamera } from './useCamera';
 
-export const useInRegionLocation = (bounds: Coordinate[]) => {
+export const useInRegionLocation = (
+  bounds: Coordinate[],
+  locationPermissionGranted: boolean,
+) => {
   const camera = useCamera();
   useEffect(() => {
-    if (!camera) {
+    if (!camera || !locationPermissionGranted) {
       return;
     }
     Mapbox.locationManager
@@ -35,5 +38,5 @@ export const useInRegionLocation = (bounds: Coordinate[]) => {
         }
       })
       .catch(() => {});
-  }, [camera]);
+  }, [camera, locationPermissionGranted]);
 };
