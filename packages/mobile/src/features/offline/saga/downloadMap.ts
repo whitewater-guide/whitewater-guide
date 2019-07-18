@@ -84,7 +84,9 @@ function* subscribeToPackProgress(
       chan.put(msg);
     },
     (pack, error) => {
-      trackError('downloadMap', error);
+      const err = new Error(error.message);
+      err.name = error.name;
+      trackError('downloadMap', err);
       chan.put(END);
     },
   ]);

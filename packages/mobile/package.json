@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/mobile",
   "private": true,
-  "version": "1.8.0",
+  "version": "1.8.1",
   "license": "UNLICENSED",
   "scripts": {
     "postinstall": "./scripts/postinstall.sh",
@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@react-native-community/netinfo": "^3.2.1",
-    "@react-native-mapbox-gl/maps": "https://github.com/react-native-mapbox-gl/maps.git",
+    "@react-native-mapbox-gl/maps": "https://github.com/doomsower/maps#fix_userlocation",
     "@turf/area": "^6.0.1",
     "@turf/bbox": "^6.0.1",
     "@turf/bbox-polygon": "^6.0.1",

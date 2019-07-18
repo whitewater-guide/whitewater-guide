@@ -95,6 +95,17 @@ platform :ios do
   end
 
   lane :code_push do |options|
+    sh("yarn", "run", "appcenter", "codepush", "release-react",
+       "-a", "#{ENV['APPCENTER_OWNER_NAME']}/#{ENV['APPCENTER_APP_NAME_IOS']}",
+       "-t", ENV['IOS_VERSION'],
+       "-d", ENV['CODEPUSH_DEPLOYMENT'],
+       "--token", ENV['APPCENTER_API_TOKEN'],
+       "--output-dir", "./build/ios",
+       "--disable-duplicate-release-error",
+    )
+  end
+
+  lane :sentry do |options|
     ENV["SENTRY_PROPERTIES"] = "#{ENV['IOS_PROJECT_PATH']}/sentry.properties"
     download_dsyms(
       version: ENV["IOS_VERSION"],
@@ -105,14 +116,6 @@ platform :ios do
       output_directory: "#{Dir.pwd}/../#{ENV['IOS_PROJECT_PATH']}",
     )
     sh("yarn", "sentry-cli", "upload-dsym", ENV['IOS_PROJECT_PATH'])
-    sh("yarn", "run", "appcenter", "codepush", "release-react",
-       "-a", "#{ENV['APPCENTER_OWNER_NAME']}/#{ENV['APPCENTER_APP_NAME_IOS']}",
-       "-t", ENV['IOS_VERSION'],
-       "-d", ENV['CODEPUSH_DEPLOYMENT'],
-       "--token", ENV['APPCENTER_API_TOKEN'],
-       "--output-dir", "./build/ios",
-       "--disable-duplicate-release-error",
-    )
     sh(
       "node",
       "../scripts/uploadToSentry.js",
@@ -230,9 +233,7 @@ platform :android do
     end
   end
 
-
   lane :code_push do |options|
-    ENV["SENTRY_PROPERTIES"] = "#{ENV['IOS_PROJECT_PATH']}/sentry.properties"
     sh(
       "yarn", "run", "appcenter", "codepush", "release-react",
       "-a", "#{ENV['APPCENTER_OWNER_NAME']}/#{ENV['APPCENTER_APP_NAME_ANDROID']}",
@@ -242,6 +243,10 @@ platform :android do
       "--output-dir", "./build/android",
       "--disable-duplicate-release-error",
     )
+  end
+
+  lane :sentry do |options|
+    ENV["SENTRY_PROPERTIES"] = "#{ENV['IOS_PROJECT_PATH']}/sentry.properties"
     sh(
       "node",
       "../scripts/uploadToSentry.js",

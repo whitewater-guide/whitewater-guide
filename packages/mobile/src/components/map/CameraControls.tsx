@@ -37,27 +37,39 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-  showUserLocation: boolean;
+  locationPermissionGranted: boolean;
   initialBounds: Coordinate3d[];
 }
 
+const maybeGetMyLocation = async (locationPermissionGranted: boolean) => {
+  let isGranted = locationPermissionGranted;
+  if (!isGranted && Platform.OS === 'android') {
+    isGranted = await Mapbox.requestAndroidLocationPermissions();
+  }
+  if (!isGranted) {
+    return null;
+  }
+  try {
+    const location = await Mapbox.locationManager.getLastKnownLocation();
+    return location || null;
+  } catch (e) {
+    return null;
+  }
+};
+
 const CameraControls: React.FC<Props> = React.memo(
-  ({ showUserLocation, initialBounds }) => {
+  ({ locationPermissionGranted, initialBounds }) => {
     const camera = useCamera();
     const onLocationPress = useCallback(() => {
       if (camera) {
-        Mapbox.locationManager
-          .getLastKnownLocation()
-          .then((location) => {
-            if (!location || !camera) {
-              return;
-            }
-            const {
-              coords: { latitude, longitude },
-            } = location;
-            camera.moveTo([longitude, latitude], 600);
-          })
-          .catch(() => {});
+        maybeGetMyLocation(locationPermissionGranted).then((location) => {
+          if (location) {
+            camera.moveTo(
+              [location.coords.longitude, location.coords.latitude],
+              600,
+            );
+          }
+        });
       }
     }, [camera]);
     const onBoundsPress = useCallback(() => {
@@ -76,7 +88,7 @@ const CameraControls: React.FC<Props> = React.memo(
           />
           <Icon
             icon="crop-free"
-            style={[styles.icon, showUserLocation && styles.secondIcon]}
+            style={[styles.icon, styles.secondIcon]}
             onPress={onBoundsPress}
           />
         </View>
@@ -92,11 +104,7 @@ const CameraControls: React.FC<Props> = React.memo(
           <Icon icon="crosshairs-gps" />
         </RectButton>
         <RectButton
-          style={[
-            styles.rectButton,
-            styles.icon,
-            showUserLocation && styles.secondIcon,
-          ]}
+          style={[styles.rectButton, styles.icon, styles.secondIcon]}
           onPress={onBoundsPress}
         >
           <Icon icon="crop-free" />

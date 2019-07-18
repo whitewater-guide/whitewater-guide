@@ -1,3 +1,15 @@
+## [1.8.1](https://github.com/doomsower/whitewater/compare/af4fcab8ed575ef8f3326112524fb22ff7cebe4e...9b81f69e1c149a730cd07a49f430896acf44e004) (2019-07-18)
+
+### Other
+
+- bump package.json version when releasing ([9b81f69e1c149a730cd07a49f430896acf44e004](https://github.com/doomsower/whitewater/commit/9b81f69e1c149a730cd07a49f430896acf44e004))
+- extract sentry lane ([f28b1834a0417209de0f5071c0b2c43ec6c92151](https://github.com/doomsower/whitewater/commit/f28b1834a0417209de0f5071c0b2c43ec6c92151))
+
+### Bug Fixes
+
+- bugs related to location permissions ([391e7f5b83fe4910834ebed27532f8cbc806aa37](https://github.com/doomsower/whitewater/commit/391e7f5b83fe4910834ebed27532f8cbc806aa37))
+- improve error tracking in download map ([f9b55fd5b5ee84c4fa1b06dc86758147673ee84b](https://github.com/doomsower/whitewater/commit/f9b55fd5b5ee84c4fa1b06dc86758147673ee84b))
+
 # [1.8.0](https://github.com/doomsower/whitewater/compare/a3919143d5e44c7d04ac51ea7ab196b2746d582b...307c4b03a946d38f75ecd6c4e7798d3d02709eb4) (2019-07-16)
 
 ### Features
