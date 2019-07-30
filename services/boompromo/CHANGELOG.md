@@ -1,3 +1,9 @@
+## [0.0.176](https://github.com/doomsower/whitewater/compare/7e0fa1be3463188027cebb3fde102a9fd380b1e4...06f51eafbae6d986cb08446e8cb6ceaae6c4c5c9) (2019-07-30)
+
+### Features
+
+- latest mui, yup and formik ([7da704a3b27422691521f49aedb834243803bb02](https://github.com/doomsower/whitewater/commit/7da704a3b27422691521f49aedb834243803bb02))
+
 ## [0.0.176-mui.11](https://github.com/doomsower/whitewater/compare/efb3ff3f57bee57ae21e4c29381067ada385a84f...7e0fa1be3463188027cebb3fde102a9fd380b1e4) (2019-07-30)
 
 ## [0.0.176-mui.10](https://github.com/doomsower/whitewater/compare/614d0030b5905c045fa303f5c97ce8e47b53586d...efb3ff3f57bee57ae21e4c29381067ada385a84f) (2019-07-30)
