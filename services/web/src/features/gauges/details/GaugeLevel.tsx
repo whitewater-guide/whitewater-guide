@@ -1,6 +1,7 @@
 import Grid from '@material-ui/core/Grid';
+import { formatDistanceToNow } from '@whitewater-guide/clients';
 import { Gauge } from '@whitewater-guide/commons';
-import moment from 'moment';
+import parseISO from 'date-fns/parseISO';
 import React from 'react';
 import { Row, Title } from '../../../layout/details';
 
@@ -14,13 +15,16 @@ const GaugeLevel: React.FC<Props> = React.memo(({ gauge }) => {
     return null;
   }
   const { timestamp, level } = lastMeasurement;
+  const fromNow = formatDistanceToNow(parseISO(timestamp), {
+    addSuffix: true,
+  });
   return (
     <Row>
       <Title>Level</Title>
       <Grid>
         <span>
           <b>{level.toPrecision(3)}</b>
-          {` ${levelUnit} ${moment(timestamp).fromNow()}`}
+          {` ${levelUnit} ${fromNow}`}
         </span>
       </Grid>
     </Row>

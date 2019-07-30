@@ -1,11 +1,12 @@
 import { createStyles, WithStyles, withStyles } from '@material-ui/core/styles';
+import { formatDate } from '@whitewater-guide/clients';
 import {
   NamedNode,
   Section,
   SectionEditLogEntry,
   sectionName,
 } from '@whitewater-guide/commons';
-import moment from 'moment';
+import parseISO from 'date-fns/parseISO';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Column, TableCellRenderer, TableProps } from 'react-virtualized';
@@ -35,7 +36,7 @@ type Props = OwnProps &
 
 class HistoryTable extends React.PureComponent<Props> {
   renderCreatedAt: TableCellRenderer = ({ rowData: { createdAt } }) =>
-    moment(createdAt).format('DD MMMM YYYY, HH:mm');
+    formatDate(parseISO(createdAt), 'dd MMMM yyyy, H:mm');
 
   renderSection: TableCellRenderer = ({ rowData: { section } }) => {
     const { id, region } = section as Section;

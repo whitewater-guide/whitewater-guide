@@ -28,7 +28,7 @@ export interface ChartMeta {
 export interface ChartViewProps {
   width?: number;
   height?: number;
-  data: Measurement[];
+  data: Array<Measurement<Date>>;
   unit: Unit;
   gauge: Gauge;
   section?: Section;

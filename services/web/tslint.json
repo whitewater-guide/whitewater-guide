@@ -5,7 +5,7 @@
       true,
       "@material-ui",
       "lodash",
-      "moment",
+      "date-fns",
       "react-use",
       "@whitewater-guide/clients"
     ]

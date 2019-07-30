@@ -1,6 +1,7 @@
+import { formatDistanceToNow } from '@whitewater-guide/clients';
 import { Gauge, HarvestMode, Source } from '@whitewater-guide/commons';
+import parseISO from 'date-fns/parseISO';
 import { History } from 'history';
-import moment from 'moment';
 import React from 'react';
 import { Column, TableCellRenderer } from 'react-virtualized';
 import {
@@ -50,10 +51,13 @@ export default class GaugesTable extends React.PureComponent<Props> {
       const { timestamp, flow, level } = lastMeasurement;
       const v = flow ? flow : level;
       const unit = flow ? flowUnit : levelUnit;
+      const fromNow = formatDistanceToNow(parseISO(timestamp), {
+        addSuffix: true,
+      });
       return (
         <span>
           <b>{v.toPrecision(3)}</b>
-          {` ${unit} ${moment(timestamp).fromNow()}`}
+          {` ${unit} ${fromNow}`}
         </span>
       );
     }

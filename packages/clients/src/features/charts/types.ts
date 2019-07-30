@@ -15,7 +15,7 @@ export interface ChartContext extends ChartProps {
 
 export interface WithMeasurements {
   measurements: {
-    data: Measurement[];
+    data: Array<Measurement<Date>>;
     loading: boolean;
     refresh: () => void;
   };

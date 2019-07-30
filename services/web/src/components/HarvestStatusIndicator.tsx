@@ -3,8 +3,10 @@ import Grid from '@material-ui/core/Grid';
 import FontIcon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 import Popover from '@material-ui/core/Popover';
+import { formatDate } from '@whitewater-guide/clients';
 import { HarvestStatus } from '@whitewater-guide/commons';
-import moment from 'moment';
+import differenceInHours from 'date-fns/differenceInHours';
+import parseISO from 'date-fns/parseISO';
 import React from 'react';
 import { Styles } from '../styles';
 
@@ -69,8 +71,8 @@ export class HarvestStatusIndicator extends React.PureComponent<Props, State> {
     let countStyle = {};
     let statusText = 'unknown';
     const error = status ? status.error : null;
-    const now = moment();
-    const ts = status ? moment(status.timestamp) : now;
+    const now = new Date();
+    const ts = status ? parseISO(status.timestamp) : now;
     if (status) {
       color = status.success ? green[500] : red[500];
       statusText = status.success ? 'healthy' : 'error';
@@ -79,7 +81,7 @@ export class HarvestStatusIndicator extends React.PureComponent<Props, State> {
         color = amber[500];
         statusText = 'empty response';
       }
-      const diff = moment.duration(now.diff(ts)).asHours();
+      const diff = differenceInHours(now, ts);
       if (diff > 24) {
         tsStyle = { color: red[500] };
         color = amber[500];
@@ -100,12 +102,7 @@ export class HarvestStatusIndicator extends React.PureComponent<Props, State> {
           </IconButton>
           {withText && <span style={{ color }}>{statusText}</span>}
         </div>
-        <Popover
-          open={open}
-          anchorEl={anchorEl}
-          onClose={this.onClose}
-          modal={true}
-        >
+        <Popover open={open} anchorEl={anchorEl} onClose={this.onClose}>
           {status && (
             <Grid container={true} style={styles.popover}>
               <Grid container={true} style={tsStyle}>
@@ -113,7 +110,7 @@ export class HarvestStatusIndicator extends React.PureComponent<Props, State> {
                   <b>Timestamp</b>
                 </Grid>
                 <Grid item={true}>
-                  {moment(status.timestamp).format('DD/MM/YYYY H:mm')}
+                  {formatDate(parseISO(status.timestamp), 'dd/MM/yyyy H:mm')}
                 </Grid>
               </Grid>
               <Grid container={true} style={countStyle}>

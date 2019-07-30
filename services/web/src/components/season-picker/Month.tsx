@@ -1,5 +1,5 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import moment from 'moment';
+import { getMonthName } from '@whitewater-guide/clients';
 import React from 'react';
 
 interface Props {
@@ -32,13 +32,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
 
 const Month: React.FC<Props> = React.memo((props) => {
   const classes = useStyles(props);
-  return (
-    <div className={classes.root}>
-      {moment()
-        .month(props.index)
-        .format('MMMM')}
-    </div>
-  );
+  return <div className={classes.root}>{getMonthName(props.index, false)}</div>;
 });
 
 Month.displayName = 'Month';

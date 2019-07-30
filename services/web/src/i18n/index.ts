@@ -1,8 +1,9 @@
+import { configDateFNS } from '@whitewater-guide/clients';
 import { web } from '@whitewater-guide/translations';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-i18n.use(initReactI18next).init({
+i18n.use(initReactI18next as any).init({
   lng: 'en',
   fallbackLng: 'en',
   whitelist: ['en', 'ru'],
@@ -14,5 +15,6 @@ i18n.use(initReactI18next).init({
   },
   resources: web,
 });
+configDateFNS('en');
 
 export default i18n;

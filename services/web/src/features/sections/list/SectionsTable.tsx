@@ -2,13 +2,14 @@ import Box from '@material-ui/core/Box';
 import Rating from '@material-ui/lab/Rating';
 import {
   AdminOnly,
+  formatDistanceToNow,
   getBindingFormula,
   getSectionColor,
   renderDifficulty,
 } from '@whitewater-guide/clients';
 import { Durations, Section } from '@whitewater-guide/commons';
+import parseISO from 'date-fns/parseISO';
 import { History } from 'history';
-import moment from 'moment';
 import React from 'react';
 import { Column, TableCellRenderer } from 'react-virtualized';
 import { ClickBlocker, DeleteButton, IconLink } from '../../../components';
@@ -58,10 +59,13 @@ export default class SectionsTable extends React.PureComponent<Props> {
       const v = flow ? flow : level;
       const unit = flow ? flowUnit : levelUnit;
       const formula = getBindingFormula(flow ? flows : levels);
+      const fromNow = formatDistanceToNow(parseISO(timestamp), {
+        addSuffix: true,
+      });
       return (
         <span>
           <b>{formula(v).toPrecision(3)}</b>
-          {` ${unit} ${moment(timestamp).fromNow()}`}
+          {` ${unit} ${fromNow}`}
         </span>
       );
     }
