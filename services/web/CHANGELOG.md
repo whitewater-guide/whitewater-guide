@@ -1,3 +1,9 @@
+## [0.1.374](https://github.com/doomsower/whitewater/compare/c9f45e1c6637d36311fc938993f41d0e4467ceb9...85ef7c689a2daf64442dcff17fe7dfaf4a97968c) (2019-07-30)
+
+### Other
+
+- fix preversion -> version ([bf620f1ccb0a212b8a9108dcdbccd543d508be5f](https://github.com/doomsower/whitewater/commit/bf620f1ccb0a212b8a9108dcdbccd543d508be5f))
+
 ## [0.1.373](https://github.com/doomsower/whitewater/compare/589fac956692dac620ff4656f7486a525660d301...c9f45e1c6637d36311fc938993f41d0e4467ceb9) (2019-07-30)
 
 ### Other
