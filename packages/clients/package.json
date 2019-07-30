@@ -46,8 +46,6 @@
     "moment": "^2.24.0",
     "qs": "^6.7.0",
     "react-apollo": "^3.0.0-beta.4",
-    "recompose": "^0.30.0",
-    "shallowequal": "^1.1.0",
     "shortid": "^2.2.14",
     "typescript-fsa": "^3.0.0-beta-2",
     "url-parse": "^1.4.7"
@@ -69,8 +67,6 @@
     "@types/async-retry": "^1.4.1",
     "@types/color": "^3.0.0",
     "@types/d3-scale": "^2.1.1",
-    "@types/enzyme": "^3.10.3",
-    "@types/enzyme-adapter-react-16": "^1.0.5",
     "@types/facebook-js-sdk": "^3.3.0",
     "@types/googlemaps": "^3.37.0",
     "@types/graphql-type-json": "^0.3.0",
@@ -82,15 +78,10 @@
     "@types/react": "16.8.23",
     "@types/react-dom": "16.8.4",
     "@types/react-test-renderer": "16.8.2",
-    "@types/recompose": "^0.30.6",
-    "@types/shallowequal": "^1.1.0",
     "@types/shortid": "^0.0.29",
     "@types/url-parse": "^1.4.2",
     "@types/validator": "^10.11.1",
     "@types/victory": "^31.0.20",
-    "enzyme": "3.10.0",
-    "enzyme-adapter-react-16": "^1.14.0",
-    "graphql-ast-tools": "^0.2.3",
     "jest": "^24.8.0",
     "react": "^16.9.0-alpha.0",
     "react-dom": "^16.9.0-alpha.0",
@@ -101,7 +92,6 @@
     "rollup-plugin-node-resolve": "^5.2.0",
     "ts-jest": "^24.0.2",
     "tslib": "^1.10.0",
-    "typescript": "3.5.3",
-    "wait-for-observables": "^1.0.3"
+    "typescript": "3.5.3"
   }
 }
