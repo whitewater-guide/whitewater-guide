@@ -1,5 +1,5 @@
 import times from 'lodash/times';
-import moment from 'moment';
+import { getMonthName } from '../../i18n/getMonthName';
 
 type Range = [number, number];
 
@@ -10,20 +10,10 @@ export interface SeasonLocalizer {
 
 const defaultLocalize: SeasonLocalizer = (key: any, hm?: any) => {
   if (key === 'early') {
-    return (
-      'early ' +
-      moment()
-        .month(Math.floor(hm / 2))
-        .format('MMMM')
-    );
+    return 'early ' + getMonthName(Math.floor(hm / 2));
   }
   if (key === 'late') {
-    return (
-      'late ' +
-      moment()
-        .month(Math.floor(hm / 2))
-        .format('MMMM')
-    );
+    return 'late ' + getMonthName(Math.floor(hm / 2));
   }
   return 'all year around';
 };
@@ -39,16 +29,10 @@ function rangeToStr(range: Range, localize: SeasonLocalizer): string {
   if (isNaN(end)) {
     return halfMonth(start, localize);
   } else if (start % 2 === 0 && end === start + 1) {
-    return moment()
-      .month(start / 2)
-      .format('MMMM');
+    return getMonthName(start / 2);
   }
-  let startName = moment()
-    .month(Math.floor(start / 2))
-    .format('MMMM');
-  let endName = moment()
-    .month(Math.floor(end / 2))
-    .format('MMMM');
+  let startName = getMonthName(Math.floor(start / 2));
+  let endName = getMonthName(Math.floor(end / 2));
   if (start % 2 !== 0) {
     startName = halfMonth(start, localize);
   }
