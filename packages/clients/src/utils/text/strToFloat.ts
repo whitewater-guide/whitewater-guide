@@ -1,23 +1,5 @@
-import { toRomanDifficulty } from '@whitewater-guide/commons';
-
 const SEPARATOR = (0.5).toString()[1];
 const OTHER_SEPARATOR = SEPARATOR === ',' ? /\./ : /,/;
-
-export interface DifficultyFragment {
-  difficulty: number;
-  difficultyXtra?: string | null;
-}
-
-export function renderDifficulty({
-  difficulty,
-  difficultyXtra,
-}: DifficultyFragment) {
-  let result = toRomanDifficulty(difficulty);
-  if (difficultyXtra) {
-    result = `${result} (${difficultyXtra})`;
-  }
-  return result;
-}
 
 /**
  * locale semi-agnostic string to float conversion
