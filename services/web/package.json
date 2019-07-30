@@ -14,7 +14,7 @@
     "test": "craco test",
     "eject": "react-scripts eject",
     "storybook": "STORYBOOK_ENABLED=true start-storybook -s ./public/storybook -p 6006 -c .storybook",
-    "preversion": "yarn build",
+    "version": "yarn build",
     "postversion": "./scripts/postversion.sh"
   },
   "dependencies": {

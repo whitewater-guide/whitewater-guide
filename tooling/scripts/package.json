@@ -10,7 +10,7 @@
     "prebuild": "rm -rf bin/*",
     "build": "yarn tsc",
     "prepare": "yarn build",
-    "preversion": "yarn build"
+    "version": "yarn build"
   },
   "dependencies": {
     "add-stream": "^1.0.0",

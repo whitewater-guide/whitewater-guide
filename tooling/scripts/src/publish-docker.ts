@@ -41,7 +41,7 @@ async function publish() {
 
   const packages: Package[] = [];
   for (const service of services) {
-    // this will also run preversion/postversion scripts
+    // this will also run preversion/version/postversion scripts
     const pkg = await bumpPackage(`services/${service}`);
     if (pkg) {
       packages.push(pkg);

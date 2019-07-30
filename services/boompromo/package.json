@@ -5,7 +5,7 @@
   "license": "UNLICENSED",
   "homepage": "/promo/",
   "scripts": {
-    "preversion": "yarn build",
+    "version": "yarn build",
     "start": "craco start",
     "start:local": "REACT_APP_API=http://api.local.whitewater.guide craco start",
     "start:beta": "HTTPS=true REACT_APP_API=https://api.beta.whitewater.guide craco start",
