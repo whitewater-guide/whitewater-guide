@@ -1,6 +1,12 @@
+import {
+  Connection,
+  NamedNode,
+  Script,
+  Source,
+} from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
 
-export default gql`
+export const SOURCE_FORM_QUERY = gql`
   query sourceForm($sourceId: ID) {
     source(id: $sourceId) {
       id
@@ -35,3 +41,23 @@ export default gql`
     }
   }
 `;
+
+export interface QVars {
+  sourceId?: string;
+}
+
+export interface QResult {
+  source: Pick<
+    Source,
+    | 'id'
+    | 'name'
+    | 'termsOfUse'
+    | 'script'
+    | 'cron'
+    | 'harvestMode'
+    | 'requestParams'
+    | 'url'
+  > & { regions: Connection<NamedNode> };
+  regions: Connection<NamedNode>;
+  scripts: Script[];
+}

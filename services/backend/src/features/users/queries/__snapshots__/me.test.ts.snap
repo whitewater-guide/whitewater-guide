@@ -1,7 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should user 1`] = `
+exports[`should return facebook user 1`] = `
 Object {
+  "accounts": Array [
+    Object {
+      "id": "__fb_admin_id__",
+      "provider": "facebook",
+    },
+  ],
+  "admin": true,
+  "avatar": "https://ww.guide/pic.jpg",
+  "createdAt": "2017-02-01T00:00:00.000Z",
+  "editorSettings": null,
+  "email": "kaospostage@gmail.com",
+  "id": "bed59990-749d-11e7-8cf7-a6006ad3dba0",
+  "imperial": false,
+  "language": "en",
+  "name": "Ivan Ivanov",
+  "updatedAt": "2017-02-01T00:00:00.000Z",
+}
+`;
+
+exports[`should return local user 1`] = `
+Object {
+  "accounts": Array [],
   "admin": false,
   "avatar": "https://scontent.xx.fbcdn.net/v/t1.0-1/p50x50/1780622_1380926282175020_67535950_n.jpg?oh=80afda8f3e3d817e233fed522e2d9f1a&oe=5A1B4612",
   "createdAt": "2017-03-02T00:00:00.000Z",

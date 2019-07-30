@@ -22,7 +22,14 @@ export const REGION_ADMIN_SETTINGS_QUERY = gql`
   }
 `;
 
-export interface Result {
-  settings: Region;
+export interface QVars {
+  regionId: string;
+}
+
+export interface QResult {
+  settings: Pick<
+    Region,
+    'id' | 'hidden' | 'premium' | 'sku' | 'mapsSize' | 'coverImage'
+  >;
   uploadLink: UploadLink;
 }

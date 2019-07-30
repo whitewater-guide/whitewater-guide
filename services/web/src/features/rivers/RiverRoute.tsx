@@ -1,20 +1,19 @@
-import React from 'react';
-import { Route, RouteComponentProps, Switch } from 'react-router-dom';
+import React, { Suspense } from 'react';
+import { RouteComponentProps, Switch } from 'react-router-dom';
+import { Loading } from '../../components';
 import { EditorRoute } from '../../layout';
-import RiverDetails from './details';
-import { RiverForm } from './form';
+import RiverForm from './form';
 
-const RiverRoute: React.StatelessComponent<RouteComponentProps<any>> = ({
-  match,
-}) => (
-  <Switch>
-    <EditorRoute
-      exact={true}
-      path={`${match.path}/settings`}
-      component={RiverForm}
-    />
-    <Route component={RiverDetails} />
-  </Switch>
+const RiverRoute: React.FC<RouteComponentProps<any>> = ({ match }) => (
+  <Suspense fallback={<Loading />}>
+    <Switch>
+      <EditorRoute
+        exact={true}
+        path={`${match.path}/settings`}
+        component={RiverForm}
+      />
+    </Switch>
+  </Suspense>
 );
 
 export default RiverRoute;

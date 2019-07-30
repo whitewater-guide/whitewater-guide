@@ -1,14 +1,14 @@
 import { Context, isInputValidResolver } from '@apollo';
 import db, { rawUpsert } from '@db';
-import { TagInput, TagInputStruct } from '@whitewater-guide/commons';
-import { struct } from 'superstruct';
+import { TagInput, TagInputSchema } from '@whitewater-guide/commons';
+import * as yup from 'yup';
 
 interface Vars {
   tag: TagInput;
 }
 
-const Struct = struct.object({
-  tag: TagInputStruct,
+const Struct = yup.object({
+  tag: TagInputSchema,
 });
 
 const upsertTag = isInputValidResolver<Vars>(

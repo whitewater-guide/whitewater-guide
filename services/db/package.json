@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/db",
   "private": true,
-  "version": "0.0.35",
+  "version": "0.0.36-mui.10",
   "license": "UNLICENSED",
   "description": "postgres database for whitewater.guide stack",
   "repository": "https://github.com/doomsower/whitewater.git",

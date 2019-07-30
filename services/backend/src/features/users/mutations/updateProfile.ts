@@ -1,16 +1,16 @@
 import { isInputValidResolver } from '@apollo';
 import db from '@db';
-import { UserInput, UserInputStruct } from '@whitewater-guide/commons';
+import { UserInput, UserInputSchema } from '@whitewater-guide/commons';
 import { AuthenticationError } from 'apollo-server';
 import pickBy from 'lodash/pickBy';
-import { struct } from 'superstruct';
+import * as yup from 'yup';
 
 interface Vars {
   user: UserInput;
 }
 
-const Struct = struct.object({
-  user: UserInputStruct,
+const Struct = yup.object({
+  user: UserInputSchema,
 });
 
 const updateProfile = isInputValidResolver<Vars>(

@@ -4,15 +4,15 @@ import {
   TopLevelResolver,
 } from '@apollo';
 import db, { rawUpsert } from '@db';
-import { GaugeInput, GaugeInputStruct } from '@whitewater-guide/commons';
-import { struct } from 'superstruct';
+import { GaugeInput, GaugeInputSchema } from '@whitewater-guide/commons';
+import * as yup from 'yup';
 
 interface Vars {
   gauge: GaugeInput;
 }
 
-const Struct = struct.object({
-  gauge: GaugeInputStruct,
+const Struct = yup.object({
+  gauge: GaugeInputSchema,
 });
 
 const resolver: TopLevelResolver<Vars> = async (

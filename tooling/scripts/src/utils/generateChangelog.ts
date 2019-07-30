@@ -76,8 +76,8 @@ export const generateChangelog = async (path: string) => {
         commitsSort: ['subject'],
         noteGroupsSort: 'title',
         commitGroupsSort: (a: any, b: any) => {
-          const aInd = PRIORITIES.indexOf(a.title);
-          const bInd = PRIORITIES.indexOf(b.title);
+          const aInd = PRIORITIES.indexOf(a.label);
+          const bInd = PRIORITIES.indexOf(b.label);
           return aInd - bInd;
         },
       },

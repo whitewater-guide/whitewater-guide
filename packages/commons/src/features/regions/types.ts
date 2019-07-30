@@ -4,7 +4,6 @@ import {
   TextSearchFilter,
   Timestamped,
 } from '../../apollo';
-import { Overwrite } from '../../utils';
 import { Banner } from '../banners';
 import { Gauge } from '../gauges';
 import { Group } from '../groups';
@@ -73,8 +72,3 @@ export interface RegionMediaSummary {
 }
 
 export type RegionsFilter = TextSearchFilter;
-
-export type RegionFormInput<RichText> = Overwrite<
-  RegionInput,
-  { description: RichText }
->;

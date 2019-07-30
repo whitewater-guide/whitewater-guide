@@ -12,7 +12,7 @@ import { Styles } from '../../styles';
 const styles: Styles = {
   container: {
     width: '100%',
-    height: '100%',
+    height: 'calc(100vh - 150px)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',

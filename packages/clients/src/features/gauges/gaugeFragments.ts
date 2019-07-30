@@ -1,3 +1,4 @@
+import { Gauge, NamedNode } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
 
 const Core = gql`
@@ -11,6 +12,11 @@ const Core = gql`
   }
 `;
 
+export type GaugeCore = Pick<
+  Gauge,
+  'id' | 'name' | 'code' | 'levelUnit' | 'flowUnit' | 'url'
+>;
+
 const Location = gql`
   fragment GaugeLocation on Gauge {
     location {
@@ -21,6 +27,13 @@ const Location = gql`
   }
 `;
 
+export interface GaugeLocation {
+  location: Pick<
+    NonNullable<Gauge['location']>,
+    'id' | 'kind' | 'coordinates'
+  > | null;
+}
+
 const HarvestInfo = gql`
   fragment GaugeHarvestInfo on Gauge {
     enabled
@@ -28,6 +41,11 @@ const HarvestInfo = gql`
     cron
   }
 `;
+
+export type GaugeHarvestInfo<RP = any> = Pick<
+  Gauge<RP>,
+  'enabled' | 'cron' | 'requestParams'
+>;
 
 const LastMeasurement = gql`
   fragment GaugeLastMeasurement on Gauge {
@@ -39,6 +57,8 @@ const LastMeasurement = gql`
   }
 `;
 
+export type GaugeLastMeasurement = Pick<Gauge, 'lastMeasurement'>;
+
 const Status = gql`
   fragment GaugeStatus on Gauge {
     status {
@@ -49,6 +69,8 @@ const Status = gql`
     }
   }
 `;
+
+export type GaugeStatus = Pick<Gauge, 'status'>;
 
 const Measurements = gql`
   fragment GaugeMeasurements on Gauge {
@@ -68,6 +90,10 @@ const Source = gql`
     }
   }
 `;
+
+export interface GaugeSource {
+  source: NamedNode;
+}
 
 export const GaugeFragments = {
   Core,

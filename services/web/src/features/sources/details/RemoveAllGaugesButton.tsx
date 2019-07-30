@@ -1,4 +1,4 @@
-import FlatButton from 'material-ui/FlatButton';
+import Button from '@material-ui/core/Button';
 import React from 'react';
 import { Mutation } from 'react-apollo';
 import { DeleteButton } from '../../../components';
@@ -12,12 +12,9 @@ const renderButton = (
   onClick: React.MouseEventHandler<{}>,
   disabled: boolean,
 ) => (
-  <FlatButton
-    secondary={true}
-    label="Remove all"
-    onClick={onClick}
-    disabled={disabled}
-  />
+  <Button variant="contained" onClick={onClick} disabled={disabled}>
+    Remove all
+  </Button>
 );
 
 const RemoveAllGaugesButton: React.FC<Props> = ({ sourceId }) => (

@@ -31,6 +31,7 @@ export class Lightbox extends React.PureComponent<Props> {
             allowFullscreen={false}
             onClose={onClose}
             styles={customStyles}
+            className="foo"
           >
             <Carousel
               currentIndex={currentModal}

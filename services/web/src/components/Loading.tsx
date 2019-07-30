@@ -1,4 +1,4 @@
-import CircularProgress from 'material-ui/CircularProgress';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import React from 'react';
 import { Styles } from '../styles';
 
@@ -12,7 +12,7 @@ const styles: Styles = {
   },
 };
 
-export const Loading: React.StatelessComponent = () => (
+export const Loading: React.FC = () => (
   <div style={styles.container}>
     <CircularProgress />
   </div>

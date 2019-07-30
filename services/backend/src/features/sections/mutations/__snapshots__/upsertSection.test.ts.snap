@@ -46,7 +46,7 @@ Object {
       33,
       0,
     ],
-    "name": "Put-in",
+    "name": "Sjoa - Playrun: Put-in",
   },
   "rating": 5,
   "region": Object {
@@ -87,7 +87,7 @@ Object {
       42,
       0,
     ],
-    "name": "Take-out",
+    "name": "Sjoa - Playrun: Take-out",
   },
 }
 `;
@@ -146,7 +146,7 @@ Object {
       33,
       0,
     ],
-    "name": "Put-in",
+    "name": "Gal_Riv_One - Playrun: Put-in",
   },
   "rating": 5,
   "region": Object {
@@ -190,7 +190,7 @@ Object {
       42,
       0,
     ],
-    "name": "Take-out",
+    "name": "Gal_Riv_One - Playrun: Take-out",
   },
 }
 `;

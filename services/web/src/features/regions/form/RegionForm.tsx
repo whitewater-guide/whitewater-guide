@@ -1,65 +1,81 @@
 import React from 'react';
-import { RouteComponentProps } from 'react-router';
-import { InjectedFormProps } from 'redux-form';
-import { Tabs } from '../../../components';
-import {
-  DrawingMapField,
-  Form,
-  FormTab,
-  POICollection,
-  SeasonPicker,
-  TextareaField,
-  TextInput,
-} from '../../../components/forms';
-import { FormData } from './types';
+import { HashTabs, HashTabView } from '../../../components/navtabs';
+import { FormikCard, useApolloFormik } from '../../../formik';
+import { DrawingMapField, MarkdownField } from '../../../formik/fields';
+import { FormikTab } from '../../../formik/helpers';
+import formToMutation from './formToMutation';
+import queryToForm from './queryToForm';
+import { QResult, QVars, REGION_FORM_QUERY } from './regionForm.queue';
+import RegionFormMain from './RegionFormMain';
+import RegionFormPOIs from './RegionFormPOIs';
+import { RegionFormData, RouterParams } from './types';
+import { MVars, UPSERT_REGION } from './upsertRegion.mutation';
+import { RegionFormSchema } from './validation';
 
-const MainFields: Array<keyof FormData> = ['name', 'season', 'seasonNumeric'];
-const DescriptionFields: Array<keyof FormData> = ['description'];
-const BoundsFields: Array<keyof FormData> = ['bounds'];
-const PoisFields: Array<keyof FormData> = ['pois'];
+const header = { resourceType: 'region' };
 
-type Props = InjectedFormProps<FormData> & RouteComponentProps<any>;
+const MainFields: Array<keyof RegionFormData> = [
+  'name',
+  'season',
+  'seasonNumeric',
+];
+const DescriptionFields: Array<keyof RegionFormData> = ['description'];
+const BoundsFields: Array<keyof RegionFormData> = ['bounds'];
+const PoisFields: Array<keyof RegionFormData> = ['pois'];
 
-export default class RegionForm extends React.PureComponent<Props> {
-  render() {
-    const tabTemplateStyle =
-      this.props.location.hash === '#description' ? { padding: 0 } : undefined;
-    return (
-      <Form {...this.props} resourceType="region">
-        <Tabs tabTemplateStyle={tabTemplateStyle}>
-          <FormTab form="region" fields={MainFields} label="Main" value="#main">
-            <TextInput fullWidth={true} name="name" title="Name" />
-            <TextInput fullWidth={true} name="season" title="Season" />
-            <SeasonPicker name="seasonNumeric" />
-          </FormTab>
-          <FormTab
-            form="region"
-            fields={DescriptionFields}
-            label="Description"
-            value="#description"
-          >
-            <TextareaField name="description" />
-          </FormTab>
-          <FormTab
-            form="region"
-            fields={BoundsFields}
-            label="Shape"
-            value="#shape"
-          >
-            <DrawingMapField
-              name="bounds"
-              drawingMode="Polygon"
-              bounds={null}
-            />
-          </FormTab>
-          <FormTab form="region" fields={PoisFields} label="POIS" value="#pois">
-            <POICollection
-              name="pois"
-              mapBounds={this.props.initialValues.bounds || null}
-            />
-          </FormTab>
-        </Tabs>
-      </Form>
-    );
-  }
+interface Props {
+  match: {
+    params: RouterParams;
+  };
 }
+
+const RegionForm: React.FC<Props> = ({ match }) => {
+  const formik = useApolloFormik<QVars, QResult, RegionFormData, MVars>({
+    query: REGION_FORM_QUERY,
+    queryOptions: {
+      variables: { regionId: match.params.regionId },
+    },
+    queryToForm,
+    mutation: UPSERT_REGION,
+    formToMutation,
+  });
+
+  return (
+    <FormikCard<QResult, RegionFormData>
+      header={header}
+      {...formik}
+      validationSchema={RegionFormSchema}
+    >
+      <HashTabs variant="fullWidth">
+        <FormikTab fields={MainFields} label="Main" value="#main" />
+        <FormikTab
+          fields={DescriptionFields}
+          label="Description"
+          value="#description"
+        />
+        <FormikTab fields={BoundsFields} label="Shape" value="#shape" />
+        <FormikTab fields={PoisFields} label="POIS" value="#pois" />
+      </HashTabs>
+
+      <HashTabView value="#main">
+        <RegionFormMain />
+      </HashTabView>
+
+      <HashTabView value="#description" padding={0}>
+        <MarkdownField name="description" />
+      </HashTabView>
+
+      <HashTabView value="#shape" padding={0}>
+        <DrawingMapField name="bounds" drawingMode="Polygon" bounds={null} />
+      </HashTabView>
+
+      <HashTabView value="#pois" padding={0}>
+        <RegionFormPOIs />
+      </HashTabView>
+    </FormikCard>
+  );
+};
+
+RegionForm.displayName = 'RegionForm';
+
+export default RegionForm;

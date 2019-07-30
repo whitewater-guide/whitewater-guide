@@ -6,9 +6,7 @@ export const ADD_EDITOR_MUTATION = gql`
   }
 `;
 
-export interface Vars {
+export interface MVars {
   regionId: string;
   userId: string;
 }
-
-export type Result = boolean;

@@ -15,7 +15,7 @@ const views = {
   [MediaKind.blog]: () => null,
 };
 
-const LightboxView: React.StatelessComponent<Props> = (props) => {
+const LightboxView: React.FC<Props> = (props) => {
   const Component: React.ComponentType<Props> = views[props.data.kind];
   return <Component {...props} />;
 };

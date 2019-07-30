@@ -1,5 +1,5 @@
 import db, { holdTransaction, rollbackTransaction } from '@db';
-import { asyncRedis, client } from '@redis';
+import { redis } from '@redis';
 import {
   ADMIN_FB_PROFILE,
   ADMIN_ID,
@@ -35,13 +35,13 @@ beforeAll(async () => {
 beforeEach(async () => {
   jest.resetAllMocks();
   await holdTransaction();
-  await asyncRedis.flushall();
+  await redis.flushall();
   app = createApp();
 });
 
 afterEach(async () => {
   await rollbackTransaction();
-  client.removeAllListeners();
+  redis.removeAllListeners();
 });
 
 it('should fail when access token is not provided ', async () => {

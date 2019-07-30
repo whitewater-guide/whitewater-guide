@@ -1,87 +1,71 @@
-import { RegionAdminSettings } from '@whitewater-guide/commons';
-import { Location } from 'history';
-import { FlatButton } from 'material-ui';
-import { CardActions } from 'material-ui/Card';
-import React from 'react';
-import { ChildProps } from 'react-apollo';
-import Prompt from 'react-router-navigation-prompt';
-import { InjectedFormProps } from 'redux-form';
-import { ConfirmationDialog } from '../../../../components';
 import {
-  Checkbox,
-  ImageUploadField,
-  TextInput,
-} from '../../../../components/forms';
-import { Styles } from '../../../../styles';
-import { Result } from './regionAdmin.query';
+  createSafeValidator,
+  RegionAdminSettings,
+  RegionAdminSettingsSchema,
+} from '@whitewater-guide/commons';
+import { Formik } from 'formik';
+import React, { useMemo } from 'react';
+import { Loading } from '../../../../components';
+import { useApolloFormik } from '../../../../formik';
+import { UnsavedPrompt } from '../../../../formik/helpers';
+import { CardContent } from '../../../../layout';
+import {
+  ADMINISTRATE_REGION_MUTATION,
+  MVars,
+} from './administrateRegion.mutation';
+import formToMutation from './formToMutation';
+import queryToForm from './queryToForm';
+import {
+  QResult,
+  QVars,
+  REGION_ADMIN_SETTINGS_QUERY,
+} from './regionAdmin.query';
+import RegionAdminSettingsFooter from './RegionAdminSettingsFooter';
+import RegionAdminSettingsMain from './RegionAdminSettingsMain';
 
-const styles: Styles = {
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    height: '100%',
-  },
-  formBox: {
-    flex: 1,
-    overflowY: 'scroll',
-    overflowX: 'hidden',
-  },
-};
-
-type Props = InjectedFormProps<RegionAdminSettings> & ChildProps<{}, Result>;
-
-export default class RegionAdminSettingsForm extends React.PureComponent<
-  Props
-> {
-  shouldBlockNavigation = (cur: Location, nxt?: Location) => {
-    const { anyTouched } = this.props;
-    return (
-      anyTouched &&
-      !!nxt &&
-      (nxt.pathname !== cur.pathname || nxt.search !== cur.search)
-    );
-  };
-
-  render() {
-    const upload = this.props.data!.uploadLink;
-    return (
-      <div style={styles.container}>
-        <Prompt when={this.shouldBlockNavigation}>
-          {({ onConfirm, onCancel }: any) => (
-            <ConfirmationDialog
-              invertedAccents={true}
-              description="There are some unsaved changes, are sure you don't want to save them?"
-              confirmTitle="Leave"
-              cancelTitle="Stay"
-              onCancel={onCancel}
-              onConfirm={onConfirm}
-            />
-          )}
-        </Prompt>
-        <div style={styles.formBox}>
-          <Checkbox name="hidden" label="Hidden" />
-          <Checkbox name="premium" label="Premium" />
-          <TextInput name="sku" title="SKU" />
-          <TextInput
-            name="mapsSize"
-            title="Maps size (bytes)"
-            type="number"
-            style={{ display: 'block' }}
-          />
-          <ImageUploadField
-            title="Cover image for mobile (2048x682)"
-            name="coverImage.mobile"
-            bucket="covers"
-            width={2048}
-            height={682}
-            previewScale={0.2}
-            upload={upload}
-          />
-        </div>
-        <CardActions style={styles.footer}>
-          <FlatButton label="Update" onClick={this.props.handleSubmit} />
-        </CardActions>
-      </div>
-    );
-  }
+interface Props {
+  regionId: string;
 }
+
+export const RegionAdminSettingsForm: React.FC<Props> = React.memo(
+  ({ regionId }) => {
+    const validate: any = useMemo(
+      () => createSafeValidator(RegionAdminSettingsSchema),
+      [],
+    );
+
+    const formik = useApolloFormik<QVars, QResult, RegionAdminSettings, MVars>({
+      query: REGION_ADMIN_SETTINGS_QUERY,
+      queryOptions: {
+        variables: { regionId },
+      },
+      queryToForm,
+      mutation: ADMINISTRATE_REGION_MUTATION,
+      formToMutation,
+    });
+
+    if (formik.loading || !formik.initialValues) {
+      return (
+        <CardContent>
+          <Loading />
+        </CardContent>
+      );
+    }
+
+    return (
+      <Formik<RegionAdminSettings>
+        initialValues={formik.initialValues}
+        onSubmit={formik.onSubmit}
+        validate={validate}
+      >
+        <React.Fragment>
+          <UnsavedPrompt />
+          <RegionAdminSettingsMain uploadLink={formik.rawData!.uploadLink} />
+          <RegionAdminSettingsFooter />
+        </React.Fragment>
+      </Formik>
+    );
+  },
+);
+
+RegionAdminSettingsForm.displayName = 'RegionAdminSettingsForm';

@@ -26,6 +26,8 @@ async function publish() {
   if (services.length === 0 && !argv.service) {
     info('No services has been changed and no --service arg provided');
     return;
+  } else {
+    info('Services changed: ' + services.join(', '));
   }
   // it's possible to explicitly list services to publish
   // via one or many --service arguments

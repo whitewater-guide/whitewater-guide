@@ -1,5 +1,9 @@
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import React from 'react';
 
 interface Props {
@@ -12,7 +16,7 @@ interface Props {
   onConfirm: () => void;
 }
 
-export const ConfirmationDialog: React.StatelessComponent<Props> = (props) => {
+export const ConfirmationDialog: React.FC<Props> = (props) => {
   const {
     title = 'Please confirm your action',
     description = 'Something requires your attention',
@@ -24,26 +28,38 @@ export const ConfirmationDialog: React.StatelessComponent<Props> = (props) => {
   }: Props = props;
 
   let actions = [
-    <FlatButton
+    <Button
       key="cancel"
-      primary={invertedAccents}
-      label={cancelTitle}
+      color={invertedAccents ? 'primary' : 'default'}
       onClick={onCancel}
-    />,
-    <FlatButton
+    >
+      {cancelTitle}
+    </Button>,
+    <Button
       key="confirm"
-      primary={!invertedAccents}
-      label={confirmTitle}
+      color={invertedAccents ? 'default' : 'primary'}
       onClick={onConfirm}
-    />,
+    >
+      {confirmTitle}
+    </Button>,
   ];
   if (invertedAccents) {
     actions = actions.reverse();
   }
 
   return (
-    <Dialog open={true} modal={true} title={title} actions={actions}>
-      {description}
+    <Dialog
+      disableBackdropClick={true}
+      disableEscapeKeyDown={true}
+      maxWidth="xs"
+      aria-labelledby="confirmation-dialog-title"
+      open={true}
+    >
+      <DialogTitle id="confirmation-dialog-title">{title}</DialogTitle>
+      <DialogContent>
+        <DialogContentText>{description}</DialogContentText>
+      </DialogContent>
+      <DialogActions>{actions}</DialogActions>
     </Dialog>
   );
 };

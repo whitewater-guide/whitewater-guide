@@ -1,6 +1,7 @@
+import { MediaInput } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
 
-const UPSERT_MEDIA = gql`
+export const UPSERT_MEDIA = gql`
   mutation upsertMedia($sectionId: ID!, $media: MediaInput!) {
     upsertSectionMedia(sectionId: $sectionId, media: $media) {
       id
@@ -13,4 +14,7 @@ const UPSERT_MEDIA = gql`
   }
 `;
 
-export default UPSERT_MEDIA;
+export interface MVars {
+  sectionId: string;
+  media: MediaInput;
+}

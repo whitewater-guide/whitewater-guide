@@ -1,19 +1,18 @@
+import Input, { InputProps } from '@material-ui/core/Input';
 import { strToFloat } from '@whitewater-guide/clients';
 import { Overwrite } from '@whitewater-guide/commons';
-import { TextFieldProps } from 'material-ui';
-import TextField from 'material-ui/TextField';
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
-interface State {
-  value: string;
-}
+const PARTIAL_NUMERIC = /(-)?[0-9]*([,|.][0-9]*)?/;
+
+type StrChangeEvent = React.ChangeEvent<{ value: string }>;
 
 interface NumberInputProps {
-  value: undefined | number;
-  onChange: (value: number | undefined) => void;
+  value: number | null;
+  onChange: (value: number | null) => void;
 }
 
-type Props = Overwrite<TextFieldProps, NumberInputProps> & { onPaste?: any };
+type Props = Overwrite<InputProps, NumberInputProps>;
 
 const numToStr = (num: any): string =>
   Number.isFinite(num) ? num!.toString() : '';
@@ -22,42 +21,30 @@ const numToStr = (num: any): string =>
  * Wrapper around Material-UI TextInput that makes
  * number inputs agnostic to decimal separator and support both comma and period.
  */
-export class NumberInput extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      value: numToStr(props.value),
-    };
-  }
+export const NumberInput: React.FC<Props> = React.memo((props) => {
+  const { value, onChange: onChangeExternal, ...rest } = props;
+  const [valueStr, setValueStr] = useState(numToStr(value));
 
-  componentWillReceiveProps(nextProps: Props) {
-    const nextVal = nextProps.value;
-    if (nextVal !== strToFloat(this.state.value)) {
-      this.setState({ value: numToStr(nextVal) });
-    }
-  }
-
-  onChange = (e: React.FormEvent<{}>) => {
-    const { onChange } = this.props;
-    this.setState({ value: (e.target as any).value }, () => {
-      if (onChange && this.state.value !== '-') {
-        const floatVal = strToFloat(this.state.value);
-        onChange(Number.isFinite(floatVal) ? floatVal : undefined);
+  const onChange = useCallback(
+    (e: StrChangeEvent) => {
+      const match = e.target.value.match(PARTIAL_NUMERIC);
+      const numPart = match ? match[0] : '';
+      setValueStr(numPart);
+      if (numPart !== '-') {
+        const floatVal = strToFloat(numPart);
+        onChangeExternal(Number.isFinite(floatVal) ? floatVal : null);
       }
-    });
-  };
+    },
+    [onChangeExternal],
+  );
 
-  render() {
-    // @ts-ignore
-    const pattern: any = { pattern: '(-)?[0-9]+([,|.][0-9]+)?' };
-    return (
-      <TextField
-        {...this.props}
-        {...pattern}
-        type="text"
-        value={this.state.value}
-        onChange={this.onChange}
-      />
-    );
-  }
-}
+  useEffect(() => {
+    if (value !== strToFloat(valueStr)) {
+      setValueStr(numToStr(value));
+    }
+  }, [value]);
+
+  return <Input {...rest} type="text" value={valueStr} onChange={onChange} />;
+});
+
+NumberInput.displayName = 'NumberInput';

@@ -1,10 +1,13 @@
-import { FlatButton } from 'material-ui';
-import Menu from 'material-ui/Menu';
-import MenuItem from 'material-ui/MenuItem';
-import Popover from 'material-ui/Popover';
+import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import Icon from '@material-ui/core/Icon';
+import MenuItem from '@material-ui/core/MenuItem';
+import MenuList from '@material-ui/core/MenuList';
+import Paper from '@material-ui/core/Paper';
+import Popper from '@material-ui/core/Popper';
 import React from 'react';
 import { Mutation } from 'react-apollo';
-import { emitter, POKE_TABLES } from '../../../utils';
 import { Result, TOGGLE_ALL_GAUGES, Vars } from './toggleAllGauges.mutation';
 
 interface Props {
@@ -17,33 +20,23 @@ interface InnerProps {
 
 interface State {
   open: boolean;
-  anchorEl: any;
 }
 
 class EnableButtonInner extends React.PureComponent<InnerProps, State> {
-  readonly state: State = { open: false, anchorEl: undefined };
+  private readonly _anchor = React.createRef<any>();
 
-  onOpen = (event: any) => {
-    // This prevents ghost click.
-    event.preventDefault();
+  readonly state: State = { open: false };
 
-    this.setState({
-      open: true,
-      anchorEl: event.currentTarget,
-    });
+  onToggle = () => {
+    this.setState((state) => ({ open: !state.open }));
   };
 
-  onClose = () => {
-    this.setState({
-      open: false,
-    });
-  };
+  onClose = () => this.setState({ open: false });
 
   enableAll = () => {
     const { mutate } = this.props;
     mutate!({ variables: { linkedOnly: false } }).finally(() => {
       this.setState({ open: false });
-      emitter.emit(POKE_TABLES);
     });
   };
 
@@ -51,31 +44,31 @@ class EnableButtonInner extends React.PureComponent<InnerProps, State> {
     const { mutate } = this.props;
     mutate!({ variables: { linkedOnly: true } }).finally(() => {
       this.setState({ open: false });
-      emitter.emit(POKE_TABLES);
     });
   };
 
   render() {
-    const { anchorEl, open } = this.state;
+    const { open } = this.state;
     return (
       <React.Fragment>
-        <FlatButton
-          secondary={true}
-          onClick={this.onOpen}
-          label="Enable many"
-        />
-        <Popover
-          open={open}
-          anchorEl={anchorEl}
-          anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
-          targetOrigin={{ horizontal: 'left', vertical: 'top' }}
-          onRequestClose={this.onClose}
-        >
-          <Menu>
-            <MenuItem primaryText="All" onClick={this.enableAll} />
-            <MenuItem primaryText="Linked only" onClick={this.enableLinked} />
-          </Menu>
-        </Popover>
+        <ButtonGroup ref={this._anchor} variant="contained">
+          <Button onClick={this.enableAll}>Enable all</Button>
+          <Button size="small" onClick={this.onToggle}>
+            <Icon>arrow_drop_down</Icon>
+          </Button>
+        </ButtonGroup>
+        <Popper open={open} anchorEl={this._anchor.current}>
+          <Paper id="menu-list-grow">
+            <ClickAwayListener onClickAway={this.onClose}>
+              <MenuList>
+                <MenuItem onClick={this.enableAll}>Enable all gauges</MenuItem>
+                <MenuItem onClick={this.enableLinked}>
+                  Enable linked only
+                </MenuItem>
+              </MenuList>
+            </ClickAwayListener>
+          </Paper>
+        </Popper>
       </React.Fragment>
     );
   }

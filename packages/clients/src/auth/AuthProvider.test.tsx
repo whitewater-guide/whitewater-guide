@@ -1,7 +1,7 @@
+import { MockedProvider, MockedResponse } from '@apollo/react-testing';
+import '@testing-library/jest-dom/extend-expect';
 import { fireEvent, render, RenderResult } from '@testing-library/react';
-import 'jest-dom/extend-expect';
 import React from 'react';
-import { MockedProvider, MockedResponse } from 'react-apollo/test-utils';
 import { flushPromises } from '../test';
 import { AuthProvider } from './AuthProvider';
 import { AuthContext } from './context';
@@ -25,6 +25,7 @@ const mockUser: MockedResponse = {
         imperial: false,
         verified: true,
         editorSettings: null,
+        accounts: [],
       },
     },
   },
@@ -61,25 +62,34 @@ const AuthConsumer: React.FC = () => (
 let mocks: MockAuthService;
 let utils: RenderResult;
 
-beforeEach(async () => {
+beforeEach(() => {
   jest.clearAllMocks();
   const mockService = new MockAuthService();
   mocks = { ...(mockService as any) };
-  await mockService.init();
   const tree = (
     <MockedProvider mocks={[mockUser]}>
-      <AuthProvider service={mockService}>
+      <AuthProvider
+        service={mockService}
+        renderInitializing={<div data-testid="initializing">Initializing</div>}
+      >
         <AuthConsumer />
       </AuthProvider>
     </MockedProvider>
   );
   utils = render(tree);
 });
-afterEach(() => utils.unmount());
 
-it('should start in loading state', () => {
-  expect(utils.getByTestId('username')).toHaveTextContent('anonymous');
-  expect(utils.getByTestId('loading')).toHaveTextContent('Loading');
+afterEach(() => {
+  utils.unmount();
+});
+
+it('should start in initializing state', () => {
+  expect(utils.getByTestId('initializing')).toHaveTextContent('Initializing');
+  expect(() => utils.getByTestId('loading')).toThrow();
+});
+
+it('should initialize service', () => {
+  expect(mocks.init).toHaveBeenCalled();
 });
 
 it('should refresh token', () => {
@@ -87,7 +97,7 @@ it('should refresh token', () => {
 });
 
 it('should render profile after initial loading', async () => {
-  await flushPromises(2);
+  await flushPromises(3);
   expect(utils.getByTestId('username')).toHaveTextContent('Test User');
   expect(utils.getByTestId('loading')).toHaveTextContent('Ready');
 });

@@ -1,6 +1,6 @@
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Switch from '@material-ui/core/Switch';
 import { sleep } from '@whitewater-guide/clients';
-import CircularProgress from 'material-ui/CircularProgress';
-import Toggle from 'material-ui/Toggle';
 import React from 'react';
 
 interface Props {
@@ -19,7 +19,7 @@ export class MutationToggle extends React.PureComponent<Props, State> {
   stopPropagation = (event: React.SyntheticEvent<any>) =>
     event.stopPropagation();
 
-  onToggle = async (e: React.SyntheticEvent<any>, value: boolean) => {
+  onToggle = async (e: any, value: boolean) => {
     this.setState({ loading: true });
     try {
       await Promise.all([
@@ -35,9 +35,9 @@ export class MutationToggle extends React.PureComponent<Props, State> {
     return (
       <div onClick={this.stopPropagation}>
         {this.state.loading ? (
-          <CircularProgress mode="indeterminate" size={28} />
+          <CircularProgress size={28} />
         ) : (
-          <Toggle toggled={this.props.enabled} onToggle={this.onToggle} />
+          <Switch checked={this.props.enabled} onChange={this.onToggle} />
         )}
       </div>
     );

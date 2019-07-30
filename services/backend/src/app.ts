@@ -1,7 +1,7 @@
 import { useAuth, useLegacyAuth } from '@auth';
 import db from '@db';
 import log from '@log';
-import { asyncRedis } from '@redis';
+import { redis } from '@redis';
 import { addPingRoute } from '@utils';
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
@@ -27,6 +27,6 @@ export const createApp = (): App => {
 
   // tslint:disable-next-line:prefer-object-spread
   return Object.assign(app, {
-    shutdown: () => Promise.all([asyncRedis.quit(), db(true).destroy()]),
+    shutdown: () => Promise.all([redis.quit(), db(true).destroy()]),
   });
 };

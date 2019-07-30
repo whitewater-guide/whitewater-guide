@@ -1,6 +1,7 @@
+import { Source, SourceInput } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
 
-export default gql`
+export const UPSERT_SOURCE = gql`
   mutation upsertSource($source: SourceInput!) {
     upsertSource(source: $source) {
       id
@@ -13,3 +14,11 @@ export default gql`
     }
   }
 `;
+
+export interface MVars {
+  source: SourceInput;
+}
+
+export interface MResult {
+  upsertSource: Source;
+}

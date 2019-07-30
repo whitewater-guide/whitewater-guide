@@ -1,5 +1,5 @@
 import db, { holdTransaction, rollbackTransaction } from '@db';
-import { asyncRedis, client } from '@redis';
+import { redis } from '@redis';
 import { ADMIN, ADMIN_FB_PROFILE, NEW_FB_PROFILE } from '@seeds/01_users';
 import { countRows, UUID_REGEX } from '@test';
 import { CookieAccessInfo } from 'cookiejar';
@@ -27,13 +27,13 @@ beforeAll(async () => {
 beforeEach(async () => {
   jest.resetAllMocks();
   await holdTransaction();
-  await asyncRedis.flushall();
+  await redis.flushall();
   app = createApp();
 });
 
 afterEach(async () => {
   await rollbackTransaction();
-  client.removeAllListeners();
+  redis.removeAllListeners();
 });
 
 it('should fail when access token is not provided ', async () => {
@@ -106,10 +106,10 @@ describe('new user', () => {
   it('should create session for user', async () => {
     const sessionId = extractSessionId(response);
     expect(sessionId).toBeDefined();
-    const keys = await asyncRedis.keys('*');
+    const keys = await redis.keys('*');
     expect(keys).toHaveLength(1);
-    const session = await asyncRedis.get(sessionId!);
-    expect(JSON.parse(session)).toHaveProperty(
+    const session = await redis.get(sessionId!);
+    expect(JSON.parse(session!)).toHaveProperty(
       'passport.user',
       expect.stringMatching(UUID_REGEX),
     );
@@ -132,10 +132,10 @@ describe('new user', () => {
     );
     const sessionId = extractSessionId(resp);
     expect(sessionId).toBeDefined();
-    const keys = await asyncRedis.keys('*');
+    const keys = await redis.keys('*');
     expect(keys).toHaveLength(1);
-    const session = await asyncRedis.get(sessionId!);
-    expect(JSON.parse(session)).toHaveProperty(
+    const session = await redis.get(sessionId!);
+    expect(JSON.parse(session!)).toHaveProperty(
       'passport.user',
       expect.stringMatching(UUID_REGEX),
     );
@@ -151,7 +151,7 @@ describe('new user', () => {
         name: `${NEW_FB_PROFILE.name!.givenName} ${
           NEW_FB_PROFILE.name!.familyName
         }`,
-        avatar: NEW_FB_PROFILE.photos![0].value,
+        avatar: null,
         email: NEW_FB_PROFILE.emails![0].value,
         admin: false,
         language: 'en',
@@ -202,10 +202,10 @@ describe('existing user', () => {
   it('should create session for user', async () => {
     const sessionId = extractSessionId(response);
     expect(sessionId).toBeDefined();
-    const keys = await asyncRedis.keys('*');
+    const keys = await redis.keys('*');
     expect(keys).toHaveLength(1);
-    const session = await asyncRedis.get(sessionId!);
-    expect(JSON.parse(session)).toHaveProperty(
+    const session = await redis.get(sessionId!);
+    expect(JSON.parse(session!)).toHaveProperty(
       'passport.user',
       expect.stringMatching(UUID_REGEX),
     );
@@ -254,7 +254,7 @@ describe('logout', () => {
     } catch {
       /* redirect is here */
     }
-    const keys = await asyncRedis.keys('*');
+    const keys = await redis.keys('*');
     expect(keys).toHaveLength(0);
   });
 

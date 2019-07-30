@@ -1,20 +1,16 @@
+import Box from '@material-ui/core/Box';
 import React from 'react';
-import { Content } from '../components';
-import { Styles } from '../styles';
 
-const styles: Styles = {
-  container: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-};
-
-const Page403: React.StatelessComponent = () => (
-  <Content style={styles.container}>
+const Page403: React.FC = () => (
+  <Box
+    display="flex"
+    flexDirection="column"
+    alignItems="center"
+    justifyContent="center"
+  >
     <h1>403 Unauthorized</h1>
     <span>Bummer!</span>
-  </Content>
+  </Box>
 );
 
 export default Page403;

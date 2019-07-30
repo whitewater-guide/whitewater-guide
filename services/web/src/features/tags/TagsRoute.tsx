@@ -1,7 +1,9 @@
 import React from 'react';
 import { AdminRoute } from '../../layout';
-import TagsFormContainer from './TagsFormContainer';
+import TagsList from './TagsList';
 
-export const TagsRoute: React.StatelessComponent = () => (
-  <AdminRoute exact={true} path="/tags" component={TagsFormContainer} />
+const TagsRoute: React.FC = () => (
+  <AdminRoute exact={true} path="/tags" component={TagsList} />
 );
+
+export default TagsRoute;

@@ -1,3 +1,4 @@
+import Icon from '@material-ui/core/Icon';
 import {
   MAX_FILE_SIZE,
   MAX_FILE_SIZE_STRING,
@@ -5,7 +6,6 @@ import {
   MIN_FILE_SIZE,
   MIN_FILE_SIZE_STRING,
 } from '@whitewater-guide/commons';
-import FontIcon from 'material-ui/FontIcon';
 import React from 'react';
 import Dz from 'react-dropzone';
 import { Styles } from '../../../styles';
@@ -77,13 +77,7 @@ class Dropzone extends React.PureComponent<Props, State> {
             return (
               <div {...getRootProps()} style={styles.dz}>
                 <input {...getInputProps()} />
-                <FontIcon
-                  className="material-icons"
-                  style={styles.icon}
-                  color="#333333"
-                >
-                  add
-                </FontIcon>
+                <Icon style={styles.icon}>add</Icon>
                 <span>or drop</span> image here
                 {!!error && <span style={styles.error}>{error}</span>}
               </div>
@@ -94,13 +88,7 @@ class Dropzone extends React.PureComponent<Props, State> {
     } else {
       return (
         <div style={styles.dz} onClick={this.onClick}>
-          <FontIcon
-            className="material-icons"
-            style={styles.icon}
-            color="#333333"
-          >
-            add
-          </FontIcon>
+          <Icon style={styles.icon}>add</Icon>
           <span>add video</span>
           {!!error && <span style={styles.error}>{error}</span>}
         </div>

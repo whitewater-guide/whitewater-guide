@@ -3,11 +3,10 @@
   "rules": {
     "no-submodule-imports": [
       true,
-      "material-ui",
-      "redux-persist",
+      "@material-ui",
       "lodash",
       "moment",
-      "react-facebook-login",
+      "react-use",
       "@whitewater-guide/clients"
     ]
   }

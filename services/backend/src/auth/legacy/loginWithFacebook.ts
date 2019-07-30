@@ -50,7 +50,7 @@ const loginWithFacebook = async (profile: Profile, tokens: any) => {
       .insert({
         name: profile.displayName,
         email: fbEmail,
-        avatar: fbAvatar,
+        avatar: null,
         language,
         editor_settings: { language: 'en' },
         verified: true,
@@ -85,15 +85,6 @@ const loginWithFacebook = async (profile: Profile, tokens: any) => {
         tokens: JSON.stringify(tokens),
         profile: JSON.stringify(profile._json),
       });
-  }
-
-  // Set avatar if not present
-  if (user && !user.avatar && fbAvatar) {
-    user.avatar = fbAvatar;
-    await db()
-      .table('users')
-      .update({ avatar: fbAvatar })
-      .where({ id: user.id });
   }
 
   return user;

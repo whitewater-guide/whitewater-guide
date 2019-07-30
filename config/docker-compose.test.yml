@@ -34,9 +34,11 @@ services:
 
   # Minio to store images
   minio:
+    image: 'minio/minio:latest' # TODO: latest mino releases are not tagged on docker hub for some reason
     labels:
       guide.whitewater: ''
     container_name: ww-minio
+    command: server /data
     env_file:
       - .env.test
       - .env.test.local
@@ -48,7 +50,7 @@ services:
         target: /data
       - type: bind
         source: ../dev-mount/minio/config
-        target: /home/minio/.minio
+        target: /root/.minio
       - type: bind
         source: ../dev-mount/minio/log/
         target: /var/log

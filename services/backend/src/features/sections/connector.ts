@@ -16,6 +16,8 @@ const FIELDS_MAP: FieldsMap<Section, SectionRaw> = {
   description: ['description', 'premium', 'river_id', 'region_id', 'demo'],
   region: ['region_id', 'region_name'],
   river: ['river_id', 'river_name'],
+  takeOut: ['river_id', 'river_name', 'put_in'],
+  putIn: ['river_id', 'river_name', 'take_out'],
   gauge: 'gauge_id',
   media: null,
 };

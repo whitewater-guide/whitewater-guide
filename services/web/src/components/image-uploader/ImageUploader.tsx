@@ -1,6 +1,6 @@
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { uploadFile } from '@whitewater-guide/clients';
 import { Media, MediaKind, UploadLink } from '@whitewater-guide/commons';
-import CircularProgress from 'material-ui/CircularProgress';
 import React from 'react';
 import { S3_HOST } from '../../environment';
 import { Styles } from '../../styles';

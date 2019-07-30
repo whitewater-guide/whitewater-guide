@@ -1,31 +1,35 @@
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Rating from '@material-ui/lab/Rating';
 import {
   renderDifficulty,
   stringifySeason,
   useMapSelection,
 } from '@whitewater-guide/clients';
 import { Durations, isSection, sectionName } from '@whitewater-guide/commons';
-import { RaisedButton } from 'material-ui';
 import React, { useCallback } from 'react';
-import { Col, Container, Row } from 'react-grid-system';
 import useRouter from 'use-react-router';
 import { Title } from '../../layout/details';
-import { Styles } from '../../styles';
 import { paths } from '../../utils';
-import { Rating } from '../Rating';
 import { InfoWindow } from './InfoWindow';
 import { MapElementProps } from './types';
 
-const styles: Styles = {
-  h2: {
-    fontWeight: 'bold',
-    fontSize: '1.5em',
-  },
-};
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    root: {
+      overflow: 'hidden',
+    },
+  }),
+);
 
 const SelectedSectionWeb: React.FC<MapElementProps> = (props) => {
   const { selection, onSelected } = useMapSelection();
+  const { history, match } = useRouter<{ regionId: string }>();
+  const classes = useStyles();
+
   const onDetails = useCallback(() => {
-    const { history, match } = useRouter<{ regionId: string }>();
     if (isSection(selection)) {
       history.push(
         paths.to({
@@ -34,7 +38,8 @@ const SelectedSectionWeb: React.FC<MapElementProps> = (props) => {
         }),
       );
     }
-  }, [selection]);
+  }, [selection, history, match]);
+
   const onClose = useCallback(() => onSelected(null), [onSelected]);
 
   if (!isSection(selection)) {
@@ -45,44 +50,55 @@ const SelectedSectionWeb: React.FC<MapElementProps> = (props) => {
 
   return (
     <InfoWindow position={putInLL} onCloseClick={onClose} {...props}>
-      <Container style={{ minWidth: 500 }}>
-        <Row>
-          <Col sm={9}>
-            <div style={styles.h2}>{sectionName(selection)}</div>
-            <Rating fontSize={16} value={selection.rating!} />
-          </Col>
-          <Col style={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <span style={styles.h2}>{renderDifficulty(selection)}</span>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
+      <Grid container={true} spacing={1} className={classes.root}>
+        <Grid container={true} item={true} xs={12}>
+          <Grid item={true} xs={9}>
+            <Typography variant="h5">{sectionName(selection)}</Typography>
+            <Rating precision={0.5} value={selection.rating!} readOnly={true} />
+          </Grid>
+          <Grid item={true} xs={3}>
+            <Typography variant="h5" align="right">
+              {renderDifficulty(selection)}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid container={true} item={true} xs={12}>
+          <Grid item={true} xs={2}>
             <b>Drop</b>
-          </Col>
-          <Col>{`${selection.drop} m`}</Col>
-          <Col>
+          </Grid>
+          <Grid item={true} xs={2}>{`${selection.drop} m`}</Grid>
+          <Grid item={true} xs={2}>
             <b>Length</b>
-          </Col>
-          <Col>{`${selection.distance} km`}</Col>
-          <Col>
+          </Grid>
+          <Grid item={true} xs={2}>{`${selection.distance} km`}</Grid>
+          <Grid item={true} xs={2}>
             <b>Duration</b>
-          </Col>
-          <Col>{selection.duration && Durations.get(selection.duration)}</Col>
-        </Row>
-        <Row>
+          </Grid>
+          <Grid item={true} xs={2}>
+            {selection.duration && Durations.get(selection.duration)}
+          </Grid>
+        </Grid>
+
+        <Grid container={true} item={true} xs={12}>
           <Title>Season</Title>
-          <Col>
+          <Grid>
             <div>{selection.season}</div>
             <div>{stringifySeason(selection.seasonNumeric)}</div>
-          </Col>
-        </Row>
-        <RaisedButton
-          fullWidth={true}
-          primary={true}
-          label="More"
-          onClick={onDetails}
-        />
-      </Container>
+          </Grid>
+        </Grid>
+
+        <Grid container={true} item={true} xs={12}>
+          <Button
+            fullWidth={true}
+            variant="contained"
+            onClick={onDetails}
+            color="primary"
+          >
+            More
+          </Button>
+        </Grid>
+      </Grid>
     </InfoWindow>
   );
 };

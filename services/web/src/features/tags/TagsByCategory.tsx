@@ -1,46 +1,35 @@
-import { Tag, TagCategory } from '@whitewater-guide/commons';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
+import { Tag, TagCategory, TagInput } from '@whitewater-guide/commons';
 import React from 'react';
-import { Styles } from '../../styles';
 import TagForm from './TagForm';
-import { WithTagMutations } from './types';
 
-const styles: Styles = {
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    padding: 8,
-  },
-};
-
-interface Props extends WithTagMutations {
+interface Props {
   category: TagCategory;
   title: string;
   tags: Tag[];
+  onAdd: (tag: TagInput) => void;
+  onRemove: (id: string) => void;
 }
 
-const TagsByCategory: React.StatelessComponent<Props> = ({
+const TagsByCategory: React.FC<Props> = ({
   category,
   title,
   tags,
-  upsertTag,
-  removeTag,
+  onAdd,
+  onRemove,
 }) => (
-  <div style={styles.container}>
-    <h1>{title}</h1>
+  <Box display="flex" flexDirection="column" padding={1}>
+    <Typography variant="h5">{title}</Typography>
     {tags.map((tag) => (
-      <TagForm
-        key={tag.id}
-        tag={tag}
-        upsertTag={upsertTag}
-        removeTag={removeTag}
-      />
+      <TagForm key={tag.id} tag={tag} onAdd={onAdd} onRemove={onRemove} />
     ))}
     <TagForm
-      upsertTag={upsertTag}
-      removeTag={removeTag}
+      onAdd={onAdd}
+      onRemove={onRemove}
       tag={{ id: '', name: '', category }}
     />
-  </div>
+  </Box>
 );
 
 export default TagsByCategory;

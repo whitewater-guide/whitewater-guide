@@ -5,15 +5,21 @@ import {
   PurchasePlatform,
   Region,
 } from '@whitewater-guide/commons';
+import ApolloClient from 'apollo-client';
 import React from 'react';
-import { withApollo, WithApolloClient } from 'react-apollo';
+import { withApollo } from 'react-apollo';
 import { WithTranslation, withTranslation } from 'react-i18next';
+import { compose } from '../../utils';
 import {
   ACTIVATE_PROMO_MUTATION,
   Result,
   Vars,
 } from './activatePromo.mutation';
 import ConfirmStepView from './ConfirmStepView';
+
+interface WithApollo {
+  client: ApolloClient<any>;
+}
 
 interface Props {
   prev: () => void;
@@ -28,7 +34,7 @@ interface State {
 }
 
 class ConfirmStep extends React.Component<
-  WithApolloClient<Props & WithMe & WithTranslation>,
+  Props & WithMe & WithTranslation & WithApollo,
   State
 > {
   readonly state: State = { loading: false, success: false };
@@ -100,6 +106,8 @@ class ConfirmStep extends React.Component<
   }
 }
 
-export default withApollo(
-  withMe(withTranslation()(ConfirmStep)),
-) as React.ComponentType<Props>;
+export default compose(
+  withApollo,
+  withMe,
+  withTranslation(),
+)(ConfirmStep);

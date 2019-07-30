@@ -1,21 +1,16 @@
+import { BannerFragments } from '@whitewater-guide/clients';
+import {
+  BannerCore,
+  Connection,
+  NamedNode,
+  UploadLink,
+} from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
 
-export default gql`
+export const BANNER_FORM_QUERY = gql`
   query bannerForm($bannerId: ID) {
     banner(id: $bannerId) {
-      id
-      slug
-      name
-      priority
-      enabled
-      placement
-      source {
-        kind
-        ratio
-        src
-      }
-      link
-      extras
+      ...BannerCore
       regions {
         nodes {
           id
@@ -54,4 +49,19 @@ export default gql`
       key
     }
   }
+  ${BannerFragments.Core}
 `;
+
+export interface QVars {
+  bannerId?: string;
+}
+
+export interface QResult {
+  banner: BannerCore & {
+    regions: Connection<NamedNode>;
+    groups: Connection<NamedNode>;
+  };
+  regions: Connection<NamedNode>;
+  groups: Connection<NamedNode>;
+  uploadLink: UploadLink;
+}

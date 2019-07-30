@@ -2,12 +2,28 @@
 
 exports[`should be invalid for bad platform 1`] = `
 Object {
-  "platform": "Expected a value of type \`\\"ios\\" | \\"android\\" | \\"boomstarter\\"\` for \`platform\` but received \`\\"windows\\"\`.",
+  "platform": Object {
+    "key": "yup:mixed.oneOf",
+    "options": Object {
+      "values": "ios, android, boomstarter",
+    },
+  },
 }
 `;
 
 exports[`should be invalid for bad product 1`] = `
 Object {
-  "productId": "Value must be non-empty string",
+  "productId": "yup:string.nonEmpty",
+}
+`;
+
+exports[`should be invalid for extra fields 1`] = `
+Object {
+  "undefined": Object {
+    "key": "yup:object.noUnknown",
+    "options": Object {
+      "path": "this",
+    },
+  },
 }
 `;

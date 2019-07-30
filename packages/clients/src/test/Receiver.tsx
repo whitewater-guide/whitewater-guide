@@ -2,22 +2,17 @@ import { ReactWrapper } from 'enzyme';
 import React from 'react';
 
 export interface WithCalls<P> {
-  cwrp: P[];
+  cdu: P[];
   cdm: P;
 }
 
 export class Receiver<P> extends React.PureComponent<P>
   implements WithCalls<P> {
-  public cwrp: P[] = [];
   public cdu: P[] = [];
   public cdm!: P;
 
   componentDidMount() {
     this.cdm = this.props;
-  }
-
-  componentWillReceiveProps(next: P) {
-    this.cwrp = [...this.cwrp, next];
   }
 
   componentDidUpdate() {

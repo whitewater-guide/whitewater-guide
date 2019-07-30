@@ -1,6 +1,5 @@
 import { Media } from '@whitewater-guide/commons';
 import React from 'react';
-import { S3_HOST } from '../../environment';
 import { Styles } from '../../styles';
 
 const styles: Styles = {

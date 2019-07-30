@@ -1,5 +1,5 @@
 import { holdTransaction, rollbackTransaction } from '@db';
-import { asyncRedis, client } from '@redis';
+import { redis } from '@redis';
 import { EDITOR_GA_EC_ID } from '@seeds/01_users';
 import { countRows } from '@test';
 import { CookieAccessInfo } from 'cookiejar';
@@ -25,13 +25,13 @@ beforeAll(async () => {
 beforeEach(async () => {
   jest.resetAllMocks();
   await holdTransaction();
-  await asyncRedis.flushall();
+  await redis.flushall();
   app = createApp();
 });
 
 afterEach(async () => {
   await rollbackTransaction();
-  client.removeAllListeners();
+  redis.removeAllListeners();
 });
 
 describe('errors', () => {

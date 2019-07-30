@@ -19,19 +19,11 @@ export const REGION_GROUPS_QUERY = gql`
   }
 `;
 
-export interface RegionGroupsVars {
+export interface QVars {
   regionId?: string;
 }
 
-export interface RegionGroupsResult {
-  regionGroups: Connection<Group>;
-  allGroups: Connection<Group>;
+export interface QResult {
+  regionGroups: Required<Connection<Group>>;
+  allGroups: Required<Connection<Group>>;
 }
-
-export interface RegionGroupsQueryProps {
-  regionGroups: Connection<Group>;
-  allGroups: Connection<Group>;
-  groupsLoading: boolean;
-}
-
-export default REGION_GROUPS_QUERY;

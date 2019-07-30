@@ -2,16 +2,16 @@ import { isAuthenticatedResolver, isInputValidResolver } from '@apollo';
 import db from '@db';
 import {
   EditorSettings,
-  EditorSettingsStruct,
+  EditorSettingsSchema,
 } from '@whitewater-guide/commons';
-import { struct } from 'superstruct';
+import * as yup from 'yup';
 
 interface Vars {
   editorSettings: EditorSettings;
 }
 
-const Struct = struct.object({
-  editorSettings: EditorSettingsStruct,
+const Struct = yup.object({
+  editorSettings: EditorSettingsSchema,
 });
 
 const updateEditorSettings = isAuthenticatedResolver(

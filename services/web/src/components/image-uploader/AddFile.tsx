@@ -1,4 +1,4 @@
-import SvgIcon from 'material-ui/SvgIcon';
+import SvgIcon from '@material-ui/core/SvgIcon';
 import React from 'react';
 import Dropzone from 'react-dropzone';
 import { Styles } from '../../styles';
@@ -33,9 +33,9 @@ class AddFile extends React.PureComponent<Props> {
           return (
             <div {...getRootProps()} style={styles.dz}>
               <input {...getInputProps()} />
-              <SvgIcon color="#333333">
+              <SvgIcon>
                 <path
-                  fill="#000000"
+                  fill="#333333"
                   d="M9,16V10H5L12,3L19,10H15V16H9M5,20V18H19V20H5Z"
                 />
               </SvgIcon>

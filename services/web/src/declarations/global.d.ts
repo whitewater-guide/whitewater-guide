@@ -1,4 +1,6 @@
 import { addBreadcrumb, init } from '@sentry/browser';
+// tslint:disable-next-line:no-submodule-imports
+import '@testing-library/jest-dom/extend-expect';
 
 declare global {
   interface Window {

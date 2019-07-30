@@ -1,4 +1,4 @@
-import { Connection, NamedNode, Node, Timestamped } from '../../apollo';
+import { Connection, NamedNode, NodeRef, Timestamped } from '../../apollo';
 import { Region } from '../regions';
 import { Section } from '../sections';
 
@@ -12,9 +12,10 @@ export interface RiverInput {
   id: string | null;
   name: string;
   altNames: string[] | null;
-  region: Node;
+  region: NodeRef;
 }
 
 export interface RiversFilter {
+  search?: string;
   regionId?: string;
 }

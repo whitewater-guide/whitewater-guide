@@ -1,3 +1,4 @@
+import Box from '@material-ui/core/Box';
 import {
   arrayToGmaps,
   MapProps,
@@ -5,20 +6,29 @@ import {
 } from '@whitewater-guide/clients';
 import { Coordinate, Coordinate3d } from '@whitewater-guide/commons';
 import React, { useMemo } from 'react';
-import { Styles } from '../../styles';
 import GoogleMap, { InitialPosition } from './GoogleMap';
 import POIMarker from './POIMarker';
 import SectionLine from './SectionLine';
 import SelectedPOIWeb from './SelectedPOIWeb';
 import SelectedSectionWeb from './SelectedSectionWeb';
 
-const styles: Styles = {
-  container: {
-    display: 'flex',
-    flex: 1,
-    flexDirection: 'row',
-  },
-};
+import { createStyles, makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    mapRoot: {
+      '& .gm-style-iw': {
+        paddingLeft: undefined,
+        paddingBottom: undefined,
+        maxWidth: 'auto !important',
+        maxHeight: 'auto !important',
+        '& div': {
+          overflow: 'hidden',
+        },
+      },
+    },
+  }),
+);
 
 interface Props extends MapProps {
   initialBounds: Coordinate3d[];
@@ -27,6 +37,8 @@ interface Props extends MapProps {
 
 export const Map: React.FC<Props> = React.memo(
   ({ initialBounds, sections, pois, detailed }) => {
+    const classes = useStyles();
+
     const initialPosition: InitialPosition = useMemo(() => {
       const bounds = new google.maps.LatLngBounds();
       initialBounds.forEach((point: Coordinate) =>
@@ -38,8 +50,9 @@ export const Map: React.FC<Props> = React.memo(
         zoom: -1,
       };
     }, [initialBounds]);
+
     return (
-      <div style={styles.container}>
+      <Box width={1} height={1} className={classes.mapRoot}>
         <MapSelectionProvider>
           <GoogleMap initialPosition={initialPosition}>
             {
@@ -52,7 +65,7 @@ export const Map: React.FC<Props> = React.memo(
             <SelectedPOIWeb />
           </GoogleMap>
         </MapSelectionProvider>
-      </div>
+      </Box>
     );
   },
 );

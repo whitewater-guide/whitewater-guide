@@ -1,26 +1,33 @@
 import React from 'react';
-import { TextInput } from '../../../components/forms';
-import { MediaFormProps } from './types';
+import { NumberField, TextField } from '../../../formik/fields';
 
-export default class NonPhotoForm extends React.PureComponent<MediaFormProps> {
-  render() {
-    return (
-      <React.Fragment>
-        <TextInput
-          multiLine={true}
-          fullWidth={true}
-          name="description"
-          title="Description"
-        />
-        <TextInput fullWidth={true} name="copyright" title="Copyright" />
-        <TextInput fullWidth={true} name="url" title="URL" />
-        <TextInput
-          fullWidth={true}
-          type="number"
-          name="weight"
-          title="Sort weight"
-        />
-      </React.Fragment>
-    );
-  }
-}
+const NonPhotoForm: React.FC = React.memo(() => {
+  return (
+    <React.Fragment>
+      <TextField
+        multiline={true}
+        fullWidth={true}
+        name="description"
+        label="Description"
+        placeholder="Description"
+      />
+      <TextField
+        fullWidth={true}
+        name="copyright"
+        label="Copyright"
+        placeholder="Copyright"
+      />
+      <TextField fullWidth={true} name="url" label="URL" placeholder="URL" />
+      <NumberField
+        fullWidth={true}
+        name="weight"
+        label="Sort weight"
+        placeholder="Sort weight"
+      />
+    </React.Fragment>
+  );
+});
+
+NonPhotoForm.displayName = 'NonPhotoForm';
+
+export default NonPhotoForm;

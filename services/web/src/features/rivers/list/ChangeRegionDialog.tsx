@@ -1,9 +1,12 @@
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import { NamedNode } from '@whitewater-guide/commons';
-import Dialog from 'material-ui/Dialog';
-import RaisedButton from 'material-ui/RaisedButton';
 import React from 'react';
-import { Mutation, MutationFn } from 'react-apollo';
-import { RegionFinder } from '../../regions';
+import { Mutation, MutationFunction } from 'react-apollo';
+import { RegionFinder } from '../../../components';
 import {
   CHANGE_RIVER_REGION,
   Result,
@@ -17,7 +20,10 @@ interface Props {
 }
 
 interface MutationProps extends Props {
-  changeRiverRegion: MutationFn<any, { regionId: string; riverId: string }>;
+  changeRiverRegion: MutationFunction<
+    any,
+    { regionId: string; riverId: string }
+  >;
   loading: boolean;
 }
 
@@ -55,32 +61,30 @@ class ChangeRegionDialog extends React.PureComponent<MutationProps, State> {
   render() {
     const disabled = this.props.loading || !this.state.region;
 
-    const actions = [
-      <RaisedButton key="cancel" label="Cancel" onClick={this.handleCancel} />,
-      <RaisedButton
-        primary={true}
-        key="submit"
-        disabled={disabled}
-        label="Submit"
-        onClick={this.handleSubmit}
-      />,
-    ];
-
     return (
-      <div>
-        <Dialog
-          title="Change River's Region"
-          open={this.props.dialogOpen}
-          onRequestClose={this.handleCancel}
-          actions={actions}
-          contentStyle={{ maxWidth: '400px' }}
-        >
+      <Dialog
+        open={this.props.dialogOpen}
+        onClose={this.handleCancel}
+        maxWidth="lg"
+      >
+        <DialogTitle>Change River's Region</DialogTitle>
+        <DialogContent>
           <RegionFinder
-            region={this.state.region}
+            value={this.state.region}
             onChange={this.onRegionChange}
           />
-        </Dialog>
-      </div>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={this.handleCancel}>Cancel</Button>
+          <Button
+            color="primary"
+            disabled={disabled}
+            onClick={this.handleSubmit}
+          >
+            Submit
+          </Button>
+        </DialogActions>
+      </Dialog>
     );
   }
 }

@@ -7,7 +7,7 @@
       "react-apollo",
       "lodash",
       "moment",
-      "jest-dom"
+      "@testing-library/jest-dom"
     ]
   }
 }

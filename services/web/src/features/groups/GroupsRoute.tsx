@@ -1,10 +1,9 @@
 import React from 'react';
 import { AdminRoute } from '../../layout';
-import container from './container';
 import GroupsForm from './GroupsForm';
 
-const GroupsWithData = container(GroupsForm);
-
-export const GroupsRoute: React.StatelessComponent = () => (
-  <AdminRoute exact={true} path="/groups" component={GroupsWithData} />
+const GroupsRoute: React.FC = () => (
+  <AdminRoute exact={true} path="/groups" component={GroupsForm} />
 );
+
+export default GroupsRoute;

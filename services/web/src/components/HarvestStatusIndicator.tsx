@@ -1,22 +1,16 @@
+import { amber, green, grey, red } from '@material-ui/core/colors';
+import Grid from '@material-ui/core/Grid';
+import FontIcon from '@material-ui/core/Icon';
+import IconButton from '@material-ui/core/IconButton';
+import Popover from '@material-ui/core/Popover';
 import { HarvestStatus } from '@whitewater-guide/commons';
-import FontIcon from 'material-ui/FontIcon';
-import IconButton from 'material-ui/IconButton';
-import Popover from 'material-ui/Popover';
-import {
-  amber500,
-  green500,
-  grey100,
-  grey500,
-  red500,
-} from 'material-ui/styles/colors';
 import moment from 'moment';
 import React from 'react';
-import { Col, Container, Row } from 'react-grid-system';
 import { Styles } from '../styles';
 
 const styles: Styles = {
   popover: {
-    backgroundColor: grey100,
+    backgroundColor: grey[100],
     padding: 8,
     minWidth: 360,
     overflow: 'hidden',
@@ -58,7 +52,9 @@ export class HarvestStatusIndicator extends React.PureComponent<Props, State> {
     });
   };
 
-  onClose = () => {
+  onClose = (event: React.MouseEvent<any>) => {
+    event.preventDefault();
+    event.stopPropagation();
     this.setState({
       open: false,
       anchorEl: null,
@@ -68,7 +64,7 @@ export class HarvestStatusIndicator extends React.PureComponent<Props, State> {
   render() {
     const { status, withText } = this.props;
     const { open, anchorEl } = this.state;
-    let color = grey500;
+    let color = grey[500];
     let tsStyle = {};
     let countStyle = {};
     let statusText = 'unknown';
@@ -76,17 +72,17 @@ export class HarvestStatusIndicator extends React.PureComponent<Props, State> {
     const now = moment();
     const ts = status ? moment(status.timestamp) : now;
     if (status) {
-      color = status.success ? green500 : red500;
+      color = status.success ? green[500] : red[500];
       statusText = status.success ? 'healthy' : 'error';
       if (status.count === 0) {
-        countStyle = { color: red500 };
-        color = amber500;
+        countStyle = { color: red[500] };
+        color = amber[500];
         statusText = 'empty response';
       }
       const diff = moment.duration(now.diff(ts)).asHours();
       if (diff > 24) {
-        tsStyle = { color: red500 };
-        color = amber500;
+        tsStyle = { color: red[500] };
+        color = amber[500];
         statusText = 'stale data';
       }
     }
@@ -98,33 +94,42 @@ export class HarvestStatusIndicator extends React.PureComponent<Props, State> {
             onClick={this.onClick}
             style={withText ? styles.btnWithText : undefined}
           >
-            <FontIcon className="material-icons" color={color}>
+            <FontIcon className="material-icons" style={{ color }}>
               fiber_manual_record
             </FontIcon>
           </IconButton>
           {withText && <span style={{ color }}>{statusText}</span>}
         </div>
-        <Popover open={open} anchorEl={anchorEl} onRequestClose={this.onClose}>
+        <Popover
+          open={open}
+          anchorEl={anchorEl}
+          onClose={this.onClose}
+          modal={true}
+        >
           {status && (
-            <Container style={styles.popover}>
-              <Row style={tsStyle}>
-                <Col sm={4}>
+            <Grid container={true} style={styles.popover}>
+              <Grid container={true} style={tsStyle}>
+                <Grid item={true} sm={4}>
                   <b>Timestamp</b>
-                </Col>
-                <Col>{moment(status.timestamp).format('DD/MM/YYYY H:mm')}</Col>
-              </Row>
-              <Row style={countStyle}>
-                <Col sm={4}>
+                </Grid>
+                <Grid item={true}>
+                  {moment(status.timestamp).format('DD/MM/YYYY H:mm')}
+                </Grid>
+              </Grid>
+              <Grid container={true} style={countStyle}>
+                <Grid item={true} sm={4}>
                   <b>Measurements</b>
-                </Col>
-                <Col>{status.count.toString()}</Col>
-              </Row>
+                </Grid>
+                <Grid item={true}>{status.count.toString()}</Grid>
+              </Grid>
               {!!error && (
-                <Row style={{ color: red500 }}>
-                  <Col sm={12}>{error}</Col>
-                </Row>
+                <Grid container={true} style={{ color: red[500] }}>
+                  <Grid item={true} sm={12}>
+                    {error}
+                  </Grid>
+                </Grid>
               )}
-            </Container>
+            </Grid>
           )}
         </Popover>
       </React.Fragment>

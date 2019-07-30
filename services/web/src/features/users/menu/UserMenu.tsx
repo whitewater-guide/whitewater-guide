@@ -1,101 +1,67 @@
-import { AuthContext, AuthState } from '@whitewater-guide/clients';
-import Avatar from 'material-ui/Avatar';
-import FontIcon from 'material-ui/FontIcon';
-import IconButton from 'material-ui/IconButton';
-import Menu from 'material-ui/Menu';
-import MenuItem from 'material-ui/MenuItem';
-import Popover from 'material-ui/Popover';
-import { ToolbarGroup } from 'material-ui/Toolbar';
-import React from 'react';
+import Avatar from '@material-ui/core/Avatar';
+import MenuItem from '@material-ui/core/MenuItem';
+import Popover, { PopoverOrigin } from '@material-ui/core/Popover';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { useAuth } from '@whitewater-guide/clients';
+import React, { useCallback, useState } from 'react';
 
-const styles = {
-  avatar: {
-    padding: 0,
-  },
+const ANCHOR_ORIGIN: PopoverOrigin = {
+  vertical: 'bottom',
+  horizontal: 'right',
 };
 
-interface State {
-  menuOpen: boolean;
-  anchorEl?: IconButton;
-}
+const TRANSFORM_ORIGIN: PopoverOrigin = {
+  vertical: 'top',
+  horizontal: 'right',
+};
 
-export class UserMenu extends React.PureComponent<{}, State> {
-  static contextType = AuthContext;
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    avatar: {
+      cursor: 'pointer',
+    },
+  }),
+);
 
-  state: State = {
-    menuOpen: false,
-  };
+const UserMenu: React.FC = React.memo(() => {
+  const classes = useStyles();
+  const { me, service } = useAuth();
+  const [anchor, setAnchor] = useState<any>(null);
+  const userpic = (me && me.avatar) || undefined;
 
-  onAvatarPress = (event: React.SyntheticEvent<any>) => {
-    event.preventDefault();
-    this.setState({
-      menuOpen: true,
-      anchorEl: event.currentTarget,
-    });
-  };
+  const onAvatarPress = useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault();
+      setAnchor(e.currentTarget);
+    },
+    [setAnchor],
+  );
 
-  onPopoverClose = () => {
-    this.setState({
-      menuOpen: false,
-    });
-  };
+  const onPopoverClose = useCallback(() => setAnchor(null), [setAnchor]);
 
-  signIn = () => {
-    const { service }: AuthState = this.context;
-    service.signIn('facebook');
-  };
-
-  signOut = () => {
-    this.setState({ menuOpen: false });
-    const { service }: AuthState = this.context;
+  const onSignOut = useCallback(() => {
+    setAnchor(null);
     service.signOut();
-  };
+  }, [setAnchor, service.signOut]);
 
-  renderAvatar = () => {
-    const { me }: AuthState = this.context;
-    if (me) {
-      return (
-        <IconButton onClick={this.onAvatarPress} style={styles.avatar}>
-          {me.avatar ? (
-            <Avatar src={me.avatar} />
-          ) : (
-            <FontIcon className="material-icons">person</FontIcon>
-          )}
-        </IconButton>
-      );
-    }
-    return (
-      <IconButton style={styles.avatar} onClick={this.signIn}>
-        <Avatar>
-          <FontIcon className="fa fa-facebook" />
-        </Avatar>
-      </IconButton>
-    );
-  };
-
-  renderPopover = () => {
-    return (
+  return (
+    <React.Fragment>
+      <Avatar onClick={onAvatarPress} className={classes.avatar} src={userpic}>
+        {me!.name[0]}
+      </Avatar>
       <Popover
-        open={this.state.menuOpen}
-        anchorEl={this.state.anchorEl}
-        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-        targetOrigin={{ horizontal: 'right', vertical: 'top' }}
-        onRequestClose={this.onPopoverClose}
+        anchorEl={anchor}
+        open={!!anchor}
+        anchorOrigin={ANCHOR_ORIGIN}
+        transformOrigin={TRANSFORM_ORIGIN}
+        onClose={onPopoverClose}
       >
-        <Menu>
-          <MenuItem primaryText="Sign out" onClick={this.signOut} />
-        </Menu>
+        <MenuItem onClick={onSignOut}>Sign out</MenuItem>
       </Popover>
-    );
-  };
+    </React.Fragment>
+  );
+});
 
-  render() {
-    const { me }: AuthState = this.context;
-    return (
-      <ToolbarGroup>
-        {this.renderAvatar()}
-        {!!me && this.renderPopover()}
-      </ToolbarGroup>
-    );
-  }
-}
+UserMenu.displayName = 'UserMenu';
+
+export default UserMenu;

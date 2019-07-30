@@ -1,5 +1,5 @@
-import FontIcon from 'material-ui/FontIcon';
-import IconButton from 'material-ui/IconButton';
+import Icon from '@material-ui/core/Icon';
+import IconButton from '@material-ui/core/IconButton';
 import React from 'react';
 
 interface Props {
@@ -13,7 +13,7 @@ export class DiffButton extends React.PureComponent<Props> {
   render() {
     return (
       <IconButton onClick={this.onClick}>
-        <FontIcon className="material-icons">code</FontIcon>
+        <Icon>code</Icon>
       </IconButton>
     );
   }

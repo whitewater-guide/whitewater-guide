@@ -1,39 +1,137 @@
-import { NamedNode } from '@whitewater-guide/commons';
-import React from 'react';
-import { Index, TableProps as VTableProps } from 'react-virtualized';
-import { RawTable } from './RawTable';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { useAuth, useRegion } from '@whitewater-guide/clients';
+import { Node } from '@whitewater-guide/commons';
+import clsx from 'clsx';
+import React, { useCallback, useMemo } from 'react';
+import {
+  AutoSizer,
+  Index,
+  Table as VirtualizedTable,
+  TableProps,
+} from 'react-virtualized';
+import columnMapper from './columnMapper';
+import { TABLE_HEADER_HEIGHT, TABLE_ROW_HEIGHT } from './constants';
 
-export type TableProps<TResource extends NamedNode> = Partial<VTableProps> & {
-  list: TResource[];
-  onResourceClick?: (id: string) => void;
-};
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    tableRoot: {
+      '& .ReactVirtualized__Table__rowColumn': {
+        marginLeft: 0,
+        marginRight: 0,
+        height: (props: Props) => props.rowHeight,
+      },
+      '& .ReactVirtualized__Table__headerColumn': {
+        marginLeft: 0,
+        marginRight: 0,
+        height: (props: Props) => props.headerHeight,
+      },
+      '& *:focus': {
+        outline: 'none',
+      },
+      '& .actions > .MuiTableCell-root': {
+        justifyContent: 'flex-end',
+        paddingRight: theme.spacing(3),
+      },
+      '& .centered > .MuiTableCell-root': {
+        justifyContent: 'center',
+        paddingLeft: 0,
+        paddingRight: 0,
+      },
+    },
+    tableRow: {
+      display: 'flex',
+      alignItems: 'center',
+      boxSizing: 'border-box',
+      height: (props: Props) => props.rowHeight,
+    },
+    tableHeaderRow: {
+      height: (props: Props) => props.headerHeight,
+    },
+    tableRowHover: {
+      cursor: 'pointer',
+      '&:hover': {
+        backgroundColor: theme.palette.grey[300],
+      },
+    },
+    tableRowEven: {
+      backgroundColor: theme.palette.grey[100],
+    },
+  }),
+);
 
-export class Table<
-  DeleteHandle extends string,
-  TResource extends NamedNode
-> extends React.PureComponent<TableProps<TResource>> {
-  rowGetter = ({ index }: Index) => this.props.list[index];
-
-  onRowClick = ({ index }: Index) => {
-    const { onResourceClick, list } = this.props;
-    if (onResourceClick) {
-      onResourceClick(list[index].id);
-    }
-  };
-
-  render() {
-    const { list, children, rowHeight = 48, ...props } = this.props;
-    return (
-      <RawTable
-        {...props as any}
-        headerHeight={52}
-        rowHeight={rowHeight}
-        rowCount={list.length}
-        rowGetter={this.rowGetter}
-        onRowClick={this.onRowClick}
-      >
-        {children}
-      </RawTable>
-    );
-  }
+interface Props {
+  data: Node[];
+  estimatedRowSize?: number; // Pass in case of streaming query
+  onNodeClick?: (id?: string) => void;
+  rowHeight?: number;
+  headerHeight?: number;
+  children?: any;
+  onRowsRendered?: TableProps['onRowsRendered'];
 }
+
+export const Table = React.memo(
+  React.forwardRef(
+    // tslint:disable-next-line:only-arrow-functions
+    function(props: Props, ref: React.Ref<VirtualizedTable>) {
+      const {
+        data,
+        estimatedRowSize,
+        onNodeClick,
+        rowHeight = TABLE_ROW_HEIGHT,
+        headerHeight = TABLE_HEADER_HEIGHT,
+        onRowsRendered,
+        children,
+      } = props;
+      const classes = useStyles({ ...props, rowHeight, headerHeight });
+      const { me } = useAuth();
+      const region = useRegion();
+      const mapColumns = useMemo(() => {
+        const isEditor = !!region && !!region.node && region.node.editable;
+        const isAdmin = !!me && me.admin;
+        return columnMapper(isAdmin, isEditor);
+      }, [region, me]);
+
+      const rowGetter = useCallback(({ index }: Index) => data[index], [data]);
+      const getRowClassName = useCallback(
+        ({ index }: Index) =>
+          clsx(
+            classes.tableRow,
+            { [classes.tableRowHover]: index !== -1 },
+            { [classes.tableRowEven]: index % 2 === 0 },
+          ),
+        [classes],
+      );
+      const onRowClick = useCallback(
+        ({ index }: Index) => {
+          if (onNodeClick) {
+            onNodeClick(data[index].id);
+          }
+        },
+        [data, onNodeClick],
+      );
+
+      return (
+        <AutoSizer rowCount={data.length}>
+          {({ width, height }) => (
+            <VirtualizedTable
+              ref={ref}
+              width={width}
+              height={height}
+              className={classes.tableRoot}
+              headerHeight={headerHeight}
+              rowHeight={rowHeight}
+              rowCount={data.length}
+              rowGetter={rowGetter}
+              onRowClick={onRowClick}
+              rowClassName={getRowClassName}
+              onRowsRendered={onRowsRendered}
+              estimatedRowSize={estimatedRowSize}
+            >
+              {React.Children.map(children, mapColumns)}
+            </VirtualizedTable>
+          )}
+        </AutoSizer>
+      );
+    },
+  ),
+);

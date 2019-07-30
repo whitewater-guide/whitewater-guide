@@ -1,15 +1,8 @@
 import React from 'react';
 
-type Props = React.DetailedHTMLProps<
-  React.HTMLAttributes<HTMLDivElement>,
-  HTMLDivElement
->;
+const blockEvent = (event: React.SyntheticEvent<any>) =>
+  event.stopPropagation();
 
-export class ClickBlocker extends React.PureComponent<Props> {
-  stopPropagation = (event: React.SyntheticEvent<any>) =>
-    event.stopPropagation();
-
-  render() {
-    return <div {...this.props} onClick={this.stopPropagation} />;
-  }
-}
+export const ClickBlocker: React.FC = React.memo((props) => {
+  return <div {...props} onClick={blockEvent} />;
+});

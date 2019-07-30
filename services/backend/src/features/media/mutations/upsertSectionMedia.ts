@@ -3,12 +3,13 @@ import db, { rawUpsert } from '@db';
 import log from '@log';
 import { MEDIA, minioClient, moveTempImage, TEMP } from '@minio';
 import {
-  baseStruct,
   MediaInput,
-  MediaInputStruct,
+  MediaInputSchema,
+  yupTypes,
 } from '@whitewater-guide/commons';
 import { UserInputError } from 'apollo-server';
 import { DiffPatcher } from 'jsondiffpatch';
+import * as yup from 'yup';
 import { MediaRaw } from '../types';
 import insertLog from './insertLogs';
 
@@ -28,9 +29,9 @@ interface Vars {
   media: MediaInput;
 }
 
-const Struct = baseStruct.object({
-  sectionId: 'uuid',
-  media: MediaInputStruct,
+const Struct = yup.object({
+  sectionId: yupTypes.uuid(),
+  media: MediaInputSchema,
 });
 
 const resolver: TopLevelResolver<Vars> = async (root, vars, context) => {

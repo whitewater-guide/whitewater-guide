@@ -1,5 +1,5 @@
 import { holdTransaction, rollbackTransaction } from '@db';
-import { asyncRedis, client } from '@redis';
+import { redis } from '@redis';
 import { ADMIN_FB_PROFILE, ADMIN_ID, NEW_FB_PROFILE } from '@seeds/01_users';
 import { countRows, UUID_REGEX } from '@test';
 import { AuthBody, SignInBody } from '@whitewater-guide/commons';
@@ -28,13 +28,13 @@ beforeAll(async () => {
 beforeEach(async () => {
   jest.resetAllMocks();
   await holdTransaction();
-  await asyncRedis.flushall();
+  await redis.flushall();
   app = createApp();
 });
 
 afterEach(async () => {
   await rollbackTransaction();
-  client.removeAllListeners();
+  redis.removeAllListeners();
 });
 
 describe('new user', () => {

@@ -1,58 +1,60 @@
-import { CardMedia } from 'material-ui/Card';
-import {
-  default as Table,
-  TableBody,
-  TableHeader,
-  TableHeaderColumn,
-  TableRow,
-} from 'material-ui/Table';
-import React from 'react';
-import { Content } from '../../components';
+import CardHeader from '@material-ui/core/CardHeader';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import React, { useMemo } from 'react';
+import { useQuery } from 'react-apollo';
 import { EditorLanguagePicker } from '../../components/language';
-import { CardHeader } from '../../layout';
+import { squashConnection } from '../../formik/utils';
+import { Card, CardContent } from '../../layout';
 import GroupForm from './GroupForm';
-import { GroupsFormProps } from './types';
+import { LIST_GROUPS, QResult, QVars } from './listGroups.query';
+import useAddGroup from './useAddGroup';
+import useRemoveGroup from './useRemoveGroup';
 
-export default class GroupsForm extends React.PureComponent<GroupsFormProps> {
-  render() {
-    const { groups, upsertGroup, removeGroup } = this.props;
-    return (
-      <Content card={true}>
-        <CardHeader title="Groups">
-          <EditorLanguagePicker />
-        </CardHeader>
-        <CardMedia style={{ height: '100%' }} mediaStyle={{ height: '100%' }}>
-          <div style={{ width: '100%', height: '100%', overflowY: 'scroll' }}>
-            <Table selectable={false}>
-              <TableHeader enableSelectAll={false} displaySelectAll={false}>
-                <TableRow>
-                  <TableHeaderColumn>Name</TableHeaderColumn>
-                  <TableHeaderColumn>SKU</TableHeaderColumn>
-                  <TableHeaderColumn>Regions</TableHeaderColumn>
-                  <TableHeaderColumn style={{ width: 150 }}>
-                    Actions
-                  </TableHeaderColumn>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {groups.nodes.map((group) => (
-                  <GroupForm
-                    key={group.id}
-                    group={group}
-                    upsertGroup={upsertGroup}
-                    removeGroup={removeGroup}
-                  />
-                ))}
-                <GroupForm
-                  upsertGroup={upsertGroup}
-                  removeGroup={removeGroup}
-                  group={{ id: null, name: '', sku: '' }}
-                />
-              </TableBody>
-            </Table>
-          </div>
-        </CardMedia>
-      </Content>
-    );
-  }
-}
+const GroupsForm: React.FC = React.memo(() => {
+  const { data, loading } = useQuery<QResult, QVars>(LIST_GROUPS, {
+    fetchPolicy: 'network-only',
+  });
+  const groups = useMemo(() => squashConnection(data, 'groups'), [data]);
+  const addGroup = useAddGroup();
+  const removeGroup = useRemoveGroup();
+  return (
+    <Card loading={loading}>
+      <CardHeader title="Groups" action={<EditorLanguagePicker />} />
+      <CardContent>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Name</TableCell>
+              <TableCell>SKU</TableCell>
+              <TableCell>Regions</TableCell>
+              <TableCell>Actions</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {groups.map((group) => (
+              <GroupForm
+                key={group.id}
+                group={group}
+                onAdd={addGroup}
+                onRemove={removeGroup}
+              />
+            ))}
+            <GroupForm
+              onAdd={addGroup}
+              onRemove={removeGroup}
+              group={{ id: null, name: '', sku: '' }}
+            />
+          </TableBody>
+        </Table>
+      </CardContent>
+    </Card>
+  );
+});
+
+GroupsForm.displayName = 'GroupsForm';
+
+export default GroupsForm;

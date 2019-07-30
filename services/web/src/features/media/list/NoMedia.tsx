@@ -1,5 +1,5 @@
+import Icon from '@material-ui/core/Icon';
 import { MediaKind } from '@whitewater-guide/commons';
-import FontIcon from 'material-ui/FontIcon';
 import React from 'react';
 import { Styles } from '../../../styles';
 import { THUMB_HEIGHT } from './constants';
@@ -23,6 +23,7 @@ const styles: Styles = {
   },
   icon: {
     fontSize: 48,
+    color: '#BBBBBB',
   },
   text: {
     marginTop: 12,
@@ -35,11 +36,9 @@ interface Props {
   kind: MediaKind;
 }
 
-const NoMedia: React.StatelessComponent<Props> = ({ kind }) => (
+const NoMedia: React.FC<Props> = ({ kind }) => (
   <div style={styles.dz}>
-    <FontIcon className="material-icons" style={styles.icon} color="#BBBBBB">
-      collections
-    </FontIcon>
+    <Icon style={styles.icon}>collections</Icon>
     <span style={styles.text}>{`No ${kind}s for this section`}</span>
   </div>
 );

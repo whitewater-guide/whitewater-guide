@@ -42,32 +42,36 @@ const ChartLayout: React.FC = () => {
   if (loading) {
     return <Loading />;
   }
-  if (!data || data.length === 0) {
-    return <NoData hasGauge={true} />;
-  }
+  const noData = !data || data.length === 0;
   return (
     <div style={styles.root}>
       <div style={styles.chartContainer}>
         <ReactResizeDetector handleHeight={true} handleWidth={true}>
           {({ width, height }: any) => (
             <div>
-              <ChartView
-                width={width}
-                height={height}
-                data={data}
-                days={days}
-                gauge={gauge}
-                unit={unit}
-                section={section}
-                theme={VictoryTheme.material}
-              >
-                <VictoryScatter
+              {noData ? (
+                <div style={{ width, height }}>
+                  <NoData hasGauge={true} />
+                </div>
+              ) : (
+                <ChartView
+                  width={width}
+                  height={height}
                   data={data}
-                  x="timestamp"
-                  y={unit}
-                  labelComponent={<VictoryTooltip />}
-                />
-              </ChartView>
+                  days={days}
+                  gauge={gauge}
+                  unit={unit}
+                  section={section}
+                  theme={VictoryTheme.material}
+                >
+                  <VictoryScatter
+                    data={data}
+                    x="timestamp"
+                    y={unit}
+                    labelComponent={<VictoryTooltip />}
+                  />
+                </ChartView>
+              )}
             </div>
           )}
         </ReactResizeDetector>

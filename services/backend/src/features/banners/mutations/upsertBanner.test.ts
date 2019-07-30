@@ -331,6 +331,33 @@ describe('files', () => {
     ).resolves.toBe(true);
   });
 
+  it('should accept full filenames', async () => {
+    const { PROTOCOL, MINIO_DOMAIN } = process.env;
+    const result = await runQuery(
+      mutation,
+      {
+        banner: {
+          ...oldBanner,
+          source: {
+            ...oldBanner.source,
+            src: `${PROTOCOL}://${MINIO_DOMAIN}/banners/${oldBanner.source.src}`,
+          },
+        },
+      },
+      fakeContext(ADMIN),
+    );
+    const upsertedBanner = result.data!.upsertBanner;
+    const { source } = await db()
+      .table('banners')
+      .select(['source'])
+      .where({ id: upsertedBanner.id })
+      .first();
+    expect(source).toEqual(oldBanner.source);
+    expect(upsertedBanner.source.src).toEqual(
+      `${PROTOCOL}://${MINIO_DOMAIN}/banners/${oldBanner.source.src}`,
+    );
+  });
+
   it('should store only filenames', async () => {
     const { PROTOCOL, MINIO_DOMAIN } = process.env;
     const result = await runQuery(

@@ -1,6 +1,7 @@
+import { NamedNode } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
 
-const REGION_EDITORS_QUERY = gql`
+export const REGION_EDITORS_QUERY = gql`
   query regionEditors($regionId: ID!) {
     editors: regionEditors(regionId: $regionId) {
       id
@@ -9,4 +10,10 @@ const REGION_EDITORS_QUERY = gql`
   }
 `;
 
-export default REGION_EDITORS_QUERY;
+export interface QVars {
+  regionId: string;
+}
+
+export interface QResult {
+  editors: NamedNode[];
+}

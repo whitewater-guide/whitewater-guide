@@ -1,4 +1,4 @@
-import { client } from '@redis';
+import { redis } from '@redis';
 import Koa from 'koa';
 import redisStore from 'koa-redis';
 import session from 'koa-session';
@@ -6,7 +6,7 @@ import castArray from 'lodash/castArray';
 import get from 'lodash/get';
 
 export const useSessions = (app: Koa) => {
-  const store = redisStore({ client });
+  const store = redisStore({ client: redis });
   app.keys = [process.env.SESSION_SECRET!];
   const sessionMiddleware = session(
     {

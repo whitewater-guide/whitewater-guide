@@ -1,74 +1,78 @@
-import { SectionsListLoader, useRegion } from '@whitewater-guide/clients';
-import { Tab } from 'material-ui/Tabs';
+import Box from '@material-ui/core/Box';
+import {
+  SectionsListLoader,
+  useFilterState,
+  useRegion,
+} from '@whitewater-guide/clients';
 import React from 'react';
-import { withApollo, WithApolloClient } from 'react-apollo';
-import { Route } from 'react-router';
+import { useApolloClient } from 'react-apollo';
+import { Route, Switch } from 'react-router';
 import useRouter from 'use-react-router';
-import { Tabs } from '../../../components';
 import { Map } from '../../../components/maps';
+import { NavTab, NavTabs } from '../../../components/navtabs';
 import { RiversList } from '../../rivers/list';
 import { SectionsList } from '../../sections/list';
 import RegionDetailsMain from './RegionDetailsMain';
 
-const RegionDetailsTabs: React.FC<WithApolloClient<{}>> = ({ client }) => {
+const RegionDetailsTabs: React.FC = React.memo(() => {
+  const client = useApolloClient();
   const region = useRegion();
   const { node } = region;
   const { match } = useRouter();
+  const searchTerms = useFilterState();
   if (!node) {
     return null;
   }
   const regionId = node.id;
   return (
-    <SectionsListLoader region={region} client={client}>
+    <SectionsListLoader
+      region={region}
+      client={client}
+      limit={60}
+      searchTerms={searchTerms}
+    >
       {({ sections, count }) => (
-        <Tabs fullPathMode={true}>
-          <Tab label="Info" value={`/regions/${regionId}#main`}>
-            <RegionDetailsMain />
-          </Tab>
-
-          <Tab label="Map" value={`/regions/${regionId}#map`}>
-            <Map
-              detailed={false}
-              sections={sections}
-              initialBounds={node.bounds}
-              pois={node.pois}
+        <React.Fragment>
+          <NavTabs variant="fullWidth">
+            <NavTab label="Info" value="/main" />
+            <NavTab label="Map" value="/map" />
+            <NavTab label="Rivers" value="/rivers" />
+            <NavTab
+              label={`Sections (${sections.length}/${count})`}
+              value={'/sections'}
             />
-          </Tab>
+          </NavTabs>
 
-          <Tab label="Rivers" value={`/regions/${regionId}/rivers`}>
-            <Route exact={true} path={`${match.path}/rivers`}>
-              <div
-                style={{
-                  height: '100%',
-                  width: '100%',
-                  overflow: 'hidden',
-                }}
-              >
+          <Box flex={1}>
+            <Switch>
+              <Route exact={true} path={`${match.path}/map`}>
+                <Map
+                  detailed={false}
+                  sections={sections}
+                  initialBounds={node.bounds}
+                  pois={node.pois}
+                />
+              </Route>
+
+              <Route exact={true} path={`${match.path}/rivers`}>
                 <RiversList />
-              </div>
-            </Route>
-          </Tab>
+              </Route>
 
-          <Tab
-            label={`Sections (${sections.length}/${count})`}
-            value={`/regions/${regionId}/sections`}
-          >
-            <Route exact={true} path={`${match.path}/sections`}>
-              <div
-                style={{
-                  height: '100%',
-                  width: '100%',
-                  overflow: 'hidden',
-                }}
-              >
+              <Route exact={true} path={`${match.path}/sections`}>
                 <SectionsList sections={sections} regionId={regionId} />
-              </div>
-            </Route>
-          </Tab>
-        </Tabs>
+              </Route>
+
+              <Route>
+                <RegionDetailsMain />
+              </Route>
+            </Switch>
+          </Box>
+        </React.Fragment>
       )}
     </SectionsListLoader>
   );
-};
+});
 
-export default withApollo(RegionDetailsTabs) as React.ComponentType;
+RegionDetailsTabs.displayName = 'RegionDetailsTabs';
+
+export default RegionDetailsTabs;

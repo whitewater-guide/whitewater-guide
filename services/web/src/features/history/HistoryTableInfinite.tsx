@@ -15,8 +15,6 @@ interface Props {
   onUserChange: (user: NamedNode | null) => void;
   region: NamedNode | null;
   onRegionChange: (user: NamedNode | null) => void;
-  width: number;
-  height: number;
   fetchMore: ObservableQueryFields<QResult, QVars>['fetchMore'];
   onDiffOpen: (diff: object | null) => void;
 }
@@ -57,8 +55,6 @@ class HistoryTableInfinite extends React.PureComponent<Props> {
   render() {
     const {
       history,
-      width,
-      height,
       user,
       region,
       onUserChange,
@@ -80,8 +76,6 @@ class HistoryTableInfinite extends React.PureComponent<Props> {
             onRowsRendered={onRowsRendered}
             onRegionChange={onRegionChange}
             history={history.nodes || []}
-            height={height}
-            width={width}
             onDiffOpen={onDiffOpen}
           />
         )}

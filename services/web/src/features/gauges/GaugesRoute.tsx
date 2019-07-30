@@ -1,23 +1,22 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Route, RouteComponentProps, Switch } from 'react-router-dom';
+import { Loading } from '../../components';
 import { AdminRoute } from '../../layout';
-import { GaugeForm } from './form';
+import GaugeForm from './form';
 import GaugeRoute from './GaugeRoute';
-import { GaugesList } from './list';
 
-export const GaugesRoute: React.StatelessComponent<RouteComponentProps<any>> = (
-  props,
-) => {
-  let path = props.match.path;
-  if (!path.endsWith('/')) {
-    path = path + '/';
-  }
-  return path.includes('/sources/') ? (
-    <Switch>
-      <AdminRoute exact={true} path={`${path}new`} component={GaugeForm} />
-      <Route path={`${path}:gaugeId`} component={GaugeRoute} />
-    </Switch>
-  ) : (
-    <Route exact={true} path={`${path}`} component={GaugesList} />
+export const GaugesRoute: React.FC<RouteComponentProps<any>> = (props) => {
+  const { match } = props;
+  return (
+    <Suspense fallback={<Loading />}>
+      <Switch>
+        <AdminRoute
+          exact={true}
+          path={`${match.path}new`}
+          component={GaugeForm}
+        />
+        <Route path={`${match.path}:gaugeId`} component={GaugeRoute} />
+      </Switch>
+    </Suspense>
   );
 };

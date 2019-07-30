@@ -1,4 +1,3 @@
-const { fileLoader, mergeTypes } = require('merge-graphql-schemas');
 const { resolve } = require('path');
 const { spawnSync } = require('child_process');
 const { config } = require('dotenv');

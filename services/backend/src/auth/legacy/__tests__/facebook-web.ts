@@ -1,5 +1,5 @@
 import { holdTransaction, rollbackTransaction } from '@db';
-import { asyncRedis, client } from '@redis';
+import { redis } from '@redis';
 import {
   ADMIN,
   ADMIN_FB_PROFILE,
@@ -33,13 +33,13 @@ beforeAll(async () => {
 beforeEach(async () => {
   jest.resetAllMocks();
   await holdTransaction();
-  await asyncRedis.flushall();
+  await redis.flushall();
   app = createApp();
 });
 
 afterEach(async () => {
   await rollbackTransaction();
-  client.removeAllListeners();
+  redis.removeAllListeners();
 });
 
 it('should redirect on call from web-client', async () => {
@@ -99,10 +99,10 @@ describe('new user', () => {
   it('should create session', async () => {
     const sessionId = extractSessionId(response);
     expect(sessionId).toBeDefined();
-    const keys = await asyncRedis.keys('*');
+    const keys = await redis.keys('*');
     expect(keys).toHaveLength(1);
-    const session = await asyncRedis.get(sessionId!);
-    expect(JSON.parse(session)).toHaveProperty(
+    const session = await redis.get(sessionId!);
+    expect(JSON.parse(session!)).toHaveProperty(
       'passport.user',
       expect.stringMatching(UUID_REGEX),
     );
@@ -126,10 +126,10 @@ describe('new user', () => {
 
     const sessionId = extractSessionId(response);
     expect(sessionId).toBeDefined();
-    const keys = await asyncRedis.keys('*');
+    const keys = await redis.keys('*');
     expect(keys).toHaveLength(1);
-    const session = await asyncRedis.get(sessionId!);
-    expect(JSON.parse(session)).toHaveProperty(
+    const session = await redis.get(sessionId!);
+    expect(JSON.parse(session!)).toHaveProperty(
       'passport.user',
       expect.stringMatching(UUID_REGEX),
     );
@@ -145,7 +145,7 @@ describe('new user', () => {
         name: `${NEW_FB_PROFILE.name!.givenName} ${
           NEW_FB_PROFILE.name!.familyName
         }`,
-        avatar: NEW_FB_PROFILE.photos![0].value,
+        avatar: null,
         email: NEW_FB_PROFILE.emails![0].value,
         admin: false,
         language: 'en',
@@ -195,10 +195,10 @@ describe('existing user', () => {
   it('should create session', async () => {
     const sessionId = extractSessionId(response);
     expect(sessionId).toBeDefined();
-    const keys = await asyncRedis.keys('*');
+    const keys = await redis.keys('*');
     expect(keys).toHaveLength(1);
-    const session = await asyncRedis.get(sessionId!);
-    expect(JSON.parse(session)).toHaveProperty('passport.user', ADMIN_ID);
+    const session = await redis.get(sessionId!);
+    expect(JSON.parse(session!)).toHaveProperty('passport.user', ADMIN_ID);
   });
 
   it('should set cookie', async () => {
@@ -242,7 +242,7 @@ describe('logout', () => {
 
   it('should remove session', async () => {
     await testAgent.get(LOGOUT_ROUTE);
-    const keys = await asyncRedis.keys('*');
+    const keys = await redis.keys('*');
     expect(keys).toHaveLength(0);
   });
 

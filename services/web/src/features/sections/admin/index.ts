@@ -1,3 +1,3 @@
-import { SectionAdmin } from './SectionAdmin';
+import React from 'react';
 
-export default SectionAdmin;
+export default React.lazy(() => import('./SectionAdmin'));

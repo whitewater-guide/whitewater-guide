@@ -25,7 +25,7 @@ Object {
     "description": null,
     "id": "21f2351e-d52a-11e7-9296-cec278b6b50a_putIn",
     "kind": "put-in",
-    "name": "Put-in",
+    "name": "Sjoa - Amot: Put-in",
   },
   "rating": 5,
   "season": "Amot season",
@@ -60,7 +60,7 @@ Object {
     "description": null,
     "id": "21f2351e-d52a-11e7-9296-cec278b6b50a_takeOut",
     "kind": "take-out",
-    "name": "Take-out",
+    "name": "Sjoa - Amot: Take-out",
   },
 }
 `;

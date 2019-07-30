@@ -4,15 +4,15 @@ import {
   TopLevelResolver,
 } from '@apollo';
 import db, { rawUpsert } from '@db';
-import { SourceInput, SourceInputStruct } from '@whitewater-guide/commons';
-import { struct } from 'superstruct';
+import { SourceInput, SourceInputSchema } from '@whitewater-guide/commons';
+import * as yup from 'yup';
 
 interface Vars {
   source: SourceInput;
 }
 
-const Struct = struct.object({
-  source: SourceInputStruct,
+const Struct = yup.object({
+  source: SourceInputSchema,
 });
 
 const resolver: TopLevelResolver<Vars> = async (root, args, { language }) => {

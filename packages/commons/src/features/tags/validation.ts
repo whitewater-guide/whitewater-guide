@@ -1,8 +1,12 @@
-import { baseStruct } from '../../utils/validation';
-import { TAG_CATEGORIES } from './types';
+import * as yup from 'yup';
+import { yupTypes } from '../../validation';
+import { TAG_CATEGORIES, TagInput } from './types';
 
-export const TagInputStruct = baseStruct.object({
-  id: 'slug',
-  name: 'nonEmptyString',
-  category: baseStruct.enum(TAG_CATEGORIES),
-});
+export const TagInputSchema = yup
+  .object<TagInput>({
+    id: yupTypes.slug(),
+    name: yupTypes.nonEmptyString(),
+    category: yup.mixed().oneOf(TAG_CATEGORIES),
+  })
+  .strict(true)
+  .noUnknown();

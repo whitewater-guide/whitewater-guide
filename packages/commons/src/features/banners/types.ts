@@ -1,5 +1,4 @@
-import { Connection, NamedNode, Node } from '../../apollo';
-import { Overwrite } from '../../utils';
+import { Connection, NamedNode, Node, NodeRef } from '../../apollo';
 import { Group } from '../groups';
 import { Region } from '../regions';
 
@@ -21,7 +20,7 @@ export interface BannerSource {
   src: string;
 }
 
-export interface Banner extends NamedNode {
+export interface BannerCore extends NamedNode {
   enabled: boolean;
   slug: string;
   priority: number;
@@ -29,6 +28,9 @@ export interface Banner extends NamedNode {
   source: BannerSource;
   link: string | null;
   extras: any;
+}
+
+export interface Banner extends BannerCore {
   // --- connections
   regions?: Connection<Region>;
   groups?: Connection<Group>;
@@ -53,11 +55,9 @@ export interface BannerInput {
   link: string | null;
   extras: { [key: string]: any } | null;
   // --- connections
-  regions: Node[];
-  groups: Node[];
+  regions: NodeRef[];
+  groups: NodeRef[];
 }
-
-export type BannerFormInput = Overwrite<BannerInput, { extras: string | null }>;
 
 export function isBanner(node: Node): node is Banner {
   return node.__typename === 'Banner';

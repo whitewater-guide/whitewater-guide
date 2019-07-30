@@ -1,5 +1,5 @@
 import { SectionFragments } from '@whitewater-guide/clients';
-import { Section } from '@whitewater-guide/commons';
+import { Section, SectionInput } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
 
 export const UPSERT_SECTION = gql`
@@ -25,6 +25,10 @@ export const UPSERT_SECTION = gql`
   ${SectionFragments.Tags}
 `;
 
-export interface UpsertSectionResult {
+export interface MVars {
+  section: SectionInput;
+}
+
+export interface MResult {
   upsertSection: Section | null;
 }

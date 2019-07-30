@@ -33,6 +33,7 @@ type RiversList {
 }
 
 input RiversFilter {
+  search: String
   # region ID
   regionId: ID
 }

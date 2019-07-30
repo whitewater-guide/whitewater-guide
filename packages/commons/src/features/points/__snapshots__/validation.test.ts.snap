@@ -1,26 +1,113 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`coordinate schema error 1`] = `
+exports[`coordinate schema error in both 1`] = `
 Object {
-  "0": "Longitude value must be between -180 and 180",
-  "1": "Latitude value must be between -90 and 90",
+  "0": "yup:number.longitude",
+  "1": "yup:number.latitude",
+}
+`;
+
+exports[`coordinate schema error in lat 1`] = `
+Object {
+  "1": "yup:number.latitude",
+}
+`;
+
+exports[`coordinate schema wrong array length (2) 1`] = `
+Object {
+  "2": "yup:number.altitude",
+}
+`;
+
+exports[`coordinate schema wrong array length (4) 1`] = `
+Object {
+  "undefined": Object {
+    "key": "yup:array.max",
+    "options": Object {
+      "max": 3,
+      "path": "this",
+    },
+  },
 }
 `;
 
 exports[`loose coordinate schema error 1`] = `
 Object {
-  "0": "Longitude value must be between -180 and 180",
-  "1": "Latitude value must be between -90 and 90",
+  "0": "yup:number.longitude",
+  "1": "yup:number.latitude",
 }
 `;
 
-exports[`point input schema should return errors for incorrect input 1`] = `
+exports[`loose coordinate schema wrong array length 1`] = `
+Object {
+  "undefined": Object {
+    "key": "yup:array.max",
+    "options": Object {
+      "max": 3,
+      "path": "this",
+    },
+  },
+}
+`;
+
+exports[`point input schema should be invalid for all 1`] = `
 Object {
   "coordinates": Array [
-    "Longitude value must be between -180 and 180",
-    "Latitude value must be between -90 and 90",
+    "yup:number.longitude",
+    "yup:number.latitude",
   ],
-  "id": "Incorrect UUID",
-  "kind": "Incorrect value",
+  "id": "yup:string.uuid",
+  "kind": Object {
+    "key": "yup:mixed.oneOf",
+    "options": Object {
+      "values": "put-in, put-in-alt, put-in-road, take-out, take-out-alt, take-out-road, waterfall, rapid, portage, playspot, hazard, river-campsite, wild-camping, paid-camping, gauge, hike-waypoint, bridge, dam, power-plant, kayak-shop, other",
+    },
+  },
+}
+`;
+
+exports[`point input schema should be invalid for extra coordinate array item 1`] = `
+Object {
+  "coordinates": Object {
+    "key": "yup:array.max",
+    "options": Object {
+      "max": 3,
+      "path": "coordinates",
+    },
+  },
+  "id": "yup:string.uuid",
+}
+`;
+
+exports[`point input schema should be invalid for lat only 1`] = `
+Object {
+  "coordinates": Array [
+    "yup:number.longitude",
+    undefined,
+    "yup:number.altitude",
+  ],
+  "id": "yup:string.uuid",
+}
+`;
+
+exports[`point input schema should be invalid for lng only 1`] = `
+Object {
+  "coordinates": Array [
+    undefined,
+    "yup:number.latitude",
+    "yup:number.altitude",
+  ],
+  "id": "yup:string.uuid",
+}
+`;
+
+exports[`point input schema should be invalid for missing alt 1`] = `
+Object {
+  "coordinates": Array [
+    undefined,
+    undefined,
+    "yup:number.altitude",
+  ],
+  "id": "yup:string.uuid",
 }
 `;

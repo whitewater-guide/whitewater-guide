@@ -1,8 +1,8 @@
-import { createValidator } from '../../utils/validation';
+import { createSafeValidator } from '../../validation';
 import { UserInput } from './types';
-import { UserInputStruct } from './validation';
+import { UserInputSchema } from './validation';
 
-const validator = createValidator(UserInputStruct);
+const validator = createSafeValidator(UserInputSchema);
 
 type TestValue = [string, UserInput];
 
@@ -45,6 +45,7 @@ it.each(correctValues)('should be valid for %s', (_, value) => {
 });
 
 it.each(incorrectValues)('should be invalid for %s', (_, value) => {
-  expect(validator(value)).not.toBeNull();
-  expect(validator(value)).toMatchSnapshot();
+  const error = validator(value);
+  expect(error).not.toBeNull();
+  expect(error).toMatchSnapshot();
 });

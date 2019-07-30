@@ -1,18 +1,13 @@
 import db from '@db';
 import { UserRaw } from '@features/users';
-import { LANGUAGES } from '@whitewater-guide/commons';
+import { LANGUAGES, SocialMediaProvider } from '@whitewater-guide/commons';
 import get from 'lodash/get';
 import Negotiator from 'negotiator';
 // tslint:disable-next-line:no-submodule-imports
 import { preferredLanguages } from 'negotiator/lib/language';
 import { Profile } from 'passport';
 
-const getFBUser = async (
-  provider: string,
-  profile: Profile,
-  tokens: any,
-  req: any,
-) => {
+const getFBUser = async (profile: Profile, tokens: any, req: any) => {
   let isNew = false;
 
   profile.username = `${profile.name!.givenName} ${profile.name!.familyName}`;
@@ -48,7 +43,10 @@ const getFBUser = async (
     user = await db()
       .table('accounts')
       .innerJoin('users', 'users.id', 'accounts.user_id')
-      .where({ 'accounts.provider': provider, 'accounts.id': profile.id })
+      .where({
+        'accounts.provider': SocialMediaProvider.FACEBOOK,
+        'accounts.id': profile.id,
+      })
       .first('users.*');
     if (!user && fbEmail) {
       user = await db()
@@ -65,7 +63,7 @@ const getFBUser = async (
       .insert({
         name: profile.displayName,
         email: fbEmail,
-        avatar: fbAvatar,
+        avatar: null,
         language,
         editor_settings: { language: 'en' },
         verified: true,
@@ -75,7 +73,11 @@ const getFBUser = async (
     isNew = true;
   }
 
-  const loginKeys = { user_id: user!.id, provider, id: profile.id };
+  const loginKeys = {
+    user_id: user!.id,
+    provider: SocialMediaProvider.FACEBOOK,
+    id: profile.id,
+  };
   const { count } = await db()
     .table('accounts')
     .where(loginKeys)
@@ -101,15 +103,6 @@ const getFBUser = async (
         tokens: JSON.stringify(tokens),
         profile: JSON.stringify(profile._json),
       });
-  }
-
-  // Set avatar if not present
-  if (user && !user.avatar && fbAvatar) {
-    user.avatar = fbAvatar;
-    await db()
-      .table('users')
-      .update({ avatar: fbAvatar })
-      .where({ id: user.id });
   }
 
   return { isNew, user };

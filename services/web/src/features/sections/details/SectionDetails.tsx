@@ -1,70 +1,79 @@
+import Box from '@material-ui/core/Box';
+import CardHeader from '@material-ui/core/CardHeader';
 import { useSection } from '@whitewater-guide/clients';
 import { sectionName } from '@whitewater-guide/commons';
-import { CardMedia } from 'material-ui/Card';
-import { Tab } from 'material-ui/Tabs';
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Route, Switch } from 'react-router';
 import { RouteComponentProps } from 'react-router-dom';
-import { Content, Tabs } from '../../../components';
 import { Chart } from '../../../components/chart';
 import { EditorLanguagePicker } from '../../../components/language';
 import { Map } from '../../../components/maps';
-import { CardHeader, EditorFooter } from '../../../layout';
+import { NavTab, NavTabs } from '../../../components/navtabs';
+import { Card, CardContent, EditorFooter } from '../../../layout';
 import { SectionMedia } from '../../media';
 import SectionInfo from './SectionInfo';
 
 const SectionDetails: React.FC<RouteComponentProps> = React.memo((props) => {
-  const {
-    match: { url },
-  } = props;
+  const { match } = props;
   const { node: section } = useSection();
   if (!section) {
     return null;
   }
   return (
-    <Content card={true}>
-      <CardHeader title={sectionName(section)}>
-        <EditorLanguagePicker />
-      </CardHeader>
-      <CardMedia style={{ height: '100%' }} mediaStyle={{ height: '100%' }}>
-        <div style={{ width: '100%', height: '100%' }}>
-          <Tabs fullPathMode={true}>
-            <Tab label="Map" value={`${url}#map`}>
-              <Map
-                detailed={true}
-                sections={[section]}
-                initialBounds={section.shape}
-                pois={section.pois}
-              />
-            </Tab>
+    <Card>
+      <CardHeader
+        title={sectionName(section)}
+        action={<EditorLanguagePicker />}
+      />
+      <CardContent>
+        <NavTabs variant="fullWidth">
+          <NavTab label="Map" value="/map" />
+          <NavTab label="Flows" value="/flows" />
+          <NavTab label="Info" value="/main" />
+          <NavTab label="Description" value="/description" />
+          <NavTab label="Media" value="/media" />
+        </NavTabs>
 
-            <Tab label="Flow Info" value={`${url}#flow`}>
+        <Box flex={1} overflow="auto">
+          <Switch>
+            <Route exact={true} path={`${match.path}/map`}>
+              <Box width={1} height={1}>
+                <Map
+                  detailed={true}
+                  sections={[section]}
+                  initialBounds={section.shape}
+                  pois={section.pois}
+                />
+              </Box>
+            </Route>
+
+            <Route exact={true} path={`${match.path}/flows`}>
               <Chart gauge={section.gauge!} section={section} />
-            </Tab>
+            </Route>
 
-            <Tab label="Info" value={`${url}#main`}>
-              <SectionInfo section={section} />
-            </Tab>
-
-            <Tab label="Description" value={`${url}#description`}>
+            <Route exact={true} path={`${match.path}/description`}>
               <ReactMarkdown source={section.description || ''} />
-            </Tab>
+            </Route>
 
-            <Tab label="Media" value={`${url}/media`}>
+            <Route path={`${match.path}/media`}>
               <SectionMedia />
-            </Tab>
-          </Tabs>
-        </div>
-      </CardMedia>
+            </Route>
+
+            <Route>
+              <SectionInfo section={section} />
+            </Route>
+          </Switch>
+        </Box>
+      </CardContent>
       <Switch>
-        <Route exact={true} path={`${url}/media`} />
+        <Route path={`${match.url}/media`} />
 
         <Route>
           <EditorFooter edit={true} administrate={true} />
         </Route>
       </Switch>
-    </Content>
+    </Card>
   );
 });
 

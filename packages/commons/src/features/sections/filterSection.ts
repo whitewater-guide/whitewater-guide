@@ -1,3 +1,4 @@
+import deburr from 'lodash/deburr';
 import { Section, SectionSearchTerms } from './types';
 
 export const getFilter = (terms: SectionSearchTerms | null) => (
@@ -24,7 +25,11 @@ export const getFilter = (terms: SectionSearchTerms | null) => (
   ].map((s) => s.toLowerCase());
   if (
     searchString &&
-    !allNames.some((n) => n.toLowerCase().includes(searchString))
+    !allNames.some((n) =>
+      deburr(n)
+        .toLowerCase()
+        .includes(deburr(searchString.toLowerCase())),
+    )
   ) {
     return false;
   }

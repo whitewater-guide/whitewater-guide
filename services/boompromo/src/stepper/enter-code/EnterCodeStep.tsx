@@ -1,9 +1,15 @@
 import { BoomPromoInfo } from '@whitewater-guide/commons';
+import ApolloClient from 'apollo-client';
 import React from 'react';
-import { withApollo, WithApolloClient } from 'react-apollo';
+import { withApollo } from 'react-apollo';
 import { WithTranslation, withTranslation } from 'react-i18next';
+import { compose } from '../../utils';
 import { CHECK_BOOM_PROMO_QUERY, Result, Vars } from './checkBoomPromo.query';
 import EnterCodeView from './EnterCodeView';
+
+interface WithApollo {
+  client: ApolloClient<any>;
+}
 
 interface Props {
   next: (info: BoomPromoInfo) => void;
@@ -17,7 +23,7 @@ interface State {
 }
 
 class EnterCodeStep extends React.PureComponent<
-  WithApolloClient<Props & WithTranslation>,
+  Props & WithTranslation & WithApollo,
   State
 > {
   readonly state: State = {
@@ -104,6 +110,7 @@ class EnterCodeStep extends React.PureComponent<
   }
 }
 
-export default withApollo(
-  withTranslation()(EnterCodeStep),
-) as React.ComponentType<Props>;
+export default compose(
+  withApollo,
+  withTranslation(),
+)(EnterCodeStep);

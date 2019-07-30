@@ -1,5 +1,5 @@
 import { holdTransaction, rollbackTransaction } from '@db';
-import { asyncRedis, client } from '@redis';
+import { redis } from '@redis';
 import { ADMIN, ADMIN_FB_PROFILE, ADMIN_ID } from '@seeds/01_users';
 import { REGION_GALICIA } from '@seeds/04_regions';
 import { GALICIA_REGION_DESCR_BANNER2 } from '@seeds/14_banners';
@@ -78,14 +78,14 @@ beforeEach(async () => {
     },
   );
   await holdTransaction();
-  await asyncRedis.flushall();
+  await redis.flushall();
   app = createApp();
   await createApolloServer(app);
 });
 
 afterEach(async () => {
   await rollbackTransaction();
-  client.removeAllListeners();
+  redis.removeAllListeners();
 });
 
 describe('legacy', () => {

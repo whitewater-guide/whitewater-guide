@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/imagecache",
   "private": true,
-  "version": "0.0.6",
+  "version": "0.0.7-mui.10",
   "license": "UNLICENSED",
   "description": "nginx cache for imageproxy, part of whitewater.guide stack",
   "repository": "https://github.com/doomsower/whitewater.git",

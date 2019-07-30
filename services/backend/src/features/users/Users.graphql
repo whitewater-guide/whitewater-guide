@@ -21,11 +21,18 @@ type User {
   editorSettings: EditorSettings
   # If user is verified
   verified: Boolean!
+  # Social media accounts
+  accounts: [SocialMediaAccount]!
 
   # Which regions current user has purchased
   purchasedRegions: [Region]!
   # Which region groups current user has purchased
   purchasedGroups: [Group]!
+}
+
+type SocialMediaAccount {
+  id: ID!
+  provider: String!
 }
 
 type EditorSettings {

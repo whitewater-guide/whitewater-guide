@@ -1,26 +1,32 @@
-import { Type } from 'superstruct';
-import { baseStruct } from '../../utils/validation';
-import { HarvestModeStruct } from '../harvest-mode';
-import { ScriptStruct } from '../scripts';
+import * as yup from 'yup';
+import { yupTypes } from '../../validation';
+import { HarvestModeSchema } from '../harvest-mode';
 
-const SourceInputFields = {
-  id: 'uuid|null',
-  name: 'nonEmptyString',
-  termsOfUse: 'string|null',
-  script: 'script',
-  requestParams: 'object|null',
-  cron: baseStruct.union(['cron', 'null', baseStruct.literal('')]),
-  harvestMode: HarvestModeStruct,
-  url: baseStruct.union(['url', 'null', baseStruct.literal('')]),
-  regions: ['node'],
-};
-
-export const SourceInputStruct = baseStruct.object(SourceInputFields);
-
-export const SourceFormStruct = (richTextStruct?: Type) =>
-  baseStruct.object({
-    ...SourceInputFields,
-    termsOfUse: richTextStruct || 'any',
-    script: ScriptStruct,
-    requestParams: baseStruct.union(['jsonString', 'null']),
-  });
+export const SourceInputSchema = yup
+  .object({
+    id: yupTypes.uuid().nullable(),
+    name: yupTypes.nonEmptyString(),
+    termsOfUse: yup
+      .string()
+      .defined()
+      .nullable(),
+    script: yup
+      .string()
+      .defined()
+      .min(1)
+      .max(20),
+    requestParams: yup.object().nullable(),
+    cron: yupTypes.cron().nullable(),
+    harvestMode: HarvestModeSchema.clone(),
+    url: yup
+      .string()
+      .url()
+      .defined()
+      .nullable(),
+    regions: yup
+      .array()
+      .of(yupTypes.node())
+      .defined(),
+  })
+  .strict(true)
+  .noUnknown();

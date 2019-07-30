@@ -1,8 +1,8 @@
-import { createValidator } from '../../utils/validation';
+import { createSafeValidator } from '../../validation';
 import { GaugeInput } from './types';
-import { GaugeInputStruct } from './validation';
+import { GaugeInputSchema } from './validation';
 
-const validator = createValidator(GaugeInputStruct);
+const validator = createSafeValidator(GaugeInputSchema);
 
 type TestValue = [string, GaugeInput];
 
@@ -51,30 +51,46 @@ const correctValues: TestValue[] = [
   ],
 ];
 
+const incorrectValues: TestValue[] = [
+  [
+    'all',
+    {
+      id: 'aaaa',
+      name: '',
+      code: '',
+      levelUnit: '',
+      flowUnit: '',
+      location: {
+        id: 'zzz',
+        name: 'z',
+        description: null,
+        coordinates: [-190, 800, -123.5],
+        kind: 'foo',
+      },
+      requestParams: {},
+      cron: '-1 * * * *',
+      url: 'http://google.',
+      source: {
+        id: 'bar',
+      },
+    },
+  ],
+  ['undefined name', { ...gauge, name: undefined as any }],
+  ['undefined code', { ...gauge, code: undefined as any }],
+  ['undefined cron', { ...gauge, cron: undefined as any }],
+  ['undefined level unit', { ...gauge, levelUnit: undefined as any }],
+  ['undefined request params', { ...gauge, requestParams: undefined as any }],
+  ['undefined source', { ...gauge, source: undefined as any }],
+  ['null source', { ...gauge, source: null as any }],
+  ['extra field', { ...gauge, foo: 'bar' } as any],
+];
+
 it.each(correctValues)('should be valid for %s', (_, value) => {
   expect(validator(value)).toBeNull();
 });
 
-it('should produce error on incorrect input', () => {
-  const badGauge: GaugeInput = {
-    id: 'aaaa',
-    name: '',
-    code: '',
-    levelUnit: '',
-    flowUnit: '',
-    location: {
-      id: 'zzz',
-      name: 'z',
-      description: null,
-      coordinates: [-190, 800, -123.5],
-      kind: 'foo',
-    },
-    requestParams: {},
-    cron: '-1 * * * *',
-    url: 'http://google.',
-    source: {
-      id: 'bar',
-    },
-  };
-  expect(validator(badGauge)).toMatchSnapshot();
+it.each(incorrectValues)('should be invalid for %s', (_, value) => {
+  const error = validator(value);
+  expect(error).not.toBeNull();
+  expect(error).toMatchSnapshot();
 });

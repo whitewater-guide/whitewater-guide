@@ -1,11 +1,16 @@
-import { Connection, NamedNode, Node, Timestamped } from '../../apollo';
-import { Overwrite } from '../../utils';
+import {
+  Connection,
+  NamedNode,
+  Node,
+  NodeRef,
+  Timestamped,
+} from '../../apollo';
 import { Gauge } from '../gauges';
 import { Media } from '../media';
 import { Coordinate3d, Point, PointInput } from '../points';
 import { Region } from '../regions';
 import { River } from '../rivers';
-import { Tag, TagInput } from '../tags';
+import { Tag } from '../tags';
 import { User } from '../users';
 
 export enum Duration {
@@ -80,8 +85,9 @@ export interface SectionInput {
   season: string | null;
   seasonNumeric: number[];
 
-  river: Node;
-  gauge: Node | null;
+  river: NodeRef;
+  gauge: NodeRef | null;
+  region?: NodeRef | null;
   levels: GaugeBinding | null;
   flows: GaugeBinding | null;
   flowsText: string | null;
@@ -93,7 +99,7 @@ export interface SectionInput {
   difficulty: number;
   difficultyXtra: string | null;
   rating: number | null;
-  tags: Node[];
+  tags: NodeRef[];
   pois: PointInput[];
 
   hidden: boolean;
@@ -104,7 +110,7 @@ export type SectionSortBy = 'name' | 'difficulty' | 'duration' | 'rating';
 export interface SectionSearchTerms {
   sortBy: SectionSortBy;
   sortDirection: 'ASC' | 'DESC';
-  searchString: '';
+  searchString: string;
   difficulty: [number, number];
   duration: [Duration, Duration];
   rating: number;
@@ -134,21 +140,6 @@ export interface SectionsFilter {
   regionId?: string;
   updatedAfter?: Date;
 }
-
-interface FormOverrides<RichText = any> {
-  description: RichText;
-  river: NamedNode;
-}
-
-export type SectionFormInput<RichText> = Overwrite<
-  Omit<SectionInput, 'tags'>,
-  FormOverrides<RichText>
-> & {
-  kayakingTags: TagInput[];
-  hazardsTags: TagInput[];
-  supplyTags: TagInput[];
-  miscTags: TagInput[];
-};
 
 export type SectionEditAction =
   | 'create'

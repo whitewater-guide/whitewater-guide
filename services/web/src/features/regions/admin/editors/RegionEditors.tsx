@@ -1,57 +1,38 @@
-import { User } from '@whitewater-guide/commons';
-import Table, { TableBody, TableFooter } from 'material-ui/Table';
+import List from '@material-ui/core/List';
 import React from 'react';
-import { Mutation, MutationFn, Query, QueryResult } from 'react-apollo';
+import { useQuery } from 'react-apollo';
 import { Loading } from '../../../../components';
-import container from './container';
 import EditorListFooter from './EditorListFooter';
 import EditorListItem from './EditorListItem';
-import REGION_EDITORS_QUERY from './editors.query';
-import REMOVE_EDITOR_MUTATION from './removeEditor.mutation';
+import { QResult, QVars, REGION_EDITORS_QUERY } from './editors.query';
+import useAddEditor from './useAddEditor';
+import useRemoveEditor from './useRemoveEditor';
 
 interface Props {
   regionId: string;
 }
 
-interface Result {
-  editors: User[];
-}
+export const RegionEditors: React.FC<Props> = React.memo(({ regionId }) => {
+  const { data, loading } = useQuery<QResult, QVars>(REGION_EDITORS_QUERY, {
+    fetchPolicy: 'network-only',
+    variables: {
+      regionId,
+    },
+  });
+  const removeEditor = useRemoveEditor(regionId);
+  const addEditor = useAddEditor(regionId);
+  if (loading) {
+    return <Loading />;
+  }
+  const editors = (data && data.editors) || [];
+  return (
+    <List>
+      {editors.map((user) => (
+        <EditorListItem key={user.id} user={user} onRemove={removeEditor} />
+      ))}
+      <EditorListFooter onAdd={addEditor} />
+    </List>
+  );
+});
 
-const RegionEditors: React.StatelessComponent<Props> = ({ regionId }) => (
-  <Query query={REGION_EDITORS_QUERY} variables={{ regionId }}>
-    {({ loading, data }: QueryResult<Result, Props>) => {
-      if (loading) {
-        return <Loading />;
-      }
-      const editors = data!.editors || [];
-      return (
-        <Mutation
-          mutation={REMOVE_EDITOR_MUTATION}
-          refetchQueries={['regionEditors']}
-        >
-          {(
-            removeEditor: MutationFn<any, { userId: string; regionId: string }>,
-          ) => (
-            <Table selectable={false}>
-              <TableBody>
-                {editors.map((user) => (
-                  <EditorListItem
-                    key={user.id}
-                    user={user}
-                    removeEditor={removeEditor}
-                    regionId={regionId}
-                  />
-                ))}
-              </TableBody>
-              <TableFooter>
-                <EditorListFooter regionId={regionId} />
-              </TableFooter>
-            </Table>
-          )}
-        </Mutation>
-      );
-    }}
-  </Query>
-);
-
-export const RegionEditorsWithData = container(RegionEditors);
+RegionEditors.displayName = 'RegionEditors';

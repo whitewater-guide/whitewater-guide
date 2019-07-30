@@ -1,2 +1,2 @@
 export * from './initApolloClient';
-export * from './withDeleteMutation';
+export * from './useDeleteMutation';

@@ -15,9 +15,9 @@ export const TagsContext = React.createContext(defaultContext);
 export const TagsProvider: React.FC = ({ children }) => (
   <Query query={LIST_TAGS} fetchPolicy="cache-and-network">
     {({ data, loading }: QueryResult<Result, {}>) => {
-      const tags = data ? data.tags : [];
+      const tags = (data && data.tags) || [];
       return (
-        <TagsContext.Provider value={{ tags: tags || [], loading }}>
+        <TagsContext.Provider value={{ tags, loading }}>
           {children}
         </TagsContext.Provider>
       );

@@ -1,9 +1,8 @@
+import Button, { ButtonProps } from '@material-ui/core/Button';
 import gql from 'graphql-tag';
-import { FlatButton, FlatButtonProps } from 'material-ui';
 import React from 'react';
 import { graphql } from 'react-apollo';
 import { compose, mapProps } from 'recompose';
-import { emitter, POKE_TABLES } from '../../../utils';
 
 const AUTOFILL_MUTATION = gql`
   mutation autofillSource($sourceId: ID!) {
@@ -18,29 +17,25 @@ interface TVariables {
   sourceId: string;
 }
 
-type OuterProps = Partial<FlatButtonProps> & TVariables;
+type OuterProps = Partial<ButtonProps> & TVariables;
 
-const container = compose<FlatButtonProps, OuterProps>(
-  graphql<OuterProps, {}, {}, FlatButtonProps>(AUTOFILL_MUTATION, {
+const container = compose<ButtonProps, OuterProps>(
+  graphql<OuterProps, {}, {}, ButtonProps>(AUTOFILL_MUTATION, {
     options: () => ({
       refetchQueries: ['listGauges'],
     }),
     props: ({ mutate, ownProps: { sourceId } }) => ({
       onClick: () =>
-        mutate!({ sourceId } as any)
-          .catch(() => {
-            /* Ignore -> error goes to global snackbar */
-          })
-          .finally(() => {
-            emitter.emit(POKE_TABLES);
-          }),
+        mutate!({ sourceId } as any).catch(() => {
+          /* Ignore -> error goes to global snackbar */
+        }),
     }),
   }),
-  mapProps(({ sourceId, ...props }: FlatButtonProps & TVariables) => ({
+  mapProps(({ sourceId, ...props }: ButtonProps & TVariables) => ({
     ...props,
   })),
 );
 
-const AutofillButton = container(FlatButton);
+const AutofillButton = container(Button);
 
 export default AutofillButton;

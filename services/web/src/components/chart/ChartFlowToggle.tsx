@@ -1,7 +1,8 @@
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 import { useChart } from '@whitewater-guide/clients';
 import { Unit } from '@whitewater-guide/commons';
 import capitalize from 'lodash/capitalize';
-import Toggle from 'material-ui/Toggle';
 import React, { useCallback } from 'react';
 
 const styles = {
@@ -18,11 +19,10 @@ const ChartFlowToggle: React.FC = () => {
   );
   return (
     <div style={styles.container}>
-      <Toggle
-        disabled={!unitChangeable}
-        toggled={unit === Unit.FLOW}
+      <FormControlLabel
+        control={<Switch checked={unit === Unit.FLOW} onChange={onToggle} />}
         label={capitalize(unit)}
-        onToggle={onToggle}
+        disabled={!unitChangeable}
       />
     </div>
   );

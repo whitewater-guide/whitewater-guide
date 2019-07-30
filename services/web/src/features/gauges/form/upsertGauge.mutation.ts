@@ -1,7 +1,8 @@
 import { GaugeFragments } from '@whitewater-guide/clients';
+import { GaugeInput } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
 
-const UPSERT_GAUGE = gql`
+export const UPSERT_GAUGE = gql`
   mutation upsertGauge($gauge: GaugeInput!) {
     upsertGauge(gauge: $gauge) {
       ...GaugeCore
@@ -14,4 +15,6 @@ const UPSERT_GAUGE = gql`
   ${GaugeFragments.HarvestInfo}
 `;
 
-export default UPSERT_GAUGE;
+export interface MVars {
+  gauge: GaugeInput<object | null>;
+}

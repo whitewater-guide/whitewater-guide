@@ -1,41 +1,32 @@
-import isNumber from 'lodash/isNumber';
-import { customStruct } from '../../utils/validation';
+import * as yup from 'yup';
+import { yupTypes } from '../../validation';
 import { BannerKind, BannerPlacement } from './types';
 
-const struct = customStruct({
-  ratio: (value: any) => {
-    if (!isNumber(value)) {
-      return 'Ratio must be a number';
-    }
-    if (value > 10 || value < 3) {
-      return 'Ratio must be a number between 10 and 3';
-    }
-    return true;
-  },
-});
+const BannerSourceSchema = yup
+  .object({
+    kind: yup.mixed().oneOf(Object.values(BannerKind)),
+    ratio: yup
+      .number()
+      .moreThan(3)
+      .lessThan(10)
+      .nullable(true),
+    src: yupTypes.nonEmptyString(),
+  })
+  .noUnknown();
 
-const BannerSourceStruct = struct.object({
-  kind: struct.enum(Object.values(BannerKind)),
-  ratio: 'ratio|null',
-  src: 'nonEmptyString',
-});
-
-const BannerInputFields = {
-  id: 'uuid|null',
-  slug: 'slug',
-  name: 'nonEmptyString',
-  priority: 'integer',
-  enabled: 'boolean',
-  placement: struct.enum(Object.values(BannerPlacement)),
-  source: BannerSourceStruct,
-  link: 'https|null',
-  extras: 'object|null',
-  regions: ['node'],
-  groups: ['node'],
-};
-
-export const BannerInputStruct = struct.object(BannerInputFields);
-export const BannerFormStruct = struct.object({
-  ...BannerInputFields,
-  extras: 'jsonString|null',
-});
+export const BannerInputSchema = yup
+  .object({
+    id: yupTypes.uuid().nullable(),
+    slug: yupTypes.slug(),
+    name: yupTypes.nonEmptyString(),
+    priority: yup.number().integer(),
+    enabled: yup.bool(),
+    placement: yup.mixed().oneOf(Object.values(BannerPlacement)),
+    source: BannerSourceSchema.clone(),
+    link: yupTypes.https().nullable(true),
+    extras: yup.object().nullable(true),
+    regions: yup.array(yupTypes.node()),
+    groups: yup.array(yupTypes.node()),
+  })
+  .strict(true)
+  .noUnknown(true);

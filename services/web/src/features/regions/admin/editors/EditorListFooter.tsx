@@ -1,74 +1,42 @@
-import { User } from '@whitewater-guide/commons';
-import IconButton from 'material-ui/IconButton';
-import { TableRow, TableRowColumn } from 'material-ui/Table';
-import React from 'react';
-import { Mutation, MutationFn } from 'react-apollo';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
+import { NamedNode } from '@whitewater-guide/commons';
+import React, { useCallback, useState } from 'react';
+import { IconButtonWithData } from '../../../../components';
 import { UserFinder } from '../../../users';
-import { ADD_EDITOR_MUTATION, Result, Vars } from './addEditor.mutation';
 
 interface Props {
-  regionId: string;
+  onAdd: (userId: string) => void;
 }
 
-interface InnerProps extends Props {
-  addEditor: MutationFn<Result, Vars>;
-  loading: boolean;
-}
+const EditorListFooter: React.FC<Props> = React.memo((props) => {
+  const [user, setUser] = useState<NamedNode | null>(null);
+  const onAdd = useCallback(
+    (id: string) => {
+      props.onAdd(id);
+      setUser(null);
+    },
+    [props.onAdd, setUser],
+  );
 
-interface State {
-  user: User | null;
-}
+  return (
+    <ListItem>
+      <ListItemText>
+        <UserFinder value={user} onChange={setUser} />
+      </ListItemText>
+      <ListItemSecondaryAction>
+        <IconButtonWithData
+          data={user ? user.id : null}
+          icon="add"
+          onPress={onAdd}
+          disabled={!user}
+        />
+      </ListItemSecondaryAction>
+    </ListItem>
+  );
+});
 
-class EditorListFooter extends React.PureComponent<InnerProps, State> {
-  state: State = { user: null };
+EditorListFooter.displayName = 'EditorListFooter';
 
-  onAdd = () => {
-    const { user } = this.state;
-    const { regionId, addEditor } = this.props;
-    if (user) {
-      addEditor({ variables: { regionId, userId: user.id } });
-    }
-    this.setState({ user: null });
-  };
-
-  onChange = (user: User | null) => this.setState({ user });
-
-  render() {
-    const { user } = this.state;
-    const { loading } = this.props;
-    const disabled = loading || !user;
-    return (
-      <TableRow>
-        <TableRowColumn>
-          <UserFinder user={user} onChange={this.onChange} />
-        </TableRowColumn>
-        <TableRowColumn>
-          <IconButton
-            disabled={disabled}
-            iconClassName="material-icons"
-            onClick={this.onAdd}
-          >
-            add
-          </IconButton>
-        </TableRowColumn>
-      </TableRow>
-    );
-  }
-}
-
-const EditorListFooterWithMutation: React.FC<Props> = ({ regionId }) => (
-  <Mutation<Result, Vars>
-    mutation={ADD_EDITOR_MUTATION}
-    refetchQueries={['regionEditors']}
-  >
-    {(addEditor, { loading }) => (
-      <EditorListFooter
-        addEditor={addEditor}
-        loading={loading}
-        regionId={regionId}
-      />
-    )}
-  </Mutation>
-);
-
-export default EditorListFooterWithMutation;
+export default EditorListFooter;

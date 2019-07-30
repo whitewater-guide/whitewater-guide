@@ -34,7 +34,7 @@
 
   gzip
 
-  proxy / weblate:80 {
+  proxy / weblate:8080 {
     transparent
   }
 

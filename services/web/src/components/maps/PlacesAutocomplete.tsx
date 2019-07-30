@@ -1,31 +1,35 @@
-import AutoComplete from 'material-ui/AutoComplete';
+import { NamedNode } from '@whitewater-guide/commons';
+import debounce from 'lodash/debounce';
+import uniqBy from 'lodash/uniqBy';
 import React from 'react';
 import { findDOMNode } from 'react-dom';
-import { Styles } from '../../styles';
+import { Autocomplete, AutocompleteFilterOptions } from '../autocomplete';
 import { MapElementProps } from './types';
+
 type AutocompletePrediction = google.maps.places.AutocompletePrediction;
 type PlacesServiceStatus = google.maps.places.PlacesServiceStatus;
 const PlacesServiceStatus = google.maps.places.PlacesServiceStatus;
 type PlaceResult = google.maps.places.PlaceResult;
 
-const styles: Styles = {
+const MENU_PROPS = { disablePortal: true };
+const FILTER_OPTIONS: AutocompleteFilterOptions = { matchInput: true };
+const styles = {
   container: {
+    marginTop: 10,
     backgroundColor: 'white',
-    width: 300,
+    padding: 4,
+    boxShadow: 'rgba(0, 0, 0, 0.3) 0px 1px 4px -1px',
+    borderRadius: 2,
   },
 };
 
-const alwaysTrue = () => true;
-
-interface SearchResult {
-  text: string;
+interface SearchResult extends NamedNode {
   value: PlaceResult | AutocompletePrediction;
 }
 
 interface State {
   searchText: string;
-  autocompleteResult: SearchResult[];
-  placesResult: SearchResult[];
+  combinedResult: SearchResult[];
 }
 
 export default class PlacesAutocomplete extends React.Component<
@@ -33,7 +37,9 @@ export default class PlacesAutocomplete extends React.Component<
   State
 > {
   autocompleteService: google.maps.places.AutocompleteService;
+  autocompleteResult: SearchResult[] = [];
   placesService: google.maps.places.PlacesService;
+  placesResult: SearchResult[] = [];
   state: State;
 
   constructor(props: MapElementProps) {
@@ -42,8 +48,7 @@ export default class PlacesAutocomplete extends React.Component<
     this.placesService = new google.maps.places.PlacesService(props.map!);
     this.state = {
       searchText: '',
-      autocompleteResult: [],
-      placesResult: [], // Use both to search by coordinates
+      combinedResult: [],
     };
   }
 
@@ -53,7 +58,16 @@ export default class PlacesAutocomplete extends React.Component<
     );
   }
 
-  onUpdateInput = (searchText: string) => {
+  updateSearchResults = () => {
+    this.setState({
+      combinedResult: uniqBy(
+        [...this.autocompleteResult, ...this.placesResult],
+        'id',
+      ),
+    });
+  };
+
+  onUpdateInput = debounce((searchText: string) => {
     this.setState({ searchText });
     this.autocompleteService.getPlacePredictions(
       { input: searchText, bounds: this.props.bounds },
@@ -63,16 +77,16 @@ export default class PlacesAutocomplete extends React.Component<
       { query: searchText, bounds: this.props.bounds },
       this.onPlacesComplete,
     );
-  };
+  }, 250);
 
   onPlacesComplete = (result: PlaceResult[], status: PlacesServiceStatus) => {
     if (status === PlacesServiceStatus.OK) {
-      this.setState({
-        placesResult: result.map((place) => ({
-          text: place.formatted_address!,
-          value: place,
-        })),
-      });
+      this.placesResult = result.map((place) => ({
+        id: place.place_id!,
+        name: place.formatted_address!,
+        value: place,
+      }));
+      this.updateSearchResults();
     }
   };
 
@@ -81,29 +95,25 @@ export default class PlacesAutocomplete extends React.Component<
     status: PlacesServiceStatus,
   ) => {
     if (status === PlacesServiceStatus.OK) {
-      this.setState({
-        autocompleteResult: result.map((place) => ({
-          text: place.description,
-          value: place,
-        })),
-      });
+      this.autocompleteResult = result.map((place) => ({
+        id: place.place_id!,
+        name: place.description,
+        value: place,
+      }));
+      this.updateSearchResults();
     }
   };
 
-  onSelect = (e: any, index: number) => {
-    const dataSource = [
-      ...this.state.autocompleteResult,
-      ...this.state.placesResult,
-    ];
-    const place = dataSource[index].value;
-    if (place.hasOwnProperty('geometry')) {
-      this.panZoomTo(place as PlaceResult);
+  onSelect = ({ value }: SearchResult) => {
+    if (value.hasOwnProperty('geometry')) {
+      this.panZoomTo(value as PlaceResult);
     } else {
       this.placesService.getDetails(
-        { placeId: place.place_id! },
+        { placeId: value.place_id! },
         this.onDetailsReceived,
       );
     }
+    this.setState({ searchText: '' });
   };
 
   onDetailsReceived = (place: PlaceResult, status: PlacesServiceStatus) => {
@@ -120,16 +130,15 @@ export default class PlacesAutocomplete extends React.Component<
   render() {
     return (
       <div style={styles.container}>
-        <AutoComplete
-          fullWidth={true}
-          hintText="Type anything"
-          filter={alwaysTrue}
-          dataSource={[
-            ...this.state.autocompleteResult,
-            ...this.state.placesResult,
-          ]}
-          onUpdateInput={this.onUpdateInput}
-          onNewRequest={this.onSelect}
+        <Autocomplete
+          placeholder="Type anything"
+          filterOptions={FILTER_OPTIONS}
+          options={this.state.combinedResult}
+          inputValue={this.state.searchText}
+          onInputValueChange={this.onUpdateInput}
+          onChange={this.onSelect}
+          value={null}
+          menuProps={MENU_PROPS}
         />
       </div>
     );

@@ -1,51 +1,23 @@
-import { Durations, NamedNode } from '@whitewater-guide/commons';
-import groupBy from 'lodash/groupBy';
-import TextField from 'material-ui/TextField';
+import qs from 'qs';
 import React from 'react';
-import { Tabs } from '../../../components';
-import {
-  Checkbox,
-  ChipInput,
-  DrawingMapField,
-  Form,
-  FormTab,
-  KmlUploaderInput,
-  NodeFinderField,
-  POICollection,
-  RatingInput,
-  SeasonPicker,
-  Select,
-  ShapeInput,
-  StringArrayInput,
-  TextareaField,
-  TextInput,
-} from '../../../components/forms';
-import { Row } from '../../../layout';
-import { Styles } from '../../../styles';
-import { SectionFormData, SectionFormProps } from './types';
+import { RouteComponentProps } from 'react-router';
+import { HashTabs, HashTabView } from '../../../components/navtabs';
+import { FormikCard, useApolloFormik } from '../../../formik';
+import { MarkdownField, POIArray } from '../../../formik/fields';
+import { FormikTab } from '../../../formik/helpers';
+import addToList from './addToList';
+import formToMutation from './formToMutation';
+import queryToForm from './queryToForm';
+import { QResult, QVars, SECTION_FORM_QUERY } from './sectionForm.query';
+import { SectionFormFlows } from './SectionFormFlows';
+import { SectionFormMain } from './SectionFormMain';
+import { SectionFormMap } from './SectionFormMap';
+import { SectionFormProperties } from './SectionFormProperties';
+import { RouterParams, SectionFormData } from './types';
+import { MVars, UPSERT_SECTION } from './upsertSection.mutation';
+import { SectionFormSchema } from './validation';
 
-const styles: Styles = {
-  container: {
-    display: 'flex',
-    flex: 1,
-    alignSelf: 'stretch',
-    alignItems: 'stretch',
-    flexDirection: 'row',
-  },
-  mapContainer: {
-    flex: 1,
-  },
-  sidebar: {
-    width: 270,
-    padding: 8,
-    overflowY: 'auto',
-  },
-};
-
-const DURATIONS_OPTIONS: NamedNode[] = [];
-Durations.forEach((val, key) =>
-  DURATIONS_OPTIONS.push({ id: key as any, name: val }),
-);
+const header = { resourceType: 'section' };
 
 const MainFields: Array<keyof SectionFormData> = [
   'name',
@@ -53,6 +25,8 @@ const MainFields: Array<keyof SectionFormData> = [
   'difficulty',
   'difficultyXtra',
   'rating',
+];
+const FlowsFields: Array<keyof SectionFormData> = [
   'gauge',
   'levels',
   'flows',
@@ -73,201 +47,82 @@ const ShapeFields: Array<keyof SectionFormData> = ['shape'];
 const POIFields: Array<keyof SectionFormData> = ['pois'];
 const DescriptionFields: Array<keyof SectionFormData> = ['description'];
 
-export default class SectionForm extends React.PureComponent<SectionFormProps> {
-  render() {
-    const { kayaking = [], hazards = [], supply = [], misc = [] } = groupBy(
-      this.props.tags,
-      'category',
-    );
-    const tabTemplateStyle =
-      this.props.location.hash === '#description' ? { padding: 0 } : undefined;
-    return (
-      <Form {...this.props} resourceType="section">
-        <Tabs tabTemplateStyle={tabTemplateStyle}>
-          <FormTab
-            form="section"
-            fields={MainFields}
-            label="Main"
-            value="#main"
-          >
-            <div style={{ overflowX: 'hidden', flex: 1 }}>
-              <TextField
-                fullWidth={true}
-                disabled={true}
-                value={this.props.initialValues.river!.name}
-                floatingLabelText="River"
-              />
-              <TextInput fullWidth={true} name="name" title="Name" />
-              <StringArrayInput name="altNames" title="Alternative names" />
-              <Row>
-                <TextInput
-                  fullWidth={true}
-                  name="difficulty"
-                  type="number"
-                  title="Difficulty"
-                />
-                <TextInput
-                  fullWidth={true}
-                  name="difficultyXtra"
-                  title="Difficulty (extra)"
-                />
-                <RatingInput name="rating" title="Rating" />
-              </Row>
-              <NodeFinderField
-                name="gauge"
-                clearSelectionTitle="Clear selection"
-                hintText="Gauge"
-                dataSource={this.props.region.gauges!.nodes}
-                format={null}
-                fullWidth={true}
-                showListWhenInputIsEmpty={true}
-              />
-              <Row>
-                <TextInput
-                  fullWidth={true}
-                  name="levels.minimum"
-                  type="number"
-                  title="Minimal level"
-                />
-                <TextInput
-                  fullWidth={true}
-                  name="levels.optimum"
-                  type="number"
-                  title="Optimal level"
-                />
-                <TextInput
-                  fullWidth={true}
-                  name="levels.maximum"
-                  type="number"
-                  title="Maximal level"
-                />
-                <TextInput
-                  fullWidth={true}
-                  name="levels.impossible"
-                  type="number"
-                  title="Absolute maximum"
-                />
-                <Checkbox name="levels.approximate" label="Approximate" />
-              </Row>
-              <Row>
-                <TextInput
-                  fullWidth={true}
-                  name="flows.minimum"
-                  type="number"
-                  title="Minimal flow"
-                />
-                <TextInput
-                  fullWidth={true}
-                  name="flows.optimum"
-                  type="number"
-                  title="Optimal flow"
-                />
-                <TextInput
-                  fullWidth={true}
-                  name="flows.maximum"
-                  type="number"
-                  title="Maximal flow"
-                />
-                <TextInput
-                  fullWidth={true}
-                  name="flows.impossible"
-                  type="number"
-                  title="Absolute maximum"
-                />
-                <TextInput
-                  fullWidth={true}
-                  name="flows.formula"
-                  title="Formula"
-                />
-                <Checkbox name="flows.approximate" label="Approximate" />
-              </Row>
-              <TextInput
-                fullWidth={true}
-                name="flowsText"
-                title="Flows description"
-              />
-              <Checkbox name="hidden" label="Hidden from users" />
-            </div>
-          </FormTab>
-          <FormTab
-            form="section"
-            fields={PropertiesFields}
-            label="Properties"
-            value="#properties"
-          >
-            <div style={{ overflowX: 'hidden', flex: 1 }}>
-              <Row>
-                <TextInput
-                  fullWidth={true}
-                  name="drop"
-                  type="number"
-                  title="Drop, m"
-                />
-                <TextInput
-                  fullWidth={true}
-                  name="distance"
-                  type="number"
-                  title="Length, km"
-                />
-                <Select
-                  nullable={true}
-                  format={null}
-                  name="duration"
-                  options={DURATIONS_OPTIONS}
-                  title="Duration"
-                />
-              </Row>
-              <TextInput fullWidth={true} name="season" title="Season" />
-              <SeasonPicker name="seasonNumeric" />
-              <ChipInput
-                name="supplyTags"
-                title="River supply"
-                options={supply}
-              />
-              <ChipInput
-                name="kayakingTags"
-                title="Kayaking types"
-                options={kayaking}
-              />
-              <ChipInput name="hazardsTags" title="Hazards" options={hazards} />
-              <ChipInput name="miscTags" title="Tags" options={misc} />
-            </div>
-          </FormTab>
-          <FormTab
-            form="section"
-            fields={ShapeFields}
-            label="Shape"
-            value="#shape"
-          >
-            <div style={styles.container}>
-              <div style={styles.mapContainer}>
-                <div style={{ width: '100%', height: '100%' }}>
-                  <DrawingMapField
-                    name="shape"
-                    drawingMode="LineString"
-                    bounds={this.props.region.bounds}
-                  />
-                </div>
-              </div>
-              <div style={styles.sidebar}>
-                <KmlUploaderInput name="shape" />
-                <ShapeInput name="shape" />
-              </div>
-            </div>
-          </FormTab>
-          <FormTab form="section" fields={POIFields} label="POIS" value="#pois">
-            <POICollection name="pois" mapBounds={this.props.region.bounds} />
-          </FormTab>
-          <FormTab
-            form="section"
-            fields={DescriptionFields}
-            label="Description"
-            value="#description"
-          >
-            <TextareaField name="description" />
-          </FormTab>
-        </Tabs>
-      </Form>
-    );
-  }
-}
+type Props = RouteComponentProps<RouterParams>;
+
+const SectionForm: React.FC<Props> = ({ match, location }) => {
+  const query = qs.parse(location.search.substr(1));
+  const riverId = query.riverId;
+
+  const formik = useApolloFormik<QVars, QResult, SectionFormData, MVars>({
+    query: SECTION_FORM_QUERY,
+    queryOptions: {
+      variables: {
+        ...match.params,
+        riverId,
+      },
+    },
+    queryToForm,
+    mutation: UPSERT_SECTION,
+    formToMutation,
+    mutationOptions: {
+      update: addToList(match.params),
+    },
+  });
+
+  const region = formik.rawData ? formik.rawData.region : null;
+  const bounds = region ? region.bounds : null;
+  const tags = formik.rawData ? formik.rawData.tags : [];
+
+  return (
+    <FormikCard<QResult, SectionFormData>
+      header={header}
+      {...formik}
+      validationSchema={SectionFormSchema}
+    >
+      <HashTabs variant="fullWidth">
+        <FormikTab fields={MainFields} label="Basic" value="#main" />
+        <FormikTab fields={FlowsFields} label="Flows" value="#flows" />
+        <FormikTab fields={ShapeFields} label="Shape" value="#shape" />
+        <FormikTab
+          fields={PropertiesFields}
+          label="Properties"
+          value="#properties"
+        />
+        <FormikTab fields={POIFields} label="POIS" value="#pois" />
+        <FormikTab
+          fields={DescriptionFields}
+          label="Description"
+          value="#description"
+        />
+      </HashTabs>
+
+      <HashTabView value="#main">
+        <SectionFormMain />
+      </HashTabView>
+
+      <HashTabView value="#flows">
+        <SectionFormFlows region={region} />
+      </HashTabView>
+
+      <HashTabView value="#properties">
+        <SectionFormProperties tags={tags} />
+      </HashTabView>
+
+      <HashTabView value="#shape" display="flex" flexDirection="row">
+        <SectionFormMap bounds={bounds} />
+      </HashTabView>
+
+      <HashTabView value="#pois">
+        <POIArray name="pois" mapBounds={bounds} />
+      </HashTabView>
+
+      <HashTabView value="#description" padding={0}>
+        <MarkdownField name="description" />
+      </HashTabView>
+    </FormikCard>
+  );
+};
+
+SectionForm.displayName = 'SectionForm';
+
+export default SectionForm;

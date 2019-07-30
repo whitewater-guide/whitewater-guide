@@ -1,4 +1,4 @@
-import { NamedNode, TextSearchFilter, Timestamped } from '../../apollo';
+import { NamedNode, Node, TextSearchFilter, Timestamped } from '../../apollo';
 import { Group } from '../groups';
 import { Region } from '../regions';
 
@@ -13,6 +13,7 @@ export interface User extends NamedNode, Timestamped {
   imperial: boolean;
   verified: boolean;
   editorSettings: EditorSettings | null;
+  accounts: SocialMediaAccount[];
 
   purchasedRegions: Region[];
   purchasedGroups: Group[];
@@ -32,4 +33,12 @@ export interface UserInput {
 
 export interface UserFilter extends TextSearchFilter {
   editorsOnly?: boolean;
+}
+
+export enum SocialMediaProvider {
+  FACEBOOK = 'facebook',
+}
+
+export interface SocialMediaAccount extends Node {
+  provider: SocialMediaProvider;
 }
