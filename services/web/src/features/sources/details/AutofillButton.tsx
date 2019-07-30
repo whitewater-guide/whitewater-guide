@@ -1,41 +1,20 @@
-import Button, { ButtonProps } from '@material-ui/core/Button';
-import gql from 'graphql-tag';
+import Button from '@material-ui/core/Button';
 import React from 'react';
-import { graphql } from 'react-apollo';
-import { compose, mapProps } from 'recompose';
+import useAutofill from './useAutofill';
 
-const AUTOFILL_MUTATION = gql`
-  mutation autofillSource($sourceId: ID!) {
-    autofillSource(id: $sourceId) {
-      id
-      cron
-    }
-  }
-`;
-
-interface TVariables {
+interface Props {
   sourceId: string;
 }
 
-type OuterProps = Partial<ButtonProps> & TVariables;
+const AutofillButton: React.FC<Props> = React.memo(({ sourceId }) => {
+  const onClick = useAutofill(sourceId);
+  return (
+    <Button variant="contained" onClick={onClick}>
+      Autofill
+    </Button>
+  );
+});
 
-const container = compose<ButtonProps, OuterProps>(
-  graphql<OuterProps, {}, {}, ButtonProps>(AUTOFILL_MUTATION, {
-    options: () => ({
-      refetchQueries: ['listGauges'],
-    }),
-    props: ({ mutate, ownProps: { sourceId } }) => ({
-      onClick: () =>
-        mutate!({ sourceId } as any).catch(() => {
-          /* Ignore -> error goes to global snackbar */
-        }),
-    }),
-  }),
-  mapProps(({ sourceId, ...props }: ButtonProps & TVariables) => ({
-    ...props,
-  })),
-);
-
-const AutofillButton = container(Button);
+AutofillButton.displayName = 'AutofillButton';
 
 export default AutofillButton;

@@ -61,9 +61,7 @@ const SourceCard: React.FC<Props> = React.memo((props) => {
       <Switch>
         <Route exact={true} path={`${path}/gauges`}>
           <EditorFooter add={true}>
-            <AutofillButton sourceId={source.id} variant="contained">
-              Autofill
-            </AutofillButton>
+            <AutofillButton sourceId={source.id} />
             <GenerateScheduleButton sourceId={source.id} />
             <EnableButton sourceId={source.id} />
             <DisableAllGaugesButton sourceId={source.id} label="Disable All" />
