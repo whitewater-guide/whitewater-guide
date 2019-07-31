@@ -25,7 +25,7 @@ export function FormikCard<QResult, FData>(props: Props<QResult, FData>) {
     loading,
     initialValues,
     validationSchema,
-    validateOnChange = true,
+    validateOnChange = process.env.NODE_ENV === 'production',
     children,
   } = props;
 
