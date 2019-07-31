@@ -20,7 +20,6 @@ import { ErrorSnackbar, Loading, SplashScreen } from './components';
 import { apolloCachePersistor, initApolloClient } from './core/apollo';
 import { MobileAuthService } from './core/auth';
 import configMisc from './core/config/configMisc';
-import configMoment from './core/config/configMoment';
 import { configErrors } from './core/errors';
 import { configureStore, resetNavigationToHome } from './core/redux';
 import { navigationChannel } from './core/sagas';
@@ -32,7 +31,6 @@ import { trackScreenChange } from './utils/navigation';
 import { PreviousVersion } from './utils/versioning';
 
 configErrors();
-configMoment();
 configMisc();
 
 const NAVIGATION_PERSISTENCE_KEY = 'ww_nav_2';
@@ -48,14 +46,13 @@ class App extends React.PureComponent {
     const { store, persistor } = configureStore();
     this._persistor = persistor;
     this._store = store;
-  }
-
-  async componentDidMount() {
     this._authService = new MobileAuthService(
       this.resetApolloCache,
       this.onSignOut,
     );
-    await this._authService.init();
+  }
+
+  async componentDidMount() {
     this._apolloClient = await initApolloClient(this._authService);
     this.forceUpdate();
   }
@@ -100,7 +97,10 @@ class App extends React.PureComponent {
             <ApolloProvider client={this._apolloClient}>
               <TagsProvider>
                 <FilterProvider>
-                  <AuthProvider service={this._authService}>
+                  <AuthProvider
+                    service={this._authService}
+                    renderInitializing={<Loading />}
+                  >
                     <I18nProvider onUserLanguageChange={this.resetApolloCache}>
                       <PaperProvider theme={PaperTheme}>
                         <PreviousVersion />
@@ -119,7 +119,9 @@ class App extends React.PureComponent {
                 </FilterProvider>
               </TagsProvider>
             </ApolloProvider>
-          ) : null}
+          ) : (
+            <Loading />
+          )}
         </PersistGate>
       </Provider>
     );

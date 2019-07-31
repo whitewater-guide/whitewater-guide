@@ -13,11 +13,11 @@ const TimeAxisSettings = {
     tickCount: 6,
   },
   [Period.WEEK]: {
-    tickFormat: 'ddd Do',
+    tickFormat: 'EEE do',
     tickCount: 7,
   },
   [Period.MONTH]: {
-    tickFormat: 'D MMM',
+    tickFormat: 'do MMM',
     tickCount: 31,
   },
 };

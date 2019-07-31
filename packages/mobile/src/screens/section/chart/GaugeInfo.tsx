@@ -1,6 +1,8 @@
+import { formatDistanceToNow } from '@whitewater-guide/clients';
 import { Gauge } from '@whitewater-guide/commons';
+import differenceInDays from 'date-fns/differenceInDays';
+import parseISO from 'date-fns/parseISO';
 import upperFirst from 'lodash/upperFirst';
-import moment from 'moment';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
@@ -53,8 +55,13 @@ const GaugeInfo: React.FC<Props> = (props) => {
   const [sheet, showSheet, sheetProps] = useGaugeActionSheet(gauge);
 
   const isOutdated = lastMeasurement
-    ? moment().diff(lastMeasurement.timestamp, 'days') > 1
+    ? differenceInDays(new Date(), parseISO(lastMeasurement.timestamp)) > 1
     : false;
+  const fromNow = lastMeasurement
+    ? formatDistanceToNow(parseISO(lastMeasurement.timestamp), {
+        addSuffix: true,
+      })
+    : '';
   return (
     <React.Fragment>
       <Row style={styles.gaugeRow}>
@@ -98,9 +105,7 @@ const GaugeInfo: React.FC<Props> = (props) => {
           <Subheading>{t('section:chart.lastUpdated')}</Subheading>
         </Left>
         <Right row={true}>
-          <Paragraph>
-            {lastMeasurement ? moment(lastMeasurement.timestamp).fromNow() : ''}
-          </Paragraph>
+          <Paragraph>{fromNow}</Paragraph>
           {isOutdated && (
             <GaugeWarning>
               <Paragraph>{t('section:chart.outdatedWarning')}</Paragraph>

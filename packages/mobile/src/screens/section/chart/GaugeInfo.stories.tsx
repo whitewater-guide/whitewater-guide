@@ -1,6 +1,6 @@
 import { storiesOf } from '@storybook/react-native';
 import { Gauge } from '@whitewater-guide/commons';
-import moment from 'moment';
+import subDays from 'date-fns/subDays';
 import React from 'react';
 import { View } from 'react-native';
 import theme from '../../../theme';
@@ -19,7 +19,7 @@ storiesOf('Gauge Info', module)
       lastMeasurement: {
         level: 123,
         flow: 456,
-        timestamp: new Date(),
+        timestamp: new Date().toISOString(),
       },
     };
     return <GaugeInfo gauge={gauge as any} approximate={false} />;
@@ -30,7 +30,7 @@ storiesOf('Gauge Info', module)
       lastMeasurement: {
         level: 123,
         flow: 456,
-        timestamp: new Date(),
+        timestamp: new Date().toISOString(),
       },
     };
     return <GaugeInfo gauge={gauge as any} approximate={true} />;
@@ -41,7 +41,7 @@ storiesOf('Gauge Info', module)
       lastMeasurement: {
         level: 123,
         flow: 456,
-        timestamp: new Date(),
+        timestamp: new Date().toISOString(),
       },
     };
     return (
@@ -58,9 +58,7 @@ storiesOf('Gauge Info', module)
       lastMeasurement: {
         level: 123,
         flow: 456,
-        timestamp: moment()
-          .subtract(3, 'days')
-          .toDate(),
+        timestamp: subDays(new Date(), 3).toISOString(),
       },
     };
     return <GaugeInfo gauge={gauge as any} approximate={false} />;
@@ -71,9 +69,7 @@ storiesOf('Gauge Info', module)
       lastMeasurement: {
         level: 123,
         flow: 456,
-        timestamp: moment()
-          .subtract(3, 'days')
-          .toDate(),
+        timestamp: subDays(new Date(), 3).toISOString(),
       },
     };
     return <GaugeInfo gauge={gauge as any} approximate={true} />;
@@ -84,9 +80,7 @@ storiesOf('Gauge Info', module)
       lastMeasurement: {
         level: 123,
         flow: 456,
-        timestamp: moment()
-          .subtract(3, 'days')
-          .toDate(),
+        timestamp: subDays(new Date(), 3).toISOString(),
       },
     };
     return (

@@ -7,7 +7,7 @@
       "lodash",
       "redux-saga",
       "redux-persist",
-      "moment",
+      "date-fns",
       "@storybook/addon-actions",
       "react-native-gesture-handler",
       "redux-saga-test-plan/matchers"

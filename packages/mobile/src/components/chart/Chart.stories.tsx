@@ -5,18 +5,16 @@ import {
   Measurement,
   Unit,
 } from '@whitewater-guide/commons';
+import subHours from 'date-fns/subHours';
 import times from 'lodash/times';
-import moment from 'moment';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import PureChart from './PureChart';
 
-function generateData(days: number, step: number): Measurement[] {
+function generateData(days: number, step: number): Array<Measurement<Date>> {
   const count = days * (24 / step);
   return times(count, (i) => ({
-    timestamp: moment()
-      .subtract(i * step, 'hours')
-      .toDate(),
+    timestamp: subHours(new Date(), i * step),
     flow: 100 + 100 * (Math.random() - 0.5),
     level: 0.5 + Math.random(),
   }));

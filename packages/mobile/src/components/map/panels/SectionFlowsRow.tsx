@@ -1,11 +1,12 @@
 import {
   ColorStrings,
+  formatDistanceToNow,
   getSectionColor,
   prettyNumber,
   useFormulas,
 } from '@whitewater-guide/clients';
 import { Section } from '@whitewater-guide/commons';
-import moment from 'moment';
+import parseISO from 'date-fns/parseISO';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
@@ -80,6 +81,12 @@ const SectionFlowsRow: React.FC<Props> = React.memo(({ section }) => {
   const value = preferFlow
     ? formulas.flows(gauge.lastMeasurement.flow)
     : formulas.levels(gauge.lastMeasurement.level);
+  const fromNow = formatDistanceToNow(
+    parseISO(gauge.lastMeasurement.timestamp),
+    {
+      addSuffix: true,
+    },
+  );
   return (
     <Row style={styles.container}>
       <Subheading>{label}</Subheading>
@@ -90,9 +97,7 @@ const SectionFlowsRow: React.FC<Props> = React.memo(({ section }) => {
             {` ${t('commons:' + unitName)}`}
           </Text>
         </Text>
-        <Caption style={styles.timeLine}>
-          {moment(gauge.lastMeasurement.timestamp).fromNow()}
-        </Caption>
+        <Caption style={styles.timeLine}>{fromNow}</Caption>
       </View>
       <View style={styles.binding}>
         {binding.minimum && (
