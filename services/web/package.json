@@ -27,7 +27,7 @@
     "@turf/helpers": "^6.1.4",
     "@turf/length": "^6.0.2",
     "@types/react-facebook-login": "^4.1.0",
-    "@whitewater-guide/clients": "0.0.263",
+    "@whitewater-guide/clients": "0.0.264",
     "@whitewater-guide/commons": "0.0.162",
     "@whitewater-guide/md-editor": "1.1.2",
     "@whitewater-guide/translations": "^1.0.9",
