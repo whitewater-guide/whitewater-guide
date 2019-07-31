@@ -1,3 +1,9 @@
+## [0.1.375](https://github.com/doomsower/whitewater/compare/85ef7c689a2daf64442dcff17fe7dfaf4a97968c...c0c5a4e0b3de1490c5db64844bcd438672a757b1) (2019-07-31)
+
+### Features
+
+- validateOnChange in production ([fc806effd842f301cc6b15deb9eb55af92d85f4c](https://github.com/doomsower/whitewater/commit/fc806effd842f301cc6b15deb9eb55af92d85f4c))
+
 ## [0.1.374](https://github.com/doomsower/whitewater/compare/c9f45e1c6637d36311fc938993f41d0e4467ceb9...85ef7c689a2daf64442dcff17fe7dfaf4a97968c) (2019-07-30)
 
 ### Other
