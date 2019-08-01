@@ -11,6 +11,12 @@ func TestTrimTz(t *testing.T) {
 	assert.Equal(t, "2019-04-25T06:10:00", trimTz("2019-04-25T06:10:00-05:00"))
 }
 
+func TestGetPairedGauge(t *testing.T) {
+	assert.Equal(t, "10KAX01", 	getPairedGauge("10KA001"))
+	assert.Equal(t, "10KA001", 	getPairedGauge("10KAX01"))
+	assert.Equal(t, "11AB108", 	getPairedGauge("11AB108"))
+}
+
 func TestConvertMeasurements(t *testing.T) {
 	assert := assert.New(t)
 	location, _ := time.LoadLocation("America/Montreal")

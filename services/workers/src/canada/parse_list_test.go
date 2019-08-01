@@ -36,7 +36,7 @@ func TestFetchStationList(t *testing.T) {
 		)
 		assert.Equal(
 			raws[0].name,
-			"ST. FRANCIS RIVER AT OUTLET OF GLASIER LAKE",
+			"[NB] ST. FRANCIS RIVER AT OUTLET OF GLASIER LAKE",
 			"encoding failure, expected 'ST. FRANCIS RIVER AT OUTLET OF GLASIER LAKE', got '%s'",
 			raws[0].name,
 		)

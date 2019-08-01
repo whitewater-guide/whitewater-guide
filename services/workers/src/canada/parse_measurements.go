@@ -31,6 +31,29 @@ func trimTz(date string) string {
 	return strings.Join(parts[:len(parts)-1], "-")
 }
 
+// Sometimes gauge list would contain main gauge, but measurements list would contain auxiliary gauge for it or vise versa.
+// Auxiliary gauges are marked with X character, main gauges have 0. Some gauges have 1, I dont't know what it means
+// I could not find any documentation on this, so I know this by trial and error
+func getPairedGauge(code string) string {
+	char := code[len(code)-3]
+	if char == '0' {
+		return code[:len(code)-3] + "X" + code[len(code)-2:]
+	} else if char == 'X' {
+		return code[:len(code)-3] + "0" + code[len(code)-2:]
+	}
+	return code
+}
+
+func getTimezone(code string, timezones map[string]*time.Location) (*time.Location, error) {
+	if timezone, ok := timezones[code]; ok {
+		return timezone, nil
+	}
+	if timezone, ok := timezones[getPairedGauge(code)]; ok {
+		return timezone, nil
+	}
+	return nil, fmt.Errorf("timezone not found for station %s", code)
+}
+
 func convertMeasurements(raw measurementRaw, timezones map[string]*time.Location, script string) (*core.Measurement, error) {
 	var level, flow float64
 	var err error
@@ -46,10 +69,9 @@ func convertMeasurements(raw measurementRaw, timezones map[string]*time.Location
 			return nil, err
 		}
 	}
-	var timezone *time.Location
-	var ok bool
-	if timezone, ok = timezones[raw.id]; !ok {
-		return nil, fmt.Errorf("timezone not found for station %s", raw.id)
+	timezone, err := getTimezone(raw.id, timezones)
+	if err != nil {
+		return nil, err
 	}
 	t, err := time.ParseInLocation("2006-01-02T15:04:05", trimTz(raw.date), timezone)
 	if err != nil {
