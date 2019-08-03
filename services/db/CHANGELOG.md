@@ -1,3 +1,9 @@
+## [0.0.40](https://github.com/doomsower/whitewater/compare/c0c5a4e0b3de1490c5db64844bcd438672a757b1...68cf55ce05aedef4ab431ddecb548628a54cac9f) (2019-08-03)
+
+### Other
+
+- update db,backend,minio base images ([5e3de620c5d055b82ec62d54671a99eabc7dcb6c](https://github.com/doomsower/whitewater/commit/5e3de620c5d055b82ec62d54671a99eabc7dcb6c))
+
 ## [0.0.39](https://github.com/doomsower/whitewater/compare/85ef7c689a2daf64442dcff17fe7dfaf4a97968c...c0c5a4e0b3de1490c5db64844bcd438672a757b1) (2019-07-31)
 
 ## [0.0.38](https://github.com/doomsower/whitewater/compare/c9f45e1c6637d36311fc938993f41d0e4467ceb9...85ef7c689a2daf64442dcff17fe7dfaf4a97968c) (2019-07-30)
