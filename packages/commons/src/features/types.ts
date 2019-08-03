@@ -7,6 +7,7 @@ export type ResourceType =
   | 'user'
   | 'media'
   | 'group'
+  | 'suggestion'
   | 'banner';
 export type ListType =
   | 'gauges'
@@ -17,4 +18,5 @@ export type ListType =
   | 'users'
   | 'mediaBySection'
   | 'groups'
+  | 'suggestions'
   | 'banners';
