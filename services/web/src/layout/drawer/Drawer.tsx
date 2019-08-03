@@ -31,6 +31,7 @@ const ITEMS = [
   { title: 'Region Groups', path: '/groups', admin: true },
   { title: 'Banners', path: '/banners', admin: true },
   { title: 'History of edits', path: '/history', admin: true },
+  { title: 'User suggestions', path: '/suggestions', admin: true },
 ];
 
 interface Props {

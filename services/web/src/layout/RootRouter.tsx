@@ -24,6 +24,9 @@ const LazySourcesRoute = React.lazy(() =>
   import('../features/sources/SourcesRoute'),
 );
 const LazyTagsRoute = React.lazy(() => import('../features/tags/TagsRoute'));
+const LazySuggestionsRoute = React.lazy(() =>
+  import('../features/suggestions/SuggestionsRoute'),
+);
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -52,6 +55,7 @@ const RootRouter: React.FC = () => {
           <Route path="/groups" component={LazyGroupsRoute} />
           <Route path="/banners" component={LazyBannersRoute} />
           <Route path="/history" component={LazyHistoryRoute} />
+          <Route path="/suggestions" component={LazySuggestionsRoute} />
 
           <Route path="/signin" component={SignInRoute} />
           <Route path="/logout">

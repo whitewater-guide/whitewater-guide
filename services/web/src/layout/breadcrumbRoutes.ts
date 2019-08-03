@@ -3,6 +3,7 @@ import { groupsBreadcrumbs } from '../features/groups/breadcrumbs';
 import { historyBreadcrumbs } from '../features/history/breadcrumbs';
 import { regionBreadcrumbs } from '../features/regions/breadcrumbs';
 import { sourceBreadcrumbs } from '../features/sources/breadcrumbs';
+import { suggestionsBreadcrumbs } from '../features/suggestions/breadcrumbs';
 import { tagsBreadcrumbs } from '../features/tags/breadcrumbs';
 
 export default {
@@ -15,4 +16,5 @@ export default {
   ...groupsBreadcrumbs,
   ...bannerBreadcrumbs,
   ...historyBreadcrumbs,
+  ...suggestionsBreadcrumbs,
 };
