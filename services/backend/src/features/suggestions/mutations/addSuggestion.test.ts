@@ -1,5 +1,4 @@
 import db, { holdTransaction, rollbackTransaction } from '@db';
-import { SuggestionInput, SuggestionStatus } from '@features/suggestions';
 import {
   fileExistsInBucket,
   MEDIA,
@@ -21,7 +20,11 @@ import {
   TIMESTAMP_REGEX,
   UUID_REGEX,
 } from '@test';
-import { MediaKind } from '@whitewater-guide/commons';
+import {
+  MediaKind,
+  SuggestionInput,
+  SuggestionStatus,
+} from '@whitewater-guide/commons';
 import { copy } from 'fs-extra';
 import * as path from 'path';
 
@@ -97,6 +100,23 @@ it('anon should not fail with media', async () => {
     anonContext(),
   );
   expect(result.errors).toBeUndefined();
+});
+
+it('should fail for invalid input', async () => {
+  const result = await runQuery(
+    upsertQuery,
+    {
+      suggestion: {
+        section: { id: 'foo' },
+        description: 'foobar',
+        copyright: null,
+        filename: null,
+        resolution: [100, 100, 100],
+      },
+    },
+    anonContext(),
+  );
+  expect(result).toHaveGraphqlValidationError();
 });
 
 describe('regular user', () => {

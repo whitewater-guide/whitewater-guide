@@ -1,4 +1,4 @@
-import { SuggestionStatus } from './types';
+import { SuggestionStatus } from '@whitewater-guide/commons';
 
 export interface SuggestionRaw {
   id: string;

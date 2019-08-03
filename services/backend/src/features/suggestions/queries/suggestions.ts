@@ -1,6 +1,6 @@
 import { isAuthenticatedResolver, ListQuery, TopLevelResolver } from '@apollo';
+import { SuggestionsFilter } from '@whitewater-guide/commons';
 import { QueryBuilder } from 'knex';
-import { SuggestionsFilter } from '../types';
 
 interface Vars extends ListQuery {
   filter?: SuggestionsFilter;

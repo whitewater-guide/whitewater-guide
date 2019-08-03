@@ -1,9 +1,8 @@
 import { MutationNotAllowedError, TopLevelResolver } from '@apollo';
 import db from '@db';
-import { MediaKind } from '@whitewater-guide/commons';
+import { MediaKind, SuggestionStatus } from '@whitewater-guide/commons';
 import { UserInputError } from 'apollo-server-errors';
 import { SuggestionRaw } from '../raw_types';
-import { SuggestionStatus } from '../types';
 
 interface Vars {
   id: string;

@@ -1,15 +1,23 @@
-import { TopLevelResolver } from '@apollo';
+import { isInputValidResolver, TopLevelResolver } from '@apollo';
 import db from '@db';
 import { MEDIA, moveTempImage } from '@minio';
-import { MediaKind } from '@whitewater-guide/commons';
+import {
+  MediaKind,
+  SuggestionInput,
+  SuggestionInputSchema,
+  SuggestionStatus,
+} from '@whitewater-guide/commons';
+import * as yup from 'yup';
 import { SuggestionRaw } from '../raw_types';
-import { SuggestionInput, SuggestionStatus } from '../types';
+
+const schema = yup.object({
+  suggestion: SuggestionInputSchema,
+});
 
 interface Vars {
   suggestion: SuggestionInput;
 }
 
-// TODO: validation
 const addSuggestion: TopLevelResolver<Vars> = async (
   root,
   { suggestion },
@@ -54,4 +62,4 @@ const addSuggestion: TopLevelResolver<Vars> = async (
   return result;
 };
 
-export default addSuggestion;
+export default isInputValidResolver(schema, addSuggestion);

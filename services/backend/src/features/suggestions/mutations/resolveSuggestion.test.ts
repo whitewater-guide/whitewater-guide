@@ -1,5 +1,4 @@
 import db, { holdTransaction, rollbackTransaction } from '@db';
-import { SuggestionStatus } from '@features/suggestions';
 import {
   ADMIN,
   ADMIN_ID,
@@ -20,7 +19,11 @@ import {
   TIMESTAMP_REGEX,
   UUID_REGEX,
 } from '@test';
-import { ApolloErrorCodes, MediaKind } from '@whitewater-guide/commons';
+import {
+  ApolloErrorCodes,
+  MediaKind,
+  SuggestionStatus,
+} from '@whitewater-guide/commons';
 
 let sBefore: number;
 let mBefore: number;

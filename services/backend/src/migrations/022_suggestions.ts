@@ -1,5 +1,5 @@
+import { SuggestionStatus } from '@whitewater-guide/commons';
 import Knex from 'knex';
-import { SuggestionStatus } from '../features/suggestions/types';
 import { createTable } from './utils';
 
 /**

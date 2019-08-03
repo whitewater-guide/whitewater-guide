@@ -1,10 +1,9 @@
 import { holdTransaction, rollbackTransaction } from '@db';
-import { SuggestionStatus } from '@features/suggestions';
 import { ADMIN, EDITOR_NO, TEST_USER, TEST_USER_ID } from '@seeds/01_users';
 import { NORWAY_SJOA_AMOT } from '@seeds/09_sections';
 import { EDIT_SUGGESTION_ID1 } from '@seeds/17_suggestions';
 import { anonContext, fakeContext, runQuery, TIMESTAMP_REGEX } from '@test';
-import { ApolloErrorCodes } from '@whitewater-guide/commons';
+import { ApolloErrorCodes, SuggestionStatus } from '@whitewater-guide/commons';
 
 beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
@@ -59,8 +58,8 @@ it('user should get his suggestions', async () => {
     fakeContext(TEST_USER),
   );
   expect(result.errors).toBeUndefined();
-  expect(result.data.suggestions.count).toBe(1);
-  expect(result.data.suggestions.nodes).toHaveLength(1);
+  expect(result.data.suggestions.count).toBe(2);
+  expect(result.data.suggestions.nodes).toHaveLength(2);
 });
 
 it('admin should get all suggestions', async () => {

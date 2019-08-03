@@ -1,6 +1,6 @@
+import { SuggestionStatus } from '@whitewater-guide/commons';
 import Knex from 'knex';
 import { SuggestionRaw } from '../../features/suggestions/raw_types';
-import { SuggestionStatus } from '../../features/suggestions/types';
 import { ADMIN_ID, EDITOR_NO_ID, TEST_USER_ID } from './01_users';
 import { GALICIA_R1_S1, NORWAY_SJOA_AMOT } from './09_sections';
 

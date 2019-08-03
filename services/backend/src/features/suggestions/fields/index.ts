@@ -1,7 +1,7 @@
 import { FieldResolvers } from '@apollo';
 import { Imgproxy } from '@utils';
+import { Suggestion } from '@whitewater-guide/commons';
 import { ImageArgs, SuggestionRaw } from '../raw_types';
-import { Suggestion } from '../types';
 
 const suggestionResolvers: FieldResolvers<SuggestionRaw, Suggestion> = {
   createdAt: ({ created_at }) => new Date(created_at).toISOString(),
