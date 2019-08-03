@@ -9,6 +9,7 @@ export interface User extends NamedNode, Timestamped {
   avatar: string | null;
   email: string | null;
   admin: boolean;
+  editor: boolean;
   language: string;
   imperial: boolean;
   verified: boolean;
