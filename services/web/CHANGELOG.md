@@ -1,3 +1,10 @@
+## [0.1.378](https://github.com/doomsower/whitewater/compare/8867c79883ef35692bcf97094583978bb9997cd5...65b391fcd0f5410b8e6684e421e30cc4bcc94e7b) (2019-08-03)
+
+### Features
+
+- notifications badge ([259b8aa5fba6158675e9c58b9c87d047baa4980e](https://github.com/doomsower/whitewater/commit/259b8aa5fba6158675e9c58b9c87d047baa4980e))
+- user suggestions admin ui WIP ([e34da2c82c71aaa19ba69665dcf68bfa1194d122](https://github.com/doomsower/whitewater/commit/e34da2c82c71aaa19ba69665dcf68bfa1194d122))
+
 ## [0.1.377](https://github.com/doomsower/whitewater/compare/68cf55ce05aedef4ab431ddecb548628a54cac9f...8867c79883ef35692bcf97094583978bb9997cd5) (2019-08-03)
 
 ## [0.1.376](https://github.com/doomsower/whitewater/compare/c0c5a4e0b3de1490c5db64844bcd438672a757b1...68cf55ce05aedef4ab431ddecb548628a54cac9f) (2019-08-03)

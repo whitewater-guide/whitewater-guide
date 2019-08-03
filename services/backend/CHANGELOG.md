@@ -1,3 +1,9 @@
+## [0.0.377](https://github.com/doomsower/whitewater/compare/8867c79883ef35692bcf97094583978bb9997cd5...65b391fcd0f5410b8e6684e421e30cc4bcc94e7b) (2019-08-03)
+
+### Features
+
+- add user is editor resolver ([7d93359683bc3d8e3ad81beee461a1904e497078](https://github.com/doomsower/whitewater/commit/7d93359683bc3d8e3ad81beee461a1904e497078))
+
 ## [0.0.376](https://github.com/doomsower/whitewater/compare/68cf55ce05aedef4ab431ddecb548628a54cac9f...8867c79883ef35692bcf97094583978bb9997cd5) (2019-08-03)
 
 ### Bug Fixes
