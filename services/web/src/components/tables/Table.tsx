@@ -47,8 +47,10 @@ const useStyles = makeStyles((theme) =>
     tableHeaderRow: {
       height: (props: Props) => props.headerHeight,
     },
-    tableRowHover: {
+    tableRowClickable: {
       cursor: 'pointer',
+    },
+    tableRowHover: {
       '&:hover': {
         backgroundColor: theme.palette.grey[300],
       },
@@ -96,6 +98,7 @@ export const Table = React.memo(
         ({ index }: Index) =>
           clsx(
             classes.tableRow,
+            { [classes.tableRowClickable]: !!onNodeClick },
             { [classes.tableRowHover]: index !== -1 },
             { [classes.tableRowEven]: index % 2 === 0 },
           ),

@@ -1,3 +1,4 @@
+import { SuggestionStatus } from '@whitewater-guide/commons';
 import React, { useCallback } from 'react';
 import { ObservableQueryFields } from 'react-apollo';
 import { Index, InfiniteLoader } from 'react-virtualized';
@@ -7,10 +8,19 @@ import SuggestionsTable from './SuggestionsTable';
 interface Props {
   suggestions: QResult['suggestions'];
   fetchMore: ObservableQueryFields<QResult, QVars>['fetchMore'];
+  onPressResolve: (id: string) => void;
+  statusFilter: SuggestionStatus[];
+  setStatusFilter: (value: SuggestionStatus[]) => void;
 }
 
 export const SuggestionsTableInfinite: React.FC<Props> = React.memo((props) => {
-  const { suggestions, fetchMore } = props;
+  const {
+    suggestions,
+    fetchMore,
+    onPressResolve,
+    statusFilter,
+    setStatusFilter,
+  } = props;
 
   const isRowLoaded = useCallback(
     ({ index }: Index) => {
@@ -55,6 +65,9 @@ export const SuggestionsTableInfinite: React.FC<Props> = React.memo((props) => {
           registerChild={registerChild}
           data={suggestions.nodes || []}
           onRowsRendered={onRowsRendered}
+          onPressResolve={onPressResolve}
+          statusFilter={statusFilter}
+          setStatusFilter={setStatusFilter}
         />
       )}
     </InfiniteLoader>
