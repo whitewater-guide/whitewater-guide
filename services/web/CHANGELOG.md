@@ -1,3 +1,10 @@
+## [0.1.379](https://github.com/doomsower/whitewater/compare/65b391fcd0f5410b8e6684e421e30cc4bcc94e7b...d740e53731c4e6183195d240b2afa411b55a35ea) (2019-08-03)
+
+### Features
+
+- show suggestions to editors only ([0155ae98ddaacef295d3db65ecf63da05f3cdfe6](https://github.com/doomsower/whitewater/commit/0155ae98ddaacef295d3db65ecf63da05f3cdfe6))
+- suggestions view ([6e6747de6c374b32a2f2f7956214fb674843267d](https://github.com/doomsower/whitewater/commit/6e6747de6c374b32a2f2f7956214fb674843267d))
+
 ## [0.1.378](https://github.com/doomsower/whitewater/compare/8867c79883ef35692bcf97094583978bb9997cd5...65b391fcd0f5410b8e6684e421e30cc4bcc94e7b) (2019-08-03)
 
 ### Features
