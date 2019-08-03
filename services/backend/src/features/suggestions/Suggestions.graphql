@@ -1,0 +1,56 @@
+enum SuggestionStatus {
+  pending
+  accepted
+  rejected
+}
+
+type Suggestion {
+  id: ID!
+  # Text, optional, but maybe be enforced in validations
+  description: String
+  # Optional copyright for media
+  copyright: String
+  # Automatical creation date
+  createdAt: Date!
+  # Optional, some suggestions can be anonymous
+  createdBy: User
+  # status
+  status: SuggestionStatus!
+  # admin/editor who accepted or rejected the suggestion
+  resolvedBy: User
+  # when was the suggestion resolved or rejected
+  resolvedAt: Date
+
+  section: Section!
+  # Absolute image url (or thumb, when parameters are set)
+  image(width: Int, height: Int): String
+  resolution: [Int]
+}
+
+type SuggestionsList {
+  nodes: [Suggestion]!
+  count: Int!
+}
+
+# Suggestions cannot be edited, hence no id
+input SuggestionInput {
+  section: RefInput!
+  description: String
+  copyright: String
+  filename: String
+  resolution: [Int!]
+}
+
+input SuggestionsFilter {
+  status: [SuggestionStatus]
+  userId: String
+}
+
+type Mutation {
+  resolveSuggestion(id: ID!, status: SuggestionStatus!): Suggestion
+  addSuggestion(suggestion: SuggestionInput!): Suggestion
+}
+
+type Query {
+  suggestions(page: Page, filter: SuggestionsFilter): SuggestionsList
+}

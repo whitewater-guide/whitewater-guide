@@ -12,6 +12,7 @@ export function createConnectors() {
   const { RiversConnector } = require('@features/rivers');
   const { SectionsConnector } = require('@features/sections');
   const { SourcesConnector } = require('@features/sources');
+  const { SuggestionsConnector } = require('@features/suggestions');
   const { TagsConnector } = require('@features/tags');
   return {
     banners: new BannersConnector(),
@@ -24,6 +25,7 @@ export function createConnectors() {
     rivers: new RiversConnector(),
     sections: new SectionsConnector(),
     sources: new SourcesConnector(),
+    suggestions: new SuggestionsConnector(),
     tags: new TagsConnector(),
     users: new UsersConnector(),
   };

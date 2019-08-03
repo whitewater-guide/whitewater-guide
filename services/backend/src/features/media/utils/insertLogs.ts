@@ -9,7 +9,7 @@ interface InsertLogParams {
   diff: any;
 }
 
-const insertLog = async (db: Knex, params: InsertLogParams) => {
+export const insertLog = async (db: Knex, params: InsertLogParams) => {
   const { sectionId, editorId, action, language, diff } = params;
   await db.raw(
     `INSERT into sections_edit_log(section_id, section_name, river_id, river_name, region_id, region_name, editor_id, action, diff)
@@ -28,5 +28,3 @@ WHERE sections_view.id = ? AND sections_view.language = ?`,
     [editorId, action, diff, sectionId, language],
   );
 };
-
-export default insertLog;

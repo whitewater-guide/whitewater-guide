@@ -51,16 +51,18 @@ export class UsersConnector extends BaseConnector<User, UserRaw> {
     this._language = undefined;
   }
 
-  async assertEditorPermissions(query: PermissionsQuery): Promise<boolean> {
+  private async _checkEditorPermissions(
+    query: PermissionsQuery,
+  ): Promise<true | Error> {
     if (!this._user) {
-      throw new AuthenticationError('must authenticate');
+      return Promise.resolve(new AuthenticationError('must authenticate'));
     }
     const { mediaId, sectionId, riverId } = query;
     if (this._user.admin) {
       return Promise.resolve(true);
     }
     if (isEmpty(query) && !this._user.admin) {
-      throw new ForbiddenError('must be admin');
+      return Promise.resolve(new ForbiddenError('must be admin'));
     }
     let builder = db()
       .table('regions_editors')
@@ -97,9 +99,23 @@ export class UsersConnector extends BaseConnector<User, UserRaw> {
     }
     const { count } = await builder.count().first();
     if (count === '0') {
-      throw new ForbiddenError('must be editor');
+      return Promise.resolve(new ForbiddenError('must be editor'));
     }
     return Promise.resolve(true);
+  }
+
+  async checkEditorPermissions(query: PermissionsQuery): Promise<boolean> {
+    const result = await this._checkEditorPermissions(query);
+    return result === true;
+  }
+
+  async assertEditorPermissions(query: PermissionsQuery): Promise<boolean> {
+    const result = await this._checkEditorPermissions(query);
+    if (result === true) {
+      return true;
+    } else {
+      return Promise.reject(result);
+    }
   }
 
   async getAvatar(user: UserRaw): Promise<string | null> {

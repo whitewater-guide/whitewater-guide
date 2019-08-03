@@ -1,6 +1,6 @@
 import { AVATARS } from './buckets';
 import { fileExistsInBucket, resetTestMinio } from './test-utils';
-import { getTempPostPolicy, moveTempImage } from './utils';
+import { getTempPostPolicy, moveTempImage, renameFile } from './utils';
 
 describe('getTempPostPolicy', () => {
   it('should return correct postURL and formData without key', async () => {
@@ -55,6 +55,16 @@ describe('getTempPostPolicy', () => {
   });
 });
 
+describe('rename file', () => {
+  it('should keep old if new is not provided', () => {
+    expect(renameFile('foobar.png')).toBe('foobar.png');
+  });
+
+  it('should keep extension', () => {
+    expect(renameFile('foobar.png', '123-456')).toBe('123-456.png');
+  });
+});
+
 describe('moveTempImage', () => {
   beforeEach(async () => resetTestMinio());
 
@@ -91,6 +101,20 @@ describe('moveTempImage', () => {
     const exists = await fileExistsInBucket(
       'avatars',
       'overwrite.png',
+      '4bfdb23e6fd7255f908d0a0de979bf3d',
+    );
+    expect(exists).toBe(true);
+  });
+
+  it('should rename file', async () => {
+    await moveTempImage(
+      'http://localhost:6001/uploads/temp/overwrite.png',
+      AVATARS,
+      'foobar',
+    );
+    const exists = await fileExistsInBucket(
+      'avatars',
+      'foobar.png',
       '4bfdb23e6fd7255f908d0a0de979bf3d',
     );
     expect(exists).toBe(true);
