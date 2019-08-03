@@ -7,9 +7,10 @@ import Toolbar from '@material-ui/core/Toolbar';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Breadcrumbs } from '../../components/breadcrumbs';
-import { AuthMenu } from '../../features/users/menu';
-import { NotificationsMenu } from '../../features/users/notifications';
+import { EditorOnly } from '../../components/EditorOnly';
 import breadcrumbRoutes from '../breadcrumbRoutes';
+import { AuthMenu } from './menu';
+import { NotificationsMenu } from './notifications';
 
 // tslint:disable-next-line:no-var-requires
 const logo = require('./logo.png');
@@ -39,7 +40,10 @@ export const Header: React.FC<Props> = ({ onToggleDrawer }) => {
 
         <Box flex={1} />
 
-        <NotificationsMenu />
+        <EditorOnly>
+          <NotificationsMenu />
+        </EditorOnly>
+
         <AuthMenu />
       </Toolbar>
     </AppBar>

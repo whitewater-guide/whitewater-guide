@@ -31,7 +31,7 @@ const ITEMS = [
   { title: 'Region Groups', path: '/groups', admin: true },
   { title: 'Banners', path: '/banners', admin: true },
   { title: 'History of edits', path: '/history', admin: true },
-  { title: 'User suggestions', path: '/suggestions', admin: true },
+  { title: 'User suggestions', path: '/suggestions', editor: true },
 ];
 
 interface Props {
@@ -54,8 +54,11 @@ export const Drawer: React.FC<Props> = ({ onClose, isOpen }) => {
       }}
     >
       <List component="nav">
-        {ITEMS.map(({ path, title, admin }) => {
+        {ITEMS.map(({ path, title, admin, editor }) => {
           if (admin && !(me && me.admin)) {
+            return null;
+          }
+          if (editor && !(me && (me.admin || me.editor))) {
             return null;
           }
           const clickable = !matchPath(location.pathname, {

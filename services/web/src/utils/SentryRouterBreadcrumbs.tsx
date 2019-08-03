@@ -4,11 +4,14 @@ import { RouteComponentProps, withRouter } from 'react-router';
 
 const HistoryWatcher = withRouter((props: RouteComponentProps<any>) => {
   useEffect(() => {
-    Sentry.addBreadcrumb({
-      category: 'router',
-      message: props.location.pathname,
-      level: Severity.Info,
-    });
+    // Adblockers will kill sentry
+    if (!!(global as any).Sentry) {
+      Sentry.addBreadcrumb({
+        category: 'router',
+        message: props.location.pathname,
+        level: Severity.Info,
+      });
+    }
   }, [props.location.pathname]);
   return null;
 });

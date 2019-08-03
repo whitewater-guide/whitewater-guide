@@ -15,6 +15,7 @@ import { Loading } from './components';
 import { API_HOST, FACEBOOK_APP_ID } from './environment';
 import { history } from './history';
 import { RootLayout } from './layout';
+import { MY_PROFILE_QUERY } from './myProfile.query';
 import { theme } from './styles';
 import { SentryRouterBreadcrumbs } from './utils';
 
@@ -47,7 +48,11 @@ class App extends React.PureComponent {
         <CssBaseline />
         <MuiThemeProvider theme={theme}>
           <ApolloProvider client={this._client}>
-            <AuthProvider service={this._auth} renderInitializing={<Loading />}>
+            <AuthProvider
+              service={this._auth}
+              renderInitializing={<Loading />}
+              query={MY_PROFILE_QUERY}
+            >
               <TagsProvider>
                 <BrowserRouter>
                   <SentryRouterBreadcrumbs />
