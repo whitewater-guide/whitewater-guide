@@ -18,6 +18,9 @@ const FIELDS_MAP: FieldsMap<User, UserRaw> = {
   accounts: knex.raw(
     '(SELECT json_agg(accounts.*) FROM accounts WHERE accounts.user_id = users.id) AS accounts',
   ),
+  editor: knex.raw(
+    'EXISTS (SELECT 1 from regions_editors WHERE regions_editors.user_id = users.id) AS editor',
+  ),
 };
 
 interface PermissionsQuery {

@@ -11,6 +11,7 @@ Object {
   "admin": true,
   "avatar": "https://ww.guide/pic.jpg",
   "createdAt": "2017-02-01T00:00:00.000Z",
+  "editor": false,
   "editorSettings": null,
   "email": "kaospostage@gmail.com",
   "id": "bed59990-749d-11e7-8cf7-a6006ad3dba0",
@@ -25,16 +26,15 @@ exports[`should return local user 1`] = `
 Object {
   "accounts": Array [],
   "admin": false,
-  "avatar": "https://scontent.xx.fbcdn.net/v/t1.0-1/p50x50/1780622_1380926282175020_67535950_n.jpg?oh=80afda8f3e3d817e233fed522e2d9f1a&oe=5A1B4612",
-  "createdAt": "2017-03-02T00:00:00.000Z",
-  "editorSettings": Object {
-    "language": "en",
-  },
-  "email": "fish.munga@yandex.ru",
-  "id": "477a0bec-8a78-11e7-b3e6-9beeff45d731",
+  "avatar": null,
+  "createdAt": "2017-05-04T00:00:00.000Z",
+  "editor": false,
+  "editorSettings": null,
+  "email": "konstantin@gmail.com",
+  "id": "fa3ce7ba-36ab-11e8-b467-0ed5f89f718b",
   "imperial": false,
-  "language": "en",
-  "name": "Konstantin Kuznetsov",
-  "updatedAt": "2017-03-02T00:00:00.000Z",
+  "language": "ru",
+  "name": "Another usr",
+  "updatedAt": "2017-05-04T00:00:00.000Z",
 }
 `;

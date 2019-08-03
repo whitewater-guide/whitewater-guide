@@ -9,6 +9,8 @@ type User {
   email: String
   # is admin flag
   admin: Boolean!
+  # is editor in any of regions
+  editor: Boolean!
   # registration date
   createdAt: Date!
   # last profle update date

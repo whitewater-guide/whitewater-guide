@@ -35,6 +35,7 @@ const query = `
     name
     avatar
     admin
+    editor
     email
     createdAt
     updatedAt
@@ -58,7 +59,7 @@ it('should return null for anon', async () => {
 });
 
 it('should return local user', async () => {
-  const result = await runQuery(query, undefined, fakeContext(EDITOR_GA_EC));
+  const result = await runQuery(query, undefined, fakeContext(TEST_USER));
   expect(result.errors).toBeUndefined();
   expect(result.data!.me).toMatchSnapshot();
 });
@@ -67,6 +68,12 @@ it('should return facebook user', async () => {
   const result = await runQuery(query, undefined, fakeContext(ADMIN));
   expect(result.errors).toBeUndefined();
   expect(result.data!.me).toMatchSnapshot();
+});
+
+it('should return editor', async () => {
+  const result = await runQuery(query, undefined, fakeContext(EDITOR_GA_EC));
+  expect(result.errors).toBeUndefined();
+  expect(result.data!.me.editor).toBe(true);
 });
 
 it('should cache fb avatar', async () => {
