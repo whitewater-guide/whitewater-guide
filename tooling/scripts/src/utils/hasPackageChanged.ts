@@ -5,7 +5,13 @@ import simpleGit from 'simple-git/promise';
 import { WWMeta } from './types';
 
 const hasChangedSinceCommit = (path: string, hash: string) => {
-  const { status } = spawnSync('git', ['diff-index', hash, '--quiet', path]);
+  const { status } = spawnSync('git', [
+    'diff-index',
+    hash,
+    '--quiet',
+    path,
+    `":(exclude)${path}/CHANGELOG.md"`,
+  ]);
   return status !== 0;
 };
 
