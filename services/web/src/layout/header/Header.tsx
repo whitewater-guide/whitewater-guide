@@ -8,6 +8,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Breadcrumbs } from '../../components/breadcrumbs';
 import { AuthMenu } from '../../features/users/menu';
+import { NotificationsMenu } from '../../features/users/notifications';
 import breadcrumbRoutes from '../breadcrumbRoutes';
 
 // tslint:disable-next-line:no-var-requires
@@ -38,6 +39,7 @@ export const Header: React.FC<Props> = ({ onToggleDrawer }) => {
 
         <Box flex={1} />
 
+        <NotificationsMenu />
         <AuthMenu />
       </Toolbar>
     </AppBar>
