@@ -1,3 +1,9 @@
+## [0.0.376](https://github.com/doomsower/whitewater/compare/68cf55ce05aedef4ab431ddecb548628a54cac9f...8867c79883ef35692bcf97094583978bb9997cd5) (2019-08-03)
+
+### Bug Fixes
+
+- backend now uses commons for suggestions ([50b8fe39f2c40af12b5cc98bbd4af9e821ef44c2](https://github.com/doomsower/whitewater/commit/50b8fe39f2c40af12b5cc98bbd4af9e821ef44c2))
+
 ## [0.0.375](https://github.com/doomsower/whitewater/compare/c0c5a4e0b3de1490c5db64844bcd438672a757b1...68cf55ce05aedef4ab431ddecb548628a54cac9f) (2019-08-03)
 
 ### Bug Fixes

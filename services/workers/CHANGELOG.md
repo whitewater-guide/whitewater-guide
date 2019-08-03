@@ -1,3 +1,5 @@
+## [0.0.94](https://github.com/doomsower/whitewater/compare/68cf55ce05aedef4ab431ddecb548628a54cac9f...8867c79883ef35692bcf97094583978bb9997cd5) (2019-08-03)
+
 ## [0.0.93](https://github.com/doomsower/whitewater/compare/c0c5a4e0b3de1490c5db64844bcd438672a757b1...68cf55ce05aedef4ab431ddecb548628a54cac9f) (2019-08-03)
 
 ### Bug Fixes
