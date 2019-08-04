@@ -1,3 +1,9 @@
+## [0.0.381](https://github.com/doomsower/whitewater/compare/8340946412e77845a95f6f5463d39430ba972b98...ad157bd5d420a997395cb861f5c8dede81a34f94) (2019-08-04)
+
+### Features
+
+- upload link no longer requires auth ([6505d8b4c7a202645825a74a8424ddd01d37aed8](https://github.com/doomsower/whitewater/commit/6505d8b4c7a202645825a74a8424ddd01d37aed8))
+
 ## [0.0.380](https://github.com/doomsower/whitewater/compare/646cbdc5cd1422b17eb3668d2f937b57ace4cce3...8340946412e77845a95f6f5463d39430ba972b98) (2019-08-04)
 
 ### Features
