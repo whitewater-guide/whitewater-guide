@@ -1,3 +1,9 @@
+## [0.0.382](https://github.com/doomsower/whitewater/compare/ad157bd5d420a997395cb861f5c8dede81a34f94...abc31b468c3008385663d03217f773700826209c) (2019-08-04)
+
+### Bug Fixes
+
+- upload link uploaded by for anons ([637c1c770a66a5d8e7ab5437d29a0592e926ae2c](https://github.com/doomsower/whitewater/commit/637c1c770a66a5d8e7ab5437d29a0592e926ae2c))
+
 ## [0.0.381](https://github.com/doomsower/whitewater/compare/8340946412e77845a95f6f5463d39430ba972b98...ad157bd5d420a997395cb861f5c8dede81a34f94) (2019-08-04)
 
 ### Features
