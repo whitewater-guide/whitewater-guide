@@ -6,7 +6,10 @@ const uploadLink: TopLevelResolver = async (_, __, { user }) => {
   const { id } = await db()
     .select(db().raw('uuid_generate_v1mc() AS id'))
     .first();
-  const { postURL, formData } = await getTempPostPolicy(id, user!.id);
+  const { postURL, formData } = await getTempPostPolicy(
+    id,
+    user ? user.id : undefined,
+  );
   return {
     postURL,
     formData,
