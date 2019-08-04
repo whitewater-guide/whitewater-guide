@@ -36,12 +36,16 @@ const getThumbSize = (minHeight: number, sizes: ThumbSize[]) => {
   return sizes[i];
 };
 
-export const isYoutube = (url: string) =>
+export const isYoutube = (url?: string) =>
+  !!url &&
   ['www.youtube.com', 'youtube.com', 'youtu.be'].some((host) =>
     url.includes(host),
   );
 
-export const getYoutubeId = (url: string): string | null => {
+export const getYoutubeId = (url?: string): string | null => {
+  if (!url) {
+    return null;
+  }
   const { query, pathname } = parse(url, {}, true);
   const { v } = query;
   if (v && v.match(/^[\w-]{10,12}$/)) {
@@ -73,12 +77,16 @@ const getYoutubeThumb = async (
   return Promise.resolve(null);
 };
 
-export const isVimeo = (url: string) =>
+export const isVimeo = (url?: string) =>
+  !!url &&
   ['www.vimeo.com', 'vimeo.com', 'player.vimeo.com'].some((host) =>
     url.includes(host),
   );
 
-export const getVimeoId = (url: string): string | null => {
+export const getVimeoId = (url?: string): string | null => {
+  if (!url) {
+    return null;
+  }
   const { pathname } = parse(url, {}, true);
   const match = RE_VIMEO.exec(pathname);
   return match ? match[1] : null;
