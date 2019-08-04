@@ -1,3 +1,9 @@
+## [0.0.380](https://github.com/doomsower/whitewater/compare/646cbdc5cd1422b17eb3668d2f937b57ace4cce3...8340946412e77845a95f6f5463d39430ba972b98) (2019-08-04)
+
+### Features
+
+- add fcm tokens to users ([baef52a65a919680597c6f24d9e3e39327e2ed1b](https://github.com/doomsower/whitewater/commit/baef52a65a919680597c6f24d9e3e39327e2ed1b))
+
 ## [0.0.379](https://github.com/doomsower/whitewater/compare/d740e53731c4e6183195d240b2afa411b55a35ea...646cbdc5cd1422b17eb3668d2f937b57ace4cce3) (2019-08-04)
 
 ## [0.0.378](https://github.com/doomsower/whitewater/compare/65b391fcd0f5410b8e6684e421e30cc4bcc94e7b...d740e53731c4e6183195d240b2afa411b55a35ea) (2019-08-03)
