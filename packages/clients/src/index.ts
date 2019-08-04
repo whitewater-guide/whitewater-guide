@@ -12,4 +12,5 @@ export * from './features/measurements';
 export * from './features/points';
 export * from './features/regions';
 export * from './features/sections';
+export * from './features/suggestions';
 export * from './features/tags';
