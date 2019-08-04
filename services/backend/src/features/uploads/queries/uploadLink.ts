@@ -1,4 +1,4 @@
-import { isAuthenticatedResolver, TopLevelResolver } from '@apollo';
+import { TopLevelResolver } from '@apollo';
 import db from '@db';
 import { getTempPostPolicy } from '@minio';
 
@@ -14,4 +14,4 @@ const uploadLink: TopLevelResolver = async (_, __, { user }) => {
   };
 };
 
-export default isAuthenticatedResolver(uploadLink);
+export default uploadLink;
