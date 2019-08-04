@@ -8,20 +8,23 @@ export enum SuggestionStatus {
   REJECTED = 'rejected',
 }
 
-export interface Suggestion extends Node {
-  id: string;
+export interface SuggestionMeta {
   createdAt: string;
   createdBy: User | null;
   status: SuggestionStatus;
   resolvedBy: User | null;
   resolvedAt: string;
+}
 
+export interface SuggestionCore extends Node {
   section: Section;
   description: string | null;
   copyright: string | null;
   resolution: number[];
   image: string;
 }
+
+export type Suggestion = SuggestionCore & SuggestionMeta;
 
 export interface SuggestionInput {
   section: NodeRef;
