@@ -172,7 +172,7 @@ class MediaList extends React.PureComponent<Props, State> {
           </Grid>
         </Row>
         <Lightbox
-          media={photoAndVideo}
+          items={photoAndVideo}
           currentModal={currentModal}
           onClose={this.onCloseLightbox}
         />

@@ -1,13 +1,9 @@
-import {
-  getVimeoId,
-  getYoutubeId,
-  isVimeo,
-  isYoutube,
-} from '@whitewater-guide/clients';
-import { Media } from '@whitewater-guide/commons';
+import { isVimeo, isYoutube } from '@whitewater-guide/clients';
 import React from 'react';
-import YouTube from 'react-youtube';
 import { Styles } from '../../styles';
+import LightboxVimeo from './LightboxVimeo';
+import LightboxYoutube from './LightboxYoutube';
+import { LightboxItem } from './types';
 
 const styles: Styles = {
   container: {
@@ -25,48 +21,22 @@ const styles: Styles = {
 
 interface Props {
   currentIndex: number;
-  data: Media;
+  data: LightboxItem;
   interactionIsIdle: boolean;
 }
 
-class LightboxVideoView extends React.PureComponent<Props> {
-  renderYoutube = (url: string) => {
-    const videoId = getYoutubeId(url);
-    return videoId && <YouTube videoId={videoId} />;
-  };
-
-  renderVimeo = (url: string) => {
-    const videoId = getVimeoId(url);
-    return (
-      videoId && (
-        <iframe
-          src={`https://player.vimeo.com/video/${videoId}`}
-          width="640"
-          height="360"
-          title="The New Vimeo Player (You Know, For Videos)"
-        />
-      )
-    );
-  };
-
-  renderVideo() {
-    const url = this.props.data.url;
-    if (isYoutube(url)) {
-      return this.renderYoutube(url);
-    }
-    if (isVimeo(url)) {
-      return this.renderVimeo(url);
-    }
-    return null;
-  }
-
-  render() {
-    return (
-      <div style={styles.container}>
-        <div style={styles.video}>{this.renderVideo()}</div>
+const LightboxVideoView: React.FC<Props> = React.memo((props) => {
+  const url = props.data.url;
+  return (
+    <div style={styles.container}>
+      <div style={styles.video}>
+        {isYoutube(url) && <LightboxYoutube url={url} />}
+        {isVimeo(url) && <LightboxVimeo url={url} />}
       </div>
-    );
-  }
-}
+    </div>
+  );
+});
+
+LightboxVideoView.displayName = 'LightboxVideoView';
 
 export default LightboxVideoView;

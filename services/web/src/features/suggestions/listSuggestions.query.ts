@@ -1,3 +1,4 @@
+import { SuggestionFragments } from '@whitewater-guide/clients';
 import {
   Connection,
   Page,
@@ -11,30 +12,15 @@ export const LIST_SUGGESTIONS_QUERY = gql`
     suggestions(filter: $filter, page: $page)
       @connection(key: "history", suggestions: ["filter"]) {
       nodes {
-        id
-        description
-        copyright
+        ...SuggestionCore
         createdAt
         status
-        section {
-          id
-          name
-          river {
-            id
-            name
-          }
-          region {
-            id
-            name
-          }
-        }
-        image
         thumb: image(width: 100, height: 100)
-        resolution
       }
       count
     }
   }
+  ${SuggestionFragments.Core}
 `;
 
 export interface QVars {

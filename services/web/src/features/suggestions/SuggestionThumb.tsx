@@ -1,7 +1,6 @@
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { Media, MediaKind } from '@whitewater-guide/commons';
 import React, { useCallback, useMemo, useState } from 'react';
-import { Lightbox } from '../../components/lightbox';
+import { Lightbox, LightboxItem } from '../../components/lightbox';
 import { ListedSuggestion } from './listSuggestions.query';
 
 const useStyles = makeStyles(({ spacing }) =>
@@ -22,20 +21,7 @@ interface Props {
 const SuggestionThumb: React.FC<Props> = React.memo(({ suggestion }) => {
   const { thumb } = suggestion;
   const classes = useStyles();
-  const fakeMedia: Media[] = useMemo(
-    () => [
-      {
-        id: suggestion.id,
-        thumb: suggestion.thumb,
-        image: suggestion.image,
-        copyright: suggestion.copyright,
-        description: suggestion.description,
-        resolution: suggestion.resolution,
-        kind: MediaKind.photo,
-      } as any,
-    ],
-    [suggestion],
-  );
+  const items: LightboxItem[] = useMemo(() => [suggestion], [suggestion]);
   const [currentModal, setCurrentModal] = useState<number | null>(null);
   const openModal = useCallback(() => setCurrentModal(0), [setCurrentModal]);
   const closeModal = useCallback(() => setCurrentModal(null), [
@@ -48,7 +34,7 @@ const SuggestionThumb: React.FC<Props> = React.memo(({ suggestion }) => {
     <React.Fragment>
       <img src={thumb} className={classes.thumb} onClick={openModal} />
       <Lightbox
-        media={fakeMedia}
+        items={items}
         currentModal={currentModal}
         onClose={closeModal}
       />
