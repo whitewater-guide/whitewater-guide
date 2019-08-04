@@ -397,11 +397,14 @@ const users = [
   EXP_VER_USER,
 ];
 
+const fcmTokens = [{ user_id: TEST_USER_ID, token: '__fcm__token__' }];
+
 export async function seed(db: Knex) {
   await db.table('users').del();
   await db.table('accounts').del();
   await db.raw('ALTER TABLE users DISABLE TRIGGER ALL');
   await db.table('users').insert(users);
   await db.table('accounts').insert(ADMIN_FB_ACCOUNT);
+  await db.table('fcm_tokens').insert(fcmTokens);
   await db.raw('ALTER TABLE users ENABLE TRIGGER ALL');
 }

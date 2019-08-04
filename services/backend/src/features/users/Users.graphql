@@ -67,4 +67,6 @@ type Query {
 type Mutation {
   updateEditorSettings(editorSettings: EditorSettingsInput!): User
   updateProfile(user: UserInput!): User
+  addFCMToken(token: String!): Boolean
+  removeFCMToken(token: String!): Boolean
 }

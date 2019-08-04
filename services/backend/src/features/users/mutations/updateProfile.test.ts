@@ -50,8 +50,7 @@ it('should work for partial data', async () => {
     id: ADMIN_ID,
     name: 'Vasya',
     // tslint:disable-next-line:max-line-length
-    avatar:
-      'https://scontent.xx.fbcdn.net/v/t1.0-1/c34.34.422.422/s50x50/557311_106591882827406_2013499307_n.jpg?oh=777cb7f306789d5452fb47bc87ba95c7&oe=59FD2267',
+    avatar: null,
     language: 'en',
     imperial: false,
     email: ADMIN.email,
