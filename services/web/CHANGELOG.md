@@ -1,3 +1,9 @@
+## [0.1.380](https://github.com/doomsower/whitewater/compare/d740e53731c4e6183195d240b2afa411b55a35ea...646cbdc5cd1422b17eb3668d2f937b57ace4cce3) (2019-08-04)
+
+### Other
+
+- improve lightbox a bit ([b42cc36c2885439e838bb8c6cd7b92a0d6f9a612](https://github.com/doomsower/whitewater/commit/b42cc36c2885439e838bb8c6cd7b92a0d6f9a612))
+
 ## [0.1.379](https://github.com/doomsower/whitewater/compare/65b391fcd0f5410b8e6684e421e30cc4bcc94e7b...d740e53731c4e6183195d240b2afa411b55a35ea) (2019-08-03)
 
 ### Features
