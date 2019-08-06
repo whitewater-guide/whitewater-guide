@@ -20,7 +20,7 @@ type UseUploadLink = [UploadLink | null, boolean];
 
 export default (): UseUploadLink => {
   const { data, error, loading } = useQuery<QResult>(UPLOAD_LINK_QUERY, {
-    fetchPolicy: 'network-only',
+    fetchPolicy: 'no-cache',
   });
   // console.log(error);
   // TODO: handle error
