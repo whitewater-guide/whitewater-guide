@@ -8,7 +8,7 @@ const TimeLabel: React.FC<TimeLabelProps> = React.memo(
     if (
       props.datum &&
       period === Period.MONTH &&
-      isSunday(props.datum as any)
+      !isSunday(props.datum as any)
     ) {
       return null; // Only render sundays
     }

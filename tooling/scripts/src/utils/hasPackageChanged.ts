@@ -14,7 +14,7 @@ const hasChangedSinceCommit = (path: string, hash: string) => {
   const { status } = spawnSync('git', [
     'diff-index',
     hash,
-    // '--quiet',
+    '--quiet',
     '--',
     path,
     `":(exclude)${path}/CHANGELOG.md"`,

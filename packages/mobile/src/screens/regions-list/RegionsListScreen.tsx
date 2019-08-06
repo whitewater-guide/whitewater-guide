@@ -6,7 +6,7 @@ import RegionsListView from './RegionsListView';
 export const RegionsListScreen: NavigationScreenComponent = ({
   navigation,
 }) => (
-  <Screen noScroll={true} noPadding={true}>
+  <Screen>
     <RegionsListView navigate={navigation.navigate} />
   </Screen>
 );

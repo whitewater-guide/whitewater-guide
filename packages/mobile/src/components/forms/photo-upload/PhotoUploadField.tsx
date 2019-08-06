@@ -1,0 +1,92 @@
+import { UploadLink } from '@whitewater-guide/commons';
+import { useFormikContext } from 'formik';
+import React, { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import useAsyncFn from 'react-use/lib/useAsyncFn';
+import { trackError } from '../../../core/errors';
+import theme from '../../../theme';
+import { Loading } from '../../Loading';
+import { Photo, PhotoPicker } from '../../photo-picker';
+import { ErrorText } from '../ErrorText';
+import i18nizeUploadError from './i18nizeUploadError';
+import uploadPhoto from './uploadPhoto';
+import usePhotoUploadErrors from './usePhotoUploadErrors';
+import useSetPhotoValues from './useSetPhotoValues';
+
+const styles = StyleSheet.create({
+  container: {
+    marginBottom: theme.margin.single,
+  },
+  overlay: {
+    position: 'absolute',
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0, 0, 0, 0.25)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  errorOverlay: {
+    position: 'absolute',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    bottom: 0,
+    left: 0,
+    right: 0,
+  },
+});
+
+interface Props {
+  name: string;
+  resolutionName?: string;
+  uploadLink: UploadLink;
+}
+
+export const PhotoUploadField: React.FC<Props> = React.memo((props) => {
+  const { name, resolutionName = 'resolution', uploadLink } = props;
+  const [file, setFile] = useState<Photo | null>(null);
+  const { errors } = useFormikContext<any>();
+  const setPhotoUploadErrors = usePhotoUploadErrors(name, resolutionName);
+  const setPhotoValues = useSetPhotoValues(name, resolutionName);
+  // TODO: cancel current request using AbortController in react 0.60
+  const [state, onChange] = useAsyncFn(
+    async (value: Photo | null) => {
+      setPhotoUploadErrors();
+      setFile(value);
+      if (!value) {
+        setPhotoValues(undefined, undefined);
+        return;
+      }
+      try {
+        const filename = await uploadPhoto(value, uploadLink);
+        setPhotoValues(filename, value.resolution);
+      } catch (e) {
+        trackError('photo-uploader', e);
+        setPhotoUploadErrors(i18nizeUploadError(e));
+      }
+    },
+    [
+      name,
+      resolutionName,
+      uploadLink,
+      setFile,
+      setPhotoUploadErrors,
+      setPhotoValues,
+    ],
+  );
+  const error = errors[name] || errors[resolutionName];
+  return (
+    <View style={styles.container}>
+      <PhotoPicker value={file} onChange={onChange} />
+      {state.loading && (
+        <View style={styles.overlay}>
+          <Loading />
+        </View>
+      )}
+      {error && (
+        <View style={styles.errorOverlay}>
+          <ErrorText touched={true} error={error} />
+        </View>
+      )}
+    </View>
+  );
+});
+
+PhotoUploadField.displayName = 'PhotoUploadField';

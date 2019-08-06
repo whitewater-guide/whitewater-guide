@@ -7,6 +7,7 @@
       "lodash",
       "redux-saga",
       "redux-persist",
+      "react-use",
       "date-fns",
       "@storybook/addon-actions",
       "react-native-gesture-handler",

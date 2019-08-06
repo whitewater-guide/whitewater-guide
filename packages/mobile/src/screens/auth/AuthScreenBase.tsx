@@ -3,12 +3,11 @@ import {
   Keyboard,
   KeyboardAvoidingView,
   Platform,
-  SafeAreaView,
   StyleSheet,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import { ErrorBoundary, Logo } from '../../components';
+import { Logo, Screen } from '../../components';
 import theme from '../../theme';
 
 const styles = StyleSheet.create({
@@ -37,22 +36,20 @@ const styles = StyleSheet.create({
 
 export const AuthScreenBase: React.FC = ({ children }) => {
   return (
-    <ErrorBoundary>
+    <Screen safe={true}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         style={styles.root}
       >
-        <SafeAreaView style={styles.root}>
-          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View style={styles.body}>
-              <View style={styles.logoWrapper}>
-                <Logo style={styles.logo} />
-              </View>
-              {children}
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={styles.body}>
+            <View style={styles.logoWrapper}>
+              <Logo style={styles.logo} />
             </View>
-          </TouchableWithoutFeedback>
-        </SafeAreaView>
+            {children}
+          </View>
+        </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
-    </ErrorBoundary>
+    </Screen>
   );
 };

@@ -1,14 +1,9 @@
 import { useAuth } from '@whitewater-guide/clients';
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  RefreshControl,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-} from 'react-native';
+import { RefreshControl, ScrollView, StyleSheet } from 'react-native';
 import { Divider, Title } from 'react-native-paper';
-import { Paper, RetryPlaceholder, Screen } from '../../components';
+import { Paper, RetryPlaceholder } from '../../components';
 import theme from '../../theme';
 import MyLanguage from './MyLanguage';
 import { PurchasesListView } from './purchases';
@@ -45,7 +40,7 @@ const MyProfileView: React.FC = React.memo(() => {
   }
   const username = me.name || '';
   return (
-    <Screen noScroll={true} noPadding={true}>
+    <React.Fragment>
       <ScrollView
         style={{ flex: 1 }}
         contentContainerStyle={styles.scroll}
@@ -65,8 +60,7 @@ const MyProfileView: React.FC = React.memo(() => {
         <PurchasesListView />
       </ScrollView>
       <SignOutButton />
-      <SafeAreaView style={styles.safeArea} />
-    </Screen>
+    </React.Fragment>
   );
 });
 

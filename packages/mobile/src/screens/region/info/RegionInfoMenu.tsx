@@ -1,7 +1,7 @@
 import { dataIdFromObject, RegionFragments } from '@whitewater-guide/clients';
 import { Region } from '@whitewater-guide/commons';
 import React, { useCallback, useRef } from 'react';
-import { withApollo, WithApolloClient } from 'react-apollo';
+import { useApolloClient } from 'react-apollo';
 import { useTranslation } from 'react-i18next';
 import { Clipboard, Platform } from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
@@ -12,10 +12,8 @@ interface Props {
   regionId?: string;
 }
 
-export const RegionInfoMenu: React.FC<WithApolloClient<Props>> = ({
-  regionId,
-  client,
-}) => {
+export const RegionInfoMenu: React.FC<Props> = ({ regionId }) => {
+  const client = useApolloClient();
   const actionSheet = useRef<ActionSheet>(null);
   const [t] = useTranslation();
   const showMenu = useCallback(() => {
@@ -52,11 +50,11 @@ export const RegionInfoMenu: React.FC<WithApolloClient<Props>> = ({
         ref={actionSheet}
         title={t('region:info.menu.title')}
         options={options}
-        cancelButtonIndex={2}
+        cancelButtonIndex={Platform.OS === 'ios' ? 2 : undefined}
         onPress={onMenu}
       />
     </React.Fragment>
   );
 };
 
-export default withApollo(RegionInfoMenu);
+export default RegionInfoMenu;

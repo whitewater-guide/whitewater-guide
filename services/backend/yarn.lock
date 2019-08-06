@@ -1180,10 +1180,10 @@
     lodash.unescape "4.0.1"
     semver "5.5.0"
 
-"@whitewater-guide/commons@0.0.167":
-  version "0.0.167"
-  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.167.tgz#35fcd4bb2b4b9cf52ea0eabddb1f9fa0bc7c95b0"
-  integrity sha512-eNr3kPMZsPF772QKiCvGnuphvkZvq6SmtKfW/VxGpcYS9bCVDeMDCiyRfKx1jCFzxO1TOjsf5d0nCg2dV5nnZA==
+"@whitewater-guide/commons@0.0.168-suggestions.0":
+  version "0.0.168-suggestions.0"
+  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.168-suggestions.0.tgz#3ff4883a9e194cc69baa1ad2811c29666c089f0e"
+  integrity sha512-SuAVtg5z1DiTOeJcUVgyN1KZlORufW2PafLhL3w6ML4X84t4htO53OyMSczfOFpYeK9uybLdbPcyd8A4Qu5nXQ==
   dependencies:
     "@types/yup" "^0.26.22"
     cron-validator "^1.0.1"

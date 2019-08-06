@@ -5,7 +5,7 @@ import FastImage, {
   OnProgressEvent,
 } from 'react-native-fast-image';
 import { ProgressBar } from 'react-native-paper';
-import theme from '../../../theme';
+import theme from '../../theme';
 
 const styles = StyleSheet.create({
   bar: {

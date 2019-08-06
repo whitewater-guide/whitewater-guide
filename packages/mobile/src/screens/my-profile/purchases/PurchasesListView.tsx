@@ -24,26 +24,28 @@ const PurchasesListView: React.FC = () => {
             const {
               me: { purchasedGroups, purchasedRegions },
             } = data;
-            return [
-              ...purchasedGroups.map((group, index) => (
-                <PurchaseItem
-                  key={group.id}
-                  group={group}
-                  last={
-                    purchasedRegions.length === 0
-                      ? index === purchasedGroups.length - 1
-                      : false
-                  }
-                />
-              )),
-              ...purchasedRegions.map((region, index) => (
-                <PurchaseItem
-                  key={region.id}
-                  region={region}
-                  last={index === purchasedRegions.length - 1}
-                />
-              )),
-            ];
+            return (
+              <React.Fragment>
+                {purchasedGroups.map((group, index) => (
+                  <PurchaseItem
+                    key={group.id}
+                    group={group}
+                    last={
+                      purchasedRegions.length === 0
+                        ? index === purchasedGroups.length - 1
+                        : false
+                    }
+                  />
+                ))}
+                {purchasedRegions.map((region, index) => (
+                  <PurchaseItem
+                    key={region.id}
+                    region={region}
+                    last={index === purchasedRegions.length - 1}
+                  />
+                ))}
+              </React.Fragment>
+            );
           }}
         </Query>
       </Paper>

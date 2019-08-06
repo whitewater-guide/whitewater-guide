@@ -9,7 +9,7 @@ import { ScreenProps } from '../types';
 export const RegionMapScreen: NavigationScreenComponent = ({ screenProps }) => {
   const { region, sections }: ScreenProps = screenProps as any;
   return (
-    <Screen noScroll={true}>
+    <Screen>
       {region.node && (
         <MapLayout
           pois={region.node.pois}

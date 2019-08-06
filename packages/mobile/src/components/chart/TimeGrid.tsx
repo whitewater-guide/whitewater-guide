@@ -8,7 +8,7 @@ const TimeGrid: React.FC<TimeGridProps> = React.memo(({ period, ...props }) => {
   if (props.datum && period === Period.MONTH && isSunday(props.datum)) {
     style.stroke = '#AAA';
   }
-  return <Line {...props} {...style} />;
+  return <Line {...props} style={style} />;
 });
 
 TimeGrid.displayName = 'TimeGrid';

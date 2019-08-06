@@ -37,7 +37,7 @@ export class UploadFileError extends Error {
   public code?: string;
 
   constructor(xhr: XMLHttpRequest) {
-    let message = `Failed to upload file: ${xhr.responseText}`;
+    let message = `failed to upload file: ${xhr.responseText}`;
     let code: string | undefined;
     if (xhr.responseXML) {
       const msg = xhr.responseXML.getElementsByTagName('Message').item(0);
@@ -47,6 +47,15 @@ export class UploadFileError extends Error {
       }
       if (cd && cd.textContent) {
         code = cd.textContent;
+      }
+    } else {
+      const codeMatch = xhr.responseText.match(/<Code>(.*)<\/Code>/);
+      if (codeMatch && codeMatch.length >= 2) {
+        code = codeMatch[1];
+      }
+      const msgMatch = xhr.responseText.match(/<Message>(.*)<\/Message>/);
+      if (msgMatch && msgMatch.length >= 2) {
+        message = msgMatch[1];
       }
     }
     super(message);

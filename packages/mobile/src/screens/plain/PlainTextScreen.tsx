@@ -1,7 +1,15 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { ScrollView, StyleSheet } from 'react-native';
 import { NavigationScreenComponent } from 'react-navigation';
 import { Markdown, Screen } from '../../components';
+import theme from '../../theme';
+
+const styles = StyleSheet.create({
+  content: {
+    padding: theme.margin.single,
+  },
+});
 
 interface NavParams {
   fixture?: string;
@@ -24,10 +32,15 @@ export const PlainTextScreen: NavigationScreenComponent<NavParams> = ({
   navigation,
 }) => (
   <Screen>
-    <PlainText
-      fixture={navigation.getParam('fixture')}
-      text={navigation.getParam('text')}
-    />
+    <ScrollView
+      style={StyleSheet.absoluteFill}
+      contentContainerStyle={styles.content}
+    >
+      <PlainText
+        fixture={navigation.getParam('fixture')}
+        text={navigation.getParam('text')}
+      />
+    </ScrollView>
   </Screen>
 );
 

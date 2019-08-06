@@ -1,4 +1,8 @@
 import { Dimensions, PixelRatio, StyleSheet } from 'react-native';
+import {
+  getBottomSpace,
+  getStatusBarHeight,
+} from 'react-native-iphone-x-helper';
 import { DefaultTheme, Theme } from 'react-native-paper';
 
 const colors = {
@@ -14,6 +18,7 @@ const colors = {
   error: '#f44336', // Red 500
   enabled: '#4CAF50', // Green 500
   facebook: '#3b5998',
+  inputBackground: '#EBEBEB', // matches react-native-paper
 };
 
 const borderWidth = 1;
@@ -71,6 +76,13 @@ const theme = {
   screenHeight,
   screenWidthPx: Math.round(screenWidth * PixelRatio.get()),
   screenHeightPx: Math.round(screenHeight * PixelRatio.get()),
+  safeBottom: getBottomSpace(),
+  safeTop: getStatusBarHeight(true),
+  unsafeTop: getStatusBarHeight(false),
+  stackScreenHeight:
+    screenHeight - getStatusBarHeight(true) - getBottomSpace() - 56,
+  tabScreenHeight:
+    screenHeight - getStatusBarHeight(true) - getBottomSpace() - 56 - 56,
   elevation: 2,
 };
 
