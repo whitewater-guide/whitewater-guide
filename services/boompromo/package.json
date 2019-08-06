@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@craco/craco": "^5.2.4",
-    "@material-ui/core": "4.3.0",
+    "@material-ui/core": "4.3.1",
     "@material-ui/styles": "^4.3.0",
     "@whitewater-guide/clients": "0.0.270-suggestions.1",
     "@whitewater-guide/commons": "0.0.168-suggestions.0",
@@ -40,9 +40,9 @@
     "i18next-browser-languagedetector": "^3.0.1",
     "jss": "10.0.0-alpha.17",
     "lodash": "^4.17.15",
-    "react": "^16.9.0-alpha.0",
-    "react-apollo": "^3.0.0-beta.4",
-    "react-dom": "^16.9.0-alpha.0",
+    "react": "^16.9.0-rc.0",
+    "react-apollo": "^3.0.0",
+    "react-dom": "^16.9.0-rc.0",
     "react-i18next": "^10.11.4",
     "react-scripts": "^3.0.1",
     "tslib": "^1.10.0",
@@ -50,8 +50,8 @@
     "yup": "^0.27.0"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "5.1.9",
-    "@storybook/react": "5.1.9",
+    "@storybook/addon-actions": "5.1.10",
+    "@storybook/react": "5.1.10",
     "@testing-library/react-hooks": "^1.1.0",
     "@types/classnames": "^2.2.9",
     "@types/facebook-js-sdk": "^3.2.1",
@@ -70,7 +70,7 @@
     "apollo-storybook-react": "^0.2.1",
     "babel-loader": "8.0.5",
     "graphql-ast-tools": "^0.2.3",
-    "react-test-renderer": "^16.9.0-alpha.0",
+    "react-test-renderer": "^16.9.0-rc.0",
     "typescript": "3.5.3"
   },
   "browserslist": [

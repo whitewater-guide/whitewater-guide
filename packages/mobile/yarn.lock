@@ -38,6 +38,14 @@
     ts-invariant "^0.4.4"
     tslib "^1.10.0"
 
+"@apollo/react-common@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.npmjs.org/@apollo/react-common/-/react-common-3.0.0.tgz#2357518c4b3bf1fd680ee2ac114f565f527ec55d"
+  integrity sha512-EqHASkcmxipy2hU8rja+lD1S1HoTdodKKyJZZ3dgewnAHXnzXnnC3rw1+lkrgXPFsI2n2d2N2LYisD79OCdPmw==
+  dependencies:
+    ts-invariant "^0.4.4"
+    tslib "^1.10.0"
+
 "@apollo/react-components@^0.1.0-beta.8":
   version "0.1.0-beta.8"
   resolved "https://registry.npmjs.org/@apollo/react-components/-/react-components-0.1.0-beta.8.tgz#bc6240de691b93da0e66a8e32d13fc98b80ab3f8"
@@ -45,6 +53,17 @@
   dependencies:
     "@apollo/react-common" "^0.1.0-beta.9"
     "@apollo/react-hooks" "^0.1.0-beta.11"
+    prop-types "^15.7.2"
+    ts-invariant "^0.4.4"
+    tslib "^1.10.0"
+
+"@apollo/react-components@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.npmjs.org/@apollo/react-components/-/react-components-3.0.0.tgz#ca489ff8f70c6a7224f0c2a8a0baedda0448a815"
+  integrity sha512-IF5HZWT4Vc+6JXenFApjc+QsfZccd7UVSV1Z8l4Y5+EoXkLbmM3fuu8lUQamZqzdVVh6coA8bdI0gafB7PU+1A==
+  dependencies:
+    "@apollo/react-common" "^3.0.0"
+    "@apollo/react-hooks" "^3.0.0"
     prop-types "^15.7.2"
     ts-invariant "^0.4.4"
     tslib "^1.10.0"
@@ -60,12 +79,33 @@
     ts-invariant "^0.4.4"
     tslib "^1.10.0"
 
+"@apollo/react-hoc@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.npmjs.org/@apollo/react-hoc/-/react-hoc-3.0.0.tgz#cdcb81f1f28246de1c15d601b9c0c075df18e0f9"
+  integrity sha512-hZaxumdxHrHtTxzHwY1e7FA43x43dLNhZYLcib8ACbV1W3uH7betPdpzlMcL7aVEL7U+7YwQtbc++e1GxxvTQw==
+  dependencies:
+    "@apollo/react-common" "^3.0.0"
+    "@apollo/react-components" "^3.0.0"
+    hoist-non-react-statics "^3.3.0"
+    ts-invariant "^0.4.4"
+    tslib "^1.10.0"
+
 "@apollo/react-hooks@^0.1.0-beta.11":
   version "0.1.0-beta.11"
   resolved "https://registry.npmjs.org/@apollo/react-hooks/-/react-hooks-0.1.0-beta.11.tgz#3b12836fb6fd944767757f5c7cb477ba880f6d52"
   integrity sha512-hcEQWLFLpO2lN6AcXFsO/tK27Ve9+hIpw827fQBCuIbCyy2+e715ZMwrgzY5HCeCvLPY9DcS9I++0etr+f3UXw==
   dependencies:
     "@apollo/react-common" "^0.1.0-beta.9"
+    "@wry/equality" "^0.1.9"
+    ts-invariant "^0.4.4"
+    tslib "^1.10.0"
+
+"@apollo/react-hooks@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.npmjs.org/@apollo/react-hooks/-/react-hooks-3.0.0.tgz#5fe4ff7812020f3e1b91b8628af8c03276496d78"
+  integrity sha512-7kaV6rkx2WZjDYcBmp52oyhTxbNn5Jc4AUmsXZVEnDu9uuvNYURA8bLlJNF8yu4zS7ed8D+ZebC0y0bhrz8wIg==
+  dependencies:
+    "@apollo/react-common" "^3.0.0"
     "@wry/equality" "^0.1.9"
     ts-invariant "^0.4.4"
     tslib "^1.10.0"
@@ -77,6 +117,15 @@
   dependencies:
     "@apollo/react-common" "^0.1.0-beta.9"
     "@apollo/react-hooks" "^0.1.0-beta.11"
+    tslib "^1.10.0"
+
+"@apollo/react-ssr@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.npmjs.org/@apollo/react-ssr/-/react-ssr-3.0.0.tgz#a31455f90ec87af0b3b597a6468a9e2732ce738b"
+  integrity sha512-lgEnvP4lwgqOv4rZA2dDyIcOLdCYkRms54aGxvErHxh7GGfsJFLnx6pRoa+uUvFjr8/edOVQtaHADnaMbtAMbA==
+  dependencies:
+    "@apollo/react-common" "^3.0.0"
+    "@apollo/react-hooks" "^3.0.0"
     tslib "^1.10.0"
 
 "@babel/code-frame@7.0.0":
@@ -2082,10 +2131,10 @@
   resolved "https://registry.npmjs.org/@types/jest-diff/-/jest-diff-20.0.1.tgz#35cc15b9c4f30a18ef21852e255fdb02f6d59b89"
   integrity sha512-yALhelO3i0hqZwhjtcr6dYyaLoCHbAMshwtj6cGxTvHZAKXHsYGdff6E8EPw3xLKY0ELUTQ69Q1rQiJENnccMA==
 
-"@types/jest@^24.0.16":
-  version "24.0.16"
-  resolved "https://registry.npmjs.org/@types/jest/-/jest-24.0.16.tgz#8d3e406ec0f0dc1688d6711af3062ff9bd428066"
-  integrity sha512-JrAiyV+PPGKZzw6uxbI761cHZ0G7QMOHXPhtSpcl08rZH6CswXaaejckn3goFKmF7M3nzEoJ0lwYCbqLMmjziQ==
+"@types/jest@^24.0.17":
+  version "24.0.17"
+  resolved "https://registry.npmjs.org/@types/jest/-/jest-24.0.17.tgz#b66ea026efb746eb5db1356ee28518aaff7af416"
+  integrity sha512-1cy3xkOAfSYn78dsBWy4M3h/QF/HeWPchNFDjysVtp3GHeTdSmtluNnELfCmfNRRHo0OWEcpf+NsEJQvwQfdqQ==
   dependencies:
     "@types/jest-diff" "*"
 
@@ -2501,10 +2550,10 @@
     validator "^11.0.0"
     yup "^0.27.0"
 
-"@whitewater-guide/translations@^1.0.9":
-  version "1.0.9"
-  resolved "https://registry.npmjs.org/@whitewater-guide/translations/-/translations-1.0.9.tgz#64e84e2f1826aa52b24397e92aafab2973a3e2cd"
-  integrity sha512-RnWS1hOdpxwbyfSFhQ1iV2LTrgrilKbYK2neoQsSCFfEJ6cy5woDcnJtRi+xnztVMZwaNW6DwYrjTcqu62PWXg==
+"@whitewater-guide/translations@^1.0.10":
+  version "1.0.10"
+  resolved "https://registry.npmjs.org/@whitewater-guide/translations/-/translations-1.0.10.tgz#6e67db88c57ed2eceaf9f2b6ba01bd55298f494d"
+  integrity sha512-kdFohomNFSrQ6diSYxY2dW65n/Efhsr7GnN2ibTDQxyDWPWfU88ayhW1STSeHF8Q93RYTqEmbULNTzttVDGsLA==
 
 "@wry/context@^0.4.0":
   version "0.4.4"
@@ -2952,10 +3001,10 @@ app-root-dir@^1.0.2:
   resolved "https://registry.npmjs.org/app-root-dir/-/app-root-dir-1.0.2.tgz#38187ec2dea7577fff033ffcb12172692ff6e118"
   integrity sha1-OBh+wt6nV3//Az/8sSFyaS/24Rg=
 
-appcenter-cli@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.npmjs.org/appcenter-cli/-/appcenter-cli-2.0.0.tgz#b21881cd4db4b594b132f12caffdab05436ce9f4"
-  integrity sha512-p9Tn4o8nmdwwnPXiltoD66aFN+Q46CEYg85zItmyfXNGa7ajdhMm5efGmG4dYLIzU5kcD3oVgCRzQLm8QsuSyQ==
+appcenter-cli@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.npmjs.org/appcenter-cli/-/appcenter-cli-2.1.0.tgz#2aefe3541e7dc63eebdb496a2a8e60bb5811d1d5"
+  integrity sha512-2Woq/ZgrYio/9S0aTtfAl+mx8PskM46JMfaeJPvZZ34pPg+AAVPQvy8U+4zimM3MnFayCekUamrJ+VJtSz4eoQ==
   dependencies:
     "@types/mkdirp" "^0.5.2"
     "@types/wordwrap" "^1.0.0"
@@ -11838,6 +11887,17 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.2.7, rc@^1.2.8:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-apollo@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.npmjs.org/react-apollo/-/react-apollo-3.0.0.tgz#2a0bccd32e11ce86b140d5d0284356972b7e8e11"
+  integrity sha512-dxUml6Z91kRg/dQhKac2aTwLkDNmDa6APd3jmeGE48nAg0/a282zQryX7HXk0M6l3qaRISclGDhLINqdSXBLyA==
+  dependencies:
+    "@apollo/react-common" "^3.0.0"
+    "@apollo/react-components" "^3.0.0"
+    "@apollo/react-hoc" "^3.0.0"
+    "@apollo/react-hooks" "^3.0.0"
+    "@apollo/react-ssr" "^3.0.0"
+
 react-apollo@^3.0.0-beta.4:
   version "3.0.0-beta.4"
   resolved "https://registry.npmjs.org/react-apollo/-/react-apollo-3.0.0-beta.4.tgz#bc4bfb5c2015d7098f16ef107c5adc916bd3b515"
@@ -12314,10 +12374,10 @@ react-native-swipe-gestures@^1.0.3:
   resolved "https://registry.npmjs.org/react-native-swipe-gestures/-/react-native-swipe-gestures-1.0.3.tgz#4160f8d459627323f3a3d2770af4bcd82fd054f5"
   integrity sha512-KOouRzPB2fHFjVombsSdRfYo8SFeNVa4Ho4B5il87DuuF26sPNOtb3je+qaT/xVptedOsCzRPJGbWFMsaBApgg==
 
-react-native-tab-view@2.9.0:
-  version "2.9.0"
-  resolved "https://registry.npmjs.org/react-native-tab-view/-/react-native-tab-view-2.9.0.tgz#4793803a069fcd01938c7bac1981815c29bfa589"
-  integrity sha512-lHLhLZTDIA+4II3ltM3v5icqxjXODZsYf/wgLP4atK/04RUlYpEs4YoER4o+PVZPs3oi3CaVR1yy4z3uj29uvw==
+react-native-tab-view@2.10.0:
+  version "2.10.0"
+  resolved "https://registry.npmjs.org/react-native-tab-view/-/react-native-tab-view-2.10.0.tgz#5e249e5650502010013449ffd4e5edc18a95364b"
+  integrity sha512-qgexVz5eO4yaFjdkmn/sURXgVvaBo6pZD/q1eoca96SbPVbaH3WzVhF3bRUfeTHwZkXwznFTpS3JURqIFU8vQA==
 
 react-native-tab-view@^1.0.0, react-native-tab-view@^1.2.0, react-native-tab-view@^1.4.1:
   version "1.4.1"
