@@ -30,30 +30,11 @@
   resolved "https://registry.npmjs.org/@ant-design/icons/-/icons-2.1.1.tgz#7b9c08dffd4f5d41db667d9dbe5e0107d0bd9a4a"
   integrity sha512-jCH+k2Vjlno4YWl6g535nHR09PwCEmTBKAG6VqF+rhkrSPRLfgpU2maagwbZPLjaHuU5Jd1DFQ2KJpQuI6uG8w==
 
-"@apollo/react-common@^0.1.0-beta.9":
-  version "0.1.0-beta.9"
-  resolved "https://registry.npmjs.org/@apollo/react-common/-/react-common-0.1.0-beta.9.tgz#33d0a46d049d15e97b2f9f1e9e012c338567c1de"
-  integrity sha512-3/FYW7LilVlhfCkxL26Yglmr1LfWd2z+LEMHvtHF8K54Ejmb8kYglvDfbuAIsGT1f8WagpIkDm7eI1tfTdgNmw==
-  dependencies:
-    ts-invariant "^0.4.4"
-    tslib "^1.10.0"
-
 "@apollo/react-common@^3.0.0":
   version "3.0.0"
   resolved "https://registry.npmjs.org/@apollo/react-common/-/react-common-3.0.0.tgz#2357518c4b3bf1fd680ee2ac114f565f527ec55d"
   integrity sha512-EqHASkcmxipy2hU8rja+lD1S1HoTdodKKyJZZ3dgewnAHXnzXnnC3rw1+lkrgXPFsI2n2d2N2LYisD79OCdPmw==
   dependencies:
-    ts-invariant "^0.4.4"
-    tslib "^1.10.0"
-
-"@apollo/react-components@^0.1.0-beta.8":
-  version "0.1.0-beta.8"
-  resolved "https://registry.npmjs.org/@apollo/react-components/-/react-components-0.1.0-beta.8.tgz#bc6240de691b93da0e66a8e32d13fc98b80ab3f8"
-  integrity sha512-tLj9rEW9EZzXein6XG50jk4K9mJq0a2XwdZ/0y1gK3ELc41dOB20kmYknT2+j+RhG6CU5HkBfE1yDmXc9yt9PA==
-  dependencies:
-    "@apollo/react-common" "^0.1.0-beta.9"
-    "@apollo/react-hooks" "^0.1.0-beta.11"
-    prop-types "^15.7.2"
     ts-invariant "^0.4.4"
     tslib "^1.10.0"
 
@@ -68,17 +49,6 @@
     ts-invariant "^0.4.4"
     tslib "^1.10.0"
 
-"@apollo/react-hoc@^0.1.0-beta.8":
-  version "0.1.0-beta.8"
-  resolved "https://registry.npmjs.org/@apollo/react-hoc/-/react-hoc-0.1.0-beta.8.tgz#c491f49d0990b2fb54be81bad625e2833ac87f18"
-  integrity sha512-Tsou8uV89oabikJJTHkDdy/VB6+EOVUSm3AQcnG8pptqSEmpxREQxp9RrSNS/CMzSJo6TyE5jH5GLczyf7x4gg==
-  dependencies:
-    "@apollo/react-common" "^0.1.0-beta.9"
-    "@apollo/react-components" "^0.1.0-beta.8"
-    hoist-non-react-statics "^3.3.0"
-    ts-invariant "^0.4.4"
-    tslib "^1.10.0"
-
 "@apollo/react-hoc@^3.0.0":
   version "3.0.0"
   resolved "https://registry.npmjs.org/@apollo/react-hoc/-/react-hoc-3.0.0.tgz#cdcb81f1f28246de1c15d601b9c0c075df18e0f9"
@@ -90,16 +60,6 @@
     ts-invariant "^0.4.4"
     tslib "^1.10.0"
 
-"@apollo/react-hooks@^0.1.0-beta.11":
-  version "0.1.0-beta.11"
-  resolved "https://registry.npmjs.org/@apollo/react-hooks/-/react-hooks-0.1.0-beta.11.tgz#3b12836fb6fd944767757f5c7cb477ba880f6d52"
-  integrity sha512-hcEQWLFLpO2lN6AcXFsO/tK27Ve9+hIpw827fQBCuIbCyy2+e715ZMwrgzY5HCeCvLPY9DcS9I++0etr+f3UXw==
-  dependencies:
-    "@apollo/react-common" "^0.1.0-beta.9"
-    "@wry/equality" "^0.1.9"
-    ts-invariant "^0.4.4"
-    tslib "^1.10.0"
-
 "@apollo/react-hooks@^3.0.0":
   version "3.0.0"
   resolved "https://registry.npmjs.org/@apollo/react-hooks/-/react-hooks-3.0.0.tgz#5fe4ff7812020f3e1b91b8628af8c03276496d78"
@@ -108,15 +68,6 @@
     "@apollo/react-common" "^3.0.0"
     "@wry/equality" "^0.1.9"
     ts-invariant "^0.4.4"
-    tslib "^1.10.0"
-
-"@apollo/react-ssr@^0.1.0-beta.1":
-  version "0.1.0-beta.1"
-  resolved "https://registry.npmjs.org/@apollo/react-ssr/-/react-ssr-0.1.0-beta.1.tgz#9e4c10f8b7e8e0c30564b0409ca787160fafe924"
-  integrity sha512-09AvAjrk3g3n5X4S5gsGOw2nYDlQ4ep3Qr4bPiQkhFM9IeYGQ6rWSaZIcAJDFL4IwnwdJQtoQDYXB1Muc9nuyw==
-  dependencies:
-    "@apollo/react-common" "^0.1.0-beta.9"
-    "@apollo/react-hooks" "^0.1.0-beta.11"
     tslib "^1.10.0"
 
 "@apollo/react-ssr@^3.0.0":
@@ -2505,14 +2456,14 @@
     "@webassemblyjs/wast-parser" "1.8.5"
     "@xtuc/long" "4.2.2"
 
-"@whitewater-guide/clients@0.0.270-suggestions.1":
-  version "0.0.270-suggestions.1"
-  resolved "https://registry.npmjs.org/@whitewater-guide/clients/-/clients-0.0.270-suggestions.1.tgz#af01d9c5fe8fee4627458ad328b74cb213cf4bf9"
-  integrity sha512-WQ7LzZcnb9Elc55SsXcpN2d3qzI7N0QyxwBm7MhtQ5TNddisiPi4yHBWF/KE7xduhzvQbCx3n+AgRGhsFGQyZQ==
+"@whitewater-guide/clients@0.0.270":
+  version "0.0.270"
+  resolved "https://registry.npmjs.org/@whitewater-guide/clients/-/clients-0.0.270.tgz#b3da46cb04d1cec6a7044e3c424caa737c179ca7"
+  integrity sha512-LuORskZZmxPWPAiGaKQYlihl6zs0h/pgztrKzVkGk6MlhMyG6TZH2aZWDoU78IiZ0iSI5sp7AFhdtVfF+bdbpQ==
   dependencies:
     "@turf/bearing" "^6.0.1"
     "@turf/helpers" "^6.1.4"
-    "@whitewater-guide/commons" "0.0.168-suggestions.0"
+    "@whitewater-guide/commons" "0.0.169"
     apollo-cache "^1.3.2"
     apollo-cache-inmemory "^1.6.2"
     apollo-client "^2.6.3"
@@ -2533,15 +2484,15 @@
     graphql-type-json "^0.3.0"
     lodash "^4.17.15"
     qs "^6.7.0"
-    react-apollo "^3.0.0-beta.4"
+    react-apollo "^3.0.0"
     shortid "^2.2.14"
     typescript-fsa "^3.0.0-beta-2"
     url-parse "^1.4.7"
 
-"@whitewater-guide/commons@0.0.168-suggestions.0":
-  version "0.0.168-suggestions.0"
-  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.168-suggestions.0.tgz#3ff4883a9e194cc69baa1ad2811c29666c089f0e"
-  integrity sha512-SuAVtg5z1DiTOeJcUVgyN1KZlORufW2PafLhL3w6ML4X84t4htO53OyMSczfOFpYeK9uybLdbPcyd8A4Qu5nXQ==
+"@whitewater-guide/commons@0.0.169":
+  version "0.0.169"
+  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.169.tgz#e0ffee26ac0505e1bcf6d89fcb4626ad2b123389"
+  integrity sha512-cZvE8eq8Qocas1najvT28tPspPsdvOpThc+NxsIlYnfmwJrVlH0U4dYxbfmhPMr93T8Auu+RRtCOw3nCUDA9vg==
   dependencies:
     "@types/yup" "^0.26.22"
     cron-validator "^1.0.1"
@@ -11898,17 +11849,6 @@ react-apollo@^3.0.0:
     "@apollo/react-hooks" "^3.0.0"
     "@apollo/react-ssr" "^3.0.0"
 
-react-apollo@^3.0.0-beta.4:
-  version "3.0.0-beta.4"
-  resolved "https://registry.npmjs.org/react-apollo/-/react-apollo-3.0.0-beta.4.tgz#bc4bfb5c2015d7098f16ef107c5adc916bd3b515"
-  integrity sha512-wA3rMe6qoqFWUJ7//n+lsmcsRfMULdysTi2ldr2ribYZdKa9ZhW0uQoA754m0oN60TrSh2HG117WBU4LnhXKkQ==
-  dependencies:
-    "@apollo/react-common" "^0.1.0-beta.9"
-    "@apollo/react-components" "^0.1.0-beta.8"
-    "@apollo/react-hoc" "^0.1.0-beta.8"
-    "@apollo/react-hooks" "^0.1.0-beta.11"
-    "@apollo/react-ssr" "^0.1.0-beta.1"
-
 react-clientside-effect@^1.2.0:
   version "1.2.2"
   resolved "https://registry.npmjs.org/react-clientside-effect/-/react-clientside-effect-1.2.2.tgz#6212fb0e07b204e714581dd51992603d1accc837"
@@ -11965,15 +11905,15 @@ react-devtools-core@^3.6.0:
     shell-quote "^1.6.1"
     ws "^3.3.1"
 
-react-dom@16.8.6, react-dom@16.9.0-alpha.0, react-dom@^16.0.0, react-dom@^16.8.3:
-  version "16.9.0-alpha.0"
-  resolved "https://registry.npmjs.org/react-dom/-/react-dom-16.9.0-alpha.0.tgz#9dfaec18ac1a500fa72cab7b70f2ae29d0cd7716"
-  integrity sha512-BQ5gN42yIPuTnBvE6K9vSjNfDRpSNcYCs2sUx9XR5VaWKwlHTt3G6qIWK6zdXy8TYKb1+IxpsAI0RtbRdXQZ2A==
+react-dom@16.8.6, react-dom@16.9.0-rc.0, react-dom@^16.0.0, react-dom@^16.8.3:
+  version "16.9.0-rc.0"
+  resolved "https://registry.npmjs.org/react-dom/-/react-dom-16.9.0-rc.0.tgz#63827dacb8148175f64e6ea69ac07d114d8899b1"
+  integrity sha512-71d0ZHwAhTxr7JBqk3xrhaHnd5zs/P62RTKNswtylCWKfqV75Tm/eZtq7riaZN+1mwnfMf2HyVx8ht7+GtMBQg==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
     prop-types "^15.6.2"
-    scheduler "^0.14.0-alpha.0"
+    scheduler "^0.15.0-rc.0"
 
 react-draggable@^3.1.1:
   version "3.3.0"
@@ -12050,10 +11990,10 @@ react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.4, react-is@^16.8.6:
   resolved "https://registry.npmjs.org/react-is/-/react-is-16.8.6.tgz#5bbc1e2d29141c9fbdfed456343fe2bc430a6a16"
   integrity sha512-aUk3bHfZ2bRSVFFbbeVS4i+lNPZr3/WM5jT2J5omUVV1zzcs1nAaf3l51ctA5FFvCRbhrH0bdAsRRQddFJZPtA==
 
-react-is@^16.9.0-alpha.0:
-  version "16.9.0-alpha.0"
-  resolved "https://registry.npmjs.org/react-is/-/react-is-16.9.0-alpha.0.tgz#af943642da49460f9fe98630182b0a62db3e9e6a"
-  integrity sha512-psl0ePLTFliYfwcbwvimLgTNN156ZdeWB4zvP7dV/6lTAqWMHFfidg/mSZ2fFgE1LMNN8ZJOLl2DfZ8yg+3ETA==
+react-is@^16.9.0-rc.0:
+  version "16.9.0-rc.0"
+  resolved "https://registry.npmjs.org/react-is/-/react-is-16.9.0-rc.0.tgz#a43ea6412495f7d99af64458a9b41e9dc8d28f29"
+  integrity sha512-ATzTIOOeTMPzPHJ024Z/LmcKj/0WrdtHRTpvdrn+B+bGUDAECVXVzjfTc7GO5HQLysNR9dEc/pWwEkPHIcTCxA==
 
 react-lazy-load@^3.0.13:
   version "3.0.13"
@@ -12621,15 +12561,15 @@ react-syntax-highlighter@^8.0.1:
     prismjs "^1.8.4"
     refractor "^2.4.1"
 
-react-test-renderer@16.9.0-alpha.0:
-  version "16.9.0-alpha.0"
-  resolved "https://registry.npmjs.org/react-test-renderer/-/react-test-renderer-16.9.0-alpha.0.tgz#60f584601dc73543dadbe3bca815e1acc8adcaba"
-  integrity sha512-eDl0oVFo6PGY1wpYFs0ezBpZhOgVce5TSta9UPLanshTi4z8NhlM6IgO8KBdioQ5H5/pmyGxOVtpUxJOt19NAQ==
+react-test-renderer@16.9.0-rc.0:
+  version "16.9.0-rc.0"
+  resolved "https://registry.npmjs.org/react-test-renderer/-/react-test-renderer-16.9.0-rc.0.tgz#3365e4eddf951cd7a51053fd1192d65fd30abd60"
+  integrity sha512-urgWsx+7JowFzYZHZFLpEVHKWqkSm6dUv0JJFbassUJhp91IHk6DNZWu3ABte2AffvNz9ZD4y7kKHn5nJXfqyA==
   dependencies:
     object-assign "^4.1.1"
     prop-types "^15.6.2"
-    react-is "^16.9.0-alpha.0"
-    scheduler "^0.14.0-alpha.0"
+    react-is "^16.9.0-rc.0"
+    scheduler "^0.15.0-rc.0"
 
 react-textarea-autosize@^7.1.0:
   version "7.1.0"
@@ -12695,15 +12635,14 @@ react-wait@^0.3.0:
   resolved "https://registry.npmjs.org/react-wait/-/react-wait-0.3.0.tgz#0cdd4d919012451a5bc3ab0a16d00c6fd9a8c10b"
   integrity sha512-kB5x/kMKWcn0uVr9gBdNz21/oGbQwEQnF3P9p6E9yLfJ9DRcKS0fagbgYMFI0YFOoyKDj+2q6Rwax0kTYJF37g==
 
-react@16.8.6, react@16.9.0-alpha.0, react@^16.6.0, react@^16.8.3:
-  version "16.9.0-alpha.0"
-  resolved "https://registry.npmjs.org/react/-/react-16.9.0-alpha.0.tgz#e350f3d8af36e3251079cbc90d304620e2f78ccb"
-  integrity sha512-y4bu7rJvtnPPsIwOj7sp5Y2SqlOb0jFupfkdjWxxn8ZeqzUARgpR9wJBUVwW1/QosVdOblmApjo/j6iiAXnebA==
+react@16.8.6, react@16.9.0-rc.0, react@^16.6.0, react@^16.8.3:
+  version "16.9.0-rc.0"
+  resolved "https://registry.npmjs.org/react/-/react-16.9.0-rc.0.tgz#fd5c4273383a0dd2b71d1d4e6ad464a392602be2"
+  integrity sha512-9J4dBd/6RITXvFY4eN4nyyqxsvO7UvGB8JFOn4wAQ1Y1sW8HL/xJ2nihRXGoIk53ewjaWZ0TfTczjPwIyqzTmA==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
     prop-types "^15.6.2"
-    scheduler "^0.14.0-alpha.0"
 
 read-env@^1.3.0:
   version "1.3.0"
@@ -13394,10 +13333,18 @@ sax@~1.1.1:
   resolved "https://registry.npmjs.org/sax/-/sax-1.1.6.tgz#5d616be8a5e607d54e114afae55b7eaf2fcc3240"
   integrity sha1-XWFr6KXmB9VOEUr65Vt+ry/MMkA=
 
-scheduler@^0.14.0, scheduler@^0.14.0-alpha.0:
+scheduler@^0.14.0:
   version "0.14.0"
   resolved "https://registry.npmjs.org/scheduler/-/scheduler-0.14.0.tgz#b392c23c9c14bfa2933d4740ad5603cc0d59ea5b"
   integrity sha512-9CgbS06Kki2f4R9FjLSITjZo5BZxPsryiRNyL3LpvrM9WxcVmhlqAOc9E+KQbeI2nqej4JIIbOsfdL51cNb4Iw==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+
+scheduler@^0.15.0-rc.0:
+  version "0.15.0-rc.0"
+  resolved "https://registry.npmjs.org/scheduler/-/scheduler-0.15.0-rc.0.tgz#e8da3aec91c7487c749b14dc400b32739b2b6f06"
+  integrity sha512-oaQa2FK+JyR0OhsDQd5ZpfEWmthBZ9eka1TjHQpfqMa5M7FfhlAJaKXAqNqdr+eyQ4smJEX3+PCnLuBcSGY0Tw==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
