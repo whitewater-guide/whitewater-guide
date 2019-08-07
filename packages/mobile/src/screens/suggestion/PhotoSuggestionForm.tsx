@@ -80,11 +80,13 @@ const PhotoSuggestionForm: React.FC<Props> = React.memo((props) => {
             <PhotoUploadField name="filename" uploadLink={uploadLink} />
             <TextField
               name="copyright"
+              mode="outlined"
               label={t('screens:suggestion.copyrightLabel')}
               placeholder={t('screens:suggestion.copyrightPlaceholder')}
             />
             <TextField
               name="description"
+              mode="outlined"
               multiline={true}
               style={styles.description}
               label={t('screens:suggestion.photoDescriptionLabel')}

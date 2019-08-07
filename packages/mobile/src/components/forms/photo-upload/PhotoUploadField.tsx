@@ -14,7 +14,16 @@ import usePhotoUploadErrors from './usePhotoUploadErrors';
 import useSetPhotoValues from './useSetPhotoValues';
 
 const styles = StyleSheet.create({
+  picker: {
+    width: theme.screenWidth - 2 * theme.margin.single,
+    height:
+      (theme.screenWidth - 2 * theme.margin.single) / 1.61803398875 -
+      theme.rowHeight / 2,
+    aspectRatio: undefined,
+  },
   container: {
+    width: '100%',
+    aspectRatio: 1.61803398875,
     marginBottom: theme.margin.single,
   },
   overlay: {
@@ -24,12 +33,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  errorOverlay: {
-    position: 'absolute',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    bottom: 0,
-    left: 0,
-    right: 0,
+  errorBox: {
+    height: theme.rowHeight / 2,
   },
 });
 
@@ -74,17 +79,17 @@ export const PhotoUploadField: React.FC<Props> = React.memo((props) => {
   const error = errors[name] || errors[resolutionName];
   return (
     <View style={styles.container}>
-      <PhotoPicker value={file} onChange={onChange} />
-      {state.loading && (
-        <View style={styles.overlay}>
-          <Loading />
-        </View>
-      )}
-      {error && (
-        <View style={styles.errorOverlay}>
-          <ErrorText touched={true} error={error} />
-        </View>
-      )}
+      <View>
+        <PhotoPicker value={file} onChange={onChange} style={styles.picker} />
+        {state.loading && (
+          <View style={styles.overlay}>
+            <Loading />
+          </View>
+        )}
+      </View>
+      <View style={styles.errorBox}>
+        <ErrorText touched={true} error={error} />
+      </View>
     </View>
   );
 });

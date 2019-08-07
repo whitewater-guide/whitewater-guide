@@ -49,6 +49,7 @@ const SimpleSuggestionForm: React.FC<Props> = (props) => {
           <React.Fragment>
             <TextField
               name="description"
+              mode="outlined"
               autoFocus={true}
               multiline={true}
               style={styles.description}

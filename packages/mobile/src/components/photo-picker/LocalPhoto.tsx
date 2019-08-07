@@ -2,9 +2,11 @@ import React, { useCallback, useMemo, useState } from 'react';
 import {
   Platform,
   StatusBar,
+  StyleProp,
   StyleSheet,
   TouchableOpacity,
   View,
+  ViewStyle,
 } from 'react-native';
 import Image from 'react-native-fast-image';
 import theme from '../../theme';
@@ -24,9 +26,10 @@ const styles = StyleSheet.create({
 interface Props {
   value: Photo;
   onChange: (value: Photo | null) => void;
+  style?: StyleProp<ViewStyle>;
 }
 
-const LocalPhoto: React.FC<Props> = ({ value, onChange }) => {
+const LocalPhoto: React.FC<Props> = ({ value, onChange, style }) => {
   const [index, setIndex] = useState(-1);
   const onOpen = useCallback(() => setIndex(0), [setIndex]);
   const onClose = useCallback(() => setIndex(-1), [setIndex]);
@@ -37,7 +40,11 @@ const LocalPhoto: React.FC<Props> = ({ value, onChange }) => {
     <View>
       <StatusBar hidden={Platform.OS === 'ios' && index >= 0} />
       <TouchableOpacity onPress={onOpen}>
-        <Image style={commonStyles.root} resizeMode="cover" source={source} />
+        <Image
+          style={[commonStyles.root, style]}
+          resizeMode="cover"
+          source={source}
+        />
       </TouchableOpacity>
       <Icon
         icon="close-circle"

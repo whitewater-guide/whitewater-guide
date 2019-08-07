@@ -1,6 +1,13 @@
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
+import {
+  Platform,
+  StyleProp,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  ViewStyle,
+} from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 import { Subheading } from 'react-native-paper';
 import { PaperTheme } from '../../theme';
@@ -17,10 +24,15 @@ const styles = StyleSheet.create({
 interface Props {
   onChange: (value: Photo | null) => void;
   label?: string;
+  style?: StyleProp<ViewStyle>;
 }
 
 const Placeholder: React.FC<Props> = (props) => {
-  const { onChange, label = 'components:photoPicker.placeholder' } = props;
+  const {
+    onChange,
+    style,
+    label = 'components:photoPicker.placeholder',
+  } = props;
   const { t } = useTranslation();
   const pickerOptions: ImagePickerOptions = useMemo<ImagePickerOptions>(
     () => ({
@@ -56,7 +68,7 @@ const Placeholder: React.FC<Props> = (props) => {
   }, [onChange]);
   return (
     <TouchableOpacity onPress={onPress}>
-      <View style={commonStyles.root}>
+      <View style={[commonStyles.root, style]}>
         <Icon
           icon="cloud-upload"
           color={PaperTheme.colors.placeholder}
