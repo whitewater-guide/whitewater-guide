@@ -397,7 +397,10 @@ const users = [
   EXP_VER_USER,
 ];
 
-const fcmTokens = [{ user_id: TEST_USER_ID, token: '__fcm__token__' }];
+const fcmTokens = [
+  { user_id: TEST_USER_ID, token: '__user_fcm_token__' },
+  { user_id: ADMIN_ID, token: '__admin_fcm_token__' },
+];
 
 export async function seed(db: Knex) {
   await db.table('users').del();

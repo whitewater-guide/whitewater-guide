@@ -1,6 +1,6 @@
 import Router from 'koa-router';
 import { KoaPassport } from '../../types';
-import { errorBodyMiddleware } from '../../utils';
+import { errorBodyMiddleware, fcmMiddleware } from '../../utils';
 import reset from './reset';
 import resetRequest from './resetRequest';
 import signIn from './signin';
@@ -14,8 +14,8 @@ export const initLocalRouter = (passport: KoaPassport) => {
   });
 
   router.use(errorBodyMiddleware('local'));
-  router.post('/signin', signIn(passport));
-  router.post('/signup', signUp(passport));
+  router.post('/signin', signIn(passport), fcmMiddleware);
+  router.post('/signup', signUp(passport), fcmMiddleware);
   router.post('/reset/request', resetRequest);
   router.get('/reset/callback', async (ctx, next) => {
     // TODO: implement proper password reset form, see #379

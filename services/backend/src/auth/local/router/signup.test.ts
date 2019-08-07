@@ -330,4 +330,20 @@ describe('other fields', () => {
       .first();
     expect(user).toHaveProperty('language', 'en');
   });
+
+  it('should save fcm token', async () => {
+    const resp = await agent(app)
+      .post(ROUTE)
+      .send({
+        email: 'foo@bar.com',
+        password: 'L0ng___p@ssW0rD',
+        fcm_token: '__foo__',
+      });
+    const id = resp.body.id;
+    const tokens = await db(false)
+      .select('token')
+      .from('fcm_tokens')
+      .where({ user_id: id });
+    expect(tokens).toEqual([{ token: '__foo__' }]);
+  });
 });

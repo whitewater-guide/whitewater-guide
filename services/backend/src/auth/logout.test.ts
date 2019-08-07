@@ -1,5 +1,6 @@
-import { holdTransaction, rollbackTransaction } from '@db';
+import db, { holdTransaction, rollbackTransaction } from '@db';
 import { redis } from '@redis';
+import { TEST_USER_ID } from '@seeds/01_users';
 import { CookieAccessInfo } from 'cookiejar';
 import Koa from 'koa';
 import agent from 'supertest-koa-agent';
@@ -52,4 +53,21 @@ it('should sign out', async () => {
   );
   expect(atCookieAfter).toBeUndefined();
   expect(rtCookieAfter).toBeUndefined();
+});
+
+it('should delete fcm_token if provided', async () => {
+  const testAgent = agent(app);
+  const resp = await testAgent.post(LOGIN_ROUTE).send({
+    email: 'konstantin@gmail.com',
+    password: 'ttttE_s_t1a',
+  });
+  const accessToken = resp.body.accessToken;
+  await testAgent
+    .get(`${LOGOUT_ROUTE}?fcm_token=__user_fcm_token__`)
+    .set('authorization', `bearer ${accessToken}`);
+  const tokens = await db(false)
+    .select('token')
+    .from('fcm_tokens')
+    .where({ user_id: TEST_USER_ID });
+  expect(tokens).toHaveLength(0);
 });

@@ -16,7 +16,7 @@ export const useAuth = (app: Koa) => {
   app.use(jwtRouter.routes());
   app.use(fbRouter.routes());
   app.use(localRouter.routes());
-  app.use(logoutRouter.routes());
 
   app.use(authenticateWithJWT(passport));
+  app.use(logoutRouter.routes());
 };
