@@ -1,3 +1,9 @@
+## [0.0.385](https://github.com/doomsower/whitewater/compare/e4784ac49bac91b29aad4ef23e4917a6c6baca21...7f67a8704663b2d741a50eecc2443d2dfc8c2101) (2019-08-07)
+
+### Other
+
+- fcm token is managed in auth, not in mutations ([0a679c377b03116c7ff37495b90465c0870e037e](https://github.com/doomsower/whitewater/commit/0a679c377b03116c7ff37495b90465c0870e037e))
+
 ## [0.0.384](https://github.com/doomsower/whitewater/compare/f6b7d7b4f4de50649053e734f3d0f91f6e158e91...e4784ac49bac91b29aad4ef23e4917a6c6baca21) (2019-08-06)
 
 ## [0.0.383](https://github.com/doomsower/whitewater/compare/abc31b468c3008385663d03217f773700826209c...f6b7d7b4f4de50649053e734f3d0f91f6e158e91) (2019-08-06)
