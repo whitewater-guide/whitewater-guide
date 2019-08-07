@@ -3,10 +3,14 @@ import {
   SuggestionInputSchema,
 } from '@whitewater-guide/commons';
 import { Formik } from 'formik';
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Platform, StyleSheet, View } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import {
+  KeyboardAvoidingView,
+  ScrollView,
+  StyleSheet,
+  TextInput,
+} from 'react-native';
 import { Button } from 'react-native-paper';
 import { Loading } from '../../components';
 import {
@@ -18,11 +22,15 @@ import theme from '../../theme';
 import getInitialValues from './getInitialValues';
 import TermsOfUseLink from './TermsOfUseLink';
 import useAddSuggestion from './useAddSuggestion';
+import useKeyboard from './useKeyboard';
 import useUploadLink from './useUploadLink';
 
 const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
+  },
+  containerContent: {
+    height: theme.stackScreenHeight,
   },
   content: {
     height: theme.stackScreenHeight,
@@ -38,26 +46,18 @@ interface Props {
 }
 
 const PhotoSuggestionForm: React.FC<Props> = React.memo((props) => {
-  const scroll = useRef<any>();
-  const setScroll = useCallback((ref: any) => (scroll.current = ref), [scroll]);
   const { sectionId } = props;
+  const descriptionRef = useRef<TextInput | null>(null);
+  const onCopyrightSubmit = useCallback(() => {
+    if (descriptionRef.current) {
+      descriptionRef.current.focus();
+    }
+  }, [descriptionRef]);
   const { t } = useTranslation();
   const initialValues = useMemo(() => getInitialValues(sectionId), [sectionId]);
   const onSubmit = useAddSuggestion();
   const validate = useValidate(SuggestionInputSchema);
-  const onMultilineFocus = useCallback(() => {
-    if (scroll.current) {
-      setTimeout(() => {
-        scroll.current.props.scrollToEnd();
-      }, 250);
-    }
-  }, [scroll]);
-  const onMultilineBlur = useCallback(() => {
-    if (Platform.OS === 'android' && scroll.current) {
-      scroll.current.props.scrollToPosition(0, 0, true);
-    }
-  }, [scroll]);
-
+  const [scroll, handlers] = useKeyboard();
   const [uploadLink, preparingLink] = useUploadLink();
   if (preparingLink || !uploadLink) {
     return <Loading />;
@@ -70,29 +70,36 @@ const PhotoSuggestionForm: React.FC<Props> = React.memo((props) => {
       validate={validate}
     >
       {({ isSubmitting, submitForm }) => (
-        <KeyboardAwareScrollView
-          innerRef={setScroll}
+        <KeyboardAvoidingView
+          behavior="height"
           style={styles.container}
-          extraHeight={0}
-          contentContainerStyle={{ height: theme.stackScreenHeight }}
+          keyboardVerticalOffset={75 + theme.safeBottom}
         >
-          <View style={styles.content}>
+          <ScrollView
+            ref={scroll}
+            style={styles.container}
+            contentContainerStyle={styles.content}
+          >
             <PhotoUploadField name="filename" uploadLink={uploadLink} />
             <TextField
               name="copyright"
               mode="outlined"
               label={t('screens:suggestion.copyrightLabel')}
               placeholder={t('screens:suggestion.copyrightPlaceholder')}
+              onFocus={handlers.onCopyrightFocus}
+              returnKeyType="next"
+              blurOnSubmit={false}
+              onSubmitEditing={onCopyrightSubmit}
             />
             <TextField
               name="description"
+              ref={descriptionRef}
               mode="outlined"
               multiline={true}
               style={styles.description}
               label={t('screens:suggestion.photoDescriptionLabel')}
               placeholder={t('screens:suggestion.photoDescriptionPlaceholder')}
-              onFocus={onMultilineFocus}
-              onBlur={onMultilineBlur}
+              onFocus={handlers.onDescriptionFocus}
             />
             <TermsOfUseLink />
             <Button
@@ -102,8 +109,8 @@ const PhotoSuggestionForm: React.FC<Props> = React.memo((props) => {
             >
               {t('screens:suggestion.submitPhoto')}
             </Button>
-          </View>
-        </KeyboardAwareScrollView>
+          </ScrollView>
+        </KeyboardAvoidingView>
       )}
     </Formik>
   );
