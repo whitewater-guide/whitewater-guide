@@ -2089,10 +2089,10 @@
   dependencies:
     "@types/jest-diff" "*"
 
-"@types/jsonwebtoken@^8.3.2":
-  version "8.3.2"
-  resolved "https://registry.npmjs.org/@types/jsonwebtoken/-/jsonwebtoken-8.3.2.tgz#e3d5245197152346fae7ee87d5541aa5a92d0362"
-  integrity sha512-Mkjljd9DTpkPlrmGfTJvcP4aBU7yO2QmW7wNVhV4/6AEUxYoacqU7FJU/N0yFEHTsIrE4da3rUrjrR5ejicFmA==
+"@types/jsonwebtoken@^8.3.3":
+  version "8.3.3"
+  resolved "https://registry.npmjs.org/@types/jsonwebtoken/-/jsonwebtoken-8.3.3.tgz#eafeea8239c74b02263d204c0e1175d5cd0bb85f"
+  integrity sha512-mofwpvFbm2AUxD5mg4iQPc2o/+ubM200R/L86kR17SeC99jM3gEnB9hy16ln3kZkxM5LnGpDJclxeUNEHhehng==
   dependencies:
     "@types/node" "*"
 
@@ -2229,10 +2229,18 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@^16.8.22", "@types/react@^16.8.24":
+"@types/react@*", "@types/react@^16.8.22":
   version "16.8.24"
   resolved "https://registry.npmjs.org/@types/react/-/react-16.8.24.tgz#8d1ea1fcbfa214220da3d3c04e506f1077b0deac"
   integrity sha512-VpFHUoD37YNY2+lr/+c7qL/tZsIU/bKuskUF3tmGUArbxIcQdb5j3zvo4cuuzu2A6UaVmVn7sJ4PgWYNFEBGzg==
+  dependencies:
+    "@types/prop-types" "*"
+    csstype "^2.2.0"
+
+"@types/react@^16.8.25":
+  version "16.8.25"
+  resolved "https://registry.npmjs.org/@types/react/-/react-16.8.25.tgz#0247613ab58b1b11ba10fed662e1947c5f2bb89c"
+  integrity sha512-ydAAkLnNTC4oYSxJ3zwK/4QcVmEecACJ4ZdxXITbxz/dhahBSDKY6OQ1uawAW6rE/7kfHccxulYLSAIZVrSq0A==
   dependencies:
     "@types/prop-types" "*"
     csstype "^2.2.0"
@@ -2501,10 +2509,10 @@
     validator "^11.0.0"
     yup "^0.27.0"
 
-"@whitewater-guide/translations@^1.0.10":
-  version "1.0.10"
-  resolved "https://registry.npmjs.org/@whitewater-guide/translations/-/translations-1.0.10.tgz#6e67db88c57ed2eceaf9f2b6ba01bd55298f494d"
-  integrity sha512-kdFohomNFSrQ6diSYxY2dW65n/Efhsr7GnN2ibTDQxyDWPWfU88ayhW1STSeHF8Q93RYTqEmbULNTzttVDGsLA==
+"@whitewater-guide/translations@^1.0.11":
+  version "1.0.11"
+  resolved "https://registry.npmjs.org/@whitewater-guide/translations/-/translations-1.0.11.tgz#578241269b6d1715d0b09d16deb4146bebc9281a"
+  integrity sha512-lRHL50Yj+a0Lx51UllTUC+Jq40Lvp9+R+6TNToO7ChaY2rA97rvfMm8004a0oLLp5Dh022xb0CkxLXj07bGWIw==
 
 "@wry/context@^0.4.0":
   version "0.4.4"
@@ -14531,10 +14539,10 @@ type-is@~1.6.17, type-is@~1.6.18:
     media-typer "0.3.0"
     mime-types "~2.1.24"
 
-type-zoo@^3.4.0:
-  version "3.4.0"
-  resolved "https://registry.npmjs.org/type-zoo/-/type-zoo-3.4.0.tgz#58c5c7f73314f8461dab0d2382d76e05c61ef5ec"
-  integrity sha512-s/PsXHBxzESKyrIgl9vjrUbwFT0ObSsP4P97BYV/NLWwWxS6oVG5qXI4ME1+8fS5V7uNnvs8pUzAoy4GsrQseQ==
+type-zoo@^3.4.1:
+  version "3.4.1"
+  resolved "https://registry.npmjs.org/type-zoo/-/type-zoo-3.4.1.tgz#5b1e8ba0ad87445092eb5ba033f1a4db800a0eec"
+  integrity sha512-jwdBsJmFK9QJdD5Hb0ovFYl5Kz8SLfzNiNmPNRZYA+B9O22MiQma2qG39JBap/FSDWuPUJP9ISlf7kV8h82+FA==
 
 typed-styles@^0.0.7:
   version "0.0.7"
