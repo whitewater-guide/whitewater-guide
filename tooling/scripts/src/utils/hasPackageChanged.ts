@@ -1,4 +1,4 @@
-import { spawnSync } from 'child_process';
+import { execSync, spawnSync } from 'child_process';
 import { readJsonSync } from 'fs-extra';
 import isEqual from 'lodash/isEqual';
 import { resolve } from 'path';
@@ -11,16 +11,15 @@ import { WWMeta } from './types';
  * - package.json version is ignored
  */
 const hasChangedSinceCommit = (path: string, hash: string) => {
-  const { status } = spawnSync('git', [
-    'diff-index',
-    hash,
-    '--quiet',
-    '--',
-    path,
-    `":(exclude)${path}/CHANGELOG.md"`,
-    `":(exclude)${path}/package.json"`,
-  ]);
-  const codeChanged = status !== 0;
+  let codeChanged = false;
+  try {
+    execSync(
+      `git diff-index ${hash} --quiet -- ${path} ":(exclude)${path}/CHANGELOG.md" ":(exclude)${path}/package.json"`,
+      { encoding: 'utf8' },
+    );
+  } catch (e) {
+    codeChanged = true;
+  }
   const { stdout } = spawnSync('git', ['show', `${hash}:${path}/package.json`]);
   const currentPJson = readJsonSync(`${path}/package.json`);
   const oldPJson = JSON.parse(stdout);
