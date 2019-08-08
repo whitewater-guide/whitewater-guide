@@ -1,3 +1,9 @@
+## [0.0.386](https://github.com/doomsower/whitewater/compare/7f67a8704663b2d741a50eecc2443d2dfc8c2101...47770a1aa8cf8e1f62184c2f615a9eac99fa167a) (2019-08-08)
+
+### Features
+
+- add route to add user's fcm token ([76e952ef4880b37572ff86404a9e06c8804d9d4f](https://github.com/doomsower/whitewater/commit/76e952ef4880b37572ff86404a9e06c8804d9d4f))
+
 ## [0.0.385](https://github.com/doomsower/whitewater/compare/e4784ac49bac91b29aad4ef23e4917a6c6baca21...7f67a8704663b2d741a50eecc2443d2dfc8c2101) (2019-08-07)
 
 ### Other
