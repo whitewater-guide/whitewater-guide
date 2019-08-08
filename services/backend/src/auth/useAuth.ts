@@ -1,5 +1,6 @@
 import Koa from 'koa';
 import { initFacebookRouter } from './facebook';
+import { fcmRouter } from './fcm';
 import initPassport from './initPassport';
 import { authenticateWithJWT, initJwtRouter } from './jwt';
 import { initLocalRouter } from './local/router';
@@ -19,4 +20,5 @@ export const useAuth = (app: Koa) => {
 
   app.use(authenticateWithJWT(passport));
   app.use(logoutRouter.routes());
+  app.use(fcmRouter.routes());
 };
