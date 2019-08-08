@@ -16,12 +16,16 @@ import {
 } from '@whitewater-guide/commons';
 import { AppState, AppStateStatus, Platform } from 'react-native';
 import { AccessToken, LoginManager, LoginResult } from 'react-native-fbsdk';
+import Firebase from 'react-native-firebase';
 import { Sentry } from 'react-native-sentry';
 import { BACKEND_URL } from '../../utils/urls';
 import waitUntilActive from '../../utils/waitUntilActive';
 import { tokenStorage } from './tokens';
 
 export class MobileAuthService extends BaseAuthService {
+  private _fcmToken: string | null = null;
+  private _fcmTokenSent: boolean = false;
+
   constructor(
     private readonly _resetApolloCache?: () => Promise<void>,
     private readonly _onSignOut?: () => void,
@@ -35,6 +39,12 @@ export class MobileAuthService extends BaseAuthService {
 
   async init() {
     await super.init();
+    const pushEnabled = await Firebase.messaging().hasPermission();
+    if (pushEnabled) {
+      // do not watch token change.
+      // fcm token should be valid at startup and this is enough for now
+      this._fcmToken = await Firebase.messaging().getToken();
+    }
     // Legacy check. If user is logged in via FB, but has no access token, then
     // most likely he logged in via legacy auth in older app version
     let fbToken: AccessToken | null = null;
@@ -81,6 +91,17 @@ export class MobileAuthService extends BaseAuthService {
       });
       // call internal function, so _loading status doesn't prevent it from running
       await this.signOut(true);
+    }
+    if (!this._fcmTokenSent && this._fcmToken) {
+      // no await on purpose
+      this._getBearerHeader()
+        .then((opts) =>
+          this._post('/fcm/set', { fcm_token: this._fcmToken }, opts),
+        )
+        .then(() => {
+          this._fcmTokenSent = true;
+        })
+        .catch(() => {});
     }
     return resp;
   }
@@ -129,9 +150,13 @@ export class MobileAuthService extends BaseAuthService {
       }
       resp = await this._get('/auth/facebook/signin', {
         access_token: at.accessToken,
+        fcm_token: this._fcmToken,
       });
     } else {
-      resp = await this._post('/auth/local/signin', credentials);
+      resp = await this._post('/auth/local/signin', {
+        ...credentials,
+        fcm_token: this._fcmToken,
+      });
     }
     await this.postSignIn(resp);
     return resp;
@@ -142,6 +167,7 @@ export class MobileAuthService extends BaseAuthService {
     if (!success) {
       return;
     }
+    this._fcmTokenSent = true;
     if (accessToken) {
       await tokenStorage.setAccessToken(accessToken);
     }
@@ -155,12 +181,21 @@ export class MobileAuthService extends BaseAuthService {
   }
 
   async signUp(payload: RegisterPayload): Promise<AuthResponse<SignInBody>> {
-    const resp = await this._post('/auth/local/signup', payload);
+    const resp = await this._post('/auth/local/signup', {
+      ...payload,
+      fcm_token: this._fcmToken,
+    });
     await this.postSignIn(resp);
     return resp;
   }
 
   async signOut(force = false) {
+    const opts = await this._getBearerHeader();
+    // no await on purpose
+    this._get('/auth/logout', { fcm_token: this._fcmToken }, opts).catch(
+      () => {},
+    );
+
     await tokenStorage.setAccessToken(null);
     await tokenStorage.setRefreshToken(null);
     LoginManager.logOut();
@@ -172,6 +207,7 @@ export class MobileAuthService extends BaseAuthService {
     if (this._resetApolloCache) {
       await this._resetApolloCache();
     }
+    this._fcmTokenSent = false;
     return { success: true, status: 200 };
   }
 
@@ -182,18 +218,22 @@ export class MobileAuthService extends BaseAuthService {
   async requestVerification(
     payload: RequestVerificationPayload,
   ): Promise<AuthResponse> {
-    const accessToken = await tokenStorage.getAccessToken();
-    const opts = accessToken
-      ? {
-          headers: {
-            authorization: `Bearer ${accessToken}`,
-          },
-        }
-      : undefined;
+    const opts = await this._getBearerHeader();
     return this._post('/auth/local/verification/request', payload, opts);
   }
 
   async reset(payload: ResetPayload): Promise<AuthResponse<ResetBody>> {
     return this._post('/auth/local/reset', payload);
   }
+
+  private _getBearerHeader = async (): Promise<RequestInit | undefined> => {
+    const accessToken = await tokenStorage.getAccessToken();
+    return accessToken
+      ? {
+          headers: {
+            authorization: `Bearer ${accessToken}`,
+          },
+        }
+      : undefined;
+  };
 }
