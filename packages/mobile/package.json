@@ -47,7 +47,7 @@
     "@turf/helpers": "^6.1.4",
     "@turf/line-to-polygon": "^6.0.1",
     "@turf/square": "^5.1.5",
-    "@whitewater-guide/clients": "0.0.273",
+    "@whitewater-guide/clients": "0.0.274",
     "@whitewater-guide/commons": "0.0.170",
     "@whitewater-guide/translations": "^1.0.11",
     "@zhigang1992/react-navigation-hooks": "^1.0.0-alpha.2",
