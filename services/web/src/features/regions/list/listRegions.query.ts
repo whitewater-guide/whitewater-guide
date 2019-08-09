@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 
 export const LIST_REGIONS = gql`
   query listRegions($page: Page) {
-    regions(page: $page) {
+    regions(page: $page) @connection(key: "regions") {
       nodes {
         id
         name
