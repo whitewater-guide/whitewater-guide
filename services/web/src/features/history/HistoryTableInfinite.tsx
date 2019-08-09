@@ -1,3 +1,4 @@
+import { getListMerger } from '@whitewater-guide/clients';
 import {
   Connection,
   NamedNode,
@@ -34,22 +35,8 @@ class HistoryTableInfinite extends React.PureComponent<Props> {
       variables: {
         page: { offset: nodes ? nodes.length : 0 },
       },
-      updateQuery: (prev: QResult, { fetchMoreResult }: any) => {
-        if (!fetchMoreResult) {
-          return prev;
-        }
-        return {
-          ...prev,
-          history: {
-            ...prev.history,
-            nodes: [
-              ...(prev.history.nodes || []),
-              ...fetchMoreResult.history.nodes,
-            ],
-          },
-        };
-      },
-    } as any);
+      updateQuery: getListMerger('history'),
+    });
   };
 
   render() {

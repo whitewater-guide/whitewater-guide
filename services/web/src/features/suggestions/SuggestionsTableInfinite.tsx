@@ -1,3 +1,4 @@
+import { getListMerger } from '@whitewater-guide/clients';
 import { SuggestionStatus } from '@whitewater-guide/commons';
 import React, { useCallback } from 'react';
 import { ObservableQueryFields } from 'react-apollo';
@@ -36,22 +37,8 @@ export const SuggestionsTableInfinite: React.FC<Props> = React.memo((props) => {
       variables: {
         page: { offset: nodes ? nodes.length : 0 },
       },
-      updateQuery: (prev: QResult, { fetchMoreResult }: any) => {
-        if (!fetchMoreResult) {
-          return prev;
-        }
-        return {
-          ...prev,
-          suggestions: {
-            ...prev.suggestions,
-            nodes: [
-              ...(prev.suggestions.nodes || []),
-              ...fetchMoreResult.history.nodes,
-            ],
-          },
-        };
-      },
-    } as any);
+      updateQuery: getListMerger('suggestions'),
+    });
   }, [suggestions, fetchMore]);
 
   return (

@@ -19,4 +19,6 @@ export type ListType =
   | 'mediaBySection'
   | 'groups'
   | 'suggestions'
-  | 'banners';
+  | 'banners'
+  | 'history'
+  | 'suggestions';
