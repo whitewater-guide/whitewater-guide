@@ -1,17 +1,28 @@
 import React, { useCallback } from 'react';
-import { Column, TableCellRenderer } from 'react-virtualized';
-import { EditorColumn, Table } from '../../../components/tables';
+import { Column } from 'react-virtualized';
+import {
+  EditorColumn,
+  isEmptyRow,
+  Table,
+  TableCellRenderer,
+} from '../../../components/tables';
 import { ListedRiver } from './listRivers.query';
 import RiversTableActions from './RiversTableActions';
 
-const renderAltNames: TableCellRenderer = ({ rowData: { altNames } }) =>
-  altNames ? altNames.join(', ') : '';
+const renderAltNames: TableCellRenderer<ListedRiver> = ({ rowData }) => {
+  if (isEmptyRow(rowData)) {
+    return null;
+  }
+  const { altNames } = rowData;
+  return altNames ? altNames.join(', ') : '';
+};
 
-const renderNumSections: TableCellRenderer = ({
-  rowData: {
-    sections: { count },
-  },
-}) => count;
+const renderNumSections: TableCellRenderer<ListedRiver> = ({ rowData }) => {
+  if (isEmptyRow(rowData)) {
+    return null;
+  }
+  return rowData.sections.count;
+};
 
 interface Props {
   rivers: ListedRiver[];
@@ -22,11 +33,14 @@ interface Props {
 const RiversTable: React.FC<Props> = React.memo((props) => {
   const { rivers, onRemove, onChangeRegion } = props;
 
-  const renderActions: TableCellRenderer = useCallback(
-    ({ rowData: river }) => {
+  const renderActions: TableCellRenderer<ListedRiver> = useCallback(
+    ({ rowData }) => {
+      if (isEmptyRow(rowData)) {
+        return null;
+      }
       return (
         <RiversTableActions
-          river={river}
+          river={rowData}
           onRemove={onRemove}
           onChangeRegion={onChangeRegion}
         />

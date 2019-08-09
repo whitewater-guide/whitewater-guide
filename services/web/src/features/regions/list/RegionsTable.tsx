@@ -1,13 +1,20 @@
 import { Connection, filterRegions } from '@whitewater-guide/commons';
 import React, { useCallback, useMemo, useState } from 'react';
-import { Column, TableCellRenderer } from 'react-virtualized';
+import { Column } from 'react-virtualized';
 import useRouter from 'use-react-router';
-import { BooleanColumn, Table } from '../../../components/tables';
+import {
+  BooleanColumn,
+  isEmptyRow,
+  Table,
+  TableCellRenderer,
+} from '../../../components/tables';
 import { ListedRegion } from './listRegions.query';
 import RegionNameFilter from './RegionNameFilter';
 import RegionTableActions from './RegionTableActions';
 
-const renderCount: TableCellRenderer = ({ cellData: { count } }) => count;
+const renderCount: TableCellRenderer<ListedRegion, Connection<any>> = ({
+  cellData,
+}) => (cellData ? cellData.count : null);
 
 interface Props {
   regions: Required<Connection<ListedRegion>>;
@@ -35,15 +42,18 @@ const RegionsTable: React.FC<Props> = React.memo((props) => {
     [history.push],
   );
 
-  const renderActions: TableCellRenderer = useCallback(
-    ({ rowData: region }) => {
-      return <RegionTableActions region={region} onRemove={onRemove} />;
+  const renderActions: TableCellRenderer<ListedRegion> = useCallback(
+    ({ rowData }) => {
+      if (isEmptyRow(rowData)) {
+        return null;
+      }
+      return <RegionTableActions region={rowData} onRemove={onRemove} />;
     },
     [onRemove],
   );
 
   return (
-    <Table data={filtered} estimatedRowSize={count} onNodeClick={onRegionClick}>
+    <Table data={filtered} count={count} onNodeClick={onRegionClick}>
       <Column
         width={200}
         flexGrow={1}

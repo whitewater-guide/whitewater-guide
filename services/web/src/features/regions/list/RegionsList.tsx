@@ -15,9 +15,9 @@ export const RegionsList: React.FC = React.memo(() => {
     LIST_REGIONS,
     {
       fetchPolicy: 'cache-and-network',
-      variables: { page: { limit: 20 } },
+      variables: { page: { limit: 5 } },
     },
-    20,
+    5,
   );
   const removeRegion = useDeleteMutation(REMOVE_REGION, [
     { query: LIST_REGIONS },

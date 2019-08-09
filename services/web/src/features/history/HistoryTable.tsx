@@ -2,15 +2,20 @@ import { createStyles, WithStyles, withStyles } from '@material-ui/core/styles';
 import { formatDate } from '@whitewater-guide/clients';
 import {
   NamedNode,
-  Section,
   SectionEditLogEntry,
   sectionName,
 } from '@whitewater-guide/commons';
 import parseISO from 'date-fns/parseISO';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Column, TableCellRenderer, TableProps } from 'react-virtualized';
-import { Clipboard, RegionFinder, Table } from '../../components';
+import { Column, TableProps } from 'react-virtualized';
+import {
+  Clipboard,
+  isEmptyRow,
+  RegionFinder,
+  Table,
+  TableCellRenderer,
+} from '../../components';
 import { UserFinder } from '../users';
 import { DiffButton } from './DiffButton';
 
@@ -30,29 +35,45 @@ interface OwnProps {
   registerChild: (registeredChild: any) => void;
 }
 
+type TCR = TableCellRenderer<SectionEditLogEntry>;
+
 type Props = OwnProps &
   WithStyles<typeof styles> &
   Omit<TableProps, 'rowGetter' | 'rowCount' | 'rowHeight' | 'headerHeight'>;
 
 class HistoryTable extends React.PureComponent<Props> {
-  renderCreatedAt: TableCellRenderer = ({ rowData: { createdAt } }) =>
-    formatDate(parseISO(createdAt), 'dd MMMM yyyy, H:mm');
+  renderCreatedAt: TCR = ({ rowData }) => {
+    if (isEmptyRow(rowData)) {
+      return null;
+    }
+    return formatDate(parseISO(rowData.createdAt), 'dd MMMM yyyy, H:mm');
+  };
 
-  renderSection: TableCellRenderer = ({ rowData: { section } }) => {
-    const { id, region } = section as Section;
+  renderSection: TCR = ({ rowData }) => {
+    if (isEmptyRow(rowData)) {
+      return null;
+    }
+    const { id, region } = rowData.section;
     return (
       <Link to={`/regions/${region.id}/sections/${id}#main`}>
-        {sectionName(section)}
+        {sectionName(rowData.section)}
       </Link>
     );
   };
 
-  renderRegion: TableCellRenderer = ({ rowData: { section } }) => {
-    const { region } = section as Section;
+  renderRegion: TCR = ({ rowData }) => {
+    if (isEmptyRow(rowData)) {
+      return null;
+    }
+    const { region } = rowData.section;
     return <Link to={`/regions/${region.id}`}>{region.name}</Link>;
   };
 
-  renderEditor: TableCellRenderer = ({ rowData: { editor } }) => {
+  renderEditor: TCR = ({ rowData }) => {
+    if (isEmptyRow(rowData)) {
+      return null;
+    }
+    const { editor } = rowData;
     return (
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <span>{`${editor.name}`}</span>
@@ -61,7 +82,11 @@ class HistoryTable extends React.PureComponent<Props> {
     );
   };
 
-  renderDiff: TableCellRenderer = ({ rowData: { diff } }) => {
+  renderDiff: TCR = ({ rowData }) => {
+    if (isEmptyRow(rowData)) {
+      return null;
+    }
+    const { diff } = rowData;
     if (!diff) {
       return null;
     }

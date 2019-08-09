@@ -7,12 +7,18 @@ import {
   getSectionColor,
   renderDifficulty,
 } from '@whitewater-guide/clients';
-import { Durations, Section } from '@whitewater-guide/commons';
+import { Durations, Section, sectionName } from '@whitewater-guide/commons';
 import parseISO from 'date-fns/parseISO';
 import { History } from 'history';
 import React from 'react';
-import { Column, TableCellRenderer } from 'react-virtualized';
-import { ClickBlocker, DeleteButton, IconLink } from '../../../components';
+import { Column } from 'react-virtualized';
+import {
+  ClickBlocker,
+  DeleteButton,
+  IconLink,
+  isEmptyRow,
+  TableCellRenderer,
+} from '../../../components';
 import { Table } from '../../../components/tables';
 import { paths } from '../../../utils';
 import NameFilter from './NameFilter';
@@ -29,26 +35,47 @@ export default class SectionsTable extends React.PureComponent<Props> {
     history.push(`/regions/${regionId}/sections/${id}#main`);
   };
 
-  renderName: TableCellRenderer = ({
-    rowData: {
-      river: { name: riverName },
-      name,
-    },
-  }) => `${riverName} - ${name}`;
+  renderName: TableCellRenderer<Section> = ({ rowData }) => {
+    if (isEmptyRow(rowData)) {
+      return null;
+    }
+    return sectionName(rowData);
+  };
 
   renderNameHeader = () => <NameFilter />;
 
-  renderDifficulty: TableCellRenderer = ({ rowData }) =>
-    renderDifficulty(rowData);
+  renderDifficulty: TableCellRenderer<Section> = ({ rowData }) => {
+    if (isEmptyRow(rowData)) {
+      return null;
+    }
+    return renderDifficulty(rowData);
+  };
 
-  renderDuration: TableCellRenderer = ({ rowData: { duration } }) =>
-    duration && Durations.get(duration);
+  renderDuration: TableCellRenderer<Section> = ({ rowData }) => {
+    if (isEmptyRow(rowData)) {
+      return null;
+    }
+    return rowData.duration && Durations.get(rowData.duration);
+  };
 
-  renderRating: TableCellRenderer = ({ rowData: { rating } }) => (
-    <Rating value={rating} size="small" precision={0.5} readOnly={true} />
-  );
+  renderRating: TableCellRenderer<Section> = ({ rowData }) => {
+    if (isEmptyRow(rowData)) {
+      return null;
+    }
+    return (
+      <Rating
+        value={rowData.rating}
+        size="small"
+        precision={0.5}
+        readOnly={true}
+      />
+    );
+  };
 
-  renderValue: TableCellRenderer = ({ rowData }) => {
+  renderValue: TableCellRenderer<Section> = ({ rowData }) => {
+    if (isEmptyRow(rowData)) {
+      return null;
+    }
     const { gauge, flows, levels }: Section = rowData;
     if (!gauge) {
       return null;
@@ -72,8 +99,11 @@ export default class SectionsTable extends React.PureComponent<Props> {
     return null;
   };
 
-  renderStatus: TableCellRenderer = ({ rowData }) => {
-    const { gauge }: Section = rowData;
+  renderStatus: TableCellRenderer<Section> = ({ rowData }) => {
+    if (isEmptyRow(rowData)) {
+      return null;
+    }
+    const { gauge } = rowData;
     if (!gauge) {
       return null;
     }
@@ -94,7 +124,11 @@ export default class SectionsTable extends React.PureComponent<Props> {
     return null;
   };
 
-  renderActions: TableCellRenderer = ({ rowData: { id: sectionId } }) => {
+  renderActions: TableCellRenderer<Section> = ({ rowData }) => {
+    if (isEmptyRow(rowData)) {
+      return null;
+    }
+    const sectionId = rowData.id;
     const { regionId } = this.props;
     return (
       <ClickBlocker>

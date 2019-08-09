@@ -27,8 +27,8 @@ export const LIST_BANNERS = gql`
 `;
 
 export type ListedBanner = BannerCore & {
-  regions: Connection<NamedNode>;
-  groups: Connection<NamedNode>;
+  regions: Required<Connection<NamedNode>>;
+  groups: Required<Connection<NamedNode>>;
 };
 
 export interface QResult {

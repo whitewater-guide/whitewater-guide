@@ -3,8 +3,14 @@ import { History } from 'history';
 import snakeCase from 'lodash/snakeCase';
 import upperFirst from 'lodash/upperFirst';
 import React from 'react';
-import { Column, TableCellRenderer } from 'react-virtualized';
-import { ClickBlocker, DeleteButton, IconLink } from '../../../components';
+import { Column } from 'react-virtualized';
+import {
+  ClickBlocker,
+  DeleteButton,
+  IconLink,
+  isEmptyRow,
+  TableCellRenderer,
+} from '../../../components';
 import { AdminColumn, BooleanColumn, Table } from '../../../components/tables';
 import { Styles } from '../../../styles';
 import { paths } from '../../../utils';
@@ -27,7 +33,11 @@ export default class BannersTable extends React.PureComponent<Props> {
   onBannerClick = (id: string) =>
     this.props.history.push(`/banners/${id}/settings`);
 
-  renderActions: TableCellRenderer = ({ rowData: { id: bannerId } }) => {
+  renderActions: TableCellRenderer<ListedBanner> = ({ rowData }) => {
+    if (isEmptyRow(rowData)) {
+      return null;
+    }
+    const bannerId = rowData.id;
     return (
       <ClickBlocker>
         <IconLink to={paths.settings({ bannerId })} icon="edit" />
@@ -36,29 +46,45 @@ export default class BannersTable extends React.PureComponent<Props> {
     );
   };
 
-  renderBanner: TableCellRenderer = ({ rowData: { source } }) => (
-    <BannerPreview source={source} />
-  );
+  renderBanner: TableCellRenderer<ListedBanner> = ({ rowData }) => {
+    if (isEmptyRow(rowData)) {
+      return null;
+    }
+    return <BannerPreview source={rowData.source} />;
+  };
 
-  renderPlacement: TableCellRenderer = ({ rowData: { placement } }) => (
-    <p>{upperFirst(snakeCase(placement)).replace(/_/g, ' ')}</p>
-  );
+  renderPlacement: TableCellRenderer<ListedBanner> = ({ rowData }) => {
+    if (isEmptyRow(rowData)) {
+      return null;
+    }
+    return <p>{upperFirst(snakeCase(rowData.placement)).replace(/_/g, ' ')}</p>;
+  };
 
-  renderGroups: TableCellRenderer = ({ rowData: { groups } }) => (
-    <ul>
-      {groups.nodes.map(({ id, name }: NamedNode) => (
-        <li key={id}>{name}</li>
-      ))}
-    </ul>
-  );
+  renderGroups: TableCellRenderer<ListedBanner> = ({ rowData }) => {
+    if (isEmptyRow(rowData)) {
+      return null;
+    }
+    return (
+      <ul>
+        {rowData.groups.nodes.map(({ id, name }: NamedNode) => (
+          <li key={id}>{name}</li>
+        ))}
+      </ul>
+    );
+  };
 
-  renderRegions: TableCellRenderer = ({ rowData: { regions } }) => (
-    <ul>
-      {regions.nodes.map(({ id, name }: NamedNode) => (
-        <li key={id}>{name}</li>
-      ))}
-    </ul>
-  );
+  renderRegions: TableCellRenderer<ListedBanner> = ({ rowData }) => {
+    if (isEmptyRow(rowData)) {
+      return null;
+    }
+    return (
+      <ul>
+        {rowData.regions.nodes.map(({ id, name }: NamedNode) => (
+          <li key={id}>{name}</li>
+        ))}
+      </ul>
+    );
+  };
 
   render() {
     return (

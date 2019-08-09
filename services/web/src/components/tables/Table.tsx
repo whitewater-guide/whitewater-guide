@@ -11,6 +11,7 @@ import {
 } from 'react-virtualized';
 import columnMapper from './columnMapper';
 import { TABLE_HEADER_HEIGHT, TABLE_ROW_HEIGHT } from './constants';
+import { EmptyRow } from './types';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -63,7 +64,7 @@ const useStyles = makeStyles((theme) =>
 
 interface Props {
   data: Node[];
-  estimatedRowSize?: number; // Pass in case of streaming query
+  count?: number;
   onNodeClick?: (id?: string) => void;
   rowHeight?: number;
   headerHeight?: number;
@@ -77,7 +78,7 @@ export const Table = React.memo(
     function(props: Props, ref: React.Ref<VirtualizedTable>) {
       const {
         data,
-        estimatedRowSize,
+        count,
         onNodeClick,
         rowHeight = TABLE_ROW_HEIGHT,
         headerHeight = TABLE_HEADER_HEIGHT,
@@ -93,7 +94,10 @@ export const Table = React.memo(
         return columnMapper(isAdmin, isEditor);
       }, [region, me]);
 
-      const rowGetter = useCallback(({ index }: Index) => data[index], [data]);
+      const rowGetter = useCallback(
+        ({ index }: Index) => data[index] || EmptyRow,
+        [data],
+      );
       const getRowClassName = useCallback(
         ({ index }: Index) =>
           clsx(
@@ -123,12 +127,11 @@ export const Table = React.memo(
               className={classes.tableRoot}
               headerHeight={headerHeight}
               rowHeight={rowHeight}
-              rowCount={data.length}
+              rowCount={count || data.length}
               rowGetter={rowGetter}
-              onRowClick={onRowClick}
               rowClassName={getRowClassName}
+              onRowClick={onRowClick}
               onRowsRendered={onRowsRendered}
-              estimatedRowSize={estimatedRowSize}
             >
               {React.Children.map(children, mapColumns)}
             </VirtualizedTable>

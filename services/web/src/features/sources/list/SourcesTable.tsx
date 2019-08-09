@@ -1,13 +1,15 @@
 import { HarvestMode, Source } from '@whitewater-guide/commons';
 import { History } from 'history';
 import React from 'react';
-import { Column, TableCellRenderer } from 'react-virtualized';
+import { Column } from 'react-virtualized';
 import {
   ClickBlocker,
   DeleteButton,
   HarvestStatusIndicator,
   IconLink,
+  isEmptyRow,
   MutationToggle,
+  TableCellRenderer,
 } from '../../../components';
 import { AdminColumn, Table } from '../../../components/tables';
 import { paths } from '../../../utils';
@@ -26,19 +28,38 @@ export default class SourcesTable extends React.PureComponent<Props> {
     await this.props.onToggle(id, enabled);
   };
 
-  renderEnabled: TableCellRenderer = ({ rowData: { id, enabled } }) => (
-    <MutationToggle id={id} enabled={enabled} toggle={this.toggleSource} />
-  );
+  renderEnabled: TableCellRenderer<Source> = ({ rowData }) => {
+    if (isEmptyRow(rowData)) {
+      return null;
+    }
+    const { id, enabled } = rowData;
+    return (
+      <MutationToggle id={id} enabled={!!enabled} toggle={this.toggleSource} />
+    );
+  };
 
-  renderStatus: TableCellRenderer = ({ rowData: { harvestMode, status } }) => {
+  renderStatus: TableCellRenderer<Source> = ({ rowData }) => {
+    if (isEmptyRow(rowData)) {
+      return null;
+    }
+    const { harvestMode, status } = rowData;
     const showStatus = harvestMode === HarvestMode.ALL_AT_ONCE;
     return showStatus ? <HarvestStatusIndicator status={status} /> : null;
   };
 
-  renderCron: TableCellRenderer = ({ rowData: { cron, harvestMode } }) =>
-    harvestMode === HarvestMode.ONE_BY_ONE ? null : cron;
+  renderCron: TableCellRenderer<Source> = ({ rowData }) => {
+    if (isEmptyRow(rowData)) {
+      return null;
+    }
+    const { cron, harvestMode } = rowData;
+    return harvestMode === HarvestMode.ONE_BY_ONE ? null : cron;
+  };
 
-  renderActions: TableCellRenderer = ({ rowData: { id: sourceId } }) => {
+  renderActions: TableCellRenderer<Source> = ({ rowData }) => {
+    if (isEmptyRow(rowData)) {
+      return null;
+    }
+    const { id: sourceId } = rowData;
     return (
       <ClickBlocker>
         <IconLink to={paths.settings({ sourceId })} icon="edit" />

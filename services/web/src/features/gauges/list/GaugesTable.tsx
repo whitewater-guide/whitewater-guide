@@ -3,13 +3,15 @@ import { Gauge, HarvestMode, Source } from '@whitewater-guide/commons';
 import parseISO from 'date-fns/parseISO';
 import { History } from 'history';
 import React from 'react';
-import { Column, TableCellRenderer } from 'react-virtualized';
+import { Column } from 'react-virtualized';
 import {
   ClickBlocker,
   DeleteButton,
   HarvestStatusIndicator,
   IconLink,
+  isEmptyRow,
   MutationToggle,
+  TableCellRenderer,
 } from '../../../components';
 import { AdminColumn, Table } from '../../../components/tables';
 import { paths } from '../../../utils';
@@ -32,20 +34,38 @@ export default class GaugesTable extends React.PureComponent<Props> {
     await this.props.onToggle(id, enabled);
   };
 
-  renderEnabled: TableCellRenderer = ({ rowData: { id, enabled } }) => (
-    <MutationToggle id={id} enabled={enabled} toggle={this.toggleGauge} />
-  );
-
-  renderStatus: TableCellRenderer = ({ rowData: { status } }) => {
-    const showStatus = this.props.source.harvestMode === HarvestMode.ONE_BY_ONE;
-    return showStatus ? <HarvestStatusIndicator status={status} /> : null;
+  renderEnabled: TableCellRenderer<Gauge> = ({ rowData }) => {
+    if (isEmptyRow(rowData)) {
+      return null;
+    }
+    const { id, enabled } = rowData;
+    return (
+      <MutationToggle id={id} enabled={enabled} toggle={this.toggleGauge} />
+    );
   };
 
-  renderRequestParams: TableCellRenderer = ({ rowData: { requestParams } }) => {
+  renderStatus: TableCellRenderer<Gauge> = ({ rowData }) => {
+    if (isEmptyRow(rowData)) {
+      return null;
+    }
+    const showStatus = this.props.source.harvestMode === HarvestMode.ONE_BY_ONE;
+    return showStatus ? (
+      <HarvestStatusIndicator status={rowData.status} />
+    ) : null;
+  };
+
+  renderRequestParams: TableCellRenderer<Gauge> = ({ rowData }) => {
+    if (isEmptyRow(rowData)) {
+      return null;
+    }
+    const { requestParams } = rowData;
     return requestParams ? JSON.stringify(requestParams) : null;
   };
 
-  renderValue: TableCellRenderer = ({ rowData }) => {
+  renderValue: TableCellRenderer<Gauge> = ({ rowData }) => {
+    if (isEmptyRow(rowData)) {
+      return null;
+    }
     const { lastMeasurement, flowUnit, levelUnit }: Gauge = rowData;
     if (lastMeasurement) {
       const { timestamp, flow, level } = lastMeasurement;
@@ -64,7 +84,11 @@ export default class GaugesTable extends React.PureComponent<Props> {
     return null;
   };
 
-  renderActions: TableCellRenderer = ({ rowData: { id: gaugeId } }) => {
+  renderActions: TableCellRenderer<Gauge> = ({ rowData }) => {
+    if (isEmptyRow(rowData)) {
+      return null;
+    }
+    const gaugeId = rowData.id;
     const { source } = this.props;
     const edit = paths.settings({ sourceId: source.id, gaugeId });
     return (

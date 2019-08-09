@@ -1,37 +1,43 @@
 import { formatDate } from '@whitewater-guide/clients';
-import {
-  Section,
-  sectionName,
-  Suggestion,
-  SuggestionStatus,
-} from '@whitewater-guide/commons';
+import { sectionName, SuggestionStatus } from '@whitewater-guide/commons';
 import parseISO from 'date-fns/parseISO';
 import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { Column, TableCellRenderer, TableProps } from 'react-virtualized';
-import { Table } from '../../components';
+import { Column, TableProps } from 'react-virtualized';
+import { isEmptyRow, Table, TableCellRenderer } from '../../components';
+import { ListedSuggestion } from './listSuggestions.query';
 import StatusFilter from './StatusFilter';
 import SuggestionItem from './SuggestionItem';
 import SuggestionStatusView from './SuggestionStatusView';
 
-const renderCreatedAt: TableCellRenderer = ({ rowData: { createdAt } }) =>
-  formatDate(parseISO(createdAt), 'dd MMM yyyy');
+const renderCreatedAt: TableCellRenderer<ListedSuggestion> = ({ rowData }) => {
+  if (isEmptyRow(rowData)) {
+    return null;
+  }
+  return formatDate(parseISO(rowData.createdAt), 'dd MMM yyyy');
+};
 
-const renderSection: TableCellRenderer = ({ rowData: { section } }) => {
-  const { id, region } = section as Section;
+const renderSection: TableCellRenderer<ListedSuggestion> = ({ rowData }) => {
+  if (isEmptyRow(rowData)) {
+    return null;
+  }
+  const { id, region } = rowData.section;
   return (
     <Link to={`/regions/${region.id}/sections/${id}#main`}>
-      {sectionName(section)}
+      {sectionName(rowData.section)}
     </Link>
   );
 };
 
-const renderSuggestion: TableCellRenderer = ({ rowData }) => (
-  <SuggestionItem suggestion={rowData} />
-);
+const renderSuggestion: TableCellRenderer<ListedSuggestion> = ({ rowData }) => {
+  if (isEmptyRow(rowData)) {
+    return null;
+  }
+  return <SuggestionItem suggestion={rowData} />;
+};
 
 interface OwnProps {
-  data: Suggestion[];
+  data: ListedSuggestion[];
   registerChild: (registeredChild: any) => void;
   onPressResolve: (id: string) => void;
   statusFilter: SuggestionStatus[];
@@ -51,13 +57,18 @@ const SuggestionsTable: React.FC<Props> = React.memo((props) => {
     setStatusFilter,
   } = props;
 
-  const renderResolveButton = useCallback(
-    ({ rowData }: any) => (
-      <SuggestionStatusView
-        suggestion={rowData}
-        onPressResolve={onPressResolve}
-      />
-    ),
+  const renderResolveButton: TableCellRenderer<ListedSuggestion> = useCallback(
+    ({ rowData }) => {
+      if (isEmptyRow(rowData)) {
+        return null;
+      }
+      return (
+        <SuggestionStatusView
+          suggestion={rowData}
+          onPressResolve={onPressResolve}
+        />
+      );
+    },
     [onPressResolve],
   );
 
