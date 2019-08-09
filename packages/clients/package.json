@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/clients",
   "private": false,
-  "version": "0.0.275",
+  "version": "0.0.276",
   "description": "shared code for whitewater.guide clients",
   "license": "UNLICENSED",
   "files": [
