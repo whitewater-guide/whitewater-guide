@@ -60,10 +60,10 @@
     "prismjs": "^1.16.0",
     "prop-types": "^15.6.1",
     "qs": "^6.7.0",
-    "react": "16.9.0-rc.0",
+    "react": "16.9.0",
     "react-apollo": "^3.0.0",
     "react-debounce-render": "^5.0.0",
-    "react-dom": "16.9.0-rc.0",
+    "react-dom": "16.9.0",
     "react-dropzone": "^10.1.7",
     "react-error-boundary": "^1.2.2",
     "react-i18next": "^10.11.5",
@@ -129,7 +129,7 @@
     "deep-diff": "^1.0.2",
     "raf": "^3.4.1",
     "react-scripts": "^3.0.0",
-    "react-test-renderer": "16.9.0-rc.0",
+    "react-test-renderer": "16.9.0",
     "source-map-explorer": "^2.0.1",
     "ts-jest": "^24.0.2",
     "typescript": "3.5.3",
@@ -137,8 +137,8 @@
     "utility-types": "^3.7.0"
   },
   "resolutions": {
-    "**/react": "16.9.0-rc.0",
-    "**/react-dom": "16.9.0-rc.0",
+    "**/react": "16.9.0",
+    "**/react-dom": "16.9.0",
     "**/babel-loader": "8.0.5"
   },
   "browserslist": [
