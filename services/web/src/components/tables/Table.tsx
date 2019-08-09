@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) =>
 );
 
 interface Props {
-  data: Node[];
+  data?: Node[];
   count?: number;
   onNodeClick?: (id?: string) => void;
   rowHeight?: number;
@@ -77,7 +77,7 @@ export const Table = React.memo(
     // tslint:disable-next-line:only-arrow-functions
     function(props: Props, ref: React.Ref<VirtualizedTable>) {
       const {
-        data,
+        data = [],
         count,
         onNodeClick,
         rowHeight = TABLE_ROW_HEIGHT,

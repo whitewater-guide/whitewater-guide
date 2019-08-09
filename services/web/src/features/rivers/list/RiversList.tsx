@@ -22,7 +22,7 @@ export const RiversList: React.FC = React.memo(() => {
     LIST_RIVERS,
     {
       fetchPolicy: 'cache-and-network',
-      variables: { page: { limit: 20 }, filter: match.params },
+      variables: { filter: match.params },
     },
     60,
   );
@@ -30,9 +30,7 @@ export const RiversList: React.FC = React.memo(() => {
     { query: LIST_RIVERS, variables: { filter: match.params } },
   ]);
 
-  const rivers = useMemo(() => squashConnection(data, 'rivers'), [data]);
-
-  if (loading && !data!.rivers) {
+  if (loading && !data) {
     return <Loading />;
   }
 
@@ -44,7 +42,7 @@ export const RiversList: React.FC = React.memo(() => {
         handleCancel={closeDialog}
       />
       <RiversTable
-        rivers={rivers}
+        rivers={data && data.rivers}
         onRemove={removeRiver}
         onChangeRegion={setDialogRiverId}
       />

@@ -21,7 +21,7 @@ export const GaugesList: React.FC<Props> = React.memo((props) => {
     LIST_GAUGES,
     {
       fetchPolicy: 'cache-and-network',
-      variables: { sourceId: source.id, page: { limit: 60 } },
+      variables: { sourceId: source.id },
     },
     60,
   );
@@ -29,14 +29,13 @@ export const GaugesList: React.FC<Props> = React.memo((props) => {
     { query: LIST_GAUGES, variables: { sourceId: source.id } },
   ]);
   const toggleGauge = useToggleGauge();
-  const gauges = useMemo(() => squashConnection(data, 'gauges'), [data]);
-  if (loading && gauges.length === 0) {
+  if (loading && !data) {
     return <Loading />;
   }
   return (
     <GaugesTable
       source={source}
-      gauges={gauges}
+      gauges={data && data.gauges}
       history={history}
       onToggle={toggleGauge}
       onRemove={removeGauge}

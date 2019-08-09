@@ -1,3 +1,4 @@
+import { Connection } from '@whitewater-guide/commons';
 import React, { useCallback } from 'react';
 import { Column } from 'react-virtualized';
 import {
@@ -25,13 +26,13 @@ const renderNumSections: TableCellRenderer<ListedRiver> = ({ rowData }) => {
 };
 
 interface Props {
-  rivers: ListedRiver[];
+  rivers?: Connection<ListedRiver>;
   onRemove: (id: string) => void;
   onChangeRegion: (id: string) => void;
 }
 
 const RiversTable: React.FC<Props> = React.memo((props) => {
-  const { rivers, onRemove, onChangeRegion } = props;
+  const { rivers = { nodes: [], count: 0 }, onRemove, onChangeRegion } = props;
 
   const renderActions: TableCellRenderer<ListedRiver> = useCallback(
     ({ rowData }) => {
@@ -50,7 +51,7 @@ const RiversTable: React.FC<Props> = React.memo((props) => {
   );
 
   return (
-    <Table data={rivers}>
+    <Table data={rivers.nodes} count={rivers.count}>
       <Column width={200} flexGrow={1} label="Name" dataKey="name" />
       <Column
         width={200}

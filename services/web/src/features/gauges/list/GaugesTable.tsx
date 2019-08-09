@@ -1,5 +1,10 @@
 import { formatDistanceToNow } from '@whitewater-guide/clients';
-import { Gauge, HarvestMode, Source } from '@whitewater-guide/commons';
+import {
+  Connection,
+  Gauge,
+  HarvestMode,
+  Source,
+} from '@whitewater-guide/commons';
 import parseISO from 'date-fns/parseISO';
 import { History } from 'history';
 import React from 'react';
@@ -18,7 +23,7 @@ import { paths } from '../../../utils';
 
 interface Props {
   source: Source;
-  gauges: Gauge[];
+  gauges?: Connection<Gauge>;
   history: History;
   onToggle: (id: string, enabled: boolean) => void;
   onRemove: (id: string) => void;
@@ -100,8 +105,10 @@ export default class GaugesTable extends React.PureComponent<Props> {
   };
 
   render() {
+    const { gauges } = this.props;
+    const { nodes = [], count = 0 } = gauges || {};
     return (
-      <Table data={this.props.gauges} onNodeClick={this.onGaugeClick}>
+      <Table data={nodes} count={count} onNodeClick={this.onGaugeClick}>
         <Column width={200} flexGrow={4} label="Name" dataKey="name" />
         <Column width={70} flexGrow={1} label="Code" dataKey="code" />
         <Column

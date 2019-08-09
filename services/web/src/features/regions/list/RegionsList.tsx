@@ -15,7 +15,6 @@ export const RegionsList: React.FC = React.memo(() => {
     LIST_REGIONS,
     {
       fetchPolicy: 'cache-and-network',
-      variables: { page: { limit: 5 } },
     },
     5,
   );
