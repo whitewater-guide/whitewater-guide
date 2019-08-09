@@ -46,7 +46,7 @@ export const useStreamingQuery = <QResult, QVars extends { page?: Page }>(
         updateQuery: getListMerger(connectionField as any),
       }).catch(() => {});
     }
-  }, [loaded, total, connectionField, rest.loading]);
+  }, [loaded, total, connectionField]);
 
   return { data, ...rest };
 };
