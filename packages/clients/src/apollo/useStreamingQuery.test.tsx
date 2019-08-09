@@ -20,7 +20,7 @@ const mocks: MockedResponse[] = [
   {
     request: {
       query: QUERY,
-      variables: { foo: 'foo' },
+      variables: { foo: 'foo', page: { limit: 1 } },
     },
     result: {
       data: {
@@ -92,7 +92,7 @@ const mocks: MockedResponse[] = [
   {
     request: {
       query: QUERY,
-      variables: { foo: 'bar' },
+      variables: { foo: 'bar', page: { limit: 1 } },
     },
     result: {
       data: {
@@ -194,6 +194,7 @@ it('should provide 3 sections', async () => {
 });
 
 it('should provide 3 more sections when vars change', async () => {
+  // TODO: failing because of apollo: https://github.com/apollographql/react-apollo/issues/3332
   const wrapper: React.FC = ({ children }: any) => (
     <MockedProvider mocks={mocks}>{children}</MockedProvider>
   );

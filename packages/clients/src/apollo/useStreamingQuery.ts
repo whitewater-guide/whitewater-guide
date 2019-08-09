@@ -1,47 +1,52 @@
-import { Connection, Page } from '@whitewater-guide/commons';
+import { Page } from '@whitewater-guide/commons';
 import { DocumentNode } from 'graphql';
 import { useEffect } from 'react';
 import { QueryHookOptions, QueryResult, useQuery } from 'react-apollo';
 import { getListMerger } from './queryResultToList';
+
+const getConnectionField = <QResult>(data: QResult): null | keyof QResult => {
+  if (!data) {
+    return null;
+  }
+  const connectionFields = Object.keys(data);
+  if (connectionFields && connectionFields.length === 0) {
+    return null;
+  }
+  if (connectionFields && connectionFields.length !== 1) {
+    throw new Error(
+      'query must have single selection set, but found many: ' +
+        connectionFields.join(', '),
+    );
+  }
+  return connectionFields[0] as any;
+};
 
 export const useStreamingQuery = <QResult, QVars extends { page?: Page }>(
   query: DocumentNode,
   options: QueryHookOptions<QResult, QVars> = {},
   limit = 20,
 ): Omit<QueryResult<QResult, QVars>, 'fetchMore'> => {
-  const { data, fetchMore, ...rest } = useQuery<QResult, QVars>(query, options);
+  const { data, fetchMore, ...rest } = useQuery<QResult, QVars>(query, {
+    ...options,
+    variables: { ...options.variables, page: { limit } } as any,
+  });
+  const connectionField = getConnectionField(data);
+  const loaded = connectionField
+    ? (data![connectionField] as any).nodes.length
+    : -1;
+  const total = connectionField ? (data![connectionField] as any).count : -1;
   useEffect(() => {
-    if (!data) {
-      return;
-    }
-    const connectionFields: Array<keyof QResult> = Object.keys(data) as any;
-    if (connectionFields && connectionFields.length === 0) {
-      return;
-    }
-    if (connectionFields && connectionFields.length !== 1) {
-      console.dir(data);
-      throw new Error(
-        'query must have single selection set, but found many: ' +
-          connectionFields.join(', '),
-      );
-    }
-    const connectionField = connectionFields[0];
-    const connection: Connection<any> = data[connectionField];
-    if (!connection.nodes || connection.count === undefined) {
-      throw new Error('nodes and count must both be selected');
-    }
-    const numNodes = connection.nodes.length;
-    if (numNodes < connection.count) {
+    if (loaded < total) {
       fetchMore({
         query,
         variables: {
           ...options.variables,
-          page: { limit, offset: numNodes },
+          page: { limit, offset: loaded },
         },
         updateQuery: getListMerger(connectionField as any),
       }).catch(() => {});
     }
-  }, [data]);
+  }, [loaded, total, connectionField]);
 
   return { data, ...rest };
 };
