@@ -23,7 +23,8 @@ class App extends React.PureComponent {
   private _client!: ApolloClient<any>;
   private _auth!: AuthService;
 
-  async componentWillMount() {
+  constructor(props: any) {
+    super(props);
     this._auth = new WebAuthService(
       API_HOST,
       FACEBOOK_APP_ID,
