@@ -70,6 +70,7 @@ interface Props {
   headerHeight?: number;
   children?: any;
   onRowsRendered?: TableProps['onRowsRendered'];
+  scrollToIndex?: number;
 }
 
 export const Table = React.memo(
@@ -83,6 +84,7 @@ export const Table = React.memo(
         rowHeight = TABLE_ROW_HEIGHT,
         headerHeight = TABLE_HEADER_HEIGHT,
         onRowsRendered,
+        scrollToIndex,
         children,
       } = props;
       const classes = useStyles({ ...props, rowHeight, headerHeight });
@@ -132,6 +134,7 @@ export const Table = React.memo(
               rowClassName={getRowClassName}
               onRowClick={onRowClick}
               onRowsRendered={onRowsRendered}
+              scrollToIndex={scrollToIndex}
             >
               {React.Children.map(children, mapColumns)}
             </VirtualizedTable>

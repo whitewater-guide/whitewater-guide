@@ -11,7 +11,7 @@ import { Durations, Section, sectionName } from '@whitewater-guide/commons';
 import parseISO from 'date-fns/parseISO';
 import { History } from 'history';
 import React from 'react';
-import { Column } from 'react-virtualized';
+import { Column, IndexRange, TableProps } from 'react-virtualized';
 import {
   ClickBlocker,
   DeleteButton,
@@ -27,9 +27,19 @@ import { OuterProps } from './types';
 interface Props extends OuterProps {
   onRemove: (id: string) => void;
   history: History;
+  onRowsRendered?: TableProps['onRowsRendered'];
 }
 
 export default class SectionsTable extends React.PureComponent<Props> {
+  private readonly _scrollToIndex: number | undefined;
+
+  constructor(props: Props) {
+    super(props);
+    this._scrollToIndex =
+      this.props.history.location.state &&
+      this.props.history.location.state.scrollIndex;
+  }
+
   onSectionClick = (id: string) => {
     const { history, regionId } = this.props;
     history.push(`/regions/${regionId}/sections/${id}#main`);
@@ -141,9 +151,22 @@ export default class SectionsTable extends React.PureComponent<Props> {
     );
   };
 
+  onRowsRendered = (info: IndexRange) => {
+    const { history } = this.props;
+    history.replace(history.location.pathname, {
+      scrollIndex: info.stopIndex,
+    });
+  };
+
   render() {
+    const { sections } = this.props;
     return (
-      <Table data={this.props.sections} onNodeClick={this.onSectionClick}>
+      <Table
+        data={sections}
+        onNodeClick={this.onSectionClick}
+        onRowsRendered={this.onRowsRendered}
+        scrollToIndex={this._scrollToIndex}
+      >
         <Column
           width={200}
           flexGrow={1}
