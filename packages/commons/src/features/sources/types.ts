@@ -1,4 +1,10 @@
-import { Connection, NamedNode, NodeRef, Timestamped } from '../../apollo';
+import {
+  Connection,
+  NamedNode,
+  Node,
+  NodeRef,
+  Timestamped,
+} from '../../apollo';
 import { Gauge } from '../gauges';
 import { HarvestMode } from '../harvest-mode';
 import { HarvestStatus } from '../measurements';
@@ -29,3 +35,6 @@ export interface SourceInput<RP = any> {
   url: string | null;
   regions: NodeRef[];
 }
+
+export const isSource = (node?: Node | null): node is Source =>
+  !!node && node.__typename === 'Source';

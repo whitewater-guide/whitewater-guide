@@ -1,6 +1,7 @@
 import {
   Connection,
   NamedNode,
+  Node,
   TextSearchFilter,
   Timestamped,
 } from '../../apollo';
@@ -72,3 +73,6 @@ export interface RegionMediaSummary {
 }
 
 export type RegionsFilter = TextSearchFilter;
+
+export const isRegion = (node?: Node | null): node is Region =>
+  !!node && node.__typename === 'Region';

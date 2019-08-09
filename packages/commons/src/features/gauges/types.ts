@@ -1,4 +1,4 @@
-import { NamedNode, NodeRef, Timestamped } from '../../apollo';
+import { NamedNode, Node, NodeRef, Timestamped } from '../../apollo';
 import { HarvestStatus, Measurement } from '../measurements';
 import { Point, PointInput } from '../points';
 import { Source } from '../sources';
@@ -30,3 +30,6 @@ export interface GaugeInput<RP = any> {
   cron: string | null;
   url: string | null;
 }
+
+export const isGauge = (node?: Node | null): node is Gauge =>
+  !!node && node.__typename === 'Gauge';

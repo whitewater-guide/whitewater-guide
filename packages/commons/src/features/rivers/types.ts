@@ -1,4 +1,10 @@
-import { Connection, NamedNode, NodeRef, Timestamped } from '../../apollo';
+import {
+  Connection,
+  NamedNode,
+  Node,
+  NodeRef,
+  Timestamped,
+} from '../../apollo';
 import { Region } from '../regions';
 import { Section } from '../sections';
 
@@ -19,3 +25,6 @@ export interface RiversFilter {
   search?: string;
   regionId?: string;
 }
+
+export const isRiver = (node?: Node | null): node is River =>
+  !!node && node.__typename === 'River';
