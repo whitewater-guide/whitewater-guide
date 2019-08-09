@@ -2234,10 +2234,10 @@
     "@webassemblyjs/wast-parser" "1.8.5"
     "@xtuc/long" "4.2.2"
 
-"@whitewater-guide/clients@0.0.270":
-  version "0.0.270"
-  resolved "https://registry.npmjs.org/@whitewater-guide/clients/-/clients-0.0.270.tgz#b3da46cb04d1cec6a7044e3c424caa737c179ca7"
-  integrity sha512-LuORskZZmxPWPAiGaKQYlihl6zs0h/pgztrKzVkGk6MlhMyG6TZH2aZWDoU78IiZ0iSI5sp7AFhdtVfF+bdbpQ==
+"@whitewater-guide/clients@0.0.271":
+  version "0.0.271"
+  resolved "https://registry.npmjs.org/@whitewater-guide/clients/-/clients-0.0.271.tgz#6e64496861a433a42901a844eb76ae158be44b3e"
+  integrity sha512-SA++gRuOQ+vVgZGM3s5Hln8FgJvBXnxUA8S62n9uO74mKHUkUFwZ5cQnQpyKKtSNtxZOVjVNiCL6rcxmcN9WMg==
   dependencies:
     "@turf/bearing" "^6.0.1"
     "@turf/helpers" "^6.1.4"
@@ -10272,15 +10272,15 @@ react-dom@^16.8.3:
     prop-types "^15.6.2"
     scheduler "^0.13.6"
 
-react-dom@^16.9.0-rc.0:
-  version "16.9.0-rc.0"
-  resolved "https://registry.npmjs.org/react-dom/-/react-dom-16.9.0-rc.0.tgz#63827dacb8148175f64e6ea69ac07d114d8899b1"
-  integrity sha512-71d0ZHwAhTxr7JBqk3xrhaHnd5zs/P62RTKNswtylCWKfqV75Tm/eZtq7riaZN+1mwnfMf2HyVx8ht7+GtMBQg==
+react-dom@^16.9.0:
+  version "16.9.0"
+  resolved "https://registry.npmjs.org/react-dom/-/react-dom-16.9.0.tgz#5e65527a5e26f22ae3701131bcccaee9fb0d3962"
+  integrity sha512-YFT2rxO9hM70ewk9jq0y6sQk8cL02xm4+IzYBz75CQGlClQQ1Bxq0nhHF6OtSbit+AIahujJgb/CPRibFkMNJQ==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
     prop-types "^15.6.2"
-    scheduler "^0.15.0-rc.0"
+    scheduler "^0.15.0"
 
 react-draggable@^3.1.1:
   version "3.3.0"
@@ -10350,10 +10350,10 @@ react-is@^16.5.2, react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.4, react-is
   resolved "https://registry.npmjs.org/react-is/-/react-is-16.8.6.tgz#5bbc1e2d29141c9fbdfed456343fe2bc430a6a16"
   integrity sha512-aUk3bHfZ2bRSVFFbbeVS4i+lNPZr3/WM5jT2J5omUVV1zzcs1nAaf3l51ctA5FFvCRbhrH0bdAsRRQddFJZPtA==
 
-react-is@^16.9.0-rc.0:
-  version "16.9.0-rc.0"
-  resolved "https://registry.npmjs.org/react-is/-/react-is-16.9.0-rc.0.tgz#a43ea6412495f7d99af64458a9b41e9dc8d28f29"
-  integrity sha512-ATzTIOOeTMPzPHJ024Z/LmcKj/0WrdtHRTpvdrn+B+bGUDAECVXVzjfTc7GO5HQLysNR9dEc/pWwEkPHIcTCxA==
+react-is@^16.9.0:
+  version "16.9.0"
+  resolved "https://registry.npmjs.org/react-is/-/react-is-16.9.0.tgz#21ca9561399aad0ff1a7701c01683e8ca981edcb"
+  integrity sha512-tJBzzzIgnnRfEm046qRcURvwQnZVXmuCbscxUO5RWrGTXpon2d4c8mI0D8WE6ydVIm29JiLB6+RslkIvym9Rjw==
 
 react-lifecycles-compat@^3.0.2, react-lifecycles-compat@^3.0.4:
   version "3.0.4"
@@ -10462,15 +10462,15 @@ react-syntax-highlighter@^8.0.1:
     prismjs "^1.8.4"
     refractor "^2.4.1"
 
-react-test-renderer@^16.9.0-rc.0:
-  version "16.9.0-rc.0"
-  resolved "https://registry.npmjs.org/react-test-renderer/-/react-test-renderer-16.9.0-rc.0.tgz#3365e4eddf951cd7a51053fd1192d65fd30abd60"
-  integrity sha512-urgWsx+7JowFzYZHZFLpEVHKWqkSm6dUv0JJFbassUJhp91IHk6DNZWu3ABte2AffvNz9ZD4y7kKHn5nJXfqyA==
+react-test-renderer@^16.9.0:
+  version "16.9.0"
+  resolved "https://registry.npmjs.org/react-test-renderer/-/react-test-renderer-16.9.0.tgz#7ed657a374af47af88f66f33a3ef99c9610c8ae9"
+  integrity sha512-R62stB73qZyhrJo7wmCW9jgl/07ai+YzvouvCXIJLBkRlRqLx4j9RqcLEAfNfU3OxTGucqR2Whmn3/Aad6L3hQ==
   dependencies:
     object-assign "^4.1.1"
     prop-types "^15.6.2"
-    react-is "^16.9.0-rc.0"
-    scheduler "^0.15.0-rc.0"
+    react-is "^16.9.0"
+    scheduler "^0.15.0"
 
 react-textarea-autosize@^7.1.0:
   version "7.1.0"
@@ -10500,10 +10500,10 @@ react@^16.8.3:
     prop-types "^15.6.2"
     scheduler "^0.13.6"
 
-react@^16.9.0-rc.0:
-  version "16.9.0-rc.0"
-  resolved "https://registry.npmjs.org/react/-/react-16.9.0-rc.0.tgz#fd5c4273383a0dd2b71d1d4e6ad464a392602be2"
-  integrity sha512-9J4dBd/6RITXvFY4eN4nyyqxsvO7UvGB8JFOn4wAQ1Y1sW8HL/xJ2nihRXGoIk53ewjaWZ0TfTczjPwIyqzTmA==
+react@^16.9.0:
+  version "16.9.0"
+  resolved "https://registry.npmjs.org/react/-/react-16.9.0.tgz#40ba2f9af13bc1a38d75dbf2f4359a5185c4f7aa"
+  integrity sha512-+7LQnFBwkiw+BobzOF6N//BdoNw0ouwmSJTEm9cglOOmsg/TMiFHZLe2sEoN5M7LgJTj9oHH0gxklfnQe66S1w==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
@@ -11024,10 +11024,10 @@ scheduler@^0.14.0:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
 
-scheduler@^0.15.0-rc.0:
-  version "0.15.0-rc.0"
-  resolved "https://registry.npmjs.org/scheduler/-/scheduler-0.15.0-rc.0.tgz#e8da3aec91c7487c749b14dc400b32739b2b6f06"
-  integrity sha512-oaQa2FK+JyR0OhsDQd5ZpfEWmthBZ9eka1TjHQpfqMa5M7FfhlAJaKXAqNqdr+eyQ4smJEX3+PCnLuBcSGY0Tw==
+scheduler@^0.15.0:
+  version "0.15.0"
+  resolved "https://registry.npmjs.org/scheduler/-/scheduler-0.15.0.tgz#6bfcf80ff850b280fed4aeecc6513bc0b4f17f8e"
+  integrity sha512-xAefmSfN6jqAa7Kuq7LIJY0bwAPG3xlCj0HMEBQk1lxYiDKZscY2xJ5U/61ZTrYbmNQbXa+gc7czPkVo11tnCg==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
