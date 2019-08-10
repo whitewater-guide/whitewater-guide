@@ -4,7 +4,7 @@ import { toNamedNode } from '../../../formik/utils';
 import { QResult } from './sectionForm.query';
 import { SectionFormData } from './types';
 
-export default (result: QResult): SectionFormData => {
+export default (isCopy?: boolean) => (result: QResult): SectionFormData => {
   if (!result || !result.section) {
     // Deliberately allow null. Initial form value will be invalid
     const river: any = result ? result.river : null;
@@ -36,7 +36,7 @@ export default (result: QResult): SectionFormData => {
       flows: null,
     };
   }
-  const { tags, description, demo, ...section } = result.section;
+  const { tags, id, name, description, demo, ...section } = result.section;
   const {
     kayaking: kayakingTags = [],
     hazards: hazardsTags = [],
@@ -45,6 +45,8 @@ export default (result: QResult): SectionFormData => {
   } = flow(groupBy('category'))(tags);
 
   return {
+    id: isCopy ? null : id,
+    name: isCopy ? '' : name,
     ...section,
     river: toNamedNode(section.river),
     region: toNamedNode(result.region),

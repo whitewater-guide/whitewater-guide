@@ -4,19 +4,26 @@ import React from 'react';
 import { Link, LinkProps } from 'react-router-dom';
 
 interface Props extends LinkProps {
-  icon: string;
+  icon?: string;
 }
 
 const AdapterLink = React.forwardRef<HTMLAnchorElement, LinkProps>(
   (props, ref) => <Link innerRef={ref as any} {...props} />,
 );
 
-export const IconLink: React.FC<Props> = ({ icon, ...props }) => {
-  // Workaround: IconButton doesn't have component prop in typedefs
-  const Component = IconButton as any;
-  return (
-    <Component {...props} component={AdapterLink}>
+export const IconLink: React.FC<Props> = React.forwardRef(
+  ({ icon, children, ...props }, ref) => {
+    // Workaround: IconButton doesn't have component prop in typedefs
+    const Component = IconButton as any;
+    const iconElement = icon ? (
       <Icon>{icon}</Icon>
-    </Component>
-  );
-};
+    ) : (
+      React.Children.only(children)
+    );
+    return (
+      <Component {...props} ref={ref} component={AdapterLink}>
+        {iconElement}
+      </Component>
+    );
+  },
+);

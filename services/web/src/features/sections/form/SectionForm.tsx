@@ -1,5 +1,5 @@
 import qs from 'qs';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { RouteComponentProps } from 'react-router';
 import { HashTabs, HashTabView } from '../../../components/navtabs';
 import { FormikCard, useApolloFormik } from '../../../formik';
@@ -7,7 +7,7 @@ import { MarkdownField, POIArray } from '../../../formik/fields';
 import { FormikTab } from '../../../formik/helpers';
 import addToList from './addToList';
 import formToMutation from './formToMutation';
-import queryToForm from './queryToForm';
+import makeQueryToForm from './makeQueryToForm';
 import { QResult, QVars, SECTION_FORM_QUERY } from './sectionForm.query';
 import { SectionFormFlows } from './SectionFormFlows';
 import { SectionFormMain } from './SectionFormMain';
@@ -51,14 +51,20 @@ type Props = RouteComponentProps<RouterParams>;
 
 const SectionForm: React.FC<Props> = ({ match, location }) => {
   const query = qs.parse(location.search.substr(1));
+  const { regionId, sectionId } = match.params;
   const riverId = query.riverId;
+  const copyFromId = query.copy;
+  const queryToForm = useMemo(() => makeQueryToForm(!!copyFromId), [
+    copyFromId,
+  ]);
 
   const formik = useApolloFormik<QVars, QResult, SectionFormData, MVars>({
     query: SECTION_FORM_QUERY,
     queryOptions: {
       variables: {
-        ...match.params,
+        regionId,
         riverId,
+        sectionId: sectionId || copyFromId,
       },
     },
     queryToForm,

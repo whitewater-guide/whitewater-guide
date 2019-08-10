@@ -1,4 +1,6 @@
 import Box from '@material-ui/core/Box';
+import SvgIcon from '@material-ui/core/SvgIcon';
+import Tooltip from '@material-ui/core/Tooltip';
 import Rating from '@material-ui/lab/Rating';
 import {
   AdminOnly,
@@ -144,6 +146,15 @@ export default class SectionsTable extends React.PureComponent<Props> {
       <ClickBlocker>
         <IconLink to={paths.settings({ regionId, sectionId })} icon="edit" />
         <DeleteButton id={sectionId} deleteHandler={this.props.onRemove} />
+        <Tooltip title="Duplicate">
+          <IconLink
+            to={paths.to({ regionId, sectionId: `new?copy=${sectionId}` })}
+          >
+            <SvgIcon>
+              <path d="M11,17H4A2,2 0 0,1 2,15V3A2,2 0 0,1 4,1H16V3H4V15H11V13L15,16L11,19V17M19,21V7H8V13H6V7A2,2 0 0,1 8,5H19A2,2 0 0,1 21,7V21A2,2 0 0,1 19,23H8A2,2 0 0,1 6,21V19H8V21H19Z" />
+            </SvgIcon>
+          </IconLink>
+        </Tooltip>
         <AdminOnly>
           <IconLink to={paths.admin({ regionId, sectionId })} icon="settings" />
         </AdminOnly>
@@ -200,12 +211,6 @@ export default class SectionsTable extends React.PureComponent<Props> {
           cellRenderer={this.renderRating}
         />
         <Column
-          width={70}
-          label="Length"
-          dataKey="distance"
-          headerClassName="centered"
-        />
-        <Column
           width={80}
           label="Duration"
           dataKey="duration"
@@ -213,10 +218,11 @@ export default class SectionsTable extends React.PureComponent<Props> {
           cellRenderer={this.renderDuration}
         />
         <Column
-          width={120}
+          width={192}
           label="Actions"
           dataKey="actions"
           headerClassName="actions"
+          className="centered"
           cellRenderer={this.renderActions}
         />
       </Table>

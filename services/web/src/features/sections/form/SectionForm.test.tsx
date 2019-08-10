@@ -137,3 +137,44 @@ describe('new section', () => {
     await expect(findByText(FORM_SUCCEEDED)).resolves.toBeTruthy();
   });
 });
+
+describe('duplicate section', () => {
+  const route: DeepPartial<RouteComponentProps<RouterParams>> = {
+    match: { params: { regionId: 'bar' } },
+    location: {
+      search: '?copy=__copy_id__',
+    },
+  };
+  const options: MockedProviderOptions = {
+    mocks: {
+      ...mocks,
+      Section: (s, a, c, i) => ({
+        ...mocks.Section(s, a, c, i),
+        id: () => '__copy_id__',
+      }),
+    },
+  };
+  const renderIt = () =>
+    renderForm(<SectionForm {...(route as any)} />, options);
+
+  it('should begin in loading state', () => {
+    const { getByRole, getByLabelText } = renderIt();
+    expect(getByRole('progressbar')).toBeTruthy();
+    expect(() => getByLabelText('Name')).toThrow();
+  });
+
+  it('should provide initial data', async () => {
+    const { findByLabelText, findByText } = renderIt();
+    await expect(findByLabelText('Name')).resolves.toHaveValue('');
+    await expect(findByText('Create')).resolves.toBeTruthy();
+  });
+
+  it('should submit form', async () => {
+    const { findByLabelText, findByText } = renderIt();
+    const name = await findByLabelText('Name');
+    fireEvent.change(name, { target: { value: 'foo' } });
+    const button = await findByText('Create');
+    fireEvent.click(button);
+    await expect(findByText(FORM_SUCCEEDED)).resolves.toBeTruthy();
+  });
+});
