@@ -31,6 +31,7 @@ Durations.set(Duration.MULTIDAY, 'multiday');
 Durations.entries();
 
 export interface GaugeBinding {
+  __typename?: 'GaugeBinding';
   minimum?: number | null;
   optimum?: number | null;
   maximum?: number | null;
@@ -123,7 +124,7 @@ export const DefaultSectionSearchTerms: SectionSearchTerms = {
   sortBy: 'name',
   sortDirection: 'ASC',
   searchString: '',
-  difficulty: [1, 6],
+  difficulty: [0, 6],
   duration: [Duration.LAPS, Duration.MULTIDAY],
   rating: 0,
   seasonNumeric: [0, 23],
