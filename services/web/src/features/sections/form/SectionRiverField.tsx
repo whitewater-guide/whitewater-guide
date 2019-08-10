@@ -49,14 +49,17 @@ export const SectionRiverField: React.FC = React.memo(() => {
   const { match } = useRouter<RouterParams>();
   const { sectionId, regionId } = match.params;
 
-  const { values, setFieldValue } = useFormikContext<any>();
+  const { values, setFieldTouched, setFieldValue } = useFormikContext<any>();
 
   const river: NamedNode | null = values.river;
   const [state, dispatch] = useReducer(reducer, { selected: river, input: '' });
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const openDialog = useCallback(() => setDialogOpen(true), [setDialogOpen]);
-  const closeDialog = useCallback(() => setDialogOpen(false), [setDialogOpen]);
+  const closeDialog = useCallback(() => {
+    setDialogOpen(false);
+    setFieldTouched('river.name', true);
+  }, [setDialogOpen, setFieldTouched]);
 
   const onInput = useCallback(
     (e: ChangeEvent<{ value: string }>) =>
@@ -82,13 +85,10 @@ export const SectionRiverField: React.FC = React.memo(() => {
         disabled={!!sectionId}
         onClick={!!sectionId ? undefined : openDialog}
         name="river.name"
+        errorFieldName="river"
         label="River"
       />
-      <Dialog
-        open={dialogOpen}
-        disableBackdropClick={true}
-        disableEscapeKeyDown={true}
-      >
+      <Dialog open={dialogOpen} onClose={closeDialog}>
         <DialogTitle>Select or create a river</DialogTitle>
         <DialogContent>
           <RiverFinder
@@ -96,6 +96,7 @@ export const SectionRiverField: React.FC = React.memo(() => {
             value={state.selected}
             onChange={onSelect}
             regionId={regionId}
+            limit={12}
           />
           <Divider />
           <Typography variant="overline">or create new river</Typography>

@@ -6,11 +6,12 @@ import { FormikFormControl } from '../helpers';
 
 interface Props extends InputProps {
   name: string;
+  errorFieldName?: string;
   label?: string;
 }
 
 export const TextField: React.FC<Props> = React.memo((props) => {
-  const { name, label, ...inputProps } = props;
+  const { name, errorFieldName, label, ...inputProps } = props;
   const [field] = useField<string | null>(name);
   const value = field.value || '';
   const onChange = useCallback(
@@ -27,7 +28,12 @@ export const TextField: React.FC<Props> = React.memo((props) => {
   );
   const id = `textfield-${name}`;
   return (
-    <FormikFormControl name={name} inputId={id} fullWidth={props.fullWidth}>
+    <FormikFormControl
+      name={name}
+      inputId={id}
+      fullWidth={props.fullWidth}
+      errorFieldName={errorFieldName}
+    >
       <InputLabel htmlFor={id}>{label}</InputLabel>
       <Input
         {...field}
