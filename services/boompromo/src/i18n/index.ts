@@ -5,8 +5,8 @@ import { initReactI18next } from 'react-i18next';
 import resources from './resources';
 
 i18n
-  .use(initReactI18next as any)
-  .use(LanguageDetector as any)
+  .use(initReactI18next)
+  .use(LanguageDetector)
   .init({
     resources,
     whitelist: Object.keys(resources),
