@@ -1253,13 +1253,14 @@
   resolved "https://registry.npmjs.org/@types/zen-observable/-/zen-observable-0.8.0.tgz#8b63ab7f1aa5321248aad5ac890a485656dcea4d"
   integrity sha512-te5lMAWii1uEJ4FwLjzdlbw3+n0FZNOvFXHxQDKeT0dilh7HOzdMzV2TrJVUzq8ep7J4Na8OUYPRLSQkJHAlrg==
 
-"@whitewater-guide/commons@0.0.171":
-  version "0.0.171"
-  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.171.tgz#d1867a5256da4236186fe6ca6758bd8dea50bea7"
-  integrity sha512-SBM0oadK9GzykDA7925GG32i5UWXwsV5hIbqlhbVPUJpnTnsvcVwncb2PaHUgcUVh8SaqeAHRm603mWEFSAI/Q==
+"@whitewater-guide/commons@0.0.172":
+  version "0.0.172"
+  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.172.tgz#105f142583c6061c88bda88c05d942ed48507a46"
+  integrity sha512-WqtEE2S/63Pnh7G9BDpXX7zRXAmIUMe1zx1XHYNEmgQk7tGAzzxa7AyT0wBada+dos1/Ws/c0CiBUZFNJJAqhA==
   dependencies:
     "@types/yup" "^0.26.22"
     cron-validator "^1.0.1"
+    deepmerge "^4.0.0"
     expr-eval "^1.2.2"
     lodash "^4.17.11"
     validator "^11.0.0"
@@ -2031,6 +2032,11 @@ deep-is@~0.1.3:
   version "0.1.3"
   resolved "https://registry.npmjs.org/deep-is/-/deep-is-0.1.3.tgz#b369d6fb5dbc13eecf524f91b070feedc357cf34"
   integrity sha1-s2nW+128E+7PUk+RsHD+7cNXzzQ=
+
+deepmerge@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.npmjs.org/deepmerge/-/deepmerge-4.0.0.tgz#3e3110ca29205f120d7cb064960a39c3d2087c09"
+  integrity sha512-YZ1rOP5+kHor4hMAH+HRQnBQHg+wvS1un1hAOuIcxcBy0hzcUf6Jg2a1w65kpoOUnurOfZbERwjI1TfZxNjcww==
 
 define-properties@^1.1.2:
   version "1.1.3"
