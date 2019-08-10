@@ -1,11 +1,12 @@
-import { Media, MediaKind } from '@whitewater-guide/commons';
+import { MediaKind } from '@whitewater-guide/commons';
 import React from 'react';
 import LightboxPhotoView from './LightboxPhotoView';
 import LightboxVideoView from './LightboxVideoView';
+import { LightboxItem } from './types';
 
 interface Props {
   currentIndex: number;
-  data: Media;
+  data: LightboxItem;
   interactionIsIdle: boolean;
 }
 
@@ -15,8 +16,10 @@ const views = {
   [MediaKind.blog]: () => null,
 };
 
-const LightboxView: React.StatelessComponent<Props> = (props) => {
-  const Component: React.ComponentType<Props> = views[props.data.kind];
+const LightboxView: React.FC<Props> = (props) => {
+  const { data } = props;
+  const { kind = MediaKind.photo } = data;
+  const Component: React.ComponentType<Props> = views[kind];
   return <Component {...props} />;
 };
 

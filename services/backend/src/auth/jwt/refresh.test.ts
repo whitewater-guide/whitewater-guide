@@ -1,5 +1,5 @@
 import { holdTransaction, rollbackTransaction } from '@db';
-import { asyncRedis, client } from '@redis';
+import { redis } from '@redis';
 import { ADMIN_ID } from '@seeds/01_users';
 import { BLACKLISTED_REFRESH_TOKEN } from '@seeds/16_tokens_blacklist';
 import { CookieAccessInfo } from 'cookiejar';
@@ -15,13 +15,13 @@ let app: Koa;
 beforeEach(async () => {
   jest.resetAllMocks();
   await holdTransaction();
-  await asyncRedis.flushall();
+  await redis.flushall();
   app = createApp();
 });
 
 afterEach(async () => {
   await rollbackTransaction();
-  client.removeAllListeners();
+  redis.removeAllListeners();
 });
 
 describe('mobile', () => {

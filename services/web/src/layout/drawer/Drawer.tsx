@@ -1,21 +1,28 @@
+import Box from '@material-ui/core/Box';
+import MUIDrawer from '@material-ui/core/Drawer';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import { useAuth } from '@whitewater-guide/clients';
-import MuiDrawer from 'material-ui/Drawer';
-import Menu from 'material-ui/Menu';
-import MenuItem from 'material-ui/MenuItem';
 import React from 'react';
-import { matchPath, RouteComponentProps, withRouter } from 'react-router-dom';
-import { Styles } from '../../styles';
+import { matchPath } from 'react-router-dom';
+import useRouter from 'use-react-router';
 
-const styles: Styles = {
-  drawerContainer: {
-    marginTop: 56,
-    paddingTop: 16,
-    paddingBottom: 56,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-  },
-};
+const drawerWidth = 240;
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    drawer: {
+      width: drawerWidth,
+      flexShrink: 0,
+    },
+    drawerPaper: {
+      width: drawerWidth,
+    },
+  }),
+);
 
 const ITEMS = [
   { title: 'Regions', path: '/regions', admin: false },
@@ -24,33 +31,34 @@ const ITEMS = [
   { title: 'Region Groups', path: '/groups', admin: true },
   { title: 'Banners', path: '/banners', admin: true },
   { title: 'History of edits', path: '/history', admin: true },
+  { title: 'User suggestions', path: '/suggestions', editor: true },
 ];
 
 interface Props {
   isOpen: boolean;
-  onChange: (open: boolean) => void;
+  onClose: () => void;
 }
 
-type InnerProps = Props & RouteComponentProps<any>;
-
-const Drawer = ({
-  onChange,
-  isOpen,
-  location,
-  history: { push },
-}: InnerProps) => {
-  const value = '/' + location.pathname.split('/')[1];
+export const Drawer: React.FC<Props> = ({ onClose, isOpen }) => {
+  const classes = useStyles();
+  const { location, history } = useRouter();
   const { me } = useAuth();
+  const value = '/' + location.pathname.split('/')[1];
   return (
-    <MuiDrawer
-      docked={false}
+    <MUIDrawer
       open={isOpen}
-      containerStyle={styles.drawerContainer}
-      onRequestChange={onChange}
+      onClose={onClose}
+      className={classes.drawer}
+      classes={{
+        paper: classes.drawerPaper,
+      }}
     >
-      <Menu disableAutoFocus={true} value={value}>
-        {ITEMS.map(({ path, title, admin }) => {
+      <List component="nav">
+        {ITEMS.map(({ path, title, admin, editor }) => {
           if (admin && !(me && me.admin)) {
+            return null;
+          }
+          if (editor && !(me && (me.admin || me.editor))) {
             return null;
           }
           const clickable = !matchPath(location.pathname, {
@@ -58,23 +66,26 @@ const Drawer = ({
             exact: true,
           });
           const onClick = () => {
-            onChange(false);
+            onClose();
             if (clickable) {
-              push(path);
+              history.push(path);
             }
           };
           return (
-            <MenuItem key={path} value={path} onClick={onClick}>
-              {title}
-            </MenuItem>
+            <ListItem
+              key={path}
+              button={true}
+              selected={value === path}
+              onClick={onClick}
+            >
+              <ListItemText primary={title} />
+            </ListItem>
           );
         })}
-      </Menu>
-      <span style={{ paddingLeft: 8 }}>
-        {`Version: ${process.env.REACT_APP_VERSION}`}
-      </span>
-    </MuiDrawer>
+      </List>
+      <Box flex={1} display="flex" alignItems="flex-end" m={1} ml={2}>
+        <Typography variant="caption">{`Version: ${process.env.REACT_APP_VERSION}`}</Typography>
+      </Box>
+    </MUIDrawer>
   );
 };
-
-export default withRouter(Drawer);

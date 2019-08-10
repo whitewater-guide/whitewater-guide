@@ -1,8 +1,8 @@
-import { createValidator } from '../../utils/validation';
+import { createSafeValidator } from '../../validation';
 import { MediaInput, MediaKind } from './types';
-import { MediaInputStruct } from './validation';
+import { MediaInputSchema } from './validation';
 
-const validator = createValidator(MediaInputStruct);
+const validator = createSafeValidator(MediaInputSchema);
 
 type TestValue = [string, MediaInput];
 
@@ -42,13 +42,17 @@ const correctValues: TestValue[] = [
 
 const incorrectValues: TestValue[] = [
   ['bad uuid', { ...correct, id: 'fooo' }],
+  ['undefined uuid', { ...correct, id: undefined as any }],
   ['empty url', { ...correct, url: '' }],
+  ['undefined url', { ...correct, url: undefined as any }],
   ['bad kind', { ...correct, kind: 'foo' as any }],
+  ['undefined resolution', { ...correct, resolution: undefined as any }],
   ['bad resolution 1', { ...correct, resolution: [] }],
   ['bad resolution 2', { ...correct, resolution: [11] }],
   ['bad resolution 3', { ...correct, resolution: [-100, 100] }],
   ['bad resolution 4', { ...correct, resolution: [12.3, 11] }],
   ['bad weight', { ...correct, weight: 12.3 }],
+  ['extra fields', { ...correct, foo: 'bar' } as any],
 ];
 
 it.each(correctValues)('should be valid for %s', (_, value) => {

@@ -1,5 +1,5 @@
 import { BaseConnector, FieldsMap } from '@db/connectors';
-import { asyncRedis, NS_LAST_OP } from '@redis';
+import { NS_LAST_OP, redis } from '@redis';
 import { Source } from '@whitewater-guide/commons';
 import { SourceRaw } from './types';
 
@@ -19,8 +19,8 @@ export class SourcesConnector extends BaseConnector<Source, SourceRaw> {
 
   async getStatus(script: string) {
     try {
-      const statusStr = await asyncRedis.get(`${NS_LAST_OP}:${script}`);
-      return JSON.parse(statusStr);
+      const statusStr = await redis.get(`${NS_LAST_OP}:${script}`);
+      return statusStr ? JSON.parse(statusStr) : null;
     } catch (e) {
       return null;
     }

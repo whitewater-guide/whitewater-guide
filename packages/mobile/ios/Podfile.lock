@@ -1,6 +1,6 @@
 PODS:
   - boost-for-react-native (1.63.0)
-  - BVLinearGradient (2.5.4):
+  - BVLinearGradient (2.5.6):
     - React
   - DoubleConversion (1.1.6)
   - FBSDKCoreKit (5.0.2):
@@ -83,6 +83,8 @@ PODS:
   - Protobuf (3.8.0)
   - React (0.59.10):
     - React/Core (= 0.59.10)
+  - react-native-image-picker (0.28.1):
+    - React
   - react-native-mapbox-gl (7.0.0-rc3):
     - React
   - react-native-netinfo (3.2.1):
@@ -144,7 +146,7 @@ PODS:
     - React/Core
     - React/fishhook
     - React/RCTBlob
-  - RNFS (2.13.3):
+  - RNFS (2.14.1):
     - React
   - RNGestureHandler (1.3.0):
     - React
@@ -172,6 +174,7 @@ DEPENDENCIES:
   - Firebase/Messaging (~> 5.20.1)
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
+  - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - "react-native-mapbox-gl (from `../node_modules/@react-native-mapbox-gl/maps`)"
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-sensitive-info (from `../node_modules/react-native-sensitive-info`)
@@ -226,6 +229,8 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
   React:
     :path: "../node_modules/react-native"
+  react-native-image-picker:
+    :path: "../node_modules/react-native-image-picker"
   react-native-mapbox-gl:
     :path: "../node_modules/@react-native-mapbox-gl/maps"
   react-native-netinfo:
@@ -251,7 +256,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
-  BVLinearGradient: 8cbc5155c978f2e43098818c91d206d07aae6d30
+  BVLinearGradient: e3aad03778a456d77928f594a649e96995f1c872
   DoubleConversion: bb338842f62ab1d708ceb63ec3d999f0f3d98ecd
   FBSDKCoreKit: 3e41c402eb64ea7799c71833ff9e5690f27b9c42
   FBSDKLoginKit: a88f36da648e4c5d60eb261c63eac067abb97130
@@ -269,11 +274,12 @@ SPEC CHECKSUMS:
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   Protobuf: 3f617b9a6e73605565086864c9bc26b2bf2dd5a3
   React: 36d0768f9e93be2473b37e7fa64f92c1d5341eef
+  react-native-image-picker: fd93361c666f397bdf72f9c6c23f13d2685b9173
   react-native-mapbox-gl: 26cabddce8bf6f39164c7be4dceb781e6fab0fdc
   react-native-netinfo: 0da34082d2cec3100c9b5073bb217e35f1142bdd
   react-native-sensitive-info: 3f19d44983c9efcd5cc0693b775795d0b1667f20
   react-native-webview: 5036ed4a973ad1deeeff118262d2df7b60b3419d
-  RNFS: c9bbde46b0d59619f8e7b735991c60e0f73d22c1
+  RNFS: a8fbe7060fa49157d819466404794ad9c58e58cf
   RNGestureHandler: 5329a942fce3d41c68b84c2c2276ce06a696d8b0
   RNLocalize: 62a949d2ec5bee0eb8f39a80a48f01e2f4f67080
   RNReanimated: 7a52c90473b5e81c13408d40d797b98387eaddde
@@ -282,6 +288,6 @@ SPEC CHECKSUMS:
   SentryReactNative: 07237139c00366ea2e75ae3e5c566e7a71c27a90
   yoga: 684513b14b03201579ba3cee20218c9d1298b0cc
 
-PODFILE CHECKSUM: 205df6b8cc5d7d2e01a90bb49d58bc4b9d5292ad
+PODFILE CHECKSUM: 412fa8295f0130a03bebf6260e87e44a2f0e3f34
 
 COCOAPODS: 1.7.2

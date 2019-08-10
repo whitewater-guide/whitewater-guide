@@ -1,3 +1,162 @@
+## [0.0.387](https://github.com/doomsower/whitewater/compare/47770a1aa8cf8e1f62184c2f615a9eac99fa167a...83461dc92f4dd4648ccb2c03064280199b843588) (2019-08-10)
+
+## [0.0.386](https://github.com/doomsower/whitewater/compare/7f67a8704663b2d741a50eecc2443d2dfc8c2101...47770a1aa8cf8e1f62184c2f615a9eac99fa167a) (2019-08-08)
+
+### Features
+
+- add route to add user's fcm token ([76e952ef4880b37572ff86404a9e06c8804d9d4f](https://github.com/doomsower/whitewater/commit/76e952ef4880b37572ff86404a9e06c8804d9d4f))
+
+## [0.0.385](https://github.com/doomsower/whitewater/compare/e4784ac49bac91b29aad4ef23e4917a6c6baca21...7f67a8704663b2d741a50eecc2443d2dfc8c2101) (2019-08-07)
+
+### Other
+
+- fcm token is managed in auth, not in mutations ([0a679c377b03116c7ff37495b90465c0870e037e](https://github.com/doomsower/whitewater/commit/0a679c377b03116c7ff37495b90465c0870e037e))
+
+## [0.0.384](https://github.com/doomsower/whitewater/compare/f6b7d7b4f4de50649053e734f3d0f91f6e158e91...e4784ac49bac91b29aad4ef23e4917a6c6baca21) (2019-08-06)
+
+## [0.0.383](https://github.com/doomsower/whitewater/compare/abc31b468c3008385663d03217f773700826209c...f6b7d7b4f4de50649053e734f3d0f91f6e158e91) (2019-08-06)
+
+### Features
+
+- mobile suggestions ([349ae674883de0969cc5f45a119bd67599a54de6](https://github.com/doomsower/whitewater/commit/349ae674883de0969cc5f45a119bd67599a54de6))
+
+## [0.0.382](https://github.com/doomsower/whitewater/compare/ad157bd5d420a997395cb861f5c8dede81a34f94...abc31b468c3008385663d03217f773700826209c) (2019-08-04)
+
+### Bug Fixes
+
+- upload link uploaded by for anons ([637c1c770a66a5d8e7ab5437d29a0592e926ae2c](https://github.com/doomsower/whitewater/commit/637c1c770a66a5d8e7ab5437d29a0592e926ae2c))
+
+## [0.0.381](https://github.com/doomsower/whitewater/compare/8340946412e77845a95f6f5463d39430ba972b98...ad157bd5d420a997395cb861f5c8dede81a34f94) (2019-08-04)
+
+### Features
+
+- upload link no longer requires auth ([6505d8b4c7a202645825a74a8424ddd01d37aed8](https://github.com/doomsower/whitewater/commit/6505d8b4c7a202645825a74a8424ddd01d37aed8))
+
+## [0.0.380](https://github.com/doomsower/whitewater/compare/646cbdc5cd1422b17eb3668d2f937b57ace4cce3...8340946412e77845a95f6f5463d39430ba972b98) (2019-08-04)
+
+### Features
+
+- add fcm tokens to users ([baef52a65a919680597c6f24d9e3e39327e2ed1b](https://github.com/doomsower/whitewater/commit/baef52a65a919680597c6f24d9e3e39327e2ed1b))
+
+## [0.0.379](https://github.com/doomsower/whitewater/compare/d740e53731c4e6183195d240b2afa411b55a35ea...646cbdc5cd1422b17eb3668d2f937b57ace4cce3) (2019-08-04)
+
+## [0.0.378](https://github.com/doomsower/whitewater/compare/65b391fcd0f5410b8e6684e421e30cc4bcc94e7b...d740e53731c4e6183195d240b2afa411b55a35ea) (2019-08-03)
+
+## [0.0.377](https://github.com/doomsower/whitewater/compare/8867c79883ef35692bcf97094583978bb9997cd5...65b391fcd0f5410b8e6684e421e30cc4bcc94e7b) (2019-08-03)
+
+### Features
+
+- add user is editor resolver ([7d93359683bc3d8e3ad81beee461a1904e497078](https://github.com/doomsower/whitewater/commit/7d93359683bc3d8e3ad81beee461a1904e497078))
+
+## [0.0.376](https://github.com/doomsower/whitewater/compare/68cf55ce05aedef4ab431ddecb548628a54cac9f...8867c79883ef35692bcf97094583978bb9997cd5) (2019-08-03)
+
+### Bug Fixes
+
+- backend now uses commons for suggestions ([50b8fe39f2c40af12b5cc98bbd4af9e821ef44c2](https://github.com/doomsower/whitewater/commit/50b8fe39f2c40af12b5cc98bbd4af9e821ef44c2))
+
+## [0.0.375](https://github.com/doomsower/whitewater/compare/c0c5a4e0b3de1490c5db64844bcd438672a757b1...68cf55ce05aedef4ab431ddecb548628a54cac9f) (2019-08-03)
+
+### Bug Fixes
+
+- typo in docker image version ([37c4b710f970461a50e2d8350183db9b4c143231](https://github.com/doomsower/whitewater/commit/37c4b710f970461a50e2d8350183db9b4c143231))
+
+### Other
+
+- update db,backend,minio base images ([5e3de620c5d055b82ec62d54671a99eabc7dcb6c](https://github.com/doomsower/whitewater/commit/5e3de620c5d055b82ec62d54671a99eabc7dcb6c))
+
+### Features
+
+- suggestions ([b67f9794e0b9c740901b97d09847e8654ed8f9be](https://github.com/doomsower/whitewater/commit/b67f9794e0b9c740901b97d09847e8654ed8f9be))
+
+## [0.0.374](https://github.com/doomsower/whitewater/compare/85ef7c689a2daf64442dcff17fe7dfaf4a97968c...c0c5a4e0b3de1490c5db64844bcd438672a757b1) (2019-07-31)
+
+## [0.0.373](https://github.com/doomsower/whitewater/compare/c9f45e1c6637d36311fc938993f41d0e4467ceb9...85ef7c689a2daf64442dcff17fe7dfaf4a97968c) (2019-07-30)
+
+### Other
+
+- fix preversion -> version ([bf620f1ccb0a212b8a9108dcdbccd543d508be5f](https://github.com/doomsower/whitewater/commit/bf620f1ccb0a212b8a9108dcdbccd543d508be5f))
+
+## [0.0.372](https://github.com/doomsower/whitewater/compare/589fac956692dac620ff4656f7486a525660d301...c9f45e1c6637d36311fc938993f41d0e4467ceb9) (2019-07-30)
+
+## [0.0.371](https://github.com/doomsower/whitewater/compare/06f51eafbae6d986cb08446e8cb6ceaae6c4c5c9...589fac956692dac620ff4656f7486a525660d301) (2019-07-30)
+
+## [0.0.371](https://github.com/doomsower/whitewater/compare/7e0fa1be3463188027cebb3fde102a9fd380b1e4...06f51eafbae6d986cb08446e8cb6ceaae6c4c5c9) (2019-07-30)
+
+### Features
+
+- latest mui, yup and formik ([7da704a3b27422691521f49aedb834243803bb02](https://github.com/doomsower/whitewater/commit/7da704a3b27422691521f49aedb834243803bb02))
+
+## [0.0.371-mui.11](https://github.com/doomsower/whitewater/compare/efb3ff3f57bee57ae21e4c29381067ada385a84f...7e0fa1be3463188027cebb3fde102a9fd380b1e4) (2019-07-30)
+
+## [0.0.371-mui.10](https://github.com/doomsower/whitewater/compare/614d0030b5905c045fa303f5c97ce8e47b53586d...efb3ff3f57bee57ae21e4c29381067ada385a84f) (2019-07-30)
+
+## [0.0.371-mui.9](https://github.com/doomsower/whitewater/compare/28ec72958764f65507163a4722367249494d7345...614d0030b5905c045fa303f5c97ce8e47b53586d) (2019-07-29)
+
+### Bug Fixes
+
+- revert temporary change ([d04a737f136cf6483c1516d05dc049587fef9b65](https://github.com/doomsower/whitewater/commit/d04a737f136cf6483c1516d05dc049587fef9b65))
+
+## [0.0.371-mui.8](https://github.com/doomsower/whitewater/compare/2c9169add0fb91894abaf9b1005f5d3546c3eafd...28ec72958764f65507163a4722367249494d7345) (2019-07-29)
+
+### Bug Fixes
+
+- temp change access cookie time ([a3ecb1645e97f2ca5295eb192c83b7c2b268ddd2](https://github.com/doomsower/whitewater/commit/a3ecb1645e97f2ca5295eb192c83b7c2b268ddd2))
+
+## [0.0.371-mui.7](https://github.com/doomsower/whitewater/compare/6498079508a68f4301912416bb2133be576bfe12...2c9169add0fb91894abaf9b1005f5d3546c3eafd) (2019-07-29)
+
+### Bug Fixes
+
+- temporary decrease access cookie maxAge to 5 minutes ([4054c9eea47ed4efa3cb4c285f0e2d3505851f76](https://github.com/doomsower/whitewater/commit/4054c9eea47ed4efa3cb4c285f0e2d3505851f76))
+
+## [0.0.371-mui.6](https://github.com/doomsower/whitewater/compare/98513a2c47433da0ae63c074d390a37a737e698d...6498079508a68f4301912416bb2133be576bfe12) (2019-07-29)
+
+### Bug Fixes
+
+- temporary decrease access cookie maxAge to 10 minutes ([0ff3d60ad98a671a49fb03779651f868372d9b1f](https://github.com/doomsower/whitewater/commit/0ff3d60ad98a671a49fb03779651f868372d9b1f))
+- temporary decrease access cookie maxAge to 2 minutes ([60a3ed4d8db5efc2000f8ea6103985a4bc786a0f](https://github.com/doomsower/whitewater/commit/60a3ed4d8db5efc2000f8ea6103985a4bc786a0f))
+
+## [0.0.371-mui.4](https://github.com/doomsower/whitewater/compare/18c2999026f8d5e235e7d077c341439082c6f73f...98513a2c47433da0ae63c074d390a37a737e698d) (2019-07-29)
+
+### Features
+
+- cache fb avatars ([f0077d4a1aee9de865f5f80f62639bff5707bbc3](https://github.com/doomsower/whitewater/commit/f0077d4a1aee9de865f5f80f62639bff5707bbc3))
+- migrate to ioredis ([035c37e4b9ddb9d4bee6a3f05ae74d07af709102](https://github.com/doomsower/whitewater/commit/035c37e4b9ddb9d4bee6a3f05ae74d07af709102)), closes [#374](https://github.com/doomsower/whitewater/issues/374)
+
+## [0.0.371-mui.3](https://github.com/doomsower/whitewater/compare/0e5e98b9462241326c47fbb2658d42eb980e4d8b...18c2999026f8d5e235e7d077c341439082c6f73f) (2019-07-28)
+
+### Features
+
+- avatar resolver now falls back to facebook ([a0676a9262fccd60f88e1551371a807b71cb5070](https://github.com/doomsower/whitewater/commit/a0676a9262fccd60f88e1551371a807b71cb5070))
+
+## [0.0.371-mui.2](https://github.com/doomsower/whitewater/compare/c64e86014cbcf01f6c244ca1212d8921c5ccb2a7...0e5e98b9462241326c47fbb2658d42eb980e4d8b) (2019-07-28)
+
+## [0.0.371-mui.2](https://github.com/doomsower/whitewater/compare/dd2b15354280b3c124dc86fb89dfa93f8b0fecaf...c64e86014cbcf01f6c244ca1212d8921c5ccb2a7) (2019-07-28)
+
+### Features
+
+- remove avatars and add user accounts resolver ([29d661b8a3f260467e63402d39fc398a377e36fb](https://github.com/doomsower/whitewater/commit/29d661b8a3f260467e63402d39fc398a377e36fb))
+
+## [0.0.371-mui.1](https://github.com/doomsower/whitewater/compare/ab0b954fa830ca50451d865c8cba289760c0cd0d...dd2b15354280b3c124dc86fb89dfa93f8b0fecaf) (2019-07-25)
+
+### Features
+
+- add optional region to section input ([3610da551cca56bac9cfa7f4e151593d36020492](https://github.com/doomsower/whitewater/commit/3610da551cca56bac9cfa7f4e151593d36020492))
+- add rivers search string ([70fe0b6bb04ffe4a1f4d9aee28f5eba0bf08b022](https://github.com/doomsower/whitewater/commit/70fe0b6bb04ffe4a1f4d9aee28f5eba0bf08b022))
+- backend now uses yup ([a55d5caef1cc9ec65f2217a68243dbc41911b6de](https://github.com/doomsower/whitewater/commit/a55d5caef1cc9ec65f2217a68243dbc41911b6de))
+- river selector WIP ([550225ea30aa547b5054431c031260084061888a](https://github.com/doomsower/whitewater/commit/550225ea30aa547b5054431c031260084061888a))
+- upsertSection can now create rivers ([2c77cf15683aedbb0c93e4ae0212cfbae281360f](https://github.com/doomsower/whitewater/commit/2c77cf15683aedbb0c93e4ae0212cfbae281360f))
+
+### Bug Fixes
+
+- fix broken src when image banner updates ([32fd62e083e8d963ec6d95ff705dba77d9a7e7f6](https://github.com/doomsower/whitewater/commit/32fd62e083e8d963ec6d95ff705dba77d9a7e7f6))
+
+### Other
+
+- refactor createValidator ([0f95eb9be58d8a1f0b3e26fc88338baa98354f6c](https://github.com/doomsower/whitewater/commit/0f95eb9be58d8a1f0b3e26fc88338baa98354f6c))
+- replace cron-parser with cron-validator ([a3bf106081d7081d8452d8bfa280ad1154a7b4cf](https://github.com/doomsower/whitewater/commit/a3bf106081d7081d8452d8bfa280ad1154a7b4cf))
+
+## [0.0.371-mui.0](https://github.com/doomsower/whitewater/compare/3cca73cde4d76c837d2f1812e351c63a6d9ef700...ab0b954fa830ca50451d865c8cba289760c0cd0d) (2019-07-16)
+
 ## [0.0.370](https://github.com/doomsower/whitewater/compare/a3919143d5e44c7d04ac51ea7ab196b2746d582b...3cca73cde4d76c837d2f1812e351c63a6d9ef700) (2019-07-07)
 
 ### Features

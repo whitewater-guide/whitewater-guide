@@ -7,19 +7,19 @@ import db from '@db';
 import { COVERS, getLocalFileName, minioClient, moveTempImage } from '@minio';
 import {
   RegionAdminSettings,
-  RegionAdminSettingsStruct,
+  RegionAdminSettingsSchema,
 } from '@whitewater-guide/commons';
 import get from 'lodash/get';
 import mapValues from 'lodash/mapValues';
-import { struct } from 'superstruct';
+import * as yup from 'yup';
 import { RegionRaw } from '../types';
 
 interface Vars {
   settings: RegionAdminSettings;
 }
 
-const Struct = struct.object({
-  settings: RegionAdminSettingsStruct,
+const Struct = yup.object({
+  settings: RegionAdminSettingsSchema,
 });
 
 const updateImageFile = async (

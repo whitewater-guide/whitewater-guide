@@ -1,8 +1,8 @@
-import { createValidator } from '../../utils/validation';
+import { createSafeValidator } from '../../validation';
 import { PurchaseInput, PurchasePlatform } from './types';
-import { PurchaseInputStruct } from './validation';
+import { PurchaseInputSchema } from './validation';
 
-const validator = createValidator(PurchaseInputStruct);
+const validator = createSafeValidator(PurchaseInputSchema);
 
 type TestValue = [string, PurchaseInput];
 
@@ -39,6 +39,7 @@ const correctValues: TestValue[] = [
 const incorrectValues: TestValue[] = [
   ['bad platform', { ...correct, platform: 'windows' } as any],
   ['bad product', { ...correct, productId: '' }],
+  ['extra fields', { ...correct, foo: 'bb' } as any],
 ];
 
 it.each(correctValues)('should be valid for %s', (_, value) => {
@@ -46,6 +47,7 @@ it.each(correctValues)('should be valid for %s', (_, value) => {
 });
 
 it.each(incorrectValues)('should be invalid for %s', (_, value) => {
-  expect(validator(value)).not.toBeNull();
-  expect(validator(value)).toMatchSnapshot();
+  const error = validator(value);
+  expect(error).not.toBeNull();
+  expect(error).toMatchSnapshot();
 });

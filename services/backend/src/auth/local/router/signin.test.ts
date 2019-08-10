@@ -1,5 +1,5 @@
-import { holdTransaction, rollbackTransaction } from '@db';
-import { asyncRedis, client } from '@redis';
+import db, { holdTransaction, rollbackTransaction } from '@db';
+import { redis } from '@redis';
 import { EDITOR_GA_EC_ID } from '@seeds/01_users';
 import { countRows } from '@test';
 import { CookieAccessInfo } from 'cookiejar';
@@ -25,13 +25,13 @@ beforeAll(async () => {
 beforeEach(async () => {
   jest.resetAllMocks();
   await holdTransaction();
-  await asyncRedis.flushall();
+  await redis.flushall();
   app = createApp();
 });
 
 afterEach(async () => {
   await rollbackTransaction();
-  client.removeAllListeners();
+  redis.removeAllListeners();
 });
 
 describe('errors', () => {
@@ -194,4 +194,37 @@ it('should be case-insensitive', async () => {
       password: 'G@l1c1a_pwd',
     });
   expect(resp.status).toBe(200);
+});
+
+it('should insert new access token', async () => {
+  const testAgent = agent(app);
+  const resp = await testAgent.post(ROUTE).send({
+    email: 'konstantin@gmail.com',
+    password: 'ttttE_s_t1a',
+    fcm_token: '__foo__',
+  });
+  const tokens = await db(false)
+    .select('token')
+    .from('fcm_tokens')
+    .where({ user_id: resp.body.id });
+  expect(tokens).toEqual(
+    expect.arrayContaining([
+      { token: '__foo__' },
+      { token: '__user_fcm_token__' },
+    ]),
+  );
+});
+
+it('should not fail on old access token', async () => {
+  const testAgent = agent(app);
+  const resp = await testAgent.post(ROUTE).send({
+    email: 'konstantin@gmail.com',
+    password: 'ttttE_s_t1a',
+    fcm_token: '__user_fcm_token__',
+  });
+  const tokens = await db(false)
+    .select('token')
+    .from('fcm_tokens')
+    .where({ user_id: resp.body.id });
+  expect(tokens).toEqual([{ token: '__user_fcm_token__' }]);
 });

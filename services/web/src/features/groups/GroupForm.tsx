@@ -1,16 +1,24 @@
-import { Group, Overwrite, Region } from '@whitewater-guide/commons';
+import Icon from '@material-ui/core/Icon';
+import IconButton from '@material-ui/core/IconButton';
+import TableCell from '@material-ui/core/TableCell';
+import TableRow from '@material-ui/core/TableRow';
+import TextField from '@material-ui/core/TextField';
+import {
+  Group,
+  GroupInput,
+  Overwrite,
+  Region,
+} from '@whitewater-guide/commons';
 import get from 'lodash/get';
-import IconButton from 'material-ui/IconButton';
-import { TableRow, TableRowColumn } from 'material-ui/Table';
-import TextField from 'material-ui/TextField';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { WithGroupMutations } from './types';
 
 type State = Overwrite<Group, { id: string | null }>;
 
-interface Props extends WithGroupMutations {
+interface Props {
   group: State;
+  onAdd: (group: GroupInput) => void;
+  onRemove: (id: string) => void;
 }
 
 class GroupForm extends React.PureComponent<Props, State> {
@@ -26,28 +34,27 @@ class GroupForm extends React.PureComponent<Props, State> {
     }
   }
 
-  onNameChange = (e: any, name: string) => this.setState({ name });
-  onSkuChange = (e: any, sku: string) => this.setState({ sku: sku || null });
+  onNameChange = (e: any) => this.setState({ name: e.target.value });
+  onSkuChange = (e: any) => this.setState({ sku: e.target.value || null });
 
   onSave = () => {
     const { id, name, sku } = this.state;
-    this.props.upsertGroup({ id, name, sku });
+    this.props.onAdd({ id, name, sku });
   };
 
-  onDelete = () => this.props.removeGroup(this.props.group.id!);
+  onDelete = () => this.props.onRemove(this.props.group.id!);
 
   renderRegions = () => {
     const { regions } = this.props.group;
     const nodes: Region[] = get(regions, 'nodes', [])!;
     return (
       <div style={{ flex: 1 }}>
-        <ul>
-          {nodes.map((r) => (
-            <li key={r.id}>
-              <Link to={`/regions/${r.id}`}>{r.name}</Link>
-            </li>
-          ))}
-        </ul>
+        {nodes.map((r, i) => (
+          <React.Fragment key={r.id}>
+            <Link to={`/regions/${r.id}`}>{r.name}</Link>
+            {i < nodes.length - 1 && ', '}
+          </React.Fragment>
+        ))}
       </div>
     );
   };
@@ -60,39 +67,33 @@ class GroupForm extends React.PureComponent<Props, State> {
       this.props.group.sku === this.state.sku;
     return (
       <TableRow>
-        <TableRowColumn>
+        <TableCell style={{ minWidth: 200 }}>
           <TextField
             fullWidth={true}
             value={name}
-            hintText="Name"
+            label="Name"
+            placeholder="Name"
             onChange={this.onNameChange}
           />
-        </TableRowColumn>
-        <TableRowColumn>
+        </TableCell>
+        <TableCell style={{ minWidth: 200 }}>
           <TextField
             fullWidth={true}
             value={sku || ''}
-            hintText="SKU"
+            label="SKU"
+            placeholder="SKU"
             onChange={this.onSkuChange}
           />
-        </TableRowColumn>
-        <TableRowColumn>{this.renderRegions()}</TableRowColumn>
-        <TableRowColumn style={{ width: 150 }}>
-          <IconButton
-            iconClassName="material-icons"
-            onClick={this.onSave}
-            disabled={saveDisabled}
-          >
-            {this.props.group.id ? 'save' : 'add'}
+        </TableCell>
+        <TableCell>{this.renderRegions()}</TableCell>
+        <TableCell style={{ width: 150 }}>
+          <IconButton onClick={this.onSave} disabled={saveDisabled}>
+            <Icon>{this.props.group.id ? 'save' : 'add'}</Icon>
           </IconButton>
-          <IconButton
-            iconClassName="material-icons"
-            onClick={this.onDelete}
-            disabled={!this.props.group.id}
-          >
-            delete_forever
+          <IconButton onClick={this.onDelete} disabled={!this.props.group.id}>
+            <Icon>delete_forever</Icon>
           </IconButton>
-        </TableRowColumn>
+        </TableCell>
       </TableRow>
     );
   }

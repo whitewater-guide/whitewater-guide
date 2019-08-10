@@ -1,8 +1,8 @@
-import { createValidator } from '../../utils/validation';
+import { createSafeValidator } from '../../validation';
 import { GroupInput } from './types';
-import { GroupInputStruct } from './validation';
+import { GroupInputSchema } from './validation';
 
-const validator = createValidator(GroupInputStruct);
+const validator = createSafeValidator(GroupInputSchema);
 
 type TestValue = [string, GroupInput];
 
@@ -21,6 +21,7 @@ const correct: TestValue[] = [
 const incorrect: TestValue[] = [
   ['bad uuid', { ...correctValue, id: 'foo' }],
   ['empty name', { ...correctValue, name: '' }],
+  ['undefined name', { ...correctValue, name: undefined as any }],
   ['bad sku value - random', { ...correctValue, sku: 'aaaa' }],
   ['bad sku value - prefix', { ...correctValue, sku: 'region.sku' }],
   ['bad sku value - postfix', { ...correctValue, sku: 'group.a' }],
@@ -31,6 +32,7 @@ const incorrect: TestValue[] = [
     'bad sku value - multimatch',
     { ...correctValue, sku: 'group.all\ngroup.some' },
   ],
+  ['extra fields', { ...correctValue, foo: 'bar' } as any],
 ];
 
 it.each(correct)('should be valid for %s', (_, value) => {
@@ -38,6 +40,7 @@ it.each(correct)('should be valid for %s', (_, value) => {
 });
 
 it.each(incorrect)('should be invalid for %s', (_, value) => {
-  expect(validator(value)).not.toBeNull();
-  expect(validator(value)).toMatchSnapshot();
+  const error = validator(value);
+  expect(error).not.toBeNull();
+  expect(error).toMatchSnapshot();
 });

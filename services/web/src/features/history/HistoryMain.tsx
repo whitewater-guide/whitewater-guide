@@ -1,7 +1,7 @@
-import { CardMedia } from 'material-ui/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
 import React from 'react';
-import { Content } from '../../components';
-import { CardHeader } from '../../layout';
+import { Card } from '../../layout';
 import { DiffDialog } from './DiffDialog';
 import HistoryTableContainer from './HistoryTableContainer';
 
@@ -23,15 +23,15 @@ class HistoryMain extends React.PureComponent<{}, State> {
   render(): React.ReactNode {
     const { openDiff } = this.state;
     return (
-      <Content card={true}>
+      <Card>
         <CardHeader title="History of edits" />
-        <CardMedia style={{ height: '100%' }} mediaStyle={{ height: '100%' }}>
+        <CardContent>
           <HistoryTableContainer onDiffOpen={this.onDiffOpen} />
-        </CardMedia>
+        </CardContent>
         {!!openDiff && (
           <DiffDialog diff={openDiff} onRequestClose={this.onDiffClose} />
         )}
-      </Content>
+      </Card>
     );
   }
 }

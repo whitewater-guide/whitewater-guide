@@ -1,15 +1,12 @@
-import {
-  BannerFormInput,
-  Group,
-  Region,
-  UploadLink,
-} from '@whitewater-guide/commons';
-import { RouteComponentProps } from 'react-router';
-import { InjectedFormProps } from 'redux-form';
+import { BannerInput, Overwrite } from '@whitewater-guide/commons';
 
-export type BannerFormProps = InjectedFormProps<BannerFormInput> &
-  RouteComponentProps<any> & {
-    groups: Group[];
-    regions: Region[];
-    uploadLink: UploadLink;
-  };
+export type BannerFormData = Overwrite<
+  BannerInput,
+  {
+    extras: string | null;
+  }
+>;
+
+export interface RouterParams {
+  bannerId?: string;
+}

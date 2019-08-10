@@ -10,7 +10,11 @@ export const authenticateWithJWT: MiddlewareFactory = (passport) => async (
   ctx,
   next,
 ) => {
-  if (!ctx.path.startsWith('/auth') && !get(ctx, 'session.legacy')) {
+  if (
+    // logout needs to auth first to clean fcm_token
+    (ctx.path.startsWith('/auth/logout') || !ctx.path.startsWith('/auth')) &&
+    !get(ctx, 'session.legacy')
+  ) {
     await passport.authenticate(
       'jwt',
       { session: false },
@@ -34,7 +38,6 @@ export const authenticateWithJWT: MiddlewareFactory = (passport) => async (
 
         if (payload) {
           const error_id = shortid.generate();
-          // TODO: cache context user in redis
           const user = await db()
             .select('id', 'admin', 'language', 'verified')
             .from('users')

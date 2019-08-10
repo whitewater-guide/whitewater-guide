@@ -1,14 +1,14 @@
 import { isInputValidResolver } from '@apollo';
 import db, { rawUpsert } from '@db';
-import { GroupInput, GroupInputStruct } from '@whitewater-guide/commons';
-import { struct } from 'superstruct';
+import { GroupInput, GroupInputSchema } from '@whitewater-guide/commons';
+import * as yup from 'yup';
 
 interface Vars {
   group: GroupInput;
 }
 
-const Struct = struct.object({
-  group: GroupInputStruct,
+const Struct = yup.object({
+  group: GroupInputSchema,
 });
 
 const upsertGroup = isInputValidResolver<Vars>(

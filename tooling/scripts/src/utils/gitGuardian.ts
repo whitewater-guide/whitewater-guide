@@ -15,9 +15,6 @@ export const gitGuardian = async (env: EnvType) => {
     throw new Error('working tree is dirty');
   }
   const { current } = await git.branchLocal();
-  if (env === EnvType.STAGING && current !== 'dev') {
-    throw new Error('staging environment must be deployed from dev branch');
-  }
   if (env === EnvType.PRODUCTION && current !== 'master') {
     throw new Error(
       'production environment must be deployed from master branch',

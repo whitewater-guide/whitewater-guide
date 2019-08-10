@@ -1,26 +1,29 @@
+import { createStyles, WithStyles, withStyles } from '@material-ui/core/styles';
+import { formatDate } from '@whitewater-guide/clients';
 import {
   NamedNode,
-  Section,
   SectionEditLogEntry,
   sectionName,
 } from '@whitewater-guide/commons';
-import FontIcon from 'material-ui/FontIcon';
-import IconButton from 'material-ui/IconButton';
-import moment from 'moment';
+import parseISO from 'date-fns/parseISO';
 import React from 'react';
-import CopyToClipboard from 'react-copy-to-clipboard';
-
 import { Link } from 'react-router-dom';
+import { Column, TableProps } from 'react-virtualized';
 import {
-  Column,
-  Index,
+  Clipboard,
+  isEmptyRow,
+  RegionFinder,
   Table,
   TableCellRenderer,
-  TableProps,
-} from 'react-virtualized';
-import { RegionFinder } from '../regions';
+} from '../../components';
 import { UserFinder } from '../users';
 import { DiffButton } from './DiffButton';
+
+const styles = createStyles({
+  input: {
+    width: '100%',
+  },
+});
 
 interface OwnProps {
   history: SectionEditLogEntry[];
@@ -32,43 +35,58 @@ interface OwnProps {
   registerChild: (registeredChild: any) => void;
 }
 
+type TCR = TableCellRenderer<SectionEditLogEntry>;
+
 type Props = OwnProps &
+  WithStyles<typeof styles> &
   Omit<TableProps, 'rowGetter' | 'rowCount' | 'rowHeight' | 'headerHeight'>;
 
 class HistoryTable extends React.PureComponent<Props> {
-  rowGetter = ({ index }: Index) => this.props.history[index];
+  renderCreatedAt: TCR = ({ rowData }) => {
+    if (isEmptyRow(rowData)) {
+      return null;
+    }
+    return formatDate(parseISO(rowData.createdAt), 'dd MMMM yyyy, H:mm');
+  };
 
-  renderCreatedAt: TableCellRenderer = ({ rowData: { createdAt } }) =>
-    moment(createdAt).format('DD MMMM YYYY, HH:mm');
-
-  renderSection: TableCellRenderer = ({ rowData: { section } }) => {
-    const { id, region } = section as Section;
+  renderSection: TCR = ({ rowData }) => {
+    if (isEmptyRow(rowData)) {
+      return null;
+    }
+    const { id, region } = rowData.section;
     return (
       <Link to={`/regions/${region.id}/sections/${id}#main`}>
-        {sectionName(section)}
+        {sectionName(rowData.section)}
       </Link>
     );
   };
 
-  renderRegion: TableCellRenderer = ({ rowData: { section } }) => {
-    const { region } = section as Section;
+  renderRegion: TCR = ({ rowData }) => {
+    if (isEmptyRow(rowData)) {
+      return null;
+    }
+    const { region } = rowData.section;
     return <Link to={`/regions/${region.id}`}>{region.name}</Link>;
   };
 
-  renderEditor: TableCellRenderer = ({ rowData: { editor } }) => {
+  renderEditor: TCR = ({ rowData }) => {
+    if (isEmptyRow(rowData)) {
+      return null;
+    }
+    const { editor } = rowData;
     return (
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <span>{`${editor.name}`}</span>
-        <CopyToClipboard text={editor.id}>
-          <IconButton>
-            <FontIcon className="material-icons">file_copy</FontIcon>
-          </IconButton>
-        </CopyToClipboard>
+        <Clipboard text={editor.id} />
       </div>
     );
   };
 
-  renderDiff: TableCellRenderer = ({ rowData: { diff } }) => {
+  renderDiff: TCR = ({ rowData }) => {
+    if (isEmptyRow(rowData)) {
+      return null;
+    }
+    const { diff } = rowData;
     if (!diff) {
       return null;
     }
@@ -77,41 +95,27 @@ class HistoryTable extends React.PureComponent<Props> {
 
   renderEditorHeader = () => (
     <UserFinder
-      user={this.props.user}
+      value={this.props.user}
       onChange={this.props.onUserChange}
       editorsOnly={true}
-      clearSelectionTitle="All editors"
+      allowNull={true}
+      className={this.props.classes.input}
     />
   );
 
   renderRegionHeader = () => (
     <RegionFinder
-      region={this.props.region}
+      className={this.props.classes.input}
+      value={this.props.region}
       onChange={this.props.onRegionChange}
-      clearSelectionTitle="All regions"
+      allowNull={true}
     />
   );
 
   render(): React.ReactNode {
-    const {
-      history,
-      user,
-      onUserChange,
-      region,
-      onRegionChange,
-      onDiffOpen,
-      registerChild,
-      ...tableProps
-    } = this.props;
+    const { history, registerChild, onRowsRendered } = this.props;
     return (
-      <Table
-        {...(tableProps as any)}
-        ref={registerChild}
-        rowGetter={this.rowGetter}
-        rowCount={history.length}
-        rowHeight={48}
-        headerHeight={52}
-      >
+      <Table ref={registerChild} data={history} onRowsRendered={onRowsRendered}>
         <Column
           width={200}
           label="Date"
@@ -137,6 +141,8 @@ class HistoryTable extends React.PureComponent<Props> {
           width={50}
           label="Diff"
           dataKey="diff"
+          className="centered"
+          headerClassName="centered"
           cellRenderer={this.renderDiff}
         />
         <Column
@@ -151,4 +157,4 @@ class HistoryTable extends React.PureComponent<Props> {
   }
 }
 
-export default HistoryTable;
+export default withStyles(styles)(HistoryTable);

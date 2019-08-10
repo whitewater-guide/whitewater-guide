@@ -1,54 +1,50 @@
-import { MediaKind } from '@whitewater-guide/commons';
-import capitalize from 'lodash/capitalize';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
-import React from 'react';
-import ErrorBoundary from 'react-error-boundary';
-import { Styles } from '../../../styles';
-import NonPhotoForm from './NonPhotoForm';
-import PhotoForm from './PhotoForm';
-import { MediaFormProps } from './types';
+import { MediaInput } from '@whitewater-guide/commons';
+import React, { useMemo } from 'react';
+import { RouteComponentProps } from 'react-router';
+import { useApolloFormik } from '../../../formik';
+import { SECTIONS_MEDIA } from '../list';
+import { THUMB_HEIGHT } from '../list/constants';
+import makeFormToMutation from './makeFormToMutation';
+import makeQueryToForm from './makeQueryToForm';
+import { MEDIA_FORM_QUERY, QResult, QVars } from './mediaForm.query';
+import MediaFormDialog from './MediaFormDialog';
+import { RouterParams } from './types';
+import { MVars, UPSERT_MEDIA } from './upsertMedia.mutation';
 
-const styles: Styles = {
-  dialog: {
-    maxWidth: '80vw',
-  },
-};
+type Props = RouteComponentProps<RouterParams>;
 
-export default class MediaForm extends React.PureComponent<MediaFormProps> {
-  onCancel = () => this.props.history.goBack();
+const MediaForm: React.FC<Props> = React.memo((props) => {
+  const transformers = useMemo(
+    () => ({
+      queryToForm: makeQueryToForm(props),
+      formToMutation: makeFormToMutation(props),
+    }),
+    [props],
+  );
 
-  render() {
-    const {
-      initialValues: { kind, url },
-    } = this.props;
-    const submitLabel = url ? 'Update' : 'Create';
-    const title = url ? capitalize(`${kind} settings`) : `New ${kind}`;
-    const actions = [
-      <FlatButton key="cancel" label="Cancel" onClick={this.onCancel} />,
-      <FlatButton
-        key="save"
-        primary={true}
-        label={submitLabel}
-        onClick={this.props.handleSubmit}
-      />,
-    ];
-    return (
-      <Dialog
-        open={true}
-        modal={true}
-        title={title}
-        actions={actions}
-        contentStyle={styles.dialog}
-      >
-        <ErrorBoundary>
-          {kind === MediaKind.photo ? (
-            <PhotoForm {...this.props} />
-          ) : (
-            <NonPhotoForm {...this.props} />
-          )}
-        </ErrorBoundary>
-      </Dialog>
-    );
-  }
-}
+  const formik = useApolloFormik<QVars, QResult, MediaInput, MVars>({
+    query: MEDIA_FORM_QUERY,
+    queryOptions: {
+      variables: { mediaId: props.match.params.mediaId },
+    },
+    mutation: UPSERT_MEDIA,
+    mutationOptions: {
+      refetchQueries: [
+        {
+          query: SECTIONS_MEDIA,
+          variables: {
+            sectionId: props.match.params.sectionId,
+            thumbHeight: THUMB_HEIGHT,
+          },
+        },
+      ],
+    },
+    ...transformers,
+  });
+
+  return <MediaFormDialog {...formik} />;
+});
+
+MediaForm.displayName = 'MediaForm';
+
+export default MediaForm;

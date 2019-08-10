@@ -7,6 +7,7 @@ import {
 import { RefreshBody, SignInBody } from '@whitewater-guide/commons';
 import { AppState } from 'react-native';
 import { AccessToken, LoginManager } from 'react-native-fbsdk';
+import Firebase from 'react-native-firebase';
 import { AuthBody } from '../../../../commons/src/auth';
 import { fetchMock } from '../../test';
 import { MobileAuthService } from './service';
@@ -35,9 +36,14 @@ beforeEach(async () => {
   await tokenStorage.setRefreshToken(null);
   jest.clearAllMocks();
   fetchMock.reset();
-  service = new MobileAuthService(resetApolloCache, onSignOut);
-  // for init()
   (AccessToken.getCurrentAccessToken as any).mockResolvedValueOnce(null);
+  (Firebase.messaging().hasPermission as jest.Mock).mockResolvedValue(true);
+  (Firebase.messaging().getToken as jest.Mock).mockResolvedValue(
+    '__fcm_token__',
+  );
+  service = new MobileAuthService(resetApolloCache, onSignOut);
+  fetchMock.mock('end:fcm/set', { success: true });
+  fetchMock.mock('glob:*logout*', 200);
   await service.init();
 });
 
@@ -46,6 +52,13 @@ afterEach(() => {
 });
 
 describe('refresh access token', () => {
+  const SUCCESS: AuthBody<RefreshBody> = {
+    success: true,
+    id: 'uid',
+    accessToken: ACCESS_TOKEN,
+    refreshToken: REFRESH_TOKEN,
+  };
+
   it('should fail locally when refresh token is not present', async () => {
     const resp = await service.refreshAccessToken();
     expect(resp).toEqual({
@@ -63,13 +76,7 @@ describe('refresh access token', () => {
     });
 
     it('should save accessToken on success', async () => {
-      const success: AuthBody<RefreshBody> = {
-        success: true,
-        id: 'uid',
-        accessToken: ACCESS_TOKEN,
-        refreshToken: REFRESH_TOKEN,
-      };
-      fetchMock.mock('end:refresh', success);
+      fetchMock.mock('end:refresh', SUCCESS);
       await service.refreshAccessToken();
       await expect(tokenStorage.getAccessToken()).resolves.toBe(ACCESS_TOKEN);
     });
@@ -125,6 +132,21 @@ describe('refresh access token', () => {
       await expect(tokenStorage.getAccessToken()).resolves.toBe(ACCESS_TOKEN);
       await expect(tokenStorage.getRefreshToken()).resolves.toBe(REFRESH_TOKEN);
     });
+
+    it('should send fcm token on first refresh', async () => {
+      fetchMock.mock('end:refresh', SUCCESS);
+      await service.refreshAccessToken();
+      await flushPromises(); // because set fcm token is not awaited
+      const calls = fetchMock.calls('end:fcm/set');
+      await expect(calls).toHaveLength(1);
+      await expect(calls).toHaveProperty(
+        '0.1.body',
+        JSON.stringify({ fcm_token: '__fcm_token__' }),
+      );
+      await service.refreshAccessToken();
+      await flushPromises();
+      await expect(fetchMock.calls('end:fcm/set')).toHaveLength(1);
+    });
   });
 });
 
@@ -160,6 +182,13 @@ describe('sign in', () => {
         await expect(tokenStorage.getRefreshToken()).resolves.toBe(
           REFRESH_TOKEN,
         );
+      });
+
+      it('should send fcm token', async () => {
+        const calls = fetchMock.calls('end:signin');
+        await expect(JSON.parse(calls[0][1]!.body as any)).toMatchObject({
+          fcm_token: '__fcm_token__',
+        });
       });
     });
 
@@ -256,6 +285,8 @@ describe('sign in', () => {
           REFRESH_TOKEN,
         );
       });
+
+      it('should send fcm token', async () => {});
     });
 
     describe('errors', () => {
@@ -306,5 +337,16 @@ describe('sign in', () => {
         });
       });
     });
+  });
+});
+
+describe('logout', () => {
+  it('should send fcm token', async () => {
+    await tokenStorage.setAccessToken(ACCESS_TOKEN);
+    await tokenStorage.setRefreshToken(REFRESH_TOKEN);
+    await service.signOut();
+    await flushPromises();
+    const calls = fetchMock.calls('glob:*logout*');
+    await expect(calls[0][0]).toEqual(expect.stringContaining('__fcm_token__'));
   });
 });

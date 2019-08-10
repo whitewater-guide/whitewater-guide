@@ -4,7 +4,6 @@ import {
   SectionProvider,
 } from '@whitewater-guide/clients';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
 import {
   NavigationRouteConfigMap,
   NavigationRouter,

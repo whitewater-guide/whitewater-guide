@@ -1,27 +1,26 @@
-import React from 'react';
-import { Route, RouteComponentProps, withRouter } from 'react-router';
-import { Container } from '../../layout/details';
+import Box from '@material-ui/core/Box';
+import React, { Suspense } from 'react';
+import { Route } from 'react-router';
+import useRouter from 'use-react-router';
+import { Loading } from '../../components';
 import MediaForm from './form';
 import { MediaListWithData } from './list';
 
-class SectionMedia extends React.PureComponent<RouteComponentProps<any>> {
-  render() {
-    return (
-      <Container>
+const SectionMedia: React.FC = () => {
+  const { match } = useRouter();
+  return (
+    <Box padding={1}>
+      <Suspense fallback={<Loading />}>
         <MediaListWithData />
+        <Route strict={true} path={`${match.path}/new`} component={MediaForm} />
         <Route
           strict={true}
-          path={`${this.props.match.path}/media/new`}
+          path={`${match.path}/:mediaId/settings`}
           component={MediaForm}
         />
-        <Route
-          strict={true}
-          path={`${this.props.match.path}/media/:mediaId/settings`}
-          component={MediaForm}
-        />
-      </Container>
-    );
-  }
-}
+      </Suspense>
+    </Box>
+  );
+};
 
-export default withRouter(SectionMedia);
+export default SectionMedia;

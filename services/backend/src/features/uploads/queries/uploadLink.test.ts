@@ -26,13 +26,6 @@ beforeEach(async () => {
 afterEach(rollbackTransaction);
 afterAll(() => resetTestMinio(true));
 
-describe('resolvers chain', () => {
-  it('anon should not pass', async () => {
-    const result = await runQuery(query, variables, anonContext());
-    expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
-  });
-});
-
 describe('response', () => {
   it('should return correct result', async () => {
     const result = await runQuery(query, variables, fakeContext(TEST_USER));

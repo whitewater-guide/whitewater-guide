@@ -1,5 +1,5 @@
 /* tslint:disable:no-bitwise */
-import { Gauge, GaugeBinding, Section } from '@whitewater-guide/commons';
+import { GaugeBinding, Measurement, Section } from '@whitewater-guide/commons';
 import color from 'color';
 import isFunction from 'lodash/isFunction';
 import mapValues from 'lodash/mapValues';
@@ -13,7 +13,7 @@ interface DryBinding extends GaugeBinding {
 // Basically, we process every possible combination of present/absent minimum,optimum, maximum and impossible levels
 // This makes 16 combinations, or rows
 // If minimum is present, we also compute 'absolute' minimum
-// Then after we determinted row we check in which interval the value falls - this is column
+// Then after we determined row we check in which interval the value falls - this is column
 // Then we fin cell value in colorTable
 // If it is color we just return it
 // If it is null, we approximate between colors of this interval edges
@@ -324,7 +324,9 @@ const colorTable: ColorTable = {
 };
 
 // Subset of section data required to compute its color
-type PGauge = Pick<Gauge, 'lastMeasurement'>;
+interface PGauge {
+  lastMeasurement: Pick<Measurement, 'level' | 'flow'> | null;
+}
 export type ColorizeSection = Pick<Section, 'flows' | 'levels'> & {
   gauge: PGauge | null;
 };

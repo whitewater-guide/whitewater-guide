@@ -1,5 +1,5 @@
 import { holdTransaction, rollbackTransaction } from '@db';
-import { asyncRedis, client } from '@redis';
+import { redis } from '@redis';
 import Koa from 'koa';
 import agent from 'supertest-koa-agent';
 import { createApp } from '../../app';
@@ -10,14 +10,14 @@ let app: Koa;
 beforeEach(async () => {
   jest.resetAllMocks();
   await holdTransaction();
-  await asyncRedis.flushall();
+  await redis.flushall();
   app = createApp();
   await createApolloServer(app);
 });
 
 afterEach(async () => {
   await rollbackTransaction();
-  client.removeAllListeners();
+  redis.removeAllListeners();
 });
 
 it('should expose schema.json', async () => {

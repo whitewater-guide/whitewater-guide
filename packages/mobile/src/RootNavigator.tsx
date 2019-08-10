@@ -22,6 +22,7 @@ import {
   SectionTabs,
 } from './screens';
 import Screens from './screens/screen-names';
+import { SuggestionScreen } from './screens/suggestion';
 
 const routes = {
   [Screens.RegionsList]: {
@@ -41,6 +42,9 @@ const routes = {
   },
   [Screens.Filter]: {
     screen: FilterScreen,
+  },
+  [Screens.Suggestion]: {
+    screen: SuggestionScreen,
   },
   ...AuthRoutes,
 };

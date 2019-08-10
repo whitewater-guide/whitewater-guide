@@ -1,6 +1,6 @@
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { uploadFile } from '@whitewater-guide/clients';
-import { Media, MediaKind, UploadLink } from '@whitewater-guide/commons';
-import CircularProgress from 'material-ui/CircularProgress';
+import { Media, UploadLink } from '@whitewater-guide/commons';
 import React from 'react';
 import { S3_HOST } from '../../environment';
 import { Styles } from '../../styles';
@@ -11,7 +11,7 @@ import {
   isFileWithPreview,
 } from '../../utils';
 import { DeleteButton } from '../DeleteButton';
-import { Lightbox } from '../lightbox';
+import { Lightbox, LightboxItem } from '../lightbox';
 import AddFile from './AddFile';
 
 const styles: Styles = {
@@ -84,7 +84,7 @@ interface State {
   badSize: boolean;
   uploading: boolean;
   currentModal: number | null;
-  fakeMedia: Media[];
+  fakeMedia: LightboxItem[];
   useTempBucket: boolean;
 }
 
@@ -98,23 +98,16 @@ const getSrc = (value: string, bucket: string) => {
 const getFakeMedia = (
   props: ImageUploaderProps,
   useTempBucket?: boolean,
-): Media[] => {
+): LightboxItem[] => {
   const { value, bucket } = props;
   return typeof value === 'string'
     ? [
         {
           id: 'upload',
-          // lightbox is will render relative urls from  to media bucket, but can render absolute urls
           url: getSrc(value, useTempBucket ? 'temp' : bucket),
           image: getSrc(value, useTempBucket ? 'temp' : bucket),
           description: value,
           copyright: '',
-          kind: MediaKind.photo,
-          resolution: [1000, 1000], // it's fake - doesn't matter for lightbox
-          weight: 0,
-          createdAt: new Date().toDateString(),
-          updatedAt: new Date().toDateString(),
-          size: 12345678,
         },
       ]
     : [];
@@ -261,7 +254,7 @@ export class ImageUploader extends React.PureComponent<
         </div>
         {this.renderBadSize()}
         <Lightbox
-          media={this.state.fakeMedia}
+          items={this.state.fakeMedia}
           currentModal={this.state.currentModal}
           onClose={this.onCloseLightbox}
         />

@@ -1,4 +1,3 @@
-import container from './container';
-import Form from './GaugeForm';
+import React from 'react';
 
-export const GaugeForm = container(Form);
+export default React.lazy(() => import('./GaugeForm'));

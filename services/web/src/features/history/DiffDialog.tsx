@@ -1,5 +1,8 @@
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import React from 'react';
 import { Loading } from '../../components';
 import { Styles } from '../../styles';
@@ -30,7 +33,6 @@ export class DiffDialog extends React.PureComponent<Props, State> {
     // tslint:enable:no-submodule-imports
     const diffModule = await import('jsondiffpatch');
     this.setState({ jsondiffpatch: diffModule });
-    console.dir(diffModule);
   }
 
   render() {
@@ -40,27 +42,21 @@ export class DiffDialog extends React.PureComponent<Props, State> {
     if (jsondiffpatch) {
       innerHtml = { __html: jsondiffpatch.formatters.html.format(diff) };
     }
-    const actions = [
-      <FlatButton
-        key="closeButton"
-        label="Close"
-        primary={true}
-        onClick={onRequestClose}
-      />,
-    ];
     return (
-      <Dialog
-        title="View diff"
-        actions={actions}
-        modal={false}
-        open={true}
-        onRequestClose={onRequestClose}
-      >
-        {innerHtml ? (
-          <div style={styles.wrapper} dangerouslySetInnerHTML={innerHtml} />
-        ) : (
-          <Loading />
-        )}
+      <Dialog open={true} onClose={onRequestClose}>
+        <DialogTitle>View diff</DialogTitle>
+        <DialogContent>
+          {innerHtml ? (
+            <div style={styles.wrapper} dangerouslySetInnerHTML={innerHtml} />
+          ) : (
+            <Loading />
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button key="closeButton" color="primary" onClick={onRequestClose}>
+            Close
+          </Button>
+        </DialogActions>
       </Dialog>
     );
   }

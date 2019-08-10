@@ -1,23 +1,10 @@
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
 import { Media } from '@whitewater-guide/commons';
-import { List, ListItem } from 'material-ui/List';
 import React from 'react';
 import { IconButtonWithData } from '../../../components';
-import { Styles } from '../../../styles';
-
-const styles: Styles = {
-  list: {
-    maxWidth: 600,
-    paddingLeft: 0,
-  },
-  item: {
-    paddingLeft: 0,
-  },
-  actions: {
-    display: 'flex',
-    width: 100,
-    justifyContent: 'space-between',
-  },
-};
 
 interface Props {
   editable: boolean;
@@ -26,48 +13,35 @@ interface Props {
   onRemove?: (media: Media) => void;
 }
 
-class BlogsList extends React.PureComponent<Props> {
-  renderActions = (item: Media) => {
-    const { onEdit, onRemove } = this.props;
-    return (
-      <div style={styles.actions}>
-        <IconButtonWithData<Media> icon="edit" data={item} onPress={onEdit!} />
-        <IconButtonWithData<Media>
-          icon="delete_forever"
-          data={item}
-          onPress={onRemove!}
-        />
-      </div>
-    );
-  };
-
-  renderItem = (item: Media) => {
-    const { id, description, copyright, url } = item;
-    const rightIcon = this.props.editable
-      ? this.renderActions(item)
-      : undefined;
-    return (
-      <ListItem
-        style={styles.item}
-        innerDivStyle={styles.item}
-        key={id}
-        rightIcon={rightIcon}
-        primaryText={
-          <a href={url} target="_blank">
-            {description}
-          </a>
-        }
-        secondaryText={copyright}
-      />
-    );
-  };
-
-  render() {
-    const { media } = this.props;
-    return (
-      <List style={styles.list}>{media.map((m) => this.renderItem(m))}</List>
-    );
-  }
-}
+const BlogsList: React.FC<Props> = (props) => {
+  const { media, editable, onEdit, onRemove } = props;
+  return (
+    <List>
+      {media.map((item) => (
+        <ListItem key={item.id}>
+          <ListItemText secondary={item.copyright}>
+            <a href={item.url} target="_blank">
+              {item.description}
+            </a>
+          </ListItemText>
+          {editable && (
+            <ListItemSecondaryAction>
+              <IconButtonWithData<Media>
+                icon="edit"
+                data={item}
+                onPress={onEdit!}
+              />
+              <IconButtonWithData<Media>
+                icon="delete_forever"
+                data={item}
+                onPress={onRemove!}
+              />
+            </ListItemSecondaryAction>
+          )}
+        </ListItem>
+      ))}
+    </List>
+  );
+};
 
 export default BlogsList;

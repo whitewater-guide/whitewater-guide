@@ -12,6 +12,7 @@ export const cleanupPreview = (file: FileWithPreview) =>
   window.URL.revokeObjectURL(file.preview);
 
 export const isFileWithPreview = (value: any): value is FileWithPreview =>
+  value &&
   value.hasOwnProperty('preview') &&
   value.hasOwnProperty('file') &&
   value.file instanceof File;

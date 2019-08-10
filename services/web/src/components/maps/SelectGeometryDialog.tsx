@@ -1,23 +1,22 @@
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { Coordinate, Coordinate3d } from '@whitewater-guide/commons';
-import Dialog from 'material-ui/Dialog';
-import RaisedButton from 'material-ui/RaisedButton';
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { DrawingMap } from './DrawingMap';
 import { DrawingMode } from './types';
 
-const styles = {
-  contentStyle: {
-    width: '90vw',
-    height: '100%',
-    maxWidth: 'none',
-    transform: undefined,
-  },
-  mapHolder: {
-    width: '100%',
-    height: 'calc(100vh - 240px)',
-    maxWidth: 'none',
-  },
-};
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    content: {
+      width: '90vw',
+      height: 'calc(100vh - 240px)',
+    },
+  }),
+);
 
 const MIN_POINTS: { [key in DrawingMode]: number } = {
   Point: 1,
@@ -33,57 +32,39 @@ interface Props {
   onSubmit: (points: Coordinate3d[]) => void;
 }
 
-interface State {
-  points: Coordinate3d[];
-}
-
-export class SelectGeometryDialog extends React.PureComponent<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = { points: [...(props.points || [])] };
-  }
-
-  onChange = (points: Coordinate3d[]) => this.setState({ points });
-
-  onSubmit = () => {
-    this.props.onSubmit(this.state.points);
-    this.props.onClose();
-  };
-
-  render() {
-    const disabled =
-      this.state.points.length < MIN_POINTS[this.props.drawingMode];
-    const actions = [
-      <RaisedButton key="cancel" label="Cancel" onClick={this.props.onClose} />,
-      <RaisedButton
-        primary={true}
-        key="submit"
-        disabled={disabled}
-        label="Submit"
-        onClick={this.onSubmit}
-      />,
-    ];
-    return (
-      <Dialog
-        open={true}
-        title={`Choose ${this.props.drawingMode.toLowerCase()}`}
-        actions={actions}
-        autoDetectWindowHeight={false}
-        autoScrollBodyContent={false}
-        modal={false}
-        onRequestClose={this.props.onClose}
-        contentStyle={styles.contentStyle}
-        repositionOnUpdate={false}
-      >
-        <div style={styles.mapHolder}>
-          <DrawingMap
-            drawingMode={this.props.drawingMode}
-            points={this.state.points}
-            bounds={this.props.bounds}
-            onChange={this.onChange}
-          />
-        </div>
-      </Dialog>
-    );
-  }
-}
+export const SelectGeometryDialog: React.FC<Props> = (props) => {
+  const { points: ptz, drawingMode, bounds, onClose, onSubmit } = props;
+  const classes = useStyles();
+  const [points, setPoints] = useState([...(ptz || [])]);
+  const disabled = points.length < MIN_POINTS[drawingMode];
+  const handleSubmit = useCallback(() => {
+    onSubmit(points);
+    onClose();
+  }, [onClose, onSubmit, points]);
+  return (
+    <Dialog open={true} onClose={onClose} fullWidth={true} maxWidth={false}>
+      <DialogTitle>{`Choose ${drawingMode.toLowerCase()}`}</DialogTitle>
+      <DialogContent className={classes.content}>
+        <DrawingMap
+          drawingMode={drawingMode}
+          points={points}
+          bounds={bounds}
+          onChange={setPoints}
+        />
+      </DialogContent>
+      <DialogActions>
+        <Button key="cancel" onClick={onClose}>
+          Cancel
+        </Button>
+        <Button
+          color="primary"
+          key="submit"
+          disabled={disabled}
+          onClick={handleSubmit}
+        >
+          Submit
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+};

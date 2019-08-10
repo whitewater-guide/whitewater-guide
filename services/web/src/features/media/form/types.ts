@@ -1,13 +1,5 @@
-import { Media, MediaInput, UploadLink } from '@whitewater-guide/commons';
-import { ChildProps } from 'react-apollo';
-import { RouteComponentProps } from 'react-router';
-import { InjectedFormProps } from 'redux-form';
-
-export interface MediaFormQueryResult {
-  media: Media;
-  uploadLink: UploadLink;
+export interface RouterParams {
+  regionId: string;
+  sectionId: string;
+  mediaId?: string;
 }
-export type MediaFormInput = MediaInput;
-export type MediaFormProps = InjectedFormProps<MediaFormInput> &
-  RouteComponentProps<{ regionId: string; sectionId: string }> &
-  ChildProps<{}, MediaFormQueryResult>;

@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should be invalid for bad resolution 1`] = `
+Object {
+  "resolution": Object {
+    "key": "yup:array.max",
+    "options": Object {
+      "max": 2,
+      "path": "resolution",
+    },
+  },
+}
+`;
+
+exports[`should be invalid for bad uuid 1`] = `
+Object {
+  "section": Object {
+    "id": "yup:string.uuid",
+  },
+}
+`;
+
+exports[`should be invalid for extra fields 1`] = `
+Object {
+  "undefined": Object {
+    "key": "yup:object.noUnknown",
+    "options": Object {
+      "path": "this",
+    },
+  },
+}
+`;
+
+exports[`should be invalid for filename without resolution 1`] = `
+Object {
+  "filename": "yup:mixed.required",
+  "resolution": "yup:mixed.required",
+}
+`;
+
+exports[`should be invalid for no description and no media 1`] = `
+Object {
+  "description": "yup:mixed.required",
+  "filename": "yup:mixed.required",
+}
+`;
+
+exports[`should be invalid for resolution without filename 1`] = `
+Object {
+  "resolution": "yup:mixed.required",
+}
+`;

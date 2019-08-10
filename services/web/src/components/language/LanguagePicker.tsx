@@ -1,29 +1,56 @@
-import { SelectFieldProps } from 'material-ui';
-import MenuItem from 'material-ui/MenuItem';
-import SelectField from 'material-ui/SelectField';
-import React from 'react';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select, { SelectProps } from '@material-ui/core/Select';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
+import React, { useCallback } from 'react';
+
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    select: {
+      '&:before': {
+        borderBottomColor: theme.palette.primary.contrastText,
+      },
+      '&:hover:not(.Mui-disabled):before': {
+        borderBottomColor: theme.palette.primary.contrastText,
+      },
+    },
+    root: {
+      minWidth: 200,
+      color: theme.palette.primary.contrastText,
+    },
+    icon: {
+      color: theme.palette.primary.contrastText,
+    },
+  }),
+);
 
 export type LanguagePickerProps = {
   language: string;
   onLanguageChange: (language: string) => void;
-} & Omit<SelectFieldProps, 'value' | 'onChange'>;
+} & Omit<SelectProps, 'value' | 'onChange'>;
 
-export class LanguagePicker extends React.PureComponent<LanguagePickerProps> {
-  onChange = (e: any, i: number, value: string) =>
-    this.props.onLanguageChange(value);
-
-  render() {
-    const { language, onLanguageChange, ...props } = this.props;
-    return (
-      <SelectField {...props} value={language} onChange={this.onChange}>
-        <MenuItem value="en" primaryText="English" />
-        <MenuItem value="ru" primaryText="Russian" />
-        <MenuItem value="es" primaryText="Spanish" />
-        <MenuItem value="fr" primaryText="French" />
-        <MenuItem value="de" primaryText="German" />
-        <MenuItem value="pt" primaryText="Portuguese" />
-        <MenuItem value="it" primaryText="Italian" />
-      </SelectField>
-    );
-  }
-}
+export const LanguagePicker: React.FC<LanguagePickerProps> = (props) => {
+  const { language, onLanguageChange, ...rest } = props;
+  const classes = useStyles();
+  const onChange = useCallback(
+    (e: React.ChangeEvent<{ value: string }>) =>
+      onLanguageChange(e.target.value),
+    [onLanguageChange],
+  );
+  return (
+    <Select
+      {...rest}
+      classes={classes}
+      value={language}
+      onChange={onChange}
+      className={classes.select}
+    >
+      <MenuItem value="en">English</MenuItem>
+      <MenuItem value="ru">Russian</MenuItem>
+      <MenuItem value="es">Spanish</MenuItem>
+      <MenuItem value="fr">French</MenuItem>
+      <MenuItem value="de">German</MenuItem>
+      <MenuItem value="pt">Portuguese</MenuItem>
+      <MenuItem value="it">Italian</MenuItem>
+    </Select>
+  );
+};

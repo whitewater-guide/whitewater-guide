@@ -1,28 +1,29 @@
+import Icon from '@material-ui/core/Icon';
+import IconButton, { IconButtonProps } from '@material-ui/core/IconButton';
 import { Node } from '@whitewater-guide/commons';
-import { IconButtonProps } from 'material-ui';
-import IconButton from 'material-ui/IconButton';
 import React from 'react';
 
 interface Props<TData = Node> extends IconButtonProps {
   data: TData;
-  onPress: (data: TData) => void;
+  onPress?: (data: TData) => void;
   icon: string;
 }
 
 export class IconButtonWithData<TData> extends React.PureComponent<
   Props<TData>
 > {
-  onClick = () => this.props.onPress(this.props.data);
+  onClick = () => {
+    const { data, onPress } = this.props;
+    if (onPress) {
+      onPress(data);
+    }
+  };
 
   render() {
-    const { data, icon, ...props } = this.props;
+    const { data, icon, onPress, ...props } = this.props;
     return (
-      <IconButton
-        {...props}
-        iconClassName="material-icons"
-        onClick={this.onClick}
-      >
-        {icon}
+      <IconButton {...props} onClick={this.onClick}>
+        <Icon>{icon}</Icon>
       </IconButton>
     );
   }

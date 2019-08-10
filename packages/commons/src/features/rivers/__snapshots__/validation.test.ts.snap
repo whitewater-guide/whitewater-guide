@@ -2,32 +2,39 @@
 
 exports[`should be invalid for bad region 1`] = `
 Object {
-  "region": "Value must be node with id",
+  "region": Object {
+    "id": "yup:string.uuid",
+  },
 }
 `;
 
 exports[`should be invalid for bad uuid 1`] = `
 Object {
-  "id": "Incorrect UUID",
+  "id": "yup:string.uuid",
 }
 `;
 
 exports[`should be invalid for empty alt names 1`] = `
 Object {
   "altNames": Array [
-    "Value must be non-empty string",
+    "yup:string.nonEmpty",
   ],
 }
 `;
 
 exports[`should be invalid for empty name 1`] = `
 Object {
-  "name": "Value must be non-empty string",
+  "name": "yup:string.nonEmpty",
 }
 `;
 
 exports[`should be invalid for extra fields 1`] = `
 Object {
-  "foo": "Expected a value of type \`undefined\` for \`foo\` but received \`\\"bar\\"\`.",
+  "undefined": Object {
+    "key": "yup:object.noUnknown",
+    "options": Object {
+      "path": "this",
+    },
+  },
 }
 `;

@@ -1,16 +1,11 @@
-import { createValidator } from '../../utils/validation';
-import {
-  BannerFormInput,
-  BannerInput,
-  BannerKind,
-  BannerPlacement,
-} from './types';
-import { BannerFormStruct, BannerInputStruct } from './validation';
+import omit from 'lodash/omit';
+import { createSafeValidator } from '../../validation';
+import { BannerInput, BannerKind, BannerPlacement } from './types';
+import { BannerInputSchema } from './validation';
 
 describe('BannerInputStruct', () => {
-  const validator = createValidator(BannerInputStruct);
-
   type TestValue = [string, BannerInput];
+  const validator = createSafeValidator(BannerInputSchema);
 
   const correct: BannerInput = {
     id: 'dddf9d28-c251-11e8-a355-529269fb1459',
@@ -50,6 +45,9 @@ describe('BannerInputStruct', () => {
 
   const incorrectValues: TestValue[] = [
     ['bad uuid', { ...correct, id: 'foo' }],
+    ['missing uuid', omit(correct, 'id')],
+    ['undefined uuid', { ...correct, id: undefined }],
+    ['casting priority', { ...correct, priority: '10' }],
     ['empty name', { ...correct, name: '' }],
     ['bad slug 1', { ...correct, slug: 'a' }],
     ['bad slug 2', { ...correct, slug: 'ешкин крот' }],
@@ -63,6 +61,25 @@ describe('BannerInputStruct', () => {
     [
       'empty source',
       { ...correct, source: { kind: BannerKind.WebView, ratio: 4, src: '' } },
+    ],
+    [
+      'non-strict ratio ',
+      {
+        ...correct,
+        source: { kind: BannerKind.WebView, ratio: '4', src: 'https://ya.ru' },
+      },
+    ],
+    [
+      'source with extra fields',
+      {
+        ...correct,
+        source: {
+          kind: BannerKind.WebView,
+          ratio: 4,
+          src: 'https://ya.ru',
+          foo: 'bar',
+        },
+      },
     ],
     ['bad link', { ...correct, link: 'hey' }],
     ['http link', { ...correct, link: 'http://ya.ru' }],
@@ -99,33 +116,5 @@ describe('BannerInputStruct', () => {
   it.each(incorrectValues)('should be invalid for %s', (_, value) => {
     expect(validator(value)).not.toBeNull();
     expect(validator(value)).toMatchSnapshot();
-  });
-});
-
-describe('BannerFormStruct', () => {
-  const validator = createValidator(BannerFormStruct);
-
-  type TestValue = [string, BannerFormInput];
-
-  const correct: BannerFormInput = {
-    id: 'dddf9d28-c251-11e8-a355-529269fb1459',
-    slug: 'test_banner',
-    name: 'Some banner',
-    priority: 10,
-    enabled: true,
-    placement: BannerPlacement.MOBILE_REGION_DESCRIPTION,
-    source: {
-      kind: BannerKind.WebView,
-      ratio: 4,
-      src: 'https://banner.com',
-    },
-    link: 'https://yamdex.ru',
-    extras: '{ "foo": "bar" }',
-    regions: [{ id: 'd10c02b6-c659-11e8-a355-529269fb1459' }],
-    groups: [{ id: 'db178622-c659-11e8-a355-529269fb1459' }],
-  };
-
-  it('should be valid for extras as JSON string', () => {
-    expect(validator(correct)).toBeNull();
   });
 });

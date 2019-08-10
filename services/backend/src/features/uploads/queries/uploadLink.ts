@@ -1,4 +1,4 @@
-import { isAuthenticatedResolver, TopLevelResolver } from '@apollo';
+import { TopLevelResolver } from '@apollo';
 import db from '@db';
 import { getTempPostPolicy } from '@minio';
 
@@ -6,7 +6,10 @@ const uploadLink: TopLevelResolver = async (_, __, { user }) => {
   const { id } = await db()
     .select(db().raw('uuid_generate_v1mc() AS id'))
     .first();
-  const { postURL, formData } = await getTempPostPolicy(id, user!.id);
+  const { postURL, formData } = await getTempPostPolicy(
+    id,
+    user ? user.id : undefined,
+  );
   return {
     postURL,
     formData,
@@ -14,4 +17,4 @@ const uploadLink: TopLevelResolver = async (_, __, { user }) => {
   };
 };
 
-export default isAuthenticatedResolver(uploadLink);
+export default uploadLink;

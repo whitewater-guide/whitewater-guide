@@ -1,3 +1,3 @@
-import { RegionEditorsWithData } from './RegionEditors';
+import { RegionEditors } from './RegionEditors';
 
-export default RegionEditorsWithData;
+export default RegionEditors;

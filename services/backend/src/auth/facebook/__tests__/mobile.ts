@@ -1,5 +1,5 @@
 import db, { holdTransaction, rollbackTransaction } from '@db';
-import { asyncRedis, client } from '@redis';
+import { redis } from '@redis';
 import {
   ADMIN_FB_PROFILE,
   ADMIN_ID,
@@ -27,21 +27,27 @@ let app: Koa;
 
 let usersBefore: number;
 let accountsBefore: number;
+let tokensBefore: number;
 
 beforeAll(async () => {
-  [usersBefore, accountsBefore] = await countRows(true, 'users', 'accounts');
+  [usersBefore, accountsBefore, tokensBefore] = await countRows(
+    true,
+    'users',
+    'accounts',
+    'fcm_tokens',
+  );
 });
 
 beforeEach(async () => {
   jest.resetAllMocks();
   await holdTransaction();
-  await asyncRedis.flushall();
+  await redis.flushall();
   app = createApp();
 });
 
 afterEach(async () => {
   await rollbackTransaction();
-  client.removeAllListeners();
+  redis.removeAllListeners();
 });
 
 it('should fail when access token is not provided ', async () => {
@@ -278,5 +284,52 @@ describe('existing user', () => {
 
   it('should not send welcome email', async () => {
     expect(sendMail).not.toHaveBeenCalled();
+  });
+});
+
+describe('fcm tokens', () => {
+  it('should create fcm token for new user', async () => {
+    FacebookTokenStrategy.prototype.userProfile = jest
+      .fn()
+      .mockImplementationOnce((accessToken: string, done: any) => {
+        done(null, NEW_FB_PROFILE);
+      });
+    const testAgent = agent(app);
+    const response = await testAgent.get(
+      `${ROUTE}?access_token=__new_access_token__&fcm_token=__foo__`,
+    );
+    expect(response.status).toBe(200);
+    const [tokens] = await countRows(false, 'fcm_tokens');
+    expect(tokens - tokensBefore).toBe(1);
+  });
+
+  it('should create fcm token for existing user', async () => {
+    FacebookTokenStrategy.prototype.userProfile = jest
+      .fn()
+      .mockImplementationOnce((accessToken: string, done: any) => {
+        done(null, ADMIN_FB_PROFILE);
+      });
+    const testAgent = agent(app);
+    const response = await testAgent.get(
+      `${ROUTE}?access_token=__existing_access_token__&fcm_token=__foo__`,
+    );
+    expect(response.status).toBe(200);
+    const [tokens] = await countRows(false, 'fcm_tokens');
+    expect(tokens - tokensBefore).toBe(1);
+  });
+
+  it('should not fail for existing fcm token', async () => {
+    FacebookTokenStrategy.prototype.userProfile = jest
+      .fn()
+      .mockImplementationOnce((accessToken: string, done: any) => {
+        done(null, ADMIN_FB_PROFILE);
+      });
+    const testAgent = agent(app);
+    const response = await testAgent.get(
+      `${ROUTE}?access_token=__existing_access_token__&fcm_token=__admin_fcm_token__`,
+    );
+    expect(response.status).toBe(200);
+    const [tokens] = await countRows(false, 'fcm_tokens');
+    expect(tokens - tokensBefore).toBe(0);
   });
 });

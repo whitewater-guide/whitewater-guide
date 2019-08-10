@@ -1,7 +1,7 @@
 import { TopLevelResolver } from '@apollo';
-import { createValidator } from '@whitewater-guide/commons';
+import { createSafeValidator } from '@whitewater-guide/commons';
 import { AuthenticationError, UserInputError } from 'apollo-server';
-import { Kind } from 'superstruct';
+import * as yup from 'yup';
 
 export const isAuthenticatedResolver = <Vars>(
   resolver: TopLevelResolver<Vars>,
@@ -13,14 +13,14 @@ export const isAuthenticatedResolver = <Vars>(
 };
 
 export const isInputValidResolver = <Vars>(
-  struct: Kind,
+  schema: yup.Schema<any>,
   resolver: TopLevelResolver<Vars>,
 ): TopLevelResolver<Vars> => {
-  const validator = createValidator(struct);
+  const validator = createSafeValidator(schema);
   return (source, args, context, info) => {
-    const errors = validator(args);
-    if (errors) {
-      throw new UserInputError('invalid input', { validationErrors: errors });
+    const validationErrors = validator(args);
+    if (validationErrors) {
+      throw new UserInputError('invalid input', { validationErrors });
     }
     return resolver(source, args, context, info);
   };

@@ -1,8 +1,8 @@
-import { createValidator } from '../../utils/validation';
+import { createSafeValidator } from '../../validation';
 import { RiverInput } from './types';
-import { RiverInputStruct } from './validation';
+import { RiverInputSchema } from './validation';
 
-const validator = createValidator(RiverInputStruct);
+const validator = createSafeValidator(RiverInputSchema);
 
 type TestValue = [string, RiverInput];
 
@@ -38,6 +38,7 @@ it.each(correctValues)('should be valid for %s', (_, value) => {
 });
 
 it.each(incorrectValues)('should be invalid for %s', (_, value) => {
-  expect(validator(value)).not.toBeNull();
-  expect(validator(value)).toMatchSnapshot();
+  const error = validator(value);
+  expect(error).not.toBeNull();
+  expect(error).toMatchSnapshot();
 });

@@ -1,6 +1,7 @@
+import { River, RiverInput } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
 
-const UPSERT_RIVER = gql`
+export const UPSERT_RIVER = gql`
   mutation upsertRiver($river: RiverInput!) {
     upsertRiver(river: $river) {
       id
@@ -15,5 +16,13 @@ const UPSERT_RIVER = gql`
     }
   }
 `;
+
+export interface MVars {
+  river: RiverInput;
+}
+
+export interface MResult {
+  upsertRiver: River;
+}
 
 export default UPSERT_RIVER;

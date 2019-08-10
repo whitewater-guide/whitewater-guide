@@ -1,15 +1,36 @@
 import { matchPath } from 'react-router-dom';
-import { RoutesMap } from './types';
+import { BreadcrumbMatch, BreadcrumbsMap } from './types';
 
-export default function getRouteMatch(routes: RoutesMap, path: string) {
-  return Object.keys(routes)
+const getRouteMatch = (
+  routes: BreadcrumbsMap,
+  path: string,
+): BreadcrumbMatch | null => {
+  const matched = Object.keys(routes)
     .map((key) => {
-      const params = matchPath(path, { path: key, exact: true });
+      const match = matchPath(path, { path: key, exact: true });
       return {
-        didMatch: !!params,
-        params,
-        key,
+        didMatch: !!match,
+        params: match ? match.params : ({} as any),
+        path: key,
+        url: match ? match.url : '',
       };
     })
-    .filter((item) => item.didMatch)[0];
-}
+    .filter((i) => i.didMatch);
+  if (matched.length === 0) {
+    return null;
+  }
+  const matchedItem = matched[0];
+  const lastParam = matchedItem.path
+    .split('/')
+    .filter((p) => p.startsWith(':'))
+    .map((p) => p.replace(':', ''))
+    .reverse()
+    .find((param) => param in matchedItem.params);
+  return {
+    path: matchedItem.url,
+    param: lastParam ? { id: matchedItem.params[lastParam] } : null,
+    value: routes[matchedItem.path],
+  };
+};
+
+export default getRouteMatch;

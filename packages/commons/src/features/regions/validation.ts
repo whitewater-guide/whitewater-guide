@@ -1,52 +1,67 @@
-import isArray from 'lodash/isArray';
-import isString from 'lodash/isString';
-import { Type } from 'superstruct';
-import { customStruct } from '../../utils/validation';
-import { CoordinateStruct, PointInputStruct } from '../points';
+import * as yup from 'yup';
+import { yupTypes } from '../../validation';
+import { CoordinateSchema, PointInputSchema } from '../points';
+import { RegionAdminSettings, RegionCoverImage, RegionInput } from './types';
 
 const REGION_SKU = /^region\.\w{3,}$/;
 
-const struct = customStruct({
-  boundsArray: (v: any) =>
-    (isArray(v) && v.length >= 3) || 'Minimum length is 3',
-  sku: (value: any) => {
-    if (!isString(value) || value.length > 255) {
-      return 'SKU must be string no longer than 255 chars';
-    }
-    if (!REGION_SKU.test(value)) {
-      return 'SKU must start with "region." and contain at least 3 word characters after dot';
-    }
-    return true;
-  },
-});
+export const RegionInputSchema = yup
+  .object<RegionInput>({
+    id: yupTypes.uuid().nullable(),
+    name: yupTypes.nonEmptyString(),
+    description: yup
+      .string()
+      .defined()
+      .nullable(),
+    season: yup
+      .string()
+      .defined()
+      .nullable(),
+    seasonNumeric: yup
+      .array()
+      .of(
+        yup
+          .number()
+          .integer()
+          .defined()
+          .min(0)
+          .max(23),
+      )
+      .max(24)
+      .defined(),
+    bounds: yup
+      .array()
+      .of(CoordinateSchema)
+      .defined()
+      .min(3),
+    pois: yup.array(PointInputSchema).defined(),
+  })
+  .strict(true)
+  .noUnknown();
 
-const RegionInputFields = {
-  id: 'uuid|null',
-  name: 'nonEmptyString',
-  description: 'string|null',
-  season: 'string|null',
-  seasonNumeric: struct.intersection([['halfMonth'], 'seasonNumeric']),
-  bounds: struct.intersection(['boundsArray', [CoordinateStruct]]),
-  pois: [PointInputStruct],
-};
+export const RegionCoverImageSchema = yup
+  .object<RegionCoverImage>({
+    mobile: yupTypes.nonEmptyString().nullable(),
+  })
+  .strict(true)
+  .noUnknown();
 
-export const RegionInputStruct = struct.object(RegionInputFields);
-
-export const RegionFormStruct = (richTextStruct?: Type) =>
-  struct.object({
-    ...RegionInputFields,
-    description: richTextStruct || 'any',
-  });
-
-export const RegionCoverImageStruct = struct.object({
-  mobile: 'nonEmptyString|null',
-});
-
-export const RegionAdminSettingsStruct = struct.object({
-  id: 'uuid',
-  hidden: 'boolean',
-  premium: 'boolean',
-  sku: 'sku|null',
-  mapsSize: 'integer',
-  coverImage: RegionCoverImageStruct,
-});
+export const RegionAdminSettingsSchema = yup
+  .object<RegionAdminSettings>({
+    id: yupTypes.uuid(),
+    hidden: yup.bool().defined(),
+    premium: yup.bool().defined(),
+    sku: yup
+      .string()
+      .defined()
+      .max(255)
+      .matches(REGION_SKU, 'yup:string.sku')
+      .nullable(),
+    mapsSize: yup
+      .number()
+      .integer()
+      .defined(),
+    coverImage: RegionCoverImageSchema.clone(),
+  })
+  .strict(true)
+  .noUnknown();

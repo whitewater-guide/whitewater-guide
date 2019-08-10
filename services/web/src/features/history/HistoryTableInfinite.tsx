@@ -1,3 +1,4 @@
+import { getListMerger } from '@whitewater-guide/clients';
 import {
   Connection,
   NamedNode,
@@ -15,8 +16,6 @@ interface Props {
   onUserChange: (user: NamedNode | null) => void;
   region: NamedNode | null;
   onRegionChange: (user: NamedNode | null) => void;
-  width: number;
-  height: number;
   fetchMore: ObservableQueryFields<QResult, QVars>['fetchMore'];
   onDiffOpen: (diff: object | null) => void;
 }
@@ -36,29 +35,13 @@ class HistoryTableInfinite extends React.PureComponent<Props> {
       variables: {
         page: { offset: nodes ? nodes.length : 0 },
       },
-      updateQuery: (prev: QResult, { fetchMoreResult }: any) => {
-        if (!fetchMoreResult) {
-          return prev;
-        }
-        return {
-          ...prev,
-          history: {
-            ...prev.history,
-            nodes: [
-              ...(prev.history.nodes || []),
-              ...fetchMoreResult.history.nodes,
-            ],
-          },
-        };
-      },
-    } as any);
+      updateQuery: getListMerger('history'),
+    });
   };
 
   render() {
     const {
       history,
-      width,
-      height,
       user,
       region,
       onUserChange,
@@ -80,8 +63,6 @@ class HistoryTableInfinite extends React.PureComponent<Props> {
             onRowsRendered={onRowsRendered}
             onRegionChange={onRegionChange}
             history={history.nodes || []}
-            height={height}
-            width={width}
             onDiffOpen={onDiffOpen}
           />
         )}

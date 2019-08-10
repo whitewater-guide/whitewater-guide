@@ -1,5 +1,5 @@
-export interface Measurement {
-  timestamp: Date;
+export interface Measurement<TDate = string> {
+  timestamp: TDate;
   level: number;
   flow: number;
 }
@@ -9,9 +9,9 @@ export enum Unit {
   LEVEL = 'level',
 }
 
-export interface HarvestStatus {
+export interface HarvestStatus<TDate = string> {
   count: number;
   success: boolean;
-  timestamp: Date;
+  timestamp: TDate;
   error: string | null;
 }

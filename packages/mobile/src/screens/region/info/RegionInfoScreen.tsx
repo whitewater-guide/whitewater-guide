@@ -1,5 +1,6 @@
 import { BannerPlacement } from '@whitewater-guide/commons';
 import React from 'react';
+import { ScrollView, StyleSheet } from 'react-native';
 import { NavigationScreenComponent } from 'react-navigation';
 import { Icon, Screen } from '../../../components';
 import { RegionBanners } from '../../../features/banners';
@@ -8,14 +9,20 @@ import theme from '../../../theme';
 import { ScreenProps } from '../types';
 import RegionInfoView from './RegionInfoView';
 
-export const RegionInfoScreen: NavigationScreenComponent = ({
-  screenProps,
-}) => {
-  const { region }: ScreenProps = screenProps as any;
+const styles = StyleSheet.create({
+  content: {
+    padding: theme.margin.single,
+  },
+});
+
+export const RegionInfoScreen: NavigationScreenComponent = (props) => {
+  const { region }: ScreenProps = props.screenProps as any;
   return (
     <Screen>
-      <RegionBanners placement={BannerPlacement.MOBILE_REGION_DESCRIPTION} />
-      <RegionInfoView region={region} />
+      <ScrollView contentContainerStyle={styles.content}>
+        <RegionBanners placement={BannerPlacement.MOBILE_REGION_DESCRIPTION} />
+        <RegionInfoView region={region} />
+      </ScrollView>
     </Screen>
   );
 };

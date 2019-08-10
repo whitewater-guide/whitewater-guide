@@ -1,7 +1,14 @@
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
 import { useChart } from '@whitewater-guide/clients';
-import MenuItem from 'material-ui/MenuItem';
-import SelectField from 'material-ui/SelectField';
 import React, { useCallback } from 'react';
+
+const INPUT_PROS = {
+  name: 'period',
+  id: 'chart-period-toggle',
+};
 
 const ChartPeriodToggle: React.FC = () => {
   const {
@@ -10,20 +17,19 @@ const ChartPeriodToggle: React.FC = () => {
     measurements: { loading },
   } = useChart();
   const onChange = useCallback(
-    (e: any, i: any, value: number) => onChangeDays(value),
+    (e: React.ChangeEvent<HTMLSelectElement>) =>
+      onChangeDays(Number(e.target.value)),
     [onChangeDays],
   );
   return (
-    <SelectField
-      disabled={loading}
-      floatingLabelText="Period"
-      value={days}
-      onChange={onChange}
-    >
-      <MenuItem value={1} primaryText="Today" />
-      <MenuItem value={7} primaryText="Last week" />
-      <MenuItem value={31} primaryText="Last month" />
-    </SelectField>
+    <FormControl disabled={loading}>
+      <InputLabel htmlFor="chart-period-toggle">Period</InputLabel>
+      <Select value={days} onChange={onChange} inputProps={INPUT_PROS}>
+        <MenuItem value={1}>Today</MenuItem>
+        <MenuItem value={7}>Last week</MenuItem>
+        <MenuItem value={31}>Last month</MenuItem>
+      </Select>
+    </FormControl>
   );
 };
 

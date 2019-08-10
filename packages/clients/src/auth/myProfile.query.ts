@@ -14,6 +14,10 @@ export const MY_PROFILE_QUERY = gql`
       editorSettings {
         language
       }
+      accounts {
+        id
+        provider
+      }
     }
   }
 `;

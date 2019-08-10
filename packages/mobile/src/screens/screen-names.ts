@@ -25,6 +25,7 @@ const Screens = {
     Welcome: 'AuthWelcome',
   },
   Plain: 'Plain',
+  Suggestion: 'Suggestion',
 };
 
 export default Screens;

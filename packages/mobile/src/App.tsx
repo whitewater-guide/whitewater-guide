@@ -16,11 +16,15 @@ import { Provider } from 'react-redux';
 import { Store } from 'redux';
 import { Persistor } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
-import { ErrorSnackbar, Loading, SplashScreen } from './components';
+import {
+  Loading,
+  Snackbar,
+  SnackbarProvider,
+  SplashScreen,
+} from './components';
 import { apolloCachePersistor, initApolloClient } from './core/apollo';
 import { MobileAuthService } from './core/auth';
 import configMisc from './core/config/configMisc';
-import configMoment from './core/config/configMoment';
 import { configErrors } from './core/errors';
 import { configureStore, resetNavigationToHome } from './core/redux';
 import { navigationChannel } from './core/sagas';
@@ -32,7 +36,6 @@ import { trackScreenChange } from './utils/navigation';
 import { PreviousVersion } from './utils/versioning';
 
 configErrors();
-configMoment();
 configMisc();
 
 const NAVIGATION_PERSISTENCE_KEY = 'ww_nav_2';
@@ -48,14 +51,13 @@ class App extends React.PureComponent {
     const { store, persistor } = configureStore();
     this._persistor = persistor;
     this._store = store;
-  }
-
-  async componentDidMount() {
     this._authService = new MobileAuthService(
       this.resetApolloCache,
       this.onSignOut,
     );
-    await this._authService.init();
+  }
+
+  async componentDidMount() {
     this._apolloClient = await initApolloClient(this._authService);
     this.forceUpdate();
   }
@@ -94,34 +96,43 @@ class App extends React.PureComponent {
 
   render() {
     return (
-      <Provider store={this._store}>
-        <PersistGate loading={<Loading />} persistor={this._persistor}>
-          {this._apolloClient ? (
-            <ApolloProvider client={this._apolloClient}>
-              <TagsProvider>
-                <FilterProvider>
-                  <AuthProvider service={this._authService}>
-                    <I18nProvider onUserLanguageChange={this.resetApolloCache}>
-                      <PaperProvider theme={PaperTheme}>
-                        <PreviousVersion />
-                        <RootNavigator
-                          onNavigationStateChange={trackScreenChange}
-                          persistNavigationState={this.persistNavigationState}
-                          loadNavigationState={this.loadNavigationState}
-                          renderLoadingExperimental={
-                            this.renderLoadingExperimental
-                          }
-                        />
-                        <ErrorSnackbar />
-                      </PaperProvider>
-                    </I18nProvider>
-                  </AuthProvider>
-                </FilterProvider>
-              </TagsProvider>
-            </ApolloProvider>
-          ) : null}
-        </PersistGate>
-      </Provider>
+      <PaperProvider theme={PaperTheme}>
+        <SnackbarProvider>
+          <FilterProvider>
+            <Provider store={this._store}>
+              <PersistGate loading={<Loading />} persistor={this._persistor}>
+                {this._apolloClient ? (
+                  <ApolloProvider client={this._apolloClient}>
+                    <TagsProvider>
+                      <AuthProvider
+                        service={this._authService}
+                        renderInitializing={<Loading />}
+                      >
+                        <I18nProvider
+                          onUserLanguageChange={this.resetApolloCache}
+                        >
+                          <PreviousVersion />
+                          <RootNavigator
+                            onNavigationStateChange={trackScreenChange}
+                            persistNavigationState={this.persistNavigationState}
+                            loadNavigationState={this.loadNavigationState}
+                            renderLoadingExperimental={
+                              this.renderLoadingExperimental
+                            }
+                          />
+                          <Snackbar />
+                        </I18nProvider>
+                      </AuthProvider>
+                    </TagsProvider>
+                  </ApolloProvider>
+                ) : (
+                  <Loading />
+                )}
+              </PersistGate>
+            </Provider>
+          </FilterProvider>
+        </SnackbarProvider>
+      </PaperProvider>
     );
   }
 }

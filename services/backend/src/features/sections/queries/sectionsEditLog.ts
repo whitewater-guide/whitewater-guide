@@ -8,7 +8,6 @@ interface Vars extends ListQuery {
   page?: Page;
 }
 
-// TODO: validation
 const sectionsEditLog: TopLevelResolver<Vars> = async (
   _,
   { filter = {}, page = {} },

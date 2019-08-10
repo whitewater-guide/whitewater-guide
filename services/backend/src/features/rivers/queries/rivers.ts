@@ -11,9 +11,13 @@ const rivers: TopLevelResolver<Vars> = async (
   { dataSources },
   info,
 ) => {
-  const { regionId } = filter;
+  const { regionId, search } = filter;
   const where = regionId ? { region_id: regionId } : undefined;
-  const result = await dataSources.rivers.getMany(info, { where, page });
+  let query = dataSources.rivers.getMany(info, { where, page });
+  if (search) {
+    query = query.where('name', 'ilike', `%${search}%`);
+  }
+  const result = await query;
   return result;
 };
 

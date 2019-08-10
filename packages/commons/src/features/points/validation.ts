@@ -1,22 +1,85 @@
-import { baseStruct } from '../../utils/validation';
+import isNumber from 'lodash/isNumber';
+import * as yup from 'yup';
+import { yupTypes } from '../../validation';
 import { POITypes } from './POITypes';
+import { Coordinate3d, PointInput } from './types';
 
-export const CoordinateStruct = baseStruct.tuple([
-  'longitude',
-  'latitude',
-  'number',
-]);
+export const CoordinateSchema: yup.Schema<Coordinate3d> = yup
+  .array<any>()
+  .max(3)
+  .test({
+    name: 'is-coordinate3d-lng',
+    test(v) {
+      const valid = isNumber(v[0]) && v[0] >= -180 && v[0] <= 180;
+      const path = this.path ? `${this.path}.0` : '0';
+      return (
+        valid || this.createError({ path, message: 'yup:number.longitude' })
+      );
+    },
+  })
+  .test({
+    name: 'is-coordinate3d-lat',
+    test(v) {
+      const valid = isNumber(v[1]) && v[1] >= -90 && v[1] <= 90;
+      const path = this.path ? `${this.path}.1` : '1';
+      return (
+        valid || this.createError({ path, message: 'yup:number.latitude' })
+      );
+    },
+  })
+  .test({
+    name: 'is-coordinate3d-alt',
+    test(v) {
+      const path = this.path ? `${this.path}.2` : '2';
+      return (
+        isNumber(v[2]) ||
+        this.createError({ path, message: 'yup:number.altitude' })
+      );
+    },
+  }) as any;
 
-export const CoordinateStructLoose = baseStruct.tuple([
-  'longitude',
-  'latitude',
-  'number?',
-]);
+export const CoordinateSchemaLoose = yup
+  .array<any>()
+  .max(3)
+  .test({
+    name: 'is-coordinate3d-lng',
+    test(v) {
+      const valid = isNumber(v[0]) && v[0] >= -180 && v[0] <= 180;
+      const path = this.path ? `${this.path}.0` : '0';
+      return (
+        valid || this.createError({ path, message: 'yup:number.longitude' })
+      );
+    },
+  })
+  .test({
+    name: 'is-coordinate3d-lat',
+    test(v) {
+      const valid = isNumber(v[1]) && v[1] >= -90 && v[1] <= 90;
+      const path = this.path ? `${this.path}.1` : '1';
+      return (
+        valid || this.createError({ path, message: 'yup:number.latitude' })
+      );
+    },
+  })
+  .test({
+    name: 'is-coordinate3d-alt',
+    test(v) {
+      const path = this.path ? `${this.path}.2` : '2';
+      return (
+        v[2] === undefined ||
+        isNumber(v[2]) ||
+        this.createError({ path, message: 'yup:number.altitude' })
+      );
+    },
+  });
 
-export const PointInputStruct = baseStruct.object({
-  id: 'uuid|null',
-  name: 'string|null',
-  description: 'string|null',
-  coordinates: CoordinateStruct,
-  kind: baseStruct.enum(POITypes),
-});
+export const PointInputSchema = yup
+  .object<PointInput>({
+    id: yupTypes.uuid().nullable(),
+    name: yup.string().nullable(),
+    description: yup.string().nullable(),
+    coordinates: CoordinateSchema.clone(),
+    kind: yup.mixed().oneOf(POITypes),
+  })
+  .strict(true)
+  .noUnknown();

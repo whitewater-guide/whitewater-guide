@@ -1,15 +1,19 @@
-import { Connection, NamedNode, Node, Timestamped } from '../../apollo';
-import { Overwrite } from '../../utils';
+import {
+  Connection,
+  NamedNode,
+  Node,
+  NodeRef,
+  Timestamped,
+} from '../../apollo';
 import { Gauge } from '../gauges';
 import { HarvestMode } from '../harvest-mode';
 import { HarvestStatus } from '../measurements';
 import { Region } from '../regions';
-import { Script } from '../scripts';
 
-export interface Source extends NamedNode, Timestamped {
+export interface Source<RP = any> extends NamedNode, Timestamped {
   termsOfUse: string | null;
   script: string;
-  requestParams: any;
+  requestParams: RP;
   cron: string | null;
   harvestMode: HarvestMode;
   url: string | null;
@@ -20,19 +24,17 @@ export interface Source extends NamedNode, Timestamped {
   status: HarvestStatus | null;
 }
 
-export interface SourceInput {
+export interface SourceInput<RP = any> {
   id: string | null;
   name: string;
   termsOfUse: string | null;
   script: string;
   cron: string | null;
-  requestParams: any;
+  requestParams: RP;
   harvestMode: HarvestMode;
   url: string | null;
-  regions: Node[];
+  regions: NodeRef[];
 }
 
-export type SourceFormInput<RichText = any> = Overwrite<
-  SourceInput,
-  { termsOfUse: RichText; script: Script }
->;
+export const isSource = (node?: Node | null): node is Source =>
+  !!node && node.__typename === 'Source';

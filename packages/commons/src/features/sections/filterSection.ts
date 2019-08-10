@@ -1,3 +1,4 @@
+import deburr from 'lodash/deburr';
 import { Section, SectionSearchTerms } from './types';
 
 export const getFilter = (terms: SectionSearchTerms | null) => (
@@ -21,11 +22,10 @@ export const getFilter = (terms: SectionSearchTerms | null) => (
     ...(section.river.altNames || []),
     section.name,
     ...(section.altNames || []),
-  ].map((s) => s.toLowerCase());
-  if (
-    searchString &&
-    !allNames.some((n) => n.toLowerCase().includes(searchString))
-  ) {
+  ].map((s) => deburr(s.toLowerCase()));
+
+  const normalizedSearch = searchString && deburr(searchString.toLowerCase());
+  if (searchString && !allNames.some((n) => n.includes(normalizedSearch))) {
     return false;
   }
   if (
@@ -60,7 +60,7 @@ export const getFilter = (terms: SectionSearchTerms | null) => (
     }
   }
   // seasonNumeric
-  if (seasonNumeric && seasonNumeric.length) {
+  if (seasonNumeric && seasonNumeric.length && section.seasonNumeric.length) {
     const [from, to] = seasonNumeric;
     let firstRange = [from, to];
     let secondRange = [100, 100]; // Make sure nothing gets in this range

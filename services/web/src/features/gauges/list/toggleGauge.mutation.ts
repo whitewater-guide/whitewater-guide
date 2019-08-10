@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-const TOGGLE_GAUGE = gql`
+export const TOGGLE_GAUGE = gql`
   mutation toggleGauge($id: ID!, $enabled: Boolean!) {
     toggleGauge(id: $id, enabled: $enabled) {
       id
@@ -9,4 +9,7 @@ const TOGGLE_GAUGE = gql`
   }
 `;
 
-export default TOGGLE_GAUGE;
+export interface MVars {
+  id: string;
+  enabled: boolean;
+}

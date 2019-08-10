@@ -1,14 +1,26 @@
 import { Context } from '@apollo';
-import db from '@db';
+import db, { knex } from '@db';
 import { BaseConnector, FieldsMap } from '@db/connectors';
-import { User } from '@whitewater-guide/commons';
+import log from '@log';
+import { redis } from '@redis';
+import { SocialMediaProvider, User } from '@whitewater-guide/commons';
 import { DataSourceConfig } from 'apollo-datasource';
 import { AuthenticationError, ForbiddenError } from 'apollo-server-errors';
+import axios from 'axios';
+import get from 'lodash/get';
 import { UserRaw } from './types';
+
+const { FB_APP_ID, FB_SECRET } = process.env;
 
 const FIELDS_MAP: FieldsMap<User, UserRaw> = {
   purchasedRegions: null,
   purchasedGroups: null,
+  accounts: knex.raw(
+    '(SELECT json_agg(accounts.*) FROM accounts WHERE accounts.user_id = users.id) AS accounts',
+  ),
+  editor: knex.raw(
+    'EXISTS (SELECT 1 from regions_editors WHERE regions_editors.user_id = users.id) AS editor',
+  ),
 };
 
 interface PermissionsQuery {
@@ -42,16 +54,18 @@ export class UsersConnector extends BaseConnector<User, UserRaw> {
     this._language = undefined;
   }
 
-  async assertEditorPermissions(query: PermissionsQuery): Promise<boolean> {
+  private async _checkEditorPermissions(
+    query: PermissionsQuery,
+  ): Promise<true | Error> {
     if (!this._user) {
-      throw new AuthenticationError('must authenticate');
+      return Promise.resolve(new AuthenticationError('must authenticate'));
     }
     const { mediaId, sectionId, riverId } = query;
     if (this._user.admin) {
       return Promise.resolve(true);
     }
     if (isEmpty(query) && !this._user.admin) {
-      throw new ForbiddenError('must be admin');
+      return Promise.resolve(new ForbiddenError('must be admin'));
     }
     let builder = db()
       .table('regions_editors')
@@ -88,8 +102,59 @@ export class UsersConnector extends BaseConnector<User, UserRaw> {
     }
     const { count } = await builder.count().first();
     if (count === '0') {
-      throw new ForbiddenError('must be editor');
+      return Promise.resolve(new ForbiddenError('must be editor'));
     }
     return Promise.resolve(true);
+  }
+
+  async checkEditorPermissions(query: PermissionsQuery): Promise<boolean> {
+    const result = await this._checkEditorPermissions(query);
+    return result === true;
+  }
+
+  async assertEditorPermissions(query: PermissionsQuery): Promise<boolean> {
+    const result = await this._checkEditorPermissions(query);
+    if (result === true) {
+      return true;
+    } else {
+      return Promise.reject(result);
+    }
+  }
+
+  async getAvatar(user: UserRaw): Promise<string | null> {
+    if (user.avatar) {
+      return user.avatar;
+    }
+    if (user.accounts) {
+      const fb = user.accounts.find(
+        ({ provider }) => provider === SocialMediaProvider.FACEBOOK,
+      );
+      if (!fb) {
+        return null;
+      }
+      try {
+        const cacheKey = `FB_AVATAR_${fb.id}`;
+        const cached = await redis.get(cacheKey);
+        if (cached) {
+          return cached;
+        }
+        const { data } = await axios.get(
+          `https://graph.facebook.com/${fb.id}/picture?redirect=false&access_token=${FB_APP_ID}|${FB_SECRET}`,
+        );
+        const downloaded = get(data, 'data.url', null);
+        // ttl is in seconds
+        await redis.set(
+          cacheKey,
+          downloaded,
+          'EX',
+          downloaded ? 24 * 60 * 60 : 60 * 60,
+        );
+        return downloaded;
+      } catch (e) {
+        log.error({ message: 'failed to fetch fb user pic', error: e });
+        return null;
+      }
+    }
+    return null;
   }
 }

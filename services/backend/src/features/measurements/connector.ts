@@ -1,6 +1,6 @@
 import { Context } from '@apollo';
 import log from '@log';
-import { asyncRedis, NS_LAST_MEASUREMENTS } from '@redis';
+import { NS_LAST_MEASUREMENTS, redis } from '@redis';
 import { DataSource } from 'apollo-datasource';
 import DataLoader from 'dataloader';
 import chunk from 'lodash/chunk';
@@ -69,13 +69,15 @@ export class MeasurementsConnector implements DataSource<Context> {
   ): Promise<RedisLastMeasurements | null> {
     try {
       if (code) {
-        const lastMeasurementStr = await asyncRedis.hget(
+        const lastMeasurementStr = await redis.hget(
           `${NS_LAST_MEASUREMENTS}:${script}`,
           code,
         );
-        return { [code]: JSON.parse(lastMeasurementStr) };
+        return lastMeasurementStr
+          ? { [code]: JSON.parse(lastMeasurementStr) }
+          : null;
       } else {
-        const allLastMsm = await asyncRedis.hgetall(
+        const allLastMsm = await redis.hgetall(
           `${NS_LAST_MEASUREMENTS}:${script}`,
         );
         return mapValues(allLastMsm, (value: string) => JSON.parse(value));

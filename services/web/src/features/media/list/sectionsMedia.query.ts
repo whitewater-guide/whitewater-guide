@@ -1,8 +1,9 @@
+import { Connection, Media } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
 
-const SECTIONS_MEDIA = gql`
+export const SECTIONS_MEDIA = gql`
   query sectionMedia($sectionId: ID!, $thumbHeight: Int) {
-    mediaBySection(sectionId: $sectionId) {
+    media: mediaBySection(sectionId: $sectionId) {
       nodes {
         id
         kind
@@ -20,4 +21,11 @@ const SECTIONS_MEDIA = gql`
   }
 `;
 
-export default SECTIONS_MEDIA;
+export interface QVars {
+  sectionId: string;
+  thumbHeight: number;
+}
+
+export interface QResult {
+  media: Required<Connection<Media>>;
+}

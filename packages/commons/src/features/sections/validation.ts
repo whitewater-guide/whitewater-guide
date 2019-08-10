@@ -1,75 +1,104 @@
-import isArray from 'lodash/isArray';
-import isString from 'lodash/isString';
-import omit from 'lodash/omit';
 import times from 'lodash/times';
-import { Type } from 'superstruct';
-import { customStruct } from '../../utils/validation';
-import { CoordinateStruct, PointInputStruct } from '../points';
-import { TagInputStruct } from '../tags';
-import { Durations } from './types';
+import * as yup from 'yup';
+import { yupTypes } from '../../validation';
+import { CoordinateSchema, PointInputSchema } from '../points';
+import { Durations, GaugeBinding, SectionInput } from './types';
 
-const struct = customStruct({
-  difficultyXtra: (v: any) => {
-    if (!isString(v) || v.length > 32) {
-      return 'Must be string no longer than 32 chars';
-    }
-    return true;
-  },
-  shapeArray: (v: any) =>
-    (isArray(v) && v.length >= 2) || 'Minimal length is 2',
-});
+export const GaugeBindingSchema = yup
+  .object<GaugeBinding>({
+    minimum: yup.number().nullable(),
+    maximum: yup.number().nullable(),
+    optimum: yup.number().nullable(),
+    impossible: yup.number().nullable(),
+    approximate: yup.bool().nullable(),
+    formula: yupTypes.formula().nullable(),
+  })
+  .strict(true)
+  .noUnknown();
 
-export const GaugeBindingStruct = struct.object({
-  minimum: 'number?|null',
-  maximum: 'number?|null',
-  optimum: 'number?|null',
-  impossible: 'number?|null',
-  approximate: 'boolean?|null',
-  formula: 'formula?|null',
-});
+const SimpleTagSchema = yup
+  .object({
+    id: yupTypes.nonEmptyString(),
+  })
+  .strict(true)
+  .noUnknown();
 
-const SimpleTagStruct = struct.object({
-  id: 'nonEmptyVarchar',
-});
+export const SectionInputSchema = yup
+  .object<SectionInput>({
+    id: yupTypes.uuid().nullable(),
+    name: yupTypes.nonEmptyString(),
+    altNames: yup
+      .array()
+      .of(yupTypes.nonEmptyString())
+      .defined()
+      .nullable(),
+    description: yup.string().nullable(),
+    season: yup.string().nullable(),
+    seasonNumeric: yup
+      .array()
+      .of(
+        yup
+          .number()
+          .integer()
+          .defined()
+          .min(0)
+          .max(23),
+      )
+      .max(24)
+      .defined(),
 
-const SectionInputFields = {
-  id: 'uuid|null',
-  name: 'nonEmptyString',
-  altNames: struct.union([struct.list(['nonEmptyString']), 'null']),
-  description: 'string|null',
-  season: 'string|null',
-  seasonNumeric: struct.intersection([['halfMonth'], 'seasonNumeric']),
+    river: yupTypes.newNode(),
+    gauge: yupTypes.node().nullable(),
+    region: yupTypes
+      .namedNode()
+      .notRequired()
+      .nullable(),
+    levels: GaugeBindingSchema.clone().nullable(),
+    flows: GaugeBindingSchema.clone().nullable(),
+    flowsText: yup.string().nullable(),
 
-  river: 'node',
-  gauge: 'node|null',
-  levels: struct.union([GaugeBindingStruct, 'null']),
-  flows: struct.union([GaugeBindingStruct, 'null']),
-  flowsText: 'string|null',
+    shape: yup
+      .array()
+      .of(CoordinateSchema.clone())
+      .defined()
+      .min(2),
+    distance: yup
+      .number()
+      .positive()
+      .nullable(),
+    drop: yup
+      .number()
+      .positive()
+      .nullable(),
+    duration: yup
+      .mixed()
+      .oneOf(Array.from(Durations.keys()).concat(null as any))
+      .nullable(),
+    difficulty: yup
+      .mixed()
+      .oneOf(times(13, (i) => i * 0.5))
+      .required(),
+    difficultyXtra: yup
+      .string()
+      .max(32)
+      .nullable(),
+    rating: yup.mixed().oneOf(times(11, (i) => i * 0.5).concat(null as any)),
+    tags: yup
+      .array()
+      .of(SimpleTagSchema.clone())
+      .defined(),
+    pois: yup
+      .array()
+      .of(PointInputSchema.clone())
+      .defined(),
+    hidden: yup.bool().required(),
+  })
+  .strict(true)
+  .noUnknown();
 
-  shape: struct.intersection(['shapeArray', [CoordinateStruct]]),
-  distance: 'positiveNumber|null',
-  drop: 'positiveNumber|null',
-  duration: struct.union(['null', struct.enum(Array.from(Durations.keys()))]),
-  difficulty: struct.enum(times(13, (i) => i * 0.5)),
-  difficultyXtra: 'difficultyXtra|null',
-  rating: struct.union(['null', struct.enum(times(11, (i) => i * 0.5))]),
-  tags: [SimpleTagStruct],
-  pois: [PointInputStruct],
-  hidden: 'boolean',
-};
-
-export const SectionInputStruct = struct.object(SectionInputFields);
-
-export const SectionFormStruct = (richTextStruct?: Type) =>
-  struct.object({
-    ...omit(SectionInputFields, 'tags'),
-    description: richTextStruct || 'any',
-    kayakingTags: [TagInputStruct],
-    hazardsTags: [TagInputStruct],
-    supplyTags: [TagInputStruct],
-    miscTags: [TagInputStruct],
-  });
-
-export const SectionAdminSettingsStruct = struct.object({
-  demo: 'boolean',
-});
+export const SectionAdminSettingsSchema = yup
+  .object({
+    demo: yup.bool().defined(),
+  })
+  .strict(true)
+  .noUnknown();

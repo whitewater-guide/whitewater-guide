@@ -48,7 +48,7 @@ services:
       - caddy-certs:/etc/caddycerts
 
   weblate:
-    image: weblate/weblate:3.6.1-2
+    image: weblate/weblate:3.7.1-6
     restart: unless-stopped
     env_file: ./weblate/.env
     labels:

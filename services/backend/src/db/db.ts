@@ -1,22 +1,22 @@
-import knex from 'knex';
+import Knex from 'knex';
 import knexConfig from './knexfile';
 
 const env = process.env.NODE_ENV || 'development';
-const config: knex.Config = knexConfig[env];
+const config: Knex.Config = knexConfig[env];
 
-const knexInstance = knex(config);
+export const knex = Knex(config);
 
-let testTransaction: knex.Transaction | null = null;
+let testTransaction: Knex.Transaction | null = null;
 
 // tslint:disable-next-line:no-inferrable-types
-export function db(getKnexInstance: boolean = false): knex<any, any> {
+export function db(getKnexInstance: boolean = false): Knex<any, any> {
   if (env === 'test' && !getKnexInstance) {
     if (testTransaction) {
       return testTransaction;
     }
     throw new Error('No saved test transaction found');
   }
-  return knexInstance;
+  return knex;
 }
 
 // See here https://github.com/tgriesser/knex/issues/2076
@@ -29,7 +29,7 @@ export const holdTransaction = () => {
   const p = new Promise((resolve) => {
     tmp.resolve = resolve;
   });
-  knexInstance
+  knex
     .transaction((tx) => {
       testTransaction = tx;
       tmp.resolve();

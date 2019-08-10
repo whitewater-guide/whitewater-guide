@@ -133,8 +133,7 @@ export const ADMIN: UserRawInput = {
   id: ADMIN_ID,
   name: 'Ivan Ivanov',
   // tslint:disable-next-line:max-line-length
-  avatar:
-    'https://scontent.xx.fbcdn.net/v/t1.0-1/c34.34.422.422/s50x50/557311_106591882827406_2013499307_n.jpg?oh=777cb7f306789d5452fb47bc87ba95c7&oe=59FD2267',
+  avatar: null,
   email: 'kaospostage@gmail.com',
   admin: true,
   language: 'en',
@@ -398,11 +397,17 @@ const users = [
   EXP_VER_USER,
 ];
 
+const fcmTokens = [
+  { user_id: TEST_USER_ID, token: '__user_fcm_token__' },
+  { user_id: ADMIN_ID, token: '__admin_fcm_token__' },
+];
+
 export async function seed(db: Knex) {
   await db.table('users').del();
   await db.table('accounts').del();
   await db.raw('ALTER TABLE users DISABLE TRIGGER ALL');
   await db.table('users').insert(users);
   await db.table('accounts').insert(ADMIN_FB_ACCOUNT);
+  await db.table('fcm_tokens').insert(fcmTokens);
   await db.raw('ALTER TABLE users ENABLE TRIGGER ALL');
 }

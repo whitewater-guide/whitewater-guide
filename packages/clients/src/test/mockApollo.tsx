@@ -1,4 +1,6 @@
 import {
+  BannerKind,
+  BannerPlacement,
   HarvestMode,
   MediaKind,
   TAG_CATEGORIES,
@@ -39,12 +41,20 @@ class CounterMap extends Map<string, number> {
   }
 }
 
+export interface MockedResolversContext {
+  counters: CounterMap;
+}
+
+export interface RecursiveMockResolver {
+  [name: string]:
+    | GraphQLFieldResolver<any, MockedResolversContext>
+    | (() => RecursiveMockResolver);
+}
+
 export interface MockedProviderOptions {
   Query?: QueryMap;
   Mutation?: QueryMap;
-  mocks?: {
-    [name: string]: GraphQLFieldResolver<any, any>;
-  };
+  mocks?: RecursiveMockResolver;
 }
 
 export const mockApolloClient = (
@@ -65,53 +75,65 @@ export const mockApolloClient = (
     resolvers: { JSON: GraphQLJSON },
   });
 
-  const counters = new CounterMap();
+  const primitiveMocks: RecursiveMockResolver = {
+    ID: (_, __, { counters }, info) => {
+      const { key, seq } = counters.resolveNext(info);
+      return `${key}.${seq}`;
+    },
+    Int: (_, __, { counters }, info) => {
+      const { seq } = counters.resolveNext(info);
+      return seq;
+    },
+    Float: (_, __, { counters }, info) => {
+      const { seq } = counters.resolveNext(info);
+      return seq + 0.5;
+    },
+    String: (_, __, { counters }, info) => {
+      const { key, seq } = counters.resolveNext(info);
+      return `${key}.${seq}`;
+    },
+    Boolean: (_, __, { counters }, info) => {
+      const { seq } = counters.resolveNext(info);
+      return seq % 2 === 0;
+    },
+    HarvestMode: (_, __, { counters }, info) => {
+      const { seq } = counters.resolveNext(info);
+      return [HarvestMode.ONE_BY_ONE, HarvestMode.ALL_AT_ONCE][seq % 2];
+    },
+    MediaKind: (_, __, { counters }, info) => {
+      const { seq } = counters.resolveNext(info);
+      return [MediaKind.photo, MediaKind.video, MediaKind.blog][seq % 3];
+    },
+    TagCategory: (_, __, { counters }, info) => {
+      const { seq } = counters.resolveNext(info);
+      return TAG_CATEGORIES[seq % TAG_CATEGORIES.length];
+    },
+    BannerPlacement: (_, __, { counters }, info) => {
+      const { seq } = counters.resolveNext(info);
+      const placements = Object.values(BannerPlacement);
+      return placements[seq % placements.length];
+    },
+    BannerKind: (_, __, { counters }, info) => {
+      const { seq } = counters.resolveNext(info);
+      const bannerKinds = Object.values(BannerKind);
+      return bannerKinds[seq % bannerKinds.length];
+    },
+    JSON: (_, __, { counters }, info) => {
+      const { key, seq } = counters.resolveNext(info);
+      return { json: `${key}.${seq}` };
+    },
+    Date: (_, __, { counters }, info) => {
+      const { seq } = counters.resolveNext(info);
+      const result = new Date(2017, 1, 1);
+      result.setDate(result.getDate() + seq);
+      return result;
+    },
+  };
 
   addMockFunctionsToSchema({
     schema,
     mocks: {
-      ID: (_, __, ___, info) => {
-        const { key, seq } = counters.resolveNext(info);
-        return `${key}.${seq}`;
-      },
-      Int: (_, __, ___, info) => {
-        const { seq } = counters.resolveNext(info);
-        return seq;
-      },
-      Float: (_, __, ___, info) => {
-        const { seq } = counters.resolveNext(info);
-        return seq + 0.5;
-      },
-      String: (_, __, ___, info) => {
-        const { key, seq } = counters.resolveNext(info);
-        return `${key}.${seq}`;
-      },
-      Boolean: (_, __, ___, info) => {
-        const { seq } = counters.resolveNext(info);
-        return seq % 2 === 0;
-      },
-      HarvestMode: (_, __, ___, info) => {
-        const { seq } = counters.resolveNext(info);
-        return [HarvestMode.ONE_BY_ONE, HarvestMode.ALL_AT_ONCE][seq % 2];
-      },
-      MediaKind: (_, __, ___, info) => {
-        const { seq } = counters.resolveNext(info);
-        return [MediaKind.photo, MediaKind.video, MediaKind.blog][seq % 3];
-      },
-      TagCategory: (_, __, ___, info) => {
-        const { seq } = counters.resolveNext(info);
-        return TAG_CATEGORIES[seq % TAG_CATEGORIES.length];
-      },
-      JSON: (_, __, ___, info) => {
-        const { key, seq } = counters.resolveNext(info);
-        return { json: `${key}.${seq}` };
-      },
-      Date: (_, __, ___, info) => {
-        const { seq } = counters.resolveNext(info);
-        const result = new Date(2017, 1, 1);
-        result.setDate(result.getDate() + seq);
-        return result;
-      },
+      ...primitiveMocks,
       ...mocks,
       Query: () => Query,
       Mutation: () => Mutation,
@@ -120,7 +142,7 @@ export const mockApolloClient = (
 
   return new ApolloClient({
     cache: configureApolloCache(),
-    link: new SchemaLink({ schema }),
+    link: new SchemaLink({ schema, context: { counters: new CounterMap() } }),
   });
 };
 

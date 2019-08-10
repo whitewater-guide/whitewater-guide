@@ -1,3 +1,3 @@
-import { RegionAdmin } from './RegionAdmin';
+import React from 'react';
 
-export default RegionAdmin;
+export default React.lazy(() => import('./RegionAdmin'));

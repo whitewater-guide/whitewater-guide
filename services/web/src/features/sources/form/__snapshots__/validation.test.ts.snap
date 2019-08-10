@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should be invalid for bad cron 1`] = `
+Object {
+  "cron": "yup:string.cron",
+}
+`;
+
+exports[`should be invalid for bad harvest_mode 1`] = `
+Object {
+  "harvestMode": Object {
+    "key": "yup:mixed.oneOf",
+    "options": Object {
+      "values": "allAtOnce, oneByOne",
+    },
+  },
+}
+`;
+
+exports[`should be invalid for bad region 1`] = `
+Object {
+  "regions": Array [
+    Object {
+      "id": "yup:string.uuid",
+    },
+  ],
+}
+`;
+
+exports[`should be invalid for bad script 1`] = `
+Object {
+  "script": Object {
+    "harvestMode": Object {
+      "key": "yup:mixed.oneOf",
+      "options": Object {
+        "values": "allAtOnce, oneByOne",
+      },
+    },
+    "id": Object {
+      "key": "yup:string.min",
+      "options": Object {
+        "min": 1,
+        "path": "script.id",
+      },
+    },
+    "name": Object {
+      "key": "yup:string.min",
+      "options": Object {
+        "min": 1,
+        "path": "script.name",
+      },
+    },
+  },
+}
+`;
+
+exports[`should be invalid for bad url 1`] = `
+Object {
+  "url": Object {
+    "key": "yup:string.url",
+    "options": Object {
+      "path": "url",
+    },
+  },
+}
+`;
+
+exports[`should be invalid for bad uuid 1`] = `
+Object {
+  "id": "yup:string.uuid",
+}
+`;
+
+exports[`should be invalid for empty name 1`] = `
+Object {
+  "name": "yup:string.nonEmpty",
+}
+`;
+
+exports[`should be invalid for some bad regions legacy snapshot 1`] = `
+Object {
+  "regions": Array [
+    Object {
+      "id": "yup:string.uuid",
+    },
+    undefined,
+    Object {
+      "id": "yup:string.uuid",
+    },
+  ],
+}
+`;

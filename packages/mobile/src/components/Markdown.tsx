@@ -66,7 +66,7 @@ const rules: RenderRules = {
   },
 };
 
-export const Markdown: React.StatelessComponent = ({ children }) => (
+export const Markdown: React.FC = ({ children }) => (
   <SimpleMarkdown rules={rules} style={styles} plugins={plugins}>
     {children}
   </SimpleMarkdown>

@@ -13,7 +13,6 @@ export const facebookStrategy = new FacebookTokenStrategy(
   async (req, accessToken, refreshToken, profile, done) => {
     try {
       const { isNew, user } = await getFBUser(
-        'facebook',
         profile,
         {
           accessToken,

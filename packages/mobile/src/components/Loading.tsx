@@ -1,6 +1,11 @@
 import React from 'react';
-import { ActivityIndicator, StyleSheet, View } from 'react-native';
-import { branch, renderComponent } from 'recompose';
+import {
+  ActivityIndicator,
+  StyleProp,
+  StyleSheet,
+  View,
+  ViewStyle,
+} from 'react-native';
 import theme from '../theme';
 
 const styles = StyleSheet.create({
@@ -11,12 +16,12 @@ const styles = StyleSheet.create({
   },
 });
 
-export const Loading: React.SFC = () => (
-  <View style={styles.container}>
+interface Props {
+  style?: StyleProp<ViewStyle>;
+}
+
+export const Loading: React.FC<Props> = ({ style }) => (
+  <View style={[styles.container, style]}>
     <ActivityIndicator color={theme.colors.primary} />
   </View>
 );
-
-export function withLoading<TOuter>(isLoading: (props: TOuter) => boolean) {
-  return branch<TOuter>(isLoading, renderComponent<{}>(Loading));
-}

@@ -2,114 +2,73 @@
 
 exports[`RegionAdminSettings should be invalid for bad id 1`] = `
 Object {
-  "id": "Incorrect UUID",
+  "id": "yup:string.uuid",
 }
 `;
 
 exports[`RegionAdminSettings should be invalid for bad sku 1 1`] = `
 Object {
-  "sku": "SKU must start with \\"region.\\" and contain at least 3 word characters after dot",
+  "sku": "yup:string.sku",
 }
 `;
 
 exports[`RegionAdminSettings should be invalid for bad sku 2 1`] = `
 Object {
-  "sku": "SKU must start with \\"region.\\" and contain at least 3 word characters after dot",
+  "sku": "yup:string.sku",
 }
 `;
 
 exports[`RegionAdminSettings should be invalid for empty cover image 1`] = `
 Object {
   "coverImage": Object {
-    "mobile": "Value must be non-empty string",
+    "mobile": "yup:string.nonEmpty",
   },
 }
 `;
 
 exports[`RegionAdminSettings should be invalid for empty sku 1`] = `
 Object {
-  "sku": "SKU must start with \\"region.\\" and contain at least 3 word characters after dot",
+  "sku": "yup:string.sku",
 }
 `;
 
 exports[`RegionAdminSettings should be invalid for extra fields 1`] = `
 Object {
-  "foo": "Expected a value of type \`undefined\` for \`foo\` but received \`\\"bar\\"\`.",
+  "undefined": Object {
+    "key": "yup:object.noUnknown",
+    "options": Object {
+      "path": "this",
+    },
+  },
 }
 `;
 
 exports[`RegionAdminSettings should be invalid for float size 1`] = `
 Object {
-  "mapsSize": "Value must be integer",
-}
-`;
-
-exports[`RegionFormInput should be invalid for bad bounds 1`] = `
-Object {
-  "bounds": "Minimum length is 3",
-}
-`;
-
-exports[`RegionFormInput should be invalid for bad id 1`] = `
-Object {
-  "id": "Incorrect UUID",
-}
-`;
-
-exports[`RegionFormInput should be invalid for bad pois 1`] = `
-Object {
-  "pois": Array [
-    undefined,
-    Object {
-      "id": "Incorrect UUID",
+  "mapsSize": Object {
+    "key": "yup:number.integer",
+    "options": Object {
+      "path": "mapsSize",
     },
-  ],
-}
-`;
-
-exports[`RegionFormInput should be invalid for bad season numeric (bad half-month) 1`] = `
-Object {
-  "seasonNumeric": Array [
-    undefined,
-    "Must be integer between 0 and 23",
-    "Must be integer between 0 and 23",
-  ],
-}
-`;
-
-exports[`RegionFormInput should be invalid for bad season numeric (too many items) 1`] = `
-Object {
-  "seasonNumeric": "Maximal length is 24",
-}
-`;
-
-exports[`RegionFormInput should be invalid for empty name 1`] = `
-Object {
-  "name": "Value must be non-empty string",
-}
-`;
-
-exports[`RegionFormInput should be invalid for extra fields 1`] = `
-Object {
-  "foo": "Expected a value of type \`undefined\` for \`foo\` but received \`\\"bar\\"\`.",
-}
-`;
-
-exports[`RegionFormInput should be invalid for null bounds 1`] = `
-Object {
-  "bounds": "Minimum length is 3",
+  },
 }
 `;
 
 exports[`RegionInput should be invalid for bad bounds 1`] = `
 Object {
-  "bounds": "Minimum length is 3",
+  "bounds": Object {
+    "key": "yup:array.min",
+    "options": Object {
+      "min": 3,
+      "path": "bounds",
+    },
+  },
 }
 `;
 
 exports[`RegionInput should be invalid for bad id 1`] = `
 Object {
-  "id": "Incorrect UUID",
+  "id": "yup:string.uuid",
 }
 `;
 
@@ -118,7 +77,7 @@ Object {
   "pois": Array [
     undefined,
     Object {
-      "id": "Incorrect UUID",
+      "id": "yup:string.uuid",
     },
   ],
 }
@@ -128,32 +87,66 @@ exports[`RegionInput should be invalid for bad season numeric (bad half-month) 1
 Object {
   "seasonNumeric": Array [
     undefined,
-    "Must be integer between 0 and 23",
-    "Must be integer between 0 and 23",
+    Object {
+      "key": "yup:number.max",
+      "options": Object {
+        "max": 23,
+        "path": "seasonNumeric[1]",
+      },
+    },
+    Object {
+      "key": "yup:number.min",
+      "options": Object {
+        "min": 0,
+        "path": "seasonNumeric[2]",
+      },
+    },
   ],
 }
 `;
 
 exports[`RegionInput should be invalid for bad season numeric (too many items) 1`] = `
 Object {
-  "seasonNumeric": "Maximal length is 24",
+  "seasonNumeric": Object {
+    "key": "yup:array.max",
+    "options": Object {
+      "max": 24,
+      "path": "seasonNumeric",
+    },
+  },
 }
 `;
 
 exports[`RegionInput should be invalid for empty name 1`] = `
 Object {
-  "name": "Value must be non-empty string",
+  "name": "yup:string.nonEmpty",
 }
 `;
 
 exports[`RegionInput should be invalid for extra fields 1`] = `
 Object {
-  "foo": "Expected a value of type \`undefined\` for \`foo\` but received \`\\"bar\\"\`.",
+  "undefined": Object {
+    "key": "yup:object.noUnknown",
+    "options": Object {
+      "path": "this",
+    },
+  },
 }
 `;
 
 exports[`RegionInput should be invalid for null bounds 1`] = `
 Object {
-  "bounds": "Minimum length is 3",
+  "bounds": Object {
+    "key": "yup:mixed.notType",
+    "options": Object {
+      "type": "array",
+    },
+  },
+}
+`;
+
+exports[`RegionInput should be invalid for null name 1`] = `
+Object {
+  "name": "yup:string.nonEmpty",
 }
 `;

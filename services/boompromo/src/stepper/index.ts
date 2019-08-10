@@ -1,3 +1,3 @@
-import Stepper from './Stepper';
+import React from 'react';
 
-export default Stepper;
+export default React.lazy(() => import('./Stepper'));

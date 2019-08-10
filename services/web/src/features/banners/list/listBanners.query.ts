@@ -1,20 +1,12 @@
+import { BannerFragments } from '@whitewater-guide/clients';
+import { BannerCore, Connection, NamedNode } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
 
-export default gql`
+export const LIST_BANNERS = gql`
   query listBanners {
     banners {
       nodes {
-        id
-        slug
-        name
-        priority
-        placement
-        enabled
-        source {
-          kind
-          ratio
-          src
-        }
+        ...BannerCore
         regions {
           nodes {
             id
@@ -31,4 +23,14 @@ export default gql`
       count
     }
   }
+  ${BannerFragments.Core}
 `;
+
+export type ListedBanner = BannerCore & {
+  regions: Required<Connection<NamedNode>>;
+  groups: Required<Connection<NamedNode>>;
+};
+
+export interface QResult {
+  banners: Required<Connection<ListedBanner>>;
+}

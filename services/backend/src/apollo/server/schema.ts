@@ -14,7 +14,8 @@ async function loadSchema() {
     recursive: true,
     extensions: ['.graphql'],
   });
-  typeDefs = mergeTypes(typesArray);
+  // it seems that definitions are incorrect and it still returns string
+  typeDefs = mergeTypes(typesArray) as any;
   const result = makeExecutableSchema({
     typeDefs,
     resolvers,

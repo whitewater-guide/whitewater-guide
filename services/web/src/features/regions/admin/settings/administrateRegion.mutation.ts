@@ -1,6 +1,7 @@
+import { RegionAdminSettings } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
 
-const ADMINISTRATE_REGION_MUTATION = gql`
+export const ADMINISTRATE_REGION_MUTATION = gql`
   mutation administrateRegion($settings: RegionAdminSettings!) {
     administrateRegion(settings: $settings) {
       id
@@ -14,4 +15,6 @@ const ADMINISTRATE_REGION_MUTATION = gql`
   }
 `;
 
-export default ADMINISTRATE_REGION_MUTATION;
+export interface MVars {
+  settings: RegionAdminSettings;
+}

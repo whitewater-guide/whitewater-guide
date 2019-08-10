@@ -18,12 +18,12 @@ import {
   fakeContext,
   noUnstable,
   runQuery,
-  TIMESTAMP_REGEX,
   UUID_REGEX,
 } from '@test';
 import {
   ApolloErrorCodes,
   Duration,
+  NEW_ID,
   SectionInput,
 } from '@whitewater-guide/commons';
 import set from 'lodash/fp/set';
@@ -346,6 +346,48 @@ describe('insert', () => {
       diff: null,
       created_at: expect.any(Date),
     });
+  });
+});
+
+describe('insert with new river', () => {
+  let insertResult: any;
+  let insertedSection: any;
+
+  beforeEach(async () => {
+    insertResult = await runQuery(
+      upsertQuery,
+      {
+        section: {
+          ...existingRiverSection,
+          river: { id: NEW_ID, name: 'Rauma' },
+          region: { id: REGION_NORWAY },
+        },
+      },
+      fakeContext(EDITOR_NO_EC),
+    );
+    insertedSection =
+      insertResult && insertResult.data && insertResult.data.upsertSection;
+  });
+
+  afterEach(() => {
+    insertResult = null;
+    insertedSection = null;
+  });
+
+  it('should return result', () => {
+    expect(insertResult.errors).toBeUndefined();
+    expect(insertedSection).toMatchObject({
+      river: {
+        id: expect.stringMatching(UUID_REGEX),
+        name: 'Rauma',
+      },
+    });
+  });
+
+  it('should insert into tables', async () => {
+    const [sections, rivers] = await countRows(false, 'sections', 'rivers');
+    expect(sections - sBefore).toBe(1);
+    expect(rivers - rBefore).toBe(1);
   });
 });
 

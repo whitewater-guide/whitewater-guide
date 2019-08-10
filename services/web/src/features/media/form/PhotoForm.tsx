@@ -1,97 +1,100 @@
+import Box from '@material-ui/core/Box';
 import { uploadFile } from '@whitewater-guide/clients';
-import get from 'lodash/get';
-import React from 'react';
-import { TextInput } from '../../../components/forms';
-import { Styles } from '../../../styles';
+import { MediaInput, UploadLink } from '@whitewater-guide/commons';
+import { useFormikContext } from 'formik';
+import React, { useEffect, useState } from 'react';
+import useRouter from 'use-react-router';
+import { NumberField, TextField } from '../../../formik/fields';
 import { FileWithPreview, getImageSize } from '../../../utils';
 import PhotoFormPreview from './PhotoFormPreview';
-import { MediaFormProps } from './types';
 
-const styles: Styles = {
-  container: {
-    display: 'flex',
-    flexDirection: 'row',
-  },
-  fields: {
-    flex: 1,
-  },
-};
-
-interface State {
-  uploading: boolean;
+interface Props {
+  uploadLink: UploadLink;
 }
 
-export default class PhotoForm extends React.PureComponent<
-  MediaFormProps,
-  State
-> {
-  state: State = { uploading: false };
+const PhotoForm: React.FC<Props> = React.memo(({ uploadLink }) => {
+  const { location } = useRouter();
+  const [uploading, setUploading] = useState(false);
+  const { initialValues, setFieldValue } = useFormikContext<MediaInput>();
+  const { url } = initialValues;
+  const file: FileWithPreview | undefined =
+    location.state && location.state.file;
 
-  async componentDidMount() {
-    const {
-      location: { state },
-      data,
-      change,
-      initialValues,
-    } = this.props;
-    if (initialValues.url) {
-      // Editing existing image
-      return;
-    }
-    const upload = data!.uploadLink;
-    const file: FileWithPreview = state.file;
-    if (!file) {
-      throw new Error('Photo form must have file!');
-    }
-    this.setState({ uploading: true });
-    const { width, height } = await getImageSize(file);
-    change('resolution', [width, height]);
-    const filename = await uploadFile(file.file, upload!);
-    this.setState({ uploading: false });
-    change('url', filename);
-  }
+  useEffect(() => {
+    const upload = async () => {
+      if (url) {
+        // Editing existing image
+        return;
+      }
+      if (!file) {
+        throw new Error('Photo form must have file!');
+      }
+      setUploading(true);
+      const { width, height } = await getImageSize(file);
+      setFieldValue('resolution', [width, height]);
+      const filename = await uploadFile(file.file, uploadLink);
+      setUploading(false);
+      setFieldValue('url', filename);
+    };
 
-  render() {
-    const {
-      location,
-      initialValues: { url },
-    } = this.props;
-    const { uploading } = this.state;
-    const preview = get(location, 'state.file.preview');
-    return (
-      <div style={styles.container}>
-        <div style={styles.fields}>
-          <TextInput
-            multiLine={true}
+    upload();
+  }, []);
+
+  return (
+    <Box display="flex" flexDirection="row">
+      <Box flex={1}>
+        <TextField
+          multiline={true}
+          fullWidth={true}
+          name="description"
+          label="Description"
+          placeholder="Description"
+        />
+        <TextField
+          fullWidth={true}
+          name="copyright"
+          label="Copyright"
+          placeholder="Copyright"
+        />
+        <TextField
+          fullWidth={true}
+          disabled={true}
+          name="url"
+          label="URL"
+          placeholder="URL"
+        />
+        <NumberField
+          fullWidth={true}
+          name="weight"
+          label="Sort weight"
+          placeholder="Sort weight"
+        />
+        <Box display="flex" flexDirection="row">
+          <NumberField
             fullWidth={true}
-            name="description"
-            title="Description"
+            disabled={true}
+            name="resolution.0"
+            label="Image width"
+            placeholder="Image width"
           />
-          <TextInput fullWidth={true} name="copyright" title="Copyright" />
-          <TextInput fullWidth={true} disabled={true} name="url" title="URL" />
-          <TextInput
+          <NumberField
             fullWidth={true}
-            type="number"
-            name="weight"
-            title="Sort weight"
+            disabled={true}
+            name="resolution.1"
+            label="Image height"
+            placeholder="Image height"
           />
-          <div style={{ display: 'flex', flexDirection: 'row' }}>
-            <TextInput
-              fullWidth={true}
-              disabled={true}
-              name="resolution.0"
-              title="Image width"
-            />
-            <TextInput
-              fullWidth={true}
-              disabled={true}
-              name="resolution.1"
-              title="Image height"
-            />
-          </div>
-        </div>
-        <PhotoFormPreview loading={uploading} preview={preview} url={url} />
-      </div>
-    );
-  }
-}
+        </Box>
+      </Box>
+      <PhotoFormPreview
+        loading={uploading}
+        preview={file && file.preview}
+        url={url}
+      />
+    </Box>
+  );
+});
+
+PhotoForm.displayName = 'PhotoForm';
+
+export default PhotoForm;

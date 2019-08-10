@@ -1,10 +1,11 @@
 import {
+  formatDistanceToNow,
   getSectionColor,
   prettyNumber,
   useFormulas,
 } from '@whitewater-guide/clients';
 import { Section } from '@whitewater-guide/commons';
-import moment from 'moment';
+import parseISO from 'date-fns/parseISO';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
@@ -64,6 +65,9 @@ export const FlowsThumb: React.FC<Props> = ({ section }) => {
           unit: levelUnit,
           value: formulas.levels(lastMeasurement.level),
         };
+  const fromNow = formatDistanceToNow(parseISO(lastMeasurement.timestamp), {
+    addSuffix: true,
+  });
   return (
     <View style={styles.container}>
       <Text style={styles.unitLine}>{data.label}</Text>
@@ -73,9 +77,7 @@ export const FlowsThumb: React.FC<Props> = ({ section }) => {
           {` ${t('commons:' + data.unit)}`}
         </Text>
       </Text>
-      <Text style={styles.timeLine}>
-        {moment(lastMeasurement.timestamp).fromNow()}
-      </Text>
+      <Text style={styles.timeLine}>{fromNow}</Text>
     </View>
   );
 };

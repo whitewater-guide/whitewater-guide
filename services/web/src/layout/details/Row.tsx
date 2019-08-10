@@ -1,19 +1,22 @@
+import Grid from '@material-ui/core/Grid';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import React from 'react';
-import { Row as FlexRow, RowProps } from 'react-grid-system';
 
-const styles = {
-  row: {
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    minHeight: 48,
-  },
-};
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    row: {
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+      minHeight: 48,
+    },
+  }),
+);
 
-export const Row: React.StatelessComponent<RowProps> = ({
-  children,
-  ref,
-  ...props
-}) => {
-  const propWithStyle = { ...props, style: { ...props.style, ...styles.row } };
-  return <FlexRow {...propWithStyle}>{children}</FlexRow>;
+export const Row: React.FC = ({ children }) => {
+  const classes = useStyles();
+  return (
+    <Grid item={true} container={true} className={classes.row} xs={12}>
+      {children}
+    </Grid>
+  );
 };

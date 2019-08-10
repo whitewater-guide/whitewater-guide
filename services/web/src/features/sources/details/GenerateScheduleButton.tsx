@@ -1,8 +1,12 @@
+import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import Icon from '@material-ui/core/Icon';
+import MenuItem from '@material-ui/core/MenuItem';
+import MenuList from '@material-ui/core/MenuList';
+import Paper from '@material-ui/core/Paper';
+import Popper from '@material-ui/core/Popper';
 import gql from 'graphql-tag';
-import { FlatButton } from 'material-ui';
-import Menu from 'material-ui/Menu';
-import MenuItem from 'material-ui/MenuItem';
-import Popover from 'material-ui/Popover';
 import React from 'react';
 import { graphql } from 'react-apollo';
 
@@ -30,30 +34,21 @@ type InnerProps = React.ComponentProps<Parameters<typeof container>[0]>;
 
 interface State {
   open: boolean;
-  anchorEl: any;
 }
 
 class GenerateScheduleButtonInner extends React.PureComponent<
   InnerProps,
   State
 > {
-  readonly state: State = { open: false, anchorEl: undefined };
+  private readonly _anchor = React.createRef<any>();
 
-  onOpen = (event: any) => {
-    // This prevents ghost click.
-    event.preventDefault();
+  readonly state: State = { open: false };
 
-    this.setState({
-      open: true,
-      anchorEl: event.currentTarget,
-    });
+  onToggle = () => {
+    this.setState((state) => ({ open: !state.open }));
   };
 
-  onClose = () => {
-    this.setState({
-      open: false,
-    });
-  };
+  onClose = () => this.setState({ open: false });
 
   generateAll = () => {
     const { mutate, sourceId } = this.props;
@@ -70,26 +65,27 @@ class GenerateScheduleButtonInner extends React.PureComponent<
   };
 
   render() {
-    const { anchorEl, open } = this.state;
+    const { open } = this.state;
     return (
       <React.Fragment>
-        <FlatButton
-          secondary={true}
-          onClick={this.onOpen}
-          label="Generate schedule"
-        />
-        <Popover
-          open={open}
-          anchorEl={anchorEl}
-          anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
-          targetOrigin={{ horizontal: 'left', vertical: 'top' }}
-          onRequestClose={this.onClose}
-        >
-          <Menu>
-            <MenuItem primaryText="All" onClick={this.generateAll} />
-            <MenuItem primaryText="Linked only" onClick={this.generateLinked} />
-          </Menu>
-        </Popover>
+        <ButtonGroup ref={this._anchor} variant="contained">
+          <Button onClick={this.generateAll}>Generate schedule</Button>
+          <Button size="small" onClick={this.onToggle}>
+            <Icon>arrow_drop_down</Icon>
+          </Button>
+        </ButtonGroup>
+        <Popper open={open} anchorEl={this._anchor.current}>
+          <Paper id="menu-list-grow">
+            <ClickAwayListener onClickAway={this.onClose}>
+              <MenuList>
+                <MenuItem onClick={this.generateAll}>For all gauges</MenuItem>
+                <MenuItem onClick={this.generateLinked}>
+                  For linked only
+                </MenuItem>
+              </MenuList>
+            </ClickAwayListener>
+          </Paper>
+        </Popper>
       </React.Fragment>
     );
   }

@@ -2,24 +2,45 @@
 
 exports[`should be invalid for bad email 1`] = `
 Object {
-  "email": "Incorrect e-mail address",
+  "email": Object {
+    "key": "yup:string.email",
+    "options": Object {
+      "path": "email",
+    },
+  },
 }
 `;
 
 exports[`should be invalid for bad language 1`] = `
 Object {
-  "language": "Expected a value of type \`\\"en\\" | \\"ru\\" | \\"es\\" | \\"de\\" | \\"fr\\" | \\"pt\\" | \\"it\\" | undefined\` for \`language\` but received \`\\"xx\\"\`.",
+  "language": Object {
+    "key": "yup:mixed.oneOf",
+    "options": Object {
+      "values": "en, ru, es, de, fr, pt, it",
+    },
+  },
 }
 `;
 
 exports[`should be invalid for empty name 1`] = `
 Object {
-  "name": "Value must be non-empty string",
+  "name": Object {
+    "key": "yup:string.min",
+    "options": Object {
+      "min": 1,
+      "path": "name",
+    },
+  },
 }
 `;
 
 exports[`should be invalid for extra fields 1`] = `
 Object {
-  "foo": "Expected a value of type \`undefined\` for \`foo\` but received \`\\"bar\\"\`.",
+  "undefined": Object {
+    "key": "yup:object.noUnknown",
+    "options": Object {
+      "path": "this",
+    },
+  },
 }
 `;

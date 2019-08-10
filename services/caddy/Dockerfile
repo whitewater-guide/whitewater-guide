@@ -5,7 +5,7 @@
 #
 FROM abiosoft/caddy:builder as builder
 
-ARG version="1.0.0"
+ARG version="1.0.1"
 ARG plugins="git,ratelimit"
 
 # process wrapper
@@ -16,14 +16,14 @@ RUN VERSION=${version} PLUGINS=${plugins} ENABLE_TELEMETRY=false /bin/sh /usr/bi
 #
 # Final stage
 #
-FROM alpine:3.8
+FROM alpine:3.10
 
-ARG version="1.0.0"
+ARG version="1.0.1"
 
 ENV ACME_AGREE="true"
 ENV ENABLE_TELEMETRY="false"
 
-RUN apk add --no-cache openssh-client ca-certificates
+RUN apk add --no-cache openssh-client ca-certificates git mailcap tzdata
 
 # install caddy
 COPY --from=builder /install/caddy /usr/bin/caddy

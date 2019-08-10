@@ -28,6 +28,7 @@
         "@features/scripts",
         "@features/sections",
         "@features/sources",
+        "@features/suggestions",
         "@features/tags",
         "@features/users",
         "@log",

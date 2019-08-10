@@ -1,7 +1,7 @@
+import Icon from '@material-ui/core/Icon';
+import IconButton from '@material-ui/core/IconButton';
 import { getVideoThumb } from '@whitewater-guide/clients';
 import { Media, MediaKind } from '@whitewater-guide/commons';
-import FontIcon from 'material-ui/FontIcon';
-import IconButton from 'material-ui/IconButton';
 import React from 'react';
 import injectSheet from 'react-jss';
 import { Styles } from '../../../styles';
@@ -28,6 +28,9 @@ const styles: Styles = {
     '&:hover': {
       opacity: 1,
       backgroundColor: 'rgba(0,0,0,0.1)',
+    },
+    '& .MuiIcon-root': {
+      color: 'white',
     },
   },
   brokenImage: {
@@ -119,14 +122,10 @@ class Thumb extends React.PureComponent<Props, State> {
           {editable && (
             <React.Fragment>
               <IconButton onClick={this.onEdit}>
-                <FontIcon className="material-icons" color="white">
-                  edit
-                </FontIcon>
+                <Icon>edit</Icon>
               </IconButton>
               <IconButton onClick={this.onRemove}>
-                <FontIcon className="material-icons" color="white">
-                  delete_forever
-                </FontIcon>
+                <Icon>delete_forever</Icon>
               </IconButton>
             </React.Fragment>
           )}
@@ -147,10 +146,10 @@ class Thumb extends React.PureComponent<Props, State> {
           {editable && (
             <React.Fragment>
               <IconButton onClick={this.onEdit}>
-                <FontIcon className="material-icons">edit</FontIcon>
+                <Icon color="error">edit</Icon>
               </IconButton>
               <IconButton onClick={this.onRemove}>
-                <FontIcon className="material-icons">delete_forever</FontIcon>
+                <Icon>delete_forever</Icon>
               </IconButton>
             </React.Fragment>
           )}

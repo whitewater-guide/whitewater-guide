@@ -1,35 +1,47 @@
-import { GaugeInput } from '@whitewater-guide/commons';
-import React from 'react';
-import { InjectedFormProps } from 'redux-form';
-import { Form, PointInput, TextInput } from '../../../components/forms';
+import React, { useMemo } from 'react';
+import { FormikCard, useApolloFormik } from '../../../formik';
+import formToMutation from './formToMutation';
+import { GAUGE_FORM_QUERY, QResult, QVars } from './gaugeForm.query';
+import GaugeFormMain from './GaugeFormMain';
+import makeQueryToForm from './makeQueryToForm';
+import { GaugeFormData, RouterParams } from './types';
+import { MVars, UPSERT_GAUGE } from './upsertGauge.mutation';
+import { GaugeFormSchema } from './validation';
 
-export default class GaugeForm extends React.PureComponent<
-  InjectedFormProps<GaugeInput>
-> {
-  render() {
-    return (
-      <Form {...this.props} resourceType="gauge">
-        <div style={{ padding: 8, height: '100%', overflow: 'auto' }}>
-          <TextInput fullWidth={true} name="name" title="Name" />
-          <TextInput fullWidth={true} name="code" title="Code" />
-          <PointInput
-            name="location"
-            title="Location"
-            mapBounds={null}
-            paper={false}
-            detailed={false}
-          />
-          <TextInput fullWidth={true} name="levelUnit" title="Level unit" />
-          <TextInput fullWidth={true} name="flowUnit" title="Flow unit" />
-          <TextInput
-            fullWidth={true}
-            name="requestParams"
-            title="Request params"
-          />
-          <TextInput fullWidth={true} name="cron" title="Cron" />
-          <TextInput fullWidth={true} name="url" title="URL" />
-        </div>
-      </Form>
-    );
-  }
+const header = { resourceType: 'gauge' };
+
+interface Props {
+  match: {
+    params: RouterParams;
+  };
 }
+
+const GaugeForm: React.FC<Props> = ({ match }) => {
+  const queryToForm = useMemo(() => makeQueryToForm(match.params), [
+    match.params,
+  ]);
+
+  const formik = useApolloFormik<QVars, QResult, GaugeFormData, MVars>({
+    query: GAUGE_FORM_QUERY,
+    queryOptions: {
+      variables: { gaugeId: match.params.gaugeId },
+    },
+    queryToForm,
+    mutation: UPSERT_GAUGE,
+    formToMutation,
+  });
+
+  return (
+    <FormikCard<QResult, GaugeFormData>
+      header={header}
+      {...formik}
+      validationSchema={GaugeFormSchema}
+    >
+      <GaugeFormMain />
+    </FormikCard>
+  );
+};
+
+GaugeForm.displayName = 'GaugeForm';
+
+export default GaugeForm;

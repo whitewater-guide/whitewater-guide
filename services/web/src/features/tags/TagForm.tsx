@@ -1,21 +1,15 @@
+import Grid from '@material-ui/core/Grid';
+import Icon from '@material-ui/core/Icon';
+import IconButton from '@material-ui/core/IconButton';
+import TextField from '@material-ui/core/TextField';
 import { Tag, TagInput } from '@whitewater-guide/commons';
-import IconButton from 'material-ui/IconButton';
-import TextField from 'material-ui/TextField';
 import React from 'react';
 import { DeleteButton } from '../../components';
-import { Styles } from '../../styles';
-import { WithTagMutations } from './types';
 
-const styles: Styles = {
-  row: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-};
-
-interface Props extends WithTagMutations {
+interface Props {
   tag: Tag;
+  onAdd: (tag: TagInput) => void;
+  onRemove: (id: string) => void;
 }
 
 class TagForm extends React.PureComponent<Props, TagInput> {
@@ -36,43 +30,46 @@ class TagForm extends React.PureComponent<Props, TagInput> {
     }
   }
 
-  onIdChange = (e: any, id: string) => this.setState({ id });
-  onNameChange = (e: any, name: string) => this.setState({ name });
+  onIdChange = (e: any) => this.setState({ id: e.target.value });
+  onNameChange = (e: any) => this.setState({ name: e.target.value });
 
-  onSave = () => this.props.upsertTag(this.state);
+  onSave = () => this.props.onAdd(this.state);
 
   render() {
     const { id, name } = this.state;
-    const { tag, removeTag } = this.props;
+    const { tag, onRemove } = this.props;
     return (
-      <div style={styles.row}>
-        <TextField
-          fullWidth={true}
-          value={id}
-          floatingLabelText="id"
-          hintText="id"
-          onChange={this.onIdChange}
-        />
-        <TextField
-          fullWidth={true}
-          value={name}
-          floatingLabelText="Name"
-          hintText="Name"
-          onChange={this.onNameChange}
-        />
-        <IconButton
-          iconClassName="material-icons"
-          onClick={this.onSave}
-          disabled={tag.id === id && tag.name === name}
-        >
-          {tag.id ? 'save' : 'add'}
-        </IconButton>
-        <DeleteButton
-          id={tag.id}
-          disabled={!tag.id}
-          deleteHandler={removeTag}
-        />
-      </div>
+      <Grid container={true} spacing={1}>
+        <Grid item={true} xs={4}>
+          <TextField
+            fullWidth={true}
+            value={id}
+            placeholder="id"
+            onChange={this.onIdChange}
+          />
+        </Grid>
+        <Grid item={true} xs={6}>
+          <TextField
+            fullWidth={true}
+            value={name}
+            placeholder="Name"
+            onChange={this.onNameChange}
+          />
+        </Grid>
+        <Grid item={true} xs={2}>
+          <IconButton
+            onClick={this.onSave}
+            disabled={tag.id === id && tag.name === name}
+          >
+            <Icon>{tag.id ? 'save' : 'add'}</Icon>
+          </IconButton>
+          <DeleteButton
+            id={tag.id}
+            disabled={!tag.id}
+            deleteHandler={onRemove}
+          />
+        </Grid>
+      </Grid>
     );
   }
 }

@@ -1,7 +1,6 @@
-import { Media } from '@whitewater-guide/commons';
 import React from 'react';
-import { S3_HOST } from '../../environment';
 import { Styles } from '../../styles';
+import { LightboxItem } from './types';
 
 const styles: Styles = {
   container: {
@@ -18,7 +17,7 @@ const styles: Styles = {
 
 interface Props {
   currentIndex: number;
-  data: Media;
+  data: LightboxItem;
   interactionIsIdle: boolean;
 }
 

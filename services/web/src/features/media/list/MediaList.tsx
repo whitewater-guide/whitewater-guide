@@ -1,15 +1,15 @@
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import Icon from '@material-ui/core/Icon';
 import { Media, MediaKind } from '@whitewater-guide/commons';
+import { History } from 'history';
 import groupBy from 'lodash/groupBy';
-import FlatButton from 'material-ui/FlatButton';
-import FontIcon from 'material-ui/FontIcon';
 import React from 'react';
-import { Col } from 'react-grid-system';
 import { ConfirmationDialog, Lightbox } from '../../../components';
 import { Row } from '../../../layout/details';
 import { FileWithPreview } from '../../../utils';
 import BlogsList from './BlogsList';
 import GridGallery from './GridGallery';
-import { MediaListProps } from './types';
 
 interface State {
   currentModal: number | null;
@@ -20,7 +20,16 @@ interface State {
   pendingRemoval: Media | null;
 }
 
-class MediaList extends React.PureComponent<MediaListProps, State> {
+interface Props {
+  sectionId: string;
+  regionId: string;
+  media: Media[];
+  editable: boolean;
+  history: History;
+  onRemove: (id: string) => void;
+}
+
+class MediaList extends React.PureComponent<Props, State> {
   state: State = {
     currentModal: null,
     photo: [],
@@ -31,12 +40,12 @@ class MediaList extends React.PureComponent<MediaListProps, State> {
   };
 
   componentDidMount() {
-    this.groupMedia(this.props.mediaBySection.nodes);
+    this.groupMedia(this.props.media);
   }
 
-  componentWillReceiveProps(nextProps: MediaListProps) {
-    if (this.props.mediaBySection !== nextProps.mediaBySection) {
-      this.groupMedia(nextProps.mediaBySection.nodes);
+  componentWillReceiveProps(nextProps: Props) {
+    if (this.props.media !== nextProps.media) {
+      this.groupMedia(nextProps.media);
     }
   }
 
@@ -63,12 +72,7 @@ class MediaList extends React.PureComponent<MediaListProps, State> {
   };
 
   onAdd = (kind: MediaKind, file?: FileWithPreview) => {
-    const {
-      match: {
-        params: { regionId, sectionId },
-      },
-      history,
-    } = this.props;
+    const { regionId, sectionId, history } = this.props;
     history.push(
       `/regions/${regionId}/sections/${sectionId}/media/new?kind=${kind}`,
       { file },
@@ -78,12 +82,7 @@ class MediaList extends React.PureComponent<MediaListProps, State> {
   onAddBlog = () => this.onAdd(MediaKind.blog);
 
   onEdit = (media: Media) => {
-    const {
-      match: {
-        params: { regionId, sectionId },
-      },
-      history,
-    } = this.props;
+    const { regionId, sectionId, history } = this.props;
     const { id } = media;
     history.push(
       `/regions/${regionId}/sections/${sectionId}/media/${id}/settings`,
@@ -96,7 +95,7 @@ class MediaList extends React.PureComponent<MediaListProps, State> {
 
   onConfirmRemove = () => {
     if (this.state.pendingRemoval) {
-      this.props.removeMedia(this.state.pendingRemoval.id);
+      this.props.onRemove(this.state.pendingRemoval.id);
       this.setState({ pendingRemoval: null });
     }
   };
@@ -110,19 +109,16 @@ class MediaList extends React.PureComponent<MediaListProps, State> {
       photoAndVideo,
       pendingRemoval,
     } = this.state;
-    const {
-      region: { node },
-    } = this.props;
-    const editable = node ? node.editable : false;
+    const { editable } = this.props;
     return (
       <React.Fragment>
         <Row>
-          <Col>
+          <Grid item={true}>
             <h2>Photos</h2>
-          </Col>
+          </Grid>
         </Row>
         <Row>
-          <Col sm={12}>
+          <Grid item={true} sm={12}>
             <GridGallery
               editable={editable}
               kind={MediaKind.photo}
@@ -132,15 +128,15 @@ class MediaList extends React.PureComponent<MediaListProps, State> {
               onEdit={this.onEdit}
               onRemove={this.onRemove}
             />
-          </Col>
+          </Grid>
         </Row>
         <Row>
-          <Col>
+          <Grid item={true}>
             <h2>Videos</h2>
-          </Col>
+          </Grid>
         </Row>
         <Row>
-          <Col sm={12}>
+          <Grid item={true} sm={12}>
             <GridGallery
               editable={editable}
               kind={MediaKind.video}
@@ -150,36 +146,33 @@ class MediaList extends React.PureComponent<MediaListProps, State> {
               onEdit={this.onEdit}
               onRemove={this.onRemove}
             />
-          </Col>
+          </Grid>
         </Row>
         <Row>
-          <Col>
+          <Grid item={true}>
             <h2>
               {'Blogs'}
               {editable && (
-                <FlatButton
-                  onClick={this.onAddBlog}
-                  label="Add"
-                  icon={<FontIcon className="material-icons">add</FontIcon>}
-                />
+                <Button onClick={this.onAddBlog}>
+                  <Icon>add</Icon>
+                  Add
+                </Button>
               )}
             </h2>
-          </Col>
+          </Grid>
         </Row>
         <Row>
-          <Col>
-            <div>
-              <BlogsList
-                editable={editable}
-                media={blog}
-                onEdit={this.onEdit}
-                onRemove={this.onRemove}
-              />
-            </div>
-          </Col>
+          <Grid item={true} xs={6}>
+            <BlogsList
+              editable={editable}
+              media={blog}
+              onEdit={this.onEdit}
+              onRemove={this.onRemove}
+            />
+          </Grid>
         </Row>
         <Lightbox
-          media={photoAndVideo}
+          items={photoAndVideo}
           currentModal={currentModal}
           onClose={this.onCloseLightbox}
         />

@@ -1,3 +1,309 @@
+## [0.1.384](https://github.com/doomsower/whitewater/compare/47770a1aa8cf8e1f62184c2f615a9eac99fa167a...83461dc92f4dd4648ccb2c03064280199b843588) (2019-08-10)
+
+### Features
+
+- add duplicate section ([95bf8a5c6aa9a59e2f4996e9a035121be1be7ebd](https://github.com/doomsower/whitewater/commit/95bf8a5c6aa9a59e2f4996e9a035121be1be7ebd)), closes [#402](https://github.com/doomsower/whitewater/issues/402)
+- remember scroll position of sections table ([0339710e4637486e5af7469850bbf4c7d30c6679](https://github.com/doomsower/whitewater/commit/0339710e4637486e5af7469850bbf4c7d30c6679)), closes [#403](https://github.com/doomsower/whitewater/issues/403)
+- strongly typed table cell renderers ([6d91473a69c57c6fdaa5304acf7021424700da19](https://github.com/doomsower/whitewater/commit/6d91473a69c57c6fdaa5304acf7021424700da19))
+
+### Bug Fixes
+
+- fix react warning in App ([05420be143708136729839ec4fb7cf22b3e19404](https://github.com/doomsower/whitewater/commit/05420be143708136729839ec4fb7cf22b3e19404))
+- improve section river field a bit ([0ef9974c23937ad174a8a4678010951906008994](https://github.com/doomsower/whitewater/commit/0ef9974c23937ad174a8a4678010951906008994)), closes [#401](https://github.com/doomsower/whitewater/issues/401)
+- regions list ([deaf17f76b4d1f5d771fc4acdfc61f3696865767](https://github.com/doomsower/whitewater/commit/deaf17f76b4d1f5d771fc4acdfc61f3696865767))
+
+### Other
+
+- imporove some lists ([1aed1c5f1d4104cae0def1dedb1620d7b0c0605f](https://github.com/doomsower/whitewater/commit/1aed1c5f1d4104cae0def1dedb1620d7b0c0605f))
+- make use of gauges and rivers count ([7eb0dd20d43647ad1022e12b6fe3aebe6f9ff79a](https://github.com/doomsower/whitewater/commit/7eb0dd20d43647ad1022e12b6fe3aebe6f9ff79a))
+
+## [0.1.383](https://github.com/doomsower/whitewater/compare/7f67a8704663b2d741a50eecc2443d2dfc8c2101...47770a1aa8cf8e1f62184c2f615a9eac99fa167a) (2019-08-08)
+
+## [0.1.383](https://github.com/doomsower/whitewater/compare/e4784ac49bac91b29aad4ef23e4917a6c6baca21...7f67a8704663b2d741a50eecc2443d2dfc8c2101) (2019-08-07)
+
+## [0.1.382](https://github.com/doomsower/whitewater/compare/f6b7d7b4f4de50649053e734f3d0f91f6e158e91...e4784ac49bac91b29aad4ef23e4917a6c6baca21) (2019-08-06)
+
+### Bug Fixes
+
+- fix suggestions page refresh ([ca717153f2fb16d571e2354c8ecf88b8660d008a](https://github.com/doomsower/whitewater/commit/ca717153f2fb16d571e2354c8ecf88b8660d008a))
+
+## [0.1.381](https://github.com/doomsower/whitewater/compare/abc31b468c3008385663d03217f773700826209c...f6b7d7b4f4de50649053e734f3d0f91f6e158e91) (2019-08-06)
+
+### Features
+
+- mobile suggestions ([349ae674883de0969cc5f45a119bd67599a54de6](https://github.com/doomsower/whitewater/commit/349ae674883de0969cc5f45a119bd67599a54de6))
+
+## [0.1.380](https://github.com/doomsower/whitewater/compare/ad157bd5d420a997395cb861f5c8dede81a34f94...abc31b468c3008385663d03217f773700826209c) (2019-08-04)
+
+## [0.1.380](https://github.com/doomsower/whitewater/compare/8340946412e77845a95f6f5463d39430ba972b98...ad157bd5d420a997395cb861f5c8dede81a34f94) (2019-08-04)
+
+## [0.1.380](https://github.com/doomsower/whitewater/compare/646cbdc5cd1422b17eb3668d2f937b57ace4cce3...8340946412e77845a95f6f5463d39430ba972b98) (2019-08-04)
+
+## [0.1.380](https://github.com/doomsower/whitewater/compare/d740e53731c4e6183195d240b2afa411b55a35ea...646cbdc5cd1422b17eb3668d2f937b57ace4cce3) (2019-08-04)
+
+### Other
+
+- improve lightbox a bit ([b42cc36c2885439e838bb8c6cd7b92a0d6f9a612](https://github.com/doomsower/whitewater/commit/b42cc36c2885439e838bb8c6cd7b92a0d6f9a612))
+
+## [0.1.379](https://github.com/doomsower/whitewater/compare/65b391fcd0f5410b8e6684e421e30cc4bcc94e7b...d740e53731c4e6183195d240b2afa411b55a35ea) (2019-08-03)
+
+### Features
+
+- show suggestions to editors only ([0155ae98ddaacef295d3db65ecf63da05f3cdfe6](https://github.com/doomsower/whitewater/commit/0155ae98ddaacef295d3db65ecf63da05f3cdfe6))
+- suggestions view ([6e6747de6c374b32a2f2f7956214fb674843267d](https://github.com/doomsower/whitewater/commit/6e6747de6c374b32a2f2f7956214fb674843267d))
+
+## [0.1.378](https://github.com/doomsower/whitewater/compare/8867c79883ef35692bcf97094583978bb9997cd5...65b391fcd0f5410b8e6684e421e30cc4bcc94e7b) (2019-08-03)
+
+### Features
+
+- notifications badge ([259b8aa5fba6158675e9c58b9c87d047baa4980e](https://github.com/doomsower/whitewater/commit/259b8aa5fba6158675e9c58b9c87d047baa4980e))
+- user suggestions admin ui WIP ([e34da2c82c71aaa19ba69665dcf68bfa1194d122](https://github.com/doomsower/whitewater/commit/e34da2c82c71aaa19ba69665dcf68bfa1194d122))
+
+## [0.1.377](https://github.com/doomsower/whitewater/compare/68cf55ce05aedef4ab431ddecb548628a54cac9f...8867c79883ef35692bcf97094583978bb9997cd5) (2019-08-03)
+
+## [0.1.376](https://github.com/doomsower/whitewater/compare/c0c5a4e0b3de1490c5db64844bcd438672a757b1...68cf55ce05aedef4ab431ddecb548628a54cac9f) (2019-08-03)
+
+## [0.1.375](https://github.com/doomsower/whitewater/compare/85ef7c689a2daf64442dcff17fe7dfaf4a97968c...c0c5a4e0b3de1490c5db64844bcd438672a757b1) (2019-07-31)
+
+### Features
+
+- validateOnChange in production ([fc806effd842f301cc6b15deb9eb55af92d85f4c](https://github.com/doomsower/whitewater/commit/fc806effd842f301cc6b15deb9eb55af92d85f4c))
+
+## [0.1.374](https://github.com/doomsower/whitewater/compare/c9f45e1c6637d36311fc938993f41d0e4467ceb9...85ef7c689a2daf64442dcff17fe7dfaf4a97968c) (2019-07-30)
+
+### Other
+
+- fix preversion -> version ([bf620f1ccb0a212b8a9108dcdbccd543d508be5f](https://github.com/doomsower/whitewater/commit/bf620f1ccb0a212b8a9108dcdbccd543d508be5f))
+
+## [0.1.373](https://github.com/doomsower/whitewater/compare/589fac956692dac620ff4656f7486a525660d301...c9f45e1c6637d36311fc938993f41d0e4467ceb9) (2019-07-30)
+
+### Other
+
+- remove recompose ([49c64f6517f504d368a9b5aafffdb869e1ea075f](https://github.com/doomsower/whitewater/commit/49c64f6517f504d368a9b5aafffdb869e1ea075f))
+
+## [0.1.372](https://github.com/doomsower/whitewater/compare/06f51eafbae6d986cb08446e8cb6ceaae6c4c5c9...589fac956692dac620ff4656f7486a525660d301) (2019-07-30)
+
+## [0.1.372](https://github.com/doomsower/whitewater/compare/7e0fa1be3463188027cebb3fde102a9fd380b1e4...06f51eafbae6d986cb08446e8cb6ceaae6c4c5c9) (2019-07-30)
+
+### Features
+
+- latest mui, yup and formik ([7da704a3b27422691521f49aedb834243803bb02](https://github.com/doomsower/whitewater/commit/7da704a3b27422691521f49aedb834243803bb02))
+
+## [0.1.372-mui.11](https://github.com/doomsower/whitewater/compare/efb3ff3f57bee57ae21e4c29381067ada385a84f...7e0fa1be3463188027cebb3fde102a9fd380b1e4) (2019-07-30)
+
+### Features
+
+- improve tag inputs ([0096d8ad20868985ee11b8e303a39cc91fcc8d16](https://github.com/doomsower/whitewater/commit/0096d8ad20868985ee11b8e303a39cc91fcc8d16))
+- set validateOnChange to true by default ([58c6f32dbaaea37f85df2cb124819aeb9ae2fe5d](https://github.com/doomsower/whitewater/commit/58c6f32dbaaea37f85df2cb124819aeb9ae2fe5d))
+
+### Bug Fixes
+
+- fix false positives in formiktabs ([76055a97073ba5dc1553b22670464c46f1631de7](https://github.com/doomsower/whitewater/commit/76055a97073ba5dc1553b22670464c46f1631de7))
+
+## [0.1.372-mui.10](https://github.com/doomsower/whitewater/compare/614d0030b5905c045fa303f5c97ce8e47b53586d...efb3ff3f57bee57ae21e4c29381067ada385a84f) (2019-07-30)
+
+### Other
+
+- add useMutation ([1cb342f800c2f93abd43b0041022516ef5c22dc9](https://github.com/doomsower/whitewater/commit/1cb342f800c2f93abd43b0041022516ef5c22dc9))
+- banners list ([2540a1c7edcc98c56f253f6ed5f5fa7d334a8d7d](https://github.com/doomsower/whitewater/commit/2540a1c7edcc98c56f253f6ed5f5fa7d334a8d7d))
+- gauge details ([c81386ead3ee3c8885841d8873295baa91274233](https://github.com/doomsower/whitewater/commit/c81386ead3ee3c8885841d8873295baa91274233))
+- gauges list ([13d7150fd883f9064214c0641a51a01b1c467105](https://github.com/doomsower/whitewater/commit/13d7150fd883f9064214c0641a51a01b1c467105))
+- groups ([db0c04b4623f001b786b9969df72b000f400ed1c](https://github.com/doomsower/whitewater/commit/db0c04b4623f001b786b9969df72b000f400ed1c))
+- media list ([d3f414eca2a7fc742831f56bccc66f0cd599cb31](https://github.com/doomsower/whitewater/commit/d3f414eca2a7fc742831f56bccc66f0cd599cb31))
+- region editors ([fe43851e05caaeb68e79b3c3475369fa2552aadf](https://github.com/doomsower/whitewater/commit/fe43851e05caaeb68e79b3c3475369fa2552aadf))
+- region groups and editors ([4ebe6c551e66413a41a2d49b7f16158d6cc2cf7c](https://github.com/doomsower/whitewater/commit/4ebe6c551e66413a41a2d49b7f16158d6cc2cf7c))
+- remove useDeleteMutation ([9dec95cac9bb990f054948b0485b7af6d9e750dc](https://github.com/doomsower/whitewater/commit/9dec95cac9bb990f054948b0485b7af6d9e750dc))
+- sections list ([3e78791fac13dde6cd4c27b461263d6b1622ac96](https://github.com/doomsower/whitewater/commit/3e78791fac13dde6cd4c27b461263d6b1622ac96))
+- source details ([284197ea53108201f5653e9301f0a2b4b914afc6](https://github.com/doomsower/whitewater/commit/284197ea53108201f5653e9301f0a2b4b914afc6))
+- sources list ([34c5df9ec71ecd069afa8c20705635fb9daf7c04](https://github.com/doomsower/whitewater/commit/34c5df9ec71ecd069afa8c20705635fb9daf7c04))
+- tags ([63011d042226d20d8c72a76c8595031e2c3ab769](https://github.com/doomsower/whitewater/commit/63011d042226d20d8c72a76c8595031e2c3ab769))
+
+### Bug Fixes
+
+- fix river delete refetch query and fine tune limits ([a3aea475bc50cc37cdf7660c8c91e24ca6a68330](https://github.com/doomsower/whitewater/commit/a3aea475bc50cc37cdf7660c8c91e24ca6a68330))
+- simplify some loading states ([f17fa4393bda1ce0eaede56b971a897e8726e99b](https://github.com/doomsower/whitewater/commit/f17fa4393bda1ce0eaede56b971a897e8726e99b))
+
+## [0.1.372-mui.9](https://github.com/doomsower/whitewater/compare/28ec72958764f65507163a4722367249494d7345...614d0030b5905c045fa303f5c97ce8e47b53586d) (2019-07-29)
+
+## [0.1.372-mui.8](https://github.com/doomsower/whitewater/compare/2c9169add0fb91894abaf9b1005f5d3546c3eafd...28ec72958764f65507163a4722367249494d7345) (2019-07-29)
+
+### Features
+
+- update auth provider usage ([443089472f7fc285efb0ca4a7e181303f7b60522](https://github.com/doomsower/whitewater/commit/443089472f7fc285efb0ca4a7e181303f7b60522))
+
+## [0.1.372-mui.7](https://github.com/doomsower/whitewater/compare/6498079508a68f4301912416bb2133be576bfe12...2c9169add0fb91894abaf9b1005f5d3546c3eafd) (2019-07-29)
+
+## [0.1.372-mui.6](https://github.com/doomsower/whitewater/compare/98513a2c47433da0ae63c074d390a37a737e698d...6498079508a68f4301912416bb2133be576bfe12) (2019-07-29)
+
+## [0.1.372-mui.5](https://github.com/doomsower/whitewater/compare/18c2999026f8d5e235e7d077c341439082c6f73f...98513a2c47433da0ae63c074d390a37a737e698d) (2019-07-29)
+
+### Features
+
+- login with email on web ([b2bf9ac604a680a0137f504fdce3b9a66630e9ce](https://github.com/doomsower/whitewater/commit/b2bf9ac604a680a0137f504fdce3b9a66630e9ce))
+
+## [0.1.372-mui.4](https://github.com/doomsower/whitewater/compare/0e5e98b9462241326c47fbb2658d42eb980e4d8b...18c2999026f8d5e235e7d077c341439082c6f73f) (2019-07-28)
+
+### Features
+
+- avatar resolver now falls back to facebook ([a0676a9262fccd60f88e1551371a807b71cb5070](https://github.com/doomsower/whitewater/commit/a0676a9262fccd60f88e1551371a807b71cb5070))
+- expose FB api ([c8de6806b0b5e71f8b2084628eb3e5b80ee0f31a](https://github.com/doomsower/whitewater/commit/c8de6806b0b5e71f8b2084628eb3e5b80ee0f31a))
+- rewrite fb api as class ([01e7411d58ef613f8a08d80aefb887404e40bc67](https://github.com/doomsower/whitewater/commit/01e7411d58ef613f8a08d80aefb887404e40bc67))
+
+### Other
+
+- refactor user menu ([f099c0aa469e094e031839a07a5b5d981c366b67](https://github.com/doomsower/whitewater/commit/f099c0aa469e094e031839a07a5b5d981c366b67))
+
+## [0.1.372-mui.3](https://github.com/doomsower/whitewater/compare/c64e86014cbcf01f6c244ca1212d8921c5ccb2a7...0e5e98b9462241326c47fbb2658d42eb980e4d8b) (2019-07-28)
+
+## [0.1.372-mui.3](https://github.com/doomsower/whitewater/compare/dd2b15354280b3c124dc86fb89dfa93f8b0fecaf...c64e86014cbcf01f6c244ca1212d8921c5ccb2a7) (2019-07-28)
+
+### Other
+
+- add river form test ([f28e9e3138f0565b7928be12b30401a4e0af39c3](https://github.com/doomsower/whitewater/commit/f28e9e3138f0565b7928be12b30401a4e0af39c3))
+- add section form test ([ed52868f57f193c04428f644bf81b2834b47dbf3](https://github.com/doomsower/whitewater/commit/ed52868f57f193c04428f644bf81b2834b47dbf3))
+- refactor regions list ([a73da5a8368c8d9031c1c26a059317e711d37b99](https://github.com/doomsower/whitewater/commit/a73da5a8368c8d9031c1c26a059317e711d37b99))
+- region tabs ([a4b71e7759c36abc50e8910f194343fbc0653f6a](https://github.com/doomsower/whitewater/commit/a4b71e7759c36abc50e8910f194343fbc0653f6a))
+- regions table ([0795dc71132fafc0b3c485c0fcd3c7453f5dafb1](https://github.com/doomsower/whitewater/commit/0795dc71132fafc0b3c485c0fcd3c7453f5dafb1))
+- section and region forms router params ([914d6e123dbd77b47e8ee0addf316164b3fdd8ec](https://github.com/doomsower/whitewater/commit/914d6e123dbd77b47e8ee0addf316164b3fdd8ec))
+- test banner form ([6e251f56336bf718b6306a71e86afdda8c4456d2](https://github.com/doomsower/whitewater/commit/6e251f56336bf718b6306a71e86afdda8c4456d2))
+- test gauge form ([e9dcd3225918d0e5e9da32778a0aa8cdb5f46688](https://github.com/doomsower/whitewater/commit/e9dcd3225918d0e5e9da32778a0aa8cdb5f46688))
+- test media form ([ac0ced8a4e2a346cfb2d99b8e6a8d4545bc7e220](https://github.com/doomsower/whitewater/commit/ac0ced8a4e2a346cfb2d99b8e6a8d4545bc7e220))
+- test region admin form ([2b0797803e1342e6cca1825f0f445bd9f5726a67](https://github.com/doomsower/whitewater/commit/2b0797803e1342e6cca1825f0f445bd9f5726a67))
+- test region form ([1f214bf2d2b98a237672b8cc4727009cfd2e4d5b](https://github.com/doomsower/whitewater/commit/1f214bf2d2b98a237672b8cc4727009cfd2e4d5b))
+- test section admin form ([18c771fcbe0c5388ced783f3c5766a473c3af042](https://github.com/doomsower/whitewater/commit/18c771fcbe0c5388ced783f3c5766a473c3af042))
+- test source form ([d7aed8fad07542d3dc78785e7efffc46003c4095](https://github.com/doomsower/whitewater/commit/d7aed8fad07542d3dc78785e7efffc46003c4095))
+- update editor and admin routes ([095674c871fa49d43423b84732d7986e4e425f43](https://github.com/doomsower/whitewater/commit/095674c871fa49d43423b84732d7986e4e425f43))
+- update tests a bit ([13ae234a35a9547bfb6814aa56034be32d71470e](https://github.com/doomsower/whitewater/commit/13ae234a35a9547bfb6814aa56034be32d71470e))
+
+### Features
+
+- regions table filter ([9492236032d8d7ef3a50cbe3f6b7a3c2f544d03b](https://github.com/doomsower/whitewater/commit/9492236032d8d7ef3a50cbe3f6b7a3c2f544d03b))
+- use i18next for form errors ([0d13c6b3a2594492137993dfefec093402e6706f](https://github.com/doomsower/whitewater/commit/0d13c6b3a2594492137993dfefec093402e6706f))
+- use streaming query for regions list ([3d7342afdf9117b9a5f81803eb05f74254bf9887](https://github.com/doomsower/whitewater/commit/3d7342afdf9117b9a5f81803eb05f74254bf9887))
+- use streaming query for rivers list ([c761a3407829843cb8724a284867288e7b1400fc](https://github.com/doomsower/whitewater/commit/c761a3407829843cb8724a284867288e7b1400fc))
+
+## [0.1.372-mui.2](https://github.com/doomsower/whitewater/compare/ab0b954fa830ca50451d865c8cba289760c0cd0d...dd2b15354280b3c124dc86fb89dfa93f8b0fecaf) (2019-07-25)
+
+### Features
+
+- add new section from sections list ([727237be1e1c6661b310c8240213da85f704f58f](https://github.com/doomsower/whitewater/commit/727237be1e1c6661b310c8240213da85f704f58f))
+- administrate region form ([de5b393dc06e3b85aea868b911e3ebc34eedec93](https://github.com/doomsower/whitewater/commit/de5b393dc06e3b85aea868b911e3ebc34eedec93))
+- banner form ([8f347149916f54e46f7a56e53c28ead1d830d2db](https://github.com/doomsower/whitewater/commit/8f347149916f54e46f7a56e53c28ead1d830d2db))
+- begin migration to formik ([fce8728069214cce506ce639d4f0d7c0ec739d9a](https://github.com/doomsower/whitewater/commit/fce8728069214cce506ce639d4f0d7c0ec739d9a))
+- better difficulty field ([4dcc8da51d535ca1e64ff42f7465a7cb7e4c13e7](https://github.com/doomsower/whitewater/commit/4dcc8da51d535ca1e64ff42f7465a7cb7e4c13e7))
+- extract section form types ([a6b4e574651a88c9b3a73da90bc9106b92c8d197](https://github.com/doomsower/whitewater/commit/a6b4e574651a88c9b3a73da90bc9106b92c8d197))
+- fix source form select ([5d84e3e37137ba7eeb72ed3d4b38e30add78dee0](https://github.com/doomsower/whitewater/commit/5d84e3e37137ba7eeb72ed3d4b38e30add78dee0))
+- fix useApolloFormik rawData ([0d593a8033c733b8af7dd8e8123a75b633dc114a](https://github.com/doomsower/whitewater/commit/0d593a8033c733b8af7dd8e8123a75b633dc114a))
+- formik POIArray ([3103ea161d0fa2b8582784119f07e38ff01af0ea](https://github.com/doomsower/whitewater/commit/3103ea161d0fa2b8582784119f07e38ff01af0ea))
+- gauge form with formik ([d0a4dc28a1aa50cc0bd499e21c6ca3e8a8b5a86c](https://github.com/doomsower/whitewater/commit/d0a4dc28a1aa50cc0bd499e21c6ca3e8a8b5a86c))
+- implement generalized formik form ([b6e22f98954bee78ee986b3728972de38723c0f7](https://github.com/doomsower/whitewater/commit/b6e22f98954bee78ee986b3728972de38723c0f7))
+- implement river form with formik ([74409c4b5acad8c9b91fe3f46e61821876520b5d](https://github.com/doomsower/whitewater/commit/74409c4b5acad8c9b91fe3f46e61821876520b5d))
+- improve banners list a little ([07f8e83a1bc40326655133f63a7a6162bcdefed8](https://github.com/doomsower/whitewater/commit/07f8e83a1bc40326655133f63a7a6162bcdefed8))
+- improve sections filter ui ([faf0af7c63cee63d718678a27dcacfce5d9c78e2](https://github.com/doomsower/whitewater/commit/faf0af7c63cee63d718678a27dcacfce5d9c78e2))
+- introduce noderef type ([4f6080d1bf2d4ed57a2a5ff6338ecf6b8dcd405d](https://github.com/doomsower/whitewater/commit/4f6080d1bf2d4ed57a2a5ff6338ecf6b8dcd405d))
+- kill redux-form wheeee! ([e96240e9200a5be6f6f6043cad6be9ad5abad966](https://github.com/doomsower/whitewater/commit/e96240e9200a5be6f6f6043cad6be9ad5abad966))
+- lazy load forms ([be446e23f6ac295ccee4746c58c8f8f4791e4797](https://github.com/doomsower/whitewater/commit/be446e23f6ac295ccee4746c58c8f8f4791e4797))
+- material-ui rating ([08675cd025617122aeb94afca9e9e19a67bff79c](https://github.com/doomsower/whitewater/commit/08675cd025617122aeb94afca9e9e19a67bff79c))
+- media form with formik ([8eff38a2894881fbebf55ce65ae3d2eed0c1ad0e](https://github.com/doomsower/whitewater/commit/8eff38a2894881fbebf55ce65ae3d2eed0c1ad0e))
+- more section fragments ([ecb576c9633a86398435cac6e37aa751ff0eebeb](https://github.com/doomsower/whitewater/commit/ecb576c9633a86398435cac6e37aa751ff0eebeb))
+- region form wip ([9e3a3d071f3bfd23887a2637e34cffb09faff810](https://github.com/doomsower/whitewater/commit/9e3a3d071f3bfd23887a2637e34cffb09faff810))
+- river selector WIP ([550225ea30aa547b5054431c031260084061888a](https://github.com/doomsower/whitewater/commit/550225ea30aa547b5054431c031260084061888a))
+- section form wip ([f5f2ca8f3eb2a0dd1e6f6f27ff1d2d6165462c52](https://github.com/doomsower/whitewater/commit/f5f2ca8f3eb2a0dd1e6f6f27ff1d2d6165462c52))
+- some optimizations and region form wip ([453b5cedeec5842ab3cdf8a6390a35bb43a78204](https://github.com/doomsower/whitewater/commit/453b5cedeec5842ab3cdf8a6390a35bb43a78204))
+- test useApolloFormik ([ba4cc96c59698767492aba6fe13e5ee2cea3147d](https://github.com/doomsower/whitewater/commit/ba4cc96c59698767492aba6fe13e5ee2cea3147d))
+- update button styles ([ba5e51015f20cd4a5cfe8650ef0bf37f81909f00](https://github.com/doomsower/whitewater/commit/ba5e51015f20cd4a5cfe8650ef0bf37f81909f00))
+- update clients to react-apollo@3 ([83a3158e69acd109a36d6c4d63221e1c630aaf86](https://github.com/doomsower/whitewater/commit/83a3158e69acd109a36d6c4d63221e1c630aaf86))
+- use yup in web ([12e7724fc05191f8bf83c19b4d5a4f759ed67598](https://github.com/doomsower/whitewater/commit/12e7724fc05191f8bf83c19b4d5a4f759ed67598))
+
+### Bug Fixes
+
+- fix banners route ([3ab04258acf834dfb308592f95a97be9dee5abf1](https://github.com/doomsower/whitewater/commit/3ab04258acf834dfb308592f95a97be9dee5abf1))
+- fix SectionInfo layout ([fde7197ed9a0d716ce0397d1fc5f3ec1623edc2f](https://github.com/doomsower/whitewater/commit/fde7197ed9a0d716ce0397d1fc5f3ec1623edc2f))
+- fix SelectedSectionWeb ([05e081605a049599814a95b4eaf7184d2bdcf30b](https://github.com/doomsower/whitewater/commit/05e081605a049599814a95b4eaf7184d2bdcf30b))
+- region admin scroll ([895e6447ca87bdcfeb8ef2afe5fcdf7520a07263](https://github.com/doomsower/whitewater/commit/895e6447ca87bdcfeb8ef2afe5fcdf7520a07263))
+- remove unused code ([f8b1df94f2ca2917d19853dfd40c8f037eba438f](https://github.com/doomsower/whitewater/commit/f8b1df94f2ca2917d19853dfd40c8f037eba438f))
+
+### Other
+
+- number field ([0c75a36be6305915b71dc4aae46cd5ba442a59a7](https://github.com/doomsower/whitewater/commit/0c75a36be6305915b71dc4aae46cd5ba442a59a7))
+- optimize material-ui imports ([5343fdf97c599ff4325bdc0019354897b96a3a76](https://github.com/doomsower/whitewater/commit/5343fdf97c599ff4325bdc0019354897b96a3a76))
+- replace cron-parser with cron-validator ([a3bf106081d7081d8452d8bfa280ad1154a7b4cf](https://github.com/doomsower/whitewater/commit/a3bf106081d7081d8452d8bfa280ad1154a7b4cf))
+- select field ([fdb254e3b5e1da76352095f8cb3bc52715bfcc24](https://github.com/doomsower/whitewater/commit/fdb254e3b5e1da76352095f8cb3bc52715bfcc24))
+- use some formik helpers ([c147d39fb4f17fbc6b01bb4ba91fc4c451dc168f](https://github.com/doomsower/whitewater/commit/c147d39fb4f17fbc6b01bb4ba91fc4c451dc168f))
+
+## [0.1.372-mui.0](https://github.com/doomsower/whitewater/compare/3cca73cde4d76c837d2f1812e351c63a6d9ef700...ab0b954fa830ca50451d865c8cba289760c0cd0d) (2019-07-16)
+
+### Features
+
+- add centered column class ([7c1e0ae4787d70f900686f6453a0c09314e40251](https://github.com/doomsower/whitewater/commit/7c1e0ae4787d70f900686f6453a0c09314e40251))
+- add multicomplete ([36814a27a22c10005ad2bb0f438bc4a3031cbff0](https://github.com/doomsower/whitewater/commit/36814a27a22c10005ad2bb0f438bc4a3031cbff0))
+- appbar, drawer ([f69e94005628af23bc3425a5989534cb88e97f01](https://github.com/doomsower/whitewater/commit/f69e94005628af23bc3425a5989534cb88e97f01))
+- apply a bit of code splitting ([9ba6377285970d2c3854fc89e66c753d1c7ede30](https://github.com/doomsower/whitewater/commit/9ba6377285970d2c3854fc89e66c753d1c7ede30))
+- autocomplete WIP ([cbe6a6f6f8afd3f389a9307ed1e8e4e544c159c6](https://github.com/doomsower/whitewater/commit/cbe6a6f6f8afd3f389a9307ed1e8e4e544c159c6))
+- breadcrumbs ([bf4e446e523b3686f15298042af9d0302f37c2d9](https://github.com/doomsower/whitewater/commit/bf4e446e523b3686f15298042af9d0302f37c2d9))
+- css baseline ([d1be1f653681569f8a779cdd5c5ace8b9dc4c3e7](https://github.com/doomsower/whitewater/commit/d1be1f653681569f8a779cdd5c5ace8b9dc4c3e7))
+- custom clipboard component ([4bb34f1526dc4ce69268b296324d01ab69d14678](https://github.com/doomsower/whitewater/commit/4bb34f1526dc4ce69268b296324d01ab69d14678))
+- custom style for actions column ([52856467fd13acce88bb216257271c4881a242c4](https://github.com/doomsower/whitewater/commit/52856467fd13acce88bb216257271c4881a242c4))
+- emitter/POKE_TABLES ([64858a4778a0aece2cafa35a1c029fc41fb1454f](https://github.com/doomsower/whitewater/commit/64858a4778a0aece2cafa35a1c029fc41fb1454f))
+- error snackbar ([caec504f213450eed568bfb6521a92e3ae82c85d](https://github.com/doomsower/whitewater/commit/caec504f213450eed568bfb6521a92e3ae82c85d))
+- filter sections ([0dbd15303e725f0a9323f9f798fe98ba9ef4900e](https://github.com/doomsower/whitewater/commit/0dbd15303e725f0a9323f9f798fe98ba9ef4900e))
+- mui migration step 0 ([0e79c8da7ecb4ee92a9cecf417e33c9936720cda](https://github.com/doomsower/whitewater/commit/0e79c8da7ecb4ee92a9cecf417e33c9936720cda))
+- new tabs - region tabs ([8adf489776c8a4fbc8de74f9ad2cf016d72f8d9a](https://github.com/doomsower/whitewater/commit/8adf489776c8a4fbc8de74f9ad2cf016d72f8d9a))
+- refactor cards and tables wip ([ab9a8f5b53083872badae8dffaf16737d0f8db99](https://github.com/doomsower/whitewater/commit/ab9a8f5b53083872badae8dffaf16737d0f8db99))
+- remove named node finder ([0dcba3912d2c9e901f449ee4ea93bc4a0b4b40ce](https://github.com/doomsower/whitewater/commit/0dcba3912d2c9e901f449ee4ea93bc4a0b4b40ce))
+- remove old form tab ([6c72db88e67fb629f29575ccfaced973a63f793b](https://github.com/doomsower/whitewater/commit/6c72db88e67fb629f29575ccfaced973a63f793b))
+- remove old tables ([525c68503a1da8e1406dd8e9a51610564af13797](https://github.com/doomsower/whitewater/commit/525c68503a1da8e1406dd8e9a51610564af13797))
+- remove old virtualized css ([8df4964d01e8f21728c7e4af9af15615632472ee](https://github.com/doomsower/whitewater/commit/8df4964d01e8f21728c7e4af9af15615632472ee))
+- remove react-grid-system ([3a2cf6fe3d7feaa8b272cf69383f557882399e1b](https://github.com/doomsower/whitewater/commit/3a2cf6fe3d7feaa8b272cf69383f557882399e1b))
+- remove ResourcesList & ResourcesListCard ([0c7029f7e6af4c945ef0e6fdc6a8fb0db2a53f59](https://github.com/doomsower/whitewater/commit/0c7029f7e6af4c945ef0e6fdc6a8fb0db2a53f59))
+- replace chip inputs ([c3696633aa43ecadcf1852f059b970e538872732](https://github.com/doomsower/whitewater/commit/c3696633aa43ecadcf1852f059b970e538872732))
+- replace language input ([ab5abecc5987dae003d28338f062580b2bbac297](https://github.com/doomsower/whitewater/commit/ab5abecc5987dae003d28338f062580b2bbac297))
+- restyle banners ([77939de44c9ed9424713ed006382a33b18fe2e70](https://github.com/doomsower/whitewater/commit/77939de44c9ed9424713ed006382a33b18fe2e70))
+- restyle gauges details ([892d69b726c90d6f2e247a67747f96cbe683aca0](https://github.com/doomsower/whitewater/commit/892d69b726c90d6f2e247a67747f96cbe683aca0))
+- restyle gauges list ([07bd2a5d3c7a5e586d1a7001ab3fc46a1ae0862f](https://github.com/doomsower/whitewater/commit/07bd2a5d3c7a5e586d1a7001ab3fc46a1ae0862f))
+- restyle POICollection ([b8df1f798dda48fb6547f567f7ee374ce6f3b89a](https://github.com/doomsower/whitewater/commit/b8df1f798dda48fb6547f567f7ee374ce6f3b89a))
+- restyle region admin form ([c8664e8cdec21317ad54393608ab6b272ec47f37](https://github.com/doomsower/whitewater/commit/c8664e8cdec21317ad54393608ab6b272ec47f37))
+- restyle section form ([3a1428b86c6d2769b16c7263e3ad4b47ec248273](https://github.com/doomsower/whitewater/commit/3a1428b86c6d2769b16c7263e3ad4b47ec248273))
+- restyle sources form ([a19390453f032fa3c3e5cff764b53f7b0fe8c854](https://github.com/doomsower/whitewater/commit/a19390453f032fa3c3e5cff764b53f7b0fe8c854))
+- restyle sources list ([ddd4d251ef7368c3e59d4ac92d73bbac9b48b31a](https://github.com/doomsower/whitewater/commit/ddd4d251ef7368c3e59d4ac92d73bbac9b48b31a))
+- restyle tags view ([3cca39440d73e30f287c94b5b31b1b5b6d60780c](https://github.com/doomsower/whitewater/commit/3cca39440d73e30f287c94b5b31b1b5b6d60780c))
+- update gallery ([be427134aa9b2a9d5012cff8514e28d7502b83eb](https://github.com/doomsower/whitewater/commit/be427134aa9b2a9d5012cff8514e28d7502b83eb))
+- update history table, region finder and user finder ([ac52bfb95af7522e384808968b1f90e528d905d3](https://github.com/doomsower/whitewater/commit/ac52bfb95af7522e384808968b1f90e528d905d3))
+- update map controls ([0e99b7e8f8ddf7fe07d16b83738dbb11bc090002](https://github.com/doomsower/whitewater/commit/0e99b7e8f8ddf7fe07d16b83738dbb11bc090002))
+
+### Bug Fixes
+
+- changes in style ([0db6a3ca63c0cab0c441e2e42aec1dd051dad564](https://github.com/doomsower/whitewater/commit/0db6a3ca63c0cab0c441e2e42aec1dd051dad564))
+- checkbox ([c039e6a1db8427e96e3d1ea8179557f9b65cf2a6](https://github.com/doomsower/whitewater/commit/c039e6a1db8427e96e3d1ea8179557f9b65cf2a6))
+- fix harvest style indicators ([9f25cc81e9771fc269a66996f052eaae4cc205a2](https://github.com/doomsower/whitewater/commit/9f25cc81e9771fc269a66996f052eaae4cc205a2))
+- fix table row styles ([2c89ea62904b7e4f5fd3b07d780ec828f6008de1](https://github.com/doomsower/whitewater/commit/2c89ea62904b7e4f5fd3b07d780ec828f6008de1))
+- minor ui fixes ([325ca624c2e7d8da0a77a9e4bb6db693b3857d37](https://github.com/doomsower/whitewater/commit/325ca624c2e7d8da0a77a9e4bb6db693b3857d37))
+- number input ([d97784c32184fef6dc0751fb2bbe7a0eb66454d8](https://github.com/doomsower/whitewater/commit/d97784c32184fef6dc0751fb2bbe7a0eb66454d8))
+- some components ([fe5a5dcad1c9f2aad04ddb12e06a1911e0f5f5a3](https://github.com/doomsower/whitewater/commit/fe5a5dcad1c9f2aad04ddb12e06a1911e0f5f5a3))
+
+### Other
+
+- blogs list ([d5686389bc9e4bbe667af9b67d2bf95ef2145dc8](https://github.com/doomsower/whitewater/commit/d5686389bc9e4bbe667af9b67d2bf95ef2145dc8))
+- editor footer ([b614e0767ebdc4ae7bc41fe1e6f593d2654d383c](https://github.com/doomsower/whitewater/commit/b614e0767ebdc4ae7bc41fe1e6f593d2654d383c))
+- fix banner radio ([2d08af63d95288f9c4b95506d12a097b9341f99f](https://github.com/doomsower/whitewater/commit/2d08af63d95288f9c4b95506d12a097b9341f99f))
+- fix group forms ([a41d60dbb513be3e7de3c9c17c4f2f21e48cdff2](https://github.com/doomsower/whitewater/commit/a41d60dbb513be3e7de3c9c17c4f2f21e48cdff2))
+- fix textInputs ([022e174631939eaa2069a7c2126b5c3742ddc01b](https://github.com/doomsower/whitewater/commit/022e174631939eaa2069a7c2126b5c3742ddc01b))
+- form tabs and region form ([6a61f4650161e3ce5ede7c5ba589ce37eff83960](https://github.com/doomsower/whitewater/commit/6a61f4650161e3ce5ede7c5ba589ce37eff83960))
+- minor components ([9066bec32e14c2f61f776895c528e9f9bf177a3c](https://github.com/doomsower/whitewater/commit/9066bec32e14c2f61f776895c528e9f9bf177a3c))
+- remove material-ui from form components ([27cf80042ee4db9c190a51e3cd203561ba8a4b93](https://github.com/doomsower/whitewater/commit/27cf80042ee4db9c190a51e3cd203561ba8a4b93))
+- remove remaining material-ui v0 uses ([69da6854e694107d405ccc60c999454e1bfefca2](https://github.com/doomsower/whitewater/commit/69da6854e694107d405ccc60c999454e1bfefca2))
+- season picker ([aec19c4c4787b35b3964ccf9be25bf97b169016d](https://github.com/doomsower/whitewater/commit/aec19c4c4787b35b3964ccf9be25bf97b169016d))
+- section details ([a94c0c0c5aa80b2d06a340ed9264b98f1e318241](https://github.com/doomsower/whitewater/commit/a94c0c0c5aa80b2d06a340ed9264b98f1e318241))
+- section form ([e667b37dbf5448e4ae9d82c541a5d0d2eba4d7de](https://github.com/doomsower/whitewater/commit/e667b37dbf5448e4ae9d82c541a5d0d2eba4d7de))
+- source control buttons ([5a7c046e8866aa9125b7206258cacdf610b69dbb](https://github.com/doomsower/whitewater/commit/5a7c046e8866aa9125b7206258cacdf610b69dbb))
+- source details ([1a9b8056af713eaea1653780c6f326c761c14941](https://github.com/doomsower/whitewater/commit/1a9b8056af713eaea1653780c6f326c761c14941))
+- source form ([709070bf29e88c6923cc1031616ff810753f8875](https://github.com/doomsower/whitewater/commit/709070bf29e88c6923cc1031616ff810753f8875))
+- update buttons ([2d70c71edea699099c5c31f61bc1c006ed67a988](https://github.com/doomsower/whitewater/commit/2d70c71edea699099c5c31f61bc1c006ed67a988))
+- update icon buttons ([86eb97e09db58b1a371717b51b3f9276bebd5168](https://github.com/doomsower/whitewater/commit/86eb97e09db58b1a371717b51b3f9276bebd5168))
+- update some ([c20ecf7b9040600859b4345dddd3895f1de51fa6](https://github.com/doomsower/whitewater/commit/c20ecf7b9040600859b4345dddd3895f1de51fa6))
+- updte common form ([8d1ed1b2ee48ec970f7e2c061aab0a4d089b064c](https://github.com/doomsower/whitewater/commit/8d1ed1b2ee48ec970f7e2c061aab0a4d089b064c))
+- user menu ([4fbc2ca1f659dfce32035032675870f99725c561](https://github.com/doomsower/whitewater/commit/4fbc2ca1f659dfce32035032675870f99725c561))
+
 ## [0.1.371](https://github.com/doomsower/whitewater/compare/a3919143d5e44c7d04ac51ea7ab196b2746d582b...3cca73cde4d76c837d2f1812e351c63a6d9ef700) (2019-07-07)
 
 ### Features

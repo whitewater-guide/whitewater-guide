@@ -9,11 +9,18 @@ import { WithMe } from './types';
 interface Props {
   query?: DocumentNode;
   service: AuthService;
+  renderInitializing?: React.ReactElement;
 }
 
 export const AuthProvider: React.FC<Props> = React.memo((props) => {
-  const { query = MY_PROFILE_QUERY, service, children } = props;
+  const {
+    query = MY_PROFILE_QUERY,
+    service,
+    renderInitializing,
+    children,
+  } = props;
   const [loading, setLoading] = useState(false);
+  const [initializing, setInitializing] = useState(true);
 
   useEffect(() => {
     service.listener = setLoading;
@@ -21,11 +28,18 @@ export const AuthProvider: React.FC<Props> = React.memo((props) => {
 
   // try to refresh token when mounted
   useEffect(() => {
-    service.refreshAccessToken();
+    service
+      .init()
+      .then(() => service.refreshAccessToken())
+      .then(() => setInitializing(false));
     return () => {
       service.listener = null;
     };
   }, []);
+
+  if (initializing) {
+    return renderInitializing || null;
+  }
 
   return (
     <Query<WithMe> query={query} fetchPolicy="cache-and-network">

@@ -1,9 +1,8 @@
-// tslint:disable-next-line
-import { createValidator } from '../../utils/validation';
+import { createSafeValidator } from '../../validation';
 import { TagCategory, TagInput } from './types';
-import { TagInputStruct } from './validation';
+import { TagInputSchema } from './validation';
 
-const validator = createValidator(TagInputStruct);
+const validator = createSafeValidator(TagInputSchema);
 
 type TestValue = [string, TagInput];
 
@@ -26,6 +25,7 @@ const incorrectValues: TestValue[] = [
   ['bad id 1', { ...correct, id: 'aa' }],
   ['bad id 2', { ...correct, id: 'яяяяяя' }],
   ['bad id 3', { ...correct, id: 'foo bar' }],
+  ['extra fields', { ...correct, foo: 'foo bar' } as any],
 ];
 
 it.each(correctValues)('should be valid for %s', (_, value) => {
@@ -33,6 +33,7 @@ it.each(correctValues)('should be valid for %s', (_, value) => {
 });
 
 it.each(incorrectValues)('should be invalid for %s', (_, value) => {
-  expect(validator(value)).not.toBeNull();
-  expect(validator(value)).toMatchSnapshot();
+  const error = validator(value);
+  expect(error).not.toBeNull();
+  expect(error).toMatchSnapshot();
 });

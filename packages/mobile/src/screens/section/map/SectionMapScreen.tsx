@@ -25,7 +25,7 @@ export const SectionMapScreen: NavigationScreenComponent = () => {
     return result;
   }, [section]);
   return (
-    <Screen noScroll={true}>
+    <Screen>
       {section.node && (
         <MapLayout
           sections={[section.node]}

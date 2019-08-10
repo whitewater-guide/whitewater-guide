@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/commons",
   "private": false,
-  "version": "0.0.157",
+  "version": "0.0.172",
   "license": "UNLICENSED",
   "description": "shared code for whitewater.guide backend and frontend",
   "main": "dist/index.js",
@@ -21,11 +21,13 @@
     "test": "jest"
   },
   "dependencies": {
-    "cron-parser": "^2.12.0",
+    "@types/yup": "^0.26.22",
+    "cron-validator": "^1.0.1",
+    "deepmerge": "^4.0.0",
     "expr-eval": "^1.2.2",
     "lodash": "^4.17.11",
-    "superstruct": "^0.6.1",
-    "validator": "^11.0.0"
+    "validator": "^11.0.0",
+    "yup": "^0.27.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
@@ -35,7 +37,6 @@
     "@babel/preset-typescript": "^7.1.0",
     "@types/jest": "^24.0.15",
     "@types/lodash": "^4.14.134",
-    "@types/superstruct": "^0.5.0",
     "@types/validator": "^10.11.1",
     "jest": "^24.8.0",
     "rollup": "^1.16.2",
@@ -44,6 +45,7 @@
     "rollup-plugin-node-resolve": "^5.1.0",
     "ts-jest": "^24.0.2",
     "tslib": "^1.10.0",
-    "typescript": "3.5.2"
+    "typescript": "3.5.2",
+    "utility-types": "^3.7.0"
   }
 }

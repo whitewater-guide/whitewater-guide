@@ -42,31 +42,57 @@ export const getTempPostPolicy = async (key?: string, uploadedBy?: string) => {
   return { postURL, formData };
 };
 
+export const renameFile = (from: string, to?: string) => {
+  if (from.indexOf('/') >= 0) {
+    throw new Error('from file name expected, but found: ' + from);
+  }
+  if (!to) {
+    return from;
+  }
+  if (to.indexOf('/') >= 0) {
+    throw new Error('to file name expected, but found: ' + to);
+  }
+  const [fromName, fromExt] = from.split('.');
+  const [toName, toExt] = to.split('.');
+  if (fromExt && toExt && fromExt !== toExt) {
+    throw new Error(`attempt to change file extension: ${from} -> ${to}`);
+  }
+  const ext = toExt || fromExt;
+  return `${toName}.${ext}`;
+};
+
 /**
  * Moves uploaded image from temp bucket to target bucket
  * If url does not belong to temp bucket - ignores it
  * @param {string} url URL of image (or just filename)
  * @param {string} toBucket Where image should be placed (avatars? media?)
+ * @param {string} newFileName - optional, maybe without extension, in which case original
+ * extension will be kept
  * @returns {Promise<void>}
  */
 export const moveTempImage = async (
   url: string,
   toBucket: string,
+  newFileName?: string,
 ): Promise<void> => {
-  const filename = url.split('/').pop();
   try {
+    const filename = url.split('/').pop();
+    if (!filename) {
+      throw new Error('moveTempImage: filename not found');
+    }
+    const newFile = renameFile(filename, newFileName);
     await minioClient.copyObject(
       toBucket,
-      filename!,
+      newFile,
       `/${TEMP}/${filename}`,
       new CopyConditions(),
     );
-    await minioClient.removeObject(TEMP, filename!);
+    await minioClient.removeObject(TEMP, filename);
   } catch (e) {
     logger.error({
       error: e,
       message: 'Error while moving file',
-      extra: { filename },
+      extra: { url, newFileName },
     });
   }
 };

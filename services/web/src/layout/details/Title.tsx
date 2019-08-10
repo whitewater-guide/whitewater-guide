@@ -1,19 +1,20 @@
+import Grid from '@material-ui/core/Grid';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import React from 'react';
-import { Col as FlexCol, ColProps } from 'react-grid-system';
 
-const styles = {
-  col: {},
-};
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    title: {
+      fontWeight: 'bold',
+    },
+  }),
+);
 
-export const Title: React.StatelessComponent<ColProps> = ({
-  children,
-  ref,
-  ...props
-}) => {
-  const propsWithStyle = { style: styles.col, ...props };
+export const Title: React.FC = ({ children }) => {
+  const classes = useStyles();
   return (
-    <FlexCol sm={2} {...propsWithStyle}>
-      <b>{children}</b>
-    </FlexCol>
+    <Grid item={true} xs={3} className={classes.title}>
+      {children}
+    </Grid>
   );
 };

@@ -4,9 +4,7 @@ import React from 'react';
 /**
  * Component that render its children only if the user (consumed from context) is admin
  * Or the component is in region context and the region is editable for current user
- * @param {React.ReactNode} children
- * @returns {any}
- * @constructor
+ * Or the component is not in region context, but the user is an editor somewhere
  */
 export const EditorOnly: React.FC = ({ children }) => {
   const { me } = useAuth();
@@ -17,8 +15,8 @@ export const EditorOnly: React.FC = ({ children }) => {
   if (me.admin) {
     return children as any;
   }
-  if (!node || !node.editable) {
-    return null;
+  if (!node) {
+    return me.editor ? children : null;
   }
-  return children as any;
+  return node.editable ? children : null;
 };

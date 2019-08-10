@@ -1,3 +1,5 @@
+export const NEW_ID = '__NEW_ID__';
+
 export interface Node {
   __typename?: string;
   id: string;
@@ -17,6 +19,10 @@ export interface Connection<T> {
 
 export interface NamedNode extends Node {
   name: string;
+}
+
+export interface NodeRef extends Node {
+  name?: string;
 }
 
 export interface TextSearchFilter {

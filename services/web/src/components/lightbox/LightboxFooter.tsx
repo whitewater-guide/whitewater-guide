@@ -1,6 +1,6 @@
-import { Media } from '@whitewater-guide/commons';
 import React from 'react';
 import { Styles } from '../../styles';
+import { LightboxItem } from './types';
 
 const styles: Styles = {
   container: {
@@ -26,11 +26,11 @@ interface Props {
   currentIndex: number;
   isFullscreen: boolean;
   isModal: boolean;
-  currentView: Media;
-  views: Media[];
+  currentView: LightboxItem;
+  views: LightboxItem[];
 }
 
-const LightboxFooter: React.StatelessComponent<Props> = ({
+const LightboxFooter: React.FC<Props> = ({
   currentIndex,
   currentView,
   views,
@@ -40,9 +40,11 @@ const LightboxFooter: React.StatelessComponent<Props> = ({
     <div style={styles.container}>
       <div style={styles.caption}>
         <span>{currentView.description}</span>
-        <span style={styles.copyright}>{`© ${currentView.copyright}`}</span>
+        {!!currentView.copyright && (
+          <span style={styles.copyright}>{`© ${currentView.copyright}`}</span>
+        )}
       </div>
-      <span>{`${currentIndex + 1} / ${total}`}</span>
+      {total !== 1 && <span>{`${currentIndex + 1} / ${total}`}</span>}
     </div>
   );
 };

@@ -1,111 +1,53 @@
-import FlatButton from 'material-ui/FlatButton';
-import React from 'react';
-import { Column, TableCellRenderer } from 'react-virtualized';
-import { ClickBlocker, DeleteButton, IconLink } from '../../../components';
-import { EditorColumn } from '../../../components/tables';
-import { ResourcesList } from '../../../layout';
-import { paths } from '../../../utils';
-import AddSectionButton from './AddSectionButton';
+import { useStreamingQuery } from '@whitewater-guide/clients';
+import React, { useCallback, useMemo, useState } from 'react';
+import useRouter from 'use-react-router';
+import { useDeleteMutation } from '../../../apollo';
+import { Loading } from '../../../components';
+import { squashConnection } from '../../../formik/utils';
 import ChangeRegionDialog from './ChangeRegionDialog';
-import { RiversListProps } from './types';
+import { LIST_RIVERS, QResult, QVars } from './listRivers.query';
+import { REMOVE_RIVER } from './removeRiver.mutation';
+import RiversTable from './RiversTable';
+import { RouterParams } from './types';
 
-const styles = {
-  actions: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-};
+export const RiversList: React.FC = React.memo(() => {
+  const { match } = useRouter<RouterParams>();
 
-interface State {
-  changeRegionDialogOpen: boolean;
-  changeRegionDialogRiverId: string | null;
-}
+  const [dialogRiverId, setDialogRiverId] = useState<string | null>(null);
+  const closeDialog = useCallback(() => setDialogRiverId(null), [
+    setDialogRiverId,
+  ]);
 
-export default class RiversList extends React.PureComponent<
-  RiversListProps,
-  State
-> {
-  state: State = {
-    changeRegionDialogOpen: false,
-    changeRegionDialogRiverId: null,
-  };
-
-  onAdd = (href: string) => this.props.history.push(href);
-
-  handleClose = () =>
-    this.setState({
-      changeRegionDialogOpen: false,
-      changeRegionDialogRiverId: null,
-    });
-
-  handleOpen = (riverId: string) =>
-    this.setState({
-      changeRegionDialogOpen: true,
-      changeRegionDialogRiverId: riverId,
-    });
-
-  renderAltNames: TableCellRenderer = ({ rowData: { altNames } }) =>
-    altNames ? altNames.join(', ') : '';
-
-  renderNumSections: TableCellRenderer = ({
-    rowData: {
-      sections: { count },
+  const { data, loading } = useStreamingQuery<QResult, QVars>(
+    LIST_RIVERS,
+    {
+      fetchPolicy: 'cache-and-network',
+      variables: { filter: match.params },
     },
-  }) => count;
+    60,
+  );
+  const removeRiver = useDeleteMutation(REMOVE_RIVER, [
+    { query: LIST_RIVERS, variables: { filter: match.params } },
+  ]);
 
-  renderActions: TableCellRenderer = ({ rowData: { id: riverId } }) => {
-    const {
-      match: {
-        params: { regionId },
-      },
-    } = this.props;
-    const href =
-      paths.to({ regionId, sectionId: 'new' }) + `?riverId=${riverId}`;
-    return (
-      <ClickBlocker style={styles.actions}>
-        <IconLink to={paths.settings({ regionId, riverId })} icon="edit" />
-        <DeleteButton id={riverId} deleteHandler={this.props.removeRiver} />
-        <AddSectionButton onAdd={this.onAdd} href={href} />
-        <FlatButton
-          key="open"
-          label="change region"
-          onClick={() => this.handleOpen(riverId)}
-        />
-      </ClickBlocker>
-    );
-  };
-
-  render() {
-    return (
-      <div style={{ width: '100%', height: '100%' }}>
-        <ChangeRegionDialog
-          riverId={this.state.changeRegionDialogRiverId}
-          dialogOpen={this.state.changeRegionDialogOpen}
-          handleCancel={this.handleClose}
-        />
-        <ResourcesList list={this.props.rivers.nodes}>
-          <Column width={200} flexGrow={1} label="Name" dataKey="name" />
-          <Column
-            width={200}
-            flexGrow={1}
-            label="Alternative names"
-            dataKey="altNames"
-            cellRenderer={this.renderAltNames}
-          />
-          <Column
-            width={70}
-            label="# Sections"
-            dataKey="sections"
-            cellRenderer={this.renderNumSections}
-          />
-          <EditorColumn
-            width={400}
-            label="Actions"
-            dataKey="actions"
-            cellRenderer={this.renderActions}
-          />
-        </ResourcesList>
-      </div>
-    );
+  if (loading && !data) {
+    return <Loading />;
   }
-}
+
+  return (
+    <React.Fragment>
+      <ChangeRegionDialog
+        riverId={dialogRiverId}
+        dialogOpen={!!dialogRiverId}
+        handleCancel={closeDialog}
+      />
+      <RiversTable
+        rivers={data && data.rivers}
+        onRemove={removeRiver}
+        onChangeRegion={setDialogRiverId}
+      />
+    </React.Fragment>
+  );
+});
+
+RiversList.displayName = 'RiversList';

@@ -1,13 +1,13 @@
-import { NamedNode, Node, Timestamped } from '../../apollo';
+import { NamedNode, Node, NodeRef, Timestamped } from '../../apollo';
 import { HarvestStatus, Measurement } from '../measurements';
 import { Point, PointInput } from '../points';
 import { Source } from '../sources';
 
-export interface Gauge extends NamedNode, Timestamped {
+export interface Gauge<RP = any> extends NamedNode, Timestamped {
   code: string;
   levelUnit: string | null;
   flowUnit: string | null;
-  requestParams: any;
+  requestParams: RP;
   cron: string | null;
   url: string | null;
   enabled: boolean;
@@ -18,15 +18,18 @@ export interface Gauge extends NamedNode, Timestamped {
   status: HarvestStatus | null;
 }
 
-export interface GaugeInput {
+export interface GaugeInput<RP = any> {
   id: string | null;
   name: string;
-  source: Node;
+  source: NodeRef;
   location: PointInput | null;
   code: string;
   levelUnit: string | null;
   flowUnit: string | null;
-  requestParams: any;
+  requestParams: RP;
   cron: string | null;
   url: string | null;
 }
+
+export const isGauge = (node?: Node | null): node is Gauge =>
+  !!node && node.__typename === 'Gauge';

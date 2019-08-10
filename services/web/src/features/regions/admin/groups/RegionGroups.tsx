@@ -1,41 +1,37 @@
-import { NamedNode } from '@whitewater-guide/commons';
+import { Box } from '@material-ui/core';
 import React from 'react';
-import { ChipList } from '../../../../components';
-import { Styles } from '../../../../styles';
-import { AddGroupProps } from './addRegionToGroup.mutation';
-import { RegionGroupsQueryProps } from './regionGroups.query';
-import { RemoverGroupProps } from './removeRegionFromGroup.mutation';
+import { useQuery } from 'react-apollo';
+import { Loading, Multicomplete } from '../../../../components';
+import { QResult, QVars, REGION_GROUPS_QUERY } from './regionGroups.query';
+import useAddToGroup from './useAddToGroup';
+import useRemoveFromGroup from './useRemoveFromGroup';
 
-const styles: Styles = {
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    height: '100%',
-  },
-  formBox: {
-    flex: 1,
-  },
-};
-
-type Props = RegionGroupsQueryProps & RemoverGroupProps & AddGroupProps;
-
-export class RegionGroups extends React.PureComponent<Props> {
-  onAdd = (group: NamedNode) => this.props.addGroup(group.id);
-
-  onDelete = (groupId: string) => this.props.removeGroup(groupId);
-
-  render() {
-    const { regionGroups, allGroups } = this.props;
-    return (
-      <div style={styles.container}>
-        <ChipList
-          options={allGroups.nodes || []}
-          values={regionGroups.nodes || []}
-          onRequestAdd={this.onAdd}
-          onRequestDelete={this.onDelete}
-          title="Группы"
-        />
-      </div>
-    );
-  }
+interface Props {
+  regionId: string;
 }
+
+export const RegionGroups: React.FC<Props> = React.memo(({ regionId }) => {
+  const { data, loading } = useQuery<QResult, QVars>(REGION_GROUPS_QUERY, {
+    fetchPolicy: 'network-only',
+    variables: { regionId },
+  });
+  const addToGroup = useAddToGroup(regionId);
+  const removeFromGroup = useRemoveFromGroup(regionId);
+  if (loading || !data) {
+    return <Loading />;
+  }
+  return (
+    <Box display="flex" flexDirection="column" height="100%">
+      <Multicomplete
+        options={data.allGroups.nodes || []}
+        values={data.regionGroups.nodes || []}
+        onAdd={addToGroup}
+        onDelete={removeFromGroup}
+        label="Groups"
+        placeholder="Groups"
+      />
+    </Box>
+  );
+});
+
+RegionGroups.displayName = 'RegionGroups';

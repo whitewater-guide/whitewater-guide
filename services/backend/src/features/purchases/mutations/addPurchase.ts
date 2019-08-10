@@ -6,13 +6,13 @@ import {
 import db from '@db';
 import {
   PurchaseInput,
-  PurchaseInputStruct,
+  PurchaseInputSchema,
   PurchasePlatform,
 } from '@whitewater-guide/commons';
 import { AuthenticationError } from 'apollo-server';
 import { isValidated, validate } from 'in-app-purchase';
 import { Transaction } from 'knex';
-import { struct } from 'superstruct';
+import * as yup from 'yup';
 import logger from '../logger';
 import { BoomPromoRaw, TransactionRaw } from '../types';
 
@@ -20,8 +20,8 @@ interface Vars {
   purchase: PurchaseInput;
 }
 
-const Struct = struct.object({
-  purchase: PurchaseInputStruct,
+const Struct = yup.object({
+  purchase: PurchaseInputSchema,
 });
 
 const processBoomstarterPurchase = async (

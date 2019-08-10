@@ -1,5 +1,5 @@
+import { act, renderHook } from '@testing-library/react-hooks';
 import { BoomPromoInfo, Region } from '@whitewater-guide/commons';
-import { act, renderHook } from 'react-hooks-testing-library';
 import { Steps } from './Steps';
 import { StepperActions, StepperState, useStepper } from './useStepper';
 

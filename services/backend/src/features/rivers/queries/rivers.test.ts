@@ -85,6 +85,15 @@ it('should filter by region', async () => {
   expect(result).toHaveProperty('data.rivers.count', 2);
 });
 
+it('should search by name', async () => {
+  const result = await runQuery(query, {
+    filter: { regionId: REGION_GALICIA, search: 'one' },
+  });
+  expect(result.errors).toBeUndefined();
+  expect(result).toHaveProperty('data.rivers.nodes.length', 1);
+  expect(result).toHaveProperty('data.rivers.count', 1);
+});
+
 it('should return sections', async () => {
   const result = await runQuery(query, {
     filter: { regionId: REGION_GALICIA },

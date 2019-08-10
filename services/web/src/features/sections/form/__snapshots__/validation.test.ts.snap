@@ -1,0 +1,248 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should be invalid for bad alt name 1`] = `
+Object {
+  "altNames": Array [
+    undefined,
+    "yup:string.nonEmpty",
+  ],
+}
+`;
+
+exports[`should be invalid for bad difficulty (fraction) 1`] = `
+Object {
+  "difficulty": Object {
+    "key": "yup:mixed.oneOf",
+    "options": Object {
+      "values": "0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6",
+    },
+  },
+}
+`;
+
+exports[`should be invalid for bad difficulty (max) 1`] = `
+Object {
+  "difficulty": Object {
+    "key": "yup:mixed.oneOf",
+    "options": Object {
+      "values": "0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6",
+    },
+  },
+}
+`;
+
+exports[`should be invalid for bad difficulty (min) 1`] = `
+Object {
+  "difficulty": Object {
+    "key": "yup:mixed.oneOf",
+    "options": Object {
+      "values": "0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6",
+    },
+  },
+}
+`;
+
+exports[`should be invalid for bad distance 1`] = `
+Object {
+  "distance": Object {
+    "key": "yup:number.positive",
+    "options": Object {
+      "path": "distance",
+    },
+  },
+}
+`;
+
+exports[`should be invalid for bad drop 1`] = `
+Object {
+  "drop": Object {
+    "key": "yup:number.positive",
+    "options": Object {
+      "path": "drop",
+    },
+  },
+}
+`;
+
+exports[`should be invalid for bad duration 1`] = `
+Object {
+  "duration": Object {
+    "key": "yup:mixed.oneOf",
+    "options": Object {
+      "values": "10, 20, 30, 40, 50, ",
+    },
+  },
+}
+`;
+
+exports[`should be invalid for bad extra difficulty 1`] = `
+Object {
+  "difficultyXtra": Object {
+    "key": "yup:string.max",
+    "options": Object {
+      "max": 32,
+      "path": "difficultyXtra",
+    },
+  },
+}
+`;
+
+exports[`should be invalid for bad gauge id 1`] = `
+Object {
+  "gauge": Object {
+    "id": "yup:string.uuid",
+  },
+}
+`;
+
+exports[`should be invalid for bad id 1`] = `
+Object {
+  "id": "yup:string.uuid",
+}
+`;
+
+exports[`should be invalid for bad name 1`] = `
+Object {
+  "name": "yup:string.nonEmpty",
+}
+`;
+
+exports[`should be invalid for bad pois 1`] = `
+Object {
+  "pois": Array [
+    undefined,
+    Object {
+      "id": "yup:string.uuid",
+    },
+  ],
+}
+`;
+
+exports[`should be invalid for bad rating (fraction) 1`] = `
+Object {
+  "rating": Object {
+    "key": "yup:mixed.oneOf",
+    "options": Object {
+      "values": "0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, ",
+    },
+  },
+}
+`;
+
+exports[`should be invalid for bad rating (max) 1`] = `
+Object {
+  "rating": Object {
+    "key": "yup:mixed.oneOf",
+    "options": Object {
+      "values": "0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, ",
+    },
+  },
+}
+`;
+
+exports[`should be invalid for bad rating (min) 1`] = `
+Object {
+  "rating": Object {
+    "key": "yup:mixed.oneOf",
+    "options": Object {
+      "values": "0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, ",
+    },
+  },
+}
+`;
+
+exports[`should be invalid for bad river id 1`] = `
+Object {
+  "river": "yup:mixed.newNode",
+}
+`;
+
+exports[`should be invalid for bad season numeric (bad half-month) 1`] = `
+Object {
+  "seasonNumeric": Array [
+    undefined,
+    Object {
+      "key": "yup:number.max",
+      "options": Object {
+        "max": 23,
+        "path": "seasonNumeric[1]",
+      },
+    },
+    Object {
+      "key": "yup:number.min",
+      "options": Object {
+        "min": 0,
+        "path": "seasonNumeric[2]",
+      },
+    },
+  ],
+}
+`;
+
+exports[`should be invalid for bad season numeric (too many items) 1`] = `
+Object {
+  "seasonNumeric": Object {
+    "key": "yup:array.max",
+    "options": Object {
+      "max": 24,
+      "path": "seasonNumeric",
+    },
+  },
+}
+`;
+
+exports[`should be invalid for bad shape (bad point) 1`] = `
+Object {
+  "shape": Array [
+    undefined,
+    Array [
+      "yup:number.longitude",
+    ],
+  ],
+}
+`;
+
+exports[`should be invalid for bad shape (not enough points) 1`] = `
+Object {
+  "shape": Object {
+    "key": "yup:array.min",
+    "options": Object {
+      "min": 2,
+      "path": "shape",
+    },
+  },
+}
+`;
+
+exports[`should be invalid for bad tag 1`] = `
+Object {
+  "kayakingTags": Array [
+    undefined,
+    Object {
+      "id": "yup:string.slug",
+    },
+  ],
+}
+`;
+
+exports[`should be invalid for extra fields 1`] = `
+Object {
+  "undefined": Object {
+    "key": "yup:object.noUnknown",
+    "options": Object {
+      "path": "this",
+    },
+  },
+}
+`;
+
+exports[`should be invalid for present tag field 1`] = `
+Object {
+  "tags": Object {
+    "key": "yup:mixed.oneOf",
+    "options": Object {
+      "values": "",
+    },
+  },
+}
+`;

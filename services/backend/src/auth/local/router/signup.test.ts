@@ -1,5 +1,5 @@
 import db, { holdTransaction, rollbackTransaction } from '@db';
-import { asyncRedis, client } from '@redis';
+import { redis } from '@redis';
 import { countRows, UUID_REGEX } from '@test';
 import { CookieAccessInfo } from 'cookiejar';
 import Koa from 'koa';
@@ -26,13 +26,13 @@ beforeAll(async () => {
 beforeEach(async () => {
   jest.resetAllMocks();
   await holdTransaction();
-  await asyncRedis.flushall();
+  await redis.flushall();
   app = createApp();
 });
 
 afterEach(async () => {
   await rollbackTransaction();
-  client.removeAllListeners();
+  redis.removeAllListeners();
 });
 
 describe('errors', () => {
@@ -329,5 +329,21 @@ describe('other fields', () => {
       .where({ id })
       .first();
     expect(user).toHaveProperty('language', 'en');
+  });
+
+  it('should save fcm token', async () => {
+    const resp = await agent(app)
+      .post(ROUTE)
+      .send({
+        email: 'foo@bar.com',
+        password: 'L0ng___p@ssW0rD',
+        fcm_token: '__foo__',
+      });
+    const id = resp.body.id;
+    const tokens = await db(false)
+      .select('token')
+      .from('fcm_tokens')
+      .where({ user_id: id });
+    expect(tokens).toEqual([{ token: '__foo__' }]);
   });
 });

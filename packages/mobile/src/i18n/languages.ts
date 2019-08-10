@@ -1,6 +1,6 @@
-import resources from './resources';
+import { mobile } from '@whitewater-guide/translations';
 
-export const SUPPORTED_LANGUAGES = Object.keys(resources);
+export const SUPPORTED_LANGUAGES = Object.keys(mobile);
 
 export const LANGUAGE_NAMES: { [key: string]: string } = {
   en: 'English',

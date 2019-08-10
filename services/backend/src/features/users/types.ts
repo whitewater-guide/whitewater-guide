@@ -1,5 +1,9 @@
 import { RawTimestamped } from '@db';
-import { EditorSettings, Overwrite } from '@whitewater-guide/commons';
+import {
+  EditorSettings,
+  Overwrite,
+  SocialMediaAccount,
+} from '@whitewater-guide/commons';
 
 export type TokenClaim = 'verification' | 'passwordReset';
 
@@ -18,6 +22,7 @@ export interface UserRaw extends RawTimestamped {
   language: string;
   imperial: boolean;
   editor_settings: EditorSettings | null;
+  accounts: SocialMediaAccount[] | null;
 
   password: string | null;
   verified: boolean;

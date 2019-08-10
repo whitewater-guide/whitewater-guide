@@ -4,27 +4,45 @@ exports[`BannerInputStruct should be invalid for bad group 1`] = `
 Object {
   "regions": Array [
     undefined,
-    "Value must be node with id",
+    Object {
+      "id": "yup:string.uuid",
+    },
   ],
 }
 `;
 
 exports[`BannerInputStruct should be invalid for bad link 1`] = `
 Object {
-  "link": "Value must be valid https URL",
+  "link": Object {
+    "key": "yup:string.url",
+    "options": Object {
+      "path": "link",
+    },
+  },
 }
 `;
 
 exports[`BannerInputStruct should be invalid for bad placement 1`] = `
 Object {
-  "placement": "Expected a value of type \`\\"mobileSectionDescription\\" | \\"mobileSectionRow\\" | \\"mobileSectionMedia\\" | \\"mobileRegionDescription\\"\` for \`placement\` but received \`\\"nowhere\\"\`.",
+  "placement": Object {
+    "key": "yup:mixed.oneOf",
+    "options": Object {
+      "values": "mobileSectionDescription, mobileSectionRow, mobileSectionMedia, mobileRegionDescription",
+    },
+  },
 }
 `;
 
 exports[`BannerInputStruct should be invalid for bad ratio 1`] = `
 Object {
   "source": Object {
-    "ratio": "Ratio must be a number between 10 and 3",
+    "ratio": Object {
+      "key": "yup:number.moreThan",
+      "options": Object {
+        "more": 3,
+        "path": "source.ratio",
+      },
+    },
   },
 }
 `;
@@ -33,51 +51,105 @@ exports[`BannerInputStruct should be invalid for bad region 1`] = `
 Object {
   "regions": Array [
     undefined,
-    "Value must be node with id",
+    Object {
+      "id": "yup:string.uuid",
+    },
   ],
 }
 `;
 
 exports[`BannerInputStruct should be invalid for bad slug 1 1`] = `
 Object {
-  "slug": "Value must be valid slug",
+  "slug": "yup:string.slug",
 }
 `;
 
 exports[`BannerInputStruct should be invalid for bad slug 2 1`] = `
 Object {
-  "slug": "Value must be valid slug",
+  "slug": "yup:string.slug",
 }
 `;
 
 exports[`BannerInputStruct should be invalid for bad uuid 1`] = `
 Object {
-  "id": "Incorrect UUID",
+  "id": "yup:string.uuid",
+}
+`;
+
+exports[`BannerInputStruct should be invalid for casting priority 1`] = `
+Object {
+  "priority": Object {
+    "key": "yup:mixed.notType",
+    "options": Object {
+      "type": "number",
+    },
+  },
 }
 `;
 
 exports[`BannerInputStruct should be invalid for empty name 1`] = `
 Object {
-  "name": "Value must be non-empty string",
+  "name": "yup:string.nonEmpty",
 }
 `;
 
 exports[`BannerInputStruct should be invalid for empty source 1`] = `
 Object {
   "source": Object {
-    "src": "Value must be non-empty string",
+    "src": "yup:string.nonEmpty",
   },
 }
 `;
 
 exports[`BannerInputStruct should be invalid for extra fields 1`] = `
 Object {
-  "foo": "Expected a value of type \`undefined\` for \`foo\` but received \`\\"bar\\"\`.",
+  "undefined": Object {
+    "key": "yup:object.noUnknown",
+    "options": Object {
+      "path": "this",
+    },
+  },
 }
 `;
 
 exports[`BannerInputStruct should be invalid for http link 1`] = `
 Object {
-  "link": "Value must be valid https URL",
+  "link": "yup:string.https",
+}
+`;
+
+exports[`BannerInputStruct should be invalid for missing uuid 1`] = `
+Object {
+  "id": "yup:mixed.defined",
+}
+`;
+
+exports[`BannerInputStruct should be invalid for non-strict ratio  1`] = `
+Object {
+  "source": Object {
+    "ratio": Object {
+      "key": "yup:mixed.notType",
+      "options": Object {
+        "type": "number",
+      },
+    },
+  },
+}
+`;
+
+exports[`BannerInputStruct should be invalid for source with extra fields 1`] = `
+Object {
+  "source": Object {
+    "key": "yup:object.noUnknown",
+    "options": Object {
+      "path": "source",
+    },
+  },
+}
+`;
+
+exports[`BannerInputStruct should be invalid for undefined uuid 1`] = `
+Object {
+  "id": "yup:mixed.defined",
 }
 `;

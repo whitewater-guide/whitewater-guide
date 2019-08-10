@@ -1,8 +1,8 @@
+import Button from '@material-ui/core/Button';
+import CardActions from '@material-ui/core/CardActions';
 import { AdminOnly } from '@whitewater-guide/clients';
-import { CardActions } from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
-import React from 'react';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
+import React, { useMemo } from 'react';
+import useRouter from 'use-react-router';
 import { EditorOnly } from '../components/EditorOnly';
 
 export interface EditorFooterProps {
@@ -16,53 +16,45 @@ export interface EditorFooterProps {
   administrate?: boolean;
 }
 
-type InnerProps = EditorFooterProps & RouteComponentProps<any>;
+export const EditorFooter: React.FC<EditorFooterProps> = (props) => {
+  const { adminOnly, add, administrate, edit, children } = props;
+  const {
+    match: { url },
+    history: { push },
+  } = useRouter();
 
-class EditorFooterInternal extends React.PureComponent<InnerProps> {
-  onAdd = () => {
-    const {
-      history,
-      location: { pathname },
-    } = this.props;
-    history.push(`${pathname}/new`);
-  };
+  const handlers = useMemo(
+    () => ({
+      onAdd: () => push(`${url}/new`),
+      onEdit: () => push(`${url}/settings`),
+      onAdmin: () => push(`${url}/admin`),
+    }),
+    [url, push],
+  );
 
-  onEdit = () => {
-    const {
-      history,
-      location: { pathname },
-    } = this.props;
-    history.push(`${pathname}/settings`);
-  };
-
-  onAdmin = () => {
-    const {
-      history,
-      location: { pathname },
-    } = this.props;
-    history.push(`${pathname}/admin`);
-  };
-
-  render() {
-    const { adminOnly, add, edit, administrate, children } = this.props;
-    const Guard = adminOnly ? AdminOnly : EditorOnly;
-    return (
-      <Guard>
-        <CardActions>
-          {add && <FlatButton label="Add new" onClick={this.onAdd} />}
-          {edit && <FlatButton label="Edit" onClick={this.onEdit} />}
-          {administrate && (
-            <AdminOnly>
-              <FlatButton label="Administrate" onClick={this.onAdmin} />
-            </AdminOnly>
-          )}
-          {children}
-        </CardActions>
-      </Guard>
-    );
-  }
-}
-
-export const EditorFooter: React.ComponentType<EditorFooterProps> = withRouter(
-  EditorFooterInternal,
-);
+  const Guard = adminOnly ? AdminOnly : EditorOnly;
+  return (
+    <Guard>
+      <CardActions>
+        {add && (
+          <Button variant="contained" color="primary" onClick={handlers.onAdd}>
+            Add new
+          </Button>
+        )}
+        {edit && (
+          <Button variant="contained" color="primary" onClick={handlers.onEdit}>
+            Edit
+          </Button>
+        )}
+        {administrate && (
+          <AdminOnly>
+            <Button variant="contained" onClick={handlers.onAdmin}>
+              Administrate
+            </Button>
+          </AdminOnly>
+        )}
+        {children}
+      </CardActions>
+    </Guard>
+  );
+};

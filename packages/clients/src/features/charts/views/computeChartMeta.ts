@@ -1,9 +1,10 @@
 import { Unit } from '@whitewater-guide/commons';
 import { scaleLinear } from 'd3-scale';
+import subDays from 'date-fns/subDays';
 import compact from 'lodash/compact';
 import filter from 'lodash/filter';
 import isFinite from 'lodash/isFinite';
-import moment from 'moment';
+import { formatDate } from '../../../i18n';
 import { ChartMeta, ChartMetaSettings, ChartViewProps, Period } from './types';
 
 const TimeAxisSettings = {
@@ -12,11 +13,11 @@ const TimeAxisSettings = {
     tickCount: 6,
   },
   [Period.WEEK]: {
-    tickFormat: 'ddd Do',
+    tickFormat: 'EEE do',
     tickCount: 7,
   },
   [Period.MONTH]: {
-    tickFormat: 'D MMM',
+    tickFormat: 'do MMM',
     tickCount: 31,
   },
 };
@@ -61,12 +62,7 @@ export const computeChartMeta = (
   );
 
   // Cannot set _xDomain on chart explicitly, so workaround by adding data
-  const xDomain: [Date, Date] = [
-    moment()
-      .subtract(days, 'days')
-      .toDate(),
-    moment().toDate(),
-  ];
+  const xDomain: [Date, Date] = [subDays(new Date(), days), new Date()];
 
   let period = Period.DAY;
   if (days > 7) {
@@ -76,7 +72,7 @@ export const computeChartMeta = (
   }
   const timeAxisSettings = TimeAxisSettings[period];
   const xTickFormat = (date: Date) =>
-    moment(date).format(timeAxisSettings.tickFormat);
+    formatDate(date, timeAxisSettings.tickFormat);
   const xTickCount = timeAxisSettings.tickCount;
   return {
     period,

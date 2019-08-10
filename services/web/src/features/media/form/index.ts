@@ -1,6 +1,3 @@
-import container from './container';
-import MediaForm from './MediaForm';
+import React from 'react';
 
-const MediaFormWithData = container(MediaForm);
-
-export default MediaFormWithData;
+export default React.lazy(() => import('./MediaForm'));

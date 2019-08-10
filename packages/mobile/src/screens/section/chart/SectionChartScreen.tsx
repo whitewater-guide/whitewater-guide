@@ -11,7 +11,7 @@ export const SectionChartScreen: NavigationScreenComponent = () => {
   const { node } = useSection();
   const gauge = node && node.gauge;
   return (
-    <Screen noScroll={true} noPadding={true}>
+    <Screen>
       {node && gauge ? (
         <ChartLayout section={node} gauge={gauge} />
       ) : (

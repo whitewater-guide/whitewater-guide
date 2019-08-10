@@ -1,20 +1,10 @@
-import FontIcon from 'material-ui/FontIcon';
 import React from 'react';
-import { ColumnProps, TableCellProps } from 'react-virtualized';
+import { ColumnProps } from 'react-virtualized';
 
 interface BooleanColumnProps extends ColumnProps {
+  adminOnly?: boolean;
   iconTrue?: string;
   iconFalse?: string;
 }
 
 export class BooleanColumn extends React.Component<BooleanColumnProps> {}
-
-export const renderBoolean = (iconTrue?: string, iconFalse?: string) => (
-  props: TableCellProps,
-) => {
-  return (
-    <FontIcon className="material-icons">
-      {props.cellData ? iconTrue : iconFalse}
-    </FontIcon>
-  );
-};

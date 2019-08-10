@@ -4,13 +4,12 @@ import {
   Section,
   SectionSearchTerms,
 } from '@whitewater-guide/commons';
-import {
+import ApolloClient, {
   ApolloQueryResult,
   NetworkStatus,
   ObservableQuery,
 } from 'apollo-client';
 import React from 'react';
-import { WithApolloClient } from 'react-apollo';
 import { getListMerger, WithNode } from '../../apollo';
 import { POLL_REGION_MEASUREMENTS, PollVars } from '../regions';
 import {
@@ -30,16 +29,15 @@ export interface RenderProps extends InnerState {
   refresh: () => Promise<void>;
 }
 
-interface OwnProps {
+interface Props {
   searchTerms: SectionSearchTerms | null;
   region: WithNode<Node | null>;
   limit?: number;
   pollInterval?: number;
   isConnected: boolean;
   children: (props: RenderProps) => any;
+  client: ApolloClient<any>;
 }
-
-type Props = WithApolloClient<OwnProps>;
 
 export class SectionsListLoader extends React.PureComponent<Props, InnerState> {
   static defaultProps: Partial<Props> = {
@@ -85,7 +83,7 @@ export class SectionsListLoader extends React.PureComponent<Props, InnerState> {
 
     this._query = client.watchQuery({
       query: LIST_SECTIONS,
-      fetchPolicy: 'cache-only',
+      fetchPolicy: 'cache-only', // to start loading manually
       variables: { filter: { regionId: region.node.id } },
       fetchResults: false,
     });
@@ -162,7 +160,8 @@ export class SectionsListLoader extends React.PureComponent<Props, InnerState> {
     if (!this._mounted || !region.node || !isConnected) {
       return;
     }
-
+    // This is a hack to allow refetch, because cache-only won't allow it now
+    this._query.options.fetchPolicy = 'cache-first';
     try {
       const { data } = await this._query.fetchMore({
         query: LIST_SECTIONS,

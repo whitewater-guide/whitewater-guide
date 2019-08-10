@@ -1,11 +1,9 @@
 import React from 'react';
 import { RouteComponentProps, Switch } from 'react-router-dom';
 import { AdminRoute } from '../../layout';
-import BannerForm from './form';
+import { BannerForm } from './form';
 
-const BannerRoute: React.StatelessComponent<RouteComponentProps<any>> = ({
-  match,
-}) => (
+const BannerRoute: React.FC<RouteComponentProps<any>> = ({ match }) => (
   <Switch>
     <AdminRoute
       exact={true}

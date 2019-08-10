@@ -1,10 +1,10 @@
 import {
   Connection,
   NamedNode,
+  Node,
   TextSearchFilter,
   Timestamped,
 } from '../../apollo';
-import { Overwrite } from '../../utils';
 import { Banner } from '../banners';
 import { Gauge } from '../gauges';
 import { Group } from '../groups';
@@ -74,7 +74,5 @@ export interface RegionMediaSummary {
 
 export type RegionsFilter = TextSearchFilter;
 
-export type RegionFormInput<RichText> = Overwrite<
-  RegionInput,
-  { description: RichText }
->;
+export const isRegion = (node?: Node | null): node is Region =>
+  !!node && node.__typename === 'Region';

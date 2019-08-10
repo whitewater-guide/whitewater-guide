@@ -1,9 +1,10 @@
-import { bannerBreadcrumbs } from '../features/banners';
-import { groupsBreadcrumbs } from '../features/groups';
-import { historyBreadcrumbs } from '../features/history';
-import { regionBreadcrumbs } from '../features/regions';
-import { sourceBreadcrumbs } from '../features/sources';
-import { tagsBreadcrumbs } from '../features/tags';
+import { bannerBreadcrumbs } from '../features/banners/breadcrumbs';
+import { groupsBreadcrumbs } from '../features/groups/breadcrumbs';
+import { historyBreadcrumbs } from '../features/history/breadcrumbs';
+import { regionBreadcrumbs } from '../features/regions/breadcrumbs';
+import { sourceBreadcrumbs } from '../features/sources/breadcrumbs';
+import { suggestionsBreadcrumbs } from '../features/suggestions/breadcrumbs';
+import { tagsBreadcrumbs } from '../features/tags/breadcrumbs';
 
 export default {
   '/': 'Home',
@@ -15,4 +16,5 @@ export default {
   ...groupsBreadcrumbs,
   ...bannerBreadcrumbs,
   ...historyBreadcrumbs,
+  ...suggestionsBreadcrumbs,
 };

@@ -1,22 +1,86 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should produce error on incorrect input 1`] = `
+exports[`should be invalid for all 1`] = `
 Object {
-  "code": "Value must be non-empty string no longer than 255 chars",
-  "cron": "Incorrect cron expression",
-  "flowUnit": "Value must be non-empty string no longer than 255 chars",
-  "id": "Incorrect UUID",
-  "levelUnit": "Value must be non-empty string no longer than 255 chars",
+  "code": "yup:varchar.nonEmpty",
+  "cron": "yup:string.cron",
+  "flowUnit": "yup:varchar.nonEmpty",
+  "id": "yup:string.uuid",
+  "levelUnit": "yup:varchar.nonEmpty",
   "location": Object {
     "coordinates": Array [
-      "Longitude value must be between -180 and 180",
-      "Latitude value must be between -90 and 90",
+      "yup:number.longitude",
+      "yup:number.latitude",
     ],
-    "id": "Incorrect UUID",
-    "kind": "Incorrect value",
+    "id": "yup:string.uuid",
+    "kind": Object {
+      "key": "yup:mixed.oneOf",
+      "options": Object {
+        "values": "put-in, put-in-alt, put-in-road, take-out, take-out-alt, take-out-road, waterfall, rapid, portage, playspot, hazard, river-campsite, wild-camping, paid-camping, gauge, hike-waypoint, bridge, dam, power-plant, kayak-shop, other",
+      },
+    },
   },
-  "name": "Value must be non-empty string",
-  "source": "Value must be node with id",
-  "url": "Value must be valid URL",
+  "name": "yup:string.nonEmpty",
+  "source": Object {
+    "id": "yup:string.uuid",
+  },
+}
+`;
+
+exports[`should be invalid for extra field 1`] = `
+Object {
+  "undefined": Object {
+    "key": "yup:object.noUnknown",
+    "options": Object {
+      "path": "this",
+    },
+  },
+}
+`;
+
+exports[`should be invalid for null source 1`] = `
+Object {
+  "source": Object {
+    "key": "yup:mixed.notType",
+    "options": Object {
+      "type": "object",
+    },
+  },
+}
+`;
+
+exports[`should be invalid for undefined code 1`] = `
+Object {
+  "code": "yup:mixed.defined",
+}
+`;
+
+exports[`should be invalid for undefined cron 1`] = `
+Object {
+  "cron": "yup:mixed.defined",
+}
+`;
+
+exports[`should be invalid for undefined level unit 1`] = `
+Object {
+  "levelUnit": "yup:mixed.defined",
+}
+`;
+
+exports[`should be invalid for undefined name 1`] = `
+Object {
+  "name": "yup:string.nonEmpty",
+}
+`;
+
+exports[`should be invalid for undefined request params 1`] = `
+Object {
+  "requestParams": "yup:mixed.defined",
+}
+`;
+
+exports[`should be invalid for undefined source 1`] = `
+Object {
+  "source": "yup:mixed.defined",
 }
 `;

@@ -1,4 +1,3 @@
-import container from './container';
-import GaugeDetails from './GaugeDetails';
+import { GaugeDetails } from './GaugeDetails';
 
-export default container(GaugeDetails);
+export default GaugeDetails;

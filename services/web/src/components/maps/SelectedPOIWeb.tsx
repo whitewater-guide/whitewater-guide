@@ -1,17 +1,10 @@
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 import { useMapSelection } from '@whitewater-guide/clients';
 import { isPoint } from '@whitewater-guide/commons';
 import React, { useCallback } from 'react';
-import { Container, Row } from 'react-grid-system';
-import { Styles } from '../../styles';
 import { InfoWindow } from './InfoWindow';
 import { MapElementProps } from './types';
-
-const styles: Styles = {
-  h2: {
-    fontWeight: 'bold',
-    fontSize: '1.5em',
-  },
-};
 
 const SelectedPOIWeb: React.FC<MapElementProps> = (props) => {
   const { selection, onSelected } = useMapSelection();
@@ -26,14 +19,14 @@ const SelectedPOIWeb: React.FC<MapElementProps> = (props) => {
   };
   return (
     <InfoWindow position={position} onCloseClick={onClose} {...props}>
-      <Container style={{ minWidth: 500 }}>
-        <Row>
-          <span style={styles.h2}>{selection.name}</span>
-        </Row>
-        <Row>
+      <Grid container={true} style={{ minWidth: 500 }}>
+        <Grid>
+          <Typography variant="h5">{selection.name}</Typography>
+        </Grid>
+        <Grid>
           <p>{selection.description}</p>
-        </Row>
-      </Container>
+        </Grid>
+      </Grid>
     </InfoWindow>
   );
 };

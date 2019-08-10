@@ -2,7 +2,7 @@ import { TopLevelResolver } from '@apollo';
 import db from '@db';
 import { MEDIA, minioClient } from '@minio';
 import { MediaKind } from '@whitewater-guide/commons';
-import insertLog from './insertLogs';
+import { insertLog } from '../utils';
 
 interface Vars {
   id: string;

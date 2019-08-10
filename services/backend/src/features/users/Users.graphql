@@ -9,6 +9,8 @@ type User {
   email: String
   # is admin flag
   admin: Boolean!
+  # is editor in any of regions
+  editor: Boolean!
   # registration date
   createdAt: Date!
   # last profle update date
@@ -21,11 +23,18 @@ type User {
   editorSettings: EditorSettings
   # If user is verified
   verified: Boolean!
+  # Social media accounts
+  accounts: [SocialMediaAccount]!
 
   # Which regions current user has purchased
   purchasedRegions: [Region]!
   # Which region groups current user has purchased
   purchasedGroups: [Group]!
+}
+
+type SocialMediaAccount {
+  id: ID!
+  provider: String!
 }
 
 type EditorSettings {
@@ -58,4 +67,6 @@ type Query {
 type Mutation {
   updateEditorSettings(editorSettings: EditorSettingsInput!): User
   updateProfile(user: UserInput!): User
+  addFCMToken(token: String!): Boolean
+  removeFCMToken(token: String!): Boolean
 }

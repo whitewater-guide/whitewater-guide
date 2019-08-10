@@ -1,82 +1,39 @@
-import { AdminOnly } from '@whitewater-guide/clients';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
+import { useStreamingQuery } from '@whitewater-guide/clients';
 import React from 'react';
-import { Column, TableCellRenderer } from 'react-virtualized';
-import { ClickBlocker, DeleteButton, IconLink } from '../../../components';
-import { AdminColumn, renderBoolean } from '../../../components/tables';
-import { EditorFooterProps, ResourcesListCard } from '../../../layout';
-import { paths } from '../../../utils';
-import { RegionsListProps } from './types';
+import { useDeleteMutation } from '../../../apollo';
+import { Loading } from '../../../components';
+import { EditorLanguagePicker } from '../../../components/language';
+import { Card, EditorFooter } from '../../../layout';
+import { LIST_REGIONS, QResult, QVars } from './listRegions.query';
+import RegionsTable from './RegionsTable';
+import { REMOVE_REGION } from './removeRegion.mutation';
 
-const FooterProps: EditorFooterProps = { adminOnly: true };
+export const RegionsList: React.FC = React.memo(() => {
+  const { data, loading } = useStreamingQuery<QResult, QVars>(
+    LIST_REGIONS,
+    {
+      fetchPolicy: 'cache-and-network',
+    },
+    20,
+  );
+  const removeRegion = useDeleteMutation(REMOVE_REGION, [
+    { query: LIST_REGIONS },
+  ]);
+  return (
+    <Card>
+      <CardHeader title="Regions list" action={<EditorLanguagePicker />} />
+      <CardContent>
+        {loading && !data!.regions ? (
+          <Loading />
+        ) : (
+          <RegionsTable regions={data!.regions} onRemove={removeRegion} />
+        )}
+      </CardContent>
+      <EditorFooter add={true} adminOnly={true} />
+    </Card>
+  );
+});
 
-export class RegionsList extends React.PureComponent<RegionsListProps> {
-  renderVisible: TableCellRenderer = renderBoolean(undefined, 'visibility');
-  renderPremium: TableCellRenderer = renderBoolean('grade');
-
-  renderCount: TableCellRenderer = ({ cellData: { count } }) => count;
-
-  renderActions: TableCellRenderer = ({
-    rowData: { id: regionId, editable },
-  }) => {
-    return (
-      <ClickBlocker>
-        {editable && <IconLink to={paths.settings({ regionId })} icon="edit" />}
-        <AdminOnly>
-          <DeleteButton id={regionId} deleteHandler={this.props.removeRegion} />
-          <IconLink to={paths.admin({ regionId })} icon="settings" />
-        </AdminOnly>
-      </ClickBlocker>
-    );
-  };
-
-  onRegionClick = (id: string) => this.props.history.push(`/regions/${id}`);
-
-  render() {
-    return (
-      <ResourcesListCard
-        list={this.props.regions.nodes}
-        onResourceClick={this.onRegionClick}
-        resourceType="region"
-        footerProps={FooterProps}
-      >
-        <Column width={200} flexGrow={1} label="Name" dataKey="name" />
-        <Column
-          width={100}
-          label="Gauges"
-          dataKey="gauges"
-          cellRenderer={this.renderCount}
-        />
-        <Column
-          width={100}
-          label="Rivers"
-          dataKey="rivers"
-          cellRenderer={this.renderCount}
-        />
-        <Column
-          width={100}
-          label="Sections"
-          dataKey="sections"
-          cellRenderer={this.renderCount}
-        />
-        <AdminColumn
-          width={50}
-          label="Premium"
-          dataKey="premium"
-          cellRenderer={this.renderPremium}
-        />
-        <AdminColumn
-          width={50}
-          label="Visible"
-          dataKey="hidden"
-          cellRenderer={this.renderVisible}
-        />
-        <Column
-          width={150}
-          label="Actions"
-          dataKey="hidden"
-          cellRenderer={this.renderActions}
-        />
-      </ResourcesListCard>
-    );
-  }
-}
+RegionsList.displayName = 'RegionsList';

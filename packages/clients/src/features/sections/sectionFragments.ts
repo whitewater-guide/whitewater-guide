@@ -1,3 +1,4 @@
+import { NamedNode, Point, River, Section } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
 import { GaugeFragments } from '../gauges';
 
@@ -13,6 +14,11 @@ const Name = gql`
     }
   }
 `;
+
+export interface SectionName extends NamedNode {
+  altNames: Section['altNames'];
+  river: Pick<River, 'id' | 'name' | 'altNames'>;
+}
 
 const Core = gql`
   fragment SectionCore on Section {
@@ -34,6 +40,21 @@ const Core = gql`
   ${Name}
 `;
 
+export type SectionCore = SectionName &
+  Pick<
+    Section,
+    | 'hidden'
+    | 'demo'
+    | 'season'
+    | 'seasonNumeric'
+    | 'distance'
+    | 'drop'
+    | 'duration'
+    | 'difficulty'
+    | 'difficultyXtra'
+    | 'rating'
+  >;
+
 const Ends = gql`
   fragment SectionEnds on Section {
     putIn {
@@ -49,17 +70,26 @@ const Ends = gql`
   }
 `;
 
+export interface SectionEnds {
+  putIn: Pick<Point, 'id' | 'coordinates' | 'kind'>;
+  takeOut: Pick<Point, 'id' | 'coordinates' | 'kind'>;
+}
+
 const Shape = gql`
   fragment SectionShape on Section {
     shape
   }
 `;
 
+export type SectionShape = Pick<Section, 'shape'>;
+
 const Description = gql`
   fragment SectionDescription on Section {
     description
   }
 `;
+
+export type SectionDescription = Pick<Section, 'description'>;
 
 const GaugeBinding = {
   All: gql`
@@ -106,6 +136,8 @@ const Meta = gql`
     updatedAt
   }
 `;
+
+export type SectionMeta = Pick<Section, 'createdAt' | 'updatedAt'>;
 
 const MediaCore = (thumbWidth?: number, thumbHeight?: number) => {
   if (!thumbWidth && !thumbHeight) {
@@ -170,6 +202,8 @@ const POIs = gql`
   }
 `;
 
+export type SectionPOIs = Pick<Section, 'pois'>;
+
 const Tags = gql`
   fragment SectionTags on Section {
     tags {
@@ -179,6 +213,8 @@ const Tags = gql`
     }
   }
 `;
+
+export type SectionTags = Pick<Section, 'tags'>;
 
 export const SectionFragments = {
   Name,

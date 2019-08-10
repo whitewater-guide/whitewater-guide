@@ -36,7 +36,7 @@ services:
         target: /data
       - type: bind
         source: /var/minio/config
-        target: /.minio
+        target: /root/.minio
       - type: bind
         source: /tmp/minio
         target: /tmp

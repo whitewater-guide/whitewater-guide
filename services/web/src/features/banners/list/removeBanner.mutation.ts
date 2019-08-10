@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-const REMOVE_BANNER = gql`
+export const REMOVE_BANNER = gql`
   mutation removeBanner($id: ID!) {
     removeBanner(id: $id) {
       id
@@ -9,4 +9,6 @@ const REMOVE_BANNER = gql`
   }
 `;
 
-export default REMOVE_BANNER;
+export interface MVars {
+  id: string;
+}

@@ -1,4 +1,3 @@
-import container from './container';
-import SourceForm from './SourceForm';
+import React from 'react';
 
-export default container(SourceForm);
+export default React.lazy(() => import('./SourceForm'));

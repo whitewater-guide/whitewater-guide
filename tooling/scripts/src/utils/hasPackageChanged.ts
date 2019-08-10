@@ -1,12 +1,32 @@
-import { spawnSync } from 'child_process';
+import { execSync, spawnSync } from 'child_process';
 import { readJsonSync } from 'fs-extra';
+import isEqual from 'lodash/isEqual';
 import { resolve } from 'path';
 import simpleGit from 'simple-git/promise';
 import { WWMeta } from './types';
 
+/**
+ * This will git-diff current state of package with git hash with following exceptions:
+ * - CHANGELOG.md is ignored
+ * - package.json version is ignored
+ */
 const hasChangedSinceCommit = (path: string, hash: string) => {
-  const { status } = spawnSync('git', ['diff-index', hash, '--quiet', path]);
-  return status !== 0;
+  let codeChanged = false;
+  try {
+    execSync(
+      `git diff-index ${hash} --quiet -- ${path} ":(exclude)${path}/CHANGELOG.md" ":(exclude)${path}/package.json"`,
+      { encoding: 'utf8' },
+    );
+  } catch (e) {
+    codeChanged = true;
+  }
+  const { stdout } = spawnSync('git', ['show', `${hash}:${path}/package.json`]);
+  const currentPJson = readJsonSync(`${path}/package.json`);
+  const oldPJson = JSON.parse(stdout);
+  currentPJson.version = 'ignore';
+  oldPJson.version = 'ignore';
+  const packageChanged = !isEqual(oldPJson, currentPJson);
+  return codeChanged || packageChanged;
 };
 
 /**

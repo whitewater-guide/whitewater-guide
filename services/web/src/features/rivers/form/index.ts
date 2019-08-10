@@ -1,4 +1,3 @@
-import container from './container';
-import Form from './RiverForm';
+import React from 'react';
 
-export const RiverForm = container(Form);
+export default React.lazy(() => import('./RiverForm'));

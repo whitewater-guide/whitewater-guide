@@ -11,6 +11,7 @@ import { riversResolvers } from '@features/rivers';
 import { scriptsResolvers } from '@features/scripts';
 import { sectionsResolvers } from '@features/sections';
 import { sourcesResolvers } from '@features/sources';
+import { suggestionsResolvers } from '@features/suggestions';
 import { tagsResolvers } from '@features/tags';
 import { uploadsResolvers } from '@features/uploads';
 import { usersResolvers } from '@features/users';
@@ -31,6 +32,7 @@ export const resolvers = merge(
   scriptsResolvers,
   sectionsResolvers,
   sourcesResolvers,
+  suggestionsResolvers,
   usersResolvers,
   mediaResolvers,
   measurementsResolvers,

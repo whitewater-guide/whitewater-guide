@@ -1,6 +1,7 @@
+import { BannerInput } from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
 
-export default gql`
+export const UPSERT_BANNER = gql`
   mutation upsertBanner($banner: BannerInput!) {
     upsertBanner(banner: $banner) {
       id
@@ -33,3 +34,7 @@ export default gql`
     }
   }
 `;
+
+export interface MVars {
+  banner: BannerInput;
+}

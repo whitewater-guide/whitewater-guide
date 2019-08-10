@@ -4,7 +4,7 @@ import {
   WithSearchTerms,
 } from '@whitewater-guide/clients';
 import { Region, Section } from '@whitewater-guide/commons';
-import { WithApolloClient } from 'react-apollo';
+import { ApolloClient } from 'apollo-client';
 import { NavigationScreenProps } from 'react-navigation';
 
 export interface ScreenProps {
@@ -31,9 +31,7 @@ export interface ConnectivityProps {
 export type OuterProps = NavigationScreenProps<NavParams> & WithRegion;
 
 export type InnerProps = OuterProps &
-  ConnectivityProps &
-  WithApolloClient<any> &
-  WithSearchTerms;
+  ConnectivityProps & { client: ApolloClient<any> } & WithSearchTerms;
 
 export interface InnerState {
   sections: Section[];

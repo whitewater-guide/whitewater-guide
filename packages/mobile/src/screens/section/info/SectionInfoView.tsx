@@ -9,10 +9,21 @@ import trim from 'lodash/trim';
 import upperFirst from 'lodash/upperFirst';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { Paragraph, Subheading } from 'react-native-paper';
 import { Body, Chips, Left, Right, Row, StarRating } from '../../../components';
 import { getSeasonLocalizer } from '../../../i18n';
+import theme from '../../../theme';
 import CoordinatesInfo from './CoordinatesInfo';
+
+const styles = StyleSheet.create({
+  content: {
+    padding: theme.margin.single,
+  },
+  fabHelper: {
+    height: 64,
+  },
+});
 
 const SectionInfoView: React.FC<WithSection> = ({ section: { node } }) => {
   const [t] = useTranslation();
@@ -29,7 +40,7 @@ const SectionInfoView: React.FC<WithSection> = ({ section: { node } }) => {
   }
   const tagsByCategory = groupBy(node.tags, 'category');
   return (
-    <React.Fragment>
+    <ScrollView contentContainerStyle={styles.content}>
       <Row>
         <Left>
           <Subheading>{t('commons:difficulty')}</Subheading>
@@ -154,7 +165,8 @@ const SectionInfoView: React.FC<WithSection> = ({ section: { node } }) => {
             />
           </Row>
         )}
-    </React.Fragment>
+      <View style={styles.fabHelper} />
+    </ScrollView>
   );
 };
 

@@ -1,11 +1,11 @@
 import { Page } from '@whitewater-guide/commons';
-import Knex from 'knex';
+import Knex, { Raw } from 'knex';
 import { createConnectors } from './createConnectors';
 
 export type Connectors = ReturnType<typeof createConnectors>;
 
 export type FieldsMap<TGraphql, TSql> = {
-  [P in keyof TGraphql]?: keyof TSql | Array<keyof TSql> | null
+  [P in keyof TGraphql]?: keyof TSql | Array<keyof TSql> | null | Raw;
 };
 
 export interface BuilderOptions<TGraphql, TSql> {

@@ -1,26 +1,36 @@
 import { isInputValidResolver, TopLevelResolver } from '@apollo';
 import db, { rawUpsert } from '@db';
 import { BannerRaw } from '@features/banners';
-import { BANNERS, minioClient, moveTempImage } from '@minio';
+import { BANNERS, getLocalFileName, minioClient, moveTempImage } from '@minio';
 import {
   BannerInput,
-  BannerInputStruct,
+  BannerInputSchema,
   BannerKind,
 } from '@whitewater-guide/commons';
-import { struct } from 'superstruct';
+import * as yup from 'yup';
 
 interface Vars {
   banner: BannerInput;
 }
 
-const Struct = struct.object({
-  banner: BannerInputStruct,
+const Schema = yup.object({
+  banner: BannerInputSchema,
 });
 
-const upsertBannerResolver: TopLevelResolver<Vars> = async (_, { banner }) => {
-  const id = banner.id;
-  const isImage = banner.source.kind === BannerKind.Image;
+const upsertBannerResolver: TopLevelResolver<Vars> = async (_, vars) => {
+  const id = vars.banner.id;
+  const isImage = vars.banner.source.kind === BannerKind.Image;
+  const banner: BannerInput = {
+    ...vars.banner,
+    source: {
+      ...vars.banner.source,
+      src: isImage
+        ? getLocalFileName(vars.banner.source.src)
+        : vars.banner.source.src,
+    },
+  };
   let shouldMoveTempImage = isImage;
+
   if (id) {
     const oldBanner: BannerRaw = await db()
       .select()
@@ -40,6 +50,6 @@ const upsertBannerResolver: TopLevelResolver<Vars> = async (_, { banner }) => {
   return rawUpsert(db(), 'SELECT upsert_banner(?)', [banner]);
 };
 
-const upsertBanner = isInputValidResolver(Struct, upsertBannerResolver);
+const upsertBanner = isInputValidResolver(Schema, upsertBannerResolver);
 
 export default upsertBanner;

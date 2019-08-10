@@ -1,4 +1,5 @@
-import IconButton from 'material-ui/IconButton';
+import Icon from '@material-ui/core/Icon';
+import IconButton from '@material-ui/core/IconButton';
 import React from 'react';
 import { ConfirmationDialog } from './ConfirmationDialog';
 
@@ -35,12 +36,8 @@ export class DeleteButton extends React.PureComponent<Props, State> {
       return renderButton(this.openDialog, disabled);
     }
     return (
-      <IconButton
-        disabled={disabled}
-        iconClassName="material-icons"
-        onClick={this.openDialog}
-      >
-        delete_forever
+      <IconButton disabled={disabled} onClick={this.openDialog}>
+        <Icon>delete_forever</Icon>
       </IconButton>
     );
   };

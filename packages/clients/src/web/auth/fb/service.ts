@@ -1,23 +1,28 @@
 import { callWithTimeout } from '../../../utils';
-import { FacebookProfile, FBSDK } from './types';
+import { FBSDK } from './types';
 
 const FB_ELEMENT_ID = 'facebook-jssdk';
+const FB_API_VERSION = 'v3.3';
 
 // In dev environment some promises fb api callbacks are never called, hence timeouts
-export const fbWebService = {
-  getLoginStatus: (roundtrip?: boolean): Promise<facebook.StatusResponse> =>
+class FBWebService {
+  private _accessToken?: string;
+
+  api = (path: string, params?: any) =>
+    new Promise((resolve) => {
+      FB.api(path, { access_token: this._accessToken, ...params }, resolve);
+    });
+
+  getLoginStatus = (roundtrip?: boolean): Promise<facebook.StatusResponse> =>
     callWithTimeout(
       () =>
         new Promise((resolve) => {
           FB.getLoginStatus(resolve, roundtrip);
         }),
       1000,
-    ),
-  getMyProfile: (): Promise<FacebookProfile> =>
-    new Promise((resolve) => {
-      FB.api('/me?fields=id,name,picture', resolve);
-    }),
-  loadSDK: (appId: string, locale: string): Promise<FBSDK> => {
+    );
+
+  loadSDK = (appId: string, locale: string): Promise<FBSDK> => {
     return new Promise((resolve) => {
       if (document.getElementById(FB_ELEMENT_ID)) {
         return resolve(FB);
@@ -26,10 +31,14 @@ export const fbWebService = {
       window.fbAsyncInit = () => {
         FB.init({
           appId,
-          version: 'v3.3',
+          version: FB_API_VERSION,
           xfbml: false,
           autoLogAppEvents: true,
         });
+        FB.Event.subscribe(
+          'auth.authResponseChange',
+          this.onAuthResponseChange,
+        );
         resolve(FB);
       };
 
@@ -39,17 +48,25 @@ export const fbWebService = {
       js.src = `https://connect.facebook.net/${locale}/sdk.js`;
       fjs.parentNode!.insertBefore(js, fjs);
     });
-  },
-  login: (): Promise<facebook.StatusResponse> =>
+  };
+
+  login = (): Promise<facebook.StatusResponse> =>
     new Promise((resolve) => {
       FB.login(resolve, { scope: 'public_profile, email' });
-    }),
-  logout: (): Promise<facebook.StatusResponse> =>
+    });
+
+  logout = (): Promise<facebook.StatusResponse> =>
     callWithTimeout(
       () =>
         new Promise((resolve) => {
           FB.logout(resolve);
         }),
       1000,
-    ),
-};
+    );
+
+  onAuthResponseChange = (data: facebook.StatusResponse) => {
+    this._accessToken = data.authResponse && data.authResponse.accessToken;
+  };
+}
+
+export const fbWebService = new FBWebService();

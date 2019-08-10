@@ -1,4 +1,3 @@
-import container from './container';
-import RegionForm from './RegionForm';
+import React from 'react';
 
-export default container(RegionForm);
+export default React.lazy(() => import('./RegionForm'));

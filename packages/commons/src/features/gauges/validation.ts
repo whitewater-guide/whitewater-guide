@@ -1,22 +1,23 @@
-import { baseStruct } from '../../utils/validation';
-import { PointInputStruct } from '../points';
+import * as yup from 'yup';
+import { yupTypes } from '../../validation';
+import { PointInputSchema } from '../points';
+import { GaugeInput } from './types';
 
-const GaugeInputFields = {
-  id: baseStruct.union(['uuid', 'null']),
-  name: 'nonEmptyString',
-  code: 'nonEmptyVarchar',
-  levelUnit: 'nonEmptyVarchar|null',
-  flowUnit: 'nonEmptyVarchar|null',
-  location: baseStruct.union([PointInputStruct, 'null']),
-  requestParams: 'object|null',
-  cron: baseStruct.union(['cron', 'null']),
-  url: baseStruct.union(['url', 'null', baseStruct.literal('')]),
-  source: 'node',
-};
-
-export const GaugeInputStruct = baseStruct.object(GaugeInputFields);
-
-export const GaugeFormStruct = baseStruct.object({
-  ...GaugeInputFields,
-  requestParams: baseStruct.union(['jsonString', 'null']),
-});
+export const GaugeInputSchema = yup
+  .object<GaugeInput>({
+    id: yupTypes.uuid().nullable(),
+    name: yupTypes.nonEmptyString(),
+    code: yupTypes.nonEmptyVarchar(),
+    levelUnit: yupTypes.nonEmptyVarchar().nullable(),
+    flowUnit: yupTypes.nonEmptyVarchar().nullable(),
+    location: PointInputSchema.clone().nullable(),
+    requestParams: yup
+      .mixed()
+      .defined()
+      .nullable(),
+    cron: yupTypes.cron().nullable(),
+    url: yup.string().nullable(),
+    source: yupTypes.node().defined(),
+  })
+  .strict(true)
+  .noUnknown();

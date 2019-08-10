@@ -6,8 +6,8 @@
       true,
       "react-apollo",
       "lodash",
-      "moment",
-      "jest-dom"
+      "date-fns",
+      "@testing-library/jest-dom"
     ]
   }
 }

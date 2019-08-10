@@ -1,19 +1,20 @@
 import { isInputValidResolver, TopLevelResolver } from '@apollo';
 import db from '@db';
 import {
-  baseStruct,
   SectionAdminSettings,
-  SectionAdminSettingsStruct,
+  SectionAdminSettingsSchema,
+  yupTypes,
 } from '@whitewater-guide/commons';
+import * as yup from 'yup';
 
 interface Vars {
   id: string;
   settings: SectionAdminSettings;
 }
 
-const Struct = baseStruct.object({
-  id: 'uuid',
-  settings: SectionAdminSettingsStruct,
+const Struct = yup.object({
+  id: yupTypes.uuid(),
+  settings: SectionAdminSettingsSchema,
 });
 
 const resolver: TopLevelResolver<Vars> = async (

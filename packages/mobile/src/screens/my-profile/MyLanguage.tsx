@@ -2,7 +2,7 @@ import { User } from '@whitewater-guide/commons';
 import identity from 'lodash/identity';
 import memoize from 'lodash/memoize';
 import React from 'react';
-import { Mutation, MutationFn } from 'react-apollo';
+import { Mutation, MutationFunction } from 'react-apollo';
 import { useTranslation } from 'react-i18next';
 import { RadioDialog } from '../../components';
 import { LANGUAGE_NAMES, SUPPORTED_LANGUAGES } from '../../i18n';
@@ -15,7 +15,7 @@ interface Props {
 }
 
 const getChangeHandler = memoize(
-  (mutate: MutationFn<Result, Vars>, me: User) => (language: string) => {
+  (mutate: MutationFunction<Result, Vars>, me: User) => (language: string) => {
     mutate({
       variables: { user: { language } },
       optimisticResponse: {

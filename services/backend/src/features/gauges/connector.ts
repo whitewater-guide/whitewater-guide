@@ -1,5 +1,5 @@
 import { BaseConnector, FieldsMap } from '@db/connectors';
-import { asyncRedis, NS_LAST_OP } from '@redis';
+import { NS_LAST_OP, redis } from '@redis';
 import { Gauge } from '@whitewater-guide/commons';
 import { GaugeRaw } from './types';
 
@@ -19,8 +19,8 @@ export class GaugesConnector extends BaseConnector<Gauge, GaugeRaw> {
 
   async getStatus(script: string, code: string) {
     try {
-      const statusStr = await asyncRedis.hget(`${NS_LAST_OP}:${script}`, code);
-      return JSON.parse(statusStr);
+      const statusStr = await redis.hget(`${NS_LAST_OP}:${script}`, code);
+      return statusStr ? JSON.parse(statusStr) : null;
     } catch {
       return null;
     }

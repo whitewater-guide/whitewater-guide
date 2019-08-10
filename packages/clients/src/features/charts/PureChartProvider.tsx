@@ -1,11 +1,7 @@
 import { Measurement } from '@whitewater-guide/commons';
 import React, { useMemo } from 'react';
 import { QueryResult } from 'react-apollo';
-import {
-  LastMeasurementsResult,
-  LastMeasurementsVars,
-  MeasurementRaw,
-} from '../measurements';
+import { LastMeasurementsResult, LastMeasurementsVars } from '../measurements';
 import { useFormulas } from '../sections';
 import { PureChartContext } from './context';
 import { ChartContext } from './types';
@@ -14,7 +10,7 @@ interface Props extends ChartContext {
   queryProps: QueryResult<LastMeasurementsResult, LastMeasurementsVars>;
 }
 
-const empty: MeasurementRaw[] = [];
+const empty: Array<Measurement<string>> = [];
 
 export const PureChartProvider: React.FC<Props> = React.memo(
   ({ queryProps, children, ...props }) => {
@@ -32,7 +28,7 @@ export const PureChartProvider: React.FC<Props> = React.memo(
           });
           return acc;
         },
-        [] as Measurement[],
+        [] as any,
       );
       return {
         data,

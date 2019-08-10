@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-const TOGGLE_SOURCE = gql`
+export const TOGGLE_SOURCE = gql`
   mutation toggleSource($id: ID!, $enabled: Boolean!) {
     toggleSource(id: $id, enabled: $enabled) {
       id
@@ -9,4 +9,7 @@ const TOGGLE_SOURCE = gql`
   }
 `;
 
-export default TOGGLE_SOURCE;
+export interface MVars {
+  id: string;
+  enabled: boolean;
+}

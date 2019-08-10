@@ -4,9 +4,9 @@ import React from 'react';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { Platform, StatusBar } from 'react-native';
 import { Title } from 'react-native-paper';
+import { PhotoGallery } from '../../../components/photo-gallery';
 import { RegionBanners } from '../../../features/banners';
 import BlogList from './BlogList';
-import PhotoGallery from './PhotoGallery';
 import PhotoGrid from './PhotoGrid';
 import VideoList from './VideoList';
 

@@ -6,20 +6,18 @@ import { ErrorText } from './ErrorText';
 import useFocus from './useFocus';
 import useReactNativeHandlers from './useReactNativeHandlers';
 
-const MemoTextInput = React.memo(TextInput);
-
 type Props = {
   name: string;
-} & Omit<TextInputProps, 'value' | 'onChangeText' | 'onChange' | 'onBlur'>;
+} & Omit<TextInputProps, 'value' | 'onChangeText' | 'onChange'>;
 
 export const TextField = React.memo(
   forwardRef<TextInput, Props>(({ name, ...props }, ref) => {
     const inputRef = useFocus(ref);
     const [field, meta] = useField<string>(name);
-    const { onChange, onBlur } = useReactNativeHandlers(field);
+    const { onChange, onBlur } = useReactNativeHandlers(field, props.onBlur);
     return (
       <React.Fragment>
-        <MemoTextInput
+        <TextInput
           {...props}
           ref={inputRef as any}
           value={field.value}

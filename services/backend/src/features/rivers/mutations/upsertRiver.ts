@@ -1,14 +1,14 @@
 import { isInputValidResolver, TopLevelResolver } from '@apollo';
 import db, { rawUpsert } from '@db';
-import { RiverInput, RiverInputStruct } from '@whitewater-guide/commons';
-import { struct } from 'superstruct';
+import { RiverInput, RiverInputSchema } from '@whitewater-guide/commons';
+import * as yup from 'yup';
 
 interface Vars {
   river: RiverInput;
 }
 
-const Struct = struct.object({
-  river: RiverInputStruct,
+const Struct = yup.object({
+  river: RiverInputSchema,
 });
 
 const resolver: TopLevelResolver<Vars> = async (

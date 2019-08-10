@@ -1,14 +1,14 @@
 import { isInputValidResolver, TopLevelResolver } from '@apollo';
 import db, { rawUpsert } from '@db';
-import { RegionInput, RegionInputStruct } from '@whitewater-guide/commons';
-import { struct } from 'superstruct';
+import { RegionInput, RegionInputSchema } from '@whitewater-guide/commons';
+import * as yup from 'yup';
 
 interface Vars {
   region: RegionInput;
 }
 
-const Struct = struct.object({
-  region: RegionInputStruct,
+const Struct = yup.object({
+  region: RegionInputSchema,
 });
 
 const resolver: TopLevelResolver<Vars> = async (

@@ -1,34 +1,27 @@
-import { User } from '@whitewater-guide/commons';
-import { TableRow, TableRowColumn } from 'material-ui/Table';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
+import { NamedNode } from '@whitewater-guide/commons';
 import React from 'react';
-import { MutationFn } from 'react-apollo';
 import { DeleteButton } from '../../../../components';
 
 interface Props {
-  user: User;
-  regionId: string;
-  removeEditor: MutationFn<any, { userId: string; regionId: string }>;
+  user: NamedNode;
+  onRemove: (userId: string) => void;
 }
 
-class EditorListItem extends React.PureComponent<Props> {
-  removeEditor = (userId: string) => {
-    const { regionId, removeEditor } = this.props;
-    removeEditor({ variables: { userId, regionId } });
-  };
+const EditorListItem: React.FC<Props> = React.memo((props) => {
+  const { user, onRemove } = props;
+  return (
+    <ListItem>
+      <ListItemText>{user.name}</ListItemText>
+      <ListItemSecondaryAction>
+        <DeleteButton id={user.id} deleteHandler={onRemove} />
+      </ListItemSecondaryAction>
+    </ListItem>
+  );
+});
 
-  render() {
-    const {
-      user: { id, name },
-    } = this.props;
-    return (
-      <TableRow>
-        <TableRowColumn>{name}</TableRowColumn>
-        <TableRowColumn>
-          <DeleteButton id={id} deleteHandler={this.removeEditor} />
-        </TableRowColumn>
-      </TableRow>
-    );
-  }
-}
+EditorListItem.displayName = 'EditorListItem';
 
 export default EditorListItem;

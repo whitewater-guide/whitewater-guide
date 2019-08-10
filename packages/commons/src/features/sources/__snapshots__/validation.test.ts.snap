@@ -1,113 +1,88 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SourceForm should be invalid for bad cron 1`] = `
-Object {
-  "cron": "Incorrect cron expression",
-}
-`;
-
-exports[`SourceForm should be invalid for bad harvest_mode 1`] = `
-Object {
-  "harvestMode": "Expected a value of type \`\\"oneByOne\\" | \\"allAtOnce\\"\` for \`harvestMode\` but received \`\\"foo\\"\`.",
-}
-`;
-
-exports[`SourceForm should be invalid for bad region 1`] = `
-Object {
-  "regions": Array [
-    "Value must be node with id",
-  ],
-}
-`;
-
-exports[`SourceForm should be invalid for bad script 1`] = `
-Object {
-  "script": Object {
-    "harvestMode": "Incorrect value",
-    "id": "Expected a value of type \`script\` for \`script.id\` but received \`\\"\\"\`.",
-    "name": "Incorrect value",
-  },
-}
-`;
-
-exports[`SourceForm should be invalid for bad url 1`] = `
-Object {
-  "url": "Value must be valid URL",
-}
-`;
-
-exports[`SourceForm should be invalid for bad uuid 1`] = `
-Object {
-  "id": "Incorrect UUID",
-}
-`;
-
-exports[`SourceForm should be invalid for empty name 1`] = `
-Object {
-  "name": "Value must be non-empty string",
-}
-`;
-
-exports[`SourceForm should be invalid for some bad regions legacy snapshot 1`] = `
-Object {
-  "regions": Array [
-    "Value must be node with id",
-    undefined,
-    "Value must be node with id",
-  ],
-}
-`;
-
 exports[`SourceInput should be invalid for bad cron 1`] = `
 Object {
-  "cron": "Incorrect cron expression",
+  "cron": "yup:string.cron",
 }
 `;
 
 exports[`SourceInput should be invalid for bad harvest_mode 1`] = `
 Object {
-  "harvestMode": "Expected a value of type \`\\"oneByOne\\" | \\"allAtOnce\\"\` for \`harvestMode\` but received \`\\"foo\\"\`.",
+  "harvestMode": Object {
+    "key": "yup:mixed.oneOf",
+    "options": Object {
+      "values": "allAtOnce, oneByOne",
+    },
+  },
 }
 `;
 
 exports[`SourceInput should be invalid for bad region 1`] = `
 Object {
   "regions": Array [
-    "Value must be node with id",
+    Object {
+      "id": "yup:string.uuid",
+    },
   ],
 }
 `;
 
 exports[`SourceInput should be invalid for bad url 1`] = `
 Object {
-  "url": "Value must be valid URL",
+  "url": Object {
+    "key": "yup:string.url",
+    "options": Object {
+      "path": "url",
+    },
+  },
 }
 `;
 
 exports[`SourceInput should be invalid for bad uuid 1`] = `
 Object {
-  "id": "Incorrect UUID",
+  "id": "yup:string.uuid",
 }
 `;
 
 exports[`SourceInput should be invalid for empty name 1`] = `
 Object {
-  "name": "Value must be non-empty string",
+  "name": "yup:string.nonEmpty",
 }
 `;
 
 exports[`SourceInput should be invalid for empty script 1`] = `
 Object {
-  "script": "Expected a value of type \`script\` for \`script\` but received \`\\"\\"\`.",
+  "script": Object {
+    "key": "yup:string.min",
+    "options": Object {
+      "min": 1,
+      "path": "script",
+    },
+  },
+}
+`;
+
+exports[`SourceInput should be invalid for extra fields 1`] = `
+Object {
+  "undefined": Object {
+    "key": "yup:object.noUnknown",
+    "options": Object {
+      "path": "this",
+    },
+  },
 }
 `;
 
 exports[`SourceInput should be invalid for some bad regions legacy snapshot 1`] = `
 Object {
   "regions": Array [
-    "Value must be node with id",
+    Object {
+      "id": "yup:string.uuid",
+    },
     undefined,
-    "Value must be node with id",
+    Object {
+      "id": "yup:string.uuid",
+    },
   ],
 }
 `;

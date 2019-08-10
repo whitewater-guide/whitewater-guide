@@ -1,39 +1,47 @@
+import Box from '@material-ui/core/Box';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
 import { useRegion } from '@whitewater-guide/clients';
-import { CardMedia } from 'material-ui/Card';
-import { Tab } from 'material-ui/Tabs';
 import React from 'react';
-import { Content, Loading, Tabs } from '../../../components';
 import { EditorLanguagePicker } from '../../../components/language';
-import { CardHeader } from '../../../layout';
-import RegionEditorsWithData from './editors';
-import RegionGroupsWithData from './groups';
-import RegionAdminSettingsForm from './settings';
+import { HashTab, HashTabs, HashTabView } from '../../../components/navtabs';
+import { Card } from '../../../layout';
+import RegionEditors from './editors';
+import RegionGroups from './groups';
+import { RegionAdminSettingsForm } from './settings';
 
-export const RegionAdmin: React.FC = () => {
+const RegionAdmin: React.FC = () => {
   const { node, loading } = useRegion();
-  if (loading || !node) {
-    return <Loading />;
-  }
   return (
-    <Content card={true}>
-      <CardHeader title={node.name}>
-        <EditorLanguagePicker />
-      </CardHeader>
-      <CardMedia style={{ height: '100%' }} mediaStyle={{ height: '100%' }}>
-        <div style={{ width: '100%', height: '100%' }}>
-          <Tabs>
-            <Tab label="Main" value="#main">
-              <RegionAdminSettingsForm />
-            </Tab>
-            <Tab label="Editors" value="#editors">
-              <RegionEditorsWithData />
-            </Tab>
-            <Tab label="Groups" value="#groups">
-              <RegionGroupsWithData />
-            </Tab>
-          </Tabs>
-        </div>
-      </CardMedia>
-    </Content>
+    <Card loading={loading || !node}>
+      <CardHeader title={node!.name} action={<EditorLanguagePicker />} />
+      <CardContent>
+        <Box
+          width={1}
+          height={1}
+          display="flex"
+          flexDirection="column"
+          overflow="hidden"
+        >
+          <HashTabs variant="fullWidth">
+            <HashTab label="Main" value="#main" />
+            <HashTab label="Editors" value="#editors" />
+            <HashTab label="Groups" value="#groups" />
+          </HashTabs>
+
+          <HashTabView value="#main">
+            <RegionAdminSettingsForm regionId={node!.id} />
+          </HashTabView>
+          <HashTabView value="#editors">
+            <RegionEditors regionId={node!.id} />
+          </HashTabView>
+          <HashTabView value="#groups">
+            <RegionGroups regionId={node!.id} />
+          </HashTabView>
+        </Box>
+      </CardContent>
+    </Card>
   );
 };
+
+export default RegionAdmin;

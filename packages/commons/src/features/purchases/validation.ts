@@ -1,11 +1,24 @@
-import { baseStruct } from '../../utils/validation';
-import { PurchasePlatform } from './types';
+import * as yup from 'yup';
+import { yupTypes } from '../../validation';
+import { PurchaseInput, PurchasePlatform } from './types';
 
-export const PurchaseInputStruct = baseStruct.object({
-  platform: baseStruct.enum(Object.values(PurchasePlatform)),
-  transactionId: 'nonEmptyString',
-  transactionDate: 'date?|null',
-  productId: 'nonEmptyString',
-  receipt: 'string?|null',
-  extra: 'object?|null',
-});
+export const PurchaseInputSchema = yup
+  .object<PurchaseInput>({
+    platform: yup.mixed().oneOf(Object.values(PurchasePlatform)),
+    transactionId: yupTypes.nonEmptyString(),
+    transactionDate: yup
+      .date()
+      .notRequired()
+      .nullable(),
+    productId: yupTypes.nonEmptyString(),
+    receipt: yup
+      .string()
+      .notRequired()
+      .nullable(),
+    extra: yup
+      .object()
+      .notRequired()
+      .nullable(),
+  })
+  .strict(true)
+  .noUnknown();

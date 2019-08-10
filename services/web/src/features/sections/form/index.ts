@@ -1,4 +1,3 @@
-import container from './container';
-import Form from './SectionForm';
+import React from 'react';
 
-export const SectionForm = container(Form);
+export default React.lazy(() => import('./SectionForm'));

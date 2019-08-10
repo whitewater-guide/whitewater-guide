@@ -5,6 +5,8 @@ export class MockAuthService extends BaseAuthService {
     super('');
   }
 
+  init = jest.fn(() => super.init());
+
   refreshAccessToken = jest.fn().mockResolvedValue({ success: true });
 
   requestReset = jest.fn().mockResolvedValue({ success: true });

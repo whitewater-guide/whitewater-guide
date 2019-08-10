@@ -1,14 +1,15 @@
 import { NamedNode } from '@whitewater-guide/commons';
+import get from 'lodash/get';
 import React from 'react';
-import { NamedNodeFinder } from '../../../components/named-node-finder';
+import { QueryResult } from 'react-apollo';
+import {
+  AutocompleteProps,
+  QueryAutocomplete,
+} from '../../../components/autocomplete';
 import { FIND_USERS_QUERY, QResult, QVars } from './findUsers.query';
 
-interface Props {
-  user: NamedNode | null;
-  onChange: (user: NamedNode | null) => void;
+interface Props extends Omit<AutocompleteProps, 'options'> {
   editorsOnly?: boolean;
-  // Set to undefined if selection is required
-  clearSelectionTitle?: string;
 }
 
 export class UserFinder extends React.PureComponent<Props> {
@@ -19,25 +20,20 @@ export class UserFinder extends React.PureComponent<Props> {
     },
   });
 
-  getNodes = (result?: QResult): NamedNode[] => {
-    if (!result) {
-      return [];
-    }
-    return result.users;
+  getNodes = (result?: QueryResult<QResult>): NamedNode[] => {
+    return get(result, 'data.users', []);
   };
 
   render() {
-    const { user, onChange, editorsOnly } = this.props;
-    const hintText = editorsOnly ? 'Select editor' : 'Select user';
+    const { editorsOnly, ...props } = this.props;
+    const placeholder = editorsOnly ? 'Select editor' : 'Select user';
     return (
-      <NamedNodeFinder<QResult, QVars>
-        clearSelectionTitle="Clean selection"
-        value={user}
-        onChange={onChange}
+      <QueryAutocomplete
+        {...props}
+        placeholder={placeholder}
         query={FIND_USERS_QUERY}
         getVariables={this.getVariables}
         getNodes={this.getNodes}
-        hintText={hintText}
       />
     );
   }

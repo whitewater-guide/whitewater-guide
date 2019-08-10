@@ -2,30 +2,46 @@
 
 exports[`should be invalid for bad category 1`] = `
 Object {
-  "category": "Expected a value of type \`\\"kayaking\\" | \\"hazards\\" | \\"supply\\" | \\"misc\\"\` for \`category\` but received \`\\"foo\\"\`.",
+  "category": Object {
+    "key": "yup:mixed.oneOf",
+    "options": Object {
+      "values": "kayaking, hazards, supply, misc",
+    },
+  },
 }
 `;
 
 exports[`should be invalid for bad id 1 1`] = `
 Object {
-  "id": "Value must be valid slug",
+  "id": "yup:string.slug",
 }
 `;
 
 exports[`should be invalid for bad id 2 1`] = `
 Object {
-  "id": "Value must be valid slug",
+  "id": "yup:string.slug",
 }
 `;
 
 exports[`should be invalid for bad id 3 1`] = `
 Object {
-  "id": "Value must be valid slug",
+  "id": "yup:string.slug",
 }
 `;
 
 exports[`should be invalid for empty name 1`] = `
 Object {
-  "name": "Value must be non-empty string",
+  "name": "yup:string.nonEmpty",
+}
+`;
+
+exports[`should be invalid for extra fields 1`] = `
+Object {
+  "undefined": Object {
+    "key": "yup:object.noUnknown",
+    "options": Object {
+      "path": "this",
+    },
+  },
 }
 `;

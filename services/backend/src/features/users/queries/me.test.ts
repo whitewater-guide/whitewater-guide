@@ -1,5 +1,7 @@
 import { holdTransaction, rollbackTransaction } from '@db';
+import { redis } from '@redis';
 import {
+  ADMIN,
   BOOM_USER_3500,
   BOOM_USER_3500_ID,
   EDITOR_GA_EC,
@@ -9,9 +11,22 @@ import {
 import { GROUP_ALL } from '@seeds/03_groups';
 import { REGION_ECUADOR, REGION_GEORGIA } from '@seeds/04_regions';
 import { anonContext, fakeContext, runQuery } from '@test';
+import axios from 'axios';
 
-beforeEach(holdTransaction);
-afterEach(rollbackTransaction);
+jest.mock('axios');
+
+beforeEach(async () => {
+  await holdTransaction();
+  jest.resetAllMocks();
+  await redis.flushall();
+  (axios.get as any).mockResolvedValue({
+    data: { data: { url: 'https://ww.guide/pic.jpg' } },
+  });
+});
+afterEach(async () => {
+  await rollbackTransaction();
+  redis.removeAllListeners();
+});
 
 const query = `
 {
@@ -20,6 +35,7 @@ const query = `
     name
     avatar
     admin
+    editor
     email
     createdAt
     updatedAt
@@ -27,6 +43,10 @@ const query = `
     imperial
     editorSettings {
       language
+    }
+    accounts {
+      id
+      provider
     }
   }
 }
@@ -38,10 +58,29 @@ it('should return null for anon', async () => {
   expect(result.data!.me).toBeNull();
 });
 
-it('should user', async () => {
-  const result = await runQuery(query, undefined, fakeContext(EDITOR_GA_EC));
+it('should return local user', async () => {
+  const result = await runQuery(query, undefined, fakeContext(TEST_USER));
   expect(result.errors).toBeUndefined();
   expect(result.data!.me).toMatchSnapshot();
+});
+
+it('should return facebook user', async () => {
+  const result = await runQuery(query, undefined, fakeContext(ADMIN));
+  expect(result.errors).toBeUndefined();
+  expect(result.data!.me).toMatchSnapshot();
+});
+
+it('should return editor', async () => {
+  const result = await runQuery(query, undefined, fakeContext(EDITOR_GA_EC));
+  expect(result.errors).toBeUndefined();
+  expect(result.data!.me.editor).toBe(true);
+});
+
+it('should cache fb avatar', async () => {
+  await runQuery(query, undefined, fakeContext(ADMIN));
+  const result = await runQuery(query, undefined, fakeContext(ADMIN));
+  expect(axios.get).toHaveBeenCalledTimes(1);
+  expect(result.data!.me).toMatchObject({ avatar: 'https://ww.guide/pic.jpg' });
 });
 
 it('should return purchased regions', async () => {

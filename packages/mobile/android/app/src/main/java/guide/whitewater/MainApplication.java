@@ -4,6 +4,7 @@ import android.app.Application;
 import android.support.multidex.MultiDexApplication;
 
 import com.facebook.react.ReactApplication;
+import com.imagepicker.ImagePickerPackage;
 import com.mapbox.rctmgl.RCTMGLPackage;
 import com.github.amarcruz.rntextsize.RNTextSizePackage;
 import com.reactnativecommunity.netinfo.NetInfoPackage;
@@ -62,6 +63,7 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new ImagePickerPackage(),
             new RCTMGLPackage(),
             new RNTextSizePackage(),
             new NetInfoPackage(),
