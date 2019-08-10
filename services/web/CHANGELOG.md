@@ -1,3 +1,22 @@
+## [0.1.384](https://github.com/doomsower/whitewater/compare/47770a1aa8cf8e1f62184c2f615a9eac99fa167a...83461dc92f4dd4648ccb2c03064280199b843588) (2019-08-10)
+
+### Features
+
+- add duplicate section ([95bf8a5c6aa9a59e2f4996e9a035121be1be7ebd](https://github.com/doomsower/whitewater/commit/95bf8a5c6aa9a59e2f4996e9a035121be1be7ebd)), closes [#402](https://github.com/doomsower/whitewater/issues/402)
+- remember scroll position of sections table ([0339710e4637486e5af7469850bbf4c7d30c6679](https://github.com/doomsower/whitewater/commit/0339710e4637486e5af7469850bbf4c7d30c6679)), closes [#403](https://github.com/doomsower/whitewater/issues/403)
+- strongly typed table cell renderers ([6d91473a69c57c6fdaa5304acf7021424700da19](https://github.com/doomsower/whitewater/commit/6d91473a69c57c6fdaa5304acf7021424700da19))
+
+### Bug Fixes
+
+- fix react warning in App ([05420be143708136729839ec4fb7cf22b3e19404](https://github.com/doomsower/whitewater/commit/05420be143708136729839ec4fb7cf22b3e19404))
+- improve section river field a bit ([0ef9974c23937ad174a8a4678010951906008994](https://github.com/doomsower/whitewater/commit/0ef9974c23937ad174a8a4678010951906008994)), closes [#401](https://github.com/doomsower/whitewater/issues/401)
+- regions list ([deaf17f76b4d1f5d771fc4acdfc61f3696865767](https://github.com/doomsower/whitewater/commit/deaf17f76b4d1f5d771fc4acdfc61f3696865767))
+
+### Other
+
+- imporove some lists ([1aed1c5f1d4104cae0def1dedb1620d7b0c0605f](https://github.com/doomsower/whitewater/commit/1aed1c5f1d4104cae0def1dedb1620d7b0c0605f))
+- make use of gauges and rivers count ([7eb0dd20d43647ad1022e12b6fe3aebe6f9ff79a](https://github.com/doomsower/whitewater/commit/7eb0dd20d43647ad1022e12b6fe3aebe6f9ff79a))
+
 ## [0.1.383](https://github.com/doomsower/whitewater/compare/7f67a8704663b2d741a50eecc2443d2dfc8c2101...47770a1aa8cf8e1f62184c2f615a9eac99fa167a) (2019-08-08)
 
 ## [0.1.383](https://github.com/doomsower/whitewater/compare/e4784ac49bac91b29aad4ef23e4917a6c6baca21...7f67a8704663b2d741a50eecc2443d2dfc8c2101) (2019-08-07)
