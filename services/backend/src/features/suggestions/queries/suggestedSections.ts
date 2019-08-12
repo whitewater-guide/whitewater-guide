@@ -7,14 +7,14 @@ interface Vars extends ListQuery {
   filter?: SuggestionsFilter;
 }
 
-const suggestions: TopLevelResolver<Vars> = async (
+const suggestedSections: TopLevelResolver<Vars> = async (
   _,
   { filter = {}, page },
   { user, dataSources },
   info,
 ) => {
   const { status, userId } = filter;
-  let query = dataSources.suggestions.getMany(info, { page });
+  let query = dataSources.suggestedSections.getMany(info, { page });
   if (status) {
     query = query.whereIn('status', status);
   }
@@ -22,15 +22,15 @@ const suggestions: TopLevelResolver<Vars> = async (
     if (!user || (!user.admin && user.id !== userId)) {
       throw new ForbiddenError('forbidden');
     }
-    query = query.where({ created_by: userId });
+    query = query.whereRaw("section ->> 'createdBy' = ?", [userId]);
   } else if (!user!.admin) {
     query = query.whereExists((qb: QueryBuilder) =>
       qb
         .select('user_id')
         .from('regions_editors')
-        .innerJoin('rivers', 'regions_editors.region_id', 'rivers.region_id')
-        .innerJoin('sections', 'sections.river_id', 'rivers.id')
-        .whereRaw('sections.id = suggestions.section_id')
+        .whereRaw(
+          "regions_editors.region_id = (suggested_sections.section -> 'region' ->> 'id') :: UUID",
+        )
         .where('regions_editors.user_id', '=', user!.id),
     );
   }
@@ -38,4 +38,4 @@ const suggestions: TopLevelResolver<Vars> = async (
   return result;
 };
 
-export default isAuthenticatedResolver(suggestions);
+export default isAuthenticatedResolver(suggestedSections);

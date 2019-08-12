@@ -4,7 +4,7 @@ import { MediaInput, MediaKind } from './types';
 
 export const MediaInputSchema = yup
   .object<MediaInput>({
-    id: yupTypes.uuid().nullable(),
+    id: yupTypes.uuid(true),
     description: yup
       .string()
       .defined()

@@ -2,7 +2,7 @@ import { Context } from '@apollo';
 import { BaseConnector, FieldsMap } from '@db/connectors';
 import { Suggestion } from '@whitewater-guide/commons';
 import { DataSourceConfig } from 'apollo-datasource';
-import { SuggestionRaw } from './raw_types';
+import { SuggestionRaw } from './types';
 
 const FIELDS_MAP: FieldsMap<Suggestion, SuggestionRaw> = {
   section: 'section_id',

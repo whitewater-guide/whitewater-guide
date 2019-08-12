@@ -1,4 +1,8 @@
-import { SuggestionStatus } from '@whitewater-guide/commons';
+import {
+  NamedNode,
+  SectionInput,
+  SuggestionStatus,
+} from '@whitewater-guide/commons';
 
 export interface SuggestionRaw {
   id: string;
@@ -13,6 +17,16 @@ export interface SuggestionRaw {
   status: SuggestionStatus;
   resolved_by: string | null;
   resolved_at: Date | null;
+}
+
+export interface SuggestedSectionRaw {
+  id: string;
+  created_at: Date;
+  status: SuggestionStatus;
+  name: string;
+  region_id: string;
+  river: NamedNode;
+  section: SectionInput;
 }
 
 export interface ImageArgs {

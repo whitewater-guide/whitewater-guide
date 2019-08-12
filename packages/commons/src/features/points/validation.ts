@@ -75,7 +75,7 @@ export const CoordinateSchemaLoose = yup
 
 export const PointInputSchema = yup
   .object<PointInput>({
-    id: yupTypes.uuid().nullable(),
+    id: yupTypes.uuid(true),
     name: yup.string().nullable(),
     description: yup.string().nullable(),
     coordinates: CoordinateSchema.clone(),

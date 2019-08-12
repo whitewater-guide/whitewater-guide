@@ -114,7 +114,17 @@ describe('SectionInput', () => {
         levels: null,
         rating: null,
         season: null,
+        createdBy: null,
+        suggestionId: null,
       },
+    ],
+    [
+      'with createdBy',
+      { ...correct, createdBy: '880e1a40-bd02-11e9-9cb5-2a2ae2dbcce4' },
+    ],
+    [
+      'with suggestionId',
+      { ...correct, createdBy: '8ef42282-bd02-11e9-9cb5-2a2ae2dbcce4' },
     ],
     ['empty description', { ...correct, description: '' }],
     ['empty season', { ...correct, season: '' }],

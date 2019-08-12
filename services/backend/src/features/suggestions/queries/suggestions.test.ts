@@ -1,5 +1,11 @@
 import { holdTransaction, rollbackTransaction } from '@db';
-import { ADMIN, EDITOR_NO, TEST_USER, TEST_USER_ID } from '@seeds/01_users';
+import {
+  ADMIN,
+  BOOM_USER_1500,
+  EDITOR_NO,
+  TEST_USER,
+  TEST_USER_ID,
+} from '@seeds/01_users';
 import { NORWAY_SJOA_AMOT } from '@seeds/09_sections';
 import { EDIT_SUGGESTION_ID1 } from '@seeds/17_suggestions';
 import { anonContext, fakeContext, runQuery, TIMESTAMP_REGEX } from '@test';
@@ -60,6 +66,15 @@ it('user should get his suggestions', async () => {
   expect(result.errors).toBeUndefined();
   expect(result.data.suggestions.count).toBe(2);
   expect(result.data.suggestions.nodes).toHaveLength(2);
+});
+
+it('user should not get others suggested sections', async () => {
+  const result = await runQuery(
+    query,
+    { filter: { userId: TEST_USER_ID } },
+    fakeContext(BOOM_USER_1500),
+  );
+  expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
 });
 
 it('admin should get all suggestions', async () => {
