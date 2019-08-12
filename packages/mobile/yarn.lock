@@ -2464,14 +2464,14 @@
     "@webassemblyjs/wast-parser" "1.8.5"
     "@xtuc/long" "4.2.2"
 
-"@whitewater-guide/clients@0.0.279-ug-sections.0":
-  version "0.0.279-ug-sections.0"
-  resolved "https://registry.npmjs.org/@whitewater-guide/clients/-/clients-0.0.279-ug-sections.0.tgz#6469a72d9abe5b57519eadf13c3a571870253224"
-  integrity sha512-QbsEYT1bKwLXEkdLqkQIUTeQn/m/NWcKp1/uYFkcc2KenOwLBo+8w+DpCBn0CXG7d7/3S9d/dRk2nbyfEsPz6A==
+"@whitewater-guide/clients@0.0.279":
+  version "0.0.279"
+  resolved "https://registry.npmjs.org/@whitewater-guide/clients/-/clients-0.0.279.tgz#e6c5a7aac21fc37548d576832c79162e39679e8e"
+  integrity sha512-Pg7YLMDz02CEo/KA3LQhkGBzFrq/3vb39OCM6pZGmHksdM0HcDYyQDBL0pkNGC98U0NuLRSQxEB6shOXU4IBbQ==
   dependencies:
     "@turf/bearing" "^6.0.1"
     "@turf/helpers" "^6.1.4"
-    "@whitewater-guide/commons" "0.0.173-ug-sections.0"
+    "@whitewater-guide/commons" "0.0.173"
     apollo-cache "^1.3.2"
     apollo-cache-inmemory "^1.6.2"
     apollo-client "^2.6.3"
@@ -2497,10 +2497,10 @@
     typescript-fsa "^3.0.0-beta-2"
     url-parse "^1.4.7"
 
-"@whitewater-guide/commons@0.0.173-ug-sections.0":
-  version "0.0.173-ug-sections.0"
-  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.173-ug-sections.0.tgz#ae963169c4e543b67b983e992f350b562eb44dbf"
-  integrity sha512-sS779IhJhwEpB58t92bA/EeEpYehX0XEmr/HzVLptg/kdV2z7Uuj3Tx4cHLHjn0zGJs2fJ6s9A+uGLDgrPwGYg==
+"@whitewater-guide/commons@0.0.173":
+  version "0.0.173"
+  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.173.tgz#65bd2522f33f6b4052e2fc89cf3b93499621d090"
+  integrity sha512-MKVUf8+pd9F+hPSP7sMTyORG/C6Tew47iI5E1ehUJBB5KdCW/IbW9NqIHe8sWPo35eU3et/oPmqbr7O4CYyeyQ==
   dependencies:
     "@types/yup" "^0.26.22"
     cron-validator "^1.0.1"
