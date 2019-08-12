@@ -1,3 +1,9 @@
+## [0.1.385](https://github.com/doomsower/whitewater/compare/83461dc92f4dd4648ccb2c03064280199b843588...88855188cbade49d5f9983ef09724de08de56024) (2019-08-12)
+
+### Features
+
+- suggested sections ([ce2244237f5942659d291c4c1a58ea66ab157bfd](https://github.com/doomsower/whitewater/commit/ce2244237f5942659d291c4c1a58ea66ab157bfd))
+
 ## [0.1.384](https://github.com/doomsower/whitewater/compare/47770a1aa8cf8e1f62184c2f615a9eac99fa167a...83461dc92f4dd4648ccb2c03064280199b843588) (2019-08-10)
 
 ### Features
