@@ -1,65 +1,40 @@
+import Box from '@material-ui/core/Box';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import { useAuth } from '@whitewater-guide/clients';
-import { SuggestionStatus } from '@whitewater-guide/commons';
-import React, { useCallback, useEffect, useState } from 'react';
-import { useQuery } from 'react-apollo';
+import React from 'react';
+import { HashTab, HashTabs, HashTabView } from '../../components/navtabs';
 import { Card } from '../../layout';
-import {
-  LIST_SUGGESTIONS_QUERY,
-  QResult,
-  QVars,
-} from './listSuggestions.query';
-import SuggestionResolveDialog from './SuggestionResolveDialog';
-import SuggestionsTableInfinite from './SuggestionsTableInfinite';
+import { SuggesedSections } from './sections';
+import { SimpleSuggestions } from './simple';
 
-const ADMIN_STATUSES = [
-  SuggestionStatus.PENDING,
-  SuggestionStatus.ACCEPTED,
-  SuggestionStatus.REJECTED,
-];
-
-const EDITOR_STATUSES = [SuggestionStatus.PENDING];
-
-export const SuggestionsMain: React.FC = () => {
-  const { me, loading: userLoading } = useAuth();
-  const [resolveId, setResolveId] = useState<string | null>(null);
-  const [statusFilter, setStatusFilter] = useState(
-    me && me.admin ? ADMIN_STATUSES : EDITOR_STATUSES,
-  );
-  useEffect(() => {
-    setStatusFilter(me && me.admin ? ADMIN_STATUSES : EDITOR_STATUSES);
-  }, [me && me.admin]);
-  const closeResolveDialog = useCallback(() => {
-    setResolveId(null);
-  }, [setResolveId]);
-
-  const { data, loading, fetchMore } = useQuery<QResult, QVars>(
-    LIST_SUGGESTIONS_QUERY,
-    {
-      fetchPolicy: 'network-only',
-      variables: {
-        filter: { status: statusFilter },
-      },
-    },
-  );
-
+const SuggestionsMain: React.FC = () => {
+  const { loading } = useAuth();
   return (
-    <Card loading={userLoading || (loading && !(data && data.suggestions))}>
+    <Card loading={loading}>
       <CardHeader title="User suggestions" />
       <CardContent>
-        <SuggestionsTableInfinite
-          suggestions={data!.suggestions}
-          fetchMore={fetchMore}
-          onPressResolve={setResolveId}
-          statusFilter={statusFilter}
-          setStatusFilter={setStatusFilter}
-        />
+        <Box
+          width={1}
+          height={1}
+          display="flex"
+          flexDirection="column"
+          overflow="hidden"
+        >
+          <HashTabs>
+            <HashTab label="Suggestions" value="#main" />
+            <HashTab label="Sections" value="#sections" />
+          </HashTabs>
+
+          <HashTabView value="#main" lazy={true} padding={0}>
+            <SimpleSuggestions />
+          </HashTabView>
+
+          <HashTabView value="#sections" lazy={true} padding={0}>
+            <SuggesedSections />
+          </HashTabView>
+        </Box>
       </CardContent>
-      <SuggestionResolveDialog
-        suggestionId={resolveId}
-        onClose={closeResolveDialog}
-      />
     </Card>
   );
 };

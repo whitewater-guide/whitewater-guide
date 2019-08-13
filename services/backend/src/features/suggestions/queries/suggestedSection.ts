@@ -1,21 +1,20 @@
-import { isAuthenticatedResolver, TopLevelResolver } from '@apollo';
+import { isAuthenticatedResolver, NodeQuery, TopLevelResolver } from '@apollo';
 import { SectionInput, SuggestedSection } from '@whitewater-guide/commons';
+import get from 'lodash/get';
 
-interface Vars {
-  id: string;
-}
-
-const suggestedSection: TopLevelResolver<Vars> = async (
+const suggestedSection: TopLevelResolver<NodeQuery> = async (
   _,
   { id },
   { dataSources },
 ) => {
+  if (!id) {
+    return null;
+  }
   const result: SuggestedSection<
     SectionInput
   > = await dataSources.suggestedSections.getById(id);
-  await dataSources.users.assertEditorPermissions({
-    regionId: result.region.id,
-  });
+  const regionId = get(result, 'region.id') || get(result, 'section.region.id');
+  await dataSources.users.assertEditorPermissions({ regionId });
   return result;
 };
 

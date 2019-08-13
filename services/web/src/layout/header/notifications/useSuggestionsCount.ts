@@ -6,11 +6,17 @@ const SUGGESTIONS_COUNT_QUERY = gql`
     suggestions(filter: { status: [pending] }) {
       count
     }
+    suggestedSections(filter: { status: [pending] }) {
+      count
+    }
   }
 `;
 
 interface QResult {
   suggestions?: {
+    count: number;
+  };
+  suggestedSections?: {
     count: number;
   };
 }
@@ -19,5 +25,8 @@ export default (): number | null => {
   const { data } = useQuery<QResult>(SUGGESTIONS_COUNT_QUERY, {
     fetchPolicy: 'cache-and-network',
   });
-  return data && data.suggestions ? data.suggestions.count : null;
+  if (data && data.suggestions && data.suggestedSections) {
+    return data.suggestions.count + data.suggestedSections.count;
+  }
+  return null;
 };

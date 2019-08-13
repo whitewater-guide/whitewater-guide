@@ -18,7 +18,7 @@ beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
 const query = `
-  query suggestedSection($id: ID!){
+  query suggestedSection($id: ID){
     suggestedSection(id: $id) {
       __typename
       status
@@ -89,4 +89,10 @@ it('owning editor should get data', async () => {
     },
     status: SuggestionStatus.PENDING,
   });
+});
+
+it('should return null when id is not provided', async () => {
+  const result = await runQuery(query, {}, fakeContext(EDITOR_NO));
+  expect(result.errors).toBeUndefined();
+  expect(result.data.suggestedSection).toBeNull();
 });

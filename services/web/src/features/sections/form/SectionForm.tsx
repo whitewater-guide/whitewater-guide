@@ -8,6 +8,7 @@ import { FormikTab } from '../../../formik/helpers';
 import addToList from './addToList';
 import formToMutation from './formToMutation';
 import makeQueryToForm from './makeQueryToForm';
+import RejectSuggestedButton from './RejectSuggestedButton';
 import { QResult, QVars, SECTION_FORM_QUERY } from './sectionForm.query';
 import { SectionFormFlows } from './SectionFormFlows';
 import { SectionFormMain } from './SectionFormMain';
@@ -54,6 +55,7 @@ const SectionForm: React.FC<Props> = ({ match, location }) => {
   const { regionId, sectionId } = match.params;
   const riverId = query.riverId;
   const copyFromId = query.copy;
+  const fromSuggestedId = query.fromSuggestedId;
   const queryToForm = useMemo(() => makeQueryToForm(!!copyFromId), [
     copyFromId,
   ]);
@@ -64,6 +66,7 @@ const SectionForm: React.FC<Props> = ({ match, location }) => {
       variables: {
         regionId,
         riverId,
+        fromSuggestedId,
         sectionId: sectionId || copyFromId,
       },
     },
@@ -81,9 +84,13 @@ const SectionForm: React.FC<Props> = ({ match, location }) => {
 
   return (
     <FormikCard<QResult, SectionFormData>
-      header={header}
+      header={fromSuggestedId ? 'Suggested section' : header}
       {...formik}
       validationSchema={SectionFormSchema}
+      submitLabel={fromSuggestedId ? 'Accept' : undefined}
+      extraActions={
+        <RejectSuggestedButton suggestedSectionId={fromSuggestedId} />
+      }
     >
       <HashTabs variant="fullWidth">
         <FormikTab fields={MainFields} label="Basic" value="#main" />

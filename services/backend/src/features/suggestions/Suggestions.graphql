@@ -73,5 +73,5 @@ type Query {
     page: Page
     filter: SuggestionsFilter
   ): SuggestedSectionsList
-  suggestedSection(id: ID!): SuggestedSection
+  suggestedSection(id: ID): SuggestedSection
 }

@@ -17,10 +17,11 @@ const useStyles = makeStyles(({ spacing }) =>
 interface Props {
   loading: boolean;
   submitLabel: string;
+  extraActions?: React.ReactElement;
 }
 
 const FormikCardActions: React.FC<Props> = React.memo(
-  ({ loading, submitLabel }) => {
+  ({ loading, submitLabel, extraActions }) => {
     const { submitForm, isSubmitting } = useFormikContext();
     const classes = useStyles();
     const { history } = useRouter();
@@ -38,6 +39,7 @@ const FormikCardActions: React.FC<Props> = React.memo(
             {submitLabel}
           </Button>
         </ButtonProgress>
+        {extraActions}
         <ButtonProgress
           loading={loading || isSubmitting}
           className={classes.cancelWrapper}
