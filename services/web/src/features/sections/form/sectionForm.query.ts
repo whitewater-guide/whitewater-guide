@@ -22,7 +22,7 @@ export const SECTION_FORM_QUERY = gql`
     $sectionId: ID
     $riverId: ID
     $regionId: ID
-    $fromSuggestedId: ID!
+    $fromSuggestedId: ID
   ) {
     section(id: $sectionId) {
       ...SectionCore
