@@ -90,29 +90,30 @@ export class CoordinateInput extends React.PureComponent<
   };
 
   // tslint:disable-next-line:member-ordering
-  onChange: Array<(e: any) => void> = [0, 1, 2].map((index) => (e) => {
-    const coord = e.target.value === null ? undefined : e.target.value;
-    const { onChange } = this.props;
-    const { value } = this.state;
-    const newValue = Object.assign(value.slice() as Uncoordinate, {
-      [index]: coord,
-    });
-    const errors = this.validator(newValue);
-    this.setState({ value: newValue, errors });
-    // Do not fire onChange with bad coordinate, otherwise GoogleMaps break
-    if (onChange && isEmpty(errors)) {
-      onChange(newValue);
-    }
-  });
+  onChange: Array<(e: any) => void> = [0, 1, 2].map(
+    (index: number) => (coord: number | null) => {
+      const { onChange } = this.props;
+      const { value } = this.state;
+      const newValue = Object.assign(value.slice() as Uncoordinate, {
+        [index]: coord === null ? undefined : coord,
+      });
+      const errors = this.validator(newValue);
+      this.setState({ value: newValue, errors });
+      // Do not fire onChange with bad coordinate, otherwise GoogleMaps break
+      if (onChange && isEmpty(errors)) {
+        onChange(newValue);
+      }
+    },
+  );
 
   onPaste = (e: React.SyntheticEvent<any>) => {
     if (!this.props.isNew) {
       return;
     }
     try {
-      const coordinateStr = (e.nativeEvent as any).clipboardData.getData(
-        'Text',
-      );
+      const coordinateStr = (e.nativeEvent as any).clipboardData
+        .getData('Text')
+        .trim();
       const coord = new Coordinates(coordinateStr);
       const lat = coord.getLatitude();
       const lng = coord.getLongitude();
