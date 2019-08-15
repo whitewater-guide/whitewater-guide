@@ -72,7 +72,6 @@ export class Multicomplete<
           const { onBlur, onChange, onFocus, ...inputProps } = getInputProps({
             onKeyDown: this.onKeyDown,
             placeholder,
-            onFocus: openOnFocus ? openMenu : undefined,
           });
           return (
             <div>
@@ -104,6 +103,14 @@ export class Multicomplete<
                   onChange: (event) => {
                     this.handleInputChange(event);
                     onChange!(event as any);
+                  },
+                  onClick: (event) => {
+                    if (
+                      openOnFocus &&
+                      event.target === document.activeElement
+                    ) {
+                      openMenu();
+                    }
                   },
                 }}
                 InputLabelProps={getLabelProps(OuterInputLabelProps)}
