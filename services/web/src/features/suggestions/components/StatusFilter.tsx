@@ -8,7 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { SuggestionStatus } from '@whitewater-guide/commons';
 import React, { useCallback, useState } from 'react';
-import updateStatusesArray from './updateStatusesArray';
+import updateStatusesArray from '../simple/updateStatusesArray';
 
 const useStyles = makeStyles(({ spacing }) =>
   createStyles({
@@ -39,7 +39,7 @@ interface Props {
   onChange: (status: SuggestionStatus[]) => void;
 }
 
-const StatusFilter: React.FC<Props> = React.memo((props) => {
+export const StatusFilter: React.FC<Props> = React.memo((props) => {
   const { status, onChange } = props;
   const classes = useStyles();
   const [state, setState] = useState(status);
@@ -112,5 +112,3 @@ const StatusFilter: React.FC<Props> = React.memo((props) => {
 });
 
 StatusFilter.displayName = 'StatusFilter';
-
-export default StatusFilter;

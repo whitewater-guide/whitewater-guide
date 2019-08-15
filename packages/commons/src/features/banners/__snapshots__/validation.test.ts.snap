@@ -120,7 +120,7 @@ Object {
 
 exports[`BannerInputStruct should be invalid for missing uuid 1`] = `
 Object {
-  "id": "yup:mixed.defined",
+  "id": "yup:string.uuid",
 }
 `;
 
@@ -150,6 +150,6 @@ Object {
 
 exports[`BannerInputStruct should be invalid for undefined uuid 1`] = `
 Object {
-  "id": "yup:mixed.defined",
+  "id": "yup:string.uuid",
 }
 `;

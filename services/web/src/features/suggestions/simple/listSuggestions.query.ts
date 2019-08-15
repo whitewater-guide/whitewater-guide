@@ -10,7 +10,7 @@ import gql from 'graphql-tag';
 export const LIST_SUGGESTIONS_QUERY = gql`
   query sectionsEditLog($filter: SuggestionsFilter, $page: Page) {
     suggestions(filter: $filter, page: $page)
-      @connection(key: "history", suggestions: ["filter"]) {
+      @connection(key: "suggestions", suggestions: ["filter"]) {
       nodes {
         ...SuggestionCore
         createdAt

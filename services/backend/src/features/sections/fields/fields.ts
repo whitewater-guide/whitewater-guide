@@ -14,7 +14,7 @@ export const sectionFieldResolvers: FieldResolvers<SectionRaw, Section> = {
   // description is empty string when there is no description ind db (even for premium)
   // description is null when premium is required and description in db is not empty
   description,
-  seasonNumeric: (section) => section.season_numeric,
+  seasonNumeric: (section) => section.season_numeric || [],
   difficultyXtra: (section) => section.difficulty_xtra,
   putIn: ({ id, put_in, name, river_name }) => {
     return {

@@ -25,7 +25,7 @@ const SimpleTagSchema = yup
 
 export const SectionInputSchema = yup
   .object<SectionInput>({
-    id: yupTypes.uuid().nullable(),
+    id: yupTypes.uuid(true),
     name: yupTypes.nonEmptyString(),
     altNames: yup
       .array()
@@ -92,6 +92,8 @@ export const SectionInputSchema = yup
       .of(PointInputSchema.clone())
       .defined(),
     hidden: yup.bool().required(),
+    createdBy: yupTypes.uuid(true, true),
+    suggestionId: yupTypes.uuid(true, true),
   })
   .strict(true)
   .noUnknown();

@@ -6,7 +6,7 @@ const GROUP_SKU = /^group\.\w{3,}$/;
 
 export const GroupInputSchema = yup
   .object<GroupInput>({
-    id: yupTypes.uuid().nullable(),
+    id: yupTypes.uuid(true),
     name: yupTypes.nonEmptyString(),
     sku: yup
       .string()

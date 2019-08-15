@@ -5,7 +5,7 @@ import { GaugeInput } from './types';
 
 export const GaugeInputSchema = yup
   .object<GaugeInput>({
-    id: yupTypes.uuid().nullable(),
+    id: yupTypes.uuid(true),
     name: yupTypes.nonEmptyString(),
     code: yupTypes.nonEmptyVarchar(),
     levelUnit: yupTypes.nonEmptyVarchar().nullable(),

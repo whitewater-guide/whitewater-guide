@@ -1,10 +1,38 @@
+import { SectionInput, Tag } from '@whitewater-guide/commons';
 import { fromMarkdown } from '@whitewater-guide/md-editor';
 import { flow, groupBy } from 'lodash/fp';
 import { toNamedNode } from '../../../formik/utils';
 import { QResult } from './sectionForm.query';
 import { SectionFormData } from './types';
 
+const groupTags = (tags: Tag[]) => {
+  const grouped = flow(groupBy('category'))(tags);
+  return {
+    kayakingTags: grouped.kayaking || [],
+    hazardsTags: grouped.hazards || [],
+    supplyTags: grouped.supply || [],
+    miscTags: grouped.misc || [],
+  };
+};
+
+const inputToFormData = (
+  { tags, description, ...input }: SectionInput,
+  allTags: Tag[],
+): SectionFormData => {
+  const realTags: Tag[] = tags
+    .map((n) => allTags.find((t) => t.id === n.id))
+    .filter((t) => !!t) as Tag[];
+  return {
+    ...input,
+    description: fromMarkdown(description),
+    ...groupTags(realTags),
+  };
+};
+
 export default (isCopy?: boolean) => (result: QResult): SectionFormData => {
+  if (result && result.suggestedSection) {
+    return inputToFormData(result.suggestedSection.section, result.tags);
+  }
   if (!result || !result.section) {
     // Deliberately allow null. Initial form value will be invalid
     const river: any = result ? result.river : null;
@@ -37,13 +65,6 @@ export default (isCopy?: boolean) => (result: QResult): SectionFormData => {
     };
   }
   const { tags, id, name, description, demo, ...section } = result.section;
-  const {
-    kayaking: kayakingTags = [],
-    hazards: hazardsTags = [],
-    supply: supplyTags = [],
-    misc: miscTags = [],
-  } = flow(groupBy('category'))(tags);
-
   return {
     id: isCopy ? null : id,
     name: isCopy ? '' : name,
@@ -51,9 +72,6 @@ export default (isCopy?: boolean) => (result: QResult): SectionFormData => {
     river: toNamedNode(section.river),
     region: toNamedNode(result.region),
     description: fromMarkdown(description),
-    kayakingTags,
-    hazardsTags,
-    supplyTags,
-    miscTags,
+    ...groupTags(tags),
   };
 };

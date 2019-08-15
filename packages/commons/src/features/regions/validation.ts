@@ -7,7 +7,7 @@ const REGION_SKU = /^region\.\w{3,}$/;
 
 export const RegionInputSchema = yup
   .object<RegionInput>({
-    id: yupTypes.uuid().nullable(),
+    id: yupTypes.uuid(true),
     name: yupTypes.nonEmptyString(),
     description: yup
       .string()

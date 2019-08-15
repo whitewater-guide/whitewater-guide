@@ -1,6 +1,6 @@
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import React, { useCallback, useMemo, useState } from 'react';
-import { Lightbox, LightboxItem } from '../../components/lightbox';
+import { Lightbox, LightboxItem } from '../../../components/lightbox';
 import { ListedSuggestion } from './listSuggestions.query';
 
 const useStyles = makeStyles(({ spacing }) =>

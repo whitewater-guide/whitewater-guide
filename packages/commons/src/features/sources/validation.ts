@@ -4,7 +4,7 @@ import { HarvestModeSchema } from '../harvest-mode';
 
 export const SourceInputSchema = yup
   .object({
-    id: yupTypes.uuid().nullable(),
+    id: yupTypes.uuid(true),
     name: yupTypes.nonEmptyString(),
     termsOfUse: yup
       .string()

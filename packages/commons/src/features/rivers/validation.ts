@@ -4,7 +4,7 @@ import { RiverInput } from './types';
 
 export const RiverInputSchema = yup
   .object<RiverInput>({
-    id: yupTypes.uuid().nullable(),
+    id: yupTypes.uuid(true),
     name: yupTypes.nonEmptyString(),
     region: yupTypes.node(),
     altNames: yup

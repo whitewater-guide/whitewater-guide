@@ -8,7 +8,7 @@ import {
   SuggestionStatus,
 } from '@whitewater-guide/commons';
 import * as yup from 'yup';
-import { SuggestionRaw } from '../raw_types';
+import { SuggestionRaw } from '../types';
 
 const schema = yup.object({
   suggestion: SuggestionInputSchema,

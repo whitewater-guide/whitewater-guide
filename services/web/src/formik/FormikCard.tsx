@@ -16,6 +16,7 @@ interface Props<QResult, FData> extends UseApolloFormik<QResult, FData> {
   validationSchema?: FormikConfig<FData>['validationSchema'];
   validateOnChange?: FormikConfig<FData>['validateOnChange'];
   submitLabel?: string;
+  extraActions?: React.ReactElement;
 }
 
 export function FormikCard<QResult, FData>(props: Props<QResult, FData>) {
@@ -26,6 +27,7 @@ export function FormikCard<QResult, FData>(props: Props<QResult, FData>) {
     initialValues,
     validationSchema,
     validateOnChange = process.env.NODE_ENV === 'production',
+    extraActions,
     children,
   } = props;
 
@@ -68,7 +70,11 @@ export function FormikCard<QResult, FData>(props: Props<QResult, FData>) {
               {children}
             </Box>
           </CardContent>
-          <FormikCardActions loading={loading} submitLabel={submitLabel} />
+          <FormikCardActions
+            loading={loading}
+            submitLabel={submitLabel}
+            extraActions={extraActions}
+          />
         </React.Fragment>
       </Formik>
     </Card>

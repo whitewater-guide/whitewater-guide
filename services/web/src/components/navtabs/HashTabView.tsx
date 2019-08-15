@@ -1,20 +1,27 @@
 import Box, { BoxProps } from '@material-ui/core/Box';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import useRouter from 'use-react-router';
 
 interface Props extends BoxProps {
   value: string;
+  lazy?: boolean;
 }
 
 export const HashTabView: React.FC<Props> = (props) => {
-  const { value, display, padding = 2, ...boxProps } = props;
+  const { value, lazy, display, padding = 2, ...boxProps } = props;
   const { location } = useRouter();
   const hash = location.hash || '#main';
-  const displ = value === hash ? display : 'none';
+  const [loaded, setLoaded] = useState(hash === value);
+  useEffect(() => {
+    setLoaded((v) => v || hash === value);
+  }, [hash, setLoaded]);
+  if (lazy && !loaded) {
+    return null;
+  }
   return (
     <Box
       flex={1}
-      display={displ}
+      display={value === hash ? display : 'none'}
       overflow="auto"
       padding={padding}
       {...boxProps}

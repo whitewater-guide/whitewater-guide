@@ -1,45 +1,46 @@
 import { formatDate } from '@whitewater-guide/clients';
-import { sectionName, SuggestionStatus } from '@whitewater-guide/commons';
+import { SuggestionStatus } from '@whitewater-guide/commons';
 import parseISO from 'date-fns/parseISO';
 import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { Column, TableProps } from 'react-virtualized';
-import { isEmptyRow, Table, TableCellRenderer } from '../../components';
-import { ListedSuggestion } from './listSuggestions.query';
-import StatusFilter from './StatusFilter';
-import SuggestionItem from './SuggestionItem';
-import SuggestionStatusView from './SuggestionStatusView';
+import { isEmptyRow, Table, TableCellRenderer } from '../../../components';
+import { StatusFilter } from '../components';
+import { ListedSuggestedSection } from './suggestedSections.query';
+import SuggestedSectionStatusView from './SuggestedSectionStatusView';
 
-const renderCreatedAt: TableCellRenderer<ListedSuggestion> = ({ rowData }) => {
+const renderCreatedAt: TableCellRenderer<ListedSuggestedSection> = ({
+  rowData,
+}) => {
   if (isEmptyRow(rowData)) {
     return null;
   }
   return formatDate(parseISO(rowData.createdAt), 'dd MMM yyyy');
 };
 
-const renderSection: TableCellRenderer<ListedSuggestion> = ({ rowData }) => {
+const renderRegion: TableCellRenderer<ListedSuggestedSection> = ({
+  rowData,
+}) => {
   if (isEmptyRow(rowData)) {
     return null;
   }
-  const { id, region } = rowData.section;
-  return (
-    <Link to={`/regions/${region.id}/sections/${id}#main`}>
-      {sectionName(rowData.section)}
-    </Link>
-  );
+  const { region } = rowData;
+  return <Link to={`/regions/${region.id}`}>{region.name}</Link>;
 };
 
-const renderSuggestion: TableCellRenderer<ListedSuggestion> = ({ rowData }) => {
+const renderSection: TableCellRenderer<ListedSuggestedSection> = ({
+  rowData,
+}) => {
   if (isEmptyRow(rowData)) {
     return null;
   }
-  return <SuggestionItem suggestion={rowData} />;
+  const { name, river } = rowData;
+  return `${river.name} - ${name}`;
 };
 
 interface OwnProps {
-  data: ListedSuggestion[];
+  data: ListedSuggestedSection[];
   registerChild: (registeredChild: any) => void;
-  onPressResolve: (id: string) => void;
   statusFilter: SuggestionStatus[];
   setStatusFilter: (value: SuggestionStatus[]) => void;
 }
@@ -47,7 +48,7 @@ interface OwnProps {
 type Props = OwnProps &
   Omit<TableProps, 'rowGetter' | 'rowCount' | 'rowHeight' | 'headerHeight'>;
 
-const SuggestionsTable: React.FC<Props> = React.memo((props) => {
+const SuggestedSectionsTable: React.FC<Props> = React.memo((props) => {
   const {
     data,
     registerChild,
@@ -57,17 +58,14 @@ const SuggestionsTable: React.FC<Props> = React.memo((props) => {
     setStatusFilter,
   } = props;
 
-  const renderResolveButton: TableCellRenderer<ListedSuggestion> = useCallback(
+  const renderResolveButton: TableCellRenderer<
+    ListedSuggestedSection
+  > = useCallback(
     ({ rowData }) => {
       if (isEmptyRow(rowData)) {
         return null;
       }
-      return (
-        <SuggestionStatusView
-          suggestion={rowData}
-          onPressResolve={onPressResolve}
-        />
-      );
+      return <SuggestedSectionStatusView suggestedSection={rowData} />;
     },
     [onPressResolve],
   );
@@ -78,12 +76,7 @@ const SuggestionsTable: React.FC<Props> = React.memo((props) => {
   );
 
   return (
-    <Table
-      ref={registerChild}
-      data={data}
-      onRowsRendered={onRowsRendered}
-      rowHeight={116}
-    >
+    <Table ref={registerChild} data={data} onRowsRendered={onRowsRendered}>
       <Column
         width={100}
         label="Date"
@@ -91,17 +84,17 @@ const SuggestionsTable: React.FC<Props> = React.memo((props) => {
         cellRenderer={renderCreatedAt}
       />
       <Column
-        width={250}
-        label="Section"
-        dataKey="section"
-        cellRenderer={renderSection}
+        width={100}
+        label="Region"
+        dataKey="region"
+        cellRenderer={renderRegion}
       />
       <Column
         width={200}
-        flexGrow={4}
-        label="Suggestion"
-        dataKey="description"
-        cellRenderer={renderSuggestion}
+        flexGrow={1}
+        label="Name"
+        dataKey="name"
+        cellRenderer={renderSection}
       />
       <Column
         width={120}
@@ -115,4 +108,4 @@ const SuggestionsTable: React.FC<Props> = React.memo((props) => {
   );
 });
 
-export default SuggestionsTable;
+export default SuggestedSectionsTable;

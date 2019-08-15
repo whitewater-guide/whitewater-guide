@@ -104,6 +104,9 @@ export interface SectionInput {
   pois: PointInput[];
 
   hidden: boolean;
+
+  createdBy?: string | null;
+  suggestionId?: string | null;
 }
 
 export type SectionSortBy = 'name' | 'difficulty' | 'duration' | 'rating';

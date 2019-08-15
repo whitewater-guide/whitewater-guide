@@ -1,11 +1,12 @@
 import { listResolvers } from '@apollo';
-import Fields from './fields';
+import fields from './fields';
 import Mutation from './mutations';
 import Query from './queries';
 
 export const suggestionsResolvers = {
-  Suggestion: Fields,
+  ...fields,
   Query,
   Mutation,
   SuggestionsList: listResolvers,
+  SuggestedSectionsList: listResolvers,
 };

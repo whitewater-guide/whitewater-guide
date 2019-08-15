@@ -1,5 +1,6 @@
 import { isAuthenticatedResolver, ListQuery, TopLevelResolver } from '@apollo';
 import { SuggestionsFilter } from '@whitewater-guide/commons';
+import { ForbiddenError } from 'apollo-server-errors';
 import { QueryBuilder } from 'knex';
 
 interface Vars extends ListQuery {
@@ -18,6 +19,9 @@ const suggestions: TopLevelResolver<Vars> = async (
     query = query.whereIn('status', status);
   }
   if (userId) {
+    if (!user || (!user.admin && user.id !== userId)) {
+      throw new ForbiddenError('forbidden');
+    }
     query = query.where({ created_by: userId });
   } else if (!user!.admin) {
     query = query.whereExists((qb: QueryBuilder) =>

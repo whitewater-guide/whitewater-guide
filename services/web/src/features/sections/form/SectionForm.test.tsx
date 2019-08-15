@@ -4,6 +4,7 @@ import {
   MockedResolversContext,
   RecursiveMockResolver,
 } from '@whitewater-guide/clients';
+import { SectionInput } from '@whitewater-guide/commons';
 import { GraphQLResolveInfo } from 'graphql';
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
@@ -64,6 +65,35 @@ const mocks: RecursiveMockResolver = {
       return `tag${seq}`;
     },
   }),
+  JSON: () => {
+    const inp: SectionInput = {
+      id: null,
+      name: 'Suggested',
+      altNames: [],
+      description: '',
+      season: null,
+      seasonNumeric: [],
+      river: { id: 'foo', name: 'bar' },
+      gauge: null,
+      region: { id: 'foo', name: 'bar' },
+      levels: null,
+      flows: null,
+      flowsText: null,
+      shape: [[1, 2, 3], [4, 5, 6]],
+      distance: null,
+      drop: null,
+      duration: null,
+      difficulty: 2,
+      difficultyXtra: null,
+      rating: null,
+      tags: [],
+      pois: [],
+      hidden: true,
+      createdBy: 'author',
+      suggestionId: '__suggestion_id__',
+    };
+    return inp;
+  },
 };
 
 describe('existing section', () => {
@@ -74,7 +104,10 @@ describe('existing section', () => {
     },
   };
   const renderIt = () =>
-    renderForm(<SectionForm {...(route as any)} />, { mocks });
+    renderForm(<SectionForm {...(route as any)} />, {
+      mocks,
+      Query: { suggestedSection: () => null },
+    });
 
   it('should begin in loading state', () => {
     const { getByRole, getByLabelText } = renderIt();
@@ -106,7 +139,7 @@ describe('new section', () => {
     },
   };
   const options: MockedProviderOptions = {
-    Query: { section: () => null },
+    Query: { section: () => null, suggestedSection: () => null },
     mocks,
   };
   const renderIt = () =>
@@ -153,6 +186,7 @@ describe('duplicate section', () => {
         id: () => '__copy_id__',
       }),
     },
+    Query: { suggestedSection: () => null },
   };
   const renderIt = () =>
     renderForm(<SectionForm {...(route as any)} />, options);
@@ -174,6 +208,41 @@ describe('duplicate section', () => {
     const name = await findByLabelText('Name');
     fireEvent.change(name, { target: { value: 'foo' } });
     const button = await findByText('Create');
+    fireEvent.click(button);
+    await expect(findByText(FORM_SUCCEEDED)).resolves.toBeTruthy();
+  });
+});
+
+describe('from suggestion', () => {
+  const route: DeepPartial<RouteComponentProps<RouterParams>> = {
+    match: { params: { regionId: 'bar' } },
+    location: {
+      search: '?fromSuggestedId=__suggestion_id__',
+    },
+  };
+  const options: MockedProviderOptions = {
+    mocks,
+    Query: { section: () => null },
+  };
+  const renderIt = () =>
+    renderForm(<SectionForm {...(route as any)} />, options);
+
+  it('should begin in loading state', () => {
+    const { getByRole, getByLabelText } = renderIt();
+    expect(getByRole('progressbar')).toBeTruthy();
+    expect(() => getByLabelText('Name')).toThrow();
+  });
+
+  it('should provide initial data', async () => {
+    const { findByLabelText, findByText } = renderIt();
+    await expect(findByLabelText('Name')).resolves.toHaveValue('Suggested');
+    await expect(findByText('Accept')).resolves.toBeTruthy();
+    await expect(findByText('Reject')).resolves.toBeTruthy();
+  });
+
+  it('should submit form', async () => {
+    const { findByText } = renderIt();
+    const button = await findByText('Accept');
     fireEvent.click(button);
     await expect(findByText(FORM_SUCCEEDED)).resolves.toBeTruthy();
   });

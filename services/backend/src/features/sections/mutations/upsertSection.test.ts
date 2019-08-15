@@ -13,19 +13,13 @@ import { REGION_GALICIA, REGION_NORWAY } from '@seeds/04_regions';
 import { RIVER_GAL_1, RIVER_SJOA } from '@seeds/07_rivers';
 import { GALICIA_R1_S1, NORWAY_SJOA_AMOT } from '@seeds/09_sections';
 import {
-  anonContext,
   countRows,
   fakeContext,
   noUnstable,
   runQuery,
   UUID_REGEX,
 } from '@test';
-import {
-  ApolloErrorCodes,
-  Duration,
-  NEW_ID,
-  SectionInput,
-} from '@whitewater-guide/commons';
+import { Duration, NEW_ID, SectionInput } from '@whitewater-guide/commons';
 import set from 'lodash/fp/set';
 
 let spBefore: number;
@@ -33,15 +27,17 @@ let pBefore: number;
 let rBefore: number;
 let sBefore: number;
 let tBefore: number;
+let suggBefore: number;
 
 beforeAll(async () => {
-  [spBefore, pBefore, rBefore, sBefore, tBefore] = await countRows(
+  [spBefore, pBefore, rBefore, sBefore, tBefore, suggBefore] = await countRows(
     true,
     'sections_points',
     'points',
     'rivers',
     'sections',
     'sections_tags',
+    'suggested_sections',
   );
 });
 
@@ -166,6 +162,12 @@ const existingRiverSection: SectionInput = {
   hidden: false,
 };
 
+const newRiverSection = {
+  ...existingRiverSection,
+  river: { id: NEW_ID, name: 'Rauma' },
+  region: { id: REGION_NORWAY },
+};
+
 const updateData: SectionInput = {
   ...existingRiverSection,
   id: GALICIA_R1_S1, // galician river 1 section 1
@@ -232,42 +234,43 @@ const invalidSection: SectionInput = {
   hidden: false,
 };
 
-describe('resolvers chain', () => {
-  it('anon should not pass', async () => {
-    const result = await runQuery(
-      upsertQuery,
-      { section: existingRiverSection },
-      anonContext(),
-    );
-    expect(result).toHaveGraphqlError(ApolloErrorCodes.UNAUTHENTICATED);
-  });
+it('should fail on invalid input', async () => {
+  const result = await runQuery(
+    upsertQuery,
+    { section: invalidSection },
+    fakeContext(ADMIN),
+  );
+  expect(result).toHaveGraphqlValidationError();
+});
 
-  it('user should not pass', async () => {
-    const result = await runQuery(
-      upsertQuery,
-      { section: existingRiverSection },
-      fakeContext(TEST_USER),
-    );
-    expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
-  });
-
-  it('non-owning editor should not pass', async () => {
-    const result = await runQuery(
-      upsertQuery,
-      { section: existingRiverSection },
-      fakeContext(EDITOR_GA_EC),
-    );
-    expect(result).toHaveGraphqlError(ApolloErrorCodes.FORBIDDEN);
-  });
-
-  it('should fail on invalid input', async () => {
-    const result = await runQuery(
-      upsertQuery,
-      { section: invalidSection },
-      fakeContext(ADMIN),
-    );
-    expect(result).toHaveGraphqlValidationError();
-  });
+it.each([
+  ['anon', undefined],
+  ['user', TEST_USER],
+  ['non-owning editor', EDITOR_GA_EC],
+])('%s should create suggestion', async (_, user: any) => {
+  const result = await runQuery(
+    upsertQuery,
+    { section: newRiverSection },
+    fakeContext(user),
+  );
+  expect(result.errors).toBeUndefined();
+  const [spAfter, pAfter, rAfter, sAfter, tAfter, suggAfter] = await countRows(
+    false,
+    'sections_points',
+    'points',
+    'rivers',
+    'sections',
+    'sections_tags',
+    'suggested_sections',
+  );
+  expect([
+    spAfter - spBefore,
+    pAfter - pBefore,
+    rAfter - rBefore,
+    sAfter - sBefore,
+    tAfter - tBefore,
+    suggAfter - suggBefore,
+  ]).toEqual([0, 0, 0, 0, 0, 1]);
 });
 
 describe('insert', () => {
@@ -357,11 +360,7 @@ describe('insert with new river', () => {
     insertResult = await runQuery(
       upsertQuery,
       {
-        section: {
-          ...existingRiverSection,
-          river: { id: NEW_ID, name: 'Rauma' },
-          region: { id: REGION_NORWAY },
-        },
+        section: newRiverSection,
       },
       fakeContext(EDITOR_NO_EC),
     );

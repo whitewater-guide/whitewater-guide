@@ -1,3 +1,23 @@
+## [0.1.387](https://github.com/doomsower/whitewater/compare/4513f0666a5a0a023215dd880ca2fca1346ce859...51600b3a6e7ea08e474100e569bf06fa80764a7c) (2019-08-15)
+
+### Bug Fixes
+
+- fix coordinate input ([21ce002af893693d475de9f452bc72c6d1937ad6](https://github.com/doomsower/whitewater/commit/21ce002af893693d475de9f452bc72c6d1937ad6)), closes [#407](https://github.com/doomsower/whitewater/issues/407)
+- open multicomplete on second click ([ce2b7bd84b36c0b05c0905615499d2ecb5178562](https://github.com/doomsower/whitewater/commit/ce2b7bd84b36c0b05c0905615499d2ecb5178562)), closes [#408](https://github.com/doomsower/whitewater/issues/408)
+
+## [0.1.386](https://github.com/doomsower/whitewater/compare/88855188cbade49d5f9983ef09724de08de56024...4513f0666a5a0a023215dd880ca2fca1346ce859) (2019-08-13)
+
+### Features
+
+- suggested section form ([1eba9dcc0ce2db7b1c404c420797624af900b16c](https://github.com/doomsower/whitewater/commit/1eba9dcc0ce2db7b1c404c420797624af900b16c))
+- test suggestion form ([1c2256acf522082697738553f2cca463aac128ab](https://github.com/doomsower/whitewater/commit/1c2256acf522082697738553f2cca463aac128ab))
+
+## [0.1.385](https://github.com/doomsower/whitewater/compare/83461dc92f4dd4648ccb2c03064280199b843588...88855188cbade49d5f9983ef09724de08de56024) (2019-08-12)
+
+### Features
+
+- suggested sections ([ce2244237f5942659d291c4c1a58ea66ab157bfd](https://github.com/doomsower/whitewater/commit/ce2244237f5942659d291c4c1a58ea66ab157bfd))
+
 ## [0.1.384](https://github.com/doomsower/whitewater/compare/47770a1aa8cf8e1f62184c2f615a9eac99fa167a...83461dc92f4dd4648ccb2c03064280199b843588) (2019-08-10)
 
 ### Features

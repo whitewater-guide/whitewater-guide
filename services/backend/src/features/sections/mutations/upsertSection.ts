@@ -7,6 +7,7 @@ import {
   RiverInput,
   SectionInput,
   SectionInputSchema,
+  SuggestionStatus,
 } from '@whitewater-guide/commons';
 import { UserInputError } from 'apollo-server-errors';
 import { DiffPatcher } from 'jsondiffpatch';
@@ -37,7 +38,9 @@ const resolver: TopLevelResolver<Vars> = async (
   vars,
   { user, language, dataSources },
 ) => {
-  const section = { ...vars.section, createdBy: user ? user.id : null };
+  let createdBy = vars.section.createdBy;
+  createdBy = createdBy || (user ? user.id : null);
+  const section = { ...vars.section, createdBy };
   const shouldInsertRiver = section.river.id === NEW_ID;
   if (shouldInsertRiver && section.id) {
     throw new UserInputError('cannot create new river for existing section');
@@ -54,7 +57,14 @@ const resolver: TopLevelResolver<Vars> = async (
         sectionId: section.id,
         riverId: section.river.id,
       };
-  await dataSources.users.assertEditorPermissions(query);
+  const isEditor = await dataSources.users.checkEditorPermissions(query);
+
+  if (!isEditor) {
+    await db()
+      .insert({ section })
+      .into('suggested_sections');
+    return null;
+  }
 
   // Create new river simultaneously
   if (shouldInsertRiver) {
@@ -96,6 +106,16 @@ const resolver: TopLevelResolver<Vars> = async (
         diff: oldSection && differ.diff(oldSection, result),
       })
       .into('sections_edit_log');
+  }
+  if (vars.section.suggestionId) {
+    await db()
+      .table('suggested_sections')
+      .update({
+        status: SuggestionStatus.ACCEPTED,
+        resolved_at: db().fn.now(),
+        resolved_by: user!.id,
+      })
+      .where({ id: vars.section.suggestionId });
   }
   return result;
 };

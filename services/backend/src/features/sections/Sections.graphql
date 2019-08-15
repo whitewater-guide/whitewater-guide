@@ -119,6 +119,8 @@ input SectionInput {
   pois: [PointInput]!
 
   hidden: Boolean!
+  createdBy: ID
+  suggestionId: ID
 }
 
 input SectionAdminSettings {
