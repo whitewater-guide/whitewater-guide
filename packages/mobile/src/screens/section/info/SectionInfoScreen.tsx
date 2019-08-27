@@ -4,7 +4,6 @@ import { NavigationScreenComponent } from 'react-navigation';
 import { Icon, Screen } from '../../../components';
 import { I18nText } from '../../../i18n';
 import theme from '../../../theme';
-import SuggestionFAB from '../SuggestionFAB';
 import SectionInfoView from './SectionInfoView';
 
 export const SectionInfoScreen: NavigationScreenComponent = () => {
@@ -12,7 +11,6 @@ export const SectionInfoScreen: NavigationScreenComponent = () => {
   return (
     <Screen>
       <SectionInfoView section={node} />
-      <SuggestionFAB />
     </Screen>
   );
 };

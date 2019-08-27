@@ -5,7 +5,6 @@ import { NavigationScreenComponent } from 'react-navigation';
 import { Icon, Screen } from '../../../components';
 import { I18nText } from '../../../i18n';
 import theme from '../../../theme';
-import SuggestionFAB from '../SuggestionFAB';
 import SectionMediaScreenContent from './SectionMediaScreenContent';
 
 const styles = StyleSheet.create({
@@ -20,12 +19,11 @@ const styles = StyleSheet.create({
 export const SectionMediaScreen: NavigationScreenComponent = () => {
   const { node } = useSection();
   return (
-    <Screen noScroll={true} noPadding={true}>
+    <Screen>
       <ScrollView contentContainerStyle={styles.content}>
         <SectionMediaScreenContent section={node} />
         <View style={styles.fabHelper} />
       </ScrollView>
-      <SuggestionFAB type="photo" />
     </Screen>
   );
 };
