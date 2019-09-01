@@ -1,4 +1,4 @@
-import { Coordinate, Section } from '@whitewater-guide/commons';
+import { Section } from '@whitewater-guide/commons';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { PanGestureHandler } from 'react-native-gesture-handler';
@@ -9,6 +9,7 @@ import {
   NavigateButton,
 } from '../../../../components';
 import theme from '../../../../theme';
+import { ItemProps } from '../types';
 import { runAnimation, SwipeableAnimation } from './animations';
 import SectionListBody from './SectionListBody';
 
@@ -27,15 +28,11 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Props {
-  hasPremiumAccess: boolean;
-  index: number;
-  swipedIndex: number;
-  section: Section;
-  onPress: (section: Section) => void;
-  onMaximize?: (index: number) => void;
-  canNavigate: (coordinates: Coordinate) => boolean;
-}
+const activeOffsetX = [-15, 15];
+const activeOffsetY = [-10000, 10000];
+const failOffsetY = [-15, 15];
+
+type Props = ItemProps<Section>;
 
 export class SectionListItem extends React.Component<Props> {
   private readonly _animation: SwipeableAnimation;
@@ -60,49 +57,49 @@ export class SectionListItem extends React.Component<Props> {
   shouldComponentUpdate(next: Readonly<Props>): boolean {
     const props = this.props;
     return (
-      props.index !== next.index ||
-      props.section.id !== next.section.id ||
+      props.forceCloseCnt !== next.forceCloseCnt ||
+      props.item.id !== next.item.id ||
       props.hasPremiumAccess !== next.hasPremiumAccess ||
-      (props.index === props.swipedIndex &&
-        props.swipedIndex !== next.swipedIndex)
+      (props.item.id === props.swipedId && props.swipedId !== next.swipedId)
     );
   }
 
   componentDidUpdate(prevProps: Props) {
-    const { index, swipedIndex } = this.props;
+    const { swipedId, item, forceCloseCnt } = this.props;
     if (
-      swipedIndex !== prevProps.swipedIndex &&
-      index !== swipedIndex &&
-      prevProps.swipedIndex !== -1
+      forceCloseCnt !== prevProps.forceCloseCnt ||
+      (swipedId !== prevProps.swipedId &&
+        item.id !== swipedId &&
+        prevProps.swipedId !== '')
     ) {
       this._animation.close();
     }
   }
 
-  onPress = () => this.props.onPress(this.props.section);
+  onPress = () => this.props.onPress(this.props.item);
 
   onOpen = () => {
-    const { onMaximize, index } = this.props;
+    const { onMaximize, item } = this.props;
     if (onMaximize) {
-      onMaximize(index);
+      onMaximize(item.id);
     }
   };
 
   render() {
-    const { section, hasPremiumAccess, canNavigate } = this.props;
+    const { item, hasPremiumAccess, canNavigate } = this.props;
     return (
       <View style={styles.container}>
         <View style={styles.right}>
           <NavigateButton
             labelKey="commons:putIn"
-            point={section.putIn}
+            point={item.putIn}
             canNavigate={canNavigate}
             onPress={this._animation.close}
             scale={this._scalePI}
           />
           <NavigateButton
             labelKey="commons:takeOut"
-            point={section.takeOut}
+            point={item.takeOut}
             canNavigate={canNavigate}
             onPress={this._animation.close}
             scale={this._scaleTO}
@@ -110,7 +107,10 @@ export class SectionListItem extends React.Component<Props> {
         </View>
         <Reanimated.Code exec={this._animation.watchOnOpen} />
         <PanGestureHandler
-          minDeltaX={5}
+          minDist={20}
+          activeOffsetX={activeOffsetX}
+          activeOffsetY={activeOffsetY}
+          failOffsetY={failOffsetY}
           onGestureEvent={this._animation.gestureHandler}
           onHandlerStateChange={this._animation.gestureHandler}
         >
@@ -121,7 +121,7 @@ export class SectionListItem extends React.Component<Props> {
           >
             <SectionListBody
               hasPremiumAccess={hasPremiumAccess}
-              section={section}
+              section={item}
               onPress={this.onPress}
             />
           </Reanimated.View>

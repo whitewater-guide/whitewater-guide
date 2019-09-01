@@ -1,1 +1,1 @@
-export * from './renderHeader';
+export * from './getHeaderRenderer';

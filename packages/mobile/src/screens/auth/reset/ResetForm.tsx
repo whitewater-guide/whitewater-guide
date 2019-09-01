@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { Button } from 'react-native-paper';
 import { Spacer } from '../../../components';
 import {
-  ErrorText,
+  HelperText,
   PasswordField,
   SuccessText,
 } from '../../../components/forms';
@@ -43,11 +43,10 @@ export const ResetForm: React.FC<ResetParams> = ({ id, token }) => {
           <PasswordField
             name="password"
             label={t('screens:auth.reset.newPassword')}
-            mode="outlined"
             showStrengthIndicator={true}
           />
           <Spacer />
-          <ErrorText touched={submitCount > 0} error={(errors as any).form} />
+          <HelperText touched={submitCount > 0} error={(errors as any).form} />
           <SuccessText
             visible={isSuccessful}
             message="screens:auth.reset.success"

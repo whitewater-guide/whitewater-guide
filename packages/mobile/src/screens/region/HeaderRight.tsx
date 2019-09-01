@@ -7,10 +7,10 @@ import { RegionInfoMenu } from './info';
 const HeaderRight: React.FC<NavigationInjectedProps> = ({ navigation }) => {
   const route = navigation.state.routes[navigation.state.index].routeName;
   switch (route) {
-    case Screens.Region.SectionsList:
-    case Screens.Region.Map:
+    case Screens.Region.Tabs.SectionsList:
+    case Screens.Region.Tabs.Map:
       return <FilterButton navigation={navigation} />;
-    case Screens.Region.Info:
+    case Screens.Region.Tabs.Info:
       return <RegionInfoMenu regionId={navigation.getParam('regionId')} />;
   }
   return null;

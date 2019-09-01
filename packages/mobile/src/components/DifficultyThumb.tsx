@@ -1,4 +1,5 @@
 import { toRomanDifficulty } from '@whitewater-guide/commons';
+import memoize from 'lodash/memoize';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
@@ -32,22 +33,24 @@ interface Props {
   noBorder?: boolean;
 }
 
-export const DifficultyThumb: React.SFC<Props> = ({
-  difficulty,
-  difficultyXtra,
-  noBorder,
-}) => {
-  const style = noBorder
-    ? styles.container
-    : [styles.container, styles.withBorder];
-  return (
-    <View style={style}>
-      <Text style={styles.mainLine}>
-        {toRomanDifficulty(difficulty).replace(/\s/gi, '')}
-      </Text>
-      {!!difficultyXtra && (
-        <Text style={styles.xtraLine}>{`(${difficultyXtra})`}</Text>
-      )}
-    </View>
-  );
-};
+const denseRoman = memoize((difficulty: number) =>
+  toRomanDifficulty(difficulty).replace(/\s/gi, ''),
+);
+
+export const DifficultyThumb: React.FC<Props> = React.memo(
+  ({ difficulty, difficultyXtra, noBorder }) => {
+    const style = noBorder
+      ? styles.container
+      : [styles.container, styles.withBorder];
+    return (
+      <View style={style}>
+        <Text style={styles.mainLine}>{denseRoman(difficulty)}</Text>
+        {!!difficultyXtra && (
+          <Text style={styles.xtraLine}>{`(${difficultyXtra})`}</Text>
+        )}
+      </View>
+    );
+  },
+);
+
+DifficultyThumb.displayName = 'DifficultyThumb';

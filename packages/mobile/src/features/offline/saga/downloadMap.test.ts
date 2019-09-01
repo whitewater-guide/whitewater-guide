@@ -19,7 +19,7 @@ it('should download new region', () => {
 
   return expectSaga(downloadMap, {
     id: '__test_pack__',
-    bounds: [[1, 1], [0, 0]],
+    bounds: [[1, 1, 0], [0, 0, 0]],
   })
     .put(offlineContentActions.updateProgress({ maps: [33, 100] }))
     .put(offlineContentActions.updateProgress({ maps: [67, 100] }))
@@ -37,7 +37,7 @@ it('should resume downloading region', () => {
 
   return expectSaga(downloadMap, {
     id: '__test_pack__',
-    bounds: [[1, 1], [0, 0]],
+    bounds: [[1, 1, 0], [0, 0, 0]],
   })
     .put(offlineContentActions.updateProgress({ maps: [67, 100] }))
     .put(offlineContentActions.updateProgress({ maps: [100, 100] }))
@@ -54,7 +54,7 @@ it('should terminate and send non-fatal error', () => {
 
   return expectSaga(downloadMap, {
     id: '__test_pack__',
-    bounds: [[1, 1], [0, 0]],
+    bounds: [[1, 1, 0], [0, 0, 0]],
   })
     .put(
       offlineContentActions.failDownload({

@@ -2,9 +2,25 @@ const Screens = {
   RegionsList: 'RegionsList',
   Region: {
     Root: 'Region',
-    Map: 'RegionMap',
-    SectionsList: 'RegionSectionsList',
-    Info: 'RegionInfo',
+    Tabs: {
+      Root: 'RegionTabs',
+      Map: 'RegionMap',
+      SectionsList: 'RegionSectionsList',
+      Info: 'RegionInfo',
+    },
+    AddSection: {
+      Root: 'AddSectionStack',
+      Tabs: {
+        Root: 'AddSectionTabs',
+        Main: 'AddSectionMain',
+        Attributes: 'AddSectionAttributes',
+        Description: 'AddSectionDescription',
+        Flows: 'AddSectionFlows',
+      },
+      River: 'AddSectionRiver',
+      Gauge: 'AddSectionGauge',
+      Shape: 'AddSectionShape',
+    },
   },
   Section: {
     Root: 'Section',

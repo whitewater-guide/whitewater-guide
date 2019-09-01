@@ -1,22 +1,30 @@
-import { RegionProvider } from '@whitewater-guide/clients';
+import { useNetInfo } from '@react-native-community/netinfo';
+import {
+  RegionProvider,
+  SectionsListProvider,
+  useFilterState,
+} from '@whitewater-guide/clients';
 import React from 'react';
+import { useApolloClient } from 'react-apollo';
 import { NavigationRouter, NavigationScreenComponent } from 'react-navigation';
 import { ErrorBoundary, WithNetworkError } from '../../components';
 import theme from '../../theme';
-import HeaderRight from './HeaderRight';
-import { Navigator, RegionTabs } from './RegionTabs';
-import RegionTitle from './RegionTitle';
-import { NavParams } from './types';
+import RegionStack from './RegionStack';
+
+interface NavParams {
+  regionId: string;
+}
 
 export const RegionScreen: NavigationScreenComponent<NavParams> & {
   router: NavigationRouter;
 } = ({ navigation }) => {
+  const searchTerms = useFilterState();
+  const { isConnected } = useNetInfo();
+  const client = useApolloClient();
+  const regionId = navigation.getParam('regionId');
   return (
     <ErrorBoundary>
-      <RegionProvider
-        regionId={navigation.getParam('regionId')}
-        bannerWidth={theme.screenWidthPx}
-      >
+      <RegionProvider regionId={regionId} bannerWidth={theme.screenWidthPx}>
         {(region) => {
           const { node, error, loading, refetch } = region;
           return (
@@ -26,7 +34,14 @@ export const RegionScreen: NavigationScreenComponent<NavParams> & {
               error={error}
               refetch={refetch}
             >
-              <RegionTabs navigation={navigation} region={region} />
+              <SectionsListProvider
+                searchTerms={searchTerms}
+                regionId={regionId}
+                isConnected={isConnected}
+                client={client}
+              >
+                <RegionStack navigation={navigation} />
+              </SectionsListProvider>
             </WithNetworkError>
           );
         }}
@@ -35,9 +50,8 @@ export const RegionScreen: NavigationScreenComponent<NavParams> & {
   );
 };
 
-RegionScreen.router = Navigator.router;
+RegionScreen.router = RegionStack.router;
 
 RegionScreen.navigationOptions = ({ navigation }) => ({
-  headerTitle: <RegionTitle regionId={navigation.getParam('regionId')} />,
-  headerRight: <HeaderRight navigation={navigation} />,
+  header: null,
 });

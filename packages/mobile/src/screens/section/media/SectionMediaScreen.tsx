@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
 export const SectionMediaScreen: NavigationScreenComponent = () => {
   const { node } = useSection();
   return (
-    <Screen noScroll={true} noPadding={true}>
+    <Screen>
       <ScrollView contentContainerStyle={styles.content}>
         <SectionMediaScreenContent section={node} />
         <View style={styles.fabHelper} />

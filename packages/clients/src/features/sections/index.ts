@@ -8,6 +8,6 @@ export * from './SectionContext';
 export * from './sectionFragments';
 export * from './sectionName.query';
 export * from './sectionDetails.query';
-export * from './SectionsListLoader';
+export * from './SectionsListProvider';
 export * from './toGeoJson';
 export * from './types';

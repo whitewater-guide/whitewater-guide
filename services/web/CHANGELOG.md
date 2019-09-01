@@ -1,9 +1,22 @@
-## [0.1.387](https://github.com/doomsower/whitewater/compare/4513f0666a5a0a023215dd880ca2fca1346ce859...51600b3a6e7ea08e474100e569bf06fa80764a7c) (2019-08-15)
+## [0.1.387-ugsections.2](https://github.com/doomsower/whitewater/compare/51600b3a6e7ea08e474100e569bf06fa80764a7c...a5f228bbd64d42cd3b28f6585f2bcbe884f7cb27) (2019-09-01)
 
 ### Bug Fixes
 
-- fix coordinate input ([21ce002af893693d475de9f452bc72c6d1937ad6](https://github.com/doomsower/whitewater/commit/21ce002af893693d475de9f452bc72c6d1937ad6)), closes [#407](https://github.com/doomsower/whitewater/issues/407)
-- open multicomplete on second click ([ce2b7bd84b36c0b05c0905615499d2ecb5178562](https://github.com/doomsower/whitewater/commit/ce2b7bd84b36c0b05c0905615499d2ecb5178562)), closes [#408](https://github.com/doomsower/whitewater/issues/408)
+- fix coordinate input ([180f1c3eec365ba6f089b635a7d438a1c4e039a8](https://github.com/doomsower/whitewater/commit/180f1c3eec365ba6f089b635a7d438a1c4e039a8))
+- use markdown-it based renderer ([97c30c64d0ad699e30ab29cde8c97b926923f701](https://github.com/doomsower/whitewater/commit/97c30c64d0ad699e30ab29cde8c97b926923f701)), closes [#411](https://github.com/doomsower/whitewater/issues/411)
+
+### Features
+
+- add gauges filter ([9384e058fd5b0462c023a9dc5b03b9dfbe024630](https://github.com/doomsower/whitewater/commit/9384e058fd5b0462c023a9dc5b03b9dfbe024630))
+- move getValidationErrors to clients ([263f773f7017507896d0d109cccfe5c43facf97a](https://github.com/doomsower/whitewater/commit/263f773f7017507896d0d109cccfe5c43facf97a))
+
+## [0.1.387-ugsections.1](https://github.com/doomsower/whitewater/compare/aef11ae3be6f2a1b9af48565a44b31cd61fe2633...a5408075cba1bec07adedc2eb36db0d04248bd58) (2019-08-25)
+
+### Features
+
+- add gauges filter ([9384e058fd5b0462c023a9dc5b03b9dfbe024630](https://github.com/doomsower/whitewater/commit/9384e058fd5b0462c023a9dc5b03b9dfbe024630))
+
+## [0.1.387-ugsections.0](https://github.com/doomsower/whitewater/compare/aef11ae3be6f2a1b9af48565a44b31cd61fe2633...aef11ae3be6f2a1b9af48565a44b31cd61fe2633) (2019-08-25)
 
 ## [0.1.386](https://github.com/doomsower/whitewater/compare/88855188cbade49d5f9983ef09724de08de56024...4513f0666a5a0a023215dd880ca2fca1346ce859) (2019-08-13)
 

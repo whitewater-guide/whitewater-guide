@@ -5,7 +5,12 @@ import {
   FeatureCollection,
   LineString,
 } from '@turf/helpers';
-import { Coordinate2d, Coordinate3d, Section } from '@whitewater-guide/commons';
+import {
+  Coordinate2d,
+  Coordinate3d,
+  Section,
+  sectionName,
+} from '@whitewater-guide/commons';
 import { getSectionColor } from './getSectionColor';
 
 const removeAlt = ([lng, lat]: Coordinate3d): Coordinate2d => [lng, lat];
@@ -14,6 +19,7 @@ interface Props {
   color: string;
   approximate: boolean;
   arrowAzimuth: number;
+  name?: string;
 }
 
 export const sectionToGeoJSON = (
@@ -47,6 +53,7 @@ export const sectionToGeoJSON = (
       color: getSectionColor(section),
       approximate: !!approximate,
       arrowAzimuth,
+      name: sectionName(section),
     },
   };
 };

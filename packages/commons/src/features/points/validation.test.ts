@@ -13,6 +13,11 @@ describe('coordinate schema', () => {
     expect(validator([120, 80, 11.5])).toBeNull();
   });
 
+  it('error when undefined', () => {
+    const errors = validator(undefined);
+    expect(errors).toMatchSnapshot();
+  });
+
   it('error in lat', () => {
     const errors = validator([10, 120, -11.5]);
     expect(errors).toMatchSnapshot();
@@ -43,8 +48,17 @@ describe('loose coordinate schema', () => {
     expect(validator([120, 80])).toBeNull();
   });
 
+  it('undefined alt', () => {
+    expect(validator([120, 80, undefined])).toBeNull();
+  });
+
   it('error', () => {
     const errors = validator([220, 180]);
+    expect(errors).toMatchSnapshot();
+  });
+
+  it('error when undefined', () => {
+    const errors = validator(undefined);
     expect(errors).toMatchSnapshot();
   });
 

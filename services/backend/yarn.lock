@@ -1184,17 +1184,17 @@
     lodash.unescape "4.0.1"
     semver "5.5.0"
 
-"@whitewater-guide/commons@0.0.173":
-  version "0.0.173"
-  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.173.tgz#65bd2522f33f6b4052e2fc89cf3b93499621d090"
-  integrity sha512-MKVUf8+pd9F+hPSP7sMTyORG/C6Tew47iI5E1ehUJBB5KdCW/IbW9NqIHe8sWPo35eU3et/oPmqbr7O4CYyeyQ==
+"@whitewater-guide/commons@0.0.174-ugsections.5":
+  version "0.0.174-ugsections.5"
+  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.174-ugsections.5.tgz#8d970a6a3f9b42a54521334d9505ed3f0359cba3"
+  integrity sha512-kzBU58jMldOpfo026BBwqc8AIIQBsr9ewUlhxYlEvfvZGVtZzODIh8XHatZUNdhQVkqVuw74fSWxah5/O74FeA==
   dependencies:
     "@types/yup" "^0.26.22"
-    cron-validator "^1.0.1"
+    cron-validator "^1.0.2"
     deepmerge "^4.0.0"
-    expr-eval "^1.2.2"
-    lodash "^4.17.11"
-    validator "^11.0.0"
+    expr-eval "^1.2.3"
+    lodash "^4.17.15"
+    validator "^11.1.0"
     yup "^0.27.0"
 
 "@wry/equality@^0.1.2":
@@ -2933,7 +2933,7 @@ cron-parser@^2.7.3:
     is-nan "^1.2.1"
     moment-timezone "^0.5.25"
 
-cron-validator@^1.0.1:
+cron-validator@^1.0.2:
   version "1.0.2"
   resolved "https://registry.npmjs.org/cron-validator/-/cron-validator-1.0.2.tgz#9a204bd528d216d4c4a3e781b3016865382d6d91"
   integrity sha512-XBz8hV08F/J9jcDGB/TxwqBnbCdWYn8AiUojo7caxFdbuqUCKhAr5ty/7tl7H1zzmf6QcCB3nGBjBgaYg4sqiQ==
@@ -3727,7 +3727,7 @@ expect@^24.8.0:
     jest-message-util "^24.8.0"
     jest-regex-util "^24.3.0"
 
-expr-eval@^1.2.2:
+expr-eval@^1.2.3:
   version "1.2.3"
   resolved "https://registry.npmjs.org/expr-eval/-/expr-eval-1.2.3.tgz#d61b3ae6b753a56ce4d3eff3b72c7cbe19a80ca8"
   integrity sha512-HqfsCqw/ScM+CzJMfj2JYjiysgozJmDPDVax94T7o/yU7UwZ8icXAunNF23sOsd3CEf9Q4JdU8Vx6y7LIdGE0w==
@@ -10062,7 +10062,7 @@ validate-npm-package-license@^3.0.1:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
 
-validator@^11.0.0:
+validator@^11.0.0, validator@^11.1.0:
   version "11.1.0"
   resolved "https://registry.npmjs.org/validator/-/validator-11.1.0.tgz#ac18cac42e0aa5902b603d7a5d9b7827e2346ac4"
   integrity sha512-qiQ5ktdO7CD6C/5/mYV4jku/7qnqzjrxb3C/Q5wR3vGGinHTgJZN/TdFT3ZX4vXhX2R1PXx42fB1cn5W+uJ4lg==

@@ -1,35 +1,40 @@
 import {
   MapSelectionProvider,
-  SectionsListLoader,
+  useSectionsList,
 } from '@whitewater-guide/clients';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { NavigationRouteConfigMap, TabNavigatorConfig } from 'react-navigation';
+import {
+  NavigationRouteConfigMap,
+  NavigationRouter,
+  NavigationScreenComponent,
+  TabNavigatorConfig,
+} from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import { SelectedPOIView, SelectedSectionView } from '../../components/map';
 import theme from '../../theme';
 import Screens from '../screen-names';
-import container from './container';
+import AddSectionFAB from './AddSectionFAB';
+import HeaderRight from './HeaderRight';
 import { RegionInfoScreen } from './info';
 import RegionMapScreen from './map';
+import RegionTitle from './RegionTitle';
 import RegionSectionsListScreen from './sections-list';
 import SectionsProgress from './SectionsProgress';
-import { InnerProps, RenderProps, ScreenProps } from './types';
 
 const routes: NavigationRouteConfigMap = {
-  [Screens.Region.Map]: {
+  [Screens.Region.Tabs.Map]: {
     screen: RegionMapScreen,
   },
-  [Screens.Region.SectionsList]: {
+  [Screens.Region.Tabs.SectionsList]: {
     screen: RegionSectionsListScreen,
   },
-  [Screens.Region.Info]: {
+  [Screens.Region.Tabs.Info]: {
     screen: RegionInfoScreen,
   },
 };
 
 const config: TabNavigatorConfig = {
-  initialRouteName: Screens.Region.Map,
+  initialRouteName: Screens.Region.Tabs.Map,
   backBehavior: 'none',
   swipeEnabled: false,
   animationEnabled: false,
@@ -45,41 +50,35 @@ const config: TabNavigatorConfig = {
   shifting: true,
 };
 
-export const Navigator = createMaterialBottomTabNavigator(routes, config);
+const Navigator = createMaterialBottomTabNavigator(routes, config);
 
-class RegionTabsContent extends React.PureComponent<InnerProps> {
-  render() {
-    const { navigation, region, isConnected, searchTerms, client } = this.props;
-    return (
-      <SectionsListLoader
-        searchTerms={searchTerms}
-        region={region}
-        isConnected={isConnected}
-        client={client}
-      >
-        {({ sections, count, status, refresh }: RenderProps) => {
-          const screenProps: ScreenProps = {
-            region,
-            sections,
-            updateSections: refresh,
-            sectionsStatus: status,
-          };
-          return (
-            <MapSelectionProvider>
-              <Navigator navigation={navigation} screenProps={screenProps} />
-              <SelectedPOIView />
-              <SelectedSectionView />
-              <SectionsProgress
-                status={status}
-                loaded={sections.length}
-                count={count}
-              />
-            </MapSelectionProvider>
-          );
-        }}
-      </SectionsListLoader>
-    );
-  }
-}
+type NavComponent = NavigationScreenComponent & {
+  router?: NavigationRouter;
+};
 
-export const RegionTabs = container(RegionTabsContent);
+const RegionTabs: NavComponent = React.memo((props) => {
+  const { navigation } = props;
+  const sectionsList = useSectionsList();
+  return (
+    <MapSelectionProvider>
+      <Navigator navigation={navigation} />
+      <SelectedPOIView />
+      <SelectedSectionView />
+      <SectionsProgress
+        status={sectionsList.status}
+        loaded={sectionsList.sections.length}
+        count={sectionsList.count}
+      />
+      <AddSectionFAB />
+    </MapSelectionProvider>
+  );
+});
+
+RegionTabs.displayName = 'RegionTabs';
+RegionTabs.router = Navigator.router;
+RegionTabs.navigationOptions = ({ navigation }) => ({
+  headerTitle: <RegionTitle regionId={navigation.getParam('regionId')} />,
+  headerRight: <HeaderRight navigation={navigation} />,
+});
+
+export default RegionTabs;

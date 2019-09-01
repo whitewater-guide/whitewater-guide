@@ -6,6 +6,7 @@ import {
   DifficultyThumb,
   FlowsThumb,
   Icon,
+  SimpleStarRating,
   StarRating,
 } from '../../../../components';
 import theme from '../../../../theme';
@@ -79,7 +80,7 @@ const SectionListBody: React.FC<Props> = React.memo(
             )}
           </View>
           <View style={styles.starsContainer}>
-            <StarRating disabled={true} value={section.rating || 0} />
+            <SimpleStarRating value={section.rating || 0} />
           </View>
         </View>
         <FlowsThumb section={section} />

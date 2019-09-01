@@ -31,5 +31,11 @@ export interface GaugeInput<RP = any> {
   url: string | null;
 }
 
+export interface GaugesFilter {
+  search?: string;
+  regionId?: string;
+  sourceId?: string;
+}
+
 export const isGauge = (node?: Node | null): node is Gauge =>
   !!node && node.__typename === 'Gauge';

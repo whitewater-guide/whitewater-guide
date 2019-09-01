@@ -13,6 +13,14 @@ Object {
 }
 `;
 
+exports[`coordinate schema error when undefined 1`] = `
+Object {
+  "0": "yup:number.longitude",
+  "1": "yup:number.latitude",
+  "2": "yup:number.altitude",
+}
+`;
+
 exports[`coordinate schema wrong array length (2) 1`] = `
 Object {
   "2": "yup:number.altitude",
@@ -35,6 +43,14 @@ exports[`loose coordinate schema error 1`] = `
 Object {
   "0": "yup:number.longitude",
   "1": "yup:number.latitude",
+}
+`;
+
+exports[`loose coordinate schema error when undefined 1`] = `
+Object {
+  "0": "yup:number.longitude",
+  "1": "yup:number.latitude",
+  "2": "yup:number.altitude",
 }
 `;
 

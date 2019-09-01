@@ -2,8 +2,8 @@ import Box from '@material-ui/core/Box';
 import CardHeader from '@material-ui/core/CardHeader';
 import { useSection } from '@whitewater-guide/clients';
 import { sectionName } from '@whitewater-guide/commons';
+import ReactMarkdown from 'markdown-react-js';
 import React from 'react';
-import ReactMarkdown from 'react-markdown';
 import { Route, Switch } from 'react-router';
 import { RouteComponentProps } from 'react-router-dom';
 import { Chart } from '../../../components/chart';
@@ -53,7 +53,9 @@ const SectionDetails: React.FC<RouteComponentProps> = React.memo((props) => {
             </Route>
 
             <Route exact={true} path={`${match.path}/description`}>
-              <ReactMarkdown source={section.description || ''} />
+              <Box padding={1}>
+                <ReactMarkdown text={section.description || ''} />
+              </Box>
             </Route>
 
             <Route path={`${match.path}/media`}>

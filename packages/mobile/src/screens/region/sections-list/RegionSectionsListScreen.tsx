@@ -1,28 +1,23 @@
+import { useRegion, useSectionsList } from '@whitewater-guide/clients';
 import React from 'react';
 import { NavigationScreenComponent } from 'react-navigation';
 import { Icon, Screen } from '../../../components';
 import { I18nText } from '../../../i18n';
 import theme from '../../../theme';
-import { ScreenProps } from '../types';
 import SectionsList from './SectionsList';
 
 export const RegionSectionsListScreen: NavigationScreenComponent = ({
   navigation,
-  screenProps,
 }) => {
-  const {
-    region,
-    sections,
-    updateSections,
-    sectionsStatus,
-  }: ScreenProps = screenProps as any;
+  const { sections, status, refresh } = useSectionsList();
+  const { node } = useRegion();
   return (
     <Screen>
       <SectionsList
-        status={sectionsStatus}
+        status={status}
         sections={sections}
-        region={region.node}
-        refresh={updateSections}
+        region={node}
+        refresh={refresh}
         navigate={navigation.navigate}
       />
     </Screen>

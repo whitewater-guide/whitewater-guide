@@ -3,7 +3,7 @@ import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from 'react-native-paper';
 import { Spacer } from '../../../components';
-import { ErrorText } from '../../../components/forms';
+import { HelperText } from '../../../components/forms';
 
 const MissingParams: React.FC = () => {
   const { t } = useTranslation();
@@ -11,7 +11,7 @@ const MissingParams: React.FC = () => {
   const back = useCallback(() => goBack(), [goBack]);
   return (
     <React.Fragment>
-      <ErrorText
+      <HelperText
         noPad={true}
         touched={true}
         error="screens:auth.reset.missingParams"

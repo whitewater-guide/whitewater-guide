@@ -59,7 +59,6 @@ export const SignInForm: React.FC = () => {
             name="email"
             label={t('commons:email')}
             keyboardType="email-address"
-            mode="outlined"
             autoCapitalize="none"
             autoCorrect={false}
             autoFocus={false}
@@ -72,7 +71,6 @@ export const SignInForm: React.FC = () => {
             ref={passwordField}
             name="password"
             label={t('commons:password')}
-            mode="outlined"
             returnKeyType="done"
             onSubmitEditing={handleSubmit as any}
           />

@@ -3,3 +3,6 @@ export interface SnackbarMessage {
   full?: string;
   error?: boolean;
 }
+
+export const isSnackbarMessage = (v: any): v is SnackbarMessage =>
+  !!v && v.hasOwnProperty('short');

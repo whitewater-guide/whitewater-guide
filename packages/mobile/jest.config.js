@@ -15,7 +15,7 @@ const notIgnoredModules = [
 ].join('|');
 
 module.exports = {
-  preset: 'react-native',
+  preset: '@testing-library/react-native',
   verbose: true,
   // transform: {
   //   '^.+\\.(j|t)sx?$':

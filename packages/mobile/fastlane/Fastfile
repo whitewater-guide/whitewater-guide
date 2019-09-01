@@ -275,6 +275,7 @@ platform :android do
       version_file_name: '../app.json',
     )
     code_push
+    sentry
   end
 
   lane :production do |options|
@@ -286,6 +287,7 @@ platform :android do
       apk: "#{lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]}"
     )
     code_push
+    sentry
   end
 
 end

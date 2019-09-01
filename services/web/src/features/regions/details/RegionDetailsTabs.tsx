@@ -1,6 +1,7 @@
 import Box from '@material-ui/core/Box';
 import {
-  SectionsListLoader,
+  SectionsListContext,
+  SectionsListProvider,
   useFilterState,
   useRegion,
 } from '@whitewater-guide/clients';
@@ -25,13 +26,13 @@ const RegionDetailsTabs: React.FC = React.memo(() => {
   }
   const regionId = node.id;
   return (
-    <SectionsListLoader
-      region={region}
+    <SectionsListProvider
+      regionId={regionId}
       client={client}
       limit={60}
       searchTerms={searchTerms}
     >
-      {({ sections, count }) => (
+      {({ sections, count }: SectionsListContext) => (
         <React.Fragment>
           <NavTabs variant="fullWidth">
             <NavTab label="Info" value="/main" />
@@ -69,7 +70,7 @@ const RegionDetailsTabs: React.FC = React.memo(() => {
           </Box>
         </React.Fragment>
       )}
-    </SectionsListLoader>
+    </SectionsListProvider>
   );
 });
 

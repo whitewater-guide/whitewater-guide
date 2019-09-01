@@ -8,7 +8,7 @@ import { mockImagePreload } from './test-utils';
 (FastImage.preload as jest.Mock).mockImplementation(mockImagePreload);
 
 it('should download photos and report progress', () => {
-  const mediaChan = channel(buffers.expanding(10));
+  const mediaChan = channel<string[]>(buffers.expanding(10));
   mediaChan.put(['foo1', 'bar1']);
   mediaChan.put(['foo2', 'bar2']);
   mediaChan.put(END);

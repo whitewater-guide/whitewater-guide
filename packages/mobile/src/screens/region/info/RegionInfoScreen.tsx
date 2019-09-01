@@ -6,7 +6,6 @@ import { Icon, Screen } from '../../../components';
 import { RegionBanners } from '../../../features/banners';
 import { I18nText } from '../../../i18n';
 import theme from '../../../theme';
-import { ScreenProps } from '../types';
 import RegionInfoView from './RegionInfoView';
 
 const styles = StyleSheet.create({
@@ -15,13 +14,12 @@ const styles = StyleSheet.create({
   },
 });
 
-export const RegionInfoScreen: NavigationScreenComponent = (props) => {
-  const { region }: ScreenProps = props.screenProps as any;
+export const RegionInfoScreen: NavigationScreenComponent = () => {
   return (
     <Screen>
       <ScrollView contentContainerStyle={styles.content}>
         <RegionBanners placement={BannerPlacement.MOBILE_REGION_DESCRIPTION} />
-        <RegionInfoView region={region} />
+        <RegionInfoView />
       </ScrollView>
     </Screen>
   );

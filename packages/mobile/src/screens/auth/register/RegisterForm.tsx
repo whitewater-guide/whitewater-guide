@@ -65,7 +65,6 @@ export const RegisterForm: React.FC = React.memo(() => {
               name="email"
               label={t('commons:email')}
               keyboardType="email-address"
-              mode="outlined"
               autoCapitalize="none"
               autoCorrect={false}
               autoFocus={false}
@@ -78,7 +77,6 @@ export const RegisterForm: React.FC = React.memo(() => {
               name="name"
               ref={nameField}
               label={t('screens:auth.register.name')}
-              mode="outlined"
               autoCapitalize="none"
               autoCorrect={false}
               textContentType="username"
@@ -90,7 +88,6 @@ export const RegisterForm: React.FC = React.memo(() => {
               name="password"
               ref={passwordField}
               label={t('commons:password')}
-              mode="outlined"
               showStrengthIndicator={true}
               returnKeyType="done"
               onSubmitEditing={handleSubmit as any}

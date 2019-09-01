@@ -9,7 +9,7 @@ declare module '@react-native-mapbox-gl/maps' {
     ViewStyle,
   } from 'react-native';
 
-  interface ScreenPoint {
+  export interface ScreenPoint {
     screenPointX: number;
     screenPointY: number;
   }
@@ -325,7 +325,7 @@ declare module '@react-native-mapbox-gl/maps' {
     /**
      * Components
      */
-    class MapView extends Component<MapViewProps> {
+    class MapView extends Component<MapboxViewProps> {
       getPointInView(coordinate: Array<number>): Promise<void>;
 
       getCoordinateFromView(point: Array<number>): Promise<void>;
@@ -412,6 +412,8 @@ declare module '@react-native-mapbox-gl/maps' {
 
     class SymbolLayer extends Component<SymbolLayerProps> {}
 
+    class Images extends Component<{ images: Record<String, any> }> {}
+
     const offlineManager: OfflineManager;
 
     interface LocationManagerLocation {
@@ -432,9 +434,11 @@ declare module '@react-native-mapbox-gl/maps' {
 
     const locationManager: LocationManager;
 
-    class snapshotManager extends Component {
-      takeSnap(options: SnapshotOptions): Promise<void>;
+    class SnapshotManager extends Component {
+      takeSnap(options: SnapshotOptions): Promise<string>;
     }
+
+    const snapshotManager: SnapshotManager;
 
     /**
      * Constants
@@ -458,7 +462,7 @@ declare module '@react-native-mapbox-gl/maps' {
     }
   }
 
-  interface MapViewProps extends ViewProperties {
+  export interface MapboxViewProps extends ViewProperties {
     animated?: boolean;
     centerCoordinate?: Array<number>;
     showUserLocation?: boolean;
@@ -486,8 +490,8 @@ declare module '@react-native-mapbox-gl/maps' {
 
     onPress?: (f: Feature<Point, ScreenPoint>) => void;
     onLongPress?: () => void;
-    onRegionWillChange?: () => void;
-    onRegionIsChanging?: () => void;
+    onRegionWillChange?: (e: RegionChangeEvent) => void;
+    onRegionIsChanging?: (e: RegionChangeEvent) => void;
     onRegionDidChange?: (e: RegionChangeEvent) => void;
     onUserLocationUpdate?: () => void;
     onWillStartLoadingMap?: () => void;
@@ -551,7 +555,7 @@ declare module '@react-native-mapbox-gl/maps' {
     tolerance?: number;
     images?: any;
     onPress?: (e: NativeSyntheticEvent<ShapeSourcePressEvent<P>>) => void;
-    hitbox: any;
+    hitbox?: any;
   }
 
   interface RasterSourceProps {
@@ -615,6 +619,7 @@ declare module '@react-native-mapbox-gl/maps' {
 
   interface SnapshotOptions {
     centerCoordinate?: Array<number>;
+    bounds?: [[number, number], [number, number]];
     width?: number;
     height?: number;
     zoomLevel?: number;

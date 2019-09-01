@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { Button } from 'react-native-paper';
 import { RequestResetPayload } from '../../../../../clients/src/auth';
 import { Spacer } from '../../../components';
-import { ErrorText, SuccessText, TextField } from '../../../components/forms';
+import { HelperText, SuccessText, TextField } from '../../../components/forms';
 import Screens from '../../screen-names';
 import { useAuthSubmit } from '../useAuthSubmit';
 import getValidationSchema from './getValidationSchema';
@@ -36,9 +36,8 @@ export const ForgotForm: React.FC = () => {
         <React.Fragment>
           <TextField
             name="email"
-            label={t('screens:auth.forgot.email')}
+            label={t('commons:email')}
             keyboardType="email-address"
-            mode="outlined"
             autoCapitalize="none"
             autoCorrect={false}
             autoFocus={false}
@@ -49,7 +48,7 @@ export const ForgotForm: React.FC = () => {
             message="screens:auth.forgot.success"
           />
           <Spacer />
-          <ErrorText
+          <HelperText
             noPad={true}
             touched={submitCount > 0}
             error={(errors as any).form}

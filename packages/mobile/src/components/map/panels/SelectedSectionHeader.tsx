@@ -8,6 +8,7 @@ import theme from '../../../theme';
 import { DifficultyThumb } from '../../DifficultyThumb';
 import { Icon } from '../../Icon';
 import { NAVIGATE_BUTTON_HEIGHT } from '../../NavigateButton';
+import { SimpleStarRating } from '../../SimpleStarRating';
 import { StarRating } from '../../StarRating';
 
 const styles = StyleSheet.create({
@@ -75,7 +76,7 @@ const SelectedSectionHeader: React.FC<Props> = React.memo(
               )}
           </View>
           <View style={styles.starsContainer}>
-            <StarRating value={get(section, 'rating', 0) || 0} />
+            <SimpleStarRating value={get(section, 'rating', 0) || 0} />
           </View>
         </View>
         <DifficultyThumb

@@ -52,8 +52,14 @@ type GaugesList {
   count: Int!
 }
 
+input GaugesFilter {
+  sourceId: ID
+  regionId: ID
+  search: String
+}
+
 type Query {
-  gauges(sourceId: ID, page: Page): GaugesList!
+  gauges(filter: GaugesFilter, page: Page): GaugesList!
   gauge(id: ID): Gauge
 }
 

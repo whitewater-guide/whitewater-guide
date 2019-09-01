@@ -1,10 +1,9 @@
 import { useStreamingQuery } from '@whitewater-guide/clients';
 import { Source } from '@whitewater-guide/commons';
-import React, { useMemo } from 'react';
+import React from 'react';
 import useRouter from 'use-react-router';
 import { useDeleteMutation } from '../../../apollo';
 import { Loading } from '../../../components';
-import { squashConnection } from '../../../formik/utils';
 import GaugesTable from './GaugesTable';
 import { LIST_GAUGES, QResult, QVars } from './listGauges.query';
 import { REMOVE_GAUGE } from './removeGauge.mutation';
@@ -21,7 +20,7 @@ export const GaugesList: React.FC<Props> = React.memo((props) => {
     LIST_GAUGES,
     {
       fetchPolicy: 'cache-and-network',
-      variables: { sourceId: source.id },
+      variables: { filter: { sourceId: source.id } },
     },
     60,
   );

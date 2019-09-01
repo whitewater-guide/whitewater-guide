@@ -64,6 +64,9 @@ const rules: RenderRules = {
       </Text>
     );
   },
+  hardbreak: () => {
+    return <Text key={getUniqueID()}>{'\n'}</Text>;
+  },
 };
 
 export const Markdown: React.FC = ({ children }) => (

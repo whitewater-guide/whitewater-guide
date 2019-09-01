@@ -49,9 +49,9 @@ const SimpleSuggestionForm: React.FC<Props> = (props) => {
           <React.Fragment>
             <TextField
               name="description"
-              mode="outlined"
               autoFocus={true}
               multiline={true}
+              wrapperStyle={styles.description}
               style={styles.description}
               label={t('screens:suggestion.suggestionLabel')}
               placeholder={t('screens:suggestion.suggestionPlaceholder')}

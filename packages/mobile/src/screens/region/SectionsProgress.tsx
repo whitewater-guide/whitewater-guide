@@ -1,10 +1,10 @@
+import { SectionsStatus } from '@whitewater-guide/clients';
 import debounce from 'lodash/debounce';
 import React from 'react';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Caption } from 'react-native-paper';
 import theme from '../../theme';
-import { SectionsStatus } from './types';
 
 const BAR_HEIGHT = 32;
 

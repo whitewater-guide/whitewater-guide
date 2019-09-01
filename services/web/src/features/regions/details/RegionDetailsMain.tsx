@@ -1,8 +1,8 @@
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import { stringifySeason, useRegion } from '@whitewater-guide/clients';
+import ReactMarkdown from 'markdown-react-js';
 import React from 'react';
-import ReactMarkdown from 'react-markdown';
 import { Row, Title } from '../../../layout/details';
 
 const RegionDetailsMain: React.FC = () => {
@@ -23,7 +23,7 @@ const RegionDetailsMain: React.FC = () => {
         </Row>
         <Row>
           <Grid item={true} xs={12}>
-            <ReactMarkdown source={node.description || ''} />
+            <ReactMarkdown text={node.description || ''} />
           </Grid>
         </Row>
       </Grid>

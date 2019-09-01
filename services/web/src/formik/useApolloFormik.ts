@@ -1,3 +1,4 @@
+import { getValidationErrors } from '@whitewater-guide/clients';
 import { omitTypename } from '@whitewater-guide/commons';
 import { FormikHelpers } from 'formik';
 import { DocumentNode } from 'graphql';
@@ -10,7 +11,6 @@ import {
   useQuery,
 } from 'react-apollo';
 import useRouter from 'use-react-router';
-import { getValidationErrors } from './utils';
 
 export interface ApolloFormikOptions<
   QVars,
@@ -81,7 +81,7 @@ export function useApolloFormik<QVars, QResult, FData, MVars, MResult = any>(
         })
         .catch((e) => {
           const validationErrors = getValidationErrors(e);
-          formikHelpers.setErrors(validationErrors);
+          formikHelpers.setErrors(validationErrors as any);
           // Not validation error but still error
           if (isEmpty(e)) {
             formikHelpers.setStatus({ success: false, error: e });

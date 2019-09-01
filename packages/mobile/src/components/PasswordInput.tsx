@@ -64,6 +64,7 @@ export const PasswordInput = React.memo(
               autoCapitalize="none"
               autoCorrect={false}
               textContentType="password"
+              mode="outlined"
               {...props}
               onFocus={onFocus}
               onBlur={onBlur}
