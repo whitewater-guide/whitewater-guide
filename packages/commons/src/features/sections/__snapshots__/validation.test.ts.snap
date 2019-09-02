@@ -296,8 +296,29 @@ Object {
 }
 `;
 
+exports[`SectionInput should be invalid for incorrect media 1`] = `
+Object {
+  "media": Array [
+    Object {
+      "id": "yup:string.uuid",
+    },
+  ],
+}
+`;
+
 exports[`SectionInput should be invalid for new river without name 1`] = `
 Object {
   "river": "yup:mixed.newNode",
+}
+`;
+
+exports[`SectionInput should be invalid for null media 1`] = `
+Object {
+  "media": Object {
+    "key": "yup:mixed.notType",
+    "options": Object {
+      "type": "array",
+    },
+  },
 }
 `;

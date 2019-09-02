@@ -6,7 +6,7 @@ import {
   Timestamped,
 } from '../../apollo';
 import { Gauge } from '../gauges';
-import { Media } from '../media';
+import { Media, MediaInput } from '../media';
 import { Coordinate3d, Point, PointInput } from '../points';
 import { Region } from '../regions';
 import { River } from '../rivers';
@@ -102,6 +102,8 @@ export interface SectionInput {
   rating: number | null;
   tags: NodeRef[];
   pois: PointInput[];
+  // this is optional for now
+  media?: MediaInput[];
 
   hidden: boolean;
 

@@ -1,5 +1,7 @@
+import omit from 'lodash/omit';
 import { NEW_ID } from '../../apollo';
 import { createSafeValidator } from '../../validation';
+import { MediaKind } from '../media';
 import {
   Duration,
   GaugeBinding,
@@ -92,6 +94,17 @@ describe('SectionInput', () => {
         kind: 'portage',
       },
     ],
+    media: [
+      {
+        id: '9f0ff4b6-c258-11e8-a355-529269fb1459',
+        description: 'description',
+        kind: MediaKind.photo,
+        resolution: [800, 600],
+        url: 'jhakjfh',
+        weight: -3,
+        copyright: 'Copyright',
+      },
+    ],
     hidden: false,
   };
 
@@ -139,6 +152,8 @@ describe('SectionInput', () => {
         region: { id: 'cf8c20ac-ae06-11e9-a2a3-2a2ae2dbcce4' },
       },
     ],
+    ['empty media', { ...correct, media: [] }],
+    ['no media', omit(correct, 'media')],
   ];
 
   const incorrectValues: TestValue[] = [
@@ -199,6 +214,11 @@ describe('SectionInput', () => {
           },
         ],
       },
+    ],
+    ['null media', { ...correct, media: null as any }],
+    [
+      'incorrect media',
+      { ...correct, media: [{ ...correct.media![0], id: 'foo' }] },
     ],
     ['extra fields', { ...correct, foo: 'bar' } as any],
     ['new river without name', { ...correct, river: { id: NEW_ID } }],
