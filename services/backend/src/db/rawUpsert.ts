@@ -7,5 +7,5 @@ export async function rawUpsert<T>(
 ): Promise<T> {
   const key: string = query.split('SELECT ')[1].split('(')[0];
   const result = await db.raw<any>(query, bindings);
-  return result.rows[0][key];
+  return result.rows.length ? result.rows[0][key] : null;
 }

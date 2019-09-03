@@ -21,6 +21,10 @@ Object {
     "minimum": 100,
     "optimum": null,
   },
+  "media": Object {
+    "count": 0,
+    "nodes": Array [],
+  },
   "name": "Playrun",
   "pois": Array [
     Object {
@@ -112,6 +116,15 @@ Object {
     "maximum": null,
     "minimum": 100,
     "optimum": null,
+  },
+  "media": Object {
+    "count": 1,
+    "nodes": Array [
+      Object {
+        "kind": "video",
+        "url": "http://some2.video",
+      },
+    ],
   },
   "name": "Playrun",
   "pois": Array [

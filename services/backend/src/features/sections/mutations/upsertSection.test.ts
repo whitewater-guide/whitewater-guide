@@ -1,6 +1,14 @@
 import db, { holdTransaction, rollbackTransaction } from '@db';
 import { SectionsEditLogRaw } from '@features/sections';
 import {
+  fileExistsInBucket,
+  MEDIA,
+  MEDIA_BUCKET_DIR,
+  resetTestMinio,
+  TEMP,
+  TEMP_BUCKET_DIR,
+} from '@minio';
+import {
   ADMIN,
   ADMIN_ID,
   EDITOR_GA_EC,
@@ -12,6 +20,8 @@ import {
 import { REGION_GALICIA, REGION_NORWAY } from '@seeds/04_regions';
 import { RIVER_GAL_1, RIVER_SJOA } from '@seeds/07_rivers';
 import { GALICIA_R1_S1, NORWAY_SJOA_AMOT } from '@seeds/09_sections';
+import { PHOTO_1 } from '@seeds/11_media';
+import { MEDIA_SUGGESTION_ID1 } from '@seeds/17_suggestions';
 import {
   countRows,
   fakeContext,
@@ -19,8 +29,17 @@ import {
   runQuery,
   UUID_REGEX,
 } from '@test';
-import { Duration, NEW_ID, SectionInput } from '@whitewater-guide/commons';
+import {
+  Duration,
+  MediaInput,
+  MediaKind,
+  NEW_ID,
+  SectionInput,
+} from '@whitewater-guide/commons';
+import { copy } from 'fs-extra';
+import { ExecutionResult } from 'graphql';
 import set from 'lodash/fp/set';
+import * as path from 'path';
 
 let spBefore: number;
 let pBefore: number;
@@ -41,8 +60,12 @@ beforeAll(async () => {
   );
 });
 
-beforeEach(holdTransaction);
+beforeEach(async () => {
+  await holdTransaction();
+  await resetTestMinio();
+});
 afterEach(rollbackTransaction);
+afterAll(() => resetTestMinio(true));
 
 const upsertQuery = `
   mutation upsertSection($section: SectionInput!){
@@ -107,6 +130,14 @@ const upsertQuery = `
         id
         name
         coordinates
+      }
+      media {
+        nodes {
+          id
+          kind
+          url
+        }
+        count
       }
     }
   }
@@ -633,6 +664,137 @@ describe('i18n', () => {
         description: 'Русское описание ',
       }),
     );
+  });
+});
+
+describe('media', () => {
+  const media: MediaInput[] = [
+    {
+      id: null,
+      description: 'photo description',
+      copyright: 'photo copyright',
+      url: 'photo.jpg',
+      kind: MediaKind.photo,
+      resolution: [100, 100],
+      weight: null,
+    },
+    {
+      id: null,
+      description: 'video description',
+      copyright: 'video copyright',
+      url: 'https://www.youtube.com/watch?v=FRmz0QQXHEw',
+      kind: MediaKind.video,
+      resolution: null,
+      weight: null,
+    },
+  ];
+  const insertSection: SectionInput = {
+    ...existingRiverSection,
+    media,
+    suggestionId: MEDIA_SUGGESTION_ID1,
+  };
+  const updateSection: SectionInput = {
+    ...existingRiverSection,
+    id: NORWAY_SJOA_AMOT,
+    media,
+  };
+
+  beforeEach(async () => {
+    await copy(
+      path.resolve(__dirname, '__tests__/test.jpg'),
+      path.resolve(TEMP_BUCKET_DIR, 'photo.jpg'),
+    );
+    await copy(
+      path.resolve(__dirname, '__tests__/test.jpg'),
+      path.resolve(MEDIA_BUCKET_DIR, 'media_suggestion1.jpg'),
+    );
+  });
+
+  describe('insert', () => {
+    let result!: ExecutionResult;
+
+    beforeEach(async () => {
+      result = await runQuery(
+        upsertQuery,
+        { section: insertSection },
+        fakeContext(EDITOR_NO_EC),
+      );
+      expect(result.errors).toBeUndefined();
+    });
+
+    it('should return media', () => {
+      expect(result.data!.upsertSection.media).toMatchObject({
+        count: 2,
+        nodes: [
+          {
+            id: expect.stringMatching(UUID_REGEX),
+            url: 'photo.jpg',
+            kind: MediaKind.photo,
+          },
+          {
+            id: expect.stringMatching(UUID_REGEX),
+            url: 'https://www.youtube.com/watch?v=FRmz0QQXHEw',
+            kind: MediaKind.video,
+          },
+        ],
+      });
+    });
+
+    it('should move photos from temp dir', async () => {
+      await expect(fileExistsInBucket(TEMP, 'test.jpg')).resolves.toBe(false);
+      await expect(fileExistsInBucket(TEMP, 'photo.jpg')).resolves.toBe(false);
+      // expect items bucket to contain new_image.jpg
+      await expect(
+        fileExistsInBucket(
+          MEDIA,
+          'photo.jpg',
+          '11ad66ff24bc4d463dfe8219f6ba6bcd',
+        ),
+      ).resolves.toBe(true);
+    });
+  });
+
+  describe('update', () => {
+    let result!: ExecutionResult;
+
+    beforeEach(async () => {
+      result = await runQuery(
+        upsertQuery,
+        { section: updateSection },
+        fakeContext(EDITOR_NO_EC),
+      );
+      expect(result.errors).toBeUndefined();
+    });
+
+    it('should return media', () => {
+      expect(result.data!.upsertSection.media).toMatchObject({
+        count: 2,
+        nodes: [
+          {
+            id: expect.stringMatching(UUID_REGEX),
+            url: 'photo.jpg',
+            kind: MediaKind.photo,
+          },
+          {
+            id: expect.stringMatching(UUID_REGEX),
+            url: 'https://www.youtube.com/watch?v=FRmz0QQXHEw',
+            kind: MediaKind.video,
+          },
+        ],
+      });
+    });
+
+    it('update should delete existing media', async () => {
+      const old = await db(false)
+        .select('*')
+        .from('media')
+        .where({ id: PHOTO_1 });
+      expect(old).toEqual([]);
+    });
+
+    it('should delete unused media files', async () => {
+      await expect(fileExistsInBucket(MEDIA, PHOTO_1)).resolves.toBe(false);
+    });
   });
 });
 
