@@ -1,3 +1,14 @@
+## [0.1.387](https://github.com/doomsower/whitewater/compare/a5f228bbd64d42cd3b28f6585f2bcbe884f7cb27...79121b6b50d6c9a59a5f4ca4ce16a6562aa47f2d) (2019-09-03)
+
+### Features
+
+- ug sections ([63b77ee7982e0b87165df98dea5317ddcf7ad69e](https://github.com/doomsower/whitewater/commit/63b77ee7982e0b87165df98dea5317ddcf7ad69e))
+
+### Bug Fixes
+
+- fix coordinate input ([21ce002af893693d475de9f452bc72c6d1937ad6](https://github.com/doomsower/whitewater/commit/21ce002af893693d475de9f452bc72c6d1937ad6)), closes [#407](https://github.com/doomsower/whitewater/issues/407)
+- open multicomplete on second click ([ce2b7bd84b36c0b05c0905615499d2ecb5178562](https://github.com/doomsower/whitewater/commit/ce2b7bd84b36c0b05c0905615499d2ecb5178562)), closes [#408](https://github.com/doomsower/whitewater/issues/408)
+
 ## [0.1.387-ugsections.2](https://github.com/doomsower/whitewater/compare/51600b3a6e7ea08e474100e569bf06fa80764a7c...a5f228bbd64d42cd3b28f6585f2bcbe884f7cb27) (2019-09-01)
 
 ### Bug Fixes

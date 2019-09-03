@@ -1,3 +1,10 @@
+## [0.0.390](https://github.com/doomsower/whitewater/compare/a5f228bbd64d42cd3b28f6585f2bcbe884f7cb27...79121b6b50d6c9a59a5f4ca4ce16a6562aa47f2d) (2019-09-03)
+
+### Features
+
+- ug sections ([63b77ee7982e0b87165df98dea5317ddcf7ad69e](https://github.com/doomsower/whitewater/commit/63b77ee7982e0b87165df98dea5317ddcf7ad69e))
+- upsert section can handle media now ([bb24ffc6c615a57a8a9ca888d0146ee5a5cc9694](https://github.com/doomsower/whitewater/commit/bb24ffc6c615a57a8a9ca888d0146ee5a5cc9694))
+
 ## [0.0.390-ugsections.1](https://github.com/doomsower/whitewater/compare/51600b3a6e7ea08e474100e569bf06fa80764a7c...a5f228bbd64d42cd3b28f6585f2bcbe884f7cb27) (2019-09-01)
 
 ### Features

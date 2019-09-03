@@ -1,3 +1,9 @@
+## [0.0.143-ugsections.1](https://github.com/doomsower/whitewater/compare/a5f228bbd64d42cd3b28f6585f2bcbe884f7cb27...79121b6b50d6c9a59a5f4ca4ce16a6562aa47f2d) (2019-09-03)
+
+### Features
+
+- ug sections ([63b77ee7982e0b87165df98dea5317ddcf7ad69e](https://github.com/doomsower/whitewater/commit/63b77ee7982e0b87165df98dea5317ddcf7ad69e))
+
 ## [0.0.143-ugsections.1](https://github.com/doomsower/whitewater/compare/51600b3a6e7ea08e474100e569bf06fa80764a7c...a5f228bbd64d42cd3b28f6585f2bcbe884f7cb27) (2019-09-01)
 
 ## [0.0.143-ugsections.0](https://github.com/doomsower/whitewater/compare/aef11ae3be6f2a1b9af48565a44b31cd61fe2633...a5408075cba1bec07adedc2eb36db0d04248bd58) (2019-08-25)
