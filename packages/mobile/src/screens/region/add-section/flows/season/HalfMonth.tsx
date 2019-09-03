@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import theme from '../../../../../theme';
 
 const HEIGHT = 40;
@@ -38,9 +37,9 @@ const HalfMonth: HalfMonth = Object.assign(
     const { index, onPress, selected } = props;
     const onClick = useCallback(() => onPress(index), [index, onPress]);
     return (
-      <TouchableOpacity style={styles.touchable} onPress={onClick}>
+      <TouchableWithoutFeedback style={styles.touchable} onPress={onClick}>
         <View style={[styles.container, selected && styles.selected]} />
-      </TouchableOpacity>
+      </TouchableWithoutFeedback>
     );
   }),
   { height: HEIGHT, width: WIDTH },
