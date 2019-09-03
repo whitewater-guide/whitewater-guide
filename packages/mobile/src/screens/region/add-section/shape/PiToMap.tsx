@@ -12,6 +12,7 @@ const MapComponent = BaseMap as React.ComponentType<
     onRegionIsChanging?: (e: RegionChangeEvent) => void;
     onRegionWillChange?: (e: RegionChangeEvent) => void;
     onPress?: () => void;
+    regionDidChangeDebounceTime?: number;
   } & RefAttributes<Mapbox.MapView>
 >;
 
@@ -87,7 +88,7 @@ const PiToMap = React.memo(
     const showPutIn = !!shape[0] && selected !== 0;
     const showTakeOut = !!shape[1] && selected !== 1;
     return (
-      <MapComponent ref={ref} {...mapProps}>
+      <MapComponent ref={ref} {...mapProps} regionDidChangeDebounceTime={0}>
         <Mapbox.Images images={IMAGES} />
 
         <Mapbox.ShapeSource id="sections" shape={sections}>

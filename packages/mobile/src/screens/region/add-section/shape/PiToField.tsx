@@ -46,9 +46,9 @@ const PiToField: React.FC = React.memo(() => {
       onRegionWillChange: (e: RegionChangeEvent) => {
         setMoving(true);
       },
-      onRegionIsChanging: (e: RegionChangeEvent) => {
-        move(e.geometry.coordinates as any);
-      },
+      // onRegionIsChanging: (e: RegionChangeEvent) => {
+      //   move(e.geometry.coordinates as any);
+      // },
       onRegionDidChange: (e: RegionChangeEvent) => {
         move(e.geometry.coordinates as any);
         setMoving(false);
