@@ -62,6 +62,7 @@ const RegionTabs: NavComponent = React.memo((props) => {
   return (
     <MapSelectionProvider>
       <Navigator navigation={navigation} />
+      <AddSectionFAB />
       <SelectedPOIView />
       <SelectedSectionView />
       <SectionsProgress
@@ -69,7 +70,6 @@ const RegionTabs: NavComponent = React.memo((props) => {
         loaded={sectionsList.sections.length}
         count={sectionsList.count}
       />
-      <AddSectionFAB />
     </MapSelectionProvider>
   );
 });

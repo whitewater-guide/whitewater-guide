@@ -34,6 +34,10 @@ const config: TabNavigatorConfig = {
   animationEnabled: false,
   lazy: true,
   tabBarPosition: 'bottom',
+  initialLayout: {
+    height: theme.stackScreenHeight,
+    width: theme.screenWidth,
+  },
   tabBarOptions: {
     showIcon: false,
     scrollEnabled: true,
