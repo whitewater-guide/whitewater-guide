@@ -5,6 +5,8 @@ import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import Animated from 'react-native-reanimated';
 import theme from '../../../theme';
 import { BottomSheet } from '../../BottomSheet';
+import getSnapPoints from './getSnapPoints';
+import { SnapPoints } from './types';
 
 const styles = StyleSheet.create({
   header: {
@@ -31,7 +33,7 @@ const {
 } = Animated;
 
 interface Props extends MapSelection {
-  snapPoints: [number, number, number];
+  snapPoints: SnapPoints;
   renderHeader: () => React.ReactNode;
   renderButtons: (scale?: Animated.Node<number>) => React.ReactNode;
   renderContent: () => React.ReactNode;
@@ -52,7 +54,7 @@ class SelectedElementView extends React.PureComponent<Props> {
 
   constructor(props: Props) {
     super(props);
-    const { snapPoints } = props;
+    const snapPoints = getSnapPoints(props.snapPoints);
     this._headerPosition = new Value(
       snapPoints[0] - snapPoints[1] + HIDE_THRESHOLD_OVERSHOOT,
     );
@@ -124,12 +126,13 @@ class SelectedElementView extends React.PureComponent<Props> {
 
   render() {
     const {
-      snapPoints,
       renderContent,
       innerGestureHandlerRefs,
       simultaneousHandlers,
     } = this.props;
+    const snapPoints = getSnapPoints(this.props.snapPoints);
     // TODO: use custom bottom sheet because of Cancelled state hack
+    // https://github.com/osdnk/react-native-reanimated-bottom-sheet/issues/69
     return (
       <React.Fragment>
         <Animated.View
