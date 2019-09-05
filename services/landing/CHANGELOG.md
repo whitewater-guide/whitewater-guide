@@ -1,3 +1,9 @@
+## [0.0.53-ugsections.1](https://github.com/doomsower/whitewater/compare/3fcbd76549b7894dc14ddabba6ec89ccd963689b...6fca4f2a6929ab7072c51d2441b5b8ee6cc45fb1) (2019-09-05)
+
+### Features
+
+- allow 2d coorinates ([5b19c72f54c622e76fa321e292f99988d25d9546](https://github.com/doomsower/whitewater/commit/5b19c72f54c622e76fa321e292f99988d25d9546)), closes [#281](https://github.com/doomsower/whitewater/issues/281)
+
 ## [0.0.53-ugsections.1](https://github.com/doomsower/whitewater/compare/cdc4bf75762ad6df2f5e9aad2a616dcc6856e547...3fcbd76549b7894dc14ddabba6ec89ccd963689b) (2019-09-05)
 
 ## [0.0.53-ugsections.1](https://github.com/doomsower/whitewater/compare/79121b6b50d6c9a59a5f4ca4ce16a6562aa47f2d...cdc4bf75762ad6df2f5e9aad2a616dcc6856e547) (2019-09-05)
