@@ -2,6 +2,7 @@ import Grid from '@material-ui/core/Grid';
 import { Durations } from '@whitewater-guide/commons';
 import groupBy from 'lodash/groupBy';
 import React from 'react';
+import { AutocompleteMenuProps } from '../../../components/autocomplete';
 import {
   MulticompleteField,
   NumberField,
@@ -25,6 +26,15 @@ const DurationsSelectPreset: SelectFieldPreset<
   optionToKey: (o) => (o === null ? 'null' : o[0]),
   optionToLabel: (o) => (o === null ? 'unknown' : o[1]),
   valueToKey: (v) => (v === null ? 'null' : v),
+};
+
+const tagsMenuProps: AutocompleteMenuProps = {
+  placement: 'bottom-start',
+  modifiers: {
+    flip: {
+      enabled: true,
+    },
+  },
 };
 
 interface Props {
@@ -89,6 +99,7 @@ export const SectionFormProperties: React.FC<Props> = (props) => {
           placeholder="River supply"
           fullWidth={true}
           openOnFocus={true}
+          menuProps={tagsMenuProps}
         />
       </Grid>
 
@@ -100,6 +111,7 @@ export const SectionFormProperties: React.FC<Props> = (props) => {
           options={kayaking}
           fullWidth={true}
           openOnFocus={true}
+          menuProps={tagsMenuProps}
         />
       </Grid>
 
@@ -111,6 +123,7 @@ export const SectionFormProperties: React.FC<Props> = (props) => {
           options={hazards}
           fullWidth={true}
           openOnFocus={true}
+          menuProps={tagsMenuProps}
         />
       </Grid>
 
@@ -122,6 +135,7 @@ export const SectionFormProperties: React.FC<Props> = (props) => {
           options={misc}
           fullWidth={true}
           openOnFocus={true}
+          menuProps={tagsMenuProps}
         />
       </Grid>
     </Grid>

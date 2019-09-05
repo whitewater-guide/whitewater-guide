@@ -117,6 +117,7 @@ export class Multicomplete<
                 {...(inputProps as any)}
               />
               <AutocompleteMenu
+                key={`menu_${inputValue}`}
                 isOpen={isOpen}
                 anchorEl={this._input.current}
                 matchInputWidth={true}
