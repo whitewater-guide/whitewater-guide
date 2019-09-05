@@ -1,4 +1,4 @@
-import { Coordinate, Coordinate3d } from '@whitewater-guide/commons';
+import { Coordinate3d, CoordinateLoose } from '@whitewater-guide/commons';
 import { useField } from 'formik';
 import React, { useCallback } from 'react';
 import { SelectGeometryDialog } from '../../components/maps';
@@ -6,7 +6,7 @@ import { useFakeHandlers } from '../utils';
 
 interface Props {
   name: string;
-  bounds: Coordinate[] | null;
+  bounds: CoordinateLoose[] | null;
   onClose: () => void;
 }
 

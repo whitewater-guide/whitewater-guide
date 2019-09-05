@@ -1,12 +1,12 @@
 import { Coordinate3d } from '@whitewater-guide/commons';
-import { Formik, FormikConfig } from 'formik';
+import { Formik } from 'formik';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
 import { Button, Modal, Portal, Surface } from 'react-native-paper';
-import { HelperText, TextField } from '../../../../../components/forms';
+import { HelperText, NumericField } from '../../../../../components/forms';
 import theme from '../../../../../theme';
-import { Shape, Uncoordinate } from '../../types';
+import { Shape } from '../../types';
 import { getShapeError, isShapeTouched } from '../../utils';
 import { PiToState } from '../usePiToState';
 import PiToPointHeader from './PiToPointHeader';
@@ -59,25 +59,18 @@ interface Props {
   onDismiss: () => void;
 }
 
-const isInitialValid = (props: Pick<FormikConfig<Shape>, 'initialValues'>) =>
-  !validator(props.initialValues);
-
 export const PiToDialog: React.FC<Props> = (props) => {
   const { initialShape, setShape, onDismiss } = props;
   const { t } = useTranslation();
-  const initialValues: Shape = useMemo(
+  const initialValues = useMemo(
     () => ({
-      shape: [
-        initialShape[0]
-          ? (initialShape[0].map((n) => n.toString()) as Uncoordinate)
-          : [undefined, undefined, undefined],
-        initialShape[1]
-          ? (initialShape[1].map((n) => n.toString()) as Uncoordinate)
-          : [undefined, undefined, undefined],
-      ],
+      shape: initialShape,
     }),
     [initialShape],
   );
+  const initialErrors = useMemo(() => validator(initialValues) || {}, [
+    initialValues,
+  ]);
   const onSubmit = useCallback(
     (values: Shape) => {
       setShape(schema.cast(values).shape as any);
@@ -89,9 +82,9 @@ export const PiToDialog: React.FC<Props> = (props) => {
     <Portal>
       <Formik<Shape>
         initialValues={initialValues}
+        initialErrors={initialErrors}
         onSubmit={onSubmit}
         validationSchema={schema}
-        isInitialValid={isInitialValid}
       >
         {({ submitForm, isValid, touched, errors, setFieldValue }) => (
           <Modal
@@ -107,7 +100,7 @@ export const PiToDialog: React.FC<Props> = (props) => {
               <Surface style={styles.dialog}>
                 <PiToPointHeader index={0} setFieldValue={setFieldValue} />
                 <View style={styles.row} accessibilityHint={t('commons:putIn')}>
-                  <TextField
+                  <NumericField
                     name="shape.0.1"
                     label={t('commons:latitude')}
                     keyboardType="numeric"
@@ -115,7 +108,7 @@ export const PiToDialog: React.FC<Props> = (props) => {
                     wrapperStyle={styles.inputLat}
                     displayError={false}
                   />
-                  <TextField
+                  <NumericField
                     name="shape.0.0"
                     label={t('commons:longitude')}
                     keyboardType="numeric"
@@ -123,7 +116,7 @@ export const PiToDialog: React.FC<Props> = (props) => {
                     wrapperStyle={styles.inputLng}
                     displayError={false}
                   />
-                  <TextField
+                  <NumericField
                     name="shape.0.2"
                     label={t('commons:altitude')}
                     keyboardType="numeric"
@@ -141,7 +134,7 @@ export const PiToDialog: React.FC<Props> = (props) => {
                   style={styles.row}
                   accessibilityHint={t('commons:takeOut')}
                 >
-                  <TextField
+                  <NumericField
                     name="shape.1.1"
                     label={t('commons:latitude')}
                     keyboardType="numeric"
@@ -149,7 +142,7 @@ export const PiToDialog: React.FC<Props> = (props) => {
                     wrapperStyle={styles.inputLat}
                     displayError={false}
                   />
-                  <TextField
+                  <NumericField
                     name="shape.1.0"
                     label={t('commons:longitude')}
                     keyboardType="numeric"
@@ -157,7 +150,7 @@ export const PiToDialog: React.FC<Props> = (props) => {
                     wrapperStyle={styles.inputLng}
                     displayError={false}
                   />
-                  <TextField
+                  <NumericField
                     name="shape.1.2"
                     label={t('commons:altitude')}
                     keyboardType="numeric"

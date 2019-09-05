@@ -3,12 +3,12 @@ import pointInPolygon from '@turf/boolean-point-in-polygon';
 import { lineString, point } from '@turf/helpers';
 // @ts-ignore
 import lineToPolygon from '@turf/line-to-polygon';
-import { Coordinate } from '@whitewater-guide/commons';
+import { CoordinateLoose, withZeroAlt } from '@whitewater-guide/commons';
 import { useEffect } from 'react';
 import { useCamera } from './useCamera';
 
 export const useInRegionLocation = (
-  bounds: Coordinate[],
+  bounds: CoordinateLoose[],
   locationPermissionGranted: boolean,
 ) => {
   const camera = useCamera();
@@ -26,7 +26,7 @@ export const useInRegionLocation = (
           coords: { latitude, longitude },
         } = location;
         const pt = point([longitude, latitude]);
-        const poly = lineToPolygon(lineString(bounds));
+        const poly = lineToPolygon(lineString(withZeroAlt(bounds)));
         const isInRegion = pointInPolygon(pt, poly);
 
         if (isInRegion) {

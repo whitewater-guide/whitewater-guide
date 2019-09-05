@@ -1,5 +1,5 @@
 import Mapbox from '@react-native-mapbox-gl/maps';
-import { Coordinate3d } from '@whitewater-guide/commons';
+import { CoordinateLoose } from '@whitewater-guide/commons';
 import React, { MutableRefObject } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useMapType } from '../../features/settings';
@@ -15,7 +15,7 @@ import { MapViewProps } from './types';
 
 interface Props {
   detailed?: boolean;
-  initialBounds: Coordinate3d[];
+  initialBounds: CoordinateLoose[];
   mapView: React.ReactElement<MapViewProps>;
   cameraRef?: MutableRefObject<Mapbox.Camera | null>;
 }

@@ -7,6 +7,7 @@ import {
   Coordinate,
   Coordinate2d,
   Coordinate3d,
+  CoordinateLoose,
   withZeroAlt,
 } from '@whitewater-guide/commons';
 import update from 'immutability-helper';
@@ -64,7 +65,7 @@ const minPoints = { Point: 1, LineString: 2, Polygon: 3 };
 interface Props {
   points?: Coordinate3d[];
   drawingMode: 'LineString' | 'Polygon' | 'Point';
-  bounds: Coordinate[] | null;
+  bounds: CoordinateLoose[] | null;
   onChange: (points: Coordinate3d[]) => void;
   onLoaded?: (map: google.maps.Map) => void;
 }

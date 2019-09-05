@@ -1,7 +1,8 @@
 import Mapbox from '@react-native-mapbox-gl/maps';
 import {
+  Coordinate,
   Coordinate2d,
-  Coordinate3d,
+  CoordinateLoose,
   SectionInput,
   withZeroAlt,
 } from '@whitewater-guide/commons';
@@ -16,14 +17,14 @@ import {
 import notifier from './notifier';
 
 export interface PiToState {
-  shape: [Coordinate3d | undefined, Coordinate3d | undefined];
+  shape: [CoordinateLoose | undefined, CoordinateLoose | undefined];
   selected: -1 | 0 | 1;
 }
 
 type Action =
   | { type: 'select'; selected: PiToState['selected'] }
   | { type: 'move'; coordinate: Coordinate2d }
-  | { type: 'set'; shape: [Coordinate3d, Coordinate3d] };
+  | { type: 'set'; shape: [CoordinateLoose, CoordinateLoose] };
 
 const reducer = (state: PiToState, action: Action): PiToState => {
   if (action.type === 'select') {
@@ -36,7 +37,7 @@ const reducer = (state: PiToState, action: Action): PiToState => {
     const shape: PiToState['shape'] = [...state.shape] as any;
     shape[state.selected] = withZeroAlt(action.coordinate).map((n) =>
       round(n, 4),
-    ) as Coordinate3d;
+    ) as Coordinate;
     return { ...state, shape };
   }
   if (action.type === 'set') {
@@ -56,7 +57,7 @@ interface Hook {
   state: PiToState;
   select: (selected: PiToState['selected']) => void;
   move: (coordinate: Coordinate2d) => void;
-  set: (shape: [Coordinate3d, Coordinate3d]) => void;
+  set: (shape: [Coordinate, Coordinate]) => void;
   mapRef: MutableRefObject<Mapbox.MapView | null>;
 }
 
@@ -75,7 +76,7 @@ export const usePiToState = (initialShape: SectionInput['shape']): Hook => {
       },
       move: (coordinate: Coordinate2d) =>
         dispatch({ type: 'move', coordinate }),
-      set: (shape: [Coordinate3d, Coordinate3d]) =>
+      set: (shape: [Coordinate, Coordinate]) =>
         dispatch({ type: 'set', shape }),
     }),
     [dispatch],

@@ -1,18 +1,19 @@
+import { CoordinateLoose } from '@whitewater-guide/commons';
 import Coordinates from 'coordinate-parser';
+import round from 'lodash/round';
 import { useCallback, useEffect, useState } from 'react';
 import { AppState, Clipboard } from 'react-native';
-import { Uncoordinate } from '../../types';
 
-export default (): Uncoordinate | null => {
-  const [coordinate, setCoordinate] = useState<Uncoordinate | null>(null);
+export default (): CoordinateLoose | null => {
+  const [coordinate, setCoordinate] = useState<CoordinateLoose | null>(null);
   const inspectClipboard = useCallback(
     () =>
       Clipboard.getString()
         .then((str) => {
           const coord = new Coordinates(str);
-          const lat = coord.getLatitude();
-          const lng = coord.getLongitude();
-          setCoordinate([lng.toFixed(4), lat.toFixed(4), undefined]);
+          const lat = round(coord.getLatitude(), 4);
+          const lng = round(coord.getLongitude(), 4);
+          setCoordinate([lng, lat, 0]);
         })
         .catch(() => {
           setCoordinate(null);
@@ -24,6 +25,9 @@ export default (): Uncoordinate | null => {
     return () => {
       AppState.removeEventListener('change', inspectClipboard);
     };
+  }, [inspectClipboard]);
+  useEffect(() => {
+    inspectClipboard();
   }, [inspectClipboard]);
   return coordinate;
 };

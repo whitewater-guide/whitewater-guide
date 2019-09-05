@@ -1,47 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`coordinate schema error in both 1`] = `
-Object {
-  "0": "yup:number.longitude",
-  "1": "yup:number.latitude",
-}
-`;
-
-exports[`coordinate schema error in lat 1`] = `
-Object {
-  "1": "yup:number.latitude",
-}
-`;
-
-exports[`coordinate schema error when undefined 1`] = `
-Object {
-  "0": "yup:number.longitude",
-  "1": "yup:number.latitude",
-  "2": "yup:number.altitude",
-}
-`;
-
-exports[`coordinate schema wrong array length (2) 1`] = `
-Object {
-  "2": "yup:number.altitude",
-}
-`;
-
-exports[`coordinate schema wrong array length (4) 1`] = `
-Object {
-  "undefined": Object {
-    "key": "yup:array.max",
-    "options": Object {
-      "max": 3,
-      "path": "this",
-    },
-  },
-}
-`;
-
 exports[`loose coordinate schema error 1`] = `
 Object {
   "0": "yup:number.longitude",
+  "1": "yup:number.latitude",
+}
+`;
+
+exports[`loose coordinate schema error when some are string 1`] = `
+Object {
   "1": "yup:number.latitude",
 }
 `;
@@ -99,8 +66,6 @@ exports[`point input schema should be invalid for lat only 1`] = `
 Object {
   "coordinates": Array [
     "yup:number.longitude",
-    undefined,
-    "yup:number.altitude",
   ],
   "id": "yup:string.uuid",
 }
@@ -111,18 +76,6 @@ Object {
   "coordinates": Array [
     undefined,
     "yup:number.latitude",
-    "yup:number.altitude",
-  ],
-  "id": "yup:string.uuid",
-}
-`;
-
-exports[`point input schema should be invalid for missing alt 1`] = `
-Object {
-  "coordinates": Array [
-    undefined,
-    undefined,
-    "yup:number.altitude",
   ],
   "id": "yup:string.uuid",
 }

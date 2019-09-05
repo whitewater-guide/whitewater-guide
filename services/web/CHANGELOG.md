@@ -1,3 +1,19 @@
+## [0.1.389](https://github.com/doomsower/whitewater/compare/cdc4bf75762ad6df2f5e9aad2a616dcc6856e547...3fcbd76549b7894dc14ddabba6ec89ccd963689b) (2019-09-05)
+
+### Features
+
+- use coordinateLoose on web ([c970626a068fb5554247daab1fa6b1cce06faae2](https://github.com/doomsower/whitewater/commit/c970626a068fb5554247daab1fa6b1cce06faae2))
+
+## [0.1.388](https://github.com/doomsower/whitewater/compare/79121b6b50d6c9a59a5f4ca4ce16a6562aa47f2d...cdc4bf75762ad6df2f5e9aad2a616dcc6856e547) (2019-09-05)
+
+### Features
+
+- allow 2d coordinates everywhere ([3a305e301e39bdf5afb68721be85e79b64119204](https://github.com/doomsower/whitewater/commit/3a305e301e39bdf5afb68721be85e79b64119204))
+
+### Bug Fixes
+
+- reposition popper after update ([b9791bd8425b78a61216ba3c1e9a4820662be8df](https://github.com/doomsower/whitewater/commit/b9791bd8425b78a61216ba3c1e9a4820662be8df)), closes [#408](https://github.com/doomsower/whitewater/issues/408)
+
 ## [0.1.387](https://github.com/doomsower/whitewater/compare/a5f228bbd64d42cd3b28f6585f2bcbe884f7cb27...79121b6b50d6c9a59a5f4ca4ce16a6562aa47f2d) (2019-09-03)
 
 ### Features

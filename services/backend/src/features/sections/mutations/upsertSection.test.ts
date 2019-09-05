@@ -166,7 +166,7 @@ const existingRiverSection: SectionInput = {
   flows: null,
   flowsText: 'Playrun flows',
 
-  shape: [[33, 33, 0], [34, 42, 0]],
+  shape: [[33, 33], [34, 42, 0], [34, 43, null]],
   distance: 2.44,
   drop: 101.1,
   duration: Duration.LAPS,
@@ -180,14 +180,14 @@ const existingRiverSection: SectionInput = {
       name: 'playrun pt 1',
       description: 'pt 1 d',
       kind: 'other',
-      coordinates: [10, 12, 0],
+      coordinates: [10, 12, 0], // 3d
     },
     {
       id: null,
       name: 'playrun pt 2',
       description: 'pt 2 d',
       kind: 'portage',
-      coordinates: [33, 34, 0],
+      coordinates: [33, 34], // 2d
     },
   ],
   hidden: false,
@@ -223,7 +223,7 @@ const updateData: SectionInput = {
       name: 'Updated new poi 1 name',
       description: 'Updated new poi 1 description',
       kind: 'portage',
-      coordinates: [66, 77, 88],
+      coordinates: [66, 77, null],
     },
     {
       id: null,

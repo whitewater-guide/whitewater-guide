@@ -1,4 +1,4 @@
-import { Coordinate } from '@whitewater-guide/commons';
+import { CoordinateLoose } from '@whitewater-guide/commons';
 import { getBBox } from './getBBox';
 
 function zoom(mapPx: number, worldPx: number, fraction: number) {
@@ -19,7 +19,7 @@ function latRad(lat: number) {
  * @returns {number} Integer zoom level
  */
 export function getBoundsZoomLevel(
-  bounds: Coordinate[] = [],
+  bounds: CoordinateLoose[] = [],
   mapDim: { width: number; height: number },
 ) {
   const WORLD_DIM = { height: 256, width: 256 };

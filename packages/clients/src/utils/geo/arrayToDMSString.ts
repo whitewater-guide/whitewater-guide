@@ -1,11 +1,11 @@
-import { Coordinate } from '@whitewater-guide/commons';
+import { CoordinateLoose } from '@whitewater-guide/commons';
 import take from 'lodash/take';
 
 /**
  * Converts coordinates to string like '46°59′4″ N, 122°54′8″ W'
  * @param coordinates
  */
-export function arrayToDMSString(coordinates: Coordinate): string {
+export function arrayToDMSString(coordinates: CoordinateLoose): string {
   const truncate = (n: number) => (n > 0 ? Math.floor(n) : Math.ceil(n));
   const latHemisphere = coordinates[1] < 0 ? 'S' : 'N';
   const lonHemisphere = coordinates[0] < 0 ? 'W' : 'E';

@@ -8,7 +8,7 @@ import {
 import { Banner } from '../banners';
 import { Gauge } from '../gauges';
 import { Group } from '../groups';
-import { Coordinate3d, Point, PointInput } from '../points';
+import { CoordinateLoose, Point, PointInput } from '../points';
 import { River } from '../rivers';
 import { Section } from '../sections';
 import { Source } from '../sources';
@@ -42,7 +42,7 @@ export interface RegionInput {
   description: string | null;
   season: string | null;
   seasonNumeric: number[];
-  bounds: Coordinate3d[];
+  bounds: CoordinateLoose[];
   pois: PointInput[];
 }
 

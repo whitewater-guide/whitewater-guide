@@ -1,3 +1,16 @@
+## [0.0.392](https://github.com/doomsower/whitewater/compare/cdc4bf75762ad6df2f5e9aad2a616dcc6856e547...3fcbd76549b7894dc14ddabba6ec89ccd963689b) (2019-09-05)
+
+### Bug Fixes
+
+- allow null altitude ([5a7765ab4125c1b3ec1cf7563409f19b64a61b65](https://github.com/doomsower/whitewater/commit/5a7765ab4125c1b3ec1cf7563409f19b64a61b65))
+- allow null altitude ([4bba172339a9054dd08daae4479b290e87207a16](https://github.com/doomsower/whitewater/commit/4bba172339a9054dd08daae4479b290e87207a16))
+
+## [0.0.391](https://github.com/doomsower/whitewater/compare/79121b6b50d6c9a59a5f4ca4ce16a6562aa47f2d...cdc4bf75762ad6df2f5e9aad2a616dcc6856e547) (2019-09-05)
+
+### Features
+
+- allow 2d coordinates everywhere ([3a305e301e39bdf5afb68721be85e79b64119204](https://github.com/doomsower/whitewater/commit/3a305e301e39bdf5afb68721be85e79b64119204))
+
 ## [0.0.390](https://github.com/doomsower/whitewater/compare/a5f228bbd64d42cd3b28f6585f2bcbe884f7cb27...79121b6b50d6c9a59a5f4ca4ce16a6562aa47f2d) (2019-09-03)
 
 ### Features

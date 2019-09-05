@@ -108,7 +108,7 @@ input SectionInput {
   flows: GaugeBindingInput
   flowsText: String
 
-  shape: [[Float!]]!
+  shape: [[Float]]!
   distance: Float
   drop: Float
   duration: Int

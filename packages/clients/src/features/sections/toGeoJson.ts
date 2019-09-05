@@ -7,13 +7,13 @@ import {
 } from '@turf/helpers';
 import {
   Coordinate2d,
-  Coordinate3d,
+  CoordinateLoose,
   Section,
   sectionName,
 } from '@whitewater-guide/commons';
 import { getSectionColor } from './getSectionColor';
 
-const removeAlt = ([lng, lat]: Coordinate3d): Coordinate2d => [lng, lat];
+const removeAlt = ([lng, lat]: CoordinateLoose): Coordinate2d => [lng, lat];
 
 interface Props {
   color: string;

@@ -1,13 +1,6 @@
 import { Coordinate3d } from '@whitewater-guide/commons';
+import { PiToState } from './shape/usePiToState';
 
-export type Uncoordinate = [
-  string | undefined,
-  string | undefined,
-  string | undefined,
-];
-
-export interface Shape {
-  shape: [Uncoordinate, Uncoordinate];
-}
+export type Shape = Pick<PiToState, 'shape'>;
 
 export type Maybe3d = Coordinate3d | undefined;

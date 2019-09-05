@@ -4,7 +4,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { Coordinate, Coordinate3d } from '@whitewater-guide/commons';
+import { Coordinate3d, CoordinateLoose } from '@whitewater-guide/commons';
 import React, { useCallback, useState } from 'react';
 import { DrawingMap } from './DrawingMap';
 import { DrawingMode } from './types';
@@ -27,7 +27,7 @@ const MIN_POINTS: { [key in DrawingMode]: number } = {
 interface Props {
   drawingMode: DrawingMode;
   points?: Coordinate3d[];
-  bounds: Coordinate[] | null;
+  bounds: CoordinateLoose[] | null;
   onClose: () => void;
   onSubmit: (points: Coordinate3d[]) => void;
 }

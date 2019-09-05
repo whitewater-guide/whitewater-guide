@@ -1,4 +1,3 @@
-import { SectionInput } from '@whitewater-guide/commons';
 import { useFormikContext } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -14,7 +13,7 @@ interface Props {
 }
 
 const PiToPlaceholder: React.FC<Props> = React.memo(({ index }) => {
-  const { values, touched, errors } = useFormikContext<SectionInput>();
+  const { values, touched, errors } = useFormikContext<any>();
   const { t } = useTranslation();
   const onPress = useNavigate(Screens.Region.AddSection.Shape);
   const label = t(index ? 'commons:takeOut' : 'commons:putIn');

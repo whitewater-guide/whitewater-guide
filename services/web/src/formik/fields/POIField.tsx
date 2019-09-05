@@ -2,7 +2,11 @@ import Grid from '@material-ui/core/Grid';
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { Coordinate, NamedNode, POINames } from '@whitewater-guide/commons';
+import {
+  CoordinateLoose,
+  NamedNode,
+  POINames,
+} from '@whitewater-guide/commons';
 import map from 'lodash/map';
 import React, { useCallback, useState } from 'react';
 import { IconButtonWithData } from '../../components';
@@ -32,7 +36,7 @@ interface Props {
   title?: string;
   detailed?: boolean;
   mapDialog?: boolean;
-  mapBounds: Coordinate[] | null;
+  mapBounds: CoordinateLoose[] | null;
   onRemove?: (index?: number) => void;
 }
 

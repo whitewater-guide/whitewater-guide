@@ -1,3 +1,11 @@
+## [0.0.192](https://github.com/doomsower/whitewater/compare/cdc4bf75762ad6df2f5e9aad2a616dcc6856e547...3fcbd76549b7894dc14ddabba6ec89ccd963689b) (2019-09-05)
+
+## [0.0.191](https://github.com/doomsower/whitewater/compare/79121b6b50d6c9a59a5f4ca4ce16a6562aa47f2d...cdc4bf75762ad6df2f5e9aad2a616dcc6856e547) (2019-09-05)
+
+### Features
+
+- allow 2d coordinates everywhere ([3a305e301e39bdf5afb68721be85e79b64119204](https://github.com/doomsower/whitewater/commit/3a305e301e39bdf5afb68721be85e79b64119204))
+
 ## [0.0.190](https://github.com/doomsower/whitewater/compare/a5f228bbd64d42cd3b28f6585f2bcbe884f7cb27...79121b6b50d6c9a59a5f4ca4ce16a6562aa47f2d) (2019-09-03)
 
 ### Features
