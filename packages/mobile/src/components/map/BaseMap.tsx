@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native';
 import { useCameraSetter, useInRegionLocation, useMapboxBounds } from './hooks';
 import { MapViewProps } from './types';
 
-type Props = MapViewProps & MapboxViewProps;
+type Props = MapViewProps & MapboxViewProps & { children?: any };
 
 export const BaseMap = React.memo(
   forwardRef<Mapbox.MapView, Props>((props, ref) => {

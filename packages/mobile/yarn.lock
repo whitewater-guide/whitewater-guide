@@ -1373,9 +1373,9 @@
   resolved "https://registry.npmjs.org/@react-native-community/netinfo/-/netinfo-3.2.1.tgz#cd073b81a4b978f7f55f1a960a0b56c462813e02"
   integrity sha512-A2qANOnlRDVe+8kMbKMwy3/0bOlOA2+y8DyWg2Rv2KHICIfin+oxixbG0ewAOLQdLkSEyyumZXRmIVl7VI/KJg==
 
-"@react-native-mapbox-gl/maps@https://github.com/react-native-mapbox-gl/maps":
-  version "7.0.1"
-  resolved "https://github.com/react-native-mapbox-gl/maps#af0d70e9869d649a97708c560bd4f9eb786e61cd"
+"@react-native-mapbox-gl/maps@https://github.com/doomsower/maps#attribution_position":
+  version "7.0.2"
+  resolved "https://github.com/doomsower/maps#da9103183f77fc682b79315984f7d5c0f16594cb"
   dependencies:
     "@mapbox/geo-viewport" ">= 0.4.0"
     "@turf/along" ">= 4.0.0 <7.0.0"

@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   fab: {
     position: 'absolute',
     right: theme.margin.double,
-    bottom: theme.margin.double + 64 + theme.safeBottom,
+    bottom: theme.margin.double + 56 + theme.safeBottom,
   },
 });
 

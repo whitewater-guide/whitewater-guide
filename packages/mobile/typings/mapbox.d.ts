@@ -482,6 +482,7 @@ declare module '@react-native-mapbox-gl/maps' {
     pitchEnabled?: boolean;
     rotateEnabled?: boolean;
     attributionEnabled?: boolean;
+    attributionPosition?: any;
     logoEnabled?: boolean;
     compassEnabled?: boolean;
     surfaceView?: boolean;

@@ -6,6 +6,7 @@ import Mapbox, {
 import { MapProps } from '@whitewater-guide/clients';
 import { Point } from '@whitewater-guide/commons';
 import React from 'react';
+import { Platform } from 'react-native';
 import { BaseMap } from './BaseMap';
 import {
   useBoundsRef,
@@ -55,6 +56,8 @@ const layerStyles: Record<
   },
 };
 
+const ATTRIBUTION =
+  Platform.OS === 'ios' ? { bottom: 8, left: 100 } : undefined;
 const HIT_BOX = { width: 44, height: 44 };
 const POI_FILTER = ['==', '$type', 'Point'];
 // line-dasharray is not data-driven, split into 2 layers with filters
@@ -86,6 +89,7 @@ const FeaturesMap: React.FC<Props> = React.memo((props) => {
       locationPermissionGranted={locationPermissionGranted}
       onPress={onPress}
       onRegionDidChange={onRegionDidChange}
+      attributionPosition={ATTRIBUTION}
     >
       <Mapbox.ShapeSource
         id="sectionsSource"
