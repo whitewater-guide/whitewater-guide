@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { NavigationScreenComponent } from 'react-navigation';
-import { Screen } from '../../../../components';
+import { CCNote, Screen } from '../../../../components';
 import { ModalPickerField, TextField } from '../../../../components/forms';
 import theme from '../../../../theme';
 import TabBarLabel from '../TabBarLabel';
@@ -36,6 +36,9 @@ const styles = StyleSheet.create({
     fontSize: 28,
     marginBottom: 22,
     marginHorizontal: theme.margin.half,
+  },
+  ccNote: {
+    marginBottom: 24,
   },
 });
 
@@ -79,6 +82,7 @@ export const MainScreen: NavigationScreenComponent = React.memo(() => {
         </View>
         <PiToPlaceholder index={0} />
         <PiToPlaceholder index={1} />
+        <CCNote style={styles.ccNote} />
       </KeyboardAwareScrollView>
     </Screen>
   );

@@ -12,7 +12,7 @@ import {
   TextInput,
 } from 'react-native';
 import { Button } from 'react-native-paper';
-import { Loading } from '../../components';
+import { CCNote, Loading } from '../../components';
 import {
   PhotoUploadField,
   TextField,
@@ -20,7 +20,6 @@ import {
 } from '../../components/forms';
 import theme from '../../theme';
 import getInitialValues from './getInitialValues';
-import TermsOfUseLink from './TermsOfUseLink';
 import useAddSuggestion from './useAddSuggestion';
 import useKeyboard from './useKeyboard';
 import useUploadLink from './useUploadLink';
@@ -100,7 +99,7 @@ const PhotoSuggestionForm: React.FC<Props> = React.memo((props) => {
               placeholder={t('screens:suggestion.photoDescriptionPlaceholder')}
               onFocus={handlers.onDescriptionFocus}
             />
-            <TermsOfUseLink />
+            <CCNote />
             <Button
               mode="contained"
               onPress={isSubmitting ? undefined : submitForm}
