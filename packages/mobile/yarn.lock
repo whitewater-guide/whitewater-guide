@@ -2507,10 +2507,10 @@
     validator "^11.1.0"
     yup "^0.27.0"
 
-"@whitewater-guide/translations@^1.2.1":
-  version "1.2.1"
-  resolved "https://registry.npmjs.org/@whitewater-guide/translations/-/translations-1.2.1.tgz#40abb8fe6a819dbe147a131430035364458ef34f"
-  integrity sha512-hA4S3nsHaPqYcTpM1RMTvsj5KKf8VtCKskNYIUyV+DXefh994b6Rt2If/gJMIaxSPktgEuoPA42vIScKFp9TVA==
+"@whitewater-guide/translations@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.npmjs.org/@whitewater-guide/translations/-/translations-1.2.2.tgz#9153755fd0492f2a195964dfbcfab256e10ebde2"
+  integrity sha512-dzvVa8umCo1pchkBFBWZ2j7kz1di7tawdmFKipn1DIsqXsS8hH9au7yCrBkCUd+Cc8jD8ntqpbicL6lMskvkJw==
 
 "@wry/context@^0.4.0":
   version "0.4.4"
