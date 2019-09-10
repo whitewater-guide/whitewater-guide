@@ -7,7 +7,7 @@ import {
 import React from 'react';
 import { useApolloClient } from 'react-apollo';
 import { NavigationRouter, NavigationScreenComponent } from 'react-navigation';
-import { ErrorBoundary, WithNetworkError } from '../../components';
+import { ErrorBoundary } from '../../components';
 import theme from '../../theme';
 import RegionStack from './RegionStack';
 
@@ -25,26 +25,14 @@ export const RegionScreen: NavigationScreenComponent<NavParams> & {
   return (
     <ErrorBoundary>
       <RegionProvider regionId={regionId} bannerWidth={theme.screenWidthPx}>
-        {(region) => {
-          const { node, error, loading, refetch } = region;
-          return (
-            <WithNetworkError
-              data={node}
-              loading={loading}
-              error={error}
-              refetch={refetch}
-            >
-              <SectionsListProvider
-                searchTerms={searchTerms}
-                regionId={regionId}
-                isConnected={isConnected}
-                client={client}
-              >
-                <RegionStack navigation={navigation} />
-              </SectionsListProvider>
-            </WithNetworkError>
-          );
-        }}
+        <SectionsListProvider
+          searchTerms={searchTerms}
+          regionId={regionId}
+          isConnected={isConnected}
+          client={client}
+        >
+          <RegionStack navigation={navigation} />
+        </SectionsListProvider>
       </RegionProvider>
     </ErrorBoundary>
   );

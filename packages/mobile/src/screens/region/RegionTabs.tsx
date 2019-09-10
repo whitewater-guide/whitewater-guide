@@ -1,5 +1,6 @@
 import {
   MapSelectionProvider,
+  useRegion,
   useSectionsList,
 } from '@whitewater-guide/clients';
 import React from 'react';
@@ -10,6 +11,7 @@ import {
   TabNavigatorConfig,
 } from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
+import { WithNetworkError } from '../../components';
 import { SelectedPOIView, SelectedSectionView } from '../../components/map';
 import theme from '../../theme';
 import Screens from '../screen-names';
@@ -59,17 +61,25 @@ type NavComponent = NavigationScreenComponent & {
 const RegionTabs: NavComponent = React.memo((props) => {
   const { navigation } = props;
   const sectionsList = useSectionsList();
+  const { error, loading, node, refetch } = useRegion();
   return (
     <MapSelectionProvider>
-      <Navigator navigation={navigation} />
-      <AddSectionFAB />
-      <SelectedPOIView />
-      <SelectedSectionView />
-      <SectionsProgress
-        status={sectionsList.status}
-        loaded={sectionsList.sections.length}
-        count={sectionsList.count}
-      />
+      <WithNetworkError
+        data={node}
+        loading={loading}
+        error={error}
+        refetch={refetch}
+      >
+        <Navigator navigation={navigation} />
+        <AddSectionFAB />
+        <SelectedPOIView />
+        <SelectedSectionView />
+        <SectionsProgress
+          status={sectionsList.status}
+          loaded={sectionsList.sections.length}
+          count={sectionsList.count}
+        />
+      </WithNetworkError>
     </MapSelectionProvider>
   );
 });

@@ -7,7 +7,7 @@ import {
 import { applySearch } from '@whitewater-guide/commons';
 import { useNavigation } from '@zhigang1992/react-navigation-hooks';
 import React, { useCallback, useMemo } from 'react';
-import { Query } from 'react-apollo';
+import { useQuery } from 'react-apollo';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
@@ -34,24 +34,18 @@ export const FindButton: React.FC<Props> = ({ searchState, regionId }) => {
     setSearchState(terms);
     goBack();
   }, [terms, setSearchState]);
-  const variables = useMemo(() => ({ filter: { regionId } }), [regionId]);
+  const { data } = useQuery<ListSectionsResult, ListSectionsVars>(
+    LIST_SECTIONS,
+    { fetchPolicy: 'cache-only', variables: { filter: { regionId } } },
+  );
+  let count = 0;
+  if (data && data.sections) {
+    const filteredSections = applySearch(data.sections.nodes, terms);
+    count = filteredSections.length;
+  }
   return (
-    <Query<ListSectionsResult, ListSectionsVars>
-      query={LIST_SECTIONS}
-      variables={variables}
-    >
-      {({ data }) => {
-        let count = 0;
-        if (data) {
-          const filteredSections = applySearch(data.sections.nodes, terms);
-          count = filteredSections.length;
-        }
-        return (
-          <Button mode="contained" onPress={onPress} style={styles.button}>
-            {t('filter:search', { count })}
-          </Button>
-        );
-      }}
-    </Query>
+    <Button mode="contained" onPress={onPress} style={styles.button}>
+      {t('filter:search', { count })}
+    </Button>
   );
 };
