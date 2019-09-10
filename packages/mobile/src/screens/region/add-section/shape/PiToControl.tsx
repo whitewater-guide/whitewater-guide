@@ -1,4 +1,4 @@
-import { arrayToDMSString } from '@whitewater-guide/clients';
+import { arrayToLatLngString } from '@whitewater-guide/clients';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
@@ -73,7 +73,7 @@ const PiToControl: React.FC<Props> = React.memo((props) => {
           numberOfLines={1}
         >
           {isDefined
-            ? arrayToDMSString(shape[index] as any)
+            ? arrayToLatLngString(shape[index])
             : t('screens:addSection.shape.pressCta')}
         </Subheading>
       </View>

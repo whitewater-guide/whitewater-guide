@@ -1,3 +1,4 @@
+import { arrayToLatLngString } from '@whitewater-guide/clients';
 import { useFormikContext } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -6,7 +7,7 @@ import { TextInput } from 'react-native-paper';
 import { HelperText } from '../../../../components/forms';
 import { useNavigate } from '../../../../utils/navigation';
 import Screens from '../../../screen-names';
-import { getShapeError, safelyStringifyPiTo } from '../utils';
+import { getShapeError } from '../utils';
 
 interface Props {
   index: 0 | 1;
@@ -24,7 +25,7 @@ const PiToPlaceholder: React.FC<Props> = React.memo(({ index }) => {
         <TextInput
           mode="outlined"
           label={label}
-          value={safelyStringifyPiTo(values, index)}
+          value={arrayToLatLngString(values.shape[index])}
           editable={false}
           testID={testID}
         />
