@@ -7,10 +7,10 @@ import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { KeyboardAvoidingView, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
+import { CCNote } from '../../components';
 import { TextField, useValidate } from '../../components/forms';
 import theme from '../../theme';
 import getInitialValues from './getInitialValues';
-import TermsOfUseLink from './TermsOfUseLink';
 import useAddSuggestion from './useAddSuggestion';
 
 const styles = StyleSheet.create({
@@ -49,14 +49,14 @@ const SimpleSuggestionForm: React.FC<Props> = (props) => {
           <React.Fragment>
             <TextField
               name="description"
-              mode="outlined"
               autoFocus={true}
               multiline={true}
+              wrapperStyle={styles.description}
               style={styles.description}
               label={t('screens:suggestion.suggestionLabel')}
               placeholder={t('screens:suggestion.suggestionPlaceholder')}
             />
-            <TermsOfUseLink />
+            <CCNote />
             <Button
               mode="contained"
               onPress={isSubmitting ? undefined : submitForm}

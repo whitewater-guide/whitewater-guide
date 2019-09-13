@@ -1,8 +1,8 @@
 import Box from '@material-ui/core/Box';
 import CardHeader from '@material-ui/core/CardHeader';
 import { Source } from '@whitewater-guide/commons';
+import ReactMarkdown from 'markdown-react-js';
 import React from 'react';
-import ReactMarkdown from 'react-markdown';
 import { Route, Switch } from 'react-router';
 import { NotFound } from '../../../components';
 import { EditorLanguagePicker } from '../../../components/language';
@@ -44,7 +44,7 @@ const SourceCard: React.FC<Props> = React.memo((props) => {
         <Box flex={1} overflow="auto">
           <Switch>
             <Route exact={true} path={`${path}/terms`}>
-              <ReactMarkdown source={source.termsOfUse || ''} />
+              <ReactMarkdown text={source.termsOfUse || ''} />
             </Route>
 
             <Route exact={true} path={`${path}/gauges`}>

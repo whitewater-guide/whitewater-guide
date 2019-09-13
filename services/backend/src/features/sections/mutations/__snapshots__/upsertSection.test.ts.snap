@@ -21,6 +21,10 @@ Object {
     "minimum": 100,
     "optimum": null,
   },
+  "media": Object {
+    "count": 0,
+    "nodes": Array [],
+  },
   "name": "Playrun",
   "pois": Array [
     Object {
@@ -72,6 +76,11 @@ Object {
       42,
       0,
     ],
+    Array [
+      34,
+      43,
+      0,
+    ],
   ],
   "tags": Array [
     Object {
@@ -84,7 +93,7 @@ Object {
   "takeOut": Object {
     "coordinates": Array [
       34,
-      42,
+      43,
       0,
     ],
     "name": "Sjoa - Playrun: Take-out",
@@ -113,6 +122,15 @@ Object {
     "minimum": 100,
     "optimum": null,
   },
+  "media": Object {
+    "count": 1,
+    "nodes": Array [
+      Object {
+        "kind": "video",
+        "url": "http://some2.video",
+      },
+    ],
+  },
   "name": "Playrun",
   "pois": Array [
     Object {
@@ -127,7 +145,7 @@ Object {
       "coordinates": Array [
         66,
         77,
-        88,
+        0,
       ],
       "name": "Updated new poi 1 name",
     },
@@ -172,6 +190,11 @@ Object {
       42,
       0,
     ],
+    Array [
+      34,
+      43,
+      0,
+    ],
   ],
   "tags": Array [
     Object {
@@ -187,7 +210,7 @@ Object {
   "takeOut": Object {
     "coordinates": Array [
       34,
-      42,
+      43,
       0,
     ],
     "name": "Gal_Riv_One - Playrun: Take-out",

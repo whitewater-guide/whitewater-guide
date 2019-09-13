@@ -108,7 +108,7 @@ input SectionInput {
   flows: GaugeBindingInput
   flowsText: String
 
-  shape: [[Float!]]!
+  shape: [[Float]]!
   distance: Float
   drop: Float
   duration: Int
@@ -117,6 +117,7 @@ input SectionInput {
   rating: Float
   tags: [RefInput]!
   pois: [PointInput]!
+  media: [MediaInput]
 
   hidden: Boolean!
   createdBy: ID

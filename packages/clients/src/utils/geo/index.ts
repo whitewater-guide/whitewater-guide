@@ -1,5 +1,6 @@
 export * from './arrayToDMSString';
 export * from './arrayToGmaps';
+export * from './arrayToLatLngString';
 export * from './computeOffset';
 export * from './constants';
 export * from './getBBox';

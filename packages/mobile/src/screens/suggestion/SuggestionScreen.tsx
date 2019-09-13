@@ -26,6 +26,6 @@ export const SuggestionScreen: NavigationScreenComponent<NavParams> = ({
 };
 
 SuggestionScreen.navigationOptions = ({ navigation }) => {
-  const type = navigation.getParam('type', 'simple');
+  const type = navigation.getParam('type') || 'simple';
   return { headerTitle: `screens:suggestion.${type}.title` };
 };

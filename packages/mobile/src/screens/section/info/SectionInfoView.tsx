@@ -11,7 +11,15 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { Paragraph, Subheading } from 'react-native-paper';
-import { Body, Chips, Left, Right, Row, StarRating } from '../../../components';
+import {
+  Body,
+  Chips,
+  Left,
+  Right,
+  Row,
+  SimpleStarRating,
+  StarRating,
+} from '../../../components';
 import { getSeasonLocalizer } from '../../../i18n';
 import theme from '../../../theme';
 import CoordinatesInfo from './CoordinatesInfo';
@@ -55,7 +63,7 @@ const SectionInfoView: React.FC<WithSection> = ({ section: { node } }) => {
           <Subheading>{t('commons:rating')}</Subheading>
         </Left>
         <Right>
-          <StarRating value={node.rating || 0} />
+          <SimpleStarRating value={node.rating || 0} />
         </Right>
       </Row>
 

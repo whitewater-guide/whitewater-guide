@@ -7,7 +7,7 @@ import {
   StackNavigatorConfig,
 } from 'react-navigation';
 import { Drawer } from './components';
-import { renderHeader } from './components/header';
+import { getHeaderRenderer } from './components/header';
 import { navigationChannel } from './core/sagas';
 import { useLinking } from './core/useLinking';
 import { OfflineContentDialog } from './features/offline';
@@ -51,8 +51,9 @@ const routes = {
 
 const config: StackNavigatorConfig = {
   initialRouteName: Screens.RegionsList,
+  headerMode: 'screen',
   defaultNavigationOptions: () => ({
-    header: renderHeader,
+    header: getHeaderRenderer(),
     headerBackTitle: null,
     gesturesEnabled: false,
   }),

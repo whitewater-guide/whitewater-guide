@@ -30,6 +30,8 @@ const AutocompleteMenu: React.FC<Props> = (props) => {
     className,
     disablePortal,
     children,
+    modifiers,
+    placement,
   } = props;
   const classes = useStyles();
   return (
@@ -38,6 +40,8 @@ const AutocompleteMenu: React.FC<Props> = (props) => {
       anchorEl={anchorEl}
       disablePortal={disablePortal}
       className={classes.popper}
+      modifiers={modifiers}
+      placement={placement}
     >
       <Paper
         square={true}

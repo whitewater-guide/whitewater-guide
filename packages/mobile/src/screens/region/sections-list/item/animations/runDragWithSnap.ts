@@ -9,6 +9,7 @@ const {
   cond,
   eq,
   event,
+  or,
   set,
   stopClock,
   call,
@@ -45,7 +46,11 @@ const runDragWithSnap = (
 
   const run = block([
     cond(
-      eq(state, State.END),
+      or(
+        eq(state, State.END),
+        eq(state, State.CANCELLED),
+        eq(state, State.FAILED),
+      ),
       [
         set(
           transX,

@@ -2,7 +2,7 @@ import { getSectionContentBounds, useSection } from '@whitewater-guide/clients';
 import React, { useMemo } from 'react';
 import { NavigationScreenComponent } from 'react-navigation';
 import { Icon, Screen } from '../../../components';
-import { MapLayout } from '../../../components/map';
+import { Map } from '../../../components/map';
 import { I18nText } from '../../../i18n';
 import theme from '../../../theme';
 
@@ -27,7 +27,7 @@ export const SectionMapScreen: NavigationScreenComponent = () => {
   return (
     <Screen>
       {section.node && (
-        <MapLayout
+        <Map
           sections={[section.node]}
           initialBounds={initialBounds!}
           pois={pois}

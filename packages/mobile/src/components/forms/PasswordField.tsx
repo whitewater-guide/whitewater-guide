@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native';
 import { TextInput, TextInputProps } from 'react-native-paper';
 import { Omit } from 'type-zoo';
 import { PasswordInput, PasswordInputProps } from '../PasswordInput';
-import { ErrorText } from './ErrorText';
+import { HelperText } from './HelperText';
 import useFocus from './useFocus';
 import useReactNativeHandlers from './useReactNativeHandlers';
 
@@ -39,7 +39,7 @@ export const PasswordField = React.memo(
           onFocus={onFocus}
         />
         {!props.showStrengthIndicator && (
-          <ErrorText touched={meta.touched} error={meta.error} />
+          <HelperText touched={meta.touched} error={meta.error} />
         )}
       </React.Fragment>
     );

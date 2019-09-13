@@ -38,7 +38,7 @@ import { PreviousVersion } from './utils/versioning';
 configErrors();
 configMisc();
 
-const NAVIGATION_PERSISTENCE_KEY = 'ww_nav_2';
+const NAVIGATION_PERSISTENCE_KEY = 'ww_nav_3';
 
 class App extends React.PureComponent {
   private _apolloClient?: ApolloClient<any>;
@@ -97,20 +97,20 @@ class App extends React.PureComponent {
   render() {
     return (
       <PaperProvider theme={PaperTheme}>
-        <SnackbarProvider>
-          <FilterProvider>
-            <Provider store={this._store}>
-              <PersistGate loading={<Loading />} persistor={this._persistor}>
-                {this._apolloClient ? (
-                  <ApolloProvider client={this._apolloClient}>
-                    <TagsProvider>
-                      <AuthProvider
-                        service={this._authService}
-                        renderInitializing={<Loading />}
+        <FilterProvider>
+          <Provider store={this._store}>
+            <PersistGate loading={<Loading />} persistor={this._persistor}>
+              {this._apolloClient ? (
+                <ApolloProvider client={this._apolloClient}>
+                  <TagsProvider>
+                    <AuthProvider
+                      service={this._authService}
+                      renderInitializing={<Loading />}
+                    >
+                      <I18nProvider
+                        onUserLanguageChange={this.resetApolloCache}
                       >
-                        <I18nProvider
-                          onUserLanguageChange={this.resetApolloCache}
-                        >
+                        <SnackbarProvider>
                           <PreviousVersion />
                           <RootNavigator
                             onNavigationStateChange={trackScreenChange}
@@ -121,24 +121,26 @@ class App extends React.PureComponent {
                             }
                           />
                           <Snackbar />
-                        </I18nProvider>
-                      </AuthProvider>
-                    </TagsProvider>
-                  </ApolloProvider>
-                ) : (
-                  <Loading />
-                )}
-              </PersistGate>
-            </Provider>
-          </FilterProvider>
-        </SnackbarProvider>
+                        </SnackbarProvider>
+                      </I18nProvider>
+                    </AuthProvider>
+                  </TagsProvider>
+                </ApolloProvider>
+              ) : (
+                <Loading />
+              )}
+            </PersistGate>
+          </Provider>
+        </FilterProvider>
       </PaperProvider>
     );
   }
 }
 
-export default codePush({
-  checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
-  installMode: codePush.InstallMode.ON_NEXT_RESUME,
-  minimumBackgroundDuration: 60 * 5,
-})(App);
+export default __DEV__
+  ? App
+  : codePush({
+      checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
+      installMode: codePush.InstallMode.ON_NEXT_RESUME,
+      minimumBackgroundDuration: 60 * 5,
+    })(App);

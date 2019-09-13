@@ -1,3 +1,4 @@
-export default {
-  preload: jest.fn(),
-};
+const FastImage: any = () => null;
+FastImage.preload = jest.fn();
+
+export default FastImage;

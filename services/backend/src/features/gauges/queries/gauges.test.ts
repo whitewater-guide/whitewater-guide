@@ -1,5 +1,6 @@
 import db, { holdTransaction, rollbackTransaction } from '@db';
 import { ADMIN, EDITOR_NO_EC, TEST_USER } from '@seeds/01_users';
+import { REGION_GALICIA } from '@seeds/04_regions';
 import { SOURCE_NORWAY } from '@seeds/05_sources';
 import { anonContext, fakeContext, noTimestamps, runQuery } from '@test';
 
@@ -7,8 +8,8 @@ beforeEach(holdTransaction);
 afterEach(rollbackTransaction);
 
 const query = `
-query listGauges($sourceId: ID, $page: Page) {
-  gauges(sourceId: $sourceId, page: $page) {
+query listGauges($filter: GaugesFilter, $page: Page) {
+  gauges(filter: $filter, page: $page) {
     nodes {
       id
       name
@@ -93,7 +94,7 @@ it('should fall back to english', async () => {
 it('should be able to specify source id', async () => {
   const result = await runQuery(
     query,
-    { sourceId: SOURCE_NORWAY },
+    { filter: { sourceId: SOURCE_NORWAY } },
     fakeContext(ADMIN),
   );
   expect(result.errors).toBeUndefined();
@@ -101,10 +102,50 @@ it('should be able to specify source id', async () => {
   expect(result.data!.gauges.nodes[0].code).toBe('nor1');
 });
 
+it('should be able to specify region id', async () => {
+  const result = await runQuery(
+    query,
+    { filter: { regionId: REGION_GALICIA } },
+    fakeContext(ADMIN),
+  );
+  expect(result.errors).toBeUndefined();
+  expect(result.data!.gauges.count).toBe(4);
+  expect(result.data!.gauges.nodes).toEqual(
+    expect.arrayContaining([
+      expect.objectContaining({
+        code: 'gal1',
+      }),
+      expect.objectContaining({
+        code: 'gal2_1',
+      }),
+    ]),
+  );
+});
+
+it('should be able to search', async () => {
+  const result = await runQuery(
+    query,
+    { filter: { search: 'Gauge 4' } },
+    fakeContext(ADMIN),
+  );
+  expect(result.errors).toBeUndefined();
+  expect(result.data!.gauges.count).toBe(2);
+  expect(result.data!.gauges.nodes).toEqual(
+    expect.arrayContaining([
+      expect.objectContaining({
+        code: 'geo4',
+      }),
+      expect.objectContaining({
+        code: 'nor4',
+      }),
+    ]),
+  );
+});
+
 it('should paginate', async () => {
   const result = await runQuery(
     query,
-    { sourceId: SOURCE_NORWAY, page: { limit: 1, offset: 1 } },
+    { filter: { sourceId: SOURCE_NORWAY }, page: { limit: 1, offset: 1 } },
     fakeContext(ADMIN),
   );
   expect(result.errors).toBeUndefined();
@@ -116,7 +157,11 @@ it('should paginate', async () => {
 it('should fire two queries', async () => {
   const queryMock = jest.fn();
   db().on('query', queryMock);
-  await runQuery(query, { sourceId: SOURCE_NORWAY }, fakeContext(ADMIN));
+  await runQuery(
+    query,
+    { filter: { sourceId: SOURCE_NORWAY } },
+    fakeContext(ADMIN),
+  );
   db().removeListener('query', queryMock);
   expect(queryMock).toHaveBeenCalledTimes(2);
 });

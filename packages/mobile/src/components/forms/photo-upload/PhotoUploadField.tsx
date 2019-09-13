@@ -7,7 +7,7 @@ import { trackError } from '../../../core/errors';
 import theme from '../../../theme';
 import { Loading } from '../../Loading';
 import { Photo, PhotoPicker } from '../../photo-picker';
-import { ErrorText } from '../ErrorText';
+import { HelperText } from '../HelperText';
 import i18nizeUploadError from './i18nizeUploadError';
 import uploadPhoto from './uploadPhoto';
 import usePhotoUploadErrors from './usePhotoUploadErrors';
@@ -88,7 +88,7 @@ export const PhotoUploadField: React.FC<Props> = React.memo((props) => {
         )}
       </View>
       <View style={styles.errorBox}>
-        <ErrorText touched={true} error={error} />
+        <HelperText touched={true} error={error} />
       </View>
     </View>
   );

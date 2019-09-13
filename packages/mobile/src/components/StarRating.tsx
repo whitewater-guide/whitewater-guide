@@ -1,71 +1,29 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import RNStarRating, { StarRatingProps } from 'react-native-star-rating';
+import SwipeableRating, {
+  SwipableRatingProps,
+} from 'react-native-swipeable-rating';
 import theme from '../theme';
 
-const styles = StyleSheet.create({
-  containerInteractive: {
-    paddingVertical: 4,
-    width: 200,
-  },
-  container: {
-    flexDirection: 'row',
-  },
-  compressor: {
-    flex: 1,
-  },
-  unknownContainer: {
-    ...StyleSheet.absoluteFillObject,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  unknownText: {
-    fontSize: 12,
-    fontWeight: 'bold',
-    color: '#000',
-  },
-});
-
-interface Props extends StarRatingProps {
+interface Props extends Omit<SwipableRatingProps, 'rating' | 'onPress'> {
   value: number;
   onChange?: (value: number) => void;
 }
 
-export const StarRating: React.StatelessComponent<Props> = ({
-  value,
-  onChange,
-  ...props
-}) => {
-  const isUnknown = value === 0 && !onChange;
-  const fullStarColor = onChange
-    ? theme.colors.primary
-    : theme.colors.componentBorder;
-  const emptyStarColor = isUnknown
-    ? 'rgba(158, 158, 158, 0.4)'
-    : theme.colors.componentBorder;
-  return (
-    <View style={onChange ? styles.containerInteractive : styles.container}>
-      <View>
-        <RNStarRating
-          {...props}
-          iconSet="MaterialCommunityIcons"
-          fullStar="star"
-          emptyStar="star-outline"
-          halfStar="star-half"
-          rating={value}
-          starSize={onChange ? 30 : 14}
-          halfStarColor={fullStarColor}
-          fullStarColor={fullStarColor}
-          emptyStarColor={emptyStarColor}
-          selectedStar={onChange}
-        />
-        {isUnknown && (
-          <View style={styles.unknownContainer} pointerEvents="none">
-            <Text style={styles.unknownText}>?</Text>
-          </View>
-        )}
-      </View>
-      {!onChange && <View style={styles.compressor} />}
-    </View>
-  );
-};
+export const StarRating: React.FC<Props> = React.memo(
+  ({ value, onChange, ...props }) => {
+    return (
+      <SwipeableRating
+        {...props}
+        allowHalves={true}
+        minRating={0}
+        size={onChange ? 30 : 14}
+        color={theme.colors.primary}
+        emptyColor={theme.colors.componentBorder}
+        rating={value}
+        onPress={onChange}
+      />
+    );
+  },
+);
+
+StarRating.displayName = 'StarRating';

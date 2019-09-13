@@ -1,6 +1,7 @@
 import times from 'lodash/times';
 import * as yup from 'yup';
 import { yupTypes } from '../../validation';
+import { MediaInputSchema } from '../media';
 import { CoordinateSchema, PointInputSchema } from '../points';
 import { Durations, GaugeBinding, SectionInput } from './types';
 
@@ -91,6 +92,10 @@ export const SectionInputSchema = yup
       .array()
       .of(PointInputSchema.clone())
       .defined(),
+    media: yup
+      .array()
+      .of(MediaInputSchema.clone())
+      .notRequired(),
     hidden: yup.bool().required(),
     createdBy: yupTypes.uuid(true, true),
     suggestionId: yupTypes.uuid(true, true),

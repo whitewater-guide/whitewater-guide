@@ -42,7 +42,7 @@ const fullRegion: RegionInput = {
   id: null,
   name: 'Full region',
   description: 'Full region description',
-  bounds: [[10, 20, 0], [10, 10, 0], [20, 20, 0]],
+  bounds: [[10, 20, 0], [10, 10], [20, 20, null]],
   season: 'season description',
   seasonNumeric: [1, 2, 3],
   pois: [],
@@ -64,7 +64,7 @@ const fullRegionUpdate: RegionInput = {
       name: 'pt 2 u',
       description: 'pt 2 upd',
       kind: 'take-out',
-      coordinates: [33, 34, 0],
+      coordinates: [33, 34, null],
     }, // new
     {
       id: GALICIA_PT_2,
@@ -85,14 +85,14 @@ const fullRegionWithPOIs: RegionInput = {
       name: 'pt 1',
       description: 'pt 1 d',
       kind: 'other',
-      coordinates: [10, 12, 0],
+      coordinates: [10, 12], // 2d
     },
     {
       id: null,
       name: 'pt 2',
       description: 'pt 2 d',
       kind: 'take-out',
-      coordinates: [33, 34, 0],
+      coordinates: [33, 34, 0], // 3d
     },
   ],
 };

@@ -2,7 +2,10 @@ import { NamedNode } from '@whitewater-guide/commons';
 import { useField } from 'formik';
 import reject from 'lodash/reject';
 import React, { useCallback } from 'react';
-import { Multicomplete } from '../../components/autocomplete';
+import {
+  AutocompleteMenuProps,
+  Multicomplete,
+} from '../../components/autocomplete';
 import { FormikFormControl } from '../helpers';
 import { useFakeHandlers } from '../utils';
 
@@ -13,10 +16,19 @@ interface Props {
   placeholder?: string;
   fullWidth?: boolean;
   openOnFocus?: boolean;
+  menuProps?: AutocompleteMenuProps;
 }
 
 export const MulticompleteField: React.FC<Props> = React.memo((props) => {
-  const { name, options, label, placeholder, fullWidth, openOnFocus } = props;
+  const {
+    name,
+    options,
+    label,
+    placeholder,
+    fullWidth,
+    openOnFocus,
+    menuProps,
+  } = props;
   const [field, meta] = useField(name);
   const { onChange, onBlur } = useFakeHandlers(name);
   const hasError = meta.touched && !!meta.error;
@@ -53,6 +65,7 @@ export const MulticompleteField: React.FC<Props> = React.memo((props) => {
         InputLabelProps={{
           error: hasError,
         }}
+        menuProps={menuProps}
       />
     </FormikFormControl>
   );

@@ -1,4 +1,26 @@
-## [0.0.32](https://github.com/doomsower/whitewater/compare/4513f0666a5a0a023215dd880ca2fca1346ce859...51600b3a6e7ea08e474100e569bf06fa80764a7c) (2019-08-15)
+## [0.0.33-ugsections.1](https://github.com/doomsower/whitewater/compare/6fca4f2a6929ab7072c51d2441b5b8ee6cc45fb1...29ec198658912047d6226f85a9ca571a57cb44fc) (2019-09-05)
+
+## [0.0.33-ugsections.1](https://github.com/doomsower/whitewater/compare/3fcbd76549b7894dc14ddabba6ec89ccd963689b...6fca4f2a6929ab7072c51d2441b5b8ee6cc45fb1) (2019-09-05)
+
+### Features
+
+- allow 2d coorinates ([5b19c72f54c622e76fa321e292f99988d25d9546](https://github.com/doomsower/whitewater/commit/5b19c72f54c622e76fa321e292f99988d25d9546)), closes [#281](https://github.com/doomsower/whitewater/issues/281)
+
+## [0.0.33-ugsections.1](https://github.com/doomsower/whitewater/compare/cdc4bf75762ad6df2f5e9aad2a616dcc6856e547...3fcbd76549b7894dc14ddabba6ec89ccd963689b) (2019-09-05)
+
+## [0.0.33-ugsections.1](https://github.com/doomsower/whitewater/compare/79121b6b50d6c9a59a5f4ca4ce16a6562aa47f2d...cdc4bf75762ad6df2f5e9aad2a616dcc6856e547) (2019-09-05)
+
+## [0.0.33-ugsections.1](https://github.com/doomsower/whitewater/compare/a5f228bbd64d42cd3b28f6585f2bcbe884f7cb27...79121b6b50d6c9a59a5f4ca4ce16a6562aa47f2d) (2019-09-03)
+
+### Features
+
+- ug sections ([63b77ee7982e0b87165df98dea5317ddcf7ad69e](https://github.com/doomsower/whitewater/commit/63b77ee7982e0b87165df98dea5317ddcf7ad69e))
+
+## [0.0.33-ugsections.1](https://github.com/doomsower/whitewater/compare/51600b3a6e7ea08e474100e569bf06fa80764a7c...a5f228bbd64d42cd3b28f6585f2bcbe884f7cb27) (2019-09-01)
+
+## [0.0.33-ugsections.0](https://github.com/doomsower/whitewater/compare/aef11ae3be6f2a1b9af48565a44b31cd61fe2633...a5408075cba1bec07adedc2eb36db0d04248bd58) (2019-08-25)
+
+## [0.0.33-ugsections.0](https://github.com/doomsower/whitewater/compare/aef11ae3be6f2a1b9af48565a44b31cd61fe2633...aef11ae3be6f2a1b9af48565a44b31cd61fe2633) (2019-08-25)
 
 ## [0.0.32](https://github.com/doomsower/whitewater/compare/88855188cbade49d5f9983ef09724de08de56024...4513f0666a5a0a023215dd880ca2fca1346ce859) (2019-08-13)
 

@@ -102,7 +102,7 @@ input RegionInput {
   season: String
   seasonNumeric: [Int]
   pois: [PointInput]
-  bounds: [[Float!]]
+  bounds: [[Float]]
 }
 
 input RegionAdminSettings {

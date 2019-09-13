@@ -16,7 +16,7 @@ const locationManager = {
 };
 
 export default {
-  ...original,
+  ...original.default,
   offlineManager,
   locationManager,
 };

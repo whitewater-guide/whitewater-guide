@@ -12,7 +12,7 @@ import {
   TextInput,
 } from 'react-native';
 import { Button } from 'react-native-paper';
-import { Loading } from '../../components';
+import { CCNote, Loading } from '../../components';
 import {
   PhotoUploadField,
   TextField,
@@ -20,7 +20,6 @@ import {
 } from '../../components/forms';
 import theme from '../../theme';
 import getInitialValues from './getInitialValues';
-import TermsOfUseLink from './TermsOfUseLink';
 import useAddSuggestion from './useAddSuggestion';
 import useKeyboard from './useKeyboard';
 import useUploadLink from './useUploadLink';
@@ -83,7 +82,6 @@ const PhotoSuggestionForm: React.FC<Props> = React.memo((props) => {
             <PhotoUploadField name="filename" uploadLink={uploadLink} />
             <TextField
               name="copyright"
-              mode="outlined"
               label={t('screens:suggestion.copyrightLabel')}
               placeholder={t('screens:suggestion.copyrightPlaceholder')}
               onFocus={handlers.onCopyrightFocus}
@@ -94,14 +92,14 @@ const PhotoSuggestionForm: React.FC<Props> = React.memo((props) => {
             <TextField
               name="description"
               ref={descriptionRef}
-              mode="outlined"
               multiline={true}
+              wrapperStyle={styles.description}
               style={styles.description}
               label={t('screens:suggestion.photoDescriptionLabel')}
               placeholder={t('screens:suggestion.photoDescriptionPlaceholder')}
               onFocus={handlers.onDescriptionFocus}
             />
-            <TermsOfUseLink />
+            <CCNote />
             <Button
               mode="contained"
               onPress={isSubmitting ? undefined : submitForm}

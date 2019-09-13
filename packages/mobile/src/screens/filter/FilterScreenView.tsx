@@ -20,7 +20,7 @@ import { FindButton } from './FindButton';
 import { NavParams } from './types';
 import { getStateFactory } from './utils';
 
-const DIFFICULTY_RANGE: [number, number] = [1, 6];
+const DIFFICULTY_RANGE: [number, number] = [0, 6];
 const SEASON_RANGE: [number, number] = [0, 23];
 const DURATION_RANGE: [number, number] = [Duration.LAPS, Duration.MULTIDAY];
 // container.paddingHorizontal (12) + multidlider.marginHorizontal (-10) + rangeslider._trackMarginH (18)

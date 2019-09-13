@@ -6,8 +6,8 @@ import {
   Timestamped,
 } from '../../apollo';
 import { Gauge } from '../gauges';
-import { Media } from '../media';
-import { Coordinate3d, Point, PointInput } from '../points';
+import { Media, MediaInput } from '../media';
+import { CoordinateLoose, Point, PointInput } from '../points';
 import { Region } from '../regions';
 import { River } from '../rivers';
 import { Tag } from '../tags';
@@ -93,7 +93,7 @@ export interface SectionInput {
   flows: GaugeBinding | null;
   flowsText: string | null;
 
-  shape: Coordinate3d[];
+  shape: CoordinateLoose[];
   distance: number | null;
   drop: number | null;
   duration: number | null;
@@ -102,6 +102,8 @@ export interface SectionInput {
   rating: number | null;
   tags: NodeRef[];
   pois: PointInput[];
+  // this is optional for now
+  media?: MediaInput[];
 
   hidden: boolean;
 

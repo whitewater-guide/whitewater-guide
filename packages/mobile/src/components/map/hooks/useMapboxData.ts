@@ -1,16 +1,9 @@
 import { Feature, LineString, Point } from '@turf/helpers';
-import {
-  getBBox,
-  MapProps,
-  poisToGeoJSON,
-  sectionsToGeoJSON,
-} from '@whitewater-guide/clients';
+import { poisToGeoJSON, sectionsToGeoJSON } from '@whitewater-guide/clients';
+import { Point as POI, Section } from '@whitewater-guide/commons';
 import { useMemo } from 'react';
-import theme from '../../../theme';
-import { MapboxBounds } from '../types';
 
 interface MapboxData {
-  defaultSettings: { bounds: MapboxBounds };
   sections: any;
   pois: any;
   arrows: any;
@@ -31,26 +24,16 @@ const sectionToArrowPoint = (section: Feature<LineString>): Feature<Point> => {
 };
 
 export const useMapboxData = (
-  props: MapProps,
+  sections: Section[],
+  pois?: POI[],
   detailed?: boolean,
 ): MapboxData =>
   useMemo(() => {
-    const { sections, pois, initialBounds } = props;
-    const [ne, sw] = getBBox(initialBounds);
-    const bounds: MapboxBounds = {
-      ne,
-      sw,
-      paddingBottom: theme.margin.single,
-      paddingLeft: theme.margin.single,
-      paddingRight: theme.margin.single,
-      paddingTop: theme.margin.single,
-    };
     const sectionsJSON = sectionsToGeoJSON(sections, !!detailed);
     const arrows = sectionsJSON.features.map(sectionToArrowPoint);
     return {
-      defaultSettings: { bounds },
       sections: sectionsJSON,
-      pois: poisToGeoJSON(pois),
+      pois: poisToGeoJSON(pois || []),
       arrows: { type: 'FeatureCollection', features: arrows },
     };
-  }, [props]);
+  }, [sections, pois, detailed]);

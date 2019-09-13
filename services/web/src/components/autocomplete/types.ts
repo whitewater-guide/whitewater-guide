@@ -1,13 +1,20 @@
 import { InputProps as StandardInputProps } from '@material-ui/core/Input';
 import { InputLabelProps } from '@material-ui/core/InputLabel';
+import { PopperPlacementType } from '@material-ui/core/Popper';
 import { NamedNode } from '@whitewater-guide/commons';
+
+export interface PopperFwdProps {
+  // Passed to popper
+  modifiers?: object;
+  placement?: PopperPlacementType;
+}
 
 export interface AutocompleteFilterOptions<T extends NamedNode = NamedNode> {
   limit?: number;
   matchInput?: true | ((input: string | null, option: T) => boolean);
 }
 
-export interface AutocompleteMenuProps {
+export interface AutocompleteMenuProps extends PopperFwdProps {
   disablePortal?: boolean;
   matchInputWidth?: boolean;
   className?: string;

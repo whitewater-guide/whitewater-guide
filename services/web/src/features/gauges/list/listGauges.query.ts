@@ -1,11 +1,16 @@
 import { GaugeFragments } from '@whitewater-guide/clients';
-import { Connection, Gauge, Page } from '@whitewater-guide/commons';
+import {
+  Connection,
+  Gauge,
+  GaugesFilter,
+  Page,
+} from '@whitewater-guide/commons';
 import gql from 'graphql-tag';
 
 export const LIST_GAUGES = gql`
-  query listGauges($sourceId: ID, $page: Page) {
-    gauges(sourceId: $sourceId, page: $page)
-      @connection(key: "gauges", filter: ["sourceId"]) {
+  query listGauges($filter: GaugesFilter, $page: Page) {
+    gauges(filter: $filter, page: $page)
+      @connection(key: "gauges", filter: ["filter"]) {
       nodes {
         ...GaugeCore
         ...GaugeLocation
@@ -28,7 +33,7 @@ export const LIST_GAUGES = gql`
 `;
 
 export interface QVars {
-  sourceId: string;
+  filter: GaugesFilter;
   page?: Page;
 }
 

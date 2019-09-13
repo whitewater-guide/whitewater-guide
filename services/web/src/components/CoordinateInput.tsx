@@ -3,7 +3,6 @@ import IconButton from '@material-ui/core/IconButton';
 import {
   Coordinate3d,
   CoordinateSchema,
-  CoordinateSchemaLoose,
   createSafeValidator,
 } from '@whitewater-guide/commons';
 import Coordinates from 'coordinate-parser';
@@ -37,8 +36,7 @@ const styles: Styles = {
   },
 };
 
-const strictValidator = createSafeValidator(CoordinateSchema);
-const looseValidator = createSafeValidator(CoordinateSchemaLoose);
+const validator = createSafeValidator(CoordinateSchema);
 
 type Unnumber = undefined | number;
 type Uncoordinate = [Unnumber, Unnumber, Unnumber];
@@ -61,8 +59,6 @@ export class CoordinateInput extends React.PureComponent<
   CoordinateInputProps,
   State
 > {
-  validator: (input: any) => object | null;
-
   constructor(props: CoordinateInputProps) {
     super(props);
     this.state = {
@@ -70,13 +66,11 @@ export class CoordinateInput extends React.PureComponent<
       value: props.value || [undefined, undefined, undefined],
       submitted: false,
     };
-    this.validator = props.isNew ? looseValidator : strictValidator;
   }
 
   componentWillReceiveProps(next: CoordinateInputProps) {
     const val = next.value || [undefined, undefined, undefined];
-    this.validator = next.isNew ? looseValidator : strictValidator;
-    const errors = this.validator(val);
+    const errors = validator(val);
     this.setState({ value: val, errors, submitted: false });
   }
 
@@ -90,38 +84,36 @@ export class CoordinateInput extends React.PureComponent<
   };
 
   // tslint:disable-next-line:member-ordering
-  onChange: Array<(e: any) => void> = [0, 1, 2].map(
-    (index: number) => (coord: number | null) => {
-      const { onChange } = this.props;
-      const { value } = this.state;
-      const newValue = Object.assign(value.slice() as Uncoordinate, {
-        [index]: coord === null ? undefined : coord,
-      });
-      const errors = this.validator(newValue);
-      this.setState({ value: newValue, errors });
-      // Do not fire onChange with bad coordinate, otherwise GoogleMaps break
-      if (onChange && isEmpty(errors)) {
-        onChange(newValue);
-      }
-    },
-  );
+  onChange: Array<(v: number) => void> = [0, 1, 2].map((index) => (v) => {
+    const { onChange } = this.props;
+    const { value } = this.state;
+    const newValue = Object.assign(value.slice() as Uncoordinate, {
+      [index]: v,
+    });
+    const errors = validator(newValue);
+    this.setState({ value: newValue, errors });
+    // Do not fire onChange with bad coordinate, otherwise GoogleMaps break
+    if (onChange && isEmpty(errors)) {
+      onChange(newValue);
+    }
+  });
 
   onPaste = (e: React.SyntheticEvent<any>) => {
     if (!this.props.isNew) {
       return;
     }
     try {
-      const coordinateStr = (e.nativeEvent as any).clipboardData
-        .getData('Text')
-        .trim();
+      const coordinateStr = (e.nativeEvent as any).clipboardData.getData(
+        'Text',
+      );
       const coord = new Coordinates(coordinateStr);
       const lat = coord.getLatitude();
       const lng = coord.getLongitude();
       const value: Uncoordinate = [lng, lat, 0];
-      const errors = this.validator(value);
+      const errors = validator(value);
       this.setState({ value, errors });
       e.preventDefault();
-    } catch (e) {}
+    } catch (err) {}
   };
 
   render() {

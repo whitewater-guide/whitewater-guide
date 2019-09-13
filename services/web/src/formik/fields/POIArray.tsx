@@ -2,7 +2,7 @@ import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import Paper from '@material-ui/core/Paper';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { Coordinate, PointInput } from '@whitewater-guide/commons';
+import { CoordinateLoose, PointInput } from '@whitewater-guide/commons';
 import { FieldArray, FieldArrayRenderProps } from 'formik';
 import React, { useCallback } from 'react';
 import { POIField } from './POIField';
@@ -21,7 +21,7 @@ const useStyles = makeStyles(({ spacing }) =>
 
 interface Props {
   name: string;
-  mapBounds: Coordinate[] | null;
+  mapBounds: CoordinateLoose[] | null;
 }
 
 const POIArrayInner: React.FC<FieldArrayRenderProps & Props> = React.memo(

@@ -17,6 +17,6 @@ input PointInput {
   id: ID
   name: String
   description: String
-  coordinates: [Float!]!
+  coordinates: [Float]!
   kind: String
 }

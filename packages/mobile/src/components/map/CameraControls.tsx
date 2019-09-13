@@ -1,6 +1,6 @@
 import Mapbox from '@react-native-mapbox-gl/maps';
 import { getBBox } from '@whitewater-guide/clients';
-import { Coordinate3d } from '@whitewater-guide/commons';
+import { CoordinateLoose } from '@whitewater-guide/commons';
 import React, { useCallback } from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
 
 interface Props {
   locationPermissionGranted: boolean;
-  initialBounds: Coordinate3d[];
+  initialBounds: CoordinateLoose[];
 }
 
 const maybeGetMyLocation = async (locationPermissionGranted: boolean) => {

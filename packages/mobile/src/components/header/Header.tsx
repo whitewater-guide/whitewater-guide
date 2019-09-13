@@ -7,9 +7,14 @@ import { Appbar } from 'react-native-paper';
 import { HeaderProps } from 'react-navigation';
 import { useDrawer } from '../drawer/DrawerContext';
 
-const Header: React.FC<HeaderProps> = (props) => {
+interface Props extends HeaderProps {
+  topLevel?: boolean;
+}
+
+const Header: React.FC<Props> = (props) => {
+  const { topLevel = true } = props;
   const nav = useNavigation();
-  const goBack = useCallback(() => nav.goBack(), [nav.goBack]);
+  const goBack = useCallback(() => nav.goBack(null), [nav.goBack]);
   const { t } = useTranslation();
   const toggleDrawer = useDrawer();
   const openDrawer = useCallback(() => toggleDrawer(true), [toggleDrawer]);
@@ -27,7 +32,7 @@ const Header: React.FC<HeaderProps> = (props) => {
   }
   return (
     <Appbar.Header>
-      {props.index ? (
+      {props.index || !topLevel ? (
         <Appbar.Action icon="chevron-left" size={36} onPress={goBack} />
       ) : (
         <Appbar.Action icon="menu" onPress={openDrawer} />

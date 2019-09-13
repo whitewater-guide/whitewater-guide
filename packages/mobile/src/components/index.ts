@@ -1,5 +1,6 @@
 export * from './Avatar';
 export * from './BottomSheet';
+export * from './CCNote';
 export * from './Chips';
 export * from './DifficultyThumb';
 export * from './Divider';
@@ -25,7 +26,10 @@ export * from './Screen';
 export * from './snackbar';
 export * from './Spacer';
 export * from './SplashScreen';
+export * from './SimpleStarRating';
 export * from './StarRating';
+export * from './TernaryChip';
 export * from './TernaryChips';
+export * from './TextWithLinks';
 export * from './useActionSheet';
 export * from './WithNetworkError';

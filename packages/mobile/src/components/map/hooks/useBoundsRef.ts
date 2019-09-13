@@ -1,11 +1,13 @@
 import { RegionChangeEvent } from '@react-native-mapbox-gl/maps';
 import { BBox, getBBox } from '@whitewater-guide/clients';
-import { Coordinate3d } from '@whitewater-guide/commons';
+import { CoordinateLoose } from '@whitewater-guide/commons';
 import { MutableRefObject, useCallback, useRef } from 'react';
 
 type UseBoundsRef = [MutableRefObject<BBox>, ((e: RegionChangeEvent) => void)];
 
-export const useBoundsRef = (initialBounds: Coordinate3d[]): UseBoundsRef => {
+export const useBoundsRef = (
+  initialBounds: CoordinateLoose[],
+): UseBoundsRef => {
   const visibleBounds = useRef<BBox | null>(null);
 
   // Lazily initialize

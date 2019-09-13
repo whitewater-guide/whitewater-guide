@@ -1,4 +1,4 @@
-import { Coordinate } from '@whitewater-guide/commons';
+import { CoordinateLoose } from '@whitewater-guide/commons';
 
 interface LatLngLiteral {
   lat: number;
@@ -9,7 +9,9 @@ interface LatLngLiteral {
  * Converts our coordinate to google maps format
  * @param array
  */
-export function arrayToGmaps(array?: Coordinate | null): LatLngLiteral | null {
+export function arrayToGmaps(
+  array?: CoordinateLoose | null,
+): LatLngLiteral | null {
   if (!array) {
     return null;
   }

@@ -65,11 +65,16 @@ export class MediaConnector extends BaseConnector<Media, MediaRaw> {
     };
     const oldMedia = await this.getById(media.id);
     try {
-      const result: MediaRaw = (await rawUpsert(
+      let upsertedId = await rawUpsert(
         db(),
         'SELECT upsert_section_media(?, ?, ?)',
         [sectionId, media, this._language],
-      )) as MediaRaw;
+      );
+      upsertedId = upsertedId || media.id; // in case of update upsertedId will be null
+      const [result] = await db()
+        .select('*')
+        .from('media_view')
+        .andWhere({ id: upsertedId, language: this._language });
       // TODO: when creating video thumbs, image_file table column should be created
       // it'll be used for video thumbs and for original photo files
       await moveTempImage(result.url, MEDIA);

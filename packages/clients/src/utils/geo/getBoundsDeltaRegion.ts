@@ -1,7 +1,9 @@
-import { Coordinate } from '@whitewater-guide/commons';
+import { CoordinateLoose } from '@whitewater-guide/commons';
 import { getBBox } from './getBBox';
 
-export function getBoundsDeltaRegion(bounds: Coordinate[] | null | undefined) {
+export function getBoundsDeltaRegion(
+  bounds: CoordinateLoose[] | null | undefined,
+) {
   if (!bounds) {
     return undefined;
   }

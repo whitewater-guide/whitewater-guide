@@ -1,46 +1,24 @@
 import { createSafeValidator } from '../../validation';
 import { PointInput } from './types';
-import {
-  CoordinateSchema,
-  CoordinateSchemaLoose,
-  PointInputSchema,
-} from './validation';
-
-describe('coordinate schema', () => {
-  const validator = createSafeValidator(CoordinateSchema);
-
-  it('correct', () => {
-    expect(validator([120, 80, 11.5])).toBeNull();
-  });
-
-  it('error in lat', () => {
-    const errors = validator([10, 120, -11.5]);
-    expect(errors).toMatchSnapshot();
-  });
-
-  it('error in both', () => {
-    const errors = validator([220, 120, -11.5]);
-    expect(errors).toMatchSnapshot();
-  });
-
-  it('wrong array length (2)', () => {
-    const errors = validator([10, 10]);
-    expect(errors).not.toBeNull();
-    expect(errors).toMatchSnapshot();
-  });
-
-  it('wrong array length (4)', () => {
-    const errors = validator([10, 10, -11.5, 33]);
-    expect(errors).not.toBeNull();
-    expect(errors).toMatchSnapshot();
-  });
-});
+import { CoordinateSchema, PointInputSchema } from './validation';
 
 describe('loose coordinate schema', () => {
-  const validator = createSafeValidator(CoordinateSchemaLoose);
+  const validator = createSafeValidator(CoordinateSchema);
 
-  it('correct', () => {
+  it('correct 2d', () => {
     expect(validator([120, 80])).toBeNull();
+  });
+
+  it('correct 3d', () => {
+    expect(validator([120, 80, 22])).toBeNull();
+  });
+
+  it('undefined alt', () => {
+    expect(validator([120, 80, undefined])).toBeNull();
+  });
+
+  it('null alt', () => {
+    expect(validator([120, 80, null])).toBeNull();
   });
 
   it('error', () => {
@@ -48,8 +26,19 @@ describe('loose coordinate schema', () => {
     expect(errors).toMatchSnapshot();
   });
 
+  it('error when undefined', () => {
+    const errors = validator(undefined);
+    expect(errors).toMatchSnapshot();
+  });
+
   it('wrong array length', () => {
     const errors = validator([3, 3, -11.5, 33]);
+    expect(errors).not.toBeNull();
+    expect(errors).toMatchSnapshot();
+  });
+
+  it('error when some are string', () => {
+    const errors = validator([3, '3', 3]);
     expect(errors).not.toBeNull();
     expect(errors).toMatchSnapshot();
   });
@@ -68,6 +57,16 @@ describe('point input schema', () => {
         name: null,
         description: null,
         coordinates: [125, 16, 11.1],
+        kind: 'hazard',
+      },
+    ],
+    [
+      '2d point',
+      {
+        id: null,
+        name: null,
+        description: null,
+        coordinates: [125, 16],
         kind: 'hazard',
       },
     ],
@@ -129,16 +128,6 @@ describe('point input schema', () => {
         name: 'name',
         description: 'description',
         coordinates: [undefined, 30] as any,
-        kind: 'put-in',
-      },
-    ],
-    [
-      'missing alt',
-      {
-        id: 'foo',
-        name: 'name',
-        description: 'description',
-        coordinates: [30, 30] as any,
         kind: 'put-in',
       },
     ],
