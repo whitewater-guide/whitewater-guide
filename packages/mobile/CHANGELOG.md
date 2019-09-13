@@ -1,3 +1,9 @@
+## [1.9.1](https://github.com/doomsower/whitewater/compare/e25c08a7a37db1238b2c3baa5655be08b471fca9...3a24acbbe49b56777228b7027745a912dd396c2e) (2019-09-13)
+
+### Bug Fixes
+
+- bring back suggestion gab ([3a24acbbe49b56777228b7027745a912dd396c2e](https://github.com/doomsower/whitewater/commit/3a24acbbe49b56777228b7027745a912dd396c2e))
+
 # [1.9.0](https://github.com/doomsower/whitewater/compare/6062e4625aa365865e6988736a6bc09a00367ae2...e25c08a7a37db1238b2c3baa5655be08b471fca9) (2019-09-13)
 
 ## [1.8.4](https://github.com/doomsower/whitewater/compare/9b81f69e1c149a730cd07a49f430896acf44e004...6062e4625aa365865e6988736a6bc09a00367ae2) (2019-09-13)
