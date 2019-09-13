@@ -1,3 +1,34 @@
+## [1.8.4](https://github.com/doomsower/whitewater/compare/9b81f69e1c149a730cd07a49f430896acf44e004...6062e4625aa365865e6988736a6bc09a00367ae2) (2019-09-13)
+
+### Bug Fixes
+
+- bottom panel on iPhone X ([5603d6f1227f233723ea6eea220dcb158b7fdf69](https://github.com/doomsower/whitewater/commit/5603d6f1227f233723ea6eea220dcb158b7fdf69))
+- maybe fix photo screen keyboard avoiding ([3dcb801b0f7e8a157122565ac80a7e9d267c77a2](https://github.com/doomsower/whitewater/commit/3dcb801b0f7e8a157122565ac80a7e9d267c77a2))
+- minor fixes ([dfdc69c278551adae56d9c991c94fda9d70307f6](https://github.com/doomsower/whitewater/commit/dfdc69c278551adae56d9c991c94fda9d70307f6))
+- move mapbox attribution to bottom-left corner ([ad99c85f55d32cb5a0b7417e91c08411e15b64bd](https://github.com/doomsower/whitewater/commit/ad99c85f55d32cb5a0b7417e91c08411e15b64bd))
+- no-cache for upload link query ([5e08f35c769cfd55cd56bdb135949af50493e527](https://github.com/doomsower/whitewater/commit/5e08f35c769cfd55cd56bdb135949af50493e527))
+- refactor regions stack structure ([a18c0b474677cdb27b94cc4c0e639e8735214254](https://github.com/doomsower/whitewater/commit/a18c0b474677cdb27b94cc4c0e639e8735214254))
+- remove fab on production ([a5e5798652436d270ca1a14bb53e82d9d26592c8](https://github.com/doomsower/whitewater/commit/a5e5798652436d270ca1a14bb53e82d9d26592c8))
+- remove touchable feedback from halfmonth ([e7c48d38c4c28182822e6a9a05fea5da5ed34fbb](https://github.com/doomsower/whitewater/commit/e7c48d38c4c28182822e6a9a05fea5da5ed34fbb))
+
+### Features
+
+- add CC note ([8458569ad288797ac5ea7104f080095f86e78c0e](https://github.com/doomsower/whitewater/commit/8458569ad288797ac5ea7104f080095f86e78c0e))
+- allow 2d coorinates ([5b19c72f54c622e76fa321e292f99988d25d9546](https://github.com/doomsower/whitewater/commit/5b19c72f54c622e76fa321e292f99988d25d9546)), closes [#281](https://github.com/doomsower/whitewater/issues/281)
+- auth service now sends fcm tokens ([b8eef95e1077244fdf0affdbb8890b2934f86ccb](https://github.com/doomsower/whitewater/commit/b8eef95e1077244fdf0affdbb8890b2934f86ccb))
+- change suggestion style to outlined ([86503aad2d8d6fff7fc8f441c3a537080d74cb5d](https://github.com/doomsower/whitewater/commit/86503aad2d8d6fff7fc8f441c3a537080d74cb5d))
+- ditch dms in add section form ([de531c8805c8168acee84566e554866a341f5338](https://github.com/doomsower/whitewater/commit/de531c8805c8168acee84566e554866a341f5338))
+- latest mui, yup and formik ([7da704a3b27422691521f49aedb834243803bb02](https://github.com/doomsower/whitewater/commit/7da704a3b27422691521f49aedb834243803bb02))
+- mobile suggestions ([349ae674883de0969cc5f45a119bd67599a54de6](https://github.com/doomsower/whitewater/commit/349ae674883de0969cc5f45a119bd67599a54de6))
+- suggested sections ([ce2244237f5942659d291c4c1a58ea66ab157bfd](https://github.com/doomsower/whitewater/commit/ce2244237f5942659d291c4c1a58ea66ab157bfd))
+- tweak regionDidChangeDebounceTime ([27bf9efbab5be1aeeae6a8850489c6f43c17268a](https://github.com/doomsower/whitewater/commit/27bf9efbab5be1aeeae6a8850489c6f43c17268a))
+- ug sections ([63b77ee7982e0b87165df98dea5317ddcf7ad69e](https://github.com/doomsower/whitewater/commit/63b77ee7982e0b87165df98dea5317ddcf7ad69e))
+- update mobile app - translations, date-fns, react-apollo@3 ([cafefce1f480b3f7bdd565e7b2aa166a8a98426e](https://github.com/doomsower/whitewater/commit/cafefce1f480b3f7bdd565e7b2aa166a8a98426e))
+
+### Other
+
+- kill require cycle warnings ([495fba1be65dcbbb2c1fd56a987982efda0039f4](https://github.com/doomsower/whitewater/commit/495fba1be65dcbbb2c1fd56a987982efda0039f4))
+
 ## [1.8.1](https://github.com/doomsower/whitewater/compare/af4fcab8ed575ef8f3326112524fb22ff7cebe4e...9b81f69e1c149a730cd07a49f430896acf44e004) (2019-07-18)
 
 ### Other
