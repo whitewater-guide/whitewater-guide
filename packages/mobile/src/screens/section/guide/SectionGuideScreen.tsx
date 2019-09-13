@@ -7,6 +7,7 @@ import { Icon, Screen } from '../../../components';
 import { RegionBanners } from '../../../features/banners';
 import { I18nText } from '../../../i18n';
 import theme from '../../../theme';
+import SuggestionFAB from '../SuggestionFAB';
 import SectionGuideView from './SectionGuideView';
 
 const styles = StyleSheet.create({
@@ -30,6 +31,7 @@ export const SectionGuideScreen: NavigationScreenComponent = () => {
         />
         <View style={styles.fabHelper} />
       </ScrollView>
+      <SuggestionFAB />
     </Screen>
   );
 };
