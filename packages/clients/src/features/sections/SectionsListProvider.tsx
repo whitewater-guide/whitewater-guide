@@ -57,6 +57,7 @@ export class SectionsListProvider extends React.PureComponent<
   _query!: ObservableQuery<ListSectionsResult, ListSectionsVars>;
   _pollQuery!: ObservableQuery<any, PollVars>;
   _subscription: ZenObservable.Subscription | undefined;
+  _pollSub: ZenObservable.Subscription | undefined;
   _mounted: boolean = false;
   _lastUpdatedId?: string;
 
@@ -126,6 +127,9 @@ export class SectionsListProvider extends React.PureComponent<
     this._mounted = false;
     if (this._subscription) {
       this._subscription.unsubscribe();
+    }
+    if (this._pollSub) {
+      this._pollSub.unsubscribe();
     }
     if (this._pollQuery) {
       this._pollQuery.stopPolling();
@@ -236,6 +240,10 @@ export class SectionsListProvider extends React.PureComponent<
     // https://github.com/apollographql/apollo-client/issues/4439
     await this._pollQuery.result();
     await this._pollQuery.startPolling(pollInterval);
+    this._pollSub = this._pollQuery.subscribe(() => {
+      // it seems that dummy subscription is necessary to update main query
+      // without this, some tests break
+    });
   };
 
   refresh = async () => {

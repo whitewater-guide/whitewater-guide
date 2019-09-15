@@ -127,6 +127,36 @@ const mountInHarness = (options: TestOptions): Harness => {
   };
 };
 
+const mockPolledResponse = (n: number) => ({
+  request: {
+    query: POLL_REGION_MEASUREMENTS,
+    variables: { regionId: TEST_REGION_ID },
+  },
+  result: {
+    data: {
+      region: {
+        __typename: 'Region',
+        id: TEST_REGION_ID,
+        gauges: {
+          __typename: 'RegionGaugeConnection',
+          nodes: [
+            {
+              __typename: 'Gauge',
+              id: 'Gauge.id.1',
+              lastMeasurement: {
+                __typename: 'Measurement',
+                flow: 300 + n,
+                level: 300 + n,
+                timestamp: new Date(2018, n, 1).toISOString(),
+              },
+            },
+          ],
+        },
+      },
+    },
+  },
+});
+
 beforeAll(async () => {
   const provider = mockApolloProvider({
     mocks: {
@@ -148,35 +178,9 @@ beforeAll(async () => {
   // This emulates server with pagination and filtering by date
   // Single link compares request query+variables and responds with result
   mockedResponses = [
-    {
-      request: {
-        query: POLL_REGION_MEASUREMENTS,
-        variables: { regionId: TEST_REGION_ID },
-      },
-      result: {
-        data: {
-          region: {
-            __typename: 'Region',
-            id: TEST_REGION_ID,
-            gauges: {
-              __typename: 'RegionGaugeConnection',
-              nodes: [
-                {
-                  __typename: 'Gauge',
-                  id: 'Gauge.id.1',
-                  lastMeasurement: {
-                    __typename: 'Measurement',
-                    flow: 300,
-                    level: 300,
-                    timestamp: new Date(2018, 1, 1).toISOString(),
-                  },
-                },
-              ],
-            },
-          },
-        },
-      },
-    }, // whole query
+    mockPolledResponse(0),
+    mockPolledResponse(1),
+    mockPolledResponse(2),
     {
       request: {
         query,
@@ -566,7 +570,20 @@ it('should pass lastMeasurements updated via poll', async () => {
     pollInterval: POLL_INTERVAL,
   });
   await flushPromises(10);
-  // jest.runTimersToTime(POLL_INTERVAL * 0.5);
+  jest.runTimersToTime(POLL_INTERVAL * 0.5);
+  await flushPromises(10);
+  jest.runTimersToTime(POLL_INTERVAL * 0.6);
+  await flushPromises(10);
+  jest.runTimersToTime(POLL_INTERVAL * 1.1);
+  await flushPromises(10);
+  expect(children.mock.calls.pop()).toHaveProperty(
+    '0.sections.0.gauge.lastMeasurement.flow',
+    302,
+  );
+  expect(children.mock.calls.pop()).toHaveProperty(
+    '0.sections.0.gauge.lastMeasurement.flow',
+    301,
+  );
   expect(children.mock.calls.pop()).toHaveProperty(
     '0.sections.0.gauge.lastMeasurement.flow',
     300,
@@ -594,7 +611,7 @@ it('should pass lastMeasurements updated via poll after coming back online', asy
   await flushPromises(10);
   expect(children.mock.calls.pop()).toHaveProperty(
     '0.sections.0.gauge.lastMeasurement.flow',
-    300,
+    301,
   );
 });
 
