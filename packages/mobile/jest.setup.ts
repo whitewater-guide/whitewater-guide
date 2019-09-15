@@ -12,3 +12,5 @@ fetchMock.config.overwriteRoutes = false;
 global.fetch = fetchMock.sandbox();
 // global.fetch = fetchMock;
 jest.mock('react-native-sentry');
+// @ts-ignore
+console.disableYellowBox = true;

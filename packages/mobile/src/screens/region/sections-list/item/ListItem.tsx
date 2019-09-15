@@ -1,4 +1,10 @@
-import { Banner, isBanner, Section } from '@whitewater-guide/commons';
+import { sectionHasChanged } from '@whitewater-guide/clients';
+import {
+  Banner,
+  isBanner,
+  isSection,
+  Section,
+} from '@whitewater-guide/commons';
 import React from 'react';
 import { ItemProps } from '../types';
 import { SectionListBanner } from './SectionListBanner';
@@ -14,6 +20,9 @@ type Props = ItemProps<Section | Banner> & {
 const propsAreEqual = (prev: Props, next: Props) =>
   prev.swipedId === next.swipedId &&
   prev.item.id === next.item.id &&
+  (isSection(prev.item) && isSection(next.item)
+    ? !sectionHasChanged(prev.item, next.item)
+    : true) &&
   prev.hasPremiumAccess === next.hasPremiumAccess &&
   prev.forceCloseCnt === next.forceCloseCnt;
 

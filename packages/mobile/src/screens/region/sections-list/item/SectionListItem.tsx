@@ -1,3 +1,4 @@
+import { sectionHasChanged } from '@whitewater-guide/clients';
 import { Section } from '@whitewater-guide/commons';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
@@ -58,7 +59,7 @@ export class SectionListItem extends React.Component<Props> {
     const props = this.props;
     return (
       props.forceCloseCnt !== next.forceCloseCnt ||
-      props.item.id !== next.item.id ||
+      sectionHasChanged(props.item, next.item) ||
       props.hasPremiumAccess !== next.hasPremiumAccess ||
       (props.item.id === props.swipedId && props.swipedId !== next.swipedId)
     );

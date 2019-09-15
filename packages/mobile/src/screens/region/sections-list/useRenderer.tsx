@@ -1,6 +1,8 @@
 import { SectionsStatus } from '@whitewater-guide/clients';
 import { Banner, isBanner, Section } from '@whitewater-guide/commons';
 import { useNavigation } from '@zhigang1992/react-navigation-hooks';
+import max from 'date-fns/max';
+import parseISO from 'date-fns/parseISO';
 import React, { useCallback, useMemo, useState } from 'react';
 import { RefreshControl } from 'react-native';
 import { WithPremiumDialog } from '../../../features/purchases';
@@ -13,17 +15,42 @@ interface ExtendedState {
   swipedId: string;
   hasPremiumAccess: boolean;
   forceCloseCnt: number;
+  lastTimestamp: Date;
 }
 
 export default (props: ListProps & WithPremiumDialog) => {
-  const { region, refresh, status, canMakePayments, buyRegion } = props;
+  const {
+    region,
+    sections,
+    refresh,
+    status,
+    canMakePayments,
+    buyRegion,
+  } = props;
   const { navigate } = useNavigation();
 
   const [extraState, setExtraState] = useState<ExtendedState>({
     swipedId: '',
     hasPremiumAccess: region ? region.hasPremiumAccess : false,
     forceCloseCnt: 0,
+    lastTimestamp: new Date(1990, 0),
   });
+
+  const lastTimestamp = useMemo(
+    () =>
+      sections.reduce((acc, section) => {
+        const dates = [acc, parseISO(section.updatedAt)];
+        const msm =
+          section.gauge &&
+          section.gauge.lastMeasurement &&
+          section.gauge.lastMeasurement.timestamp;
+        if (msm) {
+          dates.push(parseISO(msm));
+        }
+        return max(dates);
+      }, new Date(1990, 0)),
+    [sections],
+  );
 
   const onSectionSelected = useCallback(
     (section: Section) => {
@@ -108,7 +135,10 @@ export default (props: ListProps & WithPremiumDialog) => {
   }, [status, refresh, setExtraState]);
 
   return {
-    extendedState: extraState,
+    extendedState: {
+      ...extraState,
+      lastTimestamp,
+    },
     renderItem,
     scrollViewProps,
   };
