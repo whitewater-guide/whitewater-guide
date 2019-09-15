@@ -563,8 +563,7 @@ it('should pass lastMeasurements updated via poll', async () => {
     pollInterval: POLL_INTERVAL,
   });
   await flushPromises(10);
-  jest.runTimersToTime(POLL_INTERVAL * 2.5);
-  await flushPromises(10);
+  // jest.runTimersToTime(POLL_INTERVAL * 0.5);
   expect(children.mock.calls.pop()).toHaveProperty(
     '0.sections.0.gauge.lastMeasurement.flow',
     300,
