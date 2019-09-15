@@ -6,6 +6,7 @@ export * from './listSections.query';
 export * from './prettyNumber';
 export * from './SectionContext';
 export * from './sectionFragments';
+export * from './sectionHasChanged';
 export * from './sectionName.query';
 export * from './sectionDetails.query';
 export * from './SectionsListProvider';
