@@ -112,13 +112,13 @@ export class SectionsListProvider extends React.PureComponent<
     }
   }
 
-  async componentDidUpdate(prevProps: Props, prevState: any) {
+  async componentDidUpdate(prevProps: Props) {
     if (this.props.isConnected && !prevProps.isConnected) {
       const { count, sections } = this.state;
       if (count === 0 || sections.length < count) {
         await this.loadInitial();
-        await this.startPolling();
       }
+      await this.startPolling();
     }
   }
 

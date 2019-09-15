@@ -529,32 +529,35 @@ it('should poll lastMeasurements', async () => {
   );
 });
 
-it('should poll lastMeasurements after coming back online', async () => {
-  jest.useFakeTimers();
-  const harness = mountInHarness({
-    cache: {
-      sections: {
-        __typename: 'SectionsList',
-        count: INITIAL_COUNT,
-        nodes: seedSections.slice(0, 2),
+it.each([['partial data', 2], ['full data', INITIAL_COUNT]])(
+  'should poll lastMeasurements after coming back online with %s',
+  async (_: any, len: number) => {
+    jest.useFakeTimers();
+    const harness = mountInHarness({
+      cache: {
+        sections: {
+          __typename: 'SectionsList',
+          count: INITIAL_COUNT,
+          nodes: seedSections.slice(0, len),
+        },
       },
-    },
-    responses: mockedResponses,
-    isConnected: false,
-    pollInterval: POLL_INTERVAL,
-  });
-  await flushPromises(10);
-  const spy = jest.spyOn(MockLink.prototype, 'request');
-  harness.update({ isConnected: true });
-  await flushPromises(10);
-  jest.runTimersToTime(POLL_INTERVAL * 2.5);
-  expect(spy).toHaveBeenLastCalledWith(
-    expect.objectContaining({
-      operationName: 'pollRegionMeasurements',
-      variables: { regionId: TEST_REGION_ID },
-    }),
-  );
-});
+      responses: mockedResponses,
+      isConnected: false,
+      pollInterval: POLL_INTERVAL,
+    });
+    await flushPromises(10);
+    const spy = jest.spyOn(MockLink.prototype, 'request');
+    harness.update({ isConnected: true });
+    await flushPromises(10);
+    jest.runTimersToTime(POLL_INTERVAL * 2.5);
+    expect(spy).toHaveBeenLastCalledWith(
+      expect.objectContaining({
+        operationName: 'pollRegionMeasurements',
+        variables: { regionId: TEST_REGION_ID },
+      }),
+    );
+  },
+);
 
 it('should pass lastMeasurements updated via poll', async () => {
   jest.useFakeTimers();
