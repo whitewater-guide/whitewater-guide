@@ -1,3 +1,14 @@
+## [1.9.2](https://github.com/doomsower/whitewater/compare/3a24acbbe49b56777228b7027745a912dd396c2e...35a4a8bc021648aa0410af9e515527b4dee1fe12) (2019-09-15)
+
+### Other
+
+- publish clients for react-native ([5715dbb59288e53120d2a20f529b4bfc73ccc78a](https://github.com/doomsower/whitewater/commit/5715dbb59288e53120d2a20f529b4bfc73ccc78a))
+
+### Bug Fixes
+
+- fix measurements polling ([ebaa5e23af3c290f941374d7729cb4f59ad8f6c6](https://github.com/doomsower/whitewater/commit/ebaa5e23af3c290f941374d7729cb4f59ad8f6c6))
+- rerender sections list when measurements change ([09b08cbc1abcdbb958571a06a4ffab4f1b70ed53](https://github.com/doomsower/whitewater/commit/09b08cbc1abcdbb958571a06a4ffab4f1b70ed53))
+
 ## [1.9.1](https://github.com/doomsower/whitewater/compare/e25c08a7a37db1238b2c3baa5655be08b471fca9...3a24acbbe49b56777228b7027745a912dd396c2e) (2019-09-13)
 
 ### Bug Fixes
