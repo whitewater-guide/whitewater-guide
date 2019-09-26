@@ -1,3 +1,9 @@
+## [0.1.396](https://github.com/doomsower/whitewater/compare/7f04be220daa4b109e50a7365f7346834a15c457...d89a28d698ff69a61ce3fab79a6797bef73fff39) (2019-09-26)
+
+### Features
+
+- add demo column ([c2a62756cf54f65fa91f8601e248192ec34fdac2](https://github.com/doomsower/whitewater/commit/c2a62756cf54f65fa91f8601e248192ec34fdac2))
+
 ## [0.1.395](https://github.com/doomsower/whitewater/compare/26ea0f151022e7b2f0ef430f3c9eecb7f2169944...7f04be220daa4b109e50a7365f7346834a15c457) (2019-09-26)
 
 ### Features

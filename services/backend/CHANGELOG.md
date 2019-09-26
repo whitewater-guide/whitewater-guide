@@ -1,3 +1,9 @@
+## [0.0.396](https://github.com/doomsower/whitewater/compare/7f04be220daa4b109e50a7365f7346834a15c457...d89a28d698ff69a61ce3fab79a6797bef73fff39) (2019-09-26)
+
+### Features
+
+- iceland migration ([880493fbbf620b23b1d64c5973860186193b503c](https://github.com/doomsower/whitewater/commit/880493fbbf620b23b1d64c5973860186193b503c))
+
 ## [0.0.395](https://github.com/doomsower/whitewater/compare/26ea0f151022e7b2f0ef430f3c9eecb7f2169944...7f04be220daa4b109e50a7365f7346834a15c457) (2019-09-26)
 
 ### Features
