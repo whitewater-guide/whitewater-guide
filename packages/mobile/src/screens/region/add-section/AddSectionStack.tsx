@@ -86,7 +86,7 @@ export const AddSectionStack: NavigationScreenComponent & {
       tags: [],
       pois: [],
 
-      hidden: true,
+      hidden: false,
     }),
     [],
   );
