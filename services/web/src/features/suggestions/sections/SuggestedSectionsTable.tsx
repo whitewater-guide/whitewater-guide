@@ -4,7 +4,12 @@ import parseISO from 'date-fns/parseISO';
 import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { Column, TableProps } from 'react-virtualized';
-import { isEmptyRow, Table, TableCellRenderer } from '../../../components';
+import {
+  AdminColumn,
+  isEmptyRow,
+  Table,
+  TableCellRenderer,
+} from '../../../components';
 import { StatusFilter } from '../components';
 import { ListedSuggestedSection } from './suggestedSections.query';
 import SuggestedSectionStatusView from './SuggestedSectionStatusView';
@@ -36,6 +41,16 @@ const renderSection: TableCellRenderer<ListedSuggestedSection> = ({
   }
   const { name, river } = rowData;
   return `${river.name} - ${name}`;
+};
+
+const renderAuthor: TableCellRenderer<ListedSuggestedSection> = ({
+  rowData,
+}) => {
+  if (isEmptyRow(rowData)) {
+    return null;
+  }
+  const { createdBy } = rowData;
+  return createdBy ? createdBy.name : '';
 };
 
 interface OwnProps {
@@ -95,6 +110,12 @@ const SuggestedSectionsTable: React.FC<Props> = React.memo((props) => {
         label="Name"
         dataKey="name"
         cellRenderer={renderSection}
+      />
+      <AdminColumn
+        width={120}
+        dataKey="createdBy"
+        label="Author"
+        cellRenderer={renderAuthor}
       />
       <Column
         width={120}

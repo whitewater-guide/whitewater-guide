@@ -13,6 +13,10 @@ export const SUGGESTED_SECTIONS_QUERY = gql`
       nodes {
         id
         createdAt
+        createdBy {
+          id
+          name
+        }
         region {
           id
           name
