@@ -12,11 +12,12 @@ export const importSection = async <S>(
 ) => {
   const input = transform(section, riverId);
   const import_id = typeof importId === 'string' ? importId : importId(section);
+  let result: any;
   try {
-    const result: any = await rawUpsert(db, 'SELECT upsert_section(?, ?)', [
-      input,
-      'en',
-    ]);
+    result = await rawUpsert(db, 'SELECT upsert_section(?, ?)', [input, 'en']);
+    if (Array.isArray(result)) {
+      result = result[0]; // upsert_section function used to return just section object
+    }
     if (result) {
       await db
         .table('sections')

@@ -1,5 +1,6 @@
 import { rawUpsert } from '@db';
 import Knex from 'knex';
+import deburr from 'lodash/deburr';
 
 export const importRivers = async (
   db: Knex,
@@ -20,8 +21,9 @@ export const importRivers = async (
       riverIds.set(riverName, exists.id);
       continue;
     }
+    const altNames = deburr(riverName) === riverName ? [] : [deburr(riverName)];
     const inserted = (await rawUpsert(db, 'SELECT upsert_river(?, ?)', [
-      { region, name: riverName },
+      { region, name: riverName, altNames },
       'en',
     ])) as any;
     if (inserted) {
