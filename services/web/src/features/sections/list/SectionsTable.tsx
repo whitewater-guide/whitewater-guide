@@ -1,4 +1,5 @@
 import Box from '@material-ui/core/Box';
+import Icon from '@material-ui/core/Icon';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import Tooltip from '@material-ui/core/Tooltip';
 import Rating from '@material-ui/lab/Rating';
@@ -9,7 +10,7 @@ import {
   getSectionColor,
   renderDifficulty,
 } from '@whitewater-guide/clients';
-import { Durations, Section, sectionName } from '@whitewater-guide/commons';
+import { Section, sectionName } from '@whitewater-guide/commons';
 import parseISO from 'date-fns/parseISO';
 import { History } from 'history';
 import React from 'react';
@@ -17,6 +18,7 @@ import { Column, IndexRange, TableProps } from 'react-virtualized';
 import {
   ClickBlocker,
   DeleteButton,
+  EditorColumn,
   IconLink,
   isEmptyRow,
   TableCellRenderer,
@@ -63,11 +65,11 @@ export default class SectionsTable extends React.PureComponent<Props> {
     return renderDifficulty(rowData);
   };
 
-  renderDuration: TableCellRenderer<Section> = ({ rowData }) => {
+  renderHidden: TableCellRenderer<Section> = ({ rowData }) => {
     if (isEmptyRow(rowData)) {
       return null;
     }
-    return rowData.duration && Durations.get(rowData.duration);
+    return rowData.hidden ? <Icon>visibility_off</Icon> : null;
   };
 
   renderRating: TableCellRenderer<Section> = ({ rowData }) => {
@@ -210,12 +212,12 @@ export default class SectionsTable extends React.PureComponent<Props> {
           dataKey="rating"
           cellRenderer={this.renderRating}
         />
-        <Column
+        <EditorColumn
           width={80}
-          label="Duration"
-          dataKey="duration"
+          label="Hidden"
+          dataKey="hidden"
           headerClassName="centered"
-          cellRenderer={this.renderDuration}
+          cellRenderer={this.renderHidden}
         />
         <Column
           width={192}
