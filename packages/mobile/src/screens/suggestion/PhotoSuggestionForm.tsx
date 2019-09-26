@@ -1,6 +1,6 @@
 import {
+  PhotoSuggestionInputSchema,
   SuggestionInput,
-  SuggestionInputSchema,
 } from '@whitewater-guide/commons';
 import { Formik } from 'formik';
 import React, { useCallback, useMemo, useRef } from 'react';
@@ -55,7 +55,11 @@ const PhotoSuggestionForm: React.FC<Props> = React.memo((props) => {
   const { t } = useTranslation();
   const initialValues = useMemo(() => getInitialValues(sectionId), [sectionId]);
   const onSubmit = useAddSuggestion();
-  const validate = useValidate(SuggestionInputSchema);
+  const validate = useValidate(PhotoSuggestionInputSchema);
+  const initialErrors = useMemo(() => validate(initialValues), [
+    validate,
+    initialValues,
+  ]);
   const [scroll, handlers] = useKeyboard();
   const [uploadLink, preparingLink] = useUploadLink();
   if (preparingLink || !uploadLink) {
@@ -65,10 +69,11 @@ const PhotoSuggestionForm: React.FC<Props> = React.memo((props) => {
   return (
     <Formik<SuggestionInput>
       initialValues={initialValues}
+      initialErrors={initialErrors}
       onSubmit={onSubmit}
       validate={validate}
     >
-      {({ isSubmitting, submitForm }) => (
+      {({ isSubmitting, isValid, submitForm }) => (
         <KeyboardAvoidingView
           behavior="height"
           style={styles.container}
@@ -104,6 +109,7 @@ const PhotoSuggestionForm: React.FC<Props> = React.memo((props) => {
               mode="contained"
               onPress={isSubmitting ? undefined : submitForm}
               loading={isSubmitting}
+              disabled={!isValid}
             >
               {t('screens:suggestion.submitPhoto')}
             </Button>

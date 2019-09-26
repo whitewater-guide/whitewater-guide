@@ -47,12 +47,13 @@ interface Props {
 export const PhotoUploadField: React.FC<Props> = React.memo((props) => {
   const { name, resolutionName = 'resolution', uploadLink } = props;
   const [file, setFile] = useState<Photo | null>(null);
-  const { errors } = useFormikContext<any>();
+  const { errors, touched, setFieldTouched } = useFormikContext<any>();
   const setPhotoUploadErrors = usePhotoUploadErrors(name, resolutionName);
   const setPhotoValues = useSetPhotoValues(name, resolutionName);
   // TODO: cancel current request using AbortController in react 0.60
   const [state, onChange] = useAsyncFn(
     async (value: Photo | null) => {
+      setFieldTouched(name, true);
       setPhotoUploadErrors();
       setFile(value);
       if (!value) {
@@ -74,9 +75,13 @@ export const PhotoUploadField: React.FC<Props> = React.memo((props) => {
       setFile,
       setPhotoUploadErrors,
       setPhotoValues,
+      setFieldTouched,
     ],
   );
   const error = errors[name] || errors[resolutionName];
+  if (error && (error as any).key === 'yup:mixed.notType') {
+    (error as any).key = 'yup:mixed.required';
+  }
   return (
     <View style={styles.container}>
       <View>
@@ -88,7 +93,7 @@ export const PhotoUploadField: React.FC<Props> = React.memo((props) => {
         )}
       </View>
       <View style={styles.errorBox}>
-        <HelperText touched={true} error={error} />
+        <HelperText touched={!!touched[name] && !state.loading} error={error} />
       </View>
     </View>
   );
