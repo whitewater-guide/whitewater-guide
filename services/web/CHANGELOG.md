@@ -1,3 +1,10 @@
+## [0.1.395](https://github.com/doomsower/whitewater/compare/26ea0f151022e7b2f0ef430f3c9eecb7f2169944...7f04be220daa4b109e50a7365f7346834a15c457) (2019-09-26)
+
+### Features
+
+- indicate hidden sections ([a55be38a5d33588b41b19790753cae340868b0cd](https://github.com/doomsower/whitewater/commit/a55be38a5d33588b41b19790753cae340868b0cd)), closes [#420](https://github.com/doomsower/whitewater/issues/420)
+- show author of suggested section ([51931b40082e129a16df1e37b118300dd766bd03](https://github.com/doomsower/whitewater/commit/51931b40082e129a16df1e37b118300dd766bd03))
+
 ## [0.1.393](https://github.com/doomsower/whitewater/compare/08c66f39f237fb0fc1c12f3a118df83eab0085af...26ea0f151022e7b2f0ef430f3c9eecb7f2169944) (2019-09-26)
 
 ### Features

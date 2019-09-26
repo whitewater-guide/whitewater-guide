@@ -1,3 +1,9 @@
+## [0.0.395](https://github.com/doomsower/whitewater/compare/26ea0f151022e7b2f0ef430f3c9eecb7f2169944...7f04be220daa4b109e50a7365f7346834a15c457) (2019-09-26)
+
+### Features
+
+- approved suggestions are saved as demo ([e44995c359a682155f39ccb3885c7a7b7aa16bc2](https://github.com/doomsower/whitewater/commit/e44995c359a682155f39ccb3885c7a7b7aa16bc2)), closes [#422](https://github.com/doomsower/whitewater/issues/422)
+
 ## [0.0.394](https://github.com/doomsower/whitewater/compare/08c66f39f237fb0fc1c12f3a118df83eab0085af...26ea0f151022e7b2f0ef430f3c9eecb7f2169944) (2019-09-26)
 
 ### Features
