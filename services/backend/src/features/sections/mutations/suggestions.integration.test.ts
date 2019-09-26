@@ -2,7 +2,7 @@ import db, { holdTransaction, rollbackTransaction } from '@db/db';
 import { EDITOR_NO, EDITOR_NO_ID, TEST_USER_ID } from '@seeds/01_users';
 import { REGION_NORWAY } from '@seeds/04_regions';
 import { SUGGESTED_SECTION_ID1 } from '@seeds/17_suggestions';
-import { fakeContext, runQuery, TIMESTAMP_REGEX, UUID_REGEX } from '@test';
+import { fakeContext, runQuery, UUID_REGEX } from '@test';
 import { SuggestionStatus } from '@whitewater-guide/commons';
 
 beforeEach(holdTransaction);
@@ -86,6 +86,7 @@ const mutation = `
       createdAt
       updatedAt
       hidden
+      demo
       pois {
         id
         name
@@ -140,13 +141,14 @@ describe('suggested section as upsert input', () => {
     });
   });
 
-  it('upserted section should keep original creator', async () => {
+  it('upserted section should keep original creator and be demo', async () => {
     const result = await testCase();
-    const { created_by } = await db(false)
-      .select('created_by')
+    const { created_by, demo } = await db(false)
+      .select(['created_by', 'demo'])
       .from('sections')
       .where({ id: result.data.upsertSection.id })
       .first();
     expect(created_by).toBe(TEST_USER_ID);
+    expect(demo).toBe(true);
   });
 });

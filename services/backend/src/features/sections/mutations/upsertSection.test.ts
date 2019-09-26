@@ -126,6 +126,7 @@ const upsertQuery = `
       createdAt
       updatedAt
       hidden
+      demo
       pois {
         id
         name
