@@ -7,6 +7,8 @@ const suggestedSectionResolvers: FieldResolvers<
   SuggestedSection<SectionInput>
 > = {
   createdAt: ({ created_at }) => new Date(created_at).toISOString(),
+  createdBy: ({ section }, _, { dataSources }) =>
+    dataSources.users.getById(section.createdBy),
   section: ({ id, section }) => ({ ...section, suggestionId: id }),
 };
 

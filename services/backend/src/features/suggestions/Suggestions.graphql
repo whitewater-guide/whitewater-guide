@@ -50,6 +50,7 @@ type SuggestedSection {
   id: ID!
   status: SuggestionStatus
   createdAt: Date!
+  createdBy: User
   region: Region!
   river: River!
   name: String!

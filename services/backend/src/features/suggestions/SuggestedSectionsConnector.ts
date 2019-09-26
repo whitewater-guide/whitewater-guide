@@ -12,6 +12,7 @@ const FIELDS_MAP: FieldsMap<
   name: knex.raw("section ->> 'name' AS name"),
   region: knex.raw("section -> 'region' AS region"),
   river: knex.raw("section -> 'river' AS river"),
+  createdBy: 'section',
 };
 
 export class SuggestedSectionsConnector extends BaseConnector<

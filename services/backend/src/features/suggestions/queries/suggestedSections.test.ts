@@ -7,7 +7,7 @@ import {
   TEST_USER_ID,
 } from '@seeds/01_users';
 import { REGION_NORWAY } from '@seeds/04_regions';
-import { anonContext, fakeContext, runQuery } from '@test';
+import { anonContext, fakeContext, runQuery, TIMESTAMP_REGEX } from '@test';
 import {
   ApolloErrorCodes,
   NEW_ID,
@@ -23,6 +23,11 @@ const query = `
       nodes {
         __typename
         status
+        createdAt
+        createdBy {
+          id
+          name
+        }
         region {
           id
           name
@@ -88,6 +93,11 @@ it('admin should get all suggested sections', async () => {
       name: 'Driva',
     },
     name: 'Upper',
+    createdAt: expect.stringMatching(TIMESTAMP_REGEX),
+    createdBy: {
+      id: TEST_USER_ID,
+      name: expect.any(String),
+    },
   });
 });
 
