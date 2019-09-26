@@ -41,6 +41,7 @@ describe('SuggestionInputSchema', () => {
   ];
 
   const incorrectValues: TestValue[] = [
+    ['all empty', { ...correct, description: null, copyright: null }],
     ['bad uuid', { ...correct, section: { id: 'fooo' } }],
     ['no description and no media', { ...correct, description: null }],
     ['filename without resolution', { ...correct, filename: 'foo.jpg' }],
@@ -86,6 +87,16 @@ describe('PhotoSuggestionInputSchema', () => {
   ];
 
   const incorrectValues: TestValue[] = [
+    [
+      'all empty',
+      {
+        ...correct,
+        filename: null,
+        description: null,
+        resolution: null,
+        copyright: null,
+      },
+    ],
     ['no filename', { ...correct, filename: null }],
     ['no resolution', { ...correct, resolution: null }],
   ];

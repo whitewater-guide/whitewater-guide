@@ -13,7 +13,7 @@ const makeSuggestingSchema = (photoRequired: boolean) =>
           name: 'correct-description',
           message: 'yup:mixed.required',
           test(v) {
-            return !!v || !!this.parent.filename;
+            return photoRequired || !!v || !!this.parent.filename;
           },
         }),
       copyright: yup.string().nullable(true),

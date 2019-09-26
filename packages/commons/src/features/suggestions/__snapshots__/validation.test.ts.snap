@@ -1,5 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`PhotoSuggestionInputSchema should be invalid for all empty 1`] = `
+Object {
+  "filename": Object {
+    "key": "yup:mixed.notType",
+    "options": Object {
+      "type": "string",
+    },
+  },
+  "resolution": Object {
+    "key": "yup:mixed.notType",
+    "options": Object {
+      "type": "array",
+    },
+  },
+}
+`;
+
 exports[`PhotoSuggestionInputSchema should be invalid for no filename 1`] = `
 Object {
   "filename": Object {
@@ -21,6 +38,13 @@ Object {
       "type": "array",
     },
   },
+}
+`;
+
+exports[`SuggestionInputSchema should be invalid for all empty 1`] = `
+Object {
+  "description": "yup:mixed.required",
+  "filename": "yup:mixed.required",
 }
 `;
 
