@@ -36,6 +36,7 @@ export interface SuggestionInput {
 
 export interface SuggestedSection<SectionType = string> extends Node {
   createdAt: string;
+  createdBy: User | null;
   status: SuggestionStatus;
   region: NamedNode;
   river: NamedNode;
