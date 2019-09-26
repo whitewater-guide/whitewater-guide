@@ -1,3 +1,9 @@
+## [1.9.4](https://github.com/doomsower/whitewater/compare/4a3e5cccbd87724f2df408b8123cb2196428761e...b1e46349824a1b601ce40a0498c4d7361d8b392e) (2019-09-26)
+
+### Features
+
+- suggested sections have hidden = false ([b1e46349824a1b601ce40a0498c4d7361d8b392e](https://github.com/doomsower/whitewater/commit/b1e46349824a1b601ce40a0498c4d7361d8b392e)), closes [#422](https://github.com/doomsower/whitewater/issues/422)
+
 ## [1.9.3](https://github.com/doomsower/whitewater/compare/35a4a8bc021648aa0410af9e515527b4dee1fe12...4a3e5cccbd87724f2df408b8123cb2196428761e) (2019-09-26)
 
 ### Bug Fixes
