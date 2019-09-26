@@ -1,3 +1,13 @@
+## [1.9.3](https://github.com/doomsower/whitewater/compare/35a4a8bc021648aa0410af9e515527b4dee1fe12...4a3e5cccbd87724f2df408b8123cb2196428761e) (2019-09-26)
+
+### Bug Fixes
+
+- lock photo suggestion form until photo is uploaded ([4a3e5cccbd87724f2df408b8123cb2196428761e](https://github.com/doomsower/whitewater/commit/4a3e5cccbd87724f2df408b8123cb2196428761e))
+
+### Features
+
+- validation schema for photo suggestions ([eb8c6552624238e29fced8cf53a59faa06ff2532](https://github.com/doomsower/whitewater/commit/eb8c6552624238e29fced8cf53a59faa06ff2532))
+
 ## [1.9.2](https://github.com/doomsower/whitewater/compare/3a24acbbe49b56777228b7027745a912dd396c2e...35a4a8bc021648aa0410af9e515527b4dee1fe12) (2019-09-15)
 
 ### Other
