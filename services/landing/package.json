@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/landing",
   "private": true,
-  "version": "0.0.53-ugsections.1",
+  "version": "0.0.53",
   "license": "UNLICENSED",
   "description": "Static landing pages for whitewater.guide",
   "scripts": {
