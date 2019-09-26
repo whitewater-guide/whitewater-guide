@@ -1,3 +1,9 @@
+## [0.0.394](https://github.com/doomsower/whitewater/compare/08c66f39f237fb0fc1c12f3a118df83eab0085af...26ea0f151022e7b2f0ef430f3c9eecb7f2169944) (2019-09-26)
+
+### Features
+
+- add createdBy to SuggestedSection ([cbfb59a96ad4d3b1c061dc3ad1a08f2f99231291](https://github.com/doomsower/whitewater/commit/cbfb59a96ad4d3b1c061dc3ad1a08f2f99231291))
+
 ## [0.0.393](https://github.com/doomsower/whitewater/compare/6fca4f2a6929ab7072c51d2441b5b8ee6cc45fb1...29ec198658912047d6226f85a9ca571a57cb44fc) (2019-09-05)
 
 ## [0.0.393](https://github.com/doomsower/whitewater/compare/3fcbd76549b7894dc14ddabba6ec89ccd963689b...6fca4f2a6929ab7072c51d2441b5b8ee6cc45fb1) (2019-09-05)

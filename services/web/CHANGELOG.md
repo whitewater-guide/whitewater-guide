@@ -1,3 +1,9 @@
+## [0.1.393](https://github.com/doomsower/whitewater/compare/08c66f39f237fb0fc1c12f3a118df83eab0085af...26ea0f151022e7b2f0ef430f3c9eecb7f2169944) (2019-09-26)
+
+### Features
+
+- show author of simple suggestion ([9c32d6e125a242408bef7cefb74a2ee94d77af66](https://github.com/doomsower/whitewater/commit/9c32d6e125a242408bef7cefb74a2ee94d77af66))
+
 ## [0.1.390](https://github.com/doomsower/whitewater/compare/6fca4f2a6929ab7072c51d2441b5b8ee6cc45fb1...29ec198658912047d6226f85a9ca571a57cb44fc) (2019-09-05)
 
 ## [0.1.390](https://github.com/doomsower/whitewater/compare/3fcbd76549b7894dc14ddabba6ec89ccd963689b...6fca4f2a6929ab7072c51d2441b5b8ee6cc45fb1) (2019-09-05)
