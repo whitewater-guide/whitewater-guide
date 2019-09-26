@@ -1,58 +1,101 @@
 import { createSafeValidator } from '../../validation';
 import { SuggestionInput } from './types';
-import { SuggestionInputSchema } from './validation';
-
-const validator = createSafeValidator(SuggestionInputSchema);
+import {
+  PhotoSuggestionInputSchema,
+  SuggestionInputSchema,
+} from './validation';
 
 type TestValue = [string, SuggestionInput];
 
-const correct: SuggestionInput = {
-  section: { id: '45bcd1fc-b5de-11e9-a2a3-2a2ae2dbcce4' },
-  description: 'descr',
-  copyright: 'copyright',
-  filename: null,
-  resolution: null,
-};
+describe('SuggestionInputSchema', () => {
+  const validator = createSafeValidator(SuggestionInputSchema);
 
-const correctValues: TestValue[] = [
-  ['without media', correct],
-  [
-    'with media',
-    {
-      ...correct,
-      filename: 'fooo.jpg',
-      resolution: [100, 100],
-    },
-  ],
-  [
-    'just media',
-    {
-      ...correct,
-      description: null,
-      copyright: null,
-      filename: 'fooo.jpg',
-      resolution: [100, 100],
-    },
-  ],
-];
+  const correct: SuggestionInput = {
+    section: { id: '45bcd1fc-b5de-11e9-a2a3-2a2ae2dbcce4' },
+    description: 'descr',
+    copyright: 'copyright',
+    filename: null,
+    resolution: null,
+  };
 
-const incorrectValues: TestValue[] = [
-  ['bad uuid', { ...correct, section: { id: 'fooo' } }],
-  ['no description and no media', { ...correct, description: null }],
-  ['filename without resolution', { ...correct, filename: 'foo.jpg' }],
-  ['resolution without filename', { ...correct, resolution: [100, 100] }],
-  [
-    'bad resolution',
-    { ...correct, filename: 'foo.jpg', resolution: [100, 100, 100] },
-  ],
-  ['extra fields', { ...correct, foo: 'bar' } as any],
-];
+  const correctValues: TestValue[] = [
+    ['without media', correct],
+    [
+      'with media',
+      {
+        ...correct,
+        filename: 'fooo.jpg',
+        resolution: [100, 100],
+      },
+    ],
+    [
+      'just media',
+      {
+        ...correct,
+        description: null,
+        copyright: null,
+        filename: 'fooo.jpg',
+        resolution: [100, 100],
+      },
+    ],
+  ];
 
-it.each(correctValues)('should be valid for %s', (_, value) => {
-  expect(validator(value)).toBeNull();
+  const incorrectValues: TestValue[] = [
+    ['bad uuid', { ...correct, section: { id: 'fooo' } }],
+    ['no description and no media', { ...correct, description: null }],
+    ['filename without resolution', { ...correct, filename: 'foo.jpg' }],
+    ['resolution without filename', { ...correct, resolution: [100, 100] }],
+    [
+      'bad resolution',
+      { ...correct, filename: 'foo.jpg', resolution: [100, 100, 100] },
+    ],
+    ['extra fields', { ...correct, foo: 'bar' } as any],
+  ];
+
+  it.each(correctValues)('should be valid for %s', (_, value) => {
+    expect(validator(value)).toBeNull();
+  });
+
+  it.each(incorrectValues)('should be invalid for %s', (_, value) => {
+    expect(validator(value)).not.toBeNull();
+    expect(validator(value)).toMatchSnapshot();
+  });
 });
 
-it.each(incorrectValues)('should be invalid for %s', (_, value) => {
-  expect(validator(value)).not.toBeNull();
-  expect(validator(value)).toMatchSnapshot();
+describe('PhotoSuggestionInputSchema', () => {
+  const validator = createSafeValidator(PhotoSuggestionInputSchema);
+
+  const correct: SuggestionInput = {
+    section: { id: '45bcd1fc-b5de-11e9-a2a3-2a2ae2dbcce4' },
+    description: 'descr',
+    copyright: 'copyright',
+    filename: 'fooo.jpg',
+    resolution: [100, 100],
+  };
+
+  const correctValues: TestValue[] = [
+    ['full', correct],
+    [
+      'without description',
+      {
+        ...correct,
+        description: null,
+        copyright: null,
+      },
+    ],
+  ];
+
+  const incorrectValues: TestValue[] = [
+    ['no filename', { ...correct, filename: null }],
+    ['no resolution', { ...correct, resolution: null }],
+  ];
+
+  it.each(correctValues)('should be valid for %s', (_, value) => {
+    expect(validator(value)).toBeNull();
+  });
+
+  it.each(incorrectValues)('should be invalid for %s', (_, value) => {
+    expect(validator(value)).not.toBeNull();
+    expect(validator(value)).toMatchSnapshot();
+  });
 });
