@@ -16,6 +16,7 @@ import { History } from 'history';
 import React from 'react';
 import { Column, IndexRange, TableProps } from 'react-virtualized';
 import {
+  AdminColumn,
   ClickBlocker,
   DeleteButton,
   EditorColumn,
@@ -70,6 +71,13 @@ export default class SectionsTable extends React.PureComponent<Props> {
       return null;
     }
     return rowData.hidden ? <Icon>visibility_off</Icon> : null;
+  };
+
+  renderDemo: TableCellRenderer<Section> = ({ rowData }) => {
+    if (isEmptyRow(rowData)) {
+      return null;
+    }
+    return rowData.demo ? <Icon>lock_open</Icon> : null;
   };
 
   renderRating: TableCellRenderer<Section> = ({ rowData }) => {
@@ -211,6 +219,13 @@ export default class SectionsTable extends React.PureComponent<Props> {
           label="Rating"
           dataKey="rating"
           cellRenderer={this.renderRating}
+        />
+        <AdminColumn
+          width={50}
+          label="Demo"
+          dataKey="demo"
+          headerClassName="centered"
+          cellRenderer={this.renderDemo}
         />
         <EditorColumn
           width={80}
