@@ -4,7 +4,12 @@ import parseISO from 'date-fns/parseISO';
 import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { Column, TableProps } from 'react-virtualized';
-import { isEmptyRow, Table, TableCellRenderer } from '../../../components';
+import {
+  AdminColumn,
+  isEmptyRow,
+  Table,
+  TableCellRenderer,
+} from '../../../components';
 import { StatusFilter } from '../components';
 import { ListedSuggestion } from './listSuggestions.query';
 import SuggestionItem from './SuggestionItem';
@@ -57,6 +62,16 @@ const SuggestionsTable: React.FC<Props> = React.memo((props) => {
     setStatusFilter,
   } = props;
 
+  const renderAuthor: TableCellRenderer<ListedSuggestion> = useCallback(
+    ({ rowData }) => {
+      if (isEmptyRow(rowData)) {
+        return null;
+      }
+      return rowData.createdBy ? rowData.createdBy.name : '';
+    },
+    [],
+  );
+
   const renderResolveButton: TableCellRenderer<ListedSuggestion> = useCallback(
     ({ rowData }) => {
       if (isEmptyRow(rowData)) {
@@ -102,6 +117,12 @@ const SuggestionsTable: React.FC<Props> = React.memo((props) => {
         label="Suggestion"
         dataKey="description"
         cellRenderer={renderSuggestion}
+      />
+      <AdminColumn
+        width={120}
+        label="Author"
+        dataKey="createdBy"
+        cellRenderer={renderAuthor}
       />
       <Column
         width={120}

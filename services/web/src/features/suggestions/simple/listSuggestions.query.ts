@@ -14,6 +14,10 @@ export const LIST_SUGGESTIONS_QUERY = gql`
       nodes {
         ...SuggestionCore
         createdAt
+        createdBy {
+          id
+          name
+        }
         status
         thumb: image(width: 100, height: 100)
       }
