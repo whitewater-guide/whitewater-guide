@@ -1,3 +1,9 @@
+## [0.0.53](https://github.com/doomsower/whitewater/compare/94ee9f49db57fc636024c1d8e56c1b8eafe08a66...c5b38c01f95be7e90356b9815aebf6c7c4bbcb05) (2019-10-01)
+
+### Features
+
+- add help needed field ([00bd4d4cce1d64148a69f2dc154b95e7f04fc951](https://github.com/doomsower/whitewater/commit/00bd4d4cce1d64148a69f2dc154b95e7f04fc951))
+
 ## [0.0.53](https://github.com/doomsower/whitewater/compare/3e6838a59095c9e5eeb96a7dc1fc501c97f2bf1d...94ee9f49db57fc636024c1d8e56c1b8eafe08a66) (2019-10-01)
 
 ### Features
