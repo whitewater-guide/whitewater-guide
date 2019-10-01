@@ -81,6 +81,7 @@ const query = `
         coordinates
       }
       hidden
+      helpNeeded
       demo
     }
   }

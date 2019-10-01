@@ -25,6 +25,7 @@ const Core = gql`
     ...SectionName
 
     hidden
+    helpNeeded
     demo
 
     season
@@ -44,6 +45,7 @@ export type SectionCore = SectionName &
   Pick<
     Section,
     | 'hidden'
+    | 'helpNeeded'
     | 'demo'
     | 'season'
     | 'seasonNumeric'

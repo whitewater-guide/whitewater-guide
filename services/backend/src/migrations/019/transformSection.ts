@@ -10,7 +10,7 @@ import { RainchasersRiver } from './types';
 export const transformSection = (
   value: RainchasersRiver,
   riverId: string,
-): SectionInput => {
+): Omit<SectionInput, 'helpNeeded'> => {
   let difficultyXtra: string | null = null;
   if (value.grade.max) {
     const maxNumeric = toNumber(value.grade.max);

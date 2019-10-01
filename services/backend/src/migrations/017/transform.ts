@@ -54,7 +54,7 @@ export const normalize = (section: InputSection) => {
 export const getTransform = (gauges: GaugeRaw[]) => (
   value: InputSection,
   riverId: string,
-): SectionInput => {
+): Omit<SectionInput, 'helpNeeded'> => {
   const gauge = gauges.find(({ code }) => code === value.gauge_location_code);
   return {
     id: null,

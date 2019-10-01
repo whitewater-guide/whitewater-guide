@@ -2,7 +2,10 @@ import { SectionInput } from '@whitewater-guide/commons';
 import deburr from 'lodash/deburr';
 import { KMLSection } from './types';
 
-export default (value: KMLSection, riverId: string): SectionInput => {
+export default (
+  value: KMLSection,
+  riverId: string,
+): Omit<SectionInput, 'helpNeeded'> => {
   return {
     id: null,
     name: value.name,

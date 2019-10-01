@@ -97,6 +97,7 @@ export const SectionInputSchema = yup
       .of(MediaInputSchema.clone())
       .notRequired(),
     hidden: yup.bool().required(),
+    helpNeeded: yup.string().nullable(),
     createdBy: yupTypes.uuid(true, true),
     suggestionId: yupTypes.uuid(true, true),
   })

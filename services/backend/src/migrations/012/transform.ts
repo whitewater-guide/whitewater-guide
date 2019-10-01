@@ -1,17 +1,10 @@
-import {
-  Coordinate3d,
-  GaugeBinding,
-  Node,
-  parseDifficultyString,
-  PointInput,
-  SectionInput,
-} from '@whitewater-guide/commons';
+import { parseDifficultyString, SectionInput } from '@whitewater-guide/commons';
 import { RivermapSection } from './types';
 
 export const transformRivermapSection = (
   section: RivermapSection,
   riverId: string,
-): SectionInput => ({
+): Omit<SectionInput, 'helpNeeded'> => ({
   id: null,
   name: `${section.section} - [RIVERMAP.CH] `,
   altNames: null,

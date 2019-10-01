@@ -106,6 +106,7 @@ describe('SectionInput', () => {
       },
     ],
     hidden: false,
+    helpNeeded: 'fix duration',
   };
 
   const correctValues: TestValue[] = [
@@ -129,6 +130,7 @@ describe('SectionInput', () => {
         season: null,
         createdBy: null,
         suggestionId: null,
+        helpNeeded: null,
       },
     ],
     [

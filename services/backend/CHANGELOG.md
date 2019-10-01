@@ -1,3 +1,12 @@
+## [0.0.397](https://github.com/doomsower/whitewater/compare/3e6838a59095c9e5eeb96a7dc1fc501c97f2bf1d...94ee9f49db57fc636024c1d8e56c1b8eafe08a66) (2019-10-01)
+
+### Features
+
+- add createdBy to SuggestedSection ([cbfb59a96ad4d3b1c061dc3ad1a08f2f99231291](https://github.com/doomsower/whitewater/commit/cbfb59a96ad4d3b1c061dc3ad1a08f2f99231291))
+- add help needed field ([de317225fb049469f1267230f7f657b46798c6c3](https://github.com/doomsower/whitewater/commit/de317225fb049469f1267230f7f657b46798c6c3))
+- approved suggestions are saved as demo ([e44995c359a682155f39ccb3885c7a7b7aa16bc2](https://github.com/doomsower/whitewater/commit/e44995c359a682155f39ccb3885c7a7b7aa16bc2)), closes [#422](https://github.com/doomsower/whitewater/issues/422)
+- iceland migration ([880493fbbf620b23b1d64c5973860186193b503c](https://github.com/doomsower/whitewater/commit/880493fbbf620b23b1d64c5973860186193b503c))
+
 ## [0.0.396](https://github.com/doomsower/whitewater/compare/7f04be220daa4b109e50a7365f7346834a15c457...d89a28d698ff69a61ce3fab79a6797bef73fff39) (2019-09-26)
 
 ### Features

@@ -65,6 +65,7 @@ export interface Section extends NamedNode, Timestamped {
   difficultyXtra: string | null;
   rating: number | null;
   hidden: boolean;
+  helpNeeded: string | null;
   demo: boolean;
 
   tags: Tag[];
@@ -106,6 +107,7 @@ export interface SectionInput {
   media?: MediaInput[];
 
   hidden: boolean;
+  helpNeeded: string | null;
 
   createdBy?: string | null;
   suggestionId?: string | null;

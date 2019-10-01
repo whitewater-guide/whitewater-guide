@@ -126,6 +126,7 @@ const upsertQuery = `
       createdAt
       updatedAt
       hidden
+      helpNeeded
       demo
       pois {
         id
@@ -192,6 +193,7 @@ const existingRiverSection: SectionInput = {
     },
   ],
   hidden: false,
+  helpNeeded: 'please proofread this',
 };
 
 const newRiverSection = {
@@ -236,6 +238,7 @@ const updateData: SectionInput = {
   ],
   // Delete one tag, add two new tags, keep one old
   tags: [{ id: 'creeking' }, { id: 'undercuts' }, { id: 'snowmelt' }],
+  helpNeeded: 'fix take-out',
 };
 
 const invalidSection: SectionInput = {
@@ -264,6 +267,7 @@ const invalidSection: SectionInput = {
   pois: [],
 
   hidden: false,
+  helpNeeded: null,
 };
 
 it('should fail on invalid input', async () => {
@@ -582,6 +586,7 @@ describe('i18n', () => {
     tags: [],
 
     hidden: false,
+    helpNeeded: null,
   };
 
   it('should add translation', async () => {

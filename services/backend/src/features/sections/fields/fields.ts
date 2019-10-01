@@ -42,5 +42,6 @@ export const sectionFieldResolvers: FieldResolvers<SectionRaw, Section> = {
   region,
   river,
   gauge,
+  helpNeeded: (s) => s.help_needed,
   ...timestampResolvers,
 };

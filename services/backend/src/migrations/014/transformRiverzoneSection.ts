@@ -1,10 +1,7 @@
 import {
   Coordinate3d,
   GaugeBinding,
-  Node,
   parseDifficultyString,
-  Point,
-  PointInput,
   SectionInput,
 } from '@whitewater-guide/commons';
 import { POITypesMap, RzSection } from './types';
@@ -12,7 +9,7 @@ import { POITypesMap, RzSection } from './types';
 export const transformRiverzoneSection = (
   value: RzSection,
   riverId: string,
-): SectionInput => {
+): Omit<SectionInput, 'helpNeeded'> => {
   const unit = value.gauge.unit;
   // all riverzone gauges are in cm, but bindings are sometimes in m
   const k = unit === 'm' ? 100 : 1;

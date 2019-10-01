@@ -6,7 +6,7 @@ import Knex from 'knex';
 export const importSection = async <S>(
   db: Knex,
   section: S,
-  transform: (value: S, riverId: string) => SectionInput,
+  transform: (value: S, riverId: string) => Omit<SectionInput, 'helpNeeded'>,
   riverId: string,
   importId: string | ((value: S) => string),
 ) => {

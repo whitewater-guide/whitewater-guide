@@ -56,6 +56,7 @@ export default (isCopy?: boolean) => (result: QResult): SectionFormData => {
       pois: [],
       description: fromMarkdown(null),
       hidden: false,
+      helpNeeded: null,
       hazardsTags: [],
       kayakingTags: [],
       miscTags: [],

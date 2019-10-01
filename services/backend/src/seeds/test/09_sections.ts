@@ -96,6 +96,7 @@ const sections = [
     duration: Duration.LAPS,
     difficulty: 4,
     rating: 5,
+    help_needed: 'Suggest POIs please',
   },
   {
     id: NORWAY_FINNA_GORGE,

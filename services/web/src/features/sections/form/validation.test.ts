@@ -58,6 +58,7 @@ const correct: SectionFormData = {
     },
   ],
   hidden: false,
+  helpNeeded: null,
 };
 
 const correctValues: TestValue[] = [

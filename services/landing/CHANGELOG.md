@@ -1,3 +1,9 @@
+## [0.0.53](https://github.com/doomsower/whitewater/compare/3e6838a59095c9e5eeb96a7dc1fc501c97f2bf1d...94ee9f49db57fc636024c1d8e56c1b8eafe08a66) (2019-10-01)
+
+### Features
+
+- update landing ([3db1a1329582fa660708bfec07a0afd1abc49e61](https://github.com/doomsower/whitewater/commit/3db1a1329582fa660708bfec07a0afd1abc49e61)), closes [#432](https://github.com/doomsower/whitewater/issues/432)
+
 ## [0.0.53](https://github.com/doomsower/whitewater/compare/7f04be220daa4b109e50a7365f7346834a15c457...d89a28d698ff69a61ce3fab79a6797bef73fff39) (2019-09-26)
 
 ## [0.0.53](https://github.com/doomsower/whitewater/compare/26ea0f151022e7b2f0ef430f3c9eecb7f2169944...7f04be220daa4b109e50a7365f7346834a15c457) (2019-09-26)

@@ -85,6 +85,8 @@ type Section {
   hidden: Boolean!
   # Is demo section in premium region
   demo: Boolean
+  # What should be changed about this section?
+  helpNeeded: String
 }
 
 type SectionMediaConnection {
@@ -120,6 +122,7 @@ input SectionInput {
   media: [MediaInput]
 
   hidden: Boolean!
+  helpNeeded: String
   createdBy: ID
   suggestionId: ID
 }

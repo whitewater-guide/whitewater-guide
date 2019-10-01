@@ -34,6 +34,7 @@ export interface SectionRaw extends NamedNode, RawTimestamped {
   hidden: boolean;
   demo: boolean;
   premium: boolean;
+  help_needed: string | null;
 
   season_numeric: number[];
   levels: GaugeBindingRaw | null;

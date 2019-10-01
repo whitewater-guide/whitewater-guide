@@ -1,3 +1,13 @@
+## [0.1.397](https://github.com/doomsower/whitewater/compare/3e6838a59095c9e5eeb96a7dc1fc501c97f2bf1d...94ee9f49db57fc636024c1d8e56c1b8eafe08a66) (2019-10-01)
+
+### Features
+
+- add demo column ([c2a62756cf54f65fa91f8601e248192ec34fdac2](https://github.com/doomsower/whitewater/commit/c2a62756cf54f65fa91f8601e248192ec34fdac2))
+- add help needed field ([de317225fb049469f1267230f7f657b46798c6c3](https://github.com/doomsower/whitewater/commit/de317225fb049469f1267230f7f657b46798c6c3))
+- indicate hidden sections ([a55be38a5d33588b41b19790753cae340868b0cd](https://github.com/doomsower/whitewater/commit/a55be38a5d33588b41b19790753cae340868b0cd)), closes [#420](https://github.com/doomsower/whitewater/issues/420)
+- show author of simple suggestion ([9c32d6e125a242408bef7cefb74a2ee94d77af66](https://github.com/doomsower/whitewater/commit/9c32d6e125a242408bef7cefb74a2ee94d77af66))
+- show author of suggested section ([51931b40082e129a16df1e37b118300dd766bd03](https://github.com/doomsower/whitewater/commit/51931b40082e129a16df1e37b118300dd766bd03))
+
 ## [0.1.396](https://github.com/doomsower/whitewater/compare/7f04be220daa4b109e50a7365f7346834a15c457...d89a28d698ff69a61ce3fab79a6797bef73fff39) (2019-09-26)
 
 ### Features

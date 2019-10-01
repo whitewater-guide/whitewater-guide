@@ -57,6 +57,15 @@ export const SectionFormMain: React.FC = () => {
       </Grid>
 
       <Grid item={true} xs={12}>
+        <TextField
+          fullWidth={true}
+          name="helpNeeded"
+          label="Community help needed"
+          placeholder="Community help needed"
+        />
+      </Grid>
+
+      <Grid item={true} xs={12}>
         <CheckboxField name="hidden" label="Hidden from users" />
       </Grid>
     </Grid>

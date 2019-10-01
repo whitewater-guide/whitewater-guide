@@ -89,6 +89,7 @@ const mocks: RecursiveMockResolver = {
       tags: [],
       pois: [],
       hidden: true,
+      helpNeeded: null,
       createdBy: 'author',
       suggestionId: '__suggestion_id__',
     };
