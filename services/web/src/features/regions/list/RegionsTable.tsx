@@ -2,15 +2,30 @@ import { Connection, filterRegions } from '@whitewater-guide/commons';
 import React, { useCallback, useMemo, useState } from 'react';
 import { Column } from 'react-virtualized';
 import useRouter from 'use-react-router';
+import { UnstyledLink } from '../../../components';
 import {
   BooleanColumn,
   isEmptyRow,
   Table,
   TableCellRenderer,
 } from '../../../components/tables';
+import { paths } from '../../../utils';
 import { ListedRegion } from './listRegions.query';
 import RegionNameFilter from './RegionNameFilter';
 import RegionTableActions from './RegionTableActions';
+
+const renderName: TableCellRenderer<ListedRegion, Connection<any>> = ({
+  rowData,
+}) => {
+  if (isEmptyRow(rowData)) {
+    return null;
+  }
+  return (
+    <UnstyledLink regionId={rowData.id} suffix="/sections">
+      {rowData.name}
+    </UnstyledLink>
+  );
+};
 
 const renderCount: TableCellRenderer<ListedRegion, Connection<any>> = ({
   cellData,
@@ -38,7 +53,8 @@ const RegionsTable: React.FC<Props> = React.memo((props) => {
   ]);
 
   const onRegionClick = useCallback(
-    (id: string) => history.push(`/regions/${id}`),
+    (id: string) =>
+      history.push(paths.to({ regionId: id, suffix: '/sections' })),
     [history.push],
   );
 
@@ -60,6 +76,7 @@ const RegionsTable: React.FC<Props> = React.memo((props) => {
         label="Name"
         dataKey="name"
         headerRenderer={renderNameHeader}
+        cellRenderer={renderName}
       />
       <Column
         width={100}

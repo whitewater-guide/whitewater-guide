@@ -17,6 +17,7 @@ import {
   isEmptyRow,
   MutationToggle,
   TableCellRenderer,
+  UnstyledLink,
 } from '../../../components';
 import { AdminColumn, Table } from '../../../components/tables';
 import { paths } from '../../../utils';
@@ -32,11 +33,22 @@ interface Props {
 export default class GaugesTable extends React.PureComponent<Props> {
   onGaugeClick = (id: string) => {
     const { history, source } = this.props;
-    history.push(`/sources/${source.id}/gauges/${id}`);
+    history.push(paths.to({ sourceId: source.id, gaugeId: id }));
   };
 
   toggleGauge = async (id: string, enabled: boolean) => {
     await this.props.onToggle(id, enabled);
+  };
+
+  renderName: TableCellRenderer<Gauge> = ({ rowData }) => {
+    if (isEmptyRow(rowData)) {
+      return null;
+    }
+    return (
+      <UnstyledLink sourceId={this.props.source.id} gaugeId={rowData.id}>
+        {rowData.name}
+      </UnstyledLink>
+    );
   };
 
   renderEnabled: TableCellRenderer<Gauge> = ({ rowData }) => {
@@ -109,7 +121,13 @@ export default class GaugesTable extends React.PureComponent<Props> {
     const { nodes = [], count = 0 } = gauges || {};
     return (
       <Table data={nodes} count={count} onNodeClick={this.onGaugeClick}>
-        <Column width={200} flexGrow={4} label="Name" dataKey="name" />
+        <Column
+          width={200}
+          flexGrow={4}
+          label="Name"
+          dataKey="name"
+          cellRenderer={this.renderName}
+        />
         <Column width={70} flexGrow={1} label="Code" dataKey="code" />
         <Column
           width={200}

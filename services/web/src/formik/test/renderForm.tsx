@@ -2,7 +2,7 @@ import { render, RenderOptions } from '@testing-library/react';
 import {
   mockApolloProvider,
   MockedProviderOptions,
-} from '@whitewater-guide/clients';
+} from '@whitewater-guide/clients/dist/test';
 import React from 'react';
 import { MemoryRouter, Route, Switch } from 'react-router';
 

@@ -3,7 +3,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { getVideoThumb } from '@whitewater-guide/clients';
 import { Media, MediaKind } from '@whitewater-guide/commons';
 import React from 'react';
-import injectSheet from 'react-jss';
+import injectSheet, { WithStyles } from 'react-jss';
 import { Styles } from '../../../styles';
 import { THUMB_HEIGHT } from './constants';
 
@@ -70,7 +70,6 @@ interface Props {
   onEdit?: (media: Media) => void;
   onRemove?: (media: Media) => void;
   onClick?: (media: Media, index: number) => void;
-  classes?: any;
 }
 
 interface State {
@@ -79,7 +78,7 @@ interface State {
   height?: number;
 }
 
-class Thumb extends React.PureComponent<Props, State> {
+class Thumb extends React.PureComponent<Props & WithStyles<any>, State> {
   state: State = {};
 
   async componentDidMount() {

@@ -5,34 +5,45 @@ export interface PathsOpts {
   riverId?: string;
   sectionId?: string;
   bannerId?: string;
+  prefix?: string;
+  suffix?: string;
 }
 
 const to = (opts: PathsOpts) => {
-  const { sourceId, gaugeId, regionId, riverId, sectionId, bannerId } = opts;
+  const {
+    sourceId,
+    gaugeId,
+    regionId,
+    riverId,
+    sectionId,
+    bannerId,
+    prefix = '',
+    suffix = '',
+  } = opts;
 
   if (gaugeId) {
-    return `/sources/${sourceId}/gauges/${gaugeId}`;
+    return `${prefix}/sources/${sourceId}/gauges/${gaugeId}${suffix}`;
   }
   if (sourceId) {
-    return `/sources/${sourceId}`;
+    return `${prefix}/sources/${sourceId}${suffix}`;
   }
   if (sectionId) {
-    return `/regions/${regionId}/sections/${sectionId}`;
+    return `${prefix}/regions/${regionId}/sections/${sectionId}${suffix}`;
   }
   if (riverId) {
-    return `/regions/${regionId}/rivers/${riverId}`;
+    return `${prefix}/regions/${regionId}/rivers/${riverId}${suffix}`;
   }
   if (regionId) {
-    return `/regions/${regionId}`;
+    return `${prefix}/regions/${regionId}${suffix}`;
   }
   if (bannerId) {
-    return `/banners/${bannerId}`;
+    return `${prefix}/banners/${bannerId}${suffix}`;
   }
   return '/404';
 };
 
-const settings = (opts: PathsOpts) => `${to(opts)}/settings`;
-const admin = (opts: PathsOpts) => `${to(opts)}/admin`;
+const settings = (opts: PathsOpts) => to({ ...opts, suffix: '/settings' });
+const admin = (opts: PathsOpts) => to({ ...opts, suffix: '/admin' });
 
 export const paths = {
   to,

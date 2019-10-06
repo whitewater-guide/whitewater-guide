@@ -3,7 +3,7 @@ import {
   MockedProviderOptions,
   MockedResolversContext,
   RecursiveMockResolver,
-} from '@whitewater-guide/clients';
+} from '@whitewater-guide/clients/dist/test';
 import { SectionInput } from '@whitewater-guide/commons';
 import { GraphQLResolveInfo } from 'graphql';
 import React from 'react';

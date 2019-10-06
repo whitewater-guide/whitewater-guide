@@ -1,5 +1,5 @@
 import { fireEvent } from '@testing-library/react';
-import { MockedProviderOptions } from '@whitewater-guide/clients';
+import { MockedProviderOptions } from '@whitewater-guide/clients/dist/test';
 import React from 'react';
 import { FORM_SUCCEEDED, renderForm } from '../../../formik/test';
 import RiverForm from './RiverForm';

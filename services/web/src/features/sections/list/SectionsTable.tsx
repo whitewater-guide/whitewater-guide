@@ -23,6 +23,7 @@ import {
   IconLink,
   isEmptyRow,
   TableCellRenderer,
+  UnstyledLink,
 } from '../../../components';
 import { Table } from '../../../components/tables';
 import { paths } from '../../../utils';
@@ -54,7 +55,11 @@ export default class SectionsTable extends React.PureComponent<Props> {
     if (isEmptyRow(rowData)) {
       return null;
     }
-    return sectionName(rowData);
+    return (
+      <UnstyledLink regionId={this.props.regionId} sectionId={rowData.id}>
+        {sectionName(rowData)}
+      </UnstyledLink>
+    );
   };
 
   renderNameHeader = () => <NameFilter />;
