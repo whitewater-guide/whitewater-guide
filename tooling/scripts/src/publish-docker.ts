@@ -6,6 +6,7 @@ import {
   bumpPackage,
   dockerLogin,
   generateStackFile,
+  getAllServices,
   getChangedServices,
   gitGuardian,
   info,
@@ -35,7 +36,7 @@ async function publish() {
     services = Array.isArray(argv.service)
       ? argv.service
       : argv.service === '*'
-      ? []
+      ? getAllServices()
       : [argv.service];
   }
 

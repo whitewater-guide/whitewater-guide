@@ -1,5 +1,4 @@
-import { readdirSync } from 'fs';
-import { resolve } from 'path';
+import { getAllServices } from './getAllServices';
 import { hasPackageChanged } from './hasPackageChanged';
 
 /**
@@ -7,7 +6,7 @@ import { hasPackageChanged } from './hasPackageChanged';
  */
 export const getChangedServices = async () => {
   const result: string[] = [];
-  const services = readdirSync(resolve(process.cwd(), 'services'));
+  const services = getAllServices();
   for (const service of services) {
     const changed = await hasPackageChanged(`services/${service}`);
     if (changed) {
