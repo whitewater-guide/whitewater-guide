@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/web",
   "private": true,
-  "version": "0.1.391-rn60.4",
+  "version": "0.1.398",
   "license": "UNLICENSED",
   "scripts": {
     "start": "craco start",

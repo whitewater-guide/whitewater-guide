@@ -1,7 +1,7 @@
 {
   "name": "@whitewater-guide/boompromo",
   "private": true,
-  "version": "0.0.194-rn60.3",
+  "version": "0.0.199",
   "license": "UNLICENSED",
   "homepage": "/promo/",
   "scripts": {
