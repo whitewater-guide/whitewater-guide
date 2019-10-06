@@ -64,7 +64,7 @@ class ConfirmStep extends React.Component<
         mutation: ACTIVATE_PROMO_MUTATION,
         variables: { purchase },
       });
-      success = data ? !!data.addPurchase : false;
+      success = data ? !!data.savePurchase : false;
       const hasErrors = errors && errors.length > 0;
       if (hasErrors) {
         // tslint:disable-next-line:no-console

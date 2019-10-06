@@ -18,5 +18,7 @@ export interface Vars {
 }
 
 export interface Result {
-  addPurchase: Array<Pick<Region, 'id' | 'sku' | 'hasPremiumAccess'>>;
+  savePurchase: {
+    regions: Array<Pick<Region, 'id' | 'sku' | 'hasPremiumAccess'>>;
+  };
 }

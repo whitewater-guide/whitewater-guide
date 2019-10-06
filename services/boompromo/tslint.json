@@ -5,7 +5,8 @@
       true,
       "@material-ui/core",
       "lodash",
-      "@whitewater-guide/clients"
+      "@whitewater-guide/clients",
+      "@whitewater-guide/translations"
     ]
   }
 }
