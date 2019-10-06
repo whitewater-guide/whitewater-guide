@@ -1,5 +1,5 @@
 import Mapbox from '@react-native-mapbox-gl/maps';
-import { mockApolloClient } from '@whitewater-guide/clients';
+import { mockApolloClient } from '@whitewater-guide/clients/dist/test';
 import FastImage from 'react-native-fast-image';
 import { expectSaga } from 'redux-saga-test-plan';
 import * as matchers from 'redux-saga-test-plan/matchers';

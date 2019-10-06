@@ -14,6 +14,7 @@
       "redux-saga-test-plan/matchers",
       "components",
       "forms",
+      "@whitewater-guide/clients",
       "@whitewater-guide/translations"
     ],
     "no-implicit-dependencies": [true, "dev", ["components", "forms"]]

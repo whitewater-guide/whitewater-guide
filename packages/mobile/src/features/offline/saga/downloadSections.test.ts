@@ -1,4 +1,4 @@
-import { mockApolloClient } from '@whitewater-guide/clients';
+import { mockApolloClient } from '@whitewater-guide/clients/dist/test';
 import flatten from 'lodash/flatten';
 import { Buffer, buffers, channel, END } from 'redux-saga';
 import { expectSaga, RunResult } from 'redux-saga-test-plan';

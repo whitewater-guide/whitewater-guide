@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react-hooks';
 import { act } from '@testing-library/react-native';
-import { mockApolloProvider } from '@whitewater-guide/clients';
+import { mockApolloProvider } from '@whitewater-guide/clients/dist/test';
 import { MockList } from 'graphql-tools';
 import React from 'react';
 import { REGIONS_LIST_QUERY } from '../../screens/regions-list/useRegionsListQuery';

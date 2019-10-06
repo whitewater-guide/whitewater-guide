@@ -6,6 +6,7 @@ import {
   within,
 } from '@testing-library/react-native';
 import * as clients from '@whitewater-guide/clients';
+import { mockApolloProvider } from '@whitewater-guide/clients/dist/test';
 import { SnackbarProvider } from 'components/snackbar';
 import React from 'react';
 import { Clipboard } from 'react-native';
@@ -19,7 +20,7 @@ jest.mock('Clipboard', () => ({ getString: jest.fn().mockResolvedValue('') }));
 jest.mock('../useAddSection', () => () => mockMutate);
 jest.mock('../../../../features/settings/useMapType');
 
-const ApolloProvider = clients.mockApolloProvider();
+const ApolloProvider = mockApolloProvider();
 const Nav = createAppContainer(AddSectionStack as any);
 let test: RenderResult;
 

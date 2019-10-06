@@ -3,7 +3,7 @@ import {
   render,
   waitForElementToBeRemoved,
 } from '@testing-library/react-native';
-import { mockApolloProvider } from '@whitewater-guide/clients';
+import { mockApolloProvider } from '@whitewater-guide/clients/dist/test';
 import gql from 'graphql-tag';
 import { MockList } from 'graphql-tools';
 import React from 'react';
