@@ -9,17 +9,17 @@ import { useAuth } from '@whitewater-guide/clients';
 import React from 'react';
 import { matchPath } from 'react-router-dom';
 import useRouter from 'use-react-router';
-
-const drawerWidth = 240;
+import { DRAWER_WIDTH } from './constants';
+import { usePermanentDrawer } from './usePermanentDrawer';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     drawer: {
-      width: drawerWidth,
+      width: DRAWER_WIDTH,
       flexShrink: 0,
     },
     drawerPaper: {
-      width: drawerWidth,
+      width: DRAWER_WIDTH,
     },
   }),
 );
@@ -42,6 +42,7 @@ interface Props {
 export const Drawer: React.FC<Props> = ({ onClose, isOpen }) => {
   const classes = useStyles();
   const { location, history } = useRouter();
+  const permanent = usePermanentDrawer();
   const { me } = useAuth();
   const value = '/' + location.pathname.split('/')[1];
   return (
@@ -52,6 +53,7 @@ export const Drawer: React.FC<Props> = ({ onClose, isOpen }) => {
       classes={{
         paper: classes.drawerPaper,
       }}
+      variant={permanent ? 'permanent' : 'temporary'}
     >
       <List component="nav">
         {ITEMS.map(({ path, title, admin, editor }) => {
