@@ -1,5 +1,5 @@
 import { MY_PROFILE_QUERY } from '@whitewater-guide/clients';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { Linking } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 import urlParse from 'url-parse';
@@ -34,16 +34,18 @@ const isVerified = ({ href }: Parsed) => {
 };
 
 export const useLinking = ({ navigate }: NavigationScreenProp<any>) => {
+  const navigateRef = useRef(navigate);
+  navigateRef.current = navigate;
   const handleURL = useCallback(
     (url: URLish) => {
       const parts = parseURL(url);
       if (parts && isReset(parts)) {
-        navigate(Screens.Auth.Reset, parts.query);
+        navigateRef.current(Screens.Auth.Reset, parts.query);
       } else if (parts && isVerified(parts)) {
         apolloClient.query({ query: MY_PROFILE_QUERY }).catch(() => {});
       }
     },
-    [navigate],
+    [navigateRef],
   );
   return useEffect(() => {
     Linking.getInitialURL()
