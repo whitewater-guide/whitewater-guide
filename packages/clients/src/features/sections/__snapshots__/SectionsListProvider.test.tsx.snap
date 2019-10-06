@@ -58,6 +58,7 @@ Object {
           },
           "url": "Gauge.url.1",
         },
+        "helpNeeded": "Section.helpNeeded.1",
         "hidden": false,
         "id": "Section.id.1",
         "levels": Object {
@@ -171,6 +172,7 @@ Object {
           },
           "url": "Gauge.url.2",
         },
+        "helpNeeded": "Section.helpNeeded.2",
         "hidden": true,
         "id": "Section.id.2",
         "levels": Object {
@@ -284,6 +286,7 @@ Object {
           },
           "url": "Gauge.url.3",
         },
+        "helpNeeded": "Section.helpNeeded.3",
         "hidden": false,
         "id": "Section.id.3",
         "levels": Object {
@@ -397,6 +400,7 @@ Object {
           },
           "url": "Gauge.url.4",
         },
+        "helpNeeded": "Section.helpNeeded.4",
         "hidden": true,
         "id": "Section.id.4",
         "levels": Object {
@@ -510,6 +514,7 @@ Object {
           },
           "url": "Gauge.url.5",
         },
+        "helpNeeded": "Section.helpNeeded.5",
         "hidden": false,
         "id": "Section.id.5",
         "levels": Object {

@@ -37,4 +37,9 @@ export default [
     output: [{ file: 'dist/web/index.js', format: 'cjs', sourcemap: true }],
     ...commons(),
   },
+  {
+    input: 'src/test/index.ts',
+    output: [{ file: 'dist/test/index.js', format: 'cjs', sourcemap: true }],
+    ...commons(),
+  },
 ];

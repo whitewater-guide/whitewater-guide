@@ -1,7 +1,6 @@
 export * from './apollo';
 export * from './auth';
 export * from './i18n';
-export * from './test';
 export * from './utils';
 
 export * from './features/banners';
