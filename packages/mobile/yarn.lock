@@ -2708,17 +2708,14 @@
     "@webassemblyjs/wast-parser" "1.8.5"
     "@xtuc/long" "4.2.2"
 
-"@whitewater-guide/clients@0.0.299":
-  version "0.0.299"
-  resolved "https://registry.npmjs.org/@whitewater-guide/clients/-/clients-0.0.299.tgz#214f49a3a40c0011e1f96a1932f17f6ab603adc5"
-  integrity sha512-eVLTny8/qv+9gwc5udwB96I7pfXcZblvuEjKyPLZDa5Azqkt7uaM5Ch9EDTVH6MJH3U8+Zh9TwXFwRbTPvg1bw==
+"@whitewater-guide/clients@0.0.300":
+  version "0.0.300"
+  resolved "https://registry.npmjs.org/@whitewater-guide/clients/-/clients-0.0.300.tgz#b566df8f7cce5a8ed340bf89fc5d6761c5ebd701"
+  integrity sha512-04b9RryYyPNWmGzrsnGdJGma28Jcbpj1qFS+TvlIBDx+j01v9Mu4wloWkr4yJwFrx8MEfFXagPS42qrL5IIZxA==
   dependencies:
     "@turf/bearing" "^6.0.1"
     "@turf/helpers" "^6.1.4"
-    "@whitewater-guide/commons" "0.0.185"
-    apollo-cache "^1.3.2"
-    apollo-cache-inmemory "^1.6.3"
-    apollo-client "^2.6.4"
+    "@whitewater-guide/commons" "0.0.186"
     apollo-link "^1.2.13"
     apollo-link-error "https://github.com/doomsower/apollo-link/releases/download/error-async/apollo-link-error-1.1.10-vnext.tgz"
     apollo-link-http "^1.5.16"
@@ -2728,28 +2725,24 @@
     async-retry "^1.2.3"
     color "^3.1.1"
     d3-scale "^3.1.0"
-    date-fns "2.2.1"
-    expr-eval "^2.0.1"
-    graphql "^14.5.6"
-    graphql-tag "2.10.1"
+    expr-eval "^2.0.2"
     graphql-tools "^4.0.5"
     graphql-type-json "^0.3.0"
     lodash "^4.17.15"
-    qs "^6.8.0"
-    react-apollo "^3.1.1"
+    qs "^6.9.0"
     shortid "^2.2.15"
     typescript-fsa "^3.0.0"
     url-parse "^1.4.7"
 
-"@whitewater-guide/commons@0.0.185":
-  version "0.0.185"
-  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.185.tgz#68e02729ed5987851880a810b834c9bdc17c8f1b"
-  integrity sha512-DB8ZqqmkVFiZcW/xmghxzB5RHLWD7NgXxPk5q4SpP3aSsV6fJJOv/tTGnc0cKyG/QlwexoJNyLt/XIl3Es3o4w==
+"@whitewater-guide/commons@0.0.186":
+  version "0.0.186"
+  resolved "https://registry.npmjs.org/@whitewater-guide/commons/-/commons-0.0.186.tgz#67132c910688f4b271c0d6351ce176203d3e4ea0"
+  integrity sha512-V063mOd5mQdBzzwE8WrBlAmOrRRz6oC/yKKLV9jdEguQAWBkhrQQVjTco3VpeBl9uMdIS51WUgbzLw8BN8/c5Q==
   dependencies:
     "@types/yup" "^0.26.24"
     cron-validator "^1.0.2"
     deepmerge "^4.0.0"
-    expr-eval "^2.0.1"
+    expr-eval "^2.0.2"
     lodash "^4.17.15"
     validator "^11.1.0"
     yup "^0.27.0"
@@ -5263,11 +5256,6 @@ data-urls@^1.0.0:
     whatwg-mimetype "^2.2.0"
     whatwg-url "^7.0.0"
 
-date-fns@2.2.1:
-  version "2.2.1"
-  resolved "https://registry.npmjs.org/date-fns/-/date-fns-2.2.1.tgz#b3f79cf56760af106050c686f4c72586a3383ee9"
-  integrity sha512-4V1i5CnTinjBvJpXTq7sDHD4NY6JPcl15112IeSNNLUWQOQ+kIuCvRGOFZMQZNvkadw8F9QTyZxz59rIRU6K+w==
-
 date-fns@^1.30.1:
   version "1.30.1"
   resolved "https://registry.npmjs.org/date-fns/-/date-fns-1.30.1.tgz#2e71bf0b119153dbb4cc4e88d9ea5acfb50dc05c"
@@ -6180,7 +6168,7 @@ expect@^24.9.0:
     jest-message-util "^24.9.0"
     jest-regex-util "^24.9.0"
 
-expr-eval@^2.0.1:
+expr-eval@^2.0.2:
   version "2.0.2"
   resolved "https://registry.npmjs.org/expr-eval/-/expr-eval-2.0.2.tgz#fa6f044a7b0c93fde830954eb9c5b0f7fbc7e201"
   integrity sha512-4EMSHGOPSwAfBiibw3ndnP0AvjDWLsMvGOvWEZ2F96IGk0bIVdjQisOHxReSkE13mHcfbuCiXw+G4y0zv6N8Eg==
@@ -7187,7 +7175,7 @@ graphql-ast-tools@^0.2.3:
   dependencies:
     apollo-utilities "^1.0.3"
 
-graphql-tag@2.10.1, graphql-tag@^2.10.1:
+graphql-tag@^2.10.1:
   version "2.10.1"
   resolved "https://registry.npmjs.org/graphql-tag/-/graphql-tag-2.10.1.tgz#10aa41f1cd8fae5373eaf11f1f67260a3cad5e02"
   integrity sha512-jApXqWBzNXQ8jYa/HLkZJaVw9jgwNqZkywa2zfFn16Iv1Zb7ELNHkJaXHR7Quvd5SIGsy6Ny7SUKATgnu05uEg==
@@ -11354,7 +11342,7 @@ qs@6.7.0:
   resolved "https://registry.npmjs.org/qs/-/qs-6.7.0.tgz#41dc1a015e3d581f1621776be31afb2876a9b1bc"
   integrity sha512-VCdBRNFTX1fyE7Nb6FYoURo/SPe62QCaAyzJvUjwRaIsc+NePBEniHlvxFmmX56+HZphIGtV0XeCirBtpDrTyQ==
 
-qs@^6.6.0, qs@^6.7.0, qs@^6.8.0, qs@^6.9.0:
+qs@^6.6.0, qs@^6.7.0, qs@^6.9.0:
   version "6.9.0"
   resolved "https://registry.npmjs.org/qs/-/qs-6.9.0.tgz#d1297e2a049c53119cb49cca366adbbacc80b409"
   integrity sha512-27RP4UotQORTpmNQDX8BHPukOnBP3p1uUJY5UnDhaJB+rMt9iMsok724XL+UHU23bEFOHRMQ2ZhI99qOWUMGFA==
@@ -11467,7 +11455,7 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.2.7, rc@^1.2.8:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-apollo@^3.1.1, react-apollo@^3.1.2:
+react-apollo@^3.1.2:
   version "3.1.2"
   resolved "https://registry.npmjs.org/react-apollo/-/react-apollo-3.1.2.tgz#a1b4ceb4413ba7e92ab3cbbbfb27dcfc7a86c286"
   integrity sha512-9MhirrglRY5wxPIhqfFcYnglDMmqSz++Ih3VS01mSz86GctHdcajLKDR/pXR2hrCZzlS9tTjpxGNw6yWn5ykxw==
